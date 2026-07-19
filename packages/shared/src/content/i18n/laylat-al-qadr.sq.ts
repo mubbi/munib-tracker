@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Çfarë të thuash nëse e kap",
+    summary: "Aishja e pyeti Profetin ﷺ saktësisht çfarë të thonte.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Aishja (Allahu qoftë i kënaqur me të) e pyeti Profetin ﷺ: 'O i Dërguari i Allahut, nëse e di se cila natë është Nata e Kadrit, çfarë të them në të?' Ai ﷺ e mësoi duan e shkurtër të faljes që shfaqet më poshtë (Tirmidhi 3513, e vlerësuar hasan sahih nga el-Tirmidhi).",
+      "Kjo dua është e shkurtër, e lehtë për t'u mësuar, dhe qëllimisht rreth faljes e jo kërkesave të kësaj bote — një kujtesë se fitimi më i madh nga kjo natë është falja e Allahut. Përsëriteni shpesh gjatë dhjetë netëve të fundit, në namaz, në sexhde, dhe ndërmjet tyre, në vend që ta ruani për një natë të supozuar.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Thashë: O i Dërguari i Allahut, nëse e di se cila natë është Nata e Kadrit, çfarë të them në të? Ai tha: Thuaj — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (O Allah, Ti fal dhe e do faljen, më fal).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Mësoje me gojë duan e faljes që shfaqet sipër.",
+      "Përsëriteni shpesh gjatë dhjetë netëve të fundit, veçanërisht në netët tek.",
     ],
   },
   {

@@ -35,7 +35,7 @@ export const QURAN_GUIDE_TADABBUR_PROMPTS: QuranGuideTadabburPrompt[] = [
   },
   {
     id: "dua",
-    question: "What du'a does this ayah inspire?",
+    question: "What dua does this ayah inspire?",
     hint: "Let the verse become a prayer. Ask Allah, in your own words during sujood, for whatever the ayah has stirred — protection from a warning, a share in a promise, or help to obey a command.",
   },
 ];

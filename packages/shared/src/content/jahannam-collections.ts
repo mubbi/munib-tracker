@@ -233,7 +233,7 @@ export const JAHANNAM_VERSES: JahannamVerseEntry[] = [
     ayahFrom: 201,
     excerpt:
       "Our Lord, give us good in both worlds and protect us from the punishment of the Fire.",
-    context: "The du'a of those who combine worldly and otherworldly good.",
+    context: "The dua of those who combine worldly and otherworldly good.",
     tafsirSummary: "A prophetic supplication taught in the Qur'an — balance of dunya and akhirah.",
   },
   {
@@ -309,7 +309,7 @@ export const JAHANNAM_HADITH: JahannamHadithEntry[] = [
       excerpt:
         "Whoever asks Allah for Paradise three times, Paradise says: O Allah, admit him into Paradise. Whoever seeks refuge from the Fire three times, the Fire says: O Allah, protect him from the Fire.",
     },
-    context: "Encouragement to make regular du'a for Jannah and refuge from Jahannam.",
+    context: "Encouragement to make regular dua for Jannah and refuge from Jahannam.",
   },
   {
     id: "h-6309",
@@ -462,7 +462,7 @@ export const JAHANNAM_REFERENCES: JahannamReferenceEntry[] = [
 export const JAHANNAM_DUAS: JahannamDuaEntry[] = [
   {
     id: "dua-hasanah",
-    context: "Ask for good in both worlds and protection from the Fire — Qur'anic du'a.",
+    context: "Ask for good in both worlds and protection from the Fire — Qur'anic dua.",
     duaId: "quranic-hasanah",
   },
   {
@@ -477,7 +477,7 @@ export const JAHANNAM_DUAS: JahannamDuaEntry[] = [
   },
 ];
 
-/** Featured salah du'a seeking refuge from Jahannam (not in Hisnul bundle as standalone). */
+/** Featured salah dua seeking refuge from Jahannam (not in Hisnul bundle as standalone). */
 export const JAHANNAM_REFUGE_DUA = {
   arabic:
     "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ جَهَنَّمَ، وَمِنْ عَذَابِ الْقَبْرِ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ",

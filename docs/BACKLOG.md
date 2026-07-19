@@ -14,6 +14,7 @@ Open lifestyle / worship features (not yet shipped). Shipped catalog: [`FEATURES
 | NF-2.6 | Janazah practical guide | Steps + existing funeral duas (`packages/shared` Hisnul items) in one flow; deepen beyond salah-guide mention |
 | NF-2.16 | Nearby masjid finder | Maps + Friday times — common competitor feature; keep optional / opt-in |
 | NF-2.18 | Sadaqah goals | Daily/weekly intention + log beyond the zakat calculator (`NF-2.2`) |
+| NF-2.36 | Prophets family tree (Adam → last Messenger) | Authentic sourced genealogy only (no AI inventing lineages); searchable tree UI with expand/collapse, nice UX; cite sources in content pipeline |
 
 ---
 

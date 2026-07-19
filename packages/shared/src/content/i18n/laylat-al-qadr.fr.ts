@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Que dire si vous la saisissez",
+    summary: "Aïcha a demandé au Prophète ﷺ exactement quoi dire.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Aïcha (qu'Allah soit satisfait d'elle) a demandé au Prophète ﷺ : « Ô Messager d'Allah, si je sais quelle nuit est la Laylat al-Qadr, que dois-je dire cette nuit-là ? » Il lui a enseigné la courte du'a de pardon montrée ci-dessous (Tirmidhi 3513, classée hasan sahih par al-Tirmidhi).",
+      "Cette du'a est courte, facile à mémoriser, et délibérément axée sur le pardon plutôt que sur les demandes mondaines — un rappel que le plus grand gain de cette nuit est le pardon d'Allah. Répétez-la souvent durant les dix dernières nuits, dans la prière, en prosternation, et entre les deux, plutôt que de la réserver pour une seule nuit devinée.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "J'ai dit : Ô Messager d'Allah, si je sais quelle nuit est la Laylat al-Qadr, que dois-je dire cette nuit-là ? Il a dit : Dites — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Ô Allah, Tu es Pardonneur et Tu aimes le pardon, pardonne-moi).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Mémorisez la du'a de pardon montrée ci-dessus.",
+      "Répétez-la souvent durant les dix dernières nuits, surtout les nuits impaires.",
     ],
   },
   {

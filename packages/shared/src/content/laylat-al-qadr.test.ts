@@ -71,6 +71,14 @@ describe("laylat al-qadr content", () => {
     }
   });
 
+  it("links the forgiveness dua topic to the bundled duas catalog", () => {
+    const topic = LAYLAT_AL_QADR_TOPICS.find((t) => t.id === "the-dua");
+    expect(topic?.duaId).toBe("sunnah-laylat-qadr-afw");
+    expect(topic?.appLinks?.some((link) => link.route.includes("sunnah-laylat-qadr-afw"))).toBe(
+      true,
+    );
+  });
+
   it("carries an explicit disclaimer against fixed calendars and folk signs", () => {
     const disclaimers = LAYLAT_AL_QADR_TOPICS.map((t) => t.disclaimer ?? "").join(" ");
     expect(disclaimers).toMatch(/folk/i);

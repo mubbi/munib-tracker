@@ -136,9 +136,9 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Hagaha Hajj & Umrah",
+    "description": "Baro Hajj iyo Umrah Qur'an iyo Sunnah sax ah, ka dibna raadso xafladaha liisaska Hajj iyo Umrah ee gooni ah — dulmar waxbarasho oo wax ku ool ah, ma aha buug fiqh.",
+    "keywords": ["hajj", "umrah", "hagaha xajka", "xafladaha hajj", "liiska hajj", "liiska umrah"]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +722,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Liiska Xafladaha Hajj",
+    "description": "Raadraaca maalinlaha ah ee xafladaha Hajj laga bilaabo Tarwiyah ilaa tawaf salaanta. Xusuusin la socota hagaha Baro.",
+    "keywords": ["liiska hajj", "xafladaha hajj", "raadraaca xajka"]
+  },
+  "/umrah/checklist": {
+    "title": "Liiska Xafladaha Umrah",
+    "description": "Liiska Umrah ee habaysan — ihram, tawaf, sa'i, iyo halq ama taqsir. U isticmaal hagaha Baro ee Hajj & Umrah.",
+    "keywords": ["liiska umrah", "xafladaha umrah", "xaj yar"]
   }
 }

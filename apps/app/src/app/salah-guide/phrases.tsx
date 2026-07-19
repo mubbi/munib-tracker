@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
@@ -10,19 +10,25 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { prefetchAudioUri } from "@/lib/audio-cache";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   ensureSalahGuideContent,
   getSalahGuidePhrases,
   isSalahGuideContentReady,
 } from "@/lib/salah-guide";
+import { salahGuidePhraseAudio } from "@/lib/salah-how-to-pray-audio";
+import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { useQuranPrefs } from "@/stores/quran-store";
 
 function PhraseCard({
+  id,
   title,
   when,
   arabic,
@@ -31,6 +37,7 @@ function PhraseCard({
   meaning,
   reference,
 }: {
+  id: string;
   title: string;
   when: string;
   arabic: string;
@@ -42,13 +49,60 @@ function PhraseCard({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
+  const audio = useAudioPlayerContext();
+  const prefs = useQuranPrefs();
+  const tracks = useMemo(
+    () => salahGuidePhraseAudio(id, prefs.preferredReciterDir ?? "Alafasy_128kbps"),
+    [id, prefs.preferredReciterDir],
+  );
+
+  const firstId = tracks?.[0]?.id;
+  const isActive = Boolean(firstId && audio.current?.id?.startsWith(`salah-phrase:${id}:`));
+  const isPlaying = isActive && audio.isPlaying;
+
+  useEffect(() => {
+    for (const track of tracks ?? []) {
+      if (track.uri) prefetchAudioUri(track.uri);
+    }
+  }, [tracks]);
+
+  const onPlay = useCallback(() => {
+    if (!tracks?.length) return;
+    if (isActive && isPlaying) {
+      audio.toggle();
+      return;
+    }
+    // Always replay from the start (clipEnd leaves the engine paused mid-file).
+    audio.play(tracks, 0, { sourceHref: "/salah-guide/phrases" });
+  }, [audio, isActive, isPlaying, tracks]);
 
   return (
     <Card padding="three">
-      <SectionHeader
-        title={title}
-        icon={{ ios: "text.quote", android: "format_quote", web: "format_quote" }}
-      />
+      <View style={styles.phraseHeader}>
+        <View style={styles.phraseTitle}>
+          <SectionHeader
+            title={title}
+            icon={{ ios: "text.quote", android: "format_quote", web: "format_quote" }}
+          />
+        </View>
+        {tracks?.length ? (
+          <View style={styles.playWell}>
+            <IconButton
+              name={
+                isPlaying
+                  ? { ios: "pause.fill", android: "pause", web: "pause" }
+                  : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
+              }
+              onPress={onPlay}
+              tintColor={colors.accent}
+              background={isActive ? tokens.accentSoft : undefined}
+              accessibilityLabel={isPlaying ? t("common.pause") : t("common.play")}
+              size={18}
+              hitTarget={44}
+            />
+          </View>
+        ) : null}
+      </View>
       <ThemedText
         type="caption"
         themeColor="mutedForeground"
@@ -129,6 +183,14 @@ export default function SalahGuidePhrasesScreen() {
 }
 
 const styles = StyleSheet.create({
+  phraseHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  phraseTitle: { flex: 1, minWidth: 0, overflow: "hidden" },
+  playWell: { flexShrink: 0, zIndex: 1, marginTop: Spacing.two },
   when: { marginTop: Spacing.two },
   meaning: {
     marginTop: Spacing.three,

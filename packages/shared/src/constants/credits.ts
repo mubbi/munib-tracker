@@ -83,23 +83,43 @@ export const RUNTIME_DATA_CREDITS: readonly DataCredit[] = [
     id: "quran-audio",
     name: "Qur'an recitation audio",
     license: "Free to stream",
-    attribution: "Per-ayah and surah recitations from everyayah.com.",
+    attribution:
+      "Per-ayah and surah recitations from everyayah.com. Learn Qur'an example clips use the same streams with optional word-range timing derived from QuranCDN segment data.",
     url: "https://everyayah.com/",
+  },
+  {
+    id: "learn-quran-letter-audio",
+    name: "Arabic letter pronunciation (Learn Qur'an)",
+    license: "MIT (Abjad-Kids); Telkom Hijaiyah dataset is CC0 when mirrored",
+    attribution:
+      "Isolated letter clips streamed from the Abjad-Kids dataset on Hugging Face (MIT). Prefer Telkom University Marked Hijaiyah (CC0) if a stable public CDN mirror is available.",
+    url: "https://huggingface.co/datasets/Aziz-snoubra/Abjad-Kids",
+    note: "Research/educational microphone quality — not a substitute for a tajweed teacher.",
   },
   {
     id: "audio-translation",
     name: "Audio translation & adhkar audio",
     license: "Free to stream",
-    attribution: "QuranicAudio.com and Internet Archive.",
+    attribution:
+      "QuranicAudio.com and Internet Archive. Hisnul Muslim (sheikhhanif) phrase audio also powers Learn Salah step-by-step and Words of salah.",
     url: "https://archive.org/",
+  },
+  {
+    id: "salah-how-to-pray-audio",
+    name: "Step-by-step salah phrase audio",
+    license: "Free to stream / CC BY-SA 3.0 (takbir clip)",
+    attribution:
+      "In-prayer adhkar from Hisnul Muslim (sheikhhanif CDN). Al-Fatihah via everyayah.com. Opening takbir uses the Wikimedia Commons Adhan_wiki phrase segment (CC BY-SA 3.0) already bundled for Learn Adhan.",
+    url: "https://github.com/sheikhhanif/Hisnul_Muslim_Database",
+    note: "Closing taslim has no matching single-phrase OSS clip yet — play controls skip that step rather than attaching a mismatched dua.",
   },
   {
     id: "adhan-audio",
     name: "Adhan call audio",
-    license: "Bundled clip, © reciter",
+    license: "Bundled clip + CC BY-SA 3.0 phrases / free-to-stream CDN styles",
     attribution:
-      "Bundled call-to-prayer styles (including clips derived from open prayer-audio sets).",
-    url: "https://github.com/itsnavee/prayeraudio",
+      "Bundled preview from itsnavee/prayeraudio; learn-phrase clips segmented from Wikimedia Commons Adhan_wiki (CC BY-SA 3.0, author Jarih); full muezzin styles from Kiwifu/adhan-mp3 via jsDelivr.",
+    url: "https://commons.wikimedia.org/wiki/File:Adhan_wiki.oga",
   },
 ] as const;
 

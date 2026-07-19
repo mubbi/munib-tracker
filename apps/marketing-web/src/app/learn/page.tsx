@@ -124,7 +124,7 @@ const FIQH: Area[] = [
   {
     icon: ScrollText,
     title: "Hajj & Umrah",
-    meta: "60-step tracker",
+    meta: "Learn + checklists",
     description: "An interactive, offline checklist for every rite with location context.",
   },
   {

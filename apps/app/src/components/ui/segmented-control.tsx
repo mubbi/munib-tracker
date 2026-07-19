@@ -94,7 +94,8 @@ export function SegmentedControl<T extends string>({
             scaleTo={0.98}
             rippleRadius={Radius.sm}
             onPress={() => {
-              if (!selected) triggerHaptic("selection");
+              if (selected) return;
+              triggerHaptic("selection");
               onChange(option.id);
             }}
             style={styles.segment}

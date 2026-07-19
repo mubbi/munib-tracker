@@ -21,10 +21,12 @@ import { preferencesStore } from "./preferences-store";
 import { prophetsProgressStore } from "./prophets-progress-store";
 import { quranGuideProgressStore } from "./quran-guide-progress-store";
 import { quranStore } from "./quran-store";
+import { readingTextVisibilityStore } from "./reading-text-visibility-store";
 import { salahGuideProgressStore } from "./salah-guide-progress-store";
 import { taharahProgressStore } from "./taharah-progress-store";
 import { toursStore } from "./tours-store";
 import { trackerStore } from "./tracker-store";
+import { umrahChecklistStore } from "./umrah-checklist-store";
 
 /**
  * Reloads every store that reads a persisted key from disk, so screens already
@@ -51,8 +53,10 @@ export async function reloadAllStores(): Promise<void> {
     hifzStore.getState().load(),
     khushuStore.getState().load(),
     hajjChecklistStore.getState().load(),
+    umrahChecklistStore.getState().load(),
     fridayChecklistStore.getState().load(),
     toursStore.getState().load(),
+    readingTextVisibilityStore.getState().load(),
     jannahIntentionsStore.getState().load(),
     jahannamIntentionsStore.getState().load(),
     salahGuideProgressStore.getState().load(),

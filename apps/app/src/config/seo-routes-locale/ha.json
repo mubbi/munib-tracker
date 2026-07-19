@@ -136,9 +136,9 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Jagoran Hajj & Umrah",
+    "description": "Koyi Hajj da Umrah daga Alkur'ani da Sunnah na gaskiya, sannan bi ayyuka da jerin abubuwa daban na Hajj da Umrah — bayani na ilimi na aiki, ba littafin fiqh ba.",
+    "keywords": ["hajj", "umrah", "jagoran hajj", "ayyukan hajj", "jerin hajj", "jerin umrah"]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +722,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Jerin Ayyukan Hajj",
+    "description": "Mai bin diddigin ayyukan Hajj rana da rana daga Tarwiyah zuwa tawaf na bankwana. Tunatarwa tare da jagoran Koyi.",
+    "keywords": ["jerin hajj", "ayyukan hajj", "mai bin hajj"]
+  },
+  "/umrah/checklist": {
+    "title": "Jerin Ayyukan Umrah",
+    "description": "Jerin Umrah da aka tsara — ihram, tawaf, sa'i, da halq ko taqsir. Yi amfani da jagoran Koyi na Hajj & Umrah.",
+    "keywords": ["jerin umrah", "ayyukan umrah", "hajjin ƙarami"]
   }
 }

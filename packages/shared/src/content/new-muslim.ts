@@ -78,13 +78,13 @@ export const NEW_MUSLIM_TOPICS: LearnGuideTopic[] = [
     summary: "Sincerely saying the shahada — with understanding and intention — is what counts.",
     body: [
       "There is no priest, ceremony, fee, or paperwork required to become Muslim. What is required is sincerity: understanding the shahada's meaning and saying it with the intention of embracing it as your belief, between you and Allah.",
-      "Many people choose to say it in front of others — a local imam, a mosque community, or friends — because it gives witnesses to the moment and connects you to a support network from day one; this is a widely recommended practice rather than a strict requirement for the testimony itself.",
+      "Many people choose to say it in front of others — a local imam, a masjid community, or friends — because it gives witnesses to the moment and connects you to a support network from day one; this is a widely recommended practice rather than a strict requirement for the testimony itself.",
       "Some new Muslims also perform ghusl (a full ritual wash) around this time as a symbolic and practical fresh start before learning to pray; practices and views on exactly when and how vary between communities, so ask a local teacher what is customary near you rather than guessing.",
       "If you are still exploring rather than certain, that is a normal and respected stage — read, ask questions, and take your time. The testimony is meant to be said with conviction, not under pressure.",
     ],
     actions: [
-      "If you are ready, consider saying the shahada in the presence of a local imam, mosque community, or trusted Muslim friends.",
-      "Ask a local mosque or teacher about any customary next steps (such as ghusl) in your community.",
+      "If you are ready, consider saying the shahada in the presence of a local imam, masjid community, or trusted Muslim friends.",
+      "Ask a local masjid or teacher about any customary next steps (such as ghusl) in your community.",
     ],
   },
 
@@ -219,7 +219,7 @@ export const NEW_MUSLIM_TOPICS: LearnGuideTopic[] = [
     summary: "Five short prayers a day, each a set sequence of standing, bowing, and prostrating.",
     body: [
       "Salah is prayed five times a day at set windows — Fajr (dawn), Dhuhr (midday), Asr (afternoon), Maghrib (sunset), and Isha (night) — and takes only a few minutes each time once you know the pattern. This app's prayer times and tracker will show you exactly when each window opens where you are.",
-      "Each prayer is made of units called rak'ahs (Fajr has two, Dhuhr/Asr/Isha have four, Maghrib has three), and every rak'ah follows the same basic shape: standing while reciting, bowing (ruku'), and two prostrations (sujud), with fixed words of praise and Qur'an said at each position.",
+      "Each prayer is made of units called rakahs (Fajr has two, Dhuhr/Asr/Isha have four, Maghrib has three), and every rakah follows the same basic shape: standing while reciting, bowing (ruku'), and two prostrations (sujud), with fixed words of praise and Qur'an said at each position.",
       "Before praying, you perform wudu — a short ritual washing of the hands, mouth, face, arms, head, and feet — and you pray facing the direction of the Kaaba in Makkah (the qibla), which this app can also point you toward.",
       "This overview is intentionally high level. The exact wording said at each position, step-by-step video-style instructions, and a full beginner course all live in the dedicated Salah guide — start there next, and use the phrases guide alongside it to learn the words with transliteration and translation.",
     ],
@@ -268,7 +268,7 @@ export const NEW_MUSLIM_TOPICS: LearnGuideTopic[] = [
       "Learn the essential words of one full prayer using the phrases guide.",
       "Start praying the five daily prayers, even imperfectly at first — consistency matters more than perfection early on.",
       "Learn a few short daily duas (supplications) for waking, eating, and leaving the house.",
-      "Find a local mosque or online community for support and questions.",
+      "Find a local masjid or online community for support and questions.",
       "Begin reading the Qur'an in translation, a little each day.",
       "Tell someone you trust — family or a close friend — when you feel ready, at your own pace.",
     ],
@@ -279,9 +279,9 @@ export const NEW_MUSLIM_TOPICS: LearnGuideTopic[] = [
     title: "Finding Community",
     summary: "Learning alongside other Muslims makes the journey easier and more joyful.",
     body: [
-      "Islam is meant to be lived in community, not only in private. Congregational prayer, a local mosque, and Muslim friends can answer everyday questions ('how do I say this in prayer if I forget?'), offer encouragement, and simply make you feel less alone in a new experience.",
+      "Islam is meant to be lived in community, not only in private. Congregational prayer, a local masjid, and Muslim friends can answer everyday questions ('how do I say this in prayer if I forget?'), offer encouragement, and simply make you feel less alone in a new experience.",
       "If you're not sure where to start, most mosques welcome new Muslims warmly and often have someone specifically happy to help newcomers with the basics — asking is normal and expected, not awkward.",
-      "If an in-person mosque isn't accessible right now, online communities and this app's own guides can bridge the gap until you find one, or permanently if that's your situation — either way, you are still fully part of the wider Muslim community (the ummah).",
+      "If an in-person masjid isn't accessible right now, online communities and this app's own guides can bridge the gap until you find one, or permanently if that's your situation — either way, you are still fully part of the wider Muslim community (the ummah).",
     ],
     actions: [
       "Look up mosques or Islamic centres near you and consider visiting for a prayer time or an event.",

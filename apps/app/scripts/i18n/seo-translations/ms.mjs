@@ -141,10 +141,17 @@ export default {
     description: "Hadis yang anda simpan, dikumpulkan untuk dibaca kembali dengan cepat.",
   },
   "/hajj": {
-    title: "Daftar Periksa Haji & Umrah",
+    title: "Panduan Haji & Umrah",
     description:
-      "Daftar periksa langkah demi langkah untuk manasik Haji dan Umrah. Jejak setiap manasik dan ikuti ibadat haji secara berurutan — praktis, bukan buku fiqih.",
-    keywords: ["haji", "umrah", "panduan haji", "manasik haji", "daftar periksa haji"],
+      "Pelajari Haji dan Umrah dari Al-Qur'an dan Sunnah sahih, kemudian jejak manasik dengan senarai semak Haji dan Umrah berasingan — gambaran pendidikan praktikal, bukan manual fiqih.",
+    keywords: [
+      "haji",
+      "umrah",
+      "panduan haji",
+      "manasik haji",
+      "senarai semak haji",
+      "senarai semak umrah",
+    ],
   },
   "/hayd": {
     title: "Haid & Ibadat — Panduan Menstruasi",
@@ -761,5 +768,17 @@ export default {
   "/zikr/favorites": {
     title: "Adhkar Favorit",
     description: "Adhkar favorit anda, dikumpulkan untuk akses cepat kapan saja.",
+  },
+  "/hajj/checklist": {
+    title: "Senarai Semak Manasik Haji",
+    description:
+      "Penjejak manasik Haji harian dari Tarwiyah hingga tawaf wada'. Bantuan ingatan bersama panduan Pelajari.",
+    keywords: ["senarai semak haji", "manasik haji", "penjejak haji"],
+  },
+  "/umrah/checklist": {
+    title: "Senarai Semak Manasik Umrah",
+    description:
+      "Senarai semak Umrah berurutan — ihram, tawaf, sa'i, dan halq atau taqsir. Gunakan dengan panduan Pelajari Haji & Umrah.",
+    keywords: ["senarai semak umrah", "manasik umrah", "haji kecil"],
   },
 };

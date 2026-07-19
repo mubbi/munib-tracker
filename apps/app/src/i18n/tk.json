@@ -77,10 +77,11 @@
       "intro": "Bu gollanmanyň sapaklaryndan gysgaça gaýtalama. Howlukmaň — maksat öwrenmek.",
       "hint": "Öwreneniňizi gaýtalaň",
       "empty": "Bu gollanmanyň soraglary heniz ýüklenýär. Birnäçe sapak açyň, soňra ýene synanyň."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Guran, hadis, dua, zikir ara…",
+    "placeholder": "Qur'an, hadis, dua, Okuw… gözle",
     "clear": "Gözlegmayy temizle",
     "all": "Tüm",
     "resultsCount": "{{count}} sonuç",
@@ -109,16 +110,7 @@
       "zikr": "Zikrler",
       "name": "99 Ysim",
       "durood": "Salavat",
-      "jannah": "Cennet Yolculugu",
-      "jahannam": "Cehennem'i Anlamak",
-      "lastDay": "Kyyamet Günü",
-      "salahGuide": "Namaz Ögren",
-      "battles": "Yslam'daki Savaşlar",
-      "taharah": "Temizlik Ögren",
-      "prophets": "Peygamberleri Ögren",
-      "aqeedah": "Akide Ögren",
-      "learnDua": "Dua Ögren",
-      "learnQuran": "Guran Ögren"
+      "learn": "Okuw"
     },
     "stt": {
       "dictate": "Ses bilen gözläň",
@@ -465,6 +457,24 @@
       "badge": "Anna",
       "reminderTitle": "Juma mübarek",
       "reminderBody": "Jumu'ah namazyny okaň we anna gününiň sünnetlerini ýerine ýetiriň — Ghusl, Surah al-Kahf, salawat we Dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Şu günki Qur'an bölegi",
+      "catchUpTitle": "Khatm ýetirmek",
+      "reminderBody": "Şu günki khatm maksadyna {{done}}/{{total}} ayah ýaz.",
+      "reminderBodyPages": "Şu günki khatm maksadyna {{done}}/{{total}} sahypa ýaz.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Şu günki khatm okuwy ýolda — dowam et.",
+      "openPlan": "Khatm meýilnamasyny aç",
+      "a11y": "Khatm meýilnamasy {{total}} günüň {{day}}-si, {{percent}} göterim tamam, şu gün {{target}}-den {{done}}"
+    },
+    "acceptanceHourCard": {
+      "badge": "Dua wagty",
+      "reminderTitle": "Kabul wagty",
+      "reminderBody": "Juma güni duanyň ret edilmeýän sagady — aýratyn Asr-dan soň hakyky dua, istighfar we salawat bilen gözle.",
+      "openGuide": "Kabul wagtyny aç"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Vitir",
       "adhkar": "Zikrler",
       "qaza": "Gaza",
-      "a11y": "{{label}}: %{{percent}} tamamlandy, {{total}} içinden {{completed}}"
+      "a11y": "{{label}}: %{{percent}} tamamlandy, {{total}} içinden {{completed}}",
+      "khatm": "Khatm"
     },
     "allDone": "Maşallah — hepsi tamam",
     "freshStart": "Yeni bir başlangyç",
@@ -547,6 +558,14 @@
       "jumpTitle": "Jumu'ah sanawy",
       "jumpHint": "Aşakda anna sünnet amallary",
       "jumpA11y": "Bu sahypadaky Jumu'ah sanawyna git"
+    },
+    "khatm": {
+      "title": "Khatm meýilnamasy",
+      "progress": "Şu gün {{done}}/{{total}}",
+      "hint": "Şu günki maksada {{count}} ayah — ýazmak üçin bas",
+      "hintPages": "Şu günki maksada {{count}} sahypa — ýazmak üçin bas",
+      "completeHint": "Şu günki bölek tamam — meýilnamany görmek üçin bas",
+      "a11y": "Khatm meýilnamasy {{total}} günüň {{day}}-si, şu günki maksada {{target}}-den {{done}}"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Şu günün reflection",
       "dailyContentBody": "Baş sahypaňyzda täze aýat, hadys we Allanyň bir ady taýýar.",
       "fridayTitle": "Cuma Mubarek",
-      "fridayBody": "It's Friday — send salawat ve read Surah Al-Kahf."
+      "fridayBody": "It's Friday — send salawat ve read Surah Al-Kahf.",
+      "acceptanceHourTitle": "Kabul wagty",
+      "acceptanceHourBodyAsr": "Asr başlady — Maghrib çenli dua, istighfar we salawat bilen kabul wagtyny gözle.",
+      "acceptanceHourBodyMid": "Maghrib çenli entek wagt bar — bu minutlary hakyky dua bilen doldur."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Friday hatyrlatycy",
-        "subtitle": "Jumu'ah ve Surah Al-Kahf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf we kabul wagty"
       }
     },
     "prayerAlertsObligatory": "Farz Namaz alerts",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Diňlemäge başlamak üçin ses saýlaň",
     "listenVoiceDefault": "Ulgamyň deslapky",
     "listenVoiceDefaultHint": "Bu dil üçin enjamyň ileri tutýan sesini ulanyň",
-    "listenVoiceEmpty": "Bu dil üçin gurnalan ses ýok. Ulgam sazlamalaryndan goşuň."
+    "listenVoiceEmpty": "Bu dil üçin gurnalan ses ýok. Ulgam sazlamalaryndan goşuň.",
+    "showTransliteration": "Transliterasiýany görkez",
+    "hideTransliteration": "Transliterasiýany gizle",
+    "showTranslation": "Terjimesini görkez",
+    "hideTranslation": "Terjimesini gizle"
   },
   "share": {
     "dialogTitle": "Paylaş",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "duas by title, topic, or text… Gözleg",
     "searchInCategory": "in this category… Gözleg",
     "searchResultCount": "{{count}} gabat gelýär",
-    "noResults": "No duas matched sizin ara."
+    "noResults": "No duas matched sizin ara.",
+    "favSubtitle": "Saklanan dualaryňyzy täzeden sazla ýa-da aýyr"
   },
   "duaCat": {
     "morning_evening": "ertir & agşam",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Diňlemegi bes et",
       "bestMatch": "Iň gowy gabat gelme",
       "otherMatches": "Beýleki gabat gelmeler"
-    }
+    },
+    "searchPlaceholderArabic": "Arapça tekst ýa-da ٢:٢٥٥ ýaly salgylanma gözläň…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Peygamber gelenegi",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Bu programma ähli ulanyjylar üçin geçen Witri kaza hasabyna goşýar. Hanafi mezhebine eýerseňiz, ony hökmany hasaplaň; başgaça bolsa maslahat berilýän kaza hökmünde yzarlaň. Öz ýagdaýyňyz üçin alyma ýüz tutuň."
     },
-    "history": "Geçmiş"
+    "history": "Geçmiş",
+    "rowDone": "{{completed}} Qaza ýerine ýetirildi",
+    "rowDoneWithDaily": "{{completed}} Qaza ýerine ýetirildi · şu gün {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Gaza",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "counter? Syfyrla",
     "confirmResetMessage": "Sizin say  {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? Başlat",
-    "confirmStartAgainMessage": "Sizin completed say will be cleared so siz can begin  yeni round."
+    "confirmStartAgainMessage": "Sizin completed say will be cleared so siz can begin  yeni round.",
+    "dockLabel": "Sanamak"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} dir only {{min}} min away",
@@ -2502,7 +2538,15 @@
       "ahead": "Yleride",
       "onTrack": " takip",
       "behind": "Geride"
-    }
+    },
+    "logConfirmTitle": "Okamak öňegini goşmalymy?",
+    "logConfirmMsg": "Khatm jemine {{count}} aýet goşulsynmy?",
+    "logConfirmMsgPages": "Khatm jemine {{count}} sahypa goşulsynmy?",
+    "logConfirmAction": "Goş",
+    "correctTotalConfirmTitle": "Okalan jemi täzelensinmi?",
+    "correctTotalConfirmMsg": "Khatm jemi {{count}} aýet bolsunmy?",
+    "correctTotalConfirmMsgPages": "Khatm jemi {{count}} sahypa bolsunmy?",
+    "correctTotalConfirmAction": "Jemi täzele"
   },
   "hifz": {
     "short": "Hifz",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Den  Guran",
     "hadithTitle": "Den  Sünnet",
     "obligationsTitle": "What siz dir still responsible için",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "Rakaat gysgaça",
     "rakatsPrayer": "Namaz",
     "rakatsResident": "At ana sayfa",
     "rakatsTravel": "Seyahat",
@@ -2706,7 +2750,8 @@
       "knowledge": "Günlük knowledge card",
       "quickActions": "Hyzly eylemler",
       "qaza": "Gaza summary",
-      "schedule": "Şu günün programy"
+      "schedule": "Şu günün programy",
+      "khatm": "Khatm meýilnamasy"
     }
   },
   "schedule": {
@@ -2732,7 +2777,7 @@
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} lessons marked tamamlandy",
     "topicsTitle": "Rehberler",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "Rakaat gysgaça",
     "prayer": "Namaz",
     "fard": "Farz",
     "sunnah": "Sünnet",
@@ -2806,7 +2851,12 @@
       "listenHint": "Dokunun  recording  oynat. Follow along ile  words below as siz listen.",
       "play": "Oynat {{name}} ezan",
       "pause": "{{name}} adhan Duraklat",
-      "sourceNote": "Recordings den  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, ve more)."
+      "sourceNote": "Recordings den  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, ve more).",
+      "learnPhrasesHint": "Sözleri öwreniň — her jümlläni düşnükli, yzygiderli diňläň.",
+      "playPhrases": "Ähli jümleleri çal",
+      "pausePhrases": "Jümleleri sakla",
+      "playPhrase": "{{n}}. jümlläni çal: {{title}}",
+      "followAlongNote": "Çalýarka aşakdaky sözleri belleýär"
     }
   },
   "battles": {
@@ -3428,7 +3478,8 @@
       "obligatory": "Zerur",
       "highly-recommended": "Gaty maslahat berilýär",
       "recommended": "Maslahat berilýär"
-    }
+    },
+    "playAyahA11y": "{{ref}} tilawatyny çal"
   },
   "library": {
     "eyebrow": "Kitaphana",
@@ -3941,7 +3992,7 @@
       "label": "Goşundylar (islege görä)",
       "add": "Faýl goşuň",
       "remove": "Goşundyny aýyryň",
-      "hint": "5 faýla çenli (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçi suratdaky ×-e basyň.",
+      "hint": "5-e çenli faýl (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçijik suraty basyň.",
       "signInRequired": "Adhkar-a şahsy faýllary birikdirmek üçin giriň.",
       "permissionDenied": "Faýllary birikdirmek üçin rugsat gerek.",
       "permissionTitle": "Girmäge rugsat beriň",
@@ -4117,14 +4168,34 @@
   "hajj": {
     "eyebrow": "Hac",
     "title": "Hac & Umre",
-    "subtitle": "Hac ibadetlerinin adym adym kontrol listesi.",
+    "subtitle": "Aýinlary Qur'an we Sunnah-dan öwren, soňra Hajj we Umrah aýratyn yzarla.",
     "progress": "{{done}} / {{total}} ibadet",
     "reset": "Täzeden",
     "resetConfirmTitle": "Kontrol listesi syfyrlansyn my?",
     "resetConfirmMsg": "Bu, tüm ibadetlerin işaretini kaldyryr. Ylerlemeniz geri alynamaz.",
-    "umrahTag": "Umre",
-    "hajjTag": "Hac",
-    "disclaimer": "Pratik bir kontrol listesi, fykyh kitaby degil. Hüküm ve ayryntylar için nitelikli bir rehbere uyun.",
+    "disclaimer": "Amaly bilim beriş jemlemesi, fiqh gollanmasy däl. Mezhebler jikme-jiklikde tapawutlanýar — düzgünler we garaşylmadyk ýagdaýlar üçin hünärli gollanmany yzarla.",
+    "intro": "Borç, ihram, Umrah we Hajj günlerini ygtybarly çeşmeler bilen öwren. Sanawlar diňe aýinlar üçin — taýýarlyk maslahatlary Okuw mowzuklarynda galýar.",
+    "section": {
+      "virtues": "Faziletler",
+      "obligation": "Borç",
+      "types": "Hajj görnüşleri",
+      "ihram": "Miqat we ihram",
+      "umrah": "Umrah",
+      "hajj": "Hajj günleri",
+      "rulings": "Düzgünler we edep",
+      "prep": "Amaly taýýarlyk"
+    },
+    "checklistsTitle": "Aýin sanawlary",
+    "hajjChecklistTitle": "Hajj sanawy",
+    "hajjChecklistHint": "Haj aýinleri gün-gün",
+    "hajjChecklistSubtitle": "Tarwiyah-dan hoşlaşyk tawaf-y çenli Hajj aýinlerini yzarla.",
+    "hajjChecklistIntro": "Her aýini tamamlananda bellä. Bu ýatlatma — fatwa däl.",
+    "umrahChecklistTitle": "Umrah sanawy",
+    "umrahChecklistHint": "Ihram-dan halq ýa-da taqsir çenli",
+    "umrahChecklistSubtitle": "Umrah yzygiderliligini tertipde yzarla.",
+    "umrahChecklistIntro": "Her Umrah aýinini tamamlananda bellä. Jikme-jiklik we subutlar üçin Okuw aç.",
+    "notFound": "Mowzuk tapylmady",
+    "continueInApp": "Munib-de dowam et",
     "prepTag": "Taýýarlaň"
   },
   "dailyHadith": {
@@ -4482,15 +4553,15 @@
     "settingsSubtitleIos": "Namaz with Siri or Apple Watch Yşaretle",
     "settingsSubtitleAndroid": "Namaz with Google Assistant or Wear OS Yşaretle",
     "introIos": "Use Siri, Shortcuts, veya Apple Watch  mark Namaz without opening  checklist. Requires  EAS dev veya production build — not available içinde Expo Go.",
-    "introAndroid": "Use Google Assistant veya Wear OS  mark Namaz without opening  checklist. Requires  EAS dev veya production build — not available içinde Expo Go.",
+    "introAndroid": "Sanawy açman Salah bellemek üçin Google Assistant, programma nyşany gysga ýoly ýa-da Wear OS ulanyň. EAS dev ýa-da production build gerek — Expo Go-da ýok.",
     "siriTitle": "Siri & Kysayollar",
     "siriHint": "After installing den TestFlight veya  App Store, aç  Shortcuts app veya say “Hey Siri, mark my Namaz içinde Munib Tracker”. If  app was force-quit,  mark syncs  sonraki time siz aç Munib Tracker.",
     "assistantTitle": "Google Asistan",
-    "assistantHint": "Say “Hey Google, mark my Namaz içinde Munib Tracker”   cihaz ile  app installed.",
+    "assistantHint": "\"Hey Google, mark my Salah in Munib Tracker\" diň ýa-da Munib Tracker nyşanyna uzak basyp Mark Salah saýla. Programma güýç bilen ýapylan bolsa, belgi Munib Tracker açylanda sync bolýar.",
     "watchTitle": "Apple Watch",
     "watchHint": "the Munib Tracker watch app to see today’s schedule and mark Namaz. Data syncs from your iPhone. Aç",
     "wearTitle": "Wear OS",
-    "wearHint": "the Munib Tracker tile on your watch after pairing with your phone. Ekle",
+    "wearHint": "Telefony jübütleden soň sagatda Munib Tracker plitkasyny goş. Häzirki Salah-y telefonda bellemek üçin plitkany bas.",
     "marked": "Namaz marked",
     "alreadyDone": "Eýýäm bellendi",
     "allDone": "Tüm obligatory Namaz marked for today",
@@ -4697,7 +4768,7 @@
     "eyebrow": "Senenama",
     "title": "Sene öwrüji",
     "subtitle": "Hijri we Gregorian kalendarlarynyň arasynda öwüriň",
-    "intro": "Islendik senenama bir sene giriziň, beýlekisindeki deňeşini görmek üçin — oflaýn ýerleşýän ýeriňizdäki aýyň görünmeginden hasaplanýar.",
+    "intro": "Kuweýt tablisasynyň algoritmini ulanyp, oflayn hasaplanan beýleki birine meňzeşini görmek üçin iki senenama senesini giriziň.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Gregorian senesi",
@@ -4707,7 +4778,7 @@
     "year": ".Yl",
     "useToday": "Şu gün ulanyň",
     "invalidDate": "Dogry senäni giriziň",
-    "disclaimer": "Seneler ýerleşýän ýeriňizdäki ýarymaýyň (hilāl) görünmeginden hasaplanýar we resmi aý gözegçiligi bildirişlerinden bir gün tapawutlanyp biler — dini seneler üçin hemişe ýerli masjid ýa-da häkimiýeti eýeriň.",
+    "disclaimer": "Bu arifmetiki ýakynlaşma (tablisa \"Kuweýt algoritmi\") we ýerli Aý görýän bildirişlerinden bir gün tapawutlanyp biler - dini seneler üçin hemişe ýerli metjidiňize ýa-da ygtyýaryňyza eýeriň.",
     "directionTitle": "Öwürmek ugry",
     "resultFrom": "{{date}}-den",
     "quickLinksTitle": "Baglanyşykly",

@@ -1,309 +1,532 @@
-// French translation overlay for the Learn Hajj & Umrah guide. Mirrors the order of
-// its English source in ../hajj-guide.ts (index-aligned); untranslated entries fall back
-// to English. Only human-readable text is translated — ids, routes, surah/ayah
-// numbers, collections, citations and grades stay in the English source.
-import type { HajjGuideSection } from "../../types/hajj-guide";
+import type { PilgrimageChecklistItem } from "../../types/hajj-guide";
+import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
-export const HAJJ_GUIDE_SECTIONS_FR: DeepPartial<HajjGuideSection>[] = [
+// French translation overlay for Hajj & Umrah learning topics and rite checklists.
+// Entries are index-aligned with the English sources; stable identifiers and references remain unchanged.
+
+export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
   {
-    day: "Avant de partir",
-    title: "Obligations et conditions",
-    summary: "Pourquoi le Hajj est dû et pour qui il devient obligatoire.",
-    steps: [
+    title: "La récompense d'un Hajj accepté",
+    summary: "Le Hajj mabrur efface les péchés et sa récompense est le Paradis.",
+    body: [
+      "Abu Hurayrah a rapporté que le Messager d'Allah ﷺ a dit : « Celui qui accomplit le Hajj pour Allah, sans rapports sexuels ni péché, revient comme le jour où sa mère l'a mis au monde » (Sahih al-Bukhari 1521 ; Sahih Muslim 1350).",
+      "Il a aussi dit : « Un Hajj accepté (Hajj mabrur) n'a d'autre récompense que le Paradis » (Sahih al-Bukhari 1773 ; Sahih Muslim 1349). L'acceptation dépend de la sincérité et du fait de garder le pèlerinage exempt de turpitude et de désobéissance — pas seulement d'accomplir les actes extérieurs.",
+    ],
+    hadith: [
       {
-        title: "Le cinquième pilier",
-        body: "Le Hajj est le cinquième pilier de l’Islam, obligatoire une fois dans la vie de tout musulman capable. Allah dit : « Et [qui est dû] à Allah de la part des gens, un pèlerinage à la Maison – pour quiconque est capable de trouver un chemin pour y accéder » (Qur'an 3 :97). Il a été proclamé à tous les peuples : « Et proclamez aux gens le Hajj ; ils viendront à vous à pied et sur tout chameau maigre » (Qur'an 22 :27).",
+        excerpt:
+          "Celui qui accomplit le Hajj pour Allah, sans rapports sexuels ni péché, revient comme le jour où sa mère l'a mis au monde.",
       },
       {
-        title: "Capacité (istita'ah)",
-        body: "Le Hajj n'est obligatoire que pour ceux qui en sont capables : santé physique pour le voyage, richesse légale suffisante pour couvrir le voyage et les personnes à leur charge pendant le voyage, et un itinéraire sûr et ouvert. Celui qui n'a pas les moyens cette année ne commet pas un péché en attendant d'en avoir la possibilité.",
+        excerpt:
+          "Celui qui accomplit le Hajj pour Allah, sans rapports sexuels ni péché, revient comme le jour où sa mère l'a mis au monde.",
+      },
+      { excerpt: "Un Hajj accepté n'a d'autre récompense que le Paradis." },
+      { excerpt: "Un Hajj accepté n'a d'autre récompense que le Paradis." },
+    ],
+    actions: [
+      "Formez l'intention du Hajj uniquement pour Allah — gardez votre langue et votre caractère tout au long du voyage.",
+      "Utilisez la checklist Hajj de l'application seulement comme aide-mémoire ; gardez le cœur tourné vers l'acceptation.",
+    ],
+    appLinks: [{ label: "Checklist des rites du Hajj" }],
+  },
+  {
+    title: "La vertu de l'Umrah",
+    summary: "D'une Umrah à l'autre, les péchés commis entre les deux sont effacés.",
+    body: [
+      "Abu Hurayrah a rapporté que le Prophète ﷺ a dit : « L'accomplissement d'une Umrah expie les péchés commis entre elle et la précédente, et un Hajj accepté n'a d'autre récompense que le Paradis » (Sahih al-Bukhari 1773 ; Sahih Muslim 1349).",
+      "L'Umrah peut être accomplie à tout moment de l'année. Elle est plus courte que le Hajj, mais reste un grand acte d'adoration : ihram, tawaf, sa'i, puis rasage ou coupe des cheveux.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "L'accomplissement d'une Umrah expie les péchés commis entre elle et la précédente, et un Hajj accepté n'a d'autre récompense que le Paradis.",
       },
       {
-        title: "Le voyage d'une femme",
-        body: "La majorité des savants soutiennent qu'une femme voyage pour le Hajj avec un mahram (mari ou parent proche non mariable) ; certains érudits ultérieurs autorisent les voyages au sein d'un groupe de femmes sûr et digne de confiance. Suivez la décision d'un érudit qualifié en qui vous avez confiance et les règlements de votre autorité du Hajj.",
+        excerpt:
+          "L'accomplissement d'une Umrah expie les péchés commis entre elle et la précédente, et un Hajj accepté n'a d'autre récompense que le Paradis.",
+      },
+    ],
+    actions: [
+      "Ouvrez la checklist Umrah lorsque vous êtes prêt à parcourir les rites dans l'ordre.",
+    ],
+    appLinks: [{ label: "Checklist des rites de l'Umrah" }],
+  },
+  {
+    title: "Le jour d'Arafah",
+    summary: "Le stationnement à Arafah est le cœur du Hajj — et un grand jour de dua.",
+    body: [
+      "Abd al-Rahman ibn Ya'mar a rapporté que le Prophète ﷺ a dit : « Le Hajj, c'est Arafah » (Sunan Abi Dawud 1949 ; Jami' at-Tirmidhi 889). Quiconque manque le stationnement dans les limites d'Arafah en son temps a manqué le Hajj de cette année.",
+      "Pour ceux qui ne sont pas en pèlerinage, jeûner le jour d'Arafah est fortement recommandé : Abu Qatadah a rapporté que ce jeûne expie les péchés de l'année passée et de l'année à venir (Sahih Muslim 1162). Les pèlerins eux-mêmes ne jeûnent pas afin de consacrer la journée à la dua.",
+    ],
+    hadith: [
+      { excerpt: "Le Hajj, c'est Arafah." },
+      { excerpt: "Le Hajj, c'est Arafah." },
+      {
+        excerpt:
+          "Jeûner le jour d'Arafah, j'espère d'Allah, expie les péchés de l'année qui le précède et de celle qui le suit.",
       },
     ],
   },
   {
-    day: "Avant de partir",
-    title: "Les trois types de Hajj",
-    summary: "Ifrad, Qiran et Tamattu' – choisissez avant d'entrer dans l'ihram.",
-    steps: [
+    title: "Le Hajj — le cinquième pilier",
+    summary: "Obligatoire une fois dans la vie pour tout musulman apte.",
+    body: [
+      "Allah dit : « Et aux gens incombe un pèlerinage à la Maison, pour quiconque en a les moyens. Et quiconque mécroît… Allah Se passe certes des mondes » (Coran 3:97).",
+      "L'appel fut lancé à tous : « Et proclame aux gens le Hajj ; ils viendront à toi à pied et sur toute monture maigre ; ils viendront de tout chemin lointain » (Coran 22:27).",
+      "Ibn Umar a rapporté que le Prophète ﷺ a dit que l'Islam repose sur cinq piliers : la shahada, la salah, la zakat, le jeûne de Ramadan et le Hajj à la Maison pour quiconque en a les moyens (Sahih al-Bukhari 8 ; Sahih Muslim 16). Les savants s'accordent à le rendre obligatoire une fois dans la vie lorsque les conditions sont réunies ; le répéter est une vertu surérogatoire.",
+    ],
+    quran: [
       {
-        title: "Ifrad",
-        body: "Le pèlerin entre en ihram pour le Hajj uniquement, n'accomplit aucune Umrah séparée et n'offre aucun sacrifice à ce titre. Il reste en ihram jusqu'aux rites du Jour de Nahr.",
+        excerpt: "Et aux gens incombe un pèlerinage à la Maison, pour quiconque en a les moyens…",
       },
       {
-        title: "Qiran",
-        body: "Le pèlerin combine la Umrah et le Hajj en un seul ihram, accomplissant les rites de la Umrah et restant en ihram jusqu'à ce que le Hajj soit terminé. Comme Tamattu', cela nécessite un sacrifice (hady).",
+        excerpt:
+          "Et proclame aux gens le Hajj ; ils viendront à toi à pied et sur toute monture maigre…",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "L'Islam repose sur cinq piliers : témoigner qu'il n'y a de divinité qu'Allah et que Muhammad est le Messager d'Allah, accomplir la salah, donner la zakat, jeûner Ramadan et accomplir le Hajj à la Maison pour quiconque en a les moyens.",
       },
       {
-        title: "Tamattu'",
-        body: "Le pèlerin accomplit une Umrah complète pendant les mois du Hajj, quitte l'ihram, puis rentre dans l'ihram pour le Hajj le 8 Dhul-Hijjah. C'est ce que font la plupart des pèlerins ; cela nécessite un sacrifice, ou un jeûne de trois jours au Hajj et sept jours au retour si l'on ne peut pas se le permettre (Qur'an 2 : 196).",
+        excerpt:
+          "L'Islam repose sur cinq piliers… et le Hajj à la Maison pour quiconque en a les moyens.",
       },
     ],
   },
   {
-    day: "Avant de partir",
-    title: "Les Miqats et l'Ihram",
-    summary: "Où commence l’État sacré et ce qu’il interdit.",
-    steps: [
-      {
-        title: "Les cinq mawaqit",
-        body: "Le Prophète ﷺ a fixé cinq miqats — points limites qui ne doivent pas être franchis sans ihram : Dhul-Hulayfah (pour Madinah), Al-Juhfah (pour la Syrie/Égypte), Qarn al-Manazil (pour le Najd), Yalamlam (pour le Yémen) et Dhat 'Irq (pour l'Irak). Ceux qui sont déjà à l’intérieur entrent en ihram d’où ils se trouvent.",
-        location: "Miqat",
-      },
-      {
-        title: "Qu'est-ce que l'ihram",
-        body: "L'Ihram est l'état sacré dans lequel on entre par l'intention et la talbiyah. Les hommes portent deux draps blancs non cousus ; les femmes s'en tiennent à une tenue vestimentaire modeste et ordinaire. On y entre après le ghusl et, pour les hommes, en appliquant au préalable du parfum sur le corps (et non sur les vêtements).",
-        location: "Miqat",
-      },
-      {
-        title: "Interdictions de l'ihram",
-        body: "Pendant l'ihram, évitez : les vêtements cousus/ajustés et le fait de se couvrir la tête (pour les hommes), le parfum, la coupe des cheveux ou des ongles, la chasse au gibier, la contraction ou la célébration d'un mariage et toute intimité. Les briser peut nécessiter une expiation (fidyah), alors respectez-les soigneusement.",
-        location: "Miqat",
-      },
+    title: "L'aptitude (istita'ah)",
+    summary: "Santé, richesse licite et route sûre — sans cela, le Hajj n'est pas encore dû.",
+    body: [
+      "La condition du Coran 3:97 est l'aptitude (istita'ah). Les savants classiques la résument ainsi : santé physique pour le voyage, richesse licite suffisante pour le trajet et les besoins des personnes à charge pendant l'absence, et route sûre et ouverte.",
+      "Quiconque manque de ces moyens cette année n'est pas pécheur s'il retarde jusqu'à être apte. L'aptitude se juge au cas par cas — maladie, dette à rembourser ou voyage dangereux peuvent lever l'obligation immédiate. Consultez un savant qualifié si votre situation n'est pas claire.",
+    ],
+    quran: [{ excerpt: "…pour quiconque en a les moyens." }],
+    actions: [
+      "Réglez les dettes obligatoires et organisez l'entretien de vos personnes à charge avant de réserver.",
+      "Vérifiez les forfaits uniquement par les canaux officiels (voir les sujets de préparation).",
     ],
   },
   {
-    title: "Umrah",
-    summary: "Le petit pèlerinage peut être effectué à tout moment de l'année.",
-    steps: [
-      {
-        title: "Entrez l'ihram",
-        body: "Au moment ou avant le miqat, faites le ghusl, portez les vêtements d'ihram, formez l'intention de la Umrah et commencez la talbiyah. L’intention se fait dans le cœur, et l’état sacré commence à partir de ce moment.",
-        location: "Miqat",
-      },
-      {
-        title: "Récitez la talbiyah",
-        body: "Répétez souvent « Labbayk Allahumma Labbayk, Labbayka la Sharika laka Labbayk… » pendant votre voyage vers Makkah – une déclaration selon laquelle vous répondez seul à l'appel d'Allah – en continuant jusqu'à ce que vous commenciez le tawaf.",
-      },
-      {
-        title: "Tawaf de la Kaaba",
-        body: "Faites le tour de la Ka'bah sept fois dans le sens inverse des aiguilles d'une montre, en commençant et en terminant au coin de la pierre noire, où vous l'embrassez, la touchez ou simplement la montrez avec un takbir. Les hommes font du raml (un rythme rapide) dans les trois premiers circuits et de l'idtiba' (dénuder l'épaule droite). Entre le coin yéménite et la pierre noire, récitez : « Notre Seigneur, donne-nous le bien dans ce monde et le bien dans l'au-delà, et protège-nous du châtiment du Feu » (Qur'an 2 : 201).",
-        location: "Masjid al-Haram",
-      },
-      {
-        title: "Priez deux rakats",
-        body: "Après le tawaf, priez deux rakats derrière Maqam Ibrahim si possible (ou n'importe où dans la mosquée si il y a du monde), puis buvez librement de l'eau de Zamzam, car le Prophète ﷺ a dit que Zamzam est pour tout ce qu'on boit.",
-        location: "Masjid al-Haram",
-      },
-      {
-        title: "Sa'i entre Safa et Marwah",
-        body: "Marchez sept fois entre Safa et Marwah, en commençant à Safa, en souvenir de la recherche d'eau par Hajar pour son fils Isma'il. Allah dit : « En effet, as-Safa et al-Marwah font partie des symboles d'Allah » (Qur'an 2 : 158). A Safa, faites face à la Ka'bah et levez les mains en du'a et en takbir ; les hommes courent entre les balises vertes.",
-        location: "Masjid al-Haram",
-      },
-      {
-        title: "Halq ou taqsir",
-        body: "Les hommes se rasent la tête (halq, le plus récompensé) ou la coupent uniformément (taqsir) ; les femmes rassemblent leurs cheveux et coupent la longueur du bout d'un doigt. Avec cela, la Umrah est terminée et les restrictions de l'ihram sont levées.",
-      },
-    ],
-  },
-  {
-    day: "8 Dhul-Hijjah",
-    title: "Jour de Tarwiyah – Mina",
-    summary: "Le pèlerinage commence ; la journée se passe à Mina.",
-    steps: [
-      {
-        title: "Entrez l'ihram pour le Hajj",
-        body: "Faites l'intention de faire le Hajj et rentrez dans l'ihram (depuis votre résidence à Makkah pour le tamattu'), en renouvelant la talbiyah. Cela recommence l’état sacré, donc les interdictions de l’ihram s’appliquent à nouveau.",
-      },
-      {
-        title: "Voyagez à Mina",
-        body: "Allez à Mina et priez Dhuhr, Asr, Maghrib, Isha et le prochain Fajr, chacun raccourci à deux rakats à son propre moment, suivant la Sunna du Prophète ﷺ. Passez le jour et la nuit dans l'adoration, en attendant la position à Arafah.",
-        location: "Mina",
-      },
-    ],
-  },
-  {
-    day: "9 Dhul-Hijjah",
-    title: "Jour d'Arafa",
-    summary: "Le plus grand jour du Hajj – se tenir à Arafah.",
-    steps: [
-      {
-        title: "Stand à Arafah",
-        body: "Restez dans les limites d'Arafah après midi jusqu'au coucher du soleil dans la du'a, le dhikr et le repentir. Le Prophète ﷺ a dit : « Le Hajj est Arafah » (Tirmidhi 889, Abu Dawud 1949, hasan sahih) : quiconque ne parvient pas à ce statut a raté le Hajj. Faites face à la qiblah, levez la main et implorez Allah – c'est le plus grand jour pour la du'a.",
-        location: "Arafa",
-      },
-      {
-        title: "Combiner Dhuhr et Asr",
-        body: "Priez Dhuhr et Asr ensemble et raccourcis au moment de Dhuhr (jam' taqdim), puis consacrez le reste de la journée entièrement à la supplication plutôt qu'à une prière supplémentaire.",
-        location: "Arafa",
-      },
-      {
-        title: "Déménager à Muzdalifah",
-        body: "Après le coucher du soleil, voyagez calmement vers Muzdalifah, combinez Maghrib et Isha (Isha raccourci), reposez-vous la nuit et ramassez des cailloux pour la lapidation. Les faibles et les femmes peuvent partir pour Mina après minuit pour éviter la cohue.",
-        location: "Mouzdalifa",
-      },
-    ],
-  },
-  {
-    day: "10 Dhul-Hijjah",
-    title: "Jour de Nahr – Aïd al-Adha",
-    summary: "Lapidation, sacrifice et tawaf principal.",
-    steps: [
-      {
-        title: "Pierre Jamrat al-Aqaba",
-        body: "Retournez vers Mina et lancez sept cailloux sur le grand pilier (Jamrat al-Aqaba), en disant « Allahu akbar » à chaque lancer. Cela reconstitue le rejet de Shaytan par Ibrahim et constitue le premier rite de la journée.",
-        location: "Mina",
-      },
-      {
-        title: "Offrez le sacrifice",
-        body: "Abattez l'animal sacrificiel ou faites-le passer par une agence de confiance, comme l'exigent les pèlerins tamattu' et qiran (Qur'an 2 : 196). Sa viande est consommée et donnée aux pauvres.",
-      },
-      {
-        title: "Halq ou taqsir",
-        body: "Raser (halq) ou couper (taqsir) les cheveux ; les femmes coupent la longueur du bout d'un doigt. Après la lapidation et le rasage, la première libération (tahallul awwal) s'applique : toutes les restrictions de l'ihram sont levées, sauf l'intimité avec son conjoint.",
-      },
-      {
-        title: "Tawaf al-Ifadah",
-        body: "Allez à Makkah pour le Tawaf al-Ifadah – un pilier du Hajj – et le sa'i (pour tamattu'). Ceci complète la libération complète de l'ihram, et celui qui a évité l'obscénité et le péché « revient comme le jour où sa mère l'a enfanté » (Bukhari 1521, Muslim 1350).",
-        location: "Masjid al-Haram",
-      },
-    ],
-  },
-  {
-    day: "11-13 Dhul-Hijjah",
-    title: "Jours de Tashreeq — Mina",
-    summary: "Nuits à Mina et lapidation quotidienne des trois piliers.",
-    steps: [
-      {
-        title: "Passer la nuit à Mina",
-        body: "Passez les nuits du 11, du 12 (et du 13 si vous ne partez pas tôt) à Mina. Ce sont des jours de repas, de boisson et de souvenir d’Allah, consacrés à l’adoration et au takbir.",
-        location: "Mina",
-      },
-      {
-        title: "Lapider les trois Jamarat",
-        body: "Chaque après-midi après Dhuhr, lancez sept cailloux sur chacun des trois piliers dans l'ordre – le petit, puis le milieu, puis le grand – avec un takbir à chaque lancer. Celui qui se hâte peut partir après avoir été lapidé le 12 (Qur'an 2 : 203).",
-        location: "Mina",
-      },
-      {
-        title: "Adieu Tawaf",
-        body: "Avant de quitter Makkah, accomplissez le Tawaf al-Wada comme rite final, afin que le dernier acte du Hajj se déroule avec la Maison. Les femmes menstruées en sont exemptées.",
-        location: "Masjid al-Haram",
-      },
-    ],
-  },
-  {
-    day: "Achèvement et décisions",
-    title: "Piliers, obligations et récompense",
-    summary: "Ce qui valide le Hajj, ce qui est compensé et sa récompense.",
-    steps: [
-      {
-        title: "Les piliers (arkan)",
-        body: "Les piliers sont l'essence du Hajj : entrer dans l'ihram, se tenir à Arafah, Tawaf al-Ifadah et le sa'i (comme le soutient la majorité). Si un pilier est manqué, le Hajj n’est pas valide et ne peut être compensé par un sacrifice – il doit être répété.",
-      },
-      {
-        title: "Les obligations (wajibat)",
-        body: "Les obligations comprennent l'entrée en ihram depuis le miqat, le séjour à Muzdalifah, la lapidation du Jamarat, le passage des nuits de Tashreeq à Mina et le Tawaf d'adieu. L'omission d'une obligation n'invalide pas le Hajj mais est compensée par un barrage (un sacrifice). Les madhhabs diffèrent sur les listes exactes ; consulter un guide qualifié.",
-      },
-      {
-        title: "La récompense du Hajj mabrur",
-        body: "Un Hajj accepté (Hajj mabrur) – exempt de péché et sincèrement accompli – efface les péchés passés et sa récompense est le Paradis lui-même. Le Prophète ﷺ a dit : « Un Hajj accepté n'a d'autre récompense que le Paradis » (Bukhari 1773, Muslim 1349). Efforcez-vous d’avoir un excellent caractère et de la douceur partout.",
-      },
-      {
-        title: "Un guide pratique, pas une fatwa",
-        body: "Ceci est un aperçu pratique pour vous aider à suivre les rites dans l'ordre. Les madhhabs diffèrent respectueusement sur de nombreux détails, et la situation de chaque pèlerin est différente – consultez toujours un érudit qualifié ou votre guide officiel du Hajj pour connaître les décisions spécifiques et les cas inattendus.",
-      },
-    ],
-  },
-  {
-    day: "Avant de partir",
-    title: "Visa et inscription",
+    title: "Le voyage d'une femme pour le pèlerinage",
     summary:
-      "Comment les pèlerins s'inscrivent et obtiennent un visa de Hajj ou d'Umrah par les canaux officiels.",
-    steps: [
+      "La majorité exige un mahram ; certaines opinions tardives autorisent un groupe sûr et digne de confiance.",
+    body: [
+      "Ibn Abbas a rapporté que le Prophète ﷺ a dit qu'une femme ne doit voyager qu'avec un mahram, et qu'un homme ne doit entrer chez elle sans la présence d'un mahram (Sahih al-Bukhari 1862 ; Sahih Muslim 1341). De nombreux savants appliquent cela au voyage pour le Hajj et l'Umrah.",
+      "Certains savants tardifs — en pesant la sécurité, la nécessité et les moyens de transport contemporains — autorisent une femme à voyager pour le Hajj obligatoire au sein d'un groupe digne de confiance lorsqu'aucun mahram n'est disponible. Cela reste une question de fiqh contestée.",
+    ],
+    hadith: [
       {
-        title: "La plateforme Nusuk",
-        body: "Nusuk (nusuk.sa) est la plateforme officielle de l'Arabie saoudite pour le Hajj et l'Umrah — utilisée pour réserver des visas, l'hébergement, le transport et des forfaits touristiques enregistrés. N'utilisez que Nusuk ou des agences agréées par son intermédiaire ; les intermédiaires non officiels sont une source fréquente d'arnaques et de voyages annulés.",
+        excerpt:
+          "Une femme ne doit voyager qu'avec un mahram, et un homme ne doit entrer chez elle sans qu'un mahram soit avec elle.",
       },
       {
-        title: "Visas de Hajj et quotas nationaux",
-        body: "Chaque pays reçoit un quota annuel de Hajj, si bien que la plupart des pèlerins font leur demande via l'autorité nationale du Hajj de leur pays ou un agent local agréé plutôt qu'individuellement. Déposez votre demande dès le début de l'année où la saison du Hajj s'ouvre — les quotas et places de forfaits se remplissent des mois à l'avance.",
+        excerpt:
+          "Il n'est pas licite pour une femme qui croit en Allah et au Jour Dernier de voyager une journée et une nuit sans mahram.",
+      },
+    ],
+    madhhabNote:
+      "La majorité considère qu'une femme a besoin d'un mahram pour voyager en pèlerinage. Certains savants tardifs autorisent le voyage dans un groupe sûr de femmes pour le Hajj obligatoire. Suivez un savant en qui vous avez confiance et les règlements de votre autorité du Hajj.",
+    disclaimer: "Ceci est un aperçu général, pas une fatwa personnelle pour votre situation.",
+  },
+  {
+    title: "Les trois types de Hajj",
+    summary: "Ifrad, Qiran et Tamattu' — choisissez avant d'entrer en ihram.",
+    body: [
+      "Ifrad : entrer en ihram pour le Hajj seul, sans Umrah séparée dans cet ihram, et sans sacrifice requis pour avoir combiné les rites.",
+      "Qiran : combiner Umrah et Hajj dans un seul ihram, en restant en ihram jusqu'à la fin du Hajj. Un sacrifice (hady) est requis.",
+      "Tamattu' : accomplir une Umrah complète pendant les mois du Hajj, sortir de l'ihram, puis entrer à nouveau en ihram pour le Hajj le 8 Dhul-Hijjah. C'est ce que font la plupart des pèlerins aujourd'hui ; cela exige aussi un hady.",
+      "Allah dit à propos de ceux qui combinent les rites : « …Quiconque profite de l'Umrah pour [accomplir] le Hajj, ce qui peut être obtenu facilement en animaux sacrificiels… » et ceux qui ne peuvent pas se le permettre jeûnent trois jours pendant le Hajj et sept au retour (Coran 2:196).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Et accomplissez le Hajj et l'Umrah pour Allah… Quiconque profite de l'Umrah pour [accomplir] le Hajj, ce qui peut être obtenu facilement en animaux sacrificiels. Et quiconque n'en trouve pas — alors un jeûne de trois jours pendant le Hajj et de sept au retour…",
+      },
+    ],
+    actions: [
+      "Décidez de votre type avec le responsable de votre groupe avant le miqat.",
+      "Si vous faites le Tamattu', accomplissez l'Umrah entièrement avant de rentrer en ihram pour le Hajj.",
+    ],
+    appLinks: [{ label: "Checklist Umrah" }, { label: "Checklist Hajj" }],
+  },
+  {
+    title: "Les cinq mawaqit",
+    summary:
+      "Ne franchissez pas le miqat en direction de Makkah sans entrer en ihram pour le Hajj ou l'Umrah.",
+    body: [
+      "Ibn Abbas a rapporté que le Prophète ﷺ a fixé les miqats pour les gens : Dhul-Hulayfah pour Madinah, Al-Juhfah pour la Syrie, Qarn al-Manazil pour Najd, Yalamlam pour le Yémen ; et pour ceux d'Irak, Dhat 'Irq. Il a dit que ceux-ci sont pour eux et pour quiconque les atteint en voulant le Hajj ou l'Umrah ; et quiconque habite à l'intérieur entre en ihram d'où il part, y compris les habitants de Makkah depuis Makkah (Sahih al-Bukhari 1524 ; Sahih Muslim 1181).",
+      "Les aéroports et ports modernes ont des points d'ihram correspondants ou des procédures annoncées — suivez les consignes de votre transporteur et du ministère du Hajj et de l'Umrah afin de ne pas dépasser la limite sans ihram.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Le Messager d'Allah ﷺ a fixé Dhul-Hulayfah pour les habitants de Madinah, Al-Juhfah pour ceux de Syrie, Qarn al-Manazil pour ceux de Najd et Yalamlam pour ceux du Yémen… Ces miqats sont pour les habitants de ces lieux et pour ceux qui les atteignent en voulant le Hajj ou l'Umrah…",
       },
       {
-        title: "Visas d'Umrah",
-        body: "Contrairement au Hajj, l'Umrah n'a pas de quota et peut être accomplie à tout moment de l'année. La plupart des nationalités peuvent demander un visa d'Umrah directement via Nusuk ou une agence de voyage agréée, généralement en même temps que la réservation du vol et de l'hôtel.",
+        excerpt:
+          "Le Messager d'Allah ﷺ a désigné les miqats… Quiconque habite à l'intérieur de ces limites entre en ihram d'où il part…",
       },
     ],
   },
   {
-    day: "Avant de partir",
-    title: "Liste des bagages",
-    summary: "L'essentiel pratique à emporter avant votre départ.",
-    steps: [
+    title: "Entrer en ihram",
+    summary: "Ghusl, vêtements, intention et talbiyah marquent le début de l'état sacré.",
+    body: [
+      "L'ihram est l'état sacré que l'on entre par intention pour le Hajj ou l'Umrah. Le Prophète ﷺ a recommandé le ghusl avant l'ihram. Les hommes portent deux draps blancs non cousus ; les femmes gardent une tenue modeste ordinaire sans se voiler le visage ni porter des gants comme vêtements d'ihram (les détails du niqab et des gants sont discutés en fiqh).",
+      "Les hommes peuvent appliquer du parfum sur le corps avant l'ihram, pas sur les vêtements d'ihram après être entrés dans l'état (Sahih al-Bukhari 1539). Puis formez l'intention et commencez la talbiyah.",
+      "La talbiyah enseignée par le Prophète ﷺ est : « Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak » — à répéter jusqu'au début du tawaf pour l'Umrah, ou jusqu'à la lapidation de Jamrat al-Aqaba pour le Hajj selon la pratique bien connue (Sahih al-Bukhari 1549 ; Sahih Muslim 1184).",
+    ],
+    hadith: [
       {
-        title: "Vêtements d'ihram",
-        body: "Les hommes doivent emporter au moins deux jeux de vêtements d'ihram non cousus (un pagne et une étole) ainsi qu'une large ceinture d'ihram non en cuir pour l'argent et les documents. Les femmes doivent emporter des vêtements amples, modestes et sans ornements.",
+        excerpt:
+          "Aishah a dit : Je parfumais le Messager d'Allah ﷺ pour son ihram avant qu'il n'entre en ihram…",
       },
       {
-        title: "Chaussures et confort",
-        body: "Des sandales ouvertes faciles à enfiler et à retirer sont indispensables, car les chaussures couvrant les chevilles sont interdites en ihram pour les hommes. Emportez un sac à dos léger, une bouteille d'eau réutilisable et un petit tapis de prière pour les longues attentes.",
+        excerpt:
+          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
       },
+      { excerpt: "Le Prophète ﷺ élevait la voix avec la talbiyah : Labbayk Allahumma labbayk…" },
+    ],
+    actions: [
+      "Emportez au moins deux ensembles d'ihram pour les hommes ; gardez des produits sans parfum à portée de main.",
+      "Entraînez-vous à la talbiyah avant le voyage pour qu'elle coule naturellement sur la route.",
+    ],
+  },
+  {
+    title: "Interdictions de l'ihram",
+    summary: "Ce que le muhrim doit éviter jusqu'à sa sortie de l'état sacré.",
+    body: [
+      "En ihram, évitez : pour les hommes — vêtements cousus/ajustés et couvrir la tête ; parfum ; couper les cheveux ou les ongles ; chasser le gibier terrestre ; contracter ou conclure un mariage ; et l'intimité. Les femmes évitent le parfum et les autres interdictions communes tout en gardant une tenue modeste.",
+      "Enfreindre une interdiction peut exiger une expiation (fidyah) — généralement jeûne, nourrir les pauvres ou sacrifice — selon ce qui a été fait. Les madhhabs classent les détails différemment. Respectez scrupuleusement les interdictions et demandez à un guide qualifié si quelque chose arrive de façon inattendue.",
+    ],
+    madhhabNote:
+      "Les listes de violations et leurs expiations varient selon les écoles. Considérez ceci comme une liste d'avertissement pratique, puis confirmez les détails avec votre madhhab ou votre guide du Hajj.",
+    disclaimer:
+      "Cet aperçu général ne remplace pas l'orientation sur le terrain en cas de violation.",
+    actions: ["Gardez parfum, coupe-ongles et ciseaux hors de portée facile pendant l'ihram."],
+  },
+  {
+    title: "Umrah — ihram et talbiyah",
+    summary: "Entrez dans l'état sacré au miqat ou avant, puis répondez à l'appel d'Allah.",
+    body: [
+      "Au miqat ou avant, faites le ghusl si possible, portez les vêtements d'ihram, formez l'intention pour l'Umrah et commencez la talbiyah. L'état sacré commence avec cette intention.",
+      "Répétez la talbiyah souvent en chemin vers Makkah jusqu'au début du tawaf. C'est une déclaration que vous répondez seul à l'appel d'Allah.",
+    ],
+    actions: ["Utilisez la checklist Umrah pour marquer chaque rite au fur et à mesure."],
+    appLinks: [{ label: "Checklist Umrah" }],
+  },
+  {
+    title: "Tawaf de la Ka'bah",
+    summary:
+      "Sept tours dans le sens inverse des aiguilles d'une montre, en commençant à la Pierre Noire.",
+    body: [
+      "Faites le tour de la Ka'bah sept fois dans le sens inverse des aiguilles d'une montre, en commençant et finissant au coin de la Pierre Noire. Embrassez-la, touchez-la ou pointez-la en disant takbir si la foule est dense — en suivant la pratique du Prophète ﷺ sans nuire aux autres.",
+      "Les hommes font le raml (allure rapide) pendant les trois premiers tours et l'idtiba' (épaule droite découverte) lors de ce tawaf d'arrivée pour l'Umrah, selon la Sunnah bien connue.",
+      "Entre le coin yéménite et la Pierre Noire, il est recommandé de dire : « Notre Seigneur, accorde-nous le bien ici-bas et le bien dans l'au-delà, et préserve-nous du châtiment du Feu » (Coran 2:201).",
+    ],
+    quran: [
       {
-        title: "Articles de toilette non parfumés",
-        body: "Emportez du savon non parfumé, de la crème solaire et des lingettes — les produits parfumés sont interdits en ihram. Une trousse de premiers secours compacte, tout médicament personnel accompagné d'une ordonnance et des pansements pour ampoules valent le poids supplémentaire, étant donné la quantité de marche.",
-      },
-      {
-        title: "Documents et essentiels",
-        body: "Gardez votre passeport, l'impression du visa, le certificat de vaccination (la méningite est généralement exigée) et les contacts d'urgence dans une pochette fine portée sous les vêtements. Une batterie externe portable et une carte SIM locale ou eSIM facilitent grandement les déplacements dans les lieux bondés.",
+        excerpt:
+          "Notre Seigneur, accorde-nous le bien ici-bas et le bien dans l'au-delà, et préserve-nous du châtiment du Feu.",
       },
     ],
   },
   {
-    day: "Avant de partir",
-    title: "Répertoire des lieux saints",
-    summary: "Notes pratiques rapides sur les principaux lieux que vous visiterez.",
-    steps: [
+    title: "Deux rakahs et Zamzam",
+    summary: "Priez derrière Maqam Ibrahim si possible, puis buvez de l'eau de Zamzam.",
+    body: [
+      "Après le tawaf, priez deux rakahs derrière Maqam Ibrahim si l'espace le permet, ou ailleurs dans la mosquée si la foule est dense — conformément aux paroles d'Allah : « …Et prenez, [ô croyants], du lieu debout d'Ibrahim un lieu de prière… » (Coran 2:125).",
+      "Puis buvez de l'eau de Zamzam. La description du Hajj du Prophète ﷺ par Jabir inclut la consommation de Zamzam après le tawaf ; le Prophète ﷺ a dit que Zamzam sert à ce pour quoi on le boit (rapports authentiques compilés par des savants tardifs ; considérez l'intention et la dua comme recommandées).",
+    ],
+    quran: [{ excerpt: "…Et prenez, [ô croyants], du lieu debout d'Ibrahim un lieu de prière…" }],
+  },
+  {
+    title: "Sa'i entre Safa et Marwah",
+    summary: "Sept allers-retours en mémoire de la recherche d'eau par Hajar.",
+    body: [
+      "Allah dit : « As-Safa et al-Marwah font certes partie des symboles d'Allah. Quiconque accomplit le Hajj à la Maison ou l'Umrah n'encourt aucun reproche à les parcourir… » (Coran 2:158).",
+      "Marchez sept fois entre Safa et Marwah en commençant à Safa. À Safa, face à la Ka'bah, levez les mains en takbir et dua comme l'a fait le Prophète ﷺ. Les hommes trottent entre les marqueurs verts.",
+    ],
+    quran: [
       {
-        title: "Masjid al-Haram, La Mecque",
-        body: "La Grande Mosquée entourant la Ka'bah — le lieu du tawaf et du sa'i. Elle fonctionne 24 heures sur 24 ; attendez-vous à une foule très dense près de la Pierre Noire et pendant les cinq prières quotidiennes, en particulier durant les dix dernières nuits du Ramadan et les jours du Hajj.",
-        location: "La Mecque",
-      },
-      {
-        title: "Masjid an-Nabawi, Médine",
-        body: "La mosquée du Prophète ﷺ, qui abrite la Rawdah et son lieu de repos, ne fait pas partie du Hajj lui-même, mais presque tous les pèlerins visitent Médine avant ou après. L'accès à la Rawdah nécessite un créneau réservé via Nusuk ou l'application Rawdah.",
-        location: "Médine",
-      },
-      {
-        title: "Mina",
-        body: "Une ville de tentes à quelques kilomètres de La Mecque où les pèlerins passent les nuits du 8, 11, 12 (et 13) Dhul-Hijjah. Des camps de tentes climatisées et ignifugées sont attribués par l'opérateur touristique ; attendez-vous à des installations partagées basiques et à de longues marches jusqu'aux Jamarat.",
-        location: "Mina",
-      },
-      {
-        title: "Arafah",
-        body: "Une vaste plaine à environ 20 km de La Mecque, le lieu du rite le plus essentiel du Hajj — la station du 9 Dhul-Hijjah. Des structures d'ombre et des points d'eau sont fournis, mais la chaleur diurne est intense ; l'hydratation et la protection solaire sont essentielles.",
-        location: "Arafa",
-      },
-      {
-        title: "Muzdalifah",
-        body: "Une zone ouverte entre Arafah et Mina où les pèlerins passent la nuit du 9 au 10 Dhul-Hijjah à ciel ouvert et ramassent des cailloux pour la lapidation. Les installations sont volontairement minimales — emportez un tapis et habillez-vous pour l'air frais de la nuit.",
-        location: "Mouzdalifa",
+        excerpt:
+          "As-Safa et al-Marwah font certes partie des symboles d'Allah. Quiconque accomplit le Hajj à la Maison ou l'Umrah n'encourt aucun reproche à les parcourir…",
       },
     ],
   },
   {
-    day: "Avant de partir",
+    title: "Halq ou taqsir — achever l'Umrah",
+    summary:
+      "Les hommes rasent ou coupent ; les femmes coupent l'équivalent d'un bout de doigt — puis l'ihram se lève.",
+    body: [
+      "Les hommes rasent la tête (halq) — pour quoi le Prophète ﷺ a prié trois fois — ou coupent uniformément (taqsir). Les femmes rassemblent leurs cheveux et coupent environ la longueur d'un bout de doigt. Avec cela, l'Umrah est achevée et les restrictions de l'ihram sont levées.",
+      "Abdullah ibn Umar a rapporté que le Messager d'Allah ﷺ a dit : « Ô Allah, fais miséricorde à ceux qui se rasent la tête. » Ils dirent : « Et ceux qui coupent, ô Messager d'Allah ? » Il dit : « Ô Allah, fais miséricorde à ceux qui se rasent la tête. » Ils dirent : « Et ceux qui coupent, ô Messager d'Allah ? » Il dit une troisième fois : « Et ceux qui coupent » (Sahih al-Bukhari 1727 ; Sahih Muslim 1301).",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Ô Allah, fais miséricorde à ceux qui se rasent la tête… Et (la troisième fois) ceux qui coupent.",
+      },
+      {
+        excerpt:
+          "Ô Allah, pardonne à ceux qui se rasent la tête… puis il dit la troisième fois : et ceux qui coupent leurs cheveux.",
+      },
+    ],
+  },
+  {
+    title: "8 Dhul-Hijjah — jour de Tarwiyah",
+    summary: "Entrez en ihram pour le Hajj et passez la journée à Mina.",
+    body: [
+      "Pour les pèlerins en Tamattu' : formez l'intention pour le Hajj et entrez à nouveau en ihram depuis votre résidence à Makkah, en renouvelant la talbiyah. Les pèlerins en Ifrad et Qiran sont déjà en ihram.",
+      "Allez à Mina et priez Dhuhr, Asr, Maghrib, Isha et le Fajr suivant, chacune raccourcie à deux rakahs à son heure, suivant la pratique du Prophète ﷺ lors du Hajj d'adieu rapportée par Jabir (Sahih Muslim 1218). Passez la journée et la nuit dans l'adoration en attendant Arafah.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Long récit de Jabir sur le Hajj d'adieu du Prophète ﷺ — incluant le séjour à Mina et la séquence des rites.",
+      },
+    ],
+    actions: ["Ouvrez la checklist Hajj le matin du 8."],
+    appLinks: [{ label: "Checklist Hajj" }],
+  },
+  {
+    title: "9 Dhul-Hijjah — jour d'Arafah",
+    summary: "Restez à Arafah jusqu'au coucher du soleil ; puis partez pour Muzdalifah.",
+    body: [
+      "Restez dans les limites d'Arafah d'après-midi jusqu'au coucher du soleil en dua, zikr et repentir. Le Prophète ﷺ a dit : « Le Hajj, c'est Arafah » (Sunan Abi Dawud 1949). Face à la qiblah, levez les mains et implorez Allah — c'est l'un des plus grands moments pour la dua.",
+      "Priez Dhuhr et Asr ensemble et raccourcies à l'heure de Dhuhr (jam' taqdim), puis consacrez le reste de la journée à la dua plutôt qu'à la prière surérogatoire — suivant la pratique du Prophète ﷺ (Sahih Muslim 1218).",
+      "Après le coucher du soleil, partez calmement pour Muzdalifah. Combinez Maghrib et Isha (Isha raccourcie), reposez-vous la nuit et ramassez des cailloux pour la lapidation. Les faibles et les femmes peuvent quitter pour Mina après minuit selon des permissions bien connues dans la Sunnah.",
+    ],
+    hadith: [
+      { excerpt: "Le Hajj, c'est Arafah." },
+      {
+        excerpt:
+          "Le Prophète ﷺ a combiné Dhuhr et Asr à Arafah, puis est parti après le coucher du soleil vers Muzdalifah…",
+      },
+    ],
+  },
+  {
+    title: "10 Dhul-Hijjah — jour de Nahr",
+    summary: "Lapidation, sacrifice, cheveux et Tawaf al-Ifadah.",
+    body: [
+      "Retournez vers Mina et lancez sept cailloux à Jamrat al-Aqaba (le grand pilier) en disant Allahu akbar à chaque lancer — premier rite du jour dans la séquence du Hajj d'adieu.",
+      "Offrez le sacrifice requis pour le Tamattu' et le Qiran (Coran 2:196), ou organisez-le par une agence de confiance. La viande est consommée et donnée aux pauvres.",
+      "Rasez (halq) ou coupez (taqsir) ; les femmes coupent l'équivalent d'un bout de doigt. Après la lapidation et le rasage/coupe, la première libération (tahallul awwal) s'applique — la plupart des interdictions de l'ihram sont levées sauf l'intimité.",
+      "Allez à Makkah pour le Tawaf al-Ifadah — pilier du Hajj — et le sa'i pour les pèlerins en Tamattu' (Ifrad/Qiran qui ont déjà fait le sa'i avec leur tawaf d'arrivée suivent la règle de leur école). Cela achève la libération complète de l'ihram.",
+    ],
+    quran: [
+      {
+        excerpt:
+          "…Quiconque profite de l'Umrah pour [accomplir] le Hajj, ce qui peut être obtenu facilement en animaux sacrificiels…",
+      },
+    ],
+    madhhabNote:
+      "L'ordre des rites du jour de Nahr a de la souplesse dans la Sunnah ; les écoles diffèrent sur la séquence exacte et sur quand le sa'i est requis pour chaque type de Hajj. Suivez le guide de votre groupe.",
+  },
+  {
+    title: "11–13 Dhul-Hijjah — jours de Tashreeq",
+    summary: "Nuits à Mina, lapidation quotidienne des trois Jamarat, puis tawaf d'adieu.",
+    body: [
+      "Passez les nuits du 11, du 12 (et du 13 si vous ne partez pas tôt) à Mina. Ce sont des jours de manger, boire et rappel d'Allah.",
+      "Chaque après-midi après Dhuhr, lancez sept cailloux à chacun des trois piliers dans l'ordre — le petit, puis le moyen, puis le grand — en disant takbir à chaque lancer. Quiconque se hâte peut partir après la lapidation du 12 (Coran 2:203).",
+      "Avant de quitter Makkah, accomplissez le Tawaf al-Wada' afin que le dernier acte avec la Maison soit l'adieu. Ibn Abbas a rapporté que les gens furent commandés que leur dernier rite soit à la Maison, sauf qu'il fut allégé pour la femme menstruée (Sahih al-Bukhari 1755 ; Sahih Muslim 1328).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Et invoquez Allah durant des jours dénombrés. Puis quiconque se hâte en deux jours — il n'y a pas de péché pour lui ; et quiconque retarde — il n'y a pas de péché pour lui — pour celui qui craint Allah…",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Les gens furent ordonnés d'accomplir le tawaf d'adieu de la Ka'bah comme dernier rite, sauf les femmes menstruées qui furent dispensées.",
+      },
+      {
+        excerpt:
+          "Les gens furent commandés que leur dernier rite soit à la Maison, mais cela fut allégé pour la femme en menstrues.",
+      },
+    ],
+  },
+  {
+    title: "Piliers et obligations",
+    summary: "Ce qui invalide le Hajj s'il est manqué, et ce qui se rattrape par un sacrifice.",
+    body: [
+      "Les piliers (arkan) sont l'essence du Hajj. Si un pilier est manqué, le Hajj est invalide et ne peut être réparé par un sacrifice seul — il doit être rattrapé. La majorité liste généralement : l'ihram (intention), le stationnement à Arafah, le Tawaf al-Ifadah et le sa'i.",
+      "Les obligations (wajibat) incluent entrer en ihram au miqat, séjourner à Muzdalifah, lapider les Jamarat, passer les nuits de Tashreeq à Mina et le Tawaf d'adieu. Omettre une obligation n'invalide pas le Hajj mais se compense par un dam (sacrifice) selon les écoles.",
+    ],
+    madhhabNote:
+      "Les listes exactes d'arkan et wajibat diffèrent entre les quatre madhhabs. Confirmez avec un guide qualifié pour votre école — surtout si quelque chose est manqué sous la pression de la foule.",
+    disclaimer: "Ceci est un résumé pratique, pas une fatwa sur les rites manqués.",
+  },
+  {
+    title: "Étiquette et sincérité",
+    summary: "Gardez la langue et les membres — l'acceptation dépend du caractère.",
+    body: [
+      "Le hadith du retour sans péché (Bukhari 1521 ; Muslim 1350) montre clairement que le Hajj est gâté par la turpitude (rafath), le péché (fusuq) et la dispute. Patience, douceur et aide aux autres pèlerins font partie de l'adoration.",
+      "Ne laissez pas téléphones et bavardages inutiles dominer Arafah et la mosquée. Cédez le passage au tawaf ; ne poussez pas vers la Pierre Noire. Un Hajj accepté est le compagnon du Paradis — efforcez-vous d'excellent caractère tout au long du voyage.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Celui qui accomplit le Hajj pour Allah, sans rapports sexuels ni péché, revient comme le jour où sa mère l'a mis au monde.",
+      },
+    ],
+    actions: [
+      "Fixez une intention quotidienne : un acte de bonté et une dua sincère au-dessus de la foule.",
+    ],
+  },
+  {
+    title: "Visa et inscription",
+    summary: "Utilisez les canaux officiels — Nusuk et votre autorité nationale du Hajj.",
+    body: [
+      "Nusuk (nusuk.sa) est la plateforme officielle saoudienne pour le Hajj et l'Umrah — visas, hébergement, transport et forfaits enregistrés. Les intermédiaires non officiels sont une source fréquente d'escroqueries.",
+      "Chaque pays reçoit un quota annuel de Hajj ; la plupart des pèlerins postulent via leur autorité nationale du Hajj ou un agent agréé. L'Umrah n'a pas de quota et peut être organisée une grande partie de l'année par des canaux approuvés.",
+    ],
+    actions: [
+      "Postulez tôt à l'ouverture de la saison.",
+      "Réservez uniquement via des agences listées sur Nusuk ou votre autorité nationale.",
+      "Vérifiez les canaux de paiement avant de transférer de l'argent.",
+    ],
+    disclaimer:
+      "Les règles d'entrée et les plateformes évoluent ; vérifiez toujours les sites officiels.",
+  },
+  {
+    title: "Que mettre dans la valise",
+    summary: "Ihram, produits sans parfum, documents et confort pour marcher.",
+    body: [
+      "Hommes : au moins deux ensembles de vêtements d'ihram non cousus et une ceinture pour les documents. Femmes : vêtements amples et modestes. Sandales ouvertes faciles à enfiler ; petit sac à dos et bouteille d'eau.",
+      "Emportez savon et crème solaire sans parfum — le parfum est interdit en ihram. Gardez passeport, impression du visa, carnet de vaccination et contacts d'urgence dans une pochette fine. Une batterie externe et une SIM locale ou eSIM aident dans la foule.",
+    ],
+    actions: [
+      "Checklist : ihram ×2, sandales, produits sans parfum, pochette documents, médicaments, batterie externe.",
+      "Emportez des pansements pour ampoules — les pèlerins marchent beaucoup.",
+    ],
+  },
+  {
+    title: "Les lieux saints en bref",
+    summary: "Makkah, Madinah, Mina, Arafah et Muzdalifah — notes pratiques.",
+    body: [
+      "Masjid al-Haram entoure la Ka'bah — lieu du tawaf et du sa'i ; attendez-vous à de très grandes foules. Masjid an-Nabawi à Madinah ne fait pas partie du Hajj lui-même, mais la plupart des pèlerins le visitent ; l'entrée à la Rawdah est horodatée via des applications officielles.",
+      "Mina est la ville de tentes pour les nuits du 8 et du 11 au 13 Dhul-Hijjah. Arafah est une plaine ouverte — hydratation et ombre comptent le 9. Muzdalifah est où les pèlerins reposent sous le ciel ouvert et ramassent des cailloux — les installations y sont volontairement minimales.",
+    ],
+    actions: ["Étudiez une carte simple de Mina–Arafah–Muzdalifah avant le voyage."],
+  },
+  {
     title: "Ressources officielles",
-    summary: "Où trouver des informations officielles fiables et à jour.",
-    steps: [
-      {
-        title: "Nusuk (nusuk.sa)",
-        body: "Le portail et l'application officiels du ministère saoudien du Hajj et de l'Umrah pour les visas, les forfaits accrédités, les permis de visite de la Rawdah et les indications en temps réel sur la foule et les transports — le premier point de contact pour toute question officielle.",
-      },
-      {
-        title: "L'autorité du Hajj de votre pays",
-        body: "La plupart des pays disposent d'une autorité nationale du Hajj ou d'un service ministériel qui gère le quota annuel, contrôle les agents locaux et publie les calendriers de départ et les exigences sanitaires — vérifiez-le avant de réserver via tout agent privé.",
-      },
-      {
-        title: "Visit Saudi (visitsaudi.com)",
-        body: "Le site touristique officiel du Royaume présente les conditions d'entrée, les informations sur le visa électronique pour les nationalités éligibles et des conseils de voyage pratiques pour La Mecque, Médine et les déplacements ultérieurs en Arabie saoudite.",
-      },
-      {
-        title: "Vérifiez avant de payer",
-        body: "Ne réservez que via des agences répertoriées sur Nusuk ou l'autorité nationale du Hajj de votre pays. Si une offre semble anormalement bon marché ou qu'un intermédiaire demande un paiement en dehors des canaux officiels, considérez-le comme un signal d'alerte et vérifiez directement auprès du portail ministériel.",
-      },
+    summary: "Nusuk, votre autorité nationale et Visit Saudi.",
+    body: [
+      "Commencez par Nusuk pour visas, forfaits, permis Rawdah et conseils sur la foule. Utilisez le ministère du Hajj de votre pays pour quota et règles sanitaires. Visit Saudi publie des avis généraux d'entrée et de voyage.",
+      "Si une offre semble anormalement bon marché ou qu'un intermédiaire demande un paiement hors canaux officiels, vérifiez directement sur le portail du ministère avant de payer.",
     ],
+    actions: [
+      "Ajoutez nusuk.sa et le site de votre autorité nationale du Hajj à vos favoris.",
+      "Enregistrez les contacts d'urgence de votre responsable de groupe.",
+    ],
+    disclaimer: "Guide pratique, pas un substitut à votre prestataire officiel Hajj/Umrah.",
+  },
+];
+
+export const HAJJ_CHECKLIST_FR: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Entrer en ihram pour le Hajj",
+    hint: "Formez l'intention du Hajj et entrez en ihram (depuis Makkah pour le tamattu') ; renouvelez la talbiyah.",
+    day: "8 Dhul-Hijjah",
+  },
+  {
+    title: "Se rendre à Mina",
+    hint: "Priez Dhuhr jusqu'à Fajr à Mina, chacune raccourcie à son heure.",
+    location: "Mina",
+    day: "8 Dhul-Hijjah",
+  },
+  {
+    title: "Stationner à Arafah",
+    hint: "Restez à Arafah d'après-midi jusqu'au coucher du soleil en dua et zikr.",
+    location: "Arafah",
+    day: "9 Dhul-Hijjah",
+  },
+  {
+    title: "Combiner Dhuhr et Asr",
+    hint: "Priez Dhuhr et Asr ensemble et raccourcies à l'heure de Dhuhr, puis concentrez-vous sur la dua.",
+    location: "Arafah",
+    day: "9 Dhul-Hijjah",
+  },
+  {
+    title: "Partir pour Muzdalifah",
+    hint: "Après le coucher du soleil, combinez Maghrib et Isha, reposez-vous et ramassez des cailloux.",
+    location: "Muzdalifah",
+    day: "9 Dhul-Hijjah",
+  },
+  {
+    title: "Lapider Jamrat al-Aqaba",
+    hint: "Lancez sept cailloux au grand pilier en disant takbir à chaque lancer.",
+    location: "Mina",
+    day: "10 Dhul-Hijjah",
+  },
+  {
+    title: "Offrir le sacrifice",
+    hint: "Requis pour tamattu' et qiran — abattez ou organisez via une agence de confiance.",
+    day: "10 Dhul-Hijjah",
+  },
+  {
+    title: "Halq ou taqsir",
+    hint: "Les hommes rasent ou coupent ; les femmes coupent l'équivalent d'un bout de doigt (première libération).",
+    day: "10 Dhul-Hijjah",
+  },
+  {
+    title: "Tawaf al-Ifadah",
+    hint: "Accomplissez le Tawaf al-Ifadah et le sa'i pour le tamattu' — pilier du Hajj.",
+    location: "Masjid al-Haram",
+    day: "10 Dhul-Hijjah",
+  },
+  {
+    title: "Passer la nuit à Mina",
+    hint: "Passez les nuits du 11, du 12 (et du 13 si vous ne partez pas tôt) à Mina.",
+    location: "Mina",
+    day: "11–13 Dhul-Hijjah",
+  },
+  {
+    title: "Lapider les trois Jamarat",
+    hint: "Après Dhuhr chaque jour, lapidez petit, moyen puis grand — sept chacun.",
+    location: "Mina",
+    day: "11–13 Dhul-Hijjah",
+  },
+  {
+    title: "Tawaf d'adieu",
+    hint: "Accomplissez le Tawaf al-Wada' avant de quitter Makkah (femmes menstruées dispensées).",
+    location: "Masjid al-Haram",
+    day: "Départ",
+  },
+];
+
+export const UMRAH_CHECKLIST_FR: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Entrer en ihram",
+    hint: "Au miqat ou avant : ghusl, vêtements d'ihram, intention pour l'Umrah, talbiyah.",
+    location: "Miqat",
+  },
+  { title: "Réciter la talbiyah", hint: "Répétez Labbayk… souvent jusqu'au début du tawaf." },
+  {
+    title: "Tawaf de la Ka'bah",
+    hint: "Sept tours dans le sens inverse des aiguilles d'une montre depuis la Pierre Noire ; hommes : raml et idtiba'.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Prier deux rakahs",
+    hint: "Derrière Maqam Ibrahim si possible, puis boire de Zamzam.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Sa'i entre Safa et Marwah",
+    hint: "Sept allers-retours en commençant à Safa ; les hommes trottent entre les marqueurs verts.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Halq ou taqsir",
+    hint: "Les hommes rasent ou coupent ; les femmes coupent l'équivalent d'un bout de doigt — Umrah achevée.",
   },
 ];

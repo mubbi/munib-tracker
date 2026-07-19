@@ -187,7 +187,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     toDay: 9,
     priority: 90,
     route: "/hajj",
-    focusKey: "hajj-arafah",
+    focusKey: "hajj-arafah-day",
     visual: {
       gradientTop: "#2A1808",
       gradientMid: "#4A3010",

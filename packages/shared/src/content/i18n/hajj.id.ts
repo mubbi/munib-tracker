@@ -1,308 +1,566 @@
-import type { HajjGuideSection } from "../../types/hajj-guide";
+import type { PilgrimageChecklistItem } from "../../types/hajj-guide";
+import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
-// Indonesian translation overlay for the Learn Hajj & Umrah guide. Mirrors the order
-// of HAJJ_GUIDE_SECTIONS in ../hajj-guide.ts (index-aligned); untranslated entries
-// fall back to English. Only human-readable text is translated — ids and the
-// section `kind` stay in the English source.
-export const HAJJ_GUIDE_SECTIONS_ID: DeepPartial<HajjGuideSection>[] = [
+// ID overlay for Hajj & Umrah Learn topics + rite checklists.
+// Index-aligned with English sources; untranslated entries fall back to English.
+// Only human-readable text is translated — ids, routes, citations stay English.
+
+export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
   {
-    day: "Sebelum berangkat",
-    title: "Kewajiban dan syarat",
-    summary: "Mengapa Haji diwajibkan, dan atas siapa ia menjadi wajib.",
-    steps: [
+    title: "Ganjaran Haji yang diterima (mabrur)",
+    summary: "Haji mabrur menghapus dosa dan ganjaran hujungnya Surga.",
+    body: [
+      "Abu Hurairah meriwayatkan bahwa Rasulullah ﷺ bersabda: 'Barangsiapa menunaikan haji karena Allah dan tidak bercampur dengan isteri serta tidak berbuat dosa, maka ia kembali seperti pada hari ibunya melahirkannya' (Shahih al-Bukhari 1521; Shahih Muslim 1350).",
+      "Beliau juga bersabda: 'Haji mabrur tidak ada balasannya kecuali Surga' (Shahih al-Bukhari 1773; Shahih Muslim 1349). Penerimaan haji terkait dengan keikhlasan dan menjaga ibadah haji dari kekejian dan perbuatan dosa — bukan sekadar menyelesaikan langkah lahiriah.",
+    ],
+    hadith: [
       {
-        title: "Rukun kelima",
-        body: 'Haji adalah rukun Islam yang kelima, wajib sekali seumur hidup bagi setiap muslim yang mampu. Allah berfirman: "Dan (di antara) kewajiban manusia terhadap Allah adalah melaksanakan ibadah haji ke Baitullah, yaitu bagi orang yang mampu mengadakan perjalanan ke sana" (Al-Qur\\\'an 3:97). Perintah ini diserukan kepada seluruh manusia: "Dan serulah manusia untuk mengerjakan haji, niscaya mereka akan datang kepadamu dengan berjalan kaki atau mengendarai setiap unta kurus" (Al-Qur\\\'an 22:27).',
+        excerpt:
+          "Barangsiapa menunaikan haji karena Allah dan tidak bercampur dengan isteri serta tidak berbuat dosa, maka ia kembali seperti pada hari ibunya melahirkannya.",
       },
       {
-        title: "Kemampuan (istita'ah)",
-        body: "Haji hanya wajib bagi mereka yang mampu: sehat secara fisik untuk melakukan perjalanan, memiliki harta halal yang cukup untuk biaya perjalanan dan nafkah keluarga yang ditinggalkan, serta jalur yang aman dan terbuka. Siapa yang belum memiliki kemampuan tahun ini tidak berdosa jika menundanya hingga mampu.",
+        excerpt:
+          "Barangsiapa menunaikan haji karena Allah dan tidak bercampur dengan isteri serta tidak berbuat dosa, maka ia kembali seperti pada hari ibunya melahirkannya.",
       },
       {
-        title: "Perjalanan seorang wanita",
-        body: "Mayoritas ulama berpendapat bahwa seorang wanita bepergian untuk Haji bersama mahram (suami atau kerabat dekat yang tidak boleh dinikahi); sebagian ulama belakangan membolehkan bepergian dalam rombongan wanita yang aman dan terpercaya. Ikutilah fatwa ulama tepercaya yang Anda yakini serta ketentuan lembaga penyelenggara Haji Anda.",
+        excerpt: "Haji mabrur tidak ada balasannya kecuali Surga.",
+      },
+      {
+        excerpt: "Haji mabrur tidak ada balasannya kecuali Surga.",
+      },
+    ],
+    actions: [
+      "Niatkan haji semata-mata karena Allah — jagalah lidah dan akhlak sepanjang perjalanan.",
+      "Gunakan daftar periksa Haji dalam aplikasi hanya sebagai pengingat; jaga hati tetap fokus pada penerimaan.",
+    ],
+    appLinks: [
+      {
+        label: "Daftar periksa manasik Haji",
       },
     ],
   },
   {
-    day: "Sebelum berangkat",
-    title: "Tiga jenis Haji",
-    summary: "Ifrad, Qiran, dan Tamattu' — pilih sebelum memasuki ihram.",
-    steps: [
+    title: "Keutamaan Umrah",
+    summary: "Umrah ke Umrah menghapus dosa di antara keduanya.",
+    body: [
+      "Abu Hurairah meriwayatkan bahwa Nabi ﷺ bersabda: 'Umrah ke Umrah menjadi penghapus dosa di antara keduanya, dan haji mabrur tidak ada balasannya kecuali Surga' (Shahih al-Bukhari 1773; Shahih Muslim 1349).",
+      "Umrah dapat dilaksanakan kapan saja sepanjang tahun. Lebih singkat daripada Haji namun tetap ibadah besar: ihram, tawaf, sa'i, dan mencukur atau memotong rambut.",
+    ],
+    hadith: [
       {
-        title: "Ifrad",
-        body: "Jamaah berihram hanya untuk Haji, tidak melaksanakan Umrah secara terpisah, dan tidak wajib menyembelih hewan kurban karenanya. Ia tetap dalam ihram hingga tiba manasik Hari Nahr.",
+        excerpt:
+          "Umrah ke Umrah menjadi penghapus dosa di antara keduanya, dan haji mabrur tidak ada balasannya kecuali Surga.",
       },
       {
-        title: "Qiran",
-        body: "Jamaah menggabungkan Umrah dan Haji dalam satu ihram, melaksanakan manasik Umrah, dan tetap berihram hingga Haji selesai. Sama seperti Tamattu', jenis ini mewajibkan penyembelihan hewan (hadyu).",
+        excerpt:
+          "Umrah ke Umrah menjadi penghapus dosa di antara keduanya, dan haji mabrur tidak ada balasannya kecuali Surga.",
       },
+    ],
+    actions: ["Buka daftar periksa Umrah saat Anda siap menjalani manasik secara berurutan."],
+    appLinks: [
       {
-        title: "Tamattu'",
-        body: "Jamaah melaksanakan Umrah secara lengkap pada bulan-bulan Haji, keluar dari ihram, lalu berihram kembali untuk Haji pada 8 Dzulhijjah. Inilah yang dilakukan oleh sebagian besar jamaah; jenis ini mewajibkan penyembelihan hewan, atau berpuasa tiga hari selama Haji dan tujuh hari setelah pulang bagi yang tidak mampu (Al-Qur'an 2:196).",
+        label: "Daftar periksa manasik Umrah",
       },
     ],
   },
   {
-    day: "Sebelum berangkat",
-    title: "Miqat dan Ihram",
-    summary: "Tempat dimulainya keadaan suci ihram, dan apa saja yang dilarang di dalamnya.",
-    steps: [
-      {
-        title: "Lima miqat",
-        body: "Nabi ﷺ menetapkan lima miqat — batas-batas yang tidak boleh dilewati tanpa berihram terlebih dahulu: Dzul Hulaifah (untuk penduduk Madinah), Al-Juhfah (untuk penduduk Syam/Mesir), Qarnul Manazil (untuk penduduk Najd), Yalamlam (untuk penduduk Yaman), dan Dzatu 'Irq (untuk penduduk Irak). Mereka yang sudah berada di dalam batas-batas ini berihram dari tempat mereka berada.",
-        location: "Miqat",
-      },
-      {
-        title: "Apa itu ihram",
-        body: "Ihram adalah keadaan suci yang dimasuki melalui niat dan talbiyah. Pria mengenakan dua lembar kain putih tanpa jahitan; wanita tetap mengenakan pakaian sopan seperti biasa. Ihram dimasuki setelah mandi (ghusl), dan bagi pria setelah memakai wangi-wangian pada tubuh (bukan pada pakaian) sebelum berihram.",
-        location: "Miqat",
-      },
-      {
-        title: "Larangan-larangan ihram",
-        body: "Selama berihram, hindari: pakaian berjahit/pas badan dan menutup kepala (bagi pria), wangi-wangian, memotong rambut atau kuku, berburu binatang, melangsungkan atau melamar pernikahan, dan segala bentuk hubungan suami istri. Melanggar hal-hal ini bisa mewajibkan tebusan (fidyah), jadi patuhilah dengan saksama.",
-        location: "Miqat",
-      },
-    ],
-  },
-  {
-    title: "Umrah",
-    summary: "Haji kecil — dapat dilaksanakan kapan saja sepanjang tahun.",
-    steps: [
-      {
-        title: "Memasuki ihram",
-        body: "Di miqat atau sebelumnya, mandilah (ghusl), kenakan pakaian ihram, niatkan Umrah, dan mulai bertalbiyah. Niat diucapkan dalam hati, dan keadaan suci ihram dimulai sejak saat itu.",
-        location: "Miqat",
-      },
-      {
-        title: "Membaca talbiyah",
-        body: 'Ucapkan berulang-ulang "Labbaik Allahumma labbaik, labbaika la syarika laka labbaik…" selama perjalanan menuju Makkah — sebagai pernyataan bahwa Anda hanya memenuhi panggilan Allah semata — dan lanjutkan hingga Anda memulai tawaf.',
-      },
-      {
-        title: "Tawaf mengelilingi Ka'bah",
-        body: "Kelilingi Ka'bah tujuh kali berlawanan arah jarum jam, dimulai dan diakhiri di sudut Hajar Aswad, di mana Anda menciumnya, menyentuhnya, atau cukup mengisyaratkannya sambil bertakbir. Pria melakukan raml (berjalan cepat) pada tiga putaran pertama dan idtiba' (membuka bahu kanan). Di antara Rukun Yamani dan Hajar Aswad, bacalah: \"Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka\" (Al-Qur'an 2:201).",
-        location: "Masjidil Haram",
-      },
-      {
-        title: "Shalat dua rakaat",
-        body: "Setelah tawaf, shalatlah dua rakaat di belakang Maqam Ibrahim jika memungkinkan (atau di mana saja di dalam masjid bila ramai), lalu minumlah air Zamzam sepuasnya, karena Nabi ﷺ bersabda bahwa air Zamzam sesuai dengan niat orang yang meminumnya.",
-        location: "Masjidil Haram",
-      },
-      {
-        title: "Sa'i antara Shafa & Marwah",
-        body: "Berjalanlah tujuh kali antara Shafa dan Marwah, dimulai dari Shafa, sebagai peringatan atas pencarian air oleh Hajar untuk putranya Isma'il. Allah berfirman: \"Sesungguhnya Shafa dan Marwah adalah sebagian dari syiar-syiar Allah\" (Al-Qur'an 2:158). Di Shafa, menghadaplah ke Ka'bah dan angkat kedua tangan untuk berdoa dan bertakbir; pria berlari-lari kecil di antara dua tanda hijau.",
-        location: "Masjidil Haram",
-      },
-      {
-        title: "Halq atau taqsir",
-        body: "Pria mencukur habis rambut kepala (halq, yang lebih besar pahalanya) atau memotongnya rata (taqsir); wanita mengumpulkan rambutnya dan memotong sepanjang ujung jari. Dengan ini Umrah selesai dan larangan-larangan ihram pun berakhir.",
-      },
-    ],
-  },
-  {
-    day: "8 Dzulhijjah",
-    title: "Hari Tarwiyah — Mina",
-    summary: "Ibadah Haji dimulai; hari ini dihabiskan di Mina.",
-    steps: [
-      {
-        title: "Berihram untuk Haji",
-        body: "Niatkan Haji dan berihram kembali (bagi jamaah tamattu' dari tempat tinggalnya di Makkah), lalu ucapkan kembali talbiyah. Ini mengawali kembali keadaan suci ihram, sehingga larangan-larangan ihram berlaku lagi.",
-      },
-      {
-        title: "Berangkat ke Mina",
-        body: "Pergilah ke Mina dan shalat Dzuhur, Ashar, Maghrib, Isya, serta Subuh keesokan harinya, masing-masing diqashar menjadi dua rakaat pada waktunya, mengikuti sunnah Nabi ﷺ. Habiskan siang dan malam dalam ibadah, menantikan wukuf di Arafah.",
-        location: "Mina",
-      },
-    ],
-  },
-  {
-    day: "9 Dzulhijjah",
     title: "Hari Arafah",
-    summary: "Hari teragung dalam Haji — wukuf di Arafah.",
-    steps: [
+    summary: "Wukuf di Arafah adalah inti Haji — dan hari yang agung untuk doa.",
+    body: [
+      "Abd ar-Rahman ibn Ya'mar meriwayatkan bahwa Nabi ﷺ bersabda: 'Haji adalah Arafah' (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Barangsiapa melewatkan wukuf dalam batas Arafah pada waktunya, telah melewatkan haji tahun itu.",
+      "Bagi yang tidak sedang berhaji, puasa pada Hari Arafah adalah amalan yang sangat dianjurkan: Abu Qatadah meriwayatkan bahwa puasa Arafah menghapus dosa setahun yang lalu dan setahun yang akan datang (Shahih Muslim 1162). Jemaah haji sendiri tidak berpuasa agar dapat mengisi hari itu dengan doa.",
+    ],
+    hadith: [
       {
-        title: "Wukuf di Arafah",
-        body: 'Tetaplah berada di dalam batas Arafah sejak tergelincirnya matahari hingga terbenam, dalam doa, zikir, dan taubat. Nabi ﷺ bersabda, "Haji adalah Arafah" (Tirmidzi 889, Abu Dawud 1949, hasan sahih): siapa yang tidak sempat wukuf ini maka Hajinya tidak sah. Menghadaplah ke kiblat, angkat kedua tangan, dan bermohonlah kepada Allah dengan sungguh-sungguh — inilah hari teragung untuk berdoa.',
-        location: "Arafah",
+        excerpt: "Haji adalah Arafah.",
       },
       {
-        title: "Menjamak Dzuhur & Ashar",
-        body: "Shalat Dzuhur dan Ashar dengan dijamak dan diqashar pada waktu Dzuhur (jamak taqdim), lalu curahkan sisa hari sepenuhnya untuk berdoa, bukan untuk shalat sunnah tambahan.",
-        location: "Arafah",
+        excerpt: "Haji adalah Arafah.",
       },
       {
-        title: "Berpindah ke Muzdalifah",
-        body: "Setelah matahari terbenam, berjalanlah dengan tenang menuju Muzdalifah, jamak shalat Maghrib dan Isya (Isya diqashar), bermalamlah di sana, dan kumpulkan kerikil untuk melempar jumrah. Orang lemah dan wanita boleh berangkat ke Mina setelah tengah malam untuk menghindari kepadatan.",
-        location: "Muzdalifah",
+        excerpt:
+          "Puasa pada Hari Arafah, aku berharap dari Allah, menghapus dosa setahun sebelumnya dan setahun sesudahnya.",
       },
     ],
   },
   {
-    day: "10 Dzulhijjah",
-    title: "Hari Nahr — Idul Adha",
-    summary: "Melempar jumrah, menyembelih kurban, dan tawaf utama.",
-    steps: [
+    title: "Haji — rukun kelima",
+    summary: "Wajib sekali seumur hidup bagi setiap Muslim yang mampu.",
+    body: [
+      'Allah berfirman: "Dan (kewajiban) manusia terhadap Allah adalah mengerjakan haji ke Baitullah — bagi orang yang mampu mengadakan perjalanan ke sana. Barangsiapa kafir, maka sesungguhnya Allah Maha Kaya (dari segala sesuatu) dari seluruh alam" (Al-Qur\'an 3:97).',
+      'Seruan itu disampaikan kepada seluruh manusia: "Dan serulah manusia untuk mengerjakan haji, niscaya mereka akan datang kepadamu dengan berjalan kaki dan mengendarai unta yang kurus; mereka datang dari segenap penjuru yang jauh" (Al-Qur\'an 22:27).',
+      "Ibn Umar meriwayatkan bahwa Nabi ﷺ bersabda Islam dibangun atas lima hal: syahadat, salat, zakat, puasa Ramadan, dan haji ke Baitullah bagi yang mampu (Shahih al-Bukhari 8; Shahih Muslim 16). Ulama sepakat haji wajib sekali seumur hidup apabila syarat terpenuhi; mengulanginya adalah keutamaan sunnah.",
+    ],
+    quran: [
       {
-        title: "Melempar Jumrah Aqabah",
-        body: 'Kembalilah menuju Mina dan lemparkan tujuh kerikil ke tiang besar (Jumrah Aqabah), mengucapkan "Allahu akbar" pada setiap lemparan. Ini mengenang penolakan Ibrahim terhadap Setan dan merupakan manasik pertama pada hari ini.',
-        location: "Mina",
+        excerpt:
+          "Dan (kewajiban) manusia terhadap Allah adalah mengerjakan haji ke Baitullah — bagi orang yang mampu mengadakan perjalanan ke sana...",
       },
       {
-        title: "Menyembelih kurban",
-        body: "Sembelihlah hewan kurban sendiri, atau percayakan kepada lembaga tepercaya, sebagaimana diwajibkan bagi jamaah tamattu' dan qiran (Al-Qur'an 2:196). Dagingnya dimakan dan sebagian dibagikan kepada orang miskin.",
+        excerpt:
+          "Dan serulah manusia untuk mengerjakan haji, niscaya mereka akan datang kepadamu dengan berjalan kaki dan mengendarai unta yang kurus...",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Islam dibangun atas lima: syahadat bahwa tidak ada ilah selain Allah dan Muhammad adalah utusan Allah, mendirikan salat, menunaikan zakat, puasa Ramadan, dan haji ke Baitullah bagi yang mampu.",
       },
       {
-        title: "Halq atau taqsir",
-        body: "Cukurlah habis (halq) atau potong rata (taqsir) rambut; wanita memotong sepanjang ujung jari. Setelah melempar jumrah dan mencukur rambut, berlaku tahalul pertama (tahalul awal) — seluruh larangan ihram berakhir kecuali hubungan suami istri.",
-      },
-      {
-        title: "Tawaf Ifadah",
-        body: "Pergilah ke Makkah untuk melaksanakan Tawaf Ifadah — salah satu rukun Haji — dan sa'i (bagi jamaah tamattu'). Dengan ini seseorang benar-benar bebas dari ihram, dan siapa yang menjauhi kekejian dan dosa \"kembali seperti hari ketika ibunya melahirkannya\" (Bukhari 1521, Muslim 1350).",
-        location: "Masjidil Haram",
+        excerpt:
+          "Islam dibangun atas lima... dan haji ke Baitullah bagi yang mampu mengadakan perjalanan ke sana.",
       },
     ],
   },
   {
-    day: "11–13 Dzulhijjah",
-    title: "Hari-hari Tasyrik — Mina",
-    summary: "Bermalam di Mina dan melempar tiga jumrah setiap hari.",
-    steps: [
+    title: "Kemampuan (istita'ah)",
+    summary: "Kesehatan, harta halal, dan jalur aman — tanpa ini, Haji belum wajib.",
+    body: [
+      "Syarat dalam Al-Qur'an 3:97 adalah kemampuan (istita'ah). Ulama klasik merangkumnya sebagai: kesehatan jasmani untuk perjalanan, harta halal yang cukup menutup perjalanan dan kebutuhan tanggungan selama pergi, serta jalur yang aman dan terbuka.",
+      "Barangsiapa tidak memiliki sarana ini tahun ini tidak berdosa menunda hingga mampu. Kemampuan dinilai case by case — sakit, utang wajib dibayar, atau perjalanan tidak aman dapat mengangkat kewajiban langsung. Tanyakan ulama yang berkompeten jika situasi Anda tidak jelas.",
+    ],
+    quran: [
       {
-        title: "Bermalam di Mina",
-        body: "Bermalamlah pada malam ke-11, ke-12 (dan ke-13 bagi yang tidak menyegerakan kepulangan) di Mina. Hari-hari ini adalah hari makan, minum, dan mengingat Allah, dihabiskan dalam ibadah dan takbir.",
-        location: "Mina",
+        excerpt: "...bagi orang yang mampu mengadakan perjalanan ke sana.",
+      },
+    ],
+    actions: [
+      "Lunasi utang wajib dan atur nafkah tanggungan sebelum memesan.",
+      "Verifikasi paket hanya melalui saluran resmi (lihat topik Persiapan).",
+    ],
+  },
+  {
+    title: "Perjalanan wanita untuk ibadah haji",
+    summary:
+      "Mayoritas mensyaratkan mahram; beberapa pandangan mutakhir mengizinkan rombongan aman yang terpercaya.",
+    body: [
+      "Ibn Abbas meriwayatkan bahwa Nabi ﷺ bersabda wanita tidak boleh bepergian kecuali bersama mahram, dan laki-laki tidak boleh masuk menemuinya kecuali ada mahram (Shahih al-Bukhari 1862; Shahih Muslim 1341). Banyak ulama menerapkannya pada perjalanan Haji dan Umrah.",
+      "Sebagian ulama mutakhir — mempertimbangkan keamanan, kebutuhan, dan perjalanan kontemporer — mengizinkan wanita bepergian untuk haji wajib dalam rombongan terpercaya apabila tidak ada mahram. Ini tetap persoalan fiqh yang diperdebatkan.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Wanita tidak boleh bepergian kecuali bersama mahram, dan laki-laki tidak boleh masuk menemuinya kecuali ada mahram bersamanya.",
       },
       {
-        title: "Melempar tiga jumrah",
-        body: "Setiap sore setelah Dzuhur, lemparkan tujuh kerikil pada masing-masing dari tiga tiang secara berurutan — yang kecil, lalu yang tengah, lalu yang besar — dengan takbir pada setiap lemparan. Siapa yang ingin menyegerakan kepulangan boleh berangkat setelah melempar jumrah pada hari ke-12 (Al-Qur'an 2:203).",
-        location: "Mina",
+        excerpt:
+          "Tidak halal bagi wanita yang beriman kepada Allah dan hari Akhir bepergian sehari semalam kecuali bersama mahram.",
+      },
+    ],
+    madhhabNote:
+      "Mayoritas berpendapat wanita memerlukan mahram untuk perjalanan ibadah haji. Sebagian ulama mutakhir mengizinkan perjalanan dalam rombongan wanita yang aman untuk haji wajib. Ikuti ulama yang Anda percaya dan peraturan otoritas Haji Anda.",
+  },
+  {
+    title: "Tiga jenis Haji",
+    summary: "Ifrad, Qiran, dan Tamattu' — tentukan sebelum masuk ihram.",
+    body: [
+      "Ifrad: masuk ihram untuk Haji saja, tanpa Umrah terpisah dalam ihram itu, dan tidak wajib kurban karena menggabungkan manasik.",
+      "Qiran: menggabungkan Umrah dan Haji dalam satu ihram, tetap dalam ihram hingga Haji selesai. Wajib kurban (hady).",
+      "Tamattu': menunaikan Umrah penuh dalam bulan-bulan haji, keluar ihram, lalu masuk ihram lagi untuk Haji pada 8 Dzulhijjah. Inilah yang dilakukan kebanyakan jemaah hari ini; juga wajib hady.",
+      'Allah berfirman tentang yang menggabungkan manasik: "...Barangsiapa ingin mengerjakan umrah sebelum haji, (hewan kurban) yang mudah didapat..." dan yang tidak mampu berpuasa tiga hari dalam haji dan tujuh setelah pulang (Al-Qur\'an 2:196).',
+    ],
+    quran: [
+      {
+        excerpt:
+          "Dan sempurnakanlah haji dan umrah karena Allah... Barangsiapa ingin mengerjakan umrah sebelum haji, (hewan kurban) yang mudah didapat. Barangsiapa tidak menemukan (hewan kurban) — maka puasa tiga hari dalam haji dan tujuh setelah pulang...",
+      },
+    ],
+    actions: [
+      "Tentukan jenis haji Anda dengan pemimpin rombongan sebelum miqat.",
+      "Jika Tamattu', selesaikan Umrah penuh sebelum masuk ihram lagi untuk Haji.",
+    ],
+    appLinks: [
+      {
+        label: "Daftar periksa Umrah",
       },
       {
-        title: "Tawaf Wada'",
-        body: "Sebelum meninggalkan Makkah, laksanakan Tawaf Wada' sebagai manasik terakhir, agar amal terakhir Haji Anda bersama Baitullah. Wanita yang sedang haid dibebaskan dari kewajiban ini.",
-        location: "Masjidil Haram",
+        label: "Daftar periksa Haji",
       },
     ],
   },
   {
-    day: "Penyempurnaan dan hukum",
-    title: "Rukun, kewajiban, dan pahala",
-    summary: "Apa yang menyahkan Haji, apa yang dapat ditebus, dan pahalanya.",
-    steps: [
+    title: "Lima miqat",
+    summary: "Jangan melewati miqat menuju Makkah tanpa masuk ihram untuk Haji atau Umrah.",
+    body: [
+      "Ibn Abbas meriwayatkan bahwa Nabi ﷺ menetapkan miqat bagi umat: Dzulhulaifah untuk Madinah, Al-Juhfah untuk Syam, Qarn al-Manazil untuk Najd, dan Yalamlam untuk Yaman; serta Dhat 'Irq bagi yang dari Irak. Beliau bersabda ini untuk mereka dan siapa saja yang melewatinya berniat Haji atau Umrah; dan siapa tinggal di dalamnya masuk ihram dari tempat berangkat, termasuk penduduk Makkah dari Makkah (Shahih al-Bukhari 1524; Shahih Muslim 1181).",
+      "Bandara dan pelabuhan modern memiliki titik ihram yang sesuai atau prosedur yang diumumkan — ikuti panduan maskapai dan Kementerian Haji dan Umrah agar tidak melewati batas tanpa ihram.",
+    ],
+    hadith: [
       {
-        title: "Rukun (arkan)",
-        body: "Rukun adalah inti dari Haji: berihram, wukuf di Arafah, Tawaf Ifadah, dan sa'i (menurut pendapat mayoritas ulama). Jika salah satu rukun tertinggal, Hajinya tidak sah dan tidak dapat ditebus dengan kurban — ia harus mengulanginya.",
+        excerpt:
+          "Rasulullah ﷺ menetapkan Dzulhulaifah bagi penduduk Madinah, Al-Juhfah bagi penduduk Syam, Qarn al-Manazil bagi penduduk Najd, dan Yalamlam bagi penduduk Yaman... Miqat-miqat ini untuk penduduk tempat-tempat itu, dan bagi yang melewatinya berniat Haji atau Umrah...",
       },
       {
-        title: "Kewajiban (wajibat)",
-        body: "Kewajiban meliputi berihram dari miqat, bermalam di Muzdalifah, melempar jumrah, bermalam di Mina pada hari-hari Tasyrik, dan Tawaf Wada'. Meninggalkan salah satu kewajiban tidak membatalkan Haji, namun harus ditebus dengan dam (penyembelihan hewan). Mazhab-mazhab berbeda pendapat mengenai rincian daftarnya; konsultasikan dengan ulama yang kompeten.",
-      },
-      {
-        title: "Pahala Haji mabrur",
-        body: 'Haji yang diterima (Haji mabrur) — yang bersih dari dosa dan dilaksanakan dengan tulus — menghapuskan dosa-dosa yang telah lalu dan pahalanya adalah surga itu sendiri. Nabi ﷺ bersabda, "Haji mabrur tidak ada balasannya kecuali surga" (Bukhari 1773, Muslim 1349). Berusahalah menjaga akhlak yang baik dan kelembutan sepanjang perjalanan.',
-      },
-      {
-        title: "Panduan praktis, bukan fatwa",
-        body: "Ini adalah gambaran praktis untuk membantu Anda melaksanakan manasik secara berurutan. Mazhab-mazhab berbeda pendapat secara terhormat dalam banyak rincian, dan keadaan setiap jamaah berbeda-beda — selalu konsultasikan kepada ulama yang kompeten atau pembimbing Haji resmi Anda untuk hukum-hukum khusus dan kasus-kasus yang tidak terduga.",
+        excerpt:
+          "Rasulullah ﷺ menetapkan miqat-miqat... Siapa tinggal di dalam batas ini hendaknya masuk ihram dari tempat berangkat...",
       },
     ],
   },
   {
-    day: "Sebelum berangkat",
+    title: "Masuk ihram",
+    summary: "Mandi, pakaian, niat, dan talbiyah memulai keadaan suci.",
+    body: [
+      "Ihram adalah keadaan suci yang dimasuki dengan niat Haji atau Umrah. Nabi ﷺ menganjurkan mandi sebelum ihram. Laki-laki memakai dua kain putih tidak dijahit; perempuan memakai pakaian sopan biasa tanpa menutup wajah atau tangan dengan sarung tangan sebagai pakaian ihram (rincian niqab dan sarung tangan dibahas dalam fiqh).",
+      "Laki-laki boleh memakai wewangian pada tubuh sebelum ihram, bukan pada pakaian ihram setelah masuk keadaan suci (Shahih al-Bukhari 1539). Lalu bentuk niat dan mulailah talbiyah.",
+      'Talbiyah yang diajarkan Nabi ﷺ: "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni\'mata laka wal-mulk, la sharika lak" — diucapkan hingga tawaf dimulai untuk Umrah, atau hingga melempar Jamrat al-Aqaba untuk Haji menurut amalan yang masyhur (Shahih al-Bukhari 1549; Shahih Muslim 1184).',
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Aisyah berkata: Aku biasa memakaikan wewangian pada Rasulullah ﷺ untuk ihramnya sebelum beliau masuk ihram...",
+      },
+      {
+        excerpt:
+          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
+      },
+      {
+        excerpt: "Nabi ﷺ meninggikan suara dengan talbiyah: Labbayk Allahumma labbayk...",
+      },
+    ],
+    actions: [
+      "Bawa minimal dua set ihram untuk laki-laki; siapkan perlengkapan mandi tanpa wangi.",
+      "Latih talbiyah sebelum berangkat agar lancar di perjalanan.",
+    ],
+  },
+  {
+    title: "Larangan ihram",
+    summary: "Apa yang harus dihindari muhrim hingga keluar dari keadaan suci.",
+    body: [
+      "Dalam ihram, hindari: bagi laki-laki — pakaian dijahit/pas badan dan menutup kepala; wewangian; memotong rambut atau kuku; berburu hewan darat; akad atau melaksanakan nikah; dan hubungan suami-isteri. Perempuan hindari wewangian dan larangan lain yang sama sambil memakai pakaian sopan.",
+      "Melanggar larangan dapat memerlukan fidyah — biasanya puasa, memberi makan fakir miskin, atau kurban — tergantung perbuatan. Madzhab mengklasifikasikan rinciannya berbeda. Patuhi larangan dengan hati-hati dan tanyakan pemandu yang berkompeten jika sesuatu terjadi di luar dugaan.",
+    ],
+    actions: ["Jauhkan wewangian, pemotong kuku, dan gunting dari jangkauan mudah selama ihram."],
+    madhhabNote:
+      "Daftar pelanggaran dan fidyahnya berbeda antar mazhab. Anggap ini daftar peringatan praktis, lalu konfirmasi rincian dengan mazhab atau pemandu Haji Anda.",
+  },
+  {
+    title: "Umrah — ihram dan talbiyah",
+    summary: "Masuk keadaan suci di atau sebelum miqat, lalu membalas panggilan Allah.",
+    body: [
+      "Di atau sebelum miqat, mandi jika mampu, pakai pakaian ihram, bentuk niat Umrah, dan mulailah talbiyah. Keadaan suci dimulai dengan niat itu.",
+      "Ulangi talbiyah sering saat menuju Makkah hingga tawaf dimulai. Itu pernyataan bahwa Anda membalas panggilan Allah semata-mata.",
+    ],
+    actions: ["Gunakan daftar periksa Umrah untuk menandai setiap manasik saat selesai."],
+    appLinks: [
+      {
+        label: "Daftar periksa Umrah",
+      },
+    ],
+  },
+  {
+    title: "Tawaf Ka'bah",
+    summary: "Tujuh kali mengelilingi berlawanan arah jarum jam, dimulai dari Hajar Aswad.",
+    body: [
+      "Kelilingi Ka'bah tujuh kali berlawanan arah jarum jam, mulai dan berakhir di sudut Hajar Aswad. Cium, sentuh, atau arahkan ke sana sambil bertakbir jika padat — mengikuti amalan Nabi ﷺ tanpa menyakiti orang lain.",
+      "Laki-laki melakukan raml (langkah cepat) pada tiga putaran pertama dan idtiba' (membuka bahu kanan) dalam tawaf kedatangan Umrah ini, menurut sunnah yang masyhur.",
+      "Antara Rukun Yamani dan Hajar Aswad dianjurkan membaca: \"Rabbana atina fid-dunya hasanah wa fil-akhirati hasanah wa qina 'adzaban-nar\" (Al-Qur'an 2:201).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka.",
+      },
+    ],
+  },
+  {
+    title: "Dua rakaat dan Zamzam",
+    summary: "Salat di belakang Maqam Ibrahim jika memungkinkan, lalu minum Zamzam.",
+    body: [
+      'Setelah tawaf, salat dua rakaat di belakang Maqam Ibrahim jika ada ruang, atau di tempat lain dalam masjid jika padat — sesuai firman Allah: "...Dan jadikanlah sebagian tempat berdiri Ibrahim sebagai tempat salat..." (Al-Qur\'an 2:125).',
+      "Lalu minum air Zamzam. Riwayat Jabir tentang haji Nabi ﷺ mencakup minum Zamzam setelah tawaf; Nabi ﷺ bersabda Zamzam untuk apa pun niat minumnya (riwayat otentik dikumpulkan ulama mutakhir; anjurkan niat dan doa).",
+    ],
+    quran: [
+      {
+        excerpt: "...Dan jadikanlah sebagian tempat berdiri Ibrahim sebagai tempat salat...",
+      },
+    ],
+  },
+  {
+    title: "Sa'i antara Safa dan Marwah",
+    summary: "Tujuh kali perjalanan mengenang pencarian air Hajar.",
+    body: [
+      "Allah berfirman: \"Sesungguhnya Safa dan Marwah termasuk syi'ar-syi'ar Allah. Barangsiapa mengerjakan haji ke Baitullah atau umrah, maka tidak ada dosa baginya berjalan antara keduanya...\" (Al-Qur'an 2:158).",
+      "Jalan tujuh kali antara Safa dan Marwah, mulai dari Safa. Di Safa, hadap Ka'bah, angkat tangan bertakbir dan berdoa seperti Nabi ﷺ. Laki-laki berlari kecil antara penanda hijau.",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Sesungguhnya Safa dan Marwah termasuk syi'ar-syi'ar Allah. Barangsiapa mengerjakan haji ke Baitullah atau umrah, maka tidak ada dosa baginya berjalan antara keduanya...",
+      },
+    ],
+  },
+  {
+    title: "Halq atau taqsir — menyelesaikan Umrah",
+    summary:
+      "Laki-laki mencukur atau memotong; perempuan memotong sepanjang ujung jari — lalu ihram terangkat.",
+    body: [
+      "Laki-laki mencukur kepala (halq) — yang Nabi ﷺ doakan tiga kali — atau memotong rata (taqsir). Perempuan mengumpulkan rambut dan memotong kira-kira sepanjang ujung jari. Dengan ini, Umrah selesai dan larangan ihram terangkat.",
+      "Abdullah ibn Umar meriwayatkan bahwa Rasulullah ﷺ bersabda: 'Ya Allah, rahmatilah yang mencukur kepalanya.' Mereka berkata: 'Dan yang memotong, ya Rasulullah?' Beliau bersabda: 'Ya Allah, rahmatilah yang mencukur kepalanya.' Mereka berkata: 'Dan yang memotong, ya Rasulullah?' Beliau bersabda ketiga kali: 'Dan yang memotong' (Shahih al-Bukhari 1727; Shahih Muslim 1301).",
+    ],
+    hadith: [
+      {
+        excerpt: "Ya Allah, rahmatilah yang mencukur kepalanya... Dan (ketiga kali) yang memotong.",
+      },
+      {
+        excerpt:
+          "Ya Allah, ampunilah yang mencukur kepalanya... lalu beliau bersabda ketiga kali: dan yang memotong rambut pendek.",
+      },
+    ],
+  },
+  {
+    title: "8 Dzulhijjah — Hari Tarwiyah",
+    summary: "Masuk ihram untuk Haji dan menghabiskan hari di Mina.",
+    body: [
+      "Bagi jemaah Tamattu': bentuk niat Haji dan masuk ihram lagi dari tempat tinggal di Makkah, perbarui talbiyah. Jemaah Ifrad dan Qiran sudah dalam ihram.",
+      "Berangkat ke Mina dan salat Dhuhr, Asr, Maghrib, Isya, dan Fajr berikutnya, masing-masing dipendekkan dua rakaat pada waktunya, mengikuti amalan Nabi ﷺ dalam Haji Wada' sebagaimana diriwayatkan Jabir (Shahih Muslim 1218). Habiskan hari dan malam dalam ibadah, menanti Arafah.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Riwayat panjang Jabir tentang Haji Wada' Nabi ﷺ — termasuk tinggal di Mina dan urutan manasik.",
+      },
+    ],
+    actions: ["Buka daftar periksa Haji pada pagi tanggal 8."],
+    appLinks: [
+      {
+        label: "Daftar periksa Haji",
+      },
+    ],
+  },
+  {
+    title: "9 Dzulhijjah — Hari Arafah",
+    summary: "Wukuf di Arafah hingga matahari terbenam; lalu bergerak ke Muzdalifah.",
+    body: [
+      'Tetaplah dalam batas Arafah dari setelah zuhur hingga matahari terbenam dalam doa, dzikir, dan taubat. Nabi ﷺ bersabda "Haji adalah Arafah" (Sunan Abi Dawud 1949). Hadap kiblat, angkat tangan, dan mohon kepada Allah — termasuk waktu terbesar untuk doa.',
+      "Salat Dhuhr dan Asr jamak dan qashar pada waktu Dhuhr (jam' taqdim), lalu isi sisa hari dengan doa bukan salat sunnah — mengikuti amalan Nabi ﷺ (Shahih Muslim 1218).",
+      "Setelah matahari terbenam, berangkat tenang ke Muzdalifah. Jamak Maghrib dan Isya (Isya qashar), istirahat malam, dan kumpulkan kerikil untuk melempar. Orang lemah dan wanita boleh berangkat ke Mina setelah tengah malam menurut keringanan masyhur dalam sunnah.",
+    ],
+    hadith: [
+      {
+        excerpt: "Haji adalah Arafah.",
+      },
+      {
+        excerpt:
+          "Nabi ﷺ jamak Dhuhr dan Asr di Arafah, lalu berangkat setelah matahari terbenam ke Muzdalifah...",
+      },
+    ],
+  },
+  {
+    title: "10 Dzulhijjah — Hari Nahr",
+    summary: "Melempar, menyembelih, menggunting rambut, dan Tawaf Ifadhah.",
+    body: [
+      "Kembali menuju Mina dan lempar tujuh kerikil ke Jamrat al-Aqaba (tiang besar), ucapkan Allahu akbar setiap lemparan — manasik pertama hari itu dalam urutan Haji Wada'.",
+      "Tunaikan kurban wajib Tamattu' dan Qiran (Al-Qur'an 2:196), atau atur melalui lembaga terpercaya. Daging dimakan dan diberikan kepada fakir miskin.",
+      "Cukur (halq) atau potong (taqsir); perempuan potong sepanjang ujung jari. Setelah melempar dan cukur/potong, tahallul awwal berlaku — kebanyakan larangan ihram terangkat kecuali hubungan suami-isteri.",
+      "Pergi ke Makkah untuk Tawaf Ifadhah — rukun Haji — dan sa'i bagi jemaah Tamattu' (Ifrad/Qiran yang sudah sa'i dengan tawaf kedatangan ikuti fatwa mazhabnya). Ini menyelesaikan pelepasan penuh dari ihram.",
+    ],
+    quran: [
+      {
+        excerpt:
+          "...Barangsiapa ingin mengerjakan umrah sebelum haji, (hewan kurban) yang mudah didapat...",
+      },
+    ],
+    madhhabNote:
+      "Urutan manasik Hari Nahr memiliki fleksibilitas dalam sunnah; mazhab berbeda tentang urutan tepat dan kapan sa'i wajib untuk setiap jenis Haji. Ikuti pemandu rombongan Anda.",
+  },
+  {
+    title: "11–13 Dzulhijjah — Hari Tasyriq",
+    summary: "Malam di Mina, melempar tiga Jamrat setiap hari, lalu tawaf wada'.",
+    body: [
+      "Habiskan malam tanggal 11, 12 (dan 13 jika tidak pulang lebih awal) di Mina. Hari-hari makan, minum, dan mengingat Allah.",
+      "Setiap sore setelah Dhuhr, lempar tujuh kerikil ke masing-masing tiga tiang secara berurutan — kecil, tengah, lalu besar — dengan takbir setiap lemparan. Siapa mempercepat boleh pulang setelah melempar tanggal 12 (Al-Qur'an 2:203).",
+      "Sebelum meninggalkan Makkah, lakukan Tawaf Wada' agar amal terakhir dengan Baitullah adalah perpisahan. Ibn Abbas meriwayatkan umat diperintahkan agar manasik terakhir di Baitullah, kecuali dilonggarkan bagi wanita haid (Shahih al-Bukhari 1755; Shahih Muslim 1328).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Dan berdzikirlah kepada Allah pada hari-hari yang tertentu. Barangsiapa mempercepat (kepulangan) dalam dua hari, maka tidak ada dosa baginya; dan barangsiapa menunda, maka tidak ada dosa baginya — bagi yang bertakwa...",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Umat diperintahkan menunaikan tawaf wada' Ka'bah sebagai manasik terakhir, kecuali wanita haid yang dibebaskan.",
+      },
+      {
+        excerpt:
+          "Umat diperintahkan agar manasik terakhir di Baitullah, namun dilonggarkan bagi wanita yang sedang haid.",
+      },
+    ],
+  },
+  {
+    title: "Rukun dan kewajiban",
+    summary: "Apa yang membatalkan Haji jika ditinggalkan, dan apa yang ditetapkan dengan dam.",
+    body: [
+      "Rukun (arkan) adalah inti Haji. Jika rukun ditinggalkan, haji batal dan tidak bisa diperbaiki kurban saja — harus diqadha. Mayoritas biasanya mencantumkan: ihram (niat), wukuf di Arafah, Tawaf Ifadhah, dan sa'i.",
+      "Kewajiban (wajibat) meliputi masuk ihram dari miqat, bermalam di Muzdalifah, melempar Jamrat, bermalam malam Tasyriq di Mina, dan Tawaf Wada'. Meninggalkan kewajiban tidak membatalkan Haji tetapi ditetapkan dam (kurban) menurut mazhab.",
+    ],
+    madhhabNote:
+      "Daftar arkan dan wajibat tepat berbeda antar empat mazhab. Konfirmasi dengan pemandu berkompeten untuk mazhab Anda — terutama jika sesuatu terlewat karena tekanan keramaian.",
+  },
+  {
+    title: "Adab dan keikhlasan",
+    summary: "Jaga lidah dan anggota badan — penerimaan terkait dengan akhlak.",
+    body: [
+      "Hadits tentang kembali tanpa dosa (Bukhari 1521; Muslim 1350) menjelaskan haji rusak oleh kekejian (rafath), dosa (fusuq), dan pertengkaran. Sabar, lemah lembut, dan menolong sesama jemaah bagian dari ibadah.",
+      "Jangan biarkan ponsel dan obrolan kosong mendominasi Arafah dan masjid. Beri jalan dalam tawaf; jangan mendorong ke Hajar Aswad. Haji mabrur teman Surga — usahakan akhlak mulia sepanjang perjalanan.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Barangsiapa menunaikan haji karena Allah dan tidak bercampur dengan isteri serta tidak berbuat dosa, maka ia kembali seperti pada hari ibunya melahirkannya.",
+      },
+    ],
+    actions: ["Tetapkan niat harian: satu amal kebaikan dan satu doa ikhlas di atas keramaian."],
+  },
+  {
     title: "Visa dan pendaftaran",
-    summary: "Bagaimana jamaah mendaftar dan memperoleh visa Haji atau Umrah melalui jalur resmi.",
-    steps: [
-      {
-        title: "Platform Nusuk",
-        body: "Nusuk (nusuk.sa) adalah platform resmi Arab Saudi untuk Haji dan Umrah — digunakan untuk memesan visa, akomodasi, transportasi, dan paket tur terdaftar. Gunakan hanya Nusuk atau agen yang berlisensi melaluinya; perantara tidak resmi adalah sumber umum penipuan dan perjalanan yang dibatalkan.",
-      },
-      {
-        title: "Visa Haji dan kuota negara",
-        body: "Setiap negara menerima kuota Haji tahunan, sehingga sebagian besar jamaah mendaftar melalui lembaga Haji nasional atau agen lokal berlisensi daripada mendaftar sendiri. Daftarlah lebih awal pada tahun ketika musim Haji dibuka — kuota dan slot paket terisi penuh berbulan-bulan sebelumnya.",
-      },
-      {
-        title: "Visa Umrah",
-        body: "Berbeda dengan Haji, Umrah tidak memiliki kuota dan dapat dilaksanakan kapan saja sepanjang tahun. Sebagian besar warga negara dapat mengajukan visa Umrah langsung melalui Nusuk atau agen perjalanan resmi, biasanya bersamaan dengan pemesanan penerbangan dan hotel.",
-      },
+    summary: "Gunakan saluran resmi — Nusuk dan otoritas Haji nasional Anda.",
+    body: [
+      "Nusuk (nusuk.sa) adalah platform resmi Arab Saudi untuk Haji dan Umrah — visa, akomodasi, transport, dan paket terdaftar. Calo tidak resmi sering menjadi sumber penipuan.",
+      "Setiap negara menerima kuota haji tahunan; kebanyakan jemaah mendaftar melalui otoritas Haji nasional atau agen berlisensi. Umrah tidak berkuota dan dapat diatur sepanjang tahun melalui saluran resmi.",
+    ],
+    actions: [
+      "Daftar lebih awal saat musim dibuka.",
+      "Pesan hanya melalui agen terdaftar Nusuk atau otoritas nasional Anda.",
+      "Verifikasi saluran pembayaran sebelum transfer uang.",
     ],
   },
   {
-    day: "Sebelum berangkat",
-    title: "Daftar barang bawaan",
-    summary: "Perlengkapan praktis yang harus dibawa sebelum bepergian.",
-    steps: [
-      {
-        title: "Pakaian ihram",
-        body: "Pria sebaiknya membawa setidaknya dua set pakaian ihram tanpa jahitan (kain bawah dan kain atas) ditambah ikat pinggang ihram yang lebar dan bukan berbahan kulit untuk uang dan dokumen. Wanita sebaiknya membawa pakaian luar yang longgar, sopan, dan tanpa hiasan.",
-      },
-      {
-        title: "Alas kaki dan kenyamanan",
-        body: "Sandal terbuka yang mudah dipakai dan dilepas sangat penting, karena sepatu yang menutupi mata kaki dibatasi dalam ihram bagi pria. Bawalah tas ransel ringan, botol air yang dapat diisi ulang, dan sajadah kecil untuk waktu tunggu yang lama.",
-      },
-      {
-        title: "Perlengkapan mandi tanpa wewangian",
-        body: "Bawalah sabun tanpa wewangian, tabir surya, dan tisu basah — produk beraroma dilarang dalam ihram. Kotak P3K ringkas, obat pribadi apa pun dengan surat dokter, dan plester lecet sepadan dengan bobot ekstra mengingat banyaknya berjalan kaki.",
-      },
-      {
-        title: "Dokumen dan barang penting",
-        body: "Simpan paspor, cetakan visa, sertifikat vaksinasi (vaksin meningitis umumnya diwajibkan), dan kontak darurat dalam kantong tipis yang dikenakan di bawah pakaian. Power bank portabel dan SIM lokal atau eSIM membuat navigasi di tempat ramai jauh lebih mudah.",
-      },
+    title: "Barang bawaan",
+    summary: "Ihram, perlengkapan mandi tanpa wangi, dokumen, dan kenyamanan berjalan.",
+    body: [
+      "Laki-laki: minimal dua set pakaian ihram tidak dijahit dan sabuk untuk dokumen. Perempuan: pakaian longgar sopan. Sandal terbuka yang mudah dipakai; tas kecil dan botol air.",
+      "Bawa sabun tanpa wangi dan tabir surya — wewangian dilarang dalam ihram. Simpan paspor, cetakan visa, catatan vaksin, dan kontak darurat dalam kantong tipis. Power bank dan SIM lokal atau eSIM membantu di keramaian.",
+    ],
+    actions: [
+      "Daftar periksa: ihram ×2, sandal, perlengkapan mandi tanpa wangi, kantong dokumen, obat, power bank.",
+      "Bawa plester lecet — jemaah haji berjalan jauh.",
     ],
   },
   {
-    day: "Sebelum berangkat",
-    title: "Direktori tempat suci",
-    summary: "Catatan praktis singkat tentang tempat-tempat utama yang akan Anda kunjungi.",
-    steps: [
-      {
-        title: "Masjidil Haram, Makkah",
-        body: "Masjid Agung yang mengelilingi Ka'bah — tempat tawaf dan sa'i. Beroperasi sepanjang waktu; perkirakan kepadatan yang sangat tinggi di dekat Hajar Aswad dan saat lima waktu shalat, terutama pada sepuluh malam terakhir Ramadan dan hari-hari Haji.",
-        location: "Makkah",
-      },
-      {
-        title: "Masjid Nabawi, Madinah",
-        body: "Masjid Nabi ﷺ, tempat Raudhah dan makam beliau, bukan bagian dari Haji itu sendiri tetapi hampir semua jamaah mengunjungi Madinah sebelum atau setelah Haji. Memasuki Raudhah memerlukan izin masuk berjadwal yang dipesan melalui Nusuk atau aplikasi Raudhah.",
-        location: "Madinah",
-      },
-      {
-        title: "Mina",
-        body: "Kota tenda beberapa kilometer dari Makkah tempat jamaah menghabiskan malam 8, 11, 12 (dan 13) Dzulhijjah. Kamp tenda berpendingin udara dan tahan api ditentukan oleh operator tur; perkirakan fasilitas bersama yang sederhana dan jalan kaki jauh ke Jamarat.",
-        location: "Mina",
-      },
-      {
-        title: "Arafah",
-        body: "Padang terbuka sekitar 20 km dari Makkah, tempat rukun Haji yang paling esensial — wukuf pada 9 Dzulhijjah. Struktur peneduh dan titik air disediakan, tetapi panas siang sangat berat; hidrasi dan perlindungan dari matahari sangat penting.",
-        location: "Arafah",
-      },
-      {
-        title: "Muzdalifah",
-        body: "Area terbuka antara Arafah dan Mina tempat jamaah menghabiskan malam 9–10 Dzulhijjah di bawah langit terbuka dan mengumpulkan kerikil untuk melempar jumrah. Fasilitasnya sengaja dibuat minim — bawalah tikar dan berpakaianlah untuk udara malam yang lebih dingin.",
-        location: "Muzdalifah",
-      },
+    title: "Tempat suci sekilas",
+    summary: "Makkah, Madinah, Mina, Arafah, dan Muzdalifah — catatan praktis.",
+    body: [
+      "Masjid al-Haram mengelilingi Ka'bah — tempat tawaf dan sa'i; keramaian sangat padat. Masjid an-Nabawi di Madinah bukan bagian Haji sendiri tetapi kebanyakan jemaah berkunjung; masuk Rawdah dijadwalkan melalui aplikasi resmi.",
+      "Mina adalah kota tenda untuk malam tanggal 8 dan 11–13 Dzulhijjah. Arafah adalah dataran terbuka — hidrasi dan teduh penting tanggal 9. Muzdalifah tempat jemaah istirahat di bawah langit terbuka dan mengumpulkan kerikil — fasilitas sengaja minimal.",
     ],
+    actions: ["Pelajari peta sederhana Mina–Arafah–Muzdalifah sebelum berangkat."],
   },
   {
-    day: "Sebelum berangkat",
     title: "Sumber resmi",
-    summary: "Tempat menemukan informasi resmi yang tepercaya dan terkini.",
-    steps: [
-      {
-        title: "Nusuk (nusuk.sa)",
-        body: "Portal dan aplikasi resmi Kementerian Haji dan Umrah Saudi untuk visa, paket terakreditasi, izin kunjungan Raudhah, dan panduan kepadatan serta transportasi secara real-time — tempat pertama untuk setiap pertanyaan resmi.",
-      },
-      {
-        title: "Lembaga Haji negara Anda",
-        body: "Sebagian besar negara memiliki lembaga Haji nasional atau kantor kementerian yang mengelola kuota tahunan, memeriksa agen lokal, dan menerbitkan jadwal keberangkatan serta persyaratan kesehatan — periksalah sebelum memesan melalui agen swasta mana pun.",
-      },
-      {
-        title: "Visit Saudi (visitsaudi.com)",
-        body: "Situs pariwisata resmi Kerajaan memuat persyaratan masuk, informasi visa elektronik untuk kewarganegaraan yang memenuhi syarat, dan saran perjalanan praktis untuk Makkah, Madinah, dan perjalanan lanjutan di dalam Arab Saudi.",
-      },
-      {
-        title: "Verifikasi sebelum membayar",
-        body: "Pesanlah hanya melalui agen yang terdaftar di Nusuk atau lembaga Haji nasional Anda. Jika suatu penawaran terasa sangat murah atau perantara meminta pembayaran di luar jalur resmi, anggap itu sebagai tanda bahaya dan verifikasi langsung melalui portal kementerian.",
-      },
+    summary: "Nusuk, otoritas nasional Anda, dan Visit Saudi.",
+    body: [
+      "Mulai dari Nusuk untuk visa, paket, izin Rawdah, dan panduan keramaian. Gunakan kementerian Haji negara Anda untuk kuota dan aturan kesehatan. Visit Saudi menerbitkan panduan masuk dan perjalanan umum.",
+      "Jika tawaran tampak sangat murah atau calo meminta pembayaran di luar saluran resmi, verifikasi langsung melalui portal kementerian sebelum membayar.",
     ],
+    actions: [
+      "Tandai nusuk.sa dan situs otoritas Haji nasional Anda.",
+      "Simpan kontak darurat dari pemimpin rombongan.",
+    ],
+  },
+];
+
+export const HAJJ_CHECKLIST_ID: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Masuk ihram untuk Haji",
+    hint: "Niat Haji dan masuk ihram (dari Makkah untuk tamattu'); perbarui talbiyah.",
+    day: "8 Dzulhijjah",
+  },
+  {
+    title: "Berangkat ke Mina",
+    hint: "Salat Dhuhr hingga Fajr di Mina, masing-masing qashar pada waktunya.",
+    location: "Mina",
+    day: "8 Dzulhijjah",
+  },
+  {
+    title: "Wukuf di Arafah",
+    hint: "Tetap di Arafah dari setelah zuhur hingga matahari terbenam dalam doa dan dzikir.",
+    location: "Arafah",
+    day: "9 Dzulhijjah",
+  },
+  {
+    title: "Jamak Dhuhr & Asr",
+    hint: "Salat Dhuhr dan Asr jamak qashar pada waktu Dhuhr, lalu fokus pada doa.",
+    location: "Arafah",
+    day: "9 Dzulhijjah",
+  },
+  {
+    title: "Pindah ke Muzdalifah",
+    hint: "Setelah matahari terbenam, jamak Maghrib dan Isya, istirahat, dan kumpulkan kerikil.",
+    location: "Muzdalifah",
+    day: "9 Dzulhijjah",
+  },
+  {
+    title: "Melempar Jamrat al-Aqaba",
+    hint: "Lemparkan tujuh kerikil ke tiang besar dengan takbir setiap lemparan.",
+    location: "Mina",
+    day: "10 Dzulhijjah",
+  },
+  {
+    title: "Menyembelih kurban (hady)",
+    hint: "Wajib tamattu' dan qiran — sembelih atau atur melalui lembaga terpercaya.",
+    day: "10 Dzulhijjah",
+  },
+  {
+    title: "Halq atau taqsir",
+    hint: "Laki-laki cukur atau potong; perempuan potong sepanjang ujung jari (tahallul awwal).",
+    day: "10 Dzulhijjah",
+  },
+  {
+    title: "Tawaf Ifadhah",
+    hint: "Tunaikan Tawaf Ifadhah dan sa'i untuk tamattu' — rukun Haji.",
+    location: "Masjid al-Haram",
+    day: "10 Dzulhijjah",
+  },
+  {
+    title: "Bermalam di Mina",
+    hint: "Habiskan malam tanggal 11, 12 (dan 13 jika tidak pulang lebih awal) di Mina.",
+    location: "Mina",
+    day: "11–13 Dzulhijjah",
+  },
+  {
+    title: "Melempar tiga Jamrat",
+    hint: "Setelah Dhuhr setiap hari, lempar kecil, tengah, lalu besar — tujuh masing-masing.",
+    location: "Mina",
+    day: "11–13 Dzulhijjah",
+  },
+  {
+    title: "Tawaf Wada'",
+    hint: "Tunaikan Tawaf Wada' sebelum meninggalkan Makkah (wanita haid dibebaskan).",
+    location: "Masjid al-Haram",
+    day: "Keberangkatan",
+  },
+];
+
+export const UMRAH_CHECKLIST_ID: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Masuk ihram",
+    hint: "Di atau sebelum miqat: mandi, pakaian ihram, niat Umrah, talbiyah.",
+    location: "Miqat",
+  },
+  {
+    title: "Membaca talbiyah",
+    hint: "Ulangi Labbayk… sering hingga tawaf dimulai.",
+  },
+  {
+    title: "Tawaf Ka'bah",
+    hint: "Tujuh putaran berlawanan arah jarum jam dari Hajar Aswad; laki-laki: raml dan idtiba'.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Salat dua rakaat",
+    hint: "Di belakang Maqam Ibrahim jika memungkinkan, lalu minum Zamzam.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Sa'i antara Safa & Marwah",
+    hint: "Tujuh kali perjalanan mulai dari Safa; laki-laki lari kecil antara penanda hijau.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Halq atau taqsir",
+    hint: "Laki-laki cukur atau potong; perempuan potong sepanjang ujung jari — Umrah selesai.",
   },
 ];

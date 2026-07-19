@@ -340,7 +340,7 @@ export const AQEDAH_TOPICS: AqeedahTopic[] = [
     body: [
       "Tawheed (توحيد) — the absolute oneness of Allah — is the heart of Islam and the message of every prophet. It means to single out Allah alone in everything that is uniquely His, and to affirm His perfection exactly as He described Himself.",
       "Scholars commonly teach tawheed through three connected aspects to make it easy to understand and protect. Tawheed al-Rububiyyah: that Allah alone creates, owns, and controls all things. Tawheed al-Uluhiyyah: that Allah alone deserves all worship — this is the aspect the messengers most emphasised and the disbelievers most resisted. Tawheed al-Asma' wa'l-Sifat: affirming Allah's names and attributes as revealed, without distortion, denial, or likeness.",
-      "This three-part framework is a teaching tool, not a source of division; its purpose is to help a believer guard sincerity and recognise where oneness can be compromised. The whole of it is captured in the opening du'a of every Muslim's prayer: 'You alone we worship, and You alone we ask for help.'",
+      "This three-part framework is a teaching tool, not a source of division; its purpose is to help a believer guard sincerity and recognise where oneness can be compromised. The whole of it is captured in the opening dua of every Muslim's prayer: 'You alone we worship, and You alone we ask for help.'",
       "A crucial insight: acknowledging that Allah is the Creator (rububiyyah) is not enough on its own. Many who denied the prophets still admitted Allah created the heavens and earth — what they refused was to worship Him alone (uluhiyyah). Real tawheed is proven in worship, not merely in belief about origins.",
     ],
     quran: [

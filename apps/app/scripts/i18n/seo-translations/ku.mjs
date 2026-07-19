@@ -140,10 +140,17 @@ export default {
     description: "Hadîsên we yên tomarkirî, ji bo vegera bilez li hev komkirî.",
   },
   "/hajj": {
-    title: "Lîsteya Kontrolê ya Hac û Umreyê",
+    title: "Rêbernameya Hajj & Umrah",
     description:
-      "Lîsteya gav-bi-gav ji bo menasikên Hac û Umreyê. Her menasikê bi rêzê bişopînin û dema ku hûn diçin nîşan bikin — rêbera pratîk, ne pirtûka fıqihê.",
-    keywords: ["hac", "umre", "rêbera hacê", "menasikên hacê", "lîsteya kontrolê ya hacê"],
+      "Hajj û Umrah ji Qur'an û Sunnah rast fêr bibe, paşê meremiyan bi lîsteyên Hajj û Umrah yên cuda bişopîne — kurteya perwerdehiya pratîk, ne pirtûka fiqh e.",
+    keywords: [
+      "hajj",
+      "umrah",
+      "rêbernameya hacê",
+      "meremiyên hajj",
+      "lîsteya hajj",
+      "lîsteya umrah",
+    ],
   },
   "/hayd": {
     title: "Hayz û Ibadet — Rêbera Adetê",
@@ -741,5 +748,17 @@ export default {
   "/zikr/favorites": {
     title: "Adhkarên Bijarte",
     description: "Adhkarên we yên bijarte, ji bo gihîştina bilez li hev komkirî.",
+  },
+  "/hajj/checklist": {
+    title: "Lîsteya Meremiyên Hajj",
+    description:
+      "Şopînera rojane ya meremiyên Hajj ji Tarwiyah heta tawaf vedanê. Bîranîn li gel rêbernameya Fêr bibe.",
+    keywords: ["lîsteya hajj", "meremiyên hajj", "şopînera hacê"],
+  },
+  "/umrah/checklist": {
+    title: "Lîsteya Meremiyên Umrah",
+    description:
+      "Lîsteya Umrah bi rêz — ihram, tawaf, sa'i, û halq an taqsir. Bi rêbernameya Fêr bibe ya Hajj & Umrah bikar bîne.",
+    keywords: ["lîsteya umrah", "meremiyên umrah", "hacê biçûk"],
   },
 };

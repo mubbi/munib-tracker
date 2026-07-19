@@ -1,4 +1,10 @@
 import type { QazaPrayer } from "@munib-tracker/shared/types";
+import {
+  computeQazaEta,
+  formatShortDate,
+  getLocalDateString,
+  sumQazaScheduleTargets,
+} from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,10 +18,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { StatPair } from "@/components/ui/stat-pair";
 import { Stepper } from "@/components/ui/stepper";
 import { WitrQazaInfo } from "@/components/witr-qaza-info";
 import { Radius, Spacing } from "@/constants/theme";
@@ -52,7 +58,7 @@ type QazaEditTarget = {
 
 export default function QazaHomeScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const counters = useQazaCounters();
   const schedule = useQazaSchedule();
@@ -63,6 +69,18 @@ export default function QazaHomeScreen() {
   const [editTarget, setEditTarget] = useState<QazaEditTarget | null>(null);
 
   const hasAnyCounts = summary.remaining > 0 || summary.completed > 0;
+  const totalTracked = summary.remaining + summary.completed;
+  const progress = totalTracked > 0 ? summary.completed / totalTracked : 0;
+  const progressPct = Math.round(progress * 100);
+  const locale = i18n.language?.split("-")[0];
+  const formatCount = (value: number) => value.toLocaleString(locale);
+  const info = tokens.status.info;
+  const success = tokens.status.success;
+  const dailyTotal = useMemo(() => sumQazaScheduleTargets(schedule), [schedule]);
+  const eta = useMemo(
+    () => computeQazaEta(summary.remaining, dailyTotal, getLocalDateString()),
+    [dailyTotal, summary.remaining],
+  );
 
   const confirmCopy = useMemo(() => {
     if (!pending) return null;
@@ -191,7 +209,7 @@ export default function QazaHomeScreen() {
         jsonLd={[
           webPageSchema({
             path: "/qaza",
-            name: "Qaza Namaz Tracker",
+            name: "Qaza Salah Tracker",
             description: "Track and clear missed (qaza) prayers, one make-up at a time.",
             breadcrumbs: [
               { name: t("tabs.home"), path: "/" },
@@ -202,23 +220,66 @@ export default function QazaHomeScreen() {
         ]}
       />
       <Stagger>
-        <Card>
-          <StatPair
-            divider
-            primary={{
-              value: summary.remaining,
-              label: t("stats.remaining"),
-              color: tokens.status.info.color,
-            }}
-            secondary={{
-              value: summary.completed,
-              label: t("stats.madeUp"),
-              color: tokens.status.success.color,
-            }}
-          />
+        <Card
+          padding="three"
+          style={styles.summaryCard}
+          accessibilityLabel={t("home.qazaA11y", {
+            remaining: summary.remaining,
+            completed: summary.completed,
+            pct: progressPct,
+          })}
+        >
+          <View style={styles.heroBlock}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("stats.remaining")}
+            </ThemedText>
+            <ThemedText
+              type="display"
+              style={[styles.heroValue, { color: info.text }]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+            >
+              {formatCount(summary.remaining)}
+            </ThemedText>
+          </View>
+
+          <View
+            style={[
+              styles.madeUpRow,
+              { backgroundColor: success.soft, borderColor: success.border },
+            ]}
+          >
+            <View style={styles.madeUpCopy}>
+              <ThemedText type="header" style={[styles.statValue, { color: success.text }]}>
+                {formatCount(summary.completed)}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("stats.madeUp")}
+              </ThemedText>
+            </View>
+            {totalTracked > 0 ? (
+              <View style={styles.progressInline}>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("home.qazaProgress", { pct: progressPct })}
+                </ThemedText>
+                <ProgressBar value={progress} height={6} color={success.color} />
+              </View>
+            ) : null}
+          </View>
+
+          {eta ? (
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.etaCaption}>
+              {t("qazaPlan.etaCaption", {
+                count: summary.remaining,
+                date: formatShortDate(eta.date),
+              })}
+            </ThemedText>
+          ) : null}
+
           <Button
             label={t("qaza.resetAll")}
             variant="ghost"
+            size="sm"
             icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
             disabled={!hasAnyCounts}
             onPress={() => setPending({ kind: "resetAll" })}
@@ -248,20 +309,27 @@ export default function QazaHomeScreen() {
                 >
                   <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
                   <View style={styles.rowBody}>
-                    <ThemedText type="smallBold" numberOfLines={1}>
-                      {t(`prayers.${counter.prayerId}`)}
-                    </ThemedText>
+                    <View style={styles.rowTitle}>
+                      <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
+                        {t(`prayers.${counter.prayerId}`)}
+                      </ThemedText>
+                      <ThemedText
+                        type="header"
+                        style={[styles.rowRemaining, { color: info.text }]}
+                        numberOfLines={1}
+                      >
+                        {formatCount(counter.remaining)}
+                      </ThemedText>
+                    </View>
                     <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
                       {target > 0
-                        ? t("qaza.rowMetaWithDaily", {
-                            remaining: counter.remaining,
-                            completed: counter.completed,
+                        ? t("qaza.rowDoneWithDaily", {
+                            completed: formatCount(counter.completed),
                             done: doneToday,
                             target,
                           })
-                        : t("qaza.rowMeta", {
-                            remaining: counter.remaining,
-                            completed: counter.completed,
+                        : t("qaza.rowDone", {
+                            completed: formatCount(counter.completed),
                           })}
                     </ThemedText>
                     <View style={styles.rowActions}>
@@ -325,7 +393,7 @@ export default function QazaHomeScreen() {
                           web: "check_circle",
                         }}
                         size={26}
-                        tintColor={tokens.status.success.color}
+                        tintColor={success.color}
                       />
                     </View>
                   </View>
@@ -371,8 +439,45 @@ export default function QazaHomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  summaryCard: {
+    gap: Spacing.three,
+  },
+  heroBlock: {
+    alignItems: "center",
+    gap: Spacing.one,
+    paddingVertical: Spacing.two,
+  },
+  heroValue: {
+    fontVariant: ["tabular-nums"],
+    textAlign: "center",
+  },
+  madeUpRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  madeUpCopy: {
+    alignItems: "flex-start",
+    gap: 2,
+    minWidth: 72,
+  },
+  progressInline: {
+    flex: 1,
+    gap: Spacing.one + 2,
+    minWidth: 0,
+  },
+  etaCaption: {
+    textAlign: "center",
+  },
+  statValue: {
+    fontVariant: ["tabular-nums"],
+  },
   resetAll: {
-    marginTop: Spacing.three,
     alignSelf: "center",
   },
   rows: {
@@ -391,6 +496,18 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     gap: Spacing.half,
+  },
+  rowTitle: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    gap: Spacing.two,
+  },
+  rowName: {
+    flex: 1,
+    minWidth: 0,
+  },
+  rowRemaining: {
+    fontVariant: ["tabular-nums"],
   },
   rowActions: {
     flexDirection: "row",

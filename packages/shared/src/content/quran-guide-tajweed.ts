@@ -1,10 +1,10 @@
 import type { QuranGuideTajweedLesson } from "../types/quran-guide";
 
 /**
- * Core tajweed rules — explanations with examples (a later version adds audio &
- * quizzes). Bump QURAN_GUIDE_TAJWEED_VERSION on content change.
+ * Core tajweed rules — explanations with examples + everyayah practice clips
+ * (see quran-guide-audio.ts). Bump QURAN_GUIDE_TAJWEED_VERSION on content change.
  */
-export const QURAN_GUIDE_TAJWEED_VERSION = 3;
+export const QURAN_GUIDE_TAJWEED_VERSION = 4;
 
 export const QURAN_GUIDE_TAJWEED: QuranGuideTajweedLesson[] = [
   {
@@ -21,6 +21,7 @@ export const QURAN_GUIDE_TAJWEED: QuranGuideTajweedLesson[] = [
     examples: ["مِنْ عِلْم", "مِنْ رَبِّهِمْ", "مِنْ بَعْدِ", "أَنْتُمْ"],
     practice:
       "Recite Surah al-Fatiha slowly, and each time you meet a noon sakinah or tanween, pause to name which of the four rules applies and why.",
+    practiceAudio: { surah: 1, ayah: 1 },
   },
   {
     id: "meem-sakin",
@@ -77,6 +78,7 @@ export const QURAN_GUIDE_TAJWEED: QuranGuideTajweedLesson[] = [
     examples: ["يَجْعَلُونَ", "الْحَقّْ", "أَحَدْ"],
     practice:
       "Recite Surah al-Ikhlas and stop firmly on each qalqalah letter — the د of 'ahad' and 'yulad' — feeling the clean rebound.",
+    practiceAudio: { surah: 112, ayah: 1 },
   },
   {
     id: "waqf",
@@ -106,6 +108,7 @@ export const QURAN_GUIDE_TAJWEED: QuranGuideTajweedLesson[] = [
     examples: ["ٱللَّهِ", "ٱلرَّحْمَٰنِ", "ٱهْدِنَا"],
     practice:
       "Recite the basmalah and Surah al-Fatiha, pausing at each ٱ to decide whether you are starting (pronounce) or joining (drop).",
+    practiceAudio: { surah: 1, ayah: 1 },
   },
   {
     id: "lam-shamsiyah",

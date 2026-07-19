@@ -38,7 +38,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 
 | ID | Feature | Key touchpoints |
 |----|---------|-------------------|
-| NF-1.8 | Khatm / reading plan | `lib/khatm.ts`, `/quran/khatm` |
+| NF-1.8 | Khatm / reading plan | `lib/khatm.ts`, `/quran/khatm`; home card + Today's Goal badge when plan active; tracker checklist + glance ring |
 | NF-1.9 | Hifz tracker (lite) | `/quran/hifz` |
 | NF-1.10 | Tafsir on-demand (spa5k multi-lang + Siraj; language/author picker; ayah icon sheet) | `api/quran-tafsir.ts`, `quran-tafsir-registry`, `TafsirPickerSheet`, `TafsirAyahSheet` |
 | NF-1.11 | Mushaf / 604-page view | `build-mushaf-layout.mjs`, `/quran/pages`, `/quran/page/[page]`, `qcf-font-cache.ts` |
@@ -70,7 +70,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-1.22 | Library tab (4th tab) | `lib/library-menu.ts` |
 | NF-1.23 | Customizable quick actions | `quickActionOrder` |
 | NF-1.24 | Daily content notification | `/hadith/daily` |
-| NF-1.25 | Friday reminders | Jumu'ah nudge in `build-reminders.ts` |
+| NF-1.25 | Friday reminders | Jumu'ah + Kahf nudge at 11:00; hour of acceptance at Asr + mid Asr→Maghrib (`build-reminders.ts`, Today's Goal banner) |
 | NF-1.26 | Adhan style picker | `lib/adhan-audio.ts`, bundled MP3s |
 | NF-1.29 | Accessibility audit | Reduced motion, labelled controls |
 | NF-1.30 | App icon quick actions | `expo-quick-actions`, `(tabs)/_layout.tsx` |
@@ -86,7 +86,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 |----|---------|-------------------|
 | NF-2.1 | Islamic events calendar | `lib/islamic-events.ts`, `/events` |
 | NF-2.2 | Zakat calculator (+ edu) | `lib/zakat.ts`, `/zakat` — sadaqah goals/log is open (`NF-2.18`) |
-| NF-2.3 | Hajj & Umrah checklist | `content/hajj-guide.ts`, `/hajj` |
+| NF-2.3 | Hajj & Umrah learn + separate checklists | `content/hajj-guide.ts`, `hajj-checklist.ts`, `umrah-checklist.ts`, `/hajj`, `/hajj/checklist`, `/umrah/checklist` |
 | NF-2.4 | Seerah timeline | `content/seerah.ts`, `/seerah` |
 | NF-2.27 | Sahaba directory | `content/sahaba.ts`, `/sahaba` |
 | NF-2.28 | Early Islamic history | `content/islamic-history.ts`, `/history` |
@@ -96,7 +96,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-2.32 | New Muslim guide | `content/new-muslim.ts`, `/new-muslim` |
 | NF-2.33 | Islamic finance (edu) | `content/islamic-finance.ts`, `/finance` |
 | NF-2.34 | Hijri ↔ Gregorian converter | `lib/hijri.ts`, `/calendar/converter` |
-| NF-2.35 | Friday / Jumu'ah learn hub & checklist | `content/friday-guide.ts`, `/friday`, Today's Goal Friday reminder, `friday_checklist` sync |
+| NF-2.35 | Friday / Jumu'ah learn hub & checklist | `content/friday-guide.ts`, `/friday`, Today's Goal Friday + hour-of-acceptance banners, `friday_checklist` sync |
 | NF-2.7 | Word-by-word + tajweed reader | `api/quran-words.ts`, `api/quran-tajweed.ts`, ayah reader toggles |
 | NF-2.10 | Daily hadith series | `lib/daily-hadith.ts`, `/hadith/daily` |
 | NF-2.11 | Custom adhkar builder | `custom-adhkar-store`, `/adhkar-builder` (optional private images via `/user-media`; dictate Arabic/transliteration/meaning via `expo-speech-recognition` — requires a native dev/production build) |
@@ -123,6 +123,6 @@ Product pillars for landing copy: `packages/shared/src/constants/features.ts` (`
 
 NF-1.27, NF-1.28, NF-2.22, NF-2.25, NF-2.26 — reserved / not implemented.
 
-Open product (see [`BACKLOG.md`](./BACKLOG.md)): NF-2.5, NF-2.6, NF-2.16, NF-2.18.
+Open product (see [`BACKLOG.md`](./BACKLOG.md)): NF-2.5, NF-2.6, NF-2.16, NF-2.18, NF-2.36.
 
 Data-blocked (see [`BACKLOG.md`](./BACKLOG.md)): NF-2.8, NF-2.9.

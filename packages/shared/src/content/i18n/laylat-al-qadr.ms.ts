@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Apa yang perlu diucapkan jika menemuinya",
+    summary: "Aisyah bertanya kepada Nabi ﷺ tepat apa yang perlu diucapkan.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Aisyah (radhiallahu 'anha) bertanya kepada Nabi ﷺ: 'Wahai Rasulullah, jika aku mengetahui malam mana Lailatul Qadar, apa yang patut kukatakan padanya?' Beliau ﷺ mengajarnya doa permohonan keampunan pendek yang ditunjukkan di bawah (Tirmidhi 3513, dinilai hasan sahih oleh al-Tirmidhi).",
+      "Doa ini pendek, mudah dihafal, dan sengaja tentang keampunan bukan permintaan duniawi — peringatan bahawa keuntungan terbesar dari malam ini ialah keampunan Allah. Ulangi kerap sepanjang sepuluh malam terakhir, dalam solat, dalam sujud, dan di antaranya, bukannya menahannya untuk satu malam yang diteka.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Aku berkata: Wahai Rasulullah, jika aku mengetahui malam mana Lailatul Qadar, apa yang patut kukatakan padanya? Beliau ﷺ bersabda: Ucapkan — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Ya Allah, Engkau Maha Pengampun dan mencintai keampunan, maka ampunilah aku).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Hafal doa keampunan yang ditunjukkan di atas.",
+      "Ulangi kerap sepanjang sepuluh malam terakhir, terutamanya pada malam ganjil.",
     ],
   },
   {

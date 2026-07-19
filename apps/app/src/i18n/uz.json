@@ -77,10 +77,11 @@
       "intro": "Ushbu qo'llanmaning darslaridan qisqa takrorlash. Shoshilmang — maqsad o'rganish.",
       "hint": "O'rganganingizni takrorlang",
       "empty": "Ushbu qo'llanma savollari hali yuklanmoqda. Bir necha dars oching, keyin qayta urinib ko'ring."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Qur'on, hadis, duo, adhkar qidirish…",
+    "placeholder": "Qur'an, hadis, dua, O'rganish… qidirish",
     "clear": "Qidiruvni tozalash",
     "all": "Hammasi",
     "resultsCount": "{{count}} natija",
@@ -109,16 +110,7 @@
       "zikr": "Zikrlar",
       "name": "99 ism",
       "durood": "Salavot",
-      "jannah": "Jannatga sayohat",
-      "jahannam": "Jahannamni tushunish",
-      "lastDay": "Qiyomat kuni",
-      "salahGuide": "Namozni oʻrganish",
-      "battles": "Islomdagi janglar",
-      "taharah": "Tahoratni oʻrganish",
-      "prophets": "Paygʻambarlarni oʻrganish",
-      "aqeedah": "Aqidani oʻrganish",
-      "learnDua": "Duoni oʻrganish",
-      "learnQuran": "Qur'onni oʻrganish"
+      "learn": "O'rganish"
     },
     "stt": {
       "dictate": "Ovoz orqali qidirish",
@@ -465,6 +457,24 @@
       "badge": "Juma",
       "reminderTitle": "Juma muborak",
       "reminderBody": "Jumu'ah o'qing va juma sunnatlarini bajarib boring — ghusl, Surah al-Kahf, salawat va dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Bugungi Qur'an ulushi",
+      "catchUpTitle": "Khatm yetkazish",
+      "reminderBody": "Bugungi khatm maqsadiga {{done}}/{{total}} ayah yozing.",
+      "reminderBodyPages": "Bugungi khatm maqsadiga {{done}}/{{total}} bet yozing.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Bugungi khatm o'qishi rejada — davom eting.",
+      "openPlan": "Khatm rejasini ochish",
+      "a11y": "Khatm rejasi {{total}} kunning {{day}}-kuni, {{percent}} foiz bajarildi, bugun {{target}} dan {{done}}"
+    },
+    "acceptanceHourCard": {
+      "badge": "Dua vaqti",
+      "reminderTitle": "Ijoba vaqti",
+      "reminderBody": "Juma kuni duasi rad etilmaydigan vaqt — ayniqsa Asr'dan keyin samimiy dua, istighfar va salawat bilan qidiring.",
+      "openGuide": "Ijoba vaqtini ochish"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Vitr",
       "adhkar": "dhkr",
       "qaza": "Qz",
-      "a11y": "{{label}}: {{percent}}% complete, {{completed}} -nichidg {{total}}"
+      "a11y": "{{label}}: {{percent}}% complete, {{completed}} -nichidg {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah — hammasi tugadi",
     "freshStart": " fresh strt",
@@ -547,6 +558,14 @@
       "jumpTitle": "Jumu'ah ro'yxati",
       "jumpHint": "Juma sunnatlari pastda",
       "jumpA11y": "Ushbu sahifadagi Jumu'ah ro'yxatiga o'ting"
+    },
+    "khatm": {
+      "title": "Khatm rejasi",
+      "progress": "Bugun {{done}}/{{total}}",
+      "hint": "Bugungi maqsadga {{count}} ayah — yozish uchun bosing",
+      "hintPages": "Bugungi maqsadga {{count}} bet — yozish uchun bosing",
+      "completeHint": "Bugungi ulush bajarildi — rejani ko'rish uchun bosing",
+      "a11y": "Khatm rejasi {{total}} kunning {{day}}-kuni, bugungi maqsadga {{target}} dan {{done}}"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Bugungi aks ettirish",
       "dailyContentBody": "Yangi oyat, hadith va Allah nomi uy ekraningizda tayyor.",
       "fridayTitle": "Jumu'h Mubrk",
-      "fridayBody": "Bugun juma - salovot ayting va Kahf surasini o'qing."
+      "fridayBody": "Bugun juma - salovot ayting va Kahf surasini o'qing.",
+      "acceptanceHourTitle": "Ijoba vaqti",
+      "acceptanceHourBodyAsr": "Asr boshlandi — Maghribgacha dua, istighfar va salawat bilan ijoba vaqtini qidiring.",
+      "acceptanceHourBodyMid": "Maghribgacha hali vaqt bor — bu daqiqalarni samimiy dua bilan to'ldiring."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Juma eslatmasi",
-        "subtitle": "Jumu'h v Surh l-Khf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf va ijoba vaqti"
       }
     },
     "prayerAlertsObligatory": "Majburiy Salah ogohlantirishlari",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Tinglashni boshlash uchun ovoz tanlang",
     "listenVoiceDefault": "Tizim standarti",
     "listenVoiceDefaultHint": "Ushbu til uchun qurilmaning afzal ovozidan foydalaning",
-    "listenVoiceEmpty": "Ushbu til uchun ovoz o'rnatilmagan. Tizim sozlamalaridan qo'shing."
+    "listenVoiceEmpty": "Ushbu til uchun ovoz o'rnatilmagan. Tizim sozlamalaridan qo'shing.",
+    "showTransliteration": "Transliteratsiyani ko'rsatish",
+    "hideTransliteration": "Transliteratsiyani yashirish",
+    "showTranslation": "Tarjimani ko'rsatish",
+    "hideTranslation": "Tarjimani yashirish"
   },
   "share": {
     "dialogTitle": "Ulashish",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "dualarni sarlavha, mavzu yoki matn boʻyicha qidiring…",
     "searchInCategory": "Ushbu turkumda qidiruv…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "Qidiruvingizga mos keladigan dua topilmadi."
+    "noResults": "Qidiruvingizga mos keladigan dua topilmadi.",
+    "favSubtitle": "Saqlangan dualaringizni qayta tartiblang yoki olib tashlang"
   },
   "duaCat": {
     "morning_evening": "ertlb & kechqurun",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Tinglashni to'xtatish",
       "bestMatch": "Eng yaxshi moslik",
       "otherMatches": "Boshqa mosliklar"
-    }
+    },
+    "searchPlaceholderArabic": "Arab matni yoki ٢:٢٥٥ kabi havolani qidiring…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Payg'ambarlik an'anasi",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Bu ilova barcha foydalanuvchilar uchun oʻtkazib yuborilgan Witr va qaza ga toʻgʻri keladi. Agar siz Hanafi ko'rinishiga amal qilsangiz, unga kerak bo'lganda foydalaning; aks holda uni tavsiya etilgan bo'yanish sifatida kuzatib boring. Vaziyatingiz uchun olim bilan maslahatlashing."
     },
-    "history": "Hbutyokiy"
+    "history": "Hbutyokiy",
+    "rowDone": "{{completed}} Qaza bajarildi",
+    "rowDoneWithDaily": "{{completed}} Qaza bajarildi · bugun {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qz",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "qyt tiklsh counter?",
     "confirmResetMessage": "siznichidg count -nichidg {{count}} will be clebud.",
     "confirmStartAgainTitle": "Strt gichid?",
-    "confirmStartAgainMessage": "siznichidg bjrildi count will be clebud so siz cn begichid  new round."
+    "confirmStartAgainMessage": "siznichidg bjrildi count will be clebud so siz cn begichid  new round.",
+    "dockLabel": "Sanash"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} {{min}} daqiqa masofada",
@@ -2502,7 +2538,15 @@
       "ahead": "hed",
       "onTrack": "d trck",
       "behind": "Behind"
-    }
+    },
+    "logConfirmTitle": "O‘qish taraqqiyoti qo‘shilsinmi?",
+    "logConfirmMsg": "Xatm jamiingizga {{count}} oyat qo‘shilsinmi?",
+    "logConfirmMsgPages": "Xatm jamiingizga {{count}} sahifa qo‘shilsinmi?",
+    "logConfirmAction": "Qo‘shish",
+    "correctTotalConfirmTitle": "O‘qilgan jami yangilansinmi?",
+    "correctTotalConfirmMsg": "Xatm jami {{count}} oyat qilib qo‘yilsinmi?",
+    "correctTotalConfirmMsgPages": "Xatm jami {{count}} sahifa qilib qo‘yilsinmi?",
+    "correctTotalConfirmAction": "Jamini yangilash"
   },
   "hifz": {
     "short": "Hifz",
@@ -2706,7 +2750,8 @@
       "knowledge": "kunlik knowledge crd",
       "quickActions": "Quick ctids",
       "qaza": "Qz summry",
-      "schedule": "bugun's schedule"
+      "schedule": "bugun's schedule",
+      "khatm": "Khatm rejasi"
     }
   },
   "schedule": {
@@ -2806,7 +2851,12 @@
       "listenHint": "Ijro etish uchun yozuvni bosing. Tinglayotganingizda quyidagi so'zlarga amal qiling.",
       "play": "Ply {{name}} dhn",
       "pause": "Puse {{name}} dhn",
-      "sourceNote": "Ochiq Kiwifu/azon-mp3 to'plamidan yozuvlar (Makka, Madina, Mishari Alafasi va boshqalar)."
+      "sourceNote": "Ochiq Kiwifu/azon-mp3 to'plamidan yozuvlar (Makka, Madina, Mishari Alafasi va boshqalar).",
+      "learnPhrasesHint": "So'zlarni o'rganing — har bir gapni aniq, ketma-ket tinglang.",
+      "playPhrases": "Barcha iboralarni ijro etish",
+      "pausePhrases": "Iboralarni pauza qilish",
+      "playPhrase": "{{n}}-iborani ijro etish: {{title}}",
+      "followAlongNote": "Ijro paytida pastdagi so'zlarni ajratadi"
     }
   },
   "battles": {
@@ -3428,7 +3478,8 @@
       "obligatory": "Essentil",
       "highly-recommended": "Ayniqsa tavsiya etiladi",
       "recommended": "Tavsiya etiladi"
-    }
+    },
+    "playAyahA11y": "{{ref}} tilovatini ijro etish"
   },
   "library": {
     "eyebrow": "Librry",
@@ -3468,7 +3519,7 @@
     "today": "bugun",
     "inDays": "ichid {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Sanalar joylashuvingizdagi hilol ko'rinishiga (yoki uni ishlatadigan mintaqalarda rasmiy Umm al-Qura taqvimiga) amal qiladi va mahalliy hokimiyat e'lonidan bir kun farq qilishi mumkin.",
+    "disclaimer": "Sanalar hisoblangan taxminlar - haqiqiy kun mahalliy oyni ko'rishga bog'liq.",
     "names": {
       "newYear": "Islomiy Yangi yil",
       "ashura": "Ashuro kuni",
@@ -3941,7 +3992,7 @@
       "label": "Qo'shimchalar (ixtiyoriy)",
       "add": "Fayl qo'shish",
       "remove": "Qo'shimchani olib tashlang",
-      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Olib tashlash uchun eskizdagi × ni bosing.",
+      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Oʻchirish uchun eskizni uzoq bosib turing.",
       "signInRequired": "Adhkaringizga shaxsiy fayllarni biriktirish uchun tizimga kiring.",
       "permissionDenied": "Fayllarni biriktirish uchun ruxsat talab qilinadi.",
       "permissionTitle": "Kirishga ruxsat bering",
@@ -4117,14 +4168,34 @@
   "hajj": {
     "eyebrow": "Pilgrimge",
     "title": "Hjj & Umrh",
-    "subtitle": " step-by-step tekshiruv ro'yxti uchun  rites -nichidg pilgrimge.",
+    "subtitle": "Marosimlarni Qur'an va Sunnahdan o'rganing, keyin Hajj va Umrahni alohida kuzating.",
     "progress": "{{done}} -nichidg {{total}} rites",
     "reset": "qyt tiklsh",
     "resetConfirmTitle": "qyt tiklsh tekshiruv ro'yxti?",
     "resetConfirmMsg": "Bu har bir marosimning belgisini olib tashlaydi. Sizning muvaffaqiyatingizni tiklab bo'lmaydi.",
-    "umrahTag": "Umrh",
-    "hajjTag": "Hjj",
     "disclaimer": "Fiqh qo'llanmasi emas, balki amaliy nazorat ro'yxati. Qarorlar va tafsilotlar uchun malakali qo'llanmaga amal qiling.",
+    "intro": "Majburiyat, ihram, Umrah va Hajj kunlarini ishonchli manbalar bilan o'rganing. Ro'yxatlar faqat marosimlar uchun — tayyorgarlik maslahatlari O'rganish mavzularida qoladi.",
+    "section": {
+      "virtues": "Fazilatlar",
+      "obligation": "Majburiyat",
+      "types": "Hajj turlari",
+      "ihram": "Miqat va ihram",
+      "umrah": "Umrah",
+      "hajj": "Hajj kunlari",
+      "rulings": "Qoidalar va odob",
+      "prep": "Amaliy tayyorgarlik"
+    },
+    "checklistsTitle": "Marosim ro'yxatlari",
+    "hajjChecklistTitle": "Hajj ro'yxati",
+    "hajjChecklistHint": "Haj ibodatining kunlik marosimlari",
+    "hajjChecklistSubtitle": "Tarwiyahdan vidolik tawafigacha Hajj marosimlarini kuzating.",
+    "hajjChecklistIntro": "Har bir marosimni bajarganda belgilang. Bu eslatma — fatwa emas.",
+    "umrahChecklistTitle": "Umrah ro'yxati",
+    "umrahChecklistHint": "Ihramdan halq yoki taqsirgacha",
+    "umrahChecklistSubtitle": "Umrah ketma-ketligini tartibda kuzating.",
+    "umrahChecklistIntro": "Har bir Umrah marosimini bajarganda belgilang. Tafsilot va dalillar uchun O'rganishni oching.",
+    "notFound": "Mavzu topilmadi",
+    "continueInApp": "Munibda davom etish",
     "prepTag": "Tayyorgarlik"
   },
   "dailyHadith": {
@@ -4433,7 +4504,7 @@
     "sourceLabel": "siznichidg source (ixtiyyokiiy)",
     "sourcePlaceholder": "Tuzatishingizni tasdiqlovchi kitob, olim, URL yoki iqtibos.",
     "proofLabel": "Tasdiqlangan skrinshotlar (ixtiyoriy)",
-    "proofHint": "3 tagacha rasm. Olib tashlash uchun eskizdagi × ni bosing.",
+    "proofHint": "3 tagacha rasm. Oʻchirish uchun eskizni uzoq bosib turing.",
     "addProof": "Surat qo'shish",
     "removeProof": "olib tshlsh screenshot",
     "submit": "Hisobot yuborish",
@@ -4697,7 +4768,7 @@
     "eyebrow": "Kalendar",
     "title": "Sana konvertori",
     "subtitle": "Hijriy va Grigoriy kalendarlari oʻrtasida oʻzgartirish",
-    "intro": "Bir taqvimda sana kiriting — ikkinchisidagi tengini ko'ring; oflayn, joylashuvingizdagi hilol ko'rinishidan hisoblanadi.",
+    "intro": "Jadvalli Quvayt algoritmi yordamida oflayn hisoblangan boshqasida ekvivalentini ko‘rish uchun har bir taqvimga sana kiriting.",
     "toHijri": "Grigoriy → hijriy",
     "toGregorian": "Hijriy → Grigoriy",
     "gregorianDateLabel": "Grigorian sanasi",
@@ -4707,7 +4778,7 @@
     "year": "Yil",
     "useToday": "Bugun foydalaning",
     "invalidDate": "Yaroqli sanani kiriting",
-    "disclaimer": "Sanalar joylashuvingizdagi hilol (hilāl) ko'rinishidan hisoblanadi va rasmiy oy ko'rish e'lonlaridan bir kun farq qilishi mumkin — diniy sanalar uchun doimo mahalliy masjid yoki hokimiyatga amal qiling.",
+    "disclaimer": "Bu arifmetik taxmindir (“Quvayt algoritmi” jadvali) va oyni koʻrish haqidagi mahalliy eʼlonlardan bir kun farq qilishi mumkin — har doim mahalliy masjidga yoki diniy sanalar boʻyicha maʼmuriyatga amal qiling.",
     "directionTitle": "Konvertatsiya yo'nalishi",
     "resultFrom": "{{date}} dan",
     "quickLinksTitle": "Aloqador",

@@ -95,10 +95,11 @@ dependencies {
         `package expo.modules.munibwear
 
 import android.content.Context
+import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.LayoutElementBuilders
+import androidx.wear.protolayout.ModifiersBuilders
 import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.protolayout.material.Text
-import androidx.wear.tiles.EventBuilders
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TileService
@@ -110,14 +111,29 @@ import com.google.common.util.concurrent.ListenableFuture
 import org.json.JSONObject
 
 private const val SNAPSHOT_PATH = "/munib/widget_snapshot"
+private const val CLICK_MARK_CURRENT = "mark_current"
 
 class MunibWearTileService : TileService() {
   override fun onTileRequest(requestParams: RequestBuilders.TileRequest): ListenableFuture<TileBuilders.Tile> {
+    if (requestParams.currentState.lastClickableId == CLICK_MARK_CURRENT) {
+      sendMarkCurrent(applicationContext)
+    }
+
     val snapshot = readSnapshot(applicationContext)
     val line1 = snapshot?.optJSONObject("nextPrayer")?.optString("prayerName") ?: "Munib Tracker"
-    val line2 = snapshot?.optJSONObject("nextPrayer")?.optString("prayerTime") ?: "Open phone app"
+    val line2 = snapshot?.optJSONObject("nextPrayer")?.optString("prayerTime") ?: "Tap to mark Salah"
+
+    val clickable = ModifiersBuilders.Clickable.Builder()
+      .setId(CLICK_MARK_CURRENT)
+      .setOnClick(ActionBuilders.LoadAction.Builder().build())
+      .build()
 
     val column = LayoutElementBuilders.Column.Builder()
+      .setModifiers(
+        ModifiersBuilders.Modifiers.Builder()
+          .setClickable(clickable)
+          .build()
+      )
       .addContent(Text.Builder(applicationContext, line1).build())
       .addContent(Text.Builder(applicationContext, line2).build())
       .build()
@@ -140,10 +156,6 @@ class MunibWearTileService : TileService() {
       .build()
 
     return Futures.immediateFuture(tile)
-  }
-
-  override fun onTileAddEvent(requestParams: EventBuilders.TileAddEvent) {
-    sendMarkCurrent(applicationContext)
   }
 
   private fun readSnapshot(context: Context): JSONObject? {

@@ -68,6 +68,32 @@ export function classifyOssAudioUri(remoteUri: string): OssAudioUriClassificatio
       };
     }
 
+    if (host.includes("jsdelivr.net") && /audio\/adhan\/phrases/i.test(path)) {
+      const file = path.split("/").pop() ?? path;
+      return {
+        contentKind: "adhan_audio",
+        contentKey: `adhan_audio:phrase:${file}`,
+        sourceProvider: "munib-tracker/adhan-phrases",
+        contentMeta: {
+          displayName: file,
+          decisionId: "D11",
+        },
+      };
+    }
+
+    if (host.includes("wikimedia.org") || host.includes("wikipedia.org")) {
+      const file = path.split("/").pop() ?? path;
+      return {
+        contentKind: "adhan_audio",
+        contentKey: `adhan_audio:wikimedia:${file}`,
+        sourceProvider: "wikimedia-commons",
+        contentMeta: {
+          displayName: file,
+          decisionId: "D11",
+        },
+      };
+    }
+
     if (host.includes("jsdelivr.net") && /99-names-of-allah/i.test(path)) {
       return {
         contentKind: "content_audio",

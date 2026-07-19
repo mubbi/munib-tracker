@@ -77,10 +77,11 @@
       "intro": "Dib-u-eegis gaaban oo laga soo qaaday casharrada hagahaan. Waqti qaado — bartidu waa ujeedada.",
       "hint": "Dib u eeg waxaad baratay",
       "empty": "Su'aalaha hagahaan weli waa la soo rarayaa. Fur dhowr cashar, ka dib isku day mar kale."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Raadi Qur'aanka, xadiiska, duacada, adhkar…",
+    "placeholder": "Raadi Qur'an, hadith, dua, Baro…",
     "clear": "Nadiifi raadinta",
     "all": "Dhammaan",
     "resultsCount": "{{count}} natiijo",
@@ -109,16 +110,7 @@
       "zikr": "Adkar",
       "name": "99 Magac",
       "durood": "Salawat",
-      "jannah": "Safarka Jannada",
-      "jahannam": "Fahamka Jahannam",
-      "lastDay": "Maalinta Qiyaamaha",
-      "salahGuide": "Baro Salah",
-      "battles": "Dagaallada Islaamka",
-      "taharah": "Baro nadiifinta",
-      "prophets": "Baro Nabiyada",
-      "aqeedah": "Baro Aqeedah",
-      "learnDua": "Baro Dua",
-      "learnQuran": "Baro Qur'aanka"
+      "learn": "Baro"
     },
     "stt": {
       "dictate": "Ku raadi cod",
@@ -465,6 +457,24 @@
       "badge": "Jimce",
       "reminderTitle": "Jimco Mubarak",
       "reminderBody": "Tukada Jumu'ah oo dhammaystir sunnaha Jimcaha — ghusl, Surah al-Kahf, salawat, iyo dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Qaybta Qur'an ee maanta",
+      "catchUpTitle": "Khatm soo kabasho",
+      "reminderBody": "Diiwaangeli {{done}}/{{total}} ayah xagga hadafka khatm ee maanta.",
+      "reminderBodyPages": "Diiwaangeli {{done}}/{{total}} bog xagga hadafka khatm ee maanta.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Akhriska khatm ee maanta waa sax — sii wad.",
+      "openPlan": "Fur qorshaha khatm",
+      "a11y": "Qorshaha khatm maalin {{day}} ee {{total}}, {{percent}} boqolkiiba dhammaystiran, {{done}} ee {{target}} maanta"
+    },
+    "acceptanceHourCard": {
+      "badge": "Saacadda dua",
+      "reminderTitle": "Saacadda aqbalaadda",
+      "reminderBody": "Saacad Jimce ah oo dua aan la diidin — gaar ahaan ka dib Asr raadi iyadoo leh dua daacad ah, istighfar iyo salawat.",
+      "openGuide": "Fur saacadda aqbalaadda"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Witr",
       "adhkar": "dhkr",
       "qaza": "Qz",
-      "a11y": "{{label}}: {{percent}}% complete, {{completed}} ee {{total}}"
+      "a11y": "{{label}}: {{percent}}% complete, {{completed}} ee {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah - dhamaan waa la sameeyay",
     "freshStart": " fresh strt",
@@ -547,6 +558,14 @@
       "jumpTitle": "Liiska Jumu'ah",
       "jumpHint": "Sunnaha Jimcaha hoose",
       "jumpA11y": "Tag liiska Jumu'ah ee boggan"
+    },
+    "khatm": {
+      "title": "Qorshaha khatm",
+      "progress": "{{done}} ee {{total}} maanta",
+      "hint": "{{count}} ayah xagga hadafka maanta — taabo si aad u diiwaangeliso",
+      "hintPages": "{{count}} bog xagga hadafka maanta — taabo si aad u diiwaangeliso",
+      "completeHint": "Qaybta maanta waa dhammaatay — taabo si aad u eegto qorshahaaga",
+      "a11y": "Qorshaha khatm maalin {{day}} ee {{total}}, {{done}} ee {{target}} xagga hadafka maanta"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Milicsiga maanta",
       "dailyContentBody": "Aayad cusub, hadith, iyo magaca Allah ayaa diyaar ku ah shaashadda gurigaaga.",
       "fridayTitle": "Jumu'h Mubrk",
-      "fridayBody": "Waa Jimce — dir salawaat oo akhri suuradda Al-Kahf."
+      "fridayBody": "Waa Jimce — dir salawaat oo akhri suuradda Al-Kahf.",
+      "acceptanceHourTitle": "Saacadda aqbalaadda",
+      "acceptanceHourBodyAsr": "Asr waa bilaabatay — raadi saacadda la aqbali karo iyadoo leh dua, istighfar iyo salawat ilaa Maghrib.",
+      "acceptanceHourBodyMid": "Weli waxaa jira waqti ka hor Maghrib — buuxi daqiiqadahan dua daacad ah."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Xusuusin Jimce",
-        "subtitle": "Jumu'h iyo Surh l-Khf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf iyo saacadda aqbalaadda"
       }
     },
     "prayerAlertsObligatory": "Ogeysiisyada Salah ee waajibka ah",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Dooro cod si aad u bilowdo dhageysiga",
     "listenVoiceDefault": "Habka nidaamka",
     "listenVoiceDefaultHint": "Isticmaal codka aaladda doorbida luqaddan",
-    "listenVoiceEmpty": "Ma jiraan codad loogu talagalay luqaddan. Ku dar mid goobaha nidaamka."
+    "listenVoiceEmpty": "Ma jiraan codad loogu talagalay luqaddan. Ku dar mid goobaha nidaamka.",
+    "showTransliteration": "Muuji transliteration",
+    "hideTransliteration": "Qari transliteration",
+    "showTranslation": "Muuji tarjumaad",
+    "hideTranslation": "Qari tarjumaad"
   },
   "share": {
     "dialogTitle": "La wadaag",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "Ku raadi duas cinwaan, mowduuc, ama qoraal…",
     "searchInCategory": "Ka raadi qaybtan…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "Ma jiro duas oo ku habboon raadintaada."
+    "noResults": "Ma jiro duas oo ku habboon raadintaada.",
+    "favSubtitle": "Dib u habee ama ka saar duadaada la keydiyay"
   },
   "duaCat": {
     "morning_evening": "subx & fiidkii",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Jooji dhagaysiga",
       "bestMatch": "Ugu habboon",
       "otherMatches": "Kuwa kale ee la mid ah"
-    }
+    },
+    "searchPlaceholderArabic": "Raadi qoraal Carabi ama tixraac sida ٢:٢٥٥…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Dhaqanka nabiga",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Abkan waxa uu u tiriyaa kuwa seegay Witr dhanka qaza dhamaan isticmaalayaasha Ula dhaqan sida loo baahan yahay haddii aad raacdo aragtida Hanafi; Haddii kale u raac sida qurxinta lagu taliyey. La tasho aqoonyahan xaaladaada."
     },
-    "history": "Hwtmy"
+    "history": "Hwtmy",
+    "rowDone": "{{completed}} Qaza la sameeyay",
+    "rowDoneWithDaily": "{{completed}} Qaza la sameeyay · maanta {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qz",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "dib u deji counter?",
     "confirmResetMessage": "kg count ee {{count}} will be clewd.",
     "confirmStartAgainTitle": "Strt ggudh?",
-    "confirmStartAgainMessage": "kg dhmmystirn count will be clewd so dig cn beggudh  new round."
+    "confirmStartAgainMessage": "kg dhmmystirn count will be clewd so dig cn beggudh  new round.",
+    "dockLabel": "Tiri"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} ayaa kaliya u jirta {{min}} min",
@@ -2502,7 +2538,15 @@
       "ahead": "hed",
       "onTrack": "ku trck",
       "behind": "Behgudhd"
-    }
+    },
+    "logConfirmTitle": "Ku dar horumarka akhriska?",
+    "logConfirmMsg": "{{count}} aayadood ku dar wadarta khatmkaaga?",
+    "logConfirmMsgPages": "{{count}} bogag ku dar wadarta khatmkaaga?",
+    "logConfirmAction": "Ku dar",
+    "correctTotalConfirmTitle": "Cusbooneysii wadarta la akhriyay?",
+    "correctTotalConfirmMsg": "Wadarta khatmka {{count}} aayadood ka dhig?",
+    "correctTotalConfirmMsgPages": "Wadarta khatmka {{count}} bogag ka dhig?",
+    "correctTotalConfirmAction": "Cusbooneysii wadarta"
   },
   "hifz": {
     "short": "Xifdho",
@@ -2706,7 +2750,8 @@
       "knowledge": "mlgudhle knowledge crd",
       "quickActions": "Quick ctikus",
       "qaza": "Qz summry",
-      "schedule": "mnt's schedule"
+      "schedule": "mnt's schedule",
+      "khatm": "Qorshaha khatm"
     }
   },
   "schedule": {
@@ -2806,7 +2851,12 @@
       "listenHint": "Taabo duubista si aad u daawato Lasoco erayada hoose markaad dhegaysato.",
       "play": "Ply {{name}} dhn",
       "pause": "Puse {{name}} dhn",
-      "sourceNote": "Duubista Kiwifu/adhan-mp3 ee furan (Makka, Madiina, Mishary Alafasy, iyo in ka badan)."
+      "sourceNote": "Duubista Kiwifu/adhan-mp3 ee furan (Makka, Madiina, Mishary Alafasy, iyo in ka badan).",
+      "learnPhrasesHint": "Baro erayada — ku dhawaaji jumlad kasta si cad, mid mid.",
+      "playPhrases": "Daar dhammaan jumladaha",
+      "pausePhrases": "Hakad jumladaha",
+      "playPhrase": "Daar jumladda {{n}}: {{title}}",
+      "followAlongNote": "Wuxuu iftiimiyaa erayada hoose marka uu ciyaarayo"
     }
   },
   "battles": {
@@ -3428,7 +3478,8 @@
       "obligatory": "Essentil",
       "highly-recommended": "Si weyn loo taliyay",
       "recommended": "Lagula talinayaa"
-    }
+    },
+    "playAyahA11y": "Daar akhriska {{ref}}"
   },
   "library": {
     "eyebrow": "Librry",
@@ -3468,7 +3519,7 @@
     "today": "mnt",
     "inDays": "gudh {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Taariikhuhu waxay raacaan aragtida dayaxa goobtaada (ama jadwalka rasmiga ah ee Umm al-Qura gobollada isticmaala) waxayna kala duwanaan karaan ogeysiis maamul maxalli ah maalin.",
+    "disclaimer": "Taariikhaha waxaa la xisaabiyaa qiyaasaha - maalinta dhabta ah waxay kuxirantahay aragtida dayaxa deegaanka.",
     "names": {
       "newYear": "Sanadka Cusub ee Islaamka",
       "ashura": "Maalinta Caashuuraa",
@@ -3941,7 +3992,7 @@
       "label": "Lifaaqyada (ikhtiyaar)",
       "add": "Ku dar faylka",
       "remove": "Ka saar lifaaqa",
-      "hint": "Ilaa 5 fayl (JPEG, PNG, WebP, ama PDF), 1 MB midkiiba. Taabo × thumbnail-ka si aad u tirtiro.",
+      "hint": "Ilaa 5 fayl (JPEG, PNG, WebP, ama PDF), 1 MB midkiiba. Riix thumbnail si aad meesha uga saarto.",
       "signInRequired": "Soo gal si aad ugu lifaaqdo faylasha gaarka ah adhkar kaaga.",
       "permissionDenied": "Ogolaanshaha ayaa loo baahan yahay in lagu lifaaqo faylasha",
       "permissionTitle": "Oggolow gelitaanka",
@@ -4117,14 +4168,34 @@
   "hajj": {
     "eyebrow": "Pilgrimge",
     "title": "Hjj & Umrh",
-    "subtitle": " step-by-step liwk hubgudht u  rites ee pilgrimge.",
+    "subtitle": "Baro xafladaha Qur'an iyo Sunnah, ka dibna raadso Hajj iyo Umrah si gooni ah.",
     "progress": "{{done}} ee {{total}} rites",
     "reset": "dib u deji",
     "resetConfirmTitle": "dib u deji liwk hubgudht?",
     "resetConfirmMsg": "Tani waxay tirtiri doontaa cibaado kasta. Horumarkaaga lama soo kaban karo",
-    "umrahTag": "Umrh",
-    "hajjTag": "Hjj",
     "disclaimer": "Liis hubin oo wax ku ool ah, ma aha buug fiqhi ah. Raac hage u qalma xukunnada iyo faahfaahinta.",
+    "intro": "Baro waajibaadka, ihram, Umrah iyo maalmaha Hajj tixraacyo sax ah. Liisaska kaliya xafladaha — talooyinka diyaarinta waxay ku jiraan Baro.",
+    "section": {
+      "virtues": "Fadli",
+      "obligation": "Waajib",
+      "types": "Noocyada Hajj",
+      "ihram": "Miqat iyo ihram",
+      "umrah": "Umrah",
+      "hajj": "Maalmaha Hajj",
+      "rulings": "Xeerarka iyo edebta",
+      "prep": "Diyaarinta wax ku oolka ah"
+    },
+    "checklistsTitle": "Liisaska xafladaha",
+    "hajjChecklistTitle": "Liiska Hajj",
+    "hajjChecklistHint": "Xafladaha xajka maalinba maalinta ka dambeysa",
+    "hajjChecklistSubtitle": "Raadso xafladaha Hajj laga bilaabo Tarwiyah ilaa tawaf salaanta.",
+    "hajjChecklistIntro": "Calaamadee xaflad kasta markaad dhammayso. Tani waa xusuusin — ma aha fatwa.",
+    "umrahChecklistTitle": "Liiska Umrah",
+    "umrahChecklistHint": "Ihram ilaa halq ama taqsir",
+    "umrahChecklistSubtitle": "Raadso taxanaha Umrah si habboon.",
+    "umrahChecklistIntro": "Calaamadee xaflad kasta oo Umrah markaad dhammayso. Fur Baro faahfaahinta iyo caddaymaha.",
+    "notFound": "Mawduuca lama helin",
+    "continueInApp": "Ku sii wad Munib",
     "prepTag": "U diyaar garoow"
   },
   "dailyHadith": {
@@ -4433,7 +4504,7 @@
     "sourceLabel": "kg source (ikhtiyri)",
     "sourcePlaceholder": "Buug, aqoonyahan, URL, ama xigasho taageeraya sixitaankaaga.",
     "proofLabel": "Shaashada caddaynta (ikhtiyaar)",
-    "proofHint": "Ilaa 3 sawir. Taabo × thumbnail-ka si aad u tirtiro.",
+    "proofHint": "Ilaa 3 sawir Riix thumbnail si aad meesha uga saarto.",
     "addProof": "Ku dar sawir",
     "removeProof": "k sr screenshot",
     "submit": "Soo gudbi warbixinta",
@@ -4697,7 +4768,7 @@
     "eyebrow": "Kalandarka",
     "title": "Taariikhda beddelka",
     "subtitle": "U beddelo inta u dhaxaysa taariikhda Hijriyada iyo Miilaadiyada",
-    "intro": "Geli taariikh mid ka mid ah labada jadwal si aad u aragto u dhigma midka kale, oo offline laga xisaabiyay aragtida dayaxa goobtaada.",
+    "intro": "Geli taariikh ku jirta kalandarka midkood si aad u aragto wax u dhigma kan kale, lagu xisaabiyay offline addoo isticmaalaya algorithm Kuwaiti tabular.",
     "toHijri": "Gregorian → Hijriyada",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Taariikhda Gregorian",
@@ -4707,7 +4778,7 @@
     "year": "Sannadka",
     "useToday": "Isticmaal maanta",
     "invalidDate": "Geli taariikh ansax ah",
-    "disclaimer": "Taariikhaha waxaa laga xisaabiyaa aragtida dayaxa (hilāl) goobtaada waxayna kala duwanaan karaan ogeysiisyada dayax-arkaynta rasmiga ah maalin — mar walba raac masjidka ama maamulka deegaankaaga taariikhaha diimeed.",
+    "disclaimer": "Kani waa qiyaas xisaabeed ( tabular \"Kuwaiti algorithm\") waxayna ka duwanaan kartaa maalin maalmaha ka mid ah ogeysiisyada dayax-arkaynta deegaanka - mar walba raac masjidka ama maamulka deegaankaaga taariikhaha diimeed.",
     "directionTitle": "Jihada beddelka",
     "resultFrom": "Laga bilaabo {{date}}",
     "quickLinksTitle": "la xidhiidha",

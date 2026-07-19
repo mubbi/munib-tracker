@@ -1,5 +1,5 @@
 import type { TravelRakatRow } from "@munib-tracker/shared/content/travel-guide";
-import type { HajjGuideSection } from "@munib-tracker/shared/types";
+import type { LearnGuideTopic } from "@munib-tracker/shared/types";
 import { mcqsFromTopics } from "./from-topics";
 import { buildMcq } from "./mcq-helpers";
 import type { StudyMcq } from "./types";
@@ -13,36 +13,17 @@ const PRAYER_LABEL: Record<string, string> = {
   witr: "Witr",
 };
 
-/** Hajj sections (title + summary) plus step recognition when enough siblings exist. */
-export function mcqsFromHajj(sections: readonly HajjGuideSection[]): StudyMcq[] {
-  const topicCards = mcqsFromTopics(
+/** Hajj Learn topics → review quiz cards. */
+export function mcqsFromHajj(topics: readonly LearnGuideTopic[]): StudyMcq[] {
+  return mcqsFromTopics(
     "hajj",
-    sections.map((s) => ({ id: s.id, title: s.title, summary: s.summary })),
+    topics.map((t) => ({
+      id: t.id,
+      title: t.title,
+      summary: t.summary || t.body[0] || "",
+    })),
     "flashCards.category.hajj",
   );
-
-  const steps = sections.flatMap((section) =>
-    section.steps.map((step) => ({
-      id: step.id,
-      title: step.title,
-      summary: step.body,
-      sectionTitle: section.title,
-    })),
-  );
-
-  const stepCards =
-    steps.length >= 4
-      ? mcqsFromTopics(
-          "hajj",
-          steps.map((s) => ({ id: s.id, title: s.title, summary: s.summary })),
-          "flashCards.category.hajj",
-        ).map((card) => ({
-          ...card,
-          id: card.id.replace(":topic-", ":hajj-step-"),
-        }))
-      : [];
-
-  return [...topicCards, ...stepCards];
 }
 
 /** Travel Qasr rakat counts from bundled travel-guide table. */

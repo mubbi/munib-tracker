@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Tutsaňyz näme diýmeli",
+    summary: "Aýşa Peýgamber ﷺ-den takyk näme diýmelidigini sorady.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Aýşa (Allah onuň ruhundan razylar) Peýgamber ﷺ-den sorady: 'Allahyň elçisi, Kadir gijesiniň haýsy gije bolandygyny bilsem, onda näme diýmeli?' Ol ﷺ oňa aşakda görkezilen gysga bagyşlyk dogasyny öwretdi (Tirmidhi 3513, at-Tirmidhi tarapyndan hasan sahih derejesinde).",
+      "Bu doga gysga, ýatda saklamak aňsat we bilerekli dünýälik haýyşlar ýerine bagyşlyk barada — bu gijeden iň uly gazanç Allahyň bagyşy bolup durýar. Soňky on gijede, namazda, sajda wagtynda we olaryň arasynda köp gaýtalaň; bir çak edilen gije üçin saklamak ýerine.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Men diýdim: Allahyň elçisi, Kadir gijesiniň haýsy gije bolandygyny bilsem, onda näme diýmeli? Ol ﷺ diýdi: Diňe — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Allahym, Sen bagyşlaýan we bagyşlygy söýýärsiň, meni bagyşla).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Ýokarda görkezilen bagyşlyk dogasyny ýatda saklaň.",
+      "Ony soňky on gijede, aýratynlyk bilen tok gijelerinde, köp gaýtalaň.",
     ],
   },
   {

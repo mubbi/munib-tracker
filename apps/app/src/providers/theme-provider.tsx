@@ -13,6 +13,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { Appearance, useColorScheme } from "react-native";
@@ -77,12 +78,32 @@ function syncNativeColorScheme(mode: ColorMode) {
   Appearance.setColorScheme?.(mode === "system" ? "unspecified" : mode);
 }
 
+/**
+ * Schedule native Appearance after the current paint so the JS theme commit
+ * and Blur/Liquid Glass updates are not fighting Appearance listeners in the
+ * same turn. Still runs within a frame — far sooner than idle deferral, which
+ * previously left NativeTabs / StatusBar on the old scheme.
+ */
+function scheduleNativeColorScheme(
+  mode: ColorMode,
+  cancelRef: { current: ReturnType<typeof requestAnimationFrame> | null },
+) {
+  if (cancelRef.current != null) {
+    cancelAnimationFrame(cancelRef.current);
+  }
+  cancelRef.current = requestAnimationFrame(() => {
+    cancelRef.current = null;
+    syncNativeColorScheme(mode);
+  });
+}
+
 export function MunibThemeProvider({ children }: { children: ReactNode }) {
   const systemScheme = useColorScheme();
   const [colorMode, setColorModeState] = useState<ColorMode>(defaultColorMode);
   const [accentColorId, setAccentColorIdState] = useState<AccentColorId>(defaultAccentColorId);
   const [customAccent, setCustomAccentState] = useState<string | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const appearanceFrameRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -140,6 +161,10 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     return () => {
       mounted = false;
       clearTimeout(hydrationTimeout);
+      if (appearanceFrameRef.current != null) {
+        cancelAnimationFrame(appearanceFrameRef.current);
+        appearanceFrameRef.current = null;
+      }
     };
   }, []);
 
@@ -165,15 +190,15 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
   const tokens = useMemo(() => computeThemeTokens(colors, scheme), [colors, scheme]);
 
   // Root window / activity background — safe to keep in an effect (async native API).
-  // Appearance must stay synchronous in setColorMode; deferring it left BlurView /
-  // NativeTabs / StatusBar on the previous scheme until an idle flush or app refresh.
+  // Native Appearance is scheduled one frame after mode changes (see setColorMode)
+  // so the React theme commit paints before Appearance listeners fire.
   useEffect(() => {
     void SystemUI.setBackgroundColorAsync(colors.background);
   }, [colors.background]);
 
   const setColorMode = useCallback((mode: ColorMode) => {
     setColorModeState(mode);
-    syncNativeColorScheme(mode);
+    scheduleNativeColorScheme(mode, appearanceFrameRef);
     void AsyncStorage.setItem(STORAGE_KEYS.colorMode, mode);
   }, []);
 

@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Ustiga tushsangiz nima aytish kerak",
+    summary: "Oyisha Payg'ambar ﷺdan aynan nima aytish kerakligini so'radi.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Oyisha (Alloh uning ruhiyati bilan rozilik qilsin) Payg'ambar ﷺdan so'radi: 'Ey Allohning Rasuli, agar Qadr kechasi qaysi kecha ekanini bilib qolsam, unda nima aytishim kerak?' U ﷺ unga quyida ko'rsatilgan qisqa kechirim duosini o'rgatdi (Tirmidhi 3513, at-Tirmidiy tomonidan hasan sahih darajasida).",
+      "Bu duo qisqa, yodlash oson va ataylab dunyoviy so'rovlar o'rniga kechirim haqida — bu kechadan eng katta foyda Allohning mag'firati ekanini eslatadi. Oxirgi o'n kechada, namozda, sajda vaqtida va ularning orasida tez-tez takrorlang; bitta taxmin qilingan kechaga saqlab qo'yish o'rniga.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Men aytdim: Ey Allohning Rasuli, agar Qadr kechasi qaysi kecha ekanini bilib qolsam, unda nima aytishim kerak? U ﷺ aytdi: Ayt — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Ey Alloh, Sen kechiruvchisan va kechirishni sevasan, meni kechir).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Yuqorida ko'rsatilgan kechirim duosini yodlang.",
+      "Oxirgi o'n kechada, ayniqsa toq kechalarda, tez-tez takrorlang.",
     ],
   },
   {

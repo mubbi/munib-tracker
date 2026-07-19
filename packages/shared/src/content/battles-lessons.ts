@@ -10,7 +10,7 @@ export const BATTLES_LESSON_CARDS: BattlesLessonCard[] = [
     battleTitle: "Battle of Badr",
     lesson: "Trust Allah while preparing fully.",
     detail:
-      "Outnumbered roughly three to one, the Muslims still chose their ground at the wells, arranged their ranks, and made du'a — the Prophet ﷺ imploring Allah through the night until his cloak fell. Effort and reliance together, and the victory was credited to Allah.",
+      "Outnumbered roughly three to one, the Muslims still chose their ground at the wells, arranged their ranks, and made dua — the Prophet ﷺ imploring Allah through the night until his cloak fell. Effort and reliance together, and the victory was credited to Allah.",
   },
   {
     id: "uhud-obedience",

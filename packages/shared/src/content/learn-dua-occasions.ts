@@ -46,7 +46,7 @@ export const LEARN_DUA_OCCASIONS: LearnDuaOccasion[] = [
   },
   {
     id: "mosque",
-    title: "Mosque",
+    title: "Masjid",
     summary: "Entering and leaving the masjid",
     topicId: "home-mosque",
     category: "daily",
@@ -75,7 +75,7 @@ export const LEARN_DUA_OCCASIONS: LearnDuaOccasion[] = [
   {
     id: "anxiety",
     title: "Anxiety & worry",
-    summary: "Calm the heart with du'a",
+    summary: "Calm the heart with dua",
     topicId: "anxiety-sadness",
     category: "situational",
   },

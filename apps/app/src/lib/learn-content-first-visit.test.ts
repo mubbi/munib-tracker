@@ -6,7 +6,7 @@ import { getAqeedahTopics, isAqeedahContentReady } from "@/lib/aqeedah";
 import { getBattlesTopics, isBattlesContentReady } from "@/lib/battles";
 import { getEidGuideTopics } from "@/lib/eid-guide";
 import { getFridayGuideTopics } from "@/lib/friday-guide";
-import { getHajjGuideSections, isHajjGuideContentReady } from "@/lib/hajj-guide";
+import { getHajjGuideTopics, isHajjGuideContentReady } from "@/lib/hajj-guide";
 import { getIslamicHistoryEvents, isIslamicHistoryContentReady } from "@/lib/islamic-history";
 import { getJahannamTopics, isJahannamContentReady } from "@/lib/jahannam";
 import { getJannahTopics, isJannahContentReady } from "@/lib/jannah";
@@ -39,7 +39,7 @@ describe("learn corpora first-visit readiness", () => {
     ["prophets", isProphetsContentReady, () => getProphetsTopics().length],
     ["aqeedah", isAqeedahContentReady, () => getAqeedahTopics().length],
     ["learn-dua", isLearnDuaContentReady, () => getLearnDuaTopics().length],
-    ["hajj", isHajjGuideContentReady, () => getHajjGuideSections().length],
+    ["hajj", isHajjGuideContentReady, () => getHajjGuideTopics().length],
     ["seerah", isSeerahContentReady, () => getSeerahEvents().length],
     ["sahaba", isSahabaContentReady, () => getSahabaProfiles().length],
     ["history", isIslamicHistoryContentReady, () => getIslamicHistoryEvents().length],

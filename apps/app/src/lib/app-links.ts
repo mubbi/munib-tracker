@@ -101,6 +101,8 @@ export const DEEP_LINK_DESTINATIONS = [
   "/learn-dua",
   "/travel",
   "/hajj",
+  "/hajj/checklist",
+  "/umrah/checklist",
   "/seerah",
   "/events",
   "/zakat",

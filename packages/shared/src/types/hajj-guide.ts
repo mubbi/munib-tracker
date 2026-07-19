@@ -1,23 +1,26 @@
-/** One actionable rite/step in the Hajj or Umrah journey, shown as a checklist row. */
-export interface HajjGuideStep {
-  /** Globally-unique id (used as the checklist key). */
+/** One actionable rite on a Hajj or Umrah checklist. */
+export interface PilgrimageChecklistItem {
+  /** Globally-unique id (used as the checklist persistence key). */
   id: string;
   /** Short heading for the rite. */
   title: string;
-  /** One or two concise sentences describing what to do. */
-  body: string;
+  /** Concise hint describing what to do. */
+  hint: string;
   /** Optional place the rite happens (e.g. "Mina", "Arafah"). */
   location?: string;
+  /** Optional day label for Hajj phases (e.g. "8 Dhul-Hijjah"). */
+  day?: string;
 }
 
-/** A phase of the pilgrimage grouping several ordered steps. */
+/** @deprecated Prefer PilgrimageChecklistItem — kept for transitional imports. */
+export type HajjGuideStep = PilgrimageChecklistItem;
+
+/** @deprecated Learn topics use LearnGuideTopic; checklist sections are flat item lists. */
 export interface HajjGuideSection {
   id: string;
-  /** Which pilgrimage this section belongs to ("prep" covers practical logistics, not rites). */
   kind: "umrah" | "hajj" | "prep";
   title: string;
   summary: string;
-  /** Optional day label for Hajj phases (e.g. "8 Dhul-Hijjah"). */
   day?: string;
-  steps: HajjGuideStep[];
+  steps: PilgrimageChecklistItem[];
 }

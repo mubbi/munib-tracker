@@ -2,11 +2,17 @@ import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import {
+  AcceptanceHourGoalReminder,
+  useAcceptanceHourActive,
+} from "@/components/acceptance-hour-goal-reminder";
 import { ContinueCard } from "@/components/continue-card";
 import { DefaultLocationBanner } from "@/components/default-location-banner";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { FridayGoalReminder } from "@/components/friday-goal-reminder";
+import { KhatmCard } from "@/components/khatm-card";
+import { KhatmGoalReminder } from "@/components/khatm-goal-reminder";
 import { KnowledgeFlashCard } from "@/components/knowledge-flash-card";
 import type { PrayerScheduleCardProps } from "@/components/prayer-schedule-card";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
@@ -30,6 +36,7 @@ import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeeklyReport } from "@/hooks/use-weekly-report";
 import { isFriday } from "@/lib/friday";
+import { khatmTodayProgress } from "@/lib/khatm";
 import {
   buildQuickActionItems,
   DEFAULT_QUICK_ACTION_ORDER,
@@ -39,6 +46,7 @@ import {
 import { useArrowForward } from "@/lib/rtl";
 import { currentSeasonalTheme } from "@/lib/seasonal-themes";
 import { formatScheduleShare } from "@/lib/share";
+import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
 import { useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 import {
@@ -111,6 +119,9 @@ export function HomeBelowFold({
   const devotion = useDevotionProgress();
   const qaza = useQazaSummary();
   const roza = useRoza();
+  useEnsureKhatmLoaded();
+  const { plan: khatmPlan, ayahsRead: khatmRead } = useKhatm();
+  const khatmToday = khatmPlan ? khatmTodayProgress(khatmPlan, khatmRead) : null;
   useWeeklyReport();
   useReviewRouteTrigger("home");
   useReviewStreakTrigger(streak);
@@ -120,6 +131,7 @@ export function HomeBelowFold({
   const hiddenModules = new Set(hiddenHomeModules ?? []);
   const showDefaultLocationBanner = location.source === "default";
   const showSeasonalBanner = currentSeasonalTheme(new Date(), location.timeZone) != null;
+  const acceptanceHourActive = useAcceptanceHourActive();
 
   const onShareSchedule = async () => {
     const locationLabel = scheduleLocationLabel || undefined;
@@ -154,8 +166,14 @@ export function HomeBelowFold({
     });
   };
 
-  const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
-  const tasksTotal = summary.salahTotal + summary.zikrTotal + summary.qazaTargetToday;
+  // Khatm contributes one checklist task (not the raw ayah/page count) so a
+  // 70-ayah daily goal doesn't swamp Salah/Zikr in the overall progress bar.
+  const khatmTaskDone = khatmToday?.complete ? 1 : 0;
+  const khatmTaskTotal = khatmToday ? 1 : 0;
+  const tasksDone =
+    summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday + khatmTaskDone;
+  const tasksTotal =
+    summary.salahTotal + summary.zikrTotal + summary.qazaTargetToday + khatmTaskTotal;
   const progressPct = tasksTotal ? Math.round((tasksDone / tasksTotal) * 100) : 0;
   const goalBreakdown = [
     {
@@ -176,6 +194,16 @@ export function HomeBelowFold({
       done: summary.qazaCompletedToday,
       total: summary.qazaTargetToday,
     },
+    ...(khatmToday
+      ? [
+          {
+            key: "khatm",
+            label: t("home.khatmStat"),
+            done: khatmToday.done,
+            total: khatmToday.target,
+          },
+        ]
+      : []),
   ].filter((item) => item.total > 0);
   const isExcused = excusedReason != null;
   const isFreshStart = tasksDone === 0 && streak === 0 && !isExcused;
@@ -216,13 +244,36 @@ export function HomeBelowFold({
               </ThemedText>
             </View>
             <View style={styles.goalPills}>
-              {isFriday() ? (
+              {acceptanceHourActive ? (
+                <Pill
+                  label={t("home.acceptanceHourCard.badge")}
+                  compact
+                  color={colors.accent}
+                  background={tokens.accentSoft}
+                  icon={{
+                    ios: "hands.sparkles.fill",
+                    android: "volunteer_activism",
+                    web: "volunteer_activism",
+                  }}
+                />
+              ) : isFriday() ? (
                 <Pill
                   label={t("home.fridayCard.badge")}
                   compact
                   color={colors.accent}
                   background={tokens.accentSoft}
                   icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
+                />
+              ) : null}
+              {khatmToday ? (
+                <Pill
+                  label={t("home.khatmCard.badge")}
+                  compact
+                  color={khatmToday.pace === "behind" ? tokens.status.warning.color : colors.accent}
+                  background={
+                    khatmToday.pace === "behind" ? tokens.status.warning.soft : tokens.accentSoft
+                  }
+                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
                 />
               ) : null}
               {isExcused ? (
@@ -246,7 +297,9 @@ export function HomeBelowFold({
             </View>
           </View>
 
+          <AcceptanceHourGoalReminder />
           <FridayGoalReminder />
+          <KhatmGoalReminder />
 
           {isExcused ? (
             <View
@@ -359,6 +412,7 @@ export function HomeBelowFold({
         </Card>
 
         <RamadanCard />
+        {!hiddenModules.has("khatm") ? <KhatmCard /> : null}
 
         {!hiddenModules.has("continue") ? <ContinueCard /> : null}
 

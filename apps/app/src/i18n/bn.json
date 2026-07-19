@@ -77,10 +77,11 @@
       "intro": "এই গাইডের পাঠ থেকে একটি সংক্ষিপ্ত পর্যালোচনা। সময় নিন — শেখাই লক্ষ্য।",
       "hint": "যা শিখেছেন তা পুনরালোচনা করুন",
       "empty": "এই গাইডের প্রশ্ন এখনও লোড হচ্ছে। কয়েকটি পাঠ খুলুন, তারপর আবার চেষ্টা করুন।"
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "কুরআন, হাদিস, দোয়া, আযকার অনুসন্ধান…",
+    "placeholder": "কুরআন, হাদিস, দোয়া, শিখুন… খুঁজুন",
     "clear": "অনুসন্ধান মুছুন",
     "all": "সব",
     "resultsCount": "{{count}}টি ফলাফল",
@@ -109,16 +110,7 @@
       "zikr": "আযকার",
       "name": "৯৯ নাম",
       "durood": "দরুদ",
-      "jannah": "জান্নাতের পথ",
-      "jahannam": "জাহান্নাম বোঝা",
-      "lastDay": "কিয়ামতের দিন",
-      "salahGuide": "নামাজ শিখুন",
-      "battles": "ইসলামে যুদ্ধ",
-      "taharah": "তাহারাত শিখুন",
-      "prophets": "নবী-রাসূল শিখুন",
-      "aqeedah": "আকিদা শিখুন",
-      "learnDua": "দোয়া শিখুন",
-      "learnQuran": "কুরআন শিখুন"
+      "learn": "শিখুন"
     },
     "stt": {
       "dictate": "ভয়েস দ্বারা অনুসন্ধান করুন",
@@ -465,6 +457,24 @@
       "badge": "শুক্রবার",
       "reminderTitle": "জুমআ মুবারক",
       "reminderBody": "জুমুআহ আদায় করুন এবং শুক্রবারের সুন্নত পূর্ণ করুন — গোসল, সূরা আল-কাহফ, সালাওয়াত ও দুআ।"
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "আজকের কুরআন অংশ",
+      "catchUpTitle": "Khatm পূরণ",
+      "reminderBody": "আজকের khatm লক্ষ্যের দিকে {{done}}/{{total}} ayah লগ করুন।",
+      "reminderBodyPages": "আজকের khatm লক্ষ্যের দিকে {{done}}/{{total}} পৃষ্ঠা লগ করুন।",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "আজকের khatm পড়া ঠিক আছে — চালিয়ে যান।",
+      "openPlan": "Khatm পরিকল্পনা খুলুন",
+      "a11y": "Khatm পরিকল্পনা {{total}}-এর {{day}} দিন, {{percent}} শতাংশ সম্পূর্ণ, আজ {{target}}-এর {{done}}"
+    },
+    "acceptanceHourCard": {
+      "badge": "দোয়ার সময়",
+      "reminderTitle": "কবুলের সময়",
+      "reminderBody": "জুমার দিনে এমন একটি সময় যখন dua প্রত্যাখ্যাত হয় না — বিশেষত Asr-এর পরে আন্তরিক dua, istighfar ও salawatের সাথে এটি খুঁজুন।",
+      "openGuide": "কবুলের সময় খুলুন"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "বিতর",
       "adhkar": "আযকার",
       "qaza": "কাজা",
-      "a11y": "{{label}}: {{percent}}% সম্পন্ন, {{total}}-এর {{completed}}"
+      "a11y": "{{label}}: {{percent}}% সম্পন্ন, {{total}}-এর {{completed}}",
+      "khatm": "Khatm"
     },
     "allDone": "মাশাআল্লাহ — সব সম্পন্ন",
     "freshStart": "নতুন শুরু",
@@ -547,6 +558,14 @@
       "jumpTitle": "জুমুআহ চেকলিস্ট",
       "jumpHint": "নিচে শুক্রবারের সুন্নত আমল",
       "jumpA11y": "এই পৃষ্ঠার জুমুআহ চেকলিস্টে যান"
+    },
+    "khatm": {
+      "title": "Khatm পরিকল্পনা",
+      "progress": "আজ {{done}}/{{total}}",
+      "hint": "আজকের লক্ষ্যের দিকে {{count}} ayah — লগ করতে ট্যাপ করুন",
+      "hintPages": "আজকের লক্ষ্যের দিকে {{count}} পৃষ্ঠা — লগ করতে ট্যাপ করুন",
+      "completeHint": "আজকের অংশ শেষ — পরিকল্পনা দেখতে ট্যাপ করুন",
+      "a11y": "Khatm পরিকল্পনা {{total}}-এর {{day}} দিন, আজকের লক্ষ্যে {{target}}-এর {{done}}"
     }
   },
   "update": {
@@ -908,7 +927,10 @@
       "dailyContentTitle": "আজকের reflection",
       "dailyContentBody": "আপনার হোম স্ক্রিনে নতুন একটি আয়াত, হাদিস ও আল্লাহর একটি নাম প্রস্তুত আছে।",
       "fridayTitle": "জুমুআ মোবারক",
-      "fridayBody": "It's Friday — send salawat এবং read Surah Al-Kahf."
+      "fridayBody": "It's Friday — send salawat এবং read Surah Al-Kahf.",
+      "acceptanceHourTitle": "কবুলের সময়",
+      "acceptanceHourBodyAsr": "Asr শুরু হয়েছে — Maghrib পর্যন্ত dua, istighfar ও salawat দিয়ে কবুলের সময় খুঁজুন।",
+      "acceptanceHourBodyMid": "Maghrib-এর আগে এখনও সময় আছে — এই মুহূর্তগুলো আন্তরিক dua দিয়ে পূর্ণ করুন।"
     },
     "items": {
       "prayer": {
@@ -957,7 +979,7 @@
       },
       "friday": {
         "title": "Friday অনুস্মারক",
-        "subtitle": "Jumu'ah এবং Surah Al-Kahf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf ও কবুলের সময়"
       }
     },
     "prayerAlertsObligatory": "ফরজ নামাজ alerts",
@@ -1084,7 +1106,11 @@
     "listenVoiceHint": "শোনা শুরু করতে একটি কণ্ঠ নির্বাচন করুন",
     "listenVoiceDefault": "সিস্টেম ডিফল্ট",
     "listenVoiceDefaultHint": "এই ভাষার জন্য ডিভাইসের পছন্দের কণ্ঠ ব্যবহার করুন",
-    "listenVoiceEmpty": "এই ভাষার জন্য কোনো কণ্ঠ ইনস্টল নেই। সিস্টেম সেটিংসে একটি যোগ করুন।"
+    "listenVoiceEmpty": "এই ভাষার জন্য কোনো কণ্ঠ ইনস্টল নেই। সিস্টেম সেটিংসে একটি যোগ করুন।",
+    "showTransliteration": "ট্রান্সলিটারেশন দেখান",
+    "hideTransliteration": "ট্রান্সলিটারেশন লুকান",
+    "showTranslation": "অনুবাদ দেখান",
+    "hideTranslation": "অনুবাদ লুকান"
   },
   "share": {
     "dialogTitle": "শেয়ার",
@@ -1130,7 +1156,8 @@
     "searchPlaceholder": "duas by title, topic, or text… অনুসন্ধান",
     "searchInCategory": "in this category… অনুসন্ধান",
     "searchResultCount": "{{count}} মিল",
-    "noResults": "No duas matched আপনার অনুসন্ধান."
+    "noResults": "No duas matched আপনার অনুসন্ধান.",
+    "favSubtitle": "সংরক্ষিত দোয়াগুলো পুনর্বিন্যাস বা সরান"
   },
   "duaCat": {
     "morning_evening": "Pagi & Sore",
@@ -1386,7 +1413,13 @@
       "stopDictate": "শোনা বন্ধ করুন",
       "bestMatch": "সেরা মিল",
       "otherMatches": "অন্যান্য মিল"
-    }
+    },
+    "searchPlaceholderArabic": "আরবি পাঠ বা ٢:٢٥٥-এর মতো রেফারেন্স খুঁজুন…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "নববী tradition",
@@ -1609,7 +1642,9 @@
       },
       "footer": "এই app counts মিস বিতর toward কাজা জন্য সব users. Treat it as প্রয়োজনীয় if আপনি follow  Hanafi view; otherwise ট্র্যাক it as  recommended make-up. Consult  আলেম জন্য আপনার situation."
     },
-    "history": "Sejarah"
+    "history": "Sejarah",
+    "rowDone": "{{completed}} Qaza করা হয়েছে",
+    "rowDoneWithDaily": "{{completed}} Qaza করা · আজ {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "কাজা",
@@ -1855,7 +1890,8 @@
     "confirmResetTitle": "counter? রিসেট",
     "confirmResetMessage": "আপনার গণনা এর {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? শুরু",
-    "confirmStartAgainMessage": "আপনার completed গণনা will be cleared so আপনি can begin  নতুন round."
+    "confirmStartAgainMessage": "আপনার completed গণনা will be cleared so আপনি can begin  নতুন round.",
+    "dockLabel": "গণনা"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} হয় only {{min}} min away",
@@ -2511,7 +2547,15 @@
       "ahead": "এগিয়ে",
       "onTrack": "এ ট্র্যাক",
       "behind": "পিছিয়ে"
-    }
+    },
+    "logConfirmTitle": "পঠনের অগ্রগতি যোগ করবেন?",
+    "logConfirmMsg": "আপনার খতমের মোটে {{count}} আয়াত যোগ করবেন?",
+    "logConfirmMsgPages": "আপনার খতমের মোটে {{count}} পৃষ্ঠা যোগ করবেন?",
+    "logConfirmAction": "যোগ করুন",
+    "correctTotalConfirmTitle": "মোট পঠন আপডেট করবেন?",
+    "correctTotalConfirmMsg": "খতমের মোট {{count}} আয়াত নির্ধারণ করবেন?",
+    "correctTotalConfirmMsgPages": "খতমের মোট {{count}} পৃষ্ঠা নির্ধারণ করবেন?",
+    "correctTotalConfirmAction": "মোট আপডেট করুন"
   },
   "hifz": {
     "short": "হিফজ",
@@ -2545,7 +2589,7 @@
     "quranTitle": "থেকে  কুরআন",
     "hadithTitle": "থেকে  সুন্নত",
     "obligationsTitle": "What আপনি হয় still responsible জন্য",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "রakat এক নজরে",
     "rakatsPrayer": "নামাজ",
     "rakatsResident": "At হোম",
     "rakatsTravel": "Bepergian",
@@ -2715,7 +2759,8 @@
       "knowledge": "দৈনিক knowledge card",
       "quickActions": "দ্রুত কাজ",
       "qaza": "কাজা summary",
-      "schedule": "আজকের schedule"
+      "schedule": "আজকের schedule",
+      "khatm": "Khatm পরিকল্পনা"
     }
   },
   "schedule": {
@@ -2741,7 +2786,7 @@
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} lessons marked সম্পন্ন",
     "topicsTitle": "Panduan",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "রakat এক নজরে",
     "prayer": "নামাজ",
     "fard": "Fardhu",
     "sunnah": "সুন্নত",
@@ -2815,7 +2860,12 @@
       "listenHint": "ট্যাপ  recording তে চালান. Follow along সহ  words below as আপনি listen.",
       "play": "চালান {{name}} আযান",
       "pause": "{{name}} adhan বিরতি",
-      "sourceNote": "Recordings থেকে  খুলুন Kiwifu/আযান-mp3 collection (Mecca, Medina, Mishary Alafasy, এবং more)."
+      "sourceNote": "Recordings থেকে  খুলুন Kiwifu/আযান-mp3 collection (Mecca, Medina, Mishary Alafasy, এবং more).",
+      "learnPhrasesHint": "শব্দগুলো শিখুন — প্রতিটি বাক্য স্পষ্টভাবে একের পর এক চালান।",
+      "playPhrases": "সব বাক্যাংশ চালান",
+      "pausePhrases": "বাক্যাংশ থামান",
+      "playPhrase": "বাক্যাংশ {{n}} চালান: {{title}}",
+      "followAlongNote": "চালানোর সময় নিচের শব্দগুলো হাইলাইট হয়"
     }
   },
   "battles": {
@@ -3437,7 +3487,8 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "playAyahA11y": "{{ref}} এর তিলাওয়াত চালান"
   },
   "library": {
     "eyebrow": "লাইব্রেরি",
@@ -3950,7 +4001,7 @@
       "label": "সংযুক্তি (ঐচ্ছিক)",
       "add": "ফাইল যোগ করুন",
       "remove": "সংযুক্তি সরান",
-      "hint": "সর্বোচ্চ ৫টি ফাইল (JPEG, PNG, WebP বা PDF), প্রতিটি ১ MB। সরাতে থাম্বনেইলে × ট্যাপ করুন।",
+      "hint": "5টি পর্যন্ত ফাইল (JPEG, PNG, WebP, অথবা PDF), প্রতিটি 1 MB। একটি থাম্বনেইল অপসারণ করতে দীর্ঘক্ষণ প্রেস করুন।",
       "signInRequired": "আপনার adhkar ব্যক্তিগত ফাইল সংযুক্ত করতে সাইন ইন করুন.",
       "permissionDenied": "ফাইল সংযুক্ত করার জন্য অনুমতি প্রয়োজন.",
       "permissionTitle": "অ্যাক্সেসের অনুমতি দিন",
@@ -4126,14 +4177,34 @@
   "hajj": {
     "eyebrow": "হজ",
     "title": "হজ ও উমরাহ",
-    "subtitle": "হজের আমলের ধাপে ধাপে চেকলিস্ট।",
+    "subtitle": "কুরআন ও সুন্নাহ থেকে রীতি শিখুন, তারপর Hajj ও Umrah আলাদাভাবে ট্র্যাক করুন।",
     "progress": "{{done}} / {{total}} আমল",
     "reset": "রিসেট",
     "resetConfirmTitle": "চেকলিস্ট রিসেট করবেন?",
     "resetConfirmMsg": "এতে সব আমলের টিক সরিয়ে দেওয়া হবে। আপনার অগ্রগতি পুনরুদ্ধার করা যাবে না।",
-    "umrahTag": "উমরাহ",
-    "hajjTag": "হজ",
-    "disclaimer": "এটি একটি ব্যবহারিক চেকলিস্ট, ফিকহের বই নয়। বিধান ও বিস্তারিত জানতে যোগ্য গাইড অনুসরণ করুন।",
+    "disclaimer": "এটি ব্যবহারিক শিক্ষামূলক সংক্ষিপ্ত বিবরণ, fiqh ম্যানুয়াল নয়। মাযহাব বিস্তারিতে ভিন্ন — বিধি ও অপ্রত্যাশিত ক্ষেত্রে যোগ্য গাইড অনুসরণ করুন।",
+    "intro": "প্রামাণ্য রেফারেন্স দিয়ে ফরজ, ihram, Umrah ও Hajj-এর দিনগুলো অধ্যয়ন করুন। চেকলিস্ট শুধু রীতির জন্য — প্রস্তুতির পরামর্শ শিখুন বিষয়ে থাকে।",
+    "section": {
+      "virtues": "ফজিলত",
+      "obligation": "ফরজ",
+      "types": "Hajj-এর প্রকার",
+      "ihram": "Miqat ও ihram",
+      "umrah": "Umrah",
+      "hajj": "Hajj-এর দিন",
+      "rulings": "বিধি ও আদব",
+      "prep": "ব্যবহারিক প্রস্তুতি"
+    },
+    "checklistsTitle": "রীতির চেকলিস্ট",
+    "hajjChecklistTitle": "Hajj চেকলিস্ট",
+    "hajjChecklistHint": "তীর্থযাত্রার দিনে দিনে রীতি",
+    "hajjChecklistSubtitle": "Tarwiyah থেকে বিদায়ী tawaf পর্যন্ত Hajj রীতি ট্র্যাক করুন।",
+    "hajjChecklistIntro": "প্রতিটি রীতি সম্পন্ন হলে চিহ্নিত করুন। এটি স্মৃতি সহায় — fatwa নয়।",
+    "umrahChecklistTitle": "Umrah চেকলিস্ট",
+    "umrahChecklistHint": "Ihram থেকে halq বা taqsir",
+    "umrahChecklistSubtitle": "Umrah-এর ক্রম ক্রমানুসারে ট্র্যাক করুন।",
+    "umrahChecklistIntro": "প্রতিটি Umrah রীতি সম্পন্ন হলে চিহ্নিত করুন। বিস্তারিত ও প্রমাণের জন্য শিখুন খুলুন।",
+    "notFound": "বিষয় পাওয়া যায়নি",
+    "continueInApp": "Munib-এ চালিয়ে যান",
     "prepTag": "প্রস্তুতি"
   },
   "dailyHadith": {
@@ -4491,15 +4562,15 @@
     "settingsSubtitleIos": "নামাজ with Siri or Apple Watch চিহ্নিত করুন",
     "settingsSubtitleAndroid": "নামাজ with Google Assistant or Wear OS চিহ্নিত করুন",
     "introIos": "Use Siri, Shortcuts, অথবা Apple Watch তে mark নামাজ without opening  checklist. Requires  EAS dev অথবা production build — not available এ Expo Go.",
-    "introAndroid": "Use Google Assistant অথবা Wear OS তে mark নামাজ without opening  checklist. Requires  EAS dev অথবা production build — not available এ Expo Go.",
+    "introAndroid": "চেকলিস্ট না খুলে Salah চিহ্নিত করতে Google Assistant, অ্যাপ আইকন শর্টকাট বা Wear OS ব্যবহার করুন। EAS dev বা production build প্রয়োজন — Expo Go-তে উপলব্ধ নয়।",
     "siriTitle": "Siri ও Shortcuts",
     "siriHint": "After installing থেকে TestFlight অথবা  App Store, খুলুন  Shortcuts app অথবা say “Hey Siri, mark my নামাজ এ Munib Tracker”. If  app was force-quit,  mark syncs  পরবর্তী time আপনি খুলুন Munib Tracker.",
     "assistantTitle": "গুগল অ্যাসিস্ট্যান্ট",
-    "assistantHint": "Say “Hey Google, mark my নামাজ এ Munib Tracker” এ  ডিভাইস সহ  app installed.",
+    "assistantHint": "\"Hey Google, mark my Salah in Munib Tracker\" বলুন, অথবা Munib Tracker আইকনে দীর্ঘ চাপ দিয়ে Mark Salah বেছে নিন। অ্যাপ force-quit হলে, Munib Tracker খুললে চিহ্ন sync হবে।",
     "watchTitle": "অ্যাপল ওয়াচ",
     "watchHint": "the Munib Tracker watch app to see today’s schedule and mark নামাজ. Data syncs from your iPhone. খুলুন",
     "wearTitle": "ওয়্যার OS",
-    "wearHint": "the Munib Tracker tile on your watch after pairing with your phone. যোগ",
+    "wearHint": "ফোন পেয়ার করার পর ঘড়িতে Munib Tracker টাইল যোগ করুন। টাইলে ট্যাপ করে ফোনে বর্তমান Salah চিহ্নিত করুন।",
     "marked": "নামাজ marked",
     "alreadyDone": "ইতিমধ্যেই চিহ্নিত৷",
     "allDone": "সব obligatory নামাজ marked for today",
@@ -4706,7 +4777,7 @@
     "eyebrow": "ক্যালেন্ডার",
     "title": "তারিখ রূপান্তরকারী",
     "subtitle": "হিজরি এবং গ্রেগরিয়ান ক্যালেন্ডারের মধ্যে রূপান্তর করুন",
-    "intro": "যেকোনো ক্যালেন্ডারে একটি তারিখ লিখুন অন্যটিতে সমতুল্য দেখতে — আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে অফলাইনে গণনা করা।",
+    "intro": "সারণী কুয়েতি অ্যালগরিদম ব্যবহার করে অফলাইনে গণনা করা অন্য ক্যালেন্ডারে তার সমতুল্য দেখতে উভয় ক্যালেন্ডারে একটি তারিখ লিখুন।",
     "toHijri": "গ্রেগরিয়ান → হিজরি",
     "toGregorian": "হিজরি → গ্রেগরিয়ান",
     "gregorianDateLabel": "গ্রেগরিয়ান তারিখ",
@@ -4716,7 +4787,7 @@
     "year": "বছর",
     "useToday": "আজই ব্যবহার করুন",
     "invalidDate": "একটি বৈধ তারিখ লিখুন",
-    "disclaimer": "তারিখ আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে গণনা করা হয় এবং অফিসিয়াল চাঁদ দেখার ঘোষণা থেকে এক দিন আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষ অনুসরণ করুন।",
+    "disclaimer": "এটি একটি গাণিতিক আনুমানিক (সারণী \"কুয়েতি অ্যালগরিদম\") এবং স্থানীয় চাঁদ দেখার ঘোষণা থেকে একদিনে আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষকে অনুসরণ করুন।",
     "directionTitle": "রূপান্তর দিক",
     "resultFrom": "{{date}} থেকে",
     "quickLinksTitle": "সম্পর্কিত",

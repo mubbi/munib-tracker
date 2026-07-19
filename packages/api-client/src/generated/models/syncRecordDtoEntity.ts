@@ -29,6 +29,7 @@ export const SyncRecordDtoEntity = {
   custom_adhkar: 'custom_adhkar',
   khushu_journal: 'khushu_journal',
   hajj_checklist: 'hajj_checklist',
+  umrah_checklist: 'umrah_checklist',
   friday_checklist: 'friday_checklist',
   jannah_intentions: 'jannah_intentions',
   jahannam_intentions: 'jahannam_intentions',

@@ -133,9 +133,9 @@ export default function QazaRozaScreen() {
         jsonLd={[
           webPageSchema({
             path: "/qaza/roza",
-            name: "Missed Fasts Tracker — Qaza Roza",
+            name: "Missed Fasts Tracker — Qaza Fasting",
             description:
-              "Track and make up missed fasts (qaza roza). Estimate missed Ramadan fasts and record each make-up.",
+              "Track and make up missed fasts (qaza fasting). Estimate missed Ramadan fasts and record each make-up.",
             breadcrumbs: [
               { name: t("tabs.home"), path: "/" },
               { name: t("qaza.title"), path: "/qaza" },

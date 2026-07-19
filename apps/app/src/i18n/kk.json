@@ -77,10 +77,11 @@
       "intro": "Осы нұсқаулық сабақтарынан қысқа қайталау. Асықпаңыз — мақсат үйрену.",
       "hint": "Үйренгеніңізді қайталаңыз",
       "empty": "Осы нұсқаулықтың сұрақтары әлі жүктелуде. Бірнеше сабақ ашып, қайта көріңіз."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Іздеу по Құрану, хадисам, дуа, adhkar…",
+    "placeholder": "Құран, хадис, дұға, Оқу іздеу…",
     "clear": "Тазалау поиск",
     "all": "Барлық",
     "resultsCount": "{{count}} результатов",
@@ -109,16 +110,7 @@
       "zikr": "Адхкар",
       "name": "99 имён",
       "durood": "Duroods",
-      "jannah": "Jannah-ға сапар",
-      "jahannam": "Jahannam түсінігі",
-      "lastDay": "Соңғы күн",
-      "salahGuide": "Үйрену Salah",
-      "battles": "Шайқастар в Исламе",
-      "taharah": "Тазартуды үйрену",
-      "prophets": "Үйрену пайғамбарлар",
-      "aqeedah": "Үйрену Aqeedah",
-      "learnDua": "Үйрену дуа",
-      "learnQuran": "Үйрену Құран"
+      "learn": "Оқу"
     },
     "stt": {
       "dictate": "Дауыспен іздеу",
@@ -465,6 +457,24 @@
       "badge": "Жұма",
       "reminderTitle": "Жұма мүбәрак",
       "reminderBody": "Jumu'ah оқыңыз және жұма сүннеттерін орындаңыз — ghusl, Surah al-Kahf, salawat және dua."
+    },
+    "khatmStat": "Хатм",
+    "khatmCard": {
+      "badge": "Хатм",
+      "reminderTitle": "Бүгінгі Құран бөлігі",
+      "catchUpTitle": "Хатмды қуып жету",
+      "reminderBody": "Бүгінгі хатм мақсатына {{done}}/{{total}} аят белгілеңіз.",
+      "reminderBodyPages": "Бүгінгі хатм мақсатына {{done}}/{{total}} бет белгілеңіз.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Бүгінгі хатм оқуы жоспарда — жалғастырыңыз.",
+      "openPlan": "Хатм жоспарын ашу",
+      "a11y": "Хатм жоспары {{day}}-күн {{total}} ішінен, {{percent}} пайыз аяқталды, бүгін {{done}} / {{target}}"
+    },
+    "acceptanceHourCard": {
+      "badge": "Дұға сағаты",
+      "reminderTitle": "Қабыл сағаты",
+      "reminderBody": "Жұма күні дұға қабыл болатын сағат — әсіресе екінтінен кейін шынайы дұға, истиғфар және салауатпен іздеңіз.",
+      "openGuide": "Қабыл сағатын ашу"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Витр",
       "adhkar": "Адхкар",
       "qaza": "Kaza",
-      "a11y": "{{label}}: {{percent}}% аяқталды, {{completed}}  {{total}}"
+      "a11y": "{{label}}: {{percent}}% аяқталды, {{completed}}  {{total}}",
+      "khatm": "Хатм"
     },
     "allDone": "MashaAllah — all done",
     "freshStart": " fresh бастау",
@@ -547,6 +558,14 @@
       "jumpTitle": "Jumu'ah тізімі",
       "jumpHint": "Жұма сүннеттері төменде",
       "jumpA11y": "Осы беттегі Jumu'ah тізіміне өту"
+    },
+    "khatm": {
+      "title": "Хатм жоспары",
+      "progress": "Бүгін {{done}} / {{total}}",
+      "hint": "Бүгінгі мақсатқа {{count}} аят — белгілеу үшін басыңыз",
+      "hintPages": "Бүгінгі мақсатқа {{count}} бет — белгілеу үшін басыңыз",
+      "completeHint": "Бүгінгі бөлік дайын — жоспарды қарау үшін басыңыз",
+      "a11y": "Хатм жоспары {{day}}-күн {{total}} ішінен, бүгінгі мақсатқа {{done}} / {{target}}"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Бүгінгі күннің рефлексиясы",
       "dailyContentBody": "Негізгі экранда жаңа аят, хадис және Алланың есімі дайын.",
       "fridayTitle": "Жұма мүбарак",
-      "fridayBody": "Бүгін жұма — салауат айтып, «Кәһф» сүресін оқыңыз."
+      "fridayBody": "Бүгін жұма — салауат айтып, «Кәһф» сүресін оқыңыз.",
+      "acceptanceHourTitle": "Қабыл сағаты",
+      "acceptanceHourBodyAsr": "Екінті басталды — ақшамға дейін дұға, истиғфар және салауатпен қабыл уақытын іздеңіз.",
+      "acceptanceHourBodyMid": "Ақшамға дейін уақыт бар — осы минуттарды шынайы дұғамен толтырыңыз."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Жұма туралы еске салу",
-        "subtitle": "Жұма және Кәһф сүресі"
+        "subtitle": "Жұма, Кәһф сүресі және қабыл сағаты"
       }
     },
     "prayerAlertsObligatory": "Міндетті намаз ескертулері",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Тыңдауды бастау үшін дауыс таңдаңыз",
     "listenVoiceDefault": "Жүйе әдепкісі",
     "listenVoiceDefaultHint": "Осы тіл үшін құрылғының қалаулы дауысын пайдаланыңыз",
-    "listenVoiceEmpty": "Осы тіл үшін орнатылған дауыс жоқ. Жүйе параметрлерінен қосыңыз."
+    "listenVoiceEmpty": "Осы тіл үшін орнатылған дауыс жоқ. Жүйе параметрлерінен қосыңыз.",
+    "showTransliteration": "Транслитерацияны көрсету",
+    "hideTransliteration": "Транслитерацияны жасыру",
+    "showTranslation": "Аударманы көрсету",
+    "hideTranslation": "Аударманы жасыру"
   },
   "share": {
     "dialogTitle": "Бөлісу",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "Іздеу duas арқылы title, тақырып, немесе text…",
     "searchInCategory": "Іздеу ішінде бұл category…",
     "searchResultCount": "{{count}} сәйкес келеді",
-    "noResults": "Жоқ duas matched сіздің іздеу."
+    "noResults": "Жоқ duas matched сіздің іздеу.",
+    "favSubtitle": "Сақталған дұғаларды қайта реттеңіз немесе жойыңыз"
   },
   "duaCat": {
     "morning_evening": "Таңертең және кешке",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Тындалуды тоқтату",
       "bestMatch": "Ең жақсы сәйкестік",
       "otherMatches": "Басқа сәйкестіктер"
-    }
+    },
+    "searchPlaceholderArabic": "Араб мәтінін немесе ٢:٢٥٥ сияқты сілтемені іздеу…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Пайғамбарлық tradition",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Бұл қолданба барлық пайдаланушылар үшін Witr-ді qaza-ға жіберіп алған деп есептейді. Ханафи көзқарасын ұстанатын болсаңыз, оны талап етіңіз; әйтпесе оны ұсынылған макияж ретінде қадағалаңыз. Жағдайыңыз үшін ғалыммен кеңесіңіз."
     },
-    "history": "Тарих"
+    "history": "Тарих",
+    "rowDone": "{{completed}} өтелді",
+    "rowDoneWithDaily": "{{completed}} өтелді · бүгін {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "Қайта орнату counter?",
     "confirmResetMessage": "Сіздің count  {{count}} will be өтелді.",
     "confirmStartAgainTitle": "Бастау again?",
-    "confirmStartAgainMessage": "Сіздің орындалды count will be өтелді so сіз can бастау  жаңа round."
+    "confirmStartAgainMessage": "Сіздің орындалды count will be өтелді so сіз can бастау  жаңа round.",
+    "dockLabel": "Санау"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} бар болғаны {{min}} мин",
@@ -2502,7 +2538,15 @@
       "ahead": "Алда",
       "onTrack": "Үстінде бақылау",
       "behind": "Артында"
-    }
+    },
+    "logConfirmTitle": "Оқу үлгерімін қосу керек пе?",
+    "logConfirmMsg": "Хатм жиынтығына {{count}} аят қосылсын ба?",
+    "logConfirmMsgPages": "Хатм жиынтығына {{count}} бет қосылсын ба?",
+    "logConfirmAction": "Қосу",
+    "correctTotalConfirmTitle": "Оқылған жиынтықты жаңарту керек пе?",
+    "correctTotalConfirmMsg": "Хатм жиынтығы {{count}} аят болсын ба?",
+    "correctTotalConfirmMsgPages": "Хатм жиынтығы {{count}} бет болсын ба?",
+    "correctTotalConfirmAction": "Жиынтықты жаңарту"
   },
   "hifz": {
     "short": "Хифз",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Бастап  Құран",
     "hadithTitle": "Бастап  Sunnah",
     "obligationsTitle": "What сіз  still responsible үшін",
-    "rakatsTitle": "Rakats да  glance",
+    "rakatsTitle": "Рәкаттар бір қарауда",
     "rakatsPrayer": "Салах",
     "rakatsResident": "Да басты бет",
     "rakatsTravel": "Саяхаттау",
@@ -2718,7 +2762,8 @@
       "knowledge": "Күнделікті білім картасы",
       "quickActions": "Жылдам әрекеттер",
       "qaza": "Qaza қысқаша мазмұны",
-      "schedule": "Бүгінгі күн кестесі"
+      "schedule": "Бүгінгі күн кестесі",
+      "khatm": "Хатм жоспары"
     }
   },
   "schedule": {
@@ -2744,7 +2789,7 @@
     "progressCardTitle": "Learning прогресс",
     "progressCardHint": "{{completed}}  {{total}} сабақтар белгіленді аяқталды",
     "topicsTitle": "Гидтер",
-    "rakatsTitle": "Rakats да  glance",
+    "rakatsTitle": "Рәкаттар бір қарауда",
     "prayer": "Салах",
     "fard": "Фарз",
     "sunnah": "Сүннет",
@@ -2818,7 +2863,12 @@
       "listenHint": "Басыңыз  recording ға play. Follow along бірге  words төменде as сіз listen.",
       "play": "{{name}} азан ойнаңыз",
       "pause": "{{name}} азанды үзіліс",
-      "sourceNote": "Recordings бастап  ашу Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, және more)."
+      "sourceNote": "Recordings бастап  ашу Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, және more).",
+      "learnPhrasesHint": "Сөздерді үйреніңіз — әр сөйлемді анық, бірінен соң бірін тыңдаңыз.",
+      "playPhrases": "Барлық сөйлемдерді ойнату",
+      "pausePhrases": "Сөйлемдерді тоқтату",
+      "playPhrase": "{{n}}-сөйлемді ойнату: {{title}}",
+      "followAlongNote": "Ойнағанда төмендегі сөздерді бөлектейді"
     }
   },
   "battles": {
@@ -3440,7 +3490,8 @@
       "obligatory": "Маңызды",
       "highly-recommended": "Өте ұсынылады",
       "recommended": "Ұсынылады"
-    }
+    },
+    "playAyahA11y": "{{ref}} оқуын ойнату"
   },
   "library": {
     "eyebrow": "Кітапхана",
@@ -4033,7 +4084,7 @@
       "label": "Қосымшалар (міндетті емес)",
       "add": "Файл қосу",
       "remove": "Қосымшаны алып тастаңыз",
-      "hint": "5 файлға дейін (JPEG, PNG, WebP немесе PDF), әрқайсысы 1 MB. Жою үшін нобайдағы × түртіңіз.",
+      "hint": "5 файлға дейін (JPEG, PNG, WebP немесе PDF), әрқайсысы 1 МБ. Жою үшін нобайды ұзақ басып тұрыңыз.",
       "signInRequired": "Жеке файлдарды adhkar-ға тіркеу үшін жүйеге кіріңіз.",
       "permissionDenied": "Файлдарды тіркеу үшін рұқсат қажет.",
       "permissionTitle": "Қол жеткізу",
@@ -4209,14 +4260,34 @@
   "hajj": {
     "eyebrow": "Қажылық",
     "title": "Қажылық және умра",
-    "subtitle": " қадам-арқылы-қадам checklist үшін  rites  қажылық.",
+    "subtitle": "Құран мен Сүннеттен рәсімдерді үйреніңіз, содан кейін қажылық пен умраны бөлек қадағалаңыз.",
     "progress": "{{total}} ғұрыптардың {{done}}",
     "reset": "Қайта орнату",
     "resetConfirmTitle": "Қайта орнату checklist?",
     "resetConfirmMsg": "Бұл will uncheck every rite. Сіздің прогресс болмайды be recovered.",
-    "umrahTag": "Умра",
-    "hajjTag": "Қажылық",
-    "disclaimer": " practical checklist, емес  fiqh manual. Follow  білікті guide үшін rulings және details.",
+    "disclaimer": "Практикалық білім беру шолуы, фиқһ кітабы емес. Мәзһабтар егжей-тегжейде ерекшеленеді — үкімдер мен күтпеген жағдайлар үшін білікті ұстазға жүгініңіз.",
+    "intro": "Міндеттілік, ихрам, умра және қажылық күндерін сенімді дәйектермен оқыңыз. Тізімдер тек рәсімдер үшін — дайындық кеңестері Оқу тақырыптарында.",
+    "section": {
+      "virtues": "Артықшылықтар",
+      "obligation": "Міндеттілік",
+      "types": "Қажылық түрлері",
+      "ihram": "Миқат және ихрам",
+      "umrah": "Умра",
+      "hajj": "Қажылық күндері",
+      "rulings": "Үкімдер және әдеп",
+      "prep": "Практикалық дайындық"
+    },
+    "checklistsTitle": "Рәсім тізімдері",
+    "hajjChecklistTitle": "Қажылық тізімі",
+    "hajjChecklistHint": "Қажылықтың күнделікті рәсімдері",
+    "hajjChecklistSubtitle": "Тәруиядан қоштасу тауафына дейін қажылық рәсімдерін қадағалаңыз.",
+    "hajjChecklistIntro": "Әр рәсімді аяқтағанда белгілеңіз. Бұл еске салғыш — фәтуа емес.",
+    "umrahChecklistTitle": "Умра тізімі",
+    "umrahChecklistHint": "Ихрамнан халқ немесе тақсырге дейін",
+    "umrahChecklistSubtitle": "Умра ретін ретімен қадағалаңыз.",
+    "umrahChecklistIntro": "Әр умра рәсімін аяқтағанда белгілеңіз. Толығырақ пен дәлел үшін Оқуды ашыңыз.",
+    "notFound": "Тақырып табылмады",
+    "continueInApp": "Munib-те жалғастыру",
     "prepTag": "Дайындық"
   },
   "dailyHadith": {
@@ -4574,15 +4645,15 @@
     "settingsSubtitleIos": "Mark Salah бірге Siri немесе Apple Watch",
     "settingsSubtitleAndroid": "Mark Salah бірге Google Assistant немесе Wear OS",
     "introIos": "Use Siri, Shortcuts, немесе Apple Watch ға mark Salah without opening  checklist. Requires  EAS dev немесе production build — емес available ішінде Expo Go.",
-    "introAndroid": "Use Google Assistant немесе Wear OS ға mark Salah without opening  checklist. Requires  EAS dev немесе production build — емес available ішінде Expo Go.",
+    "introAndroid": "Тізімді ашпай намазды белгілеу үшін Google Assistant, қолданба белгішесінің төте жолы немесе Wear OS қолданыңыз. EAS әзірлеу немесе өндіріс құрастыруы қажет — Expo Go-да жоқ.",
     "siriTitle": "Siri және төте жолдар",
     "siriHint": "After installing бастап TestFlight немесе  Қолданба Store, ашу  Shortcuts қолданба немесе say “Hey Siri, mark my Salah ішінде Munib Tracker”. If  қолданба was force-quit,  mark syncs  келесі time сіз ашу Munib Tracker.",
     "assistantTitle": "Google Asistan",
-    "assistantHint": "Say “Hey Google, mark my Salah ішінде Munib Tracker” үстінде  құрылғы бірге  қолданба installed.",
+    "assistantHint": "«Hey Google, mark my Salah in Munib Tracker» деп айтыңыз немесе Munib Tracker белгішесін ұзақ басып Mark Salah таңдаңыз. Қолданба мәжбүрлі жабылса, белгілеу Munib Tracker-ді келесі ашқанда синхрондалады.",
     "watchTitle": "Apple Watch",
     "watchHint": "Ашу  Munib Tracker watch қолданба ға see бүгін’s schedule және mark Salah. Деректер syncs бастап сіздің iPhone.",
     "wearTitle": "Wear OS",
-    "wearHint": "Қосу  Munib Tracker tile үстінде сіздің watch after pairing бірге сіздің phone.",
+    "wearHint": "Телефонды жұптағаннан кейін сағатыңызға Munib Tracker плиткасын қосыңыз. Қазіргі намазды телефонда белгілеу үшін плитканы түртіңіз.",
     "marked": "Salah белгіленді",
     "alreadyDone": "Белгіленген",
     "allDone": "Барлық міндетті Salah белгіленді үшін бүгін",
@@ -4789,7 +4860,7 @@
     "eyebrow": "Күнтізбе",
     "title": "Күнді түрлендіргіш",
     "subtitle": "Хижри және Григориан күнтізбелері арасында түрлендіру",
-    "intro": "Кез келген күнтізбеде күн енгізіңіз — екіншісіндегі тең мәнін көріңіз; офлайн, орныңыздағы ай көрінуінен есептеледі.",
+    "intro": "Кувейттің кестелік алгоритмі арқылы есептелген басқа күнтізбеде оның баламасын көру үшін кез келген күнтізбеге күнді енгізіңіз.",
     "toHijri": "Григориан → Хижри",
     "toGregorian": "Хижри → Григориан",
     "gregorianDateLabel": "Григориан күні",
@@ -4799,7 +4870,7 @@
     "year": "Жыл",
     "useToday": "Бүгін пайдаланыңыз",
     "invalidDate": "Жарамды күнді енгізіңіз",
-    "disclaimer": "Күндер сіздің орныңыздағы ай (hilāl) көрінуінен есептеледі және ресми ай көру хабарландыруларынан бір күнге ерекшеленуі мүмкін — діни күндер үшін әрқашан жергілікті мешіт немесе билікке еріңіз.",
+    "disclaimer": "Бұл арифметикалық жуықтау (кестелік «Кувейт алгоритмі») және жергілікті айды көру туралы хабарландырулардан бір тәулікке ерекшеленуі мүмкін — әрқашан жергілікті мешітті немесе діни даталар бойынша мекемені бақылаңыз.",
     "directionTitle": "Түрлендіру бағыты",
     "resultFrom": "{{date}} бастап",
     "quickLinksTitle": "Қатысты",

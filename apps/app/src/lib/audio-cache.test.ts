@@ -6,6 +6,7 @@ import {
   getAudioCacheSize,
   isAudioLocalCacheEnabled,
   peekCachedAudioUri,
+  peekNativeCachedAudioUri,
   resolveCachedAudioUri,
 } from "@/lib/audio-cache";
 
@@ -27,9 +28,12 @@ jest.mock("expo-file-system/legacy", () => {
     documentDirectory: "file:///document/",
     cacheDirectory: "file:///cache/",
     __reset: () => files.clear(),
+    __set: (uri: string, size: number) => {
+      files.set(uri, size);
+    },
     downloadAsync: jest.fn(async (_remote: string, local: string) => {
       files.set(local, FILE_BYTES);
-      return { uri: local };
+      return { uri: local, status: 200 };
     }),
     getInfoAsync: jest.fn(async (uri: string) => {
       if (uri === DIR) return { exists: files.size > 0, isDirectory: true, uri };
@@ -56,7 +60,9 @@ jest.mock("expo-file-system/legacy", () => {
 
 const FS = jest.requireMock("expo-file-system/legacy") as {
   __reset: () => void;
+  __set: (uri: string, size: number) => void;
   downloadAsync: jest.Mock;
+  deleteAsync: jest.Mock;
   getFreeDiskStorageAsync: jest.Mock;
 };
 
@@ -67,6 +73,7 @@ beforeEach(() => {
   FS.__reset();
   clearAudioCacheInflight();
   FS.downloadAsync.mockClear();
+  FS.deleteAsync.mockClear();
   mockPrefs.cacheAudioLocally = true;
   // Restore the default "plenty of room" implementation (tests override per-case).
   FS.getFreeDiskStorageAsync.mockReset();
@@ -137,6 +144,44 @@ describe("audio cache", () => {
 
     await clearAudioCache();
     expect(await getAudioCacheSize()).toBe(0);
+  });
+
+  it("uses a short hashed filename for long adhan CDN URLs (NAME_MAX-safe)", async () => {
+    const adhan =
+      "https://cdn.jsdelivr.net/gh/Kiwifu/adhan-mp3@main/" +
+      encodeURIComponent(
+        "Adhan_Al_Haram_Al_Madani_-_Al_Madinah_1_(أذان_الحرم_المدني_-_المدينة_المنورة).mp3",
+      );
+    // Previous encodeURIComponent scheme produced 400+ char filenames.
+    expect(encodeURIComponent(adhan).replace(/%/g, "_").length).toBeGreaterThan(255);
+
+    const cached = await resolveCachedAudioUri(adhan);
+    const fileName = cached.split("/").pop() ?? "";
+    expect(cached).toContain("munib-audio/");
+    expect(fileName.length).toBeLessThanOrEqual(255);
+    expect(fileName).toMatch(/^[0-9a-f]{16}\.mp3$/);
+    expect(FS.downloadAsync).toHaveBeenCalledWith(adhan, cached);
+  });
+
+  it("peeks a native cached file without starting a download", async () => {
+    expect(await peekNativeCachedAudioUri(AYAH)).toBeNull();
+    const cached = await resolveCachedAudioUri(AYAH);
+    FS.downloadAsync.mockClear();
+
+    expect(await peekNativeCachedAudioUri(AYAH)).toBe(cached);
+    expect(FS.downloadAsync).not.toHaveBeenCalled();
+  });
+
+  it("deletes an empty cache entry and re-downloads", async () => {
+    const cached = await resolveCachedAudioUri(AYAH);
+    FS.__set(cached, 0); // simulate a truncated / failed prior write
+    FS.downloadAsync.mockClear();
+    clearAudioCacheInflight();
+
+    const again = await resolveCachedAudioUri(AYAH);
+    expect(again).toBe(cached);
+    expect(FS.deleteAsync).toHaveBeenCalledWith(cached, { idempotent: true });
+    expect(FS.downloadAsync).toHaveBeenCalledTimes(1);
   });
 });
 

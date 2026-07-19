@@ -6,6 +6,7 @@ import type {
   UserPreferences,
 } from "@munib-tracker/shared/types";
 import i18n from "@/i18n";
+import { ACCEPTANCE_HOUR_ROUTE, acceptanceHourMidpoint } from "@/lib/acceptance-hour";
 import { afterSalahAdhkarHref } from "@/lib/after-salah-adhkar-reminder";
 import { locationCalcExtras, type StoredLocation } from "@/lib/location";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
@@ -88,6 +89,8 @@ const PRIORITY = {
   qaza: 70,
   dailyContent: 80,
   friday: 85,
+  /** Hour of acceptance (Asr + mid-window) — slightly ahead of Kahf nudge. */
+  acceptanceHour: 83,
 } as const;
 
 /** Registered adhan sound file (see the `sounds` array in `app.json`). */
@@ -321,6 +324,68 @@ function pushFridayReminder(
   }
 }
 
+/**
+ * Friday hour of acceptance — DATE triggers at Asr and mid Asr→Maghrib.
+ * Requires a real location (same guard as Salah alerts). Shares the Friday
+ * notification preference with the Kahf morning nudge.
+ */
+function pushAcceptanceHourReminders(
+  reminders: BuiltReminder[],
+  location: StoredLocation,
+  now: Date,
+  enabled: boolean,
+): void {
+  if (!enabled || location.source === "default") return;
+
+  const anchor = prayerDayAnchor(now, location.timeZone);
+  const extras = locationCalcExtras(location);
+
+  for (let offset = 0; offset <= 7; offset += 1) {
+    const day = shiftPrayerDay(anchor, offset);
+    if (day.getDay() !== 5) continue;
+
+    const times = computePrayerTimes(
+      { latitude: location.latitude, longitude: location.longitude },
+      day,
+      location.method,
+      location.madhab,
+      extras,
+    );
+    const asrAt = times.asr;
+    const midAt = acceptanceHourMidpoint(times.asr, times.maghrib);
+    const dayKey = `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
+
+    const slots: { kind: "asr" | "mid"; fireAt: Date }[] = [
+      { kind: "asr", fireAt: asrAt },
+      { kind: "mid", fireAt: midAt },
+    ];
+
+    let scheduledAny = false;
+    for (const slot of slots) {
+      if (slot.fireAt.getTime() <= now.getTime() - 60_000) continue;
+      if (slot.fireAt.getTime() >= times.maghrib.getTime()) continue;
+
+      reminders.push({
+        id: `fridayAcceptance:${slot.kind}:${dayKey}`,
+        fireAt: slot.fireAt,
+        title: i18n.t("notif.reminders.acceptanceHourTitle"),
+        body:
+          slot.kind === "asr"
+            ? i18n.t("notif.reminders.acceptanceHourBodyAsr")
+            : i18n.t("notif.reminders.acceptanceHourBodyMid"),
+        channelId: "zikr",
+        repeat: "date",
+        route: ACCEPTANCE_HOUR_ROUTE,
+        priority: PRIORITY.acceptanceHour,
+      });
+      scheduledAny = true;
+    }
+
+    // Prefer the nearest Friday that still has at least one upcoming fire.
+    if (scheduledAny) return;
+  }
+}
+
 /** Keep the highest-priority reminders within the OS pending budget. */
 export function trimRemindersToBudget(
   reminders: BuiltReminder[],
@@ -441,6 +506,8 @@ export function buildReminders(
 
   // Jumu'ah nudge — next Friday only; refreshed on reschedule.
   pushFridayReminder(reminders, location, now, n.friday);
+  // Hour of acceptance — Asr + mid-window on the next Friday (needs location).
+  pushAcceptanceHourReminders(reminders, location, now, n.friday);
 
   // Drop reminders whose fire time has already passed (DATE only; daily uses next slot).
   const upcoming = reminders.filter(

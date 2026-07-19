@@ -20,6 +20,7 @@ import { Platform } from "react-native";
 import {
   isAudioLocalCacheEnabled,
   peekCachedAudioUri,
+  peekNativeCachedAudioUri,
   prefetchAudioUri,
   resolveCachedAudioUri,
 } from "@/lib/audio-cache";
@@ -696,6 +697,10 @@ function AudioPlayerProviderLive({
       clearTtsClock();
       void stopTts();
 
+      if (track.clipStart != null && track.clipStart > 0) {
+        pendingSeekRef.current = track.clipStart;
+      }
+
       const active = getActive();
       const startPlayback = (resolved: number | { uri: string }) => {
         try {
@@ -707,47 +712,50 @@ function AudioPlayerProviderLive({
           // Stage the immediate next track into the idle player for a gapless
           // hand-off, and warm the ones after it.
           stageNext(tracks, startIndex + 1);
+          return true;
         } catch {
-          // unsupported source / platform
+          return false;
         }
       };
 
       if (track.source != null) {
-        startPlayback(track.source);
-        return;
+        if (startPlayback(track.source)) return;
+        // Bundled asset rejected — fall through to remote uri when present.
+        if (!track.uri) return;
       }
 
-      // Web: replays reuse an already-resolved local `blob:` URL synchronously
-      // (no network, no buffering). On the first play we stream the remote URL
-      // so the user's tap isn't blocked, then resolve a local blob in the
-      // background so every subsequent replay is served entirely from cache.
-      if (Platform.OS === "web") {
-        if (isAudioLocalCacheEnabled()) {
-          const localUri = peekCachedAudioUri(track.uri);
-          if (localUri) {
-            startPlayback({ uri: localUri });
-            return;
-          }
-        }
-        startPlayback({ uri: track.uri });
-        if (isAudioLocalCacheEnabled()) {
-          void resolveCachedAudioUri(track.uri).catch(() => {});
-        }
-        return;
-      }
-
+      // Prefer an already-local copy; otherwise stream the remote URL immediately
+      // and warm the cache in the background. Waiting for a full download before
+      // `play()` left Learn → Adhan stuck on "Buffering…" whenever the native
+      // cache path was invalid or the download was slow.
       if (!isAudioLocalCacheEnabled()) {
         startPlayback({ uri: track.uri });
         return;
       }
 
+      if (Platform.OS === "web") {
+        const localUri = peekCachedAudioUri(track.uri);
+        if (localUri) {
+          startPlayback({ uri: localUri });
+          return;
+        }
+        startPlayback({ uri: track.uri });
+        void resolveCachedAudioUri(track.uri).catch(() => {});
+        return;
+      }
+
       void (async () => {
         try {
-          const uri = await resolveCachedAudioUri(track.uri);
-          startPlayback({ uri });
+          const localUri = await peekNativeCachedAudioUri(track.uri);
+          if (localUri) {
+            startPlayback({ uri: localUri });
+            return;
+          }
         } catch {
-          // unsupported source / platform
+          // Fall through to streaming.
         }
+        startPlayback({ uri: track.uri });
+        void resolveCachedAudioUri(track.uri).catch(() => {});
       })();
     },
     [
@@ -1181,6 +1189,24 @@ function AudioPlayerProviderLive({
     pendingSeekRef.current = null;
     seekTo(target);
   }, [isLoaded, seekTo, ttsTrackActive]);
+
+  // End Learn Qur'an word/phrase clips once playback reaches clipEnd.
+  useEffect(() => {
+    if (ttsTrackActive || !isLoaded || userPaused) return;
+    if (!status.playing) return;
+    const track = queue[index];
+    const clipEnd = track?.clipEnd;
+    if (clipEnd == null || !track) return;
+    const now = status.currentTime ?? 0;
+    if (now < clipEnd - 0.05) return;
+    try {
+      playersRef.current[activeSlotRef.current].pause();
+    } catch {
+      // ignore
+    }
+    setUserPaused(true);
+    userPausedRef.current = true;
+  }, [ttsTrackActive, isLoaded, userPaused, status.playing, status.currentTime, queue, index]);
 
   // End the seamless transition only once the new source's clock has genuinely
   // reset. After a swap/replace the engine can briefly report the outgoing

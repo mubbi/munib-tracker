@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Yakalarsanız ne söylemelisiniz",
+    summary: "Âişe Nebi ﷺ'ye tam olarak ne söylemesi gerektiğini sordu.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Âişe (radıyallahu anhâ) Nebi ﷺ'ye sordu: 'Ey Allah'ın Resulü, Kadir Gecesi'nin hangi gece olduğunu bilirsem, o gece ne söylemeliyim?' O ﷺ ona aşağıda gösterilen kısa af dileme duasını öğretti (Tirmidhi 3513, el-Tirmidî tarafından hasen sahih derecesinde).",
+      "Bu dua kısadır, ezberlemesi kolaydır ve dünyevi istekler yerine bilerek af dilemeye yöneliktir — bu geceden en büyük kazanç Allah'ın affı olduğuna dair bir hatırlatmadır. Son on gecede, namazda, secde hâlinde ve aralarında sık sık tekrarlayın; tek bir tahmin edilen geceye saklamak yerine.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Dedim ki: Ey Allah'ın Resulü, Kadir Gecesi'nin hangi gece olduğunu bilirsem, o gece ne söylemeliyim? Buyurdu ki: De ki — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Allah'ım, Sen affedensin ve affetmeyi seversin, beni affet).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Yukarıda gösterilen af dileme duasını ezberleyin.",
+      "Son on gecede, özellikle tek gecelerde, sık sık tekrarlayın.",
     ],
   },
   {

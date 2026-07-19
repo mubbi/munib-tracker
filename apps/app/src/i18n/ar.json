@@ -59,6 +59,7 @@
     "minus": "ناقص",
     "set": "تعيين",
     "play": "تشغيل",
+    "pause": "إيقاف",
     "share": "مشاركة",
     "saved": "محفوظ",
     "increase": "زيادة {{label}}",
@@ -80,7 +81,7 @@
     }
   },
   "search": {
-    "placeholder": "ابحث في القرآن والحديث والأدعية والأذكار…",
+    "placeholder": "ابحث في القرآن والحديث والأدعية والتعلّم…",
     "clear": "مسح البحث",
     "all": "الكل",
     "resultsCount": "{{count}} نتيجة",
@@ -99,16 +100,7 @@
       "zikr": "الأذكار",
       "name": "أسماء الله الحسنى",
       "durood": "الصلوات",
-      "jannah": "الطريق إلى الجنة",
-      "jahannam": "فهم جهنم",
-      "lastDay": "يوم القيامة",
-      "salahGuide": "تعلّم الصلاة",
-      "battles": "معارك الإسلام",
-      "learnQuran": "تعلّم القرآن",
-      "taharah": "تعلّم الطهارة",
-      "prophets": "تعلّم الأنبياء",
-      "aqeedah": "تعلّم العقيدة",
-      "learnDua": "تعلّم الدعاء"
+      "learn": "التعلّم"
     },
     "suggestion": {
       "kursi": "آية الكرسي",
@@ -485,6 +477,24 @@
       "progress": "{{completed}}/{{total}}",
       "allDone": "اكتملت أعمال الجمعة — تقبّل الله.",
       "openChecklist": "افتح قائمة الجمعة"
+    },
+    "khatmStat": "الختم",
+    "acceptanceHourCard": {
+      "badge": "ساعة الدعاء",
+      "reminderTitle": "ساعة الإجابة",
+      "reminderBody": "ساعة يوم الجمعة لا يُرد فيها الدعاء — اطلبها خاصة بعد العصر بدعاء واستغفار وصلاة على النبي.",
+      "openGuide": "افتح ساعة الإجابة"
+    },
+    "khatmCard": {
+      "badge": "الختم",
+      "reminderTitle": "ورد القرآن لهذا اليوم",
+      "catchUpTitle": "تعويض الختم",
+      "reminderBody": "سجّل {{done}}/{{total}} آيات نحو هدف الختم اليوم.",
+      "reminderBodyPages": "سجّل {{done}}/{{total}} صفحات نحو هدف الختم اليوم.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "ورد الختم لهذا اليوم على المسار — واصل.",
+      "openPlan": "افتح خطة الختم",
+      "a11y": "خطة الختم اليوم {{day}} من {{total}}، مكتمل بنسبة {{percent}} بالمئة، {{done}} من {{target}} اليوم"
     }
   },
   "tracker": {
@@ -505,7 +515,8 @@
       "witr": "الوتر",
       "adhkar": "الأذكار",
       "qaza": "القضاء",
-      "a11y": "{{label}}: {{percent}}٪ مكتمل، {{completed}} من {{total}}"
+      "a11y": "{{label}}: {{percent}}٪ مكتمل، {{completed}} من {{total}}",
+      "khatm": "الختم"
     },
     "allDone": "ما شاء الله — اكتمل كل شيء",
     "freshStart": "بداية جديدة",
@@ -567,6 +578,14 @@
           "hint": "خاصة في آخر ساعة بعد العصر"
         }
       }
+    },
+    "khatm": {
+      "title": "خطة الختم",
+      "progress": "{{done}} من {{total}} اليوم",
+      "hint": "{{count}} آيات نحو هدف اليوم — اضغط للتسجيل",
+      "hintPages": "{{count}} صفحات نحو هدف اليوم — اضغط للتسجيل",
+      "completeHint": "ورد اليوم مكتمل — اضغط لمراجعة خطتك",
+      "a11y": "خطة الختم اليوم {{day}} من {{total}}، {{done}} من {{target}} نحو هدف اليوم"
     }
   },
   "settings": {
@@ -904,7 +923,7 @@
       },
       "friday": {
         "title": "تذكير الجمعة",
-        "subtitle": "الجمعة وسورة الكهف"
+        "subtitle": "الجمعة وسورة الكهف وساعة الإجابة"
       }
     },
     "prayerAlertsObligatory": "تنبيهات الصلوات الفرض",
@@ -968,7 +987,10 @@
       "dailyContentTitle": "تأمّل اليوم",
       "dailyContentBody": "آية وحديث واسم من أسماء الله الحسنى بانتظارك على الشاشة الرئيسية.",
       "fridayTitle": "جمعة مباركة",
-      "fridayBody": "إنه يوم الجمعة — أكثِر من الصلاة على النبي واقرأ سورة الكهف."
+      "fridayBody": "إنه يوم الجمعة — أكثِر من الصلاة على النبي واقرأ سورة الكهف.",
+      "acceptanceHourTitle": "ساعة الإجابة",
+      "acceptanceHourBodyAsr": "دخل وقت العصر — اطلب ساعة الإجابة بالدعاء والاستغفار والصلاة على النبي حتى المغرب.",
+      "acceptanceHourBodyMid": "ما زال وقت قبل المغرب — املأ هذه الدقائق بدعاء صادق."
     },
     "groupContent": "المحتوى اليومي",
     "defaultLocationTitle": "عيّن موقعك لتنبيهات الصلاة",
@@ -1063,7 +1085,11 @@
     "listenVoiceDefaultHint": "استخدم الصوت المفضل للجهاز لهذه اللغة",
     "listenVoiceEmpty": "لا توجد أصوات مثبتة لهذه اللغة. أضِف صوتاً من إعدادات النظام.",
     "listenUnavailableTitle": "الاستماع غير متاح",
-    "listenUnavailableBody": "تحويل النص إلى كلام غير متاح على هذا الجهاز. تأكد من تثبيت صوت للغتك في إعدادات النظام."
+    "listenUnavailableBody": "تحويل النص إلى كلام غير متاح على هذا الجهاز. تأكد من تثبيت صوت للغتك في إعدادات النظام.",
+    "showTransliteration": "إظهار النقحرة",
+    "hideTransliteration": "إخفاء النقحرة",
+    "showTranslation": "إظهار الترجمة",
+    "hideTranslation": "إخفاء الترجمة"
   },
   "share": {
     "dialogTitle": "مشاركة",
@@ -1109,7 +1135,8 @@
     "searchPlaceholder": "ابحث في الأدعية بالعنوان أو الموضوع أو النص…",
     "searchInCategory": "ابحث في هذه الفئة…",
     "searchResultCount": "{{count}} نتيجة",
-    "noResults": "لم تطابق أي دعاء بحثك."
+    "noResults": "لم تطابق أي دعاء بحثك.",
+    "favSubtitle": "أعد ترتيب أدعيتك المحفوظة أو احذفها"
   },
   "duaCat": {
     "morning_evening": "الصباح والمساء",
@@ -1198,9 +1225,10 @@
     "browseByJuz": "تصفّح حسب الجزء",
     "search": "بحث",
     "searchTitle": "ابحث في القرآن",
-    "searchSubtitle": "ابحث عن الآيات بالترجمة أو النقحرة",
-    "searchPlaceholder": "ابحث في كلمات الترجمة…",
-    "searchHint": "يبحث في الترجمة والنقحرة المضمنة دون اتصال.",
+    "searchSubtitle": "ابحث عن الآيات بالعربية أو الإنجليزية أو النقحرة أو المرجع",
+    "searchPlaceholder": "ابحث في الترجمة أو النقحرة أو ٢:٢٥٥…",
+    "searchPlaceholderArabic": "ابحث في النص العربي أو مرجعاً مثل ٢:٢٥٥…",
+    "searchHint": "بحث تقريبي دون اتصال عبر العربية والترجمة الإنجليزية والنقحرة — بما في ذلك أسماء الآيات والمراجع.",
     "noResults": "لم تطابق أي آية بحثك.",
     "resultsCount": "{{count}} نتيجة",
     "ayahRef": "{{surah}}:{{ayah}}",
@@ -1242,6 +1270,11 @@
     "pagesSubtitle": "تصفح المصحف المدني حسب الصفحة",
     "pageN": "صفحة {{n}}",
     "pageOf": "صفحة {{page}} من {{total}}",
+    "goToPagePlaceholder": "صفحة 1–{{max}}",
+    "goToPageA11y": "الانتقال إلى رقم الصفحة",
+    "goToPageAction": "انتقل",
+    "goToPageHint": "أدخل صفحة من 1 إلى {{max}}",
+    "goToPageInvalid": "أدخل صفحة بين 1 و{{max}}",
     "pageFraction": "{{page}} / {{total}}",
     "pagePickerTitle": "انتقل إلى صفحة",
     "pagePickerSearch": "ابحث عن صفحة أو سورة…",
@@ -1592,7 +1625,9 @@
       },
       "footer": "يُحسب الوتر الفائت ضمن القضاء لجميع المستخدمين. اعتبره واجباً إن كنت حنفياً، وإلا فتتبّعه كقضاء مستحب. استشر عالماً بحسب حالتك."
     },
-    "history": "السجل"
+    "history": "السجل",
+    "rowDone": "{{completed}} مقضيّة",
+    "rowDoneWithDaily": "{{completed}} مقضيّة · اليوم {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "القضاء",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "إعادة ضبط العدّاد؟",
     "confirmResetMessage": "سيُمسح عدّك البالغ {{count}}.",
     "confirmStartAgainTitle": "البدء من جديد؟",
-    "confirmStartAgainMessage": "سيُمسح العدّ المكتمل لتبدأ جولة جديدة."
+    "confirmStartAgainMessage": "سيُمسح العدّ المكتمل لتبدأ جولة جديدة.",
+    "dockLabel": "العدّ"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} بعد {{min}} دقيقة فقط",
@@ -2469,6 +2505,10 @@
     "logQuickDaily": "الهدف اليومي · {{count}}",
     "logAdd": "أضف {{count}} آية",
     "logAddPages": "أضف {{count}} صفحة",
+    "logConfirmTitle": "إضافة تقدّم القراءة؟",
+    "logConfirmMsg": "إضافة {{count}} آية إلى مجموع الختم؟",
+    "logConfirmMsgPages": "إضافة {{count}} صفحة إلى مجموع الختم؟",
+    "logConfirmAction": "إضافة",
     "logInvalid": "أدخل 1–{{max}} آية",
     "logInvalidPages": "أدخل 1–{{max}} صفحة",
     "correctTotalTitle": "تصحيح المجموع",
@@ -2477,6 +2517,10 @@
     "correctTotalA11y": "إجمالي الآيات المقروءة",
     "correctTotalA11yPages": "إجمالي الصفحات المقروءة",
     "correctTotalApply": "تحديث المجموع",
+    "correctTotalConfirmTitle": "تحديث المجموع المقروء؟",
+    "correctTotalConfirmMsg": "تعيين مجموع الختم إلى {{count}} آية؟",
+    "correctTotalConfirmMsgPages": "تعيين مجموع الختم إلى {{count}} صفحة؟",
+    "correctTotalConfirmAction": "تحديث المجموع",
     "correctTotalInvalid": "أدخل 0–{{max}} آية",
     "correctTotalInvalidPages": "أدخل 0–{{max}} صفحة",
     "correctTotalToggle": "مجموع خاطئ؟ عيّنه يدويًا",
@@ -2721,7 +2765,8 @@
       "knowledge": "بطاقة المعرفة اليومية",
       "quickActions": "الإجراءات السريعة",
       "qaza": "ملخص القضاء",
-      "schedule": "جدول اليوم"
+      "schedule": "جدول اليوم",
+      "khatm": "خطة الختم"
     }
   },
   "schedule": {
@@ -2818,10 +2863,15 @@
     },
     "adhan": {
       "listenTitle": "استمع إلى الأذان",
-      "listenHint": "اضغط على تسجيل للتشغيل. تابع الكلمات أدناه أثناء الاستماع.",
+      "listenHint": "اضغط على تسجيل للتشغيل. يُميّز أسلوب المدينة كل جملة أثناء النداء. استخدم «تعلّم الكلمات» أدناه لجمل واضحة واحدةً تلو الأخرى.",
       "play": "تشغيل أذان {{name}}",
       "pause": "إيقاف أذان {{name}}",
-      "sourceNote": "تسجيلات من مجموعة Kiwifu/adhan-mp3 المفتوحة (مكة، المدينة، مشاري العفاسي، وغيرها)."
+      "sourceNote": "التسجيلات الكاملة من مجموعة Kiwifu/adhan-mp3 المفتوحة. مقاطع الجمل من Wikimedia Commons Adhan_wiki (CC BY-SA 3.0) مُقسَّمة للتعلّم.",
+      "learnPhrasesHint": "تعلّم الكلمات — استمع إلى كل جملة بوضوح، واحدةً تلو الأخرى.",
+      "playPhrases": "تشغيل كل الجمل",
+      "pausePhrases": "إيقاف الجمل",
+      "playPhrase": "تشغيل الجملة {{n}}: {{title}}",
+      "followAlongNote": "يُميّز الكلمات أدناه أثناء التشغيل"
     }
   },
   "battles": {
@@ -3569,7 +3619,7 @@
       "label": "المرفقات (اختياري)",
       "add": "إضافة ملف",
       "remove": "إزالة المرفق",
-      "hint": "ما يصل إلى ٥ ملفات (صور أو بي دي إف)، بحجم ١ ميغابايت لكل منها. اضغط × على المصغّرة لإزالتها.",
+      "hint": "ما يصل إلى ٥ ملفات (صور أو بي دي إف)، بحجم ١ ميغابايت لكل منها. اضغط مطولًا على المصغّرة لإزالتها.",
       "signInRequired": "قم بتسجيل الدخول لإرفاق ملفات خاصة بأذكارك.",
       "permissionDenied": "مطلوب إذن لإرفاق الملفات.",
       "permissionTitle": "السماح بالوصول",
@@ -3739,14 +3789,34 @@
   "hajj": {
     "eyebrow": "المناسك",
     "title": "الحج والعمرة",
-    "subtitle": "قائمة تحقّق خطوة بخطوة لمناسك الحج والعمرة.",
+    "subtitle": "تعلّم المناسك من القرآن والسنة، ثم تابع الحج والعمرة بقائمتين منفصلتين.",
     "progress": "{{done}} من {{total}} مناسك",
     "reset": "إعادة تعيين",
     "resetConfirmTitle": "إعادة تعيين القائمة؟",
     "resetConfirmMsg": "سيُلغى تحديد جميع المناسك. لا يمكن استرجاع تقدّمك.",
-    "umrahTag": "عمرة",
-    "hajjTag": "حج",
-    "disclaimer": "قائمة عملية وليست كتاب فقه. اتبع مرشدًا مؤهلًا للأحكام والتفاصيل.",
+    "disclaimer": "نظرة تعليمية عملية وليست كتاب فقه. تختلف المذاهب في التفاصيل — اتبع مرشدًا مؤهلًا للأحكام والحالات غير المتوقعة.",
+    "intro": "ادرس الوجوب والإحرام والعمرة وأيام الحج بأدلة معتبرة. القوائم للمناسك فقط — ونصائح الإعداد في مواضيع التعلّم.",
+    "section": {
+      "virtues": "الفضائل",
+      "obligation": "الوجوب",
+      "types": "أنواع الحج",
+      "ihram": "الميقات والإحرام",
+      "umrah": "العمرة",
+      "hajj": "أيام الحج",
+      "rulings": "الأحكام والآداب",
+      "prep": "التجهيز العملي"
+    },
+    "checklistsTitle": "قوائم المناسك",
+    "hajjChecklistTitle": "قائمة الحج",
+    "hajjChecklistHint": "مناسك الحج يوماً بيوم",
+    "hajjChecklistSubtitle": "تابع مناسك الحج من التروية إلى طواف الوداع.",
+    "hajjChecklistIntro": "علّم كل منسَك عند إتمامه. هذه أداة تذكير وليست فتوى.",
+    "umrahChecklistTitle": "قائمة العمرة",
+    "umrahChecklistHint": "من الإحرام إلى الحلق أو التقصير",
+    "umrahChecklistSubtitle": "تابع ترتيب مناسك العمرة.",
+    "umrahChecklistIntro": "علّم كل منسَك من العمرة عند إتمامه. افتح التعلّم للتفاصيل والأدلة.",
+    "notFound": "الموضوع غير موجود",
+    "continueInApp": "تابع في منيب",
     "prepTag": "الإعدادية"
   },
   "dailyHadith": {
@@ -4434,7 +4504,8 @@
       "obligatory": "ضروري",
       "highly-recommended": "مستحب جداً",
       "recommended": "مستحب"
-    }
+    },
+    "playAyahA11y": "تشغيل تلاوة {{ref}}"
   },
   "contentReport": {
     "short": "إبلاغ",
@@ -4497,15 +4568,15 @@
     "settingsSubtitleIos": "سجّل الصلاة عبر Siri أو Apple Watch",
     "settingsSubtitleAndroid": "سجّل الصلاة عبر Google Assistant أو Wear OS",
     "introIos": "استخدم Siri أو Shortcuts أو Apple Watch لتسجيل الصلاة دون فتح قائمة المتابعة. يتطلب بناء EAS للتطوير أو الإنتاج — غير متاح في Expo Go.",
-    "introAndroid": "استخدم Google Assistant أو Wear OS لتسجيل الصلاة دون فتح قائمة المتابعة. يتطلب بناء EAS للتطوير أو الإنتاج — غير متاح في Expo Go.",
+    "introAndroid": "استخدم Google Assistant أو اختصار أيقونة التطبيق أو Wear OS لتسجيل الصلاة دون فتح قائمة المتابعة. يتطلب بناء EAS للتطوير أو الإنتاج — غير متاح في Expo Go.",
     "siriTitle": "Siri والاختصارات",
     "siriHint": "بعد التثبيت من TestFlight أو App Store، افتح تطبيق الاختصارات أو قل «Hey Siri, mark my Salah in Munib Tracker». إذا أُغلق التطبيق بالكامل، يُزامَن التسجيل عند فتح Munib Tracker.",
     "assistantTitle": "Google Assistant",
-    "assistantHint": "قل «Hey Google, mark my Salah in Munib Tracker» على جهاز مثبّت عليه التطبيق.",
+    "assistantHint": "قل «Hey Google, mark my Salah in Munib Tracker»، أو اضغط مطوّلاً على أيقونة Munib Tracker واختر Mark Salah. إذا أُغلق التطبيق بالكامل، يُزامَن التسجيل عند فتح Munib Tracker.",
     "watchTitle": "Apple Watch",
     "watchHint": "افتح تطبيق Munib Tracker على الساعة لعرض جدول اليوم وتسجيل الصلاة. تُزامَن البيانات من iPhone.",
     "wearTitle": "Wear OS",
-    "wearHint": "أضف بلاطة Munib Tracker على ساعتك بعد الاقتران بالهاتف.",
+    "wearHint": "بعد اقتران هاتفك، أضف بلاطة Munib Tracker على ساعتك. اضغط على البلاطة لتسجيل الصلاة الحالية على هاتفك.",
     "marked": "تم تسجيل الصلاة",
     "alreadyDone": "تم وضع علامة بالفعل",
     "allDone": "جميع الفرائض مسجّلة لليوم",
@@ -4782,7 +4853,7 @@
     "eyebrow": "التقويم",
     "title": "محول التاريخ",
     "subtitle": "التحويل بين التقويمين الهجري والميلادي",
-    "intro": "أدخل تاريخًا في أي من التقويمين لترى ما يعادله في التقويم الآخر، ويُحسب دون اتصال وفق إمكانية رؤية الهلال في موقعك.",
+    "intro": "أدخل تاريخًا في أي من التقويمين لترى ما يعادله في التقويم الآخر، ويتم حسابه دون الاتصال بالإنترنت باستخدام الخوارزمية الكويتية الجدولية.",
     "toHijri": "الميلادي → الهجري",
     "toGregorian": "الهجري → الميلادي",
     "gregorianDateLabel": "التاريخ الميلادي",
@@ -4792,7 +4863,7 @@
     "year": "سنة",
     "useToday": "استخدم اليوم",
     "invalidDate": "أدخل تاريخًا صالحًا",
-    "disclaimer": "تُحسب التواريخ وفق إمكانية رؤية الهلال في موقعك وقد تختلف بيوم واحد عن إعلانات رؤية الهلال الرسمية — اتبع دائمًا المسجد أو السلطة المحلية الخاصة بك لمعرفة التواريخ الدينية.",
+    "disclaimer": "هذا تقريب حسابي (\"الخوارزمية الكويتية\" الجدولية) ويمكن أن يختلف بيوم واحد عن إعلانات رؤية الهلال المحلية - اتبع دائمًا المسجد أو السلطة المحلية الخاصة بك لمعرفة التواريخ الدينية.",
     "directionTitle": "اتجاه التحويل",
     "resultFrom": "من {{date}}",
     "quickLinksTitle": "ذات صلة",

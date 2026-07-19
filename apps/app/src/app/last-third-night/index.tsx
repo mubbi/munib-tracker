@@ -266,7 +266,13 @@ function TimeChip({
           background={withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.14)}
         />
       </View>
-      <ThemedText type="title" style={{ color: colors.accent }}>
+      <ThemedText
+        type="title"
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.55}
+        style={{ color: colors.accent }}
+      >
         {value}
       </ThemedText>
     </PressableScale>
@@ -328,6 +334,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     flex: 1,
+    minWidth: 0,
     gap: Spacing.two,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.three,

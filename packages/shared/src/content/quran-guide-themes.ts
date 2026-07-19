@@ -37,7 +37,7 @@ export const QURAN_GUIDE_THEMES: QuranGuideTheme[] = [
     ],
     actions: [
       "Renew your shahada today with full attention to what it means, not as a routine phrase.",
-      "Learn one of Allah's names, understand it, and call on Him by it in your du'a.",
+      "Learn one of Allah's names, understand it, and call on Him by it in your dua.",
     ],
   },
   {
@@ -83,7 +83,7 @@ export const QURAN_GUIDE_THEMES: QuranGuideTheme[] = [
       "Allah joins kindness to parents directly to His own worship in the same verse — a sign of how weighty their right is in Islam.",
       "The Qur'an forbids even the smallest sign of irritation: not so much as saying 'uff' to them, nor speaking harshly, but addressing them with gentle, honourable words.",
       "The command peaks in old age, when parents most need patience: care for them as they once cared for you, and lower to them the wing of humility out of mercy.",
-      "Devotion does not end at death — continuing to make du'a for parents, giving charity on their behalf, and honouring their friends and promises are ongoing acts of loyalty.",
+      "Devotion does not end at death — continuing to make dua for parents, giving charity on their behalf, and honouring their friends and promises are ongoing acts of loyalty.",
     ],
     quran: [
       {
@@ -97,7 +97,7 @@ export const QURAN_GUIDE_THEMES: QuranGuideTheme[] = [
     ],
     actions: [
       "Call or message a parent with kind words today.",
-      "Make du'a for your parents by name.",
+      "Make dua for your parents by name.",
     ],
   },
   {
@@ -121,7 +121,7 @@ export const QURAN_GUIDE_THEMES: QuranGuideTheme[] = [
     ],
     actions: [
       "When irritation rises today, pause, breathe, and say 'Inna lillahi wa inna ilayhi raji'un' before you react.",
-      "Turn one moment of hardship this week into two rak'ah of prayer instead of a complaint.",
+      "Turn one moment of hardship this week into two rakah of prayer instead of a complaint.",
     ],
   },
   {
@@ -261,7 +261,7 @@ export const QURAN_GUIDE_THEMES: QuranGuideTheme[] = [
     ],
     actions: [
       "Learn one new thing from the Qur'an today — a verse, a word, or a ruling — and teach it to someone.",
-      "Memorise the du'a 'Rabbi zidni ilma' and say it before you study.",
+      "Memorise the dua 'Rabbi zidni ilma' and say it before you study.",
     ],
   },
   {
@@ -326,7 +326,7 @@ export const QURAN_GUIDE_THEMES: QuranGuideTheme[] = [
     ],
     actions: [
       "Teach a child one short verse or a single good manner today, patiently and with encouragement.",
-      "Make du'a for your children (or the children in your care) by name to be upright and beloved to Allah.",
+      "Make dua for your children (or the children in your care) by name to be upright and beloved to Allah.",
     ],
   },
 ];

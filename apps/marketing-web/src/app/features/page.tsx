@@ -130,7 +130,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Taharah — 28 topics on wudu, ghusl, and tayammum with a daily checklist",
           "Zakat calculator with nisab thresholds, checklist, and evidence",
           "Friday / Jumu'ah learn hub with checklist and Today's Goal reminder",
-          "60-step interactive hajj & umrah tracker, plus travel, illness, and hayd rulings",
+          "Hajj & Umrah learn guide with separate rite checklists, plus travel, illness, and hayd rulings",
           "Ramadan fasting tracker with suhoor/iftar countdown and a tahajjud log",
         ],
       },

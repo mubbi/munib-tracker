@@ -1,309 +1,505 @@
-// Uzbek translation overlay for the Learn Hajj & Umrah guide. Mirrors the order of
-// its English source in ../hajj-guide.ts (index-aligned); untranslated entries fall back
-// to English. Only human-readable text is translated — ids, routes, surah/ayah
-// numbers, collections, citations and grades stay in the English source.
-import type { HajjGuideSection } from "../../types/hajj-guide";
+import type { PilgrimageChecklistItem } from "../../types/hajj-guide";
+import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
-export const HAJJ_GUIDE_SECTIONS_UZ: DeepPartial<HajjGuideSection>[] = [
+// UZ overlay for Hajj & Umrah Learn topics + rite checklists.
+// Index-aligned with English sources; only human-readable text is translated.
+
+export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
   {
-    day: "Ketishdan oldin",
-    title: "Majburiyat va shartlar",
-    summary: "Nima uchun haj farz va kimga farz bo'ladi.",
-    steps: [
+    title: "Qabul qilingan haj mukofoti",
+    summary: "Haj mabrur gunohlarni yo'q qiladi, mukofoti jannatdir.",
+    body: [
+      "Abu Hurayra rivoyat qilganidek, Rasululloh ﷺ shunday dedi: «Kim Alloh uchun haj qilsa va jinsiy aloqa ham, gunoh ham qilmasa, onasi uni tug'ilgan kunidagi kabi qaytadi» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
+      "U yana dedi: «Qabul qilingan haj (haj mabrur)ning mukofoti jannatdan boshqa narsa emas» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Qabul qilinishi samimiyat va hajni fohisha va gunohdan asrash bilan bog'liq — faqat tashqi amallarni bajarish bilan emas.",
+    ],
+    hadith: [
       {
-        title: "Beshinchi ustun",
-        body: "Haj islomning beshinchi ustuni bo'lib, har bir qodir musulmonga umrida bir marta farz qilinadi. Alloh taolo aytadi: “Odamlardan Allohning huzurida, kim unga yo‘l topa olsa, uyga haj bordir” (Olima surasi, 97-oyat). Hamma odamlarga e'lon qilindi: \"Odamlarga hajni e'lon qiling, ular sizning oldingizga piyoda va har bir ozg'in tuyada keladilar\" (Qur'on 22:27).",
+        excerpt:
+          "Kim Alloh uchun haj qilsa va jinsiy aloqa ham, gunoh ham qilmasa, onasi uni tug'ilgan kunidagi kabi qaytadi.",
       },
       {
-        title: "Qobiliyat (istitaah)",
-        body: "Haj faqat qodir bo'lgan kishilarga farzdir: safar uchun jismoniy sog'lik, safarni to'lash uchun halol mol-mulk va uzoqda bo'lgan qaramog'idagilar va xavfsiz, ochiq yo'l. Bu yil kimning imkoni yo'q bo'lsa, qodir bo'lgunga qadar kechiktirsa gunohkor bo'lmaydi.",
+        excerpt:
+          "Kim Alloh uchun haj qilsa va jinsiy aloqa ham, gunoh ham qilmasa, onasi uni tug'ilgan kunidagi kabi qaytadi.",
+      },
+      { excerpt: "Qabul qilingan hajning mukofoti jannatdan boshqa narsa emas." },
+      { excerpt: "Qabul qilingan hajning mukofoti jannatdan boshqa narsa emas." },
+    ],
+    actions: [
+      "Hajni faqat Alloh uchun niyat qiling — butun safarda til va xulq-atvoringizni asrang.",
+      "Ilovadagi haj ro'yxatidan faqat eslatma sifatida foydalaning; qalbingizni qabul qilinishga qaratib turing.",
+    ],
+    appLinks: [{ label: "Haj marosimlari ro'yxati" }],
+  },
+  {
+    title: "Umra fazilati",
+    summary: "Umradan umragacha bo'lgan gunohlar kefforat bo'ladi.",
+    body: [
+      "Abu Hurayra rivoyat qilganidek, Payg'ambar ﷺ dedi: «Umra qilish avvalgisidan keyingi gunohlarga kefforatdir, qabul qilingan hajning mukofoti esa jannatdan boshqa narsa emas» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
+      "Umra yilning istalgan vaqtida bajariladi. Hajdan qisqaroq, lekin baribir katta ibodat: ihram, tavof, sa'y va soch olish yoki qisqartirish.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Umra qilish avvalgisidan keyingi gunohlarga kefforatdir, qabul qilingan hajning mukofoti esa jannatdan boshqa narsa emas.",
       },
       {
-        title: "Ayol sayohati",
-        body: "Aksariyat ulamolarning fikricha, ayol kishi mahrami (eri yoki nikohsiz qarindoshi) bilan Hajga boradi; Ba'zi keyingi olimlar xavfsiz, ishonchli ayollar guruhi ichida sayohat qilishga ruxsat berishadi. O'zingiz ishongan malakali olimning hukmiga va Haj vakolatingizning qoidalariga amal qiling.",
+        excerpt:
+          "Umra qilish avvalgisidan keyingi gunohlarga kefforatdir, qabul qilingan hajning mukofoti esa jannatdan boshqa narsa emas.",
+      },
+    ],
+    actions: ["Marosimlarni tartib bilan bajarishga tayyor bo'lganingizda umra ro'yxatini oching."],
+    appLinks: [{ label: "Umra marosimlari ro'yxati" }],
+  },
+  {
+    title: "Arofa kuni",
+    summary: "Arofada turish hajning qalbidir — va duo uchun buyuk kun.",
+    body: [
+      "Abdurrahmon ibn Ya'mar rivoyat qilganidek, Payg'ambar ﷺ dedi: «Haj — Arofa» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Arofa chegarasida o'z vaqtida turishni qoldirgan o'sha yil hajini qoldirgan bo'ladi.",
+      "Hajda bo'lmaganlar uchun Arofa kunida ro'za tutish qattiq tavsiya etiladi: Abu Qatoda rivoyat qilganidek, Arofa ro'zasi o'tgan va kelgusi yil gunohlarini kefforat qiladi (Sahih Muslim 1162). Hojilar esa duo uchun kunning o'ziga berilib, ro'za tutmaydi.",
+    ],
+    hadith: [
+      { excerpt: "Haj — Arofa." },
+      { excerpt: "Haj — Arofa." },
+      {
+        excerpt:
+          "Arofa kunida ro'za tutish — Allohdan o'tgan va kelgusi yil gunohlarini kefforat qilishni umid qilaman.",
       },
     ],
   },
   {
-    day: "Ketishdan oldin",
-    title: "Hajning uch turi",
-    summary: "Ifrod, Qiron va Tamattu' - ehromga kirishdan oldin tanlang.",
-    steps: [
+    title: "Haj — beshinchi rukn",
+    summary: "Hayotida bir marta har qanday qodir muslimga farz.",
+    body: [
+      "Alloh aytdi: «Odamlarga Uydan (Ka'ba) haj farz — yo'l topa oladigan har bir kishi uchun. Kim kufr qilsa — Alloh olamlardan g'oniydir» (Qur'on 3:97).",
+      "Odamlarga haj e'lon qilindi: «Odamlarga haj e'lon qil; ular piyoda va har xil otliq bilan senga keladi; har uzoq yo'l bo'ylab keladi» (Qur'on 22:27).",
+      "Ibn Umar rivoyat qilganidek, Payg'ambar ﷺ dedi: Islom beshta asosga qurilgan: shohodat, namoz, zakat, Ramazon ro'zasi va qodir bo'lganlar uchun Uyga haj (Sahih al-Bukhari 8; Sahih Muslim 16). Ulama shartlar bajarilganda hayotda bir marta farz ekaniga kelishdi; takrorlash ixtiyoriy fazilatdir.",
+    ],
+    quran: [
+      { excerpt: "Odamlarga Uydan haj farz — yo'l topa oladigan har bir kishi uchun..." },
+      { excerpt: "Odamlarga haj e'lon qil; ular piyoda va har xil otliq bilan senga keladi..." },
+    ],
+    hadith: [
       {
-        title: "Ifrad",
-        body: "Hoji yolg‘iz haj uchun ehromga kiradi, alohida umra qilmaydi va uning hisobidan qurbonlik solmaydi. Nahr kunigacha ehromda qoladi.",
+        excerpt:
+          "Islom beshta asosga qurilgan: Allohdan boshqa iloh yo'q va Muhammad Allohning Rasuli, namoz o'qish, zakat berish, Ramazon ro'zasi va yo'l topa oladiganlar uchun Uyga haj.",
       },
-      {
-        title: "Qiron",
-        body: "Ziyoratchi umra va hajni bir ehromda birlashtirib, umra amallarini bajaradi va haj tamom bo‘lgunga qadar ehromda qoladi. Tamattu' kabi qurbonlik (hady) talab qiladi.",
-      },
-      {
-        title: "Tamattu'",
-        body: "Hoji Haj oylarida to‘liq umra ado etadi, ehromdan chiqadi, so‘ngra 8 Zulhijjada haj uchun ehromga qayta kiradi. Ko'pchilik ziyoratchilar shunday qilishadi; Qurbonlik so'yish yoki Hajda uch kun, qaytib kelganda esa yetti kun ro'za tutish kerak bo'ladi (Qur'on 2:196).",
-      },
+      { excerpt: "Islom beshta asosga qurilgan... va yo'l topa oladiganlar uchun Uyga haj." },
     ],
   },
   {
-    day: "Ketishdan oldin",
-    title: "Miqot va Ehrom",
-    summary: "Muqaddas davlat qaerdan boshlanadi va u nimani taqiqlaydi.",
-    steps: [
-      {
-        title: "Besh mavoqit",
-        body: "Rasululloh sollallohu alayhi vasallam besh miqatni belgilab qo'yganlar: ehromsiz o'tish mumkin bo'lmagan chegara nuqtalari: Zul-hulayfa (Madina uchun), Al-Juhfa (Suriya/Misr uchun), Qarn al-Manazil (Najd uchun), Yalamlam (Yaman uchun) va Zat-Irq (Iroq uchun). Ichkaridagilar esa turgan joyidan ehromga kiradilar.",
-        location: "Miqat",
-      },
-      {
-        title: "Ehrom nima",
-        body: "Ehrom – niyat va talbiya bilan kiradigan muqaddas holat. Erkaklar ikkita tikilmagan oq choyshab kiyishadi; ayollar oddiy kamtarona kiyinishni davom ettiradilar. U g'usldan keyin, erkaklar uchun esa oldindan badanga (kiyimga emas) xushbo'y surtishdan keyin kiritiladi.",
-        location: "Miqat",
-      },
-      {
-        title: "Ehromning taqiqlari",
-        body: "Ehromda bo'lganingizda: tikilgan kiyim va boshni yopish (erkaklar uchun), xushbo'y hiddan, soch yoki tirnoq kesishdan, ov qilishdan, nikoh yoki nikohdan va har qanday yaqinlikdan saqlaning. Bularni buzish kafforatni (fidyani) talab qilishi mumkin, shuning uchun ularni ehtiyot qiling.",
-        location: "Miqat",
-      },
+    title: "Istito'at (qodirlik)",
+    summary: "Salomatlik, halol mol va xavfsiz yo'l — bularsiz haj hali farz emas.",
+    body: [
+      "Qur'on 3:97 dagi shart istito'atdir. Klassik ulama buni quyidagicha jamlaydi: safarga chidamli jismoniy salomatlik, safar va yo'q paytda qaramog'idagilar ehtiyojlarini qoplash uchun yetarli halol mol, va xavfsiz ochiq yo'l.",
+      "Bu yil bu imkoniyatlardan mahrum bo'lgan kechiktirish uchun gunohkor emas, qodir bo'lguncha kutishi mumkin. Istito'at holat bo'yicha baholanadi — kasallik, to'lanishi shart bo'lgan qarz yoki xavfsiz bo'lmagan safar darhol farzni olib tashlashi mumkin. Vaziyatingiz noaniq bo'lsa, malakali olimdan so'rang.",
+    ],
+    quran: [{ excerpt: "...yo'l topa oladigan har bir kishi uchun." }],
+    actions: [
+      "Bron qilishdan oldin farz qarzlarni to'lang va qaramog'idagilar ta'minotini tartibga soling.",
+      "Paketlarni faqat rasmiy kanallar orqali tekshiring (tayyorgarlik mavzulariga qarang).",
     ],
   },
   {
-    title: "Umra",
-    summary: "Kichik ziyorat - yilning istalgan vaqtida amalga oshirilishi mumkin.",
-    steps: [
-      {
-        title: "Ehromga kiring",
-        body: "Miqotda yoki undan oldin g'usl qiling, ehrom kiying, umra niyatini qiling va talbiyani boshlang. Qalbda niyat qilinadi, muqaddas holat shu daqiqadan boshlanadi.",
-        location: "Miqat",
-      },
-      {
-        title: "Talbiya ayting",
-        body: "Makkaga safar qilayotganingizda “Labbayk Allohumma labbayk, labbayka la sharika laka labbayk...” soʻzini tez-tez takrorlang - bu Allohning da'vatiga yolgʻiz javob berishingizni bildirish - tavofni boshlaguningizcha davom eting.",
-      },
-      {
-        title: "Ka'bani tavof qilish",
-        body: "Ka'bani soat miliga teskari yo'nalishda yetti marta aylanib, Qora tosh burchagidan boshlab va tugaydi, u erda siz uni o'pasiz, tegizasiz yoki shunchaki takbir bilan unga ishora qilasiz. Erkaklar dastlabki uchta aylanishda raml (tez sur'atda) va idtiba (o'ng yelkasini ochib) bajaradilar. Yaman burchagi va Qora tosh orasida: “Ey Robbimiz, bizga bu dunyoda ham, oxiratda ham yaxshilik ato et va bizni do‘zax azobidan saqla” (Baqara surasi, 201-oyat) kabi tilovat qilinadi.",
-        location: "Masjid al-Harom",
-      },
-      {
-        title: "Ikki rakat namoz o'qing",
-        body: "Tavofdan so'ng, iloji bo'lsa, Maqom Ibrohimning orqasida ikki rakat namoz o'qing (yoki olomon bo'lsa, masjidning istalgan joyida), so'ngra zamzam suvini bemalol iching, chunki Rasululloh sollallohu alayhi vasallam zamzam nima ichilsa, u uchundir, dedilar.",
-        location: "Masjid al-Harom",
-      },
-      {
-        title: "Safo va Marva orasidagi sa'y",
-        body: "Hajarning o'g'li Ismoilga suv izlaganini eslab, Safodan boshlab Safo va Marva o'rtasida yetti marta yuring. Alloh taolo aytadi: “Albatta, as-Safo va al-Marva Allohning ramzlaridandir” (Baqara surasi, 158-oyat). Safoda Ka'baga yuzlaning va duo va takbirda qo'llaringizni ko'taring; erkaklar yashil belgilar orasida yugurishadi.",
-        location: "Masjid al-Harom",
-      },
-      {
-        title: "Halq yoki taqsir",
-        body: "Erkaklar sochni qirqishadi (halq, savob ko'proq) yoki uni bir tekis qirqadilar (taqsir); ayollar sochlarini yig'ib, barmoq uchi uzunligini qirqishadi. Shu bilan umra tamom bo'ladi va ehrom cheklovlari bekor qilinadi.",
-      },
-    ],
-  },
-  {
-    day: "8 Zulhijja",
-    title: "Tarviya kuni - Mino",
-    summary: "Haj boshlanadi; kun Minoda o'tadi.",
-    steps: [
-      {
-        title: "Haj uchun ehromga kiring",
-        body: "Hajga niyat qiling va talbiyani yangilab, ehromga kiring. Bu yana muqaddas holatni boshlaydi, shuning uchun ehrom taqiqlari yana bir bor amal qiladi.",
-      },
-      {
-        title: "Minoga sayohat",
-        body: "Minoga borib, Payg'ambarimiz sollallohu alayhi vasallamning sunnatlariga amal qilib, peshin, asr, shom, xufton va keyingi bomdod namozlarini o'qing, har biri o'z vaqtida ikki rakatga qisqartiriladi. Kechayu kunduzni ibodat bilan o'tkaz, Arafada turishni kut.",
-        location: "Mina",
-      },
-    ],
-  },
-  {
-    day: "9 Zulhijja",
-    title: "Arafa kuni",
-    summary: "Hajning eng ulug' kuni - Arafada turish.",
-    steps: [
-      {
-        title: "Arafada turing",
-        body: "Peshindan keyin quyosh botguncha duo, zikr va tavba bilan Arafa chegarasida qoling. Rasululloh sollallohu alayhi vasallam: “Haj – arafadir”, dedilar (Termiziy 889, Abu Dovud 1949, hasan sahih): Kim bu tura olmagan bo‘lsa, hajni o‘tkazib yuborgan bo‘ladi. Qiblaga yuzlaning, qo'llaringizni ko'taring va Allohga iltijo qiling - bu duo uchun eng ulug' kundir.",
-        location: "Arafa",
-      },
-      {
-        title: "Peshin va asrni birlashtiring",
-        body: "Peshin va asr namozlarini birga va peshin vaqtida qisqartirib o'qing, so'ngra kunning qolgan qismini ortiqcha namozga emas, balki duoga bag'ishlang.",
-        location: "Arafa",
-      },
-      {
-        title: "Muzdalifaga ko‘ch",
-        body: "Quyosh botgandan so'ng, Muzdalifaga xotirjamlik bilan sayohat qiling, shom va xuftonni birlashtiring (isho qisqartirildi), tunni dam oling va toshbo'ron qilish uchun tosh yig'ing. Zaiflar va ayollar ezilmaslik uchun yarim tundan keyin Minoga jo'nab ketishlari mumkin.",
-        location: "Muzdalifa",
-      },
-    ],
-  },
-  {
-    day: "10 Zulhijja",
-    title: "Nahr kuni — Qurbon hayiti",
-    summary: "Toshbo'ron qilish, qurbonlik qilish va asosiy tavof.",
-    steps: [
-      {
-        title: "Jamrat al-Aqaba tosh",
-        body: "Minoga qayting va katta ustunga (Jamrat ul-Aqaba) yettita tosh otib, har otishda “Allohu akbar” deng. Bu Ibrohimning shaytonni rad etishini qayta tiklaydi va kunning birinchi marosimidir.",
-        location: "Mina",
-      },
-      {
-        title: "Qurbonlik qiling",
-        body: "Qurbonlik jonivorini so'ying yoki uni tamattu' va qiron ziyoratchilari uchun talab qilinganidek ishonchli idora orqali so'ying (Qur'on 2:196). Uning go‘shti yeb, kambag‘allarga beriladi.",
-      },
-      {
-        title: "Halq yoki taqsir",
-        body: "Sochni tarash (halq) yoki qirqish (taqsir); ayollar barmoq uchi uzunligini qisqartiradilar. Toshbo'ron qilish va soqol olishdan keyin birinchi ozodlik (tahallul-avval) qo'llaniladi - turmush o'rtog'i bilan yaqinlikdan tashqari barcha ehrom cheklovlari olib tashlanadi.",
-      },
-      {
-        title: "Tavof al-Ifoda",
-        body: "Makkaga boring, tavof al-ifada - haj ustuni - va sa'iy (tamattu' uchun). Bu ehromdan toʻliq ozod boʻlishni tugatadi va fahsh va gunohdan qochgan kishi “onasi tugʻgan kundek qaytadi” (Buxoriy 1521, Musulmon 1350).",
-        location: "Masjid al-Harom",
-      },
-    ],
-  },
-  {
-    day: "11–13 Zulhijja",
-    title: "Tashrik kunlari - Mino",
-    summary: "Minodagi tunlar va har kuni uchta ustunni toshbo'ron qilish.",
-    steps: [
-      {
-        title: "Minoda bir kechada qoling",
-        body: "11, 12 (va erta ketmasangiz 13) kechalarini Minoda o'tkazing. Bu kunlar yeb-ichish, Allohni zikr qilish, ibodat va takbir bilan o‘tkaziladigan kunlardir.",
-        location: "Mina",
-      },
-      {
-        title: "Uchta Jamaratni toshbo'ron qiling",
-        body: "Har peshindan keyin peshindan keyin uchta ustunning har biriga navbatma-navbat yettita tosh oting - kichik, keyin o'rta, keyin katta - har otishda takbir. Kim shoshilsa, 12-da toshbo'ron qilgandan keyin ketishi mumkin (Qur'on 2:203).",
-        location: "Mina",
-      },
-      {
-        title: "Alvido Tavof",
-        body: "Makkani tark etishdan oldin tavof ul-vadani oxirgi marosim sifatida bajaring, shunda hajning oxirgi amali Baytullohida bo'lsin. Hayz ko'rgan ayollar bundan mustasno.",
-        location: "Masjid al-Harom",
-      },
-    ],
-  },
-  {
-    day: "Tugatish va qarorlar",
-    title: "Ustunlar, majburiyatlar va mukofotlar",
-    summary: "Hajni nima sahih qiladi, nima to'lanadi va uning ajri.",
-    steps: [
-      {
-        title: "Ustunlar (arkan)",
-        body: "Ustunlar hajning mohiyatidir: ehromga kirish, arafada turish, tavof ul-ifada va sa'iy (ko'pchilikning fikricha). Agar biron bir ustun o'tkazib yuborilsa, haj noto'g'ri bo'lib, qurbonlik bilan tutib bo'lmaydi - uni takrorlash kerak.",
-      },
-      {
-        title: "Majburiyatlar (vojibat)",
-        body: "Miqotdan ehromga kirish, Muzdalifada turish, Jamoratni toshbo'ron qilish, Minoda tashriq kechalarini o'tkazish, Vidolashuv tavofi kabilar farzlarga kiradi. Farzni tark etish hajni buzmaydi, balki to'g'on (qurbonlik) bilan to'lanadi. Mazhablar aniq ro'yxatlarda farqlanadi; malakali gid bilan maslahatlashing.",
-      },
-      {
-        title: "Mabrur hajning ajri",
-        body: "Qabul qilingan haj (mabrur haj) - gunohdan xoli va ixlos bilan qilingan - o'tgan gunohlarni o'chiradi va uning mukofoti jannatning o'zidir. Rasululloh sollallohu alayhi vasallam: “Qabul qilingan hajning ajri jannatdan o‘zga yo‘q”, dedilar (Buxoriy 1773, Musulmon 1349). Ajoyib xarakter va muloyimlikka intiling.",
-      },
-      {
-        title: "Fatvo emas, amaliy qo'llanma",
-        body: "Bu marosimlarni tartibda bajarishga yordam beradigan amaliy sharh. Mazhablar ko'p tafsilotlarda hurmat bilan farq qiladi va har bir ziyoratchining ahvoli har xil - har doim malakali olim yoki rasmiy Haj yo'riqnomangiz bilan muayyan hukmlar va kutilmagan holatlar uchun maslahatlashing.",
-      },
-    ],
-  },
-  {
-    day: "Yo'lga chiqishdan oldin",
-    title: "Viza va ro'yxatdan o'tish",
+    title: "Ayolning haj safar",
     summary:
-      "Ziyoratchilar rasmiy kanallar orqali qanday ro'yxatdan o'tib, Haj yoki Umra vizasini oladi.",
-    steps: [
+      "Ko'pchilik mahram talab qiladi; ba'zi keyingi fikrlar xavfsiz ishonchli guruhga ruxsat beradi.",
+    body: [
+      "Ibn Abbos rivoyat qilganidek, Payg'ambar ﷺ dedi: ayol mahramsiz safar qilmasin, erkak ham mahram bo'lmaguncha unga kirmasin (Sahih al-Bukhari 1862; Sahih Muslim 1341). Ko'p ulama buni haj va umra safariga qo'llaydi.",
+      "Ba'zi keyingi ulama — xavfsizlik, zarurat va zamonaviy transportni hisobga olib — mahram bo'lmaganda ayolga farz haj uchun ishonchli guruhda safar qilishga ruxsat beradi. Bu hali fiqh masalasida bahsli.",
+    ],
+    hadith: [
+      { excerpt: "Ayol mahramsiz safar qilmasin, erkak ham mahram bo'lmaguncha unga kirmasin." },
       {
-        title: "Nusuk platformasi",
-        body: "Nusuk (nusuk.sa) — Saudiya Arabistonining Haj va Umra uchun rasmiy platformasi bo'lib, u orqali viza, turar joy, transport va ro'yxatdan o'tgan sayohat paketlarini band qilish mumkin. Faqat Nusuk yoki uning orqali litsenziyalangan agentliklardan foydalaning; norasmiy vositachilar ko'pincha firibgarlik va bekor qilingan sayohatlarning manbaidir.",
+        excerpt:
+          "Alloh va Oxirat kuniga iymon keltirgan ayolga bir kun va tun mahramsiz safar qilish halol emas.",
+      },
+    ],
+    madhhabNote:
+      "Ko'pchilik ayol haj safarida mahram kerak deb hisoblaydi. Ba'zi keyingi ulama farz haj uchun xavfsiz ayollar guruhi bilan safarga ruxsat beradi. Ishonadigan olimingiz va haj idorasi qoidalariga amal qiling.",
+  },
+  {
+    title: "Hajning uch turi",
+    summary: "Ifrod, Qiron va Tamattu' — ihramga kirishdan oldin turini tanlang.",
+    body: [
+      "Ifrod: faqat haj uchun ihram, shu ihramda alohida umra yo'q, marosimlarni birlashtirish tufayli qurbonlik talab qilinmaydi.",
+      "Qiron: umra va hajni bir ihramda birlashtirish, haj tugaguncha ihramda qolish. Qurbonlik (hady) talab qilinadi.",
+      "Tamattu': haj oylarida to'liq umra bajarish, ihramdan chiqish, keyin 8 zul-hijjada haj uchun qayta ihram. Bugun ko'pchilik hojilar shuni qiladi; bu ham hady talab qiladi.",
+      "Alloh marosimlarni birlashtirganlar haqida aytdi: «...Kim umradan hajga foydalanib foydalansa, oson topiladigan qurbon hayvonlari...» topa olmaganlar hajda uch kun, qaytganida yetti kun ro'za tutadi (Qur'on 2:196).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Haj va umrani Alloh uchun to'liq bajaring... Kim umradan hajga foydalanib foydalansa, oson topiladigan qurbon hayvonlari. Topa olmagan — hajda uch kun, qaytganingizda yetti kun ro'za...",
+      },
+    ],
+    actions: [
+      "Miqotdan oldin guruh rahbaringiz bilan turini hal qiling.",
+      "Tamattu' qilsangiz, haj uchun qayta ihramdan oldin umrani to'liq bajaring.",
+    ],
+    appLinks: [{ label: "Umra ro'yxati" }, { label: "Haj ro'yxati" }],
+  },
+  {
+    title: "Beshta miqot",
+    summary: "Haj yoki umra uchun ihram kirmasdan Makkaga yo'l oladigan miqotni kesib o'tmang.",
+    body: [
+      "Ibn Abbos rivoyat qilganidek, Payg'ambar ﷺ odamlar uchun miqotlarni belgiladi: Madina uchun Zul-Hulayfa, Sham uchun Al-Juhfa, Najd uchun Qarn al-Manazil, Yemen uchun Yalamlam; va Iroq uchun Zat 'Irq. U dedi: bular o'sha joylar aholisi va ulardan haj yoki umra niyatida o'tadiganlar uchun; chegaralar ichida yashovchi esa qayerdan yo'l olsa shu joydan ihram kiritadi, hatto Makka aholisi Makkadan (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
+      "Zamonaviy aeroport va portlarda mos ihram nuqtalari yoki e'lon qilingan tartiblar bor — tashuvchi va Haj va Umra vazirligi ko'rsatmalariga amal qiling, chegarani ihramsiz o'tmang.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Rasululloh ﷺ Madina aholisi uchun Zul-Hulayfa, Sham aholisi uchun Al-Juhfa, Najd aholisi uchun Qarn al-Manazil, Yemen aholisi uchun Yalamlam belgiladi... Bu miqotlar o'sha joylar va haj yoki umra niyatida ulardan o'tadiganlar uchun...",
       },
       {
-        title: "Haj vizalari va davlat kvotalari",
-        body: "Har bir davlat yillik Haj kvotasini oladi, shuning uchun ziyoratchilarning ko'pchiligi yakka tartibda emas, balki o'z milliy Haj idorasi yoki litsenziyalangan mahalliy agent orqali murojaat qiladi. Haj mavsumi ochilgan yilning boshida erta murojaat qiling — kvotalar va paket o'rinlari oylar oldin to'lib qoladi.",
-      },
-      {
-        title: "Umra vizalari",
-        body: "Hajdan farqli o'laroq, Umraning kvotasi yo'q va yilning istalgan vaqtida bajarilishi mumkin. Ko'pchilik fuqarolar to'g'ridan-to'g'ri Nusuk yoki tasdiqlangan sayohat agenti orqali Umra vizasiga murojaat qilishi mumkin, odatda parvoz va mehmonxona bandini bilan birga.",
+        excerpt:
+          "Rasululloh ﷺ miqotlarni belgiladi... Chegaralar ichida yashovchi qayerdan yo'l olsa shu joydan ihram kiritadi...",
       },
     ],
   },
   {
-    day: "Yo'lga chiqishdan oldin",
-    title: "Yuk yig'ish ro'yxati",
-    summary: "Sayohatdan oldin yig'ib olishingiz kerak bo'lgan amaliy zarur narsalar.",
-    steps: [
+    title: "Ihramga kirish",
+    summary: "G'usl, kiyim, niyat va talbiya muqaddas holatni boshlaydi.",
+    body: [
+      "Ihram haj yoki umra niyati bilan kiriladigan muqaddas holat. Payg'ambar ﷺ ihramdan oldin g'usl qilishni tavsiya qilgan. Erkaklar ikkita tikilmagan oq mato kiyadi; ayol oddiy yopiq kiyimda qoladi, yuzni yopmasin yoki ihram kiyimi sifatida qo'l qopqoqlarini kiymasin (niqob va qo'l qopqoqlari fiqh masalasi).",
+      "Erkak ihramdan oldin tanasiga atir surtishi mumkin, holatga kirgandan keyin ihram matolariga emas (Sahih al-Bukhari 1539). Keyin niyat qiling va talbiyani boshlang.",
+      "Payg'ambar ﷺ o'rgatgan talbiya: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — umra tavof boshlanguncha yoki hajda mashhur amal bo'yicha Jamrat al-Aqaba tosh tashlanguncha (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
+    ],
+    hadith: [
+      { excerpt: "Oyisha dedi: Men Rasululloh ﷺ ni ihramdan oldin atir surtardim..." },
       {
-        title: "Ehrom kiyimlari",
-        body: "Erkaklar kamida ikki to'plam tikilmagan ehrom kiyimini (bel matosi va yelka matosi) va pul va hujjatlar uchun keng, teridan bo'lmagan ehrom kamarini olishi kerak. Ayollar keng, oddiy, bezaksiz tashqi kiyim olishi kerak.",
+        excerpt:
+          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
       },
+      { excerpt: "Payg'ambar ﷺ talbiyani baland ovozda aytdi: Labbayk Allahumma labbayk..." },
+    ],
+    actions: [
+      "Erkaklar uchun kamida ikki to'plam ihram oling; atirsiz toza vositalarni tayyorlang.",
+      "Safardan oldin talbiyani mashq qiling, yo'lda oson aytish uchun.",
+    ],
+  },
+  {
+    title: "Ihram taqiqlari",
+    summary: "Muhrim muqaddas holatdan chiqgunga qadar nimalardan saqlanishi kerak.",
+    body: [
+      "Ihramda quyidagilardan saqlaning: erkaklar — tikilgan mos kiyim va bosh yopish; atir; soch yoki tirnoq kesish; yer hayvonini ov qilish; nikoh tuzish yoki o'tkazish; jinsiy aloqa. Ayol atir va boshqa umumiy taqiqlardan saqlanadi, yopiq kiyimda qoladi.",
+      "Taqiqni buzish fidya talab qilishi mumkin — odatda ro'za, kambag'allarni ovqatlantirish yoki qurbonlik — qilingan ishga qarab. Mazhablar tafsilotlarni farq qiladi. Taqiqlarga qattiq rioya qiling; kutilmagan holat bo'lsa, malakali yo'riqnoma so'rang.",
+    ],
+    actions: ["Ihramda atir, tirnoq qirqgich va qaychi qo'l ostida bo'lmasin."],
+    madhhabNote:
+      "Buzilishlar va fidya ro'yxatlari mazhab bo'yicha farq qiladi. Buni amaliy ogohlantirish deb oling, keyin mazhabingiz yoki haj yo'riqnomasi bilan tafsilotni tasdiqlang.",
+  },
+  {
+    title: "Umra — ihram va talbiya",
+    summary:
+      "Miqotda yoki undan oldin muqaddas holatga kiring, keyin Alloh chaqirig'iga javob bering.",
+    body: [
+      "Miqotda yoki undan oldin, imkon bo'lsa g'usl qiling, ihram kiyimini kiying, umra niyatini qiling va talbiyani boshlang. Muqaddas holat shu niyat bilan boshlanadi.",
+      "Makkaga yo'l olayotganda tavof boshlanguncha talbiyani tez-tez takrorlang. Bu Alloh chaqirig'iga yolg'iz javob berish ekaningizni bildiradi.",
+    ],
+    actions: ["Har bir marosimni bajarganda belgilash uchun umra ro'yxatidan foydalaning."],
+    appLinks: [{ label: "Umra ro'yxati" }],
+  },
+  {
+    title: "Ka'ba tavofi",
+    summary: "Qora Tosh burchagidan boshlab soat yo'nalishiga qarshi yetti aylana.",
+    body: [
+      "Ka'bani yetti marta soat yo'nalishiga qarshi aylaning, Qora Tosh burchagidan boshlab va tugatib. Olomon bo'lsa busang, tegish yoki takbir bilan ishora qiling — Payg'ambar ﷺ amaliga amal qilib, boshqalarga zarar yetkazmang.",
+      "Erkaklar birinchi uch aylanada raml (tez qadam) va bu kelish umra tavofida idtiba' (o'ng yelka ochiq) qiladi, mashhur sunnat bo'yicha.",
+      "Yaman burchagi va Qora Tosh orasida aytilishi tavsiya etiladi: «Rabbimiz, bizga dunyoda yaxshilik va oxiratda yaxshilik ber, do'zax azobidan asra» (Qur'on 2:201).",
+    ],
+    quran: [
       {
-        title: "Poyabzal va qulaylik",
-        body: "Osongina kiyilib-yechiladigan ochiq sandallar zarur, chunki to'piqni yopadigan poyabzal erkaklar uchun ehromda taqiqlanadi. Uzoq kutish uchun yengil ryukzak, to'ldiriladigan suv butilkasi va kichik namoz gilamchasini olib boring.",
-      },
-      {
-        title: "Hidsiz gigiyena vositalari",
-        body: "Hidsiz sovun, quyoshdan himoya kremi va ho'l salfetkalar olib boring — hidli mahsulotlar ehromda taqiqlangan. Kichik birinchi yordam to'plami, shifokor tavsiyasi bilan shaxsiy dorilar va ko'p yurish tufayli pufakchalar uchun leykoplastir qo'shimcha og'irlikka arziydi.",
-      },
-      {
-        title: "Hujjatlar va zarur narsalar",
-        body: "Pasportingizni, viza chiqarmasini, emlash sertifikatini (odatda meningit talab qilinadi) va favqulodda aloqa raqamlarini kiyim ostida kiyiladigan yupqa cho'ntakda saqlang. Ko'chma quvvat banki va mahalliy SIM yoki eSIM to'lqinli joylarda yo'l topishni ancha osonlashtiradi.",
+        excerpt:
+          "Rabbimiz, bizga dunyoda yaxshilik va oxiratda yaxshilik ber, do'zax azobidan asra.",
       },
     ],
   },
   {
-    day: "Yo'lga chiqishdan oldin",
-    title: "Muqaddas joylar yo'nalishnomasi",
-    summary: "Tashrif buyuradigan asosiy joylar haqida qisqa amaliy izohlar.",
-    steps: [
+    title: "Ikki rakat va Zamzam",
+    summary: "Imkon bo'lsa Maqom Ibrohim ortida namoz o'qing, keyin Zamzam iching.",
+    body: [
+      "Tavofdan keyin, joy bo'lsa Maqom Ibrohim ortida ikki rakat o'qing, olomon bo'lsa masjidning boshqa joyida — Alloh so'ziga amal: «...Ey iymon keltirganlar, Ibrohim turgan joydan namoz o'qish joyi qiling...» (Qur'on 2:125).",
+      "Keyin Zamzam suvini iching. Jabirning Payg'ambar ﷺ haj tasvirida tavofdan keyin Zamzam ichish bor; Payg'ambar ﷺ dedi Zamzam niyat qilingan narsa uchun ichiladi (keyingi ulama to'plagan sahih rivoyatlar; niyat va duo tavsiya etiladi).",
+    ],
+    quran: [
+      { excerpt: "...Ey iymon keltirganlar, Ibrohim turgan joydan namoz o'qish joyi qiling..." },
+    ],
+  },
+  {
+    title: "Safa va Marva orasida sa'y",
+    summary: "Hojar suv izlashini yodga olgan yetti saf.",
+    body: [
+      "Alloh aytdi: «Albatta, Safa va Marva Allohning alomatlaridandir. Kim Uyga haj yoki umra qilsa — ular orasida yurishida gunoh yo'q...» (Qur'on 2:158).",
+      "Safa va Marva orasida yetti marta yuring, Safadan boshlab. Safada Ka'baga qarab, Payg'ambar ﷺ qilganidek qo'llarni takbir va duo uchun ko'taring. Erkaklar yashil belgilar orasida yuguradi.",
+    ],
+    quran: [
       {
-        title: "Masjid al-Harom, Makka",
-        body: "Ka'bani o'rab turgan Buyuk Masjid — tavof va sa'iy joyi. U kecha-kunduz ishlaydi; Qora tosh yaqinida va besh kunlik namoz vaqtida, ayniqsa Ramazonning oxirgi o'n kechasida va Haj kunlarida juda katta izdihomni kutish kerak.",
-        location: "Makka",
-      },
-      {
-        title: "Masjid an-Nabaviy, Madina",
-        body: "Payg'ambar ﷺ masjidi, Ravza va u kishining dafn etilgan joyini o'z ichiga oladi, Hajning o'zi qismi emas, lekin deyarli barcha ziyoratchilar Hajdan oldin yoki keyin Madinaga tashrif buyuradi. Ravzaga kirish uchun Nusuk yoki Ravza dasturi orqali band qilingan vaqtli kirish ruxsatnomasi kerak.",
-        location: "Madina",
-      },
-      {
-        title: "Mina",
-        body: "Makkadan bir necha kilometr uzoqlikdagi chodirlar shahri, u yerda ziyoratchilar Zulhijjaning 8, 11, 12 (va 13) kechalarini o'tkazadi. Konditsionerli, olovga chidamli chodir lagerlari sayyohlik operatori tomonidan tayinlanadi; asosiy umumiy sharoitlar va Jamarotgacha uzoq yurishlarni kutish kerak.",
-        location: "Mina",
-      },
-      {
-        title: "Arafot",
-        body: "Makkadan taxminan 20 km uzoqlikdagi ochiq tekislik, Hajning eng muhim yagona marosimi — 9-Zulhijjadagi turishning joyi. Soyabon inshootlar va suv nuqtalari taqdim etiladi, ammo kunduzgi issiqlik kuchli; suv ichish va quyoshdan himoyalanish juda muhim.",
-        location: "Arafot",
-      },
-      {
-        title: "Muzdalifa",
-        body: "Arafot va Mina orasidagi ochiq maydon, u yerda ziyoratchilar 9-10-Zulhijja kechasini ochiq osmon ostida o'tkazadi va toshbo'ron uchun mayda toshlar to'playdi. Sharoitlar ataylab minimal — gilamcha olib boring va sovuq kecha havosi uchun kiyinib boring.",
-        location: "Muzdalifa",
+        excerpt:
+          "Albatta, Safa va Marva Allohning alomatlaridandir. Kim Uyga haj yoki umra qilsa — ular orasida yurishida gunoh yo'q...",
       },
     ],
   },
   {
-    day: "Yo'lga chiqishdan oldin",
+    title: "Halq yoki taqsir — umrani tugatish",
+    summary:
+      "Erkaklar qirqadi yoki qisqartiradi; ayollar barmoq uchi qadar qisqartiradi — keyin ihram ochiladi.",
+    body: [
+      "Erkak boshni halq qiladi — Payg'ambar ﷺ uch marta duo qildi — yoki teng qisqartiradi (taqsir). Ayol sochlarini yig'ib barmoq uchi qadar qisqartiradi. Shunda umra tugaydi va ihram cheklovlari ochiladi.",
+      "Abdulloh ibn Umar rivoyat qilganidek, Rasululloh ﷺ dedi: «Allohim, qirqilganlarga rahm qil». Dedilar: «Qisqartirilganlarga ham, ey Rasululloh?» Dedilar: «Allohim, qirqilganlarga rahm qil». Yana dedilar: «Qisqartirilganlarga ham?» Uchinchi marta dedi: «Va qisqartirilganlarga» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
+    ],
+    hadith: [
+      { excerpt: "Allohim, qirqilganlarga rahm qil... uchinchi marta: va qisqartirilganlarga." },
+      {
+        excerpt:
+          "Allohim, qirqilganlarni kefforat qil... uchinchi marta dedi: va qisqartirilganlarni.",
+      },
+    ],
+  },
+  {
+    title: "8 zul-hijja — Tarviya kuni",
+    summary: "Haj uchun ihram kiring va kunni Mina'da o'tkazing.",
+    body: [
+      "Tamattu' hojilar: haj niyatini qiling va Makkadagi turar joyingizdan qayta ihram kiring, talbiyani yangilang. Ifrod va Qiron hojilar allaqachon ihramda.",
+      "Mina'ga boring va Zuhur, Asr, Mag'rib, Isha va keyingi Fajrni har biri o'z vaqtida ikki rakatga qisqartirib o'qing, Jabir rivoyat qilgan Veda haj amaliga amal (Sahih Muslim 1218). Kun va tunni ibodatda, Arofani kutib o'tkazing.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Jabirning Payg'ambar ﷺ Veda hajining uzoq rivoyati — Mina'da tunash va marosimlar ketma-ketligi.",
+      },
+    ],
+    actions: ["8-kun ertalab haj ro'yxatini oching."],
+    appLinks: [{ label: "Haj ro'yxati" }],
+  },
+  {
+    title: "9 zul-hijja — Arofa kuni",
+    summary: "Quyosh botgunga qadar Arofa ichida turing; keyin Muzdalifaga o'ting.",
+    body: [
+      "Arofa chegarasida tushdan keyin quyosh botgunga qadar duo, zikr va tavbada qoling. Payg'ambar ﷺ dedi «Haj — Arofa» (Sunan Abi Dawud 1949). Qiblaga qarab, qo'llarni ko'taring va Allohdan iltijo qiling — duo uchun eng buyuk vaqtlardan.",
+      "Zuhur va Asrni Zuhur vaqtida birlashtirib qisqartirib o'qing (jam' taqdim), qolgan kunni ixtiyoriy namoz o'rniga duoga bag'ishlang — Payg'ambar ﷺ amali (Sahih Muslim 1218).",
+      "Quyosh botgach, tinch Muzdalifaga boring. Mag'rib va Ishani birlashtiring (Isha qisqartirilgan), tunni dam oling va tosh tashlash uchun toshlar yig'ing. Zaiflar va ayollar mashhur sunnat ruxsati bilan yarim tundan keyin Mina'ga ketishi mumkin.",
+    ],
+    hadith: [
+      { excerpt: "Haj — Arofa." },
+      {
+        excerpt:
+          "Payg'ambar ﷺ Arofada Zuhur va Asrni birlashtirdi, keyin quyosh botgach Muzdalifaga yo'l oldi...",
+      },
+    ],
+  },
+  {
+    title: "10 zul-hijja — Nahru kuni",
+    summary: "Tosh tashlash, qurbonlik, soch va Tavof al-Ifoda.",
+    body: [
+      "Mina tomonga qayting va Jamrat al-Aqaba (katta ustun)ga yetti tosh tashlang, har tashlashda Allahu akbar — Veda haj ketma-ketligida kunning birinchi amali.",
+      "Tamattu' va Qiron uchun talab qilinadigan qurbonlikni bering (Qur'on 2:196) yoki ishonchli idora orqali tartiblang. Go'sht yeyiladi va kambag'allarga beriladi.",
+      "Halq yoki taqsir; ayol barmoq uchi qadar qisqartiradi. Tosh tashlash va halq/taqsirdan keyin birinchi tahallul — ihram cheklovlarining ko'pi ochiladi, jinsiy aloqadan tashqari.",
+      "Makka'ga Tavof al-Ifoda — haj rukni — va tamattu' hojilar uchun sa'y. Ifrod/Qiron kelish tavofi bilan sa'y qilganlar mazhab hukmiga amal qiladi. Bu to'liq ihramdan chiqishni tugatadi.",
+    ],
+    quran: [
+      {
+        excerpt:
+          "...Kim umradan hajga foydalanib foydalansa, oson topiladigan qurbon hayvonlari...",
+      },
+    ],
+    madhhabNote:
+      "Nahru kuni amallari ketma-ketligida sunnatda moslashuv bor; mazhablar aniq tartib va har haj turi uchun sa'y vaqtida farq qiladi. Guruh yo'riqnomasiga amal qiling.",
+  },
+  {
+    title: "11–13 zul-hijja — Tashriq kunlari",
+    summary: "Mina'da tunlar, har kuni uch Jamrat tosh tashlash, keyin vidolash tavofi.",
+    body: [
+      "11, 12 (va erta ketmasangiz 13) tunlarini Mina'da o'tkazing. Bu kunlar yeyish, ichish va Allohni yod etish kunlari.",
+      "Har kuni Zuhurdan keyin uch ustunga tartib bilan yetti tosh — kichik, o'rta, katta — har tashlashda takbir. Shoshiluvchi 12-kun tosh tashlagach ketishi mumkin (Qur'on 2:203).",
+      "Makkadan ketishdan oldin Tavof al-Vada qiling, Uy bilan oxirgi aloqa vidolash bo'lsin. Ibn Abbos rivoyat qilganidek, odamlarga oxirgi marosim Uyda bo'lishi buyurilgan, hayzli ayol uchun yengillashtirilgan (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Allohni sanalgan kunlarda yod eting. Kim ikki kunda shoshilsa — gunoh yo'q; kim kechiktirsa — gunoh yo'q — Allohdan qo'rqqanlar uchun...",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Odamlarga Ka'ba vidolash tavofi oxirgi marosim qilib buyurilgan, hayzli ayol kechiktirilgan.",
+      },
+      {
+        excerpt:
+          "Odamlarga oxirgi marosim Uyda bo'lishi buyurilgan, hayzli ayol uchun yengillashtirilgan.",
+      },
+    ],
+  },
+  {
+    title: "Ruknlar va vajiblar",
+    summary: "Qoldirilsa hajni bekor qiladigan va qurbonlik bilan kefforat qilinadigan narsalar.",
+    body: [
+      "Ruknlar (arkan) hajning mohiyati. Rukn qoldirilsa, haj bekor va faqat qurbonlik tuzatmaydi — bajarilishi shart. Ko'pchilik odatda sanaydi: ihram (niyat), Arofada turish, Tavof al-Ifoda va sa'y.",
+      "Vajiblar (vajibat): miqotdan ihram, Muzdalifada tunash, Jamrat tosh tashlash, Tashriq tunlarini Mina'da o'tkazish va Vidolash tavofi. Vajibni qoldirish hajni bekor qilmaydi, lekin mazhablarda dam (qurbonlik) bilan kefforat qilinadi.",
+    ],
+    madhhabNote:
+      "Aniq arkan va vajibat ro'yxatlari to'rt mazhabda farq qiladi. Mazhabingiz uchun malakali yo'riqnoma bilan tasdiqlang — ayniqsa olomon bosimi ostida narsa qoldirilsa.",
+  },
+  {
+    title: "Adab va samimiyat",
+    summary: "Til va a'zolarni asrang — qabul qilinish xulq-atvorga bog'liq.",
+    body: [
+      "Gunohsiz qaytish hadisi (Buxoriy 1521; Muslim 1350) hajni fohisha (rafast), fisoq va bahslash buzishini ko'rsatadi. Sabr, muloyimlik va boshqa hojilarga yordam ibodat qismidir.",
+      "Telefon va behuda gap Arofa va masjidni bosmasin. Tavofda yo'l bering; Qora Toshga itarilmang. Qabul qilingan haj jannat hamrohi — butun safarda yaxshi xulq-atvor intil.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Kim Alloh uchun haj qilsa va jinsiy aloqa ham, gunoh ham qilmasa, onasi uni tug'ilgan kunidagi kabi qaytadi.",
+      },
+    ],
+    actions: ["Kunlik niyat qiling: bir mehribonlik va olomondan yuqori bir samimiy duo."],
+  },
+  {
+    title: "Viza va ro'yxatdan o'tish",
+    summary: "Rasmiy kanallardan foydalaning — Nusuk va milliy haj idorangiz.",
+    body: [
+      "Nusuk (nusuk.sa) Saudiya Arabistonining rasmiy haj va umra platformasi — vizalar, turar joy, transport va ro'yxatdan o'tgan paketlar. Norasmiy vositachilar firibgarlikning keng manbai.",
+      "Har mamlakat yillik haj kvotasiga ega; ko'pchilik milliy haj idorasi yoki litsenziyali agent orqali ariza beradi. Umra kvotasi yo'q va yilning ko'p qismida tasdiqlangan kanallar orqali tashkil etiladi.",
+    ],
+    actions: [
+      "Mavsum ochilganda erta ariza bering.",
+      "Faqat Nusuk ro'yxatidagi agentlar yoki milliy idora orqali bron qiling.",
+      "Pul o'tkazishdan oldin to'lov kanallarini tekshiring.",
+    ],
+  },
+  {
+    title: "Nima olib ketish kerak",
+    summary: "Ihram, atirsiz toza vositalar, hujjatlar va yurish qulayligi.",
+    body: [
+      "Erkaklar: kamida ikki to'plam tikilmagan ihram va hujjatlar uchun kamar. Ayollar: keng yopiq kiyim. Oson kiyiladigan ochiq sandal; kichik ryukzak va suv idishi.",
+      "Atirsiz sovun va quyosh kremi oling — ihramda atir taqiqlangan. Pasport, viza nusxasi, emlash yozuvlari va favqulodda aloqalarni ing qopchada saqlang. Power bank va mahalliy SIM yoki eSIM olomon ichida yordam beradi.",
+    ],
+    actions: [
+      "Ro'yxat: ihram ×2, sandal, atirsiz vositalar, hujjat qopchasi, dori, power bank.",
+      "Poyabzal yarasi plastirlarini oling — hojilar uzoq yuradi.",
+    ],
+  },
+  {
+    title: "Muqaddas joylar qisqacha",
+    summary: "Makka, Madina, Mina, Arofa va Muzdalifa — amaliy eslatmalar.",
+    body: [
+      "Masjid al-Haram Ka'bani o'rab oladi — tavof va sa'y joyi; katta olomon kuting. Madinadagi Masjid an-Nabaviy hajning o'zi emas, lekin ko'pchilik ziyorat qiladi; Ravda kirishi rasmiy ilovalar orqali vaqt belgilanadi.",
+      "Mina 8 va 11–13 zul-hijja tunlari uchun chodir shahar. Arofa ochiq tekislik — 9-kunda suv va soy muhim. Muzdalifa hojilar ochiq osmon ostida dam olib tosh yig'adigan joy — imkoniyatlar atayin kam.",
+    ],
+    actions: ["Safardan oldin Mina–Arofa–Muzdalifa oddiy xaritasini o'rganing."],
+  },
+  {
     title: "Rasmiy manbalar",
-    summary: "Ishonchli va yangilangan rasmiy ma'lumotni qayerdan topish mumkin.",
-    steps: [
-      {
-        title: "Nusuk (nusuk.sa)",
-        body: "Saudiya Haj va Umra vazirligining viza, akkreditlangan paketlar, Ravza tashrif ruxsatnomalari va real vaqtdagi izdiham va transport bo'yicha yo'riqnoma uchun rasmiy portali va dasturi — har qanday rasmiy savol uchun birinchi manzil.",
-      },
-      {
-        title: "Mamlakatingizning Haj idorasi",
-        body: "Ko'pchilik davlatlar yillik kvotani boshqaradigan, mahalliy agentlarni tekshiradigan va ketish jadvallari va sog'liq talablarini e'lon qiladigan milliy Haj idorasi yoki vazirlik bo'limini yuritadi — har qanday xususiy agent orqali band qilishdan oldin uni tekshiring.",
-      },
-      {
-        title: "Visit Saudi (visitsaudi.com)",
-        body: "Qirollikning rasmiy sayyohlik sayti kirish talablarini, munosib fuqarolar uchun elektron viza ma'lumotlarini va Makka, Madina va Saudiya Arabistoni ichida keyingi sayohat uchun amaliy sayohat maslahatlarini o'z ichiga oladi.",
-      },
-      {
-        title: "To'lashdan oldin tekshiring",
-        body: "Faqat Nusukda ro'yxatga olingan agentliklar yoki milliy Haj idorangiz orqali band qiling. Agar taklif g'ayrioddiy arzon ko'rinsa yoki vositachi rasmiy kanallardan tashqarida to'lov talab qilsa, buni ogohlantiruvchi belgi deb bilib, to'g'ridan-to'g'ri vazirlik portali orqali tekshiring.",
-      },
+    summary: "Nusuk, milliy idorangiz va Visit Saudi.",
+    body: [
+      "Vizalar, paketlar, Ravda ruxsatlari va olomon yo'riqnomasi uchun Nusukdan boshlang. Mamlakat haj vazirligidan kvota va sog'liq qoidalarini oling. Visit Saudi umumiy kirish va safar maslahatlarini e'lon qiladi.",
+      "Kelishuv g'ayrioddiy arzon ko'rinsa yoki vositachi rasmiy kanallardan tashqari to'lov so'rasa, to'lashdan oldin to'g'ridan-to'g'ri vazirlik portali orqali tekshiring.",
     ],
+    actions: [
+      "nusuk.sa va milliy haj idorasi saytini xatcho'pga qo'shing.",
+      "Guruh rahbarining favqulodda aloqalarini saqlang.",
+    ],
+  },
+];
+
+export const HAJJ_CHECKLIST_UZ: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Haj uchun ihram",
+    hint: "Haj niyatini qiling va ihram kiring (tamattu' uchun Makkadan); talbiyani yangilang.",
+    day: "8 zul-hijja",
+  },
+  {
+    title: "Mina'ga boring",
+    hint: "Mina'da Zuhurdan Fajrgacha har namozni o'z vaqtida qisqartirib o'qing.",
+    location: "Mina",
+    day: "8 zul-hijja",
+  },
+  {
+    title: "Arofada turing",
+    hint: "Arofa ichida tushdan keyin quyosh botgunga qadar duo va zikrda qoling.",
+    location: "Arofa",
+    day: "9 zul-hijja",
+  },
+  {
+    title: "Zuhur va Asrni birlashtiring",
+    hint: "Zuhur va Asrni Zuhur vaqtida birlashtirib qisqartirib o'qing, keyin duoga qaratiling.",
+    location: "Arofa",
+    day: "9 zul-hijja",
+  },
+  {
+    title: "Muzdalifaga o'ting",
+    hint: "Quyosh botgach Mag'rib va Ishani birlashtiring, dam oling va toshlar yig'ing.",
+    location: "Muzdalifa",
+    day: "9 zul-hijja",
+  },
+  {
+    title: "Jamrat al-Aqaba tosh tashlash",
+    hint: "Katta ustunga yetti tosh tashlang, har tashlashda takbir.",
+    location: "Mina",
+    day: "10 zul-hijja",
+  },
+  {
+    title: "Qurbonlik bering",
+    hint: "Tamattu' va qiron uchun talab — o'zingiz yoki ishonchli idora orqali.",
+    day: "10 zul-hijja",
+  },
+  {
+    title: "Halq yoki taqsir",
+    hint: "Erkaklar qirqadi yoki qisqartiradi; ayol barmoq uchi (birinchi tahallul).",
+    day: "10 zul-hijja",
+  },
+  {
+    title: "Tavof al-Ifoda",
+    hint: "Tavof al-Ifoda va tamattu' uchun sa'y — haj rukni.",
+    location: "Masjid al-Haram",
+    day: "10 zul-hijja",
+  },
+  {
+    title: "Mina'da tunash",
+    hint: "11, 12 (va erta ketmasangiz 13) tunlarini Mina'da o'tkazing.",
+    location: "Mina",
+    day: "11–13 zul-hijja",
+  },
+  {
+    title: "Uch Jamrat tosh tashlash",
+    hint: "Har kuni Zuhurdan keyin kichik, o'rta, keyin katta — har biriga yetti.",
+    location: "Mina",
+    day: "11–13 zul-hijja",
+  },
+  {
+    title: "Vidolash tavofi",
+    hint: "Makkadan ketishdan oldin Tavof al-Vada (hayzli ayol kechiktirilgan).",
+    location: "Masjid al-Haram",
+    day: "Ketish",
+  },
+];
+
+export const UMRAH_CHECKLIST_UZ: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Ihramga kirish",
+    hint: "Miqotda yoki undan oldin: g'usl, ihram kiyimi, umra niyati, talbiya.",
+    location: "Miqot",
+  },
+  { title: "Talbiyani o'qing", hint: "Tavof boshlanguncha Labbayk... ni tez-tez takrorlang." },
+  {
+    title: "Ka'ba tavofi",
+    hint: "Qora Toshdan boshlab yetti aylana soat yo'nalishiga qarshi; erkaklar: raml va idtiba'.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Ikki rakat o'qing",
+    hint: "Imkon bo'lsa Maqom Ibrohim ortida, keyin Zamzam iching.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Safa va Marva orasida sa'y",
+    hint: "Safadan boshlab yetti saf; erkaklar yashil belgilar orasida yuguradi.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Halq yoki taqsir",
+    hint: "Erkaklar qirqadi yoki qisqartiradi; ayol barmoq uchi — umra tugadi.",
   },
 ];

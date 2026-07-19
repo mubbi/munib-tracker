@@ -146,10 +146,17 @@ export default {
     description: "Saxladığınız hədisler, sürətli dönüş üçün bir arada.",
   },
   "/hajj": {
-    title: "Hac və Umre Yoxlama Siyahısı",
+    title: "Hajj və Umrah Bələdçisi",
     description:
-      "Hac və umre menasikleri üçün adım adım yoxlama siyahısı. Her menasiki sırayla izləyin və tamamladıkça qeyd edin — pratik rehber, fıkıh kitabı değil.",
-    keywords: ["hac", "umre", "hac rehberi", "hac menasikleri", "hac yoxlama siyahısı"],
+      "Hajj və Umrah-ı Qur'an və etibarlı Sunnah-dan öyrənin, sonra ayrı Hajj və Umrah siyahıları ilə mərasimləri izləyin — praktik təhsil icmalı, fiqh kitabı deyil.",
+    keywords: [
+      "hajj",
+      "umrah",
+      "həcc bələdçisi",
+      "hajj mərasimləri",
+      "hajj siyahısı",
+      "umrah siyahısı",
+    ],
   },
   "/hayd": {
     title: "Hayız və İbadet — Adet Rehberi",
@@ -772,5 +779,17 @@ export default {
   "/zikr/favorites": {
     title: "Sevimli Adhkar",
     description: "Sevimlilədiğiniz adhkar, sürətli erişim üçün bir arada.",
+  },
+  "/hajj/checklist": {
+    title: "Hajj Mərasimləri Siyahısı",
+    description:
+      "Tarwiyah-dan vida tawaf-ına qədər gündəlik Hajj mərasim izləyicisi. Öyrən bələdçisi yanında yaddaş vasitəsi.",
+    keywords: ["hajj siyahısı", "hajj mərasimləri", "həcc izləyicisi"],
+  },
+  "/umrah/checklist": {
+    title: "Umrah Mərasimləri Siyahısı",
+    description:
+      "Sıralı Umrah siyahısı — ihram, tawaf, sa'i və halq və ya taqsir. Hajj & Umrah Öyrən bələdçisi ilə istifadə edin.",
+    keywords: ["umrah siyahısı", "umrah mərasimləri", "kiçik həcc"],
   },
 };

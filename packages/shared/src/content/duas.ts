@@ -1,11 +1,11 @@
 import type { DuaCategoryId, DuaItem } from "../types/index";
 
-export const DUA_CONTENT_VERSION = 5;
+export const DUA_CONTENT_VERSION = 6;
 
 export const DUA_CATEGORY_LABELS: Record<DuaCategoryId, string> = {
   morning_evening: "Morning & Evening",
   sleep: "Sleep & Waking",
-  prayer: "Prayer & Mosque",
+  prayer: "Salah & Masjid",
   forgiveness: "Forgiveness & Gratitude",
   distress: "Distress & Hardship",
   protection: "Protection & Refuge",
@@ -281,6 +281,17 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "Ya muqallibal-qulub thabbit qalbi 'ala dinik",
     translation: "O Turner of the hearts, make my heart firm upon Your religion.",
     reference: "Tirmidhi",
+  },
+  {
+    id: "sunnah-laylat-qadr-afw",
+    categoryId: "forgiveness",
+    title: "Laylat al-Qadr forgiveness dua",
+    arabic: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
+    transliteration: "Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni",
+    translation: "O Allah, You are Forgiving, and You love forgiveness, so forgive me.",
+    virtues:
+      "Aisha asked the Prophet ﷺ what to say if she knew which night was Laylat al-Qadr; he taught her this dua.",
+    reference: "Sunan al-Tirmidhi 3513",
   },
   {
     id: "daily-before-eating",
@@ -979,7 +990,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "(Leave with your left foot) , and then say: (In the name of Allah, and prayers and peace be upon the Messenger of Allah. O Allah, I ask You from Your favor. O Allah, guard me from the accursed devil) .",
     reference:
-      "(1) Al-Hâkim (1/218), Al-Baihaqî (2/442) and Al-Albânî declared it ĥasan in Silsilah Al-Ahâdîth Aŝ-Ŝaĥîĥah [2478](5/624)\n(2) See takhrîj of the previous hadith (du'a #20) and the extension( اللهم اعصمني من الشيطان الرجيم) is from Ibn Mâjah [773], see Ŝaĥîĥ Ibn Mâjah (1/129).",
+      "(1) Al-Hâkim (1/218), Al-Baihaqî (2/442) and Al-Albânî declared it ĥasan in Silsilah Al-Ahâdîth Aŝ-Ŝaĥîĥah [2478](5/624)\n(2) See takhrîj of the previous hadith (dua #20) and the extension( اللهم اعصمني من الشيطان الرجيم) is from Ibn Mâjah [773], see Ŝaĥîĥ Ibn Mâjah (1/129).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/21hm.mp3",
   },
@@ -1604,7 +1615,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic:
       "اللَّهُمَّ إِنِّي أَسْتَخِيْرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ، فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ، وَتَعْلَمُ وَلَا أَعْلَمُ، وَأَنْتَ عَلَّامُ الْغُيُوبِ، اللَّهُمَّ إنْ كُنْتَ تَعْلَمُ أَنْ هَذَاالأَمْرَ - ويُسَمِّي حَاجَتَه - خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي – أو قالَ: عَاجِلِهِ وَ آجِلِهِ - فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي، ثُمَّ بَارِكْ لِي فِيهِ، وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الأمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشي وَعَاقِبَةِ أَمْرِي – أوْ قالَ: عَاجِلِهِ وَ آجِلِهِ - فَاصْرِفْهُ عَني، وَاصْرِفْنِي عَنْهُ، وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ، ثُمَّ أَرْضِنِي بِهِ. وَ مَا نَدِمَ مَنْ اسْتَخَارَ الخَالِقَ، وَ شَاوَرَ المَخْلُوقِينَ المُؤمِنِينَ، وَ تَثَبَّتَ فِي أمْرِهِ، فَقَدْ قَالَ سُبْحَانَهُ: ﴿وَ شَاوِرْ هُمْ فِي الأَمْرِ فَإذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللهِ﴾",
     translation:
-      "On the authority of Jaabir Ibn ‘Abdullah (RA), he said: ‘The Prophet (salla Allaahu ʻalayhi wa salaam) would instruct us to pray for guidance in all of our concerns, just as he would teach us a chapter from the Qur’an. He (salla Allaahu ʻalayhi wa salaam) would say ‘If any of you intends to undertake a matter then let him pray two supererogatory units (Two Rak’ah nâfilah) of prayer and after which he should supplicate:\n\n‘O Allah, I seek Your counsel by Your knowledge and by Your power I seek strength and I ask You from Your immense favor, for verily You are able while I am not and verily You know while I do not and You are the Knower of the unseen. O Allah if You know this affair- and here he mentions his need- to be good for me in relation to my religion, my life, and end, then decree and facilitate it for me, and bless me with it, and if You know this affair to be ill for me towards my religion, my life and end, then remove it from me and remove me from it, and decree from me what is good and wherever it be and make me satisfied with such.' \n\nOne who seeks guidance from his Creator and consults his fellow believers and then remains firm in his resolve does not regret for Allah has said: {…and consult them in the affair. Then when you have taken a decision, put your trust in Allaah…}",
+      "On the authority of Jaabir Ibn ‘Abdullah (RA), he said: ‘The Prophet (salla Allaahu ʻalayhi wa salaam) would instruct us to pray for guidance in all of our concerns, just as he would teach us a chapter from the Qur’an. He (salla Allaahu ʻalayhi wa salaam) would say ‘If any of you intends to undertake a matter then let him pray two supererogatory units (Two Rakah nâfilah) of prayer and after which he should supplicate:\n\n‘O Allah, I seek Your counsel by Your knowledge and by Your power I seek strength and I ask You from Your immense favor, for verily You are able while I am not and verily You know while I do not and You are the Knower of the unseen. O Allah if You know this affair- and here he mentions his need- to be good for me in relation to my religion, my life, and end, then decree and facilitate it for me, and bless me with it, and if You know this affair to be ill for me towards my religion, my life and end, then remove it from me and remove me from it, and decree from me what is good and wherever it be and make me satisfied with such.' \n\nOne who seeks guidance from his Creator and consults his fellow believers and then remains firm in his resolve does not regret for Allah has said: {…and consult them in the affair. Then when you have taken a decision, put your trust in Allaah…}",
     reference: "(1) Al-Bukhârî [1162](7/162).\n(2) Qur'an Al-'Imran [3:159].",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/74hm.mp3",

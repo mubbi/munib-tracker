@@ -4,6 +4,8 @@ const path = require("node:path");
 
 const RECEIVER_CLASS = "expo.modules.munibexternalcommands.ExternalCommandReceiver";
 const SERVICE_CLASS = "expo.modules.munibexternalcommands.ExternalCommandHeadlessService";
+const ACTION_MARK_CURRENT = "app.munibtracker.action.MARK_CURRENT";
+const ACTION_MARK_PRAYER = "app.munibtracker.action.MARK_PRAYER";
 
 /**
  * Android external commands: App Actions (Assistant), broadcast receiver, launcher shortcut.
@@ -19,6 +21,7 @@ function withExternalCommandsAndroid(config) {
   config = withAndroidManifest(config, (config) => {
     const manifest = config.modResults;
     const app = AndroidConfig.Manifest.getMainApplicationOrThrow(manifest);
+    const mainActivity = AndroidConfig.Manifest.getMainActivityOrThrow(manifest);
 
     AndroidConfig.Manifest.addMetaDataItemToMainApplication(
       app,
@@ -26,6 +29,19 @@ function withExternalCommandsAndroid(config) {
       "@xml/actions",
       "resource",
     );
+
+    if (!mainActivity["meta-data"]) mainActivity["meta-data"] = [];
+    const hasShortcutsMeta = mainActivity["meta-data"].some(
+      (item) => item.$?.["android:name"] === "android.app.shortcuts",
+    );
+    if (!hasShortcutsMeta) {
+      mainActivity["meta-data"].push({
+        $: {
+          "android:name": "android.app.shortcuts",
+          "android:resource": "@xml/shortcuts",
+        },
+      });
+    }
 
     if (!app.receiver) app.receiver = [];
     const hasReceiver = app.receiver.some((r) => r.$?.["android:name"] === RECEIVER_CLASS);
@@ -38,12 +54,25 @@ function withExternalCommandsAndroid(config) {
         "intent-filter": [
           {
             action: [
-              { $: { "android:name": "app.munibtracker.action.MARK_CURRENT" } },
-              { $: { "android:name": "app.munibtracker.action.MARK_PRAYER" } },
+              { $: { "android:name": ACTION_MARK_CURRENT } },
+              { $: { "android:name": ACTION_MARK_PRAYER } },
             ],
           },
         ],
       });
+    } else {
+      // Keep action names in sync when regenerating prebuild.
+      const receiver = app.receiver.find((r) => r.$?.["android:name"] === RECEIVER_CLASS);
+      if (receiver) {
+        receiver["intent-filter"] = [
+          {
+            action: [
+              { $: { "android:name": ACTION_MARK_CURRENT } },
+              { $: { "android:name": ACTION_MARK_PRAYER } },
+            ],
+          },
+        ];
+      }
     }
 
     if (!app.service) app.service = [];
@@ -73,6 +102,8 @@ function withExternalCommandsAndroid(config) {
         path.join(resValues, "app_actions_strings.xml"),
         `<?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="shortcut_mark_salah_short" translatable="false">Mark Salah</string>
+  <string name="shortcut_mark_salah_long" translatable="false">Mark current Salah</string>
   <string-array name="mark_current_synonyms" translatable="false">
     <item>mark my Salah</item>
     <item>mark current Salah</item>
@@ -131,6 +162,7 @@ function withExternalCommandsAndroid(config) {
 `,
       );
 
+      // Static launcher shortcut opens the App Actions deep link (Activity, not broadcast).
       fs.writeFileSync(
         path.join(resXml, "shortcuts.xml"),
         `<?xml version="1.0" encoding="utf-8"?>
@@ -139,10 +171,13 @@ function withExternalCommandsAndroid(config) {
     android:shortcutId="mark_current"
     android:enabled="true"
     android:icon="@mipmap/ic_launcher"
-    android:shortcutShortLabel="@string/app_name">
+    android:shortcutShortLabel="@string/shortcut_mark_salah_short"
+    android:shortcutLongLabel="@string/shortcut_mark_salah_long">
     <intent
-      android:action="app.munibtracker.action.MARK_CURRENT"
-      android:targetPackage="app.munibtracker"/>
+      android:action="android.intent.action.VIEW"
+      android:data="munib-tracker://mark-current"
+      android:targetPackage="app.munibtracker"
+      android:targetClass="app.munibtracker.MainActivity"/>
   </shortcut>
 </shortcuts>
 `,

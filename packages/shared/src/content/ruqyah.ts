@@ -20,7 +20,7 @@ export const RUQYAH_TOPICS: LearnGuideTopic[] = [
     id: "what-is-ruqyah",
     section: "basics",
     title: "What is ruqyah?",
-    summary: "Reciting Qur'an, Allah's Names, or prophetic du'a for healing.",
+    summary: "Reciting Qur'an, Allah's Names, or prophetic dua for healing.",
     body: [
       "Ruqyah is the practice of reciting Qur'an, the Names and Attributes of Allah, or authentic prophetic supplications over oneself or another person — often with a light blow of breath — seeking healing or protection from Allah alone. It predates Islam as a general Arab custom of incantation, and the Prophet ﷺ was asked directly whether it was permissible.",
       "'Awf ibn Malik reported that the companions said: 'We used to practise ruqyah in the pre-Islamic days; what is your view on it?' The Prophet ﷺ replied: 'Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk' (Sahih Muslim 2200). This single hadith is the foundation for everything else in this guide: ruqyah itself is permissible; what matters is its content.",
@@ -39,7 +39,7 @@ export const RUQYAH_TOPICS: LearnGuideTopic[] = [
     id: "halal-vs-haram",
     section: "basics",
     title: "Halal vs. haram ruqyah",
-    summary: "Qur'an, Allah's Names, and clear du'a — never shirk or the unseen.",
+    summary: "Qur'an, Allah's Names, and clear dua — never shirk or the unseen.",
     body: [
       "Lawful ruqyah rests on the conditions scholars have drawn from the hadith: it uses the Qur'an, Allah's Names and Attributes, or an authentic prophetic supplication; it is in a language whose meaning is understood (not unknown syllables or symbols); and the person reciting and the person being treated both believe the ruqyah itself has no power — healing is from Allah alone, and the words are only a means He has permitted.",
       "The Prophet ﷺ modelled this personally: Aisha reported that whenever he fell ill, he would recite the Mu'awwidhat (the last two surahs) over himself and blow his breath, and when his final illness worsened, she would do the same for him, wiping his body with his own hand hoping for its blessing (Bukhari 5016). This is ruqyah in its clearest, most authentic form.",
@@ -168,7 +168,7 @@ export const RUQYAH_TOPICS: LearnGuideTopic[] = [
     title: "Daily protection: morning & evening adhkar",
     summary: "The sustained, everyday form of ruqyah for protection.",
     body: [
-      "Beyond ruqyah for a specific ailment, the Prophet ﷺ taught a set of morning and evening remembrances (adhkar) that function as ongoing spiritual protection — many of them the very same verses covered in this guide (Ayat al-Kursi, the three closing surahs) alongside other authentic du'a. Reciting them consistently, rather than only reaching for ruqyah when something feels wrong, is the Sunnah way to seek Allah's protection every single day.",
+      "Beyond ruqyah for a specific ailment, the Prophet ﷺ taught a set of morning and evening remembrances (adhkar) that function as ongoing spiritual protection — many of them the very same verses covered in this guide (Ayat al-Kursi, the three closing surahs) alongside other authentic dua. Reciting them consistently, rather than only reaching for ruqyah when something feels wrong, is the Sunnah way to seek Allah's protection every single day.",
       "This app's adhkar library carries the full, sourced collection of morning and evening remembrances in one place, ready to read or track daily.",
     ],
     actions: [
@@ -184,7 +184,7 @@ export const RUQYAH_TOPICS: LearnGuideTopic[] = [
     summary: "Seeking the unseen from anyone but Allah is a serious warning.",
     body: [
       "Islam draws a hard line between authentic ruqyah and consulting fortune-tellers, soothsayers, astrologers, or anyone claiming to know the unseen (ghayb) or to lift a spiritual affliction through non-Islamic means. The Prophet ﷺ warned: 'Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights' (Sahih Muslim 2230) — a severe warning against even testing such claims out of curiosity.",
-      "If a person also believes the fortune-teller's claims about the unseen, scholars treat this as a matter of disbelief, since only Allah has knowledge of the unseen (Qur'an 27:65). Whatever difficulty prompts someone to consider such a person, the correct response in this guide's teaching is always to turn to authentic ruqyah, du'a, and trusted medical or scholarly help — never to those who claim hidden knowledge.",
+      "If a person also believes the fortune-teller's claims about the unseen, scholars treat this as a matter of disbelief, since only Allah has knowledge of the unseen (Qur'an 27:65). Whatever difficulty prompts someone to consider such a person, the correct response in this guide's teaching is always to turn to authentic ruqyah, dua, and trusted medical or scholarly help — never to those who claim hidden knowledge.",
     ],
     hadith: [
       {

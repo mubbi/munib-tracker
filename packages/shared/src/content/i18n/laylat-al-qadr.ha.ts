@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Me za ka ce idan ka kama ta",
+    summary: "A'isha ta tambayi Annabi ﷺ daidai me za ta ce.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "A'isha (Allah Ya yarda da ita) ta tambayi Annabi ﷺ: 'Ya Manzon Allah, idan na san wace dace ce Lailatul Qadr, me zan ce a cikinta?' Ya koy ta gajeren addu'ar gafara da aka nuna a ƙasa (Tirmidhi 3513, an ba shi daraja hasan sahih ta al-Tirmidhi).",
+      "Wannan addu'a gajere ce, sauƙi a haddace, kuma da burin gafara ne a ma'anoni na duniya — tunatarwa cewa babbar rabo daga wannan dace gafara ta Allah ce. Maimaita ta akai-akai a cikin goma sha biyun ƙarshe, a cikin sallah, a cikin sujada, da tsakaninsu, maimakon adana ta don dace guda da aka kiyasta.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Na ce: Ya Manzon Allah, idan na san wace dace ce Lailatul Qadr, me zan ce a cikinta? Ya ce: Ka ce — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Ya Allah, Kai Mai Gafara ne kuma Kana son gafara, Ka gafarta mini).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Haddace addu'ar gafara da aka nuna a sama.",
+      "Maimaita ta akai-akai a cikin goma sha biyun ƙarshe, musamman a dace biu-biu.",
     ],
   },
   {

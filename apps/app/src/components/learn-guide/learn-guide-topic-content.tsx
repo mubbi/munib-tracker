@@ -11,6 +11,7 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { LinkedDuaCard } from "@/components/learn-guide/linked-dua-card";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -41,6 +42,10 @@ export function LearnGuideTopicContent({
     <View style={styles.stack}>
       <JannahTakeaway text={topic.summary} />
       <JannahBody paragraphs={topic.body} />
+
+      {topic.duaId ? (
+        <LinkedDuaCard duaId={topic.duaId} sourceHref={`/dua/detail/${topic.duaId}`} />
+      ) : null}
 
       {topic.quran?.length ? <JannahQuranEvidence refs={topic.quran} /> : null}
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}

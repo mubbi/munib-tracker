@@ -77,10 +77,11 @@
       "intro": "د دې لارښود له درسونو لنډه بیاکتنه. وخت ونیسئ — زده کړه موخه ده.",
       "hint": "هغه څه بیا وګورئ چې زده کړي مو دي",
       "empty": "د دې لارښود پوښتنې لا بارېږي. څو درسونه خلاص کړئ، بیا بیا هڅه وکړئ."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "قرآن، حدیث، دعا، اذکار لټون…",
+    "placeholder": "قرآن، حدیث، دعا، زده کړئ… ولټوئ",
     "clear": "لټون پاک کړئ",
     "all": "ټول",
     "resultsCount": "{{count}} پایلې",
@@ -109,16 +110,7 @@
       "zikr": "Adhkar",
       "name": "۹۹ نومونه",
       "durood": "درود",
-      "jannah": "جنې ته سفر",
-      "jahannam": "جهنم پوهیدل",
-      "lastDay": "د قیامت ورځ",
-      "salahGuide": "نماز زده کړئ",
-      "battles": "په اسلام کې جګړې",
-      "taharah": "طهارت زده کړئ",
-      "prophets": "انبیاء زده کړئ",
-      "aqeedah": "عقیده زده کړئ",
-      "learnDua": "دعا زده کړئ",
-      "learnQuran": "قرآن زده کړئ"
+      "learn": "زده کړئ"
     },
     "stt": {
       "dictate": "د غږ له لارې لټون وکړئ",
@@ -465,6 +457,24 @@
       "badge": "جمعه",
       "reminderTitle": "جمعه مبارک",
       "reminderBody": "Jumu'ah ولمانځئ او د جمعې سنتونه بشپړ کړئ — غسل، Surah al-Kahf، salawat، او دعا."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "د نن قرآن برخه",
+      "catchUpTitle": "د khatm جبران",
+      "reminderBody": "د نن د khatm موخې لپاره {{done}}/{{total}} ayah ثبت کړئ.",
+      "reminderBodyPages": "د نن د khatm موخې لپاره {{done}}/{{total}} مخونه ثبت کړئ.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "د نن khatm لوستل په لار کې دي — دوام ورکړئ.",
+      "openPlan": "د khatm پلان پرانیزئ",
+      "a11y": "د khatm پلان ورځ {{day}} له {{total}}، {{percent}} سلنه بشپړ، نن {{target}} څخه {{done}}"
+    },
+    "acceptanceHourCard": {
+      "badge": "د dua وخت",
+      "reminderTitle": "د قبول وخت",
+      "reminderBody": "د جمعې ورځ یو وخت چې dua رد نه کیږي — په ځانګړي توګه د Asr وروسته د صادقانه dua، istighfar او salawat سره یې ولټوئ.",
+      "openGuide": "د قبول وخت پرانیزئ"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "وتر",
       "adhkar": "dhkr",
       "qaza": "Qz",
-      "a11y": "{{label}}: {{percent}}% complete, {{completed}} د {{total}}"
+      "a11y": "{{label}}: {{percent}}% complete, {{completed}} د {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "ماشاءالله - هر څه وشول",
     "freshStart": " fresh strt",
@@ -547,6 +558,14 @@
       "jumpTitle": "د Jumu'ah چک‌لیست",
       "jumpHint": "د جمعې سنتونه لاندې",
       "jumpA11y": "په دې پاڼه کې د Jumu'ah چک‌لیست ته لاړ شئ"
+    },
+    "khatm": {
+      "title": "د khatm پلان",
+      "progress": "نن {{done}} له {{total}}",
+      "hint": "د نن موخې لپاره {{count}} ayah — ثبت لپاره ټک کړئ",
+      "hintPages": "د نن موخې لپاره {{count}} مخونه — ثبت لپاره ټک کړئ",
+      "completeHint": "د نن برخه بشپړه — د پلان کتل لپاره ټک کړئ",
+      "a11y": "د khatm پلان ورځ {{day}} له {{total}}، د نن موخې لپاره {{target}} څخه {{done}}"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "د نن ورځې انعکاس",
       "dailyContentBody": "ستاسو په کور سکرین کې یو نوی آیت، حدیث او د الله نوم تیار دی.",
       "fridayTitle": "Jumu'h Mubrk",
-      "fridayBody": "د جمعې ورځ ده، درود ووایئ او سورة الکهف ولولئ."
+      "fridayBody": "د جمعې ورځ ده، درود ووایئ او سورة الکهف ولولئ.",
+      "acceptanceHourTitle": "د قبول وخت",
+      "acceptanceHourBodyAsr": "Asr پیل شو — تر Maghrib پورې د dua، istighfar او salawat سره د قبول وخت ولټوئ.",
+      "acceptanceHourBodyMid": "تر Maghrib مخکې لا وخت دی — دا دقیقې د صادقانه dua سره ډک کړئ."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "د جمعې یادونه",
-        "subtitle": "Jumu'h او Surh l-Khf"
+        "subtitle": "Jumu'ah، Surah Al-Kahf او د قبول وخت"
       }
     },
     "prayerAlertsObligatory": "د فرض لمونځ خبرتیا",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "د اورېدو پیل لپاره غږ وټاکئ",
     "listenVoiceDefault": "د سیسټم اصلي",
     "listenVoiceDefaultHint": "د دې ژبې لپاره د وسیلې غوره شوی غږ وکاروئ",
-    "listenVoiceEmpty": "د دې ژبې لپاره هیڅ غږ نه دی نصب شوی. په سیسټم ترتیباتو کې یو اضافه کړئ."
+    "listenVoiceEmpty": "د دې ژبې لپاره هیڅ غږ نه دی نصب شوی. په سیسټم ترتیباتو کې یو اضافه کړئ.",
+    "showTransliteration": "Transliteratio ښکاره کړئ",
+    "hideTransliteration": "Transliteratio پټ کړئ",
+    "showTranslation": "ژباړه ښکاره کړئ",
+    "hideTranslation": "ژباړه پټ کړئ"
   },
   "share": {
     "dialogTitle": "شریکول",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "دعاګانې د عنوان، موضوع یا متن له مخې وپلټئ...",
     "searchInCategory": "په دې کټګورۍ کې لټون…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "هیڅ دعا ستاسو د لټون سره سمون نه خوري."
+    "noResults": "هیڅ دعا ستاسو د لټون سره سمون نه خوري.",
+    "favSubtitle": "خوندي شوي دعاګانې بیا تنظیم یا لرې کړئ"
   },
   "duaCat": {
     "morning_evening": "سهار & ماښام",
@@ -1385,7 +1412,13 @@
       "stopDictate": "اورېدل بند کړئ",
       "bestMatch": "غوره سمون",
       "otherMatches": "نور سمونونه"
-    }
+    },
+    "searchPlaceholderArabic": "عربي متن یا لکه ٢:٢٥٥ حواله ولټوئ…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "نبوي سنت",
@@ -1608,7 +1641,9 @@
       },
       "footer": "دا اپلیکیشن د ټولو کاروونکو لپاره د قضا لپاره ورک شوي وتر حسابوي. که تاسو د حنفي نظر پیروي کوئ نو د اړتیا سره سم چلند وکړئ. که نه نو دا د وړاندیز شوي میک اپ په توګه تعقیب کړئ. د خپل وضعیت لپاره د یو عالم سره مشوره وکړئ."
     },
-    "history": "History"
+    "history": "History",
+    "rowDone": "{{completed}} Qaza ترسره شوي",
+    "rowDoneWithDaily": "{{completed}} Qaza ترسره · نن {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qz",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "بیا تنظیم counter?",
     "confirmResetMessage": "ستاسو د {{count}} شمیره به پاکه شي.",
     "confirmStartAgainTitle": "بیا پیل کړئ؟",
-    "confirmStartAgainMessage": "ستاسو بشپړ شوی شمیر به پاک شي نو تاسو کولی شئ یو نوی پړاو پیل کړئ."
+    "confirmStartAgainMessage": "ستاسو بشپړ شوی شمیر به پاک شي نو تاسو کولی شئ یو نوی پړاو پیل کړئ.",
+    "dockLabel": "شمېر"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} یوازې {{min}} دقیقې لرې دی",
@@ -1954,7 +1990,7 @@
       "fullTitle": "نن شپه پوره سپوږمۍ",
       "fullBody": "سپوږمۍ په بشپړه توګه د {{month}} منځ ته نږدې روښانه ده - د سپینو ورځو شپې، کله چې روژه په ځانګړې توګه سپارښتنه کیږي.",
       "generalTitle": "د سپوږمۍ کیلنڈر",
-      "generalBody": "اسلامي (هجري) تقویم سپوږمۍ تعقیبوي: هره میاشت ۲۹ یا ۳۰ ورځې ده، چې د لیدل شوي هلال (hilāl) سره پیل کیږي. دلته نیټې ستاسو په ځای کې د هلال د لیدلو له مخې محاسبه شوي او ممکن د ځایي واک له اعلان څخه یوه ورځ توپیر ولري.",
+      "generalBody": "اسلامي (هجري) کلیزه سپوږمۍ تعقیبوي: هره میاشت 29 یا 30 ورځې ده، چې د نوې میاشتې په لیدلو سره پیل کیږي.",
       "monthTurnTitle": "هلال ولټوئ",
       "monthTurnBody": "د Maghrib وروسته د {{month}} hilāl ولټوئ. اسلامي میاشتې د لیدل شوي هلال سره پیل کیږي؛ د ستاسو ځایي واک اعلان ممکن له دې محاسبې سره یوه ورځ توپیر ولري."
     },
@@ -2505,7 +2541,15 @@
       "ahead": "hed",
       "onTrack": "په trck",
       "behind": "Behind"
-    }
+    },
+    "logConfirmTitle": "د لوستلو پرمختګ اضافه کړئ؟",
+    "logConfirmMsg": "ستاسو د ختم ټولګه ته {{count}} آیات اضافه شي؟",
+    "logConfirmMsgPages": "ستاسو د ختم ټولګه ته {{count}} پاڼې اضافه شي؟",
+    "logConfirmAction": "اضافه کړئ",
+    "correctTotalConfirmTitle": "لوستل شوی ټول تازه کړئ؟",
+    "correctTotalConfirmMsg": "د ختم ټولګه {{count}} آیات ته وټاکئ؟",
+    "correctTotalConfirmMsgPages": "د ختم ټولګه {{count}} پاڼو ته وټاکئ؟",
+    "correctTotalConfirmAction": "ټول تازه کړئ"
   },
   "hifz": {
     "short": "حفظ",
@@ -2709,7 +2753,8 @@
       "knowledge": "ورځنی knowledge crd",
       "quickActions": "چټک اقدامات",
       "qaza": "Qz summry",
-      "schedule": "نن's schedule"
+      "schedule": "نن's schedule",
+      "khatm": "د khatm پلان"
     }
   },
   "schedule": {
@@ -2809,7 +2854,12 @@
       "listenHint": "د لوبې کولو لپاره ریکارډ ټایپ کړئ. د لاندې ټکو سره تعقیب کړئ لکه څنګه چې تاسو اورئ.",
       "play": "Ply {{name}} dhn",
       "pause": "Puse {{name}} dhn",
-      "sourceNote": "د خلاص Kiwifu/adhan-mp3 ټولګه څخه ریکارډونه (مکه، مدینه، مشاری الفاسی، او نور)."
+      "sourceNote": "د خلاص Kiwifu/adhan-mp3 ټولګه څخه ریکارډونه (مکه، مدینه، مشاری الفاسی، او نور).",
+      "learnPhrasesHint": "کلمې زده کړئ — هره جمله ښکاره، یوه پس له بلې غږ کړئ.",
+      "playPhrases": "ټولې جملې غږول",
+      "pausePhrases": "جملې ودراوئ",
+      "playPhrase": "جمله {{n}} غږول: {{title}}",
+      "followAlongNote": "د غږولو پر مهال لاندې کلمې روښانه کوي"
     }
   },
   "battles": {
@@ -3431,7 +3481,8 @@
       "obligatory": "Essentil",
       "highly-recommended": "ډیر وړاندیز شوی",
       "recommended": "وړاندیز شوی"
-    }
+    },
+    "playAyahA11y": "د {{ref}} تلاوت غږول"
   },
   "library": {
     "eyebrow": "Librry",
@@ -3471,7 +3522,7 @@
     "today": "نن",
     "inDays": "په {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "نیټې ستاسو په ځای کې د هلال لیدلو (یا په هغو سیمو کې چې رسمي تقویم یې کاروي د Umm al-Qura تقویم) تعقیبوي او ممکن د ځایي واک له اعلان څخه یوه ورځ توپیر ولري.",
+    "disclaimer": "نیټې محاسبه شوي اټکلونه دي - ریښتینې ورځ د ځایی سپوږمۍ لید پورې اړه لري.",
     "names": {
       "newYear": "نوی اسلامي کال",
       "ashura": "د عاشورا ورځ",
@@ -3944,7 +3995,7 @@
       "label": "ضمیمې (اختیاري)",
       "add": "فایل اضافه کړئ",
       "remove": "ضمیمه لرې کړئ",
-      "hint": "تر ۵ فایلونو پورې (JPEG، PNG، WebP یا PDF)، هر یو ۱ MB. د لرې کولو لپاره په تمبنیل باندې × ټایپ کړئ.",
+      "hint": "تر 5 فایلونو پورې (JPEG، PNG، WebP، یا PDF)، هر یو 1 MB. د لرې کولو لپاره تمبنیل اوږد فشار ورکړئ.",
       "signInRequired": "خپل اډکار ته د شخصي فایلونو ضمیمه کولو لپاره لاسلیک وکړئ.",
       "permissionDenied": "د فایلونو ضمیمه کولو لپاره اجازې ته اړتیا ده.",
       "permissionTitle": "د لاسرسي اجازه ورکړئ",
@@ -4120,14 +4171,34 @@
   "hajj": {
     "eyebrow": "Pilgrimge",
     "title": "Hjj & Umrh",
-    "subtitle": " step-by-step چک لیست لپاره  rites د pilgrimge.",
+    "subtitle": "د قرآن او سنت څخه مناسک زده کړئ، بیا Hajj او Umrah جلا جلا تعقیب کړئ.",
     "progress": "{{done}} د {{total}} rites",
     "reset": "بیا تنظیم",
     "resetConfirmTitle": "بیا تنظیم چک لیست?",
     "resetConfirmMsg": "دا به هر رسم غیر چیک کړي. ستاسو پرمختګ نشي بیرته ترلاسه کیدی.",
-    "umrahTag": "Umrh",
-    "hajjTag": "Hjj",
     "disclaimer": "یو عملي چک لیست، نه د فقه لارښود. د احکامو او توضیحاتو لپاره وړ لارښود تعقیب کړئ.",
+    "intro": "د اعتبار وړ مراجعو سره وجیب، ihram، Umrah او د Hajj ورځې زده کړئ. چک لیستونه یوازې د مناسکو لپاره — د چمتووالي لارښوونې په زده کړئ کې دي.",
+    "section": {
+      "virtues": "فضیلتونه",
+      "obligation": "وجیب",
+      "types": "د Hajj ډولونه",
+      "ihram": "Miqat او ihram",
+      "umrah": "Umrah",
+      "hajj": "د Hajj ورځې",
+      "rulings": "احکام او ادب",
+      "prep": "عملي چمتووالی"
+    },
+    "checklistsTitle": "د مناسکو چک لیستونه",
+    "hajjChecklistTitle": "د Hajj چک لیست",
+    "hajjChecklistHint": "د حج مناسک ورځ په ورځ",
+    "hajjChecklistSubtitle": "د Tarwiyah څخه تر الوداعي tawaf پورې Hajj مناسک تعقیب کړئ.",
+    "hajjChecklistIntro": "هر منسک بشپړ شي نو نښه کړئ. دا یادونه ده — fatwa نه.",
+    "umrahChecklistTitle": "د Umrah چک لیست",
+    "umrahChecklistHint": "له ihram څخه تر halq یا taqsir",
+    "umrahChecklistSubtitle": "د Umrah ترتیب په ترتیب تعقیب کړئ.",
+    "umrahChecklistIntro": "هر Umrah منسک بشپړ شي نو نښه کړئ. د جزئیاتو او دلایلو لپاره زده کړئ پرانیزئ.",
+    "notFound": "موضوع ونه موندل شوه",
+    "continueInApp": "په Munib کې دوام ورکړئ",
     "prepTag": "تیاری"
   },
   "dailyHadith": {
@@ -4436,7 +4507,7 @@
     "sourceLabel": "ستاسو source (اختیاري)",
     "sourcePlaceholder": "کتاب، عالم، URL، یا حواله ستاسو د سمون ملاتړ کوي.",
     "proofLabel": "د ثبوت سکرین شاټونه (اختیاري)",
-    "proofHint": "تر ۳ عکسونو پورې. د لرې کولو لپاره په تمبنیل باندې × ټایپ کړئ.",
+    "proofHint": "تر 3 عکسونو پورې. د لرې کولو لپاره تمبنیل اوږد فشار ورکړئ.",
     "addProof": "عکس اضافه کړئ",
     "removeProof": "لرې کول screenshot",
     "submit": "راپور وړاندې کړئ",
@@ -4700,7 +4771,7 @@
     "eyebrow": "جنتري",
     "title": "د نیټې بدلونکی",
     "subtitle": "د هجري او ګریګورین تقویمونو ترمینځ بدل کړئ",
-    "intro": "په هر یوه تقویم کې نیټه دننه کړئ ترڅو په بل کې یې مساوي وګورئ، چې آفلاین ستاسو په ځای کې د هلال لیدلو له مخې محاسبه کیږي.",
+    "intro": "په هر کیلنڈر کې یوه نیټه دننه کړئ ترڅو په بل کې د هغې مساوي وګورئ، د کویټ الګوریتم جدول په کارولو سره آفلاین حساب شوی.",
     "toHijri": "ګریګوریان → هجری",
     "toGregorian": "هجري → ګریګوریان",
     "gregorianDateLabel": "ګریګوریان نیټه",
@@ -4710,7 +4781,7 @@
     "year": "کال",
     "useToday": "نن ورځ وکاروئ",
     "invalidDate": "د اعتبار وړ نیټه دننه کړئ",
-    "disclaimer": "نیټې ستاسو په ځای کې د هلال (hilāl) لیدلو له مخې محاسبه شوي او ممکن د رسمي سپوږمۍ-لیدو اعلانونو څخه یوه ورځ توپیر ولري — تل د مذهبي نیټو لپاره خپل ځایي مسجد یا واک تعقیب کړئ.",
+    "disclaimer": "دا د ریاضي اټکل (جدول \"کویت الګوریتم\") دی او د ځایی سپوږمۍ لیدو اعلانونو څخه د یوې ورځې توپیر کولی شي - تل د مذهبي نیټو لپاره خپل ځایي جومات یا واک تعقیب کړئ.",
     "directionTitle": "د تبادلې لوري",
     "resultFrom": "له {{date}} څخه",
     "quickLinksTitle": "اړوند",

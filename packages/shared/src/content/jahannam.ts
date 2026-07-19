@@ -120,7 +120,7 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
       "To understand Jahannam rightly, it helps to see where it sits in the larger journey. Islam teaches a clear sequence after death: the soul departs the body, then barzakh (the interval life of the grave) begins, then the Resurrection when bodies are raised, the Gathering of all creation, the Judgment where deeds are examined, the weighing of deeds on the Scale (al-Mizan), the crossing of the Bridge (as-Sirat), and finally the settling of each soul in Paradise or the Fire — all by Allah's decree, justice, and mercy.",
       "Each of these stages is affirmed in mainstream Sunni aqeedah on the basis of the Qur'an and authentic Sunnah. This timeline is not a symbol or a story; it is a reality to be believed as part of believing in the Last Day, and denying it knowingly is a matter of creed, not merely of practice.",
       "Seeing the whole road also reframes the Fire. It is one possible destination at the end of a journey every soul is already travelling — which means the choices of today are not abstract. They are steps along that road, and they are still ours to direct.",
-      "Knowing this sequence helps a believer prepare rather than fear: to live with a healthy remembrance of death (dhikr al-mawt), to repair wrongs before they are carried into the Gathering, and to fill the account of good deeds while the door of action is still open. Death closes that door; nothing can be added after it.",
+      "Knowing this sequence helps a believer prepare rather than fear: to live with a healthy remembrance of death (zikr al-mawt), to repair wrongs before they are carried into the Gathering, and to fill the account of good deeds while the door of action is still open. Death closes that door; nothing can be added after it.",
     ],
     quran: [
       {
@@ -142,7 +142,7 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     ],
     actions: [
       "Study each stage in Learn Aqeedah and connect belief to daily choices.",
-      "Increase remembrance of death (dhikr al-mawt) without neglecting hope in mercy.",
+      "Increase remembrance of death (zikr al-mawt) without neglecting hope in mercy.",
     ],
     appLinks: [
       { label: "Aqeedah — the Last Day", route: "/aqeedah/belief-last-day" },
@@ -547,11 +547,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     id: "protection",
     section: "mercy",
     title: "Protection from Hell",
-    summary: "Tawheed, salah, tawbah, charity, Qur'an, and du'a — the heart of this module.",
+    summary: "Tawheed, salah, tawbah, charity, Qur'an, and dua — the heart of this module.",
     importance: "foundational",
     body: [
       "After all the warnings, this is the heart of the matter: Jahannam is something a person is meant to be protected from, and Islam is full of the means of that protection. The greatest of them is sound tawheed — worshipping Allah alone, with nothing beside Him. Every other deed is accepted and weighed only upon this foundation, which is why guarding one's belief comes before everything else.",
-      "Upon that foundation, the practical shields are many and within reach: establishing the five daily prayers, sincere repentance, giving charity — which the Prophet ﷺ said extinguishes sin as water extinguishes fire — fasting, reciting the Qur'an and acting on it, good character, mercy toward others, regular remembrance (dhikr), and constant seeking of forgiveness. None of these requires great wealth or knowledge; they are open to everyone.",
+      "Upon that foundation, the practical shields are many and within reach: establishing the five daily prayers, sincere repentance, giving charity — which the Prophet ﷺ said extinguishes sin as water extinguishes fire — fasting, reciting the Qur'an and acting on it, good character, mercy toward others, regular remembrance (zikr), and constant seeking of forgiveness. None of these requires great wealth or knowledge; they are open to everyone.",
       "The Prophet ﷺ also taught direct supplications for refuge from the Fire, and encouraged us to ask often. He said that whoever asks Allah for Paradise three times, Paradise itself prays for his admission, and whoever seeks refuge from the Fire three times, the Fire itself prays that he be spared it (Jami' at-Tirmidhi 2572). These du'as have a special place before the salam in prayer and in the morning and evening adhkar.",
       "Notice the balance the Sharia strikes. The means of protection are more numerous, more emphasised, and more attainable than the causes of ruin — and this itself is a sign of Allah's mercy. It is far easier to be saved than to be lost.",
       "This section is intentionally the largest in the module, because that is how Islam itself weighs the matter: warning always paired with hope, and never separated from concrete action a person can begin today.",
@@ -582,7 +582,7 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
       },
     ],
     actions: [
-      "Memorise the du'a seeking refuge from Jahannam before salam in prayer.",
+      "Memorise the dua seeking refuge from Jahannam before salam in prayer.",
       "Pray the five daily prayers on time — among the strongest shields.",
       "Give charity regularly, even small amounts.",
     ],

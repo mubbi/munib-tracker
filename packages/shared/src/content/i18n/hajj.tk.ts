@@ -1,309 +1,562 @@
-// Turkmen translation overlay for the Learn Hajj & Umrah guide. Mirrors the order of
-// its English source in ../hajj-guide.ts (index-aligned); untranslated entries fall back
-// to English. Only human-readable text is translated — ids, routes, surah/ayah
-// numbers, collections, citations and grades stay in the English source.
-import type { HajjGuideSection } from "../../types/hajj-guide";
+import type { PilgrimageChecklistItem } from "../../types/hajj-guide";
+import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
-export const HAJJ_GUIDE_SECTIONS_TK: DeepPartial<HajjGuideSection>[] = [
+// TK overlay for Hajj & Umrah Learn topics + rite checklists (Turkmen, Latin).
+// Index-aligned with English sources; only human-readable text is translated.
+
+export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
   {
-    day: "Gitmezden ozal",
-    title: "Borç we şertler",
-    summary: "Haj näme üçin berjaý edilýär we kime farz bolýar?",
-    steps: [
+    title: "Kabul edilen hajynyň sowgy",
+    summary: "Mabrur haj günäni ýok edýär we sowgy — jenet.",
+    body: [
+      "Ebu Hurayra ﷺ Resulullahyň (s) şeýle diýendigini rivayat etdi: «Kim Alla üçin haj eder we rafas hem-de günä etmez, enesini dogan günündäki ýaly gaýdyp gelýär» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
+      "Ol şehem diýdi: «Kabul edilen hajyň (mabrur hajyň) sowgy jenetden başga hiç zat däl» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Kabul edilmek yhlas bilen we hajy ahlaksyzlykdan we günäden saklamak bilen baglanyşykly — diňe daşky ädimleri ýerine ýetirmek bilen däl.",
+    ],
+    hadith: [
       {
-        title: "Bäşinji sütün",
-        body: 'Haj yslamyň bäşinji sütünidir, ömründe bir gezek her bir musulman üçin hökmanydyr. Allatagala şeýle diýýär: "Allatagaladan Allaha şükür etmek, öýe zyýaratdyr - kim oňa ýol tapyp biler" (Gurhan 3:97). Peoplehli adamlara: "Haja halka habar beriň, pyýada we her bir düýe bilen size gelerler" (Gurhan 22:27).',
+        excerpt:
+          "Kim Alla üçin haj eder we rafas hem-de günä etmez, enesini dogan günündäki ýaly gaýdyp gelýär.",
       },
       {
-        title: "Başarnyk (istita'ah)",
-        body: "Haj diňe başarýanlar üçin farzdyr: syýahat üçin beden saglygy, syýahaty ýapmak üçin ýeterlik kanuny baýlyk we uzakdaky adamyň garaşly adamlary we howpsuz, açyk ýol. Kimde-kim bu ýyl serişdesi ýetmezçilik etse, gijikdirmek üçin günäkär däldir.",
+        excerpt:
+          "Kim Alla üçin haj eder we rafas hem-de günä etmez, enesini dogan günündäki ýaly gaýdyp gelýär.",
       },
       {
-        title: "Aýalyň syýahaty",
-        body: "Alymlaryň köpüsi aýalyň mahram (adamsy ýa-da durmuşa çykmadyk ýakyn garyndaşy) bilen Haja gitjekdigini çaklaýarlar; käbir soňraky alymlar ygtybarly, ygtybarly aýallar toparynda syýahat etmäge rugsat berýärler. Özüňize ynanýan ökde alymyň kararyna we Haj ygtyýaryňyzyň düzgünlerine eýeriň.",
+        excerpt: "Kabul edilen hajyň sowgy jenetden başga hiç zat däl.",
+      },
+      {
+        excerpt: "Kabul edilen hajyň sowgy jenetden başga hiç zat däl.",
+      },
+    ],
+    actions: [
+      "Hajy diňe Alla üçin niýet et — sapar boyunca dilini we hulguny gorap dur.",
+      "Programmadaky haj sanawyny diňe ýatlatma hökmünde ulanyň; ýürek kabul edilmäge gönükdirilen bolsun.",
+    ],
+    appLinks: [
+      {
+        label: "Haj aýinleri sanawy",
       },
     ],
   },
   {
-    day: "Gitmezden ozal",
-    title: "Hajyň üç görnüşi",
-    summary: "Ifrad, Qiran we Tamattu '- ihram girmezden ozal saýlaň.",
-    steps: [
+    title: "Umrahynyň fazileti",
+    summary: "Umradan umra arasyndaky günäni ýok edýär.",
+    body: [
+      "Ebu Hurayra ﷺ Peygamberimiziň (s) şeýle diýendigini rivayat etdi: «Umra etmek öňki umra bilen arasyndaky günäni ýok edýär, kabul edilen hajyň sowgy bolsa jenetden başga zat däl» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
+      "Umra ýylyň islendik wagtynda edilip bilner. Hajdan gysga, ýöne uly ibadat: ihram, tawaaf, sa'i we saçy almak ýa-da gysmak.",
+    ],
+    hadith: [
       {
-        title: "Ifrad",
-        body: "Zyýaratçy diňe Haj üçin yhrama girýär, aýry-aýry Umra namazlaryny okamaýar we hasabyndan gurban bermeýär. Nahr gününiň däp-dessurlaryna çenli ihramda galýar.",
+        excerpt:
+          "Umra etmek öňki umra bilen arasyndaky günäni ýok edýär, kabul edilen hajyň sowgy bolsa jenetden başga zat däl.",
       },
       {
-        title: "Kiran",
-        body: "Zyýaratçy Umra bilen Hajy bir yhramda jemleýär, Umra dessurlaryny ýerine ýetirýär we haj gutarýança yhramda galýar. Tamattu 'ýaly, gurban gerek (hadys).",
+        excerpt:
+          "Umra etmek öňki umra bilen arasyndaky günäni ýok edýär, kabul edilen hajyň sowgy bolsa jenetden başga zat däl.",
       },
+    ],
+    actions: ["Aýinleri yzygiderli ýerine ýetirmäge taýyn bolanyňyzda umra sanawyny açyň."],
+    appLinks: [
       {
-        title: "Tamattu '",
-        body: "Zyýaratçy Haj aýlarynda doly Umrany okaýar, yhramdan çykýar, soň bolsa 8-nji Zul-Hijjada haj üçin yhrama girýär. Zyýaratçylaryň köpüsi şeýle edýär; gurban kesmegi ýa-da Hajda üç gün agyz beklemegi, eger başaryp bilmeýän bolsa ýedi gün agyz beklemegi talap edýär (Gurhan 2: 196).",
+        label: "Umra aýinleri sanawy",
       },
     ],
   },
   {
-    day: "Gitmezden ozal",
-    title: "Mikatlar we Ihram",
-    summary: "Mukaddes döwletiň nireden başlanýandygy we nämäni gadagan edýändigi.",
-    steps: [
+    title: "Arafa günü",
+    summary: "Arafada durmak — hajyň ýüregi; uly dua günü.",
+    body: [
+      "Abd ar-Rahman ibn Ya'mar ﷺ Peygamberimiziň (s) şeýle diýendigini rivayat etdi: «Haj — Arafadyr» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Arafanyň çäginde belgilenen wagtda durmakdan galan adam o ýylyň hajyny ýitirýär.",
+      "Hajda bolmadyklar üçin Arafa günü oňaşlyk örän maslahat berilýär: Ebu Katada Arafada oňaşlygyň geçen we geljek ýylyň günäni ýok edýändigini rivayat etdi (Sahih Muslim 1162). Hajylar özleri oňaş tutmaýarlar, günü duaga bagyşlaýarlar.",
+    ],
+    hadith: [
       {
-        title: "Bäş mawakit",
-        body: "Pygamberimiz bäş miqat - ihramsyz geçmeli däl araçäk nokatlaryny kesgitledi: Dhul-Hulaýfah (Madina üçin), Al-Juhfah (Siriýa / Müsür üçin), Karn al-Manazil (Nejd üçin), Yalamlam (Yemenemen üçin) we Dhat 'Irq (Yrak üçin). Içinde bolanlar niredediginden ihram girýärler.",
-        location: "Mikat",
+        excerpt: "Haj — Arafadyr.",
       },
       {
-        title: "Yhram näme",
-        body: "Yhram, niýet we talbiýa bilen giren mukaddes döwletdir. Erkekler iki sany gözlenmedik ak list geýýärler; aýallar adaty sada köýnek geýýärler. Ghusldan soň we erkekler üçin bedene atyr (egin-eşik däl) ulanylýar.",
-        location: "Mikat",
+        excerpt: "Haj — Arafadyr.",
       },
       {
-        title: "Yhramyň gadaganlygy",
-        body: "Yhramda bolanyňyzda: tikilen / enjamlaşdyrylan eşikler we kelläni ýapmak (erkekler üçin), atyr, saç ýa-da dyrnak kesmek, aw oýny, şertnama baglaşmak ýa-da nikalaşmak we islendik ýakynlyk. Bulary bozmak üçin günä (fidýa) gerek bolup biler, şonuň üçin olary üns bilen saklaň.",
-        location: "Mikat",
+        excerpt: "Arafa günü oňaşlygy, Alladan umyt edýän, öň we soňky ýylyň günäni ýok edýär.",
       },
     ],
   },
   {
-    title: "Umra",
-    summary: "Has az zyýarat - ýylyň islendik wagtynda edilip bilner.",
-    steps: [
+    title: "Haj — bäşinji rukn",
+    summary: "Her ukyplu musulmana ömürde bir gezek farz.",
+    body: [
+      "Alla şeýle diýýär: «We adamlara Öýe haj farz — oňa barmagy mümkin bolanlar üçin. Kim inkär etse — Alla dünýälerden müstağnidir» (Qur'an 3:97).",
+      "Adamlara çagyryldy: «Adamlara hajy yglan et; olar sana aýak bilen we her arassa deýä bilen uzak geçelgelerden geljekdir» (Qur'an 22:27).",
+      "Ibn Umar ﷺ Resulullahyň (s) Islam bäş zat üstünde durýar diýendigini rivayat etdi: şehadat, namaz, zakat, Ramazan oňaşlygy we ukyplular üçin Öýe haj (Sahih al-Bukhari 8; Sahih Muslim 16). Ulamalar şertler ýerine ýetende ömürde bir gezek farz diýip ylalaşýarlar; gaýtalamak — gönüden-göni fazilet.",
+    ],
+    quran: [
       {
-        title: "Yhram giriziň",
-        body: "Mykatda ýa-da ondan ozal ghus ýasap, yhram eşiklerini geýiň, Umra niýetini emele getiriň we talbiýa başlaň. Niýet ýürekde edilýär we mukaddes ýagdaý şol pursatdan başlaýar.",
-        location: "Mikat",
+        excerpt: "We adamlara Öýe haj farz — oňa barmagy mümkin bolanlar üçin...",
       },
       {
-        title: "Talbiýany okaň",
-        body: '"Labbayk Allahumma labbayk, labbayka la sharika laka labbayk ..." -ni ýygy-ýygydan Mekgä tarap syýahat edeniňizde gaýtalaň - Taňrynyň çagyryşyna diňe jogap berýändigiňizi yglan edip, tawaf başlaýançaňyz dowam ediň.',
+        excerpt: "Adamlara hajy yglan et; olar sana aýak bilen we her arassa deýä bilen...",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Islam bäş zat üstünde durýar: Alladan başga ilah ýok we Muhammed Allanyň elçisidir diýen şehadat, namazy ýerine ýetirmek, zakat bermek, Ramazan oňaşlygy we ukyplular üçin Öýe haj.",
       },
       {
-        title: "Käbäniň tawafy",
-        body: 'Käbäni ýedi gezek tersine öwrüp, Gara daş burçundan başlap, soňuna çenli öpýärsiňiz, degýärsiňiz ýa-da takbir bilen görkezýärsiňiz. Erkekler ilkinji üç zynjyrda raml (çalt depginde) we idtiba \'(sag egnini gysyp) edýärler. Ememen burçunyň we Gara daşyň arasynda: "Lorda Reb, bize bu dünýäde ýagşylyk we ahyretde ýagşylyk ber we bizi ot jezasyndan gora" (Gurhan 2: 201).',
-        location: "Metjit al-haram",
-      },
-      {
-        title: "Iki rekagat namaz oka",
-        body: "Tawfdan soň, mümkin boldugyça Makam Ybraýymyň (ýa-da metjidiň islendik ýerinde) iki rekagat namaz okaň, soňam Zamzam suwuny arkaýyn içiň, Pygamberimiz Zamzamyň serhoş bolan zady üçin bolandygyny aýtdy.",
-        location: "Metjit al-haram",
-      },
-      {
-        title: "Safa bilen Marwanyň arasynda Sa'i",
-        body: 'Hajaryň ogly Ysmaýyl üçin suw gözläp, Safadan başlap, Safa bilen Marwanyň arasynda ýedi gezek ýöräň. Allatagala şeýle diýýär: "Hakykatdanam, Safa we al-Marwah Allanyň nyşanlaryndan biridir" (Gurhan 2: 158). Safada Käbä ýüz tutuň we du\'a we takbirde elleriňizi galdyryň; erkekler ýaşyl markerleriň arasynda ylgaýarlar.',
-        location: "Metjit al-haram",
-      },
-      {
-        title: "Halq ýa-da taksir",
-        body: "Erkekler saçyny syrýarlar (halq, has köp sylaglanýar) ýa-da deň derejede kesýärler (taksir); aýallar saçlaryny ýygnaýarlar we barmak ujunyň uzynlygyny kesýärler. Munuň bilen umre doly we yhram çäklendirmeleri ýatyrylýar.",
+        excerpt: "Islam bäş zat üstünde durýar... we oňa barmagy mümkin bolanlar üçin Öýe haj.",
       },
     ],
   },
   {
-    day: "8 Dhul-Hijja",
-    title: "Tarwiýa güni - Mina",
-    summary: "Haj zyýaraty başlaýar; gün Minada geçirilýär.",
-    steps: [
+    title: "Ukyplulyk (istita'ah)",
+    summary: "Saglyk, halal emläk we howpsuz ýol — bular bolmasa haj entek farz däl.",
+    body: [
+      "Qur'an 3:97-de şert — ukyplulyk (istita'ah). Klassik ulemalar muny şeýle jemleýärler: sapar üçin beden saglygy, sapar we giden wagtynda garamagyndakylaryň zerurlyklary üçin ýeterlik halal pul we howpsuz açyk ýol.",
+      "Bu ýyl bu mümkinçilikleri ýok bolan adam ukyplýança gecikdirmekde günäkär däl. Ukyplulyk ýagdaýa görä bahalanýar — kesel, tölenmeli borç ýa-da howpsuz däl sapar derrew farzy aýyrýar. Ýagdaýyň anyk däl bolsa, hünärli ulemadan sor.",
+    ],
+    quran: [
       {
-        title: "Haj üçin ihram giriziň",
-        body: "Haj niýetini ediň we talbiýany täzeläp, ihramy (Makkadaky ýaşaýyş jaýyňyzdan tamattu üçin) giriň. Bu mukaddes ýagdaýy täzeden başlaýar, şonuň üçin yhram gadaganlyklary ýene bir gezek ulanylýar.",
+        excerpt: "...oňa barmagy mümkin bolanlar üçin.",
       },
-      {
-        title: "Mina syýahat",
-        body: "Mina gidip, Dhuhr, Asr, Magrib, Işa we indiki Fajr namazlaryny okap, hersiniň pygamberiň sünnetine eýerip, öz wagtynda iki raka çenli gysgaldyldy. Arafada durup, gije-gündiz ybadatda geçiriň.",
-        location: "Mina",
-      },
+    ],
+    actions: [
+      "Bron etmezden ozal farz borçlary tölä we garamagyndakylary üpjün et.",
+      "Paketleri diňe resmi kanallar arkaly barla (Taýýarlyk mowzuklaryna seret).",
     ],
   },
   {
-    day: "9 Dhul-Hijja",
-    title: "Arafah güni",
-    summary: "Hajyň iň uly güni - Arafada durmak.",
-    steps: [
-      {
-        title: "Arafada dur",
-        body: "Arafanyň çäginde günortandan soň du'a, zikr we toba günlerinde gün ýaşýança galyň. Pygamber alaýhyssalam aýtdy: \"Haj Arafadyr\" (Tirmizi 889, Abu Dawud 1949, hasan sahih): kim bu ýagdaýy sypdyrsa, hajy sypdyrmaz. Kybla ýüz tutuň, elleriňizi galdyryň we Alladan ýalbaryň - bu du'a üçin iň uly gün.",
-        location: "Arafah",
-      },
-      {
-        title: "Dhuhr & Asr-i birleşdiriň",
-        body: "Dhuhr we Asr bilen bilelikde doga ediň we Dhuhr (jam 'takdim) wagtynda gysgaldyň, günüň galan bölegini goşmaça doga däl-de, dileg ediň.",
-        location: "Arafah",
-      },
-      {
-        title: "Muzdalifa göç",
-        body: "Gün ýaşandan soň Muzdalifa arkaýyn syýahat ediň, Magrib bilen Işany birleşdiriň (Işa gysgaldyldy), gijäni dynç alyň we daşlamak üçin daş ýygnaň. Ejizler we aýallar ýarylmazlyk üçin ýary gijeden soň Mina gidip bilerler.",
-        location: "Muzdalifah",
-      },
-    ],
-  },
-  {
-    day: "10 Dhul-Hijja",
-    title: "Nahr güni - Gurban baýramy",
-    summary: "Daşlamak, gurban bermek we esasy tawaf.",
-    steps: [
-      {
-        title: "Daş Jamrat al-Aqaba",
-        body: 'Mina tarap gaýdyp, her zyňmak bilen "Allahu akbar" diýip, uly sütüne (Jamrat al-Aqaba) ýedi sany daş atyň. Bu, Ybraýymyň Şeýtany ret etmegine täzeden täsir edýär we günüň ilkinji dessurydyr.',
-        location: "Mina",
-      },
-      {
-        title: "Gurbanlyk beriň",
-        body: "Gurban kesilýän haýwany soýuň ýa-da tamattu 'we kiran zyýaratçylary üçin talap edilişi ýaly ygtybarly guramanyň üsti bilen guraň (Gurhan 2: 196). Onuň eti iýilýär we garyplara berilýär.",
-      },
-      {
-        title: "Halq ýa-da taksir",
-        body: "Saçyňyzy syryň (halq) ýa-da saçyňyzy kesiň (taksir); aýallar barmak ujunyň uzynlygyny kesýärler. Daşlamak we saç syrmakdan soň ilkinji goýberiş (tahallul awwal) ulanylýar - ýanýoldaşyňyz bilen ýakynlykdan başga ähli ihram çäklendirmeleri ýatyrylýar.",
-      },
-      {
-        title: "Tawaf al-Ifadah",
-        body: 'Hajyň sütüni bolan Tawaf al-Ifadah üçin we Mekgä gidiň we sa\'i (tamattu üçin). Bu, yhramdan doly boşadylmagyny tamamlaýar we ahlaksyzlykdan we günäden gaça durýan biri "ejesiniň dünýä inen güni ýaly gaýdyp gelýär" (Buhari 1521, Musulman 1350).',
-        location: "Metjit al-haram",
-      },
-    ],
-  },
-  {
-    day: "11–13 Dhul-Hijja",
-    title: "Daşreýk günleri - Mina",
-    summary: "Minada gijeler we üç sütüniň gündelik daşlanmagy.",
-    steps: [
-      {
-        title: "Bir gije Minada boluň",
-        body: "11-nji, 12-nji (we 13-nji gijäni ir gitmeseňiz) geçiriň. Bu günler iýmek, içmek we Allany ýatlamak, ybadat we takbir bilen geçiren günleridir.",
-        location: "Mina",
-      },
-      {
-        title: "Üç Jamaraty daşlaň",
-        body: "Dhuhrdan soň her gün öýlänsoň, üç sütüniň hersine ýedi sany daş atyň - kiçi, soň ortasy, soňra uly - her okda takbir bilen. Gyssagly biri 12-nji daşdan soň gidip biler (Gurhan 2: 203).",
-        location: "Mina",
-      },
-      {
-        title: "Hoşlaşyk Tawaf",
-        body: "Mekgeden çykmazdan ozal iň soňky dessur hökmünde Tawaf al-Wadany ýerine ýetiriň, şonuň üçin Hajyň iň soňky eden işi Öýde bolar. Aýbaşyly aýallar ondan boşadylýar.",
-        location: "Metjit al-haram",
-      },
-    ],
-  },
-  {
-    day: "Tamamlamak we kararlar",
-    title: "Sütünler, borçlar we sylag",
-    summary: "Hajy tassyklaýan zat, öwezini dolmak we sylagy.",
-    steps: [
-      {
-        title: "Sütünler (arkan)",
-        body: "Sütünler Hajyň özenidir: ihrama girmek, Arafada, Tawaf al-Ifadah we sa'i (köpleriň pikiriçe) durmak. Haýsydyr bir sütün sypdyrylsa, haj nädogrydyr we gurban kesip bolmaz - gaýtalanmalydyr.",
-      },
-      {
-        title: "Borçlar (wajibat)",
-        body: "Borçlar, mykatdan ihram girmegi, Muzdalifada galmagy, Jamaratyň daşlanmagyny, Daşrikiň gijelerini Minada geçirmegi we Hoşlaşyk Tawafyny öz içine alýar. Borçdan ýüz öwürmek hajyň güýjüni ýitirmeýär, ýöne bent (gurban) bilen öwezini dolýar. Madhhablar takyk sanawlarda tapawutlanýar; ökde gollanma bilen maslahatlaşyň.",
-      },
-      {
-        title: "Haj mabruryň sylagy",
-        body: "Kabul edilen Haj (Haj mabrur) - günäsiz we çyn ýürekden edilen - geçmişdäki günäleri ýok edýär we sylagy Jennetiň özi. Pygamber alaýhyssalam: «Kabul edilen Hajyň Jennetden başga sylagy ýok» (Buhari 1773, Musulman 1349) diýdi. Tutuşlygyna ajaýyp häsiýet we ýumşaklyk üçin çalyşyň.",
-      },
-      {
-        title: "Fatwa däl-de, amaly gollanma",
-        body: "Bu däp-dessurlary tertipli ýerine ýetirmäge kömek etmek üçin amaly syn. Madhhablar köp jikme-jiklikler bilen hormat bilen tapawutlanýar we her bir zyýaratçynyň ýagdaýy başga - belli bir kararlar we garaşylmadyk ýagdaýlar üçin hemişe ökde alym ýa-da resmi Haj gollanmaňyz bilen maslahatlaşyň.",
-      },
-    ],
-  },
-  {
-    day: "Gitmeziňden öň",
-    title: "Wiza we hasaba durmak",
+    title: "Aýalynyň haj sapary",
     summary:
-      "Zyýaratçylaryň resmi ýollar bilen nädip hasaba duryp, Haj ýa-da Umra wizasyny alýandyklary.",
-    steps: [
+      "Köpçülik mahram talap edýär; käbir soňky pikirler howpsuz ynamly topary rugsat berýär.",
+    body: [
+      "Ibn Abbas ﷺ Resulullahyň (s) aýal mahramsyz sapar etmeli däl we erkek mahram bolmasa onuň ýanyna girmeli däl diýendigini rivayat etdi (Sahih al-Bukhari 1862; Sahih Muslim 1341). Köp ulemalar muny haj we umra saparyna degişli edýärler.",
+      "Käbir soňky ulemalar — howpsuzlygy, zerurlygy we häzirki sapary göz öňünde tutup — mahram bolmadyk ýagdaýda aýala farz haj üçin ynamly toparda sapar etmäge rugsat berýärler. Bu fiqh meseleleri bahasly.",
+    ],
+    hadith: [
       {
-        title: "Nusuk platformasy",
-        body: "Nusuk (nusuk.sa) Saud Arabystanynyň Haj we Umra üçin resmi platformasydyr — wiza, ýaşaýyş jaýy, ulag we hasaba alnan syýahat paketlerini sargyt etmek üçin ulanylýar. Diňe Nusugy ýa-da onuň arkaly rugsat berlen agentlikleri ulanyň; resmi däl araçylar köplenç aldawyň we ýatyrylan syýahatlaryň çeşmesidir.",
+        excerpt: "Aýal mahramsyz sapar etmeli däl we erkek mahram bolmasa onuň ýanyna girmeli däl.",
       },
       {
-        title: "Haj wizalary we ýurt kwotalary",
-        body: "Her ýurt ýyllyk Haj kwotasyny alýar, şonuň üçin zyýaratçylaryň köpüsi aýratynlykda ýüz tutmagyň deregine öz milli Haj edarasy ýa-da rugsat berlen ýerli agent üsti bilen ýüz tutýar. Haj möwsümi açylýan ýylyň başynda irden ýüz tutuň — kwotalar we paket ýerleri aýlar öň dolýar.",
+        excerpt:
+          "Alla we Ahyrky güne ynanýan aýala mahramsyz bir gün bir gije sapar etmek halal däl.",
+      },
+    ],
+    madhhabNote:
+      "Köpçülik aýala haj saparynda mahram gerek diýýär. Käbir soňky ulemalar farz haj üçin howpsuz aýal toparynda sapary rugsat berýär. Ynanýan ulemaňy we haj edaranyň düzgünlerini yzarla.",
+    disclaimer: "Bu umumy maglumat, ýagdaýyňyz üçin şahsy fetwa däl.",
+  },
+  {
+    title: "Hajyň üç görnüşi",
+    summary: "Ifrad, qiran we tamattu' — ihrama girmezden ozal saýla.",
+    body: [
+      "Ifrad: diňe haj üçin ihrama gir, şol ihramda aýratyn umra ýok we aýinleri birleşdirmek sebäpli kurban talap edilmeýär.",
+      "Qiran: umra we hajy bir ihramda birleşdir we haj tamamlanýança ihramda gal. Kurban (hady) talap edilýär.",
+      "Tamattu': haj aýlarynda doly umra et, ihramdan çyk, soňra 8 Zul-Hijje haj üçin gaýtadan ihrama gir. Bu gün köp hajylar edýär; hady hem talap edilýär.",
+      "Alla aýinleri birleşdirýänler hakda: «...Kim umradan haja peýdalanýan bolsa, aňsatlyk bilen kurban...» diýýär; tapyp bilmeýän bolsa hajda üç gün, gaýdandan soň ýedi gün oňaş tut (Qur'an 2:196).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "We hajy we umrany Alla üçin tamamla... Kim umradan haja peýdalanýan bolsa, aňsatlyk bilen kurban. Tapyp bilmeýän bolsa hajda üç gün, gaýdanyňyzda ýedi gün oňaş...",
+      },
+    ],
+    actions: [
+      "Miqatdan ozal topar ýolbaşçy bilen görnüşi kesgit.",
+      "Tamattu' edýän bolsaň, haj ihramyna girmän ozal umrany doly tamamla.",
+    ],
+    appLinks: [
+      {
+        label: "Umra sanawy",
       },
       {
-        title: "Umra wizalary",
-        body: "Hajdan tapawutlylykda, Umranyň kwotasy ýok we ýylyň islendik wagtynda ýerine ýetirilip bilner. Köp milletler göni Nusuk ýa-da tassyklanan syýahat agenti üsti bilen Umra wizasyna ýüz tutup bilerler, adatça uçar we myhmanhana sargytlary bilen bilelikde.",
+        label: "Haj sanawy",
       },
     ],
   },
   {
-    day: "Gitmeziňden öň",
-    title: "Ýük ýygnamak sanawy",
-    summary: "Syýahat etmezden öň ýygnamaly amaly zerur zatlar.",
-    steps: [
+    title: "Bäş miqat",
+    summary: "Haj ýa-da umra ihramy bolmasa Mekkä tarap miqatdan geçme.",
+    body: [
+      "Ibn Abbas ﷺ Resulullahyň (s) adamlar üçin miqatlary kesgitlendigini rivayat etdi: Medine üçin Zul-Hulayfa, Şam üçin Al-Juhfa, Nejd üçin Qarn al-Manazil, Ýemen üçin Yalamlam; Irak üçin Dhat 'Irq. Ol muny olar we haj ýa-da umra niýet edip geçýänler üçin, şol çäklerde ýaşaýanlar bolsa nireden ýola çyksa şol ýerden ihrama girsin, hatda Mekke ýaşaýjylary hem Mekkeden (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
+      "Häzirki howa menzilleri we deňiz portlarynda degişli ihram nokatlary ýa-da yglan edilen tertipler bar — daşyjy we Haj we Umra ministrliginiň görkezmelerini yzarla, ihram bolmasa çäkden geçme.",
+    ],
+    hadith: [
       {
-        title: "Ihram eşikleri",
-        body: "Erkekler pul we resminamalar üçin giň, deriden edilmedik ihram guşagy bilen bilelikde iň azyndan iki komplekt tikilmedik ihram eşigini (bil örtügi we egin örtügi) ýygnamaly. Aýallar giň, mynasyp we bezegsiz daşarky eşik ýygnamaly.",
+        excerpt:
+          "Resulullah ﷺ Medine üçin Zul-Hulayfa, Şam üçin Al-Juhfa, Nejd üçin Qarn al-Manazil, Ýemen üçin Yalamlam kesgitledi... Bu miqatlar ol ýerler we haj ýa-da umra niýet edip geçýänler üçin...",
       },
       {
-        title: "Aýak geýimi we amatlylyk",
-        body: "Aňsat geýilýän we çykarylýan açyk sandallar zerurdyr, sebäbi erkekler üçin ihramda topugy örtýän aýak geýimi çäklendirilýär. Ýeňil arka goşa, doldurylýan suw çüýşesi we uzak garaşmalar üçin kiçijik namaz haly alyň.",
-      },
-      {
-        title: "Ysyz gigiýena serişdeleri",
-        body: "Ysyz sabyn, gün krem we çyglyk süpürgiçleri alyň — ihramda ysly önümler gadagan. Kiçi birinji kömek toplumy, lukman kagyzy bilen şahsy dermanlar we köp ýöremek sebäpli köwek üçin ýapyşdyrmalar goşmaça agramyna degýär.",
-      },
-      {
-        title: "Resminamalar we zerur zatlar",
-        body: "Pasportyňyzy, wiza çapyny, sanjym şahadatnamasyny (köplenç meningit talap edilýär) we gyssagly aragatnaşyk belgilerini eşigiň aşagynda geýilýän inçe haltada saklaň. Göçme kuwwat banky we ýerli SIM ýa-da eSIM köp adamly ýerlerde ugur tapmagy ep-esli aňsatlaşdyrýar.",
+        excerpt:
+          "Resulullah ﷺ miqatlary kesgitledi... Bu çäklerde ýaşaýan adam nireden ýola çyksa şol ýerden ihrama girsin...",
       },
     ],
   },
   {
-    day: "Gitmeziňden öň",
-    title: "Mukaddes ýerler gollanmasy",
-    summary: "Baryp görjek esasy ýerler barada gysga amaly bellikler.",
-    steps: [
+    title: "Ihrama girmek",
+    summary: "Ghusl, eşik, niýet we telbiya — mukaddes ýagdaý başlanýar.",
+    body: [
+      "Ihram — haj ýa-da umra niýeti bilen girilýän mukaddes ýagdaý. Resulullah ﷺ ihramdan ozal ghusl maslahat berdi. Erkekler iki tikilmedik ak eşik geýýär; aýallar adaty örtükli eşik saklaýar, ýüz ýa-da eljagaz ihram eşigi hökmünde örtmeýär (niqab we eljagaz jikme-jiklikleri fiqhde).",
+      "Erkekler ihramdan ozal bedene atyr sürebilir, ýagdaýa girensoň ihram eşiklerine däl (Sahih al-Bukhari 1539). Soňra niýet et we telbiyany başla.",
+      "Resulullahyň ﷺ öwretýän telbiyasy: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — umra tawaafy başlanýança ýa-da hajda Jamrat al-Aqaba çenli (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
+    ],
+    hadith: [
       {
-        title: "Mesjid al-Haram, Mekge",
-        body: "Kaabany gurşap alan Beýik Metjit — tawaf we sa'i ýeri. Ol gije-gündiz işleýär; Gara Daşyň golaýynda we bäş wagt namaz wagtynda, aýratyn hem Remezanyň soňky on gijesinde we Haj günlerinde örän köp adam garaşyň.",
-        location: "Mekge",
+        excerpt:
+          "Aisha aýtdy: Men Resulullahy ﷺ ihrama girmezden ozal onuň ihramy üçin atyr sürdüm...",
       },
       {
-        title: "Mesjid an-Nabawi, Medine",
-        body: "Pygamberiň ﷺ metjidi, Rawda we onuň dynç alýan ýerini öz içine alýar, Hajyň özüniň bir bölegi däl, ýöne ähli zyýaratçylar diýen ýaly Hajdan öň ýa-da soň Medine baryp görýärler. Rawda girmek üçin Nusuk ýa-da Rawda programmasy üsti bilen wagt bellenen giriş rugsatnamasy gerek.",
-        location: "Medine",
+        excerpt:
+          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
       },
       {
-        title: "Mina",
-        body: "Mekgeden birnäçe kilometr uzaklykdaky çadyr şäheri, zyýaratçylaryň Zul-Hijjanyň 8, 11, 12 (we 13) gijelerini geçirýän ýeri. Kondisioneri bar we ýangyna çydamly çadyr düşelgeleri syýahat operatory tarapyndan bellenilýär; esasy paylaşylýan şertler we Jamarata çenli uzak ýörişlere garaşyň.",
-        location: "Mina",
+        excerpt: "Resulullah ﷺ telbiyany sesli aýtdy: Labbayk Allahumma labbayk...",
       },
+    ],
+    actions: [
+      "Erkekler üçin azyndan iki ihram komplekti; atyrsyz zatlary taýýar sakla.",
+      "Sapardan ozal telbiyany türgenleşdir, ýolda aňsatlyk bilen aýdyp bilsin.",
+    ],
+  },
+  {
+    title: "Ihramyň gadaganlary",
+    summary: "Muhrim mukaddes ýagdaýdan çykýança nämeden gaça durmaly.",
+    body: [
+      "Ihramda gaça dur: erkekler üçin — tikilen/ýapynjak eşik we başy örtmek; atyr; saç ýa-da dyrnak kesmek; ýer haýwanyny awlamak; nika baglaşmak ýa-da geçirmek; jynsy gatnaşyk. Aýallar atyr we beýleki umumy gadaganlardan gaça durýar, örtükli eşik saklaýar.",
+      "Gadagany bozmak fidya talap edip bilner — köplenç oňaş, garyplara iýmit ýa-da kurban — edilen zada görä. Mezhebler jikme-jiklikde tapawutlanýar. Gadaganlara berk saklan we garaşylmadyk zat bolsa hünärli gollanmany sor.",
+    ],
+    madhhabNote:
+      "Bozulmalar we fidýa sanawy mezhebe görä tapawutlanýar. Muny amaly duýduryş hökmünde al we jikme-jiklikleri mezhebiň ýa-da haj gollanmanyň bilen tassykla.",
+    disclaimer: "Bu umumy syn, bozulma ýüz berende ýerde zerur görkezmeleriň ýerini almaýar.",
+    actions: ["Ihramda atyr, dyrnak gyrasy we gaýçy el ýetýän ýerden uzak sakla."],
+  },
+  {
+    title: "Umra — ihram we telbiya",
+    summary: "Miqatda ýa-da ondan ozal mukaddes ýagdaýa gir, soňra Allanyň çagyrmasyna jogap ber.",
+    body: [
+      "Miqatyňyzda ýa-da ondan ozal, mümkin bolsa ghusl ediň, ihram eşiklerini geýiň, umra niýetini ediň we telbiyany başlaň. Mukaddes ýagdaý şol niýet bilen başlanýar.",
+      "Mekkä tarap sapar edýänçäňiz tawaaf başlanýança telbiyany köp aýdyň. Bu — diňe Allanyň çagyrmasyna labbayk diýýäniňizi bildirýär.",
+    ],
+    actions: ["Her aýini tamamlananda belläp bilmek üçin umra sanawyny ulanyň."],
+    appLinks: [
       {
-        title: "Arafat",
-        body: "Mekgeden takmynan 20 km uzaklykdaky açyk düzlük, Hajyň iň möhüm dessurynyň — Zul-Hijjanyň 9-nda durmagyň — ýeri. Kölege gurluşlary we suw nokatlary üpjün edilýär, ýöne gündizki gyzgynlyk güýçli; suw içmek we güne garşy goranmak möhümdir.",
-        location: "Arafat",
-      },
-      {
-        title: "Muzdalifa",
-        body: "Arafat we Mina aralygyndaky açyk meýdan, zyýaratçylaryň Zul-Hijjanyň 9-10 gijesini açyk asmanyň aşagynda geçirýän we daşlamak üçin çagyl ýygnaýan ýeri. Şertler bilkastlaýyn iň az derejede — haly alyň we sowuk gije howasy üçin geýniň.",
-        location: "Muzdalifa",
+        label: "Umra sanawy",
       },
     ],
   },
   {
-    day: "Gitmeziňden öň",
+    title: "Ka'banyň tawaafy",
+    summary: "Gara daşdan başlap sagat aýlawyna garşy ýedi aýlanma.",
+    body: [
+      "Ka'bany sagat aýlawyna garşy ýedi gezek aýlan, Gara daş burçundan başlap we tamamla. Gygyr bolsa öp, deg ýa-da tekbir bilen görkez — Resulullahyň ﷺ amaly boýunça başgalara zyýan ýetirmezden.",
+      "Erkekler ilkinji üç aýlanmada raml (çalt ädim) we bu umra geliş tawaafynda idtiba' (sag çygy) — meşhur sunnet.",
+      "Ýemen burçy bilen Gara daş arasynda maslahat: «Rabbimiz, bize bu dünýäde we ahiretde gowylyk ber we ot azabyndan gorap dur» (Qur'an 2:201).",
+    ],
+    quran: [
+      {
+        excerpt: "Rabbimiz, bize bu dünýäde we ahiretde gowylyk ber we ot azabyndan gorap dur.",
+      },
+    ],
+  },
+  {
+    title: "Iki rekat we Zemzem",
+    summary: "Mümkin bolsa Makam Ibrahim arkasynda namaz oka, soňra Zemzem iç.",
+    body: [
+      "Tawaafdan soň ýer bolsa Makam Ibrahim arkasynda iki rekat oka, gygyr bolsa mesjide başga ýerde — «...We ynanýanlar, Ibrahim ýerinden namaz ýeri alyň...» (Qur'an 2:125).",
+      "Soňra Zemzem suwuny iç. Jabir Resulullahyň ﷺ hajynda tawaafdan soň Zemzem içendigini beýan edýär; Zemzem içilen maksat üçin diýilýär (soňky ulemalar jemleýän durust hadisler; niýet we dua maslahat).",
+    ],
+    quran: [
+      {
+        excerpt: "...We ynanýanlar, Ibrahim ýerinden namaz ýeri alyň...",
+      },
+    ],
+  },
+  {
+    title: "Safa bilen Marwa arasynda sa'i",
+    summary: "Hajar suw gözleýşini ýatda saklap ýedi gezek.",
+    body: [
+      "Alla şeýle diýýär: «Hakykatdanam Safa we Marwa Allanyň nyşanlarynyň biri. Öýe haj ýa-da umra eden adam olaryň arasynda ýöräninde günäkär bolmaýar...» (Qur'an 2:158).",
+      "Safa bilen Marwa arasynda ýedi gezek ýör, Safadan başla. Safada Ka'bä tarap dur, Resulullah ﷺ eden ýaly tekbir we dua üçin elleri galdyr. Erkekler ýaşyl bellikler arasynda ylgamakly ýör.",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Hakykatdanam Safa we Marwa Allanyň nyşanlarynyň biri. Öýe haj ýa-da umra eden adam olaryň arasynda ýöräninde günäkär bolmaýar...",
+      },
+    ],
+  },
+  {
+    title: "Halq ýa-da taqsir — umrany tamamlamak",
+    summary:
+      "Erkekler saç aldyrýar ýa-da gysýar; aýallar bir barmak uzynlygynda gysýar — ihram açylýar.",
+    body: [
+      "Erkekler başy aldyrýar (halq) — Resulullah ﷺ üç gezek dua etdi — ýa-da deňes gysýar (taqsir). Aýallar saçyny ýygnaýar we bir barmak uzynlygynda gysýar. Şeýlelikde umra tamamlanýar we ihram çäklendirmeleri açylýar.",
+      "Abdullah ibn Umar ﷺ Resulullahyň (s) «Allahumma, baş aldyranlara rahmet et» diýendigini rivayat etdi. «Gysanlara hem, ey Resul?» — «Baş aldyranlara rahmet et» — «Gysanlara hem?» — üçünji gezek: «Gysanlara hem» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
+    ],
+    hadith: [
+      {
+        excerpt: "Allahumma, baş aldyranlara rahmet et... We (üçünji gezek) gysanlara hem.",
+      },
+      {
+        excerpt: "Allahumma, baş aldyranlary bagyşla... soňra üçünji gezek: gysanlara hem.",
+      },
+    ],
+  },
+  {
+    title: "8 Zul-Hijje — Tarwiya günü",
+    summary: "Haj üçin ihrama gir we günü Minada geçir.",
+    body: [
+      "Tamattu' hajylar üçin: haj niýetini et we Mekkedäki ýaşaýan ýeriňden gaýtadan ihrama gir, telbiyany täzele. Ifrad we qiran hajylar eýýäm ihramda.",
+      "Minaga git we Dhuhr, Asr, Magrib, Isha we ertirki Fajr — her biri öz wagtynda iki rekata gysgaldyryp oka, Resulullahyň ﷺ Wida hajyndaky amaly ýaly Jabir rivayat etdi (Sahih Muslim 1218). Gün we gijäni ibadatda geçir, Arafany garaş.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Jabir Resulullahyň ﷺ Wida hajy barada uzyn beýany — Minada galmak we aýinler yzygideri.",
+      },
+    ],
+    actions: ["Sekizinji gün irden haj sanawyny aç."],
+    appLinks: [
+      {
+        label: "Haj sanawy",
+      },
+    ],
+  },
+  {
+    title: "9 Zul-Hijje — Arafa günü",
+    summary: "Gün ýaý bolýança Arafada dur, soňra Muzdalifä git.",
+    body: [
+      "Günortadan soň gün ýaý bolýança Arafanyň çäginde dua, zikir we töwbe bilen gal. Resulullah ﷺ «Haj — Arafadyr» diýdi (Sunan Abi Dawud 1949). Qibla tarap dur, elleri galdyr we Alla ýalvar — uly dua wagtlarynyň biri.",
+      "Dhuhr wagtynda Dhuhr we Asr jama gysgaldyryp oka, galan günü nafile däl-de duaga bagyşla — Resulullahyň ﷺ amaly (Sahih Muslim 1218).",
+      "Gün ýaý bolandan soň sakin Muzdalifä git. Magrib-Isha jama (Isha gysgaldyryp), gijäni dynç al we taş ýygna. Gowşaklar we aýallar garaşylýan ruxsat boýunça garaşynyň ýarymyndan soň Minaga gidip bilýärler.",
+    ],
+    hadith: [
+      {
+        excerpt: "Haj — Arafadyr.",
+      },
+      {
+        excerpt:
+          "Resulullah ﷺ Arafada Dhuhr we Asr jama etdi, gün ýaý bolandan soň Muzdalifä gitdi...",
+      },
+    ],
+  },
+  {
+    title: "10 Zul-Hijje — Nahr günü",
+    summary: "Taş atmak, kurban, saç almak we Tawaf al-Ifada.",
+    body: [
+      "Minaga tarap gaýdyp Jamrat al-Aqaba (ululy sütun) üçin ýedi taş at, her birinde Allahu akbar — Wida hajy yzygiderinde günüň ilkinji aýini.",
+      "Tamattu' we qiran üçin talap edilýän kurban ber (Qur'an 2:196) ýa-da ynamly agentlik arkaly sazlaş. Et iýilýär we garyplara berilýär.",
+      "Halq ýa-da taqsir; aýallar bir barmak uzynlygynda gysýar. Taş atmak we saç almakdan soň birinji tahallul — köp ihram gadaganlary açylýar, diňe jynsy gatnaşyk galýar.",
+      "Mekkä Tawaf al-Ifada — hajyň rukny — we tamattu' üçin sa'i git. Ifrad/qiran geliş tawaafy bilen sa'i edenler mezheb hukumyna yzarla. Şeýlelikde doly ihramdan çykyş tamamlanýar.",
+    ],
+    quran: [
+      {
+        excerpt: "...Kim umradan haja peýdalanýan bolsa, aňsatlyk bilen kurban...",
+      },
+    ],
+    madhhabNote:
+      "Nahr günü aýinler yzygiderinde sunnetde çeýelik bar; mezhebler takyk yzygideri we her haj görnüşi üçin sa'i wagty barada tapawutlanýar. Topar gollanmany yzarla.",
+  },
+  {
+    title: "11–13 Zul-Hijje — Taşriq günleri",
+    summary: "Minada gijeler, her gün üç jamra taş atmak, soňra hoşlaşyk tawaafy.",
+    body: [
+      "11, 12 (we ir gitmeýän bolsaňyz 13) gijelerini Minada geçiriň. Bu — iýmit, suw we Allany ýatlamak günleridir.",
+      "Her gün Duhrdan soň üç sütuna yzygider bilen — kiçi, orta, ululy — her birine ýedi taş, her birinde tekbir. Tela eden 12-nji gün taş atandan soň gidip bilýär (Qur'an 2:203).",
+      "Mekkeden gitmezden ozal Tawaf al-Wada et, Öý bilen soňky amal hoşlaşyk bolsun. Ibn Abbas adamlara soňky amallaryny Öýde etmeli diýip buyruk berildi, ýöne hayzly aýal üçin ýeňilleşdirildi (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Allany sanalylan günlerde ýadyňa sal. Kim iki günde tela eder — günäkär däl; kim gecikdirer — günäkär däl — Alladan gorkýanlar üçin...",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Adamlara soňky amallary Ka'ba hoşlaşyk tawaafy bolmaly diýip buyruk berildi, hayzly aýallar goýuldyy.",
+      },
+      {
+        excerpt:
+          "Adamlara soňky amallary Öýde bolmaly diýip buyruk berildi, hayzly aýal üçin ýeňilleşdirildi.",
+      },
+    ],
+  },
+  {
+    title: "Ruknlar we wajibler",
+    summary: "Näme ýitirilse haj geçersiz bolýar; näme kurban bilen düzedilýär.",
+    body: [
+      "Ruknlar — hajyň esasy. Rukn ýitirilse haj geçersiz we diňe kurban bilen düzedilmeýär — ýerine ýetirmeli. Köpçülik köplenç sanaw: ihram (niýet), Arafada durmak, Tawaf al-Ifada we sa'i.",
+      "Wajibler: miqatdan ihram, Muzdalifede galmak, jamralara taş atmak, Taşriq gijelerini Minada geçirmek we hoşlaşyk tawaafy. Wajib ýitirmek hajy geçersiz etmeýär, ýöne mezhebe görä dam (kurban) bilen düzedilýär.",
+    ],
+    madhhabNote:
+      "Dört mezhebde rukn we wajib sanawlary tapawutlanýar. Mezhebiňiz üçin hünärli gollanmany tassykla — aýratyn gygyrly ýagdaýda bir zat ýitirilse.",
+    disclaimer: "Bu amaly jemleme, ýitirilen aýinler barada fetwa däl.",
+  },
+  {
+    title: "Edep we yhlas",
+    summary: "Dil we azaarlary gorap dur — kabul edilmek hulka bilen baglanyşykly.",
+    body: [
+      "Günäsiz gaýdyp gelmek hadysy (Bukhari 1521; Muslim 1350) hajy rafas, fusuk we jedel bozýar diýip görkezýär. Sabr, ýumşaklyk we beýleki hajylara kömek — ibadatyň bir bölegi.",
+      "Telefon we boş söhbeti Arafada/mesjide üstünlik etmesine ýol ber. Tawaafda ýol ber; Gara daşa iterek etme. Kabul edilen haj jenet bilen bile — sapar boyunca gowy hulka üçin çyndyr.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Kim Alla üçin haj eder we rafas hem-de günä etmez, enesini dogan günündäki ýaly gaýdyp gelýär.",
+      },
+    ],
+    actions: ["Her gün niýet: bir gowy iş we bir yhlasly dua gygyrdan ýokary."],
+  },
+  {
+    title: "Wiza we hasaba alyş",
+    summary: "Resmi kanallary ulanyň — Nusuk we milli haj edaranyňyz.",
+    body: [
+      "Nusuk ( nusuk.sa ) — Saud Arabistanyň haj we umra üçin resmi platformasy: wiza, ýaşaýyş, transport we hasaba alnan paketler. Resmi däl brokerler aldamaklygyň ýygy ýeri.",
+      "Her ýurt ýyllyk haj kwotasy alýar; köp hajylar milli haj edarasy ýa-da lisenziýaly agent arkaly arza berýär. Umra kwotasy ýok we ýylyň köp böleginde tassyklanan kanallar arkaly sazlaşyp bolýar.",
+    ],
+    actions: [
+      "Möwsüm açylansoň ir arza ber.",
+      "Diňe Nusuk sanawyndaky agentlikler ýa-da milli edara arkaly bron et.",
+      "Pul geçirmän ozal töleg kanallaryny barla.",
+    ],
+    disclaimer: "Giriş düzgünleri we platformalar üýtgeýär; hemişe resmi saýtlardan barla.",
+  },
+  {
+    title: "Näme ýygnamaly",
+    summary: "Ihram, atyrsyz zatlar, resminamalar we ýöriş rahatlygy.",
+    body: [
+      "Erkekler: azyndan iki tikilmedik ihram we resminama üçin kemer. Aýallar: giň örtükli eşik. Açyk aýakgaby aňsatlyk bilen geýilýän; kiçi sumka we suw çüýşesi.",
+      "Atyrsyz sabyn we gün goragy ýygnap — ihramda atyr gadagan. Pasport, wiza çap etmesi, sanitar hasabatlary we gyssagly aloqa kiçi halta. Gygyrda power bank, ýerli SIM ýa-da eSIM peýdaly.",
+    ],
+    actions: [
+      "Sanaw: ihram ×2, aýakgaby, atyrsyz zatlar, resminama halta, derman, power bank.",
+      "Blister plastyr — hajylar köp ýörýär.",
+    ],
+  },
+  {
+    title: "Mukaddes ýerler gysgaça",
+    summary: "Mekke, Medine, Mina, Arafa we Muzdalifa — amaly bellikler.",
+    body: [
+      "Masjid al-Haram Ka'banyň daşynda — tawaaf we sa'i; uly gygyr garaş. Medinadaky Masjid an-Nabawi hajyň özüniň bir bölegi däl, ýöne köp hajylar barýar; Rawda giriş resmi programmalar bilen wagtlaýyn.",
+      "Mina — 8 we 11–13 Zul-Hijje gijeleri üçin çadyr şäheri. Arafa — açyk deşik; 9-njy günde suw we kölge möhüm. Muzdalifa — hajylar açyk asmanyň astynda dynç alýar we taş ýygnaýar; mümkinçilikler bilerek çäklendirilen.",
+    ],
+    actions: ["Sapardan ozal Mina–Arafa–Muzdalifa ýönekeý kartasyny öwren."],
+  },
+  {
     title: "Resmi çeşmeler",
-    summary: "Ynamdar we täzelenen resmi maglumaty nireden tapmaly.",
-    steps: [
-      {
-        title: "Nusuk (nusuk.sa)",
-        body: "Saud Haj we Umra ministrliginiň wiza, tassyklanan paketler, Rawda baryp görmek rugsatnamalary we hakyky wagt köpçülik we ulag gollanmasy üçin resmi portaly we programmasy — islendik resmi sowal üçin birinji duralga.",
-      },
-      {
-        title: "Ýurdunyzyň Haj edarasy",
-        body: "Köp ýurtlar ýyllyk kwotany dolandyrýan, ýerli agentleri barlaýan we gitmek tertibini we saglyk talaplaryny çap edýän milli Haj edarasyny ýa-da ministrlik edarasyny ýöredýär — islendik hususy agent üsti bilen sargyt etmezden öň ony barlaň.",
-      },
-      {
-        title: "Visit Saudi (visitsaudi.com)",
-        body: "Şalygyň resmi syýahatçylyk sahypasy girmek talaplaryny, mynasyp milletler üçin elektron wiza maglumatyny we Mekge, Medine we Saud Arabystanynyň içinde mundan beýläk syýahat üçin amaly maslahatlary öz içine alýar.",
-      },
-      {
-        title: "Töleg etmezden öň barlaň",
-        body: "Diňe Nusukda sanalan agentlikler ýa-da milli Haj edaraňyz üsti bilen sargyt ediň. Eger şertnama adaty däl derejede arzan görünse ýa-da wekil resmi ýollardan daşarda töleg sorasa, ony howp alamaty hasap ediň we göni ministrlik portaly bilen barlaň.",
-      },
+    summary: "Nusuk, milli edaraňyz we Visit Saudi.",
+    body: [
+      "Wiza, paket, Rawda rugsatlary we gygyr görkezmeleri üçin Nusukdan başla. Kwota we saglyk düzgünleri üçin ýurduň haj ministrligini ulanyň. Visit Saudi umumy giriş we sapar maslahatlaryny çap edýär.",
+      "Teklif adatyndan arzan ýa-da broker resmi kanallardan daşary töleg talap etse, tölemezden ozal ministrlik portalyny göni barla.",
     ],
+    actions: [
+      "nusuk.sa we milli haj edarasynyň saýtyny belläň.",
+      "Topar ýolbaşçysynyň gyssagly aloqa maglumatlaryny sakla.",
+    ],
+    disclaimer: "Amaly gollanma, resmi haj/umra üpjün edijiniň ýerini almaýar.",
+  },
+];
+
+export const HAJJ_CHECKLIST_TK: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Haj üçin ihrama gir",
+    hint: "Haj niýet et we ihrama gir (tamattu' üçin Mekkeden); telbiyany täzele.",
+    day: "8 Zul-Hijje",
+  },
+  {
+    title: "Minaga git",
+    hint: "Minada Duhrdan Fajr çenli her namazy öz wagtynda gysgaldyryp oka.",
+    location: "Mina",
+    day: "8 Zul-Hijje",
+  },
+  {
+    title: "Arafada dur",
+    hint: "Günortadan soň gün ýaý bolýança Arafada dua we zikir bilen gal.",
+    location: "Arafa",
+    day: "9 Zul-Hijje",
+  },
+  {
+    title: "Dhuhr we Asr jama",
+    hint: "Dhuhr wagtynda Dhuhr we Asr jama gysgaldyryp oka, soňra duaga gönük.",
+    location: "Arafa",
+    day: "9 Zul-Hijje",
+  },
+  {
+    title: "Muzdalifä git",
+    hint: "Gün ýaý bolandan soň Magrib-Isha jama, dynç al we taş ýygna.",
+    location: "Muzdalifa",
+    day: "9 Zul-Hijje",
+  },
+  {
+    title: "Jamrat al-Aqaba taş at",
+    hint: "Ululy sütuna ýedi taş at, her birinde tekbir.",
+    location: "Mina",
+    day: "10 Zul-Hijje",
+  },
+  {
+    title: "Kurban ber",
+    hint: "Tamattu' we qiran üçin farz — soý ýa-da ynamly agentlik arkaly.",
+    day: "10 Zul-Hijje",
+  },
+  {
+    title: "Halq ýa-da taqsir",
+    hint: "Erkekler saç aldyr ýa-da gysar; aýallar bir barmak (birinji tahallul).",
+    day: "10 Zul-Hijje",
+  },
+  {
+    title: "Tawaf al-Ifada",
+    hint: "Tawaf al-Ifada we tamattu' üçin sa'i — hajyň rukny.",
+    location: "Masjid al-Haram",
+    day: "10 Zul-Hijje",
+  },
+  {
+    title: "Minada gije geçir",
+    hint: "11, 12 (we ir gitmeýän bolsaňyz 13) gijelerini Minada geçir.",
+    location: "Mina",
+    day: "11–13 Zul-Hijje",
+  },
+  {
+    title: "Üç jamra taş at",
+    hint: "Her gün Duhrdan soň kiçi, orta, ululy — her birine ýedi.",
+    location: "Mina",
+    day: "11–13 Zul-Hijje",
+  },
+  {
+    title: "Hoşlaşyk tawaafy",
+    hint: "Mekkeden gitmezden ozal Tawaf al-Wada (hayzly aýallar goýuldy).",
+    location: "Masjid al-Haram",
+    day: "Gidiş",
+  },
+];
+
+export const UMRAH_CHECKLIST_TK: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Ihrama gir",
+    hint: "Miqatda ýa-da ondan ozal: ghusl, ihram eşigi, umra niýeti, telbiya.",
+    location: "Miqat",
+  },
+  {
+    title: "Telbiya oka",
+    hint: "Tawaaf başlanýança Labbayk... köp aýt.",
+  },
+  {
+    title: "Ka'banyň tawaafy",
+    hint: "Gara daşdan sagat aýlawyna garşy ýedi aýlanma; erkekler: raml we idtiba'.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Iki rekat oka",
+    hint: "Mümkin bolsa Makam Ibrahim arkasynda, soňra Zemzem iç.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Safa-Marwa sa'i",
+    hint: "Safadan başlap ýedi gezek; erkekler ýaşyl bellikler arasynda ylgamakly ýör.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Halq ýa-da taqsir",
+    hint: "Erkekler saç aldyr ýa-da gysar; aýallar bir barmak — umra tamam.",
   },
 ];

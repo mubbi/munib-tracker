@@ -47,7 +47,7 @@ const AREAS: { id: string; icon: LucideIcon; title: string; meta: string }[] = [
     id: "fiqh_guides",
     icon: ScrollText,
     title: "Fiqh guides",
-    meta: "Salah, zakat, 60-step hajj & purification",
+    meta: "Salah, zakat, Hajj & Umrah & purification",
   },
 ];
 

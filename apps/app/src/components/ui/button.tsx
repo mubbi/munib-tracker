@@ -4,7 +4,7 @@ import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconName } from "@/lib/names-of-allah-ui";
 
@@ -41,12 +41,15 @@ export function Button({
 }: ButtonProps) {
   const { colors, tokens } = useThemeTokens();
 
+  // Ghost must still paint a real (near-invisible) fill. Fully transparent
+  // Pressables intermittently drop Fabric taps inside Modals — Cancel looks
+  // pressed while the dialog stays open; backdrop dismiss still works.
   const bg =
     variant === "primary"
       ? colors.accent
       : variant === "secondary"
         ? tokens.accentSoft
-        : "transparent";
+        : withAlpha(colors.foreground, tokens.isDark ? 0.06 : 0.04);
 
   const fg =
     labelColor ??

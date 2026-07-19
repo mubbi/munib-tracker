@@ -145,10 +145,17 @@ export default {
     description: "Hadith zako zilizohifadhiwa, zote mahali pamoja kwa kurudi haraka.",
   },
   "/hajj": {
-    title: "Orodha ya Hajj na Umrah",
+    title: "Mwongozo wa Hajj & Umrah",
     description:
-      "Orodha ya hatua kwa hatua kwa ibada za Hajj na Umrah. Fuata kila ibada kwa mpangilio — ya vitendo, si kitabu cha fiqh.",
-    keywords: ["hajj", "umrah", "mwongozo wa hajji", "ibada za hajji", "orodha ya hajji"],
+      "Jifunze Hajj na Umrah kutoka Qur'an na Sunnah sahihi, kisha fuata ibada kwa orodha tofauti za Hajj na Umrah — muhtasari wa elimu wa vitendo, si kitabu cha fiqh.",
+    keywords: [
+      "hajj",
+      "umrah",
+      "mwongozo wa hija",
+      "ibada za hajj",
+      "orodha ya hajj",
+      "orodha ya umrah",
+    ],
   },
   "/hayd": {
     title: "Hayd na Ibadah — Mwongozo wa Hedhi",
@@ -806,5 +813,17 @@ export default {
   "/zikr/favorites": {
     title: "Adhkar Unazopenda",
     description: "Adhkar ulizopenda, zote mahali pamoja kwa ufikiaji wa haraka.",
+  },
+  "/hajj/checklist": {
+    title: "Orodha ya Ibada za Hajj",
+    description:
+      "Kifuatiliaji cha kila siku cha ibada za Hajj kutoka Tarwiyah hadi tawaf ya kuaga. Kikumbusho pamoja na mwongozo wa Jifunze.",
+    keywords: ["orodha ya hajj", "ibada za hajj", "kifuatiliaji cha hija"],
+  },
+  "/umrah/checklist": {
+    title: "Orodha ya Ibada za Umrah",
+    description:
+      "Orodha ya Umrah kwa mpangilio — ihram, tawaf, sa'i, na halq au taqsir. Tumia na mwongozo wa Jifunze wa Hajj & Umrah.",
+    keywords: ["orodha ya umrah", "ibada za umrah", "hija ndogo"],
   },
 };

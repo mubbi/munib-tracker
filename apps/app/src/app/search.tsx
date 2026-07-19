@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -163,59 +163,10 @@ export default function SearchScreen() {
         tint: colors.accent,
         soft: tokens.accentSoft,
       },
-      jannah: {
-        icon: { ios: "leaf.fill", android: "park", web: "park" },
-        tint: tokens.status.success.color,
-        soft: tokens.status.success.soft,
-      },
-      jahannam: {
-        icon: { ios: "flame.fill", android: "local_fire_department", web: "local_fire_department" },
-        tint: tokens.status.danger.color,
-        soft: tokens.status.danger.soft,
-      },
-      lastDay: {
-        icon: { ios: "scalemass.fill", android: "balance", web: "balance" },
+      learn: {
+        icon: { ios: "graduationcap.fill", android: "school", web: "school" },
         tint: tokens.status.info.color,
         soft: tokens.status.info.soft,
-      },
-      salahGuide: {
-        icon: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
-        tint: tokens.status.info.color,
-        soft: tokens.status.info.soft,
-      },
-      battles: {
-        icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
-        tint: tokens.status.warning.color,
-        soft: tokens.status.warning.soft,
-      },
-      learnQuran: {
-        icon: { ios: "book.closed.fill", android: "auto_stories", web: "auto_stories" },
-        tint: colors.accent,
-        soft: tokens.accentSoft,
-      },
-      taharah: {
-        icon: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
-        tint: tokens.status.info.color,
-        soft: tokens.status.info.soft,
-      },
-      prophets: {
-        icon: { ios: "person.3.fill", android: "groups", web: "groups" },
-        tint: colors.accent,
-        soft: tokens.accentSoft,
-      },
-      aqeedah: {
-        icon: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
-        tint: tokens.status.success.color,
-        soft: tokens.status.success.soft,
-      },
-      learnDua: {
-        icon: {
-          ios: "hands.and.sparkles.fill",
-          android: "volunteer_activism",
-          web: "volunteer_activism",
-        },
-        tint: tokens.status.danger.color,
-        soft: tokens.status.danger.soft,
       },
     }),
     [colors.accent, tokens],
@@ -334,9 +285,15 @@ export default function SearchScreen() {
 
   const presentCategories = useMemo<SearchCategory[]>(
     () =>
-      SEARCH_CATEGORY_ORDER.filter(
-        (c) => groups.some((g) => g.category === c) || (c === "quran" && ayahLoading),
-      ),
+      SEARCH_CATEGORY_ORDER.filter((c) => {
+        const group = groups.find((g) => g.category === c);
+        // Hide Qur'an while ayah search is still loading and there are no
+        // surah hits yet — avoids a misleading "0" chip (loader still shows).
+        if (c === "quran" && ayahLoading && (!group || group.total === 0)) {
+          return false;
+        }
+        return Boolean(group && group.total > 0);
+      }),
     [groups, ayahLoading],
   );
 
@@ -396,10 +353,38 @@ export default function SearchScreen() {
         case "/aqeedah/[topic]":
         case "/learn-dua/[topic]":
         case "/learn-quran/[topic]":
+        case "/ruqyah/[topic]":
+        case "/eid/[topic]":
+        case "/friday/[topic]":
+        case "/new-muslim/[topic]":
+        case "/laylat-al-qadr/[topic]":
+        case "/finance/[topic]":
+        case "/zakat/[topic]":
           router.push({
             pathname: result.href,
             params: { topic: result.params?.topic ?? "" },
           });
+          break;
+        case "/sahaba/[id]":
+          router.push({
+            pathname: result.href,
+            params: { id: result.params?.id ?? "" },
+          });
+          break;
+        case "/seerah":
+        case "/history":
+        case "/travel":
+        case "/hayd":
+        case "/sick":
+        case "/duroods":
+        case "/names-of-allah":
+          router.push(result.href);
+          break;
+        case "/hajj/[topic]":
+          router.push({
+            pathname: "/hajj/[topic]",
+            params: { topic: result.params?.topic ?? "" },
+          } as unknown as Href);
           break;
         default:
           router.push(result.href);
@@ -542,6 +527,10 @@ export default function SearchScreen() {
                 filter === "all" ? group.results.slice(0, PREVIEW_LIMIT) : group.results;
               const canSeeAll = filter === "all" && group.total > preview.length;
               const visual = categoryVisual[group.category];
+              const showInlineQuranLoader =
+                group.category === "quran" &&
+                ayahLoading &&
+                (filter === "all" || filter === "quran");
               return (
                 <View key={group.category} style={styles.group}>
                   <View style={styles.groupHeader}>
@@ -556,7 +545,9 @@ export default function SearchScreen() {
                       {t(`search.cat.${group.category}`)}
                     </ThemedText>
                     <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("search.resultsCount", { count: group.total })}
+                      {ayahLoading && group.category === "quran"
+                        ? t("search.searchingQuran")
+                        : t("search.resultsCount", { count: group.total })}
                     </ThemedText>
                   </View>
 
@@ -571,6 +562,15 @@ export default function SearchScreen() {
                       />
                     ))}
                   </View>
+
+                  {showInlineQuranLoader ? (
+                    <View style={styles.searchingRow}>
+                      <ActivityIndicator size="small" color={colors.accent} />
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("search.searchingQuran")}
+                      </ThemedText>
+                    </View>
+                  ) : null}
 
                   {canSeeAll ? (
                     <PressableScale
@@ -593,12 +593,28 @@ export default function SearchScreen() {
               );
             })}
 
-            {ayahLoading && (filter === "all" || filter === "quran") ? (
-              <View style={styles.searchingRow}>
-                <ActivityIndicator size="small" color={colors.accent} />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("search.searchingQuran")}
-                </ThemedText>
+            {ayahLoading &&
+            (filter === "all" || filter === "quran") &&
+            !visibleGroups.some((g) => g.category === "quran") ? (
+              <View style={styles.group}>
+                <View style={styles.groupHeader}>
+                  <IconWell
+                    icon={categoryVisual.quran.icon}
+                    size={15}
+                    well={30}
+                    tint={categoryVisual.quran.tint}
+                    background={categoryVisual.quran.soft}
+                  />
+                  <ThemedText type="subtitle" style={styles.groupTitle}>
+                    {t("search.cat.quran")}
+                  </ThemedText>
+                </View>
+                <View style={styles.searchingRow}>
+                  <ActivityIndicator size="small" color={colors.accent} />
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("search.searchingQuran")}
+                  </ThemedText>
+                </View>
               </View>
             ) : null}
           </View>

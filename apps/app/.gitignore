@@ -24,6 +24,9 @@ expo-env.d.ts
 # Data build pipeline cache
 scripts/build-data/.cache/
 
+# i18n scratch / intermediate dumps (not committed)
+scripts/i18n/_tmp/
+
 # Screenshot capture scratch (Maestro YAML, pulled RKStorage, UI dumps)
 .screenshots-work/
 

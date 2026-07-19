@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Waxa aad tidhaahdo haddii aad qabato",
+    summary: "Caisha waxay weydiisay Nabiga ﷺ waxa saxda ah ee la yidhaahdo.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Caisha (Allah ha ka raalli noqdee) waxay weydiisay Nabiga ﷺ: 'Rasuulkii Alleeyow, haddii aan ogaado habeenkee yahay Laylat al-Qadr, maxaan ku odhanayaa?' Wuxuu ﷺ baray ducada cafiska ee gaaban ee hoos lagu muujiyey (Tirmidhi 3513, oo al-Tirmidhi u qiimeeyey hasan sahih).",
+      "Ducadan waa gaaban, way fududahay in la xafido, waxayna si ula kac ah uga hadlaysaa cafis halkii ay ka hadli lahayd codsiyada adduunka — xusuusin in faa'iidada ugu weyn ee habeenkan ay tahay cafiska Alle. Ku celi inta badan tobanka habeen ee u dambeeya, salaadda dhexdeeda, sujuudda, iyo inta u dhaxaysa, halkii aad u kaydin lahayd habeen hal ah oo la qiyaasay.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Waxaan idhi: Rasuulkii Alleeyow, haddii aan ogaado habeenkee yahay Laylat al-Qadr, maxaan ku odhanayaa? Wuxuu yidhi: Dhaha — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Allahow, Waxaad tahay Cafiye oo aad jeceshahay cafiska, ii cafi).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Xafid ducada cafiska ee kor lagu muujiyey.",
+      "Ku celi inta badan tobanka habeen ee u dambeeya, gaar ahaan habeenada kala duwan.",
     ],
   },
   {

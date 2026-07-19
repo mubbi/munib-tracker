@@ -1,4 +1,4 @@
-import { RUNTIME_DATA_CREDITS } from "@munib-tracker/shared/constants";
+import { RUNTIME_DATA_CREDITS, SERVICE_DATA_CREDITS } from "@munib-tracker/shared/constants";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import * as WebBrowser from "expo-web-browser";
@@ -25,6 +25,14 @@ interface CreditRow {
 }
 
 const RUNTIME_SOURCES: CreditRow[] = RUNTIME_DATA_CREDITS.map((c) => ({
+  name: c.name,
+  license: c.license,
+  attribution: c.attribution,
+  sourceUrl: c.url,
+  note: c.note,
+}));
+
+const SERVICE_SOURCES: CreditRow[] = SERVICE_DATA_CREDITS.map((c) => ({
   name: c.name,
   license: c.license,
   attribution: c.attribution,
@@ -112,6 +120,9 @@ export default function CreditsScreen() {
         </Card>
         <Card padding="three">
           <View style={styles.list}>{RUNTIME_SOURCES.map(renderRow)}</View>
+        </Card>
+        <Card padding="three">
+          <View style={styles.list}>{SERVICE_SOURCES.map(renderRow)}</View>
         </Card>
         <View style={[styles.footer, { borderColor: tokens.hairline }]}>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.footerText}>

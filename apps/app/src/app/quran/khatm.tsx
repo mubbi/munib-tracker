@@ -430,11 +430,9 @@ function KhatmActivePlanCard({
 
   useEffect(() => {
     setLogAmountInput(String(target));
-  }, [target]);
-
-  useEffect(() => {
     setTotalInput(String(ayahsRead));
-  }, [ayahsRead]);
+    setShowCorrectTotal(false);
+  }, [target, ayahsRead]);
 
   const logAmount = isPageUnit
     ? parseKhatmLogPages(logAmountInput, ayahsRead)
@@ -678,10 +676,7 @@ function KhatmActivePlanCard({
             label={logAddLabel}
             disabled={logAmount == null}
             onPress={() => {
-              if (logAmount != null) {
-                onLog(logAmount);
-                setLogAmountInput(String(target));
-              }
+              if (logAmount != null) onLog(logAmount);
             }}
             icon={{ ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }}
             fullWidth
@@ -718,10 +713,7 @@ function KhatmActivePlanCard({
                   size="sm"
                   disabled={totalAmount == null || totalAmount === ayahsRead}
                   onPress={() => {
-                    if (totalAmount != null) {
-                      onSetTotal(totalAmount);
-                      setShowCorrectTotal(false);
-                    }
+                    if (totalAmount != null) onSetTotal(totalAmount);
                   }}
                 />
               </View>
@@ -822,6 +814,8 @@ export default function KhatmScreen() {
   const [motivationSeed, setMotivationSeed] = useState(() => dayMotivationSeed(today));
   const [resetOpen, setResetOpen] = useState(false);
   const [pendingStartDays, setPendingStartDays] = useState<number | null>(null);
+  const [pendingLogAmount, setPendingLogAmount] = useState<number | null>(null);
+  const [pendingTotalAmount, setPendingTotalAmount] = useState<number | null>(null);
   const [startUnit, setStartUnit] = useState<"ayah" | "page">("ayah");
 
   const activeUnit = plan?.unit ?? storedUnit ?? "ayah";
@@ -857,6 +851,24 @@ export default function KhatmScreen() {
             days: pendingStartDays,
             count: pendingStartTarget,
           })
+      : undefined;
+  const pendingLogConfirmMsg =
+    pendingLogAmount != null
+      ? activeUnit === "page"
+        ? t("khatm.logConfirmMsgPages", { count: pendingLogAmount })
+        : t("khatm.logConfirmMsg", { count: pendingLogAmount })
+      : undefined;
+  const pendingLogConfirmLabel =
+    pendingLogAmount != null
+      ? activeUnit === "page"
+        ? t("khatm.logAddPages", { count: pendingLogAmount })
+        : t("khatm.logAdd", { count: pendingLogAmount })
+      : t("khatm.logConfirmAction");
+  const pendingTotalConfirmMsg =
+    pendingTotalAmount != null
+      ? activeUnit === "page"
+        ? t("khatm.correctTotalConfirmMsgPages", { count: pendingTotalAmount })
+        : t("khatm.correctTotalConfirmMsg", { count: pendingTotalAmount })
       : undefined;
 
   return (
@@ -911,8 +923,8 @@ export default function KhatmScreen() {
             gap={gap}
             dayNumber={dayNumber}
             format={format}
-            onLog={(amount) => void setAyahsRead(ayahsRead + amount)}
-            onSetTotal={(total) => void setAyahsRead(total)}
+            onLog={setPendingLogAmount}
+            onSetTotal={setPendingTotalAmount}
             onReset={() => setResetOpen(true)}
             onContinue={
               activeUnit === "page"
@@ -940,6 +952,34 @@ export default function KhatmScreen() {
         }}
         onCancel={() => setPendingStartDays(null)}
         onClose={() => setPendingStartDays(null)}
+      />
+
+      <ConfirmDialog
+        visible={pendingLogAmount != null}
+        title={t("khatm.logConfirmTitle")}
+        message={pendingLogConfirmMsg}
+        confirmLabel={pendingLogConfirmLabel}
+        cancelLabel={t("common.cancel")}
+        onConfirm={() => {
+          if (pendingLogAmount != null) void setAyahsRead(ayahsRead + pendingLogAmount);
+          setPendingLogAmount(null);
+        }}
+        onCancel={() => setPendingLogAmount(null)}
+        onClose={() => setPendingLogAmount(null)}
+      />
+
+      <ConfirmDialog
+        visible={pendingTotalAmount != null}
+        title={t("khatm.correctTotalConfirmTitle")}
+        message={pendingTotalConfirmMsg}
+        confirmLabel={t("khatm.correctTotalConfirmAction")}
+        cancelLabel={t("common.cancel")}
+        onConfirm={() => {
+          if (pendingTotalAmount != null) void setAyahsRead(pendingTotalAmount);
+          setPendingTotalAmount(null);
+        }}
+        onCancel={() => setPendingTotalAmount(null)}
+        onClose={() => setPendingTotalAmount(null)}
       />
 
       <ConfirmDialog

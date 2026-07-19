@@ -136,9 +136,16 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Rêbernameya Hajj & Umrah",
+    "description": "Hajj û Umrah ji Qur'an û Sunnah rast fêr bibe, paşê meremiyan bi lîsteyên Hajj û Umrah yên cuda bişopîne — kurteya perwerdehiya pratîk, ne pirtûka fiqh e.",
+    "keywords": [
+      "hajj",
+      "umrah",
+      "rêbernameya hacê",
+      "meremiyên hajj",
+      "lîsteya hajj",
+      "lîsteya umrah"
+    ]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +729,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Lîsteya Meremiyên Hajj",
+    "description": "Şopînera rojane ya meremiyên Hajj ji Tarwiyah heta tawaf vedanê. Bîranîn li gel rêbernameya Fêr bibe.",
+    "keywords": ["lîsteya hajj", "meremiyên hajj", "şopînera hacê"]
+  },
+  "/umrah/checklist": {
+    "title": "Lîsteya Meremiyên Umrah",
+    "description": "Lîsteya Umrah bi rêz — ihram, tawaf, sa'i, û halq an taqsir. Bi rêbernameya Fêr bibe ya Hajj & Umrah bikar bîne.",
+    "keywords": ["lîsteya umrah", "meremiyên umrah", "hacê biçûk"]
   }
 }

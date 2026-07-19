@@ -1,30 +1,42 @@
 /**
  * Learn-guide Fuse indexes — kept in a separate module so light search helpers
- * (duas/zikr/names/…) can load without pulling ~700 KB of English guide corpora
- * into the initial module graph. Loaded via `import()` from
- * {@link searchLightWithGuides}.
+ * (duas/zikr/names/…) can load without pulling Learn corpora into the initial
+ * module graph. Loaded via `import()` from {@link searchLightWithGuides}.
+ *
+ * All guide hits share category `"learn"` (one universal-search tab).
  */
 
 import { AQEDAH_TOPICS } from "@munib-tracker/shared/content/aqeedah";
 import { BATTLES_TOPICS } from "@munib-tracker/shared/content/battles";
+import { EID_GUIDE_TOPICS } from "@munib-tracker/shared/content/eid-guide";
+import { EXCUSED_GUIDES } from "@munib-tracker/shared/content/excused-guide";
+import { FRIDAY_GUIDE_TOPICS } from "@munib-tracker/shared/content/friday-guide";
+import { HAJJ_GUIDE_TOPICS } from "@munib-tracker/shared/content/hajj-guide";
+import { ISLAMIC_FINANCE_TOPICS } from "@munib-tracker/shared/content/islamic-finance";
+import { ISLAMIC_HISTORY_EVENTS } from "@munib-tracker/shared/content/islamic-history";
 import { JAHANNAM_TOPICS } from "@munib-tracker/shared/content/jahannam";
 import { JANNAH_TOPICS } from "@munib-tracker/shared/content/jannah";
 import { LAST_DAY_TOPICS } from "@munib-tracker/shared/content/last-day";
+import { LAYLAT_AL_QADR_TOPICS } from "@munib-tracker/shared/content/laylat-al-qadr";
 import { LEARN_DUA_TOPICS } from "@munib-tracker/shared/content/learn-dua";
+import { NEW_MUSLIM_TOPICS } from "@munib-tracker/shared/content/new-muslim";
 import { PROPHETS_TOPICS } from "@munib-tracker/shared/content/prophets";
 import { QURAN_GUIDE_TOPICS } from "@munib-tracker/shared/content/quran-guide";
+import { RUQYAH_TOPICS } from "@munib-tracker/shared/content/ruqyah";
+import { SAHABA_PROFILES } from "@munib-tracker/shared/content/sahaba";
 import { SALAH_GUIDE_TOPICS } from "@munib-tracker/shared/content/salah-guide";
+import { SEERAH_EVENTS } from "@munib-tracker/shared/content/seerah";
 import { TAHARAH_TOPICS } from "@munib-tracker/shared/content/taharah";
+import { TRAVEL_SECTIONS, type TravelSectionKey } from "@munib-tracker/shared/content/travel-guide";
+import {
+  ZAKAT_GUIDE_SECTIONS,
+  type ZakatGuideSectionKey,
+} from "@munib-tracker/shared/content/zakat-guide";
 import type Fuse from "fuse.js";
 
-import {
-  type FuseDoc,
-  type FuzzyField,
-  fusePattern,
-  fuseSearch,
-  makeFuse,
-} from "@/lib/search-fuse";
-import type { SearchResult } from "@/lib/search-types";
+import i18n from "@/i18n";
+import { type FuseDoc, type FuzzyField, fusePattern, makeFuse } from "@/lib/search-fuse";
+import type { SearchHref, SearchResult } from "@/lib/search-types";
 
 type GuideTopic = {
   id: string;
@@ -51,6 +63,15 @@ type GuideTopic = {
   sources?: string[];
 };
 
+type ScoredHit = { score: number; result: SearchResult };
+
+const BASE_FIELDS: FuzzyField<GuideTopic>[] = [
+  { key: "title", weight: 5, get: (t) => t.title },
+  { key: "summary", weight: 4, get: (t) => t.summary },
+  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
+  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
+];
+
 let jannahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let jahannamFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let lastDayFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
@@ -61,32 +82,38 @@ let prophetsFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let aqeedahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let learnDuaFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let quranGuideFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let ruqyahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let eidFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let fridayFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let newMuslimFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let laylatFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let financeFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let seerahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let historyFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let sahabaFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let hajjFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let travelFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let zakatFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let haydFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let sickFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 
-const BASE_FIELDS: FuzzyField<GuideTopic>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-];
+/** English UI strings for travel/zakat/excused corpora (matching other Learn English bodies). */
+function tEn(key: string): string {
+  return i18n.getFixedT("en")(key);
+}
 
 function getJannahFuse(): Fuse<FuseDoc<GuideTopic>> {
-  if (!jannahFuse) {
-    jannahFuse = makeFuse(JANNAH_TOPICS as GuideTopic[], BASE_FIELDS);
-  }
+  if (!jannahFuse) jannahFuse = makeFuse(JANNAH_TOPICS as GuideTopic[], BASE_FIELDS);
   return jannahFuse;
 }
 
 function getJahannamFuse(): Fuse<FuseDoc<GuideTopic>> {
-  if (!jahannamFuse) {
-    jahannamFuse = makeFuse(JAHANNAM_TOPICS as GuideTopic[], BASE_FIELDS);
-  }
+  if (!jahannamFuse) jahannamFuse = makeFuse(JAHANNAM_TOPICS as GuideTopic[], BASE_FIELDS);
   return jahannamFuse;
 }
 
 function getLastDayFuse(): Fuse<FuseDoc<GuideTopic>> {
-  if (!lastDayFuse) {
-    lastDayFuse = makeFuse(LAST_DAY_TOPICS as GuideTopic[], BASE_FIELDS);
-  }
+  if (!lastDayFuse) lastDayFuse = makeFuse(LAST_DAY_TOPICS as GuideTopic[], BASE_FIELDS);
   return lastDayFuse;
 }
 
@@ -195,6 +222,182 @@ function getQuranGuideFuse(): Fuse<FuseDoc<GuideTopic>> {
   return quranGuideFuse;
 }
 
+function getRuqyahFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!ruqyahFuse) ruqyahFuse = makeFuse(RUQYAH_TOPICS as GuideTopic[], BASE_FIELDS);
+  return ruqyahFuse;
+}
+
+function getEidFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!eidFuse) eidFuse = makeFuse(EID_GUIDE_TOPICS as GuideTopic[], BASE_FIELDS);
+  return eidFuse;
+}
+
+function getFridayFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!fridayFuse) fridayFuse = makeFuse(FRIDAY_GUIDE_TOPICS as GuideTopic[], BASE_FIELDS);
+  return fridayFuse;
+}
+
+function getNewMuslimFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!newMuslimFuse) newMuslimFuse = makeFuse(NEW_MUSLIM_TOPICS as GuideTopic[], BASE_FIELDS);
+  return newMuslimFuse;
+}
+
+function getLaylatFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!laylatFuse) laylatFuse = makeFuse(LAYLAT_AL_QADR_TOPICS as GuideTopic[], BASE_FIELDS);
+  return laylatFuse;
+}
+
+function getFinanceFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!financeFuse) financeFuse = makeFuse(ISLAMIC_FINANCE_TOPICS as GuideTopic[], BASE_FIELDS);
+  return financeFuse;
+}
+
+function getSeerahFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!seerahFuse) {
+    seerahFuse = makeFuse(
+      SEERAH_EVENTS.map(
+        (e): GuideTopic => ({
+          id: e.id,
+          title: e.title,
+          summary: e.location ?? "",
+          body: [e.body],
+        }),
+      ),
+      BASE_FIELDS,
+    );
+  }
+  return seerahFuse;
+}
+
+function getHistoryFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!historyFuse) {
+    historyFuse = makeFuse(
+      ISLAMIC_HISTORY_EVENTS.map(
+        (e): GuideTopic => ({
+          id: e.id,
+          title: e.title,
+          summary: [e.location, e.era].filter(Boolean).join(" · "),
+          body: [e.body],
+        }),
+      ),
+      BASE_FIELDS,
+    );
+  }
+  return historyFuse;
+}
+
+function getSahabaFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!sahabaFuse) {
+    type SahabaDoc = GuideTopic & { arabic?: string };
+    sahabaFuse = makeFuse(
+      SAHABA_PROFILES.map(
+        (p): SahabaDoc => ({
+          id: p.id,
+          title: p.name,
+          summary: p.summary,
+          body: [p.body, p.epithet ?? "", p.lifespan ?? ""].filter(Boolean),
+          arabic: p.arabicName,
+        }),
+      ),
+      [...BASE_FIELDS, { key: "arabic", weight: 3, get: (t) => (t as SahabaDoc).arabic }],
+    );
+  }
+  return sahabaFuse;
+}
+
+function getHajjFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!hajjFuse) {
+    hajjFuse = makeFuse(HAJJ_GUIDE_TOPICS as GuideTopic[], BASE_FIELDS);
+  }
+  return hajjFuse;
+}
+
+function getTravelFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!travelFuse) {
+    const topics: GuideTopic[] = [
+      {
+        id: "hub",
+        title: tEn("travel.title"),
+        summary: tEn("travel.subtitle"),
+        body: [
+          tEn("travel.takeaway"),
+          ...Array.from({ length: 6 }, (_, i) => tEn(`travel.obligations.${i}`)),
+        ],
+      },
+      ...TRAVEL_SECTIONS.map(
+        (key: TravelSectionKey): GuideTopic => ({
+          id: key,
+          title: tEn(`travel.${key}.title`),
+          summary: "",
+          body: [tEn(`travel.${key}.body`)],
+        }),
+      ),
+    ];
+    travelFuse = makeFuse(topics, BASE_FIELDS);
+  }
+  return travelFuse;
+}
+
+function getZakatFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!zakatFuse) {
+    const topics: GuideTopic[] = ZAKAT_GUIDE_SECTIONS.map(
+      (key: ZakatGuideSectionKey): GuideTopic => ({
+        id: key,
+        title: tEn(`zakat.guide.${key}.title`),
+        summary: tEn(`zakat.guide.${key}.summary`),
+        body: [tEn(`zakat.guide.${key}.body`)],
+      }),
+    );
+    zakatFuse = makeFuse(topics, BASE_FIELDS);
+  }
+  return zakatFuse;
+}
+
+function excusedSectionTopics(
+  namespace: "hayd" | "sick",
+  sections: readonly string[],
+): GuideTopic[] {
+  return [
+    {
+      id: "hub",
+      title: tEn(`${namespace}.title`),
+      summary: tEn(`${namespace}.subtitle`),
+      body: Array.from(
+        { length: EXCUSED_GUIDES[namespace === "hayd" ? "hayd" : "sick"].obligationCount },
+        (_, i) => tEn(`${namespace}.obligations.${i}`),
+      ),
+    },
+    ...sections.map(
+      (key): GuideTopic => ({
+        id: key,
+        title: tEn(`${namespace}.${key}.title`),
+        summary: "",
+        body: [tEn(`${namespace}.${key}.body`)],
+      }),
+    ),
+  ];
+}
+
+function getHaydFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!haydFuse) {
+    haydFuse = makeFuse(
+      excusedSectionTopics("hayd", EXCUSED_GUIDES.hayd.extraSections ?? []),
+      BASE_FIELDS,
+    );
+  }
+  return haydFuse;
+}
+
+function getSickFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!sickFuse) {
+    sickFuse = makeFuse(
+      excusedSectionTopics("sick", EXCUSED_GUIDES.sick.extraSections ?? []),
+      BASE_FIELDS,
+    );
+  }
+  return sickFuse;
+}
+
 /** Fuzzy-ranked Journey to Jannah topics for screen-local filters. */
 export function searchJannahList(query: string, limit?: number): GuideTopic[] {
   const pattern = fusePattern(query);
@@ -213,122 +416,80 @@ export function searchJahannamList(query: string, limit?: number): GuideTopic[] 
     .map((match) => match.item.item);
 }
 
-function mapGuide(
+function mapScored(
   fuse: Fuse<FuseDoc<GuideTopic>>,
   query: string,
-  limit: number,
-  category: SearchResult["category"],
-  href: SearchResult["href"],
-  badgeOf: (item: GuideTopic) => string | undefined,
-): { results: SearchResult[]; total: number } {
-  return fuseSearch(fuse, query, limit, (item) => ({
-    key: `${category}:${item.id}`,
-    category,
-    title: item.title,
-    subtitle: item.summary,
-    badge: badgeOf(item),
-    href,
-    params: { topic: item.id },
-  }));
+  href: SearchHref,
+  sourceBadge: string,
+  paramKey: "topic" | "id" | null,
+  arabicOf?: (item: GuideTopic) => string | undefined,
+): ScoredHit[] {
+  const pattern = fusePattern(query);
+  if (!pattern) return [];
+  return fuse.search(pattern).map((match) => {
+    const item = match.item.item;
+    const result: SearchResult = {
+      key: `learn:${href}:${item.id}`,
+      category: "learn",
+      title: item.title,
+      subtitle: item.summary || undefined,
+      arabic: arabicOf?.(item),
+      badge: sourceBadge,
+      href,
+      params: paramKey ? { [paramKey]: item.id } : undefined,
+    };
+    return { score: match.score ?? 1, result };
+  });
 }
 
-/** Guide-category hits for universal light search. */
+/** All Learn-guide hits merged into a single `learn` group (score-ranked). */
 export function searchGuideGroups(
   query: string,
   perGroupLimit: number,
-): Record<
-  | "jannah"
-  | "jahannam"
-  | "lastDay"
-  | "salahGuide"
-  | "battles"
-  | "taharah"
-  | "prophets"
-  | "aqeedah"
-  | "learnDua"
-  | "learnQuran",
-  { results: SearchResult[]; total: number }
-> {
+): { learn: { results: SearchResult[]; total: number } } {
+  const pattern = fusePattern(query);
+  if (!pattern) return { learn: { results: [], total: 0 } };
+
+  const hits: ScoredHit[] = [
+    ...mapScored(getJannahFuse(), query, "/jannah/[topic]", "Jannah", "topic"),
+    ...mapScored(getJahannamFuse(), query, "/jahannam/[topic]", "Jahannam", "topic"),
+    ...mapScored(getLastDayFuse(), query, "/last-day/[topic]", "Last Day", "topic"),
+    ...mapScored(getSalahGuideFuse(), query, "/salah-guide/[topic]", "Salah", "topic"),
+    ...mapScored(getBattlesFuse(), query, "/battles/[topic]", "Battles", "topic"),
+    ...mapScored(getTaharahFuse(), query, "/taharah/[topic]", "Purification", "topic"),
+    ...mapScored(getProphetsFuse(), query, "/prophets/[topic]", "Prophets", "topic"),
+    ...mapScored(getAqeedahFuse(), query, "/aqeedah/[topic]", "Aqeedah", "topic"),
+    ...mapScored(getLearnDuaFuse(), query, "/learn-dua/[topic]", "Learn Dua", "topic"),
+    ...mapScored(getQuranGuideFuse(), query, "/learn-quran/[topic]", "Learn Qur'an", "topic"),
+    ...mapScored(getRuqyahFuse(), query, "/ruqyah/[topic]", "Ruqyah", "topic"),
+    ...mapScored(getEidFuse(), query, "/eid/[topic]", "Eid", "topic"),
+    ...mapScored(getFridayFuse(), query, "/friday/[topic]", "Friday", "topic"),
+    ...mapScored(getNewMuslimFuse(), query, "/new-muslim/[topic]", "New Muslim", "topic"),
+    ...mapScored(getLaylatFuse(), query, "/laylat-al-qadr/[topic]", "Laylat al-Qadr", "topic"),
+    ...mapScored(getFinanceFuse(), query, "/finance/[topic]", "Finance", "topic"),
+    ...mapScored(getZakatFuse(), query, "/zakat/[topic]", "Zakat", "topic"),
+    ...mapScored(getSeerahFuse(), query, "/seerah", "Seerah", null),
+    ...mapScored(getHistoryFuse(), query, "/history", "History", null),
+    ...mapScored(getHajjFuse(), query, "/hajj/[topic]", "Hajj", "topic"),
+    ...mapScored(getTravelFuse(), query, "/travel", "Travel", null),
+    ...mapScored(getHaydFuse(), query, "/hayd", "Hayd", null),
+    ...mapScored(getSickFuse(), query, "/sick", "Illness", null),
+    ...mapScored(
+      getSahabaFuse(),
+      query,
+      "/sahaba/[id]",
+      "Sahaba",
+      "id",
+      (item) => (item as GuideTopic & { arabic?: string }).arabic,
+    ),
+  ];
+
+  hits.sort((a, b) => a.score - b.score);
+
   return {
-    jannah: mapGuide(
-      getJannahFuse(),
-      query,
-      perGroupLimit,
-      "jannah",
-      "/jannah/[topic]",
-      (t) => t.hub,
-    ),
-    jahannam: mapGuide(
-      getJahannamFuse(),
-      query,
-      perGroupLimit,
-      "jahannam",
-      "/jahannam/[topic]",
-      (t) => t.section,
-    ),
-    lastDay: mapGuide(
-      getLastDayFuse(),
-      query,
-      perGroupLimit,
-      "lastDay",
-      "/last-day/[topic]",
-      (t) => t.section,
-    ),
-    salahGuide: mapGuide(
-      getSalahGuideFuse(),
-      query,
-      perGroupLimit,
-      "salahGuide",
-      "/salah-guide/[topic]",
-      (t) => t.journey,
-    ),
-    battles: mapGuide(
-      getBattlesFuse(),
-      query,
-      perGroupLimit,
-      "battles",
-      "/battles/[topic]",
-      (t) => t.section,
-    ),
-    taharah: mapGuide(
-      getTaharahFuse(),
-      query,
-      perGroupLimit,
-      "taharah",
-      "/taharah/[topic]",
-      (t) => t.section,
-    ),
-    prophets: mapGuide(
-      getProphetsFuse(),
-      query,
-      perGroupLimit,
-      "prophets",
-      "/prophets/[topic]",
-      (t) => t.section,
-    ),
-    aqeedah: mapGuide(
-      getAqeedahFuse(),
-      query,
-      perGroupLimit,
-      "aqeedah",
-      "/aqeedah/[topic]",
-      (t) => t.section,
-    ),
-    learnDua: mapGuide(
-      getLearnDuaFuse(),
-      query,
-      perGroupLimit,
-      "learnDua",
-      "/learn-dua/[topic]",
-      (t) => t.section,
-    ),
-    learnQuran: mapGuide(
-      getQuranGuideFuse(),
-      query,
-      perGroupLimit,
-      "learnQuran",
-      "/learn-quran/[topic]",
-      (t) => t.journey,
-    ),
+    learn: {
+      results: hits.slice(0, perGroupLimit).map((h) => h.result),
+      total: hits.length,
+    },
   };
 }

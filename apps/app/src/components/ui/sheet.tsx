@@ -172,33 +172,21 @@ export function Sheet({
     </View>
   );
 
-  // Scrim color lives on the Pressable (not a box-none parent) so Android
-  // always builds a real hit target. Transparent pressables without a paint
-  // often drop taps on Fabric.
-  const backdrop = (
-    <Pressable
-      style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
-      onPress={onClose}
-      accessibilityLabel={t("common.close")}
-      // react-native-web renders a real <button> for role="button"; the backdrop
-      // is a sibling of the dialog card so nested-button DOM errors do not apply.
-      accessibilityRole={Platform.OS === "web" ? undefined : "button"}
-    />
-  );
-
   /**
    * Frosted-glass fill (blur + a translucent card wash for text legibility).
    * Shared by both variants so every sheet reads the same. On iOS 26 keep the
-   * wash light so the real Liquid Glass material reads through; the blur
-   * fallback needs more opacity to stay legible over busy content unless Android
-   * backdrop capture is active (real blur under the wash).
+   * wash light so the real Liquid Glass material reads through; elsewhere the
+   * wash is stronger so text stays legible without Android Modal backdrop
+   * capture (BlurTarget inside RN Modal intermittently swallows card taps).
    */
-  const androidBackdropBlur = Platform.OS === "android";
   const glassFill = (
-    <View style={[StyleSheet.absoluteFill, styles.glassFill, { pointerEvents: "none" }]}>
+    <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
       <GlassSurface
-        backdropCapture={androidBackdropBlur}
-        style={StyleSheet.absoluteFill}
+        // Never capture the Android blur target inside Modal — the native
+        // BlurView layer can sit above descendants and eat Cancel/Save taps
+        // while scrim presses still work.
+        backdropCapture={false}
+        style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}
         intensity={50}
       />
       <View
@@ -207,28 +195,30 @@ export function Sheet({
           {
             backgroundColor: withAlpha(
               colors.card,
-              hasLiquidGlass
-                ? tokens.isDark
-                  ? 0.28
-                  : 0.4
-                : androidBackdropBlur
-                  ? tokens.isDark
-                    ? 0.3
-                    : 0.42
-                  : tokens.isDark
-                    ? 0.5
-                    : 0.62,
+              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
             ),
+            pointerEvents: "none",
           },
         ]}
       />
     </View>
   );
 
+  // elevation + zIndex: on Android Fabric, absolute-fill painted Pressables
+  // beat in-flow siblings without elevation — card chrome then loses hits to
+  // the scrim (backdrop dismiss still works; Cancel does not).
+  const cardElevation = Platform.OS === "android" ? 24 : 0;
+
   const bottomCard = (
     <Animated.View
       accessibilityViewIsModal
-      style={[bottomCardStyle, bottomCardDragStyle, isBottom ? keyboardInsetStyle : null]}
+      collapsable={false}
+      style={[
+        bottomCardStyle,
+        bottomCardDragStyle,
+        keyboardInsetStyle,
+        { elevation: cardElevation, pointerEvents: "auto" },
+      ]}
     >
       {!solid ? glassFill : null}
       {dragHandle}
@@ -254,7 +244,7 @@ export function Sheet({
       collapsable={false}
       style={[
         styles.centerCard,
-        { borderColor: colors.border },
+        { borderColor: colors.border, elevation: cardElevation, pointerEvents: "auto" },
         solid ? { backgroundColor: colors.card } : null,
         contentStyle,
       ]}
@@ -263,6 +253,15 @@ export function Sheet({
       {centerCardBody}
     </View>
   );
+
+  // Scrim color lives on the Pressable so Android Fabric always builds a real
+  // hit target (transparent pressables without paint often drop taps).
+  const backdropA11y = {
+    accessibilityLabel: t("common.close"),
+    // react-native-web renders a real <button> for role="button"; the backdrop
+    // is a sibling of the dialog card so nested-button DOM errors do not apply.
+    accessibilityRole: Platform.OS === "web" ? undefined : ("button" as const),
+  };
 
   // Outer View wrapper: Fabric + Reanimated bug — a Modal that shares a React
   // tree with useAnimatedStyle siblings (e.g. tasbeeh ring / PressableScale)
@@ -277,35 +276,58 @@ export function Sheet({
         onRequestClose={onClose}
         statusBarTranslucent
       >
-        <View style={[styles.scrim, isBottom ? styles.scrimBottom : styles.scrimCenter]}>
-          {/*
-            Absolute-fill backdrop behind the card so taps on the dimmed region
-            dismiss. The card is never a wrapping Pressable so nested buttons
-            receive touches on iOS (stopPropagation is web-only).
-          */}
-          {backdrop}
-          {isBottom ? bottomCard : centerCard}
-        </View>
+        {isBottom ? (
+          // Bottom: flex Pressable fills space above the card. Avoids relying on
+          // box-none pass-through (broken/unreliable on web + some Fabric builds)
+          // while keeping the card as a non-Pressable sibling so nested buttons work.
+          <View style={styles.scrimRoot}>
+            <Pressable
+              collapsable={false}
+              style={[styles.backdropFlex, { backgroundColor: tokens.scrim }]}
+              onPress={onClose}
+              {...backdropA11y}
+            />
+            {bottomCard}
+          </View>
+        ) : (
+          // Center: absolute-fill dimmer under a box-none overlay that centers
+          // the card — taps in the padded margin hit the dimmer Pressable.
+          <View style={styles.scrimRoot}>
+            <Pressable
+              collapsable={false}
+              style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
+              onPress={onClose}
+              {...backdropA11y}
+            />
+            <View
+              style={[StyleSheet.absoluteFill, styles.scrimCenter, { pointerEvents: "box-none" }]}
+            >
+              {centerCard}
+            </View>
+          </View>
+        )}
       </Modal>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scrim: {
+  scrimRoot: {
     flex: 1,
-    pointerEvents: "box-none",
-  },
-  scrimBottom: {
-    justifyContent: "flex-end",
   },
   scrimCenter: {
     justifyContent: "center",
     padding: Spacing.four,
   },
-  /** Full-screen tappable dimmer behind the sheet card. */
+  /** Full-screen tappable dimmer behind a centered dialog card. */
   backdrop: {
     ...StyleSheet.absoluteFill,
+  },
+  /** Grows into the space above a bottom sheet card; tap dismisses. */
+  backdropFlex: {
+    flex: 1,
+    // Ensure a hit target even if the card is nearly full-height.
+    minHeight: 48,
   },
   centerCard: {
     borderRadius: Radius.lg,
@@ -317,7 +339,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
     overflow: "hidden",
-    zIndex: 1,
+    zIndex: 2,
   },
   centerKeyboard: {
     width: "100%",
@@ -332,7 +354,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingBottom: Spacing.four,
     overflow: "hidden",
-    zIndex: 1,
+    zIndex: 2,
   },
   bottomScroll: {
     flexGrow: 0,
@@ -354,9 +376,5 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-  },
-  /** Sits behind the card content so the blur/wash never covers inputs on web. */
-  glassFill: {
-    zIndex: -1,
   },
 });

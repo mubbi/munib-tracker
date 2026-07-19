@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Тапсаңыз не айту керек",
+    summary: "Аиша Пайғамбар ﷺ-дан нақты не айту керектігін сұрады.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Аиша (Алла онымен разы болсын) Пайғамбар ﷺ-дан сұрады: «Алланың Расулы, Кадір түнінін қай түн екенін білсем, сол түнде не айтсам?» Ол ﷺ оған төменде көрсетілген қысқа кешірім дұасын үйретті (Термизі 3513, ат-Термизі оны хасан сахих деп бағалаған).",
+      "Бұл дұға қысқа, жаттау оңай жане әдейі дүныелік сұраныстар орнына кешірім тууралы — осы түнден ең улкен пайда Алланың кешірімі екенін еске салады. Соңғы он түнде, намазда, сажда да жане олардын арасында жіі қайталаңыз; бір болжамды түнге сақтаудын орнына.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Мен айттым: Алланың Расулы, Кадір түнінін қай түн екенін білсем, сол түнде не айтсам? Ол ﷺ айтты: Айтыңыз — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Аллаһым, Сен кешіргенсің жане кешірімді жақсы көресің, мені кешір).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Жогарыда көрсетілген кешірім дұасын жаттап алыңыз.",
+      "Оны соңғы он түнде, әсіресе тақ түнде, жіі қайталаңыз.",
     ],
   },
   {

@@ -151,10 +151,17 @@ export default {
     description: "Kaydettiğiniz hadisler, hızlı dönüş için bir arada.",
   },
   "/hajj": {
-    title: "Hac ve Umre Kontrol Listesi",
+    title: "Hac ve Umre Rehberi",
     description:
-      "Hac ve umre menasikleri için adım adım kontrol listesi. Her menasiki sırayla takip edin ve tamamladıkça işaretleyin — pratik rehber, fıkıh kitabı değil.",
-    keywords: ["hac", "umre", "hac rehberi", "hac menasikleri", "hac kontrol listesi"],
+      "Hac ve Umre'yi Kur'an ve sahih Sünnet'ten öğrenin, ardından ayrı Hac ve Umre kontrol listeleriyle menasikleri takip edin — pratik eğitim özeti, fıkıh kitabı değil.",
+    keywords: [
+      "hac",
+      "umre",
+      "hac rehberi",
+      "hac menasikleri",
+      "hac kontrol listesi",
+      "umre kontrol listesi",
+    ],
   },
   "/hayd": {
     title: "Hayız ve İbadet — Adet Rehberi",
@@ -766,5 +773,17 @@ export default {
   "/zikr/favorites": {
     title: "Favori Adhkar",
     description: "Favorilediğiniz adhkar, hızlı erişim için bir arada.",
+  },
+  "/hajj/checklist": {
+    title: "Hac Menasikleri Kontrol Listesi",
+    description:
+      "Tarwiyah'dan veda tawaf'ına kadar günlük Hac menasik takipçisi. Öğren rehberinin yanında bir hatırlatıcı.",
+    keywords: ["hac kontrol listesi", "hac menasikleri", "hac takipçisi"],
+  },
+  "/umrah/checklist": {
+    title: "Umre Menasikleri Kontrol Listesi",
+    description:
+      "Sıralı Umre checklist — ihram, tawaf, sa'i ve halq veya taqsir. Hac ve Umre Öğren rehberiyle kullanın.",
+    keywords: ["umre kontrol listesi", "umre menasikleri", "küçük hac"],
   },
 };

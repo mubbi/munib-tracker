@@ -7,16 +7,8 @@ export type SearchCategory =
   | "zikr"
   | "durood"
   | "name"
-  | "jannah"
-  | "jahannam"
-  | "lastDay"
-  | "salahGuide"
-  | "battles"
-  | "taharah"
-  | "prophets"
-  | "aqeedah"
-  | "learnDua"
-  | "learnQuran";
+  /** All Learn guides (Jannah, Seerah, Ruqyah, …) share one filter tab. */
+  | "learn";
 
 export type SearchHref =
   | "/quran/[surah]"
@@ -34,7 +26,21 @@ export type SearchHref =
   | "/prophets/[topic]"
   | "/aqeedah/[topic]"
   | "/learn-dua/[topic]"
-  | "/learn-quran/[topic]";
+  | "/learn-quran/[topic]"
+  | "/ruqyah/[topic]"
+  | "/eid/[topic]"
+  | "/friday/[topic]"
+  | "/new-muslim/[topic]"
+  | "/laylat-al-qadr/[topic]"
+  | "/finance/[topic]"
+  | "/zakat/[topic]"
+  | "/sahaba/[id]"
+  | "/seerah"
+  | "/history"
+  | "/hajj/[topic]"
+  | "/travel"
+  | "/hayd"
+  | "/sick";
 
 export interface SearchResult {
   /** Stable React key, unique across all categories. */
@@ -71,14 +77,5 @@ export const SEARCH_CATEGORY_ORDER: SearchCategory[] = [
   "zikr",
   "name",
   "durood",
-  "jannah",
-  "jahannam",
-  "lastDay",
-  "salahGuide",
-  "battles",
-  "taharah",
-  "prophets",
-  "aqeedah",
-  "learnDua",
-  "learnQuran",
+  "learn",
 ];

@@ -634,7 +634,15 @@
     "login.providersUnavailableBody": "Ba a saita masu daidaita girgije a wannan ginin ba. Ci gaba a matsayin baƙo — ci gaban ku yana kan wannan na'ura.",
     "location.defaultLabel": "Makka, Saudi Arabiya",
     "location.defaultTimesHint": "Lokutan Salah yanzu suna amfani da Makka. Saita garinku don daidaitattun lokuta. Tunatarwa na Salah da Adhan za su kasance kashe har sai lokacin.",
-    "location.setLocation": "Saita wuri"
+    "location.setLocation": "Saita wuri",
+    "khatm.logConfirmTitle": "Ƙara ci gaban karatu?",
+    "khatm.logConfirmMsg": "Ƙara ayah {{count}} zuwa jimlar khatm ɗinka?",
+    "khatm.logConfirmMsgPages": "Ƙara shafuka {{count}} zuwa jimlar khatm ɗinka?",
+    "khatm.logConfirmAction": "Ƙara",
+    "khatm.correctTotalConfirmTitle": "Sabunta jimlar da aka karanta?",
+    "khatm.correctTotalConfirmMsg": "Saita jimlar khatm zuwa ayah {{count}}?",
+    "khatm.correctTotalConfirmMsgPages": "Saita jimlar khatm zuwa shafuka {{count}}?",
+    "khatm.correctTotalConfirmAction": "Sabunta jimlar"
   },
   "ku": {
     "home.streakStat": "Zincîre",
@@ -1225,7 +1233,15 @@
     "login.providersUnavailableBody": "Pêşkêşkerên hevdemkirina ewrî di vê avahiyê de nehatine mîhengkirin. Wekî mêvan berdewam bike — pêşveçûna te li ser vê amûrê dimîne.",
     "location.defaultLabel": "Mekke, Erebistana Siûdî",
     "location.defaultTimesHint": "Demên nimêjê niha Mekkê bikar tînin. Ji bo demên rast bajarê xwe diyar bike. Bîranînên nimêj û ezanê heta wê demê girtî dimînin.",
-    "location.setLocation": "Cihê diyar bike"
+    "location.setLocation": "Cihê diyar bike",
+    "khatm.logConfirmTitle": "Pêşketina xwendinê zêde bikin?",
+    "khatm.logConfirmMsg": "{{count}} ayet li tevahîya khatm zêde bikin?",
+    "khatm.logConfirmMsgPages": "{{count}} rûpel li tevahîya khatm zêde bikin?",
+    "khatm.logConfirmAction": "Zêde bike",
+    "khatm.correctTotalConfirmTitle": "Tevahîya xwendî nûve bikin?",
+    "khatm.correctTotalConfirmMsg": "Tevahîya khatm wekî {{count}} ayet bike?",
+    "khatm.correctTotalConfirmMsgPages": "Tevahîya khatm wekî {{count}} rûpel bike?",
+    "khatm.correctTotalConfirmAction": "Tevahîyê nûve bike"
   },
   "bs": {
     "home.streakStat": "Niz",
@@ -1850,7 +1866,15 @@
     "login.providersUnavailableBody": "Pružatelji cloud sinkronizacije nisu konfigurirani u ovoj verziji. Nastavite kao gost — napredak ostaje na ovom uređaju.",
     "location.defaultLabel": "Meka, Saudijska Arabija",
     "location.defaultTimesHint": "Vremena namaza trenutno koriste Meku. Postavite svoj grad za tačna vremena. Podsjetnici za namaz i ezan ostaju isključeni do tada.",
-    "location.setLocation": "Postavi lokaciju"
+    "location.setLocation": "Postavi lokaciju",
+    "khatm.logConfirmTitle": "Dodati napredak u čitanju?",
+    "khatm.logConfirmMsg": "Dodati {{count}} ajeta na vaš khatm ukupno?",
+    "khatm.logConfirmMsgPages": "Dodati {{count}} stranica na vaš khatm ukupno?",
+    "khatm.logConfirmAction": "Dodaj",
+    "khatm.correctTotalConfirmTitle": "Ažurirati ukupno pročitano?",
+    "khatm.correctTotalConfirmMsg": "Postaviti khatm ukupno na {{count}} ajeta?",
+    "khatm.correctTotalConfirmMsgPages": "Postaviti khatm ukupno na {{count}} stranica?",
+    "khatm.correctTotalConfirmAction": "Ažuriraj ukupno"
   },
   "ms": {
     "search.cat.zikr": "Adhkar",
@@ -2446,7 +2470,15 @@
     "login.providersUnavailableBody": "Penyedia segerak awan belum dikonfigurasi dalam binaan ini. Teruskan sebagai tetamu — kemajuan kekal pada peranti ini.",
     "location.defaultLabel": "Makkah, Arab Saudi",
     "location.defaultTimesHint": "Waktu Salah kini menggunakan Makkah. Tetapkan bandar anda untuk waktu yang tepat. Peringatan Salah dan Azan kekal dimatikan sehingga itu.",
-    "location.setLocation": "Tetapkan lokasi"
+    "location.setLocation": "Tetapkan lokasi",
+    "khatm.logConfirmTitle": "Tambah kemajuan bacaan?",
+    "khatm.logConfirmMsg": "Tambah {{count}} ayat ke jumlah khatm anda?",
+    "khatm.logConfirmMsgPages": "Tambah {{count}} muka surat ke jumlah khatm anda?",
+    "khatm.logConfirmAction": "Tambah",
+    "khatm.correctTotalConfirmTitle": "Kemas kini jumlah bacaan?",
+    "khatm.correctTotalConfirmMsg": "Tetapkan jumlah khatm kepada {{count}} ayat?",
+    "khatm.correctTotalConfirmMsgPages": "Tetapkan jumlah khatm kepada {{count}} muka surat?",
+    "khatm.correctTotalConfirmAction": "Kemas kini jumlah"
   },
   "sw": {
     "common.quiz.answeredCount": "{{count}} imejibiwa",
@@ -3047,7 +3079,15 @@
     "login.providersUnavailableBody": "Watoa huduma wa usawazishaji wa wingu hawajawekwa katika toleo hili. Endelea kama mgeni — maendeleo yako yanabaki kwenye kifaa hiki.",
     "location.defaultLabel": "Makkah, Saudia",
     "location.defaultTimesHint": "Nyakati za Salah kwa sasa zinatumia Makkah. Weka jiji lako kwa nyakati sahihi. Vikumbusho vya Salah na Adhan vinabaki zimwe hadi hapo.",
-    "location.setLocation": "Weka eneo"
+    "location.setLocation": "Weka eneo",
+    "khatm.logConfirmTitle": "Ongeza maendeleo ya kusoma?",
+    "khatm.logConfirmMsg": "Ongeza aya {{count}} kwenye jumla yako ya khatm?",
+    "khatm.logConfirmMsgPages": "Ongeza kurasa {{count}} kwenye jumla yako ya khatm?",
+    "khatm.logConfirmAction": "Ongeza",
+    "khatm.correctTotalConfirmTitle": "Sasisha jumla iliyosomwa?",
+    "khatm.correctTotalConfirmMsg": "Weka jumla ya khatm kuwa aya {{count}}?",
+    "khatm.correctTotalConfirmMsgPages": "Weka jumla ya khatm kuwa kurasa {{count}}?",
+    "khatm.correctTotalConfirmAction": "Sasisha jumla"
   },
   "id": {
     "search.cat.zikr": "Adzkar",
@@ -3588,7 +3628,15 @@
     "login.providersUnavailableBody": "Penyedia sinkronisasi cloud belum dikonfigurasi di build ini. Lanjutkan sebagai tamu — progres tetap di perangkat ini.",
     "location.defaultLabel": "Makkah, Arab Saudi",
     "location.defaultTimesHint": "Waktu Salah saat ini memakai Makkah. Atur kota Anda untuk waktu yang akurat. Pengingat Salah dan Adzan tetap nonaktif sampai itu.",
-    "location.setLocation": "Atur lokasi"
+    "location.setLocation": "Atur lokasi",
+    "khatm.logConfirmTitle": "Tambahkan progres bacaan?",
+    "khatm.logConfirmMsg": "Tambahkan {{count}} ayat ke total khatm Anda?",
+    "khatm.logConfirmMsgPages": "Tambahkan {{count}} halaman ke total khatm Anda?",
+    "khatm.logConfirmAction": "Tambah",
+    "khatm.correctTotalConfirmTitle": "Perbarui total bacaan?",
+    "khatm.correctTotalConfirmMsg": "Tetapkan total khatm menjadi {{count}} ayat?",
+    "khatm.correctTotalConfirmMsgPages": "Tetapkan total khatm menjadi {{count}} halaman?",
+    "khatm.correctTotalConfirmAction": "Perbarui total"
   },
   "ru": {
     "language.scriptureAvailable": "Перевод Корана доступен",
@@ -5431,7 +5479,15 @@
     "login.providersUnavailableBody": "Облачные провайдеры синхронизации не настроены в этой сборке. Продолжайте как гость — прогресс останется на этом устройстве.",
     "location.defaultLabel": "Мекка, Саудовская Аравия",
     "location.defaultTimesHint": "Времена намаза сейчас по Мекке. Укажите свой город для точных времён. Напоминания о намазе и азане отключены, пока вы этого не сделаете.",
-    "location.setLocation": "Указать местоположение"
+    "location.setLocation": "Указать местоположение",
+    "khatm.logConfirmTitle": "Добавить прогресс чтения?",
+    "khatm.logConfirmMsg": "Добавить {{count}} аятов к итогу хатма?",
+    "khatm.logConfirmMsgPages": "Добавить {{count}} страниц к итогу хатма?",
+    "khatm.logConfirmAction": "Добавить",
+    "khatm.correctTotalConfirmTitle": "Обновить общий итог чтения?",
+    "khatm.correctTotalConfirmMsg": "Установить итог хатма равным {{count}} аятам?",
+    "khatm.correctTotalConfirmMsgPages": "Установить итог хатма равным {{count}} страницам?",
+    "khatm.correctTotalConfirmAction": "Обновить итог"
   },
   "tr": {
     "home.continueListening": "Ses",
@@ -6005,7 +6061,15 @@
     "login.providersUnavailableBody": "Bu sürümde bulut senkron sağlayıcıları yapılandırılmamış. Misafir olarak devam edin — ilerlemeniz bu cihazda kalır.",
     "location.defaultLabel": "Mekke, Suudi Arabistan",
     "location.defaultTimesHint": "Salah vakitleri şu an Mekke'ye göre. Bulunduğunuz yer için şehrinizi ayarlayın. Salah ve Ezan hatırlatıcıları o zamana kadar kapalı kalır.",
-    "location.setLocation": "Konumu ayarla"
+    "location.setLocation": "Konumu ayarla",
+    "khatm.logConfirmTitle": "Okuma ilerlemesi eklensin mi?",
+    "khatm.logConfirmMsg": "Hatim toplamına {{count}} ayet eklensin mi?",
+    "khatm.logConfirmMsgPages": "Hatim toplamına {{count}} sayfa eklensin mi?",
+    "khatm.logConfirmAction": "Ekle",
+    "khatm.correctTotalConfirmTitle": "Okunan toplam güncellensin mi?",
+    "khatm.correctTotalConfirmMsg": "Hatim toplamı {{count}} ayet olsun mu?",
+    "khatm.correctTotalConfirmMsgPages": "Hatim toplamı {{count}} sayfa olsun mu?",
+    "khatm.correctTotalConfirmAction": "Toplamı güncelle"
   },
   "fr": {
     "home.continueListening": "Audio",
@@ -6579,7 +6643,15 @@
     "login.providersUnavailableBody": "Les fournisseurs de synchronisation cloud ne sont pas configurés dans cette version. Continuez en invité — votre progression reste sur cet appareil.",
     "location.defaultLabel": "La Mecque, Arabie saoudite",
     "location.defaultTimesHint": "Les horaires de Salah utilisent actuellement La Mecque. Définissez votre ville pour des horaires précis. Les rappels Salah et Adhan restent désactivés jusque-là.",
-    "location.setLocation": "Définir le lieu"
+    "location.setLocation": "Définir le lieu",
+    "khatm.logConfirmTitle": "Ajouter la progression de lecture ?",
+    "khatm.logConfirmMsg": "Ajouter {{count}} ayahs à votre total de khatm ?",
+    "khatm.logConfirmMsgPages": "Ajouter {{count}} pages à votre total de khatm ?",
+    "khatm.logConfirmAction": "Ajouter",
+    "khatm.correctTotalConfirmTitle": "Mettre à jour le total lu ?",
+    "khatm.correctTotalConfirmMsg": "Définir le total du khatm à {{count}} ayahs ?",
+    "khatm.correctTotalConfirmMsgPages": "Définir le total du khatm à {{count}} pages ?",
+    "khatm.correctTotalConfirmAction": "Mettre à jour le total"
   },
   "fa": {
     "home.continueListening": "صدا",
@@ -7437,7 +7509,15 @@
     "login.providersUnavailableBody": "ارائه‌دهندگان همگام‌سازی ابری در این ساخت پیکربندی نشده‌اند. به‌عنوان مهمان ادامه دهید — پیشرفت روی همین دستگاه می‌ماند.",
     "location.defaultLabel": "مکه، عربستان سعودی",
     "location.defaultTimesHint": "اوقات نماز فعلاً بر اساس مکه است. شهر خود را برای اوقات دقیق تنظیم کنید. یادآورهای نماز و اذان تا آن زمان خاموش می‌مانند.",
-    "location.setLocation": "تنظیم مکان"
+    "location.setLocation": "تنظیم مکان",
+    "khatm.logConfirmTitle": "پیشرفت خواندن اضافه شود؟",
+    "khatm.logConfirmMsg": "{{count}} آیه به مجموع ختم اضافه شود؟",
+    "khatm.logConfirmMsgPages": "{{count}} صفحه به مجموع ختم اضافه شود؟",
+    "khatm.logConfirmAction": "افزودن",
+    "khatm.correctTotalConfirmTitle": "مجموع خوانده‌شده به‌روز شود؟",
+    "khatm.correctTotalConfirmMsg": "مجموع ختم {{count}} آیه تنظیم شود؟",
+    "khatm.correctTotalConfirmMsgPages": "مجموع ختم {{count}} صفحه تنظیم شود؟",
+    "khatm.correctTotalConfirmAction": "به‌روزرسانی مجموع"
   },
   "az": {
     "language.scriptureAvailable": "Qur'an tərcüməsi mövcuddur",
@@ -9110,7 +9190,15 @@
     "login.providersUnavailableBody": "Bu yığımda bulud sinxron provayderləri konfiqurasiya olunmayıb. Qonaq kimi davam edin — irəliləyişiniz bu cihazda qalır.",
     "location.defaultLabel": "Məkkə, Səudiyyə Ərəbistanı",
     "location.defaultTimesHint": "Namaz vaxtları hazırda Məkkəyə görədir. Dəqiq vaxtlar üçün şəhərinizi təyin edin. Namaz və azan xatırlatmaları o vaxta qədər sönülü qalır.",
-    "location.setLocation": "Məkanı təyin et"
+    "location.setLocation": "Məkanı təyin et",
+    "khatm.logConfirmTitle": "Oxuma tərəqqisini əlavə edək?",
+    "khatm.logConfirmMsg": "Xətm cəminə {{count}} ayə əlavə edilsin?",
+    "khatm.logConfirmMsgPages": "Xətm cəminə {{count}} səhifə əlavə edilsin?",
+    "khatm.logConfirmAction": "Əlavə et",
+    "khatm.correctTotalConfirmTitle": "Oxunan cəm yenilənsin?",
+    "khatm.correctTotalConfirmMsg": "Xətm cəmi {{count}} ayə olsun?",
+    "khatm.correctTotalConfirmMsgPages": "Xətm cəmi {{count}} səhifə olsun?",
+    "khatm.correctTotalConfirmAction": "Cəmi yenilə"
   },
   "ps": {
     "language.scriptureAvailable": "د قرآن ژباړه شتون لري",
@@ -10989,7 +11077,15 @@
     "login.providersUnavailableBody": "په دې جوړښت کې د کلاوډ همغږۍ چمتو کوونکي نه دي تنظیم شوي. د میلمه په توګه دوام ورکړئ — پرمختګ په همدې وسیله پاتې کېږي.",
     "location.defaultLabel": "مکه، سعودي عربستان",
     "location.defaultTimesHint": "د لمانځه وختونه اوس مکه کاروي. د دقیقو وختونو لپاره خپل ښار وټاکئ. د لمانځه او اذان یادونې تر هغه بندې پاتې کېږي.",
-    "location.setLocation": "ځای وټاکئ"
+    "location.setLocation": "ځای وټاکئ",
+    "khatm.logConfirmTitle": "د لوستلو پرمختګ اضافه کړئ؟",
+    "khatm.logConfirmMsg": "ستاسو د ختم ټولګه ته {{count}} آیات اضافه شي؟",
+    "khatm.logConfirmMsgPages": "ستاسو د ختم ټولګه ته {{count}} پاڼې اضافه شي؟",
+    "khatm.logConfirmAction": "اضافه کړئ",
+    "khatm.correctTotalConfirmTitle": "لوستل شوی ټول تازه کړئ؟",
+    "khatm.correctTotalConfirmMsg": "د ختم ټولګه {{count}} آیات ته وټاکئ؟",
+    "khatm.correctTotalConfirmMsgPages": "د ختم ټولګه {{count}} پاڼو ته وټاکئ؟",
+    "khatm.correctTotalConfirmAction": "ټول تازه کړئ"
   },
   "so": {
     "language.scriptureAvailable": "Turjumaadda Quraanka waa la heli karaa",
@@ -12661,7 +12757,15 @@
     "login.providersUnavailableBody": "Bixiyeyaasha sync-ga daruuraha laguma dejin dhisiddaan. Sii wad marti ahaan — horumarkaagu wuxuu ku sii jiraa qalabkan.",
     "location.defaultLabel": "Makka, Sacuudi Carabiya",
     "location.defaultTimesHint": "Waqtiyada Salaadda hadda waxay isticmaalayaan Makka. Deji magaaladaada waqti sax ah. Xusuusinta Salaadda iyo Adhaanka way xiran yihiin ilaa markaas.",
-    "location.setLocation": "Deji goobta"
+    "location.setLocation": "Deji goobta",
+    "khatm.logConfirmTitle": "Ku dar horumarka akhriska?",
+    "khatm.logConfirmMsg": "{{count}} aayadood ku dar wadarta khatmkaaga?",
+    "khatm.logConfirmMsgPages": "{{count}} bogag ku dar wadarta khatmkaaga?",
+    "khatm.logConfirmAction": "Ku dar",
+    "khatm.correctTotalConfirmTitle": "Cusbooneysii wadarta la akhriyay?",
+    "khatm.correctTotalConfirmMsg": "Wadarta khatmka {{count}} aayadood ka dhig?",
+    "khatm.correctTotalConfirmMsgPages": "Wadarta khatmka {{count}} bogag ka dhig?",
+    "khatm.correctTotalConfirmAction": "Cusbooneysii wadarta"
   },
   "uz": {
     "language.scriptureAvailable": "Qur'on tarjimasi mavjud",
@@ -14334,7 +14438,15 @@
     "login.providersUnavailableBody": "Bu yig‘ilmada bulut sync provayderlari sozlanmagan. Mehmon sifatida davom eting — taraqqiyotingiz shu qurilmada qoladi.",
     "location.defaultLabel": "Makka, Saudiya Arabistoni",
     "location.defaultTimesHint": "Namoz vaqtlari hozir Makka bo‘yicha. Aniq vaqtlar uchun shahringizni belgilang. Namoz va azon eslatmalari shu paytgacha o‘chiq qoladi.",
-    "location.setLocation": "Joylashuvni belgilash"
+    "location.setLocation": "Joylashuvni belgilash",
+    "khatm.logConfirmTitle": "O‘qish taraqqiyoti qo‘shilsinmi?",
+    "khatm.logConfirmMsg": "Xatm jamiingizga {{count}} oyat qo‘shilsinmi?",
+    "khatm.logConfirmMsgPages": "Xatm jamiingizga {{count}} sahifa qo‘shilsinmi?",
+    "khatm.logConfirmAction": "Qo‘shish",
+    "khatm.correctTotalConfirmTitle": "O‘qilgan jami yangilansinmi?",
+    "khatm.correctTotalConfirmMsg": "Xatm jami {{count}} oyat qilib qo‘yilsinmi?",
+    "khatm.correctTotalConfirmMsgPages": "Xatm jami {{count}} sahifa qilib qo‘yilsinmi?",
+    "khatm.correctTotalConfirmAction": "Jamini yangilash"
   },
   "tg": {
     "language.scriptureAvailable": "Тарҷумаи Қуръон дастрас аст",
@@ -16179,7 +16291,15 @@
     "login.providersUnavailableBody": "Провайдерҳои ҳамоҳангсозии абрӣ дар ин сохт танзим нашудаанд. Ҳамчун меҳмон идома диҳед — пешрафти шумо дар ҳамин дастгоҳ мемонад.",
     "location.defaultLabel": "Макка, Арабистони Саудӣ",
     "location.defaultTimesHint": "Вақтҳои намоз ҳоло аз рӯи Маккаанд. Барои вақтҳои дақиқ шаҳри худро танзим кунед. Ёдрасҳои намоз ва азон то он вақт хомӯш мемонанд.",
-    "location.setLocation": "Маконро танзим кунед"
+    "location.setLocation": "Маконро танзим кунед",
+    "khatm.logConfirmTitle": "Пешрафти хониш илова шавад?",
+    "khatm.logConfirmMsg": "{{count}} оят ба ҷамъи хатм илова шавад?",
+    "khatm.logConfirmMsgPages": "{{count}} саҳифа ба ҷамъи хатм илова шавад?",
+    "khatm.logConfirmAction": "Илова",
+    "khatm.correctTotalConfirmTitle": "Ҷамъи хондашуда навсозӣ шавад?",
+    "khatm.correctTotalConfirmMsg": "Ҷамъи хатм {{count}} оят бошад?",
+    "khatm.correctTotalConfirmMsgPages": "Ҷамъи хатм {{count}} саҳифа бошад?",
+    "khatm.correctTotalConfirmAction": "Ҷамъро навсозӣ кун"
   },
   "tk": {
     "language.scriptureAvailable": "Guran terjimesi elýeterli",
@@ -16761,7 +16881,15 @@
     "login.providersUnavailableBody": "Bu guruluşda bulut sinhron üpjünçileri sazlanmadyk. Myhman hökmünde dowam ediň — öňegidişligiňiz şu enjamda galýar.",
     "location.defaultLabel": "Mekke, Saud Arabystany",
     "location.defaultTimesHint": "Namaz wagtlary häzir Mekkä görä. Takyk wagtlar üçin şäheriňizi belläň. Namaz we ezan ýatladyjylary şol wagtça öçürilen galýar.",
-    "location.setLocation": "Ýerleşişi belläň"
+    "location.setLocation": "Ýerleşişi belläň",
+    "khatm.logConfirmTitle": "Okamak öňegini goşmalymy?",
+    "khatm.logConfirmMsg": "Khatm jemine {{count}} aýet goşulsynmy?",
+    "khatm.logConfirmMsgPages": "Khatm jemine {{count}} sahypa goşulsynmy?",
+    "khatm.logConfirmAction": "Goş",
+    "khatm.correctTotalConfirmTitle": "Okalan jemi täzelensinmi?",
+    "khatm.correctTotalConfirmMsg": "Khatm jemi {{count}} aýet bolsunmy?",
+    "khatm.correctTotalConfirmMsgPages": "Khatm jemi {{count}} sahypa bolsunmy?",
+    "khatm.correctTotalConfirmAction": "Jemi täzele"
   },
   "kk": {
     "language.scriptureAvailable": "Құран аудармасы қолжетімді",
@@ -17276,7 +17404,15 @@
     "login.providersUnavailableBody": "Бұл құрастыруда бұлтты синхрон провайдерлері бапталмаған. Қонақ ретінде жалғастырыңыз — прогресс осы құрылғыда қалады.",
     "location.defaultLabel": "Мекке, Сауд Арабиясы",
     "location.defaultTimesHint": "Намаз уақыттары қазір Мекке бойынша. Дәл уақыт үшін қалаңызды орнатыңыз. Намаз бен азан еске салғыштары сол кезге дейін өшірулі болады.",
-    "location.setLocation": "Орналасуды орнату"
+    "location.setLocation": "Орналасуды орнату",
+    "khatm.logConfirmTitle": "Оқу үлгерімін қосу керек пе?",
+    "khatm.logConfirmMsg": "Хатм жиынтығына {{count}} аят қосылсын ба?",
+    "khatm.logConfirmMsgPages": "Хатм жиынтығына {{count}} бет қосылсын ба?",
+    "khatm.logConfirmAction": "Қосу",
+    "khatm.correctTotalConfirmTitle": "Оқылған жиынтықты жаңарту керек пе?",
+    "khatm.correctTotalConfirmMsg": "Хатм жиынтығы {{count}} аят болсын ба?",
+    "khatm.correctTotalConfirmMsgPages": "Хатм жиынтығы {{count}} бет болсын ба?",
+    "khatm.correctTotalConfirmAction": "Жиынтықты жаңарту"
   },
   "sq": {
     "language.scriptureAvailable": "Përkthimi i Kur'anit është i disponueshëm",
@@ -17813,7 +17949,15 @@
     "login.providersUnavailableBody": "Ofruesit e sinkronizimit në re nuk janë konfiguruar në këtë version. Vazhdo si mysafir — përparimi yt mbetet në këtë pajisje.",
     "location.defaultLabel": "Meka, Arabia Saudite",
     "location.defaultTimesHint": "Kohët e namazit aktualisht përdorin Mekën. Vendos qytetin tënd për kohë të sakta. Kujtesat e namazit dhe ezanit mbeten të fikura deri atëherë.",
-    "location.setLocation": "Vendos vendndodhjen"
+    "location.setLocation": "Vendos vendndodhjen",
+    "khatm.logConfirmTitle": "Të shtohet përparimi i leximit?",
+    "khatm.logConfirmMsg": "Të shtohen {{count}} ajete në totalin e khatm-it?",
+    "khatm.logConfirmMsgPages": "Të shtohen {{count}} faqe në totalin e khatm-it?",
+    "khatm.logConfirmAction": "Shto",
+    "khatm.correctTotalConfirmTitle": "Të përditësohet totali i lexuar?",
+    "khatm.correctTotalConfirmMsg": "Të vendoset totali i khatm-it në {{count}} ajete?",
+    "khatm.correctTotalConfirmMsgPages": "Të vendoset totali i khatm-it në {{count}} faqe?",
+    "khatm.correctTotalConfirmAction": "Përditëso totalin"
   },
   "ky": {
     "language.scriptureAvailable": "Куран котормосу бар",
@@ -18337,7 +18481,15 @@
     "login.providersUnavailableBody": "Бул жыйнакта булут синхрон провайдерлери жөндөлгөн эмес. Конок катары улантыңыз — прогресс ушул түзмөктө калат.",
     "location.defaultLabel": "Мекке, Сауд Арабиясы",
     "location.defaultTimesHint": "Намаз убакыттары азыр Мекке боюнча. Так убакыт үчүн шаарыңызды коюңуз. Намаз жана азан эскертүүлөрү ошол кезге чейин өчүк болот.",
-    "location.setLocation": "Жайгашкан жерди коюу"
+    "location.setLocation": "Жайгашкан жерди коюу",
+    "khatm.logConfirmTitle": "Окуу прогрессин кошолубу?",
+    "khatm.logConfirmMsg": "Хатм жыйынтыгына {{count}} аят кошулсунбу?",
+    "khatm.logConfirmMsgPages": "Хатм жыйынтыгына {{count}} бет кошулсунбу?",
+    "khatm.logConfirmAction": "Кошуу",
+    "khatm.correctTotalConfirmTitle": "Окулган жыйынтыкты жаңырталыбы?",
+    "khatm.correctTotalConfirmMsg": "Хатм жыйынтыгы {{count}} аят болсунбу?",
+    "khatm.correctTotalConfirmMsgPages": "Хатм жыйынтыгы {{count}} бет болсунбу?",
+    "khatm.correctTotalConfirmAction": "Жыйынтыкты жаңыртуу"
   },
   "bn": {
     "onboarding.locationEyebrow": "অবস্থান ও অনুস্মারক",
@@ -18837,7 +18989,15 @@
     "login.providersUnavailableBody": "এই বিল্ডে ক্লাউড সিঙ্ক প্রোভাইডার কনফিগার করা নেই। অতিথি হিসেবে চালিয়ে যান — আপনার অগ্রগতি এই ডিভাইসেই থাকবে।",
     "location.defaultLabel": "মক্কা, সৌদি আরব",
     "location.defaultTimesHint": "সালাতের সময় এখন মক্কা অনুসারে। আপনার শহর সেট করলে স্থানীয় সঠিক সময় পাবেন। ততক্ষণ সালাত ও আযানের রিমাইন্ডার বন্ধ থাকবে।",
-    "location.setLocation": "অবস্থান সেট করুন"
+    "location.setLocation": "অবস্থান সেট করুন",
+    "khatm.logConfirmTitle": "পঠনের অগ্রগতি যোগ করবেন?",
+    "khatm.logConfirmMsg": "আপনার খতমের মোটে {{count}} আয়াত যোগ করবেন?",
+    "khatm.logConfirmMsgPages": "আপনার খতমের মোটে {{count}} পৃষ্ঠা যোগ করবেন?",
+    "khatm.logConfirmAction": "যোগ করুন",
+    "khatm.correctTotalConfirmTitle": "মোট পঠন আপডেট করবেন?",
+    "khatm.correctTotalConfirmMsg": "খতমের মোট {{count}} আয়াত নির্ধারণ করবেন?",
+    "khatm.correctTotalConfirmMsgPages": "খতমের মোট {{count}} পৃষ্ঠা নির্ধারণ করবেন?",
+    "khatm.correctTotalConfirmAction": "মোট আপডেট করুন"
   },
   "ar": {
     "zakat.agriculture.cardHint": "مستحق عند الحصاد - 10% مطر/ ينابيع، 5% مروي.",
@@ -19314,7 +19474,15 @@
     "login.providersUnavailableBody": "مزوّدو المزامنة السحابية غير مهيأين في هذا الإصدار. تابع كضيف — يبقى تقدّمك على هذا الجهاز.",
     "location.defaultLabel": "مكة، المملكة العربية السعودية",
     "location.defaultTimesHint": "أوقات الصلاة تستخدم مكة حالياً. حدّد مدينتك لأوقات دقيقة حيث أنت. تبقى تذكيرات الصلاة والأذان متوقفة حتى ذلك الحين.",
-    "location.setLocation": "تعيين الموقع"
+    "location.setLocation": "تعيين الموقع",
+    "khatm.logConfirmTitle": "إضافة تقدّم القراءة؟",
+    "khatm.logConfirmMsg": "إضافة {{count}} آية إلى مجموع الختم؟",
+    "khatm.logConfirmMsgPages": "إضافة {{count}} صفحة إلى مجموع الختم؟",
+    "khatm.logConfirmAction": "إضافة",
+    "khatm.correctTotalConfirmTitle": "تحديث المجموع المقروء؟",
+    "khatm.correctTotalConfirmMsg": "تعيين مجموع الختم إلى {{count}} آية؟",
+    "khatm.correctTotalConfirmMsgPages": "تعيين مجموع الختم إلى {{count}} صفحة؟",
+    "khatm.correctTotalConfirmAction": "تحديث المجموع"
   },
   "ur": {
     "zakat.agriculture.cardHint": "کٹائی کے وقت - 10% بارش/ چشمے، 5% آبپاشی۔",
@@ -19791,6 +19959,14 @@
     "login.providersUnavailableBody": "اس بلڈ میں کلاؤڈ سنک فراہم کنندگان ترتیب نہیں ہیں۔ مہمان کے طور پر جاری رکھیں — آپ کی پیش رفت اسی آلہ پر رہے گی۔",
     "location.defaultLabel": "مکہ، سعودی عرب",
     "location.defaultTimesHint": "نماز کے اوقات فی الحال مکہ کے مطابق ہیں۔ درست اوقات کے لیے اپنا شہر سیٹ کریں۔ اس وقت تک نماز اور اذان کی یاددہانیاں بند رہیں گی۔",
-    "location.setLocation": "مقام سیٹ کریں"
+    "location.setLocation": "مقام سیٹ کریں",
+    "khatm.logConfirmTitle": "قراءت کی پیش رفت شامل کریں؟",
+    "khatm.logConfirmMsg": "اپنے ختم کے کل میں {{count}} آیات شامل کریں؟",
+    "khatm.logConfirmMsgPages": "اپنے ختم کے کل میں {{count}} صفحات شامل کریں؟",
+    "khatm.logConfirmAction": "شامل کریں",
+    "khatm.correctTotalConfirmTitle": "پڑھا ہوا کل اپ ڈیٹ کریں؟",
+    "khatm.correctTotalConfirmMsg": "اپنے ختم کا کل {{count}} آیات مقرر کریں؟",
+    "khatm.correctTotalConfirmMsgPages": "اپنے ختم کا کل {{count}} صفحات مقرر کریں؟",
+    "khatm.correctTotalConfirmAction": "کل اپ ڈیٹ کریں"
   }
 }

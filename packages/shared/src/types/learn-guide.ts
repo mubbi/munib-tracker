@@ -11,6 +11,8 @@ export interface LearnGuideTopic {
   hadith?: JannahHadithRef[];
   actions?: string[];
   appLinks?: JannahAppLink[];
+  /** Bundled dua id — shown inline via the duas catalog when set. */
+  duaId?: string;
   disclaimer?: string;
   /** School-specific practice note (e.g. Eid takbir counts). */
   madhhabNote?: string;

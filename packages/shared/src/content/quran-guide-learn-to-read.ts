@@ -4,7 +4,7 @@ import type { QuranGuideReadingLevel } from "../types/quran-guide";
  * Seven-level path from alphabet to fluent recitation. Bump
  * QURAN_GUIDE_READING_LEVELS_VERSION on content change.
  */
-export const QURAN_GUIDE_READING_LEVELS_VERSION = 2;
+export const QURAN_GUIDE_READING_LEVELS_VERSION = 3;
 
 export const QURAN_GUIDE_READING_LEVELS: QuranGuideReadingLevel[] = [
   {
@@ -41,6 +41,7 @@ export const QURAN_GUIDE_READING_LEVELS: QuranGuideReadingLevel[] = [
     summary:
       "Begin decoding real Qur'anic vocabulary slowly and correctly — starting with Bismillah and the words of al-Fatiha you recite in every prayer — so that reading connects to worship from the very start.",
     topics: ["High-frequency words", "Bismillah", "Al-Fatiha words"],
+    practiceAudio: { surah: 1, ayah: 1 },
   },
   {
     level: 6,
@@ -48,6 +49,7 @@ export const QURAN_GUIDE_READING_LEVELS: QuranGuideReadingLevel[] = [
     summary:
       "Move up to short complete ayahs from Juz Amma, adding awareness of basic tajweed and where to pause for breath (waqf), always reading alongside a reciter so your ear guides your tongue.",
     topics: ["Juz Amma surahs", "Waqf marks", "Following a reciter"],
+    practiceAudio: { surah: 114, ayah: 1 },
   },
   {
     level: 7,
@@ -55,5 +57,6 @@ export const QURAN_GUIDE_READING_LEVELS: QuranGuideReadingLevel[] = [
     summary:
       "Reach smooth, confident recitation with the tajweed rules applied naturally. Sustain a daily portion and keep a teacher or qualified reciter checking you, since fluency is polished through ongoing correction, not achieved once and left.",
     topics: ["Daily portion", "Tajweed rules applied", "Teacher feedback"],
+    practiceAudio: { surah: 1, ayah: 1 },
   },
 ];

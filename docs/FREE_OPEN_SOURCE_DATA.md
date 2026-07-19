@@ -211,7 +211,18 @@ resolved URLs; store only the user's chosen reciter/qari in AsyncStorage.
 | **QUL (Tarteel)** | Per-ayah/surah **+ segment timestamps** | 71 unsegmented / 57 segmented | Per-resource | ✅ Use its **timing data** for word-by-word/ayah highlighting. |
 | **Al Quran Cloud / Quran.Foundation** | Per-ayah via API (audio editions) | Several | Free | ◻︎ API-driven alternative. |
 
-### 9.2 Translation audio (recited meaning)
+### 9.1a Learn Qur'an teaching audio
+
+| Need | Source | How Munib uses it |
+|---|---|---|
+| Full ayah (daily, evidence, practice) | everyayah.com (already wired) | Play buttons on daily lessons, `JannahQuranEvidence`, memorization, learn-to-read levels |
+| Example phrases (tajweed / letter examples) | everyayah + QuranCDN word timings | `packages/shared/src/content/quran-guide-audio.ts` maps Arabic examples → surah/ayah + optional `clipStart`/`clipEnd` |
+| Qur'anic vocabulary headwords | everyayah + QuranCDN word timings | `QURAN_GUIDE_VOCAB_AUDIO` — one timed word clip per vocab id (not full ayah) |
+| Isolated letters | **Abjad-Kids** (MIT) on Hugging Face | Stream one curated WAV per letter id; document Telkom Hijaiyah (**CC0**) as preferred if a CDN mirror is hosted |
+
+Do **not** use CC-BY-NC corpora (e.g. Tadabur) or neural TTS as gold tajweed audio. Word-timed cuts + full-ayah fallback cover teaching demos without a commissioned phrase pack; commission only if product QA rejects clip quality.
+
+
 
 | Source | Content | Granularity | Note |
 |---|---|---|---|
@@ -230,11 +241,26 @@ required. (Same applies to adhkar/dua/names transliteration → reuse their Arab
 | Source | Content | Format | License |
 |---|---|---|---|
 | **Greentech / GTAF Hisnul Muslim audio** (Internet Archive) | Full Fortress-of-the-Muslim, per-dua Arabic | MP3 | Free (attribution) ✅ |
+| **sheikhhanif/Hisnul_Muslim_Database** (jsDelivr CDN) | Same corpus, per-dua `Nhm.mp3` streams | MP3 | Free (attribution) ✅ |
 | **khDev01/islamic-data** → "Fortress of the Muslim With Audio" | Adhkar + audio | CSV + MP3 | Open ✅ |
 | **Seen-Arabic/Morning-And-Evening-Adhkar-DB** | Morning/evening adhkar | JSON/SQLite (audio refs) | Open ✅ |
 
 → Map each dua/zikr's `audioUri` to the matching Hisnul Muslim track. This directly fills the
 `audioUri?` fields you already have in `ZikrItem`/`DuaItem`.
+
+### 9.4a Step-by-step salah / Words of salah
+
+Learn Salah → **how-to-pray** and **phrases** reuse the same authentic Arabic streams (no TTS):
+
+| Phrase | Source clip |
+|---|---|
+| Opening takbir | Bundled Adhan_wiki segment `06-allahu-akbar-x2.mp3` (CC BY-SA 3.0) |
+| Istiftah, ruku, rising, sujud, jalsah, tashahhud, salawat, four-trial dua | Hisnul Muslim CDN (`28`, `33`, `38`–`39`, `41`, `48`, `52`–`53`, `55` hm) |
+| Ta'awwudh | Hisnul `193hm` + everyayah Fatiha 1:1 for Basmalah |
+| Al-Fatihah | everyayah.com (user-preferred reciter) |
+| Closing taslim | **Gap** — no clean matching single-phrase OSS clip; UI omits play for that row |
+
+Implementation: `apps/app/src/lib/salah-how-to-pray-audio.ts`.
 
 ### 9.5 99 Names of Allah audio
 
@@ -269,6 +295,9 @@ corpus. Don't promise per-hadith audio for the full Kutub al-Sittah — it doesn
 | Qur'an (Arabic) | ✅ Excellent | everyayah / QuranicAudio / QUL | Per-ayah |
 | Qur'an translation | ✅ Good (EN) | QuranicAudio (Ibrahim Walk) | Per-surah |
 | Transliteration | ✅ Reuse Arabic audio | (same as recitation) | Per-ayah |
+| Learn Qur'an letters | ✅ Good (MIT stream) | Abjad-Kids (HF); Telkom Hijaiyah CC0 preferred when mirrored | Per letter |
+| Learn Qur'an examples | ✅ Mapped | everyayah ayah (+ optional QuranCDN word clips) | Phrase / ayah |
+| Step-by-step salah phrases | ✅ Good | Hisnul Muslim CDN + everyayah (Fatiha) + Adhan_wiki takbir | Per step |
 | Duas / Adhkar | ✅ Good | Hisnul Muslim audio (Archive/GTAF) | Per-dua |
 | 99 Names | ✅ Good | Archive Asma ul Husna | Per-name |
 | Hadith | ⚠️ Partial | Archive 40-Nawawi audiobooks | Highlights only |
@@ -351,10 +380,11 @@ Ship a **"Data Sources & Credits"** screen listing every dataset + license + lin
 - **Hadith:** bundled highlights (40 Nawawi, Riyad as-Salihin) offline + full six books via
   fawazahmed0 CDN (cache-first). Reference + grade always shown ("Ungraded" when absent).
 - **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas:** full Hisnul Muslim corpus (**270**) across 16 categories — sourced from `sheikhhanif/Hisnul_Muslim_Database` CSV via `build-adhkar.mjs`. Transliteration only where a clean OSS source provides it (never auto-generated). Bengali meaning coverage ~158/270 (prefix match) — see backlog i18n P3.
-- **Credits screen** renders from `assets/data/manifest.json` (SHA-256 per file) + runtime sources.
+- **Credits screen** renders from `assets/data/manifest.json` (SHA-256 per file) + runtime sources +
+  service credits (prayer times, weather).
 - **Build pipeline:** `pnpm --filter app build:data` (dev/CI only) — cached fetch, validation,
   deterministic committed output.
-- **Adhan call audio (D11):** bundled baseline `adhan.mp3` + remote CDN styles (`Kiwifu/adhan-mp3` via jsDelivr) in `lib/adhan-audio.ts`. Open work: expand the full local MP3 set under `assets/audio/adhan/`.
+- **Adhan call audio (D11):** bundled baseline `adhan.mp3` + remote CDN styles (`Kiwifu/adhan-mp3` via jsDelivr) in `lib/adhan-audio.ts`. Learn phrases: seven CC BY-SA clips from Wikimedia `Adhan_wiki` under `assets/audio/adhan/phrases/` (+ Medina follow-along cues). Open work: expand the full local MP3 set under `assets/audio/adhan/`.
 
 **Still open:** fuller local adhan-call set (D11 expand) — see
 `apps/app/assets/audio/adhan/README.md`. Content audio (`audioUri`, D9) infrastructure is wired but

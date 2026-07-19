@@ -145,10 +145,10 @@ export default {
     description: "Ҳадисҳои нигоҳдошташудаи шумо дар як ҷо барои бозгашти зуд.",
   },
   "/hajj": {
-    title: "Рӯйхати ҳаҷ ва умра",
+    title: "Дастури Hajj ва Umrah",
     description:
-      "Рӯйхати қадам ба қадам барои маросимҳои ҳаҷ ва умра. Ҳар маросимро пайгирӣ кунед ва ҳангоми иҷро қайд кунед — амалӣ, на китоби фиқҳ.",
-    keywords: ["ҳаҷ", "умра", "роҳнамои ҳаҷ", "маросимҳои ҳаҷ", "рӯйхати ҳаҷ"],
+      "Hajj ва Umrah-ро аз Qur'an ва Sunnah-и эътимоднok омӯзед, сонан маросимҳоро бо рӯйхатҳои алohidaи Hajj ва Umrah пайгирӣ кунед — хulasai ta'limii amalӣ, дастури fiqh нест.",
+    keywords: ["hajj", "umrah", "дастури hajj", "marosimhoи hajj", "руйхати hajj", "руйхати umrah"],
   },
   "/hayd": {
     title: "Ҳайз ва ибодат — роҳнамои ҳайз",
@@ -724,5 +724,17 @@ export default {
   "/zikr/favorites": {
     title: "Зикрҳои дӯстдошта",
     description: "Зикрҳои дӯстдоштаи шумо дар як ҷо барои дастрасии зуд.",
+  },
+  "/hajj/checklist": {
+    title: "Рӯйхати маросимҳои Hajj",
+    description:
+      "Пайгиркунандаи рӯзонаи marosimhoи Hajj az Tarwiyah то tawaf-и хайрбодӣ. Ёдрас дар канори дастури Омӯзиш.",
+    keywords: ["руйхати hajj", "marosimhoи hajj", "пайгиркунандаи hajj"],
+  },
+  "/umrah/checklist": {
+    title: "Рӯйхати маросимҳои Umrah",
+    description:
+      "Рӯйхати tartibii Umrah — ihram, tawaf, sa'i ва halq ё taqsir. Бо дастури Омӯзиши Hajj & Umrah истифода баред.",
+    keywords: ["руйхати umrah", "marosimhoи umrah", "hajj-и хурд"],
   },
 };

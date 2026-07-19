@@ -2,9 +2,11 @@ import {
   ayahsRemaining,
   dailyAyahTarget,
   daysElapsed,
+  expectedAyahsBeforeToday,
   expectedAyahsByToday,
   khatmPace,
   khatmPercentComplete,
+  khatmTodayProgress,
   parseKhatmLogAmount,
   parseKhatmPlanDays,
   parseKhatmTotalAyahs,
@@ -57,5 +59,31 @@ describe("khatm plan math", () => {
     expect(parseKhatmTotalAyahs("208")).toBe(208);
     expect(parseKhatmTotalAyahs("6236")).toBe(6236);
     expect(parseKhatmTotalAyahs("6237")).toBeNull();
+  });
+
+  it("derives today's quota from cumulative reading", () => {
+    const daily = dailyAyahTarget(30);
+    expect(expectedAyahsBeforeToday(plan, "2026-07-01")).toBe(0);
+    expect(expectedAyahsBeforeToday(plan, "2026-07-11")).toBe(daily * 10);
+
+    const day1Behind = khatmTodayProgress(plan, 0, "2026-07-01");
+    expect(day1Behind).toMatchObject({
+      target: daily,
+      done: 0,
+      complete: false,
+      dayNumber: 1,
+      pace: "behind",
+    });
+
+    const day1OnTrack = khatmTodayProgress(plan, daily, "2026-07-01");
+    expect(day1OnTrack.done).toBe(daily);
+    expect(day1OnTrack.complete).toBe(true);
+    expect(day1OnTrack.pace).toBe("onTrack");
+
+    // Ahead from earlier days fills today's quota without a fresh log.
+    const day11Ahead = khatmTodayProgress(plan, daily * 12, "2026-07-11");
+    expect(day11Ahead.done).toBe(daily);
+    expect(day11Ahead.complete).toBe(true);
+    expect(day11Ahead.pace).toBe("ahead");
   });
 });

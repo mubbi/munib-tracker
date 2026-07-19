@@ -740,8 +740,8 @@ export const PROPHETS_BIO_TOPICS: ProphetsTopic[] = [
       "The Qur'an's model of patience: unshaken in devotion through prolonged illness and loss.",
     body: [
       "Ayyub (peace be upon him) — Job — is the enduring symbol of sabr in the Qur'an. He was a prophet blessed with health, wealth, and family, and then tested by losing them, and by a long, painful illness. Through it all he never turned bitter or accused his Lord of injustice; he held fast to gratitude and remembrance. The Qur'an praises him with words that capture his whole story: 'Indeed, We found him patient, an excellent servant. Indeed, he was one repeatedly turning back to Allah' (Qur'an 38:44).",
-      "When at last the hardship became overwhelming, notice the perfect manners (adab) of his du'a. He did not demand or complain against Allah's decree; he simply and humbly laid his state before his Lord: 'Indeed, adversity has touched me, and You are the most merciful of the merciful' (Qur'an 21:83). He affirmed Allah's mercy in the very moment of asking. Allah answered him, saying, 'Strike the ground with your foot; this is a cool bath and a drink,' and He removed the affliction and restored his family and more, as a mercy from Him and a reminder for the worshippers (Qur'an 21:84; 38:41–43).",
-      "Ayyub teaches that patience is not a passive endurance but an active form of worship — a continuous turning back to Allah while under trial. His example also refines how we make du'a: with humility, without complaint against the decree, and with certainty in Allah's mercy. And his ending reassures every tested believer that trials, borne with faith, can raise a servant's rank and are always followed by relief in Allah's timing.",
+      "When at last the hardship became overwhelming, notice the perfect manners (adab) of his dua. He did not demand or complain against Allah's decree; he simply and humbly laid his state before his Lord: 'Indeed, adversity has touched me, and You are the most merciful of the merciful' (Qur'an 21:83). He affirmed Allah's mercy in the very moment of asking. Allah answered him, saying, 'Strike the ground with your foot; this is a cool bath and a drink,' and He removed the affliction and restored his family and more, as a mercy from Him and a reminder for the worshippers (Qur'an 21:84; 38:41–43).",
+      "Ayyub teaches that patience is not a passive endurance but an active form of worship — a continuous turning back to Allah while under trial. His example also refines how we make dua: with humility, without complaint against the decree, and with certainty in Allah's mercy. And his ending reassures every tested believer that trials, borne with faith, can raise a servant's rank and are always followed by relief in Allah's timing.",
     ],
     profile: {
       era: "Post-Ibrahimic prophetic era (broad context)",
@@ -761,7 +761,7 @@ export const PROPHETS_BIO_TOPICS: ProphetsTopic[] = [
       ],
       lessons: [
         "Patience is an active form of worship",
-        "Du'a is most beautiful when humble and free of complaint",
+        "Dua is most beautiful when humble and free of complaint",
         "Trials borne with faith can elevate one's rank",
       ],
       facts: ["Cited throughout Islamic tradition as the model of sabr"],
@@ -1196,7 +1196,7 @@ export const PROPHETS_BIO_TOPICS: ProphetsTopic[] = [
     body: [
       "Yunus (peace be upon him) — Jonah — was sent to the people of Nineveh, but when they persistently rejected his call, he left them in anger before Allah had given him leave to depart. The Qur'an describes what followed: 'And [mention] the man of the fish, when he went off in anger and thought that We would not decree upon him [any hardship]' (Qur'an 21:87). Boarding a ship, he was cast into the sea and swallowed by a great fish, plunged into layers of darkness — the darkness of night, of the sea, and of the fish's belly.",
       "In that overwhelming darkness Yunus called out with words that became one of the most beloved supplications in Islam: 'There is no deity except You; glory be to You. Indeed, I have been of the wrongdoers' (Qur'an 21:87). He did not despair; he affirmed Allah's perfection and confessed his own fault. Allah answered: 'So We responded to him and saved him from the distress. And thus do We save the believers' (Qur'an 21:88). The fish cast him out onto the shore, and Allah caused a plant to grow to shelter his weakened body.",
-      "Then came the remarkable ending: Yunus returned to his people, and unlike almost every other nation in the Qur'an, they believed and were spared — 'so We gave them enjoyment for a time' (Qur'an 37:147–148; 10:98). His story delivers two lessons woven together: never despair of Allah's mercy, no matter how deep the darkness, for sincere repentance restores what was lost; and the du'a of Yunus is a lifeline for every believer in distress. The Prophet ﷺ taught that no Muslim ever supplicates with it except that Allah answers him.",
+      "Then came the remarkable ending: Yunus returned to his people, and unlike almost every other nation in the Qur'an, they believed and were spared — 'so We gave them enjoyment for a time' (Qur'an 37:147–148; 10:98). His story delivers two lessons woven together: never despair of Allah's mercy, no matter how deep the darkness, for sincere repentance restores what was lost; and the dua of Yunus is a lifeline for every believer in distress. The Prophet ﷺ taught that no Muslim ever supplicates with it except that Allah answers him.",
     ],
     profile: {
       nation: "The people of Nineveh",
@@ -1221,7 +1221,7 @@ export const PROPHETS_BIO_TOPICS: ProphetsTopic[] = [
       lessons: [
         "Never despair of the mercy of Allah",
         "Sincere repentance restores the mission",
-        "Du'a in hardship is transformative",
+        "Dua in hardship is transformative",
       ],
       facts: ["Also called Dhun-Nun (the man of the fish) in the Qur'an"],
     },
@@ -1267,7 +1267,7 @@ export const PROPHETS_BIO_TOPICS: ProphetsTopic[] = [
     body: [
       "Zakariyya (peace be upon him) — Zechariah — was a devout prophet of Bani Isra'il and the guardian of Maryam. Whenever he entered upon her in her prayer chamber, he found provision with her and asked how it came, and she would answer, 'It is from Allah. Indeed, Allah provides for whom He wills without account' (Qur'an 3:37). Witnessing Allah's provision to Maryam rekindled his hope that Allah could grant what seemed humanly impossible.",
       "Though he had grown old and his wife was barren, Zakariyya turned to Allah in a quiet, intimate prayer: 'My Lord, indeed my bones have weakened and my head has filled with white, and never have I been unhappy in my supplication to You' (Qur'an 19:4). He asked not for wealth or worldly gain but for a righteous heir who would carry on the prophetic mission and preserve the worship of Allah. Allah answered with glad tidings of a son, Yahya — a name, Allah said, no one had been given before (Qur'an 19:7). As a sign, Zakariyya was to refrain from speaking to people for three days except by gesture, devoting his tongue to Allah's remembrance (Qur'an 19:10–11).",
-      "Zakariyya's life teaches the believer never to stop making du'a, however unlikely the answer may seem, and to ask Allah especially for the gift of a righteous family and the continuity of faith. His greatest concern was not himself but who would carry the truth after him. His story also honors quiet service in the places of worship as a noble and beloved deed.",
+      "Zakariyya's life teaches the believer never to stop making dua, however unlikely the answer may seem, and to ask Allah especially for the gift of a righteous family and the continuity of faith. His greatest concern was not himself but who would carry the truth after him. His story also honors quiet service in the places of worship as a noble and beloved deed.",
     ],
     profile: {
       nation: "Bani Isra'il",
@@ -1286,10 +1286,10 @@ export const PROPHETS_BIO_TOPICS: ProphetsTopic[] = [
       majorEvents: [
         "Guardianship of Maryam and witnessing her provision",
         "The heartfelt supplication for an heir",
-        "The answered du'a and the birth of Yahya",
+        "The answered dua and the birth of Yahya",
       ],
       lessons: [
-        "Never lose hope in du'a",
+        "Never lose hope in dua",
         "Ask Allah for a righteous family and lineage",
         "Devoted service in worship is honorable",
       ],

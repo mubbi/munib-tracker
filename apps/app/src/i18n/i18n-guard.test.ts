@@ -53,6 +53,10 @@ const BANNED_TERMS: Array<{ re: RegExp; use: string }> = [
   { re: /\btasbih\b/i, use: "tasbeeh" },
   { re: /\bqad(a|ha)\b/i, use: "qaza" },
   { re: /\bdu['’]a\b/i, use: "dua" },
+  { re: /\brak['’]ahs?\b/i, use: "rakah(s)" },
+  { re: /\brakaats?\b/i, use: "rakah(s)" },
+  { re: /\brakats?\b/i, use: "rakah(s)" },
+  { re: /\btaraweeh\b/i, use: "tarawih" },
 ];
 
 describe("i18n terminology (English source)", () => {

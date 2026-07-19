@@ -1,59 +1,97 @@
 import { useRouter } from "expo-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Radius, Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
+import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import i18n from "@/i18n";
 import { goBackOrReplace } from "@/lib/navigation";
+import {
+  detectQuranVerses,
+  type VerseDetectionHit,
+  type VerseDetectorLang,
+} from "@/lib/quran-verse-detector";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { runWhenIdle } from "@/lib/run-when-idle";
-import { clearAyahIndex, ensureAyahFuse, searchQuranAyahs } from "@/lib/search";
+import { clearAyahIndex } from "@/lib/search";
 import { buildAyahSharePayload } from "@/lib/share";
+import { abortStt, type SttErrorKind } from "@/lib/stt";
+import { useToast } from "@/providers/toast-provider";
 
 const MAX_RESULTS = 40;
 const DEBOUNCE_MS = 200;
+const MIN_QUERY_LENGTH = 2;
 
-interface SearchHit {
-  surah: number;
-  ayah: number;
-  surahName: string;
-  text: string;
-  arabic: string;
-}
-
-/** Compose Arabic + translation + "Surah:Ayah" reference for the share sheet. */
+/** Qur'an ayah search with verse-detector matching, EN/AR scope, and voice fill. */
 export default function QuranSearchScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const toast = useToast();
   const { colors, tokens } = useThemeTokens();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
+
+  const [lang, setLang] = useState<VerseDetectorLang>("en");
+  const [query, setQuery] = useState("");
+  const [debounced, setDebounced] = useState("");
+  const [pending, setPending] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [results, setResults] = useState<VerseDetectionHit[]>([]);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const shareAyah = useCallback(
-    (arabic: string, translation: string, surah: number, ayah: number, surahName?: string) => {
+    (hit: VerseDetectionHit) => {
       void share({
-        ...buildAyahSharePayload(arabic, translation, surah, ayah, {
-          surahName,
+        ...buildAyahSharePayload(hit.arabic, hit.translation, hit.surah, hit.ayah, {
+          surahName: hit.surahName,
           sectionTitle: t("share.sectionQuran"),
         }),
-        shareKey: `${surah}:${ayah}`,
+        shareKey: `${hit.surah}:${hit.ayah}`,
       });
     },
     [share, t],
   );
-  const [query, setQuery] = useState("");
-  const [debounced, setDebounced] = useState("");
-  const [pending, setPending] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Debounce the query ~200ms before the full-corpus scan.
+  const handleSttError = useCallback(
+    (kind: SttErrorKind) => {
+      switch (kind) {
+        case "permission":
+          toast.warning(t("search.stt.permissionDenied"));
+          break;
+        case "noSpeech":
+          toast.info(t("search.stt.couldNotHear"));
+          break;
+        case "unavailable":
+          toast.warning(t("search.stt.unavailable"));
+          break;
+        default:
+          toast.error(t("search.stt.errorGeneric"));
+      }
+    },
+    [t, toast],
+  );
+
+  const stt = useSpeechToText({
+    uiLocale: i18n.language ?? "en",
+    onTranscript: setQuery,
+    onError: handleSttError,
+  });
+
+  useEffect(() => () => abortStt(), []);
+  // Reclaim the multi-MB ayah Fuse heap when leaving this screen.
+  useEffect(() => () => clearAyahIndex(), []);
+
   useEffect(() => {
     if (query.trim() === debounced) {
       setPending(false);
@@ -70,19 +108,10 @@ export default function QuranSearchScreen() {
     };
   }, [query, debounced]);
 
-  const [results, setResults] = useState<SearchHit[]>([]);
-  const [searching, setSearching] = useState(false);
-
-  // Reclaim the multi-MB ayah Fuse heap when leaving this screen.
-  useEffect(() => () => clearAyahIndex(), []);
-
-  // Fuzzy, typo-tolerant search over the shared Qur'an ayah index (translation +
-  // transliteration), mapped to this screen's row shape. Building/scanning the
-  // 6,236-ayah Fuse index is heavy, so defer it until idle — the
-  // spinner stays up until it resolves and typing stays smooth. Every setState is
-  // guarded by `cancelled` so nothing lands after a new query or unmount.
+  // Verse-detector pipeline: aliases, surah:ayah refs, substring, and fuzzy Fuse
+  // over Arabic + translation + transliteration. Deferred off the interaction thread.
   useEffect(() => {
-    if (debounced.trim().length < 2) {
+    if (debounced.length < MIN_QUERY_LENGTH) {
       setResults([]);
       setSearching(false);
       return;
@@ -91,15 +120,7 @@ export default function QuranSearchScreen() {
     let cancelled = false;
     const handle = runWhenIdle(() => {
       if (cancelled) return;
-      void ensureAyahFuse().then(() => {
-        if (cancelled) return;
-        const hits = searchQuranAyahs(debounced, MAX_RESULTS).results.map((hit) => ({
-          surah: Number(hit.params?.surah),
-          ayah: Number(hit.params?.ayah),
-          surahName: hit.title,
-          text: hit.subtitle ?? "",
-          arabic: hit.arabic ?? "",
-        }));
+      void detectQuranVerses(debounced, { lang, limit: MAX_RESULTS }).then((hits) => {
         if (cancelled) return;
         setResults(hits);
         setSearching(false);
@@ -109,11 +130,47 @@ export default function QuranSearchScreen() {
       cancelled = true;
       handle.cancel();
     };
-  }, [debounced]);
+  }, [debounced, lang]);
 
-  // Show the spinner while the debounce is settling OR the deferred scan runs.
+  const setQueryFromInput = useCallback(
+    (value: string) => {
+      if (stt.listening) stt.abort();
+      setQuery(value);
+    },
+    [stt],
+  );
+
+  const toggleVoice = useCallback(() => {
+    if (stt.listening) {
+      stt.stop();
+      return;
+    }
+    void stt.start("quran-search", "", lang === "ar" ? "arabic" : "other");
+  }, [lang, stt]);
+
+  const onLangChange = useCallback(
+    (next: VerseDetectorLang) => {
+      if (stt.listening) stt.abort();
+      setLang(next);
+    },
+    [stt],
+  );
+
+  const langOptions = useMemo(
+    () => [
+      { id: "en" as const, label: t("quran.detector.langEnglish") },
+      { id: "ar" as const, label: t("quran.detector.langArabic") },
+    ],
+    [t],
+  );
+
+  const placeholder =
+    lang === "ar" ? t("quran.searchPlaceholderArabic") : t("quran.searchPlaceholder");
+
   const busy = pending || searching;
-  const showEmpty = !busy && debounced.trim().length >= 2 && results.length === 0;
+  const showEmpty = !busy && debounced.length >= MIN_QUERY_LENGTH && results.length === 0;
+  const hasInput = query.trim().length > 0;
+  const micPad = stt.available ? Spacing.three + 40 : Spacing.three;
 
   return (
     <ScreenLayout
@@ -125,15 +182,64 @@ export default function QuranSearchScreen() {
       {SnapshotHost}
       <Seo path="/quran/search" />
       <Card padding="three">
-        <TextInput
-          value={query}
-          onChangeText={setQuery}
-          placeholder={t("quran.searchPlaceholder")}
-          placeholderTextColor={colors.mutedForeground}
-          accessibilityLabel={t("quran.searchPlaceholder")}
-          autoFocus
-          style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
-        />
+        <View style={styles.fieldGroup}>
+          <ThemedText type="smallBold">{t("quran.detector.languageLabel")}</ThemedText>
+          <SegmentedControl options={langOptions} value={lang} onChange={onLangChange} />
+        </View>
+
+        <View
+          style={[
+            styles.inputWrap,
+            {
+              backgroundColor: colors.muted,
+              borderWidth: stt.listening ? 1.5 : 0,
+              borderColor: stt.listening ? colors.accent : "transparent",
+            },
+          ]}
+        >
+          <TextInput
+            value={query}
+            onChangeText={setQueryFromInput}
+            placeholder={placeholder}
+            placeholderTextColor={colors.mutedForeground}
+            accessibilityLabel={placeholder}
+            autoFocus
+            autoCorrect={false}
+            style={[
+              styles.input,
+              {
+                color: colors.foreground,
+                paddingEnd: hasInput ? micPad + 28 : micPad,
+                textAlign: lang === "ar" ? "right" : "left",
+                writingDirection: lang === "ar" ? "rtl" : "ltr",
+              },
+            ]}
+          />
+          <View style={styles.inputActions}>
+            {hasInput ? (
+              <IconButton
+                accessibilityLabel={t("search.clear")}
+                onPress={() => setQueryFromInput("")}
+                name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
+                size={18}
+                tintColor={colors.mutedForeground}
+              />
+            ) : null}
+            {stt.available ? (
+              <VoiceInputButton
+                size="sm"
+                listening={stt.listening}
+                level={stt.level}
+                accessibilityLabel={
+                  stt.listening ? t("quran.detector.stopDictate") : t("quran.detector.dictate")
+                }
+                accessibilityHint={stt.listening ? t("quran.detector.listening") : undefined}
+                onPress={toggleVoice}
+              />
+            ) : null}
+          </View>
+        </View>
+
         {busy ? (
           <View style={styles.statusRow}>
             <ActivityIndicator size="small" color={colors.accent} />
@@ -145,7 +251,9 @@ export default function QuranSearchScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
             {results.length > 0
               ? t("quran.resultsCount", { count: results.length })
-              : t("quran.searchHint")}
+              : stt.listening
+                ? t("quran.detector.listening")
+                : t("quran.searchHint")}
           </ThemedText>
         )}
 
@@ -169,13 +277,13 @@ export default function QuranSearchScreen() {
                     onPress={() =>
                       router.push({
                         pathname: "/quran/[surah]",
-                        params: { surah: String(hit.surah) },
+                        params: { surah: String(hit.surah), ayah: String(hit.ayah) },
                       })
                     }
                     style={styles.rowHeaderContent}
                   >
                     <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
-                      {hit.surahName}
+                      {hit.popularName ?? hit.surahName}
                     </ThemedText>
                     <Pill
                       label={t("quran.ayahRef", { surah: hit.surah, ayah: hit.ayah })}
@@ -194,9 +302,7 @@ export default function QuranSearchScreen() {
                         ? t("share.tapToShare")
                         : t("quran.shareAyah")
                     }
-                    onPress={() =>
-                      shareAyah(hit.arabic, hit.text, hit.surah, hit.ayah, hit.surahName)
-                    }
+                    onPress={() => shareAyah(hit)}
                   />
                 </View>
                 {hit.arabic ? (
@@ -205,7 +311,7 @@ export default function QuranSearchScreen() {
                   </ThemedText>
                 ) : null}
                 <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
-                  {hit.text}
+                  {hit.translation}
                 </ThemedText>
               </View>
             ))}
@@ -217,12 +323,26 @@ export default function QuranSearchScreen() {
 }
 
 const styles = StyleSheet.create({
-  input: {
+  fieldGroup: { gap: Spacing.two, marginBottom: Spacing.three },
+  inputWrap: {
+    position: "relative",
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    justifyContent: "center",
+  },
+  input: {
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.three,
     fontSize: 15,
+  },
+  inputActions: {
+    position: "absolute",
+    end: Spacing.one,
+    top: 0,
+    bottom: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.half,
   },
   hint: { marginTop: Spacing.two },
   statusRow: {

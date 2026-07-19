@@ -1,7 +1,7 @@
 {
   "/": {
     "title": "Munib Tracker — Prayer Times, Salah & Qaza Tracker",
-    "description": "A free, offline-first Islamic companion. Track your five daily prayers, qaza, and dhikr; read the Qur'an and hadith; and get accurate prayer times, qibla, and gentle reminders.",
+    "description": "A free, offline-first Islamic companion. Track your five daily prayers, qaza, and zikr; read the Qur'an and hadith; and get accurate prayer times, qibla, and gentle reminders.",
     "keywords": ["salah tracker app", "namaz tracker", "prayer tracker", "offline Islamic app"]
   },
   "/achievements": {
@@ -161,9 +161,26 @@
     "keywords": ["daily hadith", "hadith of the day", "prophetic saying"]
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Hajj & Umrah Guide",
+    "description": "Learn Hajj and Umrah from the Qur'an and authentic Sunnah, then track rites with separate Hajj and Umrah checklists — a practical educational overview, not a fiqh manual.",
+    "keywords": [
+      "hajj",
+      "umrah",
+      "pilgrimage guide",
+      "hajj rites",
+      "hajj checklist",
+      "umrah checklist"
+    ]
+  },
+  "/hajj/checklist": {
+    "title": "Hajj Rites Checklist",
+    "description": "Day-by-day Hajj rite tracker from Tarwiyah through the farewell tawaf. A memory aid alongside the Learn guide.",
+    "keywords": ["hajj checklist", "hajj rites", "pilgrimage tracker"]
+  },
+  "/umrah/checklist": {
+    "title": "Umrah Rites Checklist",
+    "description": "Ordered Umrah checklist — ihram, tawaf, sa'i, and halq or taqsir. Use with the Hajj & Umrah Learn guide.",
+    "keywords": ["umrah checklist", "umrah rites", "lesser pilgrimage"]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -359,7 +376,7 @@
   },
   "/laylat-al-qadr": {
     "title": "Laylat al-Qadr — The Night of Decree",
-    "description": "The virtue of Laylat al-Qadr, when to seek it in the odd nights of the last ten of Ramadan, the du'a to say, and how to spend the night — from Qur'an and hadith.",
+    "description": "The virtue of Laylat al-Qadr, when to seek it in the odd nights of the last ten of Ramadan, the dua to say, and how to spend the night — from Qur'an and hadith.",
     "keywords": [
       "laylat al-qadr",
       "night of decree",
@@ -550,7 +567,7 @@
     ]
   },
   "/qaza": {
-    "title": "Qaza Namaz Tracker — Make Up Missed Prayers",
+    "title": "Qaza Salah Tracker — Make Up Missed Prayers",
     "description": "Track and clear missed (qaza) prayers, one make-up at a time. Per-prayer counters, a daily schedule, and scholar-aware guidance on making up missed salah.",
     "keywords": ["qaza namaz", "missed prayers", "make up prayers", "qadha salah", "qaza tracker"]
   },
@@ -570,8 +587,8 @@
     "keywords": ["qaza planner", "make up missed prayers plan", "qadha schedule"]
   },
   "/qaza/roza": {
-    "title": "Missed Fasts Tracker — Qaza Roza",
-    "description": "Track and make up missed fasts (qaza roza). Estimate missed Ramadan fasts and record each make-up as you go.",
+    "title": "Missed Fasts Tracker — Qaza Fasting",
+    "description": "Track and make up missed fasts (qaza fasting). Estimate missed Ramadan fasts and record each make-up as you go.",
     "keywords": ["qaza roza", "missed fasts", "make up fasts", "ramadan qaza", "fasting tracker"]
   },
   "/last-third-night": {
@@ -624,8 +641,14 @@
   },
   "/quran/search": {
     "title": "Search the Qur'an",
-    "description": "Search the Qur'an by word, translation, or transliteration and jump straight to any ayah. Works fully offline across the bundled translation.",
-    "keywords": ["search Quran", "find ayah", "Quran verse search"],
+    "description": "Search the Qur'an by Arabic text, English translation, transliteration, verse name, or reference like 2:255 — with optional voice input. Works fully offline.",
+    "keywords": [
+      "search Quran",
+      "find ayah",
+      "Quran verse search",
+      "Arabic Quran search",
+      "voice Quran search"
+    ],
     "index": false
   },
   "/verse-detector": {
@@ -777,8 +800,8 @@
     "index": false
   },
   "/tasbeeh/free": {
-    "title": "Digital Tasbeeh Counter — Count Any Dhikr",
-    "description": "A free digital tasbeeh (misbaha) counter for any dhikr, hands-free. Count SubhanAllah, Alhamdulillah, Allahu Akbar, durood, or istighfar with a tactile tap.",
+    "title": "Digital Tasbeeh Counter — Count Any Zikr",
+    "description": "A free digital tasbeeh (misbaha) counter for any zikr, hands-free. Count SubhanAllah, Alhamdulillah, Allahu Akbar, durood, or istighfar with a tactile tap.",
     "keywords": ["tasbeeh counter", "digital tasbeeh", "misbaha", "dhikr counter", "online tasbeeh"]
   },
   "/tour": {
@@ -823,8 +846,8 @@
     ]
   },
   "/zikr": {
-    "title": "Daily Adhkar & Dhikr — Morning and Evening Remembrance",
-    "description": "Morning, evening, and situational adhkar for every part of your day. Read authentic dhikr with Arabic, transliteration, and meaning, and count along with the tasbeeh.",
+    "title": "Daily Adhkar & Zikr — Morning and Evening Remembrance",
+    "description": "Morning, evening, and situational adhkar for every part of your day. Read authentic zikr with Arabic, transliteration, and meaning, and count along with the tasbeeh.",
     "keywords": ["morning adhkar", "evening adhkar", "daily dhikr", "azkar", "remembrance of Allah"]
   },
   "/zikr/favorites": {

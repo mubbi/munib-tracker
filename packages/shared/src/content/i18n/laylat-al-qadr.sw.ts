@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Unachosema ukikipata",
+    summary: "Aisha aliuliza Mtume ﷺ haswa nini cha kusema.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Aisha (radhiwa Allah) aliuliza Mtume ﷺ: 'Ewe Mtume wa Allah, nikijua ni usiku gani wa Laylat al-Qadr, niseme nini ndani yake?' Aliﷺ amfundisha dua fupi ya msamaha iliyoonyeshwa hapa chini (Tirmidhi 3513, iliyopewa daraja hasan sahih na al-Tirmidhi).",
+      "Dua hii ni fupi, rahisi kukariri, na kwa makusudi kuhusu msamaha badala ya maombi ya kidunia — ukumbusho kwamba faida kubwa zaidi kutoka usiku huu ni msamaha wa Allah. Irudie mara nyingi katika usiku kumi wa mwisho, katika swala, katika kusujudu, na kati yao, badala ya kuiweka kwa usiku mmoja ulio kadiriwa.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Nilisema: Ewe Mtume wa Allah, nikijua ni usiku gani wa Laylat al-Qadr, niseme nini ndani yake? Alisema: Sema — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Ewe Allah, Wewe Unasamehe na Unapenda msamaha, nisamehe).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Kariri dua ya msamaha iliyoonyeshwa hapo juu.",
+      "Irudie mara nyingi katika usiku kumi wa mwisho, hasa katika usiku wa pekee.",
     ],
   },
   {

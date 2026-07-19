@@ -136,9 +136,16 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Hajj va Umrah qo'llanmasi",
+    "description": "Hajj va Umrahni Qur'an va ishonchli Sunnahdan o'rganing, keyin alohida Hajj va Umrah ro'yxatlari bilan marosimlarni kuzating — amaliy ta'limiy ko'rib chiqish, fiqh qo'llanmasi emas.",
+    "keywords": [
+      "hajj",
+      "umrah",
+      "haj qo'llanmasi",
+      "haj marosimlari",
+      "haj ro'yxati",
+      "umrah ro'yxati"
+    ]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +729,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Hajj marosimlari ro'yxati",
+    "description": "Tarwiyahdan vidolik tawafgacha kunlik Hajj marosimlari kuzatuvchisi. O'rganish qo'llanmasi yonida eslatma.",
+    "keywords": ["haj ro'yxati", "haj marosimlari", "haj kuzatuvchisi"]
+  },
+  "/umrah/checklist": {
+    "title": "Umrah marosimlari ro'yxati",
+    "description": "Tartibli Umrah ro'yxati — ihram, tawaf, sa'i va halq yoki taqsir. Hajj & Umrah O'rganish qo'llanmasi bilan foydalaning.",
+    "keywords": ["umrah ro'yxati", "umrah marosimlari", "kichik haj"]
   }
 }

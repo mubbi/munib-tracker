@@ -77,10 +77,11 @@
       "intro": "Kratak pregled iz lekcija ovog vodiča. Ne žurite — cilj je učenje.",
       "hint": "Pregledajte što ste naučili",
       "empty": "Pitanja za ovaj vodič se još učitavaju. Otvorite nekoliko lekcija, zatim pokušajte ponovo."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Pretraži Kur'an, hadith, duas, adhkar…",
+    "placeholder": "Pretraži Qur'an, hadis, duas, Uči…",
     "clear": "Obriši pretragu",
     "all": "Sve",
     "resultsCount": "{{count}} rezultata",
@@ -109,16 +110,7 @@
       "zikr": "Zikirler",
       "name": "99 imena",
       "durood": "Salavat",
-      "jannah": "Putovanje u Džennet",
-      "jahannam": "Razumijevanje Džehennama",
-      "lastDay": "Dan sudnjeg",
-      "salahGuide": "Nauči Salah",
-      "battles": "Bitke u islamu",
-      "taharah": "Nauči taharu",
-      "prophets": "Nauči o vjerovjesnicima",
-      "aqeedah": "Nauči Aqeedah",
-      "learnDua": "Nauči Dua",
-      "learnQuran": "Nauči Kur'an"
+      "learn": "Uči"
     },
     "stt": {
       "dictate": "Pretražujte glasom",
@@ -465,6 +457,24 @@
       "badge": "Petak",
       "reminderTitle": "Džuma mubarek",
       "reminderBody": "Klanjajte Jumu'ah i ispunite petkovi sunnet — Ghusl, Surah al-Kahf, salawat i Dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Današnji dio Qur'ana",
+      "catchUpTitle": "Nadoknada khatm",
+      "reminderBody": "Zabilježite {{done}}/{{total}} ayahs prema današnjem khatm cilju.",
+      "reminderBodyPages": "Zabilježite {{done}}/{{total}} stranica prema današnjem khatm cilju.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Današnje khatm čitanje je na putu — nastavite.",
+      "openPlan": "Otvori khatm plan",
+      "a11y": "Khatm plan dan {{day}} od {{total}}, {{percent}} posto završeno, {{done}} od {{target}} danas"
+    },
+    "acceptanceHourCard": {
+      "badge": "Sat dua",
+      "reminderTitle": "Sat prihvatanja",
+      "reminderBody": "Sat u petak kada dua nije odbijena — tražite ga posebno poslije Asr sa iskrenom dua, istighfar i salawat.",
+      "openGuide": "Otvori sat prihvatanja"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Vitir",
       "adhkar": "Zikirler",
       "qaza": "Kaza",
-      "a11y": "{{label}}: {{percent}}% završeno, {{completed}}  {{total}}"
+      "a11y": "{{label}}: {{percent}}% završeno, {{completed}}  {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah — sve done",
     "freshStart": " fresh počni",
@@ -547,6 +558,14 @@
       "jumpTitle": "Jumu'ah lista",
       "jumpHint": "Petkove sunnet prakse ispod",
       "jumpA11y": "Idi na Jumu'ah listu na ovoj stranici"
+    },
+    "khatm": {
+      "title": "Plan hatima",
+      "progress": "{{done}} od {{total}} danas",
+      "hint": "{{count}} ayahs prema današnjem cilju — dodirnite za zapis",
+      "hintPages": "{{count}} stranica prema današnjem cilju — dodirnite za zapis",
+      "completeHint": "Današnji dio je gotov — dodirnite za pregled plana",
+      "a11y": "Khatm plan dan {{day}} od {{total}}, {{done}} od {{target}} prema današnjem cilju"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Današnja refleksija",
       "dailyContentBody": "Novi ajet, hadis i Allahovo ime su spremni na vašem početnom ekranu.",
       "fridayTitle": "Jumu'ah Mubarak",
-      "fridayBody": "Petak je — šaljite salavate i čitajte suru Al-Kahf."
+      "fridayBody": "Petak je — šaljite salavate i čitajte suru Al-Kahf.",
+      "acceptanceHourTitle": "Sat prihvatanja",
+      "acceptanceHourBodyAsr": "Asr je počeo — tražite prihvaćeni sat sa dua, istighfar i salawat do Maghrib.",
+      "acceptanceHourBodyMid": "Još ima vremena prije Maghrib — ispunite ove minute iskrenom dua."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Podsjetnik za petak",
-        "subtitle": "Džuma i sura Al-Kahf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf i sat prihvatanja"
       }
     },
     "prayerAlertsObligatory": "Obavezna upozorenja za Salah",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Odaberite glas da počnete slušati",
     "listenVoiceDefault": "Sistemski zadano",
     "listenVoiceDefaultHint": "Koristite preferirani glas uređaja za ovaj jezik",
-    "listenVoiceEmpty": "Nema instaliranih glasova za ovaj jezik. Dodajte jedan u sistemskim postavkama."
+    "listenVoiceEmpty": "Nema instaliranih glasova za ovaj jezik. Dodajte jedan u sistemskim postavkama.",
+    "showTransliteration": "Prikaži transliteraciju",
+    "hideTransliteration": "Sakrij transliteraciju",
+    "showTranslation": "Prikaži prijevod",
+    "hideTranslation": "Sakrij prijevod"
   },
   "share": {
     "dialogTitle": "Podijeli",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "Pretraži duas by title, tema, ili text…",
     "searchInCategory": "Pretraži u ovo category…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "No duas matched vaš pretraži."
+    "noResults": "No duas matched vaš pretraži.",
+    "favSubtitle": "Preuredite ili uklonite sačuvane duas"
   },
   "duaCat": {
     "morning_evening": "Jutro & Večer",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Prestani slušati",
       "bestMatch": "Najbolje podudaranje",
       "otherMatches": "Ostala podudaranja"
-    }
+    },
+    "searchPlaceholderArabic": "Traži arapski tekst ili referencu poput ٢:٢٥٥…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Ova aplikacija uračunava propušteni Witr u qaza za sve korisnike. Tretirajte ga prema potrebi ako slijedite hanefijski pogled; inače ga pratite kao preporučenu šminku. Posavjetujte se sa naučnikom za vašu situaciju."
     },
-    "history": "Istorija"
+    "history": "Istorija",
+    "rowDone": "{{completed}} nadoknađeno",
+    "rowDoneWithDaily": "{{completed}} nadoknađeno · danas {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "counter? Sıfırla",
     "confirmResetMessage": "Vaš count  {{count}} will be očišćeno.",
     "confirmStartAgainTitle": "Počni again?",
-    "confirmStartAgainMessage": "Vaš završeno count will be očišćeno so vi can begin  novi round."
+    "confirmStartAgainMessage": "Vaš završeno count will be očišćeno so vi can begin  novi round.",
+    "dockLabel": "Broj"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} je only {{min}} min away",
@@ -2502,7 +2538,15 @@
       "ahead": "İleride",
       "onTrack": "Na prati",
       "behind": "Geride"
-    }
+    },
+    "logConfirmTitle": "Dodati napredak u čitanju?",
+    "logConfirmMsg": "Dodati {{count}} ajeta na vaš khatm ukupno?",
+    "logConfirmMsgPages": "Dodati {{count}} stranica na vaš khatm ukupno?",
+    "logConfirmAction": "Dodaj",
+    "correctTotalConfirmTitle": "Ažurirati ukupno pročitano?",
+    "correctTotalConfirmMsg": "Postaviti khatm ukupno na {{count}} ajeta?",
+    "correctTotalConfirmMsgPages": "Postaviti khatm ukupno na {{count}} stranica?",
+    "correctTotalConfirmAction": "Ažuriraj ukupno"
   },
   "hifz": {
     "short": "Хифз",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Od  Kur'an",
     "hadithTitle": "Od  Sunna",
     "obligationsTitle": "What vi su still responsible za",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "Rakaat na prvi pogled",
     "rakatsPrayer": "Namaz",
     "rakatsResident": "At početna",
     "rakatsTravel": "Seyahat",
@@ -2718,7 +2762,8 @@
       "knowledge": "Dnevna kartica znanja",
       "quickActions": "Brze akcije",
       "qaza": "Qaza sažetak",
-      "schedule": "Današnji raspored"
+      "schedule": "Današnji raspored",
+      "khatm": "Plan hatima"
     }
   },
   "schedule": {
@@ -2744,7 +2789,7 @@
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}}  {{total}} lessons označeno završeno",
     "topicsTitle": "Rehberler",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "Rakaat na prvi pogled",
     "prayer": "Namaz",
     "fard": "Farz",
     "sunnah": "Sunna",
@@ -2818,7 +2863,12 @@
       "listenHint": "Tap  recording u play. Follow along sa  words ispod as vi listen.",
       "play": "Oynat {{name}} ezan",
       "pause": "{{name}} adhan Duraklat",
-      "sourceNote": "Recordings od  open Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, i more)."
+      "sourceNote": "Recordings od  open Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, i more).",
+      "learnPhrasesHint": "Naučite riječi — pustite svaku rečenicu jasno, jednu za drugom.",
+      "playPhrases": "Pusti sve fraze",
+      "pausePhrases": "Pauziraj fraze",
+      "playPhrase": "Pusti frazu {{n}}: {{title}}",
+      "followAlongNote": "Istakne riječi ispod dok svira"
     }
   },
   "battles": {
@@ -3440,7 +3490,8 @@
       "obligatory": "Essential",
       "highly-recommended": "Topla preporuka",
       "recommended": "Preporučeno"
-    }
+    },
+    "playAyahA11y": "Reprodukuj učenje {{ref}}"
   },
   "library": {
     "eyebrow": "Kütüphane",
@@ -4033,7 +4084,7 @@
       "label": "Prilozi (opcionalno)",
       "add": "Dodaj fajl",
       "remove": "Uklonite prilog",
-      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), 1 MB svaka. Dodirnite × na sličici da uklonite.",
+      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), svaka od 1 MB. Dugo pritisnite sličicu za uklanjanje.",
       "signInRequired": "Prijavite se da priložite privatne fajlove svom adhkaru.",
       "permissionDenied": "Za prilaganje fajlova potrebna je dozvola.",
       "permissionTitle": "Dozvoli pristup",
@@ -4209,14 +4260,34 @@
   "hajj": {
     "eyebrow": "Hac",
     "title": "Hadž & Umra",
-    "subtitle": " korak-by-korak checklist za  rites  pilgrimage.",
+    "subtitle": "Učite obrede iz Qur'ana i Sunnah, zatim pratite Hajj i Umrah odvojeno.",
     "progress": "{{done}}  {{total}} rites",
     "reset": "Sıfırla",
     "resetConfirmTitle": "Kontrol listesi sıfırlansın mı?",
     "resetConfirmMsg": "Ovo will uncheck every rite. Vaš napredak cannot be recovered.",
-    "umrahTag": "Umra",
-    "hajjTag": "Hadž",
-    "disclaimer": " practical checklist, not  fiqh manual. Follow  qualified guide za rulings i details.",
+    "disclaimer": "Praktičan edukativni pregled, ne fiqh priručnik. Mezhebi se razlikuju u detaljima — slijedite kvalificiranog vodiča za propise i neočekivane slučajeve.",
+    "intro": "Proučite obavezu, ihram, Umrah i dane Hajj sa autentičnim referencama. Koristite liste samo za obrede — savjeti za pripremu ostaju u Uči temama.",
+    "section": {
+      "virtues": "Vrijednosti",
+      "obligation": "Obaveza",
+      "types": "Vrste Hajj",
+      "ihram": "Miqat i ihram",
+      "umrah": "Umrah",
+      "hajj": "Dani Hajj",
+      "rulings": "Propisi i etiket",
+      "prep": "Praktična priprema"
+    },
+    "checklistsTitle": "Liste obreda",
+    "hajjChecklistTitle": "Hajj lista",
+    "hajjChecklistHint": "Obredi hodočašća dan po dan",
+    "hajjChecklistSubtitle": "Pratite Hajj obrede od Tarwiyah do oproštajnog tawaf.",
+    "hajjChecklistIntro": "Označite svaki obred kad ga završite. Ovo je podsjetnik — nije fatwa.",
+    "umrahChecklistTitle": "Umrah lista",
+    "umrahChecklistHint": "Od ihram do halq ili taqsir",
+    "umrahChecklistSubtitle": "Pratite Umrah redoslijed po redu.",
+    "umrahChecklistIntro": "Označite svaki Umrah obred kad ga završite. Otvorite Uči za detalje i dokaze.",
+    "notFound": "Tema nije pronađena",
+    "continueInApp": "Nastavi u Munib",
     "prepTag": "Prep"
   },
   "dailyHadith": {
@@ -4574,15 +4645,15 @@
     "settingsSubtitleIos": "Mark Salah sa Siri ili Apple Watch",
     "settingsSubtitleAndroid": "Mark Salah sa Google Assistant ili Wear OS",
     "introIos": "Use Siri, Shortcuts, ili Apple Watch u mark Salah without opening  checklist. Requires  EAS dev ili production build — not available u Expo Go.",
-    "introAndroid": "Use Google Assistant ili Wear OS u mark Salah without opening  checklist. Requires  EAS dev ili production build — not available u Expo Go.",
+    "introAndroid": "Koristite Google Assistant, prečicu ikone aplikacije ili Wear OS da označite Salah bez otvaranja liste. Potreban EAS dev ili production build — nije u Expo Go.",
     "siriTitle": "Siri & Kısayollar",
     "siriHint": "After installing od TestFlight ili  App Store, open  Shortcuts app ili say “Hey Siri, mark my Salah u Munib Tracker”. If  app was force-quit,  mark syncs  sljedeći time vi open Munib Tracker.",
     "assistantTitle": "Google Asistan",
-    "assistantHint": "Say “Hey Google, mark my Salah u Munib Tracker” na  uređaj sa  app installed.",
+    "assistantHint": "Recite \"Hey Google, mark my Salah in Munib Tracker\" ili dugo pritisnite ikonu Munib Tracker i odaberite Mark Salah. Ako je aplikacija prisilno zatvorena, oznaka se sinkronizira kad otvorite Munib Tracker.",
     "watchTitle": "pple Wtch",
     "watchHint": "Open  Munib Tracker watch app u see danas’s schedule i mark Salah. Podaci syncs od vaš iPhone.",
     "wearTitle": "Wer OS",
-    "wearHint": "Dodaj  Munib Tracker tile na vaš watch after pairing sa vaš phone.",
+    "wearHint": "Nakon uparivanja telefona dodajte Munib Tracker pločicu na sat. Dodirnite pločicu da označite trenutnu Salah na telefonu.",
     "marked": "Salah označeno",
     "alreadyDone": "Već označeno",
     "allDone": "Sve obligatory Salah označeno za danas",
@@ -4789,7 +4860,7 @@
     "eyebrow": "Kalendar",
     "title": "Konverter datuma",
     "subtitle": "Pretvorite između hidžretskog i gregorijanskog kalendara",
-    "intro": "Unesite datum u bilo kojem kalendaru da vidite ekvivalent u drugom, izračunat offline iz vidljivosti polumjeseca na vašoj lokaciji.",
+    "intro": "Unesite datum u bilo koji kalendar da vidite njegov ekvivalent u drugom, izračunatom van mreže pomoću tabelarnog kuvajtskog algoritma.",
     "toHijri": "Gregorijanski → Hidžri",
     "toGregorian": "hidžretski → gregorijanski",
     "gregorianDateLabel": "Gregorijanski datum",
@@ -4799,7 +4870,7 @@
     "year": "Godina",
     "useToday": "Iskoristite danas",
     "invalidDate": "Unesite važeći datum",
-    "disclaimer": "Datumi se računaju iz vidljivosti polumjeseca (hilāl) na vašoj lokaciji i mogu se razlikovati za jedan dan od službenih najava o viđenju mjeseca — uvijek slijedite lokalni masjid ili vlast za vjerske datume.",
+    "disclaimer": "Ovo je aritmetička aproksimacija (tabelarni \"Kuvajtski algoritam\") i može se razlikovati za jedan dan od lokalnih najava o viđenju Mjeseca - uvijek pratite svoj lokalni mesdžid ili autoritet za vjerske datume.",
     "directionTitle": "Smjer konverzije",
     "resultFrom": "Od {{date}}",
     "quickLinksTitle": "Povezano",

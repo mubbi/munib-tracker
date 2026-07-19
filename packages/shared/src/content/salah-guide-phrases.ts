@@ -33,7 +33,7 @@ export const SALAH_GUIDE_PHRASES: SalahGuidePhrase[] = [
   },
   {
     id: "subhanaka",
-    title: "Du'a al-Istiftah (opening supplication)",
+    title: "Dua al-Istiftah (opening supplication)",
     when: "Silently after the opening takbir, before Al-Fatihah.",
     arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَىٰ جَدُّكَ، وَلَا إِلَٰهَ غَيْرُكَ",
     transliteration:
@@ -47,7 +47,7 @@ export const SALAH_GUIDE_PHRASES: SalahGuidePhrase[] = [
   {
     id: "fatiha",
     title: "Surah Al-Fatihah",
-    when: "Standing in every rak'ah — a pillar without which the rak'ah is invalid.",
+    when: "Standing in every rakah — a pillar without which the rakah is invalid.",
     arabic:
       "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
     transliteration:
@@ -60,7 +60,7 @@ export const SALAH_GUIDE_PHRASES: SalahGuidePhrase[] = [
   },
   {
     id: "ruku-dhikr",
-    title: "Dhikr in ruku",
+    title: "Zikr in ruku",
     when: "While bowing, with a flat, settled back.",
     arabic: "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
     transliteration: "Subhana Rabbiyal-'Adheem",
@@ -82,24 +82,24 @@ export const SALAH_GUIDE_PHRASES: SalahGuidePhrase[] = [
   },
   {
     id: "sujud-dhikr",
-    title: "Dhikr in sujud",
+    title: "Zikr in sujud",
     when: "In prostration — the position nearest to Allah.",
     arabic: "سُبْحَانَ رَبِّيَ الْأَعْلَىٰ",
     transliteration: "Subhana Rabbiyal-A'la",
     translation: "Glory is to my Lord, the Most High.",
     meaning:
-      "At the lowest physical point you glorify the Most High — the paradox at the heart of worship. The Prophet ﷺ said a servant is nearest to his Lord while prostrating, so pour out supplication here after the dhikr.",
+      "At the lowest physical point you glorify the Most High — the paradox at the heart of worship. The Prophet ﷺ said a servant is nearest to his Lord while prostrating, so pour out supplication here after the zikr.",
     reference: "Sahih Muslim 772; Sahih Muslim 482 (nearness in sujud)",
   },
   {
     id: "sitting-dhikr",
     title: "Between the two prostrations",
-    when: "Sitting calmly between the first and second sujud of each rak'ah.",
+    when: "Sitting calmly between the first and second sujud of each rakah.",
     arabic: "رَبِّ اغْفِرْ لِي، رَبِّ اغْفِرْ لِي",
     transliteration: "Rabbi ighfir li, Rabbi ighfir li",
     translation: "My Lord, forgive me. My Lord, forgive me.",
     meaning:
-      "A brief but direct plea for forgiveness in every rak'ah — a reminder that even mid-prayer we stand in need of Allah's pardon. Sit until you are at ease before the second prostration.",
+      "A brief but direct plea for forgiveness in every rakah — a reminder that even mid-prayer we stand in need of Allah's pardon. Sit until you are at ease before the second prostration.",
     reference: "Sunan Abi Dawud 874; Sunan Ibn Majah 897 (Hudhayfah)",
   },
   {

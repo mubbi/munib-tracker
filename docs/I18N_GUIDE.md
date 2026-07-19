@@ -185,7 +185,7 @@ node apps/app/scripts/i18n/apply-seo-translations.mjs all
 
 ## Islamic terminology (UI copy)
 
-Do **not** over-translate core terms. Use wording natural to Muslims in each language. Canonical English spellings: **Salah**, **Zikr** / **Adhkar**, **Adhan**, **Qaza**, **Dua**, **Tasbeeh**, prayer names (Fajr, Dhuhr, …), **Ramadan**, **Jumu'ah**, etc. See [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) banned-term list.
+Do **not** over-translate core terms. Use wording natural to Muslims in each language. Canonical English spellings: **Salah**, **Zikr** / **Adhkar**, **Adhan**, **Qaza**, **Dua**, **Tasbeeh**, **rakah(s)**, **Tarawih**, prayer names (Fajr, Dhuhr, …), **Ramadan**, **Jumu'ah**, etc. See [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) banned-term list.
 
 Tone: respectful, warm, concise — never robotic or literal word-for-word where an established Islamic term exists.
 

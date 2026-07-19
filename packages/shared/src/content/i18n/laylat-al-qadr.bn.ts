@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_BN: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "রাতটি পেলে কী বলবেন",
+    summary: "আয়েশা (রা.) নবী ﷺ-কে ঠিক কী বলতে হবে জিজ্ঞেস করেছিলেন।",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "আয়েশা (রা.) নবী ﷺ-কে জিজ্ঞেস করেছিলেন: 'হে আল্লাহর রাসূল, যদি আমি জানি কোন রাত লাইলাতুল কদর, তাহলে সেই রাতে আমি কী বলব?' তিনি ﷺ তাকে নীচে দেখানো সংক্ষিপ্ত ক্ষমার দোয়া শেখিয়েছিলেন (তিরমিযি ৩৫১৩, যা তিরমিযি কর্তৃক হাসান সহীহভাবে গ্রেডযুক্ত)।",
+      "এই দোয়াটি সংক্ষিপ্ত, মুখস্থ করা সহজ, এবং ইচ্ছাকৃতভাবে পার্থিব চাওয়ার পরিবর্তে ক্ষমার জন্য — এই রাতের সবচেয়ে বড় লাভ আল্লাহর ক্ষমা, তা মনে করিয়ে দেয়। শেষ দশ রাতে, নামাজে, সিজদায় এবং তাদের মাঝে প্রায়ই পুনরাবৃত্তি করুন, একটি অনুমানকৃত রাতের জন্য সংরক্ষণ করার পরিবর্তে।",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "আমি বললাম: হে আল্লাহর রাসূল, যদি আমি জানি কোন রাত লাইলাতুল কদর, তাহলে সেই রাতে আমি কী বলব? তিনি ﷺ বললেন: বলুন — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (হে আল্লাহ, আপনি ক্ষমাশীল এবং ক্ষমা পছন্দ করেন, তাই আমাকে ক্ষমা করুন)।",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "উপরে দেখানো ক্ষমার দোয়া মুখস্থ করুন।",
+      "শেষ দশ রাতে, বিশেষ করে বিজোড় রাতে, প্রায়ই পুনরাবৃত্তি করুন।",
     ],
   },
   {

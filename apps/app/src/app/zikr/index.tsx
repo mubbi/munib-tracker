@@ -83,7 +83,7 @@ export default function ZikrHomeScreen() {
         jsonLd={[
           collectionPageSchema({
             path: "/zikr",
-            name: "Daily Adhkar & Dhikr",
+            name: "Daily Adhkar & Zikr",
             description: "Morning, evening, and situational adhkar for every part of your day.",
             items: ZIKR_CATEGORY_IDS.map((id) => ({
               name: t(`zikrCat.${id}`),
@@ -139,7 +139,19 @@ export default function ZikrHomeScreen() {
               </View>
             </Card>
           )
-        ) : (
+        ) : null}
+
+        {!searching ? (
+          <Card padding="three">
+            <NavRow
+              icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
+              label={t("customAdhkar.title")}
+              onPress={() => router.push("/adhkar-builder")}
+            />
+          </Card>
+        ) : null}
+
+        {!searching ? (
           <Card padding="three">
             <SectionHeader
               title={t("zikr.categories")}
@@ -160,14 +172,9 @@ export default function ZikrHomeScreen() {
                   }
                 />
               ))}
-              <NavRow
-                icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
-                label={t("customAdhkar.title")}
-                onPress={() => router.push("/adhkar-builder")}
-              />
             </View>
           </Card>
-        )}
+        ) : null}
       </Stagger>
     </ScreenLayout>
   );

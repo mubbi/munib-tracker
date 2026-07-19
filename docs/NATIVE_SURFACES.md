@@ -65,13 +65,14 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 | Open checklist / Qibla / Tasbeeh | Foreground — opens `munib-tracker://` route |
 
 - iOS: `targets/munib-tracker-intents/MunibAppIntents.swift` (`openAppWhenRun: false` for mark)
-- Android: `plugins/withExternalCommands.cjs` → App Actions (`OPEN_APP_FEATURE` + inventory) + broadcast receiver + launcher shortcut
-- JS drain: `ExternalCommandProcessor` in root `_layout.tsx` (respects pin lock deferral)
-- Help: **Settings → Siri & voice shortcuts**
+- Android: `plugins/withExternalCommands.cjs` → App Actions (`OPEN_APP_FEATURE` + inventory) + broadcast receiver + launcher shortcut (`android.app.shortcuts` → `@xml/shortcuts` → `munib-tracker://mark-current`)
+- Android broadcast actions (must match Kotlin + manifest): `app.munibtracker.action.MARK_CURRENT` / `MARK_PRAYER`
+- JS drain: `ExternalCommandProcessor` in root `_layout.tsx` (respects pin lock deferral); Android also emits `onCommandsAvailable` when the shared queue is written (Assistant, Wear, or JS enqueue)
+- Help: **Settings → Siri & voice shortcuts** (iOS) / **Google Assistant & voice shortcuts** (Android)
 
 **Play Console (App Actions uploads):** set Privacy policy to `https://munibtracker.app/privacy`, then **Setup → Advanced settings → App Actions → accept Terms of Service**.
 
-**Force-quit limitation:** if the app process is killed, Siri still enqueues the command; it applies on next launch or foreground.
+**Force-quit limitation:** if the app process is killed, Siri/Assistant still enqueue the command; it applies on next launch or foreground.
 
 ## Apple Watch (NF-2.14)
 
@@ -102,7 +103,8 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 - Phone pushes snapshot via Wearable Data Layer (`pushWearSnapshot` in `munib-external-commands`)
 - `plugins/withWearOs.cjs` scaffolds `android/wear/` tile module on prebuild
-- Tile tap sends `/munib/mark_current` message → `munib-wear` listener enqueues command
+- Tile tap uses a LoadAction clickable (`mark_current`); the tile re-requests and sends `/munib/mark_current` to the phone (not on tile-add)
+- Phone `MunibWearListenerService` broadcasts `app.munibtracker.action.MARK_CURRENT` with `source=wear` → shared command queue + JS drain
 - Requires Google Play Services + paired watch
 
 ## Build requirements

@@ -18,6 +18,10 @@ import {
   resolveReadingFontSizes,
 } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
+import {
+  useReadingTextVisibility,
+  useReadingTextVisibilityActions,
+} from "@/stores/reading-text-visibility-store";
 
 const ReadingTypographyContext = createContext<ReadingSurface | null>(null);
 
@@ -104,7 +108,17 @@ function LearnListenButton() {
 }
 
 /** A−/A+ bar — place at the top of learn screens with Arabic or translated religious text. */
-export function ReadingTypographyBar({ surface }: { surface: ReadingSurface }) {
+export function ReadingTypographyBar({
+  surface,
+  textVisibility = false,
+}: {
+  surface: ReadingSurface;
+  /**
+   * When true, shows persistent transliteration/translation toggles (used on
+   * tasbeeh screens that display scripture body text).
+   */
+  textVisibility?: boolean;
+}) {
   const { t } = useTranslation();
 
   return (
@@ -114,9 +128,50 @@ export function ReadingTypographyBar({ surface }: { surface: ReadingSurface }) {
       </ThemedText>
       <View style={styles.barEnd}>
         <ReadingFontControls surface={surface} />
+        {textVisibility ? <ReadingTextVisibilityToggles /> : null}
         <LearnListenButton />
       </View>
     </View>
+  );
+}
+
+function ReadingTextVisibilityToggles() {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const { showTransliteration, showTranslation } = useReadingTextVisibility();
+  const { toggleTransliteration, toggleTranslation } = useReadingTextVisibilityActions();
+
+  return (
+    <>
+      <IconButton
+        name={{ ios: "textformat.abc", android: "abc", web: "abc" }}
+        size={16}
+        hitTarget={36}
+        wellRadius={18}
+        tintColor={showTransliteration ? colors.accent : colors.mutedForeground}
+        background={showTransliteration ? tokens.accentSoft : colors.muted}
+        accessibilityLabel={
+          showTransliteration ? t("reading.hideTransliteration") : t("reading.showTransliteration")
+        }
+        accessibilityState={{ selected: showTransliteration }}
+        haptic="selection"
+        onPress={() => void toggleTransliteration()}
+      />
+      <IconButton
+        name={{ ios: "text.alignleft", android: "notes", web: "notes" }}
+        size={16}
+        hitTarget={36}
+        wellRadius={18}
+        tintColor={showTranslation ? colors.accent : colors.mutedForeground}
+        background={showTranslation ? tokens.accentSoft : colors.muted}
+        accessibilityLabel={
+          showTranslation ? t("reading.hideTranslation") : t("reading.showTranslation")
+        }
+        accessibilityState={{ selected: showTranslation }}
+        haptic="selection"
+        onPress={() => void toggleTranslation()}
+      />
+    </>
   );
 }
 

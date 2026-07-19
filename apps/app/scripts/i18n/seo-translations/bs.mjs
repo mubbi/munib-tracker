@@ -146,10 +146,10 @@ export default {
     description: "Vaši sačuvani hadisi, zajedno za brz povratak.",
   },
   "/hajj": {
-    title: "Kontrolna lista za hadž i umru",
+    title: "Vodič za Hajj i Umrah",
     description:
-      "Korak-po-korak lista za obrede hadža i umre. Pratite svaki obred redom i označite ga kako napredujete — praktičan vodič, ne fikh priručnik.",
-    keywords: ["hadž", "umra", "vodič za hadž", "hadž obredi", "kontrolna lista hadža"],
+      "Učite Hajj i Umrah iz Qur'ana i autentične Sunnah, zatim pratite obrede odvojenim Hajj i Umrah listama — praktičan edukativni pregled, ne fiqh priručnik.",
+    keywords: ["hajj", "umrah", "vodič za hodočašće", "obredi hajj", "lista hajj", "lista umrah"],
   },
   "/hayd": {
     title: "Hayd i ibadet — vodič za menstruaciju",
@@ -756,5 +756,17 @@ export default {
   "/zikr/favorites": {
     title: "Omiljeni adhkari",
     description: "Vaši omiljeni adhkari, zajedno za brz pristup.",
+  },
+  "/hajj/checklist": {
+    title: "Lista obreda Hajj",
+    description:
+      "Dnevni pratilac obreda Hajj od Tarwiyah do oproštajnog tawaf. Podsjetnik uz vodič Uči.",
+    keywords: ["lista hajj", "obredi hajj", "pratilac hodočašća"],
+  },
+  "/umrah/checklist": {
+    title: "Lista obreda Umrah",
+    description:
+      "Uređena Umrah lista — ihram, tawaf, sa'i i halq ili taqsir. Koristite s vodičem Uči za Hajj i Umrah.",
+    keywords: ["lista umrah", "obredi umrah", "manje hodočašće"],
   },
 };

@@ -77,10 +77,11 @@
       "intro": "Mapitio mafupi kutoka masomo ya mwongozo huu. Chukua muda — lengo ni kujifunza.",
       "hint": "Pitia ulichojifunza",
       "empty": "Maswali ya mwongozo huu bado yanapakia. Fungua masomo machache, kisha jaribu tena."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Tafuta Qur'ani, hadithi, dua, adhkar…",
+    "placeholder": "Tafuta Qur'an, hadith, dua, Jifunze…",
     "clear": "Futa utafutaji",
     "all": "Zote",
     "resultsCount": "Matokeo {{count}}",
@@ -109,16 +110,7 @@
       "zikr": "Zikrler",
       "name": "Majina 99",
       "durood": "Durood",
-      "jannah": "Safari kwenda Jannah",
-      "jahannam": "Kuelewa Jahannam",
-      "lastDay": "Siku ya Hukumu",
-      "salahGuide": "Jifunze Salah",
-      "battles": "Vita katika Uislamu",
-      "taharah": "Jifunze utakaso",
-      "prophets": "Jifunze Manabii",
-      "aqeedah": "Jifunze Aqeedah",
-      "learnDua": "Jifunze Dua",
-      "learnQuran": "Jifunze Qur'ani"
+      "learn": "Jifunze"
     },
     "stt": {
       "dictate": "Tafuta kwa sauti",
@@ -465,6 +457,24 @@
       "badge": "Ijumaa",
       "reminderTitle": "Ijumaa Mubarak",
       "reminderBody": "Omba Jumu'ah na kamilisha sunnah za Ijumaa — Ghusl, Surah al-Kahf, salawat, na Dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Sehemu ya Qur'an ya leo",
+      "catchUpTitle": "Kufidia khatm",
+      "reminderBody": "Rekodi {{done}}/{{total}} ayah kuelekea lengo la khatm la leo.",
+      "reminderBodyPages": "Rekodi {{done}}/{{total}} kurasa kuelekea lengo la khatm la leo.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Usomaji wa khatm wa leo uko sawa — endelea.",
+      "openPlan": "Fungua mpango wa khatm",
+      "a11y": "Mpango wa khatm siku {{day}} kati ya {{total}}, asilimia {{percent}} imekamilika, {{done}} kati ya {{target}} leo"
+    },
+    "acceptanceHourCard": {
+      "badge": "Saa ya dua",
+      "reminderTitle": "Saa ya kukubaliwa",
+      "reminderBody": "Saa siku ya Ijumaa ambapo dua haikataliwi — itafute hasa baada ya Asr kwa dua, istighfar na salawat ya dhati.",
+      "openGuide": "Fungua saa ya kukubaliwa"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "الوتر",
       "adhkar": "Adhkar",
       "qaza": "القضاء",
-      "a11y": "{{label}}: {{percent}}% imekamilika, {{completed}} kati ya {{total}}"
+      "a11y": "{{label}}: {{percent}}% imekamilika, {{completed}} kati ya {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah - yote yamekamilika",
     "freshStart": "Mwanzo mpya",
@@ -547,6 +558,14 @@
       "jumpTitle": "Orodha ya Jumu'ah",
       "jumpHint": "Sunnah za Ijumaa hapa chini",
       "jumpA11y": "Nenda kwenye orodha ya Jumu'ah kwenye ukurasa huu"
+    },
+    "khatm": {
+      "title": "Mpango wa khatm",
+      "progress": "{{done}} kati ya {{total}} leo",
+      "hint": "{{count}} ayah kuelekea lengo la leo — gusa kurekodi",
+      "hintPages": "{{count}} kurasa kuelekea lengo la leo — gusa kurekodi",
+      "completeHint": "Sehemu ya leo imekamilika — gusa kuona mpango wako",
+      "a11y": "Mpango wa khatm siku {{day}} kati ya {{total}}, {{done}} kati ya {{target}} kuelekea lengo la leo"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Tafakari ya leo",
       "dailyContentBody": "Aya mpya, hadithi na jina la Mwenyezi Mungu viko tayari kwenye skrini yako ya nyumbani.",
       "fridayTitle": "Juma Mubarak",
-      "fridayBody": "Ni Ijumaa — tuma salawat na usome Surah Al-Kahf."
+      "fridayBody": "Ni Ijumaa — tuma salawat na usome Surah Al-Kahf.",
+      "acceptanceHourTitle": "Saa ya kukubaliwa",
+      "acceptanceHourBodyAsr": "Asr imeanza — tafuta saa iliyokubaliwa kwa dua, istighfar na salawat hadi Maghrib.",
+      "acceptanceHourBodyMid": "Bado kuna muda kabla ya Maghrib — jaza dakika hizi kwa dua ya dhati."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Mawaidha ya Ijumaa",
-        "subtitle": "Jumu'ah na Surah Al-Kahf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf na saa ya kukubaliwa"
       }
     },
     "prayerAlertsObligatory": "Tahadhari za Swalah za Wajibu",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Chagua sauti ili uanze kusikiliza",
     "listenVoiceDefault": "Chaguo-msingi la mfumo",
     "listenVoiceDefaultHint": "Tumia sauti inayopendelewa ya kifaa kwa lugha hii",
-    "listenVoiceEmpty": "Hakuna sauti zilizosakinishwa kwa lugha hii. Ongeza moja katika mipangilio ya mfumo."
+    "listenVoiceEmpty": "Hakuna sauti zilizosakinishwa kwa lugha hii. Ongeza moja katika mipangilio ya mfumo.",
+    "showTransliteration": "Onyesha uandishi wa matamshi",
+    "hideTransliteration": "Ficha uandishi wa matamshi",
+    "showTranslation": "Onyesha tafsiri",
+    "hideTranslation": "Ficha tafsiri"
   },
   "share": {
     "dialogTitle": "Shiriki",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "duas by title, topic, or text… Tafuta",
     "searchInCategory": "in this category… Tafuta",
     "searchResultCount": "{{count}} zinazolingana",
-    "noResults": "Hakuna duas zilizolingana na utafutaji wako."
+    "noResults": "Hakuna duas zilizolingana na utafutaji wako.",
+    "favSubtitle": "Panga upya au ondoa dua zako zilizohifadhiwa"
   },
   "duaCat": {
     "morning_evening": "Asubuhi na Jioni",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Acha kusikiliza",
       "bestMatch": "Mechi bora",
       "otherMatches": "Mechi nyingine"
-    }
+    },
+    "searchPlaceholderArabic": "Tafuta maandishi ya Kiarabu au rejea kama ٢:٢٥٥…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Mila ya kinabii",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Programu hii inahesabu Witr iliyokosa kuelekea qaza kwa watumiaji wote. Itende inavyotakiwa ikiwa utafuata mtazamo wa Hanafi; vinginevyo ifuatilie kama kipodozi kinachopendekezwa. Wasiliana na mwanachuoni kwa hali yako."
     },
-    "history": "Historia"
+    "history": "Historia",
+    "rowDone": "{{completed}} Qaza zimefanywa",
+    "rowDoneWithDaily": "{{completed}} Qaza zimefanywa · leo {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "Weka upya counter?",
     "confirmResetMessage": "Wewein smwezi  {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? Anzat",
-    "confirmStartAgainMessage": "Wewein completed smwezi will be cleared so siz can begin  yeni round."
+    "confirmStartAgainMessage": "Wewein completed smwezi will be cleared so siz can begin  yeni round.",
+    "dockLabel": "Hesabu"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} is only {{min}} dak away",
@@ -2502,7 +2538,15 @@
       "ahead": "Mbele",
       "onTrack": "Washa track",
       "behind": "Nyuma"
-    }
+    },
+    "logConfirmTitle": "Ongeza maendeleo ya kusoma?",
+    "logConfirmMsg": "Ongeza aya {{count}} kwenye jumla yako ya khatm?",
+    "logConfirmMsgPages": "Ongeza kurasa {{count}} kwenye jumla yako ya khatm?",
+    "logConfirmAction": "Ongeza",
+    "correctTotalConfirmTitle": "Sasisha jumla iliyosomwa?",
+    "correctTotalConfirmMsg": "Weka jumla ya khatm kuwa aya {{count}}?",
+    "correctTotalConfirmMsgPages": "Weka jumla ya khatm kuwa kurasa {{count}}?",
+    "correctTotalConfirmAction": "Sasisha jumla"
   },
   "hifz": {
     "short": "الحفظ",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Den  Qur'ani",
     "hadithTitle": "Den  Sunnah",
     "obligationsTitle": "Nini bado unawajibika",
-    "rakatsTitle": "Rakats kwa mtazamo",
+    "rakatsTitle": "Raka'a kwa muhtasari",
     "rakatsPrayer": "Swala",
     "rakatsResident": "At ana smwezifa",
     "rakatsTravel": "Safariling",
@@ -2718,7 +2762,8 @@
       "knowledge": "Kadi ya maarifa ya kila siku",
       "quickActions": "Vitendo vya haraka",
       "qaza": "Muhtasari wa Qaza",
-      "schedule": "Ratiba ya leo"
+      "schedule": "Ratiba ya leo",
+      "khatm": "Mpango wa khatm"
     }
   },
   "schedule": {
@@ -2744,7 +2789,7 @@
     "progressCardTitle": "Maendeleo ya kujifunza",
     "progressCardHint": "{{completed}} kati ya {{total}} masomo yametiwa alama kuwa yamekamilika",
     "topicsTitle": "Mwongozos",
-    "rakatsTitle": "Rakats kwa mtazamo",
+    "rakatsTitle": "Raka'a kwa muhtasari",
     "prayer": "Swala",
     "fard": "فرض",
     "sunnah": "سنة",
@@ -2818,7 +2863,12 @@
       "listenHint": "Gusa rekodi ili ucheze. Fuata pamoja na maneno hapa chini unaposikiliza.",
       "play": "Cheza {{name}} adhan",
       "pause": "Sitisha {{name}} adhan",
-      "sourceNote": "Recordings den  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, na more)."
+      "sourceNote": "Recordings den  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, na more).",
+      "learnPhrasesHint": "Jifunze maneno — cheza kila sentensi wazi, moja baada ya nyingine.",
+      "playPhrases": "Cheza misemo yote",
+      "pausePhrases": "Sitisha misemo",
+      "playPhrase": "Cheza usemi {{n}}: {{title}}",
+      "followAlongNote": "Inaangazia maneno yaliyo chini inapocheza"
     }
   },
   "battles": {
@@ -3440,7 +3490,8 @@
       "obligatory": "Muhimu",
       "highly-recommended": "Inapendekezwa sana",
       "recommended": "Imependekezwa"
-    }
+    },
+    "playAyahA11y": "Cheza qiraa ya {{ref}}"
   },
   "library": {
     "eyebrow": "Maktaba",
@@ -4033,7 +4084,7 @@
       "label": "Viambatisho (si lazima)",
       "add": "Ongeza faili",
       "remove": "Ondoa kiambatisho",
-      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), 1 MB kila moja. Gusa × kwenye kijipicha kuondoa.",
+      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
       "signInRequired": "Ingia ili kuambatisha faili za faragha kwenye adhkar yako.",
       "permissionDenied": "Ruhusa inahitajika ili kuambatisha faili.",
       "permissionTitle": "Ruhusu ufikiaji",
@@ -4209,14 +4260,34 @@
   "hajj": {
     "eyebrow": "Hija",
     "title": "Hajj na Umrah",
-    "subtitle": "Orodha ya hatua kwa hatua ya taratibu za hija.",
+    "subtitle": "Jifunze ibada kutoka Qur'an na Sunnah, kisha fuata Hajj na Umrah tofauti.",
     "progress": "{{done}} kati ya {{total}} ibada",
     "reset": "Weka upya",
     "resetConfirmTitle": "Weka upya checklist?",
     "resetConfirmMsg": "Hii, tüm ibadetlerin işaretini kaldırır. İlerlemeniz geri alıswala.",
-    "umrahTag": "عمرة",
-    "hajjTag": "حج",
-    "disclaimer": "Pratik moja kontrol listesi, fıkıh kitabı değil. Hüküm na mwezirıntılar kwa nitelikli moja rehbere uyun.",
+    "disclaimer": "Muhtasari wa elimu wa vitendo, si kitabu cha fiqh. Madhhabs hutofautiana kwa maelezo — fuata mwongozo stahiki kwa hukumu na hali zisizotarajiwa.",
+    "intro": "Soma wajibu, ihram, Umrah na siku za Hajj kwa marejeo halali. Tumia orodha kwa ibada tu — vidokezo vya maandalizi viko kwenye Jifunze.",
+    "section": {
+      "virtues": "Fadhila",
+      "obligation": "Wajibu",
+      "types": "Aina za Hajj",
+      "ihram": "Miqat na ihram",
+      "umrah": "Umrah",
+      "hajj": "Siku za Hajj",
+      "rulings": "Sheria na adabu",
+      "prep": "Maandalizi ya vitendo"
+    },
+    "checklistsTitle": "Orodha za ibada",
+    "hajjChecklistTitle": "Orodha ya Hajj",
+    "hajjChecklistHint": "Ibada za hija siku kwa siku",
+    "hajjChecklistSubtitle": "Fuata ibada za Hajj kutoka Tarwiyah hadi tawaf ya kuaga.",
+    "hajjChecklistIntro": "Weka alama kila ibada unapokamilisha. Hii ni kikumbusho — si fatwa.",
+    "umrahChecklistTitle": "Orodha ya Umrah",
+    "umrahChecklistHint": "Kutoka ihram hadi halq au taqsir",
+    "umrahChecklistSubtitle": "Fuata mpangilio wa Umrah kwa utaratibu.",
+    "umrahChecklistIntro": "Weka alama kila ibada ya Umrah unapokamilisha. Fungua Jifunze kwa maelezo na ushahidi.",
+    "notFound": "Mada haipatikani",
+    "continueInApp": "Endelea katika Munib",
     "prepTag": "Maandalizi"
   },
   "dailyHadith": {
@@ -4574,15 +4645,15 @@
     "settingsSubtitleIos": "Swala with Siri or Apple Watch İşaretle",
     "settingsSubtitleAndroid": "Swala with Google Assistant or Wear OS İşaretle",
     "introIos": "Tumia Siri, Njia za mkato, au Apple Watch kuashiria Salah bila kufungua orodha. Inahitaji EAS dev au muundo wa uzalishaji - haipatikani katika Expo Go.",
-    "introAndroid": "Tumia Mratibu wa Google au Wear OS kuashiria Salah bila kufungua orodha. Inahitaji EAS dev au muundo wa uzalishaji - haipatikani katika Expo Go.",
+    "introAndroid": "Tumia Google Assistant, njia ya mkato ya ikoni ya programu au Wear OS kuweka alama Salah bila kufungua orodha. Inahitaji EAS dev au production build — haipatikani katika Expo Go.",
     "siriTitle": "Siri & Njia za mkato",
     "siriHint": "After installing den TestFlight au  App Store, aç  Shortcuts app au smwezi “Hey Siri, mark my Swala kwade Munib Tracker”. If  app was force-quit,  mark syncs  sonraki time siz aç Munib Tracker.",
     "assistantTitle": "Mratibu wa Google",
-    "assistantHint": "Smwezi “Hey Google, mark my Swala kwade Munib Tracker”   cihaz na  app installed.",
+    "assistantHint": "Sema \"Hey Google, mark my Salah in Munib Tracker\", au bonyeza kwa muda ikoni ya Munib Tracker uchague Mark Salah. Ikiwa programu ilifungwa kwa nguvu, alama itasawazishwa utakapofungua Munib Tracker.",
     "watchTitle": "Apple Watch",
     "watchHint": "Open the Munib Kifuatiliaji watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Vaa OS",
-    "wearHint": "Washageza the Munib Kifuatiliaji tile on your watch after pairing with your phone.",
+    "wearHint": "Baada ya kuunganisha simu yako, ongeza tile ya Munib Tracker kwenye saa yako. Gusa tile kuweka alama Salah ya sasa kwenye simu yako.",
     "marked": "Swala marked",
     "alreadyDone": "Tayari imetiwa alama",
     "allDone": "Tüm obligatory Swala marked for todmwezi",
@@ -4789,7 +4860,7 @@
     "eyebrow": "Kalenda",
     "title": "Kigeuzi cha tarehe",
     "subtitle": "Badilisha kati ya kalenda ya Hijri na Gregorian",
-    "intro": "Weka tarehe katika kalenda yoyote ili kuona sawa yake katika nyingine, inayohesabiwa nje ya mtandao kutoka kuonekana kwa hilal mahali pako.",
+    "intro": "Weka tarehe katika mojawapo ya kalenda ili kuona sawa katika nyingine, iliyokokotwa nje ya mtandao kwa kutumia algoriti ya Kuwaiti ya jedwali.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Tarehe ya Gregorian",
@@ -4799,7 +4870,7 @@
     "year": "Mwaka",
     "useToday": "Tumia leo",
     "invalidDate": "Weka tarehe halali",
-    "disclaimer": "Tarehe zimehesabiwa kutoka kuonekana kwa hilal (hilāl) mahali pako na zinaweza kutofautiana kwa siku moja na matangazo rasmi ya kuona mwezi — daima fuata Masjid au mamlaka yako ya eneo kwa tarehe za kidini.",
+    "disclaimer": "Huu ni ukadiriaji wa hesabu (jedwali la \"algorithm ya Kuwaiti\") na inaweza kutofautiana kwa siku kutoka kwa matangazo ya karibu ya kuona mwezi - fuata msikiti wa eneo lako au mamlaka ya tarehe za kidini kila wakati.",
     "directionTitle": "Mwelekeo wa uongofu",
     "resultFrom": "Kutoka {{date}}",
     "quickLinksTitle": "Kuhusiana",

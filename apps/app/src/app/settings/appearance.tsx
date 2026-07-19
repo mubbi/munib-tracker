@@ -3,7 +3,7 @@ import { bestForeground } from "@munib-tracker/theme/color";
 import type { AccentColorId, ColorMode } from "@munib-tracker/theme/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { type ComponentType, lazy, Suspense } from "react";
+import { type ComponentType, lazy, Suspense, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -44,13 +44,27 @@ const InlineCustomColorPicker: ComponentType<InlineCustomColorPickerProps> =
 
 const colorModeIds: ColorMode[] = ["light", "dark", "system"];
 
+/** Precompute once — luminance is pure and the palette is static. */
+const HIGH_LUMINANCE_SWATCHES = new Set<string>(
+  COLOR_PALETTE.filter((hex) => relativeLuminance(hex) > 0.85),
+);
+
+function needsSwatchBorder(hex: string): boolean {
+  if (HIGH_LUMINANCE_SWATCHES.has(hex)) return true;
+  return relativeLuminance(hex) > 0.85;
+}
+
 export default function AppearanceScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const colorModes = colorModeIds.map((id) => ({
-    id,
-    label: t(`appearance.mode${id.charAt(0).toUpperCase()}${id.slice(1)}`),
-  }));
+  const colorModes = useMemo(
+    () =>
+      colorModeIds.map((id) => ({
+        id,
+        label: t(`appearance.mode${id.charAt(0).toUpperCase()}${id.slice(1)}`),
+      })),
+    [t],
+  );
   const {
     colors,
     tokens,
@@ -68,7 +82,6 @@ export default function AppearanceScreen() {
   const accentLabel = customAccent
     ? (normalizeHex(customAccent) ?? customAccent).toUpperCase()
     : (selectedPreset?.label ?? accentColorId);
-  const needsSwatchBorder = (hex: string) => relativeLuminance(hex) > 0.85;
 
   return (
     <ScreenLayout

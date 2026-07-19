@@ -79,6 +79,11 @@ export default function LearnQuranVocabularyScreen() {
                         {word.example}
                       </ThemedText>
                     ) : null}
+                    {word.quranRef ? (
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {word.quranRef.label}
+                      </ThemedText>
+                    ) : null}
                   </View>
                 ))}
               </View>

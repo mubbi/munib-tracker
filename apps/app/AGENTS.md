@@ -42,8 +42,10 @@ pnpm --filter app test -- i18n
 | **Tasbeeh** | Tasbih |
 | **Dua** | Du'a |
 | **Masjid** | Mosque |
+| **rakah** / **rakahs** | rak'ah, rakat, rakats, rakaat |
+| **Tarawih** | Taraweeh |
 
-*Also: Fajr, Dhuhr, Asr, Maghrib, Isha, Witr, Tahajjud, Sunnah, Nafl, Wudu, Ghusl, Ramadan, Jumu'ah — spelled consistently.* The one nuance: **"Salah"** is for discrete labels; natural "prayer(s)" is allowed *only* mid-sentence in long educational prose under `prayerInfo.*` (and proper compounds like "Salat al-Wusta"). Everywhere else a bare "Prayer" label must be "Salah".
+*Also: Fajr, Dhuhr, Asr, Maghrib, Isha, Witr, Tahajjud, Sunnah, Nafl, Wudu, Ghusl, Ramadan, Jumu'ah, Qur'an — spelled consistently.* The one nuance: **"Salah"** is for discrete labels; natural "prayer(s)" is allowed *only* mid-sentence in long educational prose under `prayerInfo.*` (and proper compounds like "Salat al-Wusta"). Everywhere else a bare "Prayer" label must be "Salah".
 
 **3. Translation quality.** Phase 1 (`ar`, `ur`): fully translated UI — no English words left inside (the guard flags 4+-letter Latin except allowlisted proper nouns). Phase 2–4: key parity required; prefer native labels via `ui-polish-patches.json`. Keep the exact same `{{interpolation}}` variables as English. For `ar`, `ru`, `bn`, include all CLDR plural suffixes (`plural-audit.test.ts`). Never leave a value empty. **Religious text bodies** must come from OSS datasets via `src/lib/translation-locale.ts` — never AI-generated in JSON catalogs. When you rewrite English, re-translate Phase 1 `ur`/`ar` too.
 
@@ -61,7 +63,7 @@ All search bars and content filtering use **[Fuse.js v7](https://github.com/kris
 
 ### Canonical module
 
-`src/lib/search.ts` — universal offline search across Qur'an, hadith, duas, adhkar, duroods, and the 99 names.
+`src/lib/search.ts` — universal offline search across Qur'an, hadith, duas, adhkar, duroods, the 99 names, and Learn guides (single `learn` tab via `search-guides.ts` / `searchLightWithGuides`).
 
 | Export | Purpose |
 |--------|---------|

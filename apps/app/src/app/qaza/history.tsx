@@ -1,3 +1,4 @@
+import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
 import type { AppLocale, CalendarMode, QazaDailyProgress } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
@@ -11,6 +12,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
@@ -30,6 +32,7 @@ import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
+import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { useLocation } from "@/stores/location-store";
 
@@ -304,18 +307,34 @@ export default function QazaHistoryScreen() {
               background={tokens.accentSoft}
             />
             <View style={styles.prayers}>
-              {Object.entries(selected.progress.completed)
-                .filter(([, n]) => (n ?? 0) > 0)
-                .map(([prayerId, n]) => (
+              {QAZA_PRAYERS.map((prayerId) => {
+                const count = selected.progress.completed[prayerId] ?? 0;
+                if (count <= 0) return null;
+                return (
                   <View
                     key={prayerId}
-                    style={[styles.prayerChip, { backgroundColor: colors.muted }]}
+                    style={[styles.prayerRow, { backgroundColor: colors.muted }]}
+                    accessibilityRole="text"
+                    accessibilityLabel={`${t(`prayers.${prayerId}`)}, ${t("qazaHistory.count", {
+                      count,
+                    })}`}
                   >
-                    <ThemedText type="caption">
-                      {t(`prayers.${prayerId}`)} · {n}
+                    <IconWell
+                      icon={PRAYER_ICONS[prayerId]}
+                      well={36}
+                      size={16}
+                      tint={colors.accent}
+                      background={tokens.accentSoft}
+                    />
+                    <ThemedText type="small" style={styles.prayerName}>
+                      {t(`prayers.${prayerId}`)}
+                    </ThemedText>
+                    <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                      {count}
                     </ThemedText>
                   </View>
-                ))}
+                );
+              })}
             </View>
           </>
         ) : null}
@@ -393,15 +412,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   prayers: {
-    flexDirection: "row",
-    flexWrap: "wrap",
     gap: Spacing.two,
-    marginTop: Spacing.two,
+    marginTop: Spacing.one,
   },
-  prayerChip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one + 2,
-    borderRadius: Radius.pill,
+  prayerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  prayerName: {
+    flex: 1,
   },
 });

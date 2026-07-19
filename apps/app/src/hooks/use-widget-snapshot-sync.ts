@@ -10,12 +10,14 @@ import {
 import { nativePushWearSnapshot } from "@/lib/external-commands/native-bridge";
 import { syncLiveActivity } from "@/lib/live-activity";
 import { toAppLocale } from "@/lib/locale-bcp47";
+import { runWhenIdle } from "@/lib/run-when-idle";
 import { useTheme } from "@/providers/theme-provider";
 import { useLocation, useLocationStatus } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 import { useDailySummary, useTodayPrayers } from "@/stores/tracker-store";
 
-const WIDGET_SYNC_DEBOUNCE_MS = 400;
+/** Longer than a typical theme toggle paint so native I/O never contends with UI. */
+const WIDGET_SYNC_DEBOUNCE_MS = 750;
 
 /** Refresh home-screen widget snapshot when prayer data or theme changes. */
 export function useWidgetSnapshotSync(): void {
@@ -68,11 +70,16 @@ export function useWidgetSnapshotSync(): void {
   useEffect(() => {
     if (Platform.OS === "web") return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
+    let idleCancel: (() => void) | null = null;
     debounceRef.current = setTimeout(() => {
-      void sync();
+      const handle = runWhenIdle(() => {
+        void sync();
+      });
+      idleCancel = handle.cancel;
     }, WIDGET_SYNC_DEBOUNCE_MS);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
+      idleCancel?.();
     };
   }, [sync]);
 }

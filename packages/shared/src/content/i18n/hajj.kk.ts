@@ -1,308 +1,497 @@
-// Kazakh translation overlay for the Learn Hajj & Umrah guide. Mirrors the order of
-// its English source in ../hajj-guide.ts (index-aligned); untranslated entries fall back
-// to English. Only human-readable text is translated — ids, routes, surah/ayah
-// numbers, collections, citations and grades stay in the English source.
-import type { HajjGuideSection } from "../../types/hajj-guide";
+import type { PilgrimageChecklistItem } from "../../types/hajj-guide";
+import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
-export const HAJJ_GUIDE_SECTIONS_KK: DeepPartial<HajjGuideSection>[] = [
+// KK overlay for Hajj & Umrah Learn topics + rite checklists.
+// Index-aligned with English sources; only human-readable text is translated.
+
+export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
   {
-    day: "Бармас бұрын",
-    title: "Міндеттеме және шарттар",
-    summary: "Қажылық не үшін парыз және кімге парыз болады.",
-    steps: [
+    title: "Қабылданған haj сыйлығы",
+    summary: "Haj mabrur күнәларды жояды, сыйлығы — жәннат.",
+    body: [
+      "Абу Хурайра Пайғамбар ﷺ былай дегенін хабарлады: «Кім Аллаһ үшін haj жасап, жыныстық қатынас пен күнәдан сақталса, анасы оны туған күніндегідей қайтарады» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
+      "Ол сондай-ақ: «Қабылданған haj (haj mabrur) сыйлығы жәннаттан басқа ештеңе емес» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Қабылдану шын ниет пен haj-ты ар-ождан және күнәдан сақтаумен байланысты — тек сыртқы рәсімдерді орындаумен емес.",
+    ],
+    hadith: [
       {
-        title: "Бесінші тірек",
-        body: "Қажылық – Исламның бесінші тірегі, мүмкіндігі бар әрбір мұсылманға өмірінде бір рет парыз. Алла Тағала былай дейді: «Адамдардан Алланың құзырында, кімде-кім оған жол таба алатын болса, Үйге қажылық бар» (Құран 3:97). Барлық адамдарға: «Адамдарға қажылықты жариялаңдар, олар сендерге жаяу және әр арық түйемен келеді» (Құран 22:27) деп жарияланды.",
+        excerpt:
+          "Кім Аллаһ үшін haj жасап, жыныстық қатынас пен күнәдан сақталса, анасы оны туған күніндегідей қайтарады.",
       },
       {
-        title: "Қабілет (истита'ах)",
-        body: "Қажылық шамасы келгендерге ғана парыз: сапарға дене саулығы, жолды өтейтіндей халал мал-мүлік және алыста жүргенде асырауындағы адамдар және қауіпсіз, ашық жол. Кімде-кім осы жылы мүмкіндігінен айырылса, шамасы келгенше кешіктірсе күнә болмайды.",
+        excerpt:
+          "Кім Аллаһ үшін haj жасап, жыныстық қатынас пен күнәдан сақталса, анасы оны туған күніндегідей қайтарады.",
+      },
+      { excerpt: "Қабылданған haj сыйлығы жәннаттан басқа ештеңе емес." },
+      { excerpt: "Қабылданған haj сыйлығы жәннаттан басқа ештеңе емес." },
+    ],
+    actions: [
+      "Haj-ты тек Аллаһ үшін ниет етіңіз — бүкіл сапар бойы тіліңіз бен мінезіңізді сақтаңыз.",
+      "Қолданбадағы haj тізімін тек еске салу үшін пайдаланыңыз; жүрегіңізді қабылдануға бағытыңыз.",
+    ],
+    appLinks: [{ label: "Haj рәсімдері тізімі" }],
+  },
+  {
+    title: "Umra ерекшeliği",
+    summary: "Umra dan umra ga дейінгі күнәлар кешіріледі.",
+    body: [
+      "Абу Хурайра Пайғамбар ﷺ былай дегенін хабарлады: «Umra орындау алдыңғысынан кейінгі күнәларға кешірім, қабылданған haj сыйлығы жәннаттан басқа ештеңе емес» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
+      "Umra жылдың кез келген уақытында орындалады. Haj dan qysqa, бірақ бәрібір үлкен ғибадат: ihram, tawaf, sa'y және bas qyru nemese qysqartu.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Umra орындау алдыңғысынан кейінгі күнәларға кешірім, қабылданған haj сыйлығы жәннаттан басқа ештеңе емес.",
       },
       {
-        title: "Әйелдің саяхаты",
-        body: "Ғалымдардың көпшілігі әйелдің қажылыққа махрамымен (күйеуімен немесе некесіз жақын туысымен) баратынын айтады; Кейбір кейінгі ғалымдар қауіпсіз, сенімді әйелдер тобында саяхаттауға рұқсат береді. Сенетін білікті ғалымның үкімін және қажылық құзырының ережелерін орындаңыз.",
+        excerpt:
+          "Umra орындау алдыңғысынан кейінгі күнәларға кешірім, қабылданған haj сыйлығы жәннаттан басқа ештеңе емес.",
+      },
+    ],
+    actions: ["Рәсімдерді ретімен орындауға дайын болғанда umra тізімін ашыңыз."],
+    appLinks: [{ label: "Umra рәсімдері тізімі" }],
+  },
+  {
+    title: "Arofa күні",
+    summary: "Arofada тұру haj-тың жүрегі — және dua үшін ұлы күн.",
+    body: [
+      "Абдуррахман ибн Я'mar Пайғамбар ﷺ былай дегенін хабарлады: «Haj — Arofa» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Arofa шекарасында уақытында тұруды қалдырған сол жыл haj-ты қалдырған болады.",
+      "Haj da bolmaǵandar үшін Arofa күнinde oraza tutu қатаң ұсынылады: Абу Катада хабарлағандай, Arofa oraza sy өткен және келесі жыл күнәларын кешіреді (Sahih Muslim 1162). Hojylar dua үшін күннің өзіне беріліп, oraza tutпayды.",
+    ],
+    hadith: [
+      { excerpt: "Haj — Arofa." },
+      { excerpt: "Haj — Arofa." },
+      {
+        excerpt:
+          "Arofa күнinde oraza tutu — Аллаhtan өткен және келесі жыл күнәларын кешіру деп үміттенемін.",
       },
     ],
   },
   {
-    day: "Бармас бұрын",
-    title: "Қажылықтың үш түрі",
-    summary: "Ифрад, Қиран және Таматту — ихрамға кірер алдында таңдау.",
-    steps: [
+    title: "Haj — бесінші rukn",
+    summary: "Өмірінде bir ret әр qabiletli musylmanǵa farz.",
+    body: [
+      "Алла Тағала айтады: «Адамдарға Үйден (Ka'ba) haj farz — jol taba alatyn ǵariz adam ushin. Kim kufr qylsa — Аллаh olamlardan g'oniy» (Qur'an 3:97).",
+      "Адамдарға haj жарияланды: «Адамдарға haj жарияла; olar piyoda jəne har turli atlyq pen senge keledi; har uzaq jol boyy keledi» (Qur'an 22:27).",
+      "Ибн Umar Пайғамбар ﷺ былай дегенін хабарлады: Ислам bes asasqa qurylǵan: shohodat, namaz, zakat, Ramazan orazaсы jəne qodir bolǵandar ushin Uyǵa haj (Sahih al-Bukhari 8; Sahih Muslim 16). Ғұламалар шарттар орындалғанда өмірде bir ret farz ekenine kelisti; qaitalau ixtiyariy fazilet.",
+    ],
+    quran: [
+      { excerpt: "Адамдарға Үйden haj farz — jol taba alatyn ǵariz adam ushin..." },
+      { excerpt: "Адамдарға haj жарияла; olar piyoda jəne har turli atlyq pen senge keledi..." },
+    ],
+    hadith: [
       {
-        title: "Ифрад",
-        body: "Қажы қажылық үшін ихрамға жалғыз кіреді, бөлек умра жасамайды және оның есебінен құрбандық шалмайды. Нахр күнінің рәсіміне дейін ихрамда болады.",
+        excerpt:
+          "Ислам bes asasqa qurylǵan: Allahtan basqa ilah joq jəne Muhammad Allah Resuli, namaz oqu, zakat beru, Ramazan orazaсы jəne jol taba alatynlar ushin Uyǵa haj.",
+      },
+      { excerpt: "Ислам bes asasqa qurylǵan... jəne jol taba alatynlar ushin Uyǵa haj." },
+    ],
+  },
+  {
+    title: "Istitoat (qabilet)",
+    summary: "Den saulyǵy, halal mol jəne qauipsiz jol — bularsyz haj azhe farz emes.",
+    body: [
+      "Qur'an 3:97 dagy shart istitoat. Klassik ulama bunu quyidaǵysha jamlaydy: saparǵa shydamdy jismen saulyq, sapar jəne joq uaqytta qaramagyndagylar ehtiyajtaryn qoptau ushin jetkilikti halal mol, jəne qauipsiz ashqy jol.",
+      "Bul jyl bul imkoniyattardan ayrǵan keşiktiru ushin künәkor emes, qodir bolǵansha kutui mumkin. Istitoat jaǵday boyysha bahalanady — kesellik, tolanysy shart qarz nemese qauipsiz bolmaǵan sapar daraw farzdı alip tastausy mumkin. Jaǵdayyńyz aniq emes bolsa, malikeli alimnen surańyz.",
+    ],
+    quran: [{ excerpt: "...jol taba alatyn ǵariz adam ushin." }],
+    actions: [
+      "Bron qyludan buryn farz qarzdar toleń jəne qaramagyndagylar taminotyn tartipke salysyz.",
+      "Paketterdi tek resmi arnalardy tekseriń (dayyndyq taqyryptaryna qarań).",
+    ],
+  },
+  {
+    title: "Әйeldiń haj sapary",
+    summary:
+      "Kopchilik mahram talap qylady; keibіr keiingi pikirler qauipsiz senimdi topǵa ruxsat beredi.",
+    body: [
+      "Ибн Abbas rivayat qylǵanynda, Payg'ambar ﷺ dedi: aiel mahramsyz sapar qylmasyn, erkek de mahram bolmaǵansha unyń uine kirmesin (Sahih al-Bukhari 1862; Sahih Muslim 1341). Kop ulama bunu haj jəne umra saparyna qoldanady.",
+      "Keibіr keiingi ulama — qauipsizdik, zarurat jəne zamanaǵy transportty eske alǵan holda — mahram bolmaǵanda aielge farz haj ushin senimdi top qurylymynda sapar qyluǵa ruxsat beredi. Bul fiqh maselasynda bahsli.",
+    ],
+    hadith: [
+      { excerpt: "Aiel mahramsyz sapar qylmasyn, erkek de mahram bolmaǵansha unyń uine kirmesin." },
+      {
+        excerpt:
+          "Allah jəne Akhirat kunege iman keltirgen aielge bir kun jəne tun mahramsyz sapar qylu halal emes.",
+      },
+    ],
+    madhhabNote:
+      "Kopchilik aiel haj saparynda mahram kerek dep esepteydi. Keibіr keiingi ulama farz haj ushin qauipsiz aieler topy men saparǵa ruxsat beredi. Senimdi alim jəne haj idarasy qoidalaryna amal qylyńyz.",
+  },
+  {
+    title: "Hajnyń ush turi",
+    summary: "Ifrad, Qiran jəne Tamattu' — ihramǵa kirudin buryn turin tanysyz.",
+    body: [
+      "Ifrad: tek haj ushin ihram, sol ihramda alohida umra joq, rәsimderdi birlestiru tuyndy qurbanlyq talap qylunbady.",
+      "Qiran: umra jəne hajdy bir ihramda birlestiru, haj tamam bolǵansha ihramda qalu. Qurbanlyq (hady) talap qylunady.",
+      "Tamattu': haj aylarinda tolyq umra oryndau, ihramnan shyǵu, keyin 8 zul-hijjada haj ushin qaita ihram. Bugin kop hojylar bunu qylady; bul da hady talap qylady.",
+      "Allah rәsimderdi birlestirgender turaly aytdy: «...Kim umradan hajǵa paydalanǵan bolsa, oson tabylatyn qurban hayvanlary...» taba almaǵandar hajda ush kun, qaytǵanda zheti kun oraza tutady (Qur'an 2:196).",
+    ],
+    quran: [
+      {
+        excerpt:
+          "Haj jəne umrany Allah ushin tolyq oryndań... Kim umradan hajǵa paydalanǵan bolsa, oson tabylatyn qurban hayvanlary. Taba almaǵan — hajda ush kun, qaytqanyńyzda zheti kun oraza...",
+      },
+    ],
+    actions: [
+      "Miqatqa kelmeden buryn top basysy men turinizdi kesin qylsyńyz.",
+      "Tamattu' qylsańyz, haj ushin qaita ihramǵa kirmeden buryn umrany tolyq oryndańyz.",
+    ],
+    appLinks: [{ label: "Umra tizimi" }, { label: "Haj tizimi" }],
+  },
+  {
+    title: "Bes miqat",
+    summary: "Haj nemese umra ushin ihram kirmesten Makkaǵa jol alǵan miqatty kesip otpeńiz.",
+    body: [
+      "Ibn Abbas rivayat qylǵanynda, Payg'ambar ﷺ adamlar ushin miqattardy belgiledi: Madina ushin Zul-Hulayfa, Sham ushin Al-Juhfa, Najd ushin Qarn al-Manazil, Yemen ushin Yalamlam; jəne Iraq ushin Zat 'Irq. Ol dedi: bular sol jerler ahalysy jəne olardan haj nemese umra niety men otetinder ushin; shekaralar ishinde turǵyndar qayerden jol alsa sol jerden ihram kiredi, hatto Makka ahalysy Makkadan (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
+      "Zamanaǵy aeroport jəne porttarda sáykes ihram nýktelesi nemese jariyalangan tartipter bar — tashuyshy jəne Haj jəne Umra vazirligi kórsetimderine amal qylyńyz, shekarany ihramsyz otpeńiz.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Rasulullah ﷺ Madina ahalysy ushin Zul-Hulayfa, Sham ahalysy ushin Al-Juhfa, Najd ahalysy ushin Qarn al-Manazil, Yemen ahalysy ushin Yalamlam belgiledi... Bul miqattar sol jerler jəne haj nemese umra niety men olardan otetinder ushin...",
       },
       {
-        title: "Қиран",
-        body: "Қажы умра мен қажылықты бір ихрамға біріктіріп, умра амалдарын орындап, қажылық аяқталғанша ихрамда тұрады. Таматту сияқты құрбандықты (хади) қажет етеді.",
-      },
-      {
-        title: "Таматту",
-        body: "Қажы қажылық айларында умраны толық орындап, ихрамнан шығады, сосын 8 зул-хижжа күні қажылыққа қайта ихрамға кіреді. Қажылардың көпшілігі осылай жасайды; Құрбан шалуды немесе қажылықта үш күн, ал қайтарда жеті күн ораза ұстауды қажет етеді (Құран 2:196).",
+        excerpt:
+          "Rasulullah ﷺ miqattardy belgiledi... Shekaralar ishinde turǵyndar qayerden jol alsa sol jerden ihram kiredi...",
       },
     ],
   },
   {
-    day: "Бармас бұрын",
-    title: "Миқаттар және ихрамдар",
-    summary: "Қасиетті мемлекет қайдан басталады, неден тыйады.",
-    steps: [
+    title: "Ihramǵa kiru",
+    summary: "Ghusl, kiyim, niет jəne talbiya muqaddas jaǵdaydy baslaydy.",
+    body: [
+      "Ihram haj nemese umra niety men kirilatyn muqaddas jaǵday. Payg'ambar ﷺ ihramǵa kirudin buryn ghusl qyluǵa usynys etti. Erkekter eki tikilmegen aq mato kiyedi; aiel kadiri jabyq kiyimde qalady, betin japmady nemese ihram kiyimi retinde qol qapqochty kiyinbeydi (niqab jəne qol qapqochtary fiqh maselasy).",
+      "Erkek ihramǵa kirudin buryn tanasyna atir surtui mumkin, jaǵdayǵa kirgennen keyin ihram matolaryna emes (Sahih al-Bukhari 1539). Keyin niет qylyń jəne talbiyany baslańyz.",
+      "Payg'ambar ﷺ oǵytylǵan talbiya: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — umra tawafy baslangansha nemese hajda mashhur amal boyysha Jamrat al-Aqaba tas taslangansha (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
+    ],
+    hadith: [
+      { excerpt: "Aisha dedi: Men Rasulullah ﷺ ni ihramǵa kirudin buryn atir surtardym..." },
       {
-        title: "Бес мауақит",
-        body: "Пайғамбарымыз ﷺ бес миқат белгіледі – ихрамсыз өтуге болмайтын шекара нүктелері: Зул-Хулайфа (Мәдина үшін), Әл-Джухфа (Сирия/Мысыр үшін), Қарн әл-Мәназил (Нәджд үшін), Йәламлам (Йемен үшін) және Зат’Ирк (Ирак үшін). Ішіндегілер өздері тұрған жерден ихрамға кіреді.",
-        location: "Миқат",
+        excerpt:
+          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
       },
+      { excerpt: "Payg'ambar ﷺ talbiyany baland dauys pen aytdy: Labbayk Allahumma labbayk..." },
+    ],
+    actions: [
+      "Erkekter ushin keminde eki toplam ihram alyńyz; atirsiz taza quraldardy dayyndyńyz.",
+      "Sapardan buryn talbiyany mashq qylyńyz, jolda oson aitu ushin.",
+    ],
+  },
+  {
+    title: "Ihram tyiymdary",
+    summary: "Muhrim muqaddas jaǵdaydan shyǵansha nelerden saqtanuy kerek.",
+    body: [
+      "Ihramda quyidaǵylardan saqtańyz: erkekter — tikilgen mos kiyim jəne bas jabу; atir; bas nemese tirnaq kesu; jer hayvanyn ov qylu; nikah tuzu nemese otkizu; jynystyq qatynas. Aiel atir jəne basqa umumiy tyiymdardan saqtanady, jabyq kiyimde qalady.",
+      "Tyiym buzylsa fidyа talap qylu mumkin — adette oraza, kambag'alardy tamaktandyru nemese qurbanlyq — qylǵan iske qarap. Mazhabtar tafsilotty farq qylady. Tyiymdarga qatyq riaya qylyńyz; kutilmegen jaǵday bolsa, malikeli jolbasshy surańyz.",
+    ],
+    actions: ["Ihramda atir, tirnaq qyrǵysh jəne qaychy qol astynda bolmasyn."],
+    madhhabNote:
+      "Buzylular jəne fidyа tizimderi mazhab boyysha farq qylady. Buldy amaliy eskertu retinde qabyldanyńyz, keyin mazhabyńyz nemese haj jolbasshyńyz ben tafsilotty rastanyńyz.",
+  },
+  {
+    title: "Umra — ihram jəne talbiya",
+    summary:
+      "Miqatta nemese undan buryn muqaddas jaǵdayǵa kiriń, keyin Allah shaqyryǵyna zhauap bering.",
+    body: [
+      "Miqatta nemese undan buryn, mumkin bolsa ghusl qylyńyz, ihram kiyimin kiyiniz, umra niety qylyńyz jəne talbiyany baslańyz. Muqaddas jaǵday sol niет pen baslanady.",
+      "Makkaǵa jol alǵanda tawaf baslangansha talbiyany zhii qaytalańyz. Bul Allah shaqyryǵyna zhoǵary zhauap beresiz dep bildiredi.",
+    ],
+    actions: ["Ǵariz rәsimdi oryndaganda belgileu ushin umra tizimin paidalanysyz."],
+    appLinks: [{ label: "Umra tizimi" }],
+  },
+  {
+    title: "Ka'ba tawafy",
+    summary: "Qara Tosh burchagyndan baslap saǵat qaǵytyna qarsy zheti aylana.",
+    body: [
+      "Ka'bany zheti ret saǵat qaǵytyna qarsy aylanyńyz, Qara Tosh burchagyndan baslap jəne ayaqtap. Koptik bolsa busanǵyz, teginiz nemese takbir men korsetseńiz — Payg'ambar ﷺ amaline amal qylyp, basqalarǵa ziyan zhetkizbeńiz.",
+      "Erkekter alǵashy ush aylanada raml (zhyldam qadam) jəne bul kelis umra tawafynda idtiba' (oń jelke ashqy) qylady, mashhur sunnat boyysha.",
+      "Yaman burchagy men Qara Tosh arasynda aitilu usynylady: «Rabbimiz, bizge dunyada zhaqsylyq jəne akhiratda zhaqsylyq ber, do'zax azabyndan asra» (Qur'an 2:201).",
+    ],
+    quran: [
       {
-        title: "Ихрам дегеніміз не",
-        body: "Ихрам – ниет пен тәлбия арқылы кіретін қасиетті күй. Ерлер екі тігілмеген ақ жайма киеді; әйелдер қарапайым қарапайым киінуді сақтайды. Ғұсыл алған соң, ал ер адамдар үшін алдын ала денеге (киімге емес) хош иіс себілгеннен кейін енгізіледі.",
-        location: "Миқат",
-      },
-      {
-        title: "Ихрамның тыйымдары",
-        body: "Ихрамда болған кезде: тігілген киім және басын жабу (ерлер үшін), иіссу, шаш немесе тырнақ алу, аң аулау, неке қию немесе қиюдан және кез келген жақындықтан аулақ болыңыз. Бұларды бұзу кәффаратты (фидяны) талап етуі мүмкін, сондықтан оларды мұқият сақтаңыз.",
-        location: "Миқат",
+        excerpt:
+          "Rabbimiz, bizge dunyada zhaqsylyq jəne akhiratda zhaqsylyq ber, do'zax azabyndan asra.",
       },
     ],
   },
   {
-    title: "Умра",
-    summary: "Кіші қажылық - жылдың кез келген уақытында орындалуы мүмкін.",
-    steps: [
+    title: "Eki rakat jəne Zamzam",
+    summary: "Mumkin bolsa Maqam Ibrahim artynda namaz oqyńyz, keyin Zamzam ishińiz.",
+    body: [
+      "Tawafdan keyin, oryn bolsa Maqam Ibrahim artynda eki rakat oqyńyz, koptik bolsa meshittin basqa jerinde — Allah sozine amal: «...Ey iman keltirgender, Ibrahim turǵan jerden namaz oqu jeri qylyń...» (Qur'an 2:125).",
+      "Keyin Zamzam suyn ishińiz. Jabir Payg'ambar ﷺ haj tasvirinde tawafdan keyin Zamzam ishu bar; Payg'ambar ﷺ dedi Zamzam niет qylǵan narsa ushin ishiladi (keiingi ulama zhinaǵan sahih rivayatlar; niет jəne dua usynylady).",
+    ],
+    quran: [{ excerpt: "...Ey iman keltirgender, Ibrahim turǵan jerden namaz oqu jeri qylyń..." }],
+  },
+  {
+    title: "Safa men Marwa arasynda sa'y",
+    summary: "Hojar su izdeuine eske alǵan zheti saf.",
+    body: [
+      "Allah aytdy: «Albatta, Safa jəne Marwa Allah belgilerinin birі... Kim Uyǵa haj nemese umra qylsa — olar arasynda zhyruynda künә joq...» (Qur'an 2:158).",
+      "Safa men Marwa arasynda zheti ret zhyryńyz, Safadan baslap. Safada Ka'baga qarap, Payg'ambar ﷺ qylǵanynda qollardy takbir jəne dua ushin kotaryńyz. Erkekter zhasyl belgiler arasynda zhygirady.",
+    ],
+    quran: [
       {
-        title: "Ихрамға кіріңіз",
-        body: "Миқатта немесе оның алдында ғұсыл алу, ихрам киімін кию, умраға ниет ету және тәлбияны бастау. Ниет жүректе жасалады, қасиетті күй сол сәттен басталады.",
-        location: "Миқат",
-      },
-      {
-        title: "Талбия айт",
-        body: "«Ләббәйк Аллаһумма ләббәйк, ләббәйкә лә шарика ләкә ләббәйк...» деп Меккеге сапар шегетін кезде жиі қайталаңыз — бұл Аллаһтың шақыруына жалғыз жауап беретініңізді білдіру — тауафты бастағанға дейін жалғастырыңыз.",
-      },
-      {
-        title: "Қағбаны тауап ету",
-        body: "Қағбаны сағат тіліне қарсы жеті рет айналдырып, Қара тас бұрышынан басталып, аяқталады, онда оны сүйіп, түртіңіз немесе жай ғана тәкбірмен нұсқаңыз. Ерлер алғашқы үш айналымда рамл (жылдам қарқынмен) және идтиба' (оң иығын ашу) жасайды. Йемен бұрышы мен Қара тас арасында: «Раббымыз, бізге дүниеде де, ақыретте де жақсылық бер және бізді тозақ азабынан сақтай гөр» (Құран, 2:201) деп оқылады.",
-        location: "әл-Харам мешіті",
-      },
-      {
-        title: "Екі рәкат намаз оқы",
-        body: "Тауаптан кейін, мүмкіндігінше Ибраһим Мақамның артында екі рәкат намаз оқып (немесе мешіттің кез келген жерінде адам көп болса), сосын зәмзәм суын еркін ішіңіз, өйткені Пайғамбарымыз (ﷺ) зәмзәм не ішілсе, соған жарайды деген.",
-        location: "әл-Харам мешіті",
-      },
-      {
-        title: "Сафа мен Маруа арасындағы саи",
-        body: "Хажардың ұлы Исмайылға су іздегенін еске алу үшін Сафа мен Мәруа арасында Сафадан бастап жеті рет жүріңіз. Алла Тағала: «Расында, әс-Сафа және әл-Маруа – Алланың рәміздерінен» (Бақара 2:158) дейді. Сафада Қағбаға бет бұрып, дұға мен тәкбірде қолдарыңызды көтеріңіз; ерлер жасыл маркерлер арасында жүгіреді.",
-        location: "әл-Харам мешіті",
-      },
-      {
-        title: "Халқ немесе таксир",
-        body: "Ерлер шашын қырады (халқ, соғұрлым сауапты) немесе біркелкі қырқу (тақсир); әйелдер шаштарын жинап, саусақ ұшының ұзындығын қысқартады. Осымен умра аяқталып, ихрам шектеулері жойылады.",
+        excerpt:
+          "Albatta, Safa jəne Marwa Allah belgilerinin birі. Kim Uyǵa haj nemese umra qylsa — olar arasynda zhyruynda künә joq...",
       },
     ],
   },
   {
-    day: "8 Зул-Хиджа",
-    title: "Тарвия күні – Мина",
-    summary: "Қажылық басталады; күні Минада өтеді.",
-    steps: [
+    title: "Halq nemese taqsir — umrany ayaqtau",
+    summary:
+      "Erkekter qyryp alady nemese qysqartady; aieler barmak ushy qysqartady — keyin ihram ashylady.",
+    body: [
+      "Erkek basy halq qylady — Payg'ambar ﷺ ush ret dua qyldy — nemese teń qysqartady (taqsir). Aiel shashyn zhynap barmak ushy qysqartady. Sonda umra tamam bolady jəne ihram shekteuleri ashylady.",
+      "Abdullah ibn Umar rivayat qylǵanynda, Rasulullah ﷺ dedi: «Allahym, qyrylǵandardyǵa rahm qyl». Dedі: «Qysqartylǵandardy da, ey Rasulullah?» Dedі: «Allahym, qyrylǵandardyǵa rahm qyl». Taǵy dedі: «Qysqartylǵandardy da?» Ushinshi ret dedi: «Jəne qysqartylǵandardy» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
+    ],
+    hadith: [
+      { excerpt: "Allahym, qyrylǵandardyǵa rahm qyl... ushinshi ret: jəne qysqartylǵandardy." },
       {
-        title: "Қажылық үшін ихрамға кіріңіз",
-        body: "Тәлбияны жаңарта отырып, қажылыққа ниет етіп, ихрамға қайта кіріңіз (Меккедегі тұрғылықты жеріңізден тәматтуғ). Бұл қайтадан қасиетті күйді бастайды, сондықтан ихрам тыйымдары тағы бір рет қолданылады.",
-      },
-      {
-        title: "Минаға саяхат",
-        body: "Минаға барып, таң, екінді, құптан, құптан және келесі таң намаздарын оқы, олардың әрқайсысы өз уақытында екі рәкатқа қысқартылып, Пайғамбардың ﷺ сүннетіне сай. Арафада тұруды күтіп, күндіз-түні ғибадатпен өткізіңдер.",
-        location: "Мина",
+        excerpt:
+          "Allahym, qyrylǵandardy kefforat qyl... ushinshi ret dedi: jəne qysqartylǵandardy.",
       },
     ],
   },
   {
-    day: "9 Зул-Хиджа",
-    title: "Арафа күні",
-    summary: "Қажылықтың ең ұлық күні – Арафада тұру.",
-    steps: [
+    title: "8 zul-hijja — Tarviya kuni",
+    summary: "Haj ushin ihram kiriń jəne kundі Mina'da otkiziniz.",
+    body: [
+      "Tamattu' hojylary: haj niety qylyń jəne Makkadagy turar jeringizden qaita ihram kiriń, talbiyany zhanańyz. Ifrad jəne Qiran hojylary allaqashan ihramda.",
+      "Mina'ǵa baryń jəne Zuhur, Asr, Maghrib, Isha jəne keyingi Fajrni ǵaribi uaqtynda eki rakatqa qysqartyp oqyńyz, Jabir rivayat qylǵan Veda haj amaline amal (Sahih Muslim 1218). Kun jəne tundі ibadatta, Arofany kutip otkiziniz.",
+    ],
+    hadith: [
       {
-        title: "Арафада тұрыңыз",
-        body: "Арафа шекарасында түстен кейін күн батқанға дейін дұға, зікір және тәубеге келу. Пайғамбарымыз (ﷺ): «Қажылық – Арафа» (Тирмизи 889, Әбу Дәуіт 1949, хасан сахих): «Кімде-кім осы тұрғылықты орындамай қалса, қажылықтан қалып қойған болады», – деген. Құбылаға қарап, қолдарыңызды көтеріп, Аллаға жалбарыныңыздар – бұл дұға үшін ең ұлық күн.",
-        location: "Арафа",
+        excerpt:
+          "Jabir Payg'ambar ﷺ Veda haj nyń uzaq rivayaty — Mina'da tunau jəne rәsimder ketіstіgі.",
       },
+    ],
+    actions: ["8-kun ertalap haj tizimin ashysyz."],
+    appLinks: [{ label: "Haj tizimi" }],
+  },
+  {
+    title: "9 zul-hijja — Arofa күні",
+    summary: "Kun batqansha Arofa ishinde turyńyz; keyin Muzdalifaga otyńyz.",
+    body: [
+      "Arofa shegarasynda tuskennen keyin kun batqansha dua, zikr jəne tauabada qalyńyz. Payg'ambar ﷺ dedi «Haj — Arofa» (Sunan Abi Dawud 1949). Qyblaǵa qarap, qollardy kotaryńyz jəne Allahtan otinіńiz — dua ushin eń ulken uaqytтар.",
+      "Zuhur men Asrni Zuhur uaqtynda birlestirip qysqartyp oqyńyz (jam' taqdim), qalǵan kundі ixtiyariy namaz ornyna duaga bagyshtanyńyz — Payg'ambar ﷺ amaly (Sahih Muslim 1218).",
+      "Kun batqan soń, tinsh Muzdalifaga baryńyz. Maghrib men Ishany birlestirińiz (Isha qysqartylǵan), tundі dem alyńyz jəne tas taslaу ushin tas zhynanyńyz. Ayu jəne aieler mashhur sunnat ruxsaty men tungi zharym keiin Mina'ǵa ketui mumkin.",
+    ],
+    hadith: [
+      { excerpt: "Haj — Arofa." },
       {
-        title: "Түн мен Асранды біріктіріңіз",
-        body: "Таң мен екінді намаздарын бірге және кешкі уақытында қысқартып оқыңыз (джам' ұсыныңыз), содан кейін күннің қалған бөлігін қосымша намазға емес, дұғаға арнаңыз.",
-        location: "Арафа",
-      },
-      {
-        title: "Муздалифаға көш",
-        body: "Күн батқаннан кейін сабырмен Муздалифаға барыңыз, Мағриб пен Құптанды біріктіріңіз (қысқартылған құптан), түнде демалыңыз және тас ату үшін тас жинаңыз. Әлсіздер мен әйелдер күйзеліп қалмас үшін түн ортасынан кейін Минаға кетуі мүмкін.",
-        location: "Муздалифа",
+        excerpt:
+          "Payg'ambar ﷺ Arofada Zuhur men Asrni birlestirdi, keyin kun batqan soń Muzdalifaga jol aldy...",
       },
     ],
   },
   {
-    day: "10 Зул-Хиджа",
-    title: "Нахр күні — Құрбан айт",
-    summary: "Тас ату, құрбандық шалу және негізгі тауап.",
-    steps: [
+    title: "10 zul-hijja — Nahru kuni",
+    summary: "Tas taslaу, qurbanlyq, shash jəne Tawaf al-Ifada.",
+    body: [
+      "Mina tomǵa qaytyń jəne Jamrat al-Aqaba (ulken ustun)ǵa zheti tas taslanyńyz, ǵariz tas taslauda Allahu akbar — Veda haj ketіstіgіnde kunning birinshi amaly.",
+      "Tamattu' jəne Qiran ushin talap qylynatyn qurbanlyqty berińiz (Qur'an 2:196) nemese senimdi idara arqyly tartip qylsyńyz. Et zheledi jəne kambag'alarga beriledi.",
+      "Halq nemese taqsir; aiel barmak ushy qysqartady. Tas taslaу men halq/taqsirdan keyin birinshi tahallul — ihram shekteulerinin kopi ashylady, jynystyq qatynastan basqa.",
+      "Makkaǵa Tawaf al-Ifada — haj rukni — jəne tamattu' hojylary ushin sa'y. Ifrad/Qiran kelis tawafy men sa'y qylǵandar mazhab hukmine amal qylady. Bul tolyq ihramnan shyǵu tamamlanady.",
+    ],
+    quran: [
+      { excerpt: "...Kim umradan hajǵa paydalanǵan bolsa, oson tabylatyn qurban hayvanlary..." },
+    ],
+    madhhabNote:
+      "Nahru kuni amaldar ketіstіgіnde sunnatda ilgilik bar; mazhabtar aniq tartip jəne ǵariz haj turi ushin sa'y uaqtynda farq qylady. Top jolbasshy korsetimine amal qylyńyz.",
+  },
+  {
+    title: "11–13 zul-hijja — Tashriq künderi",
+    summary: "Mina'da tunder, ǵariz kuni ush Jamrat tas taslaу, keyin qosh kon tawaf.",
+    body: [
+      "11, 12 (jəne erte ketpeiseniz 13) tunderin Mina'da otkiziniz. Bul kunder zheu, ishu jəne Allahty eske alu künderi.",
+      "Ǵariz kuni Zuhurdan keyin ush ustunǵa tartip pen zheti tas — kishі, orta, ulken — ǵariz tas taslauda takbir. Ashyqushylar 12-kun tas taslagan soń ketui mumkin (Qur'an 2:203).",
+      "Makkadan ketmeden buryn Tawaf al-Wada qylyńyz, Uy men sońǵy baiǵansy qosh kon bolsyn. Ibn Abbas rivayat qylǵanynda, adamlarǵa sońǵy marosim Uyda bolu buyrylǵan, hayzli aiel ushin zhenildetilgen (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
+    ],
+    quran: [
       {
-        title: "Тас Джамрат әл-Ақаба",
-        body: "Минаға қайтып, үлкен бағанаға (Жамратул-Ақабаға) жеті тас лақтырыңыз, әр лақтырған сайын «Аллаһу әкбар» деп айтыңыз. Бұл Ибраһимнің шайтаннан бас тартуын қайта көрсетеді және бұл күннің бірінші рәсімі.",
-        location: "Мина",
+        excerpt:
+          "Allahty sanalǵan künderde eske alysyz. Kim eki kunde ashyq bolsa — künә joq; kim keşiktirse — künә joq — Allahtan qorqqandar ushin...",
       },
+    ],
+    hadith: [
       {
-        title: "Құрбандық шалу",
-        body: "Таматту және қиран қажылары үшін талап етілетіндей, құрбандық малын сойыңыз немесе сенімді мекеме арқылы ұйымдастырыңыз (Құран 2:196). Оның етін жеп, кедейлерге береді.",
+        excerpt:
+          "Adamlarǵa Ka'ba qosh kon tawafy sońǵy marosim retinde buyrylǵan, hayzli aiel keşiktirilgen.",
       },
-      {
-        title: "Халқ немесе таксир",
-        body: "Шашты қыру (халқ) немесе қырқу (тақсир); әйелдер саусақ ұшының ұзындығын қысқартады. Таспен ұрып, қырынғаннан кейін бірінші босату (тахаллул-әууәл) қолданылады — жұбайымен жақын қарым-қатынастан басқа барлық ихрам шектеулері жойылады.",
-      },
-      {
-        title: "Тауаф әл-Ифада",
-        body: "Меккеге тауаф әл-ифада – қажылық тірегі – және са’и (таматту’ үшін) үшін барыңыз. Бұл ихрамнан толық босатылуды аяқтайды, ал арсыздық пен күнәдан аулақ болған адам «анасы туған күніндей оралады» (Бухари 1521, Муслим 1350).",
-        location: "әл-Харам мешіті",
-      },
+      { excerpt: "Adamlarǵa sońǵy marosim Uyda bolu buyrylǵan, hayzli aiel ushin zhenildetilgen." },
     ],
   },
   {
-    day: "11-13 Зуль-Хиджа",
-    title: "Ташрик күндері – Мина",
-    summary: "Минада түндер және күнделікті үш тірекке тас ату.",
-    steps: [
+    title: "Rukn jəne wajib",
+    summary: "Qaldyrylsa hajdy bokka qylatyn jəne qurbanlyq pen kefforat qylatyn narseler.",
+    body: [
+      "Rukn (arkan) haj nyń mazasy. Rukn qaldyrylsa, haj bokka jəne tek qurbanlyq tuzetpeydi — oryndau shart. Kopchilik adette sanaydy: ihram (niет), Arofada turu, Tawaf al-Ifada jəne sa'y.",
+      "Wajib (vajibat): miqatqa ihram, Muzdalifada tunau, Jamrat tas taslaу, Tashriq tunderin Mina'da otkizu jəne Qosh kon tawaf. Wajib qaldyru hajdy bokka qylmaydy, biraq mazhabtarda dam (qurbanlyq) pen kefforat qylunady.",
+    ],
+    madhhabNote:
+      "Aniq arkan jəne vajibat tizimderi tort mazhabta farq qylady. Mazhabyńyz ushin malikeli jolbasshy men rastanyńyz — ayniqsa koptik qysymy astynda bir narsе qaldyrylsa.",
+  },
+  {
+    title: "Adap jəne shyn niет",
+    summary: "Til men azaqtardy saqtańyz — qabyldanu minez-mulq pen baylanysty.",
+    body: [
+      "Künәsiz qaitu hadisi (Bukhari 1521; Muslim 1350) hajdy ar-ojdan (rafast), fisoq jəne bahas pen buzatatynyn korsetedi. Sabr, zhumyshtylyq jəne basqa hojylarga komek ibadat bolіgі.",
+      "Telefon jəne behuda soz Arofa men meshitti bosmasyn. Tawafda jol bering; Qara Toshqa itermeyiniz. Qabyldanǵan haj jannat serіgі — butun saparda zhaksy minez-mulq ushin intilіńiz.",
+    ],
+    hadith: [
       {
-        title: "Минада түнеңіз",
-        body: "Минада 11, 12 (және ерте кетпесеңіз 13) түндерін өткізіңіз. Бұл күндер ішіп-жеу, Алланы еске алу, ғибадат пен тәкбірмен өткізілетін күндер.",
-        location: "Мина",
+        excerpt:
+          "Кім Аллаһ үшін haj жасап, жыныстық қатынас пен күнәдан сақталса, анасы оны туған күніндегідей қайтарады.",
       },
-      {
-        title: "Үш жамаратты таспен ұр",
-        body: "Әр түстен кейін түстен кейін үш бағананың әрқайсысына рет-ретімен – кішіге, сосын ортасына, сосын үлкеніне – әр лақтырғанда тәкбір алып, жеті тас тастаңыз. Кім асығыс болса, 12-де таспен ұрып, кете алады (Құран 2:203).",
-        location: "Мина",
-      },
-      {
-        title: "Қош бол тауаф",
-        body: "Меккеден шығар алдында соңғы парыз ретінде тауаф әл-уаданы орындаңыз, сонда қажылықтың соңғы амалы Үйде болады. Етеккір келген әйелдер одан босатылады.",
-        location: "әл-Харам мешіті",
-      },
+    ],
+    actions: ["Kundіk niет qylyńyz: bir meyirimshilik jəne koptikten zhogary bir shyn dua."],
+  },
+  {
+    title: "Visa jəne tirkelu",
+    summary: "Resmi arnalardy paidalanysyz — Nusuk jəne ulttyq haj idarasy.",
+    body: [
+      "Nusuk (nusuk.sa) Saudiya Arabstanynyń resmi haj jəne umra platformasy — vizalar, turar jay, transport jəne tirkelgen paketter. Resmi emes vositachylar alayaktardyqtyń ken manbai.",
+      "Ǵariz el jyldyq haj kvotasyna ie; kopchilik ulttyq haj idarasy nemese litsenziyalangan agent arqyly otinim beredi. Umra kvotasy joq jəne jylnyń kop boliǵynda rastangan arnalardy arqyly uyymdastyrylady.",
+    ],
+    actions: [
+      "Mausym ashylǵanda erte otinim bering.",
+      "Tek Nusuk tizimindegi agenttar nemese ulttyq idara arqyly bron qylyńyz.",
+      "Aqsha audarymdan buryn tolem arnalaryn tekserińiz.",
     ],
   },
   {
-    day: "Аяқтау және шешімдер",
-    title: "Тіректер, міндеттемелер және сыйақы",
-    summary: "Қажылықты не бекітеді, не өтеледі және оның сауабы.",
-    steps: [
-      {
-        title: "Бағаналар (аркан)",
-        body: "Тіреулер қажылықтың мәні болып табылады: ихрамға кіру, Арафада тұру, тауаф әл-ифада және саи (көпшіліктің пікірінше). Егер қандай да бір бағана өткізілсе, қажылық жарамсыз болып табылады және құрбандықпен өтеуге болмайды, оны қайталау керек.",
-      },
-      {
-        title: "Міндеттер (уәжібат)",
-        body: "Уәжіптерге миқаттан ихрамға кіру, Муздалифада тұру, жамаратты таспен ату, Минада ташриқ түндерін өткізу және қоштасу тауафын жасау кіреді. Парыздан бас тарту қажылықты бұзбайды, бірақ оның орнын бөгет (құрбандық) өтейді. Мәзһабтар нақты тізімдер бойынша әртүрлі; білікті нұсқаулықпен кеңесіңіз.",
-      },
-      {
-        title: "Мәбрур қажысының сауабы",
-        body: "Қабыл болған қажылық (мабрур қажылығы) – күнәсіз және ықыласпен жасалған – өткен күнәларды өшіреді және оның сауабы – жәннаттың өзі. Пайғамбарымыз (ﷺ): «Қабыл болған қажылық үшін жәннаттан басқа сауап жоқ» (Бұхари 1773, Муслим 1349) деген. Тамаша мінез бен жұмсақтыққа ұмтылыңыз.",
-      },
-      {
-        title: "Пәтуа емес, практикалық нұсқаулық",
-        body: "Бұл рәсімдерді ретімен орындауға көмектесетін практикалық шолу. Мәзһабтар көптеген егжей-тегжейлері бойынша құрметпен ерекшеленеді және әрбір қажылардың жағдайы әртүрлі - нақты үкімдер мен күтпеген жағдайлар үшін әрқашан білікті ғалыммен немесе ресми қажылық нұсқаулығымен кеңесіңіз.",
-      },
+    title: "Ne alyp ketu kerek",
+    summary: "Ihram, atirsiz taza quraldar, qujattar jəne zhyru qonysy.",
+    body: [
+      "Erkekter: keminde eki toplam tikilmegen ihram jəne qujattar ushin kemer. Aieler: ken jabyq kiyim. Oson kiyiletin ashqy sandal; kishі ryukzak jəne su idishi.",
+      "Atirsiz sabyn jəne quyash kremi alyńyz — ihramda atir tyiym. Pasport, viza nusqasy, emdeu jazbalary jəne shuǵyl bailanys nysandaryn ing qopshada saqtańyz. Power bank jəne jergilikti SIM nemese eSIM koptik ishinde komektesedi.",
+    ],
+    actions: [
+      "Tizim: ihram ×2, sandal, atirsiz quraldar, qujat qopshasy, dori, power bank.",
+      "Ayak zharasy plastirin alyńyz — hojylar uzaq zhyrady.",
     ],
   },
   {
-    day: "Бармас бұрын",
-    title: "Виза және тіркеу",
-    summary: "Қажылар ресми арналар арқылы қалай тіркеледі және Қажылық немесе Умра визасын алады.",
-    steps: [
-      {
-        title: "Нусук платформасы",
-        body: "Нусук (nusuk.sa) — Сауд Арабиясының Қажылық пен Умра үшін ресми платформасы, виза, тұрғын үй, көлік және тіркелген турпакеттерді брондау үшін пайдаланылады. Тек Нусукты немесе оның арқылы лицензиясы бар агенттіктерді пайдаланыңыз; бейресми делдалдар алаяқтық пен бас тартылған сапарлардың жиі көзі болып табылады.",
-      },
-      {
-        title: "Қажылық визалары және елдер квотасы",
-        body: "Әр ел жыл сайынғы Қажылық квотасын алады, сондықтан қажылардың көпшілігі жеке өтініш бермей, өз елінің ұлттық Қажылық басқармасы немесе лицензиясы бар жергілікті агент арқылы өтініш береді. Қажылық маусымы ашылатын жылдың басында өтініш беріңіз — квоталар мен пакет орындары айлар бұрын толады.",
-      },
-      {
-        title: "Умра визалары",
-        body: "Қажылықтан айырмашылығы, Умраның квотасы жоқ және оны жылдың кез келген уақытында орындауға болады. Көптеген азаматтықтар Умра визасына Нусук арқылы немесе рұқсат етілген саяхат агенті арқылы тікелей өтініш бере алады, әдетте ұшу мен қонақүйді брондаумен бірге.",
-      },
+    title: "Muqaddas jerler qysqasha",
+    summary: "Makka, Madina, Mina, Arofa jəne Muzdalifa — amaliy eskertuler.",
+    body: [
+      "Masjid al-Haram Ka'bany qorap alady — tawaf jəne sa'y jeri; ulken koptik kutińiz. Madinadagy Masjid an-Nabawi hajnyń uzi emes, biraq kop hojylar ziyarat qylady; Ravda kirisi resmi qoldanbalar arqyly uaqyt belgilenedi.",
+      "Mina 8 jəne 11–13 zul-hijja tunderi ushin shatyrlar qalasy. Arofa ashqy tekislik — 9-kunde su jəne kolenke mańyzdy. Muzdalifa hojylar ashqy aspan astynda dem alyp tas zhynaytyn jer — imkoniyattar niyatpen az.",
     ],
+    actions: ["Sapardan buryn Mina–Arofa–Muzdalifa qylay kartasyn orenińiz."],
   },
   {
-    day: "Бармас бұрын",
-    title: "Заттарды жинау тізімі",
-    summary: "Сапарға дейін жинауыңыз керек практикалық қажетті заттар.",
-    steps: [
-      {
-        title: "Ихрам киімдері",
-        body: "Ерлер кем дегенде екі жиынтық тігілмеген ихрам киімін (белбеу мата және иық матасы) және ақша мен құжаттар үшін кең, былғары емес ихрам белбеуін алуы керек. Әйелдер бос, қарапайым, әшекейсіз сыртқы киім алуы керек.",
-      },
-      {
-        title: "Аяқ киім және жайлылық",
-        body: "Оңай киіп-шешілетін ашық сандалдар өте қажет, өйткені ер адамдарға ихрамда тобықты жабатын аяқ киім тыйым салынған. Жеңіл рюкзак, қайта толтырылатын су бөтелкесі және ұзақ күту үшін кішкентай намаз кілемшесін алыңыз.",
-      },
-      {
-        title: "Иіссіз гигиена құралдары",
-        body: "Иіссіз сабын, күннен қорғайтын крем және майлықтар алыңыз — хош иісті өнімдер ихрамда тыйым салынған. Ықшам алғашқы көмек жиынтығы, дәрігердің жазбасы бар жеке дәрі-дәрмектер және көп жүру салдарынан пайда болатын құбырлар үшін жамылғылар қосымша салмаққа тұрарлық.",
-      },
-      {
-        title: "Құжаттар және қажетті заттар",
-        body: "Паспортыңызды, виза баспасын, вакцинация сертификатын (әдетте менингит талап етіледі) және шұғыл байланыс нөмірлерін киім астынан киілетін жұқа сөмкеде сақтаңыз. Портативті пауэрбанк және жергілікті SIM-карта немесе eSIM тығыз жерлерде жүрудегі бағдарды әлдеқайда жеңілдетеді.",
-      },
+    title: "Resmi derekkozder",
+    summary: "Nusuk, ulttyq idarasyńyz jəne Visit Saudi.",
+    body: [
+      "Vizalar, paketter, Ravda ruxsaty jəne koptik jolbasshylyǵy ushin Nusuktan baslańyz. El haj vazirliginen kvota jəne den saulyǵy qoidalaryn alyńyz. Visit Saudi umumiy kiru jəne sapar kestelerin jariyalaydy.",
+      "Kelisim g'ayrioddiy arzan korsinse nemese vositachi resmi arnalardan tys tolem surasa, tolemeden buryn tikelen vazirlik portaly arqyly tekserińiz.",
+    ],
+    actions: [
+      "nusuk.sa jəne ulttyq haj idarasy saityn betbelshege qosyńyz.",
+      "Top basysynyń shuǵyl bailanys nysandaryn saqtańyz.",
     ],
   },
+];
+
+export const HAJJ_CHECKLIST_KK: DeepPartial<PilgrimageChecklistItem>[] = [
   {
-    day: "Бармас бұрын",
-    title: "Қасиетті орындар анықтамалығы",
-    summary: "Сіз баратын негізгі орындар туралы тез практикалық ескертпелер.",
-    steps: [
-      {
-        title: "әл-Харам мешіті, Мекке",
-        body: "Қағбаны қоршап тұрған Ұлы мешіт — тауап пен саидың орны. Ол күні-түні жұмыс істейді; Қара тас маңында және бес күнделікті намаз кезінде, әсіресе Рамазанның соңғы он түнінде және Қажылық күндерінде өте қатты тығыздықты күтіңіз.",
-        location: "Мекке",
-      },
-      {
-        title: "Пайғамбар мешіті, Мадина",
-        body: "Пайғамбарымыздың ﷺ мешіті, Раудаға және оның зираттарына үй болатын, Қажылықтың өзінің бір бөлігі емес, бірақ дерлік барлық қажылар Қажылықтан бұрын немесе кейін Мадинаға барады. Раудаға кіру үшін Нусук немесе Рауда қолданбасы арқылы брондалған уақыт белгіленген рұқсат қажет.",
-        location: "Мадина",
-      },
-      {
-        title: "Мина",
-        body: "Меккеден бірнеше шақырым қашықтықтағы шатыр қаласы, онда қажылар 8, 11, 12 (және 13) Зул-Хиджаның түндерін өткізеді. Ауасы салқындатылған, отқа қарсы шатыр лагерлерін тур операторы белгілейді; негізгі ортақ жағдайлар мен Жамаратқа дейінгі ұзақ жаяу жүрісті күтіңіз.",
-        location: "Мина",
-      },
-      {
-        title: "Арафа",
-        body: "Меккеден шамамен 20 км қашықтықта ашық жазық, Қажылықтың ең маңызды рәсімінің орны — 9 Зул-Хиджадағы тұру. Көлеңке құрылымдары мен су нүктелері беріледі, бірақ күндізгі жылу қатты; сусызданудан сақтану мен күннен қорғану өте маңызды.",
-        location: "Арафа",
-      },
-      {
-        title: "Муздалифа",
-        body: "Арафа мен Мина арасындағы ашық аймақ, онда қажылар 9–10 Зул-Хиджа түнін ашық аспан астында өткізеді және тас ату үшін тас жинайды. Жағдайлар әдейі минималды — кілемше алып, салқын түн ауасына сай киініңіз.",
-        location: "Муздалифа",
-      },
-    ],
+    title: "Haj ushin ihram",
+    hint: "Haj niety qylyń jəne ihram kiriń (tamattu' ushin Makkadan); talbiyany zhanańyz.",
+    day: "8 zul-hijja",
   },
   {
-    day: "Бармас бұрын",
-    title: "Ресми ресурстар",
-    summary: "Сенімді, өзекті ресми ақпаратты қайдан табуға болады.",
-    steps: [
-      {
-        title: "Нусук (nusuk.sa)",
-        body: "Сауд Арабиясының Қажылық және Умра министрлігінің виза, аккредиттелген пакеттер, Рауда зиярат рұқсаттары және нақты уақыттағы тығыздық пен көлік бойынша нұсқаулық үшін ресми порталы мен қолданбасы — кез келген ресми сұраққа арналған алғашқы орын.",
-      },
-      {
-        title: "Еліңіздің Қажылық басқармасы",
-        body: "Көптеген елдерде жыл сайынғы квотаны басқаратын, жергілікті агенттерді тексеретін және жол жүру кестелері мен денсаулық талаптарын жариялайтын ұлттық Қажылық басқармасы немесе министрлік бөлімі бар — кез келген жеке агент арқылы брондаудан бұрын оны тексеріңіз.",
-      },
-      {
-        title: "Visit Saudi (visitsaudi.com)",
-        body: "Патшалықтың ресми туризм сайты кіру талаптарын, лайықты азаматтықтар үшін электронды виза туралы ақпаратты және Мекке, Мадина және Сауд Арабиясы ішінде одан әрі саяхат үшін практикалық саяхат кеңестерін қамтиды.",
-      },
-      {
-        title: "Төлемге дейін тексеріңіз",
-        body: "Тек Нусукте тізімделген агенттіктер немесе еліңіздің ұлттық Қажылық басқармасы арқылы брондаңыз. Егер мәміле әдеттен тыс арзан болып көрінсе немесе делдал ресми арналардан тыс төлем сұраса, оны қауіп белгісі деп қабылдаңыз және министрлік порталы арқылы тікелей тексеріңіз.",
-      },
-    ],
+    title: "Mina'ǵa baryń",
+    hint: "Mina'da Zuhurdan Fajrge dein ǵariz namazdy uaqtynda qysqartyp oqyńyz.",
+    location: "Mina",
+    day: "8 zul-hijja",
+  },
+  {
+    title: "Arofada turyń",
+    hint: "Arofa ishinde tuskennen keyin kun batqansha dua jəne zikrde qalyńyz.",
+    location: "Arofa",
+    day: "9 zul-hijja",
+  },
+  {
+    title: "Zuhur men Asrni birlestiriń",
+    hint: "Zuhur men Asrni Zuhur uaqtynda birlestirip qysqartyp oqyńyz, keyin duaga qaratylyńyz.",
+    location: "Arofa",
+    day: "9 zul-hijja",
+  },
+  {
+    title: "Muzdalifaga otyń",
+    hint: "Kun batqan soń Maghrib men Ishany birlestirińiz, dem alyńyz jəne tas zhynanyńyz.",
+    location: "Muzdalifa",
+    day: "9 zul-hijja",
+  },
+  {
+    title: "Jamrat al-Aqaba tas taslaу",
+    hint: "Ulken ustunǵa zheti tas taslanyńyz, ǵariz tas taslauda takbir.",
+    location: "Mina",
+    day: "10 zul-hijja",
+  },
+  {
+    title: "Qurbanlyq berińiz",
+    hint: "Tamattu' jəne qiran ushin talap — oziniz nemese senimdi idara arqyly.",
+    day: "10 zul-hijja",
+  },
+  {
+    title: "Halq nemese taqsir",
+    hint: "Erkekter qyryp alady nemese qysqartady; aiel barmak ushy (birinshi tahallul).",
+    day: "10 zul-hijja",
+  },
+  {
+    title: "Tawaf al-Ifada",
+    hint: "Tawaf al-Ifada jəne tamattu' ushin sa'y — haj rukni.",
+    location: "Masjid al-Haram",
+    day: "10 zul-hijja",
+  },
+  {
+    title: "Mina'da tunau",
+    hint: "11, 12 (jəne erte ketpeiseniz 13) tunderin Mina'da otkiziniz.",
+    location: "Mina",
+    day: "11–13 zul-hijja",
+  },
+  {
+    title: "Ush Jamrat tas taslaу",
+    hint: "Ǵariz kuni Zuhurdan keyin kishі, orta, keyin ulken — ǵaribi zheti.",
+    location: "Mina",
+    day: "11–13 zul-hijja",
+  },
+  {
+    title: "Qosh kon tawaf",
+    hint: "Makkadan ketmeden buryn Tawaf al-Wada (hayzli aiel keşiktirilgen).",
+    location: "Masjid al-Haram",
+    day: "Ketу",
+  },
+];
+
+export const UMRAH_CHECKLIST_KK: DeepPartial<PilgrimageChecklistItem>[] = [
+  {
+    title: "Ihramǵa kiru",
+    hint: "Miqatta nemese undan buryn: ghusl, ihram kiyimi, umra niety, talbiya.",
+    location: "Miqat",
+  },
+  { title: "Talbiyany oqyń", hint: "Tawaf baslangansha Labbayk... zhii qaytalańyz." },
+  {
+    title: "Ka'ba tawafy",
+    hint: "Qara Toshdan baslap zheti aylana saǵat qaǵytyna qarsy; erkekter: raml jəne idtiba'.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Eki rakat oqyń",
+    hint: "Mumkin bolsa Maqam Ibrahim artynda, keyin Zamzam ishińiz.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Safa men Marwa arasynda sa'y",
+    hint: "Safadan baslap zheti saf; erkekter zhasyl belgiler arasynda zhygirady.",
+    location: "Masjid al-Haram",
+  },
+  {
+    title: "Halq nemese taqsir",
+    hint: "Erkekter qyryp alady nemese qysqartady; aiel barmak ushy — umra tamam.",
   },
 ];

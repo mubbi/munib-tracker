@@ -321,20 +321,24 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
   const layoutOnWrapper = useClipWrapper ? pickStyleKeys(hostStyle, CLIP_WRAPPER_KEYS) : null;
   const sizeOnPressable = useClipWrapper ? pickStyleKeys(hostStyle, RIPPLE_HOST_LAYOUT_KEYS) : null;
 
+  // Fully transparent fills drop Fabric taps inside Modals (Cancel looks
+  // pressed; onPress never fires). Near-invisible paint restores the target.
+  const paintedHostStyle: ViewStyle =
+    hostStyle.backgroundColor == null || hostStyle.backgroundColor === "transparent"
+      ? { ...hostStyle, backgroundColor: "rgba(0,0,0,0.002)" }
+      : hostStyle;
+
   const wrapperStyle = useClipWrapper
     ? ([layoutOnWrapper, roundedClipStyle, { overflow: "hidden" as const }] as StyleProp<ViewStyle>)
     : undefined;
 
   const pressableStyle = useClipWrapper
     ? ([
-        omitStyleKeys(hostStyle, [...CLIP_WRAPPER_POSITION_KEYS, ...CORNER_RADIUS_KEYS]),
+        omitStyleKeys(paintedHostStyle, [...CLIP_WRAPPER_POSITION_KEYS, ...CORNER_RADIUS_KEYS]),
         sizeOnPressable,
         roundedClipStyle,
-        // Transparent paint so Android still builds a hit target when the
-        // surface color lives only on children (see sheet backdrop note).
-        hostStyle.backgroundColor == null ? { backgroundColor: "transparent" } : null,
       ] as StyleProp<ViewStyle>)
-    : hostStyle;
+    : paintedHostStyle;
 
   const pressable = (
     <Pressable

@@ -34,6 +34,12 @@ export type AudioTrack = {
     lang: string;
     voice?: string;
   };
+  /**
+   * Clip playback within `uri` (seconds). Used for Learn Qur'an example phrases
+   * cut from an everyayah ayah file via word-segment timings.
+   */
+  clipStart?: number;
+  clipEnd?: number;
 };
 
 export type LoopMode = "off" | "all" | "one";

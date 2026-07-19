@@ -31,7 +31,7 @@ export interface NotificationPreferences {
   playAdhanOnPrayer: boolean;
   /** A daily reflection nudge (verse / hadith of the day) — NF-1.24. */
   dailyContent: boolean;
-  /** Friday reminder for Jumu'ah + Surah Al-Kahf — NF-1.25. */
+  /** Friday reminder for Jumu'ah, Surah Al-Kahf, and the hour of acceptance — NF-1.25. */
   friday: boolean;
   /**
    * Gentle OS push reminders to share app feedback via the in-app review funnel

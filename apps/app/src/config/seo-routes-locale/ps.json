@@ -136,9 +136,9 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "د Hajj او Umrah لارښود",
+    "description": "د Qur'an او باوري Sunnah څخه Hajj او Umrah زده کړئ، بیا د جلا Hajj او Umrah چک لیستونو سره مناسک تعقیب کړئ — عملي تعلیمي لنډیز، fiqh کتاب نه دی.",
+    "keywords": ["hajj", "umrah", "د حج لارښود", "د حج مناسک", "د حج چک لیست", "د عمرې چک لیست"]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +722,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "د Hajj مناسکو چک لیست",
+    "description": "د Tarwiyah څخه تر الوداعي tawaf پورې د Hajj مناسکو ورځنی تعقیبونکی. د زده کړئ لارښود سره یادونه.",
+    "keywords": ["د حج چک لیست", "د حج مناسک", "د حج تعقیبونکی"]
+  },
+  "/umrah/checklist": {
+    "title": "د Umrah مناسکو چک لیست",
+    "description": "په ترتیب Umrah چک لیست — ihram، tawaf، sa'i، او halq یا taqsir. د Hajj & Umrah زده کړئ لارښود سره وکاروئ.",
+    "keywords": ["د عمرې چک لیست", "د عمرې مناسک", "وړوکی حج"]
   }
 }

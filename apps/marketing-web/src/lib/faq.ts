@@ -23,7 +23,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Is it just a prayer tracker, or does it teach too?",
     answer:
-      "Both. Alongside tracking, there's a full learning library — aqeedah (24 topics), the 25 prophets, a 30-event seerah, major battles, the Hereafter, sahaba, early Islamic history, learn dua, a new-Muslim guide, and seasonal topics like Laylat al-Qadr, Eid, and Friday/Jumu'ah; a guided path to read and understand the Qur'an (letters, tajweed, memorization, 13 themes); and step-by-step worship guides for salah, taharah, zakat, and a 60-step hajj tracker. Lessons include progress tracking, quizzes, and Qur'an and hadith citations.",
+      "Both. Alongside tracking, there's a full learning library — aqeedah (24 topics), the 25 prophets, a 30-event seerah, major battles, the Hereafter, sahaba, early Islamic history, learn dua, a new-Muslim guide, and seasonal topics like Laylat al-Qadr, Eid, and Friday/Jumu'ah; a guided path to read and understand the Qur'an (letters, tajweed, memorization, 13 themes); and step-by-step worship guides for salah, taharah, zakat, and Hajj & Umrah (learn topics plus separate rite checklists). Lessons include progress tracking, quizzes, and Qur'an and hadith citations.",
   },
   {
     question: "Which platforms are supported?",

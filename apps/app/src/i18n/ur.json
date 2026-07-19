@@ -59,6 +59,7 @@
     "minus": "منفی",
     "set": "مقرر کریں",
     "play": "چلائیں",
+    "pause": "روکیں",
     "share": "شیئر",
     "saved": "محفوظ",
     "increase": "{{label}} بڑھائیں",
@@ -80,7 +81,7 @@
     }
   },
   "search": {
-    "placeholder": "قرآن، حدیث، دعائیں، اذکار تلاش کریں…",
+    "placeholder": "قرآن، حدیث، دعائیں، سیکھیں تلاش کریں…",
     "clear": "تلاش صاف کریں",
     "all": "سب",
     "resultsCount": "{{count}} نتائج",
@@ -99,16 +100,7 @@
       "zikr": "اذکار",
       "name": "۹۹ نام",
       "durood": "درود",
-      "jannah": "جنت کا سفر",
-      "jahannam": "جہنم کو سمجھنا",
-      "lastDay": "یوم القیامہ",
-      "salahGuide": "نماز سیکھیں",
-      "battles": "اسلام میں معرکے",
-      "learnQuran": "قرآن سیکھیں",
-      "taharah": "طہارت سیکھیں",
-      "prophets": "انبیاء سیکھیں",
-      "aqeedah": "عقیدہ سیکھیں",
-      "learnDua": "دعا سیکھیں"
+      "learn": "سیکھیں"
     },
     "suggestion": {
       "kursi": "آیت الکرسی",
@@ -465,6 +457,24 @@
       "progress": "{{completed}}/{{total}}",
       "allDone": "جمعہ کے تمام اعمال درج ہو گئے — اللہ قبول فرمائے۔",
       "openChecklist": "جمعہ کی فہرست کھولیں"
+    },
+    "khatmStat": "ختم",
+    "acceptanceHourCard": {
+      "badge": "دعا کی گھڑی",
+      "reminderTitle": "قبولیت کی گھڑی",
+      "reminderBody": "جمعہ میں ایک گھڑی ہے جب دعا رد نہیں ہوتی — خاص طور پر عصر کے بعد خلوص سے دعا، استغفار اور درود کے ساتھ تلاش کریں۔",
+      "openGuide": "قبولیت کی گھڑی کھولیں"
+    },
+    "khatmCard": {
+      "badge": "ختم",
+      "reminderTitle": "آج کا قرآنی ورد",
+      "catchUpTitle": "ختم کی کمی پوری کریں",
+      "reminderBody": "آج کے ختم ہدف کے لیے {{done}}/{{total}} آیات درج کریں۔",
+      "reminderBodyPages": "آج کے ختم ہدف کے لیے {{done}}/{{total}} صفحات درج کریں۔",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "آج کا ختم ورد ٹریک پر ہے — لگے رہیں۔",
+      "openPlan": "ختم پلان کھولیں",
+      "a11y": "ختم پلان دن {{day}} از {{total}}، {{percent}} فیصد مکمل، آج {{done}} از {{target}}"
     }
   },
   "tracker": {
@@ -485,7 +495,8 @@
       "witr": "وتر",
       "adhkar": "اذکار",
       "qaza": "قضا",
-      "a11y": "{{label}}: {{percent}}٪ مکمل، {{total}} میں سے {{completed}}"
+      "a11y": "{{label}}: {{percent}}٪ مکمل، {{total}} میں سے {{completed}}",
+      "khatm": "ختم"
     },
     "allDone": "ماشاءاللہ — سب مکمل",
     "freshStart": "نیا آغاز",
@@ -547,6 +558,14 @@
           "hint": "خاص طور پر عصر کے بعد آخری گھڑی میں"
         }
       }
+    },
+    "khatm": {
+      "title": "ختم پلان",
+      "progress": "آج {{done}} از {{total}}",
+      "hint": "آج کے ہدف کی طرف {{count}} آیات — درج کرنے کے لیے دبائیں",
+      "hintPages": "آج کے ہدف کی طرف {{count}} صفحات — درج کرنے کے لیے دبائیں",
+      "completeHint": "آج کا حصہ مکمل — پلان دیکھنے کے لیے دبائیں",
+      "a11y": "ختم پلان دن {{day}} از {{total}}، آج کے ہدف کی طرف {{done}} از {{target}}"
     }
   },
   "settings": {
@@ -884,7 +903,7 @@
       },
       "friday": {
         "title": "جمعہ یاد دہانی",
-        "subtitle": "جمعہ اور سورۃ الکہف"
+        "subtitle": "جمعہ، سورۃ الکہف، اور قبولیت کی گھڑی"
       }
     },
     "prayerAlertsObligatory": "فرض نمازوں کی الرٹس",
@@ -948,7 +967,10 @@
       "dailyContentTitle": "آج کی نصیحت",
       "dailyContentBody": "ایک نئی آیت، حدیث اور اللہ کا نام آپ کی ہوم اسکرین پر تیار ہے۔",
       "fridayTitle": "جمعہ مبارک",
-      "fridayBody": "آج جمعہ ہے — درود بھیجیں اور سورۃ الکہف پڑھیں۔"
+      "fridayBody": "آج جمعہ ہے — درود بھیجیں اور سورۃ الکہف پڑھیں۔",
+      "acceptanceHourTitle": "قبولیت کی گھڑی",
+      "acceptanceHourBodyAsr": "عصر شروع ہو گئی — دعا، استغفار اور درود کے ساتھ قبولیت کی گھڑی مغرب تک تلاش کریں۔",
+      "acceptanceHourBodyMid": "مغرب سے پہلے ابھی وقت ہے — ان لمحوں کو خلوص کی دعا سے بھریں۔"
     },
     "groupContent": "روزانہ مواد",
     "defaultLocationTitle": "نماز کی تنبیہات کے لیے مقام سیٹ کریں",
@@ -1043,7 +1065,11 @@
     "listenVoiceDefaultHint": "اس زبان کے لیے ڈیوائس کی پسندیدہ آواز استعمال کریں",
     "listenVoiceEmpty": "اس زبان کے لیے کوئی آواز انسٹال نہیں۔ سسٹم سیٹنگز میں آواز شامل کریں۔",
     "listenUnavailableTitle": "سننا دستیاب نہیں",
-    "listenUnavailableBody": "اس ڈیوائس پر ٹیکسٹ ٹو اسپیچ دستیاب نہیں۔ سسٹم سیٹنگز میں اپنی زبان کی آواز انسٹال چیک کریں۔"
+    "listenUnavailableBody": "اس ڈیوائس پر ٹیکسٹ ٹو اسپیچ دستیاب نہیں۔ سسٹم سیٹنگز میں اپنی زبان کی آواز انسٹال چیک کریں۔",
+    "showTransliteration": "نقل حرفی دکھائیں",
+    "hideTransliteration": "نقل حرفی چھپائیں",
+    "showTranslation": "ترجمہ دکھائیں",
+    "hideTranslation": "ترجمہ چھپائیں"
   },
   "share": {
     "dialogTitle": "شیئر",
@@ -1089,7 +1115,8 @@
     "searchPlaceholder": "عنوان، موضوع یا متن سے دعائیں تلاش کریں…",
     "searchInCategory": "اس زمرے میں تلاش کریں…",
     "searchResultCount": "{{count}} نتائج",
-    "noResults": "آپ کی تلاش سے کوئی دعا نہیں ملی۔"
+    "noResults": "آپ کی تلاش سے کوئی دعا نہیں ملی۔",
+    "favSubtitle": "اپنی محفوظ دعاؤں کی ترتیب بدلیں یا انہیں ہٹائیں"
   },
   "duaCat": {
     "morning_evening": "صبح و شام",
@@ -1178,9 +1205,10 @@
     "browseByJuz": "پارے کے حساب سے دیکھیں",
     "search": "تلاش",
     "searchTitle": "قرآن میں تلاش کریں",
-    "searchSubtitle": "ترجمہ یا نقل حرفی سے آیات تلاش کریں",
-    "searchPlaceholder": "ترجمے کے الفاظ تلاش کریں…",
-    "searchHint": "بندل شدہ ترجمہ اور نقل حرفی میں آف لائن تلاش کرتا ہے۔",
+    "searchSubtitle": "عربی، انگریزی، نقل حرفی یا حوالے سے آیات تلاش کریں",
+    "searchPlaceholder": "ترجمہ، نقل حرفی، یا 2:255 تلاش کریں…",
+    "searchPlaceholderArabic": "عربی متن یا حوالہ تلاش کریں جیسے ٢:٢٥٥…",
+    "searchHint": "آف لائن فزی تلاش عربی، انگریزی ترجمہ اور نقل حرفی میں — بشمول آیت کے نام اور حوالے۔",
     "noResults": "کوئی آیت آپ کی تلاش سے مطابقت نہیں رکھتی۔",
     "resultsCount": "{{count}} نتائج",
     "ayahRef": "{{surah}}:{{ayah}}",
@@ -1219,6 +1247,11 @@
     "pageN": "صفحہ {{n}}",
     "pageOf": "صفحہ {{page}} از {{total}}",
     "pageFraction": "{{page}} / {{total}}",
+    "goToPagePlaceholder": "صفحہ 1–{{max}}",
+    "goToPageA11y": "صفحہ نمبر پر جائیں",
+    "goToPageAction": "جائیں",
+    "goToPageHint": "۱ سے {{max}} تک صفحہ درج کریں",
+    "goToPageInvalid": "۱ اور {{max}} کے درمیان صفحہ درج کریں",
     "pagePickerTitle": "صفحہ منتخب کریں",
     "pagePickerSearch": "صفحہ یا سورت تلاش کریں…",
     "readerLayout": "پڑھنے کا انداز",
@@ -1564,7 +1597,9 @@
       },
       "footer": "یہ ایپ سب صارفین کے لیے چھوٹے وتر کو قضا میں شمار کرتی ہے۔ اگر آپ حنفی ہیں تو اسے واجب سمجھیں؛ ورنہ مستحب قضا کے طور پر ٹریک کریں۔ اپنی صورتِ حال کے لیے عالم سے رجوع کریں۔"
     },
-    "history": "تاریخچہ"
+    "history": "تاریخچہ",
+    "rowDone": "{{completed}} ادا",
+    "rowDoneWithDaily": "{{completed}} ادا · آج {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "قضا",
@@ -1810,7 +1845,8 @@
     "confirmResetTitle": "شمار کنندہ ری سیٹ کریں؟",
     "confirmResetMessage": "آپ کی گنتی {{count}} صاف ہو جائے گی۔",
     "confirmStartAgainTitle": "دوبارہ شروع کریں؟",
-    "confirmStartAgainMessage": "مکمل گنتی صاف ہو جائے گی تاکہ آپ نیا دور شروع کر سکیں۔"
+    "confirmStartAgainMessage": "مکمل گنتی صاف ہو جائے گی تاکہ آپ نیا دور شروع کر سکیں۔",
+    "dockLabel": "شمار"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} میں صرف {{min}} منٹ باقی",
@@ -2385,6 +2421,10 @@
     "logQuickDaily": "روزانہ ہدف · {{count}}",
     "logAdd": "{{count}} آیات شامل کریں",
     "logAddPages": "{{count}} صفحات شامل کریں",
+    "logConfirmTitle": "قراءت کی پیش رفت شامل کریں؟",
+    "logConfirmMsg": "اپنے ختم کے کل میں {{count}} آیات شامل کریں؟",
+    "logConfirmMsgPages": "اپنے ختم کے کل میں {{count}} صفحات شامل کریں؟",
+    "logConfirmAction": "شامل کریں",
     "logInvalid": "1–{{max}} آیات درج کریں",
     "logInvalidPages": "1–{{max}} صفحات درج کریں",
     "correctTotalTitle": "کل درست کریں",
@@ -2393,6 +2433,10 @@
     "correctTotalA11y": "کل پڑھی گئی آیات",
     "correctTotalA11yPages": "کل پڑھی گئی صفحات",
     "correctTotalApply": "کل اپ ڈیٹ کریں",
+    "correctTotalConfirmTitle": "پڑھا ہوا کل اپ ڈیٹ کریں؟",
+    "correctTotalConfirmMsg": "اپنے ختم کا کل {{count}} آیات مقرر کریں؟",
+    "correctTotalConfirmMsgPages": "اپنے ختم کا کل {{count}} صفحات مقرر کریں؟",
+    "correctTotalConfirmAction": "کل اپ ڈیٹ کریں",
     "correctTotalInvalid": "0–{{max}} آیات درج کریں",
     "correctTotalInvalidPages": "0–{{max}} صفحات درج کریں",
     "correctTotalToggle": "غلط کل؟ دستی طور پر مقرر کریں",
@@ -2637,7 +2681,8 @@
       "knowledge": "روزانہ معلومات کارڈ",
       "quickActions": "فوری اقدامات",
       "qaza": "قضا خلاصہ",
-      "schedule": "آج کا شیڈول"
+      "schedule": "آج کا شیڈول",
+      "khatm": "ختم پلان"
     }
   },
   "schedule": {
@@ -2734,10 +2779,15 @@
     },
     "adhan": {
       "listenTitle": "اذان سنیں",
-      "listenHint": "چلانے کے لیے کسی ریکارڈنگ پر ٹیپ کریں۔ سنتے ہوئے نیچے کے الفاظ کے ساتھ پیروی کریں۔",
+      "listenHint": "چلانے کے لیے کسی ریکارڈنگ پر ٹیپ کریں۔ مدینہ والی اذان سناتے وقت ہر جملے کو نمایاں کرتی ہے۔ واضح جملہ بہ جملہ آڈیو کے لیے نیچے «الفاظ سیکھیں» استعمال کریں۔",
       "play": "{{name}} کی اذان چلائیں",
       "pause": "{{name}} کی اذان روکیں",
-      "sourceNote": "کھلے ذریعہ Kiwifu/adhan-mp3 مجموعہ کی ریکارڈنگز (مکہ، مدینہ، مشاری العفاسی، وغیرہ)۔"
+      "sourceNote": "مکمل ریکارڈنگز کھلے مجموعہ Kiwifu/adhan-mp3 سے۔ جملوں کے کلپس Wikimedia Commons Adhan_wiki (CC BY-SA 3.0) سے ہیں، سیکھنے کے لیے تقسیم شدہ۔",
+      "learnPhrasesHint": "الفاظ سیکھیں — ہر جملہ واضح طور پر یکے بعد دیگرے چلائیں۔",
+      "playPhrases": "تمام جملے چلائیں",
+      "pausePhrases": "جملے روکیں",
+      "playPhrase": "جملہ {{n}} چلائیں: {{title}}",
+      "followAlongNote": "چلتے وقت نیچے الفاظ نمایاں ہوتے ہیں"
     }
   },
   "battles": {
@@ -3485,7 +3535,7 @@
       "label": "منسلکات (اختیاری)",
       "add": "فائل شامل کریں۔",
       "remove": "منسلکہ کو ہٹا دیں۔",
-      "hint": "٥ فائلوں تک (تصویر یا پی ڈی ایف)، ہر ایک ١ میگابائٹ۔ ہٹانے کے لیے تھمب نیل پر × دبائیں۔",
+      "hint": "٥ فائلوں تک (تصویر یا پی ڈی ایف)، ہر ایک ١ میگابائٹ۔ ہٹانے کے لیے تھمب نیل کو دیر تک دبائیں۔",
       "signInRequired": "اپنے ایڈکر کے ساتھ نجی فائلوں کو منسلک کرنے کے لیے سائن ان کریں۔",
       "permissionDenied": "فائلوں کو منسلک کرنے کے لیے اجازت درکار ہے۔",
       "permissionTitle": "رسائی کی اجازت دیں۔",
@@ -3655,14 +3705,34 @@
   "hajj": {
     "eyebrow": "مناسک",
     "title": "حج و عمرہ",
-    "subtitle": "مناسکِ حج و عمرہ کے لیے مرحلہ وار چیک لسٹ۔",
+    "subtitle": "قرآن و سنت سے مناسک سیکھیں، پھر حج اور عمرہ الگ الگ چیک لسٹوں سے ٹریک کریں۔",
     "progress": "{{total}} میں سے {{done}} مناسک",
     "reset": "ری سیٹ",
     "resetConfirmTitle": "چیک لسٹ ری سیٹ کریں؟",
     "resetConfirmMsg": "اس سے ہر منسک کا نشان ہٹ جائے گا۔ آپ کی پیش رفت واپس نہیں آ سکے گی۔",
-    "umrahTag": "عمرہ",
-    "hajjTag": "حج",
-    "disclaimer": "یہ عملی چیک لسٹ ہے، فقہی کتاب نہیں۔ احکام و تفصیلات کے لیے مستند رہنما کی پیروی کریں۔",
+    "disclaimer": "عملی تعلیمی جائزہ ہے، فقہی کتاب نہیں۔ مذاہب تفاصیل میں مختلف ہیں — احکام اور غیر متوقع حالات کے لیے مستند رہنما کی پیروی کریں۔",
+    "intro": "وجوب، احرام، عمرہ اور ایامِ حج مستند دلائل کے ساتھ پڑھیں۔ چیک لسٹ صرف مناسک کے لیے ہے — تیاری کے مشورے تعلیمی موضوعات میں ہیں۔",
+    "section": {
+      "virtues": "فضائل",
+      "obligation": "وجوب",
+      "types": "حج کی اقسام",
+      "ihram": "میقات و احرام",
+      "umrah": "عمرہ",
+      "hajj": "ایامِ حج",
+      "rulings": "احکام و آداب",
+      "prep": "عملی تیاری"
+    },
+    "checklistsTitle": "مناسک کی چیک لسٹیں",
+    "hajjChecklistTitle": "حج چیک لسٹ",
+    "hajjChecklistHint": "دن بہ دن حج کے مناسک",
+    "hajjChecklistSubtitle": "تروِیہ سے طوافِ وداع تک حج کے مناسک ٹریک کریں۔",
+    "hajjChecklistIntro": "ہر منسک مکمل ہونے پر نشان لگائیں۔ یہ یادداشت ہے، فتویٰ نہیں۔",
+    "umrahChecklistTitle": "عمرہ چیک لسٹ",
+    "umrahChecklistHint": "احرام سے حلق یا تقصیر تک",
+    "umrahChecklistSubtitle": "عمرہ کے مناسک ترتیب سے ٹریک کریں۔",
+    "umrahChecklistIntro": "ہر عمرہ منسک مکمل ہونے پر نشان لگائیں۔ تفصیل و دلائل کے لیے سیکھیں کھولیں۔",
+    "notFound": "موضوع نہیں ملا",
+    "continueInApp": "منیب میں جاری رکھیں",
     "prepTag": "تیاری"
   },
   "dailyHadith": {
@@ -4350,7 +4420,8 @@
       "obligatory": "ضروری",
       "highly-recommended": "بہت مستحب",
       "recommended": "مستحب"
-    }
+    },
+    "playAyahA11y": "{{ref}} کی تلاوت سنیں"
   },
   "contentReport": {
     "short": "رپورٹ",
@@ -4413,15 +4484,15 @@
     "settingsSubtitleIos": "Siri یا Apple Watch سے نماز درج کریں",
     "settingsSubtitleAndroid": "Google Assistant یا Wear OS سے نماز درج کریں",
     "introIos": "چیک لسٹ کھولے بغیر Siri، Shortcuts یا Apple Watch سے نماز درج کریں۔ EAS ترقیاتی یا حتمی بلڈ درکار — Expo Go میں دستیاب نہیں۔",
-    "introAndroid": "چیک لسٹ کھولے بغیر Google Assistant یا Wear OS سے نماز درج کریں۔ EAS ترقیاتی یا حتمی بلڈ درکار — Expo Go میں دستیاب نہیں۔",
+    "introAndroid": "چیک لسٹ کھولے بغیر Google Assistant، ایپ آئیکن شارٹ کٹ، یا Wear OS سے نماز درج کریں۔ EAS ترقیاتی یا حتمی بلڈ درکار — Expo Go میں دستیاب نہیں۔",
     "siriTitle": "Siri اور Shortcuts",
     "siriHint": "TestFlight یا App Store سے انسٹال کے بعد Shortcuts ایپ کھولیں یا کہیں “Hey Siri, mark my Salah in Munib Tracker”. اگر ایپ مکمل بند تھی تو اگلی بار کھولنے پر درج شدہ نماز ہم آہنگ ہوگی۔",
     "assistantTitle": "گوگل اسسٹنٹ",
-    "assistantHint": "انسٹال شدہ فون پر “Hey Google, mark my Salah in Munib Tracker” کہیں۔",
+    "assistantHint": "کہیں “Hey Google, mark my Salah in Munib Tracker”، یا Munib Tracker آئیکن دیر تک دبا کر Mark Salah چنیں۔ اگر ایپ مکمل بند تھی تو اگلی بار کھولنے پر درج شدہ نماز ہم آہنگ ہوگی۔",
     "watchTitle": "ایپل واچ",
     "watchHint": "آج کا شیڈول دیکھنے اور نماز درج کرنے کے لیے Munib Tracker گھڑی ایپ کھولیں۔ ڈیٹا iPhone سے ہم آہنگ ہوتا ہے۔",
     "wearTitle": "وئیر OS",
-    "wearHint": "فون سے منسلک کرنے کے بعد گھڑی پر Munib Tracker ٹائل شامل کریں۔",
+    "wearHint": "فون جوڑنے کے بعد گھڑی پر Munib Tracker ٹائل شامل کریں۔ موجودہ نماز فون پر درج کرنے کے لیے ٹائل پر تھپتھپائیں۔",
     "marked": "نماز درج ہو گئی",
     "alreadyDone": "پہلے ہی نشان زد",
     "allDone": "آج کی تمام فرض نمازیں درج ہیں",
@@ -4693,7 +4764,7 @@
     "eyebrow": "کیلنڈر",
     "title": "تاریخ کنورٹر",
     "subtitle": "ہجری اور گریگورین کیلنڈر کے درمیان تبدیل کریں۔",
-    "intro": "کسی بھی تقویم میں تاریخ درج کریں تاکہ دوسری تقویم میں اس کے مساوی تاریخ دیکھ سکیں — آف لائن، آپ کے مقام پر ہلال کی رؤیت کے حساب سے۔",
+    "intro": "ٹیبلر کویتی الگورتھم کا استعمال کرتے ہوئے آف لائن حساب کیا گیا، دوسرے میں اس کے مساوی کو دیکھنے کے لیے دونوں کیلنڈر میں ایک تاریخ درج کریں۔",
     "toHijri": "گریگورین → ہجری",
     "toGregorian": "ہجری → گریگورین",
     "gregorianDateLabel": "گریگورین تاریخ",
@@ -4703,7 +4774,7 @@
     "year": "سال",
     "useToday": "آج ہی استعمال کریں۔",
     "invalidDate": "ایک درست تاریخ درج کریں۔",
-    "disclaimer": "تاریخیں آپ کے مقام پر ہلال کی رؤیت کے حساب سے نکالی جاتی ہیں اور چاند دیکھنے کے سرکاری اعلانات سے ایک دن مختلف ہو سکتی ہیں — دینی تاریخوں کے لیے ہمیشہ اپنی مقامی مسجد یا اتھارٹی کی پیروی کریں۔",
+    "disclaimer": "یہ ایک ریاضی کا تخمینہ ہے (ٹیبلولر \"کویتی الگورتھم\") اور چاند دیکھنے کے مقامی اعلانات سے ایک دن کے حساب سے مختلف ہو سکتا ہے — مذہبی تاریخوں کے لیے ہمیشہ اپنی مقامی مسجد یا اتھارٹی کی پیروی کریں۔",
     "directionTitle": "تبدیلی کی سمت",
     "resultFrom": "{{date}} سے",
     "quickLinksTitle": "متعلقہ",

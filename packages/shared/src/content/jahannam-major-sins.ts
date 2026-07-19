@@ -280,7 +280,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS: JahannamTopic[] = [
       "Definition: 'Uquq al-walidayn is grave disobedience and mistreatment of one's parents — harming them, treating them with contempt, neglecting them in need, or wounding them by word or deed. It is the opposite of birr al-walidayn, the dutiful kindness Islam commands.",
       "Why it is so grave: in verse after verse Allah pairs the command to worship Him with the command to be good to parents, as in 'Worship Allah... and to parents do good' (4:36) — placing their right immediately after His own. Parents are, after Allah, the nearest source of a person's very being and upbringing, so ingratitude toward them is a kind of ingratitude that runs deep. The Prophet ﷺ listed their mistreatment among the greatest of major sins, second only to shirk.",
       "An important balance: dutifulness does not mean obeying parents in disobedience to Allah — no creature is obeyed in sin against the Creator. But even where one must decline, it is done with gentleness, respect, and continued kindness. The Qur'an forbids even the smallest word of exasperation: 'do not say to them uff' (17:23).",
-      "The path of return: the mercy here is that parents are usually still within reach. For one who has fallen short, repentance is largely practical — resume kindness, seek their pardon, serve them, and make du'a for them, especially while they are alive. And if a parent has passed, dutifulness continues through praying for them, giving charity on their behalf, and honouring their ties and friends.",
+      "The path of return: the mercy here is that parents are usually still within reach. For one who has fallen short, repentance is largely practical — resume kindness, seek their pardon, serve them, and make dua for them, especially while they are alive. And if a parent has passed, dutifulness continues through praying for them, giving charity on their behalf, and honouring their ties and friends.",
     ],
     quran: [
       {
@@ -343,7 +343,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS: JahannamTopic[] = [
       "Definition: Khamr is anything that intoxicates and clouds the intellect — wine and all alcohol, and by the Prophet's ﷺ own principle, every intoxicating substance whatever its form or name. 'Every intoxicant is khamr, and every khamr is forbidden.'",
       "Why it is grave: the mind is the faculty by which a person knows Allah, discerns right from wrong, and guards every other responsibility. Intoxicants dismantle exactly that, which is why the Qur'an brackets them with idols and gambling as 'defilement from the work of Satan' and commands, 'avoid them' (5:90). Beyond the individual, they wreck health, families, and safety, and open the door to sins a sober person would never approach.",
       "The wisdom of how it was forbidden: Allah did not ban khamr in a single abrupt stroke but prohibited it in stages, weaning the early community off a deep-rooted habit gently. That gradualness is itself a lesson in mercy — and a model of hope for anyone struggling to leave it today.",
-      "The path of return, with compassion: those caught in addiction are not to be despised but supported. Repentance means resolving to leave the substance, removing it and its triggers from one's life, seeking help and treatment without shame, and filling the void with good company, dhikr, and worship. Allah's door is wide open, and every sincere step away from intoxicants is a step He welcomes.",
+      "The path of return, with compassion: those caught in addiction are not to be despised but supported. Repentance means resolving to leave the substance, removing it and its triggers from one's life, seeking help and treatment without shame, and filling the void with good company, zikr, and worship. Allah's door is wide open, and every sincere step away from intoxicants is a step He welcomes.",
     ],
     quran: [
       {
@@ -362,7 +362,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS: JahannamTopic[] = [
         excerpt: "Every intoxicant is khamr, and every khamr is forbidden.",
       },
     ],
-    actions: ["Seek help if needed; replace the habit with dhikr and good company."],
+    actions: ["Seek help if needed; replace the habit with zikr and good company."],
     appLinks: [{ label: "Daily adhkar", route: "/zikr" }],
   },
 ];

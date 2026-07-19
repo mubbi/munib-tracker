@@ -59,21 +59,20 @@ export const LAYLAT_AL_QADR_TOPICS_PS: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "که چیرې مو ونیسي نو څه ووایاست",
+    summary: "عایشهؓ له نبي ﷺ څخه پوښتنه وکړه چې دقیق څه ووایي.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "عایشه (رض الله عنها) له نبي ﷺ څخه وپوښتل: «یا رسول الله، که زه پوه شم چې کومه شپه د لیلة القدر ده، په هغه کې څه ووایم؟» هغه ﷺ هغې ته لاندې ښودل شوې لنډه د بخښنې دعا وښودله (ترمذي ۳۵۱۳، چې ترمذي یې حسن صحیح درجه ورکړې).",
+      "دا دعا لنډه ده، حفظ کول یې اسانه دي، او په قصد د نړیوالو غوښتنو پرځای د بخښنې په اړه ده — یادونه چې د دې شپې ترټولو لویه ګټه د الله بخښنه ده. یې په وروستیو لسو شپو کې ډېر تکرار کړئ، په لمونځ کې، په سجده کې، او د دې ترمنځ، پرځای د دې چې یې یوې اټکل شوې شپې ته وساتئ.",
     ],
     hadith: [
       {
-        excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+        excerpt: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي.",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "پورته ښودل شوې د بخښنې دعا حفظ کړئ.",
+      "یې په وروستیو لسو شپو کې، په ځانګړي توګه په طاق شپو کې، ډېر تکرار کړئ.",
     ],
   },
   {

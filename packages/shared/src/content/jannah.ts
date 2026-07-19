@@ -155,7 +155,7 @@ export const JANNAH_TOPICS: JannahTopic[] = [
     summary: "The peak of Paradise, closest to the Throne.",
     body: [
       "Al-Firdaws is the highest and most excellent level of Paradise named in the authentic Sunnah. The Prophet ﷺ described it as the best of Paradise and its middle — its very heart — from which the rivers of Paradise originate, and above it is the Throne of the Most Merciful. To reach Al-Firdaws is to be as near to Allah as any created being can be.",
-      "What makes this topic so practical is a piece of prophetic guidance: when we make du'a for Paradise, we should not aim low. The Prophet ﷺ taught the companions that when they ask Allah for Paradise, they should ask specifically for Al-Firdaws rather than settling for a lesser request. Allah's generosity is limitless, so it is a kind of shortcoming to ask Him only for the minimum. This teaches us ambition in worship: aim for the summit and let Allah, in His mercy, decide where to place you.",
+      "What makes this topic so practical is a piece of prophetic guidance: when we make dua for Paradise, we should not aim low. The Prophet ﷺ taught the companions that when they ask Allah for Paradise, they should ask specifically for Al-Firdaws rather than settling for a lesser request. Allah's generosity is limitless, so it is a kind of shortcoming to ask Him only for the minimum. This teaches us ambition in worship: aim for the summit and let Allah, in His mercy, decide where to place you.",
       "How does a servant become a candidate for such a rank? The means are the same means that lead to Paradise itself, pursued with excellence: sound belief (tawheed) held sincerely, careful fulfilment of the obligations Allah has commanded, and then a growing life of voluntary worship on top of them — night prayer, extra fasting, remembrance, charity, and good character. In a famous hadith qudsi, Allah describes how the servant keeps drawing near through voluntary deeds until Allah loves him.",
       "Yet the final and decisive gift is always Allah's mercy. In the same breath that we aim for the highest, we remember the Prophet's ﷺ own words: no one enters Paradise by his deeds alone — not even the Prophet ﷺ himself — except that Allah envelops him in His mercy. This is the perfect balance the believer strikes: soaring hope and ambition on one side, sincere humility on the other.",
       "So make Al-Firdaws a regular part of your supplication — in prostration, in the last third of the night, and before sleep — while you quietly do your best each day and lean entirely on your Lord's mercy for the rest.",
@@ -177,7 +177,7 @@ export const JANNAH_TOPICS: JannahTopic[] = [
       },
     ],
     actions: [
-      "Ask Allah for Al-Firdaws in your du'a, especially in sujud and before sleep.",
+      "Ask Allah for Al-Firdaws in your dua, especially in sujud and before sleep.",
       "Perfect what is obligatory upon you, then increase voluntary worship.",
       "Renew repentance often and rely on Allah's mercy, not on your deeds alone.",
     ],
@@ -239,7 +239,7 @@ export const JANNAH_TOPICS: JannahTopic[] = [
       "The Qur'an and Sunnah single out certain individuals, categories of believers, and deeds tied to glad tidings of Paradise. It is important to read these correctly: they are honest reports about those specific people or descriptions — they are not a transferable guarantee for anyone who merely hears their names or admires them. The glad tiding rested on their faith and their deeds, and the same door is open to us through the same means.",
       "The most famous group is the Ten Promised Paradise (al-Asharah al-Mubashsharah), named together by the Prophet ﷺ in a single narration: Abu Bakr, Umar, Uthman, Ali, Talhah, Zubayr, Abd al-Rahman ibn Awf, Sa'd ibn Abi Waqqas, Sa'id ibn Zayd, and Abu Ubaydah ibn al-Jarrah (may Allah be pleased with them all). These were the closest and most sacrificing of the Prophet's ﷺ companions, and Ahl al-Sunnah love and honour them all without going to excess or disparaging any of them.",
       "Beyond named individuals, the texts describe categories given glad tidings: the truthful and the patient, those who die as genuine martyrs in Allah's cause according to Islamic law, and those whose final words in this life are the testimony of faith, la ilaha illallah. Each description points to an inner reality — sincerity, sacrifice, or a heart attached to Allah at the last breath — not merely an outward label.",
-      "The lesson for us is not to feel secure by association, nor to claim these ranks for ourselves, but to be inspired. Let their example pull us upward: love what they loved, strive as they strove, and turn that admiration into du'a and action, asking Allah above all for husn al-khatimah — a good ending.",
+      "The lesson for us is not to feel secure by association, nor to claim these ranks for ourselves, but to be inspired. Let their example pull us upward: love what they loved, strive as they strove, and turn that admiration into dua and action, asking Allah above all for husn al-khatimah — a good ending.",
     ],
     hadith: [
       {
@@ -313,7 +313,7 @@ export const JANNAH_TOPICS: JannahTopic[] = [
       "Salah — the five daily prayers — is the second pillar of Islam and the central act of daily worship. The Prophet ﷺ described prayer as the pillar of the religion: whoever establishes it establishes the religion, and whoever neglects it has torn down much of what holds it up. It is the believer's five daily appointments with his Lord, standing, bowing, and prostrating in direct connection with Allah.",
       "Its rank is unmatched among the practical deeds because of what the Prophet ﷺ said about the Day of Judgement: the very first matter a servant will be brought to account for is the prayer. If it is sound, the rest of the deeds will be sound; if it is deficient, the rest is in danger. In this life, too, prayer is a means of purification — the Prophet ﷺ compared the five prayers to a flowing river at one's door: whoever bathes in it five times a day is left with no dirt, and so the prayers wash away minor sins.",
       "But prayer is meant to be more than physical motions. The Qur'an praises 'those who are humble in their prayer' (Qur'an 23:1–2) and honours 'those who are constant in their prayer' (Qur'an 70:22–23). Two qualities matter most: khushu — a present, humble heart that knows it is standing before Allah — and consistency, guarding every prayer at its proper time. Praying in congregation, for those able, multiplies the reward many times over.",
-      "The deeper wisdom of salah is transformation. Prayer, done properly, restrains a person from indecency and wrongdoing; it is a repeated reset that pulls the heart back to Allah throughout a busy day. Missing prayers without valid excuse is therefore a grave matter that requires sincere repentance and making them up (qada). Nafl and rawatib — the regular sunnah prayers before and after the obligatory ones — add further light and raise one's rank.",
+      "The deeper wisdom of salah is transformation. Prayer, done properly, restrains a person from indecency and wrongdoing; it is a repeated reset that pulls the heart back to Allah throughout a busy day. Missing prayers without valid excuse is therefore a grave matter that requires sincere repentance and making them up (qaza). Nafl and rawatib — the regular sunnah prayers before and after the obligatory ones — add further light and raise one's rank.",
       "Practically: protect the five daily prayers at their times as your absolute priority, make up any you have missed, and add the sunnah prayers you can sustain. If your prayer improves, everything else in your worship tends to improve with it.",
     ],
     quran: [
@@ -460,14 +460,14 @@ export const JANNAH_TOPICS: JannahTopic[] = [
   {
     id: "dhikr",
     hub: "paths",
-    title: "Dhikr — remembrance",
+    title: "Zikr — remembrance",
     summary: "Light on the tongue, heavy on the scale.",
     importance: "highly-recommended",
     body: [
-      "Dhikr means the remembrance of Allah — keeping Him present in the heart and on the tongue through words of glorification (SubhanAllah), praise (Alhamdulillah), magnification (Allahu Akbar), affirmation of His oneness (La ilaha illallah), and seeking forgiveness (istighfar). Of all the paths to Paradise, dhikr is among the easiest to perform yet among the greatest in reward, because it can be done anywhere, in any state, at any moment.",
-      "Allah Himself commands it generously — 'O you who believe, remember Allah with much remembrance' (Qur'an 33:41–42) — and promises a unique fruit for it: tranquillity of heart. 'Verily, in the remembrance of Allah do hearts find rest' (Qur'an 13:28). In a restless, anxious world, this is one of dhikr's greatest gifts. The Prophet ﷺ also weighed its reward, saying that two words light on the tongue yet heavy on the Scale, and beloved to the Most Merciful, are SubhanAllahi wa bihamdihi, SubhanAllahil-Azeem.",
+      "Zikr means the remembrance of Allah — keeping Him present in the heart and on the tongue through words of glorification (SubhanAllah), praise (Alhamdulillah), magnification (Allahu Akbar), affirmation of His oneness (La ilaha illallah), and seeking forgiveness (istighfar). Of all the paths to Paradise, zikr is among the easiest to perform yet among the greatest in reward, because it can be done anywhere, in any state, at any moment.",
+      "Allah Himself commands it generously — 'O you who believe, remember Allah with much remembrance' (Qur'an 33:41–42) — and promises a unique fruit for it: tranquillity of heart. 'Verily, in the remembrance of Allah do hearts find rest' (Qur'an 13:28). In a restless, anxious world, this is one of zikr's greatest gifts. The Prophet ﷺ also weighed its reward, saying that two words light on the tongue yet heavy on the Scale, and beloved to the Most Merciful, are SubhanAllahi wa bihamdihi, SubhanAllahil-Azeem.",
       "A special category is the morning and evening adhkar — the authentic supplications the Prophet ﷺ taught for the two boundaries of the day. These act as a spiritual fortress, guarding the believer from harm and drawing down Allah's protection and pleasure. Just a few minutes at the start and end of each day, said with presence, quietly reshape the heart over time.",
-      "The wisdom of dhikr is that it keeps the relationship with Allah alive between the formal acts of worship. A tongue that is moist with remembrance and, more importantly, a heart that recalls Allah in its daily choices — pausing before anger, before a purchase, before a decision — is the true goal. Dhikr is not meant to stay on the lips; it is meant to steer the life.",
+      "The wisdom of zikr is that it keeps the relationship with Allah alive between the formal acts of worship. A tongue that is moist with remembrance and, more importantly, a heart that recalls Allah in its daily choices — pausing before anger, before a purchase, before a decision — is the true goal. Zikr is not meant to stay on the lips; it is meant to steer the life.",
       "Practically: make the morning and evening adhkar a daily habit, keep a simple portion of tasbeeh, istighfar, or salawat flowing during idle moments, and remember Allah especially before sleep and upon waking. Consistency in a little is better than bursts of a lot.",
     ],
     quran: [
@@ -668,7 +668,7 @@ export const JANNAH_TOPICS: JannahTopic[] = [
       "There is a stunning promise attached to it. In a hadith qudsi, Allah says: 'My servant does not draw near to Me with anything more beloved to Me than what I have made obligatory upon him. And he continues to draw near to Me through voluntary deeds until I love him' — and once Allah loves a servant, his supplications are answered and his affairs are set right. Voluntary worship is therefore the ladder of nearness, climbing from mere obedience toward divine love.",
       "The Sunnah is rich with accessible forms of it: the night prayer (tahajjud) in the last part of the night, the forenoon prayer (duha), the regular sunnah prayers before and after the obligatory ones, and voluntary fasting such as Mondays and Thursdays or the white days of each month. Nafl worship also quietly patches up our shortfalls — the Prophet ﷺ taught that any deficiency in the obligatory prayers will be completed from a person's voluntary prayers on the Day of Judgement.",
       "The wisdom is that nafl keeps faith alive and growing. Obligations maintain the baseline, but voluntary acts are where the heart stretches, where private worship no one sees builds sincerity, and where a person trains himself for the harder tests of life. It is also a mercy that these acts are optional — Allah opens many doors so that each person can walk through the ones that suit him.",
-      "Practically, the key is sustainability, not intensity. The Prophet ﷺ taught that the most beloved deeds to Allah are the most consistent, even if small. Choose a few voluntary acts you can genuinely keep — two rak'ahs of tahajjud, one fast a week, a fixed portion of Qur'an — rather than an ambitious burst that burns out within days.",
+      "Practically, the key is sustainability, not intensity. The Prophet ﷺ taught that the most beloved deeds to Allah are the most consistent, even if small. Choose a few voluntary acts you can genuinely keep — two rakahs of tahajjud, one fast a week, a fixed portion of Qur'an — rather than an ambitious burst that burns out within days.",
     ],
     quran: [
       {
@@ -1093,12 +1093,12 @@ export const JANNAH_VERSES: JannahVerseEntry[] = [
 export const JANNAH_DUAS: JannahDuaEntry[] = [
   {
     id: "dua-hasanah",
-    context: "The comprehensive du'a for good in both worlds and protection from the Fire.",
+    context: "The comprehensive dua for good in both worlds and protection from the Fire.",
     duaId: "quranic-hasanah",
   },
   {
     id: "dua-jannah-nar",
-    context: "A concise du'a after tashahhud: ask for Paradise and refuge from the Fire.",
+    context: "A concise dua after tashahhud: ask for Paradise and refuge from the Fire.",
     duaId: "hisn-61",
   },
   {
@@ -1148,7 +1148,7 @@ export const JANNAH_PROMISED: JannahPromisedEntry[] = [
   },
 ];
 
-/** Al-Firdaws du'a text (not in Hisnul bundle) for display on the Al-Firdaws topic. */
+/** Al-Firdaws dua text (not in Hisnul bundle) for display on the Al-Firdaws topic. */
 export const JANNAH_FIRDAWS_DUA = {
   arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْفِرْدَوْسَ الْأَعْلَىٰ مِنَ الْجَنَّةِ",
   transliteration: "Allahumma inni as'alukal-Firdawsal-a'la min al-jannah",

@@ -5,9 +5,8 @@ import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
@@ -15,8 +14,9 @@ import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getBundledEdition, getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
-import { compactArabicTextStyle } from "@/lib/reading-typography";
+import { arabicReadingLayout, DEFAULT_ARABIC_SIZE } from "@/lib/reading-typography";
 import { buildAyahSharePayload } from "@/lib/share";
+import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranBookmarks } from "@/stores/quran-store";
 
 const FALLBACK_TRANSLATION = "en-pickthall";
@@ -25,6 +25,8 @@ export default function QuranBookmarksScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { fontPrefs } = usePreferences();
+  const arabicSize = fontPrefs.arabic.size ?? DEFAULT_ARABIC_SIZE;
   const bookmarks = useQuranBookmarks();
   const { toggleBookmark } = useQuranActions();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
@@ -61,80 +63,83 @@ export default function QuranBookmarksScreen() {
           onAction={() => router.push("/quran")}
         />
       ) : (
-        <Card padding="three">
-          <Stagger>
-            <View style={styles.list}>
-              {bookmarks.map((bm) => {
-                const surah = getSurahByNumber(bm.surah);
-                const arabic = getSurahAyahs(bm.surah)[bm.ayah - 1]?.arabic ?? "";
-                const translation =
-                  getBundledEdition(FALLBACK_TRANSLATION, bm.surah)[String(bm.ayah)] ?? "";
-                const page = getPageForAyah(bm.surah, bm.ayah);
-                return (
-                  <View key={bm.id} style={[styles.row, { backgroundColor: colors.muted }]}>
+        <Stagger>
+          <View style={styles.list}>
+            {bookmarks.map((bm) => {
+              const surah = getSurahByNumber(bm.surah);
+              const arabic = getSurahAyahs(bm.surah)[bm.ayah - 1]?.arabic ?? "";
+              const translation =
+                getBundledEdition(FALLBACK_TRANSLATION, bm.surah)[String(bm.ayah)] ?? "";
+              const page = getPageForAyah(bm.surah, bm.ayah);
+              const shareKey = `${bm.surah}:${bm.ayah}`;
+              const sharePending = isGesturePending(shareKey);
+              const openAyah = () =>
+                router.push({
+                  pathname: "/quran/[surah]",
+                  params: { surah: String(bm.surah), ayah: String(bm.ayah) },
+                });
+
+              return (
+                <View key={bm.id} style={[styles.card, { backgroundColor: colors.muted }]}>
+                  <View style={styles.header}>
                     <PressableScale
                       haptic="light"
                       accessibilityRole="button"
                       accessibilityLabel={`${surah?.nameTransliteration} ${bm.ayah}`}
-                      onPress={() =>
-                        router.push({
-                          pathname: "/quran/[surah]",
-                          params: { surah: String(bm.surah), ayah: String(bm.ayah) },
-                        })
-                      }
-                      style={styles.rowContent}
+                      onPress={openAyah}
+                      style={styles.meta}
                     >
                       <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
                         <ThemedText type="caption" style={{ color: colors.accent }}>
                           {bm.surah}:{bm.ayah} · {t("quran.pageN", { n: page })}
                         </ThemedText>
                       </View>
-                      <View style={styles.body}>
-                        <ThemedText type="small" numberOfLines={1}>
-                          {surah?.nameTransliteration}
-                        </ThemedText>
-                        <ThemedText
-                          type="arabic"
-                          themeColor="mutedForeground"
-                          numberOfLines={1}
-                          style={compactArabicTextStyle()}
-                        >
-                          {arabic}
-                        </ThemedText>
-                      </View>
+                      <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                        {surah?.nameTransliteration}
+                      </ThemedText>
                     </PressableScale>
-                    <LabeledIconButton
-                      name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                      label={
-                        isGesturePending(`${bm.surah}:${bm.ayah}`)
-                          ? t("share.tapToShare")
-                          : t("common.share")
-                      }
-                      iconSize={18}
-                      tintColor={colors.mutedForeground}
-                      accessibilityLabel={t("quran.shareAyah")}
-                      haptic="light"
-                      loading={isSharing(`${bm.surah}:${bm.ayah}`)}
-                      loadingLabel={t("share.preparing")}
-                      onPress={() => shareAyah(arabic, translation, bm.surah, bm.ayah)}
-                    />
-                    <LabeledIconButton
-                      name={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-                      label={t("quran.actionBookmarked")}
-                      iconSize={18}
-                      tintColor={tokens.status.warning.color}
-                      labelColor={tokens.status.warning.color}
-                      accessibilityLabel={t("quran.bookmarkRemove")}
-                      accessibilityState={{ selected: true }}
-                      haptic="light"
-                      onPress={() => toggleBookmark(bm.surah, bm.ayah)}
-                    />
+                    <View style={styles.actions}>
+                      <IconButton
+                        name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                        size={18}
+                        tintColor={colors.mutedForeground}
+                        accessibilityLabel={
+                          sharePending ? t("share.tapToShare") : t("quran.shareAyah")
+                        }
+                        haptic="light"
+                        loading={isSharing(shareKey)}
+                        onPress={() => shareAyah(arabic, translation, bm.surah, bm.ayah)}
+                      />
+                      <IconButton
+                        name={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+                        size={18}
+                        tintColor={tokens.status.warning.color}
+                        accessibilityLabel={t("quran.bookmarkRemove")}
+                        accessibilityState={{ selected: true }}
+                        haptic="light"
+                        onPress={() => toggleBookmark(bm.surah, bm.ayah)}
+                      />
+                    </View>
                   </View>
-                );
-              })}
-            </View>
-          </Stagger>
-        </Card>
+                  <PressableScale
+                    haptic="light"
+                    accessibilityRole="button"
+                    accessibilityLabel={`${surah?.nameTransliteration} ${bm.ayah}`}
+                    onPress={openAyah}
+                  >
+                    <ThemedText
+                      type="arabic"
+                      numberOfLines={4}
+                      style={arabicReadingLayout(arabicSize)}
+                    >
+                      {arabic}
+                    </ThemedText>
+                  </PressableScale>
+                </View>
+              );
+            })}
+          </View>
+        </Stagger>
       )}
     </ScreenLayout>
   );
@@ -142,27 +147,33 @@ export default function QuranBookmarksScreen() {
 
 const styles = StyleSheet.create({
   list: { gap: Spacing.two },
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
+  card: {
+    gap: Spacing.two,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.lg,
     borderCurve: "continuous",
   },
-  rowContent: {
-    flex: 1,
+  header: {
     flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
+    alignItems: "flex-start",
+    gap: Spacing.two,
+  },
+  meta: {
+    flex: 1,
+    gap: Spacing.half,
+    minWidth: 0,
   },
   badge: {
+    alignSelf: "flex-start",
     paddingHorizontal: Spacing.two,
-    height: 30,
+    paddingVertical: Spacing.half,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
   },
-  body: { flex: 1, gap: 2 },
+  actions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.half,
+  },
 });

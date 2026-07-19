@@ -1,6 +1,6 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import {
   JannahActionSteps,
   JannahCallout,
@@ -8,6 +8,7 @@ import {
   JannahTakeaway,
 } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { QuranAyahPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -60,9 +61,18 @@ export default function LearnQuranDailyScreen() {
 
           <LearnReadingChrome surface="learn_quran">
             <Card padding="three">
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {lesson.label}
-              </ThemedText>
+              <View style={styles.excerptHeader}>
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.excerptLabel}>
+                  {lesson.label}
+                </ThemedText>
+                <QuranAyahPlayButton
+                  surah={lesson.surah}
+                  ayahFrom={lesson.ayahFrom}
+                  ayahTo={lesson.ayahTo}
+                  sourceHref="/learn-quran/daily"
+                  compact
+                />
+              </View>
               <ThemedText type="arabic" style={styles.arabic}>
                 {lesson.excerpt}
               </ThemedText>
@@ -106,6 +116,13 @@ export default function LearnQuranDailyScreen() {
 }
 
 const styles = StyleSheet.create({
+  excerptHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  excerptLabel: { flex: 1 },
   arabic: { fontSize: 26, lineHeight: 44, marginTop: Spacing.two },
   translation: { lineHeight: 24, marginTop: Spacing.two },
   block: { marginTop: Spacing.three, lineHeight: 22 },

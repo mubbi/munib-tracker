@@ -12,6 +12,7 @@ import {
   QuranAyahBookmarkButton,
 } from "@/components/jannah/bookmark-button";
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
+import { QuranAyahPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -274,7 +275,15 @@ export function JannahQuranEvidence({ refs }: { refs: JannahQuranRef[] }) {
               <View style={styles.quranRef}>
                 <ReferenceLine reference={ref.label} />
               </View>
-              <QuranAyahBookmarkButton surah={ref.surah} ayah={ref.ayahFrom} />
+              <View style={styles.hadithMetaActions}>
+                <QuranAyahPlayButton
+                  surah={ref.surah}
+                  ayahFrom={ref.ayahFrom}
+                  ayahTo={ref.ayahTo}
+                  compact
+                />
+                <QuranAyahBookmarkButton surah={ref.surah} ayah={ref.ayahFrom} />
+              </View>
             </View>
             {ref.excerpt ? (
               <ThemedText

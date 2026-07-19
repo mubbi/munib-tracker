@@ -75,11 +75,10 @@ export function GlassSurface({
   const { colors, scheme } = useThemeTokens();
   const blurTarget = useBlurTarget();
 
-  // Native blur / liquid-glass materials often keep the first tint until remount.
-  // Key on scheme so light↔dark toggles recreate the chrome instead of sticking
-  // on the previous material until an app refresh.
-  const schemeKey = `glass-${scheme}`;
-  // Soft scheme wash so chrome stays readable even if the native blur lags one frame.
+  // Soft scheme wash — strong enough that chrome stays scheme-correct even if
+  // native BlurView / Liquid Glass lags one frame behind a light↔dark toggle.
+  // Do NOT remount on scheme change: keyed remounts recreate blur/glass trees
+  // (header, tab bar, mini-player, sheets) and freeze the UI for a beat.
   const defaultWashOpacity = scheme === "dark" ? 0.72 : 0.78;
   const resolvedWashOpacity = washOpacity ?? defaultWashOpacity;
   const wash =
@@ -88,7 +87,6 @@ export function GlassSurface({
   if (hasLiquidGlass) {
     return (
       <GlassView
-        key={schemeKey}
         glassEffectStyle="regular"
         isInteractive={interactive}
         colorScheme={scheme}
@@ -109,7 +107,6 @@ export function GlassSurface({
 
   return (
     <BlurView
-      key={schemeKey}
       tint={resolvedTint}
       intensity={intensity}
       blurMethod={androidBlurMethod}
@@ -139,7 +136,6 @@ type OverlayGlassFillProps = {
 export function OverlayGlassFill({ cardWashAlpha, intensity = 72 }: OverlayGlassFillProps) {
   const { colors, scheme } = useThemeTokens();
   const blurTarget = useBlurTarget();
-  const schemeKey = `overlay-glass-${scheme}`;
 
   const cardWash = (
     <View
@@ -174,7 +170,6 @@ export function OverlayGlassFill({ cardWashAlpha, intensity = 72 }: OverlayGlass
   return (
     <>
       <BlurView
-        key={schemeKey}
         tint={tint}
         intensity={intensity}
         blurMethod={androidCapture ? "dimezisBlurViewSdk31Plus" : undefined}

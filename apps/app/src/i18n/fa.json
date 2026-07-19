@@ -77,10 +77,11 @@
       "intro": "مرور کوتاهی از درس‌های این راهنما. عجله نکنید — هدف یادگیری است.",
       "hint": "آنچه آموخته‌اید را مرور کنید",
       "empty": "سؤالات این راهنما هنوز در حال بارگذاری است. چند درس باز کنید، سپس دوباره تلاش کنید."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "جستجوی قرآن، حدیث، دعا، اذکار…",
+    "placeholder": "جست‌وجو در قرآن، حدیث، دعا، یادگیری…",
     "clear": "پاک کردن جستجو",
     "all": "همه",
     "resultsCount": "{{count}} نتیجه",
@@ -109,16 +110,7 @@
       "zikr": "Adhkar",
       "name": "۹۹ نام",
       "durood": "درود",
-      "jannah": "سفر به بهشت",
-      "jahannam": "درک جهنم",
-      "lastDay": "روز قیامت",
-      "salahGuide": "آموزش نماز",
-      "battles": "غزوات در اسلام",
-      "taharah": "آموزش طهارت",
-      "prophets": "آموزش انبیا",
-      "aqeedah": "آموزش عقیده",
-      "learnDua": "آموزش دعا",
-      "learnQuran": "آموزش قرآن"
+      "learn": "یادگیری"
     },
     "stt": {
       "dictate": "جستجوی صوتی",
@@ -465,6 +457,24 @@
       "badge": "جمعه",
       "reminderTitle": "جمعه مبارک",
       "reminderBody": "Jumu'ah بخوانید و سنن جمعه را کامل کنید — Ghusl، Surah al-Kahf، salawat و Dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "سهم قرآن امروز",
+      "catchUpTitle": "جبران khatm",
+      "reminderBody": "{{done}}/{{total}} ayah به سمت هدف khatm امروز ثبت کنید.",
+      "reminderBodyPages": "{{done}}/{{total}} صفحه به سمت هدف khatm امروز ثبت کنید.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "قرائت khatm امروز در مسیر است — ادامه دهید.",
+      "openPlan": "باز کردن برنامه khatm",
+      "a11y": "برنامه khatm روز {{day}} از {{total}}، {{percent}} درصد تکمیل، امروز {{done}} از {{target}}"
+    },
+    "acceptanceHourCard": {
+      "badge": "ساعت dua",
+      "reminderTitle": "ساعت اجابت",
+      "reminderBody": "ساعتی در جمعه که dua رد نمی‌شود — به‌ویژه پس از Asr با dua، istighfar و salawat صادقانه آن را بجویید.",
+      "openGuide": "باز کردن ساعت اجابت"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "وتر",
       "adhkar": "Adhkar",
       "qaza": "قضا",
-      "a11y": "{{label}}: {{percent}}% complete, {{completed}} از {{total}}"
+      "a11y": "{{label}}: {{percent}}% complete, {{completed}} از {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "ماشاءاللہ — سب مکمل",
     "freshStart": "Yeni یک başlangıç",
@@ -547,6 +558,14 @@
       "jumpTitle": "فهرست Jumu'ah",
       "jumpHint": "سنن جمعه در پایین",
       "jumpA11y": "رفتن به فهرست Jumu'ah در این صفحه"
+    },
+    "khatm": {
+      "title": "برنامه khatm",
+      "progress": "امروز {{done}} از {{total}}",
+      "hint": "{{count}} ayah به سمت هدف امروز — برای ثبت ضربه بزنید",
+      "hintPages": "{{count}} صفحه به سمت هدف امروز — برای ثبت ضربه بزنید",
+      "completeHint": "سهم امروز تمام شد — برای مرور برنامه ضربه بزنید",
+      "a11y": "برنامه khatm روز {{day}} از {{total}}، {{done}} از {{target}} به سمت هدف امروز"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "بازتاب امروز",
       "dailyContentBody": "آیه، حدیث و نام الله جدید در صفحه اصلی شما آماده است.",
       "fridayTitle": "جمعه مبارک",
-      "fridayBody": "جمعه است صلوات بفرست و سوره کهف را بخوان."
+      "fridayBody": "جمعه است صلوات بفرست و سوره کهف را بخوان.",
+      "acceptanceHourTitle": "ساعت اجابت",
+      "acceptanceHourBodyAsr": "Asr آغاز شد — تا Maghrib با dua، istighfar و salawat ساعت اجابت را بجویید.",
+      "acceptanceHourBodyMid": "هنوز تا Maghrib وقت هست — این دقایق را با dua صادقانه پر کنید."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "یادآوری جمعه",
-        "subtitle": "جمعه و سوره کهف"
+        "subtitle": "Jumu'ah، سوره Al-Kahf و ساعت اجابت"
       }
     },
     "prayerAlertsObligatory": "هشدارهای اجباری صلاح",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "برای شروع شنیدن یک صدا انتخاب کنید",
     "listenVoiceDefault": "پیش‌فرض سیستم",
     "listenVoiceDefaultHint": "از صدای ترجیحی دستگاه برای این زبان استفاده کنید",
-    "listenVoiceEmpty": "برای این زبان صدایی نصب نشده است. یکی را در تنظیمات سیستم اضافه کنید."
+    "listenVoiceEmpty": "برای این زبان صدایی نصب نشده است. یکی را در تنظیمات سیستم اضافه کنید.",
+    "showTransliteration": "نمایش آوانگاری",
+    "hideTransliteration": "پنهان کردن آوانگاری",
+    "showTranslation": "نمایش ترجمه",
+    "hideTranslation": "پنهان کردن ترجمه"
   },
   "share": {
     "dialogTitle": "اشتراک",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "duas by title, topic, or text… جستجو",
     "searchInCategory": "in this category… جستجو",
     "searchResultCount": "{{count}} نتائج",
-    "noResults": "No duas matched شما ara."
+    "noResults": "No duas matched شما ara.",
+    "favSubtitle": "دعاهای ذخیره‌شده را مرتب یا حذف کنید"
   },
   "duaCat": {
     "morning_evening": "صبح و شام",
@@ -1385,7 +1412,13 @@
       "stopDictate": "توقف گوش دادن",
       "bestMatch": "بهترین تطابق",
       "otherMatches": "تطابق‌های دیگر"
-    }
+    },
+    "searchPlaceholderArabic": "متن عربی یا ارجاعی مانند ۲:۲۵۵ را جستجو کنید…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",
@@ -1608,7 +1641,9 @@
       },
       "footer": "این برنامه Witr از دست رفته را برای همه کاربران به حساب می آورد. اگر از دیدگاه حنفی پیروی می کنید، آن گونه که لازم است رفتار کنید. در غیر این صورت آن را به عنوان یک آرایش توصیه شده پیگیری کنید. برای وضعیت خود با یک محقق مشورت کنید."
     },
-    "history": "تاریخچه"
+    "history": "تاریخچه",
+    "rowDone": "{{completed}} Qaza انجام شد",
+    "rowDoneWithDaily": "{{completed}} Qaza انجام شد · امروز {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "قزا",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "بازنشانی counter?",
     "confirmResetMessage": "شمارش {{count}} شما پاک می‌شود.",
     "confirmStartAgainTitle": "دوباره شروع شود؟",
-    "confirmStartAgainMessage": "شمارش کامل‌شده شما پاک می‌شود تا دور تازه‌ای را آغاز کنید."
+    "confirmStartAgainMessage": "شمارش کامل‌شده شما پاک می‌شود تا دور تازه‌ای را آغاز کنید.",
+    "dockLabel": "شمارش"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} is only {{min}} دقیقه away",
@@ -2502,7 +2538,15 @@
       "ahead": "آگے",
       "onTrack": "روشن track",
       "behind": "پیچھے"
-    }
+    },
+    "logConfirmTitle": "پیشرفت خواندن اضافه شود؟",
+    "logConfirmMsg": "{{count}} آیه به مجموع ختم اضافه شود؟",
+    "logConfirmMsgPages": "{{count}} صفحه به مجموع ختم اضافه شود؟",
+    "logConfirmAction": "افزودن",
+    "correctTotalConfirmTitle": "مجموع خوانده‌شده به‌روز شود؟",
+    "correctTotalConfirmMsg": "مجموع ختم {{count}} آیه تنظیم شود؟",
+    "correctTotalConfirmMsgPages": "مجموع ختم {{count}} صفحه تنظیم شود؟",
+    "correctTotalConfirmAction": "به‌روزرسانی مجموع"
   },
   "hifz": {
     "short": "حفظ",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Den  قرآن",
     "hadithTitle": "Den  سنت",
     "obligationsTitle": "آپ پر اب بھی کیا واجب ہے",
-    "rakatsTitle": "رکعات ایک نظر میں",
+    "rakatsTitle": "رکعت‌ها در یک نگاه",
     "rakatsPrayer": "نماز",
     "rakatsResident": "At home",
     "rakatsTravel": "Travelling",
@@ -2718,7 +2762,8 @@
       "knowledge": "کارت دانش روزانه",
       "quickActions": "اقدامات سریع",
       "qaza": "خلاصه قزا",
-      "schedule": "برنامه امروز"
+      "schedule": "برنامه امروز",
+      "khatm": "برنامه khatm"
     }
   },
   "schedule": {
@@ -2744,7 +2789,7 @@
     "progressCardTitle": "پیشرفت یادگیری",
     "progressCardHint": "{{completed}} از {{total}} lessons marked complete",
     "topicsTitle": "Guides",
-    "rakatsTitle": "رکعات ایک نظر میں",
+    "rakatsTitle": "رکعت‌ها در یک نگاه",
     "prayer": "نماز",
     "fard": "فرض",
     "sunnah": "سنت",
@@ -2818,7 +2863,12 @@
       "listenHint": "چلانے کے لیے کسی ریکارڈنگ پر ٹیپ کریں۔ سنتے ہوئے نیچے کے الفاظ کے ساتھ پیروی کریں۔",
       "play": "پخش {{name}} adhan",
       "pause": "مکث {{name}} adhan",
-      "sourceNote": "Recordings از  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, و more)."
+      "sourceNote": "Recordings از  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, و more).",
+      "learnPhrasesHint": "کلمات را بیاموزید — هر جمله را واضح، یکی پس از دیگری پخش کنید.",
+      "playPhrases": "پخش همه عبارات",
+      "pausePhrases": "توقف عبارات",
+      "playPhrase": "پخش عبارت {{n}}: {{title}}",
+      "followAlongNote": "هنگام پخش، کلمات پایین را برجسته می‌کند"
     }
   },
   "battles": {
@@ -3440,7 +3490,8 @@
       "obligatory": "ضروری است",
       "highly-recommended": "بسیار توصیه می شود",
       "recommended": "توصیه می شود"
-    }
+    },
+    "playAyahA11y": "پخش تلاوت {{ref}}"
   },
   "library": {
     "eyebrow": "کتابخانه",
@@ -4033,7 +4084,7 @@
       "label": "پیوست ها (اختیاری)",
       "add": "فایل اضافه کنید",
       "remove": "حذف پیوست",
-      "hint": "تا ۵ فایل (JPEG، PNG، WebP یا PDF)، هر کدام ۱ مگابایت. برای حذف، روی تصویرک × بزنید.",
+      "hint": "حداکثر 5 فایل (JPEG، PNG، WebP یا PDF)، هر کدام 1 مگابایت. برای حذف یک تصویر کوچک را طولانی فشار دهید.",
       "signInRequired": "برای پیوست کردن فایل های خصوصی به ادکار خود وارد شوید.",
       "permissionDenied": "برای پیوست کردن فایل ها مجوز لازم است.",
       "permissionTitle": "اجازه دسترسی",
@@ -4214,9 +4265,29 @@
     "reset": "بازنشانی",
     "resetConfirmTitle": "چک‌لیست sıfırlansın mı?",
     "resetConfirmMsg": "تیک همه مناسک برداشته می‌شود. پیشرفت شما قابل بازیابی نیست.",
-    "umrahTag": "عمرہ",
-    "hajjTag": "حج",
     "disclaimer": "فهرستی کاربردی است، نه کتاب فقه. برای احکام و جزئیات از راهنمایی واجد شرایط پیروی کنید.",
+    "intro": "واجب، ihram، Umrah و روزهای Hajj را با منابع معتبر مطالعه کنید. فقط برای مناسک از چک‌لیست استفاده کنید — نکات آماده‌سازی در موضوعات یادگیری می‌ماند.",
+    "section": {
+      "virtues": "فضایل",
+      "obligation": "واجب",
+      "types": "انواع Hajj",
+      "ihram": "Miqat و ihram",
+      "umrah": "Umrah",
+      "hajj": "روزهای Hajj",
+      "rulings": "احکام و آداب",
+      "prep": "آمادگی عملی"
+    },
+    "checklistsTitle": "چک‌لیست مناسک",
+    "hajjChecklistTitle": "چک‌لیست Hajj",
+    "hajjChecklistHint": "مناسک حج روز به روز",
+    "hajjChecklistSubtitle": "مناسک Hajj را از Tarwiyah تا tawaf وداع پیگیری کنید.",
+    "hajjChecklistIntro": "هر منسک را پس از انجام علامت بزنید. این یادآور است — fatwa نیست.",
+    "umrahChecklistTitle": "چک‌لیست Umrah",
+    "umrahChecklistHint": "از ihram تا halq یا taqsir",
+    "umrahChecklistSubtitle": "ترتیب Umrah را به‌ترتیب پیگیری کنید.",
+    "umrahChecklistIntro": "هر منسک Umrah را پس از انجام علامت بزنید. برای جزئیات و ادله یادگیری را باز کنید.",
+    "notFound": "موضوع یافت نشد",
+    "continueInApp": "ادامه در Munib",
     "prepTag": "آماده سازی"
   },
   "dailyHadith": {
@@ -4525,7 +4596,7 @@
     "sourceLabel": "منبع شما (اختیاری)",
     "sourcePlaceholder": "Book, alim, URL, یا citation supporting شما correction.",
     "proofLabel": "ثبوت کی اسکرین شاٹ (اختیاری)",
-    "proofHint": "تا ۳ تصویر. برای حذف، روی تصویرک × بزنید.",
+    "proofHint": "تا ۳ تصویر. برای حذف، روی تصویر بندانگشتی نگه دارید.",
     "addProof": "افزودن photo",
     "removeProof": "حذف screenshot",
     "submit": "ارسال report",
@@ -4574,7 +4645,7 @@
     "settingsSubtitleIos": "نماز with Siri or Apple Watch İşaretle",
     "settingsSubtitleAndroid": "نماز with Google Assistant or Wear OS İşaretle",
     "introIos": "چیک لسٹ کھولے بغیر Siri، Shortcuts یا Apple Watch سے نماز درج کریں۔ EAS ترقیاتی یا حتمی بلڈ درکار — Expo Go میں دستیاب نہیں۔",
-    "introAndroid": "چیک لسٹ کھولے بغیر Google Assistant یا Wear OS سے نماز درج کریں۔ EAS ترقیاتی یا حتمی بلڈ درکار — Expo Go میں دستیاب نہیں۔",
+    "introAndroid": "برای علامت‌گذاری Salah بدون باز کردن چک‌لیست از Google Assistant، میانبر آیکون برنامه یا Wear OS استفاده کنید. به build EAS dev یا production نیاز دارد — در Expo Go در دسترس نیست.",
     "siriTitle": "Siri اور Shortcuts",
     "siriHint": "پس از نصب از تست‌فلایت یا اپ استور، برنامه میانبرها را باز کنید یا بگویید «Hey Siri, mark my Salah in Munib Tracker». اگر برنامه به‌اجبار بسته شده باشد، ثبت در دفعه بعد که مونیب ترکر را باز کنید همگام می‌شود.",
     "assistantTitle": "دستیار گوگل",
@@ -4582,7 +4653,7 @@
     "watchTitle": "اپل واچ",
     "watchHint": "Open the Munib ردیاب watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "سیستم عامل بپوشید",
-    "wearHint": "افزودن the Munib ردیاب tile on your watch after pairing with your phone.",
+    "wearHint": "پس از جفت‌کردن گوشی، tile Munib Tracker را روی ساعت اضافه کنید. با ضربه روی tile، Salah فعلی را روی گوشی علامت بزنید.",
     "marked": "نماز marked",
     "alreadyDone": "قبلا علامت گذاری شده است",
     "allDone": "همه نمازهای واجب امروز ثبت شدند",
@@ -4789,7 +4860,7 @@
     "eyebrow": "تقویم",
     "title": "مبدل تاریخ",
     "subtitle": "تبدیل بین تقویم هجری و میلادی",
-    "intro": "تاریخی در هر یک از دو تقویم وارد کنید تا معادل آن در دیگری را ببینید؛ به‌صورت آفلاین بر اساس رؤیت هلال در موقعیت شما محاسبه می‌شود.",
+    "intro": "یک تاریخ را در یکی از تقویم‌ها وارد کنید تا معادل آن را در تقویم دیگر مشاهده کنید، که با استفاده از الگوریتم جدولی کویتی به صورت آفلاین محاسبه می‌شود.",
     "toHijri": "میلادی ← هجری",
     "toGregorian": "هجری ← میلادی",
     "gregorianDateLabel": "تاریخ میلادی",
@@ -4799,7 +4870,7 @@
     "year": "سال",
     "useToday": "امروز استفاده کنید",
     "invalidDate": "تاریخ معتبری وارد کنید",
-    "disclaimer": "تاریخ‌ها بر اساس رؤیت هلال (hilāl) در موقعیت شما محاسبه می‌شوند و می‌توانند یک روز با اعلام رسمی رؤیت ماه تفاوت داشته باشند — برای تاریخ‌های مذهبی همیشه از Masjid یا مرجع محلی خود پیروی کنید.",
+    "disclaimer": "این یک تقریب حسابی است («الگوریتم کویتی» جدولی) و می‌تواند یک روز با اعلان‌های محلی رویت ماه متفاوت باشد - همیشه مسجد یا مرجع محلی خود را برای تاریخ‌های مذهبی دنبال کنید.",
     "directionTitle": "جهت تبدیل",
     "resultFrom": "از {{date}}",
     "quickLinksTitle": "مرتبط",

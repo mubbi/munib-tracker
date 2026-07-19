@@ -30,7 +30,7 @@ export const QURAN_GUIDE_APPLY_CHALLENGES: QuranGuideApplyChallenge[] = [
     verseExcerpt: "Do not say to them 'uff'…",
     challenge:
       "Speak to a parent or elder today with visible gentleness and patience, showing no trace of irritation — and do something to serve them.",
-    habit: "If they are alive, commit to a regular call or visit; if not, make du'a for them.",
+    habit: "If they are alive, commit to a regular call or visit; if not, make dua for them.",
   },
   {
     id: "truth",
@@ -46,7 +46,7 @@ export const QURAN_GUIDE_APPLY_CHALLENGES: QuranGuideApplyChallenge[] = [
     verseExcerpt: "Allah is with the patient.",
     challenge:
       "The next time something frustrates you, hold back every harsh word for a full sixty seconds before you respond.",
-    habit: "Turn moments of irritation into dhikr or two rak'ah of prayer whenever you can.",
+    habit: "Turn moments of irritation into zikr or two rakah of prayer whenever you can.",
   },
   {
     id: "gratitude",
@@ -62,6 +62,6 @@ export const QURAN_GUIDE_APPLY_CHALLENGES: QuranGuideApplyChallenge[] = [
     verseExcerpt: "Whoever forgives and makes reconciliation — his reward is with Allah.",
     challenge:
       "Let go of one grudge you have been carrying — release it sincerely, at least within your own heart.",
-    habit: "Make a quiet du'a for the person who wronged you instead of replaying the hurt.",
+    habit: "Make a quiet dua for the person who wronged you instead of replaying the hurt.",
   },
 ];

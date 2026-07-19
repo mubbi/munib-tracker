@@ -52,11 +52,13 @@ import {
 import { FRIDAY_CHECKLIST_FOCUS } from "@/lib/friday";
 import { triggerHaptic } from "@/lib/haptics";
 import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/content";
+import { khatmTodayProgress } from "@/lib/khatm";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
+import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
 import { preferencesStore } from "@/stores/preferences-store";
 import {
   type SetPrayerStatusOptions,
@@ -112,6 +114,9 @@ export default function TrackerScreen() {
   const jamaMap = usePrayerJamaMap();
   const prayerTimes = useDailyPrayerTimes();
   const { setPrayerStatus, setPrayerNotes, setPrayerJama } = useTrackerActions();
+  useEnsureKhatmLoaded();
+  const { plan: khatmPlan, ayahsRead: khatmRead } = useKhatm();
+  const khatmToday = khatmPlan ? khatmTodayProgress(khatmPlan, khatmRead) : null;
   const remindAfterSalahAdhkar = useAfterSalahAdhkarReminder();
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
   const [zikrReady, setZikrReady] = useState(false);
@@ -226,6 +231,17 @@ export default function TrackerScreen() {
           summary.qazaTargetToday,
           { color: tokens.status.warning.color, onPress: () => router.push("/qaza") },
         ),
+      );
+    }
+
+    // Khatm glance ring — only while a reading plan is active.
+    if (khatmToday) {
+      items.push(
+        makeItem("khatm", t("tracker.rings.khatm"), khatmToday.done, khatmToday.target, {
+          color:
+            khatmToday.pace === "behind" ? tokens.status.warning.color : tokens.status.info.color,
+          onPress: () => router.push("/quran/khatm"),
+        }),
       );
     }
 

@@ -7,6 +7,7 @@ import { type ScrollView, StyleSheet, View } from "react-native";
 
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { FridayTrackerSection } from "@/components/friday-tracker-section";
+import { KhatmDailyChecklist } from "@/components/khatm-daily-checklist";
 import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
 import { QazaDailyChecklist } from "@/components/qaza-daily-checklist";
 import { ThemedText } from "@/components/themed-text";
@@ -240,6 +241,7 @@ export function TrackerDayChecklist({
       </Card>
 
       <QazaDailyChecklist date={date} />
+      <KhatmDailyChecklist />
 
       <Card padding="three">
         <SectionHeader

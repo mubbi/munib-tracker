@@ -84,10 +84,10 @@ export const EID_GUIDE_TOPICS: LearnGuideTopic[] = [
     id: "eid-prayer-how-to",
     section: "prayer",
     title: "How to pray Eid salah",
-    summary: "Two rak'ahs with extra takbirs — no adhan or iqamah.",
+    summary: "Two rakahs with extra takbirs — no adhan or iqamah.",
     body: [
-      "The Eid prayer is two rak'ahs, prayed in congregation without any adhan or iqamah beforehand — Jabir ibn Abdullah and Ibn Abbas both confirmed that no call to prayer was given for either Eid in the Prophet's ﷺ time (Sahih Muslim 886). The prayer is followed by a khutbah (sermon), unlike the Friday prayer where the khutbah comes first.",
-      "Extra takbirs (saying 'Allahu Akbar') are added before the recitation in each rak'ah, on top of the normal takbirs of the prayer. Aisha narrated that the Prophet ﷺ said the takbir seven times in the first rak'ah and five times in the second, for both Eids (Sunan Abi Dawud 1149), a count also reported from Abdullah ibn Amr (Sunan Abi Dawud 1151).",
+      "The Eid prayer is two rakahs, prayed in congregation without any adhan or iqamah beforehand — Jabir ibn Abdullah and Ibn Abbas both confirmed that no call to prayer was given for either Eid in the Prophet's ﷺ time (Sahih Muslim 886). The prayer is followed by a khutbah (sermon), unlike the Friday prayer where the khutbah comes first.",
+      "Extra takbirs (saying 'Allahu Akbar') are added before the recitation in each rakah, on top of the normal takbirs of the prayer. Aisha narrated that the Prophet ﷺ said the takbir seven times in the first rakah and five times in the second, for both Eids (Sunan Abi Dawud 1149), a count also reported from Abdullah ibn Amr (Sunan Abi Dawud 1151).",
     ],
     hadith: [
       {
@@ -102,11 +102,11 @@ export const EID_GUIDE_TOPICS: LearnGuideTopic[] = [
         citation: "1149",
         grade: "sahih",
         excerpt:
-          "The Messenger of Allah ﷺ would say the takbir seven times in the first rak'ah and five times in the second rak'ah on the day of the breaking of the fast and on the day of sacrifice.",
+          "The Messenger of Allah ﷺ would say the takbir seven times in the first rakah and five times in the second rakah on the day of the breaking of the fast and on the day of sacrifice.",
       },
     ],
     madhhabNote:
-      "Schools differ on the exact extra-takbir count. Shafi'i, Maliki, and Hanbali jurists follow the 7-and-5 narration (Abu Dawud 1149/1151) — Maliki and Hanbali count the opening takbir within the seven, so state 6-and-5. The Hanafi school instead holds 3 extra takbirs before the recitation in the first rak'ah and 3 before the bowing in the second (6 total) — a position of the Kufan jurists for which there is no separately authenticated marfu' hadith; follow whichever your congregation's imam leads.",
+      "Schools differ on the exact extra-takbir count. Shafi'i, Maliki, and Hanbali jurists follow the 7-and-5 narration (Abu Dawud 1149/1151) — Maliki and Hanbali count the opening takbir within the seven, so state 6-and-5. The Hanafi school instead holds 3 extra takbirs before the recitation in the first rakah and 3 before the bowing in the second (6 total) — a position of the Kufan jurists for which there is no separately authenticated marfu' hadith; follow whichever your congregation's imam leads.",
     actions: [
       "Arrive in time — there is no adhan or iqamah to signal the start.",
       "Follow your imam's takbir count; either school's practice is valid.",

@@ -30,7 +30,7 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
     importance: "foundational",
     body: [
       "Dua (دعاء) is calling upon Allah — asking Him for benefit, forgiveness, guidance, and protection, and turning to Him in need. Far from being a lesser act, the Prophet ﷺ declared, 'Dua is worship,' and then recited Allah's command, 'Call upon Me; I will respond to you.' To ask Allah is itself an act of pure tawheed, because it admits that He alone hears, owns, and controls all outcomes.",
-      "There are two kinds of dua that flow together: du'a al-mas'alah, asking Allah for something, and du'a al-'ibadah, worshipping Him through prayer, dhikr, and obedience — for every act of worship is, in essence, a silent request for His acceptance and reward. This is why directing dua to anyone besides Allah is a form of shirk: it gives to another what belongs to Him alone.",
+      "There are two kinds of dua that flow together: dua al-mas'alah, asking Allah for something, and dua al-'ibadah, worshipping Him through prayer, zikr, and obedience — for every act of worship is, in essence, a silent request for His acceptance and reward. This is why directing dua to anyone besides Allah is a form of shirk: it gives to another what belongs to Him alone.",
       "A believer makes dua in ease and hardship, aloud and in secret, certain that Allah hears every call and never turns away a sincere one empty-handed. He is so near that He says, 'I answer the call of the caller when he calls upon Me.'",
       "The response takes one of three forms, taught by the Prophet ﷺ: Allah gives what was asked; or He withholds it and stores an equal or greater reward for the Hereafter; or He turns away a harm equal to it. So no sincere dua is ever truly unanswered — sometimes the greatest mercy is in the answer we do not see.",
     ],
@@ -255,11 +255,11 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
   {
     id: "home-mosque",
     section: "daily",
-    title: "Home and mosque duas",
+    title: "Home and masjid duas",
     summary: "Carry remembrance as you enter and leave your home and the masjid.",
     body: [
       "The Prophet ﷺ attached short supplications to the everyday thresholds of life. Mentioning Allah's name when leaving and entering the home brings protection and blessing, and shuts the door on Shaytan; he taught that when a person enters mentioning Allah, Shaytan says to his companions, 'You have no place to spend the night here.'",
-      "The masjid has its own etiquette: enter with the right foot asking for the gates of mercy, and leave with the left asking for Allah's bounty — reminders that the mosque is a place of mercy, discipline, and humility before Allah.",
+      "The masjid has its own etiquette: enter with the right foot asking for the gates of mercy, and leave with the left asking for Allah's bounty — reminders that the masjid is a place of mercy, discipline, and humility before Allah.",
     ],
     phrases: [
       {
@@ -274,7 +274,7 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
       },
       {
         id: "enter-mosque",
-        title: "Dua entering the mosque",
+        title: "Dua entering the masjid",
         when: "On entering, stepping in with the right foot",
         arabic: "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
         transliteration: "Allahumma iftah li abwaba rahmatik",
@@ -366,7 +366,7 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
     title: "Dua at the adhan and iqamah",
     summary: "Answer the call, ask Allah for the Prophet's ﷺ station, then supplicate.",
     body: [
-      "When the adhan is called, the Sunnah is to repeat after the mu'adhdhin, then send salawat upon the Prophet ﷺ, then recite the du'a asking Allah to grant him al-Wasilah — the Prophet ﷺ promised his intercession to whoever does so.",
+      "When the adhan is called, the Sunnah is to repeat after the mu'adhdhin, then send salawat upon the Prophet ﷺ, then recite the dua asking Allah to grant him al-Wasilah — the Prophet ﷺ promised his intercession to whoever does so.",
       "The window between the adhan and the iqamah is one of the accepted times for personal supplication; the Prophet ﷺ said the dua made then is not turned away, so use it to ask Allah for your own needs.",
     ],
     phrases: [
@@ -405,7 +405,7 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
     title: "Anxiety and sadness",
     summary: "Anchor the heart with tawakkul and the Prophet's ﷺ own supplications.",
     body: [
-      "Islam meets distress with practical spiritual tools: dua, dhikr, prayer, and trust in Allah's decree. The Prophet ﷺ, who himself faced grief and hardship, taught precise supplications for anxiety (hamm), sadness (hazan), and fear — words that reorient the heart from the problem toward the One who controls it.",
+      "Islam meets distress with practical spiritual tools: dua, zikr, prayer, and trust in Allah's decree. The Prophet ﷺ, who himself faced grief and hardship, taught precise supplications for anxiety (hamm), sadness (hazan), and fear — words that reorient the heart from the problem toward the One who controls it.",
       "These duas do not replace seeking help through lawful means, including medical or professional care when it is needed. Rather, they strengthen the heart alongside those means, reminding the believer that ultimate sufficiency is with Allah alone.",
     ],
     phrases: [
@@ -634,11 +634,11 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
   {
     id: "dhikr-tasbeeh",
     section: "categories",
-    title: "Dhikr and tasbeeh",
+    title: "Zikr and tasbeeh",
     summary: "Short remembrances of immense weight and reward.",
     body: [
-      "Dhikr — the remembrance of Allah — includes tasbeeh (SubhanAllah), tahmid (Alhamdulillah), tahlil (La ilaha illallah), takbir (Allahu Akbar), and istighfar. These are among the lightest words on the tongue yet the heaviest in the Scale, and they are the living heart's defence against heedlessness.",
-      "The Prophet ﷺ described phrases 'light on the tongue, heavy on the Scale, beloved to the Most Merciful,' and taught that whoever says 'SubhanAllahi wa bihamdih' a hundred times a day has his sins wiped away though they be like the foam of the sea. Kept up after prayers and throughout the day, dhikr keeps iman alive.",
+      "Zikr — the remembrance of Allah — includes tasbeeh (SubhanAllah), tahmid (Alhamdulillah), tahlil (La ilaha illallah), takbir (Allahu Akbar), and istighfar. These are among the lightest words on the tongue yet the heaviest in the Scale, and they are the living heart's defence against heedlessness.",
+      "The Prophet ﷺ described phrases 'light on the tongue, heavy on the Scale, beloved to the Most Merciful,' and taught that whoever says 'SubhanAllahi wa bihamdih' a hundred times a day has his sins wiped away though they be like the foam of the sea. Kept up after prayers and throughout the day, zikr keeps iman alive.",
     ],
     phrases: [
       {
@@ -661,7 +661,7 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
           "Sahih al-Bukhari 6406; Sahih Muslim 2694 — light on the tongue, heavy on the Scale",
       },
     ],
-    appLinks: [{ label: "Dhikr collection", route: "/zikr" }],
+    appLinks: [{ label: "Zikr collection", route: "/zikr" }],
   },
   {
     id: "salawat",
@@ -721,7 +721,7 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
     appLinks: [
       { label: "Dua library", route: "/dua" },
       { label: "Qur'an", route: "/quran" },
-      { label: "Dhikr", route: "/zikr" },
+      { label: "Zikr", route: "/zikr" },
       { label: "Durood", route: "/duroods" },
     ],
   },

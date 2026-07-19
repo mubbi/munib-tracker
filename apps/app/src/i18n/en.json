@@ -72,6 +72,7 @@
     "minus": "Minus",
     "set": "Set",
     "play": "Play",
+    "pause": "Pause",
     "share": "Share",
     "saved": "Saved",
     "increase": "Increase {{label}}",
@@ -80,7 +81,7 @@
     "appTagline": "Track Your Journey Back to Allah."
   },
   "search": {
-    "placeholder": "Search Qur'an, hadith, duas, adhkar…",
+    "placeholder": "Search Qur'an, hadith, duas, Learn…",
     "clear": "Clear search",
     "all": "All",
     "resultsCount": "{{count}} results",
@@ -118,16 +119,7 @@
       "zikr": "Adhkar",
       "name": "99 Names",
       "durood": "Duroods",
-      "jannah": "Journey to Jannah",
-      "jahannam": "Understanding Jahannam",
-      "lastDay": "The Day of Judgment",
-      "salahGuide": "Learn Salah",
-      "battles": "Battles in Islam",
-      "taharah": "Learn Purification",
-      "prophets": "Learn the Prophets",
-      "aqeedah": "Learn Aqeedah",
-      "learnDua": "Learn Dua",
-      "learnQuran": "Learn Qur'an"
+      "learn": "Learn"
     }
   },
   "tabs": {
@@ -300,6 +292,7 @@
     "prayersStat": "Salah",
     "dhikrStat": "Zikr",
     "qazaStat": "Qaza",
+    "khatmStat": "Khatm",
     "streakStat": "Streak",
     "qazaRemaining": "Qaza remaining",
     "qazaMeta": "{{completed}} made up so far · tap to manage",
@@ -315,6 +308,23 @@
       "progress": "{{completed}}/{{total}}",
       "allDone": "All Friday practices logged — may Allah accept them.",
       "openChecklist": "Open Jumu'ah checklist"
+    },
+    "acceptanceHourCard": {
+      "badge": "Hour of dua",
+      "reminderTitle": "The hour of acceptance",
+      "reminderBody": "An hour on Friday when dua is not refused — seek it especially after Asr with sincere dua, istighfar, and salawat.",
+      "openGuide": "Open hour of acceptance"
+    },
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Today's Qur'an portion",
+      "catchUpTitle": "Khatm catch-up",
+      "reminderBody": "Log {{done}}/{{total}} ayahs toward today's khatm goal.",
+      "reminderBodyPages": "Log {{done}}/{{total}} pages toward today's khatm goal.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Today's khatm reading is on track — keep going.",
+      "openPlan": "Open khatm plan",
+      "a11y": "Khatm plan day {{day}} of {{total}}, {{percent}} percent complete, {{done}} of {{target}} today"
     },
     "knowledgeKind": {
       "quran": "Qur'an verse",
@@ -496,7 +506,16 @@
       "witr": "Witr",
       "adhkar": "Adhkar",
       "qaza": "Qaza",
+      "khatm": "Khatm",
       "a11y": "{{label}}: {{percent}}% complete, {{completed}} of {{total}}"
+    },
+    "khatm": {
+      "title": "Khatm plan",
+      "progress": "{{done}} of {{total}} today",
+      "hint": "{{count}} ayahs toward today's goal — tap to log",
+      "hintPages": "{{count}} pages toward today's goal — tap to log",
+      "completeHint": "Today's portion is done — tap to review your plan",
+      "a11y": "Khatm plan day {{day}} of {{total}}, {{done}} of {{target}} toward today's goal"
     },
     "friday": {
       "title": "Jumu'ah checklist",
@@ -519,7 +538,7 @@
         },
         "jumuah": {
           "title": "Attend Jumu'ah (or pray Dhuhr)",
-          "hint": "Khutbah + two rak'ahs; excused pray Dhuhr"
+          "hint": "Khutbah + two rakahs; excused pray Dhuhr"
         },
         "kahf": {
           "title": "Read Surah al-Kahf",
@@ -909,7 +928,10 @@
       "dailyContentTitle": "Today's reflection",
       "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
       "fridayTitle": "Jumu'ah Mubarak",
-      "fridayBody": "It's Friday — send salawat and read Surah Al-Kahf."
+      "fridayBody": "It's Friday — send salawat and read Surah Al-Kahf.",
+      "acceptanceHourTitle": "The hour of acceptance",
+      "acceptanceHourBodyAsr": "Asr has begun — seek the accepted hour with dua, istighfar, and salawat until Maghrib.",
+      "acceptanceHourBodyMid": "Still time before Maghrib — fill these minutes with sincere dua."
     },
     "items": {
       "prayer": {
@@ -958,7 +980,7 @@
       },
       "friday": {
         "title": "Friday reminder",
-        "subtitle": "Jumu'ah and Surah Al-Kahf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf, and the hour of acceptance"
       }
     },
     "prayerAlertsObligatory": "Obligatory Salah alerts",
@@ -1072,6 +1094,10 @@
     "increase": "Increase text size",
     "reset": "Reset text size",
     "sizeDefault": "Default",
+    "showTransliteration": "Show transliteration",
+    "hideTransliteration": "Hide transliteration",
+    "showTranslation": "Show translation",
+    "hideTranslation": "Hide translation",
     "listen": "Listen to article",
     "listenLabel": "Listen",
     "listenStop": "Stop listening",
@@ -1124,6 +1150,7 @@
     "favorite": "Save dua",
     "unfavorite": "Remove from saved",
     "favorites": "Saved duas",
+    "favSubtitle": "Reorder or remove your saved duas",
     "favoritesEmpty": "No saved duas yet",
     "viewFavorites": "Saved duas",
     "searchPlaceholder": "Search duas by title, topic, or text…",
@@ -1218,9 +1245,10 @@
     "browseByJuz": "Browse by Juz",
     "search": "Search",
     "searchTitle": "Search the Qur'an",
-    "searchSubtitle": "Find ayahs by translation or transliteration",
-    "searchPlaceholder": "Search words in translation…",
-    "searchHint": "Searches the bundled translation and transliteration offline.",
+    "searchSubtitle": "Find ayahs by Arabic, English, transliteration, or reference",
+    "searchPlaceholder": "Search translation, transliteration, or 2:255…",
+    "searchPlaceholderArabic": "Search Arabic text or a reference like ٢:٢٥٥…",
+    "searchHint": "Offline fuzzy search across Arabic, English translation, and transliteration — including verse names and references.",
     "noResults": "No ayahs matched your search.",
     "resultsCount": "{{count}} results",
     "ayahRef": "{{surah}}:{{ayah}}",
@@ -1296,6 +1324,11 @@
     "pageN": "Page {{n}}",
     "pageOf": "Page {{page}} of {{total}}",
     "pageFraction": "{{page}} / {{total}}",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "pagePickerTitle": "Jump to page",
     "pagePickerSearch": "Search page or surah…",
     "readerLayout": "Reader layout",
@@ -1489,13 +1522,13 @@
       "benefits": "Observing Allah's signs in the sky increases awe (taqwa) and helps structure the morning sunnah prayers correctly."
     },
     "ishraq": {
-      "summary": "A two-rak'ah sunnah prayer after the sun has fully risen (about 15–20 minutes after sunrise).",
-      "why": "The Prophet ﷺ said whoever prays Fajr in congregation then sits remembering Allah until sunrise, then prays two rak'ahs, receives the reward of a complete Hajj and 'Umrah.",
+      "summary": "A two-rakah sunnah prayer after the sun has fully risen (about 15–20 minutes after sunrise).",
+      "why": "The Prophet ﷺ said whoever prays Fajr in congregation then sits remembering Allah until sunrise, then prays two rakahs, receives the reward of a complete Hajj and 'Umrah.",
       "benefits": "Immense reward with minimal effort when combined with Fajr in congregation. A peaceful start to the day in zikr and optional prayer."
     },
     "duha": {
-      "summary": "The forenoon prayer — typically two to eight rak'ahs between sunrise and Dhuhr.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "summary": "The forenoon prayer — typically two to eight rakahs between sunrise and Dhuhr.",
+      "why": "Charity is due on every joint of the body each day; even a few rakahs of Duha fulfills that charity for the limbs through worship.",
       "benefits": "Forgives sins, brings sustenance (rizq), and revives a neglected sunnah. Flexible timing makes it accessible when the day allows."
     },
     "dhuhr": {
@@ -1519,13 +1552,13 @@
       "benefits": "Brings tranquility before sleep and completes the day's fard prayers. Often followed by Witr, which is sunnah mu'akkadah."
     },
     "witr": {
-      "summary": "An odd-numbered prayer (usually one or three rak'ahs) after Isha before Fajr — sunnah mu'akkadah, not one of the five fard prayers.",
+      "summary": "An odd-numbered prayer (usually one or three rakahs) after Isha before Fajr — sunnah mu'akkadah, not one of the five fard prayers.",
       "why": "The Prophet ﷺ said Allah is Witr (One) and loves Witr, so maintain the Witr prayer. He never abandoned it, even when traveling.",
       "benefits": "A distinctive mark of the believer's night routine. Closing the day with odd-numbered prayer aligns with Allah's names and the Prophet's consistent practice."
     },
     "tahiyyatul_masjid": {
-      "summary": "Two rak'ahs greeting the masjid when entering, before sitting.",
-      "why": "When one of you enters the masjid, let him pray two rak'ahs before sitting — a direct instruction of the Prophet ﷺ.",
+      "summary": "Two rakahs greeting the masjid when entering, before sitting.",
+      "why": "When one of you enters the masjid, let him pray two rakahs before sitting — a direct instruction of the Prophet ﷺ.",
       "benefits": "Honors the house of Allah, prepares the heart for congregation or private worship, and replaces idle sitting with immediate good."
     },
     "hajat_istikhara": {
@@ -1557,6 +1590,8 @@
     "perPrayer": "Per prayer",
     "rowMeta": "{{remaining}} left · {{completed}} done",
     "rowMetaWithDaily": "{{remaining}} left · {{completed}} done · today {{done}}/{{target}}",
+    "rowDone": "{{completed}} made up",
+    "rowDoneWithDaily": "{{completed}} made up · today {{done}}/{{target}}",
     "dailySchedule": "Daily schedule",
     "dailyScheduleHint": "Set how many of each prayer you plan to make up every day. Progress counts toward today's checklist.",
     "dailyTotal": "{{count}} qaza / day",
@@ -1594,7 +1629,7 @@
       "othersTitle": "Shafi'i, Maliki & Hanbali",
       "othersBody": "Witr is a strongly emphasized sunnah (sunnah mu'akkadah), not obligatory. Making it up is recommended (mustahabb) but not required. The Prophet ﷺ would make up night prayers missed due to sleep or illness.",
       "evidenceTitle": "Evidence",
-      "evidenceBody": "The Prophet ﷺ said: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — scholars differ on its grading.) In Sahih Muslim, when he missed night prayer due to illness or sleep, he made it up during the day with an even number of rak'ahs.",
+      "evidenceBody": "The Prophet ﷺ said: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — scholars differ on its grading.) In Sahih Muslim, when he missed night prayer due to illness or sleep, he made it up during the day with an even number of rakahs.",
       "tableHeader": "Summary by madhhab",
       "rows": {
         "hanafi": "Hanafi — Wajib — Qaza required",
@@ -1841,6 +1876,7 @@
     "startAgain": "Start again",
     "undo": "Undo",
     "unlimited": "unlimited",
+    "dockLabel": "Count",
     "customTitle": "Custom target",
     "customPrompt": "How many times would you like to repeat?",
     "customPlaceholder": "e.g. 313",
@@ -2453,6 +2489,10 @@
     "logQuickDaily": "Daily goal · {{count}}",
     "logAdd": "Add {{count}} ayahs",
     "logAddPages": "Add {{count}} pages",
+    "logConfirmTitle": "Add reading progress?",
+    "logConfirmMsg": "Add {{count}} ayahs to your khatm total?",
+    "logConfirmMsgPages": "Add {{count}} pages to your khatm total?",
+    "logConfirmAction": "Add",
     "logInvalid": "Enter 1–{{max}} ayahs",
     "logInvalidPages": "Enter 1–{{max}} pages",
     "correctTotalTitle": "Correct total",
@@ -2461,6 +2501,10 @@
     "correctTotalA11y": "Total ayahs read",
     "correctTotalA11yPages": "Total pages read",
     "correctTotalApply": "Update total",
+    "correctTotalConfirmTitle": "Update total read?",
+    "correctTotalConfirmMsg": "Set your khatm total to {{count}} ayahs?",
+    "correctTotalConfirmMsgPages": "Set your khatm total to {{count}} pages?",
+    "correctTotalConfirmAction": "Update total",
     "correctTotalInvalid": "Enter 0–{{max}} ayahs",
     "correctTotalInvalidPages": "Enter 0–{{max}} pages",
     "correctTotalToggle": "Wrong total? Set it manually",
@@ -2535,7 +2579,7 @@
     "quranTitle": "From the Qur'an",
     "hadithTitle": "From the Sunnah",
     "obligationsTitle": "What you are still responsible for",
-    "rakatsTitle": "Rakats at a glance",
+    "rakatsTitle": "Rakahs at a glance",
     "rakatsPrayer": "Salah",
     "rakatsResident": "At home",
     "rakatsTravel": "Travelling",
@@ -2704,6 +2748,7 @@
       "continue": "Continue reading",
       "knowledge": "Daily knowledge card",
       "quickActions": "Quick actions",
+      "khatm": "Khatm plan",
       "qaza": "Qaza summary",
       "schedule": "Today's schedule"
     }
@@ -2731,7 +2776,7 @@
     "progressCardTitle": "Learning progress",
     "progressCardHint": "{{completed}} of {{total}} lessons marked complete",
     "topicsTitle": "Guides",
-    "rakatsTitle": "Rakats at a glance",
+    "rakatsTitle": "Rakahs at a glance",
     "prayer": "Salah",
     "fard": "Fard",
     "sunnah": "Sunnah",
@@ -2802,10 +2847,15 @@
     },
     "adhan": {
       "listenTitle": "Listen to the adhan",
-      "listenHint": "Tap a recording to play. Follow along with the words below as you listen.",
+      "listenHint": "Tap a recording to play. Medina highlights each sentence as it is called. Use Learn the words below for clear phrase-by-phrase audio.",
       "play": "Play {{name}} adhan",
       "pause": "Pause {{name}} adhan",
-      "sourceNote": "Recordings from the open Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, and more)."
+      "sourceNote": "Full recordings from the open Kiwifu/adhan-mp3 collection. Phrase clips are from Wikimedia Commons Adhan_wiki (CC BY-SA 3.0), segmented for learning.",
+      "learnPhrasesHint": "Learn the words — play each sentence clearly, one after another.",
+      "playPhrases": "Play all phrases",
+      "pausePhrases": "Pause phrases",
+      "playPhrase": "Play phrase {{n}}: {{title}}",
+      "followAlongNote": "Highlights the words below as it plays"
     }
   },
   "battles": {
@@ -3350,6 +3400,7 @@
     "dailyIntro": "Small consistent steps build a lifelong relationship with the Book of Allah.",
     "reflectionTitle": "Reflect",
     "openInQuran": "Open in Qur'an reader",
+    "playAyahA11y": "Play recitation of {{ref}}",
     "progressTitle": "My learning",
     "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "This dashboard tracks lessons you have studied in Munib. Allah knows what is in your heart.",
@@ -3529,7 +3580,7 @@
       "ashura": "The 10th of Muharram. The Prophet ﷺ found the Jews of Madinah fasting it in gratitude for Allah saving Musa and the Children of Israel from Pharaoh, and said, \"We have more right to Musa than you,\" then fasted it and told the Muslims to fast (Sahih al-Bukhari 2004). Fasting Ashura expiates the minor sins of the previous year (Sahih Muslim 1162). To differ from other communities, it is recommended to also fast the 9th (Tasu'a): the Prophet ﷺ intended to do so the following year (Sahih Muslim 1134). Fasting the 9th and 10th together is the preferred practice.",
       "mawlid": "The 12th of Rabi al-Awwal is widely associated with the birth of the Prophet Muhammad ﷺ (the exact date is debated among historians). Muslims universally love and honour him and are commanded to send blessings upon him (Qur'an 33:56). Whether to hold a dedicated annual celebration (Mawlid) is a point on which mainstream scholars differ: many, especially in the Sufi and traditional traditions, permit or encourage gatherings of remembrance and sending salawat, while others (notably in the Salafi tradition) hold that a fixed yearly observance was not practised by the early generations and so should be avoided. This app presents the day neutrally; increasing salawat and following the Prophet's Sunnah are agreed goods.",
       "isra": "Al-Isra wa al-Mi'raj commemorates the Prophet's ﷺ miraculous Night Journey from Makkah to Jerusalem (al-Aqsa) and his ascension through the heavens, referenced in Qur'an 17:1 and 53. On this night the five daily prayers were prescribed — originally fifty, then reduced to five by Allah's mercy while their reward remained fifty (Sahih al-Bukhari 349). The night affirms the sanctity of al-Aqsa and the centrality of Salah. Its precise date (commonly placed on 27 Rajab) is not firmly established, and no specific worship is authentically tied to the night itself; guarding the five daily prayers is its lasting lesson.",
-      "ramadan": "The ninth month and the fourth pillar of Islam. Fasting from dawn to sunset is obligatory on every capable adult Muslim (Qur'an 2:183–185). It is the month in which the Qur'an was first revealed (Qur'an 2:185). The Prophet ﷺ said, \"Whoever fasts Ramadan out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 38). Nights are enlivened with Taraweeh prayer, and the last ten days carry Laylat al-Qadr. It is a month of fasting, Qur'an, charity, and drawing near to Allah.",
+      "ramadan": "The ninth month and the fourth pillar of Islam. Fasting from dawn to sunset is obligatory on every capable adult Muslim (Qur'an 2:183–185). It is the month in which the Qur'an was first revealed (Qur'an 2:185). The Prophet ﷺ said, \"Whoever fasts Ramadan out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 38). Nights are enlivened with Tarawih prayer, and the last ten days carry Laylat al-Qadr. It is a month of fasting, Qur'an, charity, and drawing near to Allah.",
       "laylatQadr": "The Night of Decree — \"better than a thousand months\" (Qur'an 97:3), the night the Qur'an began to descend. Worship on it outweighs a lifetime of over eighty-three years. The Prophet ﷺ said, \"Whoever stands (in prayer) on Laylat al-Qadr out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 1901). Its exact night is hidden; seek it in the odd nights of the last ten of Ramadan — the 21st, 23rd, 25th, 27th, and 29th (Sahih al-Bukhari 2017), with the 27th especially hoped for. Spend these nights in prayer, Qur'an, and the dua: \"Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.\"",
       "eidFitr": "The Festival of Breaking the Fast, on the 1st of Shawwal, marks the end of Ramadan. The day begins with the Eid prayer and is preceded by Zakat al-Fitr, a charity given before the prayer so the poor may also rejoice. Muslims recite the takbir, wear their best, exchange greetings, and strengthen family and community ties. Fasting is forbidden on this day (Sahih al-Bukhari 1991) — it is a day of gratitude and permitted celebration for the worship completed in Ramadan.",
       "arafah": "The 9th of Dhul-Hijjah, the greatest day of Hajj, when pilgrims stand in worship on the plain of Arafah — \"Hajj is Arafah.\" It falls within the blessed first ten days of Dhul-Hijjah, days in which righteous deeds are more beloved to Allah than any others (Sahih al-Bukhari 969). For those not on Hajj, fasting this day is highly recommended: it expiates the sins of the previous year and the coming year (Sahih Muslim 1162). Pilgrims themselves do not fast, so as to have strength for the standing and supplication.",
@@ -4181,15 +4232,34 @@
   "hajj": {
     "eyebrow": "Pilgrimage",
     "title": "Hajj & Umrah",
-    "subtitle": "A step-by-step checklist for the rites of pilgrimage.",
+    "subtitle": "Learn the rites from the Qur'an and Sunnah, then track Hajj and Umrah separately.",
+    "intro": "Study obligation, ihram, Umrah, and the days of Hajj with authentic references. Use the checklists for rites only — preparation tips stay in the Learn topics.",
+    "section": {
+      "virtues": "Virtues",
+      "obligation": "Obligation",
+      "types": "Types of Hajj",
+      "ihram": "Miqat & Ihram",
+      "umrah": "Umrah",
+      "hajj": "Days of Hajj",
+      "rulings": "Rulings & etiquette",
+      "prep": "Practical prep"
+    },
+    "checklistsTitle": "Rite checklists",
+    "hajjChecklistTitle": "Hajj checklist",
+    "hajjChecklistHint": "Day-by-day rites for the pilgrimage",
+    "hajjChecklistSubtitle": "Track the Hajj rites from Tarwiyah to the farewell tawaf.",
+    "hajjChecklistIntro": "Check each rite as you complete it. This is a memory aid — not a fatwa.",
+    "umrahChecklistTitle": "Umrah checklist",
+    "umrahChecklistHint": "Ihram through halq or taqsir",
+    "umrahChecklistSubtitle": "Track the Umrah sequence in order.",
+    "umrahChecklistIntro": "Check each Umrah rite as you complete it. Open Learn for the details and evidence.",
     "progress": "{{done}} of {{total}} rites",
     "reset": "Reset",
     "resetConfirmTitle": "Reset checklist?",
     "resetConfirmMsg": "This will uncheck every rite. Your progress cannot be recovered.",
-    "umrahTag": "Umrah",
-    "hajjTag": "Hajj",
-    "prepTag": "Prep",
-    "disclaimer": "A practical checklist, not a fiqh manual. Follow a qualified guide for rulings and details."
+    "notFound": "Topic not found",
+    "continueInApp": "Continue in Munib",
+    "disclaimer": "A practical educational overview, not a fiqh manual. Madhhabs differ on details — follow a qualified guide for rulings and unexpected cases."
   },
   "dailyHadith": {
     "eyebrow": "Daily series",
@@ -4546,15 +4616,15 @@
     "settingsSubtitleIos": "Mark Salah with Siri or Apple Watch",
     "settingsSubtitleAndroid": "Mark Salah with Google Assistant or Wear OS",
     "introIos": "Use Siri, Shortcuts, or Apple Watch to mark Salah without opening the checklist. Requires an EAS dev or production build — not available in Expo Go.",
-    "introAndroid": "Use Google Assistant or Wear OS to mark Salah without opening the checklist. Requires an EAS dev or production build — not available in Expo Go.",
+    "introAndroid": "Use Google Assistant, the app-icon shortcut, or Wear OS to mark Salah without opening the checklist. Requires an EAS dev or production build — not available in Expo Go.",
     "siriTitle": "Siri & Shortcuts",
     "siriHint": "After installing from TestFlight or the App Store, open the Shortcuts app or say “Hey Siri, mark my Salah in Munib Tracker”. If the app was force-quit, the mark syncs the next time you open Munib Tracker.",
     "assistantTitle": "Google Assistant",
-    "assistantHint": "Say “Hey Google, mark my Salah in Munib Tracker” on a device with the app installed.",
+    "assistantHint": "Say “Hey Google, mark my Salah in Munib Tracker”, or long-press the Munib Tracker icon and choose Mark Salah. If the app was force-quit, the mark syncs the next time you open Munib Tracker.",
     "watchTitle": "Apple Watch",
     "watchHint": "Open the Munib Tracker watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Wear OS",
-    "wearHint": "Add the Munib Tracker tile on your watch after pairing with your phone.",
+    "wearHint": "After pairing your phone, add the Munib Tracker tile on your watch. Tap the tile to mark the current Salah on your phone.",
     "marked": "Salah marked",
     "alreadyDone": "Already marked",
     "allDone": "All obligatory Salah marked for today",

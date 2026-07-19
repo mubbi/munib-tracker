@@ -1,13 +1,12 @@
 package expo.modules.munibwear
 
 import android.content.Context
+import android.content.Intent
 import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.MessageEvent
-import com.google.android.gms.wearable.Wearable
 import com.google.android.gms.wearable.WearableListenerService
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-import org.json.JSONObject
 
 class MunibWearModule : Module() {
   override fun definition() = ModuleDefinition {
@@ -23,13 +22,15 @@ class MunibWearListenerService : WearableListenerService(), MessageClient.OnMess
   }
 
   private fun enqueueMarkCurrent(context: Context) {
-    val prefs = context.getSharedPreferences("munib_external_commands", Context.MODE_PRIVATE)
-    val payload = JSONObject()
-      .put("type", "mark-current-obligatory")
-      .put("source", "wear")
-    val raw = prefs.getString("pending_commands_v1", "[]") ?: "[]"
-    val array = org.json.JSONArray(raw)
-    array.put(payload.toString())
-    prefs.edit().putString("pending_commands_v1", array.toString()).apply()
+    // Delegate to the shared ExternalCommandReceiver so the queue + JS notify stay in one place.
+    val intent = Intent(ACTION_MARK_CURRENT)
+      .setPackage(context.packageName)
+      .putExtra(EXTRA_SOURCE, "wear")
+    context.sendBroadcast(intent)
+  }
+
+  companion object {
+    private const val ACTION_MARK_CURRENT = "app.munibtracker.action.MARK_CURRENT"
+    private const val EXTRA_SOURCE = "source"
   }
 }

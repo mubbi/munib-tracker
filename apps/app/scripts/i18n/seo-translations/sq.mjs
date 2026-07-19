@@ -151,10 +151,10 @@ export default {
     description: "Hadithet tuaja të ruajtura, së bashku për kthim të shpejtë.",
   },
   "/hajj": {
-    title: "Lista Kontrolluese për Haxh dhe Umre",
+    title: "Udhëzues Hajj & Umrah",
     description:
-      "Lista hap pas hapi për rite të Haxhit dhe Umresë. Ndiqni çdo rit në rend dhe shënoni ndërsa përparoni — udhëzues praktik, jo manual fikh.",
-    keywords: ["haxh", "umre", "udhëzues haxhi", "rite haxhi", "lista kontrolluese haxhi"],
+      "Mëso Hajj dhe Umrah nga Qur'an dhe Sunnah autentike, pastaj ndiq ritualet me lista të ndara Hajj dhe Umrah — përmbledhje edukative praktike, jo manual fiqh.",
+    keywords: ["hajj", "umrah", "udhëzues haxhi", "ritualet e hajj", "lista hajj", "lista umrah"],
   },
   "/hayd": {
     title: "Hayd dhe Ibadet — Udhëzues për Menstruacionin",
@@ -798,5 +798,17 @@ export default {
   "/zikr/favorites": {
     title: "Adhkarët e Preferuar",
     description: "Adhkarët tuaj të preferuar, së bashku për qasje të shpejtë.",
+  },
+  "/hajj/checklist": {
+    title: "Lista e Ritualeve të Hajj",
+    description:
+      "Ndjekës ditor i ritualeve të Hajj nga Tarwiyah deri te tawaf lamtumirës. Kujtesë pranë udhëzuesit Mëso.",
+    keywords: ["lista hajj", "ritualet e hajj", "ndjekës haxhi"],
+  },
+  "/umrah/checklist": {
+    title: "Lista e Ritualeve të Umrah",
+    description:
+      "Lista e rregulluar e Umrah — ihram, tawaf, sa'i dhe halq ose taqsir. Përdore me udhëzuesin Mëso Hajj & Umrah.",
+    keywords: ["lista umrah", "ritualet e umrah", "haxh i vogël"],
   },
 };

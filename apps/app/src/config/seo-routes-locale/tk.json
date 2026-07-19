@@ -136,9 +136,9 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Hajj we Umrah gollanmasy",
+    "description": "Hajj we Umrah-y Qur'an we ygtybarly Sunnah-dan öwren, soňra aýratyn Hajj we Umrah sanawlary bilen aýinlary yzarla — amaly bilim beriş jemlemesi, fiqh gollanmasy däl.",
+    "keywords": ["hajj", "umrah", "haj gollanmasy", "haj aýinleri", "haj sanawy", "umrah sanawy"]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +722,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Hajj aýinleri sanawy",
+    "description": "Tarwiyah-dan hoşlaşyk tawaf-y çenli gündelik Hajj aýin yzarlaýjysy. Okuw gollanmasynyň ýanynda ýatlatma.",
+    "keywords": ["haj sanawy", "haj aýinleri", "haj yzarlaýjysy"]
+  },
+  "/umrah/checklist": {
+    "title": "Umrah aýinleri sanawy",
+    "description": "Tertiplenen Umrah sanawy — ihram, tawaf, sa'i we halq ýa-da taqsir. Hajj & Umrah Okuw gollanmasy bilen ulanyň.",
+    "keywords": ["umrah sanawy", "umrah aýinleri", "kiçi haj"]
   }
 }

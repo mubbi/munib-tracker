@@ -77,10 +77,11 @@
       "intro": "Ulasan singkat dari pelajaran panduan ini. Luangkan waktu — belajar adalah tujuannya.",
       "hint": "Ulangi apa yang Anda pelajari",
       "empty": "Pertanyaan untuk panduan ini masih dimuat. Buka beberapa pelajaran, lalu coba lagi."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Cari Al- Qur'an, hadits, duas, adhkar…",
+    "placeholder": "Cari Al-Qur'an, hadits, doa, Belajar…",
     "clear": "Bersihkan pencarian",
     "all": "Semua",
     "resultsCount": "{{count}} hasil",
@@ -109,16 +110,7 @@
       "zikr": "Adzkar",
       "name": "99 Nama",
       "durood": "Shalawat",
-      "jannah": "Perjalanan ke Jannah",
-      "jahannam": "Memahami Jahannam",
-      "lastDay": "Hari Penghakiman",
-      "salahGuide": "Belajar Salah",
-      "battles": "Pertempuran dalam Islam",
-      "taharah": "Pelajari Pemurnian",
-      "prophets": "Pelajari Para Nabi",
-      "aqeedah": "Belajar Aqidah",
-      "learnDua": "Pelajari Dua",
-      "learnQuran": "Pelajari Al -Qur'an"
+      "learn": "Belajar"
     },
     "stt": {
       "dictate": "Cari berdasarkan suara",
@@ -465,6 +457,24 @@
       "badge": "Jumat",
       "reminderTitle": "Jumat Mubarak",
       "reminderBody": "Shalat Jumu'ah dan lengkapi sunnah Jumat — ghusl, Surah al-Kahf, salawat, dan dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Porsi Al-Qur'an hari ini",
+      "catchUpTitle": "Kejar khatm",
+      "reminderBody": "Catat {{done}}/{{total}} ayah menuju target khatm hari ini.",
+      "reminderBodyPages": "Catat {{done}}/{{total}} halaman menuju target khatm hari ini.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Bacaan khatm hari ini sesuai rencana — lanjutkan.",
+      "openPlan": "Buka rencana khatm",
+      "a11y": "Rencana khatm hari ke-{{day}} dari {{total}}, {{percent}} persen selesai, {{done}} dari {{target}} hari ini"
+    },
+    "acceptanceHourCard": {
+      "badge": "Jam mustajab",
+      "reminderTitle": "Jam ijabah",
+      "reminderBody": "Jam di hari Jumat ketika dua tidak ditolak — carilah terutama setelah Asr dengan dua, istighfar, dan salawat yang ikhlas.",
+      "openGuide": "Buka jam ijabah"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Witir",
       "adhkar": "Adzkar",
       "qaza": "Qadha",
-      "a11y": "{{label}}: {{percent}}% selesai, {{completed}} dari {{total}}"
+      "a11y": "{{label}}: {{percent}}% selesai, {{completed}} dari {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah — semua selesai",
     "freshStart": "Awal yang baru",
@@ -547,6 +558,14 @@
       "jumpTitle": "Daftar periksa Jumu'ah",
       "jumpHint": "Amalan sunnah Jumat di bawah",
       "jumpA11y": "Pergi ke daftar periksa Jumu'ah di halaman ini"
+    },
+    "khatm": {
+      "title": "Rencana khatm",
+      "progress": "{{done}} dari {{total}} hari ini",
+      "hint": "{{count}} ayah menuju target hari ini — ketuk untuk catat",
+      "hintPages": "{{count}} halaman menuju target hari ini — ketuk untuk catat",
+      "completeHint": "Porsi hari ini selesai — ketuk untuk tinjau rencana Anda",
+      "a11y": "Rencana khatm hari ke-{{day}} dari {{total}}, {{done}} dari {{target}} menuju target hari ini"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "reflection hari ini",
       "dailyContentBody": "Ayat baru, hadis, dan nama Allah siap di layar beranda Anda.",
       "fridayTitle": "Jum'at Mubarak",
-      "fridayBody": "It's Friday — send salawat dan read Surah Al-Kahf."
+      "fridayBody": "It's Friday — send salawat dan read Surah Al-Kahf.",
+      "acceptanceHourTitle": "Jam ijabah",
+      "acceptanceHourBodyAsr": "Asr telah masuk — carilah jam ijabah dengan dua, istighfar, dan salawat hingga Maghrib.",
+      "acceptanceHourBodyMid": "Masih ada waktu sebelum Maghrib — isi menit ini dengan dua yang ikhlas."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Friday pengingat",
-        "subtitle": "Jumu'ah dan Surah Al-Kahf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf, dan jam ijabah"
       }
     },
     "prayerAlertsObligatory": "Wajib Shalat alerts",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Pilih suara untuk mulai mendengarkan",
     "listenVoiceDefault": "Default sistem",
     "listenVoiceDefaultHint": "Gunakan suara pilihan perangkat untuk bahasa ini",
-    "listenVoiceEmpty": "Tidak ada suara yang terpasang untuk bahasa ini. Tambahkan di pengaturan sistem."
+    "listenVoiceEmpty": "Tidak ada suara yang terpasang untuk bahasa ini. Tambahkan di pengaturan sistem.",
+    "showTransliteration": "Tampilkan transliterasi",
+    "hideTransliteration": "Sembunyikan transliterasi",
+    "showTranslation": "Tampilkan terjemahan",
+    "hideTranslation": "Sembunyikan terjemahan"
   },
   "share": {
     "dialogTitle": "Bagikan",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "Cari duas by title, topic, or text…",
     "searchInCategory": "Cari in this category…",
     "searchResultCount": "{{count}} hasil",
-    "noResults": "Tidak duas matched Anda cari."
+    "noResults": "Tidak duas matched Anda cari.",
+    "favSubtitle": "Atur ulang atau hapus doa tersimpan Anda"
   },
   "duaCat": {
     "morning_evening": "Pagi & Sore",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Berhenti mendengarkan",
       "bestMatch": "Kecocokan terbaik",
       "otherMatches": "Kecocokan lain"
-    }
+    },
+    "searchPlaceholderArabic": "Cari teks Arab atau rujukan seperti ٢:٢٥٥…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Ini app counts terlewat Witir toward qadha untuk semua users. Treat it as wajib if Anda follow  Hanafi lihat; otherwise lacak it as  recommended make-up. Consult  ulama untuk Anda situation."
     },
-    "history": "Sejarah"
+    "history": "Sejarah",
+    "rowDone": "{{completed}} sudah qadha",
+    "rowDoneWithDaily": "{{completed}} sudah qadha · hari ini {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qadha",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "Atur ulang counter?",
     "confirmResetMessage": "Anda hitung dari {{count}} will be dihapus.",
     "confirmStartAgainTitle": "Mulai again?",
-    "confirmStartAgainMessage": "Anda selesai hitung will be dihapus so Anda can begin  baru round."
+    "confirmStartAgainMessage": "Anda selesai hitung will be dihapus so Anda can begin  baru round.",
+    "dockLabel": "Hitung"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} adalah only {{min}} min away",
@@ -2502,7 +2538,15 @@
       "ahead": "Mendahului",
       "onTrack": "Pada lacak",
       "behind": "Tertinggal"
-    }
+    },
+    "logConfirmTitle": "Tambahkan progres bacaan?",
+    "logConfirmMsg": "Tambahkan {{count}} ayat ke total khatm Anda?",
+    "logConfirmMsgPages": "Tambahkan {{count}} halaman ke total khatm Anda?",
+    "logConfirmAction": "Tambah",
+    "correctTotalConfirmTitle": "Perbarui total bacaan?",
+    "correctTotalConfirmMsg": "Tetapkan total khatm menjadi {{count}} ayat?",
+    "correctTotalConfirmMsgPages": "Tetapkan total khatm menjadi {{count}} halaman?",
+    "correctTotalConfirmAction": "Perbarui total"
   },
   "hifz": {
     "short": "Hifzhhhhhhh",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Dari  Al-Al-Al-Al-Al-Al-Qur'an",
     "hadithTitle": "Dari  Sunnah",
     "obligationsTitle": "What Anda adalah still responsible untuk",
-    "rakatsTitle": "Rakats pada  glance",
+    "rakatsTitle": "Rakaat sekilas",
     "rakatsPrayer": "udah sholat apa belum\n",
     "rakatsResident": "Pada beranda",
     "rakatsTravel": "Bepergian",
@@ -2706,7 +2750,8 @@
       "knowledge": "knowledge card harian",
       "quickActions": "Aksi cepat",
       "qaza": "Qadha summary",
-      "schedule": "Jadwal hari ini"
+      "schedule": "Jadwal hari ini",
+      "khatm": "Rencana khatm"
     }
   },
   "schedule": {
@@ -2732,7 +2777,7 @@
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} lessons marked complete",
     "topicsTitle": "Panduan",
-    "rakatsTitle": "Rakats pada  glance",
+    "rakatsTitle": "Rakaat sekilas",
     "prayer": "udah sholat apa belum\n",
     "fard": "Fardhu",
     "sunnah": "Sunnah",
@@ -2806,7 +2851,12 @@
       "listenHint": "Ketuk  recording ke putar. Follow along dengan  words below as Anda listen.",
       "play": "Putar {{name}} adzan",
       "pause": "Jeda {{name}} adhan",
-      "sourceNote": "Recordings dari  buka Kiwifu/adzan-mp3 collection (Mecca, Medina, Mishary Alafasy, dan lebih)."
+      "sourceNote": "Recordings dari  buka Kiwifu/adzan-mp3 collection (Mecca, Medina, Mishary Alafasy, dan lebih).",
+      "learnPhrasesHint": "Pelajari kata-katanya — putar setiap kalimat dengan jelas, satu per satu.",
+      "playPhrases": "Putar semua frasa",
+      "pausePhrases": "Jeda frasa",
+      "playPhrase": "Putar frasa {{n}}: {{title}}",
+      "followAlongNote": "Menyoroti kata di bawah saat diputar"
     }
   },
   "battles": {
@@ -3428,7 +3478,8 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "playAyahA11y": "Putar tilawah {{ref}}"
   },
   "library": {
     "eyebrow": "Perpustakaan",
@@ -3941,7 +3992,7 @@
       "label": "Lampiran (opsional)",
       "add": "Tambahkan berkas",
       "remove": "Hapus lampiran",
-      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), 1 MB masing-masing. Ketuk × pada thumbnail untuk menghapus.",
+      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), masing-masing 1 MB. Tekan lama thumbnail untuk menghapusnya.",
       "signInRequired": "Masuk untuk melampirkan file pribadi ke adhkar Anda.",
       "permissionDenied": "Izin diperlukan untuk melampirkan file.",
       "permissionTitle": "Izinkan akses",
@@ -4117,14 +4168,34 @@
   "hajj": {
     "eyebrow": "Haji",
     "title": "Haji & Umrah",
-    "subtitle": "Daftar periksa langkah demi langkah untuk rukun ibadah haji.",
+    "subtitle": "Pelajari manasik dari Al-Qur'an dan Sunnah, lalu lacak Hajj dan Umrah secara terpisah.",
     "progress": "{{done}} dari {{total}} rukun",
     "reset": "Atur ulang",
     "resetConfirmTitle": "Atur ulang daftar periksa?",
     "resetConfirmMsg": "Ini akan menghapus centang semua rukun. Progres Anda tidak dapat dipulihkan.",
-    "umrahTag": "Umrah",
-    "hajjTag": "Haji",
-    "disclaimer": "Daftar periksa praktis, bukan buku fiqih. Ikuti pemandu yang berkompeten untuk hukum dan detail.",
+    "disclaimer": "Ikhtisar pendidikan praktis, bukan buku fiqih. Madzhab berbeda dalam detail — ikuti pemandu yang berkompeten untuk hukum dan kasus tak terduga.",
+    "intro": "Pelajari kewajiban, ihram, Umrah, dan hari-hari Hajj dengan rujukan otentik. Gunakan daftar periksa hanya untuk manasik — tips persiapan ada di topik Belajar.",
+    "section": {
+      "virtues": "Keutamaan",
+      "obligation": "Kewajiban",
+      "types": "Jenis Hajj",
+      "ihram": "Miqat & ihram",
+      "umrah": "Umrah",
+      "hajj": "Hari-hari Hajj",
+      "rulings": "Hukum & adab",
+      "prep": "Persiapan praktis"
+    },
+    "checklistsTitle": "Daftar periksa manasik",
+    "hajjChecklistTitle": "Daftar periksa Hajj",
+    "hajjChecklistHint": "Manasik haji hari demi hari",
+    "hajjChecklistSubtitle": "Lacak manasik Hajj dari Tarwiyah hingga tawaf wada'.",
+    "hajjChecklistIntro": "Centang setiap manasik saat selesai. Ini alat bantu ingat — bukan fatwa.",
+    "umrahChecklistTitle": "Daftar periksa Umrah",
+    "umrahChecklistHint": "Ihram hingga halq atau taqsir",
+    "umrahChecklistSubtitle": "Lacak urutan Umrah secara berurutan.",
+    "umrahChecklistIntro": "Centang setiap manasik Umrah saat selesai. Buka Belajar untuk detail dan dalil.",
+    "notFound": "Topik tidak ditemukan",
+    "continueInApp": "Lanjutkan di Munib",
     "prepTag": "Persiapan"
   },
   "dailyHadith": {
@@ -4482,15 +4553,15 @@
     "settingsSubtitleIos": "Tandai Shalat with Siri or Apple Watch",
     "settingsSubtitleAndroid": "Tandai Shalat with Google Assistant or Wear OS",
     "introIos": "Use Siri, Shortcuts, atau Apple Watch ke mark Shalat without opening  daftar periksa. Requires  EAS dev atau production build — tidak tersedia di Expo Go.",
-    "introAndroid": "Use Google Assistant atau Wear OS ke mark Shalat without opening  daftar periksa. Requires  EAS dev atau production build — tidak tersedia di Expo Go.",
+    "introAndroid": "Gunakan Google Assistant, pintasan ikon aplikasi, atau Wear OS untuk menandai Salah tanpa membuka daftar periksa. Memerlukan build EAS dev atau produksi — tidak tersedia di Expo Go.",
     "siriTitle": "Siri & Pintasan",
     "siriHint": "After installing dari TestFlight atau  App Store, buka  Shortcuts app atau say “Hey Siri, mark my Shalat di Munib Tracker”. If  app was force-quit,  mark syncs  berikutnya time Anda buka Munib Tracker.",
     "assistantTitle": "Google Assistant",
-    "assistantHint": "Say “Hey Google, mark my Shalat di Munib Tracker” pada  perangkat dengan  app installed.",
+    "assistantHint": "Ucapkan \"Hey Google, mark my Salah in Munib Tracker\", atau tekan lama ikon Munib Tracker dan pilih Mark Salah. Jika aplikasi ditutup paksa, tanda akan tersinkron saat Anda membuka Munib Tracker.",
     "watchTitle": "Apple Watch",
     "watchHint": "Buka the Munib Tracker watch app to see today’s schedule and mark Shalat. Data syncs from your iPhone.",
     "wearTitle": "Wear OS",
-    "wearHint": "Tambah the Munib Tracker tile on your watch after pairing with your phone.",
+    "wearHint": "Setelah memasangkan ponsel, tambahkan tile Munib Tracker di jam tangan. Ketuk tile untuk menandai Salah saat ini di ponsel Anda.",
     "marked": "Shalat marked",
     "alreadyDone": "Sudah ditandai",
     "allDone": "Semua obligatory Shalat marked for today",
@@ -4697,7 +4768,7 @@
     "eyebrow": "Kalender",
     "title": "Konverter tanggal",
     "subtitle": "Konversi antara kalender Hijriah dan Masehi",
-    "intro": "Masukkan tanggal di salah satu kalender untuk melihat setaranya di kalender lain, dihitung offline dari visibilitas sabit di lokasi Anda.",
+    "intro": "Masukkan tanggal di salah satu kalender untuk melihat padanannya di kalender lain, dihitung secara offline menggunakan algoritma tabular Kuwait.",
     "toHijri": "Masehi → Hijriah",
     "toGregorian": "Hijriah → Masehi",
     "gregorianDateLabel": "tanggal Gregorian",
@@ -4707,7 +4778,7 @@
     "year": "Tahun",
     "useToday": "Gunakan hari ini",
     "invalidDate": "Masukkan tanggal yang valid",
-    "disclaimer": "Tanggal dihitung dari visibilitas sabit (hilāl) di lokasi Anda dan dapat berbeda sehari dari pengumuman resmi rukyat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
+    "disclaimer": "Ini adalah perkiraan aritmatika (\"algoritme Kuwait\") dan dapat berbeda satu hari dengan pengumuman penampakan bulan setempat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
     "directionTitle": "Arah konversi",
     "resultFrom": "Dari {{date}}",
     "quickLinksTitle": "Terkait",

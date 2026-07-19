@@ -77,10 +77,11 @@
       "intro": "Gajeren maimaitawa daga darussan wannan jagora. Ɗauki lokaci — koyo ne manufa.",
       "hint": "Sake nazarin abin da ka koya",
       "empty": "Tambayoyin wannan jagora har yanzu suna lodawa. Buɗe wasu darussa, sa'an nan sake gwadawa."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Nemo Alkur'ani, hadisi, dua, adhkar…",
+    "placeholder": "Nemo Alkur'ani, hadisi, addu'o'i, Koyi…",
     "clear": "Share bincike",
     "all": "Duka",
     "resultsCount": "Sakamako {{count}}",
@@ -109,16 +110,7 @@
       "zikr": "Adkar",
       "name": "Sunaye 99",
       "durood": "Durood",
-      "jannah": "Tafiya zuwa Jannah",
-      "jahannam": "Fahimtar Jahannam",
-      "lastDay": "Ranar Alƙiyama",
-      "salahGuide": "Koyi sallah",
-      "battles": "Yaƙe-yaƙe a Musulunci",
-      "taharah": "Koyi tsabtace",
-      "prophets": "Koyi annabawa",
-      "aqeedah": "Koyi aqeedah",
-      "learnDua": "Koyi dua",
-      "learnQuran": "Koyi Alkur'ani"
+      "learn": "Koyi"
     },
     "stt": {
       "dictate": "Bincika da murya",
@@ -465,6 +457,24 @@
       "badge": "Jumma'a",
       "reminderTitle": "Albarkar Jumu'ah",
       "reminderBody": "Yi Jumu'ah kuma kammala sunnah na Jumma'a — Ghusl, Surah al-Kahf, salawat, da Dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Sashen Alkur'ani na yau",
+      "catchUpTitle": "Kamance khatm",
+      "reminderBody": "Rubuta {{done}}/{{total}} ayah zuwa burin khatm na yau.",
+      "reminderBodyPages": "Rubuta {{done}}/{{total}} shafuka zuwa burin khatm na yau.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Karatu khatm na yau yana kan hanya — ci gaba.",
+      "openPlan": "Buɗe shirin khatm",
+      "a11y": "Shirin khatm rana {{day}} cikin {{total}}, {{percent}} kashi cikin ɗari, {{done}} cikin {{target}} yau"
+    },
+    "acceptanceHourCard": {
+      "badge": "Lokacin dua",
+      "reminderTitle": "Lokacin karɓuwa",
+      "reminderBody": "Sa'a a ranar Juma'a da ba a ƙi dua — nemi ta musamman bayan Asr da dua, istighfar da salawat na zuciya.",
+      "openGuide": "Buɗe lokacin karɓuwa"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Witr",
       "adhkar": "Adhkar",
       "qaza": "Qaza",
-      "a11y": "{{label}}: {{percent}}% an gama, {{completed}} daga cikin {{total}}"
+      "a11y": "{{label}}: {{percent}}% an gama, {{completed}} daga cikin {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah — an gama duka",
     "freshStart": "Sabon farawa",
@@ -547,6 +558,14 @@
       "jumpTitle": "Jerin Jumu'ah",
       "jumpHint": "Sunnah na Jumma'a a ƙasa",
       "jumpA11y": "Je zuwa jerin Jumu'ah a wannan shafi"
+    },
+    "khatm": {
+      "title": "Shirin khatm",
+      "progress": "{{done}} cikin {{total}} yau",
+      "hint": "{{count}} ayah zuwa burin yau — taɓa don rubuta",
+      "hintPages": "{{count}} shafuka zuwa burin yau — taɓa don rubuta",
+      "completeHint": "Sashen yau an gama — taɓa don duba shirin ku",
+      "a11y": "Shirin khatm rana {{day}} cikin {{total}}, {{done}} cikin {{target}} zuwa burin yau"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Tunanin yau",
       "dailyContentBody": "Sabuwar aya da hadisi da sunan Allah sun shirya akan allon gida.",
       "fridayTitle": "Juma'ah Mubarak",
-      "fridayBody": "Juma'a ce - aika salawat kuma ku karanta Suratul Kahf."
+      "fridayBody": "Juma'a ce - aika salawat kuma ku karanta Suratul Kahf.",
+      "acceptanceHourTitle": "Lokacin karɓuwa",
+      "acceptanceHourBodyAsr": "Asr ya fara — nemi lokacin karɓuwa da dua, istighfar da salawat har Maghrib.",
+      "acceptanceHourBodyMid": "Har yanzu akwai lokaci kafin Maghrib — cika waɗannan mintuna da dua na zuciya."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Tunasarwar Juma'a",
-        "subtitle": "Juma'ah da Suratul Kahf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf da lokacin karɓuwa"
       }
     },
     "prayerAlertsObligatory": "Fadakarwar Sallah wajibi",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Zaɓi murya don fara sauraro",
     "listenVoiceDefault": "Tsohon tsarin na'ura",
     "listenVoiceDefaultHint": "Yi amfani da muryar da na'ura ta fi so don wannan harshe",
-    "listenVoiceEmpty": "Babu muryoyin da aka shigar don wannan harshe. Ƙara ɗaya a cikin saitunan tsarin."
+    "listenVoiceEmpty": "Babu muryoyin da aka shigar don wannan harshe. Ƙara ɗaya a cikin saitunan tsarin.",
+    "showTransliteration": "Nuna rubutun lafazi",
+    "hideTransliteration": "Ɓoye rubutun lafazi",
+    "showTranslation": "Nuna fassara",
+    "hideTranslation": "Ɓoye fassara"
   },
   "share": {
     "dialogTitle": "Raba",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "duas by title, topic, or text… Nemo",
     "searchInCategory": "in this category… Nemo",
     "searchResultCount": "{{count}} sakamako",
-    "noResults": "Babu duas da ya dace da bincikenku."
+    "noResults": "Babu duas da ya dace da bincikenku.",
+    "favSubtitle": "Sake tsara ko cire addu'o'in da ka ajiye"
   },
   "duaCat": {
     "morning_evening": "Safiya & Maraice",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Daina sauraro",
       "bestMatch": "Mafi dacewa",
       "otherMatches": "Wasu daidaito"
-    }
+    },
+    "searchPlaceholderArabic": "Nemo rubutun Larabci ko magana kamar ٢:٢٥٥…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Hadisin annabci",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Wannan app ɗin yana ƙididdige Witr da aka rasa zuwa qaza ga duk masu amfani. Ku bi shi kamar yadda ake buƙata idan kun bi ra'ayin Hanafiyya; in ba haka ba bi shi a matsayin shawarar kayan shafa. Tuntuɓi malami don halin ku."
     },
-    "history": "Tarihi"
+    "history": "Tarihi",
+    "rowDone": "{{completed}} an biya Qaza",
+    "rowDoneWithDaily": "{{completed}} an biya Qaza · yau {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "Sake saita counter?",
     "confirmResetMessage": "Kuin swata  {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? Farat",
-    "confirmStartAgainMessage": "Kuin completed swata will be cleared so siz can begin  yeni round."
+    "confirmStartAgainMessage": "Kuin completed swata will be cleared so siz can begin  yeni round.",
+    "dockLabel": "Ƙidaya"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} is only {{min}} minti away",
@@ -2502,7 +2538,15 @@
       "ahead": "Gaba",
       "onTrack": "Kunna track",
       "behind": "Bayan"
-    }
+    },
+    "logConfirmTitle": "Ƙara ci gaban karatu?",
+    "logConfirmMsg": "Ƙara ayah {{count}} zuwa jimlar khatm ɗinka?",
+    "logConfirmMsgPages": "Ƙara shafuka {{count}} zuwa jimlar khatm ɗinka?",
+    "logConfirmAction": "Ƙara",
+    "correctTotalConfirmTitle": "Sabunta jimlar da aka karanta?",
+    "correctTotalConfirmMsg": "Saita jimlar khatm zuwa ayah {{count}}?",
+    "correctTotalConfirmMsgPages": "Saita jimlar khatm zuwa shafuka {{count}}?",
+    "correctTotalConfirmAction": "Sabunta jimlar"
   },
   "hifz": {
     "short": "Hifz",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Den  Alkur'ani",
     "hadithTitle": "Den  Sunnah",
     "obligationsTitle": "Abin da har yanzu kuke da alhakin",
-    "rakatsTitle": "Rakat a kallo",
+    "rakatsTitle": "Raka'a a gani",
     "rakatsPrayer": "Sallah",
     "rakatsResident": "At ana swatafa",
     "rakatsTravel": "Tafiyaling",
@@ -2706,7 +2750,8 @@
       "knowledge": "Katin ilimin yau da kullun",
       "quickActions": "Ayyukan gaggawa",
       "qaza": "Qaza summary",
-      "schedule": "Jadawalin yau"
+      "schedule": "Jadawalin yau",
+      "khatm": "Shirin khatm"
     }
   },
   "schedule": {
@@ -2732,7 +2777,7 @@
     "progressCardTitle": "Ci gaban karatu",
     "progressCardHint": "{{completed}} na {{total}} darussa sun cika",
     "topicsTitle": "Jagoras",
-    "rakatsTitle": "Rakat a kallo",
+    "rakatsTitle": "Raka'a a gani",
     "prayer": "Sallah",
     "fard": "Fard",
     "sunnah": "Sunnah",
@@ -2806,7 +2851,12 @@
       "listenHint": "Matsa rikodin don kunna. Bi tare da kalmomin da ke ƙasa yayin da kuke sauraro.",
       "play": "Kunna {{name}} adhan",
       "pause": "Dakata {{name}} adhan",
-      "sourceNote": "Recordings den  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, da more)."
+      "sourceNote": "Recordings den  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, da more).",
+      "learnPhrasesHint": "Koyi kalmomin — kunna kowace jumla a bayyane, ɗaya bayan ɗaya.",
+      "playPhrases": "Kunna duk jumloli",
+      "pausePhrases": "Dakatar da jumloli",
+      "playPhrase": "Kunna jumla {{n}}: {{title}}",
+      "followAlongNote": "Yana haskaka kalmomi a ƙasa yayin kunna"
     }
   },
   "battles": {
@@ -3428,7 +3478,8 @@
       "obligatory": "Mahimmanci",
       "highly-recommended": "Shawara sosai",
       "recommended": "Nasiha"
-    }
+    },
+    "playAyahA11y": "Kunna karatun {{ref}}"
   },
   "library": {
     "eyebrow": "Laburare",
@@ -3941,7 +3992,7 @@
       "label": "Haɗe-haɗe (na zaɓi)",
       "add": "Ƙara fayil",
       "remove": "Cire abin da aka makala",
-      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowanne. Taɓa × a kan ƙaramin hoto don cirewa.",
+      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowane. Dogon latsa ɗan yatsa don cirewa.",
       "signInRequired": "Shiga don haɗa fayiloli masu zaman kansu zuwa adhkar ku.",
       "permissionDenied": "Ana buƙatar izini don haɗa fayiloli.",
       "permissionTitle": "Bada damar shiga",
@@ -4117,14 +4168,34 @@
   "hajj": {
     "eyebrow": "Hajji",
     "title": "Hajj & Umrah",
-    "subtitle": "Jerin jerin matakai na mataki-mataki don ayyukan hajji.",
+    "subtitle": "Koyi ayyukan daga Alkur'ani da Sunnah, sannan bi Hajj da Umrah daban-daban.",
     "progress": "{{done}} na {{total}} ibada",
     "reset": "Sake saita",
     "resetConfirmTitle": "Sake saita checklist?",
     "resetConfirmMsg": "Wannan, tüm ibadetlerin işaretini kaldırır. İlerlemeniz geri alısallah.",
-    "umrahTag": "Umrah",
-    "hajjTag": "Hajji",
-    "disclaimer": "Pratik dwataa kontrol listesi, fıkıh kitabı değil. Hüküm da watarıntılar don nitelikli dwataa rehbere uyun.",
+    "disclaimer": "Bayani na ilimi na aiki, ba littafin fiqh ba. Madhhabs sun bambanta a cikin cikakkun bayanai — bi jagora mai cancanta don hukuncin da abubuwan da ba a zata ba.",
+    "intro": "Koyi wajibi, ihram, Umrah da ranakun Hajj da dalilai na gaskiya. Yi amfani da jerin abubuwa kawai don ayyuka — shawarwari na shiri suna cikin Koyi.",
+    "section": {
+      "virtues": "Fadiloli",
+      "obligation": "Wajibi",
+      "types": "Nau'ikan Hajj",
+      "ihram": "Miqat da ihram",
+      "umrah": "Umrah",
+      "hajj": "Ranakun Hajj",
+      "rulings": "Ka'idoji da ladabi",
+      "prep": "Shiri na aiki"
+    },
+    "checklistsTitle": "Jerin ayyuka",
+    "hajjChecklistTitle": "Jerin Hajj",
+    "hajjChecklistHint": "Ayyuka rana da rana",
+    "hajjChecklistSubtitle": "Bi ayyukan Hajj daga Tarwiyah zuwa tawaf na bankwana.",
+    "hajjChecklistIntro": "Danna kowace aiki da ka gama. Wannan tunatarwa ne — ba fatwa ba.",
+    "umrahChecklistTitle": "Jerin Umrah",
+    "umrahChecklistHint": "Daga ihram zuwa halq ko taqsir",
+    "umrahChecklistSubtitle": "Bi jerin Umrah a tsari.",
+    "umrahChecklistIntro": "Danna kowace aikin Umrah da ka gama. Buɗe Koyi don cikakkun bayanai da dalilai.",
+    "notFound": "Ba a sami batu ba",
+    "continueInApp": "Ci gaba a Munib",
     "prepTag": "Shiri"
   },
   "dailyHadith": {
@@ -4482,15 +4553,15 @@
     "settingsSubtitleIos": "Sallah with Siri or Apple Watch İşaretle",
     "settingsSubtitleAndroid": "Sallah with Google Assistant or Wear OS İşaretle",
     "introIos": "Yi amfani da Siri, Gajerun hanyoyi, ko Apple Watch don yiwa Salah alama ba tare da buɗe jerin abubuwan ba. Yana buƙatar ƙirar EAS ko ginin samarwa - babu shi a Expo Go.",
-    "introAndroid": "Yi amfani da Google Assistant ko Wear OS don yiwa Salah alama ba tare da buɗe jerin abubuwan ba. Yana buƙatar ƙirar EAS ko ginin samarwa - babu shi a Expo Go.",
+    "introAndroid": "Yi amfani da Google Assistant, gajerar hanyar alamar app ko Wear OS don alama Salah ba tare da buɗe jerin abubuwa ba. Yana buƙatar EAS dev ko production build — ba a Expo Go.",
     "siriTitle": "Siri & Gajerun hanyoyi",
     "siriHint": "After installing den TestFlight ko  App Store, aç  Shortcuts app ko swata “Hey Siri, mark my Sallah donde Munib Tracker”. If  app was force-quit,  mark syncs  sonraki time siz aç Munib Tracker.",
     "assistantTitle": "Mataimakin Google",
-    "assistantHint": "Swata “Hey Google, mark my Sallah donde Munib Tracker”   cihaz tare da  app installed.",
+    "assistantHint": "Ka ce \"Hey Google, mark my Salah in Munib Tracker\", ko ka danna tsawon lokaci alamar Munib Tracker ka zaɓi Mark Salah. Idan an rufe app da karfi, alamar za ta daidaita lokacin da ka buɗe Munib Tracker.",
     "watchTitle": "Apple Watch",
     "watchHint": "Open the Munib Mai bin diddigi watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Sanya OS",
-    "wearHint": "Ƙara the Munib Mai bin diddigi tile on your watch after pairing with your phone.",
+    "wearHint": "Bayan haɗa wayarka, ƙara tile Munib Tracker a agogonka. Taɓa tile don alama Salah na yanzu a wayarka.",
     "marked": "Sallah marked",
     "alreadyDone": "Tuni aka yi alama",
     "allDone": "Tüm obligatory Sallah marked for todwata",
@@ -4697,7 +4768,7 @@
     "eyebrow": "Kalanda",
     "title": "Mai sauya kwanan wata",
     "subtitle": "Tuba tsakanin kalandar Hijiriyya da Miladiyya",
-    "intro": "Shigar da rana a kowace kalanda don ganin daidaita ta a waccan, an ƙididdige a offline daga ganin hilal a wurinku.",
+    "intro": "Shigar da kwanan wata a cikin kowane kalanda don ganin kwatankwacinsa a ɗayan, ƙididdiga ta layi ta amfani da algorithm Kuwaiti tabular.",
     "toHijri": "Gregorian → Hijira",
     "toGregorian": "Hijiriyya → Marigayi",
     "gregorianDateLabel": "Kwanan Gregorian",
@@ -4707,7 +4778,7 @@
     "year": "Shekara",
     "useToday": "Yi amfani a yau",
     "invalidDate": "Shigar da ingantaccen kwanan wata",
-    "disclaimer": "An ƙididdige ranaku daga ganin hilal (hilāl) a wurinku kuma na iya bambanta da sanarwar hukuma ta ganin wata da rana ɗaya — koyaushe bi Masjid ko hukumar gida don ranakun addini.",
+    "disclaimer": "Wannan lissafin lissafin ƙididdiga ne (tabul ɗin \"Kuwaiti algorithm\") kuma yana iya bambanta da rana ɗaya daga sanarwar ganin wata na gida - koyaushe ku bi masallacin ku ko ikon ranakun addini.",
     "directionTitle": "Hanyar juyawa",
     "resultFrom": "Daga {{date}}",
     "quickLinksTitle": "Masu alaƙa",

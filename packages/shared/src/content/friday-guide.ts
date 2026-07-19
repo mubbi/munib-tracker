@@ -59,9 +59,9 @@ export const FRIDAY_GUIDE_TOPICS: LearnGuideTopic[] = [
       "The congregational Friday prayer commanded in the Qur'an, replacing Dhuhr for those who attend.",
     body: [
       "Allah commands the Friday prayer by name: 'O you who believe, when the call is made for prayer on Friday, hasten to the remembrance of Allah and leave off trade. That is better for you, if you only knew' (Qur'an 62:9). The following ayahs then restore permission to disperse and seek Allah's bounty after the prayer (Qur'an 62:10–11).",
-      "Jumu'ah consists of a two-part khutbah followed by two rak'ahs prayed aloud behind the imam, and it takes the place of Dhuhr for those who attend. Tariq ibn Shihab reported that the Prophet ﷺ said the Friday prayer in congregation is a binding duty upon every Muslim except four: a slave, a woman, a child, or one who is ill (Sunan Abi Dawud 1067).",
+      "Jumu'ah consists of a two-part khutbah followed by two rakahs prayed aloud behind the imam, and it takes the place of Dhuhr for those who attend. Tariq ibn Shihab reported that the Prophet ﷺ said the Friday prayer in congregation is a binding duty upon every Muslim except four: a slave, a woman, a child, or one who is ill (Sunan Abi Dawud 1067).",
       "Neglect is a grave warning: Abu al-Ja'd reported that whoever abandons three Friday prayers out of heedlessness, Allah places a seal over his heart (Sunan an-Nasa'i 1369). During the sermon, idle talk wastes the reward — Abu Hurayrah reported that if you say to your companion 'Be quiet' while the imam is speaking, you have spoken wrongly (Sahih al-Bukhari 934).",
-      "After Jumu'ah it is recommended to pray four rak'ahs: Abu Hurayrah reported that the Prophet ﷺ said, 'When one of you has prayed the Friday prayer, let him pray four (rak'ahs) afterwards' (Sahih Muslim 881).",
+      "After Jumu'ah it is recommended to pray four rakahs: Abu Hurayrah reported that the Prophet ﷺ said, 'When one of you has prayed the Friday prayer, let him pray four (rakahs) afterwards' (Sahih Muslim 881).",
     ],
     quran: [
       {
@@ -100,13 +100,13 @@ export const FRIDAY_GUIDE_TOPICS: LearnGuideTopic[] = [
         citation: "881",
         grade: "sahih",
         excerpt:
-          "When one of you has prayed the Friday prayer, let him pray four (rak'ahs) afterwards.",
+          "When one of you has prayed the Friday prayer, let him pray four (rakahs) afterwards.",
       },
     ],
     actions: [
       "Plan travel so you can reach the masjid before the khutbah begins.",
       "Keep phones silent and avoid speaking during the sermon.",
-      "Pray four rak'ahs after Jumu'ah when you can.",
+      "Pray four rakahs after Jumu'ah when you can.",
     ],
     appLinks: [
       { label: "Learn Salah — Jumu'ah lesson", route: "/salah-guide/jumuah" },
@@ -151,7 +151,7 @@ export const FRIDAY_GUIDE_TOPICS: LearnGuideTopic[] = [
         citation: "881",
         grade: "sahih",
         excerpt:
-          "Whoever takes a bath on Friday, then goes early (to the mosque), it is as if he has sacrificed a camel... then a cow... then a ram... then a chicken... then an egg. When the imam comes out, the angels present themselves to listen to the reminder.",
+          "Whoever takes a bath on Friday, then goes early (to the masjid), it is as if he has sacrificed a camel... then a cow... then a ram... then a chicken... then an egg. When the imam comes out, the angels present themselves to listen to the reminder.",
       },
     ],
     actions: [

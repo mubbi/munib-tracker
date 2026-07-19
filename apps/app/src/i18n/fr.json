@@ -77,10 +77,11 @@
       "intro": "Une courte révision tirée des leçons de ce guide. Prenez votre temps — l'apprentissage est le but.",
       "hint": "Révisez ce que vous avez appris",
       "empty": "Les questions de ce guide sont encore en cours de chargement. Ouvrez quelques leçons, puis réessayez."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Rechercher Coran, hadith, duas, adhkar…",
+    "placeholder": "Rechercher Coran, hadith, duas, Apprendre…",
     "clear": "Effacer la recherche",
     "all": "Tout",
     "resultsCount": "{{count}} résultats",
@@ -109,16 +110,7 @@
       "zikr": "Adhkar",
       "name": "99 Noms",
       "durood": "Salawat",
-      "jannah": "Voyage vers Jannah",
-      "jahannam": "Comprendre Jahannam",
-      "lastDay": "Le Jour du Jugement",
-      "salahGuide": "Apprendre la Salah",
-      "battles": "Batailles en Islam",
-      "taharah": "Apprendre la purification",
-      "prophets": "Apprendre les Prophètes",
-      "aqeedah": "Apprendre l'Aqeedah",
-      "learnDua": "Apprendre les duas",
-      "learnQuran": "Apprendre le Coran"
+      "learn": "Apprendre"
     },
     "stt": {
       "dictate": "Recherche vocale",
@@ -465,6 +457,24 @@
       "badge": "Vendredi",
       "reminderTitle": "Jumu'ah Moubarak",
       "reminderBody": "Priez la Jumu'ah et accomplissez les sunnahs du vendredi — ghusl, Surah al-Kahf, salawat et dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Portion de Coran du jour",
+      "catchUpTitle": "Rattrapage khatm",
+      "reminderBody": "Enregistrez {{done}}/{{total}} ayahs vers l'objectif khatm du jour.",
+      "reminderBodyPages": "Enregistrez {{done}}/{{total}} pages vers l'objectif khatm du jour.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "La lecture khatm du jour est en bonne voie — continuez.",
+      "openPlan": "Ouvrir le plan khatm",
+      "a11y": "Plan khatm jour {{day}} sur {{total}}, {{percent}} pour cent accompli, {{done}} sur {{target}} aujourd'hui"
+    },
+    "acceptanceHourCard": {
+      "badge": "Heure de dua",
+      "reminderTitle": "L'heure d'acceptation",
+      "reminderBody": "Une heure le vendredi où la dua n'est pas refusée — cherchez-la surtout après Asr avec une dua sincère, istighfar et salawat.",
+      "openGuide": "Ouvrir l'heure d'acceptation"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Витр",
       "adhkar": "Adhkar",
       "qaza": "Qz",
-      "a11y": "{{label}}: {{percent}}% complete, {{completed}} sur {{total}}"
+      "a11y": "{{label}}: {{percent}}% complete, {{completed}} sur {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah - tout est fait",
     "freshStart": "Yeni un başlangıç",
@@ -547,6 +558,14 @@
       "jumpTitle": "Checklist Jumu'ah",
       "jumpHint": "Pratiques sunnah du vendredi ci-dessous",
       "jumpA11y": "Aller à la checklist Jumu'ah sur cette page"
+    },
+    "khatm": {
+      "title": "Plan khatm",
+      "progress": "{{done}} sur {{total}} aujourd'hui",
+      "hint": "{{count}} ayahs vers l'objectif du jour — appuyez pour enregistrer",
+      "hintPages": "{{count}} pages vers l'objectif du jour — appuyez pour enregistrer",
+      "completeHint": "La portion du jour est faite — appuyez pour revoir votre plan",
+      "a11y": "Plan khatm jour {{day}} sur {{total}}, {{done}} sur {{target}} vers l'objectif du jour"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "La réflexion du jour",
       "dailyContentBody": "Un nouveau verset, hadith et nom d'Allah sont prêts sur votre écran d'accueil.",
       "fridayTitle": "Jumu'ah Moubarak",
-      "fridayBody": "C'est vendredi – envoyez du salawat et lisez la sourate Al-Kahf."
+      "fridayBody": "C'est vendredi – envoyez du salawat et lisez la sourate Al-Kahf.",
+      "acceptanceHourTitle": "L'heure d'acceptation",
+      "acceptanceHourBodyAsr": "Asr a commencé — cherchez l'heure exaucée avec dua, istighfar et salawat jusqu'à Maghrib.",
+      "acceptanceHourBodyMid": "Il reste du temps avant Maghrib — remplissez ces minutes d'une dua sincère."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Rappel du vendredi",
-        "subtitle": "Jumu'ah et sourate Al-Kahf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf et l'heure d'acceptation"
       }
     },
     "prayerAlertsObligatory": "Alertes Salah obligatoires",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Sélectionnez une voix pour commencer l'écoute",
     "listenVoiceDefault": "Par défaut du système",
     "listenVoiceDefaultHint": "Utiliser la voix préférée de l'appareil pour cette langue",
-    "listenVoiceEmpty": "Aucune voix installée pour cette langue. Ajoutez-en une dans les paramètres système."
+    "listenVoiceEmpty": "Aucune voix installée pour cette langue. Ajoutez-en une dans les paramètres système.",
+    "showTransliteration": "Afficher la translittération",
+    "hideTransliteration": "Masquer la translittération",
+    "showTranslation": "Afficher la traduction",
+    "hideTranslation": "Masquer la traduction"
   },
   "share": {
     "dialogTitle": "Partager",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "duas by title, topic, or text… Rechercher",
     "searchInCategory": "in this category… Rechercher",
     "searchResultCount": "{{count}} correspond",
-    "noResults": "No duas matched votre ara."
+    "noResults": "No duas matched votre ara.",
+    "favSubtitle": "Réorganiser ou supprimer vos duas enregistrées"
   },
   "duaCat": {
     "morning_evening": "Matin et soir",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Arrêter l'écoute",
       "bestMatch": "Meilleure correspondance",
       "otherMatches": "Autres correspondances"
-    }
+    },
+    "searchPlaceholderArabic": "Rechercher le texte arabe ou une référence comme ٢:٢٥٥…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Cette application compte le Witr manqué vers qaza pour tous les utilisateurs. Traitez-le comme requis si vous suivez le point de vue Hanafi ; sinon, suivez-le comme maquillage recommandé. Consultez un érudit pour votre situation."
     },
-    "history": "Histoire"
+    "history": "Histoire",
+    "rowDone": "{{completed}} rattrapées",
+    "rowDoneWithDaily": "{{completed}} rattrapées · aujourd'hui {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "Réinitialiser counter?",
     "confirmResetMessage": "Vousin smois  {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? Commencert",
-    "confirmStartAgainMessage": "Vousin completed smois will be cleared so siz can begin  yeni round."
+    "confirmStartAgainMessage": "Vousin completed smois will be cleared so siz can begin  yeni round.",
+    "dockLabel": "Compter"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} n'est qu'à {{min}} minutes",
@@ -2502,7 +2538,15 @@
       "ahead": "hed",
       "onTrack": "Activé track",
       "behind": "Derrière"
-    }
+    },
+    "logConfirmTitle": "Ajouter la progression de lecture ?",
+    "logConfirmMsg": "Ajouter {{count}} ayahs à votre total de khatm ?",
+    "logConfirmMsgPages": "Ajouter {{count}} pages à votre total de khatm ?",
+    "logConfirmAction": "Ajouter",
+    "correctTotalConfirmTitle": "Mettre à jour le total lu ?",
+    "correctTotalConfirmMsg": "Définir le total du khatm à {{count}} ayahs ?",
+    "correctTotalConfirmMsgPages": "Définir le total du khatm à {{count}} pages ?",
+    "correctTotalConfirmAction": "Mettre à jour le total"
   },
   "hifz": {
     "short": "Хифз",
@@ -2718,7 +2762,8 @@
       "knowledge": "Carte de connaissances quotidienne",
       "quickActions": "Actions rapides",
       "qaza": "Résumé de Qaza",
-      "schedule": "Le programme d'aujourd'hui"
+      "schedule": "Le programme d'aujourd'hui",
+      "khatm": "Plan khatm"
     }
   },
   "schedule": {
@@ -2818,7 +2863,12 @@
       "listenHint": "Appuyez sur un enregistrement pour le lire. Suivez les mots ci-dessous pendant que vous écoutez.",
       "play": "Lire {{name}} adhan",
       "pause": "Puse {{name}} dh",
-      "sourceNote": "Recordings den  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, et more)."
+      "sourceNote": "Recordings den  aç Kiwifu/ezan-mp3 collection (Mecca, Medina, Mishary Alafasy, et more).",
+      "learnPhrasesHint": "Apprenez les mots — écoutez chaque phrase clairement, une après l'autre.",
+      "playPhrases": "Lire toutes les phrases",
+      "pausePhrases": "Mettre les phrases en pause",
+      "playPhrase": "Lire la phrase {{n}} : {{title}}",
+      "followAlongNote": "Surligne les mots ci-dessous pendant la lecture"
     }
   },
   "battles": {
@@ -3440,7 +3490,8 @@
       "obligatory": "Essentiel",
       "highly-recommended": "Fortement recommandé",
       "recommended": "Recommandé"
-    }
+    },
+    "playAyahA11y": "Lire la récitation de {{ref}}"
   },
   "library": {
     "eyebrow": "Bibliothèque",
@@ -4033,7 +4084,7 @@
       "label": "Pièces jointes (facultatif)",
       "add": "Ajouter un fichier",
       "remove": "Supprimer la pièce jointe",
-      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez sur × sur une miniature pour retirer.",
+      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez longuement sur une vignette pour la supprimer.",
       "signInRequired": "Connectez-vous pour joindre des fichiers privés à votre adhkar.",
       "permissionDenied": "Une autorisation est requise pour joindre des fichiers.",
       "permissionTitle": "Autoriser l'accès",
@@ -4209,14 +4260,34 @@
   "hajj": {
     "eyebrow": "Pilgrimge",
     "title": "Hjj & Umrh",
-    "subtitle": "Une liste de contrôle étape par étape pour les rites de pèlerinage.",
+    "subtitle": "Apprenez les rites du Coran et de la Sunnah, puis suivez Hajj et Umrah séparément.",
     "progress": "{{done}} des {{total}} rites",
     "reset": "Réinitialiser",
     "resetConfirmTitle": "Liste de contrôle sıfırlansın mı?",
     "resetConfirmMsg": "Ce, tout ibadetlerin işaretini kaldırır. İlerlemeniz geri alısalah.",
-    "umrahTag": "Umrh",
-    "hajjTag": "Hjj",
-    "disclaimer": "Pratik un kontrol listesi, fıkıh kitabı değil. Hüküm et moisrıntılar pour nitelikli un rehbere uyun.",
+    "disclaimer": "Aperçu éducatif pratique, pas un manuel de fiqh. Les madhhabs diffèrent sur les détails — suivez un guide qualifié pour les règles et cas imprévus.",
+    "intro": "Étudiez l'obligation, l'ihram, l'Umrah et les jours du Hajj avec des références authentiques. Utilisez les checklists pour les rites seulement — les conseils de préparation restent dans Apprendre.",
+    "section": {
+      "virtues": "Vertus",
+      "obligation": "Obligation",
+      "types": "Types de Hajj",
+      "ihram": "Miqat et ihram",
+      "umrah": "Umrah",
+      "hajj": "Jours du Hajj",
+      "rulings": "Règles et étiquette",
+      "prep": "Préparation pratique"
+    },
+    "checklistsTitle": "Checklists des rites",
+    "hajjChecklistTitle": "Checklist Hajj",
+    "hajjChecklistHint": "Rites du pèlerinage jour par jour",
+    "hajjChecklistSubtitle": "Suivez les rites du Hajj de Tarwiyah au tawaf d'adieu.",
+    "hajjChecklistIntro": "Cochez chaque rite au fur et à mesure. Aide-mémoire — pas une fatwa.",
+    "umrahChecklistTitle": "Checklist Umrah",
+    "umrahChecklistHint": "De l'ihram au halq ou taqsir",
+    "umrahChecklistSubtitle": "Suivez la séquence de l'Umrah dans l'ordre.",
+    "umrahChecklistIntro": "Cochez chaque rite de l'Umrah au fur et à mesure. Ouvrez Apprendre pour les détails et les preuves.",
+    "notFound": "Sujet introuvable",
+    "continueInApp": "Continuer dans Munib",
     "prepTag": "Préparation"
   },
   "dailyHadith": {
@@ -4574,15 +4645,15 @@
     "settingsSubtitleIos": "Salah with Siri or Apple Watch İşaretle",
     "settingsSubtitleAndroid": "Salah with Google Assistant or Wear OS İşaretle",
     "introIos": "Utilisez Siri, Raccourcis ou Apple Watch pour marquer Salah sans ouvrir la liste de contrôle. Nécessite une version de développement ou de production EAS – non disponible dans Expo Go.",
-    "introAndroid": "Utilisez Google Assistant ou Wear OS pour marquer Salah sans ouvrir la liste de contrôle. Nécessite une version de développement ou de production EAS – non disponible dans Expo Go.",
+    "introAndroid": "Utilisez Google Assistant, le raccourci de l'icône de l'app ou Wear OS pour marquer la Salah sans ouvrir la checklist. Nécessite une build EAS dev ou production — indisponible dans Expo Go.",
     "siriTitle": "Siri et raccourcis",
     "siriHint": "After installing den TestFlight ou  App Store, aç  Shortcuts app ou smois “Hey Siri, mark my Salah pourde Munib Tracker”. If  app was force-quit,  mark syncs  sonraki time siz aç Munib Tracker.",
     "assistantTitle": "Assistant Google",
-    "assistantHint": "Smois “Hey Google, mark my Salah pourde Munib Tracker”   cihaz aetc  app installed.",
+    "assistantHint": "Dites \"Hey Google, mark my Salah in Munib Tracker\", ou appuyez longuement sur l'icône Munib Tracker et choisissez Mark Salah. Si l'app a été fermée de force, la marque se synchronise à la prochaine ouverture de Munib Tracker.",
     "watchTitle": "pple Wtch",
     "watchHint": "Open the Munib Suivi watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Wer OS",
-    "wearHint": "Ajouter the Munib Suivi tile on your watch after pairing with your phone.",
+    "wearHint": "Après avoir appairé votre téléphone, ajoutez la tuile Munib Tracker sur votre montre. Appuyez sur la tuile pour marquer la Salah en cours sur votre téléphone.",
     "marked": "Salah marked",
     "alreadyDone": "Déjà marqué",
     "allDone": "Tüm obligatory Salah marked for todmois",
@@ -4789,7 +4860,7 @@
     "eyebrow": "Calendrier",
     "title": "Convertisseur de dates",
     "subtitle": "Conversion entre les calendriers hégirien et grégorien",
-    "intro": "Entrez une date dans l'un des calendriers pour voir son équivalent dans l'autre, calculé hors ligne d'après la visibilité du croissant à votre emplacement.",
+    "intro": "Entrez une date dans l'un ou l'autre calendrier pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
     "toHijri": "Grégorien → Hijri",
     "toGregorian": "hijri → grégorien",
     "gregorianDateLabel": "date grégorienne",
@@ -4799,7 +4870,7 @@
     "year": "Année",
     "useToday": "Utiliser aujourd'hui",
     "invalidDate": "Entrez une date valide",
-    "disclaimer": "Les dates sont calculées d'après la visibilité du croissant (hilāl) à votre emplacement et peuvent différer d'un jour des annonces officielles d'observation de la lune — suivez toujours votre masjid local ou autorité pour les dates religieuses.",
+    "disclaimer": "Il s'agit d'une approximation arithmétique (le tableau \"algorithme koweïtien\") et peut différer d'un jour des annonces locales d'observation de la lune - suivez toujours votre mosquée locale ou votre autorité pour les dates religieuses.",
     "directionTitle": "Sens de conversion",
     "resultFrom": "De {{date}}",
     "quickLinksTitle": "Connexes",

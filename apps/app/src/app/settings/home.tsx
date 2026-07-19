@@ -22,7 +22,14 @@ import {
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 /** Home modules the user can hide (NF-1.21). */
-const HOME_MODULES = ["continue", "knowledge", "quickActions", "qaza", "schedule"] as const;
+const HOME_MODULES = [
+  "continue",
+  "knowledge",
+  "quickActions",
+  "khatm",
+  "qaza",
+  "schedule",
+] as const;
 
 const ALL_ACTION_IDS = QUICK_ACTION_META.map((a) => a.id);
 

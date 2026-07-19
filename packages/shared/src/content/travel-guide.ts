@@ -26,13 +26,13 @@ export const TRAVEL_SECTIONS: readonly TravelSectionKey[] = [
 
 export type TravelRakatRow = {
   prayerId: PrayerId | "witr";
-  /** Fard rakats at home. */
+  /** Fard rakahs at home. */
   resident: number;
-  /** Fard rakats while travelling (Qasr). */
+  /** Fard rakahs while travelling (Qasr). */
   travel: number;
 };
 
-/** Fard rakats at home vs on a qualifying journey. */
+/** Fard rakahs at home vs on a qualifying journey. */
 export const TRAVEL_RAKATS: readonly TravelRakatRow[] = [
   { prayerId: "fajr", resident: 2, travel: 2 },
   { prayerId: "dhuhr", resident: 4, travel: 2 },

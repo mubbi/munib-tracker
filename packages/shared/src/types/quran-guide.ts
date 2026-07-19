@@ -84,6 +84,23 @@ export interface QuranGuideStory {
   appLinks?: JannahAppLink[];
 }
 
+/**
+ * Recitation clip for Learn Qur'an examples — everyayah ayah stream with optional
+ * word-range timing (seconds) from QuranCDN / QUL-style segments.
+ */
+export interface QuranGuideAyahAudio {
+  surah: number;
+  ayah: number;
+  /** Inclusive 1-based word index (QuranCDN segment order). */
+  wordFrom?: number;
+  /** Inclusive 1-based word index. */
+  wordTo?: number;
+  /** Clip start within the everyayah ayah file (seconds). */
+  clipStart?: number;
+  /** Clip end within the everyayah ayah file (seconds). */
+  clipEnd?: number;
+}
+
 /** Tajweed rule lesson. */
 export interface QuranGuideTajweedLesson {
   id: string;
@@ -92,6 +109,8 @@ export interface QuranGuideTajweedLesson {
   explanation: string[];
   examples: string[];
   practice?: string;
+  /** Practice ayah(s) to listen to (e.g. al-Fatiha for noon sakinah drills). */
+  practiceAudio?: QuranGuideAyahAudio;
 }
 
 /** Arabic letter card. */
@@ -119,6 +138,8 @@ export interface QuranGuideReadingLevel {
   title: string;
   summary: string;
   topics: string[];
+  /** Optional listen target (e.g. al-Fatiha for word / verse levels). */
+  practiceAudio?: QuranGuideAyahAudio;
 }
 
 /** Memorization plan tier. */
@@ -127,6 +148,8 @@ export interface QuranGuideMemorizationPlan {
   title: string;
   summary: string;
   surahs: string[];
+  /** Numeric surah ids for listen / open-in-reader actions. */
+  surahNumbers?: number[];
   tip: string;
 }
 

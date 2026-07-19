@@ -77,10 +77,11 @@
       "intro": "Vekolînek kurt ji dersên vê rêberê. Demê xwe bistînin — armanc fêrbûn e.",
       "hint": "Ya ku we fêr bû vekolînin",
       "empty": "Pirsên vê rêberê hîn têne barkirin. Çend dersan vekin, paşê dîsa biceribînin."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Qur'an, hədis, dua, adhkar axtar…",
+    "placeholder": "Li Qur'an, hadîs, dua, Fêr bibe… bigere",
     "clear": "Lêgerînê paqij bike",
     "all": "Hemû",
     "resultsCount": "{{count}} nəticə",
@@ -109,16 +110,7 @@
       "zikr": "ئادکار",
       "name": "99 ad",
       "durood": "Salawat",
-      "jannah": "Rêwîtiya ber bi Cennetê",
-      "jahannam": "Fêmkirina Cehnemê",
-      "lastDay": "Roja Qiyametê",
-      "salahGuide": "Salah fêr bibe",
-      "battles": "Di Îslamê de şer",
-      "taharah": "Paqijkirinê fêr bibe",
-      "prophets": "Peyamberan fêr bibe",
-      "aqeedah": "Aqeedah fêr bibe",
-      "learnDua": "Dua fêr bibe",
-      "learnQuran": "Qur'an fêr bibe"
+      "learn": "Fêr bibe"
     },
     "stt": {
       "dictate": "گەڕان بە دەنگ",
@@ -465,6 +457,24 @@
       "badge": "În",
       "reminderTitle": "Înê pîroz",
       "reminderBody": "Jumu'ah bike û sunnetên înê temam bike — ghusl, Surah al-Kahf, salawat û dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Beşa Qur'an a îro",
+      "catchUpTitle": "Khatm qetandin",
+      "reminderBody": "{{done}}/{{total}} ayah ji bo armanca khatm a îro tomar bike.",
+      "reminderBodyPages": "{{done}}/{{total}} rûpel ji bo armanca khatm a îro tomar bike.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Xwendina khatm a îro li ser rê ye — bidomîne.",
+      "openPlan": "Plana khatm veke",
+      "a11y": "Plana khatm roja {{day}} ji {{total}}, {{percent}} sedî temam, îro {{done}} ji {{target}}"
+    },
+    "acceptanceHourCard": {
+      "badge": "Saeta dua",
+      "reminderTitle": "Saeta qebûlê",
+      "reminderBody": "Saetek li roja Înê ku dua ne tê red kirin — bi taybetî piştî Asr bi dua, istighfar û salawat dilsoz bigere.",
+      "openGuide": "Saeta qebûlê veke"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "ویتر",
       "adhkar": "ئادکار",
       "qaza": "قەزا",
-      "a11y": "{{label}}: {{percent}}% temam, {{completed}} ya {{total}}"
+      "a11y": "{{label}}: {{percent}}% temam, {{completed}} ya {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah — hemû done",
     "freshStart": " fresh dest pê bike",
@@ -547,6 +558,14 @@
       "jumpTitle": "Lîsteya Jumu'ah",
       "jumpHint": "Sunnetên înê li jêr",
       "jumpA11y": "Biçe lîsteya Jumu'ah li ser vê rûpelê"
+    },
+    "khatm": {
+      "title": "Plana khatm",
+      "progress": "Îro {{done}} ji {{total}}",
+      "hint": "{{count}} ayah ji bo armanca îro — ji bo tomarê bitikîne",
+      "hintPages": "{{count}} rûpel ji bo armanca îro — ji bo tomarê bitikîne",
+      "completeHint": "Beşa îro qediya — ji bo plana xwe bitikîne",
+      "a11y": "Plana khatm roja {{day}} ji {{total}}, {{done}} ji {{target}} ji bo armanca îro"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Refleksiyona îro",
       "dailyContentBody": "Ayetek nû, hedîs û navê Xwedê li ser ekrana weya malê amade ye.",
       "fridayTitle": "Cuma Mubarek",
-      "fridayBody": "Roja înê ye - selewatan bişînin û sûreya Kehf bixwînin."
+      "fridayBody": "Roja înê ye - selewatan bişînin û sûreya Kehf bixwînin.",
+      "acceptanceHourTitle": "Saeta qebûlê",
+      "acceptanceHourBodyAsr": "Asr dest pê kir — heta Maghrib bi dua, istighfar û salawat saeta qebûlê bigere.",
+      "acceptanceHourBodyMid": "Hê dem heye berî Maghrib — van deqîqan bi dua dilsoz dagire."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "bîranîna înê",
-        "subtitle": "Cuma û sûreyê Kehf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf û saeta qebûlê"
       }
     },
     "prayerAlertsObligatory": "Alerts Salah mecbûrî",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Ji bo destpêkirina guhdarîyê deng hilbijêrin",
     "listenVoiceDefault": "Pêşbirka pergalê",
     "listenVoiceDefaultHint": "Dengê bijare yê cîhazê ji bo vî zimanî bikar bînin",
-    "listenVoiceEmpty": "Ji bo vî zimanî deng nehatine sazkirin. Yekê di mîhengên pergalê de zêde bikin."
+    "listenVoiceEmpty": "Ji bo vî zimanî deng nehatine sazkirin. Yekê di mîhengên pergalê de zêde bikin.",
+    "showTransliteration": "Transliterasyon nîşan bide",
+    "hideTransliteration": "Transliterasyon veşêre",
+    "showTranslation": "Werger nîşan bide",
+    "hideTranslation": "Werger veşêre"
   },
   "share": {
     "dialogTitle": "Parve bike",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "Lêgerîn duas by title, mijar, an text…",
     "searchInCategory": "Lêgerîn di ev category…",
     "searchResultCount": "{{count}} lihevhatin",
-    "noResults": "No duas matched we lêgerîn."
+    "noResults": "No duas matched we lêgerîn.",
+    "favSubtitle": "Dualên tomarkirî rêz bike an jê bibe"
   },
   "duaCat": {
     "morning_evening": "Sibeh & Êvar",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Guhdariyê rawestîne",
       "bestMatch": "Herî baş lihevok",
       "otherMatches": "Lihevokên din"
-    }
+    },
+    "searchPlaceholderArabic": "Nivîsa erebî an referansek wekî ٢:٢٥٥ bigere…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Kevneşopiya pêxemberî",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Vê sepanê ji bo hemî bikarhêneran Witr windabûyî li qazayê dihesibîne. Ger hûn nêrîna Henefî bişopînin, wê wekî ku hewce dike derman bikin; wekî din wê wekî make-upek pêşniyarkirî bişopînin. Ji bo rewşa xwe bi alimek bişêwirin."
     },
-    "history": "Dîrok"
+    "history": "Dîrok",
+    "rowDone": "{{completed}} Qaza hat kirin",
+    "rowDoneWithDaily": "{{completed}} Qaza hat kirin · îro {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "Berhevkarê vegere?",
     "confirmResetMessage": "We count ya {{count}} will be paqij bû.",
     "confirmStartAgainTitle": "Dest pê bike again?",
-    "confirmStartAgainMessage": "We temam bû count will be paqij bû so hûn can begin  nû round."
+    "confirmStartAgainMessage": "We temam bû count will be paqij bû so hûn can begin  nû round.",
+    "dockLabel": "Hejmar"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} e only {{min}} min away",
@@ -2502,7 +2538,15 @@
       "ahead": "Pêşve",
       "onTrack": "Li ser rê",
       "behind": "Paş"
-    }
+    },
+    "logConfirmTitle": "Pêşketina xwendinê zêde bikin?",
+    "logConfirmMsg": "{{count}} ayet li tevahîya khatm zêde bikin?",
+    "logConfirmMsgPages": "{{count}} rûpel li tevahîya khatm zêde bikin?",
+    "logConfirmAction": "Zêde bike",
+    "correctTotalConfirmTitle": "Tevahîya xwendî nûve bikin?",
+    "correctTotalConfirmMsg": "Tevahîya khatm wekî {{count}} ayet bike?",
+    "correctTotalConfirmMsgPages": "Tevahîya khatm wekî {{count}} rûpel bike?",
+    "correctTotalConfirmAction": "Tevahîyê nûve bike"
   },
   "hifz": {
     "short": "هیفز",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Ji  Qur'an",
     "hadithTitle": "Ji  Sunnah",
     "obligationsTitle": "What hûn in still responsible ji bo",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "Rakaat bi kurte",
     "rakatsPrayer": "سەڵاح",
     "rakatsResident": "At serê",
     "rakatsTravel": "Rêwîtî",
@@ -2718,7 +2762,8 @@
       "knowledge": "Karta zanîna rojane",
       "quickActions": "Çalakiyên bilez",
       "qaza": "Kurteya Qaza",
-      "schedule": "Bernameya îro"
+      "schedule": "Bernameya îro",
+      "khatm": "Plana khatm"
     }
   },
   "schedule": {
@@ -2744,7 +2789,7 @@
     "progressCardTitle": "Pêşveçûna fêrbûnê",
     "progressCardHint": "{{completed}} ji {{total}} dersên temamkirî hatin nîşankirin",
     "topicsTitle": "ڕێنماییەکان",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "Rakaat bi kurte",
     "prayer": "سەڵاح",
     "fard": "فەرد",
     "sunnah": "سوننەت",
@@ -2818,7 +2863,12 @@
       "listenHint": "Tap  recording bo play. Follow along bi  words li jêr as hûn listen.",
       "play": "Azanê {{name}} bilîzin",
       "pause": "Azan {{name}} rawestînin",
-      "sourceNote": "Recordings ji  open Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, û more)."
+      "sourceNote": "Recordings ji  open Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, û more).",
+      "learnPhrasesHint": "Peyvan fêr bibin — her hevokê zelal, yek bi yek bilîzin.",
+      "playPhrases": "Hemû hevokan bilîze",
+      "pausePhrases": "Hevokan rawestîne",
+      "playPhrase": "Hevoka {{n}} bilîze: {{title}}",
+      "followAlongNote": "Di dema lîstinê de peyvên jêr ronî dike"
     }
   },
   "battles": {
@@ -3440,7 +3490,8 @@
       "obligatory": "Pêwist",
       "highly-recommended": "Pir tê pêşniyar kirin",
       "recommended": "Pêşniyar kirin"
-    }
+    },
+    "playAyahA11y": "Tilaweta {{ref}} bilîze"
   },
   "library": {
     "eyebrow": "Pirtûkxane",
@@ -4033,7 +4084,7 @@
       "label": "هاوپێچەکان (ئیختیاری)",
       "add": "زیادکردنی فایل",
       "remove": "هاوپێچەکە لاببە",
-      "hint": "Heta 5 pel (JPEG, PNG, WebP an PDF), her yek 1 MB. Ji bo jêbirinê li ser thumbnailê × bitikîne.",
+      "hint": "تا ٥ فایل (JPEG، PNG، WebP، یان PDF)، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
       "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی فایلە تایبەتەکان بە adhkar ـەکەتەوە.",
       "permissionDenied": "بۆ هاوپێچکردنی فایلەکان مۆڵەت پێویستە.",
       "permissionTitle": "ڕێگە بدە بە دەستگەیشتن",
@@ -4209,14 +4260,34 @@
   "hajj": {
     "eyebrow": "Çûna hecê",
     "title": "Hac & Umre",
-    "subtitle": " gav-by-gav checklist ji bo  rites ya pilgrimage.",
+    "subtitle": "Meremiyan ji Qur'an û Sunnah fêr bibe, paşê Hajj û Umrah bi cuda bişopîne.",
     "progress": "{{done}} ya {{total}} rites",
     "reset": "ڕێستکردنەوە",
     "resetConfirmTitle": "Vegere lîsteya kontrolê?",
     "resetConfirmMsg": "Ev ê her rêûresmê hilweşîne. Pêşkeftina we nayê vegerandin.",
-    "umrahTag": "Umre",
-    "hajjTag": "Hac",
-    "disclaimer": " practical checklist, not  fiqh manual. Follow  qualified guide ji bo rulings û details.",
+    "disclaimer": "Kurteya perwerdehiya pratîk, ne pirtûka fiqh e. Mezheb di hûragahiyan de cudahî dikin — ji bo qaid û rewşên nediyar rêberek qebil bişopîne.",
+    "intro": "Mecbûriyet, ihram, Umrah û rojên Hajj bi referansên rastîn bixwîne. Lîsteyan tenê ji bo meremiyan — şîretên amadekirinê di Fêr bibe de dimînin.",
+    "section": {
+      "virtues": "Fazilet",
+      "obligation": "Mecbûriyet",
+      "types": "Cureyên Hajj",
+      "ihram": "Miqat û ihram",
+      "umrah": "Umrah",
+      "hajj": "Rojên Hajj",
+      "rulings": "Qaid û edeb",
+      "prep": "Amadekariya pratîk"
+    },
+    "checklistsTitle": "Lîsteyên meremiyan",
+    "hajjChecklistTitle": "Lîsteya Hajj",
+    "hajjChecklistHint": "Meremiyên hacê roj bi roj",
+    "hajjChecklistSubtitle": "Meremiyên Hajj ji Tarwiyah heta tawaf vedanê bişopîne.",
+    "hajjChecklistIntro": "Her meremiyek qediya nîşan bike. Ev bîraneke — ne fatwa ye.",
+    "umrahChecklistTitle": "Lîsteya Umrah",
+    "umrahChecklistHint": "Ji ihram heta halq an taqsir",
+    "umrahChecklistSubtitle": "Rêza Umrah bi rêz bişopîne.",
+    "umrahChecklistIntro": "Her meremiya Umrah qediya nîşan bike. Ji bo hûragahiyan û delîlan Fêr bibe veke.",
+    "notFound": "Mijar nehat dîtin",
+    "continueInApp": "Di Munib de bidomîne",
     "prepTag": "ئامادەکاری"
   },
   "dailyHadith": {
@@ -4574,15 +4645,15 @@
     "settingsSubtitleIos": "Mark Salah bi Siri an Apple Watch",
     "settingsSubtitleAndroid": "Mark Salah bi Google Assistant an Wear OS",
     "introIos": "Use Siri, Shortcuts, an Apple Watch bo mark Salah without opening  checklist. Requires  EAS dev an production build — not available di Expo Go.",
-    "introAndroid": "Use Google Assistant an Wear OS bo mark Salah without opening  checklist. Requires  EAS dev an production build — not available di Expo Go.",
+    "introAndroid": "Ji bo nîşankirina Salah bê vekirina lîsteyê Google Assistant, kurterêya îkona sepanê an Wear OS bikar bîne. EAS dev an production build hewce ye — di Expo Go de tune ye.",
     "siriTitle": "سیری و کورتە ڕێگاکان",
     "siriHint": "Piştî ku hûn ji TestFlight an App Store-ê saz bikin, serîlêdana Kurtebiran vekin an jî bibêjin \"Hey Siri, Salah min li Munib Tracker nîşan bide\". Ger serîlêdan bi zorê vekişiya, gava ku hûn Munib Tracker vekin, nîşana hevdem dibe.",
     "assistantTitle": "Alîkarê Google",
-    "assistantHint": "Say “Hey Google, mark my Salah di Munib Tracker” li  cîhaz bi  app installed.",
+    "assistantHint": "\"Hey Google, mark my Salah in Munib Tracker\" bibêje, an îkona Munib Tracker dirêj bitikîne Mark Salah hilbijêre. Ger sepan bi zor hat girtin, nîşan dema Munib Tracker vedike hevdem dibe.",
     "watchTitle": "کاتژمێری ئەپڵ",
     "watchHint": "Open  Munib Tracker watch app bo see îro’s schedule û mark Salah. Daneyên syncs ji we iPhone.",
     "wearTitle": "OS-ê li xwe bikin",
-    "wearHint": "Zêde bike  Munib Tracker tile li we watch after pairing bi we phone.",
+    "wearHint": "Piştî girêdana telefonê, tile Munib Tracker li saetê zêde bike. Ji bo nîşankirina Salah a niha li telefonê tile bitikîne.",
     "marked": "Salah nîşan kir",
     "alreadyDone": "پێشتر نیشانە کراوە",
     "allDone": "Hemî Cewadên ferz ji bo îro hatine nîşankirin",
@@ -4789,7 +4860,7 @@
     "eyebrow": "ساڵنامە",
     "title": "گۆڕینی بەروار",
     "subtitle": "گۆڕینی نێوان ساڵنامەی هیجری و زاینی",
-    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە لە ئۆفلاین لەسەر بنەمای بینینی مانگ لە شوێنەکەت حیسابی بۆ کراوە.",
+    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە بە بەکارهێنانی ئەلگۆریتمەکەی کوەیتی خشتەیی لە ئۆفلاین حیسابی بۆ کراوە.",
     "toHijri": "گریگۆری → هیجری",
     "toGregorian": "هیجری → گریگۆری",
     "gregorianDateLabel": "بەرواری گریگۆری",
@@ -4799,7 +4870,7 @@
     "year": "ساڵ",
     "useToday": "ئەمڕۆ بەکاری بهێنە",
     "invalidDate": "بەروارێکی دروست بنووسە",
-    "disclaimer": "بەروارەکان لەسەر بنەمای بینینی مانگ (hilāl) لە شوێنەکەت حیساب دەکرێن و دەتوانن ڕۆژێک جیاواز بن لە ڕاگەیاندنە فەرمییەکانی بینینی مانگ — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
+    "disclaimer": "ئەمە نزیکبوونەوەیەکی ژمێریارییە (\"ئەلگۆریتمەکەی کوێت\"ی خشتەیی) و دەتوانێت ڕۆژێک جیاواز بێت لە ڕاگەیاندنەکانی بینینی مانگ لە ناوخۆدا — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
     "directionTitle": "ئاراستەی گۆڕانکاری",
     "resultFrom": "لە {{date}} ەوە",
     "quickLinksTitle": "پەیوەست",

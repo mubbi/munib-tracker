@@ -15,7 +15,7 @@ import { searchGuideGroups } from "@/lib/search-guides";
 
 const DEFAULT_GROUP_LIMIT = 6;
 
-/** Light search plus Learn guide corpora. */
+/** Light search plus Learn guide corpora (single `learn` group). */
 export function searchLightWithGuides(
   query: string,
   perGroupLimit = DEFAULT_GROUP_LIMIT,
@@ -31,12 +31,7 @@ export function searchLightWithGuides(
     light.map((group) => [group.category, { results: group.results, total: group.total }]),
   );
 
-  for (const [category, group] of Object.entries(guides) as [
-    SearchCategory,
-    { results: SearchGroup["results"]; total: number },
-  ][]) {
-    byCategory[category] = group;
-  }
+  byCategory.learn = guides.learn;
 
   return SEARCH_CATEGORY_ORDER.map((category) => {
     const slot = byCategory[category];

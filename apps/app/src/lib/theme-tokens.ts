@@ -36,11 +36,19 @@ export type ThemeTokens = {
   status: Record<StatusKey, StatusToken>;
 };
 
+/** Stable token objects for cached theme color refs — toggles reuse the same map entry. */
+const themeTokenCache = new WeakMap<ThemeColors, ThemeTokens>();
+
 /**
  * Derives semantic tokens from resolved theme colors. Called once per theme
  * change in MunibThemeProvider — never per consumer.
  */
 export function computeThemeTokens(colors: ThemeColors, scheme: "light" | "dark"): ThemeTokens {
+  const cached = themeTokenCache.get(colors);
+  if (cached && cached.isDark === (scheme === "dark")) {
+    return cached;
+  }
+
   const isDark = scheme === "dark";
   const textSurface = isDark ? colors.card : colors.background;
 
@@ -56,7 +64,7 @@ export function computeThemeTokens(colors: ThemeColors, scheme: "light" | "dark"
     ]),
   ) as Record<StatusKey, StatusToken>;
 
-  return {
+  const tokens: ThemeTokens = {
     isDark,
     accentSoft: withAlpha(colors.accent, isDark ? 0.24 : 0.14),
     accentBorder: withAlpha(colors.accent, isDark ? 0.45 : 0.3),
@@ -79,4 +87,6 @@ export function computeThemeTokens(colors: ThemeColors, scheme: "light" | "dark"
     },
     status,
   };
+  themeTokenCache.set(colors, tokens);
+  return tokens;
 }

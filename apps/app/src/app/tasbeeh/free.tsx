@@ -63,7 +63,7 @@ export default function FreeTasbeehScreen() {
           webPageSchema({
             path: "/tasbeeh/free",
             name: "Digital Tasbeeh Counter",
-            description: "A free digital tasbeeh (misbaha) counter for any dhikr, hands-free.",
+            description: "A free digital tasbeeh (misbaha) counter for any zikr, hands-free.",
             breadcrumbs: [
               { name: t("tabs.home"), path: "/" },
               { name: t("actions.tasbeeh"), path: "/tasbeeh/free" },

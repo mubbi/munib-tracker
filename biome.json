@@ -23,6 +23,8 @@
       "!**/packages/api-contract/openapi.json",
       "!**/apps/app/assets/data",
       "!**/apps/app/scripts/build-data/.cache",
+      "!**/apps/app/scripts/i18n/_tmp",
+      "!**/apps/app/scripts/i18n/ui-polish-patches.json",
       "!**/.tmp"
     ]
   },

@@ -7,7 +7,7 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
   {
     id: "rawatib-total",
     type: "multiple-choice",
-    prompt: "How many sunnah rawatib rak'ahs are agreed upon each day?",
+    prompt: "How many sunnah rawatib rakahs are agreed upon each day?",
     options: ["8", "10", "12", "14"],
     correctIndex: 2,
     explanation:
@@ -17,10 +17,10 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
     id: "rawatib-fajr",
     type: "multiple-choice",
     prompt: "Before Fajr, the emphasised (mu'akkadah) sunnah is:",
-    options: ["None", "2 rak'ahs", "4 rak'ahs", "2 rak'ahs after only"],
+    options: ["None", "2 rakahs", "4 rakahs", "2 rakahs after only"],
     correctIndex: 1,
     explanation:
-      "Two rak'ahs before Fajr are sunnah mu'akkadah — the Prophet ﷺ never neglected them (Sahih al-Bukhari 1169; Sahih Muslim 724).",
+      "Two rakahs before Fajr are sunnah mu'akkadah — the Prophet ﷺ never neglected them (Sahih al-Bukhari 1169; Sahih Muslim 724).",
   },
   {
     id: "rawatib-dhuhr",
@@ -29,12 +29,12 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
     options: ["2 before, 2 after", "4 before, 2 after", "4 before, 4 after", "2 before only"],
     correctIndex: 1,
     explanation:
-      "Four before Dhuhr and two after are part of the twelve rawatib. Extra rak'ahs beyond these are recommended nafl, not fixed rawatib.",
+      "Four before Dhuhr and two after are part of the twelve rawatib. Extra rakahs beyond these are recommended nafl, not fixed rawatib.",
   },
   {
     id: "asr-ghayr-muakkadah",
     type: "true-false",
-    prompt: "True or false: Four rak'ahs before Asr are part of the fixed twelve daily rawatib.",
+    prompt: "True or false: Four rakahs before Asr are part of the fixed twelve daily rawatib.",
     options: ["True", "False"],
     correctIndex: 1,
     explanation:
@@ -48,7 +48,7 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
       "It is not mentioned in hadith",
       "Hanafis count it wajib while the majority count it sunnah mu'akkadah",
       "It is always prayed before Isha",
-      "It has no set number of rak'ahs",
+      "It has no set number of rakahs",
     ],
     correctIndex: 1,
     explanation:
@@ -59,22 +59,22 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
     type: "multiple-choice",
     prompt: "In congregational Fajr, the imam recites:",
     options: [
-      "Silently in both rak'ahs",
-      "Aloud in both rak'ahs",
+      "Silently in both rakahs",
+      "Aloud in both rakahs",
       "Aloud in the first only",
       "Silently in the first, aloud in the second",
     ],
     correctIndex: 1,
     explanation:
-      "Fajr is recited aloud (jahri) in both rak'ahs. Behind the imam you listen attentively.",
+      "Fajr is recited aloud (jahri) in both rakahs. Behind the imam you listen attentively.",
   },
   {
     id: "jahri-dhuhr-asr",
     type: "multiple-choice",
     prompt: "Dhuhr and Asr in congregation are recited:",
     options: [
-      "Aloud in all rak'ahs",
-      "Silently in all rak'ahs",
+      "Aloud in all rakahs",
+      "Silently in all rakahs",
       "Aloud in the first two, silent after",
       "Silent in the first two, aloud after",
     ],
@@ -87,27 +87,27 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
     type: "multiple-choice",
     prompt: "In Maghrib, the imam recites aloud in:",
     options: [
-      "All three rak'ahs",
-      "The first two rak'ahs only",
-      "The third rak'ah only",
+      "All three rakahs",
+      "The first two rakahs only",
+      "The third rakah only",
       "None — Maghrib is fully silent",
     ],
     correctIndex: 1,
     explanation:
-      "Maghrib is jahri in the first and second rak'ahs and sirri in the third — the same long/short pattern as other prayers.",
+      "Maghrib is jahri in the first and second rakahs and sirri in the third — the same long/short pattern as other prayers.",
   },
   {
     id: "jahri-isha",
     type: "multiple-choice",
     prompt: "In Isha, when does audible recitation stop?",
     options: [
-      "After the first rak'ah",
-      "After the second rak'ah",
-      "After the third rak'ah",
+      "After the first rakah",
+      "After the second rakah",
+      "After the third rakah",
       "Never — all four are aloud",
     ],
     correctIndex: 1,
-    explanation: "Isha is aloud in the first two rak'ahs and silent in the third and fourth.",
+    explanation: "Isha is aloud in the first two rakahs and silent in the third and fourth.",
   },
   {
     id: "behind-imam-loud",
@@ -117,7 +117,7 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
       "Recite another surah aloud with the imam",
       "Listen attentively and not recite another surah aloud",
       "Leave the prayer after Al-Fatihah",
-      "Recite only in the last rak'ah",
+      "Recite only in the last rakah",
     ],
     correctIndex: 1,
     explanation:
@@ -129,20 +129,20 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
     prompt: "According to the Shafi'i school, behind the imam in a loud prayer you:",
     options: [
       "Do not recite Al-Fatihah at all",
-      "Recite Al-Fatihah in every rak'ah",
-      "Recite only in the silent rak'ahs",
+      "Recite Al-Fatihah in every rakah",
+      "Recite only in the silent rakahs",
       "Recite aloud with the imam",
     ],
     correctIndex: 1,
     explanation:
-      "The Shafi'i school holds that reciting Al-Fatihah is required for every worshipper in every rak'ah, citing 'There is no prayer for the one who does not recite the Opening of the Book' (Sahih al-Bukhari 756).",
+      "The Shafi'i school holds that reciting Al-Fatihah is required for every worshipper in every rakah, citing 'There is no prayer for the one who does not recite the Opening of the Book' (Sahih al-Bukhari 756).",
   },
   {
     id: "fatihah-hanafi-loud",
     type: "multiple-choice",
     prompt: "According to the Hanafi school, in loud prayers behind the imam you:",
     options: [
-      "Recite Al-Fatihah quietly in every rak'ah",
+      "Recite Al-Fatihah quietly in every rakah",
       "Listen attentively and do not recite Al-Fatihah",
       "Recite only the surah after Al-Fatihah",
       "Must recite Al-Fatihah aloud",
@@ -154,16 +154,16 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
   {
     id: "first-two-surah",
     type: "multiple-choice",
-    prompt: "In the first two rak'ahs of Dhuhr, the Prophet ﷺ generally recited:",
+    prompt: "In the first two rakahs of Dhuhr, the Prophet ﷺ generally recited:",
     options: [
       "Only Al-Fatihah",
       "Al-Fatihah and another surah",
       "Nothing — it was fully silent",
-      "Only tasbih",
+      "Only tasbeeh",
     ],
     correctIndex: 1,
     explanation:
-      "Abu Qatadah reported that the Prophet ﷺ recited Al-Fatihah and another surah in the first two rak'ahs of Dhuhr and Asr, and only Al-Fatihah in the last two (Sahih al-Bukhari 776; Sahih Muslim 451).",
+      "Abu Qatadah reported that the Prophet ﷺ recited Al-Fatihah and another surah in the first two rakahs of Dhuhr and Asr, and only Al-Fatihah in the last two (Sahih al-Bukhari 776; Sahih Muslim 451).",
   },
   {
     id: "alone-fajr",
@@ -173,7 +173,7 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
       "Recite silently only",
       "Recite aloud (though silent is still valid)",
       "Skip the surah after Al-Fatihah",
-      "Pray only one rak'ah",
+      "Pray only one rakah",
     ],
     correctIndex: 1,
     explanation:
@@ -183,10 +183,10 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
     id: "awwabin-disputed",
     type: "true-false",
     prompt:
-      "True or false: Six fixed rak'ahs after Maghrib as Salat al-Awwabin is established sunnah with unanimous agreement.",
+      "True or false: Six fixed rakahs after Maghrib as Salat al-Awwabin is established sunnah with unanimous agreement.",
     options: ["True", "False"],
     correctIndex: 1,
     explanation:
-      "General nafl after Maghrib is encouraged, but the famous specification of exactly six rak'ahs as Awwabin is disputed in authenticity — it should not be presented as fixed established sunnah.",
+      "General nafl after Maghrib is encouraged, but the famous specification of exactly six rakahs as Awwabin is disputed in authenticity — it should not be presented as fixed established sunnah.",
   },
 ];

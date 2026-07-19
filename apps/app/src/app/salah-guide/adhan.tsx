@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { type ScrollView, StyleSheet, View } from "react-native";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -17,8 +17,21 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ADHAN_LEARN_STYLES, adhanTrack } from "@/lib/adhan-audio";
+import {
+  ADHAN_FOLLOW_ALONG_STYLE_ID,
+  ADHAN_LEARN_STYLES,
+  adhanPhraseIndexFromId,
+  adhanPhraseTracks,
+  adhanTrack,
+  isAdhanPhraseTrack,
+} from "@/lib/adhan-audio";
+import {
+  cueStartSec,
+  isAdhanFollowAlongTrack,
+  phraseIndexAtCueTime,
+} from "@/lib/adhan-phrase-cues";
 import { prefetchAudioUri } from "@/lib/audio-cache";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -30,6 +43,12 @@ import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
 
 const SOURCE_HREF = "/salah-guide/adhan";
+/** Clears floating header + progress line when scrolling the active phrase into view. */
+const ACTIVE_STEP_SCROLL_OFFSET = 112;
+
+function stepScrollKey(index: number): string {
+  return `adhan-step:${index}`;
+}
 
 function AdhanStyleRow({
   styleId,
@@ -37,12 +56,14 @@ function AdhanStyleRow({
   location,
   credit,
   uri,
+  followAlong,
 }: {
   styleId: string;
   name: string;
   location: string;
   credit: string;
   uri?: string;
+  followAlong?: boolean;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -90,6 +111,11 @@ function AdhanStyleRow({
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.credit}>
           {credit}
         </ThemedText>
+        {followAlong ? (
+          <ThemedText type="caption" style={{ color: colors.accent }}>
+            {t("salahGuide.adhan.followAlongNote")}
+          </ThemedText>
+        ) : null}
       </View>
       {isPlaying ? (
         <SymbolView
@@ -106,6 +132,7 @@ export default function SalahGuideAdhanScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { tokens } = useThemeTokens();
+  const audio = useAudioPlayerContext();
   useEnsureSalahGuideProgressLoaded();
   const { version: contentVersion, ready: contentReady } = useEnsureContent(
     ensureSalahGuideContent,
@@ -114,6 +141,87 @@ export default function SalahGuideAdhanScreen() {
   // Recompute per locale so the translated topic renders on language switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
   const TOPIC = useMemo(() => getSalahGuideTopic("adhan"), [i18n.language, contentVersion]);
+
+  const phraseTracks = useMemo(() => adhanPhraseTracks(), []);
+  const phrasesActive = isAdhanPhraseTrack(audio.current?.id);
+  const followAlongActive = isAdhanFollowAlongTrack(audio.current?.id);
+
+  const [followAlongStep, setFollowAlongStep] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!followAlongActive) {
+      setFollowAlongStep(null);
+      return;
+    }
+    // Sync once while paused; keep looping while playing.
+    const sync = () => {
+      const index = phraseIndexAtCueTime(audio.readPlaybackSeconds());
+      setFollowAlongStep(index ?? null);
+    };
+    sync();
+    if (!audio.isPlaying) return;
+    let frame = 0;
+    let cancelled = false;
+    const tick = () => {
+      if (cancelled) return;
+      sync();
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+    };
+  }, [followAlongActive, audio.isPlaying, audio.readPlaybackSeconds]);
+
+  const activeStepIndex = phrasesActive
+    ? (adhanPhraseIndexFromId(audio.current?.id) ?? null)
+    : followAlongActive
+      ? followAlongStep
+      : null;
+
+  const scrollRef = useRef<ScrollView>(null);
+  const activeScrollKey =
+    activeStepIndex != null && (phrasesActive || followAlongActive)
+      ? stepScrollKey(activeStepIndex)
+      : null;
+  const { register, onScroll } = useScrollToActive(
+    scrollRef,
+    activeScrollKey,
+    ACTIVE_STEP_SCROLL_OFFSET,
+  );
+  const registerStep = useCallback((index: number) => register(stepScrollKey(index)), [register]);
+
+  const onPressPlayAll = useCallback(() => {
+    if (phrasesActive) {
+      audio.toggle();
+      return;
+    }
+    audio.play(phraseTracks, 0, { sourceHref: SOURCE_HREF });
+  }, [audio, phraseTracks, phrasesActive]);
+
+  const onPressStep = useCallback(
+    (index: number) => {
+      if (followAlongActive) {
+        const start = cueStartSec(index);
+        if (start != null) {
+          if (!audio.isPlaying) audio.toggle();
+          audio.seekTo(start);
+        }
+        return;
+      }
+      if (phrasesActive && adhanPhraseIndexFromId(audio.current?.id) === index) {
+        audio.toggle();
+        return;
+      }
+      if (phrasesActive) {
+        audio.jumpTo(index);
+        return;
+      }
+      audio.play(phraseTracks, index, { sourceHref: SOURCE_HREF });
+    },
+    [audio, followAlongActive, phraseTracks, phrasesActive],
+  );
 
   if (!TOPIC) {
     return null;
@@ -125,6 +233,8 @@ export default function SalahGuideAdhanScreen() {
       title={TOPIC.title}
       subtitle={TOPIC.summary}
       onBack={() => goBackOrReplace(router, "/salah-guide")}
+      scrollRef={scrollRef}
+      onScroll={onScroll}
     >
       <Seo path="/salah-guide/adhan" />
       <LearnContentGate ready={contentReady}>
@@ -147,6 +257,7 @@ export default function SalahGuideAdhanScreen() {
                     location={t(`settings.adhanStyles.${style.id}.location`)}
                     credit={style.credit}
                     uri={style.uri}
+                    followAlong={style.id === ADHAN_FOLLOW_ALONG_STYLE_ID}
                   />
                 ))}
               </View>
@@ -157,7 +268,17 @@ export default function SalahGuideAdhanScreen() {
               </View>
             </Card>
 
-            <SalahGuideTopicContent topic={TOPIC} />
+            <SalahGuideTopicContent
+              topic={TOPIC}
+              stepsAudio={{
+                activeStepIndex,
+                isPlaying: audio.isPlaying && (phrasesActive || followAlongActive),
+                onPressStep,
+                onPressPlayAll,
+                phrasesActive,
+                registerStep,
+              }}
+            />
           </LearnReadingChrome>
           <JannahDisclaimer textKey="salahGuide.disclaimer" />
         </Stagger>

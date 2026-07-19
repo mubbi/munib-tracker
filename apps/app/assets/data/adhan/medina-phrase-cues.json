@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "styleId": "medina",
+  "audioUri": "https://cdn.jsdelivr.net/gh/Kiwifu/adhan-mp3@main/Adhan_Al_Haram_Al_Madani_-_Al_Madinah_1_(أذان_الحرم_المدني_-_المدينة_المنورة).mp3",
+  "totalDurationSec": 189.89,
+  "cues": [
+    { "index": 0, "start": 0.0, "end": 37.91 },
+    { "index": 1, "start": 37.91, "end": 75.92 },
+    { "index": 2, "start": 75.92, "end": 110.15 },
+    { "index": 3, "start": 110.15, "end": 142.88 },
+    { "index": 4, "start": 142.88, "end": 170.16 },
+    { "index": 5, "start": 170.16, "end": 179.64 },
+    { "index": 6, "start": 179.64, "end": 189.89 }
+  ]
+}

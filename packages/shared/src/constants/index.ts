@@ -143,9 +143,9 @@ export const ZIKR_CATEGORY_SET: ReadonlySet<string> = new Set(ZIKR_CATEGORY_IDS)
 export const ZIKR_CATEGORY_LABELS: Record<ZikrCategoryId, string> = {
   morning: "Morning Adhkar",
   evening: "Evening Adhkar",
-  before_prayer: "Before Prayer",
-  after_prayer: "After Prayer",
-  after_azan: "After Azan",
+  before_prayer: "Before Salah",
+  after_prayer: "After Salah",
+  after_azan: "After Adhan",
   before_sleep: "Before Sleep",
   anytime: "Anytime Zikr",
 };

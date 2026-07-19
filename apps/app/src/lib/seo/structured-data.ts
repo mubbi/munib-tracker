@@ -102,7 +102,7 @@ export function softwareApplicationSchema(): JsonLd {
     sameAs: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, MARKETING_ORIGIN],
     featureList: [
       "Salah tracking with streaks and calendar",
-      "Qaza calculator, planner, and roza tracking",
+      "Qaza calculator, planner, and fasting tracking",
       "Zikr, tasbeeh, and daily adhkar",
       "Offline Qur'an, hadith, duas, and the 99 Names of Allah",
       "Prayer times, Hijri calendar, and qibla compass",

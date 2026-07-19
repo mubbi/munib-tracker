@@ -113,6 +113,7 @@ describe("key coverage", () => {
       DB_KEYS.blobSyncState,
       DB_KEYS.zakatCalculator,
       DB_KEYS.zakatCurrency,
+      DB_KEYS.readingTextVisibility,
     ]) {
       expect(BACKUP_KEYS).not.toContain(local);
     }
@@ -124,6 +125,7 @@ describe("key coverage", () => {
       DB_KEYS.customAdhkar,
       DB_KEYS.khushuJournal,
       DB_KEYS.hajjChecklist,
+      DB_KEYS.umrahChecklist,
       DB_KEYS.jannahIntentions,
       DB_KEYS.jahannamIntentions,
       DB_KEYS.learnDuaProgress,

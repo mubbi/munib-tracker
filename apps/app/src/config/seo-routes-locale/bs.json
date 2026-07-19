@@ -136,9 +136,9 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Vodič za Hajj i Umrah",
+    "description": "Učite Hajj i Umrah iz Qur'ana i autentične Sunnah, zatim pratite obrede odvojenim Hajj i Umrah listama — praktičan edukativni pregled, ne fiqh priručnik.",
+    "keywords": ["hajj", "umrah", "vodič za hodočašće", "obredi hajj", "lista hajj", "lista umrah"]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +722,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Lista obreda Hajj",
+    "description": "Dnevni pratilac obreda Hajj od Tarwiyah do oproštajnog tawaf. Podsjetnik uz vodič Uči.",
+    "keywords": ["lista hajj", "obredi hajj", "pratilac hodočašća"]
+  },
+  "/umrah/checklist": {
+    "title": "Lista obreda Umrah",
+    "description": "Uređena Umrah lista — ihram, tawaf, sa'i i halq ili taqsir. Koristite s vodičem Uči za Hajj i Umrah.",
+    "keywords": ["lista umrah", "obredi umrah", "manje hodočašće"]
   }
 }

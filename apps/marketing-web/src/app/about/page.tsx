@@ -56,8 +56,8 @@ export default function AboutPage() {
           tracking, {APP_NAME} is a place to learn: 350+ cited topics on aqeedah, the prophets,
           seerah, sahaba, the Hereafter, learn dua, and seasonal guides; a guided path to read and
           understand the Qur&apos;an; and practical worship guides for salah, taharah, zakat,
-          Friday, and a 60-step hajj tracker — every lesson referenced to Qur&apos;an and
-          authenticated hadith. The interface ships in 23 languages.
+          Friday, and a Hajj & Umrah learn guide with separate rite checklists — every lesson
+          referenced to Qur&apos;an and authenticated hadith. The interface ships in 23 languages.
         </p>
       </ContentSection>
 

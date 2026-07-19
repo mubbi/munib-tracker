@@ -136,9 +136,16 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Hajj және Umrah нұсқаулығы",
+    "description": "Hajj мен Umrah-ды Qur'an және сенімді Sunnah-тан үйреніңіз, содан кейін Hajj және Umrah тізімдерін бөлек бақылаңыз — практикалық білім беру шолуы, fiqh нұсқаулығы емес.",
+    "keywords": [
+      "hajj",
+      "umrah",
+      "қажылық нұсқаулығы",
+      "hajj салттары",
+      "hajj тізімі",
+      "umrah тізімі"
+    ]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +729,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Hajj салттары тізімі",
+    "description": "Tarwiyah-дан қоштасу tawaf-ına дейін күнделікті Hajj салттарын бақылау. Үйрену нұсқаулығымен қоса еске салғыш.",
+    "keywords": ["hajj тізімі", "hajj салттары", "қажылық бақылауышы"]
+  },
+  "/umrah/checklist": {
+    "title": "Umrah салттары тізімі",
+    "description": "Реттелген Umrah тізімі — ihram, tawaf, sa'i және halq немесе taqsir. Hajj & Umrah Үйрену нұсқаулығымен пайдаланыңыз.",
+    "keywords": ["umrah тізімі", "umrah салттары", "кіші haj"]
   }
 }

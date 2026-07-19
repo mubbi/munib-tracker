@@ -4,6 +4,10 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahBody, JannahDisclaimer, JannahTakeaway } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import {
+  QuranExamplePlayButton,
+  QuranGuideClipPlayButton,
+} from "@/components/quran-guide/ayah-play-button";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -107,9 +111,15 @@ export default function LearnQuranTajweedDetailScreen() {
               />
               <View style={styles.examples}>
                 {lesson.examples.map((ex) => (
-                  <ThemedText key={ex} type="arabic" style={styles.exampleArabic}>
-                    {ex}
-                  </ThemedText>
+                  <View key={ex} style={styles.exampleRow}>
+                    <ThemedText type="arabic" style={styles.exampleArabic}>
+                      {ex}
+                    </ThemedText>
+                    <QuranExamplePlayButton
+                      example={ex}
+                      sourceHref={`/learn-quran/tajweed/${lesson.id}`}
+                    />
+                  </View>
                 ))}
               </View>
             </Card>
@@ -119,9 +129,18 @@ export default function LearnQuranTajweedDetailScreen() {
                   title={t("learnQuran.practiceTitle")}
                   icon={{ ios: "figure.walk", android: "directions_walk", web: "directions_walk" }}
                 />
-                <ThemedText type="small" themeColor="mutedForeground">
-                  {lesson.practice}
-                </ThemedText>
+                <View style={styles.practiceHeader}>
+                  <ThemedText type="small" themeColor="mutedForeground" style={styles.practiceText}>
+                    {lesson.practice}
+                  </ThemedText>
+                  {lesson.practiceAudio ? (
+                    <QuranGuideClipPlayButton
+                      audio={lesson.practiceAudio}
+                      sourceHref={`/learn-quran/tajweed/${lesson.id}`}
+                      compact
+                    />
+                  ) : null}
+                </View>
               </Card>
             ) : null}
           </LearnReadingChrome>
@@ -134,5 +153,18 @@ export default function LearnQuranTajweedDetailScreen() {
 
 const styles = StyleSheet.create({
   examples: { gap: Spacing.two, marginTop: Spacing.three },
-  exampleArabic: { fontSize: 22, lineHeight: 36 },
+  exampleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  exampleArabic: { fontSize: 22, lineHeight: 36, flex: 1 },
+  practiceHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.two,
+    marginTop: Spacing.three,
+  },
+  practiceText: { flex: 1 },
 });

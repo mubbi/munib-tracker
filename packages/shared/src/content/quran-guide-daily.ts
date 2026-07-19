@@ -34,7 +34,7 @@ export const QURAN_GUIDE_DAILY_LESSONS: QuranGuideDailyLesson[] = [
     reflection:
       "Whose mistake am I refusing to forgive, even while I myself depend entirely on Allah's boundless mercy?",
     action:
-      "Choose one person you resent, forgive them sincerely in your heart today, and make a short du'a asking Allah to guide and forgive them too.",
+      "Choose one person you resent, forgive them sincerely in your heart today, and make a short dua asking Allah to guide and forgive them too.",
   },
   {
     id: "day-gratitude",
@@ -74,9 +74,9 @@ export const QURAN_GUIDE_DAILY_LESSONS: QuranGuideDailyLesson[] = [
     context:
       "From Surah at-Talaq, set among rulings on divorce and provision — precisely where people feel most financially anxious. There Allah promises that whoever fears Him He will provide from where they never expected, and whoever relies on Him will find Him enough.",
     reflection:
-      "Where am I making careful plans but leaving Allah out of them — or leaning on people's help without ever turning to Him in du'a?",
+      "Where am I making careful plans but leaving Allah out of them — or leaning on people's help without ever turning to Him in dua?",
     action:
-      "Take one decision that is worrying you, pray two rak'ah of istikhara or make a heartfelt du'a over it, and then trust the outcome to Allah.",
+      "Take one decision that is worrying you, pray two rakah of istikhara or make a heartfelt dua over it, and then trust the outcome to Allah.",
   },
   {
     id: "day-knowledge",
@@ -90,7 +90,7 @@ export const QURAN_GUIDE_DAILY_LESSONS: QuranGuideDailyLesson[] = [
     reflection:
       "How much of my free time today went to endless scrolling, and could even a fraction of it go to learning one verse or one hadith instead?",
     action:
-      "Memorise this short du'a, 'Rabbi zidni ilma,' and make a habit of saying it after Fajr before you begin your day.",
+      "Memorise this short dua, 'Rabbi zidni ilma,' and make a habit of saying it after Fajr before you begin your day.",
   },
   {
     id: "day-charity",

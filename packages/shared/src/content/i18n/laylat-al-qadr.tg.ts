@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_TG: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Агар онро ёфтаед чӣ гӯед",
+    summary: "Оиша аз Пайғамбар ﷺ пурсид, ки дақиқан чӣ гӯяд.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Оиша (аллоҳ аз ӯ розӣ бошад) аз Пайғамбар ﷺ пурсид: «Эй Расули Аллоҳ, агар донам, кадом шаб шаби Қадр аст, дар он чӣ гӯям?» Ӯ ﷺ дуои кӯтоҳи омурзишро, ки дар поён нишон дода шудааст, омӯзонд (Термизи 3513, ки ат-Термизи онро хасан сахих арзёб кардааст).",
+      "Ин дуо кӯтоҳ, барои ҳифз осон аст ва қасдан дар бораи омурзиш аст, на дархостҳои дунёвӣ — ёдрас, ки бузургтарин дастовард аз ин шаб омурзиши Аллоҳ аст. Онро дар да шаби охир зиёд такрор кунед, дар намоз, дар саҷда ва байни онҳо, ба ҷои он ки барои як шаби тахминшуда нигоҳ доред.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Ман гуфтам: Эй Расули Аллоҳ, агар донам, кадом шаб шаби Қадр аст, дар он чӣ гӯям? Ӯ ﷺ гуфт: Гӯед — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Эй Аллоҳ, Ту омурзандаӣ ва омурзишро дӯст медорӣ, маро биомурз).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Дуои омурзиши дар боло нишон дода шударо аз ёд кунед.",
+      "Онро дар да шаби охир, хусусан дар шабҳои тоқ, зиёд такрор кунед.",
     ],
   },
   {

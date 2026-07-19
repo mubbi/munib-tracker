@@ -466,7 +466,8 @@ Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change**
 - Adhkar/Dua/Name items: show the play button only when the item resolves an `audioUri`. A `ZikrRow`
   / dua row play button calls `play([{ id, title, uri }])`.
 - Adhan-call audio (D11): baseline bundled `adhan.mp3` plus remote CDN styles in `lib/adhan-audio.ts`
-  (notification sound + style picker shipped). Expand additional local MP3s under
+  (notification sound + style picker shipped), learn phrase clips under `assets/audio/adhan/phrases/`
+  (Wikimedia CC BY-SA), and Medina follow-along cues. Expand additional local MP3s under
   `apps/app/assets/audio/adhan/` when adding offline styles. Do not autoplay in-app without user
   action.
 - **Never bundle Qur'an/hadith audio** — stream. Optional "download surah for offline" is out of scope

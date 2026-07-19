@@ -2,23 +2,27 @@ import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
-import { ReferenceLine } from "@/components/content/reference-line";
-import { ReadingTypographyBar } from "@/components/reading-typography-context";
+import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
-import { ThemedText } from "@/components/themed-text";
+import { TasbeehCounterBar } from "@/components/tasbeeh/tasbeeh-counter-bar";
+import { TasbeehReadingBlock } from "@/components/tasbeeh/tasbeeh-reading-block";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useTasbeehCounterDock } from "@/hooks/use-tasbeeh-counter-dock";
 import { goBackOrReplace } from "@/lib/navigation";
-import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { usePreferences } from "@/stores/preferences-store";
+import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 import { trackerStore } from "@/stores/tracker-store";
+
+/** Fallback dock height before onLayout (excludes safe-area already in ScreenLayout). */
+const DOCK_BAR_FALLBACK = 72;
 
 function paramId(value: string | string[] | undefined): string | undefined {
   if (Array.isArray(value)) return value[0];
@@ -31,8 +35,23 @@ export default function ZikrTasbeehScreen() {
   const params = useLocalSearchParams<{ zikrId: string; prayer?: string }>();
   const zikrId = paramId(params.zikrId);
   const prayerParam = paramId(params.prayer);
+  const contentBottomInset = useContentBottomInset();
+  const { counterRef, dockVisible, onScroll, onCounterLayout, recompute } = useTasbeehCounterDock();
+  const { showTransliteration, showTranslation } = useReadingTextVisibility();
   const { fontPrefs } = usePreferences();
+  const [dockBarHeight, setDockBarHeight] = useState(DOCK_BAR_FALLBACK);
   const [corpusReady, setCorpusReady] = useState(false);
+
+  useEffect(() => {
+    // Visibility / size changes move the counter in the window — re-measure dock need.
+    void showTransliteration;
+    void showTranslation;
+    void fontPrefs;
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => recompute());
+    });
+    return () => cancelAnimationFrame(id);
+  }, [fontPrefs, recompute, showTransliteration, showTranslation]);
 
   useEffect(() => {
     let active = true;
@@ -44,7 +63,6 @@ export default function ZikrTasbeehScreen() {
     };
   }, []);
 
-  const readingSizes = resolveReadingFontSizes("dua_zikr", fontPrefs);
   const item = corpusReady && zikrId ? getZikrById(zikrId) : undefined;
   const afterSalahPrayer =
     item?.categoryId === "after_prayer" && prayerParam && isAfterSalahPrayer(prayerParam)
@@ -115,77 +133,55 @@ export default function ZikrTasbeehScreen() {
     }
   };
 
-  return (
-    <ScreenLayout
-      eyebrow={t("tasbeeh.eyebrow")}
-      title={item.title}
-      onBack={() => goBackOrReplace(router, "/")}
-    >
-      <Seo
-        title={t("tasbeeh.eyebrow")}
-        description={t("seo.tasbeehZikr.description")}
-        index={false}
-      />
-      <ReadingTypographyBar surface="dua_zikr" />
-      <Card variant="muted" padding="four" style={styles.reading}>
-        <ThemedText
-          type="arabic"
-          style={[styles.arabic, arabicReadingLayout(readingSizes.arabic, "center")]}
-        >
-          {item.arabic}
-        </ThemedText>
-        {item.transliteration ? (
-          <ThemedText
-            type="caption"
-            themeColor="mutedForeground"
-            style={[
-              styles.translit,
-              {
-                fontSize: readingSizes.transliteration,
-                lineHeight: readingSizes.transliteration * 1.35,
-              },
-            ]}
-          >
-            {item.transliteration}
-          </ThemedText>
-        ) : null}
-        {item.reference ? (
-          <ReferenceLine reference={item.reference} style={styles.reference} />
-        ) : null}
-      </Card>
+  const dockClearance = dockVisible
+    ? Math.max(Spacing.three, dockBarHeight - contentBottomInset + Spacing.two)
+    : 0;
 
-      <Card variant="plain" padding="five" style={styles.card}>
-        <TasbeehCounter
+  return (
+    <View style={styles.root}>
+      <ScreenLayout
+        eyebrow={t("tasbeeh.eyebrow")}
+        title={item.title}
+        onBack={() => goBackOrReplace(router, "/")}
+        scrollable
+        onScroll={onScroll}
+        contentStyle={dockClearance > 0 ? { paddingBottom: dockClearance } : undefined}
+      >
+        <Seo
+          title={t("tasbeeh.eyebrow")}
+          description={t("seo.tasbeehZikr.description")}
+          index={false}
+        />
+        <TasbeehReadingBlock item={item} />
+
+        <View ref={counterRef} onLayout={onCounterLayout} collapsable={false}>
+          <Card variant="plain" padding="five" style={styles.card}>
+            <TasbeehCounter
+              count={count}
+              target={target}
+              onIncrement={() => persist(count + 1)}
+              onDecrement={() => persist(count - 1)}
+              onReset={() => persist(0)}
+            />
+          </Card>
+        </View>
+      </ScreenLayout>
+
+      {dockVisible ? (
+        <TasbeehCounterBar
           count={count}
           target={target}
           onIncrement={() => persist(count + 1)}
           onDecrement={() => persist(count - 1)}
-          onReset={() => persist(0)}
+          onHeightChange={setDockBarHeight}
         />
-      </Card>
-    </ScreenLayout>
+      ) : null}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  reading: {
-    alignItems: "center",
-    marginBottom: Spacing.one,
-  },
-  arabic: {
-    textAlign: "center",
-    writingDirection: "rtl",
-  },
-  translit: {
-    textAlign: "center",
-    marginTop: Spacing.two,
-    fontStyle: "italic",
-    maxWidth: 320,
-  },
-  reference: {
-    textAlign: "center",
-    marginTop: Spacing.two,
-  },
+  root: { flex: 1 },
   card: {
     alignItems: "stretch",
     flex: 1,

@@ -16,7 +16,7 @@ import {
 import { ensureEidGuideContent, getEidGuideTopics } from "@/lib/eid-guide";
 import {
   ensureHajjGuideContent,
-  getHajjGuideSections,
+  getHajjGuideTopics,
   isHajjGuideContentReady,
 } from "@/lib/hajj-guide";
 import {
@@ -270,7 +270,7 @@ export const LEARN_QUIZ_SECTIONS: LearnSectionDef[] = [
     i18nNamespace: "hajj",
     ensure: ensureHajjGuideContent,
     isReady: isHajjGuideContentReady,
-    collect: () => mcqsFromHajj(getHajjGuideSections()),
+    collect: () => mcqsFromHajj(getHajjGuideTopics()),
   },
   {
     id: "seerah",

@@ -59,21 +59,20 @@ export const LAYLAT_AL_QADR_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "ئەگەر ئەو شەوە بگریت چی بڵێیت",
+    summary: "عائیشەؓ لە پێغەمبەر ﷺ پرسی وردی چی بڵێت.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "عائیشە (رضا الله عنها) لە پێغەمبەر ﷺ پرسی: «ئەی پەیامبەری خودا، ئەگەر بزانم کام شەو شەوی قەدرە، لەو شەوە چی بڵێم؟» ئەو ﷺ دعای کورت و لێبوردنی خوارەوە نیشاندا (تورموذی ۳۵۱۳، کە تورموذی بە حسن صحیح هەڵسەنگاندووە).",
+      "ئەم دعایە کورتە، ئاسانە لەبیر بکرێت، و بە ئەنقەست دەربارەی لێبوردنە نەک داواکارییە دنیاییەکان — بیرخستنەوە کە گەورەترین بەدەستەوەی ئەم شەوە لێبوردنی خودایە. زۆر دووبارەی بکەرەوە لە دە شەوی کۆتایی، لە نوێژدا، لە سوجوددا، و لە نێوانیاندا، لەجیاتی ئەوەی بۆ شەوێکی خەملاندن پاشەکەوت بکرێت.",
     ],
     hadith: [
       {
-        excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+        excerpt: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي.",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "دعای لێبوردنی سەرەوە لەبیر بگرە.",
+      "زۆر دووبارەی بکەرەوە لە دە شەوی کۆتایی، بەتایبەتی لە شەوانە تاکەکان.",
     ],
   },
   {

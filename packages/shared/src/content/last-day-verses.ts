@@ -57,7 +57,7 @@ export const LAST_DAY_VERSES: LastDayVerseEntry[] = [
       "As for one whose scales are heavy, he will be in a pleasant life. But as for one whose scales are light, his refuge will be an abyss.",
     context: "The final outcome turns on the weight of one's righteous deeds on the Scale.",
     tafsirSummary:
-      "Weight comes from sincerity, not sheer volume — a simple dhikr said purely can outweigh mountains of showy activity.",
+      "Weight comes from sincerity, not sheer volume — a simple zikr said purely can outweigh mountains of showy activity.",
   },
   {
     id: "garden-width",

@@ -119,19 +119,7 @@ export function __setSearchCorporaForTests(corpora: {
 type GuideGroupsFn = (
   query: string,
   perGroupLimit: number,
-) => Record<
-  | "jannah"
-  | "jahannam"
-  | "lastDay"
-  | "salahGuide"
-  | "battles"
-  | "taharah"
-  | "prophets"
-  | "aqeedah"
-  | "learnDua"
-  | "learnQuran",
-  { results: SearchResult[]; total: number }
->;
+) => Record<"learn", { results: SearchResult[]; total: number }>;
 
 let searchGuideGroupsForTests: GuideGroupsFn | undefined;
 let quranModuleForTests: typeof import("@/lib/quran") | undefined;
@@ -716,29 +704,8 @@ export function searchQuranAyahs(query: string, limit = DEFAULT_AYAH_LIMIT): Sea
   return { category: "quran", results, total };
 }
 
-const EMPTY_GUIDE_GROUPS: Record<
-  | "jannah"
-  | "jahannam"
-  | "lastDay"
-  | "salahGuide"
-  | "battles"
-  | "taharah"
-  | "prophets"
-  | "aqeedah"
-  | "learnDua"
-  | "learnQuran",
-  { results: SearchResult[]; total: number }
-> = {
-  jannah: { results: [], total: 0 },
-  jahannam: { results: [], total: 0 },
-  lastDay: { results: [], total: 0 },
-  salahGuide: { results: [], total: 0 },
-  battles: { results: [], total: 0 },
-  taharah: { results: [], total: 0 },
-  prophets: { results: [], total: 0 },
-  aqeedah: { results: [], total: 0 },
-  learnDua: { results: [], total: 0 },
-  learnQuran: { results: [], total: 0 },
+const EMPTY_GUIDE_GROUPS: Record<"learn", { results: SearchResult[]; total: number }> = {
+  learn: { results: [], total: 0 },
 };
 
 function assembleLightGroups(

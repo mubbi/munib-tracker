@@ -136,10 +136,10 @@ export default {
     description: "Hadisi da kuka ajiye, duk a wuri guda don saurin dawowa.",
   },
   "/hajj": {
-    title: "Jerin Hajj da Umrah",
+    title: "Jagoran Hajj & Umrah",
     description:
-      "Jerin mataki-mataki don ayyukan Hajj da Umrah. Bi kowane aiki yayin hajjin ku — na amfani, ba littafin fiqh ba.",
-    keywords: ["hajj", "umrah", "jagorar hajji", "ayyukan hajji", "jerin hajji"],
+      "Koyi Hajj da Umrah daga Alkur'ani da Sunnah na gaskiya, sannan bi ayyuka da jerin abubuwa daban na Hajj da Umrah — bayani na ilimi na aiki, ba littafin fiqh ba.",
+    keywords: ["hajj", "umrah", "jagoran hajj", "ayyukan hajj", "jerin hajj", "jerin umrah"],
   },
   "/hayd": {
     title: "Hayd da Ibadah — Jagorar Haidar",
@@ -727,5 +727,17 @@ export default {
   "/zikr/favorites": {
     title: "Adhkar da aka Fi so",
     description: "Adhkar da kuka fi so, duk a wuri guda don saurin samu.",
+  },
+  "/hajj/checklist": {
+    title: "Jerin Ayyukan Hajj",
+    description:
+      "Mai bin diddigin ayyukan Hajj rana da rana daga Tarwiyah zuwa tawaf na bankwana. Tunatarwa tare da jagoran Koyi.",
+    keywords: ["jerin hajj", "ayyukan hajj", "mai bin hajj"],
+  },
+  "/umrah/checklist": {
+    title: "Jerin Ayyukan Umrah",
+    description:
+      "Jerin Umrah da aka tsara — ihram, tawaf, sa'i, da halq ko taqsir. Yi amfani da jagoran Koyi na Hajj & Umrah.",
+    keywords: ["jerin umrah", "ayyukan umrah", "hajjin ƙarami"],
   },
 };

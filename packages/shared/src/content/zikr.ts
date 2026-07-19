@@ -133,7 +133,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     translation: "Allah is the Greatest.",
     translations: { bn: "আল্লাহ অতি-মহান", id: "Allah Maha Besar" },
     virtues:
-      "Completing the tasbih after each prayer wipes away sins though they be like the foam of the sea.",
+      "Completing the tasbeeh after each prayer wipes away sins though they be like the foam of the sea.",
     reference: "Muslim",
     targetCount: 34,
   },
@@ -425,8 +425,8 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     translations: {
       ur: "پھر جب تم نماز تمام کرچکو تو کھڑے اور بیٹھے اور لیٹے (ہر حالت میں) خدا کو یاد کرو پھر جب خوف جاتا رہے تو (اس طرح سے) نماز پڑھو (جس طرح امن کی حالت میں پڑھتے ہو) بےشک نماز کا مومنوں پر اوقات (مقررہ) میں ادا کرنا فرض ہے",
       id: "Selanjutnya, apabila kamu telah menyelesaikan salat(mu), ingatlah Allah ketika kamu berdiri, pada waktu duduk dan ketika berbaring. Kemudian, apabila kamu telah merasa aman, maka laksanakanlah salat itu (sebagaimana biasa). Sungguh, salat itu adalah kewajiban yang ditentukan waktunya bagi orang-orang yang beriman",
-      tr: "Namazı kıldıktan başka, Allah'ı ayakta iken, otururken, yan yatarken de anın. Emniyete kavuştuğunuzda, namazı gereğince kılın. Namaz şüphesiz, inananlara belirli vakitlerde farz kılınmıştır",
-      tk: "Namazı kıldıktan başka, Allah'ı ayakta iken, otururken, yan yatarken de anın. Emniyete kavuştuğunuzda, namazı gereğince kılın. Namaz şüphesiz, inananlara belirli vakitlerde farz kılınmıştır",
+      tr: "Salahı kıldıktan başka, Allah'ı ayakta iken, otururken, yan yatarken de anın. Emniyete kavuştuğunuzda, salahı gereğince kılın. Salah şüphesiz, inananlara belirli vakitlerde farz kılınmıştır",
+      tk: "Salahı kıldıktan başka, Allah'ı ayakta iken, otururken, yan yatarken de anın. Emniyete kavuştuğunuzda, salahı gereğince kılın. Salah şüphesiz, inananlara belirli vakitlerde farz kılınmıştır",
       bn: "অতঃপর যখন তোমরা নামায সম্পন্ন কর, তখন দন্ডায়মান, উপবিষ্ট ও শায়িত অবস্থায় আল্লাহকে স্মরণ কর। অতঃপর যখন বিপদমুক্ত হয়ে যাও, তখন নামায ঠিক করে পড়। নিশ্চয় নামায মুসলমানদের উপর ফরয নির্দিষ্ট সময়ের মধ্যে।",
       ms: "Kemudian apabila kamu telah selesai mengerjakan sembahyang, maka hendaklah kamu menyebut dan mengingati Allah semasa kamu berdiri atau duduk, dan semasa kamu berbaring. Kemudian apabila kamu telah merasa tenteram (berada dalam keadaan aman) maka dirikanlah sembahyang itu (dengan sempurna sebagaimana biasa). Sesungguhnya sembahyang itu adalah satu ketetapan yang diwajibkan atas orang-orang yang beriman, yang tertentu waktunya",
       fa: "و هنگامی که نماز را به پایان رساندید، خدا را یاد کنید؛ ایستاده، و نشسته، و در حالی که به پهلو خوابیده‌اید! و هرگاه آرامش یافتید (و حالت ترس زایل گشت)، نماز را (به طور معمول) انجام دهید، زیرا نماز، وظیفه ثابت و معیّنی برای مؤمنان است",
@@ -434,7 +434,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       ha: "Sa'an nan idan kun ƙãre salla, to ku ambaci Allah tsaye da zaune da a kan sãsanninku. Sa'an nan idan kun natsu, to, ku tsayar da Salla. Lalle ne salla tã kasance a kan mũminai, farilla mai ƙayyadaddun lõkuta",
       sw: "Mtakapomaliza Swala, endeleeni kumtaja Mwenyezi Mungu katika hali zenu zote. Na hali ya kicho iondokapo, itekelezeni Swala kikamilifu, wala msiifanyie dharau, kwani Swala ni faradhi katika nyakati zijulikanazo katika Sheria",
       ru: "Когда вы завершите намаз, то поминайте Аллаха стоя, сидя или лежа на боках. Когда же вы окажетесь в безопасности, то совершайте намаз. Воистину, намаз предписан верующим в определенное время",
-      az: "Namazınızı qıldıqdan sonra ayaq üstə olanda da, uzananda da Allahı zikr edin, arxayınlığa çixdıqda isə, namazı (öz qaydasınca) qılın! Çünki namaz mö’minlərə bəlli vaxtlarda fərz (vacib) edilmişdir",
+      az: "Salahınızı qıldıqdan sonra ayaq üstə olanda da, uzananda da Allahı zikr edin, arxayınlığa çixdıqda isə, salahı (öz qaydasınca) qılın! Çünki salah mö’minlərə bəlli vaxtlarda fərz (vacib) edilmişdir",
       ps: "بیا چې كله تاسو لمونځ ادا كړئ، نو الله یادوئ، په ولاړه او ناسته او په خپلو اړخونو باندې (چې پراته يئ)، بیا چې كله تاسو مطمئن (ډاډمن) شئ، نو لمونځ قايموئ (د اطمينان د حالت لمونځ) بېشكه لمونځ له شروع نه په مومنانو باندې په (معلومو) وختونو كې فرض كړى شوى دى",
       so: "OO marka aad bogtaan salaadda, xusa Allaah joog iyo fadhi iyo idinkoo u jiifaba dhinacyadiinna, Markase aad nabad degtaan, u ooga salaadda si wanaagsan. Hubaal, salaadda waxay ku tahay mu’miniinta waajib leh waqtiyo go’an",
       uz: "Намозни адо қилиб бўлганингиздан кейин ҳам турган, ўтирган ва ёнбошлаган пайтларингизда доим Аллоҳни ёд этингиз! Бас, қачон хотиржам бўлгач, намозни тўкис адо этингиз! Албатта, намоз мўминларга (вақти) тайинланган фарз бўлди",
@@ -512,7 +512,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
   {
     id: "before_sleep-tasbih-fatimah",
     categoryId: "before_sleep",
-    title: "Tasbih of Fatimah",
+    title: "Tasbeeh of Fatimah",
     arabic: "سُبْحَانَ اللَّهِ (٣٣) الْحَمْدُ لِلَّهِ (٣٣) اللَّهُ أَكْبَرُ (٣٤)",
     transliteration: "Subhan-Allah (33), Alhamdulillah (33), Allahu Akbar (34)",
     translation: "Glory is to Allah, all praise is for Allah, Allah is the Greatest.",
@@ -572,7 +572,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       bn: "হে আল্লাহ! আপনি শান্তিময়। আপনার নিকট থেকেই শান্তি বর্ষিত হয়। আপনি বরকতময়, হে মহিমাময় ও সম্মানের অধিকারী!",
     },
     virtues:
-      "When the Messenger of Allah, sallallahu 'alayhi wa sallam, finished his prayer, he would seek forgiveness three times and recite the dhikr above. Al-Auza'i stated that the recitation of istighfar is 'Astaghfirullah, Astaghfirullah.'",
+      "When the Messenger of Allah, sallallahu 'alayhi wa sallam, finished his prayer, he would seek forgiveness three times and recite the zikr above. Al-Auza'i stated that the recitation of istighfar is 'Astaghfirullah, Astaghfirullah.'",
     reference: "HR. Muslim No. 591",
   },
   {
@@ -879,7 +879,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
   {
     id: "morning-read-tasbih",
     categoryId: "morning",
-    title: "Read Tasbih",
+    title: "Read Tasbeeh",
     arabic: "سُبْحَانَ اللهِ وَبِحَمْدِهِ عَدَدَ خَلْقَهِ وَرِضَى نَفْسِهِ وَزِنَةَ عَرْشِهِ وَمِدَادَ كَلِمَاتِهِ",
     transliteration:
       "subhanallahi wa bihamdihi 'adada khalqihi wa rida nafsihi wa zinata 'arshihi wa midada kalimatihi",

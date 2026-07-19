@@ -147,10 +147,10 @@ export default {
     description: "Xadiisyada aad kaydisay, oo hal meel lagu soo noqdo si degdeg ah.",
   },
   "/hajj": {
-    title: "Liiska Xajka & Cumrada",
+    title: "Hagaha Hajj & Umrah",
     description:
-      "Liis tallaabo-tallaabo ah oo loogu talagalay manasikka Xajka iyo Cumrada. La soco manasik kasta oo raac taxanaha — hagitaan wax ku ool ah, ma aha buug fiqh.",
-    keywords: ["xaj", "cumro", "hagitaanka xajka", "manasikka xajka", "liiska xajka"],
+      "Baro Hajj iyo Umrah Qur'an iyo Sunnah sax ah, ka dibna raadso xafladaha liisaska Hajj iyo Umrah ee gooni ah — dulmar waxbarasho oo wax ku ool ah, ma aha buug fiqh.",
+    keywords: ["hajj", "umrah", "hagaha xajka", "xafladaha hajj", "liiska hajj", "liiska umrah"],
   },
   "/hayd": {
     title: "Hayd & Cibaadada — Hagitaanka Caadada",
@@ -826,5 +826,17 @@ export default {
   "/zikr/favorites": {
     title: "Adhkar-ka La Jecel Yahay",
     description: "Adhkar-ka aad jeceshahay, oo hal meel lagu galo si degdeg ah.",
+  },
+  "/hajj/checklist": {
+    title: "Liiska Xafladaha Hajj",
+    description:
+      "Raadraaca maalinlaha ah ee xafladaha Hajj laga bilaabo Tarwiyah ilaa tawaf salaanta. Xusuusin la socota hagaha Baro.",
+    keywords: ["liiska hajj", "xafladaha hajj", "raadraaca xajka"],
+  },
+  "/umrah/checklist": {
+    title: "Liiska Xafladaha Umrah",
+    description:
+      "Liiska Umrah ee habaysan — ihram, tawaf, sa'i, iyo halq ama taqsir. U isticmaal hagaha Baro ee Hajj & Umrah.",
+    keywords: ["liiska umrah", "xafladaha umrah", "xaj yar"],
   },
 };

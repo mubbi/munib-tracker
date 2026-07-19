@@ -140,10 +140,17 @@ export default {
     description: "Saqlangan hadislaringiz, tez qaytish uchun bir joyda.",
   },
   "/hajj": {
-    title: "Haj va Umra Ro'yxati",
+    title: "Hajj va Umrah qo'llanmasi",
     description:
-      "Haj va umra marosimlari uchun bosqichma-bosqich ro'yxat. Har bir marosimni tartib bilan kuzating va bajarganingizda belgilang — amaliy qo'llanma, fiqh kitobi emas.",
-    keywords: ["haj", "umra", "haj qo'llanmasi", "haj marosimlari", "haj ro'yxati"],
+      "Hajj va Umrahni Qur'an va ishonchli Sunnahdan o'rganing, keyin alohida Hajj va Umrah ro'yxatlari bilan marosimlarni kuzating — amaliy ta'limiy ko'rib chiqish, fiqh qo'llanmasi emas.",
+    keywords: [
+      "hajj",
+      "umrah",
+      "haj qo'llanmasi",
+      "haj marosimlari",
+      "haj ro'yxati",
+      "umrah ro'yxati",
+    ],
   },
   "/hayd": {
     title: "Hayz va Ibadat — Hayz Qo'llanmasi",
@@ -776,5 +783,17 @@ export default {
   "/zikr/favorites": {
     title: "Sevimli Azkorlar",
     description: "Sevimli azkorlaringiz, tez kirish uchun bir joyda.",
+  },
+  "/hajj/checklist": {
+    title: "Hajj marosimlari ro'yxati",
+    description:
+      "Tarwiyahdan vidolik tawafgacha kunlik Hajj marosimlari kuzatuvchisi. O'rganish qo'llanmasi yonida eslatma.",
+    keywords: ["haj ro'yxati", "haj marosimlari", "haj kuzatuvchisi"],
+  },
+  "/umrah/checklist": {
+    title: "Umrah marosimlari ro'yxati",
+    description:
+      "Tartibli Umrah ro'yxati — ihram, tawaf, sa'i va halq yoki taqsir. Hajj & Umrah O'rganish qo'llanmasi bilan foydalaning.",
+    keywords: ["umrah ro'yxati", "umrah marosimlari", "kichik haj"],
   },
 };

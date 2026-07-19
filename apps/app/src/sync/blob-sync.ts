@@ -21,6 +21,7 @@ import { quranStore } from "@/stores/quran-store";
 import { salahGuideProgressStore } from "@/stores/salah-guide-progress-store";
 import { taharahProgressStore } from "@/stores/taharah-progress-store";
 import { trackerStore } from "@/stores/tracker-store";
+import { umrahChecklistStore } from "@/stores/umrah-checklist-store";
 
 /**
  * Generic cloud sync for the many small "blob" userData entities that carry no
@@ -91,6 +92,11 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     entity: "hajj_checklist",
     storageKey: DB_KEYS.hajjChecklist,
     reload: reloadIfReady(hajjChecklistStore),
+  },
+  {
+    entity: "umrah_checklist",
+    storageKey: DB_KEYS.umrahChecklist,
+    reload: reloadIfReady(umrahChecklistStore),
   },
   {
     entity: "friday_checklist",
@@ -287,6 +293,7 @@ export async function applyRemoteBlob(
 const UNION_MERGE_ENTITIES = new Set([
   "fasting",
   "hajj_checklist",
+  "umrah_checklist",
   "friday_checklist",
   "salah_guide_progress",
   "taharah_progress",

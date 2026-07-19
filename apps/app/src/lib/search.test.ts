@@ -85,11 +85,23 @@ describe("searchLight", () => {
     expect(searchLight("")).toEqual([]);
   });
 
-  it("finds Journey to Jannah topics", () => {
+  it("finds Journey to Jannah topics under the Learn tab", () => {
     const groups = searchLightWithGuides("firdaws");
-    const jannah = groups.find((g) => g.category === "jannah");
-    expect(jannah).toBeDefined();
-    expect(jannah?.results.some((r) => r.params?.topic === "al-firdaws")).toBe(true);
+    const learn = groups.find((g) => g.category === "learn");
+    expect(learn).toBeDefined();
+    expect(learn?.results.some((r) => r.params?.topic === "al-firdaws")).toBe(true);
+  });
+
+  it("finds Seerah and Ruqyah under the same Learn group", () => {
+    const seerah = searchLightWithGuides("hira");
+    expect(
+      seerah.find((g) => g.category === "learn")?.results.some((r) => r.href === "/seerah"),
+    ).toBe(true);
+
+    const ruqyah = searchLightWithGuides("muawwidhat");
+    expect(
+      ruqyah.find((g) => g.category === "learn")?.results.some((r) => r.href === "/ruqyah/[topic]"),
+    ).toBe(true);
   });
 
   it("orders groups by the fixed category order", () => {
@@ -276,7 +288,7 @@ describe("createCustomAdhkarSearch", () => {
       },
       {
         id: "a2",
-        title: "Evening dhikr",
+        title: "Evening zikr",
         arabic: "سبحان الله",
         transliteration: "Subhanallah",
         translation: "Glory be to Allah",

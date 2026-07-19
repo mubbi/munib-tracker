@@ -84,7 +84,7 @@ export const QURAN_GUIDE_QUIZ: QuranGuideQuizQuestion[] = [
     id: "fatihah-in-salah",
     category: "recitation",
     type: "multiple-choice",
-    prompt: "Which surah is recited in every rak'ah of the daily salah?",
+    prompt: "Which surah is recited in every rakah of the daily salah?",
     options: ["Al-Ikhlas", "Al-Fatihah", "Al-Kawthar", "An-Nasr"],
     correctIndex: 1,
     explanation:

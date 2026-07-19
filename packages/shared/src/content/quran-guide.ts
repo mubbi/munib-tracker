@@ -1,6 +1,17 @@
 import type { QuranGuideTopic } from "../types/quran-guide";
 
 export { QURAN_GUIDE_APPLY_CHALLENGES } from "./quran-guide-apply";
+export {
+  AL_FATIHA_PRACTICE_AUDIO,
+  QURAN_GUIDE_AUDIO_VERSION,
+  QURAN_GUIDE_EXAMPLE_AUDIO,
+  QURAN_GUIDE_GLYPH_AUDIO_URI,
+  QURAN_GUIDE_LETTER_AUDIO_URI,
+  QURAN_GUIDE_MEMORIZATION_LISTEN,
+  resolveExampleAudio,
+  resolveGlyphAudioUri,
+  resolveLetterAudioUri,
+} from "./quran-guide-audio";
 export { QURAN_GUIDE_DAILY_LESSONS } from "./quran-guide-daily";
 export { QURAN_GUIDE_READING_LEVELS } from "./quran-guide-learn-to-read";
 export { QURAN_GUIDE_LETTERS } from "./quran-guide-letters";

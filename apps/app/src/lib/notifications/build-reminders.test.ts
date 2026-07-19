@@ -272,6 +272,7 @@ describe("buildReminders", () => {
       false,
     );
     expect(off.some((r) => r.id.startsWith("friday:"))).toBe(false);
+    expect(off.some((r) => r.id.startsWith("fridayAcceptance:"))).toBe(false);
 
     const on: UserPreferences = {
       ...basePrefs,
@@ -289,6 +290,54 @@ describe("buildReminders", () => {
     for (const r of reminders.filter((x) => x.id.startsWith("friday:"))) {
       expect(new Date(`${r.id.split(":")[1]}T00:00:00`).getDay()).toBe(5);
     }
+
+    const acceptance = reminders.filter((r) => r.id.startsWith("fridayAcceptance:"));
+    expect(acceptance.length).toBeGreaterThanOrEqual(1);
+    expect(acceptance.every((r) => r.route === "/friday/hour-of-acceptance")).toBe(true);
+    expect(acceptance.some((r) => r.id.startsWith("fridayAcceptance:asr:"))).toBe(true);
+    expect(acceptance.some((r) => r.id.startsWith("fridayAcceptance:mid:"))).toBe(true);
+    for (const r of acceptance) {
+      const dayKey = r.id.split(":")[2];
+      expect(new Date(`${dayKey}T00:00:00`).getDay()).toBe(5);
+    }
+  });
+
+  it("skips hour-of-acceptance reminders on the default Makkah location", () => {
+    const on: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: { ...basePrefs.notificationPrefs, friday: true },
+    };
+    const reminders = buildReminders(on, DEFAULT_LOCATION);
+    expect(reminders.some((r) => r.id.startsWith("friday:"))).toBe(true);
+    expect(reminders.some((r) => r.id.startsWith("fridayAcceptance:"))).toBe(false);
+  });
+
+  it("anchors Friday acceptance nudges to Asr and the Asr→Maghrib midpoint", () => {
+    const on: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: { ...basePrefs.notificationPrefs, friday: true },
+    };
+    // Fixed Friday morning so both Asr and mid are still upcoming that day.
+    const fridayMorning = new Date("2026-07-03T06:00:00.000Z");
+    const reminders = buildReminders(on, SET_LOCATION, fridayMorning);
+    const asrNudge = reminders.find((r) => r.id.startsWith("fridayAcceptance:asr:"));
+    const midNudge = reminders.find((r) => r.id.startsWith("fridayAcceptance:mid:"));
+    expect(asrNudge && midNudge).toBeTruthy();
+    if (!asrNudge || !midNudge) return;
+
+    const day = new Date("2026-07-03T12:00:00.000Z");
+    const times = computePrayerTimes(
+      { latitude: SET_LOCATION.latitude, longitude: SET_LOCATION.longitude },
+      day,
+      SET_LOCATION.method,
+      SET_LOCATION.madhab,
+    );
+    expect(asrNudge.fireAt.getTime()).toBe(times.asr.getTime());
+    expect(midNudge.fireAt.getTime()).toBe(
+      times.asr.getTime() + (times.maghrib.getTime() - times.asr.getTime()) / 2,
+    );
+    expect(midNudge.fireAt.getTime()).toBeGreaterThan(asrNudge.fireAt.getTime());
+    expect(midNudge.fireAt.getTime()).toBeLessThan(times.maghrib.getTime());
   });
 
   it("stays within the iOS pending-notification budget", () => {

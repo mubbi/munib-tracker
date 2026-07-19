@@ -45,18 +45,20 @@ export const DB_KEYS = {
   customAdhkar: `${PREFIX}/custom_adhkar`,
   // Post-salah khushu reflections (rating + note per prayer/day) — NF-2.12.
   khushuJournal: `${PREFIX}/khushu_journal`,
-  // Hajj & Umrah checklist completion state (per rite id) — NF-2.3.
+  // Hajj rite checklist completion state (per rite id) — NF-2.3.
   hajjChecklist: `${PREFIX}/hajj_checklist`,
+  // Umrah rite checklist completion state (per rite id) — NF-2.3.
+  umrahChecklist: `${PREFIX}/umrah_checklist`,
   // Friday / Jumu'ah checklist completion (itemId::date) — cloud-synced blob.
   fridayChecklist: `${PREFIX}/friday_checklist`,
   // Ids of in-app feature tours the user has completed/dismissed — NF-2.24.
   toursSeen: `${PREFIX}/tours_seen`,
-  // Private daily intention toggles on Journey to Jannah (not synced).
+  // Private daily intention toggles on Journey to Jannah — blob-synced.
   jannahIntentions: `${PREFIX}/jannah_intentions`,
   jahannamIntentions: `${PREFIX}/jahannam_intentions`,
-  // Completed Learn Salah lesson ids (not synced).
+  // Completed Learn Salah lesson ids — blob-synced.
   salahGuideProgress: `${PREFIX}/salah_guide_progress`,
-  // Completed Battles in Islam topic ids (not synced).
+  // Completed Battles in Islam topic ids — blob-synced.
   battlesProgress: `${PREFIX}/battles_progress`,
   quranGuideProgress: `${PREFIX}/quran_guide_progress`,
   taharahProgress: `${PREFIX}/taharah_progress`,
@@ -90,6 +92,8 @@ export const DB_KEYS = {
   zakatCalculator: `${PREFIX}/zakat_calculator`,
   /** @deprecated Prefer {@link DB_KEYS.zakatCalculator}; kept for one-time migration. */
   zakatCurrency: `${PREFIX}/zakat_currency`,
+  // Show/hide transliteration + translation on dua/zikr/durood reading surfaces.
+  readingTextVisibility: `${PREFIX}/reading_text_visibility`,
 } as const;
 
 /**
@@ -141,6 +145,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   customAdhkar: "userData",
   khushuJournal: "userData",
   hajjChecklist: "userData",
+  umrahChecklist: "userData",
   fridayChecklist: "userData",
   toursSeen: "deviceLocal",
   jannahIntentions: "userData",
@@ -169,6 +174,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   blobSyncState: "deviceLocal",
   zakatCalculator: "deviceLocal",
   zakatCurrency: "deviceLocal",
+  readingTextVisibility: "deviceLocal",
 };
 
 function keysMatching(classes: readonly KeyPersistence[]): string[] {

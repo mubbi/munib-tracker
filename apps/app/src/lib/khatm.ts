@@ -142,3 +142,61 @@ export function scheduleGap(
 ): number {
   return ayahsRead - expectedAyahsByToday(plan, today);
 }
+
+/** Units expected before today's reading session (start-of-day on-track total). */
+export function expectedAyahsBeforeToday(
+  plan: KhatmPlan,
+  today: string = getLocalDateString(),
+): number {
+  const dayNumber = Math.min(plan.days, daysElapsed(plan, today) + 1);
+  if (dayNumber <= 1) return 0;
+  const total = khatmTotalForUnit(plan.unit ?? "ayah");
+  const daily = dailyTargetForPlan(plan);
+  return Math.min(total, daily * (dayNumber - 1));
+}
+
+/** Snapshot of today's khatm quota for home / checklist surfaces. */
+export interface KhatmTodayProgress {
+  target: number;
+  /** Progress toward today's slice (0…target). Ahead-of-schedule counts as full. */
+  done: number;
+  /** True when read ≥ expected end-of-day (or khatm finished). */
+  complete: boolean;
+  dayNumber: number;
+  pace: KhatmPace;
+  percent: number;
+  gap: number;
+}
+
+/** Derives today's daily-goal progress from cumulative plan reading. */
+export function khatmTodayProgress(
+  plan: KhatmPlan,
+  read: number,
+  today: string = getLocalDateString(),
+): KhatmTodayProgress {
+  const unit = plan.unit ?? "ayah";
+  const target = dailyTargetForPlan(plan);
+  const total = khatmTotalForUnit(unit);
+  const dayNumber = Math.min(plan.days, daysElapsed(plan, today) + 1);
+  const pace = khatmPace(plan, read, today);
+  const percent = khatmPercentComplete(read, unit);
+  const gap = scheduleGap(plan, read, today);
+
+  if (read >= total) {
+    return {
+      target,
+      done: target,
+      complete: true,
+      dayNumber,
+      pace: "done",
+      percent,
+      gap,
+    };
+  }
+
+  const beforeToday = expectedAyahsBeforeToday(plan, today);
+  const done = Math.min(target, Math.max(0, read - beforeToday));
+  const complete = read >= expectedAyahsByToday(plan, today);
+
+  return { target, done, complete, dayNumber, pace, percent, gap };
+}

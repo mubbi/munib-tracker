@@ -46,12 +46,12 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     id: "qaza",
     title: "Make up what was missed",
     summary:
-      "Turn qaza from overwhelming to doable — estimate, plan a daily pace, and track roza with scholar-aware guidance.",
+      "Turn qaza from overwhelming to doable — estimate, plan a daily pace, and track fasting with scholar-aware guidance.",
     highlights: [
       "Per-prayer counters with auto-sync from missed tracker entries",
       "Lifetime calculator with scholar disclaimer",
       "Daily pace planner with ETA to clear your backlog",
-      "Missed fast (roza) tracking and estimates",
+      "Missed fast tracking and estimates",
     ],
   },
   {
@@ -109,7 +109,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Learn how to pray, purify, fast, and give — practical fiqh guides with checklists, calculators, and clear evidence.",
     highlights: [
       "Salah guide (24 lessons) plus taharah (28 topics) with a daily checklist",
-      "Zakat calculator, Friday/Jumu'ah hub, and a 60-step hajj & umrah tracker",
+      "Zakat calculator, Friday/Jumu'ah hub, and Hajj & Umrah learn guide with separate rite checklists",
       "Travel (qasr/jam'), illness, and hayd — worship at your capacity",
       "Ramadan tracker, tahajjud log, and khushu' prayer journal",
     ],
@@ -134,7 +134,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     highlights: [
       "Week, month, and year charts plus a weekly worship report",
       "Infinite Salah, Streak, Zikr, and Consistency tracks that never cap out",
-      "Growing Noor devotion levels and today's combined salah + dhikr goal",
+      "Growing Noor devotion levels and today's combined salah + zikr goal",
       "Optional prayer, zikr, qaza, daily content, and Friday reminders",
     ],
   },
@@ -288,7 +288,7 @@ export const APP_ACHIEVEMENTS = [
     trigger: "Build consecutive prayer days — targets grow from 1 day to a full year and beyond",
   },
   {
-    name: "Qaza & Roza debt",
+    name: "Qaza & Fasting debt",
     trigger:
       "When you track qaza or missed fasts, goals match your current debt — and disappear when cleared",
   },

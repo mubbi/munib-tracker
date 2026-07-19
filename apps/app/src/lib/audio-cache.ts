@@ -57,9 +57,27 @@ const AUDIO_CACHE_DIR = `${documentDirectory ?? ""}munib-audio/`;
 /** Dedupe concurrent downloads of the same remote URL (native). */
 const inflight = new Map<string, Promise<string>>();
 
+/**
+ * Stable short cache key for a remote URL.
+ *
+ * Encoding the full URL into the filename (previous approach) exceeds Unix/iOS
+ * `NAME_MAX` (255) for long CDN paths — notably Kiwifu/adhan-mp3 clips whose
+ * Arabic filenames percent-encode to 200+ char URLs. Downloads then fail or
+ * hang and native playback waits forever on {@link resolveCachedAudioUri}.
+ */
+function cacheKeyFor(remoteUri: string): string {
+  // FNV-1a 64-bit → 16 hex chars (collision risk negligible for our URL set).
+  let hash = 0xcbf29ce484222325n;
+  const prime = 0x100000001b3n;
+  for (let i = 0; i < remoteUri.length; i++) {
+    hash ^= BigInt(remoteUri.charCodeAt(i));
+    hash = BigInt.asUintN(64, hash * prime);
+  }
+  return hash.toString(16).padStart(16, "0");
+}
+
 function localPathFor(remoteUri: string): string {
-  const safe = encodeURIComponent(remoteUri).replace(/%/g, "_");
-  return `${AUDIO_CACHE_DIR}${safe}.mp3`;
+  return `${AUDIO_CACHE_DIR}${cacheKeyFor(remoteUri)}.mp3`;
 }
 
 /** Whether the native file store is usable (false on web / before FS is ready). */
@@ -166,6 +184,25 @@ function rememberObjectUrl(remoteUri: string, objectUrl: string): void {
 export function peekCachedAudioUri(remoteUri: string): string | null {
   if (Platform.OS !== "web") return null;
   return touchObjectUrl(remoteUri);
+}
+
+/**
+ * Native disk peek — returns a `file://` URI when the clip is already fully
+ * cached, without starting a download. Used so playback can prefer local bytes
+ * when present, then fall through to streaming + background cache otherwise.
+ */
+export async function peekNativeCachedAudioUri(remoteUri: string): Promise<string | null> {
+  if (!remoteUri.startsWith("http") || !nativeStoreAvailable()) return null;
+  const localUri = localPathFor(remoteUri);
+  try {
+    const info = await getInfoAsync(localUri);
+    if (info.exists && (typeof info.size !== "number" || info.size > 0)) {
+      return localUri;
+    }
+  } catch {
+    return null;
+  }
+  return null;
 }
 
 /** Resolve a remote clip to a local `blob:` object URL, caching the bytes. */
@@ -281,7 +318,18 @@ export async function resolveCachedAudioUri(remoteUri: string): Promise<string> 
   const localUri = localPathFor(remoteUri);
   try {
     const info = await getInfoAsync(localUri);
-    if (info.exists) return localUri;
+    // Treat empty/partial files as a miss so a failed prior download can't
+    // pin the player on a 0-byte clip forever.
+    if (info.exists && (typeof info.size !== "number" || info.size > 0)) {
+      return localUri;
+    }
+    if (info.exists) {
+      try {
+        await deleteAsync(localUri, { idempotent: true });
+      } catch {
+        // Best-effort cleanup before re-download.
+      }
+    }
   } catch {
     return remoteUri;
   }
@@ -300,6 +348,18 @@ export async function resolveCachedAudioUri(remoteUri: string): Promise<string> 
     try {
       await makeDirectoryAsync(AUDIO_CACHE_DIR, { intermediates: true });
       const result = await downloadAsync(remoteUri, localUri);
+      if (typeof result.status === "number" && result.status >= 400) {
+        reportAudioDownloadFailure(remoteUri, {
+          httpStatus: result.status,
+          errorMessage: `HTTP ${result.status} for ${remoteUri}`,
+        });
+        try {
+          await deleteAsync(localUri, { idempotent: true });
+        } catch {
+          // Best-effort cleanup of a failed download.
+        }
+        return remoteUri;
+      }
       return result.uri;
     } catch (error) {
       reportAudioDownloadFailure(remoteUri, {

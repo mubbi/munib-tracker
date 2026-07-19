@@ -77,10 +77,11 @@
       "intro": "Një përsëritje e shkurtër nga mësimet e këtij udhëzuesi. Merrni kohën tuaj — qëllimi është të mësoni.",
       "hint": "Rishikoni çfarë keni mësuar",
       "empty": "Pyetjet e këtij udhëzuesi ende po ngarkohen. Hapni disa mësime, pastaj provoni përsëri."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Kërko Kurani, hadith, duas, adhkar…",
+    "placeholder": "Kërko Qur'an, hadith, duas, Mëso…",
     "clear": "Clear kërko",
     "all": "Të gjitha",
     "resultsCount": "Rezultatet e {{count}}",
@@ -109,16 +110,7 @@
       "zikr": "Азкары",
       "name": "99 emra",
       "durood": "Duroods",
-      "jannah": "Udhëtimi në Xhennet",
-      "jahannam": "Kuptimi i Xhehennemit",
-      "lastDay": "Dita e Gjykimit",
-      "salahGuide": "Mëso Salah",
-      "battles": "Betejat në Islam",
-      "taharah": "Mëso pastrimin",
-      "prophets": "Mëso profetët",
-      "aqeedah": "Mëso Aqeedah",
-      "learnDua": "Mëso Dua",
-      "learnQuran": "Mëso Kuranin"
+      "learn": "Mëso"
     },
     "stt": {
       "dictate": "Kërko me zë",
@@ -465,6 +457,24 @@
       "badge": "E premte",
       "reminderTitle": "Xhuma Mubarek",
       "reminderBody": "Falni Jumu'ah dhe plotësoni sunetin e së premtes — Ghusl, Surah al-Kahf, salawat dhe Dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Pjesa e Qur'an për sot",
+      "catchUpTitle": "Kompenso khatm",
+      "reminderBody": "Regjistro {{done}}/{{total}} ayahs drejt objektivit khatm të sotëm.",
+      "reminderBodyPages": "Regjistro {{done}}/{{total}} faqe drejt objektivit khatm të sotëm.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Leximi khatm i sotëm është në rrugë — vazhdo.",
+      "openPlan": "Hap planin khatm",
+      "a11y": "Plani khatm dita {{day}} nga {{total}}, {{percent}} përqind e plotë, {{done}} nga {{target}} sot"
+    },
+    "acceptanceHourCard": {
+      "badge": "Ora e dua",
+      "reminderTitle": "Ora e pranimit",
+      "reminderBody": "Një orë të premten kur dua nuk refuzohet — kërkoje veçanërisht pas Asr me dua të sinqertë, istighfar dhe salawat.",
+      "openGuide": "Hap orën e pranimit"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Vitr",
       "adhkar": "dhkr",
       "qaza": "Qz",
-      "a11y": "{{label}}: {{percent}}% përfunduar, {{completed}} e {{total}}"
+      "a11y": "{{label}}: {{percent}}% përfunduar, {{completed}} e {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah — të gjitha done",
     "freshStart": " fresh fillo",
@@ -547,6 +558,14 @@
       "jumpTitle": "Lista e Jumu'ah",
       "jumpHint": "Praktikat suneti të së premtes më poshtë",
       "jumpA11y": "Shko te lista e Jumu'ah në këtë faqe"
+    },
+    "khatm": {
+      "title": "Plani khatm",
+      "progress": "{{done}} nga {{total}} sot",
+      "hint": "{{count}} ayahs drejt objektivit të sotëm — prek për të regjistruar",
+      "hintPages": "{{count}} faqe drejt objektivit të sotëm — prek për të regjistruar",
+      "completeHint": "Pjesa e sotme u krye — prek për të parë planin",
+      "a11y": "Plani khatm dita {{day}} nga {{total}}, {{done}} nga {{target}} drejt objektivit të sotëm"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Reflektimi i sotëm",
       "dailyContentBody": "Një ajet i ri, hadithi dhe emri i Allahut janë gati në ekranin tuaj fillestar.",
       "fridayTitle": "Xhuma Mubarek",
-      "fridayBody": "Është e premte - dërgoni salavat dhe lexoni suren El-Kehf."
+      "fridayBody": "Është e premte - dërgoni salavat dhe lexoni suren El-Kehf.",
+      "acceptanceHourTitle": "Ora e pranimit",
+      "acceptanceHourBodyAsr": "Asr ka filluar — kërko orën e pranuar me dua, istighfar dhe salawat deri në Maghrib.",
+      "acceptanceHourBodyMid": "Ka ende kohë para Maghrib — mbush këto minuta me dua të sinqertë."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Përkujtim i së premtes",
-        "subtitle": "Xhuma dhe sureja El-Kehf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf dhe ora e pranimit"
       }
     },
     "prayerAlertsObligatory": "Sinjalizimet e detyrueshme të Salah",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Zgjidhni një zë për të filluar dëgjimin",
     "listenVoiceDefault": "Parazgjedhja e sistemit",
     "listenVoiceDefaultHint": "Përdorni zërin e preferuar të pajisjes për këtë gjuhë",
-    "listenVoiceEmpty": "Nuk ka zëra të instaluar për këtë gjuhë. Shtoni një në cilësimet e sistemit."
+    "listenVoiceEmpty": "Nuk ka zëra të instaluar për këtë gjuhë. Shtoni një në cilësimet e sistemit.",
+    "showTransliteration": "Shfaq transliterimin",
+    "hideTransliteration": "Fshih transliterimin",
+    "showTranslation": "Shfaq përkthimin",
+    "hideTranslation": "Fshih përkthimin"
   },
   "share": {
     "dialogTitle": "Ndaj",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "Kërko duas by title, tema, ose text…",
     "searchInCategory": "Kërko në kjo category…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "No duas matched juaj kërko."
+    "noResults": "No duas matched juaj kërko.",
+    "favSubtitle": "Rregullo ose hiq duas e ruajtura"
   },
   "duaCat": {
     "morning_evening": "Mëngjes & Mbrëmje",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Ndalo dëgjimin",
       "bestMatch": "Përputhja më e mirë",
       "otherMatches": "Përputhje të tjera"
-    }
+    },
+    "searchPlaceholderArabic": "Kërko tekst arabisht ose referencë si ٢:٢٥٥…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Tradita profetike",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Ky aplikacion numëron Witr-in e humbur në kaza për të gjithë përdoruesit. Trajtojeni atë siç kërkohet nëse ndiqni pikëpamjen hanefi; përndryshe gjurmoni atë si një make-up i rekomanduar. Konsultohuni me një studiues për situatën tuaj."
     },
-    "history": "Historia"
+    "history": "Historia",
+    "rowDone": "{{completed}} Qaza kryer",
+    "rowDoneWithDaily": "{{completed}} Qaza kryer · sot {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "Të rivendoset numëruesi?",
     "confirmResetMessage": "Juaj count e {{count}} will be pastrohet.",
     "confirmStartAgainTitle": "Fillo again?",
-    "confirmStartAgainMessage": "Juaj përfunduar count will be pastrohet so ju can begin  i ri round."
+    "confirmStartAgainMessage": "Juaj përfunduar count will be pastrohet so ju can begin  i ri round.",
+    "dockLabel": "Numëro"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} është only {{min}} min away",
@@ -2502,7 +2538,15 @@
       "ahead": "hed",
       "onTrack": "Në ndiq",
       "behind": "Prapa"
-    }
+    },
+    "logConfirmTitle": "Të shtohet përparimi i leximit?",
+    "logConfirmMsg": "Të shtohen {{count}} ajete në totalin e khatm-it?",
+    "logConfirmMsgPages": "Të shtohen {{count}} faqe në totalin e khatm-it?",
+    "logConfirmAction": "Shto",
+    "correctTotalConfirmTitle": "Të përditësohet totali i lexuar?",
+    "correctTotalConfirmMsg": "Të vendoset totali i khatm-it në {{count}} ajete?",
+    "correctTotalConfirmMsgPages": "Të vendoset totali i khatm-it në {{count}} faqe?",
+    "correctTotalConfirmAction": "Përditëso totalin"
   },
   "hifz": {
     "short": "Хифз",
@@ -2536,7 +2580,7 @@
     "quranTitle": "Nga  Kurani",
     "hadithTitle": "Nga  Sunnet",
     "obligationsTitle": "What ju janë still responsible për",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "Rakaat me një vështrim",
     "rakatsPrayer": "Salah",
     "rakatsResident": "At kryefaqja",
     "rakatsTravel": "Udhëtimi",
@@ -2718,7 +2762,8 @@
       "knowledge": "Karta ditore e njohurive",
       "quickActions": "Veprime të shpejta",
       "qaza": "Përmbledhje Qaza",
-      "schedule": "Orari i sotëm"
+      "schedule": "Orari i sotëm",
+      "khatm": "Plani khatm"
     }
   },
   "schedule": {
@@ -2744,7 +2789,7 @@
     "progressCardTitle": "Learning progresi",
     "progressCardHint": "{{completed}} e {{total}} lessons shënuar përfunduar",
     "topicsTitle": "Udhëzues",
-    "rakatsTitle": "Rakats at  glance",
+    "rakatsTitle": "Rakaat me një vështrim",
     "prayer": "Salah",
     "fard": "Frd",
     "sunnah": "Sunnet",
@@ -2818,7 +2863,12 @@
       "listenHint": "Tap  recording në play. Follow along me  words më poshtë as ju listen.",
       "play": "Ply {{name}} dh",
       "pause": "Puse {{name}} dh",
-      "sourceNote": "Recordings nga  open Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, dhe more)."
+      "sourceNote": "Recordings nga  open Kiwifu/adhan-mp3 collection (Mecca, Medina, Mishary Alafasy, dhe more).",
+      "learnPhrasesHint": "Mësoni fjalët — luani çdo fjali qartë, njëra pas tjetrës.",
+      "playPhrases": "Luaj të gjitha frazat",
+      "pausePhrases": "Ndalo frazat",
+      "playPhrase": "Luaj frazën {{n}}: {{title}}",
+      "followAlongNote": "Thekson fjalët më poshtë gjatë luajtjes"
     }
   },
   "battles": {
@@ -3440,7 +3490,8 @@
       "obligatory": "Thelbësore",
       "highly-recommended": "Rekomandohet shumë",
       "recommended": "Rekomanduar"
-    }
+    },
+    "playAyahA11y": "Luaj tilavetin e {{ref}}"
   },
   "library": {
     "eyebrow": "Librry",
@@ -4033,7 +4084,7 @@
       "label": "Shtojcat (opsionale)",
       "add": "Shto skedar",
       "remove": "Hiq shtojcën",
-      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Prekni × te miniaturë për ta hequr.",
+      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Shtypni gjatë një miniaturë për ta hequr.",
       "signInRequired": "Identifikohu për të bashkëngjitur skedarë privatë në adkar-in tënd.",
       "permissionDenied": "Kërkohet leje për të bashkangjitur skedarët.",
       "permissionTitle": "Lejo qasjen",
@@ -4209,14 +4260,34 @@
   "hajj": {
     "eyebrow": "Pilgrimge",
     "title": "Haxhi & Umra",
-    "subtitle": " hapi-by-hapi checklist për  rites e pilgrimage.",
+    "subtitle": "Mëso ritualet nga Qur'an dhe Sunnah, pastaj ndiq Hajj dhe Umrah veç e veç.",
     "progress": "{{done}} e {{total}} rites",
     "reset": "Rivendos",
     "resetConfirmTitle": "Të rivendoset lista e kontrollit?",
     "resetConfirmMsg": "Kjo will uncheck every rite. Juaj progresi cannot be recovered.",
-    "umrahTag": "Umra",
-    "hajjTag": "Haxhi",
-    "disclaimer": " practical checklist, not  fiqh manual. Follow  qualified guide për rulings dhe details.",
+    "disclaimer": "Përmbledhje edukative praktike, jo manual fiqh. Madhhabët ndryshojnë në detaje — ndiq udhëzues të kualifikuar për rregulla dhe raste të papritura.",
+    "intro": "Studio detyrimin, ihram, Umrah dhe ditët e Hajj me referenca autentike. Përdor listat vetëm për rituale — këshillat e përgatitjes mbeten te Mëso.",
+    "section": {
+      "virtues": "Virtu",
+      "obligation": "Detyrim",
+      "types": "Llojet e Hajj",
+      "ihram": "Miqat dhe ihram",
+      "umrah": "Umrah",
+      "hajj": "Ditët e Hajj",
+      "rulings": "Rregulla dhe etiketë",
+      "prep": "Përgatitje praktike"
+    },
+    "checklistsTitle": "Lista ritualeve",
+    "hajjChecklistTitle": "Lista Hajj",
+    "hajjChecklistHint": "Ritualet e haxhit ditë për ditë",
+    "hajjChecklistSubtitle": "Ndiq ritualet e Hajj nga Tarwiyah deri te tawaf lamtumirës.",
+    "hajjChecklistIntro": "Shëno çdo ritual kur e përfundon. Kjo është kujtesë — jo fatwa.",
+    "umrahChecklistTitle": "Lista Umrah",
+    "umrahChecklistHint": "Nga ihram te halq ose taqsir",
+    "umrahChecklistSubtitle": "Ndiq sekuencën e Umrah sipas rendit.",
+    "umrahChecklistIntro": "Shëno çdo ritual Umrah kur e përfundon. Hap Mëso për detaje dhe prova.",
+    "notFound": "Tema nuk u gjet",
+    "continueInApp": "Vazhdo në Munib",
     "prepTag": "Përgatitja"
   },
   "dailyHadith": {
@@ -4574,15 +4645,15 @@
     "settingsSubtitleIos": "Mark Salah me Siri ose Apple Watch",
     "settingsSubtitleAndroid": "Mark Salah me Google Assistant ose Wear OS",
     "introIos": "Use Siri, Shortcuts, ose Apple Watch në mark Salah without opening  checklist. Requires  EAS dev ose production build — not available në Expo Go.",
-    "introAndroid": "Use Google Assistant ose Wear OS në mark Salah without opening  checklist. Requires  EAS dev ose production build — not available në Expo Go.",
+    "introAndroid": "Përdor Google Assistant, shkurtoren e ikonës së app ose Wear OS për të shënuar Salah pa hapur listën. Kërkon EAS dev ose production build — jo në Expo Go.",
     "siriTitle": "Siri & Shkurtoret",
     "siriHint": "After installing nga TestFlight ose  App Store, open  Shortcuts app ose say “Hey Siri, mark my Salah në Munib Tracker”. If  app was force-quit,  mark syncs  tjetër time ju open Munib Tracker.",
     "assistantTitle": "Google Assistant",
-    "assistantHint": "Say “Hey Google, mark my Salah në Munib Tracker” në  pajisja me  app installed.",
+    "assistantHint": "Thuaj \"Hey Google, mark my Salah in Munib Tracker\", ose shtyp gjatë ikonën Munib Tracker dhe zgjidh Mark Salah. Nëse app u mbyll me forcë, shënimi sinkronizohet kur hap Munib Tracker.",
     "watchTitle": "pple Wtch",
     "watchHint": "Open  Munib Tracker watch app në see sot’s schedule dhe mark Salah. Të dhënat syncs nga juaj iPhone.",
     "wearTitle": "Wer OS",
-    "wearHint": "Shto  Munib Tracker tile në juaj watch after pairing me juaj phone.",
+    "wearHint": "Pas çiftimit të telefonit, shto pllakën Munib Tracker në orë. Prek pllakën për të shënuar Salah aktuale në telefon.",
     "marked": "Salah shënuar",
     "alreadyDone": "Tashmë e shënuar",
     "allDone": "Të gjitha obligatory Salah shënuar për sot",
@@ -4789,7 +4860,7 @@
     "eyebrow": "Kalendari",
     "title": "Konvertuesi i datës",
     "subtitle": "Konvertoni midis kalendarit Hixhri dhe Gregorian",
-    "intro": "Futni një datë në secilin kalendar për të parë ekuivalentin në tjetrin, i llogaritur offline nga dukshmëria e hënës në vendndodhjen tuaj.",
+    "intro": "Fut një datë në secilin nga kalendarët për të parë ekuivalentin e saj në tjetrin, të llogaritur jashtë linje duke përdorur algoritmin tabelor të Kuvajtit.",
     "toHijri": "Gregorian → Hixhri",
     "toGregorian": "Hixhri → Gregorian",
     "gregorianDateLabel": "Data Gregoriane",
@@ -4799,7 +4870,7 @@
     "year": "viti",
     "useToday": "Përdoreni sot",
     "invalidDate": "Fut një datë të vlefshme",
-    "disclaimer": "Datat llogariten nga dukshmëria e hënës (hilāl) në vendndodhjen tuaj dhe mund të ndryshojnë me një ditë nga njoftimet zyrtare të vëzhgimit të hënës — ndiqni gjithmonë masjid-in ose autoritetin lokal për datat fetare.",
+    "disclaimer": "Ky është një përafrim aritmetik (\"algoritmi kuvajtian\" në formë tabele) dhe mund të ndryshojë për një ditë nga njoftimet lokale për shikimin e hënës - ndiqni gjithmonë xhaminë ose autoritetin tuaj lokal për datat fetare.",
     "directionTitle": "Drejtimi i konvertimit",
     "resultFrom": "Nga {{date}}",
     "quickLinksTitle": "Të lidhura",

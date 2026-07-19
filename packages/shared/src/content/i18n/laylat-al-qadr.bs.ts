@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Šta reći ako je uhvatite",
+    summary: "Aiša je pitao Poslanika ﷺ tačno šta reći.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Aiša (Allah bio zadovoljan njome) je pitala Poslanika ﷺ: 'O Poslanice Allaha, ako znam koja je noć Lejletul-Kadr, šta da kažem u njoj?' On ﷺ je naučio kratku duu za oprost pokazanu ispod (Tirmidhi 3513, ocijenjenu kao hasan sahih od strane et-Tirmidija).",
+      "Ova dua je kratka, laka za pamćenje, i namjerno o oprostu, a ne o svjetovnim molbama — podsjetnik da je najveći dobitak ove noći Allahov oprost. Ponavljajte je često tokom posljednjih deset noći, u namazu, u sedždi, i između njih, umjesto da je čuvate za jednu pretpostavljenu noć.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Rekla sam: O Poslanice Allaha, ako znam koja je noć Lejletul-Kadr, šta da kažem u njoj? Rekao je: Reci — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Allahu moj, Ti opraštaš i voliš oprost, oprosti mi).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Naučite napamet duu za oprost pokazanu iznad.",
+      "Ponavljajte je često tokom posljednjih deset noći, posebno u neparnim noćima.",
     ],
   },
   {

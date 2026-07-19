@@ -136,9 +136,16 @@
     "index": false
   },
   "/hajj": {
-    "title": "Hajj & Umrah Checklist",
-    "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
-    "keywords": ["hajj", "umrah", "pilgrimage guide", "hajj rites", "hajj checklist"]
+    "title": "Guide Hajj & Umrah",
+    "description": "Apprenez le Hajj et l'Umrah à partir du Coran et de la Sunnah authentique, puis suivez les rites avec des checklists Hajj et Umrah séparées — aperçu éducatif pratique, pas un manuel de fiqh.",
+    "keywords": [
+      "hajj",
+      "umrah",
+      "guide du pèlerinage",
+      "rites du hajj",
+      "checklist hajj",
+      "checklist umrah"
+    ]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -722,5 +729,15 @@
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
     "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Checklist des rites du Hajj",
+    "description": "Suivi jour par jour des rites du Hajj de Tarwiyah au tawaf d'adieu. Aide-mémoire aux côtés du guide Apprendre.",
+    "keywords": ["checklist hajj", "rites du hajj", "suivi du pèlerinage"]
+  },
+  "/umrah/checklist": {
+    "title": "Checklist des rites de l'Umrah",
+    "description": "Checklist Umrah ordonnée — ihram, tawaf, sa'i, et halq ou taqsir. À utiliser avec le guide Apprendre Hajj & Umrah.",
+    "keywords": ["checklist umrah", "rites de l'umrah", "petit pèlerinage"]
   }
 }

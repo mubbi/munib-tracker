@@ -59,21 +59,20 @@ export const LAYLAT_AL_QADR_TOPICS_FA: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "اگر شب را دریافتید چه بگویید",
+    summary: "عایشه از پیامبر ﷺ پرسید دقیقاً چه بگوید.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "عایشه (رضی الله عنها) از پیامبر ﷺ پرسید: «ای رسول خدا، اگر بدانم کدام شب شب قدر است، در آن چه بگویم؟» او ﷺ دعای کوتاه آمرزش نشان‌داده‌شده در پایین را به او آموخت (ترمذی ۳۵۱۳، درجهٔ حسن صحیح به‌دست ترمذی).",
+      "این دعا کوتاه، آسان برای حفظ، و عمداً درباره آمرزش است نه درخواست‌های دنیا — یادآوری که بزرگ‌ترین دستاورد این شب، عفو الهی است. آن را در ده شب آخر مکرر تکرار کنید، در نماز، در سجده، و میان آنها، نه اینکه برای یک شب حدس‌زده ذخیره‌اش کنید.",
     ],
     hadith: [
       {
-        excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+        excerpt: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي.",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "دعای آمرزش نشان‌داده‌شده در بالا را حفظ کنید.",
+      "آن را در ده شب آخر، به‌ویژه در شب‌های فرد، مکرر تکرار کنید.",
     ],
   },
   {

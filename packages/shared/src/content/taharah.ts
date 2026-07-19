@@ -9,7 +9,7 @@ export { TAHARAH_CHECKLIST } from "./taharah-checklist";
  * (sunnah.com). Where the four Sunni schools differ, the difference is noted
  * respectfully rather than presented as a single ruling. Bump version on change.
  */
-export const TAHARAH_CONTENT_VERSION = 2;
+export const TAHARAH_CONTENT_VERSION = 3;
 
 export const TAHARAH_SECTION_ORDER = [
   "intro",
@@ -264,7 +264,7 @@ export const TAHARAH_TOPICS: TaharahTopic[] = [
     summary: "The complete prophetic sequence from intention to closing supplication.",
     importance: "obligatory",
     body: [
-      "The Prophet ﷺ taught wudu as a flowing sequence that weaves the obligations together with the sunnah acts. This is the method 'Uthman ibn 'Affan demonstrated to the people, saying afterward that he had seen the Prophet ﷺ perform wudu exactly so — and that whoever does likewise and prays two rak'ahs with full presence has his past sins forgiven.",
+      "The Prophet ﷺ taught wudu as a flowing sequence that weaves the obligations together with the sunnah acts. This is the method 'Uthman ibn 'Affan demonstrated to the people, saying afterward that he had seen the Prophet ﷺ perform wudu exactly so — and that whoever does likewise and prays two rakahs with full presence has his past sins forgiven.",
       "Perform each step unhurriedly, making sure the water reaches every required area. The washed limbs (face, arms, feet) are washed; the head is only wiped.",
     ],
     steps: [
@@ -317,7 +317,7 @@ export const TAHARAH_TOPICS: TaharahTopic[] = [
         citation: "159",
         grade: "sahih",
         excerpt:
-          "'Uthman washed each limb three times as he had seen the Prophet ﷺ do, then said: whoever performs wudu like this and prays two rak'ahs with full focus, his past sins are forgiven. (Humran, from 'Uthman)",
+          "'Uthman washed each limb three times as he had seen the Prophet ﷺ do, then said: whoever performs wudu like this and prays two rakahs with full focus, his past sins are forgiven. (Humran, from 'Uthman)",
       },
     ],
     appLinks: [
@@ -739,7 +739,7 @@ export const TAHARAH_TOPICS: TaharahTopic[] = [
     title: "Cleaning Prayer Places",
     summary: "The prayer spot must be free of known filth — without baseless doubt.",
     body: [
-      "The place of prayer must be free of known najasah. The Prophet ﷺ taught this vividly: when a Bedouin urinated in the corner of the mosque, he stopped the Companions from rebuking him harshly, let him finish, and then ordered a bucket of water poured over the spot — teaching both cleanliness and gentleness.",
+      "The place of prayer must be free of known najasah. The Prophet ﷺ taught this vividly: when a Bedouin urinated in the corner of the masjid, he stopped the Companions from rebuking him harshly, let him finish, and then ordered a bucket of water poured over the spot — teaching both cleanliness and gentleness.",
       "The governing rule is certainty. The earth was made generally a place of prayer, so a surface is presumed clean unless you have real evidence of filth. If you know impurity is present, remove it or move to a clean spot; if you merely imagine it might be there, ignore the whisper and continue.",
       "This balance guards worship from two extremes: praying carelessly on obviously soiled ground, and being paralysed by unfounded suspicion about every surface.",
     ],
@@ -749,7 +749,7 @@ export const TAHARAH_TOPICS: TaharahTopic[] = [
         citation: "220",
         grade: "sahih",
         excerpt:
-          "When a Bedouin urinated in the mosque, the Prophet ﷺ ordered a bucket of water to be poured over it. (Abu Hurayrah)",
+          "When a Bedouin urinated in the masjid, the Prophet ﷺ ordered a bucket of water to be poured over it. (Abu Hurayrah)",
       },
     ],
     actions: [

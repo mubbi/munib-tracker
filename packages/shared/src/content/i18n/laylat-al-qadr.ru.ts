@@ -59,21 +59,21 @@ export const LAYLAT_AL_QADR_TOPICS_RU: DeepPartial<LearnGuideTopic>[] = [
       "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
   },
   {
-    title: "What to say if you catch it",
-    summary: "Aisha asked the Prophet ﷺ exactly what to say.",
+    title: "Что говорить, если встретите её",
+    summary: "Аиша спросила Пророка ﷺ, что именно говорить.",
     body: [
-      "Aisha (may Allah be pleased with her) asked the Prophet ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' He told her to say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni' — 'O Allah, You are Forgiving, and You love forgiveness, so forgive me' (Tirmidhi 3513, graded hasan sahih by al-Tirmidhi).",
-      "This du'a is short, easy to memorise, and deliberately about forgiveness rather than worldly requests — a reminder that the greatest gain from this night is Allah's pardon. Repeat it often through the last ten nights, in prayer, in prostration, and between them, rather than saving it for a single guessed night.",
+      "Аиша (да будет доволен ею Аллах) спросила Пророка ﷺ: «О Посланник Аллаха, если я узнаю, какая ночь — ночь Кадра, что мне говорить в неё?» Он ﷺ научил её короткой дуа просьбы прощения, показанной ниже (Термизи 3513, хасан сахих по классификации ат-Термизи).",
+      "Эта дуа короткая, легко запоминается и намеренно о прощении, а не о мирских просьбах — напоминание, что величайшая награда этой ночи — прощение Аллаха. Повторяйте её часто в последние десять ночей — в намазе, в земном поклоне и между ними, — а не откладывайте на одну предполагаемую ночь.",
     ],
     hadith: [
       {
         excerpt:
-          "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
+          "Я сказала: О Посланник Аллаха, если я узнаю, какая ночь — ночь Кадра, что мне говорить в неё? Он ﷺ сказал: Говорите — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (О Аллах, Ты — Прощающий и любишь прощение, прости меня).",
       },
     ],
     actions: [
-      "Memorise the du'a: Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni.",
-      "Repeat it often during the last ten nights, especially in the odd nights.",
+      "Выучите дуа прощения, показанную выше.",
+      "Повторяйте её часто в последние десять ночей, особенно в нечётные ночи.",
     ],
   },
   {

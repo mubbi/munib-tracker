@@ -735,7 +735,7 @@ const ZIKR_ITEMS = [
     transliteration: "Allahu Akbar",
     translation: "Allah is the Greatest.",
     virtues:
-      "Completing the tasbih after each prayer wipes away sins though they be like the foam of the sea.",
+      "Completing the tasbeeh after each prayer wipes away sins though they be like the foam of the sea.",
     reference: "Muslim",
     targetCount: 34,
   },
@@ -1045,7 +1045,7 @@ const ZIKR_ITEMS = [
 const DUA_CATEGORY_LABELS = {
   morning_evening: "Morning & Evening",
   sleep: "Sleep & Waking",
-  prayer: "Prayer & Mosque",
+  prayer: "Salah & Masjid",
   forgiveness: "Forgiveness & Gratitude",
   distress: "Distress & Hardship",
   protection: "Protection & Refuge",
@@ -1207,6 +1207,7 @@ const BASE_CATEGORY_OVERRIDE = {
   "sunnah-afiyah": "protection",
   "sunnah-dhikr-shukr": "prayer",
   "sunnah-thabbit-qalbi": "protection",
+  "sunnah-laylat-qadr-afw": "forgiveness",
   "daily-before-eating": "food",
   "daily-after-eating": "food",
   "daily-leaving-home": "home",
@@ -1324,6 +1325,17 @@ const DUA_ITEMS = [
     transliteration: "Ya muqallibal-qulub thabbit qalbi 'ala dinik",
     translation: "O Turner of the hearts, make my heart firm upon Your religion.",
     reference: "Tirmidhi",
+  },
+  {
+    id: "sunnah-laylat-qadr-afw",
+    categoryId: "sunnah",
+    title: "Laylat al-Qadr forgiveness dua",
+    arabic: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
+    transliteration: "Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni",
+    translation: "O Allah, You are Forgiving, and You love forgiveness, so forgive me.",
+    virtues:
+      "Aisha asked the Prophet ﷺ what to say if she knew which night was Laylat al-Qadr; he taught her this dua.",
+    reference: "Sunan al-Tirmidhi 3513",
   },
 
   // ── Daily ────────────────────────────────────────────────
@@ -1708,7 +1720,7 @@ function renderDuas(items, audioById) {
     .join("\n");
   return `import type { DuaCategoryId, DuaItem } from "../types/index";
 
-export const DUA_CONTENT_VERSION = 5;
+export const DUA_CONTENT_VERSION = 6;
 
 export const DUA_CATEGORY_LABELS: Record<DuaCategoryId, string> = {
 ${labels}

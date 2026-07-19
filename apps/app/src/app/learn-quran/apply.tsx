@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -63,31 +63,20 @@ export default function LearnQuranApplyScreen() {
         <Stagger>
           <JannahCallout tone="info">{t("learnQuran.applyIntro")}</JannahCallout>
 
-          <LearnReadingChrome surface="learn_quran">
-            <Card padding="three">
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {challenge.verseLabel}
-              </ThemedText>
-              <ThemedText type="small" style={styles.verse}>
-                "{challenge.verseExcerpt}"
-              </ThemedText>
-            </Card>
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("learnQuran.todayChallenge")}
-                icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
-              />
-              <ThemedText type="title" style={styles.challenge}>
-                {challenge.challenge}
-              </ThemedText>
-              <View style={[styles.habitBox, { backgroundColor: tokens.accentSoft }]}>
-                <ThemedText type="caption" style={{ color: colors.accent }}>
-                  {t("learnQuran.habitLabel")}
-                </ThemedText>
-                <ThemedText type="small">{challenge.habit}</ThemedText>
-              </View>
-            </Card>
+          <LearnReadingChrome
+            surface="learn_quran"
+            listenText={[challenge.verseExcerpt, challenge.challenge, challenge.habit].join("\n\n")}
+          >
+            <ApplyChallengeCards
+              verseLabel={challenge.verseLabel}
+              verseExcerpt={challenge.verseExcerpt}
+              challenge={challenge.challenge}
+              habit={challenge.habit}
+              habitLabel={t("learnQuran.habitLabel")}
+              challengeTitle={t("learnQuran.todayChallenge")}
+              accent={colors.accent}
+              accentSoft={tokens.accentSoft}
+            />
 
             <Button
               label={
@@ -106,14 +95,107 @@ export default function LearnQuranApplyScreen() {
   );
 }
 
+function ApplyChallengeCards({
+  verseLabel,
+  verseExcerpt,
+  challenge,
+  habit,
+  habitLabel,
+  challengeTitle,
+  accent,
+  accentSoft,
+}: {
+  verseLabel: string;
+  verseExcerpt: string;
+  challenge: string;
+  habit: string;
+  habitLabel: string;
+  challengeTitle: string;
+  accent: string;
+  accentSoft: string;
+}) {
+  const { sizes } = useReadingTypography();
+  const translation = sizes.translation;
+  const bodyLineHeight = Math.round(translation * 1.5);
+  const challengeLineHeight = Math.round(translation * 1.45);
+
+  return (
+    <>
+      <Card padding="three" style={styles.card}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {verseLabel}
+        </ThemedText>
+        <ThemedText
+          type="default"
+          style={[
+            styles.verse,
+            {
+              fontSize: translation,
+              lineHeight: bodyLineHeight,
+            },
+          ]}
+        >
+          "{verseExcerpt}"
+        </ThemedText>
+      </Card>
+
+      <Card padding="three" style={styles.card}>
+        <SectionHeader
+          title={challengeTitle}
+          icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
+        />
+        <ThemedText
+          type="default"
+          style={[
+            styles.challenge,
+            {
+              fontSize: translation,
+              lineHeight: challengeLineHeight,
+            },
+          ]}
+        >
+          {challenge}
+        </ThemedText>
+        <View style={[styles.habitBox, { backgroundColor: accentSoft }]}>
+          <ThemedText type="caption" style={{ color: accent }}>
+            {habitLabel}
+          </ThemedText>
+          <ThemedText
+            type="small"
+            style={{
+              fontSize: Math.max(13, translation - 1),
+              lineHeight: Math.round(Math.max(13, translation - 1) * 1.45),
+            }}
+          >
+            {habit}
+          </ThemedText>
+        </View>
+      </Card>
+    </>
+  );
+}
+
 const styles = StyleSheet.create({
-  verse: { lineHeight: 24, marginTop: Spacing.two, fontStyle: "italic" },
-  challenge: { marginTop: Spacing.three, lineHeight: 28 },
+  card: {
+    gap: Spacing.two,
+    overflow: "visible",
+  },
+  verse: {
+    fontStyle: "italic",
+    flexShrink: 1,
+    alignSelf: "stretch",
+  },
+  challenge: {
+    fontWeight: "700",
+    flexShrink: 1,
+    alignSelf: "stretch",
+  },
   habitBox: {
-    marginTop: Spacing.three,
+    marginTop: Spacing.one,
     padding: Spacing.three,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     gap: Spacing.one,
+    overflow: "visible",
   },
 });

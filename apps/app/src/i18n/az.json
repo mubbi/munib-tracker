@@ -77,10 +77,11 @@
       "intro": "Bu bələdçinin dərslərindən qısa təkrar. Tələsməyin — məqsəd öyrənməkdir.",
       "hint": "Öyrəndiklərinizi təkrarlayın",
       "empty": "Bu bələdçinin sualları hələ yüklənir. Bir neçə dərs açın, sonra yenidən cəhd edin."
-    }
+    },
+    "pause": "Pause"
   },
   "search": {
-    "placeholder": "Qur'an, hədis, dua, adhkar axtar…",
+    "placeholder": "Qur'an, hədis, dua, Öyrən… axtar",
     "clear": "Axtarışı təmizlə",
     "all": "Hamısı",
     "resultsCount": "{{count}} nəticə",
@@ -109,16 +110,7 @@
       "zikr": "Adhkar",
       "name": "99 ad",
       "durood": "Salawat",
-      "jannah": "Cənnətə səyahət",
-      "jahannam": "Cəhənnəmi anlamaq",
-      "lastDay": "Qiyamət günü",
-      "salahGuide": "Namaz öyrən",
-      "battles": "İslamda döyüşlər",
-      "taharah": "Təharet öyrən",
-      "prophets": "Peyğəmbərləri öyrən",
-      "aqeedah": "Aqidə öyrən",
-      "learnDua": "Dua öyrən",
-      "learnQuran": "Qur'an öyrən"
+      "learn": "Öyrən"
     },
     "stt": {
       "dictate": "Səslə axtarın",
@@ -465,6 +457,24 @@
       "badge": "Cümə",
       "reminderTitle": "Cümə mübarək",
       "reminderBody": "Jumu'ah qılın və cümə sünnələrini tamamlayın — Ghusl, Surah al-Kahf, salawat və Dua."
+    },
+    "khatmStat": "Khatm",
+    "khatmCard": {
+      "badge": "Khatm",
+      "reminderTitle": "Bu günkü Qur'an payı",
+      "catchUpTitle": "Khatm telafisi",
+      "reminderBody": "Bu günkü khatm hədəfinə {{done}}/{{total}} ayah qeyd edin.",
+      "reminderBodyPages": "Bu günkü khatm hədəfinə {{done}}/{{total}} səhifə qeyd edin.",
+      "progress": "{{done}}/{{total}}",
+      "allDone": "Bu günkü khatm oxuma yolundadır — davam edin.",
+      "openPlan": "Khatm planını aç",
+      "a11y": "Khatm planı {{total}} günün {{day}}-i, {{percent}} faiz tamamlanıb, bu gün {{target}}-dən {{done}}"
+    },
+    "acceptanceHourCard": {
+      "badge": "Dua saatı",
+      "reminderTitle": "Qəbul saatı",
+      "reminderBody": "Cümə günü duanın rədd edilmədiyi saat — xüsusilə Asr-dan sonra səmimi dua, istighfar və salawat ilə axtarın.",
+      "openGuide": "Qəbul saatını aç"
     }
   },
   "tracker": {
@@ -496,7 +506,8 @@
       "witr": "Vitr",
       "adhkar": "dhkr",
       "qaza": "Qz",
-      "a11y": "{{label}}: {{percent}}% complete, {{completed}} -içində {{total}}"
+      "a11y": "{{label}}: {{percent}}% complete, {{completed}} -içində {{total}}",
+      "khatm": "Khatm"
     },
     "allDone": "MashaAllah — hər şey hazırdır",
     "freshStart": " fresh strt",
@@ -547,6 +558,14 @@
       "jumpTitle": "Jumu'ah siyahısı",
       "jumpHint": "Cümə sünnələri aşağıda",
       "jumpA11y": "Bu səhifədəki Jumu'ah siyahısına keç"
+    },
+    "khatm": {
+      "title": "Khatm planı",
+      "progress": "Bu gün {{done}}/{{total}}",
+      "hint": "Bu günkü hədəfə {{count}} ayah — qeyd etmək üçün toxunun",
+      "hintPages": "Bu günkü hədəfə {{count}} səhifə — qeyd etmək üçün toxunun",
+      "completeHint": "Bu günkü pay tamamlandı — planınıza baxmaq üçün toxunun",
+      "a11y": "Khatm planı {{total}} günün {{day}}-i, bu günkü hədəfə {{target}}-dən {{done}}"
     }
   },
   "update": {
@@ -907,7 +926,10 @@
       "dailyContentTitle": "Bu günün əksi",
       "dailyContentBody": "Yeni ayə, hadith və Allah adı əsas ekranınızda hazırdır.",
       "fridayTitle": "Jumu'h Mubrk",
-      "fridayBody": "Cümə günüdür - salavat göndər və Kəhf surəsini oxu."
+      "fridayBody": "Cümə günüdür - salavat göndər və Kəhf surəsini oxu.",
+      "acceptanceHourTitle": "Qəbul saatı",
+      "acceptanceHourBodyAsr": "Asr başladı — Maghrib-ə qədər dua, istighfar və salawat ilə qəbul saatını axtarın.",
+      "acceptanceHourBodyMid": "Maghrib-dən əvvəl hələ vaxt var — bu dəqiqələri səmimi dua ilə doldurun."
     },
     "items": {
       "prayer": {
@@ -956,7 +978,7 @@
       },
       "friday": {
         "title": "Cümə xatırlatma",
-        "subtitle": "Jumu'h və Surh l-Khf"
+        "subtitle": "Jumu'ah, Surah Al-Kahf və qəbul saatı"
       }
     },
     "prayerAlertsObligatory": "Məcburi Salah xəbərdarlıqları",
@@ -1083,7 +1105,11 @@
     "listenVoiceHint": "Dinləməyə başlamaq üçün səs seçin",
     "listenVoiceDefault": "Sistem standartı",
     "listenVoiceDefaultHint": "Bu dil üçün cihazın üstünlük verdiyi səsi istifadə edin",
-    "listenVoiceEmpty": "Bu dil üçün quraşdırılmış səs yoxdur. Sistem ayarlarından birini əlavə edin."
+    "listenVoiceEmpty": "Bu dil üçün quraşdırılmış səs yoxdur. Sistem ayarlarından birini əlavə edin.",
+    "showTransliteration": "Transliterasiyanı göstər",
+    "hideTransliteration": "Transliterasiyanı gizlət",
+    "showTranslation": "Tərcüməni göstər",
+    "hideTranslation": "Tərcüməni gizlət"
   },
   "share": {
     "dialogTitle": "Paylaş",
@@ -1129,7 +1155,8 @@
     "searchPlaceholder": "dua-ləri başlığa, mövzuya və ya mətnə görə axtarın...",
     "searchInCategory": "Bu kateqoriyada axtar...",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "Axtarışınıza uyğun heç bir dua tapılmadı."
+    "noResults": "Axtarışınıza uyğun heç bir dua tapılmadı.",
+    "favSubtitle": "Saxlanmış dualarınızı sıralayın və ya silin"
   },
   "duaCat": {
     "morning_evening": "səhər & xşm",
@@ -1385,7 +1412,13 @@
       "stopDictate": "Dinləməni dayandır",
       "bestMatch": "Ən yaxşı uyğunluq",
       "otherMatches": "Digər uyğunluqlar"
-    }
+    },
+    "searchPlaceholderArabic": "Ərəb mətni və ya ٢:٢٥٥ kimi istinad axtarın…",
+    "goToPagePlaceholder": "Page 1–{{max}}",
+    "goToPageA11y": "Go to page number",
+    "goToPageAction": "Go",
+    "goToPageHint": "Enter a page from 1 to {{max}}",
+    "goToPageInvalid": "Enter a page between 1 and {{max}}"
   },
   "hadith": {
     "eyebrow": "Peyğəmbərlik ənənəsi",
@@ -1608,7 +1641,9 @@
       },
       "footer": "Bu proqram bütün istifadəçilər üçün buraxılmış Witr-ni qaza-ə hesablayır. Hanafi görünüşünə əməl etsəniz, tələb olunduğu kimi davranın; əks halda tövsiyə olunan makiyaj kimi izləyin. Vəziyyətiniz üçün bir alimlə məsləhətləşin."
     },
-    "history": "Hdirtvə yy"
+    "history": "Hdirtvə yy",
+    "rowDone": "{{completed}} Qaza edilib",
+    "rowDoneWithDaily": "{{completed}} Qaza edilib · bu gün {{done}}/{{target}}"
   },
   "qazaCalc": {
     "eyebrow": "Qz",
@@ -1854,7 +1889,8 @@
     "confirmResetTitle": "sıfırl counter?",
     "confirmResetMessage": "siziçində count -içində {{count}} will be cledird.",
     "confirmStartAgainTitle": "Strt giçində?",
-    "confirmStartAgainMessage": "siziçində tmmlvəı count will be cledird so siz cn begiçində  new round."
+    "confirmStartAgainMessage": "siziçində tmmlvəı count will be cledird so siz cn begiçində  new round.",
+    "dockLabel": "Say"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} yalnız {{min}} dəqiqəlik məsafədədir",
@@ -2502,7 +2538,15 @@
       "ahead": "hed",
       "onTrack": "üzərində trck",
       "behind": "Behiçindəd"
-    }
+    },
+    "logConfirmTitle": "Oxuma tərəqqisini əlavə edək?",
+    "logConfirmMsg": "Xətm cəminə {{count}} ayə əlavə edilsin?",
+    "logConfirmMsgPages": "Xətm cəminə {{count}} səhifə əlavə edilsin?",
+    "logConfirmAction": "Əlavə et",
+    "correctTotalConfirmTitle": "Oxunan cəm yenilənsin?",
+    "correctTotalConfirmMsg": "Xətm cəmi {{count}} ayə olsun?",
+    "correctTotalConfirmMsgPages": "Xətm cəmi {{count}} səhifə olsun?",
+    "correctTotalConfirmAction": "Cəmi yenilə"
   },
   "hifz": {
     "short": "Hifz",
@@ -2706,7 +2750,8 @@
       "knowledge": "gündəlik knowledge crd",
       "quickActions": "Quick ctiüzərindəs",
       "qaza": "Qz summry",
-      "schedule": "bu gün's schedule"
+      "schedule": "bu gün's schedule",
+      "khatm": "Khatm planı"
     }
   },
   "schedule": {
@@ -2806,7 +2851,12 @@
       "listenHint": "Oxumaq üçün qeydə toxunun. Dinləyərkən aşağıdakı sözləri izləyin.",
       "play": "Ply {{name}} dhn",
       "pause": "Puse {{name}} dhn",
-      "sourceNote": "Açıq Kiwifu/azhan-mp3 kolleksiyasından yazılar (Məkkə, Mədinə, Mişari Alafasi və s.)."
+      "sourceNote": "Açıq Kiwifu/azhan-mp3 kolleksiyasından yazılar (Məkkə, Mədinə, Mişari Alafasi və s.).",
+      "learnPhrasesHint": "Sözləri öyrənin — hər cümləni aydın, bir-bir eşidin.",
+      "playPhrases": "Bütün ifadələri oxut",
+      "pausePhrases": "İfadələri dayandır",
+      "playPhrase": "{{n}}. ifadini oxut: {{title}}",
+      "followAlongNote": "Oxuyarkən altdakı sözləri vurğulayır"
     }
   },
   "battles": {
@@ -3428,7 +3478,8 @@
       "obligatory": "Essentil",
       "highly-recommended": "Xüsusilə tövsiyə olunur",
       "recommended": "Tövsiyə olunur"
-    }
+    },
+    "playAyahA11y": "{{ref}} tilavətini oxut"
   },
   "library": {
     "eyebrow": "Librry",
@@ -3468,7 +3519,7 @@
     "today": "bu gün",
     "inDays": "içində {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Tarixlər yerinizdəki hilal görünürlüyünə (və ya istifadə olunan bölgələrdə rəsmi Ümm əl-Qura təqviminə) uyğundur və yerli orqanın elanından bir gün fərqlənə bilər.",
+    "disclaimer": "Tarixlər hesablanmış təxminlərdir - faktiki gün yerli ayın görünməsindən asılıdır.",
     "names": {
       "newYear": "İslam Yeni ili",
       "ashura": "Aşura günü",
@@ -3941,7 +3992,7 @@
       "label": "Qoşmalar (isteğe bağlı)",
       "add": "Fayl əlavə edin",
       "remove": "Qoşmanı çıxarın",
-      "hint": "Ən çox 5 fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürdə × toxunun.",
+      "hint": "5-ə qədər fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürə uzun basın.",
       "signInRequired": "Şəxsi faylları adhkarınıza əlavə etmək üçün daxil olun.",
       "permissionDenied": "Faylları əlavə etmək üçün icazə tələb olunur.",
       "permissionTitle": "Girişə icazə verin",
@@ -4117,14 +4168,34 @@
   "hajj": {
     "eyebrow": "Pilgrimge",
     "title": "Hjj & Umrh",
-    "subtitle": " step-by-step yoxlm siyhısı üçün  rites -içində pilgrimge.",
+    "subtitle": "Mərasimləri Qur'an və Sunnah-dan öyrənin, sonra Hajj və Umrah-ı ayrıca izləyin.",
     "progress": "{{done}} -içində {{total}} rites",
     "reset": "sıfırl",
     "resetConfirmTitle": "sıfırl yoxlm siyhısı?",
     "resetConfirmMsg": "Bu, hər bir mərasimin işarəsini siləcək. Sizin irəliləyişiniz bərpa edilə bilməz.",
-    "umrahTag": "Umrh",
-    "hajjTag": "Hjj",
     "disclaimer": "Fiqh dərsliyi deyil, praktiki yoxlama siyahısı. Qərarlar və təfərrüatlar üçün ixtisaslı bələdçiyə əməl edin.",
+    "intro": "Öhdəlik, ihram, Umrah və Hajj günlərini etibarlı istinadlarla öyrənin. Siyahılardan yalnız mərasimlər üçün istifadə edin — hazırlıq məsləhətləri Öyrən mövzularında qalır.",
+    "section": {
+      "virtues": "Fəzilətlər",
+      "obligation": "Öhdəlik",
+      "types": "Hajj növləri",
+      "ihram": "Miqat və ihram",
+      "umrah": "Umrah",
+      "hajj": "Hajj günləri",
+      "rulings": "Qaydalar və ədəb",
+      "prep": "Praktik hazırlıq"
+    },
+    "checklistsTitle": "Mərasim siyahıları",
+    "hajjChecklistTitle": "Hajj siyahısı",
+    "hajjChecklistHint": "Həcc ibadətinin gündəlik mərasimləri",
+    "hajjChecklistSubtitle": "Tarwiyah-dan vida tawaf-ına qədər Hajj mərasimlərini izləyin.",
+    "hajjChecklistIntro": "Hər mərasimi tamamladıqca işarələyin. Bu yaddaş vasitəsidir — fatwa deyil.",
+    "umrahChecklistTitle": "Umrah siyahısı",
+    "umrahChecklistHint": "Ihram-dan halq və ya taqsir-ə",
+    "umrahChecklistSubtitle": "Umrah ardıcıllığını sıra ilə izləyin.",
+    "umrahChecklistIntro": "Hər Umrah mərasimini tamamladıqca işarələyin. Təfərrüat və dəlillər üçün Öyrən-i açın.",
+    "notFound": "Mövzu tapılmadı",
+    "continueInApp": "Munib-də davam et",
     "prepTag": "Hazırlıq"
   },
   "dailyHadith": {
@@ -4433,7 +4504,7 @@
     "sourceLabel": "siziçində source (ixtiyri)",
     "sourcePlaceholder": "Düzəlişinizi dəstəkləyən kitab, alim, URL və ya sitat.",
     "proofLabel": "Sübut ekran görüntüləri (isteğe bağlı)",
-    "proofHint": "Ən çox 3 şəkil. Silmək üçün miniatürdə × toxunun.",
+    "proofHint": "3 şəkilə qədər. Silmək üçün miniatürə uzun basın.",
     "addProof": "Foto əlavə edin",
     "removeProof": "çıxrt screenshot",
     "submit": "Hesabat təqdim edin",
@@ -4697,7 +4768,7 @@
     "eyebrow": "Təqvim",
     "title": "Tarix çeviricisi",
     "subtitle": "Hicri və Miladi təqvimlər arasında çevirin",
-    "intro": "İstənilən təqvimdə tarix daxil edin ki, digərindəki ekvivalentini görün — yerinizdəki hilal görünürlüyünə görə oflayn hesablanır.",
+    "intro": "Cədvəl Küveyt alqoritmi ilə oflayn hesablanmış digərində ekvivalentini görmək üçün hər iki təqvimə tarixi daxil edin.",
     "toHijri": "Qriqorian → hicri",
     "toGregorian": "Hicri → Qriqorian",
     "gregorianDateLabel": "Qriqorian tarixi",
@@ -4707,7 +4778,7 @@
     "year": "il",
     "useToday": "Bu gün istifadə edin",
     "invalidDate": "Etibarlı tarix daxil edin",
-    "disclaimer": "Tarixlər yerinizdəki hilal (hilāl) görünürlüyünə görə hesablanır və rəsmi ay görünməsi elanlarından bir gün fərqlənə bilər — dini tarixlər üçün həmişə yerli Masjid və ya orqanı izləyin.",
+    "disclaimer": "Bu arifmetik təxmindir (cədvəl \"Küveyt alqoritmi\") və yerli ayın görünməsi ilə bağlı elanlardan bir gün fərqlənə bilər - həmişə yerli məscidinizi və ya dini tarixlər üçün səlahiyyətli orqanı izləyin.",
     "directionTitle": "Dönüşüm istiqaməti",
     "resultFrom": "{{date}}-dən",
     "quickLinksTitle": "Əlaqədar",

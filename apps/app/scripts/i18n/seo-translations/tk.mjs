@@ -146,10 +146,10 @@ export default {
     description: "Saklanan hadisleriňiz, çalt gaýdyp gelmek üçin bir ýerde.",
   },
   "/hajj": {
-    title: "Haj we Umra Sanawy",
+    title: "Hajj we Umrah gollanmasy",
     description:
-      "Haj we umra dabarlary üçin ädimme-ädim sanaw. Her dabary yzygiderli gözleň we ýerine ýetireniňizde belläň — amaly gollanma, fiqh kitaby däl.",
-    keywords: ["haj", "umra", "haj gollanmasy", "haj dabarlary", "haj sanawy"],
+      "Hajj we Umrah-y Qur'an we ygtybarly Sunnah-dan öwren, soňra aýratyn Hajj we Umrah sanawlary bilen aýinlary yzarla — amaly bilim beriş jemlemesi, fiqh gollanmasy däl.",
+    keywords: ["hajj", "umrah", "haj gollanmasy", "haj aýinleri", "haj sanawy", "umrah sanawy"],
   },
   "/hayd": {
     title: "Hayz we Ybadat — Hayz Gollanmasy",
@@ -730,5 +730,17 @@ export default {
   "/zikr/favorites": {
     title: "Halaýan Zikrler",
     description: "Halaýan zikrleriňiz, çalt giriş üçin bir ýerde.",
+  },
+  "/hajj/checklist": {
+    title: "Hajj aýinleri sanawy",
+    description:
+      "Tarwiyah-dan hoşlaşyk tawaf-y çenli gündelik Hajj aýin yzarlaýjysy. Okuw gollanmasynyň ýanynda ýatlatma.",
+    keywords: ["haj sanawy", "haj aýinleri", "haj yzarlaýjysy"],
+  },
+  "/umrah/checklist": {
+    title: "Umrah aýinleri sanawy",
+    description:
+      "Tertiplenen Umrah sanawy — ihram, tawaf, sa'i we halq ýa-da taqsir. Hajj & Umrah Okuw gollanmasy bilen ulanyň.",
+    keywords: ["umrah sanawy", "umrah aýinleri", "kiçi haj"],
   },
 };
