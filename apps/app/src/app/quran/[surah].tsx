@@ -566,6 +566,20 @@ export default function SurahReaderScreen() {
     [audio, ayahs, reciterDir, setLastRead, surah, surahNumber, translation, ttsLang, ttsVoiceId],
   );
 
+  /** Per-ayah control: pause/resume when this ayah is already current; otherwise start it. */
+  const playOrToggleAyah = useCallback(
+    (index: number) => {
+      const ayah = ayahs[index];
+      if (!ayah) return;
+      if (audio.current?.id === `${surahNumber}:${ayah.ayah}`) {
+        audio.toggle();
+        return;
+      }
+      playFrom(index);
+    },
+    [audio, ayahs, playFrom, surahNumber],
+  );
+
   const handleBookmarkAyah = useCallback(
     (surahNum: number, ayahNum: number) => toggleBookmark(surahNum, ayahNum),
     [toggleBookmark],
@@ -831,6 +845,8 @@ export default function SurahReaderScreen() {
   // Row props that change independently of the ayah `data` array (audio, hifz,
   // bookmarks, translation text). Passed via `extraData` so `renderItem` stays
   // stable and FlatList only re-renders cells when these values actually change.
+  const audioIsPlaying = audio.isPlaying;
+
   const ayahRowExtras = useMemo(
     () => ({
       locale,
@@ -844,6 +860,7 @@ export default function SurahReaderScreen() {
       translationDir,
       secondaryDir,
       currentAudioId,
+      audioIsPlaying,
       focusHighlightAyah,
       bookmarkedSet,
       hifzMap,
@@ -857,6 +874,7 @@ export default function SurahReaderScreen() {
     }),
     [
       activeWordIndex,
+      audioIsPlaying,
       bookmarkedSet,
       currentAudioId,
       focusHighlightAyah,
@@ -914,10 +932,13 @@ export default function SurahReaderScreen() {
               ? extras.activeWordIndex
               : null
           }
-          isPlaying={extras.currentAudioId === `${surahNumber}:${ayah.ayah}`}
+          isActive={extras.currentAudioId === `${surahNumber}:${ayah.ayah}`}
+          isPlaying={
+            extras.currentAudioId === `${surahNumber}:${ayah.ayah}` && extras.audioIsPlaying
+          }
           highlighted={ayah.ayah === extras.focusHighlightAyah}
           isBookmarked={extras.bookmarkedSet.has(`${surahNumber}:${ayah.ayah}`)}
-          onPlayAtIndex={playFrom}
+          onPlayAtIndex={playOrToggleAyah}
           onBookmarkAyah={handleBookmarkAyah}
           onShareAyah={shareAyah}
           onOpenTafsir={openTafsirForAyah}
@@ -932,7 +953,7 @@ export default function SurahReaderScreen() {
       isGesturePending,
       isSharing,
       openTafsirForAyah,
-      playFrom,
+      playOrToggleAyah,
       shareAyah,
       surahNumber,
     ],
@@ -1238,6 +1259,9 @@ type AyahRowProps = {
   words?: QuranWord[];
   tajweedSegments?: TajweedSegment[];
   activeWordIndex?: number | null;
+  /** This ayah is the current audio track (playing or paused). */
+  isActive: boolean;
+  /** This ayah is actively playing (not user-paused). */
   isPlaying: boolean;
   highlighted?: boolean;
   isBookmarked: boolean;
@@ -1274,6 +1298,7 @@ function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): boolean {
     prev.words === next.words &&
     prev.tajweedSegments === next.tajweedSegments &&
     prev.activeWordIndex === next.activeWordIndex &&
+    prev.isActive === next.isActive &&
     prev.isPlaying === next.isPlaying &&
     prev.highlighted === next.highlighted &&
     prev.isBookmarked === next.isBookmarked &&
@@ -1304,6 +1329,7 @@ const AyahRow = memo(function AyahRow({
   words,
   tajweedSegments,
   activeWordIndex = null,
+  isActive,
   isPlaying,
   highlighted,
   isBookmarked,
@@ -1343,7 +1369,7 @@ const AyahRow = memo(function AyahRow({
 
   useEffect(() => {
     cancelAnimation(focusBorderOpacity);
-    if (isPlaying || !highlighted) {
+    if (isActive || !highlighted) {
       focusBorderOpacity.value = 0;
       return;
     }
@@ -1352,7 +1378,7 @@ const AyahRow = memo(function AyahRow({
       FOCUS_HIGHLIGHT_HOLD_MS,
       withTiming(0, { duration: FOCUS_HIGHLIGHT_FADE_MS }),
     );
-  }, [highlighted, isPlaying, focusBorderOpacity]);
+  }, [highlighted, isActive, focusBorderOpacity]);
 
   const focusBorderStyle = useAnimatedStyle(() =>
     focusBorderOpacity.value > 0 ? { opacity: focusBorderOpacity.value } : { opacity: 0 },
@@ -1381,7 +1407,7 @@ const AyahRow = memo(function AyahRow({
     <View style={styles.ayahRow}>
       <Card
         padding="four"
-        style={isPlaying ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
+        style={isActive ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
       >
         <View style={styles.ayahHeader}>
           <View style={styles.ayahIdentity}>
@@ -1390,7 +1416,7 @@ const AyahRow = memo(function AyahRow({
                 {ayah.ayah}
               </ThemedText>
             </View>
-            {highlighted && !isPlaying ? (
+            {highlighted && !isActive ? (
               <Pill
                 compact
                 label={t("quran.continueReading")}
@@ -1551,7 +1577,7 @@ const AyahRow = memo(function AyahRow({
           </ThemedText>
         ) : null}
       </Card>
-      {!isPlaying ? (
+      {!isActive ? (
         <Animated.View
           style={[
             styles.focusRing,

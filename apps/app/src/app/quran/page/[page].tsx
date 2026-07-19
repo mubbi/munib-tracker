@@ -314,7 +314,9 @@ export default function QuranPageReaderScreen() {
     ? bookmarkedSet.has(`${actionAyah.surah}:${actionAyah.ayah}`)
     : false;
   const actionPlaying =
-    actionAyah != null && audio.current?.id === `${actionAyah.surah}:${actionAyah.ayah}`;
+    actionAyah != null &&
+    audio.current?.id === `${actionAyah.surah}:${actionAyah.ayah}` &&
+    audio.isPlaying;
 
   const playingAyah = useMemo(() => {
     const id = audio.current?.id;
@@ -536,6 +538,10 @@ export default function QuranPageReaderScreen() {
         onClose={() => setActionAyah(null)}
         onPlay={() => {
           if (!actionAyah) return;
+          if (audio.current?.id === `${actionAyah.surah}:${actionAyah.ayah}`) {
+            audio.toggle();
+            return;
+          }
           const meta = getSurahByNumber(actionAyah.surah);
           const ayahs = getSurahAyahs(actionAyah.surah);
           const index = ayahs.findIndex((a) => a.ayah === actionAyah.ayah);

@@ -21,6 +21,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useQuranAyahRange } from "@/hooks/use-quran-ayah-range";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 import { useChevronForward } from "@/lib/rtl";
@@ -251,10 +252,43 @@ export function JannahBody({
   );
 }
 
+function QuranEvidenceItem({ refItem }: { refItem: JannahQuranRef }) {
+  const { colors, tokens } = useThemeTokens();
+  const range = useQuranAyahRange(refItem.surah, refItem.ayahFrom, refItem.ayahTo);
+
+  return (
+    <View
+      style={[
+        styles.quranQuote,
+        { borderLeftColor: colors.accent, backgroundColor: tokens.accentSoft },
+      ]}
+    >
+      <View style={styles.quranHeader}>
+        <View style={styles.quranRef}>
+          <ReferenceLine reference={refItem.label} />
+        </View>
+        <View style={styles.hadithMetaActions}>
+          <QuranAyahPlayButton
+            surah={refItem.surah}
+            ayahFrom={refItem.ayahFrom}
+            ayahTo={refItem.ayahTo}
+            compact
+          />
+          <QuranAyahBookmarkButton surah={refItem.surah} ayah={refItem.ayahFrom} />
+        </View>
+      </View>
+      <ReligiousTextStack
+        arabic={range?.arabic}
+        transliteration={range?.transliteration}
+        translation={refItem.excerpt}
+        compact
+      />
+    </View>
+  );
+}
+
 export function JannahQuranEvidence({ refs }: { refs: JannahQuranRef[] }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
 
   return (
     <Card padding="three">
@@ -264,43 +298,7 @@ export function JannahQuranEvidence({ refs }: { refs: JannahQuranRef[] }) {
       />
       <View style={styles.evidenceList}>
         {refs.map((ref) => (
-          <View
-            key={ref.label}
-            style={[
-              styles.quranQuote,
-              { borderLeftColor: colors.accent, backgroundColor: tokens.accentSoft },
-            ]}
-          >
-            <View style={styles.quranHeader}>
-              <View style={styles.quranRef}>
-                <ReferenceLine reference={ref.label} />
-              </View>
-              <View style={styles.hadithMetaActions}>
-                <QuranAyahPlayButton
-                  surah={ref.surah}
-                  ayahFrom={ref.ayahFrom}
-                  ayahTo={ref.ayahTo}
-                  compact
-                />
-                <QuranAyahBookmarkButton surah={ref.surah} ayah={ref.ayahFrom} />
-              </View>
-            </View>
-            {ref.excerpt ? (
-              <ThemedText
-                type="small"
-                style={[
-                  styles.quoteText,
-                  {
-                    color: colors.foreground,
-                    fontSize: sizes.translation,
-                    lineHeight: sizes.translation * 1.45,
-                  },
-                ]}
-              >
-                {ref.excerpt}
-              </ThemedText>
-            ) : null}
-          </View>
+          <QuranEvidenceItem key={ref.label} refItem={ref} />
         ))}
       </View>
     </Card>
