@@ -4,10 +4,10 @@ import SwiftUI
 @main
 struct MunibTrackerWidgetsBundle: WidgetBundle {
   var body: some Widget {
-    MunibPrayerWidgetsBundle()
-    MunibDevotionWidgetsBundle()
-    MunibDiscoveryWidgetsBundle()
-    MunibContentWidgetsBundle()
+    MunibPrayerWidgetsBundle().body
+    MunibDevotionWidgetsBundle().body
+    MunibDiscoveryWidgetsBundle().body
+    MunibContentWidgetsBundle().body
   }
 }
 

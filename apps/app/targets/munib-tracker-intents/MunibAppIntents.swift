@@ -184,6 +184,7 @@ struct MarkIshaIntent: AppIntent {
 }
 
 struct MunibShortcuts: AppShortcutsProvider {
+  // Apple limit: 10 App Shortcuts per app. OpenRamadan/Khatm/Qaza intents stay usable in Shortcuts.
   @AppShortcutsBuilder
   static var appShortcuts: [AppShortcut] {
     AppShortcut(
@@ -212,24 +213,6 @@ struct MunibShortcuts: AppShortcutsProvider {
       phrases: ["Open Tasbeeh in \(.applicationName)"],
       shortTitle: "Tasbeeh",
       systemImageName: "hand.tap"
-    )
-    AppShortcut(
-      intent: OpenRamadanIntent(),
-      phrases: ["Open Ramadan in \(.applicationName)"],
-      shortTitle: "Ramadan",
-      systemImageName: "moon.stars"
-    )
-    AppShortcut(
-      intent: OpenKhatmIntent(),
-      phrases: ["Open Khatm plan in \(.applicationName)"],
-      shortTitle: "Khatm plan",
-      systemImageName: "book.closed"
-    )
-    AppShortcut(
-      intent: OpenQazaIntent(),
-      phrases: ["Open Qaza in \(.applicationName)"],
-      shortTitle: "Qaza",
-      systemImageName: "clock.arrow.circlepath"
     )
     AppShortcut(
       intent: OpenQuranIntent(),

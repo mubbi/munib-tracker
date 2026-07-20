@@ -22,14 +22,19 @@ struct WatchTasbeehView: View {
   var body: some View {
     ScrollView {
       VStack(spacing: 10) {
-        Picker("Target", selection: $target) {
+        HStack(spacing: 4) {
           ForEach(watchTasbeehModes, id: \.target) { mode in
-            Text(mode.label).tag(mode.target)
+            Button {
+              target = mode.target
+              crownCount = 0
+            } label: {
+              Text(mode.label)
+                .font(.caption2.weight(target == mode.target ? .semibold : .regular))
+                .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(target == mode.target ? Color.accentColor : .secondary)
           }
-        }
-        .pickerStyle(.segmented)
-        .onChange(of: target) { _, _ in
-          crownCount = 0
         }
 
         counterDial
