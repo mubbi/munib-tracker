@@ -157,13 +157,15 @@ class MunibExternalCommandsModule : Module() {
 
     // Phase 4: Android ongoing "next Salah" notification (Live Activity counterpart).
     AsyncFunction("updateOngoingNotification") { json: String ->
-      val context = appContext.reactContext ?: return@AsyncFunction
+      val context = appContext.reactContext ?: return@AsyncFunction null
       OngoingSalahNotification.update(context, json)
+      null
     }
 
     AsyncFunction("cancelOngoingNotification") {
-      val context = appContext.reactContext ?: return@AsyncFunction
+      val context = appContext.reactContext ?: return@AsyncFunction null
       OngoingSalahNotification.cancel(context)
+      null
     }
 
     AsyncFunction("activateWatchSession") {
