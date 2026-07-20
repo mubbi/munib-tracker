@@ -16,6 +16,7 @@ import {
   type ListRenderItemInfo,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
+  ScrollView,
   StyleSheet,
   View,
   type ViewToken,
@@ -50,10 +51,12 @@ import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Durations } from "@/constants/motion";
 import { quranComRecitationId } from "@/constants/tajweed";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { usePlaybackSummaryLabel } from "@/hooks/use-playback-summary-label";
 import {
   useAyahWordSegments,
@@ -62,6 +65,7 @@ import {
   useSurahWords,
   useTafsirSurah,
 } from "@/hooks/use-quran";
+import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -111,6 +115,9 @@ const FOCUS_HIGHLIGHT_FADE_MS = Durations.slow;
  */
 const LAST_READ_FLUSH_MS = 600;
 
+/** Extra width so the ayah list and filters pane can sit side by side. */
+const LIST_DETAIL_MAX_WIDTH = 1280;
+
 const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
 
 const LAYOUT_OPTIONS: Array<{ id: QuranReaderLayout; labelKey: string }> = [
@@ -142,8 +149,10 @@ export default function SurahReaderScreen() {
   // Optional deep-link target (e.g. from universal search) — scroll to & mark it.
   const focusAyah = params.ayah ? Number(params.ayah) : undefined;
 
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
+  const { isListDetail } = useLargeScreenLayout();
+  const fullscreen = useReadingFullscreen({ exitOnBlur: true });
   const prefs = useQuranPrefs();
   const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
   const defaultEditionId = resolveQuranEditionId({ translationLocale, locale: appLocale });
@@ -673,134 +682,232 @@ export default function SurahReaderScreen() {
     [openPageReader, updatePrefs],
   );
 
-  // Header card (reciter/translation controls + bismillah) rides above the
-  // virtualized list. Plain View — Stagger entrance would re-run on every header
-  // rebuild (e.g. when a remote translation resolves) and stall the list.
+  const scrollToTop = useCallback(() => {
+    listRef.current?.scrollToOffset({ offset: 0, animated: true });
+  }, []);
+
+  const readerChrome = isListDetail ? (
+    <View style={styles.readerChromeRow}>
+      {toolbarVisible ? (
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={t("quran.backToTop")}
+          onPress={scrollToTop}
+          scaleTo={0.97}
+          style={[styles.readerChromeBtn, { backgroundColor: tokens.accentSoft }]}
+        >
+          <SymbolView
+            name={{ ios: "arrow.up", android: "arrow_upward", web: "arrow_upward" }}
+            size={16}
+            tintColor={colors.accent}
+          />
+          <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
+            {t("quran.backToTop")}
+          </ThemedText>
+        </PressableScale>
+      ) : null}
+      {fullscreen.supported ? (
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={
+            fullscreen.active ? t("quran.exitFullscreen") : t("quran.enterFullscreen")
+          }
+          accessibilityState={{ selected: fullscreen.active }}
+          onPress={() => void fullscreen.toggle()}
+          scaleTo={0.97}
+          style={[
+            styles.readerChromeBtn,
+            {
+              backgroundColor: fullscreen.active ? tokens.accentSoft : colors.muted,
+              borderColor: fullscreen.active ? colors.accent : "transparent",
+              borderWidth: 1,
+            },
+          ]}
+        >
+          <SymbolView
+            name={
+              fullscreen.active
+                ? {
+                    ios: "arrow.down.right.and.arrow.up.left",
+                    android: "fullscreen_exit",
+                    web: "fullscreen_exit",
+                  }
+                : {
+                    ios: "arrow.up.left.and.arrow.down.right",
+                    android: "fullscreen",
+                    web: "fullscreen",
+                  }
+            }
+            size={16}
+            tintColor={fullscreen.active ? colors.accent : colors.mutedForeground}
+          />
+          <ThemedText
+            type="caption"
+            style={{
+              color: fullscreen.active ? colors.accentText : colors.mutedForeground,
+              fontWeight: "600",
+            }}
+          >
+            {fullscreen.active ? t("quran.exitFullscreen") : t("quran.enterFullscreen")}
+          </ThemedText>
+        </PressableScale>
+      ) : null}
+    </View>
+  ) : null;
+
+  // Reading controls (layout / reciter / translation / toggles). On narrow screens
+  // these ride in the list header; on list–detail they move to a sticky side pane.
+  const readerFilters = useMemo(() => {
+    return (
+      <Card padding="three">
+        <View style={styles.controlRow}>
+          <ControlLabel icon={CONTROL_ICONS.layout} label={t("quran.readerLayout")} />
+          <SelectTrigger
+            label={t("quran.layoutAyah")}
+            accessibilityLabel={t("quran.readerLayout")}
+            onPress={() => setLayoutPickerOpen(true)}
+          />
+        </View>
+
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ControlLabel icon={CONTROL_ICONS.reciter} label={t("quran.reciter")} />
+          <SelectTrigger
+            label={reciter.name}
+            accessibilityLabel={t("quran.reciter")}
+            onPress={() => setReciterPickerOpen(true)}
+          />
+        </View>
+
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ControlLabel icon={CONTROL_ICONS.translation} label={t("quran.translation")} />
+          <SelectTrigger
+            label={selectedEdition.name}
+            accessibilityLabel={t("quran.translation")}
+            onPress={() => setTranslationPickerOpen(true)}
+          />
+        </View>
+
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ControlLabel
+            icon={CONTROL_ICONS.secondTranslation}
+            label={t("quran.secondTranslation")}
+          />
+          <SelectTrigger
+            label={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+            accessibilityLabel={t("quran.secondTranslation")}
+            onPress={() => setSecondaryPickerOpen(true)}
+          />
+        </View>
+
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ControlLabel icon={CONTROL_ICONS.tafsir} label={t("quran.tafsir")} />
+          <SelectTrigger
+            label={tafsirEdition?.name ?? t("quran.tafsirNone")}
+            accessibilityLabel={t("quran.tafsir")}
+            onPress={() => setTafsirPickerOpen(true)}
+          />
+        </View>
+        {translationLoading ? (
+          <View style={styles.loadingRow}>
+            <ActivityIndicator size="small" color={colors.accent} />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("quran.loadingTranslation")}
+            </ThemedText>
+          </View>
+        ) : usingFallback ? (
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
+            {t("quran.offlineTranslation")}
+          </ThemedText>
+        ) : null}
+
+        <PrefToggle
+          icon={CONTROL_ICONS.showTransliteration}
+          label={t("quran.showTransliteration")}
+          enabled={prefs.showTransliteration}
+          onToggle={() => updatePrefs({ showTransliteration: !prefs.showTransliteration })}
+        />
+        <PrefToggle
+          icon={CONTROL_ICONS.showTranslation}
+          label={t("quran.showTranslation")}
+          enabled={prefs.showTranslation}
+          onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+        />
+        <PrefToggle
+          icon={CONTROL_ICONS.wordByWord}
+          label={t("quran.showWordByWord")}
+          enabled={showWordByWord}
+          onToggle={() => updatePrefs({ showWordByWord: !showWordByWord })}
+        />
+        <PrefToggle
+          icon={CONTROL_ICONS.tajweed}
+          label={t("quran.showTajweed")}
+          enabled={showTajweed}
+          onToggle={() => updatePrefs({ showTajweed: !showTajweed })}
+        />
+        {studyExtrasLoading ? (
+          <View style={styles.loadingRow}>
+            <ActivityIndicator size="small" color={colors.accent} />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {showWordByWord && showTajweed
+                ? `${t("quran.wordByWord.loading")} / ${t("quran.tajweed.loading")}`
+                : showTajweed
+                  ? t("quran.tajweed.loading")
+                  : t("quran.wordByWord.loading")}
+            </ThemedText>
+          </View>
+        ) : null}
+
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ControlLabel icon={CONTROL_ICONS.playback} label={t("quran.playback.title")} />
+          <SelectTrigger
+            label={playbackSummary.label}
+            accessibilityLabel={t("quran.playback.open")}
+            active={playbackSummary.active}
+            onPress={() => setPlaybackSheetOpen(true)}
+          />
+        </View>
+
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
+          <View style={styles.controlValue}>
+            <ReadingFontControls surface="quran" />
+          </View>
+        </View>
+
+        <PlaySurahButton onPress={() => playFrom(0)} />
+      </Card>
+    );
+  }, [
+    colors.accent,
+    playFrom,
+    prefs.showTransliteration,
+    prefs.showTranslation,
+    showWordByWord,
+    showTajweed,
+    studyExtrasLoading,
+    reciter.name,
+    secondaryEdition?.name,
+    selectedEdition.name,
+    t,
+    tafsirEdition?.name,
+    translationLoading,
+    updatePrefs,
+    usingFallback,
+    playbackSummary.active,
+    playbackSummary.label,
+  ]);
+
+  // Bismillah (+ tajweed legend on narrow) rides above the ayah list. Filters and
+  // the tajweed legend move to the side pane on list–detail.
   const listHeader = useMemo(() => {
     if (!surah) return null;
     return (
-      <View style={styles.listHeader}>
-        <View onLayout={onHeaderCardLayout}>
-          <Card padding="three">
-            <View style={styles.controlRow}>
-              <ControlLabel icon={CONTROL_ICONS.layout} label={t("quran.readerLayout")} />
-              <SelectTrigger
-                label={t("quran.layoutAyah")}
-                accessibilityLabel={t("quran.readerLayout")}
-                onPress={() => setLayoutPickerOpen(true)}
-              />
-            </View>
+      <View style={styles.listHeader} onLayout={onHeaderCardLayout}>
+        {!isListDetail ? readerFilters : null}
 
-            <View style={[styles.controlRow, styles.translationRow]}>
-              <ControlLabel icon={CONTROL_ICONS.reciter} label={t("quran.reciter")} />
-              <SelectTrigger
-                label={reciter.name}
-                accessibilityLabel={t("quran.reciter")}
-                onPress={() => setReciterPickerOpen(true)}
-              />
-            </View>
-
-            <View style={[styles.controlRow, styles.translationRow]}>
-              <ControlLabel icon={CONTROL_ICONS.translation} label={t("quran.translation")} />
-              <SelectTrigger
-                label={selectedEdition.name}
-                accessibilityLabel={t("quran.translation")}
-                onPress={() => setTranslationPickerOpen(true)}
-              />
-            </View>
-
-            <View style={[styles.controlRow, styles.translationRow]}>
-              <ControlLabel
-                icon={CONTROL_ICONS.secondTranslation}
-                label={t("quran.secondTranslation")}
-              />
-              <SelectTrigger
-                label={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
-                accessibilityLabel={t("quran.secondTranslation")}
-                onPress={() => setSecondaryPickerOpen(true)}
-              />
-            </View>
-
-            <View style={[styles.controlRow, styles.translationRow]}>
-              <ControlLabel icon={CONTROL_ICONS.tafsir} label={t("quran.tafsir")} />
-              <SelectTrigger
-                label={tafsirEdition?.name ?? t("quran.tafsirNone")}
-                accessibilityLabel={t("quran.tafsir")}
-                onPress={() => setTafsirPickerOpen(true)}
-              />
-            </View>
-            {translationLoading ? (
-              <View style={styles.loadingRow}>
-                <ActivityIndicator size="small" color={colors.accent} />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("quran.loadingTranslation")}
-                </ThemedText>
-              </View>
-            ) : usingFallback ? (
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
-                {t("quran.offlineTranslation")}
-              </ThemedText>
-            ) : null}
-
-            <PrefToggle
-              icon={CONTROL_ICONS.showTransliteration}
-              label={t("quran.showTransliteration")}
-              enabled={prefs.showTransliteration}
-              onToggle={() => updatePrefs({ showTransliteration: !prefs.showTransliteration })}
-            />
-            <PrefToggle
-              icon={CONTROL_ICONS.showTranslation}
-              label={t("quran.showTranslation")}
-              enabled={prefs.showTranslation}
-              onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
-            />
-            <PrefToggle
-              icon={CONTROL_ICONS.wordByWord}
-              label={t("quran.showWordByWord")}
-              enabled={showWordByWord}
-              onToggle={() => updatePrefs({ showWordByWord: !showWordByWord })}
-            />
-            <PrefToggle
-              icon={CONTROL_ICONS.tajweed}
-              label={t("quran.showTajweed")}
-              enabled={showTajweed}
-              onToggle={() => updatePrefs({ showTajweed: !showTajweed })}
-            />
-            {studyExtrasLoading ? (
-              <View style={styles.loadingRow}>
-                <ActivityIndicator size="small" color={colors.accent} />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {showWordByWord && showTajweed
-                    ? `${t("quran.wordByWord.loading")} / ${t("quran.tajweed.loading")}`
-                    : showTajweed
-                      ? t("quran.tajweed.loading")
-                      : t("quran.wordByWord.loading")}
-                </ThemedText>
-              </View>
-            ) : null}
-
-            <View style={[styles.controlRow, styles.translationRow]}>
-              <ControlLabel icon={CONTROL_ICONS.playback} label={t("quran.playback.title")} />
-              <SelectTrigger
-                label={playbackSummary.label}
-                accessibilityLabel={t("quran.playback.open")}
-                active={playbackSummary.active}
-                onPress={() => setPlaybackSheetOpen(true)}
-              />
-            </View>
-
-            <View style={[styles.controlRow, styles.translationRow]}>
-              <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
-              <View style={styles.controlValue}>
-                <ReadingFontControls surface="quran" />
-              </View>
-            </View>
-
-            <PlaySurahButton onPress={() => playFrom(0)} />
-          </Card>
-        </View>
-
-        {showTajweed ? (
+        {!isListDetail && showTajweed ? (
           <View onLayout={onTajweedLegendLayout}>
             <TajweedLegend />
           </View>
@@ -817,27 +924,13 @@ export default function SurahReaderScreen() {
       </View>
     );
   }, [
-    colors.accent,
+    isListDetail,
     onHeaderCardLayout,
     onTajweedLegendLayout,
-    playFrom,
-    prefs.showTransliteration,
-    prefs.showTranslation,
-    showWordByWord,
-    showTajweed,
-    studyExtrasLoading,
+    readerFilters,
     readingSizes.arabic,
-    reciter.name,
-    secondaryEdition?.name,
-    selectedEdition.name,
+    showTajweed,
     surah,
-    t,
-    tafsirEdition?.name,
-    translationLoading,
-    updatePrefs,
-    usingFallback,
-    playbackSummary.active,
-    playbackSummary.label,
   ]);
 
   const locale = i18n.language?.split("-")[0] ?? "en";
@@ -1020,55 +1113,78 @@ export default function SurahReaderScreen() {
         title={surah.nameTransliteration}
         subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
         onBack={() => goBackOrReplace(router, "/")}
+        maxContentWidth={isListDetail ? LIST_DETAIL_MAX_WIDTH : undefined}
         headerAccessory={
-          <View>
-            <QuranReadingToolbar
-              visible={toolbarVisible}
-              progress={readingProgress}
-              onBackToTop={() => listRef.current?.scrollToOffset({ offset: 0, animated: true })}
-              reciterName={reciter.name}
-              translationName={selectedEdition.name}
-              secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
-              tafsirName={tafsirEdition?.name ?? t("quran.tafsirNone")}
-              showTransliteration={prefs.showTransliteration}
-              showTranslation={prefs.showTranslation}
-              showWordByWord={showWordByWord}
-              showTajweed={showTajweed}
-              layoutLabel={t("quran.layoutAyah")}
-              onOpenLayout={() => setLayoutPickerOpen(true)}
-              onOpenReciter={() => setReciterPickerOpen(true)}
-              onOpenTranslation={() => setTranslationPickerOpen(true)}
-              onOpenSecondary={() => setSecondaryPickerOpen(true)}
-              onOpenTafsir={() => setTafsirPickerOpen(true)}
-              onToggleTransliteration={() =>
-                updatePrefs({ showTransliteration: !prefs.showTransliteration })
-              }
-              onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
-              onToggleWordByWord={() => updatePrefs({ showWordByWord: !showWordByWord })}
-              onToggleTajweed={() => updatePrefs({ showTajweed: !showTajweed })}
-              onOpenPlayback={() => setPlaybackSheetOpen(true)}
-              playbackLabel={toolbarPlaybackSummary.label}
-              playbackActive={toolbarPlaybackSummary.active}
-            />
-            <TajweedStickyLegendBar visible={showTajweed && tajweedBarVisible} />
-          </View>
+          isListDetail ? undefined : (
+            <View>
+              <QuranReadingToolbar
+                visible={toolbarVisible}
+                progress={readingProgress}
+                onBackToTop={scrollToTop}
+                reciterName={reciter.name}
+                translationName={selectedEdition.name}
+                secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+                tafsirName={tafsirEdition?.name ?? t("quran.tafsirNone")}
+                showTransliteration={prefs.showTransliteration}
+                showTranslation={prefs.showTranslation}
+                showWordByWord={showWordByWord}
+                showTajweed={showTajweed}
+                layoutLabel={t("quran.layoutAyah")}
+                onOpenLayout={() => setLayoutPickerOpen(true)}
+                onOpenReciter={() => setReciterPickerOpen(true)}
+                onOpenTranslation={() => setTranslationPickerOpen(true)}
+                onOpenSecondary={() => setSecondaryPickerOpen(true)}
+                onOpenTafsir={() => setTafsirPickerOpen(true)}
+                onToggleTransliteration={() =>
+                  updatePrefs({ showTransliteration: !prefs.showTransliteration })
+                }
+                onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+                onToggleWordByWord={() => updatePrefs({ showWordByWord: !showWordByWord })}
+                onToggleTajweed={() => updatePrefs({ showTajweed: !showTajweed })}
+                onOpenPlayback={() => setPlaybackSheetOpen(true)}
+                playbackLabel={toolbarPlaybackSummary.label}
+                playbackActive={toolbarPlaybackSummary.active}
+              />
+              <TajweedStickyLegendBar visible={showTajweed && tajweedBarVisible} />
+            </View>
+          )
         }
       >
-        <SurahAyahList
-          listRef={listRef}
-          data={ayahs}
-          extraData={ayahRowExtras}
-          keyExtractor={ayahKeyExtractor}
-          renderItem={renderItem}
-          ListHeaderComponent={listHeader}
-          ItemSeparatorComponent={AyahSeparator}
-          onScroll={onListScroll}
-          onScrollBeginDrag={onScrollBeginDrag}
-          onViewableItemsChanged={onViewableItemsChanged}
-          viewabilityConfig={viewabilityConfig}
-          onScrollToIndexFailed={onScrollToIndexFailed}
-          contentContainerStyle={{ paddingBottom: contentBottomInset }}
-        />
+        <View style={isListDetail ? styles.listDetailRoot : styles.readerRoot}>
+          <SurahAyahList
+            listRef={listRef}
+            data={ayahs}
+            extraData={ayahRowExtras}
+            keyExtractor={ayahKeyExtractor}
+            renderItem={renderItem}
+            ListHeaderComponent={listHeader}
+            ItemSeparatorComponent={AyahSeparator}
+            onScroll={onListScroll}
+            onScrollBeginDrag={onScrollBeginDrag}
+            onViewableItemsChanged={onViewableItemsChanged}
+            viewabilityConfig={viewabilityConfig}
+            onScrollToIndexFailed={onScrollToIndexFailed}
+            style={isListDetail ? styles.listDetailPrimary : undefined}
+            contentContainerStyle={{ paddingBottom: contentBottomInset }}
+          />
+          {isListDetail ? (
+            <View style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}>
+              {readerChrome}
+              <ScrollView
+                style={styles.listDetailSecondaryScroll}
+                contentContainerStyle={[
+                  styles.listDetailSecondaryContent,
+                  { paddingBottom: contentBottomInset },
+                ]}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+              >
+                {showTajweed ? <TajweedLegend /> : null}
+                {readerFilters}
+              </ScrollView>
+            </View>
+          ) : null}
+        </View>
       </ScreenLayout>
 
       <OptionPickerSheet
@@ -1222,21 +1338,17 @@ function PrefToggle({
 
 function PlaySurahButton({ onPress }: { onPress: () => void }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
       accessibilityLabel={t("quran.playSurah")}
       onPress={onPress}
-      style={[styles.playSurah, { backgroundColor: tokens.accentSoft }]}
+      style={[styles.playSurah, { backgroundColor: colors.accent }]}
     >
-      <SymbolView
-        name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
-        size={20}
-        tintColor={colors.accent}
-      />
-      <ThemedText type="smallBold" style={{ color: colors.accent }}>
+      <SymbolView name={PLAY_CIRCLE_ICON} size={20} tintColor={colors.accentForeground} />
+      <ThemedText type="smallBold" style={{ color: colors.accentForeground }}>
         {t("quran.playSurah")}
       </ThemedText>
     </PressableScale>
@@ -1430,11 +1542,7 @@ const AyahRow = memo(function AyahRow({
               <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
             ) : null}
             <LabeledIconButton
-              name={
-                isPlaying
-                  ? { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" }
-                  : { ios: "play.circle.fill", android: "play_circle", web: "play_circle" }
-              }
+              name={isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
               label={isPlaying ? t("quran.actionPause") : t("quran.actionPlay")}
               tintColor={colors.accent}
               labelColor={colors.accent}
@@ -1591,6 +1699,49 @@ const AyahRow = memo(function AyahRow({
 }, ayahRowPropsAreEqual);
 
 const styles = StyleSheet.create({
+  readerRoot: { flex: 1, width: "100%" },
+  listDetailRoot: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    gap: Spacing.four,
+  },
+  listDetailPrimary: {
+    flex: 1.15,
+    minWidth: 0,
+  },
+  listDetailSecondary: {
+    flex: 0.85,
+    minWidth: 280,
+    maxWidth: 400,
+    borderStartWidth: StyleSheet.hairlineWidth,
+    gap: Spacing.three,
+  },
+  listDetailSecondaryScroll: {
+    flex: 1,
+  },
+  listDetailSecondaryContent: {
+    paddingStart: Spacing.four,
+    flexGrow: 1,
+    gap: Spacing.three,
+  },
+  readerChromeRow: {
+    flexDirection: "row",
+    gap: Spacing.two,
+    paddingStart: Spacing.four,
+  },
+  readerChromeBtn: {
+    flex: 1,
+    minHeight: 36,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.one + 2,
+    paddingVertical: Spacing.one + 2,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+  },
   listHeader: { gap: Spacing.four, marginBottom: Spacing.two },
   controlRow: {
     flexDirection: "row",

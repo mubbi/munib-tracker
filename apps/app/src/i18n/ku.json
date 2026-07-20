@@ -1192,7 +1192,11 @@
     "showTransliteration": "Transliterasyon nîşan bide",
     "hideTransliteration": "Transliterasyon veşêre",
     "showTranslation": "Werger nîşan bide",
-    "hideTranslation": "Werger veşêre"
+    "hideTranslation": "Werger veşêre",
+    "backToTop": "Vegere jor",
+    "readingProgress": "Pêşveçûna xwendinê",
+    "enterFullscreen": "Têkeve ekrana tijî",
+    "exitFullscreen": "Ji ekrana tijî derkeve"
   },
   "share": {
     "dialogTitle": "Parve bike",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Nîşan",
     "bookmarksSubtitle": "We saved hadith",
     "bookmarksEmpty": "Hîn hedîsek xilas nebûye",
-    "viewBookmarks": "Nîşanan bibînin"
+    "viewBookmarks": "Nîşanan bibînin",
+    "arabic": "Erebî",
+    "translation": "Werger",
+    "narratorLabel": "Rawî",
+    "gradeLabel": "Derece",
+    "showArabic": "Erebî nîşan bide",
+    "showTranslation": "Werger nîşan bide",
+    "showNarrator": "Rawî nîşan bide",
+    "showGrade": "Derece nîşan bide",
+    "backToTop": "Vegere jor",
+    "readingProgress": "Pêşveçûna xwendinê",
+    "enterFullscreen": "Têkeve ekrana tijî",
+    "exitFullscreen": "Ji ekrana tijî derkeve"
   },
   "credits": {
     "eyebrow": "ئیسباتکردن",

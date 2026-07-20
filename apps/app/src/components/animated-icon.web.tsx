@@ -4,7 +4,7 @@ import Animated, { Easing, Keyframe } from "react-native-reanimated";
 
 import { useSplashDismissal } from "@/hooks/use-splash-dismissal";
 import i18n from "@/i18n";
-import { BOOT_BACKGROUND } from "@/lib/boot/cold-start";
+import { useTheme } from "@/providers/theme-provider";
 
 const DURATION = 300;
 
@@ -14,6 +14,7 @@ const DURATION = 300;
  */
 export function AnimatedSplashOverlay() {
   const { dismissed, opacity } = useSplashDismissal();
+  const { colors } = useTheme();
 
   if (dismissed) {
     return null;
@@ -23,7 +24,10 @@ export function AnimatedSplashOverlay() {
     <Animated.View
       accessibilityRole="progressbar"
       accessibilityLabel={i18n.t("common.loadingRoute")}
-      style={[styles.splashOverlay, { opacity, pointerEvents: "auto" }]}
+      style={[
+        styles.splashOverlay,
+        { opacity, pointerEvents: "auto", backgroundColor: colors.background },
+      ]}
     >
       <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
     </Animated.View>
@@ -104,7 +108,6 @@ const styles = StyleSheet.create({
   },
   splashOverlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: BOOT_BACKGROUND,
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,

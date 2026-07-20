@@ -21,6 +21,21 @@ export interface HadithBookmark {
   createdAt: string;
 }
 
+/** Reader display toggles for hadith collection / bookmark screens. */
+export interface HadithPrefs {
+  showArabic: boolean;
+  showTranslation: boolean;
+  showNarrator: boolean;
+  showGrade: boolean;
+}
+
+export const DEFAULT_HADITH_PREFS: HadithPrefs = {
+  showArabic: true,
+  showTranslation: true,
+  showNarrator: true,
+  showGrade: true,
+};
+
 type BookCache = Record<string, HadithCollectionData>;
 
 /** Cap in-memory remote collections (disk cache remains authoritative). */
@@ -39,6 +54,18 @@ async function ensureBookStorageLoaded(): Promise<void> {
 }
 
 export const HadithRepository = {
+  // ── Reading prefs ──────────────────────────────────────
+  async getPrefs(): Promise<HadithPrefs> {
+    const stored = await readJSON<Partial<HadithPrefs>>(DB_KEYS.hadithPrefs, {});
+    return { ...DEFAULT_HADITH_PREFS, ...stored };
+  },
+
+  async updatePrefs(patch: Partial<HadithPrefs>): Promise<HadithPrefs> {
+    const next = { ...(await this.getPrefs()), ...patch };
+    await writeJSON(DB_KEYS.hadithPrefs, next);
+    return next;
+  },
+
   // ── Bookmarks ──────────────────────────────────────────
   async getBookmarks(): Promise<HadithBookmark[]> {
     return (await bookmarks.getAll()).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
@@ -170,6 +197,7 @@ export const HadithRepository = {
       bookmarks.clear(),
       removeKey(DB_KEYS.hadithBookmarksUpdatedAt),
       removeKey(DB_KEYS.hadithBookCache),
+      removeKey(DB_KEYS.hadithPrefs),
     ]);
   },
 };

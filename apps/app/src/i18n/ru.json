@@ -1209,7 +1209,11 @@
     "showTransliteration": "Показать транслитерацию",
     "hideTransliteration": "Скрыть транслитерацию",
     "showTranslation": "Показать перевод",
-    "hideTranslation": "Скрыть перевод"
+    "hideTranslation": "Скрыть перевод",
+    "backToTop": "Наверх",
+    "readingProgress": "Прогресс чтения",
+    "enterFullscreen": "Войти в полноэкранный режим",
+    "exitFullscreen": "Выйти из полноэкранного режима"
   },
   "share": {
     "dialogTitle": "Поделиться",
@@ -1555,7 +1559,19 @@
     "bookmarks": "закладки",
     "bookmarksSubtitle": "Ваш сохраненный хадис",
     "bookmarksEmpty": "Пока нет сохраненных хадисов",
-    "viewBookmarks": "View закладки"
+    "viewBookmarks": "View закладки",
+    "arabic": "Арабский",
+    "translation": "Перевод",
+    "narratorLabel": "Передатчик",
+    "gradeLabel": "Степень",
+    "showArabic": "Показать арабский",
+    "showTranslation": "Показать перевод",
+    "showNarrator": "Показать передатчика",
+    "showGrade": "Показать степень",
+    "backToTop": "Наверх",
+    "readingProgress": "Прогресс чтения",
+    "enterFullscreen": "Войти в полноэкранный режим",
+    "exitFullscreen": "Выйти из полноэкранного режима"
   },
   "credits": {
     "eyebrow": "Attribution",

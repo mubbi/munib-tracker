@@ -10,6 +10,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
+import { PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Spacing } from "@/constants/theme";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
@@ -24,6 +25,7 @@ import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
+import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 export type ReadingItem = {
   id?: string;
@@ -86,6 +88,7 @@ export function ReadingCard({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs, translationLocale } = usePreferences();
+  const { showTransliteration, showTranslation } = useReadingTextVisibility();
   const displayTranslation = useScriptureTranslation(item);
   const audio = useAudioPlayerContext();
   const internalShare = useShareContentCard();
@@ -142,7 +145,7 @@ export function ReadingCard({
     menuActions.push({
       id: "play",
       title: t("common.play"),
-      systemIcon: "play.fill",
+      systemIcon: "play.circle.fill",
     });
   }
   menuActions.push({ id: "share", title: t("reading.share"), systemIcon: "square.and.arrow.up" });
@@ -153,22 +156,22 @@ export function ReadingCard({
     else if (id === "share") void onShare();
   };
 
+  const transliteration = item.transliteration?.trim() ?? "";
   const translationText = displayTranslation.trim();
-  const hasMeta =
-    !!item.transliteration?.trim() ||
-    !!translationText ||
-    !!item.virtues?.trim() ||
-    !!item.reference?.trim();
+  const showTranslit = showTransliteration && Boolean(transliteration);
+  const showMeaning = showTranslation && Boolean(translationText);
+  const hasMeta = showTranslit || showMeaning || !!item.virtues?.trim() || !!item.reference?.trim();
 
   const body = (
     <>
       <View style={styles.header}>
         {item.audioUri ? (
           <LabeledIconButton
-            name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+            name={PLAY_CIRCLE_ICON}
             label={t("common.play")}
-            iconSize={16}
+            iconSize={18}
             tintColor={colors.accent}
+            labelColor={colors.accent}
             background={tokens.accentSoft}
             accessibilityLabel={t("common.play")}
             onPress={playAudio}
@@ -227,7 +230,7 @@ export function ReadingCard({
 
       {hasMeta ? <View style={[styles.divider, { backgroundColor: tokens.hairline }]} /> : null}
 
-      {item.transliteration?.trim() ? (
+      {showTranslit ? (
         <ThemedText
           type="small"
           style={[
@@ -236,10 +239,10 @@ export function ReadingCard({
             textSize ? { fontSize: textSize } : null,
           ]}
         >
-          {item.transliteration}
+          {transliteration}
         </ThemedText>
       ) : null}
-      {translationText ? (
+      {showMeaning ? (
         <ThemedText
           type="default"
           style={[

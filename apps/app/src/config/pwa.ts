@@ -30,6 +30,8 @@ const expo = appJson.expo;
 const web = (expo.web ?? {}) as ExpoWebConfig;
 
 const themeColor = web.themeColor ?? "#152921";
+const themeColorLight = "#F5F0E6";
+const themeColorDark = "#152921";
 const backgroundColor = web.backgroundColor ?? themeColor;
 const shortName = web.shortName ?? expo.name ?? APP_NAME;
 
@@ -78,6 +80,8 @@ export const pwaWebManifest = {
 };
 
 export const PWA_THEME_COLOR = pwaWebManifest.theme_color;
+export const PWA_THEME_COLOR_LIGHT = themeColorLight;
+export const PWA_THEME_COLOR_DARK = themeColorDark;
 export const PWA_SHORT_NAME = pwaWebManifest.short_name;
 export const PWA_DESCRIPTION = pwaWebManifest.description;
 export const PWA_APPLE_TOUCH_ICON = PWA_ICON_PATHS.appleTouch180;

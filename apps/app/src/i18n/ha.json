@@ -1192,7 +1192,11 @@
     "showTransliteration": "Nuna rubutun lafazi",
     "hideTransliteration": "Ɓoye rubutun lafazi",
     "showTranslation": "Nuna fassara",
-    "hideTranslation": "Ɓoye fassara"
+    "hideTranslation": "Ɓoye fassara",
+    "backToTop": "Koma sama",
+    "readingProgress": "Ci gaban karatu",
+    "enterFullscreen": "Shiga cikakken allo",
+    "exitFullscreen": "Fita daga cikakken allo"
   },
   "share": {
     "dialogTitle": "Raba",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Alamomi",
     "bookmarksSubtitle": "Kuin kwatadedildi hadis",
     "bookmarksEmpty": "Henüz sadad hadith yok",
-    "viewBookmarks": "Duba alamun shafi"
+    "viewBookmarks": "Duba alamun shafi",
+    "arabic": "Larabci",
+    "translation": "Fassara",
+    "narratorLabel": "Mai riwaya",
+    "gradeLabel": "Daraja",
+    "showArabic": "Nuna Larabci",
+    "showTranslation": "Nuna fassara",
+    "showNarrator": "Nuna mai riwaya",
+    "showGrade": "Nuna daraja",
+    "backToTop": "Koma sama",
+    "readingProgress": "Ci gaban karatu",
+    "enterFullscreen": "Shiga cikakken allo",
+    "exitFullscreen": "Fita daga cikakken allo"
   },
   "credits": {
     "eyebrow": "Tunawa",

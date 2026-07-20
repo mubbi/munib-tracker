@@ -1192,7 +1192,11 @@
     "showTransliteration": "Transliterasiýany görkez",
     "hideTransliteration": "Transliterasiýany gizle",
     "showTranslation": "Terjimesini görkez",
-    "hideTranslation": "Terjimesini gizle"
+    "hideTranslation": "Terjimesini gizle",
+    "backToTop": "Ýokaryk gaýt",
+    "readingProgress": "Okamak ösüşi",
+    "enterFullscreen": "Doly ekrana gir",
+    "exitFullscreen": "Doly ekrandan çyk"
   },
   "share": {
     "dialogTitle": "Paylaş",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Yer imleri",
     "bookmarksSubtitle": "Sizin kaydedildi hadis",
     "bookmarksEmpty": "Henüz saved hadith yok",
-    "viewBookmarks": "bookmarks Görüntüle"
+    "viewBookmarks": "bookmarks Görüntüle",
+    "arabic": "Arapça",
+    "translation": "Terjime",
+    "narratorLabel": "Rawy",
+    "gradeLabel": "Dereje",
+    "showArabic": "Arapçany görkez",
+    "showTranslation": "Terjimesini görkez",
+    "showNarrator": "Rawyny görkez",
+    "showGrade": "Derejäni görkez",
+    "backToTop": "Ýokaryk gaýt",
+    "readingProgress": "Okamak ösüşi",
+    "enterFullscreen": "Doly ekrana gir",
+    "exitFullscreen": "Doly ekrandan çyk"
   },
   "credits": {
     "eyebrow": "Atyf",

@@ -20,6 +20,7 @@ import {
   JannahTakeaway,
 } from "@/components/jannah/primitives";
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
+import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -110,9 +111,9 @@ export function TravelGuideContent() {
               title={t(`travel.${sectionKey}.title`)}
               icon={SECTION_ICONS[sectionKey]}
             />
-            <ThemedText type="small" themeColor="mutedForeground" style={styles.body}>
+            <LearnProseText themeColor="mutedForeground" style={styles.body}>
               {t(`travel.${sectionKey}.body`)}
-            </ThemedText>
+            </LearnProseText>
           </Card>
         ))}
 
@@ -155,9 +156,9 @@ export function TravelGuideContent() {
               </ThemedText>
             </View>
           ))}
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.tableNote}>
+          <LearnProseText proseRole="caption" themeColor="mutedForeground" style={styles.tableNote}>
             {t("travel.rakatsNote")}
-          </ThemedText>
+          </LearnProseText>
         </Card>
 
         <JannahQuranEvidence refs={quranRefs} />
@@ -180,9 +181,9 @@ export function TravelGuideContent() {
                     {index + 1}
                   </ThemedText>
                 </View>
-                <ThemedText type="small" themeColor="mutedForeground" style={styles.stepText}>
+                <LearnProseText themeColor="mutedForeground" style={styles.stepText}>
                   {step}
-                </ThemedText>
+                </LearnProseText>
               </View>
             ))}
           </View>
@@ -227,7 +228,7 @@ export function TravelGuideContent() {
 }
 
 const styles = StyleSheet.create({
-  body: { marginTop: Spacing.two, lineHeight: 22, flexShrink: 1, alignSelf: "stretch" },
+  body: { marginTop: Spacing.two, flexShrink: 1, alignSelf: "stretch" },
   tableHead: {
     flexDirection: "row",
     marginTop: Spacing.three,
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
   },
   colName: { flex: 1 },
   colNum: { width: 72, textAlign: "center" },
-  tableNote: { marginTop: Spacing.three, lineHeight: 18 },
+  tableNote: { marginTop: Spacing.three },
   steps: { gap: Spacing.three, marginTop: Spacing.three },
   stepRow: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   stepBadge: {
@@ -251,7 +252,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  stepText: { flex: 1, lineHeight: 22 },
+  stepText: { flex: 1 },
   disclaimer: {
     flexDirection: "row",
     gap: Spacing.two,

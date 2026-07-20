@@ -30,6 +30,8 @@ import { useLastRead } from "@/stores/quran-store";
 
 const PAGE_LIST = getPageList();
 const PAGE_COUNT = getPageCount();
+/** Shared height for the go-to-page input + Go button so the row stays flush. */
+const GO_CONTROL_HEIGHT = 40;
 /** Approximate row height for scroll-to-continue (padding + badge + caption). */
 const PAGE_ROW_ESTIMATE = 72;
 /** Show back-to-top once the list is scrolled past a couple of rows. */
@@ -295,8 +297,7 @@ export default function QuranPagesBrowserScreen() {
           />
           {showBackToTop ? (
             <View
-              style={[styles.backToTop, { bottom: contentBottomInset }]}
-              pointerEvents="box-none"
+              style={[styles.backToTop, { bottom: contentBottomInset, pointerEvents: "box-none" }]}
             >
               <IconButton
                 name={{ ios: "arrow.up", android: "arrow_upward", web: "arrow_upward" }}
@@ -329,16 +330,22 @@ const styles = StyleSheet.create({
   },
   goInput: {
     flex: 1,
-    minHeight: 40,
+    height: GO_CONTROL_HEIGHT,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
+    paddingVertical: 0,
     fontSize: 15,
+    lineHeight: 20,
+    textAlignVertical: "center",
   },
   goButton: {
     flexShrink: 0,
+    height: GO_CONTROL_HEIGHT,
+    minHeight: GO_CONTROL_HEIGHT,
+    paddingVertical: 0,
+    justifyContent: "center",
   },
   backToTop: {
     position: "absolute",

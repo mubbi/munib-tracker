@@ -1,15 +1,34 @@
 import { useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  type LayoutChangeEvent,
+  type ListRenderItem,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 import { ReadingCard } from "@/components/content/reading-card";
+import {
+  SCRIPTURE_LIST_DETAIL_MAX_WIDTH,
+  ScriptureReaderChrome,
+  ScriptureReadingFilters,
+  ScriptureReadingToolbar,
+  scriptureListDetailStyles,
+} from "@/components/content/scripture-reading-filters";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuroodItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
@@ -18,24 +37,102 @@ import {
   useEnsureDuroodFavoritesLoaded,
   useFavoriteDuroodIds,
 } from "@/stores/durood-favorites-store";
+import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
+
+type DuroodItem = Awaited<ReturnType<typeof loadDuroodItems>>[number];
 
 export default function DuroodFavoritesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { tokens } = useThemeTokens();
+  const contentBottomInset = useContentBottomInset();
+  const { isListDetail } = useLargeScreenLayout();
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
   const { toggle } = useDuroodFavoritesActions();
-  const [duroodItems, setDuroodItems] = useState<Awaited<ReturnType<typeof loadDuroodItems>>>([]);
+  const visibility = useReadingTextVisibility();
+  const [duroodItems, setDuroodItems] = useState<DuroodItem[]>([]);
   const [corpusReady, setCorpusReady] = useState(false);
+  const listRef = useRef<FlatList<DuroodItem>>(null);
+  const [toolbarVisible, setToolbarVisible] = useState(false);
+  const headerCardHeightRef = useRef(0);
+  const readingProgress = useSharedValue(0);
+
   useEffect(() => {
     void loadDuroodItems().then((items) => {
       setDuroodItems(items);
       setCorpusReady(true);
     });
   }, []);
-  const byId = useMemo(() => new Map(duroodItems.map((item) => [item.id, item])), [duroodItems]);
 
-  const items = favoriteIds.map((id) => byId.get(id)).filter((item) => item != null);
+  const byId = useMemo(() => new Map(duroodItems.map((item) => [item.id, item])), [duroodItems]);
+  const items = favoriteIds
+    .map((id) => byId.get(id))
+    .filter((item): item is DuroodItem => item != null);
+
+  const onHeaderCardLayout = useCallback((event: LayoutChangeEvent) => {
+    headerCardHeightRef.current = event.nativeEvent.layout.height;
+  }, []);
+
+  const onListScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+      const y = contentOffset.y;
+      const threshold = Math.max(0, headerCardHeightRef.current - Spacing.four);
+      const nextToolbar = y > threshold;
+      setToolbarVisible((prev) => (prev === nextToolbar ? prev : nextToolbar));
+      const range = contentSize.height - layoutMeasurement.height;
+      readingProgress.value = range > 0 ? Math.min(1, Math.max(0, y / range)) : 0;
+    },
+    [readingProgress],
+  );
+
+  const scrollToTop = useCallback(() => {
+    listRef.current?.scrollToOffset({ offset: 0, animated: true });
+  }, []);
+
+  const keyExtractor = useCallback((item: DuroodItem) => item.id, []);
+
+  const renderItem = useCallback<ListRenderItem<DuroodItem>>(
+    ({ item }) => (
+      <View style={styles.item}>
+        <ThemedText type="smallBold" style={styles.title}>
+          {item.title}
+        </ThemedText>
+        <ReadingCard
+          item={item}
+          sourceHref="/duroods"
+          isFavorite
+          onToggleFavorite={() => toggle(item.id)}
+        />
+        <Button
+          label={t("duroods.openInTasbeeh")}
+          icon={TASBEEH_ICON}
+          fullWidth
+          onPress={() =>
+            router.push({
+              pathname: "/tasbeeh/durood/[id]",
+              params: { id: item.id },
+            })
+          }
+        />
+      </View>
+    ),
+    [router, t, toggle],
+  );
+
+  const empty =
+    favoriteIds.length === 0 || (corpusReady && items.length === 0) ? (
+      <EmptyState
+        icon={{ ios: "star", android: "star_border", web: "star_border" }}
+        title={t("duroods.favEmptyTitle")}
+        description={t("duroods.favEmptyDesc")}
+        actionLabel={t("duroods.title")}
+        onAction={() => router.replace("/duroods")}
+      />
+    ) : null;
+
+  const hasItems = corpusReady && items.length > 0;
 
   return (
     <ScreenLayout
@@ -43,61 +140,91 @@ export default function DuroodFavoritesScreen() {
       title={t("duroods.favorites")}
       subtitle={t("duroods.favSubtitle")}
       onBack={() => goBackOrReplace(router, "/duroods")}
+      scrollable={!hasItems}
+      maxContentWidth={hasItems && isListDetail ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
+      headerAccessory={
+        hasItems && !isListDetail ? (
+          <ScriptureReadingToolbar
+            visible={toolbarVisible}
+            progress={readingProgress}
+            onBackToTop={scrollToTop}
+          />
+        ) : undefined
+      }
     >
       <Seo path="/duroods/favorites" />
-      {favoriteIds.length === 0 ? (
-        <EmptyState
-          icon={{ ios: "star", android: "star_border", web: "star_border" }}
-          title={t("duroods.favEmptyTitle")}
-          description={t("duroods.favEmptyDesc")}
-          actionLabel={t("duroods.title")}
-          onAction={() => router.replace("/duroods")}
-        />
-      ) : !corpusReady ? null : items.length === 0 ? (
-        <EmptyState
-          icon={{ ios: "star", android: "star_border", web: "star_border" }}
-          title={t("duroods.favEmptyTitle")}
-          description={t("duroods.favEmptyDesc")}
-          actionLabel={t("duroods.title")}
-          onAction={() => router.replace("/duroods")}
-        />
-      ) : (
-        <Stagger>
-          {items.map((item) => (
-            <View key={item.id} style={styles.item}>
-              <ThemedText type="smallBold" style={styles.title}>
-                {item.title}
-              </ThemedText>
-              <ReadingCard
-                item={item}
-                sourceHref="/duroods"
-                isFavorite
-                onToggleFavorite={() => toggle(item.id)}
-              />
-              <Button
-                label={t("duroods.openInTasbeeh")}
-                icon={TASBEEH_ICON}
-                fullWidth
-                onPress={() =>
-                  router.push({
-                    pathname: "/tasbeeh/durood/[id]",
-                    params: { id: item.id },
-                  })
-                }
-              />
+      {empty && !hasItems ? (
+        empty
+      ) : hasItems ? (
+        <View
+          style={
+            isListDetail
+              ? scriptureListDetailStyles.listDetailRoot
+              : scriptureListDetailStyles.readerRoot
+          }
+        >
+          <FlatList
+            ref={listRef}
+            style={[
+              styles.flatList,
+              isListDetail ? scriptureListDetailStyles.listDetailPrimary : null,
+            ]}
+            contentContainerStyle={[styles.flatListContent, { paddingBottom: contentBottomInset }]}
+            data={items}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            extraData={visibility}
+            ItemSeparatorComponent={ListSeparator}
+            ListHeaderComponent={
+              !isListDetail ? (
+                <View onLayout={onHeaderCardLayout} style={styles.listHeader}>
+                  <ScriptureReadingFilters />
+                </View>
+              ) : (
+                <View onLayout={onHeaderCardLayout} />
+              )
+            }
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            onScroll={onListScroll}
+            scrollEventThrottle={16}
+          />
+          {isListDetail ? (
+            <View
+              style={[
+                scriptureListDetailStyles.listDetailSecondary,
+                { borderStartColor: tokens.hairline },
+              ]}
+            >
+              <ScriptureReaderChrome toolbarVisible={toolbarVisible} onBackToTop={scrollToTop} />
+              <ScrollView
+                style={scriptureListDetailStyles.listDetailSecondaryScroll}
+                contentContainerStyle={[
+                  scriptureListDetailStyles.listDetailSecondaryContent,
+                  { paddingBottom: contentBottomInset },
+                ]}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+              >
+                <ScriptureReadingFilters />
+              </ScrollView>
             </View>
-          ))}
-        </Stagger>
-      )}
+          ) : null}
+        </View>
+      ) : null}
     </ScreenLayout>
   );
 }
 
+function ListSeparator() {
+  return <View style={styles.separator} />;
+}
+
 const styles = StyleSheet.create({
-  item: {
-    gap: Spacing.two,
-  },
-  title: {
-    marginStart: Spacing.one,
-  },
+  flatList: { flex: 1 },
+  flatListContent: {},
+  listHeader: { marginBottom: Spacing.four },
+  item: { gap: Spacing.two },
+  title: { marginStart: Spacing.one },
+  separator: { height: Spacing.four },
 });

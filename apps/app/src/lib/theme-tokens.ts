@@ -66,8 +66,9 @@ export function computeThemeTokens(colors: ThemeColors, scheme: "light" | "dark"
 
   const tokens: ThemeTokens = {
     isDark,
-    accentSoft: withAlpha(colors.accent, isDark ? 0.24 : 0.14),
-    accentBorder: withAlpha(colors.accent, isDark ? 0.45 : 0.3),
+    // Light soft fills need more chroma on cream surfaces than dark glass.
+    accentSoft: withAlpha(colors.accent, isDark ? 0.24 : 0.18),
+    accentBorder: withAlpha(colors.accent, isDark ? 0.45 : 0.36),
     hairline: withAlpha(colors.foreground, isDark ? 0.1 : 0.08),
     surfaceRaised: isDark ? colors.muted : colors.card,
     // Dark `card` ≈ `muted`, so lift the thumb with a translucent foreground wash.

@@ -1192,7 +1192,11 @@
     "showTransliteration": "Transliteratio ښکاره کړئ",
     "hideTransliteration": "Transliteratio پټ کړئ",
     "showTranslation": "ژباړه ښکاره کړئ",
-    "hideTranslation": "ژباړه پټ کړئ"
+    "hideTranslation": "ژباړه پټ کړئ",
+    "backToTop": "بېرته پورته",
+    "readingProgress": "د لوستلو پرمختګ",
+    "enterFullscreen": "بشپړ سکرین ته ننوځه",
+    "exitFullscreen": "بشپړ سکرین بند کړه"
   },
   "share": {
     "dialogTitle": "شریکول",
@@ -1534,7 +1538,19 @@
     "bookmarks": "نښلنې",
     "bookmarksSubtitle": "ستاسو حفظ شوی حدیث",
     "bookmarksEmpty": "تر اوسه کوم حدیث خوندي شوی نه دی",
-    "viewBookmarks": "View نښلنې"
+    "viewBookmarks": "View نښلنې",
+    "arabic": "عربي",
+    "translation": "ژباړه",
+    "narratorLabel": "راوي",
+    "gradeLabel": "درجه",
+    "showArabic": "عربي ښکاره کړئ",
+    "showTranslation": "ژباړه ښکاره کړئ",
+    "showNarrator": "راوي ښکاره کړئ",
+    "showGrade": "درجه ښکاره کړئ",
+    "backToTop": "بېرته پورته",
+    "readingProgress": "د لوستلو پرمختګ",
+    "enterFullscreen": "بشپړ سکرین ته ننوځه",
+    "exitFullscreen": "بشپړ سکرین بند کړه"
   },
   "credits": {
     "eyebrow": "Attribution",

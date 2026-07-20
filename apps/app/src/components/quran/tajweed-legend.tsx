@@ -103,6 +103,15 @@ export function TajweedLegend() {
                   <ThemedText type="caption" numberOfLines={1} style={styles.chipLabel}>
                     {t(rule.labelKey)}
                   </ThemedText>
+                  <SymbolView
+                    name={{
+                      ios: "arrow.up.right.square",
+                      android: "open_in_new",
+                      web: "open_in_new",
+                    }}
+                    size={12}
+                    tintColor={colors.mutedForeground}
+                  />
                 </PressableScale>
               </View>
             );

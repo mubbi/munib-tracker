@@ -7,7 +7,7 @@ import {
 } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -63,9 +63,7 @@ export default function BattlesFiguresScreen() {
                       {figure.epithet}
                     </ThemedText>
                   ) : null}
-                  <ThemedText type="small" style={styles.summary}>
-                    {figure.summary}
-                  </ThemedText>
+                  <LearnProseText style={styles.summary}>{figure.summary}</LearnProseText>
                   <ThemedText type="caption" themeColor="mutedForeground">
                     {t("battles.figureRole", { role: figure.role })}
                   </ThemedText>
@@ -94,9 +92,7 @@ export default function BattlesFiguresScreen() {
 
                   <View style={styles.lesson}>
                     <ThemedText type="smallBold">{t("battles.figureLesson")}</ThemedText>
-                    <ThemedText type="small" themeColor="mutedForeground">
-                      {figure.lesson}
-                    </ThemedText>
+                    <LearnProseText themeColor="mutedForeground">{figure.lesson}</LearnProseText>
                   </View>
                 </Card>
               );
@@ -111,7 +107,7 @@ export default function BattlesFiguresScreen() {
 }
 
 const styles = StyleSheet.create({
-  summary: { marginTop: Spacing.two, lineHeight: 22 },
+  summary: { marginTop: Spacing.two },
   battles: { marginTop: Spacing.three, gap: Spacing.one },
   lesson: { marginTop: Spacing.three, gap: Spacing.one },
 });

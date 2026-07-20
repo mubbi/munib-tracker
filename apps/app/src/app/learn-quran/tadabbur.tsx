@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
@@ -45,10 +44,10 @@ export default function LearnQuranTadabburScreen() {
           <LearnReadingChrome surface="learn_quran">
             {prompts.map((prompt) => (
               <Card key={prompt.id} padding="three" style={styles.card}>
-                <ThemedText type="smallBold">{prompt.question}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                <LearnProseText proseRole="title">{prompt.question}</LearnProseText>
+                <LearnProseText proseRole="caption" themeColor="mutedForeground">
                   {prompt.hint}
-                </ThemedText>
+                </LearnProseText>
               </Card>
             ))}
 
@@ -69,5 +68,4 @@ export default function LearnQuranTadabburScreen() {
 
 const styles = StyleSheet.create({
   card: { gap: Spacing.two },
-  hint: { lineHeight: 18 },
 });

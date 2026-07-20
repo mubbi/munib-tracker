@@ -79,6 +79,56 @@ export function useScrollToActive(
   return { register, onScroll };
 }
 
+/**
+ * Horizontal sibling of {@link useScrollToActive} for chip / pill bars.
+ * Centers the active chip in the viewport when `activeKey` is set (e.g. deep
+ * link onto Maghrib/Witr after-salah filters). Pass `null` until the bar is
+ * mounted so the effect re-runs after first layout.
+ */
+export function useScrollToActiveHorizontal(
+  scrollRef: RefObject<ScrollView | null>,
+  activeKey: string | null | undefined,
+) {
+  const nodes = useRef(new Map<string, View>());
+  const scrollX = useRef(0);
+
+  const register = useCallback(
+    (key: string) => (node: View | null) => {
+      if (node) nodes.current.set(key, node);
+      else nodes.current.delete(key);
+    },
+    [],
+  );
+
+  const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrollX.current = event.nativeEvent.contentOffset?.x ?? 0;
+  }, []);
+
+  useEffect(() => {
+    if (!activeKey) return;
+    const timer = setTimeout(() => {
+      const node = nodes.current.get(activeKey);
+      const scroll = scrollRef.current;
+      const scrollNode = scroll as unknown as View | null;
+      if (!node?.measure || !scroll || !scrollNode?.measure) return;
+      scrollNode.measure(
+        (_sx: number, _sy: number, sw: number, _sh: number, spx: number, _spy: number) => {
+          node.measure(
+            (_cx: number, _cy: number, cw: number, _ch: number, cpx: number, _cpy: number) => {
+              const chipLeftInContent = scrollX.current + (cpx - spx);
+              const target = chipLeftInContent - (sw - cw) / 2;
+              scroll.scrollTo({ x: Math.max(0, target), animated: true });
+            },
+          );
+        },
+      );
+    }, 60);
+    return () => clearTimeout(timer);
+  }, [activeKey, scrollRef]);
+
+  return { register, onScroll };
+}
+
 function isIndexInRange(index: number, itemCount: number | undefined): boolean {
   return index >= 0 && (itemCount == null || index < itemCount);
 }

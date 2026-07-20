@@ -4,10 +4,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -39,14 +38,16 @@ function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean })
           size={20}
         />
         <View style={styles.copy}>
-          <ThemedText type="smallBold">{gate.label}</ThemedText>
-          <ThemedText type="small" style={{ lineHeight: 22 }}>
-            {gate.quranNote}
-          </ThemedText>
+          <LearnProseText proseRole="title">{gate.label}</LearnProseText>
+          <LearnProseText>{gate.quranNote}</LearnProseText>
           {gate.scholarlyNote ? (
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.scholarly}>
+            <LearnProseText
+              proseRole="caption"
+              themeColor="mutedForeground"
+              style={styles.scholarly}
+            >
               {gate.scholarlyNote}
-            </ThemedText>
+            </LearnProseText>
           ) : null}
         </View>
       </View>
@@ -96,5 +97,5 @@ const styles = StyleSheet.create({
   row: { paddingVertical: Spacing.three },
   head: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   copy: { flex: 1, gap: Spacing.two },
-  scholarly: { lineHeight: 18, fontStyle: "italic" },
+  scholarly: { fontStyle: "italic" },
 });

@@ -9,6 +9,7 @@ import { battlesProgressStore } from "@/stores/battles-progress-store";
 import { customAdhkarStore } from "@/stores/custom-adhkar-store";
 import { fastingStore } from "@/stores/fasting-store";
 import { fridayChecklistStore } from "@/stores/friday-checklist-store";
+import { hadithStore } from "@/stores/hadith-store";
 import { hajjChecklistStore } from "@/stores/hajj-checklist-store";
 import { hifzStore } from "@/stores/hifz-store";
 import { jahannamIntentionsStore } from "@/stores/jahannam-intentions-store";
@@ -198,6 +199,7 @@ export const BLOB_ENTITIES: BlobEntity[] = [
   // Qur'an prefs are held in the quran store; reading progress is read on demand,
   // so there's nothing in memory to refresh for it.
   { entity: "quran_prefs", storageKey: DB_KEYS.quranPrefs, reload: reloadIfReady(quranStore) },
+  { entity: "hadith_prefs", storageKey: DB_KEYS.hadithPrefs, reload: reloadIfReady(hadithStore) },
   { entity: "quran_reading_progress", storageKey: DB_KEYS.quranReadingProgress, reload: noop },
   { entity: "qaza_schedule", storageKey: DB_KEYS.qazaSchedule, reload: refreshTracker },
   { entity: "qaza_daily_progress", storageKey: DB_KEYS.qazaDailyProgress, reload: refreshTracker },

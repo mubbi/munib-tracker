@@ -7,6 +7,7 @@ import { duaFavoritesStore } from "./dua-favorites-store";
 import { duroodFavoritesStore } from "./durood-favorites-store";
 import { fastingStore } from "./fasting-store";
 import { fridayChecklistStore } from "./friday-checklist-store";
+import { hadithStore } from "./hadith-store";
 import { hajjChecklistStore } from "./hajj-checklist-store";
 import { hifzStore } from "./hifz-store";
 import { jahannamIntentionsStore } from "./jahannam-intentions-store";
@@ -42,6 +43,7 @@ export async function reloadAllStores(): Promise<void> {
     trackerStore.getState().load(),
     locationStore.getState().load(),
     quranStore.getState().load(),
+    hadithStore.getState().load(),
     continueStore.getState().load(),
     duaFavoritesStore.getState().load(),
     duroodFavoritesStore.getState().load(),

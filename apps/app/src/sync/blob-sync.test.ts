@@ -31,6 +31,7 @@ describe("isBlobEntity", () => {
     expect(isBlobEntity("learn_dua_progress")).toBe(true);
     expect(isBlobEntity("location")).toBe(true);
     expect(isBlobEntity("reading_text_visibility")).toBe(true);
+    expect(isBlobEntity("hadith_prefs")).toBe(true);
     expect(isBlobEntity("zakat_calculator")).toBe(true);
     expect(isBlobEntity("tours_seen")).toBe(true);
     // Entities with their own bespoke sync path must NOT be treated as blobs.

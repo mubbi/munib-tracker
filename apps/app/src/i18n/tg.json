@@ -1192,7 +1192,11 @@
     "showTransliteration": "Transliteratsiyaro нишон диҳед",
     "hideTransliteration": "Transliteratsiyaro пинҳон кунед",
     "showTranslation": "Тарҷумаро нишон диҳед",
-    "hideTranslation": "Тарҷумаро пинҳон кунед"
+    "hideTranslation": "Тарҷумаро пинҳон кунед",
+    "backToTop": "Бозгашт ба боло",
+    "readingProgress": "Пешрафти хондан",
+    "enterFullscreen": "Ворид шудан ба экрани пурра",
+    "exitFullscreen": "Баромадан аз экрани пурра"
   },
   "share": {
     "dialogTitle": "Поделиться",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Закладки",
     "bookmarksSubtitle": "Ҳадиси наҷоти шумо",
     "bookmarksEmpty": "Ҳанӯз ҳадиси захирашуда нест",
-    "viewBookmarks": "View закладки"
+    "viewBookmarks": "View закладки",
+    "arabic": "Арабӣ",
+    "translation": "Тарҷума",
+    "narratorLabel": "Ровӣ",
+    "gradeLabel": "Дараҷа",
+    "showArabic": "Арабиро нишон диҳед",
+    "showTranslation": "Тарҷумаро нишон диҳед",
+    "showNarrator": "Ровиро нишон диҳед",
+    "showGrade": "Дараҷаро нишон диҳед",
+    "backToTop": "Бозгашт ба боло",
+    "readingProgress": "Пешрафти хондан",
+    "enterFullscreen": "Ворид шудан ба экрани пурра",
+    "exitFullscreen": "Баромадан аз экрани пурра"
   },
   "credits": {
     "eyebrow": "Attribution",

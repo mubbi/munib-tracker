@@ -1192,7 +1192,11 @@
     "showTransliteration": "Transliterasiyanı göstər",
     "hideTransliteration": "Transliterasiyanı gizlət",
     "showTranslation": "Tərcüməni göstər",
-    "hideTranslation": "Tərcüməni gizlət"
+    "hideTranslation": "Tərcüməni gizlət",
+    "backToTop": "Yuxarıya qayıt",
+    "readingProgress": "Oxuma irəliləyişi",
+    "enterFullscreen": "Tam ekrana keç",
+    "exitFullscreen": "Tam ekrandan çıx"
   },
   "share": {
     "dialogTitle": "Paylaş",
@@ -1534,7 +1538,19 @@
     "bookmarks": "əlfəciçindələr",
     "bookmarksSubtitle": "Yadda saxladığınız hadith",
     "bookmarksEmpty": "hadith hələ saxlanılmayıb",
-    "viewBookmarks": "View əlfəciçindələr"
+    "viewBookmarks": "View əlfəciçindələr",
+    "arabic": "Ərəbcə",
+    "translation": "Tərcümə",
+    "narratorLabel": "Ravi",
+    "gradeLabel": "Dərəcə",
+    "showArabic": "Ərəbcəni göstər",
+    "showTranslation": "Tərcüməni göstər",
+    "showNarrator": "Ravini göstər",
+    "showGrade": "Dərəcəni göstər",
+    "backToTop": "Yuxarıya qayıt",
+    "readingProgress": "Oxuma irəliləyişi",
+    "enterFullscreen": "Tam ekrana keç",
+    "exitFullscreen": "Tam ekrandan çıx"
   },
   "credits": {
     "eyebrow": "ttributiüzərində",

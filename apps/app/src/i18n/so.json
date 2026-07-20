@@ -1192,7 +1192,11 @@
     "showTransliteration": "Muuji transliteration",
     "hideTransliteration": "Qari transliteration",
     "showTranslation": "Muuji tarjumaad",
-    "hideTranslation": "Qari tarjumaad"
+    "hideTranslation": "Qari tarjumaad",
+    "backToTop": "Ku laabo xagga sare",
+    "readingProgress": "Horumarka akhriska",
+    "enterFullscreen": "Geli shaashadda buuxda",
+    "exitFullscreen": "Ka bax shaashadda buuxda"
   },
   "share": {
     "dialogTitle": "La wadaag",
@@ -1534,7 +1538,19 @@
     "bookmarks": "clmdh",
     "bookmarksSubtitle": "hadith aad kaydsatay",
     "bookmarksEmpty": "Wali lama kaydin hadith",
-    "viewBookmarks": "View clmdh"
+    "viewBookmarks": "View clmdh",
+    "arabic": "Carabi",
+    "translation": "Tarjumaad",
+    "narratorLabel": "Weriye",
+    "gradeLabel": "Darajo",
+    "showArabic": "Muuji Carabi",
+    "showTranslation": "Muuji tarjumaad",
+    "showNarrator": "Muuji weriye",
+    "showGrade": "Muuji darajo",
+    "backToTop": "Ku laabo xagga sare",
+    "readingProgress": "Horumarka akhriska",
+    "enterFullscreen": "Geli shaashadda buuxda",
+    "exitFullscreen": "Ka bax shaashadda buuxda"
   },
   "credits": {
     "eyebrow": "ttributiku",

@@ -15,6 +15,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
@@ -95,11 +96,7 @@ function AdhanStyleRow({
       style={[styles.styleRow, { backgroundColor: colors.muted }]}
     >
       <IconWell
-        icon={
-          isPlaying
-            ? { ios: "pause.fill", android: "pause", web: "pause" }
-            : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-        }
+        icon={isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
         tint={isActive ? colors.accent : colors.mutedForeground}
         background={isActive ? tokens.accentSoft : colors.card}
       />

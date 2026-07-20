@@ -2,8 +2,13 @@ import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
+import {
+  SCRIPTURE_LIST_DETAIL_MAX_WIDTH,
+  ScriptureReadingFilters,
+  scriptureListDetailStyles,
+} from "@/components/content/scripture-reading-filters";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -13,7 +18,10 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildZikrActivity } from "@/lib/continue-activity";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -39,6 +47,9 @@ function paramId(value: string | string[] | undefined): string | undefined {
 export default function ZikrDetailScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+  const { tokens } = useThemeTokens();
+  const contentBottomInset = useContentBottomInset();
+  const { isListDetail } = useLargeScreenLayout();
   const params = useLocalSearchParams<{ id: string; prayer?: string }>();
   const zikrId = paramId(params.id);
   const prayerParam = paramId(params.prayer);
@@ -112,11 +123,93 @@ export default function ZikrDetailScreen() {
     { name: zikrTitle, path: `/zikr/detail/${item.id}` },
   ];
 
+  const readingBody = (
+    <Stagger>
+      {!isListDetail ? <ScriptureReadingFilters /> : null}
+      <ReadingCard
+        item={item}
+        shareCard={shareCard}
+        sourceHref={`/zikr/detail/${item.id}`}
+        contentRef={buildContentReportRef(
+          "zikr",
+          item.id,
+          `/zikr/detail/${item.id}`,
+          i18n.language?.split("-")[0] ?? "en",
+          {
+            snapshot: {
+              title: item.title,
+              arabic: item.arabic,
+              transliteration: item.transliteration,
+              translation: item.translation,
+              reference: item.reference,
+            },
+          },
+        )}
+      />
+
+      {target > 0 ? (
+        <Card padding="three">
+          <View style={styles.progressHeader}>
+            <ThemedText type="smallBold">{t("zikr.today")}</ThemedText>
+            <ThemedText type="small" themeColor="mutedForeground">
+              {Math.min(count, target)} / {target}
+            </ThemedText>
+          </View>
+          <SegmentedProgress total={target} completed={Math.min(count, target)} />
+        </Card>
+      ) : null}
+
+      <View style={styles.actions}>
+        <Button
+          label={t("zikr.openInTasbeeh")}
+          icon={TASBEEH_ICON}
+          fullWidth
+          onPress={() =>
+            router.push({
+              pathname: "/tasbeeh/[zikrId]",
+              params: afterSalahPrayer
+                ? { zikrId: item.id, prayer: afterSalahPrayer }
+                : { zikrId: item.id },
+            })
+          }
+        />
+        <View style={styles.actionRow}>
+          <Button
+            label={isFavorite ? t("zikr.favorited") : t("zikr.favorite")}
+            variant="secondary"
+            icon={
+              isFavorite
+                ? { ios: "star.fill", android: "star", web: "star" }
+                : { ios: "star", android: "star_border", web: "star_border" }
+            }
+            onPress={() => toggleFavorite(item.id)}
+            style={styles.flex}
+          />
+          <Button
+            label={
+              shareCard.isSharing(item.id)
+                ? t("share.preparing")
+                : shareCard.isGesturePending(item.id)
+                  ? t("share.tapToShare")
+                  : t("zikr.share")
+            }
+            variant="ghost"
+            icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+            disabled={shareCard.isSharing(item.id)}
+            onPress={onShare}
+            style={styles.flex}
+          />
+        </View>
+      </View>
+    </Stagger>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("zikr.detailEyebrow")}
       title={item.title}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={isListDetail ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
     >
       {shareCard.SnapshotHost}
       <Seo
@@ -136,88 +229,44 @@ export default function ZikrDetailScreen() {
           }),
         ]}
       />
-      <Stagger>
-        <ReadingCard
-          item={item}
-          shareCard={shareCard}
-          sourceHref={`/zikr/detail/${item.id}`}
-          contentRef={buildContentReportRef(
-            "zikr",
-            item.id,
-            `/zikr/detail/${item.id}`,
-            i18n.language?.split("-")[0] ?? "en",
-            {
-              snapshot: {
-                title: item.title,
-                arabic: item.arabic,
-                transliteration: item.transliteration,
-                translation: item.translation,
-                reference: item.reference,
-              },
-            },
-          )}
-        />
-
-        {target > 0 ? (
-          <Card padding="three">
-            <View style={styles.progressHeader}>
-              <ThemedText type="smallBold">{t("zikr.today")}</ThemedText>
-              <ThemedText type="small" themeColor="mutedForeground">
-                {Math.min(count, target)} / {target}
-              </ThemedText>
-            </View>
-            <SegmentedProgress total={target} completed={Math.min(count, target)} />
-          </Card>
-        ) : null}
-
-        <View style={styles.actions}>
-          <Button
-            label={t("zikr.openInTasbeeh")}
-            icon={TASBEEH_ICON}
-            fullWidth
-            onPress={() =>
-              router.push({
-                pathname: "/tasbeeh/[zikrId]",
-                params: afterSalahPrayer
-                  ? { zikrId: item.id, prayer: afterSalahPrayer }
-                  : { zikrId: item.id },
-              })
-            }
-          />
-          <View style={styles.actionRow}>
-            <Button
-              label={isFavorite ? t("zikr.favorited") : t("zikr.favorite")}
-              variant="secondary"
-              icon={
-                isFavorite
-                  ? { ios: "star.fill", android: "star", web: "star" }
-                  : { ios: "star", android: "star_border", web: "star_border" }
-              }
-              onPress={() => toggleFavorite(item.id)}
-              style={styles.flex}
-            />
-            <Button
-              label={
-                shareCard.isSharing(item.id)
-                  ? t("share.preparing")
-                  : shareCard.isGesturePending(item.id)
-                    ? t("share.tapToShare")
-                    : t("zikr.share")
-              }
-              variant="ghost"
-              icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              disabled={shareCard.isSharing(item.id)}
-              onPress={onShare}
-              style={styles.flex}
-            />
+      {isListDetail ? (
+        <View style={[scriptureListDetailStyles.listDetailRoot, styles.detailRoot]}>
+          <View style={[scriptureListDetailStyles.listDetailPrimary, styles.detailPrimary]}>
+            {readingBody}
+          </View>
+          <View
+            style={[
+              scriptureListDetailStyles.listDetailSecondary,
+              { borderStartColor: tokens.hairline },
+            ]}
+          >
+            <ScrollView
+              style={scriptureListDetailStyles.listDetailSecondaryScroll}
+              contentContainerStyle={[
+                scriptureListDetailStyles.listDetailSecondaryContent,
+                { paddingBottom: contentBottomInset },
+              ]}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              <ScriptureReadingFilters />
+            </ScrollView>
           </View>
         </View>
-      </Stagger>
+      ) : (
+        readingBody
+      )}
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  detailRoot: {
+    minHeight: 420,
+  },
+  detailPrimary: {
+    gap: Spacing.four,
+  },
   progressHeader: {
     flexDirection: "row",
     justifyContent: "space-between",

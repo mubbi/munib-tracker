@@ -11,7 +11,7 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
-import { useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -37,7 +37,6 @@ const IMPORTANCE_TONE: Record<
 function TaharahSteps({ steps }: { steps: NonNullable<TaharahTopic["steps"]> }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
 
   return (
     <Card padding="three">
@@ -54,14 +53,8 @@ function TaharahSteps({ steps }: { steps: NonNullable<TaharahTopic["steps"]> }) 
               </ThemedText>
             </View>
             <View style={styles.stepCopy}>
-              <ThemedText type="smallBold">{step.title}</ThemedText>
-              <ThemedText
-                type="small"
-                themeColor="mutedForeground"
-                style={{ fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 }}
-              >
-                {step.body}
-              </ThemedText>
+              <LearnProseText proseRole="title">{step.title}</LearnProseText>
+              <LearnProseText themeColor="mutedForeground">{step.body}</LearnProseText>
               {step.arabic || step.transliteration ? (
                 <ReligiousTextStack
                   arabic={step.arabic}
@@ -71,16 +64,9 @@ function TaharahSteps({ steps }: { steps: NonNullable<TaharahTopic["steps"]> }) 
               ) : null}
               {step.tip ? (
                 <View style={[styles.tip, { backgroundColor: tokens.status.warning.soft }]}>
-                  <ThemedText
-                    type="caption"
-                    style={{
-                      color: colors.foreground,
-                      fontSize: sizes.transliteration,
-                      lineHeight: sizes.transliteration * 1.35,
-                    }}
-                  >
+                  <LearnProseText proseRole="caption" style={{ color: colors.foreground }}>
                     {step.tip}
-                  </ThemedText>
+                  </LearnProseText>
                 </View>
               ) : null}
             </View>

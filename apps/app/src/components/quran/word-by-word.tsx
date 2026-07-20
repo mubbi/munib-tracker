@@ -87,7 +87,8 @@ export function WordByWord({
           const isActive = activeWordIndex === index || tappedIndex === index;
           return (
             <PressableScale
-              key={`${word.arabic}|${word.translit}|${word.gloss}`}
+              // biome-ignore lint/suspicious/noArrayIndexKey: ayah word order is fixed; arabic can repeat
+              key={`${word.arabic}-${index}`}
               haptic="selection"
               accessibilityRole="button"
               accessibilityLabel={`${word.arabic}. ${word.translit}. ${word.gloss}`}

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -52,12 +52,8 @@ export default function BattlesLessonsScreen() {
                   <ThemedText type="caption" themeColor="mutedForeground">
                     {card.battleTitle}
                   </ThemedText>
-                  <ThemedText type="title" style={styles.lesson}>
-                    {card.lesson}
-                  </ThemedText>
-                  <ThemedText type="small" themeColor="mutedForeground" style={styles.detail}>
-                    {card.detail}
-                  </ThemedText>
+                  <LearnProseText proseRole="title">{card.lesson}</LearnProseText>
+                  <LearnProseText themeColor="mutedForeground">{card.detail}</LearnProseText>
                   <View style={[styles.chip, { backgroundColor: tokens.accentSoft }]}>
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("battles.readBattle")}
@@ -77,8 +73,6 @@ export default function BattlesLessonsScreen() {
 
 const styles = StyleSheet.create({
   card: { gap: Spacing.two },
-  lesson: { lineHeight: 28 },
-  detail: { lineHeight: 22 },
   chip: {
     alignSelf: "flex-start",
     paddingHorizontal: Spacing.two,

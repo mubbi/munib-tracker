@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -42,15 +41,13 @@ export default function BattlesGlossaryScreen() {
               <View style={styles.list}>
                 {terms.map((term) => (
                   <View key={term.id} style={styles.term}>
-                    <ThemedText type="smallBold">{term.term}</ThemedText>
+                    <LearnProseText proseRole="title">{term.term}</LearnProseText>
                     {term.transliteration ? (
-                      <ThemedText type="caption" themeColor="mutedForeground">
+                      <LearnProseText proseRole="caption" themeColor="mutedForeground">
                         {term.transliteration}
-                      </ThemedText>
+                      </LearnProseText>
                     ) : null}
-                    <ThemedText type="small" themeColor="mutedForeground" style={styles.definition}>
-                      {term.definition}
-                    </ThemedText>
+                    <LearnProseText themeColor="mutedForeground">{term.definition}</LearnProseText>
                   </View>
                 ))}
               </View>
@@ -67,5 +64,4 @@ export default function BattlesGlossaryScreen() {
 const styles = StyleSheet.create({
   list: { gap: Spacing.four, marginTop: Spacing.three },
   term: { gap: Spacing.half },
-  definition: { lineHeight: 22 },
 });

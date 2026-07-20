@@ -318,6 +318,51 @@ export default function QuranPageReaderScreen() {
     audio.current?.id === `${actionAyah.surah}:${actionAyah.ayah}` &&
     audio.isPlaying;
 
+  /** Verse body for the ayah action sheet — always resolved for the selected surah. */
+  const actionAyahDetail = useMemo(() => {
+    if (!actionAyah) return null;
+    const { surah, ayah } = actionAyah;
+    const meta = getSurahByNumber(surah);
+    const ayahRow =
+      pageAyahs.find((a) => a.surah === surah && a.ayah === ayah) ??
+      getSurahAyahs(surah).find((a) => a.ayah === ayah);
+    if (!ayahRow || !meta) return null;
+
+    const key = String(ayah);
+    const translation =
+      surah === startSurah
+        ? (translationText[key] ?? "")
+        : (getBundledEdition(remoteActive ? "en-pickthall" : primaryEditionId, surah)[key] ?? "");
+    const second = !secondaryId
+      ? undefined
+      : surah === startSurah
+        ? secondTranslationText?.[key]
+        : getBundledEdition(secondaryRemoteActive ? "en-pickthall" : secondaryId, surah)[key];
+    const translit =
+      surah === startSurah ? (transliteration[key] ?? "") : (getTransliteration(surah)[key] ?? "");
+
+    return {
+      arabic: ayahRow.arabic,
+      transliteration: translit,
+      translation,
+      secondTranslation: second,
+      surahName: meta.nameTransliteration,
+      surahNameEnglish: meta.nameEnglish,
+      juz: ayahRow.juz,
+    };
+  }, [
+    actionAyah,
+    pageAyahs,
+    primaryEditionId,
+    remoteActive,
+    secondaryId,
+    secondaryRemoteActive,
+    secondTranslationText,
+    startSurah,
+    translationText,
+    transliteration,
+  ]);
+
   const playingAyah = useMemo(() => {
     const id = audio.current?.id;
     if (!id?.includes(":")) return undefined;
@@ -532,7 +577,18 @@ export default function QuranPageReaderScreen() {
         visible={actionAyah != null}
         surah={actionAyah?.surah ?? 1}
         ayah={actionAyah?.ayah ?? 1}
-        surahName={getSurahByNumber(actionAyah?.surah ?? 1)?.nameTransliteration}
+        surahName={actionAyahDetail?.surahName}
+        surahNameEnglish={actionAyahDetail?.surahNameEnglish}
+        juz={actionAyahDetail?.juz}
+        arabic={actionAyahDetail?.arabic}
+        transliteration={actionAyahDetail?.transliteration}
+        translation={actionAyahDetail?.translation}
+        secondTranslation={actionAyahDetail?.secondTranslation}
+        translationDir={translationDir}
+        secondTranslationDir={secondaryDir}
+        arabicSize={readingSizes.arabic}
+        transliterationSize={readingSizes.transliteration}
+        translationSize={readingSizes.translation}
         isBookmarked={actionBookmarked}
         isPlaying={actionPlaying}
         onClose={() => setActionAyah(null)}
@@ -559,19 +615,15 @@ export default function QuranPageReaderScreen() {
         }}
         onBookmark={() => actionAyah && void toggleBookmark(actionAyah.surah, actionAyah.ayah)}
         onShare={() => {
-          if (!actionAyah) return;
-          const ayahData = getAyahsOnPage(currentPage).find(
-            (a) => a.surah === actionAyah.surah && a.ayah === actionAyah.ayah,
-          );
-          if (!ayahData) return;
+          if (!actionAyah || !actionAyahDetail) return;
           void share({
             ...buildAyahSharePayload(
-              ayahData.arabic,
-              translationText[String(actionAyah.ayah)] ?? "",
+              actionAyahDetail.arabic,
+              actionAyahDetail.translation,
               actionAyah.surah,
               actionAyah.ayah,
               {
-                surahName: getSurahByNumber(actionAyah.surah)?.nameTransliteration,
+                surahName: actionAyahDetail.surahName,
                 sectionTitle: t("share.sectionQuran"),
               },
             ),

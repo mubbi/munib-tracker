@@ -1192,7 +1192,11 @@
     "showTransliteration": "نمایش آوانگاری",
     "hideTransliteration": "پنهان کردن آوانگاری",
     "showTranslation": "نمایش ترجمه",
-    "hideTranslation": "پنهان کردن ترجمه"
+    "hideTranslation": "پنهان کردن ترجمه",
+    "backToTop": "بازگشت به بالا",
+    "readingProgress": "پیشرفت خواندن",
+    "enterFullscreen": "ورود به تمام‌صفحه",
+    "exitFullscreen": "خروج از تمام‌صفحه"
   },
   "share": {
     "dialogTitle": "اشتراک",
@@ -1534,7 +1538,19 @@
     "bookmarks": "نشانک‌ها",
     "bookmarksSubtitle": "احادیث ذخیره‌شده شما",
     "bookmarksEmpty": "هنوز حدیثی ذخیره نشده است",
-    "viewBookmarks": "بک مارکس دیکھیں"
+    "viewBookmarks": "بک مارکس دیکھیں",
+    "arabic": "عربی",
+    "translation": "ترجمه",
+    "narratorLabel": "راوی",
+    "gradeLabel": "درجه",
+    "showArabic": "نمایش عربی",
+    "showTranslation": "نمایش ترجمه",
+    "showNarrator": "نمایش راوی",
+    "showGrade": "نمایش درجه",
+    "backToTop": "بازگشت به بالا",
+    "readingProgress": "پیشرفت خواندن",
+    "enterFullscreen": "ورود به تمام‌صفحه",
+    "exitFullscreen": "خروج از تمام‌صفحه"
   },
   "credits": {
     "eyebrow": "منبع",

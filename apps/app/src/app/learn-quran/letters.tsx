@@ -12,6 +12,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
+import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
@@ -90,11 +91,7 @@ export default function LearnQuranLettersScreen() {
                 label={lettersActive && audio.isPlaying ? t("common.pause") : t("names.playAll")}
                 variant="secondary"
                 fullWidth
-                icon={
-                  lettersActive && audio.isPlaying
-                    ? { ios: "pause.fill", android: "pause", web: "pause" }
-                    : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-                }
+                icon={lettersActive && audio.isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
                 onPress={onPlayAll}
                 style={styles.playAll}
               />

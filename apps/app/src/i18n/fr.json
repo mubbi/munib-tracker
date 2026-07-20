@@ -1192,7 +1192,11 @@
     "showTransliteration": "Afficher la translittération",
     "hideTransliteration": "Masquer la translittération",
     "showTranslation": "Afficher la traduction",
-    "hideTranslation": "Masquer la traduction"
+    "hideTranslation": "Masquer la traduction",
+    "backToTop": "Retour en haut",
+    "readingProgress": "Progression de lecture",
+    "enterFullscreen": "Passer en plein écran",
+    "exitFullscreen": "Quitter le plein écran"
   },
   "share": {
     "dialogTitle": "Partager",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Signets",
     "bookmarksSubtitle": "Vousin kmoisdedildi hadis",
     "bookmarksEmpty": "Henüz saetd hadith yok",
-    "viewBookmarks": "Afficher les favoris"
+    "viewBookmarks": "Afficher les favoris",
+    "arabic": "Arabe",
+    "translation": "Traduction",
+    "narratorLabel": "Narrateur",
+    "gradeLabel": "Degré",
+    "showArabic": "Afficher l'arabe",
+    "showTranslation": "Afficher la traduction",
+    "showNarrator": "Afficher le narrateur",
+    "showGrade": "Afficher le degré",
+    "backToTop": "Retour en haut",
+    "readingProgress": "Progression de lecture",
+    "enterFullscreen": "Passer en plein écran",
+    "exitFullscreen": "Quitter le plein écran"
   },
   "credits": {
     "eyebrow": "Attribution",

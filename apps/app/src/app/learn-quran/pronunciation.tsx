@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
@@ -106,11 +107,7 @@ export default function LearnQuranPronunciationScreen() {
                 label={glyphsActive && audio.isPlaying ? t("common.pause") : t("names.playAll")}
                 variant="secondary"
                 fullWidth
-                icon={
-                  glyphsActive && audio.isPlaying
-                    ? { ios: "pause.fill", android: "pause", web: "pause" }
-                    : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-                }
+                icon={glyphsActive && audio.isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
                 onPress={onPlayAll}
               />
             ) : null}

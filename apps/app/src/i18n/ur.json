@@ -1152,7 +1152,11 @@
     "showTransliteration": "نقل حرفی دکھائیں",
     "hideTransliteration": "نقل حرفی چھپائیں",
     "showTranslation": "ترجمہ دکھائیں",
-    "hideTranslation": "ترجمہ چھپائیں"
+    "hideTranslation": "ترجمہ چھپائیں",
+    "backToTop": "اوپر جائیں",
+    "readingProgress": "مطالعے کی پیش رفت",
+    "enterFullscreen": "پوری اسکرین",
+    "exitFullscreen": "پوری اسکرین بند کریں"
   },
   "share": {
     "dialogTitle": "شیئر",
@@ -1490,7 +1494,19 @@
     "bookmarks": "بک مارکس",
     "bookmarksSubtitle": "آپ کی محفوظ احادیث",
     "bookmarksEmpty": "ابھی کوئی محفوظ حدیث نہیں",
-    "viewBookmarks": "بک مارکس دیکھیں"
+    "viewBookmarks": "بک مارکس دیکھیں",
+    "arabic": "عربی",
+    "translation": "ترجمہ",
+    "narratorLabel": "راوی",
+    "gradeLabel": "درجہ",
+    "showArabic": "عربی دکھائیں",
+    "showTranslation": "ترجمہ دکھائیں",
+    "showNarrator": "راوی دکھائیں",
+    "showGrade": "درجہ دکھائیں",
+    "backToTop": "اوپر جائیں",
+    "readingProgress": "مطالعے کی پیش رفت",
+    "enterFullscreen": "پوری اسکرین",
+    "exitFullscreen": "پوری اسکرین بند کریں"
   },
   "credits": {
     "eyebrow": "انتساب",

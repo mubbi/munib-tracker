@@ -8,7 +8,7 @@ import {
 } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -184,9 +184,9 @@ export default function SahabaProfileScreen() {
               />
               <View style={styles.body}>
                 {paragraphs.map((paragraph) => (
-                  <ThemedText key={paragraph.slice(0, 24)} type="small" style={styles.paragraph}>
+                  <LearnProseText key={paragraph.slice(0, 24)} style={styles.paragraph}>
                     {paragraph}
-                  </ThemedText>
+                  </LearnProseText>
                 ))}
               </View>
             </Card>

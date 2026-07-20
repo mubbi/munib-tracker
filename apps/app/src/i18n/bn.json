@@ -1193,7 +1193,11 @@
     "showTransliteration": "ট্রান্সলিটারেশন দেখান",
     "hideTransliteration": "ট্রান্সলিটারেশন লুকান",
     "showTranslation": "অনুবাদ দেখান",
-    "hideTranslation": "অনুবাদ লুকান"
+    "hideTranslation": "অনুবাদ লুকান",
+    "backToTop": "উপরে যান",
+    "readingProgress": "পড়ার অগ্রগতি",
+    "enterFullscreen": "পূর্ণস্ক্রিনে প্রবেশ",
+    "exitFullscreen": "পূর্ণস্ক্রিন থেকে প্রস্থান"
   },
   "share": {
     "dialogTitle": "শেয়ার",
@@ -1535,7 +1539,19 @@
     "bookmarks": "বুকমার্ক",
     "bookmarksSubtitle": "আপনার সংরক্ষিত হাদিস",
     "bookmarksEmpty": "এখনো saved hadith নেই",
-    "viewBookmarks": "bookmarks দেখুন"
+    "viewBookmarks": "bookmarks দেখুন",
+    "arabic": "আরবি",
+    "translation": "অনুবাদ",
+    "narratorLabel": "বর্ণনাকারী",
+    "gradeLabel": "মর্যাদা",
+    "showArabic": "আরবি দেখান",
+    "showTranslation": "অনুবাদ দেখান",
+    "showNarrator": "বর্ণনাকারী দেখান",
+    "showGrade": "মর্যাদা দেখান",
+    "backToTop": "উপরে যান",
+    "readingProgress": "পড়ার অগ্রগতি",
+    "enterFullscreen": "পূর্ণস্ক্রিনে প্রবেশ",
+    "exitFullscreen": "পূর্ণস্ক্রিন থেকে প্রস্থান"
   },
   "credits": {
     "eyebrow": "স্বীকৃতি",

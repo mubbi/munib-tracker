@@ -1180,7 +1180,11 @@
     "showTransliteration": "إظهار النقحرة",
     "hideTransliteration": "إخفاء النقحرة",
     "showTranslation": "إظهار الترجمة",
-    "hideTranslation": "إخفاء الترجمة"
+    "hideTranslation": "إخفاء الترجمة",
+    "backToTop": "العودة إلى الأعلى",
+    "readingProgress": "تقدم القراءة",
+    "enterFullscreen": "ملء الشاشة",
+    "exitFullscreen": "إنهاء ملء الشاشة"
   },
   "share": {
     "dialogTitle": "مشاركة",
@@ -1526,7 +1530,19 @@
     "bookmarks": "الإشارات المرجعية",
     "bookmarksSubtitle": "أحاديثك المحفوظة",
     "bookmarksEmpty": "لا أحاديث محفوظة بعد",
-    "viewBookmarks": "عرض الإشارات"
+    "viewBookmarks": "عرض الإشارات",
+    "arabic": "العربية",
+    "translation": "الترجمة",
+    "narratorLabel": "الراوي",
+    "gradeLabel": "الدرجة",
+    "showArabic": "إظهار العربية",
+    "showTranslation": "إظهار الترجمة",
+    "showNarrator": "إظهار الراوي",
+    "showGrade": "إظهار الدرجة",
+    "backToTop": "العودة إلى الأعلى",
+    "readingProgress": "تقدم القراءة",
+    "enterFullscreen": "ملء الشاشة",
+    "exitFullscreen": "إنهاء ملء الشاشة"
   },
   "credits": {
     "eyebrow": "الإسناد",

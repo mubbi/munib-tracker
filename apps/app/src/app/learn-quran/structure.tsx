@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -77,15 +77,18 @@ export default function LearnQuranStructureScreen() {
                         },
                       ]}
                     >
-                      <ThemedText type="smallBold" style={[styles.label, { color: colors.accent }]}>
+                      <LearnProseText
+                        proseRole="title"
+                        style={[styles.label, { color: colors.accent }]}
+                      >
                         {level.label}
-                      </ThemedText>
+                      </LearnProseText>
                       <ThemedText type="title" style={styles.count}>
                         {level.count}
                       </ThemedText>
-                      <ThemedText type="small" themeColor="mutedForeground" style={styles.detail}>
+                      <LearnProseText themeColor="mutedForeground" style={styles.detail}>
                         {level.detail}
-                      </ThemedText>
+                      </LearnProseText>
                     </View>
                   </View>
                 ))}

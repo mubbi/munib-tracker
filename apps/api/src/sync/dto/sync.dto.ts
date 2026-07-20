@@ -55,6 +55,7 @@ export const SYNC_ENTITIES = [
   "last_day_progress",
   "learn_dua_progress",
   "quran_prefs",
+  "hadith_prefs",
   "quran_reading_progress",
   "qaza_schedule",
   "qaza_daily_progress",

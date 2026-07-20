@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { useMemo } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 
-import { BOOT_BACKGROUND } from "@/lib/boot/cold-start";
 import { createNavigationTheme } from "@/lib/navigation-theme";
 import { isIndexingBot } from "@/lib/seo/is-indexing-bot";
 import { useTheme } from "@/providers/theme-provider";
@@ -37,7 +36,7 @@ export function AppStack() {
   const showApp = prefs.hasCompletedOnboarding || (Platform.OS === "web" && isIndexingBot());
 
   if (!prefsReady) {
-    return <View style={styles.bootShell} />;
+    return <View style={[styles.bootShell, { backgroundColor: colors.background }]} />;
   }
 
   return (
@@ -61,6 +60,5 @@ export function AppStack() {
 const styles = StyleSheet.create({
   bootShell: {
     flex: 1,
-    backgroundColor: BOOT_BACKGROUND,
   },
 });

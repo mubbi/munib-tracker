@@ -1,10 +1,53 @@
+import type { ColorMode } from "@munib-tracker/theme/types";
+import { STORAGE_KEYS } from "@munib-tracker/theme/types";
 import { useEffect, useSyncExternalStore } from "react";
 
 /**
- * Boot brand color — matches native splash / PWA theme until the first real
- * destination (intro or home) has painted.
+ * Boot brand colors — match `resolveTheme` light/dark `background` until the
+ * first real destination (intro or home) has painted.
  */
-export const BOOT_BACKGROUND = "#152921";
+export const BOOT_BACKGROUND_DARK = "#152921";
+export const BOOT_BACKGROUND_LIGHT = "#F5F0E6";
+
+/** Dark boot color — legacy alias (native splash / PWA fallbacks). */
+export const BOOT_BACKGROUND = BOOT_BACKGROUND_DARK;
+
+export function bootBackgroundForScheme(scheme: "light" | "dark"): string {
+  return scheme === "light" ? BOOT_BACKGROUND_LIGHT : BOOT_BACKGROUND_DARK;
+}
+
+export function isBootColorMode(value: string | null | undefined): value is ColorMode {
+  return value === "light" || value === "dark" || value === "system";
+}
+
+/**
+ * Sync read of persisted color mode (web `localStorage` via AsyncStorage keys).
+ * Returns null on native / SSR / missing value.
+ */
+export function peekStoredColorMode(): ColorMode | null {
+  if (typeof localStorage === "undefined") return null;
+  try {
+    const stored = localStorage.getItem(STORAGE_KEYS.colorMode);
+    return isBootColorMode(stored) ? stored : null;
+  } catch {
+    return null;
+  }
+}
+
+export function resolveBootScheme(mode: ColorMode, systemIsDark: boolean): "light" | "dark" {
+  if (mode === "system") return systemIsDark ? "dark" : "light";
+  return mode;
+}
+
+/** Best-effort scheme for first client paint (defaults to app default: dark). */
+export function peekBootScheme(): "light" | "dark" {
+  const mode = peekStoredColorMode() ?? "dark";
+  const systemIsDark =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return resolveBootScheme(mode, systemIsDark);
+}
 
 let painted = false;
 const listeners = new Set<() => void>();
@@ -51,3 +94,9 @@ export function __resetColdStartForTests(): void {
     listener();
   }
 }
+
+/**
+ * Inline script for `+html.tsx` — paints `html`/`body` with the stored scheme
+ * before the JS bundle so full refresh does not flash the dark splash color.
+ */
+export const BOOT_THEME_SCRIPT = `(function(){try{var k=${JSON.stringify(STORAGE_KEYS.colorMode)};var mode=localStorage.getItem(k);var dark=true;if(mode==="light")dark=false;else if(mode==="system")dark=window.matchMedia("(prefers-color-scheme: dark)").matches;else if(mode==="dark")dark=true;var bg=dark?"${BOOT_BACKGROUND_DARK}":"${BOOT_BACKGROUND_LIGHT}";var s=dark?"dark":"light";document.documentElement.style.backgroundColor=bg;document.documentElement.style.colorScheme=s;if(document.body){document.body.style.backgroundColor=bg;}}catch(e){}})();`;

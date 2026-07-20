@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -47,9 +47,7 @@ function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
         size={18}
       />
       <View style={styles.copy}>
-        <ThemedText type="small" style={{ lineHeight: 22 }}>
-          {entry.question}
-        </ThemedText>
+        <LearnProseText>{entry.question}</LearnProseText>
         {entry.appLink ? (
           <ThemedText type="caption" style={{ color: colors.accent }}>
             {entry.appLink.label}

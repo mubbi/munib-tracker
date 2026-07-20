@@ -1,11 +1,11 @@
 import type { ReadingSurface } from "@munib-tracker/shared/types";
 import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, type TextStyle, View } from "react-native";
 
 import { LearnTtsProvider, useLearnTts } from "@/components/learn-tts-context";
 import { ReadingFontControls } from "@/components/reading-font-controls";
-import { ThemedText } from "@/components/themed-text";
+import { ThemedText, type ThemedTextProps } from "@/components/themed-text";
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { IconButton } from "@/components/ui/icon-button";
 import { Spacing } from "@/constants/theme";
@@ -22,6 +22,41 @@ import {
   useReadingTextVisibility,
   useReadingTextVisibilityActions,
 } from "@/stores/reading-text-visibility-store";
+
+/** Roles for custom English/prose copy inside LearnReadingChrome. */
+export type LearnProseRole = "title" | "body" | "caption";
+
+/**
+ * Font size + line height that track the in-context A−/A+ control for the
+ * active reading surface. Use for educational prose that is not scripture
+ * (timeline cards, glossaries, checklists, figure bios, etc.).
+ */
+export function useLearnProseStyle(proseRole: LearnProseRole = "body"): TextStyle {
+  const { sizes } = useReadingTypography();
+  const fontSize =
+    proseRole === "title"
+      ? sizes.translation + 2
+      : proseRole === "caption"
+        ? sizes.transliteration
+        : sizes.translation;
+  const lineHeightRatio = proseRole === "title" ? 1.35 : proseRole === "caption" ? 1.4 : 1.5;
+  return { fontSize, lineHeight: Math.round(fontSize * lineHeightRatio) };
+}
+
+/**
+ * ThemedText that scales with Learn text-size controls. Prefer this over a
+ * bare ThemedText for long-form custom content on Learn screens.
+ * Uses `proseRole` (not DOM `role`) so a11y lint does not treat it as ARIA.
+ */
+export function LearnProseText({
+  proseRole = "body",
+  style,
+  type = proseRole === "title" ? "smallBold" : proseRole === "caption" ? "caption" : "small",
+  ...rest
+}: ThemedTextProps & { proseRole?: LearnProseRole }) {
+  const proseStyle = useLearnProseStyle(proseRole);
+  return <ThemedText type={type} style={[proseStyle, style]} {...rest} />;
+}
 
 const ReadingTypographyContext = createContext<ReadingSurface | null>(null);
 

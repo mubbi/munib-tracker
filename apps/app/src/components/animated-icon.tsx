@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import Animated, { Easing, Keyframe } from "react-native-reanimated";
 
 import { useSplashDismissal } from "@/hooks/use-splash-dismissal";
-import { BOOT_BACKGROUND } from "@/lib/boot/cold-start";
+import { useTheme } from "@/providers/theme-provider";
 
 /**
  * Full-screen splash that stays mounted after fade-out.
@@ -18,6 +18,7 @@ import { BOOT_BACKGROUND } from "@/lib/boot/cold-start";
  */
 export function AnimatedSplashOverlay() {
   const { dismissed, opacity } = useSplashDismissal();
+  const { colors } = useTheme();
 
   return (
     <Animated.View
@@ -26,8 +27,11 @@ export function AnimatedSplashOverlay() {
       collapsable={false}
       style={[
         styles.splashOverlay,
-        { opacity, pointerEvents: dismissed ? "none" : "auto" },
-        dismissed ? styles.splashDismissed : null,
+        {
+          opacity,
+          pointerEvents: dismissed ? "none" : "auto",
+          backgroundColor: dismissed ? "transparent" : colors.background,
+        },
       ]}
     >
       {!dismissed ? (
@@ -100,14 +104,9 @@ const styles = StyleSheet.create({
   },
   splashOverlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: BOOT_BACKGROUND,
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,
-  },
-  /** After fade: keep the native view mounted (stable child) but inert. */
-  splashDismissed: {
-    backgroundColor: "transparent",
   },
   splashImage: {
     width: 280,

@@ -1192,7 +1192,11 @@
     "showTransliteration": "Transliteratsiyani ko'rsatish",
     "hideTransliteration": "Transliteratsiyani yashirish",
     "showTranslation": "Tarjimani ko'rsatish",
-    "hideTranslation": "Tarjimani yashirish"
+    "hideTranslation": "Tarjimani yashirish",
+    "backToTop": "Yuqoriga qaytish",
+    "readingProgress": "Oʻqish jarayoni",
+    "enterFullscreen": "Toʻliq ekranga kirish",
+    "exitFullscreen": "Toʻliq ekrandan chiqish"
   },
   "share": {
     "dialogTitle": "Ulashish",
@@ -1534,7 +1538,19 @@
     "bookmarks": "xtcho'plr",
     "bookmarksSubtitle": "Saqlangan hadith",
     "bookmarksEmpty": "Hozircha hadith saqlanmadi",
-    "viewBookmarks": "View xtcho'plr"
+    "viewBookmarks": "View xtcho'plr",
+    "arabic": "Arabcha",
+    "translation": "Tarjima",
+    "narratorLabel": "Roviy",
+    "gradeLabel": "Daraja",
+    "showArabic": "Arabchani koʻrsatish",
+    "showTranslation": "Tarjimani koʻrsatish",
+    "showNarrator": "Roviyni koʻrsatish",
+    "showGrade": "Darajani koʻrsatish",
+    "backToTop": "Yuqoriga qaytish",
+    "readingProgress": "Oʻqish jarayoni",
+    "enterFullscreen": "Toʻliq ekranga kirish",
+    "exitFullscreen": "Toʻliq ekrandan chiqish"
   },
   "credits": {
     "eyebrow": "ttributid",

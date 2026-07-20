@@ -1192,7 +1192,11 @@
     "showTransliteration": "Onyesha uandishi wa matamshi",
     "hideTransliteration": "Ficha uandishi wa matamshi",
     "showTranslation": "Onyesha tafsiri",
-    "hideTranslation": "Ficha tafsiri"
+    "hideTranslation": "Ficha tafsiri",
+    "backToTop": "Rudi juu",
+    "readingProgress": "Maendeleo ya kusoma",
+    "enterFullscreen": "Ingia skrini kamili",
+    "exitFullscreen": "Toka skrini kamili"
   },
   "share": {
     "dialogTitle": "Shiriki",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Alamisho",
     "bookmarksSubtitle": "Wewein kmwezidedildi hadis",
     "bookmarksEmpty": "Henüz sanad hadith yok",
-    "viewBookmarks": "Tazama alamisho"
+    "viewBookmarks": "Tazama alamisho",
+    "arabic": "Kiarabu",
+    "translation": "Tafsiri",
+    "narratorLabel": "Msimulizi",
+    "gradeLabel": "Daraja",
+    "showArabic": "Onyesha Kiarabu",
+    "showTranslation": "Onyesha tafsiri",
+    "showNarrator": "Onyesha msimulizi",
+    "showGrade": "Onyesha daraja",
+    "backToTop": "Rudi juu",
+    "readingProgress": "Maendeleo ya kusoma",
+    "enterFullscreen": "Ingia skrini kamili",
+    "exitFullscreen": "Toka skrini kamili"
   },
   "credits": {
     "eyebrow": "Uandishi",

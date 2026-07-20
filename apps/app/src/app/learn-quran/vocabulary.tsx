@@ -4,7 +4,12 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { QuranVocabPlayButton } from "@/components/quran-guide/ayah-play-button";
+import {
+  LearnProseText,
+  LearnReadingChrome,
+  useReadingTypography,
+} from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -19,6 +24,43 @@ import {
   getQuranGuideVocabulary,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { arabicReadingLayout } from "@/lib/reading-typography";
+
+function VocabWord({ word }: { word: ReturnType<typeof getQuranGuideVocabulary>[number] }) {
+  const { sizes } = useReadingTypography();
+
+  return (
+    <View style={styles.word}>
+      <View style={styles.wordHeader}>
+        <ThemedText type="arabic" style={[arabicReadingLayout(sizes.arabic), styles.wordArabic]}>
+          {word.arabic}
+        </ThemedText>
+        <QuranVocabPlayButton
+          vocabId={word.id}
+          title={word.transliteration}
+          sourceHref="/learn-quran/vocabulary"
+        />
+      </View>
+      <LearnProseText proseRole="title">{word.transliteration}</LearnProseText>
+      <LearnProseText themeColor="mutedForeground">{word.meaning}</LearnProseText>
+      {word.frequency ? (
+        <LearnProseText proseRole="caption" themeColor="mutedForeground">
+          {word.frequency}
+        </LearnProseText>
+      ) : null}
+      {word.example ? (
+        <LearnProseText proseRole="caption" style={styles.example}>
+          {word.example}
+        </LearnProseText>
+      ) : null}
+      {word.quranRef ? (
+        <LearnProseText proseRole="caption" themeColor="mutedForeground">
+          {word.quranRef.label}
+        </LearnProseText>
+      ) : null}
+    </View>
+  );
+}
 
 export default function LearnQuranVocabularyScreen() {
   const router = useRouter();
@@ -61,30 +103,7 @@ export default function LearnQuranVocabularyScreen() {
               />
               <View style={styles.list}>
                 {words.map((word) => (
-                  <View key={word.id} style={styles.word}>
-                    <ThemedText type="arabic" style={styles.arabic}>
-                      {word.arabic}
-                    </ThemedText>
-                    <ThemedText type="smallBold">{word.transliteration}</ThemedText>
-                    <ThemedText type="small" themeColor="mutedForeground">
-                      {word.meaning}
-                    </ThemedText>
-                    {word.frequency ? (
-                      <ThemedText type="caption" themeColor="mutedForeground">
-                        {word.frequency}
-                      </ThemedText>
-                    ) : null}
-                    {word.example ? (
-                      <ThemedText type="caption" style={styles.example}>
-                        {word.example}
-                      </ThemedText>
-                    ) : null}
-                    {word.quranRef ? (
-                      <ThemedText type="caption" themeColor="mutedForeground">
-                        {word.quranRef.label}
-                      </ThemedText>
-                    ) : null}
-                  </View>
+                  <VocabWord key={word.id} word={word} />
                 ))}
               </View>
             </Card>
@@ -100,6 +119,12 @@ export default function LearnQuranVocabularyScreen() {
 const styles = StyleSheet.create({
   list: { gap: Spacing.four, marginTop: Spacing.three },
   word: { gap: Spacing.half },
-  arabic: { fontSize: 28, lineHeight: 44 },
+  wordHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  wordArabic: { flex: 1, minWidth: 0 },
   example: { fontStyle: "italic", marginTop: Spacing.one },
 });

@@ -44,11 +44,13 @@ export function Button({
   // Ghost must still paint a real (near-invisible) fill. Fully transparent
   // Pressables intermittently drop Fabric taps inside Modals — Cancel looks
   // pressed while the dialog stays open; backdrop dismiss still works.
+  // Secondary uses a stronger soft fill in light mode than accentSoft chips —
+  // 0.14 alpha washes out on cream cards; CTAs need a clearer edge.
   const bg =
     variant === "primary"
       ? colors.accent
       : variant === "secondary"
-        ? tokens.accentSoft
+        ? withAlpha(colors.accent, tokens.isDark ? 0.28 : 0.2)
         : withAlpha(colors.foreground, tokens.isDark ? 0.06 : 0.04);
 
   const fg =
@@ -65,6 +67,9 @@ export function Button({
   const minHeight = isSm ? 36 : 40;
   const iconSize = isSm ? 14 : 16;
   const labelType = isSm ? "caption" : ("smallBold" as const);
+  const borderWidth =
+    variant === "ghost" ? 1 : variant === "secondary" ? StyleSheet.hairlineWidth : 0;
+  const borderColor = variant === "secondary" ? tokens.accentBorder : colors.border;
 
   return (
     <PressableScale
@@ -86,8 +91,8 @@ export function Button({
           paddingHorizontal,
           opacity: disabled ? 0.5 : 1,
           alignSelf: fullWidth ? "stretch" : "flex-start",
-          borderWidth: variant === "ghost" ? 1 : 0,
-          borderColor: colors.border,
+          borderWidth,
+          borderColor,
         },
         style,
       ]}

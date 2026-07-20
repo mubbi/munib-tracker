@@ -1,20 +1,12 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Appearance,
-  type ColorSchemeName,
-  I18nManager,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, I18nManager, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Fonts, MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import i18n from "@/i18n";
+import { useResolvedThemeScheme } from "@/lib/resolved-theme-scheme";
 
 export type SuspenseFallbackProps = {
   /** Route module context key (e.g. `./(tabs)/library.tsx`). */
@@ -45,7 +37,7 @@ const HEADER_BAND = 60;
  * No skeleton placeholders. Avoids Reanimated / `useTheme` / `useTranslation`.
  */
 export function SuspenseFallback({ route }: SuspenseFallbackProps) {
-  const scheme = useColorSchemeSafe();
+  const scheme = useResolvedThemeScheme();
   const palette = scheme === "dark" ? darkPalette : lightPalette;
   const insets = useSafeAreaInsets();
   const router = useRouter();
@@ -128,28 +120,6 @@ function backChevron(): SymbolViewProps["name"] {
     : { ios: "chevron.left", android: "arrow_back", web: "arrow_back" };
 }
 
-/**
- * Pin the first paint to the app default (`dark`) so static HTML matches
- * hydration. Reading `Appearance` during render differs between SSG (often
- * `null` → would have been light) and a dark-mode browser → React #418.
- */
-function useColorSchemeSafe(): "light" | "dark" {
-  const [scheme, setScheme] = useState<"light" | "dark">("dark");
-
-  useEffect(() => {
-    const sync = (colorScheme: ColorSchemeName | null | undefined) => {
-      setScheme(colorScheme === "dark" ? "dark" : "light");
-    };
-    sync(Appearance.getColorScheme());
-    const sub = Appearance.addChangeListener(({ colorScheme }) => {
-      sync(colorScheme);
-    });
-    return () => sub.remove();
-  }, []);
-
-  return scheme;
-}
-
 /** Mirrors `resolveTheme` light base + `computeThemeTokens` soft/hairline. */
 const lightPalette = {
   card: "#FFFCF7",
@@ -157,7 +127,7 @@ const lightPalette = {
   mutedForeground: "#5C7268",
   hairline: withAlpha("#152921", 0.08),
   accent: ACCENT_LIGHT,
-  accentSoft: withAlpha(ACCENT_LIGHT, 0.14),
+  accentSoft: withAlpha(ACCENT_LIGHT, 0.18),
 };
 
 /** Mirrors `resolveTheme` dark base + `computeThemeTokens` soft/hairline. */

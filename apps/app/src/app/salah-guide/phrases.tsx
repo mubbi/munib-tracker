@@ -10,9 +10,10 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { IconButton } from "@/components/ui/icon-button";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -86,21 +87,15 @@ function PhraseCard({
           />
         </View>
         {tracks?.length ? (
-          <View style={styles.playWell}>
-            <IconButton
-              name={
-                isPlaying
-                  ? { ios: "pause.fill", android: "pause", web: "pause" }
-                  : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-              }
-              onPress={onPlay}
-              tintColor={colors.accent}
-              background={isActive ? tokens.accentSoft : undefined}
-              accessibilityLabel={isPlaying ? t("common.pause") : t("common.play")}
-              size={18}
-              hitTarget={44}
-            />
-          </View>
+          <LabeledIconButton
+            name={isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
+            label={isPlaying ? t("common.pause") : t("common.play")}
+            onPress={onPlay}
+            tintColor={colors.accent}
+            labelColor={colors.accent}
+            background={isActive ? tokens.accentSoft : undefined}
+            accessibilityLabel={isPlaying ? t("common.pause") : t("common.play")}
+          />
         ) : null}
       </View>
       <ThemedText
@@ -190,7 +185,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   phraseTitle: { flex: 1, minWidth: 0, overflow: "hidden" },
-  playWell: { flexShrink: 0, zIndex: 1, marginTop: Spacing.two },
   when: { marginTop: Spacing.two },
   meaning: {
     marginTop: Spacing.three,

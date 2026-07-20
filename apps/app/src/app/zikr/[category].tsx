@@ -2,7 +2,7 @@ import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import type { AfterSalahPrayer, ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
 import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FlatList,
@@ -21,6 +21,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
+import { useScrollToActiveHorizontal } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   afterSalahItemProgress,
@@ -95,6 +96,16 @@ export default function ZikrCategoryScreen() {
     const raw = paramValue(params.prayer);
     if (raw && isAfterSalahPrayer(raw)) setPrayerFilter(raw);
   }, [showPrayerFilter, params.prayer]);
+
+  const chipsScrollRef = useRef<ScrollView>(null);
+  // Hold null until the chip bar mounts so deep-linked Maghrib/Witr still scroll
+  // into view after the corpus finishes loading.
+  const activePrayerChip = showPrayerFilter && corpusReady ? prayerFilter : null;
+  const { register: registerChip, onScroll: onChipsScroll } = useScrollToActiveHorizontal(
+    chipsScrollRef,
+    activePrayerChip,
+  );
+
   const items = useMemo(() => {
     if (!showPrayerFilter || prayerFilter === "all") return allItems;
     // Universal after-salah adhkar surface under every fard prayer but not Witr,
@@ -211,16 +222,20 @@ export default function ZikrCategoryScreen() {
         <Card padding="three" style={styles.listCard}>
           {showPrayerFilter ? (
             <ScrollView
+              ref={chipsScrollRef}
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.chips}
               style={styles.chipsRow}
+              onScroll={onChipsScroll}
+              scrollEventThrottle={16}
             >
               {(["all", ...AFTER_SALAH_PRAYERS] as PrayerFilter[]).map((prayer) => {
                 const active = prayerFilter === prayer;
                 return (
                   <PressableScale
                     key={prayer}
+                    ref={registerChip(prayer)}
                     haptic="selection"
                     accessibilityRole="button"
                     accessibilityState={{ selected: active }}

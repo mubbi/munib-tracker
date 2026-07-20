@@ -45,7 +45,8 @@ export function PrayerInfoButton({
           accessibilityHint={t("prayerInfo.infoHint")}
           onPress={() => setOpen(true)}
           haptic="light"
-          hitSlop={6}
+          // Expand the tap area without inflating row height (dense schedule/tracker cards).
+          hitSlop={{ top: 12, bottom: 12, left: 8, right: 8 }}
           style={styles.learnMore}
         >
           <SymbolView
@@ -83,7 +84,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexShrink: 0,
     gap: Spacing.half + 2,
-    minHeight: 44,
-    paddingVertical: Spacing.one,
+    paddingVertical: 0,
   },
 });

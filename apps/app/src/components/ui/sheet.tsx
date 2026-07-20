@@ -232,17 +232,22 @@ export function Sheet({
   ) : null;
 
   // elevation + zIndex: on Android Fabric, absolute-fill painted Pressables
-  // beat in-flow siblings without elevation — center-card chrome then loses
-  // hits to the scrim. Bottom sheets stack the scrim above the card in a
-  // column (no overlap), so elevation must stay off — Android draws a square
-  // elevated plate behind top-only border radii.
+  // beat overlapping siblings without elevation — card chrome then loses hits
+  // to the scrim. Bottom card uses zIndex (not elevation) so Android does not
+  // draw a square elevated plate behind top-only border radii.
   const centerCardElevation = Platform.OS === "android" ? 24 : 0;
 
   const bottomCard = (
     <Animated.View
       accessibilityViewIsModal
       collapsable={false}
-      style={[bottomCardStyle, bottomCardDragStyle, keyboardInsetStyle, { pointerEvents: "auto" }]}
+      style={[
+        bottomCardStyle,
+        styles.bottomCardDock,
+        bottomCardDragStyle,
+        keyboardInsetStyle,
+        { pointerEvents: "auto" },
+      ]}
     >
       {!solid ? glassFill : null}
       {dragHandle}
@@ -296,18 +301,20 @@ export function Sheet({
       <Modal
         visible={visible}
         transparent
-        animationType={isBottom ? "slide" : "fade"}
+        // Fade the shell. RN-web `slide` transforms the whole modal (scrim +
+        // card), which reads as a clipped backdrop beside the side rail.
+        animationType="fade"
         onRequestClose={onClose}
         statusBarTranslucent
       >
         {isBottom ? (
-          // Bottom: flex Pressable fills space above the card. Avoids relying on
-          // box-none pass-through (broken/unreliable on web + some Fabric builds)
-          // while keeping the card as a non-Pressable sibling so nested buttons work.
+          // Absolute-fill scrim for full-viewport dimming (incl. side rail).
+          // Card is position:absolute at the bottom — not inside a full-screen
+          // box-none wrapper, which on web swallows backdrop presses.
           <View style={styles.scrimRoot}>
             <Pressable
               collapsable={false}
-              style={[styles.backdropFlex, { backgroundColor: tokens.scrim }]}
+              style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
               onPress={onClose}
               {...backdropA11y}
             />
@@ -338,20 +345,23 @@ export function Sheet({
 const styles = StyleSheet.create({
   scrimRoot: {
     flex: 1,
+    width: "100%",
+    height: "100%",
   },
   scrimCenter: {
     justifyContent: "center",
     padding: Spacing.four,
   },
-  /** Full-screen tappable dimmer behind a centered dialog card. */
+  /** Full-screen tappable dimmer behind sheet / dialog cards. */
   backdrop: {
     ...StyleSheet.absoluteFill,
   },
-  /** Grows into the space above a bottom sheet card; tap dismisses. */
-  backdropFlex: {
-    flex: 1,
-    // Ensure a hit target even if the card is nearly full-height.
-    minHeight: 48,
+  /** Dock the bottom sheet to the bottom edge without a full-screen hit wrapper. */
+  bottomCardDock: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   centerCard: {
     borderRadius: Radius.lg,

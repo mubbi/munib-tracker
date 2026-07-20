@@ -21,6 +21,7 @@ export const DB_KEYS = {
   quranEditionCache: `${PREFIX}/quran_edition_cache`,
   quranStudyCache: `${PREFIX}/quran_study_cache`,
   hadithBookmarks: `${PREFIX}/hadith_bookmarks`,
+  hadithPrefs: `${PREFIX}/hadith_prefs`,
   hadithBookCache: `${PREFIX}/hadith_book_cache`,
   continueActivity: `${PREFIX}/continue_activity`,
   // Ordered favorite-dua id list. Kept under the user_preferences namespace for
@@ -131,6 +132,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   quranEditionCache: "cache",
   quranStudyCache: "cache",
   hadithBookmarks: "userData",
+  hadithPrefs: "userData",
   hadithBookCache: "cache",
   continueActivity: "userData",
   duaFavorites: "userData",

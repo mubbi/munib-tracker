@@ -6,10 +6,9 @@ import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -23,7 +22,6 @@ import { goBackOrReplace } from "@/lib/navigation";
 function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean }) {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
 
   return (
     <View
@@ -47,12 +45,12 @@ function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean 
           size={20}
         />
         <View style={styles.copy}>
-          <ThemedText type="smallBold">
+          <LearnProseText proseRole="title">
             {entry.name} ({entry.transliteration})
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
+          </LearnProseText>
+          <LearnProseText proseRole="caption" themeColor="mutedForeground">
             {entry.meaning}
-          </ThemedText>
+          </LearnProseText>
         </View>
       </View>
       <View style={[styles.quote, { backgroundColor: tokens.accentSoft }]}>
@@ -60,24 +58,16 @@ function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean 
           <ReferenceLine reference={entry.quran.label} />
           <QuranAyahBookmarkButton surah={entry.quran.surah} ayah={entry.quran.ayahFrom} />
         </View>
-        <ThemedText
-          type="small"
-          themeColor="mutedForeground"
-          style={{ fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 }}
-        >
-          {entry.quran.excerpt}
-        </ThemedText>
+        <LearnProseText themeColor="mutedForeground">{entry.quran.excerpt}</LearnProseText>
       </View>
-      <ThemedText type="small" style={{ lineHeight: 22 }}>
-        {entry.context}
-      </ThemedText>
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.tafsir}>
+      <LearnProseText>{entry.context}</LearnProseText>
+      <LearnProseText proseRole="caption" themeColor="mutedForeground" style={styles.tafsir}>
         {t("jahannam.tafsirNote")}: {entry.tafsirNote}
-      </ThemedText>
+      </LearnProseText>
       {entry.scholarlyNote ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.scholarly}>
+        <LearnProseText proseRole="caption" themeColor="mutedForeground">
           {entry.scholarlyNote}
-        </ThemedText>
+        </LearnProseText>
       ) : null}
     </View>
   );
@@ -141,6 +131,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: Spacing.two,
   },
-  tafsir: { lineHeight: 18, fontStyle: "italic" },
-  scholarly: { lineHeight: 18 },
+  tafsir: { fontStyle: "italic" },
 });

@@ -12,13 +12,16 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
 import { Appearance, useColorScheme } from "react-native";
 
+import { peekStoredColorMode } from "@/lib/boot/cold-start";
 import { normalizeHex } from "@/lib/color";
+import { setResolvedThemeScheme } from "@/lib/resolved-theme-scheme";
 import { computeThemeTokens, type ThemeTokens } from "@/lib/theme-tokens";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -130,6 +133,16 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
   const [customAccent, setCustomAccentState] = useState<string | null>(null);
   const [isReady, setIsReady] = useState(false);
   const appearanceFrameRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
+
+  // Apply persisted web color mode before first paint so splash / Suspense loaders
+  // match light theme on full refresh (avoids waiting on AsyncStorage Promise).
+  useLayoutEffect(() => {
+    const peeked = peekStoredColorMode();
+    if (peeked) {
+      setColorModeState(peeked);
+      syncNativeColorScheme(peeked);
+    }
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -244,6 +257,12 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     }
     return colorMode;
   }, [colorMode, systemScheme]);
+
+  // Keep SuspenseFallback / other non-hook readers in lockstep with app theme
+  // (Appearance.setColorScheme is native-only, so OS Appearance alone is wrong on web).
+  useLayoutEffect(() => {
+    setResolvedThemeScheme(scheme);
+  }, [scheme]);
 
   const colors = useMemo(() => {
     const base = resolveTheme(

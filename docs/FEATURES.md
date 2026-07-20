@@ -11,7 +11,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-0.1 | Prayer calculation method picker | `app/location`, `lib/prayer-times.ts`, `rescheduleAll` |
 | NF-0.2 | Asr madhab picker (Shafi / Hanafi) | Location screen `SegmentedControl` |
 | NF-0.3 | Manual sync + status UI | `profile/index.tsx`, `syncNow()`, `readSyncMetadata()` |
-| NF-0.4 | Expanded cloud sync entities | Typed record sync + **27** blob-LWW entities in `sync/blob-sync.ts`; API whitelist `SYNC_ENTITIES` (**39** total) in `apps/api` — includes location/calc settings, reading-text visibility, zakat draft, tours, and appearance via the preferences blob |
+| NF-0.4 | Expanded cloud sync entities | Typed record sync + **28** blob-LWW entities in `sync/blob-sync.ts`; API whitelist `SYNC_ENTITIES` (**40** total) in `apps/api` — includes location/calc settings, reading-text visibility, hadith reading prefs, zakat draft, tours, and appearance via the preferences blob |
 | NF-0.5 | Adhan at prayer notification | `playAdhanOnPrayer`, `build-reminders.ts`, Android channel |
 | NF-0.6 | Juz browser | `/quran/juz`, `getJuzList()` |
 | NF-0.7 | Durood & Names search + favorites | `createFavoritesStore`, in-screen Fuse search |

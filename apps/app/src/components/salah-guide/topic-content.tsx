@@ -19,6 +19,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -97,6 +98,7 @@ function SalahGuideSteps({
               }
               variant="secondary"
               fullWidth
+              icon={audio.phrasesActive && audio.isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
               onPress={audio.onPressPlayAll}
             />
           ) : null}
@@ -151,11 +153,7 @@ function SalahGuideSteps({
                   <View style={styles.phraseBlock}>
                     {stepHasAudio ? (
                       <IconWell
-                        icon={
-                          isActive && audio?.isPlaying
-                            ? { ios: "pause.fill", android: "pause", web: "pause" }
-                            : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-                        }
+                        icon={isActive && audio?.isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
                         size={14}
                         well={28}
                         radius={Radius.sm}

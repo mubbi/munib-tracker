@@ -1,10 +1,24 @@
 import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
+import {
+  FlatList,
+  type LayoutChangeEvent,
+  type ListRenderItem,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { HadithReadingToolbar } from "@/components/hadith/reading-toolbar";
+import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -14,11 +28,18 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
+import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
+import type { HadithPrefs } from "@/db/repositories/hadith-repository";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteCollection } from "@/hooks/use-hadith";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
+import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
@@ -31,7 +52,7 @@ import {
   getBundledCollections,
 } from "@/lib/hadith";
 import { goBackOrReplace } from "@/lib/navigation";
-import { arabicReadingLayout } from "@/lib/reading-typography";
+import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
@@ -39,11 +60,15 @@ import { buildHadithSharePayload } from "@/lib/share";
 import { resolveHadithTranslation } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
+import { useHadithActions, useHadithPrefs } from "@/stores/hadith-store";
 import { usePreferences } from "@/stores/preferences-store";
 
 /** Stable empty sentinels so `?? []` does not churn effect deps every render. */
 const EMPTY_HADITH_ITEMS: HadithItem[] = [];
 const EMPTY_SECTIONS: HadithSection[] = [];
+
+/** Extra width so the hadith list and filters pane can sit side by side. */
+const LIST_DETAIL_MAX_WIDTH = 1280;
 
 /**
  * Pre-render a static HTML page for every bundled hadith collection at web
@@ -56,7 +81,10 @@ export function generateStaticParams(): Array<{ collection: string }> {
 export default function HadithCollectionScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const contentBottomInset = useContentBottomInset();
+  const { isListDetail } = useLargeScreenLayout();
+  const fullscreen = useReadingFullscreen({ exitOnBlur: true });
   const params = useLocalSearchParams<{ collection: string; q?: string }>();
   const collectionId = params.collection ?? "";
   const remote = isRemoteCollection(collectionId);
@@ -86,7 +114,109 @@ export default function HadithCollectionScreen() {
   const sections = data?.sections ?? EMPTY_SECTIONS;
   const allItems = data?.items ?? EMPTY_HADITH_ITEMS;
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
-  const { translationLocale } = usePreferences();
+  const { translationLocale, fontPrefs } = usePreferences();
+  const prefs = useHadithPrefs();
+  const { updatePrefs } = useHadithActions();
+  const readingSizes = resolveReadingFontSizes("hadith", fontPrefs);
+  const listRef = useRef<FlatList<HadithItem>>(null);
+  const [toolbarVisible, setToolbarVisible] = useState(false);
+  const headerCardHeightRef = useRef(0);
+  const readingProgress = useSharedValue(0);
+
+  const onHeaderCardLayout = useCallback((event: LayoutChangeEvent) => {
+    headerCardHeightRef.current = event.nativeEvent.layout.height;
+  }, []);
+
+  const onListScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+      const y = contentOffset.y;
+      const threshold = Math.max(0, headerCardHeightRef.current - Spacing.four);
+      const nextToolbar = y > threshold;
+      setToolbarVisible((prev) => (prev === nextToolbar ? prev : nextToolbar));
+
+      const range = contentSize.height - layoutMeasurement.height;
+      readingProgress.value = range > 0 ? Math.min(1, Math.max(0, y / range)) : 0;
+    },
+    [readingProgress],
+  );
+
+  const scrollToTop = useCallback(() => {
+    listRef.current?.scrollToOffset({ offset: 0, animated: true });
+  }, []);
+
+  // Back-to-top / fullscreen live in the sticky side pane on large screens
+  // (same chrome pattern as the Qur'an surah reader).
+  const readerChrome = isListDetail ? (
+    <View style={styles.readerChromeRow}>
+      {toolbarVisible ? (
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={t("hadith.backToTop")}
+          onPress={scrollToTop}
+          scaleTo={0.97}
+          style={[styles.readerChromeBtn, { backgroundColor: tokens.accentSoft }]}
+        >
+          <SymbolView
+            name={{ ios: "arrow.up", android: "arrow_upward", web: "arrow_upward" }}
+            size={16}
+            tintColor={colors.accent}
+          />
+          <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
+            {t("hadith.backToTop")}
+          </ThemedText>
+        </PressableScale>
+      ) : null}
+      {fullscreen.supported ? (
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={
+            fullscreen.active ? t("hadith.exitFullscreen") : t("hadith.enterFullscreen")
+          }
+          accessibilityState={{ selected: fullscreen.active }}
+          onPress={() => void fullscreen.toggle()}
+          scaleTo={0.97}
+          style={[
+            styles.readerChromeBtn,
+            {
+              backgroundColor: fullscreen.active ? tokens.accentSoft : colors.muted,
+              borderColor: fullscreen.active ? colors.accent : "transparent",
+              borderWidth: 1,
+            },
+          ]}
+        >
+          <SymbolView
+            name={
+              fullscreen.active
+                ? {
+                    ios: "arrow.down.right.and.arrow.up.left",
+                    android: "fullscreen_exit",
+                    web: "fullscreen_exit",
+                  }
+                : {
+                    ios: "arrow.up.left.and.arrow.down.right",
+                    android: "fullscreen",
+                    web: "fullscreen",
+                  }
+            }
+            size={16}
+            tintColor={fullscreen.active ? colors.accent : colors.mutedForeground}
+          />
+          <ThemedText
+            type="caption"
+            style={{
+              color: fullscreen.active ? colors.accentText : colors.mutedForeground,
+              fontWeight: "600",
+            }}
+          >
+            {fullscreen.active ? t("hadith.exitFullscreen") : t("hadith.enterFullscreen")}
+          </ThemedText>
+        </PressableScale>
+      ) : null}
+    </View>
+  ) : null;
 
   const shareHadith = useCallback(
     (item: HadithItem) => {
@@ -207,10 +337,61 @@ export default function HadithCollectionScreen() {
           onShare={shareHadith}
           isSharing={isSharing}
           isGesturePending={isGesturePending}
+          prefs={prefs}
+          arabicSize={readingSizes.arabic}
+          translationSize={readingSizes.translation}
         />
       </View>
     ),
-    [bookmarked, collectionName, isGesturePending, isSharing, shareHadith, toggleBookmark],
+    [
+      bookmarked,
+      collectionName,
+      isGesturePending,
+      isSharing,
+      prefs,
+      readingSizes.arabic,
+      readingSizes.translation,
+      shareHadith,
+      toggleBookmark,
+    ],
+  );
+
+  const readerFilters = useMemo(
+    () => (
+      <Card padding="three" style={styles.filtersCard}>
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
+          <View style={styles.controlValue}>
+            <ReadingFontControls surface="hadith" />
+          </View>
+        </View>
+        <PrefToggle
+          icon={CONTROL_ICONS.arabic}
+          label={t("hadith.showArabic")}
+          enabled={prefs.showArabic}
+          onToggle={() => void updatePrefs({ showArabic: !prefs.showArabic })}
+        />
+        <PrefToggle
+          icon={CONTROL_ICONS.translation}
+          label={t("hadith.showTranslation")}
+          enabled={prefs.showTranslation}
+          onToggle={() => void updatePrefs({ showTranslation: !prefs.showTranslation })}
+        />
+        <PrefToggle
+          icon={CONTROL_ICONS.narrator}
+          label={t("hadith.showNarrator")}
+          enabled={prefs.showNarrator}
+          onToggle={() => void updatePrefs({ showNarrator: !prefs.showNarrator })}
+        />
+        <PrefToggle
+          icon={CONTROL_ICONS.grade}
+          label={t("hadith.showGrade")}
+          enabled={prefs.showGrade}
+          onToggle={() => void updatePrefs({ showGrade: !prefs.showGrade })}
+        />
+      </Card>
+    ),
+    [prefs, t, updatePrefs],
   );
 
   if (!collection) {
@@ -254,6 +435,26 @@ export default function HadithCollectionScreen() {
       subtitle={activeSection ? collection.nameEnglish : collection.nameArabic}
       onBack={activeSection ? goBackToBooks : () => goBackOrReplace(router, "/")}
       scrollable={useFlatList ? false : undefined}
+      maxContentWidth={useFlatList && isListDetail ? LIST_DETAIL_MAX_WIDTH : undefined}
+      headerAccessory={
+        useFlatList && !isListDetail ? (
+          <HadithReadingToolbar
+            visible={toolbarVisible}
+            progress={readingProgress}
+            onBackToTop={scrollToTop}
+            showArabic={prefs.showArabic}
+            showTranslation={prefs.showTranslation}
+            showNarrator={prefs.showNarrator}
+            showGrade={prefs.showGrade}
+            onToggleArabic={() => void updatePrefs({ showArabic: !prefs.showArabic })}
+            onToggleTranslation={() =>
+              void updatePrefs({ showTranslation: !prefs.showTranslation })
+            }
+            onToggleNarrator={() => void updatePrefs({ showNarrator: !prefs.showNarrator })}
+            onToggleGrade={() => void updatePrefs({ showGrade: !prefs.showGrade })}
+          />
+        ) : undefined
+      }
     >
       {SnapshotHost}
       <Seo
@@ -323,47 +524,72 @@ export default function HadithCollectionScreen() {
       ) : (
         /* No Stagger wrapper: its item view has no flex, which would break the
            FlatList's height chain (matches the dua category screen). */
-        <FlatList
-          style={styles.flatList}
-          contentContainerStyle={styles.flatListContent}
-          data={listItems}
-          keyExtractor={keyExtractor}
-          renderItem={renderHadithItem}
-          ItemSeparatorComponent={HadithListSeparator}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          initialNumToRender={12}
-          maxToRenderPerBatch={8}
-          windowSize={7}
-          removeClippedSubviews
-          ListHeaderComponent={
-            <Card padding="four" style={[styles.readingColumn, styles.listHeader]}>
-              <View style={styles.searchCard}>
-                <TextInput
-                  value={query}
-                  onChangeText={setQuery}
-                  placeholder={t("hadith.searchPlaceholder")}
-                  placeholderTextColor={colors.mutedForeground}
-                  accessibilityLabel={t("hadith.searchPlaceholder")}
-                  style={[
-                    styles.input,
-                    { backgroundColor: colors.muted, color: colors.foreground },
-                  ]}
-                />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("hadith.hadithCount", { count: listItems.length })}
-                </ThemedText>
+        <View style={isListDetail ? styles.listDetailRoot : styles.readerRoot}>
+          <FlatList
+            ref={listRef}
+            style={[styles.flatList, isListDetail ? styles.listDetailPrimary : null]}
+            contentContainerStyle={[styles.flatListContent, { paddingBottom: contentBottomInset }]}
+            data={listItems}
+            keyExtractor={keyExtractor}
+            renderItem={renderHadithItem}
+            extraData={prefs}
+            ItemSeparatorComponent={HadithListSeparator}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            initialNumToRender={12}
+            maxToRenderPerBatch={8}
+            windowSize={7}
+            removeClippedSubviews
+            onScroll={onListScroll}
+            scrollEventThrottle={16}
+            ListHeaderComponent={
+              <View style={[styles.readingColumn, styles.listHeader]} onLayout={onHeaderCardLayout}>
+                <Card padding="four">
+                  <View style={styles.searchCard}>
+                    <TextInput
+                      value={query}
+                      onChangeText={setQuery}
+                      placeholder={t("hadith.searchPlaceholder")}
+                      placeholderTextColor={colors.mutedForeground}
+                      accessibilityLabel={t("hadith.searchPlaceholder")}
+                      style={[
+                        styles.input,
+                        { backgroundColor: colors.muted, color: colors.foreground },
+                      ]}
+                    />
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("hadith.hadithCount", { count: listItems.length })}
+                    </ThemedText>
+                  </View>
+                </Card>
+                {!isListDetail ? readerFilters : null}
               </View>
-            </Card>
-          }
-          ListEmptyComponent={
-            <EmptyState
-              icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
-              title={searching ? t("search.noResultsTitle") : t("hadith.emptyTitle")}
-              description={searching ? t("search.noResultsDesc") : t("hadith.emptyDesc")}
-            />
-          }
-        />
+            }
+            ListEmptyComponent={
+              <EmptyState
+                icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
+                title={searching ? t("search.noResultsTitle") : t("hadith.emptyTitle")}
+                description={searching ? t("search.noResultsDesc") : t("hadith.emptyDesc")}
+              />
+            }
+          />
+          {isListDetail ? (
+            <View style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}>
+              {readerChrome}
+              <ScrollView
+                style={styles.listDetailSecondaryScroll}
+                contentContainerStyle={[
+                  styles.listDetailSecondaryContent,
+                  { paddingBottom: contentBottomInset },
+                ]}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+              >
+                {readerFilters}
+              </ScrollView>
+            </View>
+          ) : null}
+        </View>
       )}
     </ScreenLayout>
   );
@@ -393,6 +619,9 @@ function HadithCard({
   onShare: onShareHadith,
   isSharing,
   isGesturePending,
+  prefs,
+  arabicSize,
+  translationSize,
 }: {
   item: HadithItem;
   collectionName: string;
@@ -401,14 +630,14 @@ function HadithCard({
   onShare: (item: HadithItem) => void;
   isSharing: (shareKey: string) => boolean;
   isGesturePending: (shareKey: string) => boolean;
+  prefs: HadithPrefs;
+  arabicSize: number;
+  translationSize: number;
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t, i18n } = useTranslation();
   const audio = useAudioPlayerContext();
   const locale = i18n.language?.split("-")[0] ?? "en";
-  const { fontPrefs } = usePreferences();
-  const arabicSize = fontPrefs.arabic.size;
-  const textSize = fontPrefs.translation.size;
   const displayTranslation = useHadithTranslation(item);
 
   const onShare = () => {
@@ -432,7 +661,7 @@ function HadithCard({
 
   const menuActions: ContextMenuAction[] = [];
   if (item.audioUri) {
-    menuActions.push({ id: "play", title: t("common.play"), systemIcon: "play.fill" });
+    menuActions.push({ id: "play", title: t("common.play"), systemIcon: "play.circle.fill" });
   }
   menuActions.push({ id: "share", title: t("hadith.share"), systemIcon: "square.and.arrow.up" });
   menuActions.push({
@@ -447,6 +676,11 @@ function HadithCard({
     else if (id === "bookmark") onBookmarkPress();
   };
 
+  const showArabic = prefs.showArabic && Boolean(item.arabic);
+  const showNarrator = prefs.showNarrator && Boolean(item.narrator);
+  const showGrade = prefs.showGrade && Boolean(item.grade);
+  const showTranslation = prefs.showTranslation && Boolean(displayTranslation);
+
   return (
     <ContextMenu actions={menuActions} onAction={onMenuAction}>
       <Card padding="four">
@@ -455,7 +689,7 @@ function HadithCard({
             <ThemedText type="smallBold" style={{ color: colors.accent }}>
               {item.reference}
             </ThemedText>
-            {item.grade ? (
+            {showGrade && item.grade ? (
               <Pill
                 label={item.grade}
                 color={tokens.status.success.color}
@@ -466,7 +700,7 @@ function HadithCard({
           <View style={styles.cardActions}>
             {item.audioUri ? (
               <LabeledIconButton
-                name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
+                name={PLAY_CIRCLE_ICON}
                 label={t("common.play")}
                 iconSize={20}
                 tintColor={colors.accent}
@@ -521,35 +755,75 @@ function HadithCard({
           </View>
         </View>
 
-        {item.arabic ? (
+        {showArabic ? (
           <>
-            <ThemedText
-              type="arabic"
-              style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
-            >
+            <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
               {item.arabic}
             </ThemedText>
-            <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+            {showNarrator || showTranslation ? (
+              <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+            ) : null}
           </>
         ) : null}
 
-        {item.narrator ? (
+        {showNarrator ? (
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.narrator}>
             {item.narrator}
           </ThemedText>
         ) : null}
 
-        <ThemedText
-          type="default"
-          style={[
-            styles.english,
-            textSize ? { fontSize: textSize, lineHeight: textSize * 1.6 } : null,
-          ]}
-        >
-          {displayTranslation}
-        </ThemedText>
+        {showTranslation ? (
+          <ThemedText
+            type="default"
+            style={[
+              styles.english,
+              { fontSize: translationSize, lineHeight: translationSize * 1.6 },
+            ]}
+          >
+            {displayTranslation}
+          </ThemedText>
+        ) : null}
       </Card>
     </ContextMenu>
+  );
+}
+
+const CONTROL_ICONS = {
+  arabic: { ios: "character.textbox", android: "translate", web: "translate" },
+  translation: { ios: "text.alignleft", android: "notes", web: "notes" },
+  narrator: { ios: "person.fill", android: "person", web: "person" },
+  grade: { ios: "checkmark.seal.fill", android: "verified", web: "verified" },
+  textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
+} as const satisfies Record<string, SymbolViewProps["name"]>;
+
+function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
+  const { colors } = useThemeTokens();
+  return (
+    <View style={styles.controlLabel}>
+      <SymbolView name={icon} size={18} tintColor={colors.mutedForeground} />
+      <ThemedText type="smallBold">{label}</ThemedText>
+    </View>
+  );
+}
+
+function PrefToggle({
+  icon,
+  label,
+  enabled,
+  onToggle,
+}: {
+  icon: SymbolViewProps["name"];
+  label: string;
+  enabled: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <View style={[styles.controlRow, styles.toggleRow]}>
+      <ControlLabel icon={icon} label={label} />
+      <View style={styles.controlValue}>
+        <ThemedSwitch value={enabled} onValueChange={onToggle} accessibilityLabel={label} />
+      </View>
+    </View>
   );
 }
 
@@ -558,9 +832,53 @@ const HadithReadingMaxWidth = 720;
 
 const styles = StyleSheet.create({
   contentStack: { gap: Spacing.four, width: "100%" },
+  readerRoot: { flex: 1, width: "100%" },
+  listDetailRoot: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    gap: Spacing.four,
+  },
+  listDetailPrimary: {
+    flex: 1.15,
+    minWidth: 0,
+  },
+  listDetailSecondary: {
+    flex: 0.85,
+    minWidth: 280,
+    maxWidth: 400,
+    borderStartWidth: StyleSheet.hairlineWidth,
+    gap: Spacing.three,
+  },
+  listDetailSecondaryScroll: {
+    flex: 1,
+  },
+  listDetailSecondaryContent: {
+    paddingStart: Spacing.four,
+    flexGrow: 1,
+    gap: Spacing.three,
+  },
+  readerChromeRow: {
+    flexDirection: "row",
+    gap: Spacing.two,
+    paddingStart: Spacing.four,
+  },
+  readerChromeBtn: {
+    flex: 1,
+    minHeight: 36,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.one + 2,
+    paddingVertical: Spacing.one + 2,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+  },
   flatList: { flex: 1 },
   flatListContent: { paddingBottom: Spacing.four },
-  listHeader: { marginBottom: Spacing.four },
+  listHeader: { marginBottom: Spacing.four, gap: Spacing.three },
+  filtersCard: { gap: Spacing.two },
   hadithSeparator: { height: Spacing.three },
   searchCard: { gap: Spacing.three },
   input: {
@@ -575,6 +893,28 @@ const styles = StyleSheet.create({
     width: "100%",
     maxWidth: HadithReadingMaxWidth,
     alignSelf: "center",
+  },
+  controlRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.three,
+    minHeight: 44,
+  },
+  translationRow: {
+    alignItems: "center",
+  },
+  toggleRow: {
+    paddingVertical: Spacing.half,
+  },
+  controlLabel: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    flexShrink: 1,
+  },
+  controlValue: {
+    flexShrink: 0,
   },
   cardHeader: {
     flexDirection: "row",

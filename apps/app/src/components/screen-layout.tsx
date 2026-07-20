@@ -53,6 +53,11 @@ type ScreenLayoutProps = {
    */
   headerAccessory?: ReactNode;
   contentStyle?: ViewStyle;
+  /**
+   * Override the content column max width (e.g. list–detail panes that need more
+   * horizontal room than the default single-column cap).
+   */
+  maxContentWidth?: number;
   /** Ref to the internal ScrollView (e.g. to auto-scroll to a playing card). */
   scrollRef?: RefObject<ScrollView | null>;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
@@ -83,6 +88,7 @@ export function ScreenLayout({
   children,
   headerAccessory,
   contentStyle,
+  maxContentWidth,
   scrollRef,
   onScroll,
   readingProgress,
@@ -172,7 +178,8 @@ export function ScreenLayout({
 
   // On wide viewports (wide web / large tablets) allow a wider content column
   // so the layout doesn't sit as a narrow single strip in acres of whitespace.
-  const maxWidth = width >= WideBreakpoint ? WideMaxContentWidth : MaxContentWidth;
+  const maxWidth =
+    maxContentWidth ?? (width >= WideBreakpoint ? WideMaxContentWidth : MaxContentWidth);
 
   const content = (
     <View

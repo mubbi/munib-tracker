@@ -1192,7 +1192,11 @@
     "showTransliteration": "Tampilkan transliterasi",
     "hideTransliteration": "Sembunyikan transliterasi",
     "showTranslation": "Tampilkan terjemahan",
-    "hideTranslation": "Sembunyikan terjemahan"
+    "hideTranslation": "Sembunyikan terjemahan",
+    "backToTop": "Kembali ke atas",
+    "readingProgress": "Kemajuan membaca",
+    "enterFullscreen": "Masuk layar penuh",
+    "exitFullscreen": "Keluar dari layar penuh"
   },
   "share": {
     "dialogTitle": "Bagikan",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Bookmark",
     "bookmarksSubtitle": "Anda tersimpan hadits",
     "bookmarksEmpty": "Tiada saved hadith lagi",
-    "viewBookmarks": "Lihat bookmarks"
+    "viewBookmarks": "Lihat bookmarks",
+    "arabic": "Arab",
+    "translation": "Terjemahan",
+    "narratorLabel": "Perawi",
+    "gradeLabel": "Derajat",
+    "showArabic": "Tampilkan Arab",
+    "showTranslation": "Tampilkan terjemahan",
+    "showNarrator": "Tampilkan perawi",
+    "showGrade": "Tampilkan derajat",
+    "backToTop": "Kembali ke atas",
+    "readingProgress": "Kemajuan membaca",
+    "enterFullscreen": "Masuk layar penuh",
+    "exitFullscreen": "Keluar dari layar penuh"
   },
   "credits": {
     "eyebrow": "Atribusi",

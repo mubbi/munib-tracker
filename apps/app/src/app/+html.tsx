@@ -7,8 +7,11 @@ import {
   PWA_ICON_PATHS,
   PWA_SHORT_NAME,
   PWA_THEME_COLOR,
+  PWA_THEME_COLOR_DARK,
+  PWA_THEME_COLOR_LIGHT,
 } from "@/config/pwa";
 import { SEO_AUTHOR } from "@/config/seo";
+import { BOOT_THEME_SCRIPT } from "@/lib/boot/cold-start";
 import { LOCALE_PATH_BOOT_SCRIPT } from "@/lib/locale-path";
 import { siteGraphSchema } from "@/lib/seo/structured-data";
 
@@ -38,8 +41,16 @@ export default function Root({ children }: PropsWithChildren) {
         {/* PWA / manifest + icons */}
         <link rel="manifest" href="/manifest.json" type="application/manifest+json" />
         <meta name="color-scheme" content="light dark" />
-        <meta name="theme-color" content={PWA_THEME_COLOR} media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content={PWA_THEME_COLOR} media="(prefers-color-scheme: dark)" />
+        <meta
+          name="theme-color"
+          content={PWA_THEME_COLOR_LIGHT}
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content={PWA_THEME_COLOR_DARK}
+          media="(prefers-color-scheme: dark)"
+        />
         <meta name="theme-color" content={PWA_THEME_COLOR} />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -75,6 +86,12 @@ export default function Root({ children }: PropsWithChildren) {
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: must run before the app bundle
           dangerouslySetInnerHTML={{ __html: LOCALE_PATH_BOOT_SCRIPT }}
+        />
+
+        {/* Paint boot background from stored color mode before the JS bundle. */}
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: must run before the app bundle
+          dangerouslySetInnerHTML={{ __html: BOOT_THEME_SCRIPT }}
         />
 
         {/* Site-wide structured data (Organization + WebSite + SoftwareApplication). */}

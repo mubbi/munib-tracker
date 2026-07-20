@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { JannahCallout } from "@/components/jannah/primitives";
+import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -45,10 +46,10 @@ export function ZakatChecklistContent() {
                 </ThemedText>
               </View>
               <View style={styles.copy}>
-                <ThemedText type="smallBold">{item.title}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.body}>
+                <LearnProseText proseRole="title">{item.title}</LearnProseText>
+                <LearnProseText proseRole="caption" themeColor="mutedForeground">
                   {item.body}
-                </ThemedText>
+                </LearnProseText>
               </View>
             </View>
           ))}
@@ -75,5 +76,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   copy: { flex: 1, gap: Spacing.half },
-  body: { lineHeight: 18 },
 });

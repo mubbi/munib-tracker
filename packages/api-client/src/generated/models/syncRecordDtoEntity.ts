@@ -42,6 +42,7 @@ export const SyncRecordDtoEntity = {
   last_day_progress: 'last_day_progress',
   learn_dua_progress: 'learn_dua_progress',
   quran_prefs: 'quran_prefs',
+  hadith_prefs: 'hadith_prefs',
   quran_reading_progress: 'quran_reading_progress',
   qaza_schedule: 'qaza_schedule',
   qaza_daily_progress: 'qaza_daily_progress',

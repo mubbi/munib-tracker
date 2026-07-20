@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -86,12 +86,10 @@ export default function SeerahScreen() {
                       </View>
                     ) : null}
                   </View>
-                  <ThemedText type="smallBold" style={styles.title}>
+                  <LearnProseText proseRole="title" style={styles.title}>
                     {event.title}
-                  </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {event.body}
-                  </ThemedText>
+                  </LearnProseText>
+                  <LearnProseText themeColor="mutedForeground">{event.body}</LearnProseText>
                 </Card>
               </View>
             ))}

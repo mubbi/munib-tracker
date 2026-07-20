@@ -1192,7 +1192,11 @@
     "showTransliteration": "Prikaži transliteraciju",
     "hideTransliteration": "Sakrij transliteraciju",
     "showTranslation": "Prikaži prijevod",
-    "hideTranslation": "Sakrij prijevod"
+    "hideTranslation": "Sakrij prijevod",
+    "backToTop": "Nazad na vrh",
+    "readingProgress": "Napredak čitanja",
+    "enterFullscreen": "Uđi u cijeli ekran",
+    "exitFullscreen": "Izađi iz cijelog ekrana"
   },
   "share": {
     "dialogTitle": "Podijeli",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Oznake",
     "bookmarksSubtitle": "Vaš saved hadith",
     "bookmarksEmpty": "Henüz saved hadith yok",
-    "viewBookmarks": "bookmarks Görüntüle"
+    "viewBookmarks": "bookmarks Görüntüle",
+    "arabic": "Arapski",
+    "translation": "Prijevod",
+    "narratorLabel": "Prenosilac",
+    "gradeLabel": "Stepen",
+    "showArabic": "Prikaži arapski",
+    "showTranslation": "Prikaži prijevod",
+    "showNarrator": "Prikaži prenosioca",
+    "showGrade": "Prikaži stepen",
+    "backToTop": "Nazad na vrh",
+    "readingProgress": "Napredak čitanja",
+    "enterFullscreen": "Uđi u cijeli ekran",
+    "exitFullscreen": "Izađi iz cijelog ekrana"
   },
   "credits": {
     "eyebrow": "Atıf",

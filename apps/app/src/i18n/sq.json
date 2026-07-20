@@ -1192,7 +1192,11 @@
     "showTransliteration": "Shfaq transliterimin",
     "hideTransliteration": "Fshih transliterimin",
     "showTranslation": "Shfaq përkthimin",
-    "hideTranslation": "Fshih përkthimin"
+    "hideTranslation": "Fshih përkthimin",
+    "backToTop": "Kthehu lart",
+    "readingProgress": "Ecuria e leximit",
+    "enterFullscreen": "Hyr në ekran të plotë",
+    "exitFullscreen": "Dil nga ekrani i plotë"
   },
   "share": {
     "dialogTitle": "Ndaj",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Faqerojtësit",
     "bookmarksSubtitle": "Juaj saved hadith",
     "bookmarksEmpty": "Nuk ka ende hadith të ruajtur",
-    "viewBookmarks": "Shiko faqeshënuesit"
+    "viewBookmarks": "Shiko faqeshënuesit",
+    "arabic": "Arabisht",
+    "translation": "Përkthim",
+    "narratorLabel": "Treguesi",
+    "gradeLabel": "Shkalla",
+    "showArabic": "Shfaq arabishten",
+    "showTranslation": "Shfaq përkthimin",
+    "showNarrator": "Shfaq treguesin",
+    "showGrade": "Shfaq shkallën",
+    "backToTop": "Kthehu lart",
+    "readingProgress": "Ecuria e leximit",
+    "enterFullscreen": "Hyr në ekran të plotë",
+    "exitFullscreen": "Dil nga ekrani i plotë"
   },
   "credits": {
     "eyebrow": "Atribuimi",

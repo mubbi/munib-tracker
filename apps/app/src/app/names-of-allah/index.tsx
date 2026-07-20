@@ -20,8 +20,10 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
+import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
@@ -186,7 +188,7 @@ export default function NamesOfAllahScreen() {
           <View style={styles.playActions}>
             <Button
               label={t("names.playAll")}
-              icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+              icon={PLAY_CIRCLE_ICON}
               onPress={() => allNames[0] && playFrom(allNames[0])}
               style={styles.flex}
             />
@@ -396,16 +398,13 @@ const NameRow = memo(function NameRow({
         </ThemedText>
         <View style={styles.footer}>
           {name.audioUri ? (
-            <IconButton
-              name={
-                isPlaying && isAudioPlaying
-                  ? { ios: "pause.fill", android: "pause", web: "pause" }
-                  : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-              }
-              size={18}
-              tintColor={colors.accentForeground}
-              background={colors.accent}
-              hitTarget={40}
+            <LabeledIconButton
+              name={isPlaying && isAudioPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
+              label={isPlaying && isAudioPlaying ? t("common.pause") : t("common.play")}
+              iconSize={18}
+              tintColor={colors.accent}
+              labelColor={colors.accent}
+              background={tokens.accentSoft}
               accessibilityLabel={isPlaying && isAudioPlaying ? t("names.pause") : t("names.play")}
               accessibilityState={{ selected: isPlaying }}
               onPress={handlePlay}

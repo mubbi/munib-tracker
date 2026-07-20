@@ -9,6 +9,7 @@ import { ConfirmDialog } from "@/components/confirm-dialog";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahBody } from "@/components/jannah/primitives";
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
+import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -117,9 +118,9 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
                     />
                   </View>
                 </View>
-                <ThemedText type="small" themeColor="mutedForeground" style={styles.quoteText}>
+                <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
                   “{ref.excerpt}”
-                </ThemedText>
+                </LearnProseText>
               </View>
             ))}
           </View>
@@ -142,9 +143,9 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
                     {index + 1}
                   </ThemedText>
                 </View>
-                <ThemedText type="small" themeColor="mutedForeground" style={styles.stepText}>
+                <LearnProseText themeColor="mutedForeground" style={styles.stepText}>
                   {step}
-                </ThemedText>
+                </LearnProseText>
               </View>
             ))}
           </View>
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
   },
-  quoteText: { lineHeight: 22, flexShrink: 1, alignSelf: "stretch" },
+  quoteText: { flexShrink: 1, alignSelf: "stretch" },
   steps: { gap: Spacing.three, marginTop: Spacing.three },
   stepRow: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   stepBadge: {
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  stepText: { flex: 1, minWidth: 0, lineHeight: 22 },
+  stepText: { flex: 1, minWidth: 0 },
   sectionBody: { marginTop: Spacing.two, width: "100%", alignSelf: "stretch" },
   disclaimer: {
     flexDirection: "row",

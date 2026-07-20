@@ -13,7 +13,7 @@ import {
 } from "@/components/jannah/bookmark-button";
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { QuranAyahPlayButton } from "@/components/quran-guide/ayah-play-button";
-import { useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText, useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
@@ -67,9 +67,9 @@ export function JannahCallout({
         well={36}
         size={16}
       />
-      <ThemedText type="small" style={[styles.calloutText, { color: colors.foreground }]}>
+      <LearnProseText type="small" style={[styles.calloutText, { color: colors.foreground }]}>
         {children}
-      </ThemedText>
+      </LearnProseText>
     </View>
   );
 }
@@ -197,7 +197,6 @@ export function JannahQuickLinkGrid({
 /** Summary highlight at the top of a topic page. */
 export function JannahTakeaway({ text }: { text: string }) {
   const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
   useRegisterLearnListenText(text);
 
   return (
@@ -207,16 +206,9 @@ export function JannahTakeaway({ text }: { text: string }) {
         { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
       ]}
     >
-      <ThemedText
-        type="smallBold"
-        style={{
-          color: colors.accentText,
-          fontSize: sizes.translation,
-          lineHeight: sizes.translation * 1.45,
-        }}
-      >
+      <LearnProseText proseRole="title" type="smallBold" style={{ color: colors.accentText }}>
         {text}
-      </ThemedText>
+      </LearnProseText>
     </View>
   );
 }
@@ -230,23 +222,19 @@ export function JannahBody({
   /** When true, every paragraph uses the same secondary body style. */
   uniform?: boolean;
 }) {
-  const { sizes } = useReadingTypography();
   useRegisterLearnListenText(paragraphs);
 
   return (
     <View style={styles.bodyBlock}>
       {paragraphs.map((paragraph, index) => (
-        <ThemedText
+        <LearnProseText
           key={paragraph.slice(0, 48)}
           type={uniform || index > 0 ? "small" : "default"}
           themeColor={uniform || index > 0 ? "mutedForeground" : "foreground"}
-          style={[
-            styles.bodyParagraph,
-            { fontSize: sizes.translation, lineHeight: sizes.translation * 1.5 },
-          ]}
+          style={styles.bodyParagraph}
         >
           {paragraph}
-        </ThemedText>
+        </LearnProseText>
       ))}
     </View>
   );
@@ -308,7 +296,6 @@ export function JannahQuranEvidence({ refs }: { refs: JannahQuranRef[] }) {
 export function JannahHadithEvidence({ refs }: { refs: JannahHadithRef[] }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
 
   return (
     <Card padding="three">
@@ -338,16 +325,9 @@ export function JannahHadithEvidence({ refs }: { refs: JannahHadithRef[] }) {
                 <HadithCitationBookmarkButton collection={ref.collection} citation={ref.citation} />
               </View>
             </View>
-            <ThemedText
-              type="small"
-              themeColor="mutedForeground"
-              style={[
-                styles.quoteText,
-                { fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 },
-              ]}
-            >
+            <LearnProseText type="small" themeColor="mutedForeground" style={styles.quoteText}>
               “{ref.excerpt}”
-            </ThemedText>
+            </LearnProseText>
           </View>
         ))}
       </View>
@@ -359,7 +339,6 @@ export function JannahHadithEvidence({ refs }: { refs: JannahHadithRef[] }) {
 export function JannahActionSteps({ steps }: { steps: string[] }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
   useRegisterLearnListenText(steps);
 
   return (
@@ -376,16 +355,9 @@ export function JannahActionSteps({ steps }: { steps: string[] }) {
                 {index + 1}
               </ThemedText>
             </View>
-            <ThemedText
-              type="small"
-              themeColor="mutedForeground"
-              style={[
-                styles.stepText,
-                { fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 },
-              ]}
-            >
+            <LearnProseText type="small" themeColor="mutedForeground" style={styles.stepText}>
               {step}
-            </ThemedText>
+            </LearnProseText>
           </View>
         ))}
       </View>

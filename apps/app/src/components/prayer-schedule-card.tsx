@@ -183,7 +183,7 @@ function ScheduleCollapseBar({
             android: expanded ? "expand_less" : "more_horiz",
             web: expanded ? "expand_less" : "more_horiz",
           }}
-          size={18}
+          size={16}
           tintColor={expanded ? colors.mutedForeground : colors.accent}
         />
       </View>
@@ -618,30 +618,30 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.two,
+    paddingVertical: Spacing.one + 2,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth * 2,
-    marginVertical: Spacing.one,
+    marginVertical: Spacing.half,
   },
   collapseIconWrap: {
-    width: 32,
-    height: 32,
+    width: 28,
+    height: 28,
     borderRadius: Radius.pill,
     alignItems: "center",
     justifyContent: "center",
   },
   collapseCopy: {
     flex: 1,
-    gap: 2,
+    gap: 1,
     minWidth: 0,
   },
   collapseAction: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.half,
-    paddingVertical: Spacing.one,
+    paddingVertical: Spacing.half + 1,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
@@ -654,10 +654,10 @@ const styles = StyleSheet.create({
     width: 12,
     alignItems: "center",
     alignSelf: "stretch",
-    paddingTop: 18,
+    paddingTop: 14,
   },
   railCompact: {
-    paddingTop: 14,
+    paddingTop: 12,
   },
   railDot: {
     width: 8,
@@ -681,22 +681,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.two,
+    paddingVertical: Spacing.one + 2,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
   },
   rowCompact: {
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.one,
     gap: Spacing.one + 2,
   },
   rowEmphasized: {
-    paddingVertical: Spacing.two,
+    paddingVertical: Spacing.one + 2,
   },
   rowBody: {
     flex: 1,
-    gap: 2,
+    gap: 1,
     minWidth: 0,
   },
   nameRow: {
@@ -706,12 +706,12 @@ const styles = StyleSheet.create({
     gap: Spacing.one + 2,
   },
   statePill: {
-    paddingVertical: Spacing.half + 1,
-    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.half,
+    paddingHorizontal: Spacing.one + 2,
   },
   timeCol: {
     alignItems: "flex-end",
-    gap: 2,
+    gap: 1,
     minWidth: 72,
   },
   time: {

@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -64,10 +63,10 @@ export default function JahannamReferencesScreen() {
                       size={16}
                     />
                     <View style={styles.copy}>
-                      <ThemedText type="smallBold">{ref.title}</ThemedText>
-                      <ThemedText type="caption" themeColor="mutedForeground" style={styles.note}>
+                      <LearnProseText proseRole="title">{ref.title}</LearnProseText>
+                      <LearnProseText proseRole="caption" themeColor="mutedForeground">
                         {ref.note}
-                      </ThemedText>
+                      </LearnProseText>
                     </View>
                   </View>
                 ))}
@@ -90,5 +89,4 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   copy: { flex: 1, gap: Spacing.one },
-  note: { lineHeight: 18 },
 });

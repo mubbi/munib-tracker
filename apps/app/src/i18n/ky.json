@@ -1192,7 +1192,11 @@
     "showTransliteration": "Транслитерацияны көрсөтүү",
     "hideTransliteration": "Транслитерацияны жашыруу",
     "showTranslation": "Котормону көрсөтүү",
-    "hideTranslation": "Котормону жашыруу"
+    "hideTranslation": "Котормону жашыруу",
+    "backToTop": "Жогоруга кайтуу",
+    "readingProgress": "Окуу прогресси",
+    "enterFullscreen": "Толук экранга кирүү",
+    "exitFullscreen": "Толук экрандан чыгуу"
   },
   "share": {
     "dialogTitle": "Бөлүшүү",
@@ -1534,7 +1538,19 @@
     "bookmarks": "Бетбелгилер",
     "bookmarksSubtitle": "Сиздин saved hadith",
     "bookmarksEmpty": "Азырынча сакталган хадис жок",
-    "viewBookmarks": "Кыстармаларды көрүү"
+    "viewBookmarks": "Кыстармаларды көрүү",
+    "arabic": "Арабча",
+    "translation": "Котормо",
+    "narratorLabel": "Риваятчы",
+    "gradeLabel": "Даража",
+    "showArabic": "Арабчаны көрсөтүү",
+    "showTranslation": "Котормону көрсөтүү",
+    "showNarrator": "Риваятчыны көрсөтүү",
+    "showGrade": "Даражаны көрсөтүү",
+    "backToTop": "Жогоруга кайтуу",
+    "readingProgress": "Окуу прогресси",
+    "enterFullscreen": "Толук экранга кирүү",
+    "exitFullscreen": "Толук экрандан чыгуу"
   },
   "credits": {
     "eyebrow": "Цитата",

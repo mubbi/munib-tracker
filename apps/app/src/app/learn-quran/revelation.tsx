@@ -1,9 +1,11 @@
 import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -32,6 +34,10 @@ export default function LearnQuranRevelationScreen() {
     isQuranGuideContentReady,
   );
   const events = getQuranGuideTimeline();
+  const listenText = useMemo(
+    () => events.map((event) => `${event.title}. ${event.body}`).join("\n\n"),
+    [events],
+  );
 
   return (
     <ScreenLayout
@@ -47,72 +53,72 @@ export default function LearnQuranRevelationScreen() {
         <Stagger>
           <JannahCallout tone="info">{t("learnQuran.revelationIntro")}</JannahCallout>
 
-          {events.map((event, index) => (
-            <View key={event.id} style={styles.row}>
-              <View style={styles.railColumn}>
-                <View style={[styles.dot, { backgroundColor: colors.accent }]} />
-                {index < events.length - 1 ? (
-                  <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
-                ) : null}
-              </View>
-              <PressableScale
-                haptic="light"
-                disabled={!event.topicId}
-                accessibilityRole={event.topicId ? "button" : "text"}
-                onPress={
-                  event.topicId
-                    ? () => router.push(`/learn-quran/${event.topicId}` as Href)
-                    : undefined
-                }
-                style={styles.cardPressable}
-              >
-                <Card padding="three" style={styles.card}>
-                  <View style={styles.badges}>
-                    <Pill
-                      label={t("seerah.ceBadge", { year: event.year })}
-                      compact
-                      color={colors.accentText}
-                      background={tokens.accentSoft}
-                    />
-                    {event.ah != null ? (
+          <LearnReadingChrome surface="learn_quran" listenText={listenText}>
+            {events.map((event, index) => (
+              <View key={event.id} style={styles.row}>
+                <View style={styles.railColumn}>
+                  <View style={[styles.dot, { backgroundColor: colors.accent }]} />
+                  {index < events.length - 1 ? (
+                    <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
+                  ) : null}
+                </View>
+                <PressableScale
+                  haptic="light"
+                  disabled={!event.topicId}
+                  accessibilityRole={event.topicId ? "button" : "text"}
+                  onPress={
+                    event.topicId
+                      ? () => router.push(`/learn-quran/${event.topicId}` as Href)
+                      : undefined
+                  }
+                  style={styles.cardPressable}
+                >
+                  <Card padding="three" style={styles.card}>
+                    <View style={styles.badges}>
                       <Pill
-                        label={t("seerah.ahBadge", { ah: event.ah })}
+                        label={t("seerah.ceBadge", { year: event.year })}
                         compact
-                        color={tokens.status.success.color}
-                        background={tokens.status.success.soft}
+                        color={colors.accentText}
+                        background={tokens.accentSoft}
                       />
-                    ) : null}
-                    {event.location ? (
-                      <View style={styles.location}>
-                        <SymbolView
-                          name={{ ios: "mappin", android: "place", web: "place" }}
-                          size={11}
-                          tintColor={colors.mutedForeground}
+                      {event.ah != null ? (
+                        <Pill
+                          label={t("seerah.ahBadge", { ah: event.ah })}
+                          compact
+                          color={tokens.status.success.color}
+                          background={tokens.status.success.soft}
                         />
-                        <ThemedText type="caption" themeColor="mutedForeground">
-                          {event.location}
+                      ) : null}
+                      {event.location ? (
+                        <View style={styles.location}>
+                          <SymbolView
+                            name={{ ios: "mappin", android: "place", web: "place" }}
+                            size={11}
+                            tintColor={colors.mutedForeground}
+                          />
+                          <ThemedText type="caption" themeColor="mutedForeground">
+                            {event.location}
+                          </ThemedText>
+                        </View>
+                      ) : null}
+                    </View>
+                    <LearnProseText proseRole="title" style={styles.title}>
+                      {event.title}
+                    </LearnProseText>
+                    <LearnProseText themeColor="mutedForeground">{event.body}</LearnProseText>
+                    {event.topicId ? (
+                      <View style={styles.linkRow}>
+                        <ThemedText type="caption" style={{ color: colors.accent }}>
+                          {t("learnQuran.readArticle")}
                         </ThemedText>
+                        <SymbolView name={chevronForwardIcon} size={12} tintColor={colors.accent} />
                       </View>
                     ) : null}
-                  </View>
-                  <ThemedText type="smallBold" style={styles.title}>
-                    {event.title}
-                  </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {event.body}
-                  </ThemedText>
-                  {event.topicId ? (
-                    <View style={styles.linkRow}>
-                      <ThemedText type="caption" style={{ color: colors.accent }}>
-                        {t("learnQuran.readArticle")}
-                      </ThemedText>
-                      <SymbolView name={chevronForwardIcon} size={12} tintColor={colors.accent} />
-                    </View>
-                  ) : null}
-                </Card>
-              </PressableScale>
-            </View>
-          ))}
+                  </Card>
+                </PressableScale>
+              </View>
+            ))}
+          </LearnReadingChrome>
 
           <JannahDisclaimer textKey="learnQuran.disclaimer" />
         </Stagger>

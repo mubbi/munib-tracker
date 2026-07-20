@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -44,10 +43,8 @@ export default function TaharahChecklistScreen() {
               <View style={styles.list}>
                 {items.map((item, index) => (
                   <View key={item.id} style={[styles.row, { backgroundColor: tokens.accentSoft }]}>
-                    <ThemedText type="smallBold">{`${index + 1}. ${item.title}`}</ThemedText>
-                    <ThemedText type="small" themeColor="mutedForeground" style={styles.hint}>
-                      {item.hint}
-                    </ThemedText>
+                    <LearnProseText proseRole="title">{`${index + 1}. ${item.title}`}</LearnProseText>
+                    <LearnProseText themeColor="mutedForeground">{item.hint}</LearnProseText>
                   </View>
                 ))}
               </View>
@@ -69,5 +66,4 @@ const styles = StyleSheet.create({
     borderRadius: Radius.sm,
     borderCurve: "continuous",
   },
-  hint: { lineHeight: 20 },
 });

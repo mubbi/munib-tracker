@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -33,7 +33,6 @@ const GATE_ICONS: Record<string, AppIcon> = {
 function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
   const icon = GATE_ICONS[gate.id] ?? {
     ios: "door.left.hand.open",
     android: "door_front",
@@ -53,10 +52,14 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
       <View style={styles.gateHead}>
         <IconWell icon={icon} tint={colors.accent} well={44} size={20} />
         <View style={styles.gateCopy}>
-          <ThemedText type="smallBold">{gate.name}</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.deedSummary}>
+          <LearnProseText proseRole="title">{gate.name}</LearnProseText>
+          <LearnProseText
+            proseRole="caption"
+            themeColor="mutedForeground"
+            style={styles.deedSummary}
+          >
             {gate.deedSummary}
-          </ThemedText>
+          </LearnProseText>
         </View>
       </View>
       {gate.hadith.map((ref) => (
@@ -80,16 +83,9 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
               <HadithCitationBookmarkButton collection={ref.collection} citation={ref.citation} />
             </View>
           </View>
-          <ThemedText
-            type="small"
-            themeColor="mutedForeground"
-            style={[
-              styles.quoteText,
-              { fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 },
-            ]}
-          >
+          <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
             “{ref.excerpt}”
-          </ThemedText>
+          </LearnProseText>
         </View>
       ))}
     </View>
