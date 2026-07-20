@@ -11,7 +11,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-0.1 | Prayer calculation method picker | `app/location`, `lib/prayer-times.ts`, `rescheduleAll` |
 | NF-0.2 | Asr madhab picker (Shafi / Hanafi) | Location screen `SegmentedControl` |
 | NF-0.3 | Manual sync + status UI | `profile/index.tsx`, `syncNow()`, `readSyncMetadata()` |
-| NF-0.4 | Expanded cloud sync entities | Typed record sync + **22** blob-LWW entities in `sync/blob-sync.ts`; API whitelist `SYNC_ENTITIES` (**34** total) in `apps/api` |
+| NF-0.4 | Expanded cloud sync entities | Typed record sync + **27** blob-LWW entities in `sync/blob-sync.ts`; API whitelist `SYNC_ENTITIES` (**39** total) in `apps/api` — includes location/calc settings, reading-text visibility, zakat draft, tours, and appearance via the preferences blob |
 | NF-0.5 | Adhan at prayer notification | `playAdhanOnPrayer`, `build-reminders.ts`, Android channel |
 | NF-0.6 | Juz browser | `/quran/juz`, `getJuzList()` |
 | NF-0.7 | Durood & Names search + favorites | `createFavoritesStore`, in-screen Fuse search |
@@ -63,8 +63,8 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 
 | ID | Feature | Key touchpoints |
 |----|---------|-------------------|
-| NF-1.18 | Native home-screen widgets | `appSurfaces/widgets`, [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) |
-| NF-1.19 | Live Activities (iOS) | `modules/munib-live-activity`, ActivityKit |
+| NF-1.18 | Native home-screen widgets (HIG budgets, live countdown, Mark, dual theme, localized picker, previews) — incl. Tasbeeh glance (small) and Jumu'ah nudge (checklist progress or countdown) | `appSurfaces/widgets`, [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) |
+| NF-1.19 | Live Activities (iOS) + ongoing countdown notification (Android); one-shot discovery banner in Settings → Notifications when supported and still off | `modules/munib-live-activity`, ActivityKit, `lib/ongoing-notification`, `components/notifications/live-activity-discovery-banner.tsx` |
 | NF-1.20 | Local backup export/import | `lib/backup.ts`, `/settings/backup` |
 | NF-1.21 | Customizable home modules | `hiddenHomeModules`, `/settings/home` |
 | NF-1.22 | Library tab (4th tab) | `lib/library-menu.ts` |

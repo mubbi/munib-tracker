@@ -1,3 +1,4 @@
+import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useEffect } from "react";
 
 import { createId } from "@/db/id";
@@ -165,6 +166,20 @@ export function useCustomTasbeehList(): CustomTasbeeh[] {
 
 export function useCustomTasbeeh(id: string | undefined): CustomTasbeeh | undefined {
   return useStore(customTasbeehStore, (s) => s.items.find((item) => item.id === id));
+}
+
+/**
+ * The most recently updated custom tasbeeh counter, if it was touched today —
+ * used by the Tasbeeh glance widget snapshot (`buildWidgetSnapshot`).
+ */
+export function useTasbeehUpdatedToday(): CustomTasbeeh | undefined {
+  return useStore(customTasbeehStore, (s) => {
+    const latest = s.items[0];
+    if (!latest) return undefined;
+    return getLocalDateString(new Date(latest.updatedAt)) === getLocalDateString()
+      ? latest
+      : undefined;
+  });
 }
 
 const customTasbeehActions = {

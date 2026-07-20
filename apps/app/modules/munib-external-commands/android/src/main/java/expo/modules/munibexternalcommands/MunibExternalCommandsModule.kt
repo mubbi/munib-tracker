@@ -118,8 +118,52 @@ class MunibExternalCommandsModule : Module() {
       ExternalCommandQueue.drain(prefs)
     }
 
+    // Widgets cannot fire arbitrary broadcasts from react-native-android-widget's
+    // clickAction (only OPEN_APP/OPEN_URI are handled natively there); this thin
+    // helper lets the widget's headless click task re-send the same
+    // ACTION_MARK_CURRENT / ACTION_MARK_PRAYER broadcast that Assistant/App Actions
+    // use, so it is handled by the existing ExternalCommandReceiver.
+    AsyncFunction("sendWidgetMarkBroadcast") { json: String ->
+      val context = appContext.reactContext ?: return@AsyncFunction
+      try {
+        val payload = JSONObject(json)
+        val isMarkPrayer = payload.optString("type") == "mark-prayer"
+        val action = if (isMarkPrayer) {
+          ExternalCommandQueue.ACTION_MARK_PRAYER
+        } else {
+          ExternalCommandQueue.ACTION_MARK_CURRENT
+        }
+        val intent = Intent(action)
+          .setPackage(context.packageName)
+          .putExtra("source", payload.optString("source", "widget"))
+        if (isMarkPrayer) {
+          intent.putExtra(ExternalCommandQueue.EXTRA_PRAYER_ID, payload.optString(ExternalCommandQueue.EXTRA_PRAYER_ID))
+          intent.putExtra(ExternalCommandQueue.EXTRA_DATE, payload.optString(ExternalCommandQueue.EXTRA_DATE))
+        }
+        context.sendBroadcast(intent)
+      } catch (_: Exception) {
+        /* malformed payload */
+      }
+    }
+
     AsyncFunction("pushWearSnapshot") { json: String ->
       WearSnapshotBridge.pushSnapshot(appContext.reactContext ?: return@AsyncFunction, json)
+    }
+
+    AsyncFunction("publishAndroidWidgetPreviews") { json: String ->
+      val context = appContext.reactContext ?: return@AsyncFunction false
+      AndroidWidgetPreviewPublisher.publish(context, json)
+    }
+
+    // Phase 4: Android ongoing "next Salah" notification (Live Activity counterpart).
+    AsyncFunction("updateOngoingNotification") { json: String ->
+      val context = appContext.reactContext ?: return@AsyncFunction
+      OngoingSalahNotification.update(context, json)
+    }
+
+    AsyncFunction("cancelOngoingNotification") {
+      val context = appContext.reactContext ?: return@AsyncFunction
+      OngoingSalahNotification.cancel(context)
     }
 
     AsyncFunction("activateWatchSession") {

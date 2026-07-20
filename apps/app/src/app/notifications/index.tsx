@@ -64,6 +64,17 @@ export default function NotificationCenterScreen() {
   const { requestPermission, granted } = useNotificationPermissions();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [confirmClear, setConfirmClear] = useState(false);
+  const [markingAllRead, setMarkingAllRead] = useState(false);
+
+  const handleMarkAllRead = async () => {
+    if (markingAllRead) return;
+    setMarkingAllRead(true);
+    try {
+      await markAllRead();
+    } finally {
+      setMarkingAllRead(false);
+    }
+  };
 
   const handleClearAll = async () => {
     await clearAll();
@@ -130,7 +141,10 @@ export default function NotificationCenterScreen() {
         <Card padding="three">
           <NotificationToolbar
             unreadCount={unreadCount}
-            onMarkAllRead={unreadCount > 0 ? () => void markAllRead() : undefined}
+            markingAllRead={markingAllRead}
+            onMarkAllRead={
+              unreadCount > 0 || markingAllRead ? () => void handleMarkAllRead() : undefined
+            }
             onClearAll={delivered.length > 0 ? () => setConfirmClear(true) : undefined}
             onOpenSettings={() => router.push("/settings/notifications")}
           />

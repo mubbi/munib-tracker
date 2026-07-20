@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Qiblə istiqamətini tap",
     "tasbeehSubtitle": "Təsbeh sayğacını aç",
     "qazaSubtitle": "Buraxılmış namazları idarə et",
-    "quranSubtitle": "Qur'an oxu"
+    "quranSubtitle": "Qur'an oxu",
+    "markCurrentSubtitle": "Cari namazı qeyd et",
+    "ramadanSubtitle": "Səhər yeməyi, iftar və oruc jurnalı"
   },
   "widgets": {
     "updatedJustNow": "Updted just now",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Tərəqqi",
         "description": "Bu günün vacib namazı davam edir"
+      },
+      "streak": {
+        "label": "Seriya",
+        "description": "Cari fərz namaz seriyası"
+      },
+      "qaza": {
+        "label": "Qəza",
+        "description": "Qalan qəza və bu günkü qəza irəliləyişi"
+      },
+      "ramadan": {
+        "label": "Ramazan",
+        "description": "Səhər yeməyi və iftar vaxtları gerisayımla"
+      },
+      "khatm": {
+        "label": "Xətm",
+        "description": "Qur'an xətm planının irəliləyişi"
+      },
+      "dailyHadith": {
+        "label": "Günün hədisi",
+        "description": "İmam Nəvəvinin Qırx Hədisindən bugünkü hədis"
+      },
+      "hijriDate": {
+        "label": "İslam tarixi",
+        "description": "Hicri və miladi tarix"
+      },
+      "qibla": {
+        "label": "Qiblə",
+        "description": "Kəbəyə kompas bucağı"
+      },
+      "tasbeeh": {
+        "label": "Təsbih",
+        "description": "Bugünkü xüsusi təsbih sayğacı irəliləyişi"
+      },
+      "friday": {
+        "label": "Cümə",
+        "description": "Cümə yoxlama siyahısı irəliləyişi və ya Cüməyə qalan günlər"
       }
     },
     "remaining": "Qalan",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Namaz seriyası",
+    "streakDays": "{{count}} gün",
+    "streakDays_one": "{{count}} gün",
+    "streakDays_other": "{{count}} gün",
+    "streakHint": "Hər fərz namazı qeyd etməyə davam edin",
+    "qaza": "Qəza",
+    "qazaRemainingCount": "{{count}} qalıb",
+    "qazaNoTarget": "Gündəlik hədəf yoxdur",
+    "ramadan": "Ramazan",
+    "suhoorIftar": "Səhər yeməyi və iftar",
+    "khatm": "Xətm planı",
+    "khatmStartHint": "Tətbiqdə xətm planı başladın",
+    "khatmPaceAhead": "İrəlidə",
+    "khatmPaceBehind": "Geridə",
+    "khatmPaceDone": "Tamamlandı",
+    "khatmPaceOnTrack": "Cədvəldə",
+    "dailyHadith": "Günün hədisi",
+    "hijriDate": "İslam tarixi",
+    "qibla": "Qiblə",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Kəbə istiqaməti",
+    "markSalah": "Namazı qeyd et",
+    "statusActive": "Növbəti",
+    "tasbeeh": "Təsbih",
+    "tasbeehHint": "Saymağa başlamaq üçün tətbiqi açın",
+    "tasbeehRemaining": "{{count}} qalıb",
+    "tasbeehUnlimited": "Limitsiz sayım",
+    "friday": "Cümə",
+    "fridayProgress": "{{completed}}/{{total}} tamam",
+    "fridayAllDone": "Hamısı bitdi — qəbul olsun, inşallah",
+    "fridayCountdown": "{{count}} gün sonra Cümə",
+    "fridayCountdown_one": "{{count}} gün sonra Cümə",
+    "fridayCountdown_other": "{{count}} gün sonra Cümə"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -733,7 +804,11 @@
     "heroUser": "namazlarınızı, qaza və zikr-i buludda təhlükəsiz saxlamaq üçün daxil olun.",
     "error": "Daxil olmaq mümkün olmadı. API serverinin işlədiyinə və bu provayderin konfiqurasiya olunduğuna əmin olun.",
     "providersUnavailableTitle": "Giriş hələ əlçatan deyil",
-    "providersUnavailableBody": "Bu yığımda bulud sinxron provayderləri konfiqurasiya olunmayıb. Qonaq kimi davam edin — irəliləyişiniz bu cihazda qalır."
+    "providersUnavailableBody": "Bu yığımda bulud sinxron provayderləri konfiqurasiya olunmayıb. Qonaq kimi davam edin — irəliləyişiniz bu cihazda qalır.",
+    "titleSignedIn": "Daxil olmusunuz",
+    "subtitleSignedIn": "Bulud sinxronu bu cihazda hazırdır",
+    "heroSignedIn": "Xoş gəldiniz — hesabınız bağlıdır. Namaz, qəza və zikr cihazlar arasında sinxronlaşa bilər.",
+    "continueSignedIn": "Davam et"
   },
   "onboarding": {
     "begin": "Begiçində",
@@ -870,6 +945,11 @@
     "liveActivity": "Live ctivity",
     "liveActivityHint": "Kilid ekranında və Dynamic Island-də növbəti namaz üçün canlı geri sayma göstərin.",
     "liveActivityUnavailable": "Dev və ya istehsal quruluşu ilə iPhone (iOS 16.1+) üzərində mövcuddur.",
+    "liveActivityDiscoveryTitle": "Canlı geri sayımı sınayın",
+    "liveActivityDiscoveryBodyIos": "Növbəti namaz üçün geri sayımı Kilid ekranında və Dynamic Island-də görün.",
+    "liveActivityDiscoveryBodyAndroid": "Növbəti namaz üçün geri sayımı Qeyd et əməli olan davamlı bildirişdə görün.",
+    "liveActivityDiscoveryEnable": "Aktiv et",
+    "liveActivityDiscoveryDismissA11y": "Canlı geri sayım məsləhətini bağla",
     "upcomingTitle": "Qarşıdan gələn xatırlatmalar",
     "upcomingHint": "Məkanınızın saat qurşağında növbəti planlaşdırılmış xəbərdarlıqlarınız. Onları aktivləşdirmək, söndürmək və ya redaktə etmək üçün aşağıdakı keçidlərdən istifadə edin.",
     "footer": "Bu xatırlatmaların çatdırılması cihazınızda bildirişlər aktiv edildikdən sonra planlaşdırılır.",
@@ -900,7 +980,8 @@
       "prayer": "Salah xatırlatmaları",
       "prayerAdhan": "Adhan namaz vaxtı",
       "zikr": "Zikr xatırlatmaları",
-      "qaza": "Qəza xatırlatmaları"
+      "qaza": "Qəza xatırlatmaları",
+      "prayerOngoing": "Növbəti namaz gerisayımı"
     },
     "snooze": "{{minutes}} dəq təxirə sal",
     "defaultTitle": "xtırltm",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Gündəlik məzmun",
     "defaultLocationTitle": "Namaz bildirişləri üçün məkanı təyin edin",
-    "defaultLocationMessage": "Namaz və azan xatırlatmaları üçün şəhəriniz lazımdır. Saat üzrə zikr və qəza xatırlatmaları yenə planlanır."
+    "defaultLocationMessage": "Namaz və azan xatırlatmaları üçün şəhəriniz lazımdır. Saat üzrə zikr və qəza xatırlatmaları yenə planlanır.",
+    "liveActivityHintAndroid": "Növbəti namazın canlı gerisayımı və Qeyd et əməli olan sabit bildiriş göstərin.",
+    "markPrayed": "Qılınmış kimi qeyd et"
   },
   "fonts": {
     "eyebrow": "Parametrlər",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Surə {{number}}",
+    "selectSurah": "Surə seçin",
+    "openReader": "Oxuyucunu aç"
   },
   "hadith": {
     "eyebrow": "Peyğəmbərlik ənənəsi",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qz",
     "categoryMilestone": "Miles-ne",
     "categorySystem": "Sdirtem",
-    "categoryAnnouncement": "Elan"
+    "categoryAnnouncement": "Elan",
+    "markingAllRead": "Hamısı oxunmuş kimi qeyd olunur…"
   },
   "qibla": {
     "eyebrow": "Directiüzərində",
@@ -3519,7 +3606,7 @@
     "today": "bu gün",
     "inDays": "içində {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Tarixlər hesablanmış təxminlərdir - faktiki gün yerli ayın görünməsindən asılıdır.",
+    "disclaimer": "Tarixlər yerinizdəki hilal görünürlüyünə (və ya istifadə olunan bölgələrdə rəsmi Ümm əl-Qura təqviminə) uyğundur və yerli orqanın elanından bir gün fərqlənə bilər.",
     "names": {
       "newYear": "İslam Yeni ili",
       "ashura": "Aşura günü",
@@ -3992,7 +4079,7 @@
       "label": "Qoşmalar (isteğe bağlı)",
       "add": "Fayl əlavə edin",
       "remove": "Qoşmanı çıxarın",
-      "hint": "5-ə qədər fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürə uzun basın.",
+      "hint": "Ən çox 5 fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürdə × toxunun.",
       "signInRequired": "Şəxsi faylları adhkarınıza əlavə etmək üçün daxil olun.",
       "permissionDenied": "Faylları əlavə etmək üçün icazə tələb olunur.",
       "permissionTitle": "Girişə icazə verin",
@@ -4504,7 +4591,7 @@
     "sourceLabel": "siziçində source (ixtiyri)",
     "sourcePlaceholder": "Düzəlişinizi dəstəkləyən kitab, alim, URL və ya sitat.",
     "proofLabel": "Sübut ekran görüntüləri (isteğe bağlı)",
-    "proofHint": "3 şəkilə qədər. Silmək üçün miniatürə uzun basın.",
+    "proofHint": "Ən çox 3 şəkil. Silmək üçün miniatürdə × toxunun.",
     "addProof": "Foto əlavə edin",
     "removeProof": "çıxrt screenshot",
     "submit": "Hesabat təqdim edin",
@@ -4562,6 +4649,8 @@
     "watchHint": "Bu günün cədvəlinə baxmaq və Salahı qeyd etmək üçün Munib Tracker watch proqramını açın. Məlumat iPhone-dan sinxronizasiya edilir.",
     "wearTitle": "Wer OS",
     "wearHint": "Telefonunuzla qoşalaşdıqdan sonra saatınıza Munib Tracker kafel əlavə edin.",
+    "forceQuitTitle": "Tətbiq bağlanıbsa",
+    "forceQuitBody": "Vidjet dəyişdirmə, Siri, Assistant və saat/Wear qeydləri əməli yerinə yetirdiyiniz an növbəyə qoyulur. Munib Tracker tam bağlanıbsa, növbədəki qeyd — və yoxlama siyahınız, seriyanız və vidjetləriniz — tətbiqi yenidən açdığınızda yenilənir.",
     "marked": "Salah qeyd edib",
     "alreadyDone": "Artıq qeyd olunub",
     "allDone": "Bütün məcburi Namazlar bu gün üçün qeyd edilmişdir",
@@ -4572,8 +4661,19 @@
       "openTracker": "çın yoxlm siyhısı",
       "openQibla": "çın Qibl",
       "openTasbeeh": "çın Tsbeeh",
-      "markCurrent": "Salahımı qeyd edin"
-    }
+      "markCurrent": "Salahımı qeyd edin",
+      "openRamadan": "Ramazanı aç",
+      "openKhatm": "Xətm planını aç",
+      "openQaza": "Qəzanı aç",
+      "openQuran": "Qur'anı aç",
+      "markFajr": "Sübhü qeyd et",
+      "markDhuhr": "Zöhrü qeyd et",
+      "markAsr": "Əsri qeyd et",
+      "markMaghrib": "Məğribi qeyd et",
+      "markIsha": "İşanı qeyd et"
+    },
+    "moreShortcutsTitle": "Daha çox səsli qısayollar",
+    "moreShortcutsHint": "Namaz qeyd etmək və ya birbaşa ekrana keçmək üçün bunlardan birini deyin."
   },
   "pinLock": {
     "title": "pp lock",
@@ -4768,7 +4868,7 @@
     "eyebrow": "Təqvim",
     "title": "Tarix çeviricisi",
     "subtitle": "Hicri və Miladi təqvimlər arasında çevirin",
-    "intro": "Cədvəl Küveyt alqoritmi ilə oflayn hesablanmış digərində ekvivalentini görmək üçün hər iki təqvimə tarixi daxil edin.",
+    "intro": "İstənilən təqvimdə tarix daxil edin ki, digərindəki ekvivalentini görün — yerinizdəki hilal görünürlüyünə görə oflayn hesablanır.",
     "toHijri": "Qriqorian → hicri",
     "toGregorian": "Hicri → Qriqorian",
     "gregorianDateLabel": "Qriqorian tarixi",
@@ -4778,7 +4878,7 @@
     "year": "il",
     "useToday": "Bu gün istifadə edin",
     "invalidDate": "Etibarlı tarix daxil edin",
-    "disclaimer": "Bu arifmetik təxmindir (cədvəl \"Küveyt alqoritmi\") və yerli ayın görünməsi ilə bağlı elanlardan bir gün fərqlənə bilər - həmişə yerli məscidinizi və ya dini tarixlər üçün səlahiyyətli orqanı izləyin.",
+    "disclaimer": "Tarixlər yerinizdəki hilal (hilāl) görünürlüyünə görə hesablanır və rəsmi ay görünməsi elanlarından bir gün fərqlənə bilər — dini tarixlər üçün həmişə yerli Masjid və ya orqanı izləyin.",
     "directionTitle": "Dönüşüm istiqaməti",
     "resultFrom": "{{date}}-dən",
     "quickLinksTitle": "Əlaqədar",

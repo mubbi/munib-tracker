@@ -256,11 +256,11 @@ function BufferingBand({ color, active }: { color: string; active: boolean }) {
   );
 }
 
-/** Approximate playlist row extent (card height + row gap) for scroll recovery. */
-const PLAYLIST_ROW_HEIGHT = 80;
+/** Playlist row body height — fixed so FlatList getItemLayout / scroll offsets stay accurate. */
+const PLAYLIST_ROW_BODY = 88;
 
-/** Scroll params that keep the active row vertically centered in the playlist. */
-const PLAYLIST_CENTER_VIEW = { viewPosition: 0.5 as const };
+/** Full row extent (body + gap) used for scroll-to-active math. */
+const PLAYLIST_ROW_HEIGHT = PLAYLIST_ROW_BODY + Spacing.two;
 
 /** Global audio player: a compact bar that expands into a full player. */
 export function MiniPlayer() {
@@ -1311,49 +1311,30 @@ const ExpandedPlaylist = memo(function ExpandedPlaylist({
 }) {
   const { t } = useTranslation();
   const playlistRef = useRef<FlatList<AudioTrack>>(null);
-  const playlistHeightRef = useRef(0);
   const [playlistHeight, setPlaylistHeight] = useState(0);
-  const listCenterInset = Math.max(0, playlistHeight / 2 - PLAYLIST_ROW_HEIGHT / 2);
+  // Extra bottom space so the last track can still sit at the top of the viewport.
+  const listEndInset = Math.max(0, playlistHeight - PLAYLIST_ROW_HEIGHT);
 
-  const scrollActiveToCenter = useCallback((targetIndex: number, animated = true) => {
-    try {
-      playlistRef.current?.scrollToIndex({
-        index: targetIndex,
-        ...PLAYLIST_CENTER_VIEW,
-        animated,
-      });
-    } catch {
-      const centerInset = Math.max(0, playlistHeightRef.current / 2 - PLAYLIST_ROW_HEIGHT / 2);
-      playlistRef.current?.scrollToOffset({
-        offset: Math.max(0, centerInset + targetIndex * PLAYLIST_ROW_HEIGHT),
-        animated,
-      });
-    }
+  const scrollActiveToTop = useCallback((targetIndex: number, animated = true) => {
+    if (targetIndex < 0) return;
+    playlistRef.current?.scrollToOffset({
+      offset: targetIndex * PLAYLIST_ROW_HEIGHT,
+      animated,
+    });
   }, []);
 
-  const onScrollToIndexFailed = useCallback(
-    (info: { index: number; averageItemLength: number }) => {
-      const centerInset = Math.max(0, playlistHeightRef.current / 2 - info.averageItemLength / 2);
-      playlistRef.current?.scrollToOffset({
-        offset: Math.max(0, centerInset + info.index * info.averageItemLength),
-        animated: false,
-      });
-      setTimeout(() => scrollActiveToCenter(info.index), 80);
-    },
-    [scrollActiveToCenter],
-  );
-
   const onPlaylistLayout = useCallback((event: LayoutChangeEvent) => {
-    const height = event.nativeEvent.layout.height;
-    playlistHeightRef.current = height;
-    setPlaylistHeight(height);
+    setPlaylistHeight(event.nativeEvent.layout.height);
   }, []);
 
   useEffect(() => {
-    if (queue.length <= 1 || playlistHeight <= 0) return;
-    const timer = setTimeout(() => scrollActiveToCenter(activeIndex), 60);
+    if (queue.length === 0 || playlistHeight <= 0) return;
+    const clamped = Math.min(Math.max(activeIndex, 0), queue.length - 1);
+    // Non-animated so auto-advance doesn't leave the previous ayah at the top
+    // while the active row is still below the fold.
+    const timer = setTimeout(() => scrollActiveToTop(clamped, false), 16);
     return () => clearTimeout(timer);
-  }, [activeIndex, queue.length, playlistHeight, scrollActiveToCenter]);
+  }, [activeIndex, queue.length, playlistHeight, scrollActiveToTop]);
 
   const renderItem = useCallback<ListRenderItem<AudioTrack>>(
     ({ item: track, index: i }) => (
@@ -1370,10 +1351,10 @@ const ExpandedPlaylist = memo(function ExpandedPlaylist({
   const getItemLayout = useCallback(
     (_: ArrayLike<AudioTrack> | null | undefined, i: number) => ({
       length: PLAYLIST_ROW_HEIGHT,
-      offset: listCenterInset + PLAYLIST_ROW_HEIGHT * i,
+      offset: PLAYLIST_ROW_HEIGHT * i,
       index: i,
     }),
-    [listCenterInset],
+    [],
   );
 
   const keyExtractor = useCallback((track: AudioTrack) => track.id, []);
@@ -1391,18 +1372,16 @@ const ExpandedPlaylist = memo(function ExpandedPlaylist({
         style={styles.playlist}
         onLayout={onPlaylistLayout}
         contentContainerStyle={{
-          paddingTop: listCenterInset,
-          paddingBottom: listCenterInset + Spacing.three,
+          paddingBottom: listEndInset + Spacing.three,
         }}
         showsVerticalScrollIndicator={false}
-        onScrollToIndexFailed={onScrollToIndexFailed}
         getItemLayout={getItemLayout}
         renderItem={renderItem}
-        initialNumToRender={8}
-        maxToRenderPerBatch={6}
-        windowSize={5}
-        updateCellsBatchingPeriod={100}
-        removeClippedSubviews
+        initialNumToRender={Math.max(8, activeIndex + 3)}
+        maxToRenderPerBatch={8}
+        windowSize={7}
+        updateCellsBatchingPeriod={50}
+        removeClippedSubviews={Platform.OS !== "web"}
       />
     </>
   );
@@ -1719,7 +1698,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    minHeight: 72,
+    height: PLAYLIST_ROW_BODY,
     marginBottom: Spacing.two,
     paddingVertical: Spacing.two + 2,
     paddingHorizontal: Spacing.three,
@@ -1727,6 +1706,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: 1.5,
     borderColor: "transparent",
+    overflow: "hidden",
   },
   plIndex: {
     width: 36,

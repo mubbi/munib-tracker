@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Qibla yoʻnalishini toping",
     "tasbeehSubtitle": "Tasbeeh hisoblagichini oching",
     "qazaSubtitle": "Qoldirilgan namozlarni boshqaring",
-    "quranSubtitle": "Qur'on oʻqing"
+    "quranSubtitle": "Qur'on oʻqing",
+    "markCurrentSubtitle": "Joriy namozni belgilash",
+    "ramadanSubtitle": "Saharlik, iftorlik va ro‘za jurnali"
   },
   "widgets": {
     "updatedJustNow": "Updted just now",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Taraqqiyot",
         "description": "Bugungi farz namoz taraqqiyoti"
+      },
+      "streak": {
+        "label": "Seriya",
+        "description": "Joriy farz namoz seriyasi"
+      },
+      "qaza": {
+        "label": "Qazo",
+        "description": "Qolgan qazo va bugungi qazo taraqqiyoti"
+      },
+      "ramadan": {
+        "label": "Ramazon",
+        "description": "Saharlik va iftorlik vaqtlari teskari hisob bilan"
+      },
+      "khatm": {
+        "label": "Xatm",
+        "description": "Qur’on xatm rejasi taraqqiyoti"
+      },
+      "dailyHadith": {
+        "label": "Kunlik hadis",
+        "description": "Imom Navaviyning Qirq hadisidan bugungi hadis"
+      },
+      "hijriDate": {
+        "label": "Islomiy sana",
+        "description": "Hijriy va milodiy sana"
+      },
+      "qibla": {
+        "label": "Qibla",
+        "description": "Ka’baga kompas burchagi"
+      },
+      "tasbeeh": {
+        "label": "Tasbeh",
+        "description": "Bugungi maxsus tasbeh hisoblagichi taraqqiyoti"
+      },
+      "friday": {
+        "label": "Juma",
+        "description": "Juma ro‘yxati taraqqiyoti yoki Jumagacha kunlar"
       }
     },
     "remaining": "Qolgan",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Namoz seriyasi",
+    "streakDays": "{{count}} kun",
+    "streakDays_one": "{{count}} kun",
+    "streakDays_other": "{{count}} kun",
+    "streakHint": "Har bir farz namozni belgilashda davom eting",
+    "qaza": "Qazo",
+    "qazaRemainingCount": "{{count}} qoldi",
+    "qazaNoTarget": "Kunlik maqsad yo‘q",
+    "ramadan": "Ramazon",
+    "suhoorIftar": "Saharlik va iftorlik",
+    "khatm": "Xatm rejasi",
+    "khatmStartHint": "Ilovada xatm rejasini boshlang",
+    "khatmPaceAhead": "Oldinda",
+    "khatmPaceBehind": "Orqada",
+    "khatmPaceDone": "Tugallandi",
+    "khatmPaceOnTrack": "Rejada",
+    "dailyHadith": "Kunlik hadis",
+    "hijriDate": "Islomiy sana",
+    "qibla": "Qibla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Ka’ba yo‘nalishi",
+    "markSalah": "Namozni belgilash",
+    "statusActive": "Keyingi",
+    "tasbeeh": "Tasbeh",
+    "tasbeehHint": "Hisoblashni boshlash uchun ilovani oching",
+    "tasbeehRemaining": "{{count}} qoldi",
+    "tasbeehUnlimited": "Cheksiz hisob",
+    "friday": "Juma",
+    "fridayProgress": "{{completed}}/{{total}} bajarildi",
+    "fridayAllDone": "Hammasi tayyor — qabul bo‘lsin, inshaAlloh",
+    "fridayCountdown": "{{count}} kundan keyin Juma",
+    "fridayCountdown_one": "{{count}} kundan keyin Juma",
+    "fridayCountdown_other": "{{count}} kundan keyin Juma"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -733,7 +804,11 @@
     "heroUser": "Ibodatlaringizni qaza va zikr bulutda xavfsiz saqlash uchun tizimga kiring.",
     "error": "Kirib bo‘lmadi. API server ishlayotganini va bu provayder sozlanganini tekshiring.",
     "providersUnavailableTitle": "Kirish hali mavjud emas",
-    "providersUnavailableBody": "Bu yig‘ilmada bulut sync provayderlari sozlanmagan. Mehmon sifatida davom eting — taraqqiyotingiz shu qurilmada qoladi."
+    "providersUnavailableBody": "Bu yig‘ilmada bulut sync provayderlari sozlanmagan. Mehmon sifatida davom eting — taraqqiyotingiz shu qurilmada qoladi.",
+    "titleSignedIn": "Siz tizimga kirdingiz",
+    "subtitleSignedIn": "Bulut sinxroni ushbu qurilmada tayyor",
+    "heroSignedIn": "Xush kelibsiz — hisobingiz bog‘langan. Namoz, qazo va zikr qurilmalar o‘rtasida sinxronlanishi mumkin.",
+    "continueSignedIn": "Davom etish"
   },
   "onboarding": {
     "begin": "Begichid",
@@ -870,6 +945,11 @@
     "liveActivity": "Jonli faollik",
     "liveActivityHint": "Qulflangan ekran va Dynamic Islandda keyingi namozning ortga jonli sanasini ko'rsating.",
     "liveActivityUnavailable": "Ishlab chiqaruvchi yoki ishlab chiqarish qurilmasi bilan iPhone (iOS 16.1+) da mavjud.",
+    "liveActivityDiscoveryTitle": "Jonli teskari hisobni sinab ko'ring",
+    "liveActivityDiscoveryBodyIos": "Keyingi namoz hisobini Qulflangan ekran va Dynamic Islandda ko'ring.",
+    "liveActivityDiscoveryBodyAndroid": "Keyingi namoz hisobini Belgilash amali bilan doimiy bildirishnomada ko'ring.",
+    "liveActivityDiscoveryEnable": "Yoqish",
+    "liveActivityDiscoveryDismissA11y": "Jonli hisob maslahatini yopish",
     "upcomingTitle": "Kelgusi eslatmalar",
     "upcomingHint": "Joylashuvingiz vaqt mintaqasida keyingi rejalashtirilgan ogohlantirishlaringiz. Ularni yoqish, o‘chirish yoki tahrirlash uchun quyidagi o‘tish tugmalaridan foydalaning.",
     "footer": "Ushbu eslatmalarni yetkazib berish qurilmangizda bildirishnomalar yoqilgandan keyin rejalashtirilgan.",
@@ -900,7 +980,8 @@
       "prayer": "Salah eslatmalari",
       "prayerAdhan": "Adhan namoz vaqtida",
       "zikr": "Zikr eslatmalari",
-      "qaza": "Qazo eslatmalari"
+      "qaza": "Qazo eslatmalari",
+      "prayerOngoing": "Keyingi namoz teskari hisobi"
     },
     "snooze": "{{minutes}} daq kechiktirish",
     "defaultTitle": "esltm",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Kundalik tarkib",
     "defaultLocationTitle": "Namoz ogohlantirishlari uchun joylashuvni belgilang",
-    "defaultLocationMessage": "Namoz va azon eslatmalari uchun shahringiz kerak. Soat bo'yicha zikr va qazo eslatmalari baribir rejalashtiriladi."
+    "defaultLocationMessage": "Namoz va azon eslatmalari uchun shahringiz kerak. Soat bo'yicha zikr va qazo eslatmalari baribir rejalashtiriladi.",
+    "liveActivityHintAndroid": "Keyingi namozning jonli teskari hisobi va Belgilash amali bilan doimiy bildirishnoma ko‘rsating.",
+    "markPrayed": "O‘qilgan deb belgilash"
   },
   "fonts": {
     "eyebrow": "Sozlamalar",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Sura {{number}}",
+    "selectSurah": "Surani tanlang",
+    "openReader": "O'quvchini ochish"
   },
   "hadith": {
     "eyebrow": "Payg'ambarlik an'anasi",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qz",
     "categoryMilestone": "Miles-gne",
     "categorySystem": "Tizim",
-    "categoryAnnouncement": "E'lon"
+    "categoryAnnouncement": "E'lon",
+    "markingAllRead": "Hammasi o‘qilgan deb belgilanmoqda…"
   },
   "qibla": {
     "eyebrow": "Directid",
@@ -3519,7 +3606,7 @@
     "today": "bugun",
     "inDays": "ichid {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Sanalar hisoblangan taxminlar - haqiqiy kun mahalliy oyni ko'rishga bog'liq.",
+    "disclaimer": "Sanalar joylashuvingizdagi hilol ko'rinishiga (yoki uni ishlatadigan mintaqalarda rasmiy Umm al-Qura taqvimiga) amal qiladi va mahalliy hokimiyat e'lonidan bir kun farq qilishi mumkin.",
     "names": {
       "newYear": "Islomiy Yangi yil",
       "ashura": "Ashuro kuni",
@@ -3992,7 +4079,7 @@
       "label": "Qo'shimchalar (ixtiyoriy)",
       "add": "Fayl qo'shish",
       "remove": "Qo'shimchani olib tashlang",
-      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Oʻchirish uchun eskizni uzoq bosib turing.",
+      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Olib tashlash uchun eskizdagi × ni bosing.",
       "signInRequired": "Adhkaringizga shaxsiy fayllarni biriktirish uchun tizimga kiring.",
       "permissionDenied": "Fayllarni biriktirish uchun ruxsat talab qilinadi.",
       "permissionTitle": "Kirishga ruxsat bering",
@@ -4504,7 +4591,7 @@
     "sourceLabel": "siznichidg source (ixtiyyokiiy)",
     "sourcePlaceholder": "Tuzatishingizni tasdiqlovchi kitob, olim, URL yoki iqtibos.",
     "proofLabel": "Tasdiqlangan skrinshotlar (ixtiyoriy)",
-    "proofHint": "3 tagacha rasm. Oʻchirish uchun eskizni uzoq bosib turing.",
+    "proofHint": "3 tagacha rasm. Olib tashlash uchun eskizdagi × ni bosing.",
     "addProof": "Surat qo'shish",
     "removeProof": "olib tshlsh screenshot",
     "submit": "Hisobot yuborish",
@@ -4562,6 +4649,8 @@
     "watchHint": "Bugungi kun jadvalini ko'rish va Salohni belgilash uchun Munib Tracker tomosha ilovasini oching. Ma'lumotlar iPhone-dan sinxronlanadi.",
     "wearTitle": "Wer OS",
     "wearHint": "Telefoningiz bilan ulangandan keyin soatingizga Munib Tracker plitasini qo'shing.",
+    "forceQuitTitle": "Agar ilova yopilgan bo'lsa",
+    "forceQuitBody": "Vidjetga bosish, Siri, Assistant va soat/Wear belgilari amal qilingan zahoti navbatga qo'yiladi. Agar Munib Tracker to'liq yopilgan bo'lsa, navbatdagi belgi — ro'yxatingiz, seriyangiz va vidjetlaringiz yangilanib — ilovani keyingi marta ochganingizda qo'llaniladi.",
     "marked": "Belgilangan Salah",
     "alreadyDone": "Belgilangan",
     "allDone": "Barcha majburiy namozlar bugun uchun belgilangan",
@@ -4572,8 +4661,19 @@
       "openTracker": "ochichidg tekshiruv ro'yxti",
       "openQibla": "ochichidg Qibl",
       "openTasbeeh": "ochichidg Tsbeeh",
-      "markCurrent": "Mening Salohimni belgilang"
-    }
+      "markCurrent": "Mening Salohimni belgilang",
+      "openRamadan": "Ramazonni ochish",
+      "openKhatm": "Xatm rejasini ochish",
+      "openQaza": "Qazoni ochish",
+      "openQuran": "Qur’onni ochish",
+      "markFajr": "Bomdodni belgilash",
+      "markDhuhr": "Peshinni belgilash",
+      "markAsr": "Asrni belgilash",
+      "markMaghrib": "Shomni belgilash",
+      "markIsha": "Xuftonni belgilash"
+    },
+    "moreShortcutsTitle": "Yana ovozli tezkor buyruqlar",
+    "moreShortcutsHint": "Namozni belgilash yoki to‘g‘ridan-to‘g‘ri ekranga o‘tish uchun shulardan birini ayting."
   },
   "pinLock": {
     "title": "pp lock",
@@ -4768,7 +4868,7 @@
     "eyebrow": "Kalendar",
     "title": "Sana konvertori",
     "subtitle": "Hijriy va Grigoriy kalendarlari oʻrtasida oʻzgartirish",
-    "intro": "Jadvalli Quvayt algoritmi yordamida oflayn hisoblangan boshqasida ekvivalentini ko‘rish uchun har bir taqvimga sana kiriting.",
+    "intro": "Bir taqvimda sana kiriting — ikkinchisidagi tengini ko'ring; oflayn, joylashuvingizdagi hilol ko'rinishidan hisoblanadi.",
     "toHijri": "Grigoriy → hijriy",
     "toGregorian": "Hijriy → Grigoriy",
     "gregorianDateLabel": "Grigorian sanasi",
@@ -4778,7 +4878,7 @@
     "year": "Yil",
     "useToday": "Bugun foydalaning",
     "invalidDate": "Yaroqli sanani kiriting",
-    "disclaimer": "Bu arifmetik taxmindir (“Quvayt algoritmi” jadvali) va oyni koʻrish haqidagi mahalliy eʼlonlardan bir kun farq qilishi mumkin — har doim mahalliy masjidga yoki diniy sanalar boʻyicha maʼmuriyatga amal qiling.",
+    "disclaimer": "Sanalar joylashuvingizdagi hilol (hilāl) ko'rinishidan hisoblanadi va rasmiy oy ko'rish e'lonlaridan bir kun farq qilishi mumkin — diniy sanalar uchun doimo mahalliy masjid yoki hokimiyatga amal qiling.",
     "directionTitle": "Konvertatsiya yo'nalishi",
     "resultFrom": "{{date}} dan",
     "quickLinksTitle": "Aloqador",

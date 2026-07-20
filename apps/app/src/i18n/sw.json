@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Tafuta mwelekeo wa qibla",
     "tasbeehSubtitle": "Fungua kipimaji cha tasbeeh",
     "qazaSubtitle": "Simamia swala zilizokosa",
-    "quranSubtitle": "Soma Qur'ani"
+    "quranSubtitle": "Soma Qur'ani",
+    "markCurrentSubtitle": "Weka alama Salah ya sasa",
+    "ramadanSubtitle": "Suhoor, iftar na kumbukumbu ya saumu"
   },
   "widgets": {
     "updatedJustNow": "Imesasishwa sasa hivi",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Maendeleo",
         "description": "Maendeleo ya maombi ya faradhi ya leo"
+      },
+      "streak": {
+        "label": "Mfululizo",
+        "description": "Mfululizo wa sasa wa Salah za faradhi"
+      },
+      "qaza": {
+        "label": "Qaza",
+        "description": "Qaza zilizobaki na maendeleo ya kulipa leo"
+      },
+      "ramadan": {
+        "label": "Ramadhani",
+        "description": "Nyakati za suhoor na iftar na countdown"
+      },
+      "khatm": {
+        "label": "Khatm",
+        "description": "Maendeleo ya mpango wa khatm wa Qur'ani"
+      },
+      "dailyHadith": {
+        "label": "Hadithi ya siku",
+        "description": "Hadithi ya leo kutoka Arba'in za Imam an-Nawawi"
+      },
+      "hijriDate": {
+        "label": "Tarehe ya Kiislamu",
+        "description": "Tarehe ya Hijria na Gregorian"
+      },
+      "qibla": {
+        "label": "Qibla",
+        "description": "Azimuth ya dira kuelekea Kaaba"
+      },
+      "tasbeeh": {
+        "label": "Tasbeeh",
+        "description": "Maendeleo ya kihesabu cha tasbeeh maalum cha leo"
+      },
+      "friday": {
+        "label": "Ijumaa",
+        "description": "Maendeleo ya orodha ya Ijumaa au siku hadi Ijumaa"
       }
     },
     "remaining": "Iliyosalia",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Mfululizo wa Salah",
+    "streakDays": "siku {{count}}",
+    "streakDays_one": "siku {{count}}",
+    "streakDays_other": "siku {{count}}",
+    "streakHint": "Endelea kurekodi kila Salah ya faradhi",
+    "qaza": "Qaza",
+    "qazaRemainingCount": "{{count}} zimebaki",
+    "qazaNoTarget": "Hakuna lengo la kila siku",
+    "ramadan": "Ramadhani",
+    "suhoorIftar": "Suhoor na iftar",
+    "khatm": "Mpango wa khatm",
+    "khatmStartHint": "Anza mpango wa khatm katika programu",
+    "khatmPaceAhead": "Mbele",
+    "khatmPaceBehind": "Nyuma",
+    "khatmPaceDone": "Imekamilika",
+    "khatmPaceOnTrack": "Katika mkondo",
+    "dailyHadith": "Hadithi ya siku",
+    "hijriDate": "Tarehe ya Kiislamu",
+    "qibla": "Qibla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Mwelekeo wa Kaaba",
+    "markSalah": "Weka alama Salah",
+    "statusActive": "Ifuatayo",
+    "tasbeeh": "Tasbeeh",
+    "tasbeehHint": "Fungua programu kuanza kuhesabu",
+    "tasbeehRemaining": "{{count}} zimebaki",
+    "tasbeehUnlimited": "Hesabu isiyo na kikomo",
+    "friday": "Ijumaa",
+    "fridayProgress": "{{completed}}/{{total}} zimekamilika",
+    "fridayAllDone": "Zote zimekamilika — zinakubaliwa, in sha Allah",
+    "fridayCountdown": "Ijumaa baada ya siku {{count}}",
+    "fridayCountdown_one": "Ijumaa baada ya siku {{count}}",
+    "fridayCountdown_other": "Ijumaa baada ya siku {{count}}"
   },
   "ramadan": {
     "eyebrow": "Ramadhani",
@@ -733,7 +804,11 @@
     "heroUser": "Swalalarınızı, kazalarınızı na zikirlerinizi bulutta günande tutmak kwa giriş yapın.",
     "error": "Imeshindwa kuingia. Hakikisha seva ya API inaendesha na mtoa huduma huyu amewekwa.",
     "providersUnavailableTitle": "Kuingia bado hakupatikani",
-    "providersUnavailableBody": "Watoa huduma wa usawazishaji wa wingu hawajawekwa katika toleo hili. Endelea kama mgeni — maendeleo yako yanabaki kwenye kifaa hiki."
+    "providersUnavailableBody": "Watoa huduma wa usawazishaji wa wingu hawajawekwa katika toleo hili. Endelea kama mgeni — maendeleo yako yanabaki kwenye kifaa hiki.",
+    "titleSignedIn": "Umeingia",
+    "subtitleSignedIn": "Usawazishaji wa wingu uko tayari kwenye kifaa hiki",
+    "heroSignedIn": "Karibu tena — akaunti yako imeunganishwa. Salah, qaza na zikr zinaweza kusawazishwa kati ya vifaa.",
+    "continueSignedIn": "Endelea"
   },
   "onboarding": {
     "begin": "Anza",
@@ -870,6 +945,11 @@
     "liveActivity": "Shughuli ya Moja kwa Moja",
     "liveActivityHint": "Onyesha hesabu ya moja kwa moja ya maombi yanayofuata kwenye skrini iliyofungwa na Dynamic Island.",
     "liveActivityUnavailable": "Inapatikana kwenye iPhone (iOS 16.1+) ikiwa na muundo wa kisasa au wa uzalishaji.",
+    "liveActivityDiscoveryTitle": "Jaribu hesabu ya moja kwa moja",
+    "liveActivityDiscoveryBodyIos": "Ona hesabu ya Salah inayofuata moja kwa moja kwenye Skrini Iliyofungwa na Dynamic Island.",
+    "liveActivityDiscoveryBodyAndroid": "Ona hesabu ya Salah inayofuata katika arifa thabiti yenye kitendo cha Weka alama.",
+    "liveActivityDiscoveryEnable": "Washa",
+    "liveActivityDiscoveryDismissA11y": "Funga kidokezo cha hesabu ya moja kwa moja",
     "upcomingTitle": "Vikumbusho vijavyo",
     "upcomingHint": "Arifa zako zinazofuata zilizoratibiwa, katika saa za eneo la eneo lako. Tumia vigeuzi vilivyo hapa chini ili kuwasha, kuzima, au kuhariri.",
     "footer": "Uwasilishaji wa vikumbusho hivi umeratibiwa mara tu arifa zinapowashwa kwenye kifaa chako.",
@@ -900,7 +980,8 @@
       "prayer": "Mawaidha ya Salah",
       "prayerAdhan": "Adhana wakati wa maombi",
       "zikr": "Vikumbusho vya Zikr",
-      "qaza": "Mawaidha ya Qaza"
+      "qaza": "Mawaidha ya Qaza",
+      "prayerOngoing": "Countdown ya Salah inayofuata"
     },
     "snooze": "Ahirisha dakika {{minutes}}",
     "defaultTitle": "Kikumbusho",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Maudhui ya kila siku",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "Onyesha arifa thabiti yenye countdown ya moja kwa moja ya Salah inayofuata na kitendo cha Weka alama.",
+    "markPrayed": "Weka alama umeswali"
   },
   "fonts": {
     "eyebrow": "Mipangilio",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Sura {{number}}",
+    "selectSurah": "Chagua sura",
+    "openReader": "Fungua kisomaji"
   },
   "hadith": {
     "eyebrow": "Mila ya kinabii",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Milestone",
     "categorySystem": "Mfumo",
-    "categoryAnnouncement": "Tangazo"
+    "categoryAnnouncement": "Tangazo",
+    "markingAllRead": "Inaweka alama zote kama zimesomwa…"
   },
   "qibla": {
     "eyebrow": "Mwelekeo",
@@ -4084,7 +4171,7 @@
       "label": "Viambatisho (si lazima)",
       "add": "Ongeza faili",
       "remove": "Ondoa kiambatisho",
-      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
+      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), 1 MB kila moja. Gusa × kwenye kijipicha kuondoa.",
       "signInRequired": "Ingia ili kuambatisha faili za faragha kwenye adhkar yako.",
       "permissionDenied": "Ruhusa inahitajika ili kuambatisha faili.",
       "permissionTitle": "Ruhusu ufikiaji",
@@ -4654,6 +4741,8 @@
     "watchHint": "Open the Munib Kifuatiliaji watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Vaa OS",
     "wearHint": "Baada ya kuunganisha simu yako, ongeza tile ya Munib Tracker kwenye saa yako. Gusa tile kuweka alama Salah ya sasa kwenye simu yako.",
+    "forceQuitTitle": "Iwapo programu ilifungwa",
+    "forceQuitBody": "Kugusa widget, Siri, Msaidizi, na alama za saa/Wear huwekwa mstarini papo hapo unapotenda. Iwapo Munib Tracker ilifungwa kabisa, alama iliyopo mstarini itatumika — na orodha yako, mfululizo, na widget zako zitasasishwa — utakapofungua programu tena.",
     "marked": "Swala marked",
     "alreadyDone": "Tayari imetiwa alama",
     "allDone": "Tüm obligatory Swala marked for todmwezi",
@@ -4664,8 +4753,19 @@
       "openTracker": "Fungua orodha ya ukaguzi",
       "openQibla": "Qibla Aç",
       "openTasbeeh": "Tasbeeh Aç",
-      "markCurrent": "my Swala İşaretle"
-    }
+      "markCurrent": "my Swala İşaretle",
+      "openRamadan": "Fungua Ramadhani",
+      "openKhatm": "Fungua mpango wa khatm",
+      "openQaza": "Fungua Qaza",
+      "openQuran": "Fungua Qur'ani",
+      "markFajr": "Weka alama Alfajiri",
+      "markDhuhr": "Weka alama Adhuhuri",
+      "markAsr": "Weka alama Alasiri",
+      "markMaghrib": "Weka alama Magharibi",
+      "markIsha": "Weka alama Isha"
+    },
+    "moreShortcutsTitle": "Njia za mkato za sauti zaidi",
+    "moreShortcutsHint": "Sema yoyote kati ya hizi ili kuweka alama Salah au kwenda moja kwa moja kwenye skrini."
   },
   "pinLock": {
     "title": "Kufunga programu",
@@ -4860,7 +4960,7 @@
     "eyebrow": "Kalenda",
     "title": "Kigeuzi cha tarehe",
     "subtitle": "Badilisha kati ya kalenda ya Hijri na Gregorian",
-    "intro": "Weka tarehe katika mojawapo ya kalenda ili kuona sawa katika nyingine, iliyokokotwa nje ya mtandao kwa kutumia algoriti ya Kuwaiti ya jedwali.",
+    "intro": "Weka tarehe katika kalenda yoyote ili kuona sawa yake katika nyingine, inayohesabiwa nje ya mtandao kutoka kuonekana kwa hilal mahali pako.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Tarehe ya Gregorian",
@@ -4870,7 +4970,7 @@
     "year": "Mwaka",
     "useToday": "Tumia leo",
     "invalidDate": "Weka tarehe halali",
-    "disclaimer": "Huu ni ukadiriaji wa hesabu (jedwali la \"algorithm ya Kuwaiti\") na inaweza kutofautiana kwa siku kutoka kwa matangazo ya karibu ya kuona mwezi - fuata msikiti wa eneo lako au mamlaka ya tarehe za kidini kila wakati.",
+    "disclaimer": "Tarehe zimehesabiwa kutoka kuonekana kwa hilal (hilāl) mahali pako na zinaweza kutofautiana kwa siku moja na matangazo rasmi ya kuona mwezi — daima fuata Masjid au mamlaka yako ya eneo kwa tarehe za kidini.",
     "directionTitle": "Mwelekeo wa uongofu",
     "resultFrom": "Kutoka {{date}}",
     "quickLinksTitle": "Kuhusiana",

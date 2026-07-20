@@ -51,7 +51,7 @@ export const DB_KEYS = {
   umrahChecklist: `${PREFIX}/umrah_checklist`,
   // Friday / Jumu'ah checklist completion (itemId::date) — cloud-synced blob.
   fridayChecklist: `${PREFIX}/friday_checklist`,
-  // Ids of in-app feature tours the user has completed/dismissed — NF-2.24.
+  // Ids of in-app feature tours the user has completed/dismissed — NF-2.24 (cloud-synced).
   toursSeen: `${PREFIX}/tours_seen`,
   // Private daily intention toggles on Journey to Jannah — blob-synced.
   jannahIntentions: `${PREFIX}/jannah_intentions`,
@@ -88,11 +88,11 @@ export const DB_KEYS = {
   // the generic cloud-sync path in `sync/blob-sync.ts`. Device-local: rebuilds on
   // the next sync, so it's never backed up and is cleared on reset.
   blobSyncState: `${PREFIX}/blob_sync_state`,
-  // Zakat calculator draft (currency, assets, metal prices, nisab) — device-local.
+  // Zakat calculator draft (currency, assets, metal prices, nisab) — cloud-synced.
   zakatCalculator: `${PREFIX}/zakat_calculator`,
   /** @deprecated Prefer {@link DB_KEYS.zakatCalculator}; kept for one-time migration. */
   zakatCurrency: `${PREFIX}/zakat_currency`,
-  // Show/hide transliteration + translation on dua/zikr/durood reading surfaces.
+  // Show/hide transliteration + translation on dua/zikr/durood reading surfaces — cloud-synced.
   readingTextVisibility: `${PREFIX}/reading_text_visibility`,
 } as const;
 
@@ -147,7 +147,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   hajjChecklist: "userData",
   umrahChecklist: "userData",
   fridayChecklist: "userData",
-  toursSeen: "deviceLocal",
+  toursSeen: "userData",
   jannahIntentions: "userData",
   jahannamIntentions: "userData",
   salahGuideProgress: "userData",
@@ -172,9 +172,9 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   reviewPendingTrigger: "deviceLocal",
   reviewReactivationDedupe: "deviceLocal",
   blobSyncState: "deviceLocal",
-  zakatCalculator: "deviceLocal",
+  zakatCalculator: "userData",
   zakatCurrency: "deviceLocal",
-  readingTextVisibility: "deviceLocal",
+  readingTextVisibility: "userData",
 };
 
 function keysMatching(classes: readonly KeyPersistence[]): string[] {

@@ -1,4 +1,5 @@
 import ActivityKit
+import AppIntents
 import SwiftUI
 import WidgetKit
 
@@ -172,6 +173,22 @@ struct PrayerLiveActivityLockScreen: View {
         )
       }
 
+      HStack(spacing: 10) {
+        Button(intent: MarkFromLiveActivityIntent(prayerId: state.prayerId)) {
+          Label("Mark", systemImage: "checkmark.circle.fill")
+            .font(.caption.weight(.semibold))
+            .frame(maxWidth: .infinity)
+        }
+        .tint(palette.accent)
+
+        Link(destination: URL(string: "munib-tracker://qibla")!) {
+          Label("Qibla", systemImage: "location.north.line.fill")
+            .font(.caption.weight(.semibold))
+            .frame(maxWidth: .infinity)
+        }
+        .tint(palette.textSecondary)
+      }
+
       if isFullscreen, !state.displayDate.isEmpty {
         Text(state.displayDate)
           .font(.caption.weight(.medium))
@@ -328,6 +345,22 @@ private struct IslandExpandedBottom: View {
       .font(.caption2.weight(.medium))
       .foregroundStyle(.white.opacity(0.65))
       .frame(maxWidth: .infinity, alignment: .leading)
+
+      HStack(spacing: 8) {
+        Button(intent: MarkFromLiveActivityIntent(prayerId: state.prayerId)) {
+          Label("Mark", systemImage: "checkmark.circle.fill")
+            .font(.caption2.weight(.semibold))
+            .frame(maxWidth: .infinity)
+        }
+        .tint(palette.accent)
+
+        Link(destination: URL(string: "munib-tracker://qibla")!) {
+          Label("Qibla", systemImage: "location.north.line.fill")
+            .font(.caption2.weight(.semibold))
+            .frame(maxWidth: .infinity)
+        }
+        .tint(.white.opacity(0.85))
+      }
     }
   }
 }

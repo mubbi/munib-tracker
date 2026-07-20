@@ -173,11 +173,13 @@
     "friday": "الجمعة"
   },
   "quickActions": {
+    "markCurrentSubtitle": "تسجيل الصلاة الحالية",
     "checklistSubtitle": "سجّل صلوات اليوم",
     "qiblaSubtitle": "اعثر على اتجاه القبلة",
     "tasbeehSubtitle": "افتح عدّاد التسبيح",
     "qazaSubtitle": "أدر الصلوات الفائتة",
-    "quranSubtitle": "اقرأ القرآن"
+    "quranSubtitle": "اقرأ القرآن",
+    "ramadanSubtitle": "السحور والإفطار وسجل الصيام"
   },
   "widgets": {
     "updatedJustNow": "تم التحديث للتو",
@@ -195,18 +197,95 @@
     "total": "المجموع",
     "gallery": {
       "nextPrayer": {
-        "label": "منيب المقتفي · الصلاة القادمة",
+        "label": "الصلاة القادمة",
         "description": "اسم الصلاة التالية، والوقت، والعد التنازلي على الشاشة الرئيسية أو شاشة القفل"
       },
       "schedule": {
-        "label": "منيب المقتفي · الجدول الزمني",
+        "label": "الجدول الزمني",
         "description": "أوقات الصلاة الإلزامية اليوم في لمحة"
       },
       "progress": {
-        "label": "منيب المقتفي · التقدم",
+        "label": "التقدم",
         "description": "تقدم الصلاة المفروضة اليوم"
+      },
+      "streak": {
+        "label": "السلسلة",
+        "description": "سلسلة الصلوات المفروضة الحالية"
+      },
+      "qaza": {
+        "label": "القضاء",
+        "description": "القضاء المتبقي وتقدّم قضاء اليوم"
+      },
+      "ramadan": {
+        "label": "رمضان",
+        "description": "أوقات السحور والإفطار مع العد التنازلي"
+      },
+      "khatm": {
+        "label": "الختم",
+        "description": "تقدّم خطة ختم القرآن"
+      },
+      "dailyHadith": {
+        "label": "حديث اليوم",
+        "description": "حديث اليوم من الأربعين النووية"
+      },
+      "hijriDate": {
+        "label": "التاريخ الهجري",
+        "description": "التاريخ الهجري والميلادي"
+      },
+      "qibla": {
+        "label": "القبلة",
+        "description": "اتجاه القبلة نحو الكعبة"
+      },
+      "tasbeeh": {
+        "label": "التسبيح",
+        "description": "تقدّم عدّاد التسبيح المخصص اليوم"
+      },
+      "friday": {
+        "label": "الجمعة",
+        "description": "تقدّم قائمة الجمعة أو الأيام حتى الجمعة"
       }
-    }
+    },
+    "streak": "سلسلة الصلاة",
+    "streakDays": "{{count}} يوم",
+    "streakDays_zero": "{{count}} يوم",
+    "streakDays_one": "يوم واحد",
+    "streakDays_two": "يومان",
+    "streakDays_few": "{{count}} أيام",
+    "streakDays_many": "{{count}} يومًا",
+    "streakDays_other": "{{count}} يوم",
+    "streakHint": "واصل تسجيل كل صلاة مفروضة",
+    "qaza": "القضاء",
+    "qazaRemainingCount": "{{count}} متبقي",
+    "qazaNoTarget": "لم يُحدَّد هدف يومي",
+    "ramadan": "رمضان",
+    "suhoorIftar": "السحور والإفطار",
+    "khatm": "خطة الختم",
+    "khatmStartHint": "ابدأ خطة ختم في التطبيق",
+    "khatmPaceAhead": "متقدّم",
+    "khatmPaceBehind": "متأخر",
+    "khatmPaceDone": "مكتمل",
+    "khatmPaceOnTrack": "على المسار",
+    "dailyHadith": "حديث اليوم",
+    "hijriDate": "التاريخ الهجري",
+    "qibla": "القبلة",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "اتجاه الكعبة المشرّفة",
+    "markSalah": "سجّل الصلاة",
+    "statusActive": "التالي",
+    "tasbeeh": "التسبيح",
+    "tasbeehHint": "افتح التطبيق لبدء العدّ",
+    "tasbeehRemaining": "يتبقى {{count}}",
+    "tasbeehUnlimited": "عدّ بلا حد",
+    "friday": "الجمعة",
+    "fridayProgress": "{{completed}}/{{total}} مكتمل",
+    "fridayAllDone": "اكتمل الكل — مقبول إن شاء الله",
+    "fridayCountdown": "الجمعة بعد {{count}} يوم",
+    "fridayCountdown_zero": "الجمعة بعد {{count}} يوم",
+    "fridayCountdown_one": "الجمعة بعد يوم واحد",
+    "fridayCountdown_two": "الجمعة بعد يومين",
+    "fridayCountdown_few": "الجمعة بعد {{count}} أيام",
+    "fridayCountdown_many": "الجمعة بعد {{count}} يومًا",
+    "fridayCountdown_other": "الجمعة بعد {{count}} يوم"
   },
   "ramadan": {
     "eyebrow": "رمضان",
@@ -711,6 +790,10 @@
     "facebook": "تواصل مع الفيسبوك",
     "heroGuest": "أنت تستخدم حساب ضيف. اربط مزوّداً لنسخ بياناتك احتياطياً ومزامنتها — لن يضيع شيء.",
     "heroUser": "سجّل الدخول لحفظ صلواتك وقضائك وأذكارك في السحابة.",
+    "titleSignedIn": "أنت مسجّل الدخول",
+    "subtitleSignedIn": "المزامنة السحابية جاهزة على هذا الجهاز",
+    "heroSignedIn": "مرحباً بعودتك — حسابك مرتبط. يمكن مزامنة صلاتك وقضائك وذكرك عبر الأجهزة.",
+    "continueSignedIn": "متابعة",
     "error": "تعذّر تسجيل الدخول. تأكّد من تشغيل خادم API وأن هذا المزوّد مُهيّأ.",
     "providersUnavailableTitle": "تسجيل الدخول غير متاح بعد",
     "providersUnavailableBody": "مزوّدو المزامنة السحابية غير مهيأين في هذا الإصدار. تابع كضيف — يبقى تقدّمك على هذا الجهاز."
@@ -849,7 +932,13 @@
     "playAdhanHint": "تذكيرات الصلوات المفروضة تُشغّل الأذان عند حلول وقتها.",
     "liveActivity": "نشاط مباشر",
     "liveActivityHint": "أظهِر عدًّا تنازليًّا مباشرًا للصلاة القادمة على شاشة القفل وفي الجزيرة الديناميكية.",
+    "liveActivityHintAndroid": "أظهِر إشعارًا ثابتًا بعدٍّ تنازليٍّ مباشرٍ للصلاة القادمة مع إجراء لتسجيلها.",
     "liveActivityUnavailable": "متاح على آيفون (iOS 16.1 فأحدث) مع نسخة تطوير أو إنتاج.",
+    "liveActivityDiscoveryTitle": "جرّب العدّ التنازلي المباشر",
+    "liveActivityDiscoveryBodyIos": "شاهد عدَّ الصلاة القادمة مباشرةً على شاشة القفل وفي الجزيرة الديناميكية.",
+    "liveActivityDiscoveryBodyAndroid": "شاهد عدَّ الصلاة القادمة في إشعار مستمر مع إجراء لتسجيلها.",
+    "liveActivityDiscoveryEnable": "تفعيل",
+    "liveActivityDiscoveryDismissA11y": "إغلاق تلميح العدّ التنازلي المباشر",
     "upcomingTitle": "التذكيرات القادمة",
     "upcomingHint": "تنبيهاتك المجدولة التالية، بتوقيت موقعك. استخدم المفاتيح أدناه لتفعيلها أو تعطيلها أو تعديلها.",
     "footer": "تُجدوَل هذه التذكيرات بمجرد تفعيل الإشعارات على جهازك.",
@@ -961,9 +1050,11 @@
       "prayer": "تذكيرات الصلاة",
       "prayerAdhan": "الأذان في وقت الصلاة",
       "zikr": "تذكيرات الذكر",
-      "qaza": "تذكيرات القضاء"
+      "qaza": "تذكيرات القضاء",
+      "prayerOngoing": "العد التنازلي للصلاة القادمة"
     },
     "snooze": "تأجيل {{minutes}} دقيقة",
+    "markPrayed": "تسجيل الصلاة",
     "defaultTitle": "تذكير",
     "reminders": {
       "prayerTitle": "وقت {{prayer}}",
@@ -1196,6 +1287,9 @@
     "makki": "مكية",
     "madani": "مدنية",
     "ayahCount": "{{count}} آيات",
+    "surahNumber": "سورة {{number}}",
+    "selectSurah": "اختر سورة",
+    "openReader": "فتح القارئ",
     "surahList": "السور",
     "surahCount": "{{shown}} من {{total}}",
     "reciter": "القارئ",
@@ -2194,6 +2288,7 @@
     "inboxEmptyTitle": "لا إشعارات حديثة",
     "inboxEmptyDesc": "ستظهر هنا التذكيرات والإنجازات المُسلَّمة.",
     "markAllRead": "تعليم الكل كمقروء",
+    "markingAllRead": "جاري تعليم الكل كمقروء…",
     "clearAll": "مسح الكل",
     "cleared": "تم مسح الإشعارات",
     "confirmClearAllTitle": "مسح جميع الإشعارات؟",
@@ -4577,6 +4672,8 @@
     "watchHint": "افتح تطبيق Munib Tracker على الساعة لعرض جدول اليوم وتسجيل الصلاة. تُزامَن البيانات من iPhone.",
     "wearTitle": "Wear OS",
     "wearHint": "بعد اقتران هاتفك، أضف بلاطة Munib Tracker على ساعتك. اضغط على البلاطة لتسجيل الصلاة الحالية على هاتفك.",
+    "forceQuitTitle": "إذا كان التطبيق مغلقًا",
+    "forceQuitBody": "نقرات الودجت، وسيري، والمساعد، وتسجيلات الساعة/Wear تُحفَظ في قائمة انتظار لحظة قيامك بها. إذا أُغلِق Munib Tracker تمامًا، يُطبَّق التسجيل المحفوظ — ويتحدّث سجل المتابعة والسلسلة والودجتس — في المرة التالية التي تفتح فيها التطبيق.",
     "marked": "تم تسجيل الصلاة",
     "alreadyDone": "تم وضع علامة بالفعل",
     "allDone": "جميع الفرائض مسجّلة لليوم",
@@ -4587,8 +4684,19 @@
       "openTracker": "فتح قائمة المتابعة",
       "openQibla": "فتح القبلة",
       "openTasbeeh": "فتح التسبيح",
-      "markCurrent": "تسجيل صلاتي"
-    }
+      "openRamadan": "فتح رمضان",
+      "openKhatm": "فتح خطة الختم",
+      "openQaza": "فتح القضاء",
+      "openQuran": "فتح القرآن",
+      "markCurrent": "تسجيل صلاتي",
+      "markFajr": "تسجيل الفجر",
+      "markDhuhr": "تسجيل الظهر",
+      "markAsr": "تسجيل العصر",
+      "markMaghrib": "تسجيل المغرب",
+      "markIsha": "تسجيل العشاء"
+    },
+    "moreShortcutsTitle": "اختصارات صوتية إضافية",
+    "moreShortcutsHint": "قل أيًا من هذه العبارات لتسجيل الصلاة أو الانتقال مباشرة إلى شاشة."
   },
   "pinLock": {
     "title": "قفل التطبيق",

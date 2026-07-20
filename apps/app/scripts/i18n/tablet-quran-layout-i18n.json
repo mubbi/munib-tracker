@@ -1,0 +1,103 @@
+{
+  "az": {
+    "quran.surahNumber": "Surə {{number}}",
+    "quran.selectSurah": "Surə seçin",
+    "quran.openReader": "Oxuyucunu aç"
+  },
+  "bn": {
+    "quran.surahNumber": "সূরা {{number}}",
+    "quran.selectSurah": "একটি সূরা নির্বাচন করুন",
+    "quran.openReader": "পাঠক খুলুন"
+  },
+  "bs": {
+    "quran.surahNumber": "Sura {{number}}",
+    "quran.selectSurah": "Odaberite suru",
+    "quran.openReader": "Otvori čitač"
+  },
+  "fa": {
+    "quran.surahNumber": "سوره {{number}}",
+    "quran.selectSurah": "یک سوره انتخاب کنید",
+    "quran.openReader": "باز کردن قاری"
+  },
+  "fr": {
+    "quran.surahNumber": "Sourate {{number}}",
+    "quran.selectSurah": "Choisir une sourate",
+    "quran.openReader": "Ouvrir le lecteur"
+  },
+  "ha": {
+    "quran.surahNumber": "Surah {{number}}",
+    "quran.selectSurah": "Zaɓi surah",
+    "quran.openReader": "Buɗe mai karatu"
+  },
+  "id": {
+    "quran.surahNumber": "Surah {{number}}",
+    "quran.selectSurah": "Pilih surah",
+    "quran.openReader": "Buka pembaca"
+  },
+  "kk": {
+    "quran.surahNumber": "Сүре {{number}}",
+    "quran.selectSurah": "Сүре таңдаңыз",
+    "quran.openReader": "Оқырманды ашу"
+  },
+  "ku": {
+    "quran.surahNumber": "Sûre {{number}}",
+    "quran.selectSurah": "Sureyekê hilbijêre",
+    "quran.openReader": "Xwînerê veke"
+  },
+  "ky": {
+    "quran.surahNumber": "Сүрө {{number}}",
+    "quran.selectSurah": "Сүрө тандаңыз",
+    "quran.openReader": "Окуучуну ачуу"
+  },
+  "ms": {
+    "quran.surahNumber": "Surah {{number}}",
+    "quran.selectSurah": "Pilih surah",
+    "quran.openReader": "Buka pembaca"
+  },
+  "ps": {
+    "quran.surahNumber": "سوره {{number}}",
+    "quran.selectSurah": "یوه سوره وټاکئ",
+    "quran.openReader": "لوستونکی پرانیسئ"
+  },
+  "ru": {
+    "quran.surahNumber": "Сура {{number}}",
+    "quran.selectSurah": "Выберите суру",
+    "quran.openReader": "Открыть чтец"
+  },
+  "so": {
+    "quran.surahNumber": "Suurad {{number}}",
+    "quran.selectSurah": "Dooro suurad",
+    "quran.openReader": "Fur akhristaha"
+  },
+  "sq": {
+    "quran.surahNumber": "Sure {{number}}",
+    "quran.selectSurah": "Zgjidhni një sure",
+    "quran.openReader": "Hap lexuesin",
+    "externalCommands.intents.markCurrent": "Shëno Salah-un tim"
+  },
+  "sw": {
+    "quran.surahNumber": "Sura {{number}}",
+    "quran.selectSurah": "Chagua sura",
+    "quran.openReader": "Fungua kisomaji"
+  },
+  "tg": {
+    "quran.surahNumber": "Сура {{number}}",
+    "quran.selectSurah": "Сураро интихоб кунед",
+    "quran.openReader": "Хонандаро кушоед"
+  },
+  "tk": {
+    "quran.surahNumber": "Sure {{number}}",
+    "quran.selectSurah": "Sure saýlaň",
+    "quran.openReader": "Okadyjyny aç"
+  },
+  "tr": {
+    "quran.surahNumber": "Sure {{number}}",
+    "quran.selectSurah": "Bir sure seçin",
+    "quran.openReader": "Okuyucuyu aç"
+  },
+  "uz": {
+    "quran.surahNumber": "Sura {{number}}",
+    "quran.selectSurah": "Surani tanlang",
+    "quran.openReader": "O'quvchini ochish"
+  }
+}

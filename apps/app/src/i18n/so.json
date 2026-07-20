@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Hel jihada qiblada",
     "tasbeehSubtitle": "Fur xisaabiyaha tasbeeh",
     "qazaSubtitle": "Maaree salaha laga maqnaa",
-    "quranSubtitle": "Akhriso Qur'aanka"
+    "quranSubtitle": "Akhriso Qur'aanka",
+    "markCurrentSubtitle": "Calaamadee Salaadda hadda",
+    "ramadanSubtitle": "Suhoor, iftar iyo diiwaanka soonka"
   },
   "widgets": {
     "updatedJustNow": "Updted just now",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Horumarka",
         "description": "salaadada Waajibka ah ee maanta horumaray"
+      },
+      "streak": {
+        "label": "Taxane",
+        "description": "Taxanaha hadda ee Salaadaha waajibka ah"
+      },
+      "qaza": {
+        "label": "Qaza",
+        "description": "Qaza haray iyo horumarka kabidda maanta"
+      },
+      "ramadan": {
+        "label": "Ramadaan",
+        "description": "Waqtiyada suhoor iyo iftar oo leh tirinta dib u noqoshada"
+      },
+      "khatm": {
+        "label": "Khatm",
+        "description": "Horumarka qorshaha khatm ee Qur'aanka"
+      },
+      "dailyHadith": {
+        "label": "Xadiiska maanta",
+        "description": "Xadiiska maanta ee Afartan Imam an-Nawawi"
+      },
+      "hijriDate": {
+        "label": "Taariikhda Islaamka",
+        "description": "Taariikhda Hijriga iyo Gregorian"
+      },
+      "qibla": {
+        "label": "Qibla",
+        "description": "Xagasha kombuyuutar ee Kacba"
+      },
+      "tasbeeh": {
+        "label": "Tasbeeh",
+        "description": "Horumarka tiriyaha tasbeeh gaarka ah ee maanta"
+      },
+      "friday": {
+        "label": "Jimce",
+        "description": "Horumarka liiska Jimcaha ama maalmaha ilaa Jimce"
       }
     },
     "remaining": "Haraaga",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Taxanaha Salaadda",
+    "streakDays": "{{count}} maalmood",
+    "streakDays_one": "{{count}} maalin",
+    "streakDays_other": "{{count}} maalmood",
+    "streakHint": "Sii wad diiwaangelinta mid kasta oo Salaad waajib ah",
+    "qaza": "Qaza",
+    "qazaRemainingCount": "{{count}} ayaa haray",
+    "qazaNoTarget": "Ma jiro yool maalinle ah",
+    "ramadan": "Ramadaan",
+    "suhoorIftar": "Suhoor iyo iftar",
+    "khatm": "Qorshaha khatm",
+    "khatmStartHint": "Ka bilow qorshe khatm abka",
+    "khatmPaceAhead": "Hore",
+    "khatmPaceBehind": "Dabaysha",
+    "khatmPaceDone": "Dhameystiran",
+    "khatmPaceOnTrack": "Jidka saxda ah",
+    "dailyHadith": "Xadiiska maanta",
+    "hijriDate": "Taariikhda Islaamka",
+    "qibla": "Qibla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Jihada Kacba",
+    "markSalah": "Calaamadee Salaadda",
+    "statusActive": "Xiga",
+    "tasbeeh": "Tasbeeh",
+    "tasbeehHint": "Fur abka si aad u bilowdo tirinta",
+    "tasbeehRemaining": "{{count}} ayaa haray",
+    "tasbeehUnlimited": "Tiri xad la'aan",
+    "friday": "Jimce",
+    "fridayProgress": "{{completed}}/{{total}} la dhameeyay",
+    "fridayAllDone": "Dhammaan waa la dhameeyay — la aqbalay, in sha Allah",
+    "fridayCountdown": "Jimce {{count}} maalmood ka dib",
+    "fridayCountdown_one": "Jimce {{count}} maalin ka dib",
+    "fridayCountdown_other": "Jimce {{count}} maalmood ka dib"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -733,7 +804,11 @@
     "heroUser": "Saxiix si aad u ilaaliso salaadadaada, qaza, iyo zikr si badbaado leh daruuraha ugu jira.",
     "error": "Waa lagu fashilmay gelitaanka. Hubi in server-ka API uu shaqeynayo oo bixiyahan la habeeyay.",
     "providersUnavailableTitle": "Saxiixitaanka weli ma heli karo",
-    "providersUnavailableBody": "Bixiyeyaasha sync-ga daruuraha laguma dejin dhisiddaan. Sii wad marti ahaan — horumarkaagu wuxuu ku sii jiraa qalabkan."
+    "providersUnavailableBody": "Bixiyeyaasha sync-ga daruuraha laguma dejin dhisiddaan. Sii wad marti ahaan — horumarkaagu wuxuu ku sii jiraa qalabkan.",
+    "titleSignedIn": "Waad soo gashay",
+    "subtitleSignedIn": "Isku-dubaridka daruuraha wuu diyaar yahay qalabkan",
+    "heroSignedIn": "Soo dhawoow — akoonkaaga waa la xidhay. Salaadda, qaza iyo zikr waxay isku-dubarin karaan qalabada.",
+    "continueSignedIn": "Sii wad"
   },
   "onboarding": {
     "begin": "Beggudh",
@@ -870,6 +945,11 @@
     "liveActivity": "Hawlgal toos ah",
     "liveActivityHint": "Tus tirinta salaadda soo socota ee tooska ah shaashadda qufulka iyo Dynamic Island.",
     "liveActivityUnavailable": "Waxaa laga heli karaa iPhone (iOS 16.1+) oo leh dev ama dhisme wax soo saar ah.",
+    "liveActivityDiscoveryTitle": "Isku day tirinta toos ah",
+    "liveActivityDiscoveryBodyIos": "Arag tirinta salaadda soo socota si toos ah shaashadda qufulka iyo Dynamic Island.",
+    "liveActivityDiscoveryBodyAndroid": "Arag tirinta salaadda soo socota ogeysiis joogto ah oo leh ficilka Calaamadee.",
+    "liveActivityDiscoveryEnable": "Shid",
+    "liveActivityDiscoveryDismissA11y": "Xir talada tirinta toos ah",
     "upcomingTitle": "Xusuusin soo socda",
     "upcomingHint": "Ogeysiisyadaada xiga ee la qorsheeyay, ee aagga wakhtiga ee goobtaada. Isticmaal toggles hoose si aad awood u yeelato, u joojiso, ama aad wax uga beddelo.",
     "footer": "Soo gudbinta xasuusiyayaashan waa la qorsheeyay marka ogeysiisyada laga furo qalabkaaga.",
@@ -900,7 +980,8 @@
       "prayer": "Xusuusin Salah",
       "prayerAdhan": "Adhan wakhtiga salaadda",
       "zikr": "Xusuusin Zikr",
-      "qaza": "Xusuusin Qaza"
+      "qaza": "Xusuusin Qaza",
+      "prayerOngoing": "Tirinta Salaadda xigta"
     },
     "snooze": "Dib u dhig {{minutes}} daq",
     "defaultTitle": "xusuusgudh",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Waxyaabaha maalinlaha ah",
     "defaultLocationTitle": "Deji goobtaada digniinaha Salaadda",
-    "defaultLocationMessage": "Xusuusinta Salaadda iyo Adhaanka waxay u baahan yihiin magaaladaada. Xusuusinta Zikr iyo Qaza ee saacadda wali waa la qorsheeyaa."
+    "defaultLocationMessage": "Xusuusinta Salaadda iyo Adhaanka waxay u baahan yihiin magaaladaada. Xusuusinta Zikr iyo Qaza ee saacadda wali waa la qorsheeyaa.",
+    "liveActivityHintAndroid": "Muuji ogeysiis joogto ah oo leh tirinta nool ee Salaadda xigta iyo ficilka Calaamadee.",
+    "markPrayed": "Calaamadee in la tukaday"
   },
   "fonts": {
     "eyebrow": "Dejinta",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Suurad {{number}}",
+    "selectSurah": "Dooro suurad",
+    "openReader": "Fur akhristaha"
   },
   "hadith": {
     "eyebrow": "Dhaqanka nabiga",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qz",
     "categoryMilestone": "Milesune",
     "categorySystem": "Nidmk",
-    "categoryAnnouncement": "Ogaysiis"
+    "categoryAnnouncement": "Ogaysiis",
+    "markingAllRead": "Dhammaan waxaa loo calaamadeeyaa in la akhriyay…"
   },
   "qibla": {
     "eyebrow": "Directiku",
@@ -3519,7 +3606,7 @@
     "today": "mnt",
     "inDays": "gudh {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Taariikhaha waxaa la xisaabiyaa qiyaasaha - maalinta dhabta ah waxay kuxirantahay aragtida dayaxa deegaanka.",
+    "disclaimer": "Taariikhuhu waxay raacaan aragtida dayaxa goobtaada (ama jadwalka rasmiga ah ee Umm al-Qura gobollada isticmaala) waxayna kala duwanaan karaan ogeysiis maamul maxalli ah maalin.",
     "names": {
       "newYear": "Sanadka Cusub ee Islaamka",
       "ashura": "Maalinta Caashuuraa",
@@ -3992,7 +4079,7 @@
       "label": "Lifaaqyada (ikhtiyaar)",
       "add": "Ku dar faylka",
       "remove": "Ka saar lifaaqa",
-      "hint": "Ilaa 5 fayl (JPEG, PNG, WebP, ama PDF), 1 MB midkiiba. Riix thumbnail si aad meesha uga saarto.",
+      "hint": "Ilaa 5 fayl (JPEG, PNG, WebP, ama PDF), 1 MB midkiiba. Taabo × thumbnail-ka si aad u tirtiro.",
       "signInRequired": "Soo gal si aad ugu lifaaqdo faylasha gaarka ah adhkar kaaga.",
       "permissionDenied": "Ogolaanshaha ayaa loo baahan yahay in lagu lifaaqo faylasha",
       "permissionTitle": "Oggolow gelitaanka",
@@ -4504,7 +4591,7 @@
     "sourceLabel": "kg source (ikhtiyri)",
     "sourcePlaceholder": "Buug, aqoonyahan, URL, ama xigasho taageeraya sixitaankaaga.",
     "proofLabel": "Shaashada caddaynta (ikhtiyaar)",
-    "proofHint": "Ilaa 3 sawir Riix thumbnail si aad meesha uga saarto.",
+    "proofHint": "Ilaa 3 sawir. Taabo × thumbnail-ka si aad u tirtiro.",
     "addProof": "Ku dar sawir",
     "removeProof": "k sr screenshot",
     "submit": "Soo gudbi warbixinta",
@@ -4562,6 +4649,8 @@
     "watchHint": "Fur barnaamijka daawashada Munib Tracker si aad u aragto jadwalka maanta oo aad u calaamadiso Salah. Xogta ayaa isku xidha iPhone kaaga",
     "wearTitle": "Wer OS",
     "wearHint": "Ku dar foornada Munib Tracker saacaddaada ka dib markaad ku dhejiso taleefankaaga.",
+    "forceQuitTitle": "Haddii app-ka la xiray",
+    "forceQuitBody": "Taabashada widget-ka, Siri, Assistant, iyo calaamadaha saacadda/Wear ayaa isla markiiba safka la geliyaa. Haddii Munib Tracker si buuxda loo xiray, calaamadda ku jirta safka waa la fulinayaa — liiskaaga, taxanahaaga, iyo widget-yadaadu way cusboonaysiin doonaan — markaad mar kale furto app-ka.",
     "marked": "Saalax ayaa calaamadeeyay",
     "alreadyDone": "Horaa loo calaamadeeyay",
     "allDone": "Dhammaan Salaadda waajibka ah ayaa la calaamadeeyay maanta",
@@ -4572,8 +4661,19 @@
       "openTracker": "fur liwk hubgudht",
       "openQibla": "fur Qibl",
       "openTasbeeh": "fur Tsbeeh",
-      "markCurrent": "Calaamadee Salaax"
-    }
+      "markCurrent": "Calaamadee Salaax",
+      "openRamadan": "Fur Ramadaan",
+      "openKhatm": "Fur qorshaha khatm",
+      "openQaza": "Fur Qaza",
+      "openQuran": "Fur Qur'aanka",
+      "markFajr": "Calaamadee Subax",
+      "markDhuhr": "Calaamadee Duhur",
+      "markAsr": "Calaamadee Casar",
+      "markMaghrib": "Calaamadee Maghrib",
+      "markIsha": "Calaamadee Cisha"
+    },
+    "moreShortcutsTitle": "Jidka gaaban ee cod dheeraad ah",
+    "moreShortcutsHint": "Dhah mid ka mid ah kuwan si aad u calaamadisid Salaadda ama aad toos ugu baxdid shaashad."
   },
   "pinLock": {
     "title": "pp lock",
@@ -4768,7 +4868,7 @@
     "eyebrow": "Kalandarka",
     "title": "Taariikhda beddelka",
     "subtitle": "U beddelo inta u dhaxaysa taariikhda Hijriyada iyo Miilaadiyada",
-    "intro": "Geli taariikh ku jirta kalandarka midkood si aad u aragto wax u dhigma kan kale, lagu xisaabiyay offline addoo isticmaalaya algorithm Kuwaiti tabular.",
+    "intro": "Geli taariikh mid ka mid ah labada jadwal si aad u aragto u dhigma midka kale, oo offline laga xisaabiyay aragtida dayaxa goobtaada.",
     "toHijri": "Gregorian → Hijriyada",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Taariikhda Gregorian",
@@ -4778,7 +4878,7 @@
     "year": "Sannadka",
     "useToday": "Isticmaal maanta",
     "invalidDate": "Geli taariikh ansax ah",
-    "disclaimer": "Kani waa qiyaas xisaabeed ( tabular \"Kuwaiti algorithm\") waxayna ka duwanaan kartaa maalin maalmaha ka mid ah ogeysiisyada dayax-arkaynta deegaanka - mar walba raac masjidka ama maamulka deegaankaaga taariikhaha diimeed.",
+    "disclaimer": "Taariikhaha waxaa laga xisaabiyaa aragtida dayaxa (hilāl) goobtaada waxayna kala duwanaan karaan ogeysiisyada dayax-arkaynta rasmiga ah maalin — mar walba raac masjidka ama maamulka deegaankaaga taariikhaha diimeed.",
     "directionTitle": "Jihada beddelka",
     "resultFrom": "Laga bilaabo {{date}}",
     "quickLinksTitle": "la xidhiidha",

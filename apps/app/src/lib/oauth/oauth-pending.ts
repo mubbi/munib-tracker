@@ -12,13 +12,21 @@ export type GoogleOAuthPendingSession = {
   redirectUri: string;
   clientId: string;
   state: string;
+  /** In-app path to reopen after Android Custom Tab / deep-link resume. */
+  returnTo?: string;
 };
 
 export type AppleOAuthPendingSession = {
   codeVerifier: string;
   redirectUri: string;
   state: string;
+  /** In-app path to reopen after Android App Link resume. */
+  returnTo?: string;
 };
+
+function isOptionalReturnTo(value: unknown): boolean {
+  return value === undefined || typeof value === "string";
+}
 
 function isGooglePending(value: unknown): value is GoogleOAuthPendingSession {
   if (!value || typeof value !== "object") return false;
@@ -27,7 +35,8 @@ function isGooglePending(value: unknown): value is GoogleOAuthPendingSession {
     typeof v.codeVerifier === "string" &&
     typeof v.redirectUri === "string" &&
     typeof v.clientId === "string" &&
-    typeof v.state === "string"
+    typeof v.state === "string" &&
+    isOptionalReturnTo(v.returnTo)
   );
 }
 
@@ -37,7 +46,8 @@ function isApplePending(value: unknown): value is AppleOAuthPendingSession {
   return (
     typeof v.codeVerifier === "string" &&
     typeof v.redirectUri === "string" &&
-    typeof v.state === "string"
+    typeof v.state === "string" &&
+    isOptionalReturnTo(v.returnTo)
   );
 }
 

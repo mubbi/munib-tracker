@@ -75,7 +75,7 @@ Support matrix: [`DEVICES.md`](./DEVICES.md)
 
 | ID | Goal | Status |
 |----|------|--------|
-| DS-1 | Native tablet / large-screen polish | Not started |
+| DS-1 | Native tablet / large-screen polish | Shipped — window-width side rail (≥768) + Qur'an/Tracker list–detail (≥900) |
 | DS-2 | Watch / Wear maintenance QA | Built — include face complications (circular/corner/inline/rectangular) each native bump |
 | DS-3 | Apple TV / Android TV | Not started |
 | DS-4 | visionOS | Not started |

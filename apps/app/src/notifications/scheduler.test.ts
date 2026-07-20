@@ -47,12 +47,23 @@ jest.mock("@/stores/tracker-store", () => ({
   },
 }));
 
+jest.mock("@/lib/external-commands/native-bridge", () => ({
+  nativeEnqueueCommand: jest.fn().mockResolvedValue(undefined),
+}));
+
 import * as Notifications from "expo-notifications";
 
+import { nativeEnqueueCommand } from "@/lib/external-commands/native-bridge";
 import { readNotificationPermissionUiState } from "@/lib/notifications/permissions";
 import { isLocalNotificationSupported } from "@/lib/notifications/platform";
 
-import { rescheduleAll, snoozeNotification } from "./scheduler";
+import {
+  configureNotifications,
+  MARK_ACTION_IDENTIFIER,
+  markFromNotification,
+  rescheduleAll,
+  snoozeNotification,
+} from "./scheduler";
 
 const mockCancelAll = Notifications.cancelAllScheduledNotificationsAsync as jest.MockedFunction<
   typeof Notifications.cancelAllScheduledNotificationsAsync
@@ -255,5 +266,55 @@ describe("snoozeNotification", () => {
 
     const arg = mockSchedule.mock.calls[0]?.[0] as { trigger: { channelId: string } };
     expect(arg.trigger.channelId).toBe("prayer");
+  });
+});
+
+describe("configureNotifications", () => {
+  it("registers Mark before Snooze on the reminder category", async () => {
+    const mockCategory = Notifications.setNotificationCategoryAsync as jest.MockedFunction<
+      typeof Notifications.setNotificationCategoryAsync
+    >;
+    await configureNotifications();
+    expect(mockCategory).toHaveBeenCalled();
+    const actions = mockCategory.mock.calls[0]?.[1] as { identifier: string }[];
+    expect(actions?.[0]?.identifier).toBe(MARK_ACTION_IDENTIFIER);
+    expect(actions?.[1]?.identifier).toBe("snooze");
+  });
+});
+
+describe("markFromNotification", () => {
+  const mockEnqueue = nativeEnqueueCommand as jest.MockedFunction<typeof nativeEnqueueCommand>;
+
+  function response(data: Record<string, unknown>) {
+    return {
+      actionIdentifier: MARK_ACTION_IDENTIFIER,
+      notification: {
+        request: {
+          content: { title: "Fajr", body: "Pray", data },
+        },
+      },
+    } as unknown as Parameters<typeof markFromNotification>[0];
+  }
+
+  beforeEach(() => {
+    mockEnqueue.mockClear();
+  });
+
+  it("enqueues mark-prayer when prayerId and date are present", async () => {
+    await markFromNotification(response({ prayerId: "fajr", prayerDate: "2026-07-20" }));
+    expect(mockEnqueue).toHaveBeenCalledWith({
+      type: "mark-prayer",
+      prayerId: "fajr",
+      date: "2026-07-20",
+      source: "notification",
+    });
+  });
+
+  it("falls back to mark-current-obligatory without prayer metadata", async () => {
+    await markFromNotification(response({}));
+    expect(mockEnqueue).toHaveBeenCalledWith({
+      type: "mark-current-obligatory",
+      source: "notification",
+    });
   });
 });

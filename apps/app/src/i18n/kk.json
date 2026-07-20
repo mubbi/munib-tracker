@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Найти направление киблы",
     "tasbeehSubtitle": "Открыть счётчик тасбиха",
     "qazaSubtitle": "Manage missed prayers",
-    "quranSubtitle": "Читать Құран"
+    "quranSubtitle": "Читать Құран",
+    "markCurrentSubtitle": "Ағымдағы намазды белгілеу",
+    "ramadanSubtitle": "Сәресі, ауызашар және ораза журналы"
   },
   "widgets": {
     "updatedJustNow": "Жаңа ғана жаңартылды",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Прогресс",
         "description": "Бүгінгі парыз намаздың барысы"
+      },
+      "streak": {
+        "label": "Серия",
+        "description": "Ағымдағы парыз намаз сериясы"
+      },
+      "qaza": {
+        "label": "Қаза",
+        "description": "Қалған қаза және бүгінгі қаза үлгерімі"
+      },
+      "ramadan": {
+        "label": "Рамазан",
+        "description": "Сәресі мен ауызашар уақыттары кері санақпен"
+      },
+      "khatm": {
+        "label": "Хатым",
+        "description": "Құран хатым жоспарының үлгерімі"
+      },
+      "dailyHadith": {
+        "label": "Күнделікті хадис",
+        "description": "Имам Науауидің Қырық хадисінен бүгінгі хадис"
+      },
+      "hijriDate": {
+        "label": "Ислам күні",
+        "description": "Һижри және григориан күні"
+      },
+      "qibla": {
+        "label": "Қибла",
+        "description": "Қағбаға компас бұрышы"
+      },
+      "tasbeeh": {
+        "label": "Тәсбих",
+        "description": "Бүгінгі арнайы тәсбих есептегішінің үлгерімі"
+      },
+      "friday": {
+        "label": "Жұма",
+        "description": "Жұма тізімінің үлгерімі немесе Жұмаға дейінгі күндер"
       }
     },
     "remaining": "Қалған",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Намаз сериясы",
+    "streakDays": "{{count}} күн",
+    "streakDays_one": "{{count}} күн",
+    "streakDays_other": "{{count}} күн",
+    "streakHint": "Әр парыз намазды белгілеуді жалғастырыңыз",
+    "qaza": "Қаза",
+    "qazaRemainingCount": "{{count}} қалды",
+    "qazaNoTarget": "Күнделікті мақсат жоқ",
+    "ramadan": "Рамазан",
+    "suhoorIftar": "Сәресі және ауызашар",
+    "khatm": "Хатым жоспары",
+    "khatmStartHint": "Қосымшада хатым жоспарын бастаңыз",
+    "khatmPaceAhead": "Алдын ала",
+    "khatmPaceBehind": "Қалып қойды",
+    "khatmPaceDone": "Аяқталды",
+    "khatmPaceOnTrack": "Жоспарда",
+    "dailyHadith": "Күнделікті хадис",
+    "hijriDate": "Ислам күні",
+    "qibla": "Қибла",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Қағба бағыты",
+    "markSalah": "Намазды белгілеу",
+    "statusActive": "Келесі",
+    "tasbeeh": "Тәсбих",
+    "tasbeehHint": "Санауды бастау үшін қосымшаны ашыңыз",
+    "tasbeehRemaining": "{{count}} қалды",
+    "tasbeehUnlimited": "Шексіз санау",
+    "friday": "Жұма",
+    "fridayProgress": "{{completed}}/{{total}} орындалды",
+    "fridayAllDone": "Барлығы аяқталды — қабыл болсын, иншаАллаһ",
+    "fridayCountdown": "{{count}} күннен кейін Жұма",
+    "fridayCountdown_one": "{{count}} күннен кейін Жұма",
+    "fridayCountdown_other": "{{count}} күннен кейін Жұма"
   },
   "ramadan": {
     "eyebrow": "Рамазан",
@@ -733,7 +804,11 @@
     "heroUser": "Sign ішінде ға keep сіздің salah, qaza, және zikr қауіпсіз ішінде  cloud.",
     "error": "Кіру мүмкін болмады. API сервері істеп тұрғанын және осы провайдер бапталғанын тексеріңіз.",
     "providersUnavailableTitle": "Кіру әзірге қолжетімсіз",
-    "providersUnavailableBody": "Бұл құрастыруда бұлтты синхрон провайдерлері бапталмаған. Қонақ ретінде жалғастырыңыз — прогресс осы құрылғыда қалады."
+    "providersUnavailableBody": "Бұл құрастыруда бұлтты синхрон провайдерлері бапталмаған. Қонақ ретінде жалғастырыңыз — прогресс осы құрылғыда қалады.",
+    "titleSignedIn": "Сіз кірдіңіз",
+    "subtitleSignedIn": "Бұл құрылғыда бұлт синхроны дайын",
+    "heroSignedIn": "Қайта қош келдіңіз — тіркелгіңіз байланысты. Намаз, қаза және зікір құрылғылар арасында синхрондала алады.",
+    "continueSignedIn": "Жалғастыру"
   },
   "onboarding": {
     "begin": "Бастау",
@@ -870,6 +945,11 @@
     "liveActivity": "Тікелей белсенділік",
     "liveActivityHint": "Құлыптау экранында және динамикалық аралда келесі дұғаның кері санағын көрсетіңіз.",
     "liveActivityUnavailable": "iPhone (iOS 16.1+) құрылғысында әзірлеуші ​​немесе өндіріс құрылымы бар.",
+    "liveActivityDiscoveryTitle": "Тікелей кері санақты байқап көріңіз",
+    "liveActivityDiscoveryBodyIos": "Келесі намаздың кері санағын құлыптау экраны мен Dynamic Island-де көріңіз.",
+    "liveActivityDiscoveryBodyAndroid": "Келесі намаздың кері санағын Белгілеу әрекеті бар тұрақты хабарландырудан көріңіз.",
+    "liveActivityDiscoveryEnable": "Қосу",
+    "liveActivityDiscoveryDismissA11y": "Тікелей кері санақ туралы кеңесті жабу",
     "upcomingTitle": "Алдағы еске салғыштар",
     "upcomingHint": "Орналасқан жеріңіздің уақыт белдеуіндегі келесі жоспарланған ескертулер. Оларды қосу, өшіру немесе өңдеу үшін төмендегі қосқыштарды пайдаланыңыз.",
     "footer": "Бұл еске салғыштарды жеткізу құрылғыңызда хабарландырулар қосылғаннан кейін жоспарланған.",
@@ -900,7 +980,8 @@
       "prayer": "Намаз туралы ескертулер",
       "prayerAdhan": "Намаз уақытындағы азан",
       "zikr": "Зікір еске салғыштар",
-      "qaza": "Qaza ескертулері"
+      "qaza": "Qaza ескертулері",
+      "prayerOngoing": "Келесі намаз кері санағы"
     },
     "snooze": "{{minutes}} мин кідірту",
     "defaultTitle": "Еске салғыш",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Күнделікті мазмұн",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "Келесі намаздың тірі кері санағы және Белгілеу әрекеті бар тұрақты хабарландыруды көрсетіңіз.",
+    "markPrayed": "Оқылды деп белгілеу"
   },
   "fonts": {
     "eyebrow": "Баптаулар",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Сүре {{number}}",
+    "selectSurah": "Сүре таңдаңыз",
+    "openReader": "Оқырманды ашу"
   },
   "hadith": {
     "eyebrow": "Пайғамбарлық tradition",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Маңызды кезең",
     "categorySystem": "Жүйе",
-    "categoryAnnouncement": "Хабарландыру"
+    "categoryAnnouncement": "Хабарландыру",
+    "markingAllRead": "Барлығы оқылды деп белгіленуде…"
   },
   "qibla": {
     "eyebrow": "Бағыт",
@@ -4084,7 +4171,7 @@
       "label": "Қосымшалар (міндетті емес)",
       "add": "Файл қосу",
       "remove": "Қосымшаны алып тастаңыз",
-      "hint": "5 файлға дейін (JPEG, PNG, WebP немесе PDF), әрқайсысы 1 МБ. Жою үшін нобайды ұзақ басып тұрыңыз.",
+      "hint": "5 файлға дейін (JPEG, PNG, WebP немесе PDF), әрқайсысы 1 MB. Жою үшін нобайдағы × түртіңіз.",
       "signInRequired": "Жеке файлдарды adhkar-ға тіркеу үшін жүйеге кіріңіз.",
       "permissionDenied": "Файлдарды тіркеу үшін рұқсат қажет.",
       "permissionTitle": "Қол жеткізу",
@@ -4654,6 +4741,8 @@
     "watchHint": "Ашу  Munib Tracker watch қолданба ға see бүгін’s schedule және mark Salah. Деректер syncs бастап сіздің iPhone.",
     "wearTitle": "Wear OS",
     "wearHint": "Телефонды жұптағаннан кейін сағатыңызға Munib Tracker плиткасын қосыңыз. Қазіргі намазды телефонда белгілеу үшін плитканы түртіңіз.",
+    "forceQuitTitle": "Қолданба жабылған болса",
+    "forceQuitBody": "Виджетті түрту, Siri, Assistant және сағат/Wear белгілері әрекет жасаған сәтте кезекке қойылады. Munib Tracker толығымен жабылған болса, кезектегі белгі — тексеру тізімі, серия және виджеттеріңіз жаңарып — қолданбаны келесі рет ашқанда қолданылады.",
     "marked": "Salah белгіленді",
     "alreadyDone": "Белгіленген",
     "allDone": "Барлық міндетті Salah белгіленді үшін бүгін",
@@ -4664,8 +4753,19 @@
       "openTracker": "Ашу checklist",
       "openQibla": "Ашу Qibla",
       "openTasbeeh": "Ашу Tasbeeh",
-      "markCurrent": "Менің намазымды белгілеңіз"
-    }
+      "markCurrent": "Менің намазымды белгілеңіз",
+      "openRamadan": "Рамазанды ашу",
+      "openKhatm": "Хатым жоспарын ашу",
+      "openQaza": "Қазаны ашу",
+      "openQuran": "Құранды ашу",
+      "markFajr": "Таң намазын белгілеу",
+      "markDhuhr": "Бесінді белгілеу",
+      "markAsr": "Екінтіні белгілеу",
+      "markMaghrib": "Ақшамды белгілеу",
+      "markIsha": "Құптанды белгілеу"
+    },
+    "moreShortcutsTitle": "Тағы дауыстық қысқа жолдар",
+    "moreShortcutsHint": "Намазды белгілеу немесе тікелей экранға өту үшін осылардың бірін айтыңыз."
   },
   "pinLock": {
     "title": "Қолданбаны құлыптау",
@@ -4860,7 +4960,7 @@
     "eyebrow": "Күнтізбе",
     "title": "Күнді түрлендіргіш",
     "subtitle": "Хижри және Григориан күнтізбелері арасында түрлендіру",
-    "intro": "Кувейттің кестелік алгоритмі арқылы есептелген басқа күнтізбеде оның баламасын көру үшін кез келген күнтізбеге күнді енгізіңіз.",
+    "intro": "Кез келген күнтізбеде күн енгізіңіз — екіншісіндегі тең мәнін көріңіз; офлайн, орныңыздағы ай көрінуінен есептеледі.",
     "toHijri": "Григориан → Хижри",
     "toGregorian": "Хижри → Григориан",
     "gregorianDateLabel": "Григориан күні",
@@ -4870,7 +4970,7 @@
     "year": "Жыл",
     "useToday": "Бүгін пайдаланыңыз",
     "invalidDate": "Жарамды күнді енгізіңіз",
-    "disclaimer": "Бұл арифметикалық жуықтау (кестелік «Кувейт алгоритмі») және жергілікті айды көру туралы хабарландырулардан бір тәулікке ерекшеленуі мүмкін — әрқашан жергілікті мешітті немесе діни даталар бойынша мекемені бақылаңыз.",
+    "disclaimer": "Күндер сіздің орныңыздағы ай (hilāl) көрінуінен есептеледі және ресми ай көру хабарландыруларынан бір күнге ерекшеленуі мүмкін — діни күндер үшін әрқашан жергілікті мешіт немесе билікке еріңіз.",
     "directionTitle": "Түрлендіру бағыты",
     "resultFrom": "{{date}} бастап",
     "quickLinksTitle": "Қатысты",

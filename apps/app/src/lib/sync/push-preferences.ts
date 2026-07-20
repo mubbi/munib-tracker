@@ -31,12 +31,14 @@ export async function pushPreferencesNow(prefs: UserPreferences): Promise<boolea
 
   await syncPush(session.accessToken, [preferencesRecord(prefs)]);
 
+  // Do NOT advance `lastPushedAt` here. That watermark gates the full delta push
+  // in `runSync`; bumping it to "now" after a prefs-only write would skip any
+  // tracking records whose `updatedAt` is older than this moment (prayer logs,
+  // location, etc.) until they are edited again.
   const meta = await readJSON<SyncMetadata>(DB_KEYS.syncMetadata, {});
-  const nowIso = new Date().toISOString();
   await writeJSON<SyncMetadata>(DB_KEYS.syncMetadata, {
     ...meta,
-    lastPushedAt: nowIso,
-    lastOutcomeAt: nowIso,
+    lastOutcomeAt: new Date().toISOString(),
   });
 
   return true;

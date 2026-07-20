@@ -10,7 +10,7 @@ Related: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) · [`STORE_ASSETS.md`](./S
 
 | Category | Supported | Not supported |
 |----------|-----------|---------------|
-| **Full app** | iPhone, Android phone, iPad, Android tablet (phone UI), web/PWA | tvOS, Android TV, visionOS, CarPlay, Android Auto, native desktop |
+| **Full app** | iPhone, Android phone, iPad, Android tablet (adaptive wide layouts), web/PWA | tvOS, Android TV, visionOS, CarPlay, Android Auto, native desktop |
 | **Companion surfaces** | iOS/Android widgets, iOS Live Activities, Siri, Google Assistant, Apple Watch, Wear OS tile | — |
 | **Build requirement** | EAS dev/production build for native surfaces (not Expo Go) | — |
 
@@ -24,13 +24,13 @@ Related: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) · [`STORE_ASSETS.md`](./S
 |----------|--------|-------|
 | **iPhone (iOS)** | ✅ | Main Expo / React Native app (`apps/app`) |
 | **Android phones** | ✅ | Same codebase as iOS |
-| **iPad (iOS tablet)** | ✅ | `"supportsTablet": true` in `apps/app/app.json` |
-| **Android tablets** | ✅ (as phone app) | No separate tablet APK; Play listing includes tablet screenshots |
+| **iPad (iOS tablet)** | ✅ | `"supportsTablet": true`; side rail at ≥768px window width; list–detail on Qur'an & Tracker at ≥900px |
+| **Android tablets** | ✅ | Same adaptive width breakpoints as iPad (not device-type checks) |
 | **Web / PWA** | ✅ | Static export — `pnpm --filter app web`, `build:web` |
 
 **Orientation:** portrait-only (`orientation: "portrait"` in `app.json`, PWA manifest).
 
-**Tablet UX:** No dedicated native tablet layout. Native tablets run the phone UI scaled up. **Web** adapts at ≥768px (`src/hooks/use-web-tab-layout.ts`, `src/components/app-tabs.web.tsx`).
+**Tablet UX:** Native and web adapt by **window width**: side rail at ≥768px ([`use-large-screen-layout.ts`](../apps/app/src/hooks/use-large-screen-layout.ts), [`app-tabs-wide.tsx`](../apps/app/src/components/app-tabs-wide.tsx)); Qur'an and Tracker use list–detail at ≥900px.
 
 ### Companion / extension surfaces
 

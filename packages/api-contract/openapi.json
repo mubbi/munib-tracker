@@ -1385,7 +1385,11 @@
               "quran_reading_progress",
               "qaza_schedule",
               "qaza_daily_progress",
-              "qaza_daily_plans"
+              "qaza_daily_plans",
+              "location",
+              "reading_text_visibility",
+              "zakat_calculator",
+              "tours_seen"
             ]
           },
           "id": {

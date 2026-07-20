@@ -5,10 +5,12 @@ import { Platform } from "react-native";
 
 import { IOS_QUICK_ACTION_LIMIT } from "@/lib/appSurfaces/config";
 import {
+  getActiveQuickActionDefinitions,
   getQuickActionById,
-  QUICK_ACTION_REGISTRY,
   type QuickActionDefinition,
 } from "@/lib/appSurfaces/quickActions/registry";
+import { getRamadanInfo } from "@/lib/ramadan";
+import { locationStore } from "@/stores/location-store";
 
 function definitionToAction(def: QuickActionDefinition, t: TFunction, isIos: boolean): Action {
   return {
@@ -34,9 +36,10 @@ export async function syncAppQuickActions(t: TFunction): Promise<void> {
   if (!(await QuickActions.isSupported())) return;
 
   const isIos = Platform.OS === "ios";
-  const definitions = isIos
-    ? QUICK_ACTION_REGISTRY.slice(0, IOS_QUICK_ACTION_LIMIT)
-    : QUICK_ACTION_REGISTRY;
+  const location = locationStore.getState().location;
+  const isRamadanActive = getRamadanInfo(location).isRamadan;
+  const active = getActiveQuickActionDefinitions(isRamadanActive);
+  const definitions = isIos ? active.slice(0, IOS_QUICK_ACTION_LIMIT) : active;
 
   await QuickActions.setItems(definitions.map((def) => definitionToAction(def, t, isIos)));
 }

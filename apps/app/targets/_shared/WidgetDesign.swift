@@ -1,6 +1,7 @@
 #if !os(watchOS)
 import SwiftUI
 import WidgetKit
+import AppIntents
 
 enum WidgetLayout {
   static func isSmall(_ family: WidgetFamily) -> Bool {
@@ -9,6 +10,10 @@ enum WidgetLayout {
 
   static func isLarge(_ family: WidgetFamily) -> Bool {
     family == .systemLarge
+  }
+
+  static func isMedium(_ family: WidgetFamily) -> Bool {
+    family == .systemMedium
   }
 
   static func isAccessory(_ family: WidgetFamily) -> Bool {
@@ -20,12 +25,21 @@ enum WidgetLayout {
     }
   }
 
+  /// Content budgets: small = glance hero; medium+ = full obligatory set.
   static func scheduleRowLimit(for family: WidgetFamily) -> Int {
+    switch family {
+    case .systemSmall: return 3
+    case .systemMedium, .systemLarge: return 5
+    default: return 3
+    }
+  }
+
+  static func hadithMeaningLines(for family: WidgetFamily) -> Int {
     switch family {
     case .systemSmall: return 2
     case .systemMedium: return 3
     case .systemLarge: return 5
-    default: return 3
+    default: return 2
     }
   }
 }
@@ -43,12 +57,32 @@ private extension View {
   }
 }
 
+private struct OptionalPrivacySensitive: ViewModifier {
+  let enabled: Bool
+  func body(content: Content) -> some View {
+    if enabled {
+      content.privacySensitive()
+    } else {
+      content
+    }
+  }
+}
+
 extension View {
-  func widgetFittingText(maxLines: Int = 1) -> some View {
+  func widgetFittingText(maxLines: Int = 2) -> some View {
     lineLimit(maxLines)
-      .minimumScaleFactor(0.7)
+      .minimumScaleFactor(0.55)
       .allowsTightening(true)
       .truncationMode(.tail)
+  }
+
+  @ViewBuilder
+  func widgetRtl(_ isRtl: Bool?) -> some View {
+    if let isRtl {
+      environment(\.layoutDirection, isRtl ? .rightToLeft : .leftToRight)
+    } else {
+      self
+    }
   }
 }
 
@@ -58,7 +92,6 @@ struct WidgetEntryRouter<Home: View>: View {
   let lockDetail: String
   let deepLink: String
   var circularLabel: String?
-  /// 0…1 closed-ring fill for accessoryCircular (e.g. fard progress / countdown urgency).
   var circularGauge: Double?
   @ViewBuilder let home: () -> Home
 
@@ -89,58 +122,92 @@ struct WidgetCard<Content: View>: View {
   let footer: String?
   let updatedAgo: String?
   let deepLink: String
+  var accessibilityLabelText: String? = nil
+  var compactChrome: Bool = false
+  var markLabel: String? = nil
+  var showMark: Bool = false
+  /// When set, the Mark button targets this specific prayer instead of the generic "current" one.
+  var markPrayerId: String? = nil
+  var summaryPrivacySensitive: Bool = false
   @ViewBuilder let content: Content
 
-  private var compact: Bool { WidgetLayout.isSmall(family) }
-  private var showsHeaderSummary: Bool { !compact && !summary.isEmpty }
-  private var showsFooter: Bool { !compact && footer != nil && !(footer ?? "").isEmpty }
+  private var compact: Bool { WidgetLayout.isSmall(family) || compactChrome }
+  private var showsHeader: Bool { !compact }
+  private var showsHeaderSummary: Bool { showsHeader && !summary.isEmpty }
+  private var showsFooter: Bool { !compact && footer != nil && !(footer ?? "").isEmpty && !showMark }
   private var showsUpdatedAgo: Bool {
     WidgetLayout.isLarge(family) && updatedAgo != nil && !(updatedAgo ?? "").isEmpty
   }
-  private var stackSpacing: CGFloat { compact ? 6 : 8 }
-  private var showsHeaderDot: Bool { !compact }
+  private var stackSpacing: CGFloat { compact ? 4 : 8 }
 
   var body: some View {
     VStack(alignment: .leading, spacing: stackSpacing) {
-      HStack(alignment: .top, spacing: compact ? 6 : 8) {
-        if showsHeaderDot {
+      if showsHeader {
+        HStack(alignment: .top, spacing: 8) {
           Circle()
             .fill(accent.opacity(0.18))
-            .frame(width: 24, height: 24)
+            .frame(width: 22, height: 22)
             .overlay(Circle().fill(accent).frame(width: 7, height: 7))
-        }
-        VStack(alignment: .leading, spacing: 2) {
-          Text(title)
-            .font(compact ? .caption.weight(.semibold) : .subheadline.weight(.semibold))
-            .foregroundStyle(accent)
-            .widgetFittingText()
-          if showsHeaderSummary {
-            Text(summary)
-              .font(.caption)
-              .foregroundStyle(theme.textSecondary)
-              .lineLimit(compact ? 1 : 2)
-              .minimumScaleFactor(0.8)
+          VStack(alignment: .leading, spacing: 2) {
+            Text(title)
+              .font(.subheadline.weight(.semibold))
+              .foregroundStyle(accent)
+              .widgetFittingText(maxLines: 1)
+            if showsHeaderSummary {
+              Text(summary)
+                .font(.caption)
+                .foregroundStyle(theme.textSecondary)
+                .modifier(OptionalPrivacySensitive(enabled: summaryPrivacySensitive))
+                .widgetFittingText(maxLines: 2)
+            }
           }
+          Spacer(minLength: 0)
         }
       }
       content
-      if showsFooter, let footer {
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+      if showMark, let markLabel, #available(iOS 17.0, *) {
+        Group {
+          if let markPrayerId, !markPrayerId.isEmpty {
+            Button(intent: MarkNamedSalahIntent(prayerId: markPrayerId)) {
+              markButtonLabel(markLabel)
+            }
+          } else {
+            Button(intent: MarkCurrentSalahWidgetIntent()) {
+              markButtonLabel(markLabel)
+            }
+          }
+        }
+        .buttonStyle(.plain)
+      } else if showsFooter, let footer {
         Divider().overlay(theme.border)
         Text(footer)
           .font(.caption.weight(.semibold))
           .foregroundStyle(accent)
-          .widgetFittingText()
+          .widgetFittingText(maxLines: 1)
       }
       if showsUpdatedAgo, let updatedAgo {
         Text(updatedAgo)
           .font(.caption2)
           .foregroundStyle(theme.textSecondary)
-          .widgetFittingText()
+          .widgetFittingText(maxLines: 1)
       }
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     .widgetCardBackground(theme.cardBackground)
     .widgetURL(URL(string: deepLink))
+    .accessibilityElement(children: .combine)
+    .accessibilityLabel(accessibilityLabelText ?? title)
+  }
+
+  @available(iOS 17.0, *)
+  @ViewBuilder
+  private func markButtonLabel(_ text: String) -> some View {
+    Text(text)
+      .font(.caption.weight(.semibold))
+      .frame(maxWidth: .infinity, minHeight: 44)
+      .foregroundStyle(accent)
+      .background(accent.opacity(0.16), in: RoundedRectangle(cornerRadius: 12))
   }
 }
 
@@ -162,6 +229,35 @@ struct WidgetProgressBar: View {
   }
 }
 
+struct WidgetLiveCountdown: View {
+  let targetTimeMs: Double?
+  let fallback: String
+  let theme: ResolvedWidgetTheme
+
+  var body: some View {
+    if let targetTimeMs, targetTimeMs > 0 {
+      let end = Date(timeIntervalSince1970: targetTimeMs / 1000)
+      let start = Date()
+      if end > start {
+        Text(timerInterval: start...end, countsDown: true)
+          .font(.caption.monospacedDigit())
+          .foregroundStyle(theme.textSecondary)
+          .widgetFittingText(maxLines: 1)
+      } else {
+        Text(fallback)
+          .font(.caption)
+          .foregroundStyle(theme.textSecondary)
+          .widgetFittingText(maxLines: 1)
+      }
+    } else {
+      Text(fallback)
+        .font(.caption)
+        .foregroundStyle(theme.textSecondary)
+        .widgetFittingText(maxLines: 1)
+    }
+  }
+}
+
 struct WidgetLockRectangular: View {
   let title: String
   let detail: String
@@ -172,14 +268,16 @@ struct WidgetLockRectangular: View {
       Text(title)
         .font(.headline)
         .widgetAccentable()
-        .widgetFittingText()
+        .widgetFittingText(maxLines: 1)
       Text(detail)
         .font(.caption)
         .foregroundStyle(.secondary)
-        .widgetFittingText()
+        .widgetFittingText(maxLines: 2)
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     .widgetURL(URL(string: deepLink))
+    .accessibilityElement(children: .combine)
+    .accessibilityLabel("\(title). \(detail)")
   }
 }
 
@@ -189,7 +287,7 @@ struct WidgetLockInline: View {
 
   var body: some View {
     Text(line)
-      .widgetFittingText()
+      .widgetFittingText(maxLines: 1)
       .widgetURL(URL(string: deepLink))
   }
 }
@@ -208,7 +306,7 @@ struct WidgetLockCircular: View {
         Gauge(value: min(max(gaugeValue, 0), 1)) {
           Text(label)
             .font(.caption2.weight(.semibold))
-            .minimumScaleFactor(0.55)
+            .minimumScaleFactor(0.5)
             .lineLimit(2)
             .multilineTextAlignment(.center)
         }
@@ -216,13 +314,14 @@ struct WidgetLockCircular: View {
       } else {
         Text(label)
           .font(.caption2.weight(.semibold))
-          .minimumScaleFactor(0.55)
+          .minimumScaleFactor(0.5)
           .lineLimit(2)
           .multilineTextAlignment(.center)
           .padding(4)
       }
     }
     .widgetURL(URL(string: deepLink))
+    .accessibilityLabel(label)
   }
 }
 
@@ -265,6 +364,114 @@ struct BasicWidgetProvider: TimelineProvider {
 
   func getTimeline(in context: Context, completion: @escaping (Timeline<WidgetProviderEntry>) -> Void) {
     completion(WidgetTimeline.timeline())
+  }
+}
+
+/// Widget-side mark intent — writes to the shared App Group command queue.
+struct MarkCurrentSalahWidgetIntent: AppIntent {
+  static var title: LocalizedStringResource = "Mark Salah"
+  static var description = IntentDescription("Mark the current obligatory Salah as completed.")
+  static var isDiscoverable: Bool = false
+  static var openAppWhenRun: Bool = false
+
+  func perform() async throws -> some IntentResult {
+    let payload: [String: Any] = [
+      "type": "mark-current-obligatory",
+      "source": "widget",
+    ]
+    if let data = try? JSONSerialization.data(withJSONObject: payload),
+       let json = String(data: data, encoding: .utf8) {
+      ExternalCommandQueue.appendCommandJson(json)
+      WidgetCenter.shared.reloadAllTimelines()
+    }
+    return .result()
+  }
+}
+
+/// Widget-side mark intent for a specific prayer (Schedule row buttons, Next Salah).
+/// Mirrors the `mark-prayer` command shape used by Siri/watch (`MunibWatchApp.swift`).
+struct MarkNamedSalahIntent: AppIntent {
+  static var title: LocalizedStringResource = "Mark Salah"
+  static var description = IntentDescription("Mark a specific obligatory Salah as completed.")
+  static var isDiscoverable: Bool = false
+  static var openAppWhenRun: Bool = false
+
+  @Parameter(title: "Prayer")
+  var prayerId: String
+
+  init() {
+    self.prayerId = ""
+  }
+
+  init(prayerId: String) {
+    self.prayerId = prayerId
+  }
+
+  func perform() async throws -> some IntentResult {
+    guard !prayerId.isEmpty else { return .result() }
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions = [.withFullDate]
+    let date = String(formatter.string(from: Date()).prefix(10))
+    let payload: [String: Any] = [
+      "type": "mark-prayer",
+      "prayerId": prayerId,
+      "date": date,
+      "source": "widget",
+    ]
+    if let data = try? JSONSerialization.data(withJSONObject: payload),
+       let json = String(data: data, encoding: .utf8) {
+      ExternalCommandQueue.appendCommandJson(json)
+      WidgetCenter.shared.reloadAllTimelines()
+    }
+    return .result()
+  }
+}
+
+/// Live Activity Mark — must adopt `LiveActivityIntent` so the system runs it in the
+/// app process without opening the UI (Apple ActivityKit / App Intents guidance).
+struct MarkFromLiveActivityIntent: LiveActivityIntent {
+  static var title: LocalizedStringResource = "Mark Salah"
+  static var description = IntentDescription("Mark the current obligatory Salah from the Live Activity.")
+
+  @Parameter(title: "Prayer")
+  var prayerId: String
+
+  init() {
+    self.prayerId = ""
+  }
+
+  init(prayerId: String) {
+    self.prayerId = prayerId
+  }
+
+  func perform() async throws -> some IntentResult {
+    if !prayerId.isEmpty {
+      let formatter = ISO8601DateFormatter()
+      formatter.formatOptions = [.withFullDate]
+      let date = String(formatter.string(from: Date()).prefix(10))
+      let payload: [String: Any] = [
+        "type": "mark-prayer",
+        "prayerId": prayerId,
+        "date": date,
+        "source": "live_activity",
+      ]
+      if let data = try? JSONSerialization.data(withJSONObject: payload),
+         let json = String(data: data, encoding: .utf8) {
+        ExternalCommandQueue.appendCommandJson(json)
+        WidgetCenter.shared.reloadAllTimelines()
+      }
+    } else {
+      let payload: [String: Any] = [
+        "type": "mark-current-obligatory",
+        "source": "live_activity",
+      ]
+      if let data = try? JSONSerialization.data(withJSONObject: payload),
+         let json = String(data: data, encoding: .utf8) {
+        ExternalCommandQueue.appendCommandJson(json)
+        WidgetCenter.shared.reloadAllTimelines()
+      }
+    }
+    return .result()
   }
 }
 #endif

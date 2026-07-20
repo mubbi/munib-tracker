@@ -5,6 +5,7 @@ module.exports = (config) => ({
   bundleIdentifier: ".munibtrackerwidgets",
   displayName: "Munib Tracker Widgets",
   deploymentTarget: "17.0",
+  frameworks: ["AppIntents", "WidgetKit"],
   colors: {
     $widgetBackground: "#FFFCF7",
     $accent: "#059669",

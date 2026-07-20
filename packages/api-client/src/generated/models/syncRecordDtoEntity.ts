@@ -46,4 +46,8 @@ export const SyncRecordDtoEntity = {
   qaza_schedule: 'qaza_schedule',
   qaza_daily_progress: 'qaza_daily_progress',
   qaza_daily_plans: 'qaza_daily_plans',
+  location: 'location',
+  reading_text_visibility: 'reading_text_visibility',
+  zakat_calculator: 'zakat_calculator',
+  tours_seen: 'tours_seen',
 } as const;

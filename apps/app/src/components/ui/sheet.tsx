@@ -154,10 +154,41 @@ export function Sheet({
     renderedChildren
   );
 
+  /**
+   * Corner radii for the frosted fill. BlurView / GlassView ignore parent
+   * `overflow: "hidden"` — radii must live on the glass surface itself or a
+   * square plate peeks above the rounded sheet (see GlassSurface docs).
+   */
+  const bottomGlassRadii = {
+    borderTopLeftRadius: Radius.xl,
+    borderTopRightRadius: Radius.xl,
+    borderCurve: "continuous" as const,
+    overflow: "hidden" as const,
+  };
+  const centerGlassRadii = {
+    borderRadius: Radius.lg,
+    borderCurve: "continuous" as const,
+    overflow: "hidden" as const,
+  };
+  const glassRadii = isBottom ? bottomGlassRadii : centerGlassRadii;
+
+  /**
+   * Base chrome on the rounded card view (not only on absolute children).
+   * Android elevation / outline follow this background; without it a square
+   * material plate shows behind top-only radii. Off Liquid Glass the wash is
+   * nearly opaque — Modal cannot blur the host screen, so a light translucency
+   * is enough without stacking a non-clipping BlurView.
+   */
+  const glassCardWash = withAlpha(
+    colors.card,
+    hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.94 : 0.97,
+  );
+  const cardChrome = solid ? { backgroundColor: colors.card } : { backgroundColor: glassCardWash };
+
   const bottomCardStyle = [
     styles.bottomCard,
     { maxHeight: bottomMaxHeight, borderColor: colors.border },
-    solid ? { backgroundColor: colors.card } : null,
+    cardChrome,
     contentStyle,
   ];
 
@@ -173,52 +204,45 @@ export function Sheet({
   );
 
   /**
-   * Frosted-glass fill (blur + a translucent card wash for text legibility).
-   * Shared by both variants so every sheet reads the same. On iOS 26 keep the
-   * wash light so the real Liquid Glass material reads through; elsewhere the
-   * wash is stronger so text stays legible without Android Modal backdrop
-   * capture (BlurTarget inside RN Modal intermittently swallows card taps).
+   * Frosted fill only where Liquid Glass can actually read through. Elsewhere
+   * Modal cannot blur the host screen (backdropCapture is off), and BlurView
+   * overdraws a square plate above the rounded sheet — the card chrome wash
+   * alone is the visible surface.
    */
-  const glassFill = (
-    <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+  const glassFill = hasLiquidGlass ? (
+    <View style={[StyleSheet.absoluteFill, glassRadii, { pointerEvents: "none" }]}>
       <GlassSurface
         // Never capture the Android blur target inside Modal — the native
         // BlurView layer can sit above descendants and eat Cancel/Save taps
         // while scrim presses still work.
         backdropCapture={false}
-        style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}
+        style={[StyleSheet.absoluteFill, glassRadii, { pointerEvents: "none" }]}
         intensity={50}
       />
       <View
         style={[
           StyleSheet.absoluteFill,
           {
-            backgroundColor: withAlpha(
-              colors.card,
-              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
-            ),
+            backgroundColor: glassCardWash,
             pointerEvents: "none",
           },
         ]}
       />
     </View>
-  );
+  ) : null;
 
   // elevation + zIndex: on Android Fabric, absolute-fill painted Pressables
-  // beat in-flow siblings without elevation — card chrome then loses hits to
-  // the scrim (backdrop dismiss still works; Cancel does not).
-  const cardElevation = Platform.OS === "android" ? 24 : 0;
+  // beat in-flow siblings without elevation — center-card chrome then loses
+  // hits to the scrim. Bottom sheets stack the scrim above the card in a
+  // column (no overlap), so elevation must stay off — Android draws a square
+  // elevated plate behind top-only border radii.
+  const centerCardElevation = Platform.OS === "android" ? 24 : 0;
 
   const bottomCard = (
     <Animated.View
       accessibilityViewIsModal
       collapsable={false}
-      style={[
-        bottomCardStyle,
-        bottomCardDragStyle,
-        keyboardInsetStyle,
-        { elevation: cardElevation, pointerEvents: "auto" },
-      ]}
+      style={[bottomCardStyle, bottomCardDragStyle, keyboardInsetStyle, { pointerEvents: "auto" }]}
     >
       {!solid ? glassFill : null}
       {dragHandle}
@@ -244,8 +268,8 @@ export function Sheet({
       collapsable={false}
       style={[
         styles.centerCard,
-        { borderColor: colors.border, elevation: cardElevation, pointerEvents: "auto" },
-        solid ? { backgroundColor: colors.card } : null,
+        { borderColor: colors.border, elevation: centerCardElevation, pointerEvents: "auto" },
+        cardChrome,
         contentStyle,
       ]}
     >

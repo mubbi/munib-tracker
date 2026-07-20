@@ -48,6 +48,13 @@ export type BuiltReminder = {
    * pending-notification budget (~64). Fard prayers win over optional nudges.
    */
   priority: number;
+  /**
+   * Obligatory prayer id for Mark-from-notification actions (fard main reminders only).
+   * Paired with {@link prayerDateKey} so the handler can enqueue `mark-prayer`.
+   */
+  prayerId?: ObligatoryPrayer;
+  /** YYYY-MM-DD prayer-day key matching {@link prayerId} when set. */
+  prayerDateKey?: string;
 };
 
 /** Deep-link a zikr category collection screen. */
@@ -182,6 +189,7 @@ function pushPrayerReminders(
       route: "/tracker",
       priority: isFard ? PRIORITY.fard : isWitr ? PRIORITY.witr : PRIORITY.sunnah,
       ...(playAdhan ? { sound: ADHAN_NOTIFICATION_SOUND } : {}),
+      ...(isFard ? { prayerId: slot as ObligatoryPrayer, prayerDateKey: dayKey } : {}),
     });
 
     if (!isFard) continue;

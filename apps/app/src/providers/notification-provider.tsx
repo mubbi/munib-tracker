@@ -10,6 +10,8 @@ import { tryPlayWebAdhanForReminder } from "@/lib/notifications/web-adhan-playba
 import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
 import {
   configureNotifications,
+  MARK_ACTION_IDENTIFIER,
+  markFromNotification,
   rescheduleAll,
   SNOOZE_ACTION_IDENTIFIER,
   snoozeNotification,
@@ -143,6 +145,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
     void import("expo-notifications").then((Notifications) => {
       const handleResponse = (response: NotificationResponse) => {
+        if (response.actionIdentifier === MARK_ACTION_IDENTIFIER) {
+          void markFromNotification(response);
+          return;
+        }
         if (response.actionIdentifier === SNOOZE_ACTION_IDENTIFIER) {
           void snoozeNotification(response);
           return;

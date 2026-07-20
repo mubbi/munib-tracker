@@ -22,6 +22,7 @@ import { trackerStore } from "@/stores/tracker-store";
  * notifications instead of expo-notifications (which is native-only).
  */
 
+export const MARK_ACTION_IDENTIFIER = "markcurrent";
 export const SNOOZE_ACTION_IDENTIFIER = "snooze";
 
 function buildReminderOptions() {
@@ -56,6 +57,10 @@ export async function rescheduleAll(
 }
 
 export async function snoozeNotification(_response: unknown): Promise<void> {
+  return;
+}
+
+export async function markFromNotification(_response: unknown): Promise<void> {
   return;
 }
 

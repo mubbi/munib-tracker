@@ -216,17 +216,21 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
                     {letter}
                   </ThemedText>
                 </View>
-                <ThemedText type="small" style={[styles.optionLabel, { color: labelColor }]}>
-                  {option}
-                </ThemedText>
+                <View style={styles.optionLabelWrap}>
+                  <ThemedText type="small" style={[styles.optionLabel, { color: labelColor }]}>
+                    {option}
+                  </ThemedText>
+                </View>
                 {trailingIcon ? (
-                  <SymbolView
-                    name={trailingIcon}
-                    size={18}
-                    tintColor={
-                      isCorrectOption ? tokens.status.success.color : tokens.status.danger.color
-                    }
-                  />
+                  <View style={styles.optionTrailing}>
+                    <SymbolView
+                      name={trailingIcon}
+                      size={18}
+                      tintColor={
+                        isCorrectOption ? tokens.status.success.color : tokens.status.danger.color
+                      }
+                    />
+                  </View>
                 ) : null}
               </PressableScale>
             );
@@ -336,7 +340,7 @@ const styles = StyleSheet.create({
   },
   option: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: Spacing.two,
     paddingVertical: Spacing.two + 2,
     paddingHorizontal: Spacing.two,
@@ -349,15 +353,23 @@ const styles = StyleSheet.create({
   letterBadge: {
     width: 28,
     height: 28,
+    marginTop: 1,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
   },
-  optionLabel: {
+  optionLabelWrap: {
     flex: 1,
+    minWidth: 0,
+  },
+  optionLabel: {
     lineHeight: 20,
+  },
+  optionTrailing: {
+    marginTop: 4,
+    flexShrink: 0,
   },
   feedbackCard: {
     flexDirection: "row",

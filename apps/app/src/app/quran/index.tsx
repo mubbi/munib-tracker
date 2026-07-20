@@ -27,6 +27,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getSurahByNumber, getSurahMeta } from "@/lib/quran";
@@ -244,8 +245,10 @@ export default function QuranHomeScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
+  const { isListDetail } = useLargeScreenLayout();
   const [query, setQuery] = useState("");
   const [revelationFilter, setRevelationFilter] = useState<SurahRevelationFilter>("all");
+  const [selectedSurahNumber, setSelectedSurahNumber] = useState<number | null>(null);
   const lastRead = useLastRead();
   const quranPrefs = useQuranPrefs();
   const quranBookmarks = useQuranBookmarks();
@@ -326,14 +329,20 @@ export default function QuranHomeScreen() {
 
   const openSurah = useCallback(
     (n: number) => {
+      if (isListDetail) {
+        setSelectedSurahNumber(n);
+        return;
+      }
       if (lastRead && lastRead.surah === n) {
         openSurahAt(n, lastRead.ayah);
         return;
       }
       router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } });
     },
-    [lastRead, openSurahAt, router],
+    [isListDetail, lastRead, openSurahAt, router],
   );
+
+  const selectedSurah = selectedSurahNumber != null ? getSurahByNumber(selectedSurahNumber) : null;
 
   const keyExtractor = useCallback((surah: Surah) => String(surah.number), []);
 
@@ -474,28 +483,76 @@ export default function QuranHomeScreen() {
         subtitle={t("quran.subtitle")}
         onBack={() => goBackOrReplace(router, "/")}
       >
-        <FlatList
-          data={filtered}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          extraData={continueSurah}
-          ListHeaderComponent={listHeader}
-          ListEmptyComponent={
-            <EmptyState
-              icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-              title={t("quran.noResults")}
-            />
-          }
-          style={styles.flatList}
-          contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          initialNumToRender={12}
-          maxToRenderPerBatch={6}
-          windowSize={5}
-          updateCellsBatchingPeriod={100}
-          removeClippedSubviews
-        />
+        <View style={isListDetail ? styles.listDetailRoot : styles.flatList}>
+          <FlatList
+            data={filtered}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            extraData={continueSurah}
+            ListHeaderComponent={listHeader}
+            ListEmptyComponent={
+              <EmptyState
+                icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+                title={t("quran.noResults")}
+              />
+            }
+            style={isListDetail ? styles.listDetailPrimary : styles.flatList}
+            contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            initialNumToRender={12}
+            maxToRenderPerBatch={6}
+            windowSize={5}
+            updateCellsBatchingPeriod={100}
+            removeClippedSubviews
+          />
+          {isListDetail ? (
+            <View style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}>
+              {selectedSurah ? (
+                <Card padding="four" style={styles.detailCard}>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("quran.surahNumber", { number: selectedSurah.number })}
+                  </ThemedText>
+                  <ThemedText type="title">{selectedSurah.nameTransliteration}</ThemedText>
+                  <ThemedText type="small" themeColor="mutedForeground">
+                    {selectedSurah.nameEnglish}
+                  </ThemedText>
+                  <ThemedText type="arabic" style={styles.detailArabic}>
+                    {selectedSurah.nameArabic}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("quran.ayahCount", { count: selectedSurah.ayahCount })}
+                  </ThemedText>
+                  <PressableScale
+                    haptic="light"
+                    onPress={() => {
+                      if (lastRead && lastRead.surah === selectedSurah.number) {
+                        openSurahAt(selectedSurah.number, lastRead.ayah);
+                        return;
+                      }
+                      router.push({
+                        pathname: "/quran/[surah]",
+                        params: { surah: String(selectedSurah.number) },
+                      });
+                    }}
+                    accessibilityRole="button"
+                    accessibilityLabel={t("quran.openReader")}
+                    style={[styles.openReaderBtn, { backgroundColor: colors.accent }]}
+                  >
+                    <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+                      {t("quran.openReader")}
+                    </ThemedText>
+                  </PressableScale>
+                </Card>
+              ) : (
+                <EmptyState
+                  icon={{ ios: "book", android: "menu_book", web: "menu_book" }}
+                  title={t("quran.selectSurah")}
+                />
+              )}
+            </View>
+          ) : null}
+        </View>
       </ScreenLayout>
     </>
   );
@@ -578,4 +635,37 @@ const styles = StyleSheet.create({
   rowName: { flexShrink: 1, minWidth: 0 },
   rowMeta: { alignItems: "flex-end", gap: Spacing.one, maxWidth: "34%" },
   rowArabic: { fontSize: 20, writingDirection: "rtl" },
+  listDetailRoot: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    gap: Spacing.three,
+  },
+  listDetailPrimary: {
+    flex: 1,
+    minWidth: 0,
+  },
+  listDetailSecondary: {
+    width: 320,
+    maxWidth: "40%",
+    borderStartWidth: StyleSheet.hairlineWidth,
+    paddingStart: Spacing.three,
+    justifyContent: "flex-start",
+  },
+  detailCard: {
+    gap: Spacing.two,
+  },
+  detailArabic: {
+    fontSize: 28,
+    writingDirection: "rtl",
+    marginTop: Spacing.two,
+  },
+  openReaderBtn: {
+    marginTop: Spacing.three,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    alignItems: "center",
+  },
 });

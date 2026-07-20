@@ -80,6 +80,24 @@ export interface FontPreferences {
   readingOverrides?: Partial<Record<ReadingSurface, ReadingSizeOverride>>;
 }
 
+/** Mirrors `@munib-tracker/theme` ColorMode — kept here so preferences stay package-local. */
+export type PreferenceColorMode = "light" | "dark" | "system";
+
+/** Mirrors `@munib-tracker/theme` AccentColorId presets. */
+export type PreferenceAccentColorId =
+  | "forest"
+  | "ocean"
+  | "indigo"
+  | "purple"
+  | "rose"
+  | "coral"
+  | "amber"
+  | "teal"
+  | "cyan"
+  | "slate"
+  | "pink"
+  | "lime";
+
 export interface UserPreferences {
   locale: AppLocale;
   translationLocale: AppLocale;
@@ -87,6 +105,10 @@ export interface UserPreferences {
   timeFormat: TimeFormat;
   /** Default calendar for dates shown across the app and calendar tabs. */
   defaultCalendar: CalendarMode;
+  /** App chrome light/dark/system preference (cloud-synced with the prefs blob). */
+  colorMode?: PreferenceColorMode;
+  /** Preset accent id when not using a custom hex (cloud-synced). */
+  accentColorId?: PreferenceAccentColorId;
   /** HH:mm */
   bedtime?: string;
   notificationPrefs: NotificationPreferences;

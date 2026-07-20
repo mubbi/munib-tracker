@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Nemo shugaban qibla",
     "tasbeehSubtitle": "Bude ƙididdigar tasbeeh",
     "qazaSubtitle": "Sarrafa qaza",
-    "quranSubtitle": "Karanta Alkur'ani"
+    "quranSubtitle": "Karanta Alkur'ani",
+    "markCurrentSubtitle": "Alama Salah na yanzu",
+    "ramadanSubtitle": "Sahur, iftar da rajistar azumi"
   },
   "widgets": {
     "updatedJustNow": "An sabunta yanzu",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Ci gaba",
         "description": "Sallar farilla yau taci gaba"
+      },
+      "streak": {
+        "label": "Jeri",
+        "description": "Jerin Salah ta wajibi na yanzu"
+      },
+      "qaza": {
+        "label": "Qaza",
+        "description": "Qaza da ya rage da ci gaban biyan yau"
+      },
+      "ramadan": {
+        "label": "Ramadan",
+        "description": "Lokutan sahur da iftar tare da ƙidayar baya"
+      },
+      "khatm": {
+        "label": "Khatm",
+        "description": "Ci gaban shirin khatm na Alkur'ani"
+      },
+      "dailyHadith": {
+        "label": "Hadisi na yau",
+        "description": "Hadisin yau daga Arba'in Imam an-Nawawi"
+      },
+      "hijriDate": {
+        "label": "Kwanan Hijira",
+        "description": "Kwanan Hijira da Gregorian"
+      },
+      "qibla": {
+        "label": "Qibla",
+        "description": "Kusurwar compass zuwa Ka'aba"
+      },
+      "tasbeeh": {
+        "label": "Tasbeeh",
+        "description": "Ci gaban ma'aunin tasbeeh na musamman na yau"
+      },
+      "friday": {
+        "label": "Juma'a",
+        "description": "Ci gaban jerin Juma'a ko kwanaki har zuwa Juma'a"
       }
     },
     "remaining": "Ya rage",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Jerin Salah",
+    "streakDays": "kwana {{count}}",
+    "streakDays_one": "kwana {{count}}",
+    "streakDays_other": "kwanaki {{count}}",
+    "streakHint": "Ci gaba da rubuta kowace Salah ta wajibi",
+    "qaza": "Qaza",
+    "qazaRemainingCount": "{{count}} ya rage",
+    "qazaNoTarget": "Babu manufa ta yau da kullum",
+    "ramadan": "Ramadan",
+    "suhoorIftar": "Sahur da iftar",
+    "khatm": "Shirin khatm",
+    "khatmStartHint": "Fara shirin khatm a cikin app",
+    "khatmPaceAhead": "Gaba",
+    "khatmPaceBehind": "Baya",
+    "khatmPaceDone": "An kammala",
+    "khatmPaceOnTrack": "A hanya",
+    "dailyHadith": "Hadisi na yau",
+    "hijriDate": "Kwanan Hijira",
+    "qibla": "Qibla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Alkibla zuwa Ka'aba",
+    "markSalah": "Alama Salah",
+    "statusActive": "Na gaba",
+    "tasbeeh": "Tasbeeh",
+    "tasbeehHint": "Buɗe app don fara ƙidaya",
+    "tasbeehRemaining": "{{count}} ya rage",
+    "tasbeehUnlimited": "Ƙidaya mara iyaka",
+    "friday": "Juma'a",
+    "fridayProgress": "{{completed}}/{{total}} an gama",
+    "fridayAllDone": "An gama duka — an karɓa, in sha Allah",
+    "fridayCountdown": "Juma'a cikin kwanaki {{count}}",
+    "fridayCountdown_one": "Juma'a cikin kwana {{count}}",
+    "fridayCountdown_other": "Juma'a cikin kwanaki {{count}}"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -733,7 +804,11 @@
     "heroUser": "Sallahlarınızı, kazalarınızı da zikirlerinizi bulutta güdande tutmak don giriş yapın.",
     "error": "An kasa shiga. Tabbatar da cewa uwar garken API yana aiki kuma an saita wannan mai bayarwa.",
     "providersUnavailableTitle": "Shiga bai samu ba tukuna",
-    "providersUnavailableBody": "Ba a saita masu daidaita girgije a wannan ginin ba. Ci gaba a matsayin baƙo — ci gaban ku yana kan wannan na'ura."
+    "providersUnavailableBody": "Ba a saita masu daidaita girgije a wannan ginin ba. Ci gaba a matsayin baƙo — ci gaban ku yana kan wannan na'ura.",
+    "titleSignedIn": "Kun shiga",
+    "subtitleSignedIn": "Sync na cloud a shirye ne a wannan na'ura",
+    "heroSignedIn": "Barka da dawowa — asusun ku an haɗa. Salah, qaza da zikr na iya yin sync a tsakanin na'urori.",
+    "continueSignedIn": "Ci gaba"
   },
   "onboarding": {
     "begin": "Fara",
@@ -870,6 +945,11 @@
     "liveActivity": "Ayyukan Rayuwa",
     "liveActivityHint": "Nuna kididdigar addu'a ta gaba kai tsaye akan allon makulli da Tsibirin Dynamic.",
     "liveActivityUnavailable": "Akwai akan iPhone (iOS 16.1+) tare da dev ko ginin samarwa.",
+    "liveActivityDiscoveryTitle": "Gwada ƙidayar baya kai tsaye",
+    "liveActivityDiscoveryBodyIos": "Ga ƙidayar baya ta sallar da take zuwa a Allon Kulle da Tsibirin Dynamic.",
+    "liveActivityDiscoveryBodyAndroid": "Ga ƙidayar baya ta sallar da take zuwa a cikin sanarwa mai dawwama tare da aikin Alama.",
+    "liveActivityDiscoveryEnable": "Kunna",
+    "liveActivityDiscoveryDismissA11y": "Kashe shawarar ƙidayar baya kai tsaye",
     "upcomingTitle": "Masu tuni masu zuwa",
     "upcomingHint": "Faɗakarwar ku na gaba da aka tsara, a cikin yankin lokutan lokutan ku. Yi amfani da toggles da ke ƙasa don kunna, kashe, ko gyara su.",
     "footer": "Ana shirya isar da waɗannan masu tuni da zarar an kunna sanarwar akan na'urarka.",
@@ -900,7 +980,8 @@
       "prayer": "Tunasarwar Sallah",
       "prayerAdhan": "Adhan lokacin sallah",
       "zikr": "Zikiri tunatarwa",
-      "qaza": "Tunasarwar Qaza"
+      "qaza": "Tunasarwar Qaza",
+      "prayerOngoing": "Ƙidayar baya ta Salah na gaba"
     },
     "snooze": "A jinkirta minti {{minutes}}",
     "defaultTitle": "Tunatarwa",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Abubuwan yau da kullun",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "Nuna sanarwa mai tsayi da ƙidayar baya ta Salah na gaba da aikin Alama.",
+    "markPrayed": "Alama an yi Salah"
   },
   "fonts": {
     "eyebrow": "Saituna",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Surah {{number}}",
+    "selectSurah": "Zaɓi surah",
+    "openReader": "Buɗe mai karatu"
   },
   "hadith": {
     "eyebrow": "Hadisin annabci",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Muhimmi",
     "categorySystem": "Tsari",
-    "categoryAnnouncement": "Sanarwa"
+    "categoryAnnouncement": "Sanarwa",
+    "markingAllRead": "Ana alamar duk an karanta…"
   },
   "qibla": {
     "eyebrow": "Hanyar",
@@ -3992,7 +4079,7 @@
       "label": "Haɗe-haɗe (na zaɓi)",
       "add": "Ƙara fayil",
       "remove": "Cire abin da aka makala",
-      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowane. Dogon latsa ɗan yatsa don cirewa.",
+      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowanne. Taɓa × a kan ƙaramin hoto don cirewa.",
       "signInRequired": "Shiga don haɗa fayiloli masu zaman kansu zuwa adhkar ku.",
       "permissionDenied": "Ana buƙatar izini don haɗa fayiloli.",
       "permissionTitle": "Bada damar shiga",
@@ -4562,6 +4649,8 @@
     "watchHint": "Open the Munib Mai bin diddigi watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Sanya OS",
     "wearHint": "Bayan haɗa wayarka, ƙara tile Munib Tracker a agogonka. Taɓa tile don alama Salah na yanzu a wayarka.",
+    "forceQuitTitle": "Idan an rufe app",
+    "forceQuitBody": "Taɓawar widget, Siri, Assistant, da alamun agogo/Wear ana sanya su a jerin gwano nan take. Idan an rufe Munib Tracker gaba ɗaya, alamar da ke jerin gwano za ta yi aiki — kuma jerinku, checklist, da widgets za su sabunta — lokacin da kuka sake buɗe app.",
     "marked": "Sallah marked",
     "alreadyDone": "Tuni aka yi alama",
     "allDone": "Tüm obligatory Sallah marked for todwata",
@@ -4572,8 +4661,19 @@
       "openTracker": "Buɗe jerin abubuwan dubawa",
       "openQibla": "Qibla Aç",
       "openTasbeeh": "Tasbeeh Aç",
-      "markCurrent": "my Sallah İşaretle"
-    }
+      "markCurrent": "my Sallah İşaretle",
+      "openRamadan": "Buɗe Ramadan",
+      "openKhatm": "Buɗe shirin khatm",
+      "openQaza": "Buɗe Qaza",
+      "openQuran": "Buɗe Alkur'ani",
+      "markFajr": "Alama Subhi",
+      "markDhuhr": "Alama Azahar",
+      "markAsr": "Alama Asar",
+      "markMaghrib": "Alama Magariba",
+      "markIsha": "Alama Isha"
+    },
+    "moreShortcutsTitle": "Ƙarin gajerun murya",
+    "moreShortcutsHint": "Faɗi ɗaya daga cikin waɗannan don alamar Salah ko zuwa allon kai tsaye."
   },
   "pinLock": {
     "title": "Kulle app",
@@ -4768,7 +4868,7 @@
     "eyebrow": "Kalanda",
     "title": "Mai sauya kwanan wata",
     "subtitle": "Tuba tsakanin kalandar Hijiriyya da Miladiyya",
-    "intro": "Shigar da kwanan wata a cikin kowane kalanda don ganin kwatankwacinsa a ɗayan, ƙididdiga ta layi ta amfani da algorithm Kuwaiti tabular.",
+    "intro": "Shigar da rana a kowace kalanda don ganin daidaita ta a waccan, an ƙididdige a offline daga ganin hilal a wurinku.",
     "toHijri": "Gregorian → Hijira",
     "toGregorian": "Hijiriyya → Marigayi",
     "gregorianDateLabel": "Kwanan Gregorian",
@@ -4778,7 +4878,7 @@
     "year": "Shekara",
     "useToday": "Yi amfani a yau",
     "invalidDate": "Shigar da ingantaccen kwanan wata",
-    "disclaimer": "Wannan lissafin lissafin ƙididdiga ne (tabul ɗin \"Kuwaiti algorithm\") kuma yana iya bambanta da rana ɗaya daga sanarwar ganin wata na gida - koyaushe ku bi masallacin ku ko ikon ranakun addini.",
+    "disclaimer": "An ƙididdige ranaku daga ganin hilal (hilāl) a wurinku kuma na iya bambanta da sanarwar hukuma ta ganin wata da rana ɗaya — koyaushe bi Masjid ko hukumar gida don ranakun addini.",
     "directionTitle": "Hanyar juyawa",
     "resultFrom": "Daga {{date}}",
     "quickLinksTitle": "Masu alaƙa",

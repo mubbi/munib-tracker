@@ -416,105 +416,113 @@ export function useSocialAuth() {
     }
   }, [appleRedirectUri, appleRequest, appleResponse, completeSocialSession]);
 
-  const signInGoogle = useCallback(async () => {
-    if (!googleConfigured || !googleRequest) {
-      throw new Error("Google sign-in is not configured yet.");
-    }
-    const codeVerifier = googleRequest.codeVerifier?.trim() ?? "";
-    const state = googleRequest.state?.trim() ?? "";
-    if (!codeVerifier || !state) {
-      throw new Error("Sign-in is not ready yet; try again.");
-    }
-
-    clearGoogleAuthorizationCodeExchangeGuard();
-    await saveGoogleOAuthPendingSession({
-      codeVerifier,
-      redirectUri: googleRedirectUri,
-      clientId: googleClientId.trim(),
-      state,
-    });
-
-    googlePkceVerifierRef.current = codeVerifier;
-    const promise = new Promise<void>((resolve, reject) => {
-      googlePendingRef.current = { resolve, reject };
-    });
-    await googlePromptAsync(Platform.OS === "android" ? { showInRecents: true } : undefined);
-    return promise;
-  }, [googleClientId, googleConfigured, googlePromptAsync, googleRedirectUri, googleRequest]);
-
-  const signInApple = useCallback(async () => {
-    if (!appleConfigured) {
-      throw new Error("Apple sign-in is not configured yet.");
-    }
-
-    if (Platform.OS === "ios" && appleNativeAvailable) {
-      try {
-        const credential = await signInWithAppleNative();
-        const identityToken = credential.identityToken?.trim();
-        if (!identityToken) {
-          throw new Error("Apple did not return an identity token.");
-        }
-        await completeSocialSession("apple", "identityToken", {
-          identityToken,
-          displayName: appleDisplayName(credential.fullName),
-        });
-        return;
-      } catch (error) {
-        if (isNativeAppleCancel(error)) throw new Error(OAUTH_CANCELLED);
-        throw error;
+  const signInGoogle = useCallback(
+    async (returnTo?: string) => {
+      if (!googleConfigured || !googleRequest) {
+        throw new Error("Google sign-in is not configured yet.");
       }
-    }
+      const codeVerifier = googleRequest.codeVerifier?.trim() ?? "";
+      const state = googleRequest.state?.trim() ?? "";
+      if (!codeVerifier || !state) {
+        throw new Error("Sign-in is not ready yet; try again.");
+      }
 
-    if (!appleServicesId || !appleRequest) {
-      throw new Error("Apple sign-in is not configured yet.");
-    }
+      clearGoogleAuthorizationCodeExchangeGuard();
+      await saveGoogleOAuthPendingSession({
+        codeVerifier,
+        redirectUri: googleRedirectUri,
+        clientId: googleClientId.trim(),
+        state,
+        ...(returnTo ? { returnTo } : {}),
+      });
 
-    const codeVerifier = appleRequest.codeVerifier?.trim() ?? "";
-    const state = appleRequest.state?.trim() ?? "";
-    if (!codeVerifier) {
-      throw new Error("Sign-in is not ready yet; try again.");
-    }
+      googlePkceVerifierRef.current = codeVerifier;
+      const promise = new Promise<void>((resolve, reject) => {
+        googlePendingRef.current = { resolve, reject };
+      });
+      await googlePromptAsync(Platform.OS === "android" ? { showInRecents: true } : undefined);
+      return promise;
+    },
+    [googleClientId, googleConfigured, googlePromptAsync, googleRedirectUri, googleRequest],
+  );
 
-    if (Platform.OS === "web") {
-      await authAppleOauthSession({
+  const signInApple = useCallback(
+    async (returnTo?: string) => {
+      if (!appleConfigured) {
+        throw new Error("Apple sign-in is not configured yet.");
+      }
+
+      if (Platform.OS === "ios" && appleNativeAvailable) {
+        try {
+          const credential = await signInWithAppleNative();
+          const identityToken = credential.identityToken?.trim();
+          if (!identityToken) {
+            throw new Error("Apple did not return an identity token.");
+          }
+          await completeSocialSession("apple", "identityToken", {
+            identityToken,
+            displayName: appleDisplayName(credential.fullName),
+          });
+          return;
+        } catch (error) {
+          if (isNativeAppleCancel(error)) throw new Error(OAUTH_CANCELLED);
+          throw error;
+        }
+      }
+
+      if (!appleServicesId || !appleRequest) {
+        throw new Error("Apple sign-in is not configured yet.");
+      }
+
+      const codeVerifier = appleRequest.codeVerifier?.trim() ?? "";
+      const state = appleRequest.state?.trim() ?? "";
+      if (!codeVerifier) {
+        throw new Error("Sign-in is not ready yet; try again.");
+      }
+
+      if (Platform.OS === "web") {
+        await authAppleOauthSession({
+          codeVerifier,
+          redirectUri: appleRedirectUri,
+          returnUrl: getAppleOAuthReturnUrl(),
+        });
+        const authUrl = await appleRequest.makeAuthUrlAsync(appleDiscovery ?? {});
+        if (typeof window !== "undefined") {
+          window.location.assign(authUrl);
+        }
+        return;
+      }
+
+      if (!state) {
+        throw new Error("Sign-in is not ready yet; try again.");
+      }
+
+      clearAppleAuthorizationCodeExchangeGuard();
+      await saveAppleOAuthPendingSession({
         codeVerifier,
         redirectUri: appleRedirectUri,
-        returnUrl: getAppleOAuthReturnUrl(),
+        state,
+        ...(returnTo ? { returnTo } : {}),
       });
-      const authUrl = await appleRequest.makeAuthUrlAsync(appleDiscovery ?? {});
-      if (typeof window !== "undefined") {
-        window.location.assign(authUrl);
-      }
-      return;
-    }
 
-    if (!state) {
-      throw new Error("Sign-in is not ready yet; try again.");
-    }
-
-    clearAppleAuthorizationCodeExchangeGuard();
-    await saveAppleOAuthPendingSession({
-      codeVerifier,
-      redirectUri: appleRedirectUri,
-      state,
-    });
-
-    applePkceVerifierRef.current = codeVerifier;
-    const promise = new Promise<void>((resolve, reject) => {
-      applePendingRef.current = { resolve, reject };
-    });
-    await applePromptAsync(Platform.OS === "android" ? { showInRecents: true } : undefined);
-    return promise;
-  }, [
-    appleConfigured,
-    appleDiscovery,
-    appleNativeAvailable,
-    applePromptAsync,
-    appleRedirectUri,
-    appleRequest,
-    appleServicesId,
-    completeSocialSession,
-  ]);
+      applePkceVerifierRef.current = codeVerifier;
+      const promise = new Promise<void>((resolve, reject) => {
+        applePendingRef.current = { resolve, reject };
+      });
+      await applePromptAsync(Platform.OS === "android" ? { showInRecents: true } : undefined);
+      return promise;
+    },
+    [
+      appleConfigured,
+      appleDiscovery,
+      appleNativeAvailable,
+      applePromptAsync,
+      appleRedirectUri,
+      appleRequest,
+      appleServicesId,
+      completeSocialSession,
+    ],
+  );
 
   const signInFacebook = useCallback(async () => {
     if (!facebookConfigured || !facebookRequest) {
@@ -553,15 +561,15 @@ export function useSocialAuth() {
   ]);
 
   const signIn = useCallback(
-    async (provider: OAuthProvider) => {
+    async (provider: OAuthProvider, options?: { returnTo?: string }) => {
       setBusy(provider);
       try {
         switch (provider) {
           case "google":
-            await signInGoogle();
+            await signInGoogle(options?.returnTo);
             break;
           case "apple":
-            await signInApple();
+            await signInApple(options?.returnTo);
             break;
           case "facebook":
             await signInFacebook();

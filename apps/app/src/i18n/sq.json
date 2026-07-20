@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Gjeni drejtimin e kibles",
     "tasbeehSubtitle": "Hapur banak tesbih",
     "qazaSubtitle": "Manage humbur salah",
-    "quranSubtitle": "Read Kurani"
+    "quranSubtitle": "Read Kurani",
+    "markCurrentSubtitle": "Shëno namazin aktual",
+    "ramadanSubtitle": "Syfyri, iftari dhe ditari i agjërimit"
   },
   "widgets": {
     "updatedJustNow": "Përditësuar vetëm tani",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Progresi",
         "description": "Vazhdon lutja e detyrueshme e sotme"
+      },
+      "streak": {
+        "label": "Seri",
+        "description": "Seria aktuale e namazeve farz"
+      },
+      "qaza": {
+        "label": "Kaza",
+        "description": "Kaza e mbetur dhe progresi i plotësimit të sotëm"
+      },
+      "ramadan": {
+        "label": "Ramazani",
+        "description": "Oraret e syfyrit dhe iftarit me numërim mbrapsht"
+      },
+      "khatm": {
+        "label": "Hatme",
+        "description": "Progresi i planit të hatmes së Kur'anit"
+      },
+      "dailyHadith": {
+        "label": "Hadithi i ditës",
+        "description": "Hadithi i sotëm nga Dyzetë të Imam en-Neveviut"
+      },
+      "hijriDate": {
+        "label": "Data islame",
+        "description": "Data hixhri dhe gregoriane"
+      },
+      "qibla": {
+        "label": "Kibla",
+        "description": "Azimuti i busullës drejt Qabesë"
+      },
+      "tasbeeh": {
+        "label": "Tesbih",
+        "description": "Progresi i numëruesit të personalizuar të tesbihut për sot"
+      },
+      "friday": {
+        "label": "Xhuma",
+        "description": "Progresi i listës së së premtes ose ditët deri në xhuma"
       }
     },
     "remaining": "E mbetur",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Seria e namazit",
+    "streakDays": "{{count}} ditë",
+    "streakDays_one": "{{count}} ditë",
+    "streakDays_other": "{{count}} ditë",
+    "streakHint": "Vazhdoni të regjistroni çdo namaz farz",
+    "qaza": "Kaza",
+    "qazaRemainingCount": "{{count}} të mbetura",
+    "qazaNoTarget": "Nuk ka objektiv ditor",
+    "ramadan": "Ramazani",
+    "suhoorIftar": "Syfyri dhe iftari",
+    "khatm": "Plani i hatmes",
+    "khatmStartHint": "Filloni një plan hatmeje në aplikacion",
+    "khatmPaceAhead": "Përpara",
+    "khatmPaceBehind": "Pas",
+    "khatmPaceDone": "Përfunduar",
+    "khatmPaceOnTrack": "Në rrugë",
+    "dailyHadith": "Hadithi i ditës",
+    "hijriDate": "Data islame",
+    "qibla": "Kibla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Drejtimi i Qabesë",
+    "markSalah": "Shëno namazin",
+    "statusActive": "Tjetri",
+    "tasbeeh": "Tesbih",
+    "tasbeehHint": "Hapni aplikacionin për të filluar numërimin",
+    "tasbeehRemaining": "{{count}} të mbetura",
+    "tasbeehUnlimited": "Numërim i pakufizuar",
+    "friday": "Xhuma",
+    "fridayProgress": "{{completed}}/{{total}} të kryera",
+    "fridayAllDone": "Të gjitha u kryen — u pranua, in sha Allah",
+    "fridayCountdown": "Xhuma pas {{count}} ditësh",
+    "fridayCountdown_one": "Xhuma pas {{count}} dite",
+    "fridayCountdown_other": "Xhuma pas {{count}} ditësh"
   },
   "ramadan": {
     "eyebrow": "Ramazani",
@@ -733,7 +804,11 @@
     "heroUser": "Sign në në keep juaj salah, qaza, dhe zikr i sigurt në  cloud.",
     "error": "Nuk u krye hyrja. Sigurohu që serveri API është duke u ekzekutuar dhe ky ofrues është konfiguruar.",
     "providersUnavailableTitle": "Hyrja nuk është e disponueshme ende",
-    "providersUnavailableBody": "Ofruesit e sinkronizimit në re nuk janë konfiguruar në këtë version. Vazhdo si mysafir — përparimi yt mbetet në këtë pajisje."
+    "providersUnavailableBody": "Ofruesit e sinkronizimit në re nuk janë konfiguruar në këtë version. Vazhdo si mysafir — përparimi yt mbetet në këtë pajisje.",
+    "titleSignedIn": "Jeni të kyçur",
+    "subtitleSignedIn": "Sinkronizimi në cloud është gati në këtë pajisje",
+    "heroSignedIn": "Mirë se u kthyet — llogaria juaj është e lidhur. Namazi, kaza dhe zikri mund të sinkronizohen midis pajisjeve.",
+    "continueSignedIn": "Vazhdo"
   },
   "onboarding": {
     "begin": "Filloni",
@@ -870,6 +945,11 @@
     "liveActivity": "Aktiviteti i drejtpërdrejtë",
     "liveActivityHint": "Shfaq një numërim mbrapsht të drejtpërdrejtë për lutjen tjetër në ekranin e kyçjes dhe në \"Ishullin Dinamik\".",
     "liveActivityUnavailable": "Disponohet në iPhone (iOS 16.1+) me një zhvillim të zhvillimit ose prodhimit.",
+    "liveActivityDiscoveryTitle": "Provoni numërimin mbrapsht të drejtpërdrejtë",
+    "liveActivityDiscoveryBodyIos": "Shikoni numërimin mbrapsht të lutjes tjetër direkt në ekranin e kyçjes dhe në Ishullin Dinamik.",
+    "liveActivityDiscoveryBodyAndroid": "Shikoni numërimin mbrapsht të lutjes tjetër në një njoftim të përhershëm me veprimin Shëno.",
+    "liveActivityDiscoveryEnable": "Aktivizo",
+    "liveActivityDiscoveryDismissA11y": "Hiq këshillën për numërimin e drejtpërdrejtë",
     "upcomingTitle": "Përkujtues të ardhshëm",
     "upcomingHint": "Sinjalizimet e ardhshme të planifikuara, në zonën kohore të vendndodhjes suaj. Përdorni çelësat më poshtë për t'i aktivizuar, çaktivizuar ose modifikuar ato.",
     "footer": "Dorëzimi i këtyre alarmeve rikujtuese është planifikuar pasi njoftimet të jenë aktivizuar në pajisjen tuaj.",
@@ -900,7 +980,8 @@
       "prayer": "Përkujtime për Salah",
       "prayerAdhan": "Ezani në kohën e namazit",
       "zikr": "Përkujtues Zikri",
-      "qaza": "Kujtime kaza"
+      "qaza": "Kujtime kaza",
+      "prayerOngoing": "Numërimi i namazit të radhës"
     },
     "snooze": "Shty {{minutes}} min",
     "defaultTitle": "Përkujtues",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Përmbajtje ditore",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "Shfaq një njoftim të përhershëm me numërimin e gjallë të namazit të radhës dhe veprimin Shëno.",
+    "markPrayed": "Shëno si të falur"
   },
   "fonts": {
     "eyebrow": "Cilësimet",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Sure {{number}}",
+    "selectSurah": "Zgjidhni një sure",
+    "openReader": "Hap lexuesin"
   },
   "hadith": {
     "eyebrow": "Tradita profetike",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Pika historike",
     "categorySystem": "Sistemi",
-    "categoryAnnouncement": "Njoftim"
+    "categoryAnnouncement": "Njoftim",
+    "markingAllRead": "Po shënohen të gjitha si të lexuara…"
   },
   "qibla": {
     "eyebrow": "Drejtimi",
@@ -4084,7 +4171,7 @@
       "label": "Shtojcat (opsionale)",
       "add": "Shto skedar",
       "remove": "Hiq shtojcën",
-      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Shtypni gjatë një miniaturë për ta hequr.",
+      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Prekni × te miniaturë për ta hequr.",
       "signInRequired": "Identifikohu për të bashkëngjitur skedarë privatë në adkar-in tënd.",
       "permissionDenied": "Kërkohet leje për të bashkangjitur skedarët.",
       "permissionTitle": "Lejo qasjen",
@@ -4654,6 +4741,8 @@
     "watchHint": "Open  Munib Tracker watch app në see sot’s schedule dhe mark Salah. Të dhënat syncs nga juaj iPhone.",
     "wearTitle": "Wer OS",
     "wearHint": "Pas çiftimit të telefonit, shto pllakën Munib Tracker në orë. Prek pllakën për të shënuar Salah aktuale në telefon.",
+    "forceQuitTitle": "Nëse aplikacioni ishte i mbyllur",
+    "forceQuitBody": "Prekjet e widget-it, Siri, Asistenti dhe shënimet nga ora/Wear futen menjëherë në radhë. Nëse Munib Tracker ishte mbyllur plotësisht, shënimi në radhë zbatohet — dhe lista, seria dhe widget-et tuaja përditësohen — herën tjetër që hapni aplikacionin.",
     "marked": "Salah shënuar",
     "alreadyDone": "Tashmë e shënuar",
     "allDone": "Të gjitha obligatory Salah shënuar për sot",
@@ -4664,8 +4753,19 @@
       "openTracker": "Hap listën e kontrollit",
       "openQibla": "Hap Kiblën",
       "openTasbeeh": "Hap Tesbih",
-      "markCurrent": "Mark my Salah"
-    }
+      "markCurrent": "Shëno Salah-un tim",
+      "openRamadan": "Hap Ramazanin",
+      "openKhatm": "Hap planin e hatmes",
+      "openQaza": "Hap kazën",
+      "openQuran": "Hap Kur'anin",
+      "markFajr": "Shëno sabahun",
+      "markDhuhr": "Shëno dreken",
+      "markAsr": "Shëno ikindinë",
+      "markMaghrib": "Shëno akshamin",
+      "markIsha": "Shëno jacijen"
+    },
+    "moreShortcutsTitle": "Më shumë shkurtore zanore",
+    "moreShortcutsHint": "Thoni ndonjë nga këto për të shënuar namazin ose për të shkuar drejt e te një ekran."
   },
   "pinLock": {
     "title": "Kyçja e aplikacionit",
@@ -4860,7 +4960,7 @@
     "eyebrow": "Kalendari",
     "title": "Konvertuesi i datës",
     "subtitle": "Konvertoni midis kalendarit Hixhri dhe Gregorian",
-    "intro": "Fut një datë në secilin nga kalendarët për të parë ekuivalentin e saj në tjetrin, të llogaritur jashtë linje duke përdorur algoritmin tabelor të Kuvajtit.",
+    "intro": "Futni një datë në secilin kalendar për të parë ekuivalentin në tjetrin, i llogaritur offline nga dukshmëria e hënës në vendndodhjen tuaj.",
     "toHijri": "Gregorian → Hixhri",
     "toGregorian": "Hixhri → Gregorian",
     "gregorianDateLabel": "Data Gregoriane",
@@ -4870,7 +4970,7 @@
     "year": "viti",
     "useToday": "Përdoreni sot",
     "invalidDate": "Fut një datë të vlefshme",
-    "disclaimer": "Ky është një përafrim aritmetik (\"algoritmi kuvajtian\" në formë tabele) dhe mund të ndryshojë për një ditë nga njoftimet lokale për shikimin e hënës - ndiqni gjithmonë xhaminë ose autoritetin tuaj lokal për datat fetare.",
+    "disclaimer": "Datat llogariten nga dukshmëria e hënës (hilāl) në vendndodhjen tuaj dhe mund të ndryshojnë me një ditë nga njoftimet zyrtare të vëzhgimit të hënës — ndiqni gjithmonë masjid-in ose autoritetin lokal për datat fetare.",
     "directionTitle": "Drejtimi i konvertimit",
     "resultFrom": "Nga {{date}}",
     "quickLinksTitle": "Të lidhura",

@@ -114,10 +114,12 @@ module.exports = ({ config }) => {
         },
       ],
       "@bacons/apple-targets",
-      "./plugins/withAndroidLockScreenWidgets.cjs",
       "./plugins/withExternalCommands.cjs",
       "./plugins/withWearOs.cjs",
       ["react-native-android-widget", { widgets: ANDROID_HOME_SCREEN_WIDGETS }],
+      /** After react-native-android-widget so generated provider XML / receivers exist. */
+      "./plugins/withAndroidLockScreenWidgets.cjs",
+      "./plugins/withAndroidWidgetGallery.cjs",
       [
         "@sentry/react-native/expo",
         {

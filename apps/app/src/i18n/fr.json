@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Trouver la direction de la qibla",
     "tasbeehSubtitle": "Ouvrir le compteur de tasbeeh",
     "qazaSubtitle": "Gérer les prières manquées",
-    "quranSubtitle": "Lire le Coran"
+    "quranSubtitle": "Lire le Coran",
+    "markCurrentSubtitle": "Marquer la Salah en cours",
+    "ramadanSubtitle": "Suhoor, iftar et journal de jeûne"
   },
   "widgets": {
     "updatedJustNow": "Mis à jour tout à l'heure",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Progrès",
         "description": "Progression de la prière obligatoire d'aujourd'hui"
+      },
+      "streak": {
+        "label": "Série",
+        "description": "Série actuelle de Salah obligatoires"
+      },
+      "qaza": {
+        "label": "Qaza",
+        "description": "Qaza restantes et progression des rattrapages du jour"
+      },
+      "ramadan": {
+        "label": "Ramadan",
+        "description": "Horaires de suhoor et d'iftar avec compte à rebours"
+      },
+      "khatm": {
+        "label": "Khatm",
+        "description": "Progression du plan de khatm du Coran"
+      },
+      "dailyHadith": {
+        "label": "Hadith du jour",
+        "description": "Hadith du jour parmi les Quarante d'Imam an-Nawawi"
+      },
+      "hijriDate": {
+        "label": "Date islamique",
+        "description": "Date hijri et grégorienne"
+      },
+      "qibla": {
+        "label": "Qibla",
+        "description": "Cap vers la Kaaba"
+      },
+      "tasbeeh": {
+        "label": "Tasbeeh",
+        "description": "Progression du compteur de tasbeeh personnalisé d'aujourd'hui"
+      },
+      "friday": {
+        "label": "Jumu'ah",
+        "description": "Progression de la liste du vendredi ou jours jusqu'à Jumu'ah"
       }
     },
     "remaining": "Restant",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Série de Salah",
+    "streakDays": "{{count}} jours",
+    "streakDays_one": "{{count}} jour",
+    "streakDays_other": "{{count}} jours",
+    "streakHint": "Continuez à enregistrer chaque Salah obligatoire",
+    "qaza": "Qaza",
+    "qazaRemainingCount": "{{count}} restantes",
+    "qazaNoTarget": "Aucun objectif quotidien",
+    "ramadan": "Ramadan",
+    "suhoorIftar": "Suhoor et iftar",
+    "khatm": "Plan de khatm",
+    "khatmStartHint": "Commencez un plan de khatm dans l'app",
+    "khatmPaceAhead": "En avance",
+    "khatmPaceBehind": "En retard",
+    "khatmPaceDone": "Terminé",
+    "khatmPaceOnTrack": "Dans les temps",
+    "dailyHadith": "Hadith du jour",
+    "hijriDate": "Date islamique",
+    "qibla": "Qibla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Direction de la Kaaba",
+    "markSalah": "Marquer la Salah",
+    "statusActive": "Suivante",
+    "tasbeeh": "Tasbeeh",
+    "tasbeehHint": "Ouvrez l'app pour commencer à compter",
+    "tasbeehRemaining": "{{count}} restantes",
+    "tasbeehUnlimited": "Compte illimité",
+    "friday": "Jumu'ah",
+    "fridayProgress": "{{completed}}/{{total}} faites",
+    "fridayAllDone": "Tout est fait — accepté, in cha Allah",
+    "fridayCountdown": "Jumu'ah dans {{count}} jours",
+    "fridayCountdown_one": "Jumu'ah dans {{count}} jour",
+    "fridayCountdown_other": "Jumu'ah dans {{count}} jours"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -733,7 +804,11 @@
     "heroUser": "Salahlarınızı, kazalarınızı et zikirlerinizi bulutta güetnde tutmak pour giriş yapın.",
     "error": "Connexion impossible. Vérifiez que le serveur API est démarré et que ce fournisseur est configuré.",
     "providersUnavailableTitle": "Connexion indisponible pour le moment",
-    "providersUnavailableBody": "Les fournisseurs de synchronisation cloud ne sont pas configurés dans cette version. Continuez en invité — votre progression reste sur cet appareil."
+    "providersUnavailableBody": "Les fournisseurs de synchronisation cloud ne sont pas configurés dans cette version. Continuez en invité — votre progression reste sur cet appareil.",
+    "titleSignedIn": "Vous êtes connecté",
+    "subtitleSignedIn": "La synchronisation cloud est prête sur cet appareil",
+    "heroSignedIn": "Bon retour — votre compte est lié. Vos Salah, qaza et zikr peuvent se synchroniser entre appareils.",
+    "continueSignedIn": "Continuer"
   },
   "onboarding": {
     "begin": "Commencer",
@@ -870,6 +945,11 @@
     "liveActivity": "Activité en direct",
     "liveActivityHint": "Affichez un compte à rebours en direct pour la prochaine prière sur l'écran de verrouillage et Dynamic Island.",
     "liveActivityUnavailable": "Disponible sur iPhone (iOS 16.1+) avec une version de développement ou de production.",
+    "liveActivityDiscoveryTitle": "Essayez le compte à rebours en direct",
+    "liveActivityDiscoveryBodyIos": "Voyez le compte à rebours de la prochaine prière directement sur votre écran de verrouillage et Dynamic Island.",
+    "liveActivityDiscoveryBodyAndroid": "Voyez le compte à rebours de la prochaine prière dans une notification persistante avec une action Marquer.",
+    "liveActivityDiscoveryEnable": "Activer",
+    "liveActivityDiscoveryDismissA11y": "Ignorer l'astuce du compte à rebours en direct",
     "upcomingTitle": "Rappels à venir",
     "upcomingHint": "Vos prochaines alertes programmées, dans le fuseau horaire de votre emplacement. Utilisez les boutons ci-dessous pour les activer, les désactiver ou les modifier.",
     "footer": "La livraison de ces rappels est programmée une fois que les notifications sont activées sur votre appareil.",
@@ -900,7 +980,8 @@
       "prayer": "Rappels de Salah",
       "prayerAdhan": "Adhan à l'heure de la prière",
       "zikr": "Rappels du Zikr",
-      "qaza": "Rappels Qaza"
+      "qaza": "Rappels Qaza",
+      "prayerOngoing": "Compte à rebours de la prochaine Salah"
     },
     "snooze": "Reporter {{minutes}} min",
     "defaultTitle": "Rappel",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Contenu quotidien",
     "defaultLocationTitle": "Definissez votre lieu pour les alertes Salah",
-    "defaultLocationMessage": "Les rappels Salah et Adhan necessitent votre ville. Les rappels Zikr et Qaza a heure fixe restent planifies."
+    "defaultLocationMessage": "Les rappels Salah et Adhan necessitent votre ville. Les rappels Zikr et Qaza a heure fixe restent planifies.",
+    "liveActivityHintAndroid": "Afficher une notification persistante avec le compte à rebours de la prochaine prière et une action Marquer.",
+    "markPrayed": "Marquer comme priée"
   },
   "fonts": {
     "eyebrow": "Paramètres",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Sourate {{number}}",
+    "selectSurah": "Choisir une sourate",
+    "openReader": "Ouvrir le lecteur"
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Jalon",
     "categorySystem": "Système",
-    "categoryAnnouncement": "Annonce"
+    "categoryAnnouncement": "Annonce",
+    "markingAllRead": "Marquage de tout comme lu…"
   },
   "qibla": {
     "eyebrow": "Direction",
@@ -4084,7 +4171,7 @@
       "label": "Pièces jointes (facultatif)",
       "add": "Ajouter un fichier",
       "remove": "Supprimer la pièce jointe",
-      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez longuement sur une vignette pour la supprimer.",
+      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez sur × sur une miniature pour retirer.",
       "signInRequired": "Connectez-vous pour joindre des fichiers privés à votre adhkar.",
       "permissionDenied": "Une autorisation est requise pour joindre des fichiers.",
       "permissionTitle": "Autoriser l'accès",
@@ -4654,6 +4741,8 @@
     "watchHint": "Open the Munib Suivi watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Wer OS",
     "wearHint": "Après avoir appairé votre téléphone, ajoutez la tuile Munib Tracker sur votre montre. Appuyez sur la tuile pour marquer la Salah en cours sur votre téléphone.",
+    "forceQuitTitle": "Si l'app a été fermée",
+    "forceQuitBody": "Les appuis sur le widget, Siri, l'Assistant et les marques montre/Wear sont mis en file d'attente dès votre action. Si Munib Tracker a été forcé à se fermer, la marque en attente s'applique — et votre liste de contrôle, série et widgets se mettent à jour — la prochaine fois que vous ouvrez l'app.",
     "marked": "Salah marked",
     "alreadyDone": "Déjà marqué",
     "allDone": "Tüm obligatory Salah marked for todmois",
@@ -4664,8 +4753,19 @@
       "openTracker": "Ouvrir la liste de contrôle",
       "openQibla": "Qibla Aç",
       "openTasbeeh": "Tasbeeh Aç",
-      "markCurrent": "my Salah İşaretle"
-    }
+      "markCurrent": "my Salah İşaretle",
+      "openRamadan": "Ouvrir Ramadan",
+      "openKhatm": "Ouvrir le plan de khatm",
+      "openQaza": "Ouvrir Qaza",
+      "openQuran": "Ouvrir le Coran",
+      "markFajr": "Marquer Fajr",
+      "markDhuhr": "Marquer Dhuhr",
+      "markAsr": "Marquer Asr",
+      "markMaghrib": "Marquer Maghrib",
+      "markIsha": "Marquer Isha"
+    },
+    "moreShortcutsTitle": "Plus de raccourcis vocaux",
+    "moreShortcutsHint": "Dites l'une de ces phrases pour marquer une Salah ou aller directement à un écran."
   },
   "pinLock": {
     "title": "Verrouillage de l'app",
@@ -4860,7 +4960,7 @@
     "eyebrow": "Calendrier",
     "title": "Convertisseur de dates",
     "subtitle": "Conversion entre les calendriers hégirien et grégorien",
-    "intro": "Entrez une date dans l'un ou l'autre calendrier pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
+    "intro": "Entrez une date dans l'un des calendriers pour voir son équivalent dans l'autre, calculé hors ligne d'après la visibilité du croissant à votre emplacement.",
     "toHijri": "Grégorien → Hijri",
     "toGregorian": "hijri → grégorien",
     "gregorianDateLabel": "date grégorienne",
@@ -4870,7 +4970,7 @@
     "year": "Année",
     "useToday": "Utiliser aujourd'hui",
     "invalidDate": "Entrez une date valide",
-    "disclaimer": "Il s'agit d'une approximation arithmétique (le tableau \"algorithme koweïtien\") et peut différer d'un jour des annonces locales d'observation de la lune - suivez toujours votre mosquée locale ou votre autorité pour les dates religieuses.",
+    "disclaimer": "Les dates sont calculées d'après la visibilité du croissant (hilāl) à votre emplacement et peuvent différer d'un jour des annonces officielles d'observation de la lune — suivez toujours votre masjid local ou autorité pour les dates religieuses.",
     "directionTitle": "Sens de conversion",
     "resultFrom": "De {{date}}",
     "quickLinksTitle": "Connexes",

@@ -139,10 +139,24 @@ Widget taps use `munib-tracker://` routes baked into the WidgetKit snapshot (`ta
 
 | Widget | Default tap target |
 |--------|-------------------|
-| Next prayer | `munib-tracker://` or section-specific `deepLink` from snapshot |
-| Schedule | `munib-tracker://` |
-| Progress | `munib-tracker://tracker` |
+| Next Salah | `munib-tracker://` |
+| Schedule / Progress | `munib-tracker://tracker` |
+| Salah streak | `munib-tracker://statistics` |
+| Qaza | `munib-tracker://qaza` |
+| Ramadan | `munib-tracker://ramadan` |
+| Khatm | `munib-tracker://quran/khatm` |
+| Daily hadith | `munib-tracker://hadith/daily` |
+| Islamic date | `munib-tracker://calendar` |
+| Qibla | `munib-tracker://qibla` |
 
+**Mark current Salah (in-widget action):**
+
+| Platform | Mechanism |
+|----------|-----------|
+| iOS | `MarkCurrentSalahWidgetIntent` → App Group `pending_commands_v1` (`source: "widget"`), no URL |
+| Android | Secondary Mark chip → `munib-tracker://mark-current` → `mark-current.tsx` enqueue |
+
+When location is denied, taps on location-dependent widgets open `munib-tracker://location` (Mark on Progress still works).
 Snapshot builder: `apps/app/src/lib/appSurfaces/widgets/buildWidgetSnapshot.ts`.
 
 ### OAuth redirects

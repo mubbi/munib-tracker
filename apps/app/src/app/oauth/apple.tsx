@@ -1,18 +1,21 @@
 import * as Linking from "expo-linking";
-import { Redirect, useLocalSearchParams } from "expo-router";
+import { type Href, Redirect, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { useSocialAuth } from "@/hooks/use-social-auth";
 import { getWebAppOrigin } from "@/lib/auth/oauth-config";
+import { loadAppleOAuthPendingSession } from "@/lib/oauth/oauth-pending";
+import { sanitizeOAuthReturnTo } from "@/lib/oauth/oauth-return-to";
 
 /**
  * HTTPS App Link return route for Apple OAuth (Android / iOS OAuth fallback).
- * Completes the pending PKCE exchange then returns to the login screen.
+ * Completes the pending PKCE exchange then returns to the screen that started
+ * sign-in so the logged-in UI can render (same as web/iOS in-place completion).
  */
 export default function AppleOAuthRedirectRoute() {
   const params = useLocalSearchParams<{ code?: string | string[]; state?: string | string[] }>();
   const { resumeAppleFromUrl } = useSocialAuth();
-  const [done, setDone] = useState(false);
+  const [href, setHref] = useState<Href | null>(null);
   const started = useRef(false);
 
   useEffect(() => {
@@ -20,6 +23,9 @@ export default function AppleOAuthRedirectRoute() {
     started.current = true;
 
     void (async () => {
+      const pending = await loadAppleOAuthPendingSession();
+      const returnTo = sanitizeOAuthReturnTo(pending?.returnTo);
+
       const codeParam = Array.isArray(params.code) ? params.code[0] : params.code;
       const stateParam = Array.isArray(params.state) ? params.state[0] : params.state;
 
@@ -32,19 +38,22 @@ export default function AppleOAuthRedirectRoute() {
       if (!returnUrl) {
         returnUrl = await Linking.getInitialURL();
       }
+
+      let outcome: "success" | "skipped" | "failed" = "skipped";
       if (returnUrl) {
-        await resumeAppleFromUrl(returnUrl);
+        outcome = await resumeAppleFromUrl(returnUrl);
       }
-      setDone(true);
+
+      setHref(outcome === "failed" ? "/(auth)/login" : returnTo);
     })();
   }, [params.code, params.state, resumeAppleFromUrl]);
 
-  if (!done) {
+  if (!href) {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <ActivityIndicator />
       </View>
     );
   }
-  return <Redirect href="/(auth)/login" />;
+  return <Redirect href={href} />;
 }

@@ -14,6 +14,24 @@ private func enqueueOpenRoute(_ href: String) {
   }
 }
 
+/// Mirrors the `mark-prayer` command shape (`WidgetDesign.swift`'s `MarkNamedSalahIntent`)
+/// for named-prayer Siri intents.
+private func enqueueMarkPrayer(_ prayerId: String) {
+  let formatter = ISO8601DateFormatter()
+  formatter.formatOptions = [.withFullDate]
+  let date = String(formatter.string(from: Date()).prefix(10))
+  let payload: [String: Any] = [
+    "type": "mark-prayer",
+    "prayerId": prayerId,
+    "date": date,
+    "source": "siri",
+  ]
+  if let data = try? JSONSerialization.data(withJSONObject: payload),
+     let json = String(data: data, encoding: .utf8) {
+    ExternalCommandQueue.appendCommandJson(json)
+  }
+}
+
 struct MarkCurrentSalahIntent: AppIntent {
   static var title: LocalizedStringResource = "Mark my Salah"
   static var description = IntentDescription("Mark the current obligatory Salah as completed.")
@@ -65,6 +83,106 @@ struct OpenTasbeehIntent: AppIntent {
   }
 }
 
+struct OpenRamadanIntent: AppIntent {
+  static var title: LocalizedStringResource = "Open Ramadan"
+  static var openAppWhenRun: Bool = true
+
+  func perform() async throws -> some IntentResult {
+    enqueueOpenRoute("/ramadan")
+    return .result()
+  }
+}
+
+struct OpenKhatmIntent: AppIntent {
+  static var title: LocalizedStringResource = "Open Khatm plan"
+  static var openAppWhenRun: Bool = true
+
+  func perform() async throws -> some IntentResult {
+    enqueueOpenRoute("/quran/khatm")
+    return .result()
+  }
+}
+
+struct OpenQazaIntent: AppIntent {
+  static var title: LocalizedStringResource = "Open Qaza"
+  static var openAppWhenRun: Bool = true
+
+  func perform() async throws -> some IntentResult {
+    enqueueOpenRoute("/qaza")
+    return .result()
+  }
+}
+
+struct OpenQuranIntent: AppIntent {
+  static var title: LocalizedStringResource = "Open Qur'an"
+  static var openAppWhenRun: Bool = true
+
+  func perform() async throws -> some IntentResult {
+    enqueueOpenRoute("/quran")
+    return .result()
+  }
+}
+
+struct MarkFajrIntent: AppIntent {
+  static var title: LocalizedStringResource = "Mark Fajr"
+  static var description = IntentDescription("Mark Fajr as completed.")
+  static var openAppWhenRun: Bool = false
+
+  func perform() async throws -> some IntentResult & ProvidesDialog {
+    enqueueMarkPrayer("fajr")
+    WidgetCenter.shared.reloadAllTimelines()
+    return .result(dialog: "Fajr marked in Munib Tracker.")
+  }
+}
+
+struct MarkDhuhrIntent: AppIntent {
+  static var title: LocalizedStringResource = "Mark Dhuhr"
+  static var description = IntentDescription("Mark Dhuhr as completed.")
+  static var openAppWhenRun: Bool = false
+
+  func perform() async throws -> some IntentResult & ProvidesDialog {
+    enqueueMarkPrayer("dhuhr")
+    WidgetCenter.shared.reloadAllTimelines()
+    return .result(dialog: "Dhuhr marked in Munib Tracker.")
+  }
+}
+
+struct MarkAsrIntent: AppIntent {
+  static var title: LocalizedStringResource = "Mark Asr"
+  static var description = IntentDescription("Mark Asr as completed.")
+  static var openAppWhenRun: Bool = false
+
+  func perform() async throws -> some IntentResult & ProvidesDialog {
+    enqueueMarkPrayer("asr")
+    WidgetCenter.shared.reloadAllTimelines()
+    return .result(dialog: "Asr marked in Munib Tracker.")
+  }
+}
+
+struct MarkMaghribIntent: AppIntent {
+  static var title: LocalizedStringResource = "Mark Maghrib"
+  static var description = IntentDescription("Mark Maghrib as completed.")
+  static var openAppWhenRun: Bool = false
+
+  func perform() async throws -> some IntentResult & ProvidesDialog {
+    enqueueMarkPrayer("maghrib")
+    WidgetCenter.shared.reloadAllTimelines()
+    return .result(dialog: "Maghrib marked in Munib Tracker.")
+  }
+}
+
+struct MarkIshaIntent: AppIntent {
+  static var title: LocalizedStringResource = "Mark Isha"
+  static var description = IntentDescription("Mark Isha as completed.")
+  static var openAppWhenRun: Bool = false
+
+  func perform() async throws -> some IntentResult & ProvidesDialog {
+    enqueueMarkPrayer("isha")
+    WidgetCenter.shared.reloadAllTimelines()
+    return .result(dialog: "Isha marked in Munib Tracker.")
+  }
+}
+
 struct MunibShortcuts: AppShortcutsProvider {
   @AppShortcutsBuilder
   static var appShortcuts: [AppShortcut] {
@@ -94,6 +212,75 @@ struct MunibShortcuts: AppShortcutsProvider {
       phrases: ["Open Tasbeeh in \(.applicationName)"],
       shortTitle: "Tasbeeh",
       systemImageName: "hand.tap"
+    )
+    AppShortcut(
+      intent: OpenRamadanIntent(),
+      phrases: ["Open Ramadan in \(.applicationName)"],
+      shortTitle: "Ramadan",
+      systemImageName: "moon.stars"
+    )
+    AppShortcut(
+      intent: OpenKhatmIntent(),
+      phrases: ["Open Khatm plan in \(.applicationName)"],
+      shortTitle: "Khatm plan",
+      systemImageName: "book.closed"
+    )
+    AppShortcut(
+      intent: OpenQazaIntent(),
+      phrases: ["Open Qaza in \(.applicationName)"],
+      shortTitle: "Qaza",
+      systemImageName: "clock.arrow.circlepath"
+    )
+    AppShortcut(
+      intent: OpenQuranIntent(),
+      phrases: ["Open Qur'an in \(.applicationName)"],
+      shortTitle: "Qur'an",
+      systemImageName: "book"
+    )
+    AppShortcut(
+      intent: MarkFajrIntent(),
+      phrases: [
+        "Mark Fajr in \(.applicationName)",
+        "Mark my Fajr in \(.applicationName)",
+      ],
+      shortTitle: "Mark Fajr",
+      systemImageName: "sunrise"
+    )
+    AppShortcut(
+      intent: MarkDhuhrIntent(),
+      phrases: [
+        "Mark Dhuhr in \(.applicationName)",
+        "Mark my Dhuhr in \(.applicationName)",
+      ],
+      shortTitle: "Mark Dhuhr",
+      systemImageName: "sun.max"
+    )
+    AppShortcut(
+      intent: MarkAsrIntent(),
+      phrases: [
+        "Mark Asr in \(.applicationName)",
+        "Mark my Asr in \(.applicationName)",
+      ],
+      shortTitle: "Mark Asr",
+      systemImageName: "sun.min"
+    )
+    AppShortcut(
+      intent: MarkMaghribIntent(),
+      phrases: [
+        "Mark Maghrib in \(.applicationName)",
+        "Mark my Maghrib in \(.applicationName)",
+      ],
+      shortTitle: "Mark Maghrib",
+      systemImageName: "sunset"
+    )
+    AppShortcut(
+      intent: MarkIshaIntent(),
+      phrases: [
+        "Mark Isha in \(.applicationName)",
+        "Mark my Isha in \(.applicationName)",
+      ],
+      shortTitle: "Mark Isha",
+      systemImageName: "moon"
     )
   }
 }

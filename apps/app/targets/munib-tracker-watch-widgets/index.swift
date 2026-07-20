@@ -7,5 +7,8 @@ struct MunibTrackerWatchWidgetsBundle: WidgetBundle {
     WatchNextPrayerComplication()
     WatchScheduleComplication()
     WatchProgressComplication()
+    WatchStreakComplication()
+    WatchQazaComplication()
+    WatchRamadanComplication()
   }
 }

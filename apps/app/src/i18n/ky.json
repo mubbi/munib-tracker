@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Найти направление киблы",
     "tasbeehSubtitle": "Открыть счётчик тасбиха",
     "qazaSubtitle": "Manage missed prayers",
-    "quranSubtitle": "Читать Куран"
+    "quranSubtitle": "Читать Куран",
+    "markCurrentSubtitle": "Учурдагы намазды белгилөө",
+    "ramadanSubtitle": "Оозу ачуу, ифтар жана орозо журналы"
   },
   "widgets": {
     "updatedJustNow": "Азыр эле жаңыртылган",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Прогресс",
         "description": "Бүгүнкү парз намаздын жүрүшү"
+      },
+      "streak": {
+        "label": "Серия",
+        "description": "Учурдагы парз намаз сериясы"
+      },
+      "qaza": {
+        "label": "Каза",
+        "description": "Калган каза жана бүгүнкү казанын прогресси"
+      },
+      "ramadan": {
+        "label": "Рамазан",
+        "description": "Оозу ачуу жана ифтар убакыттары тескери эсеп менен"
+      },
+      "khatm": {
+        "label": "Хатым",
+        "description": "Куран хатым планынын прогресси"
+      },
+      "dailyHadith": {
+        "label": "Күнүмдүк хадис",
+        "description": "Имам Нававийдин Кырк хадисинен бүгүнкү хадис"
+      },
+      "hijriDate": {
+        "label": "Ислам датасы",
+        "description": "Хижрий жана григориан датасы"
+      },
+      "qibla": {
+        "label": "Кыбыла",
+        "description": "Каабага компас бурчу"
+      },
+      "tasbeeh": {
+        "label": "Тасбих",
+        "description": "Бүгүнкү ыңгайлаштырылган тасбих эсептегичинин прогресси"
+      },
+      "friday": {
+        "label": "Жума",
+        "description": "Жума тизмесинин прогресси же Жумага чейинки күндөр"
       }
     },
     "remaining": "Калган",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Намаз сериясы",
+    "streakDays": "{{count}} күн",
+    "streakDays_one": "{{count}} күн",
+    "streakDays_other": "{{count}} күн",
+    "streakHint": "Ар бир парз намазды белгилөөнү улантыңыз",
+    "qaza": "Каза",
+    "qazaRemainingCount": "{{count}} калды",
+    "qazaNoTarget": "Күнүмдүк максат жок",
+    "ramadan": "Рамазан",
+    "suhoorIftar": "Оозу ачуу жана ифтар",
+    "khatm": "Хатым планы",
+    "khatmStartHint": "Колдонмодо хатым планын баштаңыз",
+    "khatmPaceAhead": "Алдыда",
+    "khatmPaceBehind": "Артта",
+    "khatmPaceDone": "Аяктады",
+    "khatmPaceOnTrack": "План боюнча",
+    "dailyHadith": "Күнүмдүк хадис",
+    "hijriDate": "Ислам датасы",
+    "qibla": "Кыбыла",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Кааба багыты",
+    "markSalah": "Намазды белгилөө",
+    "statusActive": "Кийинки",
+    "tasbeeh": "Тасбих",
+    "tasbeehHint": "Эсептөөнү баштоо үчүн колдонмону ачыңыз",
+    "tasbeehRemaining": "{{count}} калды",
+    "tasbeehUnlimited": "Чексиз эсеп",
+    "friday": "Жума",
+    "fridayProgress": "{{completed}}/{{total}} аткарылды",
+    "fridayAllDone": "Баары бүттү — кабыл болсун, иншаАллах",
+    "fridayCountdown": "{{count}} күндөн кийин Жума",
+    "fridayCountdown_one": "{{count}} күндөн кийин Жума",
+    "fridayCountdown_other": "{{count}} күндөн кийин Жума"
   },
   "ramadan": {
     "eyebrow": "Орозо айт",
@@ -733,7 +804,11 @@
     "heroUser": "Sign ичинде га keep сиздин salah, qaza, жана zikr коопсуз ичинде  cloud.",
     "error": "Кирүү мүмкүн болбоду. API сервери иштеп жатканын жана бул провайдер жөндөлгөнүн текшериңиз.",
     "providersUnavailableTitle": "Кирүү азырынча жеткиликсиз",
-    "providersUnavailableBody": "Бул жыйнакта булут синхрон провайдерлери жөндөлгөн эмес. Конок катары улантыңыз — прогресс ушул түзмөктө калат."
+    "providersUnavailableBody": "Бул жыйнакта булут синхрон провайдерлери жөндөлгөн эмес. Конок катары улантыңыз — прогресс ушул түзмөктө калат.",
+    "titleSignedIn": "Сиз кирдиңиз",
+    "subtitleSignedIn": "Бул түзмөктө булут синхрону даяр",
+    "heroSignedIn": "Кайра кош келиңиз — аккаунтуңуз байланышкан. Намаз, каза жана зикр түзмөктөр арасында синхрондолушу мүмкүн.",
+    "continueSignedIn": "Улантуу"
   },
   "onboarding": {
     "begin": "баштоо",
@@ -870,6 +945,11 @@
     "liveActivity": "Түз эфир иш-аракети",
     "liveActivityHint": "Кулпуланган экранда жана Динамикалык аралда кийинки тиленүүнүн жандуу артка санын көрсөтүңүз.",
     "liveActivityUnavailable": "Иштеп чыгуучу же өндүрүштүк түзүлүш менен iPhone (iOS 16.1+) менен жеткиликтүү.",
+    "liveActivityDiscoveryTitle": "Түз эфирдеги эсептегичти сынап көрүңүз",
+    "liveActivityDiscoveryBodyIos": "Кийинки намаздын артка эсебин Кулпуланган экранда жана Динамикалык аралда көрүңүз.",
+    "liveActivityDiscoveryBodyAndroid": "Кийинки намаздын артка эсебин Белгилөө аракети бар туруктуу билдирмеде көрүңүз.",
+    "liveActivityDiscoveryEnable": "Күйгүзүү",
+    "liveActivityDiscoveryDismissA11y": "Түз эфир эсептегичи жөнүндө кеңешти жабуу",
     "upcomingTitle": "Алдыдагы эстеткичтер",
     "upcomingHint": "Жайгашкан жериңиздин убакыт алкагындагы кийинки пландаштырылган эскертүүлөрүңүз. Аларды иштетүү, өчүрүү же түзөтүү үчүн төмөнкү которуштурууларды колдонуңуз.",
     "footer": "Бул эстеткичтерди жеткирүү түзмөгүңүздө эскертмелер иштетилгенден кийин пландаштырылат.",
@@ -900,7 +980,8 @@
       "prayer": "Намаз эскертүүлөрү",
       "prayerAdhan": "Намаз убагында азан",
       "zikr": "Зикир эскертүүлөрү",
-      "qaza": "Qaza эскертүүлөрү"
+      "qaza": "Qaza эскертүүлөрү",
+      "prayerOngoing": "Кийинки намаз тескери эсеби"
     },
     "snooze": "{{minutes}} мүн. кийинкиге калуу",
     "defaultTitle": "Эскертүү",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Күнүмдүк мазмун",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "Кийинки намаздын жандуу тескери эсеби жана Белгилөө аракети бар туруктуу билдирмени көрсөтүңүз.",
+    "markPrayed": "Окулган деп белгилөө"
   },
   "fonts": {
     "eyebrow": "Жөндөөлөр",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Сүрө {{number}}",
+    "selectSurah": "Сүрө тандаңыз",
+    "openReader": "Окуучуну ачуу"
   },
   "hadith": {
     "eyebrow": "пайгамбарлык салт",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Мезгил",
     "categorySystem": "Система",
-    "categoryAnnouncement": "Жарыя"
+    "categoryAnnouncement": "Жарыя",
+    "markingAllRead": "Баары окулган деп белгиленүүдө…"
   },
   "qibla": {
     "eyebrow": "Багыт",
@@ -4084,7 +4171,7 @@
       "label": "Тиркемелер (милдеттүү эмес)",
       "add": "Файл кошуу",
       "remove": "Тиркемени алып салуу",
-      "hint": "5 файлга чейин (JPEG, PNG, WebP же PDF), ар бири 1 МБ. Өчүрүү үчүн эскизди көпкө басыңыз.",
+      "hint": "5 файлга чейин (JPEG, PNG, WebP же PDF), ар бири 1 МБ. Өчүрүү үчүн сүрөтчөдөгү × басыңыз.",
       "signInRequired": "Жеке файлдарды азкарларга тиркөө үчүн кириңиз.",
       "permissionDenied": "Файлдарды тиркөө үчүн уруксат талап кылынат.",
       "permissionTitle": "Кирүүгө уруксат берүү",
@@ -4654,6 +4741,8 @@
     "watchHint": "Open  Munib Tracker watch app га see бүгүн’s schedule жана mark Salah. Маалыматтар syncs баштап сиздин iPhone.",
     "wearTitle": "Wear OS",
     "wearHint": "Телефонду жупташтыргандан кийин саатка Munib Tracker плиткасын кошуңуз. Учурдагы намазды телефондо белгилөө үчүн плитканы басыңыз.",
+    "forceQuitTitle": "Колдонмо жабылган болсо",
+    "forceQuitBody": "Виджетти басуу, Siri, Assistant жана саат/Wear белгилери аракет кылган учурда кезекке коюлат. Munib Tracker толугу менен жабылса, кезектеги белги — текшерүү тизмеси, серия жана виджеттериңиз менен бирге — колдонмону кайра ачканда колдонулат.",
     "marked": "Salah белгиленди",
     "alreadyDone": "Белгиленген",
     "allDone": "Баары obligatory Salah белгиленди үчүн бүгүн",
@@ -4664,8 +4753,19 @@
       "openTracker": "Текшерүү тизмесин ачуу",
       "openQibla": "Кыбыланы ач",
       "openTasbeeh": "Теспени ачуу",
-      "markCurrent": "менин тиленүү белгиси"
-    }
+      "markCurrent": "менин тиленүү белгиси",
+      "openRamadan": "Рамазанды ачуу",
+      "openKhatm": "Хатым планын ачуу",
+      "openQaza": "Казаны ачуу",
+      "openQuran": "Куранды ачуу",
+      "markFajr": "Багымдатты белгилөө",
+      "markDhuhr": "Бешимди белгилөө",
+      "markAsr": "Асрди белгилөө",
+      "markMaghrib": "Шамды белгилөө",
+      "markIsha": "Куптанды белгилөө"
+    },
+    "moreShortcutsTitle": "Дагы үн кыска жолдору",
+    "moreShortcutsHint": "Намазды белгилөө же түз экранга өтүү үчүн ушулардын бирин айтыңыз."
   },
   "pinLock": {
     "title": "Колдонмону кулптоо",
@@ -4860,7 +4960,7 @@
     "eyebrow": "Календар",
     "title": "Дата конвертору",
     "subtitle": "Хижрий жана Григориан календары арасында которуу",
-    "intro": "Кувейттин таблицадагы алгоритмин колдонуп, оффлайн режиминде эсептелген башка календарда эквиваленттүү датаны көрүү үчүн бир күндү киргизиңиз.",
+    "intro": "Бир календарга дата киргизиңиз — экинчисиндеги теңдеши офлайнда, сиздин жердеги хилалдын көрүнүшүнө жараша эсептелет.",
     "toHijri": "Григориан → Хижри",
     "toGregorian": "Хижри → Григориан",
     "gregorianDateLabel": "Григориан датасы",
@@ -4870,7 +4970,7 @@
     "year": "Жыл",
     "useToday": "Бүгүн колдонуңуз",
     "invalidDate": "Жарактуу күндү киргизиңиз",
-    "disclaimer": "Бул арифметикалык жакындоо (таблицадагы \"Кувейт алгоритми\") жана айды көрүү боюнча жергиликтүү кулактандыруулардан бир суткага айырмаланышы мүмкүн — ар дайым жергиликтүү мечитиңизге же диний даталар боюнча бийликке баш ийиңиз.",
+    "disclaimer": "Даталар сиздин жердеги хилалдын көрүнүшүнө жараша эсептелет жана расмий ай көрүү жарыяларынан бир күнгө айырмаланышы мүмкүн — диний даталар үчүн ар дайым жергиликтүү мечитиңизди же бийлигиңизди ээрчиңиз.",
     "directionTitle": "Конверсия багыты",
     "resultFrom": "{{date}} тартып",
     "quickLinksTitle": "байланыштуу",

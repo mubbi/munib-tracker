@@ -5,6 +5,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 import { AdhanStylePicker } from "@/components/adhan/adhan-style-picker";
+import { LiveActivityDiscoveryBanner } from "@/components/notifications/live-activity-discovery-banner";
 import {
   type NotificationListItem,
   NotificationListRow,
@@ -67,6 +68,7 @@ export default function NotificationsScreen() {
   const sunnahEnabled = master && prefs.notificationPrefs.sunnahPrayer;
   const [scheduled, setScheduled] = useState<Scheduled>([]);
   const isIOS = Platform.OS === "ios";
+  const isAndroid = Platform.OS === "android";
   const liveActivitySupported = useMemo(() => isIOS && isLiveActivitySupported(), [isIOS]);
 
   const reloadScheduled = useCallback(async () => {
@@ -263,7 +265,9 @@ export default function NotificationsScreen() {
           </View>
         </Card>
 
-        {isIOS ? (
+        {isIOS || isAndroid ? <LiveActivityDiscoveryBanner /> : null}
+
+        {isIOS || isAndroid ? (
           <Card padding="three">
             <ToggleRow
               icon={{
@@ -273,12 +277,14 @@ export default function NotificationsScreen() {
               }}
               title={t("notif.liveActivity")}
               subtitle={
-                liveActivitySupported
-                  ? t("notif.liveActivityHint")
-                  : t("notif.liveActivityUnavailable")
+                isAndroid
+                  ? t("notif.liveActivityHintAndroid")
+                  : liveActivitySupported
+                    ? t("notif.liveActivityHint")
+                    : t("notif.liveActivityUnavailable")
               }
               value={prefs.liveActivityEnabled === true}
-              disabled={!liveActivitySupported}
+              disabled={isIOS && !liveActivitySupported}
               onValueChange={(value) => void update({ liveActivityEnabled: value })}
             />
           </Card>

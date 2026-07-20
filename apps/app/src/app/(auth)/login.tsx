@@ -13,26 +13,36 @@ import { Brand, Radius, Spacing } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useAuth } from "@/providers/auth-provider";
+import { usePreferences } from "@/stores/preferences-store";
 
 export default function LoginScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { isGuest } = useAuth();
+  const { isAuthenticated, isGuest, user, session } = useAuth();
+  const prefs = usePreferences();
 
-  const onSignedIn = () => {
-    goBackOrReplace(router, "/");
+  const onContinue = () => {
+    goBackOrReplace(router, isAuthenticated ? "/profile" : "/");
   };
+
+  const signedInName =
+    prefs.displayName?.trim() ||
+    user?.displayName?.trim() ||
+    user?.email?.trim() ||
+    t("common.signedIn");
+  const signedInEmail = user?.email?.trim();
+  const provider = user?.provider ?? session?.provider;
 
   return (
     <ScreenLayout
       eyebrow={isGuest ? t("login.eyebrowGuest") : t("login.eyebrowWelcome")}
-      title={t("login.title")}
-      subtitle={t("login.subtitle")}
-      onBack={() => goBackOrReplace(router, "/")}
+      title={isAuthenticated ? t("login.titleSignedIn") : t("login.title")}
+      subtitle={isAuthenticated ? t("login.subtitleSignedIn") : t("login.subtitle")}
+      onBack={onContinue}
     >
       <Seo
         path="/login"
-        title={t("login.title")}
+        title={isAuthenticated ? t("login.titleSignedIn") : t("login.title")}
         description={t("seo.login.description")}
         index={false}
       />
@@ -56,18 +66,53 @@ export default function LoginScreen() {
             {t("common.appName")}
           </ThemedText>
           <ThemedText type="small" style={[styles.heroText, { color: Brand.heroSubtext }]}>
-            {isGuest ? t("login.heroGuest") : t("login.heroUser")}
+            {isAuthenticated
+              ? t("login.heroSignedIn")
+              : isGuest
+                ? t("login.heroGuest")
+                : t("login.heroUser")}
           </ThemedText>
+          {isAuthenticated ? (
+            <View style={styles.signedInMeta}>
+              <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
+                {signedInName}
+              </ThemedText>
+              {signedInEmail && signedInEmail !== signedInName ? (
+                <ThemedText type="caption" style={{ color: Brand.heroSubtext }}>
+                  {signedInEmail}
+                </ThemedText>
+              ) : null}
+              {provider ? (
+                <ThemedText type="caption" style={{ color: Brand.heroSubtext }}>
+                  {t("profile.signedInWith", {
+                    provider: t(
+                      provider === "google"
+                        ? "profile.providerGoogle"
+                        : provider === "apple"
+                          ? "profile.providerApple"
+                          : "profile.providerFacebook",
+                    ),
+                  })}
+                </ThemedText>
+              ) : null}
+            </View>
+          ) : null}
         </View>
 
-        <SocialLoginButtons onSuccess={onSignedIn} />
+        {isAuthenticated ? (
+          <Button label={t("login.continueSignedIn")} fullWidth onPress={onContinue} />
+        ) : (
+          <>
+            <SocialLoginButtons onSuccess={onContinue} />
 
-        <Button
-          label={t("common.continueAsGuest")}
-          variant="ghost"
-          fullWidth
-          onPress={() => goBackOrReplace(router, "/")}
-        />
+            <Button
+              label={t("common.continueAsGuest")}
+              variant="ghost"
+              fullWidth
+              onPress={() => goBackOrReplace(router, "/")}
+            />
+          </>
+        )}
       </Stagger>
     </ScreenLayout>
   );
@@ -94,5 +139,10 @@ const styles = StyleSheet.create({
   heroText: {
     textAlign: "center",
     maxWidth: 300,
+  },
+  signedInMeta: {
+    alignItems: "center",
+    gap: Spacing.one,
+    marginTop: Spacing.one,
   },
 });

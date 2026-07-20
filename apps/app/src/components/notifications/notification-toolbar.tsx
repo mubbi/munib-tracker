@@ -1,6 +1,6 @@
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -11,6 +11,7 @@ const CHIP_HIT_SLOP = { top: 6, bottom: 6, left: 4, right: 4 } as const;
 
 type NotificationToolbarProps = {
   unreadCount: number;
+  markingAllRead?: boolean;
   onMarkAllRead?: () => void;
   onClearAll?: () => void;
   onOpenSettings: () => void;
@@ -18,37 +19,52 @@ type NotificationToolbarProps = {
 
 export function NotificationToolbar({
   unreadCount,
+  markingAllRead = false,
   onMarkAllRead,
   onClearAll,
   onOpenSettings,
 }: NotificationToolbarProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const showMarkAllRead = markingAllRead || (unreadCount > 0 && onMarkAllRead);
 
   return (
     <View style={styles.row}>
-      {unreadCount > 0 && onMarkAllRead ? (
+      {showMarkAllRead ? (
         <PressableScale
           haptic="light"
           accessibilityRole="button"
-          accessibilityLabel={t("notifCenter.markAllRead")}
-          onPress={onMarkAllRead}
+          accessibilityLabel={
+            markingAllRead ? t("notifCenter.markingAllRead") : t("notifCenter.markAllRead")
+          }
+          accessibilityState={{ busy: markingAllRead, disabled: markingAllRead }}
+          disabled={markingAllRead}
+          onPress={markingAllRead ? undefined : onMarkAllRead}
           hitSlop={CHIP_HIT_SLOP}
-          style={[styles.chip, { backgroundColor: tokens.accentSoft }]}
+          style={[
+            styles.chip,
+            { backgroundColor: tokens.accentSoft, opacity: markingAllRead ? 0.85 : 1 },
+          ]}
         >
-          <SymbolView
-            name={{ ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }}
-            size={14}
-            tintColor={colors.accent}
-          />
+          {markingAllRead ? (
+            <ActivityIndicator size="small" color={colors.accent} />
+          ) : (
+            <SymbolView
+              name={{ ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }}
+              size={14}
+              tintColor={colors.accent}
+            />
+          )}
           <ThemedText type="caption" style={{ color: colors.accent }}>
-            {t("notifCenter.markAllRead")}
+            {markingAllRead ? t("notifCenter.markingAllRead") : t("notifCenter.markAllRead")}
           </ThemedText>
-          <View style={[styles.badge, { backgroundColor: colors.accent }]}>
-            <ThemedText type="caption" style={{ color: colors.accentForeground, fontSize: 11 }}>
-              {unreadCount > 99 ? "99+" : unreadCount}
-            </ThemedText>
-          </View>
+          {!markingAllRead ? (
+            <View style={[styles.badge, { backgroundColor: colors.accent }]}>
+              <ThemedText type="caption" style={{ color: colors.accentForeground, fontSize: 11 }}>
+                {unreadCount > 99 ? "99+" : unreadCount}
+              </ThemedText>
+            </View>
+          ) : null}
         </PressableScale>
       ) : (
         <View />

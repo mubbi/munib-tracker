@@ -4,6 +4,8 @@ const path = require("node:path");
 
 const RECEIVER_CLASS = "expo.modules.munibexternalcommands.ExternalCommandReceiver";
 const SERVICE_CLASS = "expo.modules.munibexternalcommands.ExternalCommandHeadlessService";
+const ONGOING_BOUNDARY_RECEIVER_CLASS =
+  "expo.modules.munibexternalcommands.OngoingSalahBoundaryReceiver";
 const ACTION_MARK_CURRENT = "app.munibtracker.action.MARK_CURRENT";
 const ACTION_MARK_PRAYER = "app.munibtracker.action.MARK_PRAYER";
 
@@ -18,6 +20,13 @@ const ACTION_MARK_PRAYER = "app.munibtracker.action.MARK_PRAYER";
  * 2. Setup → Advanced settings → App Actions → accept Terms of Service
  */
 function withExternalCommandsAndroid(config) {
+  // Non-runtime permission for the Android 16 "Live Update" promoted ongoing
+  // notification (setRequestPromotedOngoing) — ignored on older OS versions,
+  // required (but never prompted) on the ones that support it.
+  config = AndroidConfig.Permissions.withPermissions(config, [
+    "android.permission.POST_PROMOTED_NOTIFICATIONS",
+  ]);
+
   config = withAndroidManifest(config, (config) => {
     const manifest = config.modResults;
     const app = AndroidConfig.Manifest.getMainApplicationOrThrow(manifest);
@@ -86,6 +95,21 @@ function withExternalCommandsAndroid(config) {
       });
     }
 
+    // Phase 4: one-shot alarm receiver that flips the ongoing "next Salah"
+    // notification at the prayer boundary — never exported, no intent-filter,
+    // only ever targeted directly via PendingIntent.
+    const hasBoundaryReceiver = app.receiver.some(
+      (r) => r.$?.["android:name"] === ONGOING_BOUNDARY_RECEIVER_CLASS,
+    );
+    if (!hasBoundaryReceiver) {
+      app.receiver.push({
+        $: {
+          "android:name": ONGOING_BOUNDARY_RECEIVER_CLASS,
+          "android:exported": "false",
+        },
+      });
+    }
+
     return config;
   });
 
@@ -122,6 +146,26 @@ function withExternalCommandsAndroid(config) {
     <item>Tasbeeh</item>
     <item>counter</item>
   </string-array>
+  <string-array name="ramadan_synonyms" translatable="false">
+    <item>Ramadan</item>
+    <item>fasting</item>
+    <item>suhoor and iftar</item>
+  </string-array>
+  <string-array name="khatm_synonyms" translatable="false">
+    <item>Khatm plan</item>
+    <item>Quran khatm</item>
+    <item>Quran completion plan</item>
+  </string-array>
+  <string-array name="qaza_synonyms" translatable="false">
+    <item>Qaza</item>
+    <item>missed prayers</item>
+    <item>make-up prayers</item>
+  </string-array>
+  <string-array name="quran_synonyms" translatable="false">
+    <item>Quran</item>
+    <item>Qur'an</item>
+    <item>read Quran</item>
+  </string-array>
 </resources>
 `,
       );
@@ -157,6 +201,22 @@ function withExternalCommandsAndroid(config) {
       name="mark-current"
       url="munib-tracker://mark-current"
       alternateName="@array/mark_current_synonyms"/>
+    <entity
+      name="ramadan"
+      url="munib-tracker://ramadan"
+      alternateName="@array/ramadan_synonyms"/>
+    <entity
+      name="khatm"
+      url="munib-tracker://quran/khatm"
+      alternateName="@array/khatm_synonyms"/>
+    <entity
+      name="qaza"
+      url="munib-tracker://qaza"
+      alternateName="@array/qaza_synonyms"/>
+    <entity
+      name="quran"
+      url="munib-tracker://quran"
+      alternateName="@array/quran_synonyms"/>
   </entity-set>
 </actions>
 `,

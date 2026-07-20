@@ -7,12 +7,12 @@ import {
   type View,
 } from "react-native";
 
-/** Min visible height of the main counter before we treat it as “on screen”. */
-const VISIBLE_COUNTER_PX = 140;
+/** Fraction of the main counter that must be on screen before we hide the dock. */
+const USABLE_VISIBLE_RATIO = 0.5;
 
 /**
  * Measures whether the in-page tasbeeh counter is usable without scrolling.
- * When it is mostly below the fold (long Arabic reading above it), expose a
+ * When less than half of it is visible (long Arabic reading above it), expose a
  * floating bottom dock so the user can keep counting while reading.
  */
 export function useTasbeehCounterDock() {
@@ -31,7 +31,7 @@ export function useTasbeehCounterDock() {
         const visibleTop = Math.max(y, 0);
         const visibleBottom = Math.min(y + h, windowHeight);
         const visibleSpan = Math.max(0, visibleBottom - visibleTop);
-        const usable = visibleSpan >= Math.min(h, VISIBLE_COUNTER_PX);
+        const usable = visibleSpan >= h * USABLE_VISIBLE_RATIO;
         setDockVisible(!usable);
         setHasMeasured(true);
       });

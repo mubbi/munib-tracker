@@ -1,4 +1,5 @@
 import { Image } from "expo-image";
+import { usePathname } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
@@ -66,6 +67,7 @@ const PROVIDER_ORDER: OAuthProvider[] = ["google", "apple", "facebook"];
 
 export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
   const { t } = useTranslation();
+  const pathname = usePathname();
   const { tokens, scheme } = useThemeTokens();
   const { signIn, busy, googleConfigured, appleConfigured, facebookConfigured } = useSocialAuth();
   const [error, setError] = useState<string | null>(null);
@@ -89,7 +91,9 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
   const connect = async (provider: OAuthProvider) => {
     setError(null);
     try {
-      await signIn(provider);
+      // Persist current route so Android Custom Tab / App Link resume can return
+      // here instead of always dumping onto the guest login modal.
+      await signIn(provider, { returnTo: pathname || undefined });
       onSuccess?.();
     } catch (e) {
       // A user-dismissed sheet isn't an error worth surfacing.

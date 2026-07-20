@@ -12,6 +12,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type NativeScrollEvent, type NativeSyntheticEvent, StyleSheet, View } from "react-native";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
+import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -40,6 +41,8 @@ import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeli
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
+import { useHomeHero } from "@/hooks/use-home-hero";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { milestoneTitle } from "@/lib/achievements-i18n";
@@ -113,6 +116,8 @@ export default function TrackerScreen() {
   const zikrCounts = useZikrCounts();
   const jamaMap = usePrayerJamaMap();
   const prayerTimes = useDailyPrayerTimes();
+  const homeHero = useHomeHero();
+  const { isListDetail } = useLargeScreenLayout();
   const { setPrayerStatus, setPrayerNotes, setPrayerJama } = useTrackerActions();
   useEnsureKhatmLoaded();
   const { plan: khatmPlan, ayahsRead: khatmRead } = useKhatm();
@@ -397,93 +402,115 @@ export default function TrackerScreen() {
       onScroll={onTrackerScroll}
     >
       <Seo path="/tracker" />
-      <Stagger>
-        <View>
-          <Card>
-            <View style={styles.summaryRow}>
-              {/* Yoga flips row order under RTL — keep a single LTR child order. */}
-              {summaryRing}
-              {summaryCopy}
+      <View style={isListDetail ? styles.listDetailRoot : undefined}>
+        <View style={isListDetail ? styles.listDetailPrimary : undefined}>
+          <Stagger>
+            <View>
+              <Card>
+                <View style={styles.summaryRow}>
+                  {/* Yoga flips row order under RTL — keep a single LTR child order. */}
+                  {summaryRing}
+                  {summaryCopy}
+                </View>
+
+                {glanceItems.length > 0 ? (
+                  <View style={styles.glanceSection}>
+                    <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+                    <ThemedText
+                      type="caption"
+                      themeColor="mutedForeground"
+                      style={styles.glanceHeader}
+                    >
+                      {t("tracker.glanceTitle")}
+                    </ThemedText>
+                    <TrackerProgressRings items={glanceItems} />
+                  </View>
+                ) : null}
+              </Card>
+
+              {/* Confetti overlays the summary card on a completion / unlock edge. */}
+              <PartyPopper burstKey={celebrationKey} colors={CONFETTI_COLORS} />
             </View>
 
-            {glanceItems.length > 0 ? (
-              <View style={styles.glanceSection}>
-                <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.glanceHeader}>
-                  {t("tracker.glanceTitle")}
-                </ThemedText>
-                <TrackerProgressRings items={glanceItems} />
-              </View>
-            ) : null}
-          </Card>
+            <PressableScale
+              onPress={() => router.push("/achievements")}
+              haptic="light"
+              scaleTo={0.98}
+              accessibilityRole="button"
+              accessibilityLabel={t("home.devotionA11y", {
+                level: devotion.level,
+                noor: devotion.noor,
+                current: devotionLevelProgress,
+                next: devotionLevelSpan,
+              })}
+            >
+              <Card padding="three" style={styles.achievementCard}>
+                <DevotionAchievementSummary milestonePillBackground={colors.muted} />
+              </Card>
+            </PressableScale>
 
-          {/* Confetti overlays the summary card on a completion / unlock edge. */}
-          <PartyPopper burstKey={celebrationKey} colors={CONFETTI_COLORS} />
+            <TrackerDayChecklist
+              date={getLocalDateString()}
+              isToday
+              status={status}
+              notes={notes}
+              jama={jamaMap}
+              zikrCounts={zikrCounts}
+              prayerTimes={prayerTimes}
+              onPrayerPress={setActivePrayer}
+              scrollRef={scrollRef}
+              getScrollY={() => scrollYRef.current}
+              registerFocus={register}
+              fridayFocused={isFocused(FRIDAY_CHECKLIST_FOCUS)}
+            />
+
+            <Card padding="three">
+              <SectionHeader
+                title={t("jannah.journeyTitle")}
+                icon={{
+                  ios: "chart.line.uptrend.xyaxis",
+                  android: "trending_up",
+                  web: "trending_up",
+                }}
+              />
+              <ThemedText
+                type="caption"
+                themeColor="mutedForeground"
+                style={styles.salahAdhkarHint}
+              >
+                {t("jannah.journeySummary")}
+              </ThemedText>
+              <View style={styles.rows}>
+                <NavRow
+                  icon={{ ios: "leaf.fill", android: "park", web: "park" }}
+                  label={t("jannah.journeySubtitle")}
+                  onPress={() => router.push("/jannah/journey")}
+                />
+              </View>
+            </Card>
+
+            <Card padding="three">
+              <SectionHeader
+                title={t("tracker.keepGoing")}
+                icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+              />
+              <View style={styles.shortcuts}>
+                <QuickActionGrid items={shortcuts} columns={4} />
+              </View>
+            </Card>
+          </Stagger>
         </View>
 
-        <PressableScale
-          onPress={() => router.push("/achievements")}
-          haptic="light"
-          scaleTo={0.98}
-          accessibilityRole="button"
-          accessibilityLabel={t("home.devotionA11y", {
-            level: devotion.level,
-            noor: devotion.noor,
-            current: devotionLevelProgress,
-            next: devotionLevelSpan,
-          })}
-        >
-          <Card padding="three" style={styles.achievementCard}>
-            <DevotionAchievementSummary milestonePillBackground={colors.muted} />
-          </Card>
-        </PressableScale>
-
-        <TrackerDayChecklist
-          date={getLocalDateString()}
-          isToday
-          status={status}
-          notes={notes}
-          jama={jamaMap}
-          zikrCounts={zikrCounts}
-          prayerTimes={prayerTimes}
-          onPrayerPress={setActivePrayer}
-          scrollRef={scrollRef}
-          getScrollY={() => scrollYRef.current}
-          registerFocus={register}
-          fridayFocused={isFocused(FRIDAY_CHECKLIST_FOCUS)}
-        />
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("jannah.journeyTitle")}
-            icon={{
-              ios: "chart.line.uptrend.xyaxis",
-              android: "trending_up",
-              web: "trending_up",
-            }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.salahAdhkarHint}>
-            {t("jannah.journeySummary")}
-          </ThemedText>
-          <View style={styles.rows}>
-            <NavRow
-              icon={{ ios: "leaf.fill", android: "park", web: "park" }}
-              label={t("jannah.journeySubtitle")}
-              onPress={() => router.push("/jannah/journey")}
+        {isListDetail ? (
+          <View style={styles.listDetailSecondary}>
+            <PrayerScheduleCard
+              schedule={homeHero.schedule}
+              nextIn={homeHero.nextIn}
+              nextScheduleId={homeHero.nextScheduleId}
             />
           </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("tracker.keepGoing")}
-            icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-          />
-          <View style={styles.shortcuts}>
-            <QuickActionGrid items={shortcuts} columns={4} />
-          </View>
-        </Card>
-      </Stagger>
+        ) : null}
+      </View>
 
       {sheetPrayer ? (
         <PrayerStatusSheet
@@ -541,5 +568,18 @@ const styles = StyleSheet.create({
   },
   achievementCard: {
     gap: Spacing.three,
+  },
+  listDetailRoot: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  listDetailPrimary: {
+    flex: 1,
+    minWidth: 0,
+  },
+  listDetailSecondary: {
+    width: 340,
+    maxWidth: "38%",
   },
 });

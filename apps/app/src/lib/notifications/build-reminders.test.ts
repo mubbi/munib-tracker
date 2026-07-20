@@ -143,6 +143,8 @@ describe("buildReminders", () => {
 
     const deltaMs = Math.abs((fajr as { fireAt: Date }).fireAt.getTime() - expected.getTime());
     expect(deltaMs).toBeLessThanOrEqual(60_000);
+    expect(fajr?.prayerId).toBe("fajr");
+    expect(fajr?.prayerDateKey).toBe(dayKey);
   });
 
   it("summarizeReminders collapses multi-day prayer slots to one row per template", () => {

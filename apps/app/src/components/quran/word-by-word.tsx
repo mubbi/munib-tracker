@@ -119,7 +119,6 @@ export function WordByWord({
               {word.translit ? (
                 <ThemedText
                   type="small"
-                  numberOfLines={2}
                   style={[styles.meta, { color: colors.accent, fontSize: translitSize - 2 }]}
                 >
                   {word.translit}
@@ -128,7 +127,6 @@ export function WordByWord({
               {word.gloss ? (
                 <ThemedText
                   type="caption"
-                  numberOfLines={3}
                   style={[styles.meta, { color: colors.mutedForeground, fontSize: glossSize - 2 }]}
                 >
                   {word.gloss}
@@ -151,17 +149,26 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 0.6,
   },
+  /**
+   * Content-height tiles: `alignItems`/`alignContent: flex-start` stops Yoga from
+   * stretching wrapped `%`-width PressableScale hosts to the nearest flex:1
+   * ancestor (which made cards fill the viewport and clip the next row).
+   */
   grid: {
     flexDirection: "row-reverse",
     flexWrap: "wrap",
+    alignItems: "flex-start",
+    alignContent: "flex-start",
     gap: Spacing.two,
     justifyContent: "flex-start",
   },
   wordCard: {
-    width: "22%",
-    minWidth: 72,
-    maxWidth: 120,
-    flexGrow: 1,
+    // ~3 columns with gap; no flexGrow so leftover width doesn't inflate tiles.
+    width: "30%",
+    maxWidth: 128,
+    flexGrow: 0,
+    flexShrink: 0,
+    alignSelf: "flex-start",
     alignItems: "center",
     gap: Spacing.half,
     paddingVertical: Spacing.two,
@@ -172,8 +179,10 @@ const styles = StyleSheet.create({
   },
   arabic: {
     textAlign: "center",
+    alignSelf: "stretch",
   },
   meta: {
     textAlign: "center",
+    alignSelf: "stretch",
   },
 });

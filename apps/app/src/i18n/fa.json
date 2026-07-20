@@ -177,7 +177,9 @@
     "qiblaSubtitle": "یافتن جهت قبله",
     "tasbeehSubtitle": "باز کردن شمارنده تسبیح",
     "qazaSubtitle": "مدیریت نمازهای قضا",
-    "quranSubtitle": "خواندن قرآن"
+    "quranSubtitle": "خواندن قرآن",
+    "markCurrentSubtitle": "ثبت نماز فعلی",
+    "ramadanSubtitle": "سحری، افطار و ثبت روزه"
   },
   "widgets": {
     "updatedJustNow": "همین الان آپدیت شد",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "ردیاب منیب · پیشرفت",
         "description": "پیشرفت نماز واجب امروز"
+      },
+      "streak": {
+        "label": "زنجیره",
+        "description": "زنجیره فعلی نمازهای واجب"
+      },
+      "qaza": {
+        "label": "قضا",
+        "description": "قضای باقی و پیشرفت قضای امروز"
+      },
+      "ramadan": {
+        "label": "رمضان",
+        "description": "زمان سحری و افطار با شمارش معکوس"
+      },
+      "khatm": {
+        "label": "ختم",
+        "description": "پیشرفت برنامه ختم قرآن"
+      },
+      "dailyHadith": {
+        "label": "حدیث روز",
+        "description": "حدیث امروز از چهل حدیث امام نووی"
+      },
+      "hijriDate": {
+        "label": "تاریخ اسلامی",
+        "description": "تاریخ هجری و میلادی"
+      },
+      "qibla": {
+        "label": "قبله",
+        "description": "زاویه قطب‌نما به سوی کعبه"
+      },
+      "tasbeeh": {
+        "label": "تسبیح",
+        "description": "پیشرفت شمارنده تسبیح سفارشی امروز"
+      },
+      "friday": {
+        "label": "جمعه",
+        "description": "پیشرفت چک‌لیست جمعه یا روزهای مانده تا جمعه"
       }
     },
     "remaining": "باقی مانده است",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "زنجیره نماز",
+    "streakDays": "{{count}} روز",
+    "streakDays_one": "{{count}} روز",
+    "streakDays_other": "{{count}} روز",
+    "streakHint": "ثبت هر نماز واجب را ادامه دهید",
+    "qaza": "قضا",
+    "qazaRemainingCount": "{{count}} باقی‌مانده",
+    "qazaNoTarget": "هدف روزانه تنظیم نشده",
+    "ramadan": "رمضان",
+    "suhoorIftar": "سحری و افطار",
+    "khatm": "برنامه ختم",
+    "khatmStartHint": "در برنامه یک برنامه ختم شروع کنید",
+    "khatmPaceAhead": "جلوتر",
+    "khatmPaceBehind": "عقب‌تر",
+    "khatmPaceDone": "کامل",
+    "khatmPaceOnTrack": "در مسیر",
+    "dailyHadith": "حدیث روز",
+    "hijriDate": "تاریخ اسلامی",
+    "qibla": "قبله",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "جهت کعبه",
+    "markSalah": "ثبت نماز",
+    "statusActive": "بعدی",
+    "tasbeeh": "تسبیح",
+    "tasbeehHint": "برای شروع شمارش برنامه را باز کنید",
+    "tasbeehRemaining": "{{count}} باقی",
+    "tasbeehUnlimited": "شمارش نامحدود",
+    "friday": "جمعه",
+    "fridayProgress": "{{completed}}/{{total}} انجام شد",
+    "fridayAllDone": "همه انجام شد — مقبول إن‌شاءالله",
+    "fridayCountdown": "جمعه تا {{count}} روز دیگر",
+    "fridayCountdown_one": "جمعه تا {{count}} روز دیگر",
+    "fridayCountdown_other": "جمعه تا {{count}} روز دیگر"
   },
   "ramadan": {
     "eyebrow": "رمضان",
@@ -733,7 +804,11 @@
     "heroUser": "وارد شوید تا نمازها، قضاها و اذکار شما با امنیت در فضای ابری نگهداری شوند.",
     "error": "ورود ممکن نشد. مطمئن شوید سرور API در حال اجراست و این ارائه‌دهنده پیکربندی شده است.",
     "providersUnavailableTitle": "ورود هنوز در دسترس نیست",
-    "providersUnavailableBody": "ارائه‌دهندگان همگام‌سازی ابری در این ساخت پیکربندی نشده‌اند. به‌عنوان مهمان ادامه دهید — پیشرفت روی همین دستگاه می‌ماند."
+    "providersUnavailableBody": "ارائه‌دهندگان همگام‌سازی ابری در این ساخت پیکربندی نشده‌اند. به‌عنوان مهمان ادامه دهید — پیشرفت روی همین دستگاه می‌ماند.",
+    "titleSignedIn": "وارد شده‌اید",
+    "subtitleSignedIn": "همگام‌سازی ابری روی این دستگاه آماده است",
+    "heroSignedIn": "خوش آمدید — حساب شما متصل است. نماز، قضا و ذکر می‌توانند بین دستگاه‌ها همگام شوند.",
+    "continueSignedIn": "ادامه"
   },
   "onboarding": {
     "begin": "شروع",
@@ -870,6 +945,11 @@
     "liveActivity": "فعالیت زنده",
     "liveActivityHint": "نمایش شمارش معکوس نماز بعدی زنده در صفحه قفل و جزیره دینامیک.",
     "liveActivityUnavailable": "موجود در iPhone (iOS 16.1+) با توسعه دهنده یا ساخت تولید.",
+    "liveActivityDiscoveryTitle": "شمارش معکوس زنده را امتحان کنید",
+    "liveActivityDiscoveryBodyIos": "شمارش معکوس نماز بعدی را روی صفحه قفل و جزیره دینامیک ببینید.",
+    "liveActivityDiscoveryBodyAndroid": "شمارش معکوس نماز بعدی را در یک اعلان دائمی با اقدام ثبت ببینید.",
+    "liveActivityDiscoveryEnable": "فعال‌سازی",
+    "liveActivityDiscoveryDismissA11y": "بستن نکته شمارش معکوس زنده",
     "upcomingTitle": "یادآوری های آینده",
     "upcomingHint": "هشدارهای برنامه ریزی شده بعدی شما، در منطقه زمانی مکان شما. از کلیدهای زیر برای فعال کردن، غیرفعال کردن یا ویرایش آنها استفاده کنید.",
     "footer": "پس از فعال شدن اعلان‌ها در دستگاهتان، تحویل این یادآوری‌ها برنامه‌ریزی می‌شود.",
@@ -900,7 +980,8 @@
       "prayer": "یادآوری صلاح",
       "prayerAdhan": "اذان در وقت نماز",
       "zikr": "یادآوری ذکر",
-      "qaza": "یادآوری قضا"
+      "qaza": "یادآوری قضا",
+      "prayerOngoing": "شمارش معکوس نماز بعدی"
     },
     "snooze": "تأخیر {{minutes}} دقیقه",
     "defaultTitle": "یادآوری",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "مطالب روزانه",
     "defaultLocationTitle": "برای هشدارهای نماز مکان را تنظیم کنید",
-    "defaultLocationMessage": "یادآورهای نماز و اذان به شهر شما نیاز دارند. یادآورهای ذکر و قضا بر اساس ساعت همچنان زمان‌بندی می‌شوند."
+    "defaultLocationMessage": "یادآورهای نماز و اذان به شهر شما نیاز دارند. یادآورهای ذکر و قضا بر اساس ساعت همچنان زمان‌بندی می‌شوند.",
+    "liveActivityHintAndroid": "اعلان ثابتی با شمارش معکوس زنده نماز بعدی و اقدام ثبت نمایش دهید.",
+    "markPrayed": "ثبت به‌عنوان خوانده‌شده"
   },
   "fonts": {
     "eyebrow": "تنظیمات",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "سوره {{number}}",
+    "selectSurah": "یک سوره انتخاب کنید",
+    "openReader": "باز کردن قاری"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "قزا",
     "categoryMilestone": "نقطه عطف",
     "categorySystem": "سیستم",
-    "categoryAnnouncement": "اعلامیه"
+    "categoryAnnouncement": "اعلامیه",
+    "markingAllRead": "در حال علامت‌گذاری همه به‌عنوان خوانده‌شده…"
   },
   "qibla": {
     "eyebrow": "سمت",
@@ -4084,7 +4171,7 @@
       "label": "پیوست ها (اختیاری)",
       "add": "فایل اضافه کنید",
       "remove": "حذف پیوست",
-      "hint": "حداکثر 5 فایل (JPEG، PNG، WebP یا PDF)، هر کدام 1 مگابایت. برای حذف یک تصویر کوچک را طولانی فشار دهید.",
+      "hint": "تا ۵ فایل (JPEG، PNG، WebP یا PDF)، هر کدام ۱ مگابایت. برای حذف، روی تصویرک × بزنید.",
       "signInRequired": "برای پیوست کردن فایل های خصوصی به ادکار خود وارد شوید.",
       "permissionDenied": "برای پیوست کردن فایل ها مجوز لازم است.",
       "permissionTitle": "اجازه دسترسی",
@@ -4596,7 +4683,7 @@
     "sourceLabel": "منبع شما (اختیاری)",
     "sourcePlaceholder": "Book, alim, URL, یا citation supporting شما correction.",
     "proofLabel": "ثبوت کی اسکرین شاٹ (اختیاری)",
-    "proofHint": "تا ۳ تصویر. برای حذف، روی تصویر بندانگشتی نگه دارید.",
+    "proofHint": "تا ۳ تصویر. برای حذف، روی تصویرک × بزنید.",
     "addProof": "افزودن photo",
     "removeProof": "حذف screenshot",
     "submit": "ارسال report",
@@ -4654,6 +4741,8 @@
     "watchHint": "Open the Munib ردیاب watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "سیستم عامل بپوشید",
     "wearHint": "پس از جفت‌کردن گوشی، tile Munib Tracker را روی ساعت اضافه کنید. با ضربه روی tile، Salah فعلی را روی گوشی علامت بزنید.",
+    "forceQuitTitle": "اگر برنامه بسته شده باشد",
+    "forceQuitBody": "ضربه روی ویجت، سیری، دستیار و ثبت‌های ساعت/Wear بلافاصله در صف قرار می‌گیرند. اگر Munib Tracker به‌طور کامل بسته شده باشد، ثبت در صف — به همراه به‌روزرسانی چک‌لیست، زنجیره و ویجت‌های شما — در باز کردن بعدی برنامه اعمال می‌شود.",
     "marked": "نماز marked",
     "alreadyDone": "قبلا علامت گذاری شده است",
     "allDone": "همه نمازهای واجب امروز ثبت شدند",
@@ -4664,8 +4753,19 @@
       "openTracker": "چیک لسٹ کھولیں",
       "openQibla": "قبله Aç",
       "openTasbeeh": "تسبیح Aç",
-      "markCurrent": "my نماز İşaretle"
-    }
+      "markCurrent": "my نماز İşaretle",
+      "openRamadan": "باز کردن رمضان",
+      "openKhatm": "باز کردن برنامه ختم",
+      "openQaza": "باز کردن قضا",
+      "openQuran": "باز کردن قرآن",
+      "markFajr": "ثبت صبح",
+      "markDhuhr": "ثبت ظهر",
+      "markAsr": "ثبت عصر",
+      "markMaghrib": "ثبت مغرب",
+      "markIsha": "ثبت عشا"
+    },
+    "moreShortcutsTitle": "میانبرهای صوتی بیشتر",
+    "moreShortcutsHint": "برای ثبت نماز یا رفتن مستقیم به یک صفحه، یکی از این‌ها را بگویید."
   },
   "pinLock": {
     "title": "قفل برنامه",
@@ -4860,7 +4960,7 @@
     "eyebrow": "تقویم",
     "title": "مبدل تاریخ",
     "subtitle": "تبدیل بین تقویم هجری و میلادی",
-    "intro": "یک تاریخ را در یکی از تقویم‌ها وارد کنید تا معادل آن را در تقویم دیگر مشاهده کنید، که با استفاده از الگوریتم جدولی کویتی به صورت آفلاین محاسبه می‌شود.",
+    "intro": "تاریخی در هر یک از دو تقویم وارد کنید تا معادل آن در دیگری را ببینید؛ به‌صورت آفلاین بر اساس رؤیت هلال در موقعیت شما محاسبه می‌شود.",
     "toHijri": "میلادی ← هجری",
     "toGregorian": "هجری ← میلادی",
     "gregorianDateLabel": "تاریخ میلادی",
@@ -4870,7 +4970,7 @@
     "year": "سال",
     "useToday": "امروز استفاده کنید",
     "invalidDate": "تاریخ معتبری وارد کنید",
-    "disclaimer": "این یک تقریب حسابی است («الگوریتم کویتی» جدولی) و می‌تواند یک روز با اعلان‌های محلی رویت ماه متفاوت باشد - همیشه مسجد یا مرجع محلی خود را برای تاریخ‌های مذهبی دنبال کنید.",
+    "disclaimer": "تاریخ‌ها بر اساس رؤیت هلال (hilāl) در موقعیت شما محاسبه می‌شوند و می‌توانند یک روز با اعلام رسمی رؤیت ماه تفاوت داشته باشند — برای تاریخ‌های مذهبی همیشه از Masjid یا مرجع محلی خود پیروی کنید.",
     "directionTitle": "جهت تبدیل",
     "resultFrom": "از {{date}}",
     "quickLinksTitle": "مرتبط",

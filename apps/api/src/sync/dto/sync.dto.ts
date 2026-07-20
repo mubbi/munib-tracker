@@ -59,6 +59,12 @@ export const SYNC_ENTITIES = [
   "qaza_schedule",
   "qaza_daily_progress",
   "qaza_daily_plans",
+  // Portable settings previously device-local (location calc + place, reading
+  // text toggles, zakat draft, feature-tour dismissals).
+  "location",
+  "reading_text_visibility",
+  "zakat_calculator",
+  "tours_seen",
 ] as const;
 
 export type SyncEntity = (typeof SYNC_ENTITIES)[number];

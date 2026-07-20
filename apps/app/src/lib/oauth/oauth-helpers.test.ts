@@ -7,6 +7,7 @@ import {
   isGoogleConfigured,
   resolveGoogleClientId,
 } from "@/lib/auth/oauth-config";
+import { OAUTH_RESUME_FALLBACK_HREF, sanitizeOAuthReturnTo } from "@/lib/oauth/oauth-return-to";
 import { parseAppleOAuthReturnUrl, parseOAuthReturnUrl } from "@/lib/oauth/parse-oauth-return-url";
 
 describe("googleClientIdToReversedScheme", () => {
@@ -44,6 +45,22 @@ describe("parseAppleOAuthReturnUrl", () => {
       parseAppleOAuthReturnUrl("https://my.munibtracker.app/oauth/apple?code=c1&state=s"),
     ).toEqual({ code: "c1", state: "s" });
     expect(parseAppleOAuthReturnUrl("https://my.munibtracker.app/other?code=c1")).toBeNull();
+  });
+});
+
+describe("sanitizeOAuthReturnTo", () => {
+  it("keeps safe in-app paths", () => {
+    expect(sanitizeOAuthReturnTo("/profile")).toBe("/profile");
+    expect(sanitizeOAuthReturnTo("/login")).toBe("/login");
+    expect(sanitizeOAuthReturnTo("/(auth)/login")).toBe("/(auth)/login");
+  });
+
+  it("rejects external or malformed values", () => {
+    expect(sanitizeOAuthReturnTo("https://evil.example")).toBe(OAUTH_RESUME_FALLBACK_HREF);
+    expect(sanitizeOAuthReturnTo("//evil.example")).toBe(OAUTH_RESUME_FALLBACK_HREF);
+    expect(sanitizeOAuthReturnTo("profile")).toBe(OAUTH_RESUME_FALLBACK_HREF);
+    expect(sanitizeOAuthReturnTo(null)).toBe(OAUTH_RESUME_FALLBACK_HREF);
+    expect(sanitizeOAuthReturnTo(undefined)).toBe(OAUTH_RESUME_FALLBACK_HREF);
   });
 });
 

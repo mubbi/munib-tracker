@@ -28,8 +28,17 @@ describe("preferences-cloud-sync", () => {
       { locale: "ar", translationLocale: "ur", timeFormat: "24" },
       true,
     );
-    expect(patch.locale).toBeUndefined();
-    expect(patch.translationLocale).toBeUndefined();
+    expect("locale" in patch).toBe(false);
+    expect("translationLocale" in patch).toBe(false);
     expect(patch.timeFormat).toBe("24");
+  });
+
+  it("keeps locale fields when nothing is pending", () => {
+    const patch = filterRemotePreferencesPatch(
+      { locale: "ar", translationLocale: "ur", timeFormat: "24" },
+      false,
+    );
+    expect(patch.locale).toBe("ar");
+    expect(patch.translationLocale).toBe("ur");
   });
 });

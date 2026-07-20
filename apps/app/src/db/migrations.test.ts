@@ -59,4 +59,19 @@ describe("runMigrations", () => {
     expect(Number.isInteger(DB_VERSION)).toBe(true);
     expect(DB_VERSION).toBeGreaterThanOrEqual(1);
   });
+
+  it("clears lastPushedAt when migrating from schema v1 to v2", async () => {
+    await writeJSON(DB_KEYS.version, 1);
+    await writeJSON(DB_KEYS.syncMetadata, {
+      lastPushedAt: "2026-07-01T00:00:00.000Z",
+      lastSyncedAt: "2026-07-01T00:00:00.000Z",
+    });
+
+    await runMigrations();
+
+    expect(await storedVersion()).toBe(DB_VERSION);
+    const meta = await readJSON<Record<string, unknown>>(DB_KEYS.syncMetadata, {});
+    expect(meta.lastPushedAt).toBeUndefined();
+    expect(meta.lastSyncedAt).toBe("2026-07-01T00:00:00.000Z");
+  });
 });

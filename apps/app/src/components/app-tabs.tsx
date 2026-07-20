@@ -1,13 +1,22 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 import { useTranslation } from "react-i18next";
-import { Platform } from "react-native";
+import { Platform, useWindowDimensions } from "react-native";
 
+import { WideAppTabs } from "@/components/app-tabs-wide";
 import { withAlpha } from "@/constants/theme";
+import { SIDE_RAIL_BREAKPOINT } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 export default function AppTabs() {
+  const { width } = useWindowDimensions();
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+
+  // Wide windows (iPad / Android tablet / foldable): side rail — same adaptive
+  // breakpoint as web. Driven by window width, not device type.
+  if (width >= SIDE_RAIL_BREAKPOINT) {
+    return <WideAppTabs />;
+  }
 
   return (
     <NativeTabs

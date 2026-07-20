@@ -61,6 +61,27 @@ describe("flash-cards mcq helpers", () => {
     expect(card?.options[card.correctIndex]).toBe("Oneness of Allah");
   });
 
+  it("keeps full option text without truncating", () => {
+    const correct =
+      "On the authority of Abu Sa'id al-Khudri (may Allah be pleased with him), who said: I heard the Messenger of Allah say, Whosoever of you sees an evil, let him change it with his hand; and if he is not able to do so, then with his tongue; and if he is not able to do so, then with his heart — and that is the weakest of faith.";
+    const card = buildMcq({
+      id: "test:full-options",
+      sourceId: "hadith",
+      prompt: "Which teaching is this?",
+      correct,
+      distractorPool: [
+        `${correct} distractor one extra clause for uniqueness.`,
+        `${correct} distractor two extra clause for uniqueness.`,
+        `${correct} distractor three extra clause for uniqueness.`,
+      ],
+      explanation: "Hadith 40 Nawawi 34",
+      random: () => 0.2,
+    });
+    expect(card).not.toBeNull();
+    expect(card?.options[card.correctIndex]).toBe(correct);
+    expect(card?.options.every((option) => !option.endsWith("…"))).toBe(true);
+  });
+
   it("returns null when fewer than three distractors exist", () => {
     const card = buildMcq({
       id: "test:2",

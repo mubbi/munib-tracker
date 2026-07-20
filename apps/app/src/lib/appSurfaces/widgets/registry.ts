@@ -2,9 +2,18 @@ import type { WidgetInfo, WidgetRepresentation } from "react-native-android-widg
 
 import type { AppWidgetName } from "@/lib/appSurfaces/widgets/constants";
 import {
+  renderDailyHadithWidget,
+  renderHijriDateWidget,
+  renderJumuahWidget,
+  renderKhatmProgressWidget,
   renderNextPrayerWidget,
   renderPrayerProgressWidget,
   renderPrayerScheduleWidget,
+  renderQazaDebtWidget,
+  renderQiblaBearingWidget,
+  renderRamadanWidget,
+  renderSalahStreakWidget,
+  renderTasbeehGlanceWidget,
 } from "@/lib/appSurfaces/widgets/renderers/allWidgets";
 
 export type AppWidgetDefinition = {
@@ -20,6 +29,15 @@ export const APP_WIDGET_REGISTRY: readonly AppWidgetDefinition[] = [
   { name: "NextPrayerWidget", render: renderNextPrayerWidget },
   { name: "PrayerScheduleWidget", render: renderPrayerScheduleWidget },
   { name: "PrayerProgressWidget", render: renderPrayerProgressWidget },
+  { name: "SalahStreakWidget", render: renderSalahStreakWidget },
+  { name: "QazaDebtWidget", render: renderQazaDebtWidget },
+  { name: "RamadanWidget", render: renderRamadanWidget },
+  { name: "KhatmProgressWidget", render: renderKhatmProgressWidget },
+  { name: "DailyHadithWidget", render: renderDailyHadithWidget },
+  { name: "HijriDateWidget", render: renderHijriDateWidget },
+  { name: "QiblaBearingWidget", render: renderQiblaBearingWidget },
+  { name: "TasbeehGlanceWidget", render: renderTasbeehGlanceWidget },
+  { name: "JumuahWidget", render: renderJumuahWidget },
 ] as const;
 
 export function getAppWidgetByName(name: string): AppWidgetDefinition | undefined {

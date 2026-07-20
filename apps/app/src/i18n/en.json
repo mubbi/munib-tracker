@@ -173,21 +173,46 @@
     "verseDetector": "Verse Detector"
   },
   "quickActions": {
+    "markCurrentSubtitle": "Mark current Salah",
     "checklistSubtitle": "Log today's prayers",
     "qiblaSubtitle": "Find qibla direction",
     "tasbeehSubtitle": "Open tasbeeh counter",
     "qazaSubtitle": "Manage missed prayers",
-    "quranSubtitle": "Read Qur'an"
+    "quranSubtitle": "Read Qur'an",
+    "ramadanSubtitle": "Suhoor, iftar & fasting log"
   },
   "widgets": {
     "updatedJustNow": "Updated just now",
     "updatedMinutesAgo": "Updated {{count}}m ago",
     "updatedHoursAgo": "Updated {{count}}h ago",
-    "nextPrayer": "Next prayer",
+    "nextPrayer": "Next Salah",
     "remaining": "Remaining",
     "atTime": "at {{time}}",
     "schedule": "Today's schedule",
     "progress": "Today's progress",
+    "streak": "Salah streak",
+    "streakDays": "{{count}} days",
+    "streakDays_one": "{{count}} day",
+    "streakDays_other": "{{count}} days",
+    "streakHint": "Keep logging every obligatory Salah",
+    "qaza": "Qaza",
+    "qazaRemainingCount": "{{count}} remaining",
+    "qazaNoTarget": "No daily target set",
+    "ramadan": "Ramadan",
+    "suhoorIftar": "Suhoor & Iftar",
+    "khatm": "Khatm plan",
+    "khatmStartHint": "Start a Khatm plan in the app",
+    "khatmPaceAhead": "Ahead",
+    "khatmPaceBehind": "Behind",
+    "khatmPaceDone": "Complete",
+    "khatmPaceOnTrack": "On track",
+    "dailyHadith": "Daily hadith",
+    "hijriDate": "Islamic date",
+    "qibla": "Qibla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Direction to the Kaaba",
+    "markSalah": "Mark Salah",
+    "statusActive": "Next",
     "setLocation": "Set location",
     "setLocationHint": "Open the app to set your location",
     "openAppToSync": "Open the app to sync",
@@ -195,18 +220,64 @@
     "total": "Total",
     "gallery": {
       "nextPrayer": {
-        "label": "Munib Tracker · Next prayer",
-        "description": "Next prayer name, time, and countdown on home or lock screen"
+        "label": "Next Salah",
+        "description": "Next Salah name, time, and countdown on home or lock screen"
       },
       "schedule": {
-        "label": "Munib Tracker · Schedule",
-        "description": "Today's obligatory prayer times at a glance"
+        "label": "Schedule",
+        "description": "Today's obligatory Salah times at a glance"
       },
       "progress": {
-        "label": "Munib Tracker · Progress",
-        "description": "Today's obligatory prayer progress"
+        "label": "Progress",
+        "description": "Today's obligatory Salah progress"
+      },
+      "streak": {
+        "label": "Streak",
+        "description": "Current obligatory Salah streak"
+      },
+      "qaza": {
+        "label": "Qaza",
+        "description": "Remaining qaza and today's make-up progress"
+      },
+      "ramadan": {
+        "label": "Ramadan",
+        "description": "Suhoor and iftar times with countdown"
+      },
+      "khatm": {
+        "label": "Khatm",
+        "description": "Qur'an Khatm plan progress"
+      },
+      "dailyHadith": {
+        "label": "Daily hadith",
+        "description": "Today's hadith from Imam al-Nawawi's Forty"
+      },
+      "hijriDate": {
+        "label": "Islamic date",
+        "description": "Hijri and Gregorian date"
+      },
+      "qibla": {
+        "label": "Qibla",
+        "description": "Compass bearing toward the Kaaba"
+      },
+      "tasbeeh": {
+        "label": "Tasbeeh",
+        "description": "Today's custom tasbeeh counter progress"
+      },
+      "friday": {
+        "label": "Jumu'ah",
+        "description": "Friday checklist progress or days until Jumu'ah"
       }
-    }
+    },
+    "tasbeeh": "Tasbeeh",
+    "tasbeehHint": "Open the app to start counting",
+    "tasbeehRemaining": "{{count}} to go",
+    "tasbeehUnlimited": "Unlimited count",
+    "friday": "Jumu'ah",
+    "fridayProgress": "{{completed}}/{{total}} done",
+    "fridayAllDone": "All done — accepted, in sha Allah",
+    "fridayCountdown": "Jumu'ah in {{count}} days",
+    "fridayCountdown_one": "Jumu'ah in {{count}} day",
+    "fridayCountdown_other": "Jumu'ah in {{count}} days"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -725,12 +796,16 @@
     "eyebrowGuest": "Save your progress",
     "eyebrowWelcome": "Welcome",
     "title": "Sign in",
+    "titleSignedIn": "You're signed in",
     "subtitle": "Sync your worship across devices",
+    "subtitleSignedIn": "Cloud sync is ready on this device",
     "google": "Continue with Google",
     "apple": "Continue with Apple",
     "facebook": "Continue with Facebook",
     "heroGuest": "You're using a guest account. Link a provider to back up and sync your data — nothing is lost.",
     "heroUser": "Sign in to keep your prayers, qaza, and zikr safe in the cloud.",
+    "heroSignedIn": "Welcome back — your account is linked. Your Salah, qaza, and zikr can sync across devices.",
+    "continueSignedIn": "Continue",
     "error": "Couldn't sign in. Make sure the API server is running and this provider is configured.",
     "providersUnavailableTitle": "Sign-in is not available yet",
     "providersUnavailableBody": "Cloud sync providers are not configured in this build. Continue as guest — your progress stays on this device."
@@ -869,7 +944,13 @@
     "playAdhanHint": "Obligatory-prayer reminders play the adhan when they fire.",
     "liveActivity": "Live Activity",
     "liveActivityHint": "Show a live next-prayer countdown on the lock screen and Dynamic Island.",
+    "liveActivityHintAndroid": "Show a sticky notification with a live next-prayer countdown and a Mark action.",
     "liveActivityUnavailable": "Available on iPhone (iOS 16.1+) with a dev or production build.",
+    "liveActivityDiscoveryTitle": "Try the live countdown",
+    "liveActivityDiscoveryBodyIos": "See the next Salah countdown right on your Lock Screen and Dynamic Island.",
+    "liveActivityDiscoveryBodyAndroid": "See the next Salah countdown in an ongoing notification with a Mark action.",
+    "liveActivityDiscoveryEnable": "Turn on",
+    "liveActivityDiscoveryDismissA11y": "Dismiss the live countdown tip",
     "upcomingTitle": "Upcoming reminders",
     "upcomingHint": "Your next scheduled alerts, in your location's timezone. Use the toggles below to enable, disable, or edit them.",
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",
@@ -902,9 +983,11 @@
       "prayer": "Salah reminders",
       "prayerAdhan": "Adhan at prayer time",
       "zikr": "Zikr reminders",
-      "qaza": "Qaza reminders"
+      "qaza": "Qaza reminders",
+      "prayerOngoing": "Next Salah countdown"
     },
     "snooze": "Snooze {{minutes}} min",
+    "markPrayed": "Mark prayed",
     "defaultTitle": "Reminder",
     "reminders": {
       "prayerTitle": "{{prayer}} time",
@@ -1217,6 +1300,9 @@
     "madani": "Madani",
     "ayahCount": "{{count}} ayahs",
     "surahList": "Surahs",
+    "surahNumber": "Surah {{number}}",
+    "selectSurah": "Select a surah",
+    "openReader": "Open reader",
     "surahCount": "{{shown}} of {{total}}",
     "reciter": "Reciter",
     "translation": "Translation",
@@ -2150,6 +2236,7 @@
     "inboxEmptyTitle": "No recent notifications",
     "inboxEmptyDesc": "Delivered reminders and achievements will appear here.",
     "markAllRead": "Mark all read",
+    "markingAllRead": "Marking all read…",
     "clearAll": "Clear all",
     "cleared": "Notifications cleared",
     "confirmClearAllTitle": "Clear all notifications?",
@@ -4625,6 +4712,8 @@
     "watchHint": "Open the Munib Tracker watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Wear OS",
     "wearHint": "After pairing your phone, add the Munib Tracker tile on your watch. Tap the tile to mark the current Salah on your phone.",
+    "forceQuitTitle": "If the app was closed",
+    "forceQuitBody": "Widget taps, Siri, Assistant, and watch/Wear marks are queued the moment you act. If Munib Tracker was force-quit, the queued mark applies — and your checklist, streak, and widgets refresh — the next time you open the app.",
     "marked": "Salah marked",
     "alreadyDone": "Already marked",
     "allDone": "All obligatory Salah marked for today",
@@ -4635,8 +4724,19 @@
       "openTracker": "Open checklist",
       "openQibla": "Open Qibla",
       "openTasbeeh": "Open Tasbeeh",
-      "markCurrent": "Mark my Salah"
-    }
+      "openRamadan": "Open Ramadan",
+      "openKhatm": "Open Khatm plan",
+      "openQaza": "Open Qaza",
+      "openQuran": "Open Qur'an",
+      "markCurrent": "Mark my Salah",
+      "markFajr": "Mark Fajr",
+      "markDhuhr": "Mark Dhuhr",
+      "markAsr": "Mark Asr",
+      "markMaghrib": "Mark Maghrib",
+      "markIsha": "Mark Isha"
+    },
+    "moreShortcutsTitle": "More voice shortcuts",
+    "moreShortcutsHint": "Say any of these to mark Salah or jump straight to a screen."
   },
   "pinLock": {
     "title": "App lock",

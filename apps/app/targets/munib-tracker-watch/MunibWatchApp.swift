@@ -113,6 +113,13 @@ struct WatchContentView: View {
   var body: some View {
     NavigationStack {
       List {
+        Section {
+          NavigationLink {
+            WatchTasbeehView()
+          } label: {
+            Label("Tasbeeh", systemImage: "circle.grid.2x2")
+          }
+        }
         if model.snapshot == nil {
           Section {
             Text("Open Munib on iPhone to sync Salah times.")

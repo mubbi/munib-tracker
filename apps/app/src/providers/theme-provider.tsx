@@ -67,7 +67,7 @@ function resolveCustomAccentTheme(
   return cached;
 }
 
-function isColorMode(value: string | null): value is ColorMode {
+function isColorMode(value: string | null | undefined): value is ColorMode {
   return value === "light" || value === "dark" || value === "system";
 }
 
@@ -97,6 +97,32 @@ function scheduleNativeColorScheme(
   });
 }
 
+function persistThemeLocally(
+  mode: ColorMode,
+  accentId: AccentColorId,
+  custom: string | null,
+): void {
+  void AsyncStorage.setItem(STORAGE_KEYS.colorMode, mode);
+  void AsyncStorage.setItem(STORAGE_KEYS.accent, accentId);
+  if (custom) void AsyncStorage.setItem(CUSTOM_ACCENT_KEY, custom);
+  else void AsyncStorage.removeItem(CUSTOM_ACCENT_KEY);
+}
+
+/** Push appearance into the cloud-synced preferences blob (signed-in users). */
+function persistThemeToPreferences(
+  mode: ColorMode,
+  accentId: AccentColorId,
+  custom: string | null,
+): void {
+  void preferencesStore.getState().update({
+    colorMode: mode,
+    accentColorId: accentId,
+    // Empty string clears a prior custom accent on other devices (JSON omits
+    // `undefined`, which would leave the remote value untouched on merge).
+    customAccent: custom ?? "",
+  });
+}
+
 export function MunibThemeProvider({ children }: { children: ReactNode }) {
   const systemScheme = useColorScheme();
   const [colorMode, setColorModeState] = useState<ColorMode>(defaultColorMode);
@@ -121,32 +147,43 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
           AsyncStorage.getItem(CUSTOM_ACCENT_KEY),
         ]);
 
-        if (!mounted) {
-          return;
-        }
-
-        if (isColorMode(storedMode)) {
-          setColorModeState(storedMode);
-          syncNativeColorScheme(storedMode);
-        } else {
-          syncNativeColorScheme(defaultColorMode);
-        }
-
-        const resolvedAccent = resolveAccentColorId(storedAccent);
-        if (resolvedAccent) {
-          setAccentColorIdState(resolvedAccent);
-          if (storedAccent !== resolvedAccent) {
-            void AsyncStorage.setItem(STORAGE_KEYS.accent, resolvedAccent);
-          }
-        }
-
-        if (storedCustom && normalizeHex(storedCustom)) {
-          setCustomAccentState(normalizeHex(storedCustom));
-        }
-
-        // Hydrate saved locale + RTL before the first screen paints so users
-        // never see English strings in an RTL shell (or vice versa).
+        // Hydrate prefs (locale + synced appearance) before the first screen paints.
         await preferencesStore.getState().load();
+        if (!mounted) return;
+
+        const prefs = preferencesStore.getState().prefs;
+        const modeFromPrefs = isColorMode(prefs.colorMode) ? prefs.colorMode : null;
+        const accentFromPrefs = resolveAccentColorId(prefs.accentColorId ?? null);
+        const customFromPrefs =
+          prefs.customAccent && normalizeHex(prefs.customAccent)
+            ? normalizeHex(prefs.customAccent)
+            : null;
+
+        const mode = modeFromPrefs ?? (isColorMode(storedMode) ? storedMode : defaultColorMode);
+        const accent =
+          accentFromPrefs ?? resolveAccentColorId(storedAccent) ?? defaultAccentColorId;
+        const custom =
+          customFromPrefs ??
+          (storedCustom && normalizeHex(storedCustom) ? normalizeHex(storedCustom) : null);
+
+        setColorModeState(mode);
+        setAccentColorIdState(accent);
+        setCustomAccentState(custom);
+        syncNativeColorScheme(mode);
+        persistThemeLocally(mode, accent, custom);
+
+        // One-time migrate legacy AsyncStorage-only theme into the synced prefs blob.
+        if (
+          prefs.colorMode !== mode ||
+          prefs.accentColorId !== accent ||
+          (prefs.customAccent || "") !== (custom ?? "")
+        ) {
+          await preferencesStore.getState().update({
+            colorMode: mode,
+            accentColorId: accent,
+            customAccent: custom ?? "",
+          });
+        }
       } finally {
         clearTimeout(hydrationTimeout);
         if (mounted) {
@@ -166,6 +203,39 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
         appearanceFrameRef.current = null;
       }
     };
+  }, []);
+
+  // Apply appearance pulled via cloud sync (preferences blob).
+  useEffect(() => {
+    return preferencesStore.subscribe(() => {
+      const prefs = preferencesStore.getState().prefs;
+      if (isColorMode(prefs.colorMode)) {
+        setColorModeState((prev) => {
+          if (prev === prefs.colorMode) return prev;
+          scheduleNativeColorScheme(prefs.colorMode as ColorMode, appearanceFrameRef);
+          void AsyncStorage.setItem(STORAGE_KEYS.colorMode, prefs.colorMode as ColorMode);
+          return prefs.colorMode as ColorMode;
+        });
+      }
+      const accent = resolveAccentColorId(prefs.accentColorId ?? null);
+      if (accent) {
+        setAccentColorIdState((prev) => {
+          if (prev === accent) return prev;
+          void AsyncStorage.setItem(STORAGE_KEYS.accent, accent);
+          return accent;
+        });
+      }
+      const custom =
+        prefs.customAccent && normalizeHex(prefs.customAccent)
+          ? normalizeHex(prefs.customAccent)
+          : null;
+      setCustomAccentState((prev) => {
+        if (prev === custom) return prev;
+        if (custom) void AsyncStorage.setItem(CUSTOM_ACCENT_KEY, custom);
+        else void AsyncStorage.removeItem(CUSTOM_ACCENT_KEY);
+        return custom;
+      });
+    });
   }, []);
 
   const scheme: "light" | "dark" = useMemo(() => {
@@ -196,25 +266,35 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     void SystemUI.setBackgroundColorAsync(colors.background);
   }, [colors.background]);
 
-  const setColorMode = useCallback((mode: ColorMode) => {
-    setColorModeState(mode);
-    scheduleNativeColorScheme(mode, appearanceFrameRef);
-    void AsyncStorage.setItem(STORAGE_KEYS.colorMode, mode);
-  }, []);
+  const setColorMode = useCallback(
+    (mode: ColorMode) => {
+      setColorModeState(mode);
+      scheduleNativeColorScheme(mode, appearanceFrameRef);
+      persistThemeLocally(mode, accentColorId, customAccent);
+      persistThemeToPreferences(mode, accentColorId, customAccent);
+    },
+    [accentColorId, customAccent],
+  );
 
-  const setAccentColor = useCallback((accentId: AccentColorId) => {
-    setAccentColorIdState(accentId);
-    setCustomAccentState(null);
-    void AsyncStorage.setItem(STORAGE_KEYS.accent, accentId);
-    void AsyncStorage.removeItem(CUSTOM_ACCENT_KEY);
-  }, []);
+  const setAccentColor = useCallback(
+    (accentId: AccentColorId) => {
+      setAccentColorIdState(accentId);
+      setCustomAccentState(null);
+      persistThemeLocally(colorMode, accentId, null);
+      persistThemeToPreferences(colorMode, accentId, null);
+    },
+    [colorMode],
+  );
 
-  const setCustomAccent = useCallback((hex: string | null) => {
-    const normalized = hex ? normalizeHex(hex) : null;
-    setCustomAccentState(normalized);
-    if (normalized) void AsyncStorage.setItem(CUSTOM_ACCENT_KEY, normalized);
-    else void AsyncStorage.removeItem(CUSTOM_ACCENT_KEY);
-  }, []);
+  const setCustomAccent = useCallback(
+    (hex: string | null) => {
+      const normalized = hex ? normalizeHex(hex) : null;
+      setCustomAccentState(normalized);
+      persistThemeLocally(colorMode, accentColorId, normalized);
+      persistThemeToPreferences(colorMode, accentColorId, normalized);
+    },
+    [accentColorId, colorMode],
+  );
 
   const value = useMemo(
     () => ({

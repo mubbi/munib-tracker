@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Qiblə istiqamətini tap",
     "tasbeehSubtitle": "Tesbîh veke",
     "qazaSubtitle": "Nimêjên windabûyî birêve bibin",
-    "quranSubtitle": "Qur'an oxu"
+    "quranSubtitle": "Qur'an oxu",
+    "markCurrentSubtitle": "نوێژی ئێستا نیشان بکە",
+    "ramadanSubtitle": "سەحەر، ئیفطار و تۆماری ڕۆژوو"
   },
   "widgets": {
     "updatedJustNow": "Heya nuha hatî nûve kirin",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Pêşveçûn",
         "description": "Pêşveçûna nimêja ferz a îroyîn"
+      },
+      "streak": {
+        "label": "زنجیرە",
+        "description": "زنجیرەی ئێستای نوێژە فەرزەکان"
+      },
+      "qaza": {
+        "label": "قەزا",
+        "description": "قەزای ماوە و پێشکەوتنی قەزای ئەمڕۆ"
+      },
+      "ramadan": {
+        "label": "ڕەمەزان",
+        "description": "کاتی سەحەر و ئیفطار لەگەڵ ژماردنی پاشەکشە"
+      },
+      "khatm": {
+        "label": "خەتم",
+        "description": "پێشکەوتنی پلانی خەتمی قورئان"
+      },
+      "dailyHadith": {
+        "label": "فەرموودەی ڕۆژ",
+        "description": "فەرموودەی ئەمڕۆ لە چل فەرموودەی ئیمام نەوەوی"
+      },
+      "hijriDate": {
+        "label": "بەرواری ئیسلامی",
+        "description": "بەرواری کۆچی و زایینی"
+      },
+      "qibla": {
+        "label": "قیبلە",
+        "description": "گۆشەی قەطب‌نما بۆ کەعبە"
+      },
+      "tasbeeh": {
+        "label": "تەسبیح",
+        "description": "پێشکەوتنی ژمێرەری تەسبیحی تایبەتی ئەمڕۆ"
+      },
+      "friday": {
+        "label": "هەینی",
+        "description": "پێشکەوتنی لیستی هەینی یان ڕۆژ تا هەینی"
       }
     },
     "remaining": "ماوە",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "زنجیرەی نوێژ",
+    "streakDays": "{{count}} ڕۆژ",
+    "streakDays_one": "{{count}} ڕۆژ",
+    "streakDays_other": "{{count}} ڕۆژ",
+    "streakHint": "هەر نوێژێکی فەرز تۆمار بکە بەردەوام",
+    "qaza": "قەزا",
+    "qazaRemainingCount": "{{count}} ماوە",
+    "qazaNoTarget": "ئامانجی ڕۆژانە دانەنراوە",
+    "ramadan": "ڕەمەزان",
+    "suhoorIftar": "سەحەر و ئیفطار",
+    "khatm": "پلانی خەتم",
+    "khatmStartHint": "لە ئەپدا پلانی خەتم دەست پێ بکە",
+    "khatmPaceAhead": "پێشەوە",
+    "khatmPaceBehind": "دواوە",
+    "khatmPaceDone": "تەواو",
+    "khatmPaceOnTrack": "لەسەر ڕێگا",
+    "dailyHadith": "فەرموودەی ڕۆژ",
+    "hijriDate": "بەرواری ئیسلامی",
+    "qibla": "قیبلە",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "ئاڕاستەی کەعبە",
+    "markSalah": "نوێژ نیشان بکە",
+    "statusActive": "دواتر",
+    "tasbeeh": "تەسبیح",
+    "tasbeehHint": "بۆ دەستپێکردنی ژماردن ئەپ بکەرەوە",
+    "tasbeehRemaining": "{{count}} ماوە",
+    "tasbeehUnlimited": "ژماردنی بێسنوور",
+    "friday": "هەینی",
+    "fridayProgress": "{{completed}}/{{total}} تەواو",
+    "fridayAllDone": "هەموو تەواو — قبوڵ بێت، إن‌شاءالله",
+    "fridayCountdown": "هەینی دوای {{count}} ڕۆژ",
+    "fridayCountdown_one": "هەینی دوای {{count}} ڕۆژ",
+    "fridayCountdown_other": "هەینی دوای {{count}} ڕۆژ"
   },
   "ramadan": {
     "eyebrow": "Cejna Remezanê",
@@ -733,7 +804,11 @@
     "heroUser": "Sign di bo keep we salah, qaza, û zikr ewle di  cloud.",
     "error": "Nikarî têketinê bike. Piştrast bike ku servera API dixebite û ev pêşkêşker hatîne mîhengkirin.",
     "providersUnavailableTitle": "Têketin hîn ne amade ye",
-    "providersUnavailableBody": "Pêşkêşkerên hevdemkirina ewrî di vê avahiyê de nehatine mîhengkirin. Wekî mêvan berdewam bike — pêşveçûna te li ser vê amûrê dimîne."
+    "providersUnavailableBody": "Pêşkêşkerên hevdemkirina ewrî di vê avahiyê de nehatine mîhengkirin. Wekî mêvan berdewam bike — pêşveçûna te li ser vê amûrê dimîne.",
+    "titleSignedIn": "تۆ چوویتە ژوورەوە",
+    "subtitleSignedIn": "هاوکاتکردنی هەور لەسەر ئەم ئامێرە ئامادەیە",
+    "heroSignedIn": "بەخێربێیتەوە — هەژمارەکەت بەستراوە. نوێژ، قەزا و زیکر دەتوانن لە نێوان ئامێرەکاندا هاوکات بکرێن.",
+    "continueSignedIn": "بەردەوامبە"
   },
   "onboarding": {
     "begin": "Destpêkirin",
@@ -870,6 +945,11 @@
     "liveActivity": "Çalakiya zindî",
     "liveActivityHint": "Hejmartina zindî ya nimêja paşîn li ser ekrana qefilandinê û Dynamic Island nîşan bide.",
     "liveActivityUnavailable": "Li ser iPhone (iOS 16.1+) bi dev an çêkirinek hilberînê heye.",
+    "liveActivityDiscoveryTitle": "Jimartina zindî biceribîne",
+    "liveActivityDiscoveryBodyIos": "Jimartina paşve ya nimêja paşîn li ser Ekrana Qefilandinê û Dynamic Island bibîne.",
+    "liveActivityDiscoveryBodyAndroid": "Jimartina paşve ya nimêja paşîn di agahdariyek berdewam de bi kirdeya Nîşankirinê bibîne.",
+    "liveActivityDiscoveryEnable": "Vekirin",
+    "liveActivityDiscoveryDismissA11y": "Şîroveya jimartina zindî bigire",
     "upcomingTitle": "Bîranînên pêşeroj",
     "upcomingHint": "Hişyariyên weyên plansazkirî yên paşîn, li qada demjimêra cîhê we. Veguheztinên jêrîn bikar bînin da ku wan çalak bikin, neçalak bikin an biguherînin.",
     "footer": "Dema ku agahdarî li ser cîhaza we were çalak kirin, radestkirina van bîranînan tê plansaz kirin.",
@@ -900,7 +980,8 @@
       "prayer": "bîranînên Salah",
       "prayerAdhan": "Ezan di dema nimêjê de",
       "zikr": "Bîranînên Zikr",
-      "qaza": "Bîranînên Qaza"
+      "qaza": "Bîranînên Qaza",
+      "prayerOngoing": "ژماردنی نوێژی داهاتوو"
     },
     "snooze": "{{minutes}} xulek rawestîne",
     "defaultTitle": "Bîranîn",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Naveroka rojane",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "ئاگاداری جێگیر نیشان بدە لەگەڵ ژماردنی زیندووی نوێژی داهاتوو و کرداری نیشانکردن.",
+    "markPrayed": "وەک خوێندراو نیشان بکە"
   },
   "fonts": {
     "eyebrow": "Mîheng",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Sûre {{number}}",
+    "selectSurah": "Sureyekê hilbijêre",
+    "openReader": "Xwînerê veke"
   },
   "hadith": {
     "eyebrow": "Kevneşopiya pêxemberî",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Milestone",
     "categorySystem": "Sîstem",
-    "categoryAnnouncement": "ڕاگەیاندن"
+    "categoryAnnouncement": "ڕاگەیاندن",
+    "markingAllRead": "هەموو وەک خوێندراو نیشان دەکرێت…"
   },
   "qibla": {
     "eyebrow": "Ber",
@@ -4084,7 +4171,7 @@
       "label": "هاوپێچەکان (ئیختیاری)",
       "add": "زیادکردنی فایل",
       "remove": "هاوپێچەکە لاببە",
-      "hint": "تا ٥ فایل (JPEG، PNG، WebP، یان PDF)، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
+      "hint": "Heta 5 pel (JPEG, PNG, WebP an PDF), her yek 1 MB. Ji bo jêbirinê li ser thumbnailê × bitikîne.",
       "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی فایلە تایبەتەکان بە adhkar ـەکەتەوە.",
       "permissionDenied": "بۆ هاوپێچکردنی فایلەکان مۆڵەت پێویستە.",
       "permissionTitle": "ڕێگە بدە بە دەستگەیشتن",
@@ -4654,6 +4741,8 @@
     "watchHint": "Open  Munib Tracker watch app bo see îro’s schedule û mark Salah. Daneyên syncs ji we iPhone.",
     "wearTitle": "OS-ê li xwe bikin",
     "wearHint": "Piştî girêdana telefonê, tile Munib Tracker li saetê zêde bike. Ji bo nîşankirina Salah a niha li telefonê tile bitikîne.",
+    "forceQuitTitle": "Eger sepan girtî bû",
+    "forceQuitBody": "Lêdana widget, Siri, Assistant, û nîşaneyên demjimêr/Wear di cih de dikevin rêzê. Heke Munib Tracker bi tevahî hatiye girtin, nîşaneya di rêzê de — û lîsteya te, zincîre û widget-ên te — dema ku sepan dîsa vekî nûjen dibin.",
     "marked": "Salah nîşan kir",
     "alreadyDone": "پێشتر نیشانە کراوە",
     "allDone": "Hemî Cewadên ferz ji bo îro hatine nîşankirin",
@@ -4664,8 +4753,19 @@
       "openTracker": "Lîsteya kontrolê vekin",
       "openQibla": "Qibla veke",
       "openTasbeeh": "Tesbîh vekin",
-      "markCurrent": "Selahê min nîşan bide"
-    }
+      "markCurrent": "Selahê min nîşan bide",
+      "openRamadan": "ڕەمەزان بکەرەوە",
+      "openKhatm": "پلانی خەتم بکەرەوە",
+      "openQaza": "قەزا بکەرەوە",
+      "openQuran": "قورئان بکەرەوە",
+      "markFajr": "بەیانی نیشان بکە",
+      "markDhuhr": "نیوەڕۆ نیشان بکە",
+      "markAsr": "عەسر نیشان بکە",
+      "markMaghrib": "مەغریب نیشان بکە",
+      "markIsha": "عیشا نیشان بکە"
+    },
+    "moreShortcutsTitle": "زیاتر قەسەمە دەنگییەکان",
+    "moreShortcutsHint": "یەکێک لەمانە بڵێ بۆ نیشانکردنی نوێژ یان ڕاستەوخۆ چوونە سکرینێک."
   },
   "pinLock": {
     "title": "Qeflkirina sepanê",
@@ -4860,7 +4960,7 @@
     "eyebrow": "ساڵنامە",
     "title": "گۆڕینی بەروار",
     "subtitle": "گۆڕینی نێوان ساڵنامەی هیجری و زاینی",
-    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە بە بەکارهێنانی ئەلگۆریتمەکەی کوەیتی خشتەیی لە ئۆفلاین حیسابی بۆ کراوە.",
+    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە لە ئۆفلاین لەسەر بنەمای بینینی مانگ لە شوێنەکەت حیسابی بۆ کراوە.",
     "toHijri": "گریگۆری → هیجری",
     "toGregorian": "هیجری → گریگۆری",
     "gregorianDateLabel": "بەرواری گریگۆری",
@@ -4870,7 +4970,7 @@
     "year": "ساڵ",
     "useToday": "ئەمڕۆ بەکاری بهێنە",
     "invalidDate": "بەروارێکی دروست بنووسە",
-    "disclaimer": "ئەمە نزیکبوونەوەیەکی ژمێریارییە (\"ئەلگۆریتمەکەی کوێت\"ی خشتەیی) و دەتوانێت ڕۆژێک جیاواز بێت لە ڕاگەیاندنەکانی بینینی مانگ لە ناوخۆدا — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
+    "disclaimer": "بەروارەکان لەسەر بنەمای بینینی مانگ (hilāl) لە شوێنەکەت حیساب دەکرێن و دەتوانن ڕۆژێک جیاواز بن لە ڕاگەیاندنە فەرمییەکانی بینینی مانگ — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
     "directionTitle": "ئاراستەی گۆڕانکاری",
     "resultFrom": "لە {{date}} ەوە",
     "quickLinksTitle": "پەیوەست",

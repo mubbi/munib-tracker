@@ -28,6 +28,7 @@ export async function readSnapshotForWidget() {
 function toWidgetThemeSnapshot(resolved: ResolvedWidgetTheme): WidgetThemeSnapshot {
   return {
     isDark: resolved.isDark,
+    followsSystem: true,
     primary: resolved.primary as WidgetHexColor,
     background: resolved.background as WidgetHexColor,
     cardBackground: resolved.cardBackground as WidgetHexColor,
@@ -39,11 +40,18 @@ function toWidgetThemeSnapshot(resolved: ResolvedWidgetTheme): WidgetThemeSnapsh
   };
 }
 
-/** Home-screen widgets need explicit light/dark trees for Android 12+ surfaces. */
+/**
+ * When Appearance is System, emit true light + dark trees so Android 12+ can
+ * follow wallpaper/system. When the user forced light/dark, both slots use the
+ * snapshot theme so widgets match Settings.
+ */
 export function withDualThemeSnapshot(
   theme: WidgetThemeSnapshot,
   build: (cardTheme: WidgetThemeSnapshot) => React.ReactElement,
 ): WidgetRepresentation {
+  if (!theme.followsSystem) {
+    return { light: build(theme), dark: build(theme) };
+  }
   const primary = theme.primary;
   return {
     light: build(
@@ -61,12 +69,14 @@ export function renderCompactOrCard(
   renderCard: (cardTheme: WidgetThemeSnapshot) => React.ReactElement,
 ): WidgetRepresentation {
   if (isCompactWidgetSurface(info)) {
-    const compact = (_cardTheme: WidgetThemeSnapshot): React.ReactElement =>
+    const compact = (cardTheme: WidgetThemeSnapshot): React.ReactElement =>
       info.height <= 56 ? (
         <AndroidLockScreenInline
           line={section.lockScreenLine}
           deepLink={section.deepLink}
           accentColor={accentColor}
+          theme={cardTheme}
+          accessibilityLabel={section.accessibilityLabel}
         />
       ) : (
         <AndroidLockScreenStrip
@@ -75,6 +85,8 @@ export function renderCompactOrCard(
           detail={section.lockScreenDetail}
           deepLink={section.deepLink}
           accentColor={accentColor}
+          theme={cardTheme}
+          accessibilityLabel={section.accessibilityLabel}
         />
       );
     return withDualThemeSnapshot(theme, compact);

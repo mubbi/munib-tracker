@@ -177,7 +177,9 @@
     "qiblaSubtitle": "د قبلې لوری ومومئ",
     "tasbeehSubtitle": "تسبیح خلاص کړئ",
     "qazaSubtitle": "پاتې نمازونه اداره کړئ",
-    "quranSubtitle": "قرآن ولولئ"
+    "quranSubtitle": "قرآن ولولئ",
+    "markCurrentSubtitle": "اوسنۍ لمونځ نښه کړئ",
+    "ramadanSubtitle": "سحري، افطار او د روژې ثبت"
   },
   "widgets": {
     "updatedJustNow": "Updted just now",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "منیب تعقیبونکی · پرمختګ",
         "description": "د نن ورځې فرض لمانځه پرمختګ"
+      },
+      "streak": {
+        "label": "سلسله",
+        "description": "د اوسني فرض لمونځونو سلسله"
+      },
+      "qaza": {
+        "label": "قضا",
+        "description": "پاتې قضا او د نن ورځې د قضا پرمختګ"
+      },
+      "ramadan": {
+        "label": "رمضان",
+        "description": "د سحري او افطار وختونه د شمېرنې سره"
+      },
+      "khatm": {
+        "label": "ختم",
+        "description": "د قرآن ختم پلان پرمختګ"
+      },
+      "dailyHadith": {
+        "label": "د ورځې حدیث",
+        "description": "د امام نووي څلوېښت حدیثونو څخه د نن حدیث"
+      },
+      "hijriDate": {
+        "label": "اسلامي نېټه",
+        "description": "هجري او میلادي نېټه"
+      },
+      "qibla": {
+        "label": "قبله",
+        "description": "د کعبې پر لور کمپاس زاویه"
+      },
+      "tasbeeh": {
+        "label": "تسبیح",
+        "description": "د نن د دودیز تسبیح کاونټر پرمختګ"
+      },
+      "friday": {
+        "label": "جمعه",
+        "description": "د جمعې چک لیست پرمختګ یا تر جمعې ورځې"
       }
     },
     "remaining": "پاتې",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "د لمونځ سلسله",
+    "streakDays": "{{count}} ورځې",
+    "streakDays_one": "{{count}} ورځ",
+    "streakDays_other": "{{count}} ورځې",
+    "streakHint": "هر فرض لمونځ ثبتول دوام ورکړئ",
+    "qaza": "قضا",
+    "qazaRemainingCount": "{{count}} پاتې",
+    "qazaNoTarget": "ورځنی هدف نه دی ټاکل شوی",
+    "ramadan": "رمضان",
+    "suhoorIftar": "سحري او افطار",
+    "khatm": "د ختم پلان",
+    "khatmStartHint": "په اپ کې د ختم پلان پیل کړئ",
+    "khatmPaceAhead": "مخکې",
+    "khatmPaceBehind": "شاته",
+    "khatmPaceDone": "بشپړ",
+    "khatmPaceOnTrack": "په لاره",
+    "dailyHadith": "د ورځې حدیث",
+    "hijriDate": "اسلامي نېټه",
+    "qibla": "قبله",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "د کعبې لور",
+    "markSalah": "لمونځ نښه کړئ",
+    "statusActive": "راتلونکی",
+    "tasbeeh": "تسبیح",
+    "tasbeehHint": "شمېرل پیلولو لپاره اپ پرانیزئ",
+    "tasbeehRemaining": "{{count}} پاتې",
+    "tasbeehUnlimited": "بې حده شمېر",
+    "friday": "جمعه",
+    "fridayProgress": "{{completed}}/{{total}} بشپړ",
+    "fridayAllDone": "ټول بشپړ — قبول شه، ان شاء الله",
+    "fridayCountdown": "جمعه وروسته له {{count}} ورځو",
+    "fridayCountdown_one": "جمعه وروسته له {{count}} ورځې",
+    "fridayCountdown_other": "جمعه وروسته له {{count}} ورځو"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -733,7 +804,11 @@
     "heroUser": "په ورېځ کې د خپلو لمونځونو، قضا او ذکر د خوندي ساتلو لپاره ننوتل.",
     "error": "ننوتل ممکن نشول. ډاډ ترلاسه کړئ چې API سرور روان دی او دا چمتو کوونکی تنظیم شوی دی.",
     "providersUnavailableTitle": "ننوتل لا هم شتون نلري",
-    "providersUnavailableBody": "په دې جوړښت کې د کلاوډ همغږۍ چمتو کوونکي نه دي تنظیم شوي. د میلمه په توګه دوام ورکړئ — پرمختګ په همدې وسیله پاتې کېږي."
+    "providersUnavailableBody": "په دې جوړښت کې د کلاوډ همغږۍ چمتو کوونکي نه دي تنظیم شوي. د میلمه په توګه دوام ورکړئ — پرمختګ په همدې وسیله پاتې کېږي.",
+    "titleSignedIn": "تاسو ننوتي یاست",
+    "subtitleSignedIn": "په دې وسیله کې کلاوډ همغږي چمتو ده",
+    "heroSignedIn": "بیا ښه راغلاست — ستاسو حساب تړلی دی. لمونځ، قضا او ذکر کولی شي په وسیلو کې همغږي شي.",
+    "continueSignedIn": "ادامه"
   },
   "onboarding": {
     "begin": "Begin",
@@ -870,6 +945,11 @@
     "liveActivity": "Live ctivity",
     "liveActivityHint": "په لاک سکرین او متحرک ټاپو کې د راتلونکي لمانځه ژوندی شمیرنه وښایاست.",
     "liveActivityUnavailable": "په آی فون (iOS 16.1+) کې د dev یا تولید جوړونې سره شتون لري.",
+    "liveActivityDiscoveryTitle": "ژوندۍ شمېرنه هڅه وکړئ",
+    "liveActivityDiscoveryBodyIos": "د راتلونکي لمانځه شمېرنه مستقیم په خپل بند سکرین او متحرک ټاپو کې وګورئ.",
+    "liveActivityDiscoveryBodyAndroid": "د راتلونکي لمانځه شمېرنه په یوه دوامداره خبرتیا کې د نښه کولو عمل سره وګورئ.",
+    "liveActivityDiscoveryEnable": "فعال کول",
+    "liveActivityDiscoveryDismissA11y": "د ژوندۍ شمېرنې مشوره بندول",
     "upcomingTitle": "راتلونکی یادونه",
     "upcomingHint": "ستاسو راتلونکی ټاکل شوي خبرتیاوې، ستاسو د ځای په وخت زون کې. د فعالولو، غیر فعالولو یا ایډیټ کولو لپاره لاندې ټګلونه وکاروئ.",
     "footer": "د دې یادداشتونو تحویلۍ مهالویش کیږي کله چې ستاسو په وسیله خبرتیاوې فعالې شي.",
@@ -900,7 +980,8 @@
       "prayer": "د لمانځه یادونه",
       "prayerAdhan": "د لمانځه په وخت اذان",
       "zikr": "د ذکر ذکر",
-      "qaza": "د قضا نصیحتونه"
+      "qaza": "د قضا نصیحتونه",
+      "prayerOngoing": "د راتلونکي لمونځ شمېرنه"
     },
     "snooze": "{{minutes}} دقیقې وځنډوه",
     "defaultTitle": "یادونه",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "ورځنی منځپانګه",
     "defaultLocationTitle": "د لمانځه خبرتیاوو لپاره خپل ځای وټاکئ",
-    "defaultLocationMessage": "د لمانځه او اذان یادونو لپاره ستاسو ښار اړین دی. د ساعت پر بنسټ ذکر او قضا یادونې لا هم مهالویش کېږي."
+    "defaultLocationMessage": "د لمانځه او اذان یادونو لپاره ستاسو ښار اړین دی. د ساعت پر بنسټ ذکر او قضا یادونې لا هم مهالویش کېږي.",
+    "liveActivityHintAndroid": "د راتلونکي لمونځ ژوندي شمېرنې او نښه کولو عمل سره ثابت خبرتیا وښایئ.",
+    "markPrayed": "د لوستل شوي په توګه نښه کړئ"
   },
   "fonts": {
     "eyebrow": "تنظیمات",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "سوره {{number}}",
+    "selectSurah": "یوه سوره وټاکئ",
+    "openReader": "لوستونکی پرانیسئ"
   },
   "hadith": {
     "eyebrow": "نبوي سنت",
@@ -1990,7 +2076,7 @@
       "fullTitle": "نن شپه پوره سپوږمۍ",
       "fullBody": "سپوږمۍ په بشپړه توګه د {{month}} منځ ته نږدې روښانه ده - د سپینو ورځو شپې، کله چې روژه په ځانګړې توګه سپارښتنه کیږي.",
       "generalTitle": "د سپوږمۍ کیلنڈر",
-      "generalBody": "اسلامي (هجري) کلیزه سپوږمۍ تعقیبوي: هره میاشت 29 یا 30 ورځې ده، چې د نوې میاشتې په لیدلو سره پیل کیږي.",
+      "generalBody": "اسلامي (هجري) تقویم سپوږمۍ تعقیبوي: هره میاشت ۲۹ یا ۳۰ ورځې ده، چې د لیدل شوي هلال (hilāl) سره پیل کیږي. دلته نیټې ستاسو په ځای کې د هلال د لیدلو له مخې محاسبه شوي او ممکن د ځایي واک له اعلان څخه یوه ورځ توپیر ولري.",
       "monthTurnTitle": "هلال ولټوئ",
       "monthTurnBody": "د Maghrib وروسته د {{month}} hilāl ولټوئ. اسلامي میاشتې د لیدل شوي هلال سره پیل کیږي؛ د ستاسو ځایي واک اعلان ممکن له دې محاسبې سره یوه ورځ توپیر ولري."
     },
@@ -2168,7 +2254,8 @@
     "categoryQaza": "Qz",
     "categoryMilestone": "Milestone",
     "categorySystem": "سیسټم",
-    "categoryAnnouncement": "اعلان"
+    "categoryAnnouncement": "اعلان",
+    "markingAllRead": "ټول لوستل شوي په توګه نښه کېږي…"
   },
   "qibla": {
     "eyebrow": "Direction",
@@ -3522,7 +3609,7 @@
     "today": "نن",
     "inDays": "په {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "نیټې محاسبه شوي اټکلونه دي - ریښتینې ورځ د ځایی سپوږمۍ لید پورې اړه لري.",
+    "disclaimer": "نیټې ستاسو په ځای کې د هلال لیدلو (یا په هغو سیمو کې چې رسمي تقویم یې کاروي د Umm al-Qura تقویم) تعقیبوي او ممکن د ځایي واک له اعلان څخه یوه ورځ توپیر ولري.",
     "names": {
       "newYear": "نوی اسلامي کال",
       "ashura": "د عاشورا ورځ",
@@ -3995,7 +4082,7 @@
       "label": "ضمیمې (اختیاري)",
       "add": "فایل اضافه کړئ",
       "remove": "ضمیمه لرې کړئ",
-      "hint": "تر 5 فایلونو پورې (JPEG، PNG، WebP، یا PDF)، هر یو 1 MB. د لرې کولو لپاره تمبنیل اوږد فشار ورکړئ.",
+      "hint": "تر ۵ فایلونو پورې (JPEG، PNG، WebP یا PDF)، هر یو ۱ MB. د لرې کولو لپاره په تمبنیل باندې × ټایپ کړئ.",
       "signInRequired": "خپل اډکار ته د شخصي فایلونو ضمیمه کولو لپاره لاسلیک وکړئ.",
       "permissionDenied": "د فایلونو ضمیمه کولو لپاره اجازې ته اړتیا ده.",
       "permissionTitle": "د لاسرسي اجازه ورکړئ",
@@ -4507,7 +4594,7 @@
     "sourceLabel": "ستاسو source (اختیاري)",
     "sourcePlaceholder": "کتاب، عالم، URL، یا حواله ستاسو د سمون ملاتړ کوي.",
     "proofLabel": "د ثبوت سکرین شاټونه (اختیاري)",
-    "proofHint": "تر 3 عکسونو پورې. د لرې کولو لپاره تمبنیل اوږد فشار ورکړئ.",
+    "proofHint": "تر ۳ عکسونو پورې. د لرې کولو لپاره په تمبنیل باندې × ټایپ کړئ.",
     "addProof": "عکس اضافه کړئ",
     "removeProof": "لرې کول screenshot",
     "submit": "راپور وړاندې کړئ",
@@ -4565,6 +4652,8 @@
     "watchHint": "د منیب ټریکر واچ ایپ خلاص کړئ ترڅو د نن ورځې مهالویش وګورئ او سلام په نښه کړئ. ډاټا ستاسو د آی فون څخه همغږي کیږي.",
     "wearTitle": "Wer OS",
     "wearHint": "د خپل تلیفون سره جوړه کولو وروسته په خپل ساعت کې د منیب ټریکر ټایل اضافه کړئ.",
+    "forceQuitTitle": "که اپلیکیشن بند وه",
+    "forceQuitBody": "د ویجیټ ټیپ، سیري، اسسټنټ، او د ساعت/Wear نښې سملاسي په قطار کې کیږدل کیږي. که Munib Tracker بشپړ ډول بند وي، نو د قطار کې نښه — او ستاسو چک لیست، سلسله او ویجیټونه — د اپ بیا خلاصولو پر مهال تازه کیږي.",
     "marked": "سلام په نښه کړ",
     "alreadyDone": "دمخه په نښه شوی",
     "allDone": "ټول فرض لمونځونه د نن ورځې لپاره په نښه شوي",
@@ -4575,8 +4664,19 @@
       "openTracker": "خلاص کړئ چک لیست",
       "openQibla": "خلاص کړئ Qibl",
       "openTasbeeh": "خلاص کړئ Tsbeeh",
-      "markCurrent": "زما لمونځ په نښه کړئ"
-    }
+      "markCurrent": "زما لمونځ په نښه کړئ",
+      "openRamadan": "رمضان پرانیزئ",
+      "openKhatm": "د ختم پلان پرانیزئ",
+      "openQaza": "قضا پرانیزئ",
+      "openQuran": "قرآن پرانیزئ",
+      "markFajr": "صبح نښه کړئ",
+      "markDhuhr": "ماسپښین نښه کړئ",
+      "markAsr": "مازدیګر نښه کړئ",
+      "markMaghrib": "ماښام نښه کړئ",
+      "markIsha": "ماخستن نښه کړئ"
+    },
+    "moreShortcutsTitle": "نور غږیز لنډلارې",
+    "moreShortcutsHint": "د لمونځ نښه کولو یا مستقیم پردې ته تللو لپاره دا ووایاست."
   },
   "pinLock": {
     "title": "pp lock",
@@ -4771,7 +4871,7 @@
     "eyebrow": "جنتري",
     "title": "د نیټې بدلونکی",
     "subtitle": "د هجري او ګریګورین تقویمونو ترمینځ بدل کړئ",
-    "intro": "په هر کیلنڈر کې یوه نیټه دننه کړئ ترڅو په بل کې د هغې مساوي وګورئ، د کویټ الګوریتم جدول په کارولو سره آفلاین حساب شوی.",
+    "intro": "په هر یوه تقویم کې نیټه دننه کړئ ترڅو په بل کې یې مساوي وګورئ، چې آفلاین ستاسو په ځای کې د هلال لیدلو له مخې محاسبه کیږي.",
     "toHijri": "ګریګوریان → هجری",
     "toGregorian": "هجري → ګریګوریان",
     "gregorianDateLabel": "ګریګوریان نیټه",
@@ -4781,7 +4881,7 @@
     "year": "کال",
     "useToday": "نن ورځ وکاروئ",
     "invalidDate": "د اعتبار وړ نیټه دننه کړئ",
-    "disclaimer": "دا د ریاضي اټکل (جدول \"کویت الګوریتم\") دی او د ځایی سپوږمۍ لیدو اعلانونو څخه د یوې ورځې توپیر کولی شي - تل د مذهبي نیټو لپاره خپل ځایي جومات یا واک تعقیب کړئ.",
+    "disclaimer": "نیټې ستاسو په ځای کې د هلال (hilāl) لیدلو له مخې محاسبه شوي او ممکن د رسمي سپوږمۍ-لیدو اعلانونو څخه یوه ورځ توپیر ولري — تل د مذهبي نیټو لپاره خپل ځایي مسجد یا واک تعقیب کړئ.",
     "directionTitle": "د تبادلې لوري",
     "resultFrom": "له {{date}} څخه",
     "quickLinksTitle": "اړوند",

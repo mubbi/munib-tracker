@@ -173,11 +173,13 @@
     "friday": "جمعہ"
   },
   "quickActions": {
+    "markCurrentSubtitle": "موجودہ نماز درج کریں",
     "checklistSubtitle": "آج کی نمازیں درج کریں",
     "qiblaSubtitle": "قبلہ کی سمت تلاش کریں",
     "tasbeehSubtitle": "تسبیح کاؤنٹر کھولیں",
     "qazaSubtitle": "قضا نمازیں منظم کریں",
-    "quranSubtitle": "قرآن پڑھیں"
+    "quranSubtitle": "قرآن پڑھیں",
+    "ramadanSubtitle": "سحری، افطار اور روزے کا ریکارڈ"
   },
   "widgets": {
     "updatedJustNow": "ابھی اپ ڈیٹ ہوا",
@@ -195,18 +197,87 @@
     "total": "کل",
     "gallery": {
       "nextPrayer": {
-        "label": "منیب ٹریکر · اگلی نماز",
+        "label": "اگلی نماز",
         "description": "ہوم یا لاک اسکرین پر اگلی نماز کا نام، وقت اور الٹی گنتی"
       },
       "schedule": {
-        "label": "منیب ٹریکر · شیڈول",
+        "label": "شیڈول",
         "description": "آج کے فرض نمازوں کے اوقات ایک نظر میں"
       },
       "progress": {
-        "label": "منیب ٹریکر · پیش رفت",
+        "label": "پیش رفت",
         "description": "آج کی فرض نمازوں کی پیش رفت"
+      },
+      "streak": {
+        "label": "سلسلہ",
+        "description": "موجودہ فرض نمازوں کا سلسلہ"
+      },
+      "qaza": {
+        "label": "قضا",
+        "description": "باقی قضا اور آج کی قضا کی پیش رفت"
+      },
+      "ramadan": {
+        "label": "رمضان",
+        "description": "سحری و افطار کے اوقات مع الٹی گنتی"
+      },
+      "khatm": {
+        "label": "ختم",
+        "description": "قرآن ختم کے منصوبے کی پیش رفت"
+      },
+      "dailyHadith": {
+        "label": "آج کی حدیث",
+        "description": "امام نووی کی چالیس احادیث میں سے آج کی حدیث"
+      },
+      "hijriDate": {
+        "label": "اسلامی تاریخ",
+        "description": "ہجری اور عیسوی تاریخ"
+      },
+      "qibla": {
+        "label": "قبلہ",
+        "description": "کعبہ کی سمت"
+      },
+      "tasbeeh": {
+        "label": "تسبیح",
+        "description": "آج کے حسبِ ضرورت تسبیح کاؤنٹر کی پیش رفت"
+      },
+      "friday": {
+        "label": "جمعہ",
+        "description": "جمعہ چیک لسٹ کی پیش رفت یا جمعہ تک دن"
       }
-    }
+    },
+    "streak": "نماز کا سلسلہ",
+    "streakDays": "{{count}} دن",
+    "streakDays_one": "{{count}} دن",
+    "streakDays_other": "{{count}} دن",
+    "streakHint": "ہر فرض نماز درج کرتے رہیں",
+    "qaza": "قضا",
+    "qazaRemainingCount": "{{count}} باقی",
+    "qazaNoTarget": "روزانہ ہدف مقرر نہیں",
+    "ramadan": "رمضان",
+    "suhoorIftar": "سحری و افطار",
+    "khatm": "ختم کا منصوبہ",
+    "khatmStartHint": "ایپ میں ختم کا منصوبہ شروع کریں",
+    "khatmPaceAhead": "آگے",
+    "khatmPaceBehind": "پیچھے",
+    "khatmPaceDone": "مکمل",
+    "khatmPaceOnTrack": "ٹریک پر",
+    "dailyHadith": "آج کی حدیث",
+    "hijriDate": "اسلامی تاریخ",
+    "qibla": "قبلہ",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "کعبہ کی سمت",
+    "markSalah": "نماز درج کریں",
+    "statusActive": "اگلی",
+    "tasbeeh": "تسبیح",
+    "tasbeehHint": "گنتی شروع کرنے کے لیے ایپ کھولیں",
+    "tasbeehRemaining": "{{count}} باقی",
+    "tasbeehUnlimited": "بلا حد گنتی",
+    "friday": "جمعہ",
+    "fridayProgress": "{{completed}}/{{total}} مکمل",
+    "fridayAllDone": "سب مکمل — قبول ہو ان شاء اللہ",
+    "fridayCountdown": "{{count}} دن بعد جمعہ",
+    "fridayCountdown_one": "{{count}} دن بعد جمعہ",
+    "fridayCountdown_other": "{{count}} دن بعد جمعہ"
   },
   "ramadan": {
     "eyebrow": "رمضان",
@@ -691,6 +762,10 @@
     "facebook": "فیس بک کے ساتھ جاری رکھیں",
     "heroGuest": "آپ مہمان اکاؤنٹ استعمال کر رہے ہیں۔ اپنا ڈیٹا بیک اپ اور ہم آہنگ کرنے کے لیے کوئی فراہم کنندہ جوڑیں — کچھ ضائع نہیں ہوگا۔",
     "heroUser": "اپنی نمازیں، قضا اور ذکر کلاؤڈ میں محفوظ رکھنے کے لیے سائن اِن کریں۔",
+    "titleSignedIn": "آپ سائن اِن ہیں",
+    "subtitleSignedIn": "اس آلہ پر کلاؤڈ سنک تیار ہے",
+    "heroSignedIn": "خوش آمدید — آپ کا اکاؤنٹ منسلک ہے۔ آپ کی نماز، قضا اور ذکر تمام ڈیوائسز پر سنک ہو سکتے ہیں۔",
+    "continueSignedIn": "جاری رکھیں",
     "error": "سائن اِن نہیں ہو سکا۔ یقینی بنائیں کہ API سرور چل رہا ہے اور یہ فراہم کنندہ ترتیب شدہ ہے۔",
     "providersUnavailableTitle": "سائن اِن ابھی دستیاب نہیں",
     "providersUnavailableBody": "اس بلڈ میں کلاؤڈ سنک فراہم کنندگان ترتیب نہیں ہیں۔ مہمان کے طور پر جاری رکھیں — آپ کی پیش رفت اسی آلہ پر رہے گی۔"
@@ -829,7 +904,13 @@
     "playAdhanHint": "فرض نمازوں کی یاد دہانیاں وقت پر اذان چلاتی ہیں۔",
     "liveActivity": "لائیو سرگرمی",
     "liveActivityHint": "لاک اسکرین اور ڈائنامک آئی لینڈ پر اگلی نماز کی لائیو گنتی دکھائیں۔",
+    "liveActivityHintAndroid": "اگلی نماز کی لائیو گنتی اور نشان زد کرنے کے عمل کے ساتھ ایک مستقل اطلاع دکھائیں۔",
     "liveActivityUnavailable": "آئی فون (iOS 16.1 یا بعد) پر ڈیو یا پروڈکشن بلڈ کے ساتھ دستیاب۔",
+    "liveActivityDiscoveryTitle": "لائیو گنتی آزمائیں",
+    "liveActivityDiscoveryBodyIos": "اگلی نماز کی گنتی اپنی لاک اسکرین اور ڈائنامک آئی لینڈ پر دیکھیں۔",
+    "liveActivityDiscoveryBodyAndroid": "اگلی نماز کی گنتی نشان زد کرنے کے عمل کے ساتھ ایک مستقل اطلاع میں دیکھیں۔",
+    "liveActivityDiscoveryEnable": "آن کریں",
+    "liveActivityDiscoveryDismissA11y": "لائیو گنتی کی تجویز بند کریں",
     "upcomingTitle": "آنے والی یاد دہانیاں",
     "upcomingHint": "آپ کے مقام کے وقت کے مطابق اگلی شیڈول شدہ اطلاعات۔ انہیں فعال، غیر فعال یا ترمیم کرنے کے لیے نیچے دیے سوئچ استعمال کریں۔",
     "footer": "جیسے ہی آپ کی ڈیوائس پر اطلاعات فعال ہوں گی، یہ یاد دہانیاں شیڈول ہو جائیں گی۔",
@@ -941,9 +1022,11 @@
       "prayer": "نماز کی یاد دہانیاں",
       "prayerAdhan": "نماز کے وقت اذان",
       "zikr": "ذکر کی یاد دہانیاں",
-      "qaza": "قضا کی یاد دہانیاں"
+      "qaza": "قضا کی یاد دہانیاں",
+      "prayerOngoing": "اگلی نماز کی گنتی"
     },
     "snooze": "{{minutes}} منٹ کے لیے مؤخر کریں",
+    "markPrayed": "نماز ادا شدہ نشان زد کریں",
     "defaultTitle": "یاد دہانی",
     "reminders": {
       "prayerTitle": "{{prayer}} کا وقت",
@@ -1176,6 +1259,9 @@
     "makki": "مکی",
     "madani": "مدنی",
     "ayahCount": "{{count}} آیات",
+    "surahNumber": "سورة {{number}}",
+    "selectSurah": "سورة منتخب کریں",
+    "openReader": "قارئ کھولیں",
     "surahList": "سورتیں",
     "surahCount": "{{shown}} / {{total}}",
     "reciter": "قاری",
@@ -2110,6 +2196,7 @@
     "inboxEmptyTitle": "کوئی حالیہ اطلاع نہیں",
     "inboxEmptyDesc": "موصول یاددہانیاں اور کامیابیاں یہاں ظاہر ہوں گی۔",
     "markAllRead": "سب پڑھا ہوا نشان لگائیں",
+    "markingAllRead": "سب کو پڑھا ہوا نشان لگا رہے ہیں…",
     "clearAll": "سب صاف کریں",
     "cleared": "اطلاعات صاف کر دی گئیں",
     "confirmClearAllTitle": "تمام اطلاعات صاف کریں؟",
@@ -4493,6 +4580,8 @@
     "watchHint": "آج کا شیڈول دیکھنے اور نماز درج کرنے کے لیے Munib Tracker گھڑی ایپ کھولیں۔ ڈیٹا iPhone سے ہم آہنگ ہوتا ہے۔",
     "wearTitle": "وئیر OS",
     "wearHint": "فون جوڑنے کے بعد گھڑی پر Munib Tracker ٹائل شامل کریں۔ موجودہ نماز فون پر درج کرنے کے لیے ٹائل پر تھپتھپائیں۔",
+    "forceQuitTitle": "اگر ایپ بند کر دی گئی ہو",
+    "forceQuitBody": "ویجٹ ٹیپ، سیری، اسسٹنٹ، اور واچ/ویئر کے اندراجات فوراً قطار میں محفوظ ہو جاتے ہیں۔ اگر Munib Tracker مکمل طور پر بند کر دی گئی ہو تو قطار میں موجود اندراج — اور آپ کی چیک لسٹ، سلسلہ اور ویجٹس — ایپ دوبارہ کھولنے پر اپ ڈیٹ ہو جاتے ہیں۔",
     "marked": "نماز درج ہو گئی",
     "alreadyDone": "پہلے ہی نشان زد",
     "allDone": "آج کی تمام فرض نمازیں درج ہیں",
@@ -4503,8 +4592,19 @@
       "openTracker": "چیک لسٹ کھولیں",
       "openQibla": "قبلہ کھولیں",
       "openTasbeeh": "تسبیح کھولیں",
-      "markCurrent": "میری نماز درج کریں"
-    }
+      "openRamadan": "رمضان کھولیں",
+      "openKhatm": "ختم پلان کھولیں",
+      "openQaza": "قضا کھولیں",
+      "openQuran": "قرآن کھولیں",
+      "markCurrent": "میری نماز درج کریں",
+      "markFajr": "فجر درج کریں",
+      "markDhuhr": "ظہر درج کریں",
+      "markAsr": "عصر درج کریں",
+      "markMaghrib": "مغرب درج کریں",
+      "markIsha": "عشاء درج کریں"
+    },
+    "moreShortcutsTitle": "مزید صوتی شارٹ کٹس",
+    "moreShortcutsHint": "نماز درج کرنے یا کسی اسکرین پر براہ راست جانے کے لیے یہ جملے کہیں۔"
   },
   "pinLock": {
     "title": "ایپ لاک",

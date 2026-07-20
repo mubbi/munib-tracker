@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Kıble yönünü bul",
     "tasbeehSubtitle": "Tesbih sayacını aç",
     "qazaSubtitle": "Manage propušteno salah",
-    "quranSubtitle": "Read Kur'an"
+    "quranSubtitle": "Read Kur'an",
+    "markCurrentSubtitle": "Označi trenutni namaz",
+    "ramadanSubtitle": "Sehura, iftar i dnevnik posta"
   },
   "widgets": {
     "updatedJustNow": "Ažurirano upravo sada",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Napredak",
         "description": "Današnji obavezni molitveni napredak"
+      },
+      "streak": {
+        "label": "Niz",
+        "description": "Trenutni niz farz namaza"
+      },
+      "qaza": {
+        "label": "Kaza",
+        "description": "Preostala kaza i današnji napredak nadoknade"
+      },
+      "ramadan": {
+        "label": "Ramazan",
+        "description": "Vremena sehure i iftara s odbrojavanjem"
+      },
+      "khatm": {
+        "label": "Hatme",
+        "description": "Napredak plana hatmea Kur'ana"
+      },
+      "dailyHadith": {
+        "label": "Hadis dana",
+        "description": "Današnji hadis iz Četrdeset imama en-Nevevija"
+      },
+      "hijriDate": {
+        "label": "Islamski datum",
+        "description": "Hidžretski i gregorijanski datum"
+      },
+      "qibla": {
+        "label": "Kibla",
+        "description": "Kompasni azimut prema Kaabi"
+      },
+      "tasbeeh": {
+        "label": "Tesbih",
+        "description": "Napredak današnjeg prilagođenog tesbih brojača"
+      },
+      "friday": {
+        "label": "Džuma",
+        "description": "Napredak petkove kontrolne liste ili dani do džume"
       }
     },
     "remaining": "Preostalo",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Niz namaza",
+    "streakDays": "{{count}} dana",
+    "streakDays_one": "{{count}} dan",
+    "streakDays_other": "{{count}} dana",
+    "streakHint": "Nastavite bilježiti svaki farz namaz",
+    "qaza": "Kaza",
+    "qazaRemainingCount": "{{count}} preostalo",
+    "qazaNoTarget": "Nema dnevnog cilja",
+    "ramadan": "Ramazan",
+    "suhoorIftar": "Sehura i iftar",
+    "khatm": "Plan hatmea",
+    "khatmStartHint": "Započnite plan hatmea u aplikaciji",
+    "khatmPaceAhead": "Ispred",
+    "khatmPaceBehind": "Iza",
+    "khatmPaceDone": "Završeno",
+    "khatmPaceOnTrack": "U planu",
+    "dailyHadith": "Hadis dana",
+    "hijriDate": "Islamski datum",
+    "qibla": "Kibla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Smjer Kaabe",
+    "markSalah": "Označi namaz",
+    "statusActive": "Sljedeći",
+    "tasbeeh": "Tesbih",
+    "tasbeehHint": "Otvorite aplikaciju da počnete brojati",
+    "tasbeehRemaining": "preostalo {{count}}",
+    "tasbeehUnlimited": "Neograničeno brojanje",
+    "friday": "Džuma",
+    "fridayProgress": "{{completed}}/{{total}} gotovo",
+    "fridayAllDone": "Sve gotovo — neka bude primljeno, in ša Allah",
+    "fridayCountdown": "Džuma za {{count}} dana",
+    "fridayCountdown_one": "Džuma za {{count}} dan",
+    "fridayCountdown_other": "Džuma za {{count}} dana"
   },
   "ramadan": {
     "eyebrow": "Ramazan",
@@ -733,7 +804,11 @@
     "heroUser": "Sign u u keep vaš salah, qaza, i zikr sigurno u  cloud.",
     "error": "Prijava nije uspjela. Provjerite da API server radi i da je ovaj pružatelj konfiguriran.",
     "providersUnavailableTitle": "Prijava još nije dostupna",
-    "providersUnavailableBody": "Pružatelji cloud sinkronizacije nisu konfigurirani u ovoj verziji. Nastavite kao gost — napredak ostaje na ovom uređaju."
+    "providersUnavailableBody": "Pružatelji cloud sinkronizacije nisu konfigurirani u ovoj verziji. Nastavite kao gost — napredak ostaje na ovom uređaju.",
+    "titleSignedIn": "Prijavljeni ste",
+    "subtitleSignedIn": "Oblak sinkronizacija je spremna na ovom uređaju",
+    "heroSignedIn": "Dobrodošli nazad — vaš račun je povezan. Namaz, kaza i zikr mogu se sinkronizirati između uređaja.",
+    "continueSignedIn": "Nastavi"
   },
   "onboarding": {
     "begin": "Započni",
@@ -870,6 +945,11 @@
     "liveActivity": "Aktivnost uživo",
     "liveActivityHint": "Prikažite odbrojavanje sljedeće molitve uživo na zaključanom ekranu i Dynamic Islandu.",
     "liveActivityUnavailable": "Dostupno na iPhoneu (iOS 16.1+) s dev ili produkcijskom verzijom.",
+    "liveActivityDiscoveryTitle": "Isprobajte odbrojavanje uživo",
+    "liveActivityDiscoveryBodyIos": "Pogledajte odbrojavanje sljedećeg namaza na zaključanom ekranu i Dynamic Islandu.",
+    "liveActivityDiscoveryBodyAndroid": "Pogledajte odbrojavanje sljedećeg namaza u trajnoj obavijesti s radnjom Označi.",
+    "liveActivityDiscoveryEnable": "Uključi",
+    "liveActivityDiscoveryDismissA11y": "Odbaci savjet o odbrojavanju uživo",
     "upcomingTitle": "Predstojeći podsjetnici",
     "upcomingHint": "Vaša sljedeća zakazana upozorenja, u vremenskoj zoni vaše lokacije. Koristite prekidače ispod da ih omogućite, onemogućite ili uredite.",
     "footer": "Isporuka ovih podsjetnika je zakazana nakon što su obavještenja omogućena na vašem uređaju.",
@@ -900,7 +980,8 @@
       "prayer": "Salah podsjetnici",
       "prayerAdhan": "Ezan u vrijeme namaza",
       "zikr": "Zikr podsjetnici",
-      "qaza": "Qaza podsjetnici"
+      "qaza": "Qaza podsjetnici",
+      "prayerOngoing": "Odbrojavanje do sljedećeg namaza"
     },
     "snooze": "Odgodi {{minutes}} min",
     "defaultTitle": "Podsjetnik",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Dnevni sadržaj",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "Prikaži trajnu obavijest s živim odbrojavanjem do sljedećeg namaza i radnjom Označi.",
+    "markPrayed": "Označi kao klanjano"
   },
   "fonts": {
     "eyebrow": "Postavke",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Sura {{number}}",
+    "selectSurah": "Odaberite suru",
+    "openReader": "Otvori čitač"
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Milestone",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Najava"
+    "categoryAnnouncement": "Najava",
+    "markingAllRead": "Označavanje svega kao pročitano…"
   },
   "qibla": {
     "eyebrow": "Yön",
@@ -4084,7 +4171,7 @@
       "label": "Prilozi (opcionalno)",
       "add": "Dodaj fajl",
       "remove": "Uklonite prilog",
-      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), svaka od 1 MB. Dugo pritisnite sličicu za uklanjanje.",
+      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), 1 MB svaka. Dodirnite × na sličici da uklonite.",
       "signInRequired": "Prijavite se da priložite privatne fajlove svom adhkaru.",
       "permissionDenied": "Za prilaganje fajlova potrebna je dozvola.",
       "permissionTitle": "Dozvoli pristup",
@@ -4654,6 +4741,8 @@
     "watchHint": "Open  Munib Tracker watch app u see danas’s schedule i mark Salah. Podaci syncs od vaš iPhone.",
     "wearTitle": "Wer OS",
     "wearHint": "Nakon uparivanja telefona dodajte Munib Tracker pločicu na sat. Dodirnite pločicu da označite trenutnu Salah na telefonu.",
+    "forceQuitTitle": "Ako je aplikacija zatvorena",
+    "forceQuitBody": "Dodiri na vidžetu, Siri, Assistant i sat/Wear oznake stavljaju se u red čekanja u trenutku radnje. Ako je Munib Tracker potpuno zatvoren, oznaka iz reda se primjenjuje — a vaša kontrolna lista, niz i vidžeti se ažuriraju — sljedeći put kada otvorite aplikaciju.",
     "marked": "Salah označeno",
     "alreadyDone": "Već označeno",
     "allDone": "Sve obligatory Salah označeno za danas",
@@ -4664,8 +4753,19 @@
       "openTracker": "checklist Aç",
       "openQibla": "Kıble Aç",
       "openTasbeeh": "Tesbih Aç",
-      "markCurrent": "my Namaz İşaretle"
-    }
+      "markCurrent": "my Namaz İşaretle",
+      "openRamadan": "Otvori Ramazan",
+      "openKhatm": "Otvori plan hatmea",
+      "openQaza": "Otvori kazu",
+      "openQuran": "Otvori Kur'an",
+      "markFajr": "Označi sabah",
+      "markDhuhr": "Označi podne",
+      "markAsr": "Označi ikindiju",
+      "markMaghrib": "Označi akšam",
+      "markIsha": "Označi jaciju"
+    },
+    "moreShortcutsTitle": "Više glasovnih prečica",
+    "moreShortcutsHint": "Izgovorite bilo koju od ovih fraza da označite namaz ili odmah otvorite ekran."
   },
   "pinLock": {
     "title": "Zaključavanje aplikacije",
@@ -4860,7 +4960,7 @@
     "eyebrow": "Kalendar",
     "title": "Konverter datuma",
     "subtitle": "Pretvorite između hidžretskog i gregorijanskog kalendara",
-    "intro": "Unesite datum u bilo koji kalendar da vidite njegov ekvivalent u drugom, izračunatom van mreže pomoću tabelarnog kuvajtskog algoritma.",
+    "intro": "Unesite datum u bilo kojem kalendaru da vidite ekvivalent u drugom, izračunat offline iz vidljivosti polumjeseca na vašoj lokaciji.",
     "toHijri": "Gregorijanski → Hidžri",
     "toGregorian": "hidžretski → gregorijanski",
     "gregorianDateLabel": "Gregorijanski datum",
@@ -4870,7 +4970,7 @@
     "year": "Godina",
     "useToday": "Iskoristite danas",
     "invalidDate": "Unesite važeći datum",
-    "disclaimer": "Ovo je aritmetička aproksimacija (tabelarni \"Kuvajtski algoritam\") i može se razlikovati za jedan dan od lokalnih najava o viđenju Mjeseca - uvijek pratite svoj lokalni mesdžid ili autoritet za vjerske datume.",
+    "disclaimer": "Datumi se računaju iz vidljivosti polumjeseca (hilāl) na vašoj lokaciji i mogu se razlikovati za jedan dan od službenih najava o viđenju mjeseca — uvijek slijedite lokalni masjid ili vlast za vjerske datume.",
     "directionTitle": "Smjer konverzije",
     "resultFrom": "Od {{date}}",
     "quickLinksTitle": "Povezano",

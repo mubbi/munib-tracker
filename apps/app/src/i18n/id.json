@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Temukan arah kiblat",
     "tasbeehSubtitle": "Buka konter tasbeeh",
     "qazaSubtitle": "Kelola doa yang terlewat",
-    "quranSubtitle": "Baca Al -Qur'an"
+    "quranSubtitle": "Baca Al -Qur'an",
+    "markCurrentSubtitle": "Tandai Salah saat ini",
+    "ramadanSubtitle": "Sahur, iftar & catatan puasa"
   },
   "widgets": {
     "updatedJustNow": "Dimutakhirkan sekarang.",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Pelacak Munib · Kemajuan",
         "description": "Kemajuan shalat wajib hari ini"
+      },
+      "streak": {
+        "label": "Rentetan",
+        "description": "Rentetan Salah wajib saat ini"
+      },
+      "qaza": {
+        "label": "Qaza",
+        "description": "Qaza tersisa dan progres qaza hari ini"
+      },
+      "ramadan": {
+        "label": "Ramadan",
+        "description": "Waktu sahur dan iftar dengan hitungan mundur"
+      },
+      "khatm": {
+        "label": "Khatam",
+        "description": "Progres rencana khatam Al-Qur'an"
+      },
+      "dailyHadith": {
+        "label": "Hadis harian",
+        "description": "Hadis hari ini dari Empat Puluh Imam an-Nawawi"
+      },
+      "hijriDate": {
+        "label": "Tanggal Hijriah",
+        "description": "Tanggal Hijriah dan Masehi"
+      },
+      "qibla": {
+        "label": "Kiblat",
+        "description": "Arah kompas menuju Ka'bah"
+      },
+      "tasbeeh": {
+        "label": "Tasbeeh",
+        "description": "Progres penghitung tasbeeh khusus hari ini"
+      },
+      "friday": {
+        "label": "Jumat",
+        "description": "Progres daftar Jumat atau hari hingga Jumat"
       }
     },
     "remaining": "Tersisa",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Rentetan Salah",
+    "streakDays": "{{count}} hari",
+    "streakDays_one": "{{count}} hari",
+    "streakDays_other": "{{count}} hari",
+    "streakHint": "Terus catat setiap Salah wajib",
+    "qaza": "Qaza",
+    "qazaRemainingCount": "{{count}} tersisa",
+    "qazaNoTarget": "Belum ada target harian",
+    "ramadan": "Ramadan",
+    "suhoorIftar": "Sahur & iftar",
+    "khatm": "Rencana khatam",
+    "khatmStartHint": "Mulai rencana khatam di aplikasi",
+    "khatmPaceAhead": "Lebih cepat",
+    "khatmPaceBehind": "Tertinggal",
+    "khatmPaceDone": "Selesai",
+    "khatmPaceOnTrack": "Sesuai target",
+    "dailyHadith": "Hadis harian",
+    "hijriDate": "Tanggal Hijriah",
+    "qibla": "Kiblat",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Arah ke Ka'bah",
+    "markSalah": "Tandai Salah",
+    "statusActive": "Berikutnya",
+    "tasbeeh": "Tasbeeh",
+    "tasbeehHint": "Buka aplikasi untuk mulai menghitung",
+    "tasbeehRemaining": "{{count}} lagi",
+    "tasbeehUnlimited": "Hitungan tanpa batas",
+    "friday": "Jumat",
+    "fridayProgress": "{{completed}}/{{total}} selesai",
+    "fridayAllDone": "Semua selesai — semoga diterima, in sha Allah",
+    "fridayCountdown": "Jumat dalam {{count}} hari",
+    "fridayCountdown_one": "Jumat dalam {{count}} hari",
+    "fridayCountdown_other": "Jumat dalam {{count}} hari"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -733,7 +804,11 @@
     "heroUser": "Masuk untuk menjaga shalat, qadha, dan zikir Anda aman di cloud.",
     "error": "Tidak dapat masuk. Pastikan server API berjalan dan penyedia ini dikonfigurasi.",
     "providersUnavailableTitle": "Masuk belum tersedia",
-    "providersUnavailableBody": "Penyedia sinkronisasi cloud belum dikonfigurasi di build ini. Lanjutkan sebagai tamu — progres tetap di perangkat ini."
+    "providersUnavailableBody": "Penyedia sinkronisasi cloud belum dikonfigurasi di build ini. Lanjutkan sebagai tamu — progres tetap di perangkat ini.",
+    "titleSignedIn": "Anda sudah masuk",
+    "subtitleSignedIn": "Sinkronisasi cloud siap di perangkat ini",
+    "heroSignedIn": "Selamat datang kembali — akun Anda terhubung. Salah, qaza, dan zikir dapat disinkronkan antar perangkat.",
+    "continueSignedIn": "Lanjut"
   },
   "onboarding": {
     "begin": "Mulai",
@@ -870,6 +945,11 @@
     "liveActivity": "Aktivitas Langsung",
     "liveActivityHint": "Tampilkan a live next-prayer countdown on the lock screen and Dynamic Island.",
     "liveActivityUnavailable": "Tersedia pada iPhone (iOS 16.1+) dengan  dev atau production build.",
+    "liveActivityDiscoveryTitle": "Coba hitungan mundur langsung",
+    "liveActivityDiscoveryBodyIos": "Lihat hitungan mundur salat berikutnya langsung di Lock Screen dan Dynamic Island Anda.",
+    "liveActivityDiscoveryBodyAndroid": "Lihat hitungan mundur salat berikutnya di notifikasi tetap dengan aksi Tandai.",
+    "liveActivityDiscoveryEnable": "Aktifkan",
+    "liveActivityDiscoveryDismissA11y": "Tutup tips hitungan mundur langsung",
     "upcomingTitle": "Upcoming pengingat",
     "upcomingHint": "Anda berikutnya scheduled alerts, di Anda location's timezone. Use  toggles below ke aktifkan, nonaktifkan, atau edit them.",
     "footer": "Delivery dari these pengingat adalah scheduled once notifikasi adalah aktif pada Anda perangkat.",
@@ -900,7 +980,8 @@
       "prayer": "Shalat pengingat",
       "prayerAdhan": "Adzan pada shalat time",
       "zikr": "Zikir pengingat",
-      "qaza": "Qadha pengingat"
+      "qaza": "Qadha pengingat",
+      "prayerOngoing": "Hitungan mundur Salah berikutnya"
     },
     "snooze": "Tunda {{minutes}} mnt",
     "defaultTitle": "Pengingat",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "content harian",
     "defaultLocationTitle": "Atur lokasi untuk peringatan Salah",
-    "defaultLocationMessage": "Pengingat Salah dan Adzan membutuhkan kota Anda. Pengingat Zikr dan Qaza berdasarkan jam tetap dijadwalkan."
+    "defaultLocationMessage": "Pengingat Salah dan Adzan membutuhkan kota Anda. Pengingat Zikr dan Qaza berdasarkan jam tetap dijadwalkan.",
+    "liveActivityHintAndroid": "Tampilkan notifikasi tetap dengan hitungan mundur Salah berikutnya secara langsung dan aksi Tandai.",
+    "markPrayed": "Tandai sudah shalat"
   },
   "fonts": {
     "eyebrow": "Pengaturan",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Surah {{number}}",
+    "selectSurah": "Pilih surah",
+    "openReader": "Buka pembaca"
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qadha",
     "categoryMilestone": "Tonggak",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Pengumuman"
+    "categoryAnnouncement": "Pengumuman",
+    "markingAllRead": "Menandai semua sudah dibaca…"
   },
   "qibla": {
     "eyebrow": "Arah",
@@ -3992,7 +4079,7 @@
       "label": "Lampiran (opsional)",
       "add": "Tambahkan berkas",
       "remove": "Hapus lampiran",
-      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), masing-masing 1 MB. Tekan lama thumbnail untuk menghapusnya.",
+      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), 1 MB masing-masing. Ketuk × pada thumbnail untuk menghapus.",
       "signInRequired": "Masuk untuk melampirkan file pribadi ke adhkar Anda.",
       "permissionDenied": "Izin diperlukan untuk melampirkan file.",
       "permissionTitle": "Izinkan akses",
@@ -4562,6 +4649,8 @@
     "watchHint": "Buka the Munib Tracker watch app to see today’s schedule and mark Shalat. Data syncs from your iPhone.",
     "wearTitle": "Wear OS",
     "wearHint": "Setelah memasangkan ponsel, tambahkan tile Munib Tracker di jam tangan. Ketuk tile untuk menandai Salah saat ini di ponsel Anda.",
+    "forceQuitTitle": "Jika aplikasi ditutup",
+    "forceQuitBody": "Ketukan widget, Siri, Asisten, dan tanda jam tangan/Wear langsung masuk antrean saat Anda bertindak. Jika Munib Tracker ditutup paksa, tanda yang tertunda akan diterapkan — dan checklist, rentetan, serta widget Anda diperbarui — saat Anda membuka aplikasi lagi.",
     "marked": "Shalat marked",
     "alreadyDone": "Sudah ditandai",
     "allDone": "Semua obligatory Shalat marked for today",
@@ -4572,8 +4661,19 @@
       "openTracker": "Buka checklist",
       "openQibla": "Buka Kiblat",
       "openTasbeeh": "Buka Tasbih",
-      "markCurrent": "Tandai my Shalat"
-    }
+      "markCurrent": "Tandai my Shalat",
+      "openRamadan": "Buka Ramadan",
+      "openKhatm": "Buka rencana khatam",
+      "openQaza": "Buka Qaza",
+      "openQuran": "Buka Al-Qur'an",
+      "markFajr": "Tandai Subuh",
+      "markDhuhr": "Tandai Zuhur",
+      "markAsr": "Tandai Asar",
+      "markMaghrib": "Tandai Maghrib",
+      "markIsha": "Tandai Isya"
+    },
+    "moreShortcutsTitle": "Pintasan suara lainnya",
+    "moreShortcutsHint": "Ucapkan salah satu ini untuk menandai Salah atau langsung ke layar."
   },
   "pinLock": {
     "title": "App kunci",
@@ -4768,7 +4868,7 @@
     "eyebrow": "Kalender",
     "title": "Konverter tanggal",
     "subtitle": "Konversi antara kalender Hijriah dan Masehi",
-    "intro": "Masukkan tanggal di salah satu kalender untuk melihat padanannya di kalender lain, dihitung secara offline menggunakan algoritma tabular Kuwait.",
+    "intro": "Masukkan tanggal di salah satu kalender untuk melihat setaranya di kalender lain, dihitung offline dari visibilitas sabit di lokasi Anda.",
     "toHijri": "Masehi → Hijriah",
     "toGregorian": "Hijriah → Masehi",
     "gregorianDateLabel": "tanggal Gregorian",
@@ -4778,7 +4878,7 @@
     "year": "Tahun",
     "useToday": "Gunakan hari ini",
     "invalidDate": "Masukkan tanggal yang valid",
-    "disclaimer": "Ini adalah perkiraan aritmatika (\"algoritme Kuwait\") dan dapat berbeda satu hari dengan pengumuman penampakan bulan setempat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
+    "disclaimer": "Tanggal dihitung dari visibilitas sabit (hilāl) di lokasi Anda dan dapat berbeda sehari dari pengumuman resmi rukyat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
     "directionTitle": "Arah konversi",
     "resultFrom": "Dari {{date}}",
     "quickLinksTitle": "Terkait",

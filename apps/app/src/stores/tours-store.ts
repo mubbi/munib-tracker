@@ -8,7 +8,7 @@ import { createStore, useStore } from "./create-store";
 /**
  * Tracks which in-app feature tours (NF-2.24) the user has completed or dismissed,
  * so a tour can auto-run once and then stay out of the way. Stored as a single id
- * list blob; local-only.
+ * list blob; cloud-synced via `tours_seen`.
  */
 interface ToursState {
   seen: string[];

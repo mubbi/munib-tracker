@@ -55,6 +55,17 @@ Automates **all product screens** on real emulators/simulators using [Maestro](h
 - **Platforms:** Android + iOS share the same Maestro batching (`lib/run-maestro-batches.mjs`); iOS requires macOS.
 - **Apple Watch:** `pnpm screenshots:watch` — not Maestro. Seeds `widget_snapshot_v1` into the watch App Group, captures Ultra 3 (422×514). Apple scales that set to smaller watches; upload one size consistently across localizations.
 
+### Home-screen widgets (store / picker)
+
+Phone widget gallery shots are **manual** (or OS screenshot tools): Maestro cannot open the iOS/Android widget picker reliably.
+
+1. Seed demo data with builders in `apps/app/scripts/screenshots/lib/widget-scenes.mjs` (same shape as Watch snapshots).
+2. On iOS, write `widget_snapshot_v1` into App Group `group.app.munibtracker.widgets` (reuse `inject-watch-snapshot.mjs` patterns on the phone simulator if needed), place Next Salah + Schedule, capture the home screen.
+3. On Android, open the app once so snapshot sync + `setWidgetPreview` run, place widgets, capture.
+4. Picker marketing assets: regenerate unique PNGs with `apps/app/scripts/generate-android-surface-assets.py` → `assets/images/widget-previews/` (wired via `homeScreenSurfaces.cjs`). Android also ships `previewLayout` (`widget_preview_glance`) for scalable previews on API 31+.
+
+See also [`docs/NATIVE_SURFACES.md`](NATIVE_SURFACES.md) for content budgets, Mark action, and dual-theme behavior.
+
 ```bash
 pnpm screenshots:validate                              # structure + syntax only
 LOCALES=en,ar,ur THEMES=dark SCENES=home,tracker pnpm screenshots:android

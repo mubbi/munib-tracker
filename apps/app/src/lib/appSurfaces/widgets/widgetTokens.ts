@@ -16,11 +16,13 @@ export type WidgetThemeInput = {
   primaryColor: string;
 };
 
+/** Contrast-tuned palettes (WCAG-friendly captions on card backgrounds). */
 const LIGHT = {
   background: "#F5F0E6",
   cardBackground: "#FFFCF7",
   textPrimary: "#152921",
-  textSecondary: "#5C7268",
+  /** Darkened from #5C7268 for ~4.5:1 on cream cards. */
+  textSecondary: "#4A5F56",
   border: "#C9C0AE",
 };
 
@@ -28,7 +30,8 @@ const DARK = {
   background: "#152921",
   cardBackground: "#1C322C",
   textPrimary: "#E8DCC8",
-  textSecondary: "#8BA89A",
+  /** Lightened for readable captions on dark cards. */
+  textSecondary: "#A3BDB0",
   border: "#2A453C",
 };
 

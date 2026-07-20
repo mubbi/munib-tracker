@@ -43,9 +43,11 @@ import {
   orderQuickActions,
   QUICK_ACTION_META,
 } from "@/lib/quick-actions";
+import { getRamadanInfo } from "@/lib/ramadan";
 import { useArrowForward } from "@/lib/rtl";
 import { currentSeasonalTheme } from "@/lib/seasonal-themes";
 import { formatScheduleShare } from "@/lib/share";
+import { useContinueActivity } from "@/stores/continue-store";
 import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
 import { useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
@@ -127,10 +129,18 @@ export function HomeBelowFold({
   useReviewStreakTrigger(streak);
   const { quickActionOrder, hiddenHomeModules } = usePreferences();
   const location = useLocation();
+  const continueActivity = useContinueActivity();
   const arrowForward = useArrowForward();
   const hiddenModules = new Set(hiddenHomeModules ?? []);
   const showDefaultLocationBanner = location.source === "default";
   const showSeasonalBanner = currentSeasonalTheme(new Date(), location.timeZone) != null;
+  // Gate optional cards before Stagger wraps them — null-returning children still
+  // occupy flex `gap` slots (same issue as the banners above).
+  const showRamadanCard = getRamadanInfo(location).isRamadan;
+  const showKhatmCard = !hiddenModules.has("khatm") && khatmPlan != null;
+  const showContinueCard = !hiddenModules.has("continue") && continueActivity != null;
+  const showQazaCard =
+    !hiddenModules.has("qaza") && (qaza.remaining + qaza.completed > 0 || roza.remaining > 0);
   const acceptanceHourActive = useAcceptanceHourActive();
 
   const onShareSchedule = async () => {
@@ -224,8 +234,7 @@ export function HomeBelowFold({
       <IosPwaInstallBanner />
 
       <Stagger entranceKey="home">
-        {/* Mount only when visible — empty Stagger wrappers keep flex `gap` and
-            cancel the hero overlap (`marginTop: -Spacing.five`). */}
+        {/* Mount only when visible — empty Stagger wrappers still take flex `gap`. */}
         {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
         {showSeasonalBanner ? <SeasonalThemeBanner /> : null}
 
@@ -411,10 +420,10 @@ export function HomeBelowFold({
           />
         </Card>
 
-        <RamadanCard />
-        {!hiddenModules.has("khatm") ? <KhatmCard /> : null}
+        {showRamadanCard ? <RamadanCard /> : null}
+        {showKhatmCard ? <KhatmCard /> : null}
 
-        {!hiddenModules.has("continue") ? <ContinueCard /> : null}
+        {showContinueCard ? <ContinueCard /> : null}
 
         {!hiddenModules.has("knowledge") ? <KnowledgeFlashCard /> : null}
 
@@ -444,7 +453,7 @@ export function HomeBelowFold({
           </Card>
         ) : null}
 
-        {!hiddenModules.has("qaza") ? (
+        {showQazaCard ? (
           <QazaSummaryCard
             remaining={qaza.remaining}
             completed={qaza.completed}

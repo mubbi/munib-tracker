@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Kyble yönünü bul",
     "tasbeehSubtitle": "Tespeh sayacyny aç",
     "qazaSubtitle": "Kaçyrylan namazlary yönet",
-    "quranSubtitle": "Guran oku"
+    "quranSubtitle": "Guran oku",
+    "markCurrentSubtitle": "Häzirki namazy belläň",
+    "ramadanSubtitle": "Sahur, iftar we oraza žurnaly"
   },
   "widgets": {
     "updatedJustNow": "Az önce güncellendi",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · Ylerleme",
         "description": "Şu günkü farz namaz ilerlemesi"
+      },
+      "streak": {
+        "label": "Seriýa",
+        "description": "Häzirki farz namaz seriýasy"
+      },
+      "qaza": {
+        "label": "Kaza",
+        "description": "Galan kaza we şu günki kaza ösüşi"
+      },
+      "ramadan": {
+        "label": "Ramazan",
+        "description": "Sahur we iftar wagtlary yzyna sanaw bilen"
+      },
+      "khatm": {
+        "label": "Hatym",
+        "description": "Gurhan hatym meýilnamasynyň ösüşi"
+      },
+      "dailyHadith": {
+        "label": "Günüň hadysy",
+        "description": "Imam Nawawynyň Kyrk hadysyndan şu günki hadys"
+      },
+      "hijriDate": {
+        "label": "Yslam senesi",
+        "description": "Hijri we milady sene"
+      },
+      "qibla": {
+        "label": "Kybla",
+        "description": "Käbä kompasyň burçy"
+      },
+      "tasbeeh": {
+        "label": "Tesbih",
+        "description": "Şu günki ýörite tesbih sanagynyň ösüşi"
+      },
+      "friday": {
+        "label": "Anna",
+        "description": "Anna sanawynyň ösüşi ýa-da Annaya çenli günler"
       }
     },
     "remaining": "Galan",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Namaz seriýasy",
+    "streakDays": "{{count}} gün",
+    "streakDays_one": "{{count}} gün",
+    "streakDays_other": "{{count}} gün",
+    "streakHint": "Her farz namazy belläp duruň",
+    "qaza": "Kaza",
+    "qazaRemainingCount": "{{count}} galdy",
+    "qazaNoTarget": "Gündelik maksat ýok",
+    "ramadan": "Ramazan",
+    "suhoorIftar": "Sahur we iftar",
+    "khatm": "Hatym meýilnamasy",
+    "khatmStartHint": "Programmada hatym meýilnamasyny başlaň",
+    "khatmPaceAhead": "Öňde",
+    "khatmPaceBehind": "Yzda",
+    "khatmPaceDone": "Tamamlandy",
+    "khatmPaceOnTrack": "Meýilnamada",
+    "dailyHadith": "Günüň hadysy",
+    "hijriDate": "Yslam senesi",
+    "qibla": "Kybla",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Käbä ugry",
+    "markSalah": "Namazy belläň",
+    "statusActive": "Indiki",
+    "tasbeeh": "Tesbih",
+    "tasbeehHint": "Sanamaga başlamak üçin programmamy açyň",
+    "tasbeehRemaining": "{{count}} galdy",
+    "tasbeehUnlimited": "Çäksiz sanaw",
+    "friday": "Anna",
+    "fridayProgress": "{{completed}}/{{total}} tamam",
+    "fridayAllDone": "Hemmesi gutardy — kabul bolsun, inşaAllah",
+    "fridayCountdown": "{{count}} günden soň Anna",
+    "fridayCountdown_one": "{{count}} günden soň Anna",
+    "fridayCountdown_other": "{{count}} günden soň Anna"
   },
   "ramadan": {
     "eyebrow": "Ramazan",
@@ -733,7 +804,11 @@
     "heroUser": "Namazlarynyzy, kazalarynyzy ve zikirlerinizi bulutta güvende tutmak için giriş yapyn.",
     "error": "Girip bolmady. API serweriniň işleýändigini we bu üpjünçiniň sazlanandygyny barlaň.",
     "providersUnavailableTitle": "Giriş heniz elýeterli däl",
-    "providersUnavailableBody": "Bu guruluşda bulut sinhron üpjünçileri sazlanmadyk. Myhman hökmünde dowam ediň — öňegidişligiňiz şu enjamda galýar."
+    "providersUnavailableBody": "Bu guruluşda bulut sinhron üpjünçileri sazlanmadyk. Myhman hökmünde dowam ediň — öňegidişligiňiz şu enjamda galýar.",
+    "titleSignedIn": "Siz girdiniz",
+    "subtitleSignedIn": "Bulut sinhrony bu enjamda taýýar",
+    "heroSignedIn": "Hoş geldiňiz — hasabyňyz baglandy. Namaz, kaza we zikir enjamlar arasynda sinhronlanyp biler.",
+    "continueSignedIn": "Dowam et"
   },
   "onboarding": {
     "begin": "Başla",
@@ -870,6 +945,11 @@
     "liveActivity": "Göni işjeňlik",
     "liveActivityHint": "a live next-prayer countdown on the lock screen and Dynamic Island. Göster",
     "liveActivityUnavailable": "Available  iPhone (iOS 16.1+) ile  dev veya production build.",
+    "liveActivityDiscoveryTitle": "Janly yzyna sanamagy synaň",
+    "liveActivityDiscoveryBodyIos": "Indiki namazyň yzyna sanawyny gulplama ekranynda we Dynamic Island-da görüň.",
+    "liveActivityDiscoveryBodyAndroid": "Indiki namazyň yzyna sanawyny Belläň hereketi bilen hemişelik bildirişde görüň.",
+    "liveActivityDiscoveryEnable": "Işjeňleştir",
+    "liveActivityDiscoveryDismissA11y": "Janly yzyna sanaw maslahatyny ýap",
     "upcomingTitle": "Geljekdäki ýatlatmalar",
     "upcomingHint": "Sizin sonraki scheduled alerts, içinde sizin location's timezone. Use  toggles below  etkinleştir, devre dyşy byrak, veya düzenle them.",
     "footer": "Delivery  these reminders dir scheduled once notifications dir açyk  sizin cihaz.",
@@ -900,7 +980,8 @@
       "prayer": "Namaz reminders",
       "prayerAdhan": "Ezan at namaz time",
       "zikr": "Zikr ýatlatmalary",
-      "qaza": "Gaza reminders"
+      "qaza": "Gaza reminders",
+      "prayerOngoing": "Indiki namaz yzyna sanawy"
     },
     "snooze": "{{minutes}} min gijikdir",
     "defaultTitle": "Hatyrlatma",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Günlük content",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "Indiki namazyň janly yzyna sanawy we Belläň hereketi bilen hemişelik bildiriş görkeziň.",
+    "markPrayed": "Okuldy diýip belläň"
   },
   "fonts": {
     "eyebrow": "Sazlamalar",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Sure {{number}}",
+    "selectSurah": "Sure saýlaň",
+    "openReader": "Okadyjyny aç"
   },
   "hadith": {
     "eyebrow": "Peygamber gelenegi",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Gaza",
     "categoryMilestone": "Kilometre taşy",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Bildiriş"
+    "categoryAnnouncement": "Bildiriş",
+    "markingAllRead": "Hemmesi okulan diýlip bellenýär…"
   },
   "qibla": {
     "eyebrow": "Yön",
@@ -3992,7 +4079,7 @@
       "label": "Goşundylar (islege görä)",
       "add": "Faýl goşuň",
       "remove": "Goşundyny aýyryň",
-      "hint": "5-e çenli faýl (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçijik suraty basyň.",
+      "hint": "5 faýla çenli (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçi suratdaky ×-e basyň.",
       "signInRequired": "Adhkar-a şahsy faýllary birikdirmek üçin giriň.",
       "permissionDenied": "Faýllary birikdirmek üçin rugsat gerek.",
       "permissionTitle": "Girmäge rugsat beriň",
@@ -4562,6 +4649,8 @@
     "watchHint": "the Munib Tracker watch app to see today’s schedule and mark Namaz. Data syncs from your iPhone. Aç",
     "wearTitle": "Wear OS",
     "wearHint": "Telefony jübütleden soň sagatda Munib Tracker plitkasyny goş. Häzirki Salah-y telefonda bellemek üçin plitkany bas.",
+    "forceQuitTitle": "Eger programma ýapylan bolsa",
+    "forceQuitBody": "Widjete degmek, Siri, Assistant we sagat/Wear bellikleri hereket edeniňizde derrew nobata goýulýar. Munib Tracker doly ýapylan bolsa, nobatdaky bellik — sanawyňyz, seriýaňyz we widjetleriňiz täzelenip — programmany indiki gezek açanyňyzda ulanylýar.",
     "marked": "Namaz marked",
     "alreadyDone": "Eýýäm bellendi",
     "allDone": "Tüm obligatory Namaz marked for today",
@@ -4572,8 +4661,19 @@
       "openTracker": "checklist Aç",
       "openQibla": "Kyble Aç",
       "openTasbeeh": "Tespeh Aç",
-      "markCurrent": "my Namaz Yşaretle"
-    }
+      "markCurrent": "my Namaz Yşaretle",
+      "openRamadan": "Ramazany aç",
+      "openKhatm": "Hatym meýilnamasyny aç",
+      "openQaza": "Kazany aç",
+      "openQuran": "Gurhany aç",
+      "markFajr": "Bagdod namazyny belläň",
+      "markDhuhr": "Öýle namazyny belläň",
+      "markAsr": "Ikindi namazyny belläň",
+      "markMaghrib": "Agşam namazyny belläň",
+      "markIsha": "Ýatsy namazyny belläň"
+    },
+    "moreShortcutsTitle": "Has köp sesli gysga ýollar",
+    "moreShortcutsHint": "Namazy bellemek ýa-da göni ekrana gitmek üçin şularyň birini aýdyň."
   },
   "pinLock": {
     "title": "Uygulama kilidi",
@@ -4768,7 +4868,7 @@
     "eyebrow": "Senenama",
     "title": "Sene öwrüji",
     "subtitle": "Hijri we Gregorian kalendarlarynyň arasynda öwüriň",
-    "intro": "Kuweýt tablisasynyň algoritmini ulanyp, oflayn hasaplanan beýleki birine meňzeşini görmek üçin iki senenama senesini giriziň.",
+    "intro": "Islendik senenama bir sene giriziň, beýlekisindeki deňeşini görmek üçin — oflaýn ýerleşýän ýeriňizdäki aýyň görünmeginden hasaplanýar.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Gregorian senesi",
@@ -4778,7 +4878,7 @@
     "year": ".Yl",
     "useToday": "Şu gün ulanyň",
     "invalidDate": "Dogry senäni giriziň",
-    "disclaimer": "Bu arifmetiki ýakynlaşma (tablisa \"Kuweýt algoritmi\") we ýerli Aý görýän bildirişlerinden bir gün tapawutlanyp biler - dini seneler üçin hemişe ýerli metjidiňize ýa-da ygtyýaryňyza eýeriň.",
+    "disclaimer": "Seneler ýerleşýän ýeriňizdäki ýarymaýyň (hilāl) görünmeginden hasaplanýar we resmi aý gözegçiligi bildirişlerinden bir gün tapawutlanyp biler — dini seneler üçin hemişe ýerli masjid ýa-da häkimiýeti eýeriň.",
     "directionTitle": "Öwürmek ugry",
     "resultFrom": "{{date}}-den",
     "quickLinksTitle": "Baglanyşykly",

@@ -1,5 +1,5 @@
 import { SymbolView } from "expo-symbols";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type LayoutChangeEvent, StyleSheet, View } from "react-native";
 import Animated, {
@@ -11,6 +11,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
 import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
@@ -49,6 +50,7 @@ export function TasbeehCounterBar({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const insets = useSafeAreaInsets();
+  const [confirmUndo, setConfirmUndo] = useState(false);
   const displayCount = target > 0 ? Math.min(count, target) : count;
   const atLimit = target > 0 && count >= target;
   const complete = atLimit;
@@ -69,102 +71,113 @@ export function TasbeehCounterBar({
   };
 
   return (
-    <View
-      onLayout={onLayout}
-      accessibilityRole="text"
-      style={[
-        styles.shell,
-        {
-          borderTopColor: tokens.hairline,
-          paddingBottom: Math.max(insets.bottom, Spacing.two),
-        },
-      ]}
-    >
-      {/* No `backdropCapture`: bar lives inside the root BlurTargetView — same
-          as zakat-summary-bar / page-reader-footer. */}
-      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-        <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
-      </View>
+    <Fragment>
       <View
+        onLayout={onLayout}
+        accessibilityRole="text"
         style={[
-          StyleSheet.absoluteFill,
+          styles.shell,
           {
-            pointerEvents: "none",
-            backgroundColor: withAlpha(
-              colors.card,
-              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.55 : 0.7,
-            ),
+            borderTopColor: tokens.hairline,
+            paddingBottom: Math.max(insets.bottom, Spacing.two),
           },
         ]}
-      />
+      >
+        {/* No `backdropCapture`: bar lives inside the root BlurTargetView — same
+            as zakat-summary-bar / page-reader-footer. */}
+        <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+          <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+        </View>
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              pointerEvents: "none",
+              backgroundColor: withAlpha(
+                colors.card,
+                hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.55 : 0.7,
+              ),
+            },
+          ]}
+        />
 
-      <View style={styles.inner}>
-        <View style={[styles.iconWell, { backgroundColor: withAlpha(accent, 0.14) }]}>
-          <SymbolView
+        <View style={styles.inner}>
+          <View style={[styles.iconWell, { backgroundColor: withAlpha(accent, 0.14) }]}>
+            <SymbolView
+              name={{
+                ios: complete ? "checkmark.seal.fill" : "hand.tap.fill",
+                android: complete ? "verified" : "touch_app",
+                web: complete ? "verified" : "touch_app",
+              }}
+              size={18}
+              tintColor={accent}
+            />
+          </View>
+
+          <View style={styles.copy}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("tasbeehUi.dockLabel")}
+            </ThemedText>
+            <View style={[styles.countRow, ltrControlViewProps().style]}>
+              <ThemedText type="smallBold" style={[styles.countText, { color: accent }]}>
+                {displayCount}
+              </ThemedText>
+              {target > 0 ? (
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.targetSuffix}>
+                  / {target}
+                </ThemedText>
+              ) : null}
+            </View>
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+              {complete
+                ? t("tasbeehUi.targetReached")
+                : target > 0
+                  ? t("tasbeehUi.remaining", { count: remaining })
+                  : t("tasbeehUi.unlimited")}
+            </ThemedText>
+          </View>
+
+          <IconButton
             name={{
-              ios: complete ? "checkmark.seal.fill" : "hand.tap.fill",
-              android: complete ? "verified" : "touch_app",
-              web: complete ? "verified" : "touch_app",
+              ios: "minus",
+              android: "remove",
+              web: "remove",
             }}
             size={18}
-            tintColor={accent}
+            hitTarget={44}
+            tintColor={displayCount > 0 ? colors.foreground : colors.mutedForeground}
+            background={
+              displayCount > 0
+                ? withAlpha(colors.foreground, 0.08)
+                : withAlpha(colors.mutedForeground, 0.08)
+            }
+            disabled={displayCount <= 0}
+            accessibilityLabel={t("tasbeehUi.undo")}
+            onPress={() => setConfirmUndo(true)}
+          />
+
+          <MiniCounterRing
+            count={displayCount}
+            target={target}
+            complete={complete}
+            atLimit={atLimit}
+            onPress={handleTap}
           />
         </View>
-
-        <View style={styles.copy}>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("tasbeehUi.dockLabel")}
-          </ThemedText>
-          <View style={[styles.countRow, ltrControlViewProps().style]}>
-            <ThemedText type="smallBold" style={[styles.countText, { color: accent }]}>
-              {displayCount}
-            </ThemedText>
-            {target > 0 ? (
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.targetSuffix}>
-                / {target}
-              </ThemedText>
-            ) : null}
-          </View>
-          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-            {complete
-              ? t("tasbeehUi.targetReached")
-              : target > 0
-                ? t("tasbeehUi.remaining", { count: remaining })
-                : t("tasbeehUi.unlimited")}
-          </ThemedText>
-        </View>
-
-        <IconButton
-          name={{
-            ios: "minus",
-            android: "remove",
-            web: "remove",
-          }}
-          size={18}
-          hitTarget={44}
-          tintColor={displayCount > 0 ? colors.foreground : colors.mutedForeground}
-          background={
-            displayCount > 0
-              ? withAlpha(colors.foreground, 0.08)
-              : withAlpha(colors.mutedForeground, 0.08)
-          }
-          disabled={displayCount <= 0}
-          accessibilityLabel={t("tasbeehUi.undo")}
-          onPress={() => {
-            triggerHaptic("light");
-            onDecrement();
-          }}
-        />
-
-        <MiniCounterRing
-          count={displayCount}
-          target={target}
-          complete={complete}
-          atLimit={atLimit}
-          onPress={handleTap}
-        />
       </View>
-    </View>
+
+      <ConfirmDialog
+        visible={confirmUndo}
+        title={t("tasbeehUi.confirmUndoTitle")}
+        message={t("tasbeehUi.confirmUndoMessage")}
+        confirmLabel={t("tasbeehUi.undo")}
+        onConfirm={() => {
+          triggerHaptic("light");
+          onDecrement();
+        }}
+        onClose={() => setConfirmUndo(false)}
+      />
+    </Fragment>
   );
 }
 

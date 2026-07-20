@@ -29,6 +29,10 @@ describe("isBlobEntity", () => {
     expect(isBlobEntity("fasting")).toBe(true);
     expect(isBlobEntity("qaza_schedule")).toBe(true);
     expect(isBlobEntity("learn_dua_progress")).toBe(true);
+    expect(isBlobEntity("location")).toBe(true);
+    expect(isBlobEntity("reading_text_visibility")).toBe(true);
+    expect(isBlobEntity("zakat_calculator")).toBe(true);
+    expect(isBlobEntity("tours_seen")).toBe(true);
     // Entities with their own bespoke sync path must NOT be treated as blobs.
     expect(isBlobEntity("prayer_logs")).toBe(false);
     expect(isBlobEntity("custom_tasbeeh")).toBe(false);
@@ -79,6 +83,37 @@ describe("buildBlobRecords", () => {
     expect(cleared).toBeDefined();
     expect(cleared?.data).toEqual({ value: {} });
     expect(cleared?.updatedAt).toBe(T2);
+  });
+
+  it("skips pristine default location so a fresh device cannot clobber another", async () => {
+    await writeJSON(DB_KEYS.location, {
+      latitude: 21.4225,
+      longitude: 39.8262,
+      label: "Makkah, Saudi Arabia",
+      city: "Makkah",
+      country: "Saudi Arabia",
+      method: "MuslimWorldLeague",
+      madhab: "shafi",
+      source: "default",
+      updatedAt: null,
+    });
+    const records = await buildBlobRecords(T1);
+    expect(records.find((r) => r.entity === "location")).toBeUndefined();
+  });
+
+  it("emits location once the user changes calc settings", async () => {
+    await writeJSON(DB_KEYS.location, {
+      latitude: 21.4225,
+      longitude: 39.8262,
+      label: "Makkah, Saudi Arabia",
+      method: "Egyptian",
+      madhab: "shafi",
+      source: "default",
+      updatedAt: null,
+    });
+    const record = (await buildBlobRecords(T1)).find((r) => r.entity === "location");
+    expect(record).toBeDefined();
+    expect((record?.data as { value: { method: string } }).value.method).toBe("Egyptian");
   });
 });
 

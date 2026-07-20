@@ -30,7 +30,9 @@ export function filterRemotePreferencesPatch(
 ): Partial<UserPreferences> {
   if (!hasPendingLocalChanges) return incoming;
   const patch = { ...incoming };
-  patch.locale = undefined;
-  patch.translationLocale = undefined;
+  // Delete (don't set `undefined`) so a later spread can't wipe locale back to
+  // the English default via `withDefaults({ ...current, ...patch })`.
+  delete patch.locale;
+  delete patch.translationLocale;
   return patch;
 }

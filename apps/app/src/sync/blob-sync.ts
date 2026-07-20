@@ -2,6 +2,8 @@ import type { SyncRecordDto } from "@munib-tracker/api-client";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, withKeyLock, writeJSON } from "@/db/store";
+import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
+import { DEFAULT_CALCULATION_METHOD, DEFAULT_MADHAB } from "@/lib/prayer-times";
 import { aqeedahProgressStore } from "@/stores/aqeedah-progress-store";
 import { battlesProgressStore } from "@/stores/battles-progress-store";
 import { customAdhkarStore } from "@/stores/custom-adhkar-store";
@@ -15,11 +17,14 @@ import { khatmStore } from "@/stores/khatm-store";
 import { khushuStore } from "@/stores/khushu-store";
 import { lastDayProgressStore } from "@/stores/last-day-progress-store";
 import { learnDuaProgressStore } from "@/stores/learn-dua-progress-store";
+import { locationStore } from "@/stores/location-store";
 import { prophetsProgressStore } from "@/stores/prophets-progress-store";
 import { quranGuideProgressStore } from "@/stores/quran-guide-progress-store";
 import { quranStore } from "@/stores/quran-store";
+import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
 import { salahGuideProgressStore } from "@/stores/salah-guide-progress-store";
 import { taharahProgressStore } from "@/stores/taharah-progress-store";
+import { toursStore } from "@/stores/tours-store";
 import { trackerStore } from "@/stores/tracker-store";
 import { umrahChecklistStore } from "@/stores/umrah-checklist-store";
 
@@ -53,6 +58,11 @@ interface BlobEntity {
   storageKey: string;
   /** Refreshes the in-memory store after a pulled blob is applied (no-op if the store isn't live). */
   reload: () => Promise<void>;
+  /**
+   * Optional: treat a non-empty default seed as "untouched" so a fresh device
+   * doesn't push defaults and clobber real data on another device.
+   */
+  isPristine?: (value: unknown) => boolean;
 }
 
 /** Reloads a store's persisted state only if it has already been loaded once. */
@@ -67,12 +77,44 @@ function refreshTracker(): Promise<void> {
   return trackerStore.getState().isReady ? trackerStore.getState().refresh() : Promise.resolve();
 }
 
+/** Apply a synced location without triggering a GPS refresh that would overwrite it. */
+function reloadLocationFromDisk(): Promise<void> {
+  if (!locationStore.getState().isReady) return Promise.resolve();
+  return readJSON<StoredLocation | null>(DB_KEYS.location, null).then((stored) => {
+    if (!stored) return;
+    locationStore.setState({ location: { ...DEFAULT_LOCATION, ...stored }, status: "ready" });
+  });
+}
+
 const noop = (): Promise<void> => Promise.resolve();
 
+/** Seeded Makkah + default calc settings — not yet a real user choice. */
+function isPristineLocation(value: unknown): boolean {
+  if (value == null || typeof value !== "object") return true;
+  const loc = value as Partial<StoredLocation>;
+  const adjustments = loc.prayerAdjustments;
+  const hasAdjustments =
+    adjustments != null && typeof adjustments === "object" && Object.keys(adjustments).length > 0;
+  return (
+    (loc.source ?? "default") === "default" &&
+    (loc.method ?? DEFAULT_CALCULATION_METHOD) === DEFAULT_CALCULATION_METHOD &&
+    (loc.madhab ?? DEFAULT_MADHAB) === DEFAULT_MADHAB &&
+    loc.highLatitudeRule == null &&
+    !hasAdjustments
+  );
+}
+
+/** Factory defaults for reading-text toggles — skip until the user changes them. */
+function isPristineReadingTextVisibility(value: unknown): boolean {
+  if (value == null || typeof value !== "object") return true;
+  const v = value as { showTransliteration?: boolean; showTranslation?: boolean };
+  return v.showTransliteration !== false && v.showTranslation !== false;
+}
+
 /**
- * The blob-synced entities. Deliberately excluded: `location` and
- * `continue_activity` (device-specific position/GPS, not portable) and
- * `achievements` (derived from already-synced stats — recomputed per device).
+ * The blob-synced entities. Deliberately excluded: `continue_activity` (device
+ * session UX) and `achievements` (derived from already-synced stats — recomputed
+ * per device).
  */
 export const BLOB_ENTITIES: BlobEntity[] = [
   { entity: "fasting", storageKey: DB_KEYS.fasting, reload: reloadIfReady(fastingStore) },
@@ -162,6 +204,28 @@ export const BLOB_ENTITIES: BlobEntity[] = [
   // Legacy per-date plans — `getSchedule()` falls back to them, so they still
   // carry targets on old-data devices that never migrated to `qaza_schedule`.
   { entity: "qaza_daily_plans", storageKey: DB_KEYS.qazaDailyPlans, reload: refreshTracker },
+  {
+    entity: "location",
+    storageKey: DB_KEYS.location,
+    reload: reloadLocationFromDisk,
+    isPristine: isPristineLocation,
+  },
+  {
+    entity: "reading_text_visibility",
+    storageKey: DB_KEYS.readingTextVisibility,
+    reload: reloadIfReady(readingTextVisibilityStore),
+    isPristine: isPristineReadingTextVisibility,
+  },
+  {
+    entity: "zakat_calculator",
+    storageKey: DB_KEYS.zakatCalculator,
+    reload: noop,
+  },
+  {
+    entity: "tours_seen",
+    storageKey: DB_KEYS.toursSeen,
+    reload: reloadIfReady(toursStore),
+  },
 ];
 
 const BLOB_BY_ENTITY = new Map(BLOB_ENTITIES.map((e) => [e.entity, e]));
@@ -202,6 +266,12 @@ function isEmptyBlob(value: unknown): boolean {
   return false;
 }
 
+function isUntouchedBlob(e: BlobEntity, value: unknown, tracked: unknown): boolean {
+  if (tracked) return false;
+  if (isEmptyBlob(value)) return true;
+  return e.isPristine?.(value) === true;
+}
+
 /**
  * Builds the push records for every blob entity, updating the local fingerprint
  * tracker in the same pass. Unchanged entities reuse their stored timestamp (so
@@ -217,8 +287,8 @@ export async function buildBlobRecords(nowIso: string): Promise<SyncRecordDto[]>
       const value = await readJSON<unknown>(e.storageKey, null);
       const tracked = state[e.entity];
       // Never meaningfully touched on this device — nothing to sync, and pushing
-      // an empty blob could clobber real data on another device.
-      if (isEmptyBlob(value) && !tracked) continue;
+      // an empty/default blob could clobber real data on another device.
+      if (isUntouchedBlob(e, value, tracked)) continue;
 
       const hash = fingerprint(value);
       let updatedAt: string;
@@ -305,6 +375,7 @@ const UNION_MERGE_ENTITIES = new Set([
   "last_day_progress",
   "jannah_intentions",
   "jahannam_intentions",
+  "tours_seen",
 ]);
 
 async function mergeBlobValue(

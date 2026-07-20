@@ -115,6 +115,7 @@ Then run `pnpm sync:screenshot-captures` from the repo root.
 | `lib/app-locales.mjs` | Loads AppLocale + studio locale lists |
 | `lib/scenes.mjs` | Phone scene catalog |
 | `lib/watch-scenes.mjs` | Watch scenes + demo `widget_snapshot_v1` builders |
+| `lib/widget-scenes.mjs` | Home-screen widget store scene builders (manual capture) |
 | `lib/demo-data.mjs` | AsyncStorage demo seed |
 | `lib/db-keys.mjs` | Mirror of `src/db/keys.ts` + theme keys |
 | `lib/maestro.mjs` | YAML flow generator |

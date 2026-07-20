@@ -177,7 +177,9 @@
     "qiblaSubtitle": "কিবলার দিক খুঁজুন",
     "tasbeehSubtitle": "তাসবীহ কাউন্টার খুলুন",
     "qazaSubtitle": "মিস করা নামাজ পরিচালনা",
-    "quranSubtitle": "কুরআন পড়ুন"
+    "quranSubtitle": "কুরআন পড়ুন",
+    "markCurrentSubtitle": "বর্তমান সালাত চিহ্নিত করুন",
+    "ramadanSubtitle": "সাহরি, ইফতার ও রোজার লগ"
   },
   "widgets": {
     "updatedJustNow": "এইমাত্র আপডেট",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Munib Tracker · অগ্রগতি",
         "description": "আজকের ফরজ নামাজের অগ্রগতি"
+      },
+      "streak": {
+        "label": "ধারা",
+        "description": "বর্তমান ফরজ সালাতের ধারা"
+      },
+      "qaza": {
+        "label": "কাজা",
+        "description": "বাকি কাজা এবং আজকের কাজার অগ্রগতি"
+      },
+      "ramadan": {
+        "label": "রমজান",
+        "description": "সাহরি ও ইফতারের সময় কাউন্টডাউনসহ"
+      },
+      "khatm": {
+        "label": "খতম",
+        "description": "কুরআন খতম পরিকল্পনার অগ্রগতি"
+      },
+      "dailyHadith": {
+        "label": "আজকের হাদিস",
+        "description": "ইমাম নববীর চল্লিশ হাদিস থেকে আজকের হাদিস"
+      },
+      "hijriDate": {
+        "label": "ইসলামি তারিখ",
+        "description": "হিজরি ও গ্রেগরিয়ান তারিখ"
+      },
+      "qibla": {
+        "label": "কিবলা",
+        "description": "কাবার দিকে কম্পাস কোণ"
+      },
+      "tasbeeh": {
+        "label": "তাসবীহ",
+        "description": "আজকের কাস্টম তাসবীহ কাউন্টারের অগ্রগতি"
+      },
+      "friday": {
+        "label": "জুমআ",
+        "description": "শুক্রবারের চেকলিস্ট অগ্রগতি বা জুমআ পর্যন্ত দিন"
       }
     },
     "remaining": "অবশিষ্ট",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "সালাতের ধারা",
+    "streakDays": "{{count}} দিন",
+    "streakDays_one": "{{count}} দিন",
+    "streakDays_other": "{{count}} দিন",
+    "streakHint": "প্রতিটি ফরজ সালাত লগ করতে থাকুন",
+    "qaza": "কাজা",
+    "qazaRemainingCount": "{{count}} বাকি",
+    "qazaNoTarget": "কোনো দৈনিক লক্ষ্য নেই",
+    "ramadan": "রমজান",
+    "suhoorIftar": "সাহরি ও ইফতার",
+    "khatm": "খতম পরিকল্পনা",
+    "khatmStartHint": "অ্যাপে একটি খতম পরিকল্পনা শুরু করুন",
+    "khatmPaceAhead": "এগিয়ে",
+    "khatmPaceBehind": "পিছিয়ে",
+    "khatmPaceDone": "সম্পূর্ণ",
+    "khatmPaceOnTrack": "লক্ষ্যে আছে",
+    "dailyHadith": "আজকের হাদিস",
+    "hijriDate": "ইসলামি তারিখ",
+    "qibla": "কিবলা",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "কাবার দিক",
+    "markSalah": "সালাত চিহ্নিত করুন",
+    "statusActive": "পরবর্তী",
+    "tasbeeh": "তাসবীহ",
+    "tasbeehHint": "গণনা শুরু করতে অ্যাপ খুলুন",
+    "tasbeehRemaining": "{{count}} বাকি",
+    "tasbeehUnlimited": "সীমাহীন গণনা",
+    "friday": "জুমআ",
+    "fridayProgress": "{{completed}}/{{total}} সম্পন্ন",
+    "fridayAllDone": "সব হয়ে গেছে — কবুল হোক, ইনশাআল্লাহ",
+    "fridayCountdown": "{{count}} দিন পর জুমআ",
+    "fridayCountdown_one": "{{count}} দিন পর জুমআ",
+    "fridayCountdown_other": "{{count}} দিন পর জুমআ"
   },
   "ramadan": {
     "eyebrow": "রমজান",
@@ -734,7 +805,11 @@
     "heroUser": "আপনার নামাজ, কাজা ও যিকির ক্লাউডে নিরাপদ রাখতে সাইন ইন করুন।",
     "error": "সাইন ইন করা যায়নি। API সার্ভার চালু আছে এবং এই প্রোভাইডার কনফিগার করা আছে কিনা নিশ্চিত করুন।",
     "providersUnavailableTitle": "সাইন-ইন এখনও উপলব্ধ নয়",
-    "providersUnavailableBody": "এই বিল্ডে ক্লাউড সিঙ্ক প্রোভাইডার কনফিগার করা নেই। অতিথি হিসেবে চালিয়ে যান — আপনার অগ্রগতি এই ডিভাইসেই থাকবে।"
+    "providersUnavailableBody": "এই বিল্ডে ক্লাউড সিঙ্ক প্রোভাইডার কনফিগার করা নেই। অতিথি হিসেবে চালিয়ে যান — আপনার অগ্রগতি এই ডিভাইসেই থাকবে।",
+    "titleSignedIn": "আপনি সাইন ইন আছেন",
+    "subtitleSignedIn": "এই ডিভাইসে ক্লাউড সিঙ্ক প্রস্তুত",
+    "heroSignedIn": "আবার স্বাগতম — আপনার অ্যাকাউন্ট সংযুক্ত। আপনার সালাত, কাজা ও যিকির ডিভাইস জুড়ে সিঙ্ক হতে পারে।",
+    "continueSignedIn": "চালিয়ে যান"
   },
   "onboarding": {
     "begin": "শুরু",
@@ -871,6 +946,11 @@
     "liveActivity": "লাইভ অ্যাক্টিভিটি",
     "liveActivityHint": "a live next-prayer countdown on the lock screen and Dynamic Island. দেখান",
     "liveActivityUnavailable": "Available এ iPhone (iOS 16.1+) সহ  dev অথবা production build.",
+    "liveActivityDiscoveryTitle": "লাইভ কাউন্টডাউন চেষ্টা করুন",
+    "liveActivityDiscoveryBodyIos": "লক স্ক্রিন ও ডাইনামিক আইল্যান্ডে পরবর্তী সালাতের কাউন্টডাউন দেখুন।",
+    "liveActivityDiscoveryBodyAndroid": "চিহ্নিতকরণ অ্যাকশনসহ একটি স্থায়ী নোটিফিকেশনে পরবর্তী সালাতের কাউন্টডাউন দেখুন।",
+    "liveActivityDiscoveryEnable": "চালু করুন",
+    "liveActivityDiscoveryDismissA11y": "লাইভ কাউন্টডাউন টিপ বন্ধ করুন",
     "upcomingTitle": "Upcoming pengingat",
     "upcomingHint": "আপনার পরবর্তী scheduled alerts, এ আপনার location's timezone. Use  toggles below তে সক্রিয়, নিষ্ক্রিয়, অথবা সম্পাদনা them.",
     "footer": "Delivery এর these reminders হয় scheduled once notifications হয় চালু এ আপনার ডিভাইস.",
@@ -901,7 +981,8 @@
       "prayer": "নামাজ reminders",
       "prayerAdhan": "আযান at নামাজ time",
       "zikr": "যিকির reminders",
-      "qaza": "কাজা reminders"
+      "qaza": "কাজা reminders",
+      "prayerOngoing": "পরবর্তী সালাতের কাউন্টডাউন"
     },
     "snooze": "স্নুজ {{minutes}} মিনিট",
     "defaultTitle": "অনুস্মারক",
@@ -1015,7 +1096,9 @@
     },
     "groupContent": "দৈনিক content",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "পরবর্তী সালাতের লাইভ কাউন্টডাউন এবং চিহ্নিতকরণ অ্যাকশনসহ একটি স্থায়ী নোটিফিকেশন দেখান।",
+    "markPrayed": "পড়েছেন বলে চিহ্নিত করুন"
   },
   "fonts": {
     "eyebrow": "সেটিংস",
@@ -1419,7 +1502,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "সূরা {{number}}",
+    "selectSurah": "একটি সূরা নির্বাচন করুন",
+    "openReader": "পাঠক খুলুন"
   },
   "hadith": {
     "eyebrow": "নববী tradition",
@@ -2174,7 +2260,8 @@
     "categoryQaza": "কাজা",
     "categoryMilestone": "মাইলফলক",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "ঘোষণা"
+    "categoryAnnouncement": "ঘোষণা",
+    "markingAllRead": "সব পঠিত চিহ্নিত করা হচ্ছে…"
   },
   "qibla": {
     "eyebrow": "Arah",
@@ -4001,7 +4088,7 @@
       "label": "সংযুক্তি (ঐচ্ছিক)",
       "add": "ফাইল যোগ করুন",
       "remove": "সংযুক্তি সরান",
-      "hint": "5টি পর্যন্ত ফাইল (JPEG, PNG, WebP, অথবা PDF), প্রতিটি 1 MB। একটি থাম্বনেইল অপসারণ করতে দীর্ঘক্ষণ প্রেস করুন।",
+      "hint": "সর্বোচ্চ ৫টি ফাইল (JPEG, PNG, WebP বা PDF), প্রতিটি ১ MB। সরাতে থাম্বনেইলে × ট্যাপ করুন।",
       "signInRequired": "আপনার adhkar ব্যক্তিগত ফাইল সংযুক্ত করতে সাইন ইন করুন.",
       "permissionDenied": "ফাইল সংযুক্ত করার জন্য অনুমতি প্রয়োজন.",
       "permissionTitle": "অ্যাক্সেসের অনুমতি দিন",
@@ -4571,6 +4658,8 @@
     "watchHint": "the Munib Tracker watch app to see today’s schedule and mark নামাজ. Data syncs from your iPhone. খুলুন",
     "wearTitle": "ওয়্যার OS",
     "wearHint": "ফোন পেয়ার করার পর ঘড়িতে Munib Tracker টাইল যোগ করুন। টাইলে ট্যাপ করে ফোনে বর্তমান Salah চিহ্নিত করুন।",
+    "forceQuitTitle": "অ্যাপ বন্ধ থাকলে",
+    "forceQuitBody": "উইজেটে ট্যাপ, সিরি, অ্যাসিস্ট্যান্ট এবং ঘড়ি/Wear-এর চিহ্নগুলো কাজ করার সাথে সাথে সারিতে যুক্ত হয়। Munib Tracker সম্পূর্ণ বন্ধ করা হলে, সারিতে থাকা চিহ্নটি — আপনার চেকলিস্ট, ধারা ও উইজেট আপডেট হয়ে — পরের বার অ্যাপ খোলার সময় প্রয়োগ হয়।",
     "marked": "নামাজ marked",
     "alreadyDone": "ইতিমধ্যেই চিহ্নিত৷",
     "allDone": "সব obligatory নামাজ marked for today",
@@ -4581,8 +4670,19 @@
       "openTracker": "checklist খুলুন",
       "openQibla": "কিবলা খুলুন",
       "openTasbeeh": "তাসবীহ খুলুন",
-      "markCurrent": "my নামাজ চিহ্নিত করুন"
-    }
+      "markCurrent": "my নামাজ চিহ্নিত করুন",
+      "openRamadan": "রমজান খুলুন",
+      "openKhatm": "খতম পরিকল্পনা খুলুন",
+      "openQaza": "কাজা খুলুন",
+      "openQuran": "কুরআন খুলুন",
+      "markFajr": "ফজর চিহ্নিত করুন",
+      "markDhuhr": "যোহর চিহ্নিত করুন",
+      "markAsr": "আসর চিহ্নিত করুন",
+      "markMaghrib": "মাগরিব চিহ্নিত করুন",
+      "markIsha": "এশা চিহ্নিত করুন"
+    },
+    "moreShortcutsTitle": "আরও ভয়েস শর্টকাট",
+    "moreShortcutsHint": "সালাত চিহ্নিত করতে বা সরাসরি কোনো স্ক্রিনে যেতে এগুলোর যেকোনোটি বলুন।"
   },
   "pinLock": {
     "title": "App লক",
@@ -4777,7 +4877,7 @@
     "eyebrow": "ক্যালেন্ডার",
     "title": "তারিখ রূপান্তরকারী",
     "subtitle": "হিজরি এবং গ্রেগরিয়ান ক্যালেন্ডারের মধ্যে রূপান্তর করুন",
-    "intro": "সারণী কুয়েতি অ্যালগরিদম ব্যবহার করে অফলাইনে গণনা করা অন্য ক্যালেন্ডারে তার সমতুল্য দেখতে উভয় ক্যালেন্ডারে একটি তারিখ লিখুন।",
+    "intro": "যেকোনো ক্যালেন্ডারে একটি তারিখ লিখুন অন্যটিতে সমতুল্য দেখতে — আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে অফলাইনে গণনা করা।",
     "toHijri": "গ্রেগরিয়ান → হিজরি",
     "toGregorian": "হিজরি → গ্রেগরিয়ান",
     "gregorianDateLabel": "গ্রেগরিয়ান তারিখ",
@@ -4787,7 +4887,7 @@
     "year": "বছর",
     "useToday": "আজই ব্যবহার করুন",
     "invalidDate": "একটি বৈধ তারিখ লিখুন",
-    "disclaimer": "এটি একটি গাণিতিক আনুমানিক (সারণী \"কুয়েতি অ্যালগরিদম\") এবং স্থানীয় চাঁদ দেখার ঘোষণা থেকে একদিনে আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষকে অনুসরণ করুন।",
+    "disclaimer": "তারিখ আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে গণনা করা হয় এবং অফিসিয়াল চাঁদ দেখার ঘোষণা থেকে এক দিন আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষ অনুসরণ করুন।",
     "directionTitle": "রূপান্তর দিক",
     "resultFrom": "{{date}} থেকে",
     "quickLinksTitle": "সম্পর্কিত",

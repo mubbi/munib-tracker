@@ -36,14 +36,70 @@ function normalizeWidgetSnapshot(
     ...empty,
     ...parsed,
     version: 1,
-    theme: { ...empty.theme, ...parsed.theme },
-    nextPrayer: { ...empty.nextPrayer, ...parsed.nextPrayer },
+    locale: parsed.locale ?? empty.locale,
+    isRtl: parsed.isRtl ?? empty.isRtl,
+    theme: { ...empty.theme, ...parsed.theme, followsSystem: parsed.theme?.followsSystem ?? true },
+    nextPrayer: {
+      ...empty.nextPrayer,
+      ...parsed.nextPrayer,
+      followingName: parsed.nextPrayer?.followingName ?? "",
+      followingTime: parsed.nextPrayer?.followingTime ?? "",
+      markLabel: parsed.nextPrayer?.markLabel ?? empty.nextPrayer.markLabel,
+      accessibilityLabel:
+        parsed.nextPrayer?.accessibilityLabel ?? empty.nextPrayer.accessibilityLabel,
+    },
     schedule: {
       ...empty.schedule,
       ...parsed.schedule,
-      rows: parsed.schedule?.rows ?? [],
+      rows: (parsed.schedule?.rows ?? []).map((row) => ({
+        ...row,
+        statusLabel: row.statusLabel ?? row.status,
+      })),
+      accessibilityLabel: parsed.schedule?.accessibilityLabel ?? empty.schedule.accessibilityLabel,
     },
-    progress: { ...empty.progress, ...parsed.progress },
+    progress: {
+      ...empty.progress,
+      ...parsed.progress,
+      markLabel: parsed.progress?.markLabel ?? empty.progress.markLabel,
+      accessibilityLabel: parsed.progress?.accessibilityLabel ?? empty.progress.accessibilityLabel,
+    },
+    streak: {
+      ...empty.streak,
+      ...parsed.streak,
+      accessibilityLabel: parsed.streak?.accessibilityLabel ?? empty.streak.accessibilityLabel,
+    },
+    qaza: {
+      ...empty.qaza,
+      ...parsed.qaza,
+      accessibilityLabel: parsed.qaza?.accessibilityLabel ?? empty.qaza.accessibilityLabel,
+    },
+    ramadan: {
+      ...empty.ramadan,
+      ...parsed.ramadan,
+      accessibilityLabel: parsed.ramadan?.accessibilityLabel ?? empty.ramadan.accessibilityLabel,
+    },
+    khatm: {
+      ...empty.khatm,
+      ...parsed.khatm,
+      accessibilityLabel: parsed.khatm?.accessibilityLabel ?? empty.khatm.accessibilityLabel,
+    },
+    dailyHadith: {
+      ...empty.dailyHadith,
+      ...parsed.dailyHadith,
+      accessibilityLabel:
+        parsed.dailyHadith?.accessibilityLabel ?? empty.dailyHadith.accessibilityLabel,
+    },
+    hijriDate: {
+      ...empty.hijriDate,
+      ...parsed.hijriDate,
+      accessibilityLabel:
+        parsed.hijriDate?.accessibilityLabel ?? empty.hijriDate.accessibilityLabel,
+    },
+    qibla: {
+      ...empty.qibla,
+      ...parsed.qibla,
+      accessibilityLabel: parsed.qibla?.accessibilityLabel ?? empty.qibla.accessibilityLabel,
+    },
   };
 }
 

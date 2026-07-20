@@ -17,6 +17,10 @@ export type ExternalCommandSource =
   | "watch"
   | "wear"
   | "deeplink"
+  | "widget"
+  | "notification"
+  | "live_activity"
+  | "ongoing"
   | "unknown";
 
 export type CommandFailureReason =

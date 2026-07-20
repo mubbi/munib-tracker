@@ -177,7 +177,9 @@
     "qiblaSubtitle": "Cari arah qibla",
     "tasbeehSubtitle": "Buka kaunter tasbeeh",
     "qazaSubtitle": "Urus solat terlepas",
-    "quranSubtitle": "Baca Al-Quran"
+    "quranSubtitle": "Baca Al-Quran",
+    "markCurrentSubtitle": "Tandai Salah semasa",
+    "ramadanSubtitle": "Sahur, iftar & log puasa"
   },
   "widgets": {
     "updatedJustNow": "Dikemas kini sebentar tadi",
@@ -203,10 +205,79 @@
       "progress": {
         "label": "Penjejak Munib · Kemajuan",
         "description": "Kemajuan solat fardhu hari ini"
+      },
+      "streak": {
+        "label": "Rentetan",
+        "description": "Rentetan Salah wajib semasa"
+      },
+      "qaza": {
+        "label": "Qaza",
+        "description": "Qaza berbaki dan kemajuan qaza hari ini"
+      },
+      "ramadan": {
+        "label": "Ramadan",
+        "description": "Waktu sahur dan iftar dengan kiraan undur"
+      },
+      "khatm": {
+        "label": "Khatam",
+        "description": "Kemajuan rancangan khatam al-Qur'an"
+      },
+      "dailyHadith": {
+        "label": "Hadis harian",
+        "description": "Hadis hari ini daripada Empat Puluh Imam al-Nawawi"
+      },
+      "hijriDate": {
+        "label": "Tarikh Hijrah",
+        "description": "Tarikh Hijrah dan Masihi"
+      },
+      "qibla": {
+        "label": "Qiblat",
+        "description": "Arah kompas ke Kaabah"
+      },
+      "tasbeeh": {
+        "label": "Tasbeeh",
+        "description": "Kemajuan kaunter tasbeeh tersuai hari ini"
+      },
+      "friday": {
+        "label": "Jumaat",
+        "description": "Kemajuan senarai semak Jumaat atau hari hingga Jumaat"
       }
     },
     "remaining": "yang tinggal",
-    "atTime": "at {{time}}"
+    "atTime": "at {{time}}",
+    "streak": "Rentetan Salah",
+    "streakDays": "{{count}} hari",
+    "streakDays_one": "{{count}} hari",
+    "streakDays_other": "{{count}} hari",
+    "streakHint": "Terus catat setiap Salah wajib",
+    "qaza": "Qaza",
+    "qazaRemainingCount": "{{count}} lagi",
+    "qazaNoTarget": "Tiada sasaran harian",
+    "ramadan": "Ramadan",
+    "suhoorIftar": "Sahur & iftar",
+    "khatm": "Rancangan khatam",
+    "khatmStartHint": "Mulakan rancangan khatam dalam app",
+    "khatmPaceAhead": "Mendahului",
+    "khatmPaceBehind": "Ketinggalan",
+    "khatmPaceDone": "Selesai",
+    "khatmPaceOnTrack": "Mengikut sasaran",
+    "dailyHadith": "Hadis harian",
+    "hijriDate": "Tarikh Hijrah",
+    "qibla": "Qiblat",
+    "qiblaBearing": "{{degrees}}°",
+    "qiblaHint": "Arah ke Kaabah",
+    "markSalah": "Tandai Salah",
+    "statusActive": "Seterusnya",
+    "tasbeeh": "Tasbeeh",
+    "tasbeehHint": "Buka app untuk mula mengira",
+    "tasbeehRemaining": "{{count}} lagi",
+    "tasbeehUnlimited": "Kiraan tanpa had",
+    "friday": "Jumaat",
+    "fridayProgress": "{{completed}}/{{total}} selesai",
+    "fridayAllDone": "Semua selesai — diterima, in sha Allah",
+    "fridayCountdown": "Jumaat dalam {{count}} hari",
+    "fridayCountdown_one": "Jumaat dalam {{count}} hari",
+    "fridayCountdown_other": "Jumaat dalam {{count}} hari"
   },
   "ramadan": {
     "eyebrow": "Ramadhan",
@@ -733,7 +804,11 @@
     "heroUser": "Log masuk untuk menjaga solat, qadha, dan zikr Anda aman di cloud.",
     "error": "Tidak dapat log masuk. Pastikan pelayan API berjalan dan penyedia ini dikonfigurasi.",
     "providersUnavailableTitle": "Log masuk belum tersedia",
-    "providersUnavailableBody": "Penyedia segerak awan belum dikonfigurasi dalam binaan ini. Teruskan sebagai tetamu — kemajuan kekal pada peranti ini."
+    "providersUnavailableBody": "Penyedia segerak awan belum dikonfigurasi dalam binaan ini. Teruskan sebagai tetamu — kemajuan kekal pada peranti ini.",
+    "titleSignedIn": "Anda telah log masuk",
+    "subtitleSignedIn": "Segerak awan sedia pada peranti ini",
+    "heroSignedIn": "Selamat kembali — akaun anda dipautkan. Salah, qaza dan zikir boleh disegerakkan merentas peranti.",
+    "continueSignedIn": "Teruskan"
   },
   "onboarding": {
     "begin": "Mula",
@@ -870,6 +945,11 @@
     "liveActivity": "Aktiviti Langsung",
     "liveActivityHint": "Tunjukkan kira detik solat seterusnya secara langsung pada skrin kunci dan Pulau Dinamik.",
     "liveActivityUnavailable": "Tersedia pada iPhone (iOS 16.1+) dengan binaan pembangun atau pengeluaran.",
+    "liveActivityDiscoveryTitle": "Cuba kira detik secara langsung",
+    "liveActivityDiscoveryBodyIos": "Lihat kira detik solat seterusnya terus pada Skrin Kunci dan Pulau Dinamik anda.",
+    "liveActivityDiscoveryBodyAndroid": "Lihat kira detik solat seterusnya dalam pemberitahuan tetap dengan tindakan Tandai.",
+    "liveActivityDiscoveryEnable": "Hidupkan",
+    "liveActivityDiscoveryDismissA11y": "Tolak tip kira detik langsung",
     "upcomingTitle": "Peringatan akan datang",
     "upcomingHint": "Makluman berjadual anda yang seterusnya, dalam zon waktu lokasi anda. Gunakan togol di bawah untuk mendayakan, melumpuhkan atau mengeditnya.",
     "footer": "Penghantaran peringatan ini dijadualkan setelah pemberitahuan didayakan pada peranti anda.",
@@ -900,7 +980,8 @@
       "prayer": "Peringatan Solat",
       "prayerAdhan": "Adzan pada waktu solat",
       "zikr": "Peringatan zikir",
-      "qaza": "peringatan Qaza"
+      "qaza": "peringatan Qaza",
+      "prayerOngoing": "Kiraan undur Salah seterusnya"
     },
     "snooze": "Tunda {{minutes}} min",
     "defaultTitle": "Peringatan",
@@ -1014,7 +1095,9 @@
     },
     "groupContent": "Kandungan harian",
     "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "liveActivityHintAndroid": "Tunjukkan pemberitahuan tetap dengan kiraan undur Salah seterusnya secara langsung dan tindakan Tandai.",
+    "markPrayed": "Tandai sudah solat"
   },
   "fonts": {
     "eyebrow": "Tetapan",
@@ -1418,7 +1501,10 @@
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}"
+    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "surahNumber": "Surah {{number}}",
+    "selectSurah": "Pilih surah",
+    "openReader": "Buka pembaca"
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -2165,7 +2251,8 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Milestone",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Pengumuman"
+    "categoryAnnouncement": "Pengumuman",
+    "markingAllRead": "Menandai semua sebagai dibaca…"
   },
   "qibla": {
     "eyebrow": "Arah",
@@ -4084,7 +4171,7 @@
       "label": "Lampiran (pilihan)",
       "add": "Tambah fail",
       "remove": "Alih keluar lampiran",
-      "hint": "Sehingga 5 fail (JPEG, PNG, WebP atau PDF), 1 MB setiap satu. Tekan lama lakaran kecil untuk mengalih keluar.",
+      "hint": "Sehingga 5 fail (JPEG, PNG, WebP, atau PDF), 1 MB setiap satu. Ketik × pada lakaran kecil untuk buang.",
       "signInRequired": "Log masuk untuk melampirkan fail peribadi pada adhkar anda.",
       "permissionDenied": "Kebenaran diperlukan untuk melampirkan fail.",
       "permissionTitle": "Benarkan akses",
@@ -4654,6 +4741,8 @@
     "watchHint": "Buka the Munib Tracker watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Pakai OS",
     "wearHint": "Selepas menggandingkan telefon, tambah tile Munib Tracker pada jam tangan. Ketik tile untuk menandai Salah semasa pada telefon anda.",
+    "forceQuitTitle": "Jika app ditutup",
+    "forceQuitBody": "Ketikan widget, Siri, Assistant, dan tanda jam tangan/Wear terus dimasukkan ke dalam baris gilir sebaik anda bertindak. Jika Munib Tracker ditutup sepenuhnya, tanda yang tertangguh dikuatkuasakan — dan senarai semak, rentetan serta widget anda dikemas kini — pada kali seterusnya anda membuka app.",
     "marked": "Solah marked",
     "alreadyDone": "Sudah ditanda",
     "allDone": "Semua obligatory Solah marked for today",
@@ -4664,8 +4753,19 @@
       "openTracker": "Buka checklist",
       "openQibla": "Buka Qibla",
       "openTasbeeh": "Buka Tasbih",
-      "markCurrent": "Tandai my Solah"
-    }
+      "markCurrent": "Tandai my Solah",
+      "openRamadan": "Buka Ramadan",
+      "openKhatm": "Buka rancangan khatam",
+      "openQaza": "Buka Qaza",
+      "openQuran": "Buka al-Qur'an",
+      "markFajr": "Tandai Subuh",
+      "markDhuhr": "Tandai Zohor",
+      "markAsr": "Tandai Asar",
+      "markMaghrib": "Tandai Maghrib",
+      "markIsha": "Tandai Isyak"
+    },
+    "moreShortcutsTitle": "Lagi pintasan suara",
+    "moreShortcutsHint": "Sebut mana-mana ini untuk menandai Salah atau terus ke skrin."
   },
   "pinLock": {
     "title": "Kunci aplikasi",
@@ -4860,7 +4960,7 @@
     "eyebrow": "Kalendar",
     "title": "Penukar tarikh",
     "subtitle": "Tukar antara kalendar Hijrah dan Gregorian",
-    "intro": "Masukkan tarikh dalam mana-mana kalendar untuk melihat kalendar yang sama pada tarikh yang lain, dikira di luar talian menggunakan algoritma Kuwait jadual.",
+    "intro": "Masukkan tarikh dalam mana-mana kalendar untuk melihat setaranya dalam yang lain, dikira luar talian daripada keterlihatan sabit di lokasi anda.",
     "toHijri": "Gregorian → Hijriah",
     "toGregorian": "Hijriah → Gregorian",
     "gregorianDateLabel": "tarikh Gregorian",
@@ -4870,7 +4970,7 @@
     "year": "tahun",
     "useToday": "Gunakan hari ini",
     "invalidDate": "Masukkan tarikh yang sah",
-    "disclaimer": "Ini ialah anggaran aritmetik (jadual \"algoritma Kuwait\") dan boleh berbeza mengikut hari daripada pengumuman melihat bulan tempatan — sentiasa ikut masjid atau pihak berkuasa tempatan anda untuk tarikh keagamaan.",
+    "disclaimer": "Tarikh dikira daripada keterlihatan sabit (hilāl) di lokasi anda dan boleh berbeza sehari daripada pengumuman rasmi rukyah — sentiasa ikut masjid atau pihak berkuasa tempatan untuk tarikh agama.",
     "directionTitle": "Arah penukaran",
     "resultFrom": "Daripada {{date}}",
     "quickLinksTitle": "Berkaitan",

@@ -111,9 +111,7 @@ describe("key coverage", () => {
       DB_KEYS.tombstones,
       DB_KEYS.contentReportQueue,
       DB_KEYS.blobSyncState,
-      DB_KEYS.zakatCalculator,
       DB_KEYS.zakatCurrency,
-      DB_KEYS.readingTextVisibility,
     ]) {
       expect(BACKUP_KEYS).not.toContain(local);
     }
@@ -132,6 +130,9 @@ describe("key coverage", () => {
       DB_KEYS.qazaRoza,
       DB_KEYS.qazaSchedule,
       DB_KEYS.quranReadingProgress,
+      DB_KEYS.zakatCalculator,
+      DB_KEYS.readingTextVisibility,
+      DB_KEYS.toursSeen,
     ]) {
       expect(BACKUP_KEYS).toContain(key);
     }
