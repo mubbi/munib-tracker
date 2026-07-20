@@ -163,7 +163,7 @@ function withExternalCommandsAndroid(config) {
   </string-array>
   <string-array name="quran_synonyms" translatable="false">
     <item>Quran</item>
-    <item>Qur'an</item>
+    <item>Qur\\'an</item>
     <item>read Quran</item>
   </string-array>
 </resources>
