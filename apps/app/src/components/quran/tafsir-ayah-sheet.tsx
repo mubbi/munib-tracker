@@ -37,7 +37,7 @@ export function TafsirAyahSheet({
   const empty = !loading && !offline && trimmed.length === 0;
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false} solid>
+    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false}>
       <View style={styles.header}>
         <ThemedText type="subtitle">{t("quran.tafsir")}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">

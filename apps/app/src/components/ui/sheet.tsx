@@ -1,3 +1,5 @@
+import { type BlurTint, BlurView } from "expo-blur";
+import { GlassView } from "expo-glass-effect";
 import { type ReactNode, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -13,18 +15,37 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
+import { hasLiquidGlass } from "@/components/ui/glass-surface";
+import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useAnimatedKeyboardHeight } from "@/hooks/use-animated-keyboard-height";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useBlurTarget } from "@/providers/blur-target-provider";
 
 /** Drag distance (px) before a bottom sheet dismisses. */
 const DISMISS_DRAG_PX = 72;
 /** Downward flick velocity that dismisses even below {@link DISMISS_DRAG_PX}. */
 const DISMISS_VELOCITY = 0.75;
+/** Brief hold so the frost material can mount before the reveal cover eases out. */
+const FROST_FADE_DELAY_MS = 48;
+/** Soft reveal — a solid cover fades out (never animate opacity on the frost node). */
+const FROST_FADE_MS = Durations.base;
+
+/** CSS frost — applied as a plain style object so web gets both prefixes. */
+const WEB_BACKDROP_FROST = {
+  backdropFilter: "blur(40px) saturate(180%)",
+  WebkitBackdropFilter: "blur(40px) saturate(180%)",
+} as ViewStyle;
 
 type SheetProps = {
   visible: boolean;
@@ -46,6 +67,12 @@ type SheetProps = {
  * The shared modal shell: a dimmed scrim that closes on tap and a card that
  * swallows taps. Used by the confirm dialog, notes editor, status sheet, and
  * custom-target modal so scrim/stop-propagation logic lives in one place.
+ *
+ * Frosted look is bottom-sheet only (non-`solid`):
+ * - iOS 26+ Liquid Glass → real `GlassView` material
+ * - older iOS / Android → native `BlurView` (Android captures the root blur target)
+ * - web → CSS `backdrop-filter`
+ * A translucent card sits on top. Center dialogs stay opaque.
  */
 export function Sheet({
   visible,
@@ -57,10 +84,12 @@ export function Sheet({
   contentStyle,
 }: SheetProps) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors, tokens, scheme } = useThemeTokens();
+  const blurTarget = useBlurTarget();
   const insets = useSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
   const isBottom = variant === "bottom";
+  const useSheetFrost = isBottom && !solid;
   const bottomMaxHeight = windowHeight * 0.88;
   /** Handle zone + horizontal padding — subtracted from maxHeight for the scroll area. */
   const bottomSheetChrome = 64 + insets.bottom;
@@ -81,16 +110,36 @@ export function Sheet({
   const renderedChildren = visible ? children : lastVisibleChildren.current;
 
   const dragY = useSharedValue(0);
+  /**
+   * Cover over the frost layer (1 → 0). Never animate opacity on the frost node
+   * itself — CSS `backdrop-filter` (and some native blur paths) cannot sample
+   * the host through an ancestor with opacity < 1.
+   */
+  const frostCoverOpacity = useSharedValue(1);
   const keyboardHeight = useAnimatedKeyboardHeight();
   const keyboardInsetStyle = useAnimatedStyle(() => ({
     paddingBottom: keyboardHeight.value,
+  }));
+  const frostCoverStyle = useAnimatedStyle(() => ({
+    opacity: frostCoverOpacity.value,
   }));
 
   useEffect(() => {
     if (visible) {
       dragY.value = 0;
+      if (useSheetFrost) {
+        frostCoverOpacity.value = 1;
+        frostCoverOpacity.value = withDelay(
+          FROST_FADE_DELAY_MS,
+          withTiming(0, { duration: FROST_FADE_MS, easing: Easing.out(Easing.cubic) }),
+        );
+      } else {
+        frostCoverOpacity.value = 0;
+      }
+    } else {
+      frostCoverOpacity.value = 1;
     }
-  }, [visible, dragY]);
+  }, [visible, dragY, frostCoverOpacity, useSheetFrost]);
 
   const panResponder = useMemo(
     () =>
@@ -155,49 +204,17 @@ export function Sheet({
   );
 
   /**
-   * Corner radii for the frosted fill. BlurView / GlassView ignore parent
-   * `overflow: "hidden"` — radii must live on the glass surface itself or a
-   * square plate peeks above the rounded sheet (see GlassSurface docs).
-   */
-  const bottomGlassRadii = {
-    borderTopLeftRadius: Radius.xl,
-    borderTopRightRadius: Radius.xl,
-    borderCurve: "continuous" as const,
-    overflow: "hidden" as const,
-  };
-  const centerGlassRadii = {
-    borderRadius: Radius.lg,
-    borderCurve: "continuous" as const,
-    overflow: "hidden" as const,
-  };
-  const glassRadii = isBottom ? bottomGlassRadii : centerGlassRadii;
-
-  /**
-   * Translucent card wash over the blur/glass material. Keep it light enough
-   * that Liquid Glass / BlurView read through; strengthen slightly off iOS
-   * where Modal blur is weaker (Android without BlurTarget, web over scrim).
+   * Translucent card over the frost layer. Liquid Glass needs a lighter wash so
+   * the material reads; blur platforms share one wash so iOS / Android / web
+   * look aligned.
    */
   const glassCardWash = withAlpha(
     colors.card,
-    hasLiquidGlass
-      ? tokens.isDark
-        ? 0.28
-        : 0.4
-      : Platform.OS === "ios"
-        ? tokens.isDark
-          ? 0.32
-          : 0.42
-        : tokens.isDark
-          ? 0.5
-          : 0.62,
+    hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.38) : tokens.isDark ? 0.48 : 0.58,
   );
-  const cardChrome = solid
-    ? { backgroundColor: colors.card }
-    : {
-        // Nearly clear chrome — the absolute glass fill + wash are the surface.
-        // A faint tint keeps Android elevation / outline looking rounded.
-        backgroundColor: withAlpha(colors.card, Platform.OS === "android" ? 0.12 : 0.08),
-      };
+  const cardChrome = useSheetFrost
+    ? { backgroundColor: glassCardWash }
+    : { backgroundColor: colors.card };
 
   const bottomCardStyle = [
     styles.bottomCard,
@@ -217,35 +234,6 @@ export function Sheet({
     </View>
   );
 
-  /**
-   * Frosted fill: real Liquid Glass on iOS 26+, system material BlurView on
-   * older iOS (samples the host screen through the transparent Modal), and the
-   * same BlurView / backdrop-filter fallback elsewhere. `washOpacity={0}` so
-   * GlassSurface does not double-paint — the sheet owns the legibility wash.
-   *
-   * Never enable Android `backdropCapture` inside Modal — the BlurTarget layer
-   * can sit above descendants and eat Cancel/Save taps.
-   */
-  const glassFill = (
-    <View style={[StyleSheet.absoluteFill, glassRadii, { pointerEvents: "none" }]}>
-      <GlassSurface
-        backdropCapture={false}
-        washOpacity={0}
-        style={[StyleSheet.absoluteFill, glassRadii, { pointerEvents: "none" }]}
-        intensity={Platform.OS === "ios" ? 80 : 55}
-      />
-      <View
-        style={[
-          StyleSheet.absoluteFill,
-          {
-            backgroundColor: glassCardWash,
-            pointerEvents: "none",
-          },
-        ]}
-      />
-    </View>
-  );
-
   // elevation + zIndex: on Android Fabric, absolute-fill painted Pressables
   // beat overlapping siblings without elevation — card chrome then loses hits
   // to the scrim. Bottom card uses zIndex (not elevation) so Android does not
@@ -256,9 +244,14 @@ export function Sheet({
     <Animated.View
       accessibilityViewIsModal
       collapsable={false}
-      style={[bottomCardStyle, bottomCardDragStyle, keyboardInsetStyle, { pointerEvents: "auto" }]}
+      style={[
+        bottomCardStyle,
+        styles.bottomCardDock,
+        bottomCardDragStyle,
+        keyboardInsetStyle,
+        { pointerEvents: "auto" },
+      ]}
     >
-      {!solid ? glassFill : null}
       {dragHandle}
       {cardBody}
     </Animated.View>
@@ -278,7 +271,7 @@ export function Sheet({
     <View
       accessibilityViewIsModal
       // collapsable={false}: keeps a real host view on Android so the card (and
-      // its buttons) stay hittable when a frosted fill sits behind the content.
+      // its buttons) stay hittable when overlapping the scrim.
       collapsable={false}
       style={[
         styles.centerCard,
@@ -287,7 +280,6 @@ export function Sheet({
         contentStyle,
       ]}
     >
-      {!solid ? glassFill : null}
       {centerCardBody}
     </View>
   );
@@ -301,6 +293,65 @@ export function Sheet({
     accessibilityRole: Platform.OS === "web" ? undefined : ("button" as const),
   };
 
+  /**
+   * Full-viewport frost behind bottom sheets only.
+   * - Liquid Glass (iOS 26+): real `GlassView`
+   * - older iOS / Android: `BlurView` (Android captures the root blur target)
+   * - web: CSS `backdrop-filter`
+   * Reveal by fading a solid cover off the frost — never animate frost opacity.
+   */
+  const androidBackdropCapture = Platform.OS === "android" && blurTarget != null;
+  const blurTint: BlurTint =
+    scheme === "dark" ? "systemChromeMaterialDark" : "systemChromeMaterialLight";
+
+  let frostMaterial: ReactNode = null;
+  if (useSheetFrost) {
+    if (hasLiquidGlass) {
+      frostMaterial = (
+        <GlassView
+          glassEffectStyle="regular"
+          colorScheme={scheme}
+          style={StyleSheet.absoluteFill}
+        />
+      );
+    } else if (Platform.OS === "web") {
+      frostMaterial = (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: withAlpha(scheme === "dark" ? "#000000" : "#ffffff", 0.08),
+              ...WEB_BACKDROP_FROST,
+            },
+          ]}
+        />
+      );
+    } else {
+      frostMaterial = (
+        <BlurView
+          tint={blurTint}
+          intensity={90}
+          blurMethod={androidBackdropCapture ? "dimezisBlurViewSdk31Plus" : undefined}
+          blurTarget={androidBackdropCapture ? blurTarget : undefined}
+          style={StyleSheet.absoluteFill}
+        />
+      );
+    }
+  }
+
+  const frostedBackdrop = useSheetFrost ? (
+    <>
+      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>{frostMaterial}</View>
+      <Animated.View
+        style={[
+          StyleSheet.absoluteFill,
+          frostCoverStyle,
+          { backgroundColor: withAlpha(colors.background, 0.94), pointerEvents: "none" },
+        ]}
+      />
+    </>
+  ) : null;
+
   // Outer View wrapper: Fabric + Reanimated bug — a Modal that shares a React
   // tree with useAnimatedStyle siblings (e.g. tasbeeh ring / PressableScale)
   // can mount visually but ignore all touches. Wrapping Modal in a plain View
@@ -310,33 +361,27 @@ export function Sheet({
       <Modal
         visible={visible}
         transparent
-        // Fade the shell. RN-web `slide` transforms the whole modal (scrim +
-        // card), which reads as a clipped backdrop beside the side rail.
-        animationType="fade"
+        // Web: `fade` animates opacity on the Modal root, which kills CSS
+        // `backdrop-filter`. Native keeps fade; web uses none + frost cover.
+        animationType={Platform.OS === "web" ? "none" : "fade"}
         onRequestClose={onClose}
         statusBarTranslucent
-        // Keep the host screen in the view hierarchy so BlurView / Liquid Glass
-        // can sample it through the transparent modal (iOS).
+        // Keep the host screen in the view hierarchy so glass/blur can sample
+        // it through the transparent modal (iOS).
         {...(Platform.OS === "ios" ? { presentationStyle: "overFullScreen" as const } : null)}
       >
         {isBottom ? (
-          // Column layout is intentional: the scrim only fills space *above*
-          // the card. An absolute-fill scrim behind the card makes glass/blur
-          // sample the dimmer instead of the host screen — the frosted look
-          // disappears. Flex Pressable still dismisses on tap and dims the
-          // viewport (incl. web side rail) above the sheet.
           <View style={styles.scrimRoot}>
+            {frostedBackdrop}
             <Pressable
               collapsable={false}
-              style={[styles.backdropFlex, { backgroundColor: tokens.scrim }]}
+              style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
               onPress={onClose}
               {...backdropA11y}
             />
             {bottomCard}
           </View>
         ) : (
-          // Center: absolute-fill dimmer under a box-none overlay that centers
-          // the card — taps in the padded margin hit the dimmer Pressable.
           <View style={styles.scrimRoot}>
             <Pressable
               collapsable={false}
@@ -366,15 +411,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: Spacing.four,
   },
-  /** Full-screen tappable dimmer behind a centered dialog card. */
+  /** Full-screen tappable dimmer behind sheet / dialog cards. */
   backdrop: {
     ...StyleSheet.absoluteFill,
   },
-  /** Grows into the space above a bottom sheet card; tap dismisses. */
-  backdropFlex: {
-    flex: 1,
-    // Ensure a hit target even if the card is nearly full-height.
-    minHeight: 48,
+  /** Dock the bottom sheet to the bottom edge without a full-screen hit wrapper. */
+  bottomCardDock: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   centerCard: {
     borderRadius: Radius.lg,

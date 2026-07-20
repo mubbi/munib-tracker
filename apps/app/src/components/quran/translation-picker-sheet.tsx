@@ -225,7 +225,7 @@ export function TranslationPickerSheet({
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false} solid>
+    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false}>
       <View style={styles.header}>
         {step === "editions" ? (
           <PressableScale
