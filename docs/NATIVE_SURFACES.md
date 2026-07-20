@@ -90,7 +90,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 **Flow:** snapshot refresh → `syncLiveActivity()` starts/updates/ends activity. `staleDate` = next prayer; views use `Text(timerInterval:)` for ticking countdown.
 
-**Presentations (Apple HIG):** Lock Screen + StandBy (`isActivityFullscreen`) show next salah, meta, countdown, and today’s progress bar; Dynamic Island covers compact (glyph + timer), minimal (circular countdown), and expanded (leading/trailing/center/bottom + progress). Accent `keylineTint` ties the island to the app palette.
+**Presentations (Apple HIG):** Lock Screen + StandBy (`isActivityFullscreen`) show next salah, meta, countdown, and today’s progress bar; Dynamic Island covers compact (glyph + timer), minimal (circular countdown), and expanded (leading/trailing/center/bottom + progress). Accent `keylineTint` ties the island to the app palette. Actions: **Prepare** (opens before-Salah adhkar) and **Qibla** — not Mark, because the activity always counts down to the *upcoming* Salah. Mark + Snooze live on the prayer-time-now local notification instead.
 
 **Requirements:** iOS **17.0+** (widget / Live Activity target `deploymentTarget`); `NSSupportsLiveActivities: true`; EAS dev/production build (not Expo Go). ActivityKit itself supports 16.2+, but Munib’s extension targets **17.0**.
 
@@ -98,7 +98,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 **Discovery banner (NF-1.19):** one-shot coach mark above the toggle in **Settings → Notifications** when the platform supports the live countdown (iOS Live Activity or Android ongoing notification) and the preference is still off. Uses `toursStore` with a dedicated id (`liveActivityDiscovery`, distinct from the `/tour` carousel ids) so it dismisses permanently once turned on or closed — `components/notifications/live-activity-discovery-banner.tsx`.
 
-**Android ongoing countdown:** `lib/ongoing-notification/` mirrors the iOS Live Activity experience with a persistent notification (next-Salah countdown + Mark action) driven by `OngoingSalahNotification.kt`; same `liveActivityEnabled` preference gates both platforms.
+**Android ongoing countdown:** `lib/ongoing-notification/` mirrors the iOS Live Activity experience with a persistent notification (next-Salah countdown + Prepare → before-Salah adhkar) driven by `OngoingSalahNotification.kt`; same `liveActivityEnabled` preference gates both platforms.
 
 ## Siri & Assistant (NF-2.15)
 
@@ -116,6 +116,8 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 **Play Console (App Actions uploads):** set Privacy policy to `https://munibtracker.app/privacy`, then **Setup → Advanced settings → App Actions → accept Terms of Service**.
 
 **Force-quit limitation:** if the app process is killed, Siri/Assistant/widget/watch/Wear marks still enqueue into `pending_commands_v1`; the drain (`ExternalCommandProcessor`) only runs once the app is relaunched or foregrounded, so the visible mark (checklist tick, streak, widget refresh) is delayed until then — the queued command itself is never lost. Surfaced to users in **Settings → Siri & voice shortcuts** (`externalCommands.siriHint` / `assistantHint`).
+
+**Mark my Salah (quick action / deep link):** only completes the *current window* obligatory Salah (never cascades to the next pending). Icon quick-action cold-start is handled once per launch so remounts cannot re-open `/mark-current` and mark again. Duplicate `mark-current-obligatory` entries in one drain pass are coalesced.
 
 ## Apple Watch (NF-2.14)
 
@@ -175,9 +177,10 @@ Set `EXPO_APPLE_TEAM_ID` for iOS extensions. App Group: `group.app.munibtracker.
 | Widgets | Next prayer correct; tap opens app; location-denied CTA |
 | Tasbeeh glance widget | Shows today's most recently updated counter; blank state opens `/tasbeeh/free` when nothing logged today |
 | Jumu'ah widget | Checklist progress on Friday; day countdown other days; tap opens `/friday` |
-| Live Activity | Countdown ticks; toggle off ends activity |
+| Live Activity | Countdown ticks; Prepare opens before-Salah adhkar; toggle off ends activity |
 | Live Activity discovery banner | Shows once when supported + toggle off; Turn on enables + dismisses; X dismisses without enabling; never reappears after either |
-| Android ongoing countdown | Persistent notification posts when enabled; Mark action works; cancels on toggle off |
+| Android ongoing countdown | Persistent notification posts when enabled; Prepare opens before-Salah adhkar; cancels on toggle off |
+| Prayer-time notification | Mark prayed + Snooze (10 min) on fard prayer-time reminders only |
 | Icon shortcuts | Long-press opens route from killed state |
 | Siri mark | Background mark without UI; excused day dialog; pin lock defer |
 | Assistant mark | Background enqueue on Android |

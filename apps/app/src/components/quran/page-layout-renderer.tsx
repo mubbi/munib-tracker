@@ -32,7 +32,7 @@ type PageLayoutRendererProps = {
 
 const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 const ARABIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
-/** Unicode ARABIC END OF AYAH (۝) — empty ornament; digits are overlaid inside. */
+/** Unicode ARABIC END OF AYAH (۝) — ornament; digits are layered (web/Android) or inline (iOS). */
 const END_OF_AYAH = "\u06DD";
 
 /** Renders a Western number as Arabic-Indic digits for the in-line ayah marker. */
@@ -58,14 +58,15 @@ function ayahMarkerMetrics(fontSize: number, digitCount: number) {
 }
 
 /**
- * Gilt end-of-ayah rosette with the verse number centered inside.
+ * Gilt end-of-ayah rosette with the verse number.
  *
- * Fonts rarely shape U+06DD as a true enclosing mark at reading sizes, so the
- * ornament and digits are separate layers. iOS CoreText does not reserve
- * horizontal advance for View-in-Text under RTL + `textAlign: "justify"`, so an
- * invisible U+06DD spacer holds the slot and the painted marker is pulled back
- * over it with a negative start margin. Remount the parent flow when
- * `arabicSize` changes so justified advances stay in sync with A−/A+.
+ * Android/web: layered `View` centers digits inside the ornament.
+ *
+ * iOS: nested `Text` only. CoreText does not give View-in-Text a stable advance
+ * under RTL (justify or block), and the old invisible-spacer + `marginStart: -box`
+ * overlay drifts into the preceding word when A−/A+ changes size. Nested `Text`
+ * stays in the run and reflows with the ayah. A ZWSP between U+06DD and the
+ * digits breaks enclosing-mark shaping so the ornament keeps its own advance.
  */
 function AyahEndMarker({
   ayah,
@@ -81,8 +82,52 @@ function AyahEndMarker({
   const digits = toArabicDigits(ayah);
   const { box, rosetteSize, numberSize, gutter } = ayahMarkerMetrics(fontSize, digits.length);
 
-  const markerBody = (
-    <>
+  // iOS: never View-in-Text — advance/overlap bugs under RTL + size changes.
+  if (Platform.OS === "ios") {
+    const lineHeight = Math.round(rosetteSize * 1.3);
+    return (
+      <Text
+        accessibilityElementsHidden
+        importantForAccessibility="no-hide-descendants"
+        style={{
+          fontSize: rosetteSize,
+          lineHeight,
+          color,
+          fontFamily,
+        }}
+      >
+        {"\u200A"}
+        {END_OF_AYAH}
+        {"\u200B"}
+        <Text
+          style={{
+            fontSize: numberSize,
+            lineHeight,
+            color,
+            fontFamily,
+          }}
+        >
+          {digits}
+        </Text>
+        {"\u200A"}
+      </Text>
+    );
+  }
+
+  return (
+    <View
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+      collapsable={false}
+      style={[
+        styles.marker,
+        {
+          width: box,
+          height: box,
+          marginHorizontal: gutter,
+        },
+      ]}
+    >
       <Text
         style={[
           styles.markerRosette,
@@ -118,60 +163,6 @@ function AyahEndMarker({
       >
         {digits}
       </Text>
-    </>
-  );
-
-  // iOS: spacer Text reserves advance in the justified RTL run; overlay paints
-  // on top of that slot so digits stay inside without covering the prior word.
-  if (Platform.OS === "ios") {
-    return (
-      <>
-        <Text
-          accessibilityElementsHidden
-          importantForAccessibility="no-hide-descendants"
-          style={{
-            fontSize: rosetteSize,
-            lineHeight: box,
-            fontFamily,
-            opacity: 0,
-          }}
-        >
-          {END_OF_AYAH}
-        </Text>
-        <View
-          accessibilityElementsHidden
-          importantForAccessibility="no-hide-descendants"
-          style={[
-            styles.marker,
-            {
-              width: box,
-              height: box,
-              marginStart: -box,
-              marginEnd: gutter,
-            },
-          ]}
-        >
-          {markerBody}
-        </View>
-      </>
-    );
-  }
-
-  return (
-    <View
-      accessibilityElementsHidden
-      importantForAccessibility="no-hide-descendants"
-      collapsable={false}
-      style={[
-        styles.marker,
-        {
-          width: box,
-          height: box,
-          marginHorizontal: gutter,
-        },
-      ]}
-    >
-      {markerBody}
     </View>
   );
 }
@@ -283,6 +274,7 @@ export function PageLayoutRenderer({
                     ]}
                   >
                     <ThemedText
+                      key={`ar-${ayah.surah}-${ayah.ayah}-${arabicSize}`}
                       type="arabic"
                       style={[styles.blockArabic, { fontSize: arabicSize }]}
                     >

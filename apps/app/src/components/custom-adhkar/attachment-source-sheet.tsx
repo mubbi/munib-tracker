@@ -54,7 +54,7 @@ export function AttachmentSourceSheet({ visible, onClose, onSelect }: Props) {
     Platform.OS === "web" ? OPTIONS.filter((o) => o.source === "document") : OPTIONS;
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet visible={visible} onClose={onClose} variant="bottom">
       <ThemedText type="subtitle" style={styles.title}>
         {t("customAdhkar.attachments.sourceTitle")}
       </ThemedText>

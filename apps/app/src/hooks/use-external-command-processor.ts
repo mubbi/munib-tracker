@@ -10,6 +10,7 @@ import {
   nativeDrainCommands,
   subscribeNativeCommands,
 } from "@/lib/external-commands/native-bridge";
+import { coalesceMarkCurrentCommands } from "@/lib/external-commands/queue";
 import { useToast } from "@/providers/toast-provider";
 
 function resultMessage(result: Awaited<ReturnType<typeof handleExternalCommand>>): string | null {
@@ -68,7 +69,7 @@ export function useExternalCommandProcessor(): void {
     processingRef.current = true;
     try {
       const nativeCommands = await nativeDrainCommands();
-      const batch = [...pendingRef.current, ...nativeCommands];
+      const batch = coalesceMarkCurrentCommands([...pendingRef.current, ...nativeCommands]);
       pendingRef.current = [];
       for (const command of batch) {
         await processOne(command);

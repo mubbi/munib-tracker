@@ -169,6 +169,19 @@ describe("QazaRepository", () => {
     );
   });
 
+  it("sets many counters atomically", async () => {
+    await QazaRepository.setCounters({
+      fajr: { remaining: 10, completed: 2 },
+      dhuhr: { remaining: 20, completed: 0 },
+      witr: { remaining: 5, completed: 1 },
+    });
+    expect(await QazaRepository.getCounter("fajr")).toMatchObject({ remaining: 10, completed: 2 });
+    expect(await QazaRepository.getCounter("dhuhr")).toMatchObject({ remaining: 20, completed: 0 });
+    expect(await QazaRepository.getCounter("witr")).toMatchObject({ remaining: 5, completed: 1 });
+    // Unmentioned prayers stay at their previous values (empty defaults).
+    expect(await QazaRepository.getCounter("asr")).toMatchObject({ remaining: 0, completed: 0 });
+  });
+
   it("applies a remote counter with last-write-wins on updatedAt", async () => {
     // Seed a local counter with a known timestamp.
     await QazaRepository.applyRemoteCounter("fajr", {

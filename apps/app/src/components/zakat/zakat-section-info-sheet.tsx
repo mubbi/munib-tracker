@@ -84,7 +84,7 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet visible={visible} onClose={onClose} variant="bottom">
       <ThemedText type="subtitle">{t(`zakat.sectionInfo.${sectionId}.title`)}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.lede}>
         {t("zakat.sectionInfo.educational")}

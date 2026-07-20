@@ -277,7 +277,8 @@
     "fridayAllDone": "Të gjitha u kryen — u pranua, in sha Allah",
     "fridayCountdown": "Xhuma pas {{count}} ditësh",
     "fridayCountdown_one": "Xhuma pas {{count}} dite",
-    "fridayCountdown_other": "Xhuma pas {{count}} ditësh"
+    "fridayCountdown_other": "Xhuma pas {{count}} ditësh",
+    "prepareSalah": "Përgatitu"
   },
   "ramadan": {
     "eyebrow": "Ramazani",

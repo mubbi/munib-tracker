@@ -47,8 +47,11 @@ type ChannelId = "prayer" | "prayerAdhan" | "zikr" | "qaza";
 
 const CHANNEL_IDS: ChannelId[] = ["prayer", "prayerAdhan", "zikr", "qaza"];
 
-/** Category + action wiring so reminders can be marked / snoozed from the notification. */
-const REMINDER_CATEGORY = "reminder";
+/**
+ * Category for obligatory prayer-time-now reminders only — Mark + Snooze.
+ * Prep / zikr / qaza nudges omit this so they don't offer a premature Mark.
+ */
+export const PRAYER_NOW_CATEGORY = "prayer_now";
 /** Mark is listed first so Apple Watch Double Tap invokes the nondestructive Mark action. */
 export const MARK_ACTION_IDENTIFIER = "markcurrent";
 export const SNOOZE_ACTION_IDENTIFIER = "snooze";
@@ -65,7 +68,7 @@ export async function configureNotifications(): Promise<void> {
       shouldSetBadge: false,
     }),
   });
-  await Notifications.setNotificationCategoryAsync(REMINDER_CATEGORY, [
+  await Notifications.setNotificationCategoryAsync(PRAYER_NOW_CATEGORY, [
     {
       identifier: MARK_ACTION_IDENTIFIER,
       buttonTitle: i18n.t("notif.markPrayed"),
@@ -106,10 +109,12 @@ export async function cancelAll(): Promise<void> {
 }
 
 async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
+  // Mark + Snooze only when this is a fard prayer-time reminder (has prayerId).
+  const isPrayerNow = Boolean(reminder.prayerId && reminder.prayerDateKey);
   const content = {
     title: reminder.title,
     body: reminder.body,
-    categoryIdentifier: REMINDER_CATEGORY,
+    ...(isPrayerNow ? { categoryIdentifier: PRAYER_NOW_CATEGORY } : {}),
     // iOS plays the per-notification sound; Android takes it from the channel.
     ...(reminder.sound ? { sound: reminder.sound } : {}),
     data: {
@@ -181,7 +186,8 @@ export async function snoozeNotification(
     content: {
       title: content.title ?? i18n.t("notif.defaultTitle"),
       body: content.body ?? "",
-      categoryIdentifier: REMINDER_CATEGORY,
+      // Snooze is only offered on prayer-time-now reminders — keep Mark + Snooze.
+      categoryIdentifier: PRAYER_NOW_CATEGORY,
       data: content.data ?? {},
     },
     trigger: {

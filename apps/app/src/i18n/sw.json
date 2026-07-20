@@ -277,7 +277,8 @@
     "fridayAllDone": "Zote zimekamilika — zinakubaliwa, in sha Allah",
     "fridayCountdown": "Ijumaa baada ya siku {{count}}",
     "fridayCountdown_one": "Ijumaa baada ya siku {{count}}",
-    "fridayCountdown_other": "Ijumaa baada ya siku {{count}}"
+    "fridayCountdown_other": "Ijumaa baada ya siku {{count}}",
+    "prepareSalah": "Jitayarishe"
   },
   "ramadan": {
     "eyebrow": "Ramadhani",

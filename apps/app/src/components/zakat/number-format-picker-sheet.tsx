@@ -31,7 +31,7 @@ export function NumberFormatPickerSheet({
   const { colors, tokens } = useThemeTokens();
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet visible={visible} onClose={onClose} variant="bottom">
       <ThemedText type="subtitle">{t("zakat.numberFormat.pickerTitle")}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
         {t("zakat.numberFormat.pickerHint")}

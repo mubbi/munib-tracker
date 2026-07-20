@@ -277,7 +277,8 @@
     "fridayAllDone": "An gama duka — an karɓa, in sha Allah",
     "fridayCountdown": "Juma'a cikin kwanaki {{count}}",
     "fridayCountdown_one": "Juma'a cikin kwana {{count}}",
-    "fridayCountdown_other": "Juma'a cikin kwanaki {{count}}"
+    "fridayCountdown_other": "Juma'a cikin kwanaki {{count}}",
+    "prepareSalah": "Shirya"
   },
   "ramadan": {
     "eyebrow": "Ramadan",

@@ -17,12 +17,15 @@ import org.json.JSONObject
 /**
  * Android counterpart to the iOS prayer Live Activity (NF-1.19 Phase 4): a
  * sticky ongoing notification showing the next Salah + a live countdown + a
- * Mark action. Driven by the JS widget-snapshot sync (`use-widget-snapshot-sync`)
- * plus a lightweight one-shot alarm fired at the next-prayer boundary so the
- * notification does not freeze on a stale countdown while the app is
- * backgrounded. Deliberately has **no** foreground service: this object only
- * ever reacts to a JS-driven update or the boundary alarm, never runs its own
- * loop. See docs/NATIVE_SURFACES.md.
+ * Prepare action (before-Salah adhkar). Driven by the JS widget-snapshot sync
+ * (`use-widget-snapshot-sync`) plus a lightweight one-shot alarm fired at the
+ * next-prayer boundary so the notification does not freeze on a stale countdown
+ * while the app is backgrounded. Deliberately has **no** foreground service:
+ * this object only ever reacts to a JS-driven update or the boundary alarm,
+ * never runs its own loop. See docs/NATIVE_SURFACES.md.
+ *
+ * Mark belongs on the prayer-time reminder notification — not here — because
+ * this surface always shows the *upcoming* Salah.
  */
 internal object OngoingSalahNotification {
   const val CHANNEL_ID = "prayerOngoing"
@@ -30,10 +33,11 @@ internal object OngoingSalahNotification {
   private const val PREFS_NAME = "munib_ongoing_notification"
   private const val KEY_STATE_JSON = "last_state_json"
   private const val REQUEST_CODE_CONTENT = 4822
-  private const val REQUEST_CODE_MARK = 4823
+  private const val REQUEST_CODE_PREPARE = 4823
   private const val REQUEST_CODE_BOUNDARY = 4824
   private const val FALLBACK_CHANNEL_NAME = "Next Salah countdown"
   private const val FALLBACK_DEEP_LINK = "munib-tracker://tracker"
+  private const val FALLBACK_PREPARE_LINK = "munib-tracker://zikr/before_prayer"
 
   private data class OngoingState(
     val prayerId: String,
@@ -44,7 +48,8 @@ internal object OngoingSalahNotification {
     val remainingLabel: String,
     val targetTimeMs: Long,
     val deepLink: String,
-    val markLabel: String,
+    val prepareLabel: String,
+    val prepareDeepLink: String,
     val followingName: String,
     val followingTime: String,
     val channelName: String,
@@ -90,6 +95,13 @@ internal object OngoingSalahNotification {
   private fun parse(json: String): OngoingState? =
     try {
       val root = JSONObject(json)
+      // Prefer prepare* keys; fall back to legacy markLabel payloads from older app builds.
+      val prepareLabel = root.optString("prepareLabel").ifBlank {
+        root.optString("markLabel")
+      }
+      val prepareDeepLink = root.optString("prepareDeepLink").ifBlank {
+        FALLBACK_PREPARE_LINK
+      }
       OngoingState(
         prayerId = root.optString("prayerId"),
         title = root.optString("title"),
@@ -99,7 +111,8 @@ internal object OngoingSalahNotification {
         remainingLabel = root.optString("remainingLabel"),
         targetTimeMs = root.optLong("targetTimeMs", 0L),
         deepLink = root.optString("deepLink", FALLBACK_DEEP_LINK),
-        markLabel = root.optString("markLabel"),
+        prepareLabel = prepareLabel,
+        prepareDeepLink = prepareDeepLink,
         followingName = root.optString("followingName"),
         followingTime = root.optString("followingTime"),
         channelName = root.optString("channelName", FALLBACK_CHANNEL_NAME),
@@ -132,13 +145,12 @@ internal object OngoingSalahNotification {
     return PendingIntent.getActivity(context, REQUEST_CODE_CONTENT, intent, flags)
   }
 
-  /** Re-sends the same real `ACTION_MARK_CURRENT` broadcast the widgets and Assistant use. */
-  private fun markActionIntent(context: Context): PendingIntent {
-    val intent = Intent(ExternalCommandQueue.ACTION_MARK_CURRENT)
-      .setPackage(context.packageName)
-      .putExtra("source", "ongoing")
+  /** Opens before-Salah adhkar — same deep-link pattern as the Live Activity Prepare button. */
+  private fun prepareActionIntent(context: Context, state: OngoingState): PendingIntent {
+    val link = state.prepareDeepLink.ifBlank { FALLBACK_PREPARE_LINK }
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link)).setPackage(context.packageName)
     val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-    return PendingIntent.getBroadcast(context, REQUEST_CODE_MARK, intent, flags)
+    return PendingIntent.getActivity(context, REQUEST_CODE_PREPARE, intent, flags)
   }
 
   private fun post(context: Context, state: OngoingState) {
@@ -166,8 +178,8 @@ internal object OngoingSalahNotification {
       builder.setWhen(System.currentTimeMillis())
     }
 
-    if (state.markLabel.isNotBlank()) {
-      builder.addAction(0, state.markLabel, markActionIntent(context))
+    if (state.prepareLabel.isNotBlank()) {
+      builder.addAction(0, state.prepareLabel, prepareActionIntent(context, state))
     }
 
     requestPromotedOngoingIfSupported(builder)

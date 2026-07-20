@@ -173,17 +173,31 @@ export function Sheet({
   const glassRadii = isBottom ? bottomGlassRadii : centerGlassRadii;
 
   /**
-   * Base chrome on the rounded card view (not only on absolute children).
-   * Android elevation / outline follow this background; without it a square
-   * material plate shows behind top-only radii. Off Liquid Glass the wash is
-   * nearly opaque — Modal cannot blur the host screen, so a light translucency
-   * is enough without stacking a non-clipping BlurView.
+   * Translucent card wash over the blur/glass material. Keep it light enough
+   * that Liquid Glass / BlurView read through; strengthen slightly off iOS
+   * where Modal blur is weaker (Android without BlurTarget, web over scrim).
    */
   const glassCardWash = withAlpha(
     colors.card,
-    hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.94 : 0.97,
+    hasLiquidGlass
+      ? tokens.isDark
+        ? 0.28
+        : 0.4
+      : Platform.OS === "ios"
+        ? tokens.isDark
+          ? 0.32
+          : 0.42
+        : tokens.isDark
+          ? 0.5
+          : 0.62,
   );
-  const cardChrome = solid ? { backgroundColor: colors.card } : { backgroundColor: glassCardWash };
+  const cardChrome = solid
+    ? { backgroundColor: colors.card }
+    : {
+        // Nearly clear chrome — the absolute glass fill + wash are the surface.
+        // A faint tint keeps Android elevation / outline looking rounded.
+        backgroundColor: withAlpha(colors.card, Platform.OS === "android" ? 0.12 : 0.08),
+      };
 
   const bottomCardStyle = [
     styles.bottomCard,
@@ -204,20 +218,21 @@ export function Sheet({
   );
 
   /**
-   * Frosted fill only where Liquid Glass can actually read through. Elsewhere
-   * Modal cannot blur the host screen (backdropCapture is off), and BlurView
-   * overdraws a square plate above the rounded sheet — the card chrome wash
-   * alone is the visible surface.
+   * Frosted fill: real Liquid Glass on iOS 26+, system material BlurView on
+   * older iOS (samples the host screen through the transparent Modal), and the
+   * same BlurView / backdrop-filter fallback elsewhere. `washOpacity={0}` so
+   * GlassSurface does not double-paint — the sheet owns the legibility wash.
+   *
+   * Never enable Android `backdropCapture` inside Modal — the BlurTarget layer
+   * can sit above descendants and eat Cancel/Save taps.
    */
-  const glassFill = hasLiquidGlass ? (
+  const glassFill = (
     <View style={[StyleSheet.absoluteFill, glassRadii, { pointerEvents: "none" }]}>
       <GlassSurface
-        // Never capture the Android blur target inside Modal — the native
-        // BlurView layer can sit above descendants and eat Cancel/Save taps
-        // while scrim presses still work.
         backdropCapture={false}
+        washOpacity={0}
         style={[StyleSheet.absoluteFill, glassRadii, { pointerEvents: "none" }]}
-        intensity={50}
+        intensity={Platform.OS === "ios" ? 80 : 55}
       />
       <View
         style={[
@@ -229,7 +244,7 @@ export function Sheet({
         ]}
       />
     </View>
-  ) : null;
+  );
 
   // elevation + zIndex: on Android Fabric, absolute-fill painted Pressables
   // beat overlapping siblings without elevation — card chrome then loses hits
@@ -241,13 +256,7 @@ export function Sheet({
     <Animated.View
       accessibilityViewIsModal
       collapsable={false}
-      style={[
-        bottomCardStyle,
-        styles.bottomCardDock,
-        bottomCardDragStyle,
-        keyboardInsetStyle,
-        { pointerEvents: "auto" },
-      ]}
+      style={[bottomCardStyle, bottomCardDragStyle, keyboardInsetStyle, { pointerEvents: "auto" }]}
     >
       {!solid ? glassFill : null}
       {dragHandle}
@@ -306,15 +315,20 @@ export function Sheet({
         animationType="fade"
         onRequestClose={onClose}
         statusBarTranslucent
+        // Keep the host screen in the view hierarchy so BlurView / Liquid Glass
+        // can sample it through the transparent modal (iOS).
+        {...(Platform.OS === "ios" ? { presentationStyle: "overFullScreen" as const } : null)}
       >
         {isBottom ? (
-          // Absolute-fill scrim for full-viewport dimming (incl. side rail).
-          // Card is position:absolute at the bottom — not inside a full-screen
-          // box-none wrapper, which on web swallows backdrop presses.
+          // Column layout is intentional: the scrim only fills space *above*
+          // the card. An absolute-fill scrim behind the card makes glass/blur
+          // sample the dimmer instead of the host screen — the frosted look
+          // disappears. Flex Pressable still dismisses on tap and dims the
+          // viewport (incl. web side rail) above the sheet.
           <View style={styles.scrimRoot}>
             <Pressable
               collapsable={false}
-              style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
+              style={[styles.backdropFlex, { backgroundColor: tokens.scrim }]}
               onPress={onClose}
               {...backdropA11y}
             />
@@ -352,16 +366,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: Spacing.four,
   },
-  /** Full-screen tappable dimmer behind sheet / dialog cards. */
+  /** Full-screen tappable dimmer behind a centered dialog card. */
   backdrop: {
     ...StyleSheet.absoluteFill,
   },
-  /** Dock the bottom sheet to the bottom edge without a full-screen hit wrapper. */
-  bottomCardDock: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
+  /** Grows into the space above a bottom sheet card; tap dismisses. */
+  backdropFlex: {
+    flex: 1,
+    // Ensure a hit target even if the card is nearly full-height.
+    minHeight: 48,
   },
   centerCard: {
     borderRadius: Radius.lg,

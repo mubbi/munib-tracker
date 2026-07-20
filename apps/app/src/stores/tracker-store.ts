@@ -4,7 +4,7 @@ import {
   summarizeQazaDebt,
   summarizeRozaDebt,
 } from "@munib-tracker/shared/achievements";
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { OBLIGATORY_PRAYERS, QAZA_PRAYERS } from "@munib-tracker/shared/constants";
 import type {
   AfterSalahPrayer,
   DailySummary,
@@ -110,6 +110,10 @@ export interface TrackerState {
     options?: ZikrProgressOptions,
   ) => Promise<void>;
   adjustQaza: (prayerId: QazaPrayer, remaining: number, completed: number) => Promise<void>;
+  /** Atomically set remaining/completed for many prayers (calculator apply). */
+  setQazaCounters: (
+    updates: Partial<Record<QazaPrayer, { remaining: number; completed: number }>>,
+  ) => Promise<void>;
   performQaza: (prayerId: QazaPrayer, by?: number) => Promise<void>;
   undoQaza: (prayerId: QazaPrayer, by?: number) => Promise<void>;
   resetQazaCounter: (prayerId: QazaPrayer) => Promise<void>;
@@ -118,6 +122,30 @@ export interface TrackerState {
   setRoza: (roza: QazaRozaCounter) => Promise<void>;
   performRoza: (by?: number) => Promise<void>;
   resetRoza: () => Promise<void>;
+}
+
+function clampQazaCount(value: number): number {
+  return Math.max(0, Math.round(value));
+}
+
+/** Optimistic counter patch so the qaza UI updates before AsyncStorage + recompute finish. */
+function patchQazaCounters(
+  counters: QazaCounter[],
+  updates: Partial<Record<QazaPrayer, { remaining: number; completed: number }>>,
+): QazaCounter[] {
+  const now = new Date().toISOString();
+  const byId = new Map(counters.map((counter) => [counter.prayerId, counter]));
+  return QAZA_PRAYERS.map((prayerId) => {
+    const existing = byId.get(prayerId) ?? { prayerId, remaining: 0, completed: 0 };
+    const update = updates[prayerId];
+    if (!update) return existing;
+    return {
+      ...existing,
+      remaining: clampQazaCount(update.remaining),
+      completed: clampQazaCount(update.completed),
+      updatedAt: now,
+    };
+  });
 }
 
 async function recompute(date: string): Promise<Partial<TrackerState>> {
@@ -315,13 +343,41 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
 
     adjustQaza(prayerId, remaining, completed) {
       return enqueue(async () => {
+        const { qazaCounters } = get();
+        set({
+          qazaCounters: patchQazaCounters(qazaCounters, {
+            [prayerId]: { remaining, completed },
+          }),
+        });
         await QazaRepository.setCounter(prayerId, remaining, completed);
+        await get().refresh();
+      });
+    },
+
+    setQazaCounters(updates) {
+      return enqueue(async () => {
+        const { qazaCounters } = get();
+        set({ qazaCounters: patchQazaCounters(qazaCounters, updates) });
+        await QazaRepository.setCounters(updates);
         await get().refresh();
       });
     },
 
     performQaza(prayerId, by = 1) {
       return enqueue(async () => {
+        const { qazaCounters } = get();
+        const current = qazaCounters.find((c) => c.prayerId === prayerId);
+        if (current && current.remaining > 0) {
+          const step = Math.min(by, current.remaining);
+          set({
+            qazaCounters: patchQazaCounters(qazaCounters, {
+              [prayerId]: {
+                remaining: current.remaining - step,
+                completed: current.completed + step,
+              },
+            }),
+          });
+        }
         await QazaRepository.performQaza(prayerId, by);
         await get().refresh();
       });
@@ -343,6 +399,12 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
 
     resetQazaCounter(prayerId) {
       return enqueue(async () => {
+        const { qazaCounters } = get();
+        set({
+          qazaCounters: patchQazaCounters(qazaCounters, {
+            [prayerId]: { remaining: 0, completed: 0 },
+          }),
+        });
         await QazaRepository.resetCounter(prayerId);
         await get().refresh();
       });
@@ -350,6 +412,11 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
 
     resetAllQazaCounters() {
       return enqueue(async () => {
+        const { qazaCounters } = get();
+        const cleared = Object.fromEntries(
+          qazaCounters.map((c) => [c.prayerId, { remaining: 0, completed: 0 }]),
+        ) as Partial<Record<QazaPrayer, { remaining: number; completed: number }>>;
+        set({ qazaCounters: patchQazaCounters(qazaCounters, cleared) });
         await QazaRepository.resetAllCounters();
         await get().refresh();
       });
@@ -475,6 +542,8 @@ const trackerActions = {
     trackerStore.getState().incrementZikr(...args),
   adjustQaza: (...args: Parameters<TrackerState["adjustQaza"]>) =>
     trackerStore.getState().adjustQaza(...args),
+  setQazaCounters: (...args: Parameters<TrackerState["setQazaCounters"]>) =>
+    trackerStore.getState().setQazaCounters(...args),
   performQaza: (...args: Parameters<TrackerState["performQaza"]>) =>
     trackerStore.getState().performQaza(...args),
   undoQaza: (...args: Parameters<TrackerState["undoQaza"]>) =>

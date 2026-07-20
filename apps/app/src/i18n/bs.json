@@ -277,7 +277,8 @@
     "fridayAllDone": "Sve gotovo — neka bude primljeno, in ša Allah",
     "fridayCountdown": "Džuma za {{count}} dana",
     "fridayCountdown_one": "Džuma za {{count}} dan",
-    "fridayCountdown_other": "Džuma za {{count}} dana"
+    "fridayCountdown_other": "Džuma za {{count}} dana",
+    "prepareSalah": "Pripremi"
   },
   "ramadan": {
     "eyebrow": "Ramazan",

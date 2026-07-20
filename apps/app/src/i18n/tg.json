@@ -277,7 +277,8 @@
     "fridayAllDone": "Ҳама тайёр — қабул шавад, иншоАллоҳ",
     "fridayCountdown": "Ҷумъа пас аз {{count}} рӯз",
     "fridayCountdown_one": "Ҷумъа пас аз {{count}} рӯз",
-    "fridayCountdown_other": "Ҷумъа пас аз {{count}} рӯз"
+    "fridayCountdown_other": "Ҷумъа пас аз {{count}} рӯз",
+    "prepareSalah": "Омодагӣ"
   },
   "ramadan": {
     "eyebrow": "Рамадан",

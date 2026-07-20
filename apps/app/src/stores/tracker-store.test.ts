@@ -53,6 +53,43 @@ describe("trackerStore", () => {
     expect(counter.completed).toBe(1);
   });
 
+  it("applies calculator counters in one shot and updates the store immediately", async () => {
+    const applyPromise = trackerStore.getState().setQazaCounters({
+      fajr: { remaining: 100, completed: 1 },
+      dhuhr: { remaining: 100, completed: 0 },
+      asr: { remaining: 100, completed: 0 },
+      maghrib: { remaining: 100, completed: 0 },
+      isha: { remaining: 100, completed: 0 },
+      witr: { remaining: 100, completed: 0 },
+    });
+    // Flush the mutation queue microtask so the optimistic set() runs.
+    await Promise.resolve();
+
+    const optimistic = trackerStore.getState().qazaCounters;
+    expect(optimistic.find((c) => c.prayerId === "fajr")).toMatchObject({
+      remaining: 100,
+      completed: 1,
+    });
+    expect(optimistic.reduce((sum, c) => sum + c.remaining, 0)).toBe(600);
+
+    await applyPromise;
+    expect((await QazaRepository.getCounter("fajr")).remaining).toBe(100);
+    expect(trackerStore.getState().qazaCounters.find((c) => c.prayerId === "witr")?.remaining).toBe(
+      100,
+    );
+  });
+
+  it("optimistically reflects a single adjustQaza before refresh settles", async () => {
+    const promise = trackerStore.getState().adjustQaza("fajr", 42, 3);
+    await Promise.resolve();
+    expect(trackerStore.getState().qazaCounters.find((c) => c.prayerId === "fajr")).toMatchObject({
+      remaining: 42,
+      completed: 3,
+    });
+    await promise;
+    expect(await QazaRepository.getCounter("fajr")).toMatchObject({ remaining: 42, completed: 3 });
+  });
+
   it("tracks daily zikr counts and completion", async () => {
     await trackerStore.getState().incrementZikr("zikr-morning", 3);
     await trackerStore.getState().incrementZikr("zikr-morning", 3);

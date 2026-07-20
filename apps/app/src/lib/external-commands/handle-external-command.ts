@@ -1,5 +1,4 @@
 import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
-import { Platform } from "react-native";
 
 import { locationStore } from "@/stores/location-store";
 import { trackerStore } from "@/stores/tracker-store";
@@ -18,7 +17,6 @@ export async function handleExternalCommand(
   options: HandleExternalCommandOptions = {},
 ): Promise<CommandResult | "deferred"> {
   if (options.defer) return "deferred";
-  if (Platform.OS === "web") return { ok: false, reason: "web_unsupported" };
 
   const tracker = trackerStore.getState();
   if (!tracker.isReady) {

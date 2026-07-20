@@ -5,7 +5,7 @@ import {
   getLocalDateString,
   sumQazaScheduleTargets,
 } from "@munib-tracker/shared/utils";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -64,9 +64,18 @@ export default function QazaHomeScreen() {
   const schedule = useQazaSchedule();
   const dailyProgress = useQazaDailyProgress();
   const summary = useQazaSummary();
-  const { adjustQaza, performQaza, resetQazaCounter, resetAllQazaCounters } = useTrackerActions();
+  const { adjustQaza, performQaza, resetQazaCounter, resetAllQazaCounters, refresh } =
+    useTrackerActions();
   const [pending, setPending] = useState<QazaConfirmAction | null>(null);
   const [editTarget, setEditTarget] = useState<QazaEditTarget | null>(null);
+
+  // Re-read persistence when this screen is focused so calculator / planner /
+  // external-command updates are visible immediately on return.
+  useFocusEffect(
+    useCallback(() => {
+      void refresh();
+    }, [refresh]),
+  );
 
   const hasAnyCounts = summary.remaining > 0 || summary.completed > 0;
   const totalTracked = summary.remaining + summary.completed;
@@ -238,6 +247,7 @@ export default function QazaHomeScreen() {
               style={[styles.heroValue, { color: info.text }]}
               numberOfLines={1}
               adjustsFontSizeToFit
+              minimumFontScale={0.35}
             >
               {formatCount(summary.remaining)}
             </ThemedText>
@@ -444,10 +454,12 @@ const styles = StyleSheet.create({
   },
   heroBlock: {
     alignItems: "center",
+    alignSelf: "stretch",
     gap: Spacing.one,
     paddingVertical: Spacing.two,
   },
   heroValue: {
+    width: "100%",
     fontVariant: ["tabular-nums"],
     textAlign: "center",
   },

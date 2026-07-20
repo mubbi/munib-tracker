@@ -67,7 +67,7 @@ export function AyahActionSheet({
   const hasBody = Boolean(arabic || transliteration || translation || secondTranslation);
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet visible={visible} onClose={onClose} variant="bottom">
       <View style={styles.header}>
         <ThemedText type="subtitle">{title}</ThemedText>
         {metaParts.length > 0 ? (

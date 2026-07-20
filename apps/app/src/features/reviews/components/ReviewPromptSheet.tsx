@@ -101,7 +101,7 @@ export function ReviewPromptSheet({
   };
 
   return (
-    <Sheet visible={visible} onClose={handleClose} variant="bottom" solid scrollable={false}>
+    <Sheet visible={visible} onClose={handleClose} variant="bottom" scrollable={false}>
       <View style={styles.body}>
         {step === "stars" ? (
           <>

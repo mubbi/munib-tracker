@@ -277,7 +277,8 @@
     "fridayAllDone": "Барлығы аяқталды — қабыл болсын, иншаАллаһ",
     "fridayCountdown": "{{count}} күннен кейін Жұма",
     "fridayCountdown_one": "{{count}} күннен кейін Жұма",
-    "fridayCountdown_other": "{{count}} күннен кейін Жұма"
+    "fridayCountdown_other": "{{count}} күннен кейін Жұма",
+    "prepareSalah": "Дайындау"
   },
   "ramadan": {
     "eyebrow": "Рамазан",

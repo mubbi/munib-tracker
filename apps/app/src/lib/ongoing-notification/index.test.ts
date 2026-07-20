@@ -69,6 +69,9 @@ describe("syncOngoingNotification", () => {
     );
     expect(payload.prayerId).toBe(snapshot.nextPrayer.prayerId);
     expect(payload.prayerName).toBe(snapshot.nextPrayer.prayerName);
+    expect(payload.prepareLabel).toBeTruthy();
+    expect(payload.prepareDeepLink).toContain("before_prayer");
+    expect(payload.markLabel).toBeUndefined();
   });
 
   it("cancels the ongoing notification on Android when the preference is off", async () => {

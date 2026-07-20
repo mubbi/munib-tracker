@@ -1,4 +1,5 @@
 import i18n from "@/i18n";
+import { buildAppUrl } from "@/lib/app-links";
 import type { WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 
 /**
@@ -20,8 +21,13 @@ export interface OngoingNotificationState {
   /** Epoch milliseconds of the next prayer instant, for the native chronometer. */
   targetTimeMs: number;
   deepLink: string;
-  /** Mark-current action label shown on the notification's action button. */
-  markLabel: string;
+  /**
+   * Prepare action — opens before-Salah adhkar. The countdown is for the
+   * *upcoming* Salah, so Mark belongs on the prayer-time reminder instead.
+   */
+  prepareLabel: string;
+  /** Deep link for the Prepare action (`munib-tracker://zikr/before_prayer`). */
+  prepareDeepLink: string;
   /** Next-after-next Salah, so the boundary alarm can flip to it while offline. */
   followingName: string;
   followingTime: string;
@@ -52,7 +58,8 @@ export function buildOngoingNotificationState(
     remainingLabel: nextPrayer.remainingLabel,
     targetTimeMs,
     deepLink: nextPrayer.deepLink,
-    markLabel: nextPrayer.markLabel,
+    prepareLabel: i18n.t("widgets.prepareSalah"),
+    prepareDeepLink: buildAppUrl("/zikr/before_prayer"),
     followingName: nextPrayer.followingName,
     followingTime: nextPrayer.followingTime,
     channelName: i18n.t("notif.channels.prayerOngoing"),

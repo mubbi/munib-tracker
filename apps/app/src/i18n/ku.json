@@ -277,7 +277,8 @@
     "fridayAllDone": "هەموو تەواو — قبوڵ بێت، إن‌شاءالله",
     "fridayCountdown": "هەینی دوای {{count}} ڕۆژ",
     "fridayCountdown_one": "هەینی دوای {{count}} ڕۆژ",
-    "fridayCountdown_other": "هەینی دوای {{count}} ڕۆژ"
+    "fridayCountdown_other": "هەینی دوای {{count}} ڕۆژ",
+    "prepareSalah": "ئامادەبە"
   },
   "ramadan": {
     "eyebrow": "Cejna Remezanê",

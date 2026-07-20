@@ -43,7 +43,8 @@ export default function QazaCalculatorScreen() {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
   const counters = useQazaCounters();
-  const { adjustQaza } = useTrackerActions();
+  const { setQazaCounters } = useTrackerActions();
+  const [applying, setApplying] = useState(false);
 
   const [currentAge, setCurrentAge] = useState("");
   const [pubertyAge, setPubertyAge] = useState("15");
@@ -73,15 +74,30 @@ export default function QazaCalculatorScreen() {
     return issue ? issueMessage(t, issue) : undefined;
   };
 
-  const canApply = !hasIssues && result.missedDays > 0;
+  const canApply = !hasIssues && result.missedDays > 0 && !applying;
   const showLegitimateZero = !hasIssues && input.currentAge > 0 && result.missedDays === 0;
 
-  const applyToCounters = () => {
-    for (const prayerId of QAZA_PRAYERS) {
-      const existing = counters.find((c) => c.prayerId === prayerId);
-      void adjustQaza(prayerId, result.byPrayer[prayerId], existing?.completed ?? 0);
+  const applyToCounters = async () => {
+    if (applying) return;
+    setApplying(true);
+    try {
+      const updates = Object.fromEntries(
+        QAZA_PRAYERS.map((prayerId) => {
+          const existing = counters.find((c) => c.prayerId === prayerId);
+          return [
+            prayerId,
+            {
+              remaining: result.byPrayer[prayerId],
+              completed: existing?.completed ?? 0,
+            },
+          ];
+        }),
+      );
+      await setQazaCounters(updates);
+      goBackOrReplace(router, "/qaza");
+    } finally {
+      setApplying(false);
     }
-    goBackOrReplace(router, "/");
   };
 
   return (
@@ -89,7 +105,7 @@ export default function QazaCalculatorScreen() {
       eyebrow={t("qazaCalc.eyebrow")}
       title={t("qazaCalc.title")}
       subtitle={t("qazaCalc.subtitle")}
-      onBack={() => goBackOrReplace(router, "/")}
+      onBack={() => goBackOrReplace(router, "/qaza")}
     >
       <Seo
         path="/qaza/calculator"

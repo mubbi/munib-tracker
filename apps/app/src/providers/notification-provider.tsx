@@ -84,14 +84,22 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
         Notification.permission === "granted"
       ) {
         try {
-          new Notification(reminder.title, { body: reminder.body, tag: reminder.id });
+          const browserNotif = new Notification(reminder.title, {
+            body: reminder.body,
+            tag: reminder.id,
+          });
+          browserNotif.onclick = () => {
+            window.focus();
+            router.push((reminder.route ?? "/notifications") as Href);
+            browserNotif.close();
+          };
         } catch {
           // Ignore — permission can change between check and show.
         }
       }
     });
     return () => setWebReminderFireHandler(null);
-  }, [deliver]);
+  }, [deliver, router]);
 
   useEffect(() => {
     if (!ready || !locationReady) return;

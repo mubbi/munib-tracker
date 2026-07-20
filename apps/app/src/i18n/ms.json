@@ -277,7 +277,8 @@
     "fridayAllDone": "Semua selesai — diterima, in sha Allah",
     "fridayCountdown": "Jumaat dalam {{count}} hari",
     "fridayCountdown_one": "Jumaat dalam {{count}} hari",
-    "fridayCountdown_other": "Jumaat dalam {{count}} hari"
+    "fridayCountdown_other": "Jumaat dalam {{count}} hari",
+    "prepareSalah": "Sedia"
   },
   "ramadan": {
     "eyebrow": "Ramadhan",

@@ -277,7 +277,8 @@
     "fridayAllDone": "Hemmesi gutardy — kabul bolsun, inşaAllah",
     "fridayCountdown": "{{count}} günden soň Anna",
     "fridayCountdown_one": "{{count}} günden soň Anna",
-    "fridayCountdown_other": "{{count}} günden soň Anna"
+    "fridayCountdown_other": "{{count}} günden soň Anna",
+    "prepareSalah": "Taýýarlan"
   },
   "ramadan": {
     "eyebrow": "Ramazan",

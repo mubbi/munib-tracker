@@ -11,6 +11,7 @@ export {
   subscribeNativeCommands,
 } from "./native-bridge";
 export {
+  coalesceMarkCurrentCommands,
   drainCommandQueue,
   enqueueCommand,
   parseCommandQueue,

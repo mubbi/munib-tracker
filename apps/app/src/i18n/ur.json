@@ -277,7 +277,8 @@
     "fridayAllDone": "سب مکمل — قبول ہو ان شاء اللہ",
     "fridayCountdown": "{{count}} دن بعد جمعہ",
     "fridayCountdown_one": "{{count}} دن بعد جمعہ",
-    "fridayCountdown_other": "{{count}} دن بعد جمعہ"
+    "fridayCountdown_other": "{{count}} دن بعد جمعہ",
+    "prepareSalah": "تیاری"
   },
   "ramadan": {
     "eyebrow": "رمضان",
@@ -904,11 +905,11 @@
     "playAdhanHint": "فرض نمازوں کی یاد دہانیاں وقت پر اذان چلاتی ہیں۔",
     "liveActivity": "لائیو سرگرمی",
     "liveActivityHint": "لاک اسکرین اور ڈائنامک آئی لینڈ پر اگلی نماز کی لائیو گنتی دکھائیں۔",
-    "liveActivityHintAndroid": "اگلی نماز کی لائیو گنتی اور نشان زد کرنے کے عمل کے ساتھ ایک مستقل اطلاع دکھائیں۔",
+    "liveActivityHintAndroid": "اگلی نماز کی لائیو گنتی اور نماز سے پہلے کے اذکار کی تیاری کے عمل کے ساتھ ایک مستقل اطلاع دکھائیں۔",
     "liveActivityUnavailable": "آئی فون (iOS 16.1 یا بعد) پر ڈیو یا پروڈکشن بلڈ کے ساتھ دستیاب۔",
     "liveActivityDiscoveryTitle": "لائیو گنتی آزمائیں",
     "liveActivityDiscoveryBodyIos": "اگلی نماز کی گنتی اپنی لاک اسکرین اور ڈائنامک آئی لینڈ پر دیکھیں۔",
-    "liveActivityDiscoveryBodyAndroid": "اگلی نماز کی گنتی نشان زد کرنے کے عمل کے ساتھ ایک مستقل اطلاع میں دیکھیں۔",
+    "liveActivityDiscoveryBodyAndroid": "اگلی نماز کی گنتی تیاری کے عمل کے ساتھ ایک مستقل اطلاع میں دیکھیں۔",
     "liveActivityDiscoveryEnable": "آن کریں",
     "liveActivityDiscoveryDismissA11y": "لائیو گنتی کی تجویز بند کریں",
     "upcomingTitle": "آنے والی یاد دہانیاں",

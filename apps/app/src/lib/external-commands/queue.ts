@@ -49,3 +49,21 @@ export function drainCommandQueue(queue: QueuedCommand[]): {
   if (queue.length === 0) return { commands: [], remaining: [] };
   return { commands: [...queue], remaining: [] };
 }
+
+/**
+ * Collapse duplicate `mark-current-obligatory` entries in one drain pass.
+ * Launcher shortcuts / quick actions can enqueue the same command twice
+ * (deep link + broadcast); processing both would mark more than the current Salah.
+ */
+export function coalesceMarkCurrentCommands(commands: ExternalCommand[]): ExternalCommand[] {
+  let seenMarkCurrent = false;
+  const out: ExternalCommand[] = [];
+  for (const command of commands) {
+    if (command.type === "mark-current-obligatory") {
+      if (seenMarkCurrent) continue;
+      seenMarkCurrent = true;
+    }
+    out.push(command);
+  }
+  return out;
+}

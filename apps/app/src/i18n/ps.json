@@ -277,7 +277,8 @@
     "fridayAllDone": "ټول بشپړ — قبول شه، ان شاء الله",
     "fridayCountdown": "جمعه وروسته له {{count}} ورځو",
     "fridayCountdown_one": "جمعه وروسته له {{count}} ورځې",
-    "fridayCountdown_other": "جمعه وروسته له {{count}} ورځو"
+    "fridayCountdown_other": "جمعه وروسته له {{count}} ورځو",
+    "prepareSalah": "چمتو شه"
   },
   "ramadan": {
     "eyebrow": "Ramadan",

@@ -277,7 +277,8 @@
     "fridayAllDone": "همه انجام شد — مقبول إن‌شاءالله",
     "fridayCountdown": "جمعه تا {{count}} روز دیگر",
     "fridayCountdown_one": "جمعه تا {{count}} روز دیگر",
-    "fridayCountdown_other": "جمعه تا {{count}} روز دیگر"
+    "fridayCountdown_other": "جمعه تا {{count}} روز دیگر",
+    "prepareSalah": "آمادگی"
   },
   "ramadan": {
     "eyebrow": "رمضان",

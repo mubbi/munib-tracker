@@ -88,6 +88,29 @@ export const QazaRepository = {
     return map[prayerId];
   },
 
+  /**
+   * Atomically apply remaining/completed for multiple prayers in one write.
+   * Used by the lifetime calculator so the qaza screen updates in a single refresh.
+   */
+  async setCounters(
+    updates: Partial<Record<QazaPrayer, { remaining: number; completed: number }>>,
+  ): Promise<QazaCounter[]> {
+    const map = await mutateCounters((counters) => {
+      const now = new Date().toISOString();
+      for (const prayerId of QAZA_PRAYERS) {
+        const update = updates[prayerId];
+        if (!update) continue;
+        counters[prayerId] = {
+          prayerId,
+          remaining: Math.max(0, Math.round(update.remaining)),
+          completed: Math.max(0, Math.round(update.completed)),
+          updatedAt: now,
+        };
+      }
+    });
+    return QAZA_PRAYERS.map((prayerId) => map[prayerId]);
+  },
+
   /** Applies a pulled counter with last-write-wins on `updatedAt` (server time preserved). */
   async applyRemoteCounter(prayerId: QazaPrayer, counter: QazaCounter): Promise<void> {
     await mutateCounters((counters) => {

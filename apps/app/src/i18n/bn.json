@@ -277,7 +277,8 @@
     "fridayAllDone": "সব হয়ে গেছে — কবুল হোক, ইনশাআল্লাহ",
     "fridayCountdown": "{{count}} দিন পর জুমআ",
     "fridayCountdown_one": "{{count}} দিন পর জুমআ",
-    "fridayCountdown_other": "{{count}} দিন পর জুমআ"
+    "fridayCountdown_other": "{{count}} দিন পর জুমআ",
+    "prepareSalah": "প্রস্তুত"
   },
   "ramadan": {
     "eyebrow": "রমজান",

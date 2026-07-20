@@ -285,7 +285,8 @@
     "fridayCountdown_two": "الجمعة بعد يومين",
     "fridayCountdown_few": "الجمعة بعد {{count}} أيام",
     "fridayCountdown_many": "الجمعة بعد {{count}} يومًا",
-    "fridayCountdown_other": "الجمعة بعد {{count}} يوم"
+    "fridayCountdown_other": "الجمعة بعد {{count}} يوم",
+    "prepareSalah": "استعد"
   },
   "ramadan": {
     "eyebrow": "رمضان",
@@ -932,11 +933,11 @@
     "playAdhanHint": "تذكيرات الصلوات المفروضة تُشغّل الأذان عند حلول وقتها.",
     "liveActivity": "نشاط مباشر",
     "liveActivityHint": "أظهِر عدًّا تنازليًّا مباشرًا للصلاة القادمة على شاشة القفل وفي الجزيرة الديناميكية.",
-    "liveActivityHintAndroid": "أظهِر إشعارًا ثابتًا بعدٍّ تنازليٍّ مباشرٍ للصلاة القادمة مع إجراء لتسجيلها.",
+    "liveActivityHintAndroid": "أظهِر إشعارًا ثابتًا بعدٍّ تنازليٍّ مباشرٍ للصلاة القادمة مع إجراء للاستعداد بأذكار ما قبل الصلاة.",
     "liveActivityUnavailable": "متاح على آيفون (iOS 16.1 فأحدث) مع نسخة تطوير أو إنتاج.",
     "liveActivityDiscoveryTitle": "جرّب العدّ التنازلي المباشر",
     "liveActivityDiscoveryBodyIos": "شاهد عدَّ الصلاة القادمة مباشرةً على شاشة القفل وفي الجزيرة الديناميكية.",
-    "liveActivityDiscoveryBodyAndroid": "شاهد عدَّ الصلاة القادمة في إشعار مستمر مع إجراء لتسجيلها.",
+    "liveActivityDiscoveryBodyAndroid": "شاهد عدَّ الصلاة القادمة في إشعار مستمر مع إجراء للاستعداد.",
     "liveActivityDiscoveryEnable": "تفعيل",
     "liveActivityDiscoveryDismissA11y": "إغلاق تلميح العدّ التنازلي المباشر",
     "upcomingTitle": "التذكيرات القادمة",

@@ -281,7 +281,8 @@
     "fridayCountdown_one": "Джума через {{count}} день",
     "fridayCountdown_few": "Джума через {{count}} дня",
     "fridayCountdown_many": "Джума через {{count}} дней",
-    "fridayCountdown_other": "Джума через {{count}} дня"
+    "fridayCountdown_other": "Джума через {{count}} дня",
+    "prepareSalah": "Подготовка"
   },
   "ramadan": {
     "eyebrow": "Рамадан",

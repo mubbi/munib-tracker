@@ -24,6 +24,9 @@ export default function AppTabs() {
       // background so the bar adopts the system material — Liquid Glass on
       // iOS 26+, the translucent system blur on earlier versions.
       backgroundColor={Platform.OS === "android" ? colors.card : undefined}
+      // iOS 26+: shrink the liquid-glass tab bar while scrolling down (Instagram-
+      // style), then restore full size on scroll up. No-op on Android / older iOS.
+      minimizeBehavior="onScrollDown"
       tintColor={colors.accent}
       indicatorColor={tokens.accentSoft}
       rippleColor={withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.14)}

@@ -25,17 +25,27 @@ export function cancelWebReminderTimers(): void {
  */
 export function scheduleWebReminderTimers(reminders: BuiltReminder[], now = new Date()): void {
   cancelWebReminderTimers();
+  for (const reminder of reminders) {
+    armWebReminderTimer(reminder, now);
+  }
+}
+
+/**
+ * Arms a single one-shot reminder without clearing existing timers (used by Snooze).
+ */
+export function armWebReminderTimer(reminder: BuiltReminder, now = new Date()): void {
   const handler = onFire;
   if (!handler) return;
 
-  for (const reminder of reminders) {
-    const delay = reminder.fireAt.getTime() - now.getTime();
-    if (delay <= 0 || delay > MAX_TIMEOUT_MS) continue;
+  const delay = reminder.fireAt.getTime() - now.getTime();
+  if (delay <= 0 || delay > MAX_TIMEOUT_MS) return;
 
-    const timer = setTimeout(() => {
-      timers.delete(reminder.id);
-      handler(reminder);
-    }, delay);
-    timers.set(reminder.id, timer);
-  }
+  const existing = timers.get(reminder.id);
+  if (existing) clearTimeout(existing);
+
+  const timer = setTimeout(() => {
+    timers.delete(reminder.id);
+    handler(reminder);
+  }, delay);
+  timers.set(reminder.id, timer);
 }

@@ -277,7 +277,8 @@
     "fridayAllDone": "Hamısı bitdi — qəbul olsun, inşallah",
     "fridayCountdown": "{{count}} gün sonra Cümə",
     "fridayCountdown_one": "{{count}} gün sonra Cümə",
-    "fridayCountdown_other": "{{count}} gün sonra Cümə"
+    "fridayCountdown_other": "{{count}} gün sonra Cümə",
+    "prepareSalah": "Hazırlaş"
   },
   "ramadan": {
     "eyebrow": "Ramadan",

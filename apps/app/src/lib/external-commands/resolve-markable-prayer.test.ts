@@ -51,12 +51,23 @@ describe("resolveMarkableObligatoryPrayer", () => {
     expect(resolveMarkableObligatoryPrayer(MAKKAH, now, status)).toBeNull();
   });
 
-  it("returns next pending fard when the active window prayer is already done", () => {
+  it("returns null when the active window prayer is already done (no cascade)", () => {
     const slots = prayerSlots(computePrayerTimes(MAKKAH, MAKKAH_DAY));
     const dhuhrIdx = PRAYER_SLOT_ORDER.indexOf("dhuhr");
     const now = new Date(slots[dhuhrIdx].date.getTime() + 60_000);
     const status = emptyStatus();
     status.dhuhr = "completed";
-    expect(resolveMarkableObligatoryPrayer(MAKKAH, now, status)).toBe("asr");
+    expect(resolveMarkableObligatoryPrayer(MAKKAH, now, status)).toBeNull();
+  });
+
+  it("does not mark an upcoming Salah when the current window is already completed", () => {
+    const slots = prayerSlots(computePrayerTimes(MAKKAH, MAKKAH_DAY));
+    const maghribIdx = PRAYER_SLOT_ORDER.indexOf("maghrib");
+    const now = new Date(slots[maghribIdx].date.getTime() + 60_000);
+    const status = emptyStatus();
+    status.maghrib = "completed";
+    // Isha is still pending, but Mark current must not cascade to it.
+    expect(status.isha).toBe("pending");
+    expect(resolveMarkableObligatoryPrayer(MAKKAH, now, status)).toBeNull();
   });
 });

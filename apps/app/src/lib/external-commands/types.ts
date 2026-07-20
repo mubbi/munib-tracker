@@ -31,8 +31,7 @@ export type CommandFailureReason =
   | "already_done"
   | "none_pending"
   | "invalid_prayer"
-  | "invalid_date"
-  | "web_unsupported";
+  | "invalid_date";
 
 export type CommandResult =
   | { ok: true; prayerId: ObligatoryPrayer; alreadyCompleted?: boolean }

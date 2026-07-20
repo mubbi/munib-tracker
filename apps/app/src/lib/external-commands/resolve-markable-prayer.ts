@@ -1,4 +1,4 @@
-import { OBLIGATORY_PRAYER_SET, OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { OBLIGATORY_PRAYER_SET } from "@munib-tracker/shared/constants";
 import type { ObligatoryPrayer, PrayerStatus } from "@munib-tracker/shared/types";
 
 import type { StoredLocation } from "@/lib/location";
@@ -7,7 +7,10 @@ import { nextPrayer, PRAYER_SLOT_ORDER } from "@/lib/prayer-times";
 
 /**
  * Resolves which obligatory prayer to mark for "mark current" commands.
- * Uses `nextPrayer().currentIndex` (active window), not countdown `id`.
+ *
+ * Only the Salah whose window is active right now (via `nextPrayer().currentIndex`).
+ * Never cascades to upcoming or earlier pending slots — a single Mark my Salah /
+ * quick action / widget tap must complete at most one prayer.
  */
 export function resolveMarkableObligatoryPrayer(
   location: StoredLocation,
@@ -34,32 +37,10 @@ export function resolveMarkableObligatoryPrayer(
 
   // During the sunrise marker, the active window is not a fard prayer — prefer Fajr if still pending.
   if (PRAYER_SLOT_ORDER[next.currentIndex] === "sunrise") {
-    const fajrIdx = PRAYER_SLOT_ORDER.indexOf("fajr");
-    const fajr = trySlot(fajrIdx);
-    if (fajr) return fajr;
+    return trySlot(PRAYER_SLOT_ORDER.indexOf("fajr"));
   }
 
-  // Prefer the prayer whose window is active right now.
-  const current = trySlot(next.currentIndex);
-  if (current) return current;
-
-  // Then the next upcoming obligatory slot today.
-  for (let i = next.currentIndex + 1; i < PRAYER_SLOT_ORDER.length; i += 1) {
-    const slot = trySlot(i);
-    if (slot) return slot;
-  }
-
-  // Finally any earlier obligatory slot still pending (missed today).
-  for (let i = next.currentIndex - 1; i >= 0; i -= 1) {
-    const slot = trySlot(i);
-    if (slot) return slot;
-  }
-
-  for (const id of OBLIGATORY_PRAYERS) {
-    if ((prayerStatus[id] ?? "pending") !== "completed") return id;
-  }
-
-  return null;
+  return trySlot(next.currentIndex);
 }
 
 export function isObligatoryPrayerId(value: string): value is ObligatoryPrayer {

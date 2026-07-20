@@ -277,7 +277,8 @@
     "fridayAllDone": "Hammasi tayyor — qabul bo‘lsin, inshaAlloh",
     "fridayCountdown": "{{count}} kundan keyin Juma",
     "fridayCountdown_one": "{{count}} kundan keyin Juma",
-    "fridayCountdown_other": "{{count}} kundan keyin Juma"
+    "fridayCountdown_other": "{{count}} kundan keyin Juma",
+    "prepareSalah": "Tayyorlan"
   },
   "ramadan": {
     "eyebrow": "Ramadan",

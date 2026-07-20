@@ -277,7 +277,8 @@
     "fridayAllDone": "Dhammaan waa la dhameeyay — la aqbalay, in sha Allah",
     "fridayCountdown": "Jimce {{count}} maalmood ka dib",
     "fridayCountdown_one": "Jimce {{count}} maalin ka dib",
-    "fridayCountdown_other": "Jimce {{count}} maalmood ka dib"
+    "fridayCountdown_other": "Jimce {{count}} maalmood ka dib",
+    "prepareSalah": "Diyaar"
   },
   "ramadan": {
     "eyebrow": "Ramadan",

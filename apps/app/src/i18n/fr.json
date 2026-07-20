@@ -277,7 +277,8 @@
     "fridayAllDone": "Tout est fait — accepté, in cha Allah",
     "fridayCountdown": "Jumu'ah dans {{count}} jours",
     "fridayCountdown_one": "Jumu'ah dans {{count}} jour",
-    "fridayCountdown_other": "Jumu'ah dans {{count}} jours"
+    "fridayCountdown_other": "Jumu'ah dans {{count}} jours",
+    "prepareSalah": "Préparer"
   },
   "ramadan": {
     "eyebrow": "Ramadan",

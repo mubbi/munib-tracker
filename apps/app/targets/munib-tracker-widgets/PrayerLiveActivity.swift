@@ -1,5 +1,4 @@
 import ActivityKit
-import AppIntents
 import SwiftUI
 import WidgetKit
 
@@ -174,8 +173,10 @@ struct PrayerLiveActivityLockScreen: View {
       }
 
       HStack(spacing: 10) {
-        Button(intent: MarkFromLiveActivityIntent(prayerId: state.prayerId)) {
-          Label("Mark", systemImage: "checkmark.circle.fill")
+        // Countdown is for the *upcoming* Salah — Prepare opens before-Salah
+        // adhkar. Mark belongs on the prayer-time notification, not here.
+        Link(destination: URL(string: "munib-tracker://zikr/before_prayer")!) {
+          Label("Prepare", systemImage: "figure.stand")
             .font(.caption.weight(.semibold))
             .frame(maxWidth: .infinity)
         }
@@ -347,8 +348,8 @@ private struct IslandExpandedBottom: View {
       .frame(maxWidth: .infinity, alignment: .leading)
 
       HStack(spacing: 8) {
-        Button(intent: MarkFromLiveActivityIntent(prayerId: state.prayerId)) {
-          Label("Mark", systemImage: "checkmark.circle.fill")
+        Link(destination: URL(string: "munib-tracker://zikr/before_prayer")!) {
+          Label("Prepare", systemImage: "figure.stand")
             .font(.caption2.weight(.semibold))
             .frame(maxWidth: .infinity)
         }

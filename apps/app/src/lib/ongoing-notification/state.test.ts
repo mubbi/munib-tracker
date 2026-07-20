@@ -45,7 +45,8 @@ describe("buildOngoingNotificationState", () => {
     expect(state.prayerTimeLabel).toBe(snapshot.nextPrayer.prayerTimeLabel);
     expect(state.countdownLabel).toBe(snapshot.nextPrayer.countdownLabel);
     expect(state.remainingLabel).toBe("Remaining");
-    expect(state.markLabel).toBe(snapshot.nextPrayer.markLabel);
+    expect(state.prepareLabel).toBeTruthy();
+    expect(state.prepareDeepLink).toContain("before_prayer");
     expect(state.followingName).toBe(snapshot.nextPrayer.followingName);
     expect(state.followingTime).toBe(snapshot.nextPrayer.followingTime);
     expect(state.deepLink).toBe(snapshot.nextPrayer.deepLink);

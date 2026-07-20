@@ -20,7 +20,7 @@ jest.mock("expo-notifications", () => ({
     DATE: "date",
     TIME_INTERVAL: "timeInterval",
   },
-  AndroidImportance: { DEFAULT: 3 },
+  AndroidImportance: { DEFAULT: 3, HIGH: 4 },
   setNotificationHandler: jest.fn(),
   setNotificationCategoryAsync: jest.fn().mockResolvedValue(undefined),
   setNotificationChannelAsync: jest.fn().mockResolvedValue(undefined),
@@ -270,15 +270,38 @@ describe("snoozeNotification", () => {
 });
 
 describe("configureNotifications", () => {
-  it("registers Mark before Snooze on the reminder category", async () => {
+  it("registers Mark before Snooze on the prayer-time-now category", async () => {
     const mockCategory = Notifications.setNotificationCategoryAsync as jest.MockedFunction<
       typeof Notifications.setNotificationCategoryAsync
     >;
     await configureNotifications();
     expect(mockCategory).toHaveBeenCalled();
+    expect(mockCategory.mock.calls[0]?.[0]).toBe("prayer_now");
     const actions = mockCategory.mock.calls[0]?.[1] as { identifier: string }[];
     expect(actions?.[0]?.identifier).toBe(MARK_ACTION_IDENTIFIER);
     expect(actions?.[1]?.identifier).toBe("snooze");
+  });
+});
+
+describe("prayer-time-now category wiring", () => {
+  it("attaches Mark+Snooze category only to fard prayer-time reminders", async () => {
+    const prefs = makePrefs();
+    await rescheduleAll(prefs, SET_LOCATION);
+
+    const scheduled = mockSchedule.mock.calls.map(
+      (call) =>
+        call[0] as { content: { categoryIdentifier?: string; data?: { prayerId?: string } } },
+    );
+    const withPrayerId = scheduled.filter((s) => s.content.data?.prayerId);
+    const withoutPrayerId = scheduled.filter((s) => !s.content.data?.prayerId);
+
+    expect(withPrayerId.length).toBeGreaterThan(0);
+    for (const item of withPrayerId) {
+      expect(item.content.categoryIdentifier).toBe("prayer_now");
+    }
+    for (const item of withoutPrayerId) {
+      expect(item.content.categoryIdentifier).toBeUndefined();
+    }
   });
 });
 

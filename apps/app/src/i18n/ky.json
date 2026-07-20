@@ -277,7 +277,8 @@
     "fridayAllDone": "Баары бүттү — кабыл болсун, иншаАллах",
     "fridayCountdown": "{{count}} күндөн кийин Жума",
     "fridayCountdown_one": "{{count}} күндөн кийин Жума",
-    "fridayCountdown_other": "{{count}} күндөн кийин Жума"
+    "fridayCountdown_other": "{{count}} күндөн кийин Жума",
+    "prepareSalah": "Даярдан"
   },
   "ramadan": {
     "eyebrow": "Орозо айт",
