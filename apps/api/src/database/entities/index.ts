@@ -550,7 +550,7 @@ export class LiveActivityPushJobEntity {
   @PrimaryColumn("uuid")
   id!: string;
 
-  @Column()
+  @Column({ type: "integer" })
   activityTokenId!: number;
 
   @ManyToOne(() => LiveActivityPushTokenEntity, { onDelete: "CASCADE" })
@@ -649,7 +649,7 @@ export class SurfacePushJobEntity {
   @PrimaryColumn("uuid")
   id!: string;
 
-  @Column()
+  @Column({ type: "integer" })
   registrationId!: number;
 
   @ManyToOne(() => SurfacePushRegistrationEntity, { onDelete: "CASCADE" })
