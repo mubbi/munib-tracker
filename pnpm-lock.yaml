@@ -43,6 +43,9 @@ patchedDependencies:
   expo-image-picker@57.0.2:
     hash: qettentlmbwqksbuqfzzrl3caa
     path: patches/expo-image-picker@57.0.2.patch
+  expo-navigation-bar@57.0.1:
+    hash: gvy6ymgih4k4fwrwtwifel4dje
+    path: patches/expo-navigation-bar@57.0.1.patch
   expo-router@57.0.3:
     hash: 4lftz5fzqzos4nc3jcptssy63e
     path: patches/expo-router@57.0.3.patch
@@ -89,7 +92,7 @@ importers:
         version: 1.23.0(react@19.1.0)
       next:
         specifier: 16.2.10
-        version: 16.2.10(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 16.2.10(@babel/core@7.29.7)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       pg:
         specifier: ^8.21.0
         version: 8.22.0
@@ -364,7 +367,7 @@ importers:
         version: 57.0.2(expo@57.0.2)(typescript@6.0.3)
       expo-navigation-bar:
         specifier: ~57.0.1
-        version: 57.0.1(expo@57.0.2)(react-native@0.86.0(@babel/core@7.29.7)(@react-native/jest-preset@0.86.0(@babel/core@7.29.7)(react@19.1.0))(@react-native/metro-config@0.86.0(@babel/core@7.29.7))(@types/react@19.2.17)(react@19.1.0))(react@19.1.0)
+        version: 57.0.1(patch_hash=gvy6ymgih4k4fwrwtwifel4dje)(expo@57.0.2)(react-native@0.86.0(@babel/core@7.29.7)(@react-native/jest-preset@0.86.0(@babel/core@7.29.7)(react@19.1.0))(@react-native/metro-config@0.86.0(@babel/core@7.29.7))(@types/react@19.2.17)(react@19.1.0))(react@19.1.0)
       expo-network:
         specifier: ~57.0.0
         version: 57.0.0(expo@57.0.2)(react@19.1.0)
@@ -536,7 +539,7 @@ importers:
         version: 1.23.0(react@19.1.0)
       next:
         specifier: 16.2.10
-        version: 16.2.10(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 16.2.10(@babel/core@7.29.7)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       pg:
         specifier: ^8.16.0
         version: 8.22.0
@@ -15383,7 +15386,7 @@ snapshots:
     dependencies:
       react-native: 0.86.0(@babel/core@7.29.7)(@react-native/jest-preset@0.86.0(@babel/core@7.29.7)(react@19.1.0))(@react-native/metro-config@0.86.0(@babel/core@7.29.7))(@types/react@19.2.17)(react@19.1.0)
 
-  expo-navigation-bar@57.0.1(expo@57.0.2)(react-native@0.86.0(@babel/core@7.29.7)(@react-native/jest-preset@0.86.0(@babel/core@7.29.7)(react@19.1.0))(@react-native/metro-config@0.86.0(@babel/core@7.29.7))(@types/react@19.2.17)(react@19.1.0))(react@19.1.0):
+  expo-navigation-bar@57.0.1(patch_hash=gvy6ymgih4k4fwrwtwifel4dje)(expo@57.0.2)(react-native@0.86.0(@babel/core@7.29.7)(@react-native/jest-preset@0.86.0(@babel/core@7.29.7)(react@19.1.0))(@react-native/metro-config@0.86.0(@babel/core@7.29.7))(@types/react@19.2.17)(react@19.1.0))(react@19.1.0):
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
       expo: 57.0.2(gqzfrw5cjx4aqof4ysf64s6que)
@@ -17727,7 +17730,7 @@ snapshots:
 
   neverthrow@7.2.0: {}
 
-  next@16.2.10(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next@16.2.10(@babel/core@7.29.7)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@next/env': 16.2.10
       '@swc/helpers': 0.5.15
@@ -17736,7 +17739,7 @@ snapshots:
       postcss: 8.5.16
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-      styled-jsx: 5.1.6(react@19.1.0)
+      styled-jsx: 5.1.6(@babel/core@7.29.7)(react@19.1.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.2.10
       '@next/swc-darwin-x64': 16.2.10
@@ -19305,10 +19308,12 @@ snapshots:
 
   structured-headers@0.4.1: {}
 
-  styled-jsx@5.1.6(react@19.1.0):
+  styled-jsx@5.1.6(@babel/core@7.29.7)(react@19.1.0):
     dependencies:
       client-only: 0.0.1
       react: 19.1.0
+    optionalDependencies:
+      '@babel/core': 7.29.7
 
   styleq@0.1.3: {}
 
