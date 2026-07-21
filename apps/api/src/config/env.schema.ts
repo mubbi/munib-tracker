@@ -276,6 +276,24 @@ export class EnvironmentVariables {
   @IsOptional()
   VAPID_PUBLIC_KEY?: string;
 
+  /** Web Push VAPID private key (API scheduler + admin broadcasts). */
+  @IsString()
+  @IsOptional()
+  VAPID_PRIVATE_KEY?: string;
+
+  /** mailto: or https: VAPID subject. Defaults to support@munibtracker.app. */
+  @IsString()
+  @IsOptional()
+  VAPID_SUBJECT?: string;
+
+  /**
+   * Bearer secret for `POST /surface-push/internal/dispatch-due`
+   * (cron fallback for Expo + Web Push jobs).
+   */
+  @IsString()
+  @IsOptional()
+  SURFACE_PUSH_CRON_SECRET?: string;
+
   /**
    * Public API origin used for QStash callbacks (no trailing slash),
    * e.g. https://api.munibtracker.app

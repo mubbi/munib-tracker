@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Set your location for Salah alerts",
     "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
     "liveActivityHintAndroid": "Onyesha arifa thabiti yenye countdown ya moja kwa moja ya Salah inayofuata na kitendo cha Weka alama.",
-    "markPrayed": "Weka alama umeswali"
+    "markPrayed": "Weka alama umeswali",
+    "trackSalah": {
+      "title": "Fuatilia Salah hii",
+      "hint": "Bandika countdown ya moja kwa moja kwenye skrini iliyofungwa na upau wa hali kwa Salah inayofuata. Unaweza kusimamisha wakati wowote.",
+      "hintWeb": "Pata vikumbusho vya awamu kwa Salah inayofuata hata kivinjari kikiwa kimefungwa.",
+      "start": "Fuatilia Salah hii",
+      "stop": "Acha kufuatilia",
+      "active": "Inafuatilia {{prayer}}",
+      "activeHint": "Sasisho za moja kwa moja zitaangaziwa Salah hii inapokaribia. Gusa Acha ili kuondoa ubandikaji.",
+      "a11yStart": "Anza kufuatilia Salah inayofuata kwenye skrini iliyofungwa",
+      "a11yStop": "Acha kufuatilia sasisho za moja kwa moja za Salah"
+    }
   },
   "fonts": {
     "eyebrow": "Mipangilio",

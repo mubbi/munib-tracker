@@ -590,3 +590,108 @@ export class LiveActivityPushJobEntity {
   @UpdateDateColumn({ type: TIMESTAMP_TYPE })
   updatedAt!: Date;
 }
+
+/** Expo / Web Push registration for Android Live Updates and scheduled Web Push. */
+@Entity("surface_push_registrations")
+@Index("surface_push_registrations_user_idx", ["userId"])
+@Index("surface_push_registrations_target_unique", ["targetHash"], { unique: true })
+@Index("surface_push_registrations_session_idx", ["sessionId"])
+export class SurfacePushRegistrationEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column("uuid")
+  userId!: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user!: UserEntity;
+
+  @Column({ type: "varchar", length: 16 })
+  channel!: "expo" | "web_push";
+
+  /** SHA-256 of the Expo token or Web Push endpoint for upsert / dedupe. */
+  @Column({ type: "varchar", length: 64 })
+  targetHash!: string;
+
+  /** Expo push token or serialized Web Push subscription JSON. */
+  @Column({ type: "text" })
+  target!: string;
+
+  @Column({ type: "varchar", length: 128, nullable: true })
+  sessionId?: string | null;
+
+  @Column({ type: "varchar", length: 128, nullable: true })
+  deviceId?: string | null;
+
+  @Column({ type: "varchar", length: 16, default: "active" })
+  status!: "active" | "ended" | "invalid" | "expired";
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  expiresAt?: Date | null;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  lastPushAt?: Date | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: TIMESTAMP_TYPE })
+  updatedAt!: Date;
+}
+
+/** Durable QStash/cron jobs for Expo data + Web Push phase delivery. */
+@Entity("surface_push_jobs")
+@Index("surface_push_jobs_due_idx", ["status", "executeAt"])
+@Index("surface_push_jobs_registration_idx", ["registrationId"])
+@Index("surface_push_jobs_dedupe_unique", ["registrationId", "dedupeKey"], { unique: true })
+export class SurfacePushJobEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column()
+  registrationId!: number;
+
+  @ManyToOne(() => SurfacePushRegistrationEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "registrationId" })
+  registration!: SurfacePushRegistrationEntity;
+
+  @Column({ type: "varchar", length: 16 })
+  channel!: "expo" | "web_push";
+
+  @Column({ type: "varchar", length: 32 })
+  phase!: string;
+
+  @Column({ type: "varchar", length: 160 })
+  dedupeKey!: string;
+
+  @Column({ type: TIMESTAMP_TYPE })
+  executeAt!: Date;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  staleAt?: Date | null;
+
+  @Column({ type: "text" })
+  payloadJson!: string;
+
+  @Column({ type: "varchar", length: 16, default: "pending" })
+  status!: "pending" | "processing" | "delivered" | "failed" | "cancelled";
+
+  @Column({ type: "text", nullable: true })
+  qstashMessageId?: string | null;
+
+  @Column({ type: "integer", default: 0 })
+  attempts!: number;
+
+  @Column({ type: "text", nullable: true })
+  lastError?: string | null;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  deliveredAt?: Date | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: TIMESTAMP_TYPE })
+  updatedAt!: Date;
+}

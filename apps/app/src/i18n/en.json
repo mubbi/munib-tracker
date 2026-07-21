@@ -952,6 +952,17 @@
     "liveActivityDiscoveryBodyAndroid": "See the next Salah countdown in an ongoing notification with a Prepare action.",
     "liveActivityDiscoveryEnable": "Turn on",
     "liveActivityDiscoveryDismissA11y": "Dismiss the live countdown tip",
+    "trackSalah": {
+      "title": "Track this Salah",
+      "hint": "Pin a live countdown on the lock screen and status bar for the next Salah. You can stop anytime.",
+      "hintWeb": "Get phase reminders for the next Salah even when the browser is closed.",
+      "start": "Track this Salah",
+      "stop": "Stop tracking",
+      "active": "Tracking {{prayer}}",
+      "activeHint": "Live updates will promote when this Salah is imminent. Tap Stop to unpin.",
+      "a11yStart": "Start tracking the next Salah on the lock screen",
+      "a11yStop": "Stop tracking Salah live updates"
+    },
     "upcomingTitle": "Upcoming reminders",
     "upcomingHint": "Your next scheduled alerts, in your location's timezone. Use the toggles below to enable, disable, or edit them.",
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",

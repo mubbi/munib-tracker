@@ -42,7 +42,7 @@ describe("browser-capabilities (Bowser tiers)", () => {
     expect(safari.needsSafariForInstall).toBe(false);
   });
 
-  it("classifies desktop Firefox as limited_web", () => {
-    expect(detectWebPwaBrowserMatrixFromUserAgent(DESKTOP_FIREFOX_UA).tier).toBe("limited_web");
+  it("classifies desktop Firefox as chromium_full (Web Push capable)", () => {
+    expect(detectWebPwaBrowserMatrixFromUserAgent(DESKTOP_FIREFOX_UA).tier).toBe("chromium_full");
   });
 });

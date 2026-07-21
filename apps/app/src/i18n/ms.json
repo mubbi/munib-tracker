@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Set your location for Salah alerts",
     "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
     "liveActivityHintAndroid": "Tunjukkan pemberitahuan tetap dengan kiraan undur Salah seterusnya secara langsung dan tindakan Tandai.",
-    "markPrayed": "Tandai sudah solat"
+    "markPrayed": "Tandai sudah solat",
+    "trackSalah": {
+      "title": "Jejaki Salah ini",
+      "hint": "Sematkan kiraan undur langsung pada skrin kunci dan bar status untuk Salah seterusnya. Anda boleh berhenti pada bila-bila masa.",
+      "hintWeb": "Dapatkan peringatan fasa untuk Salah seterusnya walaupun pelayar ditutup.",
+      "start": "Jejaki Salah ini",
+      "stop": "Berhenti menjejaki",
+      "active": "Menjejaki {{prayer}}",
+      "activeHint": "Kemas kini langsung akan diketengahkan apabila Salah ini hampir tiba. Ketik Berhenti untuk nyahsemat.",
+      "a11yStart": "Mulakan penjejakan Salah seterusnya pada skrin kunci",
+      "a11yStop": "Berhenti menjejaki kemas kini langsung Salah"
+    }
   },
   "fonts": {
     "eyebrow": "Tetapan",

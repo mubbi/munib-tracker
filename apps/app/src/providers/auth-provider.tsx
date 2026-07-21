@@ -140,6 +140,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const current = await SessionStore.get();
       if (current) {
         try {
+          const { deleteSurfacePushRegistration } = await import("@/lib/surface-push/register");
+          const { unsubscribeWebPushSubscription } = await import(
+            "@/lib/notifications/register-push-token"
+          );
+          await deleteSurfacePushRegistration(current.accessToken);
+          await unsubscribeWebPushSubscription();
+        } catch {
+          // best-effort cleanup
+        }
+        try {
           // Best-effort: clears HttpOnly web cookies when the access token still works.
           await logoutRequest(current.accessToken);
         } catch {

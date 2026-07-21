@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Set your location for Salah alerts",
     "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
     "liveActivityHintAndroid": "Prikaži trajnu obavijest s živim odbrojavanjem do sljedećeg namaza i radnjom Označi.",
-    "markPrayed": "Označi kao klanjano"
+    "markPrayed": "Označi kao klanjano",
+    "trackSalah": {
+      "title": "Prati ovaj namaz",
+      "hint": "Zakačite živo odbrojavanje na zaključani ekran i statusnu traku za sljedeći namaz. Možete zaustaviti u bilo kojem trenutku.",
+      "hintWeb": "Primajte podsjetnike na faze za sljedeći namaz čak i kad je preglednik zatvoren.",
+      "start": "Prati ovaj namaz",
+      "stop": "Zaustavi praćenje",
+      "active": "Prati se {{prayer}}",
+      "activeHint": "Živa ažuriranja će se istaknuti kada ovaj namaz bude blizu. Dodirnite Zaustavi da otkačite.",
+      "a11yStart": "Započni praćenje sljedećeg namaza na zaključanom ekranu",
+      "a11yStop": "Zaustavi praćenje živih ažuriranja namaza"
+    }
   },
   "fonts": {
     "eyebrow": "Postavke",

@@ -168,7 +168,11 @@ function isChromiumBrowser(parser: Bowser.Parser.Parser): boolean {
 function detectLimitedBrowser(parser: Bowser.Parser.Parser): boolean {
   if (isIosOs(parser)) return false;
   if (isChromiumBrowser(parser)) return false;
-  return parser.satisfies({ firefox: ">0" }) === true || parser.getBrowserName(true) === "safari";
+  // Firefox and desktop Safari support Web Push; treat them as capable when
+  // runtime feature detection confirms PushManager (gated elsewhere).
+  if (parser.satisfies({ firefox: ">0" }) === true) return false;
+  if (parser.getBrowserName(true) === "safari") return false;
+  return true;
 }
 
 function resolveTier(
@@ -180,6 +184,9 @@ function resolveTier(
     return isInstalledPwa ? "ios_webkit_installed" : "ios_webkit_tab";
   }
   if (isChromiumBrowser(parser)) return "chromium_full";
+  if (parser.satisfies({ firefox: ">0" }) === true || parser.getBrowserName(true) === "safari") {
+    return "chromium_full";
+  }
   return "limited_web";
 }
 

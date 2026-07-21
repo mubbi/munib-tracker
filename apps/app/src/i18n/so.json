@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Deji goobtaada digniinaha Salaadda",
     "defaultLocationMessage": "Xusuusinta Salaadda iyo Adhaanka waxay u baahan yihiin magaaladaada. Xusuusinta Zikr iyo Qaza ee saacadda wali waa la qorsheeyaa.",
     "liveActivityHintAndroid": "Muuji ogeysiis joogto ah oo leh tirinta nool ee Salaadda xigta iyo ficilka Calaamadee.",
-    "markPrayed": "Calaamadee in la tukaday"
+    "markPrayed": "Calaamadee in la tukaday",
+    "trackSalah": {
+      "title": "La soco Salaaddan",
+      "hint": "Ku dheji tirinta nool shaashadda qufulka iyo xariiqda xaaladda ee Salaadda xigta. Waqti kasta waad joojin kartaa.",
+      "hintWeb": "Hel xusuusinno marxaladeed oo Salaadda xigta xitaa marka biraawsarka xiran yahay.",
+      "start": "La soco Salaaddan",
+      "stop": "Jooji la-socodka",
+      "active": "Waa la socdaa {{prayer}}",
+      "activeHint": "Cusboonaysiinta nool ayaa soo bixi doonta marka Salaaddan ay soo dhawaato. Taabo Jooji si aad uga saarto dhejinta.",
+      "a11yStart": "Bilow la-socodka Salaadda xigta shaashadda qufulka",
+      "a11yStop": "Jooji la-socodka cusboonaysiinta nool ee Salaadda"
+    }
   },
   "fonts": {
     "eyebrow": "Dejinta",

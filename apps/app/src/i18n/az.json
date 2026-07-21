@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Namaz bildirişləri üçün məkanı təyin edin",
     "defaultLocationMessage": "Namaz və azan xatırlatmaları üçün şəhəriniz lazımdır. Saat üzrə zikr və qəza xatırlatmaları yenə planlanır.",
     "liveActivityHintAndroid": "Növbəti namazın canlı gerisayımı və Qeyd et əməli olan sabit bildiriş göstərin.",
-    "markPrayed": "Qılınmış kimi qeyd et"
+    "markPrayed": "Qılınmış kimi qeyd et",
+    "trackSalah": {
+      "title": "Bu namazı izlə",
+      "hint": "Növbəti namaz üçün kilid ekranına və status çubuğuna canlı gerisayım bərkidin. İstədiyiniz vaxt dayandıra bilərsiniz.",
+      "hintWeb": "Brauzer bağlı olsa belə növbəti namazın mərhələ xatırlatmalarını alın.",
+      "start": "Bu namazı izlə",
+      "stop": "İzləməni dayandır",
+      "active": "{{prayer}} izlənir",
+      "activeHint": "Bu namaz yaxınlaşanda canlı yeniləmələr önə çıxacaq. Bərkitməni götürmək üçün Dayandır düyməsinə toxunun.",
+      "a11yStart": "Kilid ekranında növbəti namaz izləməsini başlat",
+      "a11yStop": "Namaz canlı yeniləmə izləməsini dayandır"
+    }
   },
   "fonts": {
     "eyebrow": "Parametrlər",

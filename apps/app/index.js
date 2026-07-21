@@ -8,9 +8,11 @@ import "./src/lib/request-idle-callback-polyfill";
 import "./src/lib/auth/auth-session-bootstrap";
 import { registerAndroidWidgetTaskHandler } from "./src/lib/appSurfaces/widgets/androidTaskHandler";
 import { initSentry } from "./src/lib/sentry";
+import { registerSurfacePushBackgroundTask } from "./src/lib/surface-push/background-task";
 
 initSentry();
 
 registerAndroidWidgetTaskHandler();
+registerSurfacePushBackgroundTask();
 
 require("expo-router/entry");

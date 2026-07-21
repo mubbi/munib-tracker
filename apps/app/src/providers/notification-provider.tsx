@@ -12,7 +12,10 @@ import {
 } from "@/lib/live-activity";
 import { hasOutstandingQazaDebt, isQazaReminderId } from "@/lib/notifications/build-reminders";
 import { isWeb } from "@/lib/notifications/platform";
-import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
+import {
+  registerExpoPushTokenWithApi,
+  registerWebPushSubscriptionWithApi,
+} from "@/lib/notifications/register-push-token";
 import { tryPlayWebAdhanForReminder } from "@/lib/notifications/web-adhan-playback";
 import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
 import {
@@ -72,9 +75,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   }, [activeLocale]);
 
   useEffect(() => {
-    if (!isAuthenticated || !session?.accessToken) return;
+    if (!session?.accessToken) return;
     void registerExpoPushTokenWithApi(session.accessToken);
-  }, [isAuthenticated, session?.accessToken]);
+    void registerWebPushSubscriptionWithApi(session.accessToken);
+  }, [session?.accessToken]);
 
   useEffect(() => {
     if (Platform.OS !== "ios") return;

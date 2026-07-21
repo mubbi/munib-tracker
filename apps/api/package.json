@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@munib-tracker/live-activity-delivery": "workspace:*",
+    "@munib-tracker/surface-push-delivery": "workspace:*",
     "@munib-tracker/shared": "workspace:*",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.0",

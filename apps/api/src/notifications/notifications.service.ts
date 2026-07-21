@@ -43,7 +43,7 @@ export class NotificationsService {
     accessToken: string,
     dto: UpsertPushTokenDto,
   ): Promise<PushTokenResponseDto> {
-    const user = await this.requireLinkedUser(accessToken);
+    const user = await this.requireAuthenticatedUser(accessToken);
     const deviceId = dto.deviceId?.trim() || null;
 
     let row: PushTokenEntity | null = null;
@@ -176,6 +176,13 @@ export class NotificationsService {
       throw new NotFoundException("Notification not found");
     }
     return row;
+  }
+
+  private async requireAuthenticatedUser(accessToken: string) {
+    if (!accessToken) {
+      throw new UnauthorizedException("Missing bearer token");
+    }
+    return this.authService.getCurrentUser(accessToken);
   }
 
   private async requireLinkedUser(accessToken: string) {

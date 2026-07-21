@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Set your location for Salah alerts",
     "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
     "liveActivityHintAndroid": "Indiki namazyň janly yzyna sanawy we Belläň hereketi bilen hemişelik bildiriş görkeziň.",
-    "markPrayed": "Okuldy diýip belläň"
+    "markPrayed": "Okuldy diýip belläň",
+    "trackSalah": {
+      "title": "Bu namazy yzarla",
+      "hint": "Indiki namaz üçin gulply ekrana we ýagdaý paneline janly yzyna sanawy berkidiň. Islän wagtyňyz duruzyp bilersiňiz.",
+      "hintWeb": "Brauzer ýapyk bolsa-da indiki namazyň tapgyr ýatladyjylaryny alyň.",
+      "start": "Bu namazy yzarla",
+      "stop": "Yzarlamagy duruz",
+      "active": "{{prayer}} yzarlanýar",
+      "activeHint": "Bu namaz ýakynlaşanda janly täzelenmeler öňe çykarylýar. Berkitmäni aýyrmak üçin Duruz düwmesine basyň.",
+      "a11yStart": "Gulply ekranda indiki namaz yzarlamasyny başlat",
+      "a11yStop": "Namaz janly täzelenmeleriniň yzarlamasyny duruz"
+    }
   },
   "fonts": {
     "eyebrow": "Sazlamalar",

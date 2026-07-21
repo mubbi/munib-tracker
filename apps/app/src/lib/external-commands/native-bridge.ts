@@ -12,6 +12,9 @@ interface ExternalCommandsNativeModule {
   publishAndroidWidgetPreviews?(json: string): Promise<boolean>;
   updateOngoingNotification?(json: string): Promise<void>;
   cancelOngoingNotification?(): Promise<void>;
+  applyOngoingPhasePayload?(json: string): Promise<void>;
+  canPostPromotedNotifications?(): Promise<boolean>;
+  openPromotedNotificationSettings?(): Promise<void>;
   activateWatchSession?(): Promise<void>;
   addListener?(event: "onCommandsAvailable", listener: () => void): { remove: () => void };
 }
@@ -133,6 +136,34 @@ export async function nativeCancelOngoingNotification(): Promise<void> {
   if (Platform.OS !== "android" || !nativeModule?.cancelOngoingNotification) return;
   try {
     await nativeModule.cancelOngoingNotification();
+  } catch {
+    /* Expo Go / missing native build */
+  }
+}
+
+/** Applies an Expo Push / alarm phase payload to the ongoing notification. */
+export async function nativeApplyOngoingPhasePayload(json: string): Promise<void> {
+  if (Platform.OS !== "android" || !nativeModule?.applyOngoingPhasePayload) return;
+  try {
+    await nativeModule.applyOngoingPhasePayload(json);
+  } catch {
+    /* Expo Go / missing native build */
+  }
+}
+
+export async function nativeCanPostPromotedNotifications(): Promise<boolean> {
+  if (Platform.OS !== "android" || !nativeModule?.canPostPromotedNotifications) return false;
+  try {
+    return Boolean(await nativeModule.canPostPromotedNotifications());
+  } catch {
+    return false;
+  }
+}
+
+export async function nativeOpenPromotedNotificationSettings(): Promise<void> {
+  if (Platform.OS !== "android" || !nativeModule?.openPromotedNotificationSettings) return;
+  try {
+    await nativeModule.openPromotedNotificationSettings();
   } catch {
     /* Expo Go / missing native build */
   }

@@ -15,12 +15,12 @@ describe("PrayerActivityAttributes sync", () => {
 
     const normalize = (src: string) =>
       src
+        .replace(/\r\n/g, "\n")
         // Drop the one-line "duplicated in …" comment that differs by path.
         .replace(
           /\/\/\/ IMPORTANT: this file is duplicated verbatim in[\s\S]*?Change one → change the other\.\n/,
           "",
         )
-        .replace(/\r\n/g, "\n")
         .trim();
 
     const moduleSrc = normalize(readFileSync(modulePath, "utf8"));

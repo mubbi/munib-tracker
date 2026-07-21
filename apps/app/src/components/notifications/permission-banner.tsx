@@ -8,11 +8,13 @@ import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWeb } from "@/lib/notifications/platform";
+import { registerWebPushSubscriptionWithApi } from "@/lib/notifications/register-push-token";
 import {
   beginWebNotificationPermissionRequest,
   canRequestWebNotificationPermission,
 } from "@/lib/notifications/web-environment";
 import { rescheduleAll } from "@/notifications/scheduler";
+import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
 import { locationStore } from "@/stores/location-store";
 import { preferencesStore, usePreferencesActions } from "@/stores/preferences-store";
@@ -26,6 +28,7 @@ export function NotificationPermissionBanner({
 }: NotificationPermissionBannerProps) {
   const { t } = useTranslation();
   const toast = useToast();
+  const { session } = useAuth();
   const { tokens } = useThemeTokens();
   const { setNotificationPrefs } = usePreferencesActions();
   const {
@@ -45,6 +48,9 @@ export function NotificationPermissionBanner({
   const onGranted = async () => {
     await setNotificationPrefs({ masterEnabled: true });
     await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    if (isWeb && session?.accessToken) {
+      void registerWebPushSubscriptionWithApi(session.accessToken);
+    }
   };
 
   const handleAllow = () => {

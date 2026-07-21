@@ -72,6 +72,8 @@ describe("syncOngoingNotification", () => {
     expect(payload.prepareLabel).toBeTruthy();
     expect(payload.prepareDeepLink).toContain("before_prayer");
     expect(payload.markLabel).toBeUndefined();
+    expect(payload.requestPromoted).toBe(false);
+    expect(payload.phase).toBeTruthy();
   });
 
   it("cancels the ongoing notification on Android when the preference is off", async () => {
@@ -80,5 +82,34 @@ describe("syncOngoingNotification", () => {
 
     expect(nativeCancelOngoingNotification).toHaveBeenCalledTimes(1);
     expect(nativeUpdateOngoingNotification).not.toHaveBeenCalled();
+  });
+
+  it("requests promotion when an imminent tracking session is supplied", async () => {
+    Platform.OS = "android";
+    const snapshot = makeSnapshot();
+    const now = new Date("2026-07-06T09:00:00.000Z");
+    snapshot.nextPrayer.targetTimeMs = now.getTime() + 10 * 60_000;
+    await syncOngoingNotification({
+      snapshot,
+      enabled: false,
+      session: {
+        sessionId: "sess-1",
+        prayerId: snapshot.nextPrayer.prayerId,
+        prayerName: snapshot.nextPrayer.prayerName,
+        startedAt: now.toISOString(),
+        promoteAt: now.toISOString(),
+        endsAt: new Date(now.getTime() + 60 * 60_000).toISOString(),
+        dismissed: false,
+        status: "active",
+      },
+      now,
+    });
+
+    expect(nativeUpdateOngoingNotification).toHaveBeenCalled();
+    const payload = JSON.parse(
+      (nativeUpdateOngoingNotification as jest.Mock).mock.calls[0][0] as string,
+    );
+    expect(payload.requestPromoted).toBe(true);
+    expect(payload.sessionId).toBe("sess-1");
   });
 });

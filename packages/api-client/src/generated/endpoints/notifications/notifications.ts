@@ -134,7 +134,7 @@ export function useNotificationsControllerGetVapidPublicKey<TData = Awaited<Retu
 
 
 /**
- * @summary Register or refresh a push token (linked accounts only)
+ * @summary Register or refresh a push token (guest + linked accounts)
  */
 export const notificationsControllerUpsertPushToken = (
     upsertPushTokenDto: UpsertPushTokenDto,
@@ -181,7 +181,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type NotificationsControllerUpsertPushTokenMutationError = unknown
 
     /**
- * @summary Register or refresh a push token (linked accounts only)
+ * @summary Register or refresh a push token (guest + linked accounts)
  */
 export const useNotificationsControllerUpsertPushToken = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationsControllerUpsertPushToken>>, TError,{data: UpsertPushTokenDto}, TContext>, request?: SecondParameter<typeof apiFetch>}

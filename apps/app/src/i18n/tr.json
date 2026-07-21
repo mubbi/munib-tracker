@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Salah uyarilari icin konumunuzu ayarlayin",
     "defaultLocationMessage": "Salah ve Ezan hatirlaticilari icin sehriniz gerekir. Saatlik Zikr ve Kaza hatirlaticilari yine planlanir.",
     "liveActivityHintAndroid": "Canlı sonraki namaz geri sayımı ve İşaretle eylemi olan sabit bir bildirim göster.",
-    "markPrayed": "Kılındı olarak işaretle"
+    "markPrayed": "Kılındı olarak işaretle",
+    "trackSalah": {
+      "title": "Bu namazı takip et",
+      "hint": "Sonraki namaz için kilit ekranına ve durum çubuğuna canlı geri sayım sabitleyin. İstediğiniz zaman durdurabilirsiniz.",
+      "hintWeb": "Tarayıcı kapalıyken bile sonraki namazın aşama hatırlatıcılarını alın.",
+      "start": "Bu namazı takip et",
+      "stop": "Takibi durdur",
+      "active": "{{prayer}} takip ediliyor",
+      "activeHint": "Bu namaz yaklaştığında canlı güncellemeler öne çıkar. Sabitlemeyi kaldırmak için Durdur’a dokunun.",
+      "a11yStart": "Kilit ekranında sonraki namaz takibini başlat",
+      "a11yStop": "Namaz canlı güncelleme takibini durdur"
+    }
   },
   "fonts": {
     "eyebrow": "Ayarlar",

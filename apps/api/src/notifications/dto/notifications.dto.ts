@@ -10,7 +10,7 @@ export class UpsertPushTokenDto {
   @ApiProperty({ description: "Expo push token or web push subscription endpoint" })
   @IsString()
   @IsNotEmpty()
-  @MaxLength(2048)
+  @MaxLength(8192)
   token!: string;
 
   @ApiPropertyOptional({ description: "Stable device id for upsert" })

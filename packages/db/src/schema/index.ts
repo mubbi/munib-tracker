@@ -10,6 +10,7 @@ export * from "./inAppNotifications";
 export * from "./liveActivityPush";
 export * from "./ossContentDownloadFailures";
 export * from "./pushTokens";
+export * from "./surfacePush";
 export * from "./syncRecords";
 export * from "./userMedia";
 export * from "./users";

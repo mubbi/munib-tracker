@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Namoz ogohlantirishlari uchun joylashuvni belgilang",
     "defaultLocationMessage": "Namoz va azon eslatmalari uchun shahringiz kerak. Soat bo'yicha zikr va qazo eslatmalari baribir rejalashtiriladi.",
     "liveActivityHintAndroid": "Keyingi namozning jonli teskari hisobi va Belgilash amali bilan doimiy bildirishnoma ko‘rsating.",
-    "markPrayed": "O‘qilgan deb belgilash"
+    "markPrayed": "O‘qilgan deb belgilash",
+    "trackSalah": {
+      "title": "Bu namozni kuzatish",
+      "hint": "Keyingi namoz uchun qulflangan ekran va holat paneliga jonli teskari hisobni mahkamlang. Istalgan vaqtda to‘xtatishingiz mumkin.",
+      "hintWeb": "Brauzer yopiq bo‘lsa ham keyingi namozning bosqich eslatmalarini oling.",
+      "start": "Bu namozni kuzatish",
+      "stop": "Kuzatishni to‘xtatish",
+      "active": "{{prayer}} kuzatilmoqda",
+      "activeHint": "Bu namoz yaqinlashganda jonli yangilanishlar ajratib ko‘rsatiladi. Mahkamlashni olib tashlash uchun To‘xtatishni bosing.",
+      "a11yStart": "Qulflangan ekranda keyingi namoz kuzatuvini boshlash",
+      "a11yStop": "Namoz jonli yangilanishlari kuzatuvini to‘xtatish"
+    }
   },
   "fonts": {
     "eyebrow": "Sozlamalar",

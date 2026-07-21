@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Set your location for Salah alerts",
     "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
     "liveActivityHintAndroid": "Shfaq një njoftim të përhershëm me numërimin e gjallë të namazit të radhës dhe veprimin Shëno.",
-    "markPrayed": "Shëno si të falur"
+    "markPrayed": "Shëno si të falur",
+    "trackSalah": {
+      "title": "Ndiq këtë namaz",
+      "hint": "Ngjit një numërim të gjallë në ekranin e kyçjes dhe shiritin e statusit për namazin e radhës. Mund ta ndalosh në çdo kohë.",
+      "hintWeb": "Merr kujtesa fazash për namazin e radhës edhe kur shfletuesi është i mbyllur.",
+      "start": "Ndiq këtë namaz",
+      "stop": "Ndalo ndjekjen",
+      "active": "Po ndiqet {{prayer}}",
+      "activeHint": "Përditësimet e gjalla do të nxirren në pah kur ky namaz të jetë i afërt. Trokit Ndalo për ta shkëputur.",
+      "a11yStart": "Fillo ndjekjen e namazit të radhës në ekranin e kyçjes",
+      "a11yStop": "Ndalo ndjekjen e përditësimeve të gjalla të namazit"
+    }
   },
   "fonts": {
     "eyebrow": "Cilësimet",

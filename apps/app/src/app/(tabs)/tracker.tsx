@@ -10,7 +10,13 @@ import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type NativeScrollEvent, type NativeSyntheticEvent, StyleSheet, View } from "react-native";
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  Platform,
+  StyleSheet,
+  View,
+} from "react-native";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
@@ -52,17 +58,35 @@ import {
   isZikrItemDone,
   totalAfterSalahProgress,
 } from "@/lib/after-salah-adhkar-progress";
+import { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 import { FRIDAY_CHECKLIST_FOCUS } from "@/lib/friday";
 import { triggerHaptic } from "@/lib/haptics";
 import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/content";
 import { khatmTodayProgress } from "@/lib/khatm";
+import { toAppLocale } from "@/lib/locale-bcp47";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
+import {
+  getExpoPushToken,
+  registerWebPushSubscriptionWithApi,
+} from "@/lib/notifications/register-push-token";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
+import { createSalahTrackingSession, endSalahTrackingSession } from "@/lib/salah-phase";
+import {
+  endSurfacePushRegistration,
+  registerSurfacePushSchedule,
+} from "@/lib/surface-push/register";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
+import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
+import { useTheme } from "@/providers/theme-provider";
 import { useToast } from "@/providers/toast-provider";
 import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
-import { preferencesStore } from "@/stores/preferences-store";
+import { useLocation, useLocationStatus } from "@/stores/location-store";
+import {
+  preferencesStore,
+  usePreferences,
+  usePreferencesActions,
+} from "@/stores/preferences-store";
 import {
   type SetPrayerStatusOptions,
   useAchievementStats,
@@ -107,6 +131,11 @@ export default function TrackerScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { scheme, colorMode } = useTheme();
+  const location = useLocation();
+  const locationStatus = useLocationStatus();
+  const { salahTrackingSession, timeFormat, defaultCalendar, translationLocale } = usePreferences();
+  const { update: updatePrefs } = usePreferencesActions();
   const summary = useDailySummary();
   const streak = useStreak();
   const devotion = useDevotionProgress();
@@ -161,6 +190,9 @@ export default function TrackerScreen() {
     },
     [remindAfterSalahAdhkar, setPrayerStatus, status],
   );
+
+  const trackingActive =
+    salahTrackingSession?.status === "active" && !salahTrackingSession.dismissed;
 
   const progress = summary.salahTotal ? summary.salahCompleted / summary.salahTotal : 0;
   const isComplete = progress >= 1;
@@ -257,6 +289,124 @@ export default function TrackerScreen() {
   const [celebrationKey, setCelebrationKey] = useState(0);
   const toast = useToast();
   const { deliver } = useInAppNotifications();
+  const { session } = useAuth();
+
+  const buildTrackingSnapshot = useCallback(() => {
+    const locationDenied = locationStatus === "denied";
+    const locale = toAppLocale(i18n.language ?? "en");
+    return buildWidgetSnapshot({
+      location: locationDenied ? null : location,
+      locationDenied,
+      locale,
+      translationLocale: toAppLocale(translationLocale ?? locale),
+      calendar: defaultCalendar,
+      timeFormat,
+      theme: {
+        isDark: scheme === "dark",
+        primaryColor: colors.accent,
+        followsSystem: colorMode === "system",
+      },
+      salahCompleted: summary.salahCompleted,
+      salahTotal: summary.salahTotal,
+      prayerStatus: status,
+      streakDays: summary.streakDays,
+      qazaRemaining: summary.qazaRemaining,
+      qazaCompletedToday: summary.qazaCompletedToday,
+      qazaTargetToday: summary.qazaTargetToday,
+      khatmPlan,
+      khatmAyahsRead: khatmRead,
+      tasbeehToday: null,
+      fridayChecklistDone: {},
+      t,
+    });
+  }, [
+    colorMode,
+    colors.accent,
+    defaultCalendar,
+    i18n.language,
+    khatmPlan,
+    khatmRead,
+    location,
+    locationStatus,
+    scheme,
+    status,
+    summary.qazaCompletedToday,
+    summary.qazaRemaining,
+    summary.qazaTargetToday,
+    summary.salahCompleted,
+    summary.salahTotal,
+    summary.streakDays,
+    t,
+    timeFormat,
+    translationLocale,
+  ]);
+
+  const startTrackingSalah = useCallback(() => {
+    const snapshot = buildTrackingSnapshot();
+    if (snapshot.locationDenied) {
+      toast.error(t("notif.defaultLocationTitle"), t("notif.defaultLocationMessage"));
+      return;
+    }
+    const sessionState = createSalahTrackingSession(snapshot);
+    updatePrefs({ salahTrackingSession: sessionState });
+    triggerHaptic("success");
+
+    const accessToken = session?.accessToken;
+    if (!accessToken) return;
+    void (async () => {
+      try {
+        if (Platform.OS === "web") {
+          const subscription = await registerWebPushSubscriptionWithApi(accessToken);
+          if (!subscription?.endpoint || !subscription.keys?.p256dh || !subscription.keys?.auth) {
+            return;
+          }
+          await registerSurfacePushSchedule({
+            accessToken,
+            channel: "web_push",
+            target: JSON.stringify({
+              endpoint: subscription.endpoint,
+              expirationTime: subscription.expirationTime ?? null,
+              keys: { p256dh: subscription.keys.p256dh, auth: subscription.keys.auth },
+            }),
+            session: sessionState,
+            snapshot,
+            stopLabel: t("notif.trackSalah.stop"),
+          });
+        } else if (Platform.OS === "android") {
+          try {
+            const token = await getExpoPushToken();
+            if (token) {
+              await registerSurfacePushSchedule({
+                accessToken,
+                channel: "expo",
+                target: token,
+                session: sessionState,
+                snapshot,
+                stopLabel: t("notif.trackSalah.stop"),
+              });
+            }
+          } catch {
+            /* Expo Push is best-effort; local alarms remain authoritative. */
+          }
+        }
+      } catch {
+        /* remote schedule is best-effort; local alarms still run */
+      }
+    })();
+  }, [buildTrackingSnapshot, session?.accessToken, t, toast, updatePrefs]);
+
+  const stopTrackingSalah = useCallback(() => {
+    if (!salahTrackingSession) return;
+    updatePrefs({
+      salahTrackingSession: endSalahTrackingSession(salahTrackingSession, "ended"),
+    });
+    triggerHaptic("light");
+    const accessToken = session?.accessToken;
+    if (accessToken) {
+      void endSurfacePushRegistration(accessToken, undefined, "ended");
+    }
+  }, [salahTrackingSession, session?.accessToken, updatePrefs]);
+
   // Guards so we only fire on the pending -> complete *edge*, not every render.
   const prevCompleteRef = useRef<boolean | null>(null);
   const knownAchievementsRef = useRef<string[]>([]);
@@ -463,6 +613,47 @@ export default function TrackerScreen() {
               registerFocus={register}
               fridayFocused={isFocused(FRIDAY_CHECKLIST_FOCUS)}
             />
+
+            {(Platform.OS === "android" || Platform.OS === "web") && locationStatus !== "denied" ? (
+              <Card padding="three">
+                <SectionHeader
+                  title={t("notif.trackSalah.title")}
+                  icon={{
+                    ios: "lock.iphone",
+                    android: "notifications_active",
+                    web: "notifications_active",
+                  }}
+                />
+                <ThemedText
+                  type="caption"
+                  themeColor="mutedForeground"
+                  style={styles.salahAdhkarHint}
+                >
+                  {trackingActive
+                    ? t("notif.trackSalah.activeHint")
+                    : Platform.OS === "web"
+                      ? t("notif.trackSalah.hintWeb")
+                      : t("notif.trackSalah.hint")}
+                </ThemedText>
+                <View style={styles.rows}>
+                  <NavRow
+                    icon={{
+                      ios: trackingActive ? "stop.circle" : "play.circle",
+                      android: trackingActive ? "stop_circle" : "play_circle",
+                      web: trackingActive ? "stop_circle" : "play_circle",
+                    }}
+                    label={
+                      trackingActive
+                        ? t("notif.trackSalah.active", {
+                            prayer: salahTrackingSession?.prayerName ?? "",
+                          })
+                        : t("notif.trackSalah.start")
+                    }
+                    onPress={trackingActive ? stopTrackingSalah : startTrackingSalah}
+                  />
+                </View>
+              </Card>
+            ) : null}
 
             <Card padding="three">
               <SectionHeader

@@ -12,6 +12,8 @@ import {
   LiveActivityPushTokenEntity,
   OssContentDownloadFailureEntity,
   PushTokenEntity,
+  SurfacePushJobEntity,
+  SurfacePushRegistrationEntity,
   SyncRecordEntity,
   UserEntity,
   UserMediaEntity,
@@ -31,6 +33,8 @@ const testEntities = [
   InAppNotificationEntity,
   LiveActivityPushTokenEntity,
   LiveActivityPushJobEntity,
+  SurfacePushRegistrationEntity,
+  SurfacePushJobEntity,
   PushTokenEntity,
   DeletedAccountEntity,
 ];

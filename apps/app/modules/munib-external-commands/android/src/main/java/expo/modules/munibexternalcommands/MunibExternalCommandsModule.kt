@@ -168,6 +168,23 @@ class MunibExternalCommandsModule : Module() {
       null
     }
 
+    AsyncFunction("applyOngoingPhasePayload") { json: String ->
+      val context = appContext.reactContext ?: return@AsyncFunction null
+      OngoingSalahNotification.applyPhasePayload(context, json)
+      null
+    }
+
+    AsyncFunction("canPostPromotedNotifications") {
+      val context = appContext.reactContext ?: return@AsyncFunction false
+      OngoingSalahNotification.canPostPromoted(context)
+    }
+
+    AsyncFunction("openPromotedNotificationSettings") {
+      val context = appContext.reactContext ?: return@AsyncFunction null
+      OngoingSalahNotification.openPromotedSettings(context)
+      null
+    }
+
     AsyncFunction("activateWatchSession") {
       // iOS-only; no-op on Android.
     }

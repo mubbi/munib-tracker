@@ -1,10 +1,17 @@
 import { buildAppUrl } from "@/lib/app-links";
 import type { WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
+import {
+  actionForPhase,
+  resolveSalahPhase,
+  SALAH_PHASE_AFTER_WINDOW_MS,
+  SALAH_PHASE_MARK_WINDOW_MS,
+  type SalahPhase,
+} from "@/lib/salah-phase";
 
-export type LiveActivityPhase = "upcoming" | "markSalah" | "afterSalah";
+export type LiveActivityPhase = Exclude<SalahPhase, "ended">;
 
-export const LIVE_ACTIVITY_MARK_WINDOW_MS = 15 * 60_000;
-export const LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS = 30 * 60_000;
+export const LIVE_ACTIVITY_MARK_WINDOW_MS = SALAH_PHASE_MARK_WINDOW_MS;
+export const LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS = SALAH_PHASE_AFTER_WINDOW_MS;
 
 /**
  * Flat content state handed to the iOS Live Activity (NF-1.19). Mirrors the
@@ -64,32 +71,10 @@ export function buildLiveActivityState(
   const minutesUntil = Math.max(0, Math.round(nextPrayer.minutesUntil));
   const targetTimeMs =
     nextPrayer.targetTimeMs > 0 ? nextPrayer.targetTimeMs : now.getTime() + minutesUntil * 60_000;
-  const elapsedSinceCurrent = now.getTime() - nextPrayer.currentPrayerAtMs;
-  const currentPrayerIsRecent =
-    nextPrayer.currentPrayerAtMs > 0 &&
-    elapsedSinceCurrent >= 0 &&
-    elapsedSinceCurrent < LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS;
-  const currentPrayerCompleted =
-    snapshot.schedule.rows.find((row) => row.id === nextPrayer.currentPrayerId)?.status ===
-    "completed";
-  const phase: LiveActivityPhase = !currentPrayerIsRecent
-    ? "upcoming"
-    : currentPrayerCompleted || elapsedSinceCurrent >= LIVE_ACTIVITY_MARK_WINDOW_MS
-      ? "afterSalah"
-      : "markSalah";
-  const showingCurrentPrayer = phase !== "upcoming";
-  const actionLabel =
-    phase === "markSalah"
-      ? snapshot.strings.markSalah
-      : phase === "afterSalah"
-        ? snapshot.strings.afterSalahAdhkar
-        : snapshot.strings.prepareSalah;
-  const actionDeepLink =
-    phase === "markSalah"
-      ? buildAppUrl("/mark-current")
-      : phase === "afterSalah"
-        ? buildAppUrl(`/zikr/after_prayer?prayer=${nextPrayer.currentPrayerId}`)
-        : buildAppUrl("/zikr/before_prayer");
+  const phase = resolveSalahPhase(snapshot, now);
+  const livePhase: LiveActivityPhase = phase === "ended" ? "afterSalah" : phase;
+  const showingCurrentPrayer = livePhase !== "upcoming";
+  const action = actionForPhase(livePhase, snapshot);
 
   return {
     prayerId: showingCurrentPrayer ? nextPrayer.currentPrayerId : nextPrayer.prayerId,
@@ -101,9 +86,9 @@ export function buildLiveActivityState(
     countdownLabel: nextPrayer.countdownLabel,
     remainingLabel: nextPrayer.remainingLabel,
     prepareLabel: snapshot.strings.prepareSalah,
-    actionLabel,
-    actionDeepLink,
-    phase,
+    actionLabel: action.actionLabel,
+    actionDeepLink: action.actionDeepLink,
+    phase: livePhase,
     qiblaLabel: snapshot.strings.qibla,
     locale: snapshot.locale,
     isRtl: snapshot.isRtl,
@@ -114,8 +99,8 @@ export function buildLiveActivityState(
     progressLabel: progress.progressLabel,
     progressPercent: progress.progressPercent,
     locationDenied: snapshot.locationDenied,
-    title: showingCurrentPrayer ? actionLabel : nextPrayer.title,
-    deepLink: showingCurrentPrayer ? actionDeepLink : nextPrayer.deepLink,
+    title: showingCurrentPrayer ? action.actionLabel : nextPrayer.title,
+    deepLink: showingCurrentPrayer ? action.actionDeepLink : nextPrayer.deepLink,
     isDark: theme.isDark,
     primary: theme.primary,
     background: theme.background,
@@ -124,4 +109,9 @@ export function buildLiveActivityState(
     textSecondary: theme.textSecondary,
     updatedAt: snapshot.updatedAt,
   };
+}
+
+/** @deprecated Prefer buildAppUrl — kept for call sites that imported via state. */
+export function liveActivityDeepLink(path: string): string {
+  return buildAppUrl(path);
 }

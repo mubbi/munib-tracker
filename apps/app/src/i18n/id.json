@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Atur lokasi untuk peringatan Salah",
     "defaultLocationMessage": "Pengingat Salah dan Adzan membutuhkan kota Anda. Pengingat Zikr dan Qaza berdasarkan jam tetap dijadwalkan.",
     "liveActivityHintAndroid": "Tampilkan notifikasi tetap dengan hitungan mundur Salah berikutnya secara langsung dan aksi Tandai.",
-    "markPrayed": "Tandai sudah shalat"
+    "markPrayed": "Tandai sudah shalat",
+    "trackSalah": {
+      "title": "Lacak Salah ini",
+      "hint": "Sematkan hitungan mundur langsung di layar kunci dan bilah status untuk Salah berikutnya. Anda bisa berhenti kapan saja.",
+      "hintWeb": "Dapatkan pengingat fase untuk Salah berikutnya meski browser ditutup.",
+      "start": "Lacak Salah ini",
+      "stop": "Berhenti melacak",
+      "active": "Melacak {{prayer}}",
+      "activeHint": "Pembaruan langsung akan ditonjolkan saat Salah ini segera tiba. Ketuk Berhenti untuk melepas sematan.",
+      "a11yStart": "Mulai melacak Salah berikutnya di layar kunci",
+      "a11yStop": "Berhenti melacak pembaruan langsung Salah"
+    }
   },
   "fonts": {
     "eyebrow": "Pengaturan",

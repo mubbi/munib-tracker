@@ -44,7 +44,13 @@ export function useWidgetSnapshotSync(): void {
   const { scheme, colors, colorMode } = useTheme();
   const location = useLocation();
   const locationStatus = useLocationStatus();
-  const { timeFormat, defaultCalendar, liveActivityEnabled, translationLocale } = usePreferences();
+  const {
+    timeFormat,
+    defaultCalendar,
+    liveActivityEnabled,
+    translationLocale,
+    salahTrackingSession,
+  } = usePreferences();
   const summary = useDailySummary();
   const { status: prayerStatus } = useTodayPrayers();
   useEnsureKhatmLoaded();
@@ -97,11 +103,18 @@ export function useWidgetSnapshotSync(): void {
     await refreshRegisteredAndroidWidgets();
     await nativePublishAndroidWidgetPreviews(snapshotJson);
     await syncLiveActivity({ snapshot, enabled: liveActivityEnabled === true });
-    await syncOngoingNotification({ snapshot, enabled: liveActivityEnabled === true });
+    await syncOngoingNotification({
+      snapshot,
+      enabled: liveActivityEnabled === true,
+      session: salahTrackingSession ?? null,
+    });
 
     if (boundaryRefreshRef.current) clearTimeout(boundaryRefreshRef.current);
     boundaryRefreshRef.current = null;
-    if (liveActivityEnabled === true && !snapshot.locationDenied) {
+    const trackingActive =
+      liveActivityEnabled === true ||
+      (salahTrackingSession?.status === "active" && !salahTrackingSession.dismissed);
+    if (trackingActive && !snapshot.locationDenied) {
       const currentAt = snapshot.nextPrayer.currentPrayerAtMs;
       const nowMs = Date.now();
       const boundaries = [
@@ -125,6 +138,7 @@ export function useWidgetSnapshotSync(): void {
     khatmAyahsRead,
     khatmPlan,
     liveActivityEnabled,
+    salahTrackingSession,
     locale,
     location,
     locationStatus,

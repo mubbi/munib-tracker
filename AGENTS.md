@@ -24,6 +24,7 @@ Import via workspace package names:
 - `@munib-tracker/shared` — domain types, constants, validators, admin broadcast contracts
 - `@munib-tracker/db` — Drizzle schema mirror for the admin console (DDL owned by API TypeORM migrations)
 - `@munib-tracker/live-activity-delivery` — framework-agnostic ActivityKit APNs client + atomic job claim/deliver (Nest today; Fly worker later)
+- `@munib-tracker/surface-push-delivery` — Expo + Web Push senders + atomic surface job claim/deliver
 - `@munib-tracker/theme` — design tokens, `resolveTheme()`, accent palette
 - `@munib-tracker/typescript-config` — shared TS configs
 - `@munib-tracker/vitest-config` — Vitest presets

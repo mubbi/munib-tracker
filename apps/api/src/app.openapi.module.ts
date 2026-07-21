@@ -15,6 +15,9 @@ import { NotificationsController } from "./notifications/notifications.controlle
 import { NotificationsService } from "./notifications/notifications.service";
 import { OssContentFailuresController } from "./oss-content-failures/oss-content-failures.controller";
 import { OssContentFailuresService } from "./oss-content-failures/oss-content-failures.service";
+import { SurfacePushController } from "./surface-push/surface-push.controller";
+import { SurfacePushService } from "./surface-push/surface-push.service";
+import { SurfacePushQStashService } from "./surface-push/surface-push-qstash.service";
 import { SyncController } from "./sync/sync.controller";
 import { SyncService } from "./sync/sync.service";
 import { UserMediaController } from "./user-media/user-media.controller";
@@ -103,6 +106,21 @@ const openApiServiceMocks = {
   liveActivityQstash: {
     verify: async () => true,
   },
+  surfacePush: {
+    upsert: async () => ({
+      registrationId: 1,
+      channel: "web_push",
+      scheduled: 0,
+      sessionId: null,
+    }),
+    lifecycle: async () => undefined,
+    deleteRegistration: async () => undefined,
+    deliver: async () => undefined,
+    dispatchDue: async () => ({ processed: 0, cleaned: 0 }),
+  },
+  surfacePushQstash: {
+    verify: async () => true,
+  },
 };
 
 @Module({
@@ -117,6 +135,7 @@ const openApiServiceMocks = {
     AppVersionController,
     NotificationsController,
     LiveActivitiesController,
+    SurfacePushController,
   ],
   providers: [
     { provide: AuthService, useValue: openApiServiceMocks.auth },
@@ -130,6 +149,8 @@ const openApiServiceMocks = {
     { provide: NotificationsService, useValue: openApiServiceMocks.notifications },
     { provide: LiveActivitiesService, useValue: openApiServiceMocks.liveActivities },
     { provide: LiveActivityQStashService, useValue: openApiServiceMocks.liveActivityQstash },
+    { provide: SurfacePushService, useValue: openApiServiceMocks.surfacePush },
+    { provide: SurfacePushQStashService, useValue: openApiServiceMocks.surfacePushQstash },
   ],
 })
 export class AppOpenApiModule {}

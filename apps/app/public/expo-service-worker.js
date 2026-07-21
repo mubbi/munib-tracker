@@ -257,7 +257,20 @@ function resolveTargetUrl(payload, actionId) {
   ) {
     return `${ORIGIN}/settings/notifications`;
   }
-  if (payload.type === "prayer" || payload.type === "qaza" || payload.type === "reminder") {
+  if (
+    payload.type === "prayer" ||
+    payload.type === "qaza" ||
+    payload.type === "reminder" ||
+    payload.type === "salah_phase"
+  ) {
+    if (typeof payload.url === "string" && payload.url.startsWith("/")) {
+      const safePath = safeSameOriginPath(payload.url);
+      if (safePath) return ORIGIN + safePath;
+    }
+    if (typeof payload.href === "string" && payload.href.startsWith("/")) {
+      const safePath = safeSameOriginPath(payload.href);
+      if (safePath) return ORIGIN + safePath;
+    }
     return `${ORIGIN}/tracker`;
   }
 

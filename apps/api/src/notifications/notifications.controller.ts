@@ -40,7 +40,7 @@ export class NotificationsController {
 
   @Put("push-token")
   @ApiBearerAuth()
-  @ApiOperation({ summary: "Register or refresh a push token (linked accounts only)" })
+  @ApiOperation({ summary: "Register or refresh a push token (guest + linked accounts)" })
   @ApiOkResponse({ type: PushTokenResponseDto })
   upsertPushToken(
     @Headers("authorization") authorization: string | undefined,

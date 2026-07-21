@@ -6,8 +6,13 @@ const RECEIVER_CLASS = "expo.modules.munibexternalcommands.ExternalCommandReceiv
 const SERVICE_CLASS = "expo.modules.munibexternalcommands.ExternalCommandHeadlessService";
 const ONGOING_BOUNDARY_RECEIVER_CLASS =
   "expo.modules.munibexternalcommands.OngoingSalahBoundaryReceiver";
+const ONGOING_ACTION_RECEIVER_CLASS =
+  "expo.modules.munibexternalcommands.OngoingSalahActionReceiver";
 const ACTION_MARK_CURRENT = "app.munibtracker.action.MARK_CURRENT";
 const ACTION_MARK_PRAYER = "app.munibtracker.action.MARK_PRAYER";
+const ACTION_STOP_ONGOING = "expo.modules.munibexternalcommands.STOP_ONGOING";
+const ACTION_DELETE_ONGOING = "expo.modules.munibexternalcommands.DELETE_ONGOING";
+const ACTION_BOUNDARY = "expo.modules.munibexternalcommands.BOUNDARY";
 
 /**
  * Android external commands: App Actions (Assistant), broadcast receiver, launcher shortcut.
@@ -96,8 +101,7 @@ function withExternalCommandsAndroid(config) {
     }
 
     // Phase 4: one-shot alarm receiver that flips the ongoing "next Salah"
-    // notification at the prayer boundary — never exported, no intent-filter,
-    // only ever targeted directly via PendingIntent.
+    // notification at phase boundaries — never exported to third parties.
     const hasBoundaryReceiver = app.receiver.some(
       (r) => r.$?.["android:name"] === ONGOING_BOUNDARY_RECEIVER_CLASS,
     );
@@ -107,6 +111,31 @@ function withExternalCommandsAndroid(config) {
           "android:name": ONGOING_BOUNDARY_RECEIVER_CLASS,
           "android:exported": "false",
         },
+        "intent-filter": [
+          {
+            action: [{ $: { "android:name": ACTION_BOUNDARY } }],
+          },
+        ],
+      });
+    }
+
+    const hasActionReceiver = app.receiver.some(
+      (r) => r.$?.["android:name"] === ONGOING_ACTION_RECEIVER_CLASS,
+    );
+    if (!hasActionReceiver) {
+      app.receiver.push({
+        $: {
+          "android:name": ONGOING_ACTION_RECEIVER_CLASS,
+          "android:exported": "false",
+        },
+        "intent-filter": [
+          {
+            action: [
+              { $: { "android:name": ACTION_STOP_ONGOING } },
+              { $: { "android:name": ACTION_DELETE_ONGOING } },
+            ],
+          },
+        ],
       });
     }
 

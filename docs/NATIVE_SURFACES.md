@@ -102,7 +102,9 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 **Discovery banner (NF-1.19):** one-shot coach mark above the toggle in **Settings → Notifications** when the platform supports the live countdown (iOS Live Activity or Android ongoing notification) and the preference is still off. Uses `toursStore` with a dedicated id (`liveActivityDiscovery`, distinct from the `/tour` carousel ids) so it dismisses permanently once turned on or closed — `components/notifications/live-activity-discovery-banner.tsx`.
 
-**Android ongoing countdown:** `lib/ongoing-notification/` mirrors the iOS Live Activity experience with a persistent notification (next-Salah countdown + Prepare → before-Salah adhkar) driven by `OngoingSalahNotification.kt`; same `liveActivityEnabled` preference gates both platforms.
+**Android Live Updates (Android 16):** Explicit **Track this Salah** on the Tracker starts a promoted ongoing notification with `ProgressStyle` segments (upcoming → Mark → after-Salah), status-chip text, and Stop/Unpin. Ambient sticky countdown still uses `liveActivityEnabled`. Multi-boundary `AlarmManager` flips phases while killed; Expo data corrections use `surface_push_*` + QStash ([`WEB_PUSH.md`](./WEB_PUSH.md)). Requires AndroidX Core ≥1.17 and `POST_PROMOTED_NOTIFICATIONS`. Pre-36 devices keep the Standard chronometer notification.
+
+**Android ongoing countdown:** `lib/ongoing-notification/` + `OngoingSalahNotification.kt`; same preference gates ambient mode; Track session gates promotion.
 
 ## Siri & Assistant (NF-2.15)
 
@@ -185,7 +187,10 @@ Set `EXPO_APPLE_TEAM_ID` for iOS extensions. App Group: `group.app.munibtracker.
 | Jumu'ah widget | Checklist progress on Friday; day countdown other days; tap opens `/friday` |
 | Live Activity | Phase UI (upcoming / Mark / after-Salah); Prepare or Mark or adhkar deep link; toggle off ends activity; closed-app phase changes via ActivityKit push when configured ([`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md)) |
 | Live Activity discovery banner | Shows once when supported + toggle off; Turn on enables + dismisses; X dismisses without enabling; never reappears after either |
-| Android ongoing countdown | Persistent notification posts when enabled; Prepare opens before-Salah adhkar; cancels on toggle off |
+| Android ongoing / Live Update | Ambient sticky when toggle on; Track this Salah promotes ProgressStyle + chip on API 36+; multi-boundary alarms; Stop/Unpin persists dismissal; Expo surface-push correction |
+| Web Push phases | Track this Salah schedules ~48h replaceable phase notifications via VAPID + QStash ([`WEB_PUSH.md`](./WEB_PUSH.md)) |
+| Device QA (Android Live Update) | API 24–35 sticky fallback; API 36 ProgressStyle; API 36.1 chip/lock; notifications/promoted disabled; process killed; offline boundaries; Expo Push delayed; at least one Samsung OEM |
+| Device QA (Web Push) | Closed-browser Chromium / Firefox / macOS Safari / Android Chrome / installed iOS PWA 16.4+ |
 | Prayer-time notification | Mark prayed + Snooze (10 min) on fard prayer-time reminders only |
 | Icon shortcuts | Long-press opens route from killed state |
 | Siri mark | Background mark without UI; excused day dialog; pin lock defer |

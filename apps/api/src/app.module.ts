@@ -9,6 +9,7 @@ import { HealthModule } from "./health/health.module";
 import { LiveActivitiesModule } from "./live-activities/live-activities.module";
 import { NotificationsModule } from "./notifications/notifications.module";
 import { OssContentFailuresModule } from "./oss-content-failures/oss-content-failures.module";
+import { SurfacePushModule } from "./surface-push/surface-push.module";
 import { SyncModule } from "./sync/sync.module";
 import { UserMediaModule } from "./user-media/user-media.module";
 import { VersionModule } from "./version/version.module";
@@ -27,6 +28,7 @@ import { VersionModule } from "./version/version.module";
     OssContentFailuresModule,
     NotificationsModule,
     LiveActivitiesModule,
+    SurfacePushModule,
     VersionModule,
   ],
 })

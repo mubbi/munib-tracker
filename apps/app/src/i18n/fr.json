@@ -1098,7 +1098,18 @@
     "defaultLocationTitle": "Definissez votre lieu pour les alertes Salah",
     "defaultLocationMessage": "Les rappels Salah et Adhan necessitent votre ville. Les rappels Zikr et Qaza a heure fixe restent planifies.",
     "liveActivityHintAndroid": "Afficher une notification persistante avec le compte à rebours de la prochaine prière et une action Marquer.",
-    "markPrayed": "Marquer comme priée"
+    "markPrayed": "Marquer comme priée",
+    "trackSalah": {
+      "title": "Suivre cette Salah",
+      "hint": "Épinglez un compte à rebours en direct sur l’écran de verrouillage et la barre d’état pour la prochaine Salah. Vous pouvez arrêter à tout moment.",
+      "hintWeb": "Recevez des rappels de phase pour la prochaine Salah même lorsque le navigateur est fermé.",
+      "start": "Suivre cette Salah",
+      "stop": "Arrêter le suivi",
+      "active": "Suivi de {{prayer}}",
+      "activeHint": "Les mises à jour en direct seront mises en avant lorsque cette Salah sera imminente. Appuyez sur Arrêter pour désépingler.",
+      "a11yStart": "Démarrer le suivi de la prochaine Salah sur l’écran de verrouillage",
+      "a11yStop": "Arrêter le suivi des mises à jour en direct de la Salah"
+    }
   },
   "fonts": {
     "eyebrow": "Paramètres",

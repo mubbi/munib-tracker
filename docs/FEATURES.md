@@ -64,7 +64,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | ID | Feature | Key touchpoints |
 |----|---------|-------------------|
 | NF-1.18 | Native home-screen widgets (HIG budgets, live countdown, Mark, dual theme, localized picker, previews) — incl. Tasbeeh glance (small) and Jumu'ah nudge (checklist progress or countdown) | `appSurfaces/widgets`, [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) |
-| NF-1.19 | Live Activities (iOS) + ongoing countdown notification (Android); phase windows (Mark → after-Salah → upcoming); ActivityKit remote push for closed-app updates; one-shot discovery banner in Settings → Notifications when supported and still off | `modules/munib-live-activity`, ActivityKit, `lib/live-activity`, `@munib-tracker/live-activity-delivery`, `lib/ongoing-notification`, `components/notifications/live-activity-discovery-banner.tsx`; ops: [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md) |
+| NF-1.19 | Live Activities (iOS) + Android ongoing / Android 16 Live Updates (explicit Track this Salah + ProgressStyle) + Web Push phase reminders; shared phase windows; ActivityKit APNs and surface-push (Expo/Web) for closed-app updates; discovery banner in Settings → Notifications | `modules/munib-live-activity`, `lib/live-activity`, `lib/salah-phase`, `lib/ongoing-notification`, `@munib-tracker/live-activity-delivery`, `@munib-tracker/surface-push-delivery`, `surface-push` API; ops: [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md), [`WEB_PUSH.md`](./WEB_PUSH.md) |
 | NF-1.20 | Local backup export/import | `lib/backup.ts`, `/settings/backup` |
 | NF-1.21 | Customizable home modules | `hiddenHomeModules`, `/settings/home` |
 | NF-1.22 | Library tab (4th tab) | `lib/library-menu.ts` |

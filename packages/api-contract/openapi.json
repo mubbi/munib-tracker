@@ -951,7 +951,7 @@
             "bearer": []
           }
         ],
-        "summary": "Register or refresh a push token (linked accounts only)",
+        "summary": "Register or refresh a push token (guest + linked accounts)",
         "tags": [
           "notifications"
         ]
@@ -1240,6 +1240,158 @@
         "summary": "Cron fallback: deliver due ActivityKit jobs and clean expired tokens",
         "tags": [
           "live-activities"
+        ]
+      }
+    },
+    "/api/v1/surface-push": {
+      "put": {
+        "operationId": "SurfacePushController_upsert",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertSurfacePushDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurfacePushRegistrationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Register Expo or Web Push target and schedule Salah phase updates (guest + linked)",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/api/v1/surface-push/{registrationId}/lifecycle": {
+      "put": {
+        "operationId": "SurfacePushController_lifecycle",
+        "parameters": [
+          {
+            "name": "registrationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurfacePushLifecycleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark a surface registration as ended/dismissed and cancel jobs",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/api/v1/surface-push/{registrationId}": {
+      "delete": {
+        "operationId": "SurfacePushController_delete",
+        "parameters": [
+          {
+            "name": "registrationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a surface push registration and cancel jobs",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/api/v1/surface-push/internal/deliver": {
+      "post": {
+        "operationId": "SurfacePushController_deliver",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchSurfaceJobDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "QStash callback: deliver one scheduled surface push job",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/api/v1/surface-push/internal/dispatch-due": {
+      "post": {
+        "operationId": "SurfacePushController_dispatchDue",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurfacePushDispatchResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Cron fallback: deliver due surface push jobs",
+        "tags": [
+          "surface-push"
         ]
       }
     },
@@ -2334,6 +2486,133 @@
         ]
       },
       "LiveActivityDispatchResponseDto": {
+        "type": "object",
+        "properties": {
+          "processed": {
+            "type": "number"
+          },
+          "cleaned": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "processed",
+          "cleaned"
+        ]
+      },
+      "SurfacePhaseUpdateDto": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string"
+          },
+          "executeAt": {
+            "type": "string"
+          },
+          "staleAt": {
+            "type": "string"
+          },
+          "dedupeKey": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "phase",
+          "executeAt",
+          "dedupeKey",
+          "payload"
+        ]
+      },
+      "UpsertSurfacePushDto": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "expo",
+              "web_push"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "description": "Expo push token, or JSON string of a Web Push subscription"
+          },
+          "sessionId": {
+            "type": "string"
+          },
+          "deviceId": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string"
+          },
+          "updates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SurfacePhaseUpdateDto"
+            }
+          }
+        },
+        "required": [
+          "channel",
+          "target",
+          "updates"
+        ]
+      },
+      "SurfacePushRegistrationResponseDto": {
+        "type": "object",
+        "properties": {
+          "registrationId": {
+            "type": "number"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "scheduled": {
+            "type": "number"
+          },
+          "sessionId": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "registrationId",
+          "channel",
+          "scheduled"
+        ]
+      },
+      "SurfacePushLifecycleDto": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "ended",
+              "dismissed"
+            ]
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "DispatchSurfaceJobDto": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "jobId"
+        ]
+      },
+      "SurfacePushDispatchResponseDto": {
         "type": "object",
         "properties": {
           "processed": {

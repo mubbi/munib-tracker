@@ -166,10 +166,25 @@ export interface UserPreferences {
   hapticsEnabled: boolean;
   /**
    * Show a live next-prayer countdown on the iOS lock screen and Dynamic Island
-   * (NF-1.19). iOS-only (ActivityKit); requires a dev/EAS build. Defaults off —
-   * the user must opt in, and it no-ops on Android, web, and Expo Go.
+   * (NF-1.19). iOS ActivityKit; on Android gates the sticky countdown preference.
+   * Defaults off — the user must opt in.
    */
   liveActivityEnabled?: boolean;
+  /**
+   * Explicit Android Live Update / Web Push tracking session started via
+   * "Track this Salah". Null/undefined when idle. Shape is opaque JSON so
+   * older clients ignore unknown fields safely.
+   */
+  salahTrackingSession?: {
+    sessionId: string;
+    prayerId: string;
+    prayerName: string;
+    startedAt: string;
+    promoteAt: string;
+    endsAt: string;
+    dismissed: boolean;
+    status: "active" | "ended" | "dismissed";
+  } | null;
   /** ISO datetime the preferences blob was last edited (sync last-write-wins). */
   updatedAt?: string;
   /** ISO datetime the favorite-zikr list was last edited (sync last-write-wins). */
