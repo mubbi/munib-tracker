@@ -2310,8 +2310,8 @@
     "guestName": "Gost",
     "changeAvatar": "Promijeni avatar",
     "signInToSync": "Prijavite se za sinhronizaciju",
-    "deleteAccount": "Izbrišite račun i podatke",
-    "deleteTitle": "Izbrisati račun i podatke?",
+    "deleteAccount": "Izbriši račun",
+    "deleteTitle": "Izbrisati račun?",
     "deleteMsg": "Ovim se trajno brišu svi vaši podaci o praćenju na ovom uređaju. Ovo se ne može poništiti.",
     "deleteMsgAccount": "Ovim se trajno briše vaš račun i svi vaši sinkronizirani podaci s naših servera i briše se ovaj uređaj. Ovo se ne može poništiti.",
     "deleteFailed": "Nije moguće izbrisati vaš račun. Provjerite vezu i pokušajte ponovo.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Sesija",
     "sessionHint": "Odjavite se na ovom uređaju. Vaši podaci u oblaku ostaju sigurni.",
     "dangerTitle": "Opasna zona",
-    "dangerHint": "Trajno briše vaš račun i lokalne podatke. Ovo se ne može poništiti."
+    "dangerHint": "Resetujte podatke aplikacije bez brisanja računa ili trajno zatvorite račun.",
+    "resetData": "Resetuj podatke aplikacije",
+    "resetDataTitle": "Resetovati podatke aplikacije?",
+    "resetDataMsg": "Ovim se trajno brišu svi podaci aplikacije na ovom uređaju. Gostujuća sesija ostaje aktivna. Ovo se ne može poništiti.",
+    "resetDataMsgAccount": "Ovim se trajno brišu podaci aplikacije na ovom uređaju i iz sinhronizacije u oblaku. Vaš račun ostaje aktivan i prijavljen. Ovo se ne može poništiti.",
+    "resetDataConfirm": "Resetuj podatke",
+    "resetDataFailed": "Nije moguće resetovati podatke aplikacije. Provjerite vezu i pokušajte ponovo.",
+    "resetDataSuccess": "Podaci aplikacije su resetovani"
   },
   "sync": {
     "title": "Sinhronizacija u oblaku",

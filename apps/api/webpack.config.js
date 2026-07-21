@@ -29,6 +29,17 @@ module.exports = (options) => {
       __dirname: true,
       __filename: true,
     },
+    // Workspace packages use NodeNext-style `.js` import specifiers while sources
+    // remain `.ts` (e.g. `@munib-tracker/live-activity-delivery`).
+    resolve: {
+      ...options.resolve,
+      extensionAlias: {
+        ...(typeof options.resolve?.extensionAlias === "object"
+          ? options.resolve.extensionAlias
+          : {}),
+        ".js": [".ts", ".js"],
+      },
+    },
     // Bundle workspace packages (package exports point at .ts sources). Keep
     // swagger-ui-dist external so absolute-path.js is not rewritten to dist/.
     externals: [

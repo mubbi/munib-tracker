@@ -34,6 +34,14 @@ private extension View {
     widgetURL(URL(string: link ?? "munib-tracker://"))
   }
 
+  func watchSnapshotLocale(_ snapshot: WidgetSnapshotPayload) -> some View {
+    environment(\.locale, Locale(identifier: snapshot.locale ?? "en"))
+      .environment(
+        \.layoutDirection,
+        snapshot.isRtl == true ? .rightToLeft : .leftToRight
+      )
+  }
+
   @ViewBuilder
   func watchContainerBackground() -> some View {
     if #available(watchOS 10.0, *) {
@@ -79,7 +87,7 @@ struct WatchNextPrayerComplicationView: View {
   var body: some View {
     Group {
       if snapshot.locationDenied == true {
-        DeniedOrEmpty(message: "Set location")
+        DeniedOrEmpty(message: snapshot.strings?.setLocationHint ?? "Set location")
       } else {
         switch family {
         case .accessoryInline:
@@ -187,6 +195,7 @@ struct WatchNextPrayerComplication: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(kind: kind, provider: WatchComplicationProvider()) { entry in
       WatchNextPrayerComplicationView(snapshot: entry.snapshot)
+        .watchSnapshotLocale(entry.snapshot)
     }
     .configurationDisplayName("Next Salah")
     .description("Next Salah name, time, and countdown on the watch face.")
@@ -215,7 +224,7 @@ struct WatchScheduleComplicationView: View {
   var body: some View {
     Group {
       if snapshot.locationDenied == true {
-        DeniedOrEmpty(message: "Set location")
+        DeniedOrEmpty(message: snapshot.strings?.setLocationHint ?? "Set location")
       } else {
         switch family {
         case .accessoryInline:
@@ -286,6 +295,7 @@ struct WatchScheduleComplication: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(kind: kind, provider: WatchComplicationProvider()) { entry in
       WatchScheduleComplicationView(snapshot: entry.snapshot)
+        .watchSnapshotLocale(entry.snapshot)
     }
     .configurationDisplayName("Schedule")
     .description("Today's obligatory Salah times.")
@@ -383,6 +393,7 @@ struct WatchProgressComplication: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(kind: kind, provider: WatchComplicationProvider()) { entry in
       WatchProgressComplicationView(snapshot: entry.snapshot)
+        .watchSnapshotLocale(entry.snapshot)
     }
     .configurationDisplayName("Progress")
     .description("Today's obligatory Salah progress.")
@@ -485,6 +496,7 @@ struct WatchStreakComplication: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(kind: kind, provider: WatchComplicationProvider()) { entry in
       WatchStreakComplicationView(snapshot: entry.snapshot)
+        .watchSnapshotLocale(entry.snapshot)
     }
     .configurationDisplayName("Salah streak")
     .description("Current consecutive-day obligatory Salah streak.")
@@ -609,6 +621,7 @@ struct WatchQazaComplication: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(kind: kind, provider: WatchComplicationProvider()) { entry in
       WatchQazaComplicationView(snapshot: entry.snapshot)
+        .watchSnapshotLocale(entry.snapshot)
     }
     .configurationDisplayName("Qaza")
     .description("Remaining Qaza debt and today's make-up progress.")
@@ -639,7 +652,7 @@ struct WatchRamadanComplicationView: View {
   var body: some View {
     Group {
       if snapshot.locationDenied == true {
-        DeniedOrEmpty(message: "Set location")
+        DeniedOrEmpty(message: snapshot.strings?.setLocationHint ?? "Set location")
       } else if section?.isRamadan == false {
         DeniedOrEmpty(message: section?.title ?? "Suhoor & Iftar")
       } else {
@@ -742,6 +755,7 @@ struct WatchRamadanComplication: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(kind: kind, provider: WatchComplicationProvider()) { entry in
       WatchRamadanComplicationView(snapshot: entry.snapshot)
+        .watchSnapshotLocale(entry.snapshot)
     }
     .configurationDisplayName("Suhoor & Iftar")
     .description("Ramadan suhoor and iftar times with a live countdown.")

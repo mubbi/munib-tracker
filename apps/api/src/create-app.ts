@@ -60,12 +60,16 @@ export async function createApp(
 ): Promise<INestApplication | NestExpressApplication> {
   const rootModule = process.env.EXPORT_OPENAPI === "true" ? AppOpenApiModule : AppModule;
 
+  // rawBody: true preserves Buffer for QStash signature verification on
+  // POST /live-activities/internal/deliver (see Nest RawBodyRequest docs).
+  const nestOptions = { rawBody: true as const };
   const app = options.express
     ? await NestFactory.create<NestExpressApplication>(
         rootModule,
         new ExpressAdapter(options.express),
+        nestOptions,
       )
-    : await NestFactory.create(rootModule);
+    : await NestFactory.create(rootModule, nestOptions);
 
   const configService = app.get(ConfigService<EnvironmentVariables, true>);
   const corsOrigins = parseCorsOrigins(configService.get("CORS_ORIGINS", { infer: true }));

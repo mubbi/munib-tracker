@@ -36,6 +36,7 @@ import {
   type LinkAccountDto,
   type OAuthCallbackDto,
   type RefreshTokenDto,
+  ResetAppDataDto,
   WebAuthSessionResponseDto,
 } from "./dto/auth.dto";
 
@@ -211,6 +212,24 @@ export class AuthController {
     const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
     await this.authService.revokeSession(accessToken);
     this.authOAuthService.clearAuthCookies(res);
+  }
+
+  @Post("reset-app-data")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: "Reset app data without deleting the account",
+    description:
+      'Clears synced app data and user media while preserving the account, OAuth identity, push tokens, and sessions. Body confirmation must be the literal "RESET".',
+  })
+  @ApiNoContentResponse({ description: "App data reset; account and session preserved" })
+  async resetAppData(
+    @Headers("authorization") authorization: string | undefined,
+    @Body() dto: ResetAppDataDto,
+    @Req() req: Request,
+  ): Promise<void> {
+    const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
+    await this.authService.resetAppData(accessToken, dto, clientIp(req));
   }
 
   @Post("delete-account")

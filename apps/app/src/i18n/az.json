@@ -2310,8 +2310,8 @@
     "guestName": "Qonaq",
     "changeAvatar": "Chnge vtr",
     "signInToSync": "dxil ol - sync",
-    "deleteAccount": "sil hesb & dt",
-    "deleteTitle": "sil hesb & dt?",
+    "deleteAccount": "Hesabı sil",
+    "deleteTitle": "Hesab silinsin?",
     "deleteMsg": "Bu, bu cihazdakı bütün izləmə məlumatlarınızı həmişəlik silir. Bu geri qaytarıla bilməz.",
     "deleteMsgAccount": "Bu, hesabınızı və bütün sinxronlaşdırılmış məlumatlarınızı serverlərimizdən həmişəlik silir və bu cihazı silir. Bu geri qaytarıla bilməz.",
     "deleteFailed": "Hesabınızı silmək mümkün olmadı. Bağlantınızı yoxlayın və yenidən cəhd edin.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Sessiya",
     "sessionHint": "Bu cihazdan çıxış edin. Bulud məlumatlarınız təhlükəsiz qalır.",
     "dangerTitle": "Təhlükəli zona",
-    "dangerHint": "Hesabınızı və yerli məlumatları birdəfəlik silin. Bu geri qaytarıla bilməz."
+    "dangerHint": "Hesabınızı silmədən tətbiq məlumatlarını sıfırlayın və ya hesabınızı həmişəlik bağlayın.",
+    "resetData": "Tətbiq məlumatlarını sıfırla",
+    "resetDataTitle": "Tətbiq məlumatları sıfırlansın?",
+    "resetDataMsg": "Bu, bu cihazdakı bütün tətbiq məlumatlarını həmişəlik silir. Qonaq sessiyanız aktiv qalır. Bu geri qaytarıla bilməz.",
+    "resetDataMsgAccount": "Bu, bu cihazdakı və bulud sinxronizasiyasındakı tətbiq məlumatlarını həmişəlik silir. Hesabınız aktiv və daxil olmuş qalır. Bu geri qaytarıla bilməz.",
+    "resetDataConfirm": "Məlumatları sıfırla",
+    "resetDataFailed": "Tətbiq məlumatlarını sıfırlamaq mümkün olmadı. Bağlantınızı yoxlayın və yenidən cəhd edin.",
+    "resetDataSuccess": "Tətbiq məlumatlarınız sıfırlandı"
   },
   "sync": {
     "title": "Bulud sinxronizasiyası",

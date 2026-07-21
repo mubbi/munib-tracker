@@ -2319,8 +2319,8 @@
     "guestName": "অতিথি",
     "changeAvatar": "অবতার পরিবর্তন",
     "signInToSync": "Sign এ তে sync",
-    "deleteAccount": "account & data মুছুন",
-    "deleteTitle": "account & data? মুছুন",
+    "deleteAccount": "অ্যাকাউন্ট মুছুন",
+    "deleteTitle": "অ্যাকাউন্ট মুছবেন?",
     "deleteMsg": "এই স্থায়ীভাবে erases সব আপনার tracking data এ এই ডিভাইস. এই cannot be undone.",
     "deleteMsgAccount": "এই স্থায়ীভাবে deletes আপনার account এবং সব আপনার synced data থেকে our servers, এবং wipes এই ডিভাইস. এই cannot be undone.",
     "deleteFailed": "Couldn't মুছুন আপনার account. Check আপনার connection এবং try again.",
@@ -2360,7 +2360,14 @@
     "sessionTitle": "সেশন",
     "sessionHint": "এই ডিভাইস থেকে সাইন আউট করুন। ক্লাউড ডেটা নিরাপদ থাকবে।",
     "dangerTitle": "বিপদ অঞ্চল",
-    "dangerHint": "আপনার অ্যাকাউন্ট ও স্থানীয় ডেটা স্থায়ীভাবে মুছে ফেলুন। এটি ফেরানো যায় না।"
+    "dangerHint": "অ্যাকাউন্ট মুছে না ফেলে অ্যাপ ডেটা রিসেট করুন, অথবা স্থায়ীভাবে অ্যাকাউন্ট বন্ধ করুন।",
+    "resetData": "অ্যাপ ডেটা রিসেট করুন",
+    "resetDataTitle": "অ্যাপ ডেটা রিসেট করবেন?",
+    "resetDataMsg": "এটি এই ডিভাইসের সব অ্যাপ ডেটা স্থায়ীভাবে মুছে ফেলবে। আপনার অতিথি সেশন সক্রিয় থাকবে। এটি ফেরানো যায় না।",
+    "resetDataMsgAccount": "এটি এই ডিভাইস ও ক্লাউড সিঙ্ক থেকে অ্যাপ ডেটা স্থায়ীভাবে মুছে ফেলবে। আপনার অ্যাকাউন্ট সক্রিয় ও সাইন ইন থাকবে। এটি ফেরানো যায় না।",
+    "resetDataConfirm": "ডেটা রিসেট করুন",
+    "resetDataFailed": "অ্যাপ ডেটা রিসেট করা যায়নি। সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।",
+    "resetDataSuccess": "আপনার অ্যাপ ডেটা রিসেট হয়েছে"
   },
   "sync": {
     "title": "Cloud সিঙ্ক",

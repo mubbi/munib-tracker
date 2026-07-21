@@ -83,6 +83,7 @@ Support matrix: [`DEVICES.md`](./DEVICES.md)
 | DS-6 | Desktop native (PWA preferred) | Web shipped |
 | DS-7 | Chromebook | Not started |
 | DS-8 | Foldables / dual-screen | Not started |
+| DS-9 | Live Activity delivery worker (Fly.io) | Deferred — QStash + cron is current; add when prayer-time backlog needs a long-running poller ([`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md#future-flyio-worker-when-required)) |
 
 ---
 

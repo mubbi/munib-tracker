@@ -60,7 +60,30 @@ private extension PrayerActivityAttributes.ContentState {
   }
 
   var remainingCaption: String {
-    remainingLabel.isEmpty ? countdownLabel : remainingLabel
+    if phase != "upcoming" {
+      return actionLabel
+    }
+    return remainingLabel.isEmpty ? countdownLabel : remainingLabel
+  }
+
+  var primaryActionLabel: String {
+    actionLabel.isEmpty ? (prepareLabel.isEmpty ? "Prepare" : prepareLabel) : actionLabel
+  }
+
+  var primaryActionURL: URL {
+    URL(string: actionDeepLink) ?? URL(string: "munib-tracker://zikr/before_prayer")!
+  }
+
+  var primaryActionSymbol: String {
+    switch phase {
+    case "markSalah": return "checkmark.circle"
+    case "afterSalah": return "hands.sparkles"
+    default: return "figure.stand"
+    }
+  }
+
+  var qiblaActionLabel: String {
+    qiblaLabel.isEmpty ? "Qibla" : qiblaLabel
   }
 }
 
@@ -85,6 +108,13 @@ private struct CountdownText: View {
           .foregroundStyle(color)
           .multilineTextAlignment(alignment)
           .lineLimit(2)
+          .minimumScaleFactor(0.7)
+      } else if state.phase != "upcoming" {
+        Text(state.prayerTimeLabel.isEmpty ? state.prayerTime : state.prayerTimeLabel)
+          .font(font)
+          .foregroundStyle(color)
+          .multilineTextAlignment(alignment)
+          .lineLimit(1)
           .minimumScaleFactor(0.7)
       } else if state.targetDate > now {
         Text(timerInterval: state.timerRange, countsDown: true)
@@ -173,12 +203,10 @@ struct PrayerLiveActivityLockScreen: View {
       }
 
       HStack(spacing: 10) {
-        // Countdown is for the *upcoming* Salah — Prepare opens before-Salah
-        // adhkar. Mark belongs on the prayer-time notification, not here.
         // `.tint` alone doesn't color a Link's label in ActivityKit — the text
         // falls back to white and vanishes on light backgrounds. Style explicitly.
-        Link(destination: URL(string: "munib-tracker://zikr/before_prayer")!) {
-          Label("Prepare", systemImage: "figure.stand")
+        Link(destination: state.primaryActionURL) {
+          Label(state.primaryActionLabel, systemImage: state.primaryActionSymbol)
             .font(.caption.weight(.semibold))
             .foregroundStyle(palette.accent)
             .frame(maxWidth: .infinity)
@@ -186,7 +214,7 @@ struct PrayerLiveActivityLockScreen: View {
         .tint(palette.accent)
 
         Link(destination: URL(string: "munib-tracker://qibla")!) {
-          Label("Qibla", systemImage: "location.north.line.fill")
+          Label(state.qiblaActionLabel, systemImage: "location.north.line.fill")
             .font(.caption.weight(.semibold))
             .foregroundStyle(palette.textSecondary)
             .frame(maxWidth: .infinity)
@@ -217,7 +245,7 @@ struct PrayerLiveActivityLockScreen: View {
       )
 
       VStack(alignment: .leading, spacing: 2) {
-        Text(state.title.isEmpty ? "Next prayer" : state.title)
+        Text(state.title.isEmpty ? state.prayerName : state.title)
           .font(.caption.weight(.semibold))
           .foregroundStyle(palette.accent)
           .lineLimit(1)
@@ -311,7 +339,7 @@ private struct IslandExpandedCenter: View {
   let state: PrayerActivityAttributes.ContentState
 
   var body: some View {
-    Text(state.title.isEmpty ? "Next prayer" : state.title)
+    Text(state.title.isEmpty ? state.prayerName : state.title)
       .font(.caption2.weight(.semibold))
       .foregroundStyle(.white.opacity(0.55))
       .lineLimit(1)
@@ -352,8 +380,8 @@ private struct IslandExpandedBottom: View {
       .frame(maxWidth: .infinity, alignment: .leading)
 
       HStack(spacing: 8) {
-        Link(destination: URL(string: "munib-tracker://zikr/before_prayer")!) {
-          Label("Prepare", systemImage: "figure.stand")
+        Link(destination: state.primaryActionURL) {
+          Label(state.primaryActionLabel, systemImage: state.primaryActionSymbol)
             .font(.caption2.weight(.semibold))
             .foregroundStyle(palette.accent)
             .frame(maxWidth: .infinity)
@@ -361,7 +389,7 @@ private struct IslandExpandedBottom: View {
         .tint(palette.accent)
 
         Link(destination: URL(string: "munib-tracker://qibla")!) {
-          Label("Qibla", systemImage: "location.north.line.fill")
+          Label(state.qiblaActionLabel, systemImage: "location.north.line.fill")
             .font(.caption2.weight(.semibold))
             .foregroundStyle(.white.opacity(0.85))
             .frame(maxWidth: .infinity)
@@ -380,24 +408,31 @@ struct PrayerLiveActivity: Widget {
     ActivityConfiguration(for: PrayerActivityAttributes.self) { context in
       PrayerLiveActivityLockScreen(state: context.state)
         .widgetURL(URL(string: context.state.deepLink))
+        .widgetLocale(context.state.locale, isRtl: context.state.isRtl)
     } dynamicIsland: { context in
       let palette = LiveActivityPalette(context.state)
+      // DynamicIsland has no `.environment`; apply locale/RTL on each region view.
       return DynamicIsland {
         DynamicIslandExpandedRegion(.leading) {
           IslandExpandedLeading(state: context.state, palette: palette)
+            .widgetLocale(context.state.locale, isRtl: context.state.isRtl)
         }
         DynamicIslandExpandedRegion(.trailing) {
           IslandExpandedTrailing(state: context.state, palette: palette)
+            .widgetLocale(context.state.locale, isRtl: context.state.isRtl)
         }
         DynamicIslandExpandedRegion(.center) {
           IslandExpandedCenter(state: context.state)
+            .widgetLocale(context.state.locale, isRtl: context.state.isRtl)
         }
         DynamicIslandExpandedRegion(.bottom) {
           IslandExpandedBottom(state: context.state, palette: palette)
+            .widgetLocale(context.state.locale, isRtl: context.state.isRtl)
         }
       } compactLeading: {
         // Snug against the camera; SF Symbol without a container (HIG).
         PrayerGlyph(prayerId: context.state.prayerId, color: palette.accent, size: 14)
+          .widgetLocale(context.state.locale, isRtl: context.state.isRtl)
       } compactTrailing: {
         // Narrow countdown — balanced with leading (HIG: Compact).
         CountdownText(
@@ -407,23 +442,35 @@ struct PrayerLiveActivity: Widget {
           width: 42,
           alignment: .trailing
         )
+        .widgetLocale(context.state.locale, isRtl: context.state.isRtl)
       } minimal: {
         // Prefer live status over a static logo (HIG: Minimal / Timer example).
-        if context.state.locationDenied {
-          PrayerGlyph(prayerId: context.state.prayerId, color: palette.accent, size: 12)
-        } else if context.state.targetDate > Date() {
-          ProgressView(timerInterval: context.state.timerRange, countsDown: true) {
-            EmptyView()
-          } currentValueLabel: {
-            EmptyView()
-          }
-          .progressViewStyle(.circular)
-          .tint(palette.accent)
-        } else {
-          ProgressView(value: context.state.progressFraction)
+        Group {
+          if context.state.locationDenied {
+            PrayerGlyph(prayerId: context.state.prayerId, color: palette.accent, size: 12)
+          } else if context.state.phase == "markSalah" {
+            Image(systemName: "checkmark.circle")
+              .font(.caption2.weight(.bold))
+              .foregroundStyle(palette.accent)
+          } else if context.state.phase == "afterSalah" {
+            Image(systemName: "hands.sparkles")
+              .font(.caption2.weight(.bold))
+              .foregroundStyle(palette.accent)
+          } else if context.state.targetDate > Date() {
+            ProgressView(timerInterval: context.state.timerRange, countsDown: true) {
+              EmptyView()
+            } currentValueLabel: {
+              EmptyView()
+            }
             .progressViewStyle(.circular)
             .tint(palette.accent)
+          } else {
+            ProgressView(value: context.state.progressFraction)
+              .progressViewStyle(.circular)
+              .tint(palette.accent)
+          }
         }
+        .widgetLocale(context.state.locale, isRtl: context.state.isRtl)
       }
       .keylineTint(palette.accent)
       .widgetURL(URL(string: context.state.deepLink))

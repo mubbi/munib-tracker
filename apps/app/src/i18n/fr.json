@@ -2310,8 +2310,8 @@
     "guestName": "Invité",
     "changeAvatar": "Changer d'avatar",
     "signInToSync": "Connectez-vous pour synchroniser",
-    "deleteAccount": "Supprimer le compte et les données",
-    "deleteTitle": "Supprimer le compte et les données ?",
+    "deleteAccount": "Supprimer le compte",
+    "deleteTitle": "Supprimer le compte ?",
     "deleteMsg": "Cela efface définitivement toutes vos données de suivi sur cet appareil. Cela ne peut pas être annulé.",
     "deleteMsgAccount": "Cela supprime définitivement votre compte et toutes vos données synchronisées de nos serveurs et efface cet appareil. Cela ne peut pas être annulé.",
     "deleteFailed": "Impossible de supprimer votre compte. Vérifiez votre connexion et réessayez.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Session",
     "sessionHint": "Déconnectez-vous sur cet appareil. Vos données cloud restent en sécurité.",
     "dangerTitle": "Zone de danger",
-    "dangerHint": "Effacez définitivement votre compte et vos données locales. Cette action est irréversible."
+    "dangerHint": "Réinitialisez les données de l'application sans supprimer votre compte, ou fermez définitivement votre compte.",
+    "resetData": "Réinitialiser les données de l'app",
+    "resetDataTitle": "Réinitialiser les données de l'app ?",
+    "resetDataMsg": "Cela efface définitivement toutes les données de l'application sur cet appareil. Votre session invité reste active. Cette action est irréversible.",
+    "resetDataMsgAccount": "Cela efface définitivement les données de l'application sur cet appareil et de la synchronisation cloud. Votre compte reste actif et connecté. Cette action est irréversible.",
+    "resetDataConfirm": "Réinitialiser les données",
+    "resetDataFailed": "Impossible de réinitialiser les données de l'application. Vérifiez votre connexion et réessayez.",
+    "resetDataSuccess": "Les données de votre application ont été réinitialisées"
   },
   "sync": {
     "title": "Synchronisation dans le cloud",

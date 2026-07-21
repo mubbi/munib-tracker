@@ -275,4 +275,64 @@ export class EnvironmentVariables {
   @IsString()
   @IsOptional()
   VAPID_PUBLIC_KEY?: string;
+
+  /**
+   * Public API origin used for QStash callbacks (no trailing slash),
+   * e.g. https://api.munibtracker.app
+   */
+  @IsString()
+  @IsOptional()
+  API_PUBLIC_URL?: string;
+
+  /** Upstash QStash token for durable ActivityKit phase scheduling. */
+  @IsString()
+  @IsOptional()
+  QSTASH_TOKEN?: string;
+
+  @IsString()
+  @IsOptional()
+  QSTASH_CURRENT_SIGNING_KEY?: string;
+
+  @IsString()
+  @IsOptional()
+  QSTASH_NEXT_SIGNING_KEY?: string;
+
+  /**
+   * Bearer secret for `POST /live-activities/internal/dispatch-due`
+   * (cron-job.org fallback when QStash is unavailable).
+   */
+  @IsString()
+  @IsOptional()
+  LIVE_ACTIVITY_CRON_SECRET?: string;
+
+  /**
+   * Optional 32-byte key (base64) for encrypting ActivityKit push tokens at rest.
+   * When unset, a key is derived from JWT_SECRET.
+   */
+  @IsString()
+  @IsOptional()
+  ACTIVITYKIT_TOKEN_ENCRYPTION_KEY?: string;
+
+  /** Apple Developer Team ID for APNs JWT auth (may match APPLE_TEAM_ID). */
+  @IsString()
+  @IsOptional()
+  APNS_TEAM_ID?: string;
+
+  /** Key ID of the APNs Auth Key (.p8). */
+  @IsString()
+  @IsOptional()
+  APNS_KEY_ID?: string;
+
+  /**
+   * APNs Auth Key PEM. Keep on one line with literal `\n` between PEM lines
+   * (same convention as APPLE_PRIVATE_KEY). Prefer a dedicated APNs key.
+   */
+  @IsString()
+  @IsOptional()
+  APNS_PRIVATE_KEY?: string;
+
+  /** iOS app bundle id for Live Activity APNs topic (default: app.munibtracker). */
+  @IsString()
+  @IsOptional()
+  APNS_BUNDLE_ID?: string;
 }

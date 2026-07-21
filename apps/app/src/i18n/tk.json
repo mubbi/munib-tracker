@@ -2310,8 +2310,8 @@
     "guestName": "Misafir",
     "changeAvatar": "Avatar degiştir",
     "signInToSync": "Senkronize etmek için giriş yapyn",
-    "deleteAccount": "account & data Pozmak",
-    "deleteTitle": "account & data? Pozmak",
+    "deleteAccount": "Hasaby poz",
+    "deleteTitle": "Hasap pozulsynmy?",
     "deleteMsg": "Bu kalycy erases tüm sizin tracking data  bu cihaz. Bu cannot be undone.",
     "deleteMsgAccount": "Bu kalycy deletes sizin account ve tüm sizin synced data den our servers, ve wipes bu cihaz. Bu cannot be undone.",
     "deleteFailed": "Couldn't sil sizin account. Check sizin connection ve try again.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Sessiýa",
     "sessionHint": "Bu enjamdan çykyň. Bulut maglumatlaryňyz howpsuz galýar.",
     "dangerTitle": "Howply sebit",
-    "dangerHint": "Hasabyňyzy we ýerli maglumatlary hemişelik pozýar. Bu yzyna gaýtarylmaýar."
+    "dangerHint": "Hasabyňyzy pozmazdan programma maglumatlaryny täzeden sazlaň ýa-da hasabyňyzy hemişelik ýapyň.",
+    "resetData": "Programma maglumatlaryny täzeden sazla",
+    "resetDataTitle": "Programma maglumatlary täzeden sazlansynmy?",
+    "resetDataMsg": "Bu bu enjamdaky ähli programma maglumatlaryny hemişelik pozýar. Myhman sessiýaňyz işjeň galýar. Bu yzyna gaýtarylmaýar.",
+    "resetDataMsgAccount": "Bu bu enjamdaky we bulut sinhronizasiýasyndaky programma maglumatlaryny hemişelik pozýar. Hasabyňyz işjeň we giren ýagdaýda galýar. Bu yzyna gaýtarylmaýar.",
+    "resetDataConfirm": "Maglumatlary täzeden sazla",
+    "resetDataFailed": "Programma maglumatlaryny täzeden sazlap bolmady. Baglanyşygyňyzy barlaň we täzeden synanyşyň.",
+    "resetDataSuccess": "Programma maglumatlaryňyz täzeden sazlandy"
   },
   "sync": {
     "title": "Bulut sinhronizasiýasy",

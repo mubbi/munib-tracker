@@ -113,6 +113,8 @@ module.exports = ({ config }) => {
           androidIcons: QUICK_ACTION_ANDROID_ICONS,
         },
       ],
+      /** Before @bacons/apple-targets: xcode mods run in reverse order, and its base-mod provider must register last. */
+      "./plugins/withAppIntentsExtensionDefine.cjs",
       "@bacons/apple-targets",
       "./plugins/withExternalCommands.cjs",
       "./plugins/withWearOs.cjs",

@@ -10,6 +10,10 @@ Guest-first sessions with optional Google / Apple / Facebook sign-in for cloud s
 
 Ops announcements arrive as in-app notifications with kind **`admin_announcement`**. Client: `src/lib/notifications-api.ts` (push-token `PUT` + inbox sync against `/api/v1/notifications/*`). Contracts and limits: `@munib-tracker/shared/admin-broadcasts`. Ops console docs: [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md) (do not build admin UI in this app).
 
+## Live Activity (iOS) + ongoing notification (Android)
+
+Widget snapshot sync drives `src/lib/live-activity/` (start/update/end, phase schedule, ActivityKit token registration). Native surfaces overview: [`docs/NATIVE_SURFACES.md`](../../docs/NATIVE_SURFACES.md). Remote push ops (API APNs, QStash, cron, future Fly worker): [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md).
+
 | Platform | Google | Apple |
 |----------|--------|-------|
 | **iOS** | On-device PKCE → `POST /auth/google` `{ accessToken }` | Native `expo-apple-authentication` → `POST /auth/apple` |

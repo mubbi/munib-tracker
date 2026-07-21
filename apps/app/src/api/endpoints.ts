@@ -209,6 +209,18 @@ export function deleteAccount(
   );
 }
 
+/** Clears cloud app data while preserving the current account and session. */
+export function resetAppData(accessToken: string): Promise<void> {
+  return apiFetch<void>(
+    {
+      url: "/auth/reset-app-data",
+      method: "POST",
+      body: JSON.stringify({ confirmation: "RESET" }),
+    },
+    apiAuthOptions(accessToken),
+  );
+}
+
 export function syncPull(accessToken: string, since?: string): Promise<SyncPullResponseDto> {
   const query = since ? `?since=${encodeURIComponent(since)}` : "";
   return apiFetch<SyncPullResponseDto>(

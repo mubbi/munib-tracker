@@ -25,6 +25,7 @@ import {
   type OAuthProvider,
   refreshSession,
   requestGuestSession,
+  resetAppData as resetAppDataRequest,
   WEB_COOKIE_SESSION_TOKEN,
 } from "@/api/endpoints";
 import { SessionPersistError, SessionStore, type StoredSession } from "@/auth/session-store";
@@ -87,6 +88,11 @@ interface AuthContextValue {
    * Returns `"error"` if the server can't be reached so the caller skips local wipe.
    */
   deleteAccount: (body: DeleteAccountRequestBody) => Promise<"ok" | "error">;
+  /**
+   * Clears cloud app data without changing the account or session.
+   * Returns `"error"` when the server cannot confirm the reset.
+   */
+  resetAppData: () => Promise<"ok" | "error">;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -394,6 +400,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [refresh, invalidateAuthSession],
   );
 
+  const resetAppData = useCallback(async (): Promise<"ok" | "error"> => {
+    if (syncing.current) return "error";
+    const current = await SessionStore.get();
+    if (current?.accountType !== "user") return "ok";
+    syncing.current = true;
+    setIsSyncing(true);
+    try {
+      const fresh = (await refresh()) ?? current;
+      await resetAppDataRequest(fresh.accessToken);
+      return "ok";
+    } catch {
+      return "error";
+    } finally {
+      syncing.current = false;
+      setIsSyncing(false);
+    }
+  }, [refresh]);
+
   // Boot: resume a stored session, or create a guest one (best-effort offline).
   useEffect(() => {
     let mounted = true;
@@ -485,6 +509,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut,
       syncNow,
       deleteAccount,
+      resetAppData,
       isSyncing,
     }),
     [
@@ -499,6 +524,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut,
       syncNow,
       deleteAccount,
+      resetAppData,
       isSyncing,
     ],
   );

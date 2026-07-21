@@ -74,6 +74,7 @@ Git auto-deploy is off (`git.deploymentEnabled: false`) — deploy with the Verc
 - Required env (see `apps/admin/.env.example`): `DATABASE_URL`, `ADMIN_URL`, `ADMIN_SESSION_SECRET` (≥32 chars), `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `API_URL`
 - Cron (cron-job.org every 15 min): `GET|POST https://admin.munibtracker.app/api/cron/process-broadcasts` with `Authorization: Bearer $ADMIN_CRON_SECRET`
 - Web Push: set the same VAPID pair on admin (`VAPID_PUBLIC_KEY` + `VAPID_PRIVATE_KEY`); set `VAPID_PUBLIC_KEY` on the API so `GET /api/v1/notifications/vapid-public-key` works for the PWA
+- ActivityKit Live Activity pushes (API): see **[`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md)** — set `APNS_*`, keep cron on `POST …/live-activities/internal/dispatch-due` with `LIVE_ACTIVITY_CRON_SECRET`, optionally add Upstash QStash (`QSTASH_*`, `API_PUBLIC_URL`). Future Fly.io worker notes live in that guide (not required yet).
 
 Web export uses Expo Router **`asyncRoutes` (web only)** and ships ~468 JS chunks (2026-07-12 measure). Home critical-path size / Lighthouse lab scores: [`PROFILING.md`](./PROFILING.md). After deploy, optional CrUX/field Web Vitals remain open.
 
@@ -126,6 +127,7 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
   Optional `REDIS_TLS=true|false` overrides the scheme. Ensure the database CIDR
   allow list permits Vercel (or leave the public endpoint open with a strong password).
 - Optional `VAPID_PUBLIC_KEY` for Web Push subscription bootstrap (admin holds the private key).
+- **ActivityKit Live Activity push:** `APNS_*`, `LIVE_ACTIVITY_CRON_SECRET` (+ cron), optional `QSTASH_*` / `API_PUBLIC_URL` / `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` — full checklist and future Fly worker: [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md).
 
 ### Redis (optional, multi-instance)
 

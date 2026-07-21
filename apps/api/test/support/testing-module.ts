@@ -15,6 +15,8 @@ import {
   ContentReportEntity,
   DeletedAccountEntity,
   InAppNotificationEntity,
+  LiveActivityPushJobEntity,
+  LiveActivityPushTokenEntity,
   OssContentDownloadFailureEntity,
   PushTokenEntity,
   SyncRecordEntity,
@@ -35,6 +37,8 @@ const ENTITIES = [
   OssContentDownloadFailureEntity,
   InAppNotificationEntity,
   PushTokenEntity,
+  LiveActivityPushTokenEntity,
+  LiveActivityPushJobEntity,
   DeletedAccountEntity,
 ];
 

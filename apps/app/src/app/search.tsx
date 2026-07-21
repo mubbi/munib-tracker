@@ -236,10 +236,13 @@ export default function SearchScreen() {
     };
   }, [debounced, hasQuery]);
 
-  // Qur'an ayah full-text is heavy — defer build/scan until idle so
-  // the lighter results paint first and typing stays smooth.
+  // Qur'an ayah full-text is heavy — defer build/scan until idle so the lighter
+  // results paint first and typing stays smooth. This runs once per query and is
+  // intentionally independent of `filter`: the result is cached in state, so
+  // switching tabs only filters the already-fetched data (never re-searches) and
+  // the Qur'an chip stays put instead of flickering away.
   useEffect(() => {
-    if ((filter !== "all" && filter !== "quran") || tokenize(debounced).length === 0) {
+    if (!hasQuery) {
       setAyah(null);
       setAyahLoading(false);
       return;
@@ -249,19 +252,25 @@ export default function SearchScreen() {
     let cancelled = false;
     const handle = runWhenIdle(() => {
       if (cancelled) return;
-      void ensureAyahFuse().then(() => {
-        if (cancelled) return;
-        const group = searchQuranAyahs(debounced, AYAH_FETCH_LIMIT);
-        if (cancelled) return;
-        setAyah(group);
-        setAyahLoading(false);
-      });
+      void ensureAyahFuse()
+        .then(() => {
+          if (cancelled) return;
+          const group = searchQuranAyahs(debounced, AYAH_FETCH_LIMIT);
+          if (cancelled) return;
+          setAyah(group);
+          setAyahLoading(false);
+        })
+        .catch(() => {
+          if (cancelled) return;
+          setAyah(null);
+          setAyahLoading(false);
+        });
     });
     return () => {
       cancelled = true;
       handle.cancel();
     };
-  }, [debounced, filter]);
+  }, [debounced, hasQuery]);
 
   // Merge ayah matches into the Qur'an group (surah matches first), keeping order.
   const groups = useMemo<SearchGroup[]>(() => {

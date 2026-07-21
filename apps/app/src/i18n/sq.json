@@ -2310,8 +2310,8 @@
     "guestName": "I ftuar",
     "changeAvatar": "Ndrysho avatarin",
     "signInToSync": "Identifikohu për të sinkronizuar",
-    "deleteAccount": "Fshi llogarinë dhe të dhënat",
-    "deleteTitle": "Të fshihet llogaria dhe të dhënat?",
+    "deleteAccount": "Fshi llogarinë",
+    "deleteTitle": "Të fshihet llogaria?",
     "deleteMsg": "Kjo fshin përgjithmonë të gjitha të dhënat tuaja të gjurmimit në këtë pajisje. Kjo nuk mund të zhbëhet.",
     "deleteMsgAccount": "Kjo fshin përgjithmonë llogarinë tuaj dhe të gjitha të dhënat tuaja të sinkronizuara nga serverët tanë dhe fshin këtë pajisje. Kjo nuk mund të zhbëhet.",
     "deleteFailed": "Llogaria jote nuk mund të fshihej. Kontrollo lidhjen tënde dhe provo sërish.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Sesioni",
     "sessionHint": "Dilni nga kjo pajisje. Të dhënat në re mbeten të sigurta.",
     "dangerTitle": "Zona e rrezikut",
-    "dangerHint": "Fshin përgjithmonë llogarinë dhe të dhënat lokale. Kjo nuk mund të zhbëhet."
+    "dangerHint": "Rivendosni të dhënat e aplikacionit pa fshirë llogarinë, ose mbyllni përgjithmonë llogarinë.",
+    "resetData": "Rivendos të dhënat e aplikacionit",
+    "resetDataTitle": "Të rivendosen të dhënat e aplikacionit?",
+    "resetDataMsg": "Kjo fshin përgjithmonë të gjitha të dhënat e aplikacionit në këtë pajisje. Sesioni juaj i mysafirit mbetet aktiv. Kjo nuk mund të zhbëhet.",
+    "resetDataMsgAccount": "Kjo fshin përgjithmonë të dhënat e aplikacionit në këtë pajisje dhe nga sinkronizimi në re. Llogaria juaj mbetet aktive dhe e identifikuar. Kjo nuk mund të zhbëhet.",
+    "resetDataConfirm": "Rivendos të dhënat",
+    "resetDataFailed": "Nuk u rivendosën të dhënat e aplikacionit. Kontrollo lidhjen tënde dhe provo sërish.",
+    "resetDataSuccess": "Të dhënat e aplikacionit u rivendosën"
   },
   "sync": {
     "title": "Sinkronizimi në renë kompjuterike",

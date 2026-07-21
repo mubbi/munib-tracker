@@ -11,6 +11,13 @@ struct PrayerActivityRecord: Record {
   @Field var prayerTimeLabel: String = ""
   @Field var countdownLabel: String = ""
   @Field var remainingLabel: String = ""
+  @Field var prepareLabel: String = ""
+  @Field var actionLabel: String = ""
+  @Field var actionDeepLink: String = ""
+  @Field var phase: String = "upcoming"
+  @Field var qiblaLabel: String = ""
+  @Field var locale: String = "en"
+  @Field var isRtl: Bool = false
   @Field var minutesUntil: Int = 0
   @Field var targetTimeMs: Double = 0
   @Field var displayDate: String = ""
@@ -38,6 +45,13 @@ private extension PrayerActivityAttributes.ContentState {
       prayerTimeLabel: record.prayerTimeLabel,
       countdownLabel: record.countdownLabel,
       remainingLabel: record.remainingLabel,
+      prepareLabel: record.prepareLabel,
+      actionLabel: record.actionLabel,
+      actionDeepLink: record.actionDeepLink,
+      phase: record.phase,
+      qiblaLabel: record.qiblaLabel,
+      locale: record.locale,
+      isRtl: record.isRtl,
       minutesUntil: record.minutesUntil,
       targetTimeMs: record.targetTimeMs,
       displayDate: record.displayDate,
@@ -64,6 +78,10 @@ final class PrayerActivityController {
   static let shared = PrayerActivityController()
 
   private var activity: Activity<PrayerActivityAttributes>?
+  private var pushTokenTasks: [String: Task<Void, Never>] = [:]
+  private var stateTasks: [String: Task<Void, Never>] = [:]
+  var onPushToken: ((String, String, String) -> Void)?
+  var onActivityState: ((String, String) -> Void)?
 
   private var liveActivity: Activity<PrayerActivityAttributes>? {
     if let activity { return activity }
@@ -88,9 +106,10 @@ final class PrayerActivityController {
       let created = try Activity.request(
         attributes: PrayerActivityAttributes(),
         content: content,
-        pushType: nil
+        pushType: .token
       )
       activity = created
+      observe(created)
       return created.id
     } catch {
       return nil
@@ -108,12 +127,95 @@ final class PrayerActivityController {
       await running.end(nil, dismissalPolicy: .immediate)
     }
     activity = nil
+    cancelObservers()
+  }
+
+  func observeExisting() {
+    for running in Activity<PrayerActivityAttributes>.activities {
+      observe(running)
+    }
+  }
+
+  func cancelObservers() {
+    for task in pushTokenTasks.values { task.cancel() }
+    for task in stateTasks.values { task.cancel() }
+    pushTokenTasks.removeAll()
+    stateTasks.removeAll()
+  }
+
+  private func observe(_ observed: Activity<PrayerActivityAttributes>) {
+    let activityId = observed.id
+    if pushTokenTasks[activityId] == nil {
+      pushTokenTasks[activityId] = Task { [weak self] in
+        for await tokenData in observed.pushTokenUpdates {
+          guard !Task.isCancelled else { return }
+          let token = tokenData.map { String(format: "%02x", $0) }.joined()
+#if DEBUG
+          let environment = "sandbox"
+#else
+          let environment = "production"
+#endif
+          self?.onPushToken?(activityId, token, environment)
+        }
+      }
+    }
+
+    if stateTasks[activityId] == nil {
+      stateTasks[activityId] = Task { [weak self] in
+        for await state in observed.activityStateUpdates {
+          guard !Task.isCancelled else { return }
+          let value: String
+          switch state {
+          case .active: value = "active"
+          case .stale: value = "stale"
+          case .ended: value = "ended"
+          case .dismissed: value = "dismissed"
+          @unknown default: value = "unknown"
+          }
+          self?.onActivityState?(activityId, value)
+          if state == .ended || state == .dismissed {
+            self?.pushTokenTasks.removeValue(forKey: activityId)?.cancel()
+            self?.stateTasks.removeValue(forKey: activityId)
+            if self?.activity?.id == activityId { self?.activity = nil }
+            return
+          }
+        }
+      }
+    }
   }
 }
 
 public class MunibLiveActivityModule: Module {
   public func definition() -> ModuleDefinition {
     Name("MunibLiveActivity")
+    Events("onPushToken", "onActivityState")
+
+    OnStartObserving {
+      if #available(iOS 16.2, *) {
+        let controller = PrayerActivityController.shared
+        controller.onPushToken = { [weak self] activityId, pushToken, environment in
+          self?.sendEvent("onPushToken", [
+            "activityId": activityId,
+            "pushToken": pushToken,
+            "environment": environment,
+          ])
+        }
+        controller.onActivityState = { [weak self] activityId, state in
+          self?.sendEvent("onActivityState", [
+            "activityId": activityId,
+            "state": state,
+          ])
+        }
+        controller.observeExisting()
+      }
+    }
+
+    OnStopObserving {
+      if #available(iOS 16.2, *) {
+        PrayerActivityController.shared.onPushToken = nil
+        PrayerActivityController.shared.onActivityState = nil
+      }
+    }
 
     Function("isSupported") { () -> Bool in
       if #available(iOS 16.2, *) {

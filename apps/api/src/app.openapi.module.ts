@@ -8,6 +8,9 @@ import { AppConfigModule } from "./config/config.module";
 import { ContentReportsController } from "./content-reports/content-reports.controller";
 import { ContentReportsService } from "./content-reports/content-reports.service";
 import { HealthModule } from "./health/health.module";
+import { LiveActivitiesController } from "./live-activities/live-activities.controller";
+import { LiveActivitiesService } from "./live-activities/live-activities.service";
+import { LiveActivityQStashService } from "./live-activities/live-activity-qstash.service";
 import { NotificationsController } from "./notifications/notifications.controller";
 import { NotificationsService } from "./notifications/notifications.service";
 import { OssContentFailuresController } from "./oss-content-failures/oss-content-failures.controller";
@@ -87,6 +90,19 @@ const openApiServiceMocks = {
     markAllRead: async () => ({ count: 0 }),
     engage: async () => ({}),
   },
+  liveActivities: {
+    upsert: async () => ({
+      activityId: "activity",
+      expiresAt: new Date().toISOString(),
+      scheduled: 0,
+    }),
+    lifecycle: async () => undefined,
+    deliver: async () => undefined,
+    dispatchDue: async () => ({ processed: 0, cleaned: 0 }),
+  },
+  liveActivityQstash: {
+    verify: async () => true,
+  },
 };
 
 @Module({
@@ -100,6 +116,7 @@ const openApiServiceMocks = {
     OssContentFailuresController,
     AppVersionController,
     NotificationsController,
+    LiveActivitiesController,
   ],
   providers: [
     { provide: AuthService, useValue: openApiServiceMocks.auth },
@@ -111,6 +128,8 @@ const openApiServiceMocks = {
     { provide: OssContentFailuresService, useValue: openApiServiceMocks.ossContentFailures },
     { provide: AppVersionService, useValue: openApiServiceMocks.appVersion },
     { provide: NotificationsService, useValue: openApiServiceMocks.notifications },
+    { provide: LiveActivitiesService, useValue: openApiServiceMocks.liveActivities },
+    { provide: LiveActivityQStashService, useValue: openApiServiceMocks.liveActivityQstash },
   ],
 })
 export class AppOpenApiModule {}

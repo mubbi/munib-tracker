@@ -79,6 +79,11 @@ public class MunibExternalCommandsModule: Module {
         self?.sendEvent("onCommandsAvailable")
       }
       WatchBridge.shared.activate()
+      self.startObservingQueueWrites()
+    }
+
+    OnDestroy {
+      self.stopObservingQueueWrites()
     }
 
     AsyncFunction("activateWatchSession") {
@@ -103,5 +108,35 @@ public class MunibExternalCommandsModule: Module {
       // Wear snapshot push is implemented in the Android module (Wearable Data Layer).
       _ = json
     }
+  }
+
+  /// Siri (App Intents extension), widget buttons, and the watch bridge post a
+  /// Darwin notification after writing `pending_commands_v1`. Observing it lets
+  /// a running app instance drain and apply the mark immediately instead of
+  /// waiting for the next foreground transition.
+  private func startObservingQueueWrites() {
+    let observer = Unmanaged.passUnretained(self).toOpaque()
+    CFNotificationCenterAddObserver(
+      CFNotificationCenterGetDarwinNotifyCenter(),
+      observer,
+      { _, observer, _, _, _ in
+        guard let observer else { return }
+        let module = Unmanaged<MunibExternalCommandsModule>.fromOpaque(observer).takeUnretainedValue()
+        module.sendEvent("onCommandsAvailable")
+      },
+      ExternalCommandQueue.changedDarwinNotification as CFString,
+      nil,
+      .deliverImmediately
+    )
+  }
+
+  private func stopObservingQueueWrites() {
+    let observer = Unmanaged.passUnretained(self).toOpaque()
+    CFNotificationCenterRemoveObserver(
+      CFNotificationCenterGetDarwinNotifyCenter(),
+      observer,
+      CFNotificationName(ExternalCommandQueue.changedDarwinNotification as CFString),
+      nil
+    )
   }
 }

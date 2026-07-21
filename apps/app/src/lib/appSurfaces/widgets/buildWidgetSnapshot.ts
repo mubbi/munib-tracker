@@ -12,6 +12,7 @@ import {
   type WidgetHexColor,
   type WidgetScheduleRow,
   type WidgetSnapshot,
+  type WidgetSurfaceStrings,
   type WidgetTasbeehSection,
   type WidgetThemeSnapshot,
 } from "@/lib/appSurfaces/widgets/types";
@@ -32,6 +33,7 @@ import type { StoredLocation } from "@/lib/location";
 import { locationCalcExtras } from "@/lib/location";
 import {
   buildDailySchedule,
+  currentPrayer,
   formatDuration,
   formatPrayerTime,
   nextPrayer,
@@ -99,6 +101,22 @@ function buildThemeSnapshot(input: BuildWidgetSnapshotInput): WidgetThemeSnapsho
     border: asHex(resolved.border),
     success: asHex(resolved.success),
     warning: asHex(resolved.warning),
+  };
+}
+
+function buildSurfaceStrings(input: BuildWidgetSnapshotInput): WidgetSurfaceStrings {
+  return {
+    prepareSalah: input.t("widgets.prepareSalah", "Prepare"),
+    afterSalahAdhkar: input.t("zikrCat.after_prayer", "After Salah"),
+    qibla: input.t("widgets.qibla", "Qibla"),
+    markSalah: input.t("widgets.markSalah", "Mark Salah"),
+    openAppToSync: input.t("widgets.openAppToSync", "Open the app to sync"),
+    setLocationHint: input.t("widgets.setLocationHint", "Open the app to set your location"),
+    tasbeeh: input.t("widgets.tasbeeh", "Tasbeeh"),
+    reset: input.t("common.reset", "Reset"),
+    done: input.t("widgets.done", "Done"),
+    remaining: input.t("widgets.remaining", "Remaining"),
+    tasbeehUnlimited: input.t("widgets.tasbeehUnlimited", "Unlimited count"),
   };
 }
 
@@ -516,6 +534,7 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
   const updatedAt = now.toISOString();
   const empty = emptyWidgetSnapshot();
   const theme = buildThemeSnapshot(input);
+  const strings = buildSurfaceStrings(input);
   const independent = buildIndependentSections(input, now);
 
   if (input.locationDenied || !input.location) {
@@ -527,6 +546,7 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
       locationDenied: true,
       locale: input.locale,
       isRtl: isRtlLocale(input.locale),
+      strings,
       theme,
       ...denied,
       ...independent,
@@ -549,6 +569,26 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
   const prayerTimeLabel = input.t("widgets.atTime", "at {{time}}", {
     time: payload.nextPrayerTime,
   });
+  const coords = { latitude: location.latitude, longitude: location.longitude };
+  const extras = locationCalcExtras(location);
+  const current = currentPrayer(
+    coords,
+    now,
+    location.method,
+    location.madhab,
+    location.timeZone,
+    extras,
+  );
+  const currentIsObligatory = OBLIGATORY_PRAYERS.includes(
+    current.id as (typeof OBLIGATORY_PRAYERS)[number],
+  );
+  const currentPrayerName = currentIsObligatory ? input.t(`prayers.${current.id}`, current.id) : "";
+  const currentPrayerTime = currentIsObligatory
+    ? formatPrayerTime(current.date, input.timeFormat, location.timeZone)
+    : "";
+  const currentPrayerTimeLabel = currentIsObligatory
+    ? input.t("widgets.atTime", "at {{time}}", { time: currentPrayerTime })
+    : "";
   const remainingLabel = input.t("widgets.remaining", "Remaining");
   const markLabel = input.t("widgets.markSalah", "Mark Salah");
   const scheduleRows = buildScheduleRows(input, now);
@@ -599,6 +639,7 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
     locationDenied: false,
     locale: input.locale,
     isRtl: isRtlLocale(input.locale),
+    strings,
     theme,
     nextPrayer: {
       title: input.t("widgets.nextPrayer", "Next Salah"),
@@ -616,6 +657,11 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
       remainingLabel,
       minutesUntil: payload.minutesUntil,
       targetTimeMs: payload.nextPrayerAtMs,
+      currentPrayerId: currentIsObligatory ? current.id : "",
+      currentPrayerName,
+      currentPrayerTime,
+      currentPrayerTimeLabel,
+      currentPrayerAtMs: currentIsObligatory ? current.date.getTime() : 0,
       displayDate: payload.displayDate,
       location: payload.location,
       followingName: following?.name ?? "",

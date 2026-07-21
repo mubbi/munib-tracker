@@ -33,6 +33,7 @@ import type {
   AuthSessionResponseDto,
   AuthUserResponseDto,
   DeleteAccountDto,
+  ResetAppDataDto,
   WebAuthSessionResponseDto
 } from '../../models';
 
@@ -824,6 +825,71 @@ export const useAuthControllerLogout = <TError = unknown,
       > => {
 
       const mutationOptions = getAuthControllerLogoutMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * Clears synced app data and user media while preserving the account, OAuth identity, push tokens, and sessions. Body confirmation must be the literal "RESET".
+ * @summary Reset app data without deleting the account
+ */
+export const authControllerResetAppData = (
+    resetAppDataDto: ResetAppDataDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<void>(
+      {url: `/api/v1/auth/reset-app-data`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: resetAppDataDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerResetAppDataMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerResetAppData>>, TError,{data: ResetAppDataDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerResetAppData>>, TError,{data: ResetAppDataDto}, TContext> => {
+
+const mutationKey = ['authControllerResetAppData'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerResetAppData>>, {data: ResetAppDataDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authControllerResetAppData(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerResetAppDataMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerResetAppData>>>
+    export type AuthControllerResetAppDataMutationBody = ResetAppDataDto
+    export type AuthControllerResetAppDataMutationError = unknown
+
+    /**
+ * @summary Reset app data without deleting the account
+ */
+export const useAuthControllerResetAppData = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerResetAppData>>, TError,{data: ResetAppDataDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerResetAppData>>,
+        TError,
+        {data: ResetAppDataDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerResetAppDataMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }

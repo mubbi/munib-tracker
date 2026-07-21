@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { parseISO } from "date-fns";
 import { MoreThan, Repository } from "typeorm";
@@ -45,6 +45,9 @@ export class SyncService {
     const now = Date.now();
 
     for (const change of dto.changes) {
+      if (change.entity === "data_reset") {
+        throw new BadRequestException("data_reset is server-managed");
+      }
       const clientUpdatedAt = parseISO(change.updatedAt);
       if (Number.isNaN(clientUpdatedAt.getTime())) {
         continue;

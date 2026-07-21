@@ -33,11 +33,13 @@ const NAMED_PRAYER_INTENTS: ReadonlyArray<{ prayerId: ObligatoryPrayer; label: s
 
 /**
  * Voice / Shortcuts intents (NF-2.15). Navigation intents open the app;
- * background intents enqueue mark commands without UI. Mirrored 1:1 in
- * `targets/munib-tracker-intents/MunibAppIntents.swift` (Siri App Intents +
- * `AppShortcutsProvider` phrases) and, for `platforms: ["ios", "android"]`
- * navigation intents, in `plugins/withExternalCommands.cjs` (Android App
- * Actions `OPEN_APP_FEATURE` entity inventory).
+ * background intents enqueue mark commands without UI. Mirrored in
+ * `targets/munib-tracker-intents/_shared/MunibAppIntents.swift` (Siri App
+ * Intents + `AppShortcutsProvider` phrases — the five named-prayer entries map
+ * to the single parameterized `MarkSalahIntent`) and, for
+ * `platforms: ["ios", "android"]` navigation intents, in
+ * `plugins/withExternalCommands.cjs` (Android App Actions `OPEN_APP_FEATURE`
+ * entity inventory).
  */
 export const INTENT_REGISTRY: IntentDefinition[] = [
   {

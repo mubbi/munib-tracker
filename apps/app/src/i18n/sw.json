@@ -2310,8 +2310,8 @@
     "guestName": "Mgeni",
     "changeAvatar": "Badilisha avatar",
     "signInToSync": "Ingia ili kusawazisha",
-    "deleteAccount": "Futa akaunti na data",
-    "deleteTitle": "Je, ungependa kufuta akaunti na data?",
+    "deleteAccount": "Futa akaunti",
+    "deleteTitle": "Futa akaunti?",
     "deleteMsg": "Hii itafuta kabisa data yako yote ya ufuatiliaji kwenye kifaa hiki. Hili haliwezi kutenduliwa.",
     "deleteMsgAccount": "Hii itafuta kabisa akaunti yako na data yako yote iliyosawazishwa kutoka kwa seva zetu, na kufuta kifaa hiki. Hili haliwezi kutenduliwa.",
     "deleteFailed": "Haikuweza kufuta akaunti yako. Angalia muunganisho wako na ujaribu tena.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Kipindi",
     "sessionHint": "Toka kwenye kifaa hiki. Data yako ya wingu inabaki salama.",
     "dangerTitle": "Eneo hatari",
-    "dangerHint": "Futa akaunti yako na data ya ndani kabisa. Hii haiwezi kutenduliwa."
+    "dangerHint": "Weka upya data ya programu bila kufuta akaunti yako, au funga akaunti yako kabisa.",
+    "resetData": "Weka upya data ya programu",
+    "resetDataTitle": "Weka upya data ya programu?",
+    "resetDataMsg": "Hii itafuta kabisa data yote ya programu kwenye kifaa hiki. Kipindi chako cha mgeni kinabaki hai. Hili haliwezi kutenduliwa.",
+    "resetDataMsgAccount": "Hii itafuta kabisa data ya programu kwenye kifaa hiki na kutoka kwa usawazishaji wa wingu. Akaunti yako inabaki hai na umeingia. Hili haliwezi kutenduliwa.",
+    "resetDataConfirm": "Weka upya data",
+    "resetDataFailed": "Haikuweza kuweka upya data ya programu. Angalia muunganisho wako na ujaribu tena.",
+    "resetDataSuccess": "Data ya programu yako imewekwa upya"
   },
   "sync": {
     "title": "Usawazishaji wa wingu",

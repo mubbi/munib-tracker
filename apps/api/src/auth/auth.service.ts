@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import {
   BadRequestException,
+  ForbiddenException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -31,6 +32,7 @@ import {
   isAuthGuestRateLimited,
   isAuthOAuthRateLimited,
   isAuthRefreshRateLimited,
+  isAuthResetAppDataRateLimited,
 } from "./auth-rate-limit";
 import type {
   AuthProvider,
@@ -40,6 +42,7 @@ import type {
   GuestSessionDto,
   LinkAccountDto,
   OAuthCallbackDto,
+  ResetAppDataDto,
 } from "./dto/auth.dto";
 import { type OAuthProfile, OAuthProviderService } from "./oauth-provider.service";
 import { TokenService } from "./token.service";
@@ -311,9 +314,69 @@ export class AuthService {
   }
 
   /**
-   * Best-effort deletion of every blob owned by the closing account. Failures
+   * Clears synced app data while preserving the account, OAuth identity, push
+   * tokens, and every active session. Existing sync rows become tombstones so
+   * stale devices cannot restore them; a reset marker tells those devices to
+   * wipe local-only state on their next pull.
+   */
+  async resetAppData(
+    accessToken: string,
+    _dto: ResetAppDataDto,
+    clientIp = "unknown",
+  ): Promise<void> {
+    if (await isAuthResetAppDataRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many app data reset requests", HttpStatus.TOO_MANY_REQUESTS);
+    }
+
+    const { user } = await this.getSessionByAccessToken(accessToken);
+    if (user.accountType !== "user") {
+      throw new ForbiddenException("App data reset requires a linked account");
+    }
+
+    const userId = user.id;
+    const userMedia = await this.dataSource
+      .getRepository(UserMediaEntity)
+      .find({ where: { userId }, select: { id: true, storagePath: true } });
+    await this.purgeAccountBlobStorage({
+      userId,
+      reportAttachmentPaths: [],
+      userMediaPaths: userMedia.map((media) => media.storagePath),
+    });
+
+    const resetAt = new Date();
+    await this.dataSource.transaction(async (manager) => {
+      await manager.update(
+        SyncRecordEntity,
+        { userId },
+        { data: {}, updatedAt: resetAt, deletedAt: resetAt },
+      );
+
+      const existingMarker = await manager.findOne(SyncRecordEntity, {
+        where: { userId, entity: "data_reset", recordId: "data_reset" },
+      });
+      await manager.save(
+        manager.create(SyncRecordEntity, {
+          id: existingMarker?.id,
+          userId,
+          entity: "data_reset",
+          recordId: "data_reset",
+          data: { resetAt: resetAt.toISOString() },
+          updatedAt: resetAt,
+          deletedAt: null,
+        }),
+      );
+
+      if (userMedia.length) {
+        await manager.delete(UserMediaEntity, { userId });
+      }
+      await manager.delete(InAppNotificationEntity, { userId });
+    });
+  }
+
+  /**
+   * Best-effort deletion of account-owned blobs during deletion or data reset. Failures
    * are logged inside {@link AttachmentStorageService.remove}; we still proceed
-   * with the DB wipe so account closure is not blocked by a flaky CDN.
+   * with the DB wipe so cleanup is not blocked by a flaky CDN.
    */
   private async purgeAccountBlobStorage(options: {
     userId: string;
@@ -333,7 +396,7 @@ export class AuthService {
     const failed = results.filter((result) => result.status === "rejected").length;
     if (failed > 0) {
       this.logger.warn(
-        `Account ${userId}: ${failed}/${results.length} blob purge(s) failed during delete-account`,
+        `Account ${userId}: ${failed}/${results.length} blob purge(s) failed during data cleanup`,
       );
     }
   }

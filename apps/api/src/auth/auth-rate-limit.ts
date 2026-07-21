@@ -52,6 +52,15 @@ export async function isAuthDeleteAccountRateLimited(identity: string): Promise<
   });
 }
 
+/** App-data reset: 3 / 15 min per IP. */
+export async function isAuthResetAppDataRateLimited(identity: string): Promise<boolean> {
+  return isRateLimited({
+    key: bucket("reset-app-data", identity),
+    limit: DELETE_ACCOUNT_LIMIT,
+    windowMs: DELETE_ACCOUNT_WINDOW_MS,
+  });
+}
+
 export function resetAuthRateLimits(): void {
   resetMemoryRateLimits();
 }

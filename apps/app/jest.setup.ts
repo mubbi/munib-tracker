@@ -206,6 +206,7 @@ jest.mock("@/providers/auth-provider", () => ({
     signOut: jest.fn(),
     syncNow: jest.fn(async () => "skipped"),
     deleteAccount: jest.fn(async () => "ok"),
+    resetAppData: jest.fn(async () => "ok"),
   }),
 }));
 

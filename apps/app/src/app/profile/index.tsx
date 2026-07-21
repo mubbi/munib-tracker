@@ -69,6 +69,7 @@ export default function ProfileScreen() {
     signOut,
     syncNow,
     deleteAccount: deleteServerAccount,
+    resetAppData: resetServerAppData,
   } = useAuth();
   const toast = useToast();
   const { factoryResetPinLock } = usePinLock();
@@ -90,11 +91,12 @@ export default function ProfileScreen() {
       : t("common.signedIn");
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(displayName);
-  const [confirmDeleteGuest, setConfirmDeleteGuest] = useState(false);
+  const [confirmResetData, setConfirmResetData] = useState(false);
   const [confirmDeleteAccount, setConfirmDeleteAccount] = useState(false);
   const [confirmSignOut, setConfirmSignOut] = useState(false);
   const [syncMeta, setSyncMeta] = useState<SyncMetadata | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
   const locale = i18n.language?.split("-")[0];
 
   const refreshSyncMeta = useCallback(async () => {
@@ -131,15 +133,29 @@ export default function ProfileScreen() {
     setEditing(false);
   };
 
-  const finishLocalDelete = async () => {
+  const finishLocalDataWipe = async () => {
     await wipeLocalDeviceData();
     await factoryResetPinLock();
     await clearInAppInbox();
     router.replace("/");
   };
 
-  const deleteGuestAccount = async () => {
-    await finishLocalDelete();
+  const resetAppData = async () => {
+    if (isResetting) return;
+    setIsResetting(true);
+    try {
+      if (isAuthenticated) {
+        const outcome = await resetServerAppData();
+        if (outcome === "error") {
+          toast.error(t("profile.resetDataFailed"));
+          return;
+        }
+      }
+      await finishLocalDataWipe();
+      toast.success(t("profile.resetDataSuccess"));
+    } finally {
+      setIsResetting(false);
+    }
   };
 
   const deleteSignedInAccount = async (body: DeleteAccountRequestBody) => {
@@ -147,7 +163,7 @@ export default function ProfileScreen() {
     if (outcome === "error") {
       throw new Error("delete failed");
     }
-    await finishLocalDelete();
+    await finishLocalDataWipe();
   };
 
   const syncUpToDate =
@@ -445,30 +461,57 @@ export default function ProfileScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.dangerHint}>
             {t("profile.dangerHint")}
           </ThemedText>
-          <PressableScale
-            haptic="medium"
-            accessibilityRole="button"
-            accessibilityLabel={t("profile.deleteAccount")}
-            onPress={() =>
-              isAuthenticated ? setConfirmDeleteAccount(true) : setConfirmDeleteGuest(true)
-            }
-            style={[
-              styles.dangerButton,
-              {
-                backgroundColor: tokens.status.danger.soft,
-                borderColor: tokens.status.danger.border,
-              },
-            ]}
-          >
-            <SymbolView
-              name={{ ios: "trash", android: "delete", web: "delete" }}
-              size={16}
-              tintColor={tokens.status.danger.color}
-            />
-            <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
-              {t("profile.deleteAccount")}
-            </ThemedText>
-          </PressableScale>
+          <View style={styles.dangerActions}>
+            <PressableScale
+              haptic="medium"
+              accessibilityRole="button"
+              accessibilityLabel={t("profile.resetData")}
+              onPress={() => {
+                if (!isResetting) setConfirmResetData(true);
+              }}
+              style={[
+                styles.dangerButton,
+                {
+                  backgroundColor: tokens.status.danger.soft,
+                  borderColor: tokens.status.danger.border,
+                },
+              ]}
+            >
+              <SymbolView
+                name={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+                size={16}
+                tintColor={tokens.status.danger.color}
+              />
+              <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
+                {t("profile.resetData")}
+              </ThemedText>
+            </PressableScale>
+
+            {isAuthenticated ? (
+              <PressableScale
+                haptic="medium"
+                accessibilityRole="button"
+                accessibilityLabel={t("profile.deleteAccount")}
+                onPress={() => setConfirmDeleteAccount(true)}
+                style={[
+                  styles.dangerButton,
+                  {
+                    backgroundColor: tokens.status.danger.soft,
+                    borderColor: tokens.status.danger.border,
+                  },
+                ]}
+              >
+                <SymbolView
+                  name={{ ios: "trash", android: "delete", web: "delete" }}
+                  size={16}
+                  tintColor={tokens.status.danger.color}
+                />
+                <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
+                  {t("profile.deleteAccount")}
+                </ThemedText>
+              </PressableScale>
+            ) : null}
+          </View>
         </Card>
       </Stagger>
 
@@ -482,13 +525,13 @@ export default function ProfileScreen() {
       />
 
       <ConfirmDialog
-        visible={confirmDeleteGuest}
-        title={t("profile.deleteTitle")}
-        message={t("profile.deleteMsg")}
-        confirmLabel={t("profile.deleteConfirm")}
+        visible={confirmResetData}
+        title={t("profile.resetDataTitle")}
+        message={t(isAuthenticated ? "profile.resetDataMsgAccount" : "profile.resetDataMsg")}
+        confirmLabel={t("profile.resetDataConfirm")}
         destructive
-        onConfirm={() => void deleteGuestAccount()}
-        onClose={() => setConfirmDeleteGuest(false)}
+        onConfirm={() => void resetAppData()}
+        onClose={() => setConfirmResetData(false)}
       />
 
       <DeleteAccountModal
@@ -639,8 +682,11 @@ const styles = StyleSheet.create({
   dangerHint: {
     marginTop: Spacing.two,
   },
-  dangerButton: {
+  dangerActions: {
     marginTop: Spacing.three,
+    gap: Spacing.two,
+  },
+  dangerButton: {
     minHeight: 48,
     borderRadius: Radius.md,
     borderCurve: "continuous",

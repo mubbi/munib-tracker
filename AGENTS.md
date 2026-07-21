@@ -23,6 +23,7 @@ Import via workspace package names:
 
 - `@munib-tracker/shared` — domain types, constants, validators, admin broadcast contracts
 - `@munib-tracker/db` — Drizzle schema mirror for the admin console (DDL owned by API TypeORM migrations)
+- `@munib-tracker/live-activity-delivery` — framework-agnostic ActivityKit APNs client + atomic job claim/deliver (Nest today; Fly worker later)
 - `@munib-tracker/theme` — design tokens, `resolveTheme()`, accent palette
 - `@munib-tracker/typescript-config` — shared TS configs
 - `@munib-tracker/vitest-config` — Vitest presets
@@ -100,6 +101,7 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`DATA_INGESTION.md`](docs/DATA_INGESTION.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) | Content pipeline & OSS sources |
 | [`PROFILING.md`](docs/PROFILING.md) | Web/native perf profile + remaining `__common` work |
 | [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md) | Widgets, Live Activities, Siri, Watch, Wear |
+| [`LIVE_ACTIVITY_PUSH.md`](docs/LIVE_ACTIVITY_PUSH.md) | ActivityKit remote push (QStash, cron, future Fly worker) |
 | [`DEVICES.md`](docs/DEVICES.md) | Platform support matrix |
 | [`STORE_ASSETS.md`](docs/STORE_ASSETS.md) | App Store / Play screenshots (Maestro) |
 | [`IOS_APP_COPY.md`](docs/IOS_APP_COPY.md) · [`ANDROID_APP_COPY.md`](docs/ANDROID_APP_COPY.md) | Store listing copy |

@@ -168,6 +168,51 @@ describe("AuthService", () => {
     );
   });
 
+  it("resets synced data while preserving the account and sessions", async () => {
+    const session = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
+    const secondDevice = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
+    const user = await service.getCurrentUser(session.accessToken);
+    const syncRepo = module.get<Repository<SyncRecordEntity>>(getRepositoryToken(SyncRecordEntity));
+    await syncRepo.save(
+      syncRepo.create({
+        userId: user.userId,
+        entity: "prayer_logs",
+        recordId: "fajr-2026-01-01",
+        data: { prayerId: "fajr", date: "2026-01-01", status: "completed" },
+        updatedAt: new Date("2026-01-01T05:00:00.000Z"),
+      }),
+    );
+
+    await service.resetAppData(session.accessToken, { confirmation: "RESET" });
+
+    const records = await syncRepo.find({ where: { userId: user.userId } });
+    const oldRecord = records.find((record) => record.entity === "prayer_logs");
+    const resetMarker = records.find((record) => record.entity === "data_reset");
+    expect(oldRecord?.deletedAt).toBeInstanceOf(Date);
+    expect(oldRecord?.data).toEqual({});
+    expect(resetMarker?.deletedAt).toBeNull();
+    expect(resetMarker?.data).toMatchObject({ resetAt: expect.any(String) });
+
+    await expect(service.getCurrentUser(session.accessToken)).resolves.toMatchObject({
+      userId: user.userId,
+      provider: AuthProvider.Google,
+    });
+    await expect(service.getCurrentUser(secondDevice.accessToken)).resolves.toMatchObject({
+      userId: user.userId,
+    });
+
+    const usersRepo = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
+    const preservedUser = await usersRepo.findOne({ where: { id: user.userId } });
+    expect(isTombstoneValue(preservedUser?.email)).toBe(false);
+  });
+
+  it("rejects cloud data reset for a guest account", async () => {
+    const guest = await service.createGuestSession({ deviceId: "device-reset-xxxxxxxx" });
+    await expect(
+      service.resetAppData(guest.accessToken, { confirmation: "RESET" }),
+    ).rejects.toThrow("App data reset requires a linked account");
+  });
+
   it("closes the account, tombstones identity, and wipes synced data", async () => {
     const session = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
     const user = await service.getCurrentUser(session.accessToken);

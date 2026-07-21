@@ -59,7 +59,7 @@ struct NextPrayerWidgetHomeView: View {
         }
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -159,14 +159,14 @@ struct PrayerScheduleWidgetHomeView: View {
                     .frame(width: 22, height: 22)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Mark \(row.name)")
+                .accessibilityLabel("\(section?.markLabel ?? snapshot?.strings?.markSalah ?? "Mark") \(row.name)")
               }
             }
           }
         }
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -233,7 +233,7 @@ struct PrayerProgressWidgetHomeView: View {
         )
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -299,7 +299,7 @@ struct SalahStreakWidgetHomeView: View {
           .widgetFittingText(maxLines: 2)
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -372,7 +372,7 @@ struct QazaDebtWidgetHomeView: View {
         }
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -459,7 +459,7 @@ struct RamadanWidgetHomeView: View {
         )
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -530,7 +530,7 @@ struct KhatmProgressWidgetHomeView: View {
           .widgetFittingText(maxLines: 2)
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -600,7 +600,7 @@ struct DailyHadithWidgetHomeView: View {
           .widgetFittingText(maxLines: WidgetLayout.hadithMeaningLines(for: family))
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -664,7 +664,7 @@ struct HijriDateWidgetHomeView: View {
           .widgetFittingText(maxLines: 2)
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -737,7 +737,7 @@ struct QiblaBearingWidgetHomeView: View {
         }
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -809,7 +809,7 @@ struct TasbeehGlanceWidgetHomeView: View {
           .widgetFittingText(maxLines: 2)
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 
@@ -886,7 +886,7 @@ struct JumuahWidgetHomeView: View {
           .widgetFittingText(maxLines: 2)
       }
     }
-    .widgetRtl(snapshot?.isRtl)
+    .widgetLocale(snapshot?.locale, isRtl: snapshot?.isRtl)
   }
 }
 

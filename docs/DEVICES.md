@@ -39,7 +39,7 @@ Ship with **EAS dev or production builds** — not Expo Go, not web.
 | Surface | Platform | What it does | Code / config |
 |---------|----------|--------------|---------------|
 | Home & lock-screen widgets | iOS WidgetKit, Android App Widgets | Next prayer, schedule, progress | `targets/munib-tracker-widgets/`, `plugins/homeScreenSurfaces.cjs`, `react-native-android-widget` |
-| Live Activities | iOS 17+ | Lock screen / Dynamic Island countdown | `targets/munib-tracker-widgets/PrayerLiveActivity.swift`, `modules/munib-live-activity/` |
+| Live Activities | iOS 17+ | Lock screen / Dynamic Island; phase windows + ActivityKit remote push when configured | `targets/munib-tracker-widgets/PrayerLiveActivity.swift`, `modules/munib-live-activity/`; ops [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md) |
 | Siri / Shortcuts | iOS | Mark Salah, open routes | `targets/munib-tracker-intents/` |
 | Google Assistant / App Actions | Android | Voice mark Salah | `plugins/withExternalCommands.cjs` |
 | Apple Watch app | watchOS 10+ | Schedule + mark Salah | `targets/munib-tracker-watch/` |

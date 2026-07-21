@@ -42,7 +42,7 @@ final class WatchPrayerModel: ObservableObject {
        let json = String(data: data, encoding: .utf8) {
       ExternalCommandQueue.appendCommandJson(json)
     }
-    markStatus = "Sent"
+    markStatus = snapshot?.strings?.done ?? "Done"
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
       self.reload()
       self.markStatus = nil
@@ -51,26 +51,24 @@ final class WatchPrayerModel: ObservableObject {
 
   func markPrayer(id: String) {
     markStatus = nil
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions = [.withFullDate]
-    let date = formatter.string(from: Date()).prefix(10)
+    let date = ExternalCommandQueue.localDateString()
     let payload: [String: Any] = [
       "command": "mark-prayer",
       "prayerId": id,
-      "date": String(date),
+      "date": date,
     ]
     sendToPhone(payload)
     let cmd: [String: Any] = [
       "type": "mark-prayer",
       "prayerId": id,
-      "date": String(date),
+      "date": date,
       "source": "watch",
     ]
     if let data = try? JSONSerialization.data(withJSONObject: cmd),
        let json = String(data: data, encoding: .utf8) {
       ExternalCommandQueue.appendCommandJson(json)
     }
-    markStatus = "Sent"
+    markStatus = snapshot?.strings?.done ?? "Done"
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
       self.reload()
       self.markStatus = nil
@@ -115,19 +113,19 @@ struct WatchContentView: View {
       List {
         Section {
           NavigationLink {
-            WatchTasbeehView()
+            WatchTasbeehView(snapshot: model.snapshot)
           } label: {
-            Label("Tasbeeh", systemImage: "circle.grid.2x2")
+            Label(model.snapshot?.strings?.tasbeeh ?? "Tasbeeh", systemImage: "circle.grid.2x2")
           }
         }
         if model.snapshot == nil {
           Section {
-            Text("Open Munib on iPhone to sync Salah times.")
+            Text(model.snapshot?.strings?.openAppToSync ?? "Open Munib on iPhone to sync Salah times.")
               .foregroundStyle(.secondary)
           }
         } else if model.snapshot?.locationDenied == true {
           Section {
-            Text("Set location on iPhone")
+            Text(model.snapshot?.strings?.setLocationHint ?? "Set location on iPhone")
               .foregroundStyle(.secondary)
           }
         } else if let next = model.snapshot?.nextPrayer {
@@ -138,7 +136,9 @@ struct WatchContentView: View {
             if let detail = next.lockScreenDetail {
               Text(detail).font(.caption).foregroundStyle(.secondary)
             }
-            Button("Mark current") { model.markCurrent() }
+            Button(model.snapshot?.strings?.markSalah ?? next.markLabel ?? "Mark Salah") {
+              model.markCurrent()
+            }
           }
         }
         if let rows = model.snapshot?.schedule?.rows, !rows.isEmpty {
@@ -169,6 +169,11 @@ struct WatchContentView: View {
       }
       .navigationTitle("Munib")
       .onAppear { model.reload() }
+      .environment(\.locale, Locale(identifier: model.snapshot?.locale ?? "en"))
+      .environment(
+        \.layoutDirection,
+        model.snapshot?.isRtl == true ? .rightToLeft : .leftToRight
+      )
     }
   }
 }

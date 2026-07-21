@@ -40,6 +40,23 @@ describe("SyncService", () => {
     expect(response.conflicts).toHaveLength(0);
   });
 
+  it("rejects client-written reset markers", async () => {
+    const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+
+    await expect(
+      syncService.push(session.accessToken, {
+        changes: [
+          {
+            entity: "data_reset",
+            id: "data_reset",
+            data: { resetAt: "2026-01-01T00:00:00.000Z" },
+            updatedAt: "2026-01-01T00:00:00.000Z",
+          },
+        ],
+      }),
+    ).rejects.toThrow("data_reset is server-managed");
+  });
+
   it("rejects an older change as a conflict and returns the newer stored record", async () => {
     const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
 

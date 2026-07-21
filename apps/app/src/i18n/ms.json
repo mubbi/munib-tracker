@@ -2310,8 +2310,8 @@
     "guestName": "tetamu",
     "changeAvatar": "Tukar avatar",
     "signInToSync": "Log masuk untuk menyegerak",
-    "deleteAccount": "Padam akaun & data",
-    "deleteTitle": "Padamkan akaun & data?",
+    "deleteAccount": "Padam akaun",
+    "deleteTitle": "Padam akaun?",
     "deleteMsg": "Ini memadamkan semua data penjejakan anda pada peranti ini secara kekal. Ini tidak boleh dibuat asal.",
     "deleteMsgAccount": "Ini memadamkan akaun anda dan semua data anda yang disegerakkan daripada pelayan kami secara kekal dan memadam peranti ini. Ini tidak boleh dibuat asal.",
     "deleteFailed": "Tidak dapat memadamkan akaun anda. Semak sambungan anda dan cuba lagi.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Sesi",
     "sessionHint": "Log keluar pada peranti ini. Data awan anda kekal selamat.",
     "dangerTitle": "Zon bahaya",
-    "dangerHint": "Padamkan akaun dan data tempatan anda secara kekal. Ini tidak boleh dibuat asal."
+    "dangerHint": "Tetapkan semula data aplikasi tanpa memadam akaun, atau tutup akaun anda secara kekal.",
+    "resetData": "Tetapkan semula data aplikasi",
+    "resetDataTitle": "Tetapkan semula data aplikasi?",
+    "resetDataMsg": "Ini memadamkan semua data aplikasi pada peranti ini secara kekal. Sesi tetamu anda kekal aktif. Ini tidak boleh dibuat asal.",
+    "resetDataMsgAccount": "Ini memadamkan data aplikasi pada peranti ini dan daripada penyegerakan awan secara kekal. Akaun anda kekal aktif dan dilog masuk. Ini tidak boleh dibuat asal.",
+    "resetDataConfirm": "Tetapkan semula data",
+    "resetDataFailed": "Tidak dapat menetapkan semula data aplikasi. Semak sambungan anda dan cuba lagi.",
+    "resetDataSuccess": "Data aplikasi anda telah ditetapkan semula"
   },
   "sync": {
     "title": "Cloud sinkron",

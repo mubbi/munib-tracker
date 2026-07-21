@@ -11,6 +11,7 @@ export type SyncRecordDtoEntity = typeof SyncRecordDtoEntity[keyof typeof SyncRe
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SyncRecordDtoEntity = {
+  data_reset: 'data_reset',
   prayer_logs: 'prayer_logs',
   zikr_progress: 'zikr_progress',
   qaza_entries: 'qaza_entries',

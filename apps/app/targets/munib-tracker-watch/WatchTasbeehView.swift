@@ -11,8 +11,13 @@ private let watchTasbeehModes: [(label: String, target: Int)] = [
 ]
 
 struct WatchTasbeehView: View {
+  let snapshot: WidgetSnapshotPayload?
   @State private var target: Int = 33
   @State private var crownCount: Double = 0
+
+  init(snapshot: WidgetSnapshotPayload? = nil) {
+    self.snapshot = snapshot
+  }
 
   private var count: Int { Int(crownCount.rounded()) }
   private var atLimit: Bool { target > 0 && count >= target }
@@ -52,20 +57,29 @@ struct WatchTasbeehView: View {
             handleCrownChange(oldValue: oldValue, newValue: newValue)
           }
 
-        Text(target > 0 ? "\(remaining) remaining" : "Unlimited")
+        Text(remainingLabel)
           .font(.caption2)
           .foregroundStyle(.secondary)
 
         Button(role: .destructive) {
           reset()
         } label: {
-          Label("Reset", systemImage: "arrow.counterclockwise")
+          Label(snapshot?.strings?.reset ?? "Reset", systemImage: "arrow.counterclockwise")
         }
         .font(.caption2)
       }
       .padding(.horizontal, 4)
     }
-    .navigationTitle("Tasbeeh")
+    .navigationTitle(snapshot?.strings?.tasbeeh ?? "Tasbeeh")
+    .environment(\.locale, Locale(identifier: snapshot?.locale ?? "en"))
+    .environment(\.layoutDirection, snapshot?.isRtl == true ? .rightToLeft : .leftToRight)
+  }
+
+  private var remainingLabel: String {
+    guard target > 0 else {
+      return snapshot?.strings?.tasbeehUnlimited ?? "Unlimited"
+    }
+    return "\(snapshot?.strings?.remaining ?? "Remaining"): \(remaining)"
   }
 
   private var counterDial: some View {

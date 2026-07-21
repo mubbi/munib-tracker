@@ -6,9 +6,22 @@ import {
   startLiveActivity,
   updateLiveActivity,
 } from "@/lib/live-activity/native";
+import { registerLiveActivitySchedule } from "@/lib/live-activity/register";
 import { buildLiveActivityState } from "@/lib/live-activity/state";
 
-export { isLiveActivityRunning, isLiveActivitySupported } from "@/lib/live-activity/native";
+export {
+  isLiveActivityRunning,
+  isLiveActivitySupported,
+  subscribeLiveActivityLifecycle,
+  subscribeLiveActivityPushTokens,
+} from "@/lib/live-activity/native";
+export {
+  handleLiveActivityPushToken,
+  notifyLiveActivityLifecycle,
+  registerLiveActivitySchedule,
+  rememberLiveActivitySnapshot,
+} from "@/lib/live-activity/register";
+export { buildLiveActivityPushSchedule } from "@/lib/live-activity/schedule";
 export type { LiveActivityState } from "@/lib/live-activity/state";
 export { buildLiveActivityState } from "@/lib/live-activity/state";
 
@@ -24,6 +37,9 @@ export interface SyncLiveActivityInput {
  * snapshot and the user's preference: starts it when enabled and absent,
  * refreshes it when already running, and ends it when disabled. No-ops on any
  * platform without ActivityKit support (Android, web, Expo Go, iOS < 16.1).
+ *
+ * After a local start/update, also (re)registers the ActivityKit push token
+ * schedule so phase transitions continue while the app is suspended.
  */
 export async function syncLiveActivity({
   snapshot,
@@ -34,6 +50,7 @@ export async function syncLiveActivity({
 
   if (!enabled) {
     if (isLiveActivityRunning()) await endLiveActivity();
+    await registerLiveActivitySchedule(snapshot, false);
     return;
   }
 
@@ -43,6 +60,7 @@ export async function syncLiveActivity({
   } else {
     await startLiveActivity(state);
   }
+  await registerLiveActivitySchedule(snapshot, true);
 }
 
 /** Explicitly ends the prayer Live Activity (e.g. when the user toggles it off). */

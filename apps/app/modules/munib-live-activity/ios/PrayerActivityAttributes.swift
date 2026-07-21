@@ -16,6 +16,13 @@ public struct PrayerActivityAttributes: ActivityAttributes {
     public var prayerTimeLabel: String
     public var countdownLabel: String
     public var remainingLabel: String
+    public var prepareLabel: String
+    public var actionLabel: String
+    public var actionDeepLink: String
+    public var phase: String
+    public var qiblaLabel: String
+    public var locale: String
+    public var isRtl: Bool
     public var minutesUntil: Int
     public var targetTimeMs: Double
     public var displayDate: String

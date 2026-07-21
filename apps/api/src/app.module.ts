@@ -6,6 +6,7 @@ import { AppConfigModule } from "./config/config.module";
 import { ContentReportsModule } from "./content-reports/content-reports.module";
 import { DatabaseModule } from "./database/database.module";
 import { HealthModule } from "./health/health.module";
+import { LiveActivitiesModule } from "./live-activities/live-activities.module";
 import { NotificationsModule } from "./notifications/notifications.module";
 import { OssContentFailuresModule } from "./oss-content-failures/oss-content-failures.module";
 import { SyncModule } from "./sync/sync.module";
@@ -25,6 +26,7 @@ import { VersionModule } from "./version/version.module";
     AppFeedbackModule,
     OssContentFailuresModule,
     NotificationsModule,
+    LiveActivitiesModule,
     VersionModule,
   ],
 })

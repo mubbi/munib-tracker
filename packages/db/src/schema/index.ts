@@ -7,6 +7,7 @@ export * from "./contactMessages";
 export * from "./contentReports";
 export * from "./deletedAccounts";
 export * from "./inAppNotifications";
+export * from "./liveActivityPush";
 export * from "./ossContentDownloadFailures";
 export * from "./pushTokens";
 export * from "./syncRecords";

@@ -2310,8 +2310,8 @@
     "guestName": "Mêvan",
     "changeAvatar": "Avatar biguherînin",
     "signInToSync": "Têkeve ji bo senkronîzekirinê",
-    "deleteAccount": "Hesab û daneyan jêbirin",
-    "deleteTitle": "Hesab û daneyan jê bibe?",
+    "deleteAccount": "Hesabê jê bibe",
+    "deleteTitle": "Hesab jê bibe?",
     "deleteMsg": "Ev bi domdarî hemî daneyên şopandina weya li ser vê cîhazê jê dike. Ev nayê betalkirin.",
     "deleteMsgAccount": "Ev hesabê we û hemî daneyên weya hevdemkirî ji pêşkêşkerên me bi domdarî jêdibe, û vê cîhazê paqij dike. Ev nayê betalkirin.",
     "deleteFailed": "Hesabê te nehat jêbirin. Têkiliya xwe kontrol bikin û dîsa biceribînin.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Danişîn",
     "sessionHint": "Li ser vê cîhazê derkeve. Daneyên te yên ewrê ewle dimînin.",
     "dangerTitle": "Herêma xeterê",
-    "dangerHint": "Hesab û daneyên herêmî bi domdarî jê bibe. Ev nayê vegerandin."
+    "dangerHint": "Daneyên sepane bêyî jêbirina hesabê nû ve saz bike, an jî hesabê xwe bi domdarî bigire.",
+    "resetData": "Daneyên sepane nû ve saz bike",
+    "resetDataTitle": "Daneyên sepane nû ve saz bibin?",
+    "resetDataMsg": "Ev bi domdarî hemî daneyên sepane li ser vê cîhazê jê dike. Seansa mêvan a te çalak dimîne. Ev nayê vegerandin.",
+    "resetDataMsgAccount": "Ev bi domdarî daneyên sepane li ser vê cîhazê û ji hevdemkirina ewrê jê dike. Hesabê te çalak û têketî dimîne. Ev nayê vegerandin.",
+    "resetDataConfirm": "Dane nû ve saz bike",
+    "resetDataFailed": "Daneyên sepane nehatin nûvesazkirin. Têkiliya xwe kontrol bikin û dîsa biceribînin.",
+    "resetDataSuccess": "Daneyên sepane yên te nû ve hatin sazkirin"
   },
   "sync": {
     "title": "هاوکاتکردنی هەور",

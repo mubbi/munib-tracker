@@ -2310,8 +2310,8 @@
     "guestName": "Bako",
     "changeAvatar": "Canza avatar",
     "signInToSync": "Shiga don daidaitawa",
-    "deleteAccount": "Share lissafi & bayanai",
-    "deleteTitle": "Share asusun & bayanai?",
+    "deleteAccount": "Share asusu",
+    "deleteTitle": "Share asusu?",
     "deleteMsg": "Wannan har abada yana goge duk bayanan bin diddigin ku akan wannan na'urar. Ba za a iya soke wannan ba.",
     "deleteMsgAccount": "Wannan yana share asusun ku har abada da duk bayanan da aka daidaita daga sabar mu, kuma yana goge wannan na'urar. Ba za a iya soke wannan ba.",
     "deleteFailed": "An kasa share asusun ku. Duba haɗin ku kuma sake gwadawa.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Zama",
     "sessionHint": "Fita daga wannan na'ura. Bayanan girgije sun kasance lafiya.",
     "dangerTitle": "Yankin haɗari",
-    "dangerHint": "Share asusunka da bayanan gida har abada. Ba za a iya mayar da wannan ba."
+    "dangerHint": "Sake saita bayanan app ba tare da share asusunka ba, ko rufe asusunka har abada.",
+    "resetData": "Sake saita bayanan app",
+    "resetDataTitle": "A sake saita bayanan app?",
+    "resetDataMsg": "Wannan zai goge duk bayanan app a wannan na'urar har abada. Zaman baƙo zai ci gaba da aiki. Ba za a iya mayar da wannan ba.",
+    "resetDataMsgAccount": "Wannan zai goge bayanan app a wannan na'urar da kuma daga daidaitawar girgije har abada. Asusunka zai ci gaba da aiki kuma shiga. Ba za a iya mayar da wannan ba.",
+    "resetDataConfirm": "Sake saita bayanai",
+    "resetDataFailed": "An kasa sake saita bayanan app. Duba haɗin ku kuma sake gwadawa.",
+    "resetDataSuccess": "An sake saita bayanan app ɗinku"
   },
   "sync": {
     "title": "Cloud daidaitawa",

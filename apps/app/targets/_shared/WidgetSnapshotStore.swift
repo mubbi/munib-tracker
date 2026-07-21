@@ -25,6 +25,19 @@ struct WidgetSectionPayload: Decodable {
 }
 
 struct WidgetSnapshotPayload: Decodable {
+  struct SurfaceStrings: Decodable {
+    let prepareSalah: String?
+    let qibla: String?
+    let markSalah: String?
+    let openAppToSync: String?
+    let setLocationHint: String?
+    let tasbeeh: String?
+    let reset: String?
+    let done: String?
+    let remaining: String?
+    let tasbeehUnlimited: String?
+  }
+
   struct ScheduleRow: Decodable {
     let id: String
     let name: String
@@ -65,6 +78,7 @@ struct WidgetSnapshotPayload: Decodable {
     let ctaLabel: String?
     let accessibilityLabel: String?
     let rows: [ScheduleRow]?
+    let markLabel: String?
   }
 
   struct ProgressSection: Decodable {
@@ -220,6 +234,7 @@ struct WidgetSnapshotPayload: Decodable {
   let locationDenied: Bool?
   let locale: String?
   let isRtl: Bool?
+  let strings: SurfaceStrings?
   let theme: WidgetThemePayload?
   let nextPrayer: NextPrayerSection?
   let schedule: ScheduleSection?

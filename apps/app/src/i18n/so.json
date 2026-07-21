@@ -2310,8 +2310,8 @@
     "guestName": "Marti",
     "changeAvatar": "Chnge vtr",
     "signInToSync": "gl u sync",
-    "deleteAccount": "tirtir koku & dt",
-    "deleteTitle": "tirtir koku & dt?",
+    "deleteAccount": "Tirtir akoonka",
+    "deleteTitle": "Tirtir akoonka?",
     "deleteMsg": "Tani waxay si joogto ah u tirtiraysaa dhammaan xogtaada qalabkan. Tan lama celin karo.",
     "deleteMsgAccount": "Tani waxay si joogto ah u tirtiraysaa akoonkaaga iyo dhammaan xogtaada la isku dhejiyay ee ka timi serfaradayada, oo waxay tirtirtaa qalabkan. Tan lama celin karo.",
     "deleteFailed": "Ma tirtiri karo akoonkaaga Hubi xidhiidhkaaga oo isku day mar kale.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Kalfadhi",
     "sessionHint": "Ka bax aaladdan. Xogtaada daruuriga ah way ammaan tahay.",
     "dangerTitle": "Aagga khatarta",
-    "dangerHint": "Si joogto ah u tirtiro akoonkaaga iyo xogta maxalliga ah. Lama soo celin karo."
+    "dangerHint": "Dib u deji xogta abka adigoon tirtirin akoonkaaga, ama si joogto ah u xir akoonkaaga.",
+    "resetData": "Dib u deji xogta abka",
+    "resetDataTitle": "Dib u deji xogta abka?",
+    "resetDataMsg": "Tani waxay si joogto ah u tirtiraysaa dhammaan xogta abka ee qalabkan. Fadhiagaaga martida wuu firfircoonaanayaa. Lama soo celin karo.",
+    "resetDataMsgAccount": "Tani waxay si joogto ah u tirtiraysaa xogta abka ee qalabkan iyo isku hagaajinta daruuriga. Akoonkaagu wuu firfircoonaanayaa oo wuu soo galay. Lama soo celin karo.",
+    "resetDataConfirm": "Dib u deji xogta",
+    "resetDataFailed": "Lama dib u dejin karin xogta abka. Hubi xidhiidhkaaga oo isku day mar kale.",
+    "resetDataSuccess": "Xogta abkaaga waa la dib u dejiyay"
   },
   "sync": {
     "title": "Isku dubaridka daruuraha",

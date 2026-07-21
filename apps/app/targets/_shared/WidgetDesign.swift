@@ -77,9 +77,10 @@ extension View {
   }
 
   @ViewBuilder
-  func widgetRtl(_ isRtl: Bool?) -> some View {
-    if let isRtl {
-      environment(\.layoutDirection, isRtl ? .rightToLeft : .leftToRight)
+  func widgetLocale(_ locale: String?, isRtl: Bool?) -> some View {
+    if let locale, let isRtl {
+      environment(\.locale, Locale(identifier: locale))
+        .environment(\.layoutDirection, isRtl ? .rightToLeft : .leftToRight)
     } else {
       self
     }
@@ -409,13 +410,10 @@ struct MarkNamedSalahIntent: AppIntent {
 
   func perform() async throws -> some IntentResult {
     guard !prayerId.isEmpty else { return .result() }
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions = [.withFullDate]
-    let date = String(formatter.string(from: Date()).prefix(10))
     let payload: [String: Any] = [
       "type": "mark-prayer",
       "prayerId": prayerId,
-      "date": date,
+      "date": ExternalCommandQueue.localDateString(),
       "source": "widget",
     ]
     if let data = try? JSONSerialization.data(withJSONObject: payload),

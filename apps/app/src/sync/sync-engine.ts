@@ -28,6 +28,7 @@ import {
   filterRemotePreferencesPatch,
   hasPendingPreferenceChanges,
 } from "@/lib/sync/preferences-cloud-sync";
+import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import {
   applyRemoteCustomTasbeeh,
   type CustomTasbeeh,
@@ -98,9 +99,22 @@ export async function readSyncMetadata(): Promise<SyncMetadata> {
  * applied records don't get re-stamped (which would cause sync ping-pong).
  */
 async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
+  const resetMarker = records
+    .filter((record) => (record.entity as string) === "data_reset")
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0];
+  if (resetMarker) {
+    await wipeLocalDeviceData();
+  }
+  const applicableRecords = resetMarker
+    ? records.filter(
+        (record) =>
+          (record.entity as string) !== "data_reset" && record.updatedAt > resetMarker.updatedAt,
+      )
+    : records;
+
   const { applyRemoteBlob, isBlobEntity, reloadBlobStores } = await blobSync();
   const reloadBlobEntities = new Set<string>();
-  for (const record of records) {
+  for (const record of applicableRecords) {
     const data = record.data as Record<string, unknown>;
     // Generic blob entities (fasting, learning progress, qaza schedule, …) are
     // applied through the content-hash path and their stores reloaded in bulk.

@@ -2310,8 +2310,8 @@
     "guestName": "Misafir",
     "changeAvatar": "Avatar değiştir",
     "signInToSync": "Senkronize etmek için giriş yapın",
-    "deleteAccount": "account & data Sil",
-    "deleteTitle": "account & data? Sil",
+    "deleteAccount": "Hesabı sil",
+    "deleteTitle": "Hesap silinsin mi?",
     "deleteMsg": "Bu kalıcı erases tüm sizin tracking data  bu cihaz. Bu cannot be undone.",
     "deleteMsgAccount": "Bu kalıcı deletes sizin account ve tüm sizin synced data den our servers, ve wipes bu cihaz. Bu cannot be undone.",
     "deleteFailed": "Couldn't sil sizin account. Check sizin connection ve try again.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Oturum",
     "sessionHint": "Bu cihazdan çıkış yapın. Bulut verileriniz güvende kalır.",
     "dangerTitle": "Tehlikeli bölge",
-    "dangerHint": "Hesabınızı ve yerel verilerinizi kalıcı olarak silin. Bu geri alınamaz."
+    "dangerHint": "Hesabınızı silmeden uygulama verilerini sıfırlayın veya hesabınızı kalıcı olarak kapatın.",
+    "resetData": "Uygulama verilerini sıfırla",
+    "resetDataTitle": "Uygulama verileri sıfırlansın mı?",
+    "resetDataMsg": "Bu, bu cihazdaki tüm uygulama verilerini kalıcı olarak siler. Misafir oturumunuz aktif kalır. Bu geri alınamaz.",
+    "resetDataMsgAccount": "Bu, bu cihazdaki ve bulut senkronizasyonundaki uygulama verilerini kalıcı olarak siler. Hesabınız aktif ve oturum açık kalır. Bu geri alınamaz.",
+    "resetDataConfirm": "Verileri sıfırla",
+    "resetDataFailed": "Uygulama verileriniz sıfırlanamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+    "resetDataSuccess": "Uygulama verileriniz sıfırlandı"
   },
   "sync": {
     "title": "Bulut senkronizasyonu",

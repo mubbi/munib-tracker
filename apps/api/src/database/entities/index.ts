@@ -493,3 +493,100 @@ export class PushTokenEntity {
   @UpdateDateColumn({ type: TIMESTAMP_TYPE })
   updatedAt!: Date;
 }
+
+/** Per-activity APNs token. Tokens are encrypted; hashes support rotation/upsert lookup. */
+@Entity("live_activity_push_tokens")
+@Index("live_activity_push_tokens_user_idx", ["userId"])
+@Index("live_activity_push_tokens_expires_idx", ["status", "expiresAt"])
+@Index("live_activity_push_tokens_activity_unique", ["activityId"], { unique: true })
+@Index("live_activity_push_tokens_hash_unique", ["tokenHash"], { unique: true })
+export class LiveActivityPushTokenEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column("uuid")
+  userId!: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user!: UserEntity;
+
+  @Column({ type: "varchar", length: 128 })
+  activityId!: string;
+
+  @Column({ type: "varchar", length: 64 })
+  tokenHash!: string;
+
+  @Column({ type: "text" })
+  tokenCiphertext!: string;
+
+  @Column({ type: "varchar", length: 16 })
+  apnsEnvironment!: "sandbox" | "production";
+
+  @Column({ type: "varchar", length: 16, default: "active" })
+  status!: "active" | "ended" | "invalid" | "expired";
+
+  @Column({ type: TIMESTAMP_TYPE })
+  expiresAt!: Date;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  lastPushAt?: Date | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: TIMESTAMP_TYPE })
+  updatedAt!: Date;
+}
+
+/** Durable source of truth for each scheduled ActivityKit content-state update. */
+@Entity("live_activity_push_jobs")
+@Index("live_activity_push_jobs_due_idx", ["status", "executeAt"])
+@Index("live_activity_push_jobs_activity_idx", ["activityTokenId"])
+@Index("live_activity_push_jobs_phase_unique", ["activityTokenId", "phase", "executeAt"], {
+  unique: true,
+})
+export class LiveActivityPushJobEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column()
+  activityTokenId!: number;
+
+  @ManyToOne(() => LiveActivityPushTokenEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "activityTokenId" })
+  activityToken!: LiveActivityPushTokenEntity;
+
+  @Column({ type: "varchar", length: 32 })
+  phase!: string;
+
+  @Column({ type: TIMESTAMP_TYPE })
+  executeAt!: Date;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  staleAt?: Date | null;
+
+  @Column({ type: "text" })
+  contentStateJson!: string;
+
+  @Column({ type: "varchar", length: 16, default: "pending" })
+  status!: "pending" | "processing" | "delivered" | "failed" | "cancelled";
+
+  @Column({ type: "text", nullable: true })
+  qstashMessageId?: string | null;
+
+  @Column({ type: "integer", default: 0 })
+  attempts!: number;
+
+  @Column({ type: "text", nullable: true })
+  lastError?: string | null;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  deliveredAt?: Date | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: TIMESTAMP_TYPE })
+  updatedAt!: Date;
+}

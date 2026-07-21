@@ -373,6 +373,37 @@
         ]
       }
     },
+    "/api/v1/auth/reset-app-data": {
+      "post": {
+        "description": "Clears synced app data and user media while preserving the account, OAuth identity, push tokens, and sessions. Body confirmation must be the literal \"RESET\".",
+        "operationId": "AuthController_resetAppData",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetAppDataDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "App data reset; account and session preserved"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Reset app data without deleting the account",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
     "/api/v1/auth/delete-account": {
       "post": {
         "description": "Irreversible closure: wipes app data, revokes sessions, clears OAuth identity, and tombstones the email. Body must include confirmation set to the literal \"DELETE\", a primaryReason code, and optional details (max 500 characters).",
@@ -1089,6 +1120,129 @@
         ]
       }
     },
+    "/api/v1/live-activities": {
+      "put": {
+        "operationId": "LiveActivitiesController_upsert",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertLiveActivityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiveActivityRegistrationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Register an ActivityKit push token and schedule phase boundary updates",
+        "tags": [
+          "live-activities"
+        ]
+      }
+    },
+    "/api/v1/live-activities/{activityId}/lifecycle": {
+      "put": {
+        "operationId": "LiveActivitiesController_lifecycle",
+        "parameters": [
+          {
+            "name": "activityId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LiveActivityLifecycleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark a Live Activity as ended/dismissed and cancel jobs",
+        "tags": [
+          "live-activities"
+        ]
+      }
+    },
+    "/api/v1/live-activities/internal/deliver": {
+      "post": {
+        "operationId": "LiveActivitiesController_deliver",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchLiveActivityJobDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "QStash callback: deliver one scheduled ActivityKit update",
+        "tags": [
+          "live-activities"
+        ]
+      }
+    },
+    "/api/v1/live-activities/internal/dispatch-due": {
+      "post": {
+        "operationId": "LiveActivitiesController_dispatchDue",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiveActivityDispatchResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Cron fallback: deliver due ActivityKit jobs and clean expired tokens",
+        "tags": [
+          "live-activities"
+        ]
+      }
+    },
     "/": {
       "get": {
         "operationId": "RootController_getRoot",
@@ -1312,6 +1466,22 @@
           "returnUrl"
         ]
       },
+      "ResetAppDataDto": {
+        "type": "object",
+        "properties": {
+          "confirmation": {
+            "type": "string",
+            "description": "Must be the literal string \"RESET\" to confirm the destructive data reset",
+            "enum": [
+              "RESET"
+            ],
+            "example": "RESET"
+          }
+        },
+        "required": [
+          "confirmation"
+        ]
+      },
       "DeleteAccountDto": {
         "type": "object",
         "properties": {
@@ -1351,6 +1521,7 @@
           "entity": {
             "type": "string",
             "enum": [
+              "data_reset",
               "prayer_logs",
               "zikr_progress",
               "qaza_entries",
@@ -2056,6 +2227,125 @@
         },
         "required": [
           "action"
+        ]
+      },
+      "LiveActivityScheduledUpdateDto": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string",
+            "example": "asr-mark"
+          },
+          "executeAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "staleAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "contentState": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "phase",
+          "executeAt",
+          "contentState"
+        ]
+      },
+      "UpsertLiveActivityDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "string"
+          },
+          "pushToken": {
+            "type": "string",
+            "description": "ActivityKit per-activity APNs token as lowercase hex"
+          },
+          "environment": {
+            "type": "string",
+            "enum": [
+              "sandbox",
+              "production"
+            ]
+          },
+          "updates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LiveActivityScheduledUpdateDto"
+            }
+          }
+        },
+        "required": [
+          "activityId",
+          "pushToken",
+          "environment",
+          "updates"
+        ]
+      },
+      "LiveActivityRegistrationResponseDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "scheduled": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "activityId",
+          "expiresAt",
+          "scheduled"
+        ]
+      },
+      "LiveActivityLifecycleDto": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "ended",
+              "dismissed"
+            ]
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "DispatchLiveActivityJobDto": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "jobId"
+        ]
+      },
+      "LiveActivityDispatchResponseDto": {
+        "type": "object",
+        "properties": {
+          "processed": {
+            "type": "number"
+          },
+          "cleaned": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "processed",
+          "cleaned"
         ]
       }
     }

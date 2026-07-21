@@ -2310,8 +2310,8 @@
     "guestName": "Tamu",
     "changeAvatar": "Ubah avatar",
     "signInToSync": "Sign di ke sinkron",
-    "deleteAccount": "Hapus account & data",
-    "deleteTitle": "Hapus account & data?",
+    "deleteAccount": "Hapus akun",
+    "deleteTitle": "Hapus akun?",
     "deleteMsg": "Ini permanen erases semua Anda tracking data pada ini perangkat. Ini cannot be undone.",
     "deleteMsgAccount": "Ini permanen deletes Anda akun dan semua Anda synced data dari our servers, dan wipes ini perangkat. Ini cannot be undone.",
     "deleteFailed": "Couldn't hapus Anda akun. Check Anda connection dan try again.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Sesi",
     "sessionHint": "Keluar di perangkat ini. Data cloud Anda tetap aman.",
     "dangerTitle": "Zona bahaya",
-    "dangerHint": "Hapus permanen akun dan data lokal Anda. Ini tidak dapat dibatalkan."
+    "dangerHint": "Atur ulang data aplikasi tanpa menghapus akun, atau tutup akun Anda secara permanen.",
+    "resetData": "Atur ulang data aplikasi",
+    "resetDataTitle": "Atur ulang data aplikasi?",
+    "resetDataMsg": "Ini menghapus permanen semua data aplikasi di perangkat ini. Sesi tamu Anda tetap aktif. Ini tidak dapat dibatalkan.",
+    "resetDataMsgAccount": "Ini menghapus permanen data aplikasi di perangkat ini dan dari sinkronisasi cloud. Akun Anda tetap aktif dan masuk. Ini tidak dapat dibatalkan.",
+    "resetDataConfirm": "Atur ulang data",
+    "resetDataFailed": "Tidak dapat mengatur ulang data aplikasi. Periksa koneksi Anda dan coba lagi.",
+    "resetDataSuccess": "Data aplikasi Anda telah diatur ulang"
   },
   "sync": {
     "title": "Cloud sinkron",

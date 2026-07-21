@@ -1,8 +1,15 @@
 import type { NotificationResponse } from "expo-notifications";
 import { type Href, useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { AppState, Platform } from "react-native";
 import { maybeOpenReviewFunnelFromNotificationData } from "@/features/reviews/lib/reviewNotificationTap";
+import {
+  handleLiveActivityPushToken,
+  notifyLiveActivityLifecycle,
+  subscribeLiveActivityLifecycle,
+  subscribeLiveActivityPushTokens,
+} from "@/lib/live-activity";
 import { hasOutstandingQazaDebt, isQazaReminderId } from "@/lib/notifications/build-reminders";
 import { isWeb } from "@/lib/notifications/platform";
 import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
@@ -43,6 +50,8 @@ function shouldDeliverReminder(reminderId: string): boolean {
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const ready = usePreferencesReady();
+  const { i18n } = useTranslation();
+  const activeLocale = i18n.resolvedLanguage ?? i18n.language;
   const { session, isAuthenticated } = useAuth();
   const { deliver } = useInAppNotifications();
   const notificationPrefs = useStore(preferencesStore, (s) => s.prefs.notificationPrefs);
@@ -58,13 +67,30 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
+    if (!activeLocale) return;
     void configureNotifications();
-  }, []);
+  }, [activeLocale]);
 
   useEffect(() => {
     if (!isAuthenticated || !session?.accessToken) return;
     void registerExpoPushTokenWithApi(session.accessToken);
   }, [isAuthenticated, session?.accessToken]);
+
+  useEffect(() => {
+    if (Platform.OS !== "ios") return;
+    const unsubscribeToken = subscribeLiveActivityPushTokens((event) => {
+      handleLiveActivityPushToken(event);
+    });
+    const unsubscribeLifecycle = subscribeLiveActivityLifecycle((event) => {
+      if (event.state === "ended" || event.state === "dismissed") {
+        void notifyLiveActivityLifecycle(event.activityId, event.state);
+      }
+    });
+    return () => {
+      unsubscribeToken();
+      unsubscribeLifecycle();
+    };
+  }, []);
 
   useEffect(() => {
     if (!isWeb) return;
@@ -102,7 +128,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   }, [deliver, router]);
 
   useEffect(() => {
-    if (!ready || !locationReady) return;
+    if (!activeLocale || !ready || !locationReady) return;
     const prefs = preferencesStore.getState().prefs;
     void rescheduleAll(
       { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime },
@@ -115,10 +141,12 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     prayerAlerts,
     prayerReminderOffsets,
     bedtime,
+    activeLocale,
     location,
   ]);
 
   useEffect(() => {
+    if (!activeLocale) return;
     const sub = AppState.addEventListener("change", (status) => {
       if (status !== "active" || !ready || !locationReady) return;
       const prefs = preferencesStore.getState().prefs;
@@ -138,6 +166,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     prayerAlerts,
     prayerReminderOffsets,
     bedtime,
+    activeLocale,
     location,
     isAuthenticated,
     session?.accessToken,

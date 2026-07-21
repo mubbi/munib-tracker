@@ -12,6 +12,7 @@ export enum AccountClosureReason {
 }
 
 export const ACCOUNT_CLOSURE_CONFIRMATION = "DELETE" as const;
+export const APP_DATA_RESET_CONFIRMATION = "RESET" as const;
 
 export enum AuthProvider {
   Google = "google",
@@ -258,4 +259,14 @@ export class DeleteAccountDto {
   @IsString()
   @MaxLength(500)
   details?: string;
+}
+
+export class ResetAppDataDto {
+  @ApiProperty({
+    description: 'Must be the literal string "RESET" to confirm the destructive data reset',
+    enum: [APP_DATA_RESET_CONFIRMATION],
+    example: APP_DATA_RESET_CONFIRMATION,
+  })
+  @IsIn([APP_DATA_RESET_CONFIRMATION])
+  confirmation!: typeof APP_DATA_RESET_CONFIRMATION;
 }

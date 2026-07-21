@@ -48,6 +48,7 @@ pnpm generate:api
 | `oss-content-failures` | On-demand OSS CDN download failures from the Expo app |
 | `version` | Soft/hard update policy (`app_versions`) |
 | `notifications` | Product inbox + push tokens for admin broadcasts (`/notifications/*`); review-reactivation dedupe |
+| `live-activities` | ActivityKit token registration + scheduled phase updates (`/live-activities/*`); QStash/APNs delivery via `@munib-tracker/live-activity-delivery` |
 
 ## Environment
 
@@ -68,8 +69,9 @@ Key variables:
 | Facebook | `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` |
 | Redis (optional) | `REDIS_URL`, `REDIS_KEY_PREFIX`, optional `REDIS_TLS` — rate limits, app-version cache; graceful degrade when unset. Redis Cloud: paste console URI as-is (`redis://` if TLS off, `rediss://` if on) |
 | Web Push | `VAPID_PUBLIC_KEY` (optional; exposed at `GET /notifications/vapid-public-key`) |
+| ActivityKit push | `APNS_TEAM_ID`, `APNS_KEY_ID`, `APNS_PRIVATE_KEY`, `APNS_BUNDLE_ID`; `LIVE_ACTIVITY_CRON_SECRET`; optional `QSTASH_*`, `API_PUBLIC_URL`, `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` — see [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md) |
 
-Full product OAuth console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md). Admin ops (separate app, same DB): [`docs/ADMIN.md`](../../docs/ADMIN.md) · [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md).
+Full product OAuth console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md). Live Activity remote push (QStash/cron/Fly): [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md). Admin ops (separate app, same DB): [`docs/ADMIN.md`](../../docs/ADMIN.md) · [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md).
 
 **Vercel:** project root `apps/api` — see `vercel.json` (`framework: null`, `outputDirectory: "."` — functions-only, no static `public/`). Do not use NestJS zero-config (loads workspace `.ts` exports at runtime). Serverless entry is `api/index.js` → webpack `dist/vercel-handler.js`, which forwards Vercel `(req, res)` to the Nest Express instance (do not use `serverless-http` — it targets AWS Lambda and never writes the Node response).
 

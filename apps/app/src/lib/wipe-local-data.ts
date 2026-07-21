@@ -10,8 +10,8 @@ import { clearRecentSearches } from "@/lib/search-history";
 import { reloadAllStores } from "@/stores/reload-all-stores";
 
 /**
- * Full local wipe used by “Delete account & data” (and guest wipe). Clears every
- * RESET_KEYS entry plus ancillary storage that lives outside `DB_KEYS`
+ * Full local wipe used by account deletion and “Reset app data”. It preserves
+ * the auth session while clearing every RESET_KEYS entry plus ancillary storage that lives outside `DB_KEYS`
  * (downloaded files, PIN, search history, in-app inbox, widget snapshot).
  *
  * Callers that own React state for PIN / inbox should also reset those providers

@@ -3,6 +3,17 @@ import { Platform } from "react-native";
 
 import type { LiveActivityState } from "@/lib/live-activity/state";
 
+export type LiveActivityPushTokenEvent = {
+  activityId: string;
+  pushToken: string;
+  environment: "sandbox" | "production";
+};
+
+export type LiveActivityLifecycleEvent = {
+  activityId: string;
+  state: "active" | "stale" | "ended" | "dismissed" | "unknown";
+};
+
 /**
  * Optional native interface backed by the local Expo module in
  * `modules/munib-live-activity` (iOS ActivityKit). It is `null` on Android, web,
@@ -20,6 +31,14 @@ interface LiveActivityNativeModule {
   update(state: LiveActivityState): Promise<void>;
   /** Ends the running prayer Live Activity, if any. */
   end(): Promise<void>;
+  addListener?(
+    event: "onPushToken",
+    listener: (event: LiveActivityPushTokenEvent) => void,
+  ): { remove: () => void };
+  addListener?(
+    event: "onActivityState",
+    listener: (event: LiveActivityLifecycleEvent) => void,
+  ): { remove: () => void };
 }
 
 const nativeModule =
@@ -69,5 +88,29 @@ export async function endLiveActivity(): Promise<void> {
     await nativeModule.end();
   } catch {
     /* Ignore — activity may already be gone. */
+  }
+}
+
+export function subscribeLiveActivityPushTokens(
+  listener: (event: LiveActivityPushTokenEvent) => void,
+): () => void {
+  if (!nativeModule?.addListener) return () => {};
+  try {
+    const subscription = nativeModule.addListener("onPushToken", listener);
+    return () => subscription.remove();
+  } catch {
+    return () => {};
+  }
+}
+
+export function subscribeLiveActivityLifecycle(
+  listener: (event: LiveActivityLifecycleEvent) => void,
+): () => void {
+  if (!nativeModule?.addListener) return () => {};
+  try {
+    const subscription = nativeModule.addListener("onActivityState", listener);
+    return () => subscription.remove();
+  } catch {
+    return () => {};
   }
 }

@@ -21,6 +21,9 @@ import {
 export const MAX_SYNC_PUSH_CHANGES = 500;
 
 export const SYNC_ENTITIES = [
+  // Server-managed reset marker. Clients pull this to clear stale local data on
+  // every signed-in device; SyncService rejects client pushes for this entity.
+  "data_reset",
   "prayer_logs",
   "zikr_progress",
   "qaza_entries",

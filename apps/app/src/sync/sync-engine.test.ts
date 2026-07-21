@@ -22,6 +22,7 @@ import {
   hasPendingPreferenceChanges,
   markPreferencesDirty,
 } from "@/lib/sync/preferences-cloud-sync";
+import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import { readCustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
 import { applyRemoteDuaFavorites, readDuaFavoritesBlob } from "@/stores/dua-favorites-store";
 
@@ -38,6 +39,10 @@ jest.mock("@/lib/cloud-api-reload-gate", () => ({
   isAppReloadInProgress: jest.fn(() => false),
 }));
 
+jest.mock("@/lib/wipe-local-data", () => ({
+  wipeLocalDeviceData: jest.fn(async () => undefined),
+}));
+
 // Jest can't `import()` without --experimental-vm-modules; inject blob-sync after
 // mocks so suite-level mocks still apply (do not require sync-engine from jest.setup).
 __setBlobSyncModuleForTests(require("./blob-sync") as typeof import("./blob-sync"));
@@ -46,6 +51,9 @@ const mockPush = syncPush as jest.MockedFunction<typeof syncPush>;
 const mockPull = syncPull as jest.MockedFunction<typeof syncPull>;
 const mockReloadInProgress = isAppReloadInProgress as jest.MockedFunction<
   typeof isAppReloadInProgress
+>;
+const mockWipeLocalDeviceData = wipeLocalDeviceData as jest.MockedFunction<
+  typeof wipeLocalDeviceData
 >;
 
 const user: StoredSession = {
@@ -68,6 +76,7 @@ beforeEach(async () => {
   clearPreferencesDirty();
   mockPush.mockReset();
   mockPull.mockReset();
+  mockWipeLocalDeviceData.mockClear();
   mockPush.mockResolvedValue(pushResult());
   mockPull.mockResolvedValue(pullResult());
 });
@@ -208,6 +217,33 @@ describe("runSync", () => {
     await runSync(user);
 
     expect(await PrayerRepository.getLog("asr", "2026-07-03")).toBeUndefined();
+  });
+
+  it("wipes stale local data when a server reset marker is pulled", async () => {
+    await PrayerRepository.upsertLog({
+      id: "p",
+      prayerId: "maghrib",
+      date: "2026-07-03",
+      status: "completed",
+      updatedAt: "2026-07-03T19:00:00.000Z",
+      source: "manual",
+    });
+    mockPull.mockResolvedValue(
+      pullResult({
+        changes: [
+          {
+            entity: "data_reset",
+            id: "data_reset",
+            data: { resetAt: "2026-07-04T00:00:00.000Z" },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+        ],
+      }),
+    );
+
+    await runSync(user);
+
+    expect(mockWipeLocalDeviceData).toHaveBeenCalledTimes(1);
   });
 
   it("applies conflict records returned by push", async () => {

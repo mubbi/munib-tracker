@@ -44,6 +44,10 @@ describe("buildLiveActivityState", () => {
     expect(state.prayerTime).toBe(snapshot.nextPrayer.prayerTime);
     expect(state.prayerTimeLabel).toBe(snapshot.nextPrayer.prayerTimeLabel);
     expect(state.remainingLabel).toBe("Remaining");
+    expect(state.prepareLabel).toBe("Prepare");
+    expect(state.qiblaLabel).toBe("Qibla");
+    expect(state.locale).toBe("en");
+    expect(state.isRtl).toBe(false);
     expect(state.minutesUntil).toBe(Math.round(snapshot.nextPrayer.minutesUntil));
     expect(state.progressLabel).toBe("3/5");
     expect(state.progressPercent).toBe(60);
@@ -57,6 +61,21 @@ describe("buildLiveActivityState", () => {
 
     expect(state.targetTimeMs).toBe(snapshot.nextPrayer.targetTimeMs);
     expect(state.targetTimeMs).toBeGreaterThan(0);
+  });
+
+  it("uses app-selected locale labels and direction for native controls", () => {
+    const snapshot = makeSnapshot();
+    snapshot.locale = "ur";
+    snapshot.isRtl = true;
+    snapshot.strings.prepareSalah = "تیاری";
+    snapshot.strings.qibla = "قبلہ";
+
+    const state = buildLiveActivityState(snapshot);
+
+    expect(state.prepareLabel).toBe("تیاری");
+    expect(state.qiblaLabel).toBe("قبلہ");
+    expect(state.locale).toBe("ur");
+    expect(state.isRtl).toBe(true);
   });
 
   it("formats prayer time labels with the user's 12-hour preference", () => {
@@ -74,5 +93,62 @@ describe("buildLiveActivityState", () => {
 
     expect(state.locationDenied).toBe(true);
     expect(state.deepLink).toContain("location");
+  });
+
+  it("keeps the current Salah visible with a mark action for its first 15 minutes", () => {
+    const snapshot = makeSnapshot();
+    const currentAt = new Date("2026-07-06T09:00:00.000Z").getTime();
+    snapshot.nextPrayer.currentPrayerId = "asr";
+    snapshot.nextPrayer.currentPrayerName = "Asr";
+    snapshot.nextPrayer.currentPrayerTime = "14:00";
+    snapshot.nextPrayer.currentPrayerTimeLabel = "at 14:00";
+    snapshot.nextPrayer.currentPrayerAtMs = currentAt;
+    const currentRow = snapshot.schedule.rows.find((row) => row.id === "asr");
+    expect(currentRow).toBeDefined();
+    if (currentRow) currentRow.status = "pending";
+
+    const state = buildLiveActivityState(snapshot, new Date(currentAt + 5 * 60_000));
+
+    expect(state.phase).toBe("markSalah");
+    expect(state.prayerId).toBe("asr");
+    expect(state.actionLabel).toBe("Mark Salah");
+    expect(state.actionDeepLink).toContain("mark-current");
+  });
+
+  it("switches to after-Salah adhkar when marked or after 15 minutes", () => {
+    const snapshot = makeSnapshot();
+    const currentAt = new Date("2026-07-06T09:00:00.000Z").getTime();
+    snapshot.nextPrayer.currentPrayerId = "asr";
+    snapshot.nextPrayer.currentPrayerName = "Asr";
+    snapshot.nextPrayer.currentPrayerTime = "14:00";
+    snapshot.nextPrayer.currentPrayerTimeLabel = "at 14:00";
+    snapshot.nextPrayer.currentPrayerAtMs = currentAt;
+    const currentRow = snapshot.schedule.rows.find((row) => row.id === "asr");
+    expect(currentRow).toBeDefined();
+    if (currentRow) currentRow.status = "completed";
+
+    const marked = buildLiveActivityState(snapshot, new Date(currentAt + 5 * 60_000));
+    if (currentRow) currentRow.status = "pending";
+    const elapsed = buildLiveActivityState(snapshot, new Date(currentAt + 20 * 60_000));
+
+    expect(marked.phase).toBe("afterSalah");
+    expect(elapsed.phase).toBe("afterSalah");
+    expect(marked.actionDeepLink).toContain("zikr/after_prayer");
+  });
+
+  it("resumes the upcoming Salah countdown after 30 minutes", () => {
+    const snapshot = makeSnapshot();
+    const currentAt = new Date("2026-07-06T09:00:00.000Z").getTime();
+    snapshot.nextPrayer.currentPrayerId = "asr";
+    snapshot.nextPrayer.currentPrayerName = "Asr";
+    snapshot.nextPrayer.currentPrayerTime = "14:00";
+    snapshot.nextPrayer.currentPrayerTimeLabel = "at 14:00";
+    snapshot.nextPrayer.currentPrayerAtMs = currentAt;
+
+    const state = buildLiveActivityState(snapshot, new Date(currentAt + 30 * 60_000));
+
+    expect(state.phase).toBe("upcoming");
+    expect(state.prayerId).toBe(snapshot.nextPrayer.prayerId);
+    expect(state.actionLabel).toBe("Prepare");
   });
 });

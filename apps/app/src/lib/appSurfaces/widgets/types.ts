@@ -26,6 +26,21 @@ export type WidgetScheduleRow = {
   statusLabel: string;
 };
 
+/** App-locale strings consumed by native surfaces that render outside React. */
+export type WidgetSurfaceStrings = {
+  prepareSalah: string;
+  afterSalahAdhkar: string;
+  qibla: string;
+  markSalah: string;
+  openAppToSync: string;
+  setLocationHint: string;
+  tasbeeh: string;
+  reset: string;
+  done: string;
+  remaining: string;
+  tasbeehUnlimited: string;
+};
+
 export type WidgetSectionBase = {
   title: string;
   summary: string;
@@ -122,6 +137,8 @@ export type WidgetSnapshot = {
   locale: string;
   /** True when the app UI locale is RTL (ar/ur/fa/ps/ku). */
   isRtl: boolean;
+  /** Labels for native-only controls, resolved with the in-app locale. */
+  strings: WidgetSurfaceStrings;
   theme: WidgetThemeSnapshot;
   nextPrayer: WidgetSectionBase & {
     prayerId: string;
@@ -135,6 +152,12 @@ export type WidgetSnapshot = {
     minutesUntil: number;
     /** Exact next-prayer instant (epoch ms) for ActivityKit `Text(timerInterval:)`. */
     targetTimeMs: number;
+    /** Latest prayer marker that has begun, used by time-aware native surfaces. */
+    currentPrayerId: string;
+    currentPrayerName: string;
+    currentPrayerTime: string;
+    currentPrayerTimeLabel: string;
+    currentPrayerAtMs: number;
     displayDate: string;
     location: string;
     /** Next-after-next Salah for medium layouts. */
@@ -210,6 +233,19 @@ export function emptyWidgetSnapshot(): WidgetSnapshot {
     locationDenied: false,
     locale: "en",
     isRtl: false,
+    strings: {
+      prepareSalah: i18n.t("widgets.prepareSalah", "Prepare"),
+      afterSalahAdhkar: i18n.t("zikrCat.after_prayer", "After Salah"),
+      qibla: i18n.t("widgets.qibla", "Qibla"),
+      markSalah: i18n.t("widgets.markSalah", "Mark Salah"),
+      openAppToSync,
+      setLocationHint: i18n.t("widgets.setLocationHint", "Open the app to set your location"),
+      tasbeeh: i18n.t("widgets.tasbeeh", "Tasbeeh"),
+      reset: i18n.t("common.reset", "Reset"),
+      done: i18n.t("widgets.done", "Done"),
+      remaining: i18n.t("widgets.remaining", "Remaining"),
+      tasbeehUnlimited: i18n.t("widgets.tasbeehUnlimited", "Unlimited count"),
+    },
     theme: DEFAULT_THEME,
     nextPrayer: {
       ...emptySection({
@@ -226,6 +262,11 @@ export function emptyWidgetSnapshot(): WidgetSnapshot {
       remainingLabel: i18n.t("widgets.remaining", "Remaining"),
       minutesUntil: 15,
       targetTimeMs: 0,
+      currentPrayerId: "",
+      currentPrayerName: "",
+      currentPrayerTime: "",
+      currentPrayerTimeLabel: "",
+      currentPrayerAtMs: 0,
       displayDate: "",
       location: "",
       followingName: "",

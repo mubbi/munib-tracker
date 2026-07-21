@@ -141,8 +141,11 @@ class MunibWearTileService : TileService() {
     }
 
     val snapshot = readSnapshot(applicationContext)
+    val strings = snapshot?.optJSONObject("strings")
     val line1 = snapshot?.optJSONObject("nextPrayer")?.optString("prayerName") ?: "Munib Tracker"
-    val line2 = snapshot?.optJSONObject("nextPrayer")?.optString("prayerTime") ?: "Tap to mark Salah"
+    val line2 = snapshot?.optJSONObject("nextPrayer")?.optString("prayerTime")
+      ?: strings?.optString("markSalah")
+      ?: "Mark Salah"
 
     val clickable = ModifiersBuilders.Clickable.Builder()
       .setId(CLICK_MARK_CURRENT)
@@ -223,8 +226,12 @@ import androidx.wear.protolayout.material.Text
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TileService
+import com.google.android.gms.tasks.Tasks
+import com.google.android.gms.wearable.DataMapItem
+import com.google.android.gms.wearable.Wearable
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
+import org.json.JSONObject
 
 /**
  * Second Wear tile: a local-only tasbeeh (dhikr) counter. Unlike the next-Salah
@@ -232,6 +239,7 @@ import com.google.common.util.concurrent.ListenableFuture
  * the watch (SharedPreferences), mirroring the watchOS Digital Crown counter.
  */
 private const val TASBEEH_PREFS = "munib_wear_tasbeeh"
+private const val TASBEEH_SNAPSHOT_PATH = "/munib/widget_snapshot"
 private const val KEY_COUNT = "count"
 private const val KEY_TARGET = "target"
 private const val CLICK_INCREMENT = "tasbeeh_increment"
@@ -267,6 +275,9 @@ class MunibWearTasbeehTileService : TileService() {
     val count = prefs.getInt(KEY_COUNT, 0)
     val target = prefs.getInt(KEY_TARGET, 33)
     val countLabel = if (target > 0) "$count / $target" else "$count"
+    val strings = readSnapshot(applicationContext)?.optJSONObject("strings")
+    val tasbeehLabel = strings?.optString("tasbeeh")?.takeIf { it.isNotBlank() } ?: "Tasbeeh"
+    val resetLabel = strings?.optString("reset")?.takeIf { it.isNotBlank() } ?: "Reset"
 
     val incrementClickable = ModifiersBuilders.Clickable.Builder()
       .setId(CLICK_INCREMENT)
@@ -284,7 +295,7 @@ class MunibWearTasbeehTileService : TileService() {
           .setClickable(incrementClickable)
           .build()
       )
-      .addContent(Text.Builder(applicationContext, "Tasbeeh").build())
+      .addContent(Text.Builder(applicationContext, tasbeehLabel).build())
       .addContent(Text.Builder(applicationContext, countLabel).build())
       .build()
 
@@ -294,7 +305,7 @@ class MunibWearTasbeehTileService : TileService() {
           .setClickable(resetClickable)
           .build()
       )
-      .addContent(Text.Builder(applicationContext, "Reset").build())
+      .addContent(Text.Builder(applicationContext, resetLabel).build())
       .build()
 
     val column = LayoutElementBuilders.Column.Builder()
@@ -325,6 +336,17 @@ class MunibWearTasbeehTileService : TileService() {
 
 private fun tasbeehPrefs(context: Context): SharedPreferences =
   context.getSharedPreferences(TASBEEH_PREFS, Context.MODE_PRIVATE)
+
+private fun readSnapshot(context: Context): JSONObject? {
+  return try {
+    val client = Wearable.getDataClient(context)
+    val items = Tasks.await(client.getDataItems(android.net.Uri.parse("wear://*$TASBEEH_SNAPSHOT_PATH")))
+    val buffer = DataMapItem.fromDataItem(items.first()).dataMap.getString("snapshot") ?: return null
+    JSONObject(buffer)
+  } catch (_: Exception) {
+    null
+  }
+}
 `,
       );
 

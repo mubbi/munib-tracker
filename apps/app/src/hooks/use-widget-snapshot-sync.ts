@@ -14,6 +14,10 @@ import {
   nativePushWearSnapshot,
 } from "@/lib/external-commands/native-bridge";
 import { syncLiveActivity } from "@/lib/live-activity";
+import {
+  LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS,
+  LIVE_ACTIVITY_MARK_WINDOW_MS,
+} from "@/lib/live-activity/state";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { syncOngoingNotification } from "@/lib/ongoing-notification";
 import { runWhenIdle } from "@/lib/run-when-idle";
@@ -50,6 +54,8 @@ export function useWidgetSnapshotSync(): void {
   useEnsureFridayChecklistLoaded();
   const fridayChecklistDone = useFridayChecklistForDate(getLocalDateString());
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const boundaryRefreshRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const syncRef = useRef<(() => Promise<void>) | null>(null);
 
   const locale = toAppLocale(i18n.language ?? "en");
   const meaningLocale = toAppLocale(translationLocale ?? locale);
@@ -92,6 +98,25 @@ export function useWidgetSnapshotSync(): void {
     await nativePublishAndroidWidgetPreviews(snapshotJson);
     await syncLiveActivity({ snapshot, enabled: liveActivityEnabled === true });
     await syncOngoingNotification({ snapshot, enabled: liveActivityEnabled === true });
+
+    if (boundaryRefreshRef.current) clearTimeout(boundaryRefreshRef.current);
+    boundaryRefreshRef.current = null;
+    if (liveActivityEnabled === true && !snapshot.locationDenied) {
+      const currentAt = snapshot.nextPrayer.currentPrayerAtMs;
+      const nowMs = Date.now();
+      const boundaries = [
+        snapshot.nextPrayer.targetTimeMs,
+        currentAt + LIVE_ACTIVITY_MARK_WINDOW_MS,
+        currentAt + LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS,
+      ].filter((time) => time > nowMs);
+      const nextBoundary = Math.min(...boundaries);
+      if (Number.isFinite(nextBoundary)) {
+        boundaryRefreshRef.current = setTimeout(
+          () => void syncRef.current?.(),
+          Math.max(1_000, nextBoundary - nowMs + 1_000),
+        );
+      }
+    }
   }, [
     colorMode,
     colors.accent,
@@ -118,6 +143,13 @@ export function useWidgetSnapshotSync(): void {
   ]);
 
   useEffect(() => {
+    syncRef.current = sync;
+    return () => {
+      if (syncRef.current === sync) syncRef.current = null;
+    };
+  }, [sync]);
+
+  useEffect(() => {
     if (Platform.OS === "web") return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     let idleCancel: (() => void) | null = null;
@@ -129,6 +161,7 @@ export function useWidgetSnapshotSync(): void {
     }, WIDGET_SYNC_DEBOUNCE_MS);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
+      if (boundaryRefreshRef.current) clearTimeout(boundaryRefreshRef.current);
       idleCancel?.();
     };
   }, [sync]);

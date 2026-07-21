@@ -8,6 +8,8 @@ import {
   ContentReportEntity,
   DeletedAccountEntity,
   InAppNotificationEntity,
+  LiveActivityPushJobEntity,
+  LiveActivityPushTokenEntity,
   OssContentDownloadFailureEntity,
   PushTokenEntity,
   SyncRecordEntity,
@@ -27,6 +29,8 @@ const testEntities = [
   ContactMessageEntity,
   OssContentDownloadFailureEntity,
   InAppNotificationEntity,
+  LiveActivityPushTokenEntity,
+  LiveActivityPushJobEntity,
   PushTokenEntity,
   DeletedAccountEntity,
 ];

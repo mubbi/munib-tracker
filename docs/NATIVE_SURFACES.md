@@ -88,9 +88,13 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 | JS bridge | `src/lib/live-activity/` — `syncLiveActivity()` after each widget snapshot write |
 | Preference | `UserPreferences.liveActivityEnabled` (default off) |
 
-**Flow:** snapshot refresh → `syncLiveActivity()` starts/updates/ends activity. `staleDate` = next prayer; views use `Text(timerInterval:)` for ticking countdown.
+**Flow:** snapshot refresh → `syncLiveActivity()` starts/updates/ends activity. `staleDate` = next phase boundary / next prayer; views use `Text(timerInterval:)` for ticking countdown while in the **upcoming** phase.
 
-**Presentations (Apple HIG):** Lock Screen + StandBy (`isActivityFullscreen`) show next salah, meta, countdown, and today’s progress bar; Dynamic Island covers compact (glyph + timer), minimal (circular countdown), and expanded (leading/trailing/center/bottom + progress). Accent `keylineTint` ties the island to the app palette. Actions: **Prepare** (opens before-Salah adhkar) and **Qibla** — not Mark, because the activity always counts down to the *upcoming* Salah. Mark + Snooze live on the prayer-time-now local notification instead.
+**Phase windows:** for ~15 minutes after the current Salah begins, the activity shows that Salah with **Mark Salah**; once marked (or after 15 minutes) through ~30 minutes it offers **after-Salah adhkar**; after 30 minutes it returns to the **upcoming Salah** countdown + Prepare. Qibla remains available on the expanded presentation.
+
+**Remote updates (ActivityKit push):** activities start with `pushType: .token`. The app registers the per-activity APNs token + precomputed content-state updates at each phase boundary via `PUT /api/v1/live-activities`. Delivery uses APNs HTTP/2 through `@munib-tracker/live-activity-delivery`, scheduled with **Upstash QStash** (`notBefore`) and/or cron `POST …/internal/dispatch-due`. Full ops (env, cron, QStash free-tier fallback, future Fly.io worker): [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md). Local `Activity.update` still runs while the app is foregrounded.
+
+**Presentations (Apple HIG):** Lock Screen + StandBy (`isActivityFullscreen`) show the active phase (upcoming countdown, Mark Salah, or after-Salah adhkar) plus today’s progress; Dynamic Island covers compact / minimal / expanded layouts. Accent `keylineTint` ties the island to the app palette.
 
 **Requirements:** iOS **17.0+** (widget / Live Activity target `deploymentTarget`); `NSSupportsLiveActivities: true`; EAS dev/production build (not Expo Go). ActivityKit itself supports 16.2+, but Munib’s extension targets **17.0**.
 
@@ -105,9 +109,11 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 | Intent | Behavior |
 |--------|----------|
 | Mark my Salah | Background — enqueues `mark-current-obligatory`, no UI |
-| Open checklist / Qibla / Tasbeeh | Foreground — opens `munib-tracker://` route |
+| Mark a Salah (parameterized `SalahOption` AppEnum) | Background — enqueues `mark-prayer` for Fajr/Dhuhr/Asr/Maghrib/Isha |
+| Open checklist / Qibla / Tasbeeh / Qur'an / Ramadan / Khatm / Qaza | Foreground — opens `munib-tracker://` route |
 
-- iOS: `targets/munib-tracker-intents/MunibAppIntents.swift` (`openAppWhenRun: false` for mark)
+- iOS: `targets/munib-tracker-intents/_shared/MunibAppIntents.swift` — compiled into **both** the main app target and the `MunibTrackerIntents` App Intents extension (Apple requires the `AppShortcutsProvider` + its intents in the main app target; extension-only intents fail in Shortcuts with "internal error"). Foreground (`openAppWhenRun: true`) intents and the provider are app-only via the `MUNIB_INTENTS_EXTENSION` compile condition (`plugins/withAppIntentsExtensionDefine.cjs`); background mark intents also run in the extension so Siri doesn't launch the app.
+- Queue writes post a Darwin notification (`app.munibtracker.commands.changed`) → `MunibExternalCommandsModule` emits `onCommandsAvailable` → a running app instance drains immediately (Siri, widget button, watch marks apply without waiting for the next foreground).
 - Android: `plugins/withExternalCommands.cjs` → App Actions (`OPEN_APP_FEATURE` + inventory) + broadcast receiver + launcher shortcut (`android.app.shortcuts` → `@xml/shortcuts` → `munib-tracker://mark-current`)
 - Android broadcast actions (must match Kotlin + manifest): `app.munibtracker.action.MARK_CURRENT` / `MARK_PRAYER`
 - JS drain: `ExternalCommandProcessor` in root `_layout.tsx` (respects pin lock deferral); Android also emits `onCommandsAvailable` when the shared queue is written (Assistant, Wear, or JS enqueue)
@@ -177,7 +183,7 @@ Set `EXPO_APPLE_TEAM_ID` for iOS extensions. App Group: `group.app.munibtracker.
 | Widgets | Next prayer correct; tap opens app; location-denied CTA |
 | Tasbeeh glance widget | Shows today's most recently updated counter; blank state opens `/tasbeeh/free` when nothing logged today |
 | Jumu'ah widget | Checklist progress on Friday; day countdown other days; tap opens `/friday` |
-| Live Activity | Countdown ticks; Prepare opens before-Salah adhkar; toggle off ends activity |
+| Live Activity | Phase UI (upcoming / Mark / after-Salah); Prepare or Mark or adhkar deep link; toggle off ends activity; closed-app phase changes via ActivityKit push when configured ([`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md)) |
 | Live Activity discovery banner | Shows once when supported + toggle off; Turn on enables + dismisses; X dismisses without enabling; never reappears after either |
 | Android ongoing countdown | Persistent notification posts when enabled; Prepare opens before-Salah adhkar; cancels on toggle off |
 | Prayer-time notification | Mark prayed + Snooze (10 min) on fard prayer-time reminders only |

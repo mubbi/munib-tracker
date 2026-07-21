@@ -2310,8 +2310,8 @@
     "guestName": "Mehmon",
     "changeAvatar": "Chnge vtr",
     "signInToSync": "kirbuh -g sync",
-    "deleteAccount": "o'chirbuh hbuob & dt",
-    "deleteTitle": "o'chirbuh hbuob & dt?",
+    "deleteAccount": "Hisobni o'chirish",
+    "deleteTitle": "Hisob o'chirilsinmi?",
     "deleteMsg": "Bu qurilmadagi barcha kuzatuv maʼlumotlaringizni butunlay oʻchirib tashlaydi. Buni ortga qaytarib bo‘lmaydi.",
     "deleteMsgAccount": "Bu sizning hisobingiz va barcha sinxronlangan maʼlumotlaringizni serverlarimizdan butunlay oʻchirib tashlaydi va bu qurilmani oʻchirib tashlaydi. Buni ortga qaytarib bo‘lmaydi.",
     "deleteFailed": "Hisobingizni oʻchirib boʻlmadi. Ulanishingizni tekshiring va qaytadan urining.",
@@ -2351,7 +2351,14 @@
     "sessionTitle": "Sessiya",
     "sessionHint": "Ushbu qurilmadan chiqing. Bulutdagi ma'lumotlaringiz xavfsiz qoladi.",
     "dangerTitle": "Xavfli zona",
-    "dangerHint": "Hisobingiz va mahalliy ma'lumotlarni butunlay o'chiring. Buni qaytarib bo'lmaydi."
+    "dangerHint": "Hisobingizni o'chirmasdan ilova ma'lumotlarini qayta o'rnating yoki hisobingizni butunlay yoping.",
+    "resetData": "Ilova ma'lumotlarini qayta o'rnatish",
+    "resetDataTitle": "Ilova ma'lumotlari qayta o'rnatilsinmi?",
+    "resetDataMsg": "Bu ushbu qurilmadagi barcha ilova ma'lumotlarini butunlay o'chiradi. Mehmon sessiyangiz faol qoladi. Buni qaytarib bo'lmaydi.",
+    "resetDataMsgAccount": "Bu ushbu qurilmadagi va bulut sinxronlashidagi ilova ma'lumotlarini butunlay o'chiradi. Hisobingiz faol va tizimga kirgan holda qoladi. Buni qaytarib bo'lmaydi.",
+    "resetDataConfirm": "Ma'lumotlarni qayta o'rnatish",
+    "resetDataFailed": "Ilova ma'lumotlarini qayta o'rnatib bo'lmadi. Ulanishingizni tekshiring va qaytadan urining.",
+    "resetDataSuccess": "Ilova ma'lumotlaringiz qayta o'rnatildi"
   },
   "sync": {
     "title": "Bulutli sinxronlash",

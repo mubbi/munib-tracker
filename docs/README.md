@@ -14,6 +14,7 @@
 | Content pipeline | [`DATA_INGESTION.md`](./DATA_INGESTION.md) |
 | Data sources & licenses | [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |
 | Native surfaces (widgets, Live Activities, Watch, Wear) | [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) |
+| Live Activity remote push (QStash, cron, future Fly worker) | [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md) |
 | Device & platform support | [`DEVICES.md`](./DEVICES.md) |
 | Performance profiling | [`PROFILING.md`](./PROFILING.md) |
 | App Store / Play screenshots | [`STORE_ASSETS.md`](./STORE_ASSETS.md) |

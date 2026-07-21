@@ -200,6 +200,30 @@ export function prayerSlots(times: PrayerTimes): PrayerSlot[] {
 }
 
 /**
+ * The latest marker whose time has begun. Before today's Fajr this returns the
+ * previous day's Isha with its real instant, rather than today's future Isha.
+ */
+export function currentPrayer(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  timeZone?: string,
+  extras?: PrayerCalcExtras,
+): PrayerSlot {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = prayerSlots(computePrayerTimes(coords, anchor, method, madhab, extras));
+  const current = [...today].reverse().find((slot) => slot.date.getTime() <= now.getTime());
+  if (current) return current;
+
+  const previousDay = shiftPrayerDay(anchor, -1);
+  const previousSlots = prayerSlots(
+    computePrayerTimes(coords, previousDay, method, madhab, extras),
+  );
+  return previousSlots[previousSlots.length - 1];
+}
+
+/**
  * The next upcoming marker relative to `now`. After Isha it rolls over to
  * tomorrow's Fajr (so the countdown keeps working through the night).
  */
