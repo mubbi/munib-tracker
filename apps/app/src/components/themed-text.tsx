@@ -6,6 +6,7 @@ import {
   DEFAULT_ARABIC_SIZE,
   resolveArabicFontFamily,
   resolveArabicLineHeight,
+  sanitizeArabicText,
 } from "@/lib/reading-typography";
 import { arabicTextAlign, useIsRTL, useUiTextStyle } from "@/lib/rtl";
 import { useStore } from "@/stores/create-store";
@@ -68,6 +69,7 @@ export function ThemedText({
   type = "default",
   themeColor,
   heading,
+  children,
   ...rest
 }: ThemedTextProps) {
   const { colors } = useTheme();
@@ -100,6 +102,10 @@ export function ThemedText({
     type === "arabic" && arabicFontSize != null
       ? { lineHeight: resolveArabicLineHeight(arabicFontSize, arabicFamily) * fontScale }
       : null;
+  // The ﷺ ligature (U+FDFA) hangs iOS TextKit under font fallback — see
+  // sanitizeArabicText. Only scripture (`type="arabic"`) strings carry it.
+  const content =
+    type === "arabic" && typeof children === "string" ? sanitizeArabicText(children) : children;
 
   return (
     <Text
@@ -127,7 +133,9 @@ export function ThemedText({
         arabicMetrics,
       ]}
       {...rest}
-    />
+    >
+      {content}
+    </Text>
   );
 }
 

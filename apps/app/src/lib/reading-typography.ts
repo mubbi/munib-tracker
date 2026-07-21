@@ -66,6 +66,21 @@ export const ARABIC_FONT_OPTIONS: ArabicFontOption[] = [
   },
 ];
 
+/**
+ * U+FDFA (ﷺ, "sallallahu alayhi wa sallam" ligature) hangs iOS TextKit when the
+ * active Arabic face lacks the glyph (e.g. the `ui-serif` default): CoreText's
+ * fallback cascade expands the single codepoint into thousands of glyphs and
+ * `NSLayoutManager._fillLayoutHoleForCharacterRange` loops until the watchdog
+ * kills the app (seen on /duroods). Spell the phrase out on iOS instead.
+ */
+const SALLALLAHU_LIGATURE = /\uFDFA/g;
+const SALLALLAHU_SPELLED = "صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ";
+
+export function sanitizeArabicText(text: string): string {
+  if (Platform.OS !== "ios") return text;
+  return text.replace(SALLALLAHU_LIGATURE, SALLALLAHU_SPELLED);
+}
+
 /** Resolves the stored Arabic family id to a concrete `fontFamily` (falls back to serif). */
 export function resolveArabicFontFamily(familyId: string | undefined): string | undefined {
   const option = ARABIC_FONT_OPTIONS.find((o) => o.id === familyId) ?? ARABIC_FONT_OPTIONS[0];

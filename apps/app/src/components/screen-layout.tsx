@@ -251,6 +251,9 @@ export function ScreenLayout({
         style={styles.root}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         keyboardVerticalOffset={insets.top}
+        // Keep the ScrollView reachable via the first-subview chain so iOS 26
+        // tab-bar minimize-on-scroll can find it (view flattening breaks it).
+        collapsable={false}
       >
         {scrollBody}
       </KeyboardAvoidingView>
@@ -263,6 +266,9 @@ export function ScreenLayout({
       ref={rootRef}
       // Web-only: programmatically focusable screen landmark (tabIndex -1).
       {...(Platform.OS === "web" ? { tabIndex: -1 as const } : {})}
+      // iOS 26 tab-bar minimize-on-scroll: UIKit walks first subviews from the
+      // tab screen root to find the content scroll view — don't flatten.
+      collapsable={false}
       style={[styles.root, { backgroundColor: colors.background }]}
     >
       {/* Native immersive reading: hide status bar (iOS HIG / Android immersive).

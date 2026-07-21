@@ -37,12 +37,16 @@ export default function AppTabs() {
         selected: { color: colors.accent, fontWeight: "600" },
       }}
     >
-      <NativeTabs.Trigger name="index">
+      {/* disableAutomaticContentInsets: every tab screen already pads for the
+          tab bar via useContentBottomInset(). Without this, once RNS can reach
+          the ScrollView (required for minimizeBehavior) it would flip
+          contentInsetAdjustmentBehavior "never" → "automatic" and double-pad. */}
+      <NativeTabs.Trigger name="index" disableAutomaticContentInsets>
         <NativeTabs.Trigger.Label>{t("tabs.home")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: "house", selected: "house.fill" }} md="home" />
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="tracker">
+      <NativeTabs.Trigger name="tracker" disableAutomaticContentInsets>
         <NativeTabs.Trigger.Label>{t("tabs.tracker")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           sf={{ default: "list.bullet.clipboard", selected: "list.bullet.clipboard.fill" }}
@@ -50,7 +54,7 @@ export default function AppTabs() {
         />
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="library">
+      <NativeTabs.Trigger name="library" disableAutomaticContentInsets>
         <NativeTabs.Trigger.Label>{t("tabs.library")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           sf={{ default: "books.vertical", selected: "books.vertical.fill" }}
@@ -58,7 +62,7 @@ export default function AppTabs() {
         />
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="settings">
+      <NativeTabs.Trigger name="settings" disableAutomaticContentInsets>
         <NativeTabs.Trigger.Label>{t("tabs.settings")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           sf={{ default: "gearshape", selected: "gearshape.fill" }}

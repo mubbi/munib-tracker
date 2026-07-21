@@ -110,7 +110,13 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={[styles.root, { backgroundColor: colors.background }]}>
+    <View
+      // iOS 26 tab-bar minimize-on-scroll: UIKit resolves the tab's content
+      // scroll view by walking first subviews from the tab screen root, so the
+      // wrapper must not be view-flattened away from that chain.
+      collapsable={false}
+      style={[styles.root, { backgroundColor: colors.background }]}
+    >
       <Seo path="/" isHome jsonLd={[faqSchema(HOME_FAQ)]} />
       {isFocused ? <StatusBar style="light" /> : null}
       <ScrollView

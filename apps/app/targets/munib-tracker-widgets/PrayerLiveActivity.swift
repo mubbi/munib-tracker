@@ -175,9 +175,12 @@ struct PrayerLiveActivityLockScreen: View {
       HStack(spacing: 10) {
         // Countdown is for the *upcoming* Salah — Prepare opens before-Salah
         // adhkar. Mark belongs on the prayer-time notification, not here.
+        // `.tint` alone doesn't color a Link's label in ActivityKit — the text
+        // falls back to white and vanishes on light backgrounds. Style explicitly.
         Link(destination: URL(string: "munib-tracker://zikr/before_prayer")!) {
           Label("Prepare", systemImage: "figure.stand")
             .font(.caption.weight(.semibold))
+            .foregroundStyle(palette.accent)
             .frame(maxWidth: .infinity)
         }
         .tint(palette.accent)
@@ -185,6 +188,7 @@ struct PrayerLiveActivityLockScreen: View {
         Link(destination: URL(string: "munib-tracker://qibla")!) {
           Label("Qibla", systemImage: "location.north.line.fill")
             .font(.caption.weight(.semibold))
+            .foregroundStyle(palette.textSecondary)
             .frame(maxWidth: .infinity)
         }
         .tint(palette.textSecondary)
@@ -351,6 +355,7 @@ private struct IslandExpandedBottom: View {
         Link(destination: URL(string: "munib-tracker://zikr/before_prayer")!) {
           Label("Prepare", systemImage: "figure.stand")
             .font(.caption2.weight(.semibold))
+            .foregroundStyle(palette.accent)
             .frame(maxWidth: .infinity)
         }
         .tint(palette.accent)
@@ -358,6 +363,7 @@ private struct IslandExpandedBottom: View {
         Link(destination: URL(string: "munib-tracker://qibla")!) {
           Label("Qibla", systemImage: "location.north.line.fill")
             .font(.caption2.weight(.semibold))
+            .foregroundStyle(.white.opacity(0.85))
             .frame(maxWidth: .infinity)
         }
         .tint(.white.opacity(0.85))

@@ -1,7 +1,8 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { lazy, Suspense, useEffect } from "react";
-import { Platform } from "react-native";
+import { Platform, StyleSheet } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "@/global.css";
@@ -109,79 +110,87 @@ function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <AppApiProvider>
-        <MunibThemeProvider>
-          <WebLayoutDirectionBridge>
-            {/* Catches render, global JS, and unhandled promise errors; reports to Sentry. */}
-            <Sentry.GlobalErrorBoundary
-              includeUnhandledRejections
-              fallback={({ resetError }) => <ErrorFallback onReset={resetError} />}
-            >
-              <AppProviders>
-                <AuthProvider>
-                  <AppVersionProvider>
-                    <PinLockProvider>
-                      <ToastProvider>
-                        <ExternalCommandProcessor />
-                        <ReviewEngagementProvider>
-                          <ReviewPromptProvider>
-                            <ReviewDeepLinkBridge />
-                            <ContentReportProvider>
-                              <InAppNotificationsProvider>
-                                <NotificationProvider>
-                                  <AudioPlayerProvider>
-                                    <IdleMount>
-                                      <Suspense fallback={null}>
-                                        {Platform.OS === "web" ? <WebReminderAdhanBridge /> : null}
-                                        <ShareQrWarmup />
-                                      </Suspense>
-                                    </IdleMount>
-                                    <MiniPlayerInsetProvider>
-                                      <AppVersionGate>
-                                        <BlurTargetProvider
-                                          overlays={
-                                            <>
-                                              <WebNavigationFocusManager />
-                                              <LocalePathBootstrap />
-                                              <RtlLayoutBootstrap />
-                                              <WebPwaBootstrap />
-                                              <OnboardingGate />
-                                              <PinLockGate />
-                                              <IdleMount>
-                                                <Suspense fallback={null}>
-                                                  <MiniPlayer />
-                                                </Suspense>
-                                              </IdleMount>
-                                              {/* Outside BlurTargetView so Android can
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider>
+        <AppApiProvider>
+          <MunibThemeProvider>
+            <WebLayoutDirectionBridge>
+              {/* Catches render, global JS, and unhandled promise errors; reports to Sentry. */}
+              <Sentry.GlobalErrorBoundary
+                includeUnhandledRejections
+                fallback={({ resetError }) => <ErrorFallback onReset={resetError} />}
+              >
+                <AppProviders>
+                  <AuthProvider>
+                    <AppVersionProvider>
+                      <PinLockProvider>
+                        <ToastProvider>
+                          <ExternalCommandProcessor />
+                          <ReviewEngagementProvider>
+                            <ReviewPromptProvider>
+                              <ReviewDeepLinkBridge />
+                              <ContentReportProvider>
+                                <InAppNotificationsProvider>
+                                  <NotificationProvider>
+                                    <AudioPlayerProvider>
+                                      <IdleMount>
+                                        <Suspense fallback={null}>
+                                          {Platform.OS === "web" ? (
+                                            <WebReminderAdhanBridge />
+                                          ) : null}
+                                          <ShareQrWarmup />
+                                        </Suspense>
+                                      </IdleMount>
+                                      <MiniPlayerInsetProvider>
+                                        <AppVersionGate>
+                                          <BlurTargetProvider
+                                            overlays={
+                                              <>
+                                                <WebNavigationFocusManager />
+                                                <LocalePathBootstrap />
+                                                <RtlLayoutBootstrap />
+                                                <WebPwaBootstrap />
+                                                <OnboardingGate />
+                                                <PinLockGate />
+                                                <IdleMount>
+                                                  <Suspense fallback={null}>
+                                                    <MiniPlayer />
+                                                  </Suspense>
+                                                </IdleMount>
+                                                {/* Outside BlurTargetView so Android can
                                         capture a real backdrop blur (same as
                                         mini-player / sheets). */}
-                                              <ToastHost />
-                                              <AnimatedSplashOverlay />
-                                            </>
-                                          }
-                                        >
-                                          <AppStack />
-                                        </BlurTargetProvider>
-                                      </AppVersionGate>
-                                    </MiniPlayerInsetProvider>
-                                  </AudioPlayerProvider>
-                                </NotificationProvider>
-                              </InAppNotificationsProvider>
-                            </ContentReportProvider>
-                          </ReviewPromptProvider>
-                        </ReviewEngagementProvider>
-                      </ToastProvider>
-                    </PinLockProvider>
-                  </AppVersionProvider>
-                </AuthProvider>
-              </AppProviders>
-            </Sentry.GlobalErrorBoundary>
-          </WebLayoutDirectionBridge>
-        </MunibThemeProvider>
-      </AppApiProvider>
-    </SafeAreaProvider>
+                                                <ToastHost />
+                                                <AnimatedSplashOverlay />
+                                              </>
+                                            }
+                                          >
+                                            <AppStack />
+                                          </BlurTargetProvider>
+                                        </AppVersionGate>
+                                      </MiniPlayerInsetProvider>
+                                    </AudioPlayerProvider>
+                                  </NotificationProvider>
+                                </InAppNotificationsProvider>
+                              </ContentReportProvider>
+                            </ReviewPromptProvider>
+                          </ReviewEngagementProvider>
+                        </ToastProvider>
+                      </PinLockProvider>
+                    </AppVersionProvider>
+                  </AuthProvider>
+                </AppProviders>
+              </Sentry.GlobalErrorBoundary>
+            </WebLayoutDirectionBridge>
+          </MunibThemeProvider>
+        </AppApiProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  root: { flex: 1 },
+});
 
 export default Sentry.wrap(RootLayout);

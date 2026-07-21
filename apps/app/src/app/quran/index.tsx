@@ -131,22 +131,22 @@ const SurahRow = memo(function SurahRow({
     >
       <ListIndexBadge index={surah.number} />
       <View style={styles.rowBody}>
-        <View style={styles.rowTitle}>
-          <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
-            {surah.nameTransliteration}
-          </ThemedText>
-          {isContinue ? (
+        <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
+          {surah.nameTransliteration}
+        </ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+          {surah.nameEnglish} · {t("quran.ayahCount", { count: surah.ayahCount })}
+        </ThemedText>
+        {isContinue ? (
+          <View style={styles.rowContinue}>
             <Pill
               compact
               label={t("quran.continueReading")}
               color={colors.accentText}
               background={withAlpha(colors.accent, tokens.isDark ? 0.28 : 0.16)}
             />
-          ) : null}
-        </View>
-        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-          {surah.nameEnglish} · {t("quran.ayahCount", { count: surah.ayahCount })}
-        </ThemedText>
+          </View>
+        ) : null}
       </View>
       <View style={styles.rowMeta}>
         <ThemedText type="arabic" style={styles.rowArabic}>
@@ -899,13 +899,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   rowBody: { flex: 1, gap: 2, minWidth: 0 },
-  rowTitle: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    minWidth: 0,
-  },
   rowName: { flexShrink: 1, minWidth: 0 },
+  rowContinue: { flexDirection: "row", marginTop: 2 },
   rowMeta: { alignItems: "flex-end", gap: Spacing.one, maxWidth: "34%" },
   rowArabic: { fontSize: 20, writingDirection: "rtl" },
   listDetailRoot: {
