@@ -6,11 +6,12 @@ import * as StoreReview from "expo-store-review";
 import { Linking, Platform } from "react-native";
 import { detectWebPwaBrowserMatrix } from "@/lib/notifications/browser-capabilities";
 import { isExpoGo } from "@/lib/notifications/platform";
+import { isTV } from "@/lib/platform/is-tv";
 
 export type ReviewStoreListingTarget = "ios" | "android" | "both";
 
 export async function isStoreReviewAvailable(): Promise<boolean> {
-  if (Platform.OS === "web" || isExpoGo()) return false;
+  if (Platform.OS === "web" || isExpoGo() || isTV()) return false;
   try {
     return await StoreReview.isAvailableAsync();
   } catch {

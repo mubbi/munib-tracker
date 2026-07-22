@@ -12,6 +12,7 @@ import { Spacing } from "@/constants/theme";
 import { usePinLock } from "@/features/pin-lock";
 import { useFormatTime } from "@/hooks/use-time-format";
 import { APP_LOCALES } from "@/lib/locale-display";
+import { isTV } from "@/lib/platform/is-tv";
 import { useAuth } from "@/providers/auth-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
@@ -21,7 +22,8 @@ export default function SettingsScreen() {
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
   const { formatStored } = useFormatTime();
-  const isNative = Platform.OS === "ios" || Platform.OS === "android";
+  const tv = isTV();
+  const isNative = (Platform.OS === "ios" || Platform.OS === "android") && !tv;
   const { isAuthenticated, user } = useAuth();
   const { isPinEnabled } = usePinLock();
   // A null/offline session isn't "guest" per the API, but the user still has no

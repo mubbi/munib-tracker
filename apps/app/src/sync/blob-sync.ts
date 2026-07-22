@@ -23,6 +23,7 @@ import { prophetsProgressStore } from "@/stores/prophets-progress-store";
 import { quranGuideProgressStore } from "@/stores/quran-guide-progress-store";
 import { quranStore } from "@/stores/quran-store";
 import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
+import { sadaqahStore } from "@/stores/sadaqah-store";
 import { salahGuideProgressStore } from "@/stores/salah-guide-progress-store";
 import { taharahProgressStore } from "@/stores/taharah-progress-store";
 import { toursStore } from "@/stores/tours-store";
@@ -222,6 +223,16 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     entity: "zakat_calculator",
     storageKey: DB_KEYS.zakatCalculator,
     reload: noop,
+  },
+  {
+    entity: "fidyah_calculator",
+    storageKey: DB_KEYS.fidyahCalculator,
+    reload: noop,
+  },
+  {
+    entity: "sadaqah_goals",
+    storageKey: DB_KEYS.sadaqahGoals,
+    reload: reloadIfReady(sadaqahStore),
   },
   {
     entity: "tours_seen",

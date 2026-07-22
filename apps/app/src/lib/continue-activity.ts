@@ -2,6 +2,7 @@ import type { DuaItem, HadithItem, ZikrItem } from "@munib-tracker/shared/types"
 import type { Href } from "expo-router";
 
 import { getSurahByNumber } from "@/lib/quran-meta";
+import { zikrQuranHref, zikrQuranPath } from "@/lib/zikr-quran";
 
 export type ContinueKind = "quran" | "hadith" | "dua" | "zikr" | "durood" | "names" | "audio";
 
@@ -108,9 +109,10 @@ export function buildZikrActivity(
   item: ZikrItem,
   options?: { isAudio?: boolean },
 ): ContinueActivityInput {
+  const quranPath = zikrQuranPath(item.id);
   return {
-    kind: "zikr",
-    href: `/zikr/detail/${item.id}`,
+    kind: quranPath ? "quran" : "zikr",
+    href: quranPath ?? `/zikr/detail/${item.id}`,
     title: item.title,
     preview: truncate(item.arabic),
     isAudio: options?.isAudio,
@@ -211,6 +213,11 @@ export function navigateToContinue(
 
   const zikrMatch = href.match(/^\/zikr\/detail\/(.+)$/);
   if (zikrMatch) {
+    const quran = zikrQuranHref(zikrMatch[1]);
+    if (quran) {
+      router.push(quran);
+      return;
+    }
     router.push({ pathname: "/zikr/detail/[id]", params: { id: zikrMatch[1] } } as Href);
     return;
   }

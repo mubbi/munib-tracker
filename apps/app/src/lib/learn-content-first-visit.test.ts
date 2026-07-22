@@ -5,10 +5,12 @@
 import { getAqeedahTopics, isAqeedahContentReady } from "@/lib/aqeedah";
 import { getBattlesTopics, isBattlesContentReady } from "@/lib/battles";
 import { getEidGuideTopics } from "@/lib/eid-guide";
+import { getFidyahGuideTopics } from "@/lib/fidyah-guide";
 import { getFridayGuideTopics } from "@/lib/friday-guide";
 import { getHajjGuideTopics, isHajjGuideContentReady } from "@/lib/hajj-guide";
 import { getIslamicHistoryEvents, isIslamicHistoryContentReady } from "@/lib/islamic-history";
 import { getJahannamTopics, isJahannamContentReady } from "@/lib/jahannam";
+import { getJanazahGuideTopics } from "@/lib/janazah-guide";
 import { getJannahTopics, isJannahContentReady } from "@/lib/jannah";
 import { getLastDayTopics, isLastDayContentReady } from "@/lib/last-day";
 import { getLaylatAlQadrTopics } from "@/lib/laylat-al-qadr";
@@ -16,6 +18,7 @@ import { getLearnDuaTopics, isLearnDuaContentReady } from "@/lib/learn-dua";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 import { getNewMuslimTopics } from "@/lib/new-muslim";
 import { getProphetsTopics, isProphetsContentReady } from "@/lib/prophets";
+import { getProphetsGenealogyNodes } from "@/lib/prophets-genealogy";
 import { getQuranGuideTopics, isQuranGuideContentReady } from "@/lib/quran-guide";
 import { getRuqyahTopics } from "@/lib/ruqyah";
 import { getSahabaProfiles, isSahabaContentReady } from "@/lib/sahaba";
@@ -56,6 +59,9 @@ describe("learn corpora first-visit readiness", () => {
     expect(getRuqyahTopics().length).toBeGreaterThan(0);
     expect(getNewMuslimTopics().length).toBeGreaterThan(0);
     expect(getLaylatAlQadrTopics().length).toBeGreaterThan(0);
+    expect(getFidyahGuideTopics().length).toBeGreaterThan(0);
+    expect(getJanazahGuideTopics().length).toBeGreaterThan(0);
+    expect(getProphetsGenealogyNodes().length).toBeGreaterThan(0);
   });
 
   it("salah journey grouping includes every topic on first read", () => {
@@ -91,6 +97,7 @@ describe("learn corpora first-visit readiness", () => {
       "/friday",
       "/ruqyah",
       "/new-muslim",
+      "/janazah",
       "/flash-cards",
     ];
     for (const route of expected) {

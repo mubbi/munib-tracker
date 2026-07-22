@@ -78,7 +78,10 @@
     "increase": "Increase {{label}}",
     "decrease": "Decrease {{label}}",
     "appName": "Munib Tracker",
-    "appTagline": "Track Your Journey Back to Allah."
+    "appTagline": "Track Your Journey Back to Allah.",
+    "tvUnavailableTitle": "Not available on TV",
+    "tvUnavailableBody": "This feature needs a phone or tablet. Open Munib Tracker there to continue.",
+    "tvOauthHint": "Social sign-in may be limited on TV. Continue as guest here, or link an account on your phone."
   },
   "search": {
     "placeholder": "Search Qur'an, hadith, duas, Learn…",
@@ -170,7 +173,10 @@
     "newMuslim": "New Muslim Guide",
     "finance": "Islamic Finance",
     "flashCards": "Flash cards",
-    "verseDetector": "Verse Detector"
+    "verseDetector": "Verse Detector",
+    "fidyah": "Fidyah & kaffarah",
+    "janazah": "Janazah guide",
+    "sadaqah": "Sadaqah goals"
   },
   "quickActions": {
     "markCurrentSubtitle": "Mark current Salah",
@@ -804,9 +810,11 @@
     "apple": "Continue with Apple",
     "facebook": "Continue with Facebook",
     "heroGuest": "You're using a guest account. Link a provider to back up and sync your data — nothing is lost.",
-    "heroUser": "Sign in to keep your prayers, qaza, and zikr safe in the cloud.",
+    "heroUser": "Keep your Salah, qaza, and zikr safe in the cloud.",
     "heroSignedIn": "Welcome back — your account is linked. Your Salah, qaza, and zikr can sync across devices.",
     "continueSignedIn": "Continue",
+    "or": "or",
+    "guestHint": "You can link an account anytime from Profile.",
     "error": "Couldn't sign in. Make sure the API server is running and this provider is configured.",
     "providersUnavailableTitle": "Sign-in is not available yet",
     "providersUnavailableBody": "Cloud sync providers are not configured in this build. Continue as guest — your progress stays on this device."
@@ -937,6 +945,7 @@
   "notif": {
     "eyebrow": "Settings",
     "subtitle": "Choose what you'd like to be reminded about",
+    "tvUnavailableBody": "Local reminders and Live Activities aren't available on TV. Manage notification preferences on your phone.",
     "master": "All notifications",
     "masterSub": "Master switch for every reminder",
     "adhanTitle": "Preview adhan",
@@ -1150,6 +1159,8 @@
     "detailEyebrow": "Zikr",
     "today": "Today",
     "openInTasbeeh": "Open in Tasbeeh",
+    "markAsDone": "Mark as Done",
+    "undoDoneHint": "Tap to undo and mark as not done",
     "favorite": "Favorite",
     "favorited": "Favorited",
     "share": "Share",
@@ -1555,6 +1566,11 @@
     "showTranslation": "Show translation",
     "showNarrator": "Show narrator",
     "showGrade": "Show grade",
+    "isnad": "Isnad",
+    "sharh": "Explanation",
+    "showIsnad": "Show isnad",
+    "showSharh": "Show explanation",
+    "sharhArabicOnly": "Explanation is available in Arabic only.",
     "backToTop": "Back to top",
     "readingProgress": "Reading progress",
     "enterFullscreen": "Enter fullscreen",
@@ -2289,6 +2305,7 @@
     "locating": "Locating…",
     "distanceKm": "{{km}} km to the Kaaba",
     "webHint": "Compass sensors aren't available in the browser. The arrow shows the qibla bearing from north — use a physical compass to align.",
+    "tvHint": "Live compass isn't available on TV. The arrow shows the qibla bearing from north for your city — use a phone for live alignment.",
     "noCompassHint": "No compass sensor detected. The arrow points to the qibla bearing measured clockwise from true north.",
     "calibrateHint": "For accuracy, hold your device flat and move it in a figure-eight to calibrate the compass, away from metal and magnets.",
     "tryAgain": "Try again",
@@ -3345,6 +3362,42 @@
       "obligatory": "Essential",
       "highly-recommended": "Highly recommended",
       "recommended": "Recommended"
+    },
+    "quickTree": "Family tree",
+    "quickTreeHint": "Adam to Muhammad ﷺ — sourced lineages",
+    "tree": {
+      "title": "Prophets family tree",
+      "subtitle": "Sourced genealogy only — Qur'an, authentic hadith, and labelled history",
+      "intro": "This tree shows relationships from the Qur'an, authentic hadith, and clearly labelled classical sirah (including the Hashim→Muhammad spine from traditional genealogy). Gaps — such as Adnan back to Ismail, and most Adam→Ibrahim name-lists from Isra'iliyyat — are left empty rather than filled. Ancestral (not immediate) links are marked as such.",
+      "searchPlaceholder": "Search a prophet or name…",
+      "searchResults": "{{count}} matches",
+      "sources": "Sources",
+      "openBio": "Open biography",
+      "certainty": {
+        "quran": "Qur'an",
+        "authentic-hadith": "Authentic hadith",
+        "classical-history": "Classical history"
+      },
+      "branch": {
+        "adam-nuh": "Adam and Nuh",
+        "ibrahim": "Ibrahim's household",
+        "israel": "Children of Israel",
+        "musa": "Musa and Harun",
+        "dawud": "Dawud and Sulayman",
+        "zakariyya": "Zakariyya and Yahya",
+        "isa": "Imran, Maryam and Isa",
+        "muhammad": "Hashim to Muhammad ﷺ"
+      },
+      "disclaimer": "Educational genealogy — not a complete list of every prophet, nor the full Quraysh relative chart. Wikipedia and classical lists include many Isra'iliyyat or lost generations; those are omitted here. Many messengers appear in Learn the Prophets bios without a parent chain on this map.",
+      "panHint": "Pinch to zoom, drag to pan, double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Lineage (parent → child)",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note."
     }
   },
   "aqeedah": {
@@ -3655,7 +3708,9 @@
       "names": "99 Names",
       "hadith": "Hadith",
       "quran": "Qur'an",
-      "duas": "Duas"
+      "duas": "Duas",
+      "janazah": "Janazah",
+      "fidyah": "Fidyah"
     }
   },
   "offlineData": {
@@ -4119,7 +4174,12 @@
       "debts": "Personal loans, credit cards, and bills due now — not long-term mortgage totals unless your scholar allows.",
       "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
       "nisab": "Leave blank to use the computed threshold, or enter a custom nisab."
-    }
+    },
+    "relatedTitle": "Related tools",
+    "linkSadaqah": "Sadaqah goals",
+    "linkSadaqahHint": "Daily or weekly voluntary giving",
+    "linkFidyah": "Fidyah & kaffarah",
+    "linkFidyahHint": "Estimates for missed or broken fasts"
   },
   "customAdhkar": {
     "eyebrow": "Remembrance",
@@ -5007,5 +5067,82 @@
     "exploreEvents": "Open Islamic events",
     "exploreEventsHint": "Milestones and observances ahead",
     "disclaimer": "Dates are calculated from crescent (hilāl) visibility at your location and can differ by a day from official moon-sighting announcements — always follow your local masjid or authority for religious dates."
+  },
+  "fidyah": {
+    "eyebrow": "Tools",
+    "title": "Fidyah & kaffarah",
+    "subtitle": "Estimate helpers for missed or broken Ramadan fasts — not auto-rulings",
+    "intro": "Use this only as a planning estimate. Qur'an 2:184–185 and Sahih Muslim 1111 frame the basics; a qualified scholar must classify whether you owe qaza, fidyah, kaffarah, or something else.",
+    "helperTitle": "Estimate helper",
+    "helperHint": "Enter days and your local meal or fidya unit cost. Prefer a rate published by a trusted local masjid or council.",
+    "scenario": {
+      "fidyah": "Fidyah",
+      "kaffarah": "Kaffarah"
+    },
+    "currency": "Currency",
+    "daysLabel": "Missed days",
+    "unitsLabel": "Kaffarah units",
+    "mealCostLabel": "Cost to feed one poor person",
+    "mealCostHint": "One meal, or your local published fidya amount per day.",
+    "estimateLabel": "Planning estimate",
+    "estimateEmpty": "Enter days and a meal cost",
+    "estimateFidyahDetail": "{{meals}} poor person(s) to feed",
+    "estimateKaffarahDetail": "{{meals}} meals (feeding option) · or {{fasts}} consecutive fast days",
+    "section": {
+      "overview": "Overview",
+      "fidyah": "Fidyah",
+      "kaffarah": "Kaffarah",
+      "practice": "Using the helper"
+    },
+    "notFound": "Topic not found",
+    "disclaimer": "Educational estimates only — not a fatwa. Madhhab details differ; follow a qualified local scholar for your case.",
+    "continueInApp": "Continue in Munib"
+  },
+  "janazah": {
+    "eyebrow": "Learn",
+    "title": "Janazah guide",
+    "subtitle": "Funeral prayer, washing, burial, and authentic duas",
+    "intro": "A practical overview of Janazah as a communal obligation — how to pray four takbirs without ruku or sujud, and the Hisnul Muslim duas for the deceased.",
+    "section": {
+      "obligation": "Obligation",
+      "prepare": "Preparation",
+      "salah": "The funeral prayer",
+      "burial": "Burial",
+      "duas": "Funeral duas",
+      "reminders": "Reminders"
+    },
+    "notFound": "Topic not found",
+    "disclaimer": "Educational overview — not a funeral director's manual or a fatwa. Confirm washing, shrouding, and cemetery practice with qualified local guidance.",
+    "continueInApp": "Continue in Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Tools",
+    "title": "Sadaqah goals",
+    "subtitle": "Daily or weekly intention and a simple giving log",
+    "intro": "Set a voluntary charity intention and log what you give. Zakat remains a separate obligation — use the Zakat calculator for that.",
+    "intentionTitle": "My intention",
+    "intentionHint": "A personal target for voluntary sadaqah — not zakat.",
+    "period": {
+      "daily": "Daily",
+      "weekly": "Weekly"
+    },
+    "currency": "Currency",
+    "targetLabel": "Target amount",
+    "saveGoal": "Save intention",
+    "clearGoal": "Clear intention",
+    "progressLabel": "Progress this {{period}}",
+    "logTitle": "Log a gift",
+    "logAmount": "Amount",
+    "logNote": "Note (optional)",
+    "logNotePlaceholder": "e.g. food bank",
+    "addEntry": "Add to log",
+    "logEmpty": "No gifts logged yet.",
+    "learnMoreTitle": "Learn more",
+    "linkZakat": "Zakat calculator",
+    "linkZakatHint": "Obligatory purifying charity",
+    "linkFinance": "Sadaqah in Islamic finance",
+    "linkFinanceHint": "Voluntary giving explained",
+    "disclaimer": "A personal tracker only — not a fatwa and not a substitute for calculating zakat when due.",
+    "continueInApp": "Continue in Munib"
   }
 }

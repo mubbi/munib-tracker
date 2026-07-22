@@ -6,15 +6,16 @@ import { WideAppTabs } from "@/components/app-tabs-wide";
 import { withAlpha } from "@/constants/theme";
 import { SIDE_RAIL_BREAKPOINT } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 
 export default function AppTabs() {
   const { width } = useWindowDimensions();
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
 
-  // Wide windows (iPad / Android tablet / foldable): side rail — same adaptive
-  // breakpoint as web. Driven by window width, not device type.
-  if (width >= SIDE_RAIL_BREAKPOINT) {
+  // TV and wide windows (iPad / Android tablet / foldable): side rail.
+  // TV always uses the rail — NativeTabs / bottom bars are poor for D-pad.
+  if (isTV() || width >= SIDE_RAIL_BREAKPOINT) {
     return <WideAppTabs />;
   }
 

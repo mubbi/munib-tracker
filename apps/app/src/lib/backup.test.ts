@@ -131,6 +131,8 @@ describe("key coverage", () => {
       DB_KEYS.qazaSchedule,
       DB_KEYS.quranReadingProgress,
       DB_KEYS.zakatCalculator,
+      DB_KEYS.fidyahCalculator,
+      DB_KEYS.sadaqahGoals,
       DB_KEYS.readingTextVisibility,
       DB_KEYS.toursSeen,
     ]) {

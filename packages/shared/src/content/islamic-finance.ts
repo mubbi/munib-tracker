@@ -210,7 +210,10 @@ export const ISLAMIC_FINANCE_TOPICS: LearnGuideTopic[] = [
         excerpt: "Charity does not decrease wealth... (Abu Hurayrah)",
       },
     ],
-    appLinks: [{ label: "Zakat & charity guide", route: "/zakat" }],
+    appLinks: [
+      { label: "Zakat & charity guide", route: "/zakat" },
+      { label: "Sadaqah goals", route: "/sadaqah" },
+    ],
   },
 
   // ── Takaful ──────────────────────────────────────────────────────────────

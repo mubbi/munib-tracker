@@ -19,6 +19,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
+import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
 
 export default function ZikrHomeScreen() {
@@ -60,10 +61,7 @@ export default function ZikrHomeScreen() {
     return map;
   }, [categories]);
 
-  const onOpenDetail = useCallback(
-    (id: string) => router.push({ pathname: "/zikr/detail/[id]", params: { id } }),
-    [router],
-  );
+  const onOpenDetail = useCallback((id: string) => pushZikrDetail(router, id), [router]);
 
   return (
     <ScreenLayout

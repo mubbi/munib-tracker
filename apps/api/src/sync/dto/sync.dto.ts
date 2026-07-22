@@ -68,6 +68,8 @@ export const SYNC_ENTITIES = [
   "location",
   "reading_text_visibility",
   "zakat_calculator",
+  "fidyah_calculator",
+  "sadaqah_goals",
   "tours_seen",
 ] as const;
 

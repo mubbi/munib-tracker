@@ -14,6 +14,17 @@ export const APP_ID = {
 export const URL_SCHEME = "munib-tracker";
 
 /**
+ * TV capture defaults (Apple TV / Android TV). Real PNG writes require RUN_CAPTURE=1.
+ * @see lib/tv-scenes.mjs, capture-tvos.mjs, capture-android-tv.mjs
+ */
+export const TV_CAPTURE = {
+  storeSize: { w: 1920, h: 1080, label: "tv-1080p" },
+  runCaptureEnv: "RUN_CAPTURE",
+  appleTvDeviceEnv: "APPLE_TV_SIMULATOR_DEVICE",
+  androidAvdEnv: "ANDROID_TV_AVD",
+};
+
+/**
  * Every Expo AppLocale — kept in sync with packages/shared/src/i18n/app-locale.ts.
  * Override with LOCALES=en,ar or LOCALES=all (default).
  */

@@ -7,3 +7,24 @@
   --font-rounded: "SF Pro Rounded", "Hiragino Maru Gothic ProN", Meiryo, "MS PGothic", sans-serif;
   --font-serif: "Iowan Old Style", Georgia, "Times New Roman", serif;
 }
+
+/* Horizontal chip rows (e.g. prophets tree branches) — RN web ScrollView often
+   expands to content width and clips instead of scrolling when nested. */
+.munib-h-scroll {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.munib-h-scroll > * {
+  flex-shrink: 0;
+}

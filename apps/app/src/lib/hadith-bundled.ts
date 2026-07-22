@@ -43,14 +43,40 @@ export function __setBundledHadithForTests(id: string, data: BundledHadithCollec
   if (id === RIYAD_COLLECTION.id) riyadCache = data;
 }
 
+type NawawiSharhSidecar = Record<string, { sharhArabic?: string }>;
+
+/** Merge NF-2.8 Arabic sharh sidecar onto Nawawi items (lazy chunk). */
+function applyNawawiSharh(
+  bundled: BundledHadithCollection,
+  sharh: NawawiSharhSidecar | undefined,
+): BundledHadithCollection {
+  if (!sharh || Object.keys(sharh).length === 0) return bundled;
+  return {
+    ...bundled,
+    items: bundled.items.map((item) => {
+      const body = sharh[item.id]?.sharhArabic?.trim();
+      if (!body || item.sharhArabic) return item;
+      return { ...item, sharhArabic: body };
+    }),
+  };
+}
+
 /**
  * Dynamic `import()` — Metro emits a separate async chunk. Do not use
  * `require()` here; it still embeds the JSON in the parent module graph on web.
+ * Sharh sidecar is a second async chunk so the main Nawawi matn stays lean.
+ * Wrap optional imports in `Promise.resolve(...).catch` — Metro web can resolve
+ * JSON `import()` to a sync module, so bare `.catch` throws.
  */
 function loadNawawiAsync(): Promise<BundledHadithCollection> {
   if (nawawiCache) return Promise.resolve(nawawiCache);
-  nawawiLoad ??= import("@/assets/data/hadith/nawawi40.json").then((mod) => {
-    nawawiCache = (mod.default ?? mod) as BundledHadithCollection;
+  nawawiLoad ??= Promise.all([
+    import("@/assets/data/hadith/nawawi40.json"),
+    Promise.resolve(import("@/assets/data/hadith/nawawi40-sharh.json")).catch(() => null),
+  ]).then(([matnMod, sharhMod]) => {
+    const matn = (matnMod.default ?? matnMod) as BundledHadithCollection;
+    const sharh = sharhMod ? ((sharhMod.default ?? sharhMod) as NawawiSharhSidecar) : undefined;
+    nawawiCache = applyNawawiSharh(matn, sharh);
     return nawawiCache;
   });
   return nawawiLoad;
@@ -58,10 +84,12 @@ function loadNawawiAsync(): Promise<BundledHadithCollection> {
 
 function loadRiyadAsync(): Promise<BundledHadithCollection> {
   if (riyadCache) return Promise.resolve(riyadCache);
-  riyadLoad ??= import("@/assets/data/hadith/riyad-as-salihin.json").then((mod) => {
-    riyadCache = (mod.default ?? mod) as BundledHadithCollection;
-    return riyadCache;
-  });
+  riyadLoad ??= Promise.resolve(import("@/assets/data/hadith/riyad-as-salihin.json")).then(
+    (mod) => {
+      riyadCache = (mod.default ?? mod) as BundledHadithCollection;
+      return riyadCache;
+    },
+  );
   return riyadLoad;
 }
 

@@ -33,6 +33,8 @@ describe("isBlobEntity", () => {
     expect(isBlobEntity("reading_text_visibility")).toBe(true);
     expect(isBlobEntity("hadith_prefs")).toBe(true);
     expect(isBlobEntity("zakat_calculator")).toBe(true);
+    expect(isBlobEntity("fidyah_calculator")).toBe(true);
+    expect(isBlobEntity("sadaqah_goals")).toBe(true);
     expect(isBlobEntity("tours_seen")).toBe(true);
     // Entities with their own bespoke sync path must NOT be treated as blobs.
     expect(isBlobEntity("prayer_logs")).toBe(false);

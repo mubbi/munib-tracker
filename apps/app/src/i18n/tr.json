@@ -78,7 +78,10 @@
       "hint": "Öğrendiklerinizi gözden geçirin",
       "empty": "Bu rehberin soruları hâlâ yükleniyor. Birkaç ders açın, sonra tekrar deneyin."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "TV'de kullanılamaz",
+    "tvUnavailableBody": "Bu özellik telefon veya tablet gerektirir. Sürdürmek için Munib Tracker'i orada açın.",
+    "tvOauthHint": "Sosyal medya ile oturum açma TV'de sınırlı olabilir. Burada misafir olarak ilerleyin veya telefonunuzda bir hesap bağlayın."
   },
   "search": {
     "placeholder": "Kur'an, hadis, dua, Öğren… ara",
@@ -170,7 +173,10 @@
     "flashCards": "Bilgi kartları",
     "verseDetector": "Ayet Bulucu",
     "lastThirdNight": "Gecenin son üçte biri",
-    "friday": "Cuma & Cuma namazı"
+    "friday": "Cuma & Cuma namazı",
+    "fidyah": "Fidye ve kefaret",
+    "janazah": "Janazah kılavuzu",
+    "sadaqah": "Sadaqah gol"
   },
   "quickActions": {
     "checklistSubtitle": "Bugünkü namazları kaydet",
@@ -648,8 +654,8 @@
     "yourVersion": "Sürümünüz",
     "latestVersion": "En son",
     "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
-    "hardBody": "Uygulamayı kullanabilmek için {{version}} sürümüne güncelleyin.",
-    "hardNote": "Bu güncelleme zorunludur.",
+    "hardBody": "Update to version {{version}} to keep using the app.",
+    "hardNote": "This update is required to continue.",
     "updateButton": "Şimdi güncelle",
     "webReloadButton": "Yeniden yükle",
     "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
@@ -718,7 +724,7 @@
     "updateAvailableTitle": "Güncelleme mevcut",
     "updateRequiredTitle": "Güncelleme gerekli",
     "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
-    "updateRequiredDesc": "Uygulamayı kullanabilmek için {{latest}} sürümüne güncelleyin.",
+    "updateRequiredDesc": "Update to version {{latest}} to continue using the app.",
     "updateNow": "Şimdi güncelle",
     "viewUpdateDetails": "Ayrıntıları gör",
     "remindInSettings": "Ayarlar'da hatırlat",
@@ -802,14 +808,16 @@
     "apple": "Apple ile giriş yap",
     "facebook": "Facebook ile giriş yap",
     "heroGuest": "Misafir hesabı kullanıyorsunuz. Verilerinizi yedeklemek ve senkronize etmek için bir sağlayıcı bağlayın — hiçbir şey kaybolmaz.",
-    "heroUser": "Namazlarınızı, kazalarınızı ve zikirlerinizi bulutta güvende tutmak için giriş yapın.",
+    "heroUser": "Namaz, kaza ve zikirlerinizi bulutta güvende tutun.",
     "error": "Giriş yapılamadı. API sunucusunun çalıştığından ve bu sağlayıcının yapılandırıldığından emin olun.",
     "providersUnavailableTitle": "Giriş henüz kullanılamıyor",
     "providersUnavailableBody": "Bu sürümde bulut senkron sağlayıcıları yapılandırılmamış. Misafir olarak devam edin — ilerlemeniz bu cihazda kalır.",
     "titleSignedIn": "Giriş yaptınız",
     "subtitleSignedIn": "Bu cihazda bulut senkronu hazır",
     "heroSignedIn": "Tekrar hoş geldiniz — hesabınız bağlı. Namaz, kaza ve zikir cihazlar arasında senkronlanabilir.",
-    "continueSignedIn": "Devam edin"
+    "continueSignedIn": "Devam edin",
+    "or": "veya",
+    "guestHint": "Hesabınızı istediğiniz zaman Profil'den bağlayabilirsiniz."
   },
   "onboarding": {
     "begin": "Başla",
@@ -1109,7 +1117,8 @@
       "activeHint": "Bu namaz yaklaştığında canlı güncellemeler öne çıkar. Sabitlemeyi kaldırmak için Durdur’a dokunun.",
       "a11yStart": "Kilit ekranında sonraki namaz takibini başlat",
       "a11yStop": "Namaz canlı güncelleme takibini durdur"
-    }
+    },
+    "tvUnavailableBody": "Yerel hatırlatıcılar ve Live Activities TV'de kullanılamaz. Bildirim tercihlerinizi telefonunuzdan yönetin."
   },
   "fonts": {
     "eyebrow": "Ayarlar",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "adhkar by title, topic, or text… Ara",
     "searchInCategory": "in this category… Ara",
     "searchResultCount": "{{count}} eşleşme",
-    "noResults": "No adhkar matched sizin ara."
+    "noResults": "No adhkar matched sizin ara.",
+    "markAsDone": "Tamamlandı olarak işaretle",
+    "undoDoneHint": "Geri almak ve tamamlanmamış yapmak için dokunun"
   },
   "zikrCat": {
     "morning": "Sabah zikirleri",
@@ -1562,7 +1573,12 @@
     "backToTop": "Yukarı dön",
     "readingProgress": "Okuma ilerlemesi",
     "enterFullscreen": "Tam ekrana geç",
-    "exitFullscreen": "Tam ekrandan çık"
+    "exitFullscreen": "Tam ekrandan çık",
+    "isnad": "İsnad",
+    "sharh": "Şerh",
+    "showIsnad": "İsnadı göster",
+    "showSharh": "Şerhi göster",
+    "sharhArabicOnly": "Şerh yalnızca Arapça olarak mevcuttur."
   },
   "credits": {
     "eyebrow": "Atıf",
@@ -2312,7 +2328,8 @@
     "cardinalS": "G",
     "cardinalW": "B",
     "defaultLocationHint": "Varsayilan konum (Mekke) kullaniliyor. Bulundugunuz yer icin dogru kible yonu icin sehrinizi ayarlayin.",
-    "setLocation": "Konum ayarla"
+    "setLocation": "Konum ayarla",
+    "tvHint": "Canlı pusula TV'de kullanılamaz. Ok, şehriniz için kuzeyden kıble yönünü gösterir — canlı hizalama için telefon kullanın."
   },
   "profile": {
     "eyebrow": "Hesap",
@@ -3346,6 +3363,42 @@
       "obligatory": "Zorunlu",
       "highly-recommended": "Şiddetle tavsiye edilir",
       "recommended": "Tavsiye edilir"
+    },
+    "quickTree": "Aile ağacı",
+    "quickTreeHint": "Adam ila Muhammad ﷺ — kaynaklı soylar",
+    "tree": {
+      "title": "Peygamberlerin soy ağacı",
+      "subtitle": "Yalnızca kaynaklı şecere — Qur'an, sahih hadisler ve etiketli tarih",
+      "intro": "Bu ağaç yalnızca Qur'an, sahih hadislerde veya açıkça etiketlenmiş klasik tarihte kurulan ilişkileri gösterir. Boşluklar doğrulanmamış isimlerle doldurulmak yerine boş bırakılır. Atalardan kalma (hemen değil) bağlantılar bu şekilde işaretlenir.",
+      "searchPlaceholder": "Bir peygamber veya isim arayın…",
+      "searchResults": "{{count}} maç",
+      "sources": "Kaynaklar",
+      "openBio": "Biyografiyi aç",
+      "certainty": {
+        "quran": "Kur'an",
+        "authentic-hadith": "Sahih hadis",
+        "classical-history": "Klasik tarih"
+      },
+      "branch": {
+        "adam-nuh": "Adam ve Nuh",
+        "ibrahim": "Ibrahim'nin evi",
+        "israel": "İsrail'in çocukları",
+        "musa": "Musa ve Harun",
+        "dawud": "Dawud ve Sulayman",
+        "zakariyya": "Zakariyya ve Yahya",
+        "isa": "Maryam ve Isa",
+        "muhammad": "Peygamberlerin mührü"
+      },
+      "disclaimer": "Eğitimsel şecere - her peygamberin tam listesi değil. Pek çok habercinin adı, ayrıntılı bir ana zincir olmadan Qur'an'da belirtilir; Learn the Prophets biyografisinde görünüyorlar ancak tahmin edilmek yerine burada atlanmışlar.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4075,7 +4128,12 @@
       "confirm": "Formu sıfırla",
       "a11y": "Zekat hesaplama formunu sıfırla",
       "hint": "Onay ister ve girilen tüm tutarları siler"
-    }
+    },
+    "relatedTitle": "İlgili araçlar",
+    "linkSadaqah": "Sadaka hedefleri",
+    "linkSadaqahHint": "Günlük veya haftalık gönüllü bağış",
+    "linkFidyah": "Fidye ve kefaret",
+    "linkFidyahHint": "Kaçırılan veya bozulan oruçlar için tahminler"
   },
   "customAdhkar": {
     "eyebrow": "Zikir",
@@ -4114,7 +4172,7 @@
       "label": "Ekler (isteğe bağlı)",
       "add": "Dosya ekle",
       "remove": "Eki kaldır",
-      "hint": "En fazla 5 dosya (JPEG, PNG, WebP veya PDF), her biri 1 MB. Kaldırmak için küçük resimdeki × işaretine dokunun.",
+      "hint": "Her biri 1 MB boyutunda en fazla 5 dosya (JPEG, PNG, WebP veya PDF). Kaldırmak için küçük resme uzun basın.",
       "signInRequired": "Adhkar'ınıza özel dosyalar eklemek için oturum açın.",
       "permissionDenied": "Dosya eklemek için izin gereklidir.",
       "permissionTitle": "Erişime izin ver",
@@ -4903,7 +4961,7 @@
     "eyebrow": "Takvim",
     "title": "Tarih dönüştürücü",
     "subtitle": "Hicri ve Gregoryen takvimleri arasında dönüştürme",
-    "intro": "Bir takvimde tarih girin; diğerindeki karşılığını konumunuzdaki hilāl görünürlüğünden çevrimdışı hesaplanmış olarak görün.",
+    "intro": "Takvimlerden herhangi birine bir tarih girin ve bunun diğer takvimdeki eşdeğerini görmek için Kuveyt tablo algoritması kullanılarak çevrimdışı olarak hesaplayın.",
     "toHijri": "Gregoryen → Hicri",
     "toGregorian": "Hicri → Gregoryen",
     "gregorianDateLabel": "Gregoryen tarihi",
@@ -4913,7 +4971,7 @@
     "year": "Yıl",
     "useToday": "Bugün kullanın",
     "invalidDate": "Geçerli bir tarih girin",
-    "disclaimer": "Tarihler konumunuzdaki hilāl görünürlüğünden hesaplanır ve resmi ay gözlemi duyurularından bir gün farklı olabilir — dini tarihler için her zaman yerel masjid veya otoritenizi takip edin.",
+    "disclaimer": "Bu aritmetik bir yaklaşımdır (tablo \"Kuveyt algoritması\") ve yerel ay gözlemi duyurularından bir gün farklılık gösterebilir; dini tarihler için daima yerel mescidinizi veya otoritenizi takip edin.",
     "directionTitle": "Dönüşüm yönü",
     "resultFrom": "{{date}}'den",
     "quickLinksTitle": "İlgili",
@@ -4971,7 +5029,9 @@
       "names": "99 İsim",
       "hadith": "Hadis",
       "quran": "Kur'an",
-      "duas": "Dualar"
+      "duas": "Dualar",
+      "janazah": "Cenaze",
+      "fidyah": "Fidye"
     },
     "skipHint": "Bu kartı atlayıp başka bir soru görün.",
     "skipDisabledHint": "Yeniden karıştırmak için bu son kalan kartı yanıtlayın."
@@ -5011,6 +5071,83 @@
     },
     "notFound": "Konu bulunamadı",
     "disclaimer": "Eğitici özet — fetva değildir. Mezheplerin ayrıldığı yerlerde (örneğin Cuma ghuslünün vacip mi yoksa sünnet-i müekkede mi olduğu), her iki görüş de not edilir; imamınızı veya nitelikli yerel bir âlimi takip edin.",
+    "continueInApp": "Munib'de sürdür"
+  },
+  "fidyah": {
+    "eyebrow": "Aletler",
+    "title": "Fidye ve kefaret",
+    "subtitle": "Otomatik kararları değil, kaçırılan veya bozulan Ramadan oruçlar için yardımcıları tahmin edin",
+    "intro": "Bunu yalnızca bir planlama tahmini olarak kullanın. Qur'an 2:184–185 ve Sahih Muslim 1111 temelleri çerçeveliyor; Nitelikli bir alim, kaza, fidye, keffaret veya başka bir borcunuzun olup olmadığını sınıflandırmalıdır.",
+    "helperTitle": "Tahmin yardımcısı",
+    "helperHint": "Günleri ve yerel yemek veya fidya birim maliyetinizi girin. Güvenilir bir yerel mescit veya meclis tarafından yayınlanan bir fiyatı tercih edin.",
+    "scenario": {
+      "fidyah": "Fidye",
+      "kaffarah": "Kefaret"
+    },
+    "currency": "Para birimi",
+    "daysLabel": "Kaçırılan günler",
+    "unitsLabel": "Kaffarah birim",
+    "mealCostLabel": "Bir fakiri doyurmanın bedeli",
+    "mealCostHint": "Bir öğün veya günlük yerel olarak yayınlanan fidya miktarınız.",
+    "estimateLabel": "Planlama tahmini",
+    "estimateEmpty": "Günleri ve yemek ücretini girin",
+    "estimateFidyahDetail": "{{meals}} doyurulacak fakir kişi(ler)",
+    "estimateKaffarahDetail": "{{meals}} yemek (beslenme seçeneği) · veya {{fasts}} ardışık oruç günleri",
+    "section": {
+      "overview": "Genel Bakış",
+      "fidyah": "Fidye",
+      "kaffarah": "Kefaret",
+      "practice": "Yardımcıyı kullanma"
+    },
+    "notFound": "Konu bulunamadı",
+    "disclaimer": "Yalnızca eğitimle ilgili tahminler; fetva değil. Mezhep detayları farklıdır; Davanız için nitelikli bir yerel akademisyeni takip edin.",
+    "continueInApp": "Munib'de sürdür"
+  },
+  "janazah": {
+    "eyebrow": "Öğrenmek",
+    "title": "Janazah kılavuzu",
+    "subtitle": "Cenaze namazı, yıkanma, defin ve sahih dualar",
+    "intro": "Toplumsal bir görev olarak __MÜNİB_TOKEN_0__ konusuna pratik bir genel bakış - rüku veya secde olmadan dört tekbir nasıl kılınır ve merhum için __MÜNİB_TOKEN_1__ dualar.",
+    "section": {
+      "obligation": "Yükümlülük",
+      "prepare": "Hazırlık",
+      "salah": "Cenaze namazı",
+      "burial": "Cenaze",
+      "duas": "Cenaze duaları",
+      "reminders": "Hatırlatıcılar"
+    },
+    "notFound": "Konu bulunamadı",
+    "disclaimer": "Eğitsel genel bakış - bir cenaze yönetmeni el kitabı veya bir fetva değil. Yıkama, kefenleme ve mezarlık uygulamalarını nitelikli yerel rehberlikle onaylayın.",
+    "continueInApp": "Munib'de sürdür"
+  },
+  "sadaqah": {
+    "eyebrow": "Aletler",
+    "title": "Sadaka hedefleri",
+    "subtitle": "Günlük veya haftalık niyet ve basit bir verme günlüğü",
+    "intro": "Gönüllü bir hayır niyeti belirleyin ve verdiğiniz şeyi kaydedin. Zakat ayrı bir yükümlülük olmaya devam ediyor — bunun için Zakat hesaplayıcısını kullanın.",
+    "intentionTitle": "Niyetim",
+    "intentionHint": "Gönüllü sadaka için kişisel bir hedef; zekat değil.",
+    "period": {
+      "daily": "Günlük",
+      "weekly": "Haftalık"
+    },
+    "currency": "Para birimi",
+    "targetLabel": "Hedef miktar",
+    "saveGoal": "Niyeti kaydet",
+    "clearGoal": "Açık niyet",
+    "progressLabel": "Bunu ilerlet {{period}}",
+    "logTitle": "Bir hediye kaydedin",
+    "logAmount": "Miktar",
+    "logNote": "Not (isteğe bağlı)",
+    "logNotePlaceholder": "örneğin gıda bankası",
+    "addEntry": "Günlüğe ekle",
+    "logEmpty": "Henüz giriş yapılmış bir hediye yok.",
+    "learnMoreTitle": "Daha fazla bilgi edin",
+    "linkZakat": "Zakat hesap makinesi",
+    "linkZakatHint": "Zorunlu arındırıcı sadaka",
+    "linkFinance": "İslami finansta Sadaqah",
+    "linkFinanceHint": "Gönüllü bağışlama açıklandı",
+    "disclaimer": "Yalnızca kişisel bir takip cihazıdır; bir fetva değildir ve zamanı geldiğinde zekatın hesaplanmasının yerine geçmez.",
     "continueInApp": "Munib'de sürdür"
   }
 }

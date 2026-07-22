@@ -71,6 +71,12 @@ const PROTECTED = new Set([
   "ah",
   "arabicName",
   "label",
+  "sources",
+  "parentId",
+  "prophetId",
+  "siblingOf",
+  "certainty",
+  "branch",
 ]);
 
 /** @type {Record<string, { module: string, exportName: string, typeImport: string, typeName: string, baseKey: string }>} */
@@ -123,6 +129,27 @@ const CORPORA = {
     typeImport: "../../types/learn-guide",
     typeName: "LearnGuideTopic",
     baseKey: "ISLAMIC_FINANCE_TOPICS",
+  },
+  "fidyah-guide": {
+    module: "fidyah-guide.ts",
+    exportName: "FIDYAH_GUIDE_TOPICS",
+    typeImport: "../../types/learn-guide",
+    typeName: "LearnGuideTopic",
+    baseKey: "FIDYAH_GUIDE_TOPICS",
+  },
+  "janazah-guide": {
+    module: "janazah-guide.ts",
+    exportName: "JANAZAH_GUIDE_TOPICS",
+    typeImport: "../../types/learn-guide",
+    typeName: "LearnGuideTopic",
+    baseKey: "JANAZAH_GUIDE_TOPICS",
+  },
+  "prophets-genealogy": {
+    module: "prophets-genealogy.ts",
+    exportName: "PROPHETS_GENEALOGY_NODES",
+    typeImport: "../../types/prophets",
+    typeName: "ProphetsGenealogyNode",
+    baseKey: "PROPHETS_GENEALOGY_NODES",
   },
 };
 

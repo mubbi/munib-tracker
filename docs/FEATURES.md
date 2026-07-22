@@ -11,7 +11,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-0.1 | Prayer calculation method picker | `app/location`, `lib/prayer-times.ts`, `rescheduleAll` |
 | NF-0.2 | Asr madhab picker (Shafi / Hanafi) | Location screen `SegmentedControl` |
 | NF-0.3 | Manual sync + status UI | `profile/index.tsx`, `syncNow()`, `readSyncMetadata()` |
-| NF-0.4 | Expanded cloud sync entities | Typed record sync + **28** blob-LWW entities in `sync/blob-sync.ts`; API whitelist `SYNC_ENTITIES` (**40** total) in `apps/api` — includes location/calc settings, reading-text visibility, hadith reading prefs, zakat draft, tours, and appearance via the preferences blob |
+| NF-0.4 | Expanded cloud sync entities | Typed record sync + **28** blob-LWW entities in `sync/blob-sync.ts`; API whitelist `SYNC_ENTITIES` (**41** total) in `apps/api` — includes `data_reset`, location/calc settings, reading-text visibility, hadith reading prefs, zakat draft, tours, and appearance via the typed `preferences` record (not a blob) |
 | NF-0.5 | Adhan at prayer notification | `playAdhanOnPrayer`, `build-reminders.ts`, Android channel |
 | NF-0.6 | Juz browser | `/quran/juz`, `getJuzList()` |
 | NF-0.7 | Durood & Names search + favorites | `createFavoritesStore`, in-screen Fuse search |
@@ -30,7 +30,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-1.5 | Jama' flag | `PrayerLog.isJama` |
 | NF-1.6 | Weekly worship report | `buildWeeklyReport` |
 | NF-1.7 | Per-prayer reminder offsets | `/settings/reminder-offsets` |
-| NF-1.33 | Salah guide | `content/salah-guide.ts`, `/salah-guide` |
+| NF-1.33 | Salah guide | `packages/shared/src/content/salah-guide.ts`, `/salah-guide` |
 
 ---
 
@@ -85,26 +85,32 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | ID | Feature | Key touchpoints |
 |----|---------|-------------------|
 | NF-2.1 | Islamic events calendar | `lib/islamic-events.ts`, `/events` |
-| NF-2.2 | Zakat calculator (+ edu) | `lib/zakat.ts`, `/zakat` — sadaqah goals/log is open (`NF-2.18`) |
-| NF-2.3 | Hajj & Umrah learn + separate checklists | `content/hajj-guide.ts`, `hajj-checklist.ts`, `umrah-checklist.ts`, `/hajj`, `/hajj/checklist`, `/umrah/checklist` |
-| NF-2.4 | Seerah timeline | `content/seerah.ts`, `/seerah` |
-| NF-2.27 | Sahaba directory | `content/sahaba.ts`, `/sahaba` |
-| NF-2.28 | Early Islamic history | `content/islamic-history.ts`, `/history` |
-| NF-2.29 | Laylat al-Qadr guide | `content/laylat-al-qadr.ts`, `/laylat-al-qadr` |
-| NF-2.30 | Eid guide | `content/eid-guide.ts`, `/eid` |
-| NF-2.31 | Ruqyah guide | `content/ruqyah.ts`, `/ruqyah` |
-| NF-2.32 | New Muslim guide | `content/new-muslim.ts`, `/new-muslim` |
-| NF-2.33 | Islamic finance (edu) | `content/islamic-finance.ts`, `/finance` |
+| NF-2.2 | Zakat calculator (+ edu) | `lib/zakat.ts`, `/zakat` |
+| NF-2.5 | Fidyah / kaffarah helpers | `lib/fidyah.ts`, `packages/shared/src/content/fidyah-guide.ts`, `/fidyah` (flash-bank only, no `/quiz`) |
+| NF-2.6 | Janazah practical guide | `packages/shared/src/content/janazah-guide.ts`, `/janazah` (Hisnul `hisn-155`–`161`, `163`–`165`; flash-bank only) |
+| NF-2.3 | Hajj & Umrah learn + separate checklists | `packages/shared/src/content/{hajj-guide,hajj-checklist,umrah-checklist}.ts`, `/hajj`, `/hajj/checklist`, `/umrah/checklist` |
+| NF-2.4 | Seerah timeline | `packages/shared/src/content/seerah.ts`, `/seerah` |
+| NF-2.27 | Sahaba directory | `packages/shared/src/content/sahaba.ts`, `/sahaba` |
+| NF-2.28 | Early Islamic history | `packages/shared/src/content/islamic-history.ts`, `/history` |
+| NF-2.29 | Laylat al-Qadr guide | `packages/shared/src/content/laylat-al-qadr.ts`, `/laylat-al-qadr` |
+| NF-2.30 | Eid guide | `packages/shared/src/content/eid-guide.ts`, `/eid` |
+| NF-2.31 | Ruqyah guide | `packages/shared/src/content/ruqyah.ts`, `/ruqyah` |
+| NF-2.32 | New Muslim guide | `packages/shared/src/content/new-muslim.ts`, `/new-muslim` |
+| NF-2.33 | Islamic finance (edu) | `packages/shared/src/content/islamic-finance.ts`, `/finance` |
 | NF-2.34 | Hijri ↔ Gregorian converter | `lib/hijri.ts`, `/calendar/converter` |
-| NF-2.35 | Friday / Jumu'ah learn hub & checklist | `content/friday-guide.ts`, `/friday`, Today's Goal Friday + hour-of-acceptance banners, `friday_checklist` sync |
+| NF-2.35 | Friday / Jumu'ah learn hub & checklist | `packages/shared/src/content/friday-guide.ts`, `/friday`, Today's Goal Friday + hour-of-acceptance banners, `friday_checklist` sync |
+| NF-2.36 | Prophets family tree | `packages/shared/src/content/prophets-genealogy.ts`, `/prophets/tree` |
 | NF-2.7 | Word-by-word + tajweed reader | `api/quran-words.ts`, `api/quran-tajweed.ts`, ayah reader toggles |
 | NF-2.10 | Daily hadith series | `lib/daily-hadith.ts`, `/hadith/daily` |
+| NF-2.8 | Hadith sharh / explanation | Arabic Nawawi-40 sharh sidecar (`nawawi40-sharh.json` via `osamayy/40-hadith-nawawi-db`); collapsible UI + `showSharh` pref |
+| NF-2.9 | Full isnad chain | Structured `isnad[]` on bundled highlights (`isnad-highlights.json`); chain UI + `showIsnad` pref |
 | NF-2.11 | Custom adhkar builder | `custom-adhkar-store`, `/adhkar-builder` (optional private images via `/user-media`; dictate Arabic/transliteration/meaning via `expo-speech-recognition` — requires a native dev/production build) |
 | NF-2.12 | Prayer journal / khushu | `khushu-store`, `/journal` |
 | NF-2.13 | Tahajjud streak | `computePrayerStreak`, `/tahajjud` |
 | NF-2.14 | Apple Watch / Wear OS | `targets/munib-tracker-watch`, `targets/munib-tracker-watch-widgets`, `modules/munib-wear` |
 | NF-2.15 | Siri / Assistant shortcuts | `targets/munib-tracker-intents`, `external-commands` |
 | NF-2.17 | App lock (PIN / biometrics) | `features/pin-lock`, `/settings/app-lock` |
+| NF-2.18 | Sadaqah goals | `stores/sadaqah-store.ts`, `/sadaqah` |
 | NF-2.19 | Sync conflict resolution UI | SyncMetadata outcome, profile merge |
 | NF-2.20 | Prayer time manual offset | `/settings/prayer-tuning` |
 | NF-2.21 | High-latitude rule override | `PrayerCalcExtras` |
@@ -123,6 +129,4 @@ Product pillars for landing copy: `packages/shared/src/constants/features.ts` (`
 
 NF-1.27, NF-1.28, NF-2.22, NF-2.25, NF-2.26 — reserved / not implemented.
 
-Open product (see [`BACKLOG.md`](./BACKLOG.md)): NF-2.5, NF-2.6, NF-2.16, NF-2.18, NF-2.36.
-
-Data-blocked (see [`BACKLOG.md`](./BACKLOG.md)): NF-2.8, NF-2.9.
+Open product (see [`BACKLOG.md`](./BACKLOG.md)): NF-2.16.

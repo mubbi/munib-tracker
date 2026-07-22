@@ -22,12 +22,6 @@
 | Debug APK zip breakdown (`android/.../app-debug.apk`) | Native `.so`, dex, fonts, assets | **Debug + multi-ABI (incl. x86_64)** — **not** a Play Store AAB size |
 | Source inspection | Import shapes (`hadith-bundled`, `quran-meta`, `search`, `_layout`) | Static analysis |
 
-**Still open for wall-clock / store numbers:**
-
-- Cold-start TTI / TTR on device (React Native Perf Monitor, Flipper, or [EAS Observe](https://docs.expo.dev/eas/observe/get-started/))
-- Annotated Metro source map / treemap (optional P2.4)
-- Release AAB per-ABI download size (`bundletool get-size total`)
-
 ---
 
 ## 2. Snapshot of measured results
@@ -141,10 +135,6 @@ Full list also in [`BACKLOG.md`](./BACKLOG.md#performance).
 | ID | Task | Notes |
 |----|------|-------|
 | P1.5 | Android barcode / ML Kit assets | Debug APK packs ~0.86 MB TFLite under `assets/`. Exclude from release AAB if unused. |
-| P2.1 | Device cold start | Mid-tier Android + one iPhone; optional [EAS Observe](https://docs.expo.dev/eas/observe/get-started/) |
-| P2.2 | Release AAB / IPA size | Replace §2.4 debug numbers with Play download size / TestFlight |
-| P2.4 | Metro treemap (optional) | Source-map explorer; attach top modules here |
-| — | Further `__common` trim | Keep DUA/NAMES/search corpora out of modules shared by ≥2 routes |
 
 Non-goals: blanket `React.lazy` on shared components; native production `asyncRoutes` without Expo documenting native splits.
 
@@ -242,15 +232,13 @@ Preserve the existing i18n guard/parity tests (they can keep importing all local
 
 ## 7. Suggested acceptance targets
 
-Lab baselines exist (§2.5). Stretch goals below are **not** CI gates yet — tighten after `__common` shrinks further and device/AAB numbers land.
+Lab baselines exist (§2.5). Stretch goals below are **not** CI gates yet.
 
 | Surface | Stretch target | Current |
 |---------|----------------|-------------------|
 | Web entry JS (gzip) | **&lt; 1.5 MB** critical path (home), rest async | ~**3.4 MB** — in progress |
 | Web entry JS (raw) | **&lt; 6 MB** critical path | ~**19 MB** — in progress |
 | Home does not parse Riyad JSON | Required | **Met** (own async chunk) |
-| Native cold start (mid Android) | Measure first; then no-regression / −10% | **Open** |
-| Store download (arm64-v8a) | Track after first release AAB | **Open** |
 
 ---
 

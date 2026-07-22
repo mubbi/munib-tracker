@@ -2,7 +2,7 @@
 
 | Doc | Use when you need… |
 |-----|-------------------|
-| [`BACKLOG.md`](./BACKLOG.md) | Open work (product, i18n, performance, devices, content) |
+| [`BACKLOG.md`](./BACKLOG.md) | Open work (product, perf, devices, content) |
 | [`FEATURES.md`](./FEATURES.md) | Shipped product features (NF-* catalog) |
 | [`../AGENTS.md`](../AGENTS.md) | Monorepo commands, conventions, agent rules |
 
@@ -17,6 +17,7 @@
 | Live Activity remote push (QStash, cron, future Fly worker) | [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md) |
 | Web Push + Android Expo surface phases | [`WEB_PUSH.md`](./WEB_PUSH.md) |
 | Device & platform support | [`DEVICES.md`](./DEVICES.md) |
+| Apple TV / Android TV | [`TV.md`](./TV.md) |
 | Performance profiling | [`PROFILING.md`](./PROFILING.md) |
 | App Store / Play screenshots | [`STORE_ASSETS.md`](./STORE_ASSETS.md) |
 | iOS App Store listing copy | [`IOS_APP_COPY.md`](./IOS_APP_COPY.md) |
@@ -27,7 +28,7 @@
 | Ops / admin console (`admin.munibtracker.app`) | [`ADMIN.md`](./ADMIN.md) |
 | Admin → product broadcasts (inbox + push) | [`ADMIN_BROADCASTS.md`](./ADMIN_BROADCASTS.md) |
 
-Per-app guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md) · [`apps/admin/AGENTS.md`](../apps/admin/AGENTS.md) · [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md) · [`packages/db/README.md`](../packages/db/README.md)
+Per-app guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md) · [`apps/admin/AGENTS.md`](../apps/admin/AGENTS.md) · [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md) · [`packages/db/README.md`](../packages/db/README.md) · [`packages/live-activity-delivery/README.md`](../packages/live-activity-delivery/README.md) · [`packages/surface-push-delivery/README.md`](../packages/surface-push-delivery/README.md) · [`packages/store-screenshots/README.md`](../packages/store-screenshots/README.md)
 
 ## Doc maintenance
 

@@ -37,6 +37,7 @@ import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import i18n from "@/i18n";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   detectQuranVerses,
   segmentHighlightedText,
@@ -659,6 +660,24 @@ function DetectorBody() {
 export default function QuranVerseDetectorScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+
+  if (isTV()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("library.eyebrow")}
+        title={t("quran.detector.title")}
+        subtitle={t("quran.detector.subtitle")}
+        onBack={() => goBackOrReplace(router, "/library")}
+      >
+        <Seo path="/verse-detector" />
+        <EmptyState
+          icon={{ ios: "tv", android: "tv", web: "tv" }}
+          title={t("common.tvUnavailableTitle")}
+          description={t("common.tvUnavailableBody")}
+        />
+      </ScreenLayout>
+    );
+  }
 
   return (
     <ScreenLayout

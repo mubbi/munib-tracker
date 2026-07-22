@@ -27,6 +27,10 @@ export interface HadithPrefs {
   showTranslation: boolean;
   showNarrator: boolean;
   showGrade: boolean;
+  /** NF-2.9 structured isnad chain */
+  showIsnad: boolean;
+  /** NF-2.8 Arabic sharh / explanation */
+  showSharh: boolean;
 }
 
 export const DEFAULT_HADITH_PREFS: HadithPrefs = {
@@ -34,6 +38,8 @@ export const DEFAULT_HADITH_PREFS: HadithPrefs = {
   showTranslation: true,
   showNarrator: true,
   showGrade: true,
+  showIsnad: true,
+  showSharh: true,
 };
 
 type BookCache = Record<string, HadithCollectionData>;

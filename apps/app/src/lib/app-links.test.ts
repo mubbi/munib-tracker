@@ -108,6 +108,10 @@ describe("DEEP_LINK_PATHS catalog", () => {
         "/quran/hifz",
         "/qaza/history",
         "/hadith/daily",
+        "/fidyah",
+        "/janazah",
+        "/sadaqah",
+        "/prophets/tree",
       ]),
     );
   });

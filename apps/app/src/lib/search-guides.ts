@@ -10,17 +10,20 @@ import { AQEDAH_TOPICS } from "@munib-tracker/shared/content/aqeedah";
 import { BATTLES_TOPICS } from "@munib-tracker/shared/content/battles";
 import { EID_GUIDE_TOPICS } from "@munib-tracker/shared/content/eid-guide";
 import { EXCUSED_GUIDES } from "@munib-tracker/shared/content/excused-guide";
+import { FIDYAH_GUIDE_TOPICS } from "@munib-tracker/shared/content/fidyah-guide";
 import { FRIDAY_GUIDE_TOPICS } from "@munib-tracker/shared/content/friday-guide";
 import { HAJJ_GUIDE_TOPICS } from "@munib-tracker/shared/content/hajj-guide";
 import { ISLAMIC_FINANCE_TOPICS } from "@munib-tracker/shared/content/islamic-finance";
 import { ISLAMIC_HISTORY_EVENTS } from "@munib-tracker/shared/content/islamic-history";
 import { JAHANNAM_TOPICS } from "@munib-tracker/shared/content/jahannam";
+import { JANAZAH_GUIDE_TOPICS } from "@munib-tracker/shared/content/janazah-guide";
 import { JANNAH_TOPICS } from "@munib-tracker/shared/content/jannah";
 import { LAST_DAY_TOPICS } from "@munib-tracker/shared/content/last-day";
 import { LAYLAT_AL_QADR_TOPICS } from "@munib-tracker/shared/content/laylat-al-qadr";
 import { LEARN_DUA_TOPICS } from "@munib-tracker/shared/content/learn-dua";
 import { NEW_MUSLIM_TOPICS } from "@munib-tracker/shared/content/new-muslim";
 import { PROPHETS_TOPICS } from "@munib-tracker/shared/content/prophets";
+import { PROPHETS_GENEALOGY_NODES } from "@munib-tracker/shared/content/prophets-genealogy";
 import { QURAN_GUIDE_TOPICS } from "@munib-tracker/shared/content/quran-guide";
 import { RUQYAH_TOPICS } from "@munib-tracker/shared/content/ruqyah";
 import { SAHABA_PROFILES } from "@munib-tracker/shared/content/sahaba";
@@ -61,6 +64,8 @@ type GuideTopic = {
   misconceptions?: string[];
   phrases?: { title: string; translation: string; arabic: string }[];
   sources?: string[];
+  name?: string;
+  relationNote?: string;
 };
 
 type ScoredHit = { score: number; result: SearchResult };
@@ -88,12 +93,16 @@ let fridayFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let newMuslimFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let laylatFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let financeFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let fidyahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let janazahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let prophetsTreeFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let seerahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let historyFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let sahabaFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let hajjFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let travelFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let zakatFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let sadaqahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let haydFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let sickFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 
@@ -252,6 +261,37 @@ function getFinanceFuse(): Fuse<FuseDoc<GuideTopic>> {
   return financeFuse;
 }
 
+function getFidyahFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!fidyahFuse) fidyahFuse = makeFuse(FIDYAH_GUIDE_TOPICS as GuideTopic[], BASE_FIELDS);
+  return fidyahFuse;
+}
+
+function getJanazahFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!janazahFuse) janazahFuse = makeFuse(JANAZAH_GUIDE_TOPICS as GuideTopic[], BASE_FIELDS);
+  return janazahFuse;
+}
+
+function getProphetsTreeFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!prophetsTreeFuse) {
+    const topics: GuideTopic[] = PROPHETS_GENEALOGY_NODES.map((n) => ({
+      id: n.id,
+      title: n.name,
+      summary: n.relationNote,
+      body: n.sources,
+      sources: n.sources,
+      name: n.name,
+      relationNote: n.relationNote,
+    }));
+    prophetsTreeFuse = makeFuse(topics, [
+      ...BASE_FIELDS,
+      { key: "name", weight: 5, get: (t) => t.name },
+      { key: "relationNote", weight: 2, get: (t) => t.relationNote },
+      { key: "sources", weight: 1, get: (t) => (t.sources ?? []).join(" ") },
+    ]);
+  }
+  return prophetsTreeFuse;
+}
+
 function getSeerahFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!seerahFuse) {
     seerahFuse = makeFuse(
@@ -351,6 +391,23 @@ function getZakatFuse(): Fuse<FuseDoc<GuideTopic>> {
     zakatFuse = makeFuse(topics, BASE_FIELDS);
   }
   return zakatFuse;
+}
+
+function getSadaqahFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!sadaqahFuse) {
+    sadaqahFuse = makeFuse(
+      [
+        {
+          id: "hub",
+          title: tEn("sadaqah.title"),
+          summary: tEn("sadaqah.subtitle"),
+          body: [tEn("sadaqah.intro"), tEn("sadaqah.intentionHint")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return sadaqahFuse;
 }
 
 function excusedSectionTopics(
@@ -467,7 +524,11 @@ export function searchGuideGroups(
     ...mapScored(getNewMuslimFuse(), query, "/new-muslim/[topic]", "New Muslim", "topic"),
     ...mapScored(getLaylatFuse(), query, "/laylat-al-qadr/[topic]", "Laylat al-Qadr", "topic"),
     ...mapScored(getFinanceFuse(), query, "/finance/[topic]", "Finance", "topic"),
+    ...mapScored(getFidyahFuse(), query, "/fidyah/[topic]", "Fidyah", "topic"),
+    ...mapScored(getJanazahFuse(), query, "/janazah/[topic]", "Janazah", "topic"),
+    ...mapScored(getProphetsTreeFuse(), query, "/prophets/tree", "Prophets tree", null),
     ...mapScored(getZakatFuse(), query, "/zakat/[topic]", "Zakat", "topic"),
+    ...mapScored(getSadaqahFuse(), query, "/sadaqah", "Sadaqah", null),
     ...mapScored(getSeerahFuse(), query, "/seerah", "Seerah", null),
     ...mapScored(getHistoryFuse(), query, "/history", "History", null),
     ...mapScored(getHajjFuse(), query, "/hajj/[topic]", "Hajj", "topic"),

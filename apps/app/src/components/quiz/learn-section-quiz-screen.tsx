@@ -68,7 +68,7 @@ export function LearnSectionQuizScreen({ sectionId }: LearnSectionQuizScreenProp
       subtitle={subtitle}
       onBack={() => goBackOrReplace(router, def.route)}
     >
-      <Seo path={String(def.quizPath)} />
+      <Seo path={String(def.quizPath ?? `${String(def.route)}/quiz`)} />
       <LearnContentGate ready={ready || questions.length > 0}>
         <Stagger>
           {questions.length === 0 ? (

@@ -78,7 +78,10 @@
       "hint": "Dib u eeg waxaad baratay",
       "empty": "Su'aalaha hagahaan weli waa la soo rarayaa. Fur dhowr cashar, ka dib isku day mar kale."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "TV-ga kama heli kartid",
+    "tvUnavailableBody": "Astaantani waxay u baahan tahay taleefan ama tablet. Halkaas ka fur Munib Tracker si aad u sii waddo.",
+    "tvOauthHint": "Gelitaanka baraha bulshada waxa laga yaabaa inuu ku koobnaado TV-ga. Halkan ugu sii wad marti ahaan, ama akoon ku xidh taleefankaaga."
   },
   "search": {
     "placeholder": "Raadi Qur'an, hadith, dua, Baro…",
@@ -170,7 +173,10 @@
     "flashCards": "Kaararka barashada",
     "verseDetector": "Aqoonsiga Aayadda",
     "lastThirdNight": "Saddex-meelood meel ugu dambeysa",
-    "friday": "Jimce & Jumu'ah"
+    "friday": "Jimce & Jumu'ah",
+    "fidyah": "Fidyo iyo kafaaro",
+    "janazah": "Janazah hage",
+    "sadaqah": "Sadaqah gool"
   },
   "quickActions": {
     "checklistSubtitle": "Diiwaangeli salaha maanta",
@@ -802,14 +808,16 @@
     "apple": "Ku sii wad Apple",
     "facebook": "Ku sii wad Facebook",
     "heroGuest": "Waxaad isticmaalaysaa akoon martida Ku xidh bixiyaha si aad u kaydiso oo aad u habayso xogtaada - ma jiraan wax lumay.",
-    "heroUser": "Saxiix si aad u ilaaliso salaadadaada, qaza, iyo zikr si badbaado leh daruuraha ugu jira.",
+    "heroUser": "Salaaddaada, qaza iyo zikr ku hay daruuraha si ammaan ah.",
     "error": "Waa lagu fashilmay gelitaanka. Hubi in server-ka API uu shaqeynayo oo bixiyahan la habeeyay.",
     "providersUnavailableTitle": "Saxiixitaanka weli ma heli karo",
     "providersUnavailableBody": "Bixiyeyaasha sync-ga daruuraha laguma dejin dhisiddaan. Sii wad marti ahaan — horumarkaagu wuxuu ku sii jiraa qalabkan.",
     "titleSignedIn": "Waad soo gashay",
     "subtitleSignedIn": "Isku-dubaridka daruuraha wuu diyaar yahay qalabkan",
     "heroSignedIn": "Soo dhawoow — akoonkaaga waa la xidhay. Salaadda, qaza iyo zikr waxay isku-dubarin karaan qalabada.",
-    "continueSignedIn": "Sii wad"
+    "continueSignedIn": "Sii wad",
+    "or": "ama",
+    "guestHint": "Waxaad akoon ku xidhi kartaa wakhti kasta Profile-ka."
   },
   "onboarding": {
     "begin": "Beggudh",
@@ -1109,7 +1117,8 @@
       "activeHint": "Cusboonaysiinta nool ayaa soo bixi doonta marka Salaaddan ay soo dhawaato. Taabo Jooji si aad uga saarto dhejinta.",
       "a11yStart": "Bilow la-socodka Salaadda xigta shaashadda qufulka",
       "a11yStop": "Jooji la-socodka cusboonaysiinta nool ee Salaadda"
-    }
+    },
+    "tvUnavailableBody": "Xusuusiyeyaasha maxalliga ah iyo Live Activities kama shaqeeyaan TV-ga. Doorbidyada ogeysiisyada ka maamul taleefankaaga."
   },
   "fonts": {
     "eyebrow": "Dejinta",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "Ku raadi adhkar cinwaan, mowduuc, ama qoraal…",
     "searchInCategory": "Ka raadi qaybtan…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "Ma jiro adhkar oo ku habboon raadintaada."
+    "noResults": "Ma jiro adhkar oo ku habboon raadintaada.",
+    "markAsDone": "Calaamadee dhammaystiran",
+    "undoDoneHint": "Taabo si aad u noqoto oo aad uga saarto dhammaystirka"
   },
   "zikrCat": {
     "morning": "subx dhkr",
@@ -1562,7 +1573,12 @@
     "backToTop": "Ku laabo xagga sare",
     "readingProgress": "Horumarka akhriska",
     "enterFullscreen": "Geli shaashadda buuxda",
-    "exitFullscreen": "Ka bax shaashadda buuxda"
+    "exitFullscreen": "Ka bax shaashadda buuxda",
+    "isnad": "Isnaad",
+    "sharh": "Sharh",
+    "showIsnad": "Muuji isnad",
+    "showSharh": "Muuji sharh",
+    "sharhArabicOnly": "Sharaxaadda waxaa lagu heli karaa Carabi oo keliya."
   },
   "credits": {
     "eyebrow": "ttributiku",
@@ -2312,7 +2328,8 @@
     "cardinalS": "K",
     "cardinalW": "G",
     "defaultLocationHint": "Isticmaalka goobta caadiga ah (Makkah). U deji magaaladaada meel marin sax ah oo qibla ah halka aad joogto.",
-    "setLocation": "Set goob"
+    "setLocation": "Set goob",
+    "tvHint": "Kombas toos ah kama shaqeeyo TV-ga. Fallaadhu waxay tusaysaa jihada qiblada ee waqooyi laga eego magaaladaada — taleefan u isticmaal toosinta tooska ah."
   },
   "profile": {
     "eyebrow": "koku",
@@ -3346,6 +3363,42 @@
       "obligatory": "Essentil",
       "highly-recommended": "Si weyn loo taliyay",
       "recommended": "Lagula talinayaa"
+    },
+    "quickTree": "Geedka qoyska",
+    "quickTreeHint": "Adam ilaa Muhammad ﷺ - abtirsiinyo laga soo xigtay",
+    "tree": {
+      "title": "Nabiyada geed qoyska",
+      "subtitle": "Abtirsiinyo asal ah - Qur'an, xadiis saxiix ah, iyo taariikh calaamadeysan",
+      "intro": "Geedkani waxa uu muujinayaa xidhiidhada lagu aasaasay Qur'an, xadiiska dhabta ah, ama taariikhda qadiimiga ah ee si cad loo calaamadiyey. Nusqaamaha waa madhan halkii laga buuxin lahaa magacyo aan la xaqiijin. Xidhiidhada awoowayaasha (ma aha mid degdeg ah) ayaa lagu calaamadeeyay sida.",
+      "searchPlaceholder": "Raadi nebi ama magac…",
+      "searchResults": "{{count}} kulan",
+      "sources": "Ilaha",
+      "openBio": "Taariikh nololeedka furan",
+      "certainty": {
+        "quran": "Qur'aanka",
+        "authentic-hadith": "Xadiis saxiix ah",
+        "classical-history": "Taariikhda qadiimiga ah"
+      },
+      "branch": {
+        "adam-nuh": "Adamiyo Nuh",
+        "ibrahim": "Qoyska Ibrahim",
+        "israel": "Banii Israa'iil",
+        "musa": "Musaiyo Harun",
+        "dawud": "Dawudiyo Sulayman",
+        "zakariyya": "Zakariyyaiyo Yahya",
+        "isa": "Maryamiyo Isa",
+        "muhammad": "Shaabadda Nabiyada"
+      },
+      "disclaimer": "Abtirsiinyada waxbarashada - ma aha liis dhammaystiran oo nebi kasta ah. Rasuulo badan ayaa lagu magacaabay Qur'an iyagoon lahayn silsilad waalid oo faahfaahsan; waxay ka soo muuqdaan Baro Nabiyada bios laakiin halkan waa laga saaray halkii la qiyaasi lahaa.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -3641,7 +3694,7 @@
     "today": "mnt",
     "inDays": "gudh {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Taariikhuhu waxay raacaan aragtida dayaxa goobtaada (ama jadwalka rasmiga ah ee Umm al-Qura gobollada isticmaala) waxayna kala duwanaan karaan ogeysiis maamul maxalli ah maalin.",
+    "disclaimer": "Taariikhaha waxaa la xisaabiyaa qiyaasaha - maalinta dhabta ah waxay kuxirantahay aragtida dayaxa deegaanka.",
     "names": {
       "newYear": "Sanadka Cusub ee Islaamka",
       "ashura": "Maalinta Caashuuraa",
@@ -4075,7 +4128,12 @@
       "confirm": "Foomka dib u habeyn",
       "a11y": "Dib u deji foomka xisaabiyaha sakada",
       "hint": "Weydiiso xaqiijin, ka bacdina waxa uu nadiifiyaa dhammaan caddadka la galay"
-    }
+    },
+    "relatedTitle": "Qalabka la xidhiidha",
+    "linkSadaqah": "Hadafyada sadaqada",
+    "linkSadaqahHint": "Bixin ikhtiyaari ah oo maalinle ama toddobaadle ah",
+    "linkFidyah": "Fidyo iyo kafaaro",
+    "linkFidyahHint": "Qiyaaso loogu talagalay soon la seegay ama la jebiyey"
   },
   "customAdhkar": {
     "eyebrow": "Xusuusin",
@@ -4114,7 +4172,7 @@
       "label": "Lifaaqyada (ikhtiyaar)",
       "add": "Ku dar faylka",
       "remove": "Ka saar lifaaqa",
-      "hint": "Ilaa 5 fayl (JPEG, PNG, WebP, ama PDF), 1 MB midkiiba. Taabo × thumbnail-ka si aad u tirtiro.",
+      "hint": "Ilaa 5 fayl (JPEG, PNG, WebP, ama PDF), 1 MB midkiiba. Riix thumbnail si aad meesha uga saarto.",
       "signInRequired": "Soo gal si aad ugu lifaaqdo faylasha gaarka ah adhkar kaaga.",
       "permissionDenied": "Ogolaanshaha ayaa loo baahan yahay in lagu lifaaqo faylasha",
       "permissionTitle": "Oggolow gelitaanka",
@@ -4626,7 +4684,7 @@
     "sourceLabel": "kg source (ikhtiyri)",
     "sourcePlaceholder": "Buug, aqoonyahan, URL, ama xigasho taageeraya sixitaankaaga.",
     "proofLabel": "Shaashada caddaynta (ikhtiyaar)",
-    "proofHint": "Ilaa 3 sawir. Taabo × thumbnail-ka si aad u tirtiro.",
+    "proofHint": "Ilaa 3 sawir Riix thumbnail si aad meesha uga saarto.",
     "addProof": "Ku dar sawir",
     "removeProof": "k sr screenshot",
     "submit": "Soo gudbi warbixinta",
@@ -4903,7 +4961,7 @@
     "eyebrow": "Kalandarka",
     "title": "Taariikhda beddelka",
     "subtitle": "U beddelo inta u dhaxaysa taariikhda Hijriyada iyo Miilaadiyada",
-    "intro": "Geli taariikh mid ka mid ah labada jadwal si aad u aragto u dhigma midka kale, oo offline laga xisaabiyay aragtida dayaxa goobtaada.",
+    "intro": "Geli taariikh ku jirta kalandarka midkood si aad u aragto wax u dhigma kan kale, lagu xisaabiyay offline addoo isticmaalaya algorithm Kuwaiti tabular.",
     "toHijri": "Gregorian → Hijriyada",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Taariikhda Gregorian",
@@ -4913,7 +4971,7 @@
     "year": "Sannadka",
     "useToday": "Isticmaal maanta",
     "invalidDate": "Geli taariikh ansax ah",
-    "disclaimer": "Taariikhaha waxaa laga xisaabiyaa aragtida dayaxa (hilāl) goobtaada waxayna kala duwanaan karaan ogeysiisyada dayax-arkaynta rasmiga ah maalin — mar walba raac masjidka ama maamulka deegaankaaga taariikhaha diimeed.",
+    "disclaimer": "Kani waa qiyaas xisaabeed ( tabular \"Kuwaiti algorithm\") waxayna ka duwanaan kartaa maalin maalmaha ka mid ah ogeysiisyada dayax-arkaynta deegaanka - mar walba raac masjidka ama maamulka deegaankaaga taariikhaha diimeed.",
     "directionTitle": "Jihada beddelka",
     "resultFrom": "Laga bilaabo {{date}}",
     "quickLinksTitle": "la xidhiidha",
@@ -4971,7 +5029,9 @@
       "names": "99 Magac",
       "hadith": "Xadiis",
       "quran": "Qur'aan",
-      "duas": "Ducooyin"
+      "duas": "Ducooyin",
+      "janazah": "Janaaso",
+      "fidyah": "Fidyo"
     },
     "skipHint": "Ka bood kaarkan oo arag su'aal kale.",
     "skipDisabledHint": "Ka jawaab kaarkan ugu dambeeya si aad u bilowdo isku-roogid cusub."
@@ -5011,6 +5071,83 @@
     },
     "notFound": "Mawduuca lama helin",
     "disclaimer": "Dulmar waxbarasho — ma aha fatwa. Meelaha dugsiyadu ku kala duwan yihiin (sida in ghusl Jimce uu yahay waajib ama sunnah mu'akkadah), labada mawqif waa la xusay; raac imaamkaaga ama caalim maxalli ah oo karti leh.",
+    "continueInApp": "Ku sii wad Munib"
+  },
+  "fidyah": {
+    "eyebrow": "Qalabka",
+    "title": "Fidyo iyo kafaaro",
+    "subtitle": "Qiyaas caawiyayaasha seegay ama jabay Ramadan soonka - ma aha xukunno toos ah",
+    "intro": "U isticmaal kan kaliya qiyaas qorshayn ahaan. Qur'an 2:184–185 iyo Saxiix Muslim 1111 waxay qaabeeyeen aasaaska; Aqoonyahanka aqoonta u leh waa inuu kala saaraa haddii lagugu leeyahay Qaza, fidyah, kaffarah, ama wax kale.",
+    "helperTitle": "Qiyaas caawiye",
+    "helperHint": "Geli maalmo iyo cuntada deegaankaaga ama cutubka fidiya. Doorbida qiimaha uu daabacay masjid ama golaha deegaanka ee la aaminsan yahay.",
+    "scenario": {
+      "fidyah": "Fidyo",
+      "kaffarah": "Kafaaro"
+    },
+    "currency": "Lacagta",
+    "daysLabel": "Maalmo seegay",
+    "unitsLabel": "Kaffarah cutubyo",
+    "mealCostLabel": "Kharash lagu quudiyo hal qof oo sabool ah",
+    "mealCostHint": "Hal cunto, ama xadigaaga fidiya ee la daabacay maalintii.",
+    "estimateLabel": "Qiyaasta qorsheynta",
+    "estimateEmpty": "Geli maalmo iyo kharashka cuntada",
+    "estimateFidyahDetail": "{{meals}} qof sabool ah oo la quudiyo",
+    "estimateKaffarahDetail": "{{meals}} cunto (ikhtiyaarka quudinta) · ama {{fasts}} maalmo soon oo isku xigta",
+    "section": {
+      "overview": "Dulmar",
+      "fidyah": "Fidyo",
+      "kaffarah": "Kafaaro",
+      "practice": "Isticmaalka caawiyaha"
+    },
+    "notFound": "Mawduuca lama helin",
+    "disclaimer": "Qiyaasaha waxbarashada kaliya - maaha fatwo. Faahfaahinta Madhhabku way kala duwan tahay; raac aqoonyahan deegaanka ah oo u qalma kiiskaaga.",
+    "continueInApp": "Ku sii wad Munib"
+  },
+  "janazah": {
+    "eyebrow": "Baro",
+    "title": "Janazah hage",
+    "subtitle": "Salaada janaasada, dhaqida, xabaasha, iyo ducooyinka dhabta ah",
+    "intro": "Dulmar wax ku ool ah oo ku saabsan Janazah sida waajib beeleed - sida loo tukado afar takbiir oo aan rukuuc iyo sujuud lahayn, iyo Hisnul Muslim ducadii marxuumka.",
+    "section": {
+      "obligation": "Waajib",
+      "prepare": "Diyaarinta",
+      "salah": "Salaada Janaasada",
+      "burial": "Xabaal",
+      "duas": "Ducadii janaasada",
+      "reminders": "Xusuusin"
+    },
+    "notFound": "Mawduuca lama helin",
+    "disclaimer": "Dulmar waxbarasho - ma aha buug-gacmeedka maamulaha aaska ama fatwo. Ku xaqiiji dhaqidda, hufnaanta, iyo ku dhaqanka qabuuraha adigoo raacaya hagitaan u qalma oo maxalli ah.",
+    "continueInApp": "Ku sii wad Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Qalabka",
+    "title": "Yoolalka sadaqada",
+    "subtitle": "Ujeedo maalinle ah ama toddobaadle ah iyo buug wax-bixineed oo fudud",
+    "intro": "Deji ujeedo samafal oo iskaa wax u qabso ah oo qor waxaad bixiso. Zakat ayaa weli ah waajibaad gaar ah - u isticmaal xisaabiyaha Zakat taas.",
+    "intentionTitle": "Ujeedadaydu",
+    "intentionHint": "Bartilmaameed shakhsi ah oo loogu talagalay sadaqah ikhtiyaari ah - maaha sakada.",
+    "period": {
+      "daily": "Maalin walba",
+      "weekly": "Todobaadle"
+    },
+    "currency": "Lacagta",
+    "targetLabel": "Qadarka bartilmaameedka",
+    "saveGoal": "Ujeedo badbaadi",
+    "clearGoal": "Ujeedo cad",
+    "progressLabel": "Horumar kan {{period}}",
+    "logTitle": "Soo gal hadiyad",
+    "logAmount": "Qadarka",
+    "logNote": "Xusuusin (ikhtiyaar)",
+    "logNotePlaceholder": "tusaale. bangiga cuntada",
+    "addEntry": "Ku darso gal",
+    "logEmpty": "Wali lama soo galin hadiyado",
+    "learnMoreTitle": "Wax badan baro",
+    "linkZakat": "Zakat xisaabiyaha",
+    "linkZakatHint": "Sadaqo daahirin ah oo waajib ah",
+    "linkFinance": "Sadaqah ee maaliyadda Islaamka",
+    "linkFinanceHint": "Bixinta iskaa wax u qabso ayaa la sharaxay",
+    "disclaimer": "Raadraaca gaarka ah oo keliya - maaha fatwo oo ma aha beddelka xisaabinta sakada marka ay mudan tahay.",
     "continueInApp": "Ku sii wad Munib"
   }
 }

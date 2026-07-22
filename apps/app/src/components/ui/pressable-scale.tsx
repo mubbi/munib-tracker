@@ -14,9 +14,11 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-na
 
 import { Springs } from "@/constants/motion";
 import { Radius } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 
 /**
  * Flex/content layout for the inner animated wrapper (icon + text stacks, gaps).
@@ -248,7 +250,7 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
   },
   ref,
 ) {
-  const { tokens } = useThemeTokens();
+  const { tokens, colors } = useThemeTokens();
   const pressed = useSharedValue(0);
 
   const flatStyle = StyleSheet.flatten(style) as ViewStyle | undefined;
@@ -348,7 +350,19 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       onPress={handlePress}
-      style={pressableStyle}
+      style={(state) => {
+        const focused = Boolean((state as { focused?: boolean }).focused);
+        const focusRing: ViewStyle | null =
+          isTV() && focused
+            ? {
+                borderWidth: TvLayout.focusRingWidth,
+                borderColor: colors.accent,
+                borderRadius:
+                  typeof flatStyle?.borderRadius === "number" ? flatStyle.borderRadius : Radius.md,
+              }
+            : null;
+        return StyleSheet.flatten([pressableStyle, focusRing]);
+      }}
       {...rest}
     >
       <Animated.View style={[styles.inner, innerStyle, animatedStyle]}>{children}</Animated.View>

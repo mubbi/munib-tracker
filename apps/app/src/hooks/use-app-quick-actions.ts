@@ -24,15 +24,15 @@ function quickActionDedupeKey(action: Action): string {
   return `${action.id ?? ""}:${href}`;
 }
 
-/** Home-screen app-icon quick actions (NF-1.30). */
-export function useAppQuickActions(): void {
+/** Home-screen app-icon quick actions (NF-1.30). Pass `enabled: false` on TV. */
+export function useAppQuickActions(enabled = true): void {
   const { t } = useTranslation();
   const router = useRouter();
   const routerRef = useRef(router);
   routerRef.current = router;
 
   useEffect(() => {
-    if (Platform.OS === "web") return;
+    if (!enabled || Platform.OS === "web") return;
 
     let isMounted = true;
 
@@ -63,12 +63,12 @@ export function useAppQuickActions(): void {
       isMounted = false;
       sub?.remove();
     };
-  }, []);
+  }, [enabled]);
 
   useEffect(() => {
-    if (Platform.OS === "web") return;
+    if (!enabled || Platform.OS === "web") return;
     void syncAppQuickActions(t);
-  }, [t]);
+  }, [enabled, t]);
 }
 
 /** Test-only: reset the initial-action dedupe guard between Jest cases. */

@@ -63,6 +63,12 @@ export const PROTECTED_CONTENT_KEYS: ReadonlySet<string> = new Set([
   "surah",
   "ayahFrom",
   "ayahTo",
+  /** Genealogy structural / citation fields — UI uses i18n for certainty & branch. */
+  "sources",
+  "certainty",
+  "branch",
+  "parentId",
+  "siblingOf",
 ]);
 
 /**

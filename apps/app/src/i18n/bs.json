@@ -78,7 +78,10 @@
       "hint": "Pregledajte što ste naučili",
       "empty": "Pitanja za ovaj vodič se još učitavaju. Otvorite nekoliko lekcija, zatim pokušajte ponovo."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "Nije dostupno na TV-u",
+    "tvUnavailableBody": "Za ovu funkciju potreban je telefon ili tablet. Otvorite Munib Tracker tamo da nastavite.",
+    "tvOauthHint": "Prijava putem društvenih mreža može biti ograničena na TV-u. Ovdje nastavite kao gost ili povežite račun na telefonu."
   },
   "search": {
     "placeholder": "Pretraži Qur'an, hadis, duas, Uči…",
@@ -170,7 +173,10 @@
     "flashCards": "Kartice",
     "verseDetector": "Detektor ajeta",
     "lastThirdNight": "Posljednja trećina noći",
-    "friday": "Petak i džuma"
+    "friday": "Petak i džuma",
+    "fidyah": "Fidja i kefaret",
+    "janazah": "Janazah vodič",
+    "sadaqah": "Sadaqah golova"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -802,14 +808,16 @@
     "apple": "Nastavite s Appleom",
     "facebook": "Nastavite s Facebookom",
     "heroGuest": "You're using  guest račun. Link  provider u back up i sync vaš podaci — nothing je lost.",
-    "heroUser": "Sign u u keep vaš salah, qaza, i zikr sigurno u  cloud.",
+    "heroUser": "Čuvajte svoj namaz, kazu i zikr sigurno u oblaku.",
     "error": "Prijava nije uspjela. Provjerite da API server radi i da je ovaj pružatelj konfiguriran.",
     "providersUnavailableTitle": "Prijava još nije dostupna",
     "providersUnavailableBody": "Pružatelji cloud sinkronizacije nisu konfigurirani u ovoj verziji. Nastavite kao gost — napredak ostaje na ovom uređaju.",
     "titleSignedIn": "Prijavljeni ste",
     "subtitleSignedIn": "Oblak sinkronizacija je spremna na ovom uređaju",
     "heroSignedIn": "Dobrodošli nazad — vaš račun je povezan. Namaz, kaza i zikr mogu se sinkronizirati između uređaja.",
-    "continueSignedIn": "Nastavi"
+    "continueSignedIn": "Nastavi",
+    "or": "ili",
+    "guestHint": "Račun možete povezati bilo kada iz Profila."
   },
   "onboarding": {
     "begin": "Započni",
@@ -1109,7 +1117,8 @@
       "activeHint": "Živa ažuriranja će se istaknuti kada ovaj namaz bude blizu. Dodirnite Zaustavi da otkačite.",
       "a11yStart": "Započni praćenje sljedećeg namaza na zaključanom ekranu",
       "a11yStop": "Zaustavi praćenje živih ažuriranja namaza"
-    }
+    },
+    "tvUnavailableBody": "Lokalni podsjetnici i Live Activities nisu dostupni na TV-u. Postavke obavijesti upravljajte na telefonu."
   },
   "fonts": {
     "eyebrow": "Postavke",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "Pretraži adhkar by title, tema, ili text…",
     "searchInCategory": "Pretraži u ovo category…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "No adhkar matched vaš pretraži."
+    "noResults": "No adhkar matched vaš pretraži.",
+    "markAsDone": "Označi kao završeno",
+    "undoDoneHint": "Dodirnite da poništite i označite kao nezavršeno"
   },
   "zikrCat": {
     "morning": "Sabah zikirleri",
@@ -1562,7 +1573,12 @@
     "backToTop": "Nazad na vrh",
     "readingProgress": "Napredak čitanja",
     "enterFullscreen": "Uđi u cijeli ekran",
-    "exitFullscreen": "Izađi iz cijelog ekrana"
+    "exitFullscreen": "Izađi iz cijelog ekrana",
+    "isnad": "Isnad (lanac)",
+    "sharh": "Objašnjenje",
+    "showIsnad": "Prikaži isnad",
+    "showSharh": "Prikaži objašnjenje",
+    "sharhArabicOnly": "Objašnjenje je dostupno samo na arapskom."
   },
   "credits": {
     "eyebrow": "Atıf",
@@ -2312,7 +2328,8 @@
     "cardinalS": "G",
     "cardinalW": "B",
     "defaultLocationHint": "Using  default location (Makkah). Set vaš city za  accurate qibla bearing where vi su.",
-    "setLocation": "Postavi lokaciju"
+    "setLocation": "Postavi lokaciju",
+    "tvHint": "Kompas uživo nije dostupan na TV-u. Strelica prikazuje smjer kible od sjevera za vaš grad — za poravnanje uživo koristite telefon."
   },
   "profile": {
     "eyebrow": "Račun",
@@ -3358,6 +3375,42 @@
       "obligatory": "Необходимый",
       "highly-recommended": "Topla preporuka",
       "recommended": "Preporučeno"
+    },
+    "quickTree": "Porodično stablo",
+    "quickTreeHint": "Adam do Muhammad ﷺ — izvorne loze",
+    "tree": {
+      "title": "Porodično stablo proroka",
+      "subtitle": "Samo izvorna genealogija — Qur'an, autentični hadis i označena historija",
+      "intro": "Ovo stablo prikazuje samo odnose uspostavljene u Qur'an, autentičnom hadisu ili jasno označenoj klasičnoj historiji. Praznine su ostavljene prazne, a ne ispunjene neprovjerenim imenima. Predačke (ne neposredne) veze su označene kao takve.",
+      "searchPlaceholder": "Potražite proroka ili ime…",
+      "searchResults": "{{count}} podudaranja",
+      "sources": "Izvori",
+      "openBio": "Otvorena biografija",
+      "certainty": {
+        "quran": "Kur'an",
+        "authentic-hadith": "Autentični hadis",
+        "classical-history": "Klasična istorija"
+      },
+      "branch": {
+        "adam-nuh": "Adam i Nuh",
+        "ibrahim": "Ibrahim je domaćinstvo",
+        "israel": "Djeca Izraela",
+        "musa": "Musa i Harun",
+        "dawud": "Dawud i Sulayman",
+        "zakariyya": "Zakariyya i Yahya",
+        "isa": "Maryam i Isa",
+        "muhammad": "Pečat proroka"
+      },
+      "disclaimer": "Obrazovna genealogija — nije potpuna lista svakog proroka. Mnogi glasnici su imenovani u Qur'an bez detaljnog roditeljskog lanca; pojavljuju se u biografiji Learn the Prophets, ali su ovdje izostavljeni umjesto da se nagađaju.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4167,7 +4220,12 @@
       "confirm": "Resetirajte obrazac",
       "a11y": "Resetirajte obrazac za kalkulator zekata",
       "hint": "Traži potvrdu, zatim briše sve unesene iznose"
-    }
+    },
+    "relatedTitle": "Povezani alati",
+    "linkSadaqah": "Ciljevi sadake",
+    "linkSadaqahHint": "Dnevno ili sedmično dobrovoljno davanje",
+    "linkFidyah": "Fidja i kefaret",
+    "linkFidyahHint": "Procjene za propuštene ili prekinute postove"
   },
   "customAdhkar": {
     "eyebrow": "Sjećanje",
@@ -4206,7 +4264,7 @@
       "label": "Prilozi (opcionalno)",
       "add": "Dodaj fajl",
       "remove": "Uklonite prilog",
-      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), 1 MB svaka. Dodirnite × na sličici da uklonite.",
+      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), svaka od 1 MB. Dugo pritisnite sličicu za uklanjanje.",
       "signInRequired": "Prijavite se da priložite privatne fajlove svom adhkaru.",
       "permissionDenied": "Za prilaganje fajlova potrebna je dozvola.",
       "permissionTitle": "Dozvoli pristup",
@@ -4995,7 +5053,7 @@
     "eyebrow": "Kalendar",
     "title": "Konverter datuma",
     "subtitle": "Pretvorite između hidžretskog i gregorijanskog kalendara",
-    "intro": "Unesite datum u bilo kojem kalendaru da vidite ekvivalent u drugom, izračunat offline iz vidljivosti polumjeseca na vašoj lokaciji.",
+    "intro": "Unesite datum u bilo koji kalendar da vidite njegov ekvivalent u drugom, izračunatom van mreže pomoću tabelarnog kuvajtskog algoritma.",
     "toHijri": "Gregorijanski → Hidžri",
     "toGregorian": "hidžretski → gregorijanski",
     "gregorianDateLabel": "Gregorijanski datum",
@@ -5005,7 +5063,7 @@
     "year": "Godina",
     "useToday": "Iskoristite danas",
     "invalidDate": "Unesite važeći datum",
-    "disclaimer": "Datumi se računaju iz vidljivosti polumjeseca (hilāl) na vašoj lokaciji i mogu se razlikovati za jedan dan od službenih najava o viđenju mjeseca — uvijek slijedite lokalni masjid ili vlast za vjerske datume.",
+    "disclaimer": "Ovo je aritmetička aproksimacija (tabelarni \"Kuvajtski algoritam\") i može se razlikovati za jedan dan od lokalnih najava o viđenju Mjeseca - uvijek pratite svoj lokalni mesdžid ili autoritet za vjerske datume.",
     "directionTitle": "Smjer konverzije",
     "resultFrom": "Od {{date}}",
     "quickLinksTitle": "Povezano",
@@ -5063,7 +5121,9 @@
       "names": "99 imena",
       "hadith": "Hadis",
       "quran": "Kur'an",
-      "duas": "Dove"
+      "duas": "Dove",
+      "janazah": "Dženaza",
+      "fidyah": "Fidja"
     },
     "skipHint": "Preskočite ovu karticu i pogledajte drugo pitanje.",
     "skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje."
@@ -5104,5 +5164,82 @@
     "notFound": "Tema nije pronađena",
     "disclaimer": "Edukativni pregled — nije fetva. Gdje se škole razlikuju (npr. da li je petkovi Ghusl wajib ili sunnah mu'akkadah), navedena su oba stava; slijedite svog imama ili kvalifikovanog lokalnog učenjaka.",
     "continueInApp": "Nastavi u Munib"
+  },
+  "fidyah": {
+    "eyebrow": "Alati",
+    "title": "Fidja i kefaret",
+    "subtitle": "Procijenite pomagače za propuštene ili pokvarene postove Ramadan — ne automatske odluke",
+    "intro": "Koristite ovo samo kao procjenu planiranja. Qur'an 2:184–185 i Sahih Muslim 1111 daju osnove; kvalifikovani učenjak mora klasificirati da li dugujete qaza, fidyah, kaffarah ili nešto drugo.",
+    "helperTitle": "Pomoćnik za procjenu",
+    "helperHint": "Unesite dane i jediničnu cijenu lokalnog obroka ili fidya. Preferirajte stopu koju objavljuje lokalni mesdžid ili vijeće od povjerenja.",
+    "scenario": {
+      "fidyah": "Fidja",
+      "kaffarah": "Kefaret"
+    },
+    "currency": "Valuta",
+    "daysLabel": "Propušteni dani",
+    "unitsLabel": "Kaffarah jedinica",
+    "mealCostLabel": "Trošak prehrane jedne siromašne osobe",
+    "mealCostHint": "Jedan obrok, ili vaša lokalna objavljena količina fidya dnevno.",
+    "estimateLabel": "Planska procjena",
+    "estimateEmpty": "Unesite dane i cijenu obroka",
+    "estimateFidyahDetail": "{{meals}} siromašna osoba(e) za prehranu",
+    "estimateKaffarahDetail": "{{meals}} obroka (opcija hranjenja) · ili {{fasts}} uzastopnih dana posta",
+    "section": {
+      "overview": "Pregled",
+      "fidyah": "Fidja",
+      "kaffarah": "Kefaret",
+      "practice": "Korištenje pomoćnika"
+    },
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Samo obrazovne procjene — nije fetva. Detalji mezheba se razlikuju; slijedite kvalifikovanog lokalnog učenjaka za vaš slučaj.",
+    "continueInApp": "Nastavite u Munib"
+  },
+  "janazah": {
+    "eyebrow": "Naučite",
+    "title": "Janazah vodič",
+    "subtitle": "Dženaza, umivanje, sahrana i autentične dove",
+    "intro": "Praktični pregled Janazah kao zajedničke obaveze — kako klanjati četiri tekbira bez ruku ili sujuda, i Hisnul Muslim dove za pokojnika.",
+    "section": {
+      "obligation": "Obaveza",
+      "prepare": "Priprema",
+      "salah": "Dženaza namaz",
+      "burial": "Pogreb",
+      "duas": "Dženazne dove",
+      "reminders": "Podsjetnici"
+    },
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Obrazovni pregled — ne priručnik za pogrebnika ili fetva. Potvrdite praksu pranja, pokrivanja i groblja uz kvalificirano lokalno vodstvo.",
+    "continueInApp": "Nastavite u Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Alati",
+    "title": "Ciljevi sadake",
+    "subtitle": "Dnevna ili sedmična namjera i jednostavan dnevnik davanja",
+    "intro": "Postavite dobrovoljnu dobrotvornu namjeru i zabilježite ono što dajete. Zakat ostaje posebna obaveza — za to koristite Zakat kalkulator.",
+    "intentionTitle": "Moja namjera",
+    "intentionHint": "Lična meta za dobrovoljnu sadaku — ne zekat.",
+    "period": {
+      "daily": "Dnevno",
+      "weekly": "Nedeljno"
+    },
+    "currency": "Valuta",
+    "targetLabel": "Ciljani iznos",
+    "saveGoal": "Sačuvaj namjeru",
+    "clearGoal": "Jasna namera",
+    "progressLabel": "Napredujte ovo {{period}}",
+    "logTitle": "Zapišite poklon",
+    "logAmount": "Iznos",
+    "logNote": "Napomena (opcionalno)",
+    "logNotePlaceholder": "npr. banka hrane",
+    "addEntry": "Dodaj u dnevnik",
+    "logEmpty": "Još nema prijavljenih poklona.",
+    "learnMoreTitle": "Saznajte više",
+    "linkZakat": "Zakat kalkulator",
+    "linkZakatHint": "Obavezno dobročinstvo za pročišćavanje",
+    "linkFinance": "Sadaqah u islamskim finansijama",
+    "linkFinanceHint": "Dobrovoljno davanje objašnjeno",
+    "disclaimer": "Samo lični tragač — nije fetva i nije zamjena za izračunavanje zekata kada dospijeva.",
+    "continueInApp": "Nastavite u Munib"
   }
 }

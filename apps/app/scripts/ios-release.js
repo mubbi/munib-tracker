@@ -41,6 +41,7 @@ const {
   buildNativeReleaseProcessEnv,
 } = require("./lib/release-app-env.cjs");
 const { applyIosCredentialsEnv, logIosKeysSummary } = require("./lib/ios-keys.cjs");
+const { assertIosProjectMode } = require("./lib/tv-native-project.cjs");
 
 const archiveOnly = process.argv.includes("--archive-only");
 const appRoot = path.join(__dirname, "..");
@@ -69,6 +70,7 @@ function ensureTeamConfigured() {
 function main() {
   ensureXcodeCli();
   ensureIosProject();
+  assertIosProjectMode(appRoot, { expectTv: false });
 
   const envLoad = loadAppEnv(appRoot);
   if (!envLoad.loaded) {

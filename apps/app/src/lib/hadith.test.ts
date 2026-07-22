@@ -26,6 +26,21 @@ describe("hadith bundled highlights", () => {
     }
   });
 
+  it("attaches structured isnad ending with the Prophet on Nawawi", async () => {
+    const bundled = await ensureBundledCollection("nawawi40");
+    expect(bundled).toBeDefined();
+    const withIsnad = (bundled?.items ?? []).filter((item) => (item.isnad?.length ?? 0) >= 2);
+    expect(withIsnad.length).toBeGreaterThan(30);
+    const first = withIsnad[0]?.isnad ?? [];
+    expect(first[first.length - 1]?.role).toBe("prophet");
+  });
+
+  it("merges Arabic sharh onto Nawawi from the sidecar", async () => {
+    const bundled = await ensureBundledCollection("nawawi40");
+    const withSharh = (bundled?.items ?? []).filter((item) => Boolean(item.sharhArabic?.trim()));
+    expect(withSharh.length).toBeGreaterThanOrEqual(40);
+  });
+
   it("searches english text and references", () => {
     const nawawi = getBundledCollection("nawawi40") as BundledHadithCollection;
     const results = searchHadiths(nawawi?.items ?? [], "Allah");

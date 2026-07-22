@@ -16,6 +16,7 @@ import { log, warn } from "./lib/shell.mjs";
 import {
   parseRuntimeFilters,
   validateStructure,
+  validateTvStructure,
   validateWatchStructure,
 } from "./lib/validate-core.mjs";
 
@@ -33,6 +34,8 @@ function main() {
     "capture-android.mjs",
     "capture-ios.mjs",
     "capture-watch.mjs",
+    "capture-tvos.mjs",
+    "capture-android-tv.mjs",
     "validate.mjs",
     "lib/config.mjs",
     "lib/app-locales.mjs",
@@ -41,6 +44,8 @@ function main() {
     "lib/i18n.mjs",
     "lib/scenes.mjs",
     "lib/watch-scenes.mjs",
+    "lib/tv-scenes.mjs",
+    "lib/tv-capture.mjs",
     "lib/shell.mjs",
     "lib/maestro.mjs",
     "lib/run-maestro-batches.mjs",
@@ -79,6 +84,15 @@ function main() {
     if (!validation.errors.includes(e)) log(`error: ${e}`);
   }
 
+  const tvValidation = validateTvStructure();
+  log(
+    `TV structure: ${tvValidation.ok ? "OK" : "FAILED"} (${tvValidation.sceneCount} scenes → ${tvValidation.storeSize.w}×${tvValidation.storeSize.h})`,
+  );
+  for (const w of tvValidation.warnings) warn(w);
+  for (const e of tvValidation.errors) {
+    if (!validation.errors.includes(e)) log(`error: ${e}`);
+  }
+
   const filters = parseRuntimeFilters();
   log(
     `Default filter slice: ${filters.locales.join(",")} × ${filters.themes.join(",")} × ${filters.scenes.length} scenes`,
@@ -99,7 +113,7 @@ function main() {
   }
   log("Maestro YAML generator: OK");
 
-  process.exit(validation.ok && watchValidation.ok ? 0 : 1);
+  process.exit(validation.ok && watchValidation.ok && tvValidation.ok ? 0 : 1);
 }
 
 main();

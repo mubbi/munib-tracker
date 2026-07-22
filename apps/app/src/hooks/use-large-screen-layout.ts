@@ -1,8 +1,9 @@
 import { useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useIsTabScreen } from "@/hooks/use-tab-screen";
+import { isTV } from "@/lib/platform/is-tv";
 
 /** Width at/above which the app uses a side rail instead of a bottom tab bar. */
 export const SIDE_RAIL_BREAKPOINT = 768;
@@ -27,22 +28,25 @@ export function getWebBottomTabBarHeight(bottomInset: number): number {
 
 /**
  * Adaptive chrome driven by **window width** (not device type), per Apple HIG
- * layout guidance and Android window size classes.
+ * layout guidance and Android window size classes. TV always uses wide chrome.
  */
 export function useLargeScreenLayout() {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const inTabs = useIsTabScreen();
-  const isWide = width >= SIDE_RAIL_BREAKPOINT;
-  const isListDetail = width >= LIST_DETAIL_BREAKPOINT;
+  const tv = isTV();
+  const isWide = tv || width >= SIDE_RAIL_BREAKPOINT;
+  const isListDetail = tv || width >= LIST_DETAIL_BREAKPOINT;
   const bottomTabBarHeight = getWebBottomTabBarHeight(insets.bottom);
+  const railWidth = tv ? TvLayout.sideRailWidth : SIDE_RAIL_WIDTH;
 
   return {
     width,
     isWide,
     isListDetail,
+    isTv: tv,
     /** Side rail only exists inside the `(tabs)` layout — stack screens are full width. */
-    sideRailWidth: isWide && inTabs ? SIDE_RAIL_WIDTH : 0,
+    sideRailWidth: isWide && inTabs ? railWidth : 0,
     /** Bottom offset for docked chrome (0 when the side rail replaces the tab bar). */
     bottomTabBarOffset: isWide ? 0 : bottomTabBarHeight,
   };

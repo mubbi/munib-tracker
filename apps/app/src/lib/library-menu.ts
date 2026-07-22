@@ -70,6 +70,7 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("friday", "learn"),
   fromQuickAction("ruqyah", "learn"),
   fromQuickAction("newMuslim", "learn"),
+  fromQuickAction("janazah", "learn"),
   fromQuickAction("flashCards", "learn"),
   // Tools & more — Qibla first (high-frequency worship tool).
   fromQuickAction("qibla", "more"),
@@ -77,6 +78,8 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("dateConverter", "more"),
   fromQuickAction("lastThirdNight", "more"),
   fromQuickAction("zakat", "more"),
+  fromQuickAction("sadaqah", "more"),
+  fromQuickAction("fidyah", "more"),
   fromQuickAction("finance", "more"),
   fromQuickAction("achievements", "more"),
   fromQuickAction("stats", "more"),

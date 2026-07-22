@@ -34,6 +34,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
+import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 import { useZikrCounts } from "@/stores/tracker-store";
 
@@ -131,10 +132,11 @@ export default function ZikrCategoryScreen() {
 
   const onOpen = useCallback(
     (id: string) =>
-      router.push({
-        pathname: "/zikr/detail/[id]",
-        params: showPrayerFilter && prayerFilter !== "all" ? { id, prayer: prayerFilter } : { id },
-      }),
+      pushZikrDetail(
+        router,
+        id,
+        showPrayerFilter && prayerFilter !== "all" ? { prayer: prayerFilter } : undefined,
+      ),
     [router, showPrayerFilter, prayerFilter],
   );
 

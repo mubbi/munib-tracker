@@ -10,7 +10,7 @@ Guide for **Sign in with Google**, **Sign in with Apple**, and **Sign in with Fa
 
 The Expo app uses **`expo-auth-session`** with **PKCE** (and **`expo-apple-authentication`** on iOS). The NestJS API validates tokens / exchanges codes and issues JWT access + refresh tokens. On **web**, Google/Apple sessions use **HttpOnly cookies** (`mt_access_token`, `mt_refresh_token`) when the client sends `x-munib-tracker-client: web`.
 
-**Web popups:** Google/Facebook open a browser popup that redirects back to the product origin with `?code=&state=`. `WebBrowser.maybeCompleteAuthSession()` (via `apps/app/src/lib/auth/auth-session-bootstrap.ts`, same pattern as Expense Trail) must run on that page — otherwise the popup stays open and the opener never receives the auth result.
+**Web popups:** Google/Facebook open a browser popup that redirects back to the product origin with `?code=&state=`. `WebBrowser.maybeCompleteAuthSession()` (via `apps/app/src/lib/auth/auth-session-bootstrap.ts`) must run on that page — otherwise the popup stays open and the opener never receives the auth result.
 
 The **admin console** (`apps/admin`) is a different app: its own Google OAuth web client, cookie `mt_admin_session`, and allowlist table `admin_users`. Do not reuse product `GOOGLE_OAUTH_*` / `EXPO_PUBLIC_GOOGLE_*` for admin — see [Admin Google OAuth](#admin-google-oauth-ops-console) below.
 

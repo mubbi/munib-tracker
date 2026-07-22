@@ -9,6 +9,8 @@ console.error(
     "    pnpm cleanbuild:app:android\n\n" +
     "  iOS (env + version sync + pod install after --clean):\n" +
     "    pnpm cleanbuild:app:ios\n\n" +
+    "  Apple TV / Android TV (EXPO_TV=1):\n" +
+    "    pnpm prebuild:app:tv\n\n" +
     "  Both platforms without orchestration (not recommended):\n" +
     "    cd apps/app && pnpm exec expo prebuild --clean\n",
 );

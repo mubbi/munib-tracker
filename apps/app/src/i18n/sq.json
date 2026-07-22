@@ -78,7 +78,10 @@
       "hint": "Rishikoni çfarë keni mësuar",
       "empty": "Pyetjet e këtij udhëzuesi ende po ngarkohen. Hapni disa mësime, pastaj provoni përsëri."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "Nuk disponohet në TV",
+    "tvUnavailableBody": "Kjo veçori kërkon telefon ose tablet. Hap Munib Tracker atje për të vazhduar.",
+    "tvOauthHint": "Hyrja me rrjete sociale mund të jetë e kufizuar në TV. Vazhdo këtu si mysafir ose lidhe një llogari në telefonin tënd."
   },
   "search": {
     "placeholder": "Kërko Qur'an, hadith, duas, Mëso…",
@@ -170,7 +173,10 @@
     "flashCards": "Karta mësimi",
     "verseDetector": "Zbuluesi i ajetit",
     "lastThirdNight": "E treta e fundit e natës",
-    "friday": "E premte & Xhuma"
+    "friday": "E premte & Xhuma",
+    "fidyah": "Fidje dhe kefaret",
+    "janazah": "Janazah udhëzues",
+    "sadaqah": "Sadaqah gola"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -802,14 +808,16 @@
     "apple": "Vazhdoni me Apple",
     "facebook": "Vazhdo me Facebook",
     "heroGuest": "You're using  guest llogaria. Link  provider në back up dhe sync juaj të dhënat — nothing është lost.",
-    "heroUser": "Sign në në keep juaj salah, qaza, dhe zikr i sigurt në  cloud.",
+    "heroUser": "Mbajini namazin, kazën dhe zikrin të sigurt në re.",
     "error": "Nuk u krye hyrja. Sigurohu që serveri API është duke u ekzekutuar dhe ky ofrues është konfiguruar.",
     "providersUnavailableTitle": "Hyrja nuk është e disponueshme ende",
     "providersUnavailableBody": "Ofruesit e sinkronizimit në re nuk janë konfiguruar në këtë version. Vazhdo si mysafir — përparimi yt mbetet në këtë pajisje.",
     "titleSignedIn": "Jeni të kyçur",
     "subtitleSignedIn": "Sinkronizimi në cloud është gati në këtë pajisje",
     "heroSignedIn": "Mirë se u kthyet — llogaria juaj është e lidhur. Namazi, kaza dhe zikri mund të sinkronizohen midis pajisjeve.",
-    "continueSignedIn": "Vazhdo"
+    "continueSignedIn": "Vazhdo",
+    "or": "ose",
+    "guestHint": "Mund të lidhni një llogari në çdo kohë nga Profili."
   },
   "onboarding": {
     "begin": "Filloni",
@@ -1109,7 +1117,8 @@
       "activeHint": "Përditësimet e gjalla do të nxirren në pah kur ky namaz të jetë i afërt. Trokit Ndalo për ta shkëputur.",
       "a11yStart": "Fillo ndjekjen e namazit të radhës në ekranin e kyçjes",
       "a11yStop": "Ndalo ndjekjen e përditësimeve të gjalla të namazit"
-    }
+    },
+    "tvUnavailableBody": "Kujtesat lokale dhe Live Activities nuk disponohen në TV. Menaxho preferencat e njoftimeve në telefonin tënd."
   },
   "fonts": {
     "eyebrow": "Cilësimet",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "Kërko adhkar by title, tema, ose text…",
     "searchInCategory": "Kërko në kjo category…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "No adhkar matched juaj kërko."
+    "noResults": "No adhkar matched juaj kërko.",
+    "markAsDone": "Shëno si të përfunduar",
+    "undoDoneHint": "Prek për ta zhbërë dhe shënuar si të papërfunduar"
   },
   "zikrCat": {
     "morning": "Adhkar i mëngjesit",
@@ -1562,7 +1573,12 @@
     "backToTop": "Kthehu lart",
     "readingProgress": "Ecuria e leximit",
     "enterFullscreen": "Hyr në ekran të plotë",
-    "exitFullscreen": "Dil nga ekrani i plotë"
+    "exitFullscreen": "Dil nga ekrani i plotë",
+    "isnad": "Isnadi",
+    "sharh": "Shpjegim",
+    "showIsnad": "Shfaq isnadin",
+    "showSharh": "Shfaq shpjegimin",
+    "sharhArabicOnly": "Shpjegimi është i disponueshëm vetëm në arabisht."
   },
   "credits": {
     "eyebrow": "Atribuimi",
@@ -2312,7 +2328,8 @@
     "cardinalS": "Ю",
     "cardinalW": "З",
     "defaultLocationHint": "Using  default location (Makkah). Set juaj city për  accurate qibla bearing where ju janë.",
-    "setLocation": "Vendos vendndodhjen"
+    "setLocation": "Vendos vendndodhjen",
+    "tvHint": "Busulla drejtpërdrejt nuk disponohet në TV. Shigjeta tregon drejtimin e kibles nga veriu për qytetin tënd — përdor telefonin për orientim të drejtpërdrejtë."
   },
   "profile": {
     "eyebrow": "Llogaria",
@@ -3358,6 +3375,42 @@
       "obligatory": "Thelbësore",
       "highly-recommended": "Rekomandohet shumë",
       "recommended": "Rekomanduar"
+    },
+    "quickTree": "Pema familjare",
+    "quickTreeHint": "Adam deri në Muhammad ﷺ — linjat me burim",
+    "tree": {
+      "title": "Pema familjare e profetëve",
+      "subtitle": "Vetëm gjenealogjia me burim - Qur'an, hadith autentik dhe histori e etiketuar",
+      "intro": "Kjo pemë tregon vetëm marrëdhëniet e vendosura në Qur'an, hadithin autentik ose historinë klasike të etiketuar qartë. Boshllëqet lihen bosh në vend që të mbushen me emra të paverifikuar. Lidhjet stërgjyshore (jo të menjëhershme) janë shënuar si të tilla.",
+      "searchPlaceholder": "Kërkoni një profet ose emër…",
+      "searchResults": "{{count}} ndeshje",
+      "sources": "Burimet",
+      "openBio": "Biografia e hapur",
+      "certainty": {
+        "quran": "Kurani",
+        "authentic-hadith": "Hadith autentik",
+        "classical-history": "Historia klasike"
+      },
+      "branch": {
+        "adam-nuh": "Adam dhe Nuh",
+        "ibrahim": "familja e Ibrahim",
+        "israel": "Fëmijët e Izraelit",
+        "musa": "Musa dhe Harun",
+        "dawud": "Dawud dhe Sulayman",
+        "zakariyya": "Zakariyya dhe Yahya",
+        "isa": "Maryam dhe Isa",
+        "muhammad": "Vula e profetëve"
+      },
+      "disclaimer": "Gjenealogjia arsimore - jo një listë e plotë e çdo profeti. Shumë lajmëtarë janë emëruar në Qur'an pa një zinxhir të detajuar prind; ato shfaqen në Mësoni biografinë e Profetëve, por këtu janë lënë mënjanë sesa të hamendësohen.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4167,7 +4220,12 @@
       "confirm": "Rivendos formularin",
       "a11y": "Rivendos formularin e kalkulatorit të zekatit",
       "hint": "Kërkon konfirmim, pastaj fshin të gjitha shumat e futura"
-    }
+    },
+    "relatedTitle": "Mjete të ngjashme",
+    "linkSadaqah": "Qëllimet e sadakasë",
+    "linkSadaqahHint": "Dhurim vullnetar ditor ose javor",
+    "linkFidyah": "Fidje dhe kefaret",
+    "linkFidyahHint": "Vlerësime për agjërime të humbura ose të prishura"
   },
   "customAdhkar": {
     "eyebrow": "Kujtim",
@@ -4206,7 +4264,7 @@
       "label": "Shtojcat (opsionale)",
       "add": "Shto skedar",
       "remove": "Hiq shtojcën",
-      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Prekni × te miniaturë për ta hequr.",
+      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Shtypni gjatë një miniaturë për ta hequr.",
       "signInRequired": "Identifikohu për të bashkëngjitur skedarë privatë në adkar-in tënd.",
       "permissionDenied": "Kërkohet leje për të bashkangjitur skedarët.",
       "permissionTitle": "Lejo qasjen",
@@ -4788,7 +4846,7 @@
       "openTracker": "Hap listën e kontrollit",
       "openQibla": "Hap Kiblën",
       "openTasbeeh": "Hap Tesbih",
-      "markCurrent": "Shëno Salah-un tim",
+      "markCurrent": "Mark my Salah",
       "openRamadan": "Hap Ramazanin",
       "openKhatm": "Hap planin e hatmes",
       "openQaza": "Hap kazën",
@@ -4995,7 +5053,7 @@
     "eyebrow": "Kalendari",
     "title": "Konvertuesi i datës",
     "subtitle": "Konvertoni midis kalendarit Hixhri dhe Gregorian",
-    "intro": "Futni një datë në secilin kalendar për të parë ekuivalentin në tjetrin, i llogaritur offline nga dukshmëria e hënës në vendndodhjen tuaj.",
+    "intro": "Fut një datë në secilin nga kalendarët për të parë ekuivalentin e saj në tjetrin, të llogaritur jashtë linje duke përdorur algoritmin tabelor të Kuvajtit.",
     "toHijri": "Gregorian → Hixhri",
     "toGregorian": "Hixhri → Gregorian",
     "gregorianDateLabel": "Data Gregoriane",
@@ -5005,7 +5063,7 @@
     "year": "viti",
     "useToday": "Përdoreni sot",
     "invalidDate": "Fut një datë të vlefshme",
-    "disclaimer": "Datat llogariten nga dukshmëria e hënës (hilāl) në vendndodhjen tuaj dhe mund të ndryshojnë me një ditë nga njoftimet zyrtare të vëzhgimit të hënës — ndiqni gjithmonë masjid-in ose autoritetin lokal për datat fetare.",
+    "disclaimer": "Ky është një përafrim aritmetik (\"algoritmi kuvajtian\" në formë tabele) dhe mund të ndryshojë për një ditë nga njoftimet lokale për shikimin e hënës - ndiqni gjithmonë xhaminë ose autoritetin tuaj lokal për datat fetare.",
     "directionTitle": "Drejtimi i konvertimit",
     "resultFrom": "Nga {{date}}",
     "quickLinksTitle": "Të lidhura",
@@ -5063,7 +5121,9 @@
       "names": "99 emra",
       "hadith": "Hadith",
       "quran": "Kurani",
-      "duas": "Duaja"
+      "duas": "Duaja",
+      "janazah": "Xhenaze",
+      "fidyah": "Fidje"
     },
     "skipHint": "Kapërceni këtë kartë dhe shihni një pyetje tjetër.",
     "skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re."
@@ -5103,6 +5163,83 @@
     },
     "notFound": "Tema nuk u gjet",
     "disclaimer": "Përmbledhje edukative — jo fetva. Ku shkollat ndryshojnë (p.sh. nëse Ghusl i së premtes është wajib apo sunnah mu'akkadah), shënohen të dyja pozitat; ndiqni imamin tuaj ose një dijetar lokal të kualifikuar.",
+    "continueInApp": "Vazhdo në Munib"
+  },
+  "fidyah": {
+    "eyebrow": "Mjetet",
+    "title": "Fidje dhe kefaret",
+    "subtitle": "Vlerësoni ndihmësit për agjërimet e humbura ose të prishura Ramadan - jo vendimet automatike",
+    "intro": "Përdoreni këtë vetëm si një vlerësim planifikimi. Qur'an 2:184–185 dhe Sahih Muslim 1111 përcaktojnë bazat; një dijetar i kualifikuar duhet të klasifikojë nëse keni borxh kaza, fidjah, kaffarah apo diçka tjetër.",
+    "helperTitle": "Vlerësimi ndihmës",
+    "helperHint": "Shkruani ditët dhe vaktin tuaj lokal ose koston e njësisë fidya. Preferoni një tarifë të publikuar nga një xhami ose këshill lokal i besuar.",
+    "scenario": {
+      "fidyah": "Fidje",
+      "kaffarah": "Kefaret"
+    },
+    "currency": "Monedha",
+    "daysLabel": "Ditë të humbura",
+    "unitsLabel": "Kaffarah njësi",
+    "mealCostLabel": "Kostoja për të ushqyer një të varfër",
+    "mealCostHint": "Një vakt, ose sasia e fidya-së tuaj të publikuar në vend në ditë.",
+    "estimateLabel": "Vlerësimi i planifikimit",
+    "estimateEmpty": "Shkruani ditët dhe një kosto vakt",
+    "estimateFidyahDetail": "{{meals}} persona të varfër për të ushqyer",
+    "estimateKaffarahDetail": "{{meals}} vakte (opsioni i të ushqyerit) · ose {{fasts}} ditë agjërimi të njëpasnjëshme",
+    "section": {
+      "overview": "Vështrim i përgjithshëm",
+      "fidyah": "Fidje",
+      "kaffarah": "Kefaret",
+      "practice": "Duke përdorur ndihmësin"
+    },
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Vetëm vlerësime arsimore - jo një fetva. Detajet e medhhebit ndryshojnë; ndiqni një studiues të kualifikuar vendas për rastin tuaj.",
+    "continueInApp": "Vazhdo në Munib"
+  },
+  "janazah": {
+    "eyebrow": "Mësoni",
+    "title": "Janazah udhëzues",
+    "subtitle": "Namazi i xhenazes, larja, varrimi dhe duatë autentike",
+    "intro": "Një pasqyrë praktike e Janazah si obligim i përbashkët - si të falen katër tekbire pa ruku apo suxhud, dhe duatë Hisnul Muslim për të ndjerin.",
+    "section": {
+      "obligation": "Detyrim",
+      "prepare": "Përgatitja",
+      "salah": "Namazi i xhenazes",
+      "burial": "Varrimi",
+      "duas": "Duat funerale",
+      "reminders": "Përkujtues"
+    },
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Pasqyrë edukative - jo një manual i drejtorit funeral ose një fetva. Konfirmoni praktikën e larjes, mbulimit dhe varrezave me udhëzime të kualifikuara lokale.",
+    "continueInApp": "Vazhdo në Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Mjetet",
+    "title": "Qëllimet e sadakasë",
+    "subtitle": "Qëllimi ditor ose javor dhe një regjistër i thjeshtë i dhënies",
+    "intro": "Vendosni një qëllim vullnetar bamirësie dhe regjistroni atë që jepni. Zakat mbetet një detyrim më vete — përdorni kalkulatorin Zakat për këtë.",
+    "intentionTitle": "Synimi im",
+    "intentionHint": "Një objektiv personal për sadakanë vullnetare - jo zekati.",
+    "period": {
+      "daily": "Ditore",
+      "weekly": "Javore"
+    },
+    "currency": "Monedha",
+    "targetLabel": "Shuma e synuar",
+    "saveGoal": "Ruaj synimin",
+    "clearGoal": "Qëllimi i qartë",
+    "progressLabel": "Përparoni këtë {{period}}",
+    "logTitle": "Regjistro një dhuratë",
+    "logAmount": "Shuma",
+    "logNote": "Shënim (opsionale)",
+    "logNotePlaceholder": "p.sh. banka ushqimore",
+    "addEntry": "Shto në regjistër",
+    "logEmpty": "Nuk është regjistruar ende asnjë dhuratë.",
+    "learnMoreTitle": "Mësoni më shumë",
+    "linkZakat": "Llogaritësi Zakat",
+    "linkZakatHint": "Sadakaja e detyrueshme pastruese",
+    "linkFinance": "Sadaqah në financat islame",
+    "linkFinanceHint": "Shpjegohet dhënia vullnetare",
+    "disclaimer": "Vetëm një gjurmues personal - jo fetva dhe jo zëvendësues për llogaritjen e zekatit kur duhet.",
     "continueInApp": "Vazhdo në Munib"
   }
 }

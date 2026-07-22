@@ -150,6 +150,8 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
 | **HadithAPI.com** | Bukhari, Muslim etc. with `status` (Sahih/Hasan/Daif) | Yes ✅ | Free w/ key | ✅ Handy API that **carries grades** — good for the grade requirement. |
 | **QUL / Tarteel** | Hadith resources alongside Qur'an | Varies | Per-resource | ◻︎ Check availability. |
 | **fawazahmed0/hadith-api** (jsDelivr CDN) | Kutub al-Sittah + more; **multi-language editions** (`urd-*`, `ind-*`, `tur-*`, `ben-*`, `fra-*`, `rus-*`, …) | Varies | **Unlicense** | ✅ **Shipped** for remote hadith translation in app locales `ur`, `id`, `tr`, `bn`, `fr`, `ru` — see `packages/shared/src/i18n/hadith-editions.ts` and `apps/app/src/api/hadith-remote.ts`. Arabic uses bundled `arabic` field; others cache per `collection:translationLocale`. |
+| **osamayy/40-hadith-nawawi-db** | Nawawi 40 Arabic sharh / explanation | n/a | **Unlicense** | ✅ **Shipped (NF-2.8)** — `nawawi40-sharh.json` sidecar; Arabic only (no AI English paraphrase). |
+| **emadjumaah/hadith-kg** (Hugging Face) | Structured isnad graphs (~1.6 GB SQLite) | Yes | **CC-BY-4.0** | ◻︎ Optional enricher via `HADITH_KG_PATH` + `extract-hadith-isnad.mjs`. Default NF-2.9 extract is companion→Prophet from AhmedBaset openings (not the full KG). |
 
 **Recommendation:**
 - **Authoritative path:** integrate the **official sunnah.com API** (request a key). Present
@@ -159,9 +161,12 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
   and safe.
 - Store the **grade** and **collection reference** on every hadith. Extend a `HadithItem` type
   mirroring the app's content convention: `{ id, collection, book, chapterId, number, arabic,
-  english, narrator, grade, gradedBy, reference }`.
+  english, narrator, isnad?, sharhArabic?, grade, gradedBy, reference }`.
 - Prefer sources that **include grades** (sunnah.com / HadithAPI); avoid presenting ungraded scraped
   data as authoritative.
+- **Sharh (NF-2.8):** Nawawi Arabic commentary from osamayy — never AI-translate.
+- **Isnad (NF-2.9):** structured `isnad[]` on bundled highlights (`isnad-highlights.json`); chains
+  end with the Prophet ﷺ. Remote Kutub collections do not yet carry isnad.
 
 ---
 
@@ -178,9 +183,8 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
 | **ahegazy/muslimKit azkar JSON** | Azkar with `zekr`, `repeat`, `bless`(source) | Open | ✅ Includes repeat-count → maps to your `targetCount`. |
 
 **Status:** **Shipped** — full Hisnul Muslim corpus (**270** duas + expanded adhkar/duroods) lives in
-`packages/shared/src/content/` via `build-adhkar.mjs`. Open work is locale coverage (e.g. Bengali
-~158/270) and literary review — see [`BACKLOG.md`](./BACKLOG.md) i18n — not re-bundling the English
-Arabic corpus.
+`packages/shared/src/content/` via `build-adhkar.mjs`. Locale meaning coverage varies (e.g. Bengali
+~158/270 by Arabic prefix match); English/Arabic corpus is complete — do not re-bundle it.
 
 ---
 
@@ -379,7 +383,7 @@ Ship a **"Data Sources & Credits"** screen listing every dataset + license + lin
   fawazahmed0, cache-first over AsyncStorage (offline after first open).
 - **Hadith:** bundled highlights (40 Nawawi, Riyad as-Salihin) offline + full six books via
   fawazahmed0 CDN (cache-first). Reference + grade always shown ("Ungraded" when absent).
-- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas:** full Hisnul Muslim corpus (**270**) across 16 categories — sourced from `sheikhhanif/Hisnul_Muslim_Database` CSV via `build-adhkar.mjs`. Transliteration only where a clean OSS source provides it (never auto-generated). Bengali meaning coverage ~158/270 (prefix match) — see backlog i18n P3.
+- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas:** full Hisnul Muslim corpus (**270**) across 16 categories — sourced from `sheikhhanif/Hisnul_Muslim_Database` CSV via `build-adhkar.mjs`. Transliteration only where a clean OSS source provides it (never auto-generated). Bengali meaning coverage ~158/270 (prefix match).
 - **Credits screen** renders from `assets/data/manifest.json` (SHA-256 per file) + runtime sources +
   service credits (prayer times, weather).
 - **Build pipeline:** `pnpm --filter app build:data` (dev/CI only) — cached fetch, validation,

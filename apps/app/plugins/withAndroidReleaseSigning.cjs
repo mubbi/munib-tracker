@@ -4,10 +4,16 @@ const MARKER = "withAndroidReleaseSigning";
 
 const RELEASE_SIGNING_BLOCK = `// ${MARKER}
             def keystorePropertiesFile = rootProject.file("keystore.properties")
-            if (!keystorePropertiesFile.exists()) {
-                throw new GradleException("[${MARKER}] android/keystore.properties missing — refusing to debug-sign a release build. See apps/app/android-keys/README.md")
-            }
-            signingConfig signingConfigs.release`;
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            } else {
+                def isReleaseTask = gradle.startParameter.taskNames.any { it.toLowerCase().contains("release") }
+                if (isReleaseTask) {
+                    throw new GradleException("[${MARKER}] android/keystore.properties missing — refusing to debug-sign a release build. See apps/app/android-keys/README.md")
+                }
+                println "[${MARKER}] keystore.properties missing — debug builds OK; sync android-keys/ before release"
+                signingConfig signingConfigs.debug
+            }`;
 
 /** True when buildTypes.release still uses the debug keystore (misconfigured or plugin misfire). */
 function releaseBuildTypeUsesDebugKeystore(contents) {
@@ -91,6 +97,12 @@ function patchAppBuildGradle(contents) {
   }
 
   next = repairMisplacedDebugSigning(next);
+
+  // Upgrade older hard-throw release signing (breaks assembleDebug at config time).
+  next = next.replace(
+    /\/\/ withAndroidReleaseSigning\s*\n\s*def keystorePropertiesFile = rootProject\.file\("keystore\.properties"\)\s*\n\s*if \(!keystorePropertiesFile\.exists\(\)\) \{\s*\n\s*throw new GradleException\("\[withAndroidReleaseSigning\][^"]+"\)\s*\n\s*\}\s*\n\s*signingConfig signingConfigs\.release/,
+    RELEASE_SIGNING_BLOCK,
+  );
 
   if (releaseBuildTypeUsesDebugKeystore(next) || next.includes("hasReleaseKeystore")) {
     next = next.replace(

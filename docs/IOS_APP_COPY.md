@@ -13,6 +13,8 @@
 > **Tip:** The `Promotional Text` field can be updated at any time without submitting a new app version — use it for Ramadan messaging, Eid announcements, or feature highlights.
 >
 > **Note on URLs:** The marketing site (`munibtracker.app`) is English-only today. Use the base URLs below for all locales until locale-prefixed routes ship.
+>
+> **Apple TV:** Same bundle ID (`app.munibtracker`) via `EXPO_TV=1` tvOS build. App Icon + Top Shelf assets live under `apps/app/assets/images/tv/` (regenerate with `pnpm generate:app:brand-assets`). Use local provisioning for tvOS when also shipping iPhone. Store screenshots: `pnpm screenshots:tvos` validates the pipeline; set `RUN_CAPTURE=1` when submitting the TV SKU — see [`TV.md`](./TV.md).
 
 ---
 
@@ -44,7 +46,7 @@ Track your journey back to Allah — offline, ad-free, and free. Log salah, clea
 
 ### Field 2 — Description *(4,000 chars max)*
 
-Munib Tracker is a calm, offline-first companion for salah, dhikr, qaza, Qur'an, hadith, and daily worship — built to help you walk back to Allah one day at a time.
+Munib Tracker is a calm, offline-first companion for salah, zikr, qaza, Qur'an, hadith, and daily worship — built to help you walk back to Allah one day at a time.
 
 No ads. No behavioural tracking. No account required to use the full app. Your worship data stays on your device until you choose to sign in and sync.
 
@@ -52,7 +54,7 @@ No ads. No behavioural tracking. No account required to use the full app. Your w
 Log each obligatory prayer — completed, missed, delayed, or qaza — with a progress ring, streaks, and an honest calendar. Five fard prayers plus Witr and sunnah categories. Gentle encouragement, never shame.
 
 **MAKE UP WHAT WAS MISSED**
-Turn qaza from overwhelming to doable. Per-prayer counters sync from missed tracker entries. Estimate lifetime backlog, set a daily pace, and track missed fasts (roza) with scholar-aware guidance.
+Turn qaza from overwhelming to doable. Per-prayer counters sync from missed tracker entries. Estimate lifetime backlog, set a daily pace, and track missed fasts with scholar-aware guidance.
 
 **REMEMBER ALLAH DAILY**
 Morning, evening, and situational adhkar with favorites and daily progress. Free tasbeeh counter with presets. Bedtime-aware before-sleep reminders.
@@ -82,7 +84,7 @@ iOS, Android, and web — same companion on phone, tablet, or browser. Home-scre
 English, Arabic, Urdu, Indonesian, Turkish, Bengali, Malay, Persian, French, Hausa, Swahili, Russian, and more — with RTL support for Arabic, Urdu, Persian, Pashto, and Kurdish.
 
 **PRIVATE BY DEFAULT**
-Local-first storage with optional encrypted cloud sync (Google or Apple sign-in). Export and import local backups. Delete account and data anytime.
+Local-first storage with optional encrypted cloud sync (Google, Apple, or Facebook sign-in). Export and import local backups. Delete account and data anytime.
 
 ---
 Start logging salah in under a minute. Everything works offline. Sign in only when you want sync across devices.

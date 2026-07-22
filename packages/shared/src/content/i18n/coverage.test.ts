@@ -29,6 +29,11 @@ const OMITTED_KEYS = new Set([
   "categories",
   "era",
   "arabicName",
+  "sources",
+  "certainty",
+  "branch",
+  "parentId",
+  "siblingOf",
 ]);
 
 const hasLatin = (s: string) => /[A-Za-z]/.test(s);

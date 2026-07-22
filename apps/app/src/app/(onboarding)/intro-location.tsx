@@ -18,6 +18,7 @@ import {
 } from "@/lib/notifications/permissions";
 import { isWeb } from "@/lib/notifications/platform";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
+import { isTV } from "@/lib/platform/is-tv";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { locationStore, useLocationActions, useLocationStatus } from "@/stores/location-store";
 import { preferencesStore, usePreferencesActions } from "@/stores/preferences-store";
@@ -82,6 +83,12 @@ export default function OnboardingLocationScreen() {
     setBusy(true);
     triggerHaptic("light");
     try {
+      if (isTV()) {
+        // No GPS on TV — finish onboarding then send the user to city search.
+        await finish();
+        router.replace("/location" as Href);
+        return;
+      }
       await requestDeviceLocation();
       // Location granted/denied/error — still offer reminders in the same gesture.
       await requestRemindersIfSupported();
@@ -169,7 +176,13 @@ export default function OnboardingLocationScreen() {
       <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.four }]}>
         <View style={styles.actions}>
           <Button
-            label={locating ? t("onboarding.locationLocating") : t("onboarding.locationAllow")}
+            label={
+              locating
+                ? t("onboarding.locationLocating")
+                : isTV()
+                  ? t("qibla.setLocation")
+                  : t("onboarding.locationAllow")
+            }
             fullWidth
             disabled={locating}
             icon={LOCATION_ICON}

@@ -27,6 +27,8 @@ const TOOLBAR_ICONS = {
   translation: { ios: "text.alignleft", android: "notes", web: "notes" },
   narrator: { ios: "person.fill", android: "person", web: "person" },
   grade: { ios: "checkmark.seal.fill", android: "verified", web: "verified" },
+  isnad: { ios: "list.bullet", android: "format_list_bulleted", web: "format_list_bulleted" },
+  sharh: { ios: "text.book.closed", android: "menu_book", web: "menu_book" },
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
   enterFullscreen: {
     ios: "arrow.up.left.and.arrow.down.right",
@@ -49,18 +51,27 @@ type HadithReadingToolbarProps = {
   showTranslation: boolean;
   showNarrator: boolean;
   showGrade: boolean;
+  showIsnad: boolean;
+  showSharh: boolean;
+  /** Hide isnad chip when the collection has no chains. */
+  hasIsnad?: boolean;
+  /** Hide sharh chip when the collection has no explanations. */
+  hasSharh?: boolean;
   showBackToTop?: boolean;
   onBackToTop?: () => void;
   onToggleArabic: () => void;
   onToggleTranslation: () => void;
   onToggleNarrator: () => void;
   onToggleGrade: () => void;
+  onToggleIsnad: () => void;
+  onToggleSharh: () => void;
 };
 
 /**
  * Compact reading controls for hadith — text size plus show/hide toggles for
- * Arabic, translation, narrator, and grade. Mirrors the Qur'an toolbar pattern
- * so mid-scroll adjustments stay reachable after the header filters scroll away.
+ * Arabic, translation, narrator, grade, isnad, and sharh. Mirrors the Qur'an
+ * toolbar pattern so mid-scroll adjustments stay reachable after the header
+ * filters scroll away.
  */
 export function HadithReadingToolbar({
   visible,
@@ -69,12 +80,18 @@ export function HadithReadingToolbar({
   showTranslation,
   showNarrator,
   showGrade,
+  showIsnad,
+  showSharh,
+  hasIsnad = true,
+  hasSharh = true,
   showBackToTop = true,
   onBackToTop,
   onToggleArabic,
   onToggleTranslation,
   onToggleNarrator,
   onToggleGrade,
+  onToggleIsnad,
+  onToggleSharh,
 }: HadithReadingToolbarProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -182,6 +199,24 @@ export function HadithReadingToolbar({
             accessibilityLabel={t("hadith.showGrade")}
             onPress={onToggleGrade}
           />
+          {hasIsnad ? (
+            <ToggleChip
+              icon={TOOLBAR_ICONS.isnad}
+              label={t("hadith.isnad")}
+              enabled={showIsnad}
+              accessibilityLabel={t("hadith.showIsnad")}
+              onPress={onToggleIsnad}
+            />
+          ) : null}
+          {hasSharh ? (
+            <ToggleChip
+              icon={TOOLBAR_ICONS.sharh}
+              label={t("hadith.sharh")}
+              enabled={showSharh}
+              accessibilityLabel={t("hadith.showSharh")}
+              onPress={onToggleSharh}
+            />
+          ) : null}
         </ScrollView>
         {fullscreen.supported ? (
           <PressableScale

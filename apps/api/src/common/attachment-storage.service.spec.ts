@@ -1,3 +1,6 @@
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const uploadStreamMock = vi.fn();
@@ -35,7 +38,7 @@ describe("AttachmentStorageService (Cloudinary)", () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
+    vi.clearAllMocks();
   });
 
   it("configures Cloudinary when credentials are present", () => {
@@ -162,15 +165,18 @@ describe("AttachmentStorageService (Cloudinary)", () => {
   });
 
   it("falls back to disk when Cloudinary is not configured", async () => {
-    const service = new AttachmentStorageService(
-      makeConfig({ REPORT_ATTACHMENTS_DIR: "./uploads/test-reports" }),
-    );
+    const dir = await mkdtemp(join(tmpdir(), "munib-attach-"));
+    try {
+      const service = new AttachmentStorageService(makeConfig({ REPORT_ATTACHMENTS_DIR: dir }));
 
-    expect(service.isObjectStorageEnabled()).toBe(false);
+      expect(service.isObjectStorageEnabled()).toBe(false);
 
-    const stored = await service.save("r2", "a.png", Buffer.from("png"), "image/png");
-    expect(stored.storagePath.replace(/\\/g, "/")).toContain("uploads/test-reports/r2/a.png");
+      const stored = await service.save("r2", "a.png", Buffer.from("png"), "image/png");
+      expect(stored.storagePath.replace(/\\/g, "/")).toContain("r2/a.png");
 
-    await service.remove(stored.storagePath);
-  });
+      await service.remove(stored.storagePath);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  }, 15_000);
 });

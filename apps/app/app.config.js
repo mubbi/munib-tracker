@@ -65,9 +65,16 @@ function withIosGoogleOAuthUrlSchemes(iosConfig) {
   };
 }
 
+/** True when generating Apple TV / Android TV native projects (`EXPO_TV=1`). */
+function isTvPrebuild() {
+  const v = process.env.EXPO_TV?.trim();
+  return v === "1" || v === "true";
+}
+
 /** @type {import('expo/config').ConfigContext} */
 module.exports = ({ config }) => {
   const prebuildPlatform = process.env.EXPO_PREBUILD_PLATFORM?.trim();
+  const tvPrebuild = isTvPrebuild();
   const appVersion =
     prebuildPlatform === "ios" || prebuildPlatform === "android"
       ? resolvePlatformVersion(prebuildPlatform, __dirname)
@@ -88,18 +95,75 @@ module.exports = ({ config }) => {
     ? config.android.intentFilters
     : [];
 
+  /** Phone-only native surfaces — break tvOS / Leanback prebuild. */
+  const phoneOnlyPlugins = tvPrebuild
+    ? []
+    : [
+        [
+          "expo-quick-actions",
+          {
+            androidIcons: QUICK_ACTION_ANDROID_ICONS,
+          },
+        ],
+        /** Before @bacons/apple-targets: xcode mods run in reverse order, and its base-mod provider must register last. */
+        "./plugins/withAppIntentsExtensionDefine.cjs",
+        "@bacons/apple-targets",
+        "./plugins/withExternalCommands.cjs",
+        "./plugins/withWearOs.cjs",
+        ["react-native-android-widget", { widgets: ANDROID_HOME_SCREEN_WIDGETS }],
+        /** After react-native-android-widget so generated provider XML / receivers exist. */
+        "./plugins/withAndroidLockScreenWidgets.cjs",
+        "./plugins/withAndroidWidgetGallery.cjs",
+      ];
+
+  const configTvPlugin = [
+    "@react-native-tvos/config-tv",
+    {
+      androidTVBanner: "./assets/images/tv/android-banner.png",
+      androidTVIcon: "./assets/images/tv/android-icon.png",
+      appleTVImages: {
+        icon: "./assets/images/tv/tvos-icon-1280x768.png",
+        iconSmall: "./assets/images/tv/tvos-icon-400x240.png",
+        iconSmall2x: "./assets/images/tv/tvos-icon-800x480.png",
+        topShelf: "./assets/images/tv/tvos-topshelf-1920x720.png",
+        topShelf2x: "./assets/images/tv/tvos-topshelf-3840x1440.png",
+        topShelfWide: "./assets/images/tv/tvos-topshelf-wide-2320x720.png",
+        topShelfWide2x: "./assets/images/tv/tvos-topshelf-wide-4640x1440.png",
+      },
+    },
+  ];
+
+  const iosConfig = withIosGoogleOAuthUrlSchemes({
+    ...config.ios,
+    buildNumber: iosBuildNumber,
+    ...(appleTeamId ? { appleTeamId } : {}),
+    entitlements: {
+      ...(config.ios?.entitlements ?? {}),
+      ...(tvPrebuild
+        ? {}
+        : {
+            "com.apple.security.application-groups": [WIDGET_APP_GROUP],
+          }),
+    },
+  });
+
+  const baseExtra = { ...(config.extra ?? {}) };
+  const easExtra = { ...(baseExtra.eas ?? {}) };
+  if (tvPrebuild) {
+    // Phone widget/Watch/Intents targets must not ship with tvOS EAS builds.
+    const build = { ...(easExtra.build ?? {}) };
+    const experimental = { ...(build.experimental ?? {}) };
+    const iosExp = { ...(experimental.ios ?? {}) };
+    delete iosExp.appExtensions;
+    experimental.ios = iosExp;
+    build.experimental = experimental;
+    easExtra.build = build;
+  }
+
   return {
     ...config,
     version: appVersion,
-    ios: withIosGoogleOAuthUrlSchemes({
-      ...config.ios,
-      buildNumber: iosBuildNumber,
-      ...(appleTeamId ? { appleTeamId } : {}),
-      entitlements: {
-        ...(config.ios?.entitlements ?? {}),
-        "com.apple.security.application-groups": [WIDGET_APP_GROUP],
-      },
-    }),
+    ios: iosConfig,
     android: {
       ...config.android,
       versionCode: androidVersionCode,
@@ -107,21 +171,9 @@ module.exports = ({ config }) => {
     },
     plugins: [
       ...pluginsWithoutQuickActions,
-      [
-        "expo-quick-actions",
-        {
-          androidIcons: QUICK_ACTION_ANDROID_ICONS,
-        },
-      ],
-      /** Before @bacons/apple-targets: xcode mods run in reverse order, and its base-mod provider must register last. */
-      "./plugins/withAppIntentsExtensionDefine.cjs",
-      "@bacons/apple-targets",
-      "./plugins/withExternalCommands.cjs",
-      "./plugins/withWearOs.cjs",
-      ["react-native-android-widget", { widgets: ANDROID_HOME_SCREEN_WIDGETS }],
-      /** After react-native-android-widget so generated provider XML / receivers exist. */
-      "./plugins/withAndroidLockScreenWidgets.cjs",
-      "./plugins/withAndroidWidgetGallery.cjs",
+      /** No-op unless EXPO_TV=1 / isTV — keeps phone prebuild unchanged. */
+      configTvPlugin,
+      ...phoneOnlyPlugins,
       [
         "@sentry/react-native/expo",
         {
@@ -132,7 +184,8 @@ module.exports = ({ config }) => {
       ],
     ],
     extra: {
-      ...config.extra,
+      ...baseExtra,
+      eas: easExtra,
       /** Per-platform marketing semver from .env — used by runtime version helpers on native. */
       iosAppVersion: resolvePlatformVersion("ios", __dirname),
       androidAppVersion: resolvePlatformVersion("android", __dirname),
@@ -141,6 +194,8 @@ module.exports = ({ config }) => {
       vapidPublicKey: vapidPublicKey || undefined,
       /** Service worker path for web push registration. */
       serviceWorkerPath: "/expo-service-worker.js",
+      /** True when this config was evaluated for a TV prebuild. */
+      isTvBuild: tvPrebuild || undefined,
     },
   };
 };

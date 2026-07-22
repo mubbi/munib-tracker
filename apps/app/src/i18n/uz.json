@@ -78,7 +78,10 @@
       "hint": "O'rganganingizni takrorlang",
       "empty": "Ushbu qo'llanma savollari hali yuklanmoqda. Bir necha dars oching, keyin qayta urinib ko'ring."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "Televizorda mavjud emas",
+    "tvUnavailableBody": "Bu funksiya telefon yoki planshetni talab qiladi. Davom etish uchun Munib Tracker-ni o‘sha yerda oching.",
+    "tvOauthHint": "Ijtimoiy tarmoqlar orqali kirish televizorda cheklangan bo‘lishi mumkin. Bu yerda mehmon sifatida davom eting yoki telefoningizda hisobni bog‘lang."
   },
   "search": {
     "placeholder": "Qur'an, hadis, dua, O'rganish… qidirish",
@@ -170,7 +173,10 @@
     "flashCards": "Yod kartalari",
     "verseDetector": "Oyat aniqlagich",
     "lastThirdNight": "Tunning oxirgi uchtadan biri",
-    "friday": "Juma va Jumu'ah"
+    "friday": "Juma va Jumu'ah",
+    "fidyah": "Fidya va kafforat",
+    "janazah": "Janazah qoʻllanma",
+    "sadaqah": "Sadaqah gol"
   },
   "quickActions": {
     "checklistSubtitle": "Bugungi namozlarni qayd eting",
@@ -802,14 +808,16 @@
     "apple": "Apple bilan davom eting",
     "facebook": "Facebook bilan davom eting",
     "heroGuest": "Siz mehmon hisobidan foydalanmoqdasiz. Maʼlumotlaringizni zaxiralash va sinxronlashtirish uchun provayder bilan bogʻlaning – hech narsa yoʻqolmaydi.",
-    "heroUser": "Ibodatlaringizni qaza va zikr bulutda xavfsiz saqlash uchun tizimga kiring.",
+    "heroUser": "Namoz, qazo va zikringizni bulutda xavfsiz saqlang.",
     "error": "Kirib bo‘lmadi. API server ishlayotganini va bu provayder sozlanganini tekshiring.",
     "providersUnavailableTitle": "Kirish hali mavjud emas",
     "providersUnavailableBody": "Bu yig‘ilmada bulut sync provayderlari sozlanmagan. Mehmon sifatida davom eting — taraqqiyotingiz shu qurilmada qoladi.",
     "titleSignedIn": "Siz tizimga kirdingiz",
     "subtitleSignedIn": "Bulut sinxroni ushbu qurilmada tayyor",
     "heroSignedIn": "Xush kelibsiz — hisobingiz bog‘langan. Namoz, qazo va zikr qurilmalar o‘rtasida sinxronlanishi mumkin.",
-    "continueSignedIn": "Davom etish"
+    "continueSignedIn": "Davom etish",
+    "or": "yoki",
+    "guestHint": "Hisobni istalgan vaqtda Profil orqali bog‘lashingiz mumkin."
   },
   "onboarding": {
     "begin": "Begichid",
@@ -1109,7 +1117,8 @@
       "activeHint": "Bu namoz yaqinlashganda jonli yangilanishlar ajratib ko‘rsatiladi. Mahkamlashni olib tashlash uchun To‘xtatishni bosing.",
       "a11yStart": "Qulflangan ekranda keyingi namoz kuzatuvini boshlash",
       "a11yStop": "Namoz jonli yangilanishlari kuzatuvini to‘xtatish"
-    }
+    },
+    "tvUnavailableBody": "Mahalliy eslatmalar va Live Activities televizorda mavjud emas. Bildirishnoma sozlamalarini telefoningizda boshqaring."
   },
   "fonts": {
     "eyebrow": "Sozlamalar",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "adhkar-ni sarlavha, mavzu yoki matn bo'yicha qidiring…",
     "searchInCategory": "Ushbu turkumda qidiruv…",
     "searchResultCount": "{{count}} mtches",
-    "noResults": "Qidiruvingizga mos keladigan adhkar topilmadi."
+    "noResults": "Qidiruvingizga mos keladigan adhkar topilmadi.",
+    "markAsDone": "Bajarildi deb belgilash",
+    "undoDoneHint": "Bekor qilish va bajarilmagan deb belgilash uchun bosing"
   },
   "zikrCat": {
     "morning": "ertlb dhkr",
@@ -1562,7 +1573,12 @@
     "backToTop": "Yuqoriga qaytish",
     "readingProgress": "Oʻqish jarayoni",
     "enterFullscreen": "Toʻliq ekranga kirish",
-    "exitFullscreen": "Toʻliq ekrandan chiqish"
+    "exitFullscreen": "Toʻliq ekrandan chiqish",
+    "isnad": "Isnod",
+    "sharh": "Sharh",
+    "showIsnad": "Isnodni koʻrsatish",
+    "showSharh": "Sharhni koʻrsatish",
+    "sharhArabicOnly": "Sharh faqat arab tilida mavjud."
   },
   "credits": {
     "eyebrow": "ttributid",
@@ -2312,7 +2328,8 @@
     "cardinalS": "J",
     "cardinalW": "G",
     "defaultLocationHint": "Standart joylashuvdan foydalanish (Makkah). Shaharingizni aniq qibla rulmaniga o'rnating.",
-    "setLocation": "Set joylshuv"
+    "setLocation": "Set joylshuv",
+    "tvHint": "Jonli kompas televizorda mavjud emas. Strelka shahringiz uchun shimoldan qibla yo‘nalishini ko‘rsatadi — jonli moslash uchun telefondan foydalaning."
   },
   "profile": {
     "eyebrow": "hbuob",
@@ -3346,6 +3363,42 @@
       "obligatory": "Essentil",
       "highly-recommended": "Ayniqsa tavsiya etiladi",
       "recommended": "Tavsiya etiladi"
+    },
+    "quickTree": "Oila daraxti",
+    "quickTreeHint": "Adam dan Muhammad ﷺgacha — manba nasl-nasabi",
+    "tree": {
+      "title": "Payg'ambarlar shajarasi",
+      "subtitle": "Faqat nasl-nasab — Qur'an, sahih hadis va yorliqli tarix",
+      "intro": "Bu daraxt faqat Qur'an, sahih hadis yoki aniq belgilangan klassik tarixda o'rnatilgan munosabatlarni ko'rsatadi. Bo'shliqlar tasdiqlanmagan nomlar bilan to'ldirilishi o'rniga bo'sh qoldiriladi. Ajdodlar (zudlik bilan emas) havolalari shunday belgilanadi.",
+      "searchPlaceholder": "Payg'ambar yoki ism qidiring...",
+      "searchResults": "{{count}} mos keladi",
+      "sources": "Manbalar",
+      "openBio": "Ochiq biografiya",
+      "certainty": {
+        "quran": "Qur'on",
+        "authentic-hadith": "Sahih hadis",
+        "classical-history": "Klassik tarix"
+      },
+      "branch": {
+        "adam-nuh": "Adam va Nuh",
+        "ibrahim": "Ibrahimning xonadoni",
+        "israel": "Isroil bolalari",
+        "musa": "Musa va Harun",
+        "dawud": "Dawud va Sulayman",
+        "zakariyya": "Zakariyya va Yahya",
+        "isa": "Maryam va Isa",
+        "muhammad": "Payg'ambarlar muhri"
+      },
+      "disclaimer": "Tarbiyaviy nasabnoma har bir payg'ambarning to'liq ro'yxati emas. Ko'pgina messenjerlar Qur'an da batafsil ota-ona zanjirisiz nomlanadi; Ular \"Payg'ambarlarni o'rganing\" bios kitobida paydo bo'ladi, lekin bu erda taxmin qilinganidan ko'ra olib tashlangan.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -3641,7 +3694,7 @@
     "today": "bugun",
     "inDays": "ichid {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Sanalar joylashuvingizdagi hilol ko'rinishiga (yoki uni ishlatadigan mintaqalarda rasmiy Umm al-Qura taqvimiga) amal qiladi va mahalliy hokimiyat e'lonidan bir kun farq qilishi mumkin.",
+    "disclaimer": "Sanalar hisoblangan taxminlar - haqiqiy kun mahalliy oyni ko'rishga bog'liq.",
     "names": {
       "newYear": "Islomiy Yangi yil",
       "ashura": "Ashuro kuni",
@@ -4075,7 +4128,12 @@
       "confirm": "Shaklni tiklash",
       "a11y": "Zakot kalkulyatori shaklini tiklash",
       "hint": "Tasdiqlashni so'raydi, so'ngra barcha kiritilgan summalarni o'chiradi"
-    }
+    },
+    "relatedTitle": "Tegishli vositalar",
+    "linkSadaqah": "Sadaqa maqsadlari",
+    "linkSadaqahHint": "Kunlik yoki haftalik ixtiyoriy xayriya",
+    "linkFidyah": "Fidya va kafforat",
+    "linkFidyahHint": "O‘tkazib yuborilgan yoki buzilgan ro‘zalar uchun hisoblar"
   },
   "customAdhkar": {
     "eyebrow": "Yod etish",
@@ -4114,7 +4172,7 @@
       "label": "Qo'shimchalar (ixtiyoriy)",
       "add": "Fayl qo'shish",
       "remove": "Qo'shimchani olib tashlang",
-      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Olib tashlash uchun eskizdagi × ni bosing.",
+      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Oʻchirish uchun eskizni uzoq bosib turing.",
       "signInRequired": "Adhkaringizga shaxsiy fayllarni biriktirish uchun tizimga kiring.",
       "permissionDenied": "Fayllarni biriktirish uchun ruxsat talab qilinadi.",
       "permissionTitle": "Kirishga ruxsat bering",
@@ -4626,7 +4684,7 @@
     "sourceLabel": "siznichidg source (ixtiyyokiiy)",
     "sourcePlaceholder": "Tuzatishingizni tasdiqlovchi kitob, olim, URL yoki iqtibos.",
     "proofLabel": "Tasdiqlangan skrinshotlar (ixtiyoriy)",
-    "proofHint": "3 tagacha rasm. Olib tashlash uchun eskizdagi × ni bosing.",
+    "proofHint": "3 tagacha rasm. Oʻchirish uchun eskizni uzoq bosib turing.",
     "addProof": "Surat qo'shish",
     "removeProof": "olib tshlsh screenshot",
     "submit": "Hisobot yuborish",
@@ -4903,7 +4961,7 @@
     "eyebrow": "Kalendar",
     "title": "Sana konvertori",
     "subtitle": "Hijriy va Grigoriy kalendarlari oʻrtasida oʻzgartirish",
-    "intro": "Bir taqvimda sana kiriting — ikkinchisidagi tengini ko'ring; oflayn, joylashuvingizdagi hilol ko'rinishidan hisoblanadi.",
+    "intro": "Jadvalli Quvayt algoritmi yordamida oflayn hisoblangan boshqasida ekvivalentini ko‘rish uchun har bir taqvimga sana kiriting.",
     "toHijri": "Grigoriy → hijriy",
     "toGregorian": "Hijriy → Grigoriy",
     "gregorianDateLabel": "Grigorian sanasi",
@@ -4913,7 +4971,7 @@
     "year": "Yil",
     "useToday": "Bugun foydalaning",
     "invalidDate": "Yaroqli sanani kiriting",
-    "disclaimer": "Sanalar joylashuvingizdagi hilol (hilāl) ko'rinishidan hisoblanadi va rasmiy oy ko'rish e'lonlaridan bir kun farq qilishi mumkin — diniy sanalar uchun doimo mahalliy masjid yoki hokimiyatga amal qiling.",
+    "disclaimer": "Bu arifmetik taxmindir (“Quvayt algoritmi” jadvali) va oyni koʻrish haqidagi mahalliy eʼlonlardan bir kun farq qilishi mumkin — har doim mahalliy masjidga yoki diniy sanalar boʻyicha maʼmuriyatga amal qiling.",
     "directionTitle": "Konvertatsiya yo'nalishi",
     "resultFrom": "{{date}} dan",
     "quickLinksTitle": "Aloqador",
@@ -4971,7 +5029,9 @@
       "names": "99 Ism",
       "hadith": "Hadis",
       "quran": "Qur'on",
-      "duas": "Duolar"
+      "duas": "Duolar",
+      "janazah": "Janoza",
+      "fidyah": "Fidya"
     },
     "skipHint": "Bu kartani o‘tkazib yuboring va boshqa savolni ko‘ring.",
     "skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering."
@@ -5012,5 +5072,82 @@
     "notFound": "Mavzu topilmadi",
     "disclaimer": "Ta'limiy sharh — fatvo emas. Mazhablar farq qilgan joylarda (masalan, juma ghusli wajibmi yoki sunnah mu'akkadahmi) ikkala qarash ham keltirilgan; imomingiz yoki malakali mahalliy olimga rioya qiling.",
     "continueInApp": "Munibda davom eting"
+  },
+  "fidyah": {
+    "eyebrow": "Asboblar",
+    "title": "Fidya va kafforat",
+    "subtitle": "O'tkazib yuborilgan yoki buzilgan Ramadan ro'zalar uchun yordamchilarni hisoblang - avtomatik hukm emas",
+    "intro": "Buni faqat rejalashtirish smetasi sifatida foydalaning. Qur'an 2:184–185 va Sahih Muslim 1111 asoslarni belgilaydi; malakali olim qazo, fidya, kafforat yoki boshqa qarzdorligingizni tasniflashi kerak.",
+    "helperTitle": "Hisoblash yordamchisi",
+    "helperHint": "Kunlar va mahalliy taom yoki fidya birligi narxini kiriting. Ishonchli mahalliy masjid yoki kengash tomonidan eʼlon qilingan tarifni afzal koʻring.",
+    "scenario": {
+      "fidyah": "Fidya",
+      "kaffarah": "Kafforat"
+    },
+    "currency": "Valyuta",
+    "daysLabel": "O'tkazib yuborilgan kunlar",
+    "unitsLabel": "Kaffarah birlik",
+    "mealCostLabel": "Bitta kambag'alni boqish xarajati",
+    "mealCostHint": "Kuniga bitta taom yoki mahalliy nashr etilgan fidya miqdori.",
+    "estimateLabel": "Rejalashtirish smetasi",
+    "estimateEmpty": "Kunlar va ovqatlanish narxini kiriting",
+    "estimateFidyahDetail": "{{meals}} kambag'al(lar)ni boqish uchun",
+    "estimateKaffarahDetail": "{{meals}} ovqatlanish (oziqlantirish varianti) · yoki {{fasts}} ketma-ket ro'za kunlari",
+    "section": {
+      "overview": "Umumiy koʻrinish",
+      "fidyah": "Fidya",
+      "kaffarah": "Kafforat",
+      "practice": "Yordamchidan foydalanish"
+    },
+    "notFound": "Mavzu topilmadi",
+    "disclaimer": "Faqat ma'rifiy baholar - fatvo emas. Mazhab tafsilotlari har xil; ishingiz uchun malakali mahalliy olimga amal qiling.",
+    "continueInApp": "Munib da davom eting"
+  },
+  "janazah": {
+    "eyebrow": "O'rganing",
+    "title": "Janazah qoʻllanma",
+    "subtitle": "Janoza namozi, yuvinish, dafn qilish va sahih duolar",
+    "intro": "Janazah jamoat farzligi — ruku va sujudsiz toʻrt takbir namoz oʻqish va marhumning Hisnul Muslim duolari haqida amaliy sharh.",
+    "section": {
+      "obligation": "Majburiyat",
+      "prepare": "Tayyorgarlik",
+      "salah": "Janoza namozi",
+      "burial": "Dafn",
+      "duas": "Janoza duolari",
+      "reminders": "Eslatmalar"
+    },
+    "notFound": "Mavzu topilmadi",
+    "disclaimer": "Ta'lim haqida umumiy ma'lumot - dafn direktorining qo'llanmasi yoki fatvo emas. Yuvish, kafanlash va qabriston amaliyotini malakali mahalliy rahbarlik bilan tasdiqlang.",
+    "continueInApp": "Munib da davom eting"
+  },
+  "sadaqah": {
+    "eyebrow": "Asboblar",
+    "title": "Sadaqa maqsadlari",
+    "subtitle": "Kundalik yoki haftalik niyat va oddiy berish jurnali",
+    "intro": "Ixtiyoriy xayriya niyatini belgilang va bergan narsangizni yozib oling. Zakat alohida majburiyat bo‘lib qoladi — buning uchun Zakat kalkulyatoridan foydalaning.",
+    "intentionTitle": "Mening niyatim",
+    "intentionHint": "Ixtiyoriy sadaqa uchun shaxsiy maqsad - zakot emas.",
+    "period": {
+      "daily": "Kundalik",
+      "weekly": "Haftalik"
+    },
+    "currency": "Valyuta",
+    "targetLabel": "Maqsadli miqdor",
+    "saveGoal": "Niyatni saqlang",
+    "clearGoal": "Aniq niyat",
+    "progressLabel": "Buni davom ettiring {{period}}",
+    "logTitle": "Sovg'ani yozib oling",
+    "logAmount": "Miqdori",
+    "logNote": "Eslatma (ixtiyoriy)",
+    "logNotePlaceholder": "masalan. oziq-ovqat banki",
+    "addEntry": "Jurnalga qo'shish",
+    "logEmpty": "Hali hech qanday sovg‘a qayd etilmagan.",
+    "learnMoreTitle": "Batafsil ma'lumot",
+    "linkZakat": "Zakat kalkulyatori",
+    "linkZakatHint": "Vojib poklovchi sadaqa",
+    "linkFinance": "Sadaqah islomiy moliyada",
+    "linkFinanceHint": "Ixtiyoriy berish tushuntirildi",
+    "disclaimer": "Faqat shaxsiy kuzatuvchi - fatvo emas va muddati kelganda zakotni hisoblash uchun o'rinbosar emas.",
+    "continueInApp": "Munib da davom eting"
   }
 }

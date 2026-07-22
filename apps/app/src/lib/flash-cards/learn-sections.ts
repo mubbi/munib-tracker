@@ -14,6 +14,7 @@ import {
   isBattlesContentReady,
 } from "@/lib/battles";
 import { ensureEidGuideContent, getEidGuideTopics } from "@/lib/eid-guide";
+import { ensureFidyahGuideContent, getFidyahGuideTopics } from "@/lib/fidyah-guide";
 import {
   ensureHajjGuideContent,
   getHajjGuideTopics,
@@ -25,6 +26,7 @@ import {
   isIslamicHistoryContentReady,
 } from "@/lib/islamic-history";
 import { ensureJahannamContent, getJahannamTopics, isJahannamContentReady } from "@/lib/jahannam";
+import { ensureJanazahGuideContent, getJanazahGuideTopics } from "@/lib/janazah-guide";
 import { ensureJannahContent, getJannahTopics, isJannahContentReady } from "@/lib/jannah";
 import {
   ensureLastDayContent,
@@ -70,7 +72,11 @@ export type LearnQuizSectionId = Exclude<StudySourceId, "names" | "hadith" | "qu
 export type LearnSectionDef = {
   id: LearnQuizSectionId;
   route: Href;
-  quizPath: Href;
+  /**
+   * Dedicated scored-quiz route. Omit for flash-bank-only hubs (janazah/fidyah —
+   * same pattern as friday/finance: contribute to the global deck, no `/quiz` screen).
+   */
+  quizPath?: Href;
   /** Primary i18n namespace for quiz chrome (eyebrow falls back to common). */
   i18nNamespace: string;
   ensure: () => Promise<unknown>;
@@ -360,6 +366,23 @@ export const LEARN_QUIZ_SECTIONS: LearnSectionDef[] = [
     isReady: alwaysReady,
     collect: () =>
       mcqsFromTopics("newMuslim", getNewMuslimTopics(), "flashCards.category.newMuslim"),
+  },
+  {
+    id: "janazah",
+    route: "/janazah" as Href,
+    i18nNamespace: "janazah",
+    ensure: ensureJanazahGuideContent,
+    isReady: alwaysReady,
+    collect: () =>
+      mcqsFromTopics("janazah", getJanazahGuideTopics(), "flashCards.category.janazah"),
+  },
+  {
+    id: "fidyah",
+    route: "/fidyah" as Href,
+    i18nNamespace: "fidyah",
+    ensure: ensureFidyahGuideContent,
+    isReady: alwaysReady,
+    collect: () => mcqsFromTopics("fidyah", getFidyahGuideTopics(), "flashCards.category.fidyah"),
   },
 ];
 

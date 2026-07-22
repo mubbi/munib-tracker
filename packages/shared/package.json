@@ -7,6 +7,7 @@
     ".": "./src/index.ts",
     "./types": "./src/types/index.ts",
     "./types/content-report": "./src/types/content-report.ts",
+    "./types/fidyah": "./src/types/fidyah.ts",
     "./types/oss-content-download-failure": "./src/types/oss-content-download-failure.ts",
 
     "./constants": "./src/constants/index.ts",

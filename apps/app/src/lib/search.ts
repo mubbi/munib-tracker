@@ -30,6 +30,7 @@ import {
   type SearchResult,
 } from "@/lib/search-types";
 import { resolveHadithTranslation, resolveTranslationField } from "@/lib/translation-locale";
+import { zikrQuranDestination } from "@/lib/zikr-quran";
 import type { CustomAdhkar } from "@/stores/custom-adhkar-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -648,17 +649,36 @@ function searchDuas(query: string, limit: number) {
 }
 
 function searchZikr(query: string, limit: number) {
-  return fuseSearch(getZikrFuse(), query, limit, (item) => ({
-    key: `zikr:${item.id}`,
-    category: "zikr",
-    title: item.title,
-    subtitle: scriptureSubtitle(item),
-    arabic: item.arabic,
-    reference: item.reference,
-    badge: item.reference,
-    href: "/zikr/detail/[id]",
-    params: { id: item.id },
-  }));
+  return fuseSearch(getZikrFuse(), query, limit, (item) => {
+    const quran = zikrQuranDestination(item.id);
+    if (quran) {
+      return {
+        key: `zikr:${item.id}`,
+        category: "zikr" as const,
+        title: item.title,
+        subtitle: scriptureSubtitle(item),
+        arabic: item.arabic,
+        reference: item.reference,
+        badge: item.reference,
+        href: "/quran/[surah]" as const,
+        params: {
+          surah: String(quran.surah),
+          ...(quran.ayah != null ? { ayah: String(quran.ayah) } : {}),
+        },
+      };
+    }
+    return {
+      key: `zikr:${item.id}`,
+      category: "zikr" as const,
+      title: item.title,
+      subtitle: scriptureSubtitle(item),
+      arabic: item.arabic,
+      reference: item.reference,
+      badge: item.reference,
+      href: "/zikr/detail/[id]" as const,
+      params: { id: item.id },
+    };
+  });
 }
 
 function searchNames(query: string, limit: number) {

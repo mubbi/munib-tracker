@@ -3,11 +3,14 @@
  * Upload a signed Play Store AAB to the internal testing track.
  *
  * Requires: android-keys/play-console-service-account.json
- * Default AAB: android/play-upload/app-release.aab from pnpm release:app:android.
+ * Default AAB: android/play-upload/app-release.aab from pnpm release:app:android
+ * TV AAB:      android/play-upload/tv/app-release.aab from pnpm release:app:android-tv
  *
  * Usage:
  *   pnpm android:upload:release
+ *   pnpm android:upload:release:tv
  *   node scripts/android-upload.js --aab path/to.aab
+ *   node scripts/android-upload.js --tv
  */
 const fs = require("node:fs");
 const path = require("node:path");
@@ -20,7 +23,14 @@ const {
 
 const projectRoot = path.resolve(__dirname, "..");
 const packageName = "app.munibtracker";
-const defaultAabPath = path.join(projectRoot, "android", "play-upload", "app-release.aab");
+const isTv = process.argv.includes("--tv");
+const defaultAabPath = path.join(
+  projectRoot,
+  "android",
+  "play-upload",
+  ...(isTv ? ["tv"] : []),
+  "app-release.aab",
+);
 const defaultServiceAccountPath = path.join(
   projectRoot,
   "android-keys",
@@ -31,6 +41,9 @@ const ANDROID_PUBLISHER_SCOPE = "https://www.googleapis.com/auth/androidpublishe
 const TRACK = "internal";
 
 function buildReleaseNotes(versionName) {
+  const tvExtra = isTv
+    ? `\n• Android TV / Fire TV — 10-foot focus UI, Leanback launcher\n`
+    : `\n• Home screen widgets: next prayer, schedule, and progress\n`;
   return (
     `Munib Tracker ${versionName} — Track Your Journey Back to Allah\n` +
     `\n` +
@@ -38,8 +51,8 @@ function buildReleaseNotes(versionName) {
     `• Track salah, streaks, and your honest calendar\n` +
     `• Plan and clear qaza at a steady pace\n` +
     `• Adhkar, tasbeeh, duas, Qur'an, and hadith — offline\n` +
-    `• Prayer times, qibla, and optional adhan reminders\n` +
-    `• Home screen widgets: next prayer, schedule, and progress\n` +
+    `• Prayer times, qibla, and optional adhan reminders` +
+    tvExtra +
     `• 23 languages including Arabic and Urdu (RTL)\n` +
     `• Private by default — no ads, optional sync & backup`
   );
@@ -58,7 +71,7 @@ function resolveAabPath(explicit) {
   if (!fs.existsSync(aabPath)) {
     console.error(
       `\nMissing AAB: ${aabPath}\n` +
-        "  Build first: pnpm release:app:android\n" +
+        `  Build first: pnpm release:app:android${isTv ? "-tv" : ""}\n` +
         "  Or pass: node scripts/android-upload.js --aab /path/to.aab\n",
     );
     process.exit(1);
@@ -95,18 +108,24 @@ async function main() {
 
   const versionName = resolvePlatformVersion("android", projectRoot);
   const expectedVersionCode = resolveAndroidVersionCode();
-  const releaseName = `${versionName} (${expectedVersionCode})`;
+  const releaseName = `${versionName} (${expectedVersionCode})${isTv ? " TV" : ""}`;
   const releaseNotes = buildReleaseNotes(versionName);
 
   const aabPath = resolveAabPath(parseAabArg());
   const serviceAccountPath = resolveServiceAccountPath();
 
-  console.log("\n--- Play Console upload (internal) ---");
+  console.log(`\n--- Play Console upload (internal)${isTv ? " — Android TV AAB" : ""} ---`);
   console.log(`  Package        → ${packageName}`);
   console.log(`  Track          → ${TRACK}`);
   console.log(`  Release name   → ${releaseName}`);
   console.log(`  AAB            → ${aabPath}`);
   console.log(`  Service account→ ${serviceAccountPath}\n`);
+  if (isTv) {
+    console.log(
+      "  Note: same package as phone. Enable Android TV in Play Console form factors.\n" +
+        "  Fire TV listing uses Amazon console + APK (pnpm release:app:android-tv:apk), not this upload.\n",
+    );
+  }
 
   const auth = new google.auth.GoogleAuth({
     keyFile: serviceAccountPath,
@@ -160,7 +179,7 @@ async function main() {
   if (uploadedVersionCode !== expectedVersionCode) {
     console.error(
       `\nAAB versionCode (${uploadedVersionCode}) does not match EXPO_ANDROID_VERSION_CODE (${expectedVersionCode}).\n` +
-        "  Rebuild with pnpm release:app:android after updating apps/app/.env, then upload again.\n",
+        `  Rebuild with pnpm release:app:android${isTv ? "-tv" : ""} after updating apps/app/.env, then upload again.\n`,
     );
     try {
       await androidpublisher.edits.delete({ packageName, editId });

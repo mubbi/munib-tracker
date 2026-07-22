@@ -78,7 +78,10 @@
       "hint": "Sake nazarin abin da ka koya",
       "empty": "Tambayoyin wannan jagora har yanzu suna lodawa. Buɗe wasu darussa, sa'an nan sake gwadawa."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "Ba ya samuwa a TV ba",
+    "tvUnavailableBody": "Wannan fasalin yana bukatar waya ko kwamfutar hannu. Buɗe Munib Tracker a can don ci gaba.",
+    "tvOauthHint": "Shiga ta kafafen sada zumunta na iya kasancewa a taƙaice a TV. Ci gaba a nan a matsayin baƙo, ko haɗa asusu a wayarka."
   },
   "search": {
     "placeholder": "Nemo Alkur'ani, hadisi, addu'o'i, Koyi…",
@@ -170,7 +173,10 @@
     "flashCards": "Katunan koyo",
     "verseDetector": "Mai nemo ayah",
     "lastThirdNight": "Ƙarshen ɓangare na uku",
-    "friday": "Jumma'a da Jumu'ah"
+    "friday": "Jumma'a da Jumu'ah",
+    "fidyah": "Fidya da kaffara",
+    "janazah": "Jagorar Janazah",
+    "sadaqah": "Sadaqah kwallaye"
   },
   "quickActions": {
     "checklistSubtitle": "Rubuta sallar yau",
@@ -802,14 +808,16 @@
     "apple": "Ci gaba da Apple",
     "facebook": "Ci gaba da Facebook",
     "heroGuest": "Baƙo hesabı kullanıyorsunuz. Vertare darinizi yedeklemek da senkronize etmek don dwataa sağlwataıcı bağlwataın — hiçdwataa şey kwatabolmaz.",
-    "heroUser": "Sallahlarınızı, kazalarınızı da zikirlerinizi bulutta güdande tutmak don giriş yapın.",
+    "heroUser": "Kiyaye Salah, qaza da zikr ɗinku amintacce a cikin gajimare.",
     "error": "An kasa shiga. Tabbatar da cewa uwar garken API yana aiki kuma an saita wannan mai bayarwa.",
     "providersUnavailableTitle": "Shiga bai samu ba tukuna",
     "providersUnavailableBody": "Ba a saita masu daidaita girgije a wannan ginin ba. Ci gaba a matsayin baƙo — ci gaban ku yana kan wannan na'ura.",
     "titleSignedIn": "Kun shiga",
     "subtitleSignedIn": "Sync na cloud a shirye ne a wannan na'ura",
     "heroSignedIn": "Barka da dawowa — asusun ku an haɗa. Salah, qaza da zikr na iya yin sync a tsakanin na'urori.",
-    "continueSignedIn": "Ci gaba"
+    "continueSignedIn": "Ci gaba",
+    "or": "ko",
+    "guestHint": "Kuna iya haɗa asusu kowane lokaci daga Bayanan martaba."
   },
   "onboarding": {
     "begin": "Fara",
@@ -1109,7 +1117,8 @@
       "activeHint": "Sabuntawa kai tsaye za su bayyana lokacin da wannan Salah ta kusa. Taɓa Dakatar don cire manna.",
       "a11yStart": "Fara bin Salah na gaba a allon makulli",
       "a11yStop": "Dakatar da bin sabuntawar Salah kai tsaye"
-    }
+    },
+    "tvUnavailableBody": "Tunatarwa na cikin gida da Live Activities ba sa samuwa a TV. Sarrafa zaɓuɓɓukan sanarwa a wayarka."
   },
   "fonts": {
     "eyebrow": "Saituna",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "adhkar by title, topic, or text… Nemo",
     "searchInCategory": "in this category… Nemo",
     "searchResultCount": "{{count}} sakamako",
-    "noResults": "Babu adhkar da ya dace da bincikenku."
+    "noResults": "Babu adhkar da ya dace da bincikenku.",
+    "markAsDone": "Alama a matsayin an gama",
+    "undoDoneHint": "Taɓa don sokewa da cire alamar kammala"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -1562,7 +1573,12 @@
     "backToTop": "Koma sama",
     "readingProgress": "Ci gaban karatu",
     "enterFullscreen": "Shiga cikakken allo",
-    "exitFullscreen": "Fita daga cikakken allo"
+    "exitFullscreen": "Fita daga cikakken allo",
+    "isnad": "Isnad",
+    "sharh": "Sharhi",
+    "showIsnad": "Nuna isnad",
+    "showSharh": "Nuna sharhi",
+    "sharhArabicOnly": "Sharhi yana nan da Larabci kawai."
   },
   "credits": {
     "eyebrow": "Tunawa",
@@ -2312,7 +2328,8 @@
     "cardinalS": "S",
     "cardinalW": "W",
     "defaultLocationHint": "Using  varsashekaraan konum (Makkah). Ayarla sizin city don  doğru kıble bearing where siz dir.",
-    "setLocation": "Konum wataarla"
+    "setLocation": "Konum wataarla",
+    "tvHint": "Komfas mai rai ba ya samuwa a TV. Kibiya tana nuna alkiblar qibla daga arewa don garinku — yi amfani da waya don daidaitawa kai tsaye."
   },
   "profile": {
     "eyebrow": "Asusu",
@@ -3346,6 +3363,42 @@
       "obligatory": "Muhimmi",
       "highly-recommended": "Ana ba da shawara sosai",
       "recommended": "Ana ba da shawara"
+    },
+    "quickTree": "Bishiyar iyali",
+    "quickTreeHint": "Adam zuwa Muhammad ﷺ - zuriyar da aka samo asali",
+    "tree": {
+      "title": "Bishiyar dangin Annabawa",
+      "subtitle": "Asalin asali kawai - Qur'an, ingantaccen hadisi, da tarihi mai suna",
+      "intro": "Wannan bishiyar tana nuna alaƙa ce kawai da aka kafa a cikin Qur'an, ingantaccen hadisi, ko tarihin gargajiya a fili. An bar gibin fanko maimakon cike da sunayen da ba a tantance ba. Ana yiwa mahaɗin magabata (ba nan take ba) alamar haka.",
+      "searchPlaceholder": "Bincika annabi ko suna…",
+      "searchResults": "{{count}} sakamako",
+      "sources": "Majiyoyi",
+      "openBio": "Bude tarihin rayuwa",
+      "certainty": {
+        "quran": "Alƙur'ani",
+        "authentic-hadith": "Hadisi ingantacce",
+        "classical-history": "Tarihi na gargajiya"
+      },
+      "branch": {
+        "adam-nuh": "Adam da Nuh",
+        "ibrahim": "Gidan Ibrahim",
+        "israel": "Bani Isra'ila",
+        "musa": "Musa da Harun",
+        "dawud": "Dawud da Sulayman",
+        "zakariyya": "Zakariyya da Yahya",
+        "isa": "Maryam da Isa",
+        "muhammad": "Hatimin annabawa"
+      },
+      "disclaimer": "Ilimin asali na ilimi - ba cikakken jerin kowane annabi ba. Ana ambaci sunayen manzanni da yawa a cikin Qur'an ba tare da cikakken sarkar iyaye ba; sun bayyana a cikin Koyi Annabawa bios amma an bar su a nan maimakon zato.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4075,7 +4128,12 @@
       "confirm": "Sake saitin tsari",
       "a11y": "Sake saita fom kalkuleta na zakka",
       "hint": "Ya nemi tabbaci, sannan yana share duk adadin da aka shigar"
-    }
+    },
+    "relatedTitle": "Kayan aiki masu alaƙa",
+    "linkSadaqah": "Manufofin sadaka",
+    "linkSadaqahHint": "Ba da gudummawa na son rai kullum ko mako-mako",
+    "linkFidyah": "Fidya da kaffara",
+    "linkFidyahHint": "Ƙididdiga don azumin da aka rasa ko aka karya"
   },
   "customAdhkar": {
     "eyebrow": "Tunawa",
@@ -4114,7 +4172,7 @@
       "label": "Haɗe-haɗe (na zaɓi)",
       "add": "Ƙara fayil",
       "remove": "Cire abin da aka makala",
-      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowanne. Taɓa × a kan ƙaramin hoto don cirewa.",
+      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowane. Dogon latsa ɗan yatsa don cirewa.",
       "signInRequired": "Shiga don haɗa fayiloli masu zaman kansu zuwa adhkar ku.",
       "permissionDenied": "Ana buƙatar izini don haɗa fayiloli.",
       "permissionTitle": "Bada damar shiga",
@@ -4903,7 +4961,7 @@
     "eyebrow": "Kalanda",
     "title": "Mai sauya kwanan wata",
     "subtitle": "Tuba tsakanin kalandar Hijiriyya da Miladiyya",
-    "intro": "Shigar da rana a kowace kalanda don ganin daidaita ta a waccan, an ƙididdige a offline daga ganin hilal a wurinku.",
+    "intro": "Shigar da kwanan wata a cikin kowane kalanda don ganin kwatankwacinsa a ɗayan, ƙididdiga ta layi ta amfani da algorithm Kuwaiti tabular.",
     "toHijri": "Gregorian → Hijira",
     "toGregorian": "Hijiriyya → Marigayi",
     "gregorianDateLabel": "Kwanan Gregorian",
@@ -4913,7 +4971,7 @@
     "year": "Shekara",
     "useToday": "Yi amfani a yau",
     "invalidDate": "Shigar da ingantaccen kwanan wata",
-    "disclaimer": "An ƙididdige ranaku daga ganin hilal (hilāl) a wurinku kuma na iya bambanta da sanarwar hukuma ta ganin wata da rana ɗaya — koyaushe bi Masjid ko hukumar gida don ranakun addini.",
+    "disclaimer": "Wannan lissafin lissafin ƙididdiga ne (tabul ɗin \"Kuwaiti algorithm\") kuma yana iya bambanta da rana ɗaya daga sanarwar ganin wata na gida - koyaushe ku bi masallacin ku ko ikon ranakun addini.",
     "directionTitle": "Hanyar juyawa",
     "resultFrom": "Daga {{date}}",
     "quickLinksTitle": "Masu alaƙa",
@@ -4971,7 +5029,9 @@
       "names": "Sunaye 99",
       "hadith": "Hadisi",
       "quran": "Alkur'ani",
-      "duas": "Addu'o'i"
+      "duas": "Addu'o'i",
+      "janazah": "Janaza",
+      "fidyah": "Fidya"
     },
     "skipHint": "Tsallake wannan kati ku ga wani tambaya.",
     "skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa."
@@ -5012,5 +5072,82 @@
     "notFound": "Ba a sami batun ba",
     "disclaimer": "Bayani na ilimi — ba fatwa ba. Inda mazhabobi suka bambanta (kamar ko Ghusl na Jumma'a wajib ne ko sunnah mu'akkadah), an ambaci ra'ayoyin biyu; bi imaminka ko malami na gida mai cancanta.",
     "continueInApp": "Ci gaba a Munib"
+  },
+  "fidyah": {
+    "eyebrow": "Kayan aiki",
+    "title": "Fidya da kaffara",
+    "subtitle": "Ƙididdigar mataimakan da aka rasa ko karya Ramadan azumi - ba hukunce-hukuncen atomatik ba",
+    "intro": "Yi amfani da wannan kawai azaman kiyasin tsarawa. Qur'an 2:184-185 da Sahih Muslim 1111 sun tsara ma'auni; ƙwararren malami dole ne ya rarraba ko kuna bin qaza, fidyah, kaffarah, ko wani abu daban.",
+    "helperTitle": "Ƙimar mai taimako",
+    "helperHint": "Shigar da ranaku da abincin gida ko kuɗin fidiya. Fi son ƙimar da amintaccen masallaci ko majalisa ya buga.",
+    "scenario": {
+      "fidyah": "Fidya",
+      "kaffarah": "Kaffara"
+    },
+    "currency": "Kudi",
+    "daysLabel": "Kwanakin da aka rasa",
+    "unitsLabel": "Kaffarah raka'a",
+    "mealCostLabel": "Kudin ciyar da miskini daya",
+    "mealCostHint": "Abinci ɗaya, ko adadin fidiya da aka buga a gida kowace rana.",
+    "estimateLabel": "Ƙimar tsarawa",
+    "estimateEmpty": "Shigar da kwanaki da farashin abinci",
+    "estimateFidyahDetail": "{{meals}} talaka(masu) don ciyarwa",
+    "estimateKaffarahDetail": "{{meals}} abinci (zabin ciyarwa) · ko {{fasts}} kwanakin azumi a jere",
+    "section": {
+      "overview": "Dubawa",
+      "fidyah": "Fidya",
+      "kaffarah": "Kaffara",
+      "practice": "Amfani da mataimaki"
+    },
+    "notFound": "Ba a samo batun ba",
+    "disclaimer": "Kiyasin ilimi kawai - ba fatawa ba. Bayanan Madhhab sun bambanta; ku bi ƙwararren malami na cikin gida don shari'ar ku.",
+    "continueInApp": "Ci gaba a cikin Munib"
+  },
+  "janazah": {
+    "eyebrow": "Koyi",
+    "title": "Jagorar Janazah",
+    "subtitle": "Sallar jana'iza, wanka, jana'iza, da addu'o'i na kwarai",
+    "intro": "Bayanin aiki na Janazah a matsayin wajibin al'umma — yadda ake yin takbira huɗu ba tare da ruku'u ko sujudi ba, da addu'o'in Hisnul Muslim ga mamaci.",
+    "section": {
+      "obligation": "Wajibi",
+      "prepare": "Shiri",
+      "salah": "Sallar jana'iza",
+      "burial": "Binne",
+      "duas": "Addu'ar jana'iza",
+      "reminders": "Tunatarwa"
+    },
+    "notFound": "Ba a samo batun ba",
+    "disclaimer": "Bayanin ilimi - ba littafin jagorar jana'iza ko fatawa ba. Tabbatar da aikin wanki, rufewa, da aikin makabarta tare da ingantacciyar jagorar gida.",
+    "continueInApp": "Ci gaba a cikin Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Kayan aiki",
+    "title": "Manufofin sadaqah",
+    "subtitle": "Nufin yau da kullun ko mako-mako da gungumen bayarwa mai sauƙi",
+    "intro": "Saita niyyar sadaka ta son rai kuma ku rubuta abin da kuke bayarwa. Zakat ya kasance wani takalifi na daban - yi amfani da kalkuleta Zakat don haka.",
+    "intentionTitle": "Niyyata",
+    "intentionHint": "Manufa na sirri don sadaqah - ba zakka ba.",
+    "period": {
+      "daily": "Kullum",
+      "weekly": "mako-mako"
+    },
+    "currency": "Kudi",
+    "targetLabel": "Adadin manufa",
+    "saveGoal": "Ajiye niyya",
+    "clearGoal": "Bayyana niyya",
+    "progressLabel": "Ci gaba wannan {{period}}",
+    "logTitle": "Shiga kyauta",
+    "logAmount": "Adadin",
+    "logNote": "Bayanan kula (na zaɓi)",
+    "logNotePlaceholder": "misali bankin abinci",
+    "addEntry": "Ƙara zuwa shiga",
+    "logEmpty": "Ba a shigar da kyaututtuka ba tukuna.",
+    "learnMoreTitle": "Ƙara koyo",
+    "linkZakat": "Zakat kalkuleta",
+    "linkZakatHint": "Zakka ta wajabta",
+    "linkFinance": "Sadaqah a cikin kudin musulunci",
+    "linkFinanceHint": "Bayanin bayarwa na son rai",
+    "disclaimer": "Mai bin diddigin sirri kawai - ba fatawa ba kuma maimakon kirga zakka idan ya cancanta.",
+    "continueInApp": "Ci gaba a cikin Munib"
   }
 }

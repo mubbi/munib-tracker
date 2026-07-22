@@ -50,9 +50,9 @@
   `lib/hadith.ts`.
 - **Home surfaces features** via the `quickActions: QuickActionItem[]` array in
   `src/app/(tabs)/index.tsx` (`router.push("/zikr")`, etc.). Add Qur'an + Hadith entries there.
-- **i18n:** `src/i18n/{locale}.json` for **23 locales** (see [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md)). Existing namespaces include `actions`, `zikr`, `zikrCat`,
+- **i18n:** `src/i18n/{locale}.json` for **23 locales** (see [`I18N_GUIDE.md`](./I18N_GUIDE.md)). Existing namespaces include `actions`, `zikr`, `zikrCat`,
   `dua`, `duaCat`, `duroods`, `names`, and a shared `reading` (`{ reference: "Reference: {{ref}}" }`).
-  Add `actions.quran`, `actions.hadith`, and `quran`/`hadith`/`credits` namespaces in **all three**
+  Add `actions.quran`, `actions.hadith`, and `quran`/`hadith`/`credits` namespaces in **all 23**
   locales. Reuse `reading.reference`.
 - **Expo experiments ON:** `typedRoutes: true` (routes are type-checked — new `app/quran/*` &
   `app/hadith/*` files auto-generate route types on `expo start`) and `reactCompiler: true` (don't
@@ -69,8 +69,9 @@
 | D2 | **Extra Qur'an translations (Saheeh International, Clear Qur'an/Khattab) + tafsir** | **Live CDN, on-demand**, cached (react-query + AsyncStorage) | Translations: `fawazahmed0/quran-api` jsDelivr. Tafsir: `spa5k/tafsir_api` (multi-lang) + fawaz Siraj |
 | D3 | **Qur'an recitation audio (Arabic, per-ayah)** | **Streamed** from CDN, optional per-surah download later | `everyayah.com` predictable URLs |
 | D4 | **Qur'an English audio-translation** | **Streamed**, per-surah | `QuranicAudio.com` (Ibrahim Walk / Saheeh Intl) |
-| D5 | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)** | **Bundled JSON**, offline | `AhmedBaset/hadith-json` (build-time; license policy §12) |
-| D6 | **Hadith — full six-books browse/search** | **Live CDN, on-demand**, cached | `fawazahmed0/hadith-api` jsDelivr (no key) |
+| D5 | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)** | **Bundled JSON**, offline | `AhmedBaset/hadith-json` (build-time; license policy §12). Includes structured `isnad[]` (NF-2.9). |
+| D5b | **Hadith — Nawawi Arabic sharh (NF-2.8)** | **Bundled sidecar** `nawawi40-sharh.json` | `osamayy/40-hadith-nawawi-db` (Unlicense); merged at load in `hadith-bundled.ts` |
+| D6 | **Hadith — full six-books browse/search** | **Live CDN, on-demand**, cached | `fawazahmed0/hadith-api` jsDelivr (no key). No sharh/isnad yet. |
 | D7 | **Duas + Adhkar → full Hisnul Muslim** | **Bundled** (`packages/shared` via `build-adhkar.mjs`) — **270** duas | `sheikhhanif/Hisnul_Muslim_Database` + related OSS |
 | D8 | **Names of Allah → complete 99** | **Bundled** (`names.ts` via `build-names.mjs`) | standard Asma-ul-Husna (from fawazahmed0 / muslimKit) |
 | D9 | **Dua/Adhkar/99-Names audio** | **Streamed** | Internet Archive (Hisnul Muslim audio, Asma-ul-Husna) |
@@ -329,12 +330,21 @@ export interface HadithCollection {
   bundled: boolean;               // true for highlights
   bookCount?: number;
 }
+/** One link in a transmission chain. Order ascends toward the Prophet (last = Prophet). */
+export interface HadithIsnadLink {
+  order: number;
+  nameArabic: string;
+  nameEnglish?: string;
+  role?: "companion" | "narrator" | "prophet";
+}
 export interface HadithItem {
   id: string;                     // stable: `${collection}:${number}`
   collection: string;
   book?: string; chapterId?: string; number: string;
   arabic: string; english: string;
   narrator?: string;
+  isnad?: HadithIsnadLink[];      // NF-2.9 — structured chain; omit when unknown
+  sharhArabic?: string;           // NF-2.8 — classical Arabic explanation; never AI-translate
   grade?: string;                 // "sahih" | "hasan" | ... (may be absent → show "ungraded")
   gradedBy?: string;
   reference: string;              // human-readable, e.g. "Sahih al-Bukhari 1"
@@ -436,22 +446,30 @@ Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change**
 
 ---
 
-## 9. Hadith feature (D5, D6)
+## 9. Hadith feature (D5, D5b, D6)
 
 - **Bundled highlights** (`assets/data/hadith/nawawi40.json`, `riyad-as-salihin.json`) via
-  `src/lib/hadith.ts` — offline, always available.
+  `src/lib/hadith.ts` — offline, always available. Items carry structured `isnad[]` (NF-2.9)
+  from `isnad-highlights.json` / the highlights builder.
+- **Nawawi Arabic sharh (NF-2.8)** — sidecar `nawawi40-sharh.json` merged in `hadith-bundled.ts`
+  via a separate async `import()` (keeps the matn chunk lean). Never AI-translate.
 - **Full collections** via `src/api/hadith-remote.ts` (fawazahmed0 CDN, D6) + `use-hadith.ts`
   (`useQuery`, `networkMode: "offlineFirst"`). **Cache-first like §8.2** — opened books are written to
-  AsyncStorage via `hadith-repository` so they re-read offline.
+  AsyncStorage via `hadith-repository` so they re-read offline. Remote items omit sharh/isnad.
 - **Every hadith renders its `reference` and `grade`** (show "ungraded" when absent — never imply
-  authenticity that isn't in the data).
+  authenticity that isn't in the data). Reader prefs: `showIsnad` / `showSharh` (blob-synced
+  `hadith_prefs`).
 - Screens (`src/app/hadith/`): collections list → book/chapter → hadith list (Arabic RTL + English +
-  reference + grade badge + bookmark), built with `ScreenLayout`/`Card`/`EmptyState`. Search within a
-  collection. Follow expo-router nesting; keep routes valid for `typedRoutes`.
+  reference + grade badge + optional isnad chain + collapsible Arabic sharh + bookmark), built with
+  `ScreenLayout`/`Card`/`EmptyState`. Search within a collection. Follow expo-router nesting; keep
+  routes valid for `typedRoutes`.
 - `src/db/repositories/hadith-repository.ts`: bookmarks (`createId()` ids) + book cache. New
   `DB_KEYS.hadithBookmarks`, `DB_KEYS.hadithBookCache`; register both in `resetDatabase()`.
 - Nawawi highlights get audio (D9) via Internet Archive; full corpus has no per-hadith audio — hide
   the audio control when no `audioUri`.
+- Regenerate isnad extract alone:
+  `node apps/app/scripts/build-data/extract-hadith-isnad.mjs`
+  (optional `HADITH_KG_PATH` for emadjumaah/hadith-kg enrichment scaffolding).
 
 ---
 

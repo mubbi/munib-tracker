@@ -78,7 +78,10 @@
       "hint": "Ulangi apa yang Anda pelajari",
       "empty": "Pertanyaan untuk panduan ini masih dimuat. Buka beberapa pelajaran, lalu coba lagi."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "Tidak tersedia di TV",
+    "tvUnavailableBody": "Fitur ini memerlukan ponsel atau tablet. Buka Munib Tracker di sana untuk melanjutkan.",
+    "tvOauthHint": "Masuk dengan media sosial mungkin terbatas di TV. Lanjutkan sebagai tamu di sini, atau hubungkan akun di ponsel Anda."
   },
   "search": {
     "placeholder": "Cari Al-Qur'an, hadits, doa, Belajar…",
@@ -170,7 +173,10 @@
     "flashCards": "Kartu flash",
     "verseDetector": "Detektor Ayat",
     "lastThirdNight": "Sepertiga akhir malam",
-    "friday": "Jumat & Jumu'ah"
+    "friday": "Jumat & Jumu'ah",
+    "fidyah": "Fidyah dan kafarat",
+    "janazah": "Janazah panduan",
+    "sadaqah": "Sadaqah gol"
   },
   "quickActions": {
     "checklistSubtitle": "Catat doa hari ini",
@@ -802,14 +808,16 @@
     "apple": "Lanjutkan dengan Apple",
     "facebook": "Lanjutkan dengan Facebook",
     "heroGuest": "Anda menggunakan akun tamu. Hubungkan penyedia untuk cadangkan dan sinkronkan data — tidak ada yang hilang.",
-    "heroUser": "Masuk untuk menjaga shalat, qadha, dan zikir Anda aman di cloud.",
+    "heroUser": "Jaga shalat, qaza, dan zikir Anda tetap aman di cloud.",
     "error": "Tidak dapat masuk. Pastikan server API berjalan dan penyedia ini dikonfigurasi.",
     "providersUnavailableTitle": "Masuk belum tersedia",
     "providersUnavailableBody": "Penyedia sinkronisasi cloud belum dikonfigurasi di build ini. Lanjutkan sebagai tamu — progres tetap di perangkat ini.",
     "titleSignedIn": "Anda sudah masuk",
     "subtitleSignedIn": "Sinkronisasi cloud siap di perangkat ini",
     "heroSignedIn": "Selamat datang kembali — akun Anda terhubung. Salah, qaza, dan zikir dapat disinkronkan antar perangkat.",
-    "continueSignedIn": "Lanjut"
+    "continueSignedIn": "Lanjut",
+    "or": "atau",
+    "guestHint": "Anda dapat menautkan akun kapan saja dari Profil."
   },
   "onboarding": {
     "begin": "Mulai",
@@ -1109,7 +1117,8 @@
       "activeHint": "Pembaruan langsung akan ditonjolkan saat Salah ini segera tiba. Ketuk Berhenti untuk melepas sematan.",
       "a11yStart": "Mulai melacak Salah berikutnya di layar kunci",
       "a11yStop": "Berhenti melacak pembaruan langsung Salah"
-    }
+    },
+    "tvUnavailableBody": "Pengingat lokal dan Live Activities tidak tersedia di TV. Kelola preferensi notifikasi di ponsel Anda."
   },
   "fonts": {
     "eyebrow": "Pengaturan",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "Cari adhkar by title, topic, or text…",
     "searchInCategory": "Cari in this category…",
     "searchResultCount": "{{count}} hasil",
-    "noResults": "Tidak adhkar matched Anda cari."
+    "noResults": "Tidak adhkar matched Anda cari.",
+    "markAsDone": "Tandai selesai",
+    "undoDoneHint": "Ketuk untuk batalkan dan tandai belum selesai"
   },
   "zikrCat": {
     "morning": "Adhkar Pagi",
@@ -1562,7 +1573,12 @@
     "backToTop": "Kembali ke atas",
     "readingProgress": "Kemajuan membaca",
     "enterFullscreen": "Masuk layar penuh",
-    "exitFullscreen": "Keluar dari layar penuh"
+    "exitFullscreen": "Keluar dari layar penuh",
+    "isnad": "Sanad (isnad)",
+    "sharh": "Syarah",
+    "showIsnad": "Tampilkan isnad",
+    "showSharh": "Tampilkan syarah",
+    "sharhArabicOnly": "Syarah tersedia dalam bahasa Arab saja."
   },
   "credits": {
     "eyebrow": "Atribusi",
@@ -2312,7 +2328,8 @@
     "cardinalS": "S",
     "cardinalW": "B",
     "defaultLocationHint": "Menggunakan lokasi bawaan (Makkah). Atur kota Anda untuk arah kiblat yang akurat.",
-    "setLocation": "Tetapkan Lokasi"
+    "setLocation": "Tetapkan Lokasi",
+    "tvHint": "Kompas langsung tidak tersedia di TV. Panah menunjukkan arah kiblat dari utara untuk kota Anda — gunakan ponsel untuk penyelarasan langsung."
   },
   "profile": {
     "eyebrow": "Akaun",
@@ -3346,6 +3363,42 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
+    },
+    "quickTree": "Pohon keluarga",
+    "quickTreeHint": "Adam hingga Muhammad ﷺ — sumber garis keturunan",
+    "tree": {
+      "title": "Pohon keluarga Nabi",
+      "subtitle": "Hanya bersumber silsilah — Qur'an, hadis shahih, dan diberi label sejarah",
+      "intro": "Pohon ini hanya menunjukkan hubungan yang terjalin dalam Qur'an, hadis shahih, atau sejarah klasik yang diberi label jelas. Kesenjangan dibiarkan kosong daripada diisi dengan nama yang belum diverifikasi. Tautan leluhur (tidak langsung) ditandai seperti itu.",
+      "searchPlaceholder": "Cari nabi atau nama…",
+      "searchResults": "{{count}} pertandingan",
+      "sources": "Sumber",
+      "openBio": "Buka biografi",
+      "certainty": {
+        "quran": "Al-Qur'an",
+        "authentic-hadith": "Hadits shahih",
+        "classical-history": "Sejarah klasik"
+      },
+      "branch": {
+        "adam-nuh": "Adam dan Nuh",
+        "ibrahim": "rumah tangga Ibrahim",
+        "israel": "Anak-anak Israel",
+        "musa": "Musa dan Harun",
+        "dawud": "Dawud dan Sulayman",
+        "zakariyya": "Zakariyya dan Yahya",
+        "isa": "Maryam dan Isa",
+        "muhammad": "Meterai para nabi"
+      },
+      "disclaimer": "Silsilah pendidikan — bukanlah daftar lengkap setiap nabi. Banyak utusan yang disebutkan dalam Qur'an tanpa rantai induk yang rinci; mereka muncul di biografi Learn the Prophets tetapi dihilangkan di sini daripada ditebak.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4075,7 +4128,12 @@
       "confirm": "Setel ulang formulir",
       "a11y": "Reset formulir kalkulator zakat",
       "hint": "Meminta konfirmasi, lalu menghapus semua jumlah yang dimasukkan"
-    }
+    },
+    "relatedTitle": "Alat terkait",
+    "linkSadaqah": "Target sedekah",
+    "linkSadaqahHint": "Pemberian sukarela harian atau mingguan",
+    "linkFidyah": "Fidyah dan kafarat",
+    "linkFidyahHint": "Perkiraan untuk puasa yang terlewat atau dibatalkan"
   },
   "customAdhkar": {
     "eyebrow": "Zikir",
@@ -4114,7 +4172,7 @@
       "label": "Lampiran (opsional)",
       "add": "Tambahkan berkas",
       "remove": "Hapus lampiran",
-      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), 1 MB masing-masing. Ketuk × pada thumbnail untuk menghapus.",
+      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), masing-masing 1 MB. Tekan lama thumbnail untuk menghapusnya.",
       "signInRequired": "Masuk untuk melampirkan file pribadi ke adhkar Anda.",
       "permissionDenied": "Izin diperlukan untuk melampirkan file.",
       "permissionTitle": "Izinkan akses",
@@ -4903,7 +4961,7 @@
     "eyebrow": "Kalender",
     "title": "Konverter tanggal",
     "subtitle": "Konversi antara kalender Hijriah dan Masehi",
-    "intro": "Masukkan tanggal di salah satu kalender untuk melihat setaranya di kalender lain, dihitung offline dari visibilitas sabit di lokasi Anda.",
+    "intro": "Masukkan tanggal di salah satu kalender untuk melihat padanannya di kalender lain, dihitung secara offline menggunakan algoritma tabular Kuwait.",
     "toHijri": "Masehi → Hijriah",
     "toGregorian": "Hijriah → Masehi",
     "gregorianDateLabel": "tanggal Gregorian",
@@ -4913,7 +4971,7 @@
     "year": "Tahun",
     "useToday": "Gunakan hari ini",
     "invalidDate": "Masukkan tanggal yang valid",
-    "disclaimer": "Tanggal dihitung dari visibilitas sabit (hilāl) di lokasi Anda dan dapat berbeda sehari dari pengumuman resmi rukyat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
+    "disclaimer": "Ini adalah perkiraan aritmatika (\"algoritme Kuwait\") dan dapat berbeda satu hari dengan pengumuman penampakan bulan setempat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
     "directionTitle": "Arah konversi",
     "resultFrom": "Dari {{date}}",
     "quickLinksTitle": "Terkait",
@@ -4971,7 +5029,9 @@
       "names": "99 Nama",
       "hadith": "Hadits",
       "quran": "Al-Qur'an",
-      "duas": "Doa"
+      "duas": "Doa",
+      "janazah": "Jenazah",
+      "fidyah": "Fidyah"
     },
     "skipHint": "Lewati kartu ini dan lihat pertanyaan lain.",
     "skipDisabledHint": "Jawab kartu terakhir ini untuk memulai pengocokan baru."
@@ -5011,6 +5071,83 @@
     },
     "notFound": "Topik tidak ditemukan",
     "disclaimer": "Ringkasan edukatif — bukan fatwa. Jika mazhab berbeda (misalnya apakah ghusl Jumat wajib atau sunnah mu'akkadah), kedua pendapat dicatat; ikuti imam atau ulama lokal yang berkualifikasi.",
+    "continueInApp": "Lanjutkan di Munib"
+  },
+  "fidyah": {
+    "eyebrow": "Peralatan",
+    "title": "Fidyah dan kafarat",
+    "subtitle": "Perkirakan pembantu untuk puasa Ramadan yang terlewat atau rusak — bukan pengaturan otomatis",
+    "intro": "Gunakan ini hanya sebagai perkiraan perencanaan. Qur'an 2:184–185 dan Sahih Muslim 1111 membingkai dasar-dasarnya; seorang ulama yang memenuhi syarat harus mengklasifikasikan apakah Anda berhutang qaza, fidyah, kaffarah, atau yang lainnya.",
+    "helperTitle": "Perkiraan pembantu",
+    "helperHint": "Masukkan hari dan biaya satuan makanan atau fidya lokal Anda. Lebih suka tarif yang diterbitkan oleh masjid atau dewan setempat yang tepercaya.",
+    "scenario": {
+      "fidyah": "Fidyah",
+      "kaffarah": "Kafarat"
+    },
+    "currency": "Mata uang",
+    "daysLabel": "Hari-hari yang terlewat",
+    "unitsLabel": "Kaffarah unit",
+    "mealCostLabel": "Biaya untuk memberi makan satu orang miskin",
+    "mealCostHint": "Satu kali makan, atau jumlah fidya yang dipublikasikan secara lokal per hari.",
+    "estimateLabel": "Perkiraan perencanaan",
+    "estimateEmpty": "Masukkan hari dan biaya makan",
+    "estimateFidyahDetail": "{{meals}} orang miskin yang harus diberi makan",
+    "estimateKaffarahDetail": "{{meals}} makan (pilihan makan) · atau {{fasts}} hari puasa berturut-turut",
+    "section": {
+      "overview": "Ringkasan",
+      "fidyah": "Fidyah",
+      "kaffarah": "Kafarat",
+      "practice": "Menggunakan pembantu"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Hanya perkiraan pendidikan – bukan fatwa. Rincian madzhab berbeda; ikuti sarjana lokal yang memenuhi syarat untuk kasus Anda.",
+    "continueInApp": "Lanjutkan di Munib"
+  },
+  "janazah": {
+    "eyebrow": "Mempelajari",
+    "title": "Janazah panduan",
+    "subtitle": "Doa pemakaman, mencuci, penguburan, dan doa otentik",
+    "intro": "Sekilas tentang Janazah sebagai kewajiban bersama — cara salat empat takbir tanpa ruku atau sujud, dan doa Hisnul Muslim untuk almarhum.",
+    "section": {
+      "obligation": "Kewajiban",
+      "prepare": "Persiapan",
+      "salah": "Doa pemakaman",
+      "burial": "Pemakaman",
+      "duas": "Doa pemakaman",
+      "reminders": "Pengingat"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Tinjauan pendidikan — bukan panduan atau fatwa direktur pemakaman. Konfirmasikan praktik mencuci, mengafani, dan pemakaman dengan panduan lokal yang berkualifikasi.",
+    "continueInApp": "Lanjutkan di Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Peralatan",
+    "title": "Target sedekah",
+    "subtitle": "Niat harian atau mingguan dan catatan pemberian sederhana",
+    "intro": "Tetapkan niat amal sukarela dan catat apa yang Anda berikan. Zakat tetap menjadi kewajiban terpisah — gunakan kalkulator Zakat untuk itu.",
+    "intentionTitle": "niat saya",
+    "intentionHint": "Target pribadi untuk sadaqah sukarela – bukan zakat.",
+    "period": {
+      "daily": "Sehari-hari",
+      "weekly": "Mingguan"
+    },
+    "currency": "Mata uang",
+    "targetLabel": "Jumlah sasaran",
+    "saveGoal": "Simpan niat",
+    "clearGoal": "Niat yang jelas",
+    "progressLabel": "Kemajuan {{period}} ini",
+    "logTitle": "Catat hadiah",
+    "logAmount": "Jumlah",
+    "logNote": "Catatan (opsional)",
+    "logNotePlaceholder": "misalnya bank makanan",
+    "addEntry": "Tambahkan ke log",
+    "logEmpty": "Belum ada hadiah yang dicatat.",
+    "learnMoreTitle": "Pelajari lebih lanjut",
+    "linkZakat": "Zakat kalkulator",
+    "linkZakatHint": "Wajibnya sedekah bersuci",
+    "linkFinance": "Sadaqah di bidang keuangan Islam",
+    "linkFinanceHint": "Pemberian sukarela dijelaskan",
+    "disclaimer": "Hanya pelacak pribadi — bukan fatwa dan bukan pengganti penghitungan zakat pada saat jatuh tempo.",
     "continueInApp": "Lanjutkan di Munib"
   }
 }

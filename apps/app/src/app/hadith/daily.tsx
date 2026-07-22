@@ -4,6 +4,8 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { HadithIsnadChain } from "@/components/hadith/hadith-isnad-chain";
+import { HadithSharhBlock } from "@/components/hadith/hadith-sharh-block";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -16,6 +18,7 @@ import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureDailyHadithPool, recentDailyHadith } from "@/lib/daily-hadith";
 import { goBackOrReplace } from "@/lib/navigation";
+import { useHadithPrefs } from "@/stores/hadith-store";
 
 const ARCHIVE_DAYS = 21;
 
@@ -29,8 +32,11 @@ function DailyHadithCard({
   dateLabel: string;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const prefs = useHadithPrefs();
   const { hadith } = entry;
   const displayTranslation = useHadithTranslation(hadith);
+  const showIsnad = prefs.showIsnad && (hadith.isnad?.length ?? 0) > 0;
+  const showSharh = prefs.showSharh && Boolean(hadith.sharhArabic);
   return (
     <Card
       padding="three"
@@ -67,7 +73,9 @@ function DailyHadithCard({
         </ThemedText>
       ) : null}
 
-      {hadith.narrator ? (
+      {showIsnad && hadith.isnad ? <HadithIsnadChain isnad={hadith.isnad} /> : null}
+
+      {!showIsnad && hadith.narrator ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.narrator}>
           {hadith.narrator}
         </ThemedText>
@@ -76,6 +84,10 @@ function DailyHadithCard({
       <ThemedText type="default" style={styles.english}>
         {displayTranslation}
       </ThemedText>
+
+      {showSharh && hadith.sharhArabic ? (
+        <HadithSharhBlock sharhArabic={hadith.sharhArabic} arabicSize={17} />
+      ) : null}
     </Card>
   );
 }

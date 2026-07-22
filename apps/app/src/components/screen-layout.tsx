@@ -25,11 +25,13 @@ import { ContentReportFooterLink } from "@/components/content-report/content-rep
 import { ErrorBoundary } from "@/components/error-boundary";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { MaxContentWidth, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useTheme } from "@/hooks/use-theme";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
+import { isTV } from "@/lib/platform/is-tv";
 
 /** Breakpoint above which we allow a wider content column (wide web/tablet). */
 const WideBreakpoint = 1024;
@@ -180,6 +182,7 @@ export function ScreenLayout({
   // so the layout doesn't sit as a narrow single strip in acres of whitespace.
   const maxWidth =
     maxContentWidth ?? (width >= WideBreakpoint ? WideMaxContentWidth : MaxContentWidth);
+  const tv = isTV();
 
   const content = (
     <View
@@ -188,7 +191,15 @@ export function ScreenLayout({
       // When the screen owns its own scroller (scrollable={false}), it isn't
       // wrapped in the ScrollView that carries the header inset, so pad it here
       // to clear the floating glass header.
-      style={[styles.content, !scrollable && { paddingTop: headerInset }, contentStyle]}
+      style={[
+        styles.content,
+        tv && {
+          paddingHorizontal: TvLayout.contentPaddingX,
+          paddingTop: Spacing.two,
+        },
+        !scrollable && { paddingTop: headerInset },
+        contentStyle,
+      ]}
     >
       {/* When the screen owns its own scroller (scrollable={false}, e.g. a screen
           hosting a FlatList), the inner wrapper must fill the available height so

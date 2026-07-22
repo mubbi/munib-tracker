@@ -158,6 +158,35 @@ export default function ZakatScreen() {
 
           <Card padding="three">
             <SectionHeader
+              title={t("zakat.relatedTitle")}
+              icon={{
+                ios: "hands.and.sparkles.fill",
+                android: "volunteer_activism",
+                web: "volunteer_activism",
+              }}
+            />
+            <View style={styles.rows}>
+              <JannahNavRow
+                icon={{
+                  ios: "hands.and.sparkles.fill",
+                  android: "volunteer_activism",
+                  web: "volunteer_activism",
+                }}
+                title={t("zakat.linkSadaqah")}
+                subtitle={t("zakat.linkSadaqahHint")}
+                onPress={() => router.push("/sadaqah")}
+              />
+              <JannahNavRow
+                icon={{ ios: "fork.knife", android: "restaurant", web: "restaurant" }}
+                title={t("zakat.linkFidyah")}
+                subtitle={t("zakat.linkFidyahHint")}
+                onPress={() => router.push("/fidyah")}
+              />
+            </View>
+          </Card>
+
+          <Card padding="three">
+            <SectionHeader
               title={t("zakat.learnTitle")}
               icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
             />

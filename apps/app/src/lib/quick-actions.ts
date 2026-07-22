@@ -78,6 +78,9 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   finance: "/finance" as Href,
   flashCards: "/flash-cards" as Href,
   verseDetector: "/verse-detector" as Href,
+  fidyah: "/fidyah" as Href,
+  janazah: "/janazah" as Href,
+  sadaqah: "/sadaqah" as Href,
 };
 
 export const QUICK_ACTION_META: QuickActionDef[] = [
@@ -375,6 +378,34 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     id: "verseDetector",
     labelKey: "actions.verseDetector",
     icon: { ios: "waveform", android: "graphic_eq", web: "graphic_eq" },
+    tone: "success",
+  },
+  {
+    id: "fidyah",
+    labelKey: "actions.fidyah",
+    icon: { ios: "fork.knife", android: "restaurant", web: "restaurant" },
+    tone: "warning",
+  },
+  {
+    id: "janazah",
+    labelKey: "actions.janazah",
+    // Keep iOS/Android glyphs aligned — avoid sharing Learn Dua / Sadaqah icons.
+    icon: {
+      ios: "heart.text.square.fill",
+      android: "favorite",
+      web: "favorite",
+    },
+    tone: "info",
+  },
+  {
+    id: "sadaqah",
+    labelKey: "actions.sadaqah",
+    // Distinct from Learn Dua (`hands.and.sparkles` / `volunteer_activism`).
+    icon: {
+      ios: "heart.circle.fill",
+      android: "savings",
+      web: "savings",
+    },
     tone: "success",
   },
 ];

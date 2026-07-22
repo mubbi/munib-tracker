@@ -3,6 +3,10 @@
 Native home-screen widgets, Live Activities, Siri/Assistant shortcuts, Apple Watch,
 and Wear OS companion surfaces share the **`appSurfaces`** architecture.
 
+**TV note:** Apple TV / Android TV run the **full Expo app** (not companions). When
+`EXPO_TV=1`, phone-only plugins (widgets, Watch, Wear, App Intents, quick actions)
+are omitted — see [`TV.md`](./TV.md).
+
 ## Architecture
 
 | Layer | Path | Role |

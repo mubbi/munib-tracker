@@ -122,12 +122,40 @@ function stopGradleDaemon(appRoot = DEFAULT_APP_ROOT) {
 }
 
 /**
+ * Sync android-keys/keystore.properties → android/keystore.properties.
+ * Survives clean prebuild; required because withAndroidReleaseSigning evaluates
+ * the release signingConfig even for assembleDebug.
+ *
+ * @param {string} [appRoot]
+ * @returns {boolean} true if synced or already present under android/
+ */
+function syncAndroidKeystoreProperties(appRoot = DEFAULT_APP_ROOT) {
+  const androidDir = path.join(appRoot, "android");
+  const canonical = path.join(appRoot, "android-keys", "keystore.properties");
+  const target = path.join(androidDir, "keystore.properties");
+
+  if (!fs.existsSync(androidDir)) {
+    return false;
+  }
+
+  if (fs.existsSync(canonical)) {
+    fs.copyFileSync(canonical, target);
+    console.log("Synced android-keys/keystore.properties → android/keystore.properties\n");
+    return true;
+  }
+
+  return fs.existsSync(target);
+}
+
+/**
  * Gradle daemon + parallel workers can OOM on Windows when many native C++ modules
  * compile alongside Kotlin/Java tasks. Lower heap/worker limits and stop stale daemons.
  *
  * @param {string} [appRoot]
  */
 function prepareWindowsAndroidBuild(appRoot = DEFAULT_APP_ROOT) {
+  syncAndroidKeystoreProperties(appRoot);
+
   if (process.platform !== "win32") {
     return;
   }
@@ -143,6 +171,7 @@ function prepareWindowsAndroidBuild(appRoot = DEFAULT_APP_ROOT) {
  * @param {string} [appRoot]
  */
 function prepareAndroidReleaseBuild(appRoot = DEFAULT_APP_ROOT) {
+  syncAndroidKeystoreProperties(appRoot);
   const gradlePropsPath = path.join(appRoot, "android", "gradle.properties");
   const properties = {
     ...ANDROID_RELEASE_GRADLE_PROPERTIES,
@@ -280,6 +309,7 @@ module.exports = {
   stopGradleDaemon,
   prepareWindowsAndroidBuild,
   prepareAndroidReleaseBuild,
+  syncAndroidKeystoreProperties,
   ensureAndroidDeviceReady,
   withAndroidNativeBuildEnv,
 };

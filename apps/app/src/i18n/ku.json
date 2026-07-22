@@ -78,7 +78,10 @@
       "hint": "Ya ku we fêr bû vekolînin",
       "empty": "Pirsên vê rêberê hîn têne barkirin. Çend dersan vekin, paşê dîsa biceribînin."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "لە تەلەفزیۆندا بەردەست نییە",
+    "tvUnavailableBody": "ئەم تایبەتمەندییە پێویستی بە مۆبایل یان تابلێت هەیە. بۆ بەردەوامبوون Munib Tracker لەوێ بکەرەوە.",
+    "tvOauthHint": "چوونەژوورەوە بە تۆڕە کۆمەڵایەتییەکان لە تەلەفزیۆندا لەوانەیە سنووردار بێت. لێرە وەک میوان بەردەوام بە، یان هەژمارێک لە مۆبایلەکەت پەیوەست بکە."
   },
   "search": {
     "placeholder": "Li Qur'an, hadîs, dua, Fêr bibe… bigere",
@@ -170,7 +173,10 @@
     "flashCards": "Kartên fêrbûnê",
     "verseDetector": "Nasînayê ayetan",
     "lastThirdNight": "Sêyemîn sêyemîn ê şevê",
-    "friday": "În û Jumu'ah"
+    "friday": "În û Jumu'ah",
+    "fidyah": "فیدیە و کەفارەت",
+    "janazah": "Janazah rêber",
+    "sadaqah": "Sadaqah armanc"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -802,14 +808,16 @@
     "apple": "بەردەوام بە لەگەڵ ئەپڵ",
     "facebook": "لەگەڵ فەیسبووک بەردەوام بن",
     "heroGuest": "You're using  guest hesab. Link  provider bo back up û sync we daneyên — nothing e lost.",
-    "heroUser": "Sign di bo keep we salah, qaza, û zikr ewle di  cloud.",
+    "heroUser": "نوێژ، قەزا و زیکرەکەت لە هەوردا پارێزراو بهێڵەرەوە.",
     "error": "Nikarî têketinê bike. Piştrast bike ku servera API dixebite û ev pêşkêşker hatîne mîhengkirin.",
     "providersUnavailableTitle": "Têketin hîn ne amade ye",
     "providersUnavailableBody": "Pêşkêşkerên hevdemkirina ewrî di vê avahiyê de nehatine mîhengkirin. Wekî mêvan berdewam bike — pêşveçûna te li ser vê amûrê dimîne.",
     "titleSignedIn": "تۆ چوویتە ژوورەوە",
     "subtitleSignedIn": "هاوکاتکردنی هەور لەسەر ئەم ئامێرە ئامادەیە",
     "heroSignedIn": "بەخێربێیتەوە — هەژمارەکەت بەستراوە. نوێژ، قەزا و زیکر دەتوانن لە نێوان ئامێرەکاندا هاوکات بکرێن.",
-    "continueSignedIn": "بەردەوامبە"
+    "continueSignedIn": "بەردەوامبە",
+    "or": "یان",
+    "guestHint": "دەتوانیت لە هەر کاتێکدا لە پرۆفایلەوە هەژمار ببەستیت."
   },
   "onboarding": {
     "begin": "Destpêkirin",
@@ -1109,7 +1117,8 @@
       "activeHint": "کاتێک ئەم نوێژە نزیک دەبێتەوە نوێکارییە زیندووەکان بەرز دەکرێنەوە. بۆ لابردنی هەڵواسین پەنجە بنێ بە بوەستێنە.",
       "a11yStart": "بەدواداچوونی نوێژی داهاتوو لەسەر شاشەی قفڵ دەست پێ بکە",
       "a11yStop": "بەدواداچوونی نوێکارییە زیندووەکانی نوێژ بوەستێنە"
-    }
+    },
+    "tvUnavailableBody": "بیرخەرەوە ناوخۆییەکان و Live Activities لە تەلەفزیۆندا بەردەست نین. هەڵبژاردەکانی ئاگاداری لە مۆبایلەکەت بەڕێوەببە."
   },
   "fonts": {
     "eyebrow": "Mîheng",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "Lêgerîn adhkar by title, mijar, an text…",
     "searchInCategory": "Lêgerîn di ev category…",
     "searchResultCount": "{{count}} lihevhatin",
-    "noResults": "No adhkar matched we lêgerîn."
+    "noResults": "No adhkar matched we lêgerîn.",
+    "markAsDone": "Wekî temam nîşan bike",
+    "undoDoneHint": "Ji bo betal kirin û wekî netemam nîşankirinê bitikîne"
   },
   "zikrCat": {
     "morning": "بەیانی ئەدکار",
@@ -1562,7 +1573,12 @@
     "backToTop": "Vegere jor",
     "readingProgress": "Pêşveçûna xwendinê",
     "enterFullscreen": "Têkeve ekrana tijî",
-    "exitFullscreen": "Ji ekrana tijî derkeve"
+    "exitFullscreen": "Ji ekrana tijî derkeve",
+    "isnad": "Îsnad",
+    "sharh": "Şerh",
+    "showIsnad": "Îsnadê nîşan bide",
+    "showSharh": "Şerhê nîşan bide",
+    "sharhArabicOnly": "Şerh tenê bi erebî heye."
   },
   "credits": {
     "eyebrow": "ئیسباتکردن",
@@ -2312,7 +2328,8 @@
     "cardinalS": "ج",
     "cardinalW": "ڕۆ",
     "defaultLocationHint": "Using  default location (Makkah). Set we city ji bo  accurate qibla bearing where hûn in.",
-    "setLocation": "Cihê diyar bike"
+    "setLocation": "Cihê diyar bike",
+    "tvHint": "کۆمپا سی ڕاستەوخۆ لە تەلەفزیۆندا بەردەست نییە. تیرەکە ئاراستەی قیبڵە لە باکوورەوە بۆ شارەکەت پیشان دەدات — بۆ ڕێکخستنی ڕاستەوخۆ مۆبایل بەکاربهێنە."
   },
   "profile": {
     "eyebrow": "Konto",
@@ -3358,6 +3375,42 @@
       "obligatory": "Pêwist",
       "highly-recommended": "Pir tê pêşniyar kirin",
       "recommended": "Pêşniyar kirin"
+    },
+    "quickTree": "Dara malbatê",
+    "quickTreeHint": "Adam ber Muhammad ﷺ - rêzikên çavkanî",
+    "tree": {
+      "title": "Dara malbata pêxemberan",
+      "subtitle": "Tenê jênenasiya çavkanî - Qur'an, hedîseke rast, û dîroka bi etîket",
+      "intro": "Ev dar tenê têkiliyên ku di Qur'an, hedîseke resen, an jî bi eşkereyî bi etîketa dîroka klasîk de hatine damezrandin nîşan dide. Valahî li şûna ku bi navên nerastkirî bên dagirtin, vala têne hiştin. Girêdanên bav û kalan (ne yekser) bi vî rengî têne nîşankirin.",
+      "searchPlaceholder": "Li pêxember an navekî bigerin…",
+      "searchResults": "{{count}} lihevhatin",
+      "sources": "سەرچاوەکان",
+      "openBio": "Biyografiya vekirî",
+      "certainty": {
+        "quran": "قورئان",
+        "authentic-hadith": "Hedîsa rast",
+        "classical-history": "Dîroka klasîk"
+      },
+      "branch": {
+        "adam-nuh": "Adam û Nuh",
+        "ibrahim": "Malbata Ibrahim",
+        "israel": "Zarokên Îsraîlê",
+        "musa": "Musa û Harun",
+        "dawud": "Dawud û Sulayman",
+        "zakariyya": "Zakariyya û Yahya",
+        "isa": "Maryam û Isa",
+        "muhammad": "Mohra pêxemberan"
+      },
+      "disclaimer": "Jîneolojiya perwerdehiyê - ne navnîşek bêkêmasî ya her pêxemberî ye. Gelek peyamnêr di Qur'an de bêyî zincîreka dêûbavî ya berfireh têne binav kirin; ew di Fêrbûna Pêxemberan de xuya dikin lê li vir ji texmînan têne derxistin.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4167,7 +4220,12 @@
       "confirm": "فۆڕمی ڕێستکردنەوە",
       "a11y": "فۆڕمی حاسیبەی زەکات ڕێست بکە",
       "hint": "داوای پشتڕاستکردنەوە دەکات، پاشان هەموو ئەو بڕە پارانەی کە داخڵ کراوە پاک دەکاتەوە"
-    }
+    },
+    "relatedTitle": "Amûrên têkildar",
+    "linkSadaqah": "ئامانجەکانی سەدەقە",
+    "linkSadaqahHint": "بەخشینی بەخۆبەخشانەی ڕۆژانە یان هەفتانە",
+    "linkFidyah": "فیدیە و کەفارەت",
+    "linkFidyahHint": "خەمڵاندن بۆ ڕۆژووە لەدەست‌چووەکان یان شکێنراوەکان"
   },
   "customAdhkar": {
     "eyebrow": "Bîr",
@@ -4206,7 +4264,7 @@
       "label": "هاوپێچەکان (ئیختیاری)",
       "add": "زیادکردنی فایل",
       "remove": "هاوپێچەکە لاببە",
-      "hint": "Heta 5 pel (JPEG, PNG, WebP an PDF), her yek 1 MB. Ji bo jêbirinê li ser thumbnailê × bitikîne.",
+      "hint": "تا ٥ فایل (JPEG، PNG، WebP، یان PDF)، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
       "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی فایلە تایبەتەکان بە adhkar ـەکەتەوە.",
       "permissionDenied": "بۆ هاوپێچکردنی فایلەکان مۆڵەت پێویستە.",
       "permissionTitle": "ڕێگە بدە بە دەستگەیشتن",
@@ -4995,7 +5053,7 @@
     "eyebrow": "ساڵنامە",
     "title": "گۆڕینی بەروار",
     "subtitle": "گۆڕینی نێوان ساڵنامەی هیجری و زاینی",
-    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە لە ئۆفلاین لەسەر بنەمای بینینی مانگ لە شوێنەکەت حیسابی بۆ کراوە.",
+    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە بە بەکارهێنانی ئەلگۆریتمەکەی کوەیتی خشتەیی لە ئۆفلاین حیسابی بۆ کراوە.",
     "toHijri": "گریگۆری → هیجری",
     "toGregorian": "هیجری → گریگۆری",
     "gregorianDateLabel": "بەرواری گریگۆری",
@@ -5005,7 +5063,7 @@
     "year": "ساڵ",
     "useToday": "ئەمڕۆ بەکاری بهێنە",
     "invalidDate": "بەروارێکی دروست بنووسە",
-    "disclaimer": "بەروارەکان لەسەر بنەمای بینینی مانگ (hilāl) لە شوێنەکەت حیساب دەکرێن و دەتوانن ڕۆژێک جیاواز بن لە ڕاگەیاندنە فەرمییەکانی بینینی مانگ — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
+    "disclaimer": "ئەمە نزیکبوونەوەیەکی ژمێریارییە (\"ئەلگۆریتمەکەی کوێت\"ی خشتەیی) و دەتوانێت ڕۆژێک جیاواز بێت لە ڕاگەیاندنەکانی بینینی مانگ لە ناوخۆدا — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
     "directionTitle": "ئاراستەی گۆڕانکاری",
     "resultFrom": "لە {{date}} ەوە",
     "quickLinksTitle": "پەیوەست",
@@ -5063,7 +5121,9 @@
       "names": "99 nav",
       "hadith": "Hedîs",
       "quran": "قورئان",
-      "duas": "Dua"
+      "duas": "Dua",
+      "janazah": "جەنەزە",
+      "fidyah": "فیدیە"
     },
     "skipHint": "Vê kartê derbas bikin û pirsek din bibînin.",
     "skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin."
@@ -5104,5 +5164,82 @@
     "notFound": "بابەت نەدۆزرایەوە",
     "disclaimer": "تێڕوانینێکی گشتی پەروەردەیی — نەک فەتوایەک. لەو شوێنانەی کە قوتابخانەکان جیاوازن (وەک ئەوەی ghuslی هەینی واجب بێت یان سوننەتی موئەککەدە)، هەردوو پۆستەکە دەخرێنەڕوو؛ شوێن ئیمامەکەت یان زانایەکی ناوخۆیی شارەزا بکەوە.",
     "continueInApp": "لە Munib بەردەوام بە"
+  },
+  "fidyah": {
+    "eyebrow": "Amûrên",
+    "title": "فیدیە و کەفارەت",
+    "subtitle": "Alîkariyên ji bo rojiyên Ramadan ji dest çûyî an şikestî binirxînin - ne biryarên otomatîk",
+    "intro": "Vê tenê wekî texmînek plansaziyê bikar bînin. Qur'an 2:184–185 û Sahih Muslim 1111 çarçoweya bingehîn; Divê alimekî jêhatî tesnîf bike ka tu deyndarê qaza, fidyah, keffarah an tiştekî din e.",
+    "helperTitle": "Texmîna alîkar",
+    "helperHint": "Roj û xwarina xweya herêmî an lêçûna yekîneya fidya binivîse. Rêjeyek ku ji hêla mizgeftek herêmî an meclîsek pêbawer ve hatî weşandin tercîh bikin.",
+    "scenario": {
+      "fidyah": "فیدیە",
+      "kaffarah": "کەفارەت"
+    },
+    "currency": "Diravcins",
+    "daysLabel": "rojên winda",
+    "unitsLabel": "Kaffarah yekîneyên",
+    "mealCostLabel": "Mesrefa xwarina yekî feqîr",
+    "mealCostHint": "Xwarinek, an rojane mîqdara fidyaya weya herêmî hatî weşandin.",
+    "estimateLabel": "Texmîna plansazkirinê",
+    "estimateEmpty": "Roj û mesrefa xwarinê binivîse",
+    "estimateFidyahDetail": "{{meals}} kesên feqîr ji bo xwarinê",
+    "estimateKaffarahDetail": "{{meals}} xwarin (vebijarka xwarinê) · an {{fasts}} rojên fitarê yên li pey hev",
+    "section": {
+      "overview": "Têgihiştinî",
+      "fidyah": "فیدیە",
+      "kaffarah": "کەفارەت",
+      "practice": "Alîkarê bikar tînin"
+    },
+    "notFound": "Mijar nehat dîtin",
+    "disclaimer": "Tenê texmînên perwerdehiyê - ne fetwa. Agahiyên Medheb cuda ne; ji bo doza xwe zanyarek herêmî yê jêhatî bişopînin.",
+    "continueInApp": "Berdewam li Munib"
+  },
+  "janazah": {
+    "eyebrow": "Fêrbûn",
+    "title": "Janazah rêber",
+    "subtitle": "Nimêja cenaze, şuştin, definkirin û duayên rastîn",
+    "intro": "Nêrînek pratîkî ya Janazah wekî wacibekî komî - çawa çar tekbîran bê ruku an sucûdê, û duayên Hisnul Muslim ji bo mirî tê kirin.",
+    "section": {
+      "obligation": "Xwegirêdanî",
+      "prepare": "Amadekarî",
+      "salah": "Nimêja cenazê",
+      "burial": "Binerdkirinî",
+      "duas": "Duayên cenaze",
+      "reminders": "بیرخستنەوەکان"
+    },
+    "notFound": "Mijar nehat dîtin",
+    "disclaimer": "Pêşniyara perwerdehiyê - ne pirtûkek rêveberê cenaze an fetwa. Bi rêbernameya herêmî ya jêhatî şuştin, şûştin, û pratîka goristanê piştrast bikin.",
+    "continueInApp": "Berdewam li Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Amûrên",
+    "title": "Sadaqah armanc",
+    "subtitle": "Niyeta rojane an heftane û têketinek dayîna hêsan",
+    "intro": "Niyetek xêrxwaziya dilxwazî ​​saz bikin û tiştê ku hûn didin tomar bikin. Zakat mecbûriyek cuda dimîne - ji bo wê hesabkera Zakat bikar bînin.",
+    "intentionTitle": "Niyeta min",
+    "intentionHint": "Armancek kesane ya ji bo sedeqa dilxwazî ​​- ne zekat.",
+    "period": {
+      "daily": "Rojane",
+      "weekly": "Heftane"
+    },
+    "currency": "Diravcins",
+    "targetLabel": "Mîqdara armanc",
+    "saveGoal": "Niyeta xilas bike",
+    "clearGoal": "Niyeta zelal",
+    "progressLabel": "Vê {{period}} pêşve bibin",
+    "logTitle": "Diyariyek tomar bike",
+    "logAmount": "Biha",
+    "logNote": "Nîşe (vebijarkî)",
+    "logNotePlaceholder": "wek mînak. banka xwarinê",
+    "addEntry": "Têxe têketinê",
+    "logEmpty": "Hê diyarî nehatine qeydkirin.",
+    "learnMoreTitle": "Bêtir hîn bibin",
+    "linkZakat": "Zakat hesabker",
+    "linkZakatHint": "Sedeqeya paqijkirina ferz",
+    "linkFinance": "Sadaqah di darayîya Îslamî de",
+    "linkFinanceHint": "Dayîna dilxwazî ​​diyar kir",
+    "disclaimer": "Tenê şopînerek kesane - ne fetwa û ne cîhgirek ji bo hesabkirina zekatê dema ku pêdivî ye.",
+    "continueInApp": "Berdewam li Munib"
   }
 }

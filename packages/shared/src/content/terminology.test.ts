@@ -162,6 +162,8 @@ describe("English Islamic terminology (shared content)", () => {
           )
         )
           continue;
+        // Inline route/href values (stable app paths may contain legacy segments).
+        if (/\b(route|href)\s*:\s*["'`][^"'`]+["'`]/.test(line)) continue;
         if (/https?:\/\//i.test(trimmed) || /dua-dhikr/i.test(trimmed)) continue;
         // Id-like string literals in arrays / lists of topic ids.
         if (/^["'][a-z][a-z0-9_-]*["'],?$/i.test(trimmed)) continue;

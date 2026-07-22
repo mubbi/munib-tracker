@@ -7,12 +7,14 @@
 > **Short description only** (Google Play, 80 characters max). Covers all **23 app-shipped locales** plus **7 optional ASO-only locales** (de, es, hi, pt-BR, ja, vi, zh). Full description, keywords, and URLs: [`IOS_APP_COPY.md`](./IOS_APP_COPY.md).
 >
 > **Play policy tip:** Avoid ranking-style words in the short description (e.g. `first`, `best`, `#1`) — Google may reject superlative claims.
+>
+> **Android TV / Fire TV:** Same package (`app.munibtracker`) with `EXPO_TV=1` Leanback build. Banner/icon: `apps/app/assets/images/tv/`. Fire TV store banner/icons (`firetv-*`) are Amazon console uploads, not APK. Screenshots: `pnpm screenshots:android-tv` validates; `RUN_CAPTURE=1` writes 1080p PNGs — see [`TV.md`](./TV.md) and [`STORE_ASSETS.md`](./STORE_ASSETS.md#apple-tv--android-tv-assets). Phone short descriptions below apply until a TV-specific listing is created.
 
 ---
 
 ## en-US
 
-Free offline companion for salah, Qur'an, dhikr, qaza, prayer times, and worship.
+Free offline companion for salah, Qur'an, zikr, qaza, prayer times, and worship.
 
 *79/80*
 

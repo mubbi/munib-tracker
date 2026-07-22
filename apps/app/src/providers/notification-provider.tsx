@@ -11,13 +11,14 @@ import {
   subscribeLiveActivityPushTokens,
 } from "@/lib/live-activity";
 import { hasOutstandingQazaDebt, isQazaReminderId } from "@/lib/notifications/build-reminders";
-import { isWeb } from "@/lib/notifications/platform";
+import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platform";
 import {
   registerExpoPushTokenWithApi,
   registerWebPushSubscriptionWithApi,
 } from "@/lib/notifications/register-push-token";
 import { tryPlayWebAdhanForReminder } from "@/lib/notifications/web-adhan-playback";
 import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   configureNotifications,
   MARK_ACTION_IDENTIFIER,
@@ -49,6 +50,7 @@ function shouldDeliverReminder(reminderId: string): boolean {
 /**
  * Owns the local-notification lifecycle: configures channels once, reschedules
  * whenever preferences or location change, and routes taps to the notification centre.
+ * No-op on TV (no local OS reminders / Live Activity / push registration).
  */
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -68,20 +70,22 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     const salahRemaining = s.qazaCounters.reduce((sum, c) => sum + c.remaining, 0);
     return `${salahRemaining}:${s.roza.remaining}`;
   });
+  const tv = isTV();
+  const notificationsOk = !tv && isLocalNotificationSupported();
 
   useEffect(() => {
-    if (!activeLocale) return;
+    if (!activeLocale || !notificationsOk) return;
     void configureNotifications();
-  }, [activeLocale]);
+  }, [activeLocale, notificationsOk]);
 
   useEffect(() => {
-    if (!session?.accessToken) return;
+    if (tv || !session?.accessToken) return;
     void registerExpoPushTokenWithApi(session.accessToken);
     void registerWebPushSubscriptionWithApi(session.accessToken);
-  }, [session?.accessToken]);
+  }, [session?.accessToken, tv]);
 
   useEffect(() => {
-    if (Platform.OS !== "ios") return;
+    if (tv || Platform.OS !== "ios") return;
     const unsubscribeToken = subscribeLiveActivityPushTokens((event) => {
       handleLiveActivityPushToken(event);
     });
@@ -94,10 +98,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       unsubscribeToken();
       unsubscribeLifecycle();
     };
-  }, []);
+  }, [tv]);
 
   useEffect(() => {
-    if (!isWeb) return;
+    if (!isWeb || tv) return;
     setWebReminderFireHandler((reminder) => {
       if (!shouldDeliverReminder(reminder.id)) return;
       tryPlayWebAdhanForReminder(reminder);
@@ -129,16 +133,17 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       }
     });
     return () => setWebReminderFireHandler(null);
-  }, [deliver, router]);
+  }, [deliver, router, tv]);
 
   useEffect(() => {
-    if (!activeLocale || !ready || !locationReady) return;
+    if (!notificationsOk || !activeLocale || !ready || !locationReady) return;
     const prefs = preferencesStore.getState().prefs;
     void rescheduleAll(
       { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime },
       location,
     );
   }, [
+    notificationsOk,
     ready,
     locationReady,
     notificationPrefs,
@@ -150,7 +155,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   ]);
 
   useEffect(() => {
-    if (!activeLocale) return;
+    if (!notificationsOk || !activeLocale) return;
     const sub = AppState.addEventListener("change", (status) => {
       if (status !== "active" || !ready || !locationReady) return;
       const prefs = preferencesStore.getState().prefs;
@@ -164,6 +169,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     });
     return () => sub.remove();
   }, [
+    notificationsOk,
     ready,
     locationReady,
     notificationPrefs,
@@ -177,7 +183,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   ]);
 
   useEffect(() => {
-    if (!isNative) return;
+    if (!isNative || tv) return;
     let receivedSub: { remove: () => void } | undefined;
     let responseSub: { remove: () => void } | undefined;
     // Guard against handling the same tap twice — on some platforms a cold-start
@@ -232,7 +238,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       receivedSub?.remove();
       responseSub?.remove();
     };
-  }, [router, deliver]);
+  }, [router, deliver, tv]);
 
   return <>{children}</>;
 }

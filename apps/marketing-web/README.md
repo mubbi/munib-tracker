@@ -22,6 +22,6 @@ pnpm --filter marketing-web check-types
 - Canonical origin via `NEXT_PUBLIC_SITE_URL` (default `https://munibtracker.app`) in `src/lib/site.ts`, consumed by metadata / `robots.ts` / `sitemap.ts` / footer.
 - Feature copy is driven by `APP_FEATURE_PILLARS` from `@munib-tracker/shared/constants` (consumed by `feature-grid.tsx` / `feature-pillars.tsx`) — keep it in sync when app features ship.
 - Store badges link to App Store (`id6787222180`) and Google Play (`app.munibtracker`) via `OFFICIAL_*_STORE_URL` in `@munib-tracker/shared`.
-- Pages: landing (`src/app/page.tsx`) plus `about`, `features`, `faq`, `credits`, `download`, `press`, `contact`, `privacy`, `terms` (legal pages use the shared `content-page.tsx`).
+- Pages: landing (`src/app/page.tsx`) plus `about`, `features`, `faq`, `credits`, `download`, `press`, `contact`, `learn`, `privacy`, `terms` (legal pages use the shared `content-page.tsx`).
 - Contact form: `POST /api/contact` stores rows in Postgres `contact_messages` (requires `DATABASE_URL`). Rate limit: 2 submissions per email per 24h. Admins triage at `/contact-messages`.
 - Analytics: optional GA4 via `NEXT_PUBLIC_GA_MEASUREMENT_ID` (`src/components/analytics.tsx`, `src/lib/gtag.ts`, `src/lib/analytics.ts`). Consent Mode v2 defaults deny storage; the first-party cookie banner (`CookieConsentBanner`) calls `gtag('consent','update')` when visitors accept or decline analytics. Preferences are stored in `localStorage` and can be reopened from the footer. Set the env to empty to disable GA.

@@ -7,8 +7,10 @@
  * Verifies the AAB signature matches PLAY_UPLOAD_CERT_SHA1.txt before exiting.
  *
  * Usage:
- *   pnpm android:bundle:release   # Play Store AAB
- *   pnpm android:apk:release      # APK (sideload / local install)
+ *   pnpm android:bundle:release      # Play Store AAB (phone)
+ *   pnpm android:apk:release         # APK (sideload / local install)
+ *   pnpm android:bundle:release:tv   # Android TV / Fire TV Leanback AAB
+ *   pnpm android:apk:release:tv      # Leanback APK (Amazon / sideload)
  */
 const fs = require("node:fs");
 const path = require("node:path");
@@ -30,6 +32,7 @@ const {
 } = require("./lib/sync-android-versions.cjs");
 const { ensurePlayUploadCertSha1 } = require("./lib/android-upload-cert.cjs");
 const { ensureAndroidReleaseSigning } = require("../plugins/withAndroidReleaseSigning.cjs");
+const { assertAndroidProjectMode, enableExpoTvEnv } = require("./lib/tv-native-project.cjs");
 
 const projectRoot = path.resolve(__dirname, "..");
 const androidDir = path.join(projectRoot, "android");
@@ -37,13 +40,18 @@ const androidKeysDir = path.join(projectRoot, "android-keys");
 const canonicalKeystoreProps = path.join(androidKeysDir, "keystore.properties");
 const androidKeystoreProps = path.join(androidDir, "keystore.properties");
 const gradlew = process.platform === "win32" ? "gradlew.bat" : "./gradlew";
+const isTv = process.argv.includes("--tv");
 const task = process.argv.includes("--apk") ? "assembleRelease" : "bundleRelease";
 const artifactName = task === "bundleRelease" ? "app-release.aab" : "app-release.apk";
-const playUploadDir = path.join(androidDir, "play-upload");
+const playUploadDir = path.join(androidDir, isTv ? path.join("play-upload", "tv") : "play-upload");
 const gradleArtifactDir =
   task === "bundleRelease"
     ? path.join(androidDir, "app", "build", "outputs", "bundle", "release")
     : path.join(androidDir, "app", "build", "outputs", "apk", "release");
+
+if (isTv) {
+  enableExpoTvEnv();
+}
 
 const envLoad = loadAppEnv(projectRoot);
 if (!envLoad.loaded) {
@@ -75,14 +83,7 @@ function ensureKeystoreProperties() {
   process.exit(1);
 }
 
-if (!fs.existsSync(androidDir)) {
-  console.error(
-    "\nMissing apps/app/android/ — generate the native project first:\n" +
-      "  pnpm prebuild:app:android\n",
-  );
-  process.exit(1);
-}
-
+assertAndroidProjectMode(projectRoot, { expectTv: isTv });
 ensureKeystoreProperties();
 ensurePlayUploadCertSha1(projectRoot);
 ensureAndroidReleaseSigning(projectRoot);
@@ -95,6 +96,10 @@ syncAndroidVersionCode(androidDir);
 prepareAndroidReleaseBuild(projectRoot);
 
 const env = withAndroidNativeBuildEnv(buildNativeReleaseProcessEnv());
+if (isTv) {
+  env.EXPO_TV = "1";
+  console.log("Android TV / Leanback release (EXPO_TV=1)…\n");
+}
 
 console.log(`Gradle :app:${task} (NODE_ENV=production)…\n`);
 
@@ -129,12 +134,23 @@ if (task === "bundleRelease") {
   if (verify.status !== 0) {
     process.exit(verify.status ?? 1);
   }
+} else if (isTv) {
+  // Sideload / Amazon Fire TV: keep a stable copy next to Play TV uploads.
+  fs.mkdirSync(playUploadDir, { recursive: true });
+  releaseArtifactPath = path.join(playUploadDir, artifactName);
+  fs.copyFileSync(gradleArtifactPath, releaseArtifactPath);
 }
 
 console.log(
-  `\nRelease artifact ready:\n  ${releaseArtifactPath}\n\n` +
+  `\nRelease artifact ready${isTv ? " (Android TV)" : ""}:\n  ${releaseArtifactPath}\n\n` +
     (task === "bundleRelease"
-      ? `Upload: pnpm release:app:android:upload\n` +
-        `  (needs android-keys/play-console-service-account.json)\n`
-      : ""),
+      ? `Upload: pnpm release:app:android${isTv ? "-tv" : ""}:upload\n` +
+        `  (needs android-keys/play-console-service-account.json)\n` +
+        (isTv
+          ? `  Same package app.munibtracker — Play Console TV form factor / internal track.\n` +
+            `  Fire TV: upload the APK from play-upload/tv/ in Amazon Developer Console.\n`
+          : "")
+      : isTv
+        ? `Amazon Fire TV: upload this APK in the Amazon console (not Play).\n`
+        : ""),
 );

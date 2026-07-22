@@ -182,7 +182,7 @@ Configured in `apps/app/src/lib/auth/oauth-config.ts`. App Links / associated do
 
 Apple OAuth on Android (and iOS OAuth fallback) returns to **`https://my.munibtracker.app/oauth/apple`** — handled by `apps/app/src/app/oauth/apple.tsx`. Apple rejects custom URI schemes as Services ID return URLs.
 
-**Native App Links beyond OAuth** are not store-verified yet (Android filter is OAuth-only). Shareable `https://my.munibtracker.app/{path}` URLs still open the **web** product app; use `munib-tracker://` for reliable native cold-start until `.well-known` host verification lands (see backlog).
+**Native App Links beyond OAuth** are not store-verified yet (Android filter is OAuth-only). Shareable `https://my.munibtracker.app/{path}` URLs still open the **web** product app; use `munib-tracker://` for reliable native cold-start until `.well-known` host verification is deployed (see below).
 
 Host verification files are generated into `apps/app/public/.well-known/` by `scripts/generate-well-known.mjs` (runs as part of `build:web`):
 

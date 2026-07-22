@@ -130,6 +130,68 @@ def _write_favicon_set(logo: Image.Image, dest_dir: Path, *, ico_path: Path | No
         _write_ico(icon_48, ico_path)
 
 
+def _landscape_brand(
+    logo: Image.Image,
+    width: int,
+    height: int,
+    *,
+    logo_scale: float = 0.55,
+    wordmark: bool = False,
+) -> Image.Image:
+    """Centered logo on brand background for TV banners / Apple TV icons."""
+    canvas = Image.new("RGBA", (width, height), (*BRAND_BG, 255))
+    max_w = int(width * logo_scale)
+    max_h = int(height * logo_scale)
+    fitted = ImageOps.contain(logo, (max_w, max_h), method=Image.Resampling.LANCZOS)
+    x = (width - fitted.width) // 2
+    y = (height - fitted.height) // 2
+    if wordmark:
+        # Slightly higher so the mark reads as a hero on wide shelves.
+        y = max(0, y - height // 16)
+    canvas.paste(fitted, (x, y), fitted)
+    return canvas
+
+
+def _generate_tv_assets(logo: Image.Image) -> None:
+    """Android Leanback + Apple TV + Amazon Fire TV console brand assets."""
+    tv_dir = APP_IMAGES / "tv"
+    tv_dir.mkdir(parents=True, exist_ok=True)
+
+    # Android TV banner (exact 320×180) + launcher icon — baked into Leanback APK.
+    _save_png(_landscape_brand(logo, 320, 180, logo_scale=0.72), tv_dir / "android-banner.png")
+    _save_png(_flatten_on_bg(logo, 512), tv_dir / "android-icon.png")
+
+    # Apple TV App Icon layers + Top Shelf images (exact sizes required by Xcode).
+    apple = {
+        "tvos-icon-1280x768.png": (1280, 768, 0.5),
+        "tvos-icon-400x240.png": (400, 240, 0.55),
+        "tvos-icon-800x480.png": (800, 480, 0.55),
+        "tvos-topshelf-1920x720.png": (1920, 720, 0.42),
+        "tvos-topshelf-3840x1440.png": (3840, 1440, 0.42),
+        "tvos-topshelf-wide-2320x720.png": (2320, 720, 0.38),
+        "tvos-topshelf-wide-4640x1440.png": (4640, 1440, 0.38),
+    }
+    for name, (w, h, scale) in apple.items():
+        is_shelf = "topshelf" in name
+        _save_png(
+            _landscape_brand(logo, w, h, logo_scale=scale, wordmark=is_shelf),
+            tv_dir / name,
+        )
+
+    # Amazon Fire TV Appstore Details — console upload only (not packaged in APK).
+    # Background 1920×1080; icons 1280×720 / 512 / 114 (opaque RGB).
+    _save_png(
+        _landscape_brand(logo, 1920, 1080, logo_scale=0.36, wordmark=True),
+        tv_dir / "firetv-background-1920x1080.png",
+    )
+    _save_png(
+        _landscape_brand(logo, 1280, 720, logo_scale=0.5, wordmark=True),
+        tv_dir / "firetv-icon-1280x720.png",
+    )
+    _save_png(_flatten_on_bg(logo, 512), tv_dir / "firetv-icon-512.png")
+    _save_png(_flatten_on_bg(logo, 114), tv_dir / "firetv-icon-114.png")
+
+
 def main() -> None:
     print(f"Source: {SOURCE.relative_to(REPO_ROOT)}")
     logo = _ensure_source()
@@ -171,6 +233,9 @@ def main() -> None:
     _save_png(fg, APP_IMAGES / "android-icon-foreground.png")
     _save_png(bg, APP_IMAGES / "android-icon-background.png")
     _save_png(mono, APP_IMAGES / "android-icon-monochrome.png")
+
+    # Apple TV / Android TV (Leanback banner, TV icon, top shelf)
+    _generate_tv_assets(logo)
 
     # Sync to app public/ for PWA
     for name in ["icon-180.png", "icon-192.png", "icon-512.png"]:

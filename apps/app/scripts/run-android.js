@@ -15,9 +15,13 @@ const {
 
 const rawArgs = process.argv.slice(2);
 const clearMetro = rawArgs.includes("--clear-metro") || rawArgs.includes("--clear");
+const isTv = rawArgs.includes("--tv");
+if (isTv) {
+  process.env.EXPO_TV = "1";
+}
 const expoArgs = [
   "run:android",
-  ...rawArgs.filter((arg) => arg !== "--clear-metro" && arg !== "--clear"),
+  ...rawArgs.filter((arg) => arg !== "--clear-metro" && arg !== "--clear" && arg !== "--tv"),
 ];
 
 prepareWindowsAndroidBuild();
@@ -26,6 +30,12 @@ ensureAndroidDeviceReady();
 if (clearMetro) {
   const removed = clearMetroDiskCache();
   console.log(`\nCleared ${removed} Metro disk cache entr${removed === 1 ? "y" : "ies"}.`);
+}
+
+if (isTv) {
+  console.log(
+    "\nAndroid TV mode (EXPO_TV=1) — ensure Leanback prebuild: pnpm prebuild:app:tv:android",
+  );
 }
 
 console.log(

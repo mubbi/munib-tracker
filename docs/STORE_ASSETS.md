@@ -38,6 +38,7 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
 | Validate capture scripts (CI-safe) | `pnpm screenshots:validate` | — |
 | Native full matrix | `pnpm screenshots:android` / `pnpm screenshots:ios` | `captures-native/` |
 | Apple Watch (Ultra 3) | `pnpm screenshots:watch` | `captures-native/watch/` + `ios/screenshots/watch-ultra-3/` |
+| Apple TV / Android TV (validate) | `pnpm screenshots:tvos` / `screenshots:android-tv` / `screenshots:tv` | No PNGs unless `RUN_CAPTURE=1` → `apple-tv-1080p/` / `android-tv-1080p/` |
 | Seed studio decks + copy | `pnpm seed:screenshot-studio` | `tools/screenshot-studio/app-store-screenshots.json` |
 | Sync Munib logo/icon into studio | `pnpm sync:screenshot-brand-assets` | `tools/screenshot-studio/public/app-icon.png` |
 | Sync captures into editor | `pnpm sync:screenshot-captures` | `tools/screenshot-studio/public/screenshots/app/` |
@@ -54,6 +55,7 @@ Automates **all product screens** on real emulators/simulators using [Maestro](h
 - **Demo data:** AsyncStorage pre-seed skips onboarding and fills prayer logs, qaza debt, bookmarks, achievements, Makkah location, etc.
 - **Platforms:** Android + iOS share the same Maestro batching (`lib/run-maestro-batches.mjs`); iOS requires macOS.
 - **Apple Watch:** `pnpm screenshots:watch` — not Maestro. Seeds `widget_snapshot_v1` into the watch App Group, captures Ultra 3 (422×514). Apple scales that set to smaller watches; upload one size consistently across localizations.
+- **Apple TV / Android TV:** `pnpm screenshots:tvos` / `screenshots:android-tv` — **validate-only by default**. Set `RUN_CAPTURE=1` when submitting TV store SKUs (`EXPO_TV=1` build + TV sim/emulator). Not Maestro; not CI.
 
 ### Home-screen widgets (store / picker)
 
@@ -72,9 +74,12 @@ LOCALES=en,ar,ur THEMES=dark SCENES=home,tracker pnpm screenshots:android
 LOCALES=all THEMES=all pnpm screenshots:android        # every AppLocale × light/dark
 GROUPS=tabs,learn SKIP_SIMULATOR=1 SKIP_BUILD=1 pnpm screenshots:ios
 SCENES=schedule,morning,location-denied pnpm screenshots:watch
+pnpm screenshots:tvos                                  # TV validate only
+pnpm screenshots:android-tv
+RUN_CAPTURE=1 LOCALES=en THEMES=dark pnpm screenshots:tvos   # opt-in PNG write
 ```
 
-**Prerequisites:** dev build on device, Maestro CLI (phone only), Android AVD or Xcode Simulator (iOS/macOS), `adb` / `xcrun simctl`. Watch needs a paired iPhone + Ultra 3 simulator.
+**Prerequisites:** dev build on device, Maestro CLI (phone only), Android AVD or Xcode Simulator (iOS/macOS), `adb` / `xcrun simctl`. Watch needs a paired iPhone + Ultra 3 simulator. TV needs `EXPO_TV=1` Leanback/tvOS build + Apple TV sim or Android TV AVD.
 
 Full detail: [`apps/app/scripts/screenshots/README.md`](../apps/app/scripts/screenshots/README.md).
 
@@ -120,13 +125,32 @@ Full detail: [`tools/screenshot-studio/README.md`](../tools/screenshot-studio/RE
 |------|---------|
 | `captures-native/` | Full native matrix (platform × locale × theme × scene) + `watch/en/` |
 | `captures/<android\|ios>/<locale>/` | Studio input images per platform × locale |
-| `ios/screenshots/` | App Store PNGs (6.9", 6.5", iPad 13", `watch-ultra-3/`) |
-| `android/screenshots/` | Play Store PNGs (phone, 7", 10" portrait/landscape) |
+| `ios/screenshots/` | App Store PNGs (6.9", 6.5", iPad 13", `watch-ultra-3/`, `apple-tv-1080p/`) |
+| `android/screenshots/` | Play Store PNGs (phone, 7", 10" portrait/landscape, `android-tv-1080p/`) |
 | `android/feature-graphic/` | Play feature graphic 1024×500 |
 
 Marketing slide order: `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-privacy`, `06-offline`, `07-more`.
 
 Full detail: [`apps/app/store-assets/README.md`](../apps/app/store-assets/README.md).
+
+## Apple TV / Android TV assets
+
+Living-room builds use the same product binary (`EXPO_TV=1`) — see [`TV.md`](./TV.md).
+
+| Asset | Size | Path | Wired via |
+|-------|------|------|-----------|
+| Android TV banner (Leanback) | 320×180 | `apps/app/assets/images/tv/android-banner.png` | `@react-native-tvos/config-tv` → `androidTVBanner` |
+| Android TV icon | 512×512 | `apps/app/assets/images/tv/android-icon.png` | `androidTVIcon` |
+| Apple TV icon | 1280×768 / 400×240 / 800×480 | `apps/app/assets/images/tv/tvos-icon-*.png` | `appleTVImages.icon*` |
+| Apple TV Top Shelf | 1920×720 (+2x, wide, wide2x) | `apps/app/assets/images/tv/tvos-topshelf-*.png` | `appleTVImages.topShelf*` |
+| Fire TV background | 1920×1080 | `…/tv/firetv-background-1920x1080.png` | **Amazon console only** (not APK) |
+| Fire TV icons | 1280×720, 512, 114 | `…/tv/firetv-icon-*.png` | **Amazon console only** |
+
+```bash
+pnpm generate:app:brand-assets   # Leanback + Apple TV + Fire TV console PNGs (overwrites)
+```
+
+**Screenshots:** Pipeline prepared in `capture-tvos.mjs` / `capture-android-tv.mjs`. Default and `pnpm screenshots:validate` are structure-only. Opt in with `RUN_CAPTURE=1` when submitting TV SKUs. Fire TV listing screenshots reuse `android-tv-1080p`; banner/icons upload from `firetv-*` in Amazon Appstore Details.
 
 ## Shared spec (`packages/store-screenshots/`)
 

@@ -23,6 +23,7 @@ import { prophetsProgressStore } from "./prophets-progress-store";
 import { quranGuideProgressStore } from "./quran-guide-progress-store";
 import { quranStore } from "./quran-store";
 import { readingTextVisibilityStore } from "./reading-text-visibility-store";
+import { sadaqahStore } from "./sadaqah-store";
 import { salahGuideProgressStore } from "./salah-guide-progress-store";
 import { taharahProgressStore } from "./taharah-progress-store";
 import { toursStore } from "./tours-store";
@@ -69,5 +70,6 @@ export async function reloadAllStores(): Promise<void> {
     aqeedahProgressStore.getState().load(),
     lastDayProgressStore.getState().load(),
     learnDuaProgressStore.getState().load(),
+    sadaqahStore.getState().load(),
   ]);
 }

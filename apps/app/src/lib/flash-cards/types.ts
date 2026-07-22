@@ -22,6 +22,8 @@ export type StudySourceId =
   | "eid"
   | "ruqyah"
   | "newMuslim"
+  | "janazah"
+  | "fidyah"
   | "names"
   | "hadith"
   | "quran"

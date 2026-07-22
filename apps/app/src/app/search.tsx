@@ -32,6 +32,7 @@ import {
 } from "@/lib/search";
 import { clearRecentSearches, loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
 import { abortStt, type SttErrorKind } from "@/lib/stt";
+import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useToast } from "@/providers/toast-provider";
 
 const DEBOUNCE_MS = 180;
@@ -340,7 +341,7 @@ export default function SearchScreen() {
           router.push({ pathname: result.href, params: { id: result.params?.id ?? "" } });
           break;
         case "/zikr/detail/[id]":
-          router.push({ pathname: result.href, params: { id: result.params?.id ?? "" } });
+          pushZikrDetail(router, result.params?.id ?? "");
           break;
         case "/jannah/[topic]":
           router.push({
@@ -369,6 +370,8 @@ export default function SearchScreen() {
         case "/laylat-al-qadr/[topic]":
         case "/finance/[topic]":
         case "/zakat/[topic]":
+        case "/fidyah/[topic]":
+        case "/janazah/[topic]":
           router.push({
             pathname: result.href,
             params: { topic: result.params?.topic ?? "" },
@@ -387,6 +390,10 @@ export default function SearchScreen() {
         case "/sick":
         case "/duroods":
         case "/names-of-allah":
+        case "/prophets/tree":
+        case "/sadaqah":
+        case "/fidyah":
+        case "/janazah":
           router.push(result.href);
           break;
         case "/hajj/[topic]":

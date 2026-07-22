@@ -78,7 +78,10 @@
       "hint": "Öwreneniňizi gaýtalaň",
       "empty": "Bu gollanmanyň soraglary heniz ýüklenýär. Birnäçe sapak açyň, soňra ýene synanyň."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "Telewizorda elýeterli däl",
+    "tvUnavailableBody": "Bu aýratynlyk üçin telefon ýa-da planşet gerek. Dowam etmek üçin Munib Tracker-i şol ýerde açyň.",
+    "tvOauthHint": "Sosial ulgamlardan giriş telewizorda çäklendirilen bolup biler. Bu ýerde myhman hökmünde dowam ediň ýa-da telefonyňyzda hasaby baglaň."
   },
   "search": {
     "placeholder": "Qur'an, hadis, dua, Okuw… gözle",
@@ -170,7 +173,10 @@
     "flashCards": "Okuw kartlary",
     "verseDetector": "Aýat anyklýan",
     "lastThirdNight": "Gijäniň soňky üçden bire",
-    "friday": "Anna & Juma"
+    "friday": "Anna & Juma",
+    "fidyah": "Fidýä we keffarat",
+    "janazah": "Janazah gollanma",
+    "sadaqah": "Sadaqah maksatlar"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -802,14 +808,16 @@
     "apple": "“Apple” bilen dowam ediň",
     "facebook": "“Facebook” bilen dowam ediň",
     "heroGuest": "Misafir hesaby kullanyyorsunuz. Verilerinizi yedeklemek ve senkronize etmek için bir saglayycy baglayyn — hiçbir şey kaybolmaz.",
-    "heroUser": "Namazlarynyzy, kazalarynyzy ve zikirlerinizi bulutta güvende tutmak için giriş yapyn.",
+    "heroUser": "Namaz, kaza we zikiriňizi bulutda howpsuz saklaň.",
     "error": "Girip bolmady. API serweriniň işleýändigini we bu üpjünçiniň sazlanandygyny barlaň.",
     "providersUnavailableTitle": "Giriş heniz elýeterli däl",
     "providersUnavailableBody": "Bu guruluşda bulut sinhron üpjünçileri sazlanmadyk. Myhman hökmünde dowam ediň — öňegidişligiňiz şu enjamda galýar.",
     "titleSignedIn": "Siz girdiniz",
     "subtitleSignedIn": "Bulut sinhrony bu enjamda taýýar",
     "heroSignedIn": "Hoş geldiňiz — hasabyňyz baglandy. Namaz, kaza we zikir enjamlar arasynda sinhronlanyp biler.",
-    "continueSignedIn": "Dowam et"
+    "continueSignedIn": "Dowam et",
+    "or": "ýa-da",
+    "guestHint": "Hasabyňyzy islän wagtyňyz Profil bölüminden baglap bilersiňiz."
   },
   "onboarding": {
     "begin": "Başla",
@@ -1109,7 +1117,8 @@
       "activeHint": "Bu namaz ýakynlaşanda janly täzelenmeler öňe çykarylýar. Berkitmäni aýyrmak üçin Duruz düwmesine basyň.",
       "a11yStart": "Gulply ekranda indiki namaz yzarlamasyny başlat",
       "a11yStop": "Namaz janly täzelenmeleriniň yzarlamasyny duruz"
-    }
+    },
+    "tvUnavailableBody": "Ýerli ýatlatmalar we Live Activities telewizorda elýeterli däl. Bildiriş sazlamalaryny telefonyňyzda dolandyryň."
   },
   "fonts": {
     "eyebrow": "Sazlamalar",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "adhkar by title, topic, or text… Gözleg",
     "searchInCategory": "in this category… Gözleg",
     "searchResultCount": "{{count}} gabat gelýär",
-    "noResults": "No adhkar matched sizin ara."
+    "noResults": "No adhkar matched sizin ara.",
+    "markAsDone": "Tamamlanan diýip belläň",
+    "undoDoneHint": "Yza gaýtarmak we tamamlanmadyk diýip bellemek üçin basyň"
   },
   "zikrCat": {
     "morning": "Ertir zikirleri",
@@ -1562,7 +1573,12 @@
     "backToTop": "Ýokaryk gaýt",
     "readingProgress": "Okamak ösüşi",
     "enterFullscreen": "Doly ekrana gir",
-    "exitFullscreen": "Doly ekrandan çyk"
+    "exitFullscreen": "Doly ekrandan çyk",
+    "isnad": "Isnad (sanat)",
+    "sharh": "Şerh",
+    "showIsnad": "Isnady görkez",
+    "showSharh": "Şerhi görkez",
+    "sharhArabicOnly": "Düşündiriş diňe arap dilinde elýeterlidir."
   },
   "credits": {
     "eyebrow": "Atyf",
@@ -2312,7 +2328,8 @@
     "cardinalS": "G",
     "cardinalW": "B",
     "defaultLocationHint": "Using  varsayylan konum (Makkah). Ayarla sizin city için  dogru kyble bearing where siz dir.",
-    "setLocation": "Konum ayarla"
+    "setLocation": "Konum ayarla",
+    "tvHint": "Göni kompas telewizorda elýeterli däl. Ok şäheriňiz üçin demirgazykdan kybla ugruny görkezýär — göni sazlaşyk üçin telefony ulanyň."
   },
   "profile": {
     "eyebrow": "Hesap",
@@ -3346,6 +3363,42 @@
       "obligatory": "Zerur",
       "highly-recommended": "Gaty maslahat berilýär",
       "recommended": "Maslahat berilýär"
+    },
+    "quickTree": "Maşgala agajy",
+    "quickTreeHint": "Adam-den Muhammad ﷺ-a çenli - nesiller",
+    "tree": {
+      "title": "Pygamberler maşgalasy",
+      "subtitle": "Diňe nesil şejeresi - Qur'an, hakyky hadys we bellikli taryh",
+      "intro": "Bu agaç diňe Qur'an-de gurlan gatnaşyklary, hakyky hadys ýa-da nusgawy taryhy anyk bellik edýär. Boşluklar tassyklanmadyk atlar bilen doldurylman, boş galýar. Ata-babalar (derrew däl) baglanyşyklar şeýle bellendi.",
+      "searchPlaceholder": "Pygamber ýa-da at gözläň ...",
+      "searchResults": "{{count}} gabat gelýär",
+      "sources": "Çeşmeler",
+      "openBio": "Açyk terjimehaly",
+      "certainty": {
+        "quran": "Gurhan",
+        "authentic-hadith": "Hakyky hadys",
+        "classical-history": "Nusgawy taryh"
+      },
+      "branch": {
+        "adam-nuh": "Adam we Nuh",
+        "ibrahim": "Ibrahimiň maşgalasy",
+        "israel": "Ysraýyl çagalary",
+        "musa": "Musa we Harun",
+        "dawud": "Dawud we Sulayman",
+        "zakariyya": "Zakariyya we Yahya",
+        "isa": "Maryam we Isa",
+        "muhammad": "Pygamberleriň möhri"
+      },
+      "disclaimer": "Bilim nesil şejeresi - her pygamberiň doly sanawy däl. Köp habarçylara jikme-jik ene zynjyry bolmazdan Qur'an diýilýär; Pygamberleri öwreniň biosynda peýda bolýar, ýöne çaklamak däl-de, bu ýerde goýulmaýar.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4075,7 +4128,12 @@
       "confirm": "Formany täzeden düzmek",
       "a11y": "Zekat kalkulýator görnüşini täzeden düzmek",
       "hint": "Tassyklamagy soraýar, soňra girizilen mukdarlaryň hemmesini arassalaýar"
-    }
+    },
+    "relatedTitle": "Degişli gurallar",
+    "linkSadaqah": "Sadaqa maksatlary",
+    "linkSadaqahHint": "Gündelik ýa-da hepdelik meýletin sadaka",
+    "linkFidyah": "Fidýä we keffarat",
+    "linkFidyahHint": "Sypdyrylan ýa-da bozulan orazalar üçin hasaplamalar"
   },
   "customAdhkar": {
     "eyebrow": "Ýatlamak",
@@ -4114,7 +4172,7 @@
       "label": "Goşundylar (islege görä)",
       "add": "Faýl goşuň",
       "remove": "Goşundyny aýyryň",
-      "hint": "5 faýla çenli (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçi suratdaky ×-e basyň.",
+      "hint": "5-e çenli faýl (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçijik suraty basyň.",
       "signInRequired": "Adhkar-a şahsy faýllary birikdirmek üçin giriň.",
       "permissionDenied": "Faýllary birikdirmek üçin rugsat gerek.",
       "permissionTitle": "Girmäge rugsat beriň",
@@ -4903,7 +4961,7 @@
     "eyebrow": "Senenama",
     "title": "Sene öwrüji",
     "subtitle": "Hijri we Gregorian kalendarlarynyň arasynda öwüriň",
-    "intro": "Islendik senenama bir sene giriziň, beýlekisindeki deňeşini görmek üçin — oflaýn ýerleşýän ýeriňizdäki aýyň görünmeginden hasaplanýar.",
+    "intro": "Kuweýt tablisasynyň algoritmini ulanyp, oflayn hasaplanan beýleki birine meňzeşini görmek üçin iki senenama senesini giriziň.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Gregorian senesi",
@@ -4913,7 +4971,7 @@
     "year": ".Yl",
     "useToday": "Şu gün ulanyň",
     "invalidDate": "Dogry senäni giriziň",
-    "disclaimer": "Seneler ýerleşýän ýeriňizdäki ýarymaýyň (hilāl) görünmeginden hasaplanýar we resmi aý gözegçiligi bildirişlerinden bir gün tapawutlanyp biler — dini seneler üçin hemişe ýerli masjid ýa-da häkimiýeti eýeriň.",
+    "disclaimer": "Bu arifmetiki ýakynlaşma (tablisa \"Kuweýt algoritmi\") we ýerli Aý görýän bildirişlerinden bir gün tapawutlanyp biler - dini seneler üçin hemişe ýerli metjidiňize ýa-da ygtyýaryňyza eýeriň.",
     "directionTitle": "Öwürmek ugry",
     "resultFrom": "{{date}}-den",
     "quickLinksTitle": "Baglanyşykly",
@@ -4971,7 +5029,9 @@
       "names": "99 At",
       "hadith": "Hadis",
       "quran": "Guran",
-      "duas": "Dogalar"
+      "duas": "Dogalar",
+      "janazah": "Jynaza",
+      "fidyah": "Fidýä"
     },
     "skipHint": "Bu karty geçiň we başga soragy görüň.",
     "skipDisabledHint": "Täze garyşdyrmak üçin bu soňky karta jogap beriň."
@@ -5012,5 +5072,82 @@
     "notFound": "Mowzuk tapylmady",
     "disclaimer": "Bilim beriş syny — fetwa däl. Mekdepler tapawutlanýan ýerde (mysal üçin, anna Ghusl-y wajibmi ýa-da sunnah mu'akkadahmy), iki pozisiýa hem bellendi; imamyňyzy ýa-da ýerli hünärmen alymy eýeriň.",
     "continueInApp": "Munib-de dowam et"
+  },
+  "fidyah": {
+    "eyebrow": "Gurallar",
+    "title": "Fidýä we keffarat",
+    "subtitle": "Geçirilen ýa-da döwülen Ramadan agyz beklemek üçin kömekçileri çaklaň - awtomatiki karar däl",
+    "intro": "Muny diňe meýilleşdiriş bahasy hökmünde ulanyň. Qur'an 2: 184–185 we Sahih Muslim 1111 esaslary düzýär; ökde alym, kaza, fidýa, kaffara ýa-da başga bir zat bergiňiz barmy diýip klassifikasiýa etmeli.",
+    "helperTitle": "Kömekçi kömekçi",
+    "helperHint": "Günleri we ýerli nahar ýa-da fidya bölüminiň bahasyny giriziň. Ynamly ýerli metjit ýa-da geňeş tarapyndan neşir edilen nyrhy ileri tutuň.",
+    "scenario": {
+      "fidyah": "Fidýä",
+      "kaffarah": "Keffarat"
+    },
+    "currency": "Walýuta",
+    "daysLabel": "Editirilen günler",
+    "unitsLabel": "Kaffarah birlik",
+    "mealCostLabel": "Bir garyp adamy eklemek üçin çykdajy",
+    "mealCostHint": "Bir nahar, ýa-da ýerli neşir edilen günde fidýa mukdary.",
+    "estimateLabel": "Meýilnama bahasy",
+    "estimateEmpty": "Günleri we nahar bahasyny giriziň",
+    "estimateFidyahDetail": "{{meals}} iýmitlenmek üçin garyp adam",
+    "estimateKaffarahDetail": "{{meals}} nahar (iýmitlendiriş görnüşi) · ýa-da {{fasts}} yzygiderli çalt günler",
+    "section": {
+      "overview": "Gysgaça syn",
+      "fidyah": "Fidýä",
+      "kaffarah": "Keffarat",
+      "practice": "Kömekçini ulanmak"
+    },
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Bilim bahalary diňe fatwa däl. Madhhab jikme-jiklikleri tapawutlanýar; işiňiz üçin ökde ýerli alymy yzarlaň.",
+    "continueInApp": "Munib dowam ediň"
+  },
+  "janazah": {
+    "eyebrow": "Öwreniň",
+    "title": "Janazah gollanma",
+    "subtitle": "Jynaza namazy, ýuwmak, jaýlamak we hakyky dua",
+    "intro": "Jemgyýetçilik borjy hökmünde Janazah barada amaly syn - dört takbirini ruku ýa-da sujudsyz nädip doga etmeli we merhum üçin Hisnul Muslim duasy.",
+    "section": {
+      "obligation": "Borç",
+      "prepare": "Taýýarlyk",
+      "salah": "Jynaza namazy",
+      "burial": "Jynaza",
+      "duas": "Jynaza duaslary",
+      "reminders": "Inderatlatmalar"
+    },
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Bilim syny - jynaza müdiriniň gollanmasy ýa-da fatwa däl. Hünärli ýerli görkezmeler bilen ýuwmak, örtmek we gonamçylyk tejribesini tassyklaň.",
+    "continueInApp": "Munib dowam ediň"
+  },
+  "sadaqah": {
+    "eyebrow": "Gurallar",
+    "title": "Sadaqah maksatlary",
+    "subtitle": "Gündelik ýa-da hepdelik niýet we ýönekeý beriş gündeligi",
+    "intro": "Meýletin haýyr-sahawat niýetini düzüň we beren zadyňyzy ýazyň. Zakat aýratyn borç bolup galýar - munuň üçin Zakat kalkulýatoryny ulanyň.",
+    "intentionTitle": "Meniň niýetim",
+    "intentionHint": "Meýletin sadaka üçin şahsy maksat - zekat däl.",
+    "period": {
+      "daily": "Her gün",
+      "weekly": "Hepdelik"
+    },
+    "currency": "Walýuta",
+    "targetLabel": "Maksat mukdary",
+    "saveGoal": "Niýeti tygşytla",
+    "clearGoal": "Açyk niýet",
+    "progressLabel": "Bu {{period}}",
+    "logTitle": "Sowgat ýazyň",
+    "logAmount": "Mukdary",
+    "logNote": "Bellik (islege görä)",
+    "logNotePlaceholder": "meselem azyk banky",
+    "addEntry": "Gündelige goşuň",
+    "logEmpty": "Entek sowgat ýok.",
+    "learnMoreTitle": "Has giňişleýin öwreniň",
+    "linkZakat": "Zakat kalkulýator",
+    "linkZakatHint": "Hökmany arassalamak",
+    "linkFinance": "Yslam finansynda Sadaqah",
+    "linkFinanceHint": "Meýletin bermek düşündirildi",
+    "disclaimer": "Diňe şahsy yzarlaýjy - fatwa däl we wagtynda zekat hasaplamagyň ornuny tutmaýar.",
+    "continueInApp": "Munib dowam ediň"
   }
 }

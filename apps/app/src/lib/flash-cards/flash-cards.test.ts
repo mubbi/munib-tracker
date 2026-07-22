@@ -190,7 +190,18 @@ describe("learn quiz section registry", () => {
     expect(ids).toContain("travel");
     expect(ids).toContain("events");
     expect(ids).toContain("hayd");
+    expect(ids).toContain("janazah");
+    expect(ids).toContain("fidyah");
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("keeps janazah/fidyah flash-bank-only (no dedicated quiz route)", () => {
+    const janazah = LEARN_QUIZ_SECTIONS.find((s) => s.id === "janazah");
+    const fidyah = LEARN_QUIZ_SECTIONS.find((s) => s.id === "fidyah");
+    expect(janazah?.quizPath).toBeUndefined();
+    expect(fidyah?.quizPath).toBeUndefined();
+    expect(janazah?.collect().length).toBeGreaterThan(0);
+    expect(fidyah?.collect().length).toBeGreaterThan(0);
   });
 
   it("can sample travel questions without async content", () => {

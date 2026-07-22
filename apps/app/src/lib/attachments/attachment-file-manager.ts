@@ -13,6 +13,7 @@ import {
   resolvePickedAttachmentMime,
   sniffAttachmentMime,
 } from "@/lib/attachments/attachment-mime";
+import { isTV } from "@/lib/platform/is-tv";
 
 export const ATTACHMENT_PICKER_TYPES = [...USER_MEDIA_ALLOWED_MIME_TYPES] as const;
 
@@ -80,6 +81,7 @@ async function ensureImagePickerPermission(
 
 /** Capture a photo with the device camera. */
 export async function pickAttachmentFromCamera(): Promise<AttachmentPickOutcome> {
+  if (isTV()) return { kind: "canceled" };
   const denied = await ensureImagePickerPermission(ImagePicker.requestCameraPermissionsAsync);
   if (denied) return denied;
 
@@ -94,6 +96,7 @@ export async function pickAttachmentFromCamera(): Promise<AttachmentPickOutcome>
 
 /** Pick a photo from the photo library. */
 export async function pickAttachmentFromGallery(): Promise<AttachmentPickOutcome> {
+  if (isTV()) return { kind: "canceled" };
   // Android uses the system photo picker (PickVisualMedia) — no READ_MEDIA_* permission.
   if (Platform.OS !== "android") {
     const denied = await ensureImagePickerPermission(
@@ -114,6 +117,7 @@ export async function pickAttachmentFromGallery(): Promise<AttachmentPickOutcome
 
 /** Pick a single image or PDF from downloads / documents / file manager. */
 export async function pickAttachmentFromDocument(): Promise<PickedAttachment | null> {
+  if (isTV()) return null;
   const result = await DocumentPicker.getDocumentAsync({
     type: attachmentDocumentPickerTypes(),
     copyToCacheDirectory: true,

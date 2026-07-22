@@ -2,6 +2,7 @@ export * from "./aqeedah";
 export * from "./battles";
 export * from "./content";
 export * from "./content-report";
+export * from "./fidyah";
 export * from "./friday";
 export * from "./hadith";
 export * from "./hajj-guide";

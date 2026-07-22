@@ -78,7 +78,10 @@
       "hint": "Pitia ulichojifunza",
       "empty": "Maswali ya mwongozo huu bado yanapakia. Fungua masomo machache, kisha jaribu tena."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "Haipatikani kwenye TV",
+    "tvUnavailableBody": "Kipengele hiki kinahitaji simu au kompyuta kibao. Fungua Munib Tracker huko ili kuendelea.",
+    "tvOauthHint": "Kuingia kwa mitandao ya kijamii kunaweza kuwa na kikomo kwenye TV. Endelea hapa kama mgeni, au unganisha akaunti kwenye simu yako."
   },
   "search": {
     "placeholder": "Tafuta Qur'an, hadith, dua, Jifunze…",
@@ -170,7 +173,10 @@
     "flashCards": "Kadi za kujifunzia",
     "verseDetector": "Kitambulisho cha Aya",
     "lastThirdNight": "Theluthi ya mwisho ya usiku",
-    "friday": "Ijumaa na Jumu'ah"
+    "friday": "Ijumaa na Jumu'ah",
+    "fidyah": "Fidia na kafara",
+    "janazah": "Janazah mwongozo",
+    "sadaqah": "Sadaqah mabao"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -802,14 +808,16 @@
     "apple": "Endelea na Apple",
     "facebook": "Endelea na Facebook",
     "heroGuest": "Mgeni hesabı kullanıyorsunuz. Vernarinizi yedeklemek na senkronize etmek kwa moja sağlmweziıcı bağlmweziın — hiçmoja şey kmwezibolmaz.",
-    "heroUser": "Swalalarınızı, kazalarınızı na zikirlerinizi bulutta günande tutmak kwa giriş yapın.",
+    "heroUser": "Hifadhi Salah, qaza na zikr yako salama kwenye wingu.",
     "error": "Imeshindwa kuingia. Hakikisha seva ya API inaendesha na mtoa huduma huyu amewekwa.",
     "providersUnavailableTitle": "Kuingia bado hakupatikani",
     "providersUnavailableBody": "Watoa huduma wa usawazishaji wa wingu hawajawekwa katika toleo hili. Endelea kama mgeni — maendeleo yako yanabaki kwenye kifaa hiki.",
     "titleSignedIn": "Umeingia",
     "subtitleSignedIn": "Usawazishaji wa wingu uko tayari kwenye kifaa hiki",
     "heroSignedIn": "Karibu tena — akaunti yako imeunganishwa. Salah, qaza na zikr zinaweza kusawazishwa kati ya vifaa.",
-    "continueSignedIn": "Endelea"
+    "continueSignedIn": "Endelea",
+    "or": "au",
+    "guestHint": "Unaweza kuunganisha akaunti wakati wowote kutoka Wasifu."
   },
   "onboarding": {
     "begin": "Anza",
@@ -1109,7 +1117,8 @@
       "activeHint": "Sasisho za moja kwa moja zitaangaziwa Salah hii inapokaribia. Gusa Acha ili kuondoa ubandikaji.",
       "a11yStart": "Anza kufuatilia Salah inayofuata kwenye skrini iliyofungwa",
       "a11yStop": "Acha kufuatilia sasisho za moja kwa moja za Salah"
-    }
+    },
+    "tvUnavailableBody": "Vikumbusho vya ndani na Live Activities havipatikani kwenye TV. Dhibiti mapendeleo ya arifa kwenye simu yako."
   },
   "fonts": {
     "eyebrow": "Mipangilio",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "adhkar by title, topic, or text… Tafuta",
     "searchInCategory": "in this category… Tafuta",
     "searchResultCount": "{{count}} zinazolingana",
-    "noResults": "Hakuna adhkar iliyolingana na utafutaji wako."
+    "noResults": "Hakuna adhkar iliyolingana na utafutaji wako.",
+    "markAsDone": "Weka alama kuwa imekamilika",
+    "undoDoneHint": "Gusa ili kutengua na kuweka kuwa haijakamilika"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -1562,7 +1573,12 @@
     "backToTop": "Rudi juu",
     "readingProgress": "Maendeleo ya kusoma",
     "enterFullscreen": "Ingia skrini kamili",
-    "exitFullscreen": "Toka skrini kamili"
+    "exitFullscreen": "Toka skrini kamili",
+    "isnad": "Isnadi",
+    "sharh": "Maelezo",
+    "showIsnad": "Onyesha isnad",
+    "showSharh": "Onyesha maelezo",
+    "sharhArabicOnly": "Maelezo yanapatikana kwa Kiarabu tu."
   },
   "credits": {
     "eyebrow": "Uandishi",
@@ -2312,7 +2328,8 @@
     "cardinalS": "جنوب",
     "cardinalW": "غرب",
     "defaultLocationHint": "Using  varsamwakaan konum (Makkah). Ayarla sizin city kwa  doğru kıble bearing where siz dir.",
-    "setLocation": "Weka eneo"
+    "setLocation": "Weka eneo",
+    "tvHint": "Dira ya moja kwa moja haipatikani kwenye TV. Mshale unaonyesha mwelekeo wa qibla kutoka kaskazini kwa jiji lako — tumia simu kwa ulinganifu wa moja kwa moja."
   },
   "profile": {
     "eyebrow": "Akaunti",
@@ -3358,6 +3375,42 @@
       "obligatory": "Muhimu",
       "highly-recommended": "Inapendekezwa sana",
       "recommended": "Inapendekezwa"
+    },
+    "quickTree": "Mti wa familia",
+    "quickTreeHint": "Adam hadi Muhammad ﷺ — nasaba zilizopatikana",
+    "tree": {
+      "title": "Mti wa familia ya manabii",
+      "subtitle": "Nasaba ya chanzo pekee - Qur'an, hadithi halisi, na historia iliyoandikwa",
+      "intro": "Mti huu unaonyesha tu uhusiano ulioanzishwa katika Qur'an, hadith halisi, au historia ya kitamaduni iliyoandikwa kwa uwazi. Mapengo huachwa tupu badala ya kujazwa na majina ambayo hayajathibitishwa. Viungo vya mababu (si vya haraka) vimetiwa alama hivyo.",
+      "searchPlaceholder": "Tafuta nabii au jina...",
+      "searchResults": "{{count}} mechi",
+      "sources": "Vyanzo",
+      "openBio": "Fungua wasifu",
+      "certainty": {
+        "quran": "Qurani",
+        "authentic-hadith": "Hadith Sahihi",
+        "classical-history": "Historia ya kitamaduni"
+      },
+      "branch": {
+        "adam-nuh": "Adam na Nuh",
+        "ibrahim": "kaya ya Ibrahim",
+        "israel": "Wana wa Israeli",
+        "musa": "Musa na Harun",
+        "dawud": "Dawud na Sulayman",
+        "zakariyya": "Zakariyya na Yahya",
+        "isa": "Maryam na Isa",
+        "muhammad": "Muhuri wa manabii"
+      },
+      "disclaimer": "Nasaba ya kielimu - sio orodha kamili ya kila nabii. Wajumbe wengi wametajwa katika Qur'an bila msururu wa kina wa wazazi; yanaonekana katika wasifu wa Jifunze Manabii lakini yameachwa hapa badala ya kubahatisha.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4167,7 +4220,12 @@
       "confirm": "Weka upya fomu",
       "a11y": "Weka upya fomu ya kikokotoo cha zakat",
       "hint": "Inaomba uthibitisho, kisha kufuta kiasi chochote kilichowekwa"
-    }
+    },
+    "relatedTitle": "Zana zinazohusiana",
+    "linkSadaqah": "Malengo ya sadaka",
+    "linkSadaqahHint": "Utoaji wa hiari wa kila siku au kila wiki",
+    "linkFidyah": "Fidia na kafara",
+    "linkFidyahHint": "Makadirio ya funga zilizokosekana au kuvunjwa"
   },
   "customAdhkar": {
     "eyebrow": "Ukumbusho",
@@ -4206,7 +4264,7 @@
       "label": "Viambatisho (si lazima)",
       "add": "Ongeza faili",
       "remove": "Ondoa kiambatisho",
-      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), 1 MB kila moja. Gusa × kwenye kijipicha kuondoa.",
+      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
       "signInRequired": "Ingia ili kuambatisha faili za faragha kwenye adhkar yako.",
       "permissionDenied": "Ruhusa inahitajika ili kuambatisha faili.",
       "permissionTitle": "Ruhusu ufikiaji",
@@ -4995,7 +5053,7 @@
     "eyebrow": "Kalenda",
     "title": "Kigeuzi cha tarehe",
     "subtitle": "Badilisha kati ya kalenda ya Hijri na Gregorian",
-    "intro": "Weka tarehe katika kalenda yoyote ili kuona sawa yake katika nyingine, inayohesabiwa nje ya mtandao kutoka kuonekana kwa hilal mahali pako.",
+    "intro": "Weka tarehe katika mojawapo ya kalenda ili kuona sawa katika nyingine, iliyokokotwa nje ya mtandao kwa kutumia algoriti ya Kuwaiti ya jedwali.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Tarehe ya Gregorian",
@@ -5005,7 +5063,7 @@
     "year": "Mwaka",
     "useToday": "Tumia leo",
     "invalidDate": "Weka tarehe halali",
-    "disclaimer": "Tarehe zimehesabiwa kutoka kuonekana kwa hilal (hilāl) mahali pako na zinaweza kutofautiana kwa siku moja na matangazo rasmi ya kuona mwezi — daima fuata Masjid au mamlaka yako ya eneo kwa tarehe za kidini.",
+    "disclaimer": "Huu ni ukadiriaji wa hesabu (jedwali la \"algorithm ya Kuwaiti\") na inaweza kutofautiana kwa siku kutoka kwa matangazo ya karibu ya kuona mwezi - fuata msikiti wa eneo lako au mamlaka ya tarehe za kidini kila wakati.",
     "directionTitle": "Mwelekeo wa uongofu",
     "resultFrom": "Kutoka {{date}}",
     "quickLinksTitle": "Kuhusiana",
@@ -5063,7 +5121,9 @@
       "names": "Majina 99",
       "hadith": "Hadithi",
       "quran": "Qur'ani",
-      "duas": "Dua"
+      "duas": "Dua",
+      "janazah": "Janaza",
+      "fidyah": "Fidia"
     },
     "skipHint": "Ruka kadi hii na uone swali lingine.",
     "skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya."
@@ -5103,6 +5163,83 @@
     },
     "notFound": "Mada haikupatikana",
     "disclaimer": "Muhtasari wa kielimu — si fatwa. Ambapo madhehebu yanatofautiana (kama Ghusl ya Ijumaa ni wajib au sunnah mu'akkadah), maoni yote mawili yametajwa; fuata imamu wako au mwanachuoni wa eneo aliyestahili.",
+    "continueInApp": "Endelea katika Munib"
+  },
+  "fidyah": {
+    "eyebrow": "Zana",
+    "title": "Fidia na kafara",
+    "subtitle": "Kadiria visaidizi kwa mifungo Ramadan iliyokosa au kuvunjika — si maamuzi ya kiotomatiki",
+    "intro": "Tumia hii tu kama makadirio ya kupanga. Qur'an 2:184–185 na Sahih Muslim 1111 zimeweka misingi; mwanachuoni aliyehitimu lazima aainishe kama una deni la qaza, fidyah, kaffarah, au kitu kingine.",
+    "helperTitle": "Kadiria msaidizi",
+    "helperHint": "Weka siku na gharama ya mlo wako wa ndani au kitengo cha fidya. Pendelea kiwango kilichochapishwa na msikiti au baraza la mtaa unaoaminika.",
+    "scenario": {
+      "fidyah": "Fidia",
+      "kaffarah": "Kafara"
+    },
+    "currency": "Sarafu",
+    "daysLabel": "Siku zilizokosa",
+    "unitsLabel": "Kaffarah vitengo",
+    "mealCostLabel": "Gharama ya kulisha maskini mmoja",
+    "mealCostHint": "Mlo mmoja, au kiasi cha fidya kilichochapishwa karibu nawe kwa siku.",
+    "estimateLabel": "Makadirio ya kupanga",
+    "estimateEmpty": "Weka siku na gharama ya chakula",
+    "estimateFidyahDetail": "{{meals}} maskini wa kulisha",
+    "estimateKaffarahDetail": "{{meals}} milo (chaguo la kulisha) · au {{fasts}} siku za mfungo mfululizo",
+    "section": {
+      "overview": "Muhtasari",
+      "fidyah": "Fidia",
+      "kaffarah": "Kafara",
+      "practice": "Kutumia msaidizi"
+    },
+    "notFound": "Mada haijapatikana",
+    "disclaimer": "Makadirio ya kielimu pekee - sio fatwa. Maelezo ya Madhhab yanatofautiana; fuata msomi wa ndani aliyehitimu kwa kesi yako.",
+    "continueInApp": "Endelea katika Munib"
+  },
+  "janazah": {
+    "eyebrow": "Jifunze",
+    "title": "Janazah mwongozo",
+    "subtitle": "Sala ya mazishi, kuosha, kuzika, na dua za kweli",
+    "intro": "Muhtasari wa vitendo wa Janazah kama wajibu wa jumuiya - jinsi ya kuomba takbira nne bila rukuu au sujud, na dua Hisnul Muslim kwa marehemu.",
+    "section": {
+      "obligation": "Wajibu",
+      "prepare": "Maandalizi",
+      "salah": "Sala ya mazishi",
+      "burial": "Mazishi",
+      "duas": "Dua za mazishi",
+      "reminders": "Vikumbusho"
+    },
+    "notFound": "Mada haijapatikana",
+    "disclaimer": "Muhtasari wa elimu - sio mwongozo wa mkurugenzi wa mazishi au fatwa. Thibitisha kuosha, kufunika na mazoezi ya makaburi kwa mwongozo wa ndani uliohitimu.",
+    "continueInApp": "Endelea katika Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Zana",
+    "title": "Sadaqah mabao",
+    "subtitle": "Nia ya kila siku au ya wiki na logi rahisi ya kutoa",
+    "intro": "Weka nia ya kutoa misaada ya hiari na uweke kumbukumbu unayotoa. Zakat inasalia kuwa wajibu tofauti - tumia kikokotoo Zakat kwa hilo.",
+    "intentionTitle": "Nia yangu",
+    "intentionHint": "Lengo la kibinafsi la sadaqah ya hiari - sio zakat.",
+    "period": {
+      "daily": "Kila siku",
+      "weekly": "Kila wiki"
+    },
+    "currency": "Sarafu",
+    "targetLabel": "Kiasi cha lengo",
+    "saveGoal": "Hifadhi nia",
+    "clearGoal": "Nia wazi",
+    "progressLabel": "Endelea hii {{period}}",
+    "logTitle": "Weka zawadi",
+    "logAmount": "Kiasi",
+    "logNote": "Kumbuka (si lazima)",
+    "logNotePlaceholder": "k.m. benki ya chakula",
+    "addEntry": "Ongeza kwenye kumbukumbu",
+    "logEmpty": "Bado hakuna zawadi zilizowekwa.",
+    "learnMoreTitle": "Jifunze zaidi",
+    "linkZakat": "Zakat kikokotoo",
+    "linkZakatHint": "Sadaka ya utakaso ya wajibu",
+    "linkFinance": "Sadaqah katika fedha za Kiislamu",
+    "linkFinanceHint": "Utoaji wa hiari umeelezwa",
+    "disclaimer": "Mfuatiliaji wa kibinafsi pekee - sio fatwa na sio mbadala wa kukokotoa zakat inapohitajika.",
     "continueInApp": "Endelea katika Munib"
   }
 }

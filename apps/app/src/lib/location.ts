@@ -6,6 +6,7 @@ import {
   type ReverseGeocodePlace,
   reverseGeocodeCacheKey,
 } from "@/db/repositories/reverse-geocode-cache-repository";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   type CalculationMethodKey,
   DEFAULT_CALCULATION_METHOD,
@@ -241,6 +242,8 @@ export type LocationResult =
  * `requestForegroundPermissionsAsync` for explicit user actions.
  */
 export async function getLocationPermissionGranted(): Promise<boolean> {
+  // TV has no usable GPS — never treat device location as available.
+  if (isTV()) return false;
   try {
     const { status } = await Location.getForegroundPermissionsAsync();
     return status === "granted";
@@ -262,6 +265,8 @@ export async function getLocationPermissionGranted(): Promise<boolean> {
 export async function getDeviceLocation(
   existing?: Pick<StoredLocation, "latitude" | "longitude" | "city" | "country">,
 ): Promise<LocationResult> {
+  // Apple TV / Android TV: force the manual city-search path (no GPS).
+  if (isTV()) return { status: "denied" };
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") return { status: "denied" };

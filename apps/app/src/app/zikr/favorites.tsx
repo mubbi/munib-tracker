@@ -10,6 +10,7 @@ import { FavoritesOrderRow } from "@/components/ui/favorites-order-row";
 import { Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
+import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 
 export default function ZikrFavoritesScreen() {
@@ -66,9 +67,7 @@ export default function ZikrFavoritesScreen() {
                 total={items.length}
                 title={item.title}
                 subtitle={item.transliteration}
-                onPress={() =>
-                  router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
-                }
+                onPress={() => pushZikrDetail(router, item.id)}
                 onMove={(direction) => move(index, direction)}
                 onRemove={() => toggleFavorite(item.id)}
                 removeAccessibilityLabel={t("zikr.removeFavorite")}

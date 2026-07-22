@@ -1,6 +1,8 @@
 import * as Haptics from "expo-haptics";
 import { Platform } from "react-native";
 
+import { isTV } from "@/lib/platform/is-tv";
+
 /**
  * Semantic haptic vocabulary for the app. Impact styles are for touch/press
  * feedback; `selection` for moving between discrete options; and the
@@ -21,9 +23,9 @@ export type HapticFeedback =
   | "warning"
   | "error";
 
-// Haptics are a native-only nicety. Guard so web (and any unsupported platform)
-// simply no-ops instead of throwing.
-const supported = Platform.OS === "ios" || Platform.OS === "android";
+// Haptics are a phone-only nicety. Guard so web / TV (and any unsupported
+// platform) simply no-ops instead of throwing.
+const supported = (Platform.OS === "ios" || Platform.OS === "android") && !isTV();
 
 /** Synced from user preferences — see preferences-store subscription. */
 let hapticsEnabled = true;

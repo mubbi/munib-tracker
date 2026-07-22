@@ -35,6 +35,7 @@ import {
   computeLockoutAfterFailure,
 } from "@/features/pin-lock/lib/pin-lockout";
 import { isExpoGo } from "@/lib/notifications/platform";
+import { isTV } from "@/lib/platform/is-tv";
 import { deleteSecureItem, getSecureItem, setSecureItem } from "@/lib/storage/safe-secure-store";
 
 /** Lock after this many ms in background (0 = lock immediately). */
@@ -324,7 +325,7 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     void (async () => {
-      if (Platform.OS === "web" || isExpoGo()) {
+      if (Platform.OS === "web" || isExpoGo() || isTV()) {
         setIsReady(true);
         return;
       }

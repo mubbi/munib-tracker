@@ -1,5 +1,5 @@
 import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -9,6 +9,7 @@ import {
   ScriptureReadingFilters,
   scriptureListDetailStyles,
 } from "@/components/content/scripture-reading-filters";
+import { QuranAyahRangeCards } from "@/components/quran/quran-ayah-range-cards";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -18,6 +19,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
@@ -29,9 +31,11 @@ import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
+import { isZikrItemDone } from "@/lib/zikr-count-key";
+import { zikrQuranHref, zikrQuranRanges } from "@/lib/zikr-quran";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
-import { useZikrCount } from "@/stores/tracker-store";
+import { useTrackerActions, useZikrCount } from "@/stores/tracker-store";
 
 /** Pre-render a static HTML page for every bundled zikr at web export time. */
 export async function generateStaticParams(): Promise<Array<{ id: string }>> {
@@ -53,8 +57,13 @@ export default function ZikrDetailScreen() {
   const params = useLocalSearchParams<{ id: string; prayer?: string }>();
   const zikrId = paramId(params.id);
   const prayerParam = paramId(params.prayer);
+  // Full-surah remembrances (e.g. Al-Mulk) open the Qur'an reader.
+  const quranHref = zikrQuranHref(zikrId);
+  // Short ayah spans stay here with Qur'an cards + recitation audio.
+  const quranRanges = zikrQuranRanges(zikrId);
   const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
+    if (quranHref) return;
     let active = true;
     void ensureZikrCorpus().then(() => {
       if (active) setCorpusReady(true);
@@ -62,10 +71,11 @@ export default function ZikrDetailScreen() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [quranHref]);
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
-  const item = corpusReady && zikrId ? getZikrById(zikrId) : undefined;
+  const { setZikrCount } = useTrackerActions();
+  const item = !quranHref && corpusReady && zikrId ? getZikrById(zikrId) : undefined;
   const afterSalahPrayer =
     item?.categoryId === "after_prayer" && prayerParam && isAfterSalahPrayer(prayerParam)
       ? prayerParam
@@ -76,6 +86,10 @@ export default function ZikrDetailScreen() {
   useEffect(() => {
     if (item) recordContinueActivity(buildZikrActivity(item));
   }, [item]);
+
+  if (quranHref) {
+    return <Redirect href={quranHref} />;
+  }
 
   if (!corpusReady) {
     return null;
@@ -101,6 +115,9 @@ export default function ZikrDetailScreen() {
 
   const isFavorite = favoriteIds.includes(item.id);
   const target = item.targetCount ?? 0;
+  // Single-recitation adhkar don't need the counter — mark complete on this screen.
+  const isSingleRecitation = target === 1;
+  const isDone = isZikrItemDone(count, target);
 
   const onShare = async () => {
     await shareCard.share({
@@ -123,29 +140,43 @@ export default function ZikrDetailScreen() {
     { name: zikrTitle, path: `/zikr/detail/${item.id}` },
   ];
 
+  const sourceHref = `/zikr/detail/${item.id}`;
   const readingBody = (
     <Stagger>
       {!isListDetail ? <ScriptureReadingFilters /> : null}
-      <ReadingCard
-        item={item}
-        shareCard={shareCard}
-        sourceHref={`/zikr/detail/${item.id}`}
-        contentRef={buildContentReportRef(
-          "zikr",
-          item.id,
-          `/zikr/detail/${item.id}`,
-          i18n.language?.split("-")[0] ?? "en",
-          {
-            snapshot: {
-              title: item.title,
-              arabic: item.arabic,
-              transliteration: item.transliteration,
-              translation: item.translation,
-              reference: item.reference,
+      {quranRanges ? (
+        <>
+          <QuranAyahRangeCards ranges={quranRanges} sourceHref={sourceHref} shareCard={shareCard} />
+          {item.virtues ? (
+            <Card padding="three">
+              <ThemedText type="small" themeColor="mutedForeground">
+                {item.virtues}
+              </ThemedText>
+            </Card>
+          ) : null}
+        </>
+      ) : (
+        <ReadingCard
+          item={item}
+          shareCard={shareCard}
+          sourceHref={sourceHref}
+          contentRef={buildContentReportRef(
+            "zikr",
+            item.id,
+            sourceHref,
+            i18n.language?.split("-")[0] ?? "en",
+            {
+              snapshot: {
+                title: item.title,
+                arabic: item.arabic,
+                transliteration: item.transliteration,
+                translation: item.translation,
+                reference: item.reference,
+              },
             },
-          },
-        )}
-      />
+          )}
+        />
+      )}
 
       {target > 0 ? (
         <Card padding="three">
@@ -160,19 +191,43 @@ export default function ZikrDetailScreen() {
       ) : null}
 
       <View style={styles.actions}>
-        <Button
-          label={t("zikr.openInTasbeeh")}
-          icon={TASBEEH_ICON}
-          fullWidth
-          onPress={() =>
-            router.push({
-              pathname: "/tasbeeh/[zikrId]",
-              params: afterSalahPrayer
-                ? { zikrId: item.id, prayer: afterSalahPrayer }
-                : { zikrId: item.id },
-            })
-          }
-        />
+        {isSingleRecitation ? (
+          <Button
+            label={isDone ? t("zikr.done") : t("zikr.markAsDone")}
+            icon={
+              isDone
+                ? { ios: "checkmark.seal.fill", android: "verified", web: "verified" }
+                : { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
+            }
+            variant={isDone ? "secondary" : "primary"}
+            fullWidth
+            accessibilityHint={isDone ? t("zikr.undoDoneHint") : undefined}
+            onPress={() => {
+              const next = isDone ? 0 : 1;
+              void setZikrCount(
+                item.id,
+                next,
+                target,
+                afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
+              );
+              if (!isDone) trackReviewInteraction("mark_zikr");
+            }}
+          />
+        ) : (
+          <Button
+            label={t("zikr.openInTasbeeh")}
+            icon={TASBEEH_ICON}
+            fullWidth
+            onPress={() =>
+              router.push({
+                pathname: "/tasbeeh/[zikrId]",
+                params: afterSalahPrayer
+                  ? { zikrId: item.id, prayer: afterSalahPrayer }
+                  : { zikrId: item.id },
+              })
+            }
+          />
+        )}
         <View style={styles.actionRow}>
           <Button
             label={isFavorite ? t("zikr.favorited") : t("zikr.favorite")}

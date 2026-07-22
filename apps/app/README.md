@@ -1,6 +1,6 @@
 # Munib Tracker — Product app (`apps/app`)
 
-Universal **Expo SDK 57** app (iOS · Android · Web from one codebase) for salah, dhikr, qadha, and Islamic content. Offline-first, guest-first.
+Universal **Expo SDK 57** app (iOS · Android · Web · **Apple TV / Android TV** from one codebase) for salah, zikr, qaza, and Islamic content. Offline-first, guest-first.
 
 > Part of the [Munib Tracker monorepo](../../README.md). Always run commands from the **repo root** with pnpm workspace filters. Read [`AGENTS.md`](AGENTS.md) before writing code (it mandates the Expo SDK 57 docs + the Fuse.js search rules).
 
@@ -12,9 +12,15 @@ pnpm --filter app dev          # Expo dev server — pick a platform in the CLI
 pnpm --filter app ios          # iOS simulator (dev build)
 pnpm --filter app android      # Android emulator (dev build)
 pnpm --filter app web          # web (~8081)
+pnpm prebuild:app:tv           # Apple TV + Android TV native projects (EXPO_TV=1)
+pnpm dev:app:tv:android        # after TV prebuild
+pnpm release:app:android-tv    # Leanback AAB (local); :upload / :apk for Play / Amazon
+pnpm release:app:tvos          # tvOS IPA (macOS); :upload uses altool appletvos
+pnpm build:app:android:tv      # EAS production_tv
+pnpm generate:app:brand-assets # phone + TV icons / Leanback banner / Top Shelf
 ```
 
-This uses `expo-dev-client` (not Expo Go) — native modules (`expo-audio`, `expo-notifications`, `expo-location`, `expo-haptics`, …) need a dev build.
+TV guide (prebuild ↔ release ↔ upload): [`docs/TV.md`](../../docs/TV.md). This uses `expo-dev-client` (not Expo Go) — native modules need a dev build.
 
 ## Gates
 

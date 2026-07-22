@@ -33,6 +33,40 @@ function normalizeArabic(text) {
     .replace(/[^ء-ي]/g, "");
 }
 
+/**
+ * Canonical English Islamic spellings (keep in sync with
+ * packages/shared/src/content/terminology.test.ts). Applied to display fields
+ * only — never ids or transliteration (phonetics may contain `dhikr` roots).
+ */
+function sanitizeEnglishDisplay(text) {
+  if (typeof text !== "string" || !text) return text;
+  const keepCase = (match, replacement) =>
+    match[0] === match[0].toUpperCase()
+      ? replacement[0].toUpperCase() + replacement.slice(1)
+      : replacement;
+  return text
+    .replace(/\bdhikr\b/gi, (m) => keepCase(m, "zikr"))
+    .replace(/\btasbih\b/gi, (m) => keepCase(m, "tasbeeh"))
+    .replace(/\bdu['’]a\b/gi, (m) => keepCase(m, "dua"))
+    .replace(/\brak['’]ahs?\b/gi, (m) => keepCase(m, /s$/i.test(m) ? "rakahs" : "rakah"))
+    .replace(/\braka['’]ahs?\b/gi, (m) => keepCase(m, /s$/i.test(m) ? "rakahs" : "rakah"))
+    .replace(/\brakaats?\b/gi, (m) => keepCase(m, /s$/i.test(m) ? "rakahs" : "rakah"))
+    .replace(/\brakats?\b/gi, (m) => keepCase(m, /s$/i.test(m) ? "rakahs" : "rakah"))
+    .replace(/\btaraweeh\b/gi, (m) => keepCase(m, "tarawih"))
+    .replace(/\bazan\b/gi, (m) => keepCase(m, "adhan"))
+    .replace(/\bmosque\b/gi, (m) => keepCase(m, "masjid"));
+}
+
+const ENGLISH_DISPLAY_KEYS = ["title", "translation", "virtues", "reference"];
+
+function sanitizeItemEnglish(item) {
+  const out = { ...item };
+  for (const key of ENGLISH_DISPLAY_KEYS) {
+    if (typeof out[key] === "string") out[key] = sanitizeEnglishDisplay(out[key]);
+  }
+  return out;
+}
+
 /** Minimal RFC-4180 CSV parser (handles quoted fields with commas/newlines). */
 function parseCSV(text) {
   const rows = [];
@@ -257,21 +291,69 @@ function buildDuaCorpus(hisnDuas, translitLookup) {
 
 const QURAN_DIR = join(APP_ROOT, "assets", "data", "quran");
 
+/** Resolve the on-disk subfolder for a mushaf kind. */
+function quranKindSub(kind) {
+  if (kind === "arabic") return "arabic";
+  if (kind === "translit") return "translit";
+  if (kind.startsWith("translation/")) return kind;
+  return "translation/en-pickthall";
+}
+
+/** Load a bundled Qur'an surah JSON keyed by ayah number. Returns null if missing. */
+function loadQuranSurahObj(kind, surah) {
+  const s = String(surah).padStart(3, "0");
+  try {
+    return JSON.parse(readFileSync(join(QURAN_DIR, quranKindSub(kind), `${s}.json`), "utf8"));
+  } catch {
+    return null;
+  }
+}
+
 /** Read a bundled Qur'an surah file for a given kind, joined into one string. */
 function quranSurahText(kind, surah) {
-  const s = String(surah).padStart(3, "0");
-  let sub;
-  if (kind === "arabic") sub = "arabic";
-  else if (kind === "translit") sub = "translit";
-  else if (kind.startsWith("translation/")) sub = kind;
-  else sub = "translation/en-pickthall";
-  const obj = JSON.parse(readFileSync(join(QURAN_DIR, sub, `${s}.json`), "utf8"));
+  const obj = loadQuranSurahObj(kind, surah);
+  if (!obj) {
+    if (kind === "arabic" || kind === "translit" || kind === "translation") {
+      throw new Error(
+        `[adhkar] missing required mushaf ${quranKindSub(kind)}/${String(surah).padStart(3, "0")}`,
+      );
+    }
+    return "";
+  }
   return Object.keys(obj)
     .map(Number)
     .sort((a, b) => a - b)
     .map((k) => obj[String(k)])
     .join(" ")
     .trim();
+}
+
+/**
+ * Read an inclusive ayah range from a bundled surah (e.g. 2:285–286).
+ * Ayah numbers are 1-based as in the mushaf JSON keys.
+ */
+function quranAyahRangeText(kind, surah, fromAyah, toAyah) {
+  const obj = loadQuranSurahObj(kind, surah);
+  if (!obj) {
+    if (kind === "arabic" || kind === "translit" || kind === "translation") {
+      throw new Error(
+        `[adhkar] missing required mushaf ${quranKindSub(kind)}/${String(surah).padStart(3, "0")}`,
+      );
+    }
+    return "";
+  }
+  const parts = [];
+  for (let a = fromAyah; a <= toAyah; a++) {
+    const t = obj[String(a)];
+    if (!t) {
+      if (kind === "arabic" || kind === "translit" || kind === "translation") {
+        throw new Error(`[adhkar] missing ${surah}:${a} in ${quranKindSub(kind)}`);
+      }
+      return "";
+    }
+    parts.push(t);
+  }
+  return parts.join(" ").trim();
 }
 
 /**
@@ -302,9 +384,11 @@ const LOCALE_QURAN_EDITIONS = [
   ["tg", "tg-ayati"],
 ];
 
-/** Parse a single-ayah `Quran S:A` reference from a Hisnul Muslim cite string. */
+/** Parse a single-ayah `Quran S:A` reference from a Hisnul Muslim cite string.
+ *  Ranges like `Quran 2:285-286` are intentionally ignored (filled from mushaf). */
 function parseQuranRef(reference) {
   if (!reference) return null;
+  if (/Quran\s+\d+\s*:\s*\d+\s*[-–]\s*\d+/i.test(reference)) return null;
   const m = reference.match(/Quran\s+(\d+)\s*:\s*(\d+)/i);
   if (!m) return null;
   return { surah: Number.parseInt(m[1], 10), ayah: Number.parseInt(m[2], 10) };
@@ -436,26 +520,47 @@ function mergeTranslationMaps(items, localeMaps) {
 }
 
 /**
- * Fill the "three Quls" before-sleep item with the complete text of Surahs
- * 112-114 straight from the bundled mushaf — no hand-transcription, no `…`.
- * Also layers bundled per-locale Qur'an translations when available.
+ * Fill a zikr item from one or more mushaf spans.
+ * Each span is either `{ surah }` (full surah) or `{ surah, from, to }` (ayah range).
+ * Joins multiple spans with newlines (used for the three Quls). Never hand-writes
+ * Arabic — Hisnul Muslim drops abbreviated Qur'an directives (`…`); we restore
+ * them here from the bundled mushaf.
  */
-function fillThreeQuls(items) {
-  const item = items.find((z) => z.id === "before_sleep-ikhlas");
+function fillItemFromMushaf(item, spans) {
   if (!item) return;
-  const suras = [112, 113, 114];
-  item.arabic = suras.map((s) => quranSurahText("arabic", s)).join("\n");
-  item.transliteration = suras.map((s) => quranSurahText("translit", s)).join("\n");
-  item.translation = suras.map((s) => quranSurahText("translation", s)).join("\n");
+  const joinSpans = (kind) =>
+    spans
+      .map((span) =>
+        span.from != null
+          ? quranAyahRangeText(kind, span.surah, span.from, span.to)
+          : quranSurahText(kind, span.surah),
+      )
+      .join("\n");
+  item.arabic = joinSpans("arabic");
+  item.transliteration = joinSpans("translit");
+  item.translation = joinSpans("translation");
   const translations = { ...(item.translations ?? {}) };
   for (const [locale, editionId] of LOCALE_QURAN_EDITIONS) {
-    const text = suras
-      .map((s) => quranSurahText(`translation/${editionId}`, s))
-      .join("\n")
-      .trim();
+    const text = joinSpans(`translation/${editionId}`).trim();
     if (text) translations[locale] = text;
   }
   if (Object.keys(translations).length) item.translations = translations;
+}
+
+/**
+ * Complete before-sleep Qur'an remembrances from the bundled mushaf.
+ * Canonical set (Hisnul Muslim ch.28 + well-known authentic night sunnah):
+ * Ayat al-Kursi, last two of al-Baqarah, the three Quls, al-Sajdah, al-Mulk.
+ * Surah al-Fatiha is intentionally omitted — it is not a sleep-specific sunnah
+ * (salah / ruqyah), despite popular bedtime collections sometimes listing it.
+ */
+function fillBeforeSleepQuran(items) {
+  const byId = (id) => items.find((z) => z.id === id);
+  fillItemFromMushaf(byId("before_sleep-ayat-kursi"), [{ surah: 2, from: 255, to: 255 }]);
+  fillItemFromMushaf(byId("before_sleep-baqarah-end"), [{ surah: 2, from: 285, to: 286 }]);
+  fillItemFromMushaf(byId("before_sleep-ikhlas"), [{ surah: 112 }, { surah: 113 }, { surah: 114 }]);
+  fillItemFromMushaf(byId("before_sleep-sajdah"), [{ surah: 32 }]);
+  fillItemFromMushaf(byId("before_sleep-mulk"), [{ surah: 67 }]);
 }
 
 // Which after-fard prayers an after-salah dhikr is specific to (by a distinctive
@@ -1003,6 +1108,69 @@ const ZIKR_ITEMS = [
   },
 
   // ── Before Sleep ─────────────────────────────────────────
+  // Qur'anic remembrances first (Hisnul Muslim ch.28 order), then short duas.
+  // Arabic for mushaf-backed items is filled by fillBeforeSleepQuran().
+  {
+    id: "before_sleep-ayat-kursi",
+    categoryId: "before_sleep",
+    title: "Ayat al-Kursi",
+    arabic: "",
+    transliteration: "",
+    translation: "",
+    virtues:
+      "When you go to your bed, recite Ayat al-Kursi — a guardian from Allah stays with you, and no shaytan approaches until morning.",
+    reference: "Quran 2:255 · Bukhari 5010",
+    targetCount: 1,
+  },
+  {
+    id: "before_sleep-baqarah-end",
+    categoryId: "before_sleep",
+    title: "Last two ayahs of Al-Baqarah",
+    arabic: "",
+    transliteration: "",
+    translation: "",
+    virtues:
+      "Whoever recites the last two ayahs of Surat al-Baqarah at night, they will suffice him (as protection).",
+    reference: "Quran 2:285-286 · Bukhari 5009 · Muslim 807",
+    targetCount: 1,
+  },
+  {
+    // arabic / transliteration / translation filled from Surahs 112-114.
+    id: "before_sleep-ikhlas",
+    categoryId: "before_sleep",
+    title: "The Three Quls",
+    arabic: "",
+    transliteration: "",
+    translation: "",
+    virtues:
+      "Cup the palms, recite Al-Ikhlas, Al-Falaq, and An-Nas, blow into the hands, and wipe over the body — starting with the head and face — three times.",
+    reference: "Quran 112-114 · Bukhari 5017",
+    targetCount: 3,
+  },
+  {
+    id: "before_sleep-sajdah",
+    categoryId: "before_sleep",
+    title: "Surah As-Sajdah",
+    arabic: "",
+    transliteration: "",
+    translation: "",
+    virtues:
+      "The Prophet ﷺ would not sleep until he had recited Surat as-Sajdah and Surat al-Mulk.",
+    reference: "Quran 32 · Tirmidhi 2892 · Hisn al-Muslim",
+    targetCount: 1,
+  },
+  {
+    id: "before_sleep-mulk",
+    categoryId: "before_sleep",
+    title: "Surah Al-Mulk",
+    arabic: "",
+    transliteration: "",
+    translation: "",
+    virtues:
+      "A surah of thirty ayahs that intercedes for its companion until he is forgiven. The Prophet ﷺ would not sleep until he had recited it (with Surat as-Sajdah).",
+    reference: "Quran 67 · Tirmidhi 2891 · Abu Dawud 1400",
+    targetCount: 1,
+  },
   {
     id: "before_sleep-name",
     categoryId: "before_sleep",
@@ -1010,32 +1178,19 @@ const ZIKR_ITEMS = [
     arabic: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
     transliteration: "Bismika Allahumma amutu wa ahya",
     translation: "In Your name, O Allah, I die and I live.",
-    reference: "Bukhari",
+    reference: "Bukhari 6314",
     targetCount: 1,
   },
   {
     id: "before_sleep-tasbih-fatimah",
     categoryId: "before_sleep",
-    title: "Tasbih of Fatimah",
+    title: "Tasbeeh of Fatimah",
     arabic: "سُبْحَانَ اللَّهِ (٣٣) الْحَمْدُ لِلَّهِ (٣٣) اللَّهُ أَكْبَرُ (٣٤)",
     transliteration: "Subhan-Allah (33), Alhamdulillah (33), Allahu Akbar (34)",
     translation: "Glory is to Allah, all praise is for Allah, Allah is the Greatest.",
     virtues: "Better for you than a servant, as the Prophet ﷺ taught Fatimah and 'Ali.",
-    reference: "Bukhari & Muslim",
+    reference: "Bukhari 3705 · Muslim 2727",
     targetCount: 100,
-  },
-  {
-    // arabic / transliteration / translation are filled at build time with the
-    // complete text of Surahs 112-114 from the bundled Qur'an (see fillThreeQuls).
-    id: "before_sleep-ikhlas",
-    categoryId: "before_sleep",
-    title: "The Three Quls",
-    arabic: "",
-    transliteration: "",
-    translation: "",
-    virtues: "Recite before sleep, blow into the palms, and wipe over the body three times.",
-    reference: "Quran 112-114 · Bukhari",
-    targetCount: 3,
   },
 ];
 
@@ -1676,12 +1831,12 @@ function renderZikr(items, audioById) {
     "audioUri",
   ];
   const body = withAudio(items, audioById)
-    .map((item) => serializeObject(item, order))
+    .map((item) => serializeObject(sanitizeItemEnglish(item), order))
     .join("\n");
   return `import type { ZikrItem } from "../types/index";
 
 /** Bump when the bundled zikr content changes so clients can re-seed. */
-export const ZIKR_CONTENT_VERSION = 5;
+export const ZIKR_CONTENT_VERSION = 6;
 
 /**
  * Curated adhkar for every part of the day. Generated by
@@ -1713,7 +1868,7 @@ function renderDuas(items, audioById) {
     "audioUri",
   ];
   const body = withAudio(items, audioById)
-    .map((item) => serializeObject(item, order))
+    .map((item) => serializeObject(sanitizeItemEnglish(item), order))
     .join("\n");
   const labels = Object.entries(DUA_CATEGORY_LABELS)
     .map(([k, v]) => `  ${k}: ${str(v)},`)
@@ -1757,7 +1912,7 @@ function renderDuroods(items, audioById) {
     "audioUri",
   ];
   const body = withAudio(items, audioById)
-    .map((item) => serializeObject(item, order))
+    .map((item) => serializeObject(sanitizeItemEnglish(item), order))
     .join("\n");
   return `import type { DurudItem } from "../types/index";
 
@@ -1819,9 +1974,9 @@ function assertContent(zikr, dua, durood) {
 }
 
 export async function buildAdhkar() {
-  // Complete the "three Quls" from the bundled mushaf before anything else so
-  // dedup + assertions see the full text.
-  fillThreeQuls(ZIKR_ITEMS);
+  // Complete before-sleep Qur'an remembrances from the bundled mushaf before
+  // anything else so dedup + assertions see the full text.
+  fillBeforeSleepQuran(ZIKR_ITEMS);
   // Zikr: merge the open dua/dhikr dataset onto the curated base (dedup by Arabic).
   const dataset = await fetchDuaDhikrDataset();
   const zikrItems = mergeUnique(ZIKR_ITEMS, dataset.zikr);

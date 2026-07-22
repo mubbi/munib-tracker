@@ -193,4 +193,4 @@ curl -sI https://munibtracker.app/
 curl -sI https://admin.munibtracker.app/
 ```
 
-Deep-link well-known files: generated at web/export build (`apps/app/scripts/generate-well-known.mjs`); verify hosts + env fingerprints per [DEEP_LINKS.md](./DEEP_LINKS.md) and the Auth ops backlog.
+Deep-link well-known files: generated at web/export build (`apps/app/scripts/generate-well-known.mjs`); verify hosts + env fingerprints per [DEEP_LINKS.md](./DEEP_LINKS.md).

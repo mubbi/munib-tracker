@@ -2,9 +2,40 @@
 
 Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
 
+## Apple TV / Android TV
+
+Full product app on TV via `react-native-tvos` (`npm:react-native-tvos@0.86.0-2`) and `@react-native-tvos/config-tv`. Set `EXPO_TV=1` for TV prebuild; omit phone-only plugins (widgets, Watch, Wear, App Intents, quick actions). Guide: [`docs/TV.md`](../../docs/TV.md). Use `isTV()` from `src/lib/platform/is-tv.ts` for runtime gates — never crash on unsupported modules.
+
+```
+pnpm prebuild:app:tv
+pnpm cleanbuild:app:tv:android   # alias
+pnpm dev:app:tv:android
+pnpm dev:app:tv:ios
+
+# Local release (after TV prebuild)
+pnpm release:app:android-tv
+pnpm release:app:android-tv:upload
+pnpm release:app:tvos              # macOS
+pnpm release:app:tvos:upload
+
+# EAS
+pnpm build:app:android:tv
+pnpm build:app:ios:tv
+```
+
+Phone ↔ TV always needs a **clean** prebuild. Release scripts refuse the wrong native tree. Full guide: [`docs/TV.md`](../../docs/TV.md).
+
 ## Auth (guest + social)
 
 Guest-first sessions with optional Google / Apple / Facebook sign-in for cloud sync. Canonical ops guide: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md) · App Links: [`docs/DEEP_LINKS.md`](../../docs/DEEP_LINKS.md).
+
+| Platform | Google | Apple | Facebook |
+|----------|--------|-------|----------|
+| **iOS** | On-device PKCE → `POST /auth/google` `{ accessToken }` | Native `expo-apple-authentication` → `POST /auth/apple` | PKCE → `POST /auth/oauth/facebook` |
+| **Android** | Same as iOS | Services ID PKCE → HTTPS App Link → `POST /auth/apple/oauth` | Same as iOS |
+| **Web** | PKCE → `POST /auth/google/oauth` (HttpOnly cookies) | Apple `form_post` via API callback → cookies | PKCE → `POST /auth/oauth/facebook` (cookies) |
+
+Key files: `src/hooks/use-social-auth.ts`, `src/lib/auth/oauth-config.ts`, `src/lib/auth/appleAuth.ios.ts`, `src/providers/auth-provider.tsx`, `src/auth/session-store.ts`. Social buttons only render when the matching `EXPO_PUBLIC_*` client env is set.
 
 ## Admin broadcasts (product side)
 
@@ -12,19 +43,11 @@ Ops announcements arrive as in-app notifications with kind **`admin_announcement
 
 ## Live Activity (iOS) + ongoing notification (Android)
 
-Widget snapshot sync drives `src/lib/live-activity/` (start/update/end, phase schedule, ActivityKit token registration). Native surfaces overview: [`docs/NATIVE_SURFACES.md`](../../docs/NATIVE_SURFACES.md). Remote push ops (API APNs, QStash, cron, future Fly worker): [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md).
-
-| Platform | Google | Apple |
-|----------|--------|-------|
-| **iOS** | On-device PKCE → `POST /auth/google` `{ accessToken }` | Native `expo-apple-authentication` → `POST /auth/apple` |
-| **Android** | Same as iOS | Services ID PKCE → HTTPS App Link → `POST /auth/apple/oauth` |
-| **Web** | PKCE → `POST /auth/google/oauth` (HttpOnly cookies) | Apple `form_post` via API callback → cookies |
-
-Key files: `src/hooks/use-social-auth.ts`, `src/lib/auth/oauth-config.ts`, `src/lib/auth/appleAuth.ios.ts`, `src/providers/auth-provider.tsx`, `src/auth/session-store.ts`. Social buttons only render when the matching `EXPO_PUBLIC_*` client env is set.
+Widget snapshot sync drives `src/lib/live-activity/` (start/update/end, phase schedule, ActivityKit token registration). Native surfaces overview: [`docs/NATIVE_SURFACES.md`](../../docs/NATIVE_SURFACES.md). Remote push ops (API APNs, QStash, cron, future Fly worker): [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md). Web + Android Expo surface phases: [`docs/WEB_PUSH.md`](../../docs/WEB_PUSH.md).
 
 ## Internationalization & Islamic terminology (READ BEFORE ADDING ANY SCREEN, COMPONENT, OR CONTENT)
 
-The app ships **23 locales** (`en` + 22 translations). Phase 1 (`en`, `ar`, `ur`) is human-reviewed; Phase 2–4 have key parity with English. Full guide: [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md) · backlog: [`docs/BACKLOG.md`](../../docs/BACKLOG.md).
+The app ships **23 locales** (`en` + 22 translations). Phase 1 (`en`, `ar`, `ur`) is human-reviewed; Phase 2–4 have key parity with English. Full guide: [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md).
 
 Every new feature or content update MUST follow these rules. They are enforced by `src/i18n/i18n-guard.test.ts` and `plural-audit.test.ts` (runs in `pnpm test` / CI). Run locally after any UI or catalog change:
 

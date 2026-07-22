@@ -15,7 +15,12 @@
     "hadith.backToTop": "العودة إلى الأعلى",
     "hadith.readingProgress": "تقدم القراءة",
     "hadith.enterFullscreen": "ملء الشاشة",
-    "hadith.exitFullscreen": "إنهاء ملء الشاشة"
+    "hadith.exitFullscreen": "إنهاء ملء الشاشة",
+    "hadith.isnad": "الإسناد",
+    "hadith.sharh": "الشرح",
+    "hadith.showIsnad": "إظهار الإسناد",
+    "hadith.showSharh": "إظهار الشرح",
+    "hadith.sharhArabicOnly": "الشرح متوفر بالعربية فقط."
   },
   "ur": {
     "reading.backToTop": "اوپر جائیں",
@@ -33,7 +38,12 @@
     "hadith.backToTop": "اوپر جائیں",
     "hadith.readingProgress": "مطالعے کی پیش رفت",
     "hadith.enterFullscreen": "پوری اسکرین",
-    "hadith.exitFullscreen": "پوری اسکرین بند کریں"
+    "hadith.exitFullscreen": "پوری اسکرین بند کریں",
+    "hadith.isnad": "سند",
+    "hadith.sharh": "شرح",
+    "hadith.showIsnad": "سند دکھائیں",
+    "hadith.showSharh": "شرح دکھائیں",
+    "hadith.sharhArabicOnly": "شرح صرف عربی میں دستیاب ہے۔"
   },
   "id": {
     "reading.backToTop": "Kembali ke atas",
@@ -51,7 +61,12 @@
     "hadith.backToTop": "Kembali ke atas",
     "hadith.readingProgress": "Kemajuan membaca",
     "hadith.enterFullscreen": "Masuk layar penuh",
-    "hadith.exitFullscreen": "Keluar dari layar penuh"
+    "hadith.exitFullscreen": "Keluar dari layar penuh",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Syarah",
+    "hadith.showIsnad": "Tampilkan isnad",
+    "hadith.showSharh": "Tampilkan syarah",
+    "hadith.sharhArabicOnly": "Syarah tersedia dalam bahasa Arab saja."
   },
   "tr": {
     "reading.backToTop": "Yukarı dön",
@@ -69,7 +84,12 @@
     "hadith.backToTop": "Yukarı dön",
     "hadith.readingProgress": "Okuma ilerlemesi",
     "hadith.enterFullscreen": "Tam ekrana geç",
-    "hadith.exitFullscreen": "Tam ekrandan çık"
+    "hadith.exitFullscreen": "Tam ekrandan çık",
+    "hadith.isnad": "İsnad",
+    "hadith.sharh": "Şerh",
+    "hadith.showIsnad": "İsnadı göster",
+    "hadith.showSharh": "Şerhi göster",
+    "hadith.sharhArabicOnly": "Şerh yalnızca Arapça olarak mevcuttur."
   },
   "bn": {
     "reading.backToTop": "উপরে যান",
@@ -87,7 +107,12 @@
     "hadith.backToTop": "উপরে যান",
     "hadith.readingProgress": "পড়ার অগ্রগতি",
     "hadith.enterFullscreen": "পূর্ণস্ক্রিনে প্রবেশ",
-    "hadith.exitFullscreen": "পূর্ণস্ক্রিন থেকে প্রস্থান"
+    "hadith.exitFullscreen": "পূর্ণস্ক্রিন থেকে প্রস্থান",
+    "hadith.isnad": "ইসনাদ",
+    "hadith.sharh": "ব্যাখ্যা",
+    "hadith.showIsnad": "ইসনাদ দেখান",
+    "hadith.showSharh": "ব্যাখ্যা দেখান",
+    "hadith.sharhArabicOnly": "ব্যাখ্যা শুধুমাত্র আরবিতে পাওয়া যায়।"
   },
   "ms": {
     "reading.backToTop": "Kembali ke atas",
@@ -105,7 +130,12 @@
     "hadith.backToTop": "Kembali ke atas",
     "hadith.readingProgress": "Kemajuan bacaan",
     "hadith.enterFullscreen": "Masuk skrin penuh",
-    "hadith.exitFullscreen": "Keluar skrin penuh"
+    "hadith.exitFullscreen": "Keluar skrin penuh",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Syarah",
+    "hadith.showIsnad": "Tunjukkan isnad",
+    "hadith.showSharh": "Tunjukkan syarah",
+    "hadith.sharhArabicOnly": "Syarah hanya tersedia dalam bahasa Arab."
   },
   "fa": {
     "reading.backToTop": "بازگشت به بالا",
@@ -123,7 +153,12 @@
     "hadith.backToTop": "بازگشت به بالا",
     "hadith.readingProgress": "پیشرفت خواندن",
     "hadith.enterFullscreen": "ورود به تمام‌صفحه",
-    "hadith.exitFullscreen": "خروج از تمام‌صفحه"
+    "hadith.exitFullscreen": "خروج از تمام‌صفحه",
+    "hadith.isnad": "اسناد",
+    "hadith.sharh": "شرح",
+    "hadith.showIsnad": "نمایش اسناد",
+    "hadith.showSharh": "نمایش شرح",
+    "hadith.sharhArabicOnly": "شرح فقط به عربی در دسترس است."
   },
   "fr": {
     "reading.backToTop": "Retour en haut",
@@ -141,7 +176,12 @@
     "hadith.backToTop": "Retour en haut",
     "hadith.readingProgress": "Progression de lecture",
     "hadith.enterFullscreen": "Passer en plein écran",
-    "hadith.exitFullscreen": "Quitter le plein écran"
+    "hadith.exitFullscreen": "Quitter le plein écran",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Explication",
+    "hadith.showIsnad": "Afficher l'isnad",
+    "hadith.showSharh": "Afficher l'explication",
+    "hadith.sharhArabicOnly": "L'explication n'est disponible qu'en arabe."
   },
   "ha": {
     "reading.backToTop": "Koma sama",
@@ -159,7 +199,12 @@
     "hadith.backToTop": "Koma sama",
     "hadith.readingProgress": "Ci gaban karatu",
     "hadith.enterFullscreen": "Shiga cikakken allo",
-    "hadith.exitFullscreen": "Fita daga cikakken allo"
+    "hadith.exitFullscreen": "Fita daga cikakken allo",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Sharhi",
+    "hadith.showIsnad": "Nuna isnad",
+    "hadith.showSharh": "Nuna sharhi",
+    "hadith.sharhArabicOnly": "Sharhi yana nan da Larabci kawai."
   },
   "sw": {
     "reading.backToTop": "Rudi juu",
@@ -177,7 +222,12 @@
     "hadith.backToTop": "Rudi juu",
     "hadith.readingProgress": "Maendeleo ya kusoma",
     "hadith.enterFullscreen": "Ingia skrini kamili",
-    "hadith.exitFullscreen": "Toka skrini kamili"
+    "hadith.exitFullscreen": "Toka skrini kamili",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Maelezo",
+    "hadith.showIsnad": "Onyesha isnad",
+    "hadith.showSharh": "Onyesha maelezo",
+    "hadith.sharhArabicOnly": "Maelezo yanapatikana kwa Kiarabu tu."
   },
   "ru": {
     "reading.backToTop": "Наверх",
@@ -195,7 +245,12 @@
     "hadith.backToTop": "Наверх",
     "hadith.readingProgress": "Прогресс чтения",
     "hadith.enterFullscreen": "Войти в полноэкранный режим",
-    "hadith.exitFullscreen": "Выйти из полноэкранного режима"
+    "hadith.exitFullscreen": "Выйти из полноэкранного режима",
+    "hadith.isnad": "Иснад",
+    "hadith.sharh": "Шарх",
+    "hadith.showIsnad": "Показать иснад",
+    "hadith.showSharh": "Показать шарх",
+    "hadith.sharhArabicOnly": "Пояснение доступно только на арабском."
   },
   "az": {
     "reading.backToTop": "Yuxarıya qayıt",
@@ -213,7 +268,12 @@
     "hadith.backToTop": "Yuxarıya qayıt",
     "hadith.readingProgress": "Oxuma irəliləyişi",
     "hadith.enterFullscreen": "Tam ekrana keç",
-    "hadith.exitFullscreen": "Tam ekrandan çıx"
+    "hadith.exitFullscreen": "Tam ekrandan çıx",
+    "hadith.isnad": "İsnad",
+    "hadith.sharh": "Şərh",
+    "hadith.showIsnad": "İsnadı göstər",
+    "hadith.showSharh": "Şərhi göstər",
+    "hadith.sharhArabicOnly": "Şərh yalnız ərəb dilində mövcuddur."
   },
   "ps": {
     "reading.backToTop": "بېرته پورته",
@@ -231,7 +291,12 @@
     "hadith.backToTop": "بېرته پورته",
     "hadith.readingProgress": "د لوستلو پرمختګ",
     "hadith.enterFullscreen": "بشپړ سکرین ته ننوځه",
-    "hadith.exitFullscreen": "بشپړ سکرین بند کړه"
+    "hadith.exitFullscreen": "بشپړ سکرین بند کړه",
+    "hadith.isnad": "اسناد",
+    "hadith.sharh": "شرح",
+    "hadith.showIsnad": "اسناد ښکاره کړئ",
+    "hadith.showSharh": "شرح ښکاره کړئ",
+    "hadith.sharhArabicOnly": "شرح یوازې په عربي کې شتون لري."
   },
   "so": {
     "reading.backToTop": "Ku laabo xagga sare",
@@ -249,7 +314,12 @@
     "hadith.backToTop": "Ku laabo xagga sare",
     "hadith.readingProgress": "Horumarka akhriska",
     "hadith.enterFullscreen": "Geli shaashadda buuxda",
-    "hadith.exitFullscreen": "Ka bax shaashadda buuxda"
+    "hadith.exitFullscreen": "Ka bax shaashadda buuxda",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Sharh",
+    "hadith.showIsnad": "Muuji isnad",
+    "hadith.showSharh": "Muuji sharh",
+    "hadith.sharhArabicOnly": "Sharaxaadda waxaa lagu heli karaa Carabi oo keliya."
   },
   "uz": {
     "reading.backToTop": "Yuqoriga qaytish",
@@ -267,7 +337,12 @@
     "hadith.backToTop": "Yuqoriga qaytish",
     "hadith.readingProgress": "Oʻqish jarayoni",
     "hadith.enterFullscreen": "Toʻliq ekranga kirish",
-    "hadith.exitFullscreen": "Toʻliq ekrandan chiqish"
+    "hadith.exitFullscreen": "Toʻliq ekrandan chiqish",
+    "hadith.isnad": "Isnod",
+    "hadith.sharh": "Sharh",
+    "hadith.showIsnad": "Isnodni koʻrsatish",
+    "hadith.showSharh": "Sharhni koʻrsatish",
+    "hadith.sharhArabicOnly": "Sharh faqat arab tilida mavjud."
   },
   "kk": {
     "reading.backToTop": "Жоғарыға оралу",
@@ -285,7 +360,12 @@
     "hadith.backToTop": "Жоғарыға оралу",
     "hadith.readingProgress": "Оқу үдерісі",
     "hadith.enterFullscreen": "Толық экранға кіру",
-    "hadith.exitFullscreen": "Толық экраннан шығу"
+    "hadith.exitFullscreen": "Толық экраннан шығу",
+    "hadith.isnad": "Иснад",
+    "hadith.sharh": "Шарх",
+    "hadith.showIsnad": "Иснадты көрсету",
+    "hadith.showSharh": "Шархты көрсету",
+    "hadith.sharhArabicOnly": "Түсініктеме тек араб тілінде қолжетімді."
   },
   "ku": {
     "reading.backToTop": "Vegere jor",
@@ -303,7 +383,12 @@
     "hadith.backToTop": "Vegere jor",
     "hadith.readingProgress": "Pêşveçûna xwendinê",
     "hadith.enterFullscreen": "Têkeve ekrana tijî",
-    "hadith.exitFullscreen": "Ji ekrana tijî derkeve"
+    "hadith.exitFullscreen": "Ji ekrana tijî derkeve",
+    "hadith.isnad": "Îsnad",
+    "hadith.sharh": "Şerh",
+    "hadith.showIsnad": "Îsnadê nîşan bide",
+    "hadith.showSharh": "Şerhê nîşan bide",
+    "hadith.sharhArabicOnly": "Şerh tenê bi erebî heye."
   },
   "bs": {
     "reading.backToTop": "Nazad na vrh",
@@ -321,7 +406,12 @@
     "hadith.backToTop": "Nazad na vrh",
     "hadith.readingProgress": "Napredak čitanja",
     "hadith.enterFullscreen": "Uđi u cijeli ekran",
-    "hadith.exitFullscreen": "Izađi iz cijelog ekrana"
+    "hadith.exitFullscreen": "Izađi iz cijelog ekrana",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Objašnjenje",
+    "hadith.showIsnad": "Prikaži isnad",
+    "hadith.showSharh": "Prikaži objašnjenje",
+    "hadith.sharhArabicOnly": "Objašnjenje je dostupno samo na arapskom."
   },
   "sq": {
     "reading.backToTop": "Kthehu lart",
@@ -339,7 +429,12 @@
     "hadith.backToTop": "Kthehu lart",
     "hadith.readingProgress": "Ecuria e leximit",
     "hadith.enterFullscreen": "Hyr në ekran të plotë",
-    "hadith.exitFullscreen": "Dil nga ekrani i plotë"
+    "hadith.exitFullscreen": "Dil nga ekrani i plotë",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Shpjegim",
+    "hadith.showIsnad": "Shfaq isnadin",
+    "hadith.showSharh": "Shfaq shpjegimin",
+    "hadith.sharhArabicOnly": "Shpjegimi është i disponueshëm vetëm në arabisht."
   },
   "ky": {
     "reading.backToTop": "Жогоруга кайтуу",
@@ -357,7 +452,12 @@
     "hadith.backToTop": "Жогоруга кайтуу",
     "hadith.readingProgress": "Окуу прогресси",
     "hadith.enterFullscreen": "Толук экранга кирүү",
-    "hadith.exitFullscreen": "Толук экрандан чыгуу"
+    "hadith.exitFullscreen": "Толук экрандан чыгуу",
+    "hadith.isnad": "Иснад",
+    "hadith.sharh": "Шарх",
+    "hadith.showIsnad": "Иснадды көрсөтүү",
+    "hadith.showSharh": "Шархты көрсөтүү",
+    "hadith.sharhArabicOnly": "Түшүндүрмө араб тилинде гана жеткиликтүү."
   },
   "tg": {
     "reading.backToTop": "Бозгашт ба боло",
@@ -375,7 +475,12 @@
     "hadith.backToTop": "Бозгашт ба боло",
     "hadith.readingProgress": "Пешрафти хондан",
     "hadith.enterFullscreen": "Ворид шудан ба экрани пурра",
-    "hadith.exitFullscreen": "Баромадан аз экрани пурра"
+    "hadith.exitFullscreen": "Баромадан аз экрани пурра",
+    "hadith.isnad": "Иснад",
+    "hadith.sharh": "Шарҳ",
+    "hadith.showIsnad": "Иснадро нишон диҳед",
+    "hadith.showSharh": "Шарҳро нишон диҳед",
+    "hadith.sharhArabicOnly": "Шарҳ танҳо бо забони арабӣ дастрас аст."
   },
   "tk": {
     "reading.backToTop": "Ýokaryk gaýt",
@@ -393,6 +498,11 @@
     "hadith.backToTop": "Ýokaryk gaýt",
     "hadith.readingProgress": "Okamak ösüşi",
     "hadith.enterFullscreen": "Doly ekrana gir",
-    "hadith.exitFullscreen": "Doly ekrandan çyk"
+    "hadith.exitFullscreen": "Doly ekrandan çyk",
+    "hadith.isnad": "Isnad",
+    "hadith.sharh": "Şerh",
+    "hadith.showIsnad": "Isnady görkez",
+    "hadith.showSharh": "Şerhi görkez",
+    "hadith.sharhArabicOnly": "Düşündiriş diňe arap dilinde elýeterlidir."
   }
 }

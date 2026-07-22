@@ -17,6 +17,8 @@ import {
 import { useSharedValue } from "react-native-reanimated";
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { HadithIsnadChain } from "@/components/hadith/hadith-isnad-chain";
+import { HadithSharhBlock } from "@/components/hadith/hadith-sharh-block";
 import { HadithReadingToolbar } from "@/components/hadith/reading-toolbar";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -113,6 +115,11 @@ export default function HadithCollectionScreen() {
   const data = remote ? remoteQuery.data : bundledData;
   const sections = data?.sections ?? EMPTY_SECTIONS;
   const allItems = data?.items ?? EMPTY_HADITH_ITEMS;
+  const hasIsnad = useMemo(
+    () => allItems.some((item) => (item.isnad?.length ?? 0) > 0),
+    [allItems],
+  );
+  const hasSharh = useMemo(() => allItems.some((item) => Boolean(item.sharhArabic)), [allItems]);
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const { translationLocale, fontPrefs } = usePreferences();
   const prefs = useHadithPrefs();
@@ -389,9 +396,25 @@ export default function HadithCollectionScreen() {
           enabled={prefs.showGrade}
           onToggle={() => void updatePrefs({ showGrade: !prefs.showGrade })}
         />
+        {hasIsnad ? (
+          <PrefToggle
+            icon={CONTROL_ICONS.isnad}
+            label={t("hadith.showIsnad")}
+            enabled={prefs.showIsnad}
+            onToggle={() => void updatePrefs({ showIsnad: !prefs.showIsnad })}
+          />
+        ) : null}
+        {hasSharh ? (
+          <PrefToggle
+            icon={CONTROL_ICONS.sharh}
+            label={t("hadith.showSharh")}
+            enabled={prefs.showSharh}
+            onToggle={() => void updatePrefs({ showSharh: !prefs.showSharh })}
+          />
+        ) : null}
       </Card>
     ),
-    [prefs, t, updatePrefs],
+    [hasIsnad, hasSharh, prefs, t, updatePrefs],
   );
 
   if (!collection) {
@@ -446,12 +469,18 @@ export default function HadithCollectionScreen() {
             showTranslation={prefs.showTranslation}
             showNarrator={prefs.showNarrator}
             showGrade={prefs.showGrade}
+            showIsnad={prefs.showIsnad}
+            showSharh={prefs.showSharh}
+            hasIsnad={hasIsnad}
+            hasSharh={hasSharh}
             onToggleArabic={() => void updatePrefs({ showArabic: !prefs.showArabic })}
             onToggleTranslation={() =>
               void updatePrefs({ showTranslation: !prefs.showTranslation })
             }
             onToggleNarrator={() => void updatePrefs({ showNarrator: !prefs.showNarrator })}
             onToggleGrade={() => void updatePrefs({ showGrade: !prefs.showGrade })}
+            onToggleIsnad={() => void updatePrefs({ showIsnad: !prefs.showIsnad })}
+            onToggleSharh={() => void updatePrefs({ showSharh: !prefs.showSharh })}
           />
         ) : undefined
       }
@@ -680,6 +709,8 @@ function HadithCard({
   const showNarrator = prefs.showNarrator && Boolean(item.narrator);
   const showGrade = prefs.showGrade && Boolean(item.grade);
   const showTranslation = prefs.showTranslation && Boolean(displayTranslation);
+  const showIsnad = prefs.showIsnad && (item.isnad?.length ?? 0) > 0;
+  const showSharh = prefs.showSharh && Boolean(item.sharhArabic);
 
   return (
     <ContextMenu actions={menuActions} onAction={onMenuAction}>
@@ -760,13 +791,15 @@ function HadithCard({
             <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
               {item.arabic}
             </ThemedText>
-            {showNarrator || showTranslation ? (
+            {showNarrator || showIsnad || showTranslation || showSharh ? (
               <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
             ) : null}
           </>
         ) : null}
 
-        {showNarrator ? (
+        {showIsnad && item.isnad ? <HadithIsnadChain isnad={item.isnad} /> : null}
+
+        {showNarrator && !showIsnad ? (
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.narrator}>
             {item.narrator}
           </ThemedText>
@@ -783,6 +816,13 @@ function HadithCard({
             {displayTranslation}
           </ThemedText>
         ) : null}
+
+        {showSharh && item.sharhArabic ? (
+          <HadithSharhBlock
+            sharhArabic={item.sharhArabic}
+            arabicSize={Math.max(16, arabicSize - 2)}
+          />
+        ) : null}
       </Card>
     </ContextMenu>
   );
@@ -793,6 +833,8 @@ const CONTROL_ICONS = {
   translation: { ios: "text.alignleft", android: "notes", web: "notes" },
   narrator: { ios: "person.fill", android: "person", web: "person" },
   grade: { ios: "checkmark.seal.fill", android: "verified", web: "verified" },
+  isnad: { ios: "list.bullet", android: "format_list_bulleted", web: "format_list_bulleted" },
+  sharh: { ios: "text.book.closed", android: "menu_book", web: "menu_book" },
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
 } as const satisfies Record<string, SymbolViewProps["name"]>;
 

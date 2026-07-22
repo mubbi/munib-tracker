@@ -93,6 +93,10 @@ export const DB_KEYS = {
   zakatCalculator: `${PREFIX}/zakat_calculator`,
   /** @deprecated Prefer {@link DB_KEYS.zakatCalculator}; kept for one-time migration. */
   zakatCurrency: `${PREFIX}/zakat_currency`,
+  // Fidyah / kaffarah estimate draft — cloud-synced.
+  fidyahCalculator: `${PREFIX}/fidyah_calculator`,
+  // Sadaqah intention + giving log — cloud-synced.
+  sadaqahGoals: `${PREFIX}/sadaqah_goals`,
   // Show/hide transliteration + translation on dua/zikr/durood reading surfaces — cloud-synced.
   readingTextVisibility: `${PREFIX}/reading_text_visibility`,
 } as const;
@@ -176,6 +180,8 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   blobSyncState: "deviceLocal",
   zakatCalculator: "userData",
   zakatCurrency: "deviceLocal",
+  fidyahCalculator: "userData",
+  sadaqahGoals: "userData",
   readingTextVisibility: "userData",
 };
 

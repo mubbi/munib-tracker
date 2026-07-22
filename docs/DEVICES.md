@@ -2,7 +2,7 @@
 
 Supported devices and minimum OS versions. Open expansion work: [`BACKLOG.md`](./BACKLOG.md#device-platforms).
 
-Related: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) · [`STORE_ASSETS.md`](./STORE_ASSETS.md) · [`apps/app/AGENTS.md`](../apps/app/AGENTS.md)
+Related: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) · [`TV.md`](./TV.md) · [`STORE_ASSETS.md`](./STORE_ASSETS.md) · [`apps/app/AGENTS.md`](../apps/app/AGENTS.md)
 
 ---
 
@@ -10,9 +10,9 @@ Related: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) · [`STORE_ASSETS.md`](./S
 
 | Category | Supported | Not supported |
 |----------|-----------|---------------|
-| **Full app** | iPhone, Android phone, iPad, Android tablet (adaptive wide layouts), web/PWA | tvOS, Android TV, visionOS, CarPlay, Android Auto, native desktop |
+| **Full app** | iPhone, Android phone, iPad, Android tablet (adaptive wide layouts), web/PWA, **Apple TV (tvOS), Android TV** | visionOS, native desktop |
 | **Companion surfaces** | iOS/Android widgets, iOS Live Activities, Siri, Google Assistant, Apple Watch, Wear OS tile | — |
-| **Build requirement** | EAS dev/production build for native surfaces (not Expo Go) | — |
+| **Build requirement** | EAS dev/production build for native surfaces (not Expo Go); TV needs `EXPO_TV=1` prebuild | — |
 
 ---
 
@@ -27,10 +27,12 @@ Related: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) · [`STORE_ASSETS.md`](./S
 | **iPad (iOS tablet)** | ✅ | `"supportsTablet": true`; side rail at ≥768px window width; list–detail on Qur'an & Tracker at ≥900px |
 | **Android tablets** | ✅ | Same adaptive width breakpoints as iPad (not device-type checks) |
 | **Web / PWA** | ✅ | Static export — `pnpm --filter app web`, `build:web` |
+| **Apple TV (tvOS)** | ✅ | Full Expo app via `react-native-tvos` + `EXPO_TV=1` — see [`TV.md`](./TV.md) |
+| **Android TV / Fire TV** | ✅ | Same TV build (Leanback); Fire TV uses standard Android TV APK |
 
-**Orientation:** portrait-only (`orientation: "portrait"` in `app.json`, PWA manifest).
+**Orientation:** portrait-only on phone (`orientation: "portrait"` in `app.json`); TV builds are landscape-friendly via `@react-native-tvos/config-tv`.
 
-**Tablet UX:** Native and web adapt by **window width**: side rail at ≥768px ([`use-large-screen-layout.ts`](../apps/app/src/hooks/use-large-screen-layout.ts), [`app-tabs-wide.tsx`](../apps/app/src/components/app-tabs-wide.tsx)); Qur'an and Tracker use list–detail at ≥900px.
+**Tablet / TV UX:** Native and web adapt by **window width**: side rail at ≥768px ([`use-large-screen-layout.ts`](../apps/app/src/hooks/use-large-screen-layout.ts), [`app-tabs-wide.tsx`](../apps/app/src/components/app-tabs-wide.tsx)); Qur'an and Tracker use list–detail at ≥900px. **TV always uses the side rail** and 10-foot focus chrome.
 
 ### Companion / extension surfaces
 
@@ -50,7 +52,7 @@ Watch and Wear are **companions tied to the phone app** — they read the shared
 
 **App Group (iOS):** `group.app.munibtracker.widgets`
 
-Build wiring: `apps/app/app.config.js` (`@bacons/apple-targets`, `withWearOs.cjs`, `withExternalCommands.cjs`, etc.).
+Build wiring: `apps/app/app.config.js` (`@bacons/apple-targets`, `withWearOs.cjs`, `withExternalCommands.cjs`, etc.). TV omits phone-only plugins when `EXPO_TV=1`.
 
 ---
 
@@ -58,15 +60,10 @@ Build wiring: `apps/app/app.config.js` (`@bacons/apple-targets`, `withWearOs.cjs
 
 | Platform | Notes |
 |----------|-------|
-| **Apple TV (tvOS)** | No tvOS target |
-| **Android TV / Fire TV** | No television feature |
 | **Apple Vision Pro (visionOS)** | No visionOS target |
-| **CarPlay / Android Auto** | No automotive entitlements |
 | **macOS / Windows / Linux native** | Use web/PWA |
-| **Dedicated Chromebook app** | Web/PWA preferred; Android APK may run |
-| **Foldables / dual-screen** | No hinge-aware layouts |
 
-Also not in repo: App Clip, Mac Catalyst, Android TV Leanback, automotive SDKs.
+Also not in repo: App Clip, Mac Catalyst. TV Leanback wiring is via `@react-native-tvos/config-tv` when `EXPO_TV=1` — see [`TV.md`](./TV.md).
 
 ---
 
@@ -79,6 +76,8 @@ Also not in repo: App Clip, Mac Catalyst, Android TV Leanback, automotive SDKs.
 | Apple Watch | **watchOS 10.0** | `targets/munib-tracker-watch/expo-target.config.js`, `targets/munib-tracker-watch-widgets/` |
 | Wear OS module | **API 30** (Android 11+) | `plugins/withWearOs.cjs` |
 | Main Android app | Expo SDK 57 default (~API 24+) | Expo prebuild |
+| Apple TV | **tvOS 17+** | Expo TV / Xcode tvOS SDK |
+| Android TV | **API 31+** (TV system image) | Android Studio TV emulator |
 
 Native surfaces require `EXPO_APPLE_TEAM_ID` for iOS extensions. See [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md).
 
@@ -89,10 +88,11 @@ Native surfaces require `EXPO_APPLE_TEAM_ID` for iOS extensions. See [`NATIVE_SU
 | File | Role |
 |------|------|
 | `apps/app/app.json` | `supportsTablet`, `orientation`, iOS/Android identifiers |
-| `apps/app/app.config.js` | Plugins: apple-targets, Wear OS, widgets, external commands |
+| `apps/app/app.config.js` | Plugins: apple-targets, Wear OS, widgets, external commands; TV gates via `EXPO_TV` |
 | `apps/app/targets/munib-tracker-watch/` | Apple Watch companion |
 | `apps/app/targets/munib-tracker-watch-widgets/` | Apple Watch face complications (WidgetKit) |
 | `apps/app/targets/munib-tracker-widgets/` | WidgetKit + Live Activity |
 | `apps/app/targets/munib-tracker-intents/` | Siri App Intents |
 | `apps/app/plugins/withWearOs.cjs` | Wear OS tile scaffold |
 | `docs/NATIVE_SURFACES.md` | Architecture and manual QA matrix |
+| `docs/TV.md` | Apple TV / Android TV prebuild, EAS, degradations |

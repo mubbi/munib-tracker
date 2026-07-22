@@ -10,16 +10,23 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Stagger } from "@/components/ui/stagger";
 import { Brand, Radius, Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useAuth } from "@/providers/auth-provider";
 import { usePreferences } from "@/stores/preferences-store";
+
+/** Comfortable CTA column — avoids stretched OAuth buttons on wide web/tablet. */
+const AUTH_ACTIONS_MAX_WIDTH = 360;
 
 export default function LoginScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { tokens } = useThemeTokens();
   const { isAuthenticated, isGuest, user, session } = useAuth();
   const prefs = usePreferences();
+  const tv = isTV();
 
   const onContinue = () => {
     goBackOrReplace(router, isAuthenticated ? "/profile" : "/");
@@ -39,6 +46,7 @@ export default function LoginScreen() {
       title={isAuthenticated ? t("login.titleSignedIn") : t("login.title")}
       subtitle={isAuthenticated ? t("login.subtitleSignedIn") : t("login.subtitle")}
       onBack={onContinue}
+      maxContentWidth={AUTH_ACTIONS_MAX_WIDTH + Spacing.four * 2}
     >
       <Seo
         path="/login"
@@ -53,6 +61,7 @@ export default function LoginScreen() {
             gradientBackground(
               `linear-gradient(150deg, ${Brand.heroTop} 0%, ${Brand.heroGlow} 55%, ${Brand.heroBottom} 100%)`,
             ),
+            { borderColor: Brand.heroBorder },
           ]}
         >
           {/* Branded splash header so the highest-intent screen matches the intro. */}
@@ -99,20 +108,38 @@ export default function LoginScreen() {
           ) : null}
         </View>
 
-        {isAuthenticated ? (
-          <Button label={t("login.continueSignedIn")} fullWidth onPress={onContinue} />
-        ) : (
-          <>
-            <SocialLoginButtons onSuccess={onContinue} />
+        <View style={styles.actions}>
+          {isAuthenticated ? (
+            <Button label={t("login.continueSignedIn")} fullWidth onPress={onContinue} />
+          ) : (
+            <>
+              <SocialLoginButtons onSuccess={onContinue} />
 
-            <Button
-              label={t("common.continueAsGuest")}
-              variant="ghost"
-              fullWidth
-              onPress={() => goBackOrReplace(router, "/")}
-            />
-          </>
-        )}
+              <View
+                style={styles.orRow}
+                accessibilityRole="text"
+                accessibilityLabel={t("login.or")}
+              >
+                <View style={[styles.orLine, { backgroundColor: tokens.hairline }]} />
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.orLabel}>
+                  {t("login.or")}
+                </ThemedText>
+                <View style={[styles.orLine, { backgroundColor: tokens.hairline }]} />
+              </View>
+
+              <Button
+                label={t("common.continueAsGuest")}
+                variant="secondary"
+                fullWidth
+                onPress={() => goBackOrReplace(router, "/")}
+              />
+
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.guestHint}>
+                {tv ? t("common.tvOauthHint") : t("login.guestHint")}
+              </ThemedText>
+            </>
+          )}
+        </View>
       </Stagger>
     </ScreenLayout>
   );
@@ -124,25 +151,50 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     paddingVertical: Spacing.five,
     paddingHorizontal: Spacing.four,
-    borderRadius: Radius.lg,
+    borderRadius: Radius.xl,
     borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
     overflow: "hidden",
   },
   wordmark: {
     textAlign: "center",
   },
   logo: {
-    width: 80,
-    height: 80,
-    borderRadius: 18,
+    width: 168,
+    height: 168,
+    borderRadius: 36,
   },
   heroText: {
     textAlign: "center",
-    maxWidth: 300,
+    maxWidth: 280,
+    lineHeight: 20,
   },
   signedInMeta: {
     alignItems: "center",
     gap: Spacing.one,
     marginTop: Spacing.one,
+  },
+  actions: {
+    width: "100%",
+    maxWidth: AUTH_ACTIONS_MAX_WIDTH,
+    alignSelf: "center",
+    gap: Spacing.three,
+  },
+  orRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  orLine: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+  },
+  orLabel: {
+    textTransform: "lowercase",
+  },
+  guestHint: {
+    textAlign: "center",
+    lineHeight: 18,
+    paddingHorizontal: Spacing.two,
   },
 });

@@ -9,6 +9,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ReportAttachmentInput } from "@/lib/content-report-api";
+import { isTV } from "@/lib/platform/is-tv";
 import { useToast } from "@/providers/toast-provider";
 
 const MAX_ATTACHMENTS = 3;
@@ -43,6 +44,10 @@ export function ContentReportAttachments({
   const toast = useToast();
 
   const pickImage = async () => {
+    if (isTV()) {
+      toast.info(t("common.tvUnavailableBody"));
+      return;
+    }
     if (attachments.length >= MAX_ATTACHMENTS) return;
 
     try {

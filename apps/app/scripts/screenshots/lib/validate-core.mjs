@@ -19,6 +19,7 @@ import { demoReadyMarkers } from "./demo-data.mjs";
 import { validateI18nKeys } from "./i18n.mjs";
 import { filterScenes, SCENES, sceneCount } from "./scenes.mjs";
 import { commandExists } from "./shell.mjs";
+import { TV_SCENES, TV_STORE_SIZE, tvSceneCount } from "./tv-scenes.mjs";
 import { WATCH_SCENES, WATCH_STORE_SIZE } from "./watch-scenes.mjs";
 
 const REQUIRED_I18N = [
@@ -43,11 +44,15 @@ export function validateStructure() {
     "capture-android.mjs",
     "capture-ios.mjs",
     "capture-watch.mjs",
+    "capture-tvos.mjs",
+    "capture-android-tv.mjs",
     "validate.mjs",
     "lib/config.mjs",
     "lib/app-locales.mjs",
     "lib/demo-data.mjs",
     "lib/scenes.mjs",
+    "lib/tv-scenes.mjs",
+    "lib/tv-capture.mjs",
     "lib/maestro.mjs",
     "lib/run-maestro-batches.mjs",
     "lib/inject-storage-android.mjs",
@@ -123,6 +128,60 @@ export function validateStructure() {
     appIds: APP_ID,
     watchSceneCount: WATCH_SCENES.length,
     watchStoreSize: WATCH_STORE_SIZE,
+    tvSceneCount: tvSceneCount(),
+    tvStoreSize: TV_STORE_SIZE,
+  };
+}
+
+/** Structure checks for Apple TV / Android TV capture scaffolding. */
+export function validateTvStructure() {
+  const base = validateStructure();
+  const errors = [...base.errors];
+  const warnings = [...base.warnings];
+
+  if (!TV_SCENES.length) errors.push("TV_SCENES is empty");
+  const ids = new Set();
+  for (const scene of TV_SCENES) {
+    if (!scene.id) errors.push("TV scene missing id");
+    if (!scene.storeFile) errors.push(`TV scene ${scene.id} missing storeFile`);
+    if (!scene.group) errors.push(`TV scene ${scene.id} missing group`);
+    if (scene.type === "tab" && !scene.tab) errors.push(`TV tab scene missing tab: ${scene.id}`);
+    if (scene.type === "route" && !scene.route) {
+      errors.push(`TV route scene missing route: ${scene.id}`);
+    }
+    if (ids.has(scene.id)) errors.push(`Duplicate TV scene id: ${scene.id}`);
+    ids.add(scene.id);
+  }
+
+  if (TV_STORE_SIZE.w !== 1920 || TV_STORE_SIZE.h !== 1080) {
+    warnings.push(
+      `TV store size is ${TV_STORE_SIZE.w}×${TV_STORE_SIZE.h} (default marketing size is 1920×1080)`,
+    );
+  }
+
+  const fireTvDir = path.join(APP_ROOT, "assets", "images", "tv");
+  for (const name of [
+    "android-banner.png",
+    "android-icon.png",
+    "firetv-background-1920x1080.png",
+    "firetv-icon-1280x720.png",
+    "firetv-icon-512.png",
+    "firetv-icon-114.png",
+  ]) {
+    const full = path.join(fireTvDir, name);
+    if (!fs.existsSync(full)) {
+      warnings.push(
+        `TV brand asset missing (run pnpm generate:app:brand-assets): assets/images/tv/${name}`,
+      );
+    }
+  }
+
+  return {
+    ok: errors.length === 0,
+    errors,
+    warnings,
+    sceneCount: TV_SCENES.length,
+    storeSize: TV_STORE_SIZE,
   };
 }
 

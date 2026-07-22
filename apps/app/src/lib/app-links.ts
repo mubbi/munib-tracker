@@ -1,3 +1,5 @@
+import { zikrQuranPath } from "@/lib/zikr-quran";
+
 /** Custom URL scheme for widgets, shortcuts, and deep links (`app.json` → `scheme`). */
 export const APP_SCHEME = "munib-tracker";
 
@@ -133,6 +135,10 @@ export const DEEP_LINK_DESTINATIONS = [
   "/new-muslim",
   "/finance",
   "/flash-cards",
+  "/fidyah",
+  "/janazah",
+  "/sadaqah",
+  "/prophets/tree",
   // Qur'an extras
   "/quran/juz",
   "/quran/pages",
@@ -239,6 +245,10 @@ export const appLink = {
   newMuslim: () => link("/new-muslim"),
   finance: () => link("/finance"),
   flashCards: () => link("/flash-cards"),
+  fidyah: () => link("/fidyah"),
+  janazah: () => link("/janazah"),
+  sadaqah: () => link("/sadaqah"),
+  prophetsTree: () => link("/prophets/tree"),
   quranJuz: () => link("/quran/juz"),
   quranPages: () => link("/quran/pages"),
   quranKhatm: () => link("/quran/khatm"),
@@ -263,7 +273,8 @@ export const appLink = {
   duaCategory: (category: string) => link(`/dua/${category}`),
   duaDetail: (id: string) => link(`/dua/detail/${id}`),
   zikrCategory: (category: string) => link(`/zikr/${category}`),
-  zikrDetail: (id: string) => link(`/zikr/detail/${id}`),
+  /** Mushaf-backed remembrances (e.g. Al-Mulk) resolve to the Qur'an reader. */
+  zikrDetail: (id: string) => link(zikrQuranPath(id) ?? `/zikr/detail/${id}`),
   tasbeehZikr: (zikrId: string) => link(`/tasbeeh/${zikrId}`),
   tasbeehDurood: (id: string) => link(`/tasbeeh/durood/${id}`),
   tasbeehCustom: (id: string) => link(`/tasbeeh/custom/${id}`),

@@ -51,5 +51,7 @@ export const SyncRecordDtoEntity = {
   location: 'location',
   reading_text_visibility: 'reading_text_visibility',
   zakat_calculator: 'zakat_calculator',
+  fidyah_calculator: 'fidyah_calculator',
+  sadaqah_goals: 'sadaqah_goals',
   tours_seen: 'tours_seen',
 } as const;

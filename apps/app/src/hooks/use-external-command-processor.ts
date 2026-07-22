@@ -11,6 +11,7 @@ import {
   subscribeNativeCommands,
 } from "@/lib/external-commands/native-bridge";
 import { coalesceMarkCurrentCommands } from "@/lib/external-commands/queue";
+import { isTV } from "@/lib/platform/is-tv";
 import { useToast } from "@/providers/toast-provider";
 
 function resultMessage(result: Awaited<ReturnType<typeof handleExternalCommand>>): string | null {
@@ -80,7 +81,7 @@ export function useExternalCommandProcessor(): void {
   }, [processOne]);
 
   useEffect(() => {
-    if (Platform.OS === "web") return;
+    if (Platform.OS === "web" || isTV()) return;
     void nativeActivateWatchSession();
     void drain();
     const unsub = subscribeNativeCommands(() => {

@@ -70,7 +70,7 @@ export const ZikrRow = memo(function ZikrRow({
         <View style={styles.body}>
           <ThemedText type="small">{item.title}</ThemedText>
           {item.transliteration ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
               {item.transliteration}
             </ThemedText>
           ) : null}

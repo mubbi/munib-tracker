@@ -30,5 +30,17 @@
     },
     "note": "Upload Ultra 3 only — App Store Connect scales to smaller watches. Same size across all localizations."
   },
+  "tv": {
+    "preferredSize": { "label": "tv-1080p", "w": 1920, "h": 1080 },
+    "slideScenes": {
+      "01": "01-home",
+      "02": "02-tracker",
+      "03": "03-library",
+      "04": "04-quran",
+      "05": "05-zikr",
+      "06": "06-settings"
+    },
+    "note": "Apple TV + Android TV / Fire TV screenshots. Default validate-only; RUN_CAPTURE=1 writes PNGs. Fire TV banner/icons are Amazon console uploads (firetv-* under assets/images/tv/), not APK."
+  },
   "storeAssetsRoot": "apps/app/store-assets"
 }

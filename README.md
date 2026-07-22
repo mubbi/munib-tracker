@@ -14,13 +14,16 @@ This is a **pnpm + Turborepo** monorepo:
 | **Admin console** | `apps/admin` | Next.js ops console (port 3002) — users, reports, broadcasts |
 | `@munib-tracker/shared` | `packages/shared` | Domain types, constants, validators, content, achievements |
 | `@munib-tracker/db` | `packages/db` | Drizzle schema mirror for admin (DDL owned by API TypeORM migrations) |
+| `@munib-tracker/live-activity-delivery` | `packages/live-activity-delivery` | ActivityKit APNs client + atomic job claim/deliver |
+| `@munib-tracker/surface-push-delivery` | `packages/surface-push-delivery` | Expo + Web Push senders + surface job claim/deliver |
+| `@munib-tracker/store-screenshots` | `packages/store-screenshots` | Shared App Store / Play screenshot specs |
 | `@munib-tracker/theme` | `packages/theme` | Design tokens, accent palette, `resolveTheme()` |
 | `@munib-tracker/api-contract` | `packages/api-contract` | OpenAPI spec exported from the API |
 | `@munib-tracker/api-client` | `packages/api-client` | Orval-generated fetch + TanStack Query SDK |
 | `@munib-tracker/typescript-config` | `packages/typescript-config` | Shared TS configs |
 | `@munib-tracker/vitest-config` | `packages/vitest-config` | Vitest presets |
 
-**Note:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), `apps/admin` (port 3002), and `apps/app` web (Expo, ~8081) are different apps.
+**Note:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), `apps/admin` (port 3002), and `apps/app` web (Expo, ~8081) are different apps. Screenshot framing lives in `tools/screenshot-studio/` (not a workspace package; port 3010).
 
 ## Prerequisites
 
@@ -39,7 +42,7 @@ pnpm dev:marketing-web # Next.js marketing site (:3000)
 
 ## Product app (`apps/app`)
 
-Universal Expo app for salah, dhikr, qadha, and Islamic content — offline-first and cross-platform.
+Universal Expo app for salah, zikr, qaza, and Islamic content — offline-first and cross-platform.
 
 | Command | Description |
 |---------|-------------|
@@ -57,8 +60,8 @@ Universal Expo app for salah, dhikr, qadha, and Islamic content — offline-firs
 
 **Worship & tracking:**
 - Prayer tracker (5 fard + Witr + sunnah) with statuses, notes, streaks
-- Qaza suite — counters, lifetime calculator, daily planner, and roza (fasting) tracking
-- Dhikr library + favorites, tasbeeh counter (library-driven, free, and custom)
+- Qaza suite — counters, lifetime calculator, daily planner, and fasting tracking
+- Zikr / Adhkar library + favorites, tasbeeh counter (library-driven, free, and custom)
 - Activity calendar (Gregorian + Hijri), day detail, statistics, achievements ("Noor" devotion levels)
 
 **Content library (offline, sourced from open datasets):**
@@ -114,7 +117,7 @@ import { resolveTheme } from "@munib-tracker/theme/resolve";
 | **Biome** | Lint + format (`pnpm lint`, `pnpm format-and-lint:fix`) |
 | **Turborepo** | Task orchestration (`pnpm turbo run build lint check-types test`) |
 | **Husky** | pre-commit: Biome autofix staged files + restage; pre-push: `pnpm check:ci` (matches GitHub Actions) |
-| **Vitest** | marketing-web + package tests |
+| **Vitest** | marketing-web, api, and package tests |
 | **Jest** | apps/app unit + feature tests |
 
 ## Testing
@@ -122,6 +125,7 @@ import { resolveTheme } from "@munib-tracker/theme/resolve";
 ```bash
 pnpm test                              # all tests via turbo
 pnpm --filter marketing-web test       # Vitest
+pnpm --filter api test                 # Vitest (unit) · test:e2e for e2e
 pnpm --filter app test                 # Jest + Testing Library RN
 ```
 

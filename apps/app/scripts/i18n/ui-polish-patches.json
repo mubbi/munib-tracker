@@ -642,7 +642,12 @@
     "khatm.correctTotalConfirmTitle": "Sabunta jimlar da aka karanta?",
     "khatm.correctTotalConfirmMsg": "Saita jimlar khatm zuwa ayah {{count}}?",
     "khatm.correctTotalConfirmMsgPages": "Saita jimlar khatm zuwa shafuka {{count}}?",
-    "khatm.correctTotalConfirmAction": "Sabunta jimlar"
+    "khatm.correctTotalConfirmAction": "Sabunta jimlar",
+    "login.heroUser": "Kiyaye Salah, qaza da zikr ɗinku amintacce a cikin gajimare.",
+    "login.or": "ko",
+    "login.guestHint": "Kuna iya haɗa asusu kowane lokaci daga Bayanan martaba.",
+    "zikr.markAsDone": "Alama a matsayin an gama",
+    "zikr.undoDoneHint": "Taɓa don sokewa da cire alamar kammala"
   },
   "ku": {
     "home.streakStat": "Zincîre",
@@ -1241,7 +1246,12 @@
     "khatm.correctTotalConfirmTitle": "Tevahîya xwendî nûve bikin?",
     "khatm.correctTotalConfirmMsg": "Tevahîya khatm wekî {{count}} ayet bike?",
     "khatm.correctTotalConfirmMsgPages": "Tevahîya khatm wekî {{count}} rûpel bike?",
-    "khatm.correctTotalConfirmAction": "Tevahîyê nûve bike"
+    "khatm.correctTotalConfirmAction": "Tevahîyê nûve bike",
+    "login.heroUser": "نوێژ، قەزا و زیکرەکەت لە هەوردا پارێزراو بهێڵەرەوە.",
+    "login.or": "یان",
+    "login.guestHint": "دەتوانیت لە هەر کاتێکدا لە پرۆفایلەوە هەژمار ببەستیت.",
+    "zikr.markAsDone": "Wekî temam nîşan bike",
+    "zikr.undoDoneHint": "Ji bo betal kirin û wekî netemam nîşankirinê bitikîne"
   },
   "bs": {
     "home.streakStat": "Niz",
@@ -1874,7 +1884,12 @@
     "khatm.correctTotalConfirmTitle": "Ažurirati ukupno pročitano?",
     "khatm.correctTotalConfirmMsg": "Postaviti khatm ukupno na {{count}} ajeta?",
     "khatm.correctTotalConfirmMsgPages": "Postaviti khatm ukupno na {{count}} stranica?",
-    "khatm.correctTotalConfirmAction": "Ažuriraj ukupno"
+    "khatm.correctTotalConfirmAction": "Ažuriraj ukupno",
+    "login.heroUser": "Čuvajte svoj namaz, kazu i zikr sigurno u oblaku.",
+    "login.or": "ili",
+    "login.guestHint": "Račun možete povezati bilo kada iz Profila.",
+    "zikr.markAsDone": "Označi kao završeno",
+    "zikr.undoDoneHint": "Dodirnite da poništite i označite kao nezavršeno"
   },
   "ms": {
     "search.cat.zikr": "Adhkar",
@@ -2478,7 +2493,12 @@
     "khatm.correctTotalConfirmTitle": "Kemas kini jumlah bacaan?",
     "khatm.correctTotalConfirmMsg": "Tetapkan jumlah khatm kepada {{count}} ayat?",
     "khatm.correctTotalConfirmMsgPages": "Tetapkan jumlah khatm kepada {{count}} muka surat?",
-    "khatm.correctTotalConfirmAction": "Kemas kini jumlah"
+    "khatm.correctTotalConfirmAction": "Kemas kini jumlah",
+    "login.heroUser": "Simpan solat, qaza, dan zikir anda dengan selamat di awan.",
+    "login.or": "atau",
+    "login.guestHint": "Anda boleh pautkan akaun pada bila-bila masa dari Profil.",
+    "zikr.markAsDone": "Tandakan selesai",
+    "zikr.undoDoneHint": "Ketik untuk buat asal dan tandakan belum selesai"
   },
   "sw": {
     "common.quiz.answeredCount": "{{count}} imejibiwa",
@@ -3087,7 +3107,12 @@
     "khatm.correctTotalConfirmTitle": "Sasisha jumla iliyosomwa?",
     "khatm.correctTotalConfirmMsg": "Weka jumla ya khatm kuwa aya {{count}}?",
     "khatm.correctTotalConfirmMsgPages": "Weka jumla ya khatm kuwa kurasa {{count}}?",
-    "khatm.correctTotalConfirmAction": "Sasisha jumla"
+    "khatm.correctTotalConfirmAction": "Sasisha jumla",
+    "login.heroUser": "Hifadhi Salah, qaza na zikr yako salama kwenye wingu.",
+    "login.or": "au",
+    "login.guestHint": "Unaweza kuunganisha akaunti wakati wowote kutoka Wasifu.",
+    "zikr.markAsDone": "Weka alama kuwa imekamilika",
+    "zikr.undoDoneHint": "Gusa ili kutengua na kuweka kuwa haijakamilika"
   },
   "id": {
     "search.cat.zikr": "Adzkar",
@@ -3636,7 +3661,12 @@
     "khatm.correctTotalConfirmTitle": "Perbarui total bacaan?",
     "khatm.correctTotalConfirmMsg": "Tetapkan total khatm menjadi {{count}} ayat?",
     "khatm.correctTotalConfirmMsgPages": "Tetapkan total khatm menjadi {{count}} halaman?",
-    "khatm.correctTotalConfirmAction": "Perbarui total"
+    "khatm.correctTotalConfirmAction": "Perbarui total",
+    "login.heroUser": "Jaga shalat, qaza, dan zikir Anda tetap aman di cloud.",
+    "login.or": "atau",
+    "login.guestHint": "Anda dapat menautkan akun kapan saja dari Profil.",
+    "zikr.markAsDone": "Tandai selesai",
+    "zikr.undoDoneHint": "Ketuk untuk batalkan dan tandai belum selesai"
   },
   "ru": {
     "language.scriptureAvailable": "Перевод Корана доступен",
@@ -4241,7 +4271,7 @@
     "settings.adhanStyles.mishary.name": "Мишари Алафаси",
     "login.subtitle": "Синхронизируйте поклонение между устройствами",
     "login.heroGuest": "Вы используете гостевую учетную запись. Свяжите провайдера для резервного копирования и синхронизации ваших данных — ничего не потеряется.",
-    "login.heroUser": "Войдите, чтобы сохранить намазы, казу и зикр в облаке.",
+    "login.heroUser": "Храните намазы, казу и зикр в безопасности в облаке.",
     "login.error": "Не удалось войти. Убедитесь, что API-сервер запущен и этот провайдер настроен.",
     "onboarding.brandDuaLabel": "Просьба о легкости",
     "onboarding.brandDuaTranslation": "О Аллах, нет облегчения кроме того, что Ты облегчаешь, и Ты облегчаешь трудное, если пожелаешь.",
@@ -5487,7 +5517,11 @@
     "khatm.correctTotalConfirmTitle": "Обновить общий итог чтения?",
     "khatm.correctTotalConfirmMsg": "Установить итог хатма равным {{count}} аятам?",
     "khatm.correctTotalConfirmMsgPages": "Установить итог хатма равным {{count}} страницам?",
-    "khatm.correctTotalConfirmAction": "Обновить итог"
+    "khatm.correctTotalConfirmAction": "Обновить итог",
+    "login.or": "или",
+    "login.guestHint": "Вы можете привязать аккаунт в любой момент в разделе «Профиль».",
+    "zikr.markAsDone": "Отметить выполненным",
+    "zikr.undoDoneHint": "Нажмите, чтобы отменить и снять отметку"
   },
   "tr": {
     "home.continueListening": "Ses",
@@ -6069,7 +6103,12 @@
     "khatm.correctTotalConfirmTitle": "Okunan toplam güncellensin mi?",
     "khatm.correctTotalConfirmMsg": "Hatim toplamı {{count}} ayet olsun mu?",
     "khatm.correctTotalConfirmMsgPages": "Hatim toplamı {{count}} sayfa olsun mu?",
-    "khatm.correctTotalConfirmAction": "Toplamı güncelle"
+    "khatm.correctTotalConfirmAction": "Toplamı güncelle",
+    "login.heroUser": "Namaz, kaza ve zikirlerinizi bulutta güvende tutun.",
+    "login.or": "veya",
+    "login.guestHint": "Hesabınızı istediğiniz zaman Profil'den bağlayabilirsiniz.",
+    "zikr.markAsDone": "Tamamlandı olarak işaretle",
+    "zikr.undoDoneHint": "Geri almak ve tamamlanmamış yapmak için dokunun"
   },
   "fr": {
     "home.continueListening": "Audio",
@@ -6651,7 +6690,12 @@
     "khatm.correctTotalConfirmTitle": "Mettre à jour le total lu ?",
     "khatm.correctTotalConfirmMsg": "Définir le total du khatm à {{count}} ayahs ?",
     "khatm.correctTotalConfirmMsgPages": "Définir le total du khatm à {{count}} pages ?",
-    "khatm.correctTotalConfirmAction": "Mettre à jour le total"
+    "khatm.correctTotalConfirmAction": "Mettre à jour le total",
+    "login.heroUser": "Gardez vos Salah, qaza et zikr en sécurité dans le cloud.",
+    "login.or": "ou",
+    "login.guestHint": "Vous pouvez lier un compte à tout moment depuis Profil.",
+    "zikr.markAsDone": "Marquer comme terminé",
+    "zikr.undoDoneHint": "Appuyez pour annuler et marquer comme non terminé"
   },
   "fa": {
     "home.continueListening": "صدا",
@@ -7170,7 +7214,7 @@
     "login.eyebrowGuest": "پیشرفت خود را ذخیره کنید",
     "login.subtitle": "عبادت خود را میان دستگاه‌ها همگام‌سازی کنید",
     "login.heroGuest": "از حساب مهمان استفاده می‌کنید. برای پشتیبان‌گیری و همگام‌سازی داده‌ها، یک ارائه‌دهنده را پیوند دهید — چیزی از دست نمی‌رود.",
-    "login.heroUser": "وارد شوید تا نمازها، قضاها و اذکار شما با امنیت در فضای ابری نگهداری شوند.",
+    "login.heroUser": "نماز، قضا و ذکر خود را در فضای ابری امن نگه دارید.",
     "login.error": "ورود ممکن نشد. مطمئن شوید سرور API در حال اجراست و این ارائه‌دهنده پیکربندی شده است.",
     "onboarding.brandDuaLabel": "دعایی برای آسانی",
     "onboarding.brandDuaTranslation": "خدایا، آسانی نیست مگر آنچه تو آسان کنی، و اگر بخواهی دشوار را آسان می‌گردانی.",
@@ -7517,7 +7561,11 @@
     "khatm.correctTotalConfirmTitle": "مجموع خوانده‌شده به‌روز شود؟",
     "khatm.correctTotalConfirmMsg": "مجموع ختم {{count}} آیه تنظیم شود؟",
     "khatm.correctTotalConfirmMsgPages": "مجموع ختم {{count}} صفحه تنظیم شود؟",
-    "khatm.correctTotalConfirmAction": "به‌روزرسانی مجموع"
+    "khatm.correctTotalConfirmAction": "به‌روزرسانی مجموع",
+    "login.or": "یا",
+    "login.guestHint": "می‌توانید هر زمان از نمایه حسابی را متصل کنید.",
+    "zikr.markAsDone": "علامت‌گذاری به عنوان انجام‌شده",
+    "zikr.undoDoneHint": "برای بازگرداندن و لغو تکمیل ضربه بزنید"
   },
   "az": {
     "language.scriptureAvailable": "Qur'an tərcüməsi mövcuddur",
@@ -8097,7 +8145,7 @@
     "settings.adhanStyles.mishary.name": "Mishary Alafasy",
     "login.subtitle": "İbadətinizi cihazlar arasında sinxronlaşdırın",
     "login.heroGuest": "Siz qonaq hesabından istifadə edirsiniz. Datanızın ehtiyat nüsxəsini çıxarmaq və sinxronlaşdırmaq üçün provayderi əlaqələndirin – heç nə itirilmir.",
-    "login.heroUser": "namazlarınızı, qaza və zikr-i buludda təhlükəsiz saxlamaq üçün daxil olun.",
+    "login.heroUser": "Namaz, qəza və zikrinizi buludda təhlükəsiz saxlayın.",
     "login.error": "Daxil olmaq mümkün olmadı. API serverinin işlədiyinə və bu provayderin konfiqurasiya olunduğuna əmin olun.",
     "onboarding.brandDuaLabel": "Asanlıq üçün bir dua",
     "onboarding.brandDuaTranslation": "Ey Allah, asanlaşdırdığın şeydən başqa asanlıq yoxdur, əgər istəsən çətinliyi də asanlaşdırarsan.",
@@ -9198,7 +9246,11 @@
     "khatm.correctTotalConfirmTitle": "Oxunan cəm yenilənsin?",
     "khatm.correctTotalConfirmMsg": "Xətm cəmi {{count}} ayə olsun?",
     "khatm.correctTotalConfirmMsgPages": "Xətm cəmi {{count}} səhifə olsun?",
-    "khatm.correctTotalConfirmAction": "Cəmi yenilə"
+    "khatm.correctTotalConfirmAction": "Cəmi yenilə",
+    "login.or": "və ya",
+    "login.guestHint": "Hesabı istənilən vaxt Profil bölməsindən bağlaya bilərsiniz.",
+    "zikr.markAsDone": "Tamamlandı kimi işarələ",
+    "zikr.undoDoneHint": "Ləğv etmək və tamamlanmamış etmək üçün toxunun"
   },
   "ps": {
     "language.scriptureAvailable": "د قرآن ژباړه شتون لري",
@@ -9778,7 +9830,7 @@
     "settings.adhanStyles.mishary.name": "مشاری الفاسی",
     "login.subtitle": "خپل عبادت د وسیلو په اوږدو کې همغږي کړئ",
     "login.heroGuest": "تاسو د میلمه حساب کاروئ. ستاسو د معلوماتو بیک اپ او همغږي کولو لپاره چمتو کونکي سره اړیکه ونیسئ - هیڅ شی له لاسه نه ورکوي.",
-    "login.heroUser": "په ورېځ کې د خپلو لمونځونو، قضا او ذکر د خوندي ساتلو لپاره ننوتل.",
+    "login.heroUser": "خپل لمونځ، قضا او ذکر په ورېځ کې خوندي وساتئ.",
     "login.error": "ننوتل ممکن نشول. ډاډ ترلاسه کړئ چې API سرور روان دی او دا چمتو کوونکی تنظیم شوی دی.",
     "onboarding.brandDuaLabel": "د اسانتیا لپاره یوه دعا",
     "onboarding.brandDuaTranslation": "ای الله، په هغه څه کې چې ته یې آسانه کړې، هیڅ آساني نشته او که ته وغواړې، سختې یې اسانه کړې.",
@@ -11085,7 +11137,11 @@
     "khatm.correctTotalConfirmTitle": "لوستل شوی ټول تازه کړئ؟",
     "khatm.correctTotalConfirmMsg": "د ختم ټولګه {{count}} آیات ته وټاکئ؟",
     "khatm.correctTotalConfirmMsgPages": "د ختم ټولګه {{count}} پاڼو ته وټاکئ؟",
-    "khatm.correctTotalConfirmAction": "ټول تازه کړئ"
+    "khatm.correctTotalConfirmAction": "ټول تازه کړئ",
+    "login.or": "یا",
+    "login.guestHint": "تاسو کولی شئ هر وخت له پروفایل څخه حساب ونښلوئ.",
+    "zikr.markAsDone": "بشپړ شوی نښه کړئ",
+    "zikr.undoDoneHint": "د بیرته اخیستو او ناسم بشپړولو لپاره ټایپ کړئ"
   },
   "so": {
     "language.scriptureAvailable": "Turjumaadda Quraanka waa la heli karaa",
@@ -11665,7 +11721,7 @@
     "settings.adhanStyles.mishary.name": "Mishary Alafasy",
     "login.subtitle": "Isku xidh cibaadadaada aaladaha oo dhan",
     "login.heroGuest": "Waxaad isticmaalaysaa akoon martida Ku xidh bixiyaha si aad u kaydiso oo aad u habayso xogtaada - ma jiraan wax lumay.",
-    "login.heroUser": "Saxiix si aad u ilaaliso salaadadaada, qaza, iyo zikr si badbaado leh daruuraha ugu jira.",
+    "login.heroUser": "Salaaddaada, qaza iyo zikr ku hay daruuraha si ammaan ah.",
     "login.error": "Waa lagu fashilmay gelitaanka. Hubi in server-ka API uu shaqeynayo oo bixiyahan la habeeyay.",
     "onboarding.brandDuaLabel": "Duco fudud",
     "onboarding.brandDuaTranslation": "Allah, wax fududaan ma jiro waxaad fududayso mooyee, waxaadna fudaydaysaa dhib haddaad doonto.",
@@ -12765,7 +12821,11 @@
     "khatm.correctTotalConfirmTitle": "Cusbooneysii wadarta la akhriyay?",
     "khatm.correctTotalConfirmMsg": "Wadarta khatmka {{count}} aayadood ka dhig?",
     "khatm.correctTotalConfirmMsgPages": "Wadarta khatmka {{count}} bogag ka dhig?",
-    "khatm.correctTotalConfirmAction": "Cusbooneysii wadarta"
+    "khatm.correctTotalConfirmAction": "Cusbooneysii wadarta",
+    "login.or": "ama",
+    "login.guestHint": "Waxaad akoon ku xidhi kartaa wakhti kasta Profile-ka.",
+    "zikr.markAsDone": "Calaamadee dhammaystiran",
+    "zikr.undoDoneHint": "Taabo si aad u noqoto oo aad uga saarto dhammaystirka"
   },
   "uz": {
     "language.scriptureAvailable": "Qur'on tarjimasi mavjud",
@@ -13345,7 +13405,7 @@
     "settings.adhanStyles.mishary.name": "Mishary Alafasy",
     "login.subtitle": "Ibodatlaringizni qurilmalar oʻrtasida sinxronlashtiring",
     "login.heroGuest": "Siz mehmon hisobidan foydalanmoqdasiz. Maʼlumotlaringizni zaxiralash va sinxronlashtirish uchun provayder bilan bogʻlaning – hech narsa yoʻqolmaydi.",
-    "login.heroUser": "Ibodatlaringizni qaza va zikr bulutda xavfsiz saqlash uchun tizimga kiring.",
+    "login.heroUser": "Namoz, qazo va zikringizni bulutda xavfsiz saqlang.",
     "login.error": "Kirib bo‘lmadi. API server ishlayotganini va bu provayder sozlanganini tekshiring.",
     "onboarding.brandDuaLabel": "Osonlik uchun iltijo",
     "onboarding.brandDuaTranslation": "Ey Allah, O'zing oson qilgan narsadan boshqa osonlik yo'q va agar xohlasang, qiyinni osonlashtirursan.",
@@ -14446,7 +14506,11 @@
     "khatm.correctTotalConfirmTitle": "O‘qilgan jami yangilansinmi?",
     "khatm.correctTotalConfirmMsg": "Xatm jami {{count}} oyat qilib qo‘yilsinmi?",
     "khatm.correctTotalConfirmMsgPages": "Xatm jami {{count}} sahifa qilib qo‘yilsinmi?",
-    "khatm.correctTotalConfirmAction": "Jamini yangilash"
+    "khatm.correctTotalConfirmAction": "Jamini yangilash",
+    "login.or": "yoki",
+    "login.guestHint": "Hisobni istalgan vaqtda Profil orqali bog‘lashingiz mumkin.",
+    "zikr.markAsDone": "Bajarildi deb belgilash",
+    "zikr.undoDoneHint": "Bekor qilish va bajarilmagan deb belgilash uchun bosing"
   },
   "tg": {
     "language.scriptureAvailable": "Тарҷумаи Қуръон дастрас аст",
@@ -15026,7 +15090,7 @@
     "settings.adhanStyles.mishary.name": "Мишари Алафаси",
     "login.subtitle": "Ибодати худро дар байни дастгоҳҳо ҳамоҳанг созед",
     "login.heroGuest": "Шумо ҳисоби меҳмонро истифода мебаред. Провайдерро барои нусхабардорӣ ва ҳамоҳангсозии маълумоти шумо пайваст кунед - ҳеҷ чиз гум намешавад.",
-    "login.heroUser": "Ворид шавед, то намоз, қазо ва зикри худро дар абр эмин нигоҳ доред.",
+    "login.heroUser": "Намоз, қазо ва зикри худро дар абр эмин нигоҳ доред.",
     "login.error": "Вуруд нашуд. Боварӣ ҳосил кунед, ки сервери API кор мекунад ва ин провайдер танзим шудааст.",
     "onboarding.brandDuaLabel": "Дуо барои осонӣ",
     "onboarding.brandDuaTranslation": "Худоё, ҳеҷ осоние нест ҷуз дар он чӣ Ту осон мекунӣ ва агар бихоҳӣ мушкилро осон мекунӣ.",
@@ -16299,7 +16363,11 @@
     "khatm.correctTotalConfirmTitle": "Ҷамъи хондашуда навсозӣ шавад?",
     "khatm.correctTotalConfirmMsg": "Ҷамъи хатм {{count}} оят бошад?",
     "khatm.correctTotalConfirmMsgPages": "Ҷамъи хатм {{count}} саҳифа бошад?",
-    "khatm.correctTotalConfirmAction": "Ҷамъро навсозӣ кун"
+    "khatm.correctTotalConfirmAction": "Ҷамъро навсозӣ кун",
+    "login.or": "ё",
+    "login.guestHint": "Шумо метавонед ҳисобро ҳар вақт аз Профил пайваст кунед.",
+    "zikr.markAsDone": "Ҳамчун анҷомёфта қайд кунед",
+    "zikr.undoDoneHint": "Барои бекор кардан ва ҳамчун анҷомнашуда қайд кардан пахш кунед"
   },
   "tk": {
     "language.scriptureAvailable": "Guran terjimesi elýeterli",
@@ -16889,7 +16957,12 @@
     "khatm.correctTotalConfirmTitle": "Okalan jemi täzelensinmi?",
     "khatm.correctTotalConfirmMsg": "Khatm jemi {{count}} aýet bolsunmy?",
     "khatm.correctTotalConfirmMsgPages": "Khatm jemi {{count}} sahypa bolsunmy?",
-    "khatm.correctTotalConfirmAction": "Jemi täzele"
+    "khatm.correctTotalConfirmAction": "Jemi täzele",
+    "login.heroUser": "Namaz, kaza we zikiriňizi bulutda howpsuz saklaň.",
+    "login.or": "ýa-da",
+    "login.guestHint": "Hasabyňyzy islän wagtyňyz Profil bölüminden baglap bilersiňiz.",
+    "zikr.markAsDone": "Tamamlanan diýip belläň",
+    "zikr.undoDoneHint": "Yza gaýtarmak we tamamlanmadyk diýip bellemek üçin basyň"
   },
   "kk": {
     "language.scriptureAvailable": "Құран аудармасы қолжетімді",
@@ -17412,7 +17485,12 @@
     "khatm.correctTotalConfirmTitle": "Оқылған жиынтықты жаңарту керек пе?",
     "khatm.correctTotalConfirmMsg": "Хатм жиынтығы {{count}} аят болсын ба?",
     "khatm.correctTotalConfirmMsgPages": "Хатм жиынтығы {{count}} бет болсын ба?",
-    "khatm.correctTotalConfirmAction": "Жиынтықты жаңарту"
+    "khatm.correctTotalConfirmAction": "Жиынтықты жаңарту",
+    "login.heroUser": "Намаз, қаза және зікіріңізді бұлтта қауіпсіз сақтаңыз.",
+    "login.or": "немесе",
+    "login.guestHint": "Тіркелгіні кез келген уақытта Профильден байланыстыруға болады.",
+    "zikr.markAsDone": "Орындалды деп белгілеу",
+    "zikr.undoDoneHint": "Бас тарту және орындалмаған деп белгілеу үшін түртіңіз"
   },
   "sq": {
     "language.scriptureAvailable": "Përkthimi i Kur'anit është i disponueshëm",
@@ -17957,7 +18035,12 @@
     "khatm.correctTotalConfirmTitle": "Të përditësohet totali i lexuar?",
     "khatm.correctTotalConfirmMsg": "Të vendoset totali i khatm-it në {{count}} ajete?",
     "khatm.correctTotalConfirmMsgPages": "Të vendoset totali i khatm-it në {{count}} faqe?",
-    "khatm.correctTotalConfirmAction": "Përditëso totalin"
+    "khatm.correctTotalConfirmAction": "Përditëso totalin",
+    "login.heroUser": "Mbajini namazin, kazën dhe zikrin të sigurt në re.",
+    "login.or": "ose",
+    "login.guestHint": "Mund të lidhni një llogari në çdo kohë nga Profili.",
+    "zikr.markAsDone": "Shëno si të përfunduar",
+    "zikr.undoDoneHint": "Prek për ta zhbërë dhe shënuar si të papërfunduar"
   },
   "ky": {
     "language.scriptureAvailable": "Куран котормосу бар",
@@ -18489,7 +18572,12 @@
     "khatm.correctTotalConfirmTitle": "Окулган жыйынтыкты жаңырталыбы?",
     "khatm.correctTotalConfirmMsg": "Хатм жыйынтыгы {{count}} аят болсунбу?",
     "khatm.correctTotalConfirmMsgPages": "Хатм жыйынтыгы {{count}} бет болсунбу?",
-    "khatm.correctTotalConfirmAction": "Жыйынтыкты жаңыртуу"
+    "khatm.correctTotalConfirmAction": "Жыйынтыкты жаңыртуу",
+    "login.heroUser": "Намаз, каза жана зикриңизди булутта коопсуз сактаңыз.",
+    "login.or": "же",
+    "login.guestHint": "Каттоо эсебин каалаган убакта Профилден байланыштырсаңыз болот.",
+    "zikr.markAsDone": "Аткарылды деп белгилөө",
+    "zikr.undoDoneHint": "Жокко чыгарып, аткарылган эмес деп белгилөө үчүн басыңыз"
   },
   "bn": {
     "onboarding.locationEyebrow": "অবস্থান ও অনুস্মারক",
@@ -18997,7 +19085,12 @@
     "khatm.correctTotalConfirmTitle": "মোট পঠন আপডেট করবেন?",
     "khatm.correctTotalConfirmMsg": "খতমের মোট {{count}} আয়াত নির্ধারণ করবেন?",
     "khatm.correctTotalConfirmMsgPages": "খতমের মোট {{count}} পৃষ্ঠা নির্ধারণ করবেন?",
-    "khatm.correctTotalConfirmAction": "মোট আপডেট করুন"
+    "khatm.correctTotalConfirmAction": "মোট আপডেট করুন",
+    "login.heroUser": "আপনার সালাত, কাজা ও যিকির ক্লাউডে নিরাপদ রাখুন।",
+    "login.or": "অথবা",
+    "login.guestHint": "আপনি যেকোনো সময় প্রোফাইল থেকে অ্যাকাউন্ট সংযুক্ত করতে পারেন।",
+    "zikr.markAsDone": "সম্পন্ন হিসেবে চিহ্নিত করুন",
+    "zikr.undoDoneHint": "বাতিল করে অসম্পন্ন করতে ট্যাপ করুন"
   },
   "ar": {
     "zakat.agriculture.cardHint": "مستحق عند الحصاد - 10% مطر/ ينابيع، 5% مروي.",

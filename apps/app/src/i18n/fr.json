@@ -78,7 +78,10 @@
       "hint": "Révisez ce que vous avez appris",
       "empty": "Les questions de ce guide sont encore en cours de chargement. Ouvrez quelques leçons, puis réessayez."
     },
-    "pause": "Pause"
+    "pause": "Pause",
+    "tvUnavailableTitle": "Indisponible sur TV",
+    "tvUnavailableBody": "Cette fonctionnalité nécessite un téléphone ou une tablette. Ouvrez Munib Tracker sur cet appareil pour continuer.",
+    "tvOauthHint": "La connexion via les réseaux sociaux peut être limitée sur TV. Continuez ici en tant qu’invité ou associez un compte sur votre téléphone."
   },
   "search": {
     "placeholder": "Rechercher Coran, hadith, duas, Apprendre…",
@@ -170,7 +173,10 @@
     "flashCards": "Cartes mémoire",
     "verseDetector": "Détecteur de versets",
     "lastThirdNight": "Dernier tiers de la nuit",
-    "friday": "Vendredi & Jumu'ah"
+    "friday": "Vendredi & Jumu'ah",
+    "fidyah": "Fidyah et kaffarah",
+    "janazah": "Guide Janazah",
+    "sadaqah": "Sadaqah objectifs"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -802,14 +808,16 @@
     "apple": "Continuer avec Apple",
     "facebook": "Continuer avec Facebook",
     "heroGuest": "Invité hesabı kullanıyorsunuz. Veraetcrinizi yedeklemek et senkronize etmek pour un sağlmoisıcı bağlmoisın — hiçun şey kmoisbolmaz.",
-    "heroUser": "Salahlarınızı, kazalarınızı et zikirlerinizi bulutta güetnde tutmak pour giriş yapın.",
+    "heroUser": "Gardez vos Salah, qaza et zikr en sécurité dans le cloud.",
     "error": "Connexion impossible. Vérifiez que le serveur API est démarré et que ce fournisseur est configuré.",
     "providersUnavailableTitle": "Connexion indisponible pour le moment",
     "providersUnavailableBody": "Les fournisseurs de synchronisation cloud ne sont pas configurés dans cette version. Continuez en invité — votre progression reste sur cet appareil.",
     "titleSignedIn": "Vous êtes connecté",
     "subtitleSignedIn": "La synchronisation cloud est prête sur cet appareil",
     "heroSignedIn": "Bon retour — votre compte est lié. Vos Salah, qaza et zikr peuvent se synchroniser entre appareils.",
-    "continueSignedIn": "Continuer"
+    "continueSignedIn": "Continuer",
+    "or": "ou",
+    "guestHint": "Vous pouvez lier un compte à tout moment depuis Profil."
   },
   "onboarding": {
     "begin": "Commencer",
@@ -1109,7 +1117,8 @@
       "activeHint": "Les mises à jour en direct seront mises en avant lorsque cette Salah sera imminente. Appuyez sur Arrêter pour désépingler.",
       "a11yStart": "Démarrer le suivi de la prochaine Salah sur l’écran de verrouillage",
       "a11yStop": "Arrêter le suivi des mises à jour en direct de la Salah"
-    }
+    },
+    "tvUnavailableBody": "Les rappels locaux et les Live Activities ne sont pas disponibles sur TV. Gérez vos préférences de notifications sur votre téléphone."
   },
   "fonts": {
     "eyebrow": "Paramètres",
@@ -1166,7 +1175,9 @@
     "searchPlaceholder": "adhkar by title, topic, or text… Rechercher",
     "searchInCategory": "in this category… Rechercher",
     "searchResultCount": "{{count}} correspond",
-    "noResults": "No adhkar matched votre ara."
+    "noResults": "No adhkar matched votre ara.",
+    "markAsDone": "Marquer comme terminé",
+    "undoDoneHint": "Appuyez pour annuler et marquer comme non terminé"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -1562,7 +1573,12 @@
     "backToTop": "Retour en haut",
     "readingProgress": "Progression de lecture",
     "enterFullscreen": "Passer en plein écran",
-    "exitFullscreen": "Quitter le plein écran"
+    "exitFullscreen": "Quitter le plein écran",
+    "isnad": "Chaîne de transmission (isnad)",
+    "sharh": "Explication",
+    "showIsnad": "Afficher l'isnad",
+    "showSharh": "Afficher l'explication",
+    "sharhArabicOnly": "L'explication n'est disponible qu'en arabe."
   },
   "credits": {
     "eyebrow": "Attribution",
@@ -2312,7 +2328,8 @@
     "cardinalS": "Ю",
     "cardinalW": "З",
     "defaultLocationHint": "Utilisation du lieu par defaut (La Mecque). Definissez votre ville pour une direction de qibla precise.",
-    "setLocation": "Définir l'emplacement"
+    "setLocation": "Définir l'emplacement",
+    "tvHint": "La boussole en direct n’est pas disponible sur TV. La flèche indique l’orientation de la qibla depuis le nord pour votre ville — utilisez un téléphone pour l’alignement en direct."
   },
   "profile": {
     "eyebrow": "Compte",
@@ -3358,6 +3375,42 @@
       "obligatory": "Essentiel",
       "highly-recommended": "Fortement recommandé",
       "recommended": "Recommandé"
+    },
+    "quickTree": "Arbre généalogique",
+    "quickTreeHint": "Adam à Muhammad ﷺ — lignées sources",
+    "tree": {
+      "title": "Arbre généalogique des prophètes",
+      "subtitle": "Généalogie sourcée uniquement – Qur'an, hadith authentique et histoire étiquetée",
+      "intro": "Cet arbre ne montre que les relations établies dans le Qur'an, un hadith authentique ou une histoire classique clairement étiquetée. Les espaces sont laissés vides plutôt que remplis de noms non vérifiés. Les liens ancestraux (non immédiats) sont marqués comme tels.",
+      "searchPlaceholder": "Recherchez un prophète ou un nom…",
+      "searchResults": "{{count}} correspondances",
+      "sources": "Références",
+      "openBio": "Biographie ouverte",
+      "certainty": {
+        "quran": "Coran",
+        "authentic-hadith": "Hadith authentique",
+        "classical-history": "Histoire classique"
+      },
+      "branch": {
+        "adam-nuh": "Adam et Nuh",
+        "ibrahim": "Ménage de Ibrahim",
+        "israel": "Enfants d'Israël",
+        "musa": "Musa et Harun",
+        "dawud": "Dawud et Sulayman",
+        "zakariyya": "Zakariyya et Yahya",
+        "isa": "Maryam et Isa",
+        "muhammad": "Sceau des prophètes"
+      },
+      "disclaimer": "Généalogie pédagogique – pas une liste complète de tous les prophètes. De nombreux messagers sont nommés dans le Qur'an sans chaîne parent détaillée ; ils apparaissent dans les biographies de Learn the Prophets mais sont omis ici plutôt que devinés.",
+      "panHint": "Pinch · drag · double-tap to fit",
+      "fitView": "Fit tree to screen",
+      "mapA11y": "Interactive prophets family tree map",
+      "legendParent": "Parent → child",
+      "legendSibling": "Siblings",
+      "allBranches": "All branches",
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   },
   "aqeedah": {
@@ -4167,7 +4220,12 @@
       "confirm": "Réinitialiser le formulaire",
       "a11y": "Réinitialiser le formulaire du calculateur de zakat",
       "hint": "Demande une confirmation, puis efface tous les montants saisis"
-    }
+    },
+    "relatedTitle": "Outils associés",
+    "linkSadaqah": "Objectifs de sadaqah",
+    "linkSadaqahHint": "Dons volontaires quotidiens ou hebdomadaires",
+    "linkFidyah": "Fidyah et kaffarah",
+    "linkFidyahHint": "Estimations pour les jeûnes manqués ou rompus"
   },
   "customAdhkar": {
     "eyebrow": "Rappel",
@@ -4206,7 +4264,7 @@
       "label": "Pièces jointes (facultatif)",
       "add": "Ajouter un fichier",
       "remove": "Supprimer la pièce jointe",
-      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez sur × sur une miniature pour retirer.",
+      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez longuement sur une vignette pour la supprimer.",
       "signInRequired": "Connectez-vous pour joindre des fichiers privés à votre adhkar.",
       "permissionDenied": "Une autorisation est requise pour joindre des fichiers.",
       "permissionTitle": "Autoriser l'accès",
@@ -4995,7 +5053,7 @@
     "eyebrow": "Calendrier",
     "title": "Convertisseur de dates",
     "subtitle": "Conversion entre les calendriers hégirien et grégorien",
-    "intro": "Entrez une date dans l'un des calendriers pour voir son équivalent dans l'autre, calculé hors ligne d'après la visibilité du croissant à votre emplacement.",
+    "intro": "Entrez une date dans l'un ou l'autre calendrier pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
     "toHijri": "Grégorien → Hijri",
     "toGregorian": "hijri → grégorien",
     "gregorianDateLabel": "date grégorienne",
@@ -5005,7 +5063,7 @@
     "year": "Année",
     "useToday": "Utiliser aujourd'hui",
     "invalidDate": "Entrez une date valide",
-    "disclaimer": "Les dates sont calculées d'après la visibilité du croissant (hilāl) à votre emplacement et peuvent différer d'un jour des annonces officielles d'observation de la lune — suivez toujours votre masjid local ou autorité pour les dates religieuses.",
+    "disclaimer": "Il s'agit d'une approximation arithmétique (le tableau \"algorithme koweïtien\") et peut différer d'un jour des annonces locales d'observation de la lune - suivez toujours votre mosquée locale ou votre autorité pour les dates religieuses.",
     "directionTitle": "Sens de conversion",
     "resultFrom": "De {{date}}",
     "quickLinksTitle": "Connexes",
@@ -5063,7 +5121,9 @@
       "names": "99 Noms",
       "hadith": "Hadith",
       "quran": "Coran",
-      "duas": "Duas"
+      "duas": "Duas",
+      "janazah": "Janâza",
+      "fidyah": "Fidya"
     },
     "skipHint": "Ignorez cette carte et voyez une autre question.",
     "skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange."
@@ -5103,6 +5163,83 @@
     },
     "notFound": "Sujet introuvable",
     "disclaimer": "Aperçu éducatif — pas une fatwa. Là où les écoles divergent (par exemple si le ghusl du vendredi est wajib ou sunnah mu'akkadah), les deux positions sont notées ; suivez votre imam ou un savant local qualifié.",
+    "continueInApp": "Continuer dans Munib"
+  },
+  "fidyah": {
+    "eyebrow": "Outils",
+    "title": "Fidyah et kaffarah",
+    "subtitle": "Estimez les aides pour les jeûnes Ramadan manqués ou interrompus - pas les décisions automatiques",
+    "intro": "Utilisez-le uniquement comme estimation de planification. Qur'an 2 : 184-185 et Sahih Muslim 1111 encadrent les bases ; un érudit qualifié doit déterminer si vous devez du qaza, du fidyah, du kaffarah ou autre chose.",
+    "helperTitle": "Aide à l'estimation",
+    "helperHint": "Entrez les jours et le coût unitaire de votre repas local ou de votre fidya. Préférez un tarif publié par une mosquée ou un conseil local de confiance.",
+    "scenario": {
+      "fidyah": "Fidya",
+      "kaffarah": "Kaffâra"
+    },
+    "currency": "Devise",
+    "daysLabel": "Jours manqués",
+    "unitsLabel": "Kaffarah unités",
+    "mealCostLabel": "Coût pour nourrir une personne pauvre",
+    "mealCostHint": "Un repas, ou votre montant de fidya publié localement par jour.",
+    "estimateLabel": "Devis de planification",
+    "estimateEmpty": "Entrez les jours et le coût d'un repas",
+    "estimateFidyahDetail": "{{meals}} personne(s) pauvre(s) à nourrir",
+    "estimateKaffarahDetail": "{{meals}} repas (option d'alimentation) · ou {{fasts}} jours de jeûne consécutifs",
+    "section": {
+      "overview": "Aperçu",
+      "fidyah": "Fidya",
+      "kaffarah": "Kaffâra",
+      "practice": "Utiliser l'assistant"
+    },
+    "notFound": "Sujet introuvable",
+    "disclaimer": "Des estimations éducatives uniquement – ​​pas une fatwa. Les détails des madhhab diffèrent ; suivez un universitaire local qualifié pour votre cas.",
+    "continueInApp": "Continuer dans Munib"
+  },
+  "janazah": {
+    "eyebrow": "Apprendre",
+    "title": "Guide Janazah",
+    "subtitle": "Prière funéraire, lavage, enterrement et duas authentiques",
+    "intro": "Un aperçu pratique du Janazah en tant qu'obligation communautaire – comment prier quatre takbirs sans ruku ni sujud, et les duas Hisnul Muslim pour le défunt.",
+    "section": {
+      "obligation": "Le devoir",
+      "prepare": "Préparation",
+      "salah": "La prière funéraire",
+      "burial": "Enterrement",
+      "duas": "Duas funéraires",
+      "reminders": "Rappels"
+    },
+    "notFound": "Sujet introuvable",
+    "disclaimer": "Aperçu pédagogique – pas un manuel du directeur de pompes funèbres ni une fatwa. Confirmez les pratiques de lavage, d’enveloppement et de cimetière avec des conseils locaux qualifiés.",
+    "continueInApp": "Continuer dans Munib"
+  },
+  "sadaqah": {
+    "eyebrow": "Outils",
+    "title": "Objectifs de sadaqah",
+    "subtitle": "Intention quotidienne ou hebdomadaire et un simple journal de dons",
+    "intro": "Définissez une intention caritative volontaire et enregistrez ce que vous donnez. Zakat reste une obligation distincte – utilisez le calculateur Zakat pour cela.",
+    "intentionTitle": "Mon intention",
+    "intentionHint": "Un objectif personnel pour la sadaqah volontaire – et non pour la zakat.",
+    "period": {
+      "daily": "Tous les jours",
+      "weekly": "Hebdomadaire"
+    },
+    "currency": "Devise",
+    "targetLabel": "Montant cible",
+    "saveGoal": "Enregistrer l'intention",
+    "clearGoal": "Intention claire",
+    "progressLabel": "Progressez dans ce {{period}}",
+    "logTitle": "Enregistrer un cadeau",
+    "logAmount": "Montant",
+    "logNote": "Remarque (facultatif)",
+    "logNotePlaceholder": "par ex. banque alimentaire",
+    "addEntry": "Ajouter au journal",
+    "logEmpty": "Aucun cadeau enregistré pour l'instant.",
+    "learnMoreTitle": "Apprendre encore plus",
+    "linkZakat": "Calculatrice Zakat",
+    "linkZakatHint": "Charité purificatrice obligatoire",
+    "linkFinance": "Sadaqah dans la finance islamique",
+    "linkFinanceHint": "Le don volontaire expliqué",
+    "disclaimer": "Un tracker personnel uniquement – ​​pas une fatwa et ne remplace pas le calcul de la zakat à l’échéance.",
     "continueInApp": "Continuer dans Munib"
   }
 }

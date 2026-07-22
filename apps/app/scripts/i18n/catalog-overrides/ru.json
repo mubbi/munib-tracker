@@ -110,7 +110,7 @@
   "import.done": "Импортировано {{count}} записей намазов",
   "import.failed": "Импорт не удался. Попробуйте снова.",
   "login.subtitle": "Синхронизируйте поклонение между устройствами",
-  "login.heroUser": "Войдите, чтобы сохранить намазы, казу и зикр в облаке.",
+  "login.heroUser": "Храните намазы, казу и зикр в безопасности в облаке.",
   "onboarding.begin": "Начать",
   "onboarding.slide1Eyebrow": "Салят",
   "onboarding.slide1Title": "Отслеживайте свои намазы",
@@ -594,5 +594,7 @@
   "pinLock.biometricUnlockPrompt": "Unlock Munib Tracker",
   "pinLock.wrongPinAttemptsRemaining": "Wrong PIN. {{count}} attempt(s) remaining before lockout.",
   "pinLock.lockedOut": "Too many wrong attempts. Wait a moment before trying again.",
-  "pinLock.footer": "Your PIN is stored securely on this device and never leaves it."
+  "pinLock.footer": "Your PIN is stored securely on this device and never leaves it.",
+  "login.or": "или",
+  "login.guestHint": "Вы можете привязать аккаунт в любой момент в разделе «Профиль»."
 }

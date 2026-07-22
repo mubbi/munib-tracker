@@ -43,10 +43,15 @@ Native Maestro scripts map app scenes → these filenames via `STUDIO_ALIASES` i
 | `android-10` | 1600×2560 portrait; 2560×1600 landscape |
 | `feature-graphic` | 1024×500 |
 | `watch` | 422×514 (Ultra 3; Apple scales to smaller watches) |
+| `apple-tv` / `android-tv` | 1920×1080 (living-room store screenshots) |
 
 ### Apple Watch
 
 `pnpm screenshots:watch` captures raw watch UI (no Screenshot Studio frames) into `apps/app/store-assets/ios/screenshots/watch-ultra-3/en/`. Upload that single size in App Store Connect — Apple scales down. Watch UI is English-only today.
+
+### Apple TV / Android TV / Fire TV
+
+`pnpm screenshots:tvos` / `screenshots:android-tv` validate by default. With `RUN_CAPTURE=1`, PNGs land under `apple-tv-1080p/` and `android-tv-1080p/`. Amazon Fire TV banner/icons are `FIRE_TV_CONSOLE_ASSETS` paths under `apps/app/assets/images/tv/firetv-*` (generate via brand-assets script; upload in Amazon console — not packaged in the Leanback APK).
 
 ## Files
 

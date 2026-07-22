@@ -6,6 +6,14 @@ export interface HadithCollection {
   bookCount?: number;
 }
 
+/** One link in a transmission chain. Order ascends toward the Prophet (last link = Prophet). */
+export interface HadithIsnadLink {
+  order: number;
+  nameArabic: string;
+  nameEnglish?: string;
+  role?: "companion" | "narrator" | "prophet";
+}
+
 export interface HadithItem {
   id: string; // stable: `${collection}:${number}`
   collection: string;
@@ -17,6 +25,16 @@ export interface HadithItem {
   /** Dataset-sourced translations keyed by app locale (remote collections only). */
   translations?: Partial<Record<string, string>>;
   narrator?: string;
+  /**
+   * Structured isnad (NF-2.9). Absent when the corpus has no chain —
+   * hide UI rather than inventing links.
+   */
+  isnad?: HadithIsnadLink[];
+  /**
+   * Classical Arabic sharh / explanation (NF-2.8). Absent = hide;
+   * never AI-paraphrase into English.
+   */
+  sharhArabic?: string;
   /** "sahih" | "hasan" | ... (may be absent → show "ungraded") */
   grade?: string;
   gradedBy?: string;

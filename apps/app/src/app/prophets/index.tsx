@@ -76,27 +76,27 @@ export default function ProphetsScreen() {
         onPress: () => router.push("/prophets/timeline" as Href),
       },
       {
+        id: "tree",
+        icon: {
+          ios: "arrow.triangle.branch",
+          android: "account_tree",
+          web: "account_tree",
+        } as AppIcon,
+        title: t("prophets.quickTree"),
+        subtitle: t("prophets.quickTreeHint"),
+        tint: tokens.status.info.color,
+        onPress: () => router.push("/prophets/tree" as Href),
+      },
+      {
         id: "muhammad",
         icon: { ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" } as AppIcon,
         title: t("prophets.quickMuhammad"),
         subtitle: t("prophets.quickMuhammadHint"),
-        tint: tokens.status.info.color,
-        onPress: () =>
-          router.push({
-            pathname: "/prophets/[topic]",
-            params: { topic: "muhammad" },
-          }),
-      },
-      {
-        id: "prophets-lessons",
-        icon: { ios: "lightbulb.fill", android: "lightbulb", web: "lightbulb" } as AppIcon,
-        title: t("prophets.quickLessons"),
-        subtitle: t("prophets.quickLessonsHint"),
         tint: tokens.status.success.color,
         onPress: () =>
           router.push({
             pathname: "/prophets/[topic]",
-            params: { topic: "prophets-lessons" },
+            params: { topic: "muhammad" },
           }),
       },
       {

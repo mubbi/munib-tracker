@@ -29,6 +29,7 @@ import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { getLocationPermissionGranted } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   getQiblaTurnGuidance,
   type QiblaTurnKind,
@@ -297,7 +298,7 @@ export default function QiblaScreen() {
   }, []);
 
   useEffect(() => {
-    if (Platform.OS === "web") return;
+    if (Platform.OS === "web" || isTV()) return;
 
     let headingSub: Location.LocationSubscription | null = null;
     let magSub: { remove: () => void } | null = null;
@@ -436,6 +437,7 @@ export default function QiblaScreen() {
   const hairlineColor = tokens.hairline;
   const accentColor = colors.accent;
   const isWeb = Platform.OS === "web";
+  const tv = isTV();
   const glowShadowPeak = withAlpha(accentColor, 0.35);
   const glowShadowBase = withAlpha(accentColor, 0);
 
@@ -637,7 +639,11 @@ export default function QiblaScreen() {
         {!hasCompass ? (
           <Card variant="muted" padding="three">
             <ThemedText type="small" themeColor="mutedForeground">
-              {Platform.OS === "web" ? t("qibla.webHint") : t("qibla.noCompassHint")}
+              {tv
+                ? t("qibla.tvHint")
+                : Platform.OS === "web"
+                  ? t("qibla.webHint")
+                  : t("qibla.noCompassHint")}
             </ThemedText>
           </Card>
         ) : (

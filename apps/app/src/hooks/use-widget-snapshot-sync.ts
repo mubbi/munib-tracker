@@ -39,7 +39,7 @@ import { useDailySummary, useTodayPrayers } from "@/stores/tracker-store";
 const WIDGET_SYNC_DEBOUNCE_MS = 750;
 
 /** Refresh home-screen widget snapshot when prayer data, locale, or theme changes. */
-export function useWidgetSnapshotSync(): void {
+export function useWidgetSnapshotSync(enabled = true): void {
   const { t, i18n } = useTranslation();
   const { scheme, colors, colorMode } = useTheme();
   const location = useLocation();
@@ -67,7 +67,7 @@ export function useWidgetSnapshotSync(): void {
   const meaningLocale = toAppLocale(translationLocale ?? locale);
 
   const sync = useCallback(async () => {
-    if (Platform.OS === "web") return;
+    if (!enabled || Platform.OS === "web") return;
     await ensureDailyHadithPool();
     const locationDenied = locationStatus === "denied";
     const snapshot = buildWidgetSnapshot({
@@ -154,6 +154,7 @@ export function useWidgetSnapshotSync(): void {
     t,
     tasbeehToday,
     timeFormat,
+    enabled,
   ]);
 
   useEffect(() => {
@@ -164,7 +165,7 @@ export function useWidgetSnapshotSync(): void {
   }, [sync]);
 
   useEffect(() => {
-    if (Platform.OS === "web") return;
+    if (!enabled || Platform.OS === "web") return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     let idleCancel: (() => void) | null = null;
     debounceRef.current = setTimeout(() => {
@@ -178,5 +179,5 @@ export function useWidgetSnapshotSync(): void {
       if (boundaryRefreshRef.current) clearTimeout(boundaryRefreshRef.current);
       idleCancel?.();
     };
-  }, [sync]);
+  }, [enabled, sync]);
 }

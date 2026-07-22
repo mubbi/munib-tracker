@@ -23,6 +23,7 @@ import { usePinLock } from "@/features/pin-lock";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reasons";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { formatRelativeWhen } from "@/lib/relative-time";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import { useAuth } from "@/providers/auth-provider";
@@ -120,6 +121,10 @@ export default function ProfileScreen() {
   };
 
   const pickAvatar = async () => {
+    if (isTV()) {
+      toast.info(t("common.tvUnavailableBody"));
+      return;
+    }
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) return;
     const result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, quality: 0.7 });
@@ -192,6 +197,7 @@ export default function ProfileScreen() {
             <PressableScale
               haptic="light"
               onPress={pickAvatar}
+              disabled={isTV()}
               accessibilityLabel={t("profile.changeAvatar")}
             >
               <View style={styles.avatarWrap}>

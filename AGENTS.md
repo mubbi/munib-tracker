@@ -1,12 +1,12 @@
 # Munib Tracker — Agent Guide
 
-This is a **pnpm + Turborepo** monorepo for Munib Tracker (salah, dhikr, qadha).
+This is a **pnpm + Turborepo** monorepo for Munib Tracker (salah, zikr, qaza).
 
 ## Apps
 
 | App | Path | Role | Dev command |
 |-----|------|------|-------------|
-| **Product** | `apps/app` | Expo SDK 57 — iOS, Android, Web (single codebase) | `pnpm dev:app` |
+| **Product** | `apps/app` | Expo SDK 57 — iOS, Android, Web, **Apple TV / Android TV** (single codebase) | `pnpm dev:app` |
 | **Marketing** | `apps/marketing-web` | Next.js 16 landing site (port 3000) | `pnpm dev:marketing-web` |
 | **Admin** | `apps/admin` | Next.js ops console (port 3002) — users, reports, broadcasts, platform | `pnpm dev:admin` |
 | **API** | `apps/api` | NestJS 11 — cloud sync, auth, backend services (port 3001) | `pnpm dev:api` |
@@ -25,16 +25,19 @@ Import via workspace package names:
 - `@munib-tracker/db` — Drizzle schema mirror for the admin console (DDL owned by API TypeORM migrations)
 - `@munib-tracker/live-activity-delivery` — framework-agnostic ActivityKit APNs client + atomic job claim/deliver (Nest today; Fly worker later)
 - `@munib-tracker/surface-push-delivery` — Expo + Web Push senders + atomic surface job claim/deliver
+- `@munib-tracker/store-screenshots` — shared App Store / Play screenshot specs (locales, sizes, capture names)
 - `@munib-tracker/theme` — design tokens, `resolveTheme()`, accent palette
 - `@munib-tracker/typescript-config` — shared TS configs
 - `@munib-tracker/vitest-config` — Vitest presets
 - `@munib-tracker/api-contract` — OpenAPI spec exported from `apps/api`
 - `@munib-tracker/api-client` — Orval-generated fetch + TanStack Query SDK
 
+**Outside the pnpm workspace:** `tools/screenshot-studio/` — standalone screenshot editor (port **3010**, `pnpm dev:screenshot-studio`). Workflow: [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md).
+
 ## Conventions
 
 - **Lint/format:** Biome at repo root (`pnpm lint`, `pnpm format-and-lint:fix`)
-- **Tests:** Vitest (marketing-web, packages) + Jest (apps/app). No Playwright/Maestro **E2E in CI** — Maestro is used only for store screenshot capture (`pnpm screenshots:*`, [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)).
+- **Tests:** Vitest (marketing-web, api, packages) + Jest (apps/app). No Playwright/Maestro **E2E in CI** — Maestro is used only for store screenshot capture (`pnpm screenshots:*`, [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)).
 - **Product theme:** All screens use `useTheme()` from `apps/app/src/providers/theme-provider.tsx` — no hardcoded colors.
 - **Marketing styling:** Tailwind CSS v4.3 with `@source` scanning monorepo packages in `globals.css`.
 - **Fuzzy search:** Fuse.js v7 in `apps/app` — canonical module `apps/app/src/lib/search.ts`. See [apps/app/AGENTS.md](apps/app/AGENTS.md) and `.agents/skills/fuse-js/SKILL.md`.
@@ -69,16 +72,31 @@ pnpm --filter app build:data  # regenerate bundled content (adhkar/duas/names/Qu
 # Native (Expo prebuild / local release — requires apps/app/.env)
 pnpm prebuild:app:android   # expo prebuild + version sync
 pnpm prebuild:app:ios
+pnpm prebuild:app:tv        # EXPO_TV=1 clean prebuild (Apple TV + Android TV)
+pnpm prebuild:app:tv:android
+pnpm prebuild:app:tv:ios
 pnpm cleanbuild:app:android # prebuild --clean + version sync
 pnpm cleanbuild:app:ios
+pnpm cleanbuild:app:tv
 pnpm doctor:app             # expo doctor
+pnpm dev:app:tv:android     # run after TV prebuild
+pnpm dev:app:tv:ios
 pnpm dev:app:android:doctor # adb/emulator connectivity repair
 pnpm dev:app:android:signs  # Gradle signingReport
 pnpm dev:app:ios:signs      # Xcode signing settings (macOS)
 pnpm release:app:android          # local signed AAB (Gradle)
 pnpm release:app:android:upload   # upload AAB to Play internal testing
+pnpm release:app:android-tv       # Leanback AAB (after TV prebuild)
+pnpm release:app:android-tv:apk   # Leanback APK (Amazon / sideload)
+pnpm release:app:android-tv:upload
 pnpm release:app:ios              # local signed IPA (xcodebuild, macOS)
 pnpm release:app:ios:upload       # upload IPA to App Store Connect
+pnpm release:app:tvos             # tvOS IPA (macOS; after TV prebuild)
+pnpm release:app:tvos:upload      # altool --type appletvos
+pnpm build:app:android:tv         # EAS production_tv
+pnpm build:app:ios:tv
+pnpm submit:app:android:tv
+pnpm submit:app:ios:tv
 ```
 
 ## Content & data
@@ -91,7 +109,7 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 
 | Doc | Role |
 |-----|------|
-| [`BACKLOG.md`](docs/BACKLOG.md) | Open work (product, i18n, perf, devices, content) |
+| [`BACKLOG.md`](docs/BACKLOG.md) | Open work (product, perf, devices, content) |
 | [`FEATURES.md`](docs/FEATURES.md) | Shipped NF-* feature catalog |
 | [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) | 23-locale i18n ops, scripture rules |
 | [`OAUTH_SETUP.md`](docs/OAUTH_SETUP.md) | Google / Apple / Facebook sign-in (native + web) |
@@ -103,7 +121,9 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`PROFILING.md`](docs/PROFILING.md) | Web/native perf profile + remaining `__common` work |
 | [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md) | Widgets, Live Activities, Siri, Watch, Wear |
 | [`LIVE_ACTIVITY_PUSH.md`](docs/LIVE_ACTIVITY_PUSH.md) | ActivityKit remote push (QStash, cron, future Fly worker) |
+| [`WEB_PUSH.md`](docs/WEB_PUSH.md) | Web Push + Android Expo surface phases |
 | [`DEVICES.md`](docs/DEVICES.md) | Platform support matrix |
+| [`TV.md`](docs/TV.md) | Apple TV / Android TV (EXPO_TV prebuild) |
 | [`STORE_ASSETS.md`](docs/STORE_ASSETS.md) | App Store / Play screenshots (Maestro) |
 | [`IOS_APP_COPY.md`](docs/IOS_APP_COPY.md) · [`ANDROID_APP_COPY.md`](docs/ANDROID_APP_COPY.md) | Store listing copy |
 
