@@ -82,4 +82,28 @@ describe("salah-phase", () => {
     snapshot.nextPrayer.targetTimeMs = now.getTime() + 10 * 60_000;
     expect(shouldPromoteSession(imminent, snapshot, now)).toBe(true);
   });
+
+  it("re-queues the latest overdue phase flip for remote catch-up", () => {
+    const base = new Date("2026-07-06T09:00:00.000Z");
+    const snapshot = makeSnapshot(base);
+    const currentAt = Date.parse("2026-07-06T12:00:00.000Z");
+    snapshot.nextPrayer.currentPrayerId = "dhuhr";
+    snapshot.nextPrayer.currentPrayerName = "Dhuhr";
+    snapshot.nextPrayer.currentPrayerAtMs = currentAt;
+    snapshot.nextPrayer.targetTimeMs = currentAt + 3 * 60 * 60_000;
+
+    const afterClosed = new Date(currentAt + 30 * 60_000 + 2 * 60_000);
+    const boundaries = buildSalahPhaseSchedule({
+      snapshot,
+      sessionId: "catch-up",
+      stopLabel: "Stop",
+      now: afterClosed,
+    });
+
+    expect(boundaries.map((b) => Date.parse(b.executeAt))).toEqual(
+      expect.arrayContaining([currentAt + 30 * 60_000]),
+    );
+    const catchUp = boundaries.find((b) => Date.parse(b.executeAt) === currentAt + 30 * 60_000);
+    expect(catchUp?.phase).toBe("upcoming");
+  });
 });

@@ -136,6 +136,44 @@ describe("LiveActivitiesService", () => {
     expect(saved.status).toBe("delivered");
   });
 
+  it("delivers overdue pending jobs before wiping them on reschedule", async () => {
+    const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+    await service.upsert(session.accessToken, {
+      activityId: "activity-overdue",
+      pushToken: "e".repeat(64),
+      environment: LiveActivityApnsEnvironment.Sandbox,
+      updates: [
+        {
+          phase: "upcoming",
+          executeAt: new Date(Date.now() + 60_000).toISOString(),
+          contentState: contentState({ phase: "upcoming" }),
+        },
+      ],
+    });
+
+    const job = await dataSource.getRepository(LiveActivityPushJobEntity).findOneOrFail({
+      where: {},
+    });
+    job.executeAt = new Date(Date.now() - 60_000);
+    await dataSource.getRepository(LiveActivityPushJobEntity).save(job);
+    apns.sendUpdate.mockClear();
+
+    await service.upsert(session.accessToken, {
+      activityId: "activity-overdue",
+      pushToken: "e".repeat(64),
+      environment: LiveActivityApnsEnvironment.Sandbox,
+      updates: [
+        {
+          phase: "markSalah",
+          executeAt: new Date(Date.now() + 10 * 60_000).toISOString(),
+          contentState: contentState({ phase: "markSalah" }),
+        },
+      ],
+    });
+
+    expect(apns.sendUpdate).toHaveBeenCalled();
+  });
+
   it("rejects content states that exceed the APNs budget", async () => {
     const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
     await expect(

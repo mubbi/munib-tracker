@@ -4,6 +4,7 @@ import {
   clearAudioCacheInflight,
   getAudioCacheInfo,
   getAudioCacheSize,
+  invalidateCachedAudioUri,
   isAudioLocalCacheEnabled,
   peekCachedAudioUri,
   peekNativeCachedAudioUri,
@@ -183,6 +184,20 @@ describe("audio cache", () => {
     expect(FS.deleteAsync).toHaveBeenCalledWith(cached, { idempotent: true });
     expect(FS.downloadAsync).toHaveBeenCalledTimes(1);
   });
+
+  it("invalidates a single native cache entry so the next resolve re-downloads", async () => {
+    const cached = await resolveCachedAudioUri(AYAH);
+    FS.downloadAsync.mockClear();
+    clearAudioCacheInflight();
+
+    await invalidateCachedAudioUri(AYAH);
+    expect(FS.deleteAsync).toHaveBeenCalledWith(cached, { idempotent: true });
+    expect(await peekNativeCachedAudioUri(AYAH)).toBeNull();
+
+    const again = await resolveCachedAudioUri(AYAH);
+    expect(again).toBe(cached);
+    expect(FS.downloadAsync).toHaveBeenCalledTimes(1);
+  });
 });
 
 // ── Web: Cache Storage + blob URLs ───────────────────────────────────────────
@@ -221,6 +236,9 @@ class FakeCache {
   }
   async put(req: string | { url: string }, res: FakeResponse): Promise<void> {
     this.store.set(typeof req === "string" ? req : req.url, res);
+  }
+  async delete(req: string | { url: string }): Promise<boolean> {
+    return this.store.delete(typeof req === "string" ? req : req.url);
   }
   async keys(): Promise<{ url: string }[]> {
     return Array.from(this.store.keys()).map((url) => ({ url }));
@@ -319,5 +337,21 @@ describe("audio cache (web)", () => {
     await clearAudioCache();
     const cleared = await getAudioCacheInfo();
     expect(cleared).toEqual({ bytes: 0, count: 0 });
+  });
+
+  it("invalidates a single web clip so peek misses and the next resolve re-fetches", async () => {
+    const first = await resolveCachedAudioUri(AYAH);
+    expect(peekCachedAudioUri(AYAH)).toBe(first);
+    fetchMock.mockClear();
+
+    await invalidateCachedAudioUri(AYAH);
+    expect(peekCachedAudioUri(AYAH)).toBeNull();
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith(first);
+    expect(cache.store.has(AYAH)).toBe(false);
+
+    const second = await resolveCachedAudioUri(AYAH);
+    expect(second).toMatch(/^blob:mock-/);
+    expect(second).not.toBe(first);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

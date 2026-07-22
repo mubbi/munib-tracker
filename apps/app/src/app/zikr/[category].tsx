@@ -24,8 +24,8 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useScrollToActiveHorizontal } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
+  afterSalahApplicablePrayers,
   afterSalahItemProgress,
-  afterSalahItemsForPrayer,
   afterSalahProgressForPrayer,
   getZikrCountFromMap,
   isZikrItemDone,
@@ -86,16 +86,17 @@ export default function ZikrCategoryScreen() {
   // After-salah adhkar can be narrowed to a single fard prayer. An item with no
   // `prayers` tag is recited after every prayer, so it shows under each filter.
   const showPrayerFilter = categoryId === "after_prayer";
-  const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>(() => {
+  // Live Activity / notification deep links (`?prayer=asr`) can resolve after the
+  // first paint, or update while this screen is already mounted.
+  const linkedPrayer = useMemo((): AfterSalahPrayer | null => {
+    if (!showPrayerFilter) return null;
     const raw = paramValue(params.prayer);
-    return raw && isAfterSalahPrayer(raw) ? raw : "all";
-  });
-  // Notification deep-links can land on this screen while it is already mounted.
-  useEffect(() => {
-    if (!showPrayerFilter) return;
-    const raw = paramValue(params.prayer);
-    if (raw && isAfterSalahPrayer(raw)) setPrayerFilter(raw);
+    return raw && isAfterSalahPrayer(raw) ? raw : null;
   }, [showPrayerFilter, params.prayer]);
+  const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>(() => linkedPrayer ?? "all");
+  useEffect(() => {
+    if (linkedPrayer) setPrayerFilter(linkedPrayer);
+  }, [linkedPrayer]);
 
   const chipsScrollRef = useRef<ScrollView>(null);
   // Hold null until the chip bar mounts so deep-linked Maghrib/Witr still scroll
@@ -108,9 +109,9 @@ export default function ZikrCategoryScreen() {
 
   const items = useMemo(() => {
     if (!showPrayerFilter || prayerFilter === "all") return allItems;
-    // Universal after-salah adhkar surface under every fard prayer but not Witr,
-    // whose tab holds only its own adhkar — mirror afterSalahApplicablePrayers.
-    return afterSalahItemsForPrayer(prayerFilter);
+    // Filter the loaded category list so deep-link prayer switches share one
+    // corpus snapshot with `allItems` (Witr keeps only its tagged adhkar).
+    return allItems.filter((item) => afterSalahApplicablePrayers(item).includes(prayerFilter));
   }, [allItems, showPrayerFilter, prayerFilter]);
 
   const zikrIndex = useMemo(() => createZikrSearch(items), [items]);
@@ -286,8 +287,13 @@ export default function ZikrCategoryScreen() {
             style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
           />
           <FlatList
+            // Remount when the deep-linked salah tab arrives/changes — otherwise
+            // removeClippedSubviews + a late `?prayer=` update can leave a blank list
+            // until the user manually switches chips.
+            key={showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}
             style={styles.flatList}
             data={filtered}
+            extraData={prayerFilter}
             keyExtractor={keyExtractor}
             renderItem={renderItem}
             ItemSeparatorComponent={ListSeparator}
@@ -296,7 +302,6 @@ export default function ZikrCategoryScreen() {
             initialNumToRender={12}
             maxToRenderPerBatch={8}
             windowSize={7}
-            removeClippedSubviews
             ListEmptyComponent={
               searching && corpusReady ? (
                 <EmptyState

@@ -53,6 +53,7 @@ export class SurfacePushService {
     const target = this.normalizeTarget(dto.channel, dto.target);
     const targetHash = hashTarget(target);
 
+    const overdueGraceMs = 30 * 60_000;
     const updates = dto.updates
       .map((update) => ({
         ...update,
@@ -60,7 +61,7 @@ export class SurfacePushService {
         staleDate: update.staleAt ? new Date(update.staleAt) : null,
         payloadJson: this.validatePayload(update.payload),
       }))
-      .filter((update) => update.executeDate.getTime() >= now.getTime() - 30_000)
+      .filter((update) => update.executeDate.getTime() >= now.getTime() - overdueGraceMs)
       .sort((a, b) => a.executeDate.getTime() - b.executeDate.getTime());
 
     if (updates.length === 0) {
@@ -71,6 +72,23 @@ export class SurfacePushService {
     if (registration && registration.userId !== user.userId) {
       // Authenticated reassignment: transfer the endpoint/token to the current user.
       registration.userId = user.userId;
+    }
+
+    if (registration) {
+      const duePending = await this.jobRepository
+        .createQueryBuilder("job")
+        .where("job.registrationId = :id", { id: registration.id })
+        .andWhere("job.status = :status", { status: "pending" })
+        .andWhere("job.executeAt <= :now", { now })
+        .orderBy("job.executeAt", "ASC")
+        .getMany();
+      for (const job of duePending) {
+        try {
+          await this.deliver(job.id);
+        } catch {
+          // Best-effort; replacement schedule still includes catch-up.
+        }
+      }
     }
 
     const oldMessageIds = registration
@@ -122,7 +140,8 @@ export class SurfacePushService {
     await Promise.all(
       jobs.map(async (job) => {
         try {
-          job.qstashMessageId = await this.qstash.schedule(job.id, job.executeAt);
+          const fireAt = job.executeAt.getTime() < Date.now() ? new Date() : job.executeAt;
+          job.qstashMessageId = await this.qstash.schedule(job.id, fireAt);
           if (job.qstashMessageId) await this.jobRepository.save(job);
         } catch (error) {
           job.lastError = error instanceof Error ? error.message : String(error);

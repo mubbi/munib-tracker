@@ -18,6 +18,7 @@ import {
 } from "react";
 import { Platform } from "react-native";
 import {
+  invalidateCachedAudioUri,
   isAudioLocalCacheEnabled,
   peekCachedAudioUri,
   peekNativeCachedAudioUri,
@@ -91,8 +92,34 @@ export const AUDIO_SPEEDS = [0.5, 1, 1.5, 2];
  */
 const PREFETCH_AHEAD = 3;
 
+/**
+ * How long a local (file:// / blob:) source may take to report `isLoaded` before
+ * we treat the cache entry as corrupt and fall back to the remote URL.
+ */
+const LOCAL_SOURCE_READY_MS = 4000;
+
+/**
+ * If the active remote/local source never becomes loaded, retry playback this
+ * many times (first retry invalidates cache) before giving up.
+ */
+const STUCK_LOAD_RETRY_LIMIT = 2;
+
+/** Delay before treating a still-unloaded track as stuck and reloading. */
+const STUCK_LOAD_RETRY_MS = 8000;
+
 /** Cycle order: off → repeat all → repeat once → off. */
 const LOOP_CYCLE: LoopMode[] = ["off", "all", "one"];
+
+/** True when `uri` is a local playback source (not http(s)). */
+function isLocalPlaybackUri(uri: string): boolean {
+  return (
+    uri.startsWith("file:") ||
+    uri.startsWith("blob:") ||
+    uri.startsWith("content:") ||
+    uri.startsWith("asset:") ||
+    uri.startsWith("/")
+  );
+}
 
 /** Qur'an ayah track ids look like `2:255` — used to scope repeat/TTS to scripture queues. */
 function isQuranAyahTrack(track: AudioTrack | null | undefined): boolean {
@@ -316,7 +343,19 @@ function AudioPlayerProviderLive({
   const activeSlotRef = useRef<0 | 1>(0);
   activeSlotRef.current = activeSlot;
   const stagedTrackIdRef = useRef<[string | null, string | null]>([null, null]);
+  /** Invalidates in-flight idle-player staging when the active queue hop changes. */
   const preloadTokenRef = useRef(0);
+  /**
+   * Invalidates in-flight `playIndex` async loads (native cache peek → replace).
+   * Separate from {@link preloadTokenRef} so staging the next track cannot cancel
+   * the load that just kicked off staging.
+   */
+  const playbackEpochRef = useRef(0);
+  /** Tracks how many times we auto-retried a still-unloaded source for a track id. */
+  const stuckLoadRetryRef = useRef<{ trackId: string; count: number }>({
+    trackId: "",
+    count: 0,
+  });
 
   const getActive = useCallback((): AudioPlayer => playersRef.current[activeSlotRef.current], []);
   const getIdleSlot = useCallback((): 0 | 1 => (activeSlotRef.current === 0 ? 1 : 0), []);
@@ -593,9 +632,12 @@ function AudioPlayerProviderLive({
         } else if (!isAudioLocalCacheEnabled()) {
           playbackSource = { uri: track.uri };
         } else if (Platform.OS === "web") {
-          await resolveCachedAudioUri(track.uri).catch(() => track.uri);
-          await preloadTrackUri(track.uri);
-          playbackSource = { uri: track.uri };
+          // Prefer the session blob URL so the idle player does not re-buffer
+          // from the network on seamless auto-advance.
+          const peek = peekCachedAudioUri(track.uri);
+          const uri = peek ?? (await resolveCachedAudioUri(track.uri).catch(() => track.uri));
+          await preloadTrackUri(uri);
+          playbackSource = { uri };
         } else {
           playbackSource = await resolveTrackSource(track);
         }
@@ -628,8 +670,10 @@ function AudioPlayerProviderLive({
       if (seamless) beginTransition();
       else clearTransition();
 
-      // A fresh load on the active player invalidates any in-flight stage.
+      // A fresh load on the active player invalidates any in-flight stage AND
+      // any prior async peek→replace that has not applied yet.
       preloadTokenRef.current++;
+      const playbackEpoch = ++playbackEpochRef.current;
 
       if (isTtsPlaybackTrack(track)) {
         pauseAudioEngines();
@@ -701,14 +745,18 @@ function AudioPlayerProviderLive({
         pendingSeekRef.current = track.clipStart;
       }
 
-      const active = getActive();
+      const isStale = () => playbackEpoch !== playbackEpochRef.current;
+      const slotAtStart = activeSlotRef.current;
+
       const startPlayback = (resolved: number | { uri: string }) => {
+        if (isStale()) return false;
         try {
-          active.replace(resolved);
-          applyRateVolume(active);
-          active.play();
+          const player = playersRef.current[activeSlotRef.current];
+          player.replace(resolved);
+          applyRateVolume(player);
+          player.play();
           stagedTrackIdRef.current[activeSlotRef.current] = track.id;
-          syncLockScreenForTrack(active, track, startIndex, tracks);
+          syncLockScreenForTrack(player, track, startIndex, tracks);
           // Stage the immediate next track into the idle player for a gapless
           // hand-off, and warm the ones after it.
           stageNext(tracks, startIndex + 1);
@@ -716,6 +764,38 @@ function AudioPlayerProviderLive({
         } catch {
           return false;
         }
+      };
+
+      /**
+       * Prefer a local cache hit, but if the engine never reports loaded, drop
+       * the bad entry and stream the remote URL. Without this, a truncated or
+       * undecodable cache file pins the UI on "Buffering…" until next/prev.
+       */
+      const startPlaybackPreferringLocal = (localUri: string) => {
+        if (!startPlayback({ uri: localUri })) {
+          startPlayback({ uri: track.uri });
+          return;
+        }
+        if (!isLocalPlaybackUri(localUri) || !track.uri.startsWith("http")) return;
+        void (async () => {
+          const player = playersRef.current[slotAtStart];
+          const ready = await waitForPlayerReady(player, LOCAL_SOURCE_READY_MS);
+          if (isStale()) return;
+          // Slot swapped or a newer track already owns this player — do not
+          // tear down whatever is playing now with a stale remote fallback.
+          if (activeSlotRef.current !== slotAtStart) return;
+          if (stagedTrackIdRef.current[slotAtStart] !== track.id) return;
+          if (ready) return;
+          try {
+            await invalidateCachedAudioUri(track.uri);
+          } catch {
+            // Best-effort — still try the remote URL.
+          }
+          if (isStale()) return;
+          if (activeSlotRef.current !== slotAtStart) return;
+          if (stagedTrackIdRef.current[slotAtStart] !== track.id) return;
+          startPlayback({ uri: track.uri });
+        })();
       };
 
       if (track.source != null) {
@@ -736,7 +816,7 @@ function AudioPlayerProviderLive({
       if (Platform.OS === "web") {
         const localUri = peekCachedAudioUri(track.uri);
         if (localUri) {
-          startPlayback({ uri: localUri });
+          startPlaybackPreferringLocal(localUri);
           return;
         }
         startPlayback({ uri: track.uri });
@@ -747,19 +827,20 @@ function AudioPlayerProviderLive({
       void (async () => {
         try {
           const localUri = await peekNativeCachedAudioUri(track.uri);
+          if (isStale()) return;
           if (localUri) {
-            startPlayback({ uri: localUri });
+            startPlaybackPreferringLocal(localUri);
             return;
           }
         } catch {
           // Fall through to streaming.
         }
+        if (isStale()) return;
         startPlayback({ uri: track.uri });
         void resolveCachedAudioUri(track.uri).catch(() => {});
       })();
     },
     [
-      getActive,
       applyRateVolume,
       stageNext,
       beginTransition,
@@ -811,6 +892,7 @@ function AudioPlayerProviderLive({
       activeSlotRef.current = 0;
       setActiveSlot(0);
       stagedTrackIdRef.current = [null, null];
+      stuckLoadRetryRef.current = { trackId: "", count: 0 };
 
       setQueue(tracks);
       setIndex(startIndex);
@@ -881,6 +963,11 @@ function AudioPlayerProviderLive({
       if (status.playing) {
         getActive().pause();
         setUserPaused(true);
+      } else if (!(status.isLoaded ?? false)) {
+        // Source never finished loading (stale replace / corrupt cache / hung
+        // network). Bare `play()` cannot recover — reload the current track.
+        setUserPaused(false);
+        playIndexRef.current(queueRef.current, indexRef.current, false);
       } else {
         getActive().play();
         setUserPaused(false);
@@ -888,7 +975,7 @@ function AudioPlayerProviderLive({
     } catch {
       // ignore
     }
-  }, [getActive, status.playing, ttsClock?.duration]);
+  }, [getActive, status.playing, status.isLoaded, ttsClock?.duration]);
 
   const seekTo = useCallback(
     (seconds: number) => {
@@ -1122,6 +1209,9 @@ function AudioPlayerProviderLive({
     clearTtsClock();
     setIsSpeakingTranslation(false);
     finishHandlingRef.current = false;
+    // Cancel any in-flight async peek→replace from a prior playIndex.
+    playbackEpochRef.current++;
+    preloadTokenRef.current++;
     try {
       playersRef.current[0].pause();
       playersRef.current[1].pause();
@@ -1137,6 +1227,7 @@ function AudioPlayerProviderLive({
     setQueueFinished(false);
     pendingSeekRef.current = null;
     stagedTrackIdRef.current = [null, null];
+    stuckLoadRetryRef.current = { trackId: "", count: 0 };
     setUserPaused(false);
     clearTransition();
     stableQueueDurationRef.current = 0;
@@ -1162,6 +1253,42 @@ function AudioPlayerProviderLive({
 
   const ttsTrackActive = isTtsPlaybackTrack(current);
   const isLoaded = ttsTrackActive ? true : (status.isLoaded ?? false);
+
+  // Reset stuck-load retries once the engine actually accepts the source.
+  useEffect(() => {
+    if (!current || !isLoaded) return;
+    if (stuckLoadRetryRef.current.trackId === current.id) {
+      stuckLoadRetryRef.current = { trackId: "", count: 0 };
+    }
+  }, [current, isLoaded]);
+
+  // Auto-recover when a track sits unloaded for too long (corrupt cache, aborted
+  // replace after a rapid skip, or a hung CDN response). Matches the user
+  // workaround of pressing next/prev — without requiring it.
+  useEffect(() => {
+    if (!current || ttsTrackActive || userPaused || isLoaded || isTransitioning) return;
+    if (queueFinished) return;
+    const trackId = current.id;
+    const remoteUri = current.uri;
+    const timer = setTimeout(() => {
+      if (queueRef.current[indexRef.current]?.id !== trackId) return;
+      const active = playersRef.current[activeSlotRef.current];
+      try {
+        if (active.isLoaded) return;
+      } catch {
+        // player not ready — still retry
+      }
+      const prev = stuckLoadRetryRef.current;
+      const count = prev.trackId === trackId ? prev.count + 1 : 1;
+      stuckLoadRetryRef.current = { trackId, count };
+      if (count > STUCK_LOAD_RETRY_LIMIT) return;
+      if (count === 1 && remoteUri?.startsWith("http")) {
+        void invalidateCachedAudioUri(remoteUri).catch(() => {});
+      }
+      playIndexRef.current(queueRef.current, indexRef.current, false);
+    }, STUCK_LOAD_RETRY_MS);
+    return () => clearTimeout(timer);
+  }, [current, ttsTrackActive, userPaused, isLoaded, isTransitioning, queueFinished]);
 
   // Replace estimates with the loaded duration for the active track.
   useEffect(() => {

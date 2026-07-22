@@ -141,6 +141,7 @@ function boundaryFromSnapshot(
   horizon: number,
   sessionId: string,
   stopLabel: string,
+  nowMs: number = Date.now(),
 ): SalahPhaseBoundary | null {
   if (!Number.isFinite(executeAtMs) || executeAtMs > horizon) return null;
   const executeAt = new Date(executeAtMs);
@@ -164,10 +165,12 @@ function boundaryFromSnapshot(
     0,
     Math.round((snapshot.nextPrayer.targetTimeMs - executeAtMs) / 60_000),
   );
+  // Overdue catch-ups must not advertise a staleAt already in the past.
+  const staleFrom = Math.max(executeAtMs, nowMs);
   return {
     phase,
     executeAt: executeAt.toISOString(),
-    staleAt: new Date(Math.min(executeAtMs + SALAH_PHASE_MARK_WINDOW_MS, horizon)).toISOString(),
+    staleAt: new Date(Math.min(staleFrom + SALAH_PHASE_MARK_WINDOW_MS, horizon)).toISOString(),
     prayerId,
     prayerName,
     prayerTime,
@@ -199,20 +202,37 @@ export type BuildSalahPhaseScheduleInput = {
 /**
  * Precomputes phase boundaries for remote delivery (APNs / Expo Push / Web Push)
  * and Android AlarmManager schedules.
+ *
+ * Future flips are scheduled at their real boundary times. The latest flip that
+ * is already due is also kept (same `executeAt`) so a reschedule that cancels
+ * QStash mid-flight can still re-queue an overdue afterSalah→upcoming (etc.)
+ * update instead of leaving ActivityKit stuck until the app opens.
  */
 export function buildSalahPhaseSchedule(input: BuildSalahPhaseScheduleInput): SalahPhaseBoundary[] {
   const { snapshot, sessionId, stopLabel } = input;
   if (snapshot.locationDenied) return [];
 
   const now = input.now ?? new Date();
-  const horizon = now.getTime() + (input.horizonMs ?? SALAH_ACTIVITY_HORIZON_MS);
+  const nowMs = now.getTime();
+  const horizon = nowMs + (input.horizonMs ?? SALAH_ACTIVITY_HORIZON_MS);
   const currentAt = snapshot.nextPrayer.currentPrayerAtMs;
   const nextAt = snapshot.nextPrayer.targetTimeMs;
   const updates: SalahPhaseBoundary[] = [];
 
-  const push = (executeAtMs: number, source: WidgetSnapshot) => {
-    if (executeAtMs <= now.getTime() + 1_000) return;
-    const boundary = boundaryFromSnapshot(source, executeAtMs, horizon, sessionId, stopLabel);
+  const push = (executeAtMs: number, source: WidgetSnapshot, allowOverdue = false) => {
+    if (!Number.isFinite(executeAtMs) || executeAtMs > horizon) return;
+    if (!allowOverdue && executeAtMs <= nowMs + 1_000) return;
+    // Ignore flips older than the after-Salah window — too late to matter.
+    if (allowOverdue && executeAtMs <= nowMs - SALAH_PHASE_AFTER_WINDOW_MS) return;
+    if (allowOverdue && executeAtMs > nowMs + 1_000) return;
+    const boundary = boundaryFromSnapshot(
+      source,
+      executeAtMs,
+      horizon,
+      sessionId,
+      stopLabel,
+      nowMs,
+    );
     if (boundary) updates.push(boundary);
   };
 
@@ -221,12 +241,35 @@ export function buildSalahPhaseSchedule(input: BuildSalahPhaseScheduleInput): Sa
     push(currentAt + SALAH_PHASE_AFTER_WINDOW_MS, snapshot);
   }
 
-  if (nextAt > now.getTime()) {
+  if (nextAt > nowMs) {
     const arrived = snapshotForNextPrayerArrival(snapshot);
     push(nextAt, arrived);
     push(nextAt + SALAH_PHASE_MARK_WINDOW_MS, arrived);
     push(nextAt + SALAH_PHASE_AFTER_WINDOW_MS, arrived);
   }
+
+  // Re-queue the most recent due flip so cancel/recreate churn (or a missed
+  // QStash delivery) cannot leave the lock-screen surface on afterSalah.
+  const overdue: { at: number; source: WidgetSnapshot }[] = [];
+  if (currentAt > 0) {
+    overdue.push(
+      { at: currentAt + SALAH_PHASE_MARK_WINDOW_MS, source: snapshot },
+      { at: currentAt + SALAH_PHASE_AFTER_WINDOW_MS, source: snapshot },
+    );
+  }
+  if (nextAt > 0 && nextAt <= nowMs + SALAH_PHASE_AFTER_WINDOW_MS) {
+    const arrived = snapshotForNextPrayerArrival(snapshot);
+    overdue.push(
+      { at: nextAt, source: arrived },
+      { at: nextAt + SALAH_PHASE_MARK_WINDOW_MS, source: arrived },
+      { at: nextAt + SALAH_PHASE_AFTER_WINDOW_MS, source: arrived },
+    );
+  }
+  const latestDue = overdue
+    .filter((item) => item.at <= nowMs)
+    .sort((a, b) => a.at - b.at)
+    .at(-1);
+  if (latestDue) push(latestDue.at, latestDue.source, true);
 
   const byExecuteAt = new Map<string, SalahPhaseBoundary>();
   for (const update of updates) {

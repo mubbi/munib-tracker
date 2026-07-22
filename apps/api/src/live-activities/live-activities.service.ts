@@ -53,6 +53,10 @@ export class LiveActivitiesService {
     const user = await this.authService.getCurrentUser(accessToken);
     const now = new Date();
     const expiresAt = new Date(now.getTime() + ACTIVITY_LIFETIME_MS);
+    // Accept overdue catch-up flips for up to the after-Salah window (30 min).
+    // Clients re-queue the latest due boundary with its original executeAt so a
+    // cancel/recreate race cannot leave ActivityKit stuck on afterSalah.
+    const overdueGraceMs = 30 * 60_000;
     const updates = dto.updates
       .map((update) => ({
         ...update,
@@ -60,7 +64,7 @@ export class LiveActivitiesService {
         staleDate: update.staleAt ? new Date(update.staleAt) : null,
         contentStateJson: this.validateContentState(update.contentState),
       }))
-      .filter((update) => update.executeDate.getTime() >= now.getTime() - 30_000)
+      .filter((update) => update.executeDate.getTime() >= now.getTime() - overdueGraceMs)
       .sort((a, b) => a.executeDate.getTime() - b.executeDate.getTime());
 
     if (updates.length === 0) throw new BadRequestException("No future Live Activity updates");
@@ -71,6 +75,26 @@ export class LiveActivitiesService {
     const existing = await this.tokenRepository.findOne({ where: { activityId: dto.activityId } });
     if (existing && existing.userId !== user.userId) {
       throw new ForbiddenException("Live Activity belongs to another account");
+    }
+
+    // Deliver already-due pending jobs before wiping them. Otherwise a sync that
+    // lands just after a phase boundary deletes the overdue row and cancels
+    // QStash before APNs ever updates the lock screen.
+    if (existing) {
+      const duePending = await this.jobRepository
+        .createQueryBuilder("job")
+        .where("job.activityTokenId = :id", { id: existing.id })
+        .andWhere("job.status = :status", { status: "pending" })
+        .andWhere("job.executeAt <= :now", { now })
+        .orderBy("job.executeAt", "ASC")
+        .getMany();
+      for (const job of duePending) {
+        try {
+          await this.deliver(job.id);
+        } catch {
+          // Best-effort; the replacement schedule below still includes catch-up.
+        }
+      }
     }
 
     const oldMessageIds = existing
@@ -126,7 +150,9 @@ export class LiveActivitiesService {
     await Promise.all(
       jobs.map(async (job) => {
         try {
-          job.qstashMessageId = await this.qstash.schedule(job.id, job.executeAt);
+          // Overdue catch-up jobs use a past executeAt; ask QStash to run ASAP.
+          const fireAt = job.executeAt.getTime() < Date.now() ? new Date() : job.executeAt;
+          job.qstashMessageId = await this.qstash.schedule(job.id, fireAt);
           if (job.qstashMessageId) await this.jobRepository.save(job);
         } catch (error) {
           // Durable DB + the minute cron remain the fallback if QStash is down.

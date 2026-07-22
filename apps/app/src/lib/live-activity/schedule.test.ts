@@ -69,6 +69,30 @@ describe("buildLiveActivityPushSchedule", () => {
     );
   });
 
+  it("re-queues an overdue afterSalah→upcoming flip so the lock screen can catch up", () => {
+    const snapshot = makeSnapshot(new Date("2026-07-06T09:00:00.000Z"));
+    const currentAt = Date.parse("2026-07-06T12:00:00.000Z");
+    snapshot.nextPrayer.currentPrayerId = "dhuhr";
+    snapshot.nextPrayer.currentPrayerName = "Dhuhr";
+    snapshot.nextPrayer.currentPrayerAtMs = currentAt;
+    snapshot.nextPrayer.prayerId = "asr";
+    snapshot.nextPrayer.prayerName = "Asr";
+    snapshot.nextPrayer.targetTimeMs = currentAt + 3 * 60 * 60_000;
+
+    // 5 minutes after the after-Salah window closed — the original QStash job
+    // may already have been cancelled by a reschedule.
+    const now = new Date(currentAt + LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS + 5 * 60_000);
+    const updates = buildLiveActivityPushSchedule(snapshot, now);
+    const catchUp = updates.find(
+      (u) => Date.parse(u.executeAt) === currentAt + LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS,
+    );
+
+    expect(catchUp).toBeDefined();
+    expect(catchUp?.phase).toBe("upcoming");
+    expect(catchUp?.contentState.phase).toBe("upcoming");
+    expect(catchUp?.contentState.prayerId).toBe("asr");
+  });
+
   it("returns no updates when location is denied", () => {
     const now = new Date("2026-07-06T09:00:00.000Z");
     const snapshot = makeSnapshot(now);

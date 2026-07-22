@@ -430,6 +430,47 @@ export async function getAudioCacheSize(): Promise<number> {
 }
 
 /**
+ * Drop a single clip from the local cache so the next play streams (and can
+ * re-download) the remote URL. Used when a cached file/`blob:` fails to decode
+ * in the player — otherwise {@link peekNativeCachedAudioUri} keeps handing back
+ * the same broken bytes and playback stays stuck on "Buffering…".
+ */
+export async function invalidateCachedAudioUri(remoteUri: string): Promise<void> {
+  if (!remoteUri.startsWith("http")) return;
+
+  inflight.delete(remoteUri);
+  webInflight.delete(remoteUri);
+
+  if (Platform.OS === "web") {
+    const objectUrl = webObjectUrls.get(remoteUri);
+    if (objectUrl) {
+      webObjectUrls.delete(remoteUri);
+      try {
+        URL.revokeObjectURL(objectUrl);
+      } catch {
+        // Best-effort revoke.
+      }
+    }
+    if (webCacheAvailable()) {
+      try {
+        const cache = await caches.open(WEB_AUDIO_CACHE);
+        await cache.delete(remoteUri, { ignoreVary: true });
+      } catch {
+        // Best-effort — cache entry may already be gone.
+      }
+    }
+    return;
+  }
+
+  if (!nativeStoreAvailable()) return;
+  try {
+    await deleteAsync(localPathFor(remoteUri), { idempotent: true });
+  } catch {
+    // Best-effort — nothing to clean up if the file was already gone.
+  }
+}
+
+/**
  * Delete every cached audio clip (native files or the web Cache Storage bucket).
  * Also drops in-flight download promises and revokes web object URLs so a
  * subsequent play re-downloads/re-resolves cleanly.

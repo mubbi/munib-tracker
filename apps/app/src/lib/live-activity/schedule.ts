@@ -38,13 +38,14 @@ export function buildLiveActivityPushSchedule(
 
   return boundaries.map((boundary) => {
     const executeAt = new Date(boundary.executeAt);
-    // Rebuild content state at the execute instant so phase fields match APNs.
+    // Match buildSalahPhaseSchedule's source: after the next adhan arrives,
+    // content must use the shifted snapshot (including upcoming-after-adhkar).
+    // Using the original snapshot for every "upcoming" left post-adhkar
+    // countdowns on the prayer that just ended.
     const source =
-      boundary.phase === "upcoming"
-        ? snapshot
-        : Date.parse(boundary.executeAt) >= snapshot.nextPrayer.targetTimeMs
-          ? snapshotForNextPrayerArrival(snapshot)
-          : snapshot;
+      Date.parse(boundary.executeAt) >= snapshot.nextPrayer.targetTimeMs
+        ? snapshotForNextPrayerArrival(snapshot)
+        : snapshot;
     return {
       phase: boundary.phase,
       executeAt: boundary.executeAt,
