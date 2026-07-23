@@ -171,6 +171,7 @@ export function TasbeehCounter({
             accessibilityRole="button"
             accessibilityLabel={t("common.count")}
             accessibilityValue={{ now: displayCount, min: 0, max: target > 0 ? target : undefined }}
+            {...(tv ? { hasTVPreferredFocus: true } : {})}
             style={[
               styles.tapZone,
               { width: ringSize, height: ringSize, borderRadius: ringSize / 2 },

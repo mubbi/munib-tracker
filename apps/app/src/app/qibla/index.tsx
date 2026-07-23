@@ -631,6 +631,7 @@ export default function QiblaScreen() {
             <Button
               label={t("qibla.setLocation")}
               variant="secondary"
+              preferredFocus={tv}
               onPress={() => router.push("/location" as Href)}
             />
           </Card>

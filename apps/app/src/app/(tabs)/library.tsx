@@ -85,15 +85,16 @@ export default function LibraryScreen() {
             description={t("search.noResultsDesc")}
           />
         ) : (
-          sections.map((section) => (
+          sections.map((section, sectionIndex) => (
             <Card key={section.id} padding="three">
               <SectionHeader title={t(section.titleKey)} icon={section.icon} />
               <View style={styles.rows}>
-                {grouped[section.id].map((entry) => (
+                {grouped[section.id].map((entry, entryIndex) => (
                   <NavRow
                     key={entry.id}
                     icon={entry.icon}
                     label={t(entry.labelKey)}
+                    preferredFocus={tv && sectionIndex === 0 && entryIndex === 0}
                     onPress={() => router.push(entry.route)}
                   />
                 ))}

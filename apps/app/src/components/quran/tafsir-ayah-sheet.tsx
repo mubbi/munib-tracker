@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
-
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Sheet } from "@/components/ui/sheet";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -53,7 +53,7 @@ export function TafsirAyahSheet({
         ) : null}
       </View>
 
-      <ScrollView
+      <TvScrollView
         style={styles.body}
         contentContainerStyle={styles.bodyContent}
         showsVerticalScrollIndicator
@@ -85,7 +85,7 @@ export function TafsirAyahSheet({
             {trimmed}
           </ThemedText>
         )}
-      </ScrollView>
+      </TvScrollView>
     </Sheet>
   );
 }

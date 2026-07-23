@@ -1,19 +1,20 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, ScrollView, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import Animated, {
   type SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText } from "@/components/themed-text";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -189,113 +190,115 @@ export function QuranReadingToolbar({
             />
           </PressableScale>
         ) : null}
-        <ScrollView
-          ref={scrollRef}
-          horizontal
-          style={styles.scroll}
-          showsHorizontalScrollIndicator={Platform.OS === "web"}
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.content}
-        >
-          {pageLabel && onOpenPage ? (
-            <SelectChip
-              icon={TOOLBAR_ICONS.page}
-              value={pageLabel}
-              accessibilityLabel={t("quran.pagePickerTitle")}
-              onPress={onOpenPage}
-            />
-          ) : null}
-          <View
-            {...ltrControlViewProps()}
-            style={[styles.fontChip, { backgroundColor: colors.muted }]}
+        <TvFocusGuide trapFocusUp trapFocusDown>
+          <TvScrollView
+            ref={scrollRef}
+            horizontal
+            style={styles.scroll}
+            showsHorizontalScrollIndicator={Platform.OS === "web"}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.content}
           >
-            <SymbolView
-              name={TOOLBAR_ICONS.textSize}
-              size={16}
-              tintColor={colors.mutedForeground}
-            />
-            <ReadingFontControls surface="quran" />
-          </View>
-          {layoutLabel && onOpenLayout ? (
+            {pageLabel && onOpenPage ? (
+              <SelectChip
+                icon={TOOLBAR_ICONS.page}
+                value={pageLabel}
+                accessibilityLabel={t("quran.pagePickerTitle")}
+                onPress={onOpenPage}
+              />
+            ) : null}
+            <View
+              {...ltrControlViewProps()}
+              style={[styles.fontChip, { backgroundColor: colors.muted }]}
+            >
+              <SymbolView
+                name={TOOLBAR_ICONS.textSize}
+                size={16}
+                tintColor={colors.mutedForeground}
+              />
+              <ReadingFontControls surface="quran" />
+            </View>
+            {layoutLabel && onOpenLayout ? (
+              <SelectChip
+                icon={TOOLBAR_ICONS.layout}
+                value={layoutLabel}
+                accessibilityLabel={t("quran.readerLayout")}
+                onPress={onOpenLayout}
+              />
+            ) : null}
             <SelectChip
-              icon={TOOLBAR_ICONS.layout}
-              value={layoutLabel}
-              accessibilityLabel={t("quran.readerLayout")}
-              onPress={onOpenLayout}
+              icon={TOOLBAR_ICONS.reciter}
+              value={reciterName}
+              accessibilityLabel={t("quran.reciter")}
+              onPress={onOpenReciter}
             />
-          ) : null}
-          <SelectChip
-            icon={TOOLBAR_ICONS.reciter}
-            value={reciterName}
-            accessibilityLabel={t("quran.reciter")}
-            onPress={onOpenReciter}
-          />
-          {showTranslationControls ? (
-            <>
-              <SelectChip
-                icon={TOOLBAR_ICONS.translation}
-                value={translationName}
-                accessibilityLabel={t("quran.translation")}
-                onPress={onOpenTranslation}
-              />
-              <SelectChip
-                icon={TOOLBAR_ICONS.secondTranslation}
-                value={secondTranslationName}
-                accessibilityLabel={t("quran.secondTranslation")}
-                onPress={onOpenSecondary}
-              />
-              {onOpenTafsir ? (
+            {showTranslationControls ? (
+              <>
                 <SelectChip
-                  icon={TOOLBAR_ICONS.tafsir}
-                  value={tafsirName ?? t("quran.tafsirNone")}
-                  accessibilityLabel={t("quran.tafsir")}
-                  onPress={onOpenTafsir}
+                  icon={TOOLBAR_ICONS.translation}
+                  value={translationName}
+                  accessibilityLabel={t("quran.translation")}
+                  onPress={onOpenTranslation}
                 />
-              ) : null}
-              <ToggleChip
-                icon={TOOLBAR_ICONS.transliteration}
-                label={t("quran.transliteration")}
-                enabled={showTransliteration}
-                accessibilityLabel={t("quran.showTransliteration")}
-                onPress={onToggleTransliteration}
-              />
-              <ToggleChip
-                icon={TOOLBAR_ICONS.showTranslation}
-                label={t("quran.translation")}
-                enabled={showTranslation}
-                accessibilityLabel={t("quran.showTranslation")}
-                onPress={onToggleTranslation}
-              />
-              {onToggleWordByWord ? (
-                <ToggleChip
-                  icon={TOOLBAR_ICONS.wordByWord}
-                  label={t("quran.showWordByWord")}
-                  enabled={showWordByWord}
-                  accessibilityLabel={t("quran.showWordByWord")}
-                  onPress={onToggleWordByWord}
-                />
-              ) : null}
-              {onToggleTajweed ? (
-                <ToggleChip
-                  icon={TOOLBAR_ICONS.tajweed}
-                  label={t("quran.showTajweed")}
-                  enabled={showTajweed}
-                  accessibilityLabel={t("quran.showTajweed")}
-                  onPress={onToggleTajweed}
-                />
-              ) : null}
-              {onOpenPlayback ? (
                 <SelectChip
-                  icon={TOOLBAR_ICONS.playback}
-                  value={playbackLabel ?? t("quran.playback.title")}
-                  accessibilityLabel={t("quran.playback.open")}
-                  active={playbackActive}
-                  onPress={onOpenPlayback}
+                  icon={TOOLBAR_ICONS.secondTranslation}
+                  value={secondTranslationName}
+                  accessibilityLabel={t("quran.secondTranslation")}
+                  onPress={onOpenSecondary}
                 />
-              ) : null}
-            </>
-          ) : null}
-        </ScrollView>
+                {onOpenTafsir ? (
+                  <SelectChip
+                    icon={TOOLBAR_ICONS.tafsir}
+                    value={tafsirName ?? t("quran.tafsirNone")}
+                    accessibilityLabel={t("quran.tafsir")}
+                    onPress={onOpenTafsir}
+                  />
+                ) : null}
+                <ToggleChip
+                  icon={TOOLBAR_ICONS.transliteration}
+                  label={t("quran.transliteration")}
+                  enabled={showTransliteration}
+                  accessibilityLabel={t("quran.showTransliteration")}
+                  onPress={onToggleTransliteration}
+                />
+                <ToggleChip
+                  icon={TOOLBAR_ICONS.showTranslation}
+                  label={t("quran.translation")}
+                  enabled={showTranslation}
+                  accessibilityLabel={t("quran.showTranslation")}
+                  onPress={onToggleTranslation}
+                />
+                {onToggleWordByWord ? (
+                  <ToggleChip
+                    icon={TOOLBAR_ICONS.wordByWord}
+                    label={t("quran.showWordByWord")}
+                    enabled={showWordByWord}
+                    accessibilityLabel={t("quran.showWordByWord")}
+                    onPress={onToggleWordByWord}
+                  />
+                ) : null}
+                {onToggleTajweed ? (
+                  <ToggleChip
+                    icon={TOOLBAR_ICONS.tajweed}
+                    label={t("quran.showTajweed")}
+                    enabled={showTajweed}
+                    accessibilityLabel={t("quran.showTajweed")}
+                    onPress={onToggleTajweed}
+                  />
+                ) : null}
+                {onOpenPlayback ? (
+                  <SelectChip
+                    icon={TOOLBAR_ICONS.playback}
+                    value={playbackLabel ?? t("quran.playback.title")}
+                    accessibilityLabel={t("quran.playback.open")}
+                    active={playbackActive}
+                    onPress={onOpenPlayback}
+                  />
+                ) : null}
+              </>
+            ) : null}
+          </TvScrollView>
+        </TvFocusGuide>
         {fullscreen.supported ? (
           <PressableScale
             haptic="light"

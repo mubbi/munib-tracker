@@ -39,29 +39,39 @@ function googleAndroidOAuthIntentFilter() {
   ];
 }
 
-function withIosGoogleOAuthUrlSchemes(iosConfig) {
+function withIosUrlSchemes(iosConfig) {
   const googleSchemes = googleIosUrlSchemes();
-  if (!googleSchemes.length) return iosConfig;
-
   const prevTypes = iosConfig.infoPlist?.CFBundleURLTypes ?? [];
-  const alreadyHasGoogle = prevTypes.some(
-    (entry) =>
-      Array.isArray(entry?.CFBundleURLSchemes) &&
-      entry.CFBundleURLSchemes.some((s) => googleSchemes.includes(s)),
+  const allSchemes = prevTypes.flatMap((entry) =>
+    Array.isArray(entry?.CFBundleURLSchemes) ? entry.CFBundleURLSchemes : [],
   );
-  if (alreadyHasGoogle) return iosConfig;
+
+  /** Product deep links (screenshots, OAuth return, share) — must survive TV prebuild. */
+  const needsProductScheme = !allSchemes.includes("munib-tracker");
+  const needsGoogle =
+    googleSchemes.length > 0 && !googleSchemes.every((s) => allSchemes.includes(s));
+
+  if (!needsProductScheme && !needsGoogle) return iosConfig;
+
+  const nextTypes = [...prevTypes];
+  if (needsProductScheme) {
+    nextTypes.unshift({
+      CFBundleURLName: "munib-tracker",
+      CFBundleURLSchemes: ["munib-tracker"],
+    });
+  }
+  if (needsGoogle) {
+    nextTypes.push({
+      CFBundleURLName: "google-oauth",
+      CFBundleURLSchemes: googleSchemes,
+    });
+  }
 
   return {
     ...iosConfig,
     infoPlist: {
       ...iosConfig.infoPlist,
-      CFBundleURLTypes: [
-        ...prevTypes,
-        {
-          CFBundleURLName: "google-oauth",
-          CFBundleURLSchemes: googleSchemes,
-        },
-      ],
+      CFBundleURLTypes: nextTypes,
     },
   };
 }
@@ -135,7 +145,12 @@ module.exports = ({ config }) => {
     },
   ];
 
-  const iosConfig = withIosGoogleOAuthUrlSchemes({
+  /** Patch Podfile `use_expo_modules!(exclude: …)` — see plugins/withTvExpoModuleExcludes.cjs. */
+  const tvExpoModuleExcludesPlugin = tvPrebuild ? ["./plugins/withTvExpoModuleExcludes.cjs"] : [];
+  /** Nil-safe Fabric third-party registry — see plugins/withTvNilSafeFabricComponents.cjs. */
+  const tvNilSafeFabricPlugin = tvPrebuild ? ["./plugins/withTvNilSafeFabricComponents.cjs"] : [];
+
+  const iosConfig = withIosUrlSchemes({
     ...config.ios,
     buildNumber: iosBuildNumber,
     ...(appleTeamId ? { appleTeamId } : {}),
@@ -175,6 +190,8 @@ module.exports = ({ config }) => {
       ...pluginsWithoutQuickActions,
       /** No-op unless EXPO_TV=1 / isTV — keeps phone prebuild unchanged. */
       configTvPlugin,
+      ...tvExpoModuleExcludesPlugin,
+      ...tvNilSafeFabricPlugin,
       ...phoneOnlyPlugins,
       [
         "@sentry/react-native/expo",

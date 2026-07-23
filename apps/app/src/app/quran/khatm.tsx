@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +17,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -651,7 +652,7 @@ function KhatmActivePlanCard({
             </ThemedText>
           ) : null}
 
-          <ScrollView
+          <TvScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
@@ -670,7 +671,7 @@ function KhatmActivePlanCard({
                 onPress={() => setLogAmountInput(String(Math.min(maxLog, amount)))}
               />
             ))}
-          </ScrollView>
+          </TvScrollView>
 
           <Button
             label={logAddLabel}

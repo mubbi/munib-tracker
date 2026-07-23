@@ -1,10 +1,10 @@
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, View } from "react-native";
-
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { arabicReadingLayout } from "@/lib/reading-typography";
@@ -114,7 +114,7 @@ export function HadithSharhBlock({
               {t("hadith.sharhArabicOnly")}
             </ThemedText>
           ) : null}
-          <ScrollView
+          <TvScrollView
             style={styles.scroll}
             contentContainerStyle={styles.scrollContent}
             nestedScrollEnabled
@@ -123,7 +123,7 @@ export function HadithSharhBlock({
             <ThemedText type="arabic" style={arabicReadingLayout(arabicSize)}>
               {body}
             </ThemedText>
-          </ScrollView>
+          </TvScrollView>
         </View>
       ) : null}
     </View>

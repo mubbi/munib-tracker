@@ -143,7 +143,8 @@ async function main() {
     for (const theme of themes) {
       for (const scene of scenes) {
         openTvDeepLinkIos(scene, udid);
-        await sleep(scene.settleMs ?? 2_000);
+        // Cold-start needs longer than warm navigation for Expo Router to settle.
+        await sleep(Math.max(scene.settleMs ?? 2_000, 5_000));
         const nativeDir = path.join(tvNativeOutputRoot("tvos"), locale, theme);
         const nativePath = path.join(nativeDir, `${scene.id}.png`);
         captureAppleTvScreenshot({ udid, outPath: nativePath });

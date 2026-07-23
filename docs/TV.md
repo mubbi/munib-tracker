@@ -119,7 +119,7 @@ Fire TV banner/icons stay Amazon-console-only (`firetv-*`); the APK is the Leanb
 
 EAS profiles: `development_tv`, `preview_tv`, `production_tv` in [`apps/app/eas.json`](../apps/app/eas.json) (`env.EXPO_TV=1`). TV builds strip `extra.eas.build.experimental.ios.appExtensions` (widgets/Watch/Intents). `submit.production_tv` mirrors phone submit.
 
-**tvOS credentials:** same bundle ID / certs as iOS, but **different provisioning profiles**. When shipping both iOS and tvOS, use **local credentials** for tvOS (EAS-stored profiles are iOS-only).
+**tvOS credentials:** same bundle ID / certs as iOS, but **different provisioning profiles**. Automatic signing fails without a registered Apple TV development device — `pnpm release:app:tvos` uses **manual** signing with a `TVOS_APP_STORE` profile (`ExportOptions.tvos.plist`, override name via `TVOS_PROVISIONING_PROFILE`). When shipping both iOS and tvOS, keep tvOS credentials local (EAS-stored profiles are iOS-only).
 
 ## Android TV emulator controls
 
@@ -149,13 +149,13 @@ adb shell am start -a android.intent.action.VIEW \
 
 Do **not** open the LAN IP (`192.168.x.x`) from the TV emulator — Dev Client hangs on splash, then ANRs.
 
-`react-native.config.js` excludes widgets / quick-actions / speech-recognition when `EXPO_TV=1` (needs a TV prebuild / rebuild to drop those native modules).
+`react-native.config.js` excludes widgets / quick-actions / speech-recognition / `react-native-webview` / `expo-web-browser` when `EXPO_TV=1` (needs a TV prebuild / `pod install` to drop those from Fabric codegen). Without excluding webview, `RCTThirdPartyComponentsProvider` registers `RNCWebView` with a nil Class and aborts at JS load. On tvOS, `plugins/withTvExpoModuleExcludes.cjs` also patches `use_expo_modules!(exclude: …)` because some podspecs (e.g. `expo-quick-actions`) incorrectly declare `:tvos` and would still link without that.
 
 ## Phone-only plugins (omitted when `EXPO_TV=1`)
 
 `@bacons/apple-targets`, App Intents, external commands, Wear OS, Android widgets, `expo-quick-actions`.
 
-**Metro (`EXPO_TV=1`):** `expo-speech-recognition`, `react-native-android-widget`, and `expo-quick-actions` resolve to stubs under `apps/app/src/lib/tv-stubs/` so phone-only imports cannot crash Leanback/tvOS JS. Autolink excludes the same packages via `react-native.config.js`.
+**Metro (`EXPO_TV=1`):** phone-only packages resolve to stubs under `apps/app/src/lib/tv-stubs/` so imports cannot crash Leanback/tvOS JS. Covered today: `expo-speech-recognition`, `react-native-android-widget`, `expo-quick-actions`, `expo-web-browser`, `react-native-webview`, `react-native-pager-view`, `expo-notifications`, `expo-location`, `expo-sensors`, `expo-haptics`, `expo-local-authentication`, `expo-image-picker`, `expo-document-picker`, `expo-sharing`, `expo-store-review`, `expo-speech`, `expo-apple-authentication`, `expo-navigation-bar`. Autolink excludes the same packages via `react-native.config.js` (+ Podfile `use_expo_modules!(exclude: …)` for modules whose podspecs incorrectly claim tvOS). `plugins/withTvNilSafeFabricComponents.cjs` also nil-safes `RCTThirdPartyComponentsProvider.mm` so any remaining unlinked Fabric Class does not abort at JS load.
 
 ## Runtime degradations (`Platform.isTV` / `isTV()`)
 
@@ -182,12 +182,27 @@ Do **not** open the LAN IP (`192.168.x.x`) from the TV emulator — Dev Client h
 
 | Piece | Where |
 |-------|--------|
-| Preferred focus | `Button.preferredFocus`, Continue cards, rail after Back, confirm-dialog Cancel |
+| Preferred focus | `Button.preferredFocus`, Continue cards, rail after Back, confirm-dialog Cancel, first Settings/Library rows |
 | Focus guides | [`tv-focus-guide.tsx`](../apps/app/src/components/ui/tv-focus-guide.tsx) — `autoFocus` (focus memory), trap edges on chips / segmented / content; sheets auto-focus |
+| Non-focusable scroll | [`tv-scroll-view.tsx`](../apps/app/src/components/ui/tv-scroll-view.tsx) / [`tv-flat-list.tsx`](../apps/app/src/components/ui/tv-flat-list.tsx) — scroll chrome must **not** be a D-pad target (`focusable={false}` on TV). Used by `ScreenLayout`, sheets, home, search, lists, and toolbars. Keep `scrollEnabled` so focus moves between children and the view still scrolls to them. |
+| Viewport CTAs | Short screens (intro): also `scrollEnabled={false}` + CTA in `TvFocusGuide autoFocus` |
 | `nextFocus*` | Rail tabs `nextFocusRight` → content guide |
 | Scale on focus | [`pressable-scale.tsx`](../apps/app/src/components/ui/pressable-scale.tsx) (~1.08×, skipped when reduce motion) |
 | Remote bridge | [`tv-remote-bridge.tsx`](../apps/app/src/components/tv/tv-remote-bridge.tsx) — Play/Pause → audio; Menu/Back ladder |
 | QR login | TV login shows QR; phone opens `/tv-pair?code=…` and claims via API |
+
+**Simulator tip:** click the TV window so it has keyboard focus, then **Arrow keys** = D-pad and **Enter** = Select. Mouse clicks alone often do not advance focus.
+
+## Layout widths (10-foot)
+
+| Token / rule | Value / behavior |
+|--------------|------------------|
+| `TvLayout.contentPaddingX` | 48 — overscan inset on ScreenLayout / sheets |
+| ScreenLayout default on TV | **Uncapped** (fills the tab pane). Learn prose routes stay at `MaxContentWidth` (800) for readability. |
+| `TvLayout.listDetailMaxWidth` | 1720 — Qur’an / Hadith list–detail shells |
+| `TvLayout.detailPaneMinWidth` / `MaxWidth` | 420 / 720 — secondary panes |
+| Selected vs focused | Soft fill (`accentSoft`) + hairline for **selected**; solid accent / thick ring only for **D-pad focus**. Never paint accent borders on selected rows that also receive a focus ring. |
+| Search placeholders | Prefer short keys on TV (e.g. `quran.search` vs long phone placeholders) |
 
 ## QA checklist
 

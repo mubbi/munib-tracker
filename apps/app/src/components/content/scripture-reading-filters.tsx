@@ -1,14 +1,13 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, ScrollView, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import Animated, {
   type SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -16,6 +15,8 @@ import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -31,6 +32,39 @@ import {
 
 /** Extra width so a reading list and filters pane can sit side by side. */
 export const SCRIPTURE_LIST_DETAIL_MAX_WIDTH = 1280;
+
+export const scriptureListDetailStyles = StyleSheet.create({
+  readerRoot: { flex: 1, width: "100%" },
+  listDetailRoot: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    gap: Spacing.four,
+  },
+  listDetailPrimary: {
+    flex: 1.25,
+    minWidth: 0,
+  },
+  listDetailSecondary: {
+    flex: 1,
+    minWidth: 280,
+    maxWidth: 400,
+    borderStartWidth: StyleSheet.hairlineWidth,
+    gap: Spacing.three,
+  },
+  listDetailSecondaryTv: {
+    minWidth: TvLayout.detailPaneMinWidth,
+    maxWidth: TvLayout.detailPaneMaxWidth,
+  },
+  listDetailSecondaryScroll: {
+    flex: 1,
+  },
+  listDetailSecondaryContent: {
+    paddingStart: Spacing.four,
+    flexGrow: 1,
+    gap: Spacing.three,
+  },
+});
 
 const FILTER_ICONS = {
   transliteration: { ios: "textformat.abc", android: "abc", web: "abc" },
@@ -163,36 +197,42 @@ export function ScriptureReadingToolbar({
             />
           </PressableScale>
         ) : null}
-        <ScrollView
-          ref={scrollRef}
-          horizontal
-          style={styles.scroll}
-          showsHorizontalScrollIndicator={Platform.OS === "web"}
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.content}
-        >
-          <View
-            {...ltrControlViewProps()}
-            style={[styles.fontChip, { backgroundColor: colors.muted }]}
+        <TvFocusGuide trapFocusUp trapFocusDown>
+          <TvScrollView
+            ref={scrollRef}
+            horizontal
+            style={styles.scroll}
+            showsHorizontalScrollIndicator={Platform.OS === "web"}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.content}
           >
-            <SymbolView name={FILTER_ICONS.textSize} size={16} tintColor={colors.mutedForeground} />
-            <ReadingFontControls surface="dua_zikr" />
-          </View>
-          <ToggleChip
-            icon={FILTER_ICONS.transliteration}
-            label={t("quran.transliteration")}
-            enabled={showTransliteration}
-            accessibilityLabel={t("reading.showTransliteration")}
-            onPress={() => void toggleTransliteration()}
-          />
-          <ToggleChip
-            icon={FILTER_ICONS.translation}
-            label={t("quran.translation")}
-            enabled={showTranslation}
-            accessibilityLabel={t("reading.showTranslation")}
-            onPress={() => void toggleTranslation()}
-          />
-        </ScrollView>
+            <View
+              {...ltrControlViewProps()}
+              style={[styles.fontChip, { backgroundColor: colors.muted }]}
+            >
+              <SymbolView
+                name={FILTER_ICONS.textSize}
+                size={16}
+                tintColor={colors.mutedForeground}
+              />
+              <ReadingFontControls surface="dua_zikr" />
+            </View>
+            <ToggleChip
+              icon={FILTER_ICONS.transliteration}
+              label={t("quran.transliteration")}
+              enabled={showTransliteration}
+              accessibilityLabel={t("reading.showTransliteration")}
+              onPress={() => void toggleTransliteration()}
+            />
+            <ToggleChip
+              icon={FILTER_ICONS.translation}
+              label={t("quran.translation")}
+              enabled={showTranslation}
+              accessibilityLabel={t("reading.showTranslation")}
+              onPress={() => void toggleTranslation()}
+            />
+          </TvScrollView>
+        </TvFocusGuide>
         {fullscreen.supported ? (
           <PressableScale
             haptic="light"
@@ -297,35 +337,6 @@ export function ScriptureReaderChrome({
     </View>
   );
 }
-
-export const scriptureListDetailStyles = StyleSheet.create({
-  readerRoot: { flex: 1, width: "100%" },
-  listDetailRoot: {
-    flex: 1,
-    flexDirection: "row",
-    width: "100%",
-    gap: Spacing.four,
-  },
-  listDetailPrimary: {
-    flex: 1.15,
-    minWidth: 0,
-  },
-  listDetailSecondary: {
-    flex: 0.85,
-    minWidth: 280,
-    maxWidth: 400,
-    borderStartWidth: StyleSheet.hairlineWidth,
-    gap: Spacing.three,
-  },
-  listDetailSecondaryScroll: {
-    flex: 1,
-  },
-  listDetailSecondaryContent: {
-    paddingStart: Spacing.four,
-    flexGrow: 1,
-    gap: Spacing.three,
-  },
-});
 
 function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
   const { colors } = useThemeTokens();

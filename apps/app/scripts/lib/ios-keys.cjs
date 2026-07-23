@@ -209,6 +209,25 @@ function stageBuildApiKeyForAppleUpload({ keyPath, keyId }) {
   return dest;
 }
 
+/**
+ * xcodebuild `-allowProvisioningUpdates` with ASC API auth can create App Store
+ * (and tvOS) distribution profiles without a registered development device.
+ *
+ * @param {string} projectRoot
+ * @returns {string[]}
+ */
+function buildXcodeAscAuthArgs(projectRoot) {
+  const { keyId, issuerId, keyPath } = requireAscApiCredentials(projectRoot);
+  return [
+    "-authenticationKeyPath",
+    keyPath,
+    "-authenticationKeyID",
+    keyId,
+    "-authenticationKeyIssuerID",
+    issuerId,
+  ];
+}
+
 function requireIosKey(projectRoot, role) {
   const keys = resolveIosKeys(projectRoot);
   const key = keys[role];
@@ -256,6 +275,7 @@ module.exports = {
   requireIosKey,
   requireAscApiCredentials,
   stageBuildApiKeyForAppleUpload,
+  buildXcodeAscAuthArgs,
   logIosKeysSummary,
   readP8AsOneLinePem,
 };

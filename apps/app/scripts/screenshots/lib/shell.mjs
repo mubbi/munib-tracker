@@ -13,6 +13,7 @@ export function run(cmd, args, opts = {}) {
   });
   if (result.error) throw result.error;
   if (result.status !== 0) {
+    if (opts.allowFail) return result;
     const detail = result.stderr?.trim() || result.stdout?.trim() || `exit ${result.status}`;
     throw new Error(`${cmd} ${args.join(" ")} failed: ${detail}`);
   }

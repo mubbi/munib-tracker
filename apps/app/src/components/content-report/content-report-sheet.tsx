@@ -5,8 +5,7 @@ import type {
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, TextInput, View } from "react-native";
-
+import { StyleSheet, TextInput, View } from "react-native";
 import { ContentReportAttachments } from "@/components/content-report/content-report-attachments";
 import { ISSUE_TYPE_ICONS, ISSUE_TYPE_ORDER } from "@/components/content-report/issue-type-meta";
 import { ThemedText } from "@/components/themed-text";
@@ -14,6 +13,7 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ReportAttachmentInput } from "@/lib/content-report-api";
@@ -92,7 +92,7 @@ export function ContentReportSheet({
         </View>
       ) : null}
 
-      <ScrollView
+      <TvScrollView
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.form}
@@ -100,7 +100,7 @@ export function ContentReportSheet({
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("contentReport.issueTypeLabel")}
         </ThemedText>
-        <ScrollView
+        <TvScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.chips}
@@ -135,7 +135,7 @@ export function ContentReportSheet({
               </PressableScale>
             );
           })}
-        </ScrollView>
+        </TvScrollView>
 
         <Field label={t("contentReport.descriptionLabel")} required>
           <TextInput
@@ -182,7 +182,7 @@ export function ContentReportSheet({
         </Field>
 
         <ContentReportAttachments attachments={attachments} onChange={setAttachments} />
-      </ScrollView>
+      </TvScrollView>
 
       <View style={styles.actions}>
         <Button

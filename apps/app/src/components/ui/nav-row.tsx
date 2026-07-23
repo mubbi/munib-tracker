@@ -17,10 +17,12 @@ type NavRowProps = {
   /** Optional trailing count pill. */
   count?: number;
   onPress: () => void;
+  /** TV: request initial D-pad focus on this row. */
+  preferredFocus?: boolean;
 };
 
 /** A tappable navigation row: icon well + label + optional count + chevron. */
-export function NavRow({ icon, label, count, onPress }: NavRowProps) {
+export function NavRow({ icon, label, count, onPress, preferredFocus }: NavRowProps) {
   const { colors, tokens } = useThemeTokens();
   const rtl = useIsRTL();
   const chevron = useChevronForward();
@@ -31,6 +33,7 @@ export function NavRow({ icon, label, count, onPress }: NavRowProps) {
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={onPress}
+      {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
     >
       <IconWell icon={icon} well={tv ? 48 : undefined} size={tv ? 22 : undefined} />

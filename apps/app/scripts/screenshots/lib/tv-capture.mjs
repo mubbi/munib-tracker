@@ -39,8 +39,9 @@ export function assertCaptureAllowed(scriptName) {
 /** Deep link for a TV scene (same scheme as phone). */
 export function tvDeepLink(scene) {
   if (scene.type === "tab") {
-    const pathPart = scene.tab === "index" ? "" : scene.tab;
-    return `${URL_SCHEME}://${pathPart}`;
+    // Empty host (`munib-tracker://`) fails simctl openurl on tvOS — use explicit `/`.
+    if (scene.tab === "index") return `${URL_SCHEME}:///`;
+    return `${URL_SCHEME}://${scene.tab}`;
   }
   const route = (scene.route || "/").replace(/^\//, "");
   return `${URL_SCHEME}://${route}`;
@@ -126,6 +127,9 @@ export function openTvDeepLinkAndroid(scene, serial) {
 
 export function openTvDeepLinkIos(scene, udid) {
   const link = tvDeepLink(scene);
+  // Warm openurl on tvOS shows a system “Open in …?” sheet that blocks capture.
+  // Cold-start (terminate → openurl) delivers the URL as the initial launch link.
+  run("xcrun", ["simctl", "terminate", udid, APP_ID.ios], { allowFail: true });
   run("xcrun", ["simctl", "openurl", udid, link]);
 }
 

@@ -1,19 +1,20 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, ScrollView, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import Animated, {
   type SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText } from "@/components/themed-text";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -154,72 +155,74 @@ export function HadithReadingToolbar({
             />
           </PressableScale>
         ) : null}
-        <ScrollView
-          ref={scrollRef}
-          horizontal
-          style={styles.scroll}
-          showsHorizontalScrollIndicator={Platform.OS === "web"}
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.content}
-        >
-          <View
-            {...ltrControlViewProps()}
-            style={[styles.fontChip, { backgroundColor: colors.muted }]}
+        <TvFocusGuide trapFocusUp trapFocusDown>
+          <TvScrollView
+            ref={scrollRef}
+            horizontal
+            style={styles.scroll}
+            showsHorizontalScrollIndicator={Platform.OS === "web"}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.content}
           >
-            <SymbolView
-              name={TOOLBAR_ICONS.textSize}
-              size={16}
-              tintColor={colors.mutedForeground}
-            />
-            <ReadingFontControls surface="hadith" />
-          </View>
-          <ToggleChip
-            icon={TOOLBAR_ICONS.arabic}
-            label={t("hadith.arabic")}
-            enabled={showArabic}
-            accessibilityLabel={t("hadith.showArabic")}
-            onPress={onToggleArabic}
-          />
-          <ToggleChip
-            icon={TOOLBAR_ICONS.translation}
-            label={t("hadith.translation")}
-            enabled={showTranslation}
-            accessibilityLabel={t("hadith.showTranslation")}
-            onPress={onToggleTranslation}
-          />
-          <ToggleChip
-            icon={TOOLBAR_ICONS.narrator}
-            label={t("hadith.narratorLabel")}
-            enabled={showNarrator}
-            accessibilityLabel={t("hadith.showNarrator")}
-            onPress={onToggleNarrator}
-          />
-          <ToggleChip
-            icon={TOOLBAR_ICONS.grade}
-            label={t("hadith.gradeLabel")}
-            enabled={showGrade}
-            accessibilityLabel={t("hadith.showGrade")}
-            onPress={onToggleGrade}
-          />
-          {hasIsnad ? (
+            <View
+              {...ltrControlViewProps()}
+              style={[styles.fontChip, { backgroundColor: colors.muted }]}
+            >
+              <SymbolView
+                name={TOOLBAR_ICONS.textSize}
+                size={16}
+                tintColor={colors.mutedForeground}
+              />
+              <ReadingFontControls surface="hadith" />
+            </View>
             <ToggleChip
-              icon={TOOLBAR_ICONS.isnad}
-              label={t("hadith.isnad")}
-              enabled={showIsnad}
-              accessibilityLabel={t("hadith.showIsnad")}
-              onPress={onToggleIsnad}
+              icon={TOOLBAR_ICONS.arabic}
+              label={t("hadith.arabic")}
+              enabled={showArabic}
+              accessibilityLabel={t("hadith.showArabic")}
+              onPress={onToggleArabic}
             />
-          ) : null}
-          {hasSharh ? (
             <ToggleChip
-              icon={TOOLBAR_ICONS.sharh}
-              label={t("hadith.sharh")}
-              enabled={showSharh}
-              accessibilityLabel={t("hadith.showSharh")}
-              onPress={onToggleSharh}
+              icon={TOOLBAR_ICONS.translation}
+              label={t("hadith.translation")}
+              enabled={showTranslation}
+              accessibilityLabel={t("hadith.showTranslation")}
+              onPress={onToggleTranslation}
             />
-          ) : null}
-        </ScrollView>
+            <ToggleChip
+              icon={TOOLBAR_ICONS.narrator}
+              label={t("hadith.narratorLabel")}
+              enabled={showNarrator}
+              accessibilityLabel={t("hadith.showNarrator")}
+              onPress={onToggleNarrator}
+            />
+            <ToggleChip
+              icon={TOOLBAR_ICONS.grade}
+              label={t("hadith.gradeLabel")}
+              enabled={showGrade}
+              accessibilityLabel={t("hadith.showGrade")}
+              onPress={onToggleGrade}
+            />
+            {hasIsnad ? (
+              <ToggleChip
+                icon={TOOLBAR_ICONS.isnad}
+                label={t("hadith.isnad")}
+                enabled={showIsnad}
+                accessibilityLabel={t("hadith.showIsnad")}
+                onPress={onToggleIsnad}
+              />
+            ) : null}
+            {hasSharh ? (
+              <ToggleChip
+                icon={TOOLBAR_ICONS.sharh}
+                label={t("hadith.sharh")}
+                enabled={showSharh}
+                accessibilityLabel={t("hadith.showSharh")}
+                onPress={onToggleSharh}
+              />
+            ) : null}
+          </TvScrollView>
+        </TvFocusGuide>
         {fullscreen.supported ? (
           <PressableScale
             haptic="light"

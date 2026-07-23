@@ -19,12 +19,15 @@ export function SettingsRow({
   subtitle,
   value,
   onPress,
+  preferredFocus,
 }: {
   icon: AppIcon;
   title: string;
   subtitle?: string;
   value?: string;
   onPress: () => void;
+  /** TV: request initial D-pad focus on this row. */
+  preferredFocus?: boolean;
 }) {
   const { colors } = useThemeTokens();
   const rtl = useIsRTL();
@@ -36,6 +39,7 @@ export function SettingsRow({
       accessibilityRole="button"
       accessibilityLabel={title}
       onPress={onPress}
+      {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
     >
       <IconWell icon={icon} well={tv ? 48 : undefined} size={tv ? 22 : undefined} />

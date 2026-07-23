@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
 import {
   SCRIPTURE_LIST_DETAIL_MAX_WIDTH,
@@ -13,6 +13,7 @@ import { Seo } from "@/components/seo/seo";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
@@ -177,10 +178,11 @@ export default function DuaDetailScreen() {
           <View
             style={[
               scriptureListDetailStyles.listDetailSecondary,
+              tv && scriptureListDetailStyles.listDetailSecondaryTv,
               { borderStartColor: tokens.hairline },
             ]}
           >
-            <ScrollView
+            <TvScrollView
               style={scriptureListDetailStyles.listDetailSecondaryScroll}
               contentContainerStyle={[
                 scriptureListDetailStyles.listDetailSecondaryContent,
@@ -190,7 +192,7 @@ export default function DuaDetailScreen() {
               keyboardShouldPersistTaps="handled"
             >
               <ScriptureReadingFilters />
-            </ScrollView>
+            </TvScrollView>
           </View>
         </View>
       ) : (

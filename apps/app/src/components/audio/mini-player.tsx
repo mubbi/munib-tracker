@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   type AccessibilityActionEvent,
   ActivityIndicator,
-  FlatList,
+  type FlatList,
   type LayoutChangeEvent,
   type ListRenderItem,
   PanResponder,
@@ -30,6 +30,7 @@ import { ThemedText } from "@/components/themed-text";
 import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
@@ -1379,7 +1380,7 @@ const ExpandedPlaylist = memo(function ExpandedPlaylist({
       <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.upNext}>
         {t("player.upNext")}
       </ThemedText>
-      <FlatList
+      <TvFlatList
         ref={playlistRef}
         data={queue}
         extraData={activeIndex}

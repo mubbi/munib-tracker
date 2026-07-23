@@ -2,12 +2,11 @@ import { useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  FlatList,
+  type FlatList,
   type LayoutChangeEvent,
   type ListRenderItem,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  ScrollView,
   StyleSheet,
   View,
 } from "react-native";
@@ -25,6 +24,8 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
@@ -167,7 +168,7 @@ export default function DuroodFavoritesScreen() {
               : scriptureListDetailStyles.readerRoot
           }
         >
-          <FlatList
+          <TvFlatList
             ref={listRef}
             style={[
               styles.flatList,
@@ -197,11 +198,12 @@ export default function DuroodFavoritesScreen() {
             <View
               style={[
                 scriptureListDetailStyles.listDetailSecondary,
+                tv && scriptureListDetailStyles.listDetailSecondaryTv,
                 { borderStartColor: tokens.hairline },
               ]}
             >
               <ScriptureReaderChrome toolbarVisible={toolbarVisible} onBackToTop={scrollToTop} />
-              <ScrollView
+              <TvScrollView
                 style={scriptureListDetailStyles.listDetailSecondaryScroll}
                 contentContainerStyle={[
                   scriptureListDetailStyles.listDetailSecondaryContent,
@@ -211,7 +213,7 @@ export default function DuroodFavoritesScreen() {
                 keyboardShouldPersistTaps="handled"
               >
                 <ScriptureReadingFilters />
-              </ScrollView>
+              </TvScrollView>
             </View>
           ) : null}
         </View>

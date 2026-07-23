@@ -2,7 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Seo } from "@/components/seo/seo";
 import { VoiceInputButton } from "@/components/stt/voice-input-button";
@@ -11,6 +11,8 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
@@ -464,7 +466,7 @@ export default function SearchScreen() {
             placeholder={t("search.placeholder")}
             placeholderTextColor={colors.mutedForeground}
             accessibilityLabel={t("search.placeholder")}
-            autoFocus
+            autoFocus={!tv}
             autoCorrect={false}
             returnKeyType="search"
             style={[styles.input, { color: colors.foreground }]}
@@ -496,162 +498,166 @@ export default function SearchScreen() {
       {/* Filter chips */}
       {hasQuery && presentCategories.length > 0 ? (
         <View style={styles.filterWrap}>
-          <ScrollView
-            ref={filterScrollRef}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={styles.filterRow}
-          >
-            <FilterChip
-              label={t("search.all")}
-              count={totalCount}
-              active={filter === "all"}
-              tv={tv}
-              onPress={() => setFilter("all")}
-            />
-            {presentCategories.map((category) => {
-              const group = groups.find((g) => g.category === category);
-              return (
-                <FilterChip
-                  key={category}
-                  label={t(`search.cat.${category}`)}
-                  count={group?.total ?? 0}
-                  active={filter === category}
-                  tv={tv}
-                  onPress={() => setFilter(category)}
-                />
-              );
-            })}
-          </ScrollView>
+          <TvFocusGuide trapFocusUp trapFocusDown>
+            <TvScrollView
+              ref={filterScrollRef}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={styles.filterRow}
+            >
+              <FilterChip
+                label={t("search.all")}
+                count={totalCount}
+                active={filter === "all"}
+                tv={tv}
+                onPress={() => setFilter("all")}
+              />
+              {presentCategories.map((category) => {
+                const group = groups.find((g) => g.category === category);
+                return (
+                  <FilterChip
+                    key={category}
+                    label={t(`search.cat.${category}`)}
+                    count={group?.total ?? 0}
+                    active={filter === category}
+                    tv={tv}
+                    onPress={() => setFilter(category)}
+                  />
+                );
+              })}
+            </TvScrollView>
+          </TvFocusGuide>
         </View>
       ) : null}
 
-      <ScrollView
-        style={styles.body}
-        contentContainerStyle={styles.bodyContent}
-        keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="on-drag"
-        showsVerticalScrollIndicator={false}
-      >
-        {showIdle ? (
-          <IdleState
-            recent={recent}
-            suggestions={SUGGESTIONS}
-            tv={tv}
-            onPick={runSuggestion}
-            onClearRecent={clearRecent}
-          />
-        ) : visibleGroups.length > 0 ? (
-          <View style={styles.results}>
-            {visibleGroups.map((group) => {
-              const preview =
-                filter === "all" ? group.results.slice(0, PREVIEW_LIMIT) : group.results;
-              const canSeeAll = filter === "all" && group.total > preview.length;
-              const visual = categoryVisual[group.category];
-              const showInlineQuranLoader =
-                group.category === "quran" &&
-                ayahLoading &&
-                (filter === "all" || filter === "quran");
-              return (
-                <View key={group.category} style={styles.group}>
-                  <View style={styles.groupHeader}>
-                    <IconWell
-                      icon={visual.icon}
-                      size={15}
-                      well={30}
-                      tint={visual.tint}
-                      background={visual.soft}
-                    />
-                    <ThemedText type="subtitle" style={styles.groupTitle}>
-                      {t(`search.cat.${group.category}`)}
-                    </ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {ayahLoading && group.category === "quran"
-                        ? t("search.searchingQuran")
-                        : t("search.resultsCount", { count: group.total })}
-                    </ThemedText>
-                  </View>
-
-                  <View style={styles.rows}>
-                    {preview.map((result) => (
-                      <ResultRow
-                        key={result.key}
-                        result={result}
-                        query={query}
-                        visual={visual}
-                        category={group.category}
-                        tv={tv}
-                        onPress={() => openResult(result)}
+      <TvFocusGuide autoFocus={tv} style={styles.body}>
+        <TvScrollView
+          style={styles.body}
+          contentContainerStyle={styles.bodyContent}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          showsVerticalScrollIndicator={false}
+        >
+          {showIdle ? (
+            <IdleState
+              recent={recent}
+              suggestions={SUGGESTIONS}
+              tv={tv}
+              onPick={runSuggestion}
+              onClearRecent={clearRecent}
+            />
+          ) : visibleGroups.length > 0 ? (
+            <View style={styles.results}>
+              {visibleGroups.map((group) => {
+                const preview =
+                  filter === "all" ? group.results.slice(0, PREVIEW_LIMIT) : group.results;
+                const canSeeAll = filter === "all" && group.total > preview.length;
+                const visual = categoryVisual[group.category];
+                const showInlineQuranLoader =
+                  group.category === "quran" &&
+                  ayahLoading &&
+                  (filter === "all" || filter === "quran");
+                return (
+                  <View key={group.category} style={styles.group}>
+                    <View style={styles.groupHeader}>
+                      <IconWell
+                        icon={visual.icon}
+                        size={15}
+                        well={30}
+                        tint={visual.tint}
+                        background={visual.soft}
                       />
-                    ))}
-                  </View>
-
-                  {showInlineQuranLoader ? (
-                    <View style={styles.searchingRow}>
-                      <ActivityIndicator size="small" color={colors.accent} />
+                      <ThemedText type="subtitle" style={styles.groupTitle}>
+                        {t(`search.cat.${group.category}`)}
+                      </ThemedText>
                       <ThemedText type="caption" themeColor="mutedForeground">
-                        {t("search.searchingQuran")}
+                        {ayahLoading && group.category === "quran"
+                          ? t("search.searchingQuran")
+                          : t("search.resultsCount", { count: group.total })}
                       </ThemedText>
                     </View>
-                  ) : null}
 
-                  {canSeeAll ? (
-                    <PressableScale
-                      haptic="light"
-                      accessibilityRole="button"
-                      onPress={() => setFilter(group.category)}
-                      style={styles.seeAll}
-                    >
-                      <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-                        {t("search.seeAllCount", { count: group.total })}
-                      </ThemedText>
-                      <SymbolView
-                        name={chevronForwardIcon}
-                        size={13}
-                        tintColor={colors.accentText}
-                      />
-                    </PressableScale>
-                  ) : null}
-                </View>
-              );
-            })}
+                    <View style={styles.rows}>
+                      {preview.map((result) => (
+                        <ResultRow
+                          key={result.key}
+                          result={result}
+                          query={query}
+                          visual={visual}
+                          category={group.category}
+                          tv={tv}
+                          onPress={() => openResult(result)}
+                        />
+                      ))}
+                    </View>
 
-            {ayahLoading &&
-            (filter === "all" || filter === "quran") &&
-            !visibleGroups.some((g) => g.category === "quran") ? (
-              <View style={styles.group}>
-                <View style={styles.groupHeader}>
-                  <IconWell
-                    icon={categoryVisual.quran.icon}
-                    size={15}
-                    well={30}
-                    tint={categoryVisual.quran.tint}
-                    background={categoryVisual.quran.soft}
-                  />
-                  <ThemedText type="subtitle" style={styles.groupTitle}>
-                    {t("search.cat.quran")}
-                  </ThemedText>
+                    {showInlineQuranLoader ? (
+                      <View style={styles.searchingRow}>
+                        <ActivityIndicator size="small" color={colors.accent} />
+                        <ThemedText type="caption" themeColor="mutedForeground">
+                          {t("search.searchingQuran")}
+                        </ThemedText>
+                      </View>
+                    ) : null}
+
+                    {canSeeAll ? (
+                      <PressableScale
+                        haptic="light"
+                        accessibilityRole="button"
+                        onPress={() => setFilter(group.category)}
+                        style={styles.seeAll}
+                      >
+                        <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+                          {t("search.seeAllCount", { count: group.total })}
+                        </ThemedText>
+                        <SymbolView
+                          name={chevronForwardIcon}
+                          size={13}
+                          tintColor={colors.accentText}
+                        />
+                      </PressableScale>
+                    ) : null}
+                  </View>
+                );
+              })}
+
+              {ayahLoading &&
+              (filter === "all" || filter === "quran") &&
+              !visibleGroups.some((g) => g.category === "quran") ? (
+                <View style={styles.group}>
+                  <View style={styles.groupHeader}>
+                    <IconWell
+                      icon={categoryVisual.quran.icon}
+                      size={15}
+                      well={30}
+                      tint={categoryVisual.quran.tint}
+                      background={categoryVisual.quran.soft}
+                    />
+                    <ThemedText type="subtitle" style={styles.groupTitle}>
+                      {t("search.cat.quran")}
+                    </ThemedText>
+                  </View>
+                  <View style={styles.searchingRow}>
+                    <ActivityIndicator size="small" color={colors.accent} />
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("search.searchingQuran")}
+                    </ThemedText>
+                  </View>
                 </View>
-                <View style={styles.searchingRow}>
-                  <ActivityIndicator size="small" color={colors.accent} />
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("search.searchingQuran")}
-                  </ThemedText>
-                </View>
-              </View>
-            ) : null}
-          </View>
-        ) : showLoading ? (
-          <SearchLoading />
-        ) : showEmpty ? (
-          <EmptyState
-            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            title={t("search.noResultsTitle")}
-            description={t("search.noResultsDesc")}
-          />
-        ) : null}
-      </ScrollView>
+              ) : null}
+            </View>
+          ) : showLoading ? (
+            <SearchLoading />
+          ) : showEmpty ? (
+            <EmptyState
+              icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+              title={t("search.noResultsTitle")}
+              description={t("search.noResultsDesc")}
+            />
+          ) : null}
+        </TvScrollView>
+      </TvFocusGuide>
     </View>
   );
 }

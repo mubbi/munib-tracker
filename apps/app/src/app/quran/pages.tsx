@@ -3,7 +3,7 @@ import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  FlatList,
+  type FlatList,
   Keyboard,
   type ListRenderItem,
   type NativeScrollEvent,
@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -275,7 +276,7 @@ export default function QuranPagesBrowserScreen() {
         onBack={() => goBackOrReplace(router, "/quran")}
       >
         <View style={styles.listWrap}>
-          <FlatList
+          <TvFlatList
             ref={listRef}
             data={PAGE_LIST}
             keyExtractor={keyExtractor}

@@ -8,7 +8,6 @@ import {
   PanResponder,
   Platform,
   Pressable,
-  ScrollView,
   type StyleProp,
   StyleSheet,
   useWindowDimensions,
@@ -27,6 +26,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { hasLiquidGlass } from "@/components/ui/glass-surface";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -185,7 +185,7 @@ export function Sheet({
         scrollable ? (
           // minHeight: 0 is required so flex can shrink the scroll view inside a
           // maxHeight-bounded card; without it tall content overflows and is clipped.
-          <ScrollView
+          <TvScrollView
             style={[styles.bottomScroll, { maxHeight: bottomScrollMaxHeight }]}
             bounces={false}
             showsVerticalScrollIndicator={false}
@@ -196,7 +196,7 @@ export function Sheet({
             ]}
           >
             {renderedChildren}
-          </ScrollView>
+          </TvScrollView>
         ) : (
           <View
             style={[

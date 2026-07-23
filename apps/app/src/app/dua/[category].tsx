@@ -3,7 +3,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
+import { type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -12,6 +12,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -207,7 +208,7 @@ export default function DuaCategoryScreen() {
           </View>
         ) : (
           <View style={styles.listHost}>
-            <FlatList
+            <TvFlatList
               style={styles.flatList}
               data={filtered}
               keyExtractor={keyExtractor}

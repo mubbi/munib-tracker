@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, TextInput, View } from "react-native";
-
+import { StyleSheet, TextInput, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -101,7 +101,7 @@ export function DeleteAccountModal({
         <ThemedText type="subtitle">{t("profile.deleteTitle")}</ThemedText>
       </View>
 
-      <ScrollView
+      <TvScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
@@ -255,7 +255,7 @@ export function DeleteAccountModal({
             {error}
           </ThemedText>
         ) : null}
-      </ScrollView>
+      </TvScrollView>
 
       <View style={styles.actions}>
         {step === 1 ? (

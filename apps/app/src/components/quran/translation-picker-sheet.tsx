@@ -1,12 +1,12 @@
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, Platform, StyleSheet, TextInput, View } from "react-native";
-
+import { Platform, StyleSheet, TextInput, View } from "react-native";
 import { LocaleFlag } from "@/components/locale-flag";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { localeSecondaryLabel } from "@/lib/locale-display";
@@ -277,7 +277,7 @@ export function TranslationPickerSheet({
       </View>
 
       {step === "languages" ? (
-        <FlatList
+        <TvFlatList
           data={filteredLanguages}
           keyExtractor={(item) => item.language}
           style={styles.list}
@@ -324,7 +324,7 @@ export function TranslationPickerSheet({
           renderItem={renderLanguageRow}
         />
       ) : (
-        <FlatList
+        <TvFlatList
           data={filteredEditions}
           keyExtractor={(item) => item.id}
           style={styles.list}

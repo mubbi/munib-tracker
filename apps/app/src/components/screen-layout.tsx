@@ -11,7 +11,7 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
-  ScrollView,
+  type ScrollView,
   StyleSheet,
   useWindowDimensions,
   View,
@@ -25,6 +25,7 @@ import { ContentReportFooterLink } from "@/components/content-report/content-rep
 import { ErrorBoundary } from "@/components/error-boundary";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { MaxContentWidth, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
@@ -181,14 +182,16 @@ export function ScreenLayout({
 
   const tv = isTV();
 
-  // On wide viewports (wide web / large tablets) allow a wider content column
-  // so the layout doesn't sit as a narrow single strip in acres of whitespace.
-  // On TV, learn sections stay at MaxContentWidth — 10-foot timelines and prose
-  // look sparse when stretched to the wide tablet cap.
+  // Phone/web: cap the column so it doesn't stretch into a sparse strip.
+  // TV: fill the tab pane (minus overscan padding on the content wrapper).
+  // Learn prose stays narrower on TV so long articles remain readable from
+  // the couch — list–detail screens pass an explicit maxContentWidth instead.
   const maxWidth =
     maxContentWidth ??
-    (tv && isLearnRoute
-      ? MaxContentWidth
+    (tv
+      ? isLearnRoute
+        ? MaxContentWidth
+        : undefined
       : width >= WideBreakpoint
         ? WideMaxContentWidth
         : MaxContentWidth);
@@ -205,6 +208,9 @@ export function ScreenLayout({
         !scrollable && styles.contentFill,
         tv && {
           paddingHorizontal: TvLayout.contentPaddingX,
+          // Default content centers children; on TV that leaves a dead strip beside
+          // list–detail rows. Stretch so panes can use the full pane width.
+          alignItems: "stretch",
         },
         // Non-scrollable screens need the header inset; scrollable ones get it
         // on the ScrollView contentContainerStyle instead.
@@ -236,7 +242,7 @@ export function ScreenLayout({
   );
 
   const scrollBody = scrollable ? (
-    <ScrollView
+    <TvScrollView
       ref={scrollRef}
       onScroll={handleScroll}
       onContentSizeChange={onContentSizeChange}
@@ -260,7 +266,7 @@ export function ScreenLayout({
       showsVerticalScrollIndicator={false}
     >
       {content}
-    </ScrollView>
+    </TvScrollView>
   ) : (
     content
   );

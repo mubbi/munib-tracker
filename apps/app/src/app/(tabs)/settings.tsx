@@ -53,6 +53,7 @@ export default function SettingsScreen() {
               subtitle={
                 isGuest ? t("settings.accountGuest") : (user?.email ?? t("common.signedIn"))
               }
+              preferredFocus={tv}
               onPress={() => router.push("/profile")}
             />
           </View>

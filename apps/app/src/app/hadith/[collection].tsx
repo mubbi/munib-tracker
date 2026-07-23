@@ -4,12 +4,12 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  FlatList,
+  type FlatList,
   type LayoutChangeEvent,
   type ListRenderItem,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  ScrollView,
+  type ScrollView,
   StyleSheet,
   TextInput,
   View,
@@ -32,6 +32,8 @@ import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -73,8 +75,6 @@ const EMPTY_SECTIONS: HadithSection[] = [];
 
 /** Extra width so the hadith list and filters pane can sit side by side. */
 const LIST_DETAIL_MAX_WIDTH = 1280;
-/** Comfortable reading column width on TV (single-column layout; no side filters). */
-const TV_LIST_DETAIL_MAX_WIDTH = 1100;
 
 /**
  * Pre-render a static HTML page for every bundled hadith collection at web
@@ -532,7 +532,7 @@ export default function HadithCollectionScreen() {
           ? showSideFilters
             ? LIST_DETAIL_MAX_WIDTH
             : tv
-              ? TV_LIST_DETAIL_MAX_WIDTH
+              ? TvLayout.listDetailMaxWidth
               : undefined
           : undefined
       }
@@ -648,7 +648,7 @@ export default function HadithCollectionScreen() {
         /* No Stagger wrapper: its item view has no flex, which would break the
            FlatList's height chain (matches the dua category screen). */
         <View style={showSideFilters ? styles.listDetailRoot : styles.readerRoot}>
-          <FlatList
+          <TvFlatList
             ref={listRef}
             style={[styles.flatList, showSideFilters ? styles.listDetailPrimary : null]}
             contentContainerStyle={[styles.flatListContent, { paddingBottom: contentBottomInset }]}
@@ -675,9 +675,15 @@ export default function HadithCollectionScreen() {
             }
           />
           {showSideFilters ? (
-            <View style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}>
+            <View
+              style={[
+                styles.listDetailSecondary,
+                tv && styles.listDetailSecondaryTv,
+                { borderStartColor: tokens.hairline },
+              ]}
+            >
               {readerChrome}
-              <ScrollView
+              <TvScrollView
                 style={styles.listDetailSecondaryScroll}
                 contentContainerStyle={[
                   styles.listDetailSecondaryContent,
@@ -687,7 +693,7 @@ export default function HadithCollectionScreen() {
                 keyboardShouldPersistTaps="handled"
               >
                 {readerFilters}
-              </ScrollView>
+              </TvScrollView>
             </View>
           ) : null}
         </View>
@@ -1024,17 +1030,21 @@ const styles = StyleSheet.create({
     minHeight: 0,
   },
   listDetailPrimary: {
-    flex: 1.15,
+    flex: 1.25,
     minWidth: 0,
     minHeight: 0,
   },
   listDetailSecondary: {
-    flex: 0.85,
+    flex: 1,
     minWidth: 280,
     maxWidth: 400,
     borderStartWidth: StyleSheet.hairlineWidth,
     gap: Spacing.three,
     minHeight: 0,
+  },
+  listDetailSecondaryTv: {
+    minWidth: TvLayout.detailPaneMinWidth,
+    maxWidth: TvLayout.detailPaneMaxWidth,
   },
   listDetailSecondaryScroll: {
     flex: 1,

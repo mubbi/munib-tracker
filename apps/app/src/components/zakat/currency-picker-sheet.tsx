@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, I18nManager, StyleSheet, TextInput, View } from "react-native";
-
+import { I18nManager, StyleSheet, TextInput, View } from "react-native";
 import { CurrencyGlyph } from "@/components/money/currency-glyph";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { type CurrencyDef, getCurrencyInfo, SUPPORTED_CURRENCIES } from "@/constants/currencies";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -94,7 +94,7 @@ export function CurrencyPickerSheet({
         ]}
       />
 
-      <FlatList
+      <TvFlatList
         data={filtered}
         keyExtractor={(item) => item.code}
         keyboardShouldPersistTaps="handled"
