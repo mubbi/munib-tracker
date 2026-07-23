@@ -672,7 +672,12 @@
       "completeHint": "Şu günki bölek tamam — meýilnamany görmek üçin bas",
       "a11y": "Khatm meýilnamasy {{total}} günüň {{day}}-si, şu günki maksada {{target}}-den {{done}}"
     },
-    "tvSubtitle": "Ýagdaýyny bellemek üçin namazy saýlaň — şu enjamda saklanýar."
+    "tvSubtitle": "Ýagdaýyny bellemek üçin namazy saýlaň — şu enjamda saklanýar.",
+    "obligatorySubtitle": "Gündelik 5 namazyňyzy yzarlaň",
+    "cardTip": "Täzelemek üçin namazyň adyna basyň · Zikir üçin azkar · Jikme-jiklik üçin maglumat",
+    "tapToMark": "Belliklemek üçin basyň",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Islege bagly we güýçli teklip edilen sünnet namazlar"
   },
   "update": {
     "title": "Täzelenme elýeterli",
@@ -3727,7 +3732,9 @@
     "supplicate": "Dua et",
     "learn": "Ögren",
     "more": "Daha fazla",
-    "tvSubtitle": "Guran, dua, zikir we öwreniş — Saýla bilen geziň"
+    "tvSubtitle": "Guran, dua, zikir we öwreniş — Saýla bilen geziň",
+    "searchPlaceholder": "Kitaphanada gözläň…",
+    "noResults": "Gözlegiňize laýyk kitaphana elementi ýok."
   },
   "offlineData": {
     "title": "Çevrimdyşy veri",

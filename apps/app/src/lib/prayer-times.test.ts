@@ -171,6 +171,33 @@ describe("night dividers", () => {
     expect(lastThirdOfNight(maghribAt, fajrAt).getTime()).toBe(dividers.lastThird.getTime());
   });
 
+  it("keeps same-day Fajr when its wall clock is after Maghrib (24h inputs)", () => {
+    // Regression: always rolling Fajr to tomorrow yielded 31h 57m for 08:24 → 16:21.
+    const { maghribAt, fajrAt } = nightBoundsFromWallClock(
+      { hour: 8, minute: 24 },
+      { hour: 16, minute: 21 },
+      anchor,
+    );
+    const dividers = computeNightDividers(maghribAt, fajrAt);
+    expect(dividers.nightDurationMinutes).toBe(7 * 60 + 57);
+    expect(fajrAt.getDate()).toBe(maghribAt.getDate());
+    expect(formatPrayerTime(dividers.midNight, "24")).toBe("12:22");
+    expect(formatPrayerTime(dividers.lastThird, "24")).toBe("13:42");
+  });
+
+  it("still rolls Fajr to the next day for overnight Maghrib → Fajr", () => {
+    const { maghribAt, fajrAt } = nightBoundsFromWallClock(
+      { hour: 20, minute: 24 },
+      { hour: 4, minute: 21 },
+      anchor,
+    );
+    const dividers = computeNightDividers(maghribAt, fajrAt);
+    expect(dividers.nightDurationMinutes).toBe(7 * 60 + 57);
+    expect(fajrAt.getDate()).toBe(maghribAt.getDate() + 1);
+    expect(formatPrayerTime(dividers.midNight, "24")).toBe("00:22");
+    expect(formatPrayerTime(dividers.lastThird, "12")).toMatch(/1:42 AM/);
+  });
+
   it("detects wall-clock Maghrib and Fajr for the upcoming night", () => {
     const now = new Date(2025, 5, 15, 12, 0, 0);
     const detected = detectNightPrayerWallClock(MAKKAH, now);

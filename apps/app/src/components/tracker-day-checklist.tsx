@@ -1,7 +1,8 @@
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type { ExcusedReason, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { Fragment, type RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { SymbolView } from "expo-symbols";
+import { Fragment, type RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type ScrollView, StyleSheet, View } from "react-native";
 
@@ -16,6 +17,7 @@ import { Card } from "@/components/ui/card";
 import { FocusHighlight } from "@/components/ui/focus-highlight";
 import { IconWell } from "@/components/ui/icon-well";
 import { NavRow } from "@/components/ui/nav-row";
+import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing } from "@/constants/theme";
@@ -32,6 +34,13 @@ function salahAdhkarCategories() {
   return (["after_azan", "before_prayer", "after_prayer"] as const)
     .map((id) => byId.get(id))
     .filter((category): category is NonNullable<typeof category> => category != null);
+}
+
+function countCompleted(
+  prayerIds: readonly PrayerId[],
+  status: Record<string, PrayerStatus>,
+): number {
+  return prayerIds.reduce((count, id) => count + (status[id] === "completed" ? 1 : 0), 0);
 }
 
 const FRIDAY_ICON = {
@@ -85,6 +94,10 @@ export function TrackerDayChecklist({
   const [fridayHighlight, setFridayHighlight] = useState(false);
   const showFriday = isFridayDateString(date);
 
+  const obligatoryDone = useMemo(() => countCompleted(OBLIGATORY_PRAYERS, status), [status]);
+  const witrDone = status[WITR_PRAYER] === "completed" ? 1 : 0;
+  const sunnahDone = useMemo(() => countCompleted(SUNNAH_PRAYERS, status), [status]);
+
   useEffect(() => {
     let active = true;
     void ensureZikrCorpus().then(() => {
@@ -131,10 +144,38 @@ export function TrackerDayChecklist({
         />
       </Card>
 
+      <View
+        style={[
+          styles.tipBanner,
+          { backgroundColor: tokens.accentSoft, borderColor: colors.border },
+        ]}
+        accessibilityRole="text"
+        accessibilityLabel={t("tracker.cardTip")}
+      >
+        <SymbolView
+          name={{ ios: "lightbulb.fill", android: "lightbulb", web: "lightbulb" }}
+          size={14}
+          tintColor={colors.accent}
+        />
+        <ThemedText type="caption" style={[styles.tipText, { color: colors.accent }]}>
+          {t("tracker.cardTip")}
+        </ThemedText>
+      </View>
+
       <Card padding="three">
         <SectionHeader
           title={t("tracker.obligatory")}
+          subtitle={t("tracker.obligatorySubtitle")}
           icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
+          badge={
+            <Pill
+              label={t("tracker.sectionProgress", {
+                completed: obligatoryDone,
+                total: OBLIGATORY_PRAYERS.length,
+              })}
+              compact
+            />
+          }
         />
         <View style={styles.rows}>
           {OBLIGATORY_PRAYERS.map((prayerId) => {
@@ -195,11 +236,18 @@ export function TrackerDayChecklist({
       <Card padding="three">
         <SectionHeader
           title={t("tracker.witr")}
+          subtitle={t("tracker.witrSubtitle")}
           icon={{ ios: "moon.fill", android: "dark_mode", web: "dark_mode" }}
+          badge={
+            <Pill
+              label={t("tracker.sectionProgress", {
+                completed: witrDone,
+                total: 1,
+              })}
+              compact
+            />
+          }
         />
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-          {t("tracker.witrSubtitle")}
-        </ThemedText>
         <View style={styles.rows}>
           <PrayerTrackerRow
             prayerId={WITR_PRAYER}
@@ -246,7 +294,17 @@ export function TrackerDayChecklist({
       <Card padding="three">
         <SectionHeader
           title={t("tracker.sunnahOptional")}
+          subtitle={t("tracker.sunnahSubtitle")}
           icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
+          badge={
+            <Pill
+              label={t("tracker.sectionProgress", {
+                completed: sunnahDone,
+                total: SUNNAH_PRAYERS.length,
+              })}
+              compact
+            />
+          }
         />
         <View style={styles.rows}>
           {SUNNAH_PRAYERS.map((prayerId) => (
@@ -289,6 +347,20 @@ const styles = StyleSheet.create({
   stack: {
     width: "100%",
     gap: Spacing.four,
+  },
+  tipBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  tipText: {
+    flex: 1,
+    minWidth: 0,
   },
   rows: {
     gap: Spacing.two,

@@ -599,9 +599,14 @@
       "travel": "Travel"
     },
     "obligatory": "Obligatory",
+    "obligatorySubtitle": "Track your 5 daily salah",
+    "cardTip": "Tap salah name to update · Adhkar for zikr · Info for details",
+    "tapToMark": "Tap to mark",
+    "sectionProgress": "{{completed}}/{{total}}",
     "witr": "Witr",
     "witrSubtitle": "Sunnah mu'akkadah — strongly emphasized, not one of the five fard prayers.",
     "sunnahOptional": "Sunnah & optional",
+    "sunnahSubtitle": "Optional and emphasized sunnah salah",
     "keepGoing": "Keep going",
     "salahAdhkar": "Salah adhkar",
     "salahAdhkarSubtitle": "Sunnah adhkar to recite around every prayer.",
@@ -3750,7 +3755,9 @@
     "supplicate": "Supplicate",
     "learn": "Learn",
     "more": "Tools & more",
-    "tvSubtitle": "Qur'an, duas, zikr, and learning — navigate with Select"
+    "tvSubtitle": "Qur'an, duas, zikr, and learning — navigate with Select",
+    "searchPlaceholder": "Search library…",
+    "noResults": "No library items matched your search."
   },
   "flashCards": {
     "eyebrow": "Learn",

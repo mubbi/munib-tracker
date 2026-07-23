@@ -672,7 +672,12 @@
       "completeHint": "Bugungi ulush bajarildi — rejani ko'rish uchun bosing",
       "a11y": "Khatm rejasi {{total}} kunning {{day}}-kuni, bugungi maqsadga {{target}} dan {{done}}"
     },
-    "tvSubtitle": "Holatini belgilash uchun namozni tanlang — shu qurilmada saqlanadi."
+    "tvSubtitle": "Holatini belgilash uchun namozni tanlang — shu qurilmada saqlanadi.",
+    "obligatorySubtitle": "Kundalik 5 namozingizni kuzatib boring",
+    "cardTip": "Yangilash uchun namoz nomiga bosing · Zikr uchun adhkar · Tafsilot uchun ma'lumot",
+    "tapToMark": "Belgilash uchun bosing",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Ixtiyoriy va ta'kidlangan sunnat namozlar"
   },
   "update": {
     "title": "Yangilanish mavjud",
@@ -3727,7 +3732,9 @@
     "supplicate": "Supplicte",
     "learn": "O'rganish",
     "more": "Vositalar va boshqalar",
-    "tvSubtitle": "Qur'on, duo, zikr va o‘rganish — Tanlash bilan harakatlaning"
+    "tvSubtitle": "Qur'on, duo, zikr va o‘rganish — Tanlash bilan harakatlaning",
+    "searchPlaceholder": "Kutubxonadan qidiring…",
+    "noResults": "Qidiruvingizga mos keladigan kutubxona elementi topilmadi."
   },
   "offlineData": {
     "title": "-nichidglyn dt",

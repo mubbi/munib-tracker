@@ -672,7 +672,12 @@
       "completeHint": "Qaybta maanta waa dhammaatay — taabo si aad u eegto qorshahaaga",
       "a11y": "Qorshaha khatm maalin {{day}} ee {{total}}, {{done}} ee {{target}} xagga hadafka maanta"
     },
-    "tvSubtitle": "Dooro salaad si aad u dejiso heerkeeda — waxaa lagu kaydiyaa qalabkan."
+    "tvSubtitle": "Dooro salaad si aad u dejiso heerkeeda — waxaa lagu kaydiyaa qalabkan.",
+    "obligatorySubtitle": "La soco 5-ta salaad ee maalinlaha ah",
+    "cardTip": "Taabo magaca salaadda si aad u cusboonaysiiso · Adhkar zikr · Macluumaad faahfaahin",
+    "tapToMark": "Taabo si aad u calaamadisid",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Salaado sunnah oo ikhtiyaari ah oo la xoojiyay"
   },
   "update": {
     "title": "Cusbooneysi waa diyaar",
@@ -3727,7 +3732,9 @@
     "supplicate": "Supplicte",
     "learn": "Baro",
     "more": "Qalabka & wax kale",
-    "tvSubtitle": "Qur'an, dua, zikr, iyo barasho — ku dhex soco Dooro"
+    "tvSubtitle": "Qur'an, dua, zikr, iyo barasho — ku dhex soco Dooro",
+    "searchPlaceholder": "Ka raadi maktabadda…",
+    "noResults": "Ma jiro waxyaabo maktabad ah oo ku habboon raadintaada."
   },
   "offlineData": {
     "title": "eeflgudhe dt",

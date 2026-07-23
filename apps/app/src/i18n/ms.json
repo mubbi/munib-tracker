@@ -672,7 +672,12 @@
       "completeHint": "Bahagian hari ini siap — ketik untuk semak rancangan anda",
       "a11y": "Rancangan khatm hari ke-{{day}} daripada {{total}}, {{done}} daripada {{target}} ke arah matlamat hari ini"
     },
-    "tvSubtitle": "Pilih solat untuk menetapkan statusnya — disimpan pada peranti ini."
+    "tvSubtitle": "Pilih solat untuk menetapkan statusnya — disimpan pada peranti ini.",
+    "obligatorySubtitle": "Jejaki 5 solat harian anda",
+    "cardTip": "Ketik nama solat untuk kemaskini · Adhkar untuk zikir · Maklumat untuk butiran",
+    "tapToMark": "Ketik untuk tanda",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Solat sunnah pilihan dan yang ditekankan"
   },
   "update": {
     "title": "Kemas kini tersedia",
@@ -3739,7 +3744,9 @@
     "supplicate": "Berdua",
     "learn": "Belajar",
     "more": "Lainnya",
-    "tvSubtitle": "Qur'an, dua, zikr dan pembelajaran — navigasi dengan Pilih"
+    "tvSubtitle": "Qur'an, dua, zikr dan pembelajaran — navigasi dengan Pilih",
+    "searchPlaceholder": "Cari dalam perpustakaan…",
+    "noResults": "Tiada item perpustakaan yang sepadan dengan carian anda."
   },
   "offlineData": {
     "title": "Data luar talian",

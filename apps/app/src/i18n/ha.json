@@ -672,7 +672,12 @@
       "completeHint": "Sashen yau an gama — taɓa don duba shirin ku",
       "a11y": "Shirin khatm rana {{day}} cikin {{total}}, {{done}} cikin {{target}} zuwa burin yau"
     },
-    "tvSubtitle": "Zaɓi salla don saita matsayinta — an adana a wannan na'urar."
+    "tvSubtitle": "Zaɓi salla don saita matsayinta — an adana a wannan na'urar.",
+    "obligatorySubtitle": "Bi Salah 5 na yau da kullum",
+    "cardTip": "Taɓa sunan salah don sabuntawa · Adhkar don zikr · Bayani don cikakkun bayanai",
+    "tapToMark": "Taɓa don yi alama",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Salah na sunnah na zaɓi da aka ƙarfafa"
   },
   "update": {
     "title": "Sabunta tana samuwa",
@@ -3727,7 +3732,9 @@
     "supplicate": "Addu'a",
     "learn": "Koyi",
     "more": "Kara",
-    "tvSubtitle": "Qur'an, dua, zikr, da koyo — yi tafiya da Zaɓi"
+    "tvSubtitle": "Qur'an, dua, zikr, da koyo — yi tafiya da Zaɓi",
+    "searchPlaceholder": "Nemo cikin laburare…",
+    "noResults": "Babu abubuwan laburare da suka dace da bincikenku."
   },
   "offlineData": {
     "title": "Bayanan kan layi",

@@ -672,7 +672,12 @@
       "completeHint": "Porsi hari ini selesai — ketuk untuk tinjau rencana Anda",
       "a11y": "Rencana khatm hari ke-{{day}} dari {{total}}, {{done}} dari {{target}} menuju target hari ini"
     },
-    "tvSubtitle": "Pilih shalat untuk mengatur statusnya — disimpan di perangkat ini."
+    "tvSubtitle": "Pilih shalat untuk mengatur statusnya — disimpan di perangkat ini.",
+    "obligatorySubtitle": "Lacak 5 shalat harian Anda",
+    "cardTip": "Ketuk nama shalat untuk memperbarui · Adhkar untuk zikir · Info untuk detail",
+    "tapToMark": "Ketuk untuk menandai",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Shalat sunnah opsional dan yang ditekankan"
   },
   "update": {
     "title": "Pembaruan tersedia",
@@ -3727,7 +3732,9 @@
     "supplicate": "Berdoa",
     "learn": "Belajar",
     "more": "Alat & lainnya",
-    "tvSubtitle": "Qur'an, dua, zikr, dan pembelajaran — navigasi dengan Pilih"
+    "tvSubtitle": "Qur'an, dua, zikr, dan pembelajaran — navigasi dengan Pilih",
+    "searchPlaceholder": "Cari di perpustakaan…",
+    "noResults": "Tidak ada item perpustakaan yang cocok dengan pencarian Anda."
   },
   "offlineData": {
     "title": "Data offline",

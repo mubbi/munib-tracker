@@ -22,7 +22,7 @@ import { locationCalcExtras, type StoredLocation } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   computeNightDividers,
-  detectNightPrayerWallClock,
+  detectNightPrayerBounds,
   formatDuration,
   formatPrayerTime,
   resolveNightBoundsForNow,
@@ -36,8 +36,15 @@ const LAST_THIRD_HADITH_ID = "bukhari:1145";
 
 type EditField = "maghrib" | "fajr";
 
-function detectTimes(location: StoredLocation): { maghrib: WallClockValue; fajr: WallClockValue } {
-  return detectNightPrayerWallClock(
+type DetectedNight = {
+  maghrib: WallClockValue;
+  fajr: WallClockValue;
+  maghribAt: Date;
+  fajrAt: Date;
+};
+
+function detectTimes(location: StoredLocation): DetectedNight {
+  return detectNightPrayerBounds(
     { latitude: location.latitude, longitude: location.longitude },
     new Date(),
     location.method,
@@ -58,19 +65,34 @@ export default function LastThirdNightScreen() {
   const [seed] = useState(() => detectTimes(location));
   const [maghrib, setMaghrib] = useState<WallClockValue>(seed.maghrib);
   const [fajr, setFajr] = useState<WallClockValue>(seed.fajr);
+  /** Absolute Maghrib→Fajr from prayer calc; cleared when the user edits wall clocks. */
+  const [prayerBounds, setPrayerBounds] = useState<{ maghribAt: Date; fajrAt: Date } | null>({
+    maghribAt: seed.maghribAt,
+    fajrAt: seed.fajrAt,
+  });
   const [editField, setEditField] = useState<EditField | null>(null);
 
   const autoDetect = useCallback(() => {
     const detected = detectTimes(location);
     setMaghrib(detected.maghrib);
     setFajr(detected.fajr);
+    setPrayerBounds({ maghribAt: detected.maghribAt, fajrAt: detected.fajrAt });
   }, [location]);
 
+  const setEditingValue = useCallback(
+    (next: WallClockValue) => {
+      setPrayerBounds(null);
+      if (editField === "fajr") setFajr(next);
+      else setMaghrib(next);
+    },
+    [editField],
+  );
+
   const result = useMemo(() => {
-    const bounds = resolveNightBoundsForNow(maghrib, fajr, now, location.timeZone);
+    const bounds = prayerBounds ?? resolveNightBoundsForNow(maghrib, fajr, now, location.timeZone);
     if (!bounds) return undefined;
     return { ...computeNightDividers(bounds.maghribAt, bounds.fajrAt), fajrAt: bounds.fajrAt };
-  }, [fajr, location.timeZone, maghrib, now]);
+  }, [fajr, location.timeZone, maghrib, now, prayerBounds]);
 
   const countdownLabel = useMemo(() => {
     if (!result) return undefined;
@@ -90,7 +112,6 @@ export default function LastThirdNightScreen() {
     formatDisplayHhMm(value.hour, value.minute, timeFormat);
 
   const editingValue = editField === "fajr" ? fajr : maghrib;
-  const setEditingValue = editField === "fajr" ? setFajr : setMaghrib;
 
   return (
     <ScreenLayout

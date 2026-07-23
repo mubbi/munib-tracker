@@ -22,6 +22,8 @@ type PrayerInfoButtonProps = {
   hitTarget?: number;
   /** When true, shows a compact "Learn more" label beside the icon. */
   showLabel?: boolean;
+  /** Underline the label so it reads as an info link (tracker cards). */
+  underlined?: boolean;
 };
 
 export function PrayerInfoButton({
@@ -29,12 +31,13 @@ export function PrayerInfoButton({
   tintColor,
   hitTarget = 44,
   showLabel = false,
+  underlined = false,
 }: PrayerInfoButtonProps) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const [open, setOpen] = useState(false);
   const prayerName = t(`prayers.${prayerId}`);
-  const color = tintColor ?? colors.mutedForeground;
+  const color = tintColor ?? (underlined ? colors.accent : colors.mutedForeground);
 
   return (
     <>
@@ -54,7 +57,10 @@ export function PrayerInfoButton({
             size={13}
             tintColor={color}
           />
-          <ThemedText type="caption" style={{ color }}>
+          <ThemedText
+            type="caption"
+            style={[{ color }, underlined ? styles.learnMoreUnderlined : null]}
+          >
             {t("prayerInfo.learnMore")}
           </ThemedText>
         </PressableScale>
@@ -85,5 +91,8 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     gap: Spacing.half + 2,
     paddingVertical: 0,
+  },
+  learnMoreUnderlined: {
+    textDecorationLine: "underline",
   },
 });

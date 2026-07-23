@@ -672,7 +672,12 @@
       "completeHint": "Bu günkü pay tamamlandı — planınıza baxmaq üçün toxunun",
       "a11y": "Khatm planı {{total}} günün {{day}}-i, bu günkü hədəfə {{target}}-dən {{done}}"
     },
-    "tvSubtitle": "Statusunu təyin etmək üçün namaz seçin — bu cihazda saxlanılır."
+    "tvSubtitle": "Statusunu təyin etmək üçün namaz seçin — bu cihazda saxlanılır.",
+    "obligatorySubtitle": "Gündəlik 5 namazınızı izləyin",
+    "cardTip": "Yeniləmək üçün namaz adına toxunun · Zikr üçün ədzkar · Ətraflı məlumat üçün məlumat",
+    "tapToMark": "Qeyd etmək üçün toxunun",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "İstəyə bağlı və vurğulanmış sünnə namazlar"
   },
   "update": {
     "title": "Yeniləmə mövcuddur",
@@ -3727,7 +3732,9 @@
     "supplicate": "Supplicte",
     "learn": "Öyrən",
     "more": "Alətlər və digər",
-    "tvSubtitle": "Qur'an, dualar, zikr və öyrənmə — Seçin ilə naviqasiya edin"
+    "tvSubtitle": "Qur'an, dualar, zikr və öyrənmə — Seçin ilə naviqasiya edin",
+    "searchPlaceholder": "Kitabxanada axtarın…",
+    "noResults": "Axtarışınıza uyğun kitabxana elementi yoxdur."
   },
   "offlineData": {
     "title": "-içindəlyn dt",

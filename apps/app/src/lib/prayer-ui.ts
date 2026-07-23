@@ -57,6 +57,19 @@ export const PRAYER_STATUS_META: Record<PrayerStatus, { icon: SymbolName; tone: 
   },
 };
 
+/**
+ * Glyphs drawn inside the tracker status mark circle. Plain symbols (not
+ * `*.circle.fill`) so the mark's own ring/disc is the shape — avoids a double
+ * circle when nesting filled status icons.
+ */
+export const PRAYER_STATUS_MARK_GLYPH: Record<PrayerStatus, SymbolName | null> = {
+  pending: { ios: "ellipsis", android: "more_horiz", web: "more_horiz" },
+  completed: { ios: "checkmark", android: "check", web: "check" },
+  missed: { ios: "xmark", android: "close", web: "close" },
+  delayed: { ios: "clock", android: "schedule", web: "schedule" },
+  qaza: { ios: "arrow.clockwise", android: "history", web: "history" },
+};
+
 /** Congregation (jama') indicator shown on completed fard rows (NF-1.5). */
 export const PRAYER_JAMA_ICON: SymbolName = {
   ios: "person.3.fill",

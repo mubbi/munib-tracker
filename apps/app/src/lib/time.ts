@@ -141,10 +141,12 @@ export function formatDisplayTime(
   timeZone?: string,
 ): string {
   const hour12 = usesHour12(format);
+  // Prefer `hourCycle` over `hour12` alone — some engines ignore `hour12: false`
+  // for US-style locales and would otherwise emit 12-hour strings in 24h mode.
   return date.toLocaleTimeString([], {
     hour: hour12 ? "numeric" : "2-digit",
     minute: "2-digit",
-    hour12,
+    hourCycle: hour12 ? "h12" : "h23",
     timeZone,
   });
 }

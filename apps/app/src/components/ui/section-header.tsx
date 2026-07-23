@@ -1,4 +1,5 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import type { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -11,6 +12,8 @@ import type { AppIcon as AppIconName } from "@/lib/names-of-allah-ui";
 type SectionHeaderProps = {
   title: string;
   icon?: AppIconName;
+  subtitle?: string;
+  badge?: ReactNode;
   actionLabel?: string;
   actionIcon?: SymbolViewProps["name"];
   actionAccessibilityLabel?: string;
@@ -20,6 +23,8 @@ type SectionHeaderProps = {
 export function SectionHeader({
   title,
   icon,
+  subtitle,
+  badge,
   actionLabel,
   actionIcon,
   actionAccessibilityLabel,
@@ -35,10 +40,19 @@ export function SectionHeader({
             <AppIcon icon={icon} size={14} tintColor={colors.accent} />
           </View>
         ) : null}
-        <ThemedText type="subtitle" heading={2} style={styles.title}>
-          {title}
-        </ThemedText>
+        <View style={styles.titleBlock}>
+          <ThemedText type="subtitle" heading={2} style={styles.title}>
+            {title}
+          </ThemedText>
+          {subtitle ? (
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.subtitle}>
+              {subtitle}
+            </ThemedText>
+          ) : null}
+        </View>
       </View>
+
+      {badge ? <View style={styles.badge}>{badge}</View> : null}
 
       {actionLabel ? (
         <PressableScale
@@ -81,11 +95,22 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     minWidth: 0,
   },
-  title: {
+  titleBlock: {
     flex: 1,
+    minWidth: 0,
+    gap: 2,
+  },
+  title: {
     flexShrink: 1,
     alignSelf: "stretch",
     textTransform: "capitalize",
+  },
+  subtitle: {
+    flexShrink: 1,
+  },
+  badge: {
+    flexShrink: 0,
+    alignSelf: "center",
   },
   iconWell: {
     flexShrink: 0,

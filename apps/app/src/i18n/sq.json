@@ -672,7 +672,12 @@
       "completeHint": "Pjesa e sotme u krye — prek për të parë planin",
       "a11y": "Plani khatm dita {{day}} nga {{total}}, {{done}} nga {{target}} drejt objektivit të sotëm"
     },
-    "tvSubtitle": "Zgjidhni një namaz për të vendosur statusin — ruhet në këtë pajisje."
+    "tvSubtitle": "Zgjidhni një namaz për të vendosur statusin — ruhet në këtë pajisje.",
+    "obligatorySubtitle": "Ndiqni 5 namazet tuaja ditore",
+    "cardTip": "Prekni emrin e namazit për përditësim · Adhkar për zikr · Info për detaje",
+    "tapToMark": "Prekni për të shënuar",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Namazet sunnet opsionale dhe të theksuara"
   },
   "update": {
     "title": "Përditësim i disponueshëm",
@@ -3739,7 +3744,9 @@
     "supplicate": "Supplicte",
     "learn": "Mëso",
     "more": "Më shumë",
-    "tvSubtitle": "Qur'an, dua, zikr dhe mësim — navigoni me Zgjidh"
+    "tvSubtitle": "Qur'an, dua, zikr dhe mësim — navigoni me Zgjidh",
+    "searchPlaceholder": "Kërko në bibliotekë…",
+    "noResults": "Asnjë artikull i bibliotekës nuk përputhet me kërkimin tuaj."
   },
   "offlineData": {
     "title": "Të dhënat jashtë linje",

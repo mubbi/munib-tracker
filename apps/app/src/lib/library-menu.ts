@@ -1,5 +1,8 @@
 import type { Href } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
+
+import { createFuzzyIndex, type FuzzyIndex } from "@/lib/search";
+
 import type { AppIcon } from "./names-of-allah-ui";
 import { assertLibraryMenuParity, QUICK_ACTION_META, QUICK_ACTION_ROUTES } from "./quick-actions";
 
@@ -152,4 +155,79 @@ export function groupLibraryMenuBySection(
     groups[entry.section].push(entry);
   }
   return groups;
+}
+
+/**
+ * Alternate spellings / common synonyms for Library search. Canonical UI labels
+ * stay on the terminology guide (Zikr, Qaza, …); these only widen Fuse matching
+ * for how people actually type (dhikr, azkar, qadha, koran, …).
+ */
+export const LIBRARY_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> = {
+  zikr: ["dhikr", "adhkar", "azkar", "athkar", "zikar", "zikir", "dikir", "zikr"],
+  adhkarBuilder: ["adhkar", "azkar", "athkar", "zikr", "dhikr", "my adhkar", "custom adhkar"],
+  duas: ["dua", "duaa", "doa", "du'a", "supplication", "supplications"],
+  duroods: ["durood", "darood", "salawat", "salawaat", "durud"],
+  names: ["99 names", "asma", "asmaul husna", "asma ul husna", "names of allah"],
+  quran: ["quran", "koran", "quraan", "alquran", "al quran"],
+  hadith: ["hadeeth", "ahadith", "hadiths"],
+  verseDetector: ["verse", "ayah", "ayat", "detector", "recognize verse"],
+  bookmarks: ["saved", "favorites", "favourite"],
+  qaza: ["qada", "qadha", "qadah", "missed salah", "makeup salah", "make up"],
+  tasbeeh: ["tasbih", "tasbi", "counter", "beads"],
+  ramadan: ["ramazan", "ramadhan"],
+  tahajjud: ["night prayer", "qiyam"],
+  lastThirdNight: ["last third", "last third of the night"],
+  journal: ["prayer journal", "notes", "diary"],
+  checklist: ["tracker", "daily checklist", "today"],
+  schedule: ["prayer times", "salah times", "timetable"],
+  salahGuide: ["salat", "namaz", "salah", "prayer guide", "how to pray", "learn prayer"],
+  jannah: ["paradise", "heaven", "jannat"],
+  jahannam: ["hell", "hellfire", "nar"],
+  lastDay: ["judgment day", "judgement day", "qiyamah", "qiyama", "akhirah", "day of judgment"],
+  battles: ["ghazwa", "wars", "battle"],
+  learnQuran: ["tajweed", "learn quran", "quran guide"],
+  taharah: ["tahara", "wudu", "wudhu", "ablution", "ghusl", "purification"],
+  hayd: ["menstruation", "menses", "period", "haidh"],
+  sick: ["illness", "sick salah", "praying while ill"],
+  prophets: ["anbiya", "nabi", "rasul", "prophet"],
+  aqeedah: ["aqidah", "creed", "belief", "iman"],
+  learnDua: ["learn dua", "dua guide", "how to make dua"],
+  travel: ["musafir", "journey", "travelling salah"],
+  hajj: ["umrah", "pilgrimage", "haj"],
+  seerah: ["sirah", "seera", "prophet biography", "life of prophet"],
+  events: ["islamic events", "occasions"],
+  sahaba: ["companions", "sahabat", "ashab"],
+  history: ["islamic history"],
+  laylatAlQadr: ["laylatul qadr", "night of power", "night of decree", "qadr"],
+  eid: ["eidain", "eid ul fitr", "eid ul adha"],
+  friday: ["jumuah", "jumu'ah", "jumma", "jummah"],
+  ruqyah: ["ruqya", "healing", "protection dua"],
+  newMuslim: ["convert", "revert", "new to islam"],
+  janazah: ["janaza", "funeral", "burial"],
+  flashCards: ["flashcards", "quiz", "cards", "practice"],
+  qibla: ["kibla", "direction", "direction of prayer"],
+  calendar: ["hijri", "islamic calendar", "moon calendar"],
+  dateConverter: ["hijri converter", "gregorian", "date convert"],
+  zakat: ["zakaat", "zakah"],
+  sadaqah: ["sadaqa", "charity", "donation", "sadaqah"],
+  fidyah: ["fidya", "fidyaah"],
+  finance: ["money", "budget", "spending"],
+  achievements: ["badges", "awards", "trophies"],
+  stats: ["statistics", "progress", "analytics"],
+};
+
+export type LibrarySearchEntry = LibraryMenuDef & { label: string };
+
+/** Fuzzy index over Library menu labels + spelling aliases. */
+export function createLibraryMenuSearch(
+  items: LibrarySearchEntry[],
+): FuzzyIndex<LibrarySearchEntry> {
+  return createFuzzyIndex(items, [
+    { key: "label", weight: 5, get: (entry) => entry.label },
+    {
+      key: "aliases",
+      weight: 4,
+      get: (entry) => (LIBRARY_SEARCH_ALIASES[entry.id] ?? []).join(" "),
+    },
+  ]);
 }

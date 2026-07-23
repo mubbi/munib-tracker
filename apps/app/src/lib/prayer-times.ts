@@ -353,7 +353,13 @@ export interface WallClockTime {
   minute: number;
 }
 
-/** Islamic night runs from Maghrib to the following Fajr. */
+/**
+ * Islamic night runs from Maghrib to the next Fajr after that Maghrib.
+ * Fajr is only rolled to the following calendar day when its wall clock is
+ * not already later the same day (typical Maghrib evening → Fajr dawn).
+ * Always advancing a day produced multi-day spans (e.g. 31h) for same-day
+ * wall clocks such as 08:24 → 16:21.
+ */
 export function nightBoundsFromWallClock(
   maghrib: WallClockTime,
   fajr: WallClockTime,
@@ -364,15 +370,18 @@ export function nightBoundsFromWallClock(
   const m = anchor.getMonth() + 1;
   const d = anchor.getDate();
   const maghribAt = wallClockInTimeZoneToDate(y, m, d, maghrib.hour, maghrib.minute, timeZone);
-  const tomorrow = shiftPrayerDay(anchor, 1);
-  const fajrAt = wallClockInTimeZoneToDate(
-    tomorrow.getFullYear(),
-    tomorrow.getMonth() + 1,
-    tomorrow.getDate(),
-    fajr.hour,
-    fajr.minute,
-    timeZone,
-  );
+  let fajrAt = wallClockInTimeZoneToDate(y, m, d, fajr.hour, fajr.minute, timeZone);
+  if (fajrAt.getTime() <= maghribAt.getTime()) {
+    const tomorrow = shiftPrayerDay(anchor, 1);
+    fajrAt = wallClockInTimeZoneToDate(
+      tomorrow.getFullYear(),
+      tomorrow.getMonth() + 1,
+      tomorrow.getDate(),
+      fajr.hour,
+      fajr.minute,
+      timeZone,
+    );
+  }
   return { maghribAt, fajrAt };
 }
 
@@ -400,7 +409,7 @@ export function computeNightDividers(maghrib: Date, fajr: Date): NightDividers {
 
 /**
  * Maghrib→Fajr instants for the Islamic night that still contains `now`
- * (before Fajr), otherwise the upcoming night starting at tonight's Maghrib.
+ * (before Fajr), otherwise the upcoming night starting at the next Maghrib.
  */
 export function resolveNightBoundsForNow(
   maghrib: WallClockTime,
@@ -409,24 +418,28 @@ export function resolveNightBoundsForNow(
   timeZone?: string,
 ): { maghribAt: Date; fajrAt: Date } | undefined {
   const anchor = prayerDayAnchor(now, timeZone);
-  const overnight = nightBoundsFromWallClock(maghrib, fajr, shiftPrayerDay(anchor, -1), timeZone);
-  const bounds =
-    now.getTime() < overnight.fajrAt.getTime()
-      ? overnight
-      : nightBoundsFromWallClock(maghrib, fajr, anchor, timeZone);
-  if (bounds.fajrAt.getTime() <= bounds.maghribAt.getTime()) return undefined;
-  return bounds;
+  for (const dayOffset of [-1, 0, 1] as const) {
+    const bounds = nightBoundsFromWallClock(
+      maghrib,
+      fajr,
+      shiftPrayerDay(anchor, dayOffset),
+      timeZone,
+    );
+    if (bounds.fajrAt.getTime() <= bounds.maghribAt.getTime()) continue;
+    if (now.getTime() < bounds.fajrAt.getTime()) return bounds;
+  }
+  return undefined;
 }
 
-/** Maghrib/Fajr wall-clock times for the upcoming Islamic night at a location. */
-export function detectNightPrayerWallClock(
+/** Absolute Maghrib→Fajr instants for the upcoming Islamic night at a location. */
+export function detectNightPrayerBounds(
   coords: Coords,
   now: Date,
   method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
   madhab: MadhabKey = DEFAULT_MADHAB,
   extras?: PrayerCalcExtras,
   timeZone?: string,
-): { maghrib: WallClockTime; fajr: WallClockTime } {
+): { maghribAt: Date; fajrAt: Date; maghrib: WallClockTime; fajr: WallClockTime } {
   const anchor = prayerDayAnchor(now, timeZone);
   const today = computePrayerTimes(coords, anchor, method, madhab, extras);
   const tomorrow = computePrayerTimes(coords, shiftPrayerDay(anchor, 1), method, madhab, extras);
@@ -438,9 +451,24 @@ export function detectNightPrayerWallClock(
   const maghrib = getZonedParts(maghribAt, timeZone);
   const fajr = getZonedParts(fajrAt, timeZone);
   return {
+    maghribAt,
+    fajrAt,
     maghrib: { hour: maghrib.hour, minute: maghrib.minute },
     fajr: { hour: fajr.hour, minute: fajr.minute },
   };
+}
+
+/** Maghrib/Fajr wall-clock times for the upcoming Islamic night at a location. */
+export function detectNightPrayerWallClock(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  extras?: PrayerCalcExtras,
+  timeZone?: string,
+): { maghrib: WallClockTime; fajr: WallClockTime } {
+  const { maghrib, fajr } = detectNightPrayerBounds(coords, now, method, madhab, extras, timeZone);
+  return { maghrib, fajr };
 }
 
 export function ishraqTime(sunrise: Date): Date {

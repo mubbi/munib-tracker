@@ -672,7 +672,12 @@
       "completeHint": "Sehemu ya leo imekamilika — gusa kuona mpango wako",
       "a11y": "Mpango wa khatm siku {{day}} kati ya {{total}}, {{done}} kati ya {{target}} kuelekea lengo la leo"
     },
-    "tvSubtitle": "Chagua swala kuweka hali yake — imewekwa kwenye kifaa hiki."
+    "tvSubtitle": "Chagua swala kuweka hali yake — imewekwa kwenye kifaa hiki.",
+    "obligatorySubtitle": "Fuatilia swala 5 za kila siku",
+    "cardTip": "Gusa jina la swala kusasisha · Adhkar kwa zikr · Maelezo kwa undani",
+    "tapToMark": "Gusa kuweka alama",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Swala za sunnah za hiari na zilizosisitizwa"
   },
   "update": {
     "title": "Sasisho linapatikana",
@@ -3739,7 +3744,9 @@
     "supplicate": "Dua",
     "learn": "Jifunze",
     "more": "Zaidi",
-    "tvSubtitle": "Qur'an, dua, zikr, na kujifunza — nenda kwa Chagua"
+    "tvSubtitle": "Qur'an, dua, zikr, na kujifunza — nenda kwa Chagua",
+    "searchPlaceholder": "Tafuta katika maktaba…",
+    "noResults": "Hakuna vipengele vya maktaba vilivyolingana na utafutaji wako."
   },
   "offlineData": {
     "title": "Data ya nje ya mtandao",

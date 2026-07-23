@@ -672,7 +672,12 @@
       "completeHint": "Beşa îro qediya — ji bo plana xwe bitikîne",
       "a11y": "Plana khatm roja {{day}} ji {{total}}, {{done}} ji {{target}} ji bo armanca îro"
     },
-    "tvSubtitle": "نوێژێک هەڵبژێرە بۆ دانانی دۆخەکەی — لەم ئامێرەدا پاشەکەوت دەکرێت."
+    "tvSubtitle": "نوێژێک هەڵبژێرە بۆ دانانی دۆخەکەی — لەم ئامێرەدا پاشەکەوت دەکرێت.",
+    "obligatorySubtitle": "5 namazên rojane bişopîne",
+    "cardTip": "Ji bo nûkirinê li navê namazê bitikîne · Adhkar ji bo zikr · Info ji bo hûrguliyan",
+    "tapToMark": "Ji bo nîşankirinê bitikîne",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Namazên sunnet ên bijare û pêwîst"
   },
   "update": {
     "title": "Nûkirin heye",
@@ -3739,7 +3744,9 @@
     "supplicate": "داواکاری",
     "learn": "Fêr bibe",
     "more": "Zêde",
-    "tvSubtitle": "قورئان، دوعا، زیکر، و فێربوون — بە هەڵبژێرە بگەڕێ"
+    "tvSubtitle": "قورئان، دوعا، زیکر، و فێربوون — بە هەڵبژێرە بگەڕێ",
+    "searchPlaceholder": "Li pirtûkxaneyê bigere…",
+    "noResults": "Tu tiştên pirtûkxaneyê bi lêgerîna te re nayên."
   },
   "offlineData": {
     "title": "Daneyên negirêdayî",

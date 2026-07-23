@@ -672,7 +672,12 @@
       "completeHint": "La portion du jour est faite — appuyez pour revoir votre plan",
       "a11y": "Plan khatm jour {{day}} sur {{total}}, {{done}} sur {{target}} vers l'objectif du jour"
     },
-    "tvSubtitle": "Sélectionnez une prière pour définir son statut — enregistré sur cet appareil."
+    "tvSubtitle": "Sélectionnez une prière pour définir son statut — enregistré sur cet appareil.",
+    "obligatorySubtitle": "Suivez vos 5 salah quotidiennes",
+    "cardTip": "Touchez le nom de la salah pour mettre à jour · Adhkar pour le zikr · Infos pour les détails",
+    "tapToMark": "Toucher pour marquer",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Salah sunnah optionnelles et recommandées"
   },
   "update": {
     "title": "Mise à jour disponible",
@@ -3739,7 +3744,9 @@
     "supplicate": "Supplicte",
     "learn": "Apprendre",
     "more": "Outils et plus",
-    "tvSubtitle": "Qur'an, duas, zikr et apprentissage — naviguez avec Sélectionner"
+    "tvSubtitle": "Qur'an, duas, zikr et apprentissage — naviguez avec Sélectionner",
+    "searchPlaceholder": "Rechercher dans la bibliothèque…",
+    "noResults": "Aucun élément de la bibliothèque ne correspond à votre recherche."
   },
   "offlineData": {
     "title": "Données hors ligne",

@@ -672,7 +672,12 @@
       "completeHint": "Današnji dio je gotov — dodirnite za pregled plana",
       "a11y": "Khatm plan dan {{day}} od {{total}}, {{done}} od {{target}} prema današnjem cilju"
     },
-    "tvSubtitle": "Odaberite molitvu da postavite status — čuva se na ovom uređaju."
+    "tvSubtitle": "Odaberite molitvu da postavite status — čuva se na ovom uređaju.",
+    "obligatorySubtitle": "Pratite svojih 5 dnevnih namaza",
+    "cardTip": "Dodirnite ime namaza za ažuriranje · Adhkar za zikr · Info za detalje",
+    "tapToMark": "Dodirnite za označavanje",
+    "sectionProgress": "{{completed}}/{{total}}",
+    "sunnahSubtitle": "Opcionalni i naglašeni sunnet namazi"
   },
   "update": {
     "title": "Ažuriranje dostupno",
@@ -3739,7 +3744,9 @@
     "supplicate": "Dua et",
     "learn": "Nauči",
     "more": "Daha fazla",
-    "tvSubtitle": "Qur'an, doe, zikr i učenje — navigirajte s Odaberi"
+    "tvSubtitle": "Qur'an, doe, zikr i učenje — navigirajte s Odaberi",
+    "searchPlaceholder": "Pretraži biblioteku…",
+    "noResults": "Nijedna stavka biblioteke ne odgovara vašoj pretrazi."
   },
   "offlineData": {
     "title": "Vanmrežni podaci",
