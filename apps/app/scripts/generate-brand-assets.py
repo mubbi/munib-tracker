@@ -31,13 +31,16 @@ def _ensure_source() -> Image.Image:
 
 
 def _flatten_on_bg(img: Image.Image, size: int, bg: tuple[int, int, int] = BRAND_BG) -> Image.Image:
-    """Composite logo onto brand background at exact square size."""
+    """Composite logo onto brand background at exact square size (fully opaque RGB)."""
     canvas = Image.new("RGBA", (size, size), (*bg, 255))
     fitted = ImageOps.contain(img, (size, size), method=Image.Resampling.LANCZOS)
     x = (size - fitted.width) // 2
     y = (size - fitted.height) // 2
     canvas.paste(fitted, (x, y), fitted)
-    return canvas
+    # Flatten alpha — store icons / adaptive backgrounds must be opaque.
+    out = Image.new("RGB", (size, size), bg)
+    out.paste(canvas, mask=canvas.split()[3])
+    return out
 
 
 def _contain_transparent(img: Image.Image, size: int) -> Image.Image:
@@ -138,7 +141,11 @@ def _landscape_brand(
     logo_scale: float = 0.55,
     wordmark: bool = False,
 ) -> Image.Image:
-    """Centered logo on brand background for TV banners / Apple TV icons."""
+    """Centered logo on brand background for TV banners / Apple TV icons.
+
+    Returns opaque RGB — Apple TV App Icon *Back* layers must be fully opaque
+    (actool rejects any translucent pixel on the last content layer).
+    """
     canvas = Image.new("RGBA", (width, height), (*BRAND_BG, 255))
     max_w = int(width * logo_scale)
     max_h = int(height * logo_scale)
@@ -149,7 +156,9 @@ def _landscape_brand(
         # Slightly higher so the mark reads as a hero on wide shelves.
         y = max(0, y - height // 16)
     canvas.paste(fitted, (x, y), fitted)
-    return canvas
+    out = Image.new("RGB", (width, height), BRAND_BG)
+    out.paste(canvas, mask=canvas.split()[3])
+    return out
 
 
 def _generate_tv_assets(logo: Image.Image) -> None:

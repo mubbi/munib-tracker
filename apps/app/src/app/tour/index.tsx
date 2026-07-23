@@ -6,12 +6,11 @@ import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  ScrollView,
+  type ScrollView,
   StyleSheet,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -20,6 +19,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -132,7 +132,7 @@ export default function TourScreen() {
 
       <View style={styles.stage} onLayout={(event) => setPageWidth(event.nativeEvent.layout.width)}>
         {pageWidth > 0 ? (
-          <ScrollView
+          <TvScrollView
             ref={scrollRef}
             horizontal
             pagingEnabled
@@ -147,7 +147,7 @@ export default function TourScreen() {
                 <TourSlide step={s} />
               </View>
             ))}
-          </ScrollView>
+          </TvScrollView>
         ) : null}
       </View>
 

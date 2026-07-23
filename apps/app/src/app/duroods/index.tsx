@@ -3,12 +3,11 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  FlatList,
+  type FlatList,
   type LayoutChangeEvent,
   type ListRenderItem,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  ScrollView,
   StyleSheet,
   TextInput,
   View,
@@ -29,6 +28,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
@@ -234,7 +235,7 @@ export default function DuroodsScreen() {
             : scriptureListDetailStyles.readerRoot
         }
       >
-        <FlatList
+        <TvFlatList
           ref={listRef}
           style={[
             styles.flatList,
@@ -267,11 +268,12 @@ export default function DuroodsScreen() {
           <View
             style={[
               scriptureListDetailStyles.listDetailSecondary,
+              tv && scriptureListDetailStyles.listDetailSecondaryTv,
               { borderStartColor: tokens.hairline },
             ]}
           >
             <ScriptureReaderChrome toolbarVisible={toolbarVisible} onBackToTop={scrollToTop} />
-            <ScrollView
+            <TvScrollView
               style={scriptureListDetailStyles.listDetailSecondaryScroll}
               contentContainerStyle={[
                 scriptureListDetailStyles.listDetailSecondaryContent,
@@ -281,7 +283,7 @@ export default function DuroodsScreen() {
               keyboardShouldPersistTaps="handled"
             >
               <ScriptureReadingFilters />
-            </ScrollView>
+            </TvScrollView>
           </View>
         ) : null}
       </View>

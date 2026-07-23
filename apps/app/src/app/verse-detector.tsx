@@ -2,16 +2,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  type TextStyle,
-  View,
-} from "react-native";
-
+import { ActivityIndicator, StyleSheet, Text, TextInput, type TextStyle, View } from "react-native";
 import { JannahCallout } from "@/components/jannah/primitives";
 import {
   ReadingTypographyBar,
@@ -31,6 +22,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
@@ -555,7 +547,7 @@ function DetectorBody() {
 
           <View style={styles.examplesBlock}>
             <ThemedText type="smallBold">{t("quran.detector.examples")}</ThemedText>
-            <ScrollView
+            <TvScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
@@ -581,7 +573,7 @@ function DetectorBody() {
                   </ThemedText>
                 </PressableScale>
               ))}
-            </ScrollView>
+            </TvScrollView>
           </View>
         </Card>
 

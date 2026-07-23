@@ -3,14 +3,7 @@ import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  FlatList,
-  type ListRenderItem,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -25,7 +18,9 @@ import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-act
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
@@ -94,11 +89,14 @@ const SurahRow = memo(function SurahRow({
   surah,
   isContinue,
   isSelected,
+  showContinuePill,
   onPress,
 }: {
   surah: Surah;
   isContinue: boolean;
   isSelected: boolean;
+  /** List–detail TV already surfaces continue in the detail pane — skip the row pill. */
+  showContinuePill: boolean;
   onPress: (n: number) => void;
 }) {
   const { t } = useTranslation();
@@ -124,25 +122,27 @@ const SurahRow = memo(function SurahRow({
         styles.row,
         tv && styles.rowTv,
         {
-          backgroundColor: highlighted ? tokens.accentSoft : colors.card,
-          borderColor: isSelected
-            ? colors.accent
-            : isContinue
-              ? withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28)
-              : tokens.hairline,
-          borderWidth: isSelected ? 1.5 : StyleSheet.hairlineWidth,
+          // Selection uses soft fill + hairline — accent border is reserved for
+          // the D-pad focus ring from PressableScale (avoids dual green highlights).
+          backgroundColor: highlighted ? (tv ? colors.muted : tokens.accentSoft) : colors.card,
+          borderColor: tv && isSelected ? withAlpha(colors.accent, 0.35) : tokens.hairline,
+          borderWidth: tv && isSelected ? 1.5 : StyleSheet.hairlineWidth,
         },
       ]}
     >
       <ListIndexBadge index={surah.number} />
       <View style={styles.rowBody}>
-        <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
+        <ThemedText
+          type="smallBold"
+          numberOfLines={1}
+          style={[styles.rowName, tv && styles.rowNameTv]}
+        >
           {surah.nameTransliteration}
         </ThemedText>
-        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+        <ThemedText type={tv ? "small" : "caption"} themeColor="mutedForeground" numberOfLines={1}>
           {surah.nameEnglish} · {t("quran.ayahCount", { count: surah.ayahCount })}
         </ThemedText>
-        {isContinue ? (
+        {showContinuePill && isContinue ? (
           <View style={styles.rowContinue}>
             <Pill
               compact
@@ -153,8 +153,8 @@ const SurahRow = memo(function SurahRow({
           </View>
         ) : null}
       </View>
-      <View style={styles.rowMeta}>
-        <ThemedText type="arabic" style={styles.rowArabic}>
+      <View style={[styles.rowMeta, tv && styles.rowMetaTv]}>
+        <ThemedText type="arabic" style={[styles.rowArabic, tv && styles.rowArabicTv]}>
           {surah.nameArabic}
         </ThemedText>
         <Pill
@@ -163,7 +163,9 @@ const SurahRow = memo(function SurahRow({
           background={revelation.soft}
         />
       </View>
-      <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
+      {!tv ? (
+        <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
+      ) : null}
     </PressableScale>
   );
 });
@@ -191,7 +193,13 @@ function RevelationFilterChip({
         styles.filterChip,
         tv && styles.filterChipTv,
         active
-          ? { backgroundColor: colors.accent, borderColor: colors.accent }
+          ? tv
+            ? {
+                // Outline selected — solid/soft green fill reads as “focused” on TV.
+                backgroundColor: colors.muted,
+                borderColor: withAlpha(colors.accent, tokens.isDark ? 0.55 : 0.4),
+              }
+            : { backgroundColor: colors.accent, borderColor: colors.accent }
           : {
               backgroundColor: colors.background,
               borderColor: withAlpha(colors.border, tokens.isDark ? 0.55 : 0.85),
@@ -201,7 +209,11 @@ function RevelationFilterChip({
       <ThemedText
         type="smallBold"
         style={{
-          color: active ? colors.accentForeground : colors.mutedForeground,
+          color: active
+            ? tv
+              ? colors.accentText
+              : colors.accentForeground
+            : colors.mutedForeground,
           fontSize: tv ? TvLayout.bodyFontSize : undefined,
         }}
       >
@@ -216,11 +228,16 @@ function ReaderLayoutActions({
   onSelect,
   heading,
   direction = "row",
+  preferredFocus,
+  onPreferredFocusConsumed,
 }: {
   preferredLayout: QuranReaderLayout;
   onSelect: (layout: QuranReaderLayout) => void;
   heading?: string;
   direction?: "row" | "stack";
+  /** TV: land D-pad focus on the preferred layout after selecting a surah. */
+  preferredFocus?: boolean;
+  onPreferredFocusConsumed?: () => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -228,60 +245,104 @@ function ReaderLayoutActions({
   const stacked = direction === "stack" || tv;
 
   return (
-    <View style={[styles.layoutActions, tv && { gap: Spacing.three }]}>
-      {heading ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.layoutHeading}>
-          {heading}
-        </ThemedText>
-      ) : null}
-      <View style={[stacked ? styles.layoutStack : styles.layoutRow, tv && { gap: Spacing.three }]}>
-        {LAYOUT_OPTIONS.map((option) => {
-          const active = preferredLayout === option.id;
-          const label = t(option.labelKey);
-          return (
-            <PressableScale
-              key={option.id}
-              haptic="light"
-              accessibilityRole="button"
-              accessibilityLabel={label}
-              accessibilityState={{ selected: active }}
-              onPress={() => onSelect(option.id)}
-              scaleTo={0.97}
-              style={[
-                stacked ? styles.layoutChipStack : styles.layoutChipRow,
-                tv && styles.layoutChipTv,
-                active
-                  ? { backgroundColor: colors.accent, borderColor: colors.accent }
-                  : {
-                      backgroundColor: tokens.accentSoft,
-                      borderColor: withAlpha(colors.accent, tokens.isDark ? 0.35 : 0.22),
-                    },
-              ]}
-            >
-              <View style={stacked ? styles.layoutChipContentStack : styles.layoutChipContentRow}>
-                <SymbolView
-                  name={option.icon}
-                  size={tv ? 20 : stacked ? 16 : 15}
-                  tintColor={active ? colors.accentForeground : colors.accentText}
-                />
-                <ThemedText
-                  type={tv ? "small" : "caption"}
-                  numberOfLines={1}
-                  style={{
-                    color: active ? colors.accentForeground : colors.accentText,
-                    textAlign: "center",
-                    fontWeight: "600",
-                    flexShrink: 1,
-                  }}
-                >
-                  {label}
-                </ThemedText>
-              </View>
-            </PressableScale>
-          );
-        })}
+    <TvFocusGuide
+      trapFocusUp={tv}
+      trapFocusDown={tv}
+      style={tv ? styles.layoutActionsTv : undefined}
+    >
+      <View style={[styles.layoutActions, tv && { gap: Spacing.three }]}>
+        {heading ? (
+          <ThemedText
+            type={tv ? "smallBold" : "caption"}
+            themeColor="mutedForeground"
+            style={styles.layoutHeading}
+          >
+            {heading}
+          </ThemedText>
+        ) : null}
+        <View
+          style={[stacked ? styles.layoutStack : styles.layoutRow, tv && { gap: Spacing.three }]}
+        >
+          {LAYOUT_OPTIONS.map((option) => {
+            const active = preferredLayout === option.id;
+            const label = t(option.labelKey);
+            const landFocus = Boolean(tv && preferredFocus && active);
+            return (
+              <PressableScale
+                key={option.id}
+                haptic="light"
+                accessibilityRole="button"
+                accessibilityLabel={label}
+                accessibilityState={{ selected: active }}
+                onPress={() => onSelect(option.id)}
+                onFocus={landFocus ? onPreferredFocusConsumed : undefined}
+                scaleTo={0.97}
+                {...(landFocus ? { hasTVPreferredFocus: true } : {})}
+                style={[
+                  stacked ? styles.layoutChipStack : styles.layoutChipRow,
+                  tv && styles.layoutChipTv,
+                  active
+                    ? tv
+                      ? {
+                          // Preferred layout: outline only. Solid/soft fill competed
+                          // with the D-pad focus ring (looked like dual focus).
+                          backgroundColor: colors.muted,
+                          borderColor: withAlpha(colors.accent, tokens.isDark ? 0.5 : 0.35),
+                          borderWidth: 1.5,
+                        }
+                      : { backgroundColor: colors.accent, borderColor: colors.accent }
+                    : tv
+                      ? {
+                          backgroundColor: colors.card,
+                          borderColor: tokens.hairline,
+                          borderWidth: StyleSheet.hairlineWidth,
+                        }
+                      : {
+                          backgroundColor: tokens.accentSoft,
+                          borderColor: withAlpha(colors.accent, tokens.isDark ? 0.35 : 0.22),
+                        },
+                ]}
+              >
+                <View style={stacked ? styles.layoutChipContentStack : styles.layoutChipContentRow}>
+                  <SymbolView
+                    name={option.icon}
+                    size={tv ? 22 : stacked ? 16 : 15}
+                    tintColor={
+                      active
+                        ? tv
+                          ? colors.accentText
+                          : colors.accentForeground
+                        : tv
+                          ? colors.mutedForeground
+                          : colors.accentText
+                    }
+                  />
+                  <ThemedText
+                    type={tv ? "smallBold" : "caption"}
+                    numberOfLines={1}
+                    style={{
+                      color: active
+                        ? tv
+                          ? colors.accentText
+                          : colors.accentForeground
+                        : tv
+                          ? colors.mutedForeground
+                          : colors.accentText,
+                      textAlign: "center",
+                      fontWeight: "600",
+                      flexShrink: 1,
+                      fontSize: tv ? TvLayout.bodyFontSize : undefined,
+                    }}
+                  >
+                    {label}
+                  </ThemedText>
+                </View>
+              </PressableScale>
+            );
+          })}
+        </View>
       </View>
-    </View>
+    </TvFocusGuide>
   );
 }
 
@@ -291,6 +352,7 @@ function ContinueReadingCard({
   page,
   preferredLayout,
   showLayoutOptions,
+  preferredFocus,
   onPress,
   onSelectLayout,
 }: {
@@ -299,6 +361,7 @@ function ContinueReadingCard({
   page?: number;
   preferredLayout: QuranReaderLayout;
   showLayoutOptions: boolean;
+  preferredFocus?: boolean;
   onPress: () => void;
   onSelectLayout: (layout: QuranReaderLayout) => void;
 }) {
@@ -313,7 +376,7 @@ function ContinueReadingCard({
       padding="three"
       onPress={showLayoutOptions ? undefined : onPress}
       accessibilityLabel={t("quran.continueReading")}
-      preferredFocus={tv && !showLayoutOptions}
+      preferredFocus={preferredFocus ?? (tv && !showLayoutOptions)}
       style={[
         styles.continueCard,
         tv && styles.continueCardTv,
@@ -410,6 +473,8 @@ function SurahDetailPane({
   continueAyah,
   continuePage,
   onSelectLayout,
+  preferredFocus,
+  onPreferredFocusConsumed,
 }: {
   surah: Surah;
   preferredLayout: QuranReaderLayout;
@@ -417,6 +482,8 @@ function SurahDetailPane({
   continueAyah?: number;
   continuePage?: number;
   onSelectLayout: (layout: QuranReaderLayout) => void;
+  preferredFocus?: boolean;
+  onPreferredFocusConsumed?: () => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -442,7 +509,7 @@ function SurahDetailPane({
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("quran.surahNumber", { number: surah.number })}
           </ThemedText>
-          <ThemedText type="title" numberOfLines={2}>
+          <ThemedText type="title" numberOfLines={2} style={tv ? styles.detailTitleTv : undefined}>
             {surah.nameTransliteration}
           </ThemedText>
           <ThemedText type="small" themeColor="mutedForeground" numberOfLines={1}>
@@ -476,6 +543,8 @@ function SurahDetailPane({
         onSelect={onSelectLayout}
         heading={isContinue ? t("quran.continueReading") : t("quran.openReader")}
         direction="stack"
+        preferredFocus={preferredFocus}
+        onPreferredFocusConsumed={onPreferredFocusConsumed}
       />
     </Card>
   );
@@ -491,6 +560,8 @@ export default function QuranHomeScreen() {
   const [query, setQuery] = useState("");
   const [revelationFilter, setRevelationFilter] = useState<SurahRevelationFilter>("all");
   const [selectedSurahNumber, setSelectedSurahNumber] = useState<number | null>(null);
+  /** TV: after selecting a surah, land focus on the detail layout actions. */
+  const [moveFocusToDetail, setMoveFocusToDetail] = useState(false);
   const lastRead = useLastRead();
   const quranPrefs = useQuranPrefs();
   const quranBookmarks = useQuranBookmarks();
@@ -588,6 +659,8 @@ export default function QuranHomeScreen() {
     (n: number) => {
       if (isListDetail) {
         setSelectedSurahNumber(n);
+        // TV: Select a surah → land on Page / Mushaf / Ayah in the detail pane.
+        if (tv) setMoveFocusToDetail(true);
         return;
       }
       if (lastRead && lastRead.surah === n) {
@@ -596,7 +669,7 @@ export default function QuranHomeScreen() {
       }
       router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } });
     },
-    [isListDetail, lastRead, openSurahAt, router],
+    [isListDetail, tv, lastRead, openSurahAt, router],
   );
 
   const selectedSurah = selectedSurahNumber != null ? getSurahByNumber(selectedSurahNumber) : null;
@@ -636,36 +709,46 @@ export default function QuranHomeScreen() {
     openWithLayout(lastRead.surah, lastRead.ayah, preferredLayout, lastRead.page);
   }, [lastRead, openWithLayout, preferredLayout, isListDetail]);
 
+  const clearMoveFocusToDetail = useCallback(() => setMoveFocusToDetail(false), []);
+
   const renderItem = useCallback<ListRenderItem<Surah>>(
     ({ item }) => (
       <SurahRow
         surah={item}
         isContinue={item.number === continueSurah}
         isSelected={isListDetail && item.number === selectedSurahNumber}
+        showContinuePill={!tv || !isListDetail}
         onPress={openSurah}
       />
     ),
-    [continueSurah, isListDetail, openSurah, selectedSurahNumber],
+    [continueSurah, isListDetail, openSurah, selectedSurahNumber, tv],
+  );
+
+  const bookmarksCard = (
+    <SavedNavCard
+      title={t("quran.bookmarks")}
+      viewLabel={t("quran.viewBookmarks")}
+      count={quranBookmarks.length > 0 ? quranBookmarks.length : undefined}
+      headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+      rowIcon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
+      onPress={() => router.push("/quran/bookmarks")}
+    />
   );
 
   const bookmarksAndShortcuts = (
     <View style={styles.chromeStack}>
-      <SavedNavCard
-        title={t("quran.bookmarks")}
-        viewLabel={t("quran.viewBookmarks")}
-        count={quranBookmarks.length > 0 ? quranBookmarks.length : undefined}
-        headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-        rowIcon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
-        onPress={() => router.push("/quran/bookmarks")}
-      />
-
-      <Card padding="three">
-        <QuickActionGrid
-          items={shortcuts}
-          singleRow={!isListDetail}
-          columns={isListDetail ? 3 : undefined}
-        />
-      </Card>
+      {bookmarksCard}
+      {/* TV list–detail: skip the dense shortcut grid — Juz/Pages live on Library;
+          remote users open readers from the detail pane instead. */}
+      {!tv || !isListDetail ? (
+        <Card padding="three">
+          <QuickActionGrid
+            items={shortcuts}
+            singleRow={!isListDetail}
+            columns={isListDetail ? 3 : undefined}
+          />
+        </Card>
+      ) : null}
     </View>
   );
 
@@ -689,6 +772,7 @@ export default function QuranHomeScreen() {
             page={lastRead.page}
             preferredLayout={preferredLayout}
             showLayoutOptions={showContinueLayoutOptions}
+            preferredFocus={tv && !showContinueLayoutOptions && !moveFocusToDetail}
             onPress={continueWithPreferredLayout}
             onSelectLayout={(layout) =>
               openWithLayout(lastRead.surah, lastRead.ayah, layout, lastRead.page)
@@ -706,13 +790,13 @@ export default function QuranHomeScreen() {
           >
             <SymbolView
               name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-              size={18}
+              size={tv ? 20 : 18}
               tintColor={colors.mutedForeground}
             />
             <TextInput
               value={query}
               onChangeText={setQuery}
-              placeholder={t("quran.searchSurah")}
+              placeholder={tv ? t("quran.search") : t("quran.searchSurah")}
               placeholderTextColor={colors.mutedForeground}
               accessibilityLabel={t("quran.searchSurah")}
               style={[styles.searchInput, tv && styles.searchInputTv, { color: colors.foreground }]}
@@ -731,11 +815,11 @@ export default function QuranHomeScreen() {
           </View>
 
           <TvFocusGuide trapFocusUp trapFocusDown>
-            <ScrollView
+            <TvScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
-              contentContainerStyle={styles.filterRow}
+              contentContainerStyle={[styles.filterRow, tv && styles.filterRowTv]}
             >
               {REVELATION_FILTERS.map((filter) => (
                 <RevelationFilterChip
@@ -745,7 +829,7 @@ export default function QuranHomeScreen() {
                   onPress={() => setRevelationFilter(filter)}
                 />
               ))}
-            </ScrollView>
+            </TvScrollView>
           </TvFocusGuide>
         </Card>
 
@@ -790,14 +874,20 @@ export default function QuranHomeScreen() {
         title={t("quran.title")}
         subtitle={t("quran.subtitle")}
         onBack={() => goBackOrReplace(router, "/")}
-        maxContentWidth={isListDetail ? LIST_DETAIL_MAX_WIDTH : undefined}
+        maxContentWidth={tv ? undefined : isListDetail ? LIST_DETAIL_MAX_WIDTH : undefined}
+        contentStyle={tv ? styles.tvScreenContent : undefined}
       >
         <View
           style={
             isListDetail ? [styles.listDetailRoot, tv && styles.listDetailRootTv] : styles.flatList
           }
         >
-          <FlatList
+          {/*
+            Keep FlatList a direct row child with flex — wrapping / absolute pane
+            sizes collapsed the list viewport on tvOS. Do not wrap in TvFocusGuide.
+            Focus handoff uses hasTVPreferredFocus on layout actions.
+          */}
+          <TvFlatList
             data={filtered}
             keyExtractor={keyExtractor}
             renderItem={renderItem}
@@ -809,7 +899,11 @@ export default function QuranHomeScreen() {
                 title={t("quran.noResults")}
               />
             }
-            style={isListDetail ? styles.listDetailPrimary : styles.flatList}
+            style={
+              isListDetail
+                ? [styles.listDetailPrimary, tv && styles.listDetailPrimaryTv]
+                : styles.flatList
+            }
             contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
@@ -820,37 +914,43 @@ export default function QuranHomeScreen() {
             removeClippedSubviews={!tv}
           />
           {isListDetail ? (
-            <ScrollView
+            <View
               style={[
                 styles.listDetailSecondary,
-                tv && styles.listDetailSecondaryTv,
+                tv ? styles.listDetailSecondaryTv : styles.listDetailSecondaryPhone,
                 { borderStartColor: tokens.hairline },
               ]}
-              contentContainerStyle={[
-                styles.listDetailSecondaryContent,
-                tv && styles.listDetailSecondaryContentTv,
-                { paddingBottom: contentBottomInset },
-              ]}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
             >
-              {selectedSurah ? (
-                <SurahDetailPane
-                  surah={selectedSurah}
-                  preferredLayout={preferredLayout}
-                  isContinue={selectedSurah.number === continueSurah}
-                  continueAyah={lastRead?.ayah}
-                  continuePage={lastRead?.page}
-                  onSelectLayout={openSelectedWithLayout}
-                />
-              ) : (
-                <EmptyState
-                  icon={{ ios: "book", android: "menu_book", web: "menu_book" }}
-                  title={t("quran.selectSurah")}
-                />
-              )}
-              {bookmarksAndShortcuts}
-            </ScrollView>
+              <TvScrollView
+                style={styles.listDetailSecondaryScroll}
+                contentContainerStyle={[
+                  styles.listDetailSecondaryContent,
+                  tv && styles.listDetailSecondaryContentTv,
+                  { paddingBottom: contentBottomInset },
+                ]}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+              >
+                {selectedSurah ? (
+                  <SurahDetailPane
+                    surah={selectedSurah}
+                    preferredLayout={preferredLayout}
+                    isContinue={selectedSurah.number === continueSurah}
+                    continueAyah={lastRead?.ayah}
+                    continuePage={lastRead?.page}
+                    onSelectLayout={openSelectedWithLayout}
+                    preferredFocus={tv && moveFocusToDetail}
+                    onPreferredFocusConsumed={clearMoveFocusToDetail}
+                  />
+                ) : (
+                  <EmptyState
+                    icon={{ ios: "book", android: "menu_book", web: "menu_book" }}
+                    title={t("quran.selectSurah")}
+                  />
+                )}
+                {bookmarksAndShortcuts}
+              </TvScrollView>
+            </View>
           ) : null}
         </View>
       </ScreenLayout>
@@ -860,6 +960,8 @@ export default function QuranHomeScreen() {
 
 const styles = StyleSheet.create({
   flatList: { flex: 1, width: "100%", minHeight: 0 },
+  /** ScreenLayout centers children by default — stretch so list–detail can fill TV. */
+  tvScreenContent: { alignItems: "stretch" },
   listContent: { gap: Spacing.two },
   header: { gap: Spacing.four },
   headerTv: { gap: Spacing.five },
@@ -924,6 +1026,9 @@ const styles = StyleSheet.create({
     width: "100%",
     gap: Spacing.one + 2,
   },
+  layoutActionsTv: {
+    width: "100%",
+  },
   layoutHeading: {
     textTransform: "uppercase",
     letterSpacing: 0.5,
@@ -979,6 +1084,7 @@ const styles = StyleSheet.create({
   searchField: {
     flexDirection: "row",
     alignItems: "center",
+    width: "100%",
     gap: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -989,19 +1095,28 @@ const styles = StyleSheet.create({
   searchFieldTv: {
     minHeight: TvLayout.minFocusTarget,
     marginBottom: Spacing.four,
+    width: "100%",
   },
   searchInput: {
     flex: 1,
+    minWidth: 0,
+    width: "100%",
     paddingVertical: Spacing.three,
     fontSize: 15,
   },
   searchInputTv: {
     fontSize: TvLayout.bodyFontSize,
     paddingVertical: Spacing.three,
+    minWidth: 0,
+    flexGrow: 1,
   },
   filterRow: {
     flexDirection: "row",
     gap: Spacing.two,
+  },
+  filterRowTv: {
+    gap: Spacing.three,
+    paddingVertical: Spacing.one,
   },
   filterChip: {
     paddingHorizontal: Spacing.three,
@@ -1025,15 +1140,19 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   rowTv: {
-    minHeight: TvLayout.minFocusTarget,
-    paddingVertical: Spacing.three,
+    minHeight: TvLayout.minFocusTarget + 8,
+    paddingVertical: Spacing.four,
     paddingHorizontal: Spacing.four,
+    gap: Spacing.four,
   },
   rowBody: { flex: 1, gap: 2, minWidth: 0 },
   rowName: { flexShrink: 1, minWidth: 0 },
+  rowNameTv: { fontSize: TvLayout.bodyFontSize + 2 },
   rowContinue: { flexDirection: "row", marginTop: 2 },
   rowMeta: { alignItems: "flex-end", gap: Spacing.one, maxWidth: "34%" },
+  rowMetaTv: { maxWidth: "38%", gap: Spacing.two },
   rowArabic: { fontSize: 20, writingDirection: "rtl" },
+  rowArabicTv: { fontSize: 26 },
   listDetailRoot: {
     flex: 1,
     flexDirection: "row",
@@ -1043,21 +1162,36 @@ const styles = StyleSheet.create({
   },
   listDetailRootTv: {
     gap: Spacing.five,
+    alignSelf: "stretch",
+    width: "100%",
+    flex: 1,
+    minHeight: 0,
   },
   listDetailPrimary: {
-    flex: 1.15,
+    flex: 1.35,
     minWidth: 0,
     minHeight: 0,
   },
+  listDetailPrimaryTv: {
+    flex: 1.75,
+  },
   listDetailSecondary: {
-    flex: 0.85,
+    flex: 1,
     minWidth: 280,
-    maxWidth: 420,
     borderStartWidth: StyleSheet.hairlineWidth,
+    minHeight: 0,
+  },
+  listDetailSecondaryPhone: {
+    maxWidth: 420,
   },
   listDetailSecondaryTv: {
-    minWidth: 320,
-    maxWidth: 460,
+    flex: 1,
+    minWidth: TvLayout.detailPaneMinWidth,
+    maxWidth: TvLayout.detailPaneMaxWidth,
+  },
+  listDetailSecondaryScroll: {
+    flex: 1,
+    minHeight: 0,
   },
   listDetailSecondaryContent: {
     gap: Spacing.three,
@@ -1072,7 +1206,7 @@ const styles = StyleSheet.create({
     gap: Spacing.four,
   },
   detailCardTv: {
-    gap: Spacing.four,
+    gap: Spacing.five,
     overflow: "visible",
   },
   detailHeader: {
@@ -1089,13 +1223,16 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     minWidth: 0,
   },
+  detailTitleTv: {
+    fontSize: TvLayout.titleFontSize,
+  },
   detailArabic: {
     fontSize: 28,
     writingDirection: "rtl",
     marginTop: Spacing.one,
   },
   detailArabicTv: {
-    fontSize: 36,
+    fontSize: 40,
     marginTop: 0,
     flexShrink: 0,
     textAlign: "right",

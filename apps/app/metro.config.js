@@ -165,6 +165,30 @@ const tvNativeStubs = isTvMetro
         "src/lib/tv-stubs/react-native-android-widget.ts",
       ),
       "expo-quick-actions": path.join(projectRoot, "src/lib/tv-stubs/expo-quick-actions.ts"),
+      "expo-web-browser": path.join(projectRoot, "src/lib/tv-stubs/expo-web-browser.ts"),
+      "react-native-webview": path.join(projectRoot, "src/lib/tv-stubs/react-native-webview.ts"),
+      "react-native-pager-view": path.join(
+        projectRoot,
+        "src/lib/tv-stubs/react-native-pager-view.tsx",
+      ),
+      "expo-notifications": path.join(projectRoot, "src/lib/tv-stubs/expo-notifications.ts"),
+      "expo-location": path.join(projectRoot, "src/lib/tv-stubs/expo-location.ts"),
+      "expo-sensors": path.join(projectRoot, "src/lib/tv-stubs/expo-sensors.ts"),
+      "expo-haptics": path.join(projectRoot, "src/lib/tv-stubs/expo-haptics.ts"),
+      "expo-local-authentication": path.join(
+        projectRoot,
+        "src/lib/tv-stubs/expo-local-authentication.ts",
+      ),
+      "expo-image-picker": path.join(projectRoot, "src/lib/tv-stubs/expo-image-picker.ts"),
+      "expo-document-picker": path.join(projectRoot, "src/lib/tv-stubs/expo-document-picker.ts"),
+      "expo-sharing": path.join(projectRoot, "src/lib/tv-stubs/expo-sharing.ts"),
+      "expo-store-review": path.join(projectRoot, "src/lib/tv-stubs/expo-store-review.ts"),
+      "expo-speech": path.join(projectRoot, "src/lib/tv-stubs/expo-speech.ts"),
+      "expo-apple-authentication": path.join(
+        projectRoot,
+        "src/lib/tv-stubs/expo-apple-authentication.ts",
+      ),
+      "expo-navigation-bar": path.join(projectRoot, "src/lib/tv-stubs/expo-navigation-bar.ts"),
     }
   : null;
 

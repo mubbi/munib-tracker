@@ -4,9 +4,8 @@ import type { QuranReaderLayout } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-
 import { hasEditionAyahs, isRemoteEdition } from "@/api/quran-remote";
 import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
 import { MushafFontLoading } from "@/components/quran/mushaf-font-loading";
@@ -21,6 +20,7 @@ import { TafsirPickerSheet } from "@/components/quran/tafsir-picker-sheet";
 import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteEditionSurah } from "@/hooks/use-quran";
@@ -460,7 +460,7 @@ export default function QuranPageReaderScreen() {
               const mushaf = page === currentPage ? mushafLayout : getPageLayout(page);
               const pageHighlight = resolvePageHighlight(ayahs);
               return (
-                <ScrollView
+                <TvScrollView
                   key={page}
                   style={styles.pageScroll}
                   contentContainerStyle={[
@@ -495,7 +495,7 @@ export default function QuranPageReaderScreen() {
                       onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
                     />
                   )}
-                </ScrollView>
+                </TvScrollView>
               );
             })}
           </PagerView>

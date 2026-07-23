@@ -1,6 +1,7 @@
 import type { Ayah } from "@munib-tracker/shared/types";
 import type { RefObject } from "react";
-import { FlatList, type FlatListProps, StyleSheet, View } from "react-native";
+import { type FlatList, type FlatListProps, StyleSheet, View } from "react-native";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 
 import { Spacing } from "@/constants/theme";
 import { isTV } from "@/lib/platform/is-tv";
@@ -19,7 +20,7 @@ export function SurahAyahList({
 }: SurahAyahListProps) {
   const tv = isTV();
   return (
-    <FlatList
+    <TvFlatList
       ref={listRef}
       style={[styles.list, style]}
       contentContainerStyle={[styles.listContent, contentContainerStyle]}

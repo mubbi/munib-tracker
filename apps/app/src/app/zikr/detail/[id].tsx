@@ -2,7 +2,7 @@ import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
 import {
   SCRIPTURE_LIST_DETAIL_MAX_WIDTH,
@@ -18,6 +18,7 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
@@ -300,10 +301,11 @@ export default function ZikrDetailScreen() {
           <View
             style={[
               scriptureListDetailStyles.listDetailSecondary,
+              tv && scriptureListDetailStyles.listDetailSecondaryTv,
               { borderStartColor: tokens.hairline },
             ]}
           >
-            <ScrollView
+            <TvScrollView
               style={scriptureListDetailStyles.listDetailSecondaryScroll}
               contentContainerStyle={[
                 scriptureListDetailStyles.listDetailSecondaryContent,
@@ -313,7 +315,7 @@ export default function ZikrDetailScreen() {
               keyboardShouldPersistTaps="handled"
             >
               <ScriptureReadingFilters />
-            </ScrollView>
+            </TvScrollView>
           </View>
         </View>
       ) : (

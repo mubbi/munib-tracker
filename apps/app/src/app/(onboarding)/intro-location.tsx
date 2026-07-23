@@ -3,12 +3,14 @@ import { StatusBar } from "expo-status-bar";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, ScrollView, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { gradientBackground } from "@/lib/gradient";
@@ -135,12 +137,13 @@ export default function OnboardingLocationScreen() {
         <View style={styles.skipButton} />
       </View>
 
-      <ScrollView
+      <TvScrollView
         style={styles.scroll}
         contentContainerStyle={[
           styles.scrollContent,
           tv ? { paddingHorizontal: TvLayout.contentPaddingX } : null,
         ]}
+        scrollEnabled={!tv}
         showsVerticalScrollIndicator={false}
         bounces={false}
         keyboardShouldPersistTaps="handled"
@@ -185,9 +188,10 @@ export default function OnboardingLocationScreen() {
             </View>
           ) : null}
         </View>
-      </ScrollView>
+      </TvScrollView>
 
-      <View
+      <TvFocusGuide
+        autoFocus={tv}
         style={[
           styles.footer,
           {
@@ -224,7 +228,7 @@ export default function OnboardingLocationScreen() {
             }}
           />
         </View>
-      </View>
+      </TvFocusGuide>
     </View>
   );
 }

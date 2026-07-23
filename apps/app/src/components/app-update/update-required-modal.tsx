@@ -1,19 +1,12 @@
 import type { AppVersionMeta } from "@munib-tracker/api-client";
 import { useTranslation } from "react-i18next";
-import {
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Platform, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useLocalizedSiteUrls } from "@/hooks/use-localized-site-urls";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -155,21 +148,21 @@ export function UpdateRequiredModal({
         accessibilityViewIsModal
         {...webRootId}
       >
-        <ScrollView
+        <TvScrollView
           contentContainerStyle={styles.fullscreenScroll}
           showsVerticalScrollIndicator={false}
           bounces={false}
           keyboardShouldPersistTaps="handled"
         >
           {inner}
-        </ScrollView>
+        </TvScrollView>
       </View>
     );
   }
 
   return (
     <Sheet visible={visible} onClose={handleDismiss} solid scrollable={false}>
-      <ScrollView
+      <TvScrollView
         style={{ maxHeight: windowHeight * 0.75 }}
         contentContainerStyle={styles.sheetScroll}
         showsVerticalScrollIndicator={false}
@@ -185,7 +178,7 @@ export function UpdateRequiredModal({
           />
         ) : null}
         {inner}
-      </ScrollView>
+      </TvScrollView>
     </Sheet>
   );
 }

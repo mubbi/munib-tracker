@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { SettingsRow } from "@/components/settings/settings-rows";
@@ -15,6 +15,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -318,7 +319,7 @@ export default function LocationScreen() {
         <ThemedText type="subtitle" style={styles.sheetTitle}>
           {t("location.method")}
         </ThemedText>
-        <ScrollView
+        <TvScrollView
           style={styles.sheetScroll}
           contentContainerStyle={styles.sheetList}
           showsVerticalScrollIndicator={false}
@@ -358,7 +359,7 @@ export default function LocationScreen() {
               </PressableScale>
             );
           })}
-        </ScrollView>
+        </TvScrollView>
       </Sheet>
     </ScreenLayout>
   );

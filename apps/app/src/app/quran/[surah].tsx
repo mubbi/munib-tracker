@@ -16,7 +16,7 @@ import {
   type ListRenderItemInfo,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  ScrollView,
+  type ScrollView,
   StyleSheet,
   View,
   type ViewToken,
@@ -51,6 +51,7 @@ import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Durations } from "@/constants/motion";
 import { quranComRecitationId } from "@/constants/tajweed";
@@ -1233,9 +1234,15 @@ export default function SurahReaderScreen() {
               contentContainerStyle={{ paddingBottom: contentBottomInset }}
             />
             {showSideFilters ? (
-              <View style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}>
+              <View
+                style={[
+                  styles.listDetailSecondary,
+                  tv && styles.listDetailSecondaryTv,
+                  { borderStartColor: tokens.hairline },
+                ]}
+              >
                 {readerChrome}
-                <ScrollView
+                <TvScrollView
                   style={styles.listDetailSecondaryScroll}
                   contentContainerStyle={[
                     styles.listDetailSecondaryContent,
@@ -1246,7 +1253,7 @@ export default function SurahReaderScreen() {
                 >
                   {showTajweed ? <TajweedLegend /> : null}
                   {readerFilters}
-                </ScrollView>
+                </TvScrollView>
               </View>
             ) : null}
           </View>
@@ -1847,15 +1854,19 @@ const styles = StyleSheet.create({
     gap: Spacing.four,
   },
   listDetailPrimary: {
-    flex: 1.15,
+    flex: 1.25,
     minWidth: 0,
   },
   listDetailSecondary: {
-    flex: 0.85,
+    flex: 1,
     minWidth: 280,
     maxWidth: 400,
     borderStartWidth: StyleSheet.hairlineWidth,
     gap: Spacing.three,
+  },
+  listDetailSecondaryTv: {
+    minWidth: TvLayout.detailPaneMinWidth,
+    maxWidth: TvLayout.detailPaneMaxWidth,
   },
   listDetailSecondaryScroll: {
     flex: 1,

@@ -4,7 +4,6 @@ import { type ReactNode, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Platform,
-  ScrollView,
   StyleSheet,
   TextInput,
   useWindowDimensions,
@@ -19,6 +18,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
@@ -71,7 +71,7 @@ function HorizontalChipRow({
   }
 
   return (
-    <ScrollView
+    <TvScrollView
       horizontal
       nestedScrollEnabled
       style={styles.chipScrollNative}
@@ -80,7 +80,7 @@ function HorizontalChipRow({
       keyboardShouldPersistTaps="handled"
     >
       {children}
-    </ScrollView>
+    </TvScrollView>
   );
 }
 

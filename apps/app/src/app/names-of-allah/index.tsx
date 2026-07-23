@@ -4,7 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  FlatList,
+  type FlatList,
   type ListRenderItem,
   type ListRenderItemInfo,
   type NativeScrollEvent,
@@ -23,6 +23,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -305,7 +306,7 @@ export default function NamesOfAllahScreen() {
           }),
         ]}
       />
-      <FlatList
+      <TvFlatList
         ref={listRef}
         data={names}
         extraData={rowExtras}

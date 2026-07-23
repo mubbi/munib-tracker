@@ -38,6 +38,7 @@ import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-act
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useReviewPrompt } from "@/features/reviews/context/ReviewPromptContext";
 import { useReviewDailyTrackingInteraction } from "@/features/reviews/hooks/useReviewDailyTrackingInteraction";
 import { useReviewPerfectDayTrigger } from "@/features/reviews/hooks/useReviewPerfectDayTrigger";
@@ -698,7 +699,7 @@ export default function TrackerScreen() {
         </View>
 
         {isListDetail ? (
-          <View style={styles.listDetailSecondary}>
+          <View style={[styles.listDetailSecondary, isTV() && styles.listDetailSecondaryTv]}>
             <PrayerScheduleCard
               schedule={homeHero.schedule}
               nextIn={homeHero.nextIn}
@@ -777,5 +778,11 @@ const styles = StyleSheet.create({
   listDetailSecondary: {
     width: 340,
     maxWidth: "38%",
+  },
+  listDetailSecondaryTv: {
+    width: undefined,
+    flex: 1,
+    minWidth: TvLayout.detailPaneMinWidth,
+    maxWidth: TvLayout.detailPaneMaxWidth,
   },
 });

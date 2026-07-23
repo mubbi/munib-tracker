@@ -2,12 +2,14 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { lazy, Suspense, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { SafeRefreshControl } from "@/components/ui/safe-refresh-control";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHomeHero } from "@/hooks/use-home-hero";
@@ -121,56 +123,58 @@ export default function HomeScreen() {
     >
       <Seo path="/" isHome jsonLd={[faqSchema(HOME_FAQ)]} />
       {isFocused && !tv ? <StatusBar style="light" /> : null}
-      <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
-        contentInsetAdjustmentBehavior="never"
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <SafeRefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor={colors.accent}
-            colors={[colors.accent]}
-          />
-        }
-      >
-        <View style={styles.column}>
-          <ThemedText heading={1} style={styles.srOnly}>
-            {t("common.appName")} — {t("common.appTagline")}
-          </ThemedText>
-          <PrayerTimesHero
-            location={hero.location}
-            displayDates={hero.displayDates}
-            currentTime={hero.currentTime}
-            countdown={hero.countdown}
-            prayers={hero.prayers}
-            activeIndex={hero.activeIndex}
-            topInset={insets.top}
-            sky={hero.sky}
-            now={hero.now}
-            moonLabel={hero.moonLabel}
-            southernHemisphere={hero.southernHemisphere}
-            windowProgress={hero.windowProgress}
-            notificationCount={notificationCount}
-            weatherSummary={weather?.summary ?? null}
-            weatherAccessibilityLabel={weather?.accessibilityLabel ?? null}
-            weatherEffects={resolveWeatherEffects(weatherSnapshot, weatherPrefs)}
-            onSearchPress={() => router.push("/search")}
-            onNotificationsPress={() => router.push("/notifications")}
-            onLocationPress={() => router.push("/location")}
-          />
-
-          <Suspense fallback={<HomeBelowFoldFallback />}>
-            <BelowFold
-              schedule={hero.schedule}
-              nextIn={hero.nextIn}
-              nextScheduleId={hero.nextScheduleId}
-              scheduleDateLabel={hero.displayDates.primary}
-              scheduleLocationLabel={hero.location}
+      <TvFocusGuide autoFocus={tv} style={styles.root}>
+        <TvScrollView
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
+          contentInsetAdjustmentBehavior="never"
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <SafeRefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor={colors.accent}
+              colors={[colors.accent]}
             />
-          </Suspense>
-        </View>
-      </ScrollView>
+          }
+        >
+          <View style={styles.column}>
+            <ThemedText heading={1} style={styles.srOnly}>
+              {t("common.appName")} — {t("common.appTagline")}
+            </ThemedText>
+            <PrayerTimesHero
+              location={hero.location}
+              displayDates={hero.displayDates}
+              currentTime={hero.currentTime}
+              countdown={hero.countdown}
+              prayers={hero.prayers}
+              activeIndex={hero.activeIndex}
+              topInset={insets.top}
+              sky={hero.sky}
+              now={hero.now}
+              moonLabel={hero.moonLabel}
+              southernHemisphere={hero.southernHemisphere}
+              windowProgress={hero.windowProgress}
+              notificationCount={notificationCount}
+              weatherSummary={weather?.summary ?? null}
+              weatherAccessibilityLabel={weather?.accessibilityLabel ?? null}
+              weatherEffects={resolveWeatherEffects(weatherSnapshot, weatherPrefs)}
+              onSearchPress={() => router.push("/search")}
+              onNotificationsPress={() => router.push("/notifications")}
+              onLocationPress={() => router.push("/location")}
+            />
+
+            <Suspense fallback={<HomeBelowFoldFallback />}>
+              <BelowFold
+                schedule={hero.schedule}
+                nextIn={hero.nextIn}
+                nextScheduleId={hero.nextScheduleId}
+                scheduleDateLabel={hero.displayDates.primary}
+                scheduleLocationLabel={hero.location}
+              />
+            </Suspense>
+          </View>
+        </TvScrollView>
+      </TvFocusGuide>
     </View>
   );
 }

@@ -14,7 +14,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const {
   iosDir,
-  exportOptionsPath,
+  keysDir,
   SCHEME,
   WORKSPACE_NAME,
   loadProjectEnv,
@@ -24,7 +24,6 @@ const {
   syncDevelopmentTeam,
   syncIosBuildNumber,
   syncIosMarketingVersion,
-  ensureExportOptionsPlist,
   ensureXcodeCli,
   ensurePodsInstalled,
   ensureJsBundleDeps,
@@ -38,16 +37,57 @@ const {
   logReleaseVersionSummary,
   buildNativeReleaseProcessEnv,
 } = require("./lib/release-app-env.cjs");
-const { applyIosCredentialsEnv, logIosKeysSummary } = require("./lib/ios-keys.cjs");
+const {
+  applyIosCredentialsEnv,
+  buildXcodeAscAuthArgs,
+  logIosKeysSummary,
+} = require("./lib/ios-keys.cjs");
 const { assertIosProjectMode, enableExpoTvEnv } = require("./lib/tv-native-project.cjs");
+
+/** tvOS App Store profile name (ASC). Override with TVOS_PROVISIONING_PROFILE. */
+const DEFAULT_TVOS_PROFILE = "Munib Tracker tvOS App Store";
 
 const archiveOnly = process.argv.includes("--archive-only");
 const appRoot = path.join(__dirname, "..");
 const buildDir = path.join(iosDir, "build");
 const archivePath = path.join(buildDir, `${SCHEME}-tvos.xcarchive`);
 const exportDir = path.join(iosDir, "app-store-export-tvos");
+const exportOptionsTvosPath = path.join(keysDir, "ExportOptions.tvos.plist");
 
 enableExpoTvEnv();
+
+function resolveTvosProfileName() {
+  return process.env.TVOS_PROVISIONING_PROFILE?.trim() || DEFAULT_TVOS_PROFILE;
+}
+
+/**
+ * Manual signing — automatic fails without a registered Apple TV development device.
+ * Expects a TVOS_APP_STORE profile installed locally (see docs/TV.md).
+ */
+function ensureTvosExportOptionsPlist(teamId, profileName) {
+  fs.mkdirSync(keysDir, { recursive: true });
+  const plist = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>method</key>
+  <string>app-store</string>
+  <key>teamID</key>
+  <string>${teamId}</string>
+  <key>uploadSymbols</key>
+  <true/>
+  <key>signingStyle</key>
+  <string>manual</string>
+  <key>provisioningProfiles</key>
+  <dict>
+    <key>app.munibtracker</key>
+    <string>${profileName}</string>
+  </dict>
+</dict>
+</plist>
+`;
+  fs.writeFileSync(exportOptionsTvosPath, plist, "utf8");
+}
 
 function ensureTeamConfigured() {
   const teamId = readTeamId();
@@ -60,12 +100,13 @@ function ensureTeamConfigured() {
     process.exit(1);
   }
   syncDevelopmentTeam(teamId);
-  ensureExportOptionsPlist(teamId);
-  if (!fs.existsSync(exportOptionsPath)) {
-    console.error(`Missing ${exportOptionsPath}`);
+  const profileName = resolveTvosProfileName();
+  ensureTvosExportOptionsPlist(teamId, profileName);
+  if (!fs.existsSync(exportOptionsTvosPath)) {
+    console.error(`Missing ${exportOptionsTvosPath}`);
     process.exit(1);
   }
-  return teamId;
+  return { teamId, profileName };
 }
 
 function resolveExportIpaPath() {
@@ -109,16 +150,22 @@ function main() {
     process.exit(1);
   }
   logIosKeysSummary(appRoot);
-  ensureTeamConfigured();
+  const { profileName } = ensureTeamConfigured();
   cleanXcodeArchiveCaches();
   ensureIosReactCodegen();
 
   const env = buildNativeReleaseProcessEnv();
   env.EXPO_TV = "1";
+  const ascAuthArgs = buildXcodeAscAuthArgs(appRoot);
+  const manualSignArgs = [
+    "CODE_SIGN_STYLE=Manual",
+    "CODE_SIGN_IDENTITY=Apple Distribution",
+    `PROVISIONING_PROFILE_SPECIFIER=${profileName}`,
+  ];
 
   fs.mkdirSync(buildDir, { recursive: true });
 
-  console.log(`\nxcodebuild archive (scheme ${SCHEME}, tvOS Release)…\n`);
+  console.log(`\nxcodebuild archive (scheme ${SCHEME}, tvOS Release, profile "${profileName}")…\n`);
 
   run(
     "xcodebuild",
@@ -135,6 +182,8 @@ function main() {
       archivePath,
       "archive",
       "-allowProvisioningUpdates",
+      ...ascAuthArgs,
+      ...manualSignArgs,
     ],
     { cwd: iosDir, env },
   );
@@ -160,8 +209,9 @@ function main() {
       "-exportPath",
       exportDir,
       "-exportOptionsPlist",
-      exportOptionsPath,
+      exportOptionsTvosPath,
       "-allowProvisioningUpdates",
+      ...ascAuthArgs,
     ],
     { cwd: iosDir, env },
   );

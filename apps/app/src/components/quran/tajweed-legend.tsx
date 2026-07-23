@@ -2,12 +2,12 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, ScrollView, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-
 import { ThemedText } from "@/components/themed-text";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
 import { TAJWEED_RULES } from "@/constants/tajweed";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
@@ -173,7 +173,7 @@ export function TajweedStickyLegendBar({ visible }: TajweedStickyLegendBarProps)
           },
         ]}
       />
-      <ScrollView
+      <TvScrollView
         ref={scrollRef}
         horizontal
         showsHorizontalScrollIndicator={Platform.OS === "web"}
@@ -211,7 +211,7 @@ export function TajweedStickyLegendBar({ visible }: TajweedStickyLegendBarProps)
             </PressableScale>
           );
         })}
-      </ScrollView>
+      </TvScrollView>
     </Animated.View>
   );
 }

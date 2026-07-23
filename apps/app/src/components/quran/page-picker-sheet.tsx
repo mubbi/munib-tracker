@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, StyleSheet, TextInput, View } from "react-native";
-
+import { StyleSheet, TextInput, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getPageList } from "@/lib/quran";
@@ -42,7 +42,7 @@ export function PagePickerSheet({
 
   return (
     <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false}>
-      <FlatList
+      <TvFlatList
         data={filtered}
         keyExtractor={(item) => String(item.page)}
         style={styles.list}

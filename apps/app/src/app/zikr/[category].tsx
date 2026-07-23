@@ -4,14 +4,7 @@ import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/vali
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  FlatList,
-  type ListRenderItem,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { type ListRenderItem, type ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -19,6 +12,9 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { TvFlatList } from "@/components/ui/tv-flat-list";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -206,44 +202,46 @@ export default function ZikrCategoryScreen() {
   const listChrome = (
     <>
       {showPrayerFilter ? (
-        <ScrollView
-          ref={chipsScrollRef}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.chips}
-          style={styles.chipsRow}
-          onScroll={onChipsScroll}
-          scrollEventThrottle={16}
-        >
-          {(["all", ...AFTER_SALAH_PRAYERS] as PrayerFilter[]).map((prayer) => {
-            const active = prayerFilter === prayer;
-            return (
-              <PressableScale
-                key={prayer}
-                ref={registerChip(prayer)}
-                haptic="selection"
-                accessibilityRole="button"
-                accessibilityState={{ selected: active }}
-                onPress={() => setPrayerFilter(prayer)}
-                style={[
-                  styles.chip,
-                  tv && styles.chipTv,
-                  { backgroundColor: active ? colors.accent : colors.muted },
-                ]}
-              >
-                <ThemedText
-                  type="small"
-                  style={{
-                    color: active ? colors.accentForeground : colors.foreground,
-                    fontSize: tv ? TvLayout.bodyFontSize : undefined,
-                  }}
+        <TvFocusGuide trapFocusUp trapFocusDown>
+          <TvScrollView
+            ref={chipsScrollRef}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.chips}
+            style={styles.chipsRow}
+            onScroll={onChipsScroll}
+            scrollEventThrottle={16}
+          >
+            {(["all", ...AFTER_SALAH_PRAYERS] as PrayerFilter[]).map((prayer) => {
+              const active = prayerFilter === prayer;
+              return (
+                <PressableScale
+                  key={prayer}
+                  ref={registerChip(prayer)}
+                  haptic="selection"
+                  accessibilityRole="button"
+                  accessibilityState={{ selected: active }}
+                  onPress={() => setPrayerFilter(prayer)}
+                  style={[
+                    styles.chip,
+                    tv && styles.chipTv,
+                    { backgroundColor: active ? colors.accent : colors.muted },
+                  ]}
                 >
-                  {prayer === "all" ? t("zikr.allPrayers") : t(`prayers.${prayer}`)}
-                </ThemedText>
-              </PressableScale>
-            );
-          })}
-        </ScrollView>
+                  <ThemedText
+                    type="small"
+                    style={{
+                      color: active ? colors.accentForeground : colors.foreground,
+                      fontSize: tv ? TvLayout.bodyFontSize : undefined,
+                    }}
+                  >
+                    {prayer === "all" ? t("zikr.allPrayers") : t(`prayers.${prayer}`)}
+                  </ThemedText>
+                </PressableScale>
+              );
+            })}
+          </TvScrollView>
+        </TvFocusGuide>
       ) : null}
       {prayerProgress ? (
         <View style={styles.progressBlock}>
@@ -332,7 +330,7 @@ export default function ZikrCategoryScreen() {
             </View>
           ) : (
             <View style={styles.listHost}>
-              <FlatList
+              <TvFlatList
                 // Remount when the deep-linked salah tab arrives/changes — otherwise
                 // removeClippedSubviews + a late `?prayer=` update can leave a blank list
                 // until the user manually switches chips.

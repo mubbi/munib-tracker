@@ -11,6 +11,26 @@ const TV_EXCLUDED = [
   "react-native-android-widget",
   "expo-quick-actions",
   "expo-speech-recognition",
+  // No WKWebView / SFSafariViewController path on tvOS; Metro stubs JS.
+  // Must exclude from RN autolinking or Fabric codegen registers RNCWebView
+  // with NSClassFromString → nil and NSDictionary literal aborts at launch.
+  "react-native-webview",
+  "expo-web-browser",
+  // Fabric component not present in tvOS binary → nil Class in provider.
+  "react-native-pager-view",
+  // Phone-only Expo modules (not in tvOS Podfile) — Metro stubs JS.
+  "expo-notifications",
+  "expo-location",
+  "expo-sensors",
+  "expo-haptics",
+  "expo-local-authentication",
+  "expo-image-picker",
+  "expo-document-picker",
+  "expo-sharing",
+  "expo-store-review",
+  "expo-speech",
+  "expo-apple-authentication",
+  "expo-navigation-bar",
 ];
 
 /** @type {import('@react-native-community/cli-types').Config} */

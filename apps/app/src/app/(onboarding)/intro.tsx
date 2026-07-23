@@ -10,7 +10,7 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
-  ScrollView,
+  type ScrollView,
   StyleSheet,
   useWindowDimensions,
   View,
@@ -24,6 +24,8 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
@@ -261,10 +263,12 @@ export default function OnboardingIntroScreen() {
         )}
       </View>
 
-      <ScrollView
+      <TvScrollView
         ref={scrollRef}
         horizontal
         pagingEnabled
+        // TV: pager steals D-pad / Select; advance only via Begin / Next.
+        scrollEnabled={!tv}
         showsHorizontalScrollIndicator={false}
         decelerationRate="fast"
         scrollEventThrottle={16}
@@ -287,8 +291,9 @@ export default function OnboardingIntroScreen() {
                 paddingHorizontal: topBarPadX,
               },
             ]}
+            {...(tv ? { focusable: false } : null)}
           >
-            <ScrollView
+            <TvScrollView
               style={styles.slideScroll}
               contentContainerStyle={[
                 styles.slideScrollContent,
@@ -299,6 +304,7 @@ export default function OnboardingIntroScreen() {
                   paddingTop: tv ? Spacing.five : Spacing.two,
                 },
               ]}
+              scrollEnabled={!tv}
               showsVerticalScrollIndicator={false}
               bounces={false}
             >
@@ -309,10 +315,10 @@ export default function OnboardingIntroScreen() {
               ) : (
                 <FeatureSlide slide={item} tv={tv} />
               )}
-            </ScrollView>
+            </TvScrollView>
           </View>
         ))}
-      </ScrollView>
+      </TvScrollView>
 
       <View
         style={[styles.dots, tv ? styles.dotsTv : null]}
@@ -337,7 +343,8 @@ export default function OnboardingIntroScreen() {
         })}
       </View>
 
-      <View
+      <TvFocusGuide
+        autoFocus={tv}
         style={[
           styles.footer,
           {
@@ -401,7 +408,7 @@ export default function OnboardingIntroScreen() {
             />
           )}
         </View>
-      </View>
+      </TvFocusGuide>
 
       <LanguagePickerSheet
         visible={languagePickerOpen}

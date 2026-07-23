@@ -1,11 +1,12 @@
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { TASBEEH_MODES } from "@/components/tasbeeh/tasbeeh-counter";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Shadows, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { CustomTasbeehInput } from "@/stores/custom-tasbeeh-store";
@@ -96,7 +97,7 @@ export function CustomTasbeehFormModal({
         {t("tasbeeh.customFormHint")}
       </ThemedText>
 
-      <ScrollView
+      <TvScrollView
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.form}
@@ -197,7 +198,7 @@ export function CustomTasbeehFormModal({
             />
           ) : null}
         </Field>
-      </ScrollView>
+      </TvScrollView>
 
       <View style={styles.actions}>
         <Button label={t("common.cancel")} variant="ghost" onPress={onClose} />

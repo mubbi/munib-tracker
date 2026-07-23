@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ReadingCard } from "@/components/content/reading-card";
 import {
@@ -20,6 +20,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
@@ -403,7 +404,7 @@ export default function AdhkarBuilderScreen() {
         <ThemedText type="subtitle" style={styles.sheetTitle}>
           {isEditing ? t("customAdhkar.editTitle") : t("customAdhkar.newTitle")}
         </ThemedText>
-        <ScrollView style={styles.form} showsVerticalScrollIndicator={false}>
+        <TvScrollView style={styles.form} showsVerticalScrollIndicator={false}>
           {input("title", "customAdhkar.field.title")}
           {input("arabic", "customAdhkar.field.arabic", { multiline: true, rtl: true })}
           {input("transliteration", "customAdhkar.field.transliteration", { multiline: true })}
@@ -416,7 +417,7 @@ export default function AdhkarBuilderScreen() {
               canUpload={isAuthenticated}
             />
           ) : null}
-        </ScrollView>
+        </TvScrollView>
         <Button
           label={saving ? t("customAdhkar.attachments.uploading") : t("common.save")}
           fullWidth
