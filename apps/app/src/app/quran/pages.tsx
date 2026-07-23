@@ -23,6 +23,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import type { PageListEntry } from "@/lib/quran";
 import { getPageCount, getPageForAyah, getPageList } from "@/lib/quran";
 import { useChevronForward } from "@/lib/rtl";
@@ -111,6 +112,7 @@ export default function QuranPagesBrowserScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const contentBottomInset = useContentBottomInset();
   const lastRead = useLastRead();
   const listRef = useRef<FlatList<PageListEntry>>(null);
@@ -280,7 +282,7 @@ export default function QuranPagesBrowserScreen() {
             renderItem={renderItem}
             ListHeaderComponent={listHeader}
             extraData={`${continuePage}-${jumpTarget}`}
-            getItemLayout={getItemLayout}
+            getItemLayout={tv ? undefined : getItemLayout}
             onScrollToIndexFailed={onScrollToIndexFailed}
             onScroll={onScroll}
             scrollEventThrottle={16}
@@ -293,7 +295,7 @@ export default function QuranPagesBrowserScreen() {
             maxToRenderPerBatch={8}
             windowSize={5}
             updateCellsBatchingPeriod={100}
-            removeClippedSubviews
+            removeClippedSubviews={!tv}
           />
           {showBackToTop ? (
             <View
@@ -317,7 +319,7 @@ export default function QuranPagesBrowserScreen() {
 
 const styles = StyleSheet.create({
   listWrap: { flex: 1, width: "100%", minHeight: 0 },
-  list: { flex: 1, width: "100%" },
+  list: { flex: 1, width: "100%", minHeight: 0 },
   listContent: { gap: Spacing.two },
   goHeader: {
     gap: Spacing.one,

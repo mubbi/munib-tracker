@@ -3,9 +3,11 @@ import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
+import { isTV } from "@/lib/platform/is-tv";
 
 export type QuickActionItem = {
   id: string;
@@ -62,8 +64,9 @@ export function QuickActionGrid({
   const columnCount = fitSingleRow ? items.length : (columns ?? responsiveColumns(width));
   const wellSize = fitSingleRow ? compactWellSize(available, items.length) : 52;
   const iconSize = fitSingleRow ? Math.round(wellSize * 0.45) : 24;
+  const tv = isTV();
 
-  return (
+  const grid = (
     <View style={[styles.grid, fitSingleRow && styles.gridSingleRow]}>
       {items.map((item) => (
         <View
@@ -79,6 +82,8 @@ export function QuickActionGrid({
       ))}
     </View>
   );
+
+  return tv ? <TvFocusGuide autoFocus>{grid}</TvFocusGuide> : grid;
 }
 
 function QuickAction({

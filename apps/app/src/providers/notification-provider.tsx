@@ -1,9 +1,10 @@
 import type { NotificationResponse } from "expo-notifications";
-import { type Href, useRouter } from "expo-router";
-import { type ReactNode, useEffect } from "react";
+import { useRouter } from "expo-router";
+import { type ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { AppState, Platform } from "react-native";
 import { maybeOpenReviewFunnelFromNotificationData } from "@/features/reviews/lib/reviewNotificationTap";
+import { markColdStartReady } from "@/lib/boot/cold-start";
 import {
   handleLiveActivityPushToken,
   notifyLiveActivityLifecycle,
@@ -11,6 +12,7 @@ import {
   subscribeLiveActivityPushTokens,
 } from "@/lib/live-activity";
 import { hasOutstandingQazaDebt, isQazaReminderId } from "@/lib/notifications/build-reminders";
+import { openNotificationRoute } from "@/lib/notifications/open-notification-route";
 import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platform";
 import {
   registerExpoPushTokenWithApi,
@@ -54,6 +56,8 @@ function shouldDeliverReminder(reminderId: string): boolean {
  */
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const routerRef = useRef(router);
+  routerRef.current = router;
   const ready = usePreferencesReady();
   const { i18n } = useTranslation();
   const activeLocale = i18n.resolvedLanguage ?? i18n.language;
@@ -124,7 +128,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
           });
           browserNotif.onclick = () => {
             window.focus();
-            router.push((reminder.route ?? "/notifications") as Href);
+            openNotificationRoute(routerRef.current, reminder.route);
             browserNotif.close();
           };
         } catch {
@@ -133,7 +137,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       }
     });
     return () => setWebReminderFireHandler(null);
-  }, [deliver, router, tv]);
+  }, [deliver, tv]);
 
   useEffect(() => {
     if (!notificationsOk || !activeLocale || !ready || !locationReady) return;
@@ -183,7 +187,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   ]);
 
   useEffect(() => {
-    if (!isNative || tv) return;
+    // Wait for prefs so AppStack has mounted the real navigator (not the boot shell).
+    // Early router.push while only the dark boot View is up leaves a blank green screen.
+    if (!isNative || tv || !ready) return;
+    let isMounted = true;
     let receivedSub: { remove: () => void } | undefined;
     let responseSub: { remove: () => void } | undefined;
     // Guard against handling the same tap twice — on some platforms a cold-start
@@ -191,13 +198,21 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     const handledResponses = new Set<string>();
 
     void import("expo-notifications").then((Notifications) => {
+      if (!isMounted) return;
+
+      const clearLastResponse = () => {
+        void Notifications.clearLastNotificationResponseAsync();
+      };
+
       const handleResponse = (response: NotificationResponse) => {
         if (response.actionIdentifier === MARK_ACTION_IDENTIFIER) {
           void markFromNotification(response);
+          clearLastResponse();
           return;
         }
         if (response.actionIdentifier === SNOOZE_ACTION_IDENTIFIER) {
           void snoozeNotification(response);
+          clearLastResponse();
           return;
         }
         const id = response.notification.request.identifier;
@@ -206,8 +221,13 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
         const data = response.notification.request.content.data as
           | { route?: string; type?: string; triggerId?: string }
           | undefined;
-        if (maybeOpenReviewFunnelFromNotificationData(data ?? undefined)) return;
-        router.push((data?.route ?? "/notifications") as Href);
+        if (maybeOpenReviewFunnelFromNotificationData(data ?? undefined)) {
+          markColdStartReady();
+          clearLastResponse();
+          return;
+        }
+        openNotificationRoute(routerRef.current, data?.route);
+        clearLastResponse();
       };
 
       receivedSub = Notifications.addNotificationReceivedListener((notification) => {
@@ -230,15 +250,17 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       // Cold start: the app was launched by tapping a notification. The live
       // listener doesn't replay that launch tap, so handle it explicitly once.
       void Notifications.getLastNotificationResponseAsync().then((response) => {
-        if (response) handleResponse(response);
+        if (!isMounted || !response) return;
+        handleResponse(response);
       });
     });
 
     return () => {
+      isMounted = false;
       receivedSub?.remove();
       responseSub?.remove();
     };
-  }, [router, deliver, tv]);
+  }, [deliver, ready, tv]);
 
   return <>{children}</>;
 }

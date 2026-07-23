@@ -10,13 +10,25 @@ import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { tTv } from "@/lib/i18n/t-tv";
 import { groupLibraryMenuBySection, LIBRARY_MENU_META, LIBRARY_SECTIONS } from "@/lib/library-menu";
+import { isTV } from "@/lib/platform/is-tv";
+import { TV_HIDDEN_QUICK_ACTION_IDS } from "@/lib/quick-actions";
 
 export default function LibraryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const tv = isTV();
 
-  const grouped = useMemo(() => groupLibraryMenuBySection(LIBRARY_MENU_META), []);
+  const menu = useMemo(
+    () =>
+      tv
+        ? LIBRARY_MENU_META.filter((entry) => !TV_HIDDEN_QUICK_ACTION_IDS.has(entry.id))
+        : LIBRARY_MENU_META,
+    [tv],
+  );
+
+  const grouped = useMemo(() => groupLibraryMenuBySection(menu), [menu]);
 
   const sections = useMemo(
     () => LIBRARY_SECTIONS.filter((section) => grouped[section.id].length > 0),
@@ -27,7 +39,7 @@ export default function LibraryScreen() {
     <ScreenLayout
       eyebrow={t("library.eyebrow")}
       title={t("library.title")}
-      subtitle={t("library.subtitle")}
+      subtitle={tTv(t, "library.subtitle", "library.tvSubtitle")}
     >
       <Seo path="/library" />
       <Stagger>

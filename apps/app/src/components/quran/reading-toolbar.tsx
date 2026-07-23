@@ -16,9 +16,11 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { filterValueTextStyle, ltrControlViewProps } from "@/lib/rtl";
 
 /** SF Symbols → Material fallbacks for each toolbar chip. */
@@ -342,6 +344,7 @@ function SelectChip({
   active?: boolean;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   return (
     <PressableScale
       haptic="light"
@@ -351,13 +354,14 @@ function SelectChip({
       onPress={onPress}
       style={[
         styles.chip,
+        tv && styles.chipTv,
         {
           backgroundColor: active ? tokens.accentSoft : colors.muted,
           borderColor: active ? colors.accent : "transparent",
         },
       ]}
     >
-      <SymbolView name={icon} size={16} tintColor={colors.accent} />
+      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={colors.accent} />
       <View style={styles.chipValueWrap}>
         <ThemedText
           type="smallBold"
@@ -366,6 +370,7 @@ function SelectChip({
             styles.chipValue,
             filterValueTextStyle(value),
             active ? { color: colors.accent } : null,
+            tv ? { fontSize: TvLayout.bodyFontSize } : null,
           ]}
         >
           {value}
@@ -373,7 +378,7 @@ function SelectChip({
       </View>
       <SymbolView
         name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
-        size={12}
+        size={tv ? 16 : 12}
         tintColor={active ? colors.accent : colors.mutedForeground}
       />
     </PressableScale>
@@ -395,6 +400,7 @@ function ToggleChip({
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const tint = enabled ? colors.accent : colors.mutedForeground;
   return (
     <PressableScale
@@ -405,14 +411,19 @@ function ToggleChip({
       onPress={onPress}
       style={[
         styles.chip,
+        tv && styles.chipTv,
         {
           backgroundColor: enabled ? tokens.accentSoft : colors.muted,
           borderColor: enabled ? colors.accent : "transparent",
         },
       ]}
     >
-      <SymbolView name={icon} size={16} tintColor={tint} />
-      <ThemedText type="smallBold" numberOfLines={1} style={{ color: tint }}>
+      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
+      <ThemedText
+        type="smallBold"
+        numberOfLines={1}
+        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
+      >
         {label}
       </ThemedText>
     </PressableScale>
@@ -464,6 +475,12 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: 1,
     borderColor: "transparent",
+  },
+  chipTv: {
+    maxWidth: 280,
+    minHeight: TvLayout.chipMinHeight,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
   },
   chipValueWrap: {
     flex: 1,

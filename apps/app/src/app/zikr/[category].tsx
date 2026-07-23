@@ -21,6 +21,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useScrollToActiveHorizontal } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -31,6 +32,7 @@ import {
   isZikrItemDone,
 } from "@/lib/after-salah-adhkar-progress";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
@@ -57,6 +59,7 @@ export default function ZikrCategoryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
+  const tv = isTV();
   const params = useLocalSearchParams<{
     category: string | string[];
     prayer?: string | string[];
@@ -142,8 +145,8 @@ export default function ZikrCategoryScreen() {
 
   const keyExtractor = useCallback((item: ZikrItem) => item.id, []);
 
-  const renderItem = useCallback<ListRenderItem<ZikrItem>>(
-    ({ item }) => {
+  const renderZikrRow = useCallback(
+    (item: ZikrItem) => {
       let completed = false;
       let progressLabel: string | undefined;
 
@@ -178,6 +181,11 @@ export default function ZikrCategoryScreen() {
     [favoriteIds, indexById, onOpen, prayerFilter, showPrayerFilter, toggleFavorite, zikrCounts],
   );
 
+  const renderItem = useCallback<ListRenderItem<ZikrItem>>(
+    ({ item }) => renderZikrRow(item),
+    [renderZikrRow],
+  );
+
   const categoryName = t(`zikrCat.${categoryId}`);
   const categoryDescription = `${categoryName} — authentic supplications with Arabic, transliteration, and meaning.`;
   const categoryBreadcrumbs = [
@@ -185,6 +193,91 @@ export default function ZikrCategoryScreen() {
     { name: t("zikr.title"), path: "/zikr" },
     { name: categoryName, path: `/zikr/${categoryId}` },
   ];
+
+  const empty =
+    searching && corpusReady ? (
+      <EmptyState
+        icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+        title={t("zikr.noResults")}
+        description={t("search.noResultsDesc")}
+      />
+    ) : null;
+
+  const listChrome = (
+    <>
+      {showPrayerFilter ? (
+        <ScrollView
+          ref={chipsScrollRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.chips}
+          style={styles.chipsRow}
+          onScroll={onChipsScroll}
+          scrollEventThrottle={16}
+        >
+          {(["all", ...AFTER_SALAH_PRAYERS] as PrayerFilter[]).map((prayer) => {
+            const active = prayerFilter === prayer;
+            return (
+              <PressableScale
+                key={prayer}
+                ref={registerChip(prayer)}
+                haptic="selection"
+                accessibilityRole="button"
+                accessibilityState={{ selected: active }}
+                onPress={() => setPrayerFilter(prayer)}
+                style={[
+                  styles.chip,
+                  tv && styles.chipTv,
+                  { backgroundColor: active ? colors.accent : colors.muted },
+                ]}
+              >
+                <ThemedText
+                  type="small"
+                  style={{
+                    color: active ? colors.accentForeground : colors.foreground,
+                    fontSize: tv ? TvLayout.bodyFontSize : undefined,
+                  }}
+                >
+                  {prayer === "all" ? t("zikr.allPrayers") : t(`prayers.${prayer}`)}
+                </ThemedText>
+              </PressableScale>
+            );
+          })}
+        </ScrollView>
+      ) : null}
+      {prayerProgress ? (
+        <View style={styles.progressBlock}>
+          <View style={styles.progressHeader}>
+            <ThemedText type="smallBold">
+              {t("zikr.afterSalahTodayForPrayer", { prayer: t(`prayers.${prayerFilter}`) })}
+            </ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("zikr.afterSalahProgress", {
+                completed: prayerProgress.completed,
+                total: prayerProgress.total,
+              })}
+            </ThemedText>
+          </View>
+          <ProgressBar
+            value={prayerProgress.total > 0 ? prayerProgress.completed / prayerProgress.total : 0}
+            height={4}
+          />
+        </View>
+      ) : null}
+      <TextInput
+        value={query}
+        onChangeText={setQuery}
+        placeholder={t("zikr.searchInCategory")}
+        placeholderTextColor={colors.mutedForeground}
+        accessibilityLabel={t("zikr.searchInCategory")}
+        style={[
+          styles.input,
+          tv && styles.inputTv,
+          { backgroundColor: colors.muted, color: colors.foreground },
+        ]}
+      />
+    </>
+  );
 
   return (
     <ScreenLayout
@@ -198,7 +291,9 @@ export default function ZikrCategoryScreen() {
             : t("zikr.adhkarCount", { count: items.length })
       }
       onBack={() => goBackOrReplace(router, "/")}
-      scrollable={false}
+      // TV: ScreenLayout ScrollView + mapped rows — nested FlatList flex hosts
+      // still collapse to zero height on Leanback even with minHeight:0 chains.
+      scrollable={tv}
     >
       <Seo
         path={`/zikr/${categoryId}`}
@@ -222,98 +317,42 @@ export default function ZikrCategoryScreen() {
           description={t("zikr.emptyDesc")}
         />
       ) : (
-        <Card padding="three" style={styles.listCard}>
-          {showPrayerFilter ? (
-            <ScrollView
-              ref={chipsScrollRef}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.chips}
-              style={styles.chipsRow}
-              onScroll={onChipsScroll}
-              scrollEventThrottle={16}
-            >
-              {(["all", ...AFTER_SALAH_PRAYERS] as PrayerFilter[]).map((prayer) => {
-                const active = prayerFilter === prayer;
-                return (
-                  <PressableScale
-                    key={prayer}
-                    ref={registerChip(prayer)}
-                    haptic="selection"
-                    accessibilityRole="button"
-                    accessibilityState={{ selected: active }}
-                    onPress={() => setPrayerFilter(prayer)}
-                    style={[
-                      styles.chip,
-                      { backgroundColor: active ? colors.accent : colors.muted },
-                    ]}
-                  >
-                    <ThemedText
-                      type="small"
-                      style={{ color: active ? colors.accentForeground : colors.foreground }}
-                    >
-                      {prayer === "all" ? t("zikr.allPrayers") : t(`prayers.${prayer}`)}
-                    </ThemedText>
-                  </PressableScale>
-                );
-              })}
-            </ScrollView>
-          ) : null}
-          {prayerProgress ? (
-            <View style={styles.progressBlock}>
-              <View style={styles.progressHeader}>
-                <ThemedText type="smallBold">
-                  {t("zikr.afterSalahTodayForPrayer", { prayer: t(`prayers.${prayerFilter}`) })}
-                </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("zikr.afterSalahProgress", {
-                    completed: prayerProgress.completed,
-                    total: prayerProgress.total,
-                  })}
-                </ThemedText>
-              </View>
-              <ProgressBar
-                value={
-                  prayerProgress.total > 0 ? prayerProgress.completed / prayerProgress.total : 0
-                }
-                height={4}
+        <Card padding="three" style={tv ? undefined : styles.listCard}>
+          {listChrome}
+          {tv ? (
+            <View style={styles.tvList}>
+              {filtered.length === 0
+                ? empty
+                : filtered.map((item, index) => (
+                    <View key={item.id}>
+                      {index > 0 ? <ListSeparator /> : null}
+                      {renderZikrRow(item)}
+                    </View>
+                  ))}
+            </View>
+          ) : (
+            <View style={styles.listHost}>
+              <FlatList
+                // Remount when the deep-linked salah tab arrives/changes — otherwise
+                // removeClippedSubviews + a late `?prayer=` update can leave a blank list
+                // until the user manually switches chips.
+                key={showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}
+                style={styles.flatList}
+                data={filtered}
+                extraData={prayerFilter}
+                keyExtractor={keyExtractor}
+                renderItem={renderItem}
+                ItemSeparatorComponent={ListSeparator}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+                initialNumToRender={12}
+                maxToRenderPerBatch={8}
+                windowSize={7}
+                removeClippedSubviews={false}
+                ListEmptyComponent={empty}
               />
             </View>
-          ) : null}
-          <TextInput
-            value={query}
-            onChangeText={setQuery}
-            placeholder={t("zikr.searchInCategory")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("zikr.searchInCategory")}
-            style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
-          />
-          <FlatList
-            // Remount when the deep-linked salah tab arrives/changes — otherwise
-            // removeClippedSubviews + a late `?prayer=` update can leave a blank list
-            // until the user manually switches chips.
-            key={showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}
-            style={styles.flatList}
-            data={filtered}
-            extraData={prayerFilter}
-            keyExtractor={keyExtractor}
-            renderItem={renderItem}
-            ItemSeparatorComponent={ListSeparator}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-            initialNumToRender={12}
-            maxToRenderPerBatch={8}
-            windowSize={7}
-            ListEmptyComponent={
-              searching && corpusReady ? (
-                <EmptyState
-                  icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-                  title={t("zikr.noResults")}
-                  description={t("search.noResultsDesc")}
-                />
-              ) : null
-            }
-          />
+          )}
         </Card>
       )}
     </ScreenLayout>
@@ -326,8 +365,10 @@ function ListSeparator() {
 }
 
 const styles = StyleSheet.create({
-  listCard: { flex: 1 },
+  listCard: { flex: 1, minHeight: 0 },
+  listHost: { flex: 1, minHeight: 0 },
   flatList: { flex: 1 },
+  tvList: { gap: 0 },
   chipsRow: { flexGrow: 0, marginBottom: Spacing.three },
   chips: { gap: Spacing.two, paddingEnd: Spacing.one },
   progressBlock: {
@@ -346,6 +387,12 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     borderCurve: "continuous",
   },
+  chipTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.four,
+    paddingVertical: Spacing.three,
+    justifyContent: "center",
+  },
   input: {
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -353,6 +400,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
     marginBottom: Spacing.three,
     fontSize: 15,
+  },
+  inputTv: {
+    minHeight: TvLayout.minFocusTarget,
+    fontSize: TvLayout.bodyFontSize,
+    paddingHorizontal: Spacing.four,
   },
   separator: { height: Spacing.two },
 });

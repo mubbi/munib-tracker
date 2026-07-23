@@ -78,6 +78,10 @@ export default function NotificationsScreen() {
   );
 
   const reloadScheduled = useCallback(async () => {
+    if (tv) {
+      setScheduled([]);
+      return;
+    }
     try {
       setScheduled(
         await listScheduled(preferencesStore.getState().prefs, locationStore.getState().location),
@@ -85,7 +89,7 @@ export default function NotificationsScreen() {
     } catch {
       setScheduled([]);
     }
-  }, []);
+  }, [tv]);
 
   useFocusEffect(
     useCallback(() => {

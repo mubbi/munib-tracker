@@ -8,6 +8,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
 import { ensureFlashCardContent, getFlashCardPool, type StudyMcq } from "@/lib/flash-cards";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function FlashCardsScreen() {
@@ -45,7 +46,11 @@ export default function FlashCardsScreen() {
         <Stagger>
           <FlashCardPlayer
             pool={pool}
-            intro={<JannahCallout tone="info">{t("flashCards.intro")}</JannahCallout>}
+            intro={
+              <JannahCallout tone="info">
+                {tTv(t, "flashCards.intro", "flashCards.introTv")}
+              </JannahCallout>
+            }
             footer={<JannahDisclaimer textKey="flashCards.disclaimer" />}
           />
         </Stagger>

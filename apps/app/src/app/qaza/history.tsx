@@ -19,6 +19,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { QazaRepository } from "@/db";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -30,8 +31,10 @@ import {
 } from "@/lib/calendar";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
+import { tTv } from "@/lib/i18n/t-tv";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { useLocation } from "@/stores/location-store";
@@ -71,6 +74,7 @@ export default function QazaHistoryScreen() {
   const [hYear, setHYear] = useState(todayHijri.year);
   const [hMonth, setHMonth] = useState(todayHijri.month);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const tv = isTV();
   const [selected, setSelected] = useState<HistoryEntry | null>(null);
   const initialMonthSet = useRef(false);
 
@@ -235,6 +239,7 @@ export default function QazaHistoryScreen() {
                       <View
                         style={[
                           styles.dayCell,
+                          tv ? styles.dayCellTv : null,
                           hasData && {
                             backgroundColor: withAlpha(colors.accent, 0.18),
                           },
@@ -291,7 +296,7 @@ export default function QazaHistoryScreen() {
 
           <Card variant="muted" padding="three">
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
-              {t("qazaHistory.legendHint")}
+              {tTv(t, "qazaHistory.legendHint", "qazaHistory.legendHintTv")}
             </ThemedText>
           </Card>
         </Stagger>
@@ -407,6 +412,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.one,
     paddingVertical: Spacing.one,
     gap: 2,
+  },
+  dayCellTv: {
+    minHeight: TvLayout.minFocusTarget,
   },
   legendHint: {
     textAlign: "center",

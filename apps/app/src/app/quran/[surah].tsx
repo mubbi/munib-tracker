@@ -55,6 +55,7 @@ import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Durations } from "@/constants/motion";
 import { quranComRecitationId } from "@/constants/tajweed";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { usePlaybackSummaryLabel } from "@/hooks/use-playback-summary-label";
@@ -66,11 +67,13 @@ import {
   useTafsirSurah,
 } from "@/hooks/use-quran";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
-import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
+import { useScrollToActive, useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   getBundledEdition,
   getEditionById,
@@ -152,6 +155,13 @@ export default function SurahReaderScreen() {
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail } = useLargeScreenLayout();
+  const tv = isTV();
+  // Wide tablet/desktop: sticky side filters. TV: single column — the fixed-width
+  // secondary pane clipped past overscan (A− peeking on the right edge).
+  const showSideFilters = isListDetail && !tv;
+  // TV: ScreenLayout ScrollView + mapped ayahs — nested FlatList flex hosts still
+  // collapse to zero height on Leanback (same failure mode as dua/hadith).
+  const tvMappedList = tv;
   const fullscreen = useReadingFullscreen({ exitOnBlur: true });
   const prefs = useQuranPrefs();
   const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
@@ -165,6 +175,7 @@ export default function SurahReaderScreen() {
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Ayah>>(null);
+  const screenScrollRef = useRef<ScrollView>(null);
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
@@ -335,12 +346,32 @@ export default function SurahReaderScreen() {
     };
   }, []);
 
-  // Follow the currently-playing card (or a deep-linked ayah) via scrollToIndex.
+  // Follow the currently-playing card (or a deep-linked ayah).
+  // Phone: FlatList scrollToIndex. TV mapped list: measure() via ScreenLayout ScrollView.
   const activeKey = audioActiveKey ?? (focusAyah ? `${surahNumber}:${focusAyah}` : undefined);
-  const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, activeKey, indexForKey, {
-    viewOffset: Spacing.two,
-    itemCount: ayahs.length,
-  });
+  const { onScrollToIndexFailed } = useScrollToActiveIndex(
+    listRef,
+    tvMappedList ? undefined : activeKey,
+    indexForKey,
+    {
+      viewOffset: Spacing.two,
+      itemCount: ayahs.length,
+    },
+  );
+  const { register: registerAyahScroll, onScroll: onTvActiveScroll } = useScrollToActive(
+    screenScrollRef,
+    tvMappedList ? activeKey : null,
+    // Clear the floating AppHeader (+ sticky reading toolbar when revealed).
+    tv ? 148 : 96,
+  );
+
+  const onTvMappedScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      onListScroll(event);
+      onTvActiveScroll(event);
+    },
+    [onListScroll, onTvActiveScroll],
+  );
 
   const requestedEdition = prefs.preferredTranslationIds[0] ?? defaultEditionId;
   const knownEdition = ALL_QURAN_TRANSLATIONS.some((e) => e.id === requestedEdition)
@@ -683,10 +714,14 @@ export default function SurahReaderScreen() {
   );
 
   const scrollToTop = useCallback(() => {
+    if (tvMappedList) {
+      screenScrollRef.current?.scrollTo({ y: 0, animated: true });
+      return;
+    }
     listRef.current?.scrollToOffset({ offset: 0, animated: true });
-  }, []);
+  }, [tvMappedList]);
 
-  const readerChrome = isListDetail ? (
+  const readerChrome = showSideFilters ? (
     <View style={styles.readerChromeRow}>
       {toolbarVisible ? (
         <PressableScale
@@ -869,9 +904,16 @@ export default function SurahReaderScreen() {
           />
         </View>
 
-        <View style={[styles.controlRow, styles.translationRow]}>
+        <View
+          style={[
+            styles.controlRow,
+            styles.translationRow,
+            tv && styles.controlRowTv,
+            tv && styles.controlRowStackTv,
+          ]}
+        >
           <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
-          <View style={styles.controlValue}>
+          <View style={[styles.controlValue, tv && styles.controlValueTv]}>
             <ReadingFontControls surface="quran" />
           </View>
         </View>
@@ -893,6 +935,7 @@ export default function SurahReaderScreen() {
     t,
     tafsirEdition?.name,
     translationLoading,
+    tv,
     updatePrefs,
     usingFallback,
     playbackSummary.active,
@@ -900,14 +943,14 @@ export default function SurahReaderScreen() {
   ]);
 
   // Bismillah (+ tajweed legend on narrow) rides above the ayah list. Filters and
-  // the tajweed legend move to the side pane on list–detail.
+  // the tajweed legend move to the side pane on list–detail (not TV).
   const listHeader = useMemo(() => {
     if (!surah) return null;
     return (
       <View style={styles.listHeader} onLayout={onHeaderCardLayout}>
-        {!isListDetail ? readerFilters : null}
+        {!showSideFilters ? readerFilters : null}
 
-        {!isListDetail && showTajweed ? (
+        {!showSideFilters && showTajweed ? (
           <View onLayout={onTajweedLegendLayout}>
             <TajweedLegend />
           </View>
@@ -924,7 +967,7 @@ export default function SurahReaderScreen() {
       </View>
     );
   }, [
-    isListDetail,
+    showSideFilters,
     onHeaderCardLayout,
     onTajweedLegendLayout,
     readerFilters,
@@ -994,8 +1037,8 @@ export default function SurahReaderScreen() {
   const ayahRowExtrasRef = useRef(ayahRowExtras);
   ayahRowExtrasRef.current = ayahRowExtras;
 
-  const renderItem = useCallback(
-    ({ item: ayah, index }: ListRenderItemInfo<Ayah>) => {
+  const renderAyahCard = useCallback(
+    (ayah: Ayah, index: number) => {
       const extras = ayahRowExtrasRef.current;
       const ayahKey = String(ayah.ayah);
       return (
@@ -1050,6 +1093,11 @@ export default function SurahReaderScreen() {
       shareAyah,
       surahNumber,
     ],
+  );
+
+  const renderItem = useCallback(
+    ({ item: ayah, index }: ListRenderItemInfo<Ayah>) => renderAyahCard(ayah, index),
+    [renderAyahCard],
   );
 
   if (!surah) {
@@ -1108,14 +1156,17 @@ export default function SurahReaderScreen() {
         ]}
       />
       <ScreenLayout
-        scrollable={false}
+        scrollable={!!tvMappedList}
+        scrollRef={tvMappedList ? screenScrollRef : undefined}
+        onScroll={tvMappedList ? onTvMappedScroll : undefined}
+        readingProgress={tvMappedList ? true : undefined}
         eyebrow={t("quran.title")}
         title={surah.nameTransliteration}
         subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
         onBack={() => goBackOrReplace(router, "/")}
-        maxContentWidth={isListDetail ? LIST_DETAIL_MAX_WIDTH : undefined}
+        maxContentWidth={showSideFilters ? LIST_DETAIL_MAX_WIDTH : undefined}
         headerAccessory={
-          isListDetail ? undefined : (
+          showSideFilters ? undefined : (
             <View>
               <QuranReadingToolbar
                 visible={toolbarVisible}
@@ -1150,41 +1201,56 @@ export default function SurahReaderScreen() {
           )
         }
       >
-        <View style={isListDetail ? styles.listDetailRoot : styles.readerRoot}>
-          <SurahAyahList
-            listRef={listRef}
-            data={ayahs}
-            extraData={ayahRowExtras}
-            keyExtractor={ayahKeyExtractor}
-            renderItem={renderItem}
-            ListHeaderComponent={listHeader}
-            ItemSeparatorComponent={AyahSeparator}
-            onScroll={onListScroll}
-            onScrollBeginDrag={onScrollBeginDrag}
-            onViewableItemsChanged={onViewableItemsChanged}
-            viewabilityConfig={viewabilityConfig}
-            onScrollToIndexFailed={onScrollToIndexFailed}
-            style={isListDetail ? styles.listDetailPrimary : undefined}
-            contentContainerStyle={{ paddingBottom: contentBottomInset }}
-          />
-          {isListDetail ? (
-            <View style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}>
-              {readerChrome}
-              <ScrollView
-                style={styles.listDetailSecondaryScroll}
-                contentContainerStyle={[
-                  styles.listDetailSecondaryContent,
-                  { paddingBottom: contentBottomInset },
-                ]}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
+        {tvMappedList ? (
+          <View style={[styles.tvMappedRoot, { paddingBottom: contentBottomInset }]}>
+            {listHeader}
+            {ayahs.map((ayah, index) => (
+              <View
+                key={ayahKeyExtractor(ayah)}
+                ref={registerAyahScroll(`${surahNumber}:${ayah.ayah}`)}
               >
-                {showTajweed ? <TajweedLegend /> : null}
-                {readerFilters}
-              </ScrollView>
-            </View>
-          ) : null}
-        </View>
+                {index > 0 ? <AyahSeparator /> : null}
+                {renderAyahCard(ayah, index)}
+              </View>
+            ))}
+          </View>
+        ) : (
+          <View style={showSideFilters ? styles.listDetailRoot : styles.readerRoot}>
+            <SurahAyahList
+              listRef={listRef}
+              data={ayahs}
+              extraData={ayahRowExtras}
+              keyExtractor={ayahKeyExtractor}
+              renderItem={renderItem}
+              ListHeaderComponent={listHeader}
+              ItemSeparatorComponent={AyahSeparator}
+              onScroll={onListScroll}
+              onScrollBeginDrag={onScrollBeginDrag}
+              onViewableItemsChanged={onViewableItemsChanged}
+              viewabilityConfig={viewabilityConfig}
+              onScrollToIndexFailed={onScrollToIndexFailed}
+              style={showSideFilters ? styles.listDetailPrimary : undefined}
+              contentContainerStyle={{ paddingBottom: contentBottomInset }}
+            />
+            {showSideFilters ? (
+              <View style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}>
+                {readerChrome}
+                <ScrollView
+                  style={styles.listDetailSecondaryScroll}
+                  contentContainerStyle={[
+                    styles.listDetailSecondaryContent,
+                    { paddingBottom: contentBottomInset },
+                  ]}
+                  showsVerticalScrollIndicator={false}
+                  keyboardShouldPersistTaps="handled"
+                >
+                  {showTajweed ? <TajweedLegend /> : null}
+                  {readerFilters}
+                </ScrollView>
+              </View>
+            ) : null}
+          </View>
+        )}
       </ScreenLayout>
 
       <OptionPickerSheet
@@ -1307,10 +1373,13 @@ const CONTROL_ICONS = {
 /** Leading icon + label used by every reading-control row for quick scanning. */
 function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
   const { colors } = useThemeTokens();
+  const tv = isTV();
   return (
     <View style={styles.controlLabel}>
-      <SymbolView name={icon} size={18} tintColor={colors.mutedForeground} />
-      <ThemedText type="smallBold">{label}</ThemedText>
+      <SymbolView name={icon} size={tv ? 22 : 18} tintColor={colors.mutedForeground} />
+      <ThemedText type="smallBold" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
+        {label}
+      </ThemedText>
     </View>
   );
 }
@@ -1326,6 +1395,66 @@ function PrefToggle({
   enabled: boolean;
   onToggle: () => void;
 }) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+
+  // TV remotes struggle with native Switch thumbs — whole-row pressables with a
+  // clear on/off chrome are easier to focus and activate with Select.
+  if (tv) {
+    return (
+      <PressableScale
+        haptic="selection"
+        accessibilityRole="switch"
+        accessibilityLabel={label}
+        accessibilityState={{ checked: enabled }}
+        onPress={onToggle}
+        scaleTo={0.98}
+        style={[
+          styles.prefToggleTv,
+          {
+            backgroundColor: enabled ? tokens.accentSoft : colors.muted,
+            borderColor: enabled ? colors.accent : tokens.hairline,
+          },
+        ]}
+      >
+        <SymbolView
+          name={icon}
+          size={22}
+          tintColor={enabled ? colors.accent : colors.mutedForeground}
+        />
+        <ThemedText
+          type="smallBold"
+          numberOfLines={2}
+          style={{
+            flex: 1,
+            minWidth: 0,
+            fontSize: TvLayout.bodyFontSize,
+            color: enabled ? colors.accentText : colors.foreground,
+          }}
+        >
+          {label}
+        </ThemedText>
+        <View
+          style={[
+            styles.prefToggleStateTv,
+            { backgroundColor: enabled ? colors.accent : colors.card },
+          ]}
+        >
+          <ThemedText
+            type="caption"
+            style={{
+              color: enabled ? colors.accentForeground : colors.mutedForeground,
+              fontWeight: "700",
+            }}
+          >
+            {enabled ? t("common.on") : t("common.off")}
+          </ThemedText>
+        </View>
+      </PressableScale>
+    );
+  }
+
   return (
     <View style={[styles.controlRow, styles.toggleRow]}>
       <ControlLabel icon={icon} label={label} />
@@ -1339,16 +1468,23 @@ function PrefToggle({
 function PlaySurahButton({ onPress }: { onPress: () => void }) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
+  const tv = isTV();
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
       accessibilityLabel={t("quran.playSurah")}
       onPress={onPress}
-      style={[styles.playSurah, { backgroundColor: colors.accent }]}
+      style={[styles.playSurah, tv && styles.playSurahTv, { backgroundColor: colors.accent }]}
     >
-      <SymbolView name={PLAY_CIRCLE_ICON} size={20} tintColor={colors.accentForeground} />
-      <ThemedText type="smallBold" style={{ color: colors.accentForeground }}>
+      <SymbolView name={PLAY_CIRCLE_ICON} size={tv ? 24 : 20} tintColor={colors.accentForeground} />
+      <ThemedText
+        type="smallBold"
+        style={{
+          color: colors.accentForeground,
+          fontSize: tv ? TvLayout.bodyFontSize : undefined,
+        }}
+      >
         {t("quran.playSurah")}
       </ThemedText>
     </PressableScale>
@@ -1461,6 +1597,7 @@ const AyahRow = memo(function AyahRow({
 }: AyahRowProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const tv = isTV();
   const focusBorderOpacity = useSharedValue(0);
   const ayahShareKey = `${surahNumber}:${ayah.ayah}`;
 
@@ -1521,7 +1658,7 @@ const AyahRow = memo(function AyahRow({
         padding="four"
         style={isActive ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
       >
-        <View style={styles.ayahHeader}>
+        <View style={[styles.ayahHeader, tv && styles.ayahHeaderTv]}>
           <View style={styles.ayahIdentity}>
             <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
               <ThemedText type="caption" style={{ color: colors.accent }}>
@@ -1537,7 +1674,7 @@ const AyahRow = memo(function AyahRow({
               />
             ) : null}
           </View>
-          <View style={styles.ayahActions}>
+          <View style={[styles.ayahActions, tv && styles.ayahActionsTv]}>
             {ayah.sajda ? (
               <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
             ) : null}
@@ -1620,7 +1757,9 @@ const AyahRow = memo(function AyahRow({
             <LabeledIconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
               label={
-                isGesturePending(ayahShareKey) ? t("share.tapToShare") : t("quran.actionShare")
+                isGesturePending(ayahShareKey)
+                  ? tTv(t, "share.tapToShare", "share.selectToShare")
+                  : t("quran.actionShare")
               }
               tintColor={colors.mutedForeground}
               accessibilityLabel={t("quran.shareAyah")}
@@ -1700,6 +1839,7 @@ const AyahRow = memo(function AyahRow({
 
 const styles = StyleSheet.create({
   readerRoot: { flex: 1, width: "100%" },
+  tvMappedRoot: { width: "100%", gap: 0 },
   listDetailRoot: {
     flex: 1,
     flexDirection: "row",
@@ -1748,6 +1888,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.three,
   },
+  controlRowTv: {
+    minHeight: TvLayout.minFocusTarget,
+  },
+  controlRowStackTv: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    gap: Spacing.two,
+  },
   controlLabel: {
     flexDirection: "row",
     alignItems: "center",
@@ -1761,6 +1909,30 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     minWidth: 0,
+  },
+  controlValueTv: {
+    width: "100%",
+    justifyContent: "flex-start",
+  },
+  prefToggleTv: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    minHeight: TvLayout.minFocusTarget,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    marginTop: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: 1,
+  },
+  prefToggleStateTv: {
+    paddingHorizontal: Spacing.two + 2,
+    paddingVertical: Spacing.one,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    minWidth: 44,
+    alignItems: "center",
   },
   toggleRow: { marginTop: Spacing.three },
   translationRow: { marginTop: Spacing.three },
@@ -1776,10 +1948,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: Spacing.two,
+    marginTop: Spacing.three,
     paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    marginTop: Spacing.three,
+  },
+  playSurahTv: {
+    minHeight: TvLayout.minFocusTarget,
+    gap: Spacing.three,
   },
   bismillah: { marginBottom: Spacing.two },
   ayahRow: { position: "relative" },
@@ -1794,6 +1971,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: Spacing.three,
     gap: Spacing.two,
+  },
+  ayahHeaderTv: {
+    alignItems: "flex-start",
+    marginBottom: Spacing.four,
+    gap: Spacing.three,
   },
   ayahIdentity: {
     flexDirection: "row",
@@ -1817,7 +1999,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "flex-end",
     flexShrink: 1,
-    gap: Spacing.half,
+    gap: Spacing.one,
+  },
+  ayahActionsTv: {
+    gap: Spacing.two,
   },
   arabic: {},
   translit: { fontStyle: "italic", marginTop: Spacing.three },

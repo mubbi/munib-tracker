@@ -10,6 +10,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { tTv } from "@/lib/i18n/t-tv";
 import {
   ensureLearnDuaContent,
   getLearnDuaOccasions,
@@ -37,7 +38,9 @@ export default function LearnDuaOccasionsScreen() {
       <Seo path="/learn-dua/occasions" />
       <LearnContentGate ready={contentReady}>
         <Stagger>
-          <JannahCallout tone="info">{t("learnDua.occasionsIntro")}</JannahCallout>
+          <JannahCallout tone="info">
+            {tTv(t, "learnDua.occasionsIntro", "learnDua.occasionsIntroTv")}
+          </JannahCallout>
 
           {CATEGORY_ORDER.map((category) => {
             const items = occasions.filter((occasion) => occasion.category === category);

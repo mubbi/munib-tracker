@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "Televizorda mavjud emas",
     "tvUnavailableBody": "Bu funksiya telefon yoki planshetni talab qiladi. Davom etish uchun Munib Tracker-ni o‘sha yerda oching.",
-    "tvOauthHint": "Ijtimoiy tarmoqlar orqali kirish televizorda cheklangan bo‘lishi mumkin. Bu yerda mehmon sifatida davom eting yoki telefoningizda hisobni bog‘lang."
+    "tvOauthHint": "Telefoningizdan kirish uchun yuqoridagi QR kodni afzal ko‘ring. Yoki mehmon sifatida davom eting — istalgan vaqtda telefonda Profil orqali hisobni bog‘lang.",
+    "select": "Tanlash",
+    "selectToContinue": "Davom etish uchun Tanlash tugmasini bosing",
+    "selectToOpen": "Ochish uchun tanlang",
+    "selectToSave": "Saqlash uchun tanlang",
+    "selectDay": "Ko‘rib chiqish uchun kunni tanlang"
   },
   "search": {
     "placeholder": "Qur'an, hadis, dua, O'rganish… qidirish",
@@ -104,7 +109,9 @@
       "rizq": "Rizq",
       "rahman": "Rahmon",
       "sleep": "Uyqu",
-      "istighfar": "Istigʻfor"
+      "istighfar": "Istigʻfor",
+      "quranTv": "Qur'onda o‘qish uchun tanlang",
+      "hadithTv": "To‘liq hadisni o‘qish uchun tanlang"
     },
     "cat": {
       "quran": "Qur'on",
@@ -129,7 +136,8 @@
     "home": "Bosh sahifa",
     "tracker": "Kuzatuvchi",
     "settings": "Sozlamalar",
-    "library": "Kutubxona"
+    "library": "Kutubxona",
+    "navHint": "Almashtirish uchun ↑↓ · kontent uchun →"
   },
   "actions": {
     "checklist": "Tekshiruv roʻyxati",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Oxirgi o'n kecha",
     "lastTenBody": "Toq kechalarda Laylat al-Qadr izlang - namozda turing, Qur'an o'qing va dua qiling. Rasululloh sollallohu alayhi vasallam bu kechalarda ibodat qilishda ko'proq harakat qilardilar.",
     "laylatQadrTitle": "Qadr kechasi",
-    "laylatQadrBody": "Ming oydan yaxshiroqdir - bu kechadagi ibodat o'nlab yillik ixlosdan ustundir. Qur'an o'qing, Tahajjud ibodat qiling va ayting: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "Ming oydan yaxshiroqdir - bu kechadagi ibodat o'nlab yillik ixlosdan ustundir. Qur'an o'qing, Tahajjud ibodat qiling va ayting: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "Ro‘za holatini tanlash uchun tanlang",
+    "gridHintTv": "Ro‘za holatini yozish uchun kunni tanlang",
+    "fastingLogBackfillNoteTv": "Jurnalni to‘ldirish uchun Ramazon {{year}} AH ({{gregorian}}) ko‘rsatilmoqda. Ro‘za holatini yangilash uchun istalgan kunni tanlang."
   },
   "fastStatusSheet": {
     "prompt": "Roʻza holatingizni tanlang",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Duroods-ni ko'rib chiqing",
     "exploreDuroodsHint": "bosichidg  str -g sqlsh  durood",
     "exploreNames": "Browse 99 Nmes",
-    "exploreNamesHint": "bosichidg  str -g sqlsh  nme"
+    "exploreNamesHint": "bosichidg  str -g sqlsh  nme",
+    "exploreQuranHintTv": "Har qanday oyatdagi xatcho‘p belgisini tanlang",
+    "exploreDuasHintTv": "Duoni saqlash uchun yulduzni tanlang",
+    "exploreZikrHintTv": "Adhkarni sevimlilarga qo‘shish uchun yurakni tanlang",
+    "exploreDuroodsHintTv": "Duroodni saqlash uchun yulduzni tanlang",
+    "exploreNamesHintTv": "Ismni saqlash uchun yulduzni tanlang",
+    "exploreHadithHintTv": "Hadis to‘plamini ochish uchun tanlang"
   },
   "home": {
     "todaysGoal": "bugun's Gol",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "bosichidg -g red ichid Qur'n",
       "hadith": "hadith toʻliq oʻqish uchun bosing",
-      "name": "Barcha 99 nomni o'rganing"
+      "name": "Barcha 99 nomni o'rganing",
+      "quranTv": "Qur'onda o‘qish uchun tanlang",
+      "hadithTv": "To‘liq hadisni o‘qish uchun tanlang"
     },
     "devotionMeta": "Level {{level}} · {{noor}} Noyoki",
     "devotionProgress": "{{current}} / {{next}} Noyoki -g next level",
@@ -553,7 +572,15 @@
       "reminderTitle": "Ijoba vaqti",
       "reminderBody": "Juma kuni duasi rad etilmaydigan vaqt — ayniqsa Asr'dan keyin samimiy dua, istighfar va salawat bilan qidiring.",
       "openGuide": "Ijoba vaqtini ochish"
-    }
+    },
+    "scheduleShowPastHintTv": "To‘liq jadvalni ko‘rsatish uchun tanlang",
+    "scheduleShowLaterHintTv": "Bugunning qolgan qismini ko‘rsatish uchun tanlang",
+    "exploreQuranHintTv": "Har qanday oyatdagi xatcho‘p belgisini tanlang",
+    "exploreDuasHintTv": "Duoni saqlash uchun yulduzni tanlang",
+    "exploreZikrHintTv": "Adhkarni sevimlilarga qo‘shish uchun yurakni tanlang",
+    "exploreDuroodsHintTv": "Duroodni saqlash uchun yulduzni tanlang",
+    "exploreNamesHintTv": "Ismni saqlash uchun yulduzni tanlang",
+    "exploreHintTv": "{{shown}} / {{total}} yorliq ko‘rsatildi — qo‘shish yoki tartiblash uchun Boshqarishni tanlang."
   },
   "tracker": {
     "eyebrow": "Trck & log",
@@ -644,7 +671,8 @@
       "hintPages": "Bugungi maqsadga {{count}} bet — yozish uchun bosing",
       "completeHint": "Bugungi ulush bajarildi — rejani ko'rish uchun bosing",
       "a11y": "Khatm rejasi {{total}} kunning {{day}}-kuni, bugungi maqsadga {{target}} dan {{done}}"
-    }
+    },
+    "tvSubtitle": "Holatini belgilash uchun namozni tanlang — shu qurilmada saqlanadi."
   },
   "update": {
     "title": "Yangilanish mavjud",
@@ -776,7 +804,8 @@
         "name": "li Ibn hmd Ml",
         "location": "l-Msjid l-Hrm"
       }
-    }
+    },
+    "tvSubtitle": "Pult bilan ko‘rib chiqing — ba'zi vositalar telefon talab qiladi"
   },
   "import": {
     "title": "Salah tarixini import qilish",
@@ -869,7 +898,12 @@
     "locationSkip": "Keyin sozlash",
     "locationHighlight4": "Istalgan vaqtda o‘tkazing — joylashuv yoki bildirishnomalarni keyin sozlang",
     "chooseLanguage": "Tilni tanlang",
-    "chooseLanguageHint": "Ushbu tanishuvni kuzatish uchun ilova tilini o‘zgartiring"
+    "chooseLanguageHint": "Ushbu tanishuvni kuzatish uchun ilova tilini o‘zgartiring",
+    "locationBodyTv": "Namoz vaqtlari aniq bo‘lishi uchun shaharni tanlang. Joylashuvni istalgan vaqtda Sozlamalardan o‘zgartirishingiz mumkin.",
+    "locationHighlight1Tv": "Shaharingiz uchun aniq namoz vaqtlari",
+    "locationHighlight2Tv": "Joylashuvingizdan qibla yo‘nalishi",
+    "locationHighlight3Tv": "Eslatmalar telefonda yaxshiroq ishlaydi",
+    "locationHighlight4Tv": "Shaharni istalgan vaqtda Sozlamalarda o‘zgartiring"
   },
   "appearance": {
     "eyebrow": "Sozlamalar",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} mtches",
     "noResults": "Qidiruvingizga mos keladigan adhkar topilmadi.",
     "markAsDone": "Bajarildi deb belgilash",
-    "undoDoneHint": "Bekor qilish va bajarilmagan deb belgilash uchun bosing"
+    "undoDoneHint": "Bekor qilish va bajarilmagan deb belgilash uchun bosing",
+    "favEmptyDescTv": "Tez kirish uchun istalgan zikrdagi yulduzni tanlab shu yerda saqlang.",
+    "undoDoneHintTv": "Bekor qilish va bajarilmagan deb belgilash uchun tanlang"
   },
   "zikrCat": {
     "morning": "ertlb dhkr",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Munib Tracker da o'qing:",
     "preparing": "Shrichidg…",
     "tapToShare": "Ulashish uchun bosing",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "Ulashish uchun tanlang"
   },
   "dua": {
     "eyebrow": "Supplictid",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Siz saqlagan vaqtlar",
     "favEmptyTitle": "Sevimli durodlar hali yo'q",
     "favEmptyDesc": "bosichidg  str d ny durood -g sqlsh it here.",
-    "openInTasbeeh": "Tasbehda ochish"
+    "openInTasbeeh": "Tasbehda ochish",
+    "favEmptyDescTv": "Bu yerda saqlash uchun istalgan durooddagi yulduzni tanlang."
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1313,7 +1351,8 @@
     "favorites": "Sevimli ismlar",
     "favSubtitle": "Nmes siz've sqlshd",
     "favEmptyTitle": "Hali sevimli ismlar yo'q",
-    "favEmptyDesc": "bosichidg  str d ny nme -g sqlsh it here."
+    "favEmptyDesc": "bosichidg  str d ny nme -g sqlsh it here.",
+    "favEmptyDescTv": "Bu yerda saqlash uchun istalgan ismdagi yulduzni tanlang."
   },
   "quran": {
     "eyebrow": "Olijanob Qur'an",
@@ -1453,7 +1492,8 @@
         "hamWasl": "Hamzani ulash - qo'shilish paytida tushib ketdi",
         "lamShamsiyah": "Quyosh-harfi lạm — talaffuz qilinmaydi",
         "silent": "Yozilgan, ammo talaffuz qilinmagan"
-      }
+      },
+      "tapHintTv": "Tajvid qoidasini ko‘rish uchun tanlang"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Sura {{number}}",
     "selectSurah": "Surani tanlang",
-    "openReader": "O'quvchini ochish"
+    "openReader": "O'quvchini ochish",
+    "bookmarkEmptyDescTv": "Bu yerda saqlash uchun istalgan oyatdagi xatcho‘p belgisini tanlang."
   },
   "hadith": {
     "eyebrow": "Payg'ambarlik an'anasi",
@@ -1773,7 +1814,8 @@
     },
     "history": "Hbutyokiy",
     "rowDone": "{{completed}} Qaza bajarildi",
-    "rowDoneWithDaily": "{{completed}} Qaza bajarildi · bugun {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} Qaza bajarildi · bugun {{done}}/{{target}}",
+    "hintTv": "Qazo qilingan namozni yozish uchun belgini tanlang. Kuzatuvchida qoldirilgan namoz avtomatik shu hisoblarga qo‘shiladi."
   },
   "qazaCalc": {
     "eyebrow": "Qz",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "qo'shbuh estimted fsts?",
     "confirmAddEstimateMsg": "qo'shbuh {{count}} fsts -g remichidichidg (new -gtl: {{total}})?",
     "confirmResetTitle": "qyt tiklsh counter?",
-    "confirmResetMsg": "Barcha ro‘za sonlari tozalansinmi ({{remaining}} qolgan, {{completed}} bajarilgan)? Buni bekor qilib bo‘lmaydi."
+    "confirmResetMsg": "Barcha ro‘za sonlari tozalansinmi ({{remaining}} qolgan, {{completed}} bajarilgan)? Buni bekor qilib bo‘lmaydi.",
+    "adjustHintTv": "Moslash uchun raqamni tanlang yoki −/+ dan foydalaning"
   },
   "calendar": {
     "eyebrow": "Hbutyokiy",
@@ -1920,7 +1963,8 @@
     "missed": "o'tkzib yubyokiildi",
     "legendHint": "Oʻtgan yoki joriy kunni koʻrib chiqish va sozlash uchun bosing. Bugun {{date}}.",
     "converterRowTitle": "Hijriy ⟷ Grigorian konvertori",
-    "converterRowSubtitle": "Ikki kalendar o'rtasida sanani o'zgartiring"
+    "converterRowSubtitle": "Ikki kalendar o'rtasida sanani o'zgartiring",
+    "legendHintTv": "Ko‘rib chiqish va sozlash uchun o‘tgan yoki joriy kunni tanlang. Bugun {{date}}."
   },
   "calDay": {
     "today": "bugun",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "siznichidg count -nichidg {{count}} will be clebud.",
     "confirmStartAgainTitle": "Strt gichid?",
     "confirmStartAgainMessage": "siznichidg bjrildi count will be clebud so siz cn begichid  new round.",
-    "dockLabel": "Sanash"
+    "dockLabel": "Sanash",
+    "tapToCountTv": "Hisoblash uchun Tanlashni bosing"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} {{min}} daqiqa masofada",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} da {{time}}, joriy namoz",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Chnge joylshuv",
-    "dateRowA11y": "{{phase}}. {{dates}}. Oy tafsilotlari uchun bosing"
+    "dateRowA11y": "{{phase}}. {{dates}}. Oy tafsilotlari uchun bosing",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Oy tafsilotlari uchun tanlang"
   },
   "location": {
     "eyebrow": "joylshuv",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "Makka, Saudiya Arabistoni",
     "defaultTimesHint": "Namoz vaqtlari hozir Makka bo‘yicha. Aniq vaqtlar uchun shahringizni belgilang. Namoz va azon eslatmalari shu paytgacha o‘chiq qoladi.",
-    "setLocation": "Joylashuvni belgilash"
+    "setLocation": "Joylashuvni belgilash",
+    "searchAutoFocusOff": "Shahar qidiring"
   },
   "moon": {
     "aria": "Mod phse: {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Keyingi islom oyi",
     "nextMonthValue": "~{{days}} kun · {{month}} boshlanadi",
     "nextMonthTonight": "Bugun Magribdan keyin · {{month}} boshlanadi",
-    "nextMonthOneDay": "~1 kun · {{month}} boshlanadi"
+    "nextMonthOneDay": "~1 kun · {{month}} boshlanadi",
+    "openTv": "{{phase}}. Tafsilotlar uchun tanlang"
   },
   "achievements": {
     "eyebrow": "Jarayon",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Bu ushbu qurilmadagi va bulut sinxronlashidagi ilova ma'lumotlarini butunlay o'chiradi. Hisobingiz faol va tizimga kirgan holda qoladi. Buni qaytarib bo'lmaydi.",
     "resetDataConfirm": "Ma'lumotlarni qayta o'rnatish",
     "resetDataFailed": "Ilova ma'lumotlarini qayta o'rnatib bo'lmadi. Ulanishingizni tekshiring va qaytadan urining.",
-    "resetDataSuccess": "Ilova ma'lumotlaringiz qayta o'rnatildi"
+    "resetDataSuccess": "Ilova ma'lumotlaringiz qayta o'rnatildi",
+    "tvAvatarHint": "Profil rasmi va hisob bog‘lash telefonda yaxshiroq ishlaydi."
   },
   "sync": {
     "title": "Bulutli sinxronlash",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Qazo boshqaruvidan qazo salah bajaring, u shu yerda ko‘rinadi.",
     "count": "{{count}} mde up",
     "legendHint": "Qaysi salahlarni qazo qilganingizni ko‘rish uchun ajratilgan kunga teging.",
-    "dayA11y": "{{date}}, {{count}} mde up"
+    "dayA11y": "{{date}}, {{count}} mde up",
+    "legendHintTv": "Qaysi namozlarni qazo qilganingizni ko‘rish uchun ajratilgan kunni tanlang."
   },
   "weeklyReport": {
     "title": "Ibadatdagi haftangiz",
-    "body": "{{prayers}} namoz bajarildi, {{perfect}} mukammal kun, {{qaza}} qaza qilindi va {{zikr}} zikr sessiyasi. Statistikani koʻrish uchun bosing."
+    "body": "{{prayers}} namoz bajarildi, {{perfect}} mukammal kun, {{qaza}} qaza qilindi va {{zikr}} zikr sessiyasi. Statistikani koʻrish uchun bosing.",
+    "bodyTv": "{{prayers}} namoz bajarildi, {{perfect}} mukammal kun, {{qaza}} qaza qilindi va {{zikr}} zikr sessiyasi. Statistikani ko‘rish uchun tanlang."
   },
   "backup": {
     "title": "Zxir v tiklsh",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Hifz holati yangilansinmi?",
     "confirmReviewBody": "{{ref}} will be flgged uchun review.",
     "confirmMemorizedBody": "{{ref}} will be mrked s memyokiized.",
-    "confirmClearBody": "{{ref}} Hifz kuzatuvchingizdan olib tashlanadi."
+    "confirmClearBody": "{{ref}} Hifz kuzatuvchingizdan olib tashlanadi.",
+    "emptyDescTv": "Yodlangan deb belgilash uchun o‘quvchidagi istalgan oyatda Hifzni tanlang."
   },
   "travel": {
     "eyebrow": "O'rganish",
@@ -2995,7 +3047,8 @@
       "playPhrases": "Barcha iboralarni ijro etish",
       "pausePhrases": "Iboralarni pauza qilish",
       "playPhrase": "{{n}}-iborani ijro etish: {{title}}",
-      "followAlongNote": "Ijro paytida pastdagi so'zlarni ajratadi"
+      "followAlongNote": "Ijro paytida pastdagi so'zlarni ajratadi",
+      "listenHintTv": "Ijro uchun yozuvni tanlang. Medina har bir jumlani aytish bilan yoritadi. Aniq jumla-bo‘yicha audio uchun pastdagi So‘zlarni o‘rganingdan foydalaning."
     }
   },
   "battles": {
@@ -3090,7 +3143,8 @@
       "obligatory": "Essentil",
       "highly-recommended": "Ayniqsa tavsiya etiladi",
       "recommended": "Tavsiya etiladi"
-    }
+    },
+    "versesIntroTv": "Qur'on eng ishonchli manba. Oyatni Qur'on o‘quvchisida ochish uchun tanlang."
   },
   "lastDay": {
     "eyebrow": "O'rganish",
@@ -3196,7 +3250,8 @@
       "reflection": "Fikrlash jurnali",
       "reflectionHint": "Xushu va ibodat mulohazalari",
       "learning": "O'rgnbuh jrydi",
-      "learningHint": "-gpics bjrildi ichid bu module"
+      "learningHint": "-gpics bjrildi ichid bu module",
+      "characterHintTv": "Bugun xulqingizni ko‘rib chiqqaningizda tanlang"
     },
     "progressTitle": "O'rgnbuh jrydi",
     "progressSubtitle": "O'rganishni kuzatib boring - Alloh huzuridagi ma'naviy daraja emas",
@@ -3224,7 +3279,10 @@
       "obligatory": "Essentil",
       "highly-recommended": "Ayniqsa tavsiya etiladi",
       "recommended": "Tavsiya etiladi"
-    }
+    },
+    "versesIntroTv": "Oyatni Qur'on o‘quvchisida ochish uchun tanlang. Qisqa xulosalar tarbiyaviy bo‘lib, to‘liq tafsir o‘rnini bosmaydi.",
+    "preparationHabitsHintTv": "Kuzatuvchini ochish yoki kundalik niyatni almashtirish uchun tanlang",
+    "characterHintTv": "Bugun xulqingizni ko‘rib chiqqaningizda tanlang"
   },
   "taharah": {
     "eyebrow": "O'rganish",
@@ -3293,7 +3351,8 @@
       "obligatory": "Obligtyokiy",
       "highly-recommended": "Ayniqsa tavsiya etiladi",
       "recommended": "Tavsiya etiladi"
-    }
+    },
+    "checklistHintTv": "Kundalik poklik odatlarini ko‘rib chiqayotganda bandlarni tanlang"
   },
   "prophets": {
     "eyebrow": "O'rganish",
@@ -3398,7 +3457,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "Manbali eslatmani o‘qish uchun xaritadagi ismni tanlang."
     }
   },
   "aqeedah": {
@@ -3518,7 +3578,8 @@
       "obligatory": "Essentil",
       "highly-recommended": "Ayniqsa tavsiya etiladi",
       "recommended": "Tavsiya etiladi"
-    }
+    },
+    "occasionsIntroTv": "Darsni ochish yoki to‘liq duo kutubxonasini ko‘rish uchun vaziyatni tanlang."
   },
   "learnQuran": {
     "eyebrow": "O'rganish",
@@ -3665,7 +3726,8 @@
     "read": "Red",
     "supplicate": "Supplicte",
     "learn": "O'rganish",
-    "more": "Vositalar va boshqalar"
+    "more": "Vositalar va boshqalar",
+    "tvSubtitle": "Qur'on, duo, zikr va o‘rganish — Tanlash bilan harakatlaning"
   },
   "offlineData": {
     "title": "-nichidglyn dt",
@@ -3694,7 +3756,7 @@
     "today": "bugun",
     "inDays": "ichid {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Sanalar hisoblangan taxminlar - haqiqiy kun mahalliy oyni ko'rishga bog'liq.",
+    "disclaimer": "Sanalar joylashuvingizdagi hilol ko'rinishiga (yoki uni ishlatadigan mintaqalarda rasmiy Umm al-Qura taqvimiga) amal qiladi va mahalliy hokimiyat e'lonidan bir kun farq qilishi mumkin.",
     "names": {
       "newYear": "Islomiy Yangi yil",
       "ashura": "Ashuro kuni",
@@ -4133,7 +4195,8 @@
     "linkSadaqah": "Sadaqa maqsadlari",
     "linkSadaqahHint": "Kunlik yoki haftalik ixtiyoriy xayriya",
     "linkFidyah": "Fidya va kafforat",
-    "linkFidyahHint": "O‘tkazib yuborilgan yoki buzilgan ro‘zalar uchun hisoblar"
+    "linkFidyahHint": "O‘tkazib yuborilgan yoki buzilgan ro‘zalar uchun hisoblar",
+    "learnHintTv": "Diqqat qaratilgan qo‘llanma uchun mavzuni tanlang — hukmlar maktablar o‘rtasida farq qiladi."
   },
   "customAdhkar": {
     "eyebrow": "Yod etish",
@@ -4172,7 +4235,7 @@
       "label": "Qo'shimchalar (ixtiyoriy)",
       "add": "Fayl qo'shish",
       "remove": "Qo'shimchani olib tashlang",
-      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Oʻchirish uchun eskizni uzoq bosib turing.",
+      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Olib tashlash uchun eskizdagi × ni bosing.",
       "signInRequired": "Adhkaringizga shaxsiy fayllarni biriktirish uchun tizimga kiring.",
       "permissionDenied": "Fayllarni biriktirish uchun ruxsat talab qilinadi.",
       "permissionTitle": "Kirishga ruxsat bering",
@@ -4201,7 +4264,8 @@
       "sourceDocumentHint": "Fayllaringizdan rasm yoki PDF-ni tanlang",
       "loadingPdf": "PDF yuklanmoqda…",
       "pdfHint": "Aylantiring · chimdib yoki +/− bilan kattalashtiring · qayta tiklash uchun ikki marta bosing · ulashish uchun PDF oching",
-      "pdfPreviewTitle": "PDF ko'rinishi"
+      "pdfPreviewTitle": "PDF ko'rinishi",
+      "tvUnavailable": "Ilovalar telefon yoki planshet talab qiladi. Rasmlar yoki PDF-larni u yerda qo‘shing."
     },
     "stt": {
       "dictate": "Mikrofon bilan diktant qiling",
@@ -4316,7 +4380,8 @@
       "unavailable": "Bu qurilmada nutqni aniqlash funksiyasi mavjud emas.",
       "couldNotHear": "Bu eshitilmadi — qayta urining yoki yozing.",
       "errorGeneric": "Diktant yozilmadi. Qaytadan urining yoki yozing."
-    }
+    },
+    "ratingHintTv": "Namozdagi huzuringizni baholash uchun yulduzni tanlang."
   },
   "prayerTuning": {
     "title": "Salah vaqtlarini sozlash",
@@ -4483,7 +4548,8 @@
       "ranks": "Rnks",
       "mercy": "Rahm",
       "supplication": "Supplictid"
-    }
+    },
+    "versesLeadTv": "Qur'on o‘quvchisida ochish uchun istalgan oyatni tanlang."
   },
   "jahannam": {
     "eyebrow": "O'rganish",
@@ -4615,7 +4681,9 @@
       "repentance": "Repentnce",
       "accountability": "hbuobbility",
       "protection": "Protectid"
-    }
+    },
+    "versesLeadTv": "Qur'on o‘quvchisida ochish uchun istalgan oyatni tanlang.",
+    "reflectionLeadTv": "To‘xtang va o‘zingizga shu savollarni bering. Tegishli kuzatuvchi yoki darsni ochish uchun qatorni tanlang."
   },
   "tour": {
     "eyebrow": "Guided -gur",
@@ -4684,7 +4752,7 @@
     "sourceLabel": "siznichidg source (ixtiyyokiiy)",
     "sourcePlaceholder": "Tuzatishingizni tasdiqlovchi kitob, olim, URL yoki iqtibos.",
     "proofLabel": "Tasdiqlangan skrinshotlar (ixtiyoriy)",
-    "proofHint": "3 tagacha rasm. Oʻchirish uchun eskizni uzoq bosib turing.",
+    "proofHint": "3 tagacha rasm. Olib tashlash uchun eskizdagi × ni bosing.",
     "addProof": "Surat qo'shish",
     "removeProof": "olib tshlsh screenshot",
     "submit": "Hisobot yuborish",
@@ -4961,7 +5029,7 @@
     "eyebrow": "Kalendar",
     "title": "Sana konvertori",
     "subtitle": "Hijriy va Grigoriy kalendarlari oʻrtasida oʻzgartirish",
-    "intro": "Jadvalli Quvayt algoritmi yordamida oflayn hisoblangan boshqasida ekvivalentini ko‘rish uchun har bir taqvimga sana kiriting.",
+    "intro": "Bir taqvimda sana kiriting — ikkinchisidagi tengini ko'ring; oflayn, joylashuvingizdagi hilol ko'rinishidan hisoblanadi.",
     "toHijri": "Grigoriy → hijriy",
     "toGregorian": "Hijriy → Grigoriy",
     "gregorianDateLabel": "Grigorian sanasi",
@@ -4971,7 +5039,7 @@
     "year": "Yil",
     "useToday": "Bugun foydalaning",
     "invalidDate": "Yaroqli sanani kiriting",
-    "disclaimer": "Bu arifmetik taxmindir (“Quvayt algoritmi” jadvali) va oyni koʻrish haqidagi mahalliy eʼlonlardan bir kun farq qilishi mumkin — har doim mahalliy masjidga yoki diniy sanalar boʻyicha maʼmuriyatga amal qiling.",
+    "disclaimer": "Sanalar joylashuvingizdagi hilol (hilāl) ko'rinishidan hisoblanadi va rasmiy oy ko'rish e'lonlaridan bir kun farq qilishi mumkin — diniy sanalar uchun doimo mahalliy masjid yoki hokimiyatga amal qiling.",
     "directionTitle": "Konvertatsiya yo'nalishi",
     "resultFrom": "{{date}} dan",
     "quickLinksTitle": "Aloqador",
@@ -5034,7 +5102,8 @@
       "fidyah": "Fidya"
     },
     "skipHint": "Bu kartani o‘tkazib yuboring va boshqa savolni ko‘ring.",
-    "skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering."
+    "skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering.",
+    "introTv": "Qur'on, hadis, Alloh ismlari va har bir O‘rganish qo‘llanmasidan. O‘zingizni tekshirish uchun javobni tanlang, xohlagancha davom eting."
   },
   "lastThirdNight": {
     "eyebrow": "Tungi Salah",
@@ -5149,5 +5218,32 @@
     "linkFinanceHint": "Ixtiyoriy berish tushuntirildi",
     "disclaimer": "Faqat shaxsiy kuzatuvchi - fatvo emas va muddati kelganda zakotni hisoblash uchun o'rinbosar emas.",
     "continueInApp": "Munib da davom eting"
+  },
+  "adhan": {
+    "listenHintTv": "Ijro uchun yozuvni tanlang. Medina har bir jumlani aytish bilan yoritadi. Aniq jumla-bo‘yicha audio uchun pastdagi So‘zlarni o‘rganingdan foydalaning."
+  },
+  "tv": {
+    "exitTitle": "Munib Tracker-dan chiqasizmi?",
+    "exitMessage": "Ushbu TV-dagi ilovani yopish uchun tasdiqlang.",
+    "exitConfirm": "Chiqish",
+    "qrTitle": "Telefoningiz orqali kiring",
+    "qrHint": "Ushbu QR kodni telefon kamerasi bilan skanerlang yoki telefoningizda Munib Tracker-ni ochib kodni kiriting.",
+    "qrA11y": "Telefonda kirish uchun QR kod",
+    "qrImageA11y": "TV kirishi uchun QR kod",
+    "qrWaiting": "Telefoningiz kutilmoqda…",
+    "qrRefresh": "Yangi kod",
+    "qrRetry": "Qayta urinish",
+    "qrCreateError": "TV kirishini boshlab bo‘lmadi. Aloqani tekshirib, qayta urinib ko‘ring.",
+    "qrExpired": "Bu kod muddati o‘tgan. Yangisini yarating.",
+    "qrEyebrow": "TV hamrohi",
+    "qrPhoneTitle": "TV-da kirish",
+    "qrPhoneSubtitle": "Kod {{code}} — ushbu TV-ni bog‘lash uchun kirishni yakunlang.",
+    "qrMissingCode": "Bu havolada juftlash kodi yo‘q. TV-dagi QR-ni qayta skanerlang.",
+    "qrSignInFirst": "Bog‘langan hisob bilan kiring, keyin TV-ni ulang.",
+    "qrNeedLinkedAccount": "Avval Google, Apple yoki Facebook orqali kiring — mehmon hisoblar TV bog‘lay olmaydi.",
+    "qrClaiming": "TV ulanmoqda…",
+    "qrClaimSuccess": "TV-ga kirdingiz. Mehmonxonaga qaytishingiz mumkin.",
+    "qrClaimError": "TV-ni ulab bo‘lmadi. TV-da yangi kod yarating va qayta urinib ko‘ring.",
+    "qrPhoneOnly": "TV kirishini yakunlash uchun bu havolani telefoningizda oching."
   }
 }

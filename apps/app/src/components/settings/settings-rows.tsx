@@ -7,8 +7,10 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward, useIsRTL } from "@/lib/rtl";
 
 export function SettingsRow({
@@ -27,17 +29,20 @@ export function SettingsRow({
   const { colors } = useThemeTokens();
   const rtl = useIsRTL();
   const chevron = useChevronForward();
+  const tv = isTV();
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
       accessibilityLabel={title}
       onPress={onPress}
-      style={[styles.row, { backgroundColor: colors.muted }]}
+      style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
     >
-      <IconWell icon={icon} />
+      <IconWell icon={icon} well={tv ? 48 : undefined} size={tv ? 22 : undefined} />
       <View style={styles.body}>
-        <ThemedText type="small">{title}</ThemedText>
+        <ThemedText type="small" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
+          {title}
+        </ThemedText>
         {subtitle ? (
           <ThemedText type="caption" themeColor="mutedForeground">
             {subtitle}
@@ -52,7 +57,7 @@ export function SettingsRow({
       <SymbolView
         key={rtl ? "chevron-rtl" : "chevron-ltr"}
         name={chevron}
-        size={16}
+        size={tv ? 20 : 16}
         tintColor={colors.mutedForeground}
       />
     </PressableScale>
@@ -76,12 +81,23 @@ export const ToggleRow = memo(
     onValueChange: (value: boolean) => void;
   }) {
     const { colors } = useThemeTokens();
+    const tv = isTV();
 
     return (
-      <View style={[styles.row, { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 }]}>
-        {icon ? <IconWell icon={icon} /> : null}
+      <View
+        style={[
+          styles.row,
+          tv && styles.rowTv,
+          { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 },
+        ]}
+      >
+        {icon ? (
+          <IconWell icon={icon} well={tv ? 48 : undefined} size={tv ? 22 : undefined} />
+        ) : null}
         <View style={styles.body}>
-          <ThemedText type="small">{title}</ThemedText>
+          <ThemedText type="small" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
+            {title}
+          </ThemedText>
           {subtitle ? (
             <ThemedText type="caption" themeColor="mutedForeground">
               {subtitle}
@@ -114,6 +130,12 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     minHeight: 56,
+  },
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingVertical: Spacing.four,
+    paddingHorizontal: Spacing.four,
+    borderRadius: Radius.lg,
   },
   body: {
     flex: 1,

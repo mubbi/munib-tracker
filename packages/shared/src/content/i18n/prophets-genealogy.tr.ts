@@ -87,4 +87,40 @@ export const PROPHETS_GENEALOGY_NODES_TR: DeepPartial<ProphetsGenealogyNode>[] =
     relationNote:
       "Peygamber Efendimiz İbrahim oğlu İsmail'in soyundandır. İsmail ile Kureyş arasındaki detaylı isimlendirilmiş nesiller klasik siyerde korunmuştur; Kur'an, her atayı listelemeksizin İbrahim'in mirasını tasdik eder. Burada doğrudan bir baba-oğul ayrımı söz konusu değil; yalnızca mühürlü peygamberlik ve İsmaili soyundan söz ediliyor.",
   },
+  // —— v2 appends ——
+  {
+    name: "Şit (Seth)",
+    relationNote:
+      "Klasik İslam geleneği Şit'i Adem'in oğlu ve erken nesillerde bir halka olarak anar. Şit ile Nuh arasındaki ara isimler büyük ölçüde İsrailiyat'tır ve sağlam baba bağı olarak çizilmez.",
+  },
+  {
+    name: "İdris",
+    relationNote:
+      "Kur'an İdris'i yüksek makama yükseltilmiş doğru bir peygamber olarak anar. Klasik listeler onu çoğu kez Adem ile Nuh arasına koyar, ancak Kur'an babasını adlandırmz — baba bağı çizilmez.",
+  },
+  {
+    name: "İmran",
+    relationNote:
+      "Allah İmran ailesini âlemlere üstün kıldı. Meryem İmran'ın kızıdır. (Bu İmran Meryem'in babasıdır — burada Musa/Harun babası olarak kullanılmaz.)",
+  },
+  {
+    name: "Adnan",
+    relationNote:
+      "İslam geleneğine göre Muhammed ﷺ Adnan soyundandır ve Adnan İsmail soyundandır — ancak Adnan'dan İsmail'e adlı nesep kayıptır. Adnan Adnani Arapların klasik başıdır; İsmail'e baba bağı çizilmez.",
+  },
+  {
+    name: "Haşim b. Abd Menaf",
+    relationNote:
+      "Haşim, Beni Haşim'in eponimi ve Peygamber ﷺ'in klasik atasidir. Adnan→Haşim kabile listesi siyerde vardır ama burada ara nesiller olarak atlanır — peygamber değildirler. Haşim bu haritada yakın Haşimi omurgayı yönetir.",
+  },
+  {
+    name: "Abdülmuttalib",
+    relationNote:
+      "Abdülmuttalib (Şeybe) Peygamber ﷺ'in baba dedesi ve klasik siyerde Haşim'in oğludur.",
+  },
+  {
+    name: "Abdullah b. Abdülmuttalib",
+    relationNote:
+      "Abdullah, Peygamber Muhammed ﷺ'in babası ve klasik siyerde Abdülmuttalib'in oğludur.",
+  },
 ];

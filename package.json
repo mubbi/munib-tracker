@@ -26,6 +26,7 @@
     "cleanbuild:app:tv:ios": "pnpm --filter app cleanbuild:tv:ios",
     "dev:app:tv:android": "pnpm --filter app tv:android",
     "dev:app:tv:ios": "pnpm --filter app tv:ios",
+    "dev:app:tv:remote": "pnpm --filter app tv:remote",
     "rebuild:app:tv:android": "pnpm --filter app rebuild:tv:android",
     "rebuild:app:tv:ios": "pnpm --filter app rebuild:tv:ios",
     "doctor:app": "pnpm --filter app doctor",

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,10 +15,12 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   DEFAULT_QUICK_ACTION_ORDER,
   QUICK_ACTION_META,
   resolveQuickActionTint,
+  TV_HIDDEN_QUICK_ACTION_IDS,
 } from "@/lib/quick-actions";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
@@ -30,8 +33,6 @@ const HOME_MODULES = [
   "qaza",
   "schedule",
 ] as const;
-
-const ALL_ACTION_IDS = QUICK_ACTION_META.map((a) => a.id);
 
 function RowIcon({ tint, icon }: { tint: string; icon: AppIconType }) {
   const { tokens } = useThemeTokens();
@@ -163,8 +164,18 @@ export default function HomeCustomizeScreen() {
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
 
+  const allActionIds = useMemo(
+    () =>
+      QUICK_ACTION_META.filter((a) => !(isTV() && TV_HIDDEN_QUICK_ACTION_IDS.has(a.id))).map(
+        (a) => a.id,
+      ),
+    [],
+  );
+
   const hidden = new Set(prefs.hiddenHomeModules ?? []);
-  const actionOrder = prefs.quickActionOrder ?? DEFAULT_QUICK_ACTION_ORDER;
+  const actionOrder = (prefs.quickActionOrder ?? DEFAULT_QUICK_ACTION_ORDER).filter((id) =>
+    allActionIds.includes(id),
+  );
 
   const toggleModule = (id: string, visible: boolean) => {
     const next = new Set(hidden);
@@ -233,7 +244,7 @@ export default function HomeCustomizeScreen() {
           </ThemedText>
           <CustomizeList
             order={actionOrder}
-            allIds={ALL_ACTION_IDS}
+            allIds={allActionIds}
             labelFor={labelForAction}
             iconFor={iconForAction}
             onMove={moveAction}

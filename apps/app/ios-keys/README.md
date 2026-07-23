@@ -18,6 +18,9 @@ Signing and App Store Connect upload config lives **outside** `ios/` so `pnpm cl
 ```bash
 # Bump EXPO_IOS_APP_BUILD_NUMBER in apps/app/.env before each App Store upload
 pnpm release:app:ios
+
+# Apple TV: bump EXPO_TVOS_APP_BUILD_NUMBER, then
+pnpm release:app:tvos
 ```
 
 Output: `apps/app/ios/app-store-export/MunibTracker.ipa` (scheme name may vary).

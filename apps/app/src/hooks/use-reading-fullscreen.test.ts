@@ -12,11 +12,20 @@ jest.mock("expo-router", () => ({
   },
 }));
 
+jest.mock("@/lib/platform/is-tv", () => ({
+  isTV: jest.fn(() => false),
+}));
+
+import { isTV } from "@/lib/platform/is-tv";
+
+const isTVMock = isTV as jest.MockedFunction<typeof isTV>;
+
 describe("useReadingFullscreen", () => {
   const originalOS = Platform.OS;
 
   beforeEach(() => {
     setReadingFullscreenActive(false);
+    isTVMock.mockReturnValue(false);
   });
 
   afterEach(() => {
@@ -56,6 +65,13 @@ describe("useReadingFullscreen", () => {
       await result.current.exit();
     });
     expect(result.current.active).toBe(false);
+  });
+
+  it("does not support fullscreen on TV", () => {
+    Platform.OS = "android";
+    isTVMock.mockReturnValue(true);
+    const { result } = renderHook(() => useReadingFullscreen());
+    expect(result.current.supported).toBe(false);
   });
 
   it("exits on blur when exitOnBlur is set", async () => {

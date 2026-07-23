@@ -1,11 +1,10 @@
 import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { Platform } from "react-native";
-import { registerWidgetTaskHandler } from "react-native-android-widget";
 import { WIDGET_MARK_CLICK_ACTIONS } from "@/lib/appSurfaces/widgets/constants";
 import { normalizeWidgetInfo } from "@/lib/appSurfaces/widgets/normalizeWidgetInfo";
-import { APP_WIDGET_REGISTRY, getAppWidgetByName } from "@/lib/appSurfaces/widgets/registry";
 import { nativeSendWidgetMarkBroadcast } from "@/lib/external-commands/native-bridge";
+import { isTV } from "@/lib/platform/is-tv";
 
 export { normalizeWidgetInfo } from "@/lib/appSurfaces/widgets/normalizeWidgetInfo";
 
@@ -37,27 +36,41 @@ async function handleWidgetMarkClick(
 
 /** Headless entry for Android home-screen widgets (dev/prod native builds only). */
 export function registerAndroidWidgetTaskHandler(): void {
-  if (Platform.OS !== "android") return;
+  if (Platform.OS !== "android" || isTV()) return;
 
-  registerWidgetTaskHandler(
-    async ({ widgetInfo, renderWidget, widgetAction, clickAction, clickActionData }) => {
-      if (widgetAction === "WIDGET_DELETED") return;
-      if (widgetAction === "WIDGET_CLICK") {
-        await handleWidgetMarkClick(clickAction, clickActionData ?? {});
-      }
-      const definition = getAppWidgetByName(widgetInfo.widgetName);
-      if (!definition) return;
-      const normalized = normalizeWidgetInfo(widgetInfo);
-      renderWidget(await definition.render(normalized));
-    },
-  );
+  // Dynamic imports keep `react-native-android-widget` + renderers out of the
+  // TV cold-start graph (Metro also stubs the package when EXPO_TV=1).
+  void Promise.all([
+    import("react-native-android-widget"),
+    import("@/lib/appSurfaces/widgets/registry"),
+  ])
+    .then(([{ registerWidgetTaskHandler }, { getAppWidgetByName }]) => {
+      registerWidgetTaskHandler(
+        async ({ widgetInfo, renderWidget, widgetAction, clickAction, clickActionData }) => {
+          if (widgetAction === "WIDGET_DELETED") return;
+          if (widgetAction === "WIDGET_CLICK") {
+            await handleWidgetMarkClick(clickAction, clickActionData ?? {});
+          }
+          const definition = getAppWidgetByName(widgetInfo.widgetName);
+          if (!definition) return;
+          const normalized = normalizeWidgetInfo(widgetInfo);
+          renderWidget(await definition.render(normalized));
+        },
+      );
+    })
+    .catch(() => {
+      /* Widget native module unavailable (Expo Go / TV). */
+    });
 }
 
 /** Push fresh JSX to every registered Android widget on the home screen. */
 export async function refreshRegisteredAndroidWidgets(): Promise<void> {
-  if (Platform.OS !== "android") return;
+  if (Platform.OS !== "android" || isTV()) return;
   try {
-    const { requestWidgetUpdate } = await import("react-native-android-widget");
+    const [{ requestWidgetUpdate }, { APP_WIDGET_REGISTRY }] = await Promise.all([
+      import("react-native-android-widget"),
+      import("@/lib/appSurfaces/widgets/registry"),
+    ]);
     await Promise.all(
       APP_WIDGET_REGISTRY.map((widget) =>
         requestWidgetUpdate({ widgetName: widget.name, renderWidget: widget.render }),

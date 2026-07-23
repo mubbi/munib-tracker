@@ -31,6 +31,7 @@ import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glas
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
 import { useIsTabScreen } from "@/hooks/use-tab-screen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -41,6 +42,7 @@ import {
 } from "@/lib/audio-queue-timing";
 import { supportsProgrammaticVolume } from "@/lib/audio-volume";
 import { triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 import { ltrControlViewProps, useSkipNextIcon, useSkipPreviousIcon } from "@/lib/rtl";
 import {
   AUDIO_SPEEDS,
@@ -292,6 +294,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
   const { colors, tokens } = useThemeTokens();
   const skipPreviousIcon = useSkipPreviousIcon();
   const skipNextIcon = useSkipNextIcon();
+  const tv = isTV();
   // Stack screens: dock flush to the screen and pad the home indicator inside the
   // bar. Tab roots: keep sitting above the tab bar (tabBarOffset includes safe area).
   const dockBottom = inTabs ? tabBarOffset : 0;
@@ -372,6 +375,12 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
             right: 0,
             borderColor: colors.border,
             paddingBottom: dockSafePad,
+            ...(tv
+              ? {
+                  paddingHorizontal: TvLayout.contentPaddingX,
+                  paddingTop: Spacing.two,
+                }
+              : null),
           },
         ]}
       >
@@ -1029,6 +1038,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
   };
 
   const sheetBottomInset = Math.max(insets.bottom, Spacing.two) + Spacing.two;
+  const tv = isTV();
 
   return (
     <>
@@ -1038,6 +1048,11 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           {
             paddingTop: insets.top + Spacing.two,
             paddingBottom: sheetBottomInset,
+            ...(tv
+              ? {
+                  paddingHorizontal: TvLayout.contentPaddingX,
+                }
+              : null),
           },
         ]}
       >

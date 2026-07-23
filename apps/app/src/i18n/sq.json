@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "Nuk disponohet në TV",
     "tvUnavailableBody": "Kjo veçori kërkon telefon ose tablet. Hap Munib Tracker atje për të vazhduar.",
-    "tvOauthHint": "Hyrja me rrjete sociale mund të jetë e kufizuar në TV. Vazhdo këtu si mysafir ose lidhe një llogari në telefonin tënd."
+    "tvOauthHint": "Preferoni kodin QR sipër për t’u futur nga telefoni. Ose vazhdoni si mysafir — lidhni një llogari në çdo kohë nga Profili në telefon.",
+    "select": "Zgjidh",
+    "selectToContinue": "Shtypni Zgjidh për të vazhduar",
+    "selectToOpen": "Zgjidhni për të hapur",
+    "selectToSave": "Zgjidhni për të ruajtur",
+    "selectDay": "Zgjidhni një ditë për ta shqyrtuar"
   },
   "search": {
     "placeholder": "Kërko Qur'an, hadith, duas, Mëso…",
@@ -104,7 +109,9 @@
       "rizq": "Ризк",
       "rahman": "Ар-Рахман",
       "sleep": "Flini",
-      "istighfar": "Istighfar"
+      "istighfar": "Istighfar",
+      "quranTv": "Zgjidhni për të lexuar në Qur'an",
+      "hadithTv": "Zgjidhni për të lexuar hadithin e plotë"
     },
     "cat": {
       "quran": "Kurani",
@@ -129,7 +136,8 @@
     "home": "Kryefaqja",
     "tracker": "Gjurmues",
     "settings": "Cilësimet",
-    "library": "Biblioteka"
+    "library": "Biblioteka",
+    "navHint": "Përdorni ↑↓ për të ndërruar · → për përmbajtjen"
   },
   "actions": {
     "checklist": "Lista e kontrollit",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Dhjetë netët e fundit",
     "lastTenBody": "Kërkoni Natën e Kadrit në netët tek - qëndroni në namaz, lexoni Kur'an dhe bëni dua. Profeti ﷺ u përpoq më shumë në adhurim gjatë këtyre netëve.",
     "laylatQadrTitle": "Nata e Kadrit",
-    "laylatQadrBody": "Më mirë se një mijë muaj - adhurimi në këtë natë peshon më shumë se dekada të devotshmërisë. Lexo Kur'an, fale Tehexhud dhe thuaj: Allahumma innaka 'afuvwun tuhibbu al-'afwa fa'fu'anni."
+    "laylatQadrBody": "Më mirë se një mijë muaj - adhurimi në këtë natë peshon më shumë se dekada të devotshmërisë. Lexo Kur'an, fale Tehexhud dhe thuaj: Allahumma innaka 'afuvwun tuhibbu al-'afwa fa'fu'anni.",
+    "dayCellHintTv": "Zgjidhni për të zgjedhur statusin e agjërimit",
+    "gridHintTv": "Zgjidhni një ditë për të regjistruar statusin e agjërimit",
+    "fastingLogBackfillNoteTv": "Po shfaqet Ramazani {{year}} AH ({{gregorian}}) që të plotësoni ditarin. Zgjidhni çdo ditë për të përditësuar statusin e agjërimit."
   },
   "fastStatusSheet": {
     "prompt": "Choose juaj agjërimi status",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Shfletoni Duroods",
     "exploreDuroodsHint": "Tap  star në ruaj  durood",
     "exploreNames": "Browse 99 emra",
-    "exploreNamesHint": "Tap  star në ruaj  name"
+    "exploreNamesHint": "Tap  star në ruaj  name",
+    "exploreQuranHintTv": "Zgjidhni ikonën e shenjës në çdo ajet",
+    "exploreDuasHintTv": "Zgjidhni yllin për të ruajtur një dua",
+    "exploreZikrHintTv": "Zgjidhni zemrën për të bërë të preferuar adhkar",
+    "exploreDuroodsHintTv": "Zgjidhni yllin për të ruajtur një durood",
+    "exploreNamesHintTv": "Zgjidhni yllin për të ruajtur një emër",
+    "exploreHadithHintTv": "Zgjidhni për të hapur një koleksion hadithi"
   },
   "home": {
     "todaysGoal": "Goli i sotëm",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "Prekni për të lexuar në Kur'an",
       "hadith": "Prekni për të lexuar hadithin e plotë",
-      "name": "Eksploro të 99 emrat"
+      "name": "Eksploro të 99 emrat",
+      "quranTv": "Zgjidhni për të lexuar në Qur'an",
+      "hadithTv": "Zgjidhni për të lexuar hadithin e plotë"
     },
     "devotionMeta": "Niveli {{level}} · {{noor}} Noor",
     "devotionProgress": "{{current}} / {{next}} Noor në nivelin tjetër",
@@ -553,7 +572,15 @@
       "reminderTitle": "Ora e pranimit",
       "reminderBody": "Një orë të premten kur dua nuk refuzohet — kërkoje veçanërisht pas Asr me dua të sinqertë, istighfar dhe salawat.",
       "openGuide": "Hap orën e pranimit"
-    }
+    },
+    "scheduleShowPastHintTv": "Zgjidhni për të shfaqur orarin e plotë",
+    "scheduleShowLaterHintTv": "Zgjidhni për të shfaqur pjesën e mbetur të sotme",
+    "exploreQuranHintTv": "Zgjidhni ikonën e shenjës në çdo ajet",
+    "exploreDuasHintTv": "Zgjidhni yllin për të ruajtur një dua",
+    "exploreZikrHintTv": "Zgjidhni zemrën për të bërë të preferuar adhkar",
+    "exploreDuroodsHintTv": "Zgjidhni yllin për të ruajtur një durood",
+    "exploreNamesHintTv": "Zgjidhni yllin për të ruajtur një emër",
+    "exploreHintTv": "{{shown}} nga {{total}} shkurtore të shfaqura — zgjidhni Menaxho për të shtuar ose rirenditur."
   },
   "tracker": {
     "eyebrow": "Ndiq & log",
@@ -644,7 +671,8 @@
       "hintPages": "{{count}} faqe drejt objektivit të sotëm — prek për të regjistruar",
       "completeHint": "Pjesa e sotme u krye — prek për të parë planin",
       "a11y": "Plani khatm dita {{day}} nga {{total}}, {{done}} nga {{target}} drejt objektivit të sotëm"
-    }
+    },
+    "tvSubtitle": "Zgjidhni një namaz për të vendosur statusin — ruhet në këtë pajisje."
   },
   "update": {
     "title": "Përditësim i disponueshëm",
@@ -776,7 +804,8 @@
         "name": "Ali Ibn Ahmed Mala",
         "location": "El-Mesxhid el-Haram"
       }
-    }
+    },
+    "tvSubtitle": "Shfletoni me telekomandën — disa mjete kërkojnë telefon"
   },
   "import": {
     "title": "Import salah historia",
@@ -869,7 +898,12 @@
     "locationSkip": "Vendos më vonë",
     "locationHighlight4": "Anashkaloje kur të duash — vendose vendndodhjen ose njoftimet më vonë",
     "chooseLanguage": "Zgjidh gjuhën",
-    "chooseLanguageHint": "Ndrysho gjuhën e aplikacionit që të ndjekësh këtë hyrje"
+    "chooseLanguageHint": "Ndrysho gjuhën e aplikacionit që të ndjekësh këtë hyrje",
+    "locationBodyTv": "Zgjidhni qytetin që oraret e namazit të mbeten të sakta. Vendndodhjen mund ta ndryshoni në çdo kohë te Cilësimet.",
+    "locationHighlight1Tv": "Orare të sakta namazi për qytetin tuaj",
+    "locationHighlight2Tv": "Drejtimi i kibles nga vendndodhja juaj",
+    "locationHighlight3Tv": "Rikujtimet funksionojnë më mirë në telefon",
+    "locationHighlight4Tv": "Ndryshoni qytetin në çdo kohë te Cilësimet"
   },
   "appearance": {
     "eyebrow": "Cilësimet",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} mtches",
     "noResults": "No adhkar matched juaj kërko.",
     "markAsDone": "Shëno si të përfunduar",
-    "undoDoneHint": "Prek për ta zhbërë dhe shënuar si të papërfunduar"
+    "undoDoneHint": "Prek për ta zhbërë dhe shënuar si të papërfunduar",
+    "favEmptyDescTv": "Zgjidhni yllin në çdo zikr për ta mbajtur këtu për qasje të shpejtë.",
+    "undoDoneHintTv": "Zgjidhni për të zhbërë dhe shënuar si të papërfunduar"
   },
   "zikrCat": {
     "morning": "Adhkar i mëngjesit",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Read në Munib Tracker:",
     "preparing": "Po ndan…",
     "tapToShare": "Tap në ndaj",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "Zgjidhni për të ndarë"
   },
   "dua": {
     "eyebrow": "Lutja",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Durood që ke ruajtur",
     "favEmptyTitle": "Nuk ka ende durood të preferuar",
     "favEmptyDesc": "Tap  star në any durood në ruaj it here.",
-    "openInTasbeeh": "Hap në Tesbih"
+    "openInTasbeeh": "Hap në Tesbih",
+    "favEmptyDescTv": "Zgjidhni yllin në çdo durood për ta ruajtur këtu."
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1313,7 +1351,8 @@
     "favorites": "Emrat e preferuar",
     "favSubtitle": "Emrat që keni ruajtur",
     "favEmptyTitle": "Nuk ka ende emra të preferuar",
-    "favEmptyDesc": "Tap  star në any name në ruaj it here."
+    "favEmptyDesc": "Tap  star në any name në ruaj it here.",
+    "favEmptyDescTv": "Zgjidhni yllin në çdo emër për ta ruajtur këtu."
   },
   "quran": {
     "eyebrow": " Noble Kurani",
@@ -1453,7 +1492,8 @@
         "hamWasl": "Hamza lidhëse - ra kur bashkohet",
         "lamShamsiyah": "Shkronja e diellit لام - nuk shqiptohet",
         "silent": "E shkruar por jo e shqiptuar"
-      }
+      },
+      "tapHintTv": "Zgjidhni për të parë rregullin e texhvidit"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Sure {{number}}",
     "selectSurah": "Zgjidhni një sure",
-    "openReader": "Hap lexuesin"
+    "openReader": "Hap lexuesin",
+    "bookmarkEmptyDescTv": "Zgjidhni ikonën e shenjës në çdo ajet për ta ruajtur këtu."
   },
   "hadith": {
     "eyebrow": "Tradita profetike",
@@ -1574,7 +1615,7 @@
     "readingProgress": "Ecuria e leximit",
     "enterFullscreen": "Hyr në ekran të plotë",
     "exitFullscreen": "Dil nga ekrani i plotë",
-    "isnad": "Isnadi",
+    "isnad": "Isnad",
     "sharh": "Shpjegim",
     "showIsnad": "Shfaq isnadin",
     "showSharh": "Shfaq shpjegimin",
@@ -1773,7 +1814,8 @@
     },
     "history": "Historia",
     "rowDone": "{{completed}} Qaza kryer",
-    "rowDoneWithDaily": "{{completed}} Qaza kryer · sot {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} Qaza kryer · sot {{done}}/{{target}}",
+    "hintTv": "Zgjidhni shenjën për të regjistruar një namaz të plotësuar. Namazi i humbur në tracker shtohet automatikisht në këto numra."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "Të shtohen agjërimet e vlerësuara?",
     "confirmAddEstimateMsg": "Të shtohen {{count}} agjërimet e mbetura (gjithsej i ri: {{total}})?",
     "confirmResetTitle": "Të rivendoset numëruesi?",
-    "confirmResetMsg": "Të pastrohen të gjitha numërimet e shpejta ({{remaining}} të mbetura, {{completed}} të përfunduara)? Kjo nuk mund të zhbëhet."
+    "confirmResetMsg": "Të pastrohen të gjitha numërimet e shpejta ({{remaining}} të mbetura, {{completed}} të përfunduara)? Kjo nuk mund të zhbëhet.",
+    "adjustHintTv": "Zgjidhni numrin ose përdorni −/+ për ta rregulluar"
   },
   "calendar": {
     "eyebrow": "Historia",
@@ -1920,7 +1963,8 @@
     "missed": "Humbur",
     "legendHint": "Tap any past ose current ditë në review dhe adjust it. Sot është {{date}}.",
     "converterRowTitle": "Konvertuesi hixhri ⟷ gregorian",
-    "converterRowSubtitle": "Konvertoni një datë midis dy kalendarëve"
+    "converterRowSubtitle": "Konvertoni një datë midis dy kalendarëve",
+    "legendHintTv": "Zgjidhni çdo ditë të kaluar ose aktuale për ta shqyrtuar dhe rregulluar. Sot është {{date}}."
   },
   "calDay": {
     "today": "Sot",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "Juaj count e {{count}} will be pastrohet.",
     "confirmStartAgainTitle": "Fillo again?",
     "confirmStartAgainMessage": "Juaj përfunduar count will be pastrohet so ju can begin  i ri round.",
-    "dockLabel": "Numëro"
+    "dockLabel": "Numëro",
+    "tapToCountTv": "Shtypni Zgjidh për të numëruar"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} është only {{min}} min away",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} at {{time}}, current salah",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Ndrysho vendndodhjen",
-    "dateRowA11y": "{{phase}}. {{dates}}. Tap për moon details"
+    "dateRowA11y": "{{phase}}. {{dates}}. Tap për moon details",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Zgjidhni për detajet e hënës"
   },
   "location": {
     "eyebrow": "Vendndodhja",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "Meka, Arabia Saudite",
     "defaultTimesHint": "Kohët e namazit aktualisht përdorin Mekën. Vendos qytetin tënd për kohë të sakta. Kujtesat e namazit dhe ezanit mbeten të fikura deri atëherë.",
-    "setLocation": "Vendos vendndodhjen"
+    "setLocation": "Vendos vendndodhjen",
+    "searchAutoFocusOff": "Kërkoni një qytet"
   },
   "moon": {
     "aria": "Faza e hënës: {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Muaji islam i ardhshëm",
     "nextMonthValue": "~{{days}} ditë · fillon {{month}}",
     "nextMonthTonight": "Sonte pas Maghribit · fillon {{month}}",
-    "nextMonthOneDay": "~1 ditë · fillon {{month}}"
+    "nextMonthOneDay": "~1 ditë · fillon {{month}}",
+    "openTv": "{{phase}}. Zgjidhni për detaje"
   },
   "achievements": {
     "eyebrow": "Përparim",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Kjo fshin përgjithmonë të dhënat e aplikacionit në këtë pajisje dhe nga sinkronizimi në re. Llogaria juaj mbetet aktive dhe e identifikuar. Kjo nuk mund të zhbëhet.",
     "resetDataConfirm": "Rivendos të dhënat",
     "resetDataFailed": "Nuk u rivendosën të dhënat e aplikacionit. Kontrollo lidhjen tënde dhe provo sërish.",
-    "resetDataSuccess": "Të dhënat e aplikacionit u rivendosën"
+    "resetDataSuccess": "Të dhënat e aplikacionit u rivendosën",
+    "tvAvatarHint": "Foto e profilit dhe lidhja e llogarisë funksionojnë më mirë në telefon."
   },
   "sync": {
     "title": "Sinkronizimi në renë kompjuterike",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Bëj një lutje grimi nga menaxheri i kazasë dhe do të shfaqet këtu.",
     "count": "{{count}} i përbërë",
     "legendHint": "Prekni një ditë të theksuar për të parë se cilat lutje keni bërë.",
-    "dayA11y": "{{date}}, {{count}} i përbërë"
+    "dayA11y": "{{date}}, {{count}} i përbërë",
+    "legendHintTv": "Zgjidhni një ditë të theksuar për të parë cilat namaze keni plotësuar."
   },
   "weeklyReport": {
     "title": "Juaj javë në ibadeti",
-    "body": "{{prayers}} salat të përfunduara, {{perfect}} ditë të përsosura, {{qaza}} qaza të plotësuara dhe {{zikr}} seanca zikr. Prekni për statistikat."
+    "body": "{{prayers}} salat të përfunduara, {{perfect}} ditë të përsosura, {{qaza}} qaza të plotësuara dhe {{zikr}} seanca zikr. Prekni për statistikat.",
+    "bodyTv": "{{prayers}} namaze të përfunduara, {{perfect}} ditë të përkryera, {{qaza}} qaza të plotësuara dhe {{zikr}} sesione zikr. Zgjidhni për të parë statistikat."
   },
   "backup": {
     "title": "Rezervoni dhe rivendosni",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Të përditësohet statusi i Hifz?",
     "confirmReviewBody": "{{ref}} will be flagged për review.",
     "confirmMemorizedBody": "{{ref}} will be shënuar as memorized.",
-    "confirmClearBody": "{{ref}} will be removed nga juaj Hifz tracker."
+    "confirmClearBody": "{{ref}} will be removed nga juaj Hifz tracker.",
+    "emptyDescTv": "Zgjidhni Hifz në çdo ajet në lexues për ta shënuar si të mësuar përmendësh."
   },
   "travel": {
     "eyebrow": "Mëso",
@@ -3007,7 +3059,8 @@
       "playPhrases": "Luaj të gjitha frazat",
       "pausePhrases": "Ndalo frazat",
       "playPhrase": "Luaj frazën {{n}}: {{title}}",
-      "followAlongNote": "Thekson fjalët më poshtë gjatë luajtjes"
+      "followAlongNote": "Thekson fjalët më poshtë gjatë luajtjes",
+      "listenHintTv": "Zgjidhni një regjistrim për ta luajtur. Medina thekson çdo fjali ndërsa thuhet. Përdorni Mëso fjalët më poshtë për audio të qartë fjali pas fjali."
     }
   },
   "battles": {
@@ -3102,7 +3155,8 @@
       "obligatory": "Thelbësore",
       "highly-recommended": "Rekomandohet shumë",
       "recommended": "Rekomanduar"
-    }
+    },
+    "versesIntroTv": "Qur'ani është burimi më autentik. Zgjidhni një ajet për ta hapur në lexuesin e Qur'anit."
   },
   "lastDay": {
     "eyebrow": "Mësoni",
@@ -3208,7 +3262,8 @@
       "reflection": "Revista e reflektimit",
       "reflectionHint": "Hushu dhe reflektimet e lutjes",
       "learning": "Përparimi i të mësuarit",
-      "learningHint": "Temat e përfunduara në këtë modul"
+      "learningHint": "Temat e përfunduara në këtë modul",
+      "characterHintTv": "Zgjidhni kur keni shqyrtuar sjelljen tuaj sot"
     },
     "progressTitle": "Përparimi i të nxënit",
     "progressSubtitle": "Ndiqni studimin - jo gradë shpirtërore me Allahun",
@@ -3236,7 +3291,10 @@
       "obligatory": "Thelbësore",
       "highly-recommended": "Rekomandohet shumë",
       "recommended": "Rekomanduar"
-    }
+    },
+    "versesIntroTv": "Zgjidhni një ajet për ta hapur në lexuesin e Qur'anit. Përmbledhjet e shkurtra janë edukative, jo zëvendësim i tefsirit të plotë.",
+    "preparationHabitsHintTv": "Zgjidhni për të hapur një tracker ose për të ndërruar një synim ditor",
+    "characterHintTv": "Zgjidhni kur keni shqyrtuar sjelljen tuaj sot"
   },
   "taharah": {
     "eyebrow": "Mëso",
@@ -3305,7 +3363,8 @@
       "obligatory": "E detyrueshme",
       "highly-recommended": "Rekomandohet shumë",
       "recommended": "Rekomanduar"
-    }
+    },
+    "checklistHintTv": "Zgjidhni zërat ndërsa shqyrtoni zakonet ditore të pastërtisë"
   },
   "prophets": {
     "eyebrow": "Mëso",
@@ -3410,7 +3469,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "Zgjidhni një emër në hartë për të lexuar shënimin me burim."
     }
   },
   "aqeedah": {
@@ -3530,7 +3590,8 @@
       "obligatory": "Thelbësore",
       "highly-recommended": "Rekomandohet shumë",
       "recommended": "Rekomanduar"
-    }
+    },
+    "occasionsIntroTv": "Zgjidhni një rast për të hapur mësimin ose për të shfletuar bibliotekën e plotë të duave."
   },
   "learnQuran": {
     "eyebrow": "Mësoni",
@@ -3677,7 +3738,8 @@
     "read": "Red",
     "supplicate": "Supplicte",
     "learn": "Mëso",
-    "more": "Më shumë"
+    "more": "Më shumë",
+    "tvSubtitle": "Qur'an, dua, zikr dhe mësim — navigoni me Zgjidh"
   },
   "offlineData": {
     "title": "Të dhënat jashtë linje",
@@ -4225,7 +4287,8 @@
     "linkSadaqah": "Qëllimet e sadakasë",
     "linkSadaqahHint": "Dhurim vullnetar ditor ose javor",
     "linkFidyah": "Fidje dhe kefaret",
-    "linkFidyahHint": "Vlerësime për agjërime të humbura ose të prishura"
+    "linkFidyahHint": "Vlerësime për agjërime të humbura ose të prishura",
+    "learnHintTv": "Zgjidhni një temë për një udhëzues të fokusuar — vendimet ndryshojnë midis shkollave."
   },
   "customAdhkar": {
     "eyebrow": "Kujtim",
@@ -4264,7 +4327,7 @@
       "label": "Shtojcat (opsionale)",
       "add": "Shto skedar",
       "remove": "Hiq shtojcën",
-      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Shtypni gjatë një miniaturë për ta hequr.",
+      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Prekni × te miniaturë për ta hequr.",
       "signInRequired": "Identifikohu për të bashkëngjitur skedarë privatë në adkar-in tënd.",
       "permissionDenied": "Kërkohet leje për të bashkangjitur skedarët.",
       "permissionTitle": "Lejo qasjen",
@@ -4293,7 +4356,8 @@
       "sourceDocumentHint": "Zgjidhni një imazh ose PDF nga skedarët tuaj",
       "loadingPdf": "Duke ngarkuar PDF…",
       "pdfHint": "Rrëshqit · kap ose +/− për zmadhim · dy prekje për rivendosje · Hap PDF për të ndarë",
-      "pdfPreviewTitle": "Paraqitja e PDF"
+      "pdfPreviewTitle": "Paraqitja e PDF",
+      "tvUnavailable": "Bashkëngjitjet kërkojnë telefon ose tablet. Shtoni foto ose PDF atje."
     },
     "stt": {
       "dictate": "Diktoni me mikrofon",
@@ -4408,7 +4472,8 @@
       "unavailable": "Njohja e të folurit nuk ofrohet në këtë pajisje.",
       "couldNotHear": "Nuk mund ta dëgjoja - provo përsëri ose shkruani.",
       "errorGeneric": "Diktimi dështoi. Provo sërish ose shkruaj."
-    }
+    },
+    "ratingHintTv": "Zgjidhni një yll për të vlerësuar praninë tuaj në namaz."
   },
   "prayerTuning": {
     "title": "Salah time tuning",
@@ -4575,7 +4640,8 @@
       "ranks": "Rks",
       "mercy": "Mëshirë",
       "supplication": "Lutja"
-    }
+    },
+    "versesLeadTv": "Zgjidhni çdo ajet për ta hapur në lexuesin e Qur'anit."
   },
   "jahannam": {
     "eyebrow": "Mësoni",
@@ -4707,7 +4773,9 @@
       "repentance": "Pendimi",
       "accountability": "Llogaridhënia",
       "protection": "Mbrojtja"
-    }
+    },
+    "versesLeadTv": "Zgjidhni çdo ajet për ta hapur në lexuesin e Qur'anit.",
+    "reflectionLeadTv": "Ndaloni dhe bëjini vetes këto pyetje. Zgjidhni një rresht për të hapur tracker-in ose mësimin përkatës."
   },
   "tour": {
     "eyebrow": "Turne me guidë",
@@ -4846,7 +4914,7 @@
       "openTracker": "Hap listën e kontrollit",
       "openQibla": "Hap Kiblën",
       "openTasbeeh": "Hap Tesbih",
-      "markCurrent": "Mark my Salah",
+      "markCurrent": "Shëno Salah-un tim",
       "openRamadan": "Hap Ramazanin",
       "openKhatm": "Hap planin e hatmes",
       "openQaza": "Hap kazën",
@@ -5053,7 +5121,7 @@
     "eyebrow": "Kalendari",
     "title": "Konvertuesi i datës",
     "subtitle": "Konvertoni midis kalendarit Hixhri dhe Gregorian",
-    "intro": "Fut një datë në secilin nga kalendarët për të parë ekuivalentin e saj në tjetrin, të llogaritur jashtë linje duke përdorur algoritmin tabelor të Kuvajtit.",
+    "intro": "Futni një datë në secilin kalendar për të parë ekuivalentin në tjetrin, i llogaritur offline nga dukshmëria e hënës në vendndodhjen tuaj.",
     "toHijri": "Gregorian → Hixhri",
     "toGregorian": "Hixhri → Gregorian",
     "gregorianDateLabel": "Data Gregoriane",
@@ -5063,7 +5131,7 @@
     "year": "viti",
     "useToday": "Përdoreni sot",
     "invalidDate": "Fut një datë të vlefshme",
-    "disclaimer": "Ky është një përafrim aritmetik (\"algoritmi kuvajtian\" në formë tabele) dhe mund të ndryshojë për një ditë nga njoftimet lokale për shikimin e hënës - ndiqni gjithmonë xhaminë ose autoritetin tuaj lokal për datat fetare.",
+    "disclaimer": "Datat llogariten nga dukshmëria e hënës (hilāl) në vendndodhjen tuaj dhe mund të ndryshojnë me një ditë nga njoftimet zyrtare të vëzhgimit të hënës — ndiqni gjithmonë masjid-in ose autoritetin lokal për datat fetare.",
     "directionTitle": "Drejtimi i konvertimit",
     "resultFrom": "Nga {{date}}",
     "quickLinksTitle": "Të lidhura",
@@ -5126,7 +5194,8 @@
       "fidyah": "Fidje"
     },
     "skipHint": "Kapërceni këtë kartë dhe shihni një pyetje tjetër.",
-    "skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re."
+    "skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re.",
+    "introTv": "Merrni nga Qur'ani, hadithi, Emrat e Allahut dhe çdo udhëzues Mëso. Zgjidhni një përgjigje për të kontrolluar veten, pastaj vazhdoni sa të doni."
   },
   "lastThirdNight": {
     "eyebrow": "Salah e natës",
@@ -5241,5 +5310,32 @@
     "linkFinanceHint": "Shpjegohet dhënia vullnetare",
     "disclaimer": "Vetëm një gjurmues personal - jo fetva dhe jo zëvendësues për llogaritjen e zekatit kur duhet.",
     "continueInApp": "Vazhdo në Munib"
+  },
+  "adhan": {
+    "listenHintTv": "Zgjidhni një regjistrim për ta luajtur. Medina thekson çdo fjali ndërsa thuhet. Përdorni Mëso fjalët më poshtë për audio të qartë fjali pas fjali."
+  },
+  "tv": {
+    "exitTitle": "Të largohesh nga Munib Tracker?",
+    "exitMessage": "Shtypni konfirmimin për të mbyllur aplikacionin në këtë TV.",
+    "exitConfirm": "Dil",
+    "qrTitle": "Hyni me telefonin tuaj",
+    "qrHint": "Skanojeni këtë kod QR me kamerën e telefonit, ose hapni Munib Tracker në telefon dhe futni kodin.",
+    "qrA11y": "Kod QR për hyrje në telefon",
+    "qrImageA11y": "Kod QR për hyrjen në TV",
+    "qrWaiting": "Duke pritur telefonin…",
+    "qrRefresh": "Kod i ri",
+    "qrRetry": "Provo sërish",
+    "qrCreateError": "Nuk u nis hyrja në TV. Kontrolloni lidhjen dhe provoni sërish.",
+    "qrExpired": "Ky kod ka skaduar. Gjeneroni një të ri.",
+    "qrEyebrow": "Shoqërues TV",
+    "qrPhoneTitle": "Hyrje në TV",
+    "qrPhoneSubtitle": "Kodi {{code}} — përfundoni hyrjen për të lidhur këtë TV.",
+    "qrMissingCode": "Kjo lidhje nuk ka kod çiftimi. Skanojeni sërish QR nga TV.",
+    "qrSignInFirst": "Hyni me një llogari të lidhur, pastaj do ta lidhim TV-në tuaj.",
+    "qrNeedLinkedAccount": "Së pari hyni me Google, Apple ose Facebook — llogaritë e mysafirëve nuk mund të lidhin TV.",
+    "qrClaiming": "Duke lidhur TV-në…",
+    "qrClaimSuccess": "TV-ja juaj është e futur. Mund të ktheheni në dhomën e ndenjes.",
+    "qrClaimError": "Nuk u lidh TV. Gjeneroni një kod të ri në TV dhe provoni sërish.",
+    "qrPhoneOnly": "Hapeni këtë lidhje në telefon për të përfunduar hyrjen në TV."
   }
 }

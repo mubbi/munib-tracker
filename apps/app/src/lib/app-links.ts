@@ -139,6 +139,8 @@ export const DEEP_LINK_DESTINATIONS = [
   "/janazah",
   "/sadaqah",
   "/prophets/tree",
+  "/login",
+  "/tv-pair",
   // Qur'an extras
   "/quran/juz",
   "/quran/pages",
@@ -210,6 +212,8 @@ export const appLink = {
   location: () => link("/location"),
   notifications: () => link("/notifications"),
   profile: () => link("/profile"),
+  login: () => link("/login"),
+  tvPair: (code?: string) => link(code ? `/tv-pair?code=${encodeURIComponent(code)}` : "/tv-pair"),
   achievements: () => link("/achievements"),
   statistics: () => link("/statistics"),
   ramadan: () => link("/ramadan"),

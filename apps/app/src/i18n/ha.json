@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "Ba ya samuwa a TV ba",
     "tvUnavailableBody": "Wannan fasalin yana bukatar waya ko kwamfutar hannu. Buɗe Munib Tracker a can don ci gaba.",
-    "tvOauthHint": "Shiga ta kafafen sada zumunta na iya kasancewa a taƙaice a TV. Ci gaba a nan a matsayin baƙo, ko haɗa asusu a wayarka."
+    "tvOauthHint": "Gwargwado lambar QR da ke sama don shiga daga wayarka. Ko ci gaba a matsayin bako — haɗa asusu kowane lokaci daga bayanin martaba a wayarka.",
+    "select": "Zaɓi",
+    "selectToContinue": "Danna Zaɓi don ci gaba",
+    "selectToOpen": "Zaɓi don buɗewa",
+    "selectToSave": "Zaɓi don adanawa",
+    "selectDay": "Zaɓi rana don dubawa"
   },
   "search": {
     "placeholder": "Nemo Alkur'ani, hadisi, addu'o'i, Koyi…",
@@ -104,7 +109,9 @@
       "rizq": "Rizqi",
       "rahman": "Ar-Rahman",
       "sleep": "Barci",
-      "istighfar": "Istighfar"
+      "istighfar": "Istighfar",
+      "quranTv": "Zaɓi don karantawa a Qur'an",
+      "hadithTv": "Zaɓi don karanta cikakken hadisi"
     },
     "cat": {
       "quran": "Alkur'ani",
@@ -129,7 +136,8 @@
     "home": "Gida",
     "tracker": "Mai bin diddigi",
     "settings": "Saituna",
-    "library": "Laburare"
+    "library": "Laburare",
+    "navHint": "Yi amfani da ↑↓ don canzawa · → don abun ciki"
   },
   "actions": {
     "checklist": "Jerin dubawa",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Dare goma na karshe",
     "lastTenBody": "Ku nemi Lailatul Kadr a cikin darare masu ban mamaki - ku tsaya kan salla, ku karanta Alkur'ani, kuma ku yi addu'a. Manzon Allah ﷺ ya yi qoqari wajen ibada a cikin waxannan darare.",
     "laylatQadrTitle": "Lailatul Kadri",
-    "laylatQadrBody": "Fiye da watanni dubu - ibada a wannan dare ta fi shekaru da yawa na ibada. Karanta Qur'ani, Ka yi Tahajjud, ka ce: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "Fiye da watanni dubu - ibada a wannan dare ta fi shekaru da yawa na ibada. Karanta Qur'ani, Ka yi Tahajjud, ka ce: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "Zaɓi don zaɓar matsayin azumi",
+    "gridHintTv": "Zaɓi rana don rubuta matsayin azumi",
+    "fastingLogBackfillNoteTv": "Ana nuna Ramadan {{year}} AH ({{gregorian}}) don ka cika rubutunka. Zaɓi kowace rana don sabunta matsayin azumi."
   },
   "fastStatusSheet": {
     "prompt": "Zaɓi matsayin azumin ku",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Duba Duroods",
     "exploreDuroodsHint": "Dokunun  star  kwatadet  durood",
     "exploreNames": "Browse Sunaye 99",
-    "exploreNamesHint": "Dokunun  star  kwatadet  name"
+    "exploreNamesHint": "Dokunun  star  kwatadet  name",
+    "exploreQuranHintTv": "Zaɓi alamar alama a kowace ayah",
+    "exploreDuasHintTv": "Zaɓi tauraro don adana dua",
+    "exploreZikrHintTv": "Zaɓi zuciya don sanya adhkar a abubuwan so",
+    "exploreDuroodsHintTv": "Zaɓi tauraro don adana durood",
+    "exploreNamesHintTv": "Zaɓi tauraro don adana suna",
+    "exploreHadithHintTv": "Zaɓi don buɗe tarin hadisi"
   },
   "home": {
     "todaysGoal": "Burin yau",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "Taɓa don karantawa a cikin Kur'ani",
       "hadith": "Danna don karanta cikakken hadisi",
-      "name": "Bincika duk sunaye 99"
+      "name": "Bincika duk sunaye 99",
+      "quranTv": "Zaɓi don karantawa a Qur'an",
+      "hadithTv": "Zaɓi don karanta cikakken hadisi"
     },
     "devotionMeta": "Mataki {{level}} · {{noor}} Noor",
     "devotionProgress": "{{current}} / {{next}} Noor zuwa mataki na gaba",
@@ -553,7 +572,15 @@
       "reminderTitle": "Lokacin karɓuwa",
       "reminderBody": "Sa'a a ranar Juma'a da ba a ƙi dua — nemi ta musamman bayan Asr da dua, istighfar da salawat na zuciya.",
       "openGuide": "Buɗe lokacin karɓuwa"
-    }
+    },
+    "scheduleShowPastHintTv": "Zaɓi don nuna cikakken jadawali",
+    "scheduleShowLaterHintTv": "Zaɓi don nuna sauran yau",
+    "exploreQuranHintTv": "Zaɓi alamar alama a kowace ayah",
+    "exploreDuasHintTv": "Zaɓi tauraro don adana dua",
+    "exploreZikrHintTv": "Zaɓi zuciya don sanya adhkar a abubuwan so",
+    "exploreDuroodsHintTv": "Zaɓi tauraro don adana durood",
+    "exploreNamesHintTv": "Zaɓi tauraro don adana suna",
+    "exploreHintTv": "An nuna {{shown}} cikin {{total}} gajerun hanyoyi — zaɓi Sarrafa don ƙarawa ko sake jeri."
   },
   "tracker": {
     "eyebrow": "Mai bin diddigi et da kwatadet",
@@ -644,7 +671,8 @@
       "hintPages": "{{count}} shafuka zuwa burin yau — taɓa don rubuta",
       "completeHint": "Sashen yau an gama — taɓa don duba shirin ku",
       "a11y": "Shirin khatm rana {{day}} cikin {{total}}, {{done}} cikin {{target}} zuwa burin yau"
-    }
+    },
+    "tvSubtitle": "Zaɓi salla don saita matsayinta — an adana a wannan na'urar."
   },
   "update": {
     "title": "Sabunta tana samuwa",
@@ -776,7 +804,8 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "tvSubtitle": "Yi bincike da nesa — wasu kayayyaki suna buƙatar waya"
   },
   "import": {
     "title": "Sallah geçmişini içe aktar",
@@ -869,7 +898,12 @@
     "locationSkip": "Saita daga baya",
     "locationHighlight4": "Tsallake kowane lokaci — saita wuri ko kunna sanarwa daga baya",
     "chooseLanguage": "Zaɓi harshe",
-    "chooseLanguageHint": "Canza harshen app ɗin don ku iya bin wannan gabatarwa"
+    "chooseLanguageHint": "Canza harshen app ɗin don ku iya bin wannan gabatarwa",
+    "locationBodyTv": "Zaɓi birninka domin lokutan salla su kasance daidai. Za ka iya canza wuri kowane lokaci daga Saiti.",
+    "locationHighlight1Tv": "Lokutan salla masu daidaito ga birninka",
+    "locationHighlight2Tv": "Alkibla daga wurinka",
+    "locationHighlight3Tv": "Tunatarwa sun fi aiki a waya",
+    "locationHighlight4Tv": "Canza birni kowane lokaci a Saiti"
   },
   "appearance": {
     "eyebrow": "Saituna",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} sakamako",
     "noResults": "Babu adhkar da ya dace da bincikenku.",
     "markAsDone": "Alama a matsayin an gama",
-    "undoDoneHint": "Taɓa don sokewa da cire alamar kammala"
+    "undoDoneHint": "Taɓa don sokewa da cire alamar kammala",
+    "favEmptyDescTv": "Zaɓi tauraro a kowane zikr don ajiye shi anan don saurin shiga.",
+    "undoDoneHintTv": "Zaɓi don soke kuma alama a matsayin ba a yi ba"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Read donde Munib Tracker:",
     "preparing": "Raba…",
     "tapToShare": "Dokunun  pwatalaş",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "Zaɓi don raba"
   },
   "dua": {
     "eyebrow": "Roƙo",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Ajiyetiğiniz salavatlar",
     "favEmptyTitle": "Babu duroods da aka fi so tukuna",
     "favEmptyDesc": "Wannanrwataa kwatadetmek don herhangi dwataa salavata shekaradıza dokunun.",
-    "openInTasbeeh": "Buɗe a Tasbeeh"
+    "openInTasbeeh": "Buɗe a Tasbeeh",
+    "favEmptyDescTv": "Zaɓi tauraro a kowane durood don adana shi anan."
   },
   "names": {
     "eyebrow": "Asma'ul-Husna",
@@ -1313,7 +1351,8 @@
     "favorites": "Sunayen da aka fi so",
     "favSubtitle": "Isimler you'da kwatadedildi",
     "favEmptyTitle": "Babu sunayen da aka fi so tukuna",
-    "favEmptyDesc": "Matsa tauraron akan kowane suna don adana shi anan."
+    "favEmptyDesc": "Matsa tauraron akan kowane suna don adana shi anan.",
+    "favEmptyDescTv": "Zaɓi tauraro a kowane suna don adana shi anan."
   },
   "quran": {
     "eyebrow": " Noble Alkur'ani",
@@ -1453,7 +1492,8 @@
         "hamWasl": "Haɗin hamza - ya faɗi lokacin shiga",
         "lamShamsiyah": "Harafin rana لام - ba a furta shi ba",
         "silent": "An rubuta amma ba a furta ba"
-      }
+      },
+      "tapHintTv": "Zaɓi don ganin ka'idar tajweed"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Surah {{number}}",
     "selectSurah": "Zaɓi surah",
-    "openReader": "Buɗe mai karatu"
+    "openReader": "Buɗe mai karatu",
+    "bookmarkEmptyDescTv": "Zaɓi alamar alama a kowace ayah don adana ta anan."
   },
   "hadith": {
     "eyebrow": "Hadisin annabci",
@@ -1773,7 +1814,8 @@
     },
     "history": "Tarihi",
     "rowDone": "{{completed}} an biya Qaza",
-    "rowDoneWithDaily": "{{completed}} an biya Qaza · yau {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} an biya Qaza · yau {{done}}/{{target}}",
+    "hintTv": "Zaɓi alamar bincike don rubuta sallar da aka biya. Rasawa salla a mai biyo yana ƙara wa waɗannan ƙididdiga ta atomatik."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "Ƙara kiyasin azumi?",
     "confirmAddEstimateMsg": "Ƙara {{count}} azumi zuwa saura (sabon jimlar: {{total}})?",
     "confirmResetTitle": "Sake saita counter?",
-    "confirmResetMsg": "Share duk kirga masu sauri ({{remaining}} saura, {{completed}} an gama)? Ba za a iya soke wannan ba."
+    "confirmResetMsg": "Share duk kirga masu sauri ({{remaining}} saura, {{completed}} an gama)? Ba za a iya soke wannan ba.",
+    "adjustHintTv": "Zaɓi lambar ko yi amfani da −/+ don gyarawa"
   },
   "calendar": {
     "eyebrow": "Tarihi",
@@ -1920,7 +1963,8 @@
     "missed": "Ya rasa",
     "legendHint": "Dokunun any past ko current rana  gözden geçir da adjust it. Yau dir {{date}}.",
     "converterRowTitle": "Hijira ⟷ Juyin Juna",
-    "converterRowSubtitle": "Maida kwanan wata tsakanin kalanda biyu"
+    "converterRowSubtitle": "Maida kwanan wata tsakanin kalanda biyu",
+    "legendHintTv": "Zaɓi kowace rana ta baya ko ta yanzu don dubawa da gyarawa. Yau shine {{date}}."
   },
   "calDay": {
     "today": "Yau",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "Kuin swata  {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? Farat",
     "confirmStartAgainMessage": "Kuin completed swata will be cleared so siz can begin  yeni round.",
-    "dockLabel": "Ƙidaya"
+    "dockLabel": "Ƙidaya",
+    "tapToCountTv": "Danna Zaɓi don ƙidaya"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} is only {{min}} minti away",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} at {{time}}, current sallah",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Canja wuri",
-    "dateRowA11y": "{{phase}}. {{dates}}. Dokunun don moon details"
+    "dateRowA11y": "{{phase}}. {{dates}}. Dokunun don moon details",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Zaɓi don cikakkun bayanan wata"
   },
   "location": {
     "eyebrow": "Wuri",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "Makka, Saudi Arabiya",
     "defaultTimesHint": "Lokutan Salah yanzu suna amfani da Makka. Saita garinku don daidaitattun lokuta. Tunatarwa na Salah da Adhan za su kasance kashe har sai lokacin.",
-    "setLocation": "Saita wuri"
+    "setLocation": "Saita wuri",
+    "searchAutoFocusOff": "Nemo birni"
   },
   "moon": {
     "aria": "Tsarin wata: {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Wata na Musulunci na gaba",
     "nextMonthValue": "~{{days}} kwanaki · farawa {{month}}",
     "nextMonthTonight": "A daren yau bayan Magrib · farawa {{month}}",
-    "nextMonthOneDay": "~kwana 1 · farawa {{month}}"
+    "nextMonthOneDay": "~kwana 1 · farawa {{month}}",
+    "openTv": "{{phase}}. Zaɓi don cikakkun bayanai"
   },
   "achievements": {
     "eyebrow": "Ci gaba",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Wannan zai goge bayanan app a wannan na'urar da kuma daga daidaitawar girgije har abada. Asusunka zai ci gaba da aiki kuma shiga. Ba za a iya mayar da wannan ba.",
     "resetDataConfirm": "Sake saita bayanai",
     "resetDataFailed": "An kasa sake saita bayanan app. Duba haɗin ku kuma sake gwadawa.",
-    "resetDataSuccess": "An sake saita bayanan app ɗinku"
+    "resetDataSuccess": "An sake saita bayanan app ɗinku",
+    "tvAvatarHint": "Hoton bayanin martaba da haɗa asusu sun fi aiki a wayarka."
   },
   "sync": {
     "title": "Cloud daidaitawa",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Kuyi addu'ar gyaran jiki daga wajen manajan qaza zai bayyana anan.",
     "count": "{{count}} an gyara",
     "legendHint": "Matsa rana da aka haskaka don ganin irin addu'o'in da kuka yi.",
-    "dayA11y": "{{date}}, {{count}} an daidaita"
+    "dayA11y": "{{date}}, {{count}} an daidaita",
+    "legendHintTv": "Zaɓi rana da aka haskaka don ganin waɗanne salloli ka biya."
   },
   "weeklyReport": {
     "title": "Makon ku a ibada",
-    "body": "{{prayers}} sallah an kammala, {{perfect}} ranaku cikakke, {{qaza}} qaza an biya, da {{zikr}} zama na zikr. Danna don duba kididdiga."
+    "body": "{{prayers}} sallah an kammala, {{perfect}} ranaku cikakke, {{qaza}} qaza an biya, da {{zikr}} zama na zikr. Danna don duba kididdiga.",
+    "bodyTv": "{{prayers}} salloli da aka kammala, {{perfect}} cikakkun kwanaki, {{qaza}} qaza da aka biya, da {{zikr}} zaman zikr. Zaɓi don ganin kididdigar ka."
   },
   "backup": {
     "title": "Ajiyayyen & mayar",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Sabunta matsayin Hifz?",
     "confirmReviewBody": "{{ref}} will be flagged don gözden geçir.",
     "confirmMemorizedBody": "{{ref}} za a yi masa alama a matsayin hadda.",
-    "confirmClearBody": "Za a cire {{ref}} daga mabiyan Hifz ɗin ku."
+    "confirmClearBody": "Za a cire {{ref}} daga mabiyan Hifz ɗin ku.",
+    "emptyDescTv": "Zaɓi Hifz a kowace ayah a mai karantawa don alama a matsayin da aka haddace."
   },
   "travel": {
     "eyebrow": "Koyi",
@@ -2995,7 +3047,8 @@
       "playPhrases": "Kunna duk jumloli",
       "pausePhrases": "Dakatar da jumloli",
       "playPhrase": "Kunna jumla {{n}}: {{title}}",
-      "followAlongNote": "Yana haskaka kalmomi a ƙasa yayin kunna"
+      "followAlongNote": "Yana haskaka kalmomi a ƙasa yayin kunna",
+      "listenHintTv": "Zaɓi rikodin don kunna. Madina tana haskaka kowace jumla yayin da ake kira. Yi amfani da Koyi kalmomi a ƙasa don sauti na jumla-jumla."
     }
   },
   "battles": {
@@ -3090,7 +3143,8 @@
       "obligatory": "Mahimmanci",
       "highly-recommended": "Shawara sosai",
       "recommended": "Nasiha"
-    }
+    },
+    "versesIntroTv": "Qur'an shine mafi ikon tushe. Zaɓi aya don buɗe ta a mai karanta Qur'an."
   },
   "lastDay": {
     "eyebrow": "Koyi",
@@ -3196,7 +3250,8 @@
       "reflection": "Jaridar Tunani",
       "reflectionHint": "Khushu'u da tunani addu'a",
       "learning": "Ci gaban Koyo",
-      "learningHint": "An kammala batutuwa a cikin wannan tsarin"
+      "learningHint": "An kammala batutuwa a cikin wannan tsarin",
+      "characterHintTv": "Zaɓi lokacin da ka duba halinka yau"
     },
     "progressTitle": "Ci gaban koyo",
     "progressSubtitle": "Bin karatu - ba matsayi na ruhaniya a wurin Allah ba",
@@ -3224,7 +3279,10 @@
       "obligatory": "Mahimmanci",
       "highly-recommended": "Shawara sosai",
       "recommended": "Nasiha"
-    }
+    },
+    "versesIntroTv": "Zaɓi aya don buɗe ta a mai karanta Qur'an. Taƙaitattun bayanai na ilimi ne, ba maye gurbin cikakken tafsir ba.",
+    "preparationHabitsHintTv": "Zaɓi don buɗe mai biyo ko kunna niyyar yau da kullum",
+    "characterHintTv": "Zaɓi lokacin da ka duba halinka yau"
   },
   "taharah": {
     "eyebrow": "Koyi",
@@ -3293,7 +3351,8 @@
       "obligatory": "Wajibi",
       "highly-recommended": "Ana ba da shawara sosai",
       "recommended": "Ana ba da shawara"
-    }
+    },
+    "checklistHintTv": "Zaɓi abubuwa yayin da kake duba al'adun tsarki na yau da kullum"
   },
   "prophets": {
     "eyebrow": "Koyi",
@@ -3398,7 +3457,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "Zaɓi suna a taswira don karanta bayanin da aka samo tushe."
     }
   },
   "aqeedah": {
@@ -3518,7 +3578,8 @@
       "obligatory": "Muhimmi",
       "highly-recommended": "Ana ba da shawara sosai",
       "recommended": "Ana ba da shawara"
-    }
+    },
+    "occasionsIntroTv": "Zaɓi lokaci don buɗe darasi ko bincika cikakken ɗakin karatu na dua."
   },
   "learnQuran": {
     "eyebrow": "Koyi",
@@ -3665,7 +3726,8 @@
     "read": "Karanta",
     "supplicate": "Addu'a",
     "learn": "Koyi",
-    "more": "Kara"
+    "more": "Kara",
+    "tvSubtitle": "Qur'an, dua, zikr, da koyo — yi tafiya da Zaɓi"
   },
   "offlineData": {
     "title": "Bayanan kan layi",
@@ -4133,7 +4195,8 @@
     "linkSadaqah": "Manufofin sadaka",
     "linkSadaqahHint": "Ba da gudummawa na son rai kullum ko mako-mako",
     "linkFidyah": "Fidya da kaffara",
-    "linkFidyahHint": "Ƙididdiga don azumin da aka rasa ko aka karya"
+    "linkFidyahHint": "Ƙididdiga don azumin da aka rasa ko aka karya",
+    "learnHintTv": "Zaɓi batu don jagora mai mayar da hankali — hukunce-hukunce sun bambanta tsakanin mazhabobi."
   },
   "customAdhkar": {
     "eyebrow": "Tunawa",
@@ -4172,7 +4235,7 @@
       "label": "Haɗe-haɗe (na zaɓi)",
       "add": "Ƙara fayil",
       "remove": "Cire abin da aka makala",
-      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowane. Dogon latsa ɗan yatsa don cirewa.",
+      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowanne. Taɓa × a kan ƙaramin hoto don cirewa.",
       "signInRequired": "Shiga don haɗa fayiloli masu zaman kansu zuwa adhkar ku.",
       "permissionDenied": "Ana buƙatar izini don haɗa fayiloli.",
       "permissionTitle": "Bada damar shiga",
@@ -4201,7 +4264,8 @@
       "sourceDocumentHint": "Zaɓi hoto ko PDF daga fayilolinku",
       "loadingPdf": "Ana lodin PDF…",
       "pdfHint": "Gungura · matse ko yi amfani da +/− don ƙara girma · taɓa sau biyu don sake saiti · buɗe PDF don raba",
-      "pdfPreviewTitle": "Duban PDF"
+      "pdfPreviewTitle": "Duban PDF",
+      "tvUnavailable": "Haɗe-haɗe suna buƙatar waya ko tablet. Ƙara hotuna ko PDF a can."
     },
     "stt": {
       "dictate": "Yi magana da makirufo",
@@ -4316,7 +4380,8 @@
       "unavailable": "Babu gane magana akan wannan na'urar.",
       "couldNotHear": "Ba a iya jin haka - sake gwadawa ko buga.",
       "errorGeneric": "Kalmomi sun kasa. Sake gwadawa ko buga."
-    }
+    },
+    "ratingHintTv": "Zaɓi tauraro don kimanta kasancewarka a cikin salla."
   },
   "prayerTuning": {
     "title": "Sallah time tuning",
@@ -4483,7 +4548,8 @@
       "ranks": "Matsayi",
       "mercy": "Rahama",
       "supplication": "Roƙo"
-    }
+    },
+    "versesLeadTv": "Zaɓi kowace aya don buɗe ta a mai karanta Qur'an."
   },
   "jahannam": {
     "eyebrow": "Koyi",
@@ -4615,7 +4681,9 @@
       "repentance": "Tuba",
       "accountability": "Yin lissafi",
       "protection": "Kariya"
-    }
+    },
+    "versesLeadTv": "Zaɓi kowace aya don buɗe ta a mai karanta Qur'an.",
+    "reflectionLeadTv": "Dakata ka yi wa kanka waɗannan tambayoyi. Zaɓi jeri don buɗe mai biyo ko darasi mai alaƙa."
   },
   "tour": {
     "eyebrow": "yawon shakatawa mai jagora",
@@ -4961,7 +5029,7 @@
     "eyebrow": "Kalanda",
     "title": "Mai sauya kwanan wata",
     "subtitle": "Tuba tsakanin kalandar Hijiriyya da Miladiyya",
-    "intro": "Shigar da kwanan wata a cikin kowane kalanda don ganin kwatankwacinsa a ɗayan, ƙididdiga ta layi ta amfani da algorithm Kuwaiti tabular.",
+    "intro": "Shigar da rana a kowace kalanda don ganin daidaita ta a waccan, an ƙididdige a offline daga ganin hilal a wurinku.",
     "toHijri": "Gregorian → Hijira",
     "toGregorian": "Hijiriyya → Marigayi",
     "gregorianDateLabel": "Kwanan Gregorian",
@@ -4971,7 +5039,7 @@
     "year": "Shekara",
     "useToday": "Yi amfani a yau",
     "invalidDate": "Shigar da ingantaccen kwanan wata",
-    "disclaimer": "Wannan lissafin lissafin ƙididdiga ne (tabul ɗin \"Kuwaiti algorithm\") kuma yana iya bambanta da rana ɗaya daga sanarwar ganin wata na gida - koyaushe ku bi masallacin ku ko ikon ranakun addini.",
+    "disclaimer": "An ƙididdige ranaku daga ganin hilal (hilāl) a wurinku kuma na iya bambanta da sanarwar hukuma ta ganin wata da rana ɗaya — koyaushe bi Masjid ko hukumar gida don ranakun addini.",
     "directionTitle": "Hanyar juyawa",
     "resultFrom": "Daga {{date}}",
     "quickLinksTitle": "Masu alaƙa",
@@ -5034,7 +5102,8 @@
       "fidyah": "Fidya"
     },
     "skipHint": "Tsallake wannan kati ku ga wani tambaya.",
-    "skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa."
+    "skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa.",
+    "introTv": "Ɗauko daga Qur'an, hadisi, Sunayen Allah, da kowace jagorar Koyo. Zaɓi amsa don duba kanka, sannan ci gaba muddin ka so."
   },
   "lastThirdNight": {
     "eyebrow": "Salah na dare",
@@ -5149,5 +5218,32 @@
     "linkFinanceHint": "Bayanin bayarwa na son rai",
     "disclaimer": "Mai bin diddigin sirri kawai - ba fatawa ba kuma maimakon kirga zakka idan ya cancanta.",
     "continueInApp": "Ci gaba a cikin Munib"
+  },
+  "adhan": {
+    "listenHintTv": "Zaɓi rikodin don kunna. Madina tana haskaka kowace jumla yayin da ake kira. Yi amfani da Koyi kalmomi a ƙasa don sauti na jumla-jumla."
+  },
+  "tv": {
+    "exitTitle": "Bar Munib Tracker?",
+    "exitMessage": "Danna tabbatar don rufe app ɗin a wannan TV.",
+    "exitConfirm": "Fita",
+    "qrTitle": "Shiga da wayarka",
+    "qrHint": "Duba wannan lambar QR da kyamarar wayarka, ko buɗe Munib Tracker a wayarka ka shigar da lambar.",
+    "qrA11y": "Lambar QR don shiga a wayarka",
+    "qrImageA11y": "Lambar QR don shiga a TV",
+    "qrWaiting": "Ana jiran wayarka…",
+    "qrRefresh": "Sabuwar lamba",
+    "qrRetry": "Sake gwadawa",
+    "qrCreateError": "An kasa fara shigar TV. Duba haɗinka ka sake gwadawa.",
+    "qrExpired": "Wannan lambar ta ƙare. Ƙirƙiri sabuwa.",
+    "qrEyebrow": "Abokin TV",
+    "qrPhoneTitle": "Shiga a TV",
+    "qrPhoneSubtitle": "Lamba {{code}} — kammala shiga don haɗa wannan TV.",
+    "qrMissingCode": "Wannan hanyar ba ta da lambar haɗawa. Sake duba QR daga TV ɗinka.",
+    "qrSignInFirst": "Shiga da asusun da aka haɗa, sannan za mu haɗa TV ɗinka.",
+    "qrNeedLinkedAccount": "Fara shiga da Google, Apple, ko Facebook — asusun bako ba zai iya haɗa TV ba.",
+    "qrClaiming": "Ana haɗa TV ɗinka…",
+    "qrClaimSuccess": "An shigar da TV ɗinka. Za ka iya komawa ɗakin zama.",
+    "qrClaimError": "An kasa haɗa TV. Ƙirƙiri sabuwar lamba a TV ka sake gwadawa.",
+    "qrPhoneOnly": "Buɗe wannan hanyar a wayarka don kammala shigar TV."
   }
 }

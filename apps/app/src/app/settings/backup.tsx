@@ -8,6 +8,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
@@ -20,6 +21,7 @@ import {
   parseBackup,
 } from "@/lib/backup";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useToast } from "@/providers/toast-provider";
 import { reloadAllStores } from "@/stores/reload-all-stores";
 
@@ -33,6 +35,23 @@ export default function BackupScreen() {
   const [importText, setImportText] = useState("");
   const [pending, setPending] = useState<BackupFile | null>(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
+
+  if (isTV()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("settings.title")}
+        title={t("backup.title")}
+        onBack={() => goBackOrReplace(router, "/settings")}
+      >
+        <Seo path="/settings/backup" />
+        <EmptyState
+          icon={{ ios: "tv", android: "tv", web: "tv" }}
+          title={t("common.tvUnavailableTitle")}
+          description={t("common.tvUnavailableBody")}
+        />
+      </ScreenLayout>
+    );
+  }
 
   const onExport = async () => {
     const text = await exportBackup();

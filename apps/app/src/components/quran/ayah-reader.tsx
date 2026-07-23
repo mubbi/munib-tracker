@@ -3,6 +3,7 @@ import type { RefObject } from "react";
 import { FlatList, type FlatListProps, StyleSheet, View } from "react-native";
 
 import { Spacing } from "@/constants/theme";
+import { isTV } from "@/lib/platform/is-tv";
 
 /** Virtualized ayah list for the surah study reader (Level A ayah layout). */
 export type SurahAyahListProps = Omit<FlatListProps<Ayah>, "ref"> & {
@@ -13,18 +14,22 @@ export function SurahAyahList({
   listRef,
   contentContainerStyle,
   style,
+  removeClippedSubviews,
   ...props
 }: SurahAyahListProps) {
+  const tv = isTV();
   return (
     <FlatList
       ref={listRef}
       style={[styles.list, style]}
       contentContainerStyle={[styles.listContent, contentContainerStyle]}
-      initialNumToRender={6}
-      maxToRenderPerBatch={4}
-      windowSize={5}
+      initialNumToRender={tv ? 12 : 6}
+      maxToRenderPerBatch={tv ? 8 : 4}
+      windowSize={tv ? 7 : 5}
       updateCellsBatchingPeriod={100}
-      removeClippedSubviews
+      // Android TV: clipping + zero-height flex hosts leave a blank body while
+      // the floating header (sibling) still paints.
+      removeClippedSubviews={removeClippedSubviews ?? !tv}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
       scrollEventThrottle={16}
@@ -43,7 +48,7 @@ export function AyahSeparator() {
 }
 
 const styles = StyleSheet.create({
-  list: { flex: 1 },
+  list: { flex: 1, minHeight: 0 },
   listContent: { paddingBottom: 0 },
   ayahSeparator: { height: Spacing.three },
 });

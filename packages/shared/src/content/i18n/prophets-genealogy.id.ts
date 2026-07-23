@@ -87,4 +87,40 @@ export const PROPHETS_GENEALOGY_NODES_ID: DeepPartial<ProphetsGenealogyNode>[] =
     relationNote:
       "Nabi Muhammad ﷺ berasal dari keturunan Ismail bin Ibrahim. Nama rinci generasi antara Ismail dan Quraisy dilestarikan dalam sirah klasik; Al-Qur'an menegaskan warisan Ibrahim tanpa mencantumkan setiap leluhur. Tidak ada perbedaan antara ayah dan anak dalam hal ini – yang ada hanyalah kenabian dan keturunan Ismaili.",
   },
+  // —— v2 appends ——
+  {
+    name: "Syits (Seth)",
+    relationNote:
+      "Tradisi Islam klasik menyebut Syits sebagai putra Adam dan mata rantai generasi awal. Nama perantara antara Syits dan Nuh sebagian besar Israiliyyat dan tidak digambar sebagai garis ayah yang pasti.",
+  },
+  {
+    name: "Idris",
+    relationNote:
+      "Al-Qur'an menyebut Idris sebagai nabi yang benar yang diangkat ke kedudukan tinggi. Daftar klasik sering menempatkannya antara Adam dan Nuh, tetapi Al-Qur'an tidak menyebut ayahnya — tidak digambar garis ayah.",
+  },
+  {
+    name: "Imran",
+    relationNote:
+      "Allah memilih keluarga Imran di atas dunia. Maryam adalah putri Imran. (Imran ini ayah Maryam — tidak dipakai di sini sebagai ayah Musa/Harun.)",
+  },
+  {
+    name: "Adnan",
+    relationNote:
+      "Tradisi Islam menyatakan Muhammad ﷺ keturunan Adnan, dan Adnan keturunan Ismail — tetapi silsilah bernama dari Adnan ke Ismail hilang. Adnan adalah kepala klasik Arab Adnani; tidak digambar garis ayah ke Ismail.",
+  },
+  {
+    name: "Hasyim ibn Abd Manaf",
+    relationNote:
+      "Hasyim adalah eponim Bani Hasyim dan leluhur klasik Nabi ﷺ. Daftar suku Adnan→Hasyim ada dalam sirah tetapi dilewati di sini sebagai generasi perantara — bukan nabi. Hasyim memimpin tulang punggung Hasyimi dekat pada peta ini.",
+  },
+  {
+    name: "Abd al-Muttalib",
+    relationNote:
+      "Abd al-Muttalib (Syaibah) adalah kakek paternal Nabi ﷺ dan putra Hasyim dalam sirah klasik.",
+  },
+  {
+    name: "Abdullah ibn Abd al-Muttalib",
+    relationNote:
+      "Abdullah adalah ayah Nabi Muhammad ﷺ dan putra Abd al-Muttalib dalam sirah klasik.",
+  },
 ];

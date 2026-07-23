@@ -20,9 +20,10 @@ import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { goBackOrReplace } from "@/lib/navigation";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
-import { isWeb } from "@/lib/notifications/platform";
+import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platform";
 import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
+import { isTV } from "@/lib/platform/is-tv";
 import { formatDisplayDateTime } from "@/lib/time";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { useAuth } from "@/providers/auth-provider";
@@ -83,6 +84,10 @@ export default function NotificationCenterScreen() {
   };
 
   const enable = async () => {
+    if (isTV() || !isLocalNotificationSupported()) {
+      toast.info(t("common.tvUnavailableTitle"), t("notif.tvUnavailableBody"));
+      return;
+    }
     const webGesture = isWeb ? beginWebNotificationPermissionRequest() : null;
     const result = await requestPermission({ webPermissionRequest: webGesture });
     if (!result.granted) {
@@ -120,9 +125,9 @@ export default function NotificationCenterScreen() {
     >
       <Seo path="/notifications" />
       <Stagger>
-        <NotificationPermissionBanner showWhenGranted={isWeb} />
+        {!isTV() ? <NotificationPermissionBanner showWhenGranted={isWeb} /> : null}
 
-        {!isWeb && !granted ? (
+        {!isTV() && !isWeb && !granted ? (
           <Card padding="three" style={styles.permission}>
             <ThemedText type="small" themeColor="mutedForeground" style={styles.permissionText}>
               {t("notifCenter.permissionText")}

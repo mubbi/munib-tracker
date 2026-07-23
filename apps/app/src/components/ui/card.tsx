@@ -22,6 +22,8 @@ type CardProps = {
   onPress?: () => void;
   accessibilityLabel?: string;
   accessibilityState?: AccessibilityState;
+  /** TV: request initial D-pad focus on this card. */
+  preferredFocus?: boolean;
 };
 
 export function Card({
@@ -33,6 +35,7 @@ export function Card({
   onPress,
   accessibilityLabel,
   accessibilityState,
+  preferredFocus,
 }: CardProps) {
   const { colors, tokens } = useThemeTokens();
 
@@ -69,6 +72,7 @@ export function Card({
         onPress={onPress}
         scaleTo={0.985}
         haptic="light"
+        {...(preferredFocus ? { hasTVPreferredFocus: true } : {})}
         style={[baseStyle, variantStyle, style]}
       >
         {children}

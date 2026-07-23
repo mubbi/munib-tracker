@@ -7,11 +7,13 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getIntentsForPlatform } from "@/lib/appSurfaces/intents/registry";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 
 export default function VoiceShortcutsScreen() {
   const router = useRouter();
@@ -27,6 +29,23 @@ export default function VoiceShortcutsScreen() {
     () => getIntentsForPlatform(isAndroid ? "android" : "ios"),
     [isAndroid],
   );
+
+  if (isTV()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("settings.title")}
+        title={title}
+        onBack={() => goBackOrReplace(router, "/settings")}
+      >
+        <Seo path="/settings/voice-shortcuts" />
+        <EmptyState
+          icon={{ ios: "tv", android: "tv", web: "tv" }}
+          title={t("common.tvUnavailableTitle")}
+          description={t("common.tvUnavailableBody")}
+        />
+      </ScreenLayout>
+    );
+  }
 
   if (Platform.OS === "web") {
     return (

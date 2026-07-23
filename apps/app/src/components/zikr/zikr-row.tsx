@@ -9,7 +9,9 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 
 const CHEVRON_SIZE = 14;
@@ -46,6 +48,7 @@ export const ZikrRow = memo(function ZikrRow({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
+  const tv = isTV();
 
   const handlePress = useCallback(() => onPress(item.id), [item.id, onPress]);
   const handleToggleFavorite = useCallback(
@@ -63,7 +66,7 @@ export const ZikrRow = memo(function ZikrRow({
         onPress={handlePress}
         accessibilityRole="button"
         accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
-        style={[styles.row, { backgroundColor: colors.muted }]}
+        style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
       >
         {index != null ? <ListIndexBadge index={index} /> : null}
 
@@ -153,6 +156,13 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  // Horizontal padding stays put — the favorite button's absolute `end` offset
+  // below is computed against it. Only height/vertical padding grow for TV.
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingVertical: Spacing.four,
+    borderRadius: Radius.lg,
   },
   body: {
     flex: 1,

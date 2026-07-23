@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { FavoritesOrderRow } from "@/components/ui/favorites-order-row";
 import { Spacing } from "@/constants/theme";
 import { loadDuaItems } from "@/lib/content-loaders";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
@@ -58,7 +59,7 @@ export default function DuaFavoritesScreen() {
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
           title={t("dua.favoritesEmpty")}
-          description={t("zikr.favEmptyDesc")}
+          description={tTv(t, "zikr.favEmptyDesc", "zikr.favEmptyDescTv")}
           actionLabel={t("dua.title")}
           onAction={() => router.replace("/dua")}
         />
@@ -66,7 +67,7 @@ export default function DuaFavoritesScreen() {
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
           title={t("dua.favoritesEmpty")}
-          description={t("zikr.favEmptyDesc")}
+          description={tTv(t, "zikr.favEmptyDesc", "zikr.favEmptyDescTv")}
           actionLabel={t("dua.title")}
           onAction={() => router.replace("/dua")}
         />

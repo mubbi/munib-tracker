@@ -15,6 +15,7 @@ import { Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
+import { tTv } from "@/lib/i18n/t-tv";
 import { ayahTracks } from "@/lib/quran-audio";
 import {
   loadQuranAyahCardsRanges,
@@ -248,7 +249,7 @@ export function QuranAyahRangeCards({
                   bookmarkA11y={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
                   shareLabel={
                     shareCard.isGesturePending(trackId)
-                      ? t("share.tapToShare")
+                      ? tTv(t, "share.tapToShare", "share.selectToShare")
                       : t("quran.actionShare")
                   }
                   shareA11y={t("quran.shareAyah")}

@@ -12,6 +12,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useKnowledgeCard } from "@/hooks/use-knowledge-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import type { KnowledgeCardPalette, ResolvedKnowledgeCard } from "@/lib/knowledge-card";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { useChevronForward } from "@/lib/rtl";
@@ -58,13 +59,9 @@ function KnowledgeCardBody({
       }
     : undefined;
 
-  const a11y = [
-    t(card.titleKey),
-    card.arabic,
-    card.body,
-    card.reference,
-    card.actionKey ? t(card.actionKey) : undefined,
-  ]
+  const actionLabel = card.actionKey ? tTv(t, card.actionKey, `${card.actionKey}Tv`) : undefined;
+
+  const a11y = [t(card.titleKey), card.arabic, card.body, card.reference, actionLabel]
     .filter(Boolean)
     .join(". ");
 
@@ -106,7 +103,7 @@ function KnowledgeCardBody({
         {card.actionKey ? (
           <View style={styles.actionRow}>
             <ThemedText type="caption" style={{ color: palette.text }}>
-              {t(card.actionKey)}
+              {actionLabel}
             </ThemedText>
             <SymbolView name={chevronForward} size={12} tintColor={palette.color} />
           </View>

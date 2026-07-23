@@ -1,7 +1,7 @@
 import { useSpeechRecognitionEvent } from "expo-speech-recognition";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { type SharedValue, useSharedValue, withTiming } from "react-native-reanimated";
-
+import { isTV } from "@/lib/platform/is-tv";
 import {
   abortStt,
   classifySttError,
@@ -71,7 +71,7 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
   }, [onError]);
 
   useEffect(() => {
-    setAvailable(isSttAvailable());
+    setAvailable(!isTV() && isSttAvailable());
   }, []);
 
   const resetLevel = useCallback(() => {

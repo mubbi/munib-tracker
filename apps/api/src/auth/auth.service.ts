@@ -33,6 +33,9 @@ import {
   isAuthOAuthRateLimited,
   isAuthRefreshRateLimited,
   isAuthResetAppDataRateLimited,
+  isAuthTvPairClaimRateLimited,
+  isAuthTvPairCreateRateLimited,
+  isAuthTvPairPollRateLimited,
 } from "./auth-rate-limit";
 import type {
   AuthProvider,
@@ -43,9 +46,20 @@ import type {
   LinkAccountDto,
   OAuthCallbackDto,
   ResetAppDataDto,
+  TvPairingCreateResponseDto,
+  TvPairingStatusResponseDto,
 } from "./dto/auth.dto";
 import { type OAuthProfile, OAuthProviderService } from "./oauth-provider.service";
 import { TokenService } from "./token.service";
+import {
+  deleteTvPairing,
+  formatTvPairingCode,
+  generateTvPairingCode,
+  loadTvPairing,
+  normalizeTvPairingCode,
+  saveTvPairing,
+  TV_PAIRING_TTL_MS,
+} from "./tv-pairing-store";
 
 /** Client-supplied device ids must be high-entropy; reject empty / trivial values. */
 const MIN_DEVICE_ID_LENGTH = 16;
@@ -100,6 +114,91 @@ export class AuthService {
     );
 
     return this.issueSession(user);
+  }
+
+  /** Start a TV companion pairing session (QR / short code). */
+  async createTvPairing(clientIp = "unknown"): Promise<TvPairingCreateResponseDto> {
+    if (await isAuthTvPairCreateRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many TV pairing requests", HttpStatus.TOO_MANY_REQUESTS);
+    }
+
+    let code = generateTvPairingCode();
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+      const existing = await loadTvPairing(code);
+      if (!existing) break;
+      code = generateTvPairingCode();
+    }
+
+    const createdAt = Date.now();
+    await saveTvPairing(code, { status: "pending", createdAt });
+
+    // Product app origin for companion deep links (HTTPS App Link + path).
+    const claimUrl = `https://my.munibtracker.app/tv-pair?code=${encodeURIComponent(code)}`;
+
+    return {
+      code,
+      displayCode: formatTvPairingCode(code),
+      expiresAt: createdAt + TV_PAIRING_TTL_MS,
+      claimUrl,
+    };
+  }
+
+  /** Poll pairing status from the TV. Consumes a ready session (one-shot). */
+  async pollTvPairing(code: string, clientIp = "unknown"): Promise<TvPairingStatusResponseDto> {
+    if (await isAuthTvPairPollRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many TV pairing polls", HttpStatus.TOO_MANY_REQUESTS);
+    }
+
+    const normalized = normalizeTvPairingCode(code);
+    if (!normalized) {
+      return { status: "expired" };
+    }
+
+    const record = await loadTvPairing(normalized);
+    if (!record) {
+      return { status: "expired" };
+    }
+    if (record.status === "pending") {
+      return { status: "pending" };
+    }
+
+    await deleteTvPairing(normalized);
+    return { status: "ready", session: record.session };
+  }
+
+  /**
+   * Phone claims a TV pairing after the user is signed in.
+   * Issues a fresh session for the TV (does not share the phone refresh token).
+   */
+  async claimTvPairing(accessToken: string, code: string, clientIp = "unknown"): Promise<void> {
+    if (await isAuthTvPairClaimRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many TV pairing claims", HttpStatus.TOO_MANY_REQUESTS);
+    }
+
+    const { user } = await this.getSessionByAccessToken(accessToken);
+    if (user.accountType !== "user") {
+      throw new BadRequestException("Sign in with a linked account on your phone first");
+    }
+
+    const normalized = normalizeTvPairingCode(code);
+    if (!normalized) {
+      throw new BadRequestException("Invalid pairing code");
+    }
+
+    const record = await loadTvPairing(normalized);
+    if (!record) {
+      throw new BadRequestException("Pairing code expired or not found");
+    }
+    if (record.status === "ready") {
+      throw new BadRequestException("Pairing code already claimed");
+    }
+
+    const session = await this.issueSession(user);
+    await saveTvPairing(normalized, {
+      status: "ready",
+      createdAt: record.createdAt,
+      session,
+    });
   }
 
   async completeOAuth(

@@ -10,10 +10,12 @@ import {
 } from "react-native-reanimated";
 
 import { useColdStartReady } from "@/lib/boot/cold-start";
+import { isTV } from "@/lib/platform/is-tv";
 import { isIndexingBot } from "@/lib/seo/is-indexing-bot";
 import { usePreferencesReady } from "@/stores/preferences-store";
 
-const SPLASH_FAILSAFE_MS = 5000;
+const SPLASH_FAILSAFE_PHONE_MS = 5000;
+const SPLASH_FAILSAFE_TV_MS = 3500;
 const SPLASH_FADE_MS = 450;
 
 type SplashDismissal = {
@@ -67,7 +69,7 @@ export function useSplashDismissal(): SplashDismissal {
       return;
     }
 
-    const failsafe = setTimeout(fadeOut, SPLASH_FAILSAFE_MS);
+    const failsafe = setTimeout(fadeOut, isTV() ? SPLASH_FAILSAFE_TV_MS : SPLASH_FAILSAFE_PHONE_MS);
     return () => {
       clearTimeout(failsafe);
     };

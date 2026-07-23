@@ -4,7 +4,9 @@ import { ActivityIndicator, StyleSheet } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import type { HapticFeedback } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 
 type LabeledIconButtonProps = {
   name: SymbolViewProps["name"];
@@ -32,7 +34,7 @@ export function LabeledIconButton({
   name,
   label,
   onPress,
-  iconSize = 18,
+  iconSize,
   tintColor,
   labelColor,
   accessibilityLabel,
@@ -44,6 +46,8 @@ export function LabeledIconButton({
   loading = false,
   loadingLabel,
 }: LabeledIconButtonProps) {
+  const tv = isTV();
+  const resolvedIconSize = iconSize ?? (tv ? 24 : 18);
   const isDisabled = disabled || loading;
   return (
     <PressableScale
@@ -54,10 +58,11 @@ export function LabeledIconButton({
       disabled={isDisabled}
       onPress={loading ? undefined : onPress}
       haptic={haptic}
-      hitSlop={4}
+      hitSlop={tv ? 8 : 4}
       rippleRadius={Radius.sm}
       style={[
         styles.base,
+        tv && styles.baseTv,
         { borderRadius: Radius.sm },
         background ? { backgroundColor: background } : null,
         isDisabled ? styles.disabled : null,
@@ -66,12 +71,12 @@ export function LabeledIconButton({
       {loading ? (
         <ActivityIndicator size="small" color={tintColor} style={styles.spinner} />
       ) : (
-        <SymbolView name={name} size={iconSize} tintColor={tintColor} />
+        <SymbolView name={name} size={resolvedIconSize} tintColor={tintColor} />
       )}
       <ThemedText
         type="caption"
         numberOfLines={1}
-        style={[styles.label, labelColor ? { color: labelColor } : undefined]}
+        style={[styles.label, tv && styles.labelTv, labelColor ? { color: labelColor } : undefined]}
         themeColor={labelColor ? undefined : "mutedForeground"}
       >
         {loading ? (loadingLabel ?? label) : label}
@@ -90,10 +95,21 @@ const styles = StyleSheet.create({
     gap: Spacing.half,
     borderCurve: "continuous",
   },
+  baseTv: {
+    minWidth: TvLayout.minFocusTarget,
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.two,
+    gap: Spacing.one,
+  },
   label: {
     fontSize: 10,
     lineHeight: 12,
     textAlign: "center",
+  },
+  labelTv: {
+    fontSize: 13,
+    lineHeight: 16,
   },
   spinner: {
     // Match the glyph footprint so the label doesn't shift when toggling.

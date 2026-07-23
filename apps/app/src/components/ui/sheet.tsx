@@ -26,10 +26,13 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { hasLiquidGlass } from "@/components/ui/glass-surface";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useAnimatedKeyboardHeight } from "@/hooks/use-animated-keyboard-height";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { useBlurTarget } from "@/providers/blur-target-provider";
 
 /** Drag distance (px) before a bottom sheet dismisses. */
@@ -88,6 +91,7 @@ export function Sheet({
   const blurTarget = useBlurTarget();
   const insets = useSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
+  const tv = isTV();
   const isBottom = variant === "bottom";
   const useSheetFrost = isBottom && !solid;
   const bottomMaxHeight = windowHeight * 0.88;
@@ -96,6 +100,9 @@ export function Sheet({
   const bottomScrollMaxHeight = bottomMaxHeight - bottomSheetChrome;
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
+  const tvPad = tv
+    ? { paddingHorizontal: TvLayout.contentPaddingX, paddingVertical: TvLayout.contentPaddingY }
+    : null;
 
   // Freeze the content shown during the close animation. React Native's Modal
   // keeps rendering its children while it animates out; callers commonly clear
@@ -172,35 +179,39 @@ export function Sheet({
     transform: [{ translateY: dragY.value }],
   }));
 
-  const cardBody = isBottom ? (
-    scrollable ? (
-      // minHeight: 0 is required so flex can shrink the scroll view inside a
-      // maxHeight-bounded card; without it tall content overflows and is clipped.
-      <ScrollView
-        style={[styles.bottomScroll, { maxHeight: bottomScrollMaxHeight }]}
-        bounces={false}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={[
-          styles.bottomScrollContent,
-          { paddingBottom: Spacing.two + insets.bottom },
-        ]}
-      >
-        {renderedChildren}
-      </ScrollView>
-    ) : (
-      <View
-        style={[
-          styles.bottomScroll,
-          styles.bottomScrollContent,
-          { maxHeight: bottomScrollMaxHeight, paddingBottom: Spacing.two + insets.bottom },
-        ]}
-      >
-        {renderedChildren}
-      </View>
-    )
-  ) : (
-    renderedChildren
+  const cardBody = (
+    <TvFocusGuide autoFocus={tv}>
+      {isBottom ? (
+        scrollable ? (
+          // minHeight: 0 is required so flex can shrink the scroll view inside a
+          // maxHeight-bounded card; without it tall content overflows and is clipped.
+          <ScrollView
+            style={[styles.bottomScroll, { maxHeight: bottomScrollMaxHeight }]}
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={[
+              styles.bottomScrollContent,
+              { paddingBottom: Spacing.two + insets.bottom },
+            ]}
+          >
+            {renderedChildren}
+          </ScrollView>
+        ) : (
+          <View
+            style={[
+              styles.bottomScroll,
+              styles.bottomScrollContent,
+              { maxHeight: bottomScrollMaxHeight, paddingBottom: Spacing.two + insets.bottom },
+            ]}
+          >
+            {renderedChildren}
+          </View>
+        )
+      ) : (
+        renderedChildren
+      )}
+    </TvFocusGuide>
   );
 
   /**
@@ -220,6 +231,7 @@ export function Sheet({
     styles.bottomCard,
     { maxHeight: bottomMaxHeight, borderColor: colors.border },
     cardChrome,
+    tvPad,
     contentStyle,
   ];
 
@@ -277,6 +289,7 @@ export function Sheet({
         styles.centerCard,
         { borderColor: colors.border, elevation: centerCardElevation, pointerEvents: "auto" },
         cardChrome,
+        tvPad,
         contentStyle,
       ]}
     >

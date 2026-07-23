@@ -151,8 +151,28 @@ function resolveWorkspaceRelativeFromDisk(originModulePath, moduleName, sourceEx
   return null;
 }
 
+/** Phone-only native packages — stubbed for Apple TV / Android TV Metro (`EXPO_TV=1`). */
+const isTvMetro =
+  process.env.EXPO_TV === "1" || process.env.EXPO_TV === "true" || process.env.EXPO_TV === "True";
+const tvNativeStubs = isTvMetro
+  ? {
+      "expo-speech-recognition": path.join(
+        projectRoot,
+        "src/lib/tv-stubs/expo-speech-recognition.ts",
+      ),
+      "react-native-android-widget": path.join(
+        projectRoot,
+        "src/lib/tv-stubs/react-native-android-widget.ts",
+      ),
+      "expo-quick-actions": path.join(projectRoot, "src/lib/tv-stubs/expo-quick-actions.ts"),
+    }
+  : null;
+
 const originalResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (tvNativeStubs?.[moduleName]) {
+    return { type: "sourceFile", filePath: tvNativeStubs[moduleName] };
+  }
   if (moduleName.startsWith("@/assets/")) {
     const assetPath = path.join(projectRoot, "assets", moduleName.slice("@/assets/".length));
     return context.resolveRequest(context, assetPath, platform);

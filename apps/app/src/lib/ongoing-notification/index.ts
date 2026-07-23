@@ -6,6 +6,7 @@ import {
   nativeUpdateOngoingNotification,
 } from "@/lib/external-commands/native-bridge";
 import { buildOngoingNotificationState } from "@/lib/ongoing-notification/state";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   buildSalahPhaseSchedule,
   type SalahTrackingSession,
@@ -37,7 +38,7 @@ export async function syncOngoingNotification({
   session,
   now,
 }: SyncOngoingNotificationInput): Promise<void> {
-  if (Platform.OS !== "android") return;
+  if (Platform.OS !== "android" || isTV()) return;
 
   const activeSession =
     session && session.status === "active" && !session.dismissed ? session : null;
@@ -73,6 +74,6 @@ export async function syncOngoingNotification({
 
 /** Explicitly cancels the ongoing notification (e.g. when the user toggles it off). */
 export async function stopOngoingNotification(): Promise<void> {
-  if (Platform.OS !== "android") return;
+  if (Platform.OS !== "android" || isTV()) return;
   await nativeCancelOngoingNotification();
 }

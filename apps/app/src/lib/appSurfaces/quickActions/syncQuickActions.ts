@@ -9,6 +9,7 @@ import {
   getQuickActionById,
   type QuickActionDefinition,
 } from "@/lib/appSurfaces/quickActions/registry";
+import { isTV } from "@/lib/platform/is-tv";
 import { getRamadanInfo } from "@/lib/ramadan";
 import { locationStore } from "@/stores/location-store";
 
@@ -32,7 +33,7 @@ export function resolveQuickActionHref(action: Action): string | null {
 
 /** Register home-screen shortcuts (iOS Haptic Touch / Android long-press). */
 export async function syncAppQuickActions(t: TFunction): Promise<void> {
-  if (Platform.OS === "web") return;
+  if (Platform.OS === "web" || isTV()) return;
   if (!(await QuickActions.isSupported())) return;
 
   const isIos = Platform.OS === "ios";

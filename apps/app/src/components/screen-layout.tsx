@@ -24,6 +24,7 @@ import { AppHeader } from "@/components/app-header";
 import { ContentReportFooterLink } from "@/components/content-report/content-report-footer-link";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { MaxContentWidth, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
@@ -178,11 +179,19 @@ export function ScreenLayout({
     }, []),
   );
 
+  const tv = isTV();
+
   // On wide viewports (wide web / large tablets) allow a wider content column
   // so the layout doesn't sit as a narrow single strip in acres of whitespace.
+  // On TV, learn sections stay at MaxContentWidth — 10-foot timelines and prose
+  // look sparse when stretched to the wide tablet cap.
   const maxWidth =
-    maxContentWidth ?? (width >= WideBreakpoint ? WideMaxContentWidth : MaxContentWidth);
-  const tv = isTV();
+    maxContentWidth ??
+    (tv && isLearnRoute
+      ? MaxContentWidth
+      : width >= WideBreakpoint
+        ? WideMaxContentWidth
+        : MaxContentWidth);
 
   const content = (
     <View
@@ -193,11 +202,14 @@ export function ScreenLayout({
       // to clear the floating glass header.
       style={[
         styles.content,
+        !scrollable && styles.contentFill,
         tv && {
           paddingHorizontal: TvLayout.contentPaddingX,
-          paddingTop: Spacing.two,
         },
-        !scrollable && { paddingTop: headerInset },
+        // Non-scrollable screens need the header inset; scrollable ones get it
+        // on the ScrollView contentContainerStyle instead.
+        !scrollable ? { paddingTop: headerInset } : { paddingTop: Spacing.one },
+        tv && scrollable ? { paddingTop: Spacing.two } : null,
         contentStyle,
       ]}
     >
@@ -206,8 +218,19 @@ export function ScreenLayout({
           the child list is bounded and can scroll — otherwise it grows to its full
           content height and nothing scrolls. */}
       <View style={[styles.inner, !scrollable && styles.innerFill, { maxWidth }]}>
-        <ErrorBoundary>{children}</ErrorBoundary>
-        {reportRef && scrollable ? <ContentReportFooterLink contentRef={reportRef} /> : null}
+        {scrollable ? (
+          <>
+            <ErrorBoundary>{children}</ErrorBoundary>
+            {reportRef ? <ContentReportFooterLink contentRef={reportRef} /> : null}
+          </>
+        ) : (
+          // Host FlatLists in an explicit flex fill — TVFocusGuideView / BlurTarget
+          // ancestors otherwise leave Card+list children with a zero-height viewport
+          // (search chrome visible, rows blank) on Android TV.
+          <View style={styles.scrollerHost}>
+            <ErrorBoundary>{children}</ErrorBoundary>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -243,8 +266,8 @@ export function ScreenLayout({
   );
 
   const screenBody =
-    Platform.OS === "android" ? (
-      <BlurTargetView ref={contentBlurTargetRef} style={styles.root}>
+    Platform.OS === "android" && !tv ? (
+      <BlurTargetView ref={contentBlurTargetRef} style={styles.blurTarget}>
         {scrollable ? (
           <KeyboardAvoidingView
             style={styles.root}
@@ -285,11 +308,17 @@ export function ScreenLayout({
       {/* Native immersive reading: hide status bar (iOS HIG / Android immersive).
           Android also hides the nav bar; expo-navigation-bar uses transient
           swipe-to-reveal (BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE). */}
-      {Platform.OS !== "web" ? (
+      {Platform.OS !== "web" && !tv ? (
         <StatusBar hidden={fullscreenActive} hideTransitionAnimation="fade" />
       ) : null}
-      {Platform.OS === "android" ? <NavigationBar hidden={fullscreenActive} /> : null}
-      {screenBody}
+      {Platform.OS === "android" && !tv ? <NavigationBar hidden={fullscreenActive} /> : null}
+      {tv ? (
+        <TvFocusGuide style={styles.focusGuide} autoFocus>
+          {screenBody}
+        </TvFocusGuide>
+      ) : (
+        screenBody
+      )}
       {/* Rendered last so it stacks above scrolling content on Android; content
           scrolls beneath the translucent material for the glass effect. Only the
           header bar itself is measured for the content inset — the accessory
@@ -311,7 +340,7 @@ export function ScreenLayout({
             notificationCount={notificationCount}
             onNotificationsPress={onNotificationsPress}
             onBack={onBack}
-            blurTargetRef={Platform.OS === "android" ? contentBlurTargetRef : undefined}
+            blurTargetRef={Platform.OS === "android" && !tv ? contentBlurTargetRef : undefined}
           />
         ) : null}
         {headerAccessory}
@@ -330,6 +359,17 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
   },
+  blurTarget: {
+    flex: 1,
+    minHeight: 0,
+    width: "100%",
+  },
+  /** TVFocusGuideView must participate in the flex height chain on Leanback. */
+  focusGuide: {
+    flex: 1,
+    minHeight: 0,
+    width: "100%",
+  },
   headerFloat: {
     position: "absolute",
     top: 0,
@@ -347,6 +387,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingTop: Spacing.one,
   },
+  contentFill: {
+    minHeight: 0,
+  },
   inner: {
     width: "100%",
     gap: Spacing.four,
@@ -360,5 +403,11 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: 0,
     gap: 0,
+  },
+  /** Bounded host so nested Card + FlatList flex:1 children get a real viewport. */
+  scrollerHost: {
+    flex: 1,
+    minHeight: 0,
+    width: "100%",
   },
 });

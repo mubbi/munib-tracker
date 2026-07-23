@@ -27,6 +27,7 @@ import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementB
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { averageRating, groupByDate, KHUSHU_MAX, KHUSHU_MIN, type KhushuEntry } from "@/lib/khushu";
 import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
@@ -553,7 +554,7 @@ export default function JournalScreen() {
             {t(`journal.level${draft.rating}`)}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
-            {t("journal.ratingHint")}
+            {tTv(t, "journal.ratingHint", "journal.ratingHintTv")}
           </ThemedText>
         </View>
 

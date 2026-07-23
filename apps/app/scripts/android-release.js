@@ -61,7 +61,7 @@ if (!envLoad.loaded) {
   );
   process.exit(1);
 }
-assertVersionEnv();
+assertVersionEnv({ tv: isTv });
 
 /** Prefer android-keys/ (survives clean prebuild); sync into android/ for Gradle. */
 function ensureKeystoreProperties() {
@@ -88,10 +88,14 @@ ensureKeystoreProperties();
 ensurePlayUploadCertSha1(projectRoot);
 ensureAndroidReleaseSigning(projectRoot);
 
-const { marketingVersion } = preparePlatformRelease("android", projectRoot);
-logReleaseVersionSummary(projectRoot, { activePlatform: "android" });
-syncAndroidVersionName(androidDir, marketingVersion);
-syncAndroidVersionCode(androidDir);
+const androidPlatform = isTv ? "android-tv" : "android";
+const { marketingVersion, versionCode, versionEnvKey, buildEnvKey } = preparePlatformRelease(
+  androidPlatform,
+  projectRoot,
+);
+logReleaseVersionSummary(projectRoot, { activePlatform: androidPlatform });
+syncAndroidVersionName(androidDir, marketingVersion, { envKey: versionEnvKey });
+syncAndroidVersionCode(androidDir, { versionCode, envKey: buildEnvKey });
 
 prepareAndroidReleaseBuild(projectRoot);
 

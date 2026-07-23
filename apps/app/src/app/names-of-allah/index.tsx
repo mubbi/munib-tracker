@@ -25,6 +25,7 @@ import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
@@ -33,8 +34,10 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
 import { loadNamesOfAllah } from "@/lib/content-loaders";
 import { buildNamesActivity } from "@/lib/continue-activity";
+import { tTv } from "@/lib/i18n/t-tv";
 import { cueStartSec, isNamesCompleteTrack } from "@/lib/names-complete-cues";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { createNameSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
@@ -57,6 +60,7 @@ export default function NamesOfAllahScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
+  const tv = isTV();
   const contentBottomInset = useContentBottomInset();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Name>>(null);
@@ -310,7 +314,7 @@ export default function NamesOfAllahScreen() {
         numColumns={2}
         columnWrapperStyle={styles.columnWrapper}
         ListHeaderComponent={header}
-        getItemLayout={getItemLayout}
+        getItemLayout={tv ? undefined : getItemLayout}
         onScroll={onScroll}
         scrollEventThrottle={16}
         onScrollToIndexFailed={onScrollToIndexFailed}
@@ -321,7 +325,8 @@ export default function NamesOfAllahScreen() {
         maxToRenderPerBatch={4}
         windowSize={5}
         updateCellsBatchingPeriod={100}
-        removeClippedSubviews
+        // Stale getItemLayout + taller TV rows + clipping → blank viewport.
+        removeClippedSubviews={!tv}
       />
     </ScreenLayout>
   );
@@ -354,6 +359,7 @@ const NameRow = memo(function NameRow({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const translatedMeaning = useScriptureTranslation(name);
   const displayMeaning = name.meaning ?? translatedMeaning;
 
@@ -401,7 +407,7 @@ const NameRow = memo(function NameRow({
             <LabeledIconButton
               name={isPlaying && isAudioPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
               label={isPlaying && isAudioPlaying ? t("common.pause") : t("common.play")}
-              iconSize={18}
+              iconSize={tv ? 24 : 18}
               tintColor={colors.accent}
               labelColor={colors.accent}
               background={tokens.accentSoft}
@@ -419,22 +425,24 @@ const NameRow = memo(function NameRow({
                   ? { ios: "star.fill", android: "star", web: "star" }
                   : { ios: "star", android: "star_border", web: "star_border" }
               }
-              size={16}
+              size={tv ? 20 : 16}
               tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
               background={tokens.accentSoft}
-              hitTarget={40}
+              hitTarget={tv ? TvLayout.minFocusTarget : 40}
               accessibilityLabel={isFavorite ? t("names.unfavorite") : t("names.favorite")}
               accessibilityState={{ selected: isFavorite }}
               onPress={handleToggleFavorite}
             />
             <IconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              size={16}
+              size={tv ? 20 : 16}
               tintColor={colors.mutedForeground}
               background={tokens.accentSoft}
-              hitTarget={40}
+              hitTarget={tv ? TvLayout.minFocusTarget : 40}
               accessibilityLabel={
-                isGesturePending(name.id) ? t("share.tapToShare") : t("names.share")
+                isGesturePending(name.id)
+                  ? tTv(t, "share.tapToShare", "share.selectToShare")
+                  : t("names.share")
               }
               loading={isSharing(name.id)}
               onPress={handleShare}
@@ -447,7 +455,7 @@ const NameRow = memo(function NameRow({
 });
 
 const styles = StyleSheet.create({
-  list: { flex: 1, width: "100%" },
+  list: { flex: 1, width: "100%", minHeight: 0 },
   listContent: { gap: Spacing.two },
   columnWrapper: { gap: Spacing.two },
   cell: { flex: 1 },

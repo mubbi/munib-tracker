@@ -30,6 +30,9 @@ export async function readNotificationPermissionUiState(): Promise<NotificationP
       if (permission === "denied") return "denied";
       return "undetermined";
     }
+    if (!isLocalNotificationSupported()) {
+      return "undetermined";
+    }
     if (isNative) {
       const Notifications = await loadExpoNotifications();
       const { status } = await Notifications.getPermissionsAsync();
@@ -108,6 +111,7 @@ export async function requestNotificationPermission(options?: {
 }
 
 export function openNotificationSettings(): void {
+  if (!isLocalNotificationSupported() && !isWeb) return;
   void Linking.openSettings();
 }
 

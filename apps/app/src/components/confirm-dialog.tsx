@@ -49,6 +49,7 @@ export function ConfirmDialog({
           label={cancelLabel ?? t("common.cancel")}
           variant="ghost"
           fullWidth
+          preferredFocus
           onPress={onCancel ?? onClose}
         />
         <Button

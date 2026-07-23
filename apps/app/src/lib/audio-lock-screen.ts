@@ -4,6 +4,8 @@ import { Image, Platform } from "react-native";
 
 import i18n from "@/i18n";
 
+import { isTV } from "@/lib/platform/is-tv";
+
 const APP_ICON = require("../../assets/images/icon.png");
 
 export type LockScreenTrackInfo = {
@@ -89,7 +91,7 @@ export function activateLockScreenControls(
   queue: LockScreenQueueContext,
   trackId?: string,
 ): void {
-  if (Platform.OS === "web") return;
+  if (Platform.OS === "web" || isTV()) return;
   const hasQueue = queue.queueLength > 1;
   const groupedQuran = hasQueue && isQuranAyahTrackId(trackId);
   const trackInfo: LockScreenTrackInfo = groupedQuran
@@ -117,7 +119,7 @@ export function updateLockScreenControls(
   queue: LockScreenQueueContext,
   trackId?: string,
 ): void {
-  if (Platform.OS === "web") return;
+  if (Platform.OS === "web" || isTV()) return;
   const hasQueue = queue.queueLength > 1;
   const groupedQuran = hasQueue && isQuranAyahTrackId(trackId);
   const trackInfo: LockScreenTrackInfo = groupedQuran
@@ -133,7 +135,7 @@ export function updateLockScreenControls(
 
 /** Tear down lock-screen controls when playback stops. */
 export function deactivateLockScreenControls(player: AudioPlayer): void {
-  if (Platform.OS === "web") return;
+  if (Platform.OS === "web" || isTV()) return;
   try {
     player.setActiveForLockScreen(false);
   } catch {
@@ -151,7 +153,7 @@ export function deactivateLockScreenControls(player: AudioPlayer): void {
  * after the user already allowed/denied during onboarding or settings.
  */
 export async function ensureAndroidMediaNotificationPermission(): Promise<void> {
-  if (Platform.OS !== "android" || androidNotificationPermissionRequested) return;
+  if (Platform.OS !== "android" || isTV() || androidNotificationPermissionRequested) return;
   androidNotificationPermissionRequested = true;
   try {
     const { readNotificationPermissionUiState, requestNotificationPermission } = await import(

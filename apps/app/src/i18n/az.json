@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "Televizorda əlçatan deyil",
     "tvUnavailableBody": "Bu funksiya telefon və ya planşet tələb edir. Davam etmək üçün Munib Tracker-i orada açın.",
-    "tvOauthHint": "Sosial giriş televizorda məhdud ola bilər. Burada qonaq kimi davam edin və ya telefonunuzda hesabı bağlayın."
+    "tvOauthHint": "Telefondan daxil olmaq üçün yuxarıdakı QR koduna üstünlük verin. Və ya qonaq kimi davam edin — telefondakı Profil bölməsindən istənilən vaxt hesab bağlaya bilərsiniz.",
+    "select": "Seçin",
+    "selectToContinue": "Davam etmək üçün Seçin düyməsinə basın",
+    "selectToOpen": "Açmaq üçün seçin",
+    "selectToSave": "Saxlamaq üçün seçin",
+    "selectDay": "Baxmaq üçün bir gün seçin"
   },
   "search": {
     "placeholder": "Qur'an, hədis, dua, Öyrən… axtar",
@@ -104,7 +109,9 @@
       "rizq": "Rizq",
       "rahman": "Rəhman",
       "sleep": "Yuxu",
-      "istighfar": "İstiğfar"
+      "istighfar": "İstiğfar",
+      "quranTv": "Qur'anda oxumaq üçün seçin",
+      "hadithTv": "Tam hədisi oxumaq üçün seçin"
     },
     "cat": {
       "quran": "Quran",
@@ -129,7 +136,8 @@
     "home": "Əsas",
     "tracker": "İzləyici",
     "settings": "Parametrlər",
-    "library": "Kitabxana"
+    "library": "Kitabxana",
+    "navHint": "Keçid üçün ↑↓ · məzmun üçün → istifadə edin"
   },
   "actions": {
     "checklist": "Yoxlama siyahısı",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Son on gecə",
     "lastTenBody": "Tək gecələrdə Laylat al-Qadr axtarın — namaz qılın, Qur'an oxuyun və dua edin. Peyğəmbər ﷺ bu gecələrdə ibadətə ən çox səy göstərirdi.",
     "laylatQadrTitle": "Qədr gecəsi",
-    "laylatQadrBody": "Min aydan yaxşıdır - bu gecədə edilən ibadət onillik ibadətdən üstündür. Qur'an oxuyun, Tahajjud dua edin və deyin: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "Min aydan yaxşıdır - bu gecədə edilən ibadət onillik ibadətdən üstündür. Qur'an oxuyun, Tahajjud dua edin və deyin: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "Oruc statusunu seçmək üçün seçin",
+    "gridHintTv": "Oruc statusunu qeyd etmək üçün gün seçin",
+    "fastingLogBackfillNoteTv": "Jurnalınızı tamamlamaq üçün Ramazan {{year}} AH ({{gregorian}}) göstərilir. Oruc statusunu yeniləmək üçün istənilən günü seçin."
   },
   "fastStatusSheet": {
     "prompt": "Oruc statusunuzu seçin",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Duroods-a baxın",
     "exploreDuroodsHint": "-xunun  str - sxl  durood",
     "exploreNames": "Browse 99 Nmes",
-    "exploreNamesHint": "-xunun  str - sxl  nme"
+    "exploreNamesHint": "-xunun  str - sxl  nme",
+    "exploreQuranHintTv": "İstənilən ayədə əlfəcin nişanını seçin",
+    "exploreDuasHintTv": "Dua saxlamaq üçün ulduzu seçin",
+    "exploreZikrHintTv": "Adhkarı favoritə əlavə etmək üçün ürəyi seçin",
+    "exploreDuroodsHintTv": "Durood saxlamaq üçün ulduzu seçin",
+    "exploreNamesHintTv": "Ad saxlamaq üçün ulduzu seçin",
+    "exploreHadithHintTv": "Hədis toplusunu açmaq üçün seçin"
   },
   "home": {
     "todaysGoal": "bu gün's Gol",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "-xunun - red içində Qur'n",
       "hadith": "Tam hadith oxumaq üçün toxunun",
-      "name": "Bütün 99 adı araşdırın"
+      "name": "Bütün 99 adı araşdırın",
+      "quranTv": "Qur'anda oxumaq üçün seçin",
+      "hadithTv": "Tam hədisi oxumaq üçün seçin"
     },
     "devotionMeta": "Level {{level}} · {{noor}} Novə y",
     "devotionProgress": "{{current}} / {{next}} Novə y - next level",
@@ -553,7 +572,15 @@
       "reminderTitle": "Qəbul saatı",
       "reminderBody": "Cümə günü duanın rədd edilmədiyi saat — xüsusilə Asr-dan sonra səmimi dua, istighfar və salawat ilə axtarın.",
       "openGuide": "Qəbul saatını aç"
-    }
+    },
+    "scheduleShowPastHintTv": "Tam cədvəli göstərmək üçün seçin",
+    "scheduleShowLaterHintTv": "Günün qalanını göstərmək üçün seçin",
+    "exploreQuranHintTv": "İstənilən ayədə əlfəcin nişanını seçin",
+    "exploreDuasHintTv": "Dua saxlamaq üçün ulduzu seçin",
+    "exploreZikrHintTv": "Adhkarı favoritə əlavə etmək üçün ürəyi seçin",
+    "exploreDuroodsHintTv": "Durood saxlamaq üçün ulduzu seçin",
+    "exploreNamesHintTv": "Ad saxlamaq üçün ulduzu seçin",
+    "exploreHintTv": "{{total}} qısayoldan {{shown}} göstərilir — əlavə etmək və ya sıranı dəyişmək üçün İdarə et seçin."
   },
   "tracker": {
     "eyebrow": "Trck & log",
@@ -644,7 +671,8 @@
       "hintPages": "Bu günkü hədəfə {{count}} səhifə — qeyd etmək üçün toxunun",
       "completeHint": "Bu günkü pay tamamlandı — planınıza baxmaq üçün toxunun",
       "a11y": "Khatm planı {{total}} günün {{day}}-i, bu günkü hədəfə {{target}}-dən {{done}}"
-    }
+    },
+    "tvSubtitle": "Statusunu təyin etmək üçün namaz seçin — bu cihazda saxlanılır."
   },
   "update": {
     "title": "Yeniləmə mövcuddur",
@@ -776,7 +804,8 @@
         "name": "li Ibn hmd Ml",
         "location": "l-Msjid l-Hrm"
       }
-    }
+    },
+    "tvSubtitle": "Pultla gəzin — bəzi alətlər telefon tələb edir"
   },
   "import": {
     "title": "Salah tarixçəsini idxal et",
@@ -869,7 +898,12 @@
     "locationSkip": "Sonra qur",
     "locationHighlight4": "İstədiyiniz vaxt keçin — məkanı və ya bildirişləri sonra qurun",
     "chooseLanguage": "Dil seçin",
-    "chooseLanguageHint": "Bu təqdimatı izləyə bilmək üçün tətbiq dilini dəyişin"
+    "chooseLanguageHint": "Bu təqdimatı izləyə bilmək üçün tətbiq dilini dəyişin",
+    "locationBodyTv": "Namaz vaxtlarının dəqiq olması üçün şəhərinizi seçin. Yeri istənilən vaxt Parametrlərdən dəyişə bilərsiniz.",
+    "locationHighlight1Tv": "Şəhəriniz üçün dəqiq namaz vaxtları",
+    "locationHighlight2Tv": "Məkanınızdan Qiblə istiqaməti",
+    "locationHighlight3Tv": "Xatırlatmalar telefondə daha yaxşı işləyir",
+    "locationHighlight4Tv": "Şəhəri istənilən vaxt Parametrlərdə dəyişin"
   },
   "appearance": {
     "eyebrow": "Parametrlər",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} mtches",
     "noResults": "Axtarışınıza uyğun adhkar yoxdur.",
     "markAsDone": "Tamamlandı kimi işarələ",
-    "undoDoneHint": "Ləğv etmək və tamamlanmamış etmək üçün toxunun"
+    "undoDoneHint": "Ləğv etmək və tamamlanmamış etmək üçün toxunun",
+    "favEmptyDescTv": "Tez giriş üçün istənilən zikrdə ulduzu seçib onu burada saxlayın.",
+    "undoDoneHintTv": "Ləğv edib yerinə yetirilməmiş kimi qeyd etmək üçün seçin"
   },
   "zikrCat": {
     "morning": "səhər dhkr",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Munib Tracker-də oxuyun:",
     "preparing": "Shriçindəg…",
     "tapToShare": "Paylaşmaq üçün toxunun",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "Paylaşmaq üçün seçin"
   },
   "dua": {
     "eyebrow": "Supplictiüzərində",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Yadda saxladığınız müddətlər",
     "favEmptyTitle": "Hələlik sevimli durodlar yoxdur",
     "favEmptyDesc": "-xunun  str üzərində ny durood - sxl it here.",
-    "openInTasbeeh": "Təsbehdə aç"
+    "openInTasbeeh": "Təsbehdə aç",
+    "favEmptyDescTv": "İstənilən duroodda ulduzu seçib onu burada saxlayın."
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1313,7 +1351,8 @@
     "favorites": "Sevimli adlar",
     "favSubtitle": "Nmes siz've sxld",
     "favEmptyTitle": "Hələ sevimli adlar yoxdur",
-    "favEmptyDesc": "-xunun  str üzərində ny nme - sxl it here."
+    "favEmptyDesc": "-xunun  str üzərində ny nme - sxl it here.",
+    "favEmptyDescTv": "İstənilən adda ulduzu seçib onu burada saxlayın."
   },
   "quran": {
     "eyebrow": "Soylu Qur'an",
@@ -1453,7 +1492,8 @@
         "hamWasl": "Birləşdirən həmzə — qoşulduqda düşdü",
         "lamShamsiyah": "Günəş hərfi لام — tələffüz edilmir",
         "silent": "Yazılı amma tələffüz edilmir"
-      }
+      },
+      "tapHintTv": "Təcvid qaydasına baxmaq üçün seçin"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Surə {{number}}",
     "selectSurah": "Surə seçin",
-    "openReader": "Oxuyucunu aç"
+    "openReader": "Oxuyucunu aç",
+    "bookmarkEmptyDescTv": "İstənilən ayədə əlfəcin nişanını seçib onu burada saxlayın."
   },
   "hadith": {
     "eyebrow": "Peyğəmbərlik ənənəsi",
@@ -1773,7 +1814,8 @@
     },
     "history": "Hdirtvə yy",
     "rowDone": "{{completed}} Qaza edilib",
-    "rowDoneWithDaily": "{{completed}} Qaza edilib · bu gün {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} Qaza edilib · bu gün {{done}}/{{target}}",
+    "hintTv": "Qəza namazını qeyd etmək üçün işarəni seçin. İzləyicidə buraxılan namaz avtomatik bu sayğaclara əlavə olunur."
   },
   "qazaCalc": {
     "eyebrow": "Qz",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "əlvə et estimted fsts?",
     "confirmAddEstimateMsg": "əlvə et {{count}} fsts - remiçindəiçindəg (new -tl: {{total}})?",
     "confirmResetTitle": "sıfırl counter?",
-    "confirmResetMsg": "Bütün oruc sayları silinsin ({{remaining}} qalıb, {{completed}} tamamlanıb)? Bu geri alına bilməz."
+    "confirmResetMsg": "Bütün oruc sayları silinsin ({{remaining}} qalıb, {{completed}} tamamlanıb)? Bu geri alına bilməz.",
+    "adjustHintTv": "Rəqəmi seçin və ya −/+ ilə tənzimləyin"
   },
   "calendar": {
     "eyebrow": "Hdirtvə yy",
@@ -1920,7 +1963,8 @@
     "missed": "burxıldı",
     "legendHint": "Onu nəzərdən keçirmək və tənzimləmək üçün hər hansı keçmiş və ya cari günə toxunun. Bu gün {{date}}.",
     "converterRowTitle": "Hicri ⟷ Qriqorian çeviricisi",
-    "converterRowSubtitle": "İki təqvim arasında tarixi çevirin"
+    "converterRowSubtitle": "İki təqvim arasında tarixi çevirin",
+    "legendHintTv": "Baxmaq və düzəliş etmək üçün keçmiş və ya cari günü seçin. Bu gün {{date}}."
   },
   "calDay": {
     "today": "bu gün",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "siziçində count -içində {{count}} will be cledird.",
     "confirmStartAgainTitle": "Strt giçində?",
     "confirmStartAgainMessage": "siziçində tmmlvəı count will be cledird so siz cn begiçində  new round.",
-    "dockLabel": "Say"
+    "dockLabel": "Say",
+    "tapToCountTv": "Saymaq üçün Seçin düyməsinə basın"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} yalnız {{min}} dəqiqəlik məsafədədir",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} at {{time}}, cari namaz",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Chnge məkn",
-    "dateRowA11y": "{{phase}}. {{dates}}. Ay təfərrüatları üçün toxunun"
+    "dateRowA11y": "{{phase}}. {{dates}}. Ay təfərrüatları üçün toxunun",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Ay detalları üçün seçin"
   },
   "location": {
     "eyebrow": "məkn",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "Məkkə, Səudiyyə Ərəbistanı",
     "defaultTimesHint": "Namaz vaxtları hazırda Məkkəyə görədir. Dəqiq vaxtlar üçün şəhərinizi təyin edin. Namaz və azan xatırlatmaları o vaxta qədər sönülü qalır.",
-    "setLocation": "Məkanı təyin et"
+    "setLocation": "Məkanı təyin et",
+    "searchAutoFocusOff": "Şəhər axtarın"
   },
   "moon": {
     "aria": "Moüzərində phse: {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Növbəti islam ayı",
     "nextMonthValue": "~{{days}} gün · {{month}} başlayır",
     "nextMonthTonight": "Bu gecə Məğribdən sonra · {{month}} başlayır",
-    "nextMonthOneDay": "~1 gün · {{month}} başlayır"
+    "nextMonthOneDay": "~1 gün · {{month}} başlayır",
+    "openTv": "{{phase}}. Detallar üçün seçin"
   },
   "achievements": {
     "eyebrow": "İrəliləyiş",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Bu, bu cihazdakı və bulud sinxronizasiyasındakı tətbiq məlumatlarını həmişəlik silir. Hesabınız aktiv və daxil olmuş qalır. Bu geri qaytarıla bilməz.",
     "resetDataConfirm": "Məlumatları sıfırla",
     "resetDataFailed": "Tətbiq məlumatlarını sıfırlamaq mümkün olmadı. Bağlantınızı yoxlayın və yenidən cəhd edin.",
-    "resetDataSuccess": "Tətbiq məlumatlarınız sıfırlandı"
+    "resetDataSuccess": "Tətbiq məlumatlarınız sıfırlandı",
+    "tvAvatarHint": "Profil şəkli və hesab bağlama telefonunuzda daha yaxşı işləyir."
   },
   "sync": {
     "title": "Bulud sinxronizasiyası",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Qaza idarəçisindən qaza salahı qılın və burada görünsün.",
     "count": "{{count}} mde up",
     "legendHint": "Hansı salahları qəza etdiyinizi görmək üçün vurğulanmış günə toxunun.",
-    "dayA11y": "{{date}}, {{count}} mde up"
+    "dayA11y": "{{date}}, {{count}} mde up",
+    "legendHintTv": "Hansı namazları qəza etdiyinizi görmək üçün vurğulanmış günü seçin."
   },
   "weeklyReport": {
     "title": "Həftəniz ibadətdə",
-    "body": "{{prayers}} namaz tamamlandı, {{perfect}} mükəmməl gün, {{qaza}} qaza edildi və {{zikr}} zikr sessiyası. Statistikaya baxmaq üçün toxunun."
+    "body": "{{prayers}} namaz tamamlandı, {{perfect}} mükəmməl gün, {{qaza}} qaza edildi və {{zikr}} zikr sessiyası. Statistikaya baxmaq üçün toxunun.",
+    "bodyTv": "{{prayers}} namaz tamamlandı, {{perfect}} mükəmməl gün, {{qaza}} qəza edildi və {{zikr}} zikr sessiyası. Statistikaya baxmaq üçün seçin."
   },
   "backup": {
     "title": "Ehtiyt nüsxə və bərp",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Hifz statusu yenilənsin?",
     "confirmReviewBody": "{{ref}} will be flgged üçün review.",
     "confirmMemorizedBody": "{{ref}} will be mrked s memvə yized.",
-    "confirmClearBody": "{{ref}} Hifz izləyicinizdən silinəcək."
+    "confirmClearBody": "{{ref}} Hifz izləyicinizdən silinəcək.",
+    "emptyDescTv": "Oxuyucuda istənilən ayədə Hifz seçib onu əzbərlənmiş kimi qeyd edin."
   },
   "travel": {
     "eyebrow": "Öyrən",
@@ -2995,7 +3047,8 @@
       "playPhrases": "Bütün ifadələri oxut",
       "pausePhrases": "İfadələri dayandır",
       "playPhrase": "{{n}}. ifadini oxut: {{title}}",
-      "followAlongNote": "Oxuyarkən altdakı sözləri vurğulayır"
+      "followAlongNote": "Oxuyarkən altdakı sözləri vurğulayır",
+      "listenHintTv": "Oxutmaq üçün yazını seçin. Mədinə azan zamanı hər cümləni vurğulayır. Aydın cümlə-cümlə audio üçün aşağıdakı Sözləri öyrənin hissəsindən istifadə edin."
     }
   },
   "battles": {
@@ -3090,7 +3143,8 @@
       "obligatory": "Essentil",
       "highly-recommended": "Xüsusilə tövsiyə olunur",
       "recommended": "Tövsiyə olunur"
-    }
+    },
+    "versesIntroTv": "Qur'an ən etibarlı mənbədir. Ayəni Qur'an oxuyucusunda açmaq üçün seçin."
   },
   "lastDay": {
     "eyebrow": "Öyrən",
@@ -3196,7 +3250,8 @@
       "reflection": "Reflection jurnalı",
       "reflectionHint": "Xuşu və dua əksləri",
       "learning": "Öyrənmə irəliləyişi",
-      "learningHint": "-pics tmmlvəı içində bu module"
+      "learningHint": "-pics tmmlvəı içində bu module",
+      "characterHintTv": "Bu gün davranışınızı nəzərdən keçirdikdə seçin"
     },
     "progressTitle": "Öyrənmə irəliləyişi",
     "progressSubtitle": "Tədqiqatı izləyin - Allah yanında mənəvi dərəcə deyil",
@@ -3224,7 +3279,10 @@
       "obligatory": "Essentil",
       "highly-recommended": "Xüsusilə tövsiyə olunur",
       "recommended": "Tövsiyə olunur"
-    }
+    },
+    "versesIntroTv": "Ayəni Qur'an oxuyucusunda açmaq üçün seçin. Qısa xülasələr tədris üçündür, tam təfsirin əvəzi deyil.",
+    "preparationHabitsHintTv": "İzləyici açmaq və ya gündəlik niyyəti dəyişmək üçün seçin",
+    "characterHintTv": "Bu gün davranışınızı nəzərdən keçirdikdə seçin"
   },
   "taharah": {
     "eyebrow": "Öyrən",
@@ -3293,7 +3351,8 @@
       "obligatory": "Obligtvə yy",
       "highly-recommended": "Xüsusilə tövsiyə olunur",
       "recommended": "Tövsiyə olunur"
-    }
+    },
+    "checklistHintTv": "Gündəlik təmizlik vərdişlərinizi nəzərdən keçirərkən elementləri seçin"
   },
   "prophets": {
     "eyebrow": "Öyrən",
@@ -3398,7 +3457,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "Mənbəli qeydi oxumaq üçün xəritədə adı seçin."
     }
   },
   "aqeedah": {
@@ -3518,7 +3578,8 @@
       "obligatory": "Essentil",
       "highly-recommended": "Xüsusilə tövsiyə olunur",
       "recommended": "Tövsiyə olunur"
-    }
+    },
+    "occasionsIntroTv": "Dərsi açmaq və ya tam dua kitabxanasına baxmaq üçün bir münasibət seçin."
   },
   "learnQuran": {
     "eyebrow": "Öyrən",
@@ -3665,7 +3726,8 @@
     "read": "Red",
     "supplicate": "Supplicte",
     "learn": "Öyrən",
-    "more": "Alətlər və digər"
+    "more": "Alətlər və digər",
+    "tvSubtitle": "Qur'an, dualar, zikr və öyrənmə — Seçin ilə naviqasiya edin"
   },
   "offlineData": {
     "title": "-içindəlyn dt",
@@ -3694,7 +3756,7 @@
     "today": "bu gün",
     "inDays": "içində {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Tarixlər hesablanmış təxminlərdir - faktiki gün yerli ayın görünməsindən asılıdır.",
+    "disclaimer": "Tarixlər yerinizdəki hilal görünürlüyünə (və ya istifadə olunan bölgələrdə rəsmi Ümm əl-Qura təqviminə) uyğundur və yerli orqanın elanından bir gün fərqlənə bilər.",
     "names": {
       "newYear": "İslam Yeni ili",
       "ashura": "Aşura günü",
@@ -4133,7 +4195,8 @@
     "linkSadaqah": "Sədəqə hədəfləri",
     "linkSadaqahHint": "Gündəlik və ya həftəlik könüllü ianə",
     "linkFidyah": "Fidyə və kəffarə",
-    "linkFidyahHint": "Buraxılmış və ya pozulmuş oruclar üçün təxmini hesablamalar"
+    "linkFidyahHint": "Buraxılmış və ya pozulmuş oruclar üçün təxmini hesablamalar",
+    "learnHintTv": "Hədəfli bələdçi üçün mövzu seçin — hökmər məzhəblər arasında fərqlənir."
   },
   "customAdhkar": {
     "eyebrow": "Yaddaş",
@@ -4172,7 +4235,7 @@
       "label": "Qoşmalar (isteğe bağlı)",
       "add": "Fayl əlavə edin",
       "remove": "Qoşmanı çıxarın",
-      "hint": "5-ə qədər fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürə uzun basın.",
+      "hint": "Ən çox 5 fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürdə × toxunun.",
       "signInRequired": "Şəxsi faylları adhkarınıza əlavə etmək üçün daxil olun.",
       "permissionDenied": "Faylları əlavə etmək üçün icazə tələb olunur.",
       "permissionTitle": "Girişə icazə verin",
@@ -4201,7 +4264,8 @@
       "sourceDocumentHint": "Fayllarınızdan şəkil və ya PDF seçin",
       "loadingPdf": "PDF yüklənir…",
       "pdfHint": "Sürüşdürün · böyütmək üçün sıxın və ya +/− · sıfırlamaq üçün iki dəfə toxunun · paylaşmaq üçün PDF açın",
-      "pdfPreviewTitle": "PDF önizləməsi"
+      "pdfPreviewTitle": "PDF önizləməsi",
+      "tvUnavailable": "Əlavələr telefon və ya planşet tələb edir. Foto və ya PDF-ləri orada əlavə edin."
     },
     "stt": {
       "dictate": "Mikrofonla diktə edin",
@@ -4316,7 +4380,8 @@
       "unavailable": "Bu cihazda nitqin tanınması əlçatan deyil.",
       "couldNotHear": "Bunu eşitmək mümkün olmadı – yenidən cəhd edin və ya yazın.",
       "errorGeneric": "Diktasiya alınmadı. Yenidən cəhd edin və ya yazın."
-    }
+    },
+    "ratingHintTv": "Namazdakı huzurunuzu qiymətləndirmək üçün ulduz seçin."
   },
   "prayerTuning": {
     "title": "Salah vaxtlarının tənzimlənməsi",
@@ -4483,7 +4548,8 @@
       "ranks": "Rnks",
       "mercy": "Rəhmət",
       "supplication": "Supplictiüzərində"
-    }
+    },
+    "versesLeadTv": "İstənilən ayəni Qur'an oxuyucusunda açmaq üçün seçin."
   },
   "jahannam": {
     "eyebrow": "Öyrən",
@@ -4615,7 +4681,9 @@
       "repentance": "Repentnce",
       "accountability": "hesbbility",
       "protection": "Protectiüzərində"
-    }
+    },
+    "versesLeadTv": "İstənilən ayəni Qur'an oxuyucusunda açmaq üçün seçin.",
+    "reflectionLeadTv": "Dayanın və bu sualları özünüzə verin. Əlaqəli izləyici və ya dərsi açmaq üçün sətir seçin."
   },
   "tour": {
     "eyebrow": "Guided -ur",
@@ -4684,7 +4752,7 @@
     "sourceLabel": "siziçində source (ixtiyri)",
     "sourcePlaceholder": "Düzəlişinizi dəstəkləyən kitab, alim, URL və ya sitat.",
     "proofLabel": "Sübut ekran görüntüləri (isteğe bağlı)",
-    "proofHint": "3 şəkilə qədər. Silmək üçün miniatürə uzun basın.",
+    "proofHint": "Ən çox 3 şəkil. Silmək üçün miniatürdə × toxunun.",
     "addProof": "Foto əlavə edin",
     "removeProof": "çıxrt screenshot",
     "submit": "Hesabat təqdim edin",
@@ -4961,7 +5029,7 @@
     "eyebrow": "Təqvim",
     "title": "Tarix çeviricisi",
     "subtitle": "Hicri və Miladi təqvimlər arasında çevirin",
-    "intro": "Cədvəl Küveyt alqoritmi ilə oflayn hesablanmış digərində ekvivalentini görmək üçün hər iki təqvimə tarixi daxil edin.",
+    "intro": "İstənilən təqvimdə tarix daxil edin ki, digərindəki ekvivalentini görün — yerinizdəki hilal görünürlüyünə görə oflayn hesablanır.",
     "toHijri": "Qriqorian → hicri",
     "toGregorian": "Hicri → Qriqorian",
     "gregorianDateLabel": "Qriqorian tarixi",
@@ -4971,7 +5039,7 @@
     "year": "il",
     "useToday": "Bu gün istifadə edin",
     "invalidDate": "Etibarlı tarix daxil edin",
-    "disclaimer": "Bu arifmetik təxmindir (cədvəl \"Küveyt alqoritmi\") və yerli ayın görünməsi ilə bağlı elanlardan bir gün fərqlənə bilər - həmişə yerli məscidinizi və ya dini tarixlər üçün səlahiyyətli orqanı izləyin.",
+    "disclaimer": "Tarixlər yerinizdəki hilal (hilāl) görünürlüyünə görə hesablanır və rəsmi ay görünməsi elanlarından bir gün fərqlənə bilər — dini tarixlər üçün həmişə yerli Masjid və ya orqanı izləyin.",
     "directionTitle": "Dönüşüm istiqaməti",
     "resultFrom": "{{date}}-dən",
     "quickLinksTitle": "Əlaqədar",
@@ -5034,7 +5102,8 @@
       "fidyah": "Fidyə"
     },
     "skipHint": "Bu kartı keçin və başqa sual görün.",
-    "skipDisabledHint": "Yeni qarışdırma üçün bu son qalan karta cavab verin."
+    "skipDisabledHint": "Yeni qarışdırma üçün bu son qalan karta cavab verin.",
+    "introTv": "Qur'an, hədis, Allahın Adları və hər Öyrən bələdçisindən istifadə edin. Özünüzü yoxlamaq üçün cavab seçin, sonra istədiyiniz qədər davam edin."
   },
   "lastThirdNight": {
     "eyebrow": "Gecə namazı",
@@ -5149,5 +5218,32 @@
     "linkFinanceHint": "Könüllü ianə izah edildi",
     "disclaimer": "Yalnız şəxsi izləyici — fətva deyil və vaxtı çatdıqda zəkatın hesablanması üçün əvəzedici deyil.",
     "continueInApp": "Munib ilə davam edin"
+  },
+  "adhan": {
+    "listenHintTv": "Oxutmaq üçün yazını seçin. Mədinə azan zamanı hər cümləni vurğulayır. Aydın cümlə-cümlə audio üçün aşağıdakı Sözləri öyrənin hissəsindən istifadə edin."
+  },
+  "tv": {
+    "exitTitle": "Munib Tracker-dən çıxılsın?",
+    "exitMessage": "Bu TV-də tətbiqi bağlamaq üçün təsdiqə basın.",
+    "exitConfirm": "Çıx",
+    "qrTitle": "Telefonunuzla daxil olun",
+    "qrHint": "Bu QR kodunu telefon kamerası ilə skan edin və ya telefondakı Munib Tracker-i açıb kodu daxil edin.",
+    "qrA11y": "Telefonda daxil olmaq üçün QR kod",
+    "qrImageA11y": "TV girişi üçün QR kod",
+    "qrWaiting": "Telefonunuz gözlənilir…",
+    "qrRefresh": "Yeni kod",
+    "qrRetry": "Yenidən cəhd edin",
+    "qrCreateError": "TV girişi başlanmadı. Bağlantınızı yoxlayıb yenidən cəhd edin.",
+    "qrExpired": "Bu kodun müddəti bitib. Yenisini yaradın.",
+    "qrEyebrow": "TV yoldaşı",
+    "qrPhoneTitle": "TV-də giriş",
+    "qrPhoneSubtitle": "Kod {{code}} — bu TV-ni bağlamaq üçün girişi tamamlayın.",
+    "qrMissingCode": "Bu keçiddə qoşulma kodu yoxdur. TV-dən QR-i yenidən skan edin.",
+    "qrSignInFirst": "Bağlı hesabla daxil olun, sonra TV-nizi bağlayacağıq.",
+    "qrNeedLinkedAccount": "Əvvəlcə Google, Apple və ya Facebook ilə daxil olun — qonaq hesabları TV bağlaya bilməz.",
+    "qrClaiming": "TV-niz bağlanır…",
+    "qrClaimSuccess": "TV-niz daxil oldu. Qonaq otağına qayıda bilərsiniz.",
+    "qrClaimError": "TV bağlanmadı. TV-də yeni kod yaradıb yenidən cəhd edin.",
+    "qrPhoneOnly": "TV girişini tamamlamaq üçün bu keçidi telefonunuzda açın."
   }
 }

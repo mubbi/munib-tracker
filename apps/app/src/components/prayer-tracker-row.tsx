@@ -8,7 +8,9 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   PRAYER_ICONS,
   PRAYER_JAMA_ICON,
@@ -71,9 +73,16 @@ export function PrayerTrackerRow({
   const adhkarCompleted = afterSalahProgress?.completed ?? 0;
   const adhkarTotal = afterSalahProgress?.total ?? 0;
   const adhkarBg = adhkarDone ? tokens.status.success.soft : tokens.accentSoft;
+  const tv = isTV();
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.muted }]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: colors.muted },
+        tv ? { minHeight: TvLayout.minFocusTarget } : null,
+      ]}
+    >
       <View style={styles.mainLine}>
         <View style={styles.leadingBlock}>
           <PressableScale

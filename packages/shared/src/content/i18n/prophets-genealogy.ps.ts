@@ -85,4 +85,40 @@ export const PROPHETS_GENEALOGY_NODES_PS: DeepPartial<ProphetsGenealogyNode>[] =
     relationNote:
       "رسول الله ﷺ د اسماعیل زوی ابراهیم له اولادې څخه دی. د اسمعيل او قريشو تر منځ تفصيلي نومونه په کلاسيک سيرت کې ساتل شوي دي. قرآن پرته له دې چې د هر پلار نوم لیست کړي د ابراهیمي میراث تاییدوي. دلته سمدستي د پلار او زوی څنډه نه ده راښکل شوې - یوازې مهر شوی نبوت او د اسماعیلي نسل.",
   },
+  // —— v2 appends ——
+  {
+    name: "Sheeth (Seth)",
+    relationNote:
+      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+  },
+  {
+    name: "Idris",
+    relationNote:
+      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+  },
+  {
+    name: "Imran",
+    relationNote:
+      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+  },
+  {
+    name: "Adnan",
+    relationNote:
+      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+  },
+  {
+    name: "Hashim ibn Abd Manaf",
+    relationNote:
+      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+  },
+  {
+    name: "Abd al-Muttalib",
+    relationNote:
+      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+  },
+  {
+    name: "Abdullah ibn Abd al-Muttalib",
+    relationNote:
+      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+  },
 ];

@@ -270,3 +270,39 @@ export class ResetAppDataDto {
   @IsIn([APP_DATA_RESET_CONFIRMATION])
   confirmation!: typeof APP_DATA_RESET_CONFIRMATION;
 }
+
+export class TvPairingCreateResponseDto {
+  @ApiProperty({ description: "Short pairing code for QR / manual entry", example: "ABCD1234" })
+  code!: string;
+
+  @ApiProperty({ description: "Display form with a separator", example: "ABCD-1234" })
+  displayCode!: string;
+
+  @ApiProperty({ description: "Unix ms when this pairing expires" })
+  expiresAt!: number;
+
+  @ApiProperty({
+    description: "HTTPS deep link for the phone to open and claim this pairing",
+    example: "https://my.munibtracker.app/tv-pair?code=ABCD1234",
+  })
+  claimUrl!: string;
+}
+
+export class TvPairingStatusResponseDto {
+  @ApiProperty({ enum: ["pending", "ready", "expired"] })
+  status!: "pending" | "ready" | "expired";
+
+  @ApiPropertyOptional({
+    description: "Present when status is ready — TV should persist this session",
+    type: AuthSessionResponseDto,
+  })
+  session?: AuthSessionResponseDto;
+}
+
+export class TvPairingClaimBodyDto {
+  @ApiProperty({ description: "Pairing code shown on the TV", example: "ABCD1234" })
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(16)
+  code!: string;
+}

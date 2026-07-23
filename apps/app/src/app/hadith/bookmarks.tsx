@@ -17,6 +17,7 @@ import type { BookmarkedHadith } from "@/db/repositories/hadith-repository";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { buildHadithSharePayload } from "@/lib/share";
@@ -132,7 +133,9 @@ export default function HadithBookmarksScreen() {
                     <LabeledIconButton
                       name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
                       label={
-                        isGesturePending(entry.item.id) ? t("share.tapToShare") : t("common.share")
+                        isGesturePending(entry.item.id)
+                          ? tTv(t, "share.tapToShare", "share.selectToShare")
+                          : t("common.share")
                       }
                       iconSize={18}
                       tintColor={colors.mutedForeground}

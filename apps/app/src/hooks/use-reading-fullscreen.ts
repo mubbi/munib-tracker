@@ -2,6 +2,7 @@ import { useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useSyncExternalStore } from "react";
 import { Platform } from "react-native";
 
+import { isTV } from "@/lib/platform/is-tv";
 import {
   getReadingFullscreenActive,
   setReadingFullscreenActive,
@@ -47,8 +48,11 @@ async function exitWebFullscreen(): Promise<void> {
   await doc.webkitExitFullscreen?.();
 }
 
-/** Native platforms always support hiding system chrome for immersive reading. */
+/** Native platforms always support hiding system chrome for immersive reading.
+ *  TV is already immersive living-room UI — toggling status/nav bars is a no-op
+ *  or fights Leanback chrome, so fullscreen controls stay hidden there. */
 function isFullscreenSupported(): boolean {
+  if (isTV()) return false;
   if (Platform.OS === "ios" || Platform.OS === "android") return true;
   return isWebFullscreenApiAvailable();
 }

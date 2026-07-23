@@ -9,6 +9,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -17,6 +18,7 @@ import {
   navigateToContinue,
 } from "@/lib/continue-activity";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
+import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { formatRelativeWhen } from "@/lib/relative-time";
 import { containsArabicScript, useChevronForward } from "@/lib/rtl";
@@ -132,6 +134,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
   const quranSurahMatch = activity.kind === "quran" ? activity.href.match(/^\/quran\/(\d+)/) : null;
   const quranSurahNumber = quranSurahMatch?.[1];
   const previewIsArabic = activity.preview ? containsArabicScript(activity.preview) : false;
+  const tv = isTV();
 
   // Do not wrap this full-width card in ContextMenu/MenuView on iOS: Host
   // `matchContents` + SwiftUI `fixedSize` collapses nested PressableScale rows
@@ -139,15 +142,24 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
   return (
     <Card
       padding="three"
-      style={[styles.card, { backgroundColor: palette.soft, borderColor: palette.border }]}
+      style={[
+        styles.card,
+        {
+          backgroundColor: palette.soft,
+          // Phone: tinted card edge. TV: keep the outer chrome quiet so the
+          // D-pad focus ring on the resume row is the only accent outline.
+          borderColor: tv ? tokens.hairline : palette.border,
+        },
+        tv ? styles.cardTv : null,
+      ]}
     >
       <View style={styles.header}>
         <IconWell
           icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
           tint={palette.color}
           background={colors.background}
-          well={40}
-          size={18}
+          well={tv ? 48 : 40}
+          size={tv ? 20 : 18}
         />
         <View style={styles.headerCopy}>
           <ThemedText type="smallBold">{t("home.continueTitle")}</ThemedText>
@@ -161,7 +173,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
           onPress={onDismiss}
           size={16}
           tintColor={colors.mutedForeground}
-          hitTarget={36}
+          hitTarget={tv ? TvLayout.minFocusTarget : 36}
           haptic="light"
         />
       </View>
@@ -172,14 +184,23 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
         accessibilityLabel={a11y}
         scaleTo={0.98}
         haptic="light"
+        ripple={!tv}
+        {...(tv ? { hasTVPreferredFocus: true } : {})}
         style={[
           styles.preview,
+          tv ? styles.previewTv : null,
           { backgroundColor: colors.background, borderColor: palette.border },
         ]}
       >
-        <View style={styles.previewTop}>
+        <View style={[styles.previewTop, tv ? styles.previewTopTv : null]}>
           {quranSurahNumber ? (
-            <View style={[styles.quranBadge, { backgroundColor: palette.soft }]}>
+            <View
+              style={[
+                styles.quranBadge,
+                tv ? styles.quranBadgeTv : null,
+                { backgroundColor: palette.soft },
+              ]}
+            >
               <ThemedText type="subtitle" style={{ color: palette.text }}>
                 {quranSurahNumber}
               </ThemedText>
@@ -189,8 +210,8 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
               icon={visual.icon}
               tint={palette.color}
               background={palette.soft}
-              well={48}
-              size={22}
+              well={tv ? 56 : 48}
+              size={tv ? 24 : 22}
               radius={Radius.md}
             />
           )}
@@ -226,7 +247,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
                   previewIsArabic ? styles.arabic : null,
                   { color: palette.text },
                   previewIsArabic
-                    ? arabicReadingLayout(activity.kind === "hadith" ? 14 : 22)
+                    ? arabicReadingLayout(activity.kind === "hadith" ? 14 : tv ? 26 : 22)
                     : null,
                 ]}
                 numberOfLines={activity.kind === "hadith" ? 2 : 1}
@@ -240,11 +261,13 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
           </View>
         </View>
 
-        <View style={[styles.footer, { borderTopColor: tokens.hairline }]}>
+        <View
+          style={[styles.footer, tv ? styles.footerTv : null, { borderTopColor: tokens.hairline }]}
+        >
           <ThemedText type="smallBold" style={{ color: palette.text }}>
             {t(actionKey)}
           </ThemedText>
-          <SymbolView name={chevronForward} size={14} tintColor={palette.color} />
+          <SymbolView name={chevronForward} size={tv ? 16 : 14} tintColor={palette.color} />
         </View>
       </PressableScale>
     </Card>
@@ -261,6 +284,10 @@ const styles = StyleSheet.create({
   card: {
     borderWidth: 1,
     gap: Spacing.three,
+  },
+  cardTv: {
+    // Room for the D-pad focus ring to expand outward without crowding neighbors.
+    marginVertical: TvLayout.focusRingWidth,
   },
   header: {
     flexDirection: "row",
@@ -280,11 +307,21 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     overflow: "hidden",
   },
+  // TV: keep rounded corners via borderRadius, but do not clip — focus scale
+  // + ring would otherwise cut off the "Continue reading" footer.
+  previewTv: {
+    overflow: "visible",
+    minHeight: TvLayout.minFocusTarget * 2,
+  },
   previewTop: {
     flexDirection: "row",
     alignItems: "flex-start",
     gap: Spacing.three,
     padding: Spacing.three,
+  },
+  previewTopTv: {
+    padding: Spacing.four,
+    gap: Spacing.four,
   },
   previewCopy: {
     flex: 1,
@@ -315,6 +352,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  quranBadgeTv: {
+    width: 56,
+    height: 56,
+  },
   arabic: {},
   footer: {
     flexDirection: "row",
@@ -323,5 +364,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two + 2,
     borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  footerTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.four,
+    paddingVertical: Spacing.three,
   },
 });

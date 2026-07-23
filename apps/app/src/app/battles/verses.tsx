@@ -24,6 +24,7 @@ import {
   getBattlesVerses,
   isBattlesContentReady,
 } from "@/lib/battles";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesVersesScreen() {
@@ -56,7 +57,9 @@ export default function BattlesVersesScreen() {
       <Seo path="/battles/verses" />
       <LearnContentGate ready={contentReady}>
         <Stagger>
-          <JannahCallout tone="info">{t("battles.versesIntro")}</JannahCallout>
+          <JannahCallout tone="info">
+            {tTv(t, "battles.versesIntro", "battles.versesIntroTv")}
+          </JannahCallout>
 
           <LearnReadingChrome surface="battles">
             {battleIds.map((battleId) => {

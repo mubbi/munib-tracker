@@ -15,10 +15,14 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-na
 import { Springs } from "@/constants/motion";
 import { Radius } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
+
+/** Gentle enlarge when a TV remote focuses a primary control. */
+const TV_FOCUS_SCALE = 1.04;
 
 /**
  * Flex/content layout for the inner animated wrapper (icon + text stacks, gaps).
@@ -245,6 +249,8 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     onPressIn,
     onPressOut,
     onPress,
+    onFocus,
+    onBlur,
     disabled,
     ...rest
   },
@@ -252,11 +258,17 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
 ) {
   const { tokens, colors } = useThemeTokens();
   const pressed = useSharedValue(0);
+  const focused = useSharedValue(0);
+  const reducedMotion = useHydrationSafeReducedMotion();
+  const tv = isTV();
 
   const flatStyle = StyleSheet.flatten(style) as ViewStyle | undefined;
   const { hostStyle, innerStyle } = splitRippleHostStyles(flatStyle);
 
+  // TV remotes don't use Material ripples; the Android clip wrapper's
+  // overflow:hidden also clips the D-pad focus scale and footer labels.
   const boundedRipple =
+    !tv &&
     Platform.OS === "android" &&
     ripple !== false &&
     !rippleBorderless &&
@@ -273,7 +285,7 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
   // Native Material ripple on Android. An explicit `android_ripple` prop or a
   // config passed via `ripple` always wins over the themed default.
   const androidRipple = useMemo<PressableAndroidRippleConfig | undefined>(() => {
-    if (Platform.OS !== "android") return undefined;
+    if (tv || Platform.OS !== "android") return undefined;
     if (android_ripple) return android_ripple;
     if (ripple === false) return undefined;
     if (typeof ripple === "object") return ripple;
@@ -284,7 +296,7 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
       // outer clip wrapper is what rounds it — not `overflow` on this view.
       foreground: true,
     };
-  }, [android_ripple, ripple, rippleColor, rippleBorderless, tokens.ripple]);
+  }, [tv, android_ripple, ripple, rippleColor, rippleBorderless, tokens.ripple]);
 
   const handlePress = useCallback(
     (event: GestureResponderEvent) => {
@@ -295,10 +307,17 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     [onPress],
   );
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: withSpring(pressed.value ? scaleTo : 1, Springs.press) }],
-    opacity: dimOnPress ? withSpring(pressed.value ? 0.88 : 1, Springs.press) : 1,
-  }));
+  const animatedStyle = useAnimatedStyle(() => {
+    const nextScale = pressed.value
+      ? scaleTo
+      : tv && !reducedMotion && focused.value
+        ? TV_FOCUS_SCALE
+        : 1;
+    return {
+      transform: [{ scale: withSpring(nextScale, Springs.press) }],
+      opacity: dimOnPress ? withSpring(pressed.value ? 0.88 : 1, Springs.press) : 1,
+    };
+  });
 
   const handlePressIn = (event: GestureResponderEvent) => {
     pressed.value = 1;
@@ -330,6 +349,12 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
       ? { ...hostStyle, backgroundColor: "rgba(0,0,0,0.002)" }
       : hostStyle;
 
+  // On TV, never clip the pressable host — focus scale + thicker ring need room.
+  // Corner rounding still applies via borderRadius on the host background.
+  const tvHostStyle: ViewStyle = tv
+    ? { ...paintedHostStyle, overflow: "visible" }
+    : paintedHostStyle;
+
   const wrapperStyle = useClipWrapper
     ? ([layoutOnWrapper, roundedClipStyle, { overflow: "hidden" as const }] as StyleProp<ViewStyle>)
     : undefined;
@@ -340,7 +365,9 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
         sizeOnPressable,
         roundedClipStyle,
       ] as StyleProp<ViewStyle>)
-    : paintedHostStyle;
+    : tvHostStyle;
+
+  const restingBorderWidth = typeof flatStyle?.borderWidth === "number" ? flatStyle.borderWidth : 0;
 
   const pressable = (
     <Pressable
@@ -350,15 +377,28 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       onPress={handlePress}
+      onFocus={(event) => {
+        if (tv) focused.value = 1;
+        onFocus?.(event);
+      }}
+      onBlur={(event) => {
+        if (tv) focused.value = 0;
+        onBlur?.(event);
+      }}
       style={(state) => {
-        const focused = Boolean((state as { focused?: boolean }).focused);
+        const isFocused = Boolean((state as { focused?: boolean }).focused);
+        // Grow the ring outward (negative margin) so labels/footers keep their
+        // padding instead of being eaten by an inward borderWidth increase.
+        const ringDelta = Math.max(0, TvLayout.focusRingWidth - restingBorderWidth);
         const focusRing: ViewStyle | null =
-          isTV() && focused
+          tv && isFocused
             ? {
                 borderWidth: TvLayout.focusRingWidth,
                 borderColor: colors.accent,
                 borderRadius:
                   typeof flatStyle?.borderRadius === "number" ? flatStyle.borderRadius : Radius.md,
+                margin: ringDelta > 0 ? -ringDelta : undefined,
+                zIndex: 1,
               }
             : null;
         return StyleSheet.flatten([pressableStyle, focusRing]);

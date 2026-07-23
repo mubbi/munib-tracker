@@ -15,6 +15,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { PrayerRepository } from "@/db";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -26,8 +27,10 @@ import {
 } from "@/lib/calendar";
 import { formatCalendarDate } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
+import { tTv } from "@/lib/i18n/t-tv";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { useLocation } from "@/stores/location-store";
 
@@ -49,6 +52,7 @@ export default function CalendarScreen() {
   const [hMonth, setHMonth] = useState(todayHijri.month);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
+  const tv = isTV();
 
   const locale: AppLocale = toAppLocale(i18n.language ?? "en");
 
@@ -198,6 +202,7 @@ export default function CalendarScreen() {
                       }
                       style={[
                         styles.dayCircle,
+                        tv ? styles.dayCircleTv : null,
                         { backgroundColor: fill },
                         day.isToday && { borderColor: colors.accent, borderWidth: 2 },
                       ]}
@@ -257,7 +262,7 @@ export default function CalendarScreen() {
             <LegendDot color={tokens.status.danger.color} label={t("calendar.missed")} />
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
-            {t("calendar.legendHint", {
+            {tTv(t, "calendar.legendHint", "calendar.legendHintTv", {
               date: formatCalendarDate(
                 new Date(`${today}T00:00:00`),
                 mode,
@@ -382,6 +387,11 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: "center",
     justifyContent: "center",
+  },
+  dayCircleTv: {
+    width: TvLayout.minFocusTarget,
+    height: TvLayout.minFocusTarget,
+    borderRadius: TvLayout.minFocusTarget / 2,
   },
   dot: {
     width: 4,

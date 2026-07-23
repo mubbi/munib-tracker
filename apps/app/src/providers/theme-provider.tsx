@@ -17,7 +17,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Appearance, useColorScheme } from "react-native";
+import { Appearance, AppState, useColorScheme } from "react-native";
 
 import { peekStoredColorMode } from "@/lib/boot/cold-start";
 import { normalizeHex } from "@/lib/color";
@@ -278,11 +278,21 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
   const tokens = useMemo(() => computeThemeTokens(colors, scheme), [colors, scheme]);
 
-  // Root window / activity background — safe to keep in an effect (async native API).
-  // Native Appearance is scheduled one frame after mode changes (see setColorMode)
-  // so the React theme commit paints before Appearance listeners fire.
+  // Root window / activity background. Skip while inactive/background so we do
+  // not sync-block the main thread via ExpoSystemUI during AVPlayer background
+  // assertion acquisition (TestFlight: RUNNINGBOARD 0xd00d2bad on notif cold start).
   useEffect(() => {
-    void SystemUI.setBackgroundColorAsync(colors.background);
+    const apply = () => {
+      if (AppState.currentState !== "active") return;
+      void SystemUI.setBackgroundColorAsync(colors.background);
+    };
+    apply();
+    const sub = AppState.addEventListener("change", (status) => {
+      if (status === "active") {
+        void SystemUI.setBackgroundColorAsync(colors.background);
+      }
+    });
+    return () => sub.remove();
   }, [colors.background]);
 
   const setColorMode = useCallback(

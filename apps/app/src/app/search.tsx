@@ -12,11 +12,13 @@ import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBack, useChevronForward } from "@/lib/rtl";
 import { runSearchLightWithGuides } from "@/lib/run-search-light-with-guides";
 import { runWhenIdle } from "@/lib/run-when-idle";
@@ -87,6 +89,7 @@ export default function SearchScreen() {
   const [ayahLoading, setAyahLoading] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const filterScrollRef = useHorizontalWheelScroll();
+  const tv = isTV();
 
   const handleSttError = useCallback(
     (kind: SttErrorKind) => {
@@ -504,6 +507,7 @@ export default function SearchScreen() {
               label={t("search.all")}
               count={totalCount}
               active={filter === "all"}
+              tv={tv}
               onPress={() => setFilter("all")}
             />
             {presentCategories.map((category) => {
@@ -514,6 +518,7 @@ export default function SearchScreen() {
                   label={t(`search.cat.${category}`)}
                   count={group?.total ?? 0}
                   active={filter === category}
+                  tv={tv}
                   onPress={() => setFilter(category)}
                 />
               );
@@ -533,6 +538,7 @@ export default function SearchScreen() {
           <IdleState
             recent={recent}
             suggestions={SUGGESTIONS}
+            tv={tv}
             onPick={runSuggestion}
             onClearRecent={clearRecent}
           />
@@ -574,6 +580,8 @@ export default function SearchScreen() {
                         result={result}
                         query={query}
                         visual={visual}
+                        category={group.category}
+                        tv={tv}
                         onPress={() => openResult(result)}
                       />
                     ))}
@@ -665,11 +673,13 @@ function FilterChip({
   label,
   count,
   active,
+  tv = false,
   onPress,
 }: {
   label: string;
   count: number;
   active: boolean;
+  tv?: boolean;
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
@@ -681,7 +691,11 @@ function FilterChip({
       accessibilityLabel={`${label} ${count}`}
       onPress={onPress}
       scaleTo={0.95}
-      style={[styles.chip, { backgroundColor: active ? colors.accent : colors.muted }]}
+      style={[
+        styles.chip,
+        tv ? styles.chipTv : null,
+        { backgroundColor: active ? colors.accent : colors.muted },
+      ]}
     >
       <ThemedText
         type="smallBold"
@@ -707,21 +721,35 @@ function ResultRow({
   result,
   query,
   visual,
+  category,
+  tv = false,
   onPress,
 }: {
   result: SearchResult;
   query: string;
   visual: CategoryVisual;
+  category?: SearchCategory;
+  tv?: boolean;
   onPress: () => void;
 }) {
+  const { t } = useTranslation();
   const { colors } = useThemeTokens();
+  const accessibilityHint =
+    tv && (category === "quran" || category === "hadith")
+      ? t(`search.suggestion.${category}Tv`)
+      : undefined;
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
       accessibilityLabel={result.title}
+      accessibilityHint={accessibilityHint}
       onPress={onPress}
-      style={[styles.row, { backgroundColor: colors.muted }]}
+      style={[
+        styles.row,
+        tv ? { minHeight: TvLayout.minFocusTarget } : null,
+        { backgroundColor: colors.muted },
+      ]}
     >
       <IconWell
         icon={visual.icon}
@@ -774,11 +802,13 @@ function ResultRow({
 function IdleState({
   recent,
   suggestions,
+  tv = false,
   onPick,
   onClearRecent,
 }: {
   recent: string[];
   suggestions: { key: string; query: string }[];
+  tv?: boolean;
   onPick: (term: string) => void;
   onClearRecent: () => void;
 }) {
@@ -800,7 +830,7 @@ function IdleState({
           </View>
           <View style={styles.tagRow}>
             {recent.map((term) => (
-              <TermChip key={term} label={term} icon="clock" onPress={() => onPick(term)} />
+              <TermChip key={term} label={term} icon="clock" tv={tv} onPress={() => onPick(term)} />
             ))}
           </View>
         </View>
@@ -815,6 +845,7 @@ function IdleState({
             <TermChip
               key={item.key}
               label={t(`search.suggestion.${item.key}`)}
+              tv={tv}
               onPress={() => onPick(item.query)}
             />
           ))}
@@ -827,10 +858,12 @@ function IdleState({
 function TermChip({
   label,
   icon,
+  tv = false,
   onPress,
 }: {
   label: string;
   icon?: "clock";
+  tv?: boolean;
   onPress: () => void;
 }) {
   const { colors } = useThemeTokens();
@@ -841,7 +874,7 @@ function TermChip({
       accessibilityLabel={label}
       onPress={onPress}
       scaleTo={0.95}
-      style={[styles.termChip, { backgroundColor: colors.muted }]}
+      style={[styles.termChip, tv ? styles.termChipTv : null, { backgroundColor: colors.muted }]}
     >
       {icon === "clock" ? (
         <SymbolView
@@ -956,6 +989,11 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
     borderCurve: "continuous",
   },
+  chipTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingStart: Spacing.four,
+    paddingEnd: Spacing.three,
+  },
   chipCount: {
     minWidth: 20,
     paddingHorizontal: Spacing.one,
@@ -1042,5 +1080,9 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two + 2,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
+  },
+  termChipTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.four,
   },
 });

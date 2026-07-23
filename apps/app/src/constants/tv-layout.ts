@@ -4,17 +4,23 @@
  */
 export const TvLayout = {
   /** Minimum touch/focus target height for list rows and primary controls. */
-  minFocusTarget: 56,
+  minFocusTarget: 64,
   /** Extra vertical padding inside scroll content. */
-  contentPaddingY: 28,
+  contentPaddingY: 32,
   /** Extra horizontal padding for safe TV overscan. */
-  contentPaddingX: 40,
+  contentPaddingX: 48,
   /** Base body type bump vs phone. */
   bodyFontSize: 18,
   /** Title type bump vs phone. */
-  titleFontSize: 28,
-  /** Side rail width on TV (slightly wider labels). */
-  sideRailWidth: 260,
+  titleFontSize: 30,
+  /** Side rail width when labels are visible (focus on rail). */
+  sideRailWidthExpanded: 288,
+  /** Icon-only rail when D-pad focus is in content. */
+  sideRailWidthCollapsed: 96,
+  /** @deprecated Prefer sideRailWidthExpanded — kept for wide-layout helpers. */
+  sideRailWidth: 288,
   /** Focus ring width (pt). */
   focusRingWidth: 3,
+  /** Dense chip / filter row min height on TV. */
+  chipMinHeight: 48,
 } as const;

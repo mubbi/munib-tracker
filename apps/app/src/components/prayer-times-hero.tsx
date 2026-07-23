@@ -24,6 +24,7 @@ import { Durations } from "@/constants/motion";
 import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
 import type { DualCalendarDates } from "@/lib/calendar-format";
 import { gradientBackground } from "@/lib/gradient";
+import { tTv } from "@/lib/i18n/t-tv";
 import { useChevronForward } from "@/lib/rtl";
 import type { SkyPalette } from "@/lib/sky";
 
@@ -295,7 +296,7 @@ export function PrayerTimesHero({
               scaleTo={0.94}
               hitSlop={10}
               accessibilityRole="button"
-              accessibilityLabel={t("hero.dateRowA11y", {
+              accessibilityLabel={tTv(t, "hero.dateRowA11y", "hero.dateRowA11yTv", {
                 phase: moonLabel,
                 dates: secondaryDate ? `${primaryDate}. ${secondaryDate}` : primaryDate,
               })}

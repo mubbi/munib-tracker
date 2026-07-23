@@ -32,8 +32,6 @@ function buildReminderOptions() {
   return { hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza) };
 }
 
-const isNative = Platform.OS === "ios" || Platform.OS === "android";
-
 /** Serializes reschedule passes so overlapping calls cannot stack duplicate OS notifications. */
 let rescheduleTail: Promise<void> = Promise.resolve();
 
@@ -59,7 +57,7 @@ const SNOOZE_MINUTES = 10;
 
 /** Sets the foreground handler and Android channels. Call once at startup. */
 export async function configureNotifications(): Promise<void> {
-  if (!isNative) return;
+  if (!isLocalNotificationSupported()) return;
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowBanner: true,
@@ -104,7 +102,7 @@ export async function getPermissionStatus(): Promise<"granted" | "denied" | "und
 export { requestNotificationPermission as requestPermission };
 
 export async function cancelAll(): Promise<void> {
-  if (!isNative) return;
+  if (!isLocalNotificationSupported()) return;
   await Notifications.cancelAllScheduledNotificationsAsync();
 }
 
@@ -156,11 +154,10 @@ export async function rescheduleAll(
   prefs: UserPreferences,
   location: StoredLocation,
 ): Promise<void> {
-  if (!isNative) return;
+  if (!isLocalNotificationSupported()) return;
   return enqueueReschedule(async () => {
     await cancelAll();
     if (!prefs.notificationPrefs.masterEnabled) return;
-    if (!isLocalNotificationSupported()) return;
     if ((await getPermissionStatus()) !== "granted") return;
 
     const reminders = buildReminders(prefs, location, new Date(), buildReminderOptions());
@@ -179,7 +176,7 @@ export async function rescheduleAll(
 export async function snoozeNotification(
   response: Notifications.NotificationResponse,
 ): Promise<void> {
-  if (!isNative) return;
+  if (!isLocalNotificationSupported()) return;
   const { content } = response.notification.request;
   const channelId = (content.data?.channelId as ChannelId | undefined) ?? "prayer";
   await Notifications.scheduleNotificationAsync({
@@ -213,7 +210,7 @@ const OBLIGATORY_IDS = new Set(["fajr", "dhuhr", "asr", "maghrib", "isha"]);
 export async function markFromNotification(
   response: Notifications.NotificationResponse,
 ): Promise<void> {
-  if (!isNative) return;
+  if (!isLocalNotificationSupported()) return;
   const data = (response.notification.request.content.data ?? {}) as ReminderActionData;
   const prayerId = data.prayerId;
   const prayerDate = data.prayerDate;
@@ -237,7 +234,7 @@ export async function listScheduled(
   location: StoredLocation,
 ): Promise<ScheduledReminderRow[]> {
   const options = buildReminderOptions();
-  if (!isNative) {
+  if (!isLocalNotificationSupported()) {
     if (!prefs.notificationPrefs.masterEnabled) return [];
     return summarizeReminders(
       buildReminders(prefs, location, new Date(), options),

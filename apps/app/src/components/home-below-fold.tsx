@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { type ComponentType, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
@@ -13,7 +14,6 @@ import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { FridayGoalReminder } from "@/components/friday-goal-reminder";
 import { KhatmCard } from "@/components/khatm-card";
 import { KhatmGoalReminder } from "@/components/khatm-goal-reminder";
-import { KnowledgeFlashCard } from "@/components/knowledge-flash-card";
 import type { PrayerScheduleCardProps } from "@/components/prayer-schedule-card";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
@@ -30,18 +30,20 @@ import { QuickActionGrid } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, type StatusKey } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTrigger";
 import { useReviewStreakTrigger } from "@/features/reviews/hooks/useReviewStreakTrigger";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeeklyReport } from "@/hooks/use-weekly-report";
 import { isFriday } from "@/lib/friday";
+import { tTv } from "@/lib/i18n/t-tv";
 import { khatmTodayProgress } from "@/lib/khatm";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   buildQuickActionItems,
   DEFAULT_QUICK_ACTION_ORDER,
   orderQuickActions,
-  QUICK_ACTION_META,
 } from "@/lib/quick-actions";
 import { getRamadanInfo } from "@/lib/ramadan";
 import { useArrowForward } from "@/lib/rtl";
@@ -59,6 +61,19 @@ import {
   useRoza,
   useStreak,
 } from "@/stores/tracker-store";
+
+/** Phone/web only — lazy so TV home never pulls Qur'an/hadith knowledge corpora. */
+const KnowledgeFlashCardLazy: ComponentType =
+  process.env.NODE_ENV === "test"
+    ? // Jest cannot evaluate React.lazy's native `import()` without --experimental-vm-modules.
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      (require("@/components/knowledge-flash-card") as { KnowledgeFlashCard: ComponentType })
+        .KnowledgeFlashCard
+    : lazy(() =>
+        import("@/components/knowledge-flash-card").then((mod) => ({
+          default: mod.KnowledgeFlashCard,
+        })),
+      );
 
 const SCHEDULE_SHARE_KEY = "home-today-schedule";
 
@@ -227,9 +242,10 @@ export function HomeBelowFold({
     allQuickActions,
     quickActionOrder?.length ? quickActionOrder : DEFAULT_QUICK_ACTION_ORDER,
   );
+  const tv = isTV();
 
   return (
-    <View style={styles.body}>
+    <View style={[styles.body, tv ? { paddingHorizontal: TvLayout.contentPaddingX } : null]}>
       {SnapshotHost}
       <IosPwaInstallBanner />
 
@@ -425,7 +441,12 @@ export function HomeBelowFold({
 
         {showContinueCard ? <ContinueCard /> : null}
 
-        {!hiddenModules.has("knowledge") ? <KnowledgeFlashCard /> : null}
+        {/* TV ~1GB AVDs OOM if home also loads @/lib/quran + hadith for this card. */}
+        {!tv && !hiddenModules.has("knowledge") ? (
+          <Suspense fallback={null}>
+            <KnowledgeFlashCardLazy />
+          </Suspense>
+        ) : null}
 
         {!hiddenModules.has("quickActions") ? (
           <Card padding="three">
@@ -442,13 +463,13 @@ export function HomeBelowFold({
               onActionPress={() => router.push("/settings/home")}
             />
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.exploreHint}>
-              {t("home.exploreHint", {
+              {tTv(t, "home.exploreHint", "home.exploreHintTv", {
                 shown: visibleQuickActions.length,
-                total: QUICK_ACTION_META.length,
+                total: allQuickActions.length,
               })}
             </ThemedText>
             <View style={styles.quickActions}>
-              <QuickActionGrid items={visibleQuickActions} columns={4} />
+              <QuickActionGrid items={visibleQuickActions} columns={tv ? 3 : 4} />
             </View>
           </Card>
         ) : null}

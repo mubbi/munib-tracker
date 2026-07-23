@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "টিভিতে উপলভ্য নয়",
     "tvUnavailableBody": "এই সুবিধাটির জন্য ফোন বা ট্যাবলেট প্রয়োজন। চালিয়ে যেতে সেখানে Munib Tracker খুলুন।",
-    "tvOauthHint": "টিভিতে সামাজিক মাধ্যমে সাইন-ইন সীমিত হতে পারে। এখানে অতিথি হিসেবে চালিয়ে যান, অথবা আপনার ফোনে একটি অ্যাকাউন্ট সংযুক্ত করুন।"
+    "tvOauthHint": "ফোন থেকে সাইন ইন করতে উপরে QR কোড ব্যবহার করুন। অথবা অতিথি হিসেবে চালিয়ে যান — ফোনের প্রোফাইল থেকে যেকোনো সময় অ্যাকাউন্ট সংযুক্ত করতে পারবেন।",
+    "select": "সিলেক্ট",
+    "selectToContinue": "চালিয়ে যেতে সিলেক্ট চাপুন",
+    "selectToOpen": "খুলতে সিলেক্ট করুন",
+    "selectToSave": "সংরক্ষণ করতে সিলেক্ট করুন",
+    "selectDay": "পর্যালোচনা করতে একটি দিন নির্বাচন করুন"
   },
   "search": {
     "placeholder": "কুরআন, হাদিস, দোয়া, শিখুন… খুঁজুন",
@@ -104,7 +109,9 @@
       "rizq": "রিযিক",
       "rahman": "রহমান",
       "sleep": "ঘুম",
-      "istighfar": "ইস্তিগফার"
+      "istighfar": "ইস্তিগফার",
+      "quranTv": "কুরআনে পড়তে সিলেক্ট করুন",
+      "hadithTv": "সম্পূর্ণ হাদিস পড়তে সিলেক্ট করুন"
     },
     "cat": {
       "quran": "কুরআন",
@@ -129,7 +136,8 @@
     "home": "হোম",
     "tracker": "ট্র্যাকার",
     "settings": "সেটিংস",
-    "library": "লাইব্রেরি"
+    "library": "লাইব্রেরি",
+    "navHint": "পরিবর্তনে ↑↓ · বিষয়বস্তুর জন্য →"
   },
   "actions": {
     "checklist": "চেকলিস্ট",
@@ -316,7 +324,10 @@
     "lastTenTitle": "শেষ দশ রাত",
     "lastTenBody": "বেজোড় রাতগুলোতে লাইলাতুল কদর খুঁজুন — নামাজে দাঁড়ান, কুরআন পড়ুন ও দোয়া করুন। নবী ﷺ এই রাতগুলোতে ইবাদতে সবচেয়ে বেশি চেষ্টা করতেন।",
     "laylatQadrTitle": "লাইলাতুল কদর",
-    "laylatQadrBody": "হাজার মাসের চেয়ে উত্তম — এই রাতের ইবাদত দশকের ভক্তিকে ছাড়িয়ে যায়। কুরআন পড়ুন, তাহাজ্জুদ পড়ুন এবং বলুন: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "হাজার মাসের চেয়ে উত্তম — এই রাতের ইবাদত দশকের ভক্তিকে ছাড়িয়ে যায়। কুরআন পড়ুন, তাহাজ্জুদ পড়ুন এবং বলুন: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "রোজার অবস্থা বেছে নিতে সিলেক্ট করুন",
+    "gridHintTv": "রোজার অবস্থা লগ করতে একটি দিন সিলেক্ট করুন",
+    "fastingLogBackfillNoteTv": "লগ পূরণ করতে রমজান {{year}} হিজরি ({{gregorian}}) দেখানো হচ্ছে। রোজার অবস্থা আপডেট করতে যেকোনো দিন সিলেক্ট করুন।"
   },
   "fastStatusSheet": {
     "prompt": "আপনার রোজার অবস্থা বেছে নিন",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Browse দরুদ",
     "exploreDuroodsHint": "ট্যাপ  star তে সংরক্ষণ  durood",
     "exploreNames": "Browse 99 নাম",
-    "exploreNamesHint": "ট্যাপ  star তে সংরক্ষণ  name"
+    "exploreNamesHint": "ট্যাপ  star তে সংরক্ষণ  name",
+    "exploreQuranHintTv": "যেকোনো আয়াতে বুকমার্ক আইকন সিলেক্ট করুন",
+    "exploreDuasHintTv": "দোয়া সংরক্ষণ করতে তারকা সিলেক্ট করুন",
+    "exploreZikrHintTv": "আধকার পছন্দে রাখতে হৃদয় সিলেক্ট করুন",
+    "exploreDuroodsHintTv": "দরুদ সংরক্ষণ করতে তারকা সিলেক্ট করুন",
+    "exploreNamesHintTv": "নাম সংরক্ষণ করতে তারকা সিলেক্ট করুন",
+    "exploreHadithHintTv": "হাদিস সংগ্রহ খুলতে সিলেক্ট করুন"
   },
   "home": {
     "todaysGoal": "আজকের লক্ষ্য",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "কুরআনে পড়তে ট্যাপ করুন",
       "hadith": "সম্পূর্ণ হাদিস পড়তে ট্যাপ করুন",
-      "name": "৯৯টি নাম অন্বেষণ করুন"
+      "name": "৯৯টি নাম অন্বেষণ করুন",
+      "quranTv": "কুরআনে পড়তে সিলেক্ট করুন",
+      "hadithTv": "সম্পূর্ণ হাদিস পড়তে সিলেক্ট করুন"
     },
     "devotionMeta": "লেভেল {{level}} · {{noor}} নূর",
     "devotionProgress": "পরের লেভেলে {{current}} / {{next}} নূর",
@@ -553,7 +572,15 @@
       "reminderTitle": "কবুলের সময়",
       "reminderBody": "জুমার দিনে এমন একটি সময় যখন dua প্রত্যাখ্যাত হয় না — বিশেষত Asr-এর পরে আন্তরিক dua, istighfar ও salawatের সাথে এটি খুঁজুন।",
       "openGuide": "কবুলের সময় খুলুন"
-    }
+    },
+    "scheduleShowPastHintTv": "সম্পূর্ণ সময়সূচি দেখাতে সিলেক্ট করুন",
+    "scheduleShowLaterHintTv": "আজকের বাকি অংশ দেখাতে সিলেক্ট করুন",
+    "exploreQuranHintTv": "যেকোনো আয়াতে বুকমার্ক আইকন সিলেক্ট করুন",
+    "exploreDuasHintTv": "দোয়া সংরক্ষণ করতে তারকা সিলেক্ট করুন",
+    "exploreZikrHintTv": "আধকার পছন্দে রাখতে হৃদয় সিলেক্ট করুন",
+    "exploreDuroodsHintTv": "দরুদ সংরক্ষণ করতে তারকা সিলেক্ট করুন",
+    "exploreNamesHintTv": "নাম সংরক্ষণ করতে তারকা সিলেক্ট করুন",
+    "exploreHintTv": "{{total}}টি শর্টকাটের {{shown}}টি দেখানো — যোগ বা সাজাতে পরিচালনা সিলেক্ট করুন।"
   },
   "tracker": {
     "eyebrow": "ট্র্যাক ও লগ",
@@ -644,7 +671,8 @@
       "hintPages": "আজকের লক্ষ্যের দিকে {{count}} পৃষ্ঠা — লগ করতে ট্যাপ করুন",
       "completeHint": "আজকের অংশ শেষ — পরিকল্পনা দেখতে ট্যাপ করুন",
       "a11y": "Khatm পরিকল্পনা {{total}}-এর {{day}} দিন, আজকের লক্ষ্যে {{target}}-এর {{done}}"
-    }
+    },
+    "tvSubtitle": "অবস্থা সেট করতে একটি নামাজ সিলেক্ট করুন — এই ডিভাইসে সংরক্ষিত।"
   },
   "update": {
     "title": "আপডেট উপলব্ধ",
@@ -777,7 +805,8 @@
         "name": "আলী ইবনে আহমাদ মালা",
         "location": "আল-মসজিদুল হারাম"
       }
-    }
+    },
+    "tvSubtitle": "রিমোট দিয়ে ব্রাউজ করুন — কিছু টুলের জন্য ফোন লাগে"
   },
   "import": {
     "title": "prayer history আমদানি",
@@ -870,7 +899,12 @@
     "locationSkip": "পরে সাজান",
     "locationHighlight4": "যখন খুশি এড়িয়ে যান — পরে অবস্থান বা বিজ্ঞপ্তি চালু করুন",
     "chooseLanguage": "ভাষা বেছে নিন",
-    "chooseLanguageHint": "এই পরিচিতি অনুসরণ করতে অ্যাপের ভাষা পরিবর্তন করুন"
+    "chooseLanguageHint": "এই পরিচিতি অনুসরণ করতে অ্যাপের ভাষা পরিবর্তন করুন",
+    "locationBodyTv": "নামাজের সময় সঠিক রাখতে আপনার শহর বেছে নিন। সেটিংস থেকে যেকোনো সময় অবস্থান পরিবর্তন করতে পারবেন।",
+    "locationHighlight1Tv": "আপনার শহরের জন্য সঠিক নামাজের সময়",
+    "locationHighlight2Tv": "আপনার অবস্থান থেকে কিবলার দিক",
+    "locationHighlight3Tv": "অনুস্মারক ফোনে সবচেয়ে ভালো কাজ করে",
+    "locationHighlight4Tv": "সেটিংসে যেকোনো সময় শহর পরিবর্তন করুন"
   },
   "appearance": {
     "eyebrow": "সেটিংস",
@@ -1178,7 +1212,9 @@
     "searchResultCount": "{{count}} মিল",
     "noResults": "No adhkar matched আপনার অনুসন্ধান.",
     "markAsDone": "সম্পন্ন হিসেবে চিহ্নিত করুন",
-    "undoDoneHint": "বাতিল করে অসম্পন্ন করতে ট্যাপ করুন"
+    "undoDoneHint": "বাতিল করে অসম্পন্ন করতে ট্যাপ করুন",
+    "favEmptyDescTv": "দ্রুত অ্যাক্সেসের জন্য যেকোনো যিকিরে তারকা সিলেক্ট করে এখানে রাখুন।",
+    "undoDoneHintTv": "বাতিল করে অসম্পন্ন চিহ্নিত করতে সিলেক্ট করুন"
   },
   "zikrCat": {
     "morning": "সকালের আযকার",
@@ -1245,7 +1281,8 @@
     "guideReadAt": "Read এ Munib Tracker:",
     "preparing": "Membagikan…",
     "tapToShare": "ট্যাপ তে শেয়ার",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "শেয়ার করতে সিলেক্ট করুন"
   },
   "dua": {
     "eyebrow": "Doa",
@@ -1297,7 +1334,8 @@
     "favSubtitle": "আপনি যে দরুদ সংরক্ষণ করেছেন",
     "favEmptyTitle": "এখনো কোনো প্রিয় দরুদ নেই",
     "favEmptyDesc": "এখানে সংরক্ষণ করতে যেকোনো দরুদে তারা আইকনে ট্যাপ করুন।",
-    "openInTasbeeh": "তাসবীহে খুলুন"
+    "openInTasbeeh": "তাসবীহে খুলুন",
+    "favEmptyDescTv": "এখানে সংরক্ষণ করতে যেকোনো দরুদে তারকা সিলেক্ট করুন।"
   },
   "names": {
     "eyebrow": "আসমাউল হুসনা",
@@ -1314,7 +1352,8 @@
     "favorites": "Favorite নাম",
     "favSubtitle": "নাম you've সংরক্ষিত",
     "favEmptyTitle": "এখনো favorite names নেই",
-    "favEmptyDesc": "ট্যাপ  star এ any name তে সংরক্ষণ it here."
+    "favEmptyDesc": "ট্যাপ  star এ any name তে সংরক্ষণ it here.",
+    "favEmptyDescTv": "এখানে সংরক্ষণ করতে যেকোনো নামে তারকা সিলেক্ট করুন।"
   },
   "quran": {
     "eyebrow": " Noble কুরআন",
@@ -1454,7 +1493,8 @@
         "hamWasl": "সংযোগকারী হামজা — যোগদান করার সময় বাদ দেওয়া হয়েছে",
         "lamShamsiyah": "সূর্য-অক্ষর لام — উচ্চারিত হয় না",
         "silent": "লেখা কিন্তু উচ্চারিত নয়"
-      }
+      },
+      "tapHintTv": "তাজউইদ নিয়ম দেখতে সিলেক্ট করুন"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1532,7 +1572,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "সূরা {{number}}",
     "selectSurah": "একটি সূরা নির্বাচন করুন",
-    "openReader": "পাঠক খুলুন"
+    "openReader": "পাঠক খুলুন",
+    "bookmarkEmptyDescTv": "এখানে সংরক্ষণ করতে যেকোনো আয়াতে বুকমার্ক আইকন সিলেক্ট করুন।"
   },
   "hadith": {
     "eyebrow": "নববী tradition",
@@ -1774,7 +1815,8 @@
     },
     "history": "Sejarah",
     "rowDone": "{{completed}} Qaza করা হয়েছে",
-    "rowDoneWithDaily": "{{completed}} Qaza করা · আজ {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} Qaza করা · আজ {{done}}/{{target}}",
+    "hintTv": "কাজা নামাজ লিপিবদ্ধ করতে টিক সিলেক্ট করুন। ট্র্যাকারে নামাজ মিস হলে এই গণনায় স্বয়ংক্রিয়ভাবে যোগ হয়।"
   },
   "qazaCalc": {
     "eyebrow": "কাজা",
@@ -1902,7 +1944,8 @@
     "confirmAddEstimateTitle": "estimated fasts? যোগ",
     "confirmAddEstimateMsg": "{{count}} fasts to remaining (new total: {{total}})? যোগ",
     "confirmResetTitle": "counter? রিসেট",
-    "confirmResetMsg": "Clear সব রোজা counts ({{remaining}} অবশিষ্ট, {{completed}} completed)? এই cannot be undone."
+    "confirmResetMsg": "Clear সব রোজা counts ({{remaining}} অবশিষ্ট, {{completed}} completed)? এই cannot be undone.",
+    "adjustHintTv": "সমন্বয় করতে সংখ্যা সিলেক্ট করুন বা −/+ ব্যবহার করুন"
   },
   "calendar": {
     "eyebrow": "Sejarah",
@@ -1921,7 +1964,8 @@
     "missed": "মিস",
     "legendHint": "ট্যাপ any past অথবা current দিন তে পর্যালোচনা এবং adjust it. আজ হয় {{date}}.",
     "converterRowTitle": "হিজরি ⟷ গ্রেগরিয়ান রূপান্তরকারী",
-    "converterRowSubtitle": "দুটি ক্যালেন্ডারের মধ্যে একটি তারিখ রূপান্তর করুন"
+    "converterRowSubtitle": "দুটি ক্যালেন্ডারের মধ্যে একটি তারিখ রূপান্তর করুন",
+    "legendHintTv": "পর্যালোচনা ও সমন্বয় করতে অতীত বা আজকের যেকোনো দিন সিলেক্ট করুন। আজ {{date}}।"
   },
   "calDay": {
     "today": "আজ",
@@ -2021,7 +2065,8 @@
     "confirmResetMessage": "আপনার গণনা এর {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? শুরু",
     "confirmStartAgainMessage": "আপনার completed গণনা will be cleared so আপনি can begin  নতুন round.",
-    "dockLabel": "গণনা"
+    "dockLabel": "গণনা",
+    "tapToCountTv": "গণনা করতে সিলেক্ট চাপুন"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} হয় only {{min}} min away",
@@ -2036,7 +2081,8 @@
     "prayerItemActive": "{{name}} at {{time}}, current নামাজ",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Change অবস্থান",
-    "dateRowA11y": "{{phase}}. {{dates}}. ট্যাপ জন্য moon details"
+    "dateRowA11y": "{{phase}}. {{dates}}. ট্যাপ জন্য moon details",
+    "dateRowA11yTv": "{{phase}}। {{dates}}। চাঁদের বিবরণের জন্য সিলেক্ট করুন"
   },
   "location": {
     "eyebrow": "অবস্থান",
@@ -2094,7 +2140,8 @@
     },
     "defaultLabel": "মক্কা, সৌদি আরব",
     "defaultTimesHint": "সালাতের সময় এখন মক্কা অনুসারে। আপনার শহর সেট করলে স্থানীয় সঠিক সময় পাবেন। ততক্ষণ সালাত ও আযানের রিমাইন্ডার বন্ধ থাকবে।",
-    "setLocation": "অবস্থান সেট করুন"
+    "setLocation": "অবস্থান সেট করুন",
+    "searchAutoFocusOff": "শহর অনুসন্ধান করুন"
   },
   "moon": {
     "aria": "চাঁদের পর্যায়: {{phase}}",
@@ -2130,7 +2177,8 @@
     "nextMonth": "পরবর্তী ইসলামি মাস",
     "nextMonthValue": "~{{days}} দিন · {{month}} শুরু",
     "nextMonthTonight": "আজ মাগরিবের পর · {{month}} শুরু",
-    "nextMonthOneDay": "~১ দিন · {{month}} শুরু"
+    "nextMonthOneDay": "~১ দিন · {{month}} শুরু",
+    "openTv": "{{phase}}। বিবরণের জন্য সিলেক্ট করুন"
   },
   "achievements": {
     "eyebrow": "অগ্রগতি",
@@ -2395,7 +2443,8 @@
     "resetDataMsgAccount": "এটি এই ডিভাইস ও ক্লাউড সিঙ্ক থেকে অ্যাপ ডেটা স্থায়ীভাবে মুছে ফেলবে। আপনার অ্যাকাউন্ট সক্রিয় ও সাইন ইন থাকবে। এটি ফেরানো যায় না।",
     "resetDataConfirm": "ডেটা রিসেট করুন",
     "resetDataFailed": "অ্যাপ ডেটা রিসেট করা যায়নি। সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।",
-    "resetDataSuccess": "আপনার অ্যাপ ডেটা রিসেট হয়েছে"
+    "resetDataSuccess": "আপনার অ্যাপ ডেটা রিসেট হয়েছে",
+    "tvAvatarHint": "প্রোফাইল ছবি ও অ্যাকাউন্ট সংযোগ ফোনে সবচেয়ে ভালো কাজ করে।"
   },
   "sync": {
     "title": "Cloud সিঙ্ক",
@@ -2546,11 +2595,13 @@
     "emptyDesc": "কাজা ম্যানেজার থেকে একটি কাজা নামাজ আদায় করলে এখানে দেখাবে।",
     "count": "{{count}}টি কাজা",
     "legendHint": "কোন নামাজ কাজা আদায় করেছেন দেখতে হাইলাইট করা দিনে ট্যাপ করুন।",
-    "dayA11y": "{{date}}, {{count}}টি কাজা"
+    "dayA11y": "{{date}}, {{count}}টি কাজা",
+    "legendHintTv": "কোন নামাজ কাজা আদায় করেছেন দেখতে হাইলাইট করা দিন সিলেক্ট করুন।"
   },
   "weeklyReport": {
     "title": "ইবাদতে আপনার সপ্তাহ",
-    "body": "{{prayers}}টি নামাজ সম্পন্ন, {{perfect}}টি নিখুঁত দিন, {{qaza}}টি কাজা আদায় এবং {{zikr}}টি যিকির সেশন। পরিসংখ্যান দেখতে ট্যাপ করুন।"
+    "body": "{{prayers}}টি নামাজ সম্পন্ন, {{perfect}}টি নিখুঁত দিন, {{qaza}}টি কাজা আদায় এবং {{zikr}}টি যিকির সেশন। পরিসংখ্যান দেখতে ট্যাপ করুন।",
+    "bodyTv": "{{prayers}}টি নামাজ সম্পন্ন, {{perfect}}টি নিখুঁত দিন, {{qaza}}টি কাজা আদায় এবং {{zikr}}টি যিকির সেশন। পরিসংখ্যান দেখতে সিলেক্ট করুন।"
   },
   "backup": {
     "title": "Cadangan & পুনরুদ্ধার",
@@ -2718,7 +2769,8 @@
     "confirmTitle": "আপডেট হিফজ status?",
     "confirmReviewBody": "{{ref}} will be flagged জন্য পর্যালোচনা.",
     "confirmMemorizedBody": "{{ref}} will be চিহ্নিত as memorized.",
-    "confirmClearBody": "{{ref}} will be সরানো থেকে আপনার হিফজ tracker."
+    "confirmClearBody": "{{ref}} will be সরানো থেকে আপনার হিফজ tracker.",
+    "emptyDescTv": "হিফজ চিহ্নিত করতে পাঠকে যেকোনো আয়াতে হিফজ সিলেক্ট করুন।"
   },
   "travel": {
     "eyebrow": "শিখুন",
@@ -3004,7 +3056,8 @@
       "playPhrases": "সব বাক্যাংশ চালান",
       "pausePhrases": "বাক্যাংশ থামান",
       "playPhrase": "বাক্যাংশ {{n}} চালান: {{title}}",
-      "followAlongNote": "চালানোর সময় নিচের শব্দগুলো হাইলাইট হয়"
+      "followAlongNote": "চালানোর সময় নিচের শব্দগুলো হাইলাইট হয়",
+      "listenHintTv": "চালাতে একটি রেকর্ডিং সিলেক্ট করুন। মদিনা আজানের সাথে প্রতিটি বাক্য হাইলাইট করে। স্পষ্ট বাক্য-বাক্য অডিওর জন্য নিচের শব্দ শিখুন ব্যবহার করুন।"
     }
   },
   "battles": {
@@ -3099,7 +3152,8 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "versesIntroTv": "কুরআন সবচেয়ে প্রামাণিক উৎস। কুরআন পাঠকে খুলতে একটি আয়াত সিলেক্ট করুন।"
   },
   "lastDay": {
     "eyebrow": "শিখুন",
@@ -3205,7 +3259,8 @@
       "reflection": "Reflection জার্নাল",
       "reflectionHint": "খুশু এবং নামাজ reflections",
       "learning": "Learning অগ্রগতি",
-      "learningHint": "Topics completed এ এই module"
+      "learningHint": "Topics completed এ এই module",
+      "characterHintTv": "আজকের আচরণ পর্যালোচনা করার পর সিলেক্ট করুন"
     },
     "progressTitle": "Learning অগ্রগতি",
     "progressSubtitle": "ট্র্যাক অধ্যয়ন - আল্লাহর কাছে আধ্যাত্মিক পদমর্যাদা নয়",
@@ -3233,7 +3288,10 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "versesIntroTv": "কুরআন পাঠকে খুলতে একটি আয়াত সিলেক্ট করুন। সংক্ষিপ্ত সারাংশ শিক্ষামূলক; পূর্ণ তাফসিরের বিকল্প নয়।",
+    "preparationHabitsHintTv": "ট্র্যাকার খুলতে বা দৈনিক নিয়ত টগল করতে সিলেক্ট করুন",
+    "characterHintTv": "আজকের আচরণ পর্যালোচনা করার পর সিলেক্ট করুন"
   },
   "taharah": {
     "eyebrow": "শিখুন",
@@ -3302,7 +3360,8 @@
       "obligatory": "ফরজ",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "checklistHintTv": "দৈনিক পবিত্রতার অভ্যাস পর্যালোচনা করতে আইটেম সিলেক্ট করুন"
   },
   "prophets": {
     "eyebrow": "শিখুন",
@@ -3407,7 +3466,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "উৎসসহ নোট পড়তে মানচিত্রে একটি নাম সিলেক্ট করুন।"
     }
   },
   "aqeedah": {
@@ -3527,7 +3587,8 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "occasionsIntroTv": "পাঠ খুলতে বা সম্পূর্ণ দোয়া লাইব্রেরি দেখতে একটি উপলক্ষ সিলেক্ট করুন।"
   },
   "learnQuran": {
     "eyebrow": "শিখুন",
@@ -3674,7 +3735,8 @@
     "read": "পড়ুন",
     "supplicate": "দোয়া",
     "learn": "শিখুন",
-    "more": "আরও"
+    "more": "আরও",
+    "tvSubtitle": "কুরআন, দোয়া, যিকির ও শিক্ষা — সিলেক্ট দিয়ে নেভিগেট করুন"
   },
   "offlineData": {
     "title": "অফলাইন data",
@@ -4142,7 +4204,8 @@
     "linkSadaqah": "সাদাকার লক্ষ্য",
     "linkSadaqahHint": "দৈনিক বা সাপ্তাহিক স্বেচ্ছা দান",
     "linkFidyah": "ফিদইয়া ও কাফফারা",
-    "linkFidyahHint": "ছুটে যাওয়া বা ভঙ্গ করা রোজার আনুমানিক হিসাব"
+    "linkFidyahHint": "ছুটে যাওয়া বা ভঙ্গ করা রোজার আনুমানিক হিসাব",
+    "learnHintTv": "কেন্দ্রীভূত গাইডের জন্য একটি বিষয় সিলেক্ট করুন — মাজহাবভেদে বিধান ভিন্ন।"
   },
   "customAdhkar": {
     "eyebrow": "Zikir",
@@ -4181,7 +4244,7 @@
       "label": "সংযুক্তি (ঐচ্ছিক)",
       "add": "ফাইল যোগ করুন",
       "remove": "সংযুক্তি সরান",
-      "hint": "5টি পর্যন্ত ফাইল (JPEG, PNG, WebP, অথবা PDF), প্রতিটি 1 MB। একটি থাম্বনেইল অপসারণ করতে দীর্ঘক্ষণ প্রেস করুন।",
+      "hint": "সর্বোচ্চ ৫টি ফাইল (JPEG, PNG, WebP বা PDF), প্রতিটি ১ MB। সরাতে থাম্বনেইলে × ট্যাপ করুন।",
       "signInRequired": "আপনার adhkar ব্যক্তিগত ফাইল সংযুক্ত করতে সাইন ইন করুন.",
       "permissionDenied": "ফাইল সংযুক্ত করার জন্য অনুমতি প্রয়োজন.",
       "permissionTitle": "অ্যাক্সেসের অনুমতি দিন",
@@ -4210,7 +4273,8 @@
       "sourceDocumentHint": "আপনার ফাইল থেকে একটি ছবি বা পিডিএফ চয়ন করুন",
       "loadingPdf": "PDF লোড হচ্ছে…",
       "pdfHint": "স্ক্রোল · চিমটি বা +/− দিয়ে জুম · রিসেট করতে ডাবল-ট্যাপ · শেয়ার করতে PDF খুলুন",
-      "pdfPreviewTitle": "PDF প্রিভিউ"
+      "pdfPreviewTitle": "PDF প্রিভিউ",
+      "tvUnavailable": "অ্যাটাচমেন্টের জন্য ফোন বা ট্যাবলেট লাগে। সেখানে ছবি বা PDF যোগ করুন।"
     },
     "stt": {
       "dictate": "মাইক্রোফোন দিয়ে নির্দেশ করুন",
@@ -4325,7 +4389,8 @@
       "unavailable": "এই ডিভাইসে বক্তৃতা শনাক্তকরণ অনুপলব্ধ৷",
       "couldNotHear": "শুনতে পাচ্ছিলাম না — আবার চেষ্টা করুন বা টাইপ করুন।",
       "errorGeneric": "ডিক্টেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন বা টাইপ করুন।"
-    }
+    },
+    "ratingHintTv": "নামাজে উপস্থিতি রেট করতে একটি তারকা সিলেক্ট করুন।"
   },
   "prayerTuning": {
     "title": "নামাজ time tuning",
@@ -4492,7 +4557,8 @@
       "ranks": "মর্যাদা",
       "mercy": "রহমত",
       "supplication": "Doa"
-    }
+    },
+    "versesLeadTv": "কুরআন পাঠকে খুলতে যেকোনো আয়াত সিলেক্ট করুন।"
   },
   "jahannam": {
     "eyebrow": "শিখুন",
@@ -4624,7 +4690,9 @@
       "repentance": "Tobat",
       "accountability": "জবাবদিহিতা",
       "protection": "সুরক্ষা"
-    }
+    },
+    "versesLeadTv": "কুরআন পাঠকে খুলতে যেকোনো আয়াত সিলেক্ট করুন।",
+    "reflectionLeadTv": "থামুন এবং নিজেকে এই প্রশ্নগুলো জিজ্ঞাসা করুন। সংশ্লিষ্ট ট্র্যাকার বা পাঠ খুলতে একটি সারি সিলেক্ট করুন।"
   },
   "tour": {
     "eyebrow": "Guided ট্যুর",
@@ -4970,7 +5038,7 @@
     "eyebrow": "ক্যালেন্ডার",
     "title": "তারিখ রূপান্তরকারী",
     "subtitle": "হিজরি এবং গ্রেগরিয়ান ক্যালেন্ডারের মধ্যে রূপান্তর করুন",
-    "intro": "সারণী কুয়েতি অ্যালগরিদম ব্যবহার করে অফলাইনে গণনা করা অন্য ক্যালেন্ডারে তার সমতুল্য দেখতে উভয় ক্যালেন্ডারে একটি তারিখ লিখুন।",
+    "intro": "যেকোনো ক্যালেন্ডারে একটি তারিখ লিখুন অন্যটিতে সমতুল্য দেখতে — আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে অফলাইনে গণনা করা।",
     "toHijri": "গ্রেগরিয়ান → হিজরি",
     "toGregorian": "হিজরি → গ্রেগরিয়ান",
     "gregorianDateLabel": "গ্রেগরিয়ান তারিখ",
@@ -4980,7 +5048,7 @@
     "year": "বছর",
     "useToday": "আজই ব্যবহার করুন",
     "invalidDate": "একটি বৈধ তারিখ লিখুন",
-    "disclaimer": "এটি একটি গাণিতিক আনুমানিক (সারণী \"কুয়েতি অ্যালগরিদম\") এবং স্থানীয় চাঁদ দেখার ঘোষণা থেকে একদিনে আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষকে অনুসরণ করুন।",
+    "disclaimer": "তারিখ আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে গণনা করা হয় এবং অফিসিয়াল চাঁদ দেখার ঘোষণা থেকে এক দিন আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষ অনুসরণ করুন।",
     "directionTitle": "রূপান্তর দিক",
     "resultFrom": "{{date}} থেকে",
     "quickLinksTitle": "সম্পর্কিত",
@@ -5043,7 +5111,8 @@
       "fidyah": "ফিদইয়া"
     },
     "skipHint": "এই কার্ড এড়িয়ে অন্য প্রশ্ন দেখুন।",
-    "skipDisabledHint": "নতুন মিশ্রণ শুরু করতে এই শেষ কার্ডের উত্তর দিন।"
+    "skipDisabledHint": "নতুন মিশ্রণ শুরু করতে এই শেষ কার্ডের উত্তর দিন।",
+    "introTv": "কুরআন, হাদিস, আল্লাহর নাম এবং প্রতিটি শিখন গাইড থেকে। নিজেকে যাচাই করতে উত্তর সিলেক্ট করুন, যতক্ষণ চান চালিয়ে যান।"
   },
   "lastThirdNight": {
     "eyebrow": "রাতের সালাহ",
@@ -5158,5 +5227,32 @@
     "linkFinanceHint": "স্বেচ্ছায় দান ব্যাখ্যা করা হয়েছে",
     "disclaimer": "শুধুমাত্র একটি ব্যক্তিগত ট্র্যাকার - ফতোয়া নয় এবং জাকাত গণনা করার বিকল্প নয়।",
     "continueInApp": "Munib এ চালিয়ে যান"
+  },
+  "adhan": {
+    "listenHintTv": "চালাতে একটি রেকর্ডিং সিলেক্ট করুন। মদিনা আজানের সাথে প্রতিটি বাক্য হাইলাইট করে। স্পষ্ট বাক্য-বাক্য অডিওর জন্য নিচের শব্দ শিখুন ব্যবহার করুন।"
+  },
+  "tv": {
+    "exitTitle": "Munib Tracker থেকে বের হবেন?",
+    "exitMessage": "এই টিভিতে অ্যাপ বন্ধ করতে নিশ্চিত চাপুন।",
+    "exitConfirm": "প্রস্থান",
+    "qrTitle": "ফোন দিয়ে সাইন ইন করুন",
+    "qrHint": "ফোনের ক্যামেরা দিয়ে এই QR কোড স্ক্যান করুন, অথবা ফোনে Munib Tracker খুলে কোড লিখুন।",
+    "qrA11y": "ফোনে সাইন ইনের জন্য QR কোড",
+    "qrImageA11y": "টিভি সাইন ইনের জন্য QR কোড",
+    "qrWaiting": "আপনার ফোনের অপেক্ষা…",
+    "qrRefresh": "নতুন কোড",
+    "qrRetry": "আবার চেষ্টা করুন",
+    "qrCreateError": "টিভি সাইন ইন শুরু করা যায়নি। সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।",
+    "qrExpired": "এই কোডের মেয়াদ শেষ। নতুন কোড তৈরি করুন।",
+    "qrEyebrow": "টিভি সঙ্গী",
+    "qrPhoneTitle": "টিভিতে সাইন ইন",
+    "qrPhoneSubtitle": "কোড {{code}} — এই টিভি সংযুক্ত করতে সাইন ইন শেষ করুন।",
+    "qrMissingCode": "এই লিঙ্কে পেয়ারিং কোড নেই। টিভির QR আবার স্ক্যান করুন।",
+    "qrSignInFirst": "সংযুক্ত অ্যাকাউন্ট দিয়ে সাইন ইন করুন, তারপর আমরা টিভি সংযুক্ত করব।",
+    "qrNeedLinkedAccount": "আগে Google, Apple বা Facebook দিয়ে সাইন ইন করুন — অতিথি অ্যাকাউন্ট টিভি সংযুক্ত করতে পারে না।",
+    "qrClaiming": "আপনার টিভি সংযুক্ত হচ্ছে…",
+    "qrClaimSuccess": "আপনার টিভিতে সাইন ইন হয়েছে। বসার ঘরে ফিরতে পারেন।",
+    "qrClaimError": "টিভি সংযুক্ত করা যায়নি। টিভিতে নতুন কোড তৈরি করে আবার চেষ্টা করুন।",
+    "qrPhoneOnly": "টিভি সাইন ইন সম্পন্ন করতে এই লিঙ্ক ফোনে খুলুন।"
   }
 }

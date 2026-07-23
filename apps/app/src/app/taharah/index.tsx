@@ -20,6 +20,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -206,7 +207,7 @@ export default function TaharahScreen() {
               <JannahNavRow
                 icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
                 title={t("taharah.checklistTitle")}
-                subtitle={t("taharah.checklistHint")}
+                subtitle={tTv(t, "taharah.checklistHint", "taharah.checklistHintTv")}
                 onPress={() => router.push("/taharah/checklist" as Href)}
               />
               <JannahNavRow

@@ -9,7 +9,7 @@ import {
   detectWebRuntimeFeatures,
   isStandalonePwa,
 } from "@/lib/notifications/browser-capabilities";
-import { isNative, isWeb } from "@/lib/notifications/platform";
+import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platform";
 import { upsertPushToken } from "@/lib/notifications-api";
 
 async function loadExpoNotifications() {
@@ -27,7 +27,7 @@ function resolveExpoProjectId(): string | undefined {
 }
 
 export async function getExpoPushToken(): Promise<string | null> {
-  if (!isNative) return null;
+  if (!isLocalNotificationSupported()) return null;
   const Notifications = await loadExpoNotifications();
   const { status } = await Notifications.getPermissionsAsync();
   if (status !== "granted") return null;
@@ -44,7 +44,7 @@ export async function getExpoPushToken(): Promise<string | null> {
  * with the API for linked and guest accounts.
  */
 export async function registerExpoPushTokenWithApi(accessToken: string | undefined): Promise<void> {
-  if (!accessToken || !isNative) return;
+  if (!accessToken || !isLocalNotificationSupported()) return;
 
   try {
     const token = await getExpoPushToken();

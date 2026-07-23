@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { Spacing } from "@/constants/theme";
 import { usePinLock } from "@/features/pin-lock";
 import { useFormatTime } from "@/hooks/use-time-format";
+import { tTv } from "@/lib/i18n/t-tv";
 import { APP_LOCALES } from "@/lib/locale-display";
 import { isTV } from "@/lib/platform/is-tv";
 import { useAuth } from "@/providers/auth-provider";
@@ -34,7 +35,7 @@ export default function SettingsScreen() {
     <ScreenLayout
       eyebrow={t("settings.eyebrow")}
       title={t("settings.title")}
-      subtitle={t("settings.subtitle")}
+      subtitle={tTv(t, "settings.subtitle", "settings.tvSubtitle")}
     >
       <Seo path="/settings" />
       <View style={styles.stack}>
@@ -211,26 +212,30 @@ export default function SettingsScreen() {
               subtitle={t("contentReport.myReportsNavSub")}
               onPress={() => router.push("/settings/my-reports")}
             />
-            <SettingsRow
-              icon={{
-                ios: "square.and.arrow.down",
-                android: "file_upload",
-                web: "file_upload",
-              }}
-              title={t("settings.import")}
-              subtitle={t("settings.importSub")}
-              onPress={() => router.push("/settings/import")}
-            />
-            <SettingsRow
-              icon={{
-                ios: "externaldrive.fill.badge.timemachine",
-                android: "backup",
-                web: "backup",
-              }}
-              title={t("settings.backup")}
-              subtitle={t("settings.backupSub")}
-              onPress={() => router.push("/settings/backup")}
-            />
+            {!tv ? (
+              <SettingsRow
+                icon={{
+                  ios: "square.and.arrow.down",
+                  android: "file_upload",
+                  web: "file_upload",
+                }}
+                title={t("settings.import")}
+                subtitle={t("settings.importSub")}
+                onPress={() => router.push("/settings/import")}
+              />
+            ) : null}
+            {!tv ? (
+              <SettingsRow
+                icon={{
+                  ios: "externaldrive.fill.badge.timemachine",
+                  android: "backup",
+                  web: "backup",
+                }}
+                title={t("settings.backup")}
+                subtitle={t("settings.backupSub")}
+                onPress={() => router.push("/settings/backup")}
+              />
+            ) : null}
             <SettingsRow
               icon={{ ios: "internaldrive.fill", android: "storage", web: "storage" }}
               title={t("settings.offlineData")}

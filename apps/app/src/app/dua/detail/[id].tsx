@@ -21,7 +21,9 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { recordContinueActivity } from "@/stores/continue-store";
@@ -43,6 +45,10 @@ export default function DuaDetailScreen() {
   const { tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail } = useLargeScreenLayout();
+  const tv = isTV();
+  // Wide tablet/desktop: sticky side filters. TV: single column — side panes
+  // crowd the Arabic and fight D-pad focus (same pattern as hadith reader).
+  const showSideFilters = isListDetail && !tv;
   const params = useLocalSearchParams<{ id: string }>();
   const [items, setItems] = useState<Awaited<ReturnType<typeof loadDuaItems>>>([]);
   useEffect(() => {
@@ -111,7 +117,7 @@ export default function DuaDetailScreen() {
 
   const readingBody = (
     <Stagger>
-      {!isListDetail ? <ScriptureReadingFilters /> : null}
+      {!showSideFilters ? <ScriptureReadingFilters /> : null}
       <ReadingCard
         item={item}
         shareCard={shareCard}
@@ -119,13 +125,14 @@ export default function DuaDetailScreen() {
         isFavorite={isFavorite}
         onToggleFavorite={() => toggle(item.id)}
         contentRef={contentRef}
+        enableContextMenu={!tv}
       />
       <Button
         label={
           shareCard.isSharing(item.id)
             ? t("share.preparing")
             : shareCard.isGesturePending(item.id)
-              ? t("share.tapToShare")
+              ? tTv(t, "share.tapToShare", "share.selectToShare")
               : t("dua.share")
         }
         variant="secondary"
@@ -142,7 +149,7 @@ export default function DuaDetailScreen() {
       eyebrow={t("dua.detailEyebrow")}
       title={item.title}
       onBack={() => goBackOrReplace(router, "/")}
-      maxContentWidth={isListDetail ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
+      maxContentWidth={showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
     >
       {shareCard.SnapshotHost}
       <Seo
@@ -162,7 +169,7 @@ export default function DuaDetailScreen() {
           }),
         ]}
       />
-      {isListDetail ? (
+      {showSideFilters ? (
         <View style={[scriptureListDetailStyles.listDetailRoot, styles.detailRoot]}>
           <View style={[scriptureListDetailStyles.listDetailPrimary, styles.detailPrimary]}>
             {readingBody}

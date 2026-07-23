@@ -17,6 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Stepper } from "@/components/ui/stepper";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import { useRoza, useTrackerActions } from "@/stores/tracker-store";
@@ -196,7 +197,7 @@ export default function QazaRozaScreen() {
           <View style={[styles.adjustSection, { backgroundColor: colors.muted }]}>
             <ThemedText type="smallBold">{t("qazaRoza.adjustRemaining")}</ThemedText>
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.adjustHint}>
-              {t("qazaRoza.adjustHint")}
+              {tTv(t, "qazaRoza.adjustHint", "qazaRoza.adjustHintTv")}
             </ThemedText>
             <View style={styles.stepperWrap}>
               <Stepper

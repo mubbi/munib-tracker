@@ -2,6 +2,8 @@ import * as Notifications from "expo-notifications";
 import * as TaskManager from "expo-task-manager";
 import { Platform } from "react-native";
 
+import { isTV } from "@/lib/platform/is-tv";
+
 import { handleSurfacePhaseDataMessage } from "./register";
 
 const SURFACE_PUSH_BACKGROUND_TASK = "munib-surface-push-background";
@@ -30,7 +32,7 @@ function extractPushData(value: unknown): Record<string, unknown> | undefined {
 }
 
 export function registerSurfacePushBackgroundTask(): void {
-  if (Platform.OS !== "android") return;
+  if (Platform.OS !== "android" || isTV()) return;
 
   if (!TaskManager.isTaskDefined(SURFACE_PUSH_BACKGROUND_TASK)) {
     TaskManager.defineTask(SURFACE_PUSH_BACKGROUND_TASK, async ({ data, error }) => {

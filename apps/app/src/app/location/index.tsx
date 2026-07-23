@@ -16,9 +16,11 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type LocationSearchResult, searchLocations } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   CALCULATION_METHOD_KEYS,
   type CalculationMethodKey,
@@ -53,6 +55,7 @@ export default function LocationScreen() {
   const location = useLocation();
   const status = useLocationStatus();
   const actions = useLocationActions();
+  const tv = isTV();
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<LocationSearchResult[]>([]);
@@ -161,23 +164,25 @@ export default function LocationScreen() {
           <Pill label={sourceBadge} color={colors.accent} background={tokens.accentSoft} />
         </View>
 
-        <Button
-          label={locating ? t("location.locating") : t("location.useCurrent")}
-          icon={{ ios: "location.circle.fill", android: "my_location", web: "my_location" }}
-          variant="secondary"
-          fullWidth
-          disabled={locating}
-          onPress={onUseCurrent}
-          style={styles.useCurrent}
-        />
-        {locating ? (
+        {!tv ? (
+          <Button
+            label={locating ? t("location.locating") : t("location.useCurrent")}
+            icon={{ ios: "location.circle.fill", android: "my_location", web: "my_location" }}
+            variant="secondary"
+            fullWidth
+            disabled={locating}
+            onPress={onUseCurrent}
+            style={styles.useCurrent}
+          />
+        ) : null}
+        {!tv && locating ? (
           <View style={styles.gpsStatus}>
             <ActivityIndicator size="small" color={colors.accent} />
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("location.locating")}
             </ThemedText>
           </View>
-        ) : gpsError ? (
+        ) : !tv && gpsError ? (
           <ThemedText
             type="caption"
             style={[styles.gpsError, { color: tokens.status.danger.color }]}
@@ -200,7 +205,7 @@ export default function LocationScreen() {
             placeholder={t("location.searchPlaceholder")}
             placeholderTextColor={colors.mutedForeground}
             accessibilityLabel={t("location.searchLabel")}
-            autoFocus
+            autoFocus={!tv}
             autoCorrect={false}
             returnKeyType="search"
             style={[styles.input, { color: colors.foreground }]}
@@ -227,7 +232,11 @@ export default function LocationScreen() {
                   accessibilityLabel={place.label}
                   accessibilityState={{ selected }}
                   onPress={() => void onSelect(place)}
-                  style={[styles.row, { backgroundColor: colors.muted }]}
+                  style={[
+                    styles.row,
+                    tv ? { minHeight: TvLayout.minFocusTarget } : null,
+                    { backgroundColor: colors.muted },
+                  ]}
                 >
                   <View style={styles.rowText}>
                     <ThemedText type="smallBold" numberOfLines={1}>

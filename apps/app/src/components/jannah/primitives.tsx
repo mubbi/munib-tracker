@@ -11,6 +11,7 @@ import {
   HadithCitationBookmarkButton,
   QuranAyahBookmarkButton,
 } from "@/components/jannah/bookmark-button";
+import { tvLearnRowStyle } from "@/components/learn-guide/tv-learn-chrome";
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { QuranAyahPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { LearnProseText, useReadingTypography } from "@/components/reading-typography-context";
@@ -24,6 +25,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useQuranAyahRange } from "@/hooks/use-quran-ayah-range";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 
 type CalloutTone = "info" | "success" | "accent" | "warning";
@@ -123,7 +125,11 @@ export function JannahNavRow({
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
-      style={[styles.navRow, { backgroundColor: colors.muted }]}
+      style={[
+        styles.navRow,
+        isTV() ? [tvLearnRowStyle, styles.navRowTv] : null,
+        { backgroundColor: colors.muted },
+      ]}
     >
       <IconWell icon={icon} tint={iconTint} background={withAlpha(iconTint, 0.12)} />
       <View style={styles.navCopy}>
@@ -441,6 +447,11 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     minHeight: 56,
+  },
+  navRowTv: {
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
+    gap: Spacing.four,
   },
   navCopy: { flex: 1, gap: Spacing.half, minWidth: 0 },
   navBadge: { alignSelf: "flex-start", marginTop: Spacing.half },

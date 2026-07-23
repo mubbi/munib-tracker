@@ -5,7 +5,9 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   DEFAULT_ARABIC_SIZE,
   nextReadingDelta,
@@ -19,11 +21,22 @@ import { usePreferences, usePreferencesActions } from "@/stores/preferences-stor
  * translation sizes together for one reading surface, persisting a per-surface
  * delta over the global Settings sizes. Reset clears the surface's override.
  */
-export function ReadingFontControls({ surface }: { surface: ReadingSurface }) {
+export function ReadingFontControls({
+  surface,
+  fullWidth = false,
+}: {
+  surface: ReadingSurface;
+  /**
+   * Stretch across the parent (e.g. hadith filter pane). Default stays compact
+   * so learn chrome / toolbars do not blow A−/A+ across a 10-foot viewport.
+   */
+  fullWidth?: boolean;
+}) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
+  const tv = isTV();
 
   const override = prefs.fontPrefs.readingOverrides?.[surface];
   const hasOverride =
@@ -57,15 +70,26 @@ export function ReadingFontControls({ surface }: { surface: ReadingSurface }) {
   };
 
   return (
-    <View {...ltrControlViewProps()} style={[styles.container, { backgroundColor: colors.muted }]}>
+    <View
+      {...ltrControlViewProps()}
+      style={[
+        styles.container,
+        tv && styles.containerTv,
+        tv && fullWidth && styles.containerTvFull,
+        { backgroundColor: colors.muted },
+      ]}
+    >
       <PressableScale
         haptic="selection"
         accessibilityRole="button"
         accessibilityLabel={t("reading.decrease")}
         onPress={() => apply(-1)}
-        style={[styles.button, { backgroundColor: colors.card }]}
+        style={[styles.button, tv && styles.buttonTv, { backgroundColor: colors.card }]}
       >
-        <ThemedText type="smallBold" style={styles.minus}>
+        <ThemedText
+          type="smallBold"
+          style={[styles.minus, tv && { fontSize: TvLayout.bodyFontSize }]}
+        >
           A−
         </ThemedText>
       </PressableScale>
@@ -76,11 +100,14 @@ export function ReadingFontControls({ surface }: { surface: ReadingSurface }) {
         accessibilityLabel={t("reading.reset")}
         onPress={reset}
         disabled={!hasOverride}
-        style={styles.label}
+        style={[styles.label, tv && styles.labelTv]}
       >
         <ThemedText
           type="caption"
-          style={{ color: hasOverride ? colors.accent : colors.mutedForeground }}
+          style={{
+            color: hasOverride ? colors.accent : colors.mutedForeground,
+            fontSize: tv ? TvLayout.bodyFontSize : undefined,
+          }}
         >
           {stepLabel}
         </ThemedText>
@@ -91,9 +118,12 @@ export function ReadingFontControls({ surface }: { surface: ReadingSurface }) {
         accessibilityRole="button"
         accessibilityLabel={t("reading.increase")}
         onPress={() => apply(1)}
-        style={[styles.button, { backgroundColor: colors.card }]}
+        style={[styles.button, tv && styles.buttonTv, { backgroundColor: colors.card }]}
       >
-        <ThemedText type="smallBold" style={[styles.plus, { color: colors.accent }]}>
+        <ThemedText
+          type="smallBold"
+          style={[styles.plus, { color: colors.accent }, tv && { fontSize: TvLayout.bodyFontSize }]}
+        >
           A+
         </ThemedText>
       </PressableScale>
@@ -110,6 +140,17 @@ const styles = StyleSheet.create({
     padding: Spacing.half,
     gap: Spacing.half,
   },
+  containerTv: {
+    alignSelf: "flex-start",
+    padding: Spacing.one,
+    gap: Spacing.two,
+    borderRadius: Radius.md,
+  },
+  containerTvFull: {
+    alignSelf: "stretch",
+    width: "100%",
+    justifyContent: "space-between",
+  },
   button: {
     minWidth: 40,
     minHeight: 36,
@@ -119,11 +160,22 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     paddingHorizontal: Spacing.two,
   },
+  buttonTv: {
+    minWidth: TvLayout.minFocusTarget,
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+  },
   label: {
     minWidth: 44,
     minHeight: 36,
     alignItems: "center",
     justifyContent: "center",
+  },
+  labelTv: {
+    minWidth: 56,
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.three,
   },
   minus: { fontSize: 13 },
   plus: { fontSize: 17 },

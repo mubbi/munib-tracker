@@ -41,8 +41,13 @@ function loadAppEnv(projectRoot) {
   return result;
 }
 
-function assertVersionEnv() {
-  const required = ["EXPO_IOS_APP_BUILD_NUMBER", "EXPO_ANDROID_VERSION_CODE"];
+/**
+ * @param {{ tv?: boolean }} [opts] When `tv: true`, require Apple TV / Android TV build numbers.
+ */
+function assertVersionEnv({ tv = false } = {}) {
+  const required = tv
+    ? ["EXPO_TVOS_APP_BUILD_NUMBER", "EXPO_ANDROID_TV_VERSION_CODE"]
+    : ["EXPO_IOS_APP_BUILD_NUMBER", "EXPO_ANDROID_VERSION_CODE"];
   const missing = required.filter((key) => !process.env[key]?.trim());
   if (missing.length > 0) {
     console.error(
@@ -50,6 +55,19 @@ function assertVersionEnv() {
         "  Copy apps/app/.env.example → apps/app/.env and set values.\n",
     );
     process.exit(1);
+  }
+
+  if (tv) {
+    const androidTvVersionCode = Number.parseInt(process.env.EXPO_ANDROID_TV_VERSION_CODE, 10);
+    if (!Number.isFinite(androidTvVersionCode) || androidTvVersionCode < 1) {
+      console.error("EXPO_ANDROID_TV_VERSION_CODE must be a positive integer.");
+      process.exit(1);
+    }
+    if (!/^\d+$/.test(process.env.EXPO_TVOS_APP_BUILD_NUMBER)) {
+      console.error("EXPO_TVOS_APP_BUILD_NUMBER must be a positive integer string.");
+      process.exit(1);
+    }
+    return;
   }
 
   const androidVersionCode = Number.parseInt(process.env.EXPO_ANDROID_VERSION_CODE, 10);
@@ -68,18 +86,22 @@ function logReleaseVersionSummary(projectRoot, { activePlatform } = {}) {
   const { getVersionEnvSummary } = require("./platform-versions.cjs");
   const v = getVersionEnvSummary(projectRoot, { activePlatform });
   console.log("\n--- Release versions ---");
-  console.log(`  EXPO_IOS_APP_VERSION       → ${v.iosMarketing}`);
-  console.log(`  EXPO_IOS_APP_BUILD_NUMBER  → ${v.iosBuildNumber}`);
-  console.log(`  EXPO_ANDROID_APP_VERSION   → ${v.androidMarketing}`);
-  console.log(`  EXPO_ANDROID_VERSION_CODE  → ${v.androidVersionCode}`);
-  console.log(`  EXPO_PUBLIC_APP_VERSION    → ${v.webMarketing} (web .env)`);
+  console.log(`  EXPO_IOS_APP_VERSION          → ${v.iosMarketing}`);
+  console.log(`  EXPO_IOS_APP_BUILD_NUMBER     → ${v.iosBuildNumber}`);
+  console.log(`  EXPO_ANDROID_APP_VERSION      → ${v.androidMarketing}`);
+  console.log(`  EXPO_ANDROID_VERSION_CODE     → ${v.androidVersionCode}`);
+  console.log(`  EXPO_TVOS_APP_VERSION         → ${v.tvosMarketing}`);
+  console.log(`  EXPO_TVOS_APP_BUILD_NUMBER    → ${v.tvosBuildNumber}`);
+  console.log(`  EXPO_ANDROID_TV_APP_VERSION   → ${v.androidTvMarketing}`);
+  console.log(`  EXPO_ANDROID_TV_VERSION_CODE  → ${v.androidTvVersionCode}`);
+  console.log(`  EXPO_PUBLIC_APP_VERSION       → ${v.webMarketing} (web .env)`);
   if (v.bundleVersion) {
     const bakeNote = v.bundleOverridden
       ? `baked for ${v.activePlatform} prebuild/release — uses platform marketing semver, not web .env`
       : "used for Metro / X-App-Version";
-    console.log(`  JS bundle X-App-Version    → ${v.bundleVersion} (${bakeNote})`);
+    console.log(`  JS bundle X-App-Version       → ${v.bundleVersion} (${bakeNote})`);
   } else {
-    console.log("  JS bundle X-App-Version    → (not set)");
+    console.log("  JS bundle X-App-Version       → (not set)");
   }
   console.log("");
 }

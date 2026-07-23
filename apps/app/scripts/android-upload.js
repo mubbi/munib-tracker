@@ -99,15 +99,20 @@ async function main() {
   const envLoad = loadAppEnv(projectRoot);
   if (!envLoad.loaded) {
     console.error(
-      "\nMissing apps/app/.env — need EXPO_ANDROID_APP_VERSION / EXPO_ANDROID_VERSION_CODE.\n" +
+      "\nMissing apps/app/.env — need Android version env vars.\n" +
+        (isTv
+          ? "  EXPO_ANDROID_TV_APP_VERSION / EXPO_ANDROID_TV_VERSION_CODE\n"
+          : "  EXPO_ANDROID_APP_VERSION / EXPO_ANDROID_VERSION_CODE\n") +
         "  Copy apps/app/.env.example → apps/app/.env\n",
     );
     process.exit(1);
   }
-  assertVersionEnv();
+  assertVersionEnv({ tv: isTv });
 
-  const versionName = resolvePlatformVersion("android", projectRoot);
-  const expectedVersionCode = resolveAndroidVersionCode();
+  const androidPlatform = isTv ? "android-tv" : "android";
+  const versionName = resolvePlatformVersion(androidPlatform, projectRoot);
+  const expectedVersionCode = resolveAndroidVersionCode(androidPlatform);
+  const versionCodeEnvKey = isTv ? "EXPO_ANDROID_TV_VERSION_CODE" : "EXPO_ANDROID_VERSION_CODE";
   const releaseName = `${versionName} (${expectedVersionCode})${isTv ? " TV" : ""}`;
   const releaseNotes = buildReleaseNotes(versionName);
 
@@ -178,7 +183,7 @@ async function main() {
 
   if (uploadedVersionCode !== expectedVersionCode) {
     console.error(
-      `\nAAB versionCode (${uploadedVersionCode}) does not match EXPO_ANDROID_VERSION_CODE (${expectedVersionCode}).\n` +
+      `\nAAB versionCode (${uploadedVersionCode}) does not match ${versionCodeEnvKey} (${expectedVersionCode}).\n` +
         `  Rebuild with pnpm release:app:android${isTv ? "-tv" : ""} after updating apps/app/.env, then upload again.\n`,
     );
     try {

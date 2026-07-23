@@ -34,7 +34,7 @@ const androidDir = path.join(appRoot, "android");
 const iosDir = path.join(appRoot, "ios");
 
 loadAppEnv(appRoot);
-assertVersionEnv();
+assertVersionEnv({ tv: true });
 
 const rawArgs = process.argv.slice(2);
 const isClean = rawArgs.includes("--clean");
@@ -66,9 +66,19 @@ for (const platform of platforms) {
   runStep(`Expo prebuild (TV / ${platform})`, "pnpm", expoArgs, { env: prebuildEnv });
 
   if (platform === "android") {
-    const { marketingVersion } = preparePlatformRelease("android", appRoot);
-    syncAndroidVersionName(androidDir, marketingVersion, { strict: false });
-    syncAndroidVersionCode(androidDir, { strict: false });
+    const { marketingVersion, versionCode, versionEnvKey, buildEnvKey } = preparePlatformRelease(
+      "android-tv",
+      appRoot,
+    );
+    syncAndroidVersionName(androidDir, marketingVersion, {
+      strict: false,
+      envKey: versionEnvKey,
+    });
+    syncAndroidVersionCode(androidDir, {
+      strict: false,
+      versionCode,
+      envKey: buildEnvKey,
+    });
     prepareWindowsAndroidBuild(appRoot);
   }
 
@@ -79,14 +89,18 @@ for (const platform of platforms) {
         shell: false,
       });
     }
-    const { marketingVersion, buildNumber } = preparePlatformRelease("ios", appRoot);
-    syncIosMarketingVersion(marketingVersion, { strict: false });
-    syncIosBuildNumber(buildNumber, { strict: false });
+    const { marketingVersion, buildNumber, versionEnvKey, buildEnvKey } = preparePlatformRelease(
+      "tvos",
+      appRoot,
+    );
+    syncIosMarketingVersion(marketingVersion, { strict: false, envKey: versionEnvKey });
+    syncIosBuildNumber(buildNumber, { strict: false, envKey: buildEnvKey });
   }
 }
 
 logReleaseVersionSummary(appRoot, {
-  activePlatform: platforms.length === 1 ? platforms[0] : "web",
+  activePlatform:
+    platforms.length === 1 ? (platforms[0] === "android" ? "android-tv" : "tvos") : null,
 });
 
 console.log(

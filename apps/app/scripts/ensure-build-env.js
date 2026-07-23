@@ -10,9 +10,10 @@ const { applyIosCredentialsEnv, requireIosKey, logIosKeysSummary } = require("./
 
 const appRoot = path.join(__dirname, "..");
 const iosEas = process.argv.includes("--ios-eas");
+const isTv = process.argv.includes("--tv");
 
 loadAppEnv(appRoot);
-assertVersionEnv();
+assertVersionEnv({ tv: isTv });
 
 try {
   applyIosCredentialsEnv(appRoot, {

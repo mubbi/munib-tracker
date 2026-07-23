@@ -18,9 +18,11 @@ import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { ltrControlViewProps } from "@/lib/rtl";
 import {
   useReadingTextVisibility,
@@ -49,14 +51,22 @@ const FILTER_ICONS = {
 /** Filter card: text size + transliteration/translation toggles for dua/zikr/durood. */
 export function ScriptureReadingFilters() {
   const { t } = useTranslation();
+  const tv = isTV();
   const { showTransliteration, showTranslation } = useReadingTextVisibility();
   const { toggleTransliteration, toggleTranslation } = useReadingTextVisibilityActions();
 
   return (
-    <Card padding="three" style={styles.filtersCard}>
-      <View style={[styles.controlRow, styles.translationRow]}>
+    <Card padding="three" style={[styles.filtersCard, tv && styles.filtersCardTv]}>
+      <View
+        style={[
+          styles.controlRow,
+          styles.translationRow,
+          tv && styles.controlRowTv,
+          tv && styles.controlRowStackTv,
+        ]}
+      >
         <ControlLabel icon={FILTER_ICONS.textSize} label={t("reading.textSize")} />
-        <View style={styles.controlValue}>
+        <View style={[styles.controlValue, tv && styles.controlValueTv]}>
           <ReadingFontControls surface="dua_zikr" />
         </View>
       </View>
@@ -319,10 +329,13 @@ export const scriptureListDetailStyles = StyleSheet.create({
 
 function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
   const { colors } = useThemeTokens();
+  const tv = isTV();
   return (
     <View style={styles.controlLabel}>
-      <SymbolView name={icon} size={18} tintColor={colors.mutedForeground} />
-      <ThemedText type="smallBold">{label}</ThemedText>
+      <SymbolView name={icon} size={tv ? 22 : 18} tintColor={colors.mutedForeground} />
+      <ThemedText type="smallBold" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
+        {label}
+      </ThemedText>
     </View>
   );
 }
@@ -338,6 +351,66 @@ function PrefToggle({
   enabled: boolean;
   onToggle: () => void;
 }) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+
+  // TV remotes struggle with native Switch thumbs — whole-row pressables with a
+  // clear on/off chrome are easier to focus and activate with Select.
+  if (tv) {
+    return (
+      <PressableScale
+        haptic="selection"
+        accessibilityRole="switch"
+        accessibilityLabel={label}
+        accessibilityState={{ checked: enabled }}
+        onPress={onToggle}
+        scaleTo={0.98}
+        style={[
+          styles.prefToggleTv,
+          {
+            backgroundColor: enabled ? tokens.accentSoft : colors.muted,
+            borderColor: enabled ? colors.accent : tokens.hairline,
+          },
+        ]}
+      >
+        <SymbolView
+          name={icon}
+          size={22}
+          tintColor={enabled ? colors.accent : colors.mutedForeground}
+        />
+        <ThemedText
+          type="smallBold"
+          numberOfLines={2}
+          style={{
+            flex: 1,
+            minWidth: 0,
+            fontSize: TvLayout.bodyFontSize,
+            color: enabled ? colors.accentText : colors.foreground,
+          }}
+        >
+          {label}
+        </ThemedText>
+        <View
+          style={[
+            styles.prefToggleStateTv,
+            { backgroundColor: enabled ? colors.accent : colors.card },
+          ]}
+        >
+          <ThemedText
+            type="caption"
+            style={{
+              color: enabled ? colors.accentForeground : colors.mutedForeground,
+              fontWeight: "700",
+            }}
+          >
+            {enabled ? t("common.on") : t("common.off")}
+          </ThemedText>
+        </View>
+      </PressableScale>
+    );
+  }
+
   return (
     <View style={[styles.controlRow, styles.toggleRow]}>
       <ControlLabel icon={icon} label={label} />
@@ -388,12 +461,21 @@ function ToggleChip({
 
 const styles = StyleSheet.create({
   filtersCard: { gap: Spacing.two },
+  filtersCardTv: { gap: Spacing.three },
   controlRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: Spacing.three,
     minHeight: 44,
+  },
+  controlRowTv: {
+    minHeight: TvLayout.minFocusTarget,
+  },
+  controlRowStackTv: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    gap: Spacing.two,
   },
   translationRow: {
     alignItems: "center",
@@ -409,6 +491,29 @@ const styles = StyleSheet.create({
   },
   controlValue: {
     flexShrink: 0,
+  },
+  controlValueTv: {
+    width: "100%",
+    flexShrink: 1,
+  },
+  prefToggleTv: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    minHeight: TvLayout.minFocusTarget,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: 1,
+  },
+  prefToggleStateTv: {
+    paddingHorizontal: Spacing.two + 2,
+    paddingVertical: Spacing.one,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    minWidth: 44,
+    alignItems: "center",
   },
   bar: {
     overflow: "hidden",

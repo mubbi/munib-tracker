@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "Indisponible sur TV",
     "tvUnavailableBody": "Cette fonctionnalité nécessite un téléphone ou une tablette. Ouvrez Munib Tracker sur cet appareil pour continuer.",
-    "tvOauthHint": "La connexion via les réseaux sociaux peut être limitée sur TV. Continuez ici en tant qu’invité ou associez un compte sur votre téléphone."
+    "tvOauthHint": "Préférez le code QR ci-dessus pour vous connecter depuis votre téléphone. Ou continuez en invité — liez un compte à tout moment depuis Profil sur votre téléphone.",
+    "select": "Sélectionner",
+    "selectToContinue": "Appuyez sur Sélectionner pour continuer",
+    "selectToOpen": "Sélectionner pour ouvrir",
+    "selectToSave": "Sélectionner pour enregistrer",
+    "selectDay": "Sélectionnez un jour à consulter"
   },
   "search": {
     "placeholder": "Rechercher Coran, hadith, duas, Apprendre…",
@@ -104,7 +109,9 @@
       "rizq": "Ризк",
       "rahman": "Ar-Rahman",
       "sleep": "Sommeil",
-      "istighfar": "Istighfar"
+      "istighfar": "Istighfar",
+      "quranTv": "Sélectionner pour lire dans le Qur'an",
+      "hadithTv": "Sélectionner pour lire le hadith complet"
     },
     "cat": {
       "quran": "Coran",
@@ -129,7 +136,8 @@
     "home": "Accueil",
     "tracker": "Suivi",
     "settings": "Paramètres",
-    "library": "Bibliothèque"
+    "library": "Bibliothèque",
+    "navHint": "Utilisez ↑↓ pour changer · → pour le contenu"
   },
   "actions": {
     "checklist": "Liste de contrôle",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Les dix dernières nuits",
     "lastTenBody": "Recherchez Laylat al-Qadr les nuits impaires – restez debout en prière, récitez le Coran et faites dua. Le Prophète ﷺ s'efforçait le plus dans l'adoration pendant ces nuits.",
     "laylatQadrTitle": "Laylat al-Qadr",
-    "laylatQadrBody": "Mieux que mille mois, l’adoration de cette nuit l’emporte sur des décennies de dévotion. Récitez le Coran, priez Tahajjud et dites : Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "Mieux que mille mois, l’adoration de cette nuit l’emporte sur des décennies de dévotion. Récitez le Coran, priez Tahajjud et dites : Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "Sélectionner pour choisir le statut du jeûne",
+    "gridHintTv": "Sélectionnez un jour pour enregistrer le statut du jeûne",
+    "fastingLogBackfillNoteTv": "Affichage du Ramadan {{year}} AH ({{gregorian}}) pour compléter votre journal. Sélectionnez un jour pour mettre à jour le statut du jeûne."
   },
   "fastStatusSheet": {
     "prompt": "Choisissez votre statut de jeûne",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Browse Salawat",
     "exploreDuroodsHint": "Dokunun  star  kmoisdet  durood",
     "exploreNames": "Browse 99 Noms",
-    "exploreNamesHint": "Dokunun  star  kmoisdet  name"
+    "exploreNamesHint": "Dokunun  star  kmoisdet  name",
+    "exploreQuranHintTv": "Sélectionnez l'icône de signet sur n'importe quel ayah",
+    "exploreDuasHintTv": "Sélectionnez l'étoile pour enregistrer une dua",
+    "exploreZikrHintTv": "Sélectionnez le cœur pour mettre des adhkar en favori",
+    "exploreDuroodsHintTv": "Sélectionnez l'étoile pour enregistrer un durood",
+    "exploreNamesHintTv": "Sélectionnez l'étoile pour enregistrer un nom",
+    "exploreHadithHintTv": "Sélectionner pour ouvrir une collection de hadith"
   },
   "home": {
     "todaysGoal": "L'objectif du jour",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "Appuyez pour lire le Coran",
       "hadith": "Appuyez pour lire le hadith complet",
-      "name": "Explorez les 99 noms"
+      "name": "Explorez les 99 noms",
+      "quranTv": "Sélectionner pour lire dans le Qur'an",
+      "hadithTv": "Sélectionner pour lire le hadith complet"
     },
     "devotionMeta": "Niveau {{level}} · {{noor}} Nour",
     "devotionProgress": "{{current}} / {{next}} Noor jusqu'au niveau suivant",
@@ -553,7 +572,15 @@
       "reminderTitle": "L'heure d'acceptation",
       "reminderBody": "Une heure le vendredi où la dua n'est pas refusée — cherchez-la surtout après Asr avec une dua sincère, istighfar et salawat.",
       "openGuide": "Ouvrir l'heure d'acceptation"
-    }
+    },
+    "scheduleShowPastHintTv": "Sélectionner pour afficher l'horaire complet",
+    "scheduleShowLaterHintTv": "Sélectionner pour afficher le reste de la journée",
+    "exploreQuranHintTv": "Sélectionnez l'icône de signet sur n'importe quel ayah",
+    "exploreDuasHintTv": "Sélectionnez l'étoile pour enregistrer une dua",
+    "exploreZikrHintTv": "Sélectionnez le cœur pour mettre des adhkar en favori",
+    "exploreDuroodsHintTv": "Sélectionnez l'étoile pour enregistrer un durood",
+    "exploreNamesHintTv": "Sélectionnez l'étoile pour enregistrer un nom",
+    "exploreHintTv": "{{shown}} sur {{total}} raccourcis affichés — sélectionnez Gérer pour ajouter ou réorganiser."
   },
   "tracker": {
     "eyebrow": "Suivi et et kmoisdet",
@@ -644,7 +671,8 @@
       "hintPages": "{{count}} pages vers l'objectif du jour — appuyez pour enregistrer",
       "completeHint": "La portion du jour est faite — appuyez pour revoir votre plan",
       "a11y": "Plan khatm jour {{day}} sur {{total}}, {{done}} sur {{target}} vers l'objectif du jour"
-    }
+    },
+    "tvSubtitle": "Sélectionnez une prière pour définir son statut — enregistré sur cet appareil."
   },
   "update": {
     "title": "Mise à jour disponible",
@@ -776,7 +804,8 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Masjid al-Haram"
       }
-    }
+    },
+    "tvSubtitle": "Parcourez avec la télécommande — certains outils nécessitent un téléphone"
   },
   "import": {
     "title": "Salah geçmişini içe aktar",
@@ -869,7 +898,12 @@
     "locationSkip": "Configurer plus tard",
     "locationHighlight4": "Ignorez à tout moment — définissez la localisation ou activez les notifications plus tard",
     "chooseLanguage": "Choisir la langue",
-    "chooseLanguageHint": "Changez la langue de l'application pour suivre cette introduction"
+    "chooseLanguageHint": "Changez la langue de l'application pour suivre cette introduction",
+    "locationBodyTv": "Choisissez votre ville pour des horaires de prière précis. Vous pouvez changer de lieu à tout moment dans Paramètres.",
+    "locationHighlight1Tv": "Horaires de prière précis pour votre ville",
+    "locationHighlight2Tv": "Direction de la Qibla depuis votre position",
+    "locationHighlight3Tv": "Les rappels fonctionnent mieux sur un téléphone",
+    "locationHighlight4Tv": "Changez de ville à tout moment dans Paramètres"
   },
   "appearance": {
     "eyebrow": "Paramètres",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} correspond",
     "noResults": "No adhkar matched votre ara.",
     "markAsDone": "Marquer comme terminé",
-    "undoDoneHint": "Appuyez pour annuler et marquer comme non terminé"
+    "undoDoneHint": "Appuyez pour annuler et marquer comme non terminé",
+    "favEmptyDescTv": "Sélectionnez l'étoile sur n'importe quel zikr pour le garder ici en accès rapide.",
+    "undoDoneHintTv": "Sélectionner pour annuler et marquer comme non fait"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Read pourde Munib Tracker:",
     "preparing": "Partage…",
     "tapToShare": "Dokunun  pmoislaş",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "Sélectionner pour partager"
   },
   "dua": {
     "eyebrow": "Supplication",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Enregistrertiğiniz salavatlar",
     "favEmptyTitle": "Pas encore de duroods préférés",
     "favEmptyDesc": "Cermoisa kmoisdetmek pour herhangi un salavata annéedıza dokunun.",
-    "openInTasbeeh": "Ouvrir dans Tasbeeh"
+    "openInTasbeeh": "Ouvrir dans Tasbeeh",
+    "favEmptyDescTv": "Sélectionnez l'étoile sur n'importe quel durood pour l'enregistrer ici."
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1313,7 +1351,8 @@
     "favorites": "Noms préférés",
     "favSubtitle": "Isimler you'et kmoisdedildi",
     "favEmptyTitle": "Pas encore de noms favoris",
-    "favEmptyDesc": "Appuyez sur l'étoile sur n'importe quel nom pour l'enregistrer ici."
+    "favEmptyDesc": "Appuyez sur l'étoile sur n'importe quel nom pour l'enregistrer ici.",
+    "favEmptyDescTv": "Sélectionnez l'étoile sur n'importe quel nom pour l'enregistrer ici."
   },
   "quran": {
     "eyebrow": " Noble Coran",
@@ -1453,7 +1492,8 @@
         "hamWasl": "Connexion du hamza — abandonné lors de l'adhésion",
         "lamShamsiyah": "Lettre solaire لام — non prononcée",
         "silent": "Écrit mais non prononcé"
-      }
+      },
+      "tapHintTv": "Sélectionner pour voir la règle de tajweed"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Sourate {{number}}",
     "selectSurah": "Choisir une sourate",
-    "openReader": "Ouvrir le lecteur"
+    "openReader": "Ouvrir le lecteur",
+    "bookmarkEmptyDescTv": "Sélectionnez l'icône de signet sur n'importe quel ayah pour l'enregistrer ici."
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",
@@ -1574,7 +1615,7 @@
     "readingProgress": "Progression de lecture",
     "enterFullscreen": "Passer en plein écran",
     "exitFullscreen": "Quitter le plein écran",
-    "isnad": "Chaîne de transmission (isnad)",
+    "isnad": "Isnad",
     "sharh": "Explication",
     "showIsnad": "Afficher l'isnad",
     "showSharh": "Afficher l'explication",
@@ -1773,7 +1814,8 @@
     },
     "history": "Histoire",
     "rowDone": "{{completed}} rattrapées",
-    "rowDoneWithDaily": "{{completed}} rattrapées · aujourd'hui {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} rattrapées · aujourd'hui {{done}}/{{target}}",
+    "hintTv": "Sélectionnez la coche pour enregistrer une prière rattrapée. Manquer une prière dans le suivi ajoute automatiquement à ces compteurs."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "Ajouter des jeûnes estimés ?",
     "confirmAddEstimateMsg": "Ajouter {{count}} jeûnes au reste (nouveau total : {{total}}) ?",
     "confirmResetTitle": "Réinitialiser le compteur ?",
-    "confirmResetMsg": "Effacer tous les décomptes rapides ({{remaining}} restant, {{completed}} terminé) ? Cela ne peut pas être annulé."
+    "confirmResetMsg": "Effacer tous les décomptes rapides ({{remaining}} restant, {{completed}} terminé) ? Cela ne peut pas être annulé.",
+    "adjustHintTv": "Sélectionnez le nombre ou utilisez −/+ pour ajuster"
   },
   "calendar": {
     "eyebrow": "Historique",
@@ -1920,7 +1963,8 @@
     "missed": "Manqué",
     "legendHint": "Dokunun any past ou current jour  gözden geçir et adjust it. Aujourd'hui dir {{date}}.",
     "converterRowTitle": "Hijri ⟷ Convertisseur grégorien",
-    "converterRowSubtitle": "Convertir une date entre les deux calendriers"
+    "converterRowSubtitle": "Convertir une date entre les deux calendriers",
+    "legendHintTv": "Sélectionnez un jour passé ou actuel pour le consulter et l'ajuster. Aujourd'hui : {{date}}."
   },
   "calDay": {
     "today": "Aujourd'hui",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "Vousin smois  {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? Commencert",
     "confirmStartAgainMessage": "Vousin completed smois will be cleared so siz can begin  yeni round.",
-    "dockLabel": "Compter"
+    "dockLabel": "Compter",
+    "tapToCountTv": "Appuyez sur Sélectionner pour compter"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} n'est qu'à {{min}} minutes",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} at {{time}}, current salah",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Changer d'emplacement",
-    "dateRowA11y": "{{phase}}. {{dates}}. Dokunun pour moon details"
+    "dateRowA11y": "{{phase}}. {{dates}}. Dokunun pour moon details",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Sélectionner pour les détails de la lune"
   },
   "location": {
     "eyebrow": "Lieu",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "La Mecque, Arabie saoudite",
     "defaultTimesHint": "Les horaires de Salah utilisent actuellement La Mecque. Définissez votre ville pour des horaires précis. Les rappels Salah et Adhan restent désactivés jusque-là.",
-    "setLocation": "Définir le lieu"
+    "setLocation": "Définir le lieu",
+    "searchAutoFocusOff": "Rechercher une ville"
   },
   "moon": {
     "aria": "Phase de lune : {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Prochain mois islamique",
     "nextMonthValue": "~{{days}} jours · début de {{month}}",
     "nextMonthTonight": "Ce soir après le Maghrib · début de {{month}}",
-    "nextMonthOneDay": "~1 jour · début de {{month}}"
+    "nextMonthOneDay": "~1 jour · début de {{month}}",
+    "openTv": "{{phase}}. Sélectionner pour les détails"
   },
   "achievements": {
     "eyebrow": "Progrès",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Cela efface définitivement les données de l'application sur cet appareil et de la synchronisation cloud. Votre compte reste actif et connecté. Cette action est irréversible.",
     "resetDataConfirm": "Réinitialiser les données",
     "resetDataFailed": "Impossible de réinitialiser les données de l'application. Vérifiez votre connexion et réessayez.",
-    "resetDataSuccess": "Les données de votre application ont été réinitialisées"
+    "resetDataSuccess": "Les données de votre application ont été réinitialisées",
+    "tvAvatarHint": "La photo de profil et la liaison de compte fonctionnent mieux sur votre téléphone."
   },
   "sync": {
     "title": "Synchronisation dans le cloud",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Effectuez une prière de rattrapage auprès du responsable du qaza et elle apparaîtra ici.",
     "count": "{{count}} composé",
     "legendHint": "Appuyez sur un jour en surbrillance pour voir quelles prières vous avez composées.",
-    "dayA11y": "{{date}}, {{count}} constitués"
+    "dayA11y": "{{date}}, {{count}} constitués",
+    "legendHintTv": "Sélectionnez un jour surligné pour voir quelles prières vous avez rattrapées."
   },
   "weeklyReport": {
     "title": "Votre semaine d'adoration",
-    "body": "{{prayers}} prières accomplies, {{perfect}} jours parfaits, {{qaza}} qaza rattrapées et {{zikr}} sessions de zikr. Touchez pour voir vos stats."
+    "body": "{{prayers}} prières accomplies, {{perfect}} jours parfaits, {{qaza}} qaza rattrapées et {{zikr}} sessions de zikr. Touchez pour voir vos stats.",
+    "bodyTv": "{{prayers}} prières accomplies, {{perfect}} jours parfaits, {{qaza}} qaza rattrapées et {{zikr}} sessions de zikr. Sélectionner pour voir vos statistiques."
   },
   "backup": {
     "title": "Sauvegarde et restauration",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Mettre à jour le statut Hifz ?",
     "confirmReviewBody": "{{ref}} will be flagged pour gözden geçir.",
     "confirmMemorizedBody": "{{ref}} sera marqué comme mémorisé.",
-    "confirmClearBody": "{{ref}} will be kaldırıldı den votre Hifz tracker."
+    "confirmClearBody": "{{ref}} will be kaldırıldı den votre Hifz tracker.",
+    "emptyDescTv": "Sélectionnez Hifz sur n'importe quel ayah dans le lecteur pour le marquer comme mémorisé."
   },
   "travel": {
     "eyebrow": "Apprendre",
@@ -3007,7 +3059,8 @@
       "playPhrases": "Lire toutes les phrases",
       "pausePhrases": "Mettre les phrases en pause",
       "playPhrase": "Lire la phrase {{n}} : {{title}}",
-      "followAlongNote": "Surligne les mots ci-dessous pendant la lecture"
+      "followAlongNote": "Surligne les mots ci-dessous pendant la lecture",
+      "listenHintTv": "Sélectionnez un enregistrement pour le lire. Médine met en évidence chaque phrase pendant l'appel. Utilisez Apprendre les mots ci-dessous pour un audio phrase par phrase."
     }
   },
   "battles": {
@@ -3102,7 +3155,8 @@
       "obligatory": "Essentiel",
       "highly-recommended": "Fortement recommandé",
       "recommended": "Recommandé"
-    }
+    },
+    "versesIntroTv": "Le Qur'an est la source la plus autorisée. Sélectionnez un verset pour l'ouvrir dans le lecteur du Qur'an."
   },
   "lastDay": {
     "eyebrow": "Apprendre",
@@ -3208,7 +3262,8 @@
       "reflection": "Journal de réflexion",
       "reflectionHint": "Khushu et réflexions de prière",
       "learning": "Progrès d'apprentissage",
-      "learningHint": "Sujets complétés dans ce module"
+      "learningHint": "Sujets complétés dans ce module",
+      "characterHintTv": "Sélectionnez lorsque vous avez passé en revue votre conduite aujourd'hui"
     },
     "progressTitle": "Progrès de l'apprentissage",
     "progressSubtitle": "Étude de piste - pas de rang spirituel auprès d'Allah",
@@ -3236,7 +3291,10 @@
       "obligatory": "Essentiel",
       "highly-recommended": "Fortement recommandé",
       "recommended": "Recommandé"
-    }
+    },
+    "versesIntroTv": "Sélectionnez un verset pour l'ouvrir dans le lecteur du Qur'an. Les résumés courts sont éducatifs, pas un substitut au tafsir complet.",
+    "preparationHabitsHintTv": "Sélectionner pour ouvrir un suivi ou basculer une intention quotidienne",
+    "characterHintTv": "Sélectionnez lorsque vous avez passé en revue votre conduite aujourd'hui"
   },
   "taharah": {
     "eyebrow": "Apprendre",
@@ -3305,7 +3363,8 @@
       "obligatory": "Obligatoire",
       "highly-recommended": "Fortement recommandé",
       "recommended": "Recommandé"
-    }
+    },
+    "checklistHintTv": "Sélectionnez les éléments en passant en revue vos habitudes de pureté quotidiennes"
   },
   "prophets": {
     "eyebrow": "Apprendre",
@@ -3410,7 +3469,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "Sélectionnez un nom sur la carte pour lire la note sourcée."
     }
   },
   "aqeedah": {
@@ -3530,7 +3590,8 @@
       "obligatory": "Essentiel",
       "highly-recommended": "Fortement recommandé",
       "recommended": "Recommandé"
-    }
+    },
+    "occasionsIntroTv": "Sélectionnez une occasion pour ouvrir la leçon ou parcourir la bibliothèque complète de duas."
   },
   "learnQuran": {
     "eyebrow": "Apprendre",
@@ -3677,7 +3738,8 @@
     "read": "Red",
     "supplicate": "Supplicte",
     "learn": "Apprendre",
-    "more": "Outils et plus"
+    "more": "Outils et plus",
+    "tvSubtitle": "Qur'an, duas, zikr et apprentissage — naviguez avec Sélectionner"
   },
   "offlineData": {
     "title": "Données hors ligne",
@@ -4225,7 +4287,8 @@
     "linkSadaqah": "Objectifs de sadaqah",
     "linkSadaqahHint": "Dons volontaires quotidiens ou hebdomadaires",
     "linkFidyah": "Fidyah et kaffarah",
-    "linkFidyahHint": "Estimations pour les jeûnes manqués ou rompus"
+    "linkFidyahHint": "Estimations pour les jeûnes manqués ou rompus",
+    "learnHintTv": "Sélectionnez un sujet pour un guide ciblé — les rulings varient selon les écoles."
   },
   "customAdhkar": {
     "eyebrow": "Rappel",
@@ -4264,7 +4327,7 @@
       "label": "Pièces jointes (facultatif)",
       "add": "Ajouter un fichier",
       "remove": "Supprimer la pièce jointe",
-      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez longuement sur une vignette pour la supprimer.",
+      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez sur × sur une miniature pour retirer.",
       "signInRequired": "Connectez-vous pour joindre des fichiers privés à votre adhkar.",
       "permissionDenied": "Une autorisation est requise pour joindre des fichiers.",
       "permissionTitle": "Autoriser l'accès",
@@ -4293,7 +4356,8 @@
       "sourceDocumentHint": "Choisissez une image ou un PDF dans vos fichiers",
       "loadingPdf": "Chargement du PDF…",
       "pdfHint": "Défiler · pincer ou utiliser +/− pour zoomer · double-tap pour réinitialiser · Ouvrir le PDF pour partager",
-      "pdfPreviewTitle": "Aperçu PDF"
+      "pdfPreviewTitle": "Aperçu PDF",
+      "tvUnavailable": "Les pièces jointes nécessitent un téléphone ou une tablette. Ajoutez-y des photos ou des PDF."
     },
     "stt": {
       "dictate": "Dicter avec un microphone",
@@ -4408,7 +4472,8 @@
       "unavailable": "La reconnaissance vocale n'est pas disponible sur cet appareil.",
       "couldNotHear": "Je n'ai pas entendu cela – réessayez ou tapez.",
       "errorGeneric": "La dictée a échoué. Réessayez ou tapez."
-    }
+    },
+    "ratingHintTv": "Sélectionnez une étoile pour noter votre présence dans la prière."
   },
   "prayerTuning": {
     "title": "Salah time tuning",
@@ -4575,7 +4640,8 @@
       "ranks": "Rks",
       "mercy": "Miséricorde",
       "supplication": "Supplication"
-    }
+    },
+    "versesLeadTv": "Sélectionnez n'importe quel verset pour l'ouvrir dans le lecteur du Qur'an."
   },
   "jahannam": {
     "eyebrow": "Apprendre",
@@ -4707,7 +4773,9 @@
       "repentance": "Repentir",
       "accountability": "Responsabilité",
       "protection": "Protection"
-    }
+    },
+    "versesLeadTv": "Sélectionnez n'importe quel verset pour l'ouvrir dans le lecteur du Qur'an.",
+    "reflectionLeadTv": "Faites une pause et posez-vous ces questions. Sélectionnez une ligne pour ouvrir le suivi ou la leçon associée."
   },
   "tour": {
     "eyebrow": "Visite guidée",
@@ -5053,7 +5121,7 @@
     "eyebrow": "Calendrier",
     "title": "Convertisseur de dates",
     "subtitle": "Conversion entre les calendriers hégirien et grégorien",
-    "intro": "Entrez une date dans l'un ou l'autre calendrier pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
+    "intro": "Entrez une date dans l'un des calendriers pour voir son équivalent dans l'autre, calculé hors ligne d'après la visibilité du croissant à votre emplacement.",
     "toHijri": "Grégorien → Hijri",
     "toGregorian": "hijri → grégorien",
     "gregorianDateLabel": "date grégorienne",
@@ -5063,7 +5131,7 @@
     "year": "Année",
     "useToday": "Utiliser aujourd'hui",
     "invalidDate": "Entrez une date valide",
-    "disclaimer": "Il s'agit d'une approximation arithmétique (le tableau \"algorithme koweïtien\") et peut différer d'un jour des annonces locales d'observation de la lune - suivez toujours votre mosquée locale ou votre autorité pour les dates religieuses.",
+    "disclaimer": "Les dates sont calculées d'après la visibilité du croissant (hilāl) à votre emplacement et peuvent différer d'un jour des annonces officielles d'observation de la lune — suivez toujours votre masjid local ou autorité pour les dates religieuses.",
     "directionTitle": "Sens de conversion",
     "resultFrom": "De {{date}}",
     "quickLinksTitle": "Connexes",
@@ -5126,7 +5194,8 @@
       "fidyah": "Fidya"
     },
     "skipHint": "Ignorez cette carte et voyez une autre question.",
-    "skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange."
+    "skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange.",
+    "introTv": "Tirez du Qur'an, des hadiths, des Noms d'Allah et de chaque guide Apprendre. Sélectionnez une réponse pour vous vérifier, puis continuez autant que vous voulez."
   },
   "lastThirdNight": {
     "eyebrow": "Salah de nuit",
@@ -5241,5 +5310,32 @@
     "linkFinanceHint": "Le don volontaire expliqué",
     "disclaimer": "Un tracker personnel uniquement – ​​pas une fatwa et ne remplace pas le calcul de la zakat à l’échéance.",
     "continueInApp": "Continuer dans Munib"
+  },
+  "adhan": {
+    "listenHintTv": "Sélectionnez un enregistrement pour le lire. Médine met en évidence chaque phrase pendant l'appel. Utilisez Apprendre les mots ci-dessous pour un audio phrase par phrase."
+  },
+  "tv": {
+    "exitTitle": "Quitter Munib Tracker ?",
+    "exitMessage": "Appuyez sur confirmer pour fermer l'application sur cette TV.",
+    "exitConfirm": "Quitter",
+    "qrTitle": "Connectez-vous avec votre téléphone",
+    "qrHint": "Scannez ce code QR avec l'appareil photo de votre téléphone, ou ouvrez Munib Tracker sur votre téléphone et saisissez le code.",
+    "qrA11y": "Code QR pour se connecter sur votre téléphone",
+    "qrImageA11y": "Code QR pour la connexion TV",
+    "qrWaiting": "En attente de votre téléphone…",
+    "qrRefresh": "Nouveau code",
+    "qrRetry": "Réessayer",
+    "qrCreateError": "Impossible de démarrer la connexion TV. Vérifiez votre connexion et réessayez.",
+    "qrExpired": "Ce code a expiré. Générez-en un nouveau.",
+    "qrEyebrow": "Compagnon TV",
+    "qrPhoneTitle": "Connexion sur TV",
+    "qrPhoneSubtitle": "Code {{code}} — terminez la connexion pour lier cette TV.",
+    "qrMissingCode": "Ce lien n'a pas de code d'association. Scannez à nouveau le QR de votre TV.",
+    "qrSignInFirst": "Connectez-vous avec un compte lié, puis nous connecterons votre TV.",
+    "qrNeedLinkedAccount": "Connectez-vous d'abord avec Google, Apple ou Facebook — les comptes invités ne peuvent pas lier une TV.",
+    "qrClaiming": "Connexion de votre TV…",
+    "qrClaimSuccess": "Votre TV est connectée. Vous pouvez retourner au salon.",
+    "qrClaimError": "Impossible de connecter la TV. Générez un nouveau code sur la TV et réessayez.",
+    "qrPhoneOnly": "Ouvrez ce lien sur votre téléphone pour terminer la connexion TV."
   }
 }

@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "Tidak tersedia pada TV",
     "tvUnavailableBody": "Ciri ini memerlukan telefon atau tablet. Buka Munib Tracker di sana untuk meneruskan.",
-    "tvOauthHint": "Log masuk sosial mungkin terhad pada TV. Teruskan sebagai tetamu di sini, atau pautkan akaun pada telefon anda."
+    "tvOauthHint": "Utamakan kod QR di atas untuk log masuk dari telefon anda. Atau teruskan sebagai tetamu — pautkan akaun bila-bila masa dari Profil pada telefon anda.",
+    "select": "Pilih",
+    "selectToContinue": "Tekan Pilih untuk meneruskan",
+    "selectToOpen": "Pilih untuk membuka",
+    "selectToSave": "Pilih untuk menyimpan",
+    "selectDay": "Pilih hari untuk disemak"
   },
   "search": {
     "placeholder": "Cari Al-Qur'an, hadis, doa, Pelajari…",
@@ -104,7 +109,9 @@
       "rizq": "Rezeki",
       "rahman": "Ar-Rahman",
       "sleep": "Tidur",
-      "istighfar": "Istighfar"
+      "istighfar": "Istighfar",
+      "quranTv": "Pilih untuk membaca dalam Qur'an",
+      "hadithTv": "Pilih untuk membaca hadith penuh"
     },
     "cat": {
       "quran": "Al-Quran",
@@ -129,7 +136,8 @@
     "home": "Laman Utama",
     "tracker": "Penjejak",
     "settings": "Tetapan",
-    "library": "Perpustakaan"
+    "library": "Perpustakaan",
+    "navHint": "Gunakan ↑↓ untuk tukar · → untuk kandungan"
   },
   "actions": {
     "checklist": "Senarai semak",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Sepuluh malam terakhir",
     "lastTenBody": "Carilah Lailatul Qadar pada malam-malam ganjil - berdirilah solat, baca al-Quran, dan berdoa. Rasulullah ﷺ bersungguh-sungguh dalam beribadat pada malam-malam tersebut.",
     "laylatQadrTitle": "Laylat al-Qadr",
-    "laylatQadrBody": "Lebih baik daripada seribu bulan — ibadah pada malam ini melebihi dekad pengabdian. Bacalah al-Quran, solat Tahajjud, dan ucapkan: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "Lebih baik daripada seribu bulan — ibadah pada malam ini melebihi dekad pengabdian. Bacalah al-Quran, solat Tahajjud, dan ucapkan: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "Pilih untuk menentukan status puasa anda",
+    "gridHintTv": "Pilih hari untuk merekod status puasa anda",
+    "fastingLogBackfillNoteTv": "Memaparkan Ramadan {{year}} H ({{gregorian}}) supaya anda boleh melengkapkan log. Pilih mana-mana hari untuk mengemas kini status puasa."
   },
   "fastStatusSheet": {
     "prompt": "Pilih status puasa anda",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Telusuri Durood",
     "exploreDuroodsHint": "Ketuk  star ke simpan  durood",
     "exploreNames": "Browse 99 Nama",
-    "exploreNamesHint": "Ketuk  star ke simpan  nama"
+    "exploreNamesHint": "Ketuk  star ke simpan  nama",
+    "exploreQuranHintTv": "Pilih ikon penanda pada mana-mana ayah",
+    "exploreDuasHintTv": "Pilih bintang untuk menyimpan dua",
+    "exploreZikrHintTv": "Pilih hati untuk memfavoritkan adhkar",
+    "exploreDuroodsHintTv": "Pilih bintang untuk menyimpan durood",
+    "exploreNamesHintTv": "Pilih bintang untuk menyimpan nama",
+    "exploreHadithHintTv": "Pilih untuk membuka koleksi hadith"
   },
   "home": {
     "todaysGoal": "Matlamat Hari Ini",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "Ketik untuk membaca Al-Quran",
       "hadith": "Ketik untuk membaca hadis penuh",
-      "name": "Teroka kesemua 99 nama"
+      "name": "Teroka kesemua 99 nama",
+      "quranTv": "Pilih untuk membaca dalam Qur'an",
+      "hadithTv": "Pilih untuk membaca hadith penuh"
     },
     "devotionMeta": "Tingkat {{level}} · {{noor}} Noor",
     "devotionProgress": "{{current}} / {{next}} Noor ke tahap seterusnya",
@@ -553,7 +572,15 @@
       "reminderTitle": "Jam ijabah",
       "reminderBody": "Jam pada hari Jumaat apabila dua tidak ditolak — carilah terutamanya selepas Asr dengan dua, istighfar, dan salawat yang ikhlas.",
       "openGuide": "Buka jam ijabah"
-    }
+    },
+    "scheduleShowPastHintTv": "Pilih untuk menunjukkan jadual penuh",
+    "scheduleShowLaterHintTv": "Pilih untuk menunjukkan baki hari ini",
+    "exploreQuranHintTv": "Pilih ikon penanda pada mana-mana ayah",
+    "exploreDuasHintTv": "Pilih bintang untuk menyimpan dua",
+    "exploreZikrHintTv": "Pilih hati untuk memfavoritkan adhkar",
+    "exploreDuroodsHintTv": "Pilih bintang untuk menyimpan durood",
+    "exploreNamesHintTv": "Pilih bintang untuk menyimpan nama",
+    "exploreHintTv": "{{shown}} daripada {{total}} pintasan ditunjukkan — pilih Urus untuk menambah atau menyusun semula."
   },
   "tracker": {
     "eyebrow": "Lacak & catat",
@@ -644,7 +671,8 @@
       "hintPages": "{{count}} halaman ke arah matlamat hari ini — ketik untuk log",
       "completeHint": "Bahagian hari ini siap — ketik untuk semak rancangan anda",
       "a11y": "Rancangan khatm hari ke-{{day}} daripada {{total}}, {{done}} daripada {{target}} ke arah matlamat hari ini"
-    }
+    },
+    "tvSubtitle": "Pilih solat untuk menetapkan statusnya — disimpan pada peranti ini."
   },
   "update": {
     "title": "Kemas kini tersedia",
@@ -776,7 +804,8 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "tvSubtitle": "Layari dengan kawalan jauh — sesetengah alat memerlukan telefon"
   },
   "import": {
     "title": "Impor prayer history",
@@ -869,7 +898,12 @@
     "locationSkip": "Sediakan kemudian",
     "locationHighlight4": "Langkau bila-bila masa — tetapkan lokasi atau dayakan pemberitahuan kemudian",
     "chooseLanguage": "Pilih bahasa",
-    "chooseLanguageHint": "Tukar bahasa aplikasi supaya anda boleh mengikuti pengenalan ini"
+    "chooseLanguageHint": "Tukar bahasa aplikasi supaya anda boleh mengikuti pengenalan ini",
+    "locationBodyTv": "Pilih bandar anda supaya waktu solat kekal tepat. Anda boleh tukar lokasi bila-bila masa dari Tetapan.",
+    "locationHighlight1Tv": "Waktu solat tepat untuk bandar anda",
+    "locationHighlight2Tv": "Arah kiblat dari lokasi anda",
+    "locationHighlight3Tv": "Peringatan paling sesuai pada telefon",
+    "locationHighlight4Tv": "Tukar bandar bila-bila masa dalam Tetapan"
   },
   "appearance": {
     "eyebrow": "Tetapan",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} padanan",
     "noResults": "Tidak adhkar matched Anda cari.",
     "markAsDone": "Tandakan selesai",
-    "undoDoneHint": "Ketik untuk buat asal dan tandakan belum selesai"
+    "undoDoneHint": "Ketik untuk buat asal dan tandakan belum selesai",
+    "favEmptyDescTv": "Pilih bintang pada mana-mana zikr untuk menyimpannya di sini bagi akses pantas.",
+    "undoDoneHintTv": "Pilih untuk buat asal dan tandakan belum selesai"
   },
   "zikrCat": {
     "morning": "Adhkar Pagi",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Read di Munib Tracker:",
     "preparing": "Membagikan…",
     "tapToShare": "Ketuk ke bagikan",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "Pilih untuk kongsi"
   },
   "dua": {
     "eyebrow": "Dua",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Durood yang Anda simpan",
     "favEmptyTitle": "Belum ada shalawat favorit",
     "favEmptyDesc": "Ketuk bintang pada shalawat apa pun untuk menyimpannya di sini.",
-    "openInTasbeeh": "Buka dalam Tasbih"
+    "openInTasbeeh": "Buka dalam Tasbih",
+    "favEmptyDescTv": "Pilih bintang pada mana-mana durood untuk menyimpannya di sini."
   },
   "names": {
     "eyebrow": "Asmaul Husna",
@@ -1313,7 +1351,8 @@
     "favorites": "Favorite nama",
     "favSubtitle": "Nama you've tersimpan",
     "favEmptyTitle": "Tiada favorite names lagi",
-    "favEmptyDesc": "Ketuk  star pada any nama ke simpan it here."
+    "favEmptyDesc": "Ketuk  star pada any nama ke simpan it here.",
+    "favEmptyDescTv": "Pilih bintang pada mana-mana nama untuk menyimpannya di sini."
   },
   "quran": {
     "eyebrow": " Noble Al-Al-Al-Quran",
@@ -1453,7 +1492,8 @@
         "hamWasl": "Menyambung hamza — tercicir apabila bercantum",
         "lamShamsiyah": "Huruf matahari لام — tidak disebut",
         "silent": "Ditulis tetapi tidak dilafazkan"
-      }
+      },
+      "tapHintTv": "Pilih untuk melihat peraturan tajwid"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Surah {{number}}",
     "selectSurah": "Pilih surah",
-    "openReader": "Buka pembaca"
+    "openReader": "Buka pembaca",
+    "bookmarkEmptyDescTv": "Pilih ikon penanda pada mana-mana ayah untuk menyimpannya di sini."
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -1574,7 +1615,7 @@
     "readingProgress": "Kemajuan bacaan",
     "enterFullscreen": "Masuk skrin penuh",
     "exitFullscreen": "Keluar skrin penuh",
-    "isnad": "Sanad (isnad)",
+    "isnad": "Isnad",
     "sharh": "Syarah",
     "showIsnad": "Tunjukkan isnad",
     "showSharh": "Tunjukkan syarah",
@@ -1773,7 +1814,8 @@
     },
     "history": "Sejarah",
     "rowDone": "{{completed}} sudah qadha",
-    "rowDoneWithDaily": "{{completed}} sudah qadha · hari ini {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} sudah qadha · hari ini {{done}}/{{target}}",
+    "hintTv": "Pilih tanda semak untuk merakam solat yang diganti. Solat yang terlepas dalam penjejak menambah kiraan ini secara automatik."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "Tambah anggaran puasa?",
     "confirmAddEstimateMsg": "Tambahkan {{count}} puasa pada baki (jumlah baharu: {{total}})?",
     "confirmResetTitle": "Tetapkan semula kaunter?",
-    "confirmResetMsg": "Kosongkan semua kiraan pantas ({{remaining}} baki, {{completed}} selesai)? Ini tidak boleh dibuat asal."
+    "confirmResetMsg": "Kosongkan semua kiraan pantas ({{remaining}} baki, {{completed}} selesai)? Ini tidak boleh dibuat asal.",
+    "adjustHintTv": "Pilih nombor atau gunakan −/+ untuk melaraskan"
   },
   "calendar": {
     "eyebrow": "Sejarah",
@@ -1920,7 +1963,8 @@
     "missed": "Terlepas",
     "legendHint": "Ketuk any past atau current hari ke tinjau dan adjust it. Hari ini adalah {{date}}.",
     "converterRowTitle": "Hijriah ⟷ penukar Gregorian",
-    "converterRowSubtitle": "Tukar tarikh antara dua kalendar"
+    "converterRowSubtitle": "Tukar tarikh antara dua kalendar",
+    "legendHintTv": "Pilih mana-mana hari lalu atau hari ini untuk menyemak dan melaraskannya. Hari ini {{date}}."
   },
   "calDay": {
     "today": "Hari ini",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "Anda hitung daripada {{count}} will be dipadam.",
     "confirmStartAgainTitle": "Mula again?",
     "confirmStartAgainMessage": "Anda selesai hitung will be dipadam so Anda can begin  baru round.",
-    "dockLabel": "Kira"
+    "dockLabel": "Kira",
+    "tapToCountTv": "Tekan Pilih untuk mengira"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} adalah only {{min}} min away",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} pada {{time}}, current solat",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Change lokasi",
-    "dateRowA11y": "{{phase}}. {{dates}}. Ketuk untuk moon detail"
+    "dateRowA11y": "{{phase}}. {{dates}}. Ketuk untuk moon detail",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Pilih untuk butiran bulan"
   },
   "location": {
     "eyebrow": "Lokasi",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "Makkah, Arab Saudi",
     "defaultTimesHint": "Waktu Salah kini menggunakan Makkah. Tetapkan bandar anda untuk waktu yang tepat. Peringatan Salah dan Azan kekal dimatikan sehingga itu.",
-    "setLocation": "Tetapkan lokasi"
+    "setLocation": "Tetapkan lokasi",
+    "searchAutoFocusOff": "Cari bandar"
   },
   "moon": {
     "aria": "Fase bulan: {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Bulan Islam seterusnya",
     "nextMonthValue": "~{{days}} hari · bermula {{month}}",
     "nextMonthTonight": "Malam ini selepas Maghrib · bermula {{month}}",
-    "nextMonthOneDay": "~1 hari · bermula {{month}}"
+    "nextMonthOneDay": "~1 hari · bermula {{month}}",
+    "openTv": "{{phase}}. Pilih untuk butiran"
   },
   "achievements": {
     "eyebrow": "Kemajuan",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Ini memadamkan data aplikasi pada peranti ini dan daripada penyegerakan awan secara kekal. Akaun anda kekal aktif dan dilog masuk. Ini tidak boleh dibuat asal.",
     "resetDataConfirm": "Tetapkan semula data",
     "resetDataFailed": "Tidak dapat menetapkan semula data aplikasi. Semak sambungan anda dan cuba lagi.",
-    "resetDataSuccess": "Data aplikasi anda telah ditetapkan semula"
+    "resetDataSuccess": "Data aplikasi anda telah ditetapkan semula",
+    "tvAvatarHint": "Foto profil dan pemautan akaun paling sesuai pada telefon anda."
   },
   "sync": {
     "title": "Cloud sinkron",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Lakukan solat solekan dari pengurus qaza dan ia akan muncul di sini.",
     "count": "{{count}} dibuat-buat",
     "legendHint": "Ketik hari yang diserlahkan untuk melihat doa yang anda buat.",
-    "dayA11y": "{{date}}, {{count}} dibuat-buat"
+    "dayA11y": "{{date}}, {{count}} dibuat-buat",
+    "legendHintTv": "Pilih hari yang diserlahkan untuk melihat solat mana yang anda ganti."
   },
   "weeklyReport": {
     "title": "Minggu anda dalam ibadah",
-    "body": "{{prayers}} solat selesai, {{perfect}} hari sempurna, {{qaza}} qaza diganti, dan {{zikr}} sesi zikr. Ketik untuk lihat statistik."
+    "body": "{{prayers}} solat selesai, {{perfect}} hari sempurna, {{qaza}} qaza diganti, dan {{zikr}} sesi zikr. Ketik untuk lihat statistik.",
+    "bodyTv": "{{prayers}} solat selesai, {{perfect}} hari sempurna, {{qaza}} qaza diganti, dan {{zikr}} sesi zikr. Pilih untuk melihat statistik anda."
   },
   "backup": {
     "title": "Sandaran & pulihkan",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Perbarui Hifzhhhh status?",
     "confirmReviewBody": "{{ref}} will be flagged untuk tinjau.",
     "confirmMemorizedBody": "{{ref}} will be ditandai as memorized.",
-    "confirmClearBody": "{{ref}} will be dipadam daripada Anda Hifzhhhh tracker."
+    "confirmClearBody": "{{ref}} will be dipadam daripada Anda Hifzhhhh tracker.",
+    "emptyDescTv": "Pilih Hifz pada mana-mana ayah dalam pembaca untuk menandainya telah dihafaz."
   },
   "travel": {
     "eyebrow": "Belajar",
@@ -3007,7 +3059,8 @@
       "playPhrases": "Main semua frasa",
       "pausePhrases": "Jeda frasa",
       "playPhrase": "Main frasa {{n}}: {{title}}",
-      "followAlongNote": "Menyorot kata di bawah semasa dimainkan"
+      "followAlongNote": "Menyorot kata di bawah semasa dimainkan",
+      "listenHintTv": "Pilih rakaman untuk dimainkan. Madinah menyerlahkan setiap ayat semasa dikumandangkan. Gunakan Pelajari kata-kata di bawah untuk audio frasa demi frasa yang jelas."
     }
   },
   "battles": {
@@ -3102,7 +3155,8 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "versesIntroTv": "Qur'an ialah sumber paling berwibawa. Pilih ayat untuk membukanya dalam pembaca Qur'an."
   },
   "lastDay": {
     "eyebrow": "Belajar",
@@ -3208,7 +3262,8 @@
       "reflection": "Jurnal Refleksi",
       "reflectionHint": "Khushu dan renungan solat",
       "learning": "Kemajuan Pembelajaran",
-      "learningHint": "Topik dilengkapkan dalam modul ini"
+      "learningHint": "Topik dilengkapkan dalam modul ini",
+      "characterHintTv": "Pilih selepas anda menyemak tingkah laku hari ini"
     },
     "progressTitle": "Kemajuan pembelajaran",
     "progressSubtitle": "Jejaki pengajian — bukan pangkat rohani dengan Allah",
@@ -3236,7 +3291,10 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "versesIntroTv": "Pilih ayat untuk membukanya dalam pembaca Qur'an. Ringkasan ringkas bersifat pendidikan, bukan pengganti tafsir penuh.",
+    "preparationHabitsHintTv": "Pilih untuk membuka penjejak atau togol niat harian",
+    "characterHintTv": "Pilih selepas anda menyemak tingkah laku hari ini"
   },
   "taharah": {
     "eyebrow": "Belajar",
@@ -3305,7 +3363,8 @@
       "obligatory": "Wajib",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "checklistHintTv": "Pilih item semasa menyemak tabiat kesucian harian anda"
   },
   "prophets": {
     "eyebrow": "Belajar",
@@ -3410,7 +3469,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "Pilih nama pada peta untuk membaca nota bersumber."
     }
   },
   "aqeedah": {
@@ -3530,7 +3590,8 @@
       "obligatory": "Penting",
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
-    }
+    },
+    "occasionsIntroTv": "Pilih kesempatan untuk membuka pelajaran atau melayari perpustakaan dua penuh."
   },
   "learnQuran": {
     "eyebrow": "Belajar",
@@ -3677,7 +3738,8 @@
     "read": "Baca",
     "supplicate": "Berdua",
     "learn": "Belajar",
-    "more": "Lainnya"
+    "more": "Lainnya",
+    "tvSubtitle": "Qur'an, dua, zikr dan pembelajaran — navigasi dengan Pilih"
   },
   "offlineData": {
     "title": "Data luar talian",
@@ -4225,7 +4287,8 @@
     "linkSadaqah": "Sasaran sedekah",
     "linkSadaqahHint": "Sumbangan sukarela harian atau mingguan",
     "linkFidyah": "Fidyah dan kaffarah",
-    "linkFidyahHint": "Anggaran untuk puasa yang tertinggal atau terbatal"
+    "linkFidyahHint": "Anggaran untuk puasa yang tertinggal atau terbatal",
+    "learnHintTv": "Pilih topik untuk panduan tertumpu — hukum berbeza antara mazhab."
   },
   "customAdhkar": {
     "eyebrow": "Zikr",
@@ -4264,7 +4327,7 @@
       "label": "Lampiran (pilihan)",
       "add": "Tambah fail",
       "remove": "Alih keluar lampiran",
-      "hint": "Sehingga 5 fail (JPEG, PNG, WebP atau PDF), 1 MB setiap satu. Tekan lama lakaran kecil untuk mengalih keluar.",
+      "hint": "Sehingga 5 fail (JPEG, PNG, WebP, atau PDF), 1 MB setiap satu. Ketik × pada lakaran kecil untuk buang.",
       "signInRequired": "Log masuk untuk melampirkan fail peribadi pada adhkar anda.",
       "permissionDenied": "Kebenaran diperlukan untuk melampirkan fail.",
       "permissionTitle": "Benarkan akses",
@@ -4293,7 +4356,8 @@
       "sourceDocumentHint": "Pilih imej atau PDF daripada fail anda",
       "loadingPdf": "Memuatkan PDF…",
       "pdfHint": "Tatal · cubit atau guna +/− untuk zum · ketik dua kali untuk set semula · Buka PDF untuk kongsi",
-      "pdfPreviewTitle": "Pratonton PDF"
+      "pdfPreviewTitle": "Pratonton PDF",
+      "tvUnavailable": "Lampiran memerlukan telefon atau tablet. Tambah foto atau PDF di situ."
     },
     "stt": {
       "dictate": "Imlak dengan mikrofon",
@@ -4408,7 +4472,8 @@
       "unavailable": "Pengecaman pertuturan tidak tersedia pada peranti ini.",
       "couldNotHear": "Tidak dapat mendengarnya — cuba lagi atau taip.",
       "errorGeneric": "Imlak gagal. Cuba lagi atau taip."
-    }
+    },
+    "ratingHintTv": "Pilih bintang untuk menilai kehadiran hati anda dalam solat."
   },
   "prayerTuning": {
     "title": "Solah time tuning",
@@ -4575,7 +4640,8 @@
       "ranks": "Pangkat",
       "mercy": "Rahmat",
       "supplication": "Dua"
-    }
+    },
+    "versesLeadTv": "Pilih mana-mana ayat untuk membukanya dalam pembaca Qur'an."
   },
   "jahannam": {
     "eyebrow": "Belajar",
@@ -4707,7 +4773,9 @@
       "repentance": "Taubat",
       "accountability": "Akauntabiliti",
       "protection": "Perlindungan"
-    }
+    },
+    "versesLeadTv": "Pilih mana-mana ayat untuk membukanya dalam pembaca Qur'an.",
+    "reflectionLeadTv": "Berhenti sejenak dan tanya diri anda soalan-soalan ini. Pilih baris untuk membuka penjejak atau pelajaran berkaitan."
   },
   "tour": {
     "eyebrow": "Lawatan berpandu",
@@ -5053,7 +5121,7 @@
     "eyebrow": "Kalendar",
     "title": "Penukar tarikh",
     "subtitle": "Tukar antara kalendar Hijrah dan Gregorian",
-    "intro": "Masukkan tarikh dalam mana-mana kalendar untuk melihat kalendar yang sama pada tarikh yang lain, dikira di luar talian menggunakan algoritma Kuwait jadual.",
+    "intro": "Masukkan tarikh dalam mana-mana kalendar untuk melihat setaranya dalam yang lain, dikira luar talian daripada keterlihatan sabit di lokasi anda.",
     "toHijri": "Gregorian → Hijriah",
     "toGregorian": "Hijriah → Gregorian",
     "gregorianDateLabel": "tarikh Gregorian",
@@ -5063,7 +5131,7 @@
     "year": "tahun",
     "useToday": "Gunakan hari ini",
     "invalidDate": "Masukkan tarikh yang sah",
-    "disclaimer": "Ini ialah anggaran aritmetik (jadual \"algoritma Kuwait\") dan boleh berbeza mengikut hari daripada pengumuman melihat bulan tempatan — sentiasa ikut masjid atau pihak berkuasa tempatan anda untuk tarikh keagamaan.",
+    "disclaimer": "Tarikh dikira daripada keterlihatan sabit (hilāl) di lokasi anda dan boleh berbeza sehari daripada pengumuman rasmi rukyah — sentiasa ikut masjid atau pihak berkuasa tempatan untuk tarikh agama.",
     "directionTitle": "Arah penukaran",
     "resultFrom": "Daripada {{date}}",
     "quickLinksTitle": "Berkaitan",
@@ -5126,7 +5194,8 @@
       "fidyah": "Fidyah"
     },
     "skipHint": "Langkau kad ini dan lihat soalan lain.",
-    "skipDisabledHint": "Jawab kad terakhir ini untuk memulakan susunan baharu."
+    "skipDisabledHint": "Jawab kad terakhir ini untuk memulakan susunan baharu.",
+    "introTv": "Ambil daripada Qur'an, hadith, Nama-Nama Allah, dan setiap panduan Belajar. Pilih jawapan untuk menyemak diri, kemudian teruskan sesuka hati."
   },
   "lastThirdNight": {
     "eyebrow": "Solat malam",
@@ -5241,5 +5310,32 @@
     "linkFinanceHint": "Pemberian sukarela dijelaskan",
     "disclaimer": "Penjejak peribadi sahaja — bukan fatwa dan bukan pengganti pengiraan zakat apabila tiba masanya.",
     "continueInApp": "Teruskan di Munib"
+  },
+  "adhan": {
+    "listenHintTv": "Pilih rakaman untuk dimainkan. Madinah menyerlahkan setiap ayat semasa dikumandangkan. Gunakan Pelajari kata-kata di bawah untuk audio frasa demi frasa yang jelas."
+  },
+  "tv": {
+    "exitTitle": "Tinggalkan Munib Tracker?",
+    "exitMessage": "Tekan sahkan untuk menutup aplikasi pada TV ini.",
+    "exitConfirm": "Keluar",
+    "qrTitle": "Log masuk dengan telefon anda",
+    "qrHint": "Imbas kod QR ini dengan kamera telefon, atau buka Munib Tracker pada telefon dan masukkan kod.",
+    "qrA11y": "Kod QR untuk log masuk pada telefon anda",
+    "qrImageA11y": "Kod QR untuk log masuk TV",
+    "qrWaiting": "Menunggu telefon anda…",
+    "qrRefresh": "Kod baharu",
+    "qrRetry": "Cuba lagi",
+    "qrCreateError": "Tidak dapat memulakan log masuk TV. Semak sambungan anda dan cuba lagi.",
+    "qrExpired": "Kod ini telah tamat tempoh. Jana yang baharu.",
+    "qrEyebrow": "Rakan TV",
+    "qrPhoneTitle": "Log masuk pada TV",
+    "qrPhoneSubtitle": "Kod {{code}} — selesai log masuk untuk memautkan TV ini.",
+    "qrMissingCode": "Pautan ini tiada kod pasangan. Imbas QR dari TV anda sekali lagi.",
+    "qrSignInFirst": "Log masuk dengan akaun terpaut, kemudian kami akan sambungkan TV anda.",
+    "qrNeedLinkedAccount": "Log masuk dengan Google, Apple atau Facebook dahulu — akaun tetamu tidak boleh memautkan TV.",
+    "qrClaiming": "Menyambungkan TV anda…",
+    "qrClaimSuccess": "TV anda telah log masuk. Anda boleh kembali ke ruang tamu.",
+    "qrClaimError": "Tidak dapat menyambungkan TV. Jana kod baharu pada TV dan cuba lagi.",
+    "qrPhoneOnly": "Buka pautan ini pada telefon untuk menyelesaikan log masuk TV."
   }
 }

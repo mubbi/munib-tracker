@@ -61,6 +61,7 @@ import {
 import { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 import { FRIDAY_CHECKLIST_FOCUS } from "@/lib/friday";
 import { triggerHaptic } from "@/lib/haptics";
+import { tTv } from "@/lib/i18n/t-tv";
 import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/content";
 import { khatmTodayProgress } from "@/lib/khatm";
 import { toAppLocale } from "@/lib/locale-bcp47";
@@ -69,6 +70,7 @@ import {
   getExpoPushToken,
   registerWebPushSubscriptionWithApi,
 } from "@/lib/notifications/register-push-token";
+import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { createSalahTrackingSession, endSalahTrackingSession } from "@/lib/salah-phase";
 import {
@@ -342,6 +344,7 @@ export default function TrackerScreen() {
   ]);
 
   const startTrackingSalah = useCallback(() => {
+    if (isTV()) return;
     const snapshot = buildTrackingSnapshot();
     if (snapshot.locationDenied) {
       toast.error(t("notif.defaultLocationTitle"), t("notif.defaultLocationMessage"));
@@ -547,7 +550,7 @@ export default function TrackerScreen() {
     <ScreenLayout
       eyebrow={t("tracker.eyebrow")}
       title={t("tracker.title")}
-      subtitle={t("tracker.subtitle")}
+      subtitle={tTv(t, "tracker.subtitle", "tracker.tvSubtitle")}
       scrollRef={scrollRef}
       onScroll={onTrackerScroll}
     >
@@ -614,7 +617,9 @@ export default function TrackerScreen() {
               fridayFocused={isFocused(FRIDAY_CHECKLIST_FOCUS)}
             />
 
-            {(Platform.OS === "android" || Platform.OS === "web") && locationStatus !== "denied" ? (
+            {!isTV() &&
+            (Platform.OS === "android" || Platform.OS === "web") &&
+            locationStatus !== "denied" ? (
               <Card padding="three">
                 <SectionHeader
                   title={t("notif.trackSalah.title")}

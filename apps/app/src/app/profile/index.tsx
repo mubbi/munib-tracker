@@ -321,6 +321,11 @@ export default function ProfileScreen() {
               </View>
             </View>
           </View>
+          {isTV() ? (
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.avatarHintTv}>
+              {t("profile.tvAvatarHint")}
+            </ThemedText>
+          ) : null}
         </Card>
 
         {isGuest ? (
@@ -577,6 +582,9 @@ const styles = StyleSheet.create({
   avatarPlaceholder: {
     alignItems: "center",
     justifyContent: "center",
+  },
+  avatarHintTv: {
+    marginTop: Spacing.three,
   },
   cameraBadge: {
     position: "absolute",

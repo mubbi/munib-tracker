@@ -23,6 +23,92 @@
         ]
       }
     },
+    "/api/v1/auth/tv/pairing": {
+      "post": {
+        "description": "The TV displays a QR / short code. The phone opens the claim URL, signs in, and posts the code.",
+        "operationId": "AuthController_createTvPairing",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TvPairingCreateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a TV companion pairing code",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/tv/pairing/{code}": {
+      "get": {
+        "operationId": "AuthController_pollTvPairing",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "description": "Pairing code from POST /auth/tv/pairing",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TvPairingStatusResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Poll TV companion pairing status (TV client)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/tv/pairing/claim": {
+      "post": {
+        "description": "Requires a linked (non-guest) account. Issues a fresh session for the TV to poll.",
+        "operationId": "AuthController_claimTvPairing",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TvPairingClaimBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Pairing claimed; TV can poll for the session"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Claim a TV pairing from a signed-in phone",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
     "/api/v1/auth/google": {
       "post": {
         "operationId": "AuthController_completeGoogle",
@@ -1483,6 +1569,73 @@
           "refreshToken",
           "accountType",
           "userId"
+        ]
+      },
+      "TvPairingCreateResponseDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Short pairing code for QR / manual entry",
+            "example": "ABCD1234"
+          },
+          "displayCode": {
+            "type": "string",
+            "description": "Display form with a separator",
+            "example": "ABCD-1234"
+          },
+          "expiresAt": {
+            "type": "number",
+            "description": "Unix ms when this pairing expires"
+          },
+          "claimUrl": {
+            "type": "string",
+            "description": "HTTPS deep link for the phone to open and claim this pairing",
+            "example": "https://my.munibtracker.app/tv-pair?code=ABCD1234"
+          }
+        },
+        "required": [
+          "code",
+          "displayCode",
+          "expiresAt",
+          "claimUrl"
+        ]
+      },
+      "TvPairingStatusResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "ready",
+              "expired"
+            ]
+          },
+          "session": {
+            "description": "Present when status is ready — TV should persist this session",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AuthSessionResponseDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "TvPairingClaimBodyDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Pairing code shown on the TV",
+            "example": "ABCD1234"
+          }
+        },
+        "required": [
+          "code"
         ]
       },
       "AuthGoogleBodyDto": {

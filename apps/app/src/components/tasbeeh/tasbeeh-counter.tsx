@@ -25,6 +25,8 @@ import {
   segmentedTrackDirection,
 } from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
+import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
 import { isRTL, ltrControlViewProps } from "@/lib/rtl";
 
 export type TasbeehMode = { label: string; target: number };
@@ -37,9 +39,9 @@ export const TASBEEH_MODES: TasbeehMode[] = [
 ];
 
 const RING_SIZE = 272;
+const RING_SIZE_TV = 320;
 const RING_STROKE = 14;
-const TAP_SIZE = RING_SIZE + 48;
-const TAP_HIT_SLOP = (TAP_SIZE - RING_SIZE) / 2;
+const TAP_PADDING = 48;
 
 type TasbeehCounterProps = {
   count: number;
@@ -67,6 +69,12 @@ export function TasbeehCounter({
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const [pending, setPending] = useState<PendingConfirm | null>(null);
+  const tv = isTV();
+  // TV: a bigger tap target reads better from the couch and is easier to hit
+  // with a D-pad-driven focus ring.
+  const ringSize = tv ? RING_SIZE_TV : RING_SIZE;
+  const tapSize = ringSize + TAP_PADDING;
+  const tapHitSlop = (tapSize - ringSize) / 2;
   const displayCount = target > 0 ? Math.min(count, target) : count;
   const atLimit = target > 0 && count >= target;
   const complete = atLimit;
@@ -153,19 +161,27 @@ export function TasbeehCounter({
           />
         ) : null}
 
-        <View style={styles.counterStage}>
+        <View style={[styles.counterStage, { minHeight: tapSize }]}>
           <PartyPopper burstKey={celebrationKey} colors={celebrationColors} />
           <PressableScale
             haptic={false}
             onPress={handleTap}
             scaleTo={0.96}
-            hitSlop={TAP_HIT_SLOP}
+            hitSlop={tapHitSlop}
             accessibilityRole="button"
             accessibilityLabel={t("common.count")}
             accessibilityValue={{ now: displayCount, min: 0, max: target > 0 ? target : undefined }}
-            style={styles.tapZone}
+            style={[
+              styles.tapZone,
+              { width: ringSize, height: ringSize, borderRadius: ringSize / 2 },
+            ]}
           >
-            <CounterRing count={displayCount} target={target} complete={complete} />
+            <CounterRing
+              count={displayCount}
+              target={target}
+              complete={complete}
+              ringSize={ringSize}
+            />
           </PressableScale>
         </View>
 
@@ -181,7 +197,7 @@ export function TasbeehCounter({
               </View>
             ) : null}
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.hintText}>
-              {t("tasbeehUi.tapToCount")}
+              {tTv(t, "tasbeehUi.tapToCount", "tasbeehUi.tapToCountTv")}
             </ThemedText>
           </View>
         )}
@@ -324,10 +340,12 @@ function CounterRing({
   count,
   target,
   complete,
+  ringSize,
 }: {
   count: number;
   target: number;
   complete: boolean;
+  ringSize: number;
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -391,14 +409,14 @@ function CounterRing({
   }));
 
   return (
-    <View style={[styles.ring, chartCoordinateStyle, { width: RING_SIZE, height: RING_SIZE }]}>
+    <View style={[styles.ring, chartCoordinateStyle, { width: ringSize, height: ringSize }]}>
       <View
         style={[
           styles.ringGlow,
           {
-            width: RING_SIZE + 36,
-            height: RING_SIZE + 36,
-            borderRadius: (RING_SIZE + 36) / 2,
+            width: ringSize + 36,
+            height: ringSize + 36,
+            borderRadius: (ringSize + 36) / 2,
             backgroundColor: withAlpha(fill, glowOpacity),
           },
         ]}
@@ -406,7 +424,7 @@ function CounterRing({
 
       {target > 0 ? (
         <ArcProgressRing
-          size={RING_SIZE}
+          size={ringSize}
           stroke={RING_STROKE}
           progress={displayProgress}
           fillColor={fill}
@@ -419,7 +437,7 @@ function CounterRing({
           style={[
             StyleSheet.absoluteFill,
             {
-              borderRadius: RING_SIZE / 2,
+              borderRadius: ringSize / 2,
               borderWidth: RING_STROKE,
               borderColor: withAlpha(colors.accent, 0.35),
             },
@@ -432,7 +450,7 @@ function CounterRing({
               left: inset,
               right: inset,
               bottom: inset,
-              borderRadius: RING_SIZE / 2,
+              borderRadius: ringSize / 2,
               backgroundColor: colors.card,
               ...Shadows.sm,
             }}
@@ -443,7 +461,7 @@ function CounterRing({
       {target > 0 && displayProgress > 0 ? (
         <View
           style={[
-            progressRingKnobStyle(RING_SIZE, RING_STROKE, displayProgress, knob),
+            progressRingKnobStyle(ringSize, RING_STROKE, displayProgress, knob),
             styles.knob,
             {
               borderRadius: knob / 2,
@@ -630,12 +648,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     overflow: "visible",
-    minHeight: TAP_SIZE,
   },
   tapZone: {
-    width: RING_SIZE,
-    height: RING_SIZE,
-    borderRadius: RING_SIZE / 2,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",

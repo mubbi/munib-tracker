@@ -88,4 +88,40 @@ export const PROPHETS_GENEALOGY_NODES_MS: DeepPartial<ProphetsGenealogyNode>[] =
     relationNote:
       "Nabi Muhammad ﷺ adalah dari keturunan Ismail bin Ibrahim. Generasi bernama terperinci antara Ismail dan Quraisy dipelihara dalam sirah klasik; Al-Quran mengesahkan warisan Ibrahim tanpa menyenaraikan setiap nenek moyang. Tiada kelebihan bapa-anak yang dilukis di sini — hanya kenabian yang dimeterai dan keturunan Ismailiah.",
   },
+  // —— v2 appends ——
+  {
+    name: "Syith (Seth)",
+    relationNote:
+      "Tradisi Islam klasik menamakan Syith sebagai anak Adam dan rantaian generasi awal. Nama perantara antara Syith dan Nuh sebahagian besar Israiliyyat dan tidak dilukis sebagai sisi bapa yang kukuh.",
+  },
+  {
+    name: "Idris",
+    relationNote:
+      "Al-Qur'an menamakan Idris sebagai nabi yang benar yang diangkat ke martabat tinggi. Senarai klasik sering meletakkannya antara Adam dan Nuh, tetapi Al-Qur'an tidak menamakan bapanya — tiada sisi bapa dilukis.",
+  },
+  {
+    name: "Imran",
+    relationNote:
+      "Allah memilih keluarga Imran di atas sekalian alam. Maryam ialah anak perempuan Imran. (Imran ini bapa Maryam — tidak digunakan di sini sebagai bapa Musa/Harun.)",
+  },
+  {
+    name: "Adnan",
+    relationNote:
+      "Tradisi Islam menyatakan Muhammad ﷺ keturunan Adnan, dan Adnan keturunan Ismail — tetapi salasilah bernama dari Adnan ke Ismail hilang. Adnan ialah ketua klasik Arab Adnani; tiada sisi bapa ke Ismail dilukis.",
+  },
+  {
+    name: "Hashim ibn Abd Manaf",
+    relationNote:
+      "Hashim ialah eponim Bani Hashim dan nenek moyang klasik Nabi ﷺ. Senarai suku Adnan→Hashim ada dalam sirah tetapi dilangkau di sini sebagai generasi perantara — bukan nabi. Hashim mengetuai tulang belakang Hashimi dekat pada peta ini.",
+  },
+  {
+    name: "Abd al-Muttalib",
+    relationNote:
+      "Abd al-Muttalib (Shaybah) ialah datuk sebelah bapa Nabi ﷺ dan anak Hashim dalam sirah klasik.",
+  },
+  {
+    name: "Abdullah ibn Abd al-Muttalib",
+    relationNote:
+      "Abdullah ialah bapa Nabi Muhammad ﷺ dan anak Abd al-Muttalib dalam sirah klasik.",
+  },
 ];

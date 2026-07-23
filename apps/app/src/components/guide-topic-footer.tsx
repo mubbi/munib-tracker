@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { absoluteUrl } from "@/config/seo";
 import { Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
+import { tTv } from "@/lib/i18n/t-tv";
 import { formatGuideShare } from "@/lib/share";
 
 type GuideTopic = {
@@ -74,7 +75,7 @@ export function GuideTopicFooter({
             shareCard.isSharing(topic.id)
               ? t("share.preparing")
               : shareCard.isGesturePending(topic.id)
-                ? t("share.tapToShare")
+                ? tTv(t, "share.tapToShare", "share.selectToShare")
                 : t("reading.share")
           }
           variant="secondary"

@@ -12,6 +12,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getBundledEdition, getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { arabicReadingLayout, DEFAULT_ARABIC_SIZE } from "@/lib/reading-typography";
@@ -58,7 +59,7 @@ export default function QuranBookmarksScreen() {
         <EmptyState
           icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
           title={t("quran.bookmarkEmptyTitle")}
-          description={t("quran.bookmarkEmptyDesc")}
+          description={tTv(t, "quran.bookmarkEmptyDesc", "quran.bookmarkEmptyDescTv")}
           actionLabel={t("quran.surahList")}
           onAction={() => router.push("/quran")}
         />
@@ -104,7 +105,9 @@ export default function QuranBookmarksScreen() {
                         size={18}
                         tintColor={colors.mutedForeground}
                         accessibilityLabel={
-                          sharePending ? t("share.tapToShare") : t("quran.shareAyah")
+                          sharePending
+                            ? tTv(t, "share.tapToShare", "share.selectToShare")
+                            : t("quran.shareAyah")
                         }
                         haptic="light"
                         loading={isSharing(shareKey)}

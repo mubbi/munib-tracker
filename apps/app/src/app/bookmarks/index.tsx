@@ -16,6 +16,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
@@ -202,7 +203,7 @@ export default function BookmarksHubScreen() {
                 key={source.id}
                 icon={source.icon}
                 label={t(source.exploreLabelKey)}
-                hint={t(source.hintKey)}
+                hint={tTv(t, source.hintKey, `${source.hintKey}Tv`)}
                 onPress={() => router.push(source.exploreRoute)}
               />
             ) : (

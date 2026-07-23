@@ -16,6 +16,7 @@ import {
 } from "@/lib/attachments/attachment-file-manager";
 import { attachmentPickErrorFromUnknown } from "@/lib/attachments/attachment-mime";
 import { attachmentPickFailureFromOutcome } from "@/lib/attachments/map-attachment-pick-outcome";
+import { isTV } from "@/lib/platform/is-tv";
 import { runAfterSheetDismiss } from "@/lib/platform/run-after-sheet-dismiss";
 import { useToast } from "@/providers/toast-provider";
 
@@ -38,6 +39,7 @@ export function CustomAdhkarAttachments({
   const { colors, tokens } = useThemeTokens();
   const toast = useToast();
   const [sourceOpen, setSourceOpen] = useState(false);
+  const tv = isTV();
 
   const promptPermission = (canAskAgain: boolean, source: AttachmentPickSource) => {
     if (canAskAgain) {
@@ -145,7 +147,7 @@ export function CustomAdhkarAttachments({
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("customAdhkar.attachments.label")}
       </ThemedText>
-      {attachments.length < USER_MEDIA_MAX_PER_ENTITY ? (
+      {!tv && attachments.length < USER_MEDIA_MAX_PER_ENTITY ? (
         <View style={[styles.addField, { backgroundColor: colors.muted }]}>
           <View style={styles.addCopy}>
             <ThemedText type="smallBold">{t("customAdhkar.attachments.add")}</ThemedText>
@@ -159,6 +161,7 @@ export function CustomAdhkarAttachments({
             accessibilityRole="button"
             accessibilityLabel={t("customAdhkar.attachments.add")}
             onPress={openSourcePicker}
+            disabled={!canUpload}
             style={[styles.addButton, { backgroundColor: tokens.accentSoft }]}
             haptic="light"
           >
@@ -173,6 +176,11 @@ export function CustomAdhkarAttachments({
             />
           </PressableScale>
         </View>
+      ) : null}
+      {tv ? (
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("customAdhkar.attachments.tvUnavailable")}
+        </ThemedText>
       ) : null}
       {attachments.length > 0 ? (
         <View style={styles.grid}>

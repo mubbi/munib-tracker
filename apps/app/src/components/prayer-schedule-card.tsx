@@ -12,6 +12,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import type { ScheduleItem } from "@/hooks/use-home-hero";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import type { PrayerInfoId } from "@/lib/prayer-info";
 import type { ScheduleKind } from "@/lib/prayer-times";
 import {
@@ -148,8 +149,8 @@ function ScheduleCollapseBar({
   const hint = expanded
     ? undefined
     : isPast
-      ? t("home.scheduleShowPastHint")
-      : t("home.scheduleShowLaterHint");
+      ? tTv(t, "home.scheduleShowPastHint", "home.scheduleShowPastHintTv")
+      : tTv(t, "home.scheduleShowLaterHint", "home.scheduleShowLaterHintTv");
 
   const accessibilityLabel = expanded
     ? isPast
@@ -523,7 +524,7 @@ export function PrayerScheduleCard({
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
               label={
                 shareGesturePending
-                  ? t("share.tapToShare")
+                  ? tTv(t, "share.tapToShare", "share.selectToShare")
                   : shareLoading
                     ? t("share.preparing")
                     : t("common.share")
@@ -534,7 +535,7 @@ export function PrayerScheduleCard({
                 shareLoading
                   ? t("share.preparing")
                   : shareGesturePending
-                    ? t("share.tapToShare")
+                    ? tTv(t, "share.tapToShare", "share.selectToShare")
                     : t("schedule.shareA11y")
               }
               loading={shareLoading}

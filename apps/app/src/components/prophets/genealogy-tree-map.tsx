@@ -314,12 +314,12 @@ export function GenealogyTreeMap({
               const to = layout.byId[edge.toId];
               if (!from || !to) return null;
 
-              const onLineage =
-                Boolean(lineageIds) && lineageIds!.has(edge.fromId) && lineageIds!.has(edge.toId);
+              const onLineage = lineageIds?.has(edge.fromId) && lineageIds.has(edge.toId);
               const dimmed =
-                Boolean(highlightIds && highlightIds.size > 0) &&
-                !highlightIds!.has(edge.fromId) &&
-                !highlightIds!.has(edge.toId);
+                highlightIds != null &&
+                highlightIds.size > 0 &&
+                !highlightIds.has(edge.fromId) &&
+                !highlightIds.has(edge.toId);
               const d =
                 edge.kind === "parent" ? parentEdgePath(from, to) : siblingEdgePath(from, to);
               const stroke = onLineage
@@ -351,7 +351,7 @@ export function GenealogyTreeMap({
                   lineageIds?.has(edge.toId) && lineageIds?.has(edge.fromId),
                 );
                 const dimmed =
-                  Boolean(highlightIds && highlightIds.size > 0) && !highlightIds!.has(edge.toId);
+                  highlightIds != null && highlightIds.size > 0 && !highlightIds.has(edge.toId);
                 return (
                   <Circle
                     key={`dot-${edge.id}`}

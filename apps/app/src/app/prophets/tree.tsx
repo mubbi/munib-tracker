@@ -22,6 +22,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   getProphetsGenealogyBranchOrder,
@@ -61,7 +62,6 @@ function HorizontalChipRow({
       <View
         accessibilityLabel={accessibilityLabel}
         // Native DOM scrollport — RN web ScrollView nests poorly in ScreenLayout.
-        // @ts-expect-error className is valid on RN-web
         className="munib-h-scroll"
         style={webChipScrollStyle}
       >
@@ -284,7 +284,9 @@ export default function ProphetsTreeScreen() {
             </View>
           </Card>
         ) : (
-          <JannahCallout tone="info">{t("prophets.tree.tapHint")}</JannahCallout>
+          <JannahCallout tone="info">
+            {tTv(t, "prophets.tree.tapHint", "prophets.tree.tapHintTv")}
+          </JannahCallout>
         )}
 
         <JannahDisclaimer textKey="prophets.tree.disclaimer" />

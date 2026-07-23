@@ -81,7 +81,12 @@
     "appTagline": "Track Your Journey Back to Allah.",
     "tvUnavailableTitle": "Not available on TV",
     "tvUnavailableBody": "This feature needs a phone or tablet. Open Munib Tracker there to continue.",
-    "tvOauthHint": "Social sign-in may be limited on TV. Continue as guest here, or link an account on your phone."
+    "tvOauthHint": "Prefer the QR code above to sign in from your phone. Or continue as guest — link an account anytime from Profile on your phone.",
+    "select": "Select",
+    "selectToContinue": "Press Select to continue",
+    "selectToOpen": "Select to open",
+    "selectToSave": "Select to save",
+    "selectDay": "Select a day to review"
   },
   "search": {
     "placeholder": "Search Qur'an, hadith, duas, Learn…",
@@ -104,7 +109,9 @@
       "rizq": "Rizq",
       "rahman": "Rahman",
       "sleep": "Sleep",
-      "istighfar": "Istighfar"
+      "istighfar": "Istighfar",
+      "quranTv": "Select to read in Qur'an",
+      "hadithTv": "Select to read full hadith"
     },
     "stt": {
       "dictate": "Search by voice",
@@ -129,7 +136,8 @@
     "home": "Home",
     "tracker": "Tracker",
     "settings": "Settings",
-    "library": "Library"
+    "library": "Library",
+    "navHint": "Use ↑↓ to switch · → for content"
   },
   "actions": {
     "checklist": "Checklist",
@@ -316,7 +324,10 @@
     "lastTenTitle": "The last ten nights",
     "lastTenBody": "Seek Laylat al-Qadr in the odd nights — stand in prayer, recite Qur'an, and make dua. The Prophet ﷺ strove hardest in worship during these nights.",
     "laylatQadrTitle": "Laylat al-Qadr",
-    "laylatQadrBody": "Better than a thousand months — worship on this night outweighs decades of devotion. Recite Qur'an, pray Tahajjud, and say: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "Better than a thousand months — worship on this night outweighs decades of devotion. Recite Qur'an, pray Tahajjud, and say: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "Select to choose your fasting status",
+    "gridHintTv": "Select a day to log your fasting status",
+    "fastingLogBackfillNoteTv": "Showing Ramadan {{year}} AH ({{gregorian}}) so you can backfill your log. Select any day to update your fasting status."
   },
   "fastStatusSheet": {
     "prompt": "Choose your fasting status",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Browse Duroods",
     "exploreDuroodsHint": "Tap the star to save a durood",
     "exploreNames": "Browse 99 Names",
-    "exploreNamesHint": "Tap the star to save a name"
+    "exploreNamesHint": "Tap the star to save a name",
+    "exploreQuranHintTv": "Select the bookmark icon on any ayah",
+    "exploreDuasHintTv": "Select the star to save a dua",
+    "exploreZikrHintTv": "Select the heart to favorite adhkar",
+    "exploreDuroodsHintTv": "Select the star to save a durood",
+    "exploreNamesHintTv": "Select the star to save a name",
+    "exploreHadithHintTv": "Select to open a hadith collection"
   },
   "home": {
     "todaysGoal": "Today's Goal",
@@ -422,7 +439,9 @@
     "knowledgeAction": {
       "quran": "Tap to read in Qur'an",
       "hadith": "Tap to read full hadith",
-      "name": "Explore all 99 names"
+      "name": "Explore all 99 names",
+      "quranTv": "Select to read in Qur'an",
+      "hadithTv": "Select to read full hadith"
     },
     "devotionMeta": "Level {{level}} · {{noor}} Noor",
     "devotionProgress": "{{current}} / {{next}} Noor to next level",
@@ -447,12 +466,14 @@
     "scheduleShowPast_one": "{{count}} earlier prayer hidden",
     "scheduleShowPast_other": "{{count}} earlier prayers hidden",
     "scheduleShowPastHint": "Tap to show full schedule",
+    "scheduleShowPastHintTv": "Select to show full schedule",
     "scheduleHidePast": "Hide earlier prayers",
     "scheduleShowPastA11y": "Show {{count}} earlier prayers hidden in today's schedule",
     "scheduleHidePastA11y": "Hide earlier prayers in today's schedule",
     "scheduleShowLater_one": "{{count}} later prayer hidden",
     "scheduleShowLater_other": "{{count}} later prayers hidden",
     "scheduleShowLaterHint": "Tap to show rest of today",
+    "scheduleShowLaterHintTv": "Select to show rest of today",
     "scheduleHideLater": "Hide later prayers",
     "scheduleShowLaterA11y": "Show {{count}} later prayers hidden in today's schedule",
     "scheduleHideLaterA11y": "Hide later prayers in today's schedule",
@@ -553,12 +574,19 @@
         "text": "A short tasbeeh session counts. Zikr is not only for long sittings — start with ten.",
         "topic": "zikr"
       }
-    }
+    },
+    "exploreQuranHintTv": "Select the bookmark icon on any ayah",
+    "exploreDuasHintTv": "Select the star to save a dua",
+    "exploreZikrHintTv": "Select the heart to favorite adhkar",
+    "exploreDuroodsHintTv": "Select the star to save a durood",
+    "exploreNamesHintTv": "Select the star to save a name",
+    "exploreHintTv": "{{shown}} of {{total}} shortcuts shown — select Manage to add or reorder."
   },
   "tracker": {
     "eyebrow": "Track & log",
     "title": "Tracker",
     "subtitle": "Tap a prayer to set its status — saved on this device.",
+    "tvSubtitle": "Select a prayer to set its status — saved on this device.",
     "excusedTitle": "Excused day",
     "excusedHint": "Hayd, illness, or travel — pause obligatory tracking without breaking your streak.",
     "excusedActive": "This day is excused — obligatory tracking is paused and your streak is held.",
@@ -776,7 +804,8 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "tvSubtitle": "Browse with the remote — some tools need a phone"
   },
   "import": {
     "title": "Import prayer history",
@@ -818,6 +847,30 @@
     "error": "Couldn't sign in. Make sure the API server is running and this provider is configured.",
     "providersUnavailableTitle": "Sign-in is not available yet",
     "providersUnavailableBody": "Cloud sync providers are not configured in this build. Continue as guest — your progress stays on this device."
+  },
+  "tv": {
+    "exitTitle": "Leave Munib Tracker?",
+    "exitMessage": "Press confirm to close the app on this TV.",
+    "exitConfirm": "Exit",
+    "qrTitle": "Sign in with your phone",
+    "qrHint": "Scan this QR code with your phone camera, or open Munib Tracker on your phone and enter the code.",
+    "qrA11y": "QR code to sign in on your phone",
+    "qrImageA11y": "QR code for TV sign-in",
+    "qrWaiting": "Waiting for your phone…",
+    "qrRefresh": "New code",
+    "qrRetry": "Try again",
+    "qrCreateError": "Couldn't start TV sign-in. Check your connection and try again.",
+    "qrExpired": "This code expired. Generate a new one.",
+    "qrEyebrow": "TV companion",
+    "qrPhoneTitle": "Sign in on TV",
+    "qrPhoneSubtitle": "Code {{code}} — finish signing in to link this TV.",
+    "qrMissingCode": "This link is missing a pairing code. Scan the QR from your TV again.",
+    "qrSignInFirst": "Sign in with a linked account, then we'll connect your TV.",
+    "qrNeedLinkedAccount": "Sign in with Google, Apple, or Facebook first — guest accounts can't link a TV.",
+    "qrClaiming": "Connecting your TV…",
+    "qrClaimSuccess": "Your TV is signed in. You can return to the living room.",
+    "qrClaimError": "Couldn't connect the TV. Generate a new code on the TV and try again.",
+    "qrPhoneOnly": "Open this link on your phone to complete TV sign-in."
   },
   "onboarding": {
     "begin": "Begin",
@@ -869,7 +922,12 @@
     "locationLocating": "Setting up…",
     "locationSkip": "Set up later",
     "chooseLanguage": "Choose language",
-    "chooseLanguageHint": "Change the app language so you can follow this introduction"
+    "chooseLanguageHint": "Change the app language so you can follow this introduction",
+    "locationBodyTv": "Choose your city so prayer times stay accurate. You can change location anytime from Settings.",
+    "locationHighlight1Tv": "Accurate prayer times for your city",
+    "locationHighlight2Tv": "Qibla bearing from your location",
+    "locationHighlight3Tv": "Reminders work best on a phone",
+    "locationHighlight4Tv": "Change city anytime in Settings"
   },
   "appearance": {
     "eyebrow": "Settings",
@@ -1177,7 +1235,9 @@
     "searchPlaceholder": "Search adhkar by title, topic, or text…",
     "searchInCategory": "Search in this category…",
     "searchResultCount": "{{count}} matches",
-    "noResults": "No adhkar matched your search."
+    "noResults": "No adhkar matched your search.",
+    "favEmptyDescTv": "Select the star on any zikr to keep it here for quick access.",
+    "undoDoneHintTv": "Select to undo and mark as not done"
   },
   "zikrCat": {
     "morning": "Morning Adhkar",
@@ -1244,7 +1304,8 @@
     "sectionSchedule": "Today's schedule",
     "guideReadAt": "Read in Munib Tracker:",
     "preparing": "Sharing…",
-    "tapToShare": "Tap to share"
+    "tapToShare": "Tap to share",
+    "selectToShare": "Select to share"
   },
   "dua": {
     "eyebrow": "Supplication",
@@ -1296,7 +1357,8 @@
     "favorites": "Favorite duroods",
     "favSubtitle": "Duroods you've saved",
     "favEmptyTitle": "No favorite duroods yet",
-    "favEmptyDesc": "Tap the star on any durood to save it here."
+    "favEmptyDesc": "Tap the star on any durood to save it here.",
+    "favEmptyDescTv": "Select the star on any durood to save it here."
   },
   "names": {
     "eyebrow": "Asma-ul-Husna",
@@ -1313,7 +1375,8 @@
     "favorites": "Favorite names",
     "favSubtitle": "Names you've saved",
     "favEmptyTitle": "No favorite names yet",
-    "favEmptyDesc": "Tap the star on any name to save it here."
+    "favEmptyDesc": "Tap the star on any name to save it here.",
+    "favEmptyDescTv": "Select the star on any name to save it here."
   },
   "quran": {
     "eyebrow": "The Noble Qur'an",
@@ -1520,14 +1583,16 @@
         "hamWasl": "Connecting hamza — dropped when joining",
         "lamShamsiyah": "Sun-letter لام — not pronounced",
         "silent": "Written but not pronounced"
-      }
+      },
+      "tapHintTv": "Select to see the tajweed rule"
     },
     "wordByWord": {
       "title": "Word by word",
       "playWord": "Play this word",
       "noAudio": "No audio for this word",
       "loading": "Loading words…"
-    }
+    },
+    "bookmarkEmptyDescTv": "Select the bookmark icon on any ayah to save it here."
   },
   "hadith": {
     "eyebrow": "Prophetic tradition",
@@ -1769,7 +1834,8 @@
       },
       "footer": "This app counts missed Witr toward qaza for all users. Treat it as required if you follow the Hanafi view; otherwise track it as a recommended make-up. Consult a scholar for your situation."
     },
-    "history": "History"
+    "history": "History",
+    "hintTv": "Select the check to record a made-up prayer. Missing a prayer in the tracker adds to these counts automatically."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1897,7 +1963,8 @@
     "confirmAddEstimateTitle": "Add estimated fasts?",
     "confirmAddEstimateMsg": "Add {{count}} fasts to remaining (new total: {{total}})?",
     "confirmResetTitle": "Reset counter?",
-    "confirmResetMsg": "Clear all fast counts ({{remaining}} remaining, {{completed}} completed)? This cannot be undone."
+    "confirmResetMsg": "Clear all fast counts ({{remaining}} remaining, {{completed}} completed)? This cannot be undone.",
+    "adjustHintTv": "Select the number or use −/+ to adjust"
   },
   "calendar": {
     "eyebrow": "History",
@@ -1916,7 +1983,8 @@
     "missed": "Missed",
     "legendHint": "Tap any past or current day to review and adjust it. Today is {{date}}.",
     "converterRowTitle": "Hijri ⟷ Gregorian converter",
-    "converterRowSubtitle": "Convert a date between the two calendars"
+    "converterRowSubtitle": "Convert a date between the two calendars",
+    "legendHintTv": "Select any past or current day to review and adjust it. Today is {{date}}."
   },
   "calDay": {
     "today": "Today",
@@ -2016,7 +2084,8 @@
     "confirmResetTitle": "Reset counter?",
     "confirmResetMessage": "Your count of {{count}} will be cleared.",
     "confirmStartAgainTitle": "Start again?",
-    "confirmStartAgainMessage": "Your completed count will be cleared so you can begin a new round."
+    "confirmStartAgainMessage": "Your completed count will be cleared so you can begin a new round.",
+    "tapToCountTv": "Press Select to count"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} is only {{min}} min away",
@@ -2031,7 +2100,8 @@
     "prayerItemActive": "{{name}} at {{time}}, current prayer",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Change location",
-    "dateRowA11y": "{{phase}}. {{dates}}. Tap for moon details"
+    "dateRowA11y": "{{phase}}. {{dates}}. Tap for moon details",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Select for moon details"
   },
   "location": {
     "eyebrow": "Location",
@@ -2089,7 +2159,8 @@
       "Tehran": "Iran and Shia communities",
       "Turkey": "Turkey (Diyanet)",
       "Other": "Set manually elsewhere"
-    }
+    },
+    "searchAutoFocusOff": "Search for a city"
   },
   "moon": {
     "aria": "Moon phase: {{phase}}",
@@ -2125,7 +2196,8 @@
       "fullBody": "The moon is fully lit near the middle of {{month}} — the nights of the White Days, when fasting is especially recommended.",
       "generalTitle": "A calendar of the moon",
       "generalBody": "The Islamic (Hijri) calendar follows the moon: every month is 29 or 30 days, beginning with the sighted crescent (hilāl). Dates here are calculated from crescent visibility at your location and may differ from your local authority's announcement by a day."
-    }
+    },
+    "openTv": "{{phase}}. Select for details"
   },
   "achievements": {
     "eyebrow": "Progress",
@@ -2385,7 +2457,8 @@
     "deleteAccountAcknowledge": "I understand this permanently deletes my account and all synced data.",
     "deleteAccountSelectReason": "Please select a reason to continue.",
     "deleteAccountContinue": "Continue",
-    "deleteAccountBack": "Back"
+    "deleteAccountBack": "Back",
+    "tvAvatarHint": "Profile photo and account linking work best on your phone."
   },
   "sync": {
     "title": "Cloud sync",
@@ -2536,11 +2609,13 @@
     "emptyDesc": "Perform a make-up prayer from the qaza manager and it will appear here.",
     "count": "{{count}} made up",
     "legendHint": "Tap a highlighted day to see which prayers you made up.",
-    "dayA11y": "{{date}}, {{count}} made up"
+    "dayA11y": "{{date}}, {{count}} made up",
+    "legendHintTv": "Select a highlighted day to see which prayers you made up."
   },
   "weeklyReport": {
     "title": "Your week in worship",
-    "body": "{{prayers}} prayers completed, {{perfect}} perfect days, {{qaza}} qaza made up, and {{zikr}} zikr sessions. Tap to see your stats."
+    "body": "{{prayers}} prayers completed, {{perfect}} perfect days, {{qaza}} qaza made up, and {{zikr}} zikr sessions. Tap to see your stats.",
+    "bodyTv": "{{prayers}} prayers completed, {{perfect}} perfect days, {{qaza}} qaza made up, and {{zikr}} zikr sessions. Select to see your stats."
   },
   "backup": {
     "title": "Backup & restore",
@@ -2708,7 +2783,8 @@
     "confirmTitle": "Update Hifz status?",
     "confirmReviewBody": "{{ref}} will be flagged for review.",
     "confirmMemorizedBody": "{{ref}} will be marked as memorized.",
-    "confirmClearBody": "{{ref}} will be removed from your Hifz tracker."
+    "confirmClearBody": "{{ref}} will be removed from your Hifz tracker.",
+    "emptyDescTv": "Select Hifz on any ayah in the reader to mark it memorized."
   },
   "travel": {
     "eyebrow": "Learn",
@@ -2994,7 +3070,8 @@
       "playPhrases": "Play all phrases",
       "pausePhrases": "Pause phrases",
       "playPhrase": "Play phrase {{n}}: {{title}}",
-      "followAlongNote": "Highlights the words below as it plays"
+      "followAlongNote": "Highlights the words below as it plays",
+      "listenHintTv": "Select a recording to play. Medina highlights each sentence as it is called. Use Learn the words below for clear phrase-by-phrase audio."
     }
   },
   "battles": {
@@ -3089,7 +3166,8 @@
       "obligatory": "Essential",
       "highly-recommended": "Highly recommended",
       "recommended": "Recommended"
-    }
+    },
+    "versesIntroTv": "The Qur'an is the most authoritative source. Select a verse to open it in the Qur'an reader."
   },
   "lastDay": {
     "eyebrow": "Learn",
@@ -3195,7 +3273,8 @@
       "reflection": "Reflection Journal",
       "reflectionHint": "Khushu and prayer reflections",
       "learning": "Learning Progress",
-      "learningHint": "Topics completed in this module"
+      "learningHint": "Topics completed in this module",
+      "characterHintTv": "Select when you reviewed your conduct today"
     },
     "progressTitle": "Learning progress",
     "progressSubtitle": "Track study — not spiritual rank with Allah",
@@ -3223,7 +3302,10 @@
       "obligatory": "Essential",
       "highly-recommended": "Highly recommended",
       "recommended": "Recommended"
-    }
+    },
+    "versesIntroTv": "Select a verse to open it in the Qur'an reader. Brief summaries are educational, not a substitute for full tafsir.",
+    "preparationHabitsHintTv": "Select to open a tracker or toggle a daily intention",
+    "characterHintTv": "Select when you reviewed your conduct today"
   },
   "taharah": {
     "eyebrow": "Learn",
@@ -3292,7 +3374,8 @@
       "obligatory": "Obligatory",
       "highly-recommended": "Highly recommended",
       "recommended": "Recommended"
-    }
+    },
+    "checklistHintTv": "Select items as you review your daily purity habits"
   },
   "prophets": {
     "eyebrow": "Learn",
@@ -3397,7 +3480,8 @@
       "legendParent": "Lineage (parent → child)",
       "legendSibling": "Siblings",
       "allBranches": "All branches",
-      "tapHint": "Tap a name on the map to read the sourced note."
+      "tapHint": "Tap a name on the map to read the sourced note.",
+      "tapHintTv": "Select a name on the map to read the sourced note."
     }
   },
   "aqeedah": {
@@ -3517,7 +3601,8 @@
       "obligatory": "Essential",
       "highly-recommended": "Highly recommended",
       "recommended": "Recommended"
-    }
+    },
+    "occasionsIntroTv": "Select an occasion to open the lesson or browse the full dua library."
   },
   "learnQuran": {
     "eyebrow": "Learn",
@@ -3664,7 +3749,8 @@
     "read": "Read",
     "supplicate": "Supplicate",
     "learn": "Learn",
-    "more": "Tools & more"
+    "more": "Tools & more",
+    "tvSubtitle": "Qur'an, duas, zikr, and learning — navigate with Select"
   },
   "flashCards": {
     "eyebrow": "Learn",
@@ -3711,7 +3797,8 @@
       "duas": "Duas",
       "janazah": "Janazah",
       "fidyah": "Fidyah"
-    }
+    },
+    "introTv": "Draw from Qur'an, hadith, Names of Allah, and every Learn guide. Select an answer to check yourself, then keep going as long as you like."
   },
   "offlineData": {
     "title": "Offline data",
@@ -4179,7 +4266,8 @@
     "linkSadaqah": "Sadaqah goals",
     "linkSadaqahHint": "Daily or weekly voluntary giving",
     "linkFidyah": "Fidyah & kaffarah",
-    "linkFidyahHint": "Estimates for missed or broken fasts"
+    "linkFidyahHint": "Estimates for missed or broken fasts",
+    "learnHintTv": "Select a topic for a focused guide — rulings vary between schools."
   },
   "customAdhkar": {
     "eyebrow": "Remembrance",
@@ -4253,7 +4341,8 @@
       "sourceGallery": "Photo library",
       "sourceGalleryHint": "Choose an image from your photos",
       "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "sourceDocumentHint": "Pick an image or PDF from your files",
+      "tvUnavailable": "Attachments need a phone or tablet. Add photos or PDFs there."
     },
     "stt": {
       "dictate": "Dictate with microphone",
@@ -4382,7 +4471,8 @@
       "unavailable": "Speech recognition is unavailable on this device.",
       "couldNotHear": "Couldn't hear that — try again or type.",
       "errorGeneric": "Dictation failed. Try again or type."
-    }
+    },
+    "ratingHintTv": "Select a star to rate your presence in prayer."
   },
   "prayerTuning": {
     "title": "Prayer time tuning",
@@ -4548,7 +4638,8 @@
       "ranks": "Ranks",
       "mercy": "Mercy",
       "supplication": "Supplication"
-    }
+    },
+    "versesLeadTv": "Select any verse to open it in the Qur'an reader."
   },
   "jahannam": {
     "eyebrow": "Learn",
@@ -4680,7 +4771,9 @@
       "repentance": "Repentance",
       "accountability": "Accountability",
       "protection": "Protection"
-    }
+    },
+    "versesLeadTv": "Select any verse to open it in the Qur'an reader.",
+    "reflectionLeadTv": "Pause and ask yourself these questions. Select a row to open the related tracker or lesson."
   },
   "tour": {
     "eyebrow": "Guided tour",
@@ -5144,5 +5237,8 @@
     "linkFinanceHint": "Voluntary giving explained",
     "disclaimer": "A personal tracker only — not a fatwa and not a substitute for calculating zakat when due.",
     "continueInApp": "Continue in Munib"
+  },
+  "adhan": {
+    "listenHintTv": "Select a recording to play. Medina highlights each sentence as it is called. Use Learn the words below for clear phrase-by-phrase audio."
   }
 }

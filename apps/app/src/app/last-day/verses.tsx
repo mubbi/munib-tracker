@@ -19,6 +19,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { ensureLastDayContent, getLastDayVerses, isLastDayContentReady } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 
@@ -52,7 +53,9 @@ export default function LastDayVersesScreen() {
       <Seo path="/last-day/verses" />
       <LearnContentGate ready={contentReady}>
         <Stagger>
-          <JannahCallout tone="info">{t("lastDay.versesIntro")}</JannahCallout>
+          <JannahCallout tone="info">
+            {tTv(t, "lastDay.versesIntro", "lastDay.versesIntroTv")}
+          </JannahCallout>
 
           <LearnReadingChrome surface="last_day">
             {themes.map((theme) => {

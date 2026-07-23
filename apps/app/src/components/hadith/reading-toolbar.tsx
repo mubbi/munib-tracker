@@ -16,9 +16,11 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { ltrControlViewProps } from "@/lib/rtl";
 
 /** SF Symbols → Material fallbacks for each toolbar chip. */
@@ -264,6 +266,7 @@ function ToggleChip({
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const tint = enabled ? colors.accent : colors.mutedForeground;
   return (
     <PressableScale
@@ -274,14 +277,19 @@ function ToggleChip({
       onPress={onPress}
       style={[
         styles.chip,
+        tv && styles.chipTv,
         {
           backgroundColor: enabled ? tokens.accentSoft : colors.muted,
           borderColor: enabled ? colors.accent : "transparent",
         },
       ]}
     >
-      <SymbolView name={icon} size={16} tintColor={tint} />
-      <ThemedText type="smallBold" numberOfLines={1} style={{ color: tint }}>
+      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
+      <ThemedText
+        type="smallBold"
+        numberOfLines={1}
+        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
+      >
         {label}
       </ThemedText>
     </PressableScale>
@@ -333,6 +341,12 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: 1,
     borderColor: "transparent",
+  },
+  chipTv: {
+    maxWidth: 280,
+    minHeight: TvLayout.chipMinHeight,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
   },
   fontChip: {
     flexDirection: "row",

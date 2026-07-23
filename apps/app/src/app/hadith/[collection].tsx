@@ -31,10 +31,10 @@ import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Stagger } from "@/components/ui/stagger";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { HadithRepository } from "@/db";
 import type { HadithPrefs } from "@/db/repositories/hadith-repository";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
@@ -53,7 +53,9 @@ import {
   getBundledCollectionData,
   getBundledCollections,
 } from "@/lib/hadith";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
@@ -71,6 +73,8 @@ const EMPTY_SECTIONS: HadithSection[] = [];
 
 /** Extra width so the hadith list and filters pane can sit side by side. */
 const LIST_DETAIL_MAX_WIDTH = 1280;
+/** Comfortable reading column width on TV (single-column layout; no side filters). */
+const TV_LIST_DETAIL_MAX_WIDTH = 1100;
 
 /**
  * Pre-render a static HTML page for every bundled hadith collection at web
@@ -84,8 +88,12 @@ export default function HadithCollectionScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail } = useLargeScreenLayout();
+  // Wide tablet/desktop: sticky side filters. TV: single column — a fixed-width
+  // secondary pane kept overflowing past overscan no matter how we capped it.
+  const showSideFilters = isListDetail && !tv;
   const fullscreen = useReadingFullscreen({ exitOnBlur: true });
   const params = useLocalSearchParams<{ collection: string; q?: string }>();
   const collectionId = params.collection ?? "";
@@ -126,6 +134,7 @@ export default function HadithCollectionScreen() {
   const { updatePrefs } = useHadithActions();
   const readingSizes = resolveReadingFontSizes("hadith", fontPrefs);
   const listRef = useRef<FlatList<HadithItem>>(null);
+  const screenScrollRef = useRef<ScrollView>(null);
   const [toolbarVisible, setToolbarVisible] = useState(false);
   const headerCardHeightRef = useRef(0);
   const readingProgress = useSharedValue(0);
@@ -149,12 +158,16 @@ export default function HadithCollectionScreen() {
   );
 
   const scrollToTop = useCallback(() => {
+    if (tv) {
+      screenScrollRef.current?.scrollTo({ y: 0, animated: true });
+      return;
+    }
     listRef.current?.scrollToOffset({ offset: 0, animated: true });
-  }, []);
+  }, [tv]);
 
-  // Back-to-top / fullscreen live in the sticky side pane on large screens
-  // (same chrome pattern as the Qur'an surah reader).
-  const readerChrome = isListDetail ? (
+  // Back-to-top lives in the sticky side pane on large screens (same chrome
+  // pattern as the Qur'an surah reader). Fullscreen is omitted on TV.
+  const readerChrome = showSideFilters ? (
     <View style={styles.readerChromeRow}>
       {toolbarVisible ? (
         <PressableScale
@@ -170,7 +183,13 @@ export default function HadithCollectionScreen() {
             size={16}
             tintColor={colors.accent}
           />
-          <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
+          <ThemedText
+            type="caption"
+            style={{
+              color: colors.accentText,
+              fontWeight: "600",
+            }}
+          >
             {t("hadith.backToTop")}
           </ThemedText>
         </PressableScale>
@@ -333,8 +352,8 @@ export default function HadithCollectionScreen() {
 
   const keyExtractor = useCallback((item: HadithItem) => item.id, []);
 
-  const renderHadithItem = useCallback<ListRenderItem<HadithItem>>(
-    ({ item }) => (
+  const renderHadithCard = useCallback(
+    (item: HadithItem) => (
       <View style={styles.readingColumn}>
         <HadithCard
           item={item}
@@ -363,13 +382,25 @@ export default function HadithCollectionScreen() {
     ],
   );
 
+  const renderHadithItem = useCallback<ListRenderItem<HadithItem>>(
+    ({ item }) => renderHadithCard(item),
+    [renderHadithCard],
+  );
+
   const readerFilters = useMemo(
     () => (
-      <Card padding="three" style={styles.filtersCard}>
-        <View style={[styles.controlRow, styles.translationRow]}>
+      <Card padding="three" style={[styles.filtersCard, tv && styles.filtersCardTv]}>
+        <View
+          style={[
+            styles.controlRow,
+            styles.translationRow,
+            tv && styles.controlRowTv,
+            tv && styles.controlRowStackTv,
+          ]}
+        >
           <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
-          <View style={styles.controlValue}>
-            <ReadingFontControls surface="hadith" />
+          <View style={[styles.controlValue, tv && styles.controlValueTv]}>
+            <ReadingFontControls surface="hadith" fullWidth={tv} />
           </View>
         </View>
         <PrefToggle
@@ -414,7 +445,7 @@ export default function HadithCollectionScreen() {
         ) : null}
       </Card>
     ),
-    [hasIsnad, hasSharh, prefs, t, updatePrefs],
+    [hasIsnad, hasSharh, prefs, t, tv, updatePrefs],
   );
 
   if (!collection) {
@@ -444,6 +475,9 @@ export default function HadithCollectionScreen() {
   };
 
   const useFlatList = !isLoading && !failedOffline && !showSectionList;
+  // TV: ScreenLayout ScrollView + mapped cards — nested FlatList flex hosts still
+  // collapse to zero height on Leanback (same failure mode as dua/zikr categories).
+  const tvMappedList = tv && useFlatList;
   const collectionDescription = `Read hadith from ${collectionName} — the sayings and traditions of the Prophet Muhammad ﷺ, with narrator and grading details.`;
   const collectionBreadcrumbs = [
     { name: t("tabs.home"), path: "/" },
@@ -451,16 +485,59 @@ export default function HadithCollectionScreen() {
     { name: collectionName, path: `/hadith/${collectionId}` },
   ];
 
+  const readingListHeader = (
+    <View
+      style={[styles.readingColumn, styles.listHeader, tvMappedList && styles.listHeaderTv]}
+      onLayout={onHeaderCardLayout}
+    >
+      <Card padding="four">
+        <View style={styles.searchCard}>
+          <TextInput
+            value={query}
+            onChangeText={setQuery}
+            placeholder={t("hadith.searchPlaceholder")}
+            placeholderTextColor={colors.mutedForeground}
+            accessibilityLabel={t("hadith.searchPlaceholder")}
+            style={[
+              styles.input,
+              tv && styles.inputTv,
+              { backgroundColor: colors.muted, color: colors.foreground },
+            ]}
+          />
+          <ThemedText
+            type="caption"
+            themeColor="mutedForeground"
+            style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}
+          >
+            {t("hadith.hadithCount", { count: listItems.length })}
+          </ThemedText>
+        </View>
+      </Card>
+      {!showSideFilters ? readerFilters : null}
+    </View>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("hadith.title")}
       title={activeSection ? activeSection.name : collection.nameEnglish}
       subtitle={activeSection ? collection.nameEnglish : collection.nameArabic}
       onBack={activeSection ? goBackToBooks : () => goBackOrReplace(router, "/")}
-      scrollable={useFlatList ? false : undefined}
-      maxContentWidth={useFlatList && isListDetail ? LIST_DETAIL_MAX_WIDTH : undefined}
+      scrollable={tvMappedList ? true : useFlatList ? false : undefined}
+      scrollRef={tvMappedList ? screenScrollRef : undefined}
+      onScroll={tvMappedList ? onListScroll : undefined}
+      readingProgress={tvMappedList ? true : undefined}
+      maxContentWidth={
+        useFlatList
+          ? showSideFilters
+            ? LIST_DETAIL_MAX_WIDTH
+            : tv
+              ? TV_LIST_DETAIL_MAX_WIDTH
+              : undefined
+          : undefined
+      }
       headerAccessory={
-        useFlatList && !isListDetail ? (
+        useFlatList && !showSideFilters ? (
           <HadithReadingToolbar
             visible={toolbarVisible}
             progress={readingProgress}
@@ -502,61 +579,78 @@ export default function HadithCollectionScreen() {
         ]}
       />
       {isLoading ? (
-        <Stagger>
-          <EmptyState
-            icon={{ ios: "arrow.down.circle", android: "download", web: "download" }}
-            title={t("hadith.loading")}
-          />
-        </Stagger>
+        <EmptyState
+          icon={{ ios: "arrow.down.circle", android: "download", web: "download" }}
+          title={t("hadith.loading")}
+        />
       ) : failedOffline ? (
-        <Stagger>
-          <EmptyState
-            icon={{ ios: "wifi.slash", android: "wifi_off", web: "wifi_off" }}
-            title={t("hadith.offlineTitle")}
-            description={t("hadith.offlineDesc")}
-          />
-        </Stagger>
+        <EmptyState
+          icon={{ ios: "wifi.slash", android: "wifi_off", web: "wifi_off" }}
+          title={t("hadith.offlineTitle")}
+          description={t("hadith.offlineDesc")}
+        />
       ) : showSectionList ? (
-        <Stagger>
-          <View style={styles.contentStack}>
-            <Card padding="four">
-              <View style={styles.searchCard}>
-                <TextInput
-                  value={query}
-                  onChangeText={setQuery}
-                  placeholder={t("hadith.searchPlaceholder")}
-                  placeholderTextColor={colors.mutedForeground}
-                  accessibilityLabel={t("hadith.searchPlaceholder")}
-                  style={[
-                    styles.input,
-                    { backgroundColor: colors.muted, color: colors.foreground },
-                  ]}
+        <View style={styles.contentStack}>
+          <Card padding="four">
+            <View style={styles.searchCard}>
+              <TextInput
+                value={query}
+                onChangeText={setQuery}
+                placeholder={t("hadith.searchPlaceholder")}
+                placeholderTextColor={colors.mutedForeground}
+                accessibilityLabel={t("hadith.searchPlaceholder")}
+                style={[
+                  styles.input,
+                  tv && styles.inputTv,
+                  { backgroundColor: colors.muted, color: colors.foreground },
+                ]}
+              />
+              <ThemedText
+                type="caption"
+                themeColor="mutedForeground"
+                style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}
+              >
+                {t("hadith.bookCount", { count: sections.length })}
+              </ThemedText>
+            </View>
+          </Card>
+          <Card padding="four">
+            <View style={styles.list}>
+              {sections.map((section) => (
+                <SectionRow
+                  key={section.id}
+                  section={section}
+                  onPress={() => setSectionId(section.id)}
                 />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("hadith.bookCount", { count: sections.length })}
-                </ThemedText>
+              ))}
+            </View>
+          </Card>
+        </View>
+      ) : tvMappedList ? (
+        <View style={[styles.contentStack, { paddingBottom: contentBottomInset }]}>
+          {readingListHeader}
+          {listItems.length === 0 ? (
+            <EmptyState
+              icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
+              title={searching ? t("search.noResultsTitle") : t("hadith.emptyTitle")}
+              description={searching ? t("search.noResultsDesc") : t("hadith.emptyDesc")}
+            />
+          ) : (
+            listItems.map((item, index) => (
+              <View key={item.id}>
+                {index > 0 ? <HadithListSeparator /> : null}
+                {renderHadithCard(item)}
               </View>
-            </Card>
-            <Card padding="four">
-              <View style={styles.list}>
-                {sections.map((section) => (
-                  <SectionRow
-                    key={section.id}
-                    section={section}
-                    onPress={() => setSectionId(section.id)}
-                  />
-                ))}
-              </View>
-            </Card>
-          </View>
-        </Stagger>
+            ))
+          )}
+        </View>
       ) : (
         /* No Stagger wrapper: its item view has no flex, which would break the
            FlatList's height chain (matches the dua category screen). */
-        <View style={isListDetail ? styles.listDetailRoot : styles.readerRoot}>
+        <View style={showSideFilters ? styles.listDetailRoot : styles.readerRoot}>
           <FlatList
             ref={listRef}
-            style={[styles.flatList, isListDetail ? styles.listDetailPrimary : null]}
+            style={[styles.flatList, showSideFilters ? styles.listDetailPrimary : null]}
             contentContainerStyle={[styles.flatListContent, { paddingBottom: contentBottomInset }]}
             data={listItems}
             keyExtractor={keyExtractor}
@@ -568,32 +662,10 @@ export default function HadithCollectionScreen() {
             initialNumToRender={12}
             maxToRenderPerBatch={8}
             windowSize={7}
-            removeClippedSubviews
+            removeClippedSubviews={!tv}
             onScroll={onListScroll}
             scrollEventThrottle={16}
-            ListHeaderComponent={
-              <View style={[styles.readingColumn, styles.listHeader]} onLayout={onHeaderCardLayout}>
-                <Card padding="four">
-                  <View style={styles.searchCard}>
-                    <TextInput
-                      value={query}
-                      onChangeText={setQuery}
-                      placeholder={t("hadith.searchPlaceholder")}
-                      placeholderTextColor={colors.mutedForeground}
-                      accessibilityLabel={t("hadith.searchPlaceholder")}
-                      style={[
-                        styles.input,
-                        { backgroundColor: colors.muted, color: colors.foreground },
-                      ]}
-                    />
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("hadith.hadithCount", { count: listItems.length })}
-                    </ThemedText>
-                  </View>
-                </Card>
-                {!isListDetail ? readerFilters : null}
-              </View>
-            }
+            ListHeaderComponent={readingListHeader}
             ListEmptyComponent={
               <EmptyState
                 icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
@@ -602,7 +674,7 @@ export default function HadithCollectionScreen() {
               />
             }
           />
-          {isListDetail ? (
+          {showSideFilters ? (
             <View style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}>
               {readerChrome}
               <ScrollView
@@ -741,7 +813,11 @@ function HadithCard({
             ) : null}
             <LabeledIconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              label={isGesturePending(item.id) ? t("share.tapToShare") : t("common.share")}
+              label={
+                isGesturePending(item.id)
+                  ? tTv(t, "share.tapToShare", "share.selectToShare")
+                  : t("common.share")
+              }
               iconSize={18}
               tintColor={colors.mutedForeground}
               accessibilityLabel={t("hadith.share")}
@@ -840,10 +916,13 @@ const CONTROL_ICONS = {
 
 function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
   const { colors } = useThemeTokens();
+  const tv = isTV();
   return (
     <View style={styles.controlLabel}>
-      <SymbolView name={icon} size={18} tintColor={colors.mutedForeground} />
-      <ThemedText type="smallBold">{label}</ThemedText>
+      <SymbolView name={icon} size={tv ? 22 : 18} tintColor={colors.mutedForeground} />
+      <ThemedText type="smallBold" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
+        {label}
+      </ThemedText>
     </View>
   );
 }
@@ -859,6 +938,68 @@ function PrefToggle({
   enabled: boolean;
   onToggle: () => void;
 }) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+
+  // TV remotes struggle with native Switch thumbs — whole-row pressables with a
+  // clear on/off chrome are easier to focus and activate with Select.
+  if (tv) {
+    return (
+      <PressableScale
+        haptic="selection"
+        accessibilityRole="switch"
+        accessibilityLabel={label}
+        accessibilityState={{ checked: enabled }}
+        onPress={onToggle}
+        scaleTo={0.98}
+        style={[
+          styles.prefToggleTv,
+          {
+            backgroundColor: enabled ? tokens.accentSoft : colors.muted,
+            borderColor: enabled ? colors.accent : tokens.hairline,
+          },
+        ]}
+      >
+        <SymbolView
+          name={icon}
+          size={22}
+          tintColor={enabled ? colors.accent : colors.mutedForeground}
+        />
+        <ThemedText
+          type="smallBold"
+          numberOfLines={2}
+          style={{
+            flex: 1,
+            minWidth: 0,
+            fontSize: TvLayout.bodyFontSize,
+            color: enabled ? colors.accentText : colors.foreground,
+          }}
+        >
+          {label}
+        </ThemedText>
+        <View
+          style={[
+            styles.prefToggleStateTv,
+            {
+              backgroundColor: enabled ? colors.accent : withAlpha(colors.mutedForeground, 0.2),
+            },
+          ]}
+        >
+          <ThemedText
+            type="caption"
+            style={{
+              color: enabled ? colors.accentForeground : colors.mutedForeground,
+              fontWeight: "700",
+            }}
+          >
+            {enabled ? t("common.on") : t("common.off")}
+          </ThemedText>
+        </View>
+      </PressableScale>
+    );
+  }
+
   return (
     <View style={[styles.controlRow, styles.toggleRow]}>
       <ControlLabel icon={icon} label={label} />
@@ -880,10 +1021,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     gap: Spacing.four,
+    minHeight: 0,
   },
   listDetailPrimary: {
     flex: 1.15,
     minWidth: 0,
+    minHeight: 0,
   },
   listDetailSecondary: {
     flex: 0.85,
@@ -891,6 +1034,7 @@ const styles = StyleSheet.create({
     maxWidth: 400,
     borderStartWidth: StyleSheet.hairlineWidth,
     gap: Spacing.three,
+    minHeight: 0,
   },
   listDetailSecondaryScroll: {
     flex: 1,
@@ -917,10 +1061,12 @@ const styles = StyleSheet.create({
     borderRadius: Radius.sm,
     borderCurve: "continuous",
   },
-  flatList: { flex: 1 },
+  flatList: { flex: 1, minHeight: 0 },
   flatListContent: { paddingBottom: Spacing.four },
   listHeader: { marginBottom: Spacing.four, gap: Spacing.three },
+  listHeaderTv: { marginBottom: Spacing.five },
   filtersCard: { gap: Spacing.two },
+  filtersCardTv: { gap: Spacing.three },
   hadithSeparator: { height: Spacing.three },
   searchCard: { gap: Spacing.three },
   input: {
@@ -929,6 +1075,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.three,
     fontSize: 15,
+  },
+  inputTv: {
+    minHeight: TvLayout.minFocusTarget,
+    fontSize: TvLayout.bodyFontSize,
+    paddingHorizontal: Spacing.four,
+    paddingVertical: Spacing.three,
   },
   list: { gap: Spacing.two },
   readingColumn: {
@@ -943,6 +1095,14 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     minHeight: 44,
   },
+  controlRowTv: {
+    minHeight: TvLayout.minFocusTarget,
+  },
+  controlRowStackTv: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    gap: Spacing.two,
+  },
   translationRow: {
     alignItems: "center",
   },
@@ -954,9 +1114,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
     flexShrink: 1,
+    minWidth: 0,
   },
   controlValue: {
     flexShrink: 0,
+  },
+  controlValueTv: {
+    width: "100%",
+    flexShrink: 1,
+  },
+  prefToggleTv: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    minHeight: TvLayout.minFocusTarget,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: 1,
+  },
+  prefToggleStateTv: {
+    paddingHorizontal: Spacing.two + 2,
+    paddingVertical: Spacing.one,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    minWidth: 44,
+    alignItems: "center",
   },
   cardHeader: {
     flexDirection: "row",

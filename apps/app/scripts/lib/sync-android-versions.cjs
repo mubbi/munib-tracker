@@ -1,5 +1,5 @@
 /**
- * Sync EXPO_ANDROID_APP_VERSION / EXPO_ANDROID_VERSION_CODE into android/app/build.gradle.
+ * Sync Android versionName / versionCode into android/app/build.gradle.
  */
 const fs = require("node:fs");
 const path = require("node:path");
@@ -25,7 +25,11 @@ function failOrReturn(strict, message) {
   return false;
 }
 
-function syncAndroidVersionName(androidDir, versionName, { strict = true } = {}) {
+function syncAndroidVersionName(
+  androidDir,
+  versionName,
+  { strict = true, envKey = "EXPO_ANDROID_APP_VERSION" } = {},
+) {
   const gradle = readGradle(androidDir);
   if (!gradle) {
     return failOrReturn(strict, `Missing ${gradlePath(androidDir)}`);
@@ -35,22 +39,25 @@ function syncAndroidVersionName(androidDir, versionName, { strict = true } = {})
   }
   const contents = gradle.contents.replace(/versionName\s+"[^"]*"/, `versionName "${versionName}"`);
   fs.writeFileSync(gradle.filePath, contents, "utf8");
-  console.log(`Android versionName ${versionName} (EXPO_ANDROID_APP_VERSION)\n`);
+  console.log(`Android versionName ${versionName} (${envKey})\n`);
   return true;
 }
 
-function syncAndroidVersionCode(androidDir, { strict = true } = {}) {
+function syncAndroidVersionCode(
+  androidDir,
+  { strict = true, versionCode, envKey = "EXPO_ANDROID_VERSION_CODE" } = {},
+) {
   const gradle = readGradle(androidDir);
   if (!gradle) {
     return failOrReturn(strict, `Missing ${gradlePath(androidDir)}`);
   }
-  const code = resolveAndroidVersionCode();
+  const code = versionCode ?? resolveAndroidVersionCode("android");
   if (!/versionCode\s+\d+/.test(gradle.contents)) {
     return failOrReturn(strict, `Could not find versionCode in ${gradle.filePath}`);
   }
   const contents = gradle.contents.replace(/versionCode\s+\d+/, `versionCode ${code}`);
   fs.writeFileSync(gradle.filePath, contents, "utf8");
-  console.log(`Android versionCode ${code} (EXPO_ANDROID_VERSION_CODE)\n`);
+  console.log(`Android versionCode ${code} (${envKey})\n`);
   return true;
 }
 

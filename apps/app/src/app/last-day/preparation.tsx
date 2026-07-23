@@ -18,6 +18,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { ensureLastDayContent, getLastDayLessonCount, isLastDayContentReady } from "@/lib/last-day";
 import type { LastDayPreparationRowId } from "@/lib/last-day-preparation";
 import { buildLastDayPreparation } from "@/lib/last-day-preparation";
@@ -84,7 +85,7 @@ function PreparationRow({
         <View style={styles.copy}>
           <ThemedText type="smallBold">{t(row.labelKey)}</ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
-            {t(row.hintKey)}
+            {tTv(t, row.hintKey, `${row.hintKey}Tv`)}
           </ThemedText>
         </View>
         <SymbolView
@@ -117,7 +118,7 @@ function PreparationRow({
           </ThemedText>
         </View>
         <ThemedText type="caption" themeColor="mutedForeground">
-          {t(row.hintKey)}
+          {tTv(t, row.hintKey, `${row.hintKey}Tv`)}
         </ThemedText>
         {row.progress != null && row.progress > 0 ? <ProgressBar value={row.progress} /> : null}
       </View>
@@ -183,7 +184,7 @@ export default function LastDayPreparationScreen() {
               icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
             />
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("lastDay.preparationHabitsHint")}
+              {tTv(t, "lastDay.preparationHabitsHint", "lastDay.preparationHabitsHintTv")}
             </ThemedText>
             <View style={styles.list}>
               {snapshot.rows.map((row) => (

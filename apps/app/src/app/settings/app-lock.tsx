@@ -8,6 +8,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -19,6 +20,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isExpoGo } from "@/lib/notifications/platform";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import { useToast } from "@/providers/toast-provider";
 
@@ -46,6 +48,23 @@ export default function AppLockScreen() {
 
   const expoGo = isExpoGo();
   const isNative = Platform.OS === "ios" || Platform.OS === "android";
+
+  if (isTV()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("settings.title")}
+        title={t("pinLock.title")}
+        onBack={() => goBackOrReplace(router, "/")}
+      >
+        <Seo path="/settings/app-lock" />
+        <EmptyState
+          icon={{ ios: "tv", android: "tv", web: "tv" }}
+          title={t("common.tvUnavailableTitle")}
+          description={t("common.tvUnavailableBody")}
+        />
+      </ScreenLayout>
+    );
+  }
 
   if (!isNative) {
     return (

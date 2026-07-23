@@ -11,6 +11,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadNamesOfAllah } from "@/lib/content-loaders";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureNameFavoritesLoaded,
@@ -53,7 +54,7 @@ export default function NameFavoritesScreen() {
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
           title={t("names.favEmptyTitle")}
-          description={t("names.favEmptyDesc")}
+          description={tTv(t, "names.favEmptyDesc", "names.favEmptyDescTv")}
           actionLabel={t("names.title")}
           onAction={() => router.replace("/names-of-allah")}
         />
@@ -61,7 +62,7 @@ export default function NameFavoritesScreen() {
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
           title={t("names.favEmptyTitle")}
-          description={t("names.favEmptyDesc")}
+          description={tTv(t, "names.favEmptyDesc", "names.favEmptyDescTv")}
           actionLabel={t("names.title")}
           onAction={() => router.replace("/names-of-allah")}
         />

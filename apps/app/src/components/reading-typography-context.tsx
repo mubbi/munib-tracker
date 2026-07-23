@@ -3,13 +3,16 @@ import { createContext, type ReactNode, useContext, useMemo, useState } from "re
 import { useTranslation } from "react-i18next";
 import { StyleSheet, type TextStyle, View } from "react-native";
 
+import { tvLearnReadingColumnStyle } from "@/components/learn-guide/tv-learn-chrome";
 import { LearnTtsProvider, useLearnTts } from "@/components/learn-tts-context";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText, type ThemedTextProps } from "@/components/themed-text";
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { IconButton } from "@/components/ui/icon-button";
 import { Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   DEFAULT_ARABIC_SIZE,
   DEFAULT_TRANSLATION_SIZE,
@@ -108,7 +111,10 @@ function LearnListenButton() {
   const { colors, tokens } = useThemeTokens();
   const tts = useLearnTts();
   const [voiceSheetOpen, setVoiceSheetOpen] = useState(false);
+  const tv = isTV();
   if (!tts?.hasText) return null;
+
+  const hit = tv ? TvLayout.minFocusTarget : 36;
 
   return (
     <>
@@ -118,7 +124,7 @@ function LearnListenButton() {
             ? { ios: "stop.fill", android: "stop", web: "stop" }
             : { ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }
         }
-        size={18}
+        size={tv ? 22 : 18}
         tintColor={tts.speaking ? colors.accent : colors.mutedForeground}
         accessibilityLabel={tts.speaking ? t("reading.listenStop") : t("reading.listen")}
         accessibilityHint={t("reading.listenHint")}
@@ -128,8 +134,8 @@ function LearnListenButton() {
           else setVoiceSheetOpen(true);
         }}
         background={tts.speaking ? tokens.accentSoft : colors.muted}
-        hitTarget={36}
-        wellRadius={18}
+        hitTarget={hit}
+        wellRadius={hit / 2}
       />
       <TtsVoiceSheet
         visible={voiceSheetOpen}
@@ -155,13 +161,16 @@ export function ReadingTypographyBar({
   textVisibility?: boolean;
 }) {
   const { t } = useTranslation();
+  const tv = isTV();
 
   return (
-    <View style={styles.bar}>
-      <ThemedText type="smallBold" style={styles.label}>
-        {t("reading.textSize")}
-      </ThemedText>
-      <View style={styles.barEnd}>
+    <View style={[styles.bar, tv && styles.barTv]}>
+      {tv ? null : (
+        <ThemedText type="smallBold" style={styles.label}>
+          {t("reading.textSize")}
+        </ThemedText>
+      )}
+      <View style={[styles.barEnd, tv && styles.barEndTv]}>
         <ReadingFontControls surface={surface} />
         {textVisibility ? <ReadingTextVisibilityToggles /> : null}
         <LearnListenButton />
@@ -175,14 +184,16 @@ function ReadingTextVisibilityToggles() {
   const { colors, tokens } = useThemeTokens();
   const { showTransliteration, showTranslation } = useReadingTextVisibility();
   const { toggleTransliteration, toggleTranslation } = useReadingTextVisibilityActions();
+  const tv = isTV();
+  const hit = tv ? TvLayout.minFocusTarget : 36;
 
   return (
     <>
       <IconButton
         name={{ ios: "textformat.abc", android: "abc", web: "abc" }}
-        size={16}
-        hitTarget={36}
-        wellRadius={18}
+        size={tv ? 20 : 16}
+        hitTarget={hit}
+        wellRadius={hit / 2}
         tintColor={showTransliteration ? colors.accent : colors.mutedForeground}
         background={showTransliteration ? tokens.accentSoft : colors.muted}
         accessibilityLabel={
@@ -194,9 +205,9 @@ function ReadingTextVisibilityToggles() {
       />
       <IconButton
         name={{ ios: "text.alignleft", android: "notes", web: "notes" }}
-        size={16}
-        hitTarget={36}
-        wellRadius={18}
+        size={tv ? 20 : 16}
+        hitTarget={hit}
+        wellRadius={hit / 2}
         tintColor={showTranslation ? colors.accent : colors.mutedForeground}
         background={showTranslation ? tokens.accentSoft : colors.muted}
         accessibilityLabel={
@@ -224,11 +235,15 @@ export function LearnReadingChrome({
   listenText?: string | null;
   children: ReactNode;
 }) {
+  const tv = isTV();
+
   return (
     <LearnTtsProvider listenText={listenText}>
       <ReadingTypographyProvider surface={surface}>
-        <ReadingTypographyBar surface={surface} />
-        <View style={styles.content}>{children}</View>
+        <View style={tv ? tvLearnReadingColumnStyle : undefined}>
+          <ReadingTypographyBar surface={surface} />
+          <View style={[styles.content, tv && styles.contentTv]}>{children}</View>
+        </View>
       </ReadingTypographyProvider>
     </LearnTtsProvider>
   );
@@ -242,6 +257,11 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     marginBottom: Spacing.two,
   },
+  barTv: {
+    justifyContent: "flex-start",
+    marginBottom: Spacing.three,
+    gap: Spacing.three,
+  },
   label: {
     flexShrink: 1,
   },
@@ -251,7 +271,14 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     flexShrink: 0,
   },
+  barEndTv: {
+    flexGrow: 0,
+    gap: Spacing.three,
+  },
   content: {
     gap: Spacing.four,
+  },
+  contentTv: {
+    gap: Spacing.five,
   },
 });

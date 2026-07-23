@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "Haipatikani kwenye TV",
     "tvUnavailableBody": "Kipengele hiki kinahitaji simu au kompyuta kibao. Fungua Munib Tracker huko ili kuendelea.",
-    "tvOauthHint": "Kuingia kwa mitandao ya kijamii kunaweza kuwa na kikomo kwenye TV. Endelea hapa kama mgeni, au unganisha akaunti kwenye simu yako."
+    "tvOauthHint": "Tumia msimbo wa QR hapo juu kuingia kutoka simu yako. Au endelea kama mgeni — unganisha akaunti wakati wowote kutoka Wasifu kwenye simu yako.",
+    "select": "Chagua",
+    "selectToContinue": "Bonyeza Chagua kuendelea",
+    "selectToOpen": "Chagua kufungua",
+    "selectToSave": "Chagua kuhifadhi",
+    "selectDay": "Chagua siku kukagua"
   },
   "search": {
     "placeholder": "Tafuta Qur'an, hadith, dua, Jifunze…",
@@ -104,7 +109,9 @@
       "rizq": "Riziki",
       "rahman": "Ar-Rahman",
       "sleep": "Usingizi",
-      "istighfar": "الاستغفار"
+      "istighfar": "الاستغفار",
+      "quranTv": "Chagua kusoma katika Qur'an",
+      "hadithTv": "Chagua kusoma hadithi kamili"
     },
     "cat": {
       "quran": "Qur'ani",
@@ -129,7 +136,8 @@
     "home": "Nyumbani",
     "tracker": "Kifuatiliaji",
     "settings": "Mipangilio",
-    "library": "Maktaba"
+    "library": "Maktaba",
+    "navHint": "Tumia ↑↓ kubadilisha · → kwa maudhui"
   },
   "actions": {
     "checklist": "Orodha ya ukaguzi",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Usiku kumi za mwisho",
     "lastTenBody": "Tafuteni Laylatul-Qadr katika mikesha isiyo ya kawaida - simameni katika sala, soma Qur'ani, na dua. Mtume ﷺ alijitahidi sana katika ibada katika mikesha hii.",
     "laylatQadrTitle": "Laylat al-Qadr",
-    "laylatQadrBody": "Bora zaidi ya miezi elfu moja - ibada katika usiku huu inapita miongo kadhaa ya kujitolea. Soma Qur'an, sali Tahajjud, na useme: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "Bora zaidi ya miezi elfu moja - ibada katika usiku huu inapita miongo kadhaa ya kujitolea. Soma Qur'an, sali Tahajjud, na useme: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "Chagua kuchagua hali ya saumu",
+    "gridHintTv": "Chagua siku kurekodi hali ya saumu",
+    "fastingLogBackfillNoteTv": "Inaonyesha Ramadan {{year}} AH ({{gregorian}}) ili uweze kukamilisha rekodi. Chagua siku yoyote kusasisha hali ya saumu."
   },
   "fastStatusSheet": {
     "prompt": "Chagua hali yako ya kufunga",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Vinjari Duroods",
     "exploreDuroodsHint": "Dokunun  star  kmwezidet  durood",
     "exploreNames": "Browse Majina 99",
-    "exploreNamesHint": "Dokunun  star  kmwezidet  name"
+    "exploreNamesHint": "Dokunun  star  kmwezidet  name",
+    "exploreQuranHintTv": "Chagua ikoni ya alamisho kwenye ayah yoyote",
+    "exploreDuasHintTv": "Chagua nyota kuhifadhi dua",
+    "exploreZikrHintTv": "Chagua moyo kuweka adhkar kipendwa",
+    "exploreDuroodsHintTv": "Chagua nyota kuhifadhi durood",
+    "exploreNamesHintTv": "Chagua nyota kuhifadhi jina",
+    "exploreHadithHintTv": "Chagua kufungua mkusanyo wa hadithi"
   },
   "home": {
     "todaysGoal": "Lengo la Leo",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "Gusa ili kusoma katika Qur'an",
       "hadith": "Gusa ili usome hadith kamili",
-      "name": "Chunguza majina yote 99"
+      "name": "Chunguza majina yote 99",
+      "quranTv": "Chagua kusoma katika Qur'an",
+      "hadithTv": "Chagua kusoma hadithi kamili"
     },
     "devotionMeta": "Kiwango {{level}} · {{noor}} Noor",
     "devotionProgress": "{{current}} / {{next}} Noor hadi ngazi inayofuata",
@@ -553,7 +572,15 @@
       "reminderTitle": "Saa ya kukubaliwa",
       "reminderBody": "Saa siku ya Ijumaa ambapo dua haikataliwi — itafute hasa baada ya Asr kwa dua, istighfar na salawat ya dhati.",
       "openGuide": "Fungua saa ya kukubaliwa"
-    }
+    },
+    "scheduleShowPastHintTv": "Chagua kuonyesha ratiba kamili",
+    "scheduleShowLaterHintTv": "Chagua kuonyesha salio la leo",
+    "exploreQuranHintTv": "Chagua ikoni ya alamisho kwenye ayah yoyote",
+    "exploreDuasHintTv": "Chagua nyota kuhifadhi dua",
+    "exploreZikrHintTv": "Chagua moyo kuweka adhkar kipendwa",
+    "exploreDuroodsHintTv": "Chagua nyota kuhifadhi durood",
+    "exploreNamesHintTv": "Chagua nyota kuhifadhi jina",
+    "exploreHintTv": "{{shown}} kati ya {{total}} njia za mkato zinaonyeshwa — chagua Simamia kuongeza au kupanga upya."
   },
   "tracker": {
     "eyebrow": "Kifuatiliaji et na kmwezidet",
@@ -644,7 +671,8 @@
       "hintPages": "{{count}} kurasa kuelekea lengo la leo — gusa kurekodi",
       "completeHint": "Sehemu ya leo imekamilika — gusa kuona mpango wako",
       "a11y": "Mpango wa khatm siku {{day}} kati ya {{total}}, {{done}} kati ya {{target}} kuelekea lengo la leo"
-    }
+    },
+    "tvSubtitle": "Chagua swala kuweka hali yake — imewekwa kwenye kifaa hiki."
   },
   "update": {
     "title": "Sasisho linapatikana",
@@ -776,7 +804,8 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "tvSubtitle": "Vinjari kwa remote — baadhi ya zana zinahitaji simu"
   },
   "import": {
     "title": "Swala geçmişini içe aktar",
@@ -869,7 +898,12 @@
     "locationSkip": "Weka baadaye",
     "locationHighlight4": "Ruka wakati wowote — weka mahali au washa arifa baadaye",
     "chooseLanguage": "Chagua lugha",
-    "chooseLanguageHint": "Badilisha lugha ya programu ili uweze kufuata utangulizi huu"
+    "chooseLanguageHint": "Badilisha lugha ya programu ili uweze kufuata utangulizi huu",
+    "locationBodyTv": "Chagua mji wako ili nyakati za swala ziwe sahihi. Unaweza kubadilisha eneo wakati wowote kutoka Mipangilio.",
+    "locationHighlight1Tv": "Nyakati sahihi za swala kwa mji wako",
+    "locationHighlight2Tv": "Mwelekeo wa Qibla kutoka eneo lako",
+    "locationHighlight3Tv": "Vikumbusho hufanya kazi vizuri zaidi kwenye simu",
+    "locationHighlight4Tv": "Badilisha mji wakati wowote katika Mipangilio"
   },
   "appearance": {
     "eyebrow": "Mipangilio",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} zinazolingana",
     "noResults": "Hakuna adhkar iliyolingana na utafutaji wako.",
     "markAsDone": "Weka alama kuwa imekamilika",
-    "undoDoneHint": "Gusa ili kutengua na kuweka kuwa haijakamilika"
+    "undoDoneHint": "Gusa ili kutengua na kuweka kuwa haijakamilika",
+    "favEmptyDescTv": "Chagua nyota kwenye zikr yoyote kuiweka hapa kwa ufikiaji wa haraka.",
+    "undoDoneHintTv": "Chagua kutengua na kuashiria kuwa haijakamilika"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Read kwade Munib Tracker:",
     "preparing": "Inashiriki...",
     "tapToShare": "Dokunun  pmwezilaş",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "Chagua kushiriki"
   },
   "dua": {
     "eyebrow": "Dua",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Hifadhitiğiniz salavatlar",
     "favEmptyTitle": "Bado hakuna duroos unazopenda",
     "favEmptyDesc": "Hiirmwezia kmwezidetmek kwa herhangi moja salavata mwakadıza dokunun.",
-    "openInTasbeeh": "Fungua katika Tasbeeh"
+    "openInTasbeeh": "Fungua katika Tasbeeh",
+    "favEmptyDescTv": "Chagua nyota kwenye durood yoyote kuihifadhi hapa."
   },
   "names": {
     "eyebrow": "الأسماء الحسنى",
@@ -1313,7 +1351,8 @@
     "favorites": "Majina unayopenda",
     "favSubtitle": "Isimler you'na kmwezidedildi",
     "favEmptyTitle": "Hakuna majina unayopenda bado",
-    "favEmptyDesc": "Gonga nyota kwenye jina lolote ili kuihifadhi hapa."
+    "favEmptyDesc": "Gonga nyota kwenye jina lolote ili kuihifadhi hapa.",
+    "favEmptyDescTv": "Chagua nyota kwenye jina lolote kulihifadhi hapa."
   },
   "quran": {
     "eyebrow": " Noble Qur'ani",
@@ -1453,7 +1492,8 @@
         "hamWasl": "Kuunganisha hamza - imeshuka wakati wa kujiunga",
         "lamShamsiyah": "Herufi-jua لام — haitamki",
         "silent": "Imeandikwa lakini haijatamkwa"
-      }
+      },
+      "tapHintTv": "Chagua kuona kanuni ya tajweed"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Sura {{number}}",
     "selectSurah": "Chagua sura",
-    "openReader": "Fungua kisomaji"
+    "openReader": "Fungua kisomaji",
+    "bookmarkEmptyDescTv": "Chagua ikoni ya alamisho kwenye ayah yoyote kuihifadhi hapa."
   },
   "hadith": {
     "eyebrow": "Mila ya kinabii",
@@ -1574,7 +1615,7 @@
     "readingProgress": "Maendeleo ya kusoma",
     "enterFullscreen": "Ingia skrini kamili",
     "exitFullscreen": "Toka skrini kamili",
-    "isnad": "Isnadi",
+    "isnad": "Isnad",
     "sharh": "Maelezo",
     "showIsnad": "Onyesha isnad",
     "showSharh": "Onyesha maelezo",
@@ -1773,7 +1814,8 @@
     },
     "history": "Historia",
     "rowDone": "{{completed}} Qaza zimefanywa",
-    "rowDoneWithDaily": "{{completed}} Qaza zimefanywa · leo {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} Qaza zimefanywa · leo {{done}}/{{target}}",
+    "hintTv": "Chagua alama ya tiki kurekodi swala lililorudishwa. Kukosa swala katika kifuatiliaji huongeza kiotomatiki kwenye hesabu hizi."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "Ungependa kuongeza makadirio ya mifungo?",
     "confirmAddEstimateMsg": "Je, ungependa kuongeza mifungo {{count}} kwa zilizosalia (jumla mpya: {{total}})?",
     "confirmResetTitle": "Ungependa kuweka upya kihesabu?",
-    "confirmResetMsg": "Ungependa kufuta hesabu zote za haraka ({{remaining}} zimesalia, {{completed}} zimekamilika)? Hili haliwezi kutenduliwa."
+    "confirmResetMsg": "Ungependa kufuta hesabu zote za haraka ({{remaining}} zimesalia, {{completed}} zimekamilika)? Hili haliwezi kutenduliwa.",
+    "adjustHintTv": "Chagua nambari au tumia −/+ kurekebisha"
   },
   "calendar": {
     "eyebrow": "Historia",
@@ -1920,7 +1963,8 @@
     "missed": "Imekosa",
     "legendHint": "Dokunun any past au current siku  gözden geçir na adjust it. Leo dir {{date}}.",
     "converterRowTitle": "Hijri ⟷ Kigeuzi cha Gregorian",
-    "converterRowSubtitle": "Badilisha tarehe kati ya kalenda mbili"
+    "converterRowSubtitle": "Badilisha tarehe kati ya kalenda mbili",
+    "legendHintTv": "Chagua siku yoyote ya zamani au ya sasa kukagua na kurekebisha. Leo ni {{date}}."
   },
   "calDay": {
     "today": "Leo",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "Wewein smwezi  {{count}} will be cleared.",
     "confirmStartAgainTitle": "again? Anzat",
     "confirmStartAgainMessage": "Wewein completed smwezi will be cleared so siz can begin  yeni round.",
-    "dockLabel": "Hesabu"
+    "dockLabel": "Hesabu",
+    "tapToCountTv": "Bonyeza Chagua kuhesabu"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} is only {{min}} dak away",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} at {{time}}, current swala",
     "weatherA11y": "{{temp}}، {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Badilisha eneo",
-    "dateRowA11y": "{{phase}}. {{dates}}. Dokunun kwa moon details"
+    "dateRowA11y": "{{phase}}. {{dates}}. Dokunun kwa moon details",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Chagua kwa maelezo ya mwezi"
   },
   "location": {
     "eyebrow": "Mahali",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "Makkah, Saudia",
     "defaultTimesHint": "Nyakati za Salah kwa sasa zinatumia Makkah. Weka jiji lako kwa nyakati sahihi. Vikumbusho vya Salah na Adhan vinabaki zimwe hadi hapo.",
-    "setLocation": "Weka eneo"
+    "setLocation": "Weka eneo",
+    "searchAutoFocusOff": "Tafuta mji"
   },
   "moon": {
     "aria": "Awamu ya mwezi: {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Mwezi wa Kiislamu ujao",
     "nextMonthValue": "~siku {{days}} · mwanzo wa {{month}}",
     "nextMonthTonight": "Usiku wa leo baada ya Maghrib · mwanzo wa {{month}}",
-    "nextMonthOneDay": "~siku 1 · mwanzo wa {{month}}"
+    "nextMonthOneDay": "~siku 1 · mwanzo wa {{month}}",
+    "openTv": "{{phase}}. Chagua kwa maelezo"
   },
   "achievements": {
     "eyebrow": "Maendeleo",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Hii itafuta kabisa data ya programu kwenye kifaa hiki na kutoka kwa usawazishaji wa wingu. Akaunti yako inabaki hai na umeingia. Hili haliwezi kutenduliwa.",
     "resetDataConfirm": "Weka upya data",
     "resetDataFailed": "Haikuweza kuweka upya data ya programu. Angalia muunganisho wako na ujaribu tena.",
-    "resetDataSuccess": "Data ya programu yako imewekwa upya"
+    "resetDataSuccess": "Data ya programu yako imewekwa upya",
+    "tvAvatarHint": "Picha ya wasifu na kuunganisha akaunti hufanya kazi vizuri zaidi kwenye simu yako."
   },
   "sync": {
     "title": "Usawazishaji wa wingu",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Fanya maombi ya kujipodoa kutoka kwa msimamizi wa qaza na itaonekana hapa.",
     "count": "{{count}} imeundwa",
     "legendHint": "Gusa siku iliyoangaziwa ili kuona ni maombi gani uliyotunga.",
-    "dayA11y": "{{date}}, {{count}} imeundwa"
+    "dayA11y": "{{date}}, {{count}} imeundwa",
+    "legendHintTv": "Chagua siku iliyoangaziwa kuona swala zipi ulizorudisha."
   },
   "weeklyReport": {
     "title": "Wiki yako katika ibada",
-    "body": "{{prayers}} swala zimekamilika, {{perfect}} siku kamili, {{qaza}} qaza zimelipwa, na {{zikr}} vipindi vya zikr. Gusa kuona takwimu."
+    "body": "{{prayers}} swala zimekamilika, {{perfect}} siku kamili, {{qaza}} qaza zimelipwa, na {{zikr}} vipindi vya zikr. Gusa kuona takwimu.",
+    "bodyTv": "{{prayers}} swala zimekamilika, {{perfect}} siku kamili, {{qaza}} qaza zimerudishwa, na {{zikr}} vipindi vya zikr. Chagua kuona takwimu zako."
   },
   "backup": {
     "title": "Hifadhi nakala na kurejesha",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Ungependa kusasisha hali ya Hifz?",
     "confirmReviewBody": "{{ref}} will be flagged kwa gözden geçir.",
     "confirmMemorizedBody": "{{ref}} itatiwa alama kuwa imekaririwa.",
-    "confirmClearBody": "{{ref}} itaondolewa kwenye kifuatiliaji chako cha Hifz."
+    "confirmClearBody": "{{ref}} itaondolewa kwenye kifuatiliaji chako cha Hifz.",
+    "emptyDescTv": "Chagua Hifz kwenye ayah yoyote katika kisoma kuashiria kama imehifadhiwa."
   },
   "travel": {
     "eyebrow": "Jifunze",
@@ -3007,7 +3059,8 @@
       "playPhrases": "Cheza misemo yote",
       "pausePhrases": "Sitisha misemo",
       "playPhrase": "Cheza usemi {{n}}: {{title}}",
-      "followAlongNote": "Inaangazia maneno yaliyo chini inapocheza"
+      "followAlongNote": "Inaangazia maneno yaliyo chini inapocheza",
+      "listenHintTv": "Chagua rekodi kucheza. Madina huangazia kila sentensi inavyoitwa. Tumia Jifunze maneno hapa chini kwa sauti wazi sentensi kwa sentensi."
     }
   },
   "battles": {
@@ -3102,7 +3155,8 @@
       "obligatory": "Muhimu",
       "highly-recommended": "Inapendekezwa sana",
       "recommended": "Imependekezwa"
-    }
+    },
+    "versesIntroTv": "Qur'an ndiyo chanzo chenye mamlaka zaidi. Chagua aya kuifungua katika kisoma cha Qur'an."
   },
   "lastDay": {
     "eyebrow": "Jifunze",
@@ -3208,7 +3262,8 @@
       "reflection": "Jarida la Tafakari",
       "reflectionHint": "Khushu na tafakari za maombi",
       "learning": "Maendeleo ya Kujifunza",
-      "learningHint": "Mada zimekamilishwa katika moduli hii"
+      "learningHint": "Mada zimekamilishwa katika moduli hii",
+      "characterHintTv": "Chagua unapokagua mwenendo wako leo"
     },
     "progressTitle": "Maendeleo ya kujifunza",
     "progressSubtitle": "Fuatilia masomo - sio daraja la kiroho na Mwenyezi Mungu",
@@ -3236,7 +3291,10 @@
       "obligatory": "Muhimu",
       "highly-recommended": "Inapendekezwa sana",
       "recommended": "Imependekezwa"
-    }
+    },
+    "versesIntroTv": "Chagua aya kuifungua katika kisoma cha Qur'an. Muhtasari mfupi ni wa kielimu, si badala ya tafsir kamili.",
+    "preparationHabitsHintTv": "Chagua kufungua kifuatiliaji au kubadilisha nia ya kila siku",
+    "characterHintTv": "Chagua unapokagua mwenendo wako leo"
   },
   "taharah": {
     "eyebrow": "Jifunze",
@@ -3305,7 +3363,8 @@
       "obligatory": "Lazima",
       "highly-recommended": "Inapendekezwa sana",
       "recommended": "Inapendekezwa"
-    }
+    },
+    "checklistHintTv": "Chagua vitu unapokagua tabia zako za usafi wa kila siku"
   },
   "prophets": {
     "eyebrow": "Jifunze",
@@ -3410,7 +3469,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "Chagua jina kwenye ramani kusoma noti yenye chanzo."
     }
   },
   "aqeedah": {
@@ -3530,7 +3590,8 @@
       "obligatory": "Muhimu",
       "highly-recommended": "Inapendekezwa sana",
       "recommended": "Inapendekezwa"
-    }
+    },
+    "occasionsIntroTv": "Chagua tukio kufungua somo au kuvinjari maktaba kamili ya dua."
   },
   "learnQuran": {
     "eyebrow": "Jifunze",
@@ -3677,7 +3738,8 @@
     "read": "Soma",
     "supplicate": "Dua",
     "learn": "Jifunze",
-    "more": "Zaidi"
+    "more": "Zaidi",
+    "tvSubtitle": "Qur'an, dua, zikr, na kujifunza — nenda kwa Chagua"
   },
   "offlineData": {
     "title": "Data ya nje ya mtandao",
@@ -4225,7 +4287,8 @@
     "linkSadaqah": "Malengo ya sadaka",
     "linkSadaqahHint": "Utoaji wa hiari wa kila siku au kila wiki",
     "linkFidyah": "Fidia na kafara",
-    "linkFidyahHint": "Makadirio ya funga zilizokosekana au kuvunjwa"
+    "linkFidyahHint": "Makadirio ya funga zilizokosekana au kuvunjwa",
+    "learnHintTv": "Chagua mada kwa mwongozo uliolenga — hukumu hutofautiana kati ya madhehebu."
   },
   "customAdhkar": {
     "eyebrow": "Ukumbusho",
@@ -4264,7 +4327,7 @@
       "label": "Viambatisho (si lazima)",
       "add": "Ongeza faili",
       "remove": "Ondoa kiambatisho",
-      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
+      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), 1 MB kila moja. Gusa × kwenye kijipicha kuondoa.",
       "signInRequired": "Ingia ili kuambatisha faili za faragha kwenye adhkar yako.",
       "permissionDenied": "Ruhusa inahitajika ili kuambatisha faili.",
       "permissionTitle": "Ruhusu ufikiaji",
@@ -4293,7 +4356,8 @@
       "sourceDocumentHint": "Chagua picha au PDF kutoka kwa faili zako",
       "loadingPdf": "Inapakia PDF…",
       "pdfHint": "Sogeza · bana au tumia +/− kukuza · gusa mara mbili kuweka upya · fungua PDF kushiriki",
-      "pdfPreviewTitle": "Hakiki ya PDF"
+      "pdfPreviewTitle": "Hakiki ya PDF",
+      "tvUnavailable": "Viambatisho vinahitaji simu au kibao. Ongeza picha au PDF huko."
     },
     "stt": {
       "dictate": "Amri kwa kutumia kipaza sauti",
@@ -4408,7 +4472,8 @@
       "unavailable": "Utambuzi wa usemi haupatikani kwenye kifaa hiki.",
       "couldNotHear": "Haikuweza kusikia hilo - jaribu tena au chapa.",
       "errorGeneric": "Imeshindikana. Jaribu tena au chapa."
-    }
+    },
+    "ratingHintTv": "Chagua nyota kukadiria uwepo wako katika swala."
   },
   "prayerTuning": {
     "title": "Swala time tuning",
@@ -4575,7 +4640,8 @@
       "ranks": "Vyeo",
       "mercy": "Rehema",
       "supplication": "Dua"
-    }
+    },
+    "versesLeadTv": "Chagua aya yoyote kuifungua katika kisoma cha Qur'an."
   },
   "jahannam": {
     "eyebrow": "Jifunze",
@@ -4707,7 +4773,9 @@
       "repentance": "Toba",
       "accountability": "Uwajibikaji",
       "protection": "Ulinzi"
-    }
+    },
+    "versesLeadTv": "Chagua aya yoyote kuifungua katika kisoma cha Qur'an.",
+    "reflectionLeadTv": "Simama na ujiulize maswali haya. Chagua safu kufungua kifuatiliaji au somo linalohusiana."
   },
   "tour": {
     "eyebrow": "Ziara ya kuongozwa",
@@ -5053,7 +5121,7 @@
     "eyebrow": "Kalenda",
     "title": "Kigeuzi cha tarehe",
     "subtitle": "Badilisha kati ya kalenda ya Hijri na Gregorian",
-    "intro": "Weka tarehe katika mojawapo ya kalenda ili kuona sawa katika nyingine, iliyokokotwa nje ya mtandao kwa kutumia algoriti ya Kuwaiti ya jedwali.",
+    "intro": "Weka tarehe katika kalenda yoyote ili kuona sawa yake katika nyingine, inayohesabiwa nje ya mtandao kutoka kuonekana kwa hilal mahali pako.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Tarehe ya Gregorian",
@@ -5063,7 +5131,7 @@
     "year": "Mwaka",
     "useToday": "Tumia leo",
     "invalidDate": "Weka tarehe halali",
-    "disclaimer": "Huu ni ukadiriaji wa hesabu (jedwali la \"algorithm ya Kuwaiti\") na inaweza kutofautiana kwa siku kutoka kwa matangazo ya karibu ya kuona mwezi - fuata msikiti wa eneo lako au mamlaka ya tarehe za kidini kila wakati.",
+    "disclaimer": "Tarehe zimehesabiwa kutoka kuonekana kwa hilal (hilāl) mahali pako na zinaweza kutofautiana kwa siku moja na matangazo rasmi ya kuona mwezi — daima fuata Masjid au mamlaka yako ya eneo kwa tarehe za kidini.",
     "directionTitle": "Mwelekeo wa uongofu",
     "resultFrom": "Kutoka {{date}}",
     "quickLinksTitle": "Kuhusiana",
@@ -5126,7 +5194,8 @@
       "fidyah": "Fidia"
     },
     "skipHint": "Ruka kadi hii na uone swali lingine.",
-    "skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya."
+    "skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya.",
+    "introTv": "Chukua kutoka Qur'an, hadithi, Majina ya Allah, na kila mwongozo wa Kujifunza. Chagua jibu kujipima, kisha endelea muda wowote unavyopenda."
   },
   "lastThirdNight": {
     "eyebrow": "Salah ya usiku",
@@ -5241,5 +5310,32 @@
     "linkFinanceHint": "Utoaji wa hiari umeelezwa",
     "disclaimer": "Mfuatiliaji wa kibinafsi pekee - sio fatwa na sio mbadala wa kukokotoa zakat inapohitajika.",
     "continueInApp": "Endelea katika Munib"
+  },
+  "adhan": {
+    "listenHintTv": "Chagua rekodi kucheza. Madina huangazia kila sentensi inavyoitwa. Tumia Jifunze maneno hapa chini kwa sauti wazi sentensi kwa sentensi."
+  },
+  "tv": {
+    "exitTitle": "Ondoka Munib Tracker?",
+    "exitMessage": "Bonyeza thibitisha kufunga programu kwenye TV hii.",
+    "exitConfirm": "Toka",
+    "qrTitle": "Ingia kwa simu yako",
+    "qrHint": "Changanua msimbo huu wa QR kwa kamera ya simu yako, au fungua Munib Tracker kwenye simu na uingize msimbo.",
+    "qrA11y": "Msimbo wa QR kuingia kwenye simu yako",
+    "qrImageA11y": "Msimbo wa QR kwa kuingia TV",
+    "qrWaiting": "Inasubiri simu yako…",
+    "qrRefresh": "Msimbo mpya",
+    "qrRetry": "Jaribu tena",
+    "qrCreateError": "Imeshindwa kuanzisha kuingia TV. Angalia muunganisho wako na jaribu tena.",
+    "qrExpired": "Msimbo huu umeisha. Tengeneza mpya.",
+    "qrEyebrow": "Mwenza wa TV",
+    "qrPhoneTitle": "Ingia kwenye TV",
+    "qrPhoneSubtitle": "Msimbo {{code}} — maliza kuingia kuunganisha TV hii.",
+    "qrMissingCode": "Kiungo hiki hakina msimbo wa kuunganisha. Changanua tena QR kutoka TV yako.",
+    "qrSignInFirst": "Ingia kwa akaunti iliyounganishwa, kisha tutaunganisha TV yako.",
+    "qrNeedLinkedAccount": "Kwanza ingia kwa Google, Apple, au Facebook — akaunti za wageni haziwezi kuunganisha TV.",
+    "qrClaiming": "Inaunganisha TV yako…",
+    "qrClaimSuccess": "TV yako imewekwa. Unaweza kurudi sebuleni.",
+    "qrClaimError": "Imeshindwa kuunganisha TV. Tengeneza msimbo mpya kwenye TV na jaribu tena.",
+    "qrPhoneOnly": "Fungua kiungo hiki kwenye simu yako kukamilisha kuingia TV."
   }
 }

@@ -1,6 +1,7 @@
 const { loadAppEnv } = require("./scripts/lib/release-app-env.cjs");
 const {
   resolvePlatformVersion,
+  resolveVersionPlatform,
   resolveIosBuildNumber,
   resolveAndroidVersionCode,
 } = require("./scripts/lib/platform-versions.cjs");
@@ -75,12 +76,13 @@ function isTvPrebuild() {
 module.exports = ({ config }) => {
   const prebuildPlatform = process.env.EXPO_PREBUILD_PLATFORM?.trim();
   const tvPrebuild = isTvPrebuild();
-  const appVersion =
+  const versionPlatform =
     prebuildPlatform === "ios" || prebuildPlatform === "android"
-      ? resolvePlatformVersion(prebuildPlatform, __dirname)
-      : resolvePlatformVersion("web", __dirname);
-  const androidVersionCode = resolveAndroidVersionCode();
-  const iosBuildNumber = resolveIosBuildNumber();
+      ? resolveVersionPlatform(prebuildPlatform, { tv: tvPrebuild })
+      : "web";
+  const appVersion = resolvePlatformVersion(versionPlatform, __dirname);
+  const androidVersionCode = resolveAndroidVersionCode(tvPrebuild ? "android-tv" : "android");
+  const iosBuildNumber = resolveIosBuildNumber(tvPrebuild ? "tvos" : "ios");
   const vapidPublicKey = (process.env.EXPO_PUBLIC_VAPID_PUBLIC_KEY ?? "").trim();
   const appleTeamId = process.env.EXPO_APPLE_TEAM_ID?.trim() || undefined;
 
@@ -187,9 +189,11 @@ module.exports = ({ config }) => {
       ...baseExtra,
       eas: easExtra,
       /** Per-platform marketing semver from .env — used by runtime version helpers on native. */
-      iosAppVersion: resolvePlatformVersion("ios", __dirname),
-      androidAppVersion: resolvePlatformVersion("android", __dirname),
+      iosAppVersion: resolvePlatformVersion(tvPrebuild ? "tvos" : "ios", __dirname),
+      androidAppVersion: resolvePlatformVersion(tvPrebuild ? "android-tv" : "android", __dirname),
       webAppVersion: resolvePlatformVersion("web", __dirname),
+      tvosAppVersion: resolvePlatformVersion("tvos", __dirname),
+      androidTvAppVersion: resolvePlatformVersion("android-tv", __dirname),
       /** Web Push VAPID public key for expo-constants on web. */
       vapidPublicKey: vapidPublicKey || undefined,
       /** Service worker path for web push registration. */

@@ -4,8 +4,10 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-na
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   chartCoordinateStyle,
@@ -14,6 +16,7 @@ import {
   segmentedTrackDirection,
 } from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 import { isRTL, ltrControlViewProps } from "@/lib/rtl";
 
 type SegmentOption<T extends string> = {
@@ -36,6 +39,7 @@ export function SegmentedControl<T extends string>({
   onChange,
 }: SegmentedControlProps<T>) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const [trackWidth, setTrackWidth] = useState(0);
 
   const count = options.length;
@@ -62,54 +66,59 @@ export function SegmentedControl<T extends string>({
   const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width);
 
   return (
-    <View
-      {...ltrControlViewProps()}
-      style={[
-        styles.container,
-        chartCoordinateStyle,
-        { flexDirection: segmentedTrackDirection() },
-        { backgroundColor: colors.muted },
-      ]}
-      onLayout={onLayout}
-    >
-      {segmentWidth > 0 ? (
-        <Animated.View
-          style={[
-            styles.thumb,
-            segmentedThumbAnchor(PAD, rtl),
-            { width: segmentWidth, backgroundColor: tokens.segmentThumb, pointerEvents: "none" },
-            thumbStyle,
-          ]}
-        />
-      ) : null}
+    <TvFocusGuide trapFocusLeft trapFocusRight>
+      <View
+        {...ltrControlViewProps()}
+        style={[
+          styles.container,
+          chartCoordinateStyle,
+          { flexDirection: segmentedTrackDirection() },
+          { backgroundColor: colors.muted },
+        ]}
+        onLayout={onLayout}
+      >
+        {segmentWidth > 0 ? (
+          <Animated.View
+            style={[
+              styles.thumb,
+              segmentedThumbAnchor(PAD, rtl),
+              { width: segmentWidth, backgroundColor: tokens.segmentThumb, pointerEvents: "none" },
+              thumbStyle,
+            ]}
+          />
+        ) : null}
 
-      {options.map((option) => {
-        const selected = option.id === value;
-        return (
-          <PressableScale
-            key={option.id}
-            accessibilityRole="button"
-            accessibilityState={{ selected }}
-            haptic={false}
-            scaleTo={0.98}
-            rippleRadius={Radius.sm}
-            onPress={() => {
-              if (selected) return;
-              triggerHaptic("selection");
-              onChange(option.id);
-            }}
-            style={styles.segment}
-          >
-            <ThemedText
-              type="smallBold"
-              style={{ color: selected ? colors.foreground : colors.mutedForeground }}
+        {options.map((option) => {
+          const selected = option.id === value;
+          return (
+            <PressableScale
+              key={option.id}
+              accessibilityRole="button"
+              accessibilityState={{ selected }}
+              haptic={false}
+              scaleTo={0.98}
+              rippleRadius={Radius.sm}
+              onPress={() => {
+                if (selected) return;
+                triggerHaptic("selection");
+                onChange(option.id);
+              }}
+              style={[styles.segment, tv && styles.segmentTv]}
             >
-              {option.label}
-            </ThemedText>
-          </PressableScale>
-        );
-      })}
-    </View>
+              <ThemedText
+                type="smallBold"
+                style={{
+                  color: selected ? colors.foreground : colors.mutedForeground,
+                  fontSize: tv ? TvLayout.bodyFontSize : undefined,
+                }}
+              >
+                {option.label}
+              </ThemedText>
+            </PressableScale>
+          );
+        })}
+      </View>
+    </TvFocusGuide>
   );
 }
 
@@ -139,5 +148,9 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two + 2,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
+  },
+  segmentTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingVertical: Spacing.three,
   },
 });

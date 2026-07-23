@@ -2,6 +2,7 @@ import type { Href } from "expo-router";
 import type { TFunction } from "i18next";
 
 import type { QuickActionItem } from "@/components/ui/quick-action";
+import { isTV } from "@/lib/platform/is-tv";
 
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "./names-of-allah-ui";
 
@@ -445,23 +446,29 @@ export function resolveQuickActionTint(
   return tokens.status[tone].color;
 }
 
+/** Quick-action / library ids that need mic, camera, or phone-only chrome. */
+export const TV_HIDDEN_QUICK_ACTION_IDS = new Set(["verseDetector"]);
+
 /** Builds the home Explore grid from shared quick-action metadata. */
 export function buildQuickActionItems(
   t: TFunction,
   push: (href: Href) => void,
   theme: QuickActionTheme,
 ): QuickActionItem[] {
-  return QUICK_ACTION_META.map((meta) => {
-    const route = QUICK_ACTION_ROUTES[meta.id];
-    if (!route) throw new Error(`Missing quick action route for ${meta.id}`);
-    return {
-      id: meta.id,
-      label: t(meta.labelKey),
-      icon: meta.icon,
-      tint: resolveQuickActionTint(meta.tone, theme),
-      onPress: () => push(route),
-    };
-  });
+  const tv = isTV();
+  return QUICK_ACTION_META.filter((meta) => !(tv && TV_HIDDEN_QUICK_ACTION_IDS.has(meta.id))).map(
+    (meta) => {
+      const route = QUICK_ACTION_ROUTES[meta.id];
+      if (!route) throw new Error(`Missing quick action route for ${meta.id}`);
+      return {
+        id: meta.id,
+        label: t(meta.labelKey),
+        icon: meta.icon,
+        tint: resolveQuickActionTint(meta.tone, theme),
+        onPress: () => push(route),
+      };
+    },
+  );
 }
 
 /** Orders a behavioral action list by a saved id order, dropping unknown/removed ids. */

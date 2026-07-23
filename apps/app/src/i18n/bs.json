@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "Nije dostupno na TV-u",
     "tvUnavailableBody": "Za ovu funkciju potreban je telefon ili tablet. Otvorite Munib Tracker tamo da nastavite.",
-    "tvOauthHint": "Prijava putem društvenih mreža može biti ograničena na TV-u. Ovdje nastavite kao gost ili povežite račun na telefonu."
+    "tvOauthHint": "Preferirajte QR kod iznad za prijavu s telefona. Ili nastavite kao gost — račun možete povezati bilo kada iz Profila na telefonu.",
+    "select": "Odaberi",
+    "selectToContinue": "Pritisnite Odaberi za nastavak",
+    "selectToOpen": "Odaberite za otvaranje",
+    "selectToSave": "Odaberite za spremanje",
+    "selectDay": "Odaberite dan za pregled"
   },
   "search": {
     "placeholder": "Pretraži Qur'an, hadis, duas, Uči…",
@@ -104,7 +109,9 @@
       "rizq": "Rızık",
       "rahman": "Ар-Рахман",
       "sleep": "Uyku",
-      "istighfar": "İstiğfar"
+      "istighfar": "İstiğfar",
+      "quranTv": "Odaberite za čitanje u Qur'anu",
+      "hadithTv": "Odaberite za čitanje cijelog hadisa"
     },
     "cat": {
       "quran": "Kur'an",
@@ -129,7 +136,8 @@
     "home": "Početna",
     "tracker": "Takip",
     "settings": "Postavke",
-    "library": "Kütüphane"
+    "library": "Kütüphane",
+    "navHint": "Koristite ↑↓ za prebacivanje · → za sadržaj"
   },
   "actions": {
     "checklist": "Kontrolna lista",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Poslednjih deset noći",
     "lastTenBody": "Tražite Laylet al-Qadr u neparnim noćima - stanite na molitvu, učite Kur'an i činite dovu. Poslanik, sallallahu alejhi ve sellem, se najviše trudio u ibadetu tokom ovih noći.",
     "laylatQadrTitle": "Laylet al-Qadr",
-    "laylatQadrBody": "Bolje od hiljadu mjeseci — obožavanje ove noći nadmašuje decenije odanosti. Učite Kur'an, klanjajte tahadžud i recite: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
+    "laylatQadrBody": "Bolje od hiljadu mjeseci — obožavanje ove noći nadmašuje decenije odanosti. Učite Kur'an, klanjajte tahadžud i recite: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
+    "dayCellHintTv": "Odaberite da izaberete status posta",
+    "gridHintTv": "Odaberite dan da zabilježite status posta",
+    "fastingLogBackfillNoteTv": "Prikazuje se Ramazan {{year}} AH ({{gregorian}}) da možete dopuniti dnevnik. Odaberite bilo koji dan da ažurirate status posta."
   },
   "fastStatusSheet": {
     "prompt": "Choose vaš post status",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Browse Salavat",
     "exploreDuroodsHint": "Tap  star u sačuvaj  durood",
     "exploreNames": "Browse 99 imena",
-    "exploreNamesHint": "Tap  star u sačuvaj  name"
+    "exploreNamesHint": "Tap  star u sačuvaj  name",
+    "exploreQuranHintTv": "Odaberite ikonu oznake na bilo kojem ajetu",
+    "exploreDuasHintTv": "Odaberite zvjezdicu da sačuvate dou",
+    "exploreZikrHintTv": "Odaberite srce da omilite adhkar",
+    "exploreDuroodsHintTv": "Odaberite zvjezdicu da sačuvate durood",
+    "exploreNamesHintTv": "Odaberite zvjezdicu da sačuvate ime",
+    "exploreHadithHintTv": "Odaberite da otvorite zbirku hadisa"
   },
   "home": {
     "todaysGoal": "Današnji gol",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "Dodirnite za čitanje u Kur'anu",
       "hadith": "Dodirnite da pročitate cijeli hadis",
-      "name": "Istražite svih 99 imena"
+      "name": "Istražite svih 99 imena",
+      "quranTv": "Odaberite za čitanje u Qur'anu",
+      "hadithTv": "Odaberite za čitanje cijelog hadisa"
     },
     "devotionMeta": "Nivo {{level}} · {{noor}} Noor",
     "devotionProgress": "{{current}} / {{next}} Noor do sljedećeg nivoa",
@@ -553,7 +572,15 @@
       "reminderTitle": "Sat prihvatanja",
       "reminderBody": "Sat u petak kada dua nije odbijena — tražite ga posebno poslije Asr sa iskrenom dua, istighfar i salawat.",
       "openGuide": "Otvori sat prihvatanja"
-    }
+    },
+    "scheduleShowPastHintTv": "Odaberite da prikažete cijeli raspored",
+    "scheduleShowLaterHintTv": "Odaberite da prikažete ostatak današnjeg dana",
+    "exploreQuranHintTv": "Odaberite ikonu oznake na bilo kojem ajetu",
+    "exploreDuasHintTv": "Odaberite zvjezdicu da sačuvate dou",
+    "exploreZikrHintTv": "Odaberite srce da omilite adhkar",
+    "exploreDuroodsHintTv": "Odaberite zvjezdicu da sačuvate durood",
+    "exploreNamesHintTv": "Odaberite zvjezdicu da sačuvate ime",
+    "exploreHintTv": "Prikazano {{shown}} od {{total}} prečica — odaberite Upravljaj da dodate ili prerasporedite."
   },
   "tracker": {
     "eyebrow": "Prati & log",
@@ -644,7 +671,8 @@
       "hintPages": "{{count}} stranica prema današnjem cilju — dodirnite za zapis",
       "completeHint": "Današnji dio je gotov — dodirnite za pregled plana",
       "a11y": "Khatm plan dan {{day}} od {{total}}, {{done}} od {{target}} prema današnjem cilju"
-    }
+    },
+    "tvSubtitle": "Odaberite molitvu da postavite status — čuva se na ovom uređaju."
   },
   "update": {
     "title": "Ažuriranje dostupno",
@@ -776,7 +804,8 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "tvSubtitle": "Pregledajte daljinskim — neki alati trebaju telefon"
   },
   "import": {
     "title": "Import salah historija",
@@ -869,7 +898,12 @@
     "locationSkip": "Podesi kasnije",
     "locationHighlight4": "Preskočite bilo kada — lokaciju ili obavještenja podesite kasnije",
     "chooseLanguage": "Odaberite jezik",
-    "chooseLanguageHint": "Promijenite jezik aplikacije kako biste mogli pratiti ovaj uvod"
+    "chooseLanguageHint": "Promijenite jezik aplikacije kako biste mogli pratiti ovaj uvod",
+    "locationBodyTv": "Odaberite grad da vremena molitve ostanu tačna. Lokaciju možete promijeniti bilo kada u Postavkama.",
+    "locationHighlight1Tv": "Tačna vremena molitve za vaš grad",
+    "locationHighlight2Tv": "Smjer kible s vaše lokacije",
+    "locationHighlight3Tv": "Podsjetnici najbolje rade na telefonu",
+    "locationHighlight4Tv": "Promijenite grad bilo kada u Postavkama"
   },
   "appearance": {
     "eyebrow": "Postavke",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} mtches",
     "noResults": "No adhkar matched vaš pretraži.",
     "markAsDone": "Označi kao završeno",
-    "undoDoneHint": "Dodirnite da poništite i označite kao nezavršeno"
+    "undoDoneHint": "Dodirnite da poništite i označite kao nezavršeno",
+    "favEmptyDescTv": "Odaberite zvjezdicu na bilo kojem zikru da ga držite ovdje za brzi pristup.",
+    "undoDoneHintTv": "Odaberite da poništite i označite kao nedovršeno"
   },
   "zikrCat": {
     "morning": "Sabah zikirleri",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Read u Munib Tracker:",
     "preparing": "Paylaşılıyor…",
     "tapToShare": "Tap u podijeli",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "Odaberite za dijeljenje"
   },
   "dua": {
     "eyebrow": "Molitva",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Kaydettiğiniz salavatlar",
     "favEmptyTitle": "Henüz favori salavat yok",
     "favEmptyDesc": "Tap  star na any durood u sačuvaj it here.",
-    "openInTasbeeh": "Otvori u Tesbihu"
+    "openInTasbeeh": "Otvori u Tesbihu",
+    "favEmptyDescTv": "Odaberite zvjezdicu na bilo kojem duroodu da ga sačuvate ovdje."
   },
   "names": {
     "eyebrow": "Esmaü'l-Hüsna",
@@ -1313,7 +1351,8 @@
     "favorites": "Favorite isimler",
     "favSubtitle": "Isimler you've kaydedildi",
     "favEmptyTitle": "Henüz favorite names yok",
-    "favEmptyDesc": "Tap  star na any name u sačuvaj it here."
+    "favEmptyDesc": "Tap  star na any name u sačuvaj it here.",
+    "favEmptyDescTv": "Odaberite zvjezdicu na bilo kojem imenu da ga sačuvate ovdje."
   },
   "quran": {
     "eyebrow": " Noble Kur'an",
@@ -1453,7 +1492,8 @@
         "hamWasl": "Povezivanje hamze — ispušteno prilikom spajanja",
         "lamShamsiyah": "Sunčevo slovo لام — ne izgovara se",
         "silent": "Napisano, ali ne i izgovoreno"
-      }
+      },
+      "tapHintTv": "Odaberite da vidite pravilo tedžvida"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Sura {{number}}",
     "selectSurah": "Odaberite suru",
-    "openReader": "Otvori čitač"
+    "openReader": "Otvori čitač",
+    "bookmarkEmptyDescTv": "Odaberite ikonu oznake na bilo kojem ajetu da ga sačuvate ovdje."
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -1574,7 +1615,7 @@
     "readingProgress": "Napredak čitanja",
     "enterFullscreen": "Uđi u cijeli ekran",
     "exitFullscreen": "Izađi iz cijelog ekrana",
-    "isnad": "Isnad (lanac)",
+    "isnad": "Isnad",
     "sharh": "Objašnjenje",
     "showIsnad": "Prikaži isnad",
     "showSharh": "Prikaži objašnjenje",
@@ -1773,7 +1814,8 @@
     },
     "history": "Istorija",
     "rowDone": "{{completed}} nadoknađeno",
-    "rowDoneWithDaily": "{{completed}} nadoknađeno · danas {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} nadoknađeno · danas {{done}}/{{target}}",
+    "hintTv": "Odaberite kvačicu da zabilježite nadoknađenu molitvu. Propuštena molitva u trackeru automatski se dodaje ovim brojačima."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "Dodati procijenjene postove?",
     "confirmAddEstimateMsg": "Dodati {{count}} postova preostalim (novo ukupno: {{total}})?",
     "confirmResetTitle": "Resetirati brojač?",
-    "confirmResetMsg": "Obrisati sva brza brojanja ({{remaining}} preostalo, {{completed}} završeno)? Ovo se ne može poništiti."
+    "confirmResetMsg": "Obrisati sva brza brojanja ({{remaining}} preostalo, {{completed}} završeno)? Ovo se ne može poništiti.",
+    "adjustHintTv": "Odaberite broj ili koristite −/+ za podešavanje"
   },
   "calendar": {
     "eyebrow": "Historija",
@@ -1920,7 +1963,8 @@
     "missed": "Propušteno",
     "legendHint": "Tap any past ili current dan u review i adjust it. Danas je {{date}}.",
     "converterRowTitle": "Hidžri ⟷ gregorijanski pretvarač",
-    "converterRowSubtitle": "Pretvorite datum između dva kalendara"
+    "converterRowSubtitle": "Pretvorite datum između dva kalendara",
+    "legendHintTv": "Odaberite bilo koji prošli ili trenutni dan za pregled i podešavanje. Danas je {{date}}."
   },
   "calDay": {
     "today": "Danas",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "Vaš count  {{count}} will be očišćeno.",
     "confirmStartAgainTitle": "Počni again?",
     "confirmStartAgainMessage": "Vaš završeno count will be očišćeno so vi can begin  novi round.",
-    "dockLabel": "Broj"
+    "dockLabel": "Broj",
+    "tapToCountTv": "Pritisnite Odaberi za brojanje"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} je only {{min}} min away",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} at {{time}}, current salah",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Change konum",
-    "dateRowA11y": "{{phase}}. {{dates}}. Tap za moon details"
+    "dateRowA11y": "{{phase}}. {{dates}}. Tap za moon details",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. Odaberite za detalje o mjesecu"
   },
   "location": {
     "eyebrow": "Konum",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "Meka, Saudijska Arabija",
     "defaultTimesHint": "Vremena namaza trenutno koriste Meku. Postavite svoj grad za tačna vremena. Podsjetnici za namaz i ezan ostaju isključeni do tada.",
-    "setLocation": "Postavi lokaciju"
+    "setLocation": "Postavi lokaciju",
+    "searchAutoFocusOff": "Potražite grad"
   },
   "moon": {
     "aria": "Ay evresi: {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Sljedeći islamski mjesec",
     "nextMonthValue": "~{{days}} dana · počinje {{month}}",
     "nextMonthTonight": "Večeras poslije Magriba · počinje {{month}}",
-    "nextMonthOneDay": "~1 dan · počinje {{month}}"
+    "nextMonthOneDay": "~1 dan · počinje {{month}}",
+    "openTv": "{{phase}}. Odaberite za detalje"
   },
   "achievements": {
     "eyebrow": "Napredak",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Ovim se trajno brišu podaci aplikacije na ovom uređaju i iz sinhronizacije u oblaku. Vaš račun ostaje aktivan i prijavljen. Ovo se ne može poništiti.",
     "resetDataConfirm": "Resetuj podatke",
     "resetDataFailed": "Nije moguće resetovati podatke aplikacije. Provjerite vezu i pokušajte ponovo.",
-    "resetDataSuccess": "Podaci aplikacije su resetovani"
+    "resetDataSuccess": "Podaci aplikacije su resetovani",
+    "tvAvatarHint": "Profilna fotografija i povezivanje računa najbolje rade na telefonu."
   },
   "sync": {
     "title": "Sinhronizacija u oblaku",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Izvršite namaz od qaza menadžera i pojavit će se ovdje.",
     "count": "{{count}} izmišljeno",
     "legendHint": "Dodirnite istaknuti dan da vidite koje ste molitve izmislili.",
-    "dayA11y": "{{date}}, {{count}} sastavljeno"
+    "dayA11y": "{{date}}, {{count}} sastavljeno",
+    "legendHintTv": "Odaberite istaknuti dan da vidite koje ste molitve nadoknadili."
   },
   "weeklyReport": {
     "title": "Vaš sedmica u ibadet",
-    "body": "{{prayers}} salaha završeno, {{perfect}} savršenih dana, {{qaza}} qaza nadoknađeno i {{zikr}} zikr sesija. Dodirnite za statistiku."
+    "body": "{{prayers}} salaha završeno, {{perfect}} savršenih dana, {{qaza}} qaza nadoknađeno i {{zikr}} zikr sesija. Dodirnite za statistiku.",
+    "bodyTv": "{{prayers}} molitvi završeno, {{perfect}} savršenih dana, {{qaza}} qaza nadoknađeno i {{zikr}} sesija zikra. Odaberite da vidite statistiku."
   },
   "backup": {
     "title": "Sigurnosno kopiranje i vraćanje",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Güncelle Hifz status?",
     "confirmReviewBody": "{{ref}} will be flagged za review.",
     "confirmMemorizedBody": "{{ref}} will be označeno as memorized.",
-    "confirmClearBody": "{{ref}} will be removed od vaš Hifz tracker."
+    "confirmClearBody": "{{ref}} will be removed od vaš Hifz tracker.",
+    "emptyDescTv": "Odaberite Hifz na bilo kojem ajetu u čitaču da ga označite kao naučen."
   },
   "travel": {
     "eyebrow": "Nauči",
@@ -3007,7 +3059,8 @@
       "playPhrases": "Pusti sve fraze",
       "pausePhrases": "Pauziraj fraze",
       "playPhrase": "Pusti frazu {{n}}: {{title}}",
-      "followAlongNote": "Istakne riječi ispod dok svira"
+      "followAlongNote": "Istakne riječi ispod dok svira",
+      "listenHintTv": "Odaberite snimak za reprodukciju. Medina ističe svaku rečenicu dok se uči. Koristite Naučite riječi ispod za jasan audio rečenicu po rečenicu."
     }
   },
   "battles": {
@@ -3102,7 +3155,8 @@
       "obligatory": "Essential",
       "highly-recommended": "Topla preporuka",
       "recommended": "Preporučeno"
-    }
+    },
+    "versesIntroTv": "Qur'an je najautoritativniji izvor. Odaberite ajet da ga otvorite u čitaču Qur'ana."
   },
   "lastDay": {
     "eyebrow": "Naučite",
@@ -3208,7 +3262,8 @@
       "reflection": "Reflection Journal",
       "reflectionHint": "Khushu i molitvena razmišljanja",
       "learning": "Napredak učenja",
-      "learningHint": "Teme završene u ovom modulu"
+      "learningHint": "Teme završene u ovom modulu",
+      "characterHintTv": "Odaberite kada ste danas pregledali svoje ponašanje"
     },
     "progressTitle": "Napredak u učenju",
     "progressSubtitle": "Pratite učenje - ne duhovni rang kod Allaha",
@@ -3236,7 +3291,10 @@
       "obligatory": "Essential",
       "highly-recommended": "Topla preporuka",
       "recommended": "Preporučeno"
-    }
+    },
+    "versesIntroTv": "Odaberite ajet da ga otvorite u čitaču Qur'ana. Kratki sažeci su edukativni, nisu zamjena za potpuni tefsir.",
+    "preparationHabitsHintTv": "Odaberite da otvorite tracker ili uključite/isključite dnevnu namjeru",
+    "characterHintTv": "Odaberite kada ste danas pregledali svoje ponašanje"
   },
   "taharah": {
     "eyebrow": "Nauči",
@@ -3305,7 +3363,8 @@
       "obligatory": "Farz",
       "highly-recommended": "Topla preporuka",
       "recommended": "Preporučeno"
-    }
+    },
+    "checklistHintTv": "Odaberite stavke dok pregledavate dnevne navike čistoće"
   },
   "prophets": {
     "eyebrow": "Nauči",
@@ -3410,7 +3469,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "Odaberite ime na mapi da pročitate bilješku s izvorom."
     }
   },
   "aqeedah": {
@@ -3530,7 +3590,8 @@
       "obligatory": "Необходимый",
       "highly-recommended": "Topla preporuka",
       "recommended": "Preporučeno"
-    }
+    },
+    "occasionsIntroTv": "Odaberite priliku da otvorite lekciju ili pregledate cijelu biblioteku dua."
   },
   "learnQuran": {
     "eyebrow": "Naučite",
@@ -3677,7 +3738,8 @@
     "read": "Oku",
     "supplicate": "Dua et",
     "learn": "Nauči",
-    "more": "Daha fazla"
+    "more": "Daha fazla",
+    "tvSubtitle": "Qur'an, doe, zikr i učenje — navigirajte s Odaberi"
   },
   "offlineData": {
     "title": "Vanmrežni podaci",
@@ -4225,7 +4287,8 @@
     "linkSadaqah": "Ciljevi sadake",
     "linkSadaqahHint": "Dnevno ili sedmično dobrovoljno davanje",
     "linkFidyah": "Fidja i kefaret",
-    "linkFidyahHint": "Procjene za propuštene ili prekinute postove"
+    "linkFidyahHint": "Procjene za propuštene ili prekinute postove",
+    "learnHintTv": "Odaberite temu za fokusirani vodič — propisi se razlikuju među školama."
   },
   "customAdhkar": {
     "eyebrow": "Sjećanje",
@@ -4264,7 +4327,7 @@
       "label": "Prilozi (opcionalno)",
       "add": "Dodaj fajl",
       "remove": "Uklonite prilog",
-      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), svaka od 1 MB. Dugo pritisnite sličicu za uklanjanje.",
+      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), 1 MB svaka. Dodirnite × na sličici da uklonite.",
       "signInRequired": "Prijavite se da priložite privatne fajlove svom adhkaru.",
       "permissionDenied": "Za prilaganje fajlova potrebna je dozvola.",
       "permissionTitle": "Dozvoli pristup",
@@ -4293,7 +4356,8 @@
       "sourceDocumentHint": "Odaberite sliku ili PDF iz svojih datoteka",
       "loadingPdf": "Učitavanje PDF…",
       "pdfHint": "Pomicanje · štipanje ili +/− za zum · dvostruki dodir za reset · Otvori PDF za dijeljenje",
-      "pdfPreviewTitle": "PDF pregled"
+      "pdfPreviewTitle": "PDF pregled",
+      "tvUnavailable": "Prilozi trebaju telefon ili tablet. Dodajte fotografije ili PDF-ove tamo."
     },
     "stt": {
       "dictate": "Diktirajte mikrofonom",
@@ -4408,7 +4472,8 @@
       "unavailable": "Prepoznavanje govora nije dostupno na ovom uređaju.",
       "couldNotHear": "Ne čujem – pokušajte ponovo ili ukucajte.",
       "errorGeneric": "Diktat nije uspio. Pokušajte ponovo ili upišite."
-    }
+    },
+    "ratingHintTv": "Odaberite zvjezdicu da ocijenite prisutnost u molitvi."
   },
   "prayerTuning": {
     "title": "Salah time tuning",
@@ -4575,7 +4640,8 @@
       "ranks": "Dereceler",
       "mercy": "Merhamet",
       "supplication": "Molitva"
-    }
+    },
+    "versesLeadTv": "Odaberite bilo koji ajet da ga otvorite u čitaču Qur'ana."
   },
   "jahannam": {
     "eyebrow": "Naučite",
@@ -4707,7 +4773,9 @@
       "repentance": "Pokajanje",
       "accountability": "Odgovornost",
       "protection": "Zaštita"
-    }
+    },
+    "versesLeadTv": "Odaberite bilo koji ajet da ga otvorite u čitaču Qur'ana.",
+    "reflectionLeadTv": "Zaustavite se i postavite sebi ova pitanja. Odaberite red da otvorite povezani tracker ili lekciju."
   },
   "tour": {
     "eyebrow": "Obilazak sa vodičem",
@@ -5053,7 +5121,7 @@
     "eyebrow": "Kalendar",
     "title": "Konverter datuma",
     "subtitle": "Pretvorite između hidžretskog i gregorijanskog kalendara",
-    "intro": "Unesite datum u bilo koji kalendar da vidite njegov ekvivalent u drugom, izračunatom van mreže pomoću tabelarnog kuvajtskog algoritma.",
+    "intro": "Unesite datum u bilo kojem kalendaru da vidite ekvivalent u drugom, izračunat offline iz vidljivosti polumjeseca na vašoj lokaciji.",
     "toHijri": "Gregorijanski → Hidžri",
     "toGregorian": "hidžretski → gregorijanski",
     "gregorianDateLabel": "Gregorijanski datum",
@@ -5063,7 +5131,7 @@
     "year": "Godina",
     "useToday": "Iskoristite danas",
     "invalidDate": "Unesite važeći datum",
-    "disclaimer": "Ovo je aritmetička aproksimacija (tabelarni \"Kuvajtski algoritam\") i može se razlikovati za jedan dan od lokalnih najava o viđenju Mjeseca - uvijek pratite svoj lokalni mesdžid ili autoritet za vjerske datume.",
+    "disclaimer": "Datumi se računaju iz vidljivosti polumjeseca (hilāl) na vašoj lokaciji i mogu se razlikovati za jedan dan od službenih najava o viđenju mjeseca — uvijek slijedite lokalni masjid ili vlast za vjerske datume.",
     "directionTitle": "Smjer konverzije",
     "resultFrom": "Od {{date}}",
     "quickLinksTitle": "Povezano",
@@ -5126,7 +5194,8 @@
       "fidyah": "Fidja"
     },
     "skipHint": "Preskočite ovu karticu i pogledajte drugo pitanje.",
-    "skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje."
+    "skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje.",
+    "introTv": "Crpite iz Qur'ana, hadisa, Imena Allaha i svakog vodiča Uči. Odaberite odgovor da se provjerite, zatim nastavite koliko želite."
   },
   "lastThirdNight": {
     "eyebrow": "Noćna Salah",
@@ -5241,5 +5310,32 @@
     "linkFinanceHint": "Dobrovoljno davanje objašnjeno",
     "disclaimer": "Samo lični tragač — nije fetva i nije zamjena za izračunavanje zekata kada dospijeva.",
     "continueInApp": "Nastavite u Munib"
+  },
+  "adhan": {
+    "listenHintTv": "Odaberite snimak za reprodukciju. Medina ističe svaku rečenicu dok se uči. Koristite Naučite riječi ispod za jasan audio rečenicu po rečenicu."
+  },
+  "tv": {
+    "exitTitle": "Napustiti Munib Tracker?",
+    "exitMessage": "Pritisnite potvrdu da zatvorite aplikaciju na ovom TV-u.",
+    "exitConfirm": "Izlaz",
+    "qrTitle": "Prijavite se telefonom",
+    "qrHint": "Skenirajte ovaj QR kod kamerom telefona ili otvorite Munib Tracker na telefonu i unesite kod.",
+    "qrA11y": "QR kod za prijavu na telefonu",
+    "qrImageA11y": "QR kod za TV prijavu",
+    "qrWaiting": "Čekanje telefona…",
+    "qrRefresh": "Novi kod",
+    "qrRetry": "Pokušaj ponovo",
+    "qrCreateError": "Nije moguće pokrenuti TV prijavu. Provjerite vezu i pokušajte ponovo.",
+    "qrExpired": "Ovaj kod je istekao. Generišite novi.",
+    "qrEyebrow": "TV pratilac",
+    "qrPhoneTitle": "Prijava na TV-u",
+    "qrPhoneSubtitle": "Kod {{code}} — završite prijavu da povežete ovaj TV.",
+    "qrMissingCode": "Ovaj link nema kod za uparivanje. Ponovo skenirajte QR sa TV-a.",
+    "qrSignInFirst": "Prijavite se povezanim računom, zatim ćemo povezati vaš TV.",
+    "qrNeedLinkedAccount": "Prvo se prijavite putem Google, Apple ili Facebook — gostujući računi ne mogu povezati TV.",
+    "qrClaiming": "Povezivanje TV-a…",
+    "qrClaimSuccess": "Vaš TV je prijavljen. Možete se vratiti u dnevnu sobu.",
+    "qrClaimError": "Nije moguće povezati TV. Generišite novi kod na TV-u i pokušajte ponovo.",
+    "qrPhoneOnly": "Otvorite ovaj link na telefonu da završite TV prijavu."
   }
 }

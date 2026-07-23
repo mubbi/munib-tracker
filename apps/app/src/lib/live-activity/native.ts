@@ -2,6 +2,7 @@ import { requireOptionalNativeModule } from "expo";
 import { Platform } from "react-native";
 
 import type { LiveActivityState } from "@/lib/live-activity/state";
+import { isTV } from "@/lib/platform/is-tv";
 
 export type LiveActivityPushTokenEvent = {
   activityId: string;
@@ -48,6 +49,7 @@ const nativeModule =
 
 /** True when the device can actually present a prayer Live Activity. */
 export function isLiveActivitySupported(): boolean {
+  if (isTV()) return false;
   try {
     return nativeModule?.isSupported() ?? false;
   } catch {

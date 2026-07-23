@@ -1,8 +1,11 @@
+import type { AuthSessionResponseDto } from "@munib-tracker/api-client";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
+import { TvQrLoginPanel } from "@/components/auth/tv-qr-login-panel";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -24,13 +27,21 @@ export default function LoginScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
-  const { isAuthenticated, isGuest, user, session } = useAuth();
+  const { isAuthenticated, isGuest, user, session, applySessionDto } = useAuth();
   const prefs = usePreferences();
   const tv = isTV();
 
   const onContinue = () => {
     goBackOrReplace(router, isAuthenticated ? "/profile" : "/");
   };
+
+  const onTvPaired = useCallback(
+    async (dto: AuthSessionResponseDto) => {
+      await applySessionDto(dto);
+      goBackOrReplace(router, "/");
+    },
+    [applySessionDto, router],
+  );
 
   const signedInName =
     prefs.displayName?.trim() ||
@@ -111,6 +122,34 @@ export default function LoginScreen() {
         <View style={styles.actions}>
           {isAuthenticated ? (
             <Button label={t("login.continueSignedIn")} fullWidth onPress={onContinue} />
+          ) : tv ? (
+            <>
+              <TvQrLoginPanel onSession={onTvPaired} />
+
+              <View
+                style={styles.orRow}
+                accessibilityRole="text"
+                accessibilityLabel={t("login.or")}
+              >
+                <View style={[styles.orLine, { backgroundColor: tokens.hairline }]} />
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.orLabel}>
+                  {t("login.or")}
+                </ThemedText>
+                <View style={[styles.orLine, { backgroundColor: tokens.hairline }]} />
+              </View>
+
+              <Button
+                label={t("common.continueAsGuest")}
+                variant="secondary"
+                fullWidth
+                preferredFocus
+                onPress={() => goBackOrReplace(router, "/")}
+              />
+
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.guestHint}>
+                {t("common.tvOauthHint")}
+              </ThemedText>
+            </>
           ) : (
             <>
               <SocialLoginButtons onSuccess={onContinue} />
@@ -135,7 +174,7 @@ export default function LoginScreen() {
               />
 
               <ThemedText type="caption" themeColor="mutedForeground" style={styles.guestHint}>
-                {tv ? t("common.tvOauthHint") : t("login.guestHint")}
+                {t("login.guestHint")}
               </ThemedText>
             </>
           )}

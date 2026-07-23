@@ -649,33 +649,32 @@ function searchDuas(query: string, limit: number) {
 }
 
 function searchZikr(query: string, limit: number) {
-  return fuseSearch(getZikrFuse(), query, limit, (item) => {
+  return fuseSearch(getZikrFuse(), query, limit, (item): SearchResult => {
     const quran = zikrQuranDestination(item.id);
     if (quran) {
+      const params: Record<string, string> = { surah: String(quran.surah) };
+      if (quran.ayah != null) params.ayah = String(quran.ayah);
       return {
         key: `zikr:${item.id}`,
-        category: "zikr" as const,
+        category: "zikr",
         title: item.title,
         subtitle: scriptureSubtitle(item),
         arabic: item.arabic,
         reference: item.reference,
         badge: item.reference,
-        href: "/quran/[surah]" as const,
-        params: {
-          surah: String(quran.surah),
-          ...(quran.ayah != null ? { ayah: String(quran.ayah) } : {}),
-        },
+        href: "/quran/[surah]",
+        params,
       };
     }
     return {
       key: `zikr:${item.id}`,
-      category: "zikr" as const,
+      category: "zikr",
       title: item.title,
       subtitle: scriptureSubtitle(item),
       arabic: item.arabic,
       reference: item.reference,
       badge: item.reference,
-      href: "/zikr/detail/[id]" as const,
+      href: "/zikr/detail/[id]",
       params: { id: item.id },
     };
   });

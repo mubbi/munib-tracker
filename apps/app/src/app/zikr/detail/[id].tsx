@@ -26,7 +26,9 @@ import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildZikrActivity } from "@/lib/continue-activity";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
@@ -54,6 +56,9 @@ export default function ZikrDetailScreen() {
   const { tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail } = useLargeScreenLayout();
+  const tv = isTV();
+  // Wide tablet/desktop: sticky side filters. TV: single column (hadith/dua pattern).
+  const showSideFilters = isListDetail && !tv;
   const params = useLocalSearchParams<{ id: string; prayer?: string }>();
   const zikrId = paramId(params.id);
   const prayerParam = paramId(params.prayer);
@@ -143,7 +148,7 @@ export default function ZikrDetailScreen() {
   const sourceHref = `/zikr/detail/${item.id}`;
   const readingBody = (
     <Stagger>
-      {!isListDetail ? <ScriptureReadingFilters /> : null}
+      {!showSideFilters ? <ScriptureReadingFilters /> : null}
       {quranRanges ? (
         <>
           <QuranAyahRangeCards ranges={quranRanges} sourceHref={sourceHref} shareCard={shareCard} />
@@ -160,6 +165,7 @@ export default function ZikrDetailScreen() {
           item={item}
           shareCard={shareCard}
           sourceHref={sourceHref}
+          enableContextMenu={!tv}
           contentRef={buildContentReportRef(
             "zikr",
             item.id,
@@ -201,7 +207,9 @@ export default function ZikrDetailScreen() {
             }
             variant={isDone ? "secondary" : "primary"}
             fullWidth
-            accessibilityHint={isDone ? t("zikr.undoDoneHint") : undefined}
+            accessibilityHint={
+              isDone ? tTv(t, "zikr.undoDoneHint", "zikr.undoDoneHintTv") : undefined
+            }
             onPress={() => {
               const next = isDone ? 0 : 1;
               void setZikrCount(
@@ -245,7 +253,7 @@ export default function ZikrDetailScreen() {
               shareCard.isSharing(item.id)
                 ? t("share.preparing")
                 : shareCard.isGesturePending(item.id)
-                  ? t("share.tapToShare")
+                  ? tTv(t, "share.tapToShare", "share.selectToShare")
                   : t("zikr.share")
             }
             variant="ghost"
@@ -264,7 +272,7 @@ export default function ZikrDetailScreen() {
       eyebrow={t("zikr.detailEyebrow")}
       title={item.title}
       onBack={() => goBackOrReplace(router, "/")}
-      maxContentWidth={isListDetail ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
+      maxContentWidth={showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
     >
       {shareCard.SnapshotHost}
       <Seo
@@ -284,7 +292,7 @@ export default function ZikrDetailScreen() {
           }),
         ]}
       />
-      {isListDetail ? (
+      {showSideFilters ? (
         <View style={[scriptureListDetailStyles.listDetailRoot, styles.detailRoot]}>
           <View style={[scriptureListDetailStyles.listDetailPrimary, styles.detailPrimary]}>
             {readingBody}

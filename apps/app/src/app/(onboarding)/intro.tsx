@@ -25,10 +25,12 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { APP_LOCALES } from "@/lib/locale-display";
+import { isTV } from "@/lib/platform/is-tv";
 import { useArrowForward, useIsRTL } from "@/lib/rtl";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
@@ -99,6 +101,12 @@ export default function OnboardingIntroScreen() {
   const arrowForward = useArrowForward();
   const isRtl = useIsRTL();
   const { width } = useWindowDimensions();
+  const tv = isTV();
+  /** Expo Dev Client gear sits top-right on TV; keep Skip clear of it. */
+  const topBarPadX = tv ? TvLayout.contentPaddingX : Spacing.four;
+  const skipClearance = tv ? 72 : 0;
+  const footerMaxWidth = tv ? Math.min(520, width - topBarPadX * 2) : undefined;
+  const slidePadBottom = tv ? Spacing.six : Spacing.two;
   const scrollRef = useRef<ScrollView>(null);
   const buttonDrivenScrollRef = useRef(false);
   const [index, setIndex] = useState(0);
@@ -190,13 +198,22 @@ export default function OnboardingIntroScreen() {
       <StatusBar style="light" />
       <MosqueSilhouette color={Brand.heroBottom} opacity={0.3} scale={1.6} />
 
-      <View style={styles.topBar}>
+      <View
+        style={[
+          styles.topBar,
+          {
+            paddingHorizontal: topBarPadX,
+            paddingTop: tv ? Spacing.three : Spacing.two,
+            minHeight: tv ? TvLayout.minFocusTarget : 44,
+          },
+        ]}
+      >
         <PressableScale
           accessibilityRole="button"
           accessibilityLabel={t("onboarding.chooseLanguage")}
           accessibilityHint={t("onboarding.chooseLanguageHint")}
           hitSlop={8}
-          style={styles.languageChip}
+          style={[styles.languageChip, tv ? styles.languageChipTv : null]}
           onPress={() => {
             triggerHaptic("light");
             setLanguagePickerOpen(true);
@@ -223,7 +240,11 @@ export default function OnboardingIntroScreen() {
             accessibilityRole="button"
             accessibilityLabel={t("common.skip")}
             hitSlop={12}
-            style={styles.skipButton}
+            style={[
+              styles.skipButton,
+              tv ? styles.skipButtonTv : null,
+              skipClearance > 0 ? { marginEnd: skipClearance } : null,
+            ]}
             onPress={() => {
               triggerHaptic("light");
               goToLocationStep("/");
@@ -234,7 +255,9 @@ export default function OnboardingIntroScreen() {
             </ThemedText>
           </PressableScale>
         ) : (
-          <View style={styles.skipButton} />
+          <View
+            style={[styles.skipButton, skipClearance > 0 ? { marginEnd: skipClearance } : null]}
+          />
         )}
       </View>
 
@@ -255,19 +278,36 @@ export default function OnboardingIntroScreen() {
         {...(Platform.OS === "web" ? ({ dir: "ltr" } as const) : null)}
       >
         {pagerSlides.map((item) => (
-          <View key={item.key} style={[styles.slidePage, { width }]}>
+          <View
+            key={item.key}
+            style={[
+              styles.slidePage,
+              {
+                width,
+                paddingHorizontal: topBarPadX,
+              },
+            ]}
+          >
             <ScrollView
               style={styles.slideScroll}
-              contentContainerStyle={styles.slideScrollContent}
+              contentContainerStyle={[
+                styles.slideScrollContent,
+                {
+                  paddingVertical: tv ? Spacing.four : Spacing.two,
+                  paddingBottom: slidePadBottom,
+                  justifyContent: tv ? "flex-start" : "center",
+                  paddingTop: tv ? Spacing.five : Spacing.two,
+                },
+              ]}
               showsVerticalScrollIndicator={false}
               bounces={false}
             >
               {item.kind === "brand" ? (
                 <BrandSlide />
               ) : item.kind === "cta" ? (
-                <CtaSlide icon={item.icon} />
+                <CtaSlide icon={item.icon} tv={tv} />
               ) : (
-                <FeatureSlide slide={item} />
+                <FeatureSlide slide={item} tv={tv} />
               )}
             </ScrollView>
           </View>
@@ -275,7 +315,7 @@ export default function OnboardingIntroScreen() {
       </ScrollView>
 
       <View
-        style={styles.dots}
+        style={[styles.dots, tv ? styles.dotsTv : null]}
         accessibilityRole="progressbar"
         accessibilityLabel={t("onboarding.pageOf", { page: index + 1, total: PAGE_COUNT })}
       >
@@ -297,34 +337,70 @@ export default function OnboardingIntroScreen() {
         })}
       </View>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.four }]}>
-        {isLast ? (
-          <View style={styles.finalActions}>
+      <View
+        style={[
+          styles.footer,
+          {
+            paddingHorizontal: topBarPadX,
+            paddingBottom: insets.bottom + (tv ? Spacing.five : Spacing.four),
+            alignItems: footerMaxWidth ? "center" : undefined,
+          },
+        ]}
+      >
+        <View style={footerMaxWidth ? { width: "100%", maxWidth: footerMaxWidth } : undefined}>
+          {isLast ? (
+            <View style={styles.finalActions}>
+              {tv ? (
+                <>
+                  <Button
+                    label={t("common.continueAsGuest")}
+                    fullWidth
+                    preferredFocus
+                    onPress={() => goToLocationStep("/")}
+                  />
+                  <Button
+                    label={t("onboarding.signInToSync")}
+                    variant="ghost"
+                    fullWidth
+                    labelColor={Brand.heroText}
+                    onPress={() => goToLocationStep("/login")}
+                    style={{
+                      backgroundColor: Brand.onHeroStrongSurface,
+                      borderColor: withAlpha(Brand.heroText, 0.32),
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button
+                    label={t("onboarding.signInToSync")}
+                    fullWidth
+                    onPress={() => goToLocationStep("/login")}
+                  />
+                  <Button
+                    label={t("common.continueAsGuest")}
+                    variant="ghost"
+                    fullWidth
+                    labelColor={Brand.heroText}
+                    onPress={() => goToLocationStep("/")}
+                    style={{
+                      backgroundColor: Brand.onHeroStrongSurface,
+                      borderColor: withAlpha(Brand.heroText, 0.32),
+                    }}
+                  />
+                </>
+              )}
+            </View>
+          ) : (
             <Button
-              label={t("onboarding.signInToSync")}
+              label={isBrand ? t("onboarding.begin") : t("common.next")}
               fullWidth
-              onPress={() => goToLocationStep("/login")}
+              preferredFocus={tv}
+              trailingIcon={arrowForward}
+              onPress={goNext}
             />
-            <Button
-              label={t("common.continueAsGuest")}
-              variant="ghost"
-              fullWidth
-              labelColor={Brand.heroText}
-              onPress={() => goToLocationStep("/")}
-              style={{
-                backgroundColor: Brand.onHeroStrongSurface,
-                borderColor: withAlpha(Brand.heroText, 0.32),
-              }}
-            />
-          </View>
-        ) : (
-          <Button
-            label={isBrand ? t("onboarding.begin") : t("common.next")}
-            fullWidth
-            trailingIcon={arrowForward}
-            onPress={goNext}
-          />
-        )}
+          )}
+        </View>
       </View>
 
       <LanguagePickerSheet
@@ -376,31 +452,43 @@ function BrandSlide() {
   );
 }
 
-function FeatureSlide({ slide }: { slide: Slide }) {
+function FeatureSlide({ slide, tv = false }: { slide: Slide; tv?: boolean }) {
   const { t } = useTranslation();
   const highlights = Array.from({ length: slide.highlightCount ?? 0 }, (_, i) =>
     t(`onboarding.${slide.key}Highlight${i + 1}`),
   );
 
   return (
-    <View style={styles.featureSlide}>
-      <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
+    <View style={[styles.featureSlide, tv ? styles.slideTv : null]}>
+      <View
+        style={[
+          styles.icon,
+          tv ? styles.iconTv : null,
+          { backgroundColor: Brand.onHeroStrongSurface },
+        ]}
+      >
         {slide.icon ? (
-          <SymbolView name={slide.icon} size={52} tintColor={Brand.heroAccent} />
+          <SymbolView name={slide.icon} size={tv ? 44 : 52} tintColor={Brand.heroAccent} />
         ) : null}
       </View>
 
       <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
         {t(`onboarding.${slide.key}Eyebrow`)}
       </ThemedText>
-      <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
+      <ThemedText
+        type="title"
+        style={[styles.title, tv ? styles.titleTv : null, { color: Brand.heroText }]}
+      >
         {t(`onboarding.${slide.key}Title`)}
       </ThemedText>
-      <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
+      <ThemedText
+        type="default"
+        style={[styles.body, tv ? styles.bodyTv : null, { color: Brand.heroSubtext }]}
+      >
         {t(`onboarding.${slide.key}Body`)}
       </ThemedText>
 
-      <View style={styles.highlights}>
+      <View style={[styles.highlights, tv ? styles.highlightsTv : null]}>
         {highlights.map((line) => (
           <View key={line} style={styles.highlightRow}>
             <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
@@ -414,33 +502,47 @@ function FeatureSlide({ slide }: { slide: Slide }) {
   );
 }
 
-function CtaSlide({ icon }: { icon?: SymbolViewProps["name"] }) {
+function CtaSlide({ icon, tv = false }: { icon?: SymbolViewProps["name"]; tv?: boolean }) {
   const { t } = useTranslation();
 
   return (
-    <View style={styles.ctaSlide}>
-      <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
-        {icon ? <SymbolView name={icon} size={52} tintColor={Brand.heroAccent} /> : null}
+    <View style={[styles.ctaSlide, tv ? styles.slideTv : null]}>
+      <View
+        style={[
+          styles.icon,
+          tv ? styles.iconTv : null,
+          { backgroundColor: Brand.onHeroStrongSurface },
+        ]}
+      >
+        {icon ? <SymbolView name={icon} size={tv ? 44 : 52} tintColor={Brand.heroAccent} /> : null}
       </View>
 
       <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
         {t("onboarding.ctaEyebrow")}
       </ThemedText>
-      <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
+      <ThemedText
+        type="title"
+        style={[styles.title, tv ? styles.titleTv : null, { color: Brand.heroText }]}
+      >
         {t("onboarding.ctaTitle")}
       </ThemedText>
-      <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
-        {t("onboarding.ctaBody")}
+      <ThemedText
+        type="default"
+        style={[styles.body, tv ? styles.bodyTv : null, { color: Brand.heroSubtext }]}
+      >
+        {tv ? t("common.tvOauthHint") : t("onboarding.ctaBody")}
       </ThemedText>
 
-      <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
-        <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
-          {t("onboarding.ctaPrivacyTitle")}
-        </ThemedText>
-        <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
-          {t("onboarding.ctaPrivacyBody")}
-        </ThemedText>
-      </View>
+      {!tv ? (
+        <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
+          <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
+            {t("onboarding.ctaPrivacyTitle")}
+          </ThemedText>
+          <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
+            {t("onboarding.ctaPrivacyBody")}
+          </ThemedText>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -476,12 +578,27 @@ const styles = StyleSheet.create({
     maxWidth: 180,
     flexShrink: 0,
   },
+  languageChipTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.four,
+  },
   skipButton: {
     minWidth: 44,
     minHeight: 44,
     alignItems: "flex-end",
     justifyContent: "center",
     paddingHorizontal: Spacing.two,
+  },
+  skipButtonTv: {
+    minHeight: TvLayout.minFocusTarget,
+    alignItems: "center",
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    backgroundColor: Brand.onHeroMutedSurface,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: withAlpha(Brand.heroText, 0.22),
   },
   slidePager: {
     flex: 1,
@@ -572,6 +689,12 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     paddingVertical: Spacing.two,
   },
+  slideTv: {
+    gap: Spacing.three,
+    alignSelf: "center",
+    width: "100%",
+    maxWidth: 640,
+  },
   icon: {
     width: 108,
     height: 108,
@@ -581,6 +704,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: Spacing.two,
   },
+  iconTv: {
+    width: 88,
+    height: 88,
+    borderRadius: 28,
+    marginBottom: Spacing.one,
+  },
   eyebrow: {
     textAlign: "center",
     textTransform: "uppercase",
@@ -589,15 +718,29 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
   },
+  titleTv: {
+    fontSize: TvLayout.titleFontSize,
+    lineHeight: TvLayout.titleFontSize + 6,
+  },
   body: {
     textAlign: "center",
     maxWidth: 320,
+  },
+  bodyTv: {
+    maxWidth: 560,
+    fontSize: TvLayout.bodyFontSize,
+    lineHeight: TvLayout.bodyFontSize + 8,
+    marginBottom: Spacing.two,
   },
   highlights: {
     width: "100%",
     maxWidth: 340,
     gap: Spacing.two,
     marginTop: Spacing.three,
+  },
+  highlightsTv: {
+    maxWidth: 560,
+    marginTop: Spacing.two,
   },
   highlightRow: {
     flexDirection: "row",
@@ -625,6 +768,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.one,
     paddingVertical: Spacing.three,
+  },
+  dotsTv: {
+    paddingTop: Spacing.four,
+    paddingBottom: Spacing.three,
+    minHeight: 28,
   },
   /** Fixed-width slot so active pill ↔ idle circle never shifts neighbors. */
   dotSlot: {

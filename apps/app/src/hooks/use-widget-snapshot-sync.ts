@@ -20,6 +20,7 @@ import {
 } from "@/lib/live-activity/state";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { syncOngoingNotification } from "@/lib/ongoing-notification";
+import { isTV } from "@/lib/platform/is-tv";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { useTheme } from "@/providers/theme-provider";
 import {
@@ -67,7 +68,7 @@ export function useWidgetSnapshotSync(enabled = true): void {
   const meaningLocale = toAppLocale(translationLocale ?? locale);
 
   const sync = useCallback(async () => {
-    if (!enabled || Platform.OS === "web") return;
+    if (!enabled || Platform.OS === "web" || isTV()) return;
     await ensureDailyHadithPool();
     const locationDenied = locationStatus === "denied";
     const snapshot = buildWidgetSnapshot({

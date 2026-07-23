@@ -92,7 +92,12 @@ export function ContentReportAttachments({
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("contentReport.proofLabel")}
       </ThemedText>
-      {attachments.length < MAX_ATTACHMENTS ? (
+      {isTV() ? (
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("common.tvUnavailableBody")}
+        </ThemedText>
+      ) : null}
+      {!isTV() && attachments.length < MAX_ATTACHMENTS ? (
         <View style={[styles.addField, { backgroundColor: colors.muted }]}>
           <View style={styles.addCopy}>
             <ThemedText type="smallBold">{t("contentReport.addProof")}</ThemedText>

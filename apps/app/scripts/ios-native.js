@@ -258,7 +258,10 @@ function syncDevelopmentTeam(teamId) {
   console.log(`Synced DEVELOPMENT_TEAM=${teamId} → ${pbx}\n`);
 }
 
-function syncIosMarketingVersion(marketingVersion, { strict = true } = {}) {
+function syncIosMarketingVersion(
+  marketingVersion,
+  { strict = true, envKey = "EXPO_IOS_APP_VERSION" } = {},
+) {
   const version = String(marketingVersion).trim();
   const pbx = pbxprojPath();
   if (!fs.existsSync(pbx)) {
@@ -286,13 +289,14 @@ function syncIosMarketingVersion(marketingVersion, { strict = true } = {}) {
     fs.writeFileSync(plist, plistContents, "utf8");
   }
 
-  console.log(
-    `iOS marketing version ${version} (EXPO_IOS_APP_VERSION → CFBundleShortVersionString)\n`,
-  );
+  console.log(`iOS marketing version ${version} (${envKey} → CFBundleShortVersionString)\n`);
   return true;
 }
 
-function syncIosBuildNumber(buildNumber, { strict = true } = {}) {
+function syncIosBuildNumber(
+  buildNumber,
+  { strict = true, envKey = "EXPO_IOS_APP_BUILD_NUMBER" } = {},
+) {
   const code = String(buildNumber).trim();
   const pbx = pbxprojPath();
   if (!fs.existsSync(pbx)) {
@@ -320,7 +324,7 @@ function syncIosBuildNumber(buildNumber, { strict = true } = {}) {
     fs.writeFileSync(plist, plistContents, "utf8");
   }
 
-  console.log(`iOS build number ${code} (EXPO_IOS_APP_BUILD_NUMBER → CFBundleVersion)\n`);
+  console.log(`iOS build number ${code} (${envKey} → CFBundleVersion)\n`);
   return true;
 }
 

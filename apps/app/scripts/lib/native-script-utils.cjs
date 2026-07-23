@@ -5,6 +5,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
+const { isAndroidTvAdbDevice } = require("./android-form-factor.cjs");
 
 const DEFAULT_APP_ROOT = path.join(__dirname, "../..");
 
@@ -225,21 +226,51 @@ function isAndroidDeviceResponsive(serial) {
  * Expo run:android queries the connected device ABI before Gradle starts. An offline
  * emulator makes adb getprop hang indefinitely with no console output.
  *
+ * Phone runs reject Android TV emulators (and vice versa) so a leftover TV AVD
+ * from `dev:app:tv:android` does not steal `dev:app:android`.
+ *
  * @param {string} [appRoot]
+ * @param {{ tv?: boolean }} [opts]
  */
-function ensureAndroidDeviceReady(appRoot = DEFAULT_APP_ROOT) {
-  const findReadyDevice = () => {
+function ensureAndroidDeviceReady(appRoot = DEFAULT_APP_ROOT, { tv = false } = {}) {
+  const wantKind = tv ? "Android TV" : "phone";
+
+  /**
+   * @param {{ allowPhysicalPhone?: boolean }} [findOpts]
+   * @returns {string | null}
+   */
+  const findReadyDevice = ({ allowPhysicalPhone = true } = {}) => {
     for (const { serial, state } of listAdbDevices()) {
-      if (state === "device" && isAndroidDeviceResponsive(serial)) {
+      if (state !== "device" || !isAndroidDeviceResponsive(serial)) continue;
+
+      const isEmulator = serial.startsWith("emulator-");
+      if (isEmulator) {
+        if (isAndroidTvAdbDevice(serial) === tv) return serial;
+        continue;
+      }
+
+      // Physical USB / wireless devices: phone runs may use them; TV runs need Leanback.
+      if (tv) {
+        if (isAndroidTvAdbDevice(serial)) return serial;
+      } else if (allowPhysicalPhone) {
         return serial;
       }
     }
     return null;
   };
 
+  const findWrongFormFactorEmulator = () => {
+    for (const { serial, state } of listAdbDevices()) {
+      if (state !== "device" || !serial.startsWith("emulator-")) continue;
+      if (!isAndroidDeviceResponsive(serial)) continue;
+      if (isAndroidTvAdbDevice(serial) !== tv) return serial;
+    }
+    return null;
+  };
+
   let readySerial = findReadyDevice();
   if (readySerial) {
-    console.log(`\nAndroid device ready (${readySerial}).`);
+    console.log(`\nAndroid ${wantKind} device ready (${readySerial}).`);
     return;
   }
 
@@ -261,23 +292,33 @@ function ensureAndroidDeviceReady(appRoot = DEFAULT_APP_ROOT) {
     }
   }
 
-  console.log("Starting a clean emulator boot before expo run:android…\n");
-  runStep(
-    "Android emulator cold restart",
-    process.execPath,
-    [path.join(appRoot, "scripts/android-emulator.js"), "--cold"],
-    { cwd: appRoot },
-  );
+  const wrongSerial = findWrongFormFactorEmulator();
+  if (wrongSerial) {
+    console.warn(
+      `\nConnected emulator ${wrongSerial} is not a ${wantKind} device.\n` +
+        `Stopping it and cold-booting a ${wantKind} AVD for this command…\n`,
+    );
+  } else {
+    console.log(`Starting a clean ${wantKind} emulator boot before expo run:android…\n`);
+  }
+
+  const emulatorArgs = [path.join(appRoot, "scripts/android-emulator.js"), "--cold"];
+  if (tv) emulatorArgs.push("--tv");
+
+  runStep("Android emulator cold restart", process.execPath, emulatorArgs, {
+    cwd: appRoot,
+  });
 
   readySerial = findReadyDevice();
   if (readySerial) {
-    console.log(`\nAndroid device ready (${readySerial}).`);
+    console.log(`\nAndroid ${wantKind} device ready (${readySerial}).`);
     return;
   }
 
   console.error(
-    "\nNo responsive Android device found.\n" +
-      "  pnpm dev:app:android:restart   # cold boot emulator\n" +
+    `\nNo responsive ${wantKind} Android device found.\n` +
+      "  pnpm dev:app:android:restart   # cold boot phone emulator\n" +
+      "  pnpm dev:app:tv:android        # TV (passes --tv to the emulator helper)\n" +
       "  pnpm dev:app:android:doctor    # repair adb only\n" +
       "  pnpm dev:app:android:wipe      # factory reset if corrupted\n",
   );
@@ -310,6 +351,7 @@ module.exports = {
   prepareWindowsAndroidBuild,
   prepareAndroidReleaseBuild,
   syncAndroidKeystoreProperties,
+  listAdbDevices,
   ensureAndroidDeviceReady,
   withAndroidNativeBuildEnv,
 };

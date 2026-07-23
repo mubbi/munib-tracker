@@ -89,16 +89,19 @@ function main() {
     );
     process.exit(1);
   }
-  assertVersionEnv();
+  assertVersionEnv({ tv: true });
 
   ensureJsBundleDeps();
   ensurePodsInstalled();
   loadProjectEnv();
 
-  const { marketingVersion, buildNumber } = preparePlatformRelease("ios", appRoot);
-  logReleaseVersionSummary(appRoot, { activePlatform: "ios" });
-  syncIosMarketingVersion(marketingVersion);
-  syncIosBuildNumber(buildNumber);
+  const { marketingVersion, buildNumber, versionEnvKey, buildEnvKey } = preparePlatformRelease(
+    "tvos",
+    appRoot,
+  );
+  logReleaseVersionSummary(appRoot, { activePlatform: "tvos" });
+  syncIosMarketingVersion(marketingVersion, { envKey: versionEnvKey });
+  syncIosBuildNumber(buildNumber, { envKey: buildEnvKey });
   try {
     applyIosCredentialsEnv(appRoot, { buildApi: true, signIn: true, apn: true });
   } catch (err) {

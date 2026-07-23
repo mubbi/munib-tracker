@@ -34,6 +34,9 @@ import type {
   AuthUserResponseDto,
   DeleteAccountDto,
   ResetAppDataDto,
+  TvPairingClaimBodyDto,
+  TvPairingCreateResponseDto,
+  TvPairingStatusResponseDto,
   WebAuthSessionResponseDto
 } from '../../models';
 
@@ -103,6 +106,226 @@ export const useAuthControllerCreateGuestSession = <TError = unknown,
       > => {
 
       const mutationOptions = getAuthControllerCreateGuestSessionMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * The TV displays a QR / short code. The phone opens the claim URL, signs in, and posts the code.
+ * @summary Create a TV companion pairing code
+ */
+export const authControllerCreateTvPairing = (
+    
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<TvPairingCreateResponseDto>(
+      {url: `/api/v1/auth/tv/pairing`, method: 'POST', signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerCreateTvPairingMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateTvPairing>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateTvPairing>>, TError,void, TContext> => {
+
+const mutationKey = ['authControllerCreateTvPairing'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerCreateTvPairing>>, void> = () => {
+          
+
+          return  authControllerCreateTvPairing(requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerCreateTvPairingMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerCreateTvPairing>>>
+    
+    export type AuthControllerCreateTvPairingMutationError = unknown
+
+    /**
+ * @summary Create a TV companion pairing code
+ */
+export const useAuthControllerCreateTvPairing = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateTvPairing>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerCreateTvPairing>>,
+        TError,
+        void,
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerCreateTvPairingMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * @summary Poll TV companion pairing status (TV client)
+ */
+export const authControllerPollTvPairing = (
+    code: string,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<TvPairingStatusResponseDto>(
+      {url: `/api/v1/auth/tv/pairing/${code}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getAuthControllerPollTvPairingQueryKey = (code?: string,) => {
+    return [
+    `/api/v1/auth/tv/pairing/${code}`
+    ] as const;
+    }
+
+    
+export const getAuthControllerPollTvPairingQueryOptions = <TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAuthControllerPollTvPairingQueryKey(code);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof authControllerPollTvPairing>>> = ({ signal }) => authControllerPollTvPairing(code, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(code), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AuthControllerPollTvPairingQueryResult = NonNullable<Awaited<ReturnType<typeof authControllerPollTvPairing>>>
+export type AuthControllerPollTvPairingQueryError = unknown
+
+
+export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(
+ code: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof authControllerPollTvPairing>>,
+          TError,
+          Awaited<ReturnType<typeof authControllerPollTvPairing>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(
+ code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof authControllerPollTvPairing>>,
+          TError,
+          Awaited<ReturnType<typeof authControllerPollTvPairing>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(
+ code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Poll TV companion pairing status (TV client)
+ */
+
+export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(
+ code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAuthControllerPollTvPairingQueryOptions(code,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Requires a linked (non-guest) account. Issues a fresh session for the TV to poll.
+ * @summary Claim a TV pairing from a signed-in phone
+ */
+export const authControllerClaimTvPairing = (
+    tvPairingClaimBodyDto: TvPairingClaimBodyDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<void>(
+      {url: `/api/v1/auth/tv/pairing/claim`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: tvPairingClaimBodyDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerClaimTvPairingMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerClaimTvPairing>>, TError,{data: TvPairingClaimBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerClaimTvPairing>>, TError,{data: TvPairingClaimBodyDto}, TContext> => {
+
+const mutationKey = ['authControllerClaimTvPairing'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerClaimTvPairing>>, {data: TvPairingClaimBodyDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authControllerClaimTvPairing(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerClaimTvPairingMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerClaimTvPairing>>>
+    export type AuthControllerClaimTvPairingMutationBody = TvPairingClaimBodyDto
+    export type AuthControllerClaimTvPairingMutationError = unknown
+
+    /**
+ * @summary Claim a TV pairing from a signed-in phone
+ */
+export const useAuthControllerClaimTvPairing = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerClaimTvPairing>>, TError,{data: TvPairingClaimBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerClaimTvPairing>>,
+        TError,
+        {data: TvPairingClaimBodyDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerClaimTvPairingMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }

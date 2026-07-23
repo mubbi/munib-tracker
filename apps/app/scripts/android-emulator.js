@@ -10,15 +10,19 @@
  *   pnpm dev:app:android:doctor     # reset adb + reconnect, no relaunch
  *
  * Env:
- *   ANDROID_AVD            AVD name (default: $ANDROID_AVD → first `emulator -list-avds`)
+ *   ANDROID_AVD            Optional AVD override (else auto-picks phone vs TV by form factor)
  *   ANDROID_EMULATOR_GPU   GPU mode: host | auto | swiftshader_indirect (default: auto)
  *   ANDROID_SDK_ROOT / ANDROID_HOME   SDK location override
  *   ANDROID_AVD_HOME       AVD home override (default OS location)
+ *
+ * Flags:
+ *   --tv                   Prefer Android TV / Leanback AVDs (also set when EXPO_TV=1)
  */
 const { spawn, spawnSync } = require("node:child_process");
 const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
+const { isAndroidTvAdbDevice, pickPreferredAvd } = require("./lib/android-form-factor.cjs");
 
 const flags = new Set(process.argv.slice(2).filter((a) => a.startsWith("--")));
 const positional = process.argv.slice(2).filter((a) => !a.startsWith("--"));
@@ -26,6 +30,8 @@ const COLD = flags.has("--cold") || flags.has("--restart");
 const WIPE = flags.has("--wipe") || flags.has("--wipe-data");
 const NO_SAVE = flags.has("--no-save");
 const DOCTOR = flags.has("--doctor");
+const PREFER_TV =
+  flags.has("--tv") || process.env.EXPO_TV === "1" || process.env.EXPO_TV === "true";
 
 const exe = process.platform === "win32" ? ".exe" : "";
 const isWin = process.platform === "win32";
@@ -322,7 +328,21 @@ function resolveAvd() {
     console.warn(`AVD "${avd}" not found. Available: ${avds.join(", ") || "(none)"}`);
     avd = undefined;
   }
-  if (!avd) avd = avds[0];
+  if (!avd) {
+    const picked = pickPreferredAvd(avds, { preferTv: PREFER_TV });
+    avd = picked.avd;
+    if (avd) {
+      const kind = PREFER_TV ? "Android TV" : "phone";
+      if (picked.usedFallback) {
+        console.warn(
+          `No ${kind} AVD found among: ${avds.join(", ")}.\n` +
+            `  Falling back to "${avd}". Create a ${kind} AVD in Android Studio → Device Manager.\n`,
+        );
+      } else {
+        console.log(`Using ${kind} AVD "${avd}" (override with ANDROID_AVD=… if needed).`);
+      }
+    }
+  }
   if (!avd) {
     console.error(
       "No Android Virtual Device found.\n" + "  Create one in Android Studio → Device Manager.\n",
@@ -330,6 +350,14 @@ function resolveAvd() {
     process.exit(1);
   }
   return avd;
+}
+
+/**
+ * @param {string[]} serials
+ * @returns {boolean}
+ */
+function onlineMatchesFormFactor(serials) {
+  return serials.some((serial) => isAndroidTvAdbDevice(serial) === PREFER_TV);
 }
 
 function runDoctor() {
@@ -410,22 +438,32 @@ function launch(avd) {
   const transports = emulatorTransports();
   const online = transports.filter((t) => t.state === "device").map((t) => t.serial);
   const unauthorized = hasUnauthorizedTransport();
+  const wantKind = PREFER_TV ? "Android TV" : "phone";
 
   if (!COLD && !WIPE) {
     if (online.length > 0) {
-      if (shellResponsive(online[0])) {
+      if (shellResponsive(online[0]) && onlineMatchesFormFactor(online)) {
         console.log(
           `Emulator already running and healthy (${online.join(", ")}). Skipping launch.`,
         );
         console.log("Force a clean restart with: pnpm dev:app:android:restart\n");
         return;
       }
-      console.warn(
-        `Emulator ${online.join(", ")} is running but its shell is unresponsive.\n` +
-          "Doing a clean cold restart instead…\n",
-      );
-      killRunningEmulators(online);
-      resetAdb();
+      if (shellResponsive(online[0]) && !onlineMatchesFormFactor(online)) {
+        console.warn(
+          `Running emulator is not a ${wantKind} device (${online.join(", ")}).\n` +
+            `Stopping it and launching "${avd}" instead…\n`,
+        );
+        killRunningEmulators(online);
+        resetAdb();
+      } else {
+        console.warn(
+          `Emulator ${online.join(", ")} is running but its shell is unresponsive.\n` +
+            "Doing a clean cold restart instead…\n",
+        );
+        killRunningEmulators(online);
+        resetAdb();
+      }
     } else if (unauthorized) {
       console.warn("Emulator is unauthorized over adb. Regenerating keys and cold-restarting…\n");
       killRunningEmulators(transports.map((t) => t.serial));

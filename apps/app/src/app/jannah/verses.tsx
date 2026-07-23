@@ -19,6 +19,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { ensureJannahContent, getJannahVerses, isJannahContentReady } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
@@ -59,7 +60,9 @@ function JannahVersesList({ contentVersion }: { contentVersion: number }) {
 
   return (
     <>
-      <JannahCallout tone="info">{t("jannah.versesLead")}</JannahCallout>
+      <JannahCallout tone="info">
+        {tTv(t, "jannah.versesLead", "jannah.versesLeadTv")}
+      </JannahCallout>
 
       {THEME_ORDER.map((theme) => {
         const items = grouped.get(theme) ?? [];

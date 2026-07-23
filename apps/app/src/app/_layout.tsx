@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Platform, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -20,6 +20,7 @@ import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { RtlLayoutBootstrap } from "@/components/rtl-layout-bootstrap";
+import { TvRemoteBridge } from "@/components/tv/tv-remote-bridge";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { PinLockGate, PinLockProvider } from "@/features/pin-lock";
 import { ReviewDeepLinkBridge } from "@/features/reviews/components/ReviewDeepLinkBridge";
@@ -29,11 +30,13 @@ import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { resolveAppPlatform } from "@/lib/app/resolve-app-platform";
 import { resolveAppVersion } from "@/lib/app/resolve-app-version";
 import { BENGALI_FONT_FILES } from "@/lib/bengali-fonts";
+import { isTV } from "@/lib/platform/is-tv";
 import { DEFAULT_ARABIC_FONT_ID } from "@/lib/reading-typography";
 import { Sentry } from "@/lib/sentry";
 import { AppApiProvider } from "@/providers/api-provider";
 import { AppProviders } from "@/providers/app-providers";
 import { AppVersionProvider } from "@/providers/app-version-provider";
+import { useAudioPlayerContext } from "@/providers/audio-player-context";
 import { AudioPlayerProvider } from "@/providers/audio-player-provider";
 import { AuthProvider } from "@/providers/auth-provider";
 import { BlurTargetProvider } from "@/providers/blur-target-provider";
@@ -55,6 +58,32 @@ const WebReminderAdhanBridge = lazy(() =>
     default: mod.WebReminderAdhanBridge,
   })),
 );
+
+/**
+ * Phone/web: idle-mount the mini-player after first paint.
+ * TV: wait until a track is queued — the ~2900-module player chunk OOMs ~1GB Leanback AVDs
+ * when loaded alongside home-below-fold on cold start.
+ */
+function DeferredMiniPlayer() {
+  const tv = isTV();
+  const { current } = useAudioPlayerContext();
+  const [armed, setArmed] = useState(!tv);
+
+  useEffect(() => {
+    if (!tv || !current) return;
+    setArmed(true);
+  }, [tv, current]);
+
+  if (!armed) return null;
+
+  return (
+    <IdleMount>
+      <Suspense fallback={null}>
+        <MiniPlayer />
+      </Suspense>
+    </IdleMount>
+  );
+}
 setAppVersionInfo(resolveAppVersion(), resolveAppPlatform());
 
 SplashScreen.preventAutoHideAsync();
@@ -63,9 +92,13 @@ SplashScreen.preventAutoHideAsync();
  * Optional scripture/UI typefaces — loaded after first paint so splash is not
  * gated on ~1.5 MB of Arabic + Bengali TTFs. Arabic picker faces load from
  * Settings → Fonts; Bengali OFL face warms here for locale `bn`.
+ *
+ * Do not block the root tree on `useFonts` — on Android TV / slow emulators an
+ * empty `useFonts({})` can leave `ready=false` indefinitely, which stuck the
+ * native splash forever (Dev Client gear visible, no intro).
  */
 function useDeferredReadingFonts() {
-  const [ready, error] = useFonts({});
+  useFonts({});
 
   useEffect(() => {
     let cancelled = false;
@@ -91,23 +124,10 @@ function useDeferredReadingFonts() {
       cancelled = true;
     };
   }, []);
-
-  useEffect(() => {
-    if (error) {
-      console.error("[RootLayout] Font bootstrap failed — continuing", error);
-      void SplashScreen.hideAsync();
-    }
-  }, [error]);
-
-  return ready || Boolean(error);
 }
 
 function RootLayout() {
-  const fontsReady = useDeferredReadingFonts();
-
-  if (!fontsReady) {
-    return null;
-  }
+  useDeferredReadingFonts();
 
   return (
     <GestureHandlerRootView style={styles.root}>
@@ -133,14 +153,14 @@ function RootLayout() {
                                 <InAppNotificationsProvider>
                                   <NotificationProvider>
                                     <AudioPlayerProvider>
-                                      <IdleMount>
-                                        <Suspense fallback={null}>
-                                          {Platform.OS === "web" ? (
+                                      {Platform.OS === "web" ? (
+                                        <IdleMount>
+                                          <Suspense fallback={null}>
                                             <WebReminderAdhanBridge />
-                                          ) : null}
-                                          <ShareQrWarmup />
-                                        </Suspense>
-                                      </IdleMount>
+                                            <ShareQrWarmup />
+                                          </Suspense>
+                                        </IdleMount>
+                                      ) : null}
                                       <MiniPlayerInsetProvider>
                                         <AppVersionGate>
                                           <BlurTargetProvider
@@ -152,11 +172,8 @@ function RootLayout() {
                                                 <WebPwaBootstrap />
                                                 <OnboardingGate />
                                                 <PinLockGate />
-                                                <IdleMount>
-                                                  <Suspense fallback={null}>
-                                                    <MiniPlayer />
-                                                  </Suspense>
-                                                </IdleMount>
+                                                <DeferredMiniPlayer />
+                                                <TvRemoteBridge />
                                                 {/* Outside BlurTargetView so Android can
                                         capture a real backdrop blur (same as
                                         mini-player / sheets). */}

@@ -6,6 +6,7 @@ import { SessionStore } from "@/auth/session-store";
 import type { WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 import { nativeApplyOngoingPhasePayload } from "@/lib/external-commands/native-bridge";
 import { buildOngoingNotificationState } from "@/lib/ongoing-notification/state";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   buildSalahPhaseSchedule,
   SALAH_WEB_PUSH_HORIZON_MS,
@@ -30,6 +31,7 @@ export async function registerSurfacePushSchedule(input: {
   snapshot: WidgetSnapshot;
   stopLabel: string;
 }): Promise<SurfacePushRegistrationResponse | null> {
+  if (Platform.OS !== "web" && isTV()) return null;
   const { accessToken, channel, target, session, snapshot, stopLabel } = input;
   const boundaries = buildSalahPhaseSchedule({
     snapshot,
@@ -104,6 +106,7 @@ export async function endSurfacePushRegistration(
   registrationId?: number | null,
   state: "ended" | "dismissed" = "ended",
 ): Promise<void> {
+  if (Platform.OS !== "web" && isTV()) return;
   const id = registrationId ?? lastSurfaceRegistrationId;
   if (!id) return;
   try {
@@ -125,6 +128,7 @@ export async function deleteSurfacePushRegistration(
   accessToken: string,
   registrationId?: number | null,
 ): Promise<void> {
+  if (Platform.OS !== "web" && isTV()) return;
   const id = registrationId ?? lastSurfaceRegistrationId;
   if (!id) return;
   try {
@@ -142,7 +146,7 @@ export async function deleteSurfacePushRegistration(
 export async function handleSurfacePhaseDataMessage(
   data: Record<string, unknown> | undefined,
 ): Promise<void> {
-  if (Platform.OS !== "android" || !data) return;
+  if (Platform.OS !== "android" || isTV() || !data) return;
   if (data.type !== "salah_surface_phase" && data.type !== "salah_phase") return;
   const payload =
     typeof data.payload === "string"

@@ -15,6 +15,7 @@ import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
+import { isTV } from "@/lib/platform/is-tv";
 import { HOME_FAQ } from "@/lib/seo/faq-content";
 import { faqSchema } from "@/lib/seo/structured-data";
 import { useLocationActions } from "@/stores/location-store";
@@ -81,6 +82,7 @@ export default function HomeScreen() {
   const BelowFold = HomeBelowFoldForTests ?? HomeBelowFoldLazy;
   const router = useRouter();
   const { t } = useTranslation();
+  const tv = isTV();
   const insets = useSafeAreaInsets();
   const { colors } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
@@ -118,7 +120,7 @@ export default function HomeScreen() {
       style={[styles.root, { backgroundColor: colors.background }]}
     >
       <Seo path="/" isHome jsonLd={[faqSchema(HOME_FAQ)]} />
-      {isFocused ? <StatusBar style="light" /> : null}
+      {isFocused && !tv ? <StatusBar style="light" /> : null}
       <ScrollView
         contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
         contentInsetAdjustmentBehavior="never"

@@ -5,7 +5,9 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { filterValueTextStyle } from "@/lib/rtl";
 
 export type OptionPickerItem = {
@@ -30,6 +32,7 @@ export function SelectTrigger({
   active = false,
 }: SelectTriggerProps) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
 
   return (
     <PressableScale
@@ -40,6 +43,7 @@ export function SelectTrigger({
       onPress={onPress}
       style={[
         styles.trigger,
+        tv && styles.triggerTv,
         {
           backgroundColor: active ? tokens.accentSoft : colors.muted,
           borderColor: active ? colors.accent : "transparent",
@@ -55,6 +59,7 @@ export function SelectTrigger({
             styles.triggerLabel,
             filterValueTextStyle(label),
             active ? { color: colors.accent, fontWeight: "700" } : null,
+            tv ? { fontSize: TvLayout.bodyFontSize } : null,
           ]}
         >
           {label}
@@ -62,7 +67,7 @@ export function SelectTrigger({
       </View>
       <SymbolView
         name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
-        size={14}
+        size={tv ? 18 : 14}
         tintColor={active ? colors.accent : colors.mutedForeground}
       />
     </PressableScale>
@@ -147,6 +152,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  triggerTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.four,
+    paddingVertical: Spacing.three,
   },
   triggerLabelWrap: {
     flex: 1,

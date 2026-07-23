@@ -18,12 +18,15 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatCompactGridDateFromIso } from "@/lib/calendar-format";
 import { hijriToGregorian } from "@/lib/hijri";
+import { tTv } from "@/lib/i18n/t-tv";
 import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { formatDuration, formatPrayerTime } from "@/lib/prayer-times";
 import { getRamadanInfo, RAMADAN_MONTH } from "@/lib/ramadan";
 import {
@@ -79,6 +82,7 @@ export default function RamadanScreen() {
   const today = getLocalDateString();
   const todayStatus = useFastStatus(today);
   const [sheetDay, setSheetDay] = useState<{ day: number; date: string } | null>(null);
+  const tv = isTV();
 
   const info = useMemo(() => getRamadanInfo(location, now), [location, now]);
   const locale = prefs.locale as AppLocale;
@@ -358,7 +362,7 @@ export default function RamadanScreen() {
               ]}
             >
               <ThemedText type="caption" style={{ color: colors.accent }}>
-                {t("ramadan.fastingLogBackfillNote", {
+                {tTv(t, "ramadan.fastingLogBackfillNote", "ramadan.fastingLogBackfillNoteTv", {
                   year: info.fastingLogHijriYear,
                   gregorian: fastingLogGregorianRange,
                 })}
@@ -445,13 +449,18 @@ export default function RamadanScreen() {
                           gregorian: gregorianLabel,
                           status: statusLabel(status),
                         })}
-                        accessibilityHint={isFuture ? undefined : t("ramadan.dayCellHint")}
+                        accessibilityHint={
+                          isFuture
+                            ? undefined
+                            : tTv(t, "ramadan.dayCellHint", "ramadan.dayCellHintTv")
+                        }
                         accessibilityState={{ disabled: isFuture }}
                         onPress={() => setSheetDay({ day, date })}
                         // borderRadius must live on PressableScale so Android's
                         // Material ripple clips to the circle (not a square).
                         style={[
                           styles.dayCircle,
+                          tv ? styles.dayCircleTv : null,
                           {
                             backgroundColor: palette ? palette.soft : colors.muted,
                             borderColor: isToday
@@ -482,7 +491,7 @@ export default function RamadanScreen() {
             <LegendSwatch color={infoTone.color} label={t("ramadan.statusExempt")} />
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
-            {t("ramadan.gridHint")}
+            {tTv(t, "ramadan.gridHint", "ramadan.gridHintTv")}
           </ThemedText>
         </Card>
 
@@ -585,6 +594,11 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
+  },
+  dayCircleTv: {
+    width: TvLayout.minFocusTarget,
+    height: TvLayout.minFocusTarget,
+    borderRadius: TvLayout.minFocusTarget / 2,
   },
   legend: {
     flexDirection: "row",

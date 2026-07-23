@@ -38,7 +38,7 @@ export function useLargeScreenLayout() {
   const isWide = tv || width >= SIDE_RAIL_BREAKPOINT;
   const isListDetail = tv || width >= LIST_DETAIL_BREAKPOINT;
   const bottomTabBarHeight = getWebBottomTabBarHeight(insets.bottom);
-  const railWidth = tv ? TvLayout.sideRailWidth : SIDE_RAIL_WIDTH;
+  const railWidth = tv ? TvLayout.sideRailWidthExpanded : SIDE_RAIL_WIDTH;
 
   return {
     width,

@@ -1,6 +1,7 @@
 import AppTabs from "@/components/app-tabs";
 import { useAppQuickActions } from "@/hooks/use-app-quick-actions";
 import { useWidgetSnapshotSync } from "@/hooks/use-widget-snapshot-sync";
+import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { isTV } from "@/lib/platform/is-tv";
 
 /**
@@ -10,6 +11,8 @@ import { isTV } from "@/lib/platform/is-tv";
  */
 export default function TabsLayout() {
   const tv = isTV();
+  // Any tab (incl. /tracker from prayer notifications) counts as first paint.
+  useMarkColdStartReady();
   useAppQuickActions(!tv);
   useWidgetSnapshotSync(!tv);
 

@@ -25,11 +25,14 @@ import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-act
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { getPageForAyah, getSurahByNumber, getSurahMeta } from "@/lib/quran-meta";
 import { useChevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
@@ -104,6 +107,7 @@ const SurahRow = memo(function SurahRow({
   const revelation = revelationTone(surah.revelationPlace, tokens);
   const makki = surah.revelationPlace === "makkah";
   const highlighted = isSelected || isContinue;
+  const tv = isTV();
 
   return (
     <PressableScale
@@ -118,6 +122,7 @@ const SurahRow = memo(function SurahRow({
       onPress={() => onPress(surah.number)}
       style={[
         styles.row,
+        tv && styles.rowTv,
         {
           backgroundColor: highlighted ? tokens.accentSoft : colors.card,
           borderColor: isSelected
@@ -173,6 +178,7 @@ function RevelationFilterChip({
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   return (
     <PressableScale
       haptic="light"
@@ -183,6 +189,7 @@ function RevelationFilterChip({
       scaleTo={0.95}
       style={[
         styles.filterChip,
+        tv && styles.filterChipTv,
         active
           ? { backgroundColor: colors.accent, borderColor: colors.accent }
           : {
@@ -193,7 +200,10 @@ function RevelationFilterChip({
     >
       <ThemedText
         type="smallBold"
-        style={{ color: active ? colors.accentForeground : colors.mutedForeground }}
+        style={{
+          color: active ? colors.accentForeground : colors.mutedForeground,
+          fontSize: tv ? TvLayout.bodyFontSize : undefined,
+        }}
       >
         {label}
       </ThemedText>
@@ -214,16 +224,17 @@ function ReaderLayoutActions({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const stacked = direction === "stack";
+  const tv = isTV();
+  const stacked = direction === "stack" || tv;
 
   return (
-    <View style={styles.layoutActions}>
+    <View style={[styles.layoutActions, tv && { gap: Spacing.three }]}>
       {heading ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.layoutHeading}>
           {heading}
         </ThemedText>
       ) : null}
-      <View style={stacked ? styles.layoutStack : styles.layoutRow}>
+      <View style={[stacked ? styles.layoutStack : styles.layoutRow, tv && { gap: Spacing.three }]}>
         {LAYOUT_OPTIONS.map((option) => {
           const active = preferredLayout === option.id;
           const label = t(option.labelKey);
@@ -238,6 +249,7 @@ function ReaderLayoutActions({
               scaleTo={0.97}
               style={[
                 stacked ? styles.layoutChipStack : styles.layoutChipRow,
+                tv && styles.layoutChipTv,
                 active
                   ? { backgroundColor: colors.accent, borderColor: colors.accent }
                   : {
@@ -249,11 +261,11 @@ function ReaderLayoutActions({
               <View style={stacked ? styles.layoutChipContentStack : styles.layoutChipContentRow}>
                 <SymbolView
                   name={option.icon}
-                  size={stacked ? 16 : 15}
+                  size={tv ? 20 : stacked ? 16 : 15}
                   tintColor={active ? colors.accentForeground : colors.accentText}
                 />
                 <ThemedText
-                  type="caption"
+                  type={tv ? "small" : "caption"}
                   numberOfLines={1}
                   style={{
                     color: active ? colors.accentForeground : colors.accentText,
@@ -294,23 +306,32 @@ function ContinueReadingCard({
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
   const surah = getSurahByNumber(surahNumber);
+  const tv = isTV();
 
   return (
     <Card
       padding="three"
       onPress={showLayoutOptions ? undefined : onPress}
       accessibilityLabel={t("quran.continueReading")}
+      preferredFocus={tv && !showLayoutOptions}
       style={[
         styles.continueCard,
+        tv && styles.continueCardTv,
         {
           backgroundColor: tokens.accentSoft,
-          borderColor: withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28),
+          borderColor: tv ? tokens.hairline : withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28),
           borderWidth: 1,
         },
       ]}
     >
-      <View style={styles.continueTop}>
-        <View style={[styles.continueBadge, { backgroundColor: colors.background }]}>
+      <View style={[styles.continueTop, tv && styles.continueTopTv]}>
+        <View
+          style={[
+            styles.continueBadge,
+            tv && styles.continueBadgeTv,
+            { backgroundColor: colors.background },
+          ]}
+        >
           <ThemedText type="subtitle" style={{ color: colors.accent }}>
             {surahNumber}
           </ThemedText>
@@ -329,23 +350,33 @@ function ContinueReadingCard({
         </View>
         <View style={styles.continueAside}>
           {surah ? (
-            <ThemedText type="arabic" style={[styles.continueArabic, { color: colors.accentText }]}>
+            <ThemedText
+              type="arabic"
+              style={[
+                styles.continueArabic,
+                tv && styles.continueArabicTv,
+                { color: colors.accentText },
+              ]}
+            >
               {surah.nameArabic}
             </ThemedText>
           ) : null}
-          <IconWell
-            icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-            tint={colors.accent}
-            background={withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.12)}
-            well={44}
-            size={20}
-          />
+          {!tv ? (
+            <IconWell
+              icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+              tint={colors.accent}
+              background={withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.12)}
+              well={44}
+              size={20}
+            />
+          ) : null}
         </View>
       </View>
       <View
         style={[
           styles.continueFooter,
           showLayoutOptions && styles.continueFooterLayouts,
+          tv && !showLayoutOptions && styles.continueFooterTv,
           { borderTopColor: withAlpha(colors.accent, 0.22) },
         ]}
       >
@@ -360,7 +391,11 @@ function ContinueReadingCard({
             <ThemedText type="smallBold" style={{ color: colors.accentText }}>
               {t("home.continueAction.quran")}
             </ThemedText>
-            <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.accentText} />
+            <SymbolView
+              name={chevronForwardIcon}
+              size={tv ? 16 : 14}
+              tintColor={colors.accentText}
+            />
           </>
         )}
       </View>
@@ -371,45 +406,75 @@ function ContinueReadingCard({
 function SurahDetailPane({
   surah,
   preferredLayout,
+  isContinue,
+  continueAyah,
+  continuePage,
   onSelectLayout,
 }: {
   surah: Surah;
   preferredLayout: QuranReaderLayout;
+  isContinue: boolean;
+  continueAyah?: number;
+  continuePage?: number;
   onSelectLayout: (layout: QuranReaderLayout) => void;
 }) {
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const revelation = revelationTone(surah.revelationPlace, tokens);
   const makki = surah.revelationPlace === "makkah";
+  const tv = isTV();
+
+  const progressHint =
+    isContinue && continueAyah != null
+      ? continuePage
+        ? t("quran.continueAtPage", {
+            page: continuePage,
+            surah: surah.number,
+            ayah: continueAyah,
+          })
+        : t("quran.continueAt", { surah: surah.number, ayah: continueAyah })
+      : null;
 
   return (
-    <Card padding="four" style={styles.detailCard}>
-      <View style={styles.detailBody}>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("quran.surahNumber", { number: surah.number })}
-        </ThemedText>
-        <ThemedText type="title">{surah.nameTransliteration}</ThemedText>
-        <ThemedText type="small" themeColor="mutedForeground">
-          {surah.nameEnglish}
-        </ThemedText>
-        <ThemedText type="arabic" style={styles.detailArabic}>
+    <Card padding="four" style={[styles.detailCard, tv && styles.detailCardTv]}>
+      <View style={[styles.detailHeader, tv && styles.detailHeaderTv]}>
+        <View style={styles.detailCopy}>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("quran.surahNumber", { number: surah.number })}
+          </ThemedText>
+          <ThemedText type="title" numberOfLines={2}>
+            {surah.nameTransliteration}
+          </ThemedText>
+          <ThemedText type="small" themeColor="mutedForeground" numberOfLines={1}>
+            {surah.nameEnglish}
+          </ThemedText>
+          {progressHint ? (
+            <ThemedText type="caption" style={{ color: colors.accentText }}>
+              {progressHint}
+            </ThemedText>
+          ) : null}
+        </View>
+        <ThemedText
+          type="arabic"
+          style={[styles.detailArabic, tv && styles.detailArabicTv, { color: colors.accentText }]}
+        >
           {surah.nameArabic}
         </ThemedText>
-        <View style={styles.detailMeta}>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("quran.ayahCount", { count: surah.ayahCount })}
-          </ThemedText>
-          <Pill
-            label={makki ? t("quran.makki") : t("quran.madani")}
-            color={revelation.text}
-            background={revelation.soft}
-          />
-        </View>
+      </View>
+      <View style={styles.detailMeta}>
+        <ThemedText type="small" themeColor="mutedForeground">
+          {t("quran.ayahCount", { count: surah.ayahCount })}
+        </ThemedText>
+        <Pill
+          label={makki ? t("quran.makki") : t("quran.madani")}
+          color={revelation.text}
+          background={revelation.soft}
+        />
       </View>
       <ReaderLayoutActions
         preferredLayout={preferredLayout}
         onSelect={onSelectLayout}
-        heading={t("quran.openReader")}
+        heading={isContinue ? t("quran.continueReading") : t("quran.openReader")}
         direction="stack"
       />
     </Card>
@@ -422,6 +487,7 @@ export default function QuranHomeScreen() {
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail } = useLargeScreenLayout();
+  const tv = isTV();
   const [query, setQuery] = useState("");
   const [revelationFilter, setRevelationFilter] = useState<SurahRevelationFilter>("all");
   const [selectedSurahNumber, setSelectedSurahNumber] = useState<number | null>(null);
@@ -566,8 +632,9 @@ export default function QuranHomeScreen() {
 
   const continueWithPreferredLayout = useCallback(() => {
     if (!lastRead) return;
+    if (isListDetail) setSelectedSurahNumber(lastRead.surah);
     openWithLayout(lastRead.surah, lastRead.ayah, preferredLayout, lastRead.page);
-  }, [lastRead, openWithLayout, preferredLayout]);
+  }, [lastRead, openWithLayout, preferredLayout, isListDetail]);
 
   const renderItem = useCallback<ListRenderItem<Surah>>(
     ({ item }) => (
@@ -602,12 +669,16 @@ export default function QuranHomeScreen() {
     </View>
   );
 
+  // TV list–detail: continue is a single resume CTA; layout pickers live only in
+  // the detail pane so Page/Mushaf/Ayah aren't duplicated across columns.
+  const showContinueLayoutOptions = isListDetail && !tv;
+
   // The header (shortcuts, continue card, search + filters) scrolls with the list
   // as the FlatList's header so the surah list owns scrolling.
   // On list–detail, bookmarks + shortcuts move to the secondary pane so the
   // primary column can show continue + search + surahs without burying the list.
   const listHeader = (
-    <View style={styles.header}>
+    <View style={[styles.header, tv && styles.headerTv]}>
       <Stagger>
         {!isListDetail ? bookmarksAndShortcuts : null}
 
@@ -617,7 +688,7 @@ export default function QuranHomeScreen() {
             ayah={lastRead.ayah}
             page={lastRead.page}
             preferredLayout={preferredLayout}
-            showLayoutOptions={isListDetail}
+            showLayoutOptions={showContinueLayoutOptions}
             onPress={continueWithPreferredLayout}
             onSelectLayout={(layout) =>
               openWithLayout(lastRead.surah, lastRead.ayah, layout, lastRead.page)
@@ -629,6 +700,7 @@ export default function QuranHomeScreen() {
           <View
             style={[
               styles.searchField,
+              tv && styles.searchFieldTv,
               { backgroundColor: colors.muted, borderColor: colors.border },
             ]}
           >
@@ -643,7 +715,7 @@ export default function QuranHomeScreen() {
               placeholder={t("quran.searchSurah")}
               placeholderTextColor={colors.mutedForeground}
               accessibilityLabel={t("quran.searchSurah")}
-              style={[styles.searchInput, { color: colors.foreground }]}
+              style={[styles.searchInput, tv && styles.searchInputTv, { color: colors.foreground }]}
             />
             {query.length > 0 ? (
               <IconButton
@@ -652,27 +724,29 @@ export default function QuranHomeScreen() {
                 onPress={() => setQuery("")}
                 size={18}
                 tintColor={colors.mutedForeground}
-                hitTarget={36}
+                hitTarget={tv ? TvLayout.minFocusTarget : 36}
                 haptic="light"
               />
             ) : null}
           </View>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={styles.filterRow}
-          >
-            {REVELATION_FILTERS.map((filter) => (
-              <RevelationFilterChip
-                key={filter}
-                label={revelationFilterLabel(filter)}
-                active={revelationFilter === filter}
-                onPress={() => setRevelationFilter(filter)}
-              />
-            ))}
-          </ScrollView>
+          <TvFocusGuide trapFocusUp trapFocusDown>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={styles.filterRow}
+            >
+              {REVELATION_FILTERS.map((filter) => (
+                <RevelationFilterChip
+                  key={filter}
+                  label={revelationFilterLabel(filter)}
+                  active={revelationFilter === filter}
+                  onPress={() => setRevelationFilter(filter)}
+                />
+              ))}
+            </ScrollView>
+          </TvFocusGuide>
         </Card>
 
         <SectionHeader
@@ -718,7 +792,11 @@ export default function QuranHomeScreen() {
         onBack={() => goBackOrReplace(router, "/")}
         maxContentWidth={isListDetail ? LIST_DETAIL_MAX_WIDTH : undefined}
       >
-        <View style={isListDetail ? styles.listDetailRoot : styles.flatList}>
+        <View
+          style={
+            isListDetail ? [styles.listDetailRoot, tv && styles.listDetailRootTv] : styles.flatList
+          }
+        >
           <FlatList
             data={filtered}
             keyExtractor={keyExtractor}
@@ -739,13 +817,18 @@ export default function QuranHomeScreen() {
             maxToRenderPerBatch={6}
             windowSize={5}
             updateCellsBatchingPeriod={100}
-            removeClippedSubviews
+            removeClippedSubviews={!tv}
           />
           {isListDetail ? (
             <ScrollView
-              style={[styles.listDetailSecondary, { borderStartColor: tokens.hairline }]}
+              style={[
+                styles.listDetailSecondary,
+                tv && styles.listDetailSecondaryTv,
+                { borderStartColor: tokens.hairline },
+              ]}
               contentContainerStyle={[
                 styles.listDetailSecondaryContent,
+                tv && styles.listDetailSecondaryContentTv,
                 { paddingBottom: contentBottomInset },
               ]}
               showsVerticalScrollIndicator={false}
@@ -755,6 +838,9 @@ export default function QuranHomeScreen() {
                 <SurahDetailPane
                   surah={selectedSurah}
                   preferredLayout={preferredLayout}
+                  isContinue={selectedSurah.number === continueSurah}
+                  continueAyah={lastRead?.ayah}
+                  continuePage={lastRead?.page}
                   onSelectLayout={openSelectedWithLayout}
                 />
               ) : (
@@ -773,16 +859,24 @@ export default function QuranHomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  flatList: { flex: 1, width: "100%" },
+  flatList: { flex: 1, width: "100%", minHeight: 0 },
   listContent: { gap: Spacing.two },
   header: { gap: Spacing.four },
+  headerTv: { gap: Spacing.five },
   chromeStack: { gap: Spacing.four, width: "100%" },
   searchCard: { gap: 0 },
   continueCard: { gap: 0, overflow: "hidden" },
+  continueCardTv: {
+    overflow: "visible",
+    marginVertical: TvLayout.focusRingWidth,
+  },
   continueTop: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
+  },
+  continueTopTv: {
+    gap: Spacing.four,
   },
   continueBadge: {
     width: 48,
@@ -791,6 +885,10 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
+  },
+  continueBadgeTv: {
+    width: 56,
+    height: 56,
   },
   continueCopy: { flex: 1, gap: Spacing.one, minWidth: 0 },
   continueAside: {
@@ -801,6 +899,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     writingDirection: "rtl",
   },
+  continueArabicTv: {
+    fontSize: 26,
+  },
   continueFooter: {
     marginTop: Spacing.three,
     paddingTop: Spacing.two + 2,
@@ -809,6 +910,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: Spacing.two,
+  },
+  continueFooterTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingTop: Spacing.three,
+    paddingBottom: Spacing.one,
   },
   continueFooterLayouts: {
     flexDirection: "column",
@@ -852,6 +958,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  layoutChipTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
+    borderRadius: Radius.md,
+  },
   layoutChipContentRow: {
     flexDirection: "column",
     alignItems: "center",
@@ -874,10 +986,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     marginBottom: Spacing.three,
   },
+  searchFieldTv: {
+    minHeight: TvLayout.minFocusTarget,
+    marginBottom: Spacing.four,
+  },
   searchInput: {
     flex: 1,
     paddingVertical: Spacing.three,
     fontSize: 15,
+  },
+  searchInputTv: {
+    fontSize: TvLayout.bodyFontSize,
+    paddingVertical: Spacing.three,
   },
   filterRow: {
     flexDirection: "row",
@@ -890,6 +1010,12 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: 1,
   },
+  filterChipTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.four,
+    paddingVertical: Spacing.three,
+    justifyContent: "center",
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -897,6 +1023,11 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
   },
   rowBody: { flex: 1, gap: 2, minWidth: 0 },
   rowName: { flexShrink: 1, minWidth: 0 },
@@ -908,10 +1039,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     gap: Spacing.four,
+    minHeight: 0,
+  },
+  listDetailRootTv: {
+    gap: Spacing.five,
   },
   listDetailPrimary: {
     flex: 1.15,
     minWidth: 0,
+    minHeight: 0,
   },
   listDetailSecondary: {
     flex: 0.85,
@@ -919,27 +1055,55 @@ const styles = StyleSheet.create({
     maxWidth: 420,
     borderStartWidth: StyleSheet.hairlineWidth,
   },
+  listDetailSecondaryTv: {
+    minWidth: 320,
+    maxWidth: 460,
+  },
   listDetailSecondaryContent: {
     gap: Spacing.three,
     paddingStart: Spacing.four,
     flexGrow: 1,
   },
+  listDetailSecondaryContentTv: {
+    gap: Spacing.four,
+    paddingStart: Spacing.five,
+  },
   detailCard: {
     gap: Spacing.four,
   },
-  detailBody: {
+  detailCardTv: {
+    gap: Spacing.four,
+    overflow: "visible",
+  },
+  detailHeader: {
     gap: Spacing.two,
+  },
+  detailHeaderTv: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: Spacing.four,
+  },
+  detailCopy: {
+    flex: 1,
+    gap: Spacing.two,
+    minWidth: 0,
   },
   detailArabic: {
     fontSize: 28,
     writingDirection: "rtl",
     marginTop: Spacing.one,
   },
+  detailArabicTv: {
+    fontSize: 36,
+    marginTop: 0,
+    flexShrink: 0,
+    textAlign: "right",
+  },
   detailMeta: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: Spacing.two,
-    marginTop: Spacing.two,
   },
 });

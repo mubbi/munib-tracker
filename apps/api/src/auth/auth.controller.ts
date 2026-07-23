@@ -37,6 +37,9 @@ import {
   type OAuthCallbackDto,
   type RefreshTokenDto,
   ResetAppDataDto,
+  TvPairingClaimBodyDto,
+  TvPairingCreateResponseDto,
+  TvPairingStatusResponseDto,
   WebAuthSessionResponseDto,
 } from "./dto/auth.dto";
 
@@ -68,6 +71,47 @@ export class AuthController {
     @Req() req: Request,
   ): Promise<AuthSessionResponseDto> {
     return this.authService.createGuestSession(dto, clientIp(req));
+  }
+
+  @Post("tv/pairing")
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: "Create a TV companion pairing code",
+    description:
+      "The TV displays a QR / short code. The phone opens the claim URL, signs in, and posts the code.",
+  })
+  @ApiCreatedResponse({ type: TvPairingCreateResponseDto })
+  createTvPairing(@Req() req: Request): Promise<TvPairingCreateResponseDto> {
+    return this.authService.createTvPairing(clientIp(req));
+  }
+
+  @Get("tv/pairing/:code")
+  @ApiOperation({ summary: "Poll TV companion pairing status (TV client)" })
+  @ApiParam({ name: "code", description: "Pairing code from POST /auth/tv/pairing" })
+  @ApiOkResponse({ type: TvPairingStatusResponseDto })
+  pollTvPairing(
+    @Param("code") code: string,
+    @Req() req: Request,
+  ): Promise<TvPairingStatusResponseDto> {
+    return this.authService.pollTvPairing(code, clientIp(req));
+  }
+
+  @Post("tv/pairing/claim")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: "Claim a TV pairing from a signed-in phone",
+    description:
+      "Requires a linked (non-guest) account. Issues a fresh session for the TV to poll.",
+  })
+  @ApiNoContentResponse({ description: "Pairing claimed; TV can poll for the session" })
+  async claimTvPairing(
+    @Headers("authorization") authorization: string | undefined,
+    @Body() dto: TvPairingClaimBodyDto,
+    @Req() req: Request,
+  ): Promise<void> {
+    const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
+    await this.authService.claimTvPairing(accessToken, dto.code, clientIp(req));
   }
 
   @Post("google")

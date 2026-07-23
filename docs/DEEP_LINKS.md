@@ -70,6 +70,8 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 | `/ramadan`, `/tahajjud`, `/journal`, `/hayd`, `/sick` | Modes & logs |
 | `/calendar`, `/calendar/converter`, `/events`, `/statistics`, `/achievements` | Review & date tools |
 | `/search`, `/notifications`, `/profile`, `/bookmarks` | Hub screens |
+| `/login`, `/tv-pair` | Auth; TV companion claim (`/tv-pair?code=…`) |
+| `/login`, `/tv-pair` | Auth; TV companion claim (`/tv-pair?code=…`) |
 
 ### Qur'an, hadith, dua, zikr
 

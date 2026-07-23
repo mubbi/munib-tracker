@@ -10,12 +10,14 @@ import { ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { createId, PrayerRepository, QazaRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useToast } from "@/providers/toast-provider";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -32,6 +34,23 @@ export default function ImportScreen() {
   const [preview, setPreview] = useState<ParsedPrayerImport | null>(null);
   const [alsoQaza, setAlsoQaza] = useState(false);
   const [importing, setImporting] = useState(false);
+
+  if (isTV()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("settings.title")}
+        title={t("import.title")}
+        onBack={() => goBackOrReplace(router, "/settings")}
+      >
+        <Seo path="/settings/import" />
+        <EmptyState
+          icon={{ ios: "tv", android: "tv", web: "tv" }}
+          title={t("common.tvUnavailableTitle")}
+          description={t("common.tvUnavailableBody")}
+        />
+      </ScreenLayout>
+    );
+  }
 
   const onPreview = () => {
     setPreview(parsePrayerImport(text, getLocalDateString()));

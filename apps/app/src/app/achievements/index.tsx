@@ -27,6 +27,7 @@ import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { milestoneDescription, milestoneTitle } from "@/lib/achievements-i18n";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { formatAchievementShare } from "@/lib/share";
 
@@ -85,7 +86,7 @@ function MilestoneCard({
                 shareLoading
                   ? t("share.preparing")
                   : gesturePending
-                    ? t("share.tapToShare")
+                    ? tTv(t, "share.tapToShare", "share.selectToShare")
                     : t("achievements.share")
               }
               style={[

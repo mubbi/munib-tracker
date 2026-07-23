@@ -17,6 +17,7 @@ import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import i18n from "@/i18n";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   detectQuranVerses,
@@ -299,7 +300,7 @@ export default function QuranSearchScreen() {
                     loading={isSharing(`${hit.surah}:${hit.ayah}`)}
                     accessibilityLabel={
                       isGesturePending(`${hit.surah}:${hit.ayah}`)
-                        ? t("share.tapToShare")
+                        ? tTv(t, "share.tapToShare", "share.selectToShare")
                         : t("quran.shareAyah")
                     }
                     onPress={() => shareAyah(hit)}

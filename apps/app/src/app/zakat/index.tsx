@@ -24,6 +24,7 @@ import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useZakatCalculator } from "@/hooks/use-zakat-calculator";
+import { tTv } from "@/lib/i18n/t-tv";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 
@@ -191,7 +192,7 @@ export default function ZakatScreen() {
               icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
             />
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.learnHint}>
-              {t("zakat.learnHint")}
+              {tTv(t, "zakat.learnHint", "zakat.learnHintTv")}
             </ThemedText>
             <View style={styles.rows}>
               {guideSections.map((topicId) => (

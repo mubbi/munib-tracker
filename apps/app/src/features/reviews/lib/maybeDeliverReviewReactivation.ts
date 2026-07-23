@@ -14,12 +14,15 @@ import {
   writeReviewReactivationDedupe,
 } from "@/features/reviews/lib/reviewStorage";
 import i18n from "@/i18n";
+import { isLocalNotificationSupported } from "@/lib/notifications/platform";
 import { preferencesStore } from "@/stores/preferences-store";
 
 /** OS-only nudge into the in-app review funnel (no inbox row). Max once per 60 days. */
 export async function maybeDeliverReviewReactivation(
   triggerId: ReviewFunnelTriggerId,
 ): Promise<boolean> {
+  if (!isLocalNotificationSupported()) return false;
+
   const prefs = preferencesStore.getState().prefs;
   if (prefs.notificationPrefs.reviewReactivationEnabled === false) return false;
 

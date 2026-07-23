@@ -17,6 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import {
   ensureJahannamContent,
   getJahannamReflections,
@@ -78,7 +79,9 @@ export default function JahannamReflectionScreen() {
       <LearnContentGate ready={contentReady}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
-            <JannahCallout tone="accent">{t("jahannam.reflectionLead")}</JannahCallout>
+            <JannahCallout tone="accent">
+              {tTv(t, "jahannam.reflectionLead", "jahannam.reflectionLeadTv")}
+            </JannahCallout>
             <Card padding="three">
               <SectionHeader
                 title={t("jahannam.reflectionListTitle")}

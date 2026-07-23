@@ -27,6 +27,7 @@ import { WitrQazaInfo } from "@/components/witr-qaza-info";
 import { Radius, Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { getRouteFaq } from "@/lib/seo/faq-content";
@@ -412,7 +413,7 @@ export default function QazaHomeScreen() {
             })}
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("qaza.hint")}
+            {tTv(t, "qaza.hint", "qaza.hintTv")}
           </ThemedText>
         </Card>
       </Stagger>

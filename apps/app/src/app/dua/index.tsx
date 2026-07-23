@@ -16,9 +16,11 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { createDuaSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
@@ -217,6 +219,7 @@ function DuaSearchRow({
   onPress: () => void;
 }) {
   const { colors } = useThemeTokens();
+  const tv = isTV();
 
   return (
     <PressableScale
@@ -224,7 +227,7 @@ function DuaSearchRow({
       accessibilityRole="button"
       accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
       onPress={onPress}
-      style={[styles.resultRow, { backgroundColor: colors.muted }]}
+      style={[styles.resultRow, tv && styles.resultRowTv, { backgroundColor: colors.muted }]}
     >
       {index != null ? <ListIndexBadge index={index} /> : null}
       <View style={styles.resultBody}>
@@ -256,6 +259,11 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  resultRowTv: {
+    minHeight: TvLayout.minFocusTarget,
+    padding: Spacing.four,
+    borderRadius: Radius.lg,
   },
   resultBody: { flex: 1, gap: 2 },
 });

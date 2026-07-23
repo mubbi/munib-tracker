@@ -13,6 +13,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
@@ -49,7 +50,7 @@ export default function HifzScreen() {
         <EmptyState
           icon={{ ios: "book.closed", android: "menu_book", web: "menu_book" }}
           title={t("hifz.emptyTitle")}
-          description={t("hifz.emptyDesc")}
+          description={tTv(t, "hifz.emptyDesc", "hifz.emptyDescTv")}
         />
       ) : (
         <View style={styles.list}>

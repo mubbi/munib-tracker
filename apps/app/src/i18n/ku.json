@@ -81,7 +81,12 @@
     "pause": "Pause",
     "tvUnavailableTitle": "لە تەلەفزیۆندا بەردەست نییە",
     "tvUnavailableBody": "ئەم تایبەتمەندییە پێویستی بە مۆبایل یان تابلێت هەیە. بۆ بەردەوامبوون Munib Tracker لەوێ بکەرەوە.",
-    "tvOauthHint": "چوونەژوورەوە بە تۆڕە کۆمەڵایەتییەکان لە تەلەفزیۆندا لەوانەیە سنووردار بێت. لێرە وەک میوان بەردەوام بە، یان هەژمارێک لە مۆبایلەکەت پەیوەست بکە."
+    "tvOauthHint": "بۆ چوونەژوورەوە لە مۆبایلەکەتەوە کۆدی QRی سەرەوە پێشنیار دەکەین. یان وەک میوان بەردەوام بە — هەر کاتێک دەتوانیت لە پرۆفایل لە مۆبایلەکەت هەژمار ببەستیت.",
+    "select": "هەڵبژێرە",
+    "selectToContinue": "بۆ بەردەوامبوون هەڵبژێرە دابگرە",
+    "selectToOpen": "بۆ کردنەوە هەڵبژێرە",
+    "selectToSave": "بۆ پاشەکەوتکردن هەڵبژێرە",
+    "selectDay": "ڕۆژێک هەڵبژێرە بۆ پێداچوونەوە"
   },
   "search": {
     "placeholder": "Li Qur'an, hadîs, dua, Fêr bibe… bigere",
@@ -104,7 +109,9 @@
       "rizq": "ڕزق",
       "rahman": "Rəhman",
       "sleep": "Yuxu",
-      "istighfar": "İstiğfar"
+      "istighfar": "İstiğfar",
+      "quranTv": "بۆ خوێندنەوە لە قورئان هەڵبژێرە",
+      "hadithTv": "بۆ خوێندنەوەی فەرموودەی تەواو هەڵبژێرە"
     },
     "cat": {
       "quran": "قورئان",
@@ -129,7 +136,8 @@
     "home": "Serê",
     "tracker": "شوێنپێهەڵگر",
     "settings": "Mîheng",
-    "library": "Pirtûkxane"
+    "library": "Pirtûkxane",
+    "navHint": "بۆ گۆڕین ↑↓ بەکاربهێنە · → بۆ ناوەڕۆک"
   },
   "actions": {
     "checklist": "Lîsteya kontrolê",
@@ -316,7 +324,10 @@
     "lastTenTitle": "Deh şevên dawî",
     "lastTenBody": "Di şevên bêkêmasî de Leyletul Qedrê bigerin - li nimêjê bisekinin, Qur'an bixwînin û dua bikin. Pêxember di van şevan de herî zêde di îbadetê de cehd kir.",
     "laylatQadrTitle": "Leyletul Qedr",
-    "laylatQadrBody": "Ji hezar mehan çêtir e - îbadet di vê şevê de ji dilsoziya bi dehan salan girantir e. Qur'an bixwîne, nimêja Tehecûdê bike û bêje: Ellahûmma innaka 'afuwwun tuhibbu el-'afwa fa'fu'enni."
+    "laylatQadrBody": "Ji hezar mehan çêtir e - îbadet di vê şevê de ji dilsoziya bi dehan salan girantir e. Qur'an bixwîne, nimêja Tehecûdê bike û bêje: Ellahûmma innaka 'afuwwun tuhibbu el-'afwa fa'fu'enni.",
+    "dayCellHintTv": "بۆ هەڵبژاردنی دۆخی ڕۆژوو هەڵبژێرە",
+    "gridHintTv": "ڕۆژێک هەڵبژێرە بۆ تۆمارکردنی دۆخی ڕۆژوو",
+    "fastingLogBackfillNoteTv": "ڕەمەزانی {{year}} کۆچی ({{gregorian}}) پیشان دەدرێت بۆ ئەوەی تۆمارەکەت پڕ بکەیتەوە. هەر ڕۆژێک هەڵبژێرە بۆ نوێکردنەوەی دۆخی ڕۆژوو."
   },
   "fastStatusSheet": {
     "prompt": "Rewşa xwe ya rojiyê hilbijêrin",
@@ -354,7 +365,13 @@
     "exploreDuroods": "Li Duroods bigerin",
     "exploreDuroodsHint": "Tap  star bo tomar bike  durood",
     "exploreNames": "Browse 99 nav",
-    "exploreNamesHint": "Tap  star bo tomar bike  name"
+    "exploreNamesHint": "Tap  star bo tomar bike  name",
+    "exploreQuranHintTv": "ئایکۆنی نیشانە لەسەر هەر ئایەتێک هەڵبژێرە",
+    "exploreDuasHintTv": "ئەستێرە هەڵبژێرە بۆ پاشەکەوتکردنی دوعا",
+    "exploreZikrHintTv": "دڵ هەڵبژێرە بۆ دڵخوازکردنی ئەزکار",
+    "exploreDuroodsHintTv": "ئەستێرە هەڵبژێرە بۆ پاشەکەوتکردنی درود",
+    "exploreNamesHintTv": "ئەستێرە هەڵبژێرە بۆ پاشەکەوتکردنی ناو",
+    "exploreHadithHintTv": "بۆ کردنەوەی کۆکراوەی فەرموودە هەڵبژێرە"
   },
   "home": {
     "todaysGoal": "Armanca îro",
@@ -396,7 +413,9 @@
     "knowledgeAction": {
       "quran": "Ji bo xwendina Qur'anê bikirtînin",
       "hadith": "Ji bo xwendina hedîsê bi tevahî bikirtînin",
-      "name": "Hemî 99 navan keşif bikin"
+      "name": "Hemî 99 navan keşif bikin",
+      "quranTv": "بۆ خوێندنەوە لە قورئان هەڵبژێرە",
+      "hadithTv": "بۆ خوێندنەوەی فەرموودەی تەواو هەڵبژێرە"
     },
     "devotionMeta": "Asta {{level}} · {{noor}} Noor",
     "devotionProgress": "{{current}} / {{next}} Noor berbi astê paşîn",
@@ -553,7 +572,15 @@
       "reminderTitle": "Saeta qebûlê",
       "reminderBody": "Saetek li roja Înê ku dua ne tê red kirin — bi taybetî piştî Asr bi dua, istighfar û salawat dilsoz bigere.",
       "openGuide": "Saeta qebûlê veke"
-    }
+    },
+    "scheduleShowPastHintTv": "بۆ پیشاندانی خشتەی تەواو هەڵبژێرە",
+    "scheduleShowLaterHintTv": "بۆ پیشاندانی باقیی ئەمڕۆ هەڵبژێرە",
+    "exploreQuranHintTv": "ئایکۆنی نیشانە لەسەر هەر ئایەتێک هەڵبژێرە",
+    "exploreDuasHintTv": "ئەستێرە هەڵبژێرە بۆ پاشەکەوتکردنی دوعا",
+    "exploreZikrHintTv": "دڵ هەڵبژێرە بۆ دڵخوازکردنی ئەزکار",
+    "exploreDuroodsHintTv": "ئەستێرە هەڵبژێرە بۆ پاشەکەوتکردنی درود",
+    "exploreNamesHintTv": "ئەستێرە هەڵبژێرە بۆ پاشەکەوتکردنی ناو",
+    "exploreHintTv": "{{shown}} لە {{total}} کورتەڕێ پیشان دراوە — بۆ زیادکردن یان ڕێکخستنەوە بەڕێوەبردن هەڵبژێرە."
   },
   "tracker": {
     "eyebrow": "Şopîne û tomar bike",
@@ -644,7 +671,8 @@
       "hintPages": "{{count}} rûpel ji bo armanca îro — ji bo tomarê bitikîne",
       "completeHint": "Beşa îro qediya — ji bo plana xwe bitikîne",
       "a11y": "Plana khatm roja {{day}} ji {{total}}, {{done}} ji {{target}} ji bo armanca îro"
-    }
+    },
+    "tvSubtitle": "نوێژێک هەڵبژێرە بۆ دانانی دۆخەکەی — لەم ئامێرەدا پاشەکەوت دەکرێت."
   },
   "update": {
     "title": "Nûkirin heye",
@@ -776,7 +804,8 @@
         "name": "Elî Îbn Ehmed Mela",
         "location": "Mescid el-Haram"
       }
-    }
+    },
+    "tvSubtitle": "بە کۆنترۆڵەکە بگەڕێ — هەندێک ئامراز پێویستی بە مۆبایل هەیە"
   },
   "import": {
     "title": "Import salah dîrok",
@@ -869,7 +898,12 @@
     "locationSkip": "Paşê saz bike",
     "locationHighlight4": "Her dem derbas bike — cih an agahdariyan paşê saz bike",
     "chooseLanguage": "Ziman hilbijêre",
-    "chooseLanguageHint": "Zimanê sepanê biguherîne da ku tu karibî vê pêşkêşiyê bişopînî"
+    "chooseLanguageHint": "Zimanê sepanê biguherîne da ku tu karibî vê pêşkêşiyê bişopînî",
+    "locationBodyTv": "شارەکەت هەڵبژێرە بۆ ئەوەی کاتەکانی نوێژ ورد بن. هەر کاتێک دەتوانیت شوێن لە ڕێکخستنەکان بگۆڕیت.",
+    "locationHighlight1Tv": "کاتی نوێژی ورد بۆ شارەکەت",
+    "locationHighlight2Tv": "ئاراستەی قیبڵە لە شوێنەکەتەوە",
+    "locationHighlight3Tv": "بیرخەرەوەکان باشتر لە مۆبایل کاردەکەن",
+    "locationHighlight4Tv": "هەر کاتێک شار لە ڕێکخستنەکان بگۆڕە"
   },
   "appearance": {
     "eyebrow": "Mîheng",
@@ -1177,7 +1211,9 @@
     "searchResultCount": "{{count}} lihevhatin",
     "noResults": "No adhkar matched we lêgerîn.",
     "markAsDone": "Wekî temam nîşan bike",
-    "undoDoneHint": "Ji bo betal kirin û wekî netemam nîşankirinê bitikîne"
+    "undoDoneHint": "Ji bo betal kirin û wekî netemam nîşankirinê bitikîne",
+    "favEmptyDescTv": "ئەستێرە لەسەر هەر زیکرێک هەڵبژێرە بۆ ئەوەی لێرە بمێنێتەوە بۆ دەستگەیشتنی خێرا.",
+    "undoDoneHintTv": "بۆ پاشگەزبوونەوە و نیشانکردنی وەک تەواونەکراو هەڵبژێرە"
   },
   "zikrCat": {
     "morning": "بەیانی ئەدکار",
@@ -1244,7 +1280,8 @@
     "guideReadAt": "Read di Munib Tracker:",
     "preparing": "Parvekirin…",
     "tapToShare": "Tap bo parve bike",
-    "sectionSchedule": "Today's schedule"
+    "sectionSchedule": "Today's schedule",
+    "selectToShare": "بۆ هاوبەشکردن هەڵبژێرە"
   },
   "dua": {
     "eyebrow": "پاڕانەوە",
@@ -1296,7 +1333,8 @@
     "favSubtitle": "Duroodên ku we xilas kirine",
     "favEmptyTitle": "No durood favorite hê",
     "favEmptyDesc": "Tap  star li any durood bo tomar bike it here.",
-    "openInTasbeeh": "Di Tesbîhê de veke"
+    "openInTasbeeh": "Di Tesbîhê de veke",
+    "favEmptyDescTv": "ئەستێرە لەسەر هەر درودێک هەڵبژێرە بۆ پاشەکەوتکردنی لێرە."
   },
   "names": {
     "eyebrow": "Esma-ul-Husna",
@@ -1313,7 +1351,8 @@
     "favorites": "Navên bijare",
     "favSubtitle": "Navên ku we xilas kirine",
     "favEmptyTitle": "Hê navên bijare tune",
-    "favEmptyDesc": "Tap  star li any name bo tomar bike it here."
+    "favEmptyDesc": "Tap  star li any name bo tomar bike it here.",
+    "favEmptyDescTv": "ئەستێرە لەسەر هەر ناوێک هەڵبژێرە بۆ پاشەکەوتکردنی لێرە."
   },
   "quran": {
     "eyebrow": " Noble Qur'an",
@@ -1453,7 +1492,8 @@
         "hamWasl": "بەستنەوەی حەمزە — لە کاتی پەیوەستبووندا کەوتە خوارەوە",
         "lamShamsiyah": "پیتی خۆر لام — بێژە ناکرێت",
         "silent": "نووسراوە بەڵام بێژە نەکراوە"
-      }
+      },
+      "tapHintTv": "بۆ بینینی یاسای تەجوید هەڵبژێرە"
     },
     "wordByWordLoading": "Loading word-by-word…",
     "tajweedLoading": "Loading tajweed…",
@@ -1531,7 +1571,8 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "Sûre {{number}}",
     "selectSurah": "Sureyekê hilbijêre",
-    "openReader": "Xwînerê veke"
+    "openReader": "Xwînerê veke",
+    "bookmarkEmptyDescTv": "ئایکۆنی نیشانە لەسەر هەر ئایەتێک هەڵبژێرە بۆ پاشەکەوتکردنی لێرە."
   },
   "hadith": {
     "eyebrow": "Kevneşopiya pêxemberî",
@@ -1773,7 +1814,8 @@
     },
     "history": "Dîrok",
     "rowDone": "{{completed}} Qaza hat kirin",
-    "rowDoneWithDaily": "{{completed}} Qaza hat kirin · îro {{done}}/{{target}}"
+    "rowDoneWithDaily": "{{completed}} Qaza hat kirin · îro {{done}}/{{target}}",
+    "hintTv": "نیشانە هەڵبژێرە بۆ تۆمارکردنی نوێژی قەزا. لەدەستدانی نوێژ لە شوێنپێهەڵگردا خۆکار دەچێتە سەر ئەم ژمارانە."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1901,7 +1943,8 @@
     "confirmAddEstimateTitle": "Rojiyên texmînkirî zêde bikin?",
     "confirmAddEstimateMsg": "{{count}} rojiyên mayî zêde bikin (tevahiya nû: {{total}})?",
     "confirmResetTitle": "Berhevkarê vegere?",
-    "confirmResetMsg": "Hemî hejmartinên bilez werin paqij kirin ({{remaining}} mayî, {{completed}} qediya)? Ev nayê betalkirin."
+    "confirmResetMsg": "Hemî hejmartinên bilez werin paqij kirin ({{remaining}} mayî, {{completed}} qediya)? Ev nayê betalkirin.",
+    "adjustHintTv": "ژمارە هەڵبژێرە یان −/+ بەکاربهێنە بۆ ڕێکخستن"
   },
   "calendar": {
     "eyebrow": "Dîrok",
@@ -1920,7 +1963,8 @@
     "missed": "Qedexe",
     "legendHint": "Tap any past an current roj bo review û adjust it. Îro e {{date}}.",
     "converterRowTitle": "هیجری ⟷ گۆڕینی گریگۆری",
-    "converterRowSubtitle": "گۆڕینی بەروارێک لە نێوان دوو ساڵنامەکەدا"
+    "converterRowSubtitle": "گۆڕینی بەروارێک لە نێوان دوو ساڵنامەکەدا",
+    "legendHintTv": "هەر ڕۆژێکی ڕابردوو یان ئێستا هەڵبژێرە بۆ پێداچوونەوە و ڕێکخستن. ئەمڕۆ {{date}}ـە."
   },
   "calDay": {
     "today": "Îro",
@@ -2020,7 +2064,8 @@
     "confirmResetMessage": "We count ya {{count}} will be paqij bû.",
     "confirmStartAgainTitle": "Dest pê bike again?",
     "confirmStartAgainMessage": "We temam bû count will be paqij bû so hûn can begin  nû round.",
-    "dockLabel": "Hejmar"
+    "dockLabel": "Hejmar",
+    "tapToCountTv": "بۆ ژماردن هەڵبژێرە دابگرە"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} e only {{min}} min away",
@@ -2035,7 +2080,8 @@
     "prayerItemActive": "{{name}} at {{time}}, current salah",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Cihê biguherînin",
-    "dateRowA11y": "{{phase}}. {{dates}}. Tap ji bo moon details"
+    "dateRowA11y": "{{phase}}. {{dates}}. Tap ji bo moon details",
+    "dateRowA11yTv": "{{phase}}. {{dates}}. بۆ وردەکاری مانگ هەڵبژێرە"
   },
   "location": {
     "eyebrow": "Cîh",
@@ -2093,7 +2139,8 @@
     },
     "defaultLabel": "Mekke, Erebistana Siûdî",
     "defaultTimesHint": "Demên nimêjê niha Mekkê bikar tînin. Ji bo demên rast bajarê xwe diyar bike. Bîranînên nimêj û ezanê heta wê demê girtî dimînin.",
-    "setLocation": "Cihê diyar bike"
+    "setLocation": "Cihê diyar bike",
+    "searchAutoFocusOff": "گەڕان بەدوای شار"
   },
   "moon": {
     "aria": "Qonaxa heyvê: {{phase}}",
@@ -2129,7 +2176,8 @@
     "nextMonth": "Meha Îslamî ya din",
     "nextMonthValue": "~{{days}} roj · destpêka {{month}}",
     "nextMonthTonight": "Îşev piştî Magribê · destpêka {{month}}",
-    "nextMonthOneDay": "~1 roj · destpêka {{month}}"
+    "nextMonthOneDay": "~1 roj · destpêka {{month}}",
+    "openTv": "{{phase}}. بۆ وردەکاری هەڵبژێرە"
   },
   "achievements": {
     "eyebrow": "Pêşverûtî",
@@ -2386,7 +2434,8 @@
     "resetDataMsgAccount": "Ev bi domdarî daneyên sepane li ser vê cîhazê û ji hevdemkirina ewrê jê dike. Hesabê te çalak û têketî dimîne. Ev nayê vegerandin.",
     "resetDataConfirm": "Dane nû ve saz bike",
     "resetDataFailed": "Daneyên sepane nehatin nûvesazkirin. Têkiliya xwe kontrol bikin û dîsa biceribînin.",
-    "resetDataSuccess": "Daneyên sepane yên te nû ve hatin sazkirin"
+    "resetDataSuccess": "Daneyên sepane yên te nû ve hatin sazkirin",
+    "tvAvatarHint": "وێنەی پرۆفایل و بەستنی هەژمار باشتر لە مۆبایلەکەت کاردەکەن."
   },
   "sync": {
     "title": "هاوکاتکردنی هەور",
@@ -2537,11 +2586,13 @@
     "emptyDesc": "Ji birêvebirê qaza nimêja makyajê bikin û ew ê li vir xuya bibe.",
     "count": "{{count}} çêkir",
     "legendHint": "Rojek ronîkirî bikirtînin da ku hûn bibînin ka we kîjan dua kiriye.",
-    "dayA11y": "{{date}}, {{count}} çêkirin"
+    "dayA11y": "{{date}}, {{count}} çêkirin",
+    "legendHintTv": "ڕۆژێکی بەرزکراوە هەڵبژێرە بۆ بینینی کام نوێژەکانت قەزا کردووە."
   },
   "weeklyReport": {
     "title": "Həftəniz ibadetdə",
-    "body": "{{prayers}} nimêj qediyan, {{perfect}} rojên bêkêmasî, {{qaza}} qeza kirin, û {{zikr}} danişînên zikr. Bikirtînin da ku statîstikên xwe bibînin."
+    "body": "{{prayers}} nimêj qediyan, {{perfect}} rojên bêkêmasî, {{qaza}} qeza kirin, û {{zikr}} danişînên zikr. Bikirtînin da ku statîstikên xwe bibînin.",
+    "bodyTv": "{{prayers}} نوێژ تەواو کرا، {{perfect}} ڕۆژی تەواو، {{qaza}} قەزا کرا، و {{zikr}} دانیشتنی زیکر. بۆ بینینی ئامارەکان هەڵبژێرە."
   },
   "backup": {
     "title": "Backup & restore",
@@ -2709,7 +2760,8 @@
     "confirmTitle": "Rewşa Hifz nûve bikin?",
     "confirmReviewBody": "{{ref}} will be flagged ji bo review.",
     "confirmMemorizedBody": "{{ref}} dê wekî jibîrkirî were nîşankirin.",
-    "confirmClearBody": "{{ref}} will be removed ji we Hifz tracker."
+    "confirmClearBody": "{{ref}} will be removed ji we Hifz tracker.",
+    "emptyDescTv": "Hifz لەسەر هەر ئایەتێک لە خوێنەردا هەڵبژێرە بۆ نیشاندانی وەک لەبەرکراو."
   },
   "travel": {
     "eyebrow": "Fêr bibe",
@@ -3007,7 +3059,8 @@
       "playPhrases": "Hemû hevokan bilîze",
       "pausePhrases": "Hevokan rawestîne",
       "playPhrase": "Hevoka {{n}} bilîze: {{title}}",
-      "followAlongNote": "Di dema lîstinê de peyvên jêr ronî dike"
+      "followAlongNote": "Di dema lîstinê de peyvên jêr ronî dike",
+      "listenHintTv": "تۆمارێک هەڵبژێرە بۆ لێدان. مەدینە هەر ڕستەیەک بەرز دەکاتەوە کاتێک دەخوێنرێتەوە. وشەکان فێربە لە خوارەوە بەکاربهێنە بۆ دەنگی ڕوونی ڕستە بە ڕستە."
     }
   },
   "battles": {
@@ -3102,7 +3155,8 @@
       "obligatory": "Pêwist",
       "highly-recommended": "Pir tê pêşniyar kirin",
       "recommended": "Pêşniyar kirin"
-    }
+    },
+    "versesIntroTv": "قورئان باوەڕپێکراوترین سەرچاوەیە. ئایەتێک هەڵبژێرە بۆ کردنەوەی لە خوێنەری قورئان."
   },
   "lastDay": {
     "eyebrow": "Fêrbûn",
@@ -3208,7 +3262,8 @@
       "reflection": "Kovara Reflection",
       "reflectionHint": "Xushu û refleksên nimêjê",
       "learning": "Pêşveçûna Fêrbûnê",
-      "learningHint": "Mijarên ku di vê modulê de hatine qedandin"
+      "learningHint": "Mijarên ku di vê modulê de hatine qedandin",
+      "characterHintTv": "هەڵبژێرە کاتێک ئەمڕۆ ڕەفتارەکەت پێداچوونەوە کرد"
     },
     "progressTitle": "Pêşveçûna fêrbûnê",
     "progressSubtitle": "خوێندنی ڕێڕەو — نەک پلەی ڕۆحی لای خوا",
@@ -3236,7 +3291,10 @@
       "obligatory": "Pêwist",
       "highly-recommended": "Pir tê pêşniyar kirin",
       "recommended": "Pêşniyar kirin"
-    }
+    },
+    "versesIntroTv": "ئایەتێک هەڵبژێرە بۆ کردنەوەی لە خوێنەری قورئان. پوختە کورتەکان پەروەردەیین، جێگرەوەی تەفسیری تەواو نین.",
+    "preparationHabitsHintTv": "بۆ کردنەوەی شوێنپێهەڵگر یان گۆڕینی مەبەستی ڕۆژانە هەڵبژێرە",
+    "characterHintTv": "هەڵبژێرە کاتێک ئەمڕۆ ڕەفتارەکەت پێداچوونەوە کرد"
   },
   "taharah": {
     "eyebrow": "Fêr bibe",
@@ -3305,7 +3363,8 @@
       "obligatory": "ئیجبارییە",
       "highly-recommended": "Pir tê pêşniyar kirin",
       "recommended": "Pêşniyar kirin"
-    }
+    },
+    "checklistHintTv": "بڕگەکان هەڵبژێرە کاتێک عادەتەکانی پاکیی ڕۆژانەت پێداچوونەوە دەکەیت"
   },
   "prophets": {
     "eyebrow": "Fêr bibe",
@@ -3410,7 +3469,8 @@
       "allBranches": "All branches",
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "tapHintTv": "ناوێک لەسەر نەخشە هەڵبژێرە بۆ خوێندنەوەی تێبینی سەرچاوەدار."
     }
   },
   "aqeedah": {
@@ -3530,7 +3590,8 @@
       "obligatory": "Pêwist",
       "highly-recommended": "Pir tê pêşniyar kirin",
       "recommended": "Pêşniyar kirin"
-    }
+    },
+    "occasionsIntroTv": "بۆنەیەک هەڵبژێرە بۆ کردنەوەی وانە یان گەڕان لە کتێبخانەی تەواوی دوعا."
   },
   "learnQuran": {
     "eyebrow": "Fêrbûn",
@@ -3677,7 +3738,8 @@
     "read": "Xwendin",
     "supplicate": "داواکاری",
     "learn": "Fêr bibe",
-    "more": "Zêde"
+    "more": "Zêde",
+    "tvSubtitle": "قورئان، دوعا، زیکر، و فێربوون — بە هەڵبژێرە بگەڕێ"
   },
   "offlineData": {
     "title": "Daneyên negirêdayî",
@@ -4225,7 +4287,8 @@
     "linkSadaqah": "ئامانجەکانی سەدەقە",
     "linkSadaqahHint": "بەخشینی بەخۆبەخشانەی ڕۆژانە یان هەفتانە",
     "linkFidyah": "فیدیە و کەفارەت",
-    "linkFidyahHint": "خەمڵاندن بۆ ڕۆژووە لەدەست‌چووەکان یان شکێنراوەکان"
+    "linkFidyahHint": "خەمڵاندن بۆ ڕۆژووە لەدەست‌چووەکان یان شکێنراوەکان",
+    "learnHintTv": "بابەتێک هەڵبژێرە بۆ ڕێبەری سەرنجتێکراو — حوکمەکان لە نێوان مەزهەبەکان جیاوازن."
   },
   "customAdhkar": {
     "eyebrow": "Bîr",
@@ -4264,7 +4327,7 @@
       "label": "هاوپێچەکان (ئیختیاری)",
       "add": "زیادکردنی فایل",
       "remove": "هاوپێچەکە لاببە",
-      "hint": "تا ٥ فایل (JPEG، PNG، WebP، یان PDF)، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
+      "hint": "Heta 5 pel (JPEG, PNG, WebP an PDF), her yek 1 MB. Ji bo jêbirinê li ser thumbnailê × bitikîne.",
       "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی فایلە تایبەتەکان بە adhkar ـەکەتەوە.",
       "permissionDenied": "بۆ هاوپێچکردنی فایلەکان مۆڵەت پێویستە.",
       "permissionTitle": "ڕێگە بدە بە دەستگەیشتن",
@@ -4293,7 +4356,8 @@
       "sourceDocumentHint": "وێنەیەک یان PDF لە فایلەکانت هەڵبژێرە",
       "loadingPdf": "PDF tê barkirin…",
       "pdfHint": "Bizivirîne · pinch an +/− bo mezin kirinê · du caran bitikîne bo vegerandinê · PDF veke bo parvekirinê",
-      "pdfPreviewTitle": "Pêşdîtina PDF"
+      "pdfPreviewTitle": "Pêşdîtina PDF",
+      "tvUnavailable": "هاوپێچەکان پێویستیان بە مۆبایل یان تابلێت هەیە. وێنە یان PDF لەوێ زیاد بکە."
     },
     "stt": {
       "dictate": "بە مایکرۆفۆن دیکتە بکە",
@@ -4408,7 +4472,8 @@
       "unavailable": "ناسینەوەی قسەکردن لەسەر ئەم ئامێرە بەردەست نییە.",
       "couldNotHear": "نەمتوانی ئەوە ببیستێت — دووبارە هەوڵبدەرەوە یان بنووسە.",
       "errorGeneric": "دیکتەکردن شکستی هێنا. دووبارە هەوڵبدەرەوە یان بنووسە."
-    }
+    },
+    "ratingHintTv": "ئەستێرەیەک هەڵبژێرە بۆ هەڵسەنگاندنی ئامادەبوونت لە نوێژدا."
   },
   "prayerTuning": {
     "title": "Salah time tuning",
@@ -4575,7 +4640,8 @@
       "ranks": "پلەکان",
       "mercy": "Efû",
       "supplication": "پاڕانەوە"
-    }
+    },
+    "versesLeadTv": "هەر ئایەتێک هەڵبژێرە بۆ کردنەوەی لە خوێنەری قورئان."
   },
   "jahannam": {
     "eyebrow": "Fêrbûn",
@@ -4707,7 +4773,9 @@
       "repentance": "Poşmanî",
       "accountability": "Accountability",
       "protection": "Parastinî"
-    }
+    },
+    "versesLeadTv": "هەر ئایەتێک هەڵبژێرە بۆ کردنەوەی لە خوێنەری قورئان.",
+    "reflectionLeadTv": "بوەستە و ئەم پرسیارانە لە خۆت بپرسە. ڕیزێک هەڵبژێرە بۆ کردنەوەی شوێنپێهەڵگر یان وانەی پەیوەندیدار."
   },
   "tour": {
     "eyebrow": "gera rêber",
@@ -5053,7 +5121,7 @@
     "eyebrow": "ساڵنامە",
     "title": "گۆڕینی بەروار",
     "subtitle": "گۆڕینی نێوان ساڵنامەی هیجری و زاینی",
-    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە بە بەکارهێنانی ئەلگۆریتمەکەی کوەیتی خشتەیی لە ئۆفلاین حیسابی بۆ کراوە.",
+    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە لە ئۆفلاین لەسەر بنەمای بینینی مانگ لە شوێنەکەت حیسابی بۆ کراوە.",
     "toHijri": "گریگۆری → هیجری",
     "toGregorian": "هیجری → گریگۆری",
     "gregorianDateLabel": "بەرواری گریگۆری",
@@ -5063,7 +5131,7 @@
     "year": "ساڵ",
     "useToday": "ئەمڕۆ بەکاری بهێنە",
     "invalidDate": "بەروارێکی دروست بنووسە",
-    "disclaimer": "ئەمە نزیکبوونەوەیەکی ژمێریارییە (\"ئەلگۆریتمەکەی کوێت\"ی خشتەیی) و دەتوانێت ڕۆژێک جیاواز بێت لە ڕاگەیاندنەکانی بینینی مانگ لە ناوخۆدا — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
+    "disclaimer": "بەروارەکان لەسەر بنەمای بینینی مانگ (hilāl) لە شوێنەکەت حیساب دەکرێن و دەتوانن ڕۆژێک جیاواز بن لە ڕاگەیاندنە فەرمییەکانی بینینی مانگ — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
     "directionTitle": "ئاراستەی گۆڕانکاری",
     "resultFrom": "لە {{date}} ەوە",
     "quickLinksTitle": "پەیوەست",
@@ -5126,7 +5194,8 @@
       "fidyah": "فیدیە"
     },
     "skipHint": "Vê kartê derbas bikin û pirsek din bibînin.",
-    "skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin."
+    "skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin.",
+    "introTv": "لە قورئان، فەرموودە، ناوەکانی خوا، و هەر ڕێبەرێکی فێربوون وەربگرە. وەڵامێک هەڵبژێرە بۆ پشکنینی خۆت، پاشان هەتا دەتەوێت بەردەوام بە."
   },
   "lastThirdNight": {
     "eyebrow": "Salaha şevê",
@@ -5241,5 +5310,32 @@
     "linkFinanceHint": "Dayîna dilxwazî ​​diyar kir",
     "disclaimer": "Tenê şopînerek kesane - ne fetwa û ne cîhgirek ji bo hesabkirina zekatê dema ku pêdivî ye.",
     "continueInApp": "Berdewam li Munib"
+  },
+  "adhan": {
+    "listenHintTv": "تۆمارێک هەڵبژێرە بۆ لێدان. مەدینە هەر ڕستەیەک بەرز دەکاتەوە کاتێک دەخوێنرێتەوە. وشەکان فێربە لە خوارەوە بەکاربهێنە بۆ دەنگی ڕوونی ڕستە بە ڕستە."
+  },
+  "tv": {
+    "exitTitle": "Munib Tracker جێبهێڵیت؟",
+    "exitMessage": "دڵنیابوون دابگرە بۆ داخستنی ئەپ لەم تەلەفزیۆنە.",
+    "exitConfirm": "دەرچوون",
+    "qrTitle": "بە مۆبایلەکەت بچۆ ژوورەوە",
+    "qrHint": "ئەم کۆدی QR بە کامێرای مۆبایلەکەت سکان بکە، یان Munib Tracker لە مۆبایلەکەت بکەرەوە و کۆدەکە بنووسە.",
+    "qrA11y": "کۆدی QR بۆ چوونەژوورەوە لە مۆبایل",
+    "qrImageA11y": "کۆدی QR بۆ چوونەژوورەوەی TV",
+    "qrWaiting": "چاوەڕێی مۆبایلەکەت…",
+    "qrRefresh": "کۆدی نوێ",
+    "qrRetry": "دووبارە هەوڵبدەرەوە",
+    "qrCreateError": "نەتوانرا چوونەژوورەوەی TV دەست پێ بکات. پەیوەندییەکەت بپشکنە و دووبارە هەوڵبدەرەوە.",
+    "qrExpired": "ئەم کۆدە بەسەرچوو. دانەیەکی نوێ دروست بکە.",
+    "qrEyebrow": "هاوڕێی TV",
+    "qrPhoneTitle": "لە TV بچۆ ژوورەوە",
+    "qrPhoneSubtitle": "کۆد {{code}} — چوونەژوورەوە تەواو بکە بۆ بەستنەوەی ئەم TV.",
+    "qrMissingCode": "ئەم بەستەرە کۆدی جووتکردن نییە. QR لە TV دووبارە سکان بکە.",
+    "qrSignInFirst": "بە هەژمارێکی بەستراو بچۆ ژوورەوە، پاشان TVـەکەت دەبەستینەوە.",
+    "qrNeedLinkedAccount": "سەرەتا بە Google، Apple، یان Facebook بچۆ ژوورەوە — هەژماری میوان ناتوانێت TV ببەستێت.",
+    "qrClaiming": "TVـەکەت دەبەسترێتەوە…",
+    "qrClaimSuccess": "TVـەکەت چووەتە ژوورەوە. دەتوانیت بگەڕێیتەوە بۆ ژووری دانیشتن.",
+    "qrClaimError": "نەتوانرا TV ببەسترێتەوە. کۆدی نوێ لە TV دروست بکە و دووبارە هەوڵبدەرەوە.",
+    "qrPhoneOnly": "ئەم بەستەرە لە مۆبایلەکەت بکەرەوە بۆ تەواوکردنی چوونەژوورەوەی TV."
   }
 }

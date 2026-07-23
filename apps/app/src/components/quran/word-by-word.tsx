@@ -7,7 +7,9 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 
 export { activeWordIndexAt } from "@/lib/quran-word-timing";
@@ -35,6 +37,7 @@ export function WordByWord({
 }: WordByWordProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const [tappedIndex, setTappedIndex] = useState<number | null>(null);
   const player = useAudioPlayer();
   const playingUriRef = useRef<string | null>(null);
@@ -76,13 +79,26 @@ export function WordByWord({
 
   if (words.length === 0) return null;
 
+  const wordArabicSize = Math.max(tv ? 22 : 18, arabicSize - (tv ? 2 : 4));
+  const wordTranslitSize = Math.max(
+    tv ? TvLayout.bodyFontSize - 2 : 12,
+    translitSize - (tv ? 0 : 2),
+  );
+  const wordGlossSize = Math.max(tv ? 14 : 11, glossSize - (tv ? 0 : 2));
+
   // RTL reading order: render words right-to-left via row-reverse.
   return (
-    <View style={styles.section}>
-      <ThemedText type="caption" style={[styles.heading, { color: colors.mutedForeground }]}>
+    <View style={[styles.section, tv && styles.sectionTv]}>
+      <ThemedText
+        type="caption"
+        style={[
+          styles.heading,
+          { color: colors.mutedForeground, fontSize: tv ? TvLayout.bodyFontSize - 2 : undefined },
+        ]}
+      >
         {t("quran.wordByWord.title")}
       </ThemedText>
-      <View style={styles.grid}>
+      <View style={[styles.grid, tv && styles.gridTv]}>
         {words.map((word, index) => {
           const isActive = activeWordIndex === index || tappedIndex === index;
           return (
@@ -99,6 +115,7 @@ export function WordByWord({
               onPress={() => void playWord(index, word.audioUrl)}
               style={[
                 styles.wordCard,
+                tv && styles.wordCardTv,
                 {
                   backgroundColor: isActive
                     ? withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.12)
@@ -111,7 +128,7 @@ export function WordByWord({
                 type="arabic"
                 style={[
                   styles.arabic,
-                  arabicReadingLayout(Math.max(18, arabicSize - 4), "center"),
+                  arabicReadingLayout(wordArabicSize, "center"),
                   { color: isActive ? colors.accent : colors.foreground },
                 ]}
               >
@@ -120,7 +137,7 @@ export function WordByWord({
               {word.translit ? (
                 <ThemedText
                   type="small"
-                  style={[styles.meta, { color: colors.accent, fontSize: translitSize - 2 }]}
+                  style={[styles.meta, { color: colors.accent, fontSize: wordTranslitSize }]}
                 >
                   {word.translit}
                 </ThemedText>
@@ -128,7 +145,7 @@ export function WordByWord({
               {word.gloss ? (
                 <ThemedText
                   type="caption"
-                  style={[styles.meta, { color: colors.mutedForeground, fontSize: glossSize - 2 }]}
+                  style={[styles.meta, { color: colors.mutedForeground, fontSize: wordGlossSize }]}
                 >
                   {word.gloss}
                 </ThemedText>
@@ -145,6 +162,10 @@ const styles = StyleSheet.create({
   section: {
     marginTop: Spacing.three,
     gap: Spacing.two,
+  },
+  sectionTv: {
+    marginTop: Spacing.four,
+    gap: Spacing.three,
   },
   heading: {
     textTransform: "uppercase",
@@ -163,6 +184,9 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     justifyContent: "flex-start",
   },
+  gridTv: {
+    gap: Spacing.three,
+  },
   wordCard: {
     // ~3 columns with gap; no flexGrow so leftover width doesn't inflate tiles.
     width: "30%",
@@ -177,6 +201,15 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: 1,
+  },
+  wordCardTv: {
+    width: "22%",
+    maxWidth: 180,
+    minHeight: TvLayout.chipMinHeight,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.two,
+    gap: Spacing.one,
+    borderRadius: Radius.lg,
   },
   arabic: {
     textAlign: "center",

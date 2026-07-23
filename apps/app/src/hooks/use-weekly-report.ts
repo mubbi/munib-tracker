@@ -12,6 +12,7 @@ import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
 import { scheduleReviewTriggerFromWake } from "@/features/reviews/lib/reviewPendingTrigger";
+import { tTv } from "@/lib/i18n/t-tv";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 
 /**
@@ -47,7 +48,7 @@ export function useWeeklyReport(): void {
         kind: "system",
         id: `weekly-${today}`,
         title: t("weeklyReport.title"),
-        body: t("weeklyReport.body", {
+        body: tTv(t, "weeklyReport.body", "weeklyReport.bodyTv", {
           prayers: report.prayersCompleted,
           perfect: report.perfectDays,
           qaza: report.qazaCleared,

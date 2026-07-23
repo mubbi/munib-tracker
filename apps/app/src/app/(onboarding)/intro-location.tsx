@@ -10,8 +10,10 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
+import { tTv } from "@/lib/i18n/t-tv";
 import {
   canEnableLocalReminders,
   requestNotificationPermission,
@@ -54,12 +56,13 @@ export default function OnboardingLocationScreen() {
   const { requestDeviceLocation } = useLocationActions();
   const status = useLocationStatus();
   const [busy, setBusy] = useState(false);
+  const tv = isTV();
 
   const highlights = [
-    t("onboarding.locationHighlight1"),
-    t("onboarding.locationHighlight2"),
-    t("onboarding.locationHighlight3"),
-    t("onboarding.locationHighlight4"),
+    tTv(t, "onboarding.locationHighlight1", "onboarding.locationHighlight1Tv"),
+    tTv(t, "onboarding.locationHighlight2", "onboarding.locationHighlight2Tv"),
+    tTv(t, "onboarding.locationHighlight3", "onboarding.locationHighlight3Tv"),
+    tTv(t, "onboarding.locationHighlight4", "onboarding.locationHighlight4Tv"),
   ];
 
   const finish = async () => {
@@ -68,6 +71,9 @@ export default function OnboardingLocationScreen() {
   };
 
   const requestRemindersIfSupported = async () => {
+    // Reminder notifications aren't a TV use case — this path is unreachable
+    // there anyway since onAllow() returns early for isTV(), but guard explicitly.
+    if (isTV()) return;
     if (Platform.OS !== "web" && !canEnableLocalReminders()) return;
     const webGesture = isWeb ? beginWebNotificationPermissionRequest() : null;
     const result = await requestNotificationPermission({
@@ -131,12 +137,15 @@ export default function OnboardingLocationScreen() {
 
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          tv ? { paddingHorizontal: TvLayout.contentPaddingX } : null,
+        ]}
         showsVerticalScrollIndicator={false}
         bounces={false}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.content}>
+        <View style={[styles.content, tv ? styles.contentTv : null]}>
           <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
             <SymbolView name={LOCATION_ICON} size={52} tintColor={Brand.heroAccent} />
           </View>
@@ -147,11 +156,14 @@ export default function OnboardingLocationScreen() {
           <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
             {t("onboarding.locationTitle")}
           </ThemedText>
-          <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
-            {t("onboarding.locationBody")}
+          <ThemedText
+            type="default"
+            style={[styles.body, tv ? styles.bodyTv : null, { color: Brand.heroSubtext }]}
+          >
+            {tTv(t, "onboarding.locationBody", "onboarding.locationBodyTv")}
           </ThemedText>
 
-          <View style={styles.highlights}>
+          <View style={[styles.highlights, tv ? styles.highlightsTv : null]}>
             {highlights.map((line) => (
               <View key={line} style={styles.highlightRow}>
                 <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
@@ -162,28 +174,39 @@ export default function OnboardingLocationScreen() {
             ))}
           </View>
 
-          <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
-            <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
-              {t("onboarding.locationPrivacyTitle")}
-            </ThemedText>
-            <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
-              {t("onboarding.locationPrivacyBody")}
-            </ThemedText>
-          </View>
+          {!tv ? (
+            <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
+              <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
+                {t("onboarding.locationPrivacyTitle")}
+              </ThemedText>
+              <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
+                {t("onboarding.locationPrivacyBody")}
+              </ThemedText>
+            </View>
+          ) : null}
         </View>
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.four }]}>
+      <View
+        style={[
+          styles.footer,
+          {
+            paddingBottom: insets.bottom + Spacing.four,
+            paddingHorizontal: tv ? TvLayout.contentPaddingX : Spacing.four,
+          },
+        ]}
+      >
         <View style={styles.actions}>
           <Button
             label={
               locating
                 ? t("onboarding.locationLocating")
-                : isTV()
+                : tv
                   ? t("qibla.setLocation")
                   : t("onboarding.locationAllow")
             }
             fullWidth
+            preferredFocus={tv}
             disabled={locating}
             icon={LOCATION_ICON}
             onPress={() => void onAllow()}
@@ -232,6 +255,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     gap: Spacing.two,
   },
+  contentTv: {
+    paddingHorizontal: 0,
+    width: "100%",
+    maxWidth: 640,
+    alignSelf: "center",
+  },
   icon: {
     width: 108,
     height: 108,
@@ -253,11 +282,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
     maxWidth: 320,
   },
+  bodyTv: {
+    maxWidth: 560,
+    fontSize: TvLayout.bodyFontSize,
+    lineHeight: TvLayout.bodyFontSize + 8,
+  },
   highlights: {
     width: "100%",
     maxWidth: 340,
     gap: Spacing.two,
     marginTop: Spacing.three,
+  },
+  highlightsTv: {
+    maxWidth: 560,
   },
   highlightRow: {
     flexDirection: "row",

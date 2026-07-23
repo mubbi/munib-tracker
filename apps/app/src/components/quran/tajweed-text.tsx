@@ -9,6 +9,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { withArabicJoiningZwj } from "@/lib/arabic-text-join";
+import { tTv } from "@/lib/i18n/t-tv";
 import { arabicReadingLayout, resolveArabicLineHeight } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -136,7 +137,9 @@ export function TajweedText({ segments, fallback, fontSize, style }: TajweedText
               // splits Arabic words into isolated letter forms.
               accessibilityLabel={formatRuleTooltip(rule, t)}
               accessibilityHint={
-                fineHover ? t("quran.tajweed.hoverHint") : t("quran.tajweed.tapHint")
+                fineHover
+                  ? t("quran.tajweed.hoverHint")
+                  : tTv(t, "quran.tajweed.tapHint", "quran.tajweed.tapHintTv")
               }
               suppressHighlighting
               onPress={() => onSegmentPress(rule.id)}

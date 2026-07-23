@@ -221,6 +221,46 @@ export function resetAppData(accessToken: string): Promise<void> {
   );
 }
 
+export type TvPairingCreateResponse = {
+  code: string;
+  displayCode: string;
+  expiresAt: number;
+  claimUrl: string;
+};
+
+export type TvPairingStatusResponse = {
+  status: "pending" | "ready" | "expired";
+  session?: AuthSessionResponseDto;
+};
+
+/** TV: create a companion pairing code + claim URL for QR login. */
+export function createTvPairing(): Promise<TvPairingCreateResponse> {
+  return apiFetch<TvPairingCreateResponse>({
+    url: "/auth/tv/pairing",
+    method: "POST",
+  });
+}
+
+/** TV: poll until the phone claims the pairing (returns a one-shot session). */
+export function pollTvPairing(code: string): Promise<TvPairingStatusResponse> {
+  return apiFetch<TvPairingStatusResponse>({
+    url: `/auth/tv/pairing/${encodeURIComponent(code)}`,
+    method: "GET",
+  });
+}
+
+/** Phone: claim a TV pairing after the user is signed in with a linked account. */
+export function claimTvPairing(accessToken: string, code: string): Promise<void> {
+  return apiFetch<void>(
+    {
+      url: "/auth/tv/pairing/claim",
+      method: "POST",
+      body: JSON.stringify({ code }),
+    },
+    apiAuthOptions(accessToken),
+  );
+}
+
 export function syncPull(accessToken: string, since?: string): Promise<SyncPullResponseDto> {
   const query = since ? `?since=${encodeURIComponent(since)}` : "";
   return apiFetch<SyncPullResponseDto>(

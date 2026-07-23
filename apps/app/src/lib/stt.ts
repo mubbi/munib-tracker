@@ -6,6 +6,7 @@ import {
 import { Platform } from "react-native";
 
 import { localeToBcp47, toAppLocale } from "@/lib/locale-bcp47";
+import { isTV } from "@/lib/platform/is-tv";
 
 export type SttPermissionResult = {
   granted: boolean;
@@ -48,6 +49,7 @@ export function normalizeSttVolume(value: number): number {
 
 /** Whether the platform reports speech recognition as available. */
 export function isSttAvailable(): boolean {
+  if (isTV() || Platform.OS === "web") return false;
   try {
     return ExpoSpeechRecognitionModule.isRecognitionAvailable();
   } catch {
@@ -59,8 +61,8 @@ export async function requestSttPermissions(): Promise<SttPermissionResult> {
   // expo-speech-recognition stubs requestPermissionsAsync on web with a console.warn
   // and always returns granted. Browser mic consent is prompted when SpeechRecognition
   // starts — skip the unsupported call to avoid the noise.
-  if (Platform.OS === "web") {
-    return { granted: true, canAskAgain: true };
+  if (Platform.OS === "web" || isTV()) {
+    return { granted: Platform.OS === "web", canAskAgain: Platform.OS === "web" };
   }
 
   try {
@@ -72,6 +74,7 @@ export async function requestSttPermissions(): Promise<SttPermissionResult> {
 }
 
 export function startStt(options: StartSttOptions): void {
+  if (isTV() || Platform.OS === "web") return;
   // Match sample INPUT-VOICE: system recognizer + optional volume metering.
   // Do not force on-device recognition — it often skips volumechange events.
   const payload: ExpoSpeechRecognitionOptions = {
@@ -87,6 +90,7 @@ export function startStt(options: StartSttOptions): void {
 }
 
 export function stopStt(): void {
+  if (isTV()) return;
   try {
     ExpoSpeechRecognitionModule.stop();
   } catch {
@@ -95,6 +99,7 @@ export function stopStt(): void {
 }
 
 export function abortStt(): void {
+  if (isTV()) return;
   try {
     ExpoSpeechRecognitionModule.abort();
   } catch {

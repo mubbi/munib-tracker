@@ -34,6 +34,7 @@ import {
   phraseIndexAtCueTime,
 } from "@/lib/adhan-phrase-cues";
 import { prefetchAudioUri } from "@/lib/audio-cache";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   ensureSalahGuideContent,
@@ -243,7 +244,7 @@ export default function SalahGuideAdhanScreen() {
                 icon={{ ios: "speaker.wave.3.fill", android: "campaign", web: "campaign" }}
               />
               <ThemedText type="caption" themeColor="mutedForeground" style={styles.listenHint}>
-                {t("salahGuide.adhan.listenHint")}
+                {tTv(t, "salahGuide.adhan.listenHint", "salahGuide.adhan.listenHintTv")}
               </ThemedText>
               <View style={styles.styles}>
                 {ADHAN_LEARN_STYLES.map((style) => (

@@ -16,6 +16,8 @@ import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildDuroodActivity } from "@/lib/continue-activity";
+import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   arabicReadingLayout,
   resolveReadingFontSizes,
@@ -87,6 +89,7 @@ export function ReadingCard({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const { fontPrefs, translationLocale } = usePreferences();
   const { showTransliteration, showTranslation } = useReadingTextVisibility();
   const displayTranslation = useScriptureTranslation(item);
@@ -164,12 +167,12 @@ export function ReadingCard({
 
   const body = (
     <>
-      <View style={styles.header}>
+      <View style={[styles.header, tv && styles.headerTv]}>
         {item.audioUri ? (
           <LabeledIconButton
             name={PLAY_CIRCLE_ICON}
             label={t("common.play")}
-            iconSize={18}
+            iconSize={tv ? 22 : 18}
             tintColor={colors.accent}
             labelColor={colors.accent}
             background={tokens.accentSoft}
@@ -189,7 +192,7 @@ export function ReadingCard({
         ) : (
           <View />
         )}
-        <View style={styles.headerActions}>
+        <View style={[styles.headerActions, tv && styles.headerActionsTv]}>
           {onToggleFavorite ? (
             <LabeledIconButton
               name={
@@ -198,7 +201,7 @@ export function ReadingCard({
                   : { ios: "star", android: "star_border", web: "star_border" }
               }
               label={isFavorite ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
-              iconSize={16}
+              iconSize={tv ? 20 : 16}
               tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
               labelColor={isFavorite ? tokens.status.warning.color : undefined}
               accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
@@ -209,8 +212,12 @@ export function ReadingCard({
           ) : null}
           <LabeledIconButton
             name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-            label={isGesturePending(shareKey) ? t("share.tapToShare") : t("common.share")}
-            iconSize={16}
+            label={
+              isGesturePending(shareKey)
+                ? tTv(t, "share.tapToShare", "share.selectToShare")
+                : t("common.share")
+            }
+            iconSize={tv ? 20 : 16}
             tintColor={colors.mutedForeground}
             accessibilityLabel={t("reading.share")}
             loading={isSharing(shareKey)}
@@ -305,12 +312,19 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
     gap: Spacing.two,
   },
+  headerTv: {
+    marginBottom: Spacing.four,
+    gap: Spacing.three,
+  },
   headerActions: {
     flexDirection: "row",
     alignItems: "flex-start",
     flexWrap: "wrap",
     justifyContent: "flex-end",
     gap: Spacing.one,
+  },
+  headerActionsTv: {
+    gap: Spacing.two,
   },
   arabic: {},
   divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.three },

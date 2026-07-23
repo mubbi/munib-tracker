@@ -5,8 +5,10 @@ import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconName } from "@/lib/names-of-allah-ui";
+import { isTV } from "@/lib/platform/is-tv";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 type ButtonSize = "sm" | "md";
@@ -24,6 +26,8 @@ type ButtonProps = {
   labelColor?: string;
   accessibilityHint?: string;
   style?: StyleProp<ViewStyle>;
+  /** TV: request initial D-pad focus on this control. */
+  preferredFocus?: boolean;
 };
 
 export function Button({
@@ -38,8 +42,10 @@ export function Button({
   labelColor,
   accessibilityHint,
   style,
+  preferredFocus,
 }: ButtonProps) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
 
   // Ghost must still paint a real (near-invisible) fill. Fully transparent
   // Pressables intermittently drop Fabric taps inside Modals — Cancel looks
@@ -64,7 +70,7 @@ export function Button({
   const isSm = size === "sm";
   const paddingVertical = isSm ? Spacing.one + 2 : Spacing.two;
   const paddingHorizontal = isSm ? Spacing.two + 2 : Spacing.three;
-  const minHeight = isSm ? 36 : 40;
+  const minHeight = tv ? (isSm ? 48 : TvLayout.minFocusTarget) : isSm ? 36 : 40;
   const iconSize = isSm ? 14 : 16;
   const labelType = isSm ? "caption" : ("smallBold" as const);
   const borderWidth =
@@ -82,6 +88,7 @@ export function Button({
       dimOnPress
       haptic="light"
       hitSlop={minHeight < 44 ? { top: 4, bottom: 4 } : undefined}
+      {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.base,
         {

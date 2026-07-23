@@ -30,7 +30,9 @@ import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuroodItems } from "@/lib/content-loaders";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import {
   useDuroodFavoritesActions,
@@ -47,6 +49,8 @@ export default function DuroodFavoritesScreen() {
   const { tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail } = useLargeScreenLayout();
+  const tv = isTV();
+  const showSideFilters = isListDetail && !tv;
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
   const { toggle } = useDuroodFavoritesActions();
@@ -126,7 +130,7 @@ export default function DuroodFavoritesScreen() {
       <EmptyState
         icon={{ ios: "star", android: "star_border", web: "star_border" }}
         title={t("duroods.favEmptyTitle")}
-        description={t("duroods.favEmptyDesc")}
+        description={tTv(t, "duroods.favEmptyDesc", "duroods.favEmptyDescTv")}
         actionLabel={t("duroods.title")}
         onAction={() => router.replace("/duroods")}
       />
@@ -141,9 +145,9 @@ export default function DuroodFavoritesScreen() {
       subtitle={t("duroods.favSubtitle")}
       onBack={() => goBackOrReplace(router, "/duroods")}
       scrollable={!hasItems}
-      maxContentWidth={hasItems && isListDetail ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
+      maxContentWidth={hasItems && showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
       headerAccessory={
-        hasItems && !isListDetail ? (
+        hasItems && !showSideFilters ? (
           <ScriptureReadingToolbar
             visible={toolbarVisible}
             progress={readingProgress}
@@ -158,7 +162,7 @@ export default function DuroodFavoritesScreen() {
       ) : hasItems ? (
         <View
           style={
-            isListDetail
+            showSideFilters
               ? scriptureListDetailStyles.listDetailRoot
               : scriptureListDetailStyles.readerRoot
           }
@@ -167,7 +171,7 @@ export default function DuroodFavoritesScreen() {
             ref={listRef}
             style={[
               styles.flatList,
-              isListDetail ? scriptureListDetailStyles.listDetailPrimary : null,
+              showSideFilters ? scriptureListDetailStyles.listDetailPrimary : null,
             ]}
             contentContainerStyle={[styles.flatListContent, { paddingBottom: contentBottomInset }]}
             data={items}
@@ -176,7 +180,7 @@ export default function DuroodFavoritesScreen() {
             extraData={visibility}
             ItemSeparatorComponent={ListSeparator}
             ListHeaderComponent={
-              !isListDetail ? (
+              !showSideFilters ? (
                 <View onLayout={onHeaderCardLayout} style={styles.listHeader}>
                   <ScriptureReadingFilters />
                 </View>
@@ -189,7 +193,7 @@ export default function DuroodFavoritesScreen() {
             onScroll={onListScroll}
             scrollEventThrottle={16}
           />
-          {isListDetail ? (
+          {showSideFilters ? (
             <View
               style={[
                 scriptureListDetailStyles.listDetailSecondary,
@@ -221,7 +225,7 @@ function ListSeparator() {
 }
 
 const styles = StyleSheet.create({
-  flatList: { flex: 1 },
+  flatList: { flex: 1, minHeight: 0 },
   flatListContent: {},
   listHeader: { marginBottom: Spacing.four },
   item: { gap: Spacing.two },

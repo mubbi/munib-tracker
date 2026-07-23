@@ -36,6 +36,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuroodItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { createDuroodSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
@@ -55,6 +56,8 @@ export default function DuroodsScreen() {
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail } = useLargeScreenLayout();
+  const tv = isTV();
+  const showSideFilters = isListDetail && !tv;
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
   const { toggle } = useDuroodFavoritesActions();
@@ -170,7 +173,7 @@ export default function DuroodsScreen() {
             />
           </View>
         </Card>
-        {!isListDetail ? <ScriptureReadingFilters /> : null}
+        {!showSideFilters ? <ScriptureReadingFilters /> : null}
       </View>
     ),
     [
@@ -178,7 +181,7 @@ export default function DuroodsScreen() {
       colors.muted,
       colors.mutedForeground,
       favoriteIds.length,
-      isListDetail,
+      showSideFilters,
       onHeaderCardLayout,
       query,
       router,
@@ -193,9 +196,9 @@ export default function DuroodsScreen() {
       subtitle={t("duroods.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
       scrollable={false}
-      maxContentWidth={isListDetail ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
+      maxContentWidth={showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
       headerAccessory={
-        isListDetail ? undefined : (
+        showSideFilters ? undefined : (
           <ScriptureReadingToolbar
             visible={toolbarVisible}
             progress={readingProgress}
@@ -226,7 +229,7 @@ export default function DuroodsScreen() {
       />
       <View
         style={
-          isListDetail
+          showSideFilters
             ? scriptureListDetailStyles.listDetailRoot
             : scriptureListDetailStyles.readerRoot
         }
@@ -235,7 +238,7 @@ export default function DuroodsScreen() {
           ref={listRef}
           style={[
             styles.flatList,
-            isListDetail ? scriptureListDetailStyles.listDetailPrimary : null,
+            showSideFilters ? scriptureListDetailStyles.listDetailPrimary : null,
           ]}
           contentContainerStyle={[styles.flatListContent, { paddingBottom: contentBottomInset }]}
           data={corpusReady ? items : []}
@@ -260,7 +263,7 @@ export default function DuroodsScreen() {
             ) : null
           }
         />
-        {isListDetail ? (
+        {showSideFilters ? (
           <View
             style={[
               scriptureListDetailStyles.listDetailSecondary,
@@ -291,7 +294,7 @@ function ListSeparator() {
 }
 
 const styles = StyleSheet.create({
-  flatList: { flex: 1 },
+  flatList: { flex: 1, minHeight: 0 },
   flatListContent: { gap: 0 },
   listHeader: { gap: Spacing.four, marginBottom: Spacing.four },
   item: { gap: Spacing.two },

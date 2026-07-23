@@ -5,7 +5,9 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 
 type EmptyStateProps = {
   icon: SymbolViewProps["name"];
@@ -22,18 +24,28 @@ type EmptyStateProps = {
  */
 export function EmptyState({ icon, title, description, actionLabel, onAction }: EmptyStateProps) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
 
   return (
-    <Animated.View entering={FadeIn.duration(320)} style={styles.root}>
-      <View style={[styles.iconWell, { backgroundColor: tokens.accentSoft }]}>
-        <SymbolView name={icon} size={28} tintColor={colors.accent} />
+    <Animated.View entering={FadeIn.duration(320)} style={[styles.root, tv && styles.rootTv]}>
+      <View
+        style={[styles.iconWell, tv && styles.iconWellTv, { backgroundColor: tokens.accentSoft }]}
+      >
+        <SymbolView name={icon} size={tv ? 36 : 28} tintColor={colors.accent} />
       </View>
-      <View style={styles.text}>
-        <ThemedText type="subtitle" style={styles.title}>
+      <View style={[styles.text, tv && styles.textTv]}>
+        <ThemedText
+          type="subtitle"
+          style={[styles.title, tv && { fontSize: TvLayout.titleFontSize }]}
+        >
           {title}
         </ThemedText>
         {description ? (
-          <ThemedText type="small" themeColor="mutedForeground" style={styles.description}>
+          <ThemedText
+            type="small"
+            themeColor="mutedForeground"
+            style={[styles.description, tv && { fontSize: TvLayout.bodyFontSize, maxWidth: 420 }]}
+          >
             {description}
           </ThemedText>
         ) : null}
@@ -52,6 +64,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.five,
     paddingHorizontal: Spacing.four,
   },
+  rootTv: {
+    gap: Spacing.four,
+    paddingVertical: TvLayout.contentPaddingY,
+    paddingHorizontal: TvLayout.contentPaddingX,
+  },
   iconWell: {
     width: 72,
     height: 72,
@@ -60,9 +77,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  iconWellTv: {
+    width: 96,
+    height: 96,
+  },
   text: {
     alignItems: "center",
     gap: Spacing.one,
+  },
+  textTv: {
+    gap: Spacing.two,
   },
   title: {
     textAlign: "center",
