@@ -19,6 +19,7 @@ import {
   shiftPrayerDay,
   wallClockInTimeZoneToDate,
 } from "@/lib/time";
+import { isWhiteDay, whiteDaysChecklistHref } from "@/lib/white-days";
 
 export type ReminderChannelId = "prayer" | "prayerAdhan" | "zikr" | "qaza";
 
@@ -98,6 +99,8 @@ const PRIORITY = {
   friday: 85,
   /** Hour of acceptance (Asr + mid-window) — slightly ahead of Kahf nudge. */
   acceptanceHour: 83,
+  /** White Days fasting — morning of Hijri 13–15. */
+  whiteDays: 86,
 } as const;
 
 /** Registered adhan sound file (see the `sounds` array in `app.json`). */
@@ -333,6 +336,51 @@ function pushFridayReminder(
 }
 
 /**
+ * White Days (Ayyām al-Bīḍ) fasting nudge — DATE triggers at 05:30 local on
+ * each upcoming Hijri 13th/14th/15th within the next ~16 days (covers the next
+ * month's White Days when the current set has already passed). Routes into the
+ * Tracker checklist. Opt-in via `notificationPrefs.whiteDays`.
+ */
+function pushWhiteDaysReminders(
+  reminders: BuiltReminder[],
+  location: StoredLocation,
+  now: Date,
+  enabled: boolean,
+): void {
+  if (!enabled) return;
+  const { hour, minute } = parseHhMm("05:30");
+  const anchor = prayerDayAnchor(now, location.timeZone);
+  const route = whiteDaysChecklistHref();
+
+  for (let offset = 0; offset <= 16; offset += 1) {
+    const day = shiftPrayerDay(anchor, offset);
+    if (!isWhiteDay(day, location.timeZone)) continue;
+
+    const fireAt = wallClockInTimeZoneToDate(
+      day.getFullYear(),
+      day.getMonth() + 1,
+      day.getDate(),
+      hour,
+      minute,
+      location.timeZone,
+    );
+    if (fireAt.getTime() <= now.getTime() - 60_000) continue;
+
+    const dayKey = `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
+    reminders.push({
+      id: `whiteDays:${dayKey}`,
+      fireAt,
+      title: i18n.t("notif.reminders.whiteDaysTitle"),
+      body: i18n.t("notif.reminders.whiteDaysBody"),
+      channelId: "zikr",
+      repeat: "date",
+      route,
+      priority: PRIORITY.whiteDays,
+    });
+  }
+}
+
+/**
  * Friday hour of acceptance — DATE triggers at Asr and mid Asr→Maghrib.
  * Requires a real location (same guard as Salah alerts). Shares the Friday
  * notification preference with the Kahf morning nudge.
@@ -516,6 +564,8 @@ export function buildReminders(
   pushFridayReminder(reminders, location, now, n.friday);
   // Hour of acceptance — Asr + mid-window on the next Friday (needs location).
   pushAcceptanceHourReminders(reminders, location, now, n.friday);
+  // White Days fasting — morning of each upcoming Hijri 13–15.
+  pushWhiteDaysReminders(reminders, location, now, n.whiteDays);
 
   // Drop reminders whose fire time has already passed (DATE only; daily uses next slot).
   const upcoming = reminders.filter(

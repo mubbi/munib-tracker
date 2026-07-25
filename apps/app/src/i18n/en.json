@@ -177,6 +177,7 @@
     "laylatAlQadr": "Laylat al-Qadr",
     "eid": "Eid Guide",
     "friday": "Friday & Jumu'ah",
+    "whiteDays": "White Days Fasting",
     "ruqyah": "Ruqyah",
     "newMuslim": "New Muslim Guide",
     "finance": "Islamic Finance",
@@ -403,6 +404,14 @@
       "progress": "{{completed}}/{{total}}",
       "allDone": "All Friday practices logged — may Allah accept them.",
       "openChecklist": "Open Jumu'ah checklist"
+    },
+    "whiteDaysCard": {
+      "badge": "White Days",
+      "reminderTitle": "White Days fasting",
+      "reminderBody": "It's one of Ayyām al-Bīḍ — fasting the 13th, 14th and 15th is a beloved sunnah worth the reward of a lifetime.",
+      "progress": "{{completed}}/{{total}} fasted",
+      "allDone": "All three White Days marked — may Allah accept your fasts.",
+      "openChecklist": "Open White Days checklist"
     },
     "acceptanceHourCard": {
       "badge": "Hour of dua",
@@ -662,6 +671,31 @@
         "dua": {
           "title": "Seek the hour of dua",
           "hint": "Especially in the last hour after Asr"
+        }
+      }
+    },
+    "whiteDays": {
+      "title": "White Days fasting",
+      "subtitle": "Ayyām al-Bīḍ — shown only on the 13th, 14th and 15th",
+      "progress": "{{completed}} of {{total}} fasted",
+      "details": "Details",
+      "openRelated": "Open related content",
+      "learnMore": "Learn about White Days",
+      "jumpTitle": "White Days checklist",
+      "jumpHint": "Mark this month's White Day fasts below",
+      "jumpA11y": "Go to White Days checklist on this page",
+      "items": {
+        "day13": {
+          "title": "Fast the 13th",
+          "hint": "First of the White Days"
+        },
+        "day14": {
+          "title": "Fast the 14th",
+          "hint": "Middle of the White Days"
+        },
+        "day15": {
+          "title": "Fast the 15th",
+          "hint": "Last of the White Days"
         }
       }
     },
@@ -1096,6 +1130,8 @@
       "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
       "fridayTitle": "Jumu'ah Mubarak",
       "fridayBody": "It's Friday — send salawat and read Surah Al-Kahf.",
+      "whiteDaysTitle": "White Days fasting",
+      "whiteDaysBody": "Today is one of Ayyām al-Bīḍ — fasting the 13th, 14th or 15th is a beloved sunnah.",
       "acceptanceHourTitle": "The hour of acceptance",
       "acceptanceHourBodyAsr": "Asr has begun — seek the accepted hour with dua, istighfar, and salawat until Maghrib.",
       "acceptanceHourBodyMid": "Still time before Maghrib — fill these minutes with sincere dua."
@@ -1148,6 +1184,10 @@
       "friday": {
         "title": "Friday reminder",
         "subtitle": "Jumu'ah, Surah Al-Kahf, and the hour of acceptance"
+      },
+      "whiteDays": {
+        "title": "White Days fasting",
+        "subtitle": "Morning nudge on the 13th, 14th and 15th of each Hijri month"
       }
     },
     "prayerAlertsObligatory": "Obligatory Salah alerts",
@@ -2193,6 +2233,7 @@
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ — the White Days",
       "whiteDaysBody": "The 13th, 14th, and 15th of each Islamic month fall around the full moon. Fasting these three bright days is a beloved sunnah of the Prophet ﷺ.",
+      "whiteDaysCta": "Learn about White Days fasting",
       "newMonthTitle": "A new month begins",
       "newMonthBody": "The thin crescent (hilāl) marks the start of {{month}}. Each Islamic month begins when the crescent is first sighted after Maghrib — not at the astronomical conjunction.",
       "monthTurnTitle": "Look for the crescent",
@@ -3796,6 +3837,7 @@
       "history": "History",
       "laylatAlQadr": "Laylat al-Qadr",
       "eid": "Eid",
+      "whiteDays": "White Days",
       "ruqyah": "Ruqyah",
       "newMuslim": "New Muslim",
       "names": "99 Names",
@@ -5085,6 +5127,22 @@
     },
     "notFound": "Topic not found",
     "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as whether Friday ghusl is wajib or sunnah mu'akkadah), both positions are noted; follow your imam or a qualified local scholar.",
+    "continueInApp": "Continue in Munib"
+  },
+  "whiteDays": {
+    "eyebrow": "Learn",
+    "title": "White Days fasting",
+    "subtitle": "Ayyām al-Bīḍ — the sunnah fast of the 13th, 14th and 15th",
+    "intro": "Fasting three days each month is a beloved sunnah, and the White Days — the 13th, 14th and 15th of each Hijri month — are the chosen three. Learn their virtue, how to observe them, and the evidence from the Qur'an and sahih hadith.",
+    "section": {
+      "what": "What are the White Days",
+      "virtue": "Virtue & reward",
+      "practice": "How to fast them",
+      "related": "Wider sunnah of fasting",
+      "track": "Track in Munib"
+    },
+    "notFound": "Topic not found",
+    "disclaimer": "Educational overview — not a fatwa. The exact dates depend on the Hijri month, which varies by moon sighting; follow your local masjid or a qualified scholar for religious dates and rulings.",
     "continueInApp": "Continue in Munib"
   },
   "ruqyah": {

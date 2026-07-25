@@ -184,7 +184,8 @@
     "friday": "Jimce & Jumu'ah",
     "fidyah": "Fidyo iyo kafaaro",
     "janazah": "Janazah hage",
-    "sadaqah": "Sadaqah gool"
+    "sadaqah": "Sadaqah gool",
+    "whiteDays": "Soonka Maalmaha Cad"
   },
   "quickActions": {
     "checklistSubtitle": "Diiwaangeli salaha maanta",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Dooro wadnaha si aad uga dhigto adhkar kuwa la jecel yahay",
     "exploreDuroodsHintTv": "Dooro xiddigta si aad u kaydiso durood",
     "exploreNamesHintTv": "Dooro xiddigta si aad u kaydiso magac",
-    "exploreHintTv": "{{shown}} ka mid ah {{total}} shortcut ayaa la muujiyay — dooro Maamul si aad ugu darto ama u habaysid."
+    "exploreHintTv": "{{shown}} ka mid ah {{total}} shortcut ayaa la muujiyay — dooro Maamul si aad ugu darto ama u habaysid.",
+    "whiteDaysCard": {
+      "badge": "Maalmaha Cad",
+      "reminderTitle": "Soonka Maalmaha Cad",
+      "reminderBody": "Waa mid ka mid ah Ayyām al-Bīḍ — soonka 13aad, 14aad iyo 15aad waa sunnah la jecel yahay oo leh ajarka cimriga.",
+      "progress": "{{completed}}/{{total}} la soomay",
+      "allDone": "Saddexda Maalmood ee Cad waa la calaamadeeyay — Alle ha aqbalo soonkaaga.",
+      "openChecklist": "Fur liiska Maalmaha Cad"
+    }
   },
   "tracker": {
     "eyebrow": "Trck & log",
@@ -677,7 +686,32 @@
     "cardTip": "Taabo magaca salaadda si aad u cusboonaysiiso · Adhkar zikr · Macluumaad faahfaahin",
     "tapToMark": "Taabo si aad u calaamadisid",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Salaado sunnah oo ikhtiyaari ah oo la xoojiyay"
+    "sunnahSubtitle": "Salaado sunnah oo ikhtiyaari ah oo la xoojiyay",
+    "whiteDays": {
+      "title": "Soonka Maalmaha Cad",
+      "subtitle": "Ayyām al-Bīḍ — waxa la muujiyaa 13aad, 14aad iyo 15aad oo keliya",
+      "progress": "{{completed}} ka mid ah {{total}} la soomay",
+      "details": "Faahfaahin",
+      "openRelated": "Fur waxyaabaha la xiriira",
+      "learnMore": "Baro Maalmaha Cad",
+      "jumpTitle": "Liiska Maalmaha Cad",
+      "jumpHint": "Hoos ku calaamadee soonka Maalmaha Cad ee bishan",
+      "jumpA11y": "Tag liiska Maalmaha Cad ee boggan",
+      "items": {
+        "day13": {
+          "title": "Soon 13ka",
+          "hint": "Maalinta koowaad ee Maalmaha Cad"
+        },
+        "day14": {
+          "title": "Soon 14ka",
+          "hint": "Bartamaha Maalmaha Cad"
+        },
+        "day15": {
+          "title": "Soon 15ka",
+          "hint": "Maalinta u dambaysa ee Maalmaha Cad"
+        }
+      }
+    }
   },
   "update": {
     "title": "Cusbooneysi waa diyaar",
@@ -1058,7 +1092,9 @@
       "fridayBody": "Waa Jimce — dir salawaat oo akhri suuradda Al-Kahf.",
       "acceptanceHourTitle": "Saacadda aqbalaadda",
       "acceptanceHourBodyAsr": "Asr waa bilaabatay — raadi saacadda la aqbali karo iyadoo leh dua, istighfar iyo salawat ilaa Maghrib.",
-      "acceptanceHourBodyMid": "Weli waxaa jira waqti ka hor Maghrib — buuxi daqiiqadahan dua daacad ah."
+      "acceptanceHourBodyMid": "Weli waxaa jira waqti ka hor Maghrib — buuxi daqiiqadahan dua daacad ah.",
+      "whiteDaysTitle": "Soonka Maalmaha Cad",
+      "whiteDaysBody": "Xusuusin subaxeed 13aad, 14aad iyo 15aad bil kasta oo Hijri ah"
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Xusuusin Jimce",
         "subtitle": "Jumu'ah, Surah Al-Kahf iyo saacadda aqbalaadda"
+      },
+      "whiteDays": {
+        "title": "Soonka Maalmaha Cad",
+        "subtitle": "Xusuusin subaxeed 13aad, 14aad iyo 15aad bil kasta oo Hijri ah"
       }
     },
     "prayerAlertsObligatory": "Ogeysiisyada Salah ee waajibka ah",
@@ -2174,7 +2214,8 @@
       "generalTitle": " jdwl ee  moku",
       "generalBody": "Jadwalka Islaamka (Hijri) wuxuu raacaa dayaxa: bil kasta waa 29 ama 30 maalmood, oo ku bilaabata dayax la arkay (hilāl). Taariikhaha halkan waxaa laga xisaabiyaa aragtida dayaxa goobtaada waxayna kala duwanaan karaan ogeysiiska maamulka deegaankaaga maalin.",
       "monthTurnTitle": "Raadi dayaxa",
-      "monthTurnBody": "Maghrib ka dib, raadi hilāl-ka {{month}}. Bilaha Islaamka waxay ku bilaabmaan dayaxa la arkay; ogeysiiska maamulka deegaankaaga waxa uu kala duwanaan karaa xisaabtan maalin."
+      "monthTurnBody": "Maghrib ka dib, raadi hilāl-ka {{month}}. Bilaha Islaamka waxay ku bilaabmaan dayaxa la arkay; ogeysiiska maamulka deegaankaaga waxa uu kala duwanaan karaa xisaabtan maalin.",
+      "whiteDaysCta": "Baro soonka Maalmaha Cad"
     },
     "monthProgress": "Horumarka bisha",
     "monthProgressValue": "Maalin {{day}} ee {{length}} · {{month}}",
@@ -3763,7 +3804,7 @@
     "today": "mnt",
     "inDays": "gudh {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Taariikhuhu waxay raacaan aragtida dayaxa goobtaada (ama jadwalka rasmiga ah ee Umm al-Qura gobollada isticmaala) waxayna kala duwanaan karaan ogeysiis maamul maxalli ah maalin.",
+    "disclaimer": "Taariikhaha waxaa la xisaabiyaa qiyaasaha - maalinta dhabta ah waxay kuxirantahay aragtida dayaxa deegaanka.",
     "names": {
       "newYear": "Sanadka Cusub ee Islaamka",
       "ashura": "Maalinta Caashuuraa",
@@ -4242,7 +4283,7 @@
       "label": "Lifaaqyada (ikhtiyaar)",
       "add": "Ku dar faylka",
       "remove": "Ka saar lifaaqa",
-      "hint": "Ilaa 5 fayl (JPEG, PNG, WebP, ama PDF), 1 MB midkiiba. Taabo × thumbnail-ka si aad u tirtiro.",
+      "hint": "Ilaa 5 fayl (JPEG, PNG, WebP, ama PDF), 1 MB midkiiba. Riix thumbnail si aad meesha uga saarto.",
       "signInRequired": "Soo gal si aad ugu lifaaqdo faylasha gaarka ah adhkar kaaga.",
       "permissionDenied": "Ogolaanshaha ayaa loo baahan yahay in lagu lifaaqo faylasha",
       "permissionTitle": "Oggolow gelitaanka",
@@ -4759,7 +4800,7 @@
     "sourceLabel": "kg source (ikhtiyri)",
     "sourcePlaceholder": "Buug, aqoonyahan, URL, ama xigasho taageeraya sixitaankaaga.",
     "proofLabel": "Shaashada caddaynta (ikhtiyaar)",
-    "proofHint": "Ilaa 3 sawir. Taabo × thumbnail-ka si aad u tirtiro.",
+    "proofHint": "Ilaa 3 sawir Riix thumbnail si aad meesha uga saarto.",
     "addProof": "Ku dar sawir",
     "removeProof": "k sr screenshot",
     "submit": "Soo gudbi warbixinta",
@@ -5036,7 +5077,7 @@
     "eyebrow": "Kalandarka",
     "title": "Taariikhda beddelka",
     "subtitle": "U beddelo inta u dhaxaysa taariikhda Hijriyada iyo Miilaadiyada",
-    "intro": "Geli taariikh mid ka mid ah labada jadwal si aad u aragto u dhigma midka kale, oo offline laga xisaabiyay aragtida dayaxa goobtaada.",
+    "intro": "Geli taariikh ku jirta kalandarka midkood si aad u aragto wax u dhigma kan kale, lagu xisaabiyay offline addoo isticmaalaya algorithm Kuwaiti tabular.",
     "toHijri": "Gregorian → Hijriyada",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Taariikhda Gregorian",
@@ -5046,7 +5087,7 @@
     "year": "Sannadka",
     "useToday": "Isticmaal maanta",
     "invalidDate": "Geli taariikh ansax ah",
-    "disclaimer": "Taariikhaha waxaa laga xisaabiyaa aragtida dayaxa (hilāl) goobtaada waxayna kala duwanaan karaan ogeysiisyada dayax-arkaynta rasmiga ah maalin — mar walba raac masjidka ama maamulka deegaankaaga taariikhaha diimeed.",
+    "disclaimer": "Kani waa qiyaas xisaabeed ( tabular \"Kuwaiti algorithm\") waxayna ka duwanaan kartaa maalin maalmaha ka mid ah ogeysiisyada dayax-arkaynta deegaanka - mar walba raac masjidka ama maamulka deegaankaaga taariikhaha diimeed.",
     "directionTitle": "Jihada beddelka",
     "resultFrom": "Laga bilaabo {{date}}",
     "quickLinksTitle": "la xidhiidha",
@@ -5106,7 +5147,8 @@
       "quran": "Qur'aan",
       "duas": "Ducooyin",
       "janazah": "Janaaso",
-      "fidyah": "Fidyo"
+      "fidyah": "Fidyo",
+      "whiteDays": "Maalmaha Cad"
     },
     "skipHint": "Ka bood kaarkan oo arag su'aal kale.",
     "skipDisabledHint": "Ka jawaab kaarkan ugu dambeeya si aad u bilowdo isku-roogid cusub.",
@@ -5252,5 +5294,21 @@
     "qrClaimSuccess": "TV-gaaga waa la galay. Waxaad ku noqon kartaa qolka fadhiga.",
     "qrClaimError": "Waa la xiri waayay TV-ga. Samee koodh cusub TV-ga oo isku day mar kale.",
     "qrPhoneOnly": "Fur xiriirkan taleefankaaga si aad u dhammaystirto gelitaanka TV."
+  },
+  "whiteDays": {
+    "eyebrow": "Baro",
+    "title": "Soonka Maalmaha Cad",
+    "subtitle": "Ayyām al-Bīḍ — sunnada soonka 13aad, 14aad iyo 15aad",
+    "intro": "Soonka saddex maalmood bil kasta waa sunnah la jecel yahay; Maalmaha Cadna waa saddexda la doortay. Baro fadligooda, sida loo soomo, iyo daliillada Qur’aanka iyo xadiisyada saxiixa ah.",
+    "section": {
+      "what": "Waa maxay Maalmaha Cad",
+      "virtue": "Fadliga iyo ajarka",
+      "practice": "Sida loo soomo",
+      "related": "Sunnada soonka ee ballaaran",
+      "track": "Kala soco Munib"
+    },
+    "notFound": "Mawduuca lama helin",
+    "disclaimer": "Dulmar waxbarasho — ma aha fatwo. Taariikhaha saxda ahi waxay ku xiran yihiin bisha Hijriga iyo aragga dayaxa; raac masjidkaaga ama caalim aqoon leh.",
+    "continueInApp": "Ka sii wad Munib"
   }
 }

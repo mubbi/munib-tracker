@@ -124,6 +124,8 @@ describe("key coverage", () => {
       DB_KEYS.khushuJournal,
       DB_KEYS.hajjChecklist,
       DB_KEYS.umrahChecklist,
+      DB_KEYS.fridayChecklist,
+      DB_KEYS.whiteDaysChecklist,
       DB_KEYS.jannahIntentions,
       DB_KEYS.jahannamIntentions,
       DB_KEYS.learnDuaProgress,

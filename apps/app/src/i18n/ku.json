@@ -184,7 +184,8 @@
     "friday": "În û Jumu'ah",
     "fidyah": "فیدیە و کەفارەت",
     "janazah": "Janazah rêber",
-    "sadaqah": "Sadaqah armanc"
+    "sadaqah": "Sadaqah armanc",
+    "whiteDays": "Rojiya Rojên Spî"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "دڵ هەڵبژێرە بۆ دڵخوازکردنی ئەزکار",
     "exploreDuroodsHintTv": "ئەستێرە هەڵبژێرە بۆ پاشەکەوتکردنی درود",
     "exploreNamesHintTv": "ئەستێرە هەڵبژێرە بۆ پاشەکەوتکردنی ناو",
-    "exploreHintTv": "{{shown}} لە {{total}} کورتەڕێ پیشان دراوە — بۆ زیادکردن یان ڕێکخستنەوە بەڕێوەبردن هەڵبژێرە."
+    "exploreHintTv": "{{shown}} لە {{total}} کورتەڕێ پیشان دراوە — بۆ زیادکردن یان ڕێکخستنەوە بەڕێوەبردن هەڵبژێرە.",
+    "whiteDaysCard": {
+      "badge": "Rojên Spî",
+      "reminderTitle": "Rojiyên Spî rojiyê digirin",
+      "reminderBody": "Ew yek ji Eyyam el-Bîḍ ye - rojiya 13, 14 û 15-an sunnetek hezkirî ye ku hêjayî xelata jiyanê ye.",
+      "progress": "{{completed}}/{{total}} rojî girtin",
+      "allDone": "Her sê Rojên Spî diyar bûn - Xwedê rojiyên we qebûl bike.",
+      "openChecklist": "Lîsteya kontrolê ya Rojên Spî vekin"
+    }
   },
   "tracker": {
     "eyebrow": "Şopîne û tomar bike",
@@ -677,7 +686,32 @@
     "cardTip": "Ji bo nûkirinê li navê namazê bitikîne · Adhkar ji bo zikr · Info ji bo hûrguliyan",
     "tapToMark": "Ji bo nîşankirinê bitikîne",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Namazên sunnet ên bijare û pêwîst"
+    "sunnahSubtitle": "Namazên sunnet ên bijare û pêwîst",
+    "whiteDays": {
+      "title": "Rojiyên Spî rojiyê digirin",
+      "subtitle": "Ayyam al-Bîḍ - tenê di rojên 13, 14 û 15 de tê nîşandan",
+      "progress": "{{completed}} ji {{total}} rojî girtin",
+      "details": "Berfirehî",
+      "openRelated": "Naveroka têkildar vekin",
+      "learnMore": "Di derbarê Rojên Spî de fêr bibin",
+      "jumpTitle": "Lîsteya kontrolê ya Rojên Spî",
+      "jumpHint": "Rojiyên Roja Spî ya vê mehê li jêr nîşan bikin",
+      "jumpA11y": "Li ser vê rûpelê biçin navnîşa kontrolê ya Rojên Spî",
+      "items": {
+        "day13": {
+          "title": "Rojiya 13",
+          "hint": "Pêşî Rojên Spî"
+        },
+        "day14": {
+          "title": "Rojiya 14",
+          "hint": "Navbera Rojên Spî"
+        },
+        "day15": {
+          "title": "15ê rojî",
+          "hint": "Dawiya Rojên Spî"
+        }
+      }
+    }
   },
   "update": {
     "title": "Nûkirin heye",
@@ -1058,7 +1092,9 @@
       "fridayBody": "Roja înê ye - selewatan bişînin û sûreya Kehf bixwînin.",
       "acceptanceHourTitle": "Saeta qebûlê",
       "acceptanceHourBodyAsr": "Asr dest pê kir — heta Maghrib bi dua, istighfar û salawat saeta qebûlê bigere.",
-      "acceptanceHourBodyMid": "Hê dem heye berî Maghrib — van deqîqan bi dua dilsoz dagire."
+      "acceptanceHourBodyMid": "Hê dem heye berî Maghrib — van deqîqan bi dua dilsoz dagire.",
+      "whiteDaysTitle": "Rojiyên Spî rojiyê digirin",
+      "whiteDaysBody": "Îro yek ji Eyyam el-Bîḍ ye - rojiya 13, 14 an jî 15-an sunnetek hezkirî ye."
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "bîranîna înê",
         "subtitle": "Jumu'ah, Surah Al-Kahf û saeta qebûlê"
+      },
+      "whiteDays": {
+        "title": "Rojiyên Spî rojiyê digirin",
+        "subtitle": "Di rojên 13, 14 û 15ê her meha Hicrî de sibe danê sibê"
       }
     },
     "prayerAlertsObligatory": "Alerts Salah mecbûrî",
@@ -2174,7 +2214,8 @@
       "generalTitle": "Salnameya heyvê",
       "generalBody": "Salnameya Îslamî (Hicrî) li gor heyvê ye: her meh 29 an 30 roj e, bi hilala dîtî (hilāl) dest pê dike. Dîrokên vir ji dîtina hilalê li cîhê we têne hesab kirin û dibe ku ji ragihandina desthilatdariya herêmî bi yek roj cuda bin.",
       "monthTurnTitle": "Li hilalê bigerin",
-      "monthTurnBody": "Piştî Magribê li hilāla {{month}} bigerin. Mehên Îslamî bi hilala dîtî dest pê dikin; ragihandina desthilatdariya herêmî dibe ku ji vê hesabê bi yek roj cuda be."
+      "monthTurnBody": "Piştî Magribê li hilāla {{month}} bigerin. Mehên Îslamî bi hilala dîtî dest pê dikin; ragihandina desthilatdariya herêmî dibe ku ji vê hesabê bi yek roj cuda be.",
+      "whiteDaysCta": "Li ser rojiya Rojên Spî fêr bibin"
     },
     "monthProgress": "Pêşveçûna mehê",
     "monthProgressValue": "Roja {{day}} ji {{length}} · {{month}}",
@@ -4334,7 +4375,7 @@
       "label": "هاوپێچەکان (ئیختیاری)",
       "add": "زیادکردنی فایل",
       "remove": "هاوپێچەکە لاببە",
-      "hint": "Heta 5 pel (JPEG, PNG, WebP an PDF), her yek 1 MB. Ji bo jêbirinê li ser thumbnailê × bitikîne.",
+      "hint": "تا ٥ فایل (JPEG، PNG، WebP، یان PDF)، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
       "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی فایلە تایبەتەکان بە adhkar ـەکەتەوە.",
       "permissionDenied": "بۆ هاوپێچکردنی فایلەکان مۆڵەت پێویستە.",
       "permissionTitle": "ڕێگە بدە بە دەستگەیشتن",
@@ -5128,7 +5169,7 @@
     "eyebrow": "ساڵنامە",
     "title": "گۆڕینی بەروار",
     "subtitle": "گۆڕینی نێوان ساڵنامەی هیجری و زاینی",
-    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە لە ئۆفلاین لەسەر بنەمای بینینی مانگ لە شوێنەکەت حیسابی بۆ کراوە.",
+    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە بە بەکارهێنانی ئەلگۆریتمەکەی کوەیتی خشتەیی لە ئۆفلاین حیسابی بۆ کراوە.",
     "toHijri": "گریگۆری → هیجری",
     "toGregorian": "هیجری → گریگۆری",
     "gregorianDateLabel": "بەرواری گریگۆری",
@@ -5138,7 +5179,7 @@
     "year": "ساڵ",
     "useToday": "ئەمڕۆ بەکاری بهێنە",
     "invalidDate": "بەروارێکی دروست بنووسە",
-    "disclaimer": "بەروارەکان لەسەر بنەمای بینینی مانگ (hilāl) لە شوێنەکەت حیساب دەکرێن و دەتوانن ڕۆژێک جیاواز بن لە ڕاگەیاندنە فەرمییەکانی بینینی مانگ — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
+    "disclaimer": "ئەمە نزیکبوونەوەیەکی ژمێریارییە (\"ئەلگۆریتمەکەی کوێت\"ی خشتەیی) و دەتوانێت ڕۆژێک جیاواز بێت لە ڕاگەیاندنەکانی بینینی مانگ لە ناوخۆدا — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
     "directionTitle": "ئاراستەی گۆڕانکاری",
     "resultFrom": "لە {{date}} ەوە",
     "quickLinksTitle": "پەیوەست",
@@ -5198,7 +5239,8 @@
       "quran": "قورئان",
       "duas": "Dua",
       "janazah": "جەنەزە",
-      "fidyah": "فیدیە"
+      "fidyah": "فیدیە",
+      "whiteDays": "Rojên Spî"
     },
     "skipHint": "Vê kartê derbas bikin û pirsek din bibînin.",
     "skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin.",
@@ -5344,5 +5386,21 @@
     "qrClaimSuccess": "TVـەکەت چووەتە ژوورەوە. دەتوانیت بگەڕێیتەوە بۆ ژووری دانیشتن.",
     "qrClaimError": "نەتوانرا TV ببەسترێتەوە. کۆدی نوێ لە TV دروست بکە و دووبارە هەوڵبدەرەوە.",
     "qrPhoneOnly": "ئەم بەستەرە لە مۆبایلەکەت بکەرەوە بۆ تەواوکردنی چوونەژوورەوەی TV."
+  },
+  "whiteDays": {
+    "eyebrow": "Fêrbûn",
+    "title": "Rojiyên Spî rojiyê digirin",
+    "subtitle": "Ayyam el-Bîḍ - rojiya sunnetê ya 13, 14 û 15.",
+    "intro": "Her meh rojîgirtina sê rojan sunnetek hezkirî ye û rojên spî - 13, 14 û 15ê her meha Hicrî - sê rojên bijartî ne. ",
+    "section": {
+      "what": "Rojên Spî çi ne",
+      "virtue": "Fezîlet & xelat",
+      "practice": "Çawa rojiya wan bigirin",
+      "related": "Berfirehtir sunneta rojiyê",
+      "track": "Track li Munib"
+    },
+    "notFound": "Mijar nehat dîtin",
+    "disclaimer": "Nêrîna perwerdehiyê - ne fetwa. ",
+    "continueInApp": "Li Munibê berdewam dikin"
   }
 }

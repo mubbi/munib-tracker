@@ -8,8 +8,8 @@ Reference for **23 app locales** (`en` + 22 translations): architecture, workflo
 
 | Phase | Locales | UI catalog | Learn overlays | Scripture | Status |
 |-------|---------|------------|----------------|-----------|--------|
-| 1 | `en`, `ar`, `ur` | Human-reviewed | Complete (23 modules) | Full | **Shipped** |
-| 2 | `id`, `tr`, `bn`, `ms`, `fa` | Key parity + polish | 23 modules each | `bn`/`id`/`ms` partial+ | **Shipped** |
+| 1 | `en`, `ar`, `ur` | Human-reviewed | Complete (24 modules) | Full | **Shipped** |
+| 2 | `id`, `tr`, `bn`, `ms`, `fa` | Key parity + polish | 24 modules each | `bn`/`id`/`ms` partial+ | **Shipped** |
 | 3 | `fr`, `ha`, `sw`, `ru`, `az`, `ps` | Key parity + polish | Native overlays | `fr`/`ru` hadith remote | **Shipped** |
 | 4 | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Key parity + polish | Native overlays | English fallback | **Shipped** |
 
@@ -33,7 +33,7 @@ Reference for **23 app locales** (`en` + 22 translations): architecture, workflo
 | **Web SEO / hreflang** | `apps/app/src/lib/locale-path.ts`, `src/config/seo.ts`, `scripts/inject-seo-head.mjs` | Locale-prefixed URLs (`/ar/…`, `/ur/…`; `en` unprefixed) |
 | **Build pipeline** | `apps/app/scripts/build-data/` | `pnpm --filter app build:data` |
 
-**Learn overlay modules (23):** `aqeedah`, `battles`, `eid-guide`, `fidyah-guide`, `friday-guide`, `hajj`, `islamic-finance`, `islamic-history`, `jahannam`, `janazah-guide`, `jannah`, `last-day`, `laylat-al-qadr`, `learn-dua`, `new-muslim`, `prophets`, `prophets-genealogy`, `quran-guide`, `ruqyah`, `sahaba`, `salah-guide`, `seerah`, `taharah`.
+**Learn overlay modules (24):** `aqeedah`, `battles`, `eid-guide`, `fidyah-guide`, `friday-guide`, `hajj`, `islamic-finance`, `islamic-history`, `jahannam`, `janazah-guide`, `jannah`, `last-day`, `laylat-al-qadr`, `learn-dua`, `new-muslim`, `prophets`, `prophets-genealogy`, `quran-guide`, `ruqyah`, `sahaba`, `salah-guide`, `seerah`, `taharah`, `white-days-guide`.
 
 **Two language prefs** (Settings → Language):
 
@@ -158,7 +158,7 @@ node apps/app/scripts/i18n/apply-seo-translations.mjs all
 2. Create `apps/app/src/i18n/{code}.json` via `merge-missing-keys.mjs`.
 3. Add flag SVG under `apps/app/assets/flags/` (`generate-flags.mjs`).
 4. Add SEO overlay + run apply-seo-translations.
-5. Add learn overlays for all **23** modules (see `packages/shared/src/content/i18n/`).
+5. Add learn overlays for all **24** modules (see `packages/shared/src/content/i18n/`).
 6. Wire Qur'an edition in registry if fawazahmed0 has one.
 7. If hadith translation exists, add to `hadith-editions.ts`.
 8. Run full i18n + shared tests; device QA for script/font/RTL.

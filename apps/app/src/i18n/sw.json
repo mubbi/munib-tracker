@@ -184,7 +184,8 @@
     "friday": "Ijumaa na Jumu'ah",
     "fidyah": "Fidia na kafara",
     "janazah": "Janazah mwongozo",
-    "sadaqah": "Sadaqah mabao"
+    "sadaqah": "Sadaqah mabao",
+    "whiteDays": "Funga Siku Nyeupe"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Chagua moyo kuweka adhkar kipendwa",
     "exploreDuroodsHintTv": "Chagua nyota kuhifadhi durood",
     "exploreNamesHintTv": "Chagua nyota kuhifadhi jina",
-    "exploreHintTv": "{{shown}} kati ya {{total}} njia za mkato zinaonyeshwa — chagua Simamia kuongeza au kupanga upya."
+    "exploreHintTv": "{{shown}} kati ya {{total}} njia za mkato zinaonyeshwa — chagua Simamia kuongeza au kupanga upya.",
+    "whiteDaysCard": {
+      "badge": "Siku Nyeupe",
+      "reminderTitle": "Funga Siku Nyeupe",
+      "reminderBody": "Leo ni miongoni mwa Ayyām al-Bīḍ. Kufunga tarehe 13, 14 na 15 ni Sunnah yenye thawabu ya kufunga maisha yote.",
+      "progress": "{{completed}} kati ya {{total}} zimefungwa",
+      "allDone": "MashaAllah — zote zimekamilika",
+      "openChecklist": "Fungua orodha ya Siku Nyeupe"
+    }
   },
   "tracker": {
     "eyebrow": "Kifuatiliaji et na kmwezidet",
@@ -677,7 +686,32 @@
     "cardTip": "Gusa jina la swala kusasisha · Adhkar kwa zikr · Maelezo kwa undani",
     "tapToMark": "Gusa kuweka alama",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Swala za sunnah za hiari na zilizosisitizwa"
+    "sunnahSubtitle": "Swala za sunnah za hiari na zilizosisitizwa",
+    "whiteDays": {
+      "title": "Funga Siku Nyeupe",
+      "subtitle": "Ayyām al-Bīḍ — huonyeshwa tarehe 13, 14 na 15 pekee",
+      "progress": "{{completed}} kati ya {{total}} zimefungwa",
+      "details": "Maelezo",
+      "openRelated": "Fungua maudhui yanayohusiana",
+      "learnMore": "Jifunze kuhusu Siku Nyeupe",
+      "jumpTitle": "Orodha ya Siku Nyeupe",
+      "jumpHint": "Weka alama funga za Siku Nyeupe za mwezi huu hapa chini",
+      "jumpA11y": "Nenda kwenye orodha ya Siku Nyeupe kwenye ukurasa huu",
+      "items": {
+        "day13": {
+          "title": "Funga tarehe 13",
+          "hint": "Ya kwanza katika Siku Nyeupe"
+        },
+        "day14": {
+          "title": "Funga tarehe 14",
+          "hint": "Katikati ya Siku Nyeupe"
+        },
+        "day15": {
+          "title": "Funga tarehe 15",
+          "hint": "Ya mwisho katika Siku Nyeupe"
+        }
+      }
+    }
   },
   "update": {
     "title": "Sasisho linapatikana",
@@ -1058,7 +1092,9 @@
       "fridayBody": "Ni Ijumaa — tuma salawat na usome Surah Al-Kahf.",
       "acceptanceHourTitle": "Saa ya kukubaliwa",
       "acceptanceHourBodyAsr": "Asr imeanza — tafuta saa iliyokubaliwa kwa dua, istighfar na salawat hadi Maghrib.",
-      "acceptanceHourBodyMid": "Bado kuna muda kabla ya Maghrib — jaza dakika hizi kwa dua ya dhati."
+      "acceptanceHourBodyMid": "Bado kuna muda kabla ya Maghrib — jaza dakika hizi kwa dua ya dhati.",
+      "whiteDaysTitle": "Funga Siku Nyeupe",
+      "whiteDaysBody": "Leo ni miongoni mwa Ayyām al-Bīḍ. Kusudia kufunga kwa ajili ya Allah."
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Mawaidha ya Ijumaa",
         "subtitle": "Jumu'ah, Surah Al-Kahf na saa ya kukubaliwa"
+      },
+      "whiteDays": {
+        "title": "Funga Siku Nyeupe",
+        "subtitle": "Kikumbusho cha asubuhi tarehe 13, 14 na 15 za kila mwezi wa Hijri"
       }
     },
     "prayerAlertsObligatory": "Tahadhari za Swalah za Wajibu",
@@ -2174,7 +2214,8 @@
       "generalTitle": "Kalenda ya mwezi",
       "generalBody": "Kalenda ya Kiislamu (Hijria) inafuata mwezi: kila mwezi una siku 29 au 30, ukianza na mwezi mwandamo unaoonekana (hilāl). Tarehe hapa zimehesabiwa kutoka kuonekana kwa hilal mahali pako na zinaweza kutofautiana na tangazo la mamlaka ya eneo kwa siku moja.",
       "monthTurnTitle": "Tafuta mwezi mpevu",
-      "monthTurnBody": "Baada ya Maghrib, tafuta hilāl ya {{month}}. Miezi ya Kiislamu huanza kwa mwezi mwandamo unaoonekana; tangazo la mamlaka yako ya eneo linaweza kutofautiana na hesabu hii kwa siku moja."
+      "monthTurnBody": "Baada ya Maghrib, tafuta hilāl ya {{month}}. Miezi ya Kiislamu huanza kwa mwezi mwandamo unaoonekana; tangazo la mamlaka yako ya eneo linaweza kutofautiana na hesabu hii kwa siku moja.",
+      "whiteDaysCta": "Tazama Siku Nyeupe"
     },
     "monthProgress": "Maendeleo ya mwezi",
     "monthProgressValue": "Siku {{day}} kati ya {{length}} · {{month}}",
@@ -4334,7 +4375,7 @@
       "label": "Viambatisho (si lazima)",
       "add": "Ongeza faili",
       "remove": "Ondoa kiambatisho",
-      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), 1 MB kila moja. Gusa × kwenye kijipicha kuondoa.",
+      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
       "signInRequired": "Ingia ili kuambatisha faili za faragha kwenye adhkar yako.",
       "permissionDenied": "Ruhusa inahitajika ili kuambatisha faili.",
       "permissionTitle": "Ruhusu ufikiaji",
@@ -5128,7 +5169,7 @@
     "eyebrow": "Kalenda",
     "title": "Kigeuzi cha tarehe",
     "subtitle": "Badilisha kati ya kalenda ya Hijri na Gregorian",
-    "intro": "Weka tarehe katika kalenda yoyote ili kuona sawa yake katika nyingine, inayohesabiwa nje ya mtandao kutoka kuonekana kwa hilal mahali pako.",
+    "intro": "Weka tarehe katika mojawapo ya kalenda ili kuona sawa katika nyingine, iliyokokotwa nje ya mtandao kwa kutumia algoriti ya Kuwaiti ya jedwali.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Tarehe ya Gregorian",
@@ -5138,7 +5179,7 @@
     "year": "Mwaka",
     "useToday": "Tumia leo",
     "invalidDate": "Weka tarehe halali",
-    "disclaimer": "Tarehe zimehesabiwa kutoka kuonekana kwa hilal (hilāl) mahali pako na zinaweza kutofautiana kwa siku moja na matangazo rasmi ya kuona mwezi — daima fuata Masjid au mamlaka yako ya eneo kwa tarehe za kidini.",
+    "disclaimer": "Huu ni ukadiriaji wa hesabu (jedwali la \"algorithm ya Kuwaiti\") na inaweza kutofautiana kwa siku kutoka kwa matangazo ya karibu ya kuona mwezi - fuata msikiti wa eneo lako au mamlaka ya tarehe za kidini kila wakati.",
     "directionTitle": "Mwelekeo wa uongofu",
     "resultFrom": "Kutoka {{date}}",
     "quickLinksTitle": "Kuhusiana",
@@ -5198,7 +5239,8 @@
       "quran": "Qur'ani",
       "duas": "Dua",
       "janazah": "Janaza",
-      "fidyah": "Fidia"
+      "fidyah": "Fidia",
+      "whiteDays": "Siku Nyeupe"
     },
     "skipHint": "Ruka kadi hii na uone swali lingine.",
     "skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya.",
@@ -5344,5 +5386,21 @@
     "qrClaimSuccess": "TV yako imewekwa. Unaweza kurudi sebuleni.",
     "qrClaimError": "Imeshindwa kuunganisha TV. Tengeneza msimbo mpya kwenye TV na jaribu tena.",
     "qrPhoneOnly": "Fungua kiungo hiki kwenye simu yako kukamilisha kuingia TV."
+  },
+  "whiteDays": {
+    "eyebrow": "Jifunze",
+    "title": "Funga Siku Nyeupe",
+    "subtitle": "Ayyām al-Bīḍ — Sunnah ya kufunga tarehe 13, 14 na 15",
+    "intro": "Kufunga siku tatu kila mwezi ni Sunnah inayopendwa. Siku Nyeupe ni tarehe 13, 14 na 15 za kila mwezi wa Hijri. Jifunze fadhila zake, namna ya kuzitekeleza, na dalili kutoka Qur'an na hadith sahih.",
+    "section": {
+      "what": "Siku Nyeupe ni zipi?",
+      "virtue": "Fadhila na thawabu",
+      "practice": "Jinsi ya kuzifunga",
+      "related": "Sunnah pana ya kufunga",
+      "track": "Fuatilia katika Munib"
+    },
+    "notFound": "Mada haikupatikana",
+    "disclaimer": "Muhtasari wa kielimu — si fatwa. Tarehe kamili hutegemea kuonekana kwa mwezi; fuata msikiti au mwanazuoni mwenye sifa wa eneo lako.",
+    "continueInApp": "Endelea katika Munib"
   }
 }

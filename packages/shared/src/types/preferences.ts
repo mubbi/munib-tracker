@@ -33,6 +33,8 @@ export interface NotificationPreferences {
   dailyContent: boolean;
   /** Friday reminder for Jumu'ah, Surah Al-Kahf, and the hour of acceptance — NF-1.25. */
   friday: boolean;
+  /** White Days (Ayyām al-Bīḍ) fasting nudge on Hijri 13–15 — NF-2.37. */
+  whiteDays: boolean;
   /**
    * Gentle OS push reminders to share app feedback via the in-app review funnel
    * (default true). Never a direct store rating request.

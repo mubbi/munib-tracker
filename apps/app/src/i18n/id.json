@@ -184,7 +184,8 @@
     "friday": "Jumat & Jumu'ah",
     "fidyah": "Fidyah dan kafarat",
     "janazah": "Janazah panduan",
-    "sadaqah": "Sadaqah gol"
+    "sadaqah": "Sadaqah gol",
+    "whiteDays": "Puasa Ayyām al-Bīḍ"
   },
   "quickActions": {
     "checklistSubtitle": "Catat doa hari ini",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Pilih hati untuk memfavoritkan adhkar",
     "exploreDuroodsHintTv": "Pilih bintang untuk menyimpan durood",
     "exploreNamesHintTv": "Pilih bintang untuk menyimpan nama",
-    "exploreHintTv": "{{shown}} dari {{total}} pintasan ditampilkan — pilih Kelola untuk menambah atau menyusun ulang."
+    "exploreHintTv": "{{shown}} dari {{total}} pintasan ditampilkan — pilih Kelola untuk menambah atau menyusun ulang.",
+    "whiteDaysCard": {
+      "badge": "Ayyām al-Bīḍ",
+      "reminderTitle": "Puasa Ayyām al-Bīḍ",
+      "reminderBody": "Hari ini termasuk Ayyām al-Bīḍ — puasa tanggal 13, 14, dan 15 adalah sunnah yang dicintai dengan pahala seperti puasa sepanjang masa.",
+      "progress": "{{completed}} dari {{total}} hari selesai",
+      "allDone": "Semua puasa Ayyām al-Bīḍ tercatat — semoga Allah menerimanya.",
+      "openChecklist": "Buka daftar Ayyām al-Bīḍ"
+    }
   },
   "tracker": {
     "eyebrow": "Lacak & catat",
@@ -677,7 +686,32 @@
     "cardTip": "Ketuk nama shalat untuk memperbarui · Adhkar untuk zikir · Info untuk detail",
     "tapToMark": "Ketuk untuk menandai",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Shalat sunnah opsional dan yang ditekankan"
+    "sunnahSubtitle": "Shalat sunnah opsional dan yang ditekankan",
+    "whiteDays": {
+      "title": "Puasa Ayyām al-Bīḍ",
+      "subtitle": "Ayyām al-Bīḍ — hanya tampil pada tanggal 13, 14, dan 15",
+      "progress": "{{completed}} dari {{total}} hari dipuasai",
+      "details": "Detail",
+      "openRelated": "Buka konten terkait",
+      "learnMore": "Pelajari Ayyām al-Bīḍ",
+      "jumpTitle": "Daftar Ayyām al-Bīḍ",
+      "jumpHint": "Tandai puasa Ayyām al-Bīḍ bulan ini di bawah",
+      "jumpA11y": "Ke daftar Ayyām al-Bīḍ di halaman ini",
+      "items": {
+        "day13": {
+          "title": "Puasa tanggal 13",
+          "hint": "Hari pertama Ayyām al-Bīḍ"
+        },
+        "day14": {
+          "title": "Puasa tanggal 14",
+          "hint": "Hari pertengahan Ayyām al-Bīḍ"
+        },
+        "day15": {
+          "title": "Puasa tanggal 15",
+          "hint": "Hari terakhir Ayyām al-Bīḍ"
+        }
+      }
+    }
   },
   "update": {
     "title": "Pembaruan tersedia",
@@ -1058,7 +1092,9 @@
       "fridayBody": "It's Friday — send salawat dan read Surah Al-Kahf.",
       "acceptanceHourTitle": "Jam ijabah",
       "acceptanceHourBodyAsr": "Asr telah masuk — carilah jam ijabah dengan dua, istighfar, dan salawat hingga Maghrib.",
-      "acceptanceHourBodyMid": "Masih ada waktu sebelum Maghrib — isi menit ini dengan dua yang ikhlas."
+      "acceptanceHourBodyMid": "Masih ada waktu sebelum Maghrib — isi menit ini dengan dua yang ikhlas.",
+      "whiteDaysTitle": "Pengingat Ayyām al-Bīḍ",
+      "whiteDaysBody": "Pengingat pagi pada tanggal 13, 14, dan 15 setiap bulan Hijriah"
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Friday pengingat",
         "subtitle": "Jumu'ah, Surah Al-Kahf, dan jam ijabah"
+      },
+      "whiteDays": {
+        "title": "Puasa Ayyām al-Bīḍ",
+        "subtitle": "Pengingat pagi pada tanggal 13, 14, dan 15 setiap bulan Hijriah"
       }
     },
     "prayerAlertsObligatory": "Wajib Shalat alerts",
@@ -2174,7 +2214,8 @@
       "generalTitle": "Kalender bulan",
       "generalBody": "Kalender Islam (Hijri) mengikuti bulan: setiap bulan 29 atau 30 hari, dimulai dengan sabit yang terlihat (hilāl). Tanggal di sini dihitung dari visibilitas sabit di lokasi Anda dan mungkin berbeda dari pengumuman otoritas setempat sehari.",
       "monthTurnTitle": "Cari hilal",
-      "monthTurnBody": "Setelah Maghrib, carilah hilāl {{month}}. Bulan Islam dimulai dengan sabit yang terlihat; pengumuman otoritas setempat Anda mungkin berbeda dari perhitungan ini sehari."
+      "monthTurnBody": "Setelah Maghrib, carilah hilāl {{month}}. Bulan Islam dimulai dengan sabit yang terlihat; pengumuman otoritas setempat Anda mungkin berbeda dari perhitungan ini sehari.",
+      "whiteDaysCta": "Lihat Ayyām al-Bīḍ"
     },
     "monthProgress": "Kemajuan bulan",
     "monthProgressValue": "Hari ke-{{day}} dari {{length}} · {{month}}",
@@ -4242,7 +4283,7 @@
       "label": "Lampiran (opsional)",
       "add": "Tambahkan berkas",
       "remove": "Hapus lampiran",
-      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), 1 MB masing-masing. Ketuk × pada thumbnail untuk menghapus.",
+      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), masing-masing 1 MB. Tekan lama thumbnail untuk menghapusnya.",
       "signInRequired": "Masuk untuk melampirkan file pribadi ke adhkar Anda.",
       "permissionDenied": "Izin diperlukan untuk melampirkan file.",
       "permissionTitle": "Izinkan akses",
@@ -5036,7 +5077,7 @@
     "eyebrow": "Kalender",
     "title": "Konverter tanggal",
     "subtitle": "Konversi antara kalender Hijriah dan Masehi",
-    "intro": "Masukkan tanggal di salah satu kalender untuk melihat setaranya di kalender lain, dihitung offline dari visibilitas sabit di lokasi Anda.",
+    "intro": "Masukkan tanggal di salah satu kalender untuk melihat padanannya di kalender lain, dihitung secara offline menggunakan algoritma tabular Kuwait.",
     "toHijri": "Masehi → Hijriah",
     "toGregorian": "Hijriah → Masehi",
     "gregorianDateLabel": "tanggal Gregorian",
@@ -5046,7 +5087,7 @@
     "year": "Tahun",
     "useToday": "Gunakan hari ini",
     "invalidDate": "Masukkan tanggal yang valid",
-    "disclaimer": "Tanggal dihitung dari visibilitas sabit (hilāl) di lokasi Anda dan dapat berbeda sehari dari pengumuman resmi rukyat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
+    "disclaimer": "Ini adalah perkiraan aritmatika (\"algoritme Kuwait\") dan dapat berbeda satu hari dengan pengumuman penampakan bulan setempat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
     "directionTitle": "Arah konversi",
     "resultFrom": "Dari {{date}}",
     "quickLinksTitle": "Terkait",
@@ -5106,7 +5147,8 @@
       "quran": "Al-Qur'an",
       "duas": "Doa",
       "janazah": "Jenazah",
-      "fidyah": "Fidyah"
+      "fidyah": "Fidyah",
+      "whiteDays": "Ayyām al-Bīḍ"
     },
     "skipHint": "Lewati kartu ini dan lihat pertanyaan lain.",
     "skipDisabledHint": "Jawab kartu terakhir ini untuk memulai pengocokan baru.",
@@ -5252,5 +5294,21 @@
     "qrClaimSuccess": "TV Anda sudah masuk. Anda bisa kembali ke ruang tamu.",
     "qrClaimError": "Tidak dapat menghubungkan TV. Buat kode baru di TV dan coba lagi.",
     "qrPhoneOnly": "Buka tautan ini di ponsel untuk menyelesaikan masuk TV."
+  },
+  "whiteDays": {
+    "eyebrow": "Pelajari",
+    "title": "Puasa Ayyām al-Bīḍ",
+    "subtitle": "Ayyām al-Bīḍ — sunnah puasa tanggal 13, 14, dan 15",
+    "intro": "Puasa tiga hari setiap bulan adalah sunnah yang dicintai, dan Ayyām al-Bīḍ — tanggal 13, 14, dan 15 setiap bulan Hijriah — adalah tiga hari pilihan. Pelajari keutamaannya, cara mengamalkannya, dan dalil dari Al-Qur'an serta hadis sahih.",
+    "section": {
+      "what": "Apa itu Ayyām al-Bīḍ",
+      "virtue": "Keutamaan dan pahala",
+      "practice": "Cara berpuasa",
+      "related": "Sunnah puasa yang lebih luas",
+      "track": "Lacak di Munib"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Ringkasan edukatif — bukan fatwa. Tanggal tepat bergantung pada bulan Hijriah dan rukyat hilal; ikuti masjid setempat atau ulama yang berkualifikasi untuk tanggal dan hukum agama.",
+    "continueInApp": "Lanjutkan di Munib"
   }
 }

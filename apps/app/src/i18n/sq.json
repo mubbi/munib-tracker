@@ -184,7 +184,8 @@
     "friday": "E premte & Xhuma",
     "fidyah": "Fidje dhe kefaret",
     "janazah": "Janazah udhëzues",
-    "sadaqah": "Sadaqah gola"
+    "sadaqah": "Sadaqah gola",
+    "whiteDays": "Agjërimi i Ditëve të Bardha"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Zgjidhni zemrën për të bërë të preferuar adhkar",
     "exploreDuroodsHintTv": "Zgjidhni yllin për të ruajtur një durood",
     "exploreNamesHintTv": "Zgjidhni yllin për të ruajtur një emër",
-    "exploreHintTv": "{{shown}} nga {{total}} shkurtore të shfaqura — zgjidhni Menaxho për të shtuar ose rirenditur."
+    "exploreHintTv": "{{shown}} nga {{total}} shkurtore të shfaqura — zgjidhni Menaxho për të shtuar ose rirenditur.",
+    "whiteDaysCard": {
+      "badge": "Ditët e Bardha",
+      "reminderTitle": "Agjërimi i Ditëve të Bardha",
+      "reminderBody": "Sot është një nga Ayyām al-Bīḍ — agjërimi i 13-të, 14-të dhe 15-të është një sunet i dashur me shpërblimin e agjërimit një jetë të tërë.",
+      "progress": "{{completed}}/{{total}} të agjëruara",
+      "allDone": "Të tria Ditët e Bardha u shënuan — All-llahu i pranoftë agjërimet tuaja.",
+      "openChecklist": "Hap listën e Ditëve të Bardha"
+    }
   },
   "tracker": {
     "eyebrow": "Ndiq & log",
@@ -677,7 +686,32 @@
     "cardTip": "Prekni emrin e namazit për përditësim · Adhkar për zikr · Info për detaje",
     "tapToMark": "Prekni për të shënuar",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Namazet sunnet opsionale dhe të theksuara"
+    "sunnahSubtitle": "Namazet sunnet opsionale dhe të theksuara",
+    "whiteDays": {
+      "title": "Agjërimi i Ditëve të Bardha",
+      "subtitle": "Ayyām al-Bīḍ — shfaqet vetëm në 13, 14 dhe 15",
+      "progress": "{{completed}} nga {{total}} të agjëruara",
+      "details": "Detaje",
+      "openRelated": "Hap përmbajtjen e lidhur",
+      "learnMore": "Mëso për Ditët e Bardha",
+      "jumpTitle": "Lista e Ditëve të Bardha",
+      "jumpHint": "Shëno agjërimet e Ditëve të Bardha të këtij muaji më poshtë",
+      "jumpA11y": "Shko te lista e Ditëve të Bardha në këtë faqe",
+      "items": {
+        "day13": {
+          "title": "Agjëro të 13-ën",
+          "hint": "Dita e parë e Ditëve të Bardha"
+        },
+        "day14": {
+          "title": "Agjëro të 14-ën",
+          "hint": "Dita e mesme e Ditëve të Bardha"
+        },
+        "day15": {
+          "title": "Agjëro të 15-ën",
+          "hint": "Dita e fundit e Ditëve të Bardha"
+        }
+      }
+    }
   },
   "update": {
     "title": "Përditësim i disponueshëm",
@@ -1058,7 +1092,9 @@
       "fridayBody": "Është e premte - dërgoni salavat dhe lexoni suren El-Kehf.",
       "acceptanceHourTitle": "Ora e pranimit",
       "acceptanceHourBodyAsr": "Asr ka filluar — kërko orën e pranuar me dua, istighfar dhe salawat deri në Maghrib.",
-      "acceptanceHourBodyMid": "Ka ende kohë para Maghrib — mbush këto minuta me dua të sinqertë."
+      "acceptanceHourBodyMid": "Ka ende kohë para Maghrib — mbush këto minuta me dua të sinqertë.",
+      "whiteDaysTitle": "Agjërimi i Ditëve të Bardha",
+      "whiteDaysBody": "Sot është një nga Ayyām al-Bīḍ — agjërimi i 13-të, 14-të ose 15-të është një sunet i dashur."
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Përkujtim i së premtes",
         "subtitle": "Jumu'ah, Surah Al-Kahf dhe ora e pranimit"
+      },
+      "whiteDays": {
+        "title": "Agjërimi i Ditëve të Bardha",
+        "subtitle": "Kujtesë e mëngjesit në 13, 14 dhe 15 të çdo muaji Hixhri"
       }
     },
     "prayerAlertsObligatory": "Sinjalizimet e detyrueshme të Salah",
@@ -2174,7 +2214,8 @@
       "generalTitle": "Kalendar hënor",
       "generalBody": "Kalendari islam (Hixhri) ndjek hënën: çdo muaj ka 29 ose 30 ditë, duke filluar me hënën e re të parë (hilāl). Datat këtu llogariten nga dukshmëria e hënës në vendndodhjen tuaj dhe mund të ndryshojnë nga njoftimi i autoritetit lokal me një ditë.",
       "monthTurnTitle": "Kërkoni hënën e re",
-      "monthTurnBody": "Pas Maghrib, kërkoni hilāl-in e {{month}}. Muajt islamë fillojnë me hënën e re të parë; njoftimi i autoritetit tuaj lokal mund të ndryshojë nga ky llogaritje me një ditë."
+      "monthTurnBody": "Pas Maghrib, kërkoni hilāl-in e {{month}}. Muajt islamë fillojnë me hënën e re të parë; njoftimi i autoritetit tuaj lokal mund të ndryshojë nga ky llogaritje me një ditë.",
+      "whiteDaysCta": "Mëso për agjërimin e Ditëve të Bardha"
     },
     "monthProgress": "Progresi i muajit",
     "monthProgressValue": "Dita {{day}} nga {{length}} · {{month}}",
@@ -4334,7 +4375,7 @@
       "label": "Shtojcat (opsionale)",
       "add": "Shto skedar",
       "remove": "Hiq shtojcën",
-      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Prekni × te miniaturë për ta hequr.",
+      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Shtypni gjatë një miniaturë për ta hequr.",
       "signInRequired": "Identifikohu për të bashkëngjitur skedarë privatë në adkar-in tënd.",
       "permissionDenied": "Kërkohet leje për të bashkangjitur skedarët.",
       "permissionTitle": "Lejo qasjen",
@@ -4921,7 +4962,7 @@
       "openTracker": "Hap listën e kontrollit",
       "openQibla": "Hap Kiblën",
       "openTasbeeh": "Hap Tesbih",
-      "markCurrent": "Shëno Salah-un tim",
+      "markCurrent": "Mark my Salah",
       "openRamadan": "Hap Ramazanin",
       "openKhatm": "Hap planin e hatmes",
       "openQaza": "Hap kazën",
@@ -5128,7 +5169,7 @@
     "eyebrow": "Kalendari",
     "title": "Konvertuesi i datës",
     "subtitle": "Konvertoni midis kalendarit Hixhri dhe Gregorian",
-    "intro": "Futni një datë në secilin kalendar për të parë ekuivalentin në tjetrin, i llogaritur offline nga dukshmëria e hënës në vendndodhjen tuaj.",
+    "intro": "Fut një datë në secilin nga kalendarët për të parë ekuivalentin e saj në tjetrin, të llogaritur jashtë linje duke përdorur algoritmin tabelor të Kuvajtit.",
     "toHijri": "Gregorian → Hixhri",
     "toGregorian": "Hixhri → Gregorian",
     "gregorianDateLabel": "Data Gregoriane",
@@ -5138,7 +5179,7 @@
     "year": "viti",
     "useToday": "Përdoreni sot",
     "invalidDate": "Fut një datë të vlefshme",
-    "disclaimer": "Datat llogariten nga dukshmëria e hënës (hilāl) në vendndodhjen tuaj dhe mund të ndryshojnë me një ditë nga njoftimet zyrtare të vëzhgimit të hënës — ndiqni gjithmonë masjid-in ose autoritetin lokal për datat fetare.",
+    "disclaimer": "Ky është një përafrim aritmetik (\"algoritmi kuvajtian\" në formë tabele) dhe mund të ndryshojë për një ditë nga njoftimet lokale për shikimin e hënës - ndiqni gjithmonë xhaminë ose autoritetin tuaj lokal për datat fetare.",
     "directionTitle": "Drejtimi i konvertimit",
     "resultFrom": "Nga {{date}}",
     "quickLinksTitle": "Të lidhura",
@@ -5198,7 +5239,8 @@
       "quran": "Kurani",
       "duas": "Duaja",
       "janazah": "Xhenaze",
-      "fidyah": "Fidje"
+      "fidyah": "Fidje",
+      "whiteDays": "Ditët e Bardha"
     },
     "skipHint": "Kapërceni këtë kartë dhe shihni një pyetje tjetër.",
     "skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re.",
@@ -5344,5 +5386,21 @@
     "qrClaimSuccess": "TV-ja juaj është e futur. Mund të ktheheni në dhomën e ndenjes.",
     "qrClaimError": "Nuk u lidh TV. Gjeneroni një kod të ri në TV dhe provoni sërish.",
     "qrPhoneOnly": "Hapeni këtë lidhje në telefon për të përfunduar hyrjen në TV."
+  },
+  "whiteDays": {
+    "eyebrow": "Mëso",
+    "title": "Agjërimi i Ditëve të Bardha",
+    "subtitle": "Ayyām al-Bīḍ — suneti i agjërimit të 13-të, 14-të dhe 15-të",
+    "intro": "Agjërimi i tre ditëve çdo muaj është një sunet i dashur, dhe Ditët e Bardha — 13, 14 dhe 15 e çdo muaji Hixhri — janë tre ditët e zgjedhura. Mësoni virtytin, mënyrën e praktikimit dhe dëshmitë nga Kurani dhe hadithet sahih.",
+    "section": {
+      "what": "Çfarë janë Ditët e Bardha",
+      "virtue": "Virtyti & shpërblimi",
+      "practice": "Si t'i agjërosh",
+      "related": "Suneti më i gjerë i agjërimit",
+      "track": "Ndjek në Munib"
+    },
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Përmbledhje edukative — jo fetva. Datat e sakta varen nga muaji Hixhri që ndryshon me shikimin e hënës; ndiqni xhaminë lokale ose një dijetar të kualifikuar për datat dhe vendimet fetare.",
+    "continueInApp": "Vazhdo në Munib"
   }
 }

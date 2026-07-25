@@ -32,6 +32,7 @@ const CORPORA = [
   "salah-guide",
   "seerah",
   "taharah",
+  "white-days-guide",
 ];
 const LOCALES = [
   "ar",

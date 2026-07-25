@@ -30,5 +30,7 @@ export * from "./seerah";
 export * from "./taharah";
 export * from "./travel-guide";
 export * from "./umrah-checklist";
+export * from "./white-days-checklist";
+export * from "./white-days-guide";
 export * from "./zakat-guide";
 export * from "./zikr";

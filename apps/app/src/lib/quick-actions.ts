@@ -74,6 +74,7 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   laylatAlQadr: "/laylat-al-qadr" as Href,
   eid: "/eid" as Href,
   friday: "/friday" as Href,
+  whiteDays: "/white-days" as Href,
   ruqyah: "/ruqyah" as Href,
   newMuslim: "/new-muslim" as Href,
   finance: "/finance" as Href,
@@ -350,6 +351,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     labelKey: "actions.friday",
     icon: { ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" },
     tone: "warning",
+  },
+  {
+    id: "whiteDays",
+    labelKey: "actions.whiteDays",
+    icon: { ios: "moon.circle.fill", android: "brightness_3", web: "brightness_3" },
+    tone: "info",
   },
   {
     id: "ruqyah",

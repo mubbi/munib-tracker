@@ -31,6 +31,7 @@ import { SALAH_GUIDE_TOPICS } from "@munib-tracker/shared/content/salah-guide";
 import { SEERAH_EVENTS } from "@munib-tracker/shared/content/seerah";
 import { TAHARAH_TOPICS } from "@munib-tracker/shared/content/taharah";
 import { TRAVEL_SECTIONS, type TravelSectionKey } from "@munib-tracker/shared/content/travel-guide";
+import { WHITE_DAYS_GUIDE_TOPICS } from "@munib-tracker/shared/content/white-days-guide";
 import {
   ZAKAT_GUIDE_SECTIONS,
   type ZakatGuideSectionKey,
@@ -90,6 +91,7 @@ let quranGuideFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let ruqyahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let eidFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let fridayFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let whiteDaysFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let newMuslimFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let laylatFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let financeFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
@@ -244,6 +246,12 @@ function getEidFuse(): Fuse<FuseDoc<GuideTopic>> {
 function getFridayFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!fridayFuse) fridayFuse = makeFuse(FRIDAY_GUIDE_TOPICS as GuideTopic[], BASE_FIELDS);
   return fridayFuse;
+}
+
+function getWhiteDaysFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!whiteDaysFuse)
+    whiteDaysFuse = makeFuse(WHITE_DAYS_GUIDE_TOPICS as GuideTopic[], BASE_FIELDS);
+  return whiteDaysFuse;
 }
 
 function getNewMuslimFuse(): Fuse<FuseDoc<GuideTopic>> {
@@ -521,6 +529,7 @@ export function searchGuideGroups(
     ...mapScored(getRuqyahFuse(), query, "/ruqyah/[topic]", "Ruqyah", "topic"),
     ...mapScored(getEidFuse(), query, "/eid/[topic]", "Eid", "topic"),
     ...mapScored(getFridayFuse(), query, "/friday/[topic]", "Friday", "topic"),
+    ...mapScored(getWhiteDaysFuse(), query, "/white-days/[topic]", "White Days", "topic"),
     ...mapScored(getNewMuslimFuse(), query, "/new-muslim/[topic]", "New Muslim", "topic"),
     ...mapScored(getLaylatFuse(), query, "/laylat-al-qadr/[topic]", "Laylat al-Qadr", "topic"),
     ...mapScored(getFinanceFuse(), query, "/finance/[topic]", "Finance", "topic"),

@@ -26,6 +26,7 @@ export * from "./salah-guide";
 export * from "./seerah";
 export * from "./taharah";
 export * from "./weather";
+export * from "./white-days";
 export * from "./zikr";
 
 export interface DailySummary {

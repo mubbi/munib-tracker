@@ -184,7 +184,8 @@
     "friday": "Jumma'a da Jumu'ah",
     "fidyah": "Fidya da kaffara",
     "janazah": "Jagorar Janazah",
-    "sadaqah": "Sadaqah kwallaye"
+    "sadaqah": "Sadaqah kwallaye",
+    "whiteDays": "Azumin Fararen Ranaku"
   },
   "quickActions": {
     "checklistSubtitle": "Rubuta sallar yau",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Zaɓi zuciya don sanya adhkar a abubuwan so",
     "exploreDuroodsHintTv": "Zaɓi tauraro don adana durood",
     "exploreNamesHintTv": "Zaɓi tauraro don adana suna",
-    "exploreHintTv": "An nuna {{shown}} cikin {{total}} gajerun hanyoyi — zaɓi Sarrafa don ƙarawa ko sake jeri."
+    "exploreHintTv": "An nuna {{shown}} cikin {{total}} gajerun hanyoyi — zaɓi Sarrafa don ƙarawa ko sake jeri.",
+    "whiteDaysCard": {
+      "badge": "Fararen Ranaku",
+      "reminderTitle": "Azumin Fararen Ranaku",
+      "reminderBody": "Yau ɗaya ne daga Ayyām al-Bīḍ. Azumin ranaku na 13, 14 da 15 Sunnah ce mai falala kamar azumin rayuwa.",
+      "progress": "{{completed}} daga {{total}} an yi azumi",
+      "allDone": "MashaAllah — an kammala duka",
+      "openChecklist": "Buɗe jerin Fararen Ranaku"
+    }
   },
   "tracker": {
     "eyebrow": "Mai bin diddigi et da kwatadet",
@@ -677,7 +686,32 @@
     "cardTip": "Taɓa sunan salah don sabuntawa · Adhkar don zikr · Bayani don cikakkun bayanai",
     "tapToMark": "Taɓa don yi alama",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Salah na sunnah na zaɓi da aka ƙarfafa"
+    "sunnahSubtitle": "Salah na sunnah na zaɓi da aka ƙarfafa",
+    "whiteDays": {
+      "title": "Azumin Fararen Ranaku",
+      "subtitle": "Ayyām al-Bīḍ — ranaku na 13, 14 da 15 kawai",
+      "progress": "{{completed}} daga {{total}} an yi azumi",
+      "details": "Bayanai",
+      "openRelated": "Buɗe abubuwan da suka shafi wannan",
+      "learnMore": "Koyi game da Fararen Ranaku",
+      "jumpTitle": "Jerin Fararen Ranaku",
+      "jumpHint": "Yi alamar azumin Fararen Ranaku na wannan wata a ƙasa",
+      "jumpA11y": "Je zuwa jerin Fararen Ranaku a wannan shafi",
+      "items": {
+        "day13": {
+          "title": "Yi azumin rana ta 13",
+          "hint": "Rana ta farko cikin Fararen Ranaku"
+        },
+        "day14": {
+          "title": "Yi azumin rana ta 14",
+          "hint": "Tsakiyar Fararen Ranaku"
+        },
+        "day15": {
+          "title": "Yi azumin rana ta 15",
+          "hint": "Rana ta ƙarshe cikin Fararen Ranaku"
+        }
+      }
+    }
   },
   "update": {
     "title": "Sabunta tana samuwa",
@@ -1058,7 +1092,9 @@
       "fridayBody": "Juma'a ce - aika salawat kuma ku karanta Suratul Kahf.",
       "acceptanceHourTitle": "Lokacin karɓuwa",
       "acceptanceHourBodyAsr": "Asr ya fara — nemi lokacin karɓuwa da dua, istighfar da salawat har Maghrib.",
-      "acceptanceHourBodyMid": "Har yanzu akwai lokaci kafin Maghrib — cika waɗannan mintuna da dua na zuciya."
+      "acceptanceHourBodyMid": "Har yanzu akwai lokaci kafin Maghrib — cika waɗannan mintuna da dua na zuciya.",
+      "whiteDaysTitle": "Azumin Fararen Ranaku",
+      "whiteDaysBody": "Yau ɗaya ne daga Ayyām al-Bīḍ. Ka yi niyyar azumi don Allah."
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Tunasarwar Juma'a",
         "subtitle": "Jumu'ah, Surah Al-Kahf da lokacin karɓuwa"
+      },
+      "whiteDays": {
+        "title": "Azumin Fararen Ranaku",
+        "subtitle": "Tuni na safe a ranaku na 13, 14 da 15 na kowane watan Hijira"
       }
     },
     "prayerAlertsObligatory": "Fadakarwar Sallah wajibi",
@@ -2174,7 +2214,8 @@
       "generalTitle": "Kalanda na wata",
       "generalBody": "Kalandar Musulunci (Hijira) tana bin wata: kowane wata yana da kwanaki 29 ko 30, yana farawa da wata da aka gani (hilāl). Ranaku anan an ƙididdige su daga ganin hilal a wurinku kuma na iya bambanta da sanarwar hukumar gida da rana ɗaya.",
       "monthTurnTitle": "Nemi wata",
-      "monthTurnBody": "Bayan Maghrib, nemo hilāl na {{month}}. Watanni na Musulunci suna farawa da wata da aka gani; sanarwar hukumar gida na iya bambanta da wannan lissafin da rana ɗaya."
+      "monthTurnBody": "Bayan Maghrib, nemo hilāl na {{month}}. Watanni na Musulunci suna farawa da wata da aka gani; sanarwar hukumar gida na iya bambanta da wannan lissafin da rana ɗaya.",
+      "whiteDaysCta": "Duba Fararen Ranaku"
     },
     "monthProgress": "Ci gaban wata",
     "monthProgressValue": "Rana {{day}} cikin {{length}} · {{month}}",
@@ -4242,7 +4283,7 @@
       "label": "Haɗe-haɗe (na zaɓi)",
       "add": "Ƙara fayil",
       "remove": "Cire abin da aka makala",
-      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowanne. Taɓa × a kan ƙaramin hoto don cirewa.",
+      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowane. Dogon latsa ɗan yatsa don cirewa.",
       "signInRequired": "Shiga don haɗa fayiloli masu zaman kansu zuwa adhkar ku.",
       "permissionDenied": "Ana buƙatar izini don haɗa fayiloli.",
       "permissionTitle": "Bada damar shiga",
@@ -5036,7 +5077,7 @@
     "eyebrow": "Kalanda",
     "title": "Mai sauya kwanan wata",
     "subtitle": "Tuba tsakanin kalandar Hijiriyya da Miladiyya",
-    "intro": "Shigar da rana a kowace kalanda don ganin daidaita ta a waccan, an ƙididdige a offline daga ganin hilal a wurinku.",
+    "intro": "Shigar da kwanan wata a cikin kowane kalanda don ganin kwatankwacinsa a ɗayan, ƙididdiga ta layi ta amfani da algorithm Kuwaiti tabular.",
     "toHijri": "Gregorian → Hijira",
     "toGregorian": "Hijiriyya → Marigayi",
     "gregorianDateLabel": "Kwanan Gregorian",
@@ -5046,7 +5087,7 @@
     "year": "Shekara",
     "useToday": "Yi amfani a yau",
     "invalidDate": "Shigar da ingantaccen kwanan wata",
-    "disclaimer": "An ƙididdige ranaku daga ganin hilal (hilāl) a wurinku kuma na iya bambanta da sanarwar hukuma ta ganin wata da rana ɗaya — koyaushe bi Masjid ko hukumar gida don ranakun addini.",
+    "disclaimer": "Wannan lissafin lissafin ƙididdiga ne (tabul ɗin \"Kuwaiti algorithm\") kuma yana iya bambanta da rana ɗaya daga sanarwar ganin wata na gida - koyaushe ku bi masallacin ku ko ikon ranakun addini.",
     "directionTitle": "Hanyar juyawa",
     "resultFrom": "Daga {{date}}",
     "quickLinksTitle": "Masu alaƙa",
@@ -5106,7 +5147,8 @@
       "quran": "Alkur'ani",
       "duas": "Addu'o'i",
       "janazah": "Janaza",
-      "fidyah": "Fidya"
+      "fidyah": "Fidya",
+      "whiteDays": "Fararen Ranaku"
     },
     "skipHint": "Tsallake wannan kati ku ga wani tambaya.",
     "skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa.",
@@ -5252,5 +5294,21 @@
     "qrClaimSuccess": "An shigar da TV ɗinka. Za ka iya komawa ɗakin zama.",
     "qrClaimError": "An kasa haɗa TV. Ƙirƙiri sabuwar lamba a TV ka sake gwadawa.",
     "qrPhoneOnly": "Buɗe wannan hanyar a wayarka don kammala shigar TV."
+  },
+  "whiteDays": {
+    "eyebrow": "Koyo",
+    "title": "Azumin Fararen Ranaku",
+    "subtitle": "Ayyām al-Bīḍ — Sunnah azumi na 13, 14 da 15",
+    "intro": "Azumin ranaku uku a kowane wata Sunnah ce mai ƙauna. Fararen Ranaku su ne ranaku na 13, 14 da 15 na watan Hijira. Koyi falalarsu, yadda ake yin su, da dalilai daga Alƙur'ani da sahihin hadisi.",
+    "section": {
+      "what": "Menene Fararen Ranaku?",
+      "virtue": "Falala da lada",
+      "practice": "Yadda ake yin azuminsu",
+      "related": "Faɗaɗɗiyar Sunnah ta azumi",
+      "track": "Bibiyar su a Munib"
+    },
+    "notFound": "Ba a sami batun ba",
+    "disclaimer": "Bayani ne na ilimi — ba fatawa ba. Ainihin ranaku sun dogara da ganin wata; bi masallacinku ko malami nagari na yankinku.",
+    "continueInApp": "Ci gaba a Munib"
   }
 }

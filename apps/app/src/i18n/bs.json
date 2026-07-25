@@ -184,7 +184,8 @@
     "friday": "Petak i džuma",
     "fidyah": "Fidja i kefaret",
     "janazah": "Janazah vodič",
-    "sadaqah": "Sadaqah golova"
+    "sadaqah": "Sadaqah golova",
+    "whiteDays": "Post Bijelih dana"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Odaberite srce da omilite adhkar",
     "exploreDuroodsHintTv": "Odaberite zvjezdicu da sačuvate durood",
     "exploreNamesHintTv": "Odaberite zvjezdicu da sačuvate ime",
-    "exploreHintTv": "Prikazano {{shown}} od {{total}} prečica — odaberite Upravljaj da dodate ili prerasporedite."
+    "exploreHintTv": "Prikazano {{shown}} od {{total}} prečica — odaberite Upravljaj da dodate ili prerasporedite.",
+    "whiteDaysCard": {
+      "badge": "Bijeli dani",
+      "reminderTitle": "Post Bijelih dana",
+      "reminderBody": "Danas je jedan od Ayyām al-Bīḍ. Post 13., 14. i 15. dana dragi je sunnet s nagradom kao za post cijeloga života.",
+      "progress": "{{completed}} od {{total}} ispošteno",
+      "allDone": "Mašallah — sve je završeno",
+      "openChecklist": "Otvori listu Bijelih dana"
+    }
   },
   "tracker": {
     "eyebrow": "Prati & log",
@@ -677,7 +686,32 @@
     "cardTip": "Dodirnite ime namaza za ažuriranje · Adhkar za zikr · Info za detalje",
     "tapToMark": "Dodirnite za označavanje",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Opcionalni i naglašeni sunnet namazi"
+    "sunnahSubtitle": "Opcionalni i naglašeni sunnet namazi",
+    "whiteDays": {
+      "title": "Post Bijelih dana",
+      "subtitle": "Ayyām al-Bīḍ — prikazuje se samo 13., 14. i 15. dana",
+      "progress": "{{completed}} od {{total}} ispošteno",
+      "details": "Detalji",
+      "openRelated": "Otvori povezani sadržaj",
+      "learnMore": "Saznaj o Bijelim danima",
+      "jumpTitle": "Lista Bijelih dana",
+      "jumpHint": "Označite postove Bijelih dana ovog mjeseca ispod",
+      "jumpA11y": "Idi na listu Bijelih dana na ovoj stranici",
+      "items": {
+        "day13": {
+          "title": "Posti 13. dan",
+          "hint": "Prvi od Bijelih dana"
+        },
+        "day14": {
+          "title": "Posti 14. dan",
+          "hint": "Sredina Bijelih dana"
+        },
+        "day15": {
+          "title": "Posti 15. dan",
+          "hint": "Posljednji od Bijelih dana"
+        }
+      }
+    }
   },
   "update": {
     "title": "Ažuriranje dostupno",
@@ -1058,7 +1092,9 @@
       "fridayBody": "Petak je — šaljite salavate i čitajte suru Al-Kahf.",
       "acceptanceHourTitle": "Sat prihvatanja",
       "acceptanceHourBodyAsr": "Asr je počeo — tražite prihvaćeni sat sa dua, istighfar i salawat do Maghrib.",
-      "acceptanceHourBodyMid": "Još ima vremena prije Maghrib — ispunite ove minute iskrenom dua."
+      "acceptanceHourBodyMid": "Još ima vremena prije Maghrib — ispunite ove minute iskrenom dua.",
+      "whiteDaysTitle": "Post Bijelih dana",
+      "whiteDaysBody": "Danas je jedan od Ayyām al-Bīḍ. Naumite postiti radi Allaha."
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Podsjetnik za petak",
         "subtitle": "Jumu'ah, Surah Al-Kahf i sat prihvatanja"
+      },
+      "whiteDays": {
+        "title": "Post Bijelih dana",
+        "subtitle": "Jutarnji podsjetnik 13., 14. i 15. dana svakog hidžretskog mjeseca"
       }
     },
     "prayerAlertsObligatory": "Obavezna upozorenja za Salah",
@@ -2174,7 +2214,8 @@
       "generalTitle": " calendar   moon",
       "generalBody": "Islamski (hidžretski) kalendar prati mjesec: svaki mjesec ima 29 ili 30 dana i počinje viđenim polumjesecom (hilāl). Datumi ovdje se računaju iz vidljivosti polumjeseca na vašoj lokaciji i mogu se razlikovati od najave lokalne vlasti za jedan dan.",
       "monthTurnTitle": "Tražite polumjesec",
-      "monthTurnBody": "Nakon Maghrib potražite hilāl mjeseca {{month}}. Islamski mjeseci počinju viđenim polumjesecom; najava vaše lokalne vlasti može se razlikovati od ovog izračuna za jedan dan."
+      "monthTurnBody": "Nakon Maghrib potražite hilāl mjeseca {{month}}. Islamski mjeseci počinju viđenim polumjesecom; najava vaše lokalne vlasti može se razlikovati od ovog izračuna za jedan dan.",
+      "whiteDaysCta": "Saznaj o postu Bijelih dana"
     },
     "monthProgress": "Napredak mjeseca",
     "monthProgressValue": "Dan {{day}} od {{length}} · {{month}}",
@@ -4334,7 +4375,7 @@
       "label": "Prilozi (opcionalno)",
       "add": "Dodaj fajl",
       "remove": "Uklonite prilog",
-      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), 1 MB svaka. Dodirnite × na sličici da uklonite.",
+      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), svaka od 1 MB. Dugo pritisnite sličicu za uklanjanje.",
       "signInRequired": "Prijavite se da priložite privatne fajlove svom adhkaru.",
       "permissionDenied": "Za prilaganje fajlova potrebna je dozvola.",
       "permissionTitle": "Dozvoli pristup",
@@ -5128,7 +5169,7 @@
     "eyebrow": "Kalendar",
     "title": "Konverter datuma",
     "subtitle": "Pretvorite između hidžretskog i gregorijanskog kalendara",
-    "intro": "Unesite datum u bilo kojem kalendaru da vidite ekvivalent u drugom, izračunat offline iz vidljivosti polumjeseca na vašoj lokaciji.",
+    "intro": "Unesite datum u bilo koji kalendar da vidite njegov ekvivalent u drugom, izračunatom van mreže pomoću tabelarnog kuvajtskog algoritma.",
     "toHijri": "Gregorijanski → Hidžri",
     "toGregorian": "hidžretski → gregorijanski",
     "gregorianDateLabel": "Gregorijanski datum",
@@ -5138,7 +5179,7 @@
     "year": "Godina",
     "useToday": "Iskoristite danas",
     "invalidDate": "Unesite važeći datum",
-    "disclaimer": "Datumi se računaju iz vidljivosti polumjeseca (hilāl) na vašoj lokaciji i mogu se razlikovati za jedan dan od službenih najava o viđenju mjeseca — uvijek slijedite lokalni masjid ili vlast za vjerske datume.",
+    "disclaimer": "Ovo je aritmetička aproksimacija (tabelarni \"Kuvajtski algoritam\") i može se razlikovati za jedan dan od lokalnih najava o viđenju Mjeseca - uvijek pratite svoj lokalni mesdžid ili autoritet za vjerske datume.",
     "directionTitle": "Smjer konverzije",
     "resultFrom": "Od {{date}}",
     "quickLinksTitle": "Povezano",
@@ -5198,7 +5239,8 @@
       "quran": "Kur'an",
       "duas": "Dove",
       "janazah": "Dženaza",
-      "fidyah": "Fidja"
+      "fidyah": "Fidja",
+      "whiteDays": "Bijeli dani"
     },
     "skipHint": "Preskočite ovu karticu i pogledajte drugo pitanje.",
     "skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje.",
@@ -5344,5 +5386,21 @@
     "qrClaimSuccess": "Vaš TV je prijavljen. Možete se vratiti u dnevnu sobu.",
     "qrClaimError": "Nije moguće povezati TV. Generišite novi kod na TV-u i pokušajte ponovo.",
     "qrPhoneOnly": "Otvorite ovaj link na telefonu da završite TV prijavu."
+  },
+  "whiteDays": {
+    "eyebrow": "Uči",
+    "title": "Post Bijelih dana",
+    "subtitle": "Ayyām al-Bīḍ — sunnet posta 13., 14. i 15. dana",
+    "intro": "Postiti tri dana svakog mjeseca dragi je sunnet, a Bijeli dani — 13., 14. i 15. dan svakog hidžretskog mjeseca — odabrana su tri dana. Saznajte o njihovoj vrijednosti, načinu posta i dokazima iz Kur'ana i vjerodostojnih hadisa.",
+    "section": {
+      "what": "Šta su Bijeli dani?",
+      "virtue": "Vrijednost i nagrada",
+      "practice": "Kako ih postiti",
+      "related": "Širi sunnet posta",
+      "track": "Prati u Munibu"
+    },
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Edukativni pregled — nije fetva. Tačni datumi zavise od viđenja mjeseca; za vjerske datume i propise slijedite lokalni mesdžid ili kvalificiranog učenjaka.",
+    "continueInApp": "Nastavi u Munibu"
   }
 }

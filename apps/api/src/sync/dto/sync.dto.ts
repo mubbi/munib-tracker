@@ -47,6 +47,7 @@ export const SYNC_ENTITIES = [
   "hajj_checklist",
   "umrah_checklist",
   "friday_checklist",
+  "white_days_checklist",
   "jannah_intentions",
   "jahannam_intentions",
   "salah_guide_progress",

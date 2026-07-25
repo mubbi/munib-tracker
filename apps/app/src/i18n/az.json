@@ -184,7 +184,8 @@
     "friday": "Cümə və Cümə namazı",
     "fidyah": "Fidyə və kəffarə",
     "janazah": "Janazah bələdçi",
-    "sadaqah": "Sadaqah hədəflər"
+    "sadaqah": "Sadaqah hədəflər",
+    "whiteDays": "Ağ günlər orucu"
   },
   "quickActions": {
     "checklistSubtitle": "Bu günkü namazları qeyd et",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Adhkarı favoritə əlavə etmək üçün ürəyi seçin",
     "exploreDuroodsHintTv": "Durood saxlamaq üçün ulduzu seçin",
     "exploreNamesHintTv": "Ad saxlamaq üçün ulduzu seçin",
-    "exploreHintTv": "{{total}} qısayoldan {{shown}} göstərilir — əlavə etmək və ya sıranı dəyişmək üçün İdarə et seçin."
+    "exploreHintTv": "{{total}} qısayoldan {{shown}} göstərilir — əlavə etmək və ya sıranı dəyişmək üçün İdarə et seçin.",
+    "whiteDaysCard": {
+      "badge": "Ağ günlər",
+      "reminderTitle": "Ağ günlər orucu",
+      "reminderBody": "Bu gün Ayyām al-Bīḍ günlərindəndir. Hicri ayın 13, 14 və 15-ci günlərində oruc tutmaq ömürboyu oruca bərabər savabı olan sevimli Sünnədir.",
+      "progress": "{{completed}} / {{total}} oruc tutuldu",
+      "allDone": "Maşallah — hamısı tamamlandı",
+      "openChecklist": "Ağ günlər siyahısını aç"
+    }
   },
   "tracker": {
     "eyebrow": "Trck & log",
@@ -677,7 +686,32 @@
     "cardTip": "Yeniləmək üçün namaz adına toxunun · Zikr üçün ədzkar · Ətraflı məlumat üçün məlumat",
     "tapToMark": "Qeyd etmək üçün toxunun",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "İstəyə bağlı və vurğulanmış sünnə namazlar"
+    "sunnahSubtitle": "İstəyə bağlı və vurğulanmış sünnə namazlar",
+    "whiteDays": {
+      "title": "Ağ günlər orucu",
+      "subtitle": "Ayyām al-Bīḍ — yalnız ayın 13, 14 və 15-ci günlərində göstərilir",
+      "progress": "{{completed}} / {{total}} oruc tutuldu",
+      "details": "Ətraflı",
+      "openRelated": "Əlaqəli məzmunu aç",
+      "learnMore": "Ağ günlər haqqında öyrən",
+      "jumpTitle": "Ağ günlər siyahısı",
+      "jumpHint": "Bu ayın Ağ günlər oruclarını aşağıda qeyd edin",
+      "jumpA11y": "Bu səhifədəki Ağ günlər siyahısına keç",
+      "items": {
+        "day13": {
+          "title": "13-cü gün oruc tut",
+          "hint": "Ağ günlərin birincisi"
+        },
+        "day14": {
+          "title": "14-cü gün oruc tut",
+          "hint": "Ağ günlərin ortası"
+        },
+        "day15": {
+          "title": "15-ci gün oruc tut",
+          "hint": "Ağ günlərin sonuncusu"
+        }
+      }
+    }
   },
   "update": {
     "title": "Yeniləmə mövcuddur",
@@ -1058,7 +1092,9 @@
       "fridayBody": "Cümə günüdür - salavat göndər və Kəhf surəsini oxu.",
       "acceptanceHourTitle": "Qəbul saatı",
       "acceptanceHourBodyAsr": "Asr başladı — Maghrib-ə qədər dua, istighfar və salawat ilə qəbul saatını axtarın.",
-      "acceptanceHourBodyMid": "Maghrib-dən əvvəl hələ vaxt var — bu dəqiqələri səmimi dua ilə doldurun."
+      "acceptanceHourBodyMid": "Maghrib-dən əvvəl hələ vaxt var — bu dəqiqələri səmimi dua ilə doldurun.",
+      "whiteDaysTitle": "Ağ günlər orucu",
+      "whiteDaysBody": "Bu gün Ayyām al-Bīḍ günlərindəndir. Allah rizası üçün oruca niyyət edin."
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Cümə xatırlatma",
         "subtitle": "Jumu'ah, Surah Al-Kahf və qəbul saatı"
+      },
+      "whiteDays": {
+        "title": "Ağ günlər orucu",
+        "subtitle": "Hər Hicri ayın 13, 14 və 15-ci günlərində səhər xatırlatması"
       }
     },
     "prayerAlertsObligatory": "Məcburi Salah xəbərdarlıqları",
@@ -2174,7 +2214,8 @@
       "generalTitle": " təqvim -içində  moüzərində",
       "generalBody": "İslam (Hicri) təqvimi Ayı izləyir: hər ay 29 və ya 30 gündür və görünən hilalla (hilāl) başlayır. Buradakı tarixlər yerinizdəki hilal görünürlüyünə görə hesablanıb və yerli orqanın elanından bir gün fərqlənə bilər.",
       "monthTurnTitle": "Hilala baxın",
-      "monthTurnBody": "Maghrib-dən sonra {{month}} ayının hilāl-ını axtarın. İslam ayları görünən hilalla başlayır; yerli orqanın elanı bu hesablamadan bir gün fərqlənə bilər."
+      "monthTurnBody": "Maghrib-dən sonra {{month}} ayının hilāl-ını axtarın. İslam ayları görünən hilalla başlayır; yerli orqanın elanı bu hesablamadan bir gün fərqlənə bilər.",
+      "whiteDaysCta": "Ağ günlərə bax"
     },
     "monthProgress": "Ayın irəliləməsi",
     "monthProgressValue": "{{month}} · {{length}} gündən {{day}}-ci gün",
@@ -3763,7 +3804,7 @@
     "today": "bu gün",
     "inDays": "içində {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Tarixlər yerinizdəki hilal görünürlüyünə (və ya istifadə olunan bölgələrdə rəsmi Ümm əl-Qura təqviminə) uyğundur və yerli orqanın elanından bir gün fərqlənə bilər.",
+    "disclaimer": "Tarixlər hesablanmış təxminlərdir - faktiki gün yerli ayın görünməsindən asılıdır.",
     "names": {
       "newYear": "İslam Yeni ili",
       "ashura": "Aşura günü",
@@ -4242,7 +4283,7 @@
       "label": "Qoşmalar (isteğe bağlı)",
       "add": "Fayl əlavə edin",
       "remove": "Qoşmanı çıxarın",
-      "hint": "Ən çox 5 fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürdə × toxunun.",
+      "hint": "5-ə qədər fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürə uzun basın.",
       "signInRequired": "Şəxsi faylları adhkarınıza əlavə etmək üçün daxil olun.",
       "permissionDenied": "Faylları əlavə etmək üçün icazə tələb olunur.",
       "permissionTitle": "Girişə icazə verin",
@@ -4759,7 +4800,7 @@
     "sourceLabel": "siziçində source (ixtiyri)",
     "sourcePlaceholder": "Düzəlişinizi dəstəkləyən kitab, alim, URL və ya sitat.",
     "proofLabel": "Sübut ekran görüntüləri (isteğe bağlı)",
-    "proofHint": "Ən çox 3 şəkil. Silmək üçün miniatürdə × toxunun.",
+    "proofHint": "3 şəkilə qədər. Silmək üçün miniatürə uzun basın.",
     "addProof": "Foto əlavə edin",
     "removeProof": "çıxrt screenshot",
     "submit": "Hesabat təqdim edin",
@@ -5036,7 +5077,7 @@
     "eyebrow": "Təqvim",
     "title": "Tarix çeviricisi",
     "subtitle": "Hicri və Miladi təqvimlər arasında çevirin",
-    "intro": "İstənilən təqvimdə tarix daxil edin ki, digərindəki ekvivalentini görün — yerinizdəki hilal görünürlüyünə görə oflayn hesablanır.",
+    "intro": "Cədvəl Küveyt alqoritmi ilə oflayn hesablanmış digərində ekvivalentini görmək üçün hər iki təqvimə tarixi daxil edin.",
     "toHijri": "Qriqorian → hicri",
     "toGregorian": "Hicri → Qriqorian",
     "gregorianDateLabel": "Qriqorian tarixi",
@@ -5046,7 +5087,7 @@
     "year": "il",
     "useToday": "Bu gün istifadə edin",
     "invalidDate": "Etibarlı tarix daxil edin",
-    "disclaimer": "Tarixlər yerinizdəki hilal (hilāl) görünürlüyünə görə hesablanır və rəsmi ay görünməsi elanlarından bir gün fərqlənə bilər — dini tarixlər üçün həmişə yerli Masjid və ya orqanı izləyin.",
+    "disclaimer": "Bu arifmetik təxmindir (cədvəl \"Küveyt alqoritmi\") və yerli ayın görünməsi ilə bağlı elanlardan bir gün fərqlənə bilər - həmişə yerli məscidinizi və ya dini tarixlər üçün səlahiyyətli orqanı izləyin.",
     "directionTitle": "Dönüşüm istiqaməti",
     "resultFrom": "{{date}}-dən",
     "quickLinksTitle": "Əlaqədar",
@@ -5106,7 +5147,8 @@
       "quran": "Quran",
       "duas": "Dualar",
       "janazah": "Cənazə",
-      "fidyah": "Fidyə"
+      "fidyah": "Fidyə",
+      "whiteDays": "Ağ günlər"
     },
     "skipHint": "Bu kartı keçin və başqa sual görün.",
     "skipDisabledHint": "Yeni qarışdırma üçün bu son qalan karta cavab verin.",
@@ -5252,5 +5294,21 @@
     "qrClaimSuccess": "TV-niz daxil oldu. Qonaq otağına qayıda bilərsiniz.",
     "qrClaimError": "TV bağlanmadı. TV-də yeni kod yaradıb yenidən cəhd edin.",
     "qrPhoneOnly": "TV girişini tamamlamaq üçün bu keçidi telefonunuzda açın."
+  },
+  "whiteDays": {
+    "eyebrow": "Öyrən",
+    "title": "Ağ günlər orucu",
+    "subtitle": "Ayyām al-Bīḍ — ayın 13, 14 və 15-ci günlərinin Sünnə orucu",
+    "intro": "Hər ay üç gün oruc tutmaq sevimli bir Sünnədir. Ağ günlər hər Hicri ayın 13, 14 və 15-ci günləridir. Onların fəzilətini, necə tutulduğunu və Qur'anla səhih hədislərdən dəlillərini öyrənin.",
+    "section": {
+      "what": "Ağ günlər nədir?",
+      "virtue": "Fəzilət və savab",
+      "practice": "Necə oruc tutulur",
+      "related": "Orucun geniş Sünnəsi",
+      "track": "Munib-də izləyin"
+    },
+    "notFound": "Mövzu tapılmadı",
+    "disclaimer": "Bu, maarifləndirici icmaldır — fətva deyil. Dəqiq tarixlər ayın görünməsindən asılıdır; yerli məscidinizə və ya ixtisaslı alimə müraciət edin.",
+    "continueInApp": "Munib-də davam et"
   }
 }

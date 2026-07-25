@@ -192,6 +192,7 @@ describe("learn quiz section registry", () => {
     expect(ids).toContain("hayd");
     expect(ids).toContain("janazah");
     expect(ids).toContain("fidyah");
+    expect(ids).toContain("whiteDays");
     expect(new Set(ids).size).toBe(ids.length);
   });
 
@@ -202,6 +203,12 @@ describe("learn quiz section registry", () => {
     expect(fidyah?.quizPath).toBeUndefined();
     expect(janazah?.collect().length).toBeGreaterThan(0);
     expect(fidyah?.collect().length).toBeGreaterThan(0);
+  });
+
+  it("exposes a White Days quiz path backed by guide topics", () => {
+    const whiteDays = LEARN_QUIZ_SECTIONS.find((s) => s.id === "whiteDays");
+    expect(whiteDays?.quizPath).toBe("/white-days/quiz");
+    expect(whiteDays?.collect().length).toBeGreaterThan(0);
   });
 
   it("can sample travel questions without async content", () => {

@@ -184,7 +184,8 @@
     "friday": "Cuma & Cuma namazı",
     "fidyah": "Fidye ve kefaret",
     "janazah": "Janazah kılavuzu",
-    "sadaqah": "Sadaqah gol"
+    "sadaqah": "Sadaqah gol",
+    "whiteDays": "Eyyâm-ı Bîd orucu"
   },
   "quickActions": {
     "checklistSubtitle": "Bugünkü namazları kaydet",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Adhkar'ı favorilere eklemek için kalbi seçin",
     "exploreDuroodsHintTv": "Bir salavatı kaydetmek için yıldızı seçin",
     "exploreNamesHintTv": "Bir ismi kaydetmek için yıldızı seçin",
-    "exploreHintTv": "{{total}} kısayoldan {{shown}} gösteriliyor — eklemek veya sıralamak için Yönet'i seçin."
+    "exploreHintTv": "{{total}} kısayoldan {{shown}} gösteriliyor — eklemek veya sıralamak için Yönet'i seçin.",
+    "whiteDaysCard": {
+      "badge": "Eyyâm-ı Bîd",
+      "reminderTitle": "Eyyâm-ı Bîd orucu",
+      "reminderBody": "Bugün Eyyâm-ı Bîd günlerinden biri — ayın 13, 14 ve 15. günlerinde oruç tutmak, ömür boyu oruç sevabına değer sevilen bir sünnettir.",
+      "progress": "{{completed}}/{{total}} gün tamamlandı",
+      "allDone": "Tüm Eyyâm-ı Bîd oruçları kaydedildi — Allah kabul etsin.",
+      "openChecklist": "Eyyâm-ı Bîd listesini aç"
+    }
   },
   "tracker": {
     "eyebrow": "Takip et ve kaydet",
@@ -677,7 +686,32 @@
     "cardTip": "Güncellemek için namaz adına dokunun · Zikir için ezkar · Ayrıntı için bilgi",
     "tapToMark": "İşaretlemek için dokunun",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "İsteğe bağlı ve vurgulanan sünnet namazlar"
+    "sunnahSubtitle": "İsteğe bağlı ve vurgulanan sünnet namazlar",
+    "whiteDays": {
+      "title": "Eyyâm-ı Bîd orucu",
+      "subtitle": "Eyyâm-ı Bîd — yalnızca ayın 13, 14 ve 15. günlerinde gösterilir",
+      "progress": "{{completed}}/{{total}} gün oruç tutuldu",
+      "details": "Ayrıntılar",
+      "openRelated": "İlgili içeriği aç",
+      "learnMore": "Eyyâm-ı Bîd'i öğrenin",
+      "jumpTitle": "Eyyâm-ı Bîd kontrol listesi",
+      "jumpHint": "Bu ayın Eyyâm-ı Bîd oruçlarını aşağıda işaretleyin",
+      "jumpA11y": "Bu sayfadaki Eyyâm-ı Bîd kontrol listesine git",
+      "items": {
+        "day13": {
+          "title": "13. gün orucu",
+          "hint": "Eyyâm-ı Bîd'in ilk günü"
+        },
+        "day14": {
+          "title": "14. gün orucu",
+          "hint": "Eyyâm-ı Bîd'in orta günü"
+        },
+        "day15": {
+          "title": "15. gün orucu",
+          "hint": "Eyyâm-ı Bîd'in son günü"
+        }
+      }
+    }
   },
   "update": {
     "title": "Güncelleme mevcut",
@@ -687,8 +721,8 @@
     "yourVersion": "Sürümünüz",
     "latestVersion": "En son",
     "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
-    "hardBody": "Uygulamayı kullanabilmek için {{version}} sürümüne güncelleyin.",
-    "hardNote": "Bu güncelleme zorunludur.",
+    "hardBody": "Update to version {{version}} to keep using the app.",
+    "hardNote": "This update is required to continue.",
     "updateButton": "Şimdi güncelle",
     "webReloadButton": "Yeniden yükle",
     "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
@@ -757,7 +791,7 @@
     "updateAvailableTitle": "Güncelleme mevcut",
     "updateRequiredTitle": "Güncelleme gerekli",
     "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
-    "updateRequiredDesc": "Uygulamayı kullanabilmek için {{latest}} sürümüne güncelleyin.",
+    "updateRequiredDesc": "Update to version {{latest}} to continue using the app.",
     "updateNow": "Şimdi güncelle",
     "viewUpdateDetails": "Ayrıntıları gör",
     "remindInSettings": "Ayarlar'da hatırlat",
@@ -1058,7 +1092,9 @@
       "fridayBody": "It's Friday — send salawat ve read Surah Al-Kahf.",
       "acceptanceHourTitle": "Kabul saati",
       "acceptanceHourBodyAsr": "Asr girdi — Maghrib'e kadar dua, istighfar ve salawat ile kabul saatini arayın.",
-      "acceptanceHourBodyMid": "Maghrib'e kadar hâlâ zaman var — bu dakikaları samimi dua ile doldurun."
+      "acceptanceHourBodyMid": "Maghrib'e kadar hâlâ zaman var — bu dakikaları samimi dua ile doldurun.",
+      "whiteDaysTitle": "Eyyâm-ı Bîd hatırlatıcısı",
+      "whiteDaysBody": "Her Hicrî ayın 13, 14 ve 15. günlerinde sabah hatırlatıcısı"
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Friday hatırlatıcı",
         "subtitle": "Jumu'ah, Surah Al-Kahf ve kabul saati"
+      },
+      "whiteDays": {
+        "title": "Eyyâm-ı Bîd orucu",
+        "subtitle": "Her Hicrî ayın 13, 14 ve 15. günlerinde sabah hatırlatıcısı"
       }
     },
     "prayerAlertsObligatory": "Farz Namaz alerts",
@@ -2174,7 +2214,8 @@
       "generalTitle": "Ay takvimi",
       "generalBody": "İslami (Hicri) takvim ayı takip eder: her ay 29 veya 30 gündür ve görülen hilâl ile başlar. Buradaki tarihler konumunuzdaki hilāl görünürlüğünden hesaplanır ve yerel otoritenizin duyurusundan bir gün farklı olabilir.",
       "monthTurnTitle": "Hilali arayın",
-      "monthTurnBody": "Maghrib'den sonra {{month}} hilālını arayın. İslami aylar görülen hilâl ile başlar; yerel otoritenizin duyurusu bu hesaplamadan bir gün farklı olabilir."
+      "monthTurnBody": "Maghrib'den sonra {{month}} hilālını arayın. İslami aylar görülen hilâl ile başlar; yerel otoritenizin duyurusu bu hesaplamadan bir gün farklı olabilir.",
+      "whiteDaysCta": "Eyyâm-ı Bîd'i görüntüle"
     },
     "monthProgress": "Ay ilerlemesi",
     "monthProgressValue": "{{month}} · {{length}} günün {{day}}. günü",
@@ -4242,7 +4283,7 @@
       "label": "Ekler (isteğe bağlı)",
       "add": "Dosya ekle",
       "remove": "Eki kaldır",
-      "hint": "En fazla 5 dosya (JPEG, PNG, WebP veya PDF), her biri 1 MB. Kaldırmak için küçük resimdeki × işaretine dokunun.",
+      "hint": "Her biri 1 MB boyutunda en fazla 5 dosya (JPEG, PNG, WebP veya PDF). Kaldırmak için küçük resme uzun basın.",
       "signInRequired": "Adhkar'ınıza özel dosyalar eklemek için oturum açın.",
       "permissionDenied": "Dosya eklemek için izin gereklidir.",
       "permissionTitle": "Erişime izin ver",
@@ -5036,7 +5077,7 @@
     "eyebrow": "Takvim",
     "title": "Tarih dönüştürücü",
     "subtitle": "Hicri ve Gregoryen takvimleri arasında dönüştürme",
-    "intro": "Bir takvimde tarih girin; diğerindeki karşılığını konumunuzdaki hilāl görünürlüğünden çevrimdışı hesaplanmış olarak görün.",
+    "intro": "Takvimlerden herhangi birine bir tarih girin ve bunun diğer takvimdeki eşdeğerini görmek için Kuveyt tablo algoritması kullanılarak çevrimdışı olarak hesaplayın.",
     "toHijri": "Gregoryen → Hicri",
     "toGregorian": "Hicri → Gregoryen",
     "gregorianDateLabel": "Gregoryen tarihi",
@@ -5046,7 +5087,7 @@
     "year": "Yıl",
     "useToday": "Bugün kullanın",
     "invalidDate": "Geçerli bir tarih girin",
-    "disclaimer": "Tarihler konumunuzdaki hilāl görünürlüğünden hesaplanır ve resmi ay gözlemi duyurularından bir gün farklı olabilir — dini tarihler için her zaman yerel masjid veya otoritenizi takip edin.",
+    "disclaimer": "Bu aritmetik bir yaklaşımdır (tablo \"Kuveyt algoritması\") ve yerel ay gözlemi duyurularından bir gün farklılık gösterebilir; dini tarihler için daima yerel mescidinizi veya otoritenizi takip edin.",
     "directionTitle": "Dönüşüm yönü",
     "resultFrom": "{{date}}'den",
     "quickLinksTitle": "İlgili",
@@ -5106,7 +5147,8 @@
       "quran": "Kur'an",
       "duas": "Dualar",
       "janazah": "Cenaze",
-      "fidyah": "Fidye"
+      "fidyah": "Fidye",
+      "whiteDays": "Eyyâm-ı Bîd"
     },
     "skipHint": "Bu kartı atlayıp başka bir soru görün.",
     "skipDisabledHint": "Yeniden karıştırmak için bu son kalan kartı yanıtlayın.",
@@ -5252,5 +5294,21 @@
     "qrClaimSuccess": "TV'nizde oturum açıldı. Oturma odanıza dönebilirsiniz.",
     "qrClaimError": "TV bağlanamadı. TV'de yeni bir kod oluşturup tekrar deneyin.",
     "qrPhoneOnly": "TV girişini tamamlamak için bu bağlantıyı telefonunuzda açın."
+  },
+  "whiteDays": {
+    "eyebrow": "Öğren",
+    "title": "Eyyâm-ı Bîd orucu",
+    "subtitle": "Eyyâm-ı Bîd — ayın 13, 14 ve 15. günlerinin sünnet orucu",
+    "intro": "Her ay üç gün oruç tutmak sevilen bir sünnettir; Eyyâm-ı Bîd, her Hicrî ayın 13, 14 ve 15. günleri, seçilen üç gündür. Faziletini, nasıl tutulduğunu ve Kur'an ile sahih hadislerdeki delillerini öğrenin.",
+    "section": {
+      "what": "Eyyâm-ı Bîd nedir",
+      "virtue": "Fazilet ve sevap",
+      "practice": "Nasıl tutulur",
+      "related": "Daha geniş oruç sünneti",
+      "track": "Munib'de takip et"
+    },
+    "notFound": "Konu bulunamadı",
+    "disclaimer": "Eğitici özet — fetva değildir. Kesin tarihler, hilal gözlemine göre değişen Hicrî aya bağlıdır; dinî tarihler ve hükümler için yerel mescidinizi veya ehil bir âlimi takip edin.",
+    "continueInApp": "Munib'de sürdür"
   }
 }

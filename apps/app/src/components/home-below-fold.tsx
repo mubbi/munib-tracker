@@ -29,6 +29,7 @@ import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { QuickActionGrid } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { WhiteDaysGoalReminder } from "@/components/white-days-goal-reminder";
 import { Radius, Spacing, type StatusKey } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTrigger";
@@ -49,6 +50,7 @@ import { getRamadanInfo } from "@/lib/ramadan";
 import { useArrowForward } from "@/lib/rtl";
 import { currentSeasonalTheme } from "@/lib/seasonal-themes";
 import { formatScheduleShare } from "@/lib/share";
+import { isWhiteDay } from "@/lib/white-days";
 import { useContinueActivity } from "@/stores/continue-store";
 import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
 import { useLocation } from "@/stores/location-store";
@@ -289,6 +291,14 @@ export function HomeBelowFold({
                   background={tokens.accentSoft}
                   icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
                 />
+              ) : isWhiteDay() ? (
+                <Pill
+                  label={t("home.whiteDaysCard.badge")}
+                  compact
+                  color={colors.accent}
+                  background={tokens.accentSoft}
+                  icon={{ ios: "moon.circle.fill", android: "brightness_3", web: "brightness_3" }}
+                />
               ) : null}
               {khatmToday ? (
                 <Pill
@@ -324,6 +334,7 @@ export function HomeBelowFold({
 
           <AcceptanceHourGoalReminder />
           <FridayGoalReminder />
+          <WhiteDaysGoalReminder />
           <KhatmGoalReminder />
 
           {isExcused ? (

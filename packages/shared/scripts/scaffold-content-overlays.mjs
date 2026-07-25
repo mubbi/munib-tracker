@@ -151,6 +151,13 @@ const CORPORA = {
     typeName: "ProphetsGenealogyNode",
     baseKey: "PROPHETS_GENEALOGY_NODES",
   },
+  "white-days-guide": {
+    module: "white-days-guide.ts",
+    exportName: "WHITE_DAYS_GUIDE_TOPICS",
+    typeImport: "../../types/learn-guide",
+    typeName: "LearnGuideTopic",
+    baseKey: "WHITE_DAYS_GUIDE_TOPICS",
+  },
 };
 
 function pickOverlay(value) {

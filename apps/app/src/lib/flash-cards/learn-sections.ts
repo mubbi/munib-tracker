@@ -55,6 +55,7 @@ import {
 } from "@/lib/salah-guide";
 import { ensureSeerahContent, getSeerahEvents, isSeerahContentReady } from "@/lib/seerah";
 import { ensureTaharahContent, getTaharahTopics, isTaharahContentReady } from "@/lib/taharah";
+import { ensureWhiteDaysGuideContent, getWhiteDaysGuideTopics } from "@/lib/white-days-guide";
 
 import {
   mcqsFromLastDayQuiz,
@@ -347,6 +348,16 @@ export const LEARN_QUIZ_SECTIONS: LearnSectionDef[] = [
     ensure: ensureEidGuideContent,
     isReady: alwaysReady,
     collect: () => mcqsFromTopics("eid", getEidGuideTopics(), "flashCards.category.eid"),
+  },
+  {
+    id: "whiteDays",
+    route: "/white-days" as Href,
+    quizPath: "/white-days/quiz" as Href,
+    i18nNamespace: "whiteDays",
+    ensure: ensureWhiteDaysGuideContent,
+    isReady: alwaysReady,
+    collect: () =>
+      mcqsFromTopics("whiteDays", getWhiteDaysGuideTopics(), "flashCards.category.whiteDays"),
   },
   {
     id: "ruqyah",

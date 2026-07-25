@@ -29,6 +29,7 @@ import { taharahProgressStore } from "./taharah-progress-store";
 import { toursStore } from "./tours-store";
 import { trackerStore } from "./tracker-store";
 import { umrahChecklistStore } from "./umrah-checklist-store";
+import { whiteDaysChecklistStore } from "./white-days-checklist-store";
 
 /**
  * Reloads every store that reads a persisted key from disk, so screens already
@@ -58,6 +59,7 @@ export async function reloadAllStores(): Promise<void> {
     hajjChecklistStore.getState().load(),
     umrahChecklistStore.getState().load(),
     fridayChecklistStore.getState().load(),
+    whiteDaysChecklistStore.getState().load(),
     toursStore.getState().load(),
     readingTextVisibilityStore.getState().load(),
     jannahIntentionsStore.getState().load(),

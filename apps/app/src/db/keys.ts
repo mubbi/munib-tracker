@@ -52,6 +52,8 @@ export const DB_KEYS = {
   umrahChecklist: `${PREFIX}/umrah_checklist`,
   // Friday / Jumu'ah checklist completion (itemId::date) — cloud-synced blob.
   fridayChecklist: `${PREFIX}/friday_checklist`,
+  // White Days (Ayyām al-Bīḍ) fasting checklist (itemId::hijriYear-hijriMonth) — cloud-synced blob.
+  whiteDaysChecklist: `${PREFIX}/white_days_checklist`,
   // Ids of in-app feature tours the user has completed/dismissed — NF-2.24 (cloud-synced).
   toursSeen: `${PREFIX}/tours_seen`,
   // Private daily intention toggles on Journey to Jannah — blob-synced.
@@ -153,6 +155,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   hajjChecklist: "userData",
   umrahChecklist: "userData",
   fridayChecklist: "userData",
+  whiteDaysChecklist: "userData",
   toursSeen: "userData",
   jannahIntentions: "userData",
   jahannamIntentions: "userData",

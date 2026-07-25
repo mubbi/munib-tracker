@@ -1,0 +1,19 @@
+diff --git a/dist/commonjs/index.js b/dist/commonjs/index.js
+index be9df86be09c7655787a65c55ae6da01858894c3..901cc54cc7594c0d0e4f4e3d9cb0a70909c57239 100644
+--- a/dist/commonjs/index.js
++++ b/dist/commonjs/index.js
+@@ -260,4 +260,14 @@ function expand_(str, max, maxLength, isTop) {
+     }
+     return acc;
+ }
++// Compat: brace-expansion@1 exported expand as module.exports (a function).
++// minimatch@3 and other CJS consumers still call require('brace-expansion')(...).
++// Keep named exports for minimatch@9+/@10 while restoring the callable default.
++module.exports = Object.assign(expand, {
++    __esModule: true,
++    expand,
++    EXPANSION_MAX: exports.EXPANSION_MAX,
++    EXPANSION_MAX_LENGTH: exports.EXPANSION_MAX_LENGTH,
++    default: expand,
++});
+ //# sourceMappingURL=index.js.map

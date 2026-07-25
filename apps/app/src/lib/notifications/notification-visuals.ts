@@ -36,6 +36,11 @@ const DAILY_REMINDER_ICONS = {
     android: "menu_book",
     web: "menu_book",
   } satisfies SymbolName,
+  whiteDays: {
+    ios: "moon.circle.fill",
+    android: "brightness_3",
+    web: "brightness_3",
+  } satisfies SymbolName,
   dailyContent: {
     ios: "sparkles",
     android: "auto_awesome",

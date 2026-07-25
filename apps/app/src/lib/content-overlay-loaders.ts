@@ -32,6 +32,7 @@ export const CONTENT_OVERLAY_CORPORA = [
   "salah-guide",
   "seerah",
   "taharah",
+  "white-days-guide",
 ] as const;
 export type ContentOverlayCorpus = (typeof CONTENT_OVERLAY_CORPORA)[number];
 
@@ -107,6 +108,7 @@ export const OVERLAY_BASE_KEY_CORPUS: Record<string, ContentOverlayCorpus> = {
   SEERAH_EVENTS: "seerah",
   TAHARAH_TOPICS: "taharah",
   TAHARAH_CHECKLIST: "taharah",
+  WHITE_DAYS_GUIDE_TOPICS: "white-days-guide",
 };
 
 type OverlayModule = Record<string, unknown>;
@@ -821,5 +823,51 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     tr: () => import("@munib-tracker/shared/content/i18n/taharah.tr") as Promise<OverlayModule>,
     ur: () => import("@munib-tracker/shared/content/i18n/taharah.ur") as Promise<OverlayModule>,
     uz: () => import("@munib-tracker/shared/content/i18n/taharah.uz") as Promise<OverlayModule>,
+  },
+  "white-days-guide": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.uz") as Promise<OverlayModule>,
   },
 };

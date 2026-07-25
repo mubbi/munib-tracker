@@ -184,7 +184,8 @@
     "friday": "Vendredi & Jumu'ah",
     "fidyah": "Fidyah et kaffarah",
     "janazah": "Guide Janazah",
-    "sadaqah": "Sadaqah objectifs"
+    "sadaqah": "Sadaqah objectifs",
+    "whiteDays": "Jeûne des Jours blancs"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Sélectionnez le cœur pour mettre des adhkar en favori",
     "exploreDuroodsHintTv": "Sélectionnez l'étoile pour enregistrer un durood",
     "exploreNamesHintTv": "Sélectionnez l'étoile pour enregistrer un nom",
-    "exploreHintTv": "{{shown}} sur {{total}} raccourcis affichés — sélectionnez Gérer pour ajouter ou réorganiser."
+    "exploreHintTv": "{{shown}} sur {{total}} raccourcis affichés — sélectionnez Gérer pour ajouter ou réorganiser.",
+    "whiteDaysCard": {
+      "badge": "Jours blancs",
+      "reminderTitle": "Jeûne des Jours blancs",
+      "reminderBody": "Aujourd’hui est un jour d’Ayyām al-Bīḍ. Jeûner les 13e, 14e et 15e est une Sunnah aimée, dont la récompense équivaut à une vie de jeûne.",
+      "progress": "{{completed}} sur {{total}} jeûnés",
+      "allDone": "MashaAllah — tout est fait",
+      "openChecklist": "Ouvrir la liste des Jours blancs"
+    }
   },
   "tracker": {
     "eyebrow": "Suivi et et kmoisdet",
@@ -677,7 +686,32 @@
     "cardTip": "Touchez le nom de la salah pour mettre à jour · Adhkar pour le zikr · Infos pour les détails",
     "tapToMark": "Toucher pour marquer",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Salah sunnah optionnelles et recommandées"
+    "sunnahSubtitle": "Salah sunnah optionnelles et recommandées",
+    "whiteDays": {
+      "title": "Jeûne des Jours blancs",
+      "subtitle": "Ayyām al-Bīḍ — affiché seulement les 13e, 14e et 15e jours",
+      "progress": "{{completed}} sur {{total}} jeûnés",
+      "details": "Détails",
+      "openRelated": "Ouvrir le contenu associé",
+      "learnMore": "Découvrir les Jours blancs",
+      "jumpTitle": "Liste des Jours blancs",
+      "jumpHint": "Cochez les jeûnes des Jours blancs de ce mois ci-dessous",
+      "jumpA11y": "Aller à la liste des Jours blancs de cette page",
+      "items": {
+        "day13": {
+          "title": "Jeûner le 13e jour",
+          "hint": "Premier des Jours blancs"
+        },
+        "day14": {
+          "title": "Jeûner le 14e jour",
+          "hint": "Milieu des Jours blancs"
+        },
+        "day15": {
+          "title": "Jeûner le 15e jour",
+          "hint": "Dernier des Jours blancs"
+        }
+      }
+    }
   },
   "update": {
     "title": "Mise à jour disponible",
@@ -1058,7 +1092,9 @@
       "fridayBody": "C'est vendredi – envoyez du salawat et lisez la sourate Al-Kahf.",
       "acceptanceHourTitle": "L'heure d'acceptation",
       "acceptanceHourBodyAsr": "Asr a commencé — cherchez l'heure exaucée avec dua, istighfar et salawat jusqu'à Maghrib.",
-      "acceptanceHourBodyMid": "Il reste du temps avant Maghrib — remplissez ces minutes d'une dua sincère."
+      "acceptanceHourBodyMid": "Il reste du temps avant Maghrib — remplissez ces minutes d'une dua sincère.",
+      "whiteDaysTitle": "Jeûne des Jours blancs",
+      "whiteDaysBody": "Aujourd’hui est un jour d’Ayyām al-Bīḍ. Formez l’intention de jeûner pour Allah."
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Rappel du vendredi",
         "subtitle": "Jumu'ah, Surah Al-Kahf et l'heure d'acceptation"
+      },
+      "whiteDays": {
+        "title": "Jeûne des Jours blancs",
+        "subtitle": "Rappel matinal les 13e, 14e et 15e de chaque mois hégirien"
       }
     },
     "prayerAlertsObligatory": "Alertes Salah obligatoires",
@@ -2174,7 +2214,8 @@
       "generalTitle": "Un calendrier de la lune",
       "generalBody": "Le calendrier islamique (Hijri) suit la lune : chaque mois dure 29 ou 30 jours, à compter du croissant aperçu (hilāl). Les dates ici sont calculées d'après la visibilité du croissant à votre emplacement et peuvent différer de l'annonce de votre autorité locale d'un jour.",
       "monthTurnTitle": "Cherchez le croissant",
-      "monthTurnBody": "Après Maghrib, cherchez le hilāl de {{month}}. Les mois islamiques commencent avec le croissant aperçu ; l'annonce de votre autorité locale peut différer de ce calcul d'un jour."
+      "monthTurnBody": "Après Maghrib, cherchez le hilāl de {{month}}. Les mois islamiques commencent avec le croissant aperçu ; l'annonce de votre autorité locale peut différer de ce calcul d'un jour.",
+      "whiteDaysCta": "Voir les Jours blancs"
     },
     "monthProgress": "Progression du mois",
     "monthProgressValue": "Jour {{day}} sur {{length}} · {{month}}",
@@ -4334,7 +4375,7 @@
       "label": "Pièces jointes (facultatif)",
       "add": "Ajouter un fichier",
       "remove": "Supprimer la pièce jointe",
-      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez sur × sur une miniature pour retirer.",
+      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez longuement sur une vignette pour la supprimer.",
       "signInRequired": "Connectez-vous pour joindre des fichiers privés à votre adhkar.",
       "permissionDenied": "Une autorisation est requise pour joindre des fichiers.",
       "permissionTitle": "Autoriser l'accès",
@@ -5128,7 +5169,7 @@
     "eyebrow": "Calendrier",
     "title": "Convertisseur de dates",
     "subtitle": "Conversion entre les calendriers hégirien et grégorien",
-    "intro": "Entrez une date dans l'un des calendriers pour voir son équivalent dans l'autre, calculé hors ligne d'après la visibilité du croissant à votre emplacement.",
+    "intro": "Entrez une date dans l'un ou l'autre calendrier pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
     "toHijri": "Grégorien → Hijri",
     "toGregorian": "hijri → grégorien",
     "gregorianDateLabel": "date grégorienne",
@@ -5138,7 +5179,7 @@
     "year": "Année",
     "useToday": "Utiliser aujourd'hui",
     "invalidDate": "Entrez une date valide",
-    "disclaimer": "Les dates sont calculées d'après la visibilité du croissant (hilāl) à votre emplacement et peuvent différer d'un jour des annonces officielles d'observation de la lune — suivez toujours votre masjid local ou autorité pour les dates religieuses.",
+    "disclaimer": "Il s'agit d'une approximation arithmétique (le tableau \"algorithme koweïtien\") et peut différer d'un jour des annonces locales d'observation de la lune - suivez toujours votre mosquée locale ou votre autorité pour les dates religieuses.",
     "directionTitle": "Sens de conversion",
     "resultFrom": "De {{date}}",
     "quickLinksTitle": "Connexes",
@@ -5198,7 +5239,8 @@
       "quran": "Coran",
       "duas": "Duas",
       "janazah": "Janâza",
-      "fidyah": "Fidya"
+      "fidyah": "Fidya",
+      "whiteDays": "Jours blancs"
     },
     "skipHint": "Ignorez cette carte et voyez une autre question.",
     "skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange.",
@@ -5344,5 +5386,21 @@
     "qrClaimSuccess": "Votre TV est connectée. Vous pouvez retourner au salon.",
     "qrClaimError": "Impossible de connecter la TV. Générez un nouveau code sur la TV et réessayez.",
     "qrPhoneOnly": "Ouvrez ce lien sur votre téléphone pour terminer la connexion TV."
+  },
+  "whiteDays": {
+    "eyebrow": "Apprendre",
+    "title": "Jeûne des Jours blancs",
+    "subtitle": "Ayyām al-Bīḍ — la Sunnah du jeûne des 13e, 14e et 15e jours",
+    "intro": "Jeûner trois jours chaque mois est une Sunnah aimée. Les Jours blancs sont les 13e, 14e et 15e jours de chaque mois hégirien. Découvrez leur mérite, leur pratique et les preuves tirées du Coran et des hadiths authentiques.",
+    "section": {
+      "what": "Que sont les Jours blancs ?",
+      "virtue": "Mérite et récompense",
+      "practice": "Comment les jeûner",
+      "related": "La Sunnah plus large du jeûne",
+      "track": "Suivre dans Munib"
+    },
+    "notFound": "Sujet introuvable",
+    "disclaimer": "Aperçu éducatif — pas une fatwa. Les dates exactes dépendent de l’observation lunaire ; suivez votre mosquée locale ou un savant qualifié.",
+    "continueInApp": "Continuer dans Munib"
   }
 }

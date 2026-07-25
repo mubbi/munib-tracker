@@ -30,6 +30,7 @@ export type SearchHref =
   | "/ruqyah/[topic]"
   | "/eid/[topic]"
   | "/friday/[topic]"
+  | "/white-days/[topic]"
   | "/new-muslim/[topic]"
   | "/laylat-al-qadr/[topic]"
   | "/finance/[topic]"

@@ -1,9 +1,12 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
+import { type Href, useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { I18nManager, StyleSheet, View } from "react-native";
 
 import { MoonPhaseIcon } from "@/components/moon-phase";
 import { ThemedText } from "@/components/themed-text";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -11,6 +14,7 @@ import { gradientBackground } from "@/lib/gradient";
 import { formatHijriDate, gregorianToHijri, hijriMonthName, hijriMonthProgress } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { moonPhase } from "@/lib/moon";
+import { useArrowForward } from "@/lib/rtl";
 import { useLocation } from "@/stores/location-store";
 
 type MoonPhaseSheetProps = {
@@ -32,6 +36,8 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const location = useLocation();
+  const router = useRouter();
+  const arrowForward = useArrowForward();
 
   const locale: AppLocale = toAppLocale(i18n.language ?? "en");
   const timeZone = location.timeZone;
@@ -111,6 +117,24 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
         <ThemedText type="small" themeColor="mutedForeground">
           {noteBody}
         </ThemedText>
+        {note === "whiteDays" ? (
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel={t("moonSheet.note.whiteDaysCta")}
+            onPress={() => {
+              onClose();
+              router.push("/white-days" as Href);
+            }}
+            haptic="light"
+            scaleTo={0.98}
+            style={styles.noteCta}
+          >
+            <ThemedText type="smallBold" style={{ color: colors.accent }}>
+              {t("moonSheet.note.whiteDaysCta")}
+            </ThemedText>
+            <SymbolView name={arrowForward} size={14} tintColor={colors.accent} />
+          </PressableScale>
+        ) : null}
       </View>
     </Sheet>
   );
@@ -190,6 +214,12 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     padding: Spacing.three,
+    gap: Spacing.one,
+    marginTop: Spacing.one,
+  },
+  noteCta: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: Spacing.one,
     marginTop: Spacing.one,
   },

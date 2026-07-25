@@ -38,6 +38,14 @@ describe("notification-visuals", () => {
     );
     expect(resolveNotificationVisual({ reminderKey: "qaza:2026-07-06" }).category).toBe("qaza");
     expect(resolveNotificationVisual({ reminderKey: "friday:2026-07-06" }).category).toBe("zikr");
+    expect(resolveNotificationVisual({ reminderKey: "whiteDays:2026-07-27" }).icon).toEqual({
+      ios: "moon.circle.fill",
+      android: "brightness_3",
+      web: "brightness_3",
+    });
+    expect(resolveNotificationVisual({ reminderKey: "whiteDays:2026-07-27" }).category).toBe(
+      "zikr",
+    );
     expect(resolveNotificationVisual({ reminderKey: "dailyContent:2026-07-06" }).category).toBe(
       "zikr",
     );

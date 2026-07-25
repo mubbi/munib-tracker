@@ -170,6 +170,7 @@ export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
   playAdhanOnPrayer: false,
   dailyContent: false,
   friday: false,
+  whiteDays: false,
   reviewReactivationEnabled: true,
 };
 

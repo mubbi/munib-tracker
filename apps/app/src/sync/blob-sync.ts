@@ -29,6 +29,7 @@ import { taharahProgressStore } from "@/stores/taharah-progress-store";
 import { toursStore } from "@/stores/tours-store";
 import { trackerStore } from "@/stores/tracker-store";
 import { umrahChecklistStore } from "@/stores/umrah-checklist-store";
+import { whiteDaysChecklistStore } from "@/stores/white-days-checklist-store";
 
 /**
  * Generic cloud sync for the many small "blob" userData entities that carry no
@@ -146,6 +147,11 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     entity: "friday_checklist",
     storageKey: DB_KEYS.fridayChecklist,
     reload: reloadIfReady(fridayChecklistStore),
+  },
+  {
+    entity: "white_days_checklist",
+    storageKey: DB_KEYS.whiteDaysChecklist,
+    reload: reloadIfReady(whiteDaysChecklistStore),
   },
   {
     entity: "jannah_intentions",
@@ -378,6 +384,7 @@ const UNION_MERGE_ENTITIES = new Set([
   "hajj_checklist",
   "umrah_checklist",
   "friday_checklist",
+  "white_days_checklist",
   "salah_guide_progress",
   "taharah_progress",
   "aqeedah_progress",

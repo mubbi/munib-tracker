@@ -20,6 +20,7 @@ export type StudySourceId =
   | "history"
   | "laylatAlQadr"
   | "eid"
+  | "whiteDays"
   | "ruqyah"
   | "newMuslim"
   | "janazah"

@@ -184,7 +184,8 @@
     "friday": "Anna & Juma",
     "fidyah": "Fidýä we keffarat",
     "janazah": "Janazah gollanma",
-    "sadaqah": "Sadaqah maksatlar"
+    "sadaqah": "Sadaqah maksatlar",
+    "whiteDays": "Ak günleriň orazy"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Azkarlary halaýanlara goşmak üçin ýüregi saýlaň",
     "exploreDuroodsHintTv": "Salawaty saklamak üçin ýyldyzy saýlaň",
     "exploreNamesHintTv": "Ady saklamak üçin ýyldyzy saýlaň",
-    "exploreHintTv": "{{shown}} / {{total}} gysga ýol görkezildi — goşmak ýa-da tertiplemek üçin Dolandyryşy saýlaň."
+    "exploreHintTv": "{{shown}} / {{total}} gysga ýol görkezildi — goşmak ýa-da tertiplemek üçin Dolandyryşy saýlaň.",
+    "whiteDaysCard": {
+      "badge": "Ak günler",
+      "reminderTitle": "Ak günleriň orazy",
+      "reminderBody": "Şu gün Aýýam al-Biz günleriniň biridir — 13, 14 we 15-de oraza tutmak söýgüli sünnetdir we ömürlik orazanyň sawabyna deňdir.",
+      "progress": "{{completed}}/{{total}} oraza",
+      "allDone": "Üç Ak gün bellendi — Alla orazaňyzy kabul etsin.",
+      "openChecklist": "Ak günler sanawyny aç"
+    }
   },
   "tracker": {
     "eyebrow": "Takip et ve kaydet",
@@ -677,7 +686,32 @@
     "cardTip": "Täzelemek üçin namazyň adyna basyň · Zikir üçin azkar · Jikme-jiklik üçin maglumat",
     "tapToMark": "Belliklemek üçin basyň",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Islege bagly we güýçli teklip edilen sünnet namazlar"
+    "sunnahSubtitle": "Islege bagly we güýçli teklip edilen sünnet namazlar",
+    "whiteDays": {
+      "title": "Ak günleriň orazy",
+      "subtitle": "Aýýam al-Biz — diňe 13, 14 we 15-de görkezilýär",
+      "progress": "{{total}}-den {{completed}} oraza",
+      "details": "Jikme-jiklikler",
+      "openRelated": "Degişli mazmuny aç",
+      "learnMore": "Ak günler hakynda öwren",
+      "jumpTitle": "Ak günler sanawy",
+      "jumpHint": "Şu aýyň Ak gün orazalaryny aşakda belläň",
+      "jumpA11y": "Şu sahypadaky Ak günler sanawyna git",
+      "items": {
+        "day13": {
+          "title": "13-nji günüň orazy",
+          "hint": "Ak günleriň birinjisi"
+        },
+        "day14": {
+          "title": "14-nji günüň orazy",
+          "hint": "Ak günleriň ortasy"
+        },
+        "day15": {
+          "title": "15-nji günüň orazy",
+          "hint": "Ak günleriň soňkusy"
+        }
+      }
+    }
   },
   "update": {
     "title": "Täzelenme elýeterli",
@@ -1058,7 +1092,9 @@
       "fridayBody": "It's Friday — send salawat ve read Surah Al-Kahf.",
       "acceptanceHourTitle": "Kabul wagty",
       "acceptanceHourBodyAsr": "Asr başlady — Maghrib çenli dua, istighfar we salawat bilen kabul wagtyny gözle.",
-      "acceptanceHourBodyMid": "Maghrib çenli entek wagt bar — bu minutlary hakyky dua bilen doldur."
+      "acceptanceHourBodyMid": "Maghrib çenli entek wagt bar — bu minutlary hakyky dua bilen doldur.",
+      "whiteDaysTitle": "Ak günleriň orazy",
+      "whiteDaysBody": "Şu gün Aýýam al-Biz günleriniň biridir — 13, 14 ýa-da 15-de oraza tutmak söýgüli sünnetdir."
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Friday hatyrlatycy",
         "subtitle": "Jumu'ah, Surah Al-Kahf we kabul wagty"
+      },
+      "whiteDays": {
+        "title": "Ak günleriň orazy",
+        "subtitle": "Her hijri aýynyň 13, 14 we 15-inde irki ýatladyjy"
       }
     },
     "prayerAlertsObligatory": "Farz Namaz alerts",
@@ -2174,7 +2214,8 @@
       "generalTitle": "Aý senenamasy",
       "generalBody": "Yslam (Hijri) senenamasy aýy eýerleýär: her aý 29 ýa-da 30 gündür we görülen ýarymaý (hilāl) bilen başlaýar. Bu ýerdäki seneler ýerleşýän ýeriňizdäki aýyň görünmeginden hasaplanýar we ýerli häkimiýetiň bildirişinden bir gün tapawutlanyp biler.",
       "monthTurnTitle": "Hilaly gözläň",
-      "monthTurnBody": "Maghrib-den soň {{month}} aýynyň hilāl-yny gözläň. Yslam aýlary görülen ýarymaý bilen başlaýar; ýerli häkimiýetiň bildirişi bu hasapdan bir gün tapawutlanyp biler."
+      "monthTurnBody": "Maghrib-den soň {{month}} aýynyň hilāl-yny gözläň. Yslam aýlary görülen ýarymaý bilen başlaýar; ýerli häkimiýetiň bildirişi bu hasapdan bir gün tapawutlanyp biler.",
+      "whiteDaysCta": "Ak günleriň orazy hakynda öwren"
     },
     "monthProgress": "Aýyň ösüşi",
     "monthProgressValue": "{{month}} · {{length}} günden {{day}}-nji gün",
@@ -4242,7 +4283,7 @@
       "label": "Goşundylar (islege görä)",
       "add": "Faýl goşuň",
       "remove": "Goşundyny aýyryň",
-      "hint": "5 faýla çenli (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçi suratdaky ×-e basyň.",
+      "hint": "5-e çenli faýl (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçijik suraty basyň.",
       "signInRequired": "Adhkar-a şahsy faýllary birikdirmek üçin giriň.",
       "permissionDenied": "Faýllary birikdirmek üçin rugsat gerek.",
       "permissionTitle": "Girmäge rugsat beriň",
@@ -5036,7 +5077,7 @@
     "eyebrow": "Senenama",
     "title": "Sene öwrüji",
     "subtitle": "Hijri we Gregorian kalendarlarynyň arasynda öwüriň",
-    "intro": "Islendik senenama bir sene giriziň, beýlekisindeki deňeşini görmek üçin — oflaýn ýerleşýän ýeriňizdäki aýyň görünmeginden hasaplanýar.",
+    "intro": "Kuweýt tablisasynyň algoritmini ulanyp, oflayn hasaplanan beýleki birine meňzeşini görmek üçin iki senenama senesini giriziň.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Gregorian senesi",
@@ -5046,7 +5087,7 @@
     "year": ".Yl",
     "useToday": "Şu gün ulanyň",
     "invalidDate": "Dogry senäni giriziň",
-    "disclaimer": "Seneler ýerleşýän ýeriňizdäki ýarymaýyň (hilāl) görünmeginden hasaplanýar we resmi aý gözegçiligi bildirişlerinden bir gün tapawutlanyp biler — dini seneler üçin hemişe ýerli masjid ýa-da häkimiýeti eýeriň.",
+    "disclaimer": "Bu arifmetiki ýakynlaşma (tablisa \"Kuweýt algoritmi\") we ýerli Aý görýän bildirişlerinden bir gün tapawutlanyp biler - dini seneler üçin hemişe ýerli metjidiňize ýa-da ygtyýaryňyza eýeriň.",
     "directionTitle": "Öwürmek ugry",
     "resultFrom": "{{date}}-den",
     "quickLinksTitle": "Baglanyşykly",
@@ -5106,7 +5147,8 @@
       "quran": "Guran",
       "duas": "Dogalar",
       "janazah": "Jynaza",
-      "fidyah": "Fidýä"
+      "fidyah": "Fidýä",
+      "whiteDays": "Ak günler"
     },
     "skipHint": "Bu karty geçiň we başga soragy görüň.",
     "skipDisabledHint": "Täze garyşdyrmak üçin bu soňky karta jogap beriň.",
@@ -5252,5 +5294,21 @@
     "qrClaimSuccess": "TV-ňyz girdi. Myhmanhananyň otagyna gaýdyp bilersiňiz.",
     "qrClaimError": "TV birikdirilip bilinmedi. TV-de täze kod dörediň we ýene synanyşyň.",
     "qrPhoneOnly": "TV girişini gutarmak üçin bu baglanyşygy telefonyňyzda açyň."
+  },
+  "whiteDays": {
+    "eyebrow": "Öwren",
+    "title": "Ak günleriň orazy",
+    "subtitle": "Aýýam al-Biz — 13, 14 we 15-iň sünnet orazy",
+    "intro": "Her aýda üç gün oraza tutmak söýgüli sünnetdir we Ak günler — her hijri aýynyň 13, 14 we 15-i — saýlanan üç gündür. Olaryň faziletini, nähili tutmalydygyny we Kurandan hem sahih hadislerden delilleri öwreniň.",
+    "section": {
+      "what": "Ak günler näme",
+      "virtue": "Fazilet we sawap",
+      "practice": "Nähili tutmaly",
+      "related": "Orazanyň has giň sünneti",
+      "track": "Munib-de yzarla"
+    },
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Bilim beriji syn — fetwa däl. Takyk seneler Aýy görmäge görä üýtgeýän hijri aýyna baglydyr; dini seneler we hökümler üçin ýerli metjidiňizi ýa-da ygtybarly alymy eýeriň.",
+    "continueInApp": "Munib-de dowam et"
   }
 }

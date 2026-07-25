@@ -304,6 +304,27 @@ describe("buildReminders", () => {
     }
   });
 
+  it("emits White Days fasting reminders only when opted in", () => {
+    const off = buildReminders(basePrefs, SET_LOCATION);
+    expect(off.some((r) => r.id.startsWith("whiteDays:"))).toBe(false);
+
+    const on: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: { ...basePrefs.notificationPrefs, whiteDays: true },
+    };
+    // Fixed morning before Safar 1448 White Days (2026-07-27..29).
+    const beforeWhiteDays = new Date("2026-07-20T06:00:00.000Z");
+    const reminders = buildReminders(on, SET_LOCATION, beforeWhiteDays);
+    const whiteDays = reminders.filter((r) => r.id.startsWith("whiteDays:"));
+    expect(whiteDays.length).toBe(3);
+    expect(whiteDays.every((r) => r.route === "/tracker?focus=white-days")).toBe(true);
+    expect(whiteDays.map((r) => r.id)).toEqual([
+      "whiteDays:2026-07-27",
+      "whiteDays:2026-07-28",
+      "whiteDays:2026-07-29",
+    ]);
+  });
+
   it("skips hour-of-acceptance reminders on the default Makkah location", () => {
     const on: UserPreferences = {
       ...basePrefs,

@@ -78,6 +78,7 @@ import {
   endSurfacePushRegistration,
   registerSurfacePushSchedule,
 } from "@/lib/surface-push/register";
+import { WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
@@ -616,6 +617,7 @@ export default function TrackerScreen() {
               getScrollY={() => scrollYRef.current}
               registerFocus={register}
               fridayFocused={isFocused(FRIDAY_CHECKLIST_FOCUS)}
+              whiteDaysFocused={isFocused(WHITE_DAYS_CHECKLIST_FOCUS)}
             />
 
             {!isTV() &&

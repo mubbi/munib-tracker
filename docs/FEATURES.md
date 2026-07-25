@@ -100,6 +100,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-2.34 | Hijri ↔ Gregorian converter | `lib/hijri.ts`, `/calendar/converter` |
 | NF-2.35 | Friday / Jumu'ah learn hub & checklist | `packages/shared/src/content/friday-guide.ts`, `/friday`, Today's Goal Friday + hour-of-acceptance banners, `friday_checklist` sync |
 | NF-2.36 | Prophets family tree | `packages/shared/src/content/prophets-genealogy.ts`, `/prophets/tree` |
+| NF-2.37 | White Days (Ayyām al-Bīḍ) fasting hub, reminder & checklist | `packages/shared/src/content/white-days-guide.ts`, `/white-days` (+ quiz), `lib/white-days.ts`, Today's Goal reminder on Hijri 13–15 (`white-days-goal-reminder.tsx`), opt-in OS push (`notificationPrefs.whiteDays`, 05:30 on 13–15), month-scoped `white_days_checklist` sync (`?focus=white-days`), flash-card bank |
 | NF-2.7 | Word-by-word + tajweed reader | `api/quran-words.ts`, `api/quran-tajweed.ts`, ayah reader toggles |
 | NF-2.10 | Daily hadith series | `lib/daily-hadith.ts`, `/hadith/daily` |
 | NF-2.8 | Hadith sharh / explanation | Arabic Nawawi-40 sharh sidecar (`nawawi40-sharh.json` via `osamayy/40-hadith-nawawi-db`); collapsible UI + `showSharh` pref |

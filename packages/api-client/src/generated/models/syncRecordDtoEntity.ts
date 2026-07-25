@@ -32,6 +32,7 @@ export const SyncRecordDtoEntity = {
   hajj_checklist: 'hajj_checklist',
   umrah_checklist: 'umrah_checklist',
   friday_checklist: 'friday_checklist',
+  white_days_checklist: 'white_days_checklist',
   jannah_intentions: 'jannah_intentions',
   jahannam_intentions: 'jahannam_intentions',
   salah_guide_progress: 'salah_guide_progress',

@@ -184,7 +184,8 @@
     "friday": "Juma va Jumu'ah",
     "fidyah": "Fidya va kafforat",
     "janazah": "Janazah qoʻllanma",
-    "sadaqah": "Sadaqah gol"
+    "sadaqah": "Sadaqah gol",
+    "whiteDays": "Oq kunlar ro‘zasi"
   },
   "quickActions": {
     "checklistSubtitle": "Bugungi namozlarni qayd eting",
@@ -580,7 +581,15 @@
     "exploreZikrHintTv": "Adhkarni sevimlilarga qo‘shish uchun yurakni tanlang",
     "exploreDuroodsHintTv": "Duroodni saqlash uchun yulduzni tanlang",
     "exploreNamesHintTv": "Ismni saqlash uchun yulduzni tanlang",
-    "exploreHintTv": "{{shown}} / {{total}} yorliq ko‘rsatildi — qo‘shish yoki tartiblash uchun Boshqarishni tanlang."
+    "exploreHintTv": "{{shown}} / {{total}} yorliq ko‘rsatildi — qo‘shish yoki tartiblash uchun Boshqarishni tanlang.",
+    "whiteDaysCard": {
+      "badge": "Oq kunlar",
+      "reminderTitle": "Oq kunlar ro‘zasi",
+      "reminderBody": "Bu Ayyām al-Bīḍ kunlaridan biri — 13-, 14- va 15-kunlarda ro‘za tutish umr bo‘yi ajrga teng sevimli sunnatdir.",
+      "progress": "{{completed}}/{{total}} ro‘za tutildi",
+      "allDone": "Uch Oq kun belgilandi — Alloh ro‘zalaringizni qabul qilsin.",
+      "openChecklist": "Oq kunlar ro‘yxatini ochish"
+    }
   },
   "tracker": {
     "eyebrow": "Trck & log",
@@ -677,7 +686,32 @@
     "cardTip": "Yangilash uchun namoz nomiga bosing · Zikr uchun adhkar · Tafsilot uchun ma'lumot",
     "tapToMark": "Belgilash uchun bosing",
     "sectionProgress": "{{completed}}/{{total}}",
-    "sunnahSubtitle": "Ixtiyoriy va ta'kidlangan sunnat namozlar"
+    "sunnahSubtitle": "Ixtiyoriy va ta'kidlangan sunnat namozlar",
+    "whiteDays": {
+      "title": "Oq kunlar ro‘zasi",
+      "subtitle": "Ayyām al-Bīḍ — faqat 13-, 14- va 15-kunlarda ko‘rsatiladi",
+      "progress": "{{total}} kundan {{completed}} tasi tutildi",
+      "details": "Tafsilotlar",
+      "openRelated": "Tegishli mazmunni ochish",
+      "learnMore": "Oq kunlar haqida bilish",
+      "jumpTitle": "Oq kunlar ro‘yxati",
+      "jumpHint": "Bu oyning Oq kunlari ro‘zalarini quyida belgilang",
+      "jumpA11y": "Ushbu sahifadagi Oq kunlar ro‘yxatiga o‘tish",
+      "items": {
+        "day13": {
+          "title": "13-kun ro‘zasi",
+          "hint": "Oq kunlarning birinchisi"
+        },
+        "day14": {
+          "title": "14-kun ro‘zasi",
+          "hint": "Oq kunlarning o‘rtasi"
+        },
+        "day15": {
+          "title": "15-kun ro‘zasi",
+          "hint": "Oq kunlarning oxirgisi"
+        }
+      }
+    }
   },
   "update": {
     "title": "Yangilanish mavjud",
@@ -1058,7 +1092,9 @@
       "fridayBody": "Bugun juma - salovot ayting va Kahf surasini o'qing.",
       "acceptanceHourTitle": "Ijoba vaqti",
       "acceptanceHourBodyAsr": "Asr boshlandi — Maghribgacha dua, istighfar va salawat bilan ijoba vaqtini qidiring.",
-      "acceptanceHourBodyMid": "Maghribgacha hali vaqt bor — bu daqiqalarni samimiy dua bilan to'ldiring."
+      "acceptanceHourBodyMid": "Maghribgacha hali vaqt bor — bu daqiqalarni samimiy dua bilan to'ldiring.",
+      "whiteDaysTitle": "Oq kunlar ro‘zasi",
+      "whiteDaysBody": "Har hijriy oyning 13-, 14- va 15-kunlari ertalabki eslatma"
     },
     "items": {
       "prayer": {
@@ -1108,6 +1144,10 @@
       "friday": {
         "title": "Juma eslatmasi",
         "subtitle": "Jumu'ah, Surah Al-Kahf va ijoba vaqti"
+      },
+      "whiteDays": {
+        "title": "Oq kunlar ro‘zasi",
+        "subtitle": "Har hijriy oyning 13-, 14- va 15-kunlari ertalabki eslatma"
       }
     },
     "prayerAlertsObligatory": "Majburiy Salah ogohlantirishlari",
@@ -2174,7 +2214,8 @@
       "generalTitle": " tqvim -nichidg  mod",
       "generalBody": "Islom (Hijri) taqvimi oyga amal qiladi: har oy 29 yoki 30 kun, ko'rilgan hilol (hilāl) bilan boshlanadi. Bu yerdagi sanalar joylashuvingizdagi hilol ko'rinishidan hisoblanadi va mahalliy hokimiyat e'lonidan bir kun farq qilishi mumkin.",
       "monthTurnTitle": "Hilolni qidiring",
-      "monthTurnBody": "Magribdan keyin {{month}} hilālini qidiring. Islom oylari ko'rilgan hilol bilan boshlanadi; mahalliy hokimiyat e'loni ushbu hisobdan bir kun farq qilishi mumkin."
+      "monthTurnBody": "Magribdan keyin {{month}} hilālini qidiring. Islom oylari ko'rilgan hilol bilan boshlanadi; mahalliy hokimiyat e'loni ushbu hisobdan bir kun farq qilishi mumkin.",
+      "whiteDaysCta": "Oq kunlar ro‘zasi haqida bilish"
     },
     "monthProgress": "Oy jarayoni",
     "monthProgressValue": "{{month}} · {{length}} kundan {{day}}-kun",
@@ -3763,7 +3804,7 @@
     "today": "bugun",
     "inDays": "ichid {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Sanalar joylashuvingizdagi hilol ko'rinishiga (yoki uni ishlatadigan mintaqalarda rasmiy Umm al-Qura taqvimiga) amal qiladi va mahalliy hokimiyat e'lonidan bir kun farq qilishi mumkin.",
+    "disclaimer": "Sanalar hisoblangan taxminlar - haqiqiy kun mahalliy oyni ko'rishga bog'liq.",
     "names": {
       "newYear": "Islomiy Yangi yil",
       "ashura": "Ashuro kuni",
@@ -4242,7 +4283,7 @@
       "label": "Qo'shimchalar (ixtiyoriy)",
       "add": "Fayl qo'shish",
       "remove": "Qo'shimchani olib tashlang",
-      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Olib tashlash uchun eskizdagi × ni bosing.",
+      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Oʻchirish uchun eskizni uzoq bosib turing.",
       "signInRequired": "Adhkaringizga shaxsiy fayllarni biriktirish uchun tizimga kiring.",
       "permissionDenied": "Fayllarni biriktirish uchun ruxsat talab qilinadi.",
       "permissionTitle": "Kirishga ruxsat bering",
@@ -4759,7 +4800,7 @@
     "sourceLabel": "siznichidg source (ixtiyyokiiy)",
     "sourcePlaceholder": "Tuzatishingizni tasdiqlovchi kitob, olim, URL yoki iqtibos.",
     "proofLabel": "Tasdiqlangan skrinshotlar (ixtiyoriy)",
-    "proofHint": "3 tagacha rasm. Olib tashlash uchun eskizdagi × ni bosing.",
+    "proofHint": "3 tagacha rasm. Oʻchirish uchun eskizni uzoq bosib turing.",
     "addProof": "Surat qo'shish",
     "removeProof": "olib tshlsh screenshot",
     "submit": "Hisobot yuborish",
@@ -5036,7 +5077,7 @@
     "eyebrow": "Kalendar",
     "title": "Sana konvertori",
     "subtitle": "Hijriy va Grigoriy kalendarlari oʻrtasida oʻzgartirish",
-    "intro": "Bir taqvimda sana kiriting — ikkinchisidagi tengini ko'ring; oflayn, joylashuvingizdagi hilol ko'rinishidan hisoblanadi.",
+    "intro": "Jadvalli Quvayt algoritmi yordamida oflayn hisoblangan boshqasida ekvivalentini ko‘rish uchun har bir taqvimga sana kiriting.",
     "toHijri": "Grigoriy → hijriy",
     "toGregorian": "Hijriy → Grigoriy",
     "gregorianDateLabel": "Grigorian sanasi",
@@ -5046,7 +5087,7 @@
     "year": "Yil",
     "useToday": "Bugun foydalaning",
     "invalidDate": "Yaroqli sanani kiriting",
-    "disclaimer": "Sanalar joylashuvingizdagi hilol (hilāl) ko'rinishidan hisoblanadi va rasmiy oy ko'rish e'lonlaridan bir kun farq qilishi mumkin — diniy sanalar uchun doimo mahalliy masjid yoki hokimiyatga amal qiling.",
+    "disclaimer": "Bu arifmetik taxmindir (“Quvayt algoritmi” jadvali) va oyni koʻrish haqidagi mahalliy eʼlonlardan bir kun farq qilishi mumkin — har doim mahalliy masjidga yoki diniy sanalar boʻyicha maʼmuriyatga amal qiling.",
     "directionTitle": "Konvertatsiya yo'nalishi",
     "resultFrom": "{{date}} dan",
     "quickLinksTitle": "Aloqador",
@@ -5106,7 +5147,8 @@
       "quran": "Qur'on",
       "duas": "Duolar",
       "janazah": "Janoza",
-      "fidyah": "Fidya"
+      "fidyah": "Fidya",
+      "whiteDays": "Oq kunlar"
     },
     "skipHint": "Bu kartani o‘tkazib yuboring va boshqa savolni ko‘ring.",
     "skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering.",
@@ -5252,5 +5294,21 @@
     "qrClaimSuccess": "TV-ga kirdingiz. Mehmonxonaga qaytishingiz mumkin.",
     "qrClaimError": "TV-ni ulab bo‘lmadi. TV-da yangi kod yarating va qayta urinib ko‘ring.",
     "qrPhoneOnly": "TV kirishini yakunlash uchun bu havolani telefoningizda oching."
+  },
+  "whiteDays": {
+    "eyebrow": "O‘rganing",
+    "title": "Oq kunlar ro‘zasi",
+    "subtitle": "Ayyām al-Bīḍ — 13-, 14- va 15-kunlardagi sunnat ro‘za",
+    "intro": "Har oy uch kun ro‘za tutish sevimli sunnatdir; Oq kunlar esa tavsiya etilgan uch kundir. Ularning fazilati, tutish yo‘li va Qur’on hamda sahih hadislardagi dalillarni bilib oling.",
+    "section": {
+      "what": "Oq kunlar nima",
+      "virtue": "Fazilat va ajr",
+      "practice": "Qanday ro‘za tutish",
+      "related": "Ro‘zaning keng sunnati",
+      "track": "Munibda kuzatish"
+    },
+    "notFound": "Mavzu topilmadi",
+    "disclaimer": "Ta’limiy sharh — fatvo emas. Aniq sanalar hijriy oy va hilol ko‘rilishiga bog‘liq; diniy sanalar va hukmlar uchun mahalliy masjid yoki malakali olimga murojaat qiling.",
+    "continueInApp": "Munibda davom etish"
   }
 }

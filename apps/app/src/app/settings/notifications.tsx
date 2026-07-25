@@ -52,7 +52,7 @@ const GROUPS: { titleKey: string; items: ToggleKey[] }[] = [
     titleKey: "groupZikr",
     items: ["morningZikr", "eveningZikr", "beforeSleep", "beforePrayer", "afterPrayer"],
   },
-  { titleKey: "groupContent", items: ["dailyContent", "friday"] },
+  { titleKey: "groupContent", items: ["dailyContent", "friday", "whiteDays"] },
   { titleKey: "groupMilestones", items: ["achievements"] },
 ];
 

@@ -20,6 +20,7 @@ import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { WhiteDaysTrackerSection } from "@/components/white-days-tracker-section";
 import { Radius, Spacing } from "@/constants/theme";
 import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -27,6 +28,7 @@ import { afterSalahProgressForPrayer } from "@/lib/after-salah-adhkar-progress";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { FRIDAY_CHECKLIST_FOCUS, isFridayDateString } from "@/lib/friday";
 import { useChevronForward } from "@/lib/rtl";
+import { isWhiteDayDateString, WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
 import { ensureZikrCorpus, zikrCategories } from "@/lib/zikr";
 
 function salahAdhkarCategories() {
@@ -49,6 +51,12 @@ const FRIDAY_ICON = {
   web: "wb_sunny",
 } as const;
 
+const WHITE_DAYS_ICON = {
+  ios: "moon.circle.fill",
+  android: "brightness_3",
+  web: "brightness_3",
+} as const;
+
 export type TrackerDayChecklistProps = {
   date: string;
   isToday: boolean;
@@ -67,6 +75,7 @@ export type TrackerDayChecklistProps = {
   /** Deep-link registration for `?focus=friday` (Tracker tab). */
   registerFocus?: (key: string) => (node: View | null) => void;
   fridayFocused?: boolean;
+  whiteDaysFocused?: boolean;
 };
 
 export function TrackerDayChecklist({
@@ -84,6 +93,7 @@ export function TrackerDayChecklist({
   getScrollY,
   registerFocus,
   fridayFocused = false,
+  whiteDaysFocused = false,
 }: TrackerDayChecklistProps) {
   const router = useRouter();
   const { t } = useTranslation();
@@ -93,6 +103,9 @@ export function TrackerDayChecklist({
   const fridaySectionRef = useRef<View>(null);
   const [fridayHighlight, setFridayHighlight] = useState(false);
   const showFriday = isFridayDateString(date);
+  const whiteDaysSectionRef = useRef<View>(null);
+  const [whiteDaysHighlight, setWhiteDaysHighlight] = useState(false);
+  const showWhiteDays = isWhiteDayDateString(date);
 
   const obligatoryDone = useMemo(() => countCompleted(OBLIGATORY_PRAYERS, status), [status]);
   const witrDone = status[WITR_PRAYER] === "completed" ? 1 : 0;
@@ -115,6 +128,13 @@ export function TrackerDayChecklist({
     return () => clearTimeout(clear);
   }, [fridayFocused]);
 
+  useEffect(() => {
+    if (!whiteDaysFocused) return;
+    setWhiteDaysHighlight(true);
+    const clear = setTimeout(() => setWhiteDaysHighlight(false), 2800);
+    return () => clearTimeout(clear);
+  }, [whiteDaysFocused]);
+
   const openAfterSalah = (prayerId: Parameters<typeof afterSalahAdhkarRoute>[0]) => {
     if (!isToday) return;
     router.push(afterSalahAdhkarRoute(prayerId));
@@ -134,6 +154,22 @@ export function TrackerDayChecklist({
       scrollChildIntoView(scrollRef, fridaySectionRef, getScrollY?.() ?? 0, 80);
     }
     setTimeout(() => setFridayHighlight(false), 2800);
+  }, [getScrollY, scrollRef]);
+
+  const setWhiteDaysSectionRef = useCallback(
+    (node: View | null) => {
+      whiteDaysSectionRef.current = node;
+      registerFocus?.(WHITE_DAYS_CHECKLIST_FOCUS)(node);
+    },
+    [registerFocus],
+  );
+
+  const jumpToWhiteDaysChecklist = useCallback(() => {
+    setWhiteDaysHighlight(true);
+    if (scrollRef) {
+      scrollChildIntoView(scrollRef, whiteDaysSectionRef, getScrollY?.() ?? 0, 80);
+    }
+    setTimeout(() => setWhiteDaysHighlight(false), 2800);
   }, [getScrollY, scrollRef]);
 
   return (
@@ -221,6 +257,31 @@ export function TrackerDayChecklist({
                     <AppIcon icon={chevronForward} size={16} tintColor={colors.accent} />
                   </PressableScale>
                 ) : null}
+                {prayerId === "fajr" && showWhiteDays ? (
+                  <PressableScale
+                    accessibilityRole="button"
+                    accessibilityLabel={t("tracker.whiteDays.jumpA11y")}
+                    onPress={jumpToWhiteDaysChecklist}
+                    haptic="selection"
+                    scaleTo={0.98}
+                    style={[
+                      styles.fridayJump,
+                      {
+                        backgroundColor: tokens.accentSoft,
+                        borderColor: colors.border,
+                      },
+                    ]}
+                  >
+                    <IconWell icon={WHITE_DAYS_ICON} size={16} well={32} radius={Radius.sm} />
+                    <View style={styles.fridayJumpCopy}>
+                      <ThemedText type="smallBold">{t("tracker.whiteDays.jumpTitle")}</ThemedText>
+                      <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                        {t("tracker.whiteDays.jumpHint")}
+                      </ThemedText>
+                    </View>
+                    <AppIcon icon={chevronForward} size={16} tintColor={colors.accent} />
+                  </PressableScale>
+                ) : null}
               </Fragment>
             );
           })}
@@ -230,6 +291,15 @@ export function TrackerDayChecklist({
       {showFriday ? (
         <FocusHighlight ref={setFridaySectionRef} active={fridayHighlight || fridayFocused}>
           <FridayTrackerSection date={date} />
+        </FocusHighlight>
+      ) : null}
+
+      {showWhiteDays ? (
+        <FocusHighlight
+          ref={setWhiteDaysSectionRef}
+          active={whiteDaysHighlight || whiteDaysFocused}
+        >
+          <WhiteDaysTrackerSection date={date} />
         </FocusHighlight>
       ) : null}
 
