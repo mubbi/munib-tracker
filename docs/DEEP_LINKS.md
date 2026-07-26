@@ -198,7 +198,7 @@ Host verification files are generated into `apps/app/public/.well-known/` by `sc
 | Variable | Purpose |
 |----------|---------|
 | `EXPO_APPLE_TEAM_ID` | AASA `appID` prefix (required for real iOS verification; placeholder `TEAMID` if unset) |
-| `ANDROID_APP_LINK_SHA256_FINGERPRINTS` | Play App Signing + debug SHA-256 (comma-separated; falls back to bundled fingerprint) |
+| `ANDROID_APP_LINK_SHA256_FINGERPRINTS` | Play App Signing + debug SHA-256 (comma-separated). **Required for Play Store installs** — the generator always includes the upload cert, but Play re-signs with the App Signing key. Without that fingerprint, `autoVerify` App Links fail for production installs. |
 | `EXPO_PUBLIC_APP_IDENTIFIER` | iOS bundle ID (`app.munibtracker`) |
 | `EXPO_PUBLIC_ANDROID_PACKAGE` | Android package (`app.munibtracker`) |
 | `EXPO_PUBLIC_WEB_APP_ORIGIN` | Product web origin used for Apple redirect URIs (falls back to `EXPO_PUBLIC_APP_URL`) |

@@ -252,10 +252,17 @@ export function PageLayoutRenderer({
 
             {interleaved ? (
               group.ayahs.map((ayah) => {
-                const key = String(ayah.ayah);
-                const translit = showTransliteration ? transliteration?.[key] : undefined;
-                const trans = showTranslation ? translation?.[key] : undefined;
-                const second = showTranslation ? secondTranslation?.[key] : undefined;
+                const compositeKey = `${ayah.surah}:${ayah.ayah}`;
+                const ayahKey = String(ayah.ayah);
+                const translit = showTransliteration
+                  ? (transliteration?.[compositeKey] ?? transliteration?.[ayahKey])
+                  : undefined;
+                const trans = showTranslation
+                  ? (translation?.[compositeKey] ?? translation?.[ayahKey])
+                  : undefined;
+                const second = showTranslation
+                  ? (secondTranslation?.[compositeKey] ?? secondTranslation?.[ayahKey])
+                  : undefined;
                 const highlighted = ayahMatchesHighlight(ayah, highlightAyah);
                 return (
                   <PressableScale

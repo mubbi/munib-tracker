@@ -174,6 +174,7 @@ export const QazaRepository = {
 
   /** Performs qaza: remaining decreases, completed increases. */
   async performQaza(prayerId: QazaPrayer, by = 1): Promise<QazaCounter> {
+    const date = getLocalDateString();
     let step = 0;
     const map = await mutateCounters((counters) => {
       const counter = counters[prayerId];
@@ -186,7 +187,21 @@ export const QazaRepository = {
       };
     });
     if (step > 0) {
-      await this.incrementDailyProgress(prayerId, getLocalDateString(), step);
+      try {
+        await this.incrementDailyProgress(prayerId, date, step);
+      } catch (error) {
+        // Compensate so lifetime counters and daily progress stay aligned.
+        await mutateCounters((counters) => {
+          const counter = counters[prayerId];
+          counters[prayerId] = {
+            prayerId,
+            remaining: counter.remaining + step,
+            completed: Math.max(0, counter.completed - step),
+            updatedAt: new Date().toISOString(),
+          };
+        });
+        throw error;
+      }
     }
     return map[prayerId];
   },
@@ -196,15 +211,17 @@ export const QazaRepository = {
   },
 
   async setRoza(next: QazaRozaCounter): Promise<QazaRozaCounter> {
-    const value: QazaRozaCounter = {
-      remaining: Math.max(0, Math.round(next.remaining)),
-      completed: Math.max(0, Math.round(next.completed)),
-      estimatedMissed: next.estimatedMissed,
-      // Preserve a supplied timestamp (remote apply); stamp fresh for local edits.
-      updatedAt: next.updatedAt ?? new Date().toISOString(),
-    };
-    await writeJSON(DB_KEYS.qazaRoza, value);
-    return value;
+    return withKeyLock(DB_KEYS.qazaRoza, async () => {
+      const value: QazaRozaCounter = {
+        remaining: Math.max(0, Math.round(next.remaining)),
+        completed: Math.max(0, Math.round(next.completed)),
+        estimatedMissed: next.estimatedMissed,
+        // Preserve a supplied timestamp (remote apply); stamp fresh for local edits.
+        updatedAt: next.updatedAt ?? new Date().toISOString(),
+      };
+      await writeJSON(DB_KEYS.qazaRoza, value);
+      return value;
+    });
   },
 
   async performRoza(by = 1): Promise<QazaRozaCounter> {
@@ -354,7 +371,22 @@ export const QazaRepository = {
       };
     });
     if (step > 0) {
-      await this.decrementDailyProgress(prayerId, getLocalDateString(), step);
+      // Prefer the most recent day that still has progress for this prayer so
+      // undoing after midnight does not debit today's empty bucket.
+      const allProgress = await this.getAllDailyProgress();
+      let remaining = step;
+      const dates = Object.keys(allProgress).sort().reverse();
+      for (const date of dates) {
+        if (remaining <= 0) break;
+        const have = allProgress[date]?.completed[prayerId] ?? 0;
+        if (have <= 0) continue;
+        const take = Math.min(remaining, have);
+        await this.decrementDailyProgress(prayerId, date, take);
+        remaining -= take;
+      }
+      if (remaining > 0) {
+        await this.decrementDailyProgress(prayerId, getLocalDateString(), remaining);
+      }
     }
     return map[prayerId];
   },

@@ -12,11 +12,12 @@ export function setWebReminderFireHandler(handler: WebReminderFireHandler | null
   onFire = handler;
 }
 
-export function cancelWebReminderTimers(): void {
-  for (const timer of timers.values()) {
+export function cancelWebReminderTimers(options?: { preserveSnoozes?: boolean }): void {
+  for (const [id, timer] of timers.entries()) {
+    if (options?.preserveSnoozes && id.startsWith("snooze:")) continue;
     clearTimeout(timer);
+    timers.delete(id);
   }
-  timers.clear();
 }
 
 /**
@@ -24,7 +25,7 @@ export function cancelWebReminderTimers(): void {
  * when each reminder's `fireAt` instant is reached.
  */
 export function scheduleWebReminderTimers(reminders: BuiltReminder[], now = new Date()): void {
-  cancelWebReminderTimers();
+  cancelWebReminderTimers({ preserveSnoozes: true });
   for (const reminder of reminders) {
     armWebReminderTimer(reminder, now);
   }

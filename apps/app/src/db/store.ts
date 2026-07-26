@@ -1,17 +1,39 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { captureAppException } from "@/lib/sentry";
+
 /**
  * Offline-first persistence built on AsyncStorage. AsyncStorage is already a
  * dependency, works on iOS/Android/Web, and needs no native rebuild — so the
  * whole data layer stays cross-platform without adding expo-sqlite.
  */
 
+/** Best-effort quarantine so a corrupt value is not silently treated as "empty". */
+async function quarantineCorrupt(key: string, raw: string, error: unknown): Promise<void> {
+  captureAppException(error, {
+    tags: { area: "async-storage", key },
+    extra: { rawLength: raw.length },
+  });
+  try {
+    await AsyncStorage.setItem(`${key}__corrupt`, raw);
+    await AsyncStorage.removeItem(key);
+  } catch {
+    // Quarantine is best-effort; callers still get the fallback.
+  }
+}
+
 export async function readJSON<T>(key: string, fallback: T): Promise<T> {
   try {
     const raw = await AsyncStorage.getItem(key);
     if (raw == null) return fallback;
-    return JSON.parse(raw) as T;
-  } catch {
+    try {
+      return JSON.parse(raw) as T;
+    } catch (error) {
+      await quarantineCorrupt(key, raw, error);
+      return fallback;
+    }
+  } catch (error) {
+    captureAppException(error, { tags: { area: "async-storage", key, phase: "getItem" } });
     return fallback;
   }
 }

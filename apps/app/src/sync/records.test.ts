@@ -7,6 +7,8 @@ const prefs: UserPreferences = {
   ...DEFAULT_USER_PREFERENCES,
   favoriteZikrIds: ["z1"],
   favoriteZikrOrder: ["z1"],
+  updatedAt: "2026-07-03T11:00:00.000Z",
+  favoritesUpdatedAt: "2026-07-03T11:00:00.000Z",
 };
 
 const log: PrayerLog = {
@@ -20,13 +22,13 @@ const log: PrayerLog = {
 
 /** Empty defaults for the blob entities so each test can focus on what it seeds. */
 const blobFields = {
-  duaFavorites: { order: [] },
-  duroodFavorites: { order: [] },
-  nameFavorites: { order: [] },
-  quranBookmarks: [],
+  duaFavorites: { order: [] as string[] },
+  duroodFavorites: { order: [] as string[] },
+  nameFavorites: { order: [] as string[] },
+  quranBookmarks: [] as [],
   quranLastRead: null,
-  hadithBookmarks: [],
-  customTasbeeh: { items: [] },
+  hadithBookmarks: [] as [],
+  customTasbeeh: { items: [] as [] },
 } as const;
 
 describe("buildSyncRecords", () => {
@@ -43,22 +45,10 @@ describe("buildSyncRecords", () => {
     ...blobFields,
   });
 
-  it("emits one record per entity type", () => {
+  it("emits one record per entity type that was touched", () => {
     const entities = new Set(records.map((r) => r.entity));
     expect(entities).toEqual(
-      new Set([
-        "prayer_logs",
-        "zikr_progress",
-        "qaza_entries",
-        "preferences",
-        "favorites",
-        "dua_favorites",
-        "durood_favorites",
-        "name_favorites",
-        "quran_bookmarks",
-        "hadith_bookmarks",
-        "custom_tasbeeh",
-      ]),
+      new Set(["prayer_logs", "zikr_progress", "qaza_entries", "preferences", "favorites"]),
     );
   });
 
@@ -102,5 +92,38 @@ describe("buildSyncRecords", () => {
     expect(deletion?.deletedAt).toBe("2026-07-03T09:00:00.000Z");
     // The payload carries enough to apply the delete on the other device.
     expect(deletion?.data).toMatchObject({ prayerId: "fajr", date: "2026-07-01" });
+  });
+
+  it("omits untouched zero qaza/roza and default preferences", () => {
+    const pristine = buildSyncRecords({
+      nowIso: "2026-07-03T12:00:00.000Z",
+      prayerLogs: [],
+      zikrProgress: [],
+      qazaCounters: [
+        { prayerId: "fajr", remaining: 0, completed: 0 },
+        { prayerId: "dhuhr", remaining: 0, completed: 0 },
+      ],
+      roza: { remaining: 0, completed: 0 },
+      preferences: { ...DEFAULT_USER_PREFERENCES },
+      tombstones: [],
+      ...blobFields,
+    });
+    expect(pristine.map((r) => r.entity)).toEqual([]);
+  });
+
+  it("emits zeroed qaza when updatedAt is set (user reset)", () => {
+    const reset = buildSyncRecords({
+      nowIso: "2026-07-03T12:00:00.000Z",
+      prayerLogs: [],
+      zikrProgress: [],
+      qazaCounters: [
+        { prayerId: "fajr", remaining: 0, completed: 0, updatedAt: "2026-07-03T10:00:00.000Z" },
+      ],
+      roza: { remaining: 0, completed: 0, updatedAt: "2026-07-03T10:00:00.000Z" },
+      preferences: { ...DEFAULT_USER_PREFERENCES },
+      tombstones: [],
+      ...blobFields,
+    });
+    expect(reset.filter((r) => r.entity === "qaza_entries")).toHaveLength(2);
   });
 });

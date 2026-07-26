@@ -247,14 +247,17 @@ describe("runSync", () => {
   });
 
   it("applies conflict records returned by push", async () => {
+    // Local must emit a record so push runs and can return conflicts.
+    await QazaRepository.setCounter("fajr", 1, 0);
+    const newer = new Date(Date.now() + 60_000).toISOString();
     mockPush.mockResolvedValue(
       pushResult({
         conflicts: [
           {
             entity: "qaza_entries",
             id: "fajr",
-            data: { prayerId: "fajr", remaining: 7, completed: 2 },
-            updatedAt: "2026-07-04T00:00:00.000Z",
+            data: { prayerId: "fajr", remaining: 7, completed: 2, updatedAt: newer },
+            updatedAt: newer,
           },
         ],
       }),
@@ -318,9 +321,41 @@ describe("runSync", () => {
     expect(hasPendingPreferenceChanges()).toBe(false);
   });
 
-  it("pushes the expanded blob entities (dua favorites, bookmarks, tasbeeh)", async () => {
+  it("omits pristine typed defaults from the first push", async () => {
+    await runSync(user);
+    // Empty guest defaults must not push — avoids LWW-clobbering cloud qaza/prefs.
+    expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  it("pushes touched favorites, bookmarks, and tasbeeh blobs", async () => {
+    await writeJSON(DB_KEYS.duaFavorites, ["d1"]);
+    await writeJSON(DB_KEYS.duaFavoritesUpdatedAt, "2026-07-03T12:00:00.000Z");
+    await writeJSON(DB_KEYS.duroodFavorites, ["r1"]);
+    await writeJSON(DB_KEYS.duroodFavoritesUpdatedAt, "2026-07-03T12:00:00.000Z");
+    await writeJSON(DB_KEYS.nameFavorites, ["n1"]);
+    await writeJSON(DB_KEYS.nameFavoritesUpdatedAt, "2026-07-03T12:00:00.000Z");
+    await QuranRepository.toggleBookmark(2, 255);
+    await HadithRepository.toggleBookmark({
+      id: "bukhari:1",
+      collection: "bukhari",
+      number: 1,
+    });
+    await writeJSON(DB_KEYS.customTasbeeh, {
+      t1: {
+        id: "t1",
+        title: "SubhanAllah",
+        description: "",
+        target: 33,
+        count: 0,
+        createdAt: "2026-07-03T00:00:00.000Z",
+        updatedAt: "2026-07-03T00:00:00.000Z",
+      },
+    });
+    await writeJSON(DB_KEYS.customTasbeehUpdatedAt, "2026-07-03T12:00:00.000Z");
+
     await runSync(user);
     const pushed = mockPush.mock.calls[0]?.[1] as SyncRecordDto[];
+    expect(pushed).toBeDefined();
     const entities = new Set(pushed.map((r) => r.entity));
     expect(entities).toContain("dua_favorites");
     expect(entities).toContain("durood_favorites");

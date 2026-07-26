@@ -239,6 +239,9 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   if (isAppReloadInProgress()) return { status: "skipped", reason: "reload" };
 
   const meta = await readMeta();
+  // Watermark must precede reads so an edit that lands while this sync is
+  // reading still has updatedAt > lastPushedAt and is included on the next push.
+  const nowIso = new Date().toISOString();
 
   const [
     prayerLogs,
@@ -274,7 +277,6 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
     readCustomTasbeehBlob(),
   ]);
 
-  const nowIso = new Date().toISOString();
   const typedRecords = buildSyncRecords({
     nowIso,
     prayerLogs,

@@ -19,7 +19,6 @@ import { usePrayerTimesForDate } from "@/hooks/use-prayer-times-for-date";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
-import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -118,44 +117,24 @@ export default function CalendarDayScreen() {
     options?: { addToQaza?: boolean },
   ) => {
     const previous = status[prayerId] ?? "pending";
-    const existingLog = await PrayerRepository.getLog(prayerId, date);
-
-    const qazaDebtAdded = await reconcileQazaDebtForStatusChange(
-      prayerId,
-      previous,
-      next,
-      existingLog,
-      options,
-    );
-
-    await PrayerRepository.setStatus(prayerId, date, next, { qazaDebtAdded });
+    await trackerStore.getState().setPrayerStatusOnDate(date, prayerId, next, options);
     await reload();
-    await trackerStore.getState().refresh();
     remindAfterSalahAdhkar(prayerId, previous, next);
   };
 
   const applyNotes = async (prayerId: PrayerId, text: string) => {
-    await PrayerRepository.setNotes(prayerId, date, text);
+    await trackerStore.getState().setPrayerNotesOnDate(date, prayerId, text);
     await reload();
-    await trackerStore.getState().refresh();
   };
 
   const applyJama = async (prayerId: PrayerId, next: boolean) => {
-    await PrayerRepository.setFlags(prayerId, date, { isJama: next });
+    await trackerStore.getState().setPrayerJamaOnDate(date, prayerId, next);
     await reload();
-    await trackerStore.getState().refresh();
   };
 
   const applyExcused = async (reason: ExcusedReason | null) => {
-    const isExcused = reason != null;
-    for (const prayerId of OBLIGATORY_PRAYERS) {
-      await PrayerRepository.setFlags(prayerId, date, {
-        isExcused,
-        excusedReason: reason ?? undefined,
-      });
-    }
+    await trackerStore.getState().setDayExcusedOnDate(date, reason);
     await reload();
-    await trackerStore.getState().refresh();
   };
 
   const completed = OBLIGATORY_PRAYERS.filter((p) => status[p] === "completed").length;

@@ -5,6 +5,7 @@ import type {
   TimeFormat,
   UserPreferences,
 } from "@munib-tracker/shared/types";
+import { getLocalDateString } from "@munib-tracker/shared/utils";
 import i18n from "@/i18n";
 import { ACCEPTANCE_HOUR_ROUTE, acceptanceHourMidpoint } from "@/lib/acceptance-hour";
 import { afterSalahAdhkarHref } from "@/lib/after-salah-adhkar-reminder";
@@ -165,7 +166,8 @@ function pushPrayerReminders(
 
     const at = prayerDate(times, slot, tomorrowTimes.fajr, yesterdayTimes.maghrib, day);
     const label = i18n.t(`prayers.${slot}`);
-    const dayKey = day.toISOString().slice(0, 10);
+    // Local calendar day — never UTC (`toISOString`), or Mark fails east of UTC.
+    const dayKey = getLocalDateString(day);
     const isFard = FARD_SLOTS.includes(slot as (typeof FARD_SLOTS)[number]);
     const isWitr = slot === "witr";
 

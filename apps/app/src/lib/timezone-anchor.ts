@@ -1,7 +1,10 @@
 /** Calendar Y-M-D key in an IANA timezone (device local when omitted). */
 export function dayKeyInTimeZone(now: Date, timeZone?: string): string {
   if (!timeZone) {
-    return `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+    const year = now.getFullYear();
+    const month = `${now.getMonth() + 1}`.padStart(2, "0");
+    const day = `${now.getDate()}`.padStart(2, "0");
+    return `${year}-${month}-${day}`;
   }
   return new Intl.DateTimeFormat("en-CA", {
     timeZone,

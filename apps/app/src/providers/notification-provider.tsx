@@ -69,8 +69,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const bedtime = useStore(preferencesStore, (s) => s.prefs.bedtime);
   const location = useStore(locationStore, (s) => s.location);
   const locationReady = useStore(locationStore, (s) => s.isReady);
-  const _trackerReady = useStore(trackerStore, (s) => s.isReady);
-  const _qazaDebtKey = useStore(trackerStore, (s) => {
+  const trackerReady = useStore(trackerStore, (s) => s.isReady);
+  // Subscribed so clearing qaza debt re-arms OS qaza nudges without waiting for AppState.
+  const qazaDebtKey = useStore(trackerStore, (s) => {
     const salahRemaining = s.qazaCounters.reduce((sum, c) => sum + c.remaining, 0);
     return `${salahRemaining}:${s.roza.remaining}`;
   });
@@ -140,7 +141,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   }, [deliver, tv]);
 
   useEffect(() => {
-    if (!notificationsOk || !activeLocale || !ready || !locationReady) return;
+    if (!notificationsOk || !activeLocale || !ready || !locationReady || !trackerReady) return;
+    // qazaDebtKey keeps this effect tied to remaining debt so OS nudges drop when cleared.
+    void qazaDebtKey;
     const prefs = preferencesStore.getState().prefs;
     void rescheduleAll(
       { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime },
@@ -150,6 +153,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     notificationsOk,
     ready,
     locationReady,
+    trackerReady,
+    qazaDebtKey,
     notificationPrefs,
     prayerAlerts,
     prayerReminderOffsets,

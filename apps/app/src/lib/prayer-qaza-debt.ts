@@ -21,7 +21,9 @@ export async function reconcileQazaDebtForStatusChange(
     return existingLog?.qazaDebtAdded;
   }
 
-  const wasInQazaDebtStatus = QAZA_DEBT_STATUSES.has(previous);
+  // Prefer the persisted log status over UI/memory — calendar vs home can diverge.
+  const priorStatus = existingLog?.status ?? previous;
+  const wasInQazaDebtStatus = QAZA_DEBT_STATUSES.has(priorStatus);
   const isInQazaDebtStatus = QAZA_DEBT_STATUSES.has(next);
 
   if (isInQazaDebtStatus && !wasInQazaDebtStatus) {
@@ -33,7 +35,13 @@ export async function reconcileQazaDebtForStatusChange(
   }
 
   if (wasInQazaDebtStatus && !isInQazaDebtStatus) {
-    if (existingLog?.qazaDebtAdded !== false) {
+    // Only unwind debt we know was added. Legacy logs without the flag that were
+    // already in a debt status keep the previous `!== false` behavior so old
+    // missed entries still decrement once when cleared.
+    const shouldUnwind =
+      existingLog?.qazaDebtAdded === true ||
+      (existingLog?.qazaDebtAdded == null && existingLog != null);
+    if (shouldUnwind) {
       await QazaRepository.incrementRemaining(prayerId, -1);
     }
     return undefined;

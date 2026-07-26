@@ -23,6 +23,7 @@ import {
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
 import { isLocalNotificationSupported } from "@/lib/notifications/platform";
+import { captureAppException } from "@/lib/sentry";
 import { formatDisplayHhMm } from "@/lib/time";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -37,7 +38,9 @@ let rescheduleTail: Promise<void> = Promise.resolve();
 
 function enqueueReschedule(task: () => Promise<void>): Promise<void> {
   const run = rescheduleTail.then(task, task);
-  rescheduleTail = run.catch(() => {});
+  rescheduleTail = run.catch((error) => {
+    captureAppException(error, { tags: { area: "notifications", phase: "reschedule" } });
+  });
   return run;
 }
 
@@ -54,6 +57,57 @@ export const PRAYER_NOW_CATEGORY = "prayer_now";
 export const MARK_ACTION_IDENTIFIER = "markcurrent";
 export const SNOOZE_ACTION_IDENTIFIER = "snooze";
 const SNOOZE_MINUTES = 10;
+const SNOOZE_ID_PREFIX = "snooze:";
+
+type PendingSnooze = {
+  identifier: string;
+  content: Notifications.NotificationContentInput;
+  seconds: number;
+  channelId: ChannelId;
+};
+
+async function collectPendingSnoozes(): Promise<PendingSnooze[]> {
+  const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+  const now = Date.now();
+  const out: PendingSnooze[] = [];
+  for (const item of scheduled) {
+    if (!item.identifier.startsWith(SNOOZE_ID_PREFIX)) continue;
+    const fireAtMs = parseScheduledTriggerAtMs(item.trigger as RawScheduledTrigger);
+    if (fireAtMs == null || fireAtMs <= now) continue;
+    const channelId =
+      ((item.content.data as { channelId?: ChannelId } | null)?.channelId as
+        | ChannelId
+        | undefined) ?? "prayer";
+    out.push({
+      identifier: item.identifier,
+      content: {
+        title: item.content.title ?? i18n.t("notif.defaultTitle"),
+        body: item.content.body ?? "",
+        categoryIdentifier: PRAYER_NOW_CATEGORY,
+        data: item.content.data ?? {},
+        ...(item.content.sound ? { sound: item.content.sound } : {}),
+      },
+      seconds: Math.max(1, Math.round((fireAtMs - now) / 1000)),
+      channelId,
+    });
+  }
+  return out;
+}
+
+async function restoreSnoozes(snoozes: PendingSnooze[]): Promise<void> {
+  for (const snooze of snoozes) {
+    await Notifications.scheduleNotificationAsync({
+      identifier: snooze.identifier,
+      content: snooze.content,
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: snooze.seconds,
+        channelId: snooze.channelId,
+        repeats: false,
+      },
+    });
+  }
+}
 
 /** Sets the foreground handler and Android channels. Call once at startup. */
 export async function configureNotifications(): Promise<void> {
@@ -156,15 +210,35 @@ export async function rescheduleAll(
 ): Promise<void> {
   if (!isLocalNotificationSupported()) return;
   return enqueueReschedule(async () => {
-    await cancelAll();
-    if (!prefs.notificationPrefs.masterEnabled) return;
-    if ((await getPermissionStatus()) !== "granted") return;
-
-    const reminders = buildReminders(prefs, location, new Date(), buildReminderOptions());
+    // Preserve snoozes across cancel/rebuild so foreground reschedule doesn't
+    // erase an intentional deferral.
+    const snoozes = await collectPendingSnoozes();
+    const nextReminders =
+      prefs.notificationPrefs.masterEnabled && (await getPermissionStatus()) === "granted"
+        ? buildReminders(prefs, location, new Date(), buildReminderOptions())
+        : [];
     const now = Date.now();
-    for (const reminder of reminders) {
-      if (reminder.fireAt.getTime() <= now - 60_000) continue;
-      await scheduleReminder(reminder);
+    const toSchedule = nextReminders.filter((reminder) => reminder.fireAt.getTime() > now - 60_000);
+
+    // Build the replacement set first; only cancel after we know what to arm.
+    // If scheduling throws mid-loop, restore snoozes and report — user may briefly
+    // lack some reminders until the next successful reschedule.
+    await cancelAll();
+    try {
+      for (const reminder of toSchedule) {
+        await scheduleReminder(reminder);
+      }
+      await restoreSnoozes(snoozes);
+    } catch (error) {
+      captureAppException(error, { tags: { area: "notifications", phase: "schedule" } });
+      try {
+        await restoreSnoozes(snoozes);
+      } catch (restoreError) {
+        captureAppException(restoreError, {
+          tags: { area: "notifications", phase: "restore-snooze" },
+        });
+      }
+      throw error;
     }
   });
 }
@@ -179,7 +253,13 @@ export async function snoozeNotification(
   if (!isLocalNotificationSupported()) return;
   const { content } = response.notification.request;
   const channelId = (content.data?.channelId as ChannelId | undefined) ?? "prayer";
+  const baseId =
+    (content.data?.reminderId as string | undefined) ??
+    (content.data?.prayerId as string | undefined) ??
+    "prayer";
+  const identifier = `${SNOOZE_ID_PREFIX}${baseId}`;
   await Notifications.scheduleNotificationAsync({
+    identifier,
     content: {
       title: content.title ?? i18n.t("notif.defaultTitle"),
       body: content.body ?? "",

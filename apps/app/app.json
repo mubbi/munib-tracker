@@ -17,6 +17,7 @@
       "infoPlist": {
         "UIBackgroundModes": ["remote-notification", "audio"],
         "NSSupportsLiveActivities": true,
+        "NSFaceIDUsageDescription": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled.",
         "NSCameraUsageDescription": "Munib Tracker uses the camera so you can attach photos to custom adhkar.",
         "NSPhotoLibraryUsageDescription": "Munib Tracker uses your photo library so you can attach images to custom adhkar.",
         "NSUserNotificationsUsageDescription": "Munib Tracker sends prayer reminders, dhikr alerts, and official announcements when you enable notifications."
@@ -93,6 +94,12 @@
       ],
       "expo-document-picker",
       "expo-apple-authentication",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled."
+        }
+      ],
       [
         "expo-location",
         {

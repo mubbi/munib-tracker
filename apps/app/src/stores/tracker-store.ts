@@ -94,10 +94,27 @@ export interface TrackerState {
     status: PrayerStatus,
     options?: SetPrayerStatusOptions,
   ) => Promise<void>;
+  /** Same as setPrayerStatus but for an arbitrary calendar day (queue-safe). */
+  setPrayerStatusOnDate: (
+    date: string,
+    prayerId: PrayerId,
+    status: PrayerStatus,
+    options?: SetPrayerStatusOptions,
+  ) => Promise<void>;
   setPrayerNotes: (prayerId: PrayerId, notes: string) => Promise<void>;
+  setPrayerNotesOnDate: (date: string, prayerId: PrayerId, notes: string) => Promise<void>;
   setPrayerJama: (prayerId: PrayerId, isJama: boolean) => Promise<void>;
+  setPrayerJamaOnDate: (date: string, prayerId: PrayerId, isJama: boolean) => Promise<void>;
   setDayExcused: (reason: ExcusedReason | null) => Promise<void>;
+  setDayExcusedOnDate: (date: string, reason: ExcusedReason | null) => Promise<void>;
   setZikrCount: (
+    zikrId: string,
+    count: number,
+    target: number,
+    options?: ZikrProgressOptions,
+  ) => Promise<void>;
+  setZikrCountOnDate: (
+    date: string,
     zikrId: string,
     count: number,
     target: number,
@@ -234,6 +251,14 @@ function enqueue<T>(task: () => Promise<T>): Promise<T> {
 export const trackerStore = createStore<TrackerState>((set, get) => {
   const today = getLocalDateString();
 
+  /** Recompute without re-entering the mutation queue (safe inside enqueue). */
+  async function refreshUnlocked(): Promise<void> {
+    const date = getLocalDateString();
+    const next = await recompute(date);
+    set({ ...next, date });
+    await persistAchievementSync(next.achievementStats ?? emptyStats());
+  }
+
   return {
     date: today,
     isReady: false,
@@ -252,25 +277,27 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     devotionProgress: computeDevotionProgress(emptyStats()),
 
     async load() {
-      await initDatabase();
-      const date = getLocalDateString();
-      const next = await recompute(date);
-      set({ ...next, date, isReady: true });
-      await persistAchievementSync(next.achievementStats ?? emptyStats());
+      return enqueue(async () => {
+        await initDatabase();
+        const date = getLocalDateString();
+        const next = await recompute(date);
+        set({ ...next, date, isReady: true });
+        await persistAchievementSync(next.achievementStats ?? emptyStats());
+      });
     },
 
     async refresh() {
-      const date = getLocalDateString();
-      const next = await recompute(date);
-      set({ ...next, date });
-      await persistAchievementSync(next.achievementStats ?? emptyStats());
+      return enqueue(() => refreshUnlocked());
     },
 
     setPrayerStatus(prayerId, status, options) {
+      return get().setPrayerStatusOnDate(get().date, prayerId, status, options);
+    },
+
+    setPrayerStatusOnDate(date, prayerId, status, options) {
       return enqueue(async () => {
-        const { date, prayerStatus } = get();
-        const previous = prayerStatus[prayerId] ?? "pending";
         const existingLog = await PrayerRepository.getLog(prayerId, date);
+        const previous = existingLog?.status ?? get().prayerStatus[prayerId] ?? "pending";
 
         const qazaDebtAdded = await reconcileQazaDebtForStatusChange(
           prayerId,
@@ -280,33 +307,48 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
           options,
         );
 
-        set({ prayerStatus: { ...prayerStatus, [prayerId]: status } });
+        if (date === get().date) {
+          set({ prayerStatus: { ...get().prayerStatus, [prayerId]: status } });
+        }
         await PrayerRepository.setStatus(prayerId, date, status, { qazaDebtAdded });
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     setPrayerNotes(prayerId, notes) {
+      return get().setPrayerNotesOnDate(get().date, prayerId, notes);
+    },
+
+    setPrayerNotesOnDate(date, prayerId, notes) {
       return enqueue(async () => {
-        const { date, prayerNotes } = get();
-        set({ prayerNotes: { ...prayerNotes, [prayerId]: notes } });
+        if (date === get().date) {
+          set({ prayerNotes: { ...get().prayerNotes, [prayerId]: notes } });
+        }
         await PrayerRepository.setNotes(prayerId, date, notes);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     setPrayerJama(prayerId, isJama) {
+      return get().setPrayerJamaOnDate(get().date, prayerId, isJama);
+    },
+
+    setPrayerJamaOnDate(date, prayerId, isJama) {
       return enqueue(async () => {
-        const { date, prayerJama } = get();
-        set({ prayerJama: { ...prayerJama, [prayerId]: isJama } });
+        if (date === get().date) {
+          set({ prayerJama: { ...get().prayerJama, [prayerId]: isJama } });
+        }
         await PrayerRepository.setFlags(prayerId, date, { isJama });
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     setDayExcused(reason) {
+      return get().setDayExcusedOnDate(get().date, reason);
+    },
+
+    setDayExcusedOnDate(date, reason) {
       return enqueue(async () => {
-        const { date } = get();
         // A day-level excuse flags all five fard prayers so streak + qaza logic
         // (which key off the logs) treat the whole day as excused.
         const isExcused = reason != null;
@@ -316,17 +358,22 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
             excusedReason: reason ?? undefined,
           });
         }
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     setZikrCount(zikrId, count, target, options) {
+      return get().setZikrCountOnDate(get().date, zikrId, count, target, options);
+    },
+
+    setZikrCountOnDate(date, zikrId, count, target, options) {
       return enqueue(async () => {
-        const { date, zikrCounts } = get();
-        const key = zikrCountKey(zikrId, options?.prayerId);
-        set({ zikrCounts: { ...zikrCounts, [key]: Math.max(0, count) } });
+        if (date === get().date) {
+          const key = zikrCountKey(zikrId, options?.prayerId);
+          set({ zikrCounts: { ...get().zikrCounts, [key]: Math.max(0, count) } });
+        }
         await ZikrRepository.setCount(zikrId, date, count, target, options?.prayerId);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
@@ -337,7 +384,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
         const next = Math.max(0, (zikrCounts[key] ?? 0) + by);
         set({ zikrCounts: { ...zikrCounts, [key]: next } });
         await ZikrRepository.increment(zikrId, date, target, by, options?.prayerId);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
@@ -350,7 +397,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
           }),
         });
         await QazaRepository.setCounter(prayerId, remaining, completed);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
@@ -359,7 +406,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
         const { qazaCounters } = get();
         set({ qazaCounters: patchQazaCounters(qazaCounters, updates) });
         await QazaRepository.setCounters(updates);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
@@ -379,21 +426,21 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
           });
         }
         await QazaRepository.performQaza(prayerId, by);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     undoQaza(prayerId, by = 1) {
       return enqueue(async () => {
         await QazaRepository.undoQaza(prayerId, by);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     setQazaSchedule(schedule) {
       return enqueue(async () => {
         await QazaRepository.setSchedule(schedule);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
@@ -406,7 +453,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
           }),
         });
         await QazaRepository.resetCounter(prayerId);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
@@ -418,28 +465,28 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
         ) as Partial<Record<QazaPrayer, { remaining: number; completed: number }>>;
         set({ qazaCounters: patchQazaCounters(qazaCounters, cleared) });
         await QazaRepository.resetAllCounters();
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     setRoza(roza) {
       return enqueue(async () => {
         await QazaRepository.setRoza(roza);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     performRoza(by = 1) {
       return enqueue(async () => {
         await QazaRepository.performRoza(by);
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
 
     resetRoza() {
       return enqueue(async () => {
         await QazaRepository.resetRoza();
-        await get().refresh();
+        await refreshUnlocked();
       });
     },
   };

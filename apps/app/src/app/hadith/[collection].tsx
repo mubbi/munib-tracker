@@ -267,6 +267,13 @@ export default function HadithCollectionScreen() {
   const [query, setQuery] = useState(params.q ?? "");
   const [sectionId, setSectionId] = useState<string | null>(null);
   const searching = query.trim().length > 0;
+  // Cap mapped TV cards to avoid OOM on ~1GB TV AVDs when a collection has thousands.
+  const TV_MAPPED_PAGE_SIZE = 40;
+  const [tvVisibleCount, setTvVisibleCount] = useState(TV_MAPPED_PAGE_SIZE);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset page window when collection/book/search changes
+  useEffect(() => {
+    setTvVisibleCount(TV_MAPPED_PAGE_SIZE);
+  }, [collectionId, sectionId, query]);
 
   // Fuzzy index over this collection's hadith. Building it is O(n) over every
   // item (a remote collection can hold thousands), so we never do it in a
@@ -309,7 +316,7 @@ export default function HadithCollectionScreen() {
   }, [allItems, searching, hadithIndex, translationLocale]);
 
   const [bookmarked, setBookmarked] = useState<Set<string>>(new Set());
-  useEffect(() => {
+  const reloadBookmarks = useCallback(() => {
     let active = true;
     void HadithRepository.getBookmarks().then((list) => {
       if (active) setBookmarked(new Set(list.map((b) => b.hadithId)));
@@ -318,6 +325,12 @@ export default function HadithCollectionScreen() {
       active = false;
     };
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      return reloadBookmarks();
+    }, [reloadBookmarks]),
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -484,6 +497,7 @@ export default function HadithCollectionScreen() {
   // TV: ScreenLayout ScrollView + mapped cards — nested FlatList flex hosts still
   // collapse to zero height on Leanback (same failure mode as dua/zikr categories).
   const tvMappedList = tv && useFlatList;
+  const tvListItems = tvMappedList ? listItems.slice(0, tvVisibleCount) : listItems;
   const collectionDescription = `Read hadith from ${collectionName} — the sayings and traditions of the Prophet Muhammad ﷺ, with narrator and grading details.`;
   const collectionBreadcrumbs = [
     { name: t("tabs.home"), path: "/" },
@@ -644,12 +658,25 @@ export default function HadithCollectionScreen() {
               description={searching ? t("search.noResultsDesc") : t("hadith.emptyDesc")}
             />
           ) : (
-            listItems.map((item, index) => (
-              <View key={item.id}>
-                {index > 0 ? <HadithListSeparator /> : null}
-                {renderHadithCard(item)}
-              </View>
-            ))
+            <>
+              {tvListItems.map((item, index) => (
+                <View key={item.id}>
+                  {index > 0 ? <HadithListSeparator /> : null}
+                  {renderHadithCard(item)}
+                </View>
+              ))}
+              {tvVisibleCount < listItems.length ? (
+                <PressableScale
+                  haptic="light"
+                  accessibilityRole="button"
+                  accessibilityLabel={t("hadith.loadMore")}
+                  onPress={() => setTvVisibleCount((n) => n + TV_MAPPED_PAGE_SIZE)}
+                  style={[styles.tvLoadMore, { borderColor: tokens.hairline }]}
+                >
+                  <ThemedText type="smallBold">{t("hadith.loadMore")}</ThemedText>
+                </PressableScale>
+              ) : null}
+            </>
           )}
         </View>
       ) : (
@@ -1029,6 +1056,15 @@ const HadithReadingMaxWidth = 720;
 
 const styles = StyleSheet.create({
   contentStack: { gap: Spacing.four, width: "100%" },
+  tvLoadMore: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Spacing.four,
+    marginTop: Spacing.two,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
   readerRoot: { flex: 1, width: "100%" },
   listDetailRoot: {
     flex: 1,

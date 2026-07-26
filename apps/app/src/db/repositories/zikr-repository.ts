@@ -49,16 +49,21 @@ export const ZikrRepository = {
     prayerId?: AfterSalahPrayer,
   ): Promise<ZikrProgress> {
     const key = zikrProgressKey(zikrId, date, prayerId);
-    const existing = await collection.get(key);
-    const safeCount = Math.max(0, count);
-    const entry: ZikrProgress = {
-      ...(existing ?? build(zikrId, date, 0, target, prayerId)),
-      count: safeCount,
-      target,
-      completed: target > 0 && safeCount >= target,
-      updatedAt: new Date().toISOString(),
-    };
-    return collection.upsert(key, entry);
+    let result!: ZikrProgress;
+    await collection.mutate((map) => {
+      const existing = map[key];
+      const safeCount = Math.max(0, count);
+      const entry: ZikrProgress = {
+        ...(existing ?? build(zikrId, date, 0, target, prayerId)),
+        count: safeCount,
+        target,
+        completed: target > 0 && safeCount >= target,
+        updatedAt: new Date().toISOString(),
+      };
+      map[key] = entry;
+      result = entry;
+    });
+    return result;
   },
 
   async increment(
@@ -68,9 +73,22 @@ export const ZikrRepository = {
     by = 1,
     prayerId?: AfterSalahPrayer,
   ): Promise<ZikrProgress> {
-    const existing = await collection.get(zikrProgressKey(zikrId, date, prayerId));
-    const nextCount = Math.max(0, (existing?.count ?? 0) + by);
-    return this.setCount(zikrId, date, nextCount, target, prayerId);
+    const key = zikrProgressKey(zikrId, date, prayerId);
+    let result!: ZikrProgress;
+    await collection.mutate((map) => {
+      const existing = map[key];
+      const safeCount = Math.max(0, (existing?.count ?? 0) + by);
+      const entry: ZikrProgress = {
+        ...(existing ?? build(zikrId, date, 0, target, prayerId)),
+        count: safeCount,
+        target,
+        completed: target > 0 && safeCount >= target,
+        updatedAt: new Date().toISOString(),
+      };
+      map[key] = entry;
+      result = entry;
+    });
+    return result;
   },
 
   /** Writes a progress entry verbatim (used when applying a server record). */

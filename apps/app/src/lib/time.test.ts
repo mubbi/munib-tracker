@@ -26,6 +26,11 @@ describe("dayKeyInTimeZone", () => {
     expect(dayKeyInTimeZone(instant, "America/New_York")).toBe("2026-07-04");
     expect(dayKeyInTimeZone(instant, "Asia/Karachi")).toBe("2026-07-05");
   });
+
+  it("returns zero-padded local YYYY-MM-DD when timezone is omitted", () => {
+    const local = new Date(2026, 5, 5, 12, 0, 0); // June 5 local
+    expect(dayKeyInTimeZone(local)).toBe("2026-06-05");
+  });
 });
 
 describe("prayerDayAnchor", () => {

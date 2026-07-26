@@ -1,12 +1,13 @@
 import { QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
 import { getTafsirEdition } from "@munib-tracker/shared/i18n";
 import type { QuranReaderLayout } from "@munib-tracker/shared/types";
+import { useQueries } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-import { hasEditionAyahs, isRemoteEdition } from "@/api/quran-remote";
+import { fetchRemoteEditionSurah, hasEditionAyahs, isRemoteEdition } from "@/api/quran-remote";
 import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
 import { MushafFontLoading } from "@/components/quran/mushaf-font-loading";
 import { MushafLineRenderer } from "@/components/quran/mushaf-line-renderer";
@@ -23,7 +24,6 @@ import { Seo } from "@/components/seo/seo";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
-import { useRemoteEditionSurah } from "@/hooks/use-quran";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -70,6 +70,22 @@ const PAGE_MOUNT_WINDOW = 1;
 
 function pageNeedsBasmala(page: number): boolean {
   return getPageLayout(page).lines.some((line) => line.type === "basmala");
+}
+
+/** Merge per-surah ayah maps into `surah:ayah` keys so multi-surah pages stay correct. */
+function mergeSurahTextMaps(
+  surahs: number[],
+  getMap: (surah: number) => Record<string, string> | undefined,
+): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const surah of surahs) {
+    const map = getMap(surah);
+    if (!map) continue;
+    for (const [ayah, text] of Object.entries(map)) {
+      out[`${surah}:${ayah}`] = text;
+    }
+  }
+  return out;
 }
 
 export function generateStaticParams(): Array<{ page: string }> {
@@ -140,34 +156,96 @@ export default function QuranPageReaderScreen() {
 
   const startSurah = pageStart?.surah ?? pageAyahs[0]?.surah ?? 1;
   const startSurahMeta = getSurahByNumber(startSurah);
+  const mountedSurahs = useMemo(() => {
+    const surahs = new Set<number>();
+    const pageCount = getPageCount();
+    for (
+      let page = currentPage - PAGE_MOUNT_WINDOW;
+      page <= currentPage + PAGE_MOUNT_WINDOW;
+      page++
+    ) {
+      if (page < 1 || page > pageCount) continue;
+      for (const ayah of getAyahsOnPage(page)) surahs.add(ayah.surah);
+    }
+    return [...surahs].sort((a, b) => a - b);
+  }, [currentPage]);
+
   const remoteActive = isRemoteEdition(primaryEditionId);
-  const remoteQuery = useRemoteEditionSurah(remoteActive ? primaryEditionId : null, startSurah);
   const secondaryRemoteActive = secondaryId ? isRemoteEdition(secondaryId) : false;
-  const secondaryRemoteQuery = useRemoteEditionSurah(
-    secondaryRemoteActive && secondaryId ? secondaryId : null,
-    startSurah,
+
+  const remoteQueries = useQueries({
+    queries: mountedSurahs.map((surah) => ({
+      queryKey: ["quran-edition", "v2", remoteActive ? primaryEditionId : null, surah],
+      enabled: remoteActive,
+      staleTime: Number.POSITIVE_INFINITY,
+      gcTime: Number.POSITIVE_INFINITY,
+      networkMode: "offlineFirst" as const,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
+      queryFn: () => fetchRemoteEditionSurah(primaryEditionId, surah),
+    })),
+  });
+  const secondaryRemoteQueries = useQueries({
+    queries: mountedSurahs.map((surah) => ({
+      queryKey: ["quran-edition", "v2", secondaryRemoteActive ? secondaryId : null, surah],
+      enabled: Boolean(secondaryRemoteActive && secondaryId),
+      staleTime: Number.POSITIVE_INFINITY,
+      gcTime: Number.POSITIVE_INFINITY,
+      networkMode: "offlineFirst" as const,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
+      queryFn: () => fetchRemoteEditionSurah(secondaryId as string, surah),
+    })),
+  });
+
+  const transliteration = useMemo(
+    () => mergeSurahTextMaps(mountedSurahs, getTransliteration),
+    [mountedSurahs],
   );
-  const transliteration = useMemo(() => getTransliteration(startSurah), [startSurah]);
   const bundledTranslation = useMemo(
-    () => getBundledEdition(remoteActive ? "en-pickthall" : primaryEditionId, startSurah),
-    [primaryEditionId, remoteActive, startSurah],
+    () =>
+      mergeSurahTextMaps(mountedSurahs, (surah) =>
+        getBundledEdition(remoteActive ? "en-pickthall" : primaryEditionId, surah),
+      ),
+    [mountedSurahs, primaryEditionId, remoteActive],
   );
   const bundledSecond = useMemo(
     () =>
       secondaryId
-        ? getBundledEdition(secondaryRemoteActive ? "en-pickthall" : secondaryId, startSurah)
-        : {},
-    [secondaryId, secondaryRemoteActive, startSurah],
+        ? mergeSurahTextMaps(mountedSurahs, (surah) =>
+            getBundledEdition(secondaryRemoteActive ? "en-pickthall" : secondaryId, surah),
+          )
+        : undefined,
+    [mountedSurahs, secondaryId, secondaryRemoteActive],
   );
 
-  const translationText =
-    remoteActive && hasEditionAyahs(remoteQuery.data) ? remoteQuery.data : bundledTranslation;
+  const remoteTranslation = useMemo(() => {
+    if (!remoteActive) return undefined;
+    return mergeSurahTextMaps(mountedSurahs, (surah) => {
+      const index = mountedSurahs.indexOf(surah);
+      const data = remoteQueries[index]?.data;
+      return hasEditionAyahs(data) ? data : undefined;
+    });
+  }, [mountedSurahs, remoteActive, remoteQueries]);
+
+  const remoteSecondTranslation = useMemo(() => {
+    if (!secondaryId || !secondaryRemoteActive) return undefined;
+    return mergeSurahTextMaps(mountedSurahs, (surah) => {
+      const index = mountedSurahs.indexOf(surah);
+      const data = secondaryRemoteQueries[index]?.data;
+      return hasEditionAyahs(data) ? data : undefined;
+    });
+  }, [mountedSurahs, secondaryId, secondaryRemoteActive, secondaryRemoteQueries]);
+
+  const translationText = remoteTranslation ?? bundledTranslation;
   const secondTranslationText = secondaryId
-    ? secondaryRemoteActive && hasEditionAyahs(secondaryRemoteQuery.data)
-      ? secondaryRemoteQuery.data
-      : bundledSecond
+    ? (remoteSecondTranslation ?? bundledSecond)
     : undefined;
-  const translationLoading = remoteActive && remoteQuery.isPending;
+  const translationLoading = remoteActive && remoteQueries.some((query) => query.isPending);
   const translationDir = selectedEdition.direction;
   const secondaryDir = secondaryEdition?.direction ?? "ltr";
 
@@ -366,18 +444,10 @@ export default function QuranPageReaderScreen() {
       getSurahAyahs(surah).find((a) => a.ayah === ayah);
     if (!ayahRow || !meta) return null;
 
-    const key = String(ayah);
-    const translation =
-      surah === startSurah
-        ? (translationText[key] ?? "")
-        : (getBundledEdition(remoteActive ? "en-pickthall" : primaryEditionId, surah)[key] ?? "");
-    const second = !secondaryId
-      ? undefined
-      : surah === startSurah
-        ? secondTranslationText?.[key]
-        : getBundledEdition(secondaryRemoteActive ? "en-pickthall" : secondaryId, surah)[key];
-    const translit =
-      surah === startSurah ? (transliteration[key] ?? "") : (getTransliteration(surah)[key] ?? "");
+    const key = `${surah}:${ayah}`;
+    const translation = translationText[key] ?? "";
+    const second = secondTranslationText?.[key];
+    const translit = transliteration[key] ?? "";
 
     return {
       arabic: ayahRow.arabic,
@@ -388,18 +458,7 @@ export default function QuranPageReaderScreen() {
       surahNameEnglish: meta.nameEnglish,
       juz: ayahRow.juz,
     };
-  }, [
-    actionAyah,
-    pageAyahs,
-    primaryEditionId,
-    remoteActive,
-    secondaryId,
-    secondaryRemoteActive,
-    secondTranslationText,
-    startSurah,
-    translationText,
-    transliteration,
-  ]);
+  }, [actionAyah, pageAyahs, secondTranslationText, translationText, transliteration]);
 
   const playingAyah = useMemo(() => {
     const id = audio.current?.id;

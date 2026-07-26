@@ -26,39 +26,52 @@ export const PrayerRepository = {
     status: PrayerStatus,
     patch?: { notes?: string; qazaDebtAdded?: boolean },
   ): Promise<PrayerLog> {
-    const existing = await collection.get(prayerLogKey(prayerId, date));
-    const log: PrayerLog = {
-      id: existing?.id ?? createId("prayer"),
-      prayerId,
-      date,
-      status,
-      notes: patch?.notes ?? existing?.notes,
-      qazaDebtAdded:
-        patch?.qazaDebtAdded !== undefined ? patch.qazaDebtAdded : existing?.qazaDebtAdded,
-      isJama: existing?.isJama,
-      isExcused: existing?.isExcused,
-      excusedReason: existing?.excusedReason,
-      updatedAt: new Date().toISOString(),
-      source: "manual",
-    };
-    return collection.upsert(prayerLogKey(prayerId, date), log);
+    let result!: PrayerLog;
+    await collection.mutate((map) => {
+      const key = prayerLogKey(prayerId, date);
+      const existing = map[key];
+      const log: PrayerLog = {
+        id: existing?.id ?? createId("prayer"),
+        prayerId,
+        date,
+        status,
+        notes: patch?.notes ?? existing?.notes,
+        qazaDebtAdded:
+          patch?.qazaDebtAdded !== undefined ? patch.qazaDebtAdded : existing?.qazaDebtAdded,
+        isJama: existing?.isJama,
+        isExcused: existing?.isExcused,
+        excusedReason: existing?.excusedReason,
+        updatedAt: new Date().toISOString(),
+        source: "manual",
+      };
+      map[key] = log;
+      result = log;
+    });
+    return result;
   },
 
   async setNotes(prayerId: PrayerId, date: string, notes: string): Promise<PrayerLog> {
-    const existing = await collection.get(prayerLogKey(prayerId, date));
-    const log: PrayerLog = {
-      id: existing?.id ?? createId("prayer"),
-      prayerId,
-      date,
-      status: existing?.status ?? "pending",
-      notes,
-      isJama: existing?.isJama,
-      isExcused: existing?.isExcused,
-      excusedReason: existing?.excusedReason,
-      updatedAt: new Date().toISOString(),
-      source: "manual",
-    };
-    return collection.upsert(prayerLogKey(prayerId, date), log);
+    let result!: PrayerLog;
+    await collection.mutate((map) => {
+      const key = prayerLogKey(prayerId, date);
+      const existing = map[key];
+      const log: PrayerLog = {
+        id: existing?.id ?? createId("prayer"),
+        prayerId,
+        date,
+        status: existing?.status ?? "pending",
+        notes,
+        qazaDebtAdded: existing?.qazaDebtAdded,
+        isJama: existing?.isJama,
+        isExcused: existing?.isExcused,
+        excusedReason: existing?.excusedReason,
+        updatedAt: new Date().toISOString(),
+        source: "manual",
+      };
+      map[key] = log;
+      result = log;
+    });
+    return result;
   },
 
   /**
@@ -71,22 +84,28 @@ export const PrayerRepository = {
     date: string,
     patch: { isJama?: boolean; isExcused?: boolean; excusedReason?: PrayerLog["excusedReason"] },
   ): Promise<PrayerLog> {
-    const existing = await collection.get(prayerLogKey(prayerId, date));
-    const log: PrayerLog = {
-      id: existing?.id ?? createId("prayer"),
-      prayerId,
-      date,
-      status: existing?.status ?? "pending",
-      notes: existing?.notes,
-      qazaDebtAdded: existing?.qazaDebtAdded,
-      isJama: patch.isJama ?? existing?.isJama,
-      isExcused: patch.isExcused ?? existing?.isExcused,
-      excusedReason:
-        patch.isExcused === false ? undefined : (patch.excusedReason ?? existing?.excusedReason),
-      updatedAt: new Date().toISOString(),
-      source: "manual",
-    };
-    return collection.upsert(prayerLogKey(prayerId, date), log);
+    let result!: PrayerLog;
+    await collection.mutate((map) => {
+      const key = prayerLogKey(prayerId, date);
+      const existing = map[key];
+      const log: PrayerLog = {
+        id: existing?.id ?? createId("prayer"),
+        prayerId,
+        date,
+        status: existing?.status ?? "pending",
+        notes: existing?.notes,
+        qazaDebtAdded: existing?.qazaDebtAdded,
+        isJama: patch.isJama ?? existing?.isJama,
+        isExcused: patch.isExcused ?? existing?.isExcused,
+        excusedReason:
+          patch.isExcused === false ? undefined : (patch.excusedReason ?? existing?.excusedReason),
+        updatedAt: new Date().toISOString(),
+        source: "manual",
+      };
+      map[key] = log;
+      result = log;
+    });
+    return result;
   },
 
   /** Writes a log verbatim (used when applying a record pulled from the server). */

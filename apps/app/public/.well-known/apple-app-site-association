@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appID": "TEAMID.app.munibtracker",
+        "appID": "MHNXY53R3X.app.munibtracker",
         "paths": [
           "/oauth/apple",
           "/oauth/apple/*"

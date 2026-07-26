@@ -54,8 +54,12 @@ export async function rescheduleAll(
   prefs: UserPreferences,
   location: StoredLocation = DEFAULT_LOCATION,
 ): Promise<void> {
-  cancelWebReminderTimers();
-  if (!prefs.notificationPrefs.masterEnabled) return;
+  // Preserve snooze:* timers — cancelWebReminderTimers inside schedule clears only
+  // non-snooze ids when preserveSnoozes is set.
+  if (!prefs.notificationPrefs.masterEnabled) {
+    cancelWebReminderTimers({ preserveSnoozes: true });
+    return;
+  }
 
   const reminders = buildReminders(prefs, location, new Date(), buildReminderOptions());
   scheduleWebReminderTimers(reminders);
