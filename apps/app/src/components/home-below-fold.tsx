@@ -156,8 +156,7 @@ export function HomeBelowFold({
   const showRamadanCard = getRamadanInfo(location).isRamadan;
   const showKhatmCard = !hiddenModules.has("khatm") && khatmPlan != null;
   const showContinueCard = !hiddenModules.has("continue") && continueActivity != null;
-  const showQazaCard =
-    !hiddenModules.has("qaza") && (qaza.remaining + qaza.completed > 0 || roza.remaining > 0);
+  const showQazaCard = !hiddenModules.has("qaza") && (qaza.remaining > 0 || roza.remaining > 0);
   const acceptanceHourActive = useAcceptanceHourActive();
 
   const onShareSchedule = async () => {

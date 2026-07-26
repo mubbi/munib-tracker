@@ -83,7 +83,10 @@ export default function QazaHomeScreen() {
   const progress = totalTracked > 0 ? summary.completed / totalTracked : 0;
   const progressPct = Math.round(progress * 100);
   const locale = i18n.language?.split("-")[0];
-  const formatCount = (value: number) => value.toLocaleString(locale);
+  const formatCount = (value: number) => {
+    const n = Number(value);
+    return (Number.isFinite(n) ? n : 0).toLocaleString(locale);
+  };
   const info = tokens.status.info;
   const success = tokens.status.success;
   const dailyTotal = useMemo(() => sumQazaScheduleTargets(schedule), [schedule]);
@@ -239,28 +242,23 @@ export default function QazaHomeScreen() {
             pct: progressPct,
           })}
         >
-          <View style={styles.heroBlock}>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("stats.remaining")}
-            </ThemedText>
-            <ThemedText
-              type="display"
-              style={[styles.heroValue, { color: info.text }]}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.35}
+          <View style={styles.statsRow}>
+            <View
+              style={[styles.statBox, { backgroundColor: info.soft, borderColor: info.border }]}
             >
-              {formatCount(summary.remaining)}
-            </ThemedText>
-          </View>
-
-          <View
-            style={[
-              styles.madeUpRow,
-              { backgroundColor: success.soft, borderColor: success.border },
-            ]}
-          >
-            <View style={styles.madeUpCopy}>
+              <ThemedText type="header" style={[styles.statValue, { color: info.text }]}>
+                {formatCount(summary.remaining)}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("stats.remaining")}
+              </ThemedText>
+            </View>
+            <View
+              style={[
+                styles.statBox,
+                { backgroundColor: success.soft, borderColor: success.border },
+              ]}
+            >
               <ThemedText type="header" style={[styles.statValue, { color: success.text }]}>
                 {formatCount(summary.completed)}
               </ThemedText>
@@ -268,15 +266,16 @@ export default function QazaHomeScreen() {
                 {t("stats.madeUp")}
               </ThemedText>
             </View>
-            {totalTracked > 0 ? (
-              <View style={styles.progressInline}>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("home.qazaProgress", { pct: progressPct })}
-                </ThemedText>
-                <ProgressBar value={progress} height={6} color={success.color} />
-              </View>
-            ) : null}
           </View>
+
+          {totalTracked > 0 ? (
+            <View style={styles.progressBlock}>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("home.qazaProgress", { pct: progressPct })}
+              </ThemedText>
+              <ProgressBar value={progress} height={6} color={success.color} />
+            </View>
+          ) : null}
 
           {eta ? (
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.etaCaption}>
@@ -453,36 +452,22 @@ const styles = StyleSheet.create({
   summaryCard: {
     gap: Spacing.three,
   },
-  heroBlock: {
-    alignItems: "center",
-    alignSelf: "stretch",
-    gap: Spacing.one,
-    paddingVertical: Spacing.two,
-  },
-  heroValue: {
-    width: "100%",
-    fontVariant: ["tabular-nums"],
-    textAlign: "center",
-  },
-  madeUpRow: {
+  statsRow: {
     flexDirection: "row",
+    gap: Spacing.two,
+  },
+  statBox: {
+    flex: 1,
     alignItems: "center",
-    gap: Spacing.three,
+    gap: Spacing.one,
     paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
+    paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
   },
-  madeUpCopy: {
-    alignItems: "flex-start",
-    gap: 2,
-    minWidth: 72,
-  },
-  progressInline: {
-    flex: 1,
+  progressBlock: {
     gap: Spacing.one + 2,
-    minWidth: 0,
   },
   etaCaption: {
     textAlign: "center",

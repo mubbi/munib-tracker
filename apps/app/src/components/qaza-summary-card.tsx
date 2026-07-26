@@ -32,8 +32,8 @@ export function QazaSummaryCard({
   const chevronForward = useChevronForward();
 
   const total = remaining + completed;
-  // Unified debt view: render when there is any prayer OR fasting debt.
-  if (total === 0 && rozaRemaining === 0) return null;
+  // Unified debt view: render only while some prayer OR fasting debt is still outstanding.
+  if (remaining === 0 && rozaRemaining === 0) return null;
 
   const progress = total > 0 ? completed / total : 0;
   const progressPct = Math.round(progress * 100);

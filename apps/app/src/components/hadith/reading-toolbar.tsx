@@ -56,6 +56,10 @@ type HadithReadingToolbarProps = {
   showGrade: boolean;
   showIsnad: boolean;
   showSharh: boolean;
+  /** Hide narrator chip when the collection has no narrator fields. */
+  hasNarrator?: boolean;
+  /** Hide grade chip when the collection has no grades. */
+  hasGrade?: boolean;
   /** Hide isnad chip when the collection has no chains. */
   hasIsnad?: boolean;
   /** Hide sharh chip when the collection has no explanations. */
@@ -72,9 +76,9 @@ type HadithReadingToolbarProps = {
 
 /**
  * Compact reading controls for hadith — text size plus show/hide toggles for
- * Arabic, translation, narrator, grade, isnad, and sharh. Mirrors the Qur'an
- * toolbar pattern so mid-scroll adjustments stay reachable after the header
- * filters scroll away.
+ * Arabic, translation, narrator, grade, isnad, and sharh. Chips for fields the
+ * collection never provides are omitted. Mirrors the Qur'an toolbar pattern so
+ * mid-scroll adjustments stay reachable after the header filters scroll away.
  */
 export function HadithReadingToolbar({
   visible,
@@ -85,6 +89,8 @@ export function HadithReadingToolbar({
   showGrade,
   showIsnad,
   showSharh,
+  hasNarrator = true,
+  hasGrade = true,
   hasIsnad = true,
   hasSharh = true,
   showBackToTop = true,
@@ -189,20 +195,24 @@ export function HadithReadingToolbar({
               accessibilityLabel={t("hadith.showTranslation")}
               onPress={onToggleTranslation}
             />
-            <ToggleChip
-              icon={TOOLBAR_ICONS.narrator}
-              label={t("hadith.narratorLabel")}
-              enabled={showNarrator}
-              accessibilityLabel={t("hadith.showNarrator")}
-              onPress={onToggleNarrator}
-            />
-            <ToggleChip
-              icon={TOOLBAR_ICONS.grade}
-              label={t("hadith.gradeLabel")}
-              enabled={showGrade}
-              accessibilityLabel={t("hadith.showGrade")}
-              onPress={onToggleGrade}
-            />
+            {hasNarrator ? (
+              <ToggleChip
+                icon={TOOLBAR_ICONS.narrator}
+                label={t("hadith.narratorLabel")}
+                enabled={showNarrator}
+                accessibilityLabel={t("hadith.showNarrator")}
+                onPress={onToggleNarrator}
+              />
+            ) : null}
+            {hasGrade ? (
+              <ToggleChip
+                icon={TOOLBAR_ICONS.grade}
+                label={t("hadith.gradeLabel")}
+                enabled={showGrade}
+                accessibilityLabel={t("hadith.showGrade")}
+                onPress={onToggleGrade}
+              />
+            ) : null}
             {hasIsnad ? (
               <ToggleChip
                 icon={TOOLBAR_ICONS.isnad}

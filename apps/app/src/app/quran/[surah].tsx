@@ -592,9 +592,9 @@ export default function SurahReaderScreen() {
   }, [audio, repeatPlan, prefs.translationAudio]);
 
   const playFrom = useCallback(
-    (index: number) => {
+    (index: number, nextReciterDir = reciterDir) => {
       if (!surah) return;
-      const tracks = ayahTracks(reciterDir, surah.nameTransliteration, surahNumber, ayahs, {
+      const tracks = ayahTracks(nextReciterDir, surah.nameTransliteration, surahNumber, ayahs, {
         translations: translation,
         lang: ttsLang,
         voice: ttsVoiceId,
@@ -605,6 +605,21 @@ export default function SurahReaderScreen() {
       void setLastRead(surahNumber, index + 1, { isAudio: true });
     },
     [audio, ayahs, reciterDir, setLastRead, surah, surahNumber, translation, ttsLang, ttsVoiceId],
+  );
+
+  /** Persist the choice and, if this surah is in the player, swap URIs mid-session. */
+  const handleReciterSelect = useCallback(
+    (id: string) => {
+      void updatePrefs({ preferredReciterDir: id });
+      if (id === reciterDir) return;
+      const currentId = audio.current?.id;
+      if (!currentId?.startsWith(`${surahNumber}:`)) return;
+      const ayahNum = Number(currentId.slice(currentId.indexOf(":") + 1));
+      const index = ayahs.findIndex((a) => a.ayah === ayahNum);
+      if (index < 0) return;
+      playFrom(index, id);
+    },
+    [audio.current?.id, ayahs, playFrom, reciterDir, surahNumber, updatePrefs],
   );
 
   /** Per-ayah control: pause/resume when this ayah is already current; otherwise start it. */
@@ -1273,7 +1288,7 @@ export default function SurahReaderScreen() {
         title={t("quran.reciter")}
         options={RECITER_OPTIONS}
         selectedId={reciterDir}
-        onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
+        onSelect={handleReciterSelect}
         onClose={() => setReciterPickerOpen(false)}
       />
       <TranslationPickerSheet

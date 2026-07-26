@@ -1,8 +1,14 @@
 import type { SahabaCategory, SahabaProfile } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  type ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -19,6 +25,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -47,6 +54,9 @@ export default function SahabaScreen() {
     ensureSahabaContent,
     isSahabaContentReady,
   );
+  const scrollRef = useRef<ScrollView>(null);
+  const directoryRef = useRef<View>(null);
+  const scrollYRef = useRef(0);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or content changes
   const profiles = useMemo(() => getSahabaProfiles(), [i18n.language, contentVersion]);
@@ -54,6 +64,14 @@ export default function SahabaScreen() {
   const categoryOrder = useMemo(() => getSahabaCategoryOrder(), [i18n.language, contentVersion]);
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or content changes
   const byCategory = useMemo(() => getSahabaProfilesByCategory(), [i18n.language, contentVersion]);
+
+  const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrollYRef.current = event.nativeEvent.contentOffset?.y ?? 0;
+  }, []);
+
+  const jumpToDirectory = useCallback(() => {
+    scrollChildIntoView(scrollRef, directoryRef, scrollYRef.current, 88);
+  }, []);
 
   const quickLinks = useMemo(
     () => [
@@ -111,6 +129,8 @@ export default function SahabaScreen() {
       title={t("sahaba.title")}
       subtitle={t("sahaba.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      scrollRef={scrollRef}
+      onScroll={onScroll}
     >
       <Seo path="/sahaba" />
       <LearnContentGate ready={contentReady}>
@@ -137,34 +157,35 @@ export default function SahabaScreen() {
             subtitle={t("sahaba.countCardHint", { count: profiles.length })}
             badge={String(profiles.length)}
             tint={colors.accent}
-            onPress={() =>
-              router.push({
-                pathname: "/sahaba/[id]",
-                params: { id: profiles[0]?.id ?? "abu-bakr" },
-              })
-            }
+            onPress={jumpToDirectory}
           />
 
-          {categoryOrder.map((category) => {
-            const items = byCategory[category] ?? [];
-            if (!items.length) return null;
-            return (
-              <Card key={category} padding="three">
-                <SectionHeader
-                  title={t(`sahaba.category.${category}`)}
-                  icon={CATEGORY_ICONS[category]}
-                />
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-                  {t(`sahaba.categoryHint.${category}`)}
-                </ThemedText>
-                <View style={styles.rows}>
-                  {items.map((profile) => (
-                    <SahabaNavRow key={profile.id} profile={profile} />
-                  ))}
-                </View>
-              </Card>
-            );
-          })}
+          <View ref={directoryRef} collapsable={false} style={styles.directory}>
+            {categoryOrder.map((category) => {
+              const items = byCategory[category] ?? [];
+              if (!items.length) return null;
+              return (
+                <Card key={category} padding="three">
+                  <SectionHeader
+                    title={t(`sahaba.category.${category}`)}
+                    icon={CATEGORY_ICONS[category]}
+                  />
+                  <ThemedText
+                    type="caption"
+                    themeColor="mutedForeground"
+                    style={styles.sectionHint}
+                  >
+                    {t(`sahaba.categoryHint.${category}`)}
+                  </ThemedText>
+                  <View style={styles.rows}>
+                    {items.map((profile) => (
+                      <SahabaNavRow key={profile.id} profile={profile} />
+                    ))}
+                  </View>
+                </Card>
+              );
+            })}
+          </View>
 
           <Card padding="three">
             <SectionHeader
@@ -234,6 +255,7 @@ function SahabaNavRow({ profile }: { profile: SahabaProfile }) {
 }
 
 const styles = StyleSheet.create({
+  directory: { gap: Spacing.four },
   sectionHint: { marginBottom: Spacing.two },
   rows: { gap: Spacing.two, marginTop: Spacing.two },
 });

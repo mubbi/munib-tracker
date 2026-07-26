@@ -123,6 +123,8 @@ export default function HadithCollectionScreen() {
   const data = remote ? remoteQuery.data : bundledData;
   const sections = data?.sections ?? EMPTY_SECTIONS;
   const allItems = data?.items ?? EMPTY_HADITH_ITEMS;
+  const hasNarrator = useMemo(() => allItems.some((item) => Boolean(item.narrator)), [allItems]);
+  const hasGrade = useMemo(() => allItems.some((item) => Boolean(item.grade)), [allItems]);
   const hasIsnad = useMemo(
     () => allItems.some((item) => (item.isnad?.length ?? 0) > 0),
     [allItems],
@@ -415,18 +417,22 @@ export default function HadithCollectionScreen() {
           enabled={prefs.showTranslation}
           onToggle={() => void updatePrefs({ showTranslation: !prefs.showTranslation })}
         />
-        <PrefToggle
-          icon={CONTROL_ICONS.narrator}
-          label={t("hadith.showNarrator")}
-          enabled={prefs.showNarrator}
-          onToggle={() => void updatePrefs({ showNarrator: !prefs.showNarrator })}
-        />
-        <PrefToggle
-          icon={CONTROL_ICONS.grade}
-          label={t("hadith.showGrade")}
-          enabled={prefs.showGrade}
-          onToggle={() => void updatePrefs({ showGrade: !prefs.showGrade })}
-        />
+        {hasNarrator ? (
+          <PrefToggle
+            icon={CONTROL_ICONS.narrator}
+            label={t("hadith.showNarrator")}
+            enabled={prefs.showNarrator}
+            onToggle={() => void updatePrefs({ showNarrator: !prefs.showNarrator })}
+          />
+        ) : null}
+        {hasGrade ? (
+          <PrefToggle
+            icon={CONTROL_ICONS.grade}
+            label={t("hadith.showGrade")}
+            enabled={prefs.showGrade}
+            onToggle={() => void updatePrefs({ showGrade: !prefs.showGrade })}
+          />
+        ) : null}
         {hasIsnad ? (
           <PrefToggle
             icon={CONTROL_ICONS.isnad}
@@ -445,7 +451,7 @@ export default function HadithCollectionScreen() {
         ) : null}
       </Card>
     ),
-    [hasIsnad, hasSharh, prefs, t, tv, updatePrefs],
+    [hasGrade, hasIsnad, hasNarrator, hasSharh, prefs, t, tv, updatePrefs],
   );
 
   if (!collection) {
@@ -548,6 +554,8 @@ export default function HadithCollectionScreen() {
             showGrade={prefs.showGrade}
             showIsnad={prefs.showIsnad}
             showSharh={prefs.showSharh}
+            hasNarrator={hasNarrator}
+            hasGrade={hasGrade}
             hasIsnad={hasIsnad}
             hasSharh={hasSharh}
             onToggleArabic={() => void updatePrefs({ showArabic: !prefs.showArabic })}

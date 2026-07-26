@@ -490,10 +490,15 @@ export function useQazaDailyProgress(): QazaDailyProgress {
 }
 
 export function useQazaSummary(): { remaining: number; completed: number } {
-  return useStore(trackerStore, (s) => ({
-    remaining: s.qazaCounters.reduce((sum, c) => sum + c.remaining, 0),
-    completed: s.qazaCounters.reduce((sum, c) => sum + c.completed, 0),
-  }));
+  return useStore(trackerStore, (s) => {
+    let remaining = 0;
+    let completed = 0;
+    for (const counter of s.qazaCounters) {
+      remaining += Number(counter.remaining) || 0;
+      completed += Number(counter.completed) || 0;
+    }
+    return { remaining, completed };
+  });
 }
 
 export function useRoza(): QazaRozaCounter {

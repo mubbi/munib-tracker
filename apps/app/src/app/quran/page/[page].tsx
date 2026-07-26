@@ -310,6 +310,44 @@ export default function QuranPageReaderScreen() {
     void setLastRead(start.surah, start.ayah, { page: currentPage, isAudio: true });
   }, [audio, currentPage, prefs.preferredReciterDir, setLastRead, startSurahMeta]);
 
+  /** Persist the choice and reload the active queue when this page's audio is playing. */
+  const handleReciterSelect = useCallback(
+    (id: string) => {
+      void updatePrefs({ preferredReciterDir: id });
+      if (id === prefs.preferredReciterDir) return;
+
+      const currentId = audio.current?.id;
+      if (!currentId || !/^\d+:\d+$/.test(currentId)) return;
+      const colon = currentId.indexOf(":");
+      const surahNum = Number(currentId.slice(0, colon));
+      const ayahNum = Number(currentId.slice(colon + 1));
+
+      // Full-surah session (started from ayah reader) — keep the whole surah queue.
+      if (audio.sourceHref === `/quran/${surahNum}`) {
+        const meta = getSurahByNumber(surahNum);
+        const allAyahs = getSurahAyahs(surahNum);
+        const index = allAyahs.findIndex((a) => a.ayah === ayahNum);
+        if (!meta || index < 0) return;
+        audio.play(ayahTracks(id, meta.nameTransliteration, surahNum, allAyahs), index, {
+          sourceHref: `/quran/${surahNum}`,
+        });
+        return;
+      }
+
+      // Page-scoped session for the visible page.
+      if (audio.sourceHref !== `/quran/page/${currentPage}`) return;
+      const start = pageToStartAyah(currentPage);
+      if (!start || !startSurahMeta || surahNum !== start.surah) return;
+      const ayahs = getAyahsOnPage(currentPage).filter((a) => a.surah === start.surah);
+      const index = ayahs.findIndex((a) => a.ayah === ayahNum);
+      if (index < 0) return;
+      audio.play(ayahTracks(id, startSurahMeta.nameTransliteration, start.surah, ayahs), index, {
+        sourceHref: `/quran/page/${currentPage}`,
+      });
+    },
+    [audio, currentPage, prefs.preferredReciterDir, startSurahMeta, updatePrefs],
+  );
+
   const actionBookmarked = actionAyah
     ? bookmarkedSet.has(`${actionAyah.surah}:${actionAyah.ayah}`)
     : false;
@@ -544,7 +582,7 @@ export default function QuranPageReaderScreen() {
         title={t("quran.reciter")}
         options={RECITER_OPTIONS}
         selectedId={prefs.preferredReciterDir}
-        onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
+        onSelect={handleReciterSelect}
         onClose={() => setReciterPickerOpen(false)}
       />
       <TranslationPickerSheet

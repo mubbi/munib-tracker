@@ -40,12 +40,30 @@ function emptyCounters(): CounterMap {
   return map;
 }
 
+/** Coerce persisted remaining/completed to non-negative integers (guards string pollution). */
+function normalizeCount(value: unknown): number {
+  const n = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.round(n));
+}
+
+function normalizeCounter(
+  prayerId: QazaPrayer,
+  counter: Partial<QazaCounter> | undefined,
+): QazaCounter {
+  return {
+    prayerId,
+    remaining: normalizeCount(counter?.remaining),
+    completed: normalizeCount(counter?.completed),
+    updatedAt: counter?.updatedAt,
+  };
+}
+
 async function readCounters(): Promise<CounterMap> {
   const stored = await readJSON<Partial<CounterMap>>(DB_KEYS.qazaCounters, {});
   const map = emptyCounters();
   for (const prayerId of QAZA_PRAYERS) {
-    const counter = stored[prayerId];
-    if (counter) map[prayerId] = { ...map[prayerId], ...counter, prayerId };
+    map[prayerId] = normalizeCounter(prayerId, stored[prayerId]);
   }
   return map;
 }
