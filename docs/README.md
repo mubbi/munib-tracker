@@ -5,6 +5,7 @@
 | [`BACKLOG.md`](./BACKLOG.md) | Open work (product, perf, devices, content) |
 | [`FEATURES.md`](./FEATURES.md) | Shipped product features (NF-* catalog) |
 | [`OPEN_SOURCE.md`](./OPEN_SOURCE.md) | Source-available release checklist (PolyForm NC) |
+| [`RELEASES.md`](./RELEASES.md) | Semver / Release Please (per-app tags, changelogs, build numbers) |
 | [`../AGENTS.md`](../AGENTS.md) | Monorepo commands, conventions, agent rules |
 | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | Contributor setup, Conventional Commits (`pnpm commit`), PR checklist |
 | [`../SECURITY.md`](../SECURITY.md) | Vulnerability reporting |
@@ -13,6 +14,7 @@
 
 | Topic | Doc |
 |-------|-----|
+| Releases / semver (Release Please) | [`RELEASES.md`](./RELEASES.md) |
 | Internationalization (23 locales) | [`I18N_GUIDE.md`](./I18N_GUIDE.md) |
 | Content pipeline | [`DATA_INGESTION.md`](./DATA_INGESTION.md) |
 | Data sources & licenses | [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |

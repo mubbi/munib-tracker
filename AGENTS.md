@@ -115,6 +115,7 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`BACKLOG.md`](docs/BACKLOG.md) | Open work (product, perf, devices, content) |
 | [`FEATURES.md`](docs/FEATURES.md) | Shipped NF-* feature catalog |
 | [`OPEN_SOURCE.md`](docs/OPEN_SOURCE.md) | Public release checklist (PolyForm NC) |
+| [`RELEASES.md`](docs/RELEASES.md) | Per-app semver via Release Please (tags, changelogs, build numbers) |
 | [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) | 23-locale i18n ops, scripture rules |
 | [`OAUTH_SETUP.md`](docs/OAUTH_SETUP.md) | Google / Apple / Facebook sign-in (native + web) |
 | [`DEEP_LINKS.md`](docs/DEEP_LINKS.md) | Custom scheme + HTTPS App Links (incl. Apple OAuth) |

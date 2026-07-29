@@ -34,9 +34,12 @@ Munib Tracker. See [`SUPPORT.md`](../SUPPORT.md).
 - [ ] **Settings → Code security**: enable private vulnerability reporting (pairs with `SECURITY.md`)
 - [ ] **Settings → Branches**: protect `main` — require PR, require status check `Type-check, lint, test, build, OpenAPI drift`, dismiss stale reviews
 - [ ] **Settings → Actions**: allow GitHub Actions; restrict secrets from forks
+- [ ] **Settings → Actions → General**: enable **Allow GitHub Actions to create and approve pull requests** (required for [Release Please](https://github.com/googleapis/release-please-action))
+- [ ] **Settings → Secrets and variables → Actions**: add `RELEASE_PLEASE_TOKEN` (PAT or GitHub App token that can open PRs and create releases — so CI runs on Release Please PRs; plain `GITHUB_TOKEN` does not re-trigger workflows)
 - [ ] Confirm Issues are enabled; optionally enable Discussions
 - [ ] Confirm **Sponsors / funding** stays disabled (no `FUNDING.yml`)
 - [ ] Rotate any credentials that were ever committed (see below)
+- [ ] After bootstrap: merge a Release Please PR and verify tags (`app-v…`, `api-v…`, …) + per-app `CHANGELOG.md` — see [`RELEASES.md`](./RELEASES.md)
 
 ## Secret hygiene (completed in-repo)
 
@@ -51,6 +54,7 @@ Munib Tracker. See [`SUPPORT.md`](../SUPPORT.md).
 ## Automations shipped in `.github/`
 
 - CI (`workflows/ci.yml`) — `pnpm check:ci` (lint, types, test, build, OpenAPI drift)
+- Release Please (`workflows/release-please.yml`) — per-app semver Release PRs, tags, and changelogs ([`RELEASES.md`](./RELEASES.md); official action: [googleapis/release-please-action](https://github.com/googleapis/release-please-action))
 - Dependabot (`dependabot.yml`) — weekly npm + monthly Actions
 - PR labeler (`workflows/labeler.yml` + `labeler.yml`)
 - CodeQL (`workflows/codeql.yml`)
@@ -58,6 +62,9 @@ Munib Tracker. See [`SUPPORT.md`](../SUPPORT.md).
 - `CODEOWNERS`
 - Husky: `pre-commit` (Biome), `commit-msg` (commitlint / Conventional Commits), `pre-push` (`pnpm check:ci`)
 - Commitizen: `pnpm commit` (interactive conventional commits)
+
+Root Release Please config: `release-please-config.json`, `.release-please-manifest.json`.
+Maintainers merge Release PRs to cut tags (`app-v…`, `api-v…`, `admin-v…`, `marketing-web-v…`).
 
 Create these labels in the GitHub UI (or via `gh label create`) so the labeler can apply them:
 `app`, `api`, `marketing`, `admin`, `packages`, `docs`, `ci`, `bug`, `enhancement`, `content`, `triage`, `good first issue`, `help wanted`.

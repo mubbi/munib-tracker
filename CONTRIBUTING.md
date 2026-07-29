@@ -112,6 +112,24 @@ Examples:
 
 Breaking changes: add `!` after the type/scope (`feat(api)!: …`) and/or a `BREAKING CHANGE:` footer.
 
+### Releases
+
+Versions are cut by [Release Please](https://github.com/googleapis/release-please-action)
+from Conventional Commits on `main`:
+
+| Commit | SemVer |
+|--------|--------|
+| `fix:` | patch |
+| `feat:` | minor |
+| type with `!` or `BREAKING CHANGE:` | major |
+
+Release Please attributes bumps by **files under each app path**
+(`apps/app`, `apps/api`, `apps/admin`, `apps/marketing-web`). A change only under
+`packages/*` does not bump an app — touch the consumer app in the same PR when a
+shared change should ship a release.
+
+Full guide (tags, Release PRs, product build numbers): [`docs/RELEASES.md`](docs/RELEASES.md).
+
 ## Project rules that block PRs
 
 1. **No hardcoded user-facing strings** in the product app — use i18n (`apps/app/src/i18n/en.json`).

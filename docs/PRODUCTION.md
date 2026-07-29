@@ -11,6 +11,14 @@ Canonical URLs live in [`packages/shared/src/constants/site.ts`](../packages/sha
 | App Store | `https://apps.apple.com/app/id6787222180` | ID `6787222180`, bundle `app.munibtracker` (`OFFICIAL_IOS_APP_STORE_*`) |
 | Google Play | `https://play.google.com/store/apps/details?id=app.munibtracker` | Package `app.munibtracker` (`OFFICIAL_ANDROID_*`) |
 
+## Versions vs deploys
+
+Published app versions (semver tags + per-app changelogs) are owned by
+[Release Please](./RELEASES.md). Vercel and EAS/local store pipelines are **not**
+gated on those tags today — deploys follow your existing Vercel/EAS setup. Treat
+GitHub tags (`app-v…`, `api-v…`, `admin-v…`, `marketing-web-v…`) as the source of
+truth for what version string you shipped.
+
 ## CORS
 
 Production API: comma-separated `CORS_ORIGINS`, e.g.

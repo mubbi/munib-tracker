@@ -16,16 +16,19 @@ Phone ↔ TV always needs a **clean** prebuild (`pnpm prebuild:app:tv` vs `pnpm 
 
 ## Versioning
 
-TV uses **separate** `.env` keys from phone (see `apps/app/.env.example`):
+**Marketing semver** is unified across phone, TV, and web via [Release Please](./RELEASES.md)
+(`expo` release type + `.env.example` `x-release-please-version` markers). Build /
+version-code integers stay **per surface** and are **not** owned by Release Please
+(bump manually or via EAS `autoIncrement` on store upload).
 
-| Surface | Marketing semver | Build / version code |
-|---------|------------------|----------------------|
+| Surface | Marketing semver (same product version) | Build / version code (independent) |
+|---------|----------------------------------------|------------------------------------|
 | Android phone | `EXPO_ANDROID_APP_VERSION` | `EXPO_ANDROID_VERSION_CODE` |
 | Android TV / Fire TV | `EXPO_ANDROID_TV_APP_VERSION` | `EXPO_ANDROID_TV_VERSION_CODE` |
 | iPhone | `EXPO_IOS_APP_VERSION` | `EXPO_IOS_APP_BUILD_NUMBER` |
 | Apple TV | `EXPO_TVOS_APP_VERSION` | `EXPO_TVOS_APP_BUILD_NUMBER` |
 
-Phone + Android TV share package `app.munibtracker` on Play — **versionCodes must stay unique and increasing across both form factors** (do not reuse a phone code on TV or vice versa).
+Phone + Android TV share package `app.munibtracker` on Play — **versionCodes must stay unique and increasing across both form factors** (do not reuse a phone code on TV or vice versa). See `apps/app/.env.example` and [`RELEASES.md`](./RELEASES.md).
 
 ## Brand assets
 
