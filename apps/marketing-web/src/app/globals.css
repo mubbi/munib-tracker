@@ -296,6 +296,36 @@ h4 {
   }
 }
 
+/* ── Day Arc scroll progress (set on .day-arc-canvas via rAF) ───────────
+ * Maps --day-arc-p (0→1) to layer opacities without Framer springs, so the
+ * sticky header is not fighting continuous MotionValue updates each frame.
+ */
+.day-arc-canvas {
+  --day-arc-p: 0;
+  contain: paint;
+}
+
+.day-arc-layer-sunset {
+  opacity: clamp(0, calc(1 - (var(--day-arc-p) * 2)), 1);
+}
+
+.day-arc-layer-night {
+  opacity: clamp(0, calc((var(--day-arc-p) - 0.15) / 0.45), 1);
+}
+
+.day-arc-layer-stars {
+  opacity: clamp(0, calc((var(--day-arc-p) - 0.35) / 0.45 * 0.85), 0.85);
+}
+
+/* Pause decorative infinite animations while the user is actively scrolling
+ * so the sticky chrome does not re-composite twinkling star layers every frame. */
+html.is-scrolling .hero-stars,
+html.is-scrolling .hero-stars-2,
+html.is-scrolling .animate-float,
+html.is-scrolling .animate-float-slow {
+  animation-play-state: paused;
+}
+
 /* Soft dark shadows so hero copy pops off the bright sunset band. */
 .hero-text-shadow {
   text-shadow:

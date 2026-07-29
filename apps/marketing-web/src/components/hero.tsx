@@ -17,8 +17,10 @@ const container: Variants = {
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: EASE } },
+  // Opacity + translate only — filter blur forces expensive paint on load
+  // and can leave the GPU layer thrashing under the sticky header.
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 };
 
 const TRUST = [
@@ -65,7 +67,7 @@ export function Hero() {
           className="text-center lg:text-left"
         >
           <motion.div variants={item} className="flex justify-center lg:justify-start">
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.3)] px-5 py-2.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] backdrop-blur-sm [text-shadow:0_1px_6px_rgba(0,0,0,0.4)]">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] px-5 py-2.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] [text-shadow:0_1px_6px_rgba(0,0,0,0.4)]">
               <Sparkles className="size-4 text-gold drop-shadow-[0_0_6px_rgba(240,200,120,0.8)]" />
               Your prayers. Your path. His pleasure.
             </span>
@@ -114,7 +116,7 @@ export function Hero() {
             </TrackedLink>
             <TrackedLink
               href={SITE_PATHS.features}
-              className="group inline-flex h-[3.75rem] items-center justify-center gap-3 rounded-full border border-white/35 bg-[rgba(58,46,44,0.32)] px-10 text-[17px] font-semibold text-white shadow-[0_18px_38px_-14px_rgba(12,10,20,0.6),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-md transition-all duration-200 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)] hover:bg-[rgba(70,58,56,0.42)] active:scale-[0.98]"
+              className="group inline-flex h-[3.75rem] items-center justify-center gap-3 rounded-full border border-white/35 bg-[rgba(58,46,44,0.55)] px-10 text-[17px] font-semibold text-white shadow-[0_18px_38px_-14px_rgba(12,10,20,0.6),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-200 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)] hover:bg-[rgba(70,58,56,0.65)] active:scale-[0.98]"
               track="cta"
               cta="explore_features"
               placement="hero"
@@ -156,7 +158,7 @@ export function Hero() {
         >
           <div
             aria-hidden
-            className="absolute left-1/2 top-1/2 -z-10 size-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f0b968]/25 blur-[130px]"
+            className="absolute left-1/2 top-1/2 -z-10 size-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,185,104,0.35)_0%,transparent_68%)]"
           />
           <div className="animate-float-slow">
             <DeviceFrame
