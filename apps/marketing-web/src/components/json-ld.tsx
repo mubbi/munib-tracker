@@ -6,7 +6,8 @@ import {
   OFFICIAL_IOS_APP_STORE_URL,
 } from "@munib-tracker/shared/constants";
 import type { FaqItem } from "@/lib/faq";
-import { PRODUCT_APP_URL, SITE_URL } from "@/lib/site";
+import { PROJECT_LICENSE_URL } from "@/lib/open-source";
+import { GITHUB_REPO_URL, PRODUCT_APP_URL, SITE_URL } from "@/lib/site";
 
 export function JsonLd() {
   const schema = {
@@ -25,7 +26,14 @@ export function JsonLd() {
     url: SITE_URL,
     downloadUrl: PRODUCT_APP_URL,
     installUrl: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, PRODUCT_APP_URL],
-    sameAs: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, PRODUCT_APP_URL],
+    sameAs: [
+      OFFICIAL_IOS_APP_STORE_URL,
+      OFFICIAL_ANDROID_PLAY_STORE_URL,
+      PRODUCT_APP_URL,
+      GITHUB_REPO_URL,
+    ],
+    codeRepository: GITHUB_REPO_URL,
+    license: PROJECT_LICENSE_URL,
     featureList: [
       "Salah tracking with streaks and calendar",
       "Qaza calculator, planner, and roza tracking",
@@ -35,6 +43,7 @@ export function JsonLd() {
       "Learn the Qur'an: Arabic letters, tajweed, and memorization",
       "Worship guides: salah, wudu, zakat calculator, Friday hub, and hajj checklist",
       "Prayer times, Hijri calendar, and qibla compass",
+      "Source-available on GitHub (non-commercial license)",
     ],
     inLanguage: ["en", "ar", "ur"],
     isAccessibleForFree: true,

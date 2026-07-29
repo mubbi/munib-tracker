@@ -1,0 +1,40 @@
+# Pull request path → label mapping (actions/labeler)
+app:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/app/**
+
+api:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/api/**
+          - packages/api-client/**
+          - packages/api-contract/**
+
+marketing:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/marketing-web/**
+
+admin:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/admin/**
+
+packages:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/**
+          - tools/screenshot-studio/**
+
+docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - docs/**
+          - "**/*.md"
+          - AGENTS.md
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**

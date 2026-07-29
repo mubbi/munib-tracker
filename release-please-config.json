@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "include-component-in-tag": true,
+  "separate-pull-requests": true,
+  "packages": {
+    "apps/app": {
+      "release-type": "expo",
+      "component": "app",
+      "package-name": "app",
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": ".env.example"
+        }
+      ]
+    },
+    "apps/api": {
+      "release-type": "node",
+      "component": "api",
+      "package-name": "api",
+      "changelog-path": "CHANGELOG.md"
+    },
+    "apps/admin": {
+      "release-type": "node",
+      "component": "admin",
+      "package-name": "admin",
+      "changelog-path": "CHANGELOG.md"
+    },
+    "apps/marketing-web": {
+      "release-type": "node",
+      "component": "marketing-web",
+      "package-name": "marketing-web",
+      "changelog-path": "CHANGELOG.md"
+    }
+  }
+}

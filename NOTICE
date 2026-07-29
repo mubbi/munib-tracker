@@ -1,0 +1,40 @@
+Munib Tracker
+Copyright (c) 2026 Mubbasher Ahmed Qureshi
+
+This software is licensed under the PolyForm Noncommercial License 1.0.0.
+See the LICENSE file in the project root.
+
+Required Notice: Copyright (c) 2026 Mubbasher Ahmed Qureshi — Munib Tracker (https://munibtracker.app)
+
+## Attribution requirements
+
+Anyone who uses, modifies, or redistributes this software (in whole or in part) must:
+
+1. Retain this NOTICE file and the LICENSE file (or a clear link to
+   https://polyformproject.org/licenses/noncommercial/1.0.0).
+2. Preserve every plain-text line beginning with `Required Notice:` above.
+3. Credit **Munib Tracker** and include a visible link to the official marketing
+   website: **https://munibtracker.app**
+   (for example in a README, About screen, credits page, or equivalent).
+
+## Non-commercial use only
+
+You may use, study, modify, and redistribute this project for personal,
+educational, religious, charitable, and other non-commercial purposes.
+
+You may **not** sell this software, sell customized versions of it, or otherwise
+use it for a commercial purpose (including paid redistribution, paid
+customization-as-a-product, or embedding it in a commercial product or service)
+without a separate commercial license from the copyright holder.
+
+## No sponsorship, funding, or donations
+
+Munib Tracker does **not** currently accept sponsorship, funding, or donations.
+Do **not** send money to anyone claiming to collect funds on behalf of this
+project. There is no official payment, Sponsors, or donation channel.
+
+## Third-party content
+
+Bundled and remote Islamic datasets (Qur'an, hadith, adhkar, audio, etc.) remain
+under their original licenses and attributions. See `docs/FREE_OPEN_SOURCE_DATA.md`
+and the in-app / marketing Credits pages. Do not strip upstream attributions.

@@ -1,11 +1,15 @@
 /**
- * Per-platform marketing semver from apps/app/.env.
+ * Per-platform versions from apps/app/.env.
  *
+ * Marketing semver (Release Please owns committed defaults in package.json, app.json,
+ * and .env.example — one product version across platforms; see docs/RELEASES.md):
  *   EXPO_IOS_APP_VERSION            – iPhone CFBundleShortVersionString / MARKETING_VERSION
  *   EXPO_ANDROID_APP_VERSION        – phone Android versionName
  *   EXPO_TVOS_APP_VERSION           – Apple TV CFBundleShortVersionString / MARKETING_VERSION
  *   EXPO_ANDROID_TV_APP_VERSION     – Android TV / Fire TV versionName
  *   EXPO_PUBLIC_APP_VERSION         – Web + JS bundle X-App-Version (native release/prebuild set per platform)
+ *
+ * Build integers (NOT managed by Release Please — bump manually or via EAS autoIncrement):
  *   EXPO_IOS_APP_BUILD_NUMBER       – iPhone CFBundleVersion (integer string)
  *   EXPO_ANDROID_VERSION_CODE       – phone Android versionCode (integer)
  *   EXPO_TVOS_APP_BUILD_NUMBER      – Apple TV CFBundleVersion (integer string)

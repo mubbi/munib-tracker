@@ -61,6 +61,31 @@ export default function AboutPage() {
         </p>
       </ContentSection>
 
+      <ContentSection heading="Open source">
+        <p className="text-muted">
+          {APP_NAME} is developed in the open. The source code is on{" "}
+          <a
+            href="https://github.com/mubbi/munib-tracker"
+            className="font-medium text-brand hover:underline"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            GitHub
+          </a>{" "}
+          under a non-commercial license: free to use, modify, and redistribute for personal and
+          educational purposes, with credit and a link to this site. It may not be sold. Learn more
+          on our{" "}
+          <Link href={SITE_PATHS.openSource} className="font-medium text-brand hover:underline">
+            Open source
+          </Link>{" "}
+          page, and meet the people behind the work on{" "}
+          <Link href={SITE_PATHS.contributors} className="font-medium text-brand hover:underline">
+            Contributors
+          </Link>
+          .
+        </p>
+      </ContentSection>
+
       <ContentSection heading="Author & collaborators">
         <p className="text-muted">
           {APP_NAME} is built and maintained by{" "}

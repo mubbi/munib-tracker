@@ -59,7 +59,8 @@ pnpm dev:admin            # admin console only (port 3002)
 pnpm build:admin          # production build for apps/admin
 pnpm check:ci             # same as CI + pre-push: lint → types → test → build → OpenAPI drift
 pnpm check:quick          # fast local smoke: lint + typecheck (not a git hook)
-# Husky: pre-commit = Biome --write --staged + restage; pre-push = pnpm check:ci
+# Husky: pre-commit = Biome --write --staged + restage; commit-msg = commitlint (Conventional Commits); pre-push = pnpm check:ci
+# Commits: prefer `pnpm commit` (Commitizen). See CONTRIBUTING.md.
 pnpm turbo run lint check-types test
 pnpm test:coverage          # unit tests + HTML/Clover reports under */coverage/ (gitignored)
 pnpm test:coverage:open     # open coverage HTML in the browser (optional: app api shared …)
@@ -105,12 +106,16 @@ Religious content (Qur'an, hadith, adhkar, duas, 99 Names, audio) is **sourced f
 
 ## Docs
 
+Community / source-available: [`CONTRIBUTING.md`](CONTRIBUTING.md) · [`docs/OPEN_SOURCE.md`](docs/OPEN_SOURCE.md) · [`LICENSE`](LICENSE) · [`NOTICE`](NOTICE).
+
 Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](docs/README.md):
 
 | Doc | Role |
 |-----|------|
 | [`BACKLOG.md`](docs/BACKLOG.md) | Open work (product, perf, devices, content) |
 | [`FEATURES.md`](docs/FEATURES.md) | Shipped NF-* feature catalog |
+| [`OPEN_SOURCE.md`](docs/OPEN_SOURCE.md) | Public release checklist (PolyForm NC) |
+| [`RELEASES.md`](docs/RELEASES.md) | Per-app semver via Release Please (tags, changelogs, build numbers) |
 | [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) | 23-locale i18n ops, scripture rules |
 | [`OAUTH_SETUP.md`](docs/OAUTH_SETUP.md) | Google / Apple / Facebook sign-in (native + web) |
 | [`DEEP_LINKS.md`](docs/DEEP_LINKS.md) | Custom scheme + HTTPS App Links (incl. Apple OAuth) |

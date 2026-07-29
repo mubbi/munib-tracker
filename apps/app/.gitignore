@@ -45,6 +45,17 @@ yarn-error.*
 # local env files
 .env*.local
 
+# iOS signing / App Store Connect (templates only are committed)
+ios-keys/*.env
+ios-keys/ExportOptions.plist
+ios-keys/ExportOptions.tvos.plist
+ios-keys/team.env
+ios-keys/**/*.cer
+!ios-keys/*.env.example
+!ios-keys/ExportOptions.plist.template
+!ios-keys/tvos-signing/README.txt
+!ios-keys/README.md
+
 # Android signing keys & Play Console PEPK artifacts (never commit)
 android-keys/upload-keystore.jks
 android-keys/keystore.properties

@@ -1,9 +1,11 @@
 import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { TrackedLink } from "@/components/tracked-link";
-import { SITE_URL } from "@/lib/site";
+import { OPEN_SOURCE_SUMMARY, PROJECT_LICENSE_NAME } from "@/lib/open-source";
+import { GITHUB_REPO_URL, SITE_PATHS, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Press kit",
@@ -31,12 +33,15 @@ export default function PressPage() {
       <ContentSection heading="Boilerplate">
         <p className="text-muted">
           <strong>{APP_NAME}</strong> — {APP_TAGLINE} Available on iOS, Android, and web. Free for
-          personal and educational use with no ads. Features include salah tracking, qaza calculator
-          and planner, adhkar and tasbeeh, offline Qur&apos;an (surah, juz, 604-page mushaf) and
-          hadith, qibla, Hijri events, widgets and watch companions, 23 languages, and optional
-          cloud sync — plus a full learning library (aqeedah, prophets, seerah, the Hereafter, and
-          Qur&apos;an study) and step-by-step worship guides for salah, wudu, zakat, and hajj.
+          personal and educational use with no ads. The project is source-available on GitHub under
+          the {PROJECT_LICENSE_NAME} (non-commercial; attribution required). Features include salah
+          tracking, qaza calculator and planner, adhkar and tasbeeh, offline Qur&apos;an (surah,
+          juz, 604-page mushaf) and hadith, qibla, Hijri events, widgets and watch companions, 23
+          languages, and optional cloud sync — plus a full learning library (aqeedah, prophets,
+          seerah, the Hereafter, and Qur&apos;an study) and step-by-step worship guides for salah,
+          wudu, zakat, and hajj.
         </p>
+        <p className="mt-4 text-sm text-muted">{OPEN_SOURCE_SUMMARY}</p>
       </ContentSection>
 
       <ContentSection heading="Brand colors">
@@ -124,6 +129,24 @@ export default function PressPage() {
         <ul className="list-inside list-disc text-sm text-muted">
           <li>
             Website: <a href={SITE_URL}>{SITE_URL}</a>
+          </li>
+          <li>
+            Open source:{" "}
+            <Link href={SITE_PATHS.openSource} className="font-medium text-brand hover:underline">
+              {SITE_URL}
+              {SITE_PATHS.openSource}
+            </Link>
+          </li>
+          <li>
+            GitHub:{" "}
+            <a
+              href={GITHUB_REPO_URL}
+              className="font-medium text-brand hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {GITHUB_REPO_URL}
+            </a>
           </li>
           <li>App: App Store and Google Play · Web app available now</li>
         </ul>

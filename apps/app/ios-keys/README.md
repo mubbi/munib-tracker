@@ -5,13 +5,19 @@ Signing and App Store Connect upload config lives **outside** `ios/` so `pnpm cl
 | File | Committed | Purpose |
 |------|-----------|---------|
 | `ExportOptions.plist.template` | Yes | App Store export template |
-| `ExportOptions.plist` | No (generated) | Used by `pnpm release:app:ios` |
-| `team.env` | No | `IOS_DEVELOPMENT_TEAM=…` |
+| `ExportOptions.plist` | No (generated / gitignored) | Used by `pnpm release:app:ios` |
+| `ExportOptions.tvos.plist` | No (generated / gitignored) | Used by `pnpm release:app:tvos` |
+| `team.env` | No (gitignored) | `IOS_DEVELOPMENT_TEAM=…` |
 | `app-store-connect.env.example` | Yes | Upload credentials template |
-| `app-store-connect.env` | No | Issuer ID for `release:app:ios:upload` |
+| `app-store-connect.env` | No (gitignored) | Issuer ID for `pnpm release:app:ios:upload` |
+| `keys.env.example` | Yes | Local key path hints |
+| `tvos-signing/README.txt` | Yes | tvOS signing notes |
+| `tvos-signing/*.cer` | No (gitignored) | Distribution certificates |
 | `munib_build_api_AuthKey_*.p8` | No | App Store Connect API private key |
 | `munib_signin_AuthKey_*.p8` | No | Sign in with Apple (API OAuth) |
 | `munib_apn_AuthKey_*.p8` | No | APNs push key |
+
+**Never commit** `*.env` (except `*.env.example`), `ExportOptions.plist`, `ExportOptions.tvos.plist`, `*.cer`, or `*.p8` files.
 
 ## Release IPA
 

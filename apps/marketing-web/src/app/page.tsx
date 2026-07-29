@@ -6,6 +6,7 @@ import { FeatureBento } from "@/components/feature-bento";
 import { FeaturePillars } from "@/components/feature-pillars";
 import { Hero } from "@/components/hero";
 import { LearnHighlight } from "@/components/learn-highlight";
+import { OpenSourceBand } from "@/components/open-source-band";
 import { StatsSection } from "@/components/stats-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
 
@@ -20,6 +21,7 @@ export default function Home() {
       <FeaturePillars limit={6} />
       <TestimonialsSection />
       <AchievementsSection />
+      <OpenSourceBand />
       <FaqPreview />
       <CtaBand />
     </>
