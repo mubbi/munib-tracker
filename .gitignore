@@ -35,6 +35,20 @@ coverage/
 # Environment
 .env
 .env*.local
+!.env.example
+!**/.env.example
+
+# Signing / store credentials (never commit)
+**/*.keystore
+**/google-services.json
+**/GoogleService-Info.plist
+apps/app/ios-keys/*.env
+apps/app/ios-keys/ExportOptions.plist
+apps/app/ios-keys/ExportOptions.tvos.plist
+apps/app/ios-keys/**/*.cer
+!apps/app/ios-keys/*.env.example
+!apps/app/ios-keys/ExportOptions.plist.template
+!apps/app/ios-keys/tvos-signing/README.txt
 
 # Debug
 npm-debug.*

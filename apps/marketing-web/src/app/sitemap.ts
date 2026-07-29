@@ -11,6 +11,8 @@ const PRIORITIES: Partial<Record<string, number>> = {
   "/about": 0.6,
   "/faq": 0.6,
   "/credits": 0.4,
+  "/contributors": 0.5,
+  "/open-source": 0.6,
   "/privacy": 0.4,
   "/terms": 0.4,
 };

@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest an improvement that fits Munib Tracker's mission
+title: "[feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user need is unmet?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: I checked docs/BACKLOG.md and existing issues for duplicates
+          required: true
+        - label: This is for non-commercial / personal worship use (not a commercial fork request)
+          required: true
+        - label: I understand Munib Tracker does not accept sponsorship, funding, or donations
+          required: true

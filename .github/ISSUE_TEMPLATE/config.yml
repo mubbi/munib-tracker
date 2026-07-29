@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contact Munib Tracker
+    url: https://munibtracker.app/contact
+    about: Product questions, feedback, and private reports that are not GitHub bugs.
+  - name: Security vulnerability
+    url: https://github.com/mubbi/munib-tracker/security/advisories/new
+    about: Report a security issue privately (do not file a public issue).
+  - name: FAQ
+    url: https://munibtracker.app/faq
+    about: Common product questions (including license and donations policy).
+  - name: Open source / license
+    url: https://munibtracker.app/open-source
+    about: Source-available terms — we do not accept sponsorship or donations.

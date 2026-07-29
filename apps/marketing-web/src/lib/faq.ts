@@ -8,7 +8,16 @@ export type FaqItem = {
 export const FAQ_ITEMS: FaqItem[] = [
   {
     question: `Is ${APP_NAME} free?`,
-    answer: `${APP_NAME} is free for personal and educational use. There are no ads, subscriptions, or in-app purchases.`,
+    answer: `${APP_NAME} is free for personal and educational use. There are no ads, subscriptions, or in-app purchases. The source is also available on GitHub under a non-commercial license — see the Open source page.`,
+  },
+  {
+    question: `Is ${APP_NAME} open source?`,
+    answer: `The full monorepo is source-available on GitHub under the PolyForm Noncommercial License 1.0.0. You may use, modify, and redistribute it for personal and educational purposes if you credit ${APP_NAME} and link to munibtracker.app. You may not sell the app or sell customized versions. Details: Open source page and the NOTICE file in the repository.`,
+  },
+  {
+    question: "Can I fork it and sell a customized version?",
+    answer:
+      "No. Commercial use — including selling the software or selling customized builds — is not permitted under the license. For other arrangements, contact us via the contact form.",
   },
   {
     question: "Do I need an account?",
@@ -27,7 +36,11 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "Which platforms are supported?",
-    answer: `${APP_NAME} runs on iOS, Android, and web from a single codebase. Install from the App Store or Google Play, or use the web app in any modern browser (with offline PWA support). Native builds add home-screen widgets, Live Activities (iOS), Apple Watch and Wear OS companions, Siri / Assistant shortcuts, haptics, and app lock.`,
+    answer: `${APP_NAME} runs on iOS, Android, web, Apple TV, and Android TV from a single Expo codebase. Install from the App Store or Google Play, or use the web app in any modern browser (with offline PWA support). Native phone builds add home-screen widgets, Live Activities (iOS), Apple Watch and Wear OS companions, Siri / Assistant shortcuts, haptics, and app lock.`,
+  },
+  {
+    question: `Do you accept donations or sponsorship for ${APP_NAME}?`,
+    answer: `No. ${APP_NAME} does not currently accept sponsorship, funding, or donations. Do not send money to anyone claiming to collect funds on behalf of Munib Tracker. There is no official payment or GitHub Sponsors link. You can help by contributing code, documentation, translations, or content corrections on GitHub.`,
   },
   {
     question: "How accurate are prayer times?",
@@ -62,6 +75,10 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "How do I report a content error?",
     answer:
-      "Accuracy in religious content is a trust we take seriously. Use the in-app report flow (Settings → My reports) or our contact form, and we will correct errors promptly.",
+      "Accuracy in religious content is a trust we take seriously. Use the in-app report flow (Settings → My reports), our contact form, or open a content accuracy issue on GitHub, and we will correct errors promptly.",
+  },
+  {
+    question: "How can I contribute?",
+    answer: `Read the contributing guide on GitHub, then open an issue or pull request. We welcome bug fixes, documentation, translations, and careful content corrections — not money. ${APP_NAME} does not accept sponsorship or donations. Meet the community on the Contributors page and learn license terms on the Open source page.`,
   },
 ];

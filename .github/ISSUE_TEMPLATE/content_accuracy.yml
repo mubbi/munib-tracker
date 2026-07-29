@@ -1,0 +1,51 @@
+name: Content accuracy
+description: Report an error in Qur'an, hadith, dua, zikr, or learning content
+title: "[content]: "
+labels: ["content", "triage"]
+body:
+  - type: dropdown
+    id: corpus
+    attributes:
+      label: Content type
+      options:
+        - Qur'an
+        - Hadith
+        - Dua / Hisnul Muslim
+        - Zikr / Adhkar
+        - 99 Names
+        - Learning lesson / fiqh guide
+        - Translation / transliteration
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: Reference
+      description: e.g. Surah 2:255, Bukhari 1, dua id, lesson slug
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is wrong?
+      description: Quote the incorrect text and explain the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested correction
+      description: Preferred wording and a reputable source if you have one.
+  - type: input
+    id: locale
+    attributes:
+      label: Locale / edition
+      description: e.g. en, ar, ur, or translation edition name
+  - type: checkboxes
+    id: honesty
+    attributes:
+      label: Confirmation
+      options:
+        - label: I am reporting in good faith and am not inventing scripture
+          required: true

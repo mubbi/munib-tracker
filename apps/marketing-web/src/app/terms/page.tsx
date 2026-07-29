@@ -36,9 +36,13 @@ export default function TermsPage() {
       <ContentSection heading="Personal & educational use">
         <p className="text-muted">
           You may use the app to support your own worship and share it with others for
-          non-commercial personal or educational purposes. You may not resell it, redistribute it as
-          your own product, scrape or bulk-redistribute bundled datasets in violation of their
-          licenses, or use the service to harass others or break the law.
+          non-commercial personal or educational purposes. The source code may be used, modified,
+          and redistributed under the PolyForm Noncommercial License with required attribution to{" "}
+          {APP_NAME} and a link to munibtracker.app. You may not resell it, sell customized
+          versions, redistribute it as your own commercial product, scrape or bulk-redistribute
+          bundled datasets in violation of their licenses, or use the service to harass others or
+          break the law. {APP_NAME} does not currently accept sponsorship, funding, or donations —
+          do not send money to anyone claiming to collect funds on its behalf.
         </p>
       </ContentSection>
 
@@ -67,10 +71,24 @@ export default function TermsPage() {
       <ContentSection heading="Intellectual property">
         <p className="text-muted">
           The {APP_NAME} name, branding, UI, and original software are owned by {APP_AUTHOR} or its
-          licensors. Open-source libraries and Islamic datasets remain under their respective
-          licenses. You retain ownership of the personal worship data you create; by syncing, you
-          grant us a limited license to store and process that data solely to provide sync and
-          related account features.
+          licensors. The source code is available under the{" "}
+          <a
+            href="https://polyformproject.org/licenses/noncommercial/1.0.0"
+            className="font-medium text-brand hover:underline"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            PolyForm Noncommercial License 1.0.0
+          </a>
+          : you may use, modify, and redistribute it for personal and educational (non-commercial)
+          purposes, provided you credit {APP_NAME} and link to{" "}
+          <Link href={SITE_PATHS.home} className="font-medium text-brand hover:underline">
+            munibtracker.app
+          </Link>
+          . You may not sell the software or sell customized versions of it. Open-source libraries
+          and Islamic datasets remain under their respective licenses. You retain ownership of the
+          personal worship data you create; by syncing, you grant us a limited license to store and
+          process that data solely to provide sync and related account features.
         </p>
       </ContentSection>
 

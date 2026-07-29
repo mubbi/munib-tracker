@@ -2,13 +2,19 @@
 
 Track Your Journey Back to Allah.
 
+[![CI](https://github.com/mubbi/munib-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/mubbi/munib-tracker/actions/workflows/ci.yml)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0)
+
+Source-available for personal and educational use. See [CONTRIBUTING.md](CONTRIBUTING.md) (includes Conventional Commits / `pnpm commit`) · [docs/OPEN_SOURCE.md](docs/OPEN_SOURCE.md).
+
 ## Monorepo structure
 
 This is a **pnpm + Turborepo** monorepo:
 
 | App / package | Path | Purpose |
 |---------------|------|---------|
-| **Product app** | `apps/app` | Expo SDK 57 — iOS, Android, Web (single codebase) |
+| **Product app** | `apps/app` | Expo SDK 57 — iOS, Android, Web, Apple TV / Android TV (single codebase) |
 | **Marketing site** | `apps/marketing-web` | Next.js 16 landing site (port 3000) |
 | **API server** | `apps/api` | NestJS 11 — auth + cloud sync (port 3001) |
 | **Admin console** | `apps/admin` | Next.js ops console (port 3002) — users, reports, broadcasts |
@@ -27,8 +33,8 @@ This is a **pnpm + Turborepo** monorepo:
 
 ## Prerequisites
 
-- Node.js ≥ 20.9
-- pnpm 9 (`corepack enable`)
+- Node.js ≥ 20.9 (CI uses Node 22)
+- pnpm 9.15 (`corepack enable`)
 - For native dev: Xcode (iOS) and/or Android Studio (Android)
 
 ## Getting started
@@ -116,7 +122,8 @@ import { resolveTheme } from "@munib-tracker/theme/resolve";
 |------|-------|
 | **Biome** | Lint + format (`pnpm lint`, `pnpm format-and-lint:fix`) |
 | **Turborepo** | Task orchestration (`pnpm turbo run build lint check-types test`) |
-| **Husky** | pre-commit: Biome autofix staged files + restage; pre-push: `pnpm check:ci` (matches GitHub Actions) |
+| **Husky** | `pre-commit`: Biome autofix staged files; `commit-msg`: commitlint (Conventional Commits); `pre-push`: `pnpm check:ci` |
+| **Commitizen** | Interactive conventional commits via `pnpm commit` |
 | **Vitest** | marketing-web, api, and package tests |
 | **Jest** | apps/app unit + feature tests |
 
@@ -142,6 +149,33 @@ Unit + feature tests only — no Playwright or Maestro **E2E in CI**. Maestro dr
 
 Official skills installed: `vercel/turborepo`, `expo/skills`, `vercel/next.js`, plus `.agents/skills/{nestjs,fuse-js}`.
 
+## Contributing
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) — setup, PR checklist, content rules
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) · [SECURITY.md](SECURITY.md) · [SUPPORT.md](SUPPORT.md)
+- Maintainer checklist: [docs/OPEN_SOURCE.md](docs/OPEN_SOURCE.md)
+
+**No sponsorship, funding, or donations** are accepted at this time. Do **not** send money to anyone claiming to collect funds on behalf of Munib Tracker. There is no GitHub Sponsors button or official payment link.
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://mubbi.me"><img src="https://github.com/mubbi.png?s=64" width="64px;" alt="Mubbasher Ahmed Qureshi"/><br /><sub><b>Mubbasher Ahmed Qureshi</b></sub></a><br /><a href="https://github.com/mubbi/munib-tracker/commits?author=mubbi" title="Code">💻</a> <a href="#design-mubbi" title="Design">🎨</a> <a href="https://github.com/mubbi/munib-tracker/commits?author=mubbi" title="Documentation">📖</a> <a href="#maintenance-mubbi" title="Maintenance">🚧</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://allcontributors.org) specification. Contributions of any kind welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Share with the community
 
 Please consider sharing a post about Munib Tracker and the value it provides. It really does help!
@@ -157,12 +191,21 @@ Please consider sharing a post about Munib Tracker and the value it provides. It
 
 ![GitHub stars](https://img.shields.io/github/stars/mubbi/munib-tracker)
 ![GitHub forks](https://img.shields.io/github/forks/mubbi/munib-tracker)
-![GitHub license](https://img.shields.io/github/license/mubbi/munib-tracker)
 
 ## License
 
-This project is open source under the [Creative Commons BY-NC 4.0 License](https://creativecommons.org/licenses/by-nc/4.0/).
+This project is licensed under the [**PolyForm Noncommercial License 1.0.0**](https://polyformproject.org/licenses/noncommercial/1.0.0).
 
-Free for personal and educational use. Not allowed for commercial use. Please credit this project with a backlink if you use any part of the code.
+**You may:** use, study, modify, and redistribute the software for personal, educational, religious, charitable, and other **non-commercial** purposes.
 
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+**You may not:** sell this software, sell customized versions of it, or use it for a commercial purpose without a separate license from the copyright holder.
+
+**Attribution required:** keep [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE), and credit **Munib Tracker** with a link to **[https://munibtracker.app](https://munibtracker.app)**.
+
+```
+Required Notice: Copyright (c) 2026 Mubbasher Ahmed Qureshi — Munib Tracker (https://munibtracker.app)
+```
+
+Third-party Islamic datasets and libraries remain under their own licenses — see [`docs/FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) and [Credits](https://munibtracker.app/credits).
+
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0)

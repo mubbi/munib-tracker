@@ -1,0 +1,3 @@
+# Validate commit message against Conventional Commits (commitlint).
+# Prefer `pnpm commit` (Commitizen) for an interactive prompt.
+pnpm exec commitlint --edit "$1"

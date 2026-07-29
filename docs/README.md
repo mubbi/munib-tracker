@@ -4,7 +4,10 @@
 |-----|-------------------|
 | [`BACKLOG.md`](./BACKLOG.md) | Open work (product, perf, devices, content) |
 | [`FEATURES.md`](./FEATURES.md) | Shipped product features (NF-* catalog) |
+| [`OPEN_SOURCE.md`](./OPEN_SOURCE.md) | Source-available release checklist (PolyForm NC) |
 | [`../AGENTS.md`](../AGENTS.md) | Monorepo commands, conventions, agent rules |
+| [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | Contributor setup, Conventional Commits (`pnpm commit`), PR checklist |
+| [`../SECURITY.md`](../SECURITY.md) | Vulnerability reporting |
 
 ## Guides
 

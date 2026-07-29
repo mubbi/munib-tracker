@@ -28,9 +28,14 @@ export const SITE_PATHS = {
   about: "/about",
   faq: "/faq",
   credits: "/credits",
+  contributors: "/contributors",
+  openSource: "/open-source",
   privacy: "/privacy",
   terms: "/terms",
 } as const;
+
+/** Public GitHub repository for contribute CTAs. */
+export const GITHUB_REPO_URL = "https://github.com/mubbi/munib-tracker" as const;
 
 export type SitePath = (typeof SITE_PATHS)[keyof typeof SITE_PATHS];
 
@@ -65,6 +70,8 @@ export const FOOTER_GROUPS = [
     heading: "Company",
     links: [
       { href: SITE_PATHS.about, label: "About" },
+      { href: SITE_PATHS.openSource, label: "Open source" },
+      { href: SITE_PATHS.contributors, label: "Contributors" },
       { href: SITE_PATHS.contact, label: "Contact" },
       { href: SITE_PATHS.press, label: "Press kit" },
     ],
@@ -75,6 +82,7 @@ export const FOOTER_GROUPS = [
       { href: SITE_PATHS.privacy, label: "Privacy" },
       { href: SITE_PATHS.terms, label: "Terms" },
       { href: SITE_PATHS.credits, label: "Credits" },
+      { href: GITHUB_REPO_URL, label: "GitHub", external: true },
     ],
   },
 ] as const;
