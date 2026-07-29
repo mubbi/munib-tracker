@@ -1,0 +1,55 @@
+diff --git a/build/NavigationBar.android.js b/build/NavigationBar.android.js
+index 85f30d4ff17ae442867553cb75a7f0b4cbb142e8..b890769bbcd2339f00d0694d36d537265ad0a095 100644
+--- a/build/NavigationBar.android.js
++++ b/build/NavigationBar.android.js
+@@ -47,14 +47,20 @@ export function setStyle(style) {
+     const resolvedStyle = resolveStyle(style);
+     if (resolvedStyle !== currentValues.style) {
+         currentValues.style = resolvedStyle;
+-        ExpoNavigationBar.setStyle(resolvedStyle);
++        Promise.resolve(ExpoNavigationBar.setStyle(resolvedStyle)).catch(() => {
++            // The Android Activity may be gone (backgrounded/destroyed) when the
++            // deferred stack update runs — reset so the next call retries.
++            currentValues.style = undefined;
++        });
+     }
+ }
+ function setHidden(hidden) {
+     defaultProps.hidden = hidden;
+     if (hidden !== currentValues.hidden) {
+         currentValues.hidden = hidden;
+-        ExpoNavigationBar.setHidden(hidden);
++        Promise.resolve(ExpoNavigationBar.setHidden(hidden)).catch(() => {
++            currentValues.hidden = undefined;
++        });
+     }
+ }
+ // Updates the native navigation bar with the entries from the stack
+diff --git a/src/NavigationBar.android.ts b/src/NavigationBar.android.ts
+index 1835c237e2ed6e80627936c33008c1b6ebacbe8c..c3647a66d4d9e43245a5304cd07ccdf23ec28a87 100644
+--- a/src/NavigationBar.android.ts
++++ b/src/NavigationBar.android.ts
+@@ -77,7 +77,11 @@ export function setStyle(style: NavigationBarStyle) {
+ 
+   if (resolvedStyle !== currentValues.style) {
+     currentValues.style = resolvedStyle;
+-    ExpoNavigationBar.setStyle(resolvedStyle);
++    Promise.resolve(ExpoNavigationBar.setStyle(resolvedStyle)).catch(() => {
++      // The Android Activity may be gone (backgrounded/destroyed) when the
++      // deferred stack update runs — reset so the next call retries.
++      currentValues.style = undefined;
++    });
+   }
+ }
+ 
+@@ -86,7 +90,9 @@ function setHidden(hidden: boolean) {
+ 
+   if (hidden !== currentValues.hidden) {
+     currentValues.hidden = hidden;
+-    ExpoNavigationBar.setHidden(hidden);
++    Promise.resolve(ExpoNavigationBar.setHidden(hidden)).catch(() => {
++      currentValues.hidden = undefined;
++    });
+   }
+ }
+ 

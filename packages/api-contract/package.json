@@ -1,0 +1,13 @@
+{
+  "name": "@munib-tracker/api-contract",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./openapi.json": "./openapi.json"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "transit": "echo transit"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "openapi": {
+      "dependsOn": ["build"],
+      "outputs": ["$TURBO_ROOT$/packages/api-contract/openapi.json"]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# Manifest-mode Release Please (v4). Official guide:
+# https://github.com/googleapis/release-please-action
+name: release-please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          # PAT / GitHub App token so CI runs on Release Please PRs.
+          # Default GITHUB_TOKEN does not re-trigger workflows (GitHub docs).
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

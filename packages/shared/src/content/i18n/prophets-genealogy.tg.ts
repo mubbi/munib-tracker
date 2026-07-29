@@ -1,0 +1,126 @@
+import type { ProphetsGenealogyNode } from "../../types/prophets";
+import type { DeepPartial } from "./localize";
+
+// tg overlay for prophets-genealogy. Index-aligned with PROPHETS_GENEALOGY_NODES in ../prophets-genealogy.ts.
+// Literary translation pack — untranslated nested fields fall back to English.
+export const PROPHETS_GENEALOGY_NODES_TG: DeepPartial<ProphetsGenealogyNode>[] = [
+  {
+    name: "Одам",
+    relationNote:
+      "Аллоҳ таоло Одам алайҳиссаломни Ўз қўли билан яратди ва унга исмларни ўргатди. Ӯ падари инсоният аст - волидайни инсонӣ нест.",
+  },
+  {
+    name: "Нӯҳ",
+    relationNote:
+      "Қуръон Нуҳро ба унвони паёмбар пас аз паҳн шудани авлоди Одам дар рӯи замин муаррифӣ мекунад, аммо падарони миёнарави Одам ва Нуҳро номбар намекунад. Ӯ дар паҳлӯи Одам дар ин шоха ҳамчун вориси аҷдодӣ дар таърихи нубувват зоҳир мешавад, на ҳамчун писари наздики Одам.",
+  },
+  {
+    name: "Иброҳим",
+    relationNote:
+      "Иброҳим аз авлоди Нуҳ дар таърихи нубувватии Қуръон аст. Қуръон ҳар наслро дар миёни онҳо номбар намекунад; ӯ ба ҷои он ки ҳамчун писари наздики Нуҳ зоҳир шавад, ба бахши хонаводаи худ сарварӣ мекунад.",
+  },
+  {
+    name: "Исмоил",
+    relationNote:
+      "Исмоил писари Иброҳим аст. Якҷоя пояҳои Каъбаро бардоштанд. Дар Қуръон муждаи Иброҳим дар бораи фарзанди бурдбор ва қиссаҳои қурбонӣ нақл мекунад.",
+  },
+  {
+    name: "Исҳоқ",
+    relationNote:
+      "Исҳоқ писари Иброҳим аст, ки баъд аз Исмоил дода шуда ва бо падараш баракат дода шудааст.",
+  },
+  {
+    name: "Лут",
+    relationNote:
+      "Қуръон Лутро ба ҳиҷрат ва рисолати Иброҳим наздик мекунад, вале Лутро писари Иброҳим намегӯяд. Тафсири классикӣ ӯро аксаран ҷияни Иброҳим меноманд. Вай дар шохаи Иброҳим ҳамчун шарики муосир пайдо мешавад - ҳеҷ гуна бартари волидайн даъво карда намешавад.",
+  },
+  {
+    name: "Яъқуб (Исроил)",
+    relationNote:
+      "Ёқуб писари Исҳоқ аст. Аллоҳ таоло Иброҳим, Исҳоқ ва Яъқуб авлодига пайғамбарлик ва китоб ато этган.",
+  },
+  {
+    name: "Юсуф",
+    relationNote:
+      "Юсуф писари Яъқуб аст. Сураи Юсуф саргузашти худро бо падар ва бародаронаш ба таври муфассал нақл мекунад.",
+  },
+  {
+    name: "Мусо",
+    relationNote:
+      "Мӯсо аз банӣ-Исроил аст. Қуръон номи бародараш Ҳорун ва модарашро зикр кардааст, вале талаб намекунад, ки дар ин дарахт номбар кардани паёмбар – волидайн бошад. Ӯ сардори шохаи Мӯсо-Ҳорун аст.",
+  },
+  {
+    name: "Ҳорун",
+    relationNote:
+      "Ҳорун бародари Мусо аст. Мӯсо аз Худо хост, ки Ҳорунро аз хонаводааш ёваре таъин кунад. Онҳо як филиалро ҳамчун хоҳару бародар тақсим мекунанд - на ҳамчун падар ва писар.",
+  },
+  {
+    name: "Довуд",
+    relationNote:
+      "Ба Довуд подшоҳӣ ва Забур дода шуд. Қуръони карим нубуввати ӯ ва мероси Сулаймонро тасдиқ мекунад.",
+  },
+  {
+    name: "Сулаймон",
+    relationNote: "Сулаймон писари Довуд аст ва ба мулк ва нубуввати ӯ мерос гирифтааст.",
+  },
+  {
+    name: "Закариё",
+    relationNote:
+      "Закариё пайғамбаре буд, ки барои ворисон дуо мекард. Худованд ба ӯ Яҳёро ато кард.",
+  },
+  {
+    name: "Яҳё",
+    relationNote: "Яҳё писари Закариё аст, ки дар ҷавоби дуъои падараш пазируфта шудааст.",
+  },
+  {
+    name: "Марям",
+    relationNote:
+      "Марям духтари Имрон дар Қуръон гироми шудааст. Вай модари Исо аст ва дар таваллуди Исо шавҳар надошт, ки ин нишона аз ҷониби Худост.",
+  },
+  {
+    name: "Исо",
+    relationNote:
+      "Исо писари Марям аст, ки бо каломи Аллох «Бояд» бе падари инсон офарида шудааст. Пайванди волидайн бо модараш Марям аст.",
+  },
+  {
+    name: "Муҳаммад ﷺ",
+    relationNote:
+      "Ҳазрати Муҳаммад (с) аз авлоди Исмоил ибни Иброҳим аст. Дар сираи классикӣ наслҳои муфассал бо номи Исмоил ва Қурайш ҳифз шудаанд; Қуръон мероси Иброҳимро бидуни номбар кардани ҳар гузаштагон тасдиқ мекунад. Дар ин ҷо ягон канори бевоситаи падар ва писар кашида нашудааст - танҳо нубуввати мӯҳр ва насли исмоилӣ.",
+  },
+  // —— v2 appends ——
+  {
+    name: "Sheeth (Seth)",
+    relationNote:
+      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+  },
+  {
+    name: "Idris",
+    relationNote:
+      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+  },
+  {
+    name: "Imran",
+    relationNote:
+      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+  },
+  {
+    name: "Adnan",
+    relationNote:
+      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+  },
+  {
+    name: "Hashim ibn Abd Manaf",
+    relationNote:
+      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+  },
+  {
+    name: "Abd al-Muttalib",
+    relationNote:
+      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+  },
+  {
+    name: "Abdullah ibn Abd al-Muttalib",
+    relationNote:
+      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+  },
+];

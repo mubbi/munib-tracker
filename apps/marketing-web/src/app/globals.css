@@ -1,0 +1,524 @@
+@import "tailwindcss";
+
+@source "../app/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../../../../packages/theme/src/**/*.{ts,tsx}";
+
+/* Class-based dark mode (a togglable `.dark`, not just prefers-color-scheme) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Munib Tracker — premium marketing design system.
+ *
+ * Light: near-white with a faint emerald tint. Dark: rich charcoal with
+ * emerald highlights. Emerald primary + soft gold accent throughout.
+ *
+ * | Token         | Light     | Dark      | Use                       |
+ * |---------------|-----------|-----------|---------------------------|
+ * | background    | #fafcfb   | #060a09   | Page surface              |
+ * | surface       | #f1f6f4   | #0c1412   | Muted section bands       |
+ * | card          | #ffffff   | #101917   | Elevated surfaces         |
+ * | foreground    | #08130f   | #eaf2ee   | Body text                 |
+ * | muted         | #55685f   | #93a79d   | Secondary text            |
+ * | border        | #e3eae6   | #1d2723   | Hairlines                 |
+ * | brand         | #10b981   | #34d399   | Links, accents, emphasis  |
+ * | gold          | #e6c065   | #ecc978   | Eyebrows, highlights      |
+ */
+@theme {
+  /* Brand */
+  --color-brand: #10b981;
+  --color-brand-strong: #059669;
+  --color-brand-deep: #047857;
+  --color-brand-soft: #d1fae5;
+  --color-brand-foreground: #ffffff;
+  --color-gold: #e6c065;
+  --color-gold-soft: #f2ddab;
+
+  /* Surfaces (light defaults; `.dark` overrides the raw vars at runtime) */
+  --color-background: #fafcfb;
+  --color-surface: #f1f6f4;
+  --color-card: #ffffff;
+  --color-card-foreground: #08130f;
+  --color-foreground: #08130f;
+  --color-muted: #55685f;
+  --color-muted-surface: #eef3f0;
+  --color-border: #e3eae6;
+  --color-ring: #10b981;
+
+  /* Compatibility aliases (buttons, forms) */
+  --color-accent: var(--color-brand-strong);
+  --color-accent-foreground: #ffffff;
+  --color-focus: var(--color-ring);
+  --color-success: #2e9e6b;
+
+  /* Deep-green hero band — constant across light/dark for brand consistency */
+  --color-hero-from: #0d4235;
+  --color-hero-via: #0a2f27;
+  --color-hero-to: #05201a;
+  --color-hero-text: #f3f7f2;
+  --color-hero-muted: #a7c6ba;
+  --color-hero-gold: #e6c065;
+  --color-hero-glow: #1f9c78;
+
+  /* Typography */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-jakarta);
+
+  /* Radius */
+  --radius-card: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgb(8 19 15 / 0.04), 0 16px 40px -16px rgb(8 19 15 / 0.14);
+  --shadow-glow:
+    0 0 0 1px color-mix(in srgb, var(--color-brand) 22%, transparent),
+    0 18px 60px -18px color-mix(in srgb, var(--color-brand) 55%, transparent);
+
+  /* Animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 42s linear infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-aurora: aurora 16s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 26s linear infinite;
+}
+
+.dark {
+  --color-background: #060a09;
+  --color-surface: #0c1412;
+  --color-card: #101917;
+  --color-card-foreground: #eaf2ee;
+  --color-foreground: #eaf2ee;
+  --color-muted: #93a79d;
+  --color-muted-surface: #131e1a;
+  --color-border: #1d2723;
+  --color-brand: #34d399;
+  --color-brand-strong: #10b981;
+  --color-brand-soft: #0c2b22;
+  color-scheme: dark;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-brand) 26%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-card);
+  color: var(--color-foreground);
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-card) 0;
+  box-shadow: var(--shadow-card);
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* ── Utilities ────────────────────────────────────────────────────────── */
+
+/* Glass surfaces */
+.glass {
+  background: color-mix(in srgb, var(--color-card) 62%, transparent);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+.glass-hero {
+  background: color-mix(in srgb, #0a2f27 55%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.12);
+}
+
+/* Emerald → gold gradient text */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-brand-strong),
+    var(--color-brand) 45%,
+    var(--color-gold)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft emerald glow */
+.shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Hairline grid — theme-aware via border color */
+.bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-border) 60%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-border) 60%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 56px 56px;
+}
+
+.bg-dots {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-border) 90%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* Radial mask to fade a decorative layer toward the edges */
+.mask-radial {
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+}
+
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
+/* Islamic 8-point star tile — subtle, works on both themes */
+.islamic-tiles {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%2310b981' stroke-opacity='0.14' stroke-width='1'%3E%3Cpath d='M40 8l9 23 23 9-23 9-9 23-9-23-23-9 23-9z'/%3E%3Ccircle cx='40' cy='40' r='30'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Warm-gold girih strapwork (star-and-cross) lattice for the hero sky,
+ * matching the concept's interlaced Islamic pattern in the top-left. */
+.islamic-tiles-soft {
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23e2c08a' stroke-opacity='0.55' stroke-width='1.1'%3E%3Cpath d='M55 55h90v90H55z'/%3E%3Cpath d='M100 36l64 64-64 64-64-64z'/%3E%3Cpath d='M-45 -45h90v90h-90z'/%3E%3Cpath d='M0 -64l64 64L0 64l-64-64z'/%3E%3Cpath d='M155 -45h90v90h-90z'/%3E%3Cpath d='M200 -64l64 64-64 64-64-64z'/%3E%3Cpath d='M-45 155h90v90h-90z'/%3E%3Cpath d='M0 136l64 64-64 64-64-64z'/%3E%3Cpath d='M155 155h90v90h-90z'/%3E%3Cpath d='M200 136l64 64-64 64-64-64z'/%3E%3Cpath d='M100 0v36M100 164v36M0 100h36M164 100h36'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+/* Fine film grain for hero depth */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Two independently twinkling pin-light layers — the "starlight headliner". */
+.hero-stars {
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 18%, rgb(255 255 255 / 0.85) 50%, transparent 100%),
+    radial-gradient(1px 1px at 22% 34%, rgb(255 255 255 / 0.55) 50%, transparent 100%),
+    radial-gradient(1.6px 1.6px at 34% 12%, rgb(255 255 255 / 0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 46% 26%, rgb(255 255 255 / 0.45) 50%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 58% 9%, rgb(255 255 255 / 0.75) 50%, transparent 100%),
+    radial-gradient(1px 1px at 68% 22%, rgb(255 255 255 / 0.5) 50%, transparent 100%),
+    radial-gradient(1.7px 1.7px at 8% 42%, rgb(255 255 255 / 0.6) 50%, transparent 100%),
+    radial-gradient(1px 1px at 28% 50%, rgb(255 255 255 / 0.4) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 16% 62%, rgb(255 255 255 / 0.45) 50%, transparent 100%),
+    radial-gradient(1px 1px at 40% 40%, rgb(255 255 255 / 0.35) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 52% 16%, rgb(255 255 255 / 0.65) 50%, transparent 100%),
+    radial-gradient(1px 1px at 5% 28%, rgb(255 255 255 / 0.5) 50%, transparent 100%);
+  animation: star-twinkle 4.5s ease-in-out infinite;
+}
+
+.hero-stars-2 {
+  background-image:
+    radial-gradient(1.2px 1.2px at 18% 10%, rgb(255 255 255 / 0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 30% 24%, rgb(255 255 255 / 0.5) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 42% 6%, rgb(255 255 255 / 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 55% 20%, rgb(255 255 255 / 0.45) 50%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 64% 14%, rgb(255 255 255 / 0.6) 50%, transparent 100%),
+    radial-gradient(1px 1px at 10% 54%, rgb(255 255 255 / 0.4) 50%, transparent 100%),
+    radial-gradient(1.6px 1.6px at 25% 44%, rgb(255 255 255 / 0.55) 50%, transparent 100%),
+    radial-gradient(1px 1px at 48% 34%, rgb(255 255 255 / 0.4) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 72% 8%, rgb(255 255 255 / 0.65) 50%, transparent 100%),
+    radial-gradient(1px 1px at 3% 12%, rgb(255 255 255 / 0.55) 50%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 8% 78%, rgb(255 255 255 / 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 20% 88%, rgb(255 244 214 / 0.45) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 33% 72%, rgb(255 255 255 / 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 44% 82%, rgb(255 244 214 / 0.4) 50%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 56% 92%, rgb(255 244 214 / 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 66% 76%, rgb(255 255 255 / 0.4) 50%, transparent 100%),
+    radial-gradient(1.6px 1.6px at 74% 86%, rgb(255 244 214 / 0.55) 50%, transparent 100%),
+    radial-gradient(1px 1px at 84% 94%, rgb(255 244 214 / 0.45) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 93% 70%, rgb(255 255 255 / 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 38% 96%, rgb(255 244 214 / 0.4) 50%, transparent 100%);
+  animation: star-twinkle 6s ease-in-out 1.6s infinite;
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Soft dark shadows so hero copy pops off the bright sunset band. */
+.hero-text-shadow {
+  text-shadow:
+    0 2px 20px rgba(8, 14, 30, 0.55),
+    0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.hero-text-shadow-soft {
+  text-shadow: 0 1px 12px rgba(8, 14, 30, 0.5);
+}
+
+/* Warm golden bokeh sparkles that cluster around the arc and lower sky. */
+.hero-sparkles {
+  background-image:
+    radial-gradient(2px 2px at 82% 20%, rgb(255 224 160 / 0.9) 45%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 88% 34%, rgb(255 214 140 / 0.7) 45%, transparent 100%),
+    radial-gradient(2.4px 2.4px at 90% 52%, rgb(255 209 130 / 0.85) 45%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 85% 66%, rgb(255 196 120 / 0.65) 45%, transparent 100%),
+    radial-gradient(2px 2px at 92% 78%, rgb(255 205 135 / 0.8) 45%, transparent 100%),
+    radial-gradient(1.6px 1.6px at 76% 46%, rgb(255 220 150 / 0.6) 45%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 70% 70%, rgb(255 210 140 / 0.55) 45%, transparent 100%),
+    radial-gradient(2.2px 2.2px at 60% 86%, rgb(255 214 150 / 0.7) 45%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 46% 90%, rgb(255 220 160 / 0.5) 45%, transparent 100%),
+    radial-gradient(1.8px 1.8px at 30% 84%, rgb(255 214 150 / 0.55) 45%, transparent 100%);
+}
+
+/* ── Day Arc immersive canvas ─────────────────────────────────────────────
+ * The home page rides on a single scroll-driven gradient that moves through a
+ * day of salah (Fajr dawn → Dhuhr → Asr → Maghrib dusk → Isha night). To keep
+ * light-on-dark text legible the whole way down, the palette stays in a deep,
+ * rich register. `.day-arc-scope` remaps the standard design tokens to an
+ * on-dark set so every existing section adapts without being rewritten.
+ */
+.day-arc-scope {
+  --color-foreground: #f2f6f8;
+  --color-card-foreground: #f2f6f8;
+  --color-muted: #b0c4ce;
+  --color-background: transparent;
+  --color-surface: color-mix(in srgb, #ffffff 4%, transparent);
+  --color-muted-surface: color-mix(in srgb, #ffffff 8%, transparent);
+  --color-card: color-mix(in srgb, #0c2131 52%, transparent);
+  --color-border: color-mix(in srgb, #ffffff 14%, transparent);
+  --color-brand: #34d399;
+  --color-brand-strong: #10b981;
+  --color-brand-soft: color-mix(in srgb, #34d399 22%, transparent);
+  --color-ring: #34d399;
+  --color-gold: #ecc978;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.25), 0 18px 44px -18px rgb(0 0 0 / 0.55);
+  color-scheme: dark;
+}
+
+/* Sunset sky — sampled directly from the approved hero mockup. */
+.day-arc-sunset {
+  background: linear-gradient(
+    180deg,
+    #202e4d 0%,
+    #2e3857 10%,
+    #5f5b66 20%,
+    #8a715e 30%,
+    #a37848 40%,
+    #b0743c 50%,
+    #985237 60%,
+    #5e393a 70%,
+    #253537 80%,
+    #1d322d 90%,
+    #000f18 100%
+  );
+}
+
+/* Deep night — the scroll destination below the fold. */
+.day-arc-night {
+  background: linear-gradient(180deg, #0a1830 0%, #0b2226 42%, #0c231d 72%, #02121a 100%);
+}
+
+/* Static fallback (before JS mounts / reduced motion). */
+.day-arc-fallback {
+  background: linear-gradient(
+    180deg,
+    #202e4d 0%,
+    #2e3857 10%,
+    #5f5b66 20%,
+    #8a715e 30%,
+    #a37848 40%,
+    #b0743c 50%,
+    #985237 60%,
+    #5e393a 70%,
+    #253537 80%,
+    #101f1a 92%,
+    #02121a 100%
+  );
+}
+
+/* Warm sun bloom behind the phone (center of the hero). */
+.hero-bloom {
+  background: radial-gradient(
+    46% 40% at 66% 46%,
+    rgba(248, 212, 132, 0.55),
+    rgba(230, 150, 64, 0.26) 44%,
+    transparent 72%
+  );
+}
+
+/* Lit horizon band that backlights the mosque skyline. */
+.hero-horizon-glow {
+  background: radial-gradient(
+    70% 130% at 42% 118%,
+    rgba(232, 150, 74, 0.5),
+    rgba(180, 110, 60, 0.18) 45%,
+    transparent 72%
+  );
+}
+
+/* Bottom mosque skyline silhouette for the hero horizon. */
+.hero-horizon {
+  color: #081420;
+}
+
+/* Water band beneath the mosque that holds the reflection. */
+.hero-water {
+  background: linear-gradient(
+    180deg,
+    rgba(70, 52, 40, 0.45) 0%,
+    rgba(28, 30, 42, 0.7) 30%,
+    rgba(10, 18, 34, 0.92) 100%
+  );
+}
+
+/* Thin lit waterline where the mosque meets its reflection. */
+.hero-waterline {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 210, 150, 0.35) 25%,
+    rgba(255, 224, 170, 0.6) 50%,
+    rgba(255, 210, 150, 0.35) 75%,
+    transparent 100%
+  );
+}
+
+/* ── Keyframes ────────────────────────────────────────────────────────── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes aurora {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-3%, 2%, 0) scale(1.04);
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-up {
+  animation: reveal-up 0.6s ease-out both;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override all animations */
+    animation-duration: 0.001ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override all animations */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override all animations */
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal-up {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,77 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# Data build pipeline cache
+scripts/build-data/.cache/
+
+# i18n scratch / intermediate dumps (not committed)
+scripts/i18n/_tmp/
+
+# Screenshot capture scratch (Maestro YAML, pulled RKStorage, UI dumps)
+.screenshots-work/
+
+# Local Lighthouse lab reports (Chrome CLI)
+.lighthouse/
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# iOS signing / App Store Connect (templates only are committed)
+ios-keys/*.env
+ios-keys/ExportOptions.plist
+ios-keys/ExportOptions.tvos.plist
+ios-keys/team.env
+ios-keys/**/*.cer
+!ios-keys/*.env.example
+!ios-keys/ExportOptions.plist.template
+!ios-keys/tvos-signing/README.txt
+!ios-keys/README.md
+
+# Android signing keys & Play Console PEPK artifacts (never commit)
+android-keys/upload-keystore.jks
+android-keys/keystore.properties
+android-keys/play-console-service-account.json
+android-keys/output.zip
+android-keys/*.pem
+android-keys/pepk.jar
+!android-keys/README.md
+!android-keys/keystore.properties.example
+!android-keys/PLAY_CONSOLE_APP_ACTIONS.md
+
+# typescript
+*.tsbuildinfo
+
+example
+
+# generated native folders
+/ios
+/android

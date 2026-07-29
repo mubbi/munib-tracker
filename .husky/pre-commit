@@ -1,0 +1,6 @@
+# Auto-fix staged files (format / safe lint / import organize), then restage
+# so fixes are included in the commit. Unfixable issues still fail the hook.
+STATUS=0
+pnpm exec biome check --write --staged --no-errors-on-unmatched || STATUS=$?
+git update-index --again
+exit $STATUS

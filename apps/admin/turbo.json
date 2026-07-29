@@ -1,0 +1,46 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": [
+        "DATABASE_URL",
+        "ADMIN_SESSION_SECRET",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "ADMIN_URL",
+        "API_URL",
+        "VAPID_PUBLIC_KEY",
+        "VAPID_PRIVATE_KEY",
+        "ADMIN_CRON_SECRET",
+        "REDIS_URL",
+        "REDIS_KEY_PREFIX"
+      ]
+    },
+    "check-types": {
+      "cache": false,
+      "outputs": [".next/types/**", "next-env.d.ts"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": [
+        "DATABASE_URL",
+        "ADMIN_SESSION_SECRET",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "ADMIN_URL",
+        "API_URL",
+        "REDIS_URL",
+        "REDIS_KEY_PREFIX"
+      ]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"]
+    }
+  }
+}

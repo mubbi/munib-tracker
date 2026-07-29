@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "MHNXY53R3X.app.munibtracker",
+        "paths": [
+          "/oauth/apple",
+          "/oauth/apple/*"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+[
+  {
+    "code": "en",
+    "ogLocale": "en_US",
+    "hreflang": "en"
+  },
+  {
+    "code": "ar",
+    "ogLocale": "ar_AR",
+    "hreflang": "ar"
+  },
+  {
+    "code": "ur",
+    "ogLocale": "ur_PK",
+    "hreflang": "ur"
+  },
+  {
+    "code": "id",
+    "ogLocale": "id_ID",
+    "hreflang": "id"
+  },
+  {
+    "code": "tr",
+    "ogLocale": "tr_TR",
+    "hreflang": "tr"
+  },
+  {
+    "code": "bn",
+    "ogLocale": "bn_BD",
+    "hreflang": "bn"
+  },
+  {
+    "code": "ms",
+    "ogLocale": "ms_MY",
+    "hreflang": "ms"
+  },
+  {
+    "code": "fa",
+    "ogLocale": "fa_IR",
+    "hreflang": "fa"
+  },
+  {
+    "code": "fr",
+    "ogLocale": "fr_FR",
+    "hreflang": "fr"
+  },
+  {
+    "code": "ha",
+    "ogLocale": "ha_NG",
+    "hreflang": "ha"
+  },
+  {
+    "code": "sw",
+    "ogLocale": "sw_TZ",
+    "hreflang": "sw"
+  },
+  {
+    "code": "ru",
+    "ogLocale": "ru_RU",
+    "hreflang": "ru"
+  },
+  {
+    "code": "az",
+    "ogLocale": "az_AZ",
+    "hreflang": "az"
+  },
+  {
+    "code": "ps",
+    "ogLocale": "ps_AF",
+    "hreflang": "ps"
+  },
+  {
+    "code": "so",
+    "ogLocale": "so_SO",
+    "hreflang": "so"
+  },
+  {
+    "code": "uz",
+    "ogLocale": "uz_UZ",
+    "hreflang": "uz"
+  },
+  {
+    "code": "kk",
+    "ogLocale": "kk_KZ",
+    "hreflang": "kk"
+  },
+  {
+    "code": "ku",
+    "ogLocale": "ku_IQ",
+    "hreflang": "ku"
+  },
+  {
+    "code": "bs",
+    "ogLocale": "bs_BA",
+    "hreflang": "bs"
+  },
+  {
+    "code": "sq",
+    "ogLocale": "sq_AL",
+    "hreflang": "sq"
+  },
+  {
+    "code": "ky",
+    "ogLocale": "ky_KG",
+    "hreflang": "ky"
+  },
+  {
+    "code": "tg",
+    "ogLocale": "tg_TJ",
+    "hreflang": "tg"
+  },
+  {
+    "code": "tk",
+    "ogLocale": "tk_TM",
+    "hreflang": "tk"
+  }
+]

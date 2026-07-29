@@ -1,0 +1,170 @@
+import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+import { JannahBody, JannahDisclaimer, JannahTakeaway } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
+import {
+  QuranExamplePlayButton,
+  QuranGuideClipPlayButton,
+} from "@/components/quran-guide/ayah-play-button";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
+import { ThemedText } from "@/components/themed-text";
+import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Stagger } from "@/components/ui/stagger";
+import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { goBackOrReplace } from "@/lib/navigation";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideTajweedLesson,
+  getQuranGuideTajweedLessons,
+  isQuranGuideContentReady,
+} from "@/lib/quran-guide";
+import { articleSchema } from "@/lib/seo/structured-data";
+
+export function generateStaticParams(): Array<{ id: string }> {
+  return getQuranGuideTajweedLessons().map((item) => ({ id: item.id }));
+}
+
+function paramId(raw: string | string[] | undefined): string | undefined {
+  if (Array.isArray(raw)) return raw[0];
+  return raw;
+}
+
+export default function LearnQuranTajweedDetailScreen() {
+  const router = useRouter();
+  const { t, i18n } = useTranslation();
+  const { id: idParam } = useLocalSearchParams<{ id: string }>();
+  const id = paramId(idParam);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or corpus is ready
+  const lesson = useMemo(
+    () => (contentReady ? getQuranGuideTajweedLesson(id) : undefined),
+    [id, i18n.language, contentReady],
+  );
+
+  const detailPath = lesson ? `/learn-quran/tajweed/${lesson.id}` : "/learn-quran/tajweed";
+  const crumbs = lesson
+    ? [
+        { name: t("tabs.home"), path: "/" },
+        { name: t("learnQuran.title"), path: "/learn-quran" },
+        { name: lesson.title, path: detailPath },
+      ]
+    : undefined;
+
+  return (
+    <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
+      eyebrow={t("learnQuran.eyebrow")}
+      title={lesson?.title ?? t("learnQuran.tajweedTitle")}
+      subtitle={lesson?.summary ?? ""}
+      onBack={() => goBackOrReplace(router, "/learn-quran/tajweed" as Href)}
+    >
+      <Seo
+        path={detailPath}
+        title={lesson?.title}
+        description={lesson?.summary}
+        type={lesson ? "article" : undefined}
+        index={!!lesson}
+        breadcrumbs={crumbs}
+        jsonLd={
+          lesson
+            ? [
+                articleSchema({
+                  path: detailPath,
+                  headline: lesson.title,
+                  description: lesson.summary ?? "",
+                  breadcrumbs: crumbs,
+                }),
+              ]
+            : undefined
+        }
+      />
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !lesson ? (
+        <EmptyState
+          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
+          title={t("learnQuran.notFound")}
+          actionLabel={t("learnQuran.tajweedTitle")}
+          onAction={() => router.replace("/learn-quran/tajweed" as Href)}
+        />
+      ) : (
+        <Stagger>
+          <LearnReadingChrome surface="learn_quran">
+            <JannahTakeaway text={lesson.summary} />
+            <JannahBody paragraphs={lesson.explanation} />
+            <Card padding="three">
+              <SectionHeader
+                title={t("learnQuran.examplesTitle")}
+                icon={{ ios: "textformat.abc", android: "abc", web: "abc" }}
+              />
+              <View style={styles.examples}>
+                {lesson.examples.map((ex) => (
+                  <View key={ex} style={styles.exampleRow}>
+                    <ThemedText type="arabic" style={styles.exampleArabic}>
+                      {ex}
+                    </ThemedText>
+                    <QuranExamplePlayButton
+                      example={ex}
+                      sourceHref={`/learn-quran/tajweed/${lesson.id}`}
+                    />
+                  </View>
+                ))}
+              </View>
+            </Card>
+            {lesson.practice ? (
+              <Card padding="three">
+                <SectionHeader
+                  title={t("learnQuran.practiceTitle")}
+                  icon={{ ios: "figure.walk", android: "directions_walk", web: "directions_walk" }}
+                />
+                <View style={styles.practiceHeader}>
+                  <ThemedText type="small" themeColor="mutedForeground" style={styles.practiceText}>
+                    {lesson.practice}
+                  </ThemedText>
+                  {lesson.practiceAudio ? (
+                    <QuranGuideClipPlayButton
+                      audio={lesson.practiceAudio}
+                      sourceHref={`/learn-quran/tajweed/${lesson.id}`}
+                      compact
+                    />
+                  ) : null}
+                </View>
+              </Card>
+            ) : null}
+          </LearnReadingChrome>
+          <JannahDisclaimer textKey="learnQuran.disclaimer" />
+        </Stagger>
+      )}
+    </ScreenLayout>
+  );
+}
+
+const styles = StyleSheet.create({
+  examples: { gap: Spacing.two, marginTop: Spacing.three },
+  exampleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  exampleArabic: { fontSize: 22, lineHeight: 36, flex: 1 },
+  practiceHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.two,
+    marginTop: Spacing.three,
+  },
+  practiceText: { flex: 1 },
+});

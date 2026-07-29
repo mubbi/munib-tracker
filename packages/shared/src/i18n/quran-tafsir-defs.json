@@ -1,0 +1,1109 @@
+[
+  {
+    "id": "ar-tafsir-siraj",
+    "provider": "fawaz",
+    "slug": "ara-sirajtafseer",
+    "name": "Tafsir al-Siraj",
+    "author": "Siraj Tafseer",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "bn-tafisr-fathul-majid",
+    "provider": "spa5k",
+    "slug": "bn-tafisr-fathul-majid",
+    "name": "Tafsir Fathul Majid",
+    "author": "AbdulRahman Bin Hasan Al-Alshaikh",
+    "language": "bn",
+    "direction": "ltr"
+  },
+  {
+    "id": "ar-tafseer-tanwir-al-miqbas",
+    "provider": "spa5k",
+    "slug": "ar-tafseer-tanwir-al-miqbas",
+    "name": "Tafseer Tanwir al-Miqbas",
+    "author": "Tanweer",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ur-tafsir-fe-zalul-quran-syed-qatab",
+    "provider": "spa5k",
+    "slug": "ur-tafsir-fe-zalul-quran-syed-qatab",
+    "name": "Fi Zilal al-Quran",
+    "author": "Sayyid Ibrahim Qutb",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "ur-tafseer-ibn-e-kaseer",
+    "provider": "spa5k",
+    "slug": "ur-tafseer-ibn-e-kaseer",
+    "name": "Tafsir Ibn Kathir",
+    "author": "Hafiz Ibn Kathir",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "ur-tafsir-bayan-ul-quran",
+    "provider": "spa5k",
+    "slug": "ur-tafsir-bayan-ul-quran",
+    "name": "Tafsir Bayan ul Quran",
+    "author": "Dr. Israr Ahmad",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "ur-tazkirul-quran",
+    "provider": "spa5k",
+    "slug": "ur-tazkirul-quran",
+    "name": "Tazkirul Quran(Maulana Wahiduddin Khan)",
+    "author": "Maulana Wahid Uddin Khan",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "en-tazkirul-quran",
+    "provider": "spa5k",
+    "slug": "en-tazkirul-quran",
+    "name": "Tazkirul Quran(Maulana Wahiduddin Khan)",
+    "author": "Maulana Wahid Uddin Khan",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "en-kashf-al-asrar-tafsir",
+    "provider": "spa5k",
+    "slug": "en-kashf-al-asrar-tafsir",
+    "name": "Kashf Al-Asrar Tafsir",
+    "author": "Kashf Al-Asrar Tafsir",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "en-al-qushairi-tafsir",
+    "provider": "spa5k",
+    "slug": "en-al-qushairi-tafsir",
+    "name": "Al Qushairi Tafsir",
+    "author": "Al Qushairi Tafsir",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "en-kashani-tafsir",
+    "provider": "spa5k",
+    "slug": "en-kashani-tafsir",
+    "name": "Kashani Tafsir",
+    "author": "Kashani Tafsir",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "en-tafsir-al-tustari",
+    "provider": "spa5k",
+    "slug": "en-tafsir-al-tustari",
+    "name": "Tafsir al-Tustari",
+    "author": "Tafsir al-Tustari",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "en-asbab-al-nuzul-by-al-wahidi",
+    "provider": "spa5k",
+    "slug": "en-asbab-al-nuzul-by-al-wahidi",
+    "name": "Asbab Al-Nuzul by Al-Wahidi",
+    "author": "Asbab Al-Nuzul by Al-Wahidi",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "en-tafsir-ibn-abbas",
+    "provider": "spa5k",
+    "slug": "en-tafsir-ibn-abbas",
+    "name": "Tanwîr al-Miqbâs min Tafsîr Ibn ‘Abbâs",
+    "author": "Tanwîr al-Miqbâs min Tafsîr Ibn ‘Abbâs",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "en-al-jalalayn",
+    "provider": "spa5k",
+    "slug": "en-al-jalalayn",
+    "name": "Al-Jalalayn",
+    "author": "Al-Jalalayn",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "sinhalese-mokhtasar",
+    "provider": "spa5k",
+    "slug": "sinhalese-mokhtasar",
+    "name": "Sinhalese Mokhtasar",
+    "author": "Sinhalese Mokhtasar",
+    "language": "si",
+    "direction": "ltr"
+  },
+  {
+    "id": "en-tafsir-al-mukhtasar",
+    "provider": "spa5k",
+    "slug": "en-tafsir-al-mukhtasar",
+    "name": "English Al-Mukhtasar",
+    "author": "Tafsir Center for Quranic Studies",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "sq-saadi",
+    "provider": "spa5k",
+    "slug": "sq-saadi",
+    "name": "Tafsir As-Saadi",
+    "author": "Tafsir As-Saadi",
+    "language": "sq",
+    "direction": "ltr"
+  },
+  {
+    "id": "japanese-mokhtasar",
+    "provider": "spa5k",
+    "slug": "japanese-mokhtasar",
+    "name": "Japanese Abridged Explanation of the Quran",
+    "author": "Japanese Abridged Explanation of the Quran",
+    "language": "ja",
+    "direction": "ltr"
+  },
+  {
+    "id": "russian-mokhtasar",
+    "provider": "spa5k",
+    "slug": "russian-mokhtasar",
+    "name": "Russian Al-Mukhtasar",
+    "author": "Russian Al-Mukhtasar",
+    "language": "ru",
+    "direction": "ltr"
+  },
+  {
+    "id": "bengali-mokhtasar",
+    "provider": "spa5k",
+    "slug": "bengali-mokhtasar",
+    "name": "Bengali Abridged Explanation of the Quran",
+    "author": "Bengali Abridged Explanation of the Quran",
+    "language": "bn",
+    "direction": "ltr"
+  },
+  {
+    "id": "tagalog-mokhtasar",
+    "provider": "spa5k",
+    "slug": "tagalog-mokhtasar",
+    "name": "Filipino (Tagalog) Al-Mukhtasar in interpreting the Noble Quran",
+    "author": "Filipino (Tagalog) Al-Mukhtasar in interpreting the Noble Quran",
+    "language": "tl",
+    "direction": "ltr"
+  },
+  {
+    "id": "ru-tafsir-ibne-kahtir",
+    "provider": "spa5k",
+    "slug": "ru-tafsir-ibne-kahtir",
+    "name": "Tafsir Ibne Kathir",
+    "author": "Tafsir Ibne Kathir",
+    "language": "ru",
+    "direction": "ltr"
+  },
+  {
+    "id": "chinese-mokhtasar",
+    "provider": "spa5k",
+    "slug": "chinese-mokhtasar",
+    "name": "Chinese Abridged Explanation of the Quran",
+    "author": "Chinese Abridged Explanation of the Quran",
+    "language": "zh",
+    "direction": "ltr"
+  },
+  {
+    "id": "tr-tafsir-ibne-kathir",
+    "provider": "spa5k",
+    "slug": "tr-tafsir-ibne-kathir",
+    "name": "Tafsir Ibne Kathir",
+    "author": "Tafsir Ibne Kathir",
+    "language": "tr",
+    "direction": "ltr"
+  },
+  {
+    "id": "asseraj-fi-bayan-gharib-alquran",
+    "provider": "spa5k",
+    "slug": "asseraj-fi-bayan-gharib-alquran",
+    "name": "Asseraj fi Bayan Gharib AlQuran",
+    "author": "Asseraj fi Bayan Gharib AlQuran",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "assamese-mokhtasar",
+    "provider": "spa5k",
+    "slug": "assamese-mokhtasar",
+    "name": "Assamese Abridged Explanation of the Quran",
+    "author": "Assamese Abridged Explanation of the Quran",
+    "language": "as",
+    "direction": "ltr"
+  },
+  {
+    "id": "ar-tafsir-al-mukhtasar",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-al-mukhtasar",
+    "name": "Arabic Al-Mukhtasar in interpreting the Noble Quran",
+    "author": "Tafsir Center for Quranic Studies",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "italian-mokhtasar",
+    "provider": "spa5k",
+    "slug": "italian-mokhtasar",
+    "name": "Italian Al-Mukhtasar in interpreting the Noble Quran",
+    "author": "Italian Al-Mukhtasar in interpreting the Noble Quran",
+    "language": "it",
+    "direction": "ltr"
+  },
+  {
+    "id": "tafsir-as-saadi-russian",
+    "provider": "spa5k",
+    "slug": "tafsir-as-saadi-russian",
+    "name": "Tafsir As-Saadi",
+    "author": "Tafsir As-Saadi",
+    "language": "ru",
+    "direction": "ltr"
+  },
+  {
+    "id": "bosnian-mokhtasar",
+    "provider": "spa5k",
+    "slug": "bosnian-mokhtasar",
+    "name": "Bosnian Abridged Explanation of the Quran",
+    "author": "Bosnian Abridged Explanation of the Quran",
+    "language": "bs",
+    "direction": "ltr"
+  },
+  {
+    "id": "malayalam-mokhtasar",
+    "provider": "spa5k",
+    "slug": "malayalam-mokhtasar",
+    "name": "Malayalam Abridged Explanation of the Quran",
+    "author": "Malayalam Abridged Explanation of the Quran",
+    "language": "ml",
+    "direction": "ltr"
+  },
+  {
+    "id": "turkish-mokhtasar",
+    "provider": "spa5k",
+    "slug": "turkish-mokhtasar",
+    "name": "Turkish Al-Mukhtasar in Interpreting the Noble Quran",
+    "author": "Turkish Al-Mukhtasar in Interpreting the Noble Quran",
+    "language": "tr",
+    "direction": "ltr"
+  },
+  {
+    "id": "khmer-mokhtasar",
+    "provider": "spa5k",
+    "slug": "khmer-mokhtasar",
+    "name": "Khmer Abridged Explanation of the Quran",
+    "author": "Khmer Abridged Explanation of the Quran",
+    "language": "km",
+    "direction": "ltr"
+  },
+  {
+    "id": "french-mokhtasar",
+    "provider": "spa5k",
+    "slug": "french-mokhtasar",
+    "name": "French Abridged Explanation of the Quran",
+    "author": "French Abridged Explanation of the Quran",
+    "language": "fr",
+    "direction": "ltr"
+  },
+  {
+    "id": "vietnamese-mokhtasar",
+    "provider": "spa5k",
+    "slug": "vietnamese-mokhtasar",
+    "name": "Vietnamese Al-Mukhtasar in interpreting the Noble Quran",
+    "author": "Vietnamese Al-Mukhtasar in interpreting the Noble Quran",
+    "language": "vi",
+    "direction": "ltr"
+  },
+  {
+    "id": "persian-mokhtasar",
+    "provider": "spa5k",
+    "slug": "persian-mokhtasar",
+    "name": "Persian Al-Mukhtasar in interpreting the Noble Quran",
+    "author": "Persian Al-Mukhtasar in interpreting the Noble Quran",
+    "language": "fa",
+    "direction": "rtl"
+  },
+  {
+    "id": "ar-tafsir-as-saadi",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-as-saadi",
+    "name": "Tafsir As-Saadi",
+    "author": "Tafsir As-Saadi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "indonesian-mokhtasar",
+    "provider": "spa5k",
+    "slug": "indonesian-mokhtasar",
+    "name": "Indoniesua Al-Mukhtasar in Interpreting the Noble Quran",
+    "author": "Indoniesua Al-Mukhtasar in Interpreting the Noble Quran",
+    "language": "id",
+    "direction": "ltr"
+  },
+  {
+    "id": "al-i-rab-al-muyassar",
+    "provider": "spa5k",
+    "slug": "al-i-rab-al-muyassar",
+    "name": "Iraab Al-Muyassar",
+    "author": "Iraab Al-Muyassar",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ur-tafsir-as-saadi-urdu",
+    "provider": "spa5k",
+    "slug": "ur-tafsir-as-saadi-urdu",
+    "name": "Tafsir As-Saadi - Urdu",
+    "author": "Tafsir As-Saadi - Urdu",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "id-tafsir-as-saadi",
+    "provider": "spa5k",
+    "slug": "id-tafsir-as-saadi",
+    "name": "Tafsir As-Saadi - Indonesian",
+    "author": "Tafsir As-Saadi - Indonesian",
+    "language": "id",
+    "direction": "ltr"
+  },
+  {
+    "id": "tafsir-ibn-abi-zamanin",
+    "provider": "spa5k",
+    "slug": "tafsir-ibn-abi-zamanin",
+    "name": "Tafsir Ibn Abi Zamanin",
+    "author": "Tafsir Ibn Abi Zamanin",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "abu-bakr-jabir-al-jazairi",
+    "provider": "spa5k",
+    "slug": "abu-bakr-jabir-al-jazairi",
+    "name": "Abu Bakr Jabir Al-Jazairi",
+    "author": "Abu Bakr Jabir Al-Jazairi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "i-rab-al-quran-li-al-darwish",
+    "provider": "spa5k",
+    "slug": "i-rab-al-quran-li-al-darwish",
+    "name": "I'rab Al Quran li Al Darwish",
+    "author": "I'rab Al Quran li Al Darwish",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "nazam-al-durar-al-biqa-i",
+    "provider": "spa5k",
+    "slug": "nazam-al-durar-al-biqa-i",
+    "name": "Nazam Al-Durar Al-Biqa'i",
+    "author": "Nazam Al-Durar Al-Biqa'i",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ar-tafseer-tahrir-al-tanwir",
+    "provider": "spa5k",
+    "slug": "ar-tafseer-tahrir-al-tanwir",
+    "name": "Tafsir al-Tahrir wa al-Tanwir",
+    "author": "Tafsir al-Tahrir wa al-Tanwir",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "en-tafisr-ibn-kathir",
+    "provider": "spa5k",
+    "slug": "en-tafisr-ibn-kathir",
+    "name": "Tafsir Ibn Kathir",
+    "author": "Hafiz Ibn Kathir",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "ar-tafseer-al-saddi",
+    "provider": "spa5k",
+    "slug": "ar-tafseer-al-saddi",
+    "name": "Tafseer Al Saadi - Arabic",
+    "author": "Saddi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ru-tafseer-al-saddi",
+    "provider": "spa5k",
+    "slug": "ru-tafseer-al-saddi",
+    "name": "Tafseer Al Saadi - Russian",
+    "author": "Saddi",
+    "language": "ru",
+    "direction": "ltr"
+  },
+  {
+    "id": "ar-tafsir-ibn-kathir",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-ibn-kathir",
+    "name": "Tafsir Ibn Kathir",
+    "author": "Hafiz Ibn Kathir",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ar-tafseer-al-qurtubi",
+    "provider": "spa5k",
+    "slug": "ar-tafseer-al-qurtubi",
+    "name": "Tafseer Al Qurtubi",
+    "author": "Qurtubi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ar-tafsir-al-baghawi",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-al-baghawi",
+    "name": "Tafseer Al-Baghawi",
+    "author": "Baghawy",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafseer-ibn-e-kaseer-urdu",
+    "provider": "spa5k",
+    "slug": "tafseer-ibn-e-kaseer-urdu",
+    "name": "Tafsir Ibn Kathir",
+    "author": "Tafsir Ibn Kathir",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-fe-zalul-quran-syed-qatab",
+    "provider": "spa5k",
+    "slug": "tafsir-fe-zalul-quran-syed-qatab",
+    "name": "Fi Zilal al-Quran",
+    "author": "Fi Zilal al-Quran",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "bn-tafseer-ibn-e-kaseer",
+    "provider": "spa5k",
+    "slug": "bn-tafseer-ibn-e-kaseer",
+    "name": "Tafseer ibn Kathir",
+    "author": "Tawheed Publication",
+    "language": "bn",
+    "direction": "ltr"
+  },
+  {
+    "id": "tafsir-bayan-ul-quran",
+    "provider": "spa5k",
+    "slug": "tafsir-bayan-ul-quran",
+    "name": "Tafsir Bayan ul Quran",
+    "author": "Tafsir Bayan ul Quran",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "ar-tafsir-al-wasit",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-al-wasit",
+    "name": "Tafsir Al Wasit",
+    "author": "Waseet",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "en-tafsir-maarif-ul-quran",
+    "provider": "spa5k",
+    "slug": "en-tafsir-maarif-ul-quran",
+    "name": "Maarif-ul-Quran",
+    "author": "Mufti Muhammad Shafi",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "ar-tafsir-muyassar",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-muyassar",
+    "name": "Tafsir Muyassar",
+    "author": "المیسر",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "in-tafsir-jalalayn",
+    "provider": "spa5k",
+    "slug": "in-tafsir-jalalayn",
+    "name": "Tafsir Jalalayn",
+    "author": "Tafsir Jalalayn",
+    "language": "id",
+    "direction": "ltr"
+  },
+  {
+    "id": "bn-tafsir-ahsanul-bayaan",
+    "provider": "spa5k",
+    "slug": "bn-tafsir-ahsanul-bayaan",
+    "name": "Tafsir Ahsanul Bayaan",
+    "author": "Bayaan Foundation",
+    "language": "bn",
+    "direction": "ltr"
+  },
+  {
+    "id": "tafisr-fathul-majid-bn",
+    "provider": "spa5k",
+    "slug": "tafisr-fathul-majid-bn",
+    "name": "Tafsir Fathul Majid",
+    "author": "Tafsir Fathul Majid",
+    "language": "bn",
+    "direction": "ltr"
+  },
+  {
+    "id": "bn-tafsir-abu-bakr-zakaria",
+    "provider": "spa5k",
+    "slug": "bn-tafsir-abu-bakr-zakaria",
+    "name": "Tafsir Abu Bakr Zakaria",
+    "author": "King Fahd Quran Printing Complex",
+    "language": "bn",
+    "direction": "ltr"
+  },
+  {
+    "id": "tazkirul-quran-en",
+    "provider": "spa5k",
+    "slug": "tazkirul-quran-en",
+    "name": "Tazkirul Quran(Maulana Wahiduddin Khan)",
+    "author": "Tazkirul Quran(Maulana Wahiduddin Khan)",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "tazkiru-quran-ur",
+    "provider": "spa5k",
+    "slug": "tazkiru-quran-ur",
+    "name": "Tazkirul Quran(Maulana Wahiduddin Khan)",
+    "author": "Tazkirul Quran(Maulana Wahiduddin Khan)",
+    "language": "ur",
+    "direction": "rtl"
+  },
+  {
+    "id": "kurd-tafsir-rebar",
+    "provider": "spa5k",
+    "slug": "kurd-tafsir-rebar",
+    "name": "Rebar Kurdish Tafsir",
+    "author": "Rebar Kurdish Tafsir",
+    "language": "ku",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-muharrar-al-wajiz-ibn-atiyyah",
+    "provider": "spa5k",
+    "slug": "al-muharrar-al-wajiz-ibn-atiyyah",
+    "name": "Al-Muharrar Al-Wajiz Ibn Atiyyah",
+    "author": "Al-Muharrar Al-Wajiz Ibn Atiyyah",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ar-tafsir-al-tabari",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-al-tabari",
+    "name": "Tafsir al-Tabari",
+    "author": "Tabari",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-basit",
+    "provider": "spa5k",
+    "slug": "al-basit",
+    "name": "Al-Basit",
+    "author": "Al-Basit",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "alrab-al-quran-li-da-as",
+    "provider": "spa5k",
+    "slug": "alrab-al-quran-li-da-as",
+    "name": "Alrab Al-Quran li-Da'as",
+    "author": "Alrab Al-Quran li-Da'as",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-al-nasafi",
+    "provider": "spa5k",
+    "slug": "tafsir-al-nasafi",
+    "name": "Tafsir Al-Nasafi",
+    "author": "Tafsir Al-Nasafi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-muyassar-fi-al-gharib",
+    "provider": "spa5k",
+    "slug": "al-muyassar-fi-al-gharib",
+    "name": "Al-Muyassar fi Al-Gharib",
+    "author": "Al-Muyassar fi Al-Gharib",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-lubab-fi-ulum-al-kitab",
+    "provider": "spa5k",
+    "slug": "al-lubab-fi-ulum-al-kitab",
+    "name": "Al Lubab fi Ulum Al Kitab",
+    "author": "Al Lubab fi Ulum Al Kitab",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ar-tafsir-al-jalalayn",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-al-jalalayn",
+    "name": "Tafsir Jalalayn",
+    "author": "Jalal al-Din al-Mahalli and Jalal al-Din al-Suyuti",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-al-baydawi",
+    "provider": "spa5k",
+    "slug": "tafsir-al-baydawi",
+    "name": "Tafsir Al-Baydawi",
+    "author": "Tafsir Al-Baydawi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-jadwal-fi-i-rab-al-quran",
+    "provider": "spa5k",
+    "slug": "al-jadwal-fi-i-rab-al-quran",
+    "name": "Al Jadwal fi I'rab Al Quran",
+    "author": "Al Jadwal fi I'rab Al Quran",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-al-razi",
+    "provider": "spa5k",
+    "slug": "tafsir-al-razi",
+    "name": "Tafsir Al-Razi",
+    "author": "Tafsir Al-Razi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-al-jalalayn",
+    "provider": "spa5k",
+    "slug": "tafsir-al-jalalayn",
+    "name": "Tafsir Al Jalalayn - English",
+    "author": "Tafsir Al Jalalayn - English",
+    "language": "en",
+    "direction": "ltr"
+  },
+  {
+    "id": "tafsir-ibn-juzay",
+    "provider": "spa5k",
+    "slug": "tafsir-ibn-juzay",
+    "name": "Tafsir Ibn Juzay",
+    "author": "Tafsir Ibn Juzay",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "fr-tafsir-as-saadi",
+    "provider": "spa5k",
+    "slug": "fr-tafsir-as-saadi",
+    "name": "Tafsir As-Saadi - Persian",
+    "author": "Tafsir As-Saadi - Persian",
+    "language": "fa",
+    "direction": "rtl"
+  },
+  {
+    "id": "turkish-tafsir-as-saadi-turkish",
+    "provider": "spa5k",
+    "slug": "turkish-tafsir-as-saadi-turkish",
+    "name": "Tafsir As-Saadi - Turkish",
+    "author": "Tafsir As-Saadi - Turkish",
+    "language": "tr",
+    "direction": "ltr"
+  },
+  {
+    "id": "mawsoo-at-al-tafsir-al-ma-thoor",
+    "provider": "spa5k",
+    "slug": "mawsoo-at-al-tafsir-al-ma-thoor",
+    "name": "Mawsoo'at Al-Tafsir Al-Ma'thoor",
+    "author": "Mawsoo'at Al-Tafsir Al-Ma'thoor",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tahlil-kalimat-al-qur-an",
+    "provider": "spa5k",
+    "slug": "tahlil-kalimat-al-qur-an",
+    "name": "Tahlil Kalimat al-Qur'an",
+    "author": "Tahlil Kalimat al-Qur'an",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-ibn-uthaymeen",
+    "provider": "spa5k",
+    "slug": "tafsir-ibn-uthaymeen",
+    "name": "Tafsir Ibn Uthaymeen",
+    "author": "Tafsir Ibn Uthaymeen",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-makhi",
+    "provider": "spa5k",
+    "slug": "tafsir-makhi",
+    "name": "Tafsir Makhi",
+    "author": "Tafsir Makhi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "thai-mokhtasar",
+    "provider": "spa5k",
+    "slug": "thai-mokhtasar",
+    "name": "Thai Mokhtasar",
+    "author": "Thai Mokhtasar",
+    "language": "th",
+    "direction": "ltr"
+  },
+  {
+    "id": "mahasin-al-ta-wil-al-qasimi",
+    "provider": "spa5k",
+    "slug": "mahasin-al-ta-wil-al-qasimi",
+    "name": "Mahasin Al-Ta'wil Al-Qasimi",
+    "author": "Mahasin Al-Ta'wil Al-Qasimi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "telugu-mokhtasar",
+    "provider": "spa5k",
+    "slug": "telugu-mokhtasar",
+    "name": "Telugu Mokhtasar",
+    "author": "Telugu Mokhtasar",
+    "language": "te",
+    "direction": "ltr"
+  },
+  {
+    "id": "uyghur-mokhtasar",
+    "provider": "spa5k",
+    "slug": "uyghur-mokhtasar",
+    "name": "Uyghur Mokhtasar",
+    "author": "Uyghur Mokhtasar",
+    "language": "ug",
+    "direction": "rtl"
+  },
+  {
+    "id": "pashto-mokhtasar",
+    "provider": "spa5k",
+    "slug": "pashto-mokhtasar",
+    "name": "Pashto Mokhtasar",
+    "author": "Pashto Mokhtasar",
+    "language": "ps",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-al-sam-ani",
+    "provider": "spa5k",
+    "slug": "tafsir-al-sam-ani",
+    "name": "Tafsir Al-Sam'ani",
+    "author": "Tafsir Al-Sam'ani",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "azeri-mokhtasar",
+    "provider": "spa5k",
+    "slug": "azeri-mokhtasar",
+    "name": "Azeri Mokhtasar",
+    "author": "Azeri Mokhtasar",
+    "language": "az",
+    "direction": "ltr"
+  },
+  {
+    "id": "fulani-mokhtasar",
+    "provider": "spa5k",
+    "slug": "fulani-mokhtasar",
+    "name": "Fulani Mokhtasar",
+    "author": "Fulani Mokhtasar",
+    "language": "ff",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-bahr-al-muhit",
+    "provider": "spa5k",
+    "slug": "al-bahr-al-muhit",
+    "name": "Al-Bahr Al-Muhit",
+    "author": "Al-Bahr Al-Muhit",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ar-tafsir-al-tha-alibi",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-al-tha-alibi",
+    "name": "Tafsir Al-Tha'alibi",
+    "author": "Tafsir Al-Tha'alibi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "uzbek-mokhtasar",
+    "provider": "spa5k",
+    "slug": "uzbek-mokhtasar",
+    "name": "Uzbek Mokhtasar",
+    "author": "Uzbek Mokhtasar",
+    "language": "uz",
+    "direction": "ltr"
+  },
+  {
+    "id": "ar-tafsir-al-tha-alibi-527",
+    "provider": "spa5k",
+    "slug": "ar-tafsir-al-tha-alibi-527",
+    "name": "Tafsir Al-Tha'alibi",
+    "author": "Tafsir Al-Tha'alibi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "adwa-al-bayan",
+    "provider": "spa5k",
+    "slug": "adwa-al-bayan",
+    "name": "Adwa' Al-Bayan",
+    "author": "Adwa' Al-Bayan",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "ayah-dependency-graphs",
+    "provider": "spa5k",
+    "slug": "ayah-dependency-graphs",
+    "name": "Ayah Dependency Graphs",
+    "author": "Ayah Dependency Graphs",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "serbian-mokhtasar",
+    "provider": "spa5k",
+    "slug": "serbian-mokhtasar",
+    "name": "Serbian Mokhtasar",
+    "author": "Serbian Mokhtasar",
+    "language": "sr",
+    "direction": "ltr"
+  },
+  {
+    "id": "kurdish-mokhtasar",
+    "provider": "spa5k",
+    "slug": "kurdish-mokhtasar",
+    "name": "Kurdish Mokhtasar",
+    "author": "Kurdish Mokhtasar",
+    "language": "ku",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-wajiz-wahidi",
+    "provider": "spa5k",
+    "slug": "al-wajiz-wahidi",
+    "name": "Al-Wajiz Wahidi",
+    "author": "Al-Wajiz Wahidi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tamil-mokhtasar",
+    "provider": "spa5k",
+    "slug": "tamil-mokhtasar",
+    "name": "Tamil Mokhtasar",
+    "author": "Tamil Mokhtasar",
+    "language": "ta",
+    "direction": "ltr"
+  },
+  {
+    "id": "fath-al-qadir-al-shawkani",
+    "provider": "spa5k",
+    "slug": "fath-al-qadir-al-shawkani",
+    "name": "Fath Al-Qadir Al-Shawkani",
+    "author": "Fath Al-Qadir Al-Shawkani",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-nashr-li-ibn-al-jazari",
+    "provider": "spa5k",
+    "slug": "al-nashr-li-ibn-al-jazari",
+    "name": "Al Nashr li Ibn Al Jazari",
+    "author": "Al Nashr li Ibn Al Jazari",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "kyrgyz-mokhtasar",
+    "provider": "spa5k",
+    "slug": "kyrgyz-mokhtasar",
+    "name": "Kyrgyz Mokhtasar",
+    "author": "Kyrgyz Mokhtasar",
+    "language": "ky",
+    "direction": "ltr"
+  },
+  {
+    "id": "al-qira-at-al-mawsoo-ah-al-qur-aniyyah",
+    "provider": "spa5k",
+    "slug": "al-qira-at-al-mawsoo-ah-al-qur-aniyyah",
+    "name": "Al Qira'at Al Mawsoo'ah Al Qur'aniyyah",
+    "author": "Al Qira'at Al Mawsoo'ah Al Qur'aniyyah",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "spanish-mokhtasar",
+    "provider": "spa5k",
+    "slug": "spanish-mokhtasar",
+    "name": "Spanish Abridged Explanation of the Quran",
+    "author": "Spanish Abridged Explanation of the Quran",
+    "language": "es",
+    "direction": "ltr"
+  },
+  {
+    "id": "tafsir-ibn-al-jawzi",
+    "provider": "spa5k",
+    "slug": "tafsir-ibn-al-jawzi",
+    "name": "Tafsir Ibn Al-Jawzi",
+    "author": "Tafsir Ibn Al-Jawzi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-ibn-al-qayyim",
+    "provider": "spa5k",
+    "slug": "tafsir-ibn-al-qayyim",
+    "name": "Tafsir Ibn Al-Qayyim",
+    "author": "Tafsir Ibn Al-Qayyim",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "hindi-mokhtasar",
+    "provider": "spa5k",
+    "slug": "hindi-mokhtasar",
+    "name": "Hindi Mokhtasar",
+    "author": "Hindi Mokhtasar",
+    "language": "hi",
+    "direction": "ltr"
+  },
+  {
+    "id": "al-durr-al-manthur",
+    "provider": "spa5k",
+    "slug": "al-durr-al-manthur",
+    "name": "Al-Durr Al-Manthur",
+    "author": "Al-Durr Al-Manthur",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "jamia-al-bayan-aliji",
+    "provider": "spa5k",
+    "slug": "jamia-al-bayan-aliji",
+    "name": "Jamia Al-Bayan AlIji",
+    "author": "Jamia Al-Bayan AlIji",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-al-samarqandi",
+    "provider": "spa5k",
+    "slug": "tafsir-al-samarqandi",
+    "name": "Tafsir Al-Samarqandi",
+    "author": "Tafsir Al-Samarqandi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-ibn-abi-hatim",
+    "provider": "spa5k",
+    "slug": "tafsir-ibn-abi-hatim",
+    "name": "Tafsir Ibn Abi Hatim",
+    "author": "Tafsir Ibn Abi Hatim",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-al-alusi",
+    "provider": "spa5k",
+    "slug": "tafsir-al-alusi",
+    "name": "Tafsir Al-Alusi",
+    "author": "Tafsir Al-Alusi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-dur-al-masun-lil-samin-al-halabi",
+    "provider": "spa5k",
+    "slug": "al-dur-al-masun-lil-samin-al-halabi",
+    "name": "Al Dur Al Masun Lil Samin Al Halabi",
+    "author": "Al Dur Al Masun Lil Samin Al Halabi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tadabbur-wa-amal",
+    "provider": "spa5k",
+    "slug": "tadabbur-wa-amal",
+    "name": "Tadabbur wa 'Amal",
+    "author": "Tadabbur wa 'Amal",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "fath-al-bayan-li-al-qanuji",
+    "provider": "spa5k",
+    "slug": "fath-al-bayan-li-al-qanuji",
+    "name": "Fath Al-Bayan li Al-Qanuji",
+    "author": "Fath Al-Bayan li Al-Qanuji",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-abi-al-su-ood",
+    "provider": "spa5k",
+    "slug": "tafsir-abi-al-su-ood",
+    "name": "Tafsir Abi Al-Suaood",
+    "author": "Tafsir Abi Al-Suaood",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "tafsir-al-mawardi",
+    "provider": "spa5k",
+    "slug": "tafsir-al-mawardi",
+    "name": "Tafsir Al-Mawardi",
+    "author": "Tafsir Al-Mawardi",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  {
+    "id": "al-kashshaf-al-zamakhshari",
+    "provider": "spa5k",
+    "slug": "al-kashshaf-al-zamakhshari",
+    "name": "Al-Kashshaf Al-Zamakhshari",
+    "author": "Al-Kashshaf Al-Zamakhshari",
+    "language": "ar",
+    "direction": "rtl"
+  }
+]

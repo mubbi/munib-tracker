@@ -1,0 +1,21 @@
+{
+  "projectName": "munib-tracker",
+  "projectOwner": "mubbi",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["README.md"],
+  "imageSize": 64,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "linkToUsage": true,
+  "contributors": [
+    {
+      "login": "mubbi",
+      "name": "Mubbasher Ahmed Qureshi",
+      "avatar_url": "https://github.com/mubbi.png",
+      "profile": "https://mubbi.me",
+      "contributions": ["code", "design", "doc", "maintenance"]
+    }
+  ]
+}

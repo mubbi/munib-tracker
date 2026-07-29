@@ -1,0 +1,70 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalPassThroughEnv": ["TURBO_UI"],
+  "tasks": {
+    "build": {
+      "description": "Compiles and bundles applications for production",
+      "dependsOn": ["^build", "^generate"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "dev": {
+      "description": "Starts development servers",
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "description": "Runs Biome lint checks",
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {
+      "description": "Runs TypeScript type checking",
+      "dependsOn": ["^check-types", "^generate"]
+    },
+    "test": {
+      "description": "Runs unit and feature tests",
+      "dependsOn": ["transit"],
+      "inputs": ["$TURBO_DEFAULT$", "**/*.{test,spec,feature.test}.{ts,tsx}"],
+      "outputs": ["coverage/**"]
+    },
+    "test:coverage": {
+      "description": "Runs tests with HTML and Clover coverage reports",
+      "dependsOn": ["transit"],
+      "inputs": ["$TURBO_DEFAULT$", "**/*.{test,spec,feature.test}.{ts,tsx}"],
+      "outputs": ["coverage/**"]
+    },
+    "test:watch": {
+      "description": "Runs tests in watch mode",
+      "cache": false,
+      "persistent": true
+    },
+    "transit": {
+      "description": "Invalidates downstream tests when dependencies change",
+      "dependsOn": ["^transit"]
+    },
+    "openapi": {
+      "description": "Exports OpenAPI contract from the NestJS API",
+      "dependsOn": ["transit"],
+      "outputs": ["$TURBO_ROOT$/packages/api-contract/openapi.json"]
+    },
+    "generate": {
+      "description": "Generates typed API client from OpenAPI via Orval",
+      "dependsOn": ["^openapi"],
+      "outputs": ["src/generated/**"]
+    },
+    "build:web": {
+      "description": "Exports the Expo app as a static PWA web bundle",
+      "dependsOn": ["transit"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
+    "//#format-and-lint": {
+      "description": "Runs Biome format and lint on the entire repo"
+    },
+    "//#format-and-lint:fix": {
+      "description": "Auto-fixes Biome format and lint issues",
+      "cache": false
+    }
+  }
+}

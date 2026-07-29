@@ -1,0 +1,203 @@
+{
+  "expo": {
+    "name": "Munib Tracker",
+    "slug": "munib-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "munib-tracker",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "app.munibtracker",
+      "buildNumber": "1",
+      "supportsTablet": true,
+      "usesAppleSignIn": true,
+      "icon": "./assets/images/icon.png",
+      "associatedDomains": ["applinks:my.munibtracker.app"],
+      "infoPlist": {
+        "UIBackgroundModes": ["remote-notification", "audio"],
+        "NSSupportsLiveActivities": true,
+        "NSFaceIDUsageDescription": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled.",
+        "NSCameraUsageDescription": "Munib Tracker uses the camera so you can attach photos to custom adhkar.",
+        "NSPhotoLibraryUsageDescription": "Munib Tracker uses your photo library so you can attach images to custom adhkar.",
+        "NSUserNotificationsUsageDescription": "Munib Tracker sends prayer reminders, dhikr alerts, and official announcements when you enable notifications."
+      }
+    },
+    "android": {
+      "package": "app.munibtracker",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#152921",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "blockedPermissions": ["android.permission.ACTIVITY_RECOGNITION"],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "my.munibtracker.app",
+              "pathPrefix": "/oauth/apple"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png",
+      "name": "Munib Tracker",
+      "shortName": "Munib Tracker",
+      "description": "Track Your Journey Back to Allah. A free, offline-first companion for salah, dhikr, qadha, Qur'an, hadith, and daily worship.",
+      "themeColor": "#152921",
+      "backgroundColor": "#152921"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "asyncRoutes": {
+            "web": true,
+            "android": false,
+            "ios": false
+          }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#F5F0E6",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 280,
+          "dark": {
+            "backgroundColor": "#152921",
+            "image": "./assets/images/splash-icon.png"
+          },
+          "android": {
+            "imageWidth": 220
+          }
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Munib Tracker uses your photo library so you can attach images to custom adhkar.",
+          "cameraPermission": "Munib Tracker uses the camera so you can attach photos to custom adhkar."
+        }
+      ],
+      "expo-document-picker",
+      "expo-apple-authentication",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Munib Tracker uses your location to calculate accurate prayer times and the qibla direction for where you are."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#059669",
+          "sounds": ["./assets/audio/adhan/adhan.mp3"],
+          "mode": "production"
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": true
+        }
+      ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Munib Tracker uses the microphone so you can dictate custom adhkar.",
+          "speechRecognitionPermission": "Munib Tracker uses speech recognition so you can dictate custom adhkar."
+        }
+      ],
+      "./plugins/with-android-build-hygiene.js",
+      "./plugins/withAndroidReleaseSigning.cjs",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "ndkVersion": "27.1.12297006"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "iosAppVersion": "1.0.0",
+      "androidAppVersion": "1.0.0",
+      "webAppVersion": "1.0.0",
+      "vapidPublicKey": "vapid_9c7f2d18a4e64b9e9d5c3f7b1a8e62d",
+      "serviceWorkerPath": "/expo-service-worker.js",
+      "router": {
+        "asyncRoutes": {
+          "web": true,
+          "android": false,
+          "ios": false
+        }
+      },
+      "eas": {
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "bundleIdentifier": "app.munibtracker.munibtrackerwidgets",
+                  "targetName": "MunibTrackerWidgets",
+                  "entitlements": {
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
+                  }
+                },
+                {
+                  "bundleIdentifier": "app.munibtracker.munibtrackerwatch.widgets",
+                  "targetName": "MunibTrackerWatchWidgets",
+                  "entitlements": {
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
+                  }
+                },
+                {
+                  "bundleIdentifier": "app.munibtracker.munibtrackerwatch",
+                  "targetName": "MunibTrackerWatch",
+                  "entitlements": {
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
+                  }
+                },
+                {
+                  "bundleIdentifier": "app.munibtracker.munibtrackerintents",
+                  "targetName": "MunibTrackerIntents",
+                  "entitlements": {
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "projectId": "f03cf5e8-c409-40a0-b025-948c3bd7e9f5"
+      }
+    },
+    "owner": "mubbiqureshi"
+  }
+}

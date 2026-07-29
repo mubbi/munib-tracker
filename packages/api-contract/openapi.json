@@ -1,0 +1,2788 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/auth/guest": {
+      "post": {
+        "operationId": "AuthController_createGuestSession",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create or resume a guest session",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/tv/pairing": {
+      "post": {
+        "description": "The TV displays a QR / short code. The phone opens the claim URL, signs in, and posts the code.",
+        "operationId": "AuthController_createTvPairing",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TvPairingCreateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a TV companion pairing code",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/tv/pairing/{code}": {
+      "get": {
+        "operationId": "AuthController_pollTvPairing",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "description": "Pairing code from POST /auth/tv/pairing",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TvPairingStatusResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Poll TV companion pairing status (TV client)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/tv/pairing/claim": {
+      "post": {
+        "description": "Requires a linked (non-guest) account. Issues a fresh session for the TV to poll.",
+        "operationId": "AuthController_claimTvPairing",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TvPairingClaimBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Pairing claimed; TV can poll for the session"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Claim a TV pairing from a signed-in phone",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/google": {
+      "post": {
+        "operationId": "AuthController_completeGoogle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthGoogleBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete Google sign-in with a native OAuth access token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/google/oauth": {
+      "post": {
+        "operationId": "AuthController_completeGoogleOauth",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthGoogleOauthBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete Google sign-in via authorization-code + PKCE (web)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/apple": {
+      "post": {
+        "operationId": "AuthController_completeApple",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthAppleBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete Apple sign-in with a native identity token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/apple/oauth": {
+      "post": {
+        "operationId": "AuthController_completeAppleOauth",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthAppleOauthBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete Apple sign-in via authorization-code + PKCE",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/apple/oauth/session": {
+      "post": {
+        "operationId": "AuthController_startAppleOauthSession",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthAppleOauthSessionBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "summary": "Store Apple web OAuth PKCE session cookie before form_post",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/apple/oauth/callback": {
+      "post": {
+        "operationId": "AuthController_appleOauthCallback",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Apple form_post callback — exchanges code and redirects to returnUrl",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/oauth/{provider}": {
+      "post": {
+        "operationId": "AuthController_completeOAuth",
+        "parameters": [
+          {
+            "name": "provider",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "google",
+                "apple",
+                "facebook"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete OAuth sign-in (Facebook, or legacy Google/Apple code/idToken path)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "operationId": "AuthController_refresh",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Rotate the refresh token and issue a new access token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/link": {
+      "post": {
+        "operationId": "AuthController_linkAccount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Upgrade a guest account by linking an OAuth provider",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "operationId": "AuthController_getCurrentUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUserResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get the current authenticated user",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Revoke the current session",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/reset-app-data": {
+      "post": {
+        "description": "Clears synced app data and user media while preserving the account, OAuth identity, push tokens, and sessions. Body confirmation must be the literal \"RESET\".",
+        "operationId": "AuthController_resetAppData",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetAppDataDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "App data reset; account and session preserved"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Reset app data without deleting the account",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/delete-account": {
+      "post": {
+        "description": "Irreversible closure: wipes app data, revokes sessions, clears OAuth identity, and tombstones the email. Body must include confirmation set to the literal \"DELETE\", a primaryReason code, and optional details (max 500 characters).",
+        "operationId": "AuthController_deleteAccount",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteAccountDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Account closed and data removed"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Close account and remove user data",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/sync/pull": {
+      "get": {
+        "operationId": "SyncController_pull",
+        "parameters": [
+          {
+            "name": "since",
+            "required": false,
+            "in": "query",
+            "description": "ISO timestamp — return changes updated after this moment",
+            "schema": {
+              "example": "2026-01-01T00:00:00.000Z",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncPullResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Pull cloud changes since a timestamp",
+        "tags": [
+          "sync"
+        ]
+      }
+    },
+    "/api/v1/sync/push": {
+      "post": {
+        "operationId": "SyncController_push",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncPushDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncPushResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Push local changes using last-write-wins semantics",
+        "tags": [
+          "sync"
+        ]
+      }
+    },
+    "/api/v1/content-reports": {
+      "post": {
+        "operationId": "ContentReportsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "payload"
+                ],
+                "properties": {
+                  "payload": {
+                    "type": "string",
+                    "description": "JSON string matching CreateContentReportDto"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "maxItems": 3
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentReportDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Submit a content issue report with optional proof attachments",
+        "tags": [
+          "content-reports"
+        ]
+      },
+      "get": {
+        "operationId": "ContentReportsController_list",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentReportListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List the current user's content reports",
+        "tags": [
+          "content-reports"
+        ]
+      }
+    },
+    "/api/v1/content-reports/{id}": {
+      "get": {
+        "operationId": "ContentReportsController_getById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentReportDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a single content report owned by the current user",
+        "tags": [
+          "content-reports"
+        ]
+      }
+    },
+    "/api/v1/user-media": {
+      "post": {
+        "operationId": "UserMediaController_upload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "maxItems": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserMediaListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Upload private images/PDFs for custom adhkar (linked accounts only)",
+        "tags": [
+          "user-media"
+        ]
+      }
+    },
+    "/api/v1/user-media/{id}": {
+      "get": {
+        "operationId": "UserMediaController_getMeta",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserMediaDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get metadata for a media item owned by the current user",
+        "tags": [
+          "user-media"
+        ]
+      },
+      "delete": {
+        "operationId": "UserMediaController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a media item owned by the current user",
+        "tags": [
+          "user-media"
+        ]
+      }
+    },
+    "/api/v1/user-media/{id}/content": {
+      "get": {
+        "operationId": "UserMediaController_getContent",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Download image bytes for a media item owned by the current user",
+        "tags": [
+          "user-media"
+        ]
+      }
+    },
+    "/api/v1/app-feedback": {
+      "post": {
+        "operationId": "AppFeedbackController_submit",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitAppFeedbackDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Feedback accepted"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Submit low-star in-app review feedback (1–3 stars)",
+        "tags": [
+          "app-feedback"
+        ]
+      }
+    },
+    "/api/v1/oss-content-failures": {
+      "post": {
+        "operationId": "OssContentFailuresController_report",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportOssContentDownloadFailureDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Failure recorded"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Report a failed on-demand open-source content download (CDN / remote JSON / fonts)",
+        "tags": [
+          "oss-content-failures"
+        ]
+      }
+    },
+    "/api/v1/version/meta": {
+      "get": {
+        "operationId": "AppVersionController_getVersionMeta",
+        "parameters": [
+          {
+            "name": "version",
+            "required": true,
+            "in": "query",
+            "description": "Client semver (major.minor.patch)",
+            "schema": {
+              "example": "1.0.0",
+              "type": "string"
+            }
+          },
+          {
+            "name": "platform",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "web",
+                "ios",
+                "android"
+              ]
+            }
+          },
+          {
+            "name": "refresh",
+            "required": false,
+            "in": "query",
+            "description": "Pass 1 or true to invalidate cached platform config",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionMetaResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Compare client semver with platform update policy",
+        "tags": [
+          "version"
+        ]
+      }
+    },
+    "/api/v1/notifications/vapid-public-key": {
+      "get": {
+        "operationId": "NotificationsController_getVapidPublicKey",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VapidPublicKeyResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Public Web Push VAPID key (null when unset)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/push-token": {
+      "put": {
+        "operationId": "NotificationsController_upsertPushToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertPushTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushTokenResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Register or refresh a push token (guest + linked accounts)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app": {
+      "get": {
+        "operationId": "NotificationsController_listInApp",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InAppNotificationListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List in-app notifications for the current user (newest first)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app/unread-count": {
+      "get": {
+        "operationId": "NotificationsController_unreadCount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnreadCountResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Unread in-app notification count",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app/mark-all-read": {
+      "post": {
+        "operationId": "NotificationsController_markAllRead",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnreadCountResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark all in-app notifications as read",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app/{id}/read": {
+      "patch": {
+        "operationId": "NotificationsController_markRead",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InAppNotificationDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark a single in-app notification as read",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app/{id}/engage": {
+      "post": {
+        "operationId": "NotificationsController_engage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EngageInAppNotificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InAppNotificationDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Record open/click engagement (increments broadcast counters)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/live-activities": {
+      "put": {
+        "operationId": "LiveActivitiesController_upsert",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertLiveActivityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiveActivityRegistrationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Register an ActivityKit push token and schedule phase boundary updates",
+        "tags": [
+          "live-activities"
+        ]
+      }
+    },
+    "/api/v1/live-activities/{activityId}/lifecycle": {
+      "put": {
+        "operationId": "LiveActivitiesController_lifecycle",
+        "parameters": [
+          {
+            "name": "activityId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LiveActivityLifecycleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark a Live Activity as ended/dismissed and cancel jobs",
+        "tags": [
+          "live-activities"
+        ]
+      }
+    },
+    "/api/v1/live-activities/internal/deliver": {
+      "post": {
+        "operationId": "LiveActivitiesController_deliver",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchLiveActivityJobDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "QStash callback: deliver one scheduled ActivityKit update",
+        "tags": [
+          "live-activities"
+        ]
+      }
+    },
+    "/api/v1/live-activities/internal/dispatch-due": {
+      "post": {
+        "operationId": "LiveActivitiesController_dispatchDue",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiveActivityDispatchResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Cron fallback: deliver due ActivityKit jobs and clean expired tokens",
+        "tags": [
+          "live-activities"
+        ]
+      }
+    },
+    "/api/v1/surface-push": {
+      "put": {
+        "operationId": "SurfacePushController_upsert",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertSurfacePushDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurfacePushRegistrationResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Register Expo or Web Push target and schedule Salah phase updates (guest + linked)",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/api/v1/surface-push/{registrationId}/lifecycle": {
+      "put": {
+        "operationId": "SurfacePushController_lifecycle",
+        "parameters": [
+          {
+            "name": "registrationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurfacePushLifecycleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark a surface registration as ended/dismissed and cancel jobs",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/api/v1/surface-push/{registrationId}": {
+      "delete": {
+        "operationId": "SurfacePushController_delete",
+        "parameters": [
+          {
+            "name": "registrationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a surface push registration and cancel jobs",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/api/v1/surface-push/internal/deliver": {
+      "post": {
+        "operationId": "SurfacePushController_deliver",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchSurfaceJobDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "QStash callback: deliver one scheduled surface push job",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/api/v1/surface-push/internal/dispatch-due": {
+      "post": {
+        "operationId": "SurfacePushController_dispatchDue",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurfacePushDispatchResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Cron fallback: deliver due surface push jobs",
+        "tags": [
+          "surface-push"
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "operationId": "RootController_getRoot",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "API is reachable"
+          }
+        },
+        "summary": "Root liveness probe",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "operationId": "HealthController_getHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "API is healthy"
+          }
+        },
+        "summary": "Liveness and readiness probe",
+        "tags": [
+          "health"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Munib Tracker API",
+    "description": "Cloud sync, authentication, and backend services for Munib Tracker. Track Your Journey Back to Allah.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "AuthSessionResponseDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Short-lived signed JWT access token"
+          },
+          "accessTokenExpiresIn": {
+            "type": "number",
+            "description": "Seconds until the access token expires"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Opaque refresh token; rotates on every refresh"
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "guest",
+              "user"
+            ]
+          },
+          "userId": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "google",
+              "apple",
+              "facebook"
+            ]
+          }
+        },
+        "required": [
+          "accessToken",
+          "accessTokenExpiresIn",
+          "refreshToken",
+          "accountType",
+          "userId"
+        ]
+      },
+      "TvPairingCreateResponseDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Short pairing code for QR / manual entry",
+            "example": "ABCD1234"
+          },
+          "displayCode": {
+            "type": "string",
+            "description": "Display form with a separator",
+            "example": "ABCD-1234"
+          },
+          "expiresAt": {
+            "type": "number",
+            "description": "Unix ms when this pairing expires"
+          },
+          "claimUrl": {
+            "type": "string",
+            "description": "HTTPS deep link for the phone to open and claim this pairing",
+            "example": "https://my.munibtracker.app/tv-pair?code=ABCD1234"
+          }
+        },
+        "required": [
+          "code",
+          "displayCode",
+          "expiresAt",
+          "claimUrl"
+        ]
+      },
+      "TvPairingStatusResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "ready",
+              "expired"
+            ]
+          },
+          "session": {
+            "description": "Present when status is ready — TV should persist this session",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AuthSessionResponseDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "TvPairingClaimBodyDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Pairing code shown on the TV",
+            "example": "ABCD1234"
+          }
+        },
+        "required": [
+          "code"
+        ]
+      },
+      "AuthGoogleBodyDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Google OAuth access token from on-device PKCE exchange"
+          }
+        },
+        "required": [
+          "accessToken"
+        ]
+      },
+      "AuthUserResponseDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "guest",
+              "user"
+            ]
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "google",
+              "apple",
+              "facebook"
+            ]
+          },
+          "email": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId",
+          "accountType"
+        ]
+      },
+      "WebAuthSessionResponseDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/AuthUserResponseDto"
+          }
+        },
+        "required": [
+          "user"
+        ]
+      },
+      "AuthGoogleOauthBodyDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "redirectUri": {
+            "type": "string"
+          },
+          "codeVerifier": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "redirectUri",
+          "codeVerifier"
+        ]
+      },
+      "AuthAppleBodyDto": {
+        "type": "object",
+        "properties": {
+          "identityToken": {
+            "type": "string",
+            "description": "Apple identity token (JWT) from native Sign in with Apple"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Given + family name from Apple (first authorization only)"
+          }
+        },
+        "required": [
+          "identityToken"
+        ]
+      },
+      "AuthAppleOauthBodyDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "redirectUri": {
+            "type": "string"
+          },
+          "codeVerifier": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "redirectUri",
+          "codeVerifier"
+        ]
+      },
+      "AuthAppleOauthSessionBodyDto": {
+        "type": "object",
+        "properties": {
+          "codeVerifier": {
+            "type": "string"
+          },
+          "redirectUri": {
+            "type": "string"
+          },
+          "returnUrl": {
+            "type": "string",
+            "description": "Web origin URL to redirect after Apple form_post callback"
+          }
+        },
+        "required": [
+          "codeVerifier",
+          "redirectUri",
+          "returnUrl"
+        ]
+      },
+      "ResetAppDataDto": {
+        "type": "object",
+        "properties": {
+          "confirmation": {
+            "type": "string",
+            "description": "Must be the literal string \"RESET\" to confirm the destructive data reset",
+            "enum": [
+              "RESET"
+            ],
+            "example": "RESET"
+          }
+        },
+        "required": [
+          "confirmation"
+        ]
+      },
+      "DeleteAccountDto": {
+        "type": "object",
+        "properties": {
+          "confirmation": {
+            "type": "string",
+            "description": "Must be the literal string \"DELETE\" to confirm irreversible closure",
+            "enum": [
+              "DELETE"
+            ],
+            "example": "DELETE"
+          },
+          "primaryReason": {
+            "type": "string",
+            "enum": [
+              "privacy_concerns",
+              "missing_features",
+              "too_complicated",
+              "switching_app",
+              "not_using",
+              "technical_issues",
+              "other"
+            ]
+          },
+          "details": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "confirmation",
+          "primaryReason"
+        ]
+      },
+      "SyncRecordDto": {
+        "type": "object",
+        "properties": {
+          "entity": {
+            "type": "string",
+            "enum": [
+              "data_reset",
+              "prayer_logs",
+              "zikr_progress",
+              "qaza_entries",
+              "preferences",
+              "favorites",
+              "dua_favorites",
+              "durood_favorites",
+              "name_favorites",
+              "quran_bookmarks",
+              "quran_last_read",
+              "hadith_bookmarks",
+              "custom_tasbeeh",
+              "fasting",
+              "khatm",
+              "hifz",
+              "custom_adhkar",
+              "khushu_journal",
+              "hajj_checklist",
+              "umrah_checklist",
+              "friday_checklist",
+              "white_days_checklist",
+              "jannah_intentions",
+              "jahannam_intentions",
+              "salah_guide_progress",
+              "battles_progress",
+              "quran_guide_progress",
+              "taharah_progress",
+              "prophets_progress",
+              "aqeedah_progress",
+              "last_day_progress",
+              "learn_dua_progress",
+              "quran_prefs",
+              "hadith_prefs",
+              "quran_reading_progress",
+              "qaza_schedule",
+              "qaza_daily_progress",
+              "qaza_daily_plans",
+              "location",
+              "reading_text_visibility",
+              "zakat_calculator",
+              "fidyah_calculator",
+              "sadaqah_goals",
+              "tours_seen"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "deletedAt": {
+            "type": "string",
+            "description": "Set when the record was deleted on another device"
+          }
+        },
+        "required": [
+          "entity",
+          "id",
+          "data",
+          "updatedAt"
+        ]
+      },
+      "SyncPullResponseDto": {
+        "type": "object",
+        "properties": {
+          "changes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SyncRecordDto"
+            }
+          },
+          "serverTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "changes",
+          "serverTime"
+        ]
+      },
+      "SyncPushDto": {
+        "type": "object",
+        "properties": {
+          "changes": {
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SyncRecordDto"
+            }
+          }
+        },
+        "required": [
+          "changes"
+        ]
+      },
+      "SyncPushResponseDto": {
+        "type": "object",
+        "properties": {
+          "accepted": {
+            "type": "number"
+          },
+          "conflicts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SyncRecordDto"
+            }
+          },
+          "serverTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "accepted",
+          "conflicts",
+          "serverTime"
+        ]
+      },
+      "ContentReportSnapshotDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "arabic": {
+            "type": "string"
+          },
+          "transliteration": {
+            "type": "string"
+          },
+          "translation": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          }
+        }
+      },
+      "ContentReportReferenceDto": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "quran_ayah",
+              "hadith",
+              "dua",
+              "zikr",
+              "durood",
+              "name",
+              "salah_guide",
+              "jannah",
+              "battles",
+              "learn_quran",
+              "learn_dua",
+              "taharah",
+              "prophets",
+              "aqeedah",
+              "zakat",
+              "seerah",
+              "hajj",
+              "travel",
+              "excused",
+              "screen"
+            ]
+          },
+          "contentId": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "route": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/ContentReportSnapshotDto"
+          }
+        },
+        "required": [
+          "kind",
+          "contentId",
+          "route",
+          "locale"
+        ]
+      },
+      "ContentReportDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_review",
+              "in_progress",
+              "completed",
+              "cancelled",
+              "spam"
+            ]
+          },
+          "issueType": {
+            "type": "string",
+            "enum": [
+              "incorrect_arabic",
+              "incorrect_translation",
+              "incorrect_transliteration",
+              "wrong_reference",
+              "missing_content",
+              "audio_issue",
+              "typo",
+              "other"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "content": {
+            "$ref": "#/components/schemas/ContentReportReferenceDto"
+          },
+          "attachmentCount": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "resolvedAt": {
+            "type": "object",
+            "nullable": true
+          },
+          "suggestedCorrection": {
+            "type": "object",
+            "nullable": true
+          },
+          "userReference": {
+            "type": "object",
+            "nullable": true
+          },
+          "appVersion": {
+            "type": "object",
+            "nullable": true
+          },
+          "platform": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "issueType",
+          "description",
+          "content",
+          "attachmentCount",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ContentReportSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_review",
+              "in_progress",
+              "completed",
+              "cancelled",
+              "spam"
+            ]
+          },
+          "issueType": {
+            "type": "string",
+            "enum": [
+              "incorrect_arabic",
+              "incorrect_translation",
+              "incorrect_transliteration",
+              "wrong_reference",
+              "missing_content",
+              "audio_issue",
+              "typo",
+              "other"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "content": {
+            "$ref": "#/components/schemas/ContentReportReferenceDto"
+          },
+          "attachmentCount": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "resolvedAt": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "issueType",
+          "description",
+          "content",
+          "attachmentCount",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ContentReportListResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentReportSummaryDto"
+            }
+          },
+          "total": {
+            "type": "number"
+          },
+          "page": {
+            "type": "number"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "page",
+          "limit"
+        ]
+      },
+      "UserMediaDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "mimeType": {
+            "type": "string",
+            "example": "image/jpeg"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "sizeBytes": {
+            "type": "number",
+            "example": 102400
+          },
+          "contentPath": {
+            "type": "string",
+            "description": "Authenticated content URL (requires bearer token on GET)",
+            "example": "/api/v1/user-media/…/content"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mimeType",
+          "filename",
+          "sizeBytes",
+          "contentPath",
+          "createdAt"
+        ]
+      },
+      "UserMediaListResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserMediaDto"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "SubmitAppFeedbackDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "ReportOssContentDownloadFailureDto": {
+        "type": "object",
+        "properties": {
+          "contentKind": {
+            "type": "string",
+            "enum": [
+              "quran_edition",
+              "hadith_collection",
+              "qcf_font",
+              "quran_audio",
+              "adhan_audio",
+              "content_audio"
+            ]
+          },
+          "contentKey": {
+            "type": "string",
+            "description": "Stable grouping key, e.g. quran_edition:en-saheehintl:2",
+            "maxLength": 256
+          },
+          "sourceProvider": {
+            "type": "string",
+            "example": "fawazahmed0/quran-api",
+            "maxLength": 128
+          },
+          "sourceUrl": {
+            "type": "string",
+            "description": "Full CDN URL that failed"
+          },
+          "contentMeta": {
+            "type": "object",
+            "description": "Identifying fields for the failed content (edition, surah, page, …)",
+            "additionalProperties": true
+          },
+          "errorCode": {
+            "type": "string",
+            "enum": [
+              "http_error",
+              "network_error",
+              "empty_payload",
+              "unknown_content",
+              "parse_error",
+              "download_failed"
+            ]
+          },
+          "errorMessage": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "httpStatus": {
+            "type": "number"
+          },
+          "appVersion": {
+            "type": "string",
+            "maxLength": 32
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android",
+              "web"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "maxLength": 16
+          },
+          "translationLocale": {
+            "type": "string",
+            "maxLength": 16
+          }
+        },
+        "required": [
+          "contentKind",
+          "contentKey",
+          "sourceProvider",
+          "sourceUrl",
+          "contentMeta",
+          "errorCode",
+          "errorMessage",
+          "appVersion",
+          "platform"
+        ]
+      },
+      "VersionMetaResponseDto": {
+        "type": "object",
+        "properties": {
+          "updateRequired": {
+            "type": "string",
+            "enum": [
+              "none",
+              "soft",
+              "hard"
+            ]
+          },
+          "latestVersion": {
+            "type": "string",
+            "example": "1.2.0"
+          },
+          "minSoftVersion": {
+            "type": "string",
+            "example": "1.1.0"
+          },
+          "minHardVersion": {
+            "type": "string",
+            "example": "1.0.0"
+          },
+          "message": {
+            "type": "object",
+            "nullable": true
+          },
+          "storeUrl": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "updateRequired",
+          "latestVersion",
+          "minSoftVersion",
+          "minHardVersion"
+        ]
+      },
+      "VapidPublicKeyResponseDto": {
+        "type": "object",
+        "properties": {
+          "publicKey": {
+            "type": "object",
+            "nullable": true,
+            "description": "Web Push VAPID public key, if configured"
+          }
+        }
+      },
+      "UpsertPushTokenDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Expo push token or web push subscription endpoint"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "Stable device id for upsert"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "expo",
+              "web"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "example": "en"
+          },
+          "clientPlatform": {
+            "type": "string",
+            "description": "Client OS / runtime",
+            "example": "ios"
+          }
+        },
+        "required": [
+          "token",
+          "platform"
+        ]
+      },
+      "PushTokenResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "token": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "expo",
+              "web"
+            ]
+          },
+          "deviceId": {
+            "type": "object",
+            "nullable": true
+          },
+          "locale": {
+            "type": "object",
+            "nullable": true
+          },
+          "clientPlatform": {
+            "type": "object",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "token",
+          "platform",
+          "updatedAt"
+        ]
+      },
+      "InAppNotificationDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "kind": {
+            "type": "string",
+            "example": "admin_announcement"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "object",
+            "nullable": true
+          },
+          "routeData": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": true
+          },
+          "dedupeKey": {
+            "type": "object",
+            "nullable": true
+          },
+          "broadcastId": {
+            "type": "object",
+            "nullable": true
+          },
+          "readAt": {
+            "type": "object",
+            "nullable": true
+          },
+          "clickedAt": {
+            "type": "object",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "title",
+          "body",
+          "createdAt"
+        ]
+      },
+      "InAppNotificationListResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InAppNotificationDto"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "UnreadCountResponseDto": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "example": 3
+          }
+        },
+        "required": [
+          "count"
+        ]
+      },
+      "EngageInAppNotificationDto": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "open",
+              "click"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "LiveActivityScheduledUpdateDto": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string",
+            "example": "asr-mark"
+          },
+          "executeAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "staleAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "contentState": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "phase",
+          "executeAt",
+          "contentState"
+        ]
+      },
+      "UpsertLiveActivityDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "string"
+          },
+          "pushToken": {
+            "type": "string",
+            "description": "ActivityKit per-activity APNs token as lowercase hex"
+          },
+          "environment": {
+            "type": "string",
+            "enum": [
+              "sandbox",
+              "production"
+            ]
+          },
+          "updates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LiveActivityScheduledUpdateDto"
+            }
+          }
+        },
+        "required": [
+          "activityId",
+          "pushToken",
+          "environment",
+          "updates"
+        ]
+      },
+      "LiveActivityRegistrationResponseDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "scheduled": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "activityId",
+          "expiresAt",
+          "scheduled"
+        ]
+      },
+      "LiveActivityLifecycleDto": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "ended",
+              "dismissed"
+            ]
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "DispatchLiveActivityJobDto": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "jobId"
+        ]
+      },
+      "LiveActivityDispatchResponseDto": {
+        "type": "object",
+        "properties": {
+          "processed": {
+            "type": "number"
+          },
+          "cleaned": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "processed",
+          "cleaned"
+        ]
+      },
+      "SurfacePhaseUpdateDto": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string"
+          },
+          "executeAt": {
+            "type": "string"
+          },
+          "staleAt": {
+            "type": "string"
+          },
+          "dedupeKey": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "phase",
+          "executeAt",
+          "dedupeKey",
+          "payload"
+        ]
+      },
+      "UpsertSurfacePushDto": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "expo",
+              "web_push"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "description": "Expo push token, or JSON string of a Web Push subscription"
+          },
+          "sessionId": {
+            "type": "string"
+          },
+          "deviceId": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string"
+          },
+          "updates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SurfacePhaseUpdateDto"
+            }
+          }
+        },
+        "required": [
+          "channel",
+          "target",
+          "updates"
+        ]
+      },
+      "SurfacePushRegistrationResponseDto": {
+        "type": "object",
+        "properties": {
+          "registrationId": {
+            "type": "number"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "scheduled": {
+            "type": "number"
+          },
+          "sessionId": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "registrationId",
+          "channel",
+          "scheduled"
+        ]
+      },
+      "SurfacePushLifecycleDto": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "ended",
+              "dismissed"
+            ]
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "DispatchSurfaceJobDto": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "jobId"
+        ]
+      },
+      "SurfacePushDispatchResponseDto": {
+        "type": "object",
+        "properties": {
+          "processed": {
+            "type": "number"
+          },
+          "cleaned": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "processed",
+          "cleaned"
+        ]
+      }
+    }
+  }
+}

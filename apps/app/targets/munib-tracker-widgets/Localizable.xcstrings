@@ -1,0 +1,174 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "widget.gallery.nextPrayer.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Next Salah" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "الصلاة القادمة" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "اگلی نماز" } }
+      }
+    },
+    "widget.gallery.nextPrayer.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Next Salah name, time, and countdown." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "اسم الصلاة التالية والوقت والعد التنازلي." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "اگلی نماز کا نام، وقت اور الٹی گنتی۔" } }
+      }
+    },
+    "widget.gallery.schedule.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Schedule" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "الجدول" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "شیڈول" } }
+      }
+    },
+    "widget.gallery.schedule.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Today's obligatory Salah times." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "أوقات الصلاة المفروضة اليوم." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "آج کے فرض نمازوں کے اوقات۔" } }
+      }
+    },
+    "widget.gallery.progress.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Progress" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "التقدّم" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "پیش رفت" } }
+      }
+    },
+    "widget.gallery.progress.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Today's obligatory Salah progress." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "تقدّم الصلاة المفروضة اليوم." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "آج کی فرض نمازوں کی پیش رفت۔" } }
+      }
+    },
+    "widget.gallery.streak.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Salah streak" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "سلسلة الصلاة" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "نماز کا سلسلہ" } }
+      }
+    },
+    "widget.gallery.streak.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Current obligatory Salah streak." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "سلسلة الصلوات المفروضة الحالية." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "موجودہ فرض نمازوں کا سلسلہ۔" } }
+      }
+    },
+    "widget.gallery.qaza.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Qaza" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "القضاء" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "قضا" } }
+      }
+    },
+    "widget.gallery.qaza.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Remaining qaza and today's make-up progress." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "القضاء المتبقي وتقدّم قضاء اليوم." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "باقی قضا اور آج کی قضا کی پیش رفت۔" } }
+      }
+    },
+    "widget.gallery.ramadan.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Ramadan" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "رمضان" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "رمضان" } }
+      }
+    },
+    "widget.gallery.ramadan.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Suhoor and iftar times with countdown." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "أوقات السحور والإفطار مع العد التنازلي." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "سحری و افطار کے اوقات مع الٹی گنتی۔" } }
+      }
+    },
+    "widget.gallery.khatm.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Khatm" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "الختم" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "ختم" } }
+      }
+    },
+    "widget.gallery.khatm.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Qur'an Khatm plan progress." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "تقدّم خطة ختم القرآن." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "قرآن ختم کے منصوبے کی پیش رفت۔" } }
+      }
+    },
+    "widget.gallery.dailyHadith.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Daily hadith" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "حديث اليوم" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "آج کی حدیث" } }
+      }
+    },
+    "widget.gallery.dailyHadith.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Today's hadith from Imam al-Nawawi's Forty." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "حديث اليوم من الأربعين النووية." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "امام نووی کی چالیس احادیث میں سے آج کی حدیث۔" } }
+      }
+    },
+    "widget.gallery.hijriDate.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Islamic date" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "التاريخ الهجري" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "اسلامی تاریخ" } }
+      }
+    },
+    "widget.gallery.hijriDate.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Hijri and Gregorian date." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "التاريخ الهجري والميلادي." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "ہجری اور عیسوی تاریخ۔" } }
+      }
+    },
+    "widget.gallery.qibla.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Qibla" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "القبلة" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "قبلہ" } }
+      }
+    },
+    "widget.gallery.qibla.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Compass bearing toward the Kaaba." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "اتجاه القبلة نحو الكعبة." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "کعبہ کی سمت۔" } }
+      }
+    },
+    "widget.gallery.tasbeeh.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Tasbeeh" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "التسبيح" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "تسبیح" } }
+      }
+    },
+    "widget.gallery.tasbeeh.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Today's tasbeeh count and target at a glance." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "عدد التسبيح وهدف اليوم في لمحة." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "آج کی تسبیح کی گنتی اور ہدف ایک نظر میں۔" } }
+      }
+    },
+    "widget.gallery.friday.label": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Jumu'ah" } },
+        "ar": { "stringUnit": { "state": "translated", "value": "الجمعة" } },
+        "ur": { "stringUnit": { "state": "translated", "value": "جمعہ" } }
+      }
+    },
+    "widget.gallery.friday.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Friday checklist progress or a countdown to Jumu'ah." } },
+        "ar": { "stringUnit": { "state": "translated", "value": "تقدّم قائمة الجمعة أو عدّ تنازلي حتى الجمعة." } },
+        "ur": { "stringUnit": { "state": "translated", "value": "جمعہ کی چیک لسٹ کی پیش رفت یا جمعہ تک کاؤنٹ ڈاؤن۔" } }
+      }
+    }
+  },
+  "version": "1.0"
+}

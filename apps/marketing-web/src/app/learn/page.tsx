@@ -1,0 +1,341 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
+import type { LucideIcon } from "lucide-react";
+import {
+  BarChart3,
+  BookOpenCheck,
+  Calendar,
+  Compass,
+  Flame,
+  GraduationCap,
+  Hand,
+  Heart,
+  Languages,
+  ListChecks,
+  Moon,
+  Scale,
+  ScrollText,
+  Sparkles,
+  Swords,
+  Users,
+  WifiOff,
+} from "lucide-react";
+import type { Metadata } from "next";
+import { PageAtmosphere, PageMasthead } from "@/components/content-page";
+import { CtaBand } from "@/components/cta-band";
+import { Section } from "@/components/section";
+import { TrackedButton } from "@/components/tracked-button";
+import { SpotlightCard } from "@/components/ui/interactive";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
+import { SITE_PATHS } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Learn",
+  description: `The ${APP_NAME} learning library — 350+ cited topics on aqeedah, prophets, seerah, the Hereafter, Qur'an study, sahaba, learn dua, and fiqh guides.`,
+};
+
+type Area = { icon: LucideIcon; title: string; meta: string; description: string };
+
+const KNOWLEDGE: Area[] = [
+  {
+    icon: BookOpenCheck,
+    title: "Aqeedah",
+    meta: "24 topics + glossary",
+    description: "The six articles of faith, tawheed, and the names and attributes of Allah.",
+  },
+  {
+    icon: Users,
+    title: "The Prophets",
+    meta: "25 prophets + timeline",
+    description: "From Adam to Muhammad ﷺ, with the lessons carried by each story.",
+  },
+  {
+    icon: Swords,
+    title: "Seerah & battles",
+    meta: "30-event life + 21 battles",
+    description: "The life of the Prophet ﷺ and the major campaigns, with leadership lessons.",
+  },
+  {
+    icon: Sparkles,
+    title: "Jannah",
+    meta: "45 topics · 8 gates",
+    description: "The reality of Paradise, its ranks, and the deeds that open its gates.",
+  },
+  {
+    icon: Flame,
+    title: "Jahannam",
+    meta: "16 topics",
+    description:
+      "A balanced warning — its names, major sins, and the ever-open door of repentance.",
+  },
+  {
+    icon: Scale,
+    title: "The Last Day",
+    meta: "20 lessons + quiz",
+    description: "The signs, the reckoning, the Scale, and the Bridge — with an interactive quiz.",
+  },
+];
+
+const QURAN: Area[] = [
+  {
+    icon: Languages,
+    title: "Read the Arabic",
+    meta: "28 letter cards",
+    description: "Letters and their forms, pronunciation drills, and a learn-to-read path.",
+  },
+  {
+    icon: ListChecks,
+    title: "Tajweed",
+    meta: "Core rules + drills",
+    description: "Noon and meem sakinah, madd, qalqalah, ghunnah, and the rules of stopping.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Memorize",
+    meta: "Structured plans",
+    description: "Hifz plans, revision, and khatm tracking to keep you moving.",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "Understand & reflect",
+    meta: "13 themes · stories",
+    description: "Themes, prophet stories, vocabulary by root, and daily tadabbur prompts.",
+  },
+];
+
+const FIQH: Area[] = [
+  {
+    icon: Compass,
+    title: "Salah guide",
+    meta: "24 lessons",
+    description: "From why we pray to khushu' and making up missed prayers, step by step.",
+  },
+  {
+    icon: WifiOff,
+    title: "Taharah",
+    meta: "28 topics + checklist",
+    description: "Wudu, ghusl, and tayammum with a daily purification checklist.",
+  },
+  {
+    icon: BarChart3,
+    title: "Zakat",
+    meta: "Calculator + evidence",
+    description: "Nisab thresholds, an interactive calculator, and Qur'an and hadith evidence.",
+  },
+  {
+    icon: ScrollText,
+    title: "Hajj & Umrah",
+    meta: "Learn + checklists",
+    description: "An interactive, offline checklist for every rite with location context.",
+  },
+  {
+    icon: Users,
+    title: "Travel, illness & hayd",
+    meta: "Concessions",
+    description:
+      "Qasr and jam', worship when ill, and menstruation fiqh — worship at your capacity.",
+  },
+  {
+    icon: Moon,
+    title: "Ramadan, tahajjud & journal",
+    meta: "Trackers + khushu'",
+    description:
+      "A fasting tracker with suhoor/iftar times, a night-prayer log, and a khushu' prayer journal.",
+  },
+];
+
+const MORE: Area[] = [
+  {
+    icon: Users,
+    title: "The Sahaba",
+    meta: "30 companions",
+    description: "Virtues, lessons, and citations from the noble companions of the Prophet ﷺ.",
+  },
+  {
+    icon: ScrollText,
+    title: "Early Islamic history",
+    meta: "15 topics",
+    description:
+      "From the Khulafa Rashidun through the Umayyad period — context for today's ummah.",
+  },
+  {
+    icon: Hand,
+    title: "Learn dua",
+    meta: "46 topics",
+    description:
+      "When and how to supplicate — with Arabic, transliteration, and evidence for each occasion.",
+  },
+  {
+    icon: Heart,
+    title: "New Muslim guide",
+    meta: "18 topics",
+    description:
+      "A gentle on-ramp for converts — salah, wudu, adhkar, and building a daily rhythm.",
+  },
+  {
+    icon: Moon,
+    title: "Laylat al-Qadr",
+    meta: "8 topics",
+    description:
+      "The Night of Decree — its virtue, signs, and how to seek it in the last ten nights.",
+  },
+  {
+    icon: Calendar,
+    title: "Eid guide",
+    meta: "6 topics",
+    description: "Fitr and Adha — takbir, prayer, sunnah acts, and the spirit of celebration.",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "Ruqyah",
+    meta: "8 topics",
+    description: "Qur'anic and prophetic healing supplications — with conditions and etiquette.",
+  },
+  {
+    icon: BarChart3,
+    title: "Islamic finance",
+    meta: "14 topics",
+    description:
+      "Riba, halal income, zakat principles, and everyday money matters — educational, not fatwa.",
+  },
+];
+
+const HOW: { icon: LucideIcon; title: string; description: string }[] = [
+  {
+    icon: BookOpenCheck,
+    title: "Referenced to source",
+    description: "Every claim is tied to the Qur'an and graded hadith, with collection and number.",
+  },
+  {
+    icon: BarChart3,
+    title: "Track your progress",
+    description: "Per-topic completion means you always know exactly where you left off.",
+  },
+  {
+    icon: Scale,
+    title: "Quizzes & timelines",
+    description: "Interactive quizzes and visual timelines make what you learn actually stick.",
+  },
+  {
+    icon: WifiOff,
+    title: "Fully offline",
+    description: "The entire library works without a connection — read anywhere, anytime.",
+  },
+];
+
+function AreaGrid({ areas }: { areas: Area[] }) {
+  return (
+    <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {areas.map(({ icon: Icon, title, meta, description }) => (
+        <StaggerItem key={title} className="min-h-full">
+          <SpotlightCard className="h-full p-6">
+            <div className="flex items-center gap-3">
+              <span className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15">
+                <Icon className="size-5" />
+              </span>
+              <span className="rounded-full border border-border/60 bg-background/60 px-2.5 py-1 text-xs font-medium text-muted">
+                {meta}
+              </span>
+            </div>
+            <h3 className="mt-4 font-display text-lg font-semibold text-foreground">{title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
+          </SpotlightCard>
+        </StaggerItem>
+      ))}
+    </Stagger>
+  );
+}
+
+export default function LearnPage() {
+  return (
+    <div className="relative flex flex-1 flex-col">
+      <PageAtmosphere />
+
+      <div className="relative mx-auto w-full max-w-6xl px-6 pt-8 md:px-8 md:pt-12">
+        <PageMasthead
+          eyebrow="Learn"
+          title="Learn your deen, deeply"
+          intro={`${APP_NAME} is more than a tracker. It's a structured path reviewed for authenticity — creed, history, the Qur'an, and fiqh with progress, quizzes, and citations on every lesson.`}
+          actions={
+            <>
+              <TrackedButton href={SITE_PATHS.download} size="lg" cta="get_app" placement="learn">
+                Get the app
+              </TrackedButton>
+              <TrackedButton
+                href={SITE_PATHS.features}
+                variant="outline"
+                size="lg"
+                cta="explore_features"
+                placement="learn"
+              >
+                See all features
+              </TrackedButton>
+            </>
+          }
+        />
+      </div>
+
+      <Section
+        align="left"
+        eyebrow="Islamic knowledge"
+        title="Creed, history & the Hereafter"
+        description="Ground your imaan in what you believe, where you come from, and where you're going."
+      >
+        <AreaGrid areas={KNOWLEDGE} />
+      </Section>
+
+      <Section
+        align="left"
+        variant="muted"
+        eyebrow="The Qur'an"
+        title="Read, understand, and memorize"
+        description="A guided path from the Arabic letters to tajweed, memorization, and reflection."
+      >
+        <AreaGrid areas={QURAN} />
+      </Section>
+
+      <Section
+        align="left"
+        eyebrow="Fiqh & how-to"
+        title="Practical worship guides"
+        description="Clear, evidence-based guides with checklists, calculators, and trackers for everyday worship."
+      >
+        <AreaGrid areas={FIQH} />
+      </Section>
+
+      <Section
+        align="left"
+        variant="muted"
+        eyebrow="Beyond the basics"
+        title="Companions, dua & life guides"
+        description="Practical topics for every season — from the sahaba and early history to Laylat al-Qadr, Eid, and everyday finance."
+      >
+        <AreaGrid areas={MORE} />
+      </Section>
+
+      <Section
+        align="left"
+        eyebrow="Built on trust"
+        title="Knowledge you can rely on"
+        description="The library is designed to teach faithfully — cited, tracked, and always available."
+      >
+        <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {HOW.map(({ icon: Icon, title, description }) => (
+            <StaggerItem key={title} className="min-h-full">
+              <SpotlightCard className="h-full p-6">
+                <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15">
+                  <Icon className="size-5" />
+                </div>
+                <h3 className="mt-4 font-display text-base font-semibold text-foreground">
+                  {title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
+              </SpotlightCard>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </Section>
+
+      <CtaBand />
+    </div>
+  );
+}

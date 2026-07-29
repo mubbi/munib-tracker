@@ -1,0 +1,72 @@
+{
+  "/": [
+    {
+      "question": "What is Munib Tracker?",
+      "answer": "Munib Tracker is a free, offline-first Islamic companion app. It helps Muslims track their five daily prayers (salah), make up missed prayers (qaza), and keep up daily zikr — alongside the Qur'an, hadith, duas, the 99 Names of Allah, prayer times, and a qibla compass."
+    },
+    {
+      "question": "Is Munib Tracker free to use?",
+      "answer": "Yes. Munib Tracker is completely free, with no ads, subscriptions, or in-app purchases. You can use the whole app as a guest without creating an account."
+    },
+    {
+      "question": "Does Munib Tracker work offline?",
+      "answer": "Yes. Munib Tracker is offline-first. The Qur'an, hadith, duas, adhkar, the 99 Names, and your tracking data all work without an internet connection. Prayer times and the qibla are calculated on your device."
+    },
+    {
+      "question": "Do I need to sign in to use it?",
+      "answer": "No. Every feature is available in guest mode and your data stays on your device. Signing in is optional and only used to back up and sync your worship data across devices."
+    },
+    {
+      "question": "What can I track with Munib Tracker?",
+      "answer": "You can track the five daily fard prayers plus Witr and sunnah prayers, missed (qaza) prayers and fasts, and daily zikr. Streaks, a calendar, statistics, and gentle reminders help you stay consistent."
+    },
+    {
+      "question": "How are prayer times calculated?",
+      "answer": "Prayer times are calculated locally from your location using standard astronomical methods, and shown with a live countdown, the Hijri date, and the qibla direction toward the Kaaba in Makkah."
+    }
+  ],
+  "/qibla": [
+    {
+      "question": "What is the qibla?",
+      "answer": "The qibla is the direction Muslims face during prayer — toward the Kaaba in the Sacred Masjid (Masjid al-Haram) in Makkah."
+    },
+    {
+      "question": "How does the qibla finder work?",
+      "answer": "It calculates the great-circle bearing from your current location to the Kaaba in Makkah and shows it on a compass, along with the distance."
+    }
+  ],
+  "/qaza": [
+    {
+      "question": "What is qaza salah?",
+      "answer": "Qaza salah is a prayer performed after its prescribed time has passed. The majority of scholars hold that missed obligatory prayers must be made up."
+    },
+    {
+      "question": "How do I make up missed prayers?",
+      "answer": "Track how many prayers you owe per type, then pray extra make-up prayers alongside your daily prayers at a steady pace until the backlog is cleared."
+    },
+    {
+      "question": "Is missed Witr counted as qaza?",
+      "answer": "It depends on your madhhab: the Hanafi school treats Witr as wajib and requires making it up, while the Shafi'i, Maliki, and Hanbali schools treat it as a strongly emphasized sunnah for which make-up is recommended."
+    }
+  ],
+  "/qaza/calculator": [
+    {
+      "question": "How does the qaza prayer calculator work?",
+      "answer": "It estimates your missed prayers from the years between puberty and when you began praying consistently, minus any exempt days, giving one make-up of each daily prayer per missed day."
+    },
+    {
+      "question": "Is the estimate exact?",
+      "answer": "No. It is an approximation to help you plan. Rulings on making up missed prayers vary — consult a knowledgeable scholar for your situation."
+    }
+  ],
+  "/tasbeeh/free": [
+    {
+      "question": "What is a digital tasbeeh counter?",
+      "answer": "A digital tasbeeh is an on-screen tap counter that replaces prayer beads (misbaha) for counting zikr such as SubhanAllah, Alhamdulillah, and Allahu Akbar."
+    },
+    {
+      "question": "Can I set a custom target count?",
+      "answer": "Yes. You can count freely or set a target such as 33, 100, or 313, and the counter tracks your progress toward it."
+    }
+  ]
+}

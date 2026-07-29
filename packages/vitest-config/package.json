@@ -1,0 +1,23 @@
+{
+  "name": "@munib-tracker/vitest-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./setup": "./src/setup.ts"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "check-types": "tsc --noEmit",
+    "transit": "echo transit"
+  },
+  "devDependencies": {
+    "@munib-tracker/typescript-config": "workspace:*",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@vitejs/plugin-react": "^4.5.0",
+    "@vitest/coverage-v8": "^3.2.0",
+    "typescript": "^6.0.0",
+    "vitest": "^3.2.0"
+  }
+}

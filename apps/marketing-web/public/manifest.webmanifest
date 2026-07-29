@@ -1,0 +1,32 @@
+{
+  "name": "Munib Tracker",
+  "short_name": "Munib",
+  "description": "Track Your Journey Back to Allah.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#152921",
+  "theme_color": "#152921",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "categories": ["lifestyle", "education"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

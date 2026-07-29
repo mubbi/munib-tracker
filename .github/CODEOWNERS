@@ -1,0 +1,11 @@
+# Default owners — adjust GitHub usernames as the team grows
+* @mubbi
+
+/apps/app/ @mubbi
+/apps/api/ @mubbi
+/apps/admin/ @mubbi
+/apps/marketing-web/ @mubbi
+/packages/ @mubbi
+/tools/ @mubbi
+/.github/ @mubbi
+/docs/ @mubbi

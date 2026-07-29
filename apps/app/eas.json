@@ -1,0 +1,42 @@
+{
+  "cli": {
+    "version": ">= 16.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "development_tv": {
+      "extends": "development",
+      "env": {
+        "EXPO_TV": "1"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "preview_tv": {
+      "extends": "preview",
+      "env": {
+        "EXPO_TV": "1"
+      }
+    },
+    "production": {
+      "autoIncrement": true
+    },
+    "production_tv": {
+      "extends": "production",
+      "env": {
+        "EXPO_TV": "1"
+      }
+    }
+  },
+  "submit": {
+    "production": {},
+    "production_tv": {
+      "extends": "production"
+    }
+  }
+}

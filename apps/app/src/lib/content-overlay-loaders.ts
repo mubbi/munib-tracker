@@ -1,0 +1,873 @@
+/**
+ * Lazy loaders for Learn-content overlay modules.
+ * Generated — do not edit by hand. Re-run:
+ *   node apps/app/scripts/generate-content-overlay-loaders.mjs
+ *
+ * Dynamic import() keeps inactive locales out of the web entry chunk
+ * and defers native module evaluation until a locale is preloaded.
+ */
+import type { OverlayLocale } from "@munib-tracker/shared/content-i18n";
+
+export const CONTENT_OVERLAY_CORPORA = [
+  "aqeedah",
+  "battles",
+  "eid-guide",
+  "fidyah-guide",
+  "friday-guide",
+  "hajj",
+  "islamic-finance",
+  "islamic-history",
+  "jahannam",
+  "janazah-guide",
+  "jannah",
+  "last-day",
+  "laylat-al-qadr",
+  "learn-dua",
+  "new-muslim",
+  "prophets",
+  "prophets-genealogy",
+  "quran-guide",
+  "ruqyah",
+  "sahaba",
+  "salah-guide",
+  "seerah",
+  "taharah",
+  "white-days-guide",
+] as const;
+export type ContentOverlayCorpus = (typeof CONTENT_OVERLAY_CORPORA)[number];
+
+export const OVERLAY_BASE_KEY_CORPUS: Record<string, ContentOverlayCorpus> = {
+  AQEDAH_TOPICS: "aqeedah",
+  AQEDAH_GLOSSARY: "aqeedah",
+  BATTLES_TOPICS: "battles",
+  BATTLES_AFTER_PROPHET: "battles",
+  BATTLES_VERSES: "battles",
+  BATTLES_TIMELINE: "battles",
+  BATTLES_FIGURES: "battles",
+  BATTLES_LESSON_CARDS: "battles",
+  BATTLES_GLOSSARY: "battles",
+  EID_GUIDE_TOPICS: "eid-guide",
+  FIDYAH_GUIDE_TOPICS: "fidyah-guide",
+  FRIDAY_GUIDE_TOPICS: "friday-guide",
+  HAJJ_GUIDE_TOPICS: "hajj",
+  HAJJ_CHECKLIST: "hajj",
+  UMRAH_CHECKLIST: "hajj",
+  ISLAMIC_FINANCE_TOPICS: "islamic-finance",
+  ISLAMIC_HISTORY_EVENTS: "islamic-history",
+  JAHANNAM_CORE_TOPICS: "jahannam",
+  JAHANNAM_MAJOR_SIN_TOPICS: "jahannam",
+  JAHANNAM_NAMES: "jahannam",
+  JAHANNAM_GATES: "jahannam",
+  JAHANNAM_VERSES: "jahannam",
+  JAHANNAM_HADITH: "jahannam",
+  JAHANNAM_REFLECTIONS: "jahannam",
+  JAHANNAM_REFERENCES: "jahannam",
+  JAHANNAM_DUAS: "jahannam",
+  JAHANNAM_REFUGE_DUA: "jahannam",
+  JANAZAH_GUIDE_TOPICS: "janazah-guide",
+  JANNAH_TOPICS: "jannah",
+  JANNAH_GATES: "jannah",
+  JANNAH_VERSES: "jannah",
+  JANNAH_DUAS: "jannah",
+  JANNAH_PROMISED: "jannah",
+  JANNAH_FIRDAWS_DUA: "jannah",
+  LAST_DAY_TOPICS: "last-day",
+  LAST_DAY_HADITH: "last-day",
+  LAST_DAY_VERSES: "last-day",
+  LAST_DAY_TIMELINE: "last-day",
+  LAST_DAY_QUIZ: "last-day",
+  LAST_DAY_REFERENCES: "last-day",
+  LAYLAT_AL_QADR_TOPICS: "laylat-al-qadr",
+  LEARN_DUA_TOPICS: "learn-dua",
+  LEARN_DUA_OCCASIONS: "learn-dua",
+  NEW_MUSLIM_TOPICS: "new-muslim",
+  PROPHETS_TOPICS: "prophets",
+  PROPHETS_BIO_TOPICS: "prophets",
+  PROPHETS_TIMELINE: "prophets",
+  PROPHETS_GENEALOGY_NODES: "prophets-genealogy",
+  QURAN_GUIDE_TOPICS: "quran-guide",
+  QURAN_GUIDE_STRUCTURE_LEVELS: "quran-guide",
+  QURAN_GUIDE_TIMELINE: "quran-guide",
+  QURAN_GUIDE_STORIES: "quran-guide",
+  QURAN_GUIDE_THEMES: "quran-guide",
+  QURAN_GUIDE_TAJWEED: "quran-guide",
+  QURAN_GUIDE_VOCABULARY: "quran-guide",
+  QURAN_GUIDE_LETTERS: "quran-guide",
+  QURAN_GUIDE_PRONUNCIATION: "quran-guide",
+  QURAN_GUIDE_MEMORIZATION_PLANS: "quran-guide",
+  QURAN_GUIDE_DAILY_LESSONS: "quran-guide",
+  QURAN_GUIDE_APPLY_CHALLENGES: "quran-guide",
+  QURAN_GUIDE_TADABBUR_PROMPTS: "quran-guide",
+  QURAN_GUIDE_READING_LEVELS: "quran-guide",
+  QURAN_GUIDE_QUIZ: "quran-guide",
+  RUQYAH_TOPICS: "ruqyah",
+  SAHABA_PROFILES: "sahaba",
+  SALAH_GUIDE_TOPICS: "salah-guide",
+  SALAH_GUIDE_PHRASES: "salah-guide",
+  SALAH_GUIDE_QUIZ: "salah-guide",
+  SEERAH_EVENTS: "seerah",
+  TAHARAH_TOPICS: "taharah",
+  TAHARAH_CHECKLIST: "taharah",
+  WHITE_DAYS_GUIDE_TOPICS: "white-days-guide",
+};
+
+type OverlayModule = Record<string, unknown>;
+type LocaleLoader = () => Promise<OverlayModule>;
+
+export const CONTENT_OVERLAY_LOADERS: Record<
+  ContentOverlayCorpus,
+  Record<OverlayLocale, LocaleLoader>
+> = {
+  aqeedah: {
+    ar: () => import("@munib-tracker/shared/content/i18n/aqeedah.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/aqeedah.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/aqeedah.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/aqeedah.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/aqeedah.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/aqeedah.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/aqeedah.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/aqeedah.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/aqeedah.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/aqeedah.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/aqeedah.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/aqeedah.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/aqeedah.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/aqeedah.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/aqeedah.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/aqeedah.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/aqeedah.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/aqeedah.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/aqeedah.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/aqeedah.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/aqeedah.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/aqeedah.uz") as Promise<OverlayModule>,
+  },
+  battles: {
+    ar: () => import("@munib-tracker/shared/content/i18n/battles.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/battles.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/battles.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/battles.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/battles.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/battles.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/battles.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/battles.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/battles.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/battles.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/battles.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/battles.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/battles.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/battles.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/battles.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/battles.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/battles.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/battles.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/battles.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/battles.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/battles.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/battles.uz") as Promise<OverlayModule>,
+  },
+  "eid-guide": {
+    ar: () => import("@munib-tracker/shared/content/i18n/eid-guide.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/eid-guide.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/eid-guide.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/eid-guide.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/eid-guide.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/eid-guide.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/eid-guide.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/eid-guide.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/eid-guide.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/eid-guide.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/eid-guide.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/eid-guide.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/eid-guide.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/eid-guide.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/eid-guide.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/eid-guide.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/eid-guide.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/eid-guide.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/eid-guide.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/eid-guide.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/eid-guide.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/eid-guide.uz") as Promise<OverlayModule>,
+  },
+  "fidyah-guide": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.uz") as Promise<OverlayModule>,
+  },
+  "friday-guide": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.uz") as Promise<OverlayModule>,
+  },
+  hajj: {
+    ar: () => import("@munib-tracker/shared/content/i18n/hajj.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/hajj.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/hajj.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/hajj.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/hajj.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/hajj.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/hajj.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/hajj.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/hajj.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/hajj.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/hajj.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/hajj.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/hajj.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/hajj.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/hajj.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/hajj.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/hajj.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/hajj.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/hajj.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/hajj.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/hajj.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/hajj.uz") as Promise<OverlayModule>,
+  },
+  "islamic-finance": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.uz") as Promise<OverlayModule>,
+  },
+  "islamic-history": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.uz") as Promise<OverlayModule>,
+  },
+  jahannam: {
+    ar: () => import("@munib-tracker/shared/content/i18n/jahannam.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/jahannam.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/jahannam.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/jahannam.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/jahannam.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/jahannam.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/jahannam.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/jahannam.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/jahannam.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/jahannam.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/jahannam.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/jahannam.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/jahannam.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/jahannam.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/jahannam.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/jahannam.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/jahannam.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/jahannam.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/jahannam.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/jahannam.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/jahannam.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/jahannam.uz") as Promise<OverlayModule>,
+  },
+  "janazah-guide": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.uz") as Promise<OverlayModule>,
+  },
+  jannah: {
+    ar: () => import("@munib-tracker/shared/content/i18n/jannah.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/jannah.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/jannah.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/jannah.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/jannah.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/jannah.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/jannah.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/jannah.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/jannah.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/jannah.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/jannah.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/jannah.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/jannah.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/jannah.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/jannah.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/jannah.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/jannah.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/jannah.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/jannah.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/jannah.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/jannah.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/jannah.uz") as Promise<OverlayModule>,
+  },
+  "last-day": {
+    ar: () => import("@munib-tracker/shared/content/i18n/last-day.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/last-day.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/last-day.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/last-day.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/last-day.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/last-day.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/last-day.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/last-day.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/last-day.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/last-day.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/last-day.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/last-day.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/last-day.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/last-day.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/last-day.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/last-day.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/last-day.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/last-day.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/last-day.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/last-day.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/last-day.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/last-day.uz") as Promise<OverlayModule>,
+  },
+  "laylat-al-qadr": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.uz") as Promise<OverlayModule>,
+  },
+  "learn-dua": {
+    ar: () => import("@munib-tracker/shared/content/i18n/learn-dua.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/learn-dua.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/learn-dua.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/learn-dua.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/learn-dua.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/learn-dua.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/learn-dua.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/learn-dua.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/learn-dua.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/learn-dua.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/learn-dua.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/learn-dua.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/learn-dua.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/learn-dua.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/learn-dua.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/learn-dua.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/learn-dua.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/learn-dua.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/learn-dua.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/learn-dua.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/learn-dua.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/learn-dua.uz") as Promise<OverlayModule>,
+  },
+  "new-muslim": {
+    ar: () => import("@munib-tracker/shared/content/i18n/new-muslim.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/new-muslim.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/new-muslim.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/new-muslim.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/new-muslim.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/new-muslim.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/new-muslim.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/new-muslim.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/new-muslim.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/new-muslim.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/new-muslim.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/new-muslim.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/new-muslim.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/new-muslim.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/new-muslim.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/new-muslim.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/new-muslim.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/new-muslim.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/new-muslim.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/new-muslim.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/new-muslim.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/new-muslim.uz") as Promise<OverlayModule>,
+  },
+  prophets: {
+    ar: () => import("@munib-tracker/shared/content/i18n/prophets.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/prophets.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/prophets.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/prophets.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/prophets.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/prophets.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/prophets.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/prophets.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/prophets.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/prophets.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/prophets.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/prophets.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/prophets.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/prophets.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/prophets.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/prophets.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/prophets.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/prophets.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/prophets.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/prophets.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/prophets.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/prophets.uz") as Promise<OverlayModule>,
+  },
+  "prophets-genealogy": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.uz") as Promise<OverlayModule>,
+  },
+  "quran-guide": {
+    ar: () => import("@munib-tracker/shared/content/i18n/quran-guide.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/quran-guide.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/quran-guide.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/quran-guide.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/quran-guide.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/quran-guide.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/quran-guide.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/quran-guide.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/quran-guide.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/quran-guide.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/quran-guide.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/quran-guide.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/quran-guide.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/quran-guide.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/quran-guide.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/quran-guide.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/quran-guide.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/quran-guide.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/quran-guide.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/quran-guide.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/quran-guide.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/quran-guide.uz") as Promise<OverlayModule>,
+  },
+  ruqyah: {
+    ar: () => import("@munib-tracker/shared/content/i18n/ruqyah.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/ruqyah.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/ruqyah.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/ruqyah.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/ruqyah.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/ruqyah.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/ruqyah.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/ruqyah.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/ruqyah.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/ruqyah.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/ruqyah.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/ruqyah.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/ruqyah.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/ruqyah.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/ruqyah.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/ruqyah.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/ruqyah.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/ruqyah.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/ruqyah.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/ruqyah.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/ruqyah.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/ruqyah.uz") as Promise<OverlayModule>,
+  },
+  sahaba: {
+    ar: () => import("@munib-tracker/shared/content/i18n/sahaba.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/sahaba.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/sahaba.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/sahaba.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/sahaba.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/sahaba.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/sahaba.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/sahaba.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/sahaba.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/sahaba.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/sahaba.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/sahaba.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/sahaba.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/sahaba.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/sahaba.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/sahaba.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/sahaba.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/sahaba.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/sahaba.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/sahaba.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/sahaba.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/sahaba.uz") as Promise<OverlayModule>,
+  },
+  "salah-guide": {
+    ar: () => import("@munib-tracker/shared/content/i18n/salah-guide.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/salah-guide.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/salah-guide.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/salah-guide.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/salah-guide.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/salah-guide.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/salah-guide.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/salah-guide.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/salah-guide.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/salah-guide.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/salah-guide.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/salah-guide.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/salah-guide.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/salah-guide.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/salah-guide.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/salah-guide.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/salah-guide.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/salah-guide.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/salah-guide.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/salah-guide.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/salah-guide.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/salah-guide.uz") as Promise<OverlayModule>,
+  },
+  seerah: {
+    ar: () => import("@munib-tracker/shared/content/i18n/seerah.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/seerah.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/seerah.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/seerah.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/seerah.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/seerah.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/seerah.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/seerah.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/seerah.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/seerah.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/seerah.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/seerah.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/seerah.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/seerah.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/seerah.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/seerah.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/seerah.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/seerah.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/seerah.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/seerah.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/seerah.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/seerah.uz") as Promise<OverlayModule>,
+  },
+  taharah: {
+    ar: () => import("@munib-tracker/shared/content/i18n/taharah.ar") as Promise<OverlayModule>,
+    az: () => import("@munib-tracker/shared/content/i18n/taharah.az") as Promise<OverlayModule>,
+    bn: () => import("@munib-tracker/shared/content/i18n/taharah.bn") as Promise<OverlayModule>,
+    bs: () => import("@munib-tracker/shared/content/i18n/taharah.bs") as Promise<OverlayModule>,
+    fa: () => import("@munib-tracker/shared/content/i18n/taharah.fa") as Promise<OverlayModule>,
+    fr: () => import("@munib-tracker/shared/content/i18n/taharah.fr") as Promise<OverlayModule>,
+    ha: () => import("@munib-tracker/shared/content/i18n/taharah.ha") as Promise<OverlayModule>,
+    id: () => import("@munib-tracker/shared/content/i18n/taharah.id") as Promise<OverlayModule>,
+    kk: () => import("@munib-tracker/shared/content/i18n/taharah.kk") as Promise<OverlayModule>,
+    ku: () => import("@munib-tracker/shared/content/i18n/taharah.ku") as Promise<OverlayModule>,
+    ky: () => import("@munib-tracker/shared/content/i18n/taharah.ky") as Promise<OverlayModule>,
+    ms: () => import("@munib-tracker/shared/content/i18n/taharah.ms") as Promise<OverlayModule>,
+    ps: () => import("@munib-tracker/shared/content/i18n/taharah.ps") as Promise<OverlayModule>,
+    ru: () => import("@munib-tracker/shared/content/i18n/taharah.ru") as Promise<OverlayModule>,
+    so: () => import("@munib-tracker/shared/content/i18n/taharah.so") as Promise<OverlayModule>,
+    sq: () => import("@munib-tracker/shared/content/i18n/taharah.sq") as Promise<OverlayModule>,
+    sw: () => import("@munib-tracker/shared/content/i18n/taharah.sw") as Promise<OverlayModule>,
+    tg: () => import("@munib-tracker/shared/content/i18n/taharah.tg") as Promise<OverlayModule>,
+    tk: () => import("@munib-tracker/shared/content/i18n/taharah.tk") as Promise<OverlayModule>,
+    tr: () => import("@munib-tracker/shared/content/i18n/taharah.tr") as Promise<OverlayModule>,
+    ur: () => import("@munib-tracker/shared/content/i18n/taharah.ur") as Promise<OverlayModule>,
+    uz: () => import("@munib-tracker/shared/content/i18n/taharah.uz") as Promise<OverlayModule>,
+  },
+  "white-days-guide": {
+    ar: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ar") as Promise<OverlayModule>,
+    az: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.az") as Promise<OverlayModule>,
+    bn: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.bn") as Promise<OverlayModule>,
+    bs: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.bs") as Promise<OverlayModule>,
+    fa: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.fa") as Promise<OverlayModule>,
+    fr: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.fr") as Promise<OverlayModule>,
+    ha: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ha") as Promise<OverlayModule>,
+    id: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.id") as Promise<OverlayModule>,
+    kk: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.kk") as Promise<OverlayModule>,
+    ku: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ku") as Promise<OverlayModule>,
+    ky: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ky") as Promise<OverlayModule>,
+    ms: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ms") as Promise<OverlayModule>,
+    ps: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ps") as Promise<OverlayModule>,
+    ru: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ru") as Promise<OverlayModule>,
+    so: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.so") as Promise<OverlayModule>,
+    sq: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.sq") as Promise<OverlayModule>,
+    sw: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.sw") as Promise<OverlayModule>,
+    tg: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.tg") as Promise<OverlayModule>,
+    tk: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.tk") as Promise<OverlayModule>,
+    tr: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.tr") as Promise<OverlayModule>,
+    ur: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.ur") as Promise<OverlayModule>,
+    uz: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.uz") as Promise<OverlayModule>,
+  },
+};

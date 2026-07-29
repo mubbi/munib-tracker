@@ -1,0 +1,504 @@
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Platform, StyleSheet, View } from "react-native";
+import Animated, {
+  type SharedValue,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import { ReadingFontControls } from "@/components/reading-font-controls";
+import { ThemedText } from "@/components/themed-text";
+import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
+import { PressableScale } from "@/components/ui/pressable-scale";
+import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
+import { Durations } from "@/constants/motion";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
+import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
+import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
+import { filterValueTextStyle, ltrControlViewProps } from "@/lib/rtl";
+
+/** SF Symbols → Material fallbacks for each toolbar chip. */
+const TOOLBAR_ICONS = {
+  reciter: { ios: "person.wave.2.fill", android: "record_voice_over", web: "record_voice_over" },
+  translation: { ios: "translate", android: "translate", web: "translate" },
+  secondTranslation: { ios: "globe", android: "language", web: "language" },
+  tafsir: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
+  transliteration: { ios: "textformat.abc", android: "abc", web: "abc" },
+  showTranslation: { ios: "text.alignleft", android: "notes", web: "notes" },
+  wordByWord: { ios: "text.word.spacing", android: "space_bar", web: "space_bar" },
+  tajweed: { ios: "paintpalette.fill", android: "palette", web: "palette" },
+  playback: { ios: "slider.horizontal.3", android: "tune", web: "tune" },
+  textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
+  page: { ios: "list.number", android: "format_list_numbered", web: "format_list_numbered" },
+  layout: { ios: "book.pages", android: "menu_book", web: "menu_book" },
+  enterFullscreen: {
+    ios: "arrow.up.left.and.arrow.down.right",
+    android: "fullscreen",
+    web: "fullscreen",
+  },
+  exitFullscreen: {
+    ios: "arrow.down.right.and.arrow.up.left",
+    android: "fullscreen_exit",
+    web: "fullscreen_exit",
+  },
+} as const satisfies Record<string, SymbolViewProps["name"]>;
+
+type ReadingToolbarProps = {
+  /** Slide/fade the bar in once the header card has scrolled out of view. */
+  visible: boolean;
+  /** 0→1 reading progress driving the fill line beneath the toolbar. */
+  progress: SharedValue<number>;
+  reciterName: string;
+  translationName: string;
+  secondTranslationName: string;
+  tafsirName?: string;
+  showTransliteration: boolean;
+  showTranslation: boolean;
+  showWordByWord?: boolean;
+  showTajweed?: boolean;
+  layoutLabel?: string;
+  onOpenLayout?: () => void;
+  /** Optional page indicator (e.g. "Page 12 of 604") that opens the page picker. */
+  pageLabel?: string;
+  onOpenPage?: () => void;
+  /** Hide the back-to-top affordance (e.g. page reader where page nav lives in the footer). */
+  showBackToTop?: boolean;
+  onBackToTop?: () => void;
+  /** Hide translation / transliteration controls (e.g. mushaf is Arabic-only). */
+  showTranslationControls?: boolean;
+  onOpenReciter: () => void;
+  onOpenTranslation: () => void;
+  onOpenSecondary: () => void;
+  onOpenTafsir?: () => void;
+  onToggleTransliteration: () => void;
+  onToggleTranslation: () => void;
+  onToggleWordByWord?: () => void;
+  onToggleTajweed?: () => void;
+  /** Opens the ayah-study playback settings sheet (repeat / translation TTS). */
+  onOpenPlayback?: () => void;
+  /** Compact summary of active playback settings (e.g. "Range 1–2"). */
+  playbackLabel?: string;
+  /** Highlight the playback chip when non-default settings are applied. */
+  playbackActive?: boolean;
+};
+
+/**
+ * Flat, horizontally-scrollable reading controls that ride beneath the header
+ * once the header card has scrolled out of view — a compact echo of that card so
+ * the reciter, translations, transliteration, and text size can be changed
+ * mid-scroll without jumping back to the top.
+ */
+export function QuranReadingToolbar({
+  visible,
+  progress,
+  reciterName,
+  translationName,
+  secondTranslationName,
+  tafsirName,
+  showTransliteration,
+  showTranslation,
+  showWordByWord = false,
+  showTajweed = false,
+  layoutLabel,
+  onOpenLayout,
+  pageLabel,
+  onOpenPage,
+  showBackToTop = true,
+  onBackToTop,
+  showTranslationControls = true,
+  onOpenReciter,
+  onOpenTranslation,
+  onOpenSecondary,
+  onOpenTafsir,
+  onToggleTransliteration,
+  onToggleTranslation,
+  onToggleWordByWord,
+  onToggleTajweed,
+  onOpenPlayback,
+  playbackLabel,
+  playbackActive = false,
+}: ReadingToolbarProps) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const scrollRef = useHorizontalWheelScroll();
+  const fullscreen = useReadingFullscreen({ exitOnBlur: true });
+  // Stay reachable while immersive so the reader can exit fullscreen.
+  const showBar = visible || fullscreen.active;
+  const reveal = useSharedValue(showBar ? 1 : 0);
+
+  useEffect(() => {
+    reveal.value = withTiming(showBar ? 1 : 0, { duration: Durations.fast });
+  }, [showBar, reveal]);
+
+  // Collapse to `display: none` once fully hidden so the bar takes up no space
+  // and never intercepts taps meant for the header card beneath it.
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: reveal.value,
+    transform: [{ translateY: (1 - reveal.value) * -8 }],
+    display: reveal.value === 0 ? "none" : "flex",
+  }));
+
+  return (
+    <Animated.View
+      style={[
+        styles.bar,
+        {
+          borderBottomColor: tokens.hairline,
+          pointerEvents: showBar ? "auto" : "none",
+        },
+        animatedStyle,
+      ]}
+    >
+      {/* Frosted glass chrome to match the toasts and bottom sheets: a blur layer
+          beneath a translucent card wash that keeps the chips legible. Real
+          Liquid Glass on iOS 26, a native blur elsewhere, backdrop-filter on web. */}
+      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+        <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+      </View>
+      <View
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            pointerEvents: "none",
+            backgroundColor: withAlpha(
+              colors.card,
+              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
+            ),
+          },
+        ]}
+      />
+      <View style={styles.row}>
+        {showBackToTop && onBackToTop ? (
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={t("quran.backToTop")}
+            onPress={onBackToTop}
+            style={[styles.iconBtn, { backgroundColor: tokens.accentSoft }]}
+          >
+            <SymbolView
+              name={{ ios: "arrow.up", android: "arrow_upward", web: "arrow_upward" }}
+              size={18}
+              tintColor={colors.accent}
+            />
+          </PressableScale>
+        ) : null}
+        <TvFocusGuide trapFocusUp trapFocusDown>
+          <TvScrollView
+            ref={scrollRef}
+            horizontal
+            style={styles.scroll}
+            showsHorizontalScrollIndicator={Platform.OS === "web"}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.content}
+          >
+            {pageLabel && onOpenPage ? (
+              <SelectChip
+                icon={TOOLBAR_ICONS.page}
+                value={pageLabel}
+                accessibilityLabel={t("quran.pagePickerTitle")}
+                onPress={onOpenPage}
+              />
+            ) : null}
+            <View
+              {...ltrControlViewProps()}
+              style={[styles.fontChip, { backgroundColor: colors.muted }]}
+            >
+              <SymbolView
+                name={TOOLBAR_ICONS.textSize}
+                size={16}
+                tintColor={colors.mutedForeground}
+              />
+              <ReadingFontControls surface="quran" />
+            </View>
+            {layoutLabel && onOpenLayout ? (
+              <SelectChip
+                icon={TOOLBAR_ICONS.layout}
+                value={layoutLabel}
+                accessibilityLabel={t("quran.readerLayout")}
+                onPress={onOpenLayout}
+              />
+            ) : null}
+            <SelectChip
+              icon={TOOLBAR_ICONS.reciter}
+              value={reciterName}
+              accessibilityLabel={t("quran.reciter")}
+              onPress={onOpenReciter}
+            />
+            {showTranslationControls ? (
+              <>
+                <SelectChip
+                  icon={TOOLBAR_ICONS.translation}
+                  value={translationName}
+                  accessibilityLabel={t("quran.translation")}
+                  onPress={onOpenTranslation}
+                />
+                <SelectChip
+                  icon={TOOLBAR_ICONS.secondTranslation}
+                  value={secondTranslationName}
+                  accessibilityLabel={t("quran.secondTranslation")}
+                  onPress={onOpenSecondary}
+                />
+                {onOpenTafsir ? (
+                  <SelectChip
+                    icon={TOOLBAR_ICONS.tafsir}
+                    value={tafsirName ?? t("quran.tafsirNone")}
+                    accessibilityLabel={t("quran.tafsir")}
+                    onPress={onOpenTafsir}
+                  />
+                ) : null}
+                <ToggleChip
+                  icon={TOOLBAR_ICONS.transliteration}
+                  label={t("quran.transliteration")}
+                  enabled={showTransliteration}
+                  accessibilityLabel={t("quran.showTransliteration")}
+                  onPress={onToggleTransliteration}
+                />
+                <ToggleChip
+                  icon={TOOLBAR_ICONS.showTranslation}
+                  label={t("quran.translation")}
+                  enabled={showTranslation}
+                  accessibilityLabel={t("quran.showTranslation")}
+                  onPress={onToggleTranslation}
+                />
+                {onToggleWordByWord ? (
+                  <ToggleChip
+                    icon={TOOLBAR_ICONS.wordByWord}
+                    label={t("quran.showWordByWord")}
+                    enabled={showWordByWord}
+                    accessibilityLabel={t("quran.showWordByWord")}
+                    onPress={onToggleWordByWord}
+                  />
+                ) : null}
+                {onToggleTajweed ? (
+                  <ToggleChip
+                    icon={TOOLBAR_ICONS.tajweed}
+                    label={t("quran.showTajweed")}
+                    enabled={showTajweed}
+                    accessibilityLabel={t("quran.showTajweed")}
+                    onPress={onToggleTajweed}
+                  />
+                ) : null}
+                {onOpenPlayback ? (
+                  <SelectChip
+                    icon={TOOLBAR_ICONS.playback}
+                    value={playbackLabel ?? t("quran.playback.title")}
+                    accessibilityLabel={t("quran.playback.open")}
+                    active={playbackActive}
+                    onPress={onOpenPlayback}
+                  />
+                ) : null}
+              </>
+            ) : null}
+          </TvScrollView>
+        </TvFocusGuide>
+        {fullscreen.supported ? (
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={
+              fullscreen.active ? t("quran.exitFullscreen") : t("quran.enterFullscreen")
+            }
+            accessibilityState={{ selected: fullscreen.active }}
+            onPress={() => void fullscreen.toggle()}
+            style={[
+              styles.iconBtn,
+              styles.fullscreenBtn,
+              {
+                backgroundColor: fullscreen.active ? tokens.accentSoft : colors.muted,
+              },
+            ]}
+          >
+            <SymbolView
+              name={
+                fullscreen.active ? TOOLBAR_ICONS.exitFullscreen : TOOLBAR_ICONS.enterFullscreen
+              }
+              size={18}
+              tintColor={fullscreen.active ? colors.accent : colors.mutedForeground}
+            />
+          </PressableScale>
+        ) : null}
+      </View>
+      <ReadingProgressBar progress={progress} accessibilityLabel={t("quran.readingProgress")} />
+    </Animated.View>
+  );
+}
+
+/** Value chip that opens a picker sheet (reciter / translation). */
+function SelectChip({
+  icon,
+  value,
+  accessibilityLabel,
+  onPress,
+  active = false,
+}: {
+  icon: SymbolViewProps["name"];
+  value: string;
+  accessibilityLabel: string;
+  onPress: () => void;
+  /** Soft accent fill when the chip reflects an applied setting. */
+  active?: boolean;
+}) {
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+  return (
+    <PressableScale
+      haptic="light"
+      accessibilityRole="button"
+      accessibilityLabel={`${accessibilityLabel}: ${value}`}
+      accessibilityState={{ selected: active }}
+      onPress={onPress}
+      style={[
+        styles.chip,
+        tv && styles.chipTv,
+        {
+          backgroundColor: active ? tokens.accentSoft : colors.muted,
+          borderColor: active ? colors.accent : "transparent",
+        },
+      ]}
+    >
+      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={colors.accent} />
+      <View style={styles.chipValueWrap}>
+        <ThemedText
+          type="smallBold"
+          numberOfLines={1}
+          style={[
+            styles.chipValue,
+            filterValueTextStyle(value),
+            active ? { color: colors.accent } : null,
+            tv ? { fontSize: TvLayout.bodyFontSize } : null,
+          ]}
+        >
+          {value}
+        </ThemedText>
+      </View>
+      <SymbolView
+        name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
+        size={tv ? 16 : 12}
+        tintColor={active ? colors.accent : colors.mutedForeground}
+      />
+    </PressableScale>
+  );
+}
+
+/** On/off chip for a visibility preference (transliteration / translation). */
+function ToggleChip({
+  icon,
+  label,
+  enabled,
+  accessibilityLabel,
+  onPress,
+}: {
+  icon: SymbolViewProps["name"];
+  label: string;
+  enabled: boolean;
+  accessibilityLabel: string;
+  onPress: () => void;
+}) {
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+  const tint = enabled ? colors.accent : colors.mutedForeground;
+  return (
+    <PressableScale
+      haptic="selection"
+      accessibilityRole="switch"
+      accessibilityLabel={accessibilityLabel}
+      accessibilityState={{ checked: enabled }}
+      onPress={onPress}
+      style={[
+        styles.chip,
+        tv && styles.chipTv,
+        {
+          backgroundColor: enabled ? tokens.accentSoft : colors.muted,
+          borderColor: enabled ? colors.accent : "transparent",
+        },
+      ]}
+    >
+      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
+      <ThemedText
+        type="smallBold"
+        numberOfLines={1}
+        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
+      >
+        {label}
+      </ThemedText>
+    </PressableScale>
+  );
+}
+
+const styles = StyleSheet.create({
+  bar: {
+    overflow: "hidden",
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingStart: Spacing.three,
+    gap: Spacing.two,
+    width: "100%",
+  },
+  scroll: {
+    flex: 1,
+    minWidth: 0,
+  },
+  iconBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+  },
+  fullscreenBtn: {
+    marginEnd: Spacing.three,
+  },
+  content: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingHorizontal: Spacing.four,
+    paddingVertical: Spacing.two,
+  },
+  chip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one + 2,
+    maxWidth: 200,
+    paddingVertical: Spacing.two - 1,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    borderWidth: 1,
+    borderColor: "transparent",
+  },
+  chipTv: {
+    maxWidth: 280,
+    minHeight: TvLayout.chipMinHeight,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
+  },
+  chipValueWrap: {
+    flex: 1,
+    minWidth: 0,
+  },
+  chipValue: {
+    width: "100%",
+  },
+  fontChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one + 2,
+    paddingStart: Spacing.three,
+    paddingEnd: Spacing.half,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+  },
+});

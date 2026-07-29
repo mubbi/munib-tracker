@@ -1,0 +1,736 @@
+{
+  "/": {
+    "title": "Munib Tracker — Prayer Times, Salah & Qaza Tracker",
+    "description": "A free, offline-first Islamic companion. Track your five daily prayers, qaza, and dhikr; read the Qur'an and hadith; and get accurate prayer times, qibla, and gentle reminders.",
+    "keywords": ["salah tracker app", "namaz tracker", "prayer tracker", "offline Islamic app"]
+  },
+  "/achievements": {
+    "title": "Achievements",
+    "description": "Milestones, badges, and your devotion level.",
+    "index": false
+  },
+  "/adhkar-builder": {
+    "title": "My Adhkar — Build Your Own",
+    "description": "Save your own zikr and supplications with Arabic, transliteration, translation, and reference, kept together for quick access.",
+    "index": false
+  },
+  "/aqeedah": {
+    "title": "Learn Aqeedah — Islamic Beliefs",
+    "description": "The foundational beliefs of Islam from the Qur'an and authentic Sunnah — the six articles of faith, tawheed, and shirk, explained clearly with scholarly care.",
+    "keywords": ["aqeedah", "islamic beliefs", "tawheed", "six articles of faith", "iman"]
+  },
+  "/aqeedah/glossary": {
+    "title": "Aqeedah Glossary",
+    "description": "Key terms used in Islamic creed — tawheed, shirk, qadr, and more — defined clearly. Understanding the vocabulary prevents confusion when studying aqeedah.",
+    "keywords": ["aqeedah glossary", "islamic creed terms", "tawheed meaning", "qadr", "shirk"]
+  },
+  "/aqeedah/progress": {
+    "title": "My Aqeedah Learning Progress",
+    "description": "Mark aqeedah topics complete as you study. This tracks your learning, not your standing with Allah.",
+    "index": false
+  },
+  "/battles": {
+    "title": "Battles in Islam — Early History",
+    "description": "The authentic history, context, lessons, and outcomes of the major battles in early Islam — Badr, Uhud, the Trench, and more, cited from Qur'an and hadith.",
+    "keywords": [
+      "battles in Islam",
+      "Battle of Badr",
+      "battle of Uhud",
+      "Islamic history",
+      "seerah battles"
+    ]
+  },
+  "/battles/figures": {
+    "title": "Companions of the Early Battles",
+    "description": "Profiles of the leaders and heroes of the early battles, linked to the campaigns they joined — focused on role, contribution, and lessons, not tribal glory.",
+    "keywords": [
+      "companions of the Prophet",
+      "sahaba in battle",
+      "early Muslim commanders",
+      "heroes of Islam"
+    ]
+  },
+  "/battles/glossary": {
+    "title": "Battles Glossary",
+    "description": "Terms used in Islamic military history — ghazwah, sariyyah, shura, and more — defined to prevent confusion between expedition types and general teachings.",
+    "keywords": ["Islamic military terms", "ghazwah meaning", "sariyyah", "battles glossary"]
+  },
+  "/battles/lessons": {
+    "title": "Lessons from the Battles",
+    "description": "The leadership and spiritual takeaways from each battle — character, shura, patience, and trust in Allah. Moral lessons, not military tactics.",
+    "keywords": [
+      "lessons from Islamic battles",
+      "leadership in Islam",
+      "spiritual lessons",
+      "trust in Allah"
+    ]
+  },
+  "/battles/progress": {
+    "title": "My Battles Learning Progress",
+    "description": "Track the battle topics you have read. Knowledge is a means; sincerity with Allah is the goal.",
+    "index": false
+  },
+  "/battles/timeline": {
+    "title": "Battles Timeline",
+    "description": "An interactive chronology from revelation through the Farewell Pilgrimage, with links to each battle. Dates follow Ibn Ishaq, Ibn Hisham, and Ibn Kathir.",
+    "keywords": [
+      "battles timeline",
+      "Islamic history timeline",
+      "seerah chronology",
+      "prophetic battles"
+    ]
+  },
+  "/battles/verses": {
+    "title": "Qur'an Verses on the Battles",
+    "description": "Verses revealed in connection with the battles, with Arabic, translation, and historical context. Tap a verse to open it in the Qur'an reader.",
+    "keywords": [
+      "Quran verses on battles",
+      "verses about Badr",
+      "war in the Quran",
+      "Quranic context"
+    ]
+  },
+  "/bookmarks": {
+    "title": "Bookmarks & Saved Reading",
+    "description": "All of your saved ayahs, hadith, duas, and adhkar in one place.",
+    "index": false
+  },
+  "/calendar": {
+    "title": "Worship Calendar",
+    "description": "Review your prayers day by day across the month.",
+    "index": false
+  },
+  "/credits": {
+    "title": "Credits & Data Sources",
+    "description": "The open datasets, translations, and recitation audio that power Munib Tracker, with licenses and attribution for every source.",
+    "keywords": ["credits", "data sources", "open source Islamic data", "attribution"]
+  },
+  "/dua": {
+    "title": "Duas & Supplications — Sunnah and Quranic",
+    "description": "A collection of authentic duas and supplications — Sunnah, Quranic, and daily. Read the Arabic, transliteration, and meaning, and save your favorites offline.",
+    "keywords": ["islamic duas", "supplications", "sunnah dua", "quranic dua", "daily dua"]
+  },
+  "/dua/favorites": {
+    "title": "Saved Duas",
+    "description": "Your saved duas, kept together for quick return.",
+    "index": false
+  },
+  "/duroods": {
+    "title": "Duroods & Salawat — Blessings upon the Prophet ﷺ",
+    "description": "Recite Durood and Salawat — sending blessings upon the Prophet Muhammad ﷺ. Read the Arabic, transliteration, and meaning of well-known salawat offline.",
+    "keywords": ["durood shareef", "salawat", "blessings on the prophet", "durood"]
+  },
+  "/events": {
+    "title": "Islamic Events — Hijri Calendar",
+    "description": "Upcoming dates in the Hijri year — the Islamic New Year, Ashura, Ramadan, Laylat al-Qadr, the two Eids, and more, with the significance of each day.",
+    "keywords": ["islamic events", "hijri calendar", "islamic dates", "eid", "muharram"]
+  },
+  "/hadith": {
+    "title": "Hadith Collections — Sayings of the Prophet ﷺ",
+    "description": "Browse authentic hadith from the major collections. Read the sayings and traditions of the Prophet Muhammad ﷺ offline, with narrator and grading details.",
+    "keywords": ["hadith collections", "sahih hadith", "sunnah", "prophetic traditions"]
+  },
+  "/hadith/bookmarks": {
+    "title": "Hadith Bookmarks",
+    "description": "Your saved hadith, kept together for quick return.",
+    "index": false
+  },
+  "/hajj": {
+    "title": "Vodič za Hajj i Umrah",
+    "description": "Učite Hajj i Umrah iz Qur'ana i autentične Sunnah, zatim pratite obrede odvojenim Hajj i Umrah listama — praktičan edukativni pregled, ne fiqh priručnik.",
+    "keywords": ["hajj", "umrah", "vodič za hodočašće", "obredi hajj", "lista hajj", "lista umrah"]
+  },
+  "/hayd": {
+    "title": "Hayd & Worship — Menstruation Guide",
+    "description": "What the texts teach about menstruation and daily worship — hayd, istihada, and nifas, when to pause and resume salah and fasting, and the ghusl that follows.",
+    "keywords": ["hayd", "menstruation and prayer", "istihada", "nifas", "women's worship in Islam"]
+  },
+  "/jahannam": {
+    "title": "Understanding Jahannam — Hell in Islam",
+    "description": "Understand the warning of Jahannam and the path of mercy back to Allah. Every warning is paired with hope, repentance, and practical steps from Qur'an and Sunnah.",
+    "keywords": ["Jahannam", "Hell in Islam", "names of Hell", "gates of Hell", "repentance"]
+  },
+  "/jahannam/duas": {
+    "title": "Duas for Protection from the Fire",
+    "description": "Supplications from salah, Hisnul Muslim, and the Qur'an seeking Allah's protection from Jahannam — as the Prophet ﷺ taught us to ask in prayer and daily adhkar.",
+    "keywords": [
+      "dua for protection from Hell",
+      "refuge from the Fire",
+      "duas against Jahannam",
+      "seek refuge from Hell"
+    ]
+  },
+  "/jahannam/gates": {
+    "title": "Gates of Hell",
+    "description": "Allah states that Hell has seven gates, each with an assigned portion. Learn what revelation says, and where later interpretations of who enters each gate differ.",
+    "keywords": ["gates of Hell", "seven gates of Jahannam", "gates of Jahannam", "levels of Hell"]
+  },
+  "/jahannam/hadith": {
+    "title": "Hadith on Jahannam",
+    "description": "Authentic narrations on the Fire — warnings, mercy, and protection — presented with collection, citation, and grade where known, alongside their context.",
+    "keywords": [
+      "hadith on Hell",
+      "hadith about Jahannam",
+      "authentic hadith Hell",
+      "prophetic warnings"
+    ]
+  },
+  "/jahannam/journey": {
+    "title": "The Reality of Jahannam",
+    "description": "Understand the nature of the Fire as described in revelation — its names, levels, gates, and descriptions — so hearts awaken and return to Allah in repentance.",
+    "keywords": ["reality of Jahannam", "nature of Hell", "description of Hell", "Hell in Islam"]
+  },
+  "/jahannam/names": {
+    "title": "Names of Hell in the Qur'an",
+    "description": "The Qur'an uses several names for Hell, each with its own meaning and context. Learn the meanings the texts give and where scholars differ on the levels.",
+    "keywords": ["names of Hell", "Qur'anic names for Hell", "Jahannam names", "Saqar Hutamah"]
+  },
+  "/jahannam/references": {
+    "title": "Jahannam — Sources & References",
+    "description": "The sources behind this module — Qur'an first, then classical tafsir where explanations are given, with differences among scholars noted respectfully.",
+    "keywords": ["Jahannam references", "sources on Hell", "tafsir on Hell", "islamic sources"]
+  },
+  "/jahannam/reflection": {
+    "title": "Daily Reflection on the Hereafter",
+    "description": "Self-accountability questions that connect worship to awareness. Pause and ask yourself each one, then open the related tracker or lesson to act on it.",
+    "keywords": ["self-accountability", "muhasabah", "daily reflection", "islamic reflection"]
+  },
+  "/jahannam/verses": {
+    "title": "Qur'an on Jahannam",
+    "description": "Curated verses on the Fire, paired with warnings, mercy, repentance, and hope, and brief tafsir. Tap any verse to open it in the Qur'an reader.",
+    "keywords": ["Quran on Hell", "verses about Jahannam", "Hell in the Quran", "ayahs on the Fire"]
+  },
+  "/jannah": {
+    "title": "Journey to Jannah — Paradise in Islam",
+    "description": "Paradise, its ranks, and the deeds that elevate a believer, from the Qur'an and authentic Sunnah. Explore the gates, verses, and duas for Jannah.",
+    "keywords": [
+      "Jannah",
+      "Paradise in Islam",
+      "ranks of Paradise",
+      "gates of Jannah",
+      "deeds for Jannah"
+    ]
+  },
+  "/jannah/duas": {
+    "title": "Duas for Paradise",
+    "description": "Supplications from Hisnul Muslim asking Allah for Jannah — especially Al-Firdaws — and refuge from the Fire, as the Prophet ﷺ taught us to ask in daily dua.",
+    "keywords": [
+      "duas for Jannah",
+      "dua for Paradise",
+      "ask for al-Firdaws",
+      "supplications for Paradise"
+    ]
+  },
+  "/jannah/gates": {
+    "title": "Gates of Jannah",
+    "description": "The gates of Paradise named in authentic hadith — opened for those known for prayer, charity, fasting, jihad, and Hajj. Some are called through more than one.",
+    "keywords": ["gates of Jannah", "gates of Paradise", "eight gates of Paradise", "ar-Rayyan"]
+  },
+  "/jannah/journey": {
+    "title": "My Journey to Jannah",
+    "description": "Today's consistency in the worship you already track — salah, adhkar, and reflection. This dashboard shows habits, not your rank with Allah.",
+    "index": false
+  },
+  "/jannah/verses": {
+    "title": "Qur'an on Paradise",
+    "description": "Curated verses on Paradise — its descriptions, ranks, and Allah's mercy — with brief context. Tap any verse to open it directly in the Qur'an reader.",
+    "keywords": [
+      "Quran on Paradise",
+      "verses about Jannah",
+      "Paradise in the Quran",
+      "ayahs on Jannah"
+    ]
+  },
+  "/journal": {
+    "title": "Prayer Journal",
+    "description": "Note your presence in each prayer and watch your khushu grow over time. Saved privately on your device.",
+    "index": false
+  },
+  "/last-day": {
+    "title": "The Day of Judgment — The Hereafter",
+    "description": "From death to eternal life according to the Qur'an and authentic Sunnah. Follow the Hereafter journey — resurrection, reckoning, and the signs of the Hour.",
+    "keywords": [
+      "Day of Judgment",
+      "the Last Day",
+      "hereafter in Islam",
+      "signs of the Hour",
+      "resurrection"
+    ]
+  },
+  "/last-day/hadith": {
+    "title": "Hadith on the Last Day",
+    "description": "Authentic narrations on death, the grave, resurrection, and the reckoning — organised by theme and graded, so weak reports are never presented as certain.",
+    "keywords": [
+      "hadith on the Last Day",
+      "hadith about death",
+      "signs of the Hour hadith",
+      "resurrection hadith"
+    ]
+  },
+  "/last-day/preparation": {
+    "title": "Preparing for the Last Day",
+    "description": "Practical worship habits that prepare you to meet Allah — salah, Qur'an, charity, and repentance — connected to the trackers you already use in the app.",
+    "keywords": [
+      "preparing for death",
+      "prepare for the Hereafter",
+      "good deeds for the afterlife",
+      "meeting Allah"
+    ]
+  },
+  "/last-day/progress": {
+    "title": "My Hereafter Learning Progress",
+    "description": "Mark topics complete as you read about the Last Day. This tracks study, not your standing with Allah.",
+    "index": false
+  },
+  "/last-day/quiz": {
+    "title": "The Last Day — Review Quiz",
+    "description": "Test your understanding of the Hereafter — the timeline, definitions, and reflection. Use it to find gaps, not to measure your standing with Allah.",
+    "index": false
+  },
+  "/last-day/references": {
+    "title": "The Last Day — Sources & References",
+    "description": "The Qur'an, hadith collections, and creed texts behind this module — every lesson distinguishing explicit revelation from interpretive scholarly opinion.",
+    "keywords": [
+      "Last Day references",
+      "sources on the Hereafter",
+      "islamic creed texts",
+      "hadith collections"
+    ]
+  },
+  "/last-day/timeline": {
+    "title": "Timeline of the Hereafter",
+    "description": "The stages of the Hereafter in order — from life in this world through death, resurrection, reckoning, and eternity. Tap any stage for the full lesson.",
+    "keywords": [
+      "timeline of the Hereafter",
+      "stages of the afterlife",
+      "after death in Islam",
+      "resurrection"
+    ]
+  },
+  "/last-day/verses": {
+    "title": "Qur'an on the Last Day",
+    "description": "Curated verses on resurrection, accountability, and Allah's mercy, with brief context and tafsir. Tap any verse to open it in the Qur'an reader.",
+    "keywords": [
+      "Quran on the Last Day",
+      "verses about the Hereafter",
+      "Day of Judgment in the Quran",
+      "resurrection verses"
+    ]
+  },
+  "/learn-dua": {
+    "title": "Learn Dua — Meanings & Etiquette",
+    "description": "Learn authentic supplications with their meanings, virtues, and best times. Study the etiquette of asking Allah, then practise from the full dua library.",
+    "keywords": [
+      "learn dua",
+      "dua meanings",
+      "etiquette of dua",
+      "supplications",
+      "when to make dua"
+    ]
+  },
+  "/learn-dua/occasions": {
+    "title": "Duas by Occasion",
+    "description": "Find the right supplication for any moment — daily, situational, and Qur'anic duas organised by occasion. Tap an occasion to open the lesson or full library.",
+    "keywords": [
+      "duas by occasion",
+      "situational duas",
+      "daily duas",
+      "supplications for every moment"
+    ]
+  },
+  "/learn-dua/progress": {
+    "title": "My Dua Learning Progress",
+    "description": "Track the dua lessons you have studied. Allah hears every sincere call; this screen tracks your study, not His response.",
+    "index": false
+  },
+  "/learn-quran": {
+    "title": "Learn Qur'an — Read, Understand & Reflect",
+    "description": "A complete Qur'an learning journey: read, understand, reflect, memorize, and live the Book of Allah. Lessons cite the Qur'an and authentic hadith throughout.",
+    "keywords": ["learn Quran", "understand the Quran", "Quran study", "tadabbur", "memorize Quran"]
+  },
+  "/learn-quran/apply": {
+    "title": "Apply the Qur'an",
+    "description": "Turn reading into action with a daily challenge drawn from a verse. Reading without action was never the goal — build a habit and mark your challenge when done.",
+    "keywords": ["apply the Quran", "live the Quran", "Quran in daily life", "Quran challenge"]
+  },
+  "/learn-quran/daily": {
+    "title": "Daily Qur'an Lesson",
+    "description": "One verse a day with its context, a short reflection, and one action to live it. Small, consistent steps build a lifelong relationship with the Book of Allah.",
+    "keywords": ["daily Quran lesson", "verse of the day", "Quran reflection", "daily ayah"]
+  },
+  "/learn-quran/learn-to-read": {
+    "title": "Learn to Read the Qur'an",
+    "description": "Seven levels from the alphabet to fluent recitation. Work through each level in order — ideally with a teacher — to read the Qur'an with confidence.",
+    "keywords": ["learn to read Quran", "read the Quran", "Quran for beginners", "noorani qaida"]
+  },
+  "/learn-quran/letters": {
+    "title": "Arabic Letters",
+    "description": "The 28 Arabic letters with their names, sounds, and examples. Study one letter a day — see it, hear it, say it, and write it — as a foundation for reading.",
+    "keywords": ["Arabic letters", "Arabic alphabet", "learn Arabic letters", "Arabic sounds"]
+  },
+  "/learn-quran/memorization": {
+    "title": "Qur'an Memorization (Hifz)",
+    "description": "Memorization plans from Juz Amma to full hifz. Revision is the secret — never add new ayahs without reviewing what you have already memorized.",
+    "keywords": ["Quran memorization", "hifz", "memorize the Quran", "juz amma", "hifz plan"]
+  },
+  "/learn-quran/progress": {
+    "title": "My Qur'an Learning Progress",
+    "description": "Track the Qur'an lessons you have studied in the app. This dashboard tracks study, not your standing with Allah.",
+    "index": false
+  },
+  "/learn-quran/pronunciation": {
+    "title": "Qur'anic Pronunciation",
+    "description": "Master the difficult letter pairs of Arabic. Compare similar sounds side by side, record yourself, and listen back to refine your pronunciation for recitation.",
+    "keywords": ["Arabic pronunciation", "makharij", "letter pronunciation", "Quran pronunciation"]
+  },
+  "/learn-quran/quiz": {
+    "title": "Qur'an Quiz",
+    "description": "Test your knowledge of surah names, vocabulary, tajweed, and stories from the Qur'an.",
+    "index": false
+  },
+  "/learn-quran/revelation": {
+    "title": "How the Qur'an Was Revealed",
+    "description": "The revelation of the Qur'an — from the Cave of Hira through its preservation. Dates follow commonly-cited seerah chronology, noting where scholars differ.",
+    "keywords": [
+      "revelation of the Quran",
+      "cave of Hira",
+      "how Quran was revealed",
+      "preservation of the Quran"
+    ]
+  },
+  "/learn-quran/stories": {
+    "title": "Stories in the Qur'an",
+    "description": "The stories of the prophets from Adam to Muhammad ﷺ as told in the Qur'an — in their accounts is a lesson for those of understanding.",
+    "keywords": [
+      "stories in the Quran",
+      "prophet stories",
+      "Quranic stories",
+      "lessons from the prophets"
+    ]
+  },
+  "/learn-quran/structure": {
+    "title": "Structure of the Qur'an",
+    "description": "How the Qur'an is organised — surahs, juz, hizb, ayahs, and themes. Learn why the mus'haf order differs from the order of revelation, both divinely taught.",
+    "keywords": [
+      "structure of the Quran",
+      "surahs and juz",
+      "how the Quran is organised",
+      "ayah and hizb"
+    ]
+  },
+  "/learn-quran/tadabbur": {
+    "title": "Tadabbur — Reflecting on the Qur'an",
+    "description": "Guided questions for personal reflection on the Qur'an. Not tafsir — ask what Allah is teaching you in a verse and how you will live it today.",
+    "keywords": ["tadabbur", "reflect on the Quran", "Quran reflection", "pondering the Quran"]
+  },
+  "/learn-quran/tajweed": {
+    "title": "Tajweed Rules",
+    "description": "The rules of correct and beautiful Qur'an recitation. Study each tajweed rule with examples, best paired with audio from a qualified reciter and teacher feedback.",
+    "keywords": [
+      "tajweed",
+      "tajweed rules",
+      "Quran recitation rules",
+      "learn tajweed",
+      "beautiful recitation"
+    ]
+  },
+  "/learn-quran/themes": {
+    "title": "Themes of the Qur'an",
+    "description": "The Qur'an by topic — faith, prayer, patience, charity, and more. Verses grouped by theme with related hadith, lessons, and an action item for each.",
+    "keywords": ["themes of the Quran", "Quran topics", "Quranic teachings", "faith and patience"]
+  },
+  "/learn-quran/vocabulary": {
+    "title": "Qur'anic Vocabulary",
+    "description": "Learn the most frequent words of the Qur'an — mastering core vocabulary turns recitation into understanding. Study high-frequency words that unlock meaning.",
+    "keywords": [
+      "Quranic vocabulary",
+      "Quran words",
+      "learn Quranic Arabic",
+      "high-frequency Quran words"
+    ]
+  },
+  "/location": {
+    "title": "Set Your Location",
+    "description": "Set the location used to calculate your prayer times and qibla.",
+    "index": false
+  },
+  "/names-of-allah": {
+    "title": "99 Names of Allah — Asma ul Husna",
+    "description": "The 99 beautiful names of Allah (Asma ul-Husna) with Arabic, transliteration, and meaning. Listen to the recitation of each name — free and offline.",
+    "keywords": ["99 names of Allah", "asma ul husna", "beautiful names of Allah", "names of Allah"]
+  },
+  "/notifications": {
+    "title": "Notifications",
+    "description": "Delivered and upcoming reminders.",
+    "index": false
+  },
+  "/profile": {
+    "title": "Profile",
+    "description": "Your details and account.",
+    "index": false
+  },
+  "/prophets": {
+    "title": "Learn the Prophets of Islam",
+    "description": "The lives, missions, and lessons of the prophets named in the Qur'an — from Adam to Muhammad ﷺ. Stories drawn from the Qur'an and authentic Sunnah.",
+    "keywords": [
+      "prophets in Islam",
+      "prophets in the Quran",
+      "stories of the prophets",
+      "messengers of Allah"
+    ]
+  },
+  "/prophets/progress": {
+    "title": "My Prophets Learning Progress",
+    "description": "Mark topics complete as you study the lives of the prophets. This dashboard tracks study, not spiritual rank.",
+    "index": false
+  },
+  "/prophets/timeline": {
+    "title": "Timeline of the Prophets",
+    "description": "A chronological overview of the prophets across history, from Adam to Muhammad ﷺ, with links to each prophet's story. Eras are approximate where texts are silent.",
+    "keywords": [
+      "prophets timeline",
+      "chronology of prophets",
+      "prophets in order",
+      "Adam to Muhammad"
+    ]
+  },
+  "/qaza": {
+    "title": "Qaza Namaz Tracker — Make Up Missed Prayers",
+    "description": "Track and clear missed (qaza) prayers, one make-up at a time. Per-prayer counters, a daily schedule, and scholar-aware guidance on making up missed salah.",
+    "keywords": ["qaza namaz", "missed prayers", "make up prayers", "qadha salah", "qaza tracker"]
+  },
+  "/qaza/calculator": {
+    "title": "Qaza Prayer Calculator — Estimate Missed Salah",
+    "description": "Estimate a lifetime of missed prayers from your age, puberty age, and years prayed. A simple qaza calculator to turn an overwhelming backlog into a clear number.",
+    "keywords": ["qaza calculator", "missed prayer calculator", "qadha calculator", "lifetime qaza"]
+  },
+  "/qaza/planner": {
+    "title": "Qaza Planner — A Daily Pace to Clear Your Backlog",
+    "description": "Set a realistic daily pace to make up missed prayers and see an estimated date to clear your qaza backlog. Plan a steady, doable routine.",
+    "keywords": ["qaza planner", "make up missed prayers plan", "qadha schedule"]
+  },
+  "/qaza/roza": {
+    "title": "Missed Fasts Tracker — Qaza Roza",
+    "description": "Track and make up missed fasts (qaza roza). Estimate missed Ramadan fasts and record each make-up as you go.",
+    "keywords": ["qaza roza", "missed fasts", "make up fasts", "ramadan qaza", "fasting tracker"]
+  },
+  "/qibla": {
+    "title": "Qibla Direction Finder — Face the Kaaba",
+    "description": "Find the qibla direction toward the Kaaba in Makkah from anywhere. A compass and precise bearing help you face the right direction for prayer.",
+    "keywords": ["qibla direction", "qibla finder", "qibla compass", "direction of Kaaba", "kaaba"]
+  },
+  "/quran": {
+    "title": "Read the Qur'an Online — All 114 Surahs",
+    "description": "Read and listen to the complete Noble Qur'an offline. Browse all 114 surahs with Arabic text, transliteration, translations, and recitation — free and without ads.",
+    "keywords": ["read Quran online", "Quran with translation", "listen to Quran", "114 surahs"]
+  },
+  "/quran/bookmarks": {
+    "title": "Qur'an Bookmarks",
+    "description": "Your saved Qur'an ayahs, kept together for quick return.",
+    "index": false
+  },
+  "/quran/search": {
+    "title": "Search the Qur'an",
+    "description": "Search the Qur'an by word, translation, or transliteration and jump straight to any ayah. Works fully offline across the bundled translation.",
+    "keywords": ["search Quran", "find ayah", "Quran verse search"],
+    "index": false
+  },
+  "/ramadan": {
+    "title": "Ramadan — Fasting Times & Log",
+    "description": "Track your Ramadan fasts and see today's suhoor and iftar times for your location. Log each day and follow the blessings of the last ten nights.",
+    "keywords": [
+      "ramadan",
+      "fasting times",
+      "suhoor and iftar",
+      "ramadan fasting log",
+      "laylat al-qadr"
+    ]
+  },
+  "/salah-guide": {
+    "title": "Learn Salah — Step by Step",
+    "description": "Learn to pray from your first prayer to consistent worship — wudu, every position and recitation, and their meanings, cited from Qur'an and authentic hadith.",
+    "keywords": [
+      "learn salah",
+      "how to pray",
+      "salah step by step",
+      "wudu guide",
+      "prayer positions"
+    ]
+  },
+  "/salah-guide/adhan": {
+    "title": "Listen to the Adhan",
+    "description": "Listen to recordings of the adhan and follow along with the words as you learn the call to prayer, its phrases, and their meanings.",
+    "keywords": ["adhan", "listen to adhan", "call to prayer", "adhan words", "azan"]
+  },
+  "/salah-guide/phrases": {
+    "title": "Words of Salah — Phrases & Meanings",
+    "description": "The Arabic phrases you say in prayer, their translation, and the meaning behind each. Understanding what you say builds khushu — read it before your next prayer.",
+    "keywords": ["words of salah", "prayer phrases meaning", "what you say in salah", "khushu"]
+  },
+  "/salah-guide/progress": {
+    "title": "My Salah Learning Progress",
+    "description": "Track lessons learned and your daily practice as you study how to pray. This tracks study, not your standing with Allah.",
+    "index": false
+  },
+  "/schedule": {
+    "title": "Today's Schedule",
+    "description": "Obligatory prayers, sunnah windows, and flexible acts of worship laid out for today.",
+    "index": false
+  },
+  "/search": {
+    "title": "Search",
+    "description": "Search across the Qur'an, hadith, duas, adhkar, duroods, and the 99 Names.",
+    "index": false
+  },
+  "/seerah": {
+    "title": "Seerah Timeline — Life of the Prophet ﷺ",
+    "description": "Key milestones in the life of the Prophet Muhammad ﷺ, drawn from classical seerah sources with commonly-cited CE and AH dates for each event.",
+    "keywords": ["seerah", "life of Prophet Muhammad", "prophetic biography", "seerah timeline"]
+  },
+  "/settings": {
+    "title": "Settings",
+    "description": "Appearance, notifications, language, and preferences for Munib Tracker.",
+    "index": false
+  },
+  "/settings/about": {
+    "title": "About Munib Tracker",
+    "description": "About Munib Tracker — credits, content authenticity, privacy policy, and terms of service."
+  },
+  "/settings/appearance": {
+    "title": "Appearance",
+    "description": "Choose light, dark, or system theme and your accent color.",
+    "index": false
+  },
+  "/settings/bedtime": {
+    "title": "Bedtime",
+    "description": "Set when before-sleep adhkar reminders arrive.",
+    "index": false
+  },
+  "/settings/fonts": {
+    "title": "Fonts",
+    "description": "Size the Arabic and translation text you read most.",
+    "index": false
+  },
+  "/settings/language": {
+    "title": "Language",
+    "description": "Choose the app and translation language.",
+    "index": false
+  },
+  "/settings/notifications": {
+    "title": "Notification Settings",
+    "description": "Choose reminders for salah, qaza, and zikr.",
+    "index": false
+  },
+  "/settings/time-format": {
+    "title": "Time Format",
+    "description": "Show times in a 12-hour or 24-hour clock.",
+    "index": false
+  },
+  "/settings/weather": {
+    "title": "Weather",
+    "description": "Home hero weather effects and temperature unit.",
+    "index": false
+  },
+  "/sick": {
+    "title": "Illness & Salah — Concessions",
+    "description": "The concessions Islam grants when you are ill — praying sitting or lying down, limited movement, tayammum, and what remains upon you, with hadith evidence.",
+    "keywords": [
+      "prayer while sick",
+      "salah when ill",
+      "praying sitting",
+      "islam and illness",
+      "concessions in prayer"
+    ]
+  },
+  "/statistics": {
+    "title": "Statistics",
+    "description": "Lifetime progress, today's snapshot, and worship trends over time.",
+    "index": false
+  },
+  "/tahajjud": {
+    "title": "Tahajjud — The Night Prayer",
+    "description": "Build a lasting habit of the night prayer. Track your Tahajjud streak and read the virtue of standing while others sleep — the best prayer after the fard.",
+    "keywords": ["tahajjud", "night prayer", "qiyam al-layl", "tahajjud tracker", "prayer at night"]
+  },
+  "/taharah": {
+    "title": "Learn Purification — Taharah & Wudu",
+    "description": "Learn taharah step by step — wudu, ghusl, tayammum, and removing impurity. Every lesson cites the Qur'an or authentic hadith and notes where scholars differ.",
+    "keywords": ["taharah", "purification in Islam", "wudu guide", "ghusl", "tayammum"]
+  },
+  "/taharah/checklist": {
+    "title": "Daily Purity Checklist",
+    "description": "A practical reminder list of purification habits to review each day, keeping you ready for salah — a support for, not a replacement of, learning taharah fiqh.",
+    "keywords": ["purity checklist", "taharah checklist", "daily wudu habits", "staying in wudu"]
+  },
+  "/taharah/progress": {
+    "title": "My Purification Learning Progress",
+    "description": "Mark taharah topics complete as you study. This dashboard tracks your learning, not spiritual rank.",
+    "index": false
+  },
+  "/tasbeeh/free": {
+    "title": "Digital Tasbeeh Counter — Count Any Dhikr",
+    "description": "A free digital tasbeeh (misbaha) counter for any dhikr, hands-free. Count SubhanAllah, Alhamdulillah, Allahu Akbar, durood, or istighfar with a tactile tap.",
+    "keywords": ["tasbeeh counter", "digital tasbeeh", "misbaha", "dhikr counter", "online tasbeeh"]
+  },
+  "/tour": {
+    "title": "Guided Tour",
+    "description": "A quick guided walkthrough of what you can do in the app — tracking, prayer times, the Qur'an, qibla, adhkar, and more.",
+    "index": false
+  },
+  "/tracker": {
+    "title": "Prayer Tracker",
+    "description": "Log each of today's prayers and keep your streak going. Saved on your device.",
+    "index": false
+  },
+  "/travel": {
+    "title": "Travelling & Salah — Qasr and Jam'",
+    "description": "What the Qur'an and Sunnah teach about prayer on a journey — shortening (Qasr) and combining (Jam'), when the concessions apply, and what remains obligatory.",
+    "keywords": [
+      "salah while travelling",
+      "qasr prayer",
+      "jam prayer",
+      "combining prayers",
+      "shortening salah"
+    ]
+  },
+  "/zakat": {
+    "title": "Zakat Calculator & Guide",
+    "description": "Learn the essentials of zakat and estimate what you owe — 2.5% of qualifying wealth held for one lunar year above nisab — with guides, evidence, and a checklist.",
+    "keywords": ["zakat calculator", "zakat guide", "nisab", "pillar of Islam", "calculate zakat"]
+  },
+  "/zakat/checklist": {
+    "title": "Zakat Checklist — Before You Pay",
+    "description": "A step-by-step review of the common conditions before paying zakat. Work through each item to check your wealth is due — not a substitute for a scholar's ruling.",
+    "keywords": ["zakat checklist", "before paying zakat", "zakat conditions", "how to pay zakat"]
+  },
+  "/zakat/evidence": {
+    "title": "Zakat in the Qur'an & Sunnah",
+    "description": "The primary texts that establish zakat as a fixed duty on qualifying wealth — not voluntary charity. Read the verses and hadith behind the third pillar of Islam.",
+    "keywords": [
+      "zakat evidence",
+      "zakat in the Quran",
+      "zakat in the Sunnah",
+      "obligation of zakat"
+    ]
+  },
+  "/zikr": {
+    "title": "Daily Adhkar & Dhikr — Morning and Evening Remembrance",
+    "description": "Morning, evening, and situational adhkar for every part of your day. Read authentic dhikr with Arabic, transliteration, and meaning, and count along with the tasbeeh.",
+    "keywords": ["morning adhkar", "evening adhkar", "daily dhikr", "azkar", "remembrance of Allah"]
+  },
+  "/zikr/favorites": {
+    "title": "Favorite Adhkar",
+    "description": "Your favorited adhkar, kept together for quick access.",
+    "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Lista obreda Hajj",
+    "description": "Dnevni pratilac obreda Hajj od Tarwiyah do oproštajnog tawaf. Podsjetnik uz vodič Uči.",
+    "keywords": ["lista hajj", "obredi hajj", "pratilac hodočašća"]
+  },
+  "/umrah/checklist": {
+    "title": "Lista obreda Umrah",
+    "description": "Uređena Umrah lista — ihram, tawaf, sa'i i halq ili taqsir. Koristite s vodičem Uči za Hajj i Umrah.",
+    "keywords": ["lista umrah", "obredi umrah", "manje hodočašće"]
+  }
+}

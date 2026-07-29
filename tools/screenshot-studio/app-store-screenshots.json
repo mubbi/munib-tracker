@@ -1,0 +1,652 @@
+{
+  "schemaVersion": 2,
+  "appName": "Munib Tracker",
+  "themeId": "munib-tracker",
+  "connectedCanvas": false,
+  "locales": ["en", "ar", "ur"],
+  "locale": "en",
+  "device": "ipad",
+  "orientation": "portrait",
+  "appIcon": "/app-icon.png",
+  "slidesByDevice": {
+    "iphone": [
+      {
+        "id": "mt-iphone-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
+        "textElements": [
+          {
+            "id": "hero-badge",
+            "text": {
+              "en": "Offline-first · Private · Free, no ads",
+              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
+              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+            },
+            "transform": {
+              "x": 132,
+              "y": 520,
+              "width": 1056,
+              "height": 100,
+              "zIndex": 5
+            },
+            "fontSize": 38,
+            "fontWeight": 600,
+            "color": "#A9C6BB",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "mt-iphone-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH TRACKER",
+          "ar": "تتبّع الصلاة",
+          "ur": "نماز ٹریکر"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** habits",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-iphone-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-iphone-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Qur'an, Zikr &\n**hadith** — offline",
+          "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+          "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-iphone-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "QIBLA",
+          "ar": "القبلة",
+          "ur": "قبلہ"
+        },
+        "headline": {
+          "en": "Find the **Qibla**\nin seconds",
+          "ar": "اعثر على **القبلة**\nفي ثوانٍ",
+          "ur": "**قبلہ** چند\nسیکنڈ میں"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg"
+      },
+      {
+        "id": "mt-iphone-06",
+        "layout": "hero",
+        "label": {
+          "en": "99 NAMES",
+          "ar": "الأسماء الحسنى",
+          "ur": "۹۹ نام"
+        },
+        "headline": {
+          "en": "Asma-ul-Husna\nwith **audio**",
+          "ar": "الأسماء الحسنى\nمع **الصوت**",
+          "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/names-of-allah.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-iphone-07",
+        "layout": "device-bottom",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**23 languages**",
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
+        "inverted": true
+      }
+    ],
+    "android": [
+      {
+        "id": "mt-android-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg",
+        "textElements": [
+          {
+            "id": "hero-badge",
+            "text": {
+              "en": "Offline-first · Private · Free, no ads",
+              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
+              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+            },
+            "transform": {
+              "x": 90,
+              "y": 320,
+              "width": 900,
+              "height": 68,
+              "zIndex": 5
+            },
+            "fontSize": 27,
+            "fontWeight": 600,
+            "color": "#A9C6BB",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "mt-android-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH TRACKER",
+          "ar": "تتبّع الصلاة",
+          "ur": "نماز ٹریکر"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** habits",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-android-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Qur'an, Zikr &\n**hadith** — offline",
+          "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+          "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-android-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "QIBLA",
+          "ar": "القبلة",
+          "ur": "قبلہ"
+        },
+        "headline": {
+          "en": "Find the **Qibla**\nin seconds",
+          "ar": "اعثر على **القبلة**\nفي ثوانٍ",
+          "ur": "**قبلہ** چند\nسیکنڈ میں"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
+      },
+      {
+        "id": "mt-android-06",
+        "layout": "hero",
+        "label": {
+          "en": "99 NAMES",
+          "ar": "الأسماء الحسنى",
+          "ur": "۹۹ نام"
+        },
+        "headline": {
+          "en": "Asma-ul-Husna\nwith **audio**",
+          "ar": "الأسماء الحسنى\nمع **الصوت**",
+          "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-07",
+        "layout": "device-bottom",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**23 languages**",
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
+        "inverted": true
+      }
+    ],
+    "ipad": [
+      {
+        "id": "mt-ipad-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
+        "textElements": [
+          {
+            "id": "hero-badge",
+            "text": {
+              "en": "Offline-first · Private · Free, no ads",
+              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
+              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+            },
+            "transform": {
+              "x": 232,
+              "y": 680,
+              "width": 1600,
+              "height": 100,
+              "zIndex": 5
+            },
+            "fontSize": 46,
+            "fontWeight": 600,
+            "color": "#A9C6BB",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "mt-ipad-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH TRACKER",
+          "ar": "تتبّع الصلاة",
+          "ur": "نماز ٹریکر"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** habits",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-ipad-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-ipad-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Qur'an, Zikr &\n**hadith** — offline",
+          "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+          "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-ipad-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "QIBLA",
+          "ar": "القبلة",
+          "ur": "قبلہ"
+        },
+        "headline": {
+          "en": "Find the **Qibla**\nin seconds",
+          "ar": "اعثر على **القبلة**\nفي ثوانٍ",
+          "ur": "**قبلہ** چند\nسیکنڈ میں"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg"
+      },
+      {
+        "id": "mt-ipad-06",
+        "layout": "hero",
+        "label": {
+          "en": "99 NAMES",
+          "ar": "الأسماء الحسنى",
+          "ur": "۹۹ نام"
+        },
+        "headline": {
+          "en": "Asma-ul-Husna\nwith **audio**",
+          "ar": "الأسماء الحسنى\nمع **الصوت**",
+          "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/names-of-allah.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-ipad-07",
+        "layout": "device-bottom",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**23 languages**",
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
+        "inverted": true
+      }
+    ],
+    "android-7": [
+      {
+        "id": "mt-android-7-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg"
+      },
+      {
+        "id": "mt-android-7-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH TRACKER",
+          "ar": "تتبّع الصلاة",
+          "ur": "نماز ٹریکر"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** habits",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-android-7-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-7-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Qur'an, Zikr &\n**hadith** — offline",
+          "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+          "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-android-7-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "QIBLA",
+          "ar": "القبلة",
+          "ur": "قبلہ"
+        },
+        "headline": {
+          "en": "Find the **Qibla**\nin seconds",
+          "ar": "اعثر على **القبلة**\nفي ثوانٍ",
+          "ur": "**قبلہ** چند\nسیکنڈ میں"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
+      },
+      {
+        "id": "mt-android-7-06",
+        "layout": "hero",
+        "label": {
+          "en": "99 NAMES",
+          "ar": "الأسماء الحسنى",
+          "ur": "۹۹ نام"
+        },
+        "headline": {
+          "en": "Asma-ul-Husna\nwith **audio**",
+          "ar": "الأسماء الحسنى\nمع **الصوت**",
+          "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-7-07",
+        "layout": "device-bottom",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**23 languages**",
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
+        "inverted": true
+      }
+    ],
+    "android-10": [
+      {
+        "id": "mt-android-10-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg"
+      },
+      {
+        "id": "mt-android-10-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH TRACKER",
+          "ar": "تتبّع الصلاة",
+          "ur": "نماز ٹریکر"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** habits",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-android-10-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-10-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Qur'an, Zikr &\n**hadith** — offline",
+          "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+          "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-android-10-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "QIBLA",
+          "ar": "القبلة",
+          "ur": "قبلہ"
+        },
+        "headline": {
+          "en": "Find the **Qibla**\nin seconds",
+          "ar": "اعثر على **القبلة**\nفي ثوانٍ",
+          "ur": "**قبلہ** چند\nسیکنڈ میں"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
+      },
+      {
+        "id": "mt-android-10-06",
+        "layout": "hero",
+        "label": {
+          "en": "99 NAMES",
+          "ar": "الأسماء الحسنى",
+          "ur": "۹۹ نام"
+        },
+        "headline": {
+          "en": "Asma-ul-Husna\nwith **audio**",
+          "ar": "الأسماء الحسنى\nمع **الصوت**",
+          "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-10-07",
+        "layout": "device-bottom",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**23 languages**",
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
+        "inverted": true
+      }
+    ],
+    "feature-graphic": [
+      {
+        "id": "mt-feature-graphic-01",
+        "layout": "feature-graphic",
+        "label": {},
+        "headline": {
+          "en": "Salah, Zikr, Qaza & learning — offline.\n23 languages. Private by design.",
+          "ar": "صلاة وذكر وقضاء وتعلّم — بدون إنترنت.\n23 لغة. خصوصية بالتصميم.",
+          "ur": "نماز، ذکر، قضا اور تعلیم — آف لائن۔\n23 زبانیں۔ رازداری بنیادی اصول۔"
+        },
+        "screenshot": ""
+      }
+    ]
+  },
+  "crossScreenMockupsByDevice": {
+    "iphone": [],
+    "ipad": [],
+    "android": [],
+    "android-7": [],
+    "android-10": [],
+    "feature-graphic": []
+  }
+}

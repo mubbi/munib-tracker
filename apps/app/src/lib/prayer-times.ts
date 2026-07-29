@@ -1,0 +1,719 @@
+import type { PrayerId, SunnahPrayer, TimeFormat } from "@munib-tracker/shared/types";
+import { CalculationMethod, Coordinates, HighLatitudeRule, Madhab, PrayerTimes } from "adhan";
+import type { SymbolViewProps } from "expo-symbols";
+
+import {
+  formatDisplayTime,
+  getZonedParts,
+  prayerDayAnchor,
+  shiftPrayerDay,
+  wallClockInTimeZoneToDate,
+} from "./time";
+
+/**
+ * On-device prayer-time calculation with the `adhan` library (already a
+ * dependency, pure JS, offline). All six daily markers are derived from the
+ * user's coordinates and the chosen calculation method + asr madhab.
+ */
+
+/** The six markers shown in the hero row, in chronological order. */
+export type PrayerSlotId = "fajr" | "sunrise" | "dhuhr" | "asr" | "maghrib" | "isha";
+
+/** Keys of `adhan`'s built-in calculation methods. */
+export type CalculationMethodKey = keyof typeof CalculationMethod;
+
+/** Asr shadow-length madhab. */
+export type MadhabKey = "shafi" | "hanafi";
+
+/**
+ * High-latitude twilight rule (NF-2.21). Beyond ~48° the sun may never reach the
+ * Fajr/Isha angles, so a substitution rule is needed. `recommended` picks per
+ * latitude automatically; the others let the user match a local convention.
+ */
+export type HighLatitudeRuleKey =
+  | "recommended"
+  | "MiddleOfTheNight"
+  | "SeventhOfTheNight"
+  | "TwilightAngle";
+
+export const HIGH_LATITUDE_RULE_KEYS: HighLatitudeRuleKey[] = [
+  "recommended",
+  "MiddleOfTheNight",
+  "SeventhOfTheNight",
+  "TwilightAngle",
+];
+
+export const DEFAULT_HIGH_LATITUDE_RULE: HighLatitudeRuleKey = "recommended";
+
+/** Per-marker manual minute offset applied on top of the calculation (NF-2.20). */
+export type PrayerAdjustments = Partial<Record<PrayerSlotId, number>>;
+
+/**
+ * Optional calculation refinements layered onto the method + madhab: a
+ * high-latitude rule override (NF-2.21) and per-prayer minute offsets so times
+ * match the local masjid's announced schedule (NF-2.20).
+ */
+export interface PrayerCalcExtras {
+  highLatitudeRule?: HighLatitudeRuleKey;
+  adjustments?: PrayerAdjustments;
+}
+
+export interface Coords {
+  latitude: number;
+  longitude: number;
+}
+
+export interface PrayerSlot {
+  id: PrayerSlotId;
+  /** Absolute time for this marker on the requested day. */
+  date: Date;
+}
+
+export interface NextPrayer {
+  id: PrayerSlotId;
+  date: Date;
+  /** Whole minutes from `now` until this marker (never negative). */
+  minutesUntil: number;
+  /** Index of the next upcoming marker, or -1 when it is tomorrow's Fajr. */
+  activeIndex: number;
+  /**
+   * Index (into `PRAYER_SLOT_ORDER`) of the marker whose window is currently
+   * running — the latest one that has already begun. This is what the hero
+   * highlights: a card stays lit from its own time until the next marker
+   * arrives, rather than jumping ahead to the upcoming prayer. Before today's
+   * Fajr it is Isha (the previous night's window is still in effect).
+   */
+  currentIndex: number;
+}
+
+export const PRAYER_SLOT_ORDER: PrayerSlotId[] = [
+  "fajr",
+  "sunrise",
+  "dhuhr",
+  "asr",
+  "maghrib",
+  "isha",
+];
+
+/** SF Symbols / Material icons per marker (mirrors the tracker's iconography). */
+export const PRAYER_SLOT_ICONS: Record<PrayerSlotId, SymbolViewProps["name"]> = {
+  fajr: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
+  sunrise: { ios: "sun.horizon.fill", android: "wb_sunny", web: "wb_sunny" },
+  dhuhr: { ios: "sun.max.fill", android: "light_mode", web: "light_mode" },
+  asr: { ios: "cloud.sun.fill", android: "wb_cloudy", web: "wb_cloudy" },
+  maghrib: { ios: "sunset.fill", android: "wb_twilight", web: "wb_twilight" },
+  isha: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
+};
+
+export const DEFAULT_CALCULATION_METHOD: CalculationMethodKey = "MuslimWorldLeague";
+export const DEFAULT_MADHAB: MadhabKey = "shafi";
+
+/**
+ * `adhan`'s built-in calculation methods in a sensible display order (most
+ * globally used first). Labels + regional hints live in i18n under
+ * `location.methods.*` / `location.methodHints.*` so they translate; this array
+ * is the canonical enumeration the picker iterates over.
+ */
+export const CALCULATION_METHOD_KEYS: CalculationMethodKey[] = [
+  "MuslimWorldLeague",
+  "Egyptian",
+  "Karachi",
+  "UmmAlQura",
+  "Dubai",
+  "MoonsightingCommittee",
+  "NorthAmerica",
+  "Kuwait",
+  "Qatar",
+  "Singapore",
+  "Tehran",
+  "Turkey",
+  "Other",
+];
+
+/** The two asr madhab options, in display order. */
+export const MADHAB_KEYS: MadhabKey[] = ["shafi", "hanafi"];
+
+/** Resolves a high-latitude rule key into the `adhan` rule (NF-2.21). */
+function resolveHighLatitudeRule(coordinates: Coordinates, key?: HighLatitudeRuleKey) {
+  switch (key) {
+    case "MiddleOfTheNight":
+      return HighLatitudeRule.MiddleOfTheNight;
+    case "SeventhOfTheNight":
+      return HighLatitudeRule.SeventhOfTheNight;
+    case "TwilightAngle":
+      return HighLatitudeRule.TwilightAngle;
+    default:
+      // `recommended` (and unset) is latitude-aware; it substitutes a sane
+      // fallback so Fajr/Isha stay computable in polar regions.
+      return HighLatitudeRule.recommended(coordinates);
+  }
+}
+
+function buildParameters(
+  coordinates: Coordinates,
+  method: CalculationMethodKey,
+  madhab: MadhabKey,
+  extras?: PrayerCalcExtras,
+) {
+  const factory = CalculationMethod[method] ?? CalculationMethod[DEFAULT_CALCULATION_METHOD];
+  const params = factory();
+  params.madhab = madhab === "hanafi" ? Madhab.Hanafi : Madhab.Shafi;
+  params.highLatitudeRule = resolveHighLatitudeRule(coordinates, extras?.highLatitudeRule);
+  // Per-prayer manual offsets so computed times match the local masjid (NF-2.20).
+  if (extras?.adjustments) {
+    params.adjustments = { ...params.adjustments, ...extras.adjustments };
+  }
+  return params;
+}
+
+/** Computes the raw `adhan` prayer times for a coordinate + day. */
+export function computePrayerTimes(
+  coords: Coords,
+  date: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  extras?: PrayerCalcExtras,
+): PrayerTimes {
+  const coordinates = new Coordinates(coords.latitude, coords.longitude);
+  return new PrayerTimes(coordinates, date, buildParameters(coordinates, method, madhab, extras));
+}
+
+/**
+ * Whether every marker computed to a real instant. Even with the high-latitude
+ * rule, extreme polar days/nights can yield an invalid time — callers can use
+ * this to show an "unavailable at this location" state instead of "NaNm".
+ */
+export function hasValidPrayerTimes(times: PrayerTimes): boolean {
+  return prayerSlots(times).every((slot) => !Number.isNaN(slot.date.getTime()));
+}
+
+/** The six ordered markers for the given day. */
+export function prayerSlots(times: PrayerTimes): PrayerSlot[] {
+  return [
+    { id: "fajr", date: times.fajr },
+    { id: "sunrise", date: times.sunrise },
+    { id: "dhuhr", date: times.dhuhr },
+    { id: "asr", date: times.asr },
+    { id: "maghrib", date: times.maghrib },
+    { id: "isha", date: times.isha },
+  ];
+}
+
+/**
+ * The latest marker whose time has begun. Before today's Fajr this returns the
+ * previous day's Isha with its real instant, rather than today's future Isha.
+ */
+export function currentPrayer(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  timeZone?: string,
+  extras?: PrayerCalcExtras,
+): PrayerSlot {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = prayerSlots(computePrayerTimes(coords, anchor, method, madhab, extras));
+  const current = [...today].reverse().find((slot) => slot.date.getTime() <= now.getTime());
+  if (current) return current;
+
+  const previousDay = shiftPrayerDay(anchor, -1);
+  const previousSlots = prayerSlots(
+    computePrayerTimes(coords, previousDay, method, madhab, extras),
+  );
+  return previousSlots[previousSlots.length - 1];
+}
+
+/**
+ * The next upcoming marker relative to `now`. After Isha it rolls over to
+ * tomorrow's Fajr (so the countdown keeps working through the night).
+ */
+export function nextPrayer(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  timeZone?: string,
+  extras?: PrayerCalcExtras,
+): NextPrayer {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = computePrayerTimes(coords, anchor, method, madhab, extras);
+  const upcoming = today.nextPrayer(now);
+
+  // The currently running window: the latest marker that has already begun.
+  // Slots are chronological, so the last one at or before `now` wins; before Fajr
+  // nothing today has started yet, so the previous night's Isha is still active.
+  const slots = prayerSlots(today);
+  let currentIndex = PRAYER_SLOT_ORDER.length - 1;
+  for (let i = 0; i < slots.length; i += 1) {
+    if (slots[i].date.getTime() <= now.getTime()) currentIndex = i;
+    else break;
+  }
+
+  let id: PrayerSlotId;
+  let date: Date;
+  let activeIndex: number;
+
+  if (upcoming === "none") {
+    const tomorrow = shiftPrayerDay(anchor, 1);
+    const next = computePrayerTimes(coords, tomorrow, method, madhab, extras);
+    id = "fajr";
+    date = next.fajr;
+    activeIndex = -1;
+  } else {
+    id = upcoming;
+    date = today.timeForPrayer(upcoming) ?? today.fajr;
+    activeIndex = PRAYER_SLOT_ORDER.indexOf(id);
+  }
+
+  const minutesUntil = Math.max(0, Math.round((date.getTime() - now.getTime()) / 60000));
+  return { id, date, minutesUntil, activeIndex, currentIndex };
+}
+
+/** Formats a marker time for display using the user's clock preference + timezone. */
+export function formatPrayerTime(
+  date: Date,
+  timeFormat: TimeFormat = "24",
+  timeZone?: string,
+): string {
+  return formatDisplayTime(date, timeFormat, timeZone);
+}
+
+/**
+ * Compact human duration for a whole-minute count, e.g. 27 → "27m", 95 → "1h 35m".
+ * Used for the "next prayer in {{time}}" countdown line and the schedule card.
+ */
+export function formatDuration(minutes: number): string {
+  const total = Math.max(0, Math.round(minutes));
+  const hrs = Math.floor(total / 60);
+  const mins = total % 60;
+  if (hrs <= 0) return `${mins}m`;
+  if (mins === 0) return `${hrs}h`;
+  return `${hrs}h ${mins}m`;
+}
+
+/**
+ * Fraction (0..1) of the current prayer window that has already elapsed, given
+ * the start of the running window and the next marker. Clamped so it stays a
+ * valid progress value even at the exact boundaries.
+ */
+export function windowProgress(windowStart: Date, windowEnd: Date, now: Date): number {
+  const total = windowEnd.getTime() - windowStart.getTime();
+  if (total <= 0) return 0;
+  const elapsed = now.getTime() - windowStart.getTime();
+  return Math.min(1, Math.max(0, elapsed / total));
+}
+
+/** Minutes after sunrise when Ishraq begins (sun at a spear's length). */
+export const ISHRAQ_AFTER_SUNRISE_MINUTES = 20;
+/** Minutes before Dhuhr when zawal ends and the Duha window closes. */
+export const DUHA_END_BEFORE_ZUHR_MINUTES = 15;
+
+/** Zawal — the sun at its zenith, just before Dhuhr. */
+export function zawalTime(dhuhr: Date): Date {
+  return addMinutes(dhuhr, -DUHA_END_BEFORE_ZUHR_MINUTES);
+}
+
+/**
+ * Mid-morning: halfway between sunrise and zawal. Hanafi scholars use this as the
+ * boundary between Salah al-Ishraq (early forenoon) and Salah ad-Duha (later forenoon).
+ */
+export function midMorningTime(sunrise: Date, dhuhr: Date): Date {
+  const zawal = zawalTime(dhuhr);
+  return new Date(sunrise.getTime() + (zawal.getTime() - sunrise.getTime()) / 2);
+}
+/** Minutes after Isha when Witr is commonly prayed. */
+export const WITR_AFTER_ISHA_MINUTES = 20;
+
+export type ScheduleKind = "obligatory" | "optional" | "marker";
+
+export type DailyScheduleEntryId = PrayerSlotId | SunnahPrayer | "witr";
+
+export interface DailyScheduleEntry {
+  id: DailyScheduleEntryId;
+  kind: ScheduleKind;
+  /** Absolute instant shown in the schedule; absent for flexible prayers. */
+  at?: Date;
+  /** Whether this entry's window is currently running. */
+  active: boolean;
+}
+
+function addMinutes(date: Date, minutes: number): Date {
+  return new Date(date.getTime() + minutes * 60_000);
+}
+
+export interface NightDividers {
+  midNight: Date;
+  lastThird: Date;
+  /** Whole minutes from Maghrib to Fajr. */
+  nightDurationMinutes: number;
+}
+
+export interface WallClockTime {
+  hour: number;
+  minute: number;
+}
+
+/**
+ * Islamic night runs from Maghrib to the next Fajr after that Maghrib.
+ * Fajr is only rolled to the following calendar day when its wall clock is
+ * not already later the same day (typical Maghrib evening → Fajr dawn).
+ * Always advancing a day produced multi-day spans (e.g. 31h) for same-day
+ * wall clocks such as 08:24 → 16:21.
+ */
+export function nightBoundsFromWallClock(
+  maghrib: WallClockTime,
+  fajr: WallClockTime,
+  anchor: Date,
+  timeZone?: string,
+): { maghribAt: Date; fajrAt: Date } {
+  const y = anchor.getFullYear();
+  const m = anchor.getMonth() + 1;
+  const d = anchor.getDate();
+  const maghribAt = wallClockInTimeZoneToDate(y, m, d, maghrib.hour, maghrib.minute, timeZone);
+  let fajrAt = wallClockInTimeZoneToDate(y, m, d, fajr.hour, fajr.minute, timeZone);
+  if (fajrAt.getTime() <= maghribAt.getTime()) {
+    const tomorrow = shiftPrayerDay(anchor, 1);
+    fajrAt = wallClockInTimeZoneToDate(
+      tomorrow.getFullYear(),
+      tomorrow.getMonth() + 1,
+      tomorrow.getDate(),
+      fajr.hour,
+      fajr.minute,
+      timeZone,
+    );
+  }
+  return { maghribAt, fajrAt };
+}
+
+/** Midpoint of the Islamic night (halfway between Maghrib and Fajr). */
+export function midNightOfNight(maghrib: Date, fajr: Date): Date {
+  const nightMs = fajr.getTime() - maghrib.getTime();
+  return new Date(maghrib.getTime() + nightMs / 2);
+}
+
+/** Last third of the night — the preferred Tahajjud window. */
+export function lastThirdOfNight(maghrib: Date, fajr: Date): Date {
+  const nightMs = fajr.getTime() - maghrib.getTime();
+  return new Date(fajr.getTime() - nightMs / 3);
+}
+
+/** Mid-night and last-third markers for a Maghrib→Fajr night span. */
+export function computeNightDividers(maghrib: Date, fajr: Date): NightDividers {
+  const nightMs = fajr.getTime() - maghrib.getTime();
+  return {
+    midNight: new Date(maghrib.getTime() + nightMs / 2),
+    lastThird: new Date(fajr.getTime() - nightMs / 3),
+    nightDurationMinutes: Math.round(nightMs / 60_000),
+  };
+}
+
+/**
+ * Maghrib→Fajr instants for the Islamic night that still contains `now`
+ * (before Fajr), otherwise the upcoming night starting at the next Maghrib.
+ */
+export function resolveNightBoundsForNow(
+  maghrib: WallClockTime,
+  fajr: WallClockTime,
+  now: Date,
+  timeZone?: string,
+): { maghribAt: Date; fajrAt: Date } | undefined {
+  const anchor = prayerDayAnchor(now, timeZone);
+  for (const dayOffset of [-1, 0, 1] as const) {
+    const bounds = nightBoundsFromWallClock(
+      maghrib,
+      fajr,
+      shiftPrayerDay(anchor, dayOffset),
+      timeZone,
+    );
+    if (bounds.fajrAt.getTime() <= bounds.maghribAt.getTime()) continue;
+    if (now.getTime() < bounds.fajrAt.getTime()) return bounds;
+  }
+  return undefined;
+}
+
+/** Absolute Maghrib→Fajr instants for the upcoming Islamic night at a location. */
+export function detectNightPrayerBounds(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  extras?: PrayerCalcExtras,
+  timeZone?: string,
+): { maghribAt: Date; fajrAt: Date; maghrib: WallClockTime; fajr: WallClockTime } {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = computePrayerTimes(coords, anchor, method, madhab, extras);
+  const tomorrow = computePrayerTimes(coords, shiftPrayerDay(anchor, 1), method, madhab, extras);
+  const yesterday = computePrayerTimes(coords, shiftPrayerDay(anchor, -1), method, madhab, extras);
+
+  const maghribAt = now.getTime() < today.fajr.getTime() ? yesterday.maghrib : today.maghrib;
+  const fajrAt = now.getTime() < today.fajr.getTime() ? today.fajr : tomorrow.fajr;
+
+  const maghrib = getZonedParts(maghribAt, timeZone);
+  const fajr = getZonedParts(fajrAt, timeZone);
+  return {
+    maghribAt,
+    fajrAt,
+    maghrib: { hour: maghrib.hour, minute: maghrib.minute },
+    fajr: { hour: fajr.hour, minute: fajr.minute },
+  };
+}
+
+/** Maghrib/Fajr wall-clock times for the upcoming Islamic night at a location. */
+export function detectNightPrayerWallClock(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  extras?: PrayerCalcExtras,
+  timeZone?: string,
+): { maghrib: WallClockTime; fajr: WallClockTime } {
+  const { maghrib, fajr } = detectNightPrayerBounds(coords, now, method, madhab, extras, timeZone);
+  return { maghrib, fajr };
+}
+
+export function ishraqTime(sunrise: Date): Date {
+  return addMinutes(sunrise, ISHRAQ_AFTER_SUNRISE_MINUTES);
+}
+
+/** Ishraq is prayed at the beginning of the forenoon, until mid-morning. */
+export function ishraqWindow(sunrise: Date, dhuhr: Date): { start: Date; end: Date } {
+  return { start: ishraqTime(sunrise), end: midMorningTime(sunrise, dhuhr) };
+}
+
+/**
+ * Duha runs from mid-morning until zawal. The recommended time is the midpoint of
+ * that window — when the sun's heat has intensified (the virtuous forenoon moment).
+ */
+export function duhaWindow(
+  sunrise: Date,
+  dhuhr: Date,
+): { start: Date; end: Date; recommended: Date } {
+  const start = midMorningTime(sunrise, dhuhr);
+  const end = zawalTime(dhuhr);
+  const midpoint = start.getTime() + (end.getTime() - start.getTime()) / 2;
+  return { start, end, recommended: new Date(midpoint) };
+}
+
+export function witrTime(isha: Date): Date {
+  return addMinutes(isha, WITR_AFTER_ISHA_MINUTES);
+}
+
+/** Upcoming Tahajjud marker: pre-dawn tonight or the one before tomorrow's Fajr. */
+export function tahajjudTime(
+  now: Date,
+  today: PrayerTimes,
+  tomorrowFajr: Date,
+  yesterdayMaghrib: Date,
+): Date {
+  if (now.getTime() < today.fajr.getTime()) {
+    return lastThirdOfNight(yesterdayMaghrib, today.fajr);
+  }
+  return lastThirdOfNight(today.maghrib, tomorrowFajr);
+}
+
+export interface PrayerTimeMap {
+  [key: string]: string | undefined;
+}
+
+/** Computed HH:mm (or flexible label key) for every tracked prayer on a day. */
+export function buildPrayerTimeMap(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  flexibleLabel = "Any time",
+  timeFormat: TimeFormat = "24",
+  timeZone?: string,
+  extras?: PrayerCalcExtras,
+): Record<PrayerId, string> {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = computePrayerTimes(coords, anchor, method, madhab, extras);
+  const tomorrowTimes = computePrayerTimes(
+    coords,
+    shiftPrayerDay(anchor, 1),
+    method,
+    madhab,
+    extras,
+  );
+  const yesterdayTimes = computePrayerTimes(
+    coords,
+    shiftPrayerDay(anchor, -1),
+    method,
+    madhab,
+    extras,
+  );
+
+  const duha = duhaWindow(today.sunrise, today.dhuhr);
+
+  return {
+    fajr: formatPrayerTime(today.fajr, timeFormat, timeZone),
+    dhuhr: formatPrayerTime(today.dhuhr, timeFormat, timeZone),
+    asr: formatPrayerTime(today.asr, timeFormat, timeZone),
+    maghrib: formatPrayerTime(today.maghrib, timeFormat, timeZone),
+    isha: formatPrayerTime(today.isha, timeFormat, timeZone),
+    witr: formatPrayerTime(witrTime(today.isha), timeFormat, timeZone),
+    tahajjud: formatPrayerTime(
+      tahajjudTime(now, today, tomorrowTimes.fajr, yesterdayTimes.maghrib),
+      timeFormat,
+      timeZone,
+    ),
+    ishraq: formatPrayerTime(ishraqTime(today.sunrise), timeFormat, timeZone),
+    duha: formatPrayerTime(duha.recommended, timeFormat, timeZone),
+    tahiyyatul_masjid: flexibleLabel,
+    hajat_istikhara: flexibleLabel,
+  };
+}
+
+/**
+ * Full chronological schedule for the home card: obligatory markers, sunnah
+ * prayers with computed times, and flexible optional prayers at the end.
+ */
+export function buildDailySchedule(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  timeZone?: string,
+  extras?: PrayerCalcExtras,
+): DailyScheduleEntry[] {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = computePrayerTimes(coords, anchor, method, madhab, extras);
+  const tomorrowTimes = computePrayerTimes(
+    coords,
+    shiftPrayerDay(anchor, 1),
+    method,
+    madhab,
+    extras,
+  );
+  const yesterdayTimes = computePrayerTimes(
+    coords,
+    shiftPrayerDay(anchor, -1),
+    method,
+    madhab,
+    extras,
+  );
+
+  const tahajjudAt = tahajjudTime(now, today, tomorrowTimes.fajr, yesterdayTimes.maghrib);
+  const ishraq = ishraqWindow(today.sunrise, today.dhuhr);
+  const duha = duhaWindow(today.sunrise, today.dhuhr);
+  const witrAt = witrTime(today.isha);
+  const fajrEnd = today.fajr.getTime();
+  const ishraqEnd = ishraq.end.getTime();
+  const duhaEnd = duha.end.getTime();
+  const witrEnd = tomorrowTimes.fajr.getTime();
+  const nowMs = now.getTime();
+
+  const entries: DailyScheduleEntry[] = [
+    {
+      id: "tahajjud",
+      kind: "optional",
+      at: tahajjudAt,
+      active: nowMs >= tahajjudAt.getTime() && nowMs < fajrEnd,
+    },
+    { id: "fajr", kind: "obligatory", at: today.fajr, active: false },
+    { id: "sunrise", kind: "marker", at: today.sunrise, active: false },
+    {
+      id: "ishraq",
+      kind: "optional",
+      at: ishraq.start,
+      active: nowMs >= ishraq.start.getTime() && nowMs < ishraqEnd,
+    },
+    {
+      id: "duha",
+      kind: "optional",
+      at: duha.recommended,
+      active: nowMs >= duha.start.getTime() && nowMs < duhaEnd,
+    },
+    { id: "dhuhr", kind: "obligatory", at: today.dhuhr, active: false },
+    { id: "asr", kind: "obligatory", at: today.asr, active: false },
+    { id: "maghrib", kind: "obligatory", at: today.maghrib, active: false },
+    { id: "isha", kind: "obligatory", at: today.isha, active: false },
+    {
+      id: "witr",
+      kind: "optional",
+      at: witrAt,
+      active: nowMs >= witrAt.getTime() && nowMs < witrEnd,
+    },
+    { id: "tahiyyatul_masjid", kind: "optional", active: false },
+    { id: "hajat_istikhara", kind: "optional", active: false },
+  ];
+
+  // Highlight the obligatory prayer window that is currently running.
+  const next = nextPrayer(coords, now, method, madhab, timeZone, extras);
+  const slotActive = new Set<PrayerSlotId>();
+  if (next.currentIndex >= 0) slotActive.add(PRAYER_SLOT_ORDER[next.currentIndex]);
+
+  return entries.map((entry) => {
+    if (entry.id === "witr") {
+      return { ...entry, active: nowMs >= witrAt.getTime() && nowMs < witrEnd };
+    }
+    if (entry.kind === "optional" && entry.at) return entry;
+    if (entry.kind === "obligatory") {
+      const slotId = entry.id as PrayerSlotId;
+      if (PRAYER_SLOT_ORDER.includes(slotId)) {
+        return { ...entry, active: slotActive.has(slotId) };
+      }
+    }
+    return entry;
+  });
+}
+
+/**
+ * The next timed schedule entry after `now` — earliest future instant, not
+ * first in display order (Tahajjud is listed first but may be hours away).
+ */
+export function nextScheduleEntry(
+  schedule: DailyScheduleEntry[],
+  now: Date,
+): DailyScheduleEntry | undefined {
+  const nowMs = now.getTime();
+  let next: DailyScheduleEntry | undefined;
+  let nextAt = Number.POSITIVE_INFINITY;
+
+  for (const entry of schedule) {
+    if (!entry.at) continue;
+    const atMs = entry.at.getTime();
+    if (atMs <= nowMs) continue;
+    if (atMs < nextAt) {
+      next = entry;
+      nextAt = atMs;
+    }
+  }
+
+  return next;
+}
+
+/** Absolute fire time for a schedulable prayer reminder. */
+export function prayerReminderTime(
+  prayerId: PrayerId,
+  times: PrayerTimes,
+  tomorrowFajr: Date,
+  yesterdayMaghrib: Date,
+  now: Date,
+): Date | null {
+  switch (prayerId) {
+    case "fajr":
+      return times.fajr;
+    case "dhuhr":
+      return times.dhuhr;
+    case "asr":
+      return times.asr;
+    case "maghrib":
+      return times.maghrib;
+    case "isha":
+      return times.isha;
+    case "witr":
+      return witrTime(times.isha);
+    case "tahajjud":
+      return tahajjudTime(now, times, tomorrowFajr, yesterdayMaghrib);
+    case "ishraq":
+      return ishraqTime(times.sunrise);
+    case "duha":
+      return duhaWindow(times.sunrise, times.dhuhr).recommended;
+    case "tahiyyatul_masjid":
+    case "hajat_istikhara":
+      return null;
+    default:
+      return null;
+  }
+}

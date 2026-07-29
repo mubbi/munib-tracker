@@ -1,0 +1,359 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+   Munib Tracker admin — emerald brand (marketing) + cream / deep-forest surfaces
+   (product theme). Gold accent for highlights.
+---------------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Emerald scale (marketing brand) */
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+
+  --color-gold: #e6c065;
+  --color-gold-soft: #f2ddab;
+
+  --color-accent-violet: #8b5cf6;
+  --color-accent-cyan: #06b6d4;
+  --color-accent-amber: #f59e0b;
+  --color-accent-emerald: #10b981;
+  --color-accent-rose: #f43f5e;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+}
+
+/* ----------------------------------------------------------------------------
+   Semantic tokens — light is the default (:root), dark overrides via .dark.
+---------------------------------------------------------------------------- */
+:root,
+.light {
+  color-scheme: light;
+
+  /* Product cream surfaces */
+  --canvas: #f5f0e6;
+  --surface: #fffcf7;
+  --surface-muted: #e8e2d4;
+  --surface-hover: #e0d9c8;
+
+  --fg: #152921;
+  --fg-muted: #5c7268;
+  --fg-subtle: #6e857a;
+  --fg-faint: #8ba89a;
+
+  --line: rgba(21, 41, 33, 0.12);
+  --line-strong: rgba(21, 41, 33, 0.2);
+
+  --glass-bg: rgba(255, 252, 247, 0.78);
+  --glass-border: rgba(21, 41, 33, 0.1);
+  --glass-shadow: 0 10px 30px -12px rgba(5, 32, 26, 0.16), 0 1px 0 0 rgba(255, 255, 255, 0.7) inset;
+
+  --ring: #10b981;
+
+  --success-fg: #047857;
+  --success-bg: rgba(16, 185, 129, 0.12);
+  --success-line: rgba(16, 185, 129, 0.28);
+
+  --warning-fg: #b45309;
+  --warning-bg: rgba(217, 119, 6, 0.12);
+  --warning-line: rgba(217, 119, 6, 0.3);
+
+  --danger-fg: #be123c;
+  --danger-bg: rgba(225, 29, 72, 0.1);
+  --danger-line: rgba(225, 29, 72, 0.28);
+
+  --info-fg: #155e75;
+  --info-bg: rgba(6, 182, 212, 0.1);
+  --info-line: rgba(6, 182, 212, 0.28);
+
+  --chart-1: #10b981;
+  --chart-2: #0891b2;
+  --chart-3: #e6c065;
+  --chart-4: #d97706;
+  --chart-5: #e11d48;
+  --chart-6: #059669;
+
+  --body-gradient: radial-gradient(ellipse 120% 80% at 50% 0%, #d1fae5 0%, #f5f0e6 55%);
+  --grid-line: rgba(4, 120, 87, 0.05);
+  --track: rgba(21, 41, 33, 0.08);
+
+  --input-bg: #fffcf7;
+  --input-border: #c9c0ae;
+  --input-border-hover: #a89880;
+  --input-border-focus: #10b981;
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Product deep forest */
+  --canvas: #152921;
+  --surface: #1c322c;
+  --surface-muted: #1e3530;
+  --surface-hover: #24403a;
+
+  --fg: #e8dcc8;
+  --fg-muted: #8ba89a;
+  --fg-subtle: #6e857a;
+  --fg-faint: #5c7268;
+
+  --line: rgba(232, 220, 200, 0.12);
+  --line-strong: rgba(232, 220, 200, 0.2);
+
+  --glass-bg: rgba(28, 50, 44, 0.72);
+  --glass-border: rgba(232, 220, 200, 0.1);
+  --glass-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(232, 220, 200, 0.04) inset;
+
+  --ring: #34d399;
+
+  --success-fg: #6ee7b7;
+  --success-bg: rgba(16, 185, 129, 0.14);
+  --success-line: rgba(52, 211, 153, 0.32);
+
+  --warning-fg: #fbbf24;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --warning-line: rgba(245, 158, 11, 0.3);
+
+  --danger-fg: #fb7185;
+  --danger-bg: rgba(244, 63, 94, 0.1);
+  --danger-line: rgba(244, 63, 94, 0.3);
+
+  --info-fg: #67e8f9;
+  --info-bg: rgba(6, 182, 212, 0.1);
+  --info-line: rgba(6, 182, 212, 0.3);
+
+  --chart-1: #34d399;
+  --chart-2: #22d3ee;
+  --chart-3: #e6c065;
+  --chart-4: #fbbf24;
+  --chart-5: #fb7185;
+  --chart-6: #10b981;
+
+  --body-gradient: radial-gradient(ellipse 120% 80% at 50% 0%, #0a2f27 0%, #152921 55%);
+  --grid-line: rgba(232, 220, 200, 0.03);
+  --track: rgba(232, 220, 200, 0.08);
+
+  --input-bg: #1e3530;
+  --input-border: rgba(232, 220, 200, 0.22);
+  --input-border-hover: rgba(232, 220, 200, 0.36);
+  --input-border-focus: #34d399;
+}
+
+/* Map semantic vars to Tailwind color utilities. `inline` keeps the var
+   reference live so `text-fg`, `bg-surface`, `border-line`, … flip with theme. */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-hover: var(--surface-hover);
+
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-faint: var(--fg-faint);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-input: var(--input-bg);
+  --color-input-border: var(--input-border);
+  --color-input-border-hover: var(--input-border-hover);
+  --color-input-border-focus: var(--input-border-focus);
+
+  --color-ring: var(--ring);
+  --color-track: var(--track);
+
+  --color-success: var(--success-fg);
+  --color-success-bg: var(--success-bg);
+  --color-success-line: var(--success-line);
+  --color-warning: var(--warning-fg);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-line: var(--warning-line);
+  --color-danger: var(--danger-fg);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-line: var(--danger-line);
+  --color-info: var(--info-fg);
+  --color-info-bg: var(--info-bg);
+  --color-info-line: var(--info-line);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+}
+
+html {
+  scroll-behavior: smooth;
+  @apply bg-canvas scheme-light;
+}
+
+html.dark {
+  @apply scheme-dark;
+}
+
+body {
+  @apply min-h-screen antialiased font-sans text-fg;
+  background: var(--body-gradient);
+  background-attachment: fixed;
+  min-height: 100dvh;
+}
+
+/* Subtle grid overlay for depth (matches marketing site) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+*:focus-visible {
+  @apply outline-2 outline-offset-2;
+  outline-color: var(--ring);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--ring) 28%, transparent);
+  color: var(--fg);
+}
+
+/* Themed scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #34d399 0%, #10b981 50%, #047857 100%);
+}
+.dark .gradient-text {
+  background-image: linear-gradient(135deg, #a7f3d0 0%, #34d399 45%, #10b981 100%);
+}
+
+.glass {
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  @apply backdrop-blur-xl;
+}
+
+.glass-card {
+  @apply rounded-xl shadow-sm ring-1 ring-inset ring-line/80;
+  background: var(--surface);
+}
+
+.dark .glass-card {
+  @apply ring-line;
+  background: color-mix(in oklab, var(--surface) 96%, transparent);
+}
+
+.admin-surface {
+  @apply rounded-xl shadow-sm ring-1 ring-inset ring-line/80;
+  background: var(--surface);
+}
+
+/* Legacy alias — prefer `controlClasses()` from components/ui/input.tsx. */
+.control-base {
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  @apply block w-full rounded-lg px-3 py-2 text-sm text-fg shadow-sm transition-[border-color,box-shadow] placeholder:text-fg-subtle hover:border-input-border-hover focus:border-input-border-focus focus:outline-none focus:ring-2 focus:ring-brand-500/30 disabled:cursor-not-allowed disabled:border-line disabled:bg-surface-muted disabled:text-fg-faint;
+}
+
+.control-sm {
+  @apply py-1.5 text-xs;
+}
+
+/* Native <select> popups use OS chrome — inherit theme colors on options so
+   dark-mode text-fg is not rendered on a light popup background. */
+select,
+select option {
+  background-color: var(--input-bg);
+  color: var(--fg);
+}
+
+select option:checked,
+select option:hover,
+select option:focus {
+  background-color: var(--surface-hover);
+  color: var(--fg);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes dialog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in {
+    animation: none;
+  }
+  [class*="dialog-backdrop-in"],
+  [class*="dialog-panel-in"] {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override all animations */
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  /* Honour reduced-motion for chart fills, hovers, and other transitions. */
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override all animations */
+    transition-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override all animations */
+    animation-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override all animations */
+    animation-iteration-count: 1 !important;
+  }
+}

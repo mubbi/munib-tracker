@@ -1,0 +1,760 @@
+{
+  "/": {
+    "title": "Munib Tracker — Waktu Shalat, Pelacak Shalat & Qadha",
+    "description": "Teman Islami gratis dan offline-first. Lacak lima shalat wajib, qadha, dan dzikir; baca Al-Qur'an dan hadits; dapatkan waktu shalat, kiblat, dan pengingat yang akurat.",
+    "keywords": [
+      "aplikasi pelacak shalat",
+      "pelacak sholat",
+      "pelacak ibadah",
+      "aplikasi Islami offline"
+    ]
+  },
+  "/achievements": {
+    "title": "Pencapaian",
+    "description": "Tonggak sejarah, lencana, dan tingkat ketekunan ibadah Anda.",
+    "index": false
+  },
+  "/adhkar-builder": {
+    "title": "Adhkar Saya — Buat Sendiri",
+    "description": "Simpan dzikir dan doa pilihan Anda dengan Arab, transliterasi, terjemahan, dan rujukan — semuanya dalam satu tempat untuk akses cepat.",
+    "index": false
+  },
+  "/aqeedah": {
+    "title": "Belajar Aqidah — Keyakinan Islam",
+    "description": "Keyakinan dasar Islam dari Al-Qur'an dan Sunnah shahih — enam rukun iman, tauhid, dan syirik, dijelaskan dengan jelas dan berlandaskan ilmu.",
+    "keywords": ["aqidah", "keyakinan Islam", "tauhid", "enam rukun iman", "iman"]
+  },
+  "/aqeedah/glossary": {
+    "title": "Glosarium Aqidah",
+    "description": "Istilah-istilah kunci dalam aqidah — tauhid, syirik, qadar, dan lainnya — didefinisikan dengan jelas agar Anda tidak bingung saat belajar.",
+    "keywords": ["glosarium aqidah", "istilah aqidah", "makna tauhid", "qadar", "syirik"]
+  },
+  "/aqeedah/progress": {
+    "title": "Progres Belajar Aqidah Saya",
+    "description": "Tandai topik aqidah yang sudah dipelajari. Ini melacak progres belajar Anda, bukan kedudukan Anda di sisi Allah.",
+    "index": false
+  },
+  "/battles": {
+    "title": "Perang dalam Islam — Sejarah Awal",
+    "description": "Sejarah autentik, konteks, pelajaran, dan hasil perang-perang besar Islam awal — Badar, Uhud, Khandaq, dan lainnya, dengan rujukan Al-Qur'an dan hadits.",
+    "keywords": [
+      "perang dalam Islam",
+      "Perang Badar",
+      "Perang Uhud",
+      "sejarah Islam",
+      "perang sirah"
+    ]
+  },
+  "/battles/figures": {
+    "title": "Sahabat dalam Perang Awal",
+    "description": "Profil para pemimpin dan pahlawan perang awal, terhubung dengan ekspedisi yang mereka ikuti — fokus pada peran, kontribusi, dan pelajaran, bukan kejayaan suku.",
+    "keywords": ["sahabat Nabi", "sahabat dalam perang", "komandan Muslim awal", "pahlawan Islam"]
+  },
+  "/battles/glossary": {
+    "title": "Glosarium Perang",
+    "description": "Istilah sejarah militer Islam — ghazwah, sariyyah, syura, dan lainnya — didefinisikan agar Anda membedakan jenis ekspedisi dan ajaran umum.",
+    "keywords": ["istilah militer Islam", "makna ghazwah", "sariyyah", "glosarium perang"]
+  },
+  "/battles/lessons": {
+    "title": "Pelajaran dari Perang",
+    "description": "Pelajaran kepemimpinan dan spiritual dari setiap perang — akhlak, syura, kesabaran, dan tawakal kepada Allah. Pelajaran moral, bukan taktik militer.",
+    "keywords": [
+      "pelajaran perang Islam",
+      "kepemimpinan dalam Islam",
+      "pelajaran spiritual",
+      "tawakal kepada Allah"
+    ]
+  },
+  "/battles/progress": {
+    "title": "Progres Belajar Perang Saya",
+    "description": "Lacak topik perang yang sudah Anda baca. Ilmu adalah sarana; keikhlasan kepada Allah adalah tujuan.",
+    "index": false
+  },
+  "/battles/timeline": {
+    "title": "Linimasa Perang",
+    "description": "Kronologi interaktif dari wahyu hingga Haji Wada', dengan tautan ke setiap perang. Tanggal mengikuti Ibn Ishaq, Ibn Hisham, dan Ibnu Katsir.",
+    "keywords": ["linimasa perang", "linimasa sejarah Islam", "kronologi sirah", "perang Nabi"]
+  },
+  "/battles/verses": {
+    "title": "Ayat Al-Qur'an tentang Perang",
+    "description": "Ayat-ayat yang diturunkan terkait perang, dengan Arab, terjemahan, dan konteks sejarah. Ketuk ayat untuk membukanya di pembaca Al-Qur'an.",
+    "keywords": [
+      "ayat Al-Qur'an tentang perang",
+      "ayat tentang Badar",
+      "perang dalam Al-Qur'an",
+      "konteks ayat"
+    ]
+  },
+  "/bookmarks": {
+    "title": "Bookmark & Bacaan Tersimpan",
+    "description": "Semua ayat, hadits, doa, dan adhkar yang Anda simpan — dalam satu tempat.",
+    "index": false
+  },
+  "/calendar": {
+    "title": "Kalender Ibadah",
+    "description": "Tinjau catatan shalat Anda hari demi hari sepanjang bulan.",
+    "index": false
+  },
+  "/credits": {
+    "title": "Kredit & Sumber Data",
+    "description": "Dataset terbuka, terjemahan, dan audio tilawah yang menggerakkan Munib Tracker, dengan lisensi dan atribusi untuk setiap sumber.",
+    "keywords": ["kredit", "sumber data", "data Islami open source", "atribusi"]
+  },
+  "/dua": {
+    "title": "Doa & Munajat — Sunnah dan Al-Qur'an",
+    "description": "Koleksi doa shahih — Sunnah, Al-Qur'an, dan harian. Baca Arab, transliterasi, dan maknanya; simpan favorit Anda secara offline.",
+    "keywords": ["doa Islami", "munajat", "doa Sunnah", "doa Al-Qur'an", "doa harian"]
+  },
+  "/dua/favorites": {
+    "title": "Doa Tersimpan",
+    "description": "Doa yang Anda simpan, dikumpulkan untuk akses cepat kapan saja.",
+    "index": false
+  },
+  "/duroods": {
+    "title": "Shalawat & Salawat — Berkat untuk Nabi ﷺ",
+    "description": "Baca shalawat dan salawat — mengirim berkah kepada Nabi Muhammad ﷺ. Arab, transliterasi, dan makna salawat terkenal — gratis dan offline.",
+    "keywords": ["shalawat", "salawat", "berkat untuk Nabi", "baca shalawat"]
+  },
+  "/events": {
+    "title": "Peristiwa Islam — Kalender Hijriah",
+    "description": "Tanggal penting dalam tahun Hijriah — Tahun Baru Islam, Asyura, Ramadan, Lailatul Qadar, dua Id, dan lainnya, beserta makna setiap hari.",
+    "keywords": ["peristiwa Islam", "kalender Hijriah", "tanggal Islami", "Idul Fitri", "Muharram"]
+  },
+  "/hadith": {
+    "title": "Koleksi Hadits — Sabda Nabi ﷺ",
+    "description": "Jelajahi hadits shahih dari koleksi utama. Baca sabda dan tradisi Nabi Muhammad ﷺ secara offline, dengan perawi dan penilaian derajat.",
+    "keywords": ["koleksi hadits", "hadits shahih", "Sunnah", "tradisi Nabi"]
+  },
+  "/hadith/bookmarks": {
+    "title": "Bookmark Hadits",
+    "description": "Hadits yang Anda simpan, dikumpulkan untuk dibaca kembali dengan cepat.",
+    "index": false
+  },
+  "/hajj": {
+    "title": "Panduan Haji & Umrah",
+    "description": "Pelajari Haji dan Umrah dari Al-Qur'an dan Sunnah sahih, lalu lacak manasik dengan checklist Haji dan Umrah terpisah — ikhtisar pendidikan praktis, bukan buku fiqih.",
+    "keywords": [
+      "haji",
+      "umrah",
+      "panduan haji",
+      "manasik haji",
+      "daftar periksa haji",
+      "daftar periksa umrah"
+    ]
+  },
+  "/hayd": {
+    "title": "Haid & Ibadah — Panduan Menstruasi",
+    "description": "Ajaran teks tentang haid dan ibadah harian — haid, istihadhah, dan nifas; kapan shalat dan puasa dihentikan dan dilanjutkan; serta ghusl setelahnya.",
+    "keywords": [
+      "haid",
+      "menstruasi dan shalat",
+      "istihadhah",
+      "nifas",
+      "ibadah wanita dalam Islam"
+    ]
+  },
+  "/jahannam": {
+    "title": "Memahami Jahannam — Neraka dalam Islam",
+    "description": "Pahami peringatan Jahannam dan jalan rahmat kembali kepada Allah. Setiap peringatan disertai harapan, taubat, dan langkah praktis dari Al-Qur'an dan Sunnah.",
+    "keywords": ["Jahannam", "neraka dalam Islam", "nama-nama neraka", "pintu neraka", "taubat"]
+  },
+  "/jahannam/duas": {
+    "title": "Doa Perlindungan dari Api Neraka",
+    "description": "Doa dari shalat, Hisnul Muslim, dan Al-Qur'an memohon perlindungan Allah dari Jahannam — sebagaimana diajarkan Nabi ﷺ dalam shalat dan adhkar harian.",
+    "keywords": [
+      "doa perlindungan dari neraka",
+      "berlindung dari api",
+      "doa dari Jahannam",
+      "berlindung dari neraka"
+    ]
+  },
+  "/jahannam/gates": {
+    "title": "Pintu-Pintu Neraka",
+    "description": "Allah menyatakan neraka memiliki tujuh pintu, masing-masing untuk golongan tertentu. Pelajari apa yang disebut dalam wahyu dan perbedaan tafsir ulama.",
+    "keywords": ["pintu neraka", "tujuh pintu Jahannam", "pintu Jahannam", "tingkat neraka"]
+  },
+  "/jahannam/hadith": {
+    "title": "Hadits tentang Jahannam",
+    "description": "Riwayat shahih tentang api neraka — peringatan, rahmat, dan perlindungan — dengan koleksi, sitasi, dan derajat jika diketahui, beserta konteksnya.",
+    "keywords": [
+      "hadits tentang neraka",
+      "hadits tentang Jahannam",
+      "hadits shahih neraka",
+      "peringatan Nabi"
+    ]
+  },
+  "/jahannam/journey": {
+    "title": "Hakikat Jahannam",
+    "description": "Pahami sifat api neraka sebagaimana digambarkan dalam wahyu — nama, tingkat, pintu, dan deskripsinya — agar hati sadar dan kembali kepada Allah dalam taubat.",
+    "keywords": ["hakikat Jahannam", "sifat neraka", "gambaran neraka", "neraka dalam Islam"]
+  },
+  "/jahannam/names": {
+    "title": "Nama-Nama Neraka dalam Al-Qur'an",
+    "description": "Al-Qur'an menggunakan beberapa nama untuk neraka, masing-masing dengan makna dan konteksnya. Pelajari makna yang diberikan teks dan perbedaan ulama tentang tingkatannya.",
+    "keywords": ["nama neraka", "nama neraka dalam Al-Qur'an", "nama Jahannam", "Saqar Hutamah"]
+  },
+  "/jahannam/references": {
+    "title": "Jahannam — Sumber & Rujukan",
+    "description": "Sumber di balik modul ini — Al-Qur'an terlebih dahulu, lalu tafsir klasik jika ada penjelasan, dengan perbedaan pendapat ulama yang dicatat dengan hormat.",
+    "keywords": [
+      "rujukan Jahannam",
+      "sumber tentang neraka",
+      "tafsir tentang neraka",
+      "sumber Islami"
+    ]
+  },
+  "/jahannam/reflection": {
+    "title": "Refleksi Harian tentang Akhirat",
+    "description": "Pertanyaan muhasabah yang menghubungkan ibadah dengan kesadaran. Berhenti sejenak, tanyakan pada diri sendiri, lalu buka pelacak atau pelajaran terkait.",
+    "keywords": ["muhasabah", "muhasabah diri", "refleksi harian", "refleksi Islami"]
+  },
+  "/jahannam/verses": {
+    "title": "Al-Qur'an tentang Jahannam",
+    "description": "Ayat-ayat pilihan tentang api neraka, disertai peringatan, rahmat, taubat, dan harapan, serta tafsir ringkas. Ketuk ayat untuk membukanya di pembaca Al-Qur'an.",
+    "keywords": [
+      "Al-Qur'an tentang neraka",
+      "ayat tentang Jahannam",
+      "neraka dalam Al-Qur'an",
+      "ayat tentang api"
+    ]
+  },
+  "/jannah": {
+    "title": "Perjalanan ke Jannah — Surga dalam Islam",
+    "description": "Surga, tingkatannya, dan amal yang mengangkat derajat mukmin, dari Al-Qur'an dan Sunnah shahih. Jelajahi pintu, ayat, dan doa untuk Jannah.",
+    "keywords": [
+      "Jannah",
+      "surga dalam Islam",
+      "tingkat surga",
+      "pintu Jannah",
+      "amal menuju surga"
+    ]
+  },
+  "/jannah/duas": {
+    "title": "Doa untuk Surga",
+    "description": "Doa dari Hisnul Muslim memohon Jannah — terutama Al-Firdaus — dan berlindung dari api neraka, sebagaimana diajarkan Nabi ﷺ dalam doa harian.",
+    "keywords": ["doa untuk Jannah", "doa memohon surga", "doa Al-Firdaus", "doa untuk surga"]
+  },
+  "/jannah/gates": {
+    "title": "Pintu-Pintu Jannah",
+    "description": "Pintu surga yang disebut dalam hadits shahih — dibuka bagi yang dikenal karena shalat, sedekah, puasa, jihad, dan haji. Sebagian dipanggil melalui lebih dari satu pintu.",
+    "keywords": ["pintu Jannah", "pintu surga", "delapan pintu surga", "Ar-Rayyan"]
+  },
+  "/jannah/journey": {
+    "title": "Perjalanan Saya ke Jannah",
+    "description": "Konsistensi hari ini dalam ibadah yang sudah Anda lacak — shalat, adhkar, dan refleksi. Dasbor ini menampilkan kebiasaan, bukan derajat Anda di sisi Allah.",
+    "index": false
+  },
+  "/jannah/verses": {
+    "title": "Al-Qur'an tentang Surga",
+    "description": "Ayat-ayat pilihan tentang surga — gambaran, tingkat, dan rahmat Allah — dengan konteks ringkas. Ketuk ayat untuk membukanya langsung di pembaca Al-Qur'an.",
+    "keywords": [
+      "Al-Qur'an tentang surga",
+      "ayat tentang Jannah",
+      "surga dalam Al-Qur'an",
+      "ayat tentang Jannah"
+    ]
+  },
+  "/journal": {
+    "title": "Jurnal Shalat",
+    "description": "Catat kehadiran hati dalam setiap shalat dan lihat khushu Anda berkembang seiring waktu. Tersimpan secara pribadi di perangkat Anda.",
+    "index": false
+  },
+  "/last-day": {
+    "title": "Hari Kiamat — Akhirat",
+    "description": "Dari kematian hingga kehidupan abadi menurut Al-Qur'an dan Sunnah shahih. Ikuti perjalanan akhirat — kebangkitan, hisab, dan tanda-tanda kiamat.",
+    "keywords": ["Hari Kiamat", "hari akhir", "akhirat dalam Islam", "tanda kiamat", "kebangkitan"]
+  },
+  "/last-day/hadith": {
+    "title": "Hadits tentang Hari Akhir",
+    "description": "Riwayat shahih tentang kematian, kubur, kebangkitan, dan hisab — disusun menurut tema dan dinilai derajatnya, agar riwayat dhaif tidak disajikan sebagai pasti.",
+    "keywords": [
+      "hadits hari akhir",
+      "hadits tentang kematian",
+      "hadits tanda kiamat",
+      "hadits kebangkitan"
+    ]
+  },
+  "/last-day/preparation": {
+    "title": "Persiapan untuk Hari Akhir",
+    "description": "Kebiasaan ibadah praktis yang mempersiapkan Anda menghadap Allah — shalat, Al-Qur'an, sedekah, dan taubat — terhubung dengan pelacak yang sudah Anda gunakan.",
+    "keywords": [
+      "persiapan menghadapi kematian",
+      "persiapan akhirat",
+      "amal baik untuk akhirat",
+      "menghadap Allah"
+    ]
+  },
+  "/last-day/progress": {
+    "title": "Progres Belajar Akhirat Saya",
+    "description": "Tandai topik yang sudah dibaca tentang hari akhir. Ini melacak proses belajar, bukan kedudukan Anda di sisi Allah.",
+    "index": false
+  },
+  "/last-day/quiz": {
+    "title": "Hari Akhir — Kuis Ulang",
+    "description": "Uji pemahaman Anda tentang akhirat — linimasa, definisi, dan refleksi. Gunakan untuk menemukan kekosongan, bukan mengukur kedudukan di sisi Allah.",
+    "index": false
+  },
+  "/last-day/references": {
+    "title": "Hari Akhir — Sumber & Rujukan",
+    "description": "Al-Qur'an, koleksi hadits, dan teks aqidah di balik modul ini — setiap pelajaran membedakan wahyu eksplisit dari pendapat ulama interpretatif.",
+    "keywords": [
+      "rujukan hari akhir",
+      "sumber tentang akhirat",
+      "teks aqidah Islami",
+      "koleksi hadits"
+    ]
+  },
+  "/last-day/timeline": {
+    "title": "Linimasa Akhirat",
+    "description": "Tahapan akhirat secara berurutan — dari kehidupan dunia hingga kematian, kebangkitan, hisab, dan kekekalan. Ketuk setiap tahap untuk pelajaran lengkapnya.",
+    "keywords": [
+      "linimasa akhirat",
+      "tahapan akhirat",
+      "setelah kematian dalam Islam",
+      "kebangkitan"
+    ]
+  },
+  "/last-day/verses": {
+    "title": "Al-Qur'an tentang Hari Akhir",
+    "description": "Ayat-ayat pilihan tentang kebangkitan, pertanggungjawaban, dan rahmat Allah, dengan konteks dan tafsir ringkas. Ketuk ayat untuk membukanya di pembaca Al-Qur'an.",
+    "keywords": [
+      "Al-Qur'an hari akhir",
+      "ayat tentang akhirat",
+      "hari kiamat dalam Al-Qur'an",
+      "ayat kebangkitan"
+    ]
+  },
+  "/learn-dua": {
+    "title": "Belajar Doa — Makna & Adab",
+    "description": "Pelajari doa shahih beserta makna, keutamaan, dan waktu terbaik. Pahami adab berdoa, lalu praktikkan dari perpustakaan doa lengkap.",
+    "keywords": ["belajar doa", "makna doa", "adab berdoa", "munajat", "waktu berdoa"]
+  },
+  "/learn-dua/occasions": {
+    "title": "Doa menurut Kesempatan",
+    "description": "Temukan doa yang tepat untuk setiap momen — doa harian, situasional, dan Al-Qur'an disusun menurut kesempatan. Ketuk untuk membuka pelajaran atau perpustakaan.",
+    "keywords": [
+      "doa menurut kesempatan",
+      "doa situasional",
+      "doa harian",
+      "doa untuk setiap momen"
+    ]
+  },
+  "/learn-dua/progress": {
+    "title": "Progres Belajar Doa Saya",
+    "description": "Lacak pelajaran doa yang sudah dipelajari. Allah mendengar setiap doa ikhlas; layar ini melacak belajar Anda, bukan jawaban-Nya.",
+    "index": false
+  },
+  "/learn-quran": {
+    "title": "Belajar Al-Qur'an — Baca, Pahami & Renungkan",
+    "description": "Perjalanan belajar Al-Qur'an lengkap: baca, pahami, renungkan, hafal, dan amalkan Kitab Allah. Setiap pelajaran merujuk Al-Qur'an dan hadits shahih.",
+    "keywords": [
+      "belajar Al-Qur'an",
+      "memahami Al-Qur'an",
+      "kajian Al-Qur'an",
+      "tadabbur",
+      "hafalan Al-Qur'an"
+    ]
+  },
+  "/learn-quran/apply": {
+    "title": "Amalkan Al-Qur'an",
+    "description": "Ubah bacaan menjadi amalan dengan tantangan harian dari satu ayat. Membaca tanpa beramal bukan tujuan — bangun kebiasaan dan tandai tantangan saat selesai.",
+    "keywords": [
+      "amalkan Al-Qur'an",
+      "hidupkan Al-Qur'an",
+      "Al-Qur'an dalam kehidupan",
+      "tantangan Al-Qur'an"
+    ]
+  },
+  "/learn-quran/daily": {
+    "title": "Pelajaran Al-Qur'an Harian",
+    "description": "Satu ayat sehari dengan konteks, refleksi singkat, dan satu amalan untuk dijalani. Langkah kecil yang konsisten membangun hubungan seumur hidup dengan Kitab Allah.",
+    "keywords": ["pelajaran Al-Qur'an harian", "ayat hari ini", "refleksi Al-Qur'an", "ayat harian"]
+  },
+  "/learn-quran/learn-to-read": {
+    "title": "Belajar Membaca Al-Qur'an",
+    "description": "Tujuh tingkat dari huruf hingga tilawah lancar. Selesaikan setiap tingkat secara berurutan — idealnya dengan guru — agar membaca Al-Qur'an dengan percaya diri.",
+    "keywords": ["belajar baca Al-Qur'an", "membaca Al-Qur'an", "Al-Qur'an untuk pemula", "iqra"]
+  },
+  "/learn-quran/letters": {
+    "title": "Huruf Arab",
+    "description": "28 huruf Arab dengan nama, bunyi, dan contohnya. Pelajari satu huruf sehari — lihat, dengar, ucapkan, dan tulis — sebagai fondasi membaca Al-Qur'an.",
+    "keywords": ["huruf Arab", "alfabet Arab", "belajar huruf Arab", "bunyi huruf Arab"]
+  },
+  "/learn-quran/memorization": {
+    "title": "Hafalan Al-Qur'an (Hifdz)",
+    "description": "Rencana hafalan dari Juz Amma hingga hifdz penuh. Kunci hafalan adalah muraja'ah — jangan tambah ayat baru tanpa mengulang yang sudah dihafal.",
+    "keywords": ["hafalan Al-Qur'an", "hifdz", "menghafal Al-Qur'an", "juz amma", "rencana hifdz"]
+  },
+  "/learn-quran/progress": {
+    "title": "Progres Belajar Al-Qur'an Saya",
+    "description": "Lacak pelajaran Al-Qur'an yang sudah dipelajari di aplikasi. Dasbor ini melacak belajar, bukan kedudukan Anda di sisi Allah.",
+    "index": false
+  },
+  "/learn-quran/pronunciation": {
+    "title": "Pelafalan Al-Qur'an",
+    "description": "Kuasai pasangan huruf Arab yang sulit dibedakan. Bandingkan bunyi serupa, rekam suara Anda, dan dengarkan kembali untuk memperbaiki pelafalan tilawah.",
+    "keywords": ["pelafalan Arab", "makhraj", "pelafalan huruf", "pelafalan Al-Qur'an"]
+  },
+  "/learn-quran/quiz": {
+    "title": "Kuis Al-Qur'an",
+    "description": "Uji pengetahuan Anda tentang nama surah, kosakata, tajwid, dan kisah-kisah dalam Al-Qur'an.",
+    "index": false
+  },
+  "/learn-quran/revelation": {
+    "title": "Bagaimana Al-Qur'an Diturunkan",
+    "description": "Penurunan Al-Qur'an — dari Gua Hira hingga pemeliharaannya. Tanggal mengikuti kronologi sirah yang umum, dengan catatan perbedaan pendapat ulama.",
+    "keywords": [
+      "penurunan Al-Qur'an",
+      "gua Hira",
+      "bagaimana Al-Qur'an diturunkan",
+      "pemeliharaan Al-Qur'an"
+    ]
+  },
+  "/learn-quran/stories": {
+    "title": "Kisah dalam Al-Qur'an",
+    "description": "Kisah para nabi dari Adam hingga Muhammad ﷺ sebagaimana diceritakan Al-Qur'an — dalam kisah-kisah itu terdapat pelajaran bagi orang yang berakal.",
+    "keywords": ["kisah dalam Al-Qur'an", "kisah nabi", "kisah Al-Qur'an", "pelajaran para nabi"]
+  },
+  "/learn-quran/structure": {
+    "title": "Struktur Al-Qur'an",
+    "description": "Bagaimana Al-Qur'an disusun — surah, juz, hizb, ayat, dan tema. Pahami mengapa urutan mushaf berbeda dari urutan turun, keduanya diajarkan ilahi.",
+    "keywords": ["struktur Al-Qur'an", "surah dan juz", "susunan Al-Qur'an", "ayat dan hizb"]
+  },
+  "/learn-quran/tadabbur": {
+    "title": "Tadabbur — Merenungkan Al-Qur'an",
+    "description": "Pertanyaan terpandu untuk refleksi pribadi atas Al-Qur'an. Bukan tafsir — tanyakan apa yang Allah ajarkan dan bagaimana Anda akan mengamalkannya hari ini.",
+    "keywords": ["tadabbur", "merenungkan Al-Qur'an", "refleksi Al-Qur'an", "memahami Al-Qur'an"]
+  },
+  "/learn-quran/tajweed": {
+    "title": "Kaidah Tajwid",
+    "description": "Kaidah tilawah Al-Qur'an yang benar dan indah. Pelajari setiap kaidah tajwid dengan contoh, idealnya disertai audio qari berkualitas dan masukan guru.",
+    "keywords": ["tajwid", "kaidah tajwid", "aturan tilawah", "belajar tajwid", "tilawah indah"]
+  },
+  "/learn-quran/themes": {
+    "title": "Tema-Tema Al-Qur'an",
+    "description": "Al-Qur'an menurut topik — iman, shalat, sabar, sedekah, dan lainnya. Ayat dikelompokkan per tema dengan hadits terkait, pelajaran, dan amalan untuk setiap topik.",
+    "keywords": ["tema Al-Qur'an", "topik Al-Qur'an", "ajaran Al-Qur'an", "iman dan kesabaran"]
+  },
+  "/learn-quran/vocabulary": {
+    "title": "Kosakata Al-Qur'an",
+    "description": "Pelajari kata-kata paling sering dalam Al-Qur'an — menguasai kosakata inti mengubah tilawah menjadi pemahaman. Fokus pada kata frekuensi tinggi yang membuka makna.",
+    "keywords": [
+      "kosakata Al-Qur'an",
+      "kata Al-Qur'an",
+      "belajar bahasa Arab Al-Qur'an",
+      "kata frekuensi tinggi"
+    ]
+  },
+  "/location": {
+    "title": "Atur Lokasi Anda",
+    "description": "Tetapkan lokasi yang digunakan untuk menghitung waktu shalat dan arah kiblat.",
+    "index": false
+  },
+  "/names-of-allah": {
+    "title": "99 Nama Allah — Asmaul Husna",
+    "description": "99 nama indah Allah (Asmaul Husna) dengan Arab, transliterasi, dan makna. Dengarkan tilawah setiap nama — gratis dan offline.",
+    "keywords": ["99 nama Allah", "asmaul husna", "nama-nama indah Allah", "nama Allah"]
+  },
+  "/notifications": {
+    "title": "Notifikasi",
+    "description": "Pengingat yang sudah dikirim dan yang akan datang.",
+    "index": false
+  },
+  "/profile": {
+    "title": "Profil",
+    "description": "Detail dan akun Anda.",
+    "index": false
+  },
+  "/prophets": {
+    "title": "Belajar Para Nabi dalam Islam",
+    "description": "Kehidupan, misi, dan pelajaran para nabi yang disebut dalam Al-Qur'an — dari Adam hingga Muhammad ﷺ. Kisah dari Al-Qur'an dan Sunnah shahih.",
+    "keywords": ["nabi dalam Islam", "nabi dalam Al-Qur'an", "kisah para nabi", "rasul Allah"]
+  },
+  "/prophets/progress": {
+    "title": "Progres Belajar Nabi Saya",
+    "description": "Tandai topik selesai saat mempelajari kehidupan para nabi. Dasbor ini melacak belajar, bukan derajat spiritual.",
+    "index": false
+  },
+  "/prophets/timeline": {
+    "title": "Linimasa Para Nabi",
+    "description": "Gambaran kronologis para nabi sepanjang sejarah, dari Adam hingga Muhammad ﷺ, dengan tautan ke kisah masing-masing. Era diperkirakan jika teks tidak menyebutkan.",
+    "keywords": ["linimasa nabi", "kronologi nabi", "urutan nabi", "Adam hingga Muhammad"]
+  },
+  "/qaza": {
+    "title": "Pelacak Shalat Qadha — Menebus Shalat Terlewat",
+    "description": "Lacak dan tebus shalat qadha, satu per satu. Penghitung per shalat, jadwal harian, dan panduan ulama tentang menebus shalat yang terlewat.",
+    "keywords": [
+      "shalat qadha",
+      "shalat terlewat",
+      "menebus shalat",
+      "qadha shalat",
+      "pelacak qadha"
+    ]
+  },
+  "/qaza/calculator": {
+    "title": "Kalkulator Qadha — Estimasi Shalat Terlewat",
+    "description": "Estimasi shalat terlewat seumur hidup dari usia, usia baligh, dan tahun shalat. Kalkulator qadha sederhana untuk mengubah tunggakan menjadi angka yang jelas.",
+    "keywords": [
+      "kalkulator qadha",
+      "kalkulator shalat terlewat",
+      "kalkulator qadha shalat",
+      "qadha seumur hidup"
+    ]
+  },
+  "/qaza/planner": {
+    "title": "Perencana Qadha — Tempo Harian untuk Menuntaskan",
+    "description": "Tetapkan tempo harian realistis untuk menebus shalat terlewat dan lihat estimasi tanggal menuntaskan qadha. Rencanakan rutinitas yang stabil dan bisa dijalani.",
+    "keywords": ["perencana qadha", "rencana menebus shalat", "jadwal qadha"]
+  },
+  "/qaza/roza": {
+    "title": "Pelacak Puasa Terlewat — Qadha Puasa",
+    "description": "Lacak dan tebus puasa terlewat (qadha puasa). Estimasi puasa Ramadan yang terlewat dan catat setiap qadha saat Anda menunaikannya.",
+    "keywords": ["qadha puasa", "puasa terlewat", "menebus puasa", "qadha Ramadan", "pelacak puasa"]
+  },
+  "/qibla": {
+    "title": "Penunjuk Arah Kiblat — Menghadap Ka'bah",
+    "description": "Temukan arah kiblat menuju Ka'bah di Makkah dari mana saja. Kompas dan bearing presisi membantu Anda menghadap arah yang benar saat shalat.",
+    "keywords": ["arah kiblat", "penunjuk kiblat", "kompas kiblat", "arah Ka'bah", "kiblat"]
+  },
+  "/quran": {
+    "title": "Baca Al-Qur'an Online — 114 Surah Lengkap",
+    "description": "Baca dan dengarkan Al-Qur'an lengkap secara offline. Jelajahi 114 surah dengan teks Arab, transliterasi, terjemahan, dan tilawah — gratis tanpa iklan.",
+    "keywords": [
+      "baca Al-Qur'an online",
+      "Al-Qur'an dengan terjemahan",
+      "dengarkan Al-Qur'an",
+      "114 surah"
+    ]
+  },
+  "/quran/bookmarks": {
+    "title": "Bookmark Al-Qur'an",
+    "description": "Ayat Al-Qur'an yang Anda simpan, dikumpulkan untuk dibaca kembali dengan cepat.",
+    "index": false
+  },
+  "/quran/search": {
+    "title": "Cari dalam Al-Qur'an",
+    "description": "Cari Al-Qur'an menurut kata, terjemahan, atau transliterasi dan langsung ke ayat yang dimaksud. Berfungsi penuh offline pada terjemahan yang disertakan.",
+    "keywords": ["cari Al-Qur'an", "temukan ayat", "pencarian ayat Al-Qur'an"],
+    "index": false
+  },
+  "/ramadan": {
+    "title": "Ramadan — Waktu Puasa & Catatan",
+    "description": "Lacak puasa Ramadan dan lihat waktu sahur serta berbuka untuk lokasi Anda. Catat setiap hari dan ikuti keberkahan sepuluh malam terakhir.",
+    "keywords": [
+      "Ramadan",
+      "waktu puasa",
+      "sahur dan berbuka",
+      "catatan puasa Ramadan",
+      "Lailatul Qadar"
+    ]
+  },
+  "/salah-guide": {
+    "title": "Belajar Shalat — Langkah demi Langkah",
+    "description": "Belajar shalat dari shalat pertama hingga ibadah yang konsisten — wudhu, setiap gerakan dan bacaan, serta maknanya, dengan rujukan Al-Qur'an dan hadits shahih.",
+    "keywords": [
+      "belajar shalat",
+      "cara shalat",
+      "shalat langkah demi langkah",
+      "panduan wudhu",
+      "gerakan shalat"
+    ]
+  },
+  "/salah-guide/adhan": {
+    "title": "Dengarkan Adzan",
+    "description": "Dengarkan rekaman adzan dan ikuti kata-katanya sambil mempelajari panggilan shalat, frasa-frasanya, dan maknanya.",
+    "keywords": ["adzan", "dengarkan adzan", "panggilan shalat", "kata-kata adzan", "azan"]
+  },
+  "/salah-guide/phrases": {
+    "title": "Bacaan Shalat — Frasa & Makna",
+    "description": "Frasa Arab yang Anda ucapkan dalam shalat, terjemahannya, dan makna di baliknya. Memahami bacaan membangun khushu — baca sebelum shalat berikutnya.",
+    "keywords": [
+      "bacaan shalat",
+      "makna bacaan shalat",
+      "apa yang diucapkan dalam shalat",
+      "khushu"
+    ]
+  },
+  "/salah-guide/progress": {
+    "title": "Progres Belajar Shalat Saya",
+    "description": "Lacak pelajaran yang dipelajari dan latihan harian saat belajar shalat. Ini melacak belajar, bukan kedudukan Anda di sisi Allah.",
+    "index": false
+  },
+  "/schedule": {
+    "title": "Jadwal Hari Ini",
+    "description": "Shalat wajib, waktu sunnah, dan ibadah fleksibel yang tersusun untuk hari ini.",
+    "index": false
+  },
+  "/search": {
+    "title": "Cari",
+    "description": "Cari di Al-Qur'an, hadits, doa, adhkar, shalawat, dan 99 Nama Allah.",
+    "index": false
+  },
+  "/seerah": {
+    "title": "Linimasa Sirah — Kehidupan Nabi ﷺ",
+    "description": "Tonggak penting kehidupan Nabi Muhammad ﷺ, dari sumber sirah klasik dengan tanggal M dan H yang umum digunakan untuk setiap peristiwa.",
+    "keywords": ["sirah", "kehidupan Nabi Muhammad", "biografi Nabi", "linimasa sirah"]
+  },
+  "/settings": {
+    "title": "Pengaturan",
+    "description": "Tampilan, notifikasi, bahasa, dan preferensi Munib Tracker.",
+    "index": false
+  },
+  "/settings/about": {
+    "title": "Tentang Munib Tracker",
+    "description": "Tentang Munib Tracker — kredit, keaslian konten, kebijakan privasi, dan ketentuan layanan."
+  },
+  "/settings/appearance": {
+    "title": "Tampilan",
+    "description": "Pilih tema terang, gelap, atau sistem dan warna aksen Anda.",
+    "index": false
+  },
+  "/settings/bedtime": {
+    "title": "Waktu Tidur",
+    "description": "Atur kapan pengingat adhkar sebelum tidur dikirim.",
+    "index": false
+  },
+  "/settings/fonts": {
+    "title": "Font",
+    "description": "Atur ukuran teks Arab dan terjemahan yang paling sering Anda baca.",
+    "index": false
+  },
+  "/settings/language": {
+    "title": "Bahasa",
+    "description": "Pilih bahasa aplikasi dan terjemahan.",
+    "index": false
+  },
+  "/settings/notifications": {
+    "title": "Pengaturan Notifikasi",
+    "description": "Pilih pengingat untuk shalat, qadha, dan dzikir.",
+    "index": false
+  },
+  "/settings/time-format": {
+    "title": "Format Waktu",
+    "description": "Tampilkan waktu dalam format 12 jam atau 24 jam.",
+    "index": false
+  },
+  "/settings/weather": {
+    "title": "Cuaca",
+    "description": "Efek cuaca di beranda dan satuan suhu.",
+    "index": false
+  },
+  "/sick": {
+    "title": "Sakit & Shalat — Rukhsah",
+    "description": "Rukhsah yang Islam berikan saat Anda sakit — shalat duduk atau berbaring, gerakan terbatas, tayammum, dan kewajiban yang tetap berlaku, dengan dalil hadits.",
+    "keywords": [
+      "shalat saat sakit",
+      "shalat ketika sakit",
+      "shalat duduk",
+      "Islam dan penyakit",
+      "rukhsah shalat"
+    ]
+  },
+  "/statistics": {
+    "title": "Statistik",
+    "description": "Progres seumur hidup, ringkasan hari ini, dan tren ibadah dari waktu ke waktu.",
+    "index": false
+  },
+  "/tahajjud": {
+    "title": "Tahajud — Shalat Malam",
+    "description": "Bangun kebiasaan shalat malam yang bertahan. Lacak streak Tahajud dan baca keutamaan berdiri saat orang lain tidur — shalat terbaik setelah fardhu.",
+    "keywords": [
+      "tahajud",
+      "shalat malam",
+      "qiyamul lail",
+      "pelacak tahajud",
+      "shalat di malam hari"
+    ]
+  },
+  "/taharah": {
+    "title": "Belajar Thaharah — Thaharah & Wudhu",
+    "description": "Pelajari thaharah langkah demi langkah — wudhu, ghusl, tayammum, dan menghilangkan najis. Setiap pelajaran merujuk Al-Qur'an atau hadits shahih dan mencatat perbedaan ulama.",
+    "keywords": ["thaharah", "kesucian dalam Islam", "panduan wudhu", "ghusl", "tayammum"]
+  },
+  "/taharah/checklist": {
+    "title": "Daftar Periksa Kesucian Harian",
+    "description": "Daftar pengingat praktis kebiasaan kesucian untuk ditinjau setiap hari, agar Anda siap shalat — pendukung belajar, bukan pengganti fiqih thaharah.",
+    "keywords": [
+      "daftar periksa kesucian",
+      "daftar periksa thaharah",
+      "kebiasaan wudhu harian",
+      "menjaga wudhu"
+    ]
+  },
+  "/taharah/progress": {
+    "title": "Progres Belajar Thaharah Saya",
+    "description": "Tandai topik thaharah selesai saat mempelajari. Dasbor ini melacak belajar, bukan derajat spiritual.",
+    "index": false
+  },
+  "/tasbeeh/free": {
+    "title": "Tasbih Digital — Hitung Dzikir Apa Saja",
+    "description": "Penghitung tasbih digital gratis untuk dzikir apa pun, tanpa sentuh. Hitung Subhanallah, Alhamdulillah, Allahu Akbar, shalawat, atau istighfar dengan ketukan nyaman.",
+    "keywords": [
+      "penghitung tasbih",
+      "tasbih digital",
+      "tasbih",
+      "penghitung dzikir",
+      "tasbih online"
+    ]
+  },
+  "/tour": {
+    "title": "Tur Terpandu",
+    "description": "Panduan singkat fitur aplikasi — pelacakan, waktu shalat, Al-Qur'an, kiblat, adhkar, dan lainnya.",
+    "index": false
+  },
+  "/tracker": {
+    "title": "Pelacak Shalat",
+    "description": "Catat setiap shalat hari ini dan pertahankan streak Anda. Tersimpan di perangkat Anda.",
+    "index": false
+  },
+  "/travel": {
+    "title": "Bepergian & Shalat — Qashar dan Jamak",
+    "description": "Ajaran Al-Qur'an dan Sunnah tentang shalat dalam perjalanan — qashar dan jamak, kapan rukhsah berlaku, dan apa yang tetap wajib.",
+    "keywords": [
+      "shalat saat bepergian",
+      "shalat qashar",
+      "shalat jamak",
+      "menggabungkan shalat",
+      "memendekkan shalat"
+    ]
+  },
+  "/zakat": {
+    "title": "Kalkulator & Panduan Zakat",
+    "description": "Pelajari dasar zakat dan estimasi yang wajib dibayar — 2,5% harta yang memenuhi syarat selama satu tahun qamariyah di atas nisab — dengan panduan, dalil, dan daftar periksa.",
+    "keywords": ["kalkulator zakat", "panduan zakat", "nisab", "rukun Islam", "hitung zakat"]
+  },
+  "/zakat/checklist": {
+    "title": "Daftar Periksa Zakat — Sebelum Membayar",
+    "description": "Tinjauan langkah demi langkah syarat umum sebelum membayar zakat. Periksa setiap poin untuk memastikan harta Anda wajib zakat — bukan pengganti fatwa ulama.",
+    "keywords": [
+      "daftar periksa zakat",
+      "sebelum membayar zakat",
+      "syarat zakat",
+      "cara membayar zakat"
+    ]
+  },
+  "/zakat/evidence": {
+    "title": "Zakat dalam Al-Qur'an & Sunnah",
+    "description": "Teks utama yang menetapkan zakat sebagai kewajiban tetap atas harta yang memenuhi syarat — bukan sedekah sukarela. Baca ayat dan hadits di balik rukun ketiga Islam.",
+    "keywords": ["dalil zakat", "zakat dalam Al-Qur'an", "zakat dalam Sunnah", "kewajiban zakat"]
+  },
+  "/zikr": {
+    "title": "Adhkar & Dzikir Harian — Pagi dan Petang",
+    "description": "Adhkar pagi, petang, dan situasional untuk setiap bagian hari Anda. Baca dzikir shahih dengan Arab, transliterasi, dan makna; hitung bersama tasbih digital.",
+    "keywords": ["adhkar pagi", "adhkar petang", "dzikir harian", "azkar", "dzikir kepada Allah"]
+  },
+  "/zikr/favorites": {
+    "title": "Adhkar Favorit",
+    "description": "Adhkar favorit Anda, dikumpulkan untuk akses cepat kapan saja.",
+    "index": false
+  },
+  "/hajj/checklist": {
+    "title": "Daftar Periksa Manasik Haji",
+    "description": "Pelacak manasik Haji harian dari Tarwiyah hingga tawaf wada'. Bantuan ingat di samping panduan Belajar.",
+    "keywords": ["daftar periksa haji", "manasik haji", "pelacak haji"]
+  },
+  "/umrah/checklist": {
+    "title": "Daftar Periksa Manasik Umrah",
+    "description": "Checklist Umrah berurutan — ihram, tawaf, sa'i, dan halq atau taqsir. Gunakan dengan panduan Belajar Haji & Umrah.",
+    "keywords": ["daftar periksa umrah", "manasik umrah", "haji kecil"]
+  }
+}

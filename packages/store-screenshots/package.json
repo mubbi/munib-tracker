@@ -1,0 +1,19 @@
+{
+  "name": "@munib-tracker/store-screenshots",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./spec.json": "./spec.json"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "check-types": "tsc --noEmit",
+    "transit": "echo transit"
+  },
+  "devDependencies": {
+    "@munib-tracker/typescript-config": "workspace:*",
+    "typescript": "^6.0.0"
+  }
+}

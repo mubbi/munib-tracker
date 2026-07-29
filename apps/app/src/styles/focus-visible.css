@@ -1,0 +1,36 @@
+/*
+ * Web-only focus-visible ring (WCAG 2.4.7 Focus Visible).
+ *
+ * React Native Web strips the browser's default focus outline, leaving
+ * keyboard users with no visible focus indicator. This restores an
+ * accent-coloured, high-contrast ring that only appears for keyboard
+ * navigation (:focus-visible), never on mouse/touch interaction.
+ *
+ * The accent colour is exposed as a CSS variable so it can be themed;
+ * it falls back to the brand green if unset.
+ */
+
+:root {
+  --focus-ring-color: #1f7a63;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+}
+
+/* Remove the default outline only when a focus-visible ring will be shown,
+   so we never leave an element with no indicator. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 4px;
+}
+
+/* High-contrast / forced-colors mode: defer to the system focus colour. */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+}

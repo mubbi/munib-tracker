@@ -1,0 +1,124 @@
+import type { ProphetsGenealogyNode } from "../../types/prophets";
+import type { DeepPartial } from "./localize";
+
+// ps overlay for prophets-genealogy. Index-aligned with PROPHETS_GENEALOGY_NODES in ../prophets-genealogy.ts.
+// Literary translation pack — untranslated nested fields fall back to English.
+export const PROPHETS_GENEALOGY_NODES_PS: DeepPartial<ProphetsGenealogyNode>[] = [
+  {
+    name: "آدم",
+    relationNote:
+      "الله تعالی ادم علیه السلام په خپل لاس پیدا کړ او نومونه یې ورته وښودل. هغه د انسانیت پلار دی - د انسان پلار نه دی.",
+  },
+  {
+    name: "نوح",
+    relationNote:
+      "قرآن په ځمکه کې د آدم د اولادې له خپریدو وروسته نوح علیه السلام ته د پیغمبر په توګه ټاکي، خو د آدم او نوح تر منځ د منځنیو پلرونو نوم نه اخلي. هغه په ​​دې څانګه کې د ادم تر څنګ د پیغمبر په تاریخ کې د پلار جانشین په توګه څرګندیږي - نه د آدم د سمدستي زوی په توګه.",
+  },
+  {
+    name: "ابراهیم",
+    relationNote:
+      "ابراهیم علیه السلام د قرآن په تاریخ کې د نوح علیه السلام له اولادې څخه دی. قرآن د دوی تر منځ هر نسل نه دی لیست کړی. هغه د نوح د سمدستي زوی په توګه د څرګندیدو پرځای د خپلې کورنۍ څانګې مشري کوي.",
+  },
+  {
+    name: "اسماعیل",
+    relationNote:
+      "اسماعیل د ابراهیم زوی دی. دوی په ګډه د کعبې بنسټ کېښود. قرآن د ابراهیم (ع) د یوه بزدله زوی زیری او د قربانۍ کیسه بیانوي.",
+  },
+  {
+    name: "اسحاق",
+    relationNote:
+      "اسحاق د ابراهیم زوی دی چې له اسماعیل وروسته ورکړل شوی او د خپل پلار سره برکت دی.",
+  },
+  {
+    name: "لوط",
+    relationNote:
+      "قرآن لوط د ابراهیم د هجرت او ماموریت سره نږدې تړاو لري مګر لوط ته د ابراهیم زوی نوم نه ورکوي. کلاسیک تفسیر اکثرا هغه د ابراهیم وراره بولي. هغه د ابراهیم په څانګه کې د معاصر ملګري په توګه ښکاري - د مور او پلار ادعا نه ده شوې.",
+  },
+  {
+    name: "یعقوب (اسرائیل)",
+    relationNote:
+      "یعقوب د اسحاق زوی دی. الله جل جلاله د ابراهیم، ​​اسحاق او یعقوب په اولاد کې نبوت او کتاب ورکړی دی.",
+  },
+  {
+    name: "یوسف",
+    relationNote: "یوسف د یعقوب زوی دی. سورت یوسف د خپل پلار او وروڼو سره په لنډه توګه کیسه کوي.",
+  },
+  {
+    name: "موسی",
+    relationNote:
+      "موسی له بني اسرائیلو څخه دی. قرآن د هغه د ورور هارون او مور نومونه اخلي، مګر په دې ونې کې د پیغمبر پلار لیست کولو ته اړتیا نلري. هغه د موسی هارون څانګې مشر دی.",
+  },
+  {
+    name: "هارون",
+    relationNote:
+      "هارون د موسی ورور دی. موسی علیه السلام له الله تعالی څخه وغوښتل چې هارون د خپلې کورنۍ څخه یو مرستندوی وټاکي. دوی د وروڼو په توګه څانګه شریکوي - نه د پلار او زوی په توګه.",
+  },
+  {
+    name: "داود",
+    relationNote:
+      "داود ته پاچاهي او زبور ورکړل شو. قرآن د هغه د نبوت تصدیق کوي او سلیمان له هغه څخه په میراث کې دی.",
+  },
+  {
+    name: "سلیمان",
+    relationNote: "سلیمان د داود زوی دی او پاچاهي او نبوت ورته په میراث پاتې دی.",
+  },
+  {
+    name: "زکریا",
+    relationNote: "زکریا یو پیغمبر و چې د وارث لپاره یې دعا کوله. الله تعالی ورته یحیی ورکړی.",
+  },
+  {
+    name: "یحیی",
+    relationNote: "یحیی د زکریا زوی دی چې د پلار د دعا په ځواب کې ورکړل شوی.",
+  },
+  {
+    name: "مریم",
+    relationNote:
+      "د عمران لور مریم ته په قرآن کریم کې عزت ورکړل شوی دی. هغه د عیسی مور ده او د عیسی په زیږون کې میړه نه درلوده - د خدای نښه.",
+  },
+  {
+    name: "عیسی",
+    relationNote:
+      'عیسی د مریم زوی دی چې د خدای له کلمې "هې" پرته د انسان پلار څخه رامینځته شوی. اصلي اړیکه د هغه مور مریم سره ده.',
+  },
+  {
+    name: "محمد ﷺ",
+    relationNote:
+      "رسول الله ﷺ د اسماعیل زوی ابراهیم له اولادې څخه دی. د اسمعيل او قريشو تر منځ تفصيلي نومونه په کلاسيک سيرت کې ساتل شوي دي. قرآن پرته له دې چې د هر پلار نوم لیست کړي د ابراهیمي میراث تاییدوي. دلته سمدستي د پلار او زوی څنډه نه ده راښکل شوې - یوازې مهر شوی نبوت او د اسماعیلي نسل.",
+  },
+  // —— v2 appends ——
+  {
+    name: "Sheeth (Seth)",
+    relationNote:
+      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+  },
+  {
+    name: "Idris",
+    relationNote:
+      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+  },
+  {
+    name: "Imran",
+    relationNote:
+      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+  },
+  {
+    name: "Adnan",
+    relationNote:
+      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+  },
+  {
+    name: "Hashim ibn Abd Manaf",
+    relationNote:
+      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+  },
+  {
+    name: "Abd al-Muttalib",
+    relationNote:
+      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+  },
+  {
+    name: "Abdullah ibn Abd al-Muttalib",
+    relationNote:
+      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+  },
+];
