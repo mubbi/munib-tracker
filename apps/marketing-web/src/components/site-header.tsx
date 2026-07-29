@@ -22,7 +22,17 @@ export function SiteHeader() {
   const showChrome = scrolled || !onHome || open;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        // Opaque solid chrome — no backdrop-filter. Blurring the sticky bar
+        // over animated full-viewport layers was the main scroll jank source.
+        setScrolled(window.scrollY > 8);
+        ticking = false;
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -34,12 +44,12 @@ export function SiteHeader() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="sticky top-0 z-50 isolate transform-gpu">
       <div
         className={cn(
-          "relative transition-[background-color,backdrop-filter,box-shadow] duration-300",
+          "relative transition-colors duration-200",
           showChrome
-            ? "bg-[#07141f]/80 shadow-[0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-xl backdrop-saturate-150"
+            ? "bg-[#07141f]/95 shadow-[0_1px_0_0_rgba(255,255,255,0.06)]"
             : "bg-transparent",
         )}
       >
@@ -51,12 +61,7 @@ export function SiteHeader() {
           />
         ) : null}
 
-        <div
-          className={cn(
-            "relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 transition-[height] duration-300 md:px-8",
-            showChrome ? "h-[4.5rem]" : "h-[5.25rem]",
-          )}
-        >
+        <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-5 md:px-8">
           <Link
             href={SITE_PATHS.home}
             className="flex items-center gap-2.5 font-semibold tracking-tight text-white transition-opacity hover:opacity-80"
@@ -124,7 +129,7 @@ export function SiteHeader() {
             ) : null}
             <button
               type="button"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-sm lg:hidden"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white lg:hidden"
               aria-expanded={open}
               aria-controls={menuId}
               onClick={() => setOpen((v) => !v)}
@@ -145,7 +150,7 @@ export function SiteHeader() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="border-b border-white/[0.06] bg-[#07141f]/95 px-5 pb-5 pt-2 backdrop-blur-xl lg:hidden"
+            className="border-b border-white/[0.06] bg-[#07141f]/98 px-5 pb-5 pt-2 lg:hidden"
           >
             <ul className="flex flex-col gap-1">
               {NAV_LINKS.map((link) => (

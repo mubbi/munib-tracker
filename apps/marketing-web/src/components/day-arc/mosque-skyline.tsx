@@ -106,23 +106,13 @@ export function MosqueSkyline({
           <stop offset="0.7" stopColor="#ffcf96" stopOpacity="0.22" />
           <stop offset="1" stopColor="#ffcf96" stopOpacity="0" />
         </linearGradient>
-        <filter id={id("soft")} x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="1.4" />
-        </filter>
-        <filter id={id("soft4")} x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="3.2" />
-        </filter>
-        <filter id={id("glow")} x="-200%" y="-200%" width="500%" height="500%">
-          <feGaussianBlur stdDeviation="2.2" />
-        </filter>
       </defs>
 
-      {/* Distant ridge, hazy */}
+      {/* Distant ridge — soft via opacity (no feGaussianBlur; filters are costly under sticky chrome) */}
       <path
         d="M0 176 L90 158 L200 170 L330 152 L470 168 L610 154 L760 170 L900 156 L1050 168 L1200 152 L1330 164 L1440 156 L1440 196 L0 196 Z"
         fill={`url(#${id("ridge-far")})`}
-        opacity="0.75"
-        filter={`url(#${id("soft")})`}
+        opacity="0.55"
       />
       {/* Near ridge */}
       <path
@@ -162,30 +152,16 @@ export function MosqueSkyline({
       <g>
         {WINDOW_XS.map((x) => (
           <g key={x}>
-            <rect
-              x={x - 2.2}
-              y="176"
-              width="4.4"
-              height="8"
-              rx="2.2"
-              fill="#ffd9a0"
-              opacity="0.9"
-              filter={`url(#${id("glow")})`}
-            />
+            <rect x={x - 3} y="175.5" width="6" height="9" rx="2.5" fill="#ffd9a0" opacity="0.35" />
             <rect x={x - 1.4} y="177" width="2.8" height="6" rx="1.4" fill="#ffe9c4" />
           </g>
         ))}
         {/* drum windows */}
         {[312, 326, 340, 354].map((x) => (
-          <circle
-            key={x}
-            cx={x}
-            cy={155}
-            r="1.6"
-            fill="#ffd9a0"
-            opacity="0.85"
-            filter={`url(#${id("glow")})`}
-          />
+          <g key={x}>
+            <circle cx={x} cy={155} r="2.4" fill="#ffd9a0" opacity="0.3" />
+            <circle cx={x} cy={155} r="1.6" fill="#ffd9a0" opacity="0.85" />
+          </g>
         ))}
       </g>
 
@@ -193,12 +169,11 @@ export function MosqueSkyline({
       <rect x="0" y={WATER} width="1440" height={240 - WATER} fill={`url(#${id("water")})`} />
       {/* lit waterline */}
       <rect x="0" y={WATER - 1} width="1440" height="2" fill={`url(#${id("waterline")})`} />
-      {/* blurred mirrored mosque reflection */}
+      {/* mirrored mosque reflection — soft via opacity, not SVG blur filters */}
       <use
         href={`#${id("mosque-g")}`}
         transform={`translate(0 ${2 * WATER}) scale(1 -1)`}
-        opacity="0.22"
-        filter={`url(#${id("soft4")})`}
+        opacity="0.18"
       />
       {/* light streaks from windows */}
       {WINDOW_XS.map((x) => (
