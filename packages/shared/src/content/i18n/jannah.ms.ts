@@ -405,7 +405,110 @@ export const JANNAH_TOPICS_MS: DeepPartial<JannahTopic>[] = [
       "Maafkanlah orang lain dan perbaikilah hubungan yang putus.",
       "Renungkan akhlakmu selepas salah dalam jurnal harian.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Kebenaran",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Kesabaran",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Menahan marah",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Memaafkan",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Rendah hati",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Amanah",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Berbakti kepada ibu bapa",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Kata-kata baik",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+      {
+        title: "Senyuman",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+      {
+        title: "Keadilan",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Dusta",
+      },
+      {
+        title: "Ghibah",
+      },
+      {
+        title: "Fitnah",
+      },
+      {
+        title: "Sombong",
+      },
+      {
+        title: "Kezaliman",
+      },
+      {
+        title: "Memungkiri janji",
+      },
+      {
+        title: "Mengejek",
+      },
+      {
+        title: "Kekasaran",
+      },
+    ],
   },
   {
     title: "Menuntut ilmu",

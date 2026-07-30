@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { IconButton } from "@/components/ui/icon-button";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { useHadithCitationBookmark, useQuranAyahBookmark } from "@/hooks/use-jannah-bookmarks";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { resolveHadithBookmarkTarget } from "@/lib/jannah-bookmarks";
@@ -10,16 +11,18 @@ export function QuranAyahBookmarkButton({ surah, ayah }: { surah: number; ayah: 
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { bookmarked, toggle } = useQuranAyahBookmark(surah, ayah);
+  const tint = bookmarked ? tokens.status.warning.color : colors.mutedForeground;
 
   return (
-    <IconButton
+    <LabeledIconButton
       name={
         bookmarked
           ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
           : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
       }
-      size={18}
-      tintColor={bookmarked ? tokens.status.warning.color : colors.mutedForeground}
+      label={bookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
+      tintColor={tint}
+      labelColor={tint}
       accessibilityLabel={bookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
       accessibilityState={{ selected: bookmarked }}
       haptic="selection"

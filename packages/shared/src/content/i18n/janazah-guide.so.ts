@@ -218,4 +218,138 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Takbiir takbiir — tallaabooyinka salaadda",
+    summary: "Liis ficil ah oo afar takbiir iyo waxa u dhexeeya.",
+    body: [
+      "Takbiirta koowaad: gacmaha kor u qaad (sida madhabkaaga), dheh Allahu Akbar, ka dib akhri Surat al-Fatihah. Ibnu Cabbaas wuxuu Faatixada ku akhriyay salaadda janaazada isagoo yidhi waa sunnada (Saxiix al-Bukhaari 1335).",
+      "Takbiirta labaad: u dir salawaad Nebiga ﷺ — isla salawaadka Ibraahiim ee tashahhudka ayaa si ballaaran loogu baraa tallaabadan. Takbiirta saddexaad: duco daacad ah u samee marxuumka (ereyada Hisnul Muslim ee hagahan). Takbiirta afraad: culimada badankood waxay ka dib sameeyaan duco guud oo kooban, ka dibna ku dhammeeyaan tasliim dhanka midig (iyo bidix, sida madhabka).",
+      "Rukuuc, sujuud, ama fadhiisin ma jiraan. Inta oo dhan istaag. Haddii janaazooyin dhowr ah ay joogaan, Janazah keliya oo loogu niyadaysto dhammaan ayaa lagu dhaqmaa bulshooyin badan — imaamka raac. Meesha salawaadka iyo ducada waxay yara beddeli karaan madhabka; qaabka afar-takbiir waa mid wadaag ah.",
+    ],
+    madhhabNote:
+      "Buugaagta Xanafi, Maaliki, Shaafici, iyo Xanbali way kala duwan yihiin in gacmaha la qaado takbiir kasta iyo goorta saxda ah ee ducada. Imaamka kaa horreeya raac.",
+    actions: [
+      "Baro isku xigxiga afar-takbiir ka hor intaadan u baahnayn.",
+      "Xafid Faatixa, salawaad, iyo ugu yaraan hal duco janaazo.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Ibnu Cabbaas wuxuu tukaday salaad janaazo oo akhriyay Faatixa isagoo sheegay inay ka timid sunnada.",
+      },
+    ],
+  },
+  {
+    title: "Ducooyinka ragga, dumarka, iyo carruurta",
+    summary: "Isla ereyada nebiyadeed — beddel magacyada Carabiga si ay u waafaqaan marxuumka.",
+    body: [
+      "Hisnul Muslim (iyo ururinta xadiiska caadiga ah) waxay diiwaangeliyaan ducooyinka Janazah inta badan qaabka labka. Taasi macnaheedu maaha duco gaar ah oo 'la hindisay' dumarka. Culimada guud waxay bariyaan inaad hayn karto ereyada labka iyadoo niyadda qofka, ama — oo ka door ah oo caadi ah — beddelo naxwaha si uu u waafaqo marxuumka: لَهُ / هُ / هِ → لَهَا / هَا؛ عَبْدُكَ → أَمَتُكَ؛ ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ؛ iyo gabar carruur ah اجْعَلْهُ → اجْعَلْهَا، شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Haweeney marxuum ah, culimo qaar ayaa kula talinaya taxaddarka weedha 'nin ka wanaagsan ninkeeda' (زَوْجًا خَيْرًا مِنْ زَوْجِهَا), iyagoo xusaya inay Jannada la kulmi karto ninkeeda — waxaad ka tagi kartaa weedhaas ama haysataa ereyo guud. Carruurta, isticmaal gelitaanada Hisnul ee carruurta (hisn-160, hisn-161) halkii aad ka isticmaali lahayd qoraallada dadka waaweyn ee dembi-dhaafka kaliya.",
+      "Ereyga wadajirka ah 'magfiradda raggeenii iyo dumarkeenna' (hisn-157) wuxuu horey u daboolaa labada jinsi isagoon beddelin. Ma hindisno Carabi cusub oo ka baxsan beddelka naxwaha ee qoraallada saxda ah — fur ducada dadka waaweyn ee la xiriiray aasaas ahaan oo ku dabaq khariidadda magacyada kor ku xusan.",
+    ],
+    madhhabNote:
+      "Haynta qaababka labka iyadoo niyadda iyo beddelka qaababka dheddigga labadaba waa la aqbalay culimada guud dhexdooda. Markaad shaki qabtid, isticmaal hisn-157 (ragga iyo dumarka) ama weydii imaamka.",
+    actions: [
+      "Ku tababar beddelka magacyada dheddigga ducada aad xafidayso.",
+      "Isticmaal ducooyinka carruurta kuwa aan gaarin baaluqnimada.",
+      "Dooro saxnimada halkii aad ka dooran lahayd buugaag dheer oo aan la xaqiijin.",
+    ],
+    appLinks: [{ label: "Ducada janaazada dadka waaweyn #1" }],
+  },
+  {
+    title: "Shahiidiinta, dhicista, iyo xaaladaha gaarka ah",
+    summary: "Marka xukummada maydhitaanka ama Janazah ay ka duwan yihiin xaaladda caadiga ah.",
+    body: [
+      "Shahiidiinta goobta dagaalka ee ku dhinta dagaalka, xukunka qadiimiga ah ee Uhud laga soo qaatay, waxaa lagu aasaa dharkooda iyagoon maydhin ghuslka caadiga ah; Nebigu ﷺ wuxuu amray in shahiidiintii Uhud lagu aaso dhiiggooda iyagoon la maydhin (Saxiix al-Bukhaari 1346). Qaybaha kale ee loo yaqaan 'shahiidi' abaalmarinta (tusaale cudurka daacuunka, qaraqashada) caadi ahaan maydhitaan iyo Janazah bay helaan — weydii caalim xaaladaha geesaha.",
+      "Dhicista ama ilmo dhintay oo dhashay, madhabyadu way kala duwan yihiin goorta salaadda janaazada iyo maydhitaanka buuxa ay khusayaan (intabadan ku xidhan in qaab la aqoonsan karo ama marxaladda nafta lagu afuufay la xukumay). Xadiis ayaa dhiirrigeliya in lagu tukado dhicista oo loo raadiyo magfirad iyo naxariis waalidiinta (Abuu Daawuud 3180). Raac guddiga janaazada ee madhabkaaga halkii aad qiyaasi lahayd.",
+      "Qaraabada aan muslimka ahayn looma tukado salaadda Janazah ee muslimiinta; naxariista, caawinta aaska ee xalaasha ah marka ay khusayso, iyo murugada shakhsi ahaaneed way ka duwan yihiin salaadda cibaadada ee mu'miniinta. Mar walba xaqiiji xaaladaha gaarka ah hagitaan maxalli ah oo u qalma.",
+    ],
+    madhhabNote:
+      "Qeexitaannada shahiidnimada goobta dagaalka, marxaladaha dhicista, iyo salaadda ilmo dhintay way kala duwan yihiin madhabka. Mawduucani wuxuu calaamadeeyaa arrimaha — ma aha fatwo.",
+    disclaimer:
+      "Xukummada gaarka ahi waa xasaasi. Xaqiiji caalim u qalma ama adeegga janaazada ee beeshaada ka hor intaadan ficilgelin.",
+    actions: [
+      "Ha maydhin shahiid goobta dagaalka oo ka soo horjeeda tilmaanta culimada.",
+      "Weydii guddiga janaazada kiisaska dhicista ama ilmo dhintay.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Nebigu ﷺ wuxuu amray in shahiidiintii Uhud lagu aaso dhiiggooda, mana la maydhin.",
+      },
+      {
+        excerpt:
+          "Salaadda janaazada ayaa lagu tukadaa dhicista, waalidiintana waxaa loogu duceeyaa magfirad iyo naxariis.",
+      },
+    ],
+  },
+  {
+    title: "Janazah maqnaansho",
+    summary: "Nebigu ﷺ wuxuu u tukaday Negus markii jidhku fogaa.",
+    body: [
+      "Jaabir wuxuu wariyay in Nebigu ﷺ u soo baxay Saxaabadiisa, saf u dhigay, oo afar takbiir u yidhi Negus (al-Najaashi), boqorkii Xabashida ee dibadda ku dhintay (Saxiix al-Bukhaari 1334; Saxiix Muslim 952). Tani waa caddaynta ugu weyn ee Salaat al-Janazah ee maqnaanshaha (alā al-ghā'ib).",
+      "Madhabyadu way kala duwan yihiin sida loo ballaariyo tusaalahan: qaar ayaa ku xaddida xaaladaha Negus oo kale (salaad muslim maxalli ah ma jirin), qaar kalena waxay u oggolaadaan si ka ballaaran marka jidhku fog yahay. Ha ka tagin Janazah maxalli ah marka jidhku joogo oo bulshadu tukadi karto. Raac caalim maxalli ah oo la aamini karo goorta salaadda maqnaanshuhu ku habboon tahay madhabkaaga.",
+      "Qaabku waa isla salaadda afar-takbiir; niyaddu waa marxuumka maqan. Isticmaal isla ducooyinka saxda ah, beddel jinsiga marka loo baahdo.",
+    ],
+    madhhabNote:
+      "Baaxadda Janazah maqnaanshaha waa khilaaf la yaqaan. Dooro dhaqanka imaamyada u qalma ee beeshaada.",
+    actions: [
+      "Tukada maxalli ah mar kasta oo jidhku joogo.",
+      "Weydii ka hor intaadan abaabulin Janazah maqnaansho dhacdo dadweyne ahaan.",
+    ],
+    hadith: [
+      {
+        excerpt: "Nebigu ﷺ wuxuu u tukaday salaadda janaazada Negus oo yidhi afar takbiir.",
+      },
+      {
+        excerpt:
+          "Rasulkii Alle ﷺ wuxuu Saxaabada saf u dhigay oo u tukaday Negus, isagoo afar takbiir leh.",
+      },
+    ],
+  },
+  {
+    title: "Sariirta dhimashada — ereyada ugu dambeeya",
+    summary: "Si tartiib ah ugu xusuusi qofka dhimanaya la ilaha illallah.",
+    body: [
+      "Nebigu ﷺ wuxuu yidhi: 'Ku xusuusiya kuwa dhimanaya ee idiin ah inay dhaahaan la ilaha illallah' (Saxiix Muslim 916; Abuu Daawuud 3117). Hisnul Muslim wuxuu ilaaliyaa tilmaanta ah in qofkii ereyadiisa ugu dambeeya yihiin 'Ma jiro mid xaq u leh in la caabudo oo aan Alle ahayn' uu galo Jannada (hisn-153, Abuu Daawuud 3116).",
+      "Si tartiib ah ugu xusuusi adigoon adkayn; ha qasbin hana murmin. Kuwa dhimashada u dhow waxaa sidoo kale lagu raaxayn karaa ereyo rajo oo sax ah oo Hisnul Muslim ku kaydsan (hisn-150–152). Xidh indhaha marka nafta la qaado oo isticmaal ducada xidhidda indhaha (mawduucii hore).",
+      "Ka fogow baroor dheer iyo hadalka Alle ka cadhaysiiya. Reerka guriga ha dhaahaan wanaag, maxaa yeelay malaa'igtu waxay ku tidhaahdaan aamiin ereyadooda (Saxiix Muslim 920).",
+    ],
+    actions: [
+      "Si tartiib ah ugu xusuusi qofka dhimanaya shahaadada.",
+      "Qolka ka dhig mid deggan oo ku mashquulsan hadal wanaagsan.",
+    ],
+    hadith: [
+      {
+        excerpt: "Ku xusuusiya kuwa dhimanaya ee idiin ah inay dhaahaan: la ilaha illallah.",
+      },
+      {
+        excerpt:
+          "Qofkii ereyadiisa ugu dambeeya yihiin 'Ma jiro mid xaq u leh in la caabudo oo aan Alle ahayn' wuxuu galayaa Jannada.",
+      },
+    ],
+    appLinks: [{ label: "Ducooyinka rajada nolosha" }, { label: "Xidhida indhaha" }],
+  },
+  {
+    title: "Tacsiyada iyo kuwa murugada leh",
+    summary: "Raaxeeya kuwa nool ducada masiibada ee nebiyadeed.",
+    body: [
+      "Umm Salamah waxay wariyay in Rasuulkii Alle ﷺ yidhi: 'Ma jiro muslim oo masiibo ku dhacdo oo markaas yidhaahda waxa Alle amray — \"Alle ayaan leennahay oo isaga ayaan ku noqonaynaa. Alleeyow, igu abaal mari masiibadayda oo ii beddel wax ka wanaagsan\" — laakiin Alle wuxuu u beddelayaa wax ka wanaagsan' (Saxiix Muslim 918). Hisnul Muslim wuxuu ilaaliyaa ereyadaan (hisn-154).",
+      "Bixi tacsi ereyo kooban oo run ah; u diyaari qoyska marxuumka cunto halkii aad ugu culaysin lahayd martigelinta (Abuu Daawuud 3132 — warbixinta qoyska Jacfar). Ka fogow xafladaha bidcada ee maalin go'an oo caddayn la'aan iyadoo aad sii wadato duco gaar ah, sadaqo, iyo naxariis.",
+      "Murugada ilmo leh waa la oggol yahay; baroor, dhabannada tumid, iyo dharka jeexid waa la mamnuucay. Ka caawi carmallada, agoonta, iyo kuwa ku tiirsan caawimo xalaal ah aaska ka dib.",
+    ],
+    actions: [
+      "Baro kuwa murugada leh ducada masiibada.",
+      "Ka caawi cunto iyo hawlo halkii aad ka sugi lahayd xaflad.",
+      "Sii wad duco deggan iyo sadaqo marxuumka.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Ma jiro muslim oo masiibo ku dhacdo oo yidhaahda ereyada la amray ee Alle loogu noqdo oo weydiisto beddelka ka wanaagsan, laakiin Alle wuxuu u beddelayaa wax ka wanaagsan.",
+      },
+    ],
+    appLinks: [{ label: "Yoolalka sadaqada" }],
+  },
 ];

@@ -478,6 +478,107 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       {
         label: "Jurnal khusyuk & ahlak",
       },
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Doğruluk",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        quran: {
+          excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+        },
+      },
+      {
+        title: "Sabır",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        quran: {
+          excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+        },
+      },
+      {
+        title: "Öfkeyi tutmak",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        quran: {
+          excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+        },
+      },
+      {
+        title: "Affetmek",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        quran: {
+          excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+        },
+      },
+      {
+        title: "Tevazu",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        quran: {
+          excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+        },
+      },
+      {
+        title: "Emanete riayet",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        quran: {
+          excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+        },
+      },
+      {
+        title: "Anne-babaya iyilik",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        quran: {
+          excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+        },
+      },
+      {
+        title: "Güzel söz",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+      {
+        title: "Tebessüm",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+      {
+        title: "Adalet",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        quran: {
+          excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Yalan",
+      },
+      {
+        title: "Gıybet",
+      },
+      {
+        title: "İftira",
+      },
+      {
+        title: "Kibir",
+      },
+      {
+        title: "Zulüm",
+      },
+      {
+        title: "Söz bozmak",
+      },
+      {
+        title: "Alay",
+      },
+      {
+        title: "Sertlik",
+      },
     ],
   },
   {

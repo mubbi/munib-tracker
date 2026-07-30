@@ -470,6 +470,98 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Mëkatet shkatërruese",
+    summary: "Ruhuni nga mëkatet e mëdha që të largojnë nga mëshira e Allahut.",
+    body: [
+      "Mëkatet e mëdha paralajmërohen rreptësisht në Kuran dhe Sunet.",
+      "Dera e pendimit është e hapur deri në vdekje.",
+      "Lëreni mëkatin, pendohuni dhe vendosni të mos ktheheni.",
+      "Kthimi i të drejtave të njerëzve është pjesë e pendimit.",
+      "Mos e humbni shpresën në mëshirën e Allahut.",
+    ],
+    destructiveItems: [
+      {
+        title: "Shirku",
+        summary: "T'i bësh shok Allahut është padrejtësia më e madhe.",
+      },
+      {
+        title: "Magjia",
+        summary: "Magjia ose kërkimi i saj është i ndaluar.",
+      },
+      {
+        title: "Vrasja",
+        summary: "Vrasja e një të pafajshmi është krim i rëndë.",
+      },
+      {
+        title: "Kamata",
+        summary: "Marrja dhe dhënia e kamatës është haram.",
+      },
+      {
+        title: "Pasuria e jetimit",
+        summary: "Ngrënia padrejtësisht e pasurisë së jetimit.",
+      },
+      {
+        title: "Ikja nga beteja",
+        summary: "Ikja nga fusha në luftë të ligjshme.",
+      },
+      {
+        title: "Shpifja ndaj të dëlirave",
+        summary: "Akuza për imoralitet ndaj besimtarit të dëlirë.",
+      },
+      {
+        title: "Falimenti",
+        summary: "Humbja e veprave për shkak të të drejtave të njerëzve.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allahu nuk e fal t'i bëhet ortak Atij.",
+      },
+      {
+        excerpt: "Kush vret një shpirt pa të drejtë, sikur ka vrarë gjithë njerëzit.",
+      },
+      {
+        excerpt: "Ata që hanë pasurinë e jetimëve me padrejtësi hanë zjarr.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Ruhuni nga shtatë mëkatet shkatërruese.",
+      },
+      {
+        excerpt: "I falimentuari vjen me namaz, por ka cenuar njerëzit.",
+      },
+      {
+        excerpt: "Ruhuni nga shirku.",
+      },
+      {
+        excerpt: "I penduari nga mëkati është si ai pa mëkat.",
+      },
+      {
+        excerpt: "Allahu gëzohet për pendimin e robit të Tij.",
+      },
+    ],
+    actions: [
+      "Pendohuni sinqerisht.",
+      "Ktheni të drejtat e njerëzve.",
+      "Largohuni nga rrugët e mëkatit.",
+    ],
+    appLinks: [
+      {
+        label: "Lutje pendimi",
+      },
+      {
+        label: "Ndjekja e namazit",
+      },
+      {
+        label: "Borxhet dhe amanetet",
+      },
+      {
+        label: "Dhikri ditor",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [

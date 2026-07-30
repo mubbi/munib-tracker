@@ -394,7 +394,110 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Başgalary bagyşlaň we bozulan gatnaşyklary düzediň.",
       "Gündelik journalurnalda namazdan soň häsiýetiňiz hakda pikirleniň.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Dogruçyllyk",
+        summary: "Sözde we işde dogry bolmak.",
+        quran: {
+          excerpt: "Dogruçylaryň ýanynda boluň.",
+        },
+      },
+      {
+        title: "Sabyr",
+        summary: "Synagda çydamly bolmak.",
+        quran: {
+          excerpt: "Alla sabyr edýänler bilendir.",
+        },
+      },
+      {
+        title: "Gahary dolandyrmak",
+        summary: "Gaharda özüňi saklamak.",
+        hadith: {
+          excerpt: "Güýçli kişi gaharda özüni saklaýandyr.",
+        },
+      },
+      {
+        title: "Bagyşlamak",
+        summary: "Adamlaryň hatasyny bagyşlamak.",
+        quran: {
+          excerpt: "Bagyşlasynlar we geçsinler.",
+        },
+      },
+      {
+        title: "Pespällik",
+        summary: "Özüni beýlekilerden ýokary görmezlik.",
+        hadith: {
+          excerpt: "Kim Alla üçin pespäl bolsa, Alla ony beýgelder.",
+        },
+      },
+      {
+        title: "Amanatdarlyk",
+        summary: "Ynananyp berleni goramak.",
+        quran: {
+          excerpt: "Olar amanatlaryna we wadalaryna wepaly bolýarlar.",
+        },
+      },
+      {
+        title: "Ene-ata",
+        summary: "Hormaty we aladany berjaý etmek.",
+        quran: {
+          excerpt: "Olara «uf» hem diýmäň.",
+        },
+      },
+      {
+        title: "Gowy söz",
+        summary: "Gowy zat aýtmak ýa-da dymmak.",
+        hadith: {
+          excerpt: "Gowy söz aýtsyn ýa-da dymsyn.",
+        },
+      },
+      {
+        title: "Ýylgyrmak",
+        summary: "Dogana açyk ýüz görkezmek.",
+        hadith: {
+          excerpt: "Doganyňa ýylgyrmak sadakadyr.",
+        },
+      },
+      {
+        title: "Adalat",
+        summary: "Hemmeler bilen adalatly bolmak.",
+        quran: {
+          excerpt: "Adalatly boluň, ol takwaçylyga has ýakyndyr.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Ýalan",
+      },
+      {
+        title: "Gybat",
+      },
+      {
+        title: "Ösekilik",
+      },
+      {
+        title: "Tekepbirlik",
+      },
+      {
+        title: "Zulum",
+      },
+      {
+        title: "Wadany bozmak",
+      },
+      {
+        title: "Masgaralamak",
+      },
+      {
+        title: "Gatyýüreklilik",
+      },
+    ],
   },
   {
     title: "Bilim gözlemek",

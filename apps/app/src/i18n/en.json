@@ -3244,6 +3244,19 @@
     "markComplete": "Mark topic complete",
     "markIncomplete": "Mark as not yet complete",
     "misconceptionsTitle": "Common misconceptions",
+    "mizan": {
+      "panHeavy": "Heavy pan",
+      "panLight": "Light pan",
+      "pansCaption": "What the authentic texts call heavy on the Scale",
+      "noLeaderboard": "These phrases describe weight and virtue — they are not a complete divine ranking of every deed.",
+      "deedsTitle": "Deeds named in the texts",
+      "category": {
+        "heavy-on-scale": "Heavy on the Scale",
+        "fills-the-scale": "Fills the Scale",
+        "best-beloved": "Best / most beloved",
+        "equal-reward": "Great equated reward"
+      }
+    },
     "phaseV1": "V1 — Foundations",
     "timelineTitle": "Timeline of the Hereafter",
     "timelineSubtitle": "From life in this world through eternity",
@@ -4675,6 +4688,14 @@
       "highly-recommended": "Highly recommended",
       "recommended": "Recommended"
     },
+    "mizan": {
+      "weightCallout": "Nothing is heavier on the believer's Scale than good character — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Traits of good character",
+      "buildsTitle": "Builds character",
+      "buildsHint": "Practise one trait at a time — truth, patience, mercy, and justice.",
+      "destroysTitle": "What undermines character",
+      "destroysHint": "Habits the texts warn against — tap a tile for a related lesson."
+    },
     "grade": {
       "sahih": "Sahih",
       "hasan": "Hasan",
@@ -4785,6 +4806,18 @@
       "obligatory": "Obligatory",
       "highly-recommended": "Highly recommended",
       "recommended": "Recommended"
+    },
+    "mizan": {
+      "warningCallout": "The texts warn with words like 'destructive' and 'greatest' — that is a hierarchy of warning, not a Scale leaderboard.",
+      "ladder": {
+        "gravest": "Gravest warnings",
+        "seven": "Seven destructive",
+        "consumes": "Consumes good deeds"
+      },
+      "sevenTitle": "The seven destructive sins",
+      "bankruptTitle": "The bankrupt person",
+      "bankruptLink": "Read about accountability on the Last Day",
+      "hopeCallout": "Do not despair of Allah's mercy — He forgives all sins for those who turn back (Qur'an 39:53). Dying upon shirk without repentance is the exception the texts make clear."
     },
     "grade": {
       "sahih": "Sahih",
@@ -5260,7 +5293,7 @@
     "eyebrow": "Learn",
     "title": "Janazah guide",
     "subtitle": "Funeral prayer, washing, burial, and authentic duas",
-    "intro": "A practical overview of Janazah as a communal obligation — how to pray four takbirs without ruku or sujud, and the Hisnul Muslim duas for the deceased.",
+    "intro": "A practical overview of Janazah as a communal obligation — four takbirs without ruku or sujud, Hisnul Muslim duas for men, women, and children, and guidance for washing, burial, martyrs, and the bereaved.",
     "section": {
       "obligation": "Obligation",
       "prepare": "Preparation",

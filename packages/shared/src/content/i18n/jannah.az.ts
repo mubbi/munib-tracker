@@ -394,7 +394,110 @@ export const JANNAH_TOPICS_AZ: DeepPartial<JannahTopic>[] = [
       "Başqalarını bağışlayın və pozulmuş münasibətləri düzəldin.",
       "Gündəlik jurnalda namazdan sonra xarakterinizi əks etdirin.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Doğruluq",
+        summary: "Doğrularla birlikdə olun.",
+        quran: {
+          excerpt: "Ey iman gətirənlər, Allahdan qorxun və doğrularla olun.",
+        },
+      },
+      {
+        title: "Səbir",
+        summary: "Səbir və namazla yardım istəyin.",
+        quran: {
+          excerpt: "Səbir və namazla yardım istəyin.",
+        },
+      },
+      {
+        title: "Qəzəbi saxlamaq",
+        summary: "Qəzəbini boğanları Allah sevər.",
+        quran: {
+          excerpt: "Qəzəblərini udan və insanları bağışlayanlar.",
+        },
+      },
+      {
+        title: "Bağışlamaq",
+        summary: "Bağışlayın və güzəşt edin.",
+        quran: {
+          excerpt: "Məgər Allahın sizi bağışlamasını sevmirsinizmi?",
+        },
+      },
+      {
+        title: "Təvazökarlıq",
+        summary: "Rəhmanın qulları yer üzündə təvazö ilə gedər.",
+        quran: {
+          excerpt: "Rəhmanın qulları yer üzündə təvazö ilə gedərlər.",
+        },
+      },
+      {
+        title: "Əmanətdarlıq",
+        summary: "Əmanətləri sahiblərinə qaytarın.",
+        quran: {
+          excerpt: "Allah əmanətləri sahiblərinə qaytarmağınızı əmr edir.",
+        },
+      },
+      {
+        title: "Valideynlərə yaxşılıq",
+        summary: "Valideynlərə gözəl davranın.",
+        quran: {
+          excerpt: "Allaha ibadət edin və valideynlərə yaxşılıq edin.",
+        },
+      },
+      {
+        title: "Yaxşı danışmaq",
+        summary: "Yaxşı söz deyin, yoxsa susun.",
+        hadith: {
+          excerpt: "Allaha və Axirət gününə iman edən ya xeyir danışsın, ya sussun.",
+        },
+      },
+      {
+        title: "Səmimi təbəssüm",
+        summary: "Qardaşının üzünə gülümsəmək sədəqədir.",
+        hadith: {
+          excerpt: "Qardaşının üzünə gülümsəməyin sədəqədir.",
+        },
+      },
+      {
+        title: "Ədalət",
+        summary: "Ədalətli olun; bu, təqvaya daha yaxındır.",
+        quran: {
+          excerpt: "Ədalətli olun; bu, təqvaya daha yaxındır.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Yalan",
+      },
+      {
+        title: "Qeybət",
+      },
+      {
+        title: "Böhtan",
+      },
+      {
+        title: "Təkəbbür",
+      },
+      {
+        title: "Zülm",
+      },
+      {
+        title: "Vədə xilaf çıxmaq",
+      },
+      {
+        title: "Məsxərə",
+      },
+      {
+        title: "Əsassız sərtlik",
+      },
+    ],
   },
   {
     title: "Bilik axtarmaq",

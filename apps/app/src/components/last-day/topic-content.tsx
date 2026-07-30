@@ -10,6 +10,7 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { BalancePansBlock } from "@/components/learn-mizan";
 import { useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -87,6 +88,10 @@ export function LastDayTopicContent({ topic }: { topic: LastDayTopic }) {
 
       <JannahTakeaway text={topic.summary} />
       <JannahBody paragraphs={topic.body} />
+
+      {topic.id === "heavy-on-the-scale" && topic.mizanDeeds?.length ? (
+        <BalancePansBlock deeds={topic.mizanDeeds} />
+      ) : null}
 
       {topic.quran?.length ? <JannahQuranEvidence refs={topic.quran} /> : null}
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}

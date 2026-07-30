@@ -44,6 +44,19 @@ export function getJahannamTopicsBySection(): Record<JahannamSection, JahannamTo
     const bucket = map[topic.section];
     if (bucket) bucket.push(topic);
   }
+
+  // Keep the seven mūbiqāt lesson next to the kabāʾir overview in Warnings.
+  const warnings = map.warnings;
+  if (warnings?.length) {
+    const destructiveIdx = warnings.findIndex((t) => t.id === "destructive-sins");
+    const majorIdx = warnings.findIndex((t) => t.id === "major-sins");
+    if (destructiveIdx >= 0 && majorIdx >= 0 && destructiveIdx !== majorIdx + 1) {
+      const [destructive] = warnings.splice(destructiveIdx, 1);
+      const insertAt = warnings.findIndex((t) => t.id === "major-sins") + 1;
+      warnings.splice(insertAt, 0, destructive);
+    }
+  }
+
   return map;
 }
 

@@ -4,7 +4,7 @@ import { JAHANNAM_MAJOR_SIN_IDS, JAHANNAM_MAJOR_SIN_TOPICS } from "./jahannam-ma
 export * from "./jahannam-collections";
 export { JAHANNAM_MAJOR_SIN_IDS, JAHANNAM_MAJOR_SIN_TOPICS };
 
-export const JAHANNAM_CONTENT_VERSION = 2;
+export const JAHANNAM_CONTENT_VERSION = 3;
 
 export const JAHANNAM_SECTION_ORDER = [
   "intro",
@@ -343,7 +343,7 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
       "The relief lies in how the two relate. Allah promises that if a believer avoids the major sins, the minor ones are wiped away by ordinary acts of worship: 'If you avoid the major sins you are forbidden, We will remove from you your lesser sins' (4:31). Prayer to prayer, Jumu'ah to Jumu'ah, and Ramadan to Ramadan expiate what lies between them, so long as the great sins are shunned.",
       "This is why the major sins deserve focused attention: they are the ones that are not simply washed away in the flow of daily worship but call for deliberate, sincere repentance (tawbah). Persisted in without turning back, they endanger the soul; abandoned and repented from, they are forgiven.",
       "And here is the horizon over all of it: with the single exception of dying upon shirk, every sin — major or minor — falls under Allah's forgiveness if He wills. 'Indeed, Allah does not forgive association with Him, but He forgives what is less than that for whom He wills' (4:48). No believer should ever conclude that their major sins place them beyond mercy.",
-      "Each major sin topic in this module gives its definition, its evidence, why it is grave, and the concrete path of repentance and avoidance — always ending at that same open door.",
+      "Each major sin topic in this module gives its definition, its evidence, why it is grave, and the concrete path of repentance and avoidance — always ending at that same open door. For the Prophet's ﷺ list of seven destructive sins (al-mūbiqāt) and the graded 'greatest sin' answers, see Destructive Sins.",
     ],
     quran: [
       {
@@ -379,6 +379,7 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     ],
     appLinks: [
       { label: "Browse major sins", route: "/jahannam/major-sins" },
+      { label: "Destructive sins", route: "/jahannam/destructive-sins" },
       { label: "Repentance", route: "/jahannam/repentance" },
     ],
   },
@@ -423,6 +424,7 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     appLinks: [
       { label: "Daily reflection", route: "/jahannam/reflection" },
       { label: "Jannah — good character", route: "/jannah/character" },
+      { label: "Destructive sins", route: "/jahannam/destructive-sins" },
       { label: "Repentance", route: "/jahannam/repentance" },
     ],
   },
@@ -468,6 +470,8 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     appLinks: [
       { label: "My Journey", route: "/jahannam/journey" },
       { label: "Repentance", route: "/jahannam/repentance" },
+      { label: "Destructive sins", route: "/jahannam/destructive-sins" },
+      { label: "Accountability (Last Day)", route: "/last-day/accountability" },
     ],
   },
   {
@@ -707,6 +711,158 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
       { label: "Journey to Jannah", route: "/jannah" },
       { label: "Aqeedah — hope & repentance", route: "/aqeedah/hope-repentance" },
       { label: "My Journey", route: "/jahannam/journey" },
+    ],
+  },
+  {
+    id: "destructive-sins",
+    section: "warnings",
+    title: "Destructive Sins",
+    summary: "The seven mūbiqāt, the greatest-sin chain, and sins that consume good deeds.",
+    importance: "foundational",
+    body: [
+      "The Qur'an and Sunnah rarely say 'this sin is the heaviest on the Scale.' They warn with other language: the gravest of major sins, the destructive sins (al-mūbiqāt), 'which sin is greatest?', curses, and severe threats. That is a hierarchy of warning — not a Mizan leaderboard. Understanding it helps you prioritise repentance without despair.",
+      "The Prophet ﷺ said, 'Avoid the seven destructive sins.' When asked what they were, he listed: associating partners with Allah, magic, killing a soul Allah has forbidden except by right, consuming riba, consuming an orphan's wealth, fleeing the battlefield, and slandering chaste believing women (Sahih al-Bukhari 2766; Sahih Muslim 89). Major sins are not limited to these seven; these are singled out for their extreme ruin.",
+      "When a man asked which sin is greatest, the Prophet ﷺ answered in order: setting up a rival to Allah while He created you; killing your child for fear that he will eat with you; then committing adultery with your neighbour's wife (Sahih Muslim 86; Sahih al-Bukhari 4761). The sequence teaches gravity — it does not mean other kabāʾir are light.",
+      "Some sins do not only add weight against you — they transfer your good deeds to those you wronged. The bankrupt of the ummah comes with prayer, fasting, and charity, yet had insulted, slandered, taken wealth, and shed blood — so his good deeds are given away, and when they run out others' sins are loaded onto him (Sahih Muslim 2581). Worship does not cancel injustice; settling rights does.",
+      "Alongside every warning is hope. Allah says: 'O My servants who have transgressed against themselves, do not despair of the mercy of Allah. Indeed, Allah forgives all sins' (Qur'an 39:53). Dying upon shirk without repentance is the exception the texts make clear (Qur'an 4:48); every other door of tawbah remains open until death.",
+    ],
+    destructiveItems: [
+      {
+        id: "shirk",
+        order: 1,
+        kind: "mubiqah",
+        title: "Shirk — associating partners with Allah",
+        summary: "The first of the seven destructive sins and the gravest sin.",
+        route: "/jahannam/shirk",
+      },
+      {
+        id: "sorcery",
+        order: 2,
+        kind: "mubiqah",
+        title: "Magic (sihr)",
+        summary: "Practising sorcery — counted among the seven mūbiqāt.",
+        route: "/jahannam/sorcery",
+      },
+      {
+        id: "murder",
+        order: 3,
+        kind: "mubiqah",
+        title: "Killing a soul without right",
+        summary: "Taking a life Allah has forbidden except by just cause.",
+        route: "/jahannam/murder",
+      },
+      {
+        id: "riba",
+        order: 4,
+        kind: "mubiqah",
+        title: "Consuming riba",
+        summary: "Usury and interest — declared a destructive sin.",
+        route: "/jahannam/riba",
+      },
+      {
+        id: "orphan-wealth",
+        order: 5,
+        kind: "mubiqah",
+        title: "Consuming an orphan's wealth",
+        summary: "Devouring the property of the orphan unjustly.",
+        route: "/jahannam/orphan-wealth",
+      },
+      {
+        id: "fleeing-battle",
+        order: 6,
+        kind: "mubiqah",
+        title: "Fleeing the battlefield",
+        summary: "Turning back when the army advances — one of the seven.",
+        route: "/jahannam/major-sins",
+      },
+      {
+        id: "slander-chaste",
+        order: 7,
+        kind: "mubiqah",
+        title: "Slandering chaste believing women",
+        summary: "Accusing chaste, unaware believing women of zina.",
+        route: "/jahannam/sins-of-tongue",
+      },
+      {
+        id: "bankrupt",
+        order: 8,
+        kind: "bankrupt",
+        title: "The bankrupt person",
+        summary:
+          "Prayer, fasting, and charity can be taken away to settle rights of those you wronged.",
+        route: "/last-day/accountability",
+      },
+    ],
+    quran: [
+      {
+        surah: 39,
+        ayahFrom: 53,
+        label: "Qur'an 39:53",
+        excerpt:
+          "Say: O My servants who have transgressed against themselves, do not despair of the mercy of Allah. Indeed, Allah forgives all sins. Indeed, it is He who is the Most Forgiving, the Most Merciful.",
+      },
+      {
+        surah: 4,
+        ayahFrom: 48,
+        label: "Qur'an 4:48",
+        excerpt:
+          "Indeed, Allah does not forgive association with Him, but He forgives what is less than that for whom He wills.",
+      },
+      {
+        surah: 4,
+        ayahFrom: 93,
+        label: "Qur'an 4:93",
+        excerpt:
+          "Whoever kills a believer intentionally — his recompense is Hell, wherein he will abide eternally.",
+      },
+    ],
+    hadith: [
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "2766",
+        grade: "sahih",
+        excerpt:
+          "Avoid the seven destructive sins: shirk, magic, killing a soul without right, consuming riba, consuming an orphan's wealth, fleeing the battlefield, and slandering chaste believing women.",
+      },
+      {
+        collection: "Sahih Muslim",
+        citation: "89",
+        grade: "sahih",
+        excerpt:
+          "Avoid the seven noxious things — shirk, magic, killing without right, consuming an orphan's property, consuming usury, turning back when the army advances, and slandering chaste believing women.",
+      },
+      {
+        collection: "Sahih Muslim",
+        citation: "86",
+        grade: "sahih",
+        excerpt:
+          "Which sin is greatest? That you set up a rival to Allah while He created you; then that you kill your child for fear he will eat with you; then that you commit adultery with your neighbour's wife.",
+      },
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "4761",
+        grade: "sahih",
+        excerpt:
+          "Which is the biggest sin? That you set up a rival to Allah though He Alone created you — then kill your son fearing he may share your meals — then commit illegal intercourse with the wife of your neighbour.",
+      },
+      {
+        collection: "Sahih Muslim",
+        citation: "2581",
+        grade: "sahih",
+        excerpt:
+          "The bankrupt of my ummah comes with prayer, fasting and charity, but insulted, slandered, and wronged others — so his good deeds are given to them, and when they run out their sins are placed on him.",
+      },
+    ],
+    actions: [
+      "Review the seven destructive sins and repent from any you have approached.",
+      "Settle rights of people — debts, wealth, and reputation — before the Day of Reckoning.",
+      "Pair warning with hope: recite Qur'an 39:53 and renew tawbah daily.",
+    ],
+    appLinks: [
+      { label: "Major sins overview", route: "/jahannam/major-sins" },
+      { label: "Sins against others", route: "/jahannam/sins-against-others" },
+      { label: "Accountability (Last Day)", route: "/last-day/accountability" },
+      { label: "Repentance", route: "/jahannam/repentance" },
     ],
   },
 ];

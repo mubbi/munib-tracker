@@ -576,7 +576,113 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Timiza haki zinazodaiwa na familia, majirani, na wadai.",
       "Tafakari katika shajara yako ya maombi juu ya khushu na uaminifu wa nia.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Nzito katika mizani" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Amali nzito katika mizani",
+    summary: "Amali ndogo zenye ikhlasi zitakuwa nzito Siku ya Kiyama.",
+    body: [
+      "Allah huangalia ikhlasi, si wingi pekee.",
+      "Ulimi, tabia na moyo vina uzito.",
+      "Ongeza mema madogo ya kudumu.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Tabia njema",
+        summary: "Upole na muamala mwema.",
+        hadith: {
+          excerpt: "Hakuna kizito zaidi katika mizani kuliko tabia njema.",
+        },
+      },
+      {
+        title: "Maneno mawili",
+        summary: "Mepesi ulimini, mazito mizani.",
+        hadith: {
+          excerpt: "Subhanallahi wa bihamdihi, Subhanallahil-azim.",
+        },
+      },
+      {
+        title: "Alhamdulillah",
+        summary: "Hujaza mizani.",
+        hadith: {
+          excerpt: "Alhamdulillah hujaza mizani.",
+        },
+      },
+      {
+        title: "Kadi",
+        summary: "Tawhidi hushinda madhambi.",
+        hadith: {
+          excerpt: "Kadi ya La ilaha illallah hufanya mizani nzito.",
+        },
+      },
+      {
+        title: "Dhikri bora",
+        summary: "Tamka tawhidi.",
+        hadith: {
+          excerpt: "Dhikri bora ni La ilaha illallah.",
+        },
+      },
+      {
+        title: "Maneno manne",
+        summary: "Yanayopendwa na Allah.",
+        hadith: {
+          excerpt: "Subhanallah, Alhamdulillah, La ilaha illallah, Allahu akbar.",
+        },
+      },
+      {
+        title: "Tasbihi mia",
+        summary: "Sababu ya msamaha.",
+        hadith: {
+          excerpt: "Mwenye kusema Subhanallah mara mia husamehewa.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Mizani itawekwa kwa uadilifu.",
+      },
+      {
+        excerpt: "Mwenye mizani nzito atakuwa katika maisha ya kuridhisha.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Amali ipendwayo ni yenye kudumu hata ikiwa ndogo.",
+      },
+      {
+        excerpt: "Usidharau wema wowote.",
+      },
+      {
+        excerpt: "Tabasamu lako ni sadaka.",
+      },
+      {
+        excerpt: "Muislamu ni yule watu wako salama na ulimi na mkono wake.",
+      },
+    ],
+    misconceptions: ["Wingi bila ikhlasi hautoshi.", "Amali za moyo zina umuhimu."],
+    actions: [
+      "Fanya dhikri kila siku.",
+      "Boresha tabia.",
+      "Chagua amali ndogo ya kudumu.",
+      "Anza kwa ikhlasi.",
+    ],
+    appLinks: [
+      {
+        label: "Dhikri ya kila siku",
+      },
+      {
+        label: "Dua",
+      },
+      {
+        label: "Kusoma Qurani",
+      },
+      {
+        label: "Shajara ya sadaka",
+      },
+      {
+        label: "Kukuza tabia",
+      },
+    ],
   },
 ];
 
@@ -708,6 +814,24 @@ export const LAST_DAY_HADITH_SW: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'Kupoteza maarifa' kunamaanisha kupotea kwa wasomi wazuri na mazoezi ya kuishi - sio uhaba wa habari.",
+  },
+  {
+    hadith: {
+      excerpt: "Usafi ni nusu ya imani.",
+    },
+    context: "Imani huipa mizani uzito.",
+  },
+  {
+    hadith: {
+      excerpt: "Neno jema ni sadaka.",
+    },
+    context: "Ulimi mwema una thawabu.",
+  },
+  {
+    hadith: {
+      excerpt: "Allah hupenda upole.",
+    },
+    context: "Tenda kwa upole kila siku.",
   },
 ];
 
@@ -954,6 +1078,18 @@ export const LAST_DAY_QUIZ_SW: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Kweli", "Uongo"],
     explanation:
       "Aya inasema yote yatapita juu yake; Mwenyezi Mungu huwaokoa wachamngu. Wasomi wanajadili maelezo ya nani anayeanguka.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

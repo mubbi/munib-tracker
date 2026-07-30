@@ -578,7 +578,116 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Plotësoni të drejtat që u detyrohen familjes, fqinjëve dhe kreditorëve.",
       "Reflektoni në ditarin tuaj të lutjeve mbi khushu dhe sinqeritetin e qëllimit.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Të rënda në peshore" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Vepra të rënda në peshore",
+    summary: "Veprat e vogla me sinqeritet peshojnë rëndë në Ditën e Gjykimit.",
+    body: [
+      "Allahu sheh sinqeritetin, jo vetëm sasinë e veprave.",
+      "Gjuha, karakteri dhe zemra kanë peshë të madhe.",
+      "Shtoni të mirat e vogla e të vazhdueshme.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Karakteri i mirë",
+        summary: "Butësi dhe sjellje e mirë.",
+        hadith: {
+          excerpt: "Asgjë nuk është më e rëndë në peshore se karakteri i mirë.",
+        },
+      },
+      {
+        title: "Dy fjalë",
+        summary: "Të lehta në gjuhë, të rënda në peshore.",
+        hadith: {
+          excerpt: "Subhanallahi ue bihamdihi, Subhanallahil-adhim.",
+        },
+      },
+      {
+        title: "Elhamdulilah",
+        summary: "E mbush peshoren.",
+        hadith: {
+          excerpt: "Elhamdulilah e mbush peshoren.",
+        },
+      },
+      {
+        title: "Kartela",
+        summary: "Teuhidi i tejkalon mëkatet.",
+        hadith: {
+          excerpt: "Kartela me La ilahe il-lallah e rëndon peshoren.",
+        },
+      },
+      {
+        title: "Dhikri më i mirë",
+        summary: "Thoni shpesh teuhidin.",
+        hadith: {
+          excerpt: "Dhikri më i mirë është La ilahe il-lallah.",
+        },
+      },
+      {
+        title: "Katër fjalë",
+        summary: "Fjalë të dashura për Allahun.",
+        hadith: {
+          excerpt: "Subhanallah, Elhamdulilah, La ilahe il-lallah, Allahu ekber.",
+        },
+      },
+      {
+        title: "Njëqind tesbihe",
+        summary: "Shkak për falje.",
+        hadith: {
+          excerpt: "Kush thotë njëqind herë Subhanallah, i falen mëkatet.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Atë ditë peshoret vendosen me drejtësi.",
+      },
+      {
+        excerpt: "Ai që e ka peshoren të rëndë do të jetë në jetë të kënaqur.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Vepra më e dashur është ajo e vazhdueshme, edhe nëse e pakët.",
+      },
+      {
+        excerpt: "Mos e nënçmoni asnjë të mirë.",
+      },
+      {
+        excerpt: "Buzëqeshja jote është lëmoshë.",
+      },
+      {
+        excerpt: "Mysliman është ai nga gjuha dhe dora e të cilit njerëzit janë të sigurt.",
+      },
+    ],
+    misconceptions: [
+      "Vetëm shumësia e veprave nuk mjafton; sinqeriteti është thelbësor.",
+      "Veprat e zemrës nuk janë të parëndësishme.",
+    ],
+    actions: [
+      "Bëni dhikr çdo ditë.",
+      "Përmirësoni karakterin.",
+      "Zgjidhni një vepër të vogël të vazhdueshme.",
+      "Filloni çdo punë me sinqeritet.",
+    ],
+    appLinks: [
+      {
+        label: "Dhikri ditor",
+      },
+      {
+        label: "Lutje",
+      },
+      {
+        label: "Leximi i Kuranit",
+      },
+      {
+        label: "Ditari i sadakasë",
+      },
+      {
+        label: "Zhvillimi i karakterit",
+      },
+    ],
   },
 ];
 
@@ -710,6 +819,24 @@ export const LAST_DAY_HADITH_SQ: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'Humbje e njohurive' nënkupton humbjen e studiuesve të shëndoshë dhe praktikës së jetuar – jo mungesë informacioni.",
+  },
+  {
+    hadith: {
+      excerpt: "Pastërtia është gjysma e besimit.",
+    },
+    context: "Veprat e besimit e rëndojnë peshoren.",
+  },
+  {
+    hadith: {
+      excerpt: "Fjala e mirë është sadaka.",
+    },
+    context: "E mira e gjuhës sjell shpërblim të madh.",
+  },
+  {
+    hadith: {
+      excerpt: "Allahu e do butësinë.",
+    },
+    context: "Praktikoni butësinë çdo ditë.",
   },
 ];
 
@@ -957,6 +1084,18 @@ export const LAST_DAY_QUIZ_SQ: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["E vërtetë", "E rreme"],
     explanation:
       "Ajeti thotë se të gjithë do ta kalojnë atë; Allahu i shpëton ata që mendojnë. Dijetarët diskutojnë detaje se kush bie.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

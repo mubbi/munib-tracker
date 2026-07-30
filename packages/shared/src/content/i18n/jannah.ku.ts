@@ -392,6 +392,104 @@ export const JANNAH_TOPICS_KU: DeepPartial<JannahTopic>[] = [
       "لە کەسانی تر خۆشبە و پەیوەندییە شکاوەکان چاک بکەرەوە.",
       "لە گۆڤارێکی ڕۆژانەدا بیر لە کارەکتەری خۆت بکەرەوە دوای سەڵاح.",
     ],
+    characterTraits: [
+      {
+        title: "Rastgotin",
+        summary: "Di peyv û kirinê de rast be.",
+        quran: {
+          excerpt: "Bi rastgoyan re bin.",
+        },
+      },
+      {
+        title: "Sebir",
+        summary: "Di ceribandinê de raweste.",
+        quran: {
+          excerpt: "Xwedê bi sebranan re ye.",
+        },
+      },
+      {
+        title: "Kontrola hêrsê",
+        summary: "Di hêrsê de xwe bigire.",
+        hadith: {
+          excerpt: "Xurt ew e ku di hêrsê de xwe bigire.",
+        },
+      },
+      {
+        title: "Lêborîn",
+        summary: "Xetayên mirovan bibexşe.",
+        quran: {
+          excerpt: "Bila bibexşin û derbas bibin.",
+        },
+      },
+      {
+        title: "Nermî",
+        summary: "Xwe bilind nebîne.",
+        hadith: {
+          excerpt: "Kî ji bo Xwedê xwe nizm bike, Xwedê wî bilind dike.",
+        },
+      },
+      {
+        title: "Emanetdarî",
+        summary: "Emanetê biparêze.",
+        quran: {
+          excerpt: "Ew emanet û peymanên xwe diparêzin.",
+        },
+      },
+      {
+        title: "Dê û bav",
+        summary: "Rêz û ihsan.",
+        quran: {
+          excerpt: "Ji wan re 'uf' jî nebêje.",
+        },
+      },
+      {
+        title: "Peyva baş",
+        summary: "Baş bibêje an bêdeng be.",
+        hadith: {
+          excerpt: "Bila peyva baş bêje an bêdeng be.",
+        },
+      },
+      {
+        title: "Kenîn",
+        summary: "Bi rûyê vekirî bibe.",
+        hadith: {
+          excerpt: "Kenîna te bo birayê te sedqe ye.",
+        },
+      },
+      {
+        title: "Edalet",
+        summary: "Bi dad bide.",
+        quran: {
+          excerpt: "Dad bikin; ew nêzîktirin e ji teqwayê.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Derew",
+      },
+      {
+        title: "Xeybet",
+      },
+      {
+        title: "Nemmamî",
+      },
+      {
+        title: "Kibr",
+      },
+      {
+        title: "Zulm",
+      },
+      {
+        title: "Şikandina peymanê",
+      },
+      {
+        title: "Qeşmerî",
+      },
+      {
+        title: "Hovîti",
+      },
+    ],
   },
   {
     title: "بەدوای زانستدا دەگەڕێت",

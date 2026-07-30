@@ -463,6 +463,98 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Məhv edən günahlar",
+    summary: "Yeddi məhv edən günah, ən ağır günahlar və əməlləri yox edən zülm.",
+    body: [
+      "Qur'an və Sünnə günahların ağırlığını xəbərdarlıq dili ilə bildirir; bu, tərəzidə sıralama deyil.",
+      "Peyğəmbər ﷺ yeddi məhv edən günahdan çəkinməyi əmr etmişdir.",
+      "İnsanların haqqını tapdalayan kəs yaxşı əməllərini zərərçəkənlərə verə bilər.",
+      "Allahın rəhmətindən ümid kəsməyin; tövbə qapısı ölümə qədər açıqdır.",
+      "Şirkdən tövbəsiz ölmək istisna olmaqla, Allah istədiyini bağışlayar.",
+    ],
+    destructiveItems: [
+      {
+        title: "Şirk",
+        summary: "Allaha şərik qoşmaq ən böyük günahdır.",
+      },
+      {
+        title: "Sehr",
+        summary: "Sehrlə məşğul olmaq məhv edən günahlardandır.",
+      },
+      {
+        title: "Haqqsız öldürmək",
+        summary: "Allahın haram etdiyi canı haqsız almaq.",
+      },
+      {
+        title: "Riba yemək",
+        summary: "Faiz və sələm ağır, məhv edən günahdır.",
+      },
+      {
+        title: "Yetimin malını yemək",
+        summary: "Yetimin malını haqsızlıqla mənimsəmək.",
+      },
+      {
+        title: "Döyüşdən qaçmaq",
+        summary: "Ordu irəliləyərkən geri dönmək.",
+      },
+      {
+        title: "İffətli mömin qadınlara böhtan",
+        summary: "İffətli qadınları zinada günahlandırmaq.",
+      },
+      {
+        title: "Müflis insan",
+        summary: "Başqalarının haqqı üçün savabları əlindən alınan kəs.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allahın rəhmətindən ümid kəsməyin; tövbə qapısı ölümə qədər açıqdır.",
+      },
+      {
+        excerpt: "Şirkdən tövbəsiz ölmək istisna olmaqla, Allah istədiyini bağışlayar.",
+      },
+      {
+        excerpt: "Peyğəmbər ﷺ yeddi məhv edən günahdan çəkinməyi əmr etmişdir.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Peyğəmbər ﷺ yeddi məhv edən günahdan çəkinməyi əmr etmişdir.",
+      },
+      {
+        excerpt: "İnsanların haqqını tapdalayan kəs yaxşı əməllərini zərərçəkənlərə verə bilər.",
+      },
+      {
+        excerpt: "Şirk",
+      },
+      {
+        excerpt: "Haqqsız öldürmək",
+      },
+      {
+        excerpt: "Başqalarının haqqı üçün savabları əlindən alınan kəs.",
+      },
+    ],
+    actions: [
+      "Peyğəmbər ﷺ yeddi məhv edən günahdan çəkinməyi əmr etmişdir.",
+      "İnsanların haqqını tapdalayan kəs yaxşı əməllərini zərərçəkənlərə verə bilər.",
+      "Allahın rəhmətindən ümid kəsməyin; tövbə qapısı ölümə qədər açıqdır.",
+    ],
+    appLinks: [
+      {
+        label: "Məhv edən günahlar",
+      },
+      {
+        label: "Tərəzidə ağır olanlar",
+      },
+      {
+        label: "Ağır tərəziyə hazırlıq",
+      },
+      {
+        label: "Doğruluq",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [

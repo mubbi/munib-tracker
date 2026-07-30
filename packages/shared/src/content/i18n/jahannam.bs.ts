@@ -464,6 +464,98 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Uništavajući grijesi",
+    summary: "Sedam uništavajućih grijeha, veliki grijesi i upozorenje o pravima ljudi.",
+    body: [
+      "Kur'an i sunnet težinu grijeha opisuju jezikom upozorenja; to nije rang-lista Mizana.",
+      "Poslanik ﷺ naredio je da se klonimo sedam uništavajućih grijeha.",
+      "Ko povrijedi prava ljudi može svoje hasenate dati oštećenima.",
+      "Ne očajavajte u Allahovu milost; vrata tevbe otvorena su do smrti.",
+      "Osim smrti u širku bez tevbe, Allah oprašta kome hoće.",
+    ],
+    destructiveItems: [
+      {
+        title: "Širk",
+        summary: "Pripisivanje druga Allahu najveći je grijeh.",
+      },
+      {
+        title: "Sihr",
+        summary: "Bavljenje sihrom spada među uništavajuće grijehe.",
+      },
+      {
+        title: "Ubistvo bez prava",
+        summary: "Oduzimanje života koji je Allah zabranio osim s pravom.",
+      },
+      {
+        title: "Konzumiranje ribe",
+        summary: "Kamata i lihva su teški uništavajući grijesi.",
+      },
+      {
+        title: "Jedenje imetka siročeta",
+        summary: "Nepravedno prisvajanje imetka siročeta.",
+      },
+      {
+        title: "Bježanje iz bitke",
+        summary: "Okretanje leđa kada vojska napreduje.",
+      },
+      {
+        title: "Potvaranje čestitih vjernica",
+        summary: "Optuživanje čestitih vjernica za blud.",
+      },
+      {
+        title: "Bankrotirani čovjek",
+        summary: "Onaj čija se dobra djela uzimaju radi prava drugih.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Ne očajavajte u Allahovu milost; vrata tevbe otvorena su do smrti.",
+      },
+      {
+        excerpt: "Osim smrti u širku bez tevbe, Allah oprašta kome hoće.",
+      },
+      {
+        excerpt: "Poslanik ﷺ naredio je da se klonimo sedam uništavajućih grijeha.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Poslanik ﷺ naredio je da se klonimo sedam uništavajućih grijeha.",
+      },
+      {
+        excerpt: "Ko povrijedi prava ljudi može svoje hasenate dati oštećenima.",
+      },
+      {
+        excerpt: "Širk",
+      },
+      {
+        excerpt: "Ubistvo bez prava",
+      },
+      {
+        excerpt: "Onaj čija se dobra djela uzimaju radi prava drugih.",
+      },
+    ],
+    actions: [
+      "Poslanik ﷺ naredio je da se klonimo sedam uništavajućih grijeha.",
+      "Ko povrijedi prava ljudi može svoje hasenate dati oštećenima.",
+      "Ne očajavajte u Allahovu milost; vrata tevbe otvorena su do smrti.",
+    ],
+    appLinks: [
+      {
+        label: "Uništavajući grijesi",
+      },
+      {
+        label: "Teško na Vagi",
+      },
+      {
+        label: "Priprema za tešku Vagu",
+      },
+      {
+        label: "Istinoljubivost",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [

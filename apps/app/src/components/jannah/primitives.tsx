@@ -485,7 +485,7 @@ const styles = StyleSheet.create({
   evidenceList: { gap: Spacing.three, marginTop: Spacing.three },
   quranQuote: {
     borderStartWidth: 3,
-    paddingStart: Spacing.three,
+    paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",

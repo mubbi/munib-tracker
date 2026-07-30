@@ -215,4 +215,135 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Tekbir po tekbir — koraci namaza",
+    summary: "Praktična lista četiri tekbira i onoga što dolazi između njih.",
+    body: [
+      "Prvi tekbir: podignite ruke (prema vašoj školi), recite Allahu ekber, zatim učite suru el-Fatiha. Ibn Abbas je u dženazi učio el-Fatihu i rekao da je to od sunneta (Sahih el-Buhari 1335).",
+      "Drugi tekbir: pošaljite salavat na Poslanika ﷺ — isti ibrahimovski salavat koji se koristi u tešehhudu široko se uči za ovaj korak. Treći tekbir: učinite iskrenu dovu za umrlog (Hisnul Muslim formulacije u ovom vodiču). Četvrti tekbir: mnogi učenjaci zatim učine kratku opću dovu, pa završe taslimom desno (i lijevo, prema školi).",
+      "Nema ruku, sudžuda ni sjedenja. Stojite cijelo vrijeme. Ako je prisutno više dženaza, u mnogim zajednicama se klanja jedna dženaza s nijetom za sve — slijedite imama. Mjesto salavata naspram dove može se malo razlikovati po mezhebu; okvir od četiri tekbira je zajednički.",
+    ],
+    madhhabNote:
+      "Hanefijski, malikijski, šafijski i hanbelijski priručnici razlikuju se oko toga dižu li se ruke kod svakog tekbira i tačno kada se kaže dova. Slijedite imama ispred sebe.",
+    actions: [
+      "Naučite redoslijed četiri tekbira prije nego što vam zatreba.",
+      "Zapamtite Fatihu, salavat i barem jednu dženaza-dovu.",
+    ],
+    hadith: [
+      {
+        excerpt: "Ibn Abbas je klanjao dženazu i učio Fatihu, rekavši da je to od sunneta.",
+      },
+    ],
+  },
+  {
+    title: "Dove za muškarce, žene i djecu",
+    summary: "Iste proročke formulacije — prilagodite arapske zamjenice umrlom.",
+    body: [
+      "Hisnul Muslim (i klasične zbirke hadisa) bilježe dženaza-dove uglavnom u muškom obliku. To ne znači posebnu 'izmišljenu' dovu za žene. Glavni učenjaci uče da možete zadržati mušku formulaciju s nijetom za osobu, ili — poželjnije i uobičajeno — promijeniti gramatiku da odgovara umrlom: لَهُ / هُ / هِ → لَهَا / هَا; عَبْدُكَ → أَمَتُكَ; ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ; a za djevojčicu اجْعَلْهُ → اجْعَلْهَا, شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Za umrlu ženu neki učenjaci savjetuju oprez s frazom 'bračni drug bolji od njenog bračnog druga' (زَوْجًا خَيْرًا مِنْ زَوْجِهَا), napominjući da se može ponovo sastati sa svojim mužem u Džennetu — tu klauzulu možete izostaviti ili zadržati opću formulaciju. Za djecu koristite Hisnul unose specifične za dijete (hisn-160, hisn-161), a ne samo tekstove za odrasle usmjerene na oprost.",
+      "Zajednička formulacija 'oprosti našim muškarcima i našim ženama' (hisn-157) već pokriva oba spola bez promjene. Ne izmišljamo novi arapski izvan gramatičke prilagodbe vjerodostojnih tekstova — otvorite povezanu dovu za odrasle kao osnovu i primijenite gornju mapu zamjenica.",
+    ],
+    madhhabNote:
+      "I zadržavanje muških oblika s nijetom i prilagodba ženskim oblicima prihvaćeni su među glavnim učenjacima. Kad niste sigurni, koristite hisn-157 (muškarci i žene) ili pitajte imama.",
+    actions: [
+      "Vježbajte zamjene ženskih zamjenica za dovu koju učite napamet.",
+      "Koristite dove specifične za djecu za one koji nisu dospeli u pubertet.",
+      "Preferirajte vjerodostojnost pred dugim neautentičnim knjižicama.",
+    ],
+    appLinks: [{ label: "Dova za dženazu odraslih #1" }],
+  },
+  {
+    title: "Šehidi, pobačaj i posebni slučajevi",
+    summary: "Kada se propisi pranja ili dženaze razlikuju od uobičajenog slučaja.",
+    body: [
+      "Šehidi bojnog polja koji poginu u borbi, prema klasičnom propisu iz Uhuda, sahranjuju se u svojoj odjeći bez uobičajenog gusula; Poslanik ﷺ naredio je da se šehidi Uhuda sahrane sa svojom krvlju i bez pranja (Sahih el-Buhari 1346). Ostale kategorije nazvane 'šehidima' u nagradi (npr. kuga, utapanje) obično dobijaju pranje i dženazu — pitajte učenjaka za granične slučajeve.",
+      "Za pobačaj ili mrtvorođenče škole se razlikuju oko toga kada se primjenjuje dženaza-namaz i potpuno pranje (često vezano za to da li je nastao prepoznatljiv oblik ili faza udahnjivanja duše). Jedan hadis potiče klanjanje nad pobačajem i traženje oprosta i milosti za roditelje (Ebu Davud 3180). Slijedite dženaza-odbor svog mezheba umjesto nagađanja.",
+      "Nemuslimanskim srodnicima ne klanja se muslimanska dženaza; ljubaznost, zakonita pomoć pri ukopu gdje je primjenjivo i lična tuga odvojeni su od ritualnog namaza za vjernike. Posebne slučajeve uvijek potvrdite kod kvalifikovanog lokalnog vodstva.",
+    ],
+    madhhabNote:
+      "Definicije šehadeta na bojnom polju, faza pobačaja i namaza nad mrtvorođenčetom variraju po školi. Ova tema označava pitanja — nije fetva.",
+    disclaimer:
+      "Posebni propisi su osjetljivi. Potvrdite kod kvalifikovanog učenjaka ili dženaza-službe svoje zajednice prije djelovanja.",
+    actions: [
+      "Ne perite šehida bojnog polja protivno uputama učenjaka.",
+      "Pitajte dženaza-odbor o slučajevima pobačaja ili mrtvorođenja.",
+    ],
+    hadith: [
+      {
+        excerpt: "Poslanik ﷺ naredio je da se šehidi Uhuda sahrane sa svojom krvlju, i nisu prani.",
+      },
+      {
+        excerpt: "Dženaza-namaz klanja se nad pobačajem, a za roditelje se moli oprost i milost.",
+      },
+    ],
+  },
+  {
+    title: "Dženaza u odsustvu",
+    summary: "Poslanik ﷺ klanjao je za Negusa kada je tijelo bilo daleko.",
+    body: [
+      "Džabir je prenio da je Poslanik ﷺ izašao pred ashabe, poredao ih i klanjao četiri tekbira za Negusa (el-Nedžašija), abesinskog kralja koji je umro u inostranstvu (Sahih el-Buhari 1334; Sahih Muslim 952). Ovo je glavni dokaz za Salat el-Dženaza u odsustvu (alā al-ghā'ib).",
+      "Škole se razlikuju oko toga koliko široko primijeniti taj presedan: neke ga ograničavaju na slučajeve poput Negusa (nema lokalnog muslimanskog namaza), druge dopuštaju šire kada je tijelo daleko. Ne preskačite lokalnu dženazu kada je tijelo prisutno i zajednica može klanjati. Pitajte pouzdanog lokalnog učenjaka kada je namaz u odsustvu prikladan u vašoj školi.",
+      "Oblik je isti namaz od četiri tekbira; nijet je za odsutnog umrlog. Koristite iste vjerodostojne dove, prilagođavajući spol po potrebi.",
+    ],
+    madhhabNote:
+      "Opseg dženaze u odsustvu poznata je tačka razlike. Preferirajte praksu kvalifikovanih imama u svojoj zajednici.",
+    actions: [
+      "Klanjajte lokalno kad god je tijelo prisutno.",
+      "Pitajte prije organizovanja dženaze u odsustvu kao javnog događaja.",
+    ],
+    hadith: [
+      {
+        excerpt: "Poslanik ﷺ klanjao je dženazu za Negusa i rekao četiri tekbira.",
+      },
+      {
+        excerpt:
+          "Allahov Poslanik ﷺ poredao je ashabe i klanjao za Negusa, rekavši četiri tekbira.",
+      },
+    ],
+  },
+  {
+    title: "Na samrti — posljednje riječi",
+    summary: "Nježno potaknite umirućeg da kaže la ilaha illallah.",
+    body: [
+      "Poslanik ﷺ je rekao: 'Potaknite svoje umiruće da kažu la ilaha illallah' (Sahih Muslim 916; Ebu Davud 3117). Hisnul Muslim čuva uputu da će onaj čije su posljednje riječi 'Niko nema pravo da se obožava osim Allaha' ući u Džennet (hisn-153, iz Ebu Davuda 3116).",
+      "Potičite nježno i bez oštrine; ne silite i ne svađajte se. One blizu smrti možete i utješiti vjerodostojnim riječima nade sačuvanim u Hisnul Muslimu (hisn-150–152). Zatvorite oči kada se duša uzme i koristite dovu za zatvaranje očiju (prethodna tema).",
+      "Izbjegavajte glasno zapomaganje i govor koji ljuti Allaha. Domćinstvo treba govoriti ono što je dobro, jer meleki kažu amin na njihove riječi (Sahih Muslim 920).",
+    ],
+    actions: [
+      "Nježno podsjetite umirućeg na šehadet.",
+      "Držite sobu mirnom i ispunjenom dobrim govorom.",
+    ],
+    hadith: [
+      {
+        excerpt: "Potaknite svoje umiruće da kažu: la ilaha illallah.",
+      },
+      {
+        excerpt:
+          "Onaj čije su posljednje riječi 'Niko nema pravo da se obožava osim Allaha' ući će u Džennet.",
+      },
+    ],
+    appLinks: [{ label: "Dove nade života" }, { label: "Zatvaranje očiju" }],
+  },
+  {
+    title: "Saučešće i ožalošćeni",
+    summary: "Utješite žive proročkom dovom u nevolji.",
+    body: [
+      "Umm Seleme je prenijela da je Allahov Poslanik ﷺ rekao: 'Nema muslimana koga zadesi nevolja pa kaže ono što je Allah naredio — „Allahu pripadamo i Njemu se vraćamo. Allahu, nagradi me u mojoj nevolji i zamijeni mi je boljim“ — a da mu Allah ne zamijeni boljim' (Sahih Muslim 918). Hisnul Muslim čuva tu formulaciju (hisn-154).",
+      "Izrazite saučešće kratkim, istinitim riječima; pripremite hranu za porodicu umrlog umjesto da ih opterećujete ugošćavanjem (Ebu Davud 3132 — izvještaj o porodici Dža'fera). Izbjegavajte inovativne ceremonije na fiksne dane bez dokaza, uz nastavak privatne dove, sadake i ljubaznosti.",
+      "Tuga sa suzama je dopuštena; zapomaganje, udaranje po obrazima i kidanje odjeće zabranjeni su. Podržite udovice, siročad i uzdržavane zakonitom pomoći nakon ukopa.",
+    ],
+    actions: [
+      "Naučite ožalošćene dovu u nevolji.",
+      "Pomozite hranom i poslovima umjesto da očekujete gozbu.",
+      "Nastavite tihu dovu i sadaku za umrlog.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Nema muslimana koga zadesi nevolja pa kaže naredene riječi povratka Allahu i zamoli zamjenu boljim, a da mu Allah ne zamijeni boljim.",
+      },
+    ],
+    appLinks: [{ label: "Ciljevi sadake" }],
+  },
 ];

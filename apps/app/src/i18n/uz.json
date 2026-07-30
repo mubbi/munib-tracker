@@ -3328,7 +3328,20 @@
     },
     "versesIntroTv": "Oyatni Qur'on o‘quvchisida ochish uchun tanlang. Qisqa xulosalar tarbiyaviy bo‘lib, to‘liq tafsir o‘rnini bosmaydi.",
     "preparationHabitsHintTv": "Kuzatuvchini ochish yoki kundalik niyatni almashtirish uchun tanlang",
-    "characterHintTv": "Bugun xulqingizni ko‘rib chiqqaningizda tanlang"
+    "characterHintTv": "Bugun xulqingizni ko‘rib chiqqaningizda tanlang",
+    "mizan": {
+      "panHeavy": "Og‘ir palla",
+      "panLight": "Yengil palla",
+      "pansCaption": "Sahih matnlar Mizan-da og‘ir deb atagan narsalar",
+      "noLeaderboard": "Bu iboralar og‘irlik va fazilatni tasvirlaydi — har bir amalning to‘liq ilohiy reytingi emas.",
+      "deedsTitle": "Matnlarda nomlangan amallar",
+      "category": {
+        "heavy-on-scale": "Mizan-da og‘ir",
+        "fills-the-scale": "Mizan-ni to‘ldiradi",
+        "best-beloved": "Eng yaxshi / eng sevimli",
+        "equal-reward": "Tenglashtirilgan katta savob"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "O'rganish",
@@ -4597,7 +4610,15 @@
       "mercy": "Rahm",
       "supplication": "Supplictid"
     },
-    "versesLeadTv": "Qur'on o‘quvchisida ochish uchun istalgan oyatni tanlang."
+    "versesLeadTv": "Qur'on o‘quvchisida ochish uchun istalgan oyatni tanlang.",
+    "mizan": {
+      "weightCallout": "Mo‘minning Mizan-ida yaxshi axloqdan og‘irroq narsa yo‘q — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Yaxshi axloq sifatlari",
+      "buildsTitle": "Axloqni quradi",
+      "buildsHint": "Bir vaqtda bir sifatni mashq qiling — rostgo‘ylik, sabr, rahm va adolat.",
+      "destroysTitle": "Axloqni buzadiganlar",
+      "destroysHint": "Matnlar ogohlantiradigan odatlar — bog‘liq dars uchun plitkaga bosing."
+    }
   },
   "jahannam": {
     "eyebrow": "O'rganish",
@@ -4731,7 +4752,19 @@
       "protection": "Protectid"
     },
     "versesLeadTv": "Qur'on o‘quvchisida ochish uchun istalgan oyatni tanlang.",
-    "reflectionLeadTv": "To‘xtang va o‘zingizga shu savollarni bering. Tegishli kuzatuvchi yoki darsni ochish uchun qatorni tanlang."
+    "reflectionLeadTv": "To‘xtang va o‘zingizga shu savollarni bering. Tegishli kuzatuvchi yoki darsni ochish uchun qatorni tanlang.",
+    "mizan": {
+      "warningCallout": "Matnlar «halokatli» va «eng katta» kabi so‘zlar bilan ogohlantiradi — bu ogohlantirish ierarxiyasi, Mizan jadvali emas.",
+      "ladder": {
+        "gravest": "Eng og‘ir ogohlantirishlar",
+        "seven": "Yetti halokatli",
+        "consumes": "Yaxshi amallarni yeydi"
+      },
+      "sevenTitle": "Yetti halokatli gunoh",
+      "bankruptTitle": "Muflis shaxs",
+      "bankruptLink": "Qiyomat kunidagi hisob haqida o‘qing",
+      "hopeCallout": "Allohning rahmatidan umidsizlanmang — U tavba qilganlarning barcha gunohlarini kechiradi (Qur'an 39:53). Tavbasiz shirkda o‘lish — matnlar aniqlagan istisno."
+    }
   },
   "tour": {
     "eyebrow": "Guided -gur",
@@ -5225,7 +5258,7 @@
     "eyebrow": "O'rganing",
     "title": "Janazah qoʻllanma",
     "subtitle": "Janoza namozi, yuvinish, dafn qilish va sahih duolar",
-    "intro": "Janazah jamoat farzligi — ruku va sujudsiz toʻrt takbir namoz oʻqish va marhumning Hisnul Muslim duolari haqida amaliy sharh.",
+    "intro": "Janazah jamoat farzi sifatida amaliy sharh — ruku va sujudsiz toʻrt takbir, erkaklar, ayollar va bolalar uchun Hisnul Muslim duolari, shuningdek yuvish, dafn, shahidlar va motam tutganlar boʻyicha qoʻllanma.",
     "section": {
       "obligation": "Majburiyat",
       "prepare": "Tayyorgarlik",

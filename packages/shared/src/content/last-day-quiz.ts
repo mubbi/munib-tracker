@@ -89,4 +89,19 @@ export const LAST_DAY_QUIZ: LastDayQuizQuestion[] = [
     explanation:
       "The verse states all will pass over it; Allah saves the mindful. Scholars discuss details of who falls.",
   },
+  {
+    id: "heavy-scale-words",
+    type: "multiple-choice",
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
+  },
 ];

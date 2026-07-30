@@ -581,7 +581,116 @@ export const LAST_DAY_TOPICS_MS: DeepPartial<LastDayTopic>[] = [
       "Penuhi hak-hak yang menjadi kewajibanmu kepada keluarga, tetangga, dan pemberi utang.",
       "Renungkan dalam jurnal solatmu tentang kekhusyukan dan keikhlasan niat.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Berat pada neraca" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Berat pada neraca",
+    summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+    body: [
+      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+      "Lakukan amalan dengan ikhlas kerana Allah.",
+      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Akhlak mulia",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+      {
+        title: "Dua kalimah ringan",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+      {
+        title: "Alhamdulillah memenuhi neraca",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+      {
+        title: "Kad syahadah",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+      {
+        title: "Zikir terbaik",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+      {
+        title: "Empat kalimah tercinta",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+      {
+        title: "Subhanallah seratus kali",
+        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+      },
+      {
+        excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+    ],
+    misconceptions: [
+      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+    ],
+    actions: [
+      "Lakukan amalan dengan ikhlas kerana Allah.",
+      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      "Lakukan amalan dengan ikhlas kerana Allah.",
+    ],
+    appLinks: [
+      {
+        label: "Berat pada neraca",
+      },
+      {
+        label: "Akhlak mulia",
+      },
+      {
+        label: "Dhikr",
+      },
+      {
+        label: "Tasbeeh",
+      },
+      {
+        label: "Repentance",
+      },
+    ],
   },
 ];
 
@@ -717,6 +826,24 @@ export const LAST_DAY_HADITH_MS: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'Hilangnya ilmu' berarti hilangnya ulama yang benar dan praktik hidup yang nyata — bukan kekurangan informasi.",
+  },
+  {
+    hadith: {
+      excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+    },
+    context: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+  },
+  {
+    hadith: {
+      excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+    },
+    context: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+  },
+  {
+    hadith: {
+      excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+    },
+    context: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
   },
 ];
 
@@ -958,6 +1085,18 @@ export const LAST_DAY_QUIZ_MS: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Benar", "Salah"],
     explanation:
       "Ayat ini menyatakan semua akan melintasinya; Allah menyelamatkan orang-orang yang bertakwa. Para ulama membahas rincian tentang siapa yang terjatuh.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

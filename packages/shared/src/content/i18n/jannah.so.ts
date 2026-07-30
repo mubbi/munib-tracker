@@ -396,7 +396,110 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Cafi kuwa kale oo hagaaji cilaaqaadka jabay.",
       "Ka fiirso dabeecadaada ka dib Salaadda joornaal maalmeed.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Run sheegid",
+        summary: "La jira kuwa runta ah.",
+        quran: {
+          excerpt: "Alle ka cabsada, lana jira kuwa runta ah.",
+        },
+      },
+      {
+        title: "Samir",
+        summary: "Gargaar ku doonta samirka iyo salaadda.",
+        quran: {
+          excerpt: "Gargaar ku doonta samirka iyo salaadda.",
+        },
+      },
+      {
+        title: "Xanaaq celin",
+        summary: "Alle wuxuu jecel yahay kuwa xanaaqa celiya.",
+        quran: {
+          excerpt: "Kuwa xanaaqooda celiya oo dadka cafiya.",
+        },
+      },
+      {
+        title: "Cafis",
+        summary: "Cafiya oo iska dhaafa.",
+        quran: {
+          excerpt: "Miyaadan jeclayn in Alle idin cafiyo?",
+        },
+      },
+      {
+        title: "Is-hoosaysiin",
+        summary: "Addoomada Raxmaanku waxay ku socdaan is-hoosaysiin.",
+        quran: {
+          excerpt: "Addoomada Raxmaanku dhulka waxay ku socdaan is-hoosaysiin.",
+        },
+      },
+      {
+        title: "Aaminaad",
+        summary: "Amaanada u celiya dadkeeda.",
+        quran: {
+          excerpt: "Alle wuxuu idin farayaa inaad amaanada u celisaan dadkeeda.",
+        },
+      },
+      {
+        title: "Wanaagga waalidka",
+        summary: "Waalidka si wanaagsan ula dhaqma.",
+        quran: {
+          excerpt: "Alle caabuda, waalidkana wanaag u sameeya.",
+        },
+      },
+      {
+        title: "Hadal wanaagsan",
+        summary: "Wanaag ku hadla ama aamusa.",
+        hadith: {
+          excerpt: "Qofkii Alle iyo Maalinta Dambe rumaysan ha ku hadlo wanaag ama ha aamuso.",
+        },
+      },
+      {
+        title: "Dhoolla-caddayn daacad ah",
+        summary: "Dhoolla-caddaynta walaalkaa waa sadaqo.",
+        hadith: {
+          excerpt: "Dhoolla-caddaynta wejiga walaalkaa waa sadaqo.",
+        },
+      },
+      {
+        title: "Caddaalad",
+        summary: "Caddaalad sameeya; waxay u dhowdahay taqwo.",
+        quran: {
+          excerpt: "Caddaalad sameeya; waxay u dhowdahay taqwo.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Been",
+      },
+      {
+        title: "Xan",
+      },
+      {
+        title: "Aflagaaddo",
+      },
+      {
+        title: "Kibir",
+      },
+      {
+        title: "Dulmi",
+      },
+      {
+        title: "Ballan jebin",
+      },
+      {
+        title: "Jeesjees",
+      },
+      {
+        title: "Adag aan caddaalad ahayn",
+      },
+    ],
   },
   {
     title: "Aqoon raadis",

@@ -1,4 +1,5 @@
 import type { JannahAppLink, JannahHadithRef, JannahImportance, JannahQuranRef } from "./jannah";
+import type { MizanDeedItem } from "./mizan";
 
 /** Hub section grouping on The Day of Judgment screen. */
 export type LastDaySection = "intro" | "journey" | "signs" | "events" | "outcomes" | "practice";
@@ -17,6 +18,8 @@ export interface LastDayTopic {
   actions?: string[];
   appLinks?: JannahAppLink[];
   disclaimer?: string;
+  /** Structured deed cards for the heavy-on-the-scale Mizan UI. */
+  mizanDeeds?: MizanDeedItem[];
 }
 
 /** One stage on the Hereafter timeline — centerpiece of the module. */

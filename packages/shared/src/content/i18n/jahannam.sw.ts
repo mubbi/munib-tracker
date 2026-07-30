@@ -463,6 +463,94 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Dhambi zenye kuangamiza",
+    summary: "Jilinde na madhambi makubwa yanayokuondoa kwenye rehema za Allah.",
+    body: [
+      "Madhambi makubwa yameonywa vikali katika Qurani na Sunna.",
+      "Mlango wa toba uko wazi hadi kifo.",
+      "Acha dhambi, juta na azimia kutorudia.",
+      "Kurudisha haki za watu ni sehemu ya toba.",
+      "Usikate tamaa na rehema za Allah.",
+    ],
+    destructiveItems: [
+      {
+        title: "Shirki",
+        summary: "Kumshirikisha Allah.",
+      },
+      {
+        title: "Uchawi",
+        summary: "Kufanya au kutafuta uchawi.",
+      },
+      {
+        title: "Mauaji",
+        summary: "Kuua nafsi isiyo na hatia.",
+      },
+      {
+        title: "Riba",
+        summary: "Kuchukua au kutoa riba.",
+      },
+      {
+        title: "Mali ya yatima",
+        summary: "Kula mali ya yatima bila haki.",
+      },
+      {
+        title: "Kukimbia vita",
+        summary: "Kukimbia mapambano halali.",
+      },
+      {
+        title: "Kuchafua heshima",
+        summary: "Kumzulia mwema uzinzi.",
+      },
+      {
+        title: "Mufilisi",
+        summary: "Kupoteza thawabu kwa haki za watu.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah hasamehe kushirikishwa.",
+      },
+      {
+        excerpt: "Kumuua mmoja bila haki ni kama kuua watu wote.",
+      },
+      {
+        excerpt: "Walao mali ya yatima kwa dhuluma wanakula moto.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Jiepusheni na madhambi saba yenye kuangamiza.",
+      },
+      {
+        excerpt: "Mufilisi huja na swala lakini amewadhulumu watu.",
+      },
+      {
+        excerpt: "Jilindeni na shirki.",
+      },
+      {
+        excerpt: "Mwenye kutubu ni kama asiye na dhambi.",
+      },
+      {
+        excerpt: "Allah hufurahia toba ya mja Wake.",
+      },
+    ],
+    actions: ["Tubu kwa kweli.", "Rudisha haki za watu.", "Epuka njia za dhambi."],
+    appLinks: [
+      {
+        label: "Dua za toba",
+      },
+      {
+        label: "Ufuatiliaji wa swala",
+      },
+      {
+        label: "Madeni na amana",
+      },
+      {
+        label: "Dhikri ya kila siku",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [

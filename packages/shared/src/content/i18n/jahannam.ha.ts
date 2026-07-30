@@ -462,6 +462,98 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Zunubai masu halakarwa",
+    summary: "Zunubai bakwai masu halakarwa, manyan zunubai, da gargadi kan hakkokin mutane.",
+    body: [
+      "Alkur'ani da Sunna suna bayyana tsananin zunubi da harshen gargadi; ba jerin darajar Mizan ba ne.",
+      "Annabi ﷺ ya umarce mu mu nisanci zunubai bakwai masu halakarwa.",
+      "Mai take hakkokin mutane na iya ba su kyawawan ayyukansa.",
+      "Kada ku yanke ƙauna daga rahamar Allah; ƙofar tuba a buɗe take har mutuwa.",
+      "Sai mutuwa a kan shirka ba tare da tuba ba, Allah yana gafarta wa wanda Ya so.",
+    ],
+    destructiveItems: [
+      {
+        title: "Shirka",
+        summary: "Haɗa wani da Allah shi ne zunubi mafi girma.",
+      },
+      {
+        title: "Sihiri",
+        summary: "Yin sihiri yana cikin zunubai masu halakarwa.",
+      },
+      {
+        title: "Kisa ba da hakki ba",
+        summary: "Kashe ran da Allah Ya haramta sai da hakki.",
+      },
+      {
+        title: "Cin riba",
+        summary: "Riba da anfani zunubi ne mai nauyi.",
+      },
+      {
+        title: "Cin dukiyar maraya",
+        summary: "Kwace dukiyar maraya da zalunci.",
+      },
+      {
+        title: "Gudun fagen yaƙi",
+        summary: "Juya baya yayin da runduna take gaba.",
+      },
+      {
+        title: "Zargin mata masu tsarki",
+        summary: "Zargin mata muminai masu tsarki da zina.",
+      },
+      {
+        title: "Maflisi",
+        summary: "Wanda ake ɗaukar kyawawan ayyukansa domin hakkokin mutane.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Kada ku yanke ƙauna daga rahamar Allah; ƙofar tuba a buɗe take har mutuwa.",
+      },
+      {
+        excerpt: "Sai mutuwa a kan shirka ba tare da tuba ba, Allah yana gafarta wa wanda Ya so.",
+      },
+      {
+        excerpt: "Annabi ﷺ ya umarce mu mu nisanci zunubai bakwai masu halakarwa.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Annabi ﷺ ya umarce mu mu nisanci zunubai bakwai masu halakarwa.",
+      },
+      {
+        excerpt: "Mai take hakkokin mutane na iya ba su kyawawan ayyukansa.",
+      },
+      {
+        excerpt: "Shirka",
+      },
+      {
+        excerpt: "Kisa ba da hakki ba",
+      },
+      {
+        excerpt: "Wanda ake ɗaukar kyawawan ayyukansa domin hakkokin mutane.",
+      },
+    ],
+    actions: [
+      "Annabi ﷺ ya umarce mu mu nisanci zunubai bakwai masu halakarwa.",
+      "Mai take hakkokin mutane na iya ba su kyawawan ayyukansa.",
+      "Kada ku yanke ƙauna daga rahamar Allah; ƙofar tuba a buɗe take har mutuwa.",
+    ],
+    appLinks: [
+      {
+        label: "Zunubai masu halakarwa",
+      },
+      {
+        label: "Mai nauyi a Mizan",
+      },
+      {
+        label: "Shirin Mizan mai nauyi",
+      },
+      {
+        label: "Gaskiya",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [

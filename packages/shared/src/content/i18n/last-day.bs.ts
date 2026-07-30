@@ -574,7 +574,116 @@ export const LAST_DAY_TOPICS_BS: DeepPartial<LastDayTopic>[] = [
       "Ispunjavanje prava prema porodici, komšijama i poveriocima.",
       "Razmišljajte u svom molitvenom dnevniku o khušu i iskrenosti namjere.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Teško na Vagi" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Teško na Vagi",
+    summary: "Djela koja vjerodostojni tekstovi nazivaju teškim, ispunjavajućim ili najdražim.",
+    body: [
+      "Kur'an i sunnet ne daju brojčanu ljestvicu svih djela; držimo se riječi samih tekstova.",
+      "Težina na Mizanu prije svega dolazi iz iskrenosti; malo iskreno djelo može nadmašiti pokazivanje.",
+      "Ustrajno činite ovaj zikr i njegujte lijep ahlak.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Lijep ahlak",
+        summary: "Ništa nije teže na vagi vjernika od lijepog ahlaka.",
+        hadith: {
+          excerpt: "Ništa nije teže na vagi vjernika od lijepog ahlaka.",
+        },
+      },
+      {
+        title: "Dvije lahke riječi",
+        summary: "Lahke su na jeziku, teške na Vagi i drage Milostivom.",
+        hadith: {
+          excerpt: "Subhanallahi ve bihamdihi, Subhanallahil-azim.",
+        },
+      },
+      {
+        title: "Elhamdulillah ispunjava Vagu",
+        summary: "Hvala Allahu ispunjava Vagu.",
+        hadith: {
+          excerpt: "Elhamdulillah ispunjava Vagu.",
+        },
+      },
+      {
+        title: "Kartica šehadeta",
+        summary: "Iskreni tevhid nadteže svitke grijeha.",
+        hadith: {
+          excerpt: "Kartica šehadeta bila je teža od svitaka grijeha.",
+        },
+      },
+      {
+        title: "Najbolji zikr",
+        summary: "Najbolji zikr je La ilahe illallah.",
+        hadith: {
+          excerpt: "Najbolji zikr je La ilahe illallah.",
+        },
+      },
+      {
+        title: "Četiri najdraže riječi",
+        summary: "Allahu su najdraže četiri riječi.",
+        hadith: {
+          excerpt: "Subhanallah, Elhamdulillah, La ilahe illallah i Allahu ekber.",
+        },
+      },
+      {
+        title: "Subhanallahi ve bihamdihi ×100",
+        summary: "Ko to kaže stotinu puta dnevno, obećano mu je oproštenje.",
+        hadith: {
+          excerpt: "Ko to izgovori stotinu puta dnevno, grijesi mu se opraštaju.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Iskreno djelo teško je na Vagi.",
+      },
+      {
+        excerpt: "Lijep ahlak izuzetno je težak na vagi vjernika.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Ništa nije teže na vagi vjernika od lijepog ahlaka.",
+      },
+      {
+        excerpt: "Subhanallahi ve bihamdihi, Subhanallahil-azim.",
+      },
+      {
+        excerpt: "Elhamdulillah ispunjava Vagu.",
+      },
+      {
+        excerpt: "Kartica šehadeta bila je teža od svitaka grijeha.",
+      },
+    ],
+    misconceptions: [
+      "Kur'an i sunnet ne daju brojčanu ljestvicu svih djela; držimo se riječi samih tekstova.",
+      "Težina na Mizanu prije svega dolazi iz iskrenosti; malo iskreno djelo može nadmašiti pokazivanje.",
+    ],
+    actions: [
+      "Ustrajno činite ovaj zikr i njegujte lijep ahlak.",
+      "Lahke su na jeziku, teške na Vagi i drage Milostivom.",
+      "Hvala Allahu ispunjava Vagu.",
+      "Ništa nije teže na vagi vjernika od lijepog ahlaka.",
+    ],
+    appLinks: [
+      {
+        label: "Teško na Vagi",
+      },
+      {
+        label: "Dvije lahke riječi",
+      },
+      {
+        label: "Elhamdulillah ispunjava Vagu",
+      },
+      {
+        label: "Istinoljubivost",
+      },
+      {
+        label: "Priprema za tešku Vagu",
+      },
+    ],
   },
 ];
 
@@ -707,6 +816,24 @@ export const LAST_DAY_HADITH_BS: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'Gubitak znanja' znači gubitak zdravih učenjaka i žive prakse - a ne nedostatak informacija.",
+  },
+  {
+    hadith: {
+      excerpt: "Iskreno djelo teško je na Vagi.",
+    },
+    context: "Priprema za tešku Vagu",
+  },
+  {
+    hadith: {
+      excerpt: "Lijep ahlak izuzetno je težak na vagi vjernika.",
+    },
+    context: "Teško na Vagi",
+  },
+  {
+    hadith: {
+      excerpt: "Zikr je lahak na jeziku, a težak na Vagi.",
+    },
+    context: "Teško na Vagi",
   },
 ];
 
@@ -936,6 +1063,18 @@ export const LAST_DAY_QUIZ_BS: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Istina", "False"],
     explanation:
       "Ajet kaže da će svi preći preko toga; Allah čuva pametne. Naučnici raspravljaju o detaljima o tome ko pada.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

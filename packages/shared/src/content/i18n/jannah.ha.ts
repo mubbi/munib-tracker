@@ -398,7 +398,110 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Gafarta wa wasu kuma gyara alaƙar da ta karye.",
       "Ka yi la'akari da halinka bayan yin sallah a cikin jarida na yau da kullum.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Gaskiya",
+        summary: "Ku kasance tare da masu gaskiya.",
+        quran: {
+          excerpt: "Ku ji tsoron Allah kuma ku kasance tare da masu gaskiya.",
+        },
+      },
+      {
+        title: "Haƙuri",
+        summary: "Ku nemi taimako da haƙuri da salla.",
+        quran: {
+          excerpt: "Ku nemi taimako da haƙuri da salla.",
+        },
+      },
+      {
+        title: "Kame fushi",
+        summary: "Allah yana son masu kame fushi.",
+        quran: {
+          excerpt: "Waɗanda suke kame fushinsu kuma suke yafe wa mutane.",
+        },
+      },
+      {
+        title: "Yafiya",
+        summary: "Ku yafe kuma ku kau da kai.",
+        quran: {
+          excerpt: "Shin ba ku son Allah Ya gafarta muku?",
+        },
+      },
+      {
+        title: "Tawali'u",
+        summary: "Bayin Mai rahama suna tafiya da tawali'u.",
+        quran: {
+          excerpt: "Bayin Mai rahama suna tafiya a ƙasa da tawali'u.",
+        },
+      },
+      {
+        title: "Amana",
+        summary: "Ku mayar da amana ga masu ita.",
+        quran: {
+          excerpt: "Allah Ya umarce ku ku mayar da amana ga masu ita.",
+        },
+      },
+      {
+        title: "Kyakkyawan hali ga iyaye",
+        summary: "Ku kyautata wa iyaye.",
+        quran: {
+          excerpt: "Ku bauta wa Allah kuma ku kyautata wa iyaye.",
+        },
+      },
+      {
+        title: "Magana mai kyau",
+        summary: "Ku faɗi alheri ko ku yi shiru.",
+        hadith: {
+          excerpt: "Mai imani da Allah da Ranar Lahira ya faɗi alheri ko ya yi shiru.",
+        },
+      },
+      {
+        title: "Murmushi na gaskiya",
+        summary: "Murmushi ga ɗan'uwanka sadaka ne.",
+        hadith: {
+          excerpt: "Murmushinka ga fuskar ɗan'uwanka sadaka ne.",
+        },
+      },
+      {
+        title: "Adalci",
+        summary: "Ku yi adalci; shi ya fi kusa da taƙawa.",
+        quran: {
+          excerpt: "Ku yi adalci; shi ya fi kusa da taƙawa.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Ƙarya",
+      },
+      {
+        title: "Gulma",
+      },
+      {
+        title: "Ƙage",
+      },
+      {
+        title: "Girman kai",
+      },
+      {
+        title: "Zalunci",
+      },
+      {
+        title: "Saɓa alkawari",
+      },
+      {
+        title: "Izgili",
+      },
+      {
+        title: "Tsaurin rashin adalci",
+      },
+    ],
   },
   {
     title: "Neman ilimi",

@@ -396,7 +396,110 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Samehe wengine na urekebishe mahusiano yaliyovunjika.",
       "Tafakari juu ya tabia yako baada ya Swala katika jarida la kila siku.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Ukweli",
+        summary: "Ukweli wa kauli na tendo.",
+        quran: {
+          excerpt: "Kuweni pamoja na wakweli.",
+        },
+      },
+      {
+        title: "Subira",
+        summary: "Kustahimili majaribu.",
+        quran: {
+          excerpt: "Allah yu pamoja na wenye subira.",
+        },
+      },
+      {
+        title: "Kuzuia hasira",
+        summary: "Kujidhibiti unapokasirika.",
+        hadith: {
+          excerpt: "Mwenye nguvu ni anayejizuia wakati wa hasira.",
+        },
+      },
+      {
+        title: "Msamaha",
+        summary: "Kusamehe makosa.",
+        quran: {
+          excerpt: "Wasamehe na wapuuze.",
+        },
+      },
+      {
+        title: "Unyenyekevu",
+        summary: "Usijione bora.",
+        hadith: {
+          excerpt: "Anayenyenyekea kwa Allah, Allah humuinua.",
+        },
+      },
+      {
+        title: "Uaminifu",
+        summary: "Kulinda amana.",
+        quran: {
+          excerpt: "Wanalinda amana na ahadi zao.",
+        },
+      },
+      {
+        title: "Wazazi",
+        summary: "Heshima na wema.",
+        quran: {
+          excerpt: "Usiwaambie hata «uff».",
+        },
+      },
+      {
+        title: "Maneno mema",
+        summary: "Sema mema au nyamaza.",
+        hadith: {
+          excerpt: "Aseme mema au anyamaze.",
+        },
+      },
+      {
+        title: "Tabasamu",
+        summary: "Uso wa bashasha.",
+        hadith: {
+          excerpt: "Tabasamu kwa ndugu ni sadaka.",
+        },
+      },
+      {
+        title: "Uadilifu",
+        summary: "Kutenda haki.",
+        quran: {
+          excerpt: "Fanyeni uadilifu; uko karibu na uchamungu.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Uongo",
+      },
+      {
+        title: "Kusengenya",
+      },
+      {
+        title: "Udaku",
+      },
+      {
+        title: "Kiburi",
+      },
+      {
+        title: "Dhuluma",
+      },
+      {
+        title: "Kuvunja ahadi",
+      },
+      {
+        title: "Kudhihaki",
+      },
+      {
+        title: "Ukali",
+      },
+    ],
   },
   {
     title: "Kutafuta maarifa",

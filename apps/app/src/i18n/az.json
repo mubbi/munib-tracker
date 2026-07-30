@@ -3328,7 +3328,20 @@
     },
     "versesIntroTv": "Ayəni Qur'an oxuyucusunda açmaq üçün seçin. Qısa xülasələr tədris üçündür, tam təfsirin əvəzi deyil.",
     "preparationHabitsHintTv": "İzləyici açmaq və ya gündəlik niyyəti dəyişmək üçün seçin",
-    "characterHintTv": "Bu gün davranışınızı nəzərdən keçirdikdə seçin"
+    "characterHintTv": "Bu gün davranışınızı nəzərdən keçirdikdə seçin",
+    "mizan": {
+      "panHeavy": "Ağır tərəzi gözü",
+      "panLight": "Yüngül tərəzi gözü",
+      "pansCaption": "Səhih mətnlərin Mizan-da ağır adlandırdığı şeylər",
+      "noLeaderboard": "Bu ifadələr çəki və fəziləti təsvir edir — hər əməlin tam ilahi sıralaması deyil.",
+      "deedsTitle": "Mətnlərdə adı çəkilən əməllər",
+      "category": {
+        "heavy-on-scale": "Mizan-da ağır",
+        "fills-the-scale": "Mizan-ı doldurur",
+        "best-beloved": "Ən yaxşı / ən sevimli",
+        "equal-reward": "Bərabər tutulan böyük savab"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Öyrən",
@@ -4597,7 +4610,15 @@
       "mercy": "Rəhmət",
       "supplication": "Supplictiüzərində"
     },
-    "versesLeadTv": "İstənilən ayəni Qur'an oxuyucusunda açmaq üçün seçin."
+    "versesLeadTv": "İstənilən ayəni Qur'an oxuyucusunda açmaq üçün seçin.",
+    "mizan": {
+      "weightCallout": "Möminin Mizan-ında gözəl əxlaqdan daha ağır bir şey yoxdur — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Gözəl əxlaqın sifətləri",
+      "buildsTitle": "Əxlaqı qurur",
+      "buildsHint": "Bir dəfəyə bir sifət üzərində çalışın — doğruluq, səbir, rəhm və ədalət.",
+      "destroysTitle": "Əxlaqı pozanlar",
+      "destroysHint": "Mətnlərin xəbərdar etdiyi vərdişlər — əlaqəli dərs üçün bir kartı toxunun."
+    }
   },
   "jahannam": {
     "eyebrow": "Öyrən",
@@ -4731,7 +4752,19 @@
       "protection": "Protectiüzərində"
     },
     "versesLeadTv": "İstənilən ayəni Qur'an oxuyucusunda açmaq üçün seçin.",
-    "reflectionLeadTv": "Dayanın və bu sualları özünüzə verin. Əlaqəli izləyici və ya dərsi açmaq üçün sətir seçin."
+    "reflectionLeadTv": "Dayanın və bu sualları özünüzə verin. Əlaqəli izləyici və ya dərsi açmaq üçün sətir seçin.",
+    "mizan": {
+      "warningCallout": "Mətnlər 'məhv edən' və 'ən böyük' kimi sözlərlə xəbərdar edir — bu xəbərdarlıq iyerarxiyasıdır, Mizan sıralaması deyil.",
+      "ladder": {
+        "gravest": "Ən ağır xəbərdarlıqlar",
+        "seven": "Yeddi məhv edən",
+        "consumes": "Yaxşı əməlləri yeyir"
+      },
+      "sevenTitle": "Yeddi məhv edən günah",
+      "bankruptTitle": "Müflis şəxs",
+      "bankruptLink": "Axırət günündə hesab haqqında oxuyun",
+      "hopeCallout": "Allahın rəhmətindən ümidinizi kəsməyin — tövbə edənlərin bütün günahlarını bağışlayır (Qur'an 39:53). Tövbəsiz şirk üzərində ölmək mətnlərin aydınlaşdırdığı istisnadır."
+    }
   },
   "tour": {
     "eyebrow": "Guided -ur",
@@ -5225,7 +5258,7 @@
     "eyebrow": "Öyrən",
     "title": "Janazah bələdçi",
     "subtitle": "Cənazə namazı, yuyulma, dəfn və səhih dualar",
-    "intro": "Janazah-ın icma vacibliyi kimi praktiki icmalı — rüku və ya səcdəsiz dörd təkbirin necə qılınması və mərhum üçün Hisnul Muslim duaları.",
+    "intro": "Janazah-ın icma vacibliyi kimi praktiki icmalı — rüku və səcdəsiz dörd təkbir, kişi, qadın və uşaqlar üçün Hisnul Muslim duaları, həmçinin yuma, dəfn, şəhidlər və yas tutanlar üçün rəhbərlik.",
     "section": {
       "obligation": "Öhdəlik",
       "prepare": "Hazırlıq",

@@ -5,7 +5,7 @@ import type { LastDayHadithEntry } from "../types/last-day";
  * (collection, number and grade) has been verified. Grades: sahih | hasan.
  * Bump LAST_DAY_HADITH_VERSION on change.
  */
-export const LAST_DAY_HADITH_VERSION = 2;
+export const LAST_DAY_HADITH_VERSION = 3;
 
 export const LAST_DAY_HADITH: LastDayHadithEntry[] = [
   {
@@ -221,5 +221,44 @@ export const LAST_DAY_HADITH: LastDayHadithEntry[] = [
     },
     context:
       "'Loss of knowledge' means the loss of sound scholars and lived practice — not a shortage of information.",
+  },
+  {
+    id: "two-words-heavy",
+    theme: "reckoning",
+    hadith: {
+      collection: "Sahih al-Bukhari",
+      citation: "6406",
+      grade: "sahih",
+      excerpt:
+        "Two words light on the tongue, heavy on the Scale, beloved to the Most Merciful: SubhanAllahi wa bihamdih, SubhanAllahil-'Azim.",
+    },
+    context:
+      "Scale language for zikr — effortless on the tongue, weighty when sincere. See also the lesson Heavy on the Scale.",
+  },
+  {
+    id: "character-heaviest",
+    theme: "reckoning",
+    hadith: {
+      collection: "Jami' at-Tirmidhi",
+      citation: "2002",
+      grade: "hasan",
+      excerpt:
+        "Nothing is heavier on the believer's Scale on the Day of Resurrection than good character.",
+    },
+    context:
+      "Hasan report naming good character as heaviest on the Scale — paired with the Jannah character lesson.",
+  },
+  {
+    id: "alhamdulillah-fills",
+    theme: "reckoning",
+    hadith: {
+      collection: "Sahih Muslim",
+      citation: "223",
+      grade: "sahih",
+      excerpt:
+        "Alhamdulillah fills the Scale, and SubhanAllah and Alhamdulillah fill what is between the heavens and the earth.",
+    },
+    context:
+      "Praise of Allah described as filling the Scale — another authentic Scale-language deed, not a complete ranking of all deeds.",
   },
 ];

@@ -474,6 +474,98 @@ export const JAHANNAM_CORE_TOPICS_MS: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Dosa-dosa yang membinasakan",
+    summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+    body: [
+      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+      "Lakukan amalan dengan ikhlas kerana Allah.",
+      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+    ],
+    destructiveItems: [
+      {
+        title: "Syirik",
+        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      },
+      {
+        title: "Sihir",
+        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      },
+      {
+        title: "Membunuh",
+        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      },
+      {
+        title: "Riba",
+        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      },
+      {
+        title: "Harta anak yatim",
+        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      },
+      {
+        title: "Lari dari pertempuran",
+        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      },
+      {
+        title: "Menuduh wanita suci",
+        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      },
+      {
+        title: "Orang muflis",
+        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+      },
+      {
+        excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+      },
+      {
+        excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+      {
+        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+      },
+    ],
+    actions: [
+      "Lakukan amalan dengan ikhlas kerana Allah.",
+      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
+      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+    ],
+    appLinks: [
+      {
+        label: "Dosa-dosa yang membinasakan",
+      },
+      {
+        label: "Berat pada neraca",
+      },
+      {
+        label: "Akhlak mulia",
+      },
+      {
+        label: "Repentance",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_MS: DeepPartial<JahannamTopic>[] = [
