@@ -5,9 +5,10 @@ import { ReferenceLine } from "@/components/content/reference-line";
 import { JannahCallout } from "@/components/jannah/primitives";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 const CATEGORY_TONE: Record<MizanDeedCategory, "accent" | "success" | "info" | "warning"> = {
@@ -33,39 +34,25 @@ function deedReference(deed: MizanDeedItem): string | undefined {
   return undefined;
 }
 
-/** Dual soft pans + deed cards for Last Day heavy-on-the-scale. */
+/** Deed catalog for Last Day heavy-on-the-scale (Scale metaphor via icon + copy only). */
 export function BalancePansBlock({ deeds }: { deeds: MizanDeedItem[] }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
 
   return (
     <View style={styles.stack}>
-      <View style={styles.hero}>
-        <View
-          style={[
-            styles.pan,
-            { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
-          ]}
-        >
-          <ThemedText type="smallBold" style={{ color: colors.accentText, textAlign: "center" }}>
-            {t("lastDay.mizan.panHeavy")}
-          </ThemedText>
-        </View>
-        <View style={[styles.fulcrum, { backgroundColor: tokens.hairline }]} />
-        <View
-          style={[
-            styles.pan,
-            { backgroundColor: colors.muted, borderColor: withAlpha(colors.mutedForeground, 0.2) },
-          ]}
-        >
-          <ThemedText type="smallBold" themeColor="mutedForeground" style={{ textAlign: "center" }}>
-            {t("lastDay.mizan.panLight")}
-          </ThemedText>
-        </View>
+      <View style={styles.intro}>
+        <IconWell
+          icon={{ ios: "scalemass.fill", android: "balance", web: "balance" }}
+          tint={colors.accent}
+          background={tokens.accentSoft}
+          well={48}
+          size={22}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.caption}>
+          {t("lastDay.mizan.pansCaption")}
+        </ThemedText>
       </View>
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.caption}>
-        {t("lastDay.mizan.pansCaption")}
-      </ThemedText>
 
       <JannahCallout tone="accent">{t("lastDay.mizan.noLeaderboard")}</JannahCallout>
 
@@ -124,27 +111,16 @@ export function BalancePansBlock({ deeds }: { deeds: MizanDeedItem[] }) {
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
-  hero: {
-    flexDirection: "row",
-    alignItems: "stretch",
+  intro: {
+    alignItems: "center",
     gap: Spacing.two,
+    paddingVertical: Spacing.one,
   },
-  pan: {
-    flex: 1,
-    minHeight: 72,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderCurve: "continuous",
-    justifyContent: "center",
+  caption: {
+    textAlign: "center",
+    lineHeight: 18,
+    maxWidth: 320,
   },
-  fulcrum: {
-    width: 3,
-    borderRadius: 2,
-    alignSelf: "center",
-    height: 40,
-  },
-  caption: { textAlign: "center", lineHeight: 18 },
   list: { gap: Spacing.two, marginTop: Spacing.three },
   deedCard: {
     padding: Spacing.three,
