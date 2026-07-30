@@ -12,6 +12,7 @@ export * from "./jannah";
 export * from "./last-day";
 export * from "./learn-dua";
 export * from "./learn-guide";
+export * from "./mizan";
 export * from "./mushaf-layout";
 export * from "./oss-content-download-failure";
 

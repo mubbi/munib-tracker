@@ -3340,7 +3340,20 @@
     },
     "versesIntroTv": "Zgjidhni një ajet për ta hapur në lexuesin e Qur'anit. Përmbledhjet e shkurtra janë edukative, jo zëvendësim i tefsirit të plotë.",
     "preparationHabitsHintTv": "Zgjidhni për të hapur një tracker ose për të ndërruar një synim ditor",
-    "characterHintTv": "Zgjidhni kur keni shqyrtuar sjelljen tuaj sot"
+    "characterHintTv": "Zgjidhni kur keni shqyrtuar sjelljen tuaj sot",
+    "mizan": {
+      "panHeavy": "Ana e rëndë",
+      "panLight": "Ana e lehtë",
+      "pansCaption": "Ajo që tekstet autentike e quajnë të rëndë në Mizan",
+      "noLeaderboard": "Këto shprehje përshkruajnë peshën dhe virtytin — nuk janë renditje e plotë hyjnore e çdo vepre.",
+      "deedsTitle": "Vepra të përmendura në tekste",
+      "category": {
+        "heavy-on-scale": "E rëndë në Mizan",
+        "fills-the-scale": "Mbush Mizanin",
+        "best-beloved": "Më e mira / më e dashura",
+        "equal-reward": "Shpërblim i madh i barazuar"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Mëso",
@@ -4689,7 +4702,15 @@
       "mercy": "Mëshirë",
       "supplication": "Lutja"
     },
-    "versesLeadTv": "Zgjidhni çdo ajet për ta hapur në lexuesin e Qur'anit."
+    "versesLeadTv": "Zgjidhni çdo ajet për ta hapur në lexuesin e Qur'anit.",
+    "mizan": {
+      "weightCallout": "Asgjë nuk është më e rëndë në Mizanin e besimtarit se karakteri i mirë — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Cilësitë e karakterit të mirë",
+      "buildsTitle": "Ndërton karakterin",
+      "buildsHint": "Praktikoni një cilësi në një kohë — të vërtetën, durimin, mëshirën dhe drejtësinë.",
+      "destroysTitle": "Çfarë minon karakterin",
+      "destroysHint": "Zakonet për të cilat tekstet paralajmërojnë — prekni një pllakë për mësimin e lidhur."
+    }
   },
   "jahannam": {
     "eyebrow": "Mësoni",
@@ -4823,7 +4844,19 @@
       "protection": "Mbrojtja"
     },
     "versesLeadTv": "Zgjidhni çdo ajet për ta hapur në lexuesin e Qur'anit.",
-    "reflectionLeadTv": "Ndaloni dhe bëjini vetes këto pyetje. Zgjidhni një rresht për të hapur tracker-in ose mësimin përkatës."
+    "reflectionLeadTv": "Ndaloni dhe bëjini vetes këto pyetje. Zgjidhni një rresht për të hapur tracker-in ose mësimin përkatës.",
+    "mizan": {
+      "warningCallout": "Tekstet paralajmërojnë me fjalë si 'shkatërruese' dhe 'më e madhja' — kjo është hierarki paralajmërimi, jo tabelë e Mizanit.",
+      "ladder": {
+        "gravest": "Paralajmërimet më të rënda",
+        "seven": "Shtatë shkatërruese",
+        "consumes": "Konsumon veprat e mira"
+      },
+      "sevenTitle": "Shtatë mëkatet shkatërruese",
+      "bankruptTitle": "Personi i falimentuar",
+      "bankruptLink": "Lexoni për llogarinë në Ditën e Fundit",
+      "hopeCallout": "Mos dëshpëroni nga mëshira e Allahut — Ai fal të gjitha mëkatet për ata që kthehen (Qur'an 39:53). Vdekja në shirk pa pendim është përjashtimi që tekstet e bëjnë të qartë."
+    }
   },
   "tour": {
     "eyebrow": "Turne me guidë",
@@ -5317,7 +5350,7 @@
     "eyebrow": "Mësoni",
     "title": "Janazah udhëzues",
     "subtitle": "Namazi i xhenazes, larja, varrimi dhe duatë autentike",
-    "intro": "Një pasqyrë praktike e Janazah si obligim i përbashkët - si të falen katër tekbire pa ruku apo suxhud, dhe duatë Hisnul Muslim për të ndjerin.",
+    "intro": "Një pasqyrë praktike e xhenazes si detyrim i përbashkët — katër tekbirë pa ruku dhe sexhde, dua Hisnul Muslim për burra, gra dhe fëmijë, dhe udhëzim për larjen, varrimin, dëshmorët dhe të mbeturit.",
     "section": {
       "obligation": "Detyrim",
       "prepare": "Përgatitja",

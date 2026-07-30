@@ -216,4 +216,137 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Takbirma-takbir — namoz qadamlari",
+    summary: "To‘rt takbir va ular orasidagi amallarning amaliy ro‘yxati.",
+    body: [
+      "Birinchi takbir: qo‘llarni ko‘taring (mazhabingizga ko‘ra), «Allohu akbar» deng, so‘ng «al-Fotiha» surasini o‘qing. Ibn Abbos janoza namozida «al-Fotiha»ni o‘qib, uning sunnatdan ekanini aytgan (Sahih al-Buxoriy 1335).",
+      "Ikkinchi takbir: Payg‘ambarimiz ﷺga salovot yuboring — tashahhudda qo‘llaniladigan Ibrohimiy salovot shu qadamda keng o‘rgatiladi. Uchinchi takbir: marhum uchun xolis duo qiling (ushbu qo‘llanmadagi Hisnul Muslim lafzlari). To‘rtinchi takbir: ko‘p olimlar qisqa umumiy duo qiladilar, so‘ng o‘ngga (va mazhabga ko‘ra chapga) taslim bilan yakunlaydilar.",
+      "Ruku, sujud yoki o‘tirish yo‘q. Butun vaqt turing. Bir necha janoza bo‘lsa, ko‘p jamoatlarda barchaga bir niyat bilan bitta janoza o‘qiladi — imomga ergashing. Salovot va duoning o‘rni mazhabga ko‘ra biroz o‘zgarishi mumkin; to‘rt takbirli ramka umumiy.",
+    ],
+    madhhabNote:
+      "Hanafiy, molikiy, shofe’iy va hanbaliy kitoblar har takbirda qo‘l ko‘tarilishi va duo aynan qachon aytilishi bo‘yicha farq qiladi. Oldingizdagi imomga ergashing.",
+    actions: [
+      "To‘rt takbir ketma-ketligini kerak bo‘lguncha o‘rganing.",
+      "Fotihani, salovotni va kamida bitta janoza duosini yodlang.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Ibn Abbos janoza namozini o‘qib, «al-Fotiha»ni o‘qidi va uning sunnatdan ekanini aytdi.",
+      },
+    ],
+  },
+  {
+    title: "Erkaklar, ayollar va bolalar uchun duolar",
+    summary: "Xuddi shu payg‘ambarona lafzlar — arab olmoshlarini marhumga moslashtiring.",
+    body: [
+      "Hisnul Muslim (va klassik hadis to‘plamlari) janoza duolarini asosan erkak shaklida yozadi. Bu ayollar uchun alohida «o‘ylab topilgan» duo degani emas. Asosiy olimlar erkak lafzni shaxsga niyat bilan qoldirishga, yoki — afzalroq va ko‘pincha — grammatikani marhumga mos o‘zgartirishga o‘rgatadilar: لَهُ / هُ / هِ → لَهَا / هَا; عَبْدُكَ → أَمَتُكَ; ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ; va qiz bola uchun اجْعَلْهُ → اجْعَلْهَا, شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Vafot etgan ayol uchun ba’zi olimlar «eridan yaxshiroq juft» (زَوْجًا خَيْرًا مِنْ زَوْجِهَا) iborasiga ehtiyot bo‘lishni maslahat beradilar — u jannatda eri bilan qayta uchrashishi mumkin; o‘sha bandni tashlab qo‘yishingiz yoki umumiy lafzni saqlashingiz mumkin. Bolalar uchun faqat kattalarning mag‘firatga yo‘naltirilgan matnlariga emas, bolaga xos Hisnul yozuvlarini (hisn-160, hisn-161) ishlating.",
+      "«Erkaklarimiz va ayollarimizni mag‘firat qil» degan jamoaviy lafz (hisn-157) ikkala jinsni ham o‘zgartirmasdan qamrab oladi. Biz haqiqiy matnlarning grammatik moslashuvidan tashqari yangi arabcha o‘ylab topmaymiz — bog‘langan kattalar duosini asos qilib oching va yuqoridagi olmosh xaritasini qo‘llang.",
+    ],
+    madhhabNote:
+      "Erkak shakllarni niyat bilan saqlash ham, ayol shakllariga moslashtirish ham asosiy olimlar orasida qabul qilingan. Ishonchingiz komil bo‘lmasa, hisn-157 (erkaklar va ayollar) ishlating yoki imomdan so‘rang.",
+    actions: [
+      "Yodlaydigan duongiz uchun ayol olmoshlarini almashtirishni mashq qiling.",
+      "Balog‘atga yetmaganlar uchun bolaga xos duolarni ishlating.",
+      "Uzun isbotlanmagan risolalardan ko‘ra haqiqiylikni afzal ko‘ring.",
+    ],
+    appLinks: [{ label: "Kattalar janoza duosi №1" }],
+  },
+  {
+    title: "Shahidlar, tushik va maxsus holatlar",
+    summary: "Yuvish yoki janoza hukmlari odatiydan farq qilganda.",
+    body: [
+      "Jangda vafot etgan jang maydoni shahidlari Uhuddan olingan klassik hukmda odatiy g‘uslsiz kiyimlari bilan dafn etiladi; Rasululloh ﷺ Uhud shahidlarini qonlari bilan yuvmasdan dafn etishni buyurganlar (Sahih al-Buxoriy 1346). Savobda «shahid» deyiladigan boshqa toifalar (masalan, vabo, cho‘kish) odatda yuviladi va janoza o‘qiladi — chegara holatlarda olimdan so‘rang.",
+      "Tushik yoki o‘lik tug‘ilgan chaqaloq uchun maktablar janoza namozi va to‘liq yuvish qachon qo‘llanilishi bo‘yicha farq qiladi (ko‘pincha taniladigan shakl yoki ruh puflash bosqichi bo‘lganmi degan bahoga bog‘liq). Bir hadis tushik ustida namoz o‘qishni va ota-onaga mag‘firat va rahmat tilashni rag‘batlantiradi (Abu Dovud 3180). Taxmin qilish o‘rniga mazhabingizning janoza qo‘mitasiga amal qiling.",
+      "Musulmon bo‘lmagan qarindoshlarga musulmon janoza namozi o‘qilmaydi; mehr, qonuniy dafn yordami (qo‘llaniladigan joyda) va shaxsiy qayg‘u — mo‘minlarning ibodat namozidan alohida. Maxsus holatlarni har doim malakali mahalliy yo‘riqnoma bilan tasdiqlang.",
+    ],
+    madhhabNote:
+      "Jang maydoni shahidligi, tushik bosqichlari va o‘lik tug‘ilgan chaqaloq ustida namoz ta’riflari maktabga ko‘ra farq qiladi. Bu mavzu masalalarni belgilaydi — u fatvo emas.",
+    disclaimer:
+      "Maxsus hukmlar nozik. Harakat qilishdan oldin malakali olim yoki jamoatingizning janoza xizmati bilan tasdiqlang.",
+    actions: [
+      "Olim ko‘rsatmasiga zid ravishda jang maydoni shahidini yuvmang.",
+      "Tushik yoki o‘lik tug‘ilish holatlari haqida janoza qo‘mitasidan so‘rang.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Rasululloh ﷺ Uhud shahidlarini qonlari bilan dafn etishni buyurdilar va ular yuvilmadi.",
+      },
+      {
+        excerpt: "Tushik ustida janoza namozi o‘qiladi va ota-onaga mag‘firat va rahmat tilanadi.",
+      },
+    ],
+  },
+  {
+    title: "G‘oyibona janoza",
+    summary: "Rasululloh ﷺ jasad uzoqda bo‘lganida Najoshiy uchun namoz o‘qidilar.",
+    body: [
+      "Jobir rivoyat qiladilar: Rasululloh ﷺ sahobalariga chiqdilar, ularni safga turdirdilar va chet elda vafot etgan Habash podshosi Najoshiy (al-Najoshiy) uchun to‘rt takbir o‘qidilar (Sahih al-Buxoriy 1334; Sahih Muslim 952). Bu g‘oyibona janoza namozining (alā al-ghā'ib) asosiy dalilidir.",
+      "Maktablar bu namunani qanchalik keng qo‘llash bo‘yicha farq qiladi: ba’zilari uni Najoshiy kabi holatlar bilan cheklaydi (mahalliy musulmon namozi bo‘lmaganda), boshqalari jasad uzoqda bo‘lganda kengroq ruxsat beradi. Jasad bor va jamoat namoz o‘qiy olganda mahalliy janozani o‘tkazib yubormang. Mazhabingizda g‘oyibona namoz qachon o‘rinli ekanini ishonchli mahalliy olimdan so‘rang.",
+      "Shakli — xuddi shu to‘rt takbirli namoz; niyat — g‘oyib marhum uchun. Xuddi shu haqiqiy duolarni ishlating, jinsni kerakicha moslashtiring.",
+    ],
+    madhhabNote:
+      "G‘oyibona janoza doirasi ma’lum farq nuqtasidir. Jamoatingizdagi malakali imomlar amaliyotini afzal ko‘ring.",
+    actions: [
+      "Jasad bor bo‘lganda har doim mahalliy namoz o‘qing.",
+      "G‘oyibona janozani ommaviy tadbir sifatida tashkil etishdan oldin so‘rang.",
+    ],
+    hadith: [
+      {
+        excerpt: "Rasululloh ﷺ Najoshiy uchun janoza namozini o‘qib, to‘rt takbir aytdilar.",
+      },
+      {
+        excerpt:
+          "Allohning Elchisi ﷺ sahobalarni safga turdirdilar va Najoshiy uchun to‘rt takbir bilan namoz o‘qidilar.",
+      },
+    ],
+  },
+  {
+    title: "O‘lim to‘shagida — so‘nggi so‘zlar",
+    summary: "O‘limga yaqin kishini muloyimlik bilan «la ilaha illalloh» demaga undang.",
+    body: [
+      "Rasululloh ﷺ: «O‘limga yaqinlaringizni «la ilaha illalloh» demaga undalang» dedilar (Sahih Muslim 916; Abu Dovud 3117). Hisnul Muslim kimning so‘nggi so‘zlari «Allohdan boshqa ibodatga loyiq hech kim yo‘q» bo‘lsa, u jannatga kirishi haqidagi ko‘rsatmani saqlaydi (hisn-153, Abu Dovud 3116 dan).",
+      "Muloyim va qattiqqo‘lliksiz undang; majburlamang va bahslashmang. O‘limga yaqinlarni Hisnul Muslimda saqlangan umid so‘zlari bilan ham taskinlash mumkin (hisn-150–152). Jon olinganda ko‘zlarni yumib, ko‘z yumish duosini ishlating (oldingi mavzu).",
+      "Baland yig‘lashdan va Allohni g‘azablantiradigan so‘zdan saqlaning. Xonadon yaxshini aytishi kerak, chunki farishtalar ularning so‘zlariga omin deyishadi (Sahih Muslim 920).",
+    ],
+    actions: [
+      "O‘limga yaqin kishiga shahodatni muloyim eslatib turing.",
+      "Xonani tinch tuting va yaxshi so‘z bilan to‘ldiring.",
+    ],
+    hadith: [
+      {
+        excerpt: "O‘limga yaqinlaringizni: la ilaha illalloh demaga undalang.",
+      },
+      {
+        excerpt:
+          "Kimning so‘nggi so‘zlari «Allohdan boshqa ibodatga loyiq hech kim yo‘q» bo‘lsa, u jannatga kiradi.",
+      },
+    ],
+    appLinks: [{ label: "Hayot umidi duolari" }, { label: "Ko‘zlarni yumish" }],
+  },
+  {
+    title: "Ta’ziya va motam tutganlar",
+    summary: "Tiriklarni payg‘ambarona musibat duosi bilan taskinlang.",
+    body: [
+      "Ummu Salama rivoyat qiladilar: Allohning Elchisi ﷺ: «Hech bir musulmon musibatga duch kelib, Alloh buyurganini aytmasa — «Biz Allohnikimiz va Unga qaytamiz. Ey Alloh, musibatimda menga savob ber va uni menga yaxshiroq bilan almashtir» — Alloh uni ularga yaxshiroq bilan almashtiradi» dedilar (Sahih Muslim 918). Hisnul Muslim bu lafzni saqlaydi (hisn-154).",
+      "Qisqa, rostgo‘y so‘zlar bilan ta’ziya bildiring; oilani mehmondo‘stlik yukiga solmasdan, marhum oilasiga ovqat tayyorlang (Abu Dovud 3132 — Ja’far oilasi haqidagi xabar). Dalilsiz belgilangan kunlik bid’at marosimlardan saqlaning, shaxsiy duo, sadaqa va mehrni davom ettiring.",
+      "Ko‘z yoshlari bilan qayg‘u ruxsat etilgan; yig‘lash, yuzga urish va kiyim yirtish man etilgan. Dafndan keyin bevalar, yetimlar va qaramog‘idagilarga qonuniy yordam ko‘rsating.",
+    ],
+    actions: [
+      "Motam tutganlarga musibat duosini o‘rgating.",
+      "Ziyofat kutish o‘rniga ovqat va ishlarda yordam bering.",
+      "Marhum uchun tinch duo va sadaqani davom ettiring.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Hech bir musulmon musibatga duch kelib, Allohga qaytish haqidagi buyurilgan so‘zlarni aytib, yaxshiroq bilan almashtirishni so‘ramasa, Alloh uni yaxshiroq bilan almashtiradi.",
+      },
+    ],
+    appLinks: [{ label: "Sadaqa maqsadlari" }],
+  },
 ];

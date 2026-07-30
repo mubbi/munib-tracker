@@ -214,4 +214,137 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Takbirden takbire — namazyň ädimleri",
+    summary: "Dört takbiriň we olaryň arasyndaky işleriň amaly sanawy.",
+    body: [
+      "Birinji takbir: elleriňizi galdyryň (mezhebiňize görä), «Allahu ekber» diýiň, soňra «el-Fatiha» süresini okaň. Ibn Abbas jynaza namazynda «el-Fatiha»ny okady we onuň sünnetdigini aýtdy (Sahih al-Buhari 1335).",
+      "Ikinji takbir: Pygambere ﷺ salawat iberiň — teşehhudda ulanylýan Ibrahimy salawat bu ädimde giňden öwredilýär. Üçünji takbir: merhum üçin çyn ýürekden dua ediň (şu gollanmadaky Hisnul Muslim sözleri). Dördünji takbir: köp alymlar gysga umumy dua edýärler, soňra saga (we mezhebe görä çepe) taslim bilen gutarýarlar.",
+      "Ruku, sujud ýa-da oturyş ýok. Bütin wagt duruň. Birnäçe jynaza bolsa, köp jemagatlarda hemmä bir niýet bilen bir jynaza okalýar — ymamyň yzyna düşüň. Salawat bilen duanyň ýeri mezhebe görä birneme üýtgäp biler; dört takbirli çarçuwa umumydyr.",
+    ],
+    madhhabNote:
+      "Hanefi, Maliki, Şafiýi we Hanbeli kitaplary her takbirde eliň galdyrylmagy we duanyň takyk haçan aýdylmagy boýunça tapawutlanýar. Öňüňizdäki ymamyň yzyna düşüň.",
+    actions: [
+      "Dört takbir yzygiderliligini gerek bolmazdan öň öwreniň.",
+      "Fatihany, salawaty we azyndan bir jynaza duasyny ýatlaň.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Ibn Abbas jynaza namazyny okady we «el-Fatiha»ny okady hem onuň sünnetdigini aýtdy.",
+      },
+    ],
+  },
+  {
+    title: "Erkekler, aýallar we çagalar üçin dualar",
+    summary: "Şol bir pygamberlik sözler — arap çalyşmalaryny merhuma laýyklaň.",
+    body: [
+      "Hisnul Muslim (we klasik hadis ýygyndylary) jynaza dualaryny esasan erkek görnüşinde ýazýar. Bu aýallar üçin aýratyn «ýasalan» dua diýmek däl. Esasy alymlar erkek lafzy şahsa niýet bilen galdyrmaga, ýa-da — has gowy we köplenç — grammatikany merhuma laýyk üýtgetmäge öwredýärler: لَهُ / هُ / هِ → لَهَا / هَا; عَبْدُكَ → أَمَتُكَ; ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ; we gyz çaga üçin اجْعَلْهُ → اجْعَلْهَا, شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Ölen aýal üçin käbir alymlar «äreninden has gowy ýanýoldaş» (زَوْجًا خَيْرًا مِنْ زَوْجِهَا) sözüne seresaplylyk maslahat berýärler — ol Jennetde äri bilen ýene birleşip biler; şol bendi aýryp goýup ýa-da umumy lafzy saklap bilersiňiz. Çagalar üçin diňe ulular üçin bagyşlanmaga gönükdirilen tekstlere däl-de, çaga mahsus Hisnul ýazgylaryny (hisn-160, hisn-161) ulanyň.",
+      "«Erkeklerimizi we aýallarymyzy bagyşla» diýen umumy lafz (hisn-157) iki jynsy hem üýtgetmezden öz içine alýar. Biz hakyky tekstleriň grammatik laýyklaşdyrylmagyndan başga täze arapça oýlap tapmaýarys — baglanan ulular duasyny esas edip açyň we ýokardaky çalyşma kartasyny ulanyň.",
+    ],
+    madhhabNote:
+      "Erkek görnüşleri niýet bilen saklamak hem, aýal görnüşlerine laýyklaşdyrmak hem esasy alymlaryň arasynda kabul edilýär. Ynançly bolmasaňyz, hisn-157 (erkekler we aýallar) ulanyň ýa-da ymamdan soraň.",
+    actions: [
+      "Ýatlaýan duaňyz üçin aýal çalyşmalaryny çalyşmagy meşgullanyp öwreniň.",
+      "Balygata ýetmedikler üçin çaga mahsus dualary ulanyň.",
+      "Uzyn tassyklanmadyk kitapçalardan has gowy hakykylygy saýlaň.",
+    ],
+    appLinks: [{ label: "Ulular jynaza duasy №1" }],
+  },
+  {
+    title: "Şehitler, düşük we ýörite ýagdaýlar",
+    summary: "Ýuwmak ýa-da jynaza hökümleri adaty ýagdaýdan tapawutlananda.",
+    body: [
+      "Söweşde ölen söweş meýdany şehitleri Uhuddan alnan nusgawy hökümde adaty guslsuz eşiklerinde jaýlanýar; Pygamber ﷺ Uhud şehitleriniň ganlary bilen ýuwulman jaýlanmagyny buýurdy (Sahih al-Buhari 1346). Sowapda «şehit» diýilýän beýleki toparlar (mysal üçin, waba, gark bolmak) adatça ýuwulýar we jynaza okalýar — çäk ýagdaýlarda alymdan soraň.",
+      "Düşük ýa-da öli doglan bäbek üçin mekdepler jynaza namazy we doly ýuwmak haçan ulanylýandygy boýunça tapawutlanýar (köplenç tanalýan görnüş ýa-da ruh üfleniş basgançagy bolandymy diýen bahalamaga bagly). Bir hadis düşügiň üstünde namaz okamagy we ene-ata bagyşlamak we rehim dilemegi höweslendirýär (Ebu Dawud 3180). Çaklamak ýerine mezhebiňiziň jynaza komitetine eýeriň.",
+      "Musulman däl garyndaşlara musulman jynaza namazy okalmaýar; rehimlilik, kanuny jaýlamak kömegi (ulanylýan ýerde) we şahsy gynanç — möminleriň ybadat namazyndan aýrydyr. Ýörite ýagdaýlary hemişe bilimli ýerli gollanma bilen tassyklaň.",
+    ],
+    madhhabNote:
+      "Söweş meýdany şehitligi, düşük basgançaklary we öli doglan bäbegiň üstünde namazyň kesgitlemeleri mekdebe görä üýtgeýär. Bu mowzuk meseleleri belläýär — ol fatwa däl.",
+    disclaimer:
+      "Ýörite hökümler duýgur. Hereket etmezden öň bilimli alymdan ýa-da jemgyýetiňiziň jynaza hyzmatyndan tassyklaň.",
+    actions: [
+      "Alymyň görkezmesine garşy söweş meýdany şehidini ýuwmaň.",
+      "Düşük ýa-da öli dogluş ýagdaýlary barada jynaza komitetinden soraň.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Pygamber ﷺ Uhud şehitleriniň ganlary bilen jaýlanmagyny buýurdy we olar ýuwulmady.",
+      },
+      {
+        excerpt: "Düşügiň üstünde jynaza namazy okalýar we ene-ata bagyşlamak we rehim dilenýär.",
+      },
+    ],
+  },
+  {
+    title: "Gäýybana jynaza",
+    summary: "Pygamber ﷺ jeset uzakda bolanda Negus üçin namaz okady.",
+    body: [
+      "Jabir habar berýär: Pygamber ﷺ Sahabalaryna çykdy, olary hatara düzdi we daşary ýurtda ölen Habesh şasy Negus (el-Nejaşi) üçin dört takbir okady (Sahih al-Buhari 1334; Sahih Muslim 952). Bu gäýybana jynaza namazynyň (alā al-ghā'ib) esasy delilidir.",
+      "Mekdepler bu nusgany näçe giň ulanmak boýunça tapawutlanýarlar: käbirleri ony Negus ýaly ýagdaýlar bilen çäklendirýärler (ýerli musulman namazy bolmadykda), beýlekileri jeset uzakda bolanda has giň rugsat berýärler. Jeset bar we jemagat namaz okaýan bolsa, ýerli jynazany geçirmäň. Mezhebiňizde gäýybana namaz haçan laýykdygyny ynamdar ýerli alymdan soraň.",
+      "Görnüşi — şol bir dört takbirli namaz; niýet — gäýyb merhum üçin. Şol bir hakyky dualary ulanyň, jynsy gerek bolsa laýyklaň.",
+    ],
+    madhhabNote:
+      "Gäýybana jynazanyň gerimi belli tapawut nokady. Jemgyýetiňizdäki bilimli ymamlar tejribesini ileri tutuň.",
+    actions: [
+      "Jeset bar bolanda hemişe ýerli namaz okaň.",
+      "Gäýybana jynazany köpçülik çäresi hökmünde guramazdan öň soraň.",
+    ],
+    hadith: [
+      {
+        excerpt: "Pygamber ﷺ Negus üçin jynaza namazyny okady we dört takbir aýtdy.",
+      },
+      {
+        excerpt:
+          "Allahyň Resuly ﷺ Sahabalary hatara düzdi we Negus üçin dört takbir bilen namaz okady.",
+      },
+    ],
+  },
+  {
+    title: "Ölüm ýatagyna — soňky sözler",
+    summary: "Ölüme ýakyn adamy ýuwaşlyk bilen «la ilaha illallah» diýmäge höweslendiriň.",
+    body: [
+      "Pygamber ﷺ: «Ölüme ýakynlaryňyzy «la ilaha illallah» diýmäge höweslendiriň» diýdi (Sahih Muslim 916; Ebu Dawud 3117). Hisnul Muslim kimin soňky sözleri «Allahdan başga ybadat edilmäge mynasyp hiç kim ýok» bolsa, ol Jennete girer diýen görkezmäni saklaýar (hisn-153, Ebu Dawud 3116-dan).",
+      "Ýuwaşlyk bilen we gatylyksyz höweslendiriň; mejbur etmäň we jedelleşmäň. Ölüme ýakynlary Hisnul Muslimda saklanan umyt sözleri bilen hem ynjalyp bolýar (hisn-150–152). Jan alynanda gözleri ýumuň we göz ýummak duasyny ulanyň (öňki mowzuk).",
+      "Ýokary sesli aglamakdan we Allahy gaharlandyrýan sözden gaça duruň. Maşgala gowy zat aýtmaly, çünki perişdeler olaryň sözlerine amin diýýärler (Sahih Muslim 920).",
+    ],
+    actions: [
+      "Ölüme ýakyn adama şehadeti ýuwaşlyk bilen ýatlatyň.",
+      "Otagy arkaýyn saklaň we gowy söz bilen dolduryň.",
+    ],
+    hadith: [
+      {
+        excerpt: "Ölüme ýakynlaryňyzy: la ilaha illallah diýmäge höweslendiriň.",
+      },
+      {
+        excerpt:
+          "Kimin soňky sözleri «Allahdan başga ybadat edilmäge mynasyp hiç kim ýok» bolsa, ol Jennete girer.",
+      },
+    ],
+    appLinks: [{ label: "Ömrüň umyt dualary" }, { label: "Gözleri ýummak" }],
+  },
+  {
+    title: "Teselli we ýas tutýanlar",
+    summary: "Dirileri pygamberlik musibat duasy bilen ynjaladyň.",
+    body: [
+      "Umm Salamah, Allahyň Resulynyň ﷺ: «Hiç bir musulman musibete uçrap, Allahyň buýranyny aýtmasa — „Biz Allaha degişli we Oňa gaýdarys. Eý Allah, musibetimde maňa sowap ber we ony maňa has gowy zat bilen çalyş“ — Allah ony olara has gowy zat bilen çalyşar» diýendigini habar berdi (Sahih Muslim 918). Hisnul Muslim bu lafzy saklaýar (hisn-154).",
+      "Gysga, dogry sözler bilen teselli beriň; maşgalany myhmançylyk ýüküne salman, merhumyň maşgalasyna nahar taýýarlaň (Ebu Dawud 3132 — Jaferiň maşgalasy baradaky habar). Subutnamasyz bellenen günli bidgat dabaralardan gaça duruň, şahsy dua, sadaka we rehimliligi dowam ediň.",
+      "Gözýaşly gynanç rugsat edilýär; aglamak, ýüze urmak we eşik ýyrtmak gadagan edilipdi. Jaýlanandan soň dul aýallara, ýetimlere we garaşlylara kanuny kömek ediň.",
+    ],
+    actions: [
+      "Ýas tutýanlara musibat duasyny öwrediň.",
+      "Zýýapat garaşmak ýerine nahar we işlerde kömek ediň.",
+      "Merhum üçin arkaýyn dua we sadakany dowam ediň.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Hiç bir musulman musibete uçrap, Allaha gaýdyş baradaky buýrulan sözleri aýdyp, has gowy zat bilen çalyşmagy dilese, Allah ony has gowy zat bilen çalyşar.",
+      },
+    ],
+    appLinks: [{ label: "Sadaka maksatlary" }],
+  },
 ];

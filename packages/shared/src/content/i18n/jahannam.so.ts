@@ -472,6 +472,99 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Dambiyada halaagga",
+    summary: "Toddobada dembi ee halaagga ah, dambiyada waaweyn iyo digniinta xuquuqda dadka.",
+    body: [
+      "Qur'aanka iyo Sunnadu waxay culayska dembiga ku sheegaan digniin; tani ma aha kala-sarraynta Miisaanka.",
+      "Nebigu ﷺ wuxuu amray in laga fogaado toddobada dembi ee halaagga ah.",
+      "Qofka ku xadgudba xuquuqda dadka waxaa laga siin karaa xasanaadkiisa.",
+      "Ha ka quusanina naxariista Alle; albaabka tawbaddu wuu furan yahay ilaa geerida.",
+      "Marka laga reebo qof ku dhinta shirkiisii isaga oo aan toobad keenin, Alle wuu cafiyaa cidda uu doono.",
+    ],
+    destructiveItems: [
+      {
+        title: "Shirki",
+        summary: "In Alle lala wadaajiyo cid kale waa dembiga ugu weyn.",
+      },
+      {
+        title: "Sixir",
+        summary: "Ku shaqaynta sixirku waxay ka mid tahay dambiyada halaagga.",
+      },
+      {
+        title: "Dil aan xaq ahayn",
+        summary: "Nafta Alle xaaraantimeeyey in la dilo xaq la'aan.",
+      },
+      {
+        title: "Ribo cunid",
+        summary: "Ribada iyo dulsaarku waa dembi culus.",
+      },
+      {
+        title: "Maalka agoonta cunid",
+        summary: "In si dulmi ah loo qaato hantida agoonta.",
+      },
+      {
+        title: "Ka cararidda dagaalka",
+        summary: "In dhabarka loo jeediyo marka ciidanku hor socdo.",
+      },
+      {
+        title: "Ku xadgudbidda haweenka dhawrsan",
+        summary: "In haween mu'minaad ah oo dhawrsan lagu eedeeyo sino.",
+      },
+      {
+        title: "Qofka mufliska ah",
+        summary: "Qofka xasanaadkiisa loo qaado si loo bixiyo xuquuqda dadka.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Ha ka quusanina naxariista Alle; albaabka tawbaddu wuu furan yahay ilaa geerida.",
+      },
+      {
+        excerpt:
+          "Marka laga reebo qof ku dhinta shirkiisii isaga oo aan toobad keenin, Alle wuu cafiyaa cidda uu doono.",
+      },
+      {
+        excerpt: "Nebigu ﷺ wuxuu amray in laga fogaado toddobada dembi ee halaagga ah.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Nebigu ﷺ wuxuu amray in laga fogaado toddobada dembi ee halaagga ah.",
+      },
+      {
+        excerpt: "Qofka ku xadgudba xuquuqda dadka waxaa laga siin karaa xasanaadkiisa.",
+      },
+      {
+        excerpt: "Shirki",
+      },
+      {
+        excerpt: "Dil aan xaq ahayn",
+      },
+      {
+        excerpt: "Qofka xasanaadkiisa loo qaado si loo bixiyo xuquuqda dadka.",
+      },
+    ],
+    actions: [
+      "Nebigu ﷺ wuxuu amray in laga fogaado toddobada dembi ee halaagga ah.",
+      "Qofka ku xadgudba xuquuqda dadka waxaa laga siin karaa xasanaadkiisa.",
+      "Ha ka quusanina naxariista Alle; albaabka tawbaddu wuu furan yahay ilaa geerida.",
+    ],
+    appLinks: [
+      {
+        label: "Dambiyada halaagga",
+      },
+      {
+        label: "Ku culus Miisaanka",
+      },
+      {
+        label: "U diyaargarow Miisaan culus",
+      },
+      {
+        label: "Run sheegid",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [

@@ -3340,7 +3340,20 @@
     },
     "versesIntroTv": "Odaberite ajet da ga otvorite u čitaču Qur'ana. Kratki sažeci su edukativni, nisu zamjena za potpuni tefsir.",
     "preparationHabitsHintTv": "Odaberite da otvorite tracker ili uključite/isključite dnevnu namjeru",
-    "characterHintTv": "Odaberite kada ste danas pregledali svoje ponašanje"
+    "characterHintTv": "Odaberite kada ste danas pregledali svoje ponašanje",
+    "mizan": {
+      "panHeavy": "Teška strana",
+      "panLight": "Laka strana",
+      "pansCaption": "Ono što autentični tekstovi nazivaju teškim na Mizanu",
+      "noLeaderboard": "Ove fraze opisuju težinu i vrlina — nisu potpuni božanski poredak svakog djela.",
+      "deedsTitle": "Djela imenovana u tekstovima",
+      "category": {
+        "heavy-on-scale": "Teško na Mizanu",
+        "fills-the-scale": "Ispunjava Mizan",
+        "best-beloved": "Najbolje / najomiljenije",
+        "equal-reward": "Velika izjednačena nagrada"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Nauči",
@@ -4689,7 +4702,15 @@
       "mercy": "Merhamet",
       "supplication": "Molitva"
     },
-    "versesLeadTv": "Odaberite bilo koji ajet da ga otvorite u čitaču Qur'ana."
+    "versesLeadTv": "Odaberite bilo koji ajet da ga otvorite u čitaču Qur'ana.",
+    "mizan": {
+      "weightCallout": "Ništa nije teže na Mizanu vjernika od lijepog ahlaka — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Osobine lijepog ahlaka",
+      "buildsTitle": "Gradi ahlak",
+      "buildsHint": "Vježbajte jednu osobinu odjednom — istinu, strpljenje, milost i pravdu.",
+      "destroysTitle": "Što narušava ahlak",
+      "destroysHint": "Navike na koje tekstovi upozoravaju — dodirnite pločicu za povezanu lekciju."
+    }
   },
   "jahannam": {
     "eyebrow": "Naučite",
@@ -4823,7 +4844,19 @@
       "protection": "Zaštita"
     },
     "versesLeadTv": "Odaberite bilo koji ajet da ga otvorite u čitaču Qur'ana.",
-    "reflectionLeadTv": "Zaustavite se i postavite sebi ova pitanja. Odaberite red da otvorite povezani tracker ili lekciju."
+    "reflectionLeadTv": "Zaustavite se i postavite sebi ova pitanja. Odaberite red da otvorite povezani tracker ili lekciju.",
+    "mizan": {
+      "warningCallout": "Tekstovi upozoravaju riječima kao 'uništavajući' i 'najveći' — to je hijerarhija upozorenja, ne rang-lista Mizana.",
+      "ladder": {
+        "gravest": "Najteža upozorenja",
+        "seven": "Sedam uništavajućih",
+        "consumes": "Troši dobra djela"
+      },
+      "sevenTitle": "Sedam uništavajućih grijeha",
+      "bankruptTitle": "Bankrotirana osoba",
+      "bankruptLink": "Pročitajte o polaganju računa na Posljednjem danu",
+      "hopeCallout": "Ne očajavajte zbog Allahove milosti — On prašta sve grijehe onima koji se vrate (Qur'an 39:53). Umrijeti u širku bez pokejanja je izuzetak koji tekstovi jasno navode."
+    }
   },
   "tour": {
     "eyebrow": "Obilazak sa vodičem",
@@ -5317,7 +5350,7 @@
     "eyebrow": "Naučite",
     "title": "Janazah vodič",
     "subtitle": "Dženaza, umivanje, sahrana i autentične dove",
-    "intro": "Praktični pregled Janazah kao zajedničke obaveze — kako klanjati četiri tekbira bez ruku ili sujuda, i Hisnul Muslim dove za pokojnika.",
+    "intro": "Praktični pregled dženaze kao zajedničke obaveze — četiri tekbira bez rukua i sedžde, Hisnul Muslim dove za muškarce, žene i djecu, te upute za pranje, ukop, šehide i ožalošćene.",
     "section": {
       "obligation": "Obaveza",
       "prepare": "Priprema",

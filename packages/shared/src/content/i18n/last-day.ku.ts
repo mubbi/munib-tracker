@@ -566,6 +566,112 @@ export const LAST_DAY_TOPICS_KU: DeepPartial<LastDayTopic>[] = [
       "لە گۆڤاری نوێژەکەتدا بیر لە خۆشو و دڵسۆزی نیەت بکەرەوە.",
     ],
   },
+  {
+    title: "Kiryarên giran li mîzanê",
+    summary: "Kiryarên biçûk bi ixlas di Roja Qiyametê de giran dibin.",
+    body: [
+      "Xwedê li ixlasê dinêre, ne tenê li zêdebûna kiryarê.",
+      "Ziman, xulq û dil bandora mezin hene.",
+      "Kiryarên baş ên domdar zêde bikin.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Xulqa baş",
+        summary: "Nermî û muameleya baş.",
+        hadith: {
+          excerpt: "Di mîzanê de ji xulqa baş tiştekî girantir nîne.",
+        },
+      },
+      {
+        title: "Du peyv",
+        summary: "Li zimanê sivik, li mîzanê giran.",
+        hadith: {
+          excerpt: "Subhanallahi we bihamdihî, Subhanallahil-azîm.",
+        },
+      },
+      {
+        title: "Elhamdulillah",
+        summary: "Mîzanê tije dike.",
+        hadith: {
+          excerpt: "Elhamdulillah mîzanê tije dike.",
+        },
+      },
+      {
+        title: "Bîtaqe",
+        summary: "Tevhîd ji gunahan girantir dibe.",
+        hadith: {
+          excerpt: "Karta Lâ ilâhe illallah mîzanê giran dike.",
+        },
+      },
+      {
+        title: "Zikra herî baş",
+        summary: "Tevhîd bi ziman bînin.",
+        hadith: {
+          excerpt: "Zikra herî baş Lâ ilâhe illallah e.",
+        },
+      },
+      {
+        title: "Çar peyv",
+        summary: "Peyvên ku Xwedê hez dike.",
+        hadith: {
+          excerpt: "Subhanallah, Elhamdulillah, Lâ ilâhe illallah, Allahu ekber.",
+        },
+      },
+      {
+        title: "Sed tesbîh",
+        summary: "Sed car Subhanallah.",
+        hadith: {
+          excerpt: "Kesê ku rojê sed car Subhanallah bêje, gunehên wî têne baxisîn.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Di wê rojê de mîzan bi edaletê tê danîn.",
+      },
+      {
+        excerpt: "Kîjanî mîzana wî giran be, di jiyaneke razî de ye.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Kiryarên herî hezkirî yên domdar in.",
+      },
+      {
+        excerpt: "Tu qet tiştekî baş biçûk nebîne.",
+      },
+      {
+        excerpt: "Kenîna te sedqe ye.",
+      },
+      {
+        excerpt: "Musilman ew e ku mirov ji dest û zimanê wî ewle ne.",
+      },
+    ],
+    misconceptions: ["Zêdebûna bê ixlas bi tenê bes nîne.", "Kiryarên dilê bêgirîng nînin."],
+    actions: [
+      "Her roj zikr bikin.",
+      "Xulqa xwe baş bikin.",
+      "Kiryarekî domdar hilbijêrin.",
+      "Her tişt bi ixlas bikin.",
+    ],
+    appLinks: [
+      {
+        label: "Zikrê rojane",
+      },
+      {
+        label: "Dua",
+      },
+      {
+        label: "Xwendina Qur'anê",
+      },
+      {
+        label: "Rojnameya sedqeyê",
+      },
+      {
+        label: "Pêşxistina xulqê",
+      },
+    ],
+  },
 ];
 
 export const LAST_DAY_HADITH_KU: DeepPartial<LastDayHadithEntry>[] = [
@@ -697,6 +803,24 @@ export const LAST_DAY_HADITH_KU: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'لەدەستدانی زانیاری' بە واتای لەدەستدانی زانایانی دروست و پراکتیکی زیندوو - نەک کەمیی زانیاری.",
+  },
+  {
+    hadith: {
+      excerpt: "Paqijî nîvê îmanê ye.",
+    },
+    context: "Kiryarên îmanê mîzanê giran dikin.",
+  },
+  {
+    hadith: {
+      excerpt: "Peyva baş sedqe ye.",
+    },
+    context: "Ziman dikare bibê saweba mezin.",
+  },
+  {
+    hadith: {
+      excerpt: "Xwedê ji nermiyê hez dike.",
+    },
+    context: "Nermî di rojane de hilbijêrin.",
   },
 ];
 
@@ -933,6 +1057,18 @@ export const LAST_DAY_QUIZ_KU: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["ڕاست", "هەڵە"],
     explanation:
       "ئایەتەکە دەڵێت هەموویان بەسەریدا تێدەپەڕن؛ خوای گەورە عەقڵان ڕزگار دەکات. زانایان باس لە وردەکارییەکانی کێ دەکەوێت.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

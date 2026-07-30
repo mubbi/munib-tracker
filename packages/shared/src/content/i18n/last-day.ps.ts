@@ -566,6 +566,103 @@ export const LAST_DAY_TOPICS_PS: DeepPartial<LastDayTopic>[] = [
       "د لمانځه په رساله کې د خشوع او اخلاص نیت ته پام وکړئ.",
     ],
   },
+  {
+    title: "په تله کې درنې کړنې",
+    summary: "په اخلاص سره وړې کړنې درنې وي.",
+    body: ["الله اخلاص ته ګوري.", "ژبه، اخلاق او زړه وزن لري.", "دوامدارې نېکۍ زياتې کړئ."],
+    mizanDeeds: [
+      {
+        title: "ښه اخلاق",
+        summary: "ښه چلند.",
+        hadith: {
+          excerpt: "له ښه اخلاقه دروند څه نشته.",
+        },
+      },
+      {
+        title: "دوه کلمې",
+        summary: "پر ژبه سپکې.",
+        hadith: {
+          excerpt: "سبحان الله وبحمده، سبحان الله العظيم.",
+        },
+      },
+      {
+        title: "الحمدلله",
+        summary: "تله ډکوي.",
+        hadith: {
+          excerpt: "الحمدلله تله ډکوي.",
+        },
+      },
+      {
+        title: "پاڼه",
+        summary: "توحيد دروند دی.",
+        hadith: {
+          excerpt: "لا اله الا الله تله درنوي.",
+        },
+      },
+      {
+        title: "غوره ذکر",
+        summary: "توحيد ووايئ.",
+        hadith: {
+          excerpt: "غوره ذکر لا اله الا الله دی.",
+        },
+      },
+      {
+        title: "څلور کلمې",
+        summary: "د الله خوښې کلمې.",
+        hadith: {
+          excerpt: "سبحان الله، الحمدلله، لا اله الا الله، الله اکبر.",
+        },
+      },
+      {
+        title: "سل تسبيح",
+        summary: "د بښنې سبب.",
+        hadith: {
+          excerpt: "سل ځله سبحان الله ګناهونه بښي.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "تله به په انصاف کېښودل شي.",
+      },
+      {
+        excerpt: "د چا تله چې درنه وي، خوشاله ژوند لري.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "غوره عمل دوامدار دی.",
+      },
+      {
+        excerpt: "هيڅ نېکي وړه مه ګڼئ.",
+      },
+      {
+        excerpt: "مسکا صدقه ده.",
+      },
+      {
+        excerpt: "مسلمان هغه دی چې خلک ترې خوندي وي.",
+      },
+    ],
+    misconceptions: ["بې اخلاصه ډېر عمل بس نه دی.", "د زړه عملونه مهم دي."],
+    actions: ["هره ورځ ذکر وکړئ.", "اخلاق ښه کړئ.", "دوامدار عمل وټاکئ.", "په اخلاص پيل وکړئ."],
+    appLinks: [
+      {
+        label: "ورځنی ذکر",
+      },
+      {
+        label: "دعاوې",
+      },
+      {
+        label: "د قرآن لوستل",
+      },
+      {
+        label: "د صدقې يادښت",
+      },
+      {
+        label: "د اخلاقو وده",
+      },
+    ],
+  },
 ];
 
 export const LAST_DAY_HADITH_PS: DeepPartial<LastDayHadithEntry>[] = [
@@ -695,6 +792,24 @@ export const LAST_DAY_HADITH_PS: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "د پوهې له لاسه ورکول په دې معنا دي چې د پوهانو له لاسه ورکول او د ژوندانه عمل - د معلوماتو کمښت نه.",
+  },
+  {
+    hadith: {
+      excerpt: "پاکي نيم ايمان دی.",
+    },
+    context: "ايمان تله درنوي.",
+  },
+  {
+    hadith: {
+      excerpt: "ښه خبره صدقه ده.",
+    },
+    context: "ژبه ثواب راوړي.",
+  },
+  {
+    hadith: {
+      excerpt: "الله نرمي خوښوي.",
+    },
+    context: "هره ورځ نرمي وکړئ.",
   },
 ];
 
@@ -925,6 +1040,18 @@ export const LAST_DAY_QUIZ_PS: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["رښتیا", "دروغ"],
     explanation:
       "ايت وايي ټول به پرې تېرېږي؛ الله تعالی دی هوښیاران وساتی. پوهان د چا د رالویدو په اړه توضیحات بحث کوي.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

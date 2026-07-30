@@ -473,6 +473,107 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Péchés destructeurs",
+    summary:
+      "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+    body: [
+      "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+      "Accomplissez les œuvres avec une intention sincère pour Allah.",
+      "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+      "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+    ],
+    destructiveItems: [
+      {
+        title: "Association à Allah",
+        summary:
+          "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      },
+      {
+        title: "Sorcellerie",
+        summary:
+          "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      },
+      {
+        title: "Meurtre",
+        summary:
+          "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      },
+      {
+        title: "Riba",
+        summary:
+          "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      },
+      {
+        title: "Biens de l’orphelin",
+        summary:
+          "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      },
+      {
+        title: "Fuite du combat",
+        summary:
+          "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      },
+      {
+        title: "Calomnie des femmes chastes",
+        summary:
+          "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      },
+      {
+        title: "Le failli",
+        summary:
+          "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+      },
+      {
+        excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+      },
+      {
+        excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+    ],
+    actions: [
+      "Accomplissez les œuvres avec une intention sincère pour Allah.",
+      "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+      "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+    ],
+    appLinks: [
+      {
+        label: "Péchés destructeurs",
+      },
+      {
+        label: "Lourds sur la Balance",
+      },
+      {
+        label: "Bon caractère",
+      },
+      {
+        label: "Repentance",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [

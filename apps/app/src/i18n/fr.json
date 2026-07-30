@@ -3340,7 +3340,20 @@
     },
     "versesIntroTv": "Sélectionnez un verset pour l'ouvrir dans le lecteur du Qur'an. Les résumés courts sont éducatifs, pas un substitut au tafsir complet.",
     "preparationHabitsHintTv": "Sélectionner pour ouvrir un suivi ou basculer une intention quotidienne",
-    "characterHintTv": "Sélectionnez lorsque vous avez passé en revue votre conduite aujourd'hui"
+    "characterHintTv": "Sélectionnez lorsque vous avez passé en revue votre conduite aujourd'hui",
+    "mizan": {
+      "panHeavy": "Plateau lourd",
+      "panLight": "Plateau léger",
+      "pansCaption": "Ce que les textes authentiques appellent lourd dans la Balance",
+      "noLeaderboard": "Ces expressions décrivent le poids et la vertu — ce n'est pas un classement divin complet de chaque œuvre.",
+      "deedsTitle": "Œuvres nommées dans les textes",
+      "category": {
+        "heavy-on-scale": "Lourd dans la Balance",
+        "fills-the-scale": "Remplit la Balance",
+        "best-beloved": "Meilleur / le plus aimé",
+        "equal-reward": "Grande récompense assimilée"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Apprendre",
@@ -4689,7 +4702,15 @@
       "mercy": "Miséricorde",
       "supplication": "Supplication"
     },
-    "versesLeadTv": "Sélectionnez n'importe quel verset pour l'ouvrir dans le lecteur du Qur'an."
+    "versesLeadTv": "Sélectionnez n'importe quel verset pour l'ouvrir dans le lecteur du Qur'an.",
+    "mizan": {
+      "weightCallout": "Rien n'est plus lourd dans la Balance du croyant que le bon caractère — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Traits du bon caractère",
+      "buildsTitle": "Construit le caractère",
+      "buildsHint": "Pratiquez un trait à la fois — vérité, patience, miséricorde et justice.",
+      "destroysTitle": "Ce qui mine le caractère",
+      "destroysHint": "Habitudes contre lesquelles les textes mettent en garde — touchez une tuile pour la leçon liée."
+    }
   },
   "jahannam": {
     "eyebrow": "Apprendre",
@@ -4823,7 +4844,19 @@
       "protection": "Protection"
     },
     "versesLeadTv": "Sélectionnez n'importe quel verset pour l'ouvrir dans le lecteur du Qur'an.",
-    "reflectionLeadTv": "Faites une pause et posez-vous ces questions. Sélectionnez une ligne pour ouvrir le suivi ou la leçon associée."
+    "reflectionLeadTv": "Faites une pause et posez-vous ces questions. Sélectionnez une ligne pour ouvrir le suivi ou la leçon associée.",
+    "mizan": {
+      "warningCallout": "Les textes avertissent avec des mots comme « destructeurs » et « le plus grand » — c'est une hiérarchie d'avertissement, pas un classement de la Balance.",
+      "ladder": {
+        "gravest": "Avertissements les plus graves",
+        "seven": "Sept destructeurs",
+        "consumes": "Consume les bonnes actions"
+      },
+      "sevenTitle": "Les sept péchés destructeurs",
+      "bankruptTitle": "La personne en faillite",
+      "bankruptLink": "Lire sur la reddition des comptes au Jour Dernier",
+      "hopeCallout": "Ne désespérez pas de la miséricorde d'Allah — Il pardonne tous les péchés à ceux qui reviennent (Qur'an 39:53). Mourir sur le shirk sans repentir est l'exception que les textes clarifient."
+    }
   },
   "tour": {
     "eyebrow": "Visite guidée",
@@ -5317,7 +5350,7 @@
     "eyebrow": "Apprendre",
     "title": "Guide Janazah",
     "subtitle": "Prière funéraire, lavage, enterrement et duas authentiques",
-    "intro": "Un aperçu pratique du Janazah en tant qu'obligation communautaire – comment prier quatre takbirs sans ruku ni sujud, et les duas Hisnul Muslim pour le défunt.",
+    "intro": "Un aperçu pratique de la Janazah comme obligation communautaire — quatre takbirs sans ruku ni sujud, duas Hisnul Muslim pour hommes, femmes et enfants, et conseils pour le lavage, l'enterrement, les martyrs et les endeuillés.",
     "section": {
       "obligation": "Le devoir",
       "prepare": "Préparation",

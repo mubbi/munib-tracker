@@ -592,11 +592,121 @@ export const LAST_DAY_TOPICS_ID: DeepPartial<LastDayTopic>[] = [
     ],
     appLinks: [
       { label: "Dasbor Persiapanku" },
+      { label: "Amal berat di timbangan" },
       { label: "Pelajari Salah" },
       { label: "Pelajari Al-Qur'an" },
       { label: "Pelajari Dua" },
       { label: "Pelajari Akidah" },
       { label: "Pelacak Salah" },
+    ],
+  },
+  {
+    title: "Amal berat di timbangan",
+    summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+    body: [
+      "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+      "Lakukan amal dengan ikhlas karena Allah.",
+      "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Akhlak mulia",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+      {
+        title: "Dua kalimat ringan",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+      {
+        title: "Alhamdulillah memenuhi timbangan",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+      {
+        title: "Kartu syahadat",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+      {
+        title: "Zikir terbaik",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+      {
+        title: "Empat kalimat tercinta",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+      {
+        title: "Subhanallah seratus kali",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+      },
+      {
+        excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+    ],
+    misconceptions: [
+      "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+      "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+    ],
+    actions: [
+      "Lakukan amal dengan ikhlas karena Allah.",
+      "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+      "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      "Lakukan amal dengan ikhlas karena Allah.",
+    ],
+    appLinks: [
+      {
+        label: "Amal berat di timbangan",
+      },
+      {
+        label: "Akhlak mulia",
+      },
+      {
+        label: "Dhikr",
+      },
+      {
+        label: "Tasbeeh",
+      },
+      {
+        label: "Repentance",
+      },
     ],
   },
 ];
@@ -730,6 +840,24 @@ export const LAST_DAY_HADITH_ID: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'Hilangnya ilmu' berarti hilangnya ulama yang benar dan praktik hidup yang nyata — bukan kekurangan informasi.",
+  },
+  {
+    hadith: {
+      excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+    },
+    context: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+  },
+  {
+    hadith: {
+      excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+    },
+    context: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+  },
+  {
+    hadith: {
+      excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+    },
+    context: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
   },
 ];
 
@@ -971,6 +1099,18 @@ export const LAST_DAY_QUIZ_ID: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Benar", "Salah"],
     explanation:
       "Ayat ini menyatakan semua akan melintasinya; Allah menyelamatkan orang-orang yang bertakwa. Para ulama membahas rincian tentang siapa yang terjatuh.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

@@ -582,7 +582,116 @@ export const LAST_DAY_TOPICS_FR: DeepPartial<LastDayTopic>[] = [
       "Remplissez les droits dus à la famille, aux voisins et aux créanciers.",
       "Réfléchissez dans votre journal de prière au khushu et à la sincérité de l’intention.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Lourds sur la Balance" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Lourds sur la Balance",
+    summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+    body: [
+      "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+      "Accomplissez les œuvres avec une intention sincère pour Allah.",
+      "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Bon caractère",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+      {
+        title: "Deux paroles légères",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+      {
+        title: "Alhamdulillah remplit la Balance",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+      {
+        title: "La carte de la shahada",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+      {
+        title: "Le meilleur dhikr",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+      {
+        title: "Quatre paroles aimées",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+      {
+        title: "SubhanAllah cent fois",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+      },
+      {
+        excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+      {
+        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+      },
+    ],
+    misconceptions: [
+      "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+      "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+    ],
+    actions: [
+      "Accomplissez les œuvres avec une intention sincère pour Allah.",
+      "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+      "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
+      "Accomplissez les œuvres avec une intention sincère pour Allah.",
+    ],
+    appLinks: [
+      {
+        label: "Lourds sur la Balance",
+      },
+      {
+        label: "Bon caractère",
+      },
+      {
+        label: "Dhikr",
+      },
+      {
+        label: "Tasbeeh",
+      },
+      {
+        label: "Repentance",
+      },
+    ],
   },
 ];
 
@@ -717,6 +826,24 @@ export const LAST_DAY_HADITH_FR: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "La « perte de connaissances » signifie la perte d'érudits compétents et de pratiques vécues – et non une pénurie d'informations.",
+  },
+  {
+    hadith: {
+      excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+    },
+    context: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+  },
+  {
+    hadith: {
+      excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+    },
+    context: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+  },
+  {
+    hadith: {
+      excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+    },
+    context: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
   },
 ];
 
@@ -969,6 +1096,18 @@ export const LAST_DAY_QUIZ_FR: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Vrai", "FAUX"],
     explanation:
       "Le verset déclare que tout passera par-dessus ; Allah sauve les conscients. Les érudits discutent des détails de la chute.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

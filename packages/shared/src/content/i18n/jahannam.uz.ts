@@ -471,6 +471,98 @@ export const JAHANNAM_CORE_TOPICS_UZ: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Halokatga olib boruvchi gunohlar",
+    summary: "Allohning rahmatidan uzoqlashtiradigan katta gunohlardan saqlaning.",
+    body: [
+      "Katta gunohlar Qur'on va Sunnatda qattiq ogohlantirilgan.",
+      "Tavba eshigi o'limgacha ochiq.",
+      "Gunohni tark eting, afsuslaning va qaytmaslikka ahd qiling.",
+      "Bandalarning haqqini qaytarish tavbaning bir qismidir.",
+      "Allohning rahmatidan noumid bo'lmang.",
+    ],
+    destructiveItems: [
+      {
+        title: "Shirk",
+        summary: "Allohga sherik keltirish eng katta zulmdir.",
+      },
+      {
+        title: "Sehr",
+        summary: "Sehr qilish yoki sehrgarga borish harom.",
+      },
+      {
+        title: "Qotillik",
+        summary: "Begunoh jonni o'ldirish o'ta og'ir jinoyat.",
+      },
+      {
+        title: "Sudxo'rlik",
+        summary: "Ribo olish va berish harom.",
+      },
+      {
+        title: "Yetim moli",
+        summary: "Yetimning molini nohaq yeyish.",
+      },
+      {
+        title: "Jangdan qochish",
+        summary: "Haq urushda maydonni tashlab qochish.",
+      },
+      {
+        title: "Pok insonlarga tuhmat",
+        summary: "Iffatli mo'minga zina tuhmatini qilish.",
+      },
+      {
+        title: "Muflislik",
+        summary: "Qiyomatda boshqalarning haqi sabab savobdan ayrilish.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Alloh O'ziga shirk keltirilishini kechirmaydi.",
+      },
+      {
+        excerpt: "Kim bir jonni nohaq o'ldirsa, go'yo barcha odamlarni o'ldirgandek.",
+      },
+      {
+        excerpt: "Yetimlarning molini zulm bilan yeganlar qorinlariga olov yeydilar.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Yetti halokatli gunohdan saqlaninglar.",
+      },
+      {
+        excerpt: "Muflis namoz va ro'za bilan kelib, odamlarga zulm qilgan kishidir.",
+      },
+      {
+        excerpt: "Shirkdan saqlaninglar.",
+      },
+      {
+        excerpt: "Tavba qiluvchi gunohsiz kabidir.",
+      },
+      {
+        excerpt: "Alloh bandasining tavbasidan xursand bo'ladi.",
+      },
+    ],
+    actions: [
+      "Chin tavba qiling.",
+      "Bandalarning haqqini qaytaring.",
+      "Gunohga eltuvchi yo'llardan uzoqlashing.",
+    ],
+    appLinks: [
+      {
+        label: "Tavba duolari",
+      },
+      {
+        label: "Namoz kuzatuvi",
+      },
+      {
+        label: "Qarz va omonatlar",
+      },
+      {
+        label: "Kundalik zikr",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_UZ: DeepPartial<JahannamTopic>[] = [

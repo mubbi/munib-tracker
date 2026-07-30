@@ -214,4 +214,137 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Tekbir pas tekbiri — hapat e namazit",
+    summary: "Një listë praktike e katër tekbireve dhe asaj që vjen ndërmjet tyre.",
+    body: [
+      "Tekbiri i parë: ngrini duart (sipas shkollës suaj), thoni Allahu Ekber, pastaj lexoni suren el-Fatiha. Ibn Abbasi e lexoi el-Fatihanë në namazin e xhenazes dhe tha se ishte nga suneti (Sahih el-Bukhari 1335).",
+      "Tekbiri i dytë: dërgoni salavat mbi Profetin ﷺ — i njëjti salavat ibrahimik që përdoret në teshahhud mësohet gjerësisht për këtë hap. Tekbiri i tretë: bëni dua të sinqertë për të ndjerin (formulimet Hisnul Muslim në këtë udhëzues). Tekbiri i katërt: shumë dijetarë pastaj bëjnë një dua të shkurtër të përgjithshme, pastaj përfundojnë me taslim djathtas (dhe majtas, sipas shkollës).",
+      "Nuk ka ruku, suxhud as ulje. Qëndroni gjithë kohën. Nëse janë të pranishme disa xhenaze, në shumë komunitete falet një Xhenazah me nijet për të gjithë — ndiqni imamin. Vendosja e salavatit kundrejt duasë mund të ndryshojë pak sipas medhhebit; korniza e katër tekbireve është e përbashkët.",
+    ],
+    madhhabNote:
+      "Manuale hanefite, malikite, shafiite dhe hanbelite ndryshojnë nëse duart ngrihen në çdo tekbir dhe saktësisht kur thuhet dua. Ndiqni imamin para jush.",
+    actions: [
+      "Mësoni sekuencën e katër tekbireve para se t’ju duhet.",
+      "Memorizoni Fatihanë, salavatin dhe të paktën një dua xhenazeje.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Ibn Abbasi fali namazin e xhenazes dhe lexoi Fatihanë, duke thënë se ishte nga suneti.",
+      },
+    ],
+  },
+  {
+    title: "Dua për burra, gra dhe fëmijë",
+    summary: "Të njëjtat formulime profetike — përshtatni përemrat arabisht me të ndjerin.",
+    body: [
+      "Hisnul Muslim (dhe përmbledhjet klasike të haditheve) i regjistrojnë duat e Xhenazes kryesisht në formën mashkullore. Kjo nuk do të thotë një dua të veçantë 'të shpikur' për gratë. Dijetarët kryesorë mësojnë se mund ta mbani formulimin mashkullor me nijet për personin, ose — më mirë dhe zakonisht — ta ndryshoni gramatikën që të përputhet me të ndjerin: لَهُ / هُ / هِ → لَهَا / هَا; عَبْدُكَ → أَمَتُكَ; ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ; dhe për një vajzë اجْعَلْهُ → اجْعَلْهَا, شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Për një grua të ndjerë, disa dijetarë këshillojnë kujdes me frazën 'bashkëshort më të mirë se bashkëshorti i saj' (زَوْجًا خَيْرًا مِنْ زَوْجِهَا), duke vënë në dukje se ajo mund të ribashkohet me burrin e saj në Xhenet — mund ta hiqni atë klauzolë ose të mbani një formulim të përgjithshëm. Për fëmijët, përdorni zërat Hisnul specifikë për fëmijë (hisn-160, hisn-161) në vend të vetëm teksteve për të rritur të përqendruara te falja.",
+      "Formulimi kolektiv 'fal meshkujt dhe femrat tona' (hisn-157) tashmë mbulon të dy gjinitë pa ndryshim. Ne nuk shpikim arabisht të re përtej përshtatjes gramatikore të teksteve autentike — hapni duanë e lidhur për të rritur si bazë dhe zbatoni hartën e përemrave më sipër.",
+    ],
+    madhhabNote:
+      "Si mbajtja e formave mashkullore me nijet ashtu edhe përshtatja e formave femërore pranohen ndër dijetarët kryesorë. Kur jeni të pasigurt, përdorni hisn-157 (meshkuj dhe femra) ose pyesni imamin.",
+    actions: [
+      "Praktikoni ndërrimet e përemrave femërorë për duanë që memorizoni.",
+      "Përdorni dua specifike për fëmijë për ata që nuk kanë arritur pubertetin.",
+      "Preferoni autenticitetin ndaj fletushkave të gjata të paprovuara.",
+    ],
+    appLinks: [{ label: "Dua e xhenazes për të rritur #1" }],
+  },
+  {
+    title: "Dëshmorët, aborti dhe rastet e veçanta",
+    summary: "Kur rregullat e larjes ose të Xhenazes ndryshojnë nga rasti i zakonshëm.",
+    body: [
+      "Dëshmorët e fushës së betejës që vdesin në luftë, sipas gjykimit klasik të nxjerrë nga Uhudi, varrosen me rrobat e tyre pa ghuslin e zakonshëm; Profeti ﷺ urdhëroi që dëshmorët e Uhudit të varroseshin me gjakun e tyre dhe pa u larë (Sahih el-Bukhari 1346). Kategoritë e tjera të quajtura 'dëshmorë' në shpërblim (p.sh. murtaja, mbytja) zakonisht marrin larje dhe Xhenazah — pyesni një dijetar për rastet kufitare.",
+      "Për abortin ose fëmijën e vdekurlindur, shkollat ndryshojnë se kur zbatohet namazi i xhenazes dhe larja e plotë (shpesh e lidhur me faktin nëse është gjykuar se ka ndodhur një formë e njohshme ose faza e fryrjes së shpirtit). Një hadith nxit faljen mbi abortin dhe kërkimin e faljes e mëshirës për prindërit (Ebu Davud 3180). Ndiqni komitetin e xhenazes të medhhebit tuaj në vend që të hamendësoni.",
+      "Të afërmve jo-muslimanë nuk u jepet namazi musliman i Xhenazes; mirësia, ndihma e ligjshme e varrimit ku është e zbatueshme dhe hidhërimi personal janë të ndara nga namazi ritual për besimtarët. Rastet e veçanta konfirmojini gjithmonë me udhëzim lokal të kualifikuar.",
+    ],
+    madhhabNote:
+      "Përkufizimet e dëshmorisë së fushës së betejës, fazave të abortit dhe namazit mbi fëmijën e vdekurlindur ndryshojnë sipas shkollës. Kjo temë shënon çështjet — nuk është fetva.",
+    disclaimer:
+      "Rregullat e veçanta janë të ndjeshme. Konfirmojini me një dijetar të kualifikuar ose shërbimin e xhenazes të komunitetit tuaj para se të veproni.",
+    actions: [
+      "Mos e lani një dëshmor të fushës së betejës kundër udhëzimit të dijetarëve.",
+      "Pyesni komitetin e xhenazes për rastet e abortit ose lindjes së vdekur.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Profeti ﷺ urdhëroi që dëshmorët e Uhudit të varroseshin me gjakun e tyre dhe nuk u lanë.",
+      },
+      {
+        excerpt: "Namazi i xhenazes falet mbi abortin dhe për prindërit lutet falje e mëshirë.",
+      },
+    ],
+  },
+  {
+    title: "Xhenazah në mungesë",
+    summary: "Profeti ﷺ fali për Negusin kur trupi ishte larg.",
+    body: [
+      "Xhabiri raportoi se Profeti ﷺ doli te shokët e tij, i radhiti dhe tha katër tekbire për Negusin (el-Nexhashi), mbretin abisinian që kishte vdekur jashtë (Sahih el-Bukhari 1334; Sahih Muslim 952). Ky është dëshmia kryesore për Salat el-Xhenazah në mungesë (alā al-ghā'ib).",
+      "Shkollat ndryshojnë se sa gjerësisht të zbatohet ai precedent: disa e kufizojnë në raste si Negusi (pa namaz lokal musliman), të tjerat e lejojnë më gjerësisht kur trupi është larg. Mos e anashkaloni Xhenazahën lokale kur trupi është i pranishëm dhe komuniteti mund të falë. Pyesni një dijetar lokal të besueshëm se kur namazi në mungesë është i përshtatshëm në shkollën tuaj.",
+      "Forma është i njëjti namaz me katër tekbire; nijeti është për të ndjerin e munguar. Përdorni të njëjtat dua autentike, duke përshtatur gjininë sipas nevojës.",
+    ],
+    madhhabNote:
+      "Shtrirja e Xhenazahës në mungesë është një pikë e njohur e dallimit. Preferoni praktikën e imamëve të kualifikuar në komunitetin tuaj.",
+    actions: [
+      "Falni lokalisht sa herë që trupi është i pranishëm.",
+      "Pyesni para se të organizoni një Xhenazah në mungesë si ngjarje publike.",
+    ],
+    hadith: [
+      {
+        excerpt: "Profeti ﷺ fali namazin e xhenazes për Negusin dhe tha katër tekbire.",
+      },
+      {
+        excerpt:
+          "I Dërguari i Allahut ﷺ i radhiti shokët dhe fali për Negusin, duke thënë katër tekbire.",
+      },
+    ],
+  },
+  {
+    title: "Te shtrati i vdekjes — fjalët e fundit",
+    summary: "Nxitni me butësi të vdekurin që të thotë la ilaha illallah.",
+    body: [
+      "Profeti ﷺ tha: 'Nxitni të vdekurit tuaj që të thonë la ilaha illallah' (Sahih Muslim 916; Ebu Davud 3117). Hisnul Muslim ruan udhëzimin se kushdo që fjalët e fundit të tij janë 'Askush nuk ka të drejtë të adhurohet përveç Allahut' do të hyjë në Xhenet (hisn-153, nga Ebu Davud 3116).",
+      "Nxitni me butësi dhe pa ashpërsi; mos detyroni dhe mos u grindni. Ata afër vdekjes mund të ngushëllohen edhe me fjalë autentike shprese të ruajtura në Hisnul Muslim (hisn-150–152). Mbyllni sytë kur merret shpirti dhe përdorni duanë e mbylljes së syve (tema e mëparshme).",
+      "Shmangni vajtimin e fortë dhe fjalën që zemëron Allahun. Familja duhet të thotë atë që është e mirë, sepse engjëjt thonë amin për fjalët e tyre (Sahih Muslim 920).",
+    ],
+    actions: [
+      "Kujtojini me butësi të vdekurit shehadetin.",
+      "Mbajeni dhomën të qetë dhe të zënë me fjalë të mira.",
+    ],
+    hadith: [
+      {
+        excerpt: "Nxitni të vdekurit tuaj që të thonë: la ilaha illallah.",
+      },
+      {
+        excerpt:
+          "Ai që fjalët e fundit të tij janë 'Askush nuk ka të drejtë të adhurohet përveç Allahut' do të hyjë në Xhenet.",
+      },
+    ],
+    appLinks: [{ label: "Duat e shpresës së jetës" }, { label: "Mbyllja e syve" }],
+  },
+  {
+    title: "Ngushëllimi dhe të zhuriturit",
+    summary: "Ngushëlloini të gjallët me duanë profetike të fatkeqësisë.",
+    body: [
+      "Umm Seleme raportoi se i Dërguari i Allahut ﷺ tha: 'Nuk ka musliman që goditet nga një fatkeqësi dhe pastaj thotë atë që ka urdhëruar Allahu — \"Ne i përkasim Allahut dhe tek Ai kthehemi. O Allah, më shpërble në fatkeqësinë time dhe ma zëvendëso me diçka më të mirë\" — por Allahu ia zëvendëson me diçka më të mirë' (Sahih Muslim 918). Hisnul Muslim ruan këtë formulim (hisn-154).",
+      "Ofroni ngushëllime me fjalë të shkurtra e të vërteta; përgatitni ushqim për familjen e të ndjerit në vend që t’i ngarkoni me mikpritje (Ebu Davud 3132 — raporti për familjen e Xhaferit). Shmangni ceremonitë e rinjohura të ditëve të fiksuara pa prova, duke vazhduar duanë private, sadakanë dhe mirësinë.",
+      "Hidhërimi me lot lejohet; vajtimi, goditja e faqeve dhe grisja e rrobave u ndaluan. Mbështetni të vejat, jetimët dhe të varurit me ndihmë të ligjshme pas varrimit.",
+    ],
+    actions: [
+      "Mësojuni të zhuriturve duanë e fatkeqësisë.",
+      "Ndihmoni me ushqim dhe punë në vend që të prisni një festë.",
+      "Vazhdoni duanë e qetë dhe sadakanë për të ndjerin.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Asnjë musliman nuk goditet nga fatkeqësia dhe thotë fjalët e urdhëruara të kthimit te Allahu e kërkon zëvendësim me më të mirë, por Allahu ia zëvendëson me diçka më të mirë.",
+      },
+    ],
+    appLinks: [{ label: "Qëllimet e sadakasë" }],
+  },
 ];

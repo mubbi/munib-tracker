@@ -213,4 +213,136 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Takbira kwa takbira — hatua za swala",
+    summary: "Orodha ya vitendo ya takbira nne na kile kinachokuja kati yake.",
+    body: [
+      "Takbira ya kwanza: inua mikono (kulingana na shule yako), sema Allahu Akbar, kisha soma Surat al-Fatihah. Ibn Abbas alisome al-Fatihah katika swala ya maiti akasema ni kutoka sunnah (Sahih al-Bukhari 1335).",
+      "Takbira ya pili: peleka salawat juu ya Mtume ﷺ — salawat ya Ibrahimiyya ileile inayotumika katika tashahhud inafundishwa sana kwa hatua hii. Takbira ya tatu: toa dua ya dhati kwa marehemu (maneno ya Hisnul Muslim katika mwongozo huu). Takbira ya nne: wanazuoni wengi hutoa dua fupi ya jumla, kisha wamaliza kwa taslim upande wa kulia (na kushoto, kulingana na shule).",
+      "Hakuna rukuu, sujudi, wala kukaa. Simama muda wote. Ikiwa majanaza kadhaa yapo, Janazah moja yenye nia kwa wote inafanywa katika jamii nyingi — mfuateni imamu. Mahali pa salawat dhidi ya dua yanaweza kubadilika kidogo kwa madhhab; mfumo wa takbira nne ni wa pamoja.",
+    ],
+    madhhabNote:
+      "Vitabu vya Hanafi, Maliki, Shafi'i, na Hanbali vinatofautiana iwapo mikono inainuliwa kila takbira na hasa lini dua husemwa. Mfuateni imamu aliye mbele yenu.",
+    actions: [
+      "Jifunze mpangilio wa takbira nne kabla ya kuhitaji.",
+      "Kariri Fatihah, salawat, na angalau dua moja ya mazishi.",
+    ],
+    hadith: [
+      {
+        excerpt: "Ibn Abbas aliswali swala ya maiti na akasoma Fatihah akisema ni kutoka sunnah.",
+      },
+    ],
+  },
+  {
+    title: "Dua kwa wanaume, wanawake, na watoto",
+    summary: "Maneno yale yale ya kinabii — rekebisha viwakilishi vya Kiarabu kwa marehemu.",
+    body: [
+      "Hisnul Muslim (na makusanyo ya hadithi ya kale) hurekodi dua za Janazah hasa kwa umbo la kiume. Hilo halimaanishi dua tofauti 'iliyobuniwa' kwa wanawake. Wanazuoni wa jumla hufundisha kuwa unaweza kubaki na maneno ya kiume ukiwa na nia kwa mtu huyo, au — bora zaidi na kwa kawaida — ubadilishe sarufi ili ifanane na marehemu: لَهُ / هُ / هِ → لَهَا / هَا؛ عَبْدُكَ → أَمَتُكَ؛ ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ؛ na kwa mtoto wa kike اجْعَلْهُ → اجْعَلْهَا، شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Kwa mwanamke aliyefariki, wanazuoni wengine wanashauri uangalifu kwa kifungu 'mume bora kuliko mume wake' (زَوْجًا خَيْرًا مِنْ زَوْجِهَا), wakibainisha anaweza kuunganishwa tena na mumewe Peponi — unaweza kuacha kifungu hicho au kubaki na maneno ya jumla. Kwa watoto, tumia maingizo maalum ya Hisnul ya watoto (hisn-160, hisn-161) badala ya maandishi ya watu wazima yanayolenga msamaha pekee.",
+      "Maneno ya pamoja 'wasamehe wanaume wetu na wanawake wetu' (hisn-157) tayari yanajumuisha jinsia zote bila kubadilisha. Hatubuni Kiarabu kipya zaidi ya kurekebisha sarufi ya maandishi sahihi — fungua dua ya mtu mzima iliyounganishwa kama msingi na utumie ramani ya viwakilishi hapo juu.",
+    ],
+    madhhabNote:
+      "Kubaki na umbo la kiume kwa nia na kurekebisha umbo la kike vyote vinakubaliwa miongoni mwa wanazuoni wa jumla. Ukiwa na shaka, tumia hisn-157 (wanaume na wanawake) au muulize imamu.",
+    actions: [
+      "Fanya mazoezi ya kubadilisha viwakilishi vya kike katika dua unayokariri.",
+      "Tumia dua maalum za watoto kwa wale ambao bado hawajafikia baligh.",
+      "Pendekeza uhalali kuliko vijitabu virefu visivyothibitishwa.",
+    ],
+    appLinks: [{ label: "Dua ya mazishi ya mtu mzima #1" }],
+  },
+  {
+    title: "Mashahidi, kuharibika kwa mimba, na hali maalum",
+    summary: "Wakati hukumu za kuosha au Janazah zinapotofautiana na hali ya kawaida.",
+    body: [
+      "Mashahidi wa uwanja wa vita wanaokufa vitani, katika hukumu ya kale inayotokana na Uhud, huzikwa katika nguo zao bila ghusl ya kawaida; Mtume ﷺ aliamuru mashahidi wa Uhud wazikwe pamoja na damu zao bila kuoshwa (Sahih al-Bukhari 1346). Makundi mengine yanayoitwa 'mashahidi' katika thawabu (k.m. tauni, kuzama) kwa kawaida huoshwa na hupata Janazah — mwulize mwanazuoni katika hali za pembeni.",
+      "Kwa kuharibika kwa mimba au mtoto aliyezaliwa amekufa, shule zinotofautiana lini swala ya maiti na kuosha kamili hutumika (mara nyingi kunahusiana na iwapo umbo linalotambulika au hatua ya kuvuta roho imeonekana). Hadithi inahimiza kuswali juu ya mimba iliyoharibika na kutafuta msamaha na rehema kwa wazazi (Abu Dawud 3180). Fuata kamati ya mazishi ya madhhab yako badala ya kukisia.",
+      "Ndugu wasio Waislamu hawapewi swala ya Janazah ya Kiislamu; wema, msaada wa kisheria wa kuzika inapohitajika, na huzuni binafsi ni tofauti na swala ya ibada kwa waumini. Thibitisha daima hali maalum kwa mwongozo wa ndani wenye sifa.",
+    ],
+    madhhabNote:
+      "Ufafanuzi wa ushahidi wa uwanja wa vita, hatua za kuharibika kwa mimba, na swala juu ya mtoto aliyezaliwa amekufa hutofautiana kwa shule. Mada hii inaonyesha masuala — si fatwa.",
+    disclaimer:
+      "Hukumu maalum ni nyeti. Thibitisha na mwanazuoni mwenye sifa au huduma ya mazishi ya jamii yako kabla ya kutenda.",
+    actions: [
+      "Usimuoshe shahidi wa uwanja wa vita kinyume cha maagizo ya wanazuoni.",
+      "Uliza kamati ya mazishi kuhusu kesi za kuharibika kwa mimba au kuzaliwa amekufa.",
+    ],
+    hadith: [
+      {
+        excerpt: "Mtume ﷺ aliamuru mashahidi wa Uhud wazikwe pamoja na damu zao, na hawakuoshwa.",
+      },
+      {
+        excerpt:
+          "Swala ya maiti hutolewa juu ya mimba iliyoharibika, na wazazi huombelea msamaha na rehema.",
+      },
+    ],
+  },
+  {
+    title: "Janazah bila kuwepo kwa mwili",
+    summary: "Mtume ﷺ alimsvalia Negus wakati mwili ulikuwa mbali.",
+    body: [
+      "Jabir aliripoti kwamba Mtume ﷺ alitoka kwa Masahaba wake, akawaweka safu, na akatoa takbira nne kwa Negus (al-Najashi), mfalme wa Kihabeshi aliyekufa nje (Sahih al-Bukhari 1334; Sahih Muslim 952). Hii ndiyo dalili kuu ya Salat al-Janazah bila kuwepo (alā al-ghā'ib).",
+      "Shule zinotofautiana jinsi ya kutumia mfano huo kwa upana: baadhi huupunguza kwa hali kama za Negus (hakuna swala ya Kiislamu ya ndani), wengine huruhusu zaidi mwili ukiwa mbali. Usiruke Janazah ya ndani mwili ukiwepo na jamii inaweza kuswali. Fuata mwanazuoni wa ndani anayeaminika kwa lini swala bila kuwepo inafaa katika shule yako.",
+      "Umbo ni swala ileile ya takbira nne; nia ni kwa marehemu asiye po. Tumia dua zile zile sahihi, ukirekebisha jinsia inapohitajika.",
+    ],
+    madhhabNote:
+      "Wigo wa Janazah bila kuwepo ni tofauti inayojulikana. Pendekeza mazoea ya mamu wenye sifa katika jamii yako.",
+    actions: [
+      "Sali ndani kila mwili ukiwepo.",
+      "Uliza kabla ya kuandaa Janazah bila kuwepo kama tukio la umma.",
+    ],
+    hadith: [
+      {
+        excerpt: "Mtume ﷺ aliswali swala ya maiti kwa Negus na akatoa takbira nne.",
+      },
+      {
+        excerpt:
+          "Mtume wa Allah ﷺ aliwaweka Masahaba safu na akamsvalia Negus, akitoa takbira nne.",
+      },
+    ],
+  },
+  {
+    title: "Kwenye kitanda cha kifo — maneno ya mwisho",
+    summary: "Mhimiza mwenye kufa aseme la ilaha illallah kwa upole.",
+    body: [
+      "Mtume ﷺ alisema: 'Wahimizeni wanaokufa wenu waseme la ilaha illallah' (Sahih Muslim 916; Abu Dawud 3117). Hisnul Muslim inahifadhi maagizo kwamba yeyote maneno yake ya mwisho yakiwa 'Hakuna anayestahiki kuabudiwa isipokuwa Allah' ataingia Peponi (hisn-153, kutoka Abu Dawud 3116).",
+      "Himiza kwa upole bila ukali; usilazimishe wala kubishana. Walio karibu na kifo wanaweza pia kufarijiwa kwa maneno sahihi ya matumaini yaliyohifadhiwa katika Hisnul Muslim (hisn-150–152). Funga macho roho inapochukuliwa na utumie dua ya kufunga macho (mada iliyotangulia).",
+      "Epuka kilio kikubwa na hotuba inayomkasirisha Allah. Watu wa nyumbani waseme yaliyo mema, kwa maana malaika husema amin kwa maneno yao (Sahih Muslim 920).",
+    ],
+    actions: [
+      "Kwa upole mkumbushe mwenye kufa shahadah.",
+      "Weka chumba kimya na kikiwa na hotuba njema.",
+    ],
+    hadith: [
+      {
+        excerpt: "Wahimizeni wanaokufa wenu waseme: la ilaha illallah.",
+      },
+      {
+        excerpt:
+          "Yeyote maneno yake ya mwisho yakiwa 'Hakuna anayestahiki kuabudiwa isipokuwa Allah' ataingia Peponi.",
+      },
+    ],
+    appLinks: [{ label: "Dua za matumaini ya maisha" }, { label: "Kufunga macho" }],
+  },
+  {
+    title: "Pole na waliofiwa",
+    summary: "Wafariji walio hai kwa dua ya kinabii ya msiba.",
+    body: [
+      "Umm Salamah aliripoti kwamba Mtume wa Allah ﷺ alisema: 'Hakuna Mwislamu anayepatwa na msiba kisha akasema aliyoamrishwa na Allah — \"Sisi ni wa Allah na kwake Tunarejea. Ewe Allah, nijaze thawabu katika msiba wangu na unibadilishie kitu bora\" — ila Allah atambadilishia kitu bora' (Sahih Muslim 918). Hisnul Muslim inahifadhi maneno haya (hisn-154).",
+      "Toa pole kwa maneno mafupi ya kweli; andaa chakula kwa familia ya marehemu badala ya kuwakabidhi mzigo wa kuwaandaa wageni (Abu Dawud 3132 — ripoti kuhusu familia ya Ja'far). Epuka sherehe za uvumbuzi za siku zilizowekwa bila dalili huku ukiendelea na dua ya faragha, sadaqah, na wema.",
+      "Huzuni yenye machozi inaruhusiwa; kilio, kupiga mashavu, na kurarua nguo vilikatazwa. Saidia wajane, mayatima, na wategemezi kwa msaada wa halali baada ya kuzika.",
+    ],
+    actions: [
+      "Wafundishe waliofiwa dua ya msiba.",
+      "Saidia kwa chakula na shughuli badala ya kutarajia karamu.",
+      "Endelea na dua tulivu na sadaqah kwa marehemu.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Hakuna Mwislamu anayepatwa na msiba akasema maneno yaliyoamrishwa ya kurejea kwa Allah na akaomba badala bora, ila Allah humbadilishia bora.",
+      },
+    ],
+    appLinks: [{ label: "Malengo ya sadaqah" }],
+  },
 ];

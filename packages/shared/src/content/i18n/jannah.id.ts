@@ -425,7 +425,110 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Maafkanlah orang lain dan perbaikilah hubungan yang putus.",
       "Renungkan akhlakmu setelah salah dalam jurnal harian.",
     ],
-    appLinks: [{ label: "Jurnal khusyuk & akhlak" }],
+    appLinks: [
+      { label: "Jurnal khusyuk & akhlak" },
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Kejujuran",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Kesabaran",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Menahan marah",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Memaafkan",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Rendah hati",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Amanah",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Berbakti kepada orang tua",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+        },
+      },
+      {
+        title: "Ucapan baik",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+      {
+        title: "Senyuman",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        hadith: {
+          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+        },
+      },
+      {
+        title: "Keadilan",
+        summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+        quran: {
+          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Dusta",
+      },
+      {
+        title: "Ghibah",
+      },
+      {
+        title: "Fitnah",
+      },
+      {
+        title: "Sombong",
+      },
+      {
+        title: "Kezaliman",
+      },
+      {
+        title: "Mengingkari janji",
+      },
+      {
+        title: "Mengejek",
+      },
+      {
+        title: "Kekasaran",
+      },
+    ],
   },
   {
     // knowledge

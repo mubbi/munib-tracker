@@ -213,4 +213,135 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Takbir bayan takbir — matakan sallah",
+    summary: "Jerin aiki na takbirai hudu da abin da ke tsakaninsu.",
+    body: [
+      "Takbir na farko: ɗaga hannaye (bisa makarantarka), ka ce Allahu Akbar, sa'an nan ka karanta Surat al-Fatihah. Ibn Abbas ya karanta al-Fatihah a sallar jana'iza ya ce daga sunnah ce (Sahih al-Bukhari 1335).",
+      "Takbir na biyu: aika salawat ga Annabi ﷺ — irin salawat Ibrahimiyya da ake amfani da ita a tashahhud an koyar da ita sosai a wannan mataki. Takbir na uku: yi addu'a ta gaskiya ga mamaci (lafuzzan Hisnul Muslim a cikin wannan jagora). Takbir na hudu: malami da yawa sai su yi ɗan gajeren addu'a na gama-gari, sa'an nan a kare da taslim zuwa dama (da hagu, bisa makaranta).",
+      "Babu ruku'u, sujuda, ko zama. Ka tsaya duka. Idan jana'izori da yawa suna nan, sallar Janazah ɗaya da niyya ga duka ana yi a al'ummomi da yawa — ka bi liman. Matsayin salawat da dua na iya ɗan canzawa bisa madhhab; tsarin takbirai hudu na gama gari ne.",
+    ],
+    madhhabNote:
+      "Littattafan Hanafi, Maliki, Shafi'i, da Hanbali sun bambanta kan ko a ɗaga hannaye a kowace takbir da ainihin lokacin da ake yin dua. Ka bi liman da ke gabanka.",
+    actions: [
+      "Koyi jerin takbirai hudu kafin ka buƙace shi.",
+      "Haddace Fatihah, salawat, da aƙalla addu'ar jana'iza ɗaya.",
+    ],
+    hadith: [
+      {
+        excerpt: "Ibn Abbas ya yi sallar jana'iza ya karanta Fatihah, yana cewa daga sunnah ce.",
+      },
+    ],
+  },
+  {
+    title: "Addu'o'i ga maza, mata, da yara",
+    summary: "Iri ɗaya na lafuzzan annabci — daidaita karin magana na Larabci ga mamaci.",
+    body: [
+      "Hisnul Muslim (da littafan hadisi na gargajiya) suna rubuta addu'o'in Janazah galibi a siffar namiji. Wannan ba yana nufin wata 'ƙirƙirar' addu'a ta mata ba. Malaman jama'a suna koyar da cewa za ka iya riƙe lafuzzan namiji da niyya ga mutumin, ko — wanda ya fi dacewa kuma ya zama gama gari — canza nahawu ya dace da mamaci: لَهُ / هُ / هِ → لَهَا / هَا؛ عَبْدُكَ → أَمَتُكَ؛ ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ؛ kuma ga yarinya اجْعَلْهُ → اجْعَلْهَا، شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Ga mace da ta rasu, wasu malamai suna ba da shawarar kulawa da jumlar 'mijin da ya fi mijinta' (زَوْجًا خَيْرًا مِنْ زَوْجِهَا), suna lura cewa za a iya haɗa ta da mijinta a Aljannah — za ka iya barin wannan jumla ko riƙe lafazin gama gari. Ga yara, yi amfani da shigarwar Hisnul na yara (hisn-160, hisn-161) maimakon rubutun manya da ke mai da hankali ga gafara kawai.",
+      "Lafazin jama'a 'ka gafarta wa mazanmu da matanmu' (hisn-157) ya riga ya ƙunshi jinsi biyu ba tare da canji ba. Ba mu ƙirƙira sabon Larabci ba sai daidaita nahawu na matani sahihai — buɗe addu'ar babba da aka haɗa a matsayin tushe ka yi amfani da taswirar karin magana a sama.",
+    ],
+    madhhabNote:
+      "Riƙe siffofin namiji da niyya da kuma daidaita siffofin mace duk an yarda da su tsakanin malaman jama'a. Idan ba ka da tabbas, yi amfani da hisn-157 (maza da mata) ko tambayi liman.",
+    actions: [
+      "Yi atisaye na musayar karin magana na mace a addu'ar da ka haddace.",
+      "Yi amfani da addu'o'in yara ga waɗanda ba su kai balaga ba.",
+      "Fi son sahihanci fiye da ƙasidu dogon da ba a tabbatar da su ba.",
+    ],
+    appLinks: [{ label: "Addu'ar jana'iza ta babba #1" }],
+  },
+  {
+    title: "Shahidai, zubar da ciki, da yanayi na musamman",
+    summary: "Lokacin da hukuncin wanki ko Janazah ya bambanta da yanayi na yau da kullum.",
+    body: [
+      "Shahidan fagen fama da suka mutu a yaƙi, a hukuncin gargajiya daga Uhud, ana binne su cikin tufafinsu ba tare da ghusl na yau da kullum ba; Annabi ﷺ ya umarci a binne shahidan Uhud da jininsu ba tare da wanka ba (Sahih al-Bukhari 1346). Wasu rukuni da ake kira 'shahidai' a lada (misali annoba, nutsewa) galibi ana wanke su da yin Janazah — tambayi malami a yanayi na gefe.",
+      "Ga zubar da ciki ko haihuwar gawa, makarantu sun bambanta kan lokacin da sallar jana'iza da cikakken wanka ke aiki (galibi an danganta da ko an samu siffa da ake gane ko matakin hura rai). Hadisi yana ƙarfafa yin sallah a kan zubar da ciki da neman gafara da rahama ga iyaye (Abu Dawud 3180). Ka bi kwamitin jana'izar madhhab ɗinka maimakon ƙiyasta.",
+      "Dangin da ba Musulmi ba ba a yi musu sallar Janazah ta Musulmi ba; alheri, taimakon binne na halal inda ya dace, da baƙin ciki na mutum sun bambanta da sallar ibada ga muminai. Koyaushe ka tabbatar da yanayi na musamman da jagora na gida da ta cancanta.",
+    ],
+    madhhabNote:
+      "Ma'anar shahadan fagen fama, matakan zubar da ciki, da sallah a kan haihuwar gawa sun bambanta bisa makaranta. Wannan batu yana nuna batutuwa — ba fatwa ba ne.",
+    disclaimer:
+      "Hukunce-hukunce na musamman suna da hankali. Ka tabbatar da malami da ya cancanta ko sabis ɗin jana'izar al'ummarka kafin ka yi aiki.",
+    actions: [
+      "Kada ka wanke shahidan fagen fama sabanin umarnin malami.",
+      "Tambayi kwamitin jana'iza game da yanayin zubar da ciki ko haihuwar gawa.",
+    ],
+    hadith: [
+      {
+        excerpt: "Annabi ﷺ ya umarci a binne shahidan Uhud da jininsu, kuma ba a wanke su ba.",
+      },
+      {
+        excerpt:
+          "Ana yin sallar jana'iza a kan zubar da ciki, kuma ana yin addu'a ga iyaye da gafara da rahama.",
+      },
+    ],
+  },
+  {
+    title: "Janazah a rashin gawa",
+    summary: "Annabi ﷺ ya yi sallah ga Negus lokacin da jikin ya yi nisa.",
+    body: [
+      "Jabir ya ruwaito cewa Annabi ﷺ ya fito zuwa ga Sahabbansa, ya jera su, ya yi takbirai hudu ga Negus (al-Najashi), sarkin Habasha da ya mutu a waje (Sahih al-Bukhari 1334; Sahih Muslim 952). Wannan shi ne babban hujja ga Salat al-Janazah a rashin gawa (alā al-ghā'ib).",
+      "Makarantu sun bambanta kan yadda ake faɗaɗa wannan misali: wasu suna iyakance shi ga yanayi irin na Negus (babu sallar Musulmi ta gida), wasu suna yarda da shi fiye idan jikin ya yi nisa. Kada ka bar Janazah ta gida lokacin da gawa take nan kuma al'umma za ta iya yin sallah. Ka bi malamin gida da aka amince da shi kan lokacin da sallah a rashin gawa ta dace a makarantarka.",
+      "Siffar ita ce sallar takbirai hudu iri ɗaya; niyya ga mamacin da ba ya nan. Yi amfani da addu'o'i sahihai iri ɗaya, daidaita jinsi idan an buƙata.",
+    ],
+    madhhabNote:
+      "Fadin Janazah a rashin gawa wani sanannen bambanci ne. Fi son aikin limamai da suka cancanta a al'ummarka.",
+    actions: [
+      "Yi sallah a gida duk lokacin da gawa take nan.",
+      "Tambaya kafin ka shirya Janazah a rashin gawa a matsayin taron jama'a.",
+    ],
+    hadith: [
+      {
+        excerpt: "Annabi ﷺ ya yi sallar jana'iza ga Negus ya ce takbirai hudu.",
+      },
+      {
+        excerpt: "Manzon Allah ﷺ ya jera Sahabbai ya yi sallah ga Negus, yana cewa takbirai hudu.",
+      },
+    ],
+  },
+  {
+    title: "A gefen mutuwa — kalmomin ƙarshe",
+    summary: "Tunatar da mai mutuwa ya ce la ilaha illallah cikin tausayi.",
+    body: [
+      "Annabi ﷺ ya ce: 'Ku tunatar da matattunku su ce la ilaha illallah' (Sahih Muslim 916; Abu Dawud 3117). Hisnul Muslim ya kiyaye umarnin cewa wanda kalmominsa na ƙarshe suka zama 'Babu wanda ya cancanta a bauta masa sai Allah' zai shiga Aljannah (hisn-153, daga Abu Dawud 3116).",
+      "Tunatar da tausayi ba tare da tsanani ba; kada ka tilasta ko jayayya. Wadanda ke kusa da mutuwa kuma ana iya ta'aziyyarsu da kalmomin bege sahihai da aka kiyaye a Hisnul Muslim (hisn-150–152). Rufe idanu lokacin da aka ɗauki rai ka yi amfani da addu'ar rufe idanu (batun da ya gabata).",
+      "Guji kuka mai ƙarfi da magana da ke fusatar da Allah. Iyalin gida su faɗi abin da yake da kyau, domin mala'iku suna cewa amin ga kalmominsu (Sahih Muslim 920).",
+    ],
+    actions: [
+      "A hankali ka tunatar da mai mutuwa da shahadah.",
+      "Ka sa ɗakin ya yi natsuwa kuma ya shagala da magana mai kyau.",
+    ],
+    hadith: [
+      {
+        excerpt: "Ku tunatar da matattunku su ce: la ilaha illallah.",
+      },
+      {
+        excerpt:
+          "Wanda kalmominsa na ƙarshe suka zama 'Babu wanda ya cancanta a bauta masa sai Allah' zai shiga Aljannah.",
+      },
+    ],
+    appLinks: [{ label: "Addu'o'in bege na rai" }, { label: "Rufe idanu" }],
+  },
+  {
+    title: "Ta'aziyya da masu baƙin ciki",
+    summary: "Ka ta'aziya masu rai da addu'ar bala'i ta annabci.",
+    body: [
+      "Umm Salamah ta ruwaito cewa Manzon Allah ﷺ ya ce: 'Babu Musulmi da aka sami bala'i sa'an nan ya ce abin da Allah ya umarta — \"Ga Allah muke, kuma zuwa gare Shi muke komawa. Ya Allah, ka ba ni lada a cikin bala'ina ka maye mini da wani abu mafi kyau\" — sai Allah ya maye masa da abu mafi kyau' (Sahih Muslim 918). Hisnul Muslim ya kiyaye wannan lafazin (hisn-154).",
+      "Bayar da ta'aziyya da ɗan gajeren magana na gaskiya; shirya abinci ga iyalin mamaci maimakon ɗora musu nauyin liyafa (Abu Dawud 3132 — rahoton dangin Ja'far). Guji bukukuwan ƙirƙira na ranar da aka kayyade da ba su da hujja yayin da ka ci gaba da addu'a ta sirri, sadaqah, da alheri.",
+      "Baƙin ciki da hawaye an yarda; kuka, bugun kunci, da tsage tufafi an hana. Tallafa wa gwauraye, marayu, da masu dogaro da taimako na halal bayan binnewa.",
+    ],
+    actions: [
+      "Koyar da masu baƙin ciki addu'ar bala'i.",
+      "Taimaka da abinci da ayyuka maimakon jiran liyafa.",
+      "Ci gaba da addu'a mai natsuwa da sadaqah ga mamaci.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Babu Musulmi da aka sami bala'i ya ce kalmomin komawa ga Allah da aka umarta ya nemi maye da mafi kyau, sai Allah ya maye masa da mafi kyau.",
+      },
+    ],
+    appLinks: [{ label: "Manufofin sadaqah" }],
+  },
 ];

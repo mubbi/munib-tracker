@@ -217,4 +217,136 @@ export const JANAZAH_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Tekbir tekbir — namazın adımları",
+    summary: "Dört tekbirin ve aralarında okunanların pratik bir kontrol listesi.",
+    body: [
+      "Birinci tekbir: elleri kaldırın (mezhebinize göre), Allahu Ekber deyin, sonra Fatiha suresini okuyun. İbn Abbas cenaze namazında Fatiha okumuş ve bunun sünnetten olduğunu söylemiştir (Sahih el-Buhari 1335).",
+      "İkinci tekbir: Peygamber Efendimiz'e ﷺ salavat getirin — teşehhütte kullanılan aynı İbrahimî salavat bu adım için yaygın öğretilir. Üçüncü tekbir: merhum için samimi dua edin (bu rehberdeki Hisnul Muslim ifadeleri). Dördüncü tekbir: birçok âlim ardından kısa genel bir dua eder, sonra sağa (ve mezhebe göre sola) selâm vererek bitirir.",
+      "Rükû, secde veya oturuş yoktur. Baştan sona ayakta durulur. Birden fazla cenaze varsa, birçok toplulukta hepsi için niyetle tek Janazah kılınır — imamı takip edin. Salavat ile duanın sırası mezhebe göre hafifçe değişebilir; dört tekbir çerçevesi ortaktır.",
+    ],
+    madhhabNote:
+      "Hanefi, Maliki, Şafii ve Hanbeli metinleri her tekbirde el kaldırma ve duanın tam ne zaman söyleneceği konusunda ayrılır. Önünüzdeki imamı takip edin.",
+    actions: [
+      "İhtiyacınız olmadan önce dört tekbir sırasını öğrenin.",
+      "Fatiha'yı, salavatı ve en az bir cenaze duasını ezberleyin.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "İbn Abbas cenaze namazı kıldı ve bunun sünnetten olduğunu söyleyerek Fatiha okudu.",
+      },
+    ],
+  },
+  {
+    title: "Erkekler, kadınlar ve çocuklar için dualar",
+    summary: "Aynı nebevî ifadeler — Arapça zamirleri merhuma göre uyarlayın.",
+    body: [
+      "Hisnul Muslim (ve klasik hadis mecmuaları) Janazah dualarını çoğunlukla eril sığayla kaydeder. Bu, kadınlar için ayrı 'uydurulmuş' bir dua demek değildir. Ana akım âlimler, niyetle eril ifadeyi koruyabileceğinizi veya — tercihen ve yaygın olarak — grameri merhuma göre değiştirebileceğinizi öğretir: لَهُ / هُ / هِ → لَهَا / هَا; عَبْدُكَ → أَمَتُكَ; ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ; ve kız çocuk için اجْعَلْهُ → اجْعَلْهَا, شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Vefat eden bir kadın için bazı âlimler 'eşinden daha hayırlı bir eş' (زَوْجًا خَيْرًا مِنْ زَوْجِهَا) ifadesinde ihtiyat tavsiye eder; cennette kocasıyla buluşabileceğini not ederler — bu cümleyi çıkarabilir veya genel bir ifade kullanabilirsiniz. Çocuklar için yalnızca yetişkin affa odaklı metinler yerine çocuğa özel Hisnul girişlerini (hisn-160, hisn-161) kullanın.",
+      "Toplu ifade 'erkeklerimizi ve kadınlarımızı bağışla' (hisn-157) her iki cinsiyeti de değiştirmeden kapsar. Sahih metinlerin gramer uyarlaması dışında yeni Arapça uydurmayız — bağlı yetişkin duayı temel alın ve yukarıdaki zamir haritasını uygulayın.",
+    ],
+    madhhabNote:
+      "Niyetle eril formları korumak ve dişil formlara uyarlamak ana akım âlimler arasında kabul edilir. Emin değilseniz hisn-157'yi (erkekler ve kadınlar) kullanın veya imama sorun.",
+    actions: [
+      "Ezberlediğiniz dua için dişil zamir değiştirmelerini pratik edin.",
+      "Büluğ çağına ulaşmamışlar için çocuğa özel duaları kullanın.",
+      "Uzun, senedsiz risaleler yerine özgünlüğü tercih edin.",
+    ],
+    appLinks: [{ label: "Yetişkin cenaze duası #1" }],
+  },
+  {
+    title: "Şehitler, düşük ve özel durumlar",
+    summary: "Yıkama veya Janazah hükümlerinin olağan durumdan farklılaştığı haller.",
+    body: [
+      "Savaşta ölen muharebe şehitleri, Uhud'dan çıkarılan klasik hükme göre alışılmış gusül olmadan elbiseleriyle gömülür; Peygamber ﷺ Uhud şehitlerinin kanlarıyla gömülmesini ve yıkanmamasını emretmiştir (Sahih el-Buhari 1346). Sevapta 'şehit' sayılan diğer kategoriler (ör. veba, boğulma) genellikle yıkanır ve Janazah kılınır — sınır durumlar için bir âlime sorun.",
+      "Düşük veya ölü doğumda mezhepler, cenaze namazı ve tam yıkamanın ne zaman uygulanacağı konusunda ayrılır (çoğunlukla tanınır bir suret veya ruh üflenmesi aşamasına bağlanır). Bir hadis düşük üzerine namaz kılmayı ve anne-baba için bağışlanma ve rahmet dilemeyi teşvik eder (Ebu Davud 3180). Tahmin etmek yerine mezhebinizin cenaze heyetini takip edin.",
+      "Müslüman olmayan akrabalara Müslüman Janazah namazı kılınmaz; iyilik, uygunsa meşru defin yardımı ve kişisel yas, müminler için ritüel namazdan ayrıdır. Özel durumları her zaman nitelikli yerel rehberlikle teyit edin.",
+    ],
+    madhhabNote:
+      "Muharebe şehitliği, düşük aşamaları ve ölü doğum üzerine namaz tanımları mezheplere göre değişir. Bu konu sorunları işaret eder — fetva değildir.",
+    disclaimer:
+      "Özel hükümler hassastır. Harekete geçmeden önce nitelikli bir âlim veya topluluğunuzun cenaze hizmetiyle teyit edin.",
+    actions: [
+      "Âlim talimatına aykırı olarak muharebe şehidini yıkamayın.",
+      "Düşük veya ölü doğum durumlarında cenaze heyetine sorun.",
+    ],
+    hadith: [
+      {
+        excerpt: "Peygamber ﷺ Uhud şehitlerinin kanlarıyla gömülmesini emretti ve onlar yıkanmadı.",
+      },
+      {
+        excerpt:
+          "Düşük üzerine cenaze namazı kılınır ve anne-baba için bağışlanma ve rahmet dilenir.",
+      },
+    ],
+  },
+  {
+    title: "Gıyabî Janazah",
+    summary: "Peygamber ﷺ ceset uzaktayken Necaşi için namaz kıldı.",
+    body: [
+      "Cabir'in bildirdiğine göre Peygamber ﷺ ashâbının yanına çıkmış, onları saf tutmuş ve uzak diyarlarda vefat eden Habeş kralı Necaşi (el-Necâşî) için dört tekbir getirmiştir (Sahih el-Buhari 1334; Sahih Müslim 952). Bu, gıyabî Salat al-Janazah'ın (alā al-ghā'ib) ana delilidir.",
+      "Mezhepler bu emsalin ne kadar geniş uygulanacağı konusunda ayrılır: bazıları Necaşi gibi durumlarla sınırlar (yerel Müslüman namazı yok), bazıları ceset uzaktayken daha geniş izin verir. Ceset hazırken ve toplum namaz kılabiliyorken yerel Janazah'ı atlamayın. Mezhebinizde gıyabî namazın ne zaman uygun olduğunu güvenilir yerel bir âlimden sorun.",
+      "Biçim aynı dört tekbirli namazdır; niyet gıyabî merhum içindir. Aynı sahih duaları kullanın, gerektiğinde cinsiyeti uyarlayın.",
+    ],
+    madhhabNote:
+      "Gıyabî Janazah'ın kapsamı bilinen bir ihtilaf noktasıdır. Topluluğunuzdaki nitelikli imamların uygulamasını tercih edin.",
+    actions: [
+      "Ceset hazır olduğunda her zaman yerel namaz kılın.",
+      "Gıyabî Janazah'ı kamuya açık etkinlik olarak düzenlemeden önce sorun.",
+    ],
+    hadith: [
+      {
+        excerpt: "Peygamber ﷺ Necaşi için cenaze namazı kıldı ve dört tekbir getirdi.",
+      },
+      {
+        excerpt:
+          "Allah Resulü ﷺ ashâbı saf tuttu ve Necaşi için dört tekbir getirerek namaz kıldı.",
+      },
+    ],
+  },
+  {
+    title: "Ölüm döşeğinde — son sözler",
+    summary: "Ölmekte olanı yumuşaklıkla la ilaha illallah demeye teşvik edin.",
+    body: [
+      "Peygamber ﷺ buyurdu: 'Ölmekte olanlarınıza la ilaha illallah demeyi telkin edin' (Sahih Müslim 916; Ebu Davud 3117). Hisnul Muslim, son sözü 'Allah'tan başka ibadete layık yoktur' olan kimsenin cennete gireceğini korur (hisn-153, Ebu Davud 3116'dan).",
+      "Yumuşak ve sertlik olmadan telkin edin; zorlamayın ve tartışmayın. Ölüme yaklaşanlar Hisnul Muslim'de korunan sahih ümit sözleriyle de teselli edilebilir (hisn-150–152). Ruh alındığında gözleri kapatın ve göz kapatma duasını kullanın (önceki konu).",
+      "Yüksek sesle feryattan ve Allah'ı öfkelendiren sözlerden kaçının. Ev halkı güzel söylemelidir; melekler sözlerine âmin der (Sahih Müslim 920).",
+    ],
+    actions: [
+      "Ölmekte olana şehadeti yumuşakça hatırlatın.",
+      "Odayı sakin ve güzel sözlerle meşgul tutun.",
+    ],
+    hadith: [
+      {
+        excerpt: "Ölmekte olanlarınıza telkin edin: la ilaha illallah.",
+      },
+      {
+        excerpt: "Son sözü 'Allah'tan başka ibadete layık yoktur' olan kimse cennete girer.",
+      },
+    ],
+    appLinks: [{ label: "Hayat ümidi duaları" }, { label: "Gözleri kapatmak" }],
+  },
+  {
+    title: "Taziye ve yaslılar",
+    summary: "Dirileri nebevî musibet duasıyla teselli edin.",
+    body: [
+      "Ümmü Seleme'nin bildirdiğine göre Allah Resulü ﷺ buyurdu: 'Bir Müslüman'a musibet isabet eder de Allah'ın emrettiğini söylerse — \"Biz Allah'a aidiz ve O'na döneceğiz. Allah'ım, musibetimde bana ecir ver ve onu bana daha hayırlısıyla değiştir\" — Allah onu daha hayırlısıyla değiştirir' (Sahih Müslim 918). Hisnul Muslim bu ifadeyi korur (hisn-154).",
+      "Kısa ve doğru sözlerle taziye edin; Cafer ailesine dair rivayette olduğu gibi (Ebu Davud 3132) aileyi ağırlamakla yüklemek yerine merhumun ailesine yemek hazırlayın. Delilsiz sabit günlü bid'at törenlerinden kaçının; özel dua, sadaka ve iyiliğe devam edin.",
+      "Gözyaşlı yas caizdir; feryat, yanaklara vurmak ve elbise yırtmak yasaklanmıştır. Defin sonrası dulları, yetimleri ve bakmakla yükümlü olunanları meşru yardımla destekleyin.",
+    ],
+    actions: [
+      "Yaslılara musibet duasını öğretin.",
+      "Ziyafet beklemek yerine yemek ve işlerle yardım edin.",
+      "Merhum için sessiz dua ve sadakaya devam edin.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Hiçbir Müslüman'a musibet isabet edip Allah'a dönüşün emredilen sözlerini söyleyerek daha hayırlı bir bedel dilemez ki Allah onu daha hayırlısıyla değiştirmesin.",
+      },
+    ],
+    appLinks: [{ label: "Sadaka hedefleri" }],
+  },
 ];

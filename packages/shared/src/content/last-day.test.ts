@@ -31,9 +31,20 @@ describe("last-day content", () => {
         "major-signs",
         "preparing",
         "sirat",
+        "heavy-on-the-scale",
+        "scale",
       ]),
     );
     expect(new Set(ids).size).toBe(ids.length);
+
+    const heavy = LAST_DAY_TOPICS.find((t) => t.id === "heavy-on-the-scale");
+    expect(heavy?.section).toBe("events");
+    expect(heavy?.mizanDeeds?.length ?? 0).toBeGreaterThanOrEqual(5);
+    expect(
+      LAST_DAY_TOPICS.find((t) => t.id === "scale")?.appLinks?.some((l) =>
+        l.route.includes("heavy-on-the-scale"),
+      ),
+    ).toBe(true);
 
     for (const topic of LAST_DAY_TOPICS) {
       expect(topic.title.length).toBeGreaterThan(0);
@@ -55,6 +66,9 @@ describe("last-day content", () => {
     expect(LAST_DAY_TIMELINE.length).toBeGreaterThan(10);
     expect(LAST_DAY_VERSES.length).toBeGreaterThan(8);
     expect(LAST_DAY_HADITH.length).toBeGreaterThan(8);
+    expect(LAST_DAY_HADITH.some((h) => h.hadith.citation === "6406")).toBe(true);
+    expect(LAST_DAY_HADITH.some((h) => h.hadith.citation === "2002")).toBe(true);
+    expect(LAST_DAY_HADITH.some((h) => h.hadith.citation === "223")).toBe(true);
     expect(LAST_DAY_QUIZ.length).toBeGreaterThan(5);
     expect(LAST_DAY_REFERENCES.length).toBeGreaterThan(5);
   });

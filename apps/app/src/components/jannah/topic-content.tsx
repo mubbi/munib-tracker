@@ -10,6 +10,7 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { VirtueMosaicBlock } from "@/components/learn-mizan";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -46,6 +47,14 @@ export function JannahTopicContent({ topic }: { topic: JannahTopic }) {
 
       <JannahTakeaway text={topic.summary} />
       <JannahBody paragraphs={topic.body} />
+
+      {topic.id === "character" &&
+      (topic.characterTraits?.length || topic.characterDestroyers?.length) ? (
+        <VirtueMosaicBlock
+          traits={topic.characterTraits ?? []}
+          destroyers={topic.characterDestroyers ?? []}
+        />
+      ) : null}
 
       {topic.quran?.length ? <JannahQuranEvidence refs={topic.quran} /> : null}
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}

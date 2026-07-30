@@ -488,6 +488,98 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       { label: "Perjalananku" },
     ],
   },
+  {
+    title: "Dosa yang membinasakan",
+    summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+    body: [
+      "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+      "Lakukan amal dengan ikhlas karena Allah.",
+      "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+      "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+    ],
+    destructiveItems: [
+      {
+        title: "Syirik",
+        summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      },
+      {
+        title: "Sihir",
+        summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      },
+      {
+        title: "Membunuh",
+        summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      },
+      {
+        title: "Riba",
+        summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      },
+      {
+        title: "Harta anak yatim",
+        summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      },
+      {
+        title: "Lari dari pertempuran",
+        summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      },
+      {
+        title: "Menuduh wanita suci",
+        summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      },
+      {
+        title: "Orang bangkrut",
+        summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+      },
+      {
+        excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+      },
+      {
+        excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+      {
+        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
+      },
+    ],
+    actions: [
+      "Lakukan amal dengan ikhlas karena Allah.",
+      "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
+      "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
+    ],
+    appLinks: [
+      {
+        label: "Dosa yang membinasakan",
+      },
+      {
+        label: "Amal berat di timbangan",
+      },
+      {
+        label: "Akhlak mulia",
+      },
+      {
+        label: "Repentance",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [

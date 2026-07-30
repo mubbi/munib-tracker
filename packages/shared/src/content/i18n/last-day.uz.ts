@@ -577,7 +577,116 @@ export const LAST_DAY_TOPICS_UZ: DeepPartial<LastDayTopic>[] = [
       "Oila, qo'shnilar va kreditorlar oldidagi huquqlarni bajaring.",
       "Namoz jurnalida hushu va niyatning samimiyligi haqida o'ylang.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Tarozida og'ir" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Tarozida og'ir amallar",
+    summary: "Ixlos bilan qilingan kichik amallar Qiyomat tarozisida og'ir bo'ladi.",
+    body: [
+      "Alloh amalning ko'pligidan ko'ra ixlosga qaraydi.",
+      "Til, xulq va qalb amallari katta vaznga ega.",
+      "Kichik, ammo davomli yaxshiliklarni ko'paytiring.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Go'zal xulq",
+        summary: "Yumshoqlik va yaxshi muomala.",
+        hadith: {
+          excerpt: "Tarozida go'zal xulqdan og'irroq narsa yo'q.",
+        },
+      },
+      {
+        title: "Ikki kalima",
+        summary: "Tilga yengil, tarozida og'ir.",
+        hadith: {
+          excerpt: "Subhanallahi va bihamdihi, Subhanallahil-azim.",
+        },
+      },
+      {
+        title: "Alhamdulillah",
+        summary: "Tarozini to'ldiradi.",
+        hadith: {
+          excerpt: "Alhamdulillah tarozini to'ldiradi.",
+        },
+      },
+      {
+        title: "Bitoqa",
+        summary: "Tavhid gunohlarni bosib ketadi.",
+        hadith: {
+          excerpt: "La ilaha illalloh yozilgan karta tarozini og'ir qiladi.",
+        },
+      },
+      {
+        title: "Eng afzal zikr",
+        summary: "Tavhidni ko'p aytish.",
+        hadith: {
+          excerpt: "Eng afzal zikr — la ilaha illalloh.",
+        },
+      },
+      {
+        title: "To'rt kalima",
+        summary: "Allohga suyukli so'zlar.",
+        hadith: {
+          excerpt: "Subhanalloh, alhamdulillah, la ilaha illalloh, Allohu akbar.",
+        },
+      },
+      {
+        title: "Yuz tasbeh",
+        summary: "Kechirimga sabab bo'ladi.",
+        hadith: {
+          excerpt: "Kim yuz marta Subhanalloh desa, gunohlari kechiriladi.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "U kunda tarozilar adolat bilan qo'yiladi.",
+      },
+      {
+        excerpt: "Kimning tarozisi og'ir bo'lsa, rozi hayotdadir.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Allohga eng suyukli amal — oz bo'lsa ham davomlisidir.",
+      },
+      {
+        excerpt: "Hech bir yaxshilikni kichik sanamang.",
+      },
+      {
+        excerpt: "Tabassuming sadaqadir.",
+      },
+      {
+        excerpt: "Musulmon — odamlar tili va qo'lidan omonda bo'lgan kishidir.",
+      },
+    ],
+    misconceptions: [
+      "Faqat ko'p amal kifoya degan fikr xato; ixlos zarur.",
+      "Qalb amallari ahamiyatsiz degan fikr xato.",
+    ],
+    actions: [
+      "Har kuni zikr qiling.",
+      "Xulqingizni yaxshilang.",
+      "Davomli kichik amal tanlang.",
+      "Har ishni ixlos bilan boshlang.",
+    ],
+    appLinks: [
+      {
+        label: "Kundalik zikr",
+      },
+      {
+        label: "Duolar",
+      },
+      {
+        label: "Qur'on o'qish",
+      },
+      {
+        label: "Sadaqa kundaligi",
+      },
+      {
+        label: "Xulqni rivojlantirish",
+      },
+    ],
   },
 ];
 
@@ -709,6 +818,24 @@ export const LAST_DAY_HADITH_UZ: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "\"Bilimni yo'qotish\" ma'lumot etishmasligi emas, balki sog'lom olimlar va hayot tajribasini yo'qotishdir.",
+  },
+  {
+    hadith: {
+      excerpt: "Poklik iymonning yarmidir.",
+    },
+    context: "Iymon amallari taroziga vazn beradi.",
+  },
+  {
+    hadith: {
+      excerpt: "Yaxshi so'z sadaqadir.",
+    },
+    context: "Til yaxshiligi katta savob bo'ladi.",
+  },
+  {
+    hadith: {
+      excerpt: "Alloh yumshoqlikni sevadi.",
+    },
+    context: "Yumshoq muomalani odat qiling.",
   },
 ];
 
@@ -948,6 +1075,18 @@ export const LAST_DAY_QUIZ_UZ: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["To'g'ri", "Yolg'on"],
     explanation:
       "Oyatda aytilishicha, hamma uning ustidan o'tadi; Alloh tafakkur qiluvchilarni qutqaradi. Olimlar kimning yiqilishi tafsilotlarini muhokama qilishadi.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

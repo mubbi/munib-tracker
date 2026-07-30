@@ -13,7 +13,7 @@ export { LAST_DAY_VERSES } from "./last-day-verses";
  * weak or fabricated "end times" material is deliberately excluded.
  * Bump version on change.
  */
-export const LAST_DAY_CONTENT_VERSION = 2;
+export const LAST_DAY_CONTENT_VERSION = 3;
 
 export const LAST_DAY_SECTION_ORDER = [
   "intro",
@@ -549,8 +549,9 @@ export const LAST_DAY_TOPICS: LastDayTopic[] = [
     summary: "Deeds weighed — sincerity, character, and zikr make scales heavy.",
     body: [
       "The Mizan is the Scale on which deeds are weighed with absolute justice: 'We place the scales of justice for the Day of Resurrection, so no soul will be wronged at all; even if it be the weight of a mustard seed, We will bring it forth, and sufficient are We as accountants' (Qur'an 21:47). Ahl al-Sunnah affirm it as a real balance, not a mere metaphor — deeds, or the records of them, are genuinely weighed. A person's fate turns on which pan sinks: 'As for one whose scales are heavy, he will be in a pleasing life; but as for one whose scales are light, his refuge will be an abyss' (Qur'an 101:6–9).",
-      "What makes a scale heavy is not the sheer volume of activity but its weight before Allah — and weight comes from sincerity. The Prophet ﷺ pointed to deeds that are effortless yet immense: 'Two words light on the tongue, heavy on the Scale, beloved to the Most Merciful: SubhanAllahi wa bihamdih, SubhanAllahil-'Azim' (Sahih al-Bukhari 6406). He also said, 'Nothing is heavier on the believer's Scale on the Day of Resurrection than good character' (Jami' at-Tirmidhi 2002, sahih). So a simple remembrance repeated sincerely, or patient good manners, can outweigh mountains of showy activity.",
+      "What makes a scale heavy is not the sheer volume of activity but its weight before Allah — and weight comes from sincerity. The Prophet ﷺ pointed to deeds that are effortless yet immense: 'Two words light on the tongue, heavy on the Scale, beloved to the Most Merciful: SubhanAllahi wa bihamdih, SubhanAllahil-'Azim' (Sahih al-Bukhari 6406). He also said, 'Nothing is heavier on the believer's Scale on the Day of Resurrection than good character' (Jami' at-Tirmidhi 2002, hasan). So a simple remembrance repeated sincerely, or patient good manners, can outweigh mountains of showy activity.",
       "The reverse is the danger of hollow deeds. Actions done to be seen by people (riya') or corrupted by hypocrisy can arrive on the Scale weightless — outwardly large, inwardly empty. This is why sincerity (ikhlas) is not one virtue among many but the very thing that gives every other deed its weight. The lesson is to build the day around small, sincere, consistent acts, and to purify the intention behind the visible ones.",
+      "The Qur'an and Sunnah do not give a complete numbered ranking of every deed. They use phrases such as 'heavy on the Scale', 'fills the Scale', and 'nothing heavier'. See the companion lesson Heavy on the Scale for a catalog of deeds the authentic texts describe in that language — always with their citations — so you can practise what the Prophet ﷺ made weighty without inventing a leaderboard Allah never revealed.",
     ],
     quran: [
       {
@@ -586,6 +587,7 @@ export const LAST_DAY_TOPICS: LastDayTopic[] = [
       },
     ],
     appLinks: [
+      { label: "Heavy on the Scale", route: "/last-day/heavy-on-the-scale" },
       { label: "Tasbeeh", route: "/tasbeeh/free" },
       { label: "Adhkar", route: "/zikr" },
     ],
@@ -851,11 +853,187 @@ export const LAST_DAY_TOPICS: LastDayTopic[] = [
     ],
     appLinks: [
       { label: "My Preparation dashboard", route: "/last-day/preparation" },
+      { label: "Heavy on the Scale", route: "/last-day/heavy-on-the-scale" },
       { label: "Learn Salah", route: "/salah-guide" },
       { label: "Learn Qur'an", route: "/learn-quran" },
       { label: "Learn Dua", route: "/learn-dua" },
       { label: "Learn Aqeedah", route: "/aqeedah" },
       { label: "Prayer tracker", route: "/tracker" },
+    ],
+  },
+  {
+    id: "heavy-on-the-scale",
+    section: "events",
+    title: "Heavy on the Scale",
+    summary:
+      "Deeds the authentic texts call heavy, filling, or best — without inventing a ranking.",
+    importance: "highly-recommended",
+    body: [
+      "The Qur'an and authentic Sunnah do not publish a complete leaderboard of every deed. Instead they describe some acts with vivid Scale language — 'nothing is heavier', 'heavy on the Scale', 'fills the Scale' — and others as 'best', 'most beloved', or equal in reward to a great act. Those phrases sometimes answer different questions in different contexts, so scholars avoid saying 'this is always #1.' What follows is a careful catalog of what the texts themselves say, grouped by the wording of the narration.",
+      "Weight on the Mizan comes above all from sincerity. A light phrase said for Allah can outweigh mountains of show; a spectacular deed done to be seen can arrive empty. Use the cards below to practise what the Prophet ﷺ made weighty — then open the Qur'an and hadith evidence for the full wording.",
+      "Good character is treated in its own lesson on the path to Paradise; the Scale topic explains the Mizan itself. Here the focus is the deeds and remembrances whose weight the Sunnah named explicitly.",
+    ],
+    mizanDeeds: [
+      {
+        id: "good-character",
+        title: "Good character",
+        category: "heavy-on-scale",
+        summary: "Nothing is heavier on the believer's Scale than good character.",
+        hadith: {
+          collection: "Jami' at-Tirmidhi",
+          citation: "2002",
+          grade: "hasan",
+          excerpt:
+            "Nothing is heavier on the believer's Scale on the Day of Resurrection than good character.",
+        },
+      },
+      {
+        id: "two-words",
+        title: "Two light words",
+        arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
+        category: "heavy-on-scale",
+        summary: "Light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
+        hadith: {
+          collection: "Sahih al-Bukhari",
+          citation: "6406",
+          grade: "sahih",
+          excerpt:
+            "Two words light on the tongue, heavy on the Scale, beloved to the Most Merciful: SubhanAllahi wa bihamdih, SubhanAllahil-'Azim.",
+        },
+      },
+      {
+        id: "alhamdulillah-fills",
+        title: "Alhamdulillah fills the Scale",
+        arabic: "الْحَمْدُ لِلَّهِ",
+        category: "fills-the-scale",
+        summary: "All praise is for Allah — and it fills the Scale.",
+        hadith: {
+          collection: "Sahih Muslim",
+          citation: "223",
+          grade: "sahih",
+          excerpt:
+            "Cleanliness is half of faith, and al-Hamdu Lillah fills the Scale, and Subhan Allah and al-Hamdu Lillah fill what is between the heavens and the earth.",
+        },
+      },
+      {
+        id: "bitaqah",
+        title: "The Shahadah card (Biṭāqah)",
+        arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ",
+        category: "heavy-on-scale",
+        summary:
+          "A tiny card of sincere tawheed outweighs ninety-nine scrolls of sins — sincerity is essential.",
+        hadith: {
+          collection: "Jami' at-Tirmidhi",
+          citation: "2639",
+          grade: "sahih",
+          excerpt:
+            "Ninety-nine scrolls of sins are laid out, then a card with the Shahadah is placed on the Scale — the scrolls are light and the card is heavy; nothing is heavier than the Name of Allah.",
+        },
+      },
+      {
+        id: "best-dhikr",
+        title: "Best remembrance",
+        arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ",
+        category: "best-beloved",
+        summary: "The best remembrance is La ilaha illallah.",
+        hadith: {
+          collection: "Jami' at-Tirmidhi",
+          citation: "3383",
+          grade: "hasan",
+          excerpt:
+            "The best remembrance is La ilaha illallah, and the best supplication is Alhamdulillah.",
+        },
+      },
+      {
+        id: "four-phrases",
+        title: "Four most beloved phrases",
+        arabic: "سُبْحَانَ اللَّهِ، الْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ، اللَّهُ أَكْبَرُ",
+        category: "best-beloved",
+        summary: "The dearest speech to Allah is four phrases — begin with whichever you wish.",
+        hadith: {
+          collection: "Sahih Muslim",
+          citation: "2137",
+          grade: "sahih",
+          excerpt:
+            "The dearest phrases to Allah are four: Subhan Allah, Alhamdulillah, La ilaha illallah, and Allahu Akbar.",
+        },
+      },
+      {
+        id: "subhanallah-100",
+        title: "SubhanAllahi wa bihamdihi ×100",
+        arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+        category: "best-beloved",
+        summary: "Said one hundred times a day — sins forgiven even if like the foam of the sea.",
+        hadith: {
+          collection: "Sahih al-Bukhari",
+          citation: "6405",
+          grade: "sahih",
+          excerpt:
+            "Whoever says SubhanAllahi wa bihamdihi one hundred times a day, his sins will be forgiven even if they were as much as the foam of the sea.",
+        },
+      },
+    ],
+    quran: [
+      {
+        surah: 21,
+        ayahFrom: 47,
+        label: "Qur'an 21:47",
+        excerpt:
+          "And We place the scales of justice for the Day of Resurrection, so no soul will be wronged at all.",
+      },
+      {
+        surah: 101,
+        ayahFrom: 6,
+        ayahTo: 9,
+        label: "Qur'an 101:6–9",
+        excerpt:
+          "As for one whose scales are heavy, he will be in a pleasing life. But as for one whose scales are light, his refuge will be an abyss.",
+      },
+    ],
+    hadith: [
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "6406",
+        grade: "sahih",
+        excerpt:
+          "Two words light on the tongue, heavy on the Scale, beloved to the Most Merciful: SubhanAllahi wa bihamdih, SubhanAllahil-'Azim.",
+      },
+      {
+        collection: "Sahih Muslim",
+        citation: "223",
+        grade: "sahih",
+        excerpt: "Al-Hamdu Lillah fills the Scale.",
+      },
+      {
+        collection: "Jami' at-Tirmidhi",
+        citation: "2639",
+        grade: "sahih",
+        excerpt:
+          "The scrolls will be put on a pan and the Shahadah card on the other — the scrolls are light and the card is heavy.",
+      },
+      {
+        collection: "Jami' at-Tirmidhi",
+        citation: "2002",
+        grade: "hasan",
+        excerpt: "Nothing is heavier on the believer's Scale than good character.",
+      },
+    ],
+    misconceptions: [
+      "These narrations do not create a fixed scoreboard of every possible deed — different questions received different 'best' answers.",
+      "Saying the words without sincerity does not match the Biṭāqah hadith; the weight is tied to genuine tawheed.",
+    ],
+    actions: [
+      "Say SubhanAllahi wa bihamdih and SubhanAllahil-'Azim often with presence of heart.",
+      "Keep Alhamdulillah on the tongue in ease and hardship.",
+      "Work on one character trait this week — it is among the heaviest deeds.",
+      "Renew the Shahadah sincerely, not only with the tongue.",
+    ],
+    appLinks: [
+      { label: "The Scale (Mizan)", route: "/last-day/scale" },
+      { label: "Tasbeeh", route: "/tasbeeh/free" },
+      { label: "Adhkar", route: "/zikr" },
+      { label: "Good character", route: "/jannah/character" },
+      { label: "Zikr path", route: "/jannah/dhikr" },
     ],
   },
 ];

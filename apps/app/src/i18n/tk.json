@@ -3328,7 +3328,20 @@
     },
     "versesIntroTv": "Aýaty Guran okalgyçynda açmak üçin saýlaň. Gysga jemlemeler bilim beriji, doly tefsir ýerini tutmaýar.",
     "preparationHabitsHintTv": "Yzarlaýjyny açmak ýa-da gündelik niýeti çalyşmak üçin saýlaň",
-    "characterHintTv": "Şu gün özüňiziň ahlakyny gözden geçireniňizde saýlaň"
+    "characterHintTv": "Şu gün özüňiziň ahlakyny gözden geçireniňizde saýlaň",
+    "mizan": {
+      "panHeavy": "Agyr taraz",
+      "panLight": "Ýeňil taraz",
+      "pansCaption": "Sahih tekstleriň Mizan-da agyr diýen zatlary",
+      "noLeaderboard": "Bu sözler agramy we fazileti suratlandyrýar — her amalyň doly ilahi reýtingi däl.",
+      "deedsTitle": "Tekstlerde agzalan amallar",
+      "category": {
+        "heavy-on-scale": "Mizan-da agyr",
+        "fills-the-scale": "Mizan-y doldurýar",
+        "best-beloved": "Iň gowy / iň söýgüli",
+        "equal-reward": "Deňeşdirilen uly sawap"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Ögren",
@@ -4597,7 +4610,15 @@
       "mercy": "Merhamet",
       "supplication": "Dua"
     },
-    "versesLeadTv": "Guran okalgyçynda açmak üçin islendik aýaty saýlaň."
+    "versesLeadTv": "Guran okalgyçynda açmak üçin islendik aýaty saýlaň.",
+    "mizan": {
+      "weightCallout": "Möminiň Mizan-ynda gowy ahlakdan agyr zat ýok — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Gowy ahlagyň häsiýetleri",
+      "buildsTitle": "Ahlagy gurýar",
+      "buildsHint": "Bir gezek bir häsiýeti türgenleşdiriň — hakykat, sabyr, rehim we adalat.",
+      "destroysTitle": "Ahlagy bozanlar",
+      "destroysHint": "Tekstleriň duýdurýan endikleri — baglanyşykly sapak üçin plitkä basyň."
+    }
   },
   "jahannam": {
     "eyebrow": "Ögren",
@@ -4731,7 +4752,19 @@
       "protection": "Koruma"
     },
     "versesLeadTv": "Guran okalgyçynda açmak üçin islendik aýaty saýlaň.",
-    "reflectionLeadTv": "Durup, özüňize şu soraglary beriň. Degişli yzarlaýjyny ýa-da sapagy açmak üçin setiri saýlaň."
+    "reflectionLeadTv": "Durup, özüňize şu soraglary beriň. Degişli yzarlaýjyny ýa-da sapagy açmak üçin setiri saýlaň.",
+    "mizan": {
+      "warningCallout": "Tekstler «ýok ediji» we «iň uly» ýaly sözler bilen duýdurýar — bu duýduryş hierarhiýasy, Mizan tablisasy däl.",
+      "ladder": {
+        "gravest": "Iň agyr duýduryşlar",
+        "seven": "Ýedi ýok ediji",
+        "consumes": "Gowy amallary iýýär"
+      },
+      "sevenTitle": "Ýedi ýok ediji günä",
+      "bankruptTitle": "Bankrot adam",
+      "bankruptLink": "Ahyrky günde hasap hakynda okaň",
+      "hopeCallout": "Allahyň rehiminden umydyňyzy üzmäň — Ol töwbe edenleriň ähli günälerini bağyşlaýar (Qur'an 39:53). Töwbesiz şirikde ölmek tekstleriň düşündiren kadadan çykmasydyr."
+    }
   },
   "tour": {
     "eyebrow": "Gollanma tury",
@@ -5225,7 +5258,7 @@
     "eyebrow": "Öwreniň",
     "title": "Janazah gollanma",
     "subtitle": "Jynaza namazy, ýuwmak, jaýlamak we hakyky dua",
-    "intro": "Jemgyýetçilik borjy hökmünde Janazah barada amaly syn - dört takbirini ruku ýa-da sujudsyz nädip doga etmeli we merhum üçin Hisnul Muslim duasy.",
+    "intro": "Jemgyýetçilik borjy hökmünde Janazah barada amaly syn — ruku we seždesiz dört tekbir, erkekler, aýallar we çagalar üçin Hisnul Muslim dualary, şeýle hem ýuwmak, jaýlamak, şehitler we ýas tutýanlar boýunça görkezme.",
     "section": {
       "obligation": "Borç",
       "prepare": "Taýýarlyk",

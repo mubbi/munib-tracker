@@ -32,6 +32,15 @@ describe("jannah content", () => {
     }
   });
 
+  it("ships character mosaic data for good character", () => {
+    const topic = JANNAH_TOPICS.find((t) => t.id === "character");
+    expect(topic?.characterTraits?.length).toBeGreaterThanOrEqual(8);
+    expect(topic?.characterDestroyers?.length).toBeGreaterThanOrEqual(5);
+    expect(topic?.hadith?.some((h) => h.citation === "2002" && h.grade === "hasan")).toBe(true);
+    expect(topic?.appLinks?.some((l) => l.route === "/last-day/heavy-on-the-scale")).toBe(true);
+    expect(topic?.appLinks?.some((l) => l.route === "/jahannam/sins-against-others")).toBe(true);
+  });
+
   it("ships every path topic slug", () => {
     for (const id of JANNAH_PATH_TOPIC_IDS) {
       const topic = JANNAH_TOPICS.find((t) => t.id === id);
