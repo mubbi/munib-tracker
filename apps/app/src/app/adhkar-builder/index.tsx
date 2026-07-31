@@ -85,7 +85,7 @@ export default function AdhkarBuilderScreen() {
     [items],
   );
 
-  const canSave = draft.title.trim().length > 0 && draft.arabic.trim().length > 0 && !saving;
+  const canSave = draft.title.trim().length > 0 && !saving;
   const isEditing = editingId !== null;
 
   const handleSttError = useCallback(
@@ -156,10 +156,11 @@ export default function AdhkarBuilderScreen() {
   const save = async () => {
     if (!canSave) return;
     setSaving(true);
+    const hasAttachments = draftAttachments.length > 0;
     try {
       if (isEditing && editingId) {
         await update(editingId, draft);
-      } else if (draftAttachments.length > 0) {
+      } else if (hasAttachments) {
         if (!isAuthenticated || !session?.accessToken) {
           toast.warning(t("customAdhkar.attachments.signInRequired"));
           return;
@@ -190,8 +191,10 @@ export default function AdhkarBuilderScreen() {
     } catch (error) {
       if (isGuestUserMediaError(error)) {
         toast.warning(t("customAdhkar.attachments.signInRequired"));
-      } else {
+      } else if (hasAttachments) {
         toast.error(t("customAdhkar.attachments.uploadFailed"));
+      } else {
+        toast.error(t("customAdhkar.saveFailed"));
       }
     } finally {
       setSaving(false);
@@ -376,13 +379,20 @@ export default function AdhkarBuilderScreen() {
                     />
                   </View>
                 </View>
-                <View style={[styles.itemDivider, { backgroundColor: tokens.hairline }]} />
-                <ReadingCard
-                  item={{ ...item, translation: item.translation ?? "" }}
-                  enableTts
-                  enableContextMenu={false}
-                  framed={false}
-                />
+                {item.arabic.trim() ||
+                item.transliteration?.trim() ||
+                item.translation?.trim() ||
+                item.reference?.trim() ? (
+                  <>
+                    <View style={[styles.itemDivider, { backgroundColor: tokens.hairline }]} />
+                    <ReadingCard
+                      item={{ ...item, translation: item.translation ?? "" }}
+                      enableTts
+                      enableContextMenu={false}
+                      framed={false}
+                    />
+                  </>
+                ) : null}
                 {item.images?.length ? (
                   <CustomAdhkarImageGallery images={item.images} compact />
                 ) : null}
@@ -400,11 +410,18 @@ export default function AdhkarBuilderScreen() {
           resetForm();
         }}
         variant="bottom"
+        // Own scroller below — nested Sheet scroll fights Android touch / Save.
+        scrollable={false}
+        solid
       >
         <ThemedText type="subtitle" style={styles.sheetTitle}>
           {isEditing ? t("customAdhkar.editTitle") : t("customAdhkar.newTitle")}
         </ThemedText>
-        <TvScrollView style={styles.form} showsVerticalScrollIndicator={false}>
+        <TvScrollView
+          style={styles.form}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           {input("title", "customAdhkar.field.title")}
           {input("arabic", "customAdhkar.field.arabic", { multiline: true, rtl: true })}
           {input("transliteration", "customAdhkar.field.transliteration", { multiline: true })}

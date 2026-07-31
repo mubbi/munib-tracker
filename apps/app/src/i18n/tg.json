@@ -4270,10 +4270,10 @@
     "newTitle": "New dhkr",
     "delete": "Нест кардан",
     "emptyTitle": "Ҳанӯз ягон adhkar фармоишӣ нест",
-    "emptyDesc": "Зикри шахсии худро бо матни арабӣ, транслитератсия ва маънои он илова кунед.",
+    "emptyDesc": "Зикри худро илова кунед — унвон кифоя аст; матни арабӣ, транслитератсия ва маъно ихтиёрӣ мебошанд.",
     "field": {
       "title": "Заголовок",
-      "arabic": "арабский text",
+      "arabic": "Матни арабӣ (ихтиёрӣ)",
       "transliteration": "Транслитератсия (ихтиёрӣ)",
       "translation": "Маънои (ихтиёрӣ)",
       "reference": "Reference (необязательно)"
@@ -4345,7 +4345,8 @@
     "confirmDeleteMsg": "«{{title}}» барои ҳамеша нест карда мешавад.",
     "searchPlaceholder": "Adhkar-ҳои худро ҷустуҷӯ кунед",
     "noResults": "Adhkar-и мувофиқ нест",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Ин азкорро захира карда нашуд. Бори дигар кӯшиш кунед."
   },
   "tahajjud": {
     "eyebrow": "Намози шаб",

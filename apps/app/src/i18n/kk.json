@@ -4359,10 +4359,10 @@
     "newTitle": "Жаңа adhkar",
     "delete": "Жою",
     "emptyTitle": "Жоқ өз adhkar yet",
-    "emptyDesc": "Қосу сіздің own zikr бірге its Arabic text, transliteration, және meaning.",
+    "emptyDesc": "Өз зікіріңізді қосыңыз — тақырып жеткілікті; араб мәтіні, транслитерация және мағына міндетті емес.",
     "field": {
       "title": "Тақырып",
-      "arabic": "Араб мәтіні",
+      "arabic": "Араб мәтіні (міндетті емес)",
       "transliteration": "Transliteration (міндетті емес)",
       "translation": "Meaning (міндетті емес)",
       "reference": "Reference (міндетті емес)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” біржола жойылады.",
     "searchPlaceholder": "Adhkar іздеу",
     "noResults": "Сәйкес adhkar жоқ",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Бұл адхкарды сақтау мүмкін болмады. Қайтадан байқап көріңіз."
   },
   "tahajjud": {
     "eyebrow": "Түнгі намаз",

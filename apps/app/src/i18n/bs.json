@@ -4359,10 +4359,10 @@
     "newTitle": "Novi adhkar",
     "delete": "Obriši",
     "emptyTitle": "Henüz custom adhkar yok",
-    "emptyDesc": "Dodaj vaš own zikr sa its Arabic text, transliteration, i meaning.",
+    "emptyDesc": "Dodajte svoj zikr — naslov je dovoljan; arapski tekst, transliteracija i značenje su opcionalni.",
     "field": {
       "title": "Naslov",
-      "arabic": "Arapça text",
+      "arabic": "Arapski tekst (opcionalno)",
       "transliteration": "Transliteration (opcionalno)",
       "translation": "Meaning (opcionalno)",
       "reference": "Reference (opcionalno)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” bit će trajno uklonjen.",
     "searchPlaceholder": "Pretražite svoje adhkar",
     "noResults": "Nema odgovarajućih adhkar",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Nije moguće sačuvati ovaj adhkar. Pokušajte ponovo."
   },
   "tahajjud": {
     "eyebrow": "Night salah",

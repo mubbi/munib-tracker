@@ -4270,10 +4270,10 @@
     "newTitle": "New dhkr",
     "delete": "ړنګول",
     "emptyTitle": "تراوسه هیڅ دودیز اډکار نشته",
-    "emptyDesc": "خپل ذکر د دې عربي متن، ژباړې او معنی سره اضافه کړئ.",
+    "emptyDesc": "خپل ذکر اضافه کړئ — یوازې سرلیک کافی دی؛ عربي، ژباړه او معنی اختیاري دي.",
     "field": {
       "title": "سرلیک",
-      "arabic": "عربي text",
+      "arabic": "عربي متن (اختیاري)",
       "transliteration": "ژباړې (اختیاري)",
       "translation": "معنی (اختیاری)",
       "reference": "Reference (اختیاري)"
@@ -4345,7 +4345,8 @@
     "confirmDeleteMsg": "«{{title}}» به د تل لپاره لرې شي.",
     "searchPlaceholder": "خپل اذکار ولټوئ",
     "noResults": "هیڅ مطابقت لرونکي اذکار نشته",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "دا اذکار خوندي نشو. بیا هڅه وکړئ."
   },
   "tahajjud": {
     "eyebrow": "د شپې لمونځ",

@@ -24,6 +24,7 @@ export interface CustomAdhkarImage {
 export interface CustomAdhkar {
   id: string;
   title: string;
+  /** Arabic body — optional; title alone is enough to save. */
   arabic: string;
   transliteration?: string;
   translation?: string;
@@ -35,7 +36,8 @@ export interface CustomAdhkar {
 
 export interface CustomAdhkarInput {
   title: string;
-  arabic: string;
+  /** Optional Arabic text; empty string is stored when omitted. */
+  arabic?: string;
   transliteration?: string;
   translation?: string;
   reference?: string;
@@ -80,7 +82,7 @@ export const customAdhkarStore = createStore<CustomAdhkarState>((set, get) => ({
     const item: CustomAdhkar = {
       id: createId("adhkar"),
       title: input.title.trim(),
-      arabic: input.arabic.trim(),
+      arabic: input.arabic?.trim() ?? "",
       transliteration: input.transliteration?.trim() || undefined,
       translation: input.translation?.trim() || undefined,
       reference: input.reference?.trim() || undefined,
@@ -100,7 +102,7 @@ export const customAdhkarStore = createStore<CustomAdhkarState>((set, get) => ({
     const next: CustomAdhkar = {
       ...existing,
       title: input.title.trim(),
-      arabic: input.arabic.trim(),
+      arabic: input.arabic?.trim() ?? "",
       transliteration: input.transliteration?.trim() || undefined,
       translation: input.translation?.trim() || undefined,
       reference: input.reference?.trim() || undefined,

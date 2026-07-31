@@ -4359,10 +4359,10 @@
     "newTitle": "Adkar mpya",
     "delete": "Futa",
     "emptyTitle": "Bado hakuna adhkar maalum",
-    "emptyDesc": "Washageza your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "Ongeza zikr yako — kichwa kinatosha; Kiarabu, unukuzi na maana ni ya hiari.",
     "field": {
       "title": "Kichwa",
-      "arabic": "Tafutapça text",
+      "arabic": "Maandishi ya Kiarabu (si lazima)",
       "transliteration": "Unukuzi wa mfumo wa kuandika (si lazima)",
       "translation": "Maana (si lazima)",
       "reference": "Marejeleo (ya hiari)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” itaondolewa kabisa.",
     "searchPlaceholder": "Tafuta adhkar zako",
     "noResults": "Hakuna adhkar zinazolingana",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Haikuweza kuhifadhi adhkar hii. Jaribu tena."
   },
   "tahajjud": {
     "eyebrow": "Night swala",

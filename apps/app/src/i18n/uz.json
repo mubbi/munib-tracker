@@ -4267,10 +4267,10 @@
     "newTitle": "New dhkr",
     "delete": "O'chirish",
     "emptyTitle": "No cus-gm dhkr yet",
-    "emptyDesc": "qo'shbuh siznichidg own zikr with its rbch text, trnslitertid, v menichidg.",
+    "emptyDesc": "O‘z zikringizni qo‘shing — sarlavha yetarli; arabcha matn, transliteratsiya va ma’no ixtiyoriy.",
     "field": {
       "title": "Sarlavha",
-      "arabic": "rbch text",
+      "arabic": "Arabcha matn (ixtiyoriy)",
       "transliteration": "Trnslitertid (ixtiyyokiiy)",
       "translation": "Menichidg (ixtiyyokiiy)",
       "reference": "Reference (ixtiyyokiiy)"
@@ -4342,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” butunlay olib tashlanadi.",
     "searchPlaceholder": "Adhkarlaringizni qidiring",
     "noResults": "Mos adhkar topilmadi",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Bu adhkarni saqlab bo‘lmadi. Qayta urinib ko‘ring."
   },
   "tahajjud": {
     "eyebrow": "Tungi salah",

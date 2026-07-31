@@ -4359,10 +4359,10 @@
     "newTitle": "I ri adhkar",
     "delete": "Fshi",
     "emptyTitle": "Nuk ka ende adkar me porosi",
-    "emptyDesc": "Shto juaj own zikr me its Arabic text, transliteration, dhe meaning.",
+    "emptyDesc": "Shto zikrin tënd — titulli mjafton; arabishtja, transliterimi dhe kuptimi janë opsionale.",
     "field": {
       "title": "Titulli",
-      "arabic": "Teksti arab",
+      "arabic": "Teksti arab (opsionale)",
       "transliteration": "Transliteration (opsionale)",
       "translation": "Meaning (opsionale)",
       "reference": "Reference (opsionale)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” do të hiqet përgjithmonë.",
     "searchPlaceholder": "Kërkoni adhkar-et tuaja",
     "noResults": "Nuk ka adhkar përputhëse",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Nuk mund të ruhej ky adhkar. Provo sërish."
   },
   "tahajjud": {
     "eyebrow": "Night salah",

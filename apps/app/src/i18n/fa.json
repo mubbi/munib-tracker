@@ -4359,10 +4359,10 @@
     "newTitle": "نیا ذکر",
     "delete": "حذف",
     "emptyTitle": "ابھی کوئی ذاتی ذکر نہیں",
-    "emptyDesc": "افزودن your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "ذکر خود را اضافه کنید — عنوان کافی است؛ عربی، آوانگاری و معنی اختیاری‌اند.",
     "field": {
       "title": "عنوان",
-      "arabic": "متن عربی",
+      "arabic": "متن عربی (اختیاری)",
       "transliteration": "نقلِ حرفی (اختیاری)",
       "translation": "معنیٰ (اختیاری)",
       "reference": "حوالہ (اختیاری)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "«{{title}}» برای همیشه حذف خواهد شد.",
     "searchPlaceholder": "جست‌وجوی اذکار شما",
     "noResults": "اذکار منطبقی یافت نشد",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "ذخیره این ذکر ممکن نشد. دوباره امتحان کنید."
   },
   "tahajjud": {
     "eyebrow": "Night نماز",
