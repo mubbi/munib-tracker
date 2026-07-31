@@ -20,36 +20,34 @@ export function isWebAuthClient(req: Request): boolean {
 }
 
 function cookieBase(): Pick<CookieOptions, "httpOnly" | "secure" | "sameSite"> {
-  const isProduction = process.env.NODE_ENV === "production";
   return {
     httpOnly: true,
-    secure: isProduction,
+    // Always Secure — browsers treat http://localhost as a secure context.
+    secure: true,
     sameSite: "lax",
   };
 }
 
-function refreshCookieOptions(): CookieOptions {
-  return {
-    ...cookieBase(),
+export function setRefreshTokenCookie(res: Response, refreshToken: string): void {
+  // codeql[js/clear-text-storage-of-sensitive-data]: Web session tokens are stored in HttpOnly+Secure+SameSite cookies (not localStorage); this is the intended OWASP pattern.
+  res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
     path: AUTH_COOKIE_PATH,
     maxAge: 30 * 24 * 60 * 60 * 1000,
-  };
-}
-
-function accessCookieOptions(): CookieOptions {
-  return {
-    ...cookieBase(),
-    path: API_COOKIE_PATH,
-    maxAge: ACCESS_TOKEN_MAX_AGE_MS,
-  };
-}
-
-export function setRefreshTokenCookie(res: Response, refreshToken: string): void {
-  res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, refreshCookieOptions());
+  });
 }
 
 export function setAccessTokenCookie(res: Response, accessToken: string): void {
-  res.cookie(ACCESS_TOKEN_COOKIE, accessToken, accessCookieOptions());
+  // codeql[js/clear-text-storage-of-sensitive-data]: Web session tokens are stored in HttpOnly+Secure+SameSite cookies (not localStorage); this is the intended OWASP pattern.
+  res.cookie(ACCESS_TOKEN_COOKIE, accessToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: API_COOKIE_PATH,
+    maxAge: ACCESS_TOKEN_MAX_AGE_MS,
+  });
 }
 
 export function clearAccessTokenCookie(res: Response): void {

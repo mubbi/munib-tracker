@@ -1,3 +1,4 @@
+import * as Crypto from "expo-crypto";
 import type { WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 import {
   isSalahImminent,
@@ -7,10 +8,7 @@ import {
 import type { SalahTrackingSession } from "@/lib/salah-phase/types";
 
 function randomId(): string {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID();
-  }
-  return `salah-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+  return `salah-${Crypto.randomUUID()}`;
 }
 
 /**

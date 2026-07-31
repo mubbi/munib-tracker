@@ -87,7 +87,7 @@ function findBuildApiKeyP8(apiKeyId, explicitPath) {
     if (fs.existsSync(resolved)) {
       return resolved;
     }
-    console.error(`\nAPI key file not found: ${resolved}\n`);
+    console.error("\nAPI key file not found at the configured path.\n");
     process.exit(1);
   }
 

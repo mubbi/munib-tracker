@@ -13,6 +13,9 @@ env:
   CI: true
   TURBO_UI: "false"
 
+permissions:
+  contents: read
+
 jobs:
   verify:
     name: Type-check, lint, test, build, OpenAPI drift

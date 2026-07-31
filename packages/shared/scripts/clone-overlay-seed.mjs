@@ -107,6 +107,10 @@ function listOverlayFiles() {
   return fs.readdirSync(I18N_DIR).filter((f) => /^[a-z-]+\.[a-z]{2}\.ts$/.test(f));
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function cloneFile(module, seedLocale, targetLocale, force = false) {
   const seedPath = path.join(I18N_DIR, `${module}.${seedLocale}.ts`);
   const targetPath = path.join(I18N_DIR, `${module}.${targetLocale}.ts`);
@@ -121,16 +125,17 @@ function cloneFile(module, seedLocale, targetLocale, force = false) {
   let text = fs.readFileSync(seedPath, "utf8");
   const seedUpper = seedLocale.toUpperCase();
   const targetUpper = targetLocale.toUpperCase();
+  const seedLocaleRe = escapeRegExp(seedLocale);
+  const seedUpperRe = escapeRegExp(seedUpper);
+  const seedLabel = escapeRegExp(seedLocale.charAt(0).toUpperCase() + seedLocale.slice(1));
+  const targetLabel = targetLocale.charAt(0).toUpperCase() + targetLocale.slice(1);
 
-  text = text.replace(new RegExp(`(\\b[A-Z0-9_]+)_${seedUpper}\\b`, "g"), `$1_${targetUpper}`);
+  text = text.replace(new RegExp(`(\\b[A-Z0-9_]+)_${seedUpperRe}\\b`, "g"), `$1_${targetUpper}`);
   text = text.replace(
-    new RegExp(`${seedLocale} translation overlay`, "gi"),
+    new RegExp(`${seedLocaleRe} translation overlay`, "gi"),
     `${targetLocale} translation overlay`,
   );
-  text = text.replace(
-    new RegExp(`// ${seedLocale.charAt(0).toUpperCase() + seedLocale.slice(1)}`, "g"),
-    `// ${targetLocale.charAt(0).toUpperCase() + targetLocale.slice(1)}`,
-  );
+  text = text.replace(new RegExp(`// ${seedLabel}`, "g"), `// ${targetLabel}`);
 
   fs.writeFileSync(targetPath, text, "utf8");
   return { module, seedLocale, targetLocale, status: "created" };

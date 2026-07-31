@@ -30,18 +30,39 @@ const COVERAGE_PACKAGES = [
 ];
 
 /**
+ * Only open coverage reports that resolve under this repo (allowlisted packages).
+ * @param {string} filePath
+ */
+function assertAllowedCoverageReport(filePath) {
+  const resolved = path.resolve(filePath);
+  const allowed = COVERAGE_PACKAGES.some(({ dir }) => {
+    const expected = path.resolve(root, dir, "coverage", "index.html");
+    return resolved === expected;
+  });
+  if (!allowed) {
+    throw new Error(`Refusing to open path outside known coverage reports: ${filePath}`);
+  }
+  return resolved;
+}
+
+/**
  * @param {string} filePath
  */
 function openPath(filePath) {
+  const safePath = assertAllowedCoverageReport(filePath);
   const platform = process.platform;
   if (platform === "win32") {
     // `start` is a cmd builtin; empty title arg avoids treating the path as the title.
-    return spawnSync("cmd", ["/c", "start", "", filePath], { stdio: "ignore", windowsHide: true });
+    return spawnSync("cmd", ["/c", "start", "", safePath], {
+      stdio: "ignore",
+      windowsHide: true,
+      shell: false,
+    });
   }
   if (platform === "darwin") {
-    return spawnSync("open", [filePath], { stdio: "ignore" });
+    return spawnSync("open", [safePath], { stdio: "ignore", shell: false });
   }
-  return spawnSync("xdg-open", [filePath], { stdio: "ignore" });
+  return spawnSync("xdg-open", [safePath], { stdio: "ignore", shell: false });
 }
 
 /**

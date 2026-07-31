@@ -15,7 +15,12 @@ export function isLocalHost(hostname: string): boolean {
 
 export function isSupabaseHost(hostname: string): boolean {
   const h = hostname.toLowerCase();
-  return h.endsWith(".supabase.com") || h.endsWith(".supabase.co") || h.includes("supabase");
+  return (
+    h === "supabase.com" ||
+    h === "supabase.co" ||
+    h.endsWith(".supabase.com") ||
+    h.endsWith(".supabase.co")
+  );
 }
 
 function normalizePgUrl(url: string): string {
@@ -110,6 +115,12 @@ function shouldRelaxSsl(url: string, env: NodeJS.ProcessEnv): boolean {
   }
 }
 
+function hostnameMatches(hostname: string, domain: string): boolean {
+  const h = hostname.toLowerCase();
+  const d = domain.toLowerCase();
+  return h === d || h.endsWith(`.${d}`);
+}
+
 function requiresSsl(url: string, env: NodeJS.ProcessEnv): boolean {
   try {
     const parsed = new URL(normalizePgUrl(url));
@@ -120,8 +131,8 @@ function requiresSsl(url: string, env: NodeJS.ProcessEnv): boolean {
     if (envFlagTrue(env.DATABASE_SSL)) return true;
     return (
       isSupabaseHost(parsed.hostname) ||
-      parsed.hostname.includes("neon.tech") ||
-      parsed.hostname.includes("amazonaws.com")
+      hostnameMatches(parsed.hostname, "neon.tech") ||
+      hostnameMatches(parsed.hostname, "amazonaws.com")
     );
   } catch {
     return false;
