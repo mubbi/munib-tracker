@@ -35,9 +35,10 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
+  # Always scan: conflicts also appear after non-release merges to main
+  # (e.g. manifest fillers / workflow edits), not only after cutting a release.
   heal-conflicting-release-prs:
     needs: release-please
-    if: needs.release-please.outputs.releases_created == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     outputs:
       need_rebase: ${{ steps.check.outputs.need_rebase }}
@@ -63,7 +64,7 @@ jobs:
             echo "PR #${pr_num} (${head_ref}) mergeable=${mergeable}"
             if [[ "${mergeable}" != "MERGEABLE" ]]; then
               echo "Closing conflicted release PR #${pr_num}"
-              gh pr close --repo "$REPO" "$pr_num" --comment "Auto-closed: conflicted on .release-please-manifest.json after a sibling release merge. Release Please will open a fresh PR from main."
+              gh pr close --repo "$REPO" "$pr_num" --comment "Auto-closed: conflicted on .release-please-manifest.json after a main update. Release Please will open a fresh PR from main."
               gh api -X DELETE "repos/${REPO}/git/refs/heads/${head_ref}" || true
               need_rebase=true
             fi
