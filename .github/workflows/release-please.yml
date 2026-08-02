@@ -62,7 +62,13 @@ jobs:
             # Viewing the PR forces GitHub to compute mergeable status.
             mergeable=$(gh pr view --repo "$REPO" "$pr_num" --json mergeable --jq '.mergeable')
             echo "PR #${pr_num} (${head_ref}) mergeable=${mergeable}"
-            if [[ "${mergeable}" != "MERGEABLE" ]]; then
+            # GitHub often returns UNKNOWN right after a main push; only
+            # CONFLICTING means a real manifest conflict that needs recreation.
+            if [[ "${mergeable}" == "UNKNOWN" || "${mergeable}" == "null" ]]; then
+              echo "PR #${pr_num} mergeable not computed yet; leaving open"
+              continue
+            fi
+            if [[ "${mergeable}" == "CONFLICTING" ]]; then
               echo "Closing conflicted release PR #${pr_num}"
               gh pr close --repo "$REPO" "$pr_num" --comment "Auto-closed: conflicted on .release-please-manifest.json after a main update. Release Please will open a fresh PR from main."
               gh api -X DELETE "repos/${REPO}/git/refs/heads/${head_ref}" || true
@@ -77,6 +83,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: googleapis/release-please-action@v4
+        id: rebase
+        continue-on-error: true
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+      - name: Retry rebase once if first attempt failed
+        if: steps.rebase.outcome == 'failure'
+        uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
