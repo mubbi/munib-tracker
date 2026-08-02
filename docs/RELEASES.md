@@ -42,9 +42,9 @@ Mitigations in this repo:
    [google-cloud-ruby](https://github.com/googleapis/google-cloud-ruby/blob/main/.release-please-manifest.json)).
    Do not add fillers to `release-please-config.json` `packages`.
 2. **Heal jobs** in [`.github/workflows/release-please.yml`](../.github/workflows/release-please.yml):
-   after a release (or on `workflow_dispatch`), close non-mergeable Release PRs,
-   delete their head branches, and re-run Release Please so it opens fresh PRs
-   from `main`.
+   on every push to `main` (and on `workflow_dispatch`), close non-mergeable
+   Release PRs, delete their head branches, and re-run Release Please so it
+   opens fresh PRs from `main`.
 
 If a Release PR is stuck conflicting: open **Actions → release-please → Run
 workflow**. Prefer merging one Release PR at a time and waiting for the heal
