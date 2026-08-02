@@ -29,6 +29,28 @@ Release Please packages. The monorepo root is not versioned as a release artifac
 `include-component-in-tag` and `separate-pull-requests` are enabled so each app
 gets its own Release PR and tag prefix.
 
+### Concurrent Release PRs (manifest conflicts)
+
+Every Release PR updates the shared [`.release-please-manifest.json`](../.release-please-manifest.json).
+With `separate-pull-requests`, merging one app’s Release PR can leave the others
+conflicted on that file ([release-please#1870](https://github.com/googleapis/release-please/issues/1870)).
+
+Mitigations in this repo:
+
+1. **Filler keys** (`apps/<name>+FILLER`) sit between real package entries so
+   adjacent version bumps are less likely to conflict (same pattern as
+   [google-cloud-ruby](https://github.com/googleapis/google-cloud-ruby/blob/main/.release-please-manifest.json)).
+   Do not add fillers to `release-please-config.json` `packages`.
+2. **Heal jobs** in [`.github/workflows/release-please.yml`](../.github/workflows/release-please.yml):
+   after a release (or on `workflow_dispatch`), drop `autorelease: pending` from
+   non-mergeable Release PRs and re-run Release Please so it rebuilds those
+   branches from `main`.
+
+If a Release PR is stuck conflicting: open **Actions → release-please → Run
+workflow**, or remove `autorelease: pending` from the PR and re-run the
+workflow. Prefer merging one Release PR at a time and waiting for the heal
+pass before merging the next.
+
 ## How it works
 
 1. Conventional commits land on `main` under an app path.
@@ -36,6 +58,7 @@ gets its own Release PR and tag prefix.
    (version bump + changelog).
 3. When you merge the Release PR, Release Please creates the Git tag and a
    GitHub Release.
+4. If sibling Release PRs conflict on the manifest, the heal jobs rebase them.
 
 Do not continuously tag every merge yourself — merge the Release PR when you
 are ready to cut that app’s release.

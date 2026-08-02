@@ -1,11 +1,19 @@
 # Manifest-mode Release Please (v4). Official guide:
 # https://github.com/googleapis/release-please-action
+#
+# separate-pull-requests means each app gets its own Release PR, and every PR
+# also touches .release-please-manifest.json. Merging one PR can leave siblings
+# conflicted; release-please then reports them as "remained the same" while
+# they still carry "autorelease: pending". The heal jobs below drop that label
+# and re-run so branches are rebuilt from main. See:
+# https://github.com/googleapis/release-please/issues/1870
 name: release-please
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,11 +23,58 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
     steps:
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           # PAT / GitHub App token so CI runs on Release Please PRs.
           # Default GITHUB_TOKEN does not re-trigger workflows (GitHub docs).
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  heal-conflicting-release-prs:
+    needs: release-please
+    if: needs.release-please.outputs.releases_created == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    outputs:
+      need_rebase: ${{ steps.check.outputs.need_rebase }}
+    steps:
+      - name: Drop pending label on non-mergeable release PRs
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          need_rebase=false
+          pending_prs=$(gh pr list --repo "$REPO" --label "autorelease: pending" --state open --json number --jq '.[].number')
+          if [[ -z "${pending_prs}" ]]; then
+            echo "No pending release PRs."
+            echo "need_rebase=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          for pr_num in ${pending_prs}; do
+            # Viewing the PR forces GitHub to compute mergeable status.
+            mergeable=$(gh pr view --repo "$REPO" "$pr_num" --json mergeable --jq '.mergeable')
+            echo "PR #${pr_num} mergeable=${mergeable}"
+            if [[ "${mergeable}" != "MERGEABLE" ]]; then
+              echo "Removing autorelease: pending from #${pr_num}"
+              gh pr edit --repo "$REPO" "$pr_num" --remove-label "autorelease: pending"
+              need_rebase=true
+            fi
+          done
+          echo "need_rebase=${need_rebase}" >> "$GITHUB_OUTPUT"
+
+  release-please-rebase:
+    needs: heal-conflicting-release-prs
+    if: needs.heal-conflicting-release-prs.outputs.need_rebase == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
