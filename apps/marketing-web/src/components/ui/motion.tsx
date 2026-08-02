@@ -10,16 +10,17 @@ type RevealProps = {
   className?: string;
   delay?: number;
   y?: number;
+  /** @deprecated Kept for call-site compat; blur was removed for scroll perf. */
   blur?: boolean;
 };
 
-/** Fade + rise (+ optional blur) as the element scrolls into view. */
-export function Reveal({ children, className, delay = 0, y = 22, blur = true }: RevealProps) {
+/** Fade + rise as the element scrolls into view. */
+export function Reveal({ children, className, delay = 0, y = 22 }: RevealProps) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y, filter: blur ? "blur(8px)" : "blur(0px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, delay, ease: EASE }}
     >
@@ -36,8 +37,8 @@ const container: Variants = {
 };
 
 export const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: EASE } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 };
 
 /** Container that reveals its <StaggerItem> children in sequence. */

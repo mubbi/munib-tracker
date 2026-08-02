@@ -3340,7 +3340,20 @@
     },
     "versesIntroTv": "ئایەتێک هەڵبژێرە بۆ کردنەوەی لە خوێنەری قورئان. پوختە کورتەکان پەروەردەیین، جێگرەوەی تەفسیری تەواو نین.",
     "preparationHabitsHintTv": "بۆ کردنەوەی شوێنپێهەڵگر یان گۆڕینی مەبەستی ڕۆژانە هەڵبژێرە",
-    "characterHintTv": "هەڵبژێرە کاتێک ئەمڕۆ ڕەفتارەکەت پێداچوونەوە کرد"
+    "characterHintTv": "هەڵبژێرە کاتێک ئەمڕۆ ڕەفتارەکەت پێداچوونەوە کرد",
+    "mizan": {
+      "panHeavy": "Terazûya giran",
+      "panLight": "Terazûya sivik",
+      "pansCaption": "Tiştên ku nassên sehîh li Mîzanê giran dibêjin",
+      "noLeaderboard": "Ev gotin giranî û fezîletê dinivîsin — rêzkirina tevahî ya Îlahî ya her kiryarê nîne.",
+      "deedsTitle": "Kiryarên di nassan de hatine navandin",
+      "category": {
+        "heavy-on-scale": "Li Mîzanê giran",
+        "fills-the-scale": "Mîzanê tijî dike",
+        "best-beloved": "Çêtirîn / herî hezkirî",
+        "equal-reward": "Xelatê mezin ên wekhev"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Fêr bibe",
@@ -4346,10 +4359,10 @@
     "newTitle": "Nû adhkar",
     "delete": "Jê bibe",
     "emptyTitle": "Hîn jî adkara xwerû tune",
-    "emptyDesc": "Zêde bike we own zikr bi its Arabic text, transliteration, û meaning.",
+    "emptyDesc": "Zikra xwe zêde bike — sernav bes e; erebî, translîterasyon û wate ne ferz in.",
     "field": {
       "title": "Nav",
-      "arabic": "Nivîsa Erebî",
+      "arabic": "Nivîsa erebî (ne ferz)",
       "transliteration": "Transliteration (ne ferz)",
       "translation": "Meaning (ne ferz)",
       "reference": "Reference (ne ferz)"
@@ -4421,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” bi awayekî berdewam were jêbirin.",
     "searchPlaceholder": "Adhkarên xwe bigere",
     "noResults": "Adhkarên lihevhatî tune",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Ev adhkar nehat tomarkirin. Dîsa biceribîne."
   },
   "tahajjud": {
     "eyebrow": "Night salah",
@@ -4689,7 +4703,15 @@
       "mercy": "Efû",
       "supplication": "پاڕانەوە"
     },
-    "versesLeadTv": "هەر ئایەتێک هەڵبژێرە بۆ کردنەوەی لە خوێنەری قورئان."
+    "versesLeadTv": "هەر ئایەتێک هەڵبژێرە بۆ کردنەوەی لە خوێنەری قورئان.",
+    "mizan": {
+      "weightCallout": "Li Mîzana bawermend tiştek ji xweseriya baş girantir nîne — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Taybetmendiyên xweseriya baş",
+      "buildsTitle": "Xweseriyê ava dike",
+      "buildsHint": "Carekê li ser yek taybetmendiyê bixebitin — rastî, sebir, rehmet û dad.",
+      "destroysTitle": "Yên ku xweseriyê xera dikin",
+      "destroysHint": "Adetên ku nass jê hişyar dikin — ji bo dersa têkildar li ser kêlîkê bixin."
+    }
   },
   "jahannam": {
     "eyebrow": "Fêrbûn",
@@ -4823,7 +4845,19 @@
       "protection": "Parastinî"
     },
     "versesLeadTv": "هەر ئایەتێک هەڵبژێرە بۆ کردنەوەی لە خوێنەری قورئان.",
-    "reflectionLeadTv": "بوەستە و ئەم پرسیارانە لە خۆت بپرسە. ڕیزێک هەڵبژێرە بۆ کردنەوەی شوێنپێهەڵگر یان وانەی پەیوەندیدار."
+    "reflectionLeadTv": "بوەستە و ئەم پرسیارانە لە خۆت بپرسە. ڕیزێک هەڵبژێرە بۆ کردنەوەی شوێنپێهەڵگر یان وانەی پەیوەندیدار.",
+    "mizan": {
+      "warningCallout": "Nass bi gotinên wek 'hilweşîner' û 'mezintirîn' hişyar dikin — ev rêza hişyariyê ye, ne tabloya Mîzanê.",
+      "ladder": {
+        "gravest": "Hişyariyên herî giran",
+        "seven": "Heft hilweşîner",
+        "consumes": "Kiryarên qenc dixwe"
+      },
+      "sevenTitle": "Heft gunehên hilweşîner",
+      "bankruptTitle": "Kesê muflîs",
+      "bankruptLink": "Li ser hesabê Roja Dawî bixwînin",
+      "hopeCallout": "Ji rehmeta Allahê bêhêvî nebin — Ew hemû gunehên yên ku vedigerin efû dike (Qur'an 39:53). Mirina li ser şirkê bê tewbe îstîsnaya ku nass eşkere dikin e."
+    }
   },
   "tour": {
     "eyebrow": "gera rêber",
@@ -5317,7 +5351,7 @@
     "eyebrow": "Fêrbûn",
     "title": "Janazah rêber",
     "subtitle": "Nimêja cenaze, şuştin, definkirin û duayên rastîn",
-    "intro": "Nêrînek pratîkî ya Janazah wekî wacibekî komî - çawa çar tekbîran bê ruku an sucûdê, û duayên Hisnul Muslim ji bo mirî tê kirin.",
+    "intro": "Nêrînek pratîkî ya cenazeyê wekî farzekî civakî — çar tekbîrên bê ruku û sicûd, duayên Hisnul Muslim ji bo mêr, jin û zarokan, û rêberî bo şûştin, definkirin, şehîdan û xemgînan.",
     "section": {
       "obligation": "Xwegirêdanî",
       "prepare": "Amadekarî",

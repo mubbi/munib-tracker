@@ -466,6 +466,98 @@ export const JAHANNAM_CORE_TOPICS_TR: DeepPartial<JahannamTopic>[] = [
       { label: "Yolculuğum" },
     ],
   },
+  {
+    title: "Helak edici günahlar",
+    summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+    body: [
+      "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+      "Amelleri Allah için ihlasla yapın.",
+      "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+      "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+    ],
+    destructiveItems: [
+      {
+        title: "Şirk",
+        summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      },
+      {
+        title: "Sihir",
+        summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      },
+      {
+        title: "Haksız yere öldürme",
+        summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      },
+      {
+        title: "Riba",
+        summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      },
+      {
+        title: "Yetim malı",
+        summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      },
+      {
+        title: "Savaştan kaçmak",
+        summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      },
+      {
+        title: "İffetli kadına iftira",
+        summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      },
+      {
+        title: "Müflis kimse",
+        summary: "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+      },
+      {
+        excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+      },
+      {
+        excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+    ],
+    actions: [
+      "Amelleri Allah için ihlasla yapın.",
+      "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+      "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+    ],
+    appLinks: [
+      {
+        label: "Helak edici günahlar",
+      },
+      {
+        label: "Mîzanda ağır gelenler",
+      },
+      {
+        label: "Güzel ahlak",
+      },
+      {
+        label: "Repentance",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_TR: DeepPartial<JahannamTopic>[] = [

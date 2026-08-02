@@ -398,7 +398,110 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Oprostite drugima i popravite narušene veze.",
       "Razmišljajte o svom karakteru nakon namaza u dnevnom dnevniku.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Istinoljubivost",
+        summary: "Budite s istinoljubivima.",
+        quran: {
+          excerpt: "Bojte se Allaha i budite s istinoljubivima.",
+        },
+      },
+      {
+        title: "Strpljenje",
+        summary: "Tražite pomoć strpljenjem i namazom.",
+        quran: {
+          excerpt: "Tražite pomoć strpljenjem i namazom.",
+        },
+      },
+      {
+        title: "Savladavanje srdžbe",
+        summary: "Allah voli one koji savladavaju srdžbu.",
+        quran: {
+          excerpt: "One koji savladavaju srdžbu i praštaju ljudima.",
+        },
+      },
+      {
+        title: "Praštanje",
+        summary: "Oprostite i pređite preko toga.",
+        quran: {
+          excerpt: "Zar ne volite da Allah vama oprosti?",
+        },
+      },
+      {
+        title: "Poniznost",
+        summary: "Robovi Milostivog hodaju skromno.",
+        quran: {
+          excerpt: "Robovi Milostivog po zemlji hodaju skromno.",
+        },
+      },
+      {
+        title: "Povjerljivost",
+        summary: "Vratite emanete njihovim vlasnicima.",
+        quran: {
+          excerpt: "Allah vam naređuje da emanete vratite njihovim vlasnicima.",
+        },
+      },
+      {
+        title: "Dobrota prema roditeljima",
+        summary: "Lijepo postupajte prema roditeljima.",
+        quran: {
+          excerpt: "Allahu robujte i roditeljima dobro činite.",
+        },
+      },
+      {
+        title: "Lijep govor",
+        summary: "Govorite dobro ili šutite.",
+        hadith: {
+          excerpt: "Ko vjeruje u Allaha i Sudnji dan, neka govori dobro ili šuti.",
+        },
+      },
+      {
+        title: "Iskren osmijeh",
+        summary: "Osmijeh bratu je sadaka.",
+        hadith: {
+          excerpt: "Tvoj osmijeh u lice brata jeste sadaka.",
+        },
+      },
+      {
+        title: "Pravednost",
+        summary: "Budite pravedni; to je bliže bogobojaznosti.",
+        quran: {
+          excerpt: "Budite pravedni; to je bliže bogobojaznosti.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Laž",
+      },
+      {
+        title: "Ogovaranje",
+      },
+      {
+        title: "Potvora",
+      },
+      {
+        title: "Oholost",
+      },
+      {
+        title: "Zulum",
+      },
+      {
+        title: "Kršenje obećanja",
+      },
+      {
+        title: "Ruganje",
+      },
+      {
+        title: "Nepravedna grubost",
+      },
+    ],
   },
   {
     title: "Traženje znanja",

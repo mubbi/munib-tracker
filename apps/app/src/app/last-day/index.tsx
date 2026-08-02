@@ -57,6 +57,7 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
   hell: { ios: "flame.fill", android: "local_fire_department", web: "local_fire_department" },
   "without-reckoning": { ios: "heart.fill", android: "favorite", web: "favorite" },
   preparing: { ios: "figure.walk", android: "directions_walk", web: "directions_walk" },
+  "heavy-on-the-scale": { ios: "scalemass.fill", android: "balance", web: "balance" },
 };
 
 export default function LastDayScreen() {

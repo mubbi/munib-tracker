@@ -38,6 +38,21 @@ describe("jahannam content", () => {
     }
   });
 
+  it("ships destructive-sins with seven mūbiqāt and evidence", () => {
+    const topic = JAHANNAM_TOPICS.find((t) => t.id === "destructive-sins");
+    expect(topic).toBeDefined();
+    expect(topic?.section).toBe("warnings");
+    expect(JAHANNAM_CORE_TOPICS.some((t) => t.id === "destructive-sins")).toBe(true);
+    expect(topic?.destructiveItems?.filter((i) => i.kind === "mubiqah").length).toBe(7);
+    expect(topic?.destructiveItems?.every((i) => !i.route || i.route.startsWith("/"))).toBe(true);
+    expect((topic?.hadith?.length ?? 0) + (topic?.quran?.length ?? 0)).toBeGreaterThan(0);
+    expect(
+      JAHANNAM_TOPICS.find((t) => t.id === "major-sins")?.appLinks?.some((l) =>
+        l.route.includes("destructive-sins"),
+      ),
+    ).toBe(true);
+  });
+
   it("ships every major sin topic slug", () => {
     for (const id of JAHANNAM_MAJOR_SIN_IDS) {
       const topic = JAHANNAM_TOPICS.find((t) => t.id === id);

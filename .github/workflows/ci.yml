@@ -13,6 +13,9 @@ env:
   CI: true
   TURBO_UI: "false"
 
+permissions:
+  contents: read
+
 jobs:
   verify:
     name: Type-check, lint, test, build, OpenAPI drift
@@ -46,3 +49,8 @@ jobs:
 
       - name: Type-check, lint, test, build, OpenAPI generate drift
         run: pnpm check:ci
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

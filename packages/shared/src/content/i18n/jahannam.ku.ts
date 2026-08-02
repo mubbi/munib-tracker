@@ -448,6 +448,94 @@ export const JAHANNAM_CORE_TOPICS_KU: DeepPartial<JahannamTopic>[] = [
       "ئەم مادیۆلە لەگەڵ گەشت بۆ جەنا جووت بکە — ئاگادارکردنەوە و هیوا پێکەوە.",
     ],
   },
+  {
+    title: "Gunehên hilweşîner",
+    summary: "Ji gunehên mezin ên ku mirov ji rehmeta Xwedê dûr dixin biparêzin.",
+    body: [
+      "Guneha mezin di Qur'an û Sunnetê de bi tundî hatiye hişyar kirin.",
+      "Deriyê tewbeyê heta mirinê vekirî ye.",
+      "Gunehê berde, poşman be û qet negerê.",
+      "Mafê mirovan vegerandin beşek ji tewbeyê ye.",
+      "Ji rehmeta Xwedê hêvî nebirin.",
+    ],
+    destructiveItems: [
+      {
+        title: "Şirk",
+        summary: "Heval dan Xwedê herî mezin e.",
+      },
+      {
+        title: "Sêhr",
+        summary: "Sêhrkirin an çûna cem sêhrbazan qedexe ye.",
+      },
+      {
+        title: "Kuştin",
+        summary: "Kuştina canekî bêguneh sucekî giran e.",
+      },
+      {
+        title: "Rîba",
+        summary: "Xwarin û dayîna faîzê haram e.",
+      },
+      {
+        title: "Mala sêwî",
+        summary: "Mala sêwiyê bi neheqî xwarin.",
+      },
+      {
+        title: "Ji şer revîn",
+        summary: "Ji meydanê di şerê rewa de revîn.",
+      },
+      {
+        title: "Bûhtana jinên pak",
+        summary: "Bûhtan li kesên bawermend û pak kirin.",
+      },
+      {
+        title: "Muflis",
+        summary: "Di Roja Qiyametê de bi mafên mirovan sevaban winda kirin.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Xwedê hevaldayînê nabexşe.",
+      },
+      {
+        excerpt: "Kuştina canekê wek kuştina hemû mirovan e.",
+      },
+      {
+        excerpt: "Yên mala sêwiyan dixwin agirê di zikê xwe de dixwin.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Ji heft gunehên hilweşîner biparêzin.",
+      },
+      {
+        excerpt: "Muflis ew e ku bi namaz û rojî tê, lê mafê mirovan xwariye.",
+      },
+      {
+        excerpt: "Ji şirke biparêzin.",
+      },
+      {
+        excerpt: "Tewbe kirî wek kesê bêguneh e.",
+      },
+      {
+        excerpt: "Xwedê tewbeya bendeyê xwe qebûl dike.",
+      },
+    ],
+    actions: ["Tewbeya rast bikin.", "Mafên mirovan bidin.", "Ji rêyên gunehê dûr bikevin."],
+    appLinks: [
+      {
+        label: "Duaên tewbeyê",
+      },
+      {
+        label: "Şopandina namazê",
+      },
+      {
+        label: "Qerz û emanet",
+      },
+      {
+        label: "Zikrê rojane",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_KU: DeepPartial<JahannamTopic>[] = [

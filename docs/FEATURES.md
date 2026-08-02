@@ -87,7 +87,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-2.1 | Islamic events calendar | `lib/islamic-events.ts`, `/events` |
 | NF-2.2 | Zakat calculator (+ edu) | `lib/zakat.ts`, `/zakat` |
 | NF-2.5 | Fidyah / kaffarah helpers | `lib/fidyah.ts`, `packages/shared/src/content/fidyah-guide.ts`, `/fidyah` (flash-bank only, no `/quiz`) |
-| NF-2.6 | Janazah practical guide | `packages/shared/src/content/janazah-guide.ts`, `/janazah` (Hisnul `hisn-155`–`161`, `163`–`165`; flash-bank only) |
+| NF-2.6 | Janazah practical guide | `packages/shared/src/content/janazah-guide.ts`, `/janazah` (Hisnul `hisn-153`–`161`, `163`–`165`; men/women/child pronoun guide; martyrs, absentia, deathbed; flash-bank only) |
 | NF-2.3 | Hajj & Umrah learn + separate checklists | `packages/shared/src/content/{hajj-guide,hajj-checklist,umrah-checklist}.ts`, `/hajj`, `/hajj/checklist`, `/umrah/checklist` |
 | NF-2.4 | Seerah timeline | `packages/shared/src/content/seerah.ts`, `/seerah` |
 | NF-2.27 | Sahaba directory | `packages/shared/src/content/sahaba.ts`, `/sahaba` |

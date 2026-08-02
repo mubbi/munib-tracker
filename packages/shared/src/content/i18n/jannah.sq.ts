@@ -400,7 +400,110 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Falni të tjerët dhe rregulloni marrëdhëniet e prishura.",
       "Reflektoni karakterin tuaj pas namazit në një ditar të përditshëm.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Vërtetësia",
+        summary: "Të jesh i sinqertë në fjalë dhe vepër.",
+        quran: {
+          excerpt: "Jini me të vërtetët.",
+        },
+      },
+      {
+        title: "Durimi",
+        summary: "Qëndrueshmëri në sprova.",
+        quran: {
+          excerpt: "Allahu është me të duruarit.",
+        },
+      },
+      {
+        title: "Kontrolli i zemërimit",
+        summary: "Ta përmbash veten kur zemërohesh.",
+        hadith: {
+          excerpt: "I fortë është ai që e kontrollon veten në zemërim.",
+        },
+      },
+      {
+        title: "Falja",
+        summary: "Falja e gabimeve të njerëzve.",
+        quran: {
+          excerpt: "Le të falin dhe të kapërcejnë.",
+        },
+      },
+      {
+        title: "Përulësia",
+        summary: "Të mos e shohësh veten mbi të tjerët.",
+        hadith: {
+          excerpt: "Kush përkulet për Allahun, Allahu e ngre.",
+        },
+      },
+      {
+        title: "Besueshmëria",
+        summary: "Ruajtja e asaj që të besohet.",
+        quran: {
+          excerpt: "Ata ruajnë amanetet dhe premtimet e tyre.",
+        },
+      },
+      {
+        title: "Prindërit",
+        summary: "Respekt dhe mirësi ndaj tyre.",
+        quran: {
+          excerpt: "Mos u thuaj as «uf».",
+        },
+      },
+      {
+        title: "Fjala e mirë",
+        summary: "Thuaj mirë ose hesht.",
+        hadith: {
+          excerpt: "Le të thotë fjalë të mirë ose të heshtë.",
+        },
+      },
+      {
+        title: "Buzëqeshja",
+        summary: "Fytyrë e hapur ndaj vëllait.",
+        hadith: {
+          excerpt: "Buzëqeshja ndaj vëllait është sadaka.",
+        },
+      },
+      {
+        title: "Drejtësia",
+        summary: "Të gjykosh me drejtësi.",
+        quran: {
+          excerpt: "Jini të drejtë; kjo është më afër devotshmërisë.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Gënjeshtra",
+      },
+      {
+        title: "Përgojimi",
+      },
+      {
+        title: "Thashethemet",
+      },
+      {
+        title: "Mendjemadhësia",
+      },
+      {
+        title: "Padrejtësia",
+      },
+      {
+        title: "Thyerja e premtimeve",
+      },
+      {
+        title: "Tallja",
+      },
+      {
+        title: "Ashpërsia",
+      },
+    ],
   },
   {
     title: "Duke kërkuar dije",

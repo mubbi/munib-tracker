@@ -216,4 +216,133 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Təkbir-təkbir — namazın addımları",
+    summary: "Dörd təkbirin və aralarındakıların praktiki siyahısı.",
+    body: [
+      "Birinci təkbir: əllərinizi qaldırın (məzhəbinizə görə), Allahu Əkbər deyin, sonra Surə əl-Fatihəni oxuyun. İbn Abbas cənazə namazında əl-Fatihəni oxudu və bunun sünnədən olduğunu dedi (Səhih əl-Buxari 1335).",
+      "İkinci təkbir: Peyğəmbərə ﷺ salavat göndərin — təşəhhüddəki İbrahim salavatı bu addım üçün geniş tədris olunur. Üçüncü təkbir: ölənin üçün səmimi dua edin (bu bələdçidə Hisnul Müslim ifadələri). Dördüncü təkbir: bir çox alim sonra qısa ümumi dua edir, sonra sağa (və məzhəbə görə sola) təslim ilə bitirir.",
+      "Rüku, sücud və oturuş yoxdur. Bütün namazda ayaq üstə durun. Bir neçə cənazə varsa, bir çox cəmiyyətdə hamısı üçün niyyətlə bir Cənazə oxunur — imama tabe olun. Salavat və duanın yeri məzhəbə görə bir qədər dəyişə bilər; dörd təkbir çərçivəsi ortaqdır.",
+    ],
+    madhhabNote:
+      "Hənəfi, Maliki, Şafii və Hənbəli kitablarda hər təkbirdə əl qaldırıb-qaldırmamaq və duanın dəqiq vaxtı fərqlənir. Qarşınızdakı imama tabe olun.",
+    actions: [
+      "Ehtiyacdan əvvəl dörd təkbir ardıcıllığını öyrənin.",
+      "Fatihəni, salavatı və ən azı bir cənazə duasını əzbərləyin.",
+    ],
+    hadith: [
+      {
+        excerpt: "İbn Abbas cənazə namazı qıldı və Fatihəni oxuyub bunun sünnədən olduğunu dedi.",
+      },
+    ],
+  },
+  {
+    title: "Kişilər, qadınlar və uşaqlar üçün dualar",
+    summary: "Eyni peyğəmbəri ifadələr — ərəb əvəzliklərini ölənə uyğunlaşdırın.",
+    body: [
+      "Hisnul Müslim (və klassik hədis külliyyatları) Cənazə dualarını əsasən kişi cinsində qeyd edir. Bu, qadınlar üçün ayrı «uydurulmuş» dua demək deyil. Əsas axın alimləri öyrədir ki, niyyətlə kişi ifadəsini saxlaya bilərsiniz, yaxud — daha üstün və yaygın olanı — qrammatikanı ölənə uyğun dəyişin: لَهُ / هُ / هِ → لَهَا / هَا؛ عَبْدُكَ → أَمَتُكَ؛ ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ؛ və qız uşağı üçün اجْعَلْهُ → اجْعَلْهَا، شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Öləmiş qadın üçün bəzi alimlər «ərindən daha yaxşı ər» (زَوْجًا خَيْرًا مِنْ زَوْجِهَا) ifadəsinə ehtiyat məsləhət görürlər — Cənnətdə əri ilə birləşə bilər; həmin hissəni ata və ya ümumi ifadə saxlaya bilərsiniz. Uşaqlar üçün yalnız böyüklərin bağışlanma mətnlərinə deyil, uşağa xas Hisnul qeydlərinə (hisn-160, hisn-161) istinad edin.",
+      "Kollektiv ifadə «kişlərimizi və qadınlarımızı bağışla» (hisn-157) dəyişikliksiz hər iki cinsi əhatə edir. Səhih mətnlərin qrammatik uyğunlaşdırılmasından başqa yeni ərəbcə uydurmuruq — əlaqəli böyük duasını əsas kimi açın və yuxarıdakı əvəzlik xəritəsini tətbiq edin.",
+    ],
+    madhhabNote:
+      "Niyyətlə kişi formasını saxlamaq və qadın formasını uyğunlaşdırmaq — hər ikisi əsas axın alimləri arasında qəbul edilir. Şübhə olanda hisn-157 (kişlər və qadınlar) istifadə edin və ya imamdan soruşun.",
+    actions: [
+      "Əzbərlədiyiniz duada qadın əvəzliklərinin dəyişdirilməsini məşq edin.",
+      "Yetkinlik yaşına çatmayanlar üçün uşağa xas dualardan istifadə edin.",
+      "Uzun, sənədsiz kitabçalardan daha çox orijinallığa üstünlük verin.",
+    ],
+    appLinks: [{ label: "Böyüklər üçün cənazə duası #1" }],
+  },
+  {
+    title: "Şəhidlər, düşmə və xüsusi hallar",
+    summary: "Yuma və ya Cənazə hökmü adi haldan fərqli olduqda.",
+    body: [
+      "Döyüşdə ölən döyüş meydanı şəhidləri, Uhuddan gələn klassik hökmə görə, adi qüsulsuz, paltarları ilə dəfn olunur; Peyğəmbər ﷺ Uhud şəhidlərinin qanları ilə və yuyulmadan dəfn olunmasını əmr etdi (Səhih əl-Buxari 1346). Mükafatda «şəhid» adlandırılan digər kateqoriyalar (məs. taun, boğulma) adətən yuma və Cənazə alır — sərhəd hallarda alimdən soruşun.",
+      "Düşmə və ya ölü doğumda məzhəblər cənazə namazı və tam yuma nə vaxt tətbiq olunur deyə fərqlənir (çox vaxt tanınan forma və ya ruh üfürmə mərhələsi ilə bağlıdır). Bir hədis düşmə üzərində namazı və valideynlər üçün bağışlanma və rəhmət duasını təşviq edir (Əbu Davud 3180). Təxmin etmək əvəzinə məzhəbinizin cənazə komitəsinə tabe olun.",
+      "Qeyri-müsəlman qohumlara müsəlman Cənazə namazı oxunmur; mehribanlıq, uyğun olduqda qanuni dəfn yardımı və şəxsi kədər möminlərin ayin namazından ayrıdır. Xüsusi halları həmişə ixtisaslı yerli rəhbərliklə təsdiqləyin.",
+    ],
+    madhhabNote:
+      "Döyüş meydanı şəhidliyinin tərifi, düşmə mərhələləri və ölü doğuma namaz məzhəbə görə dəyişir. Bu mövzu məsələləri göstərir — fətva deyil.",
+    disclaimer:
+      "Xüsusi hökmlər həssasdır. Hərəkətdən əvvəl ixtisaslı alim və ya cəmiyyətinizin cənazə xidməti ilə təsdiqləyin.",
+    actions: [
+      "Alim göstərişinə zidd olaraq döyüş meydanı şəhidini yumayın.",
+      "Düşmə və ya ölü doğum halları barədə cənazə komitəsindən soruşun.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Peyğəmbər ﷺ əmr etdi ki, Uhud şəhidləri qanları ilə dəfn olunsun və onlar yuyulmadı.",
+      },
+      {
+        excerpt:
+          "Düşmə üzərində cənazə namazı oxunur və valideynlər üçün bağışlanma və rəhmət duası edilir.",
+      },
+    ],
+  },
+  {
+    title: "Qayıb cənazə namazı",
+    summary: "Peyğəmbər ﷺ Nəcaşi üçün namaz qıldı, cəsəd uzaqda ikən.",
+    body: [
+      "Cabir rəvayət etdi ki, Peyğəmbər ﷺ səhabələrinə çıxdı, onları düzdü və xaricdə ölmüş Həbəş padşahı Nəcaşi (ən-Nəcaşi) üçün dörd təkbir dedi (Səhih əl-Buxari 1334; Səhih Müslim 952). Bu, qayıb üzərinə Salat əl-Cənazənin (ələ əl-qaib) əsas dəlilidir.",
+      "Məzhəblər bu nümunənin nə qədər geniş tətbiqinə dair fərqlənir: bəziləri onu Nəcaşi kimi hallarla məhdudlaşdırır (yerli müsəlman namazı olmayıb), digərləri cəsəd uzaqda olanda daha geniş icazə verir. Cəsəd hazır və cəmiyyət namaz qıla biləndə yerli Cənazəni buraxmayın. Məzhəbinizdə qayıb namazı nə vaxt uyğundur deyə etibarlı yerli alimə tabe olun.",
+      "Forma eyni dörd təkbirli namazdır; niyyət qayıb ölən üçündür. Eyni səhih dualardan istifadə edin, lazım gələndə cinsi uyğunlaşdırın.",
+    ],
+    madhhabNote:
+      "Qayıb Cənazənin əhatəsi məlum ixtilaf nöqtəsidir. Cəmiyyətinizdəki ixtisaslı imamların əməlinə üstünlük verin.",
+    actions: [
+      "Cəsəd hazır olduqca yerli namaz qılın.",
+      "İctimai tədbir kimi qayıb Cənazə təşkil etməzdən əvvəl soruşun.",
+    ],
+    hadith: [
+      {
+        excerpt: "Peyğəmbər ﷺ Nəcaşi üçün cənazə namazı qıldı və dörd təkbir dedi.",
+      },
+      {
+        excerpt: "Allahın Elçisi ﷺ səhabələri düzdü və Nəcaşi üçün dörd təkbir dedi.",
+      },
+    ],
+  },
+  {
+    title: "Ölüm yatağında — son sözlər",
+    summary: "Ölənə yumşaqca la ilahə illallah deməyi təlqin edin.",
+    body: [
+      "Peyğəmbər ﷺ dedi: «Ölənlərinizə la ilahə illallah deməyi təlqin edin» (Səhih Müslim 916; Əbu Davud 3117). Hisnul Müslim saxlayır ki, son sözləri «Allahdan başqa ibadətə layiq heç kəs yoxdur» olan kəs Cənnətə daxil olar (hisn-153, Əbu Davud 3116-dan).",
+      "Yumşaqca və sərtlik olmadan təlqin edin; məcbur etməyin və mübahisə etməyin. Ölümə yaxın olanlar Hisnul Müslimdə saxlanılan ümid sözləri ilə də təsəlli tapa bilər (hisn-150–152). Ruh alındıqda gözləri bağlayın və göz-bağlama duasından istifadə edin (əvvəlki mövzu).",
+      "Uca nalə və Allahı qəzəbləndirən sözlərdən çəkinin. Ev əhli yaxşı söz desin, çünki mələklər onların sözünə amin deyir (Səhih Müslim 920).",
+    ],
+    actions: ["Ölənə yumşaqca şəhadəti xatırladın.", "Otağı sakit və yaxşı sözlə məşğul saxlayın."],
+    hadith: [
+      {
+        excerpt: "Ölənlərinizə təlqin edin ki, desinlər: la ilahə illallah.",
+      },
+      {
+        excerpt:
+          "Son sözləri «Allahdan başqa ibadətə layiq heç kəs yoxdur» olan kəs Cənnətə daxil olar.",
+      },
+    ],
+    appLinks: [{ label: "Həyat ümidi duaları" }, { label: "Gözləri bağlamaq" }],
+  },
+  {
+    title: "Təziyə və yas tutanlar",
+    summary: "Diriləri peyğəmbəri müsibət duası ilə təsəlli edin.",
+    body: [
+      "Ümmü Sələmə rəvayət etdi ki, Allahın Elçisi ﷺ dedi: «Heç bir müsəlman yoxdur ki, ona müsibət toxunsun və Allahın əmr etdiyini desin — «Biz Allaha aidik və Ona qayıdacağıq. Ya Allah, müsibətimdə məni mükafatlandır və onu mənə daha yaxşısı ilə əvəz et» — amma Allah onu daha yaxşısı ilə əvəz etməsin» (Səhih Müslim 918). Hisnul Müslim bu ifadəni saxlayır (hisn-154).",
+      "Qısa, doğru sözlərlə təziyə edin; ölənin ailəsi üçün yemək hazırlayın, onları qonaqlıq yükü ilə yükləməyin (Əbu Davud 3132 — Cəfərin ailəsi haqqında rəvayət). Dəlilsiz sabit günlü bidət mərasimlərindən çəkinin və şəxsi dua, sədəqə və mehribanlığı davam etdirin.",
+      "Göz yaşlı kədər icazəlidir; nalə, yanağa vurmaq və paltar cırmaq qadağan edilmişdi. Dəfndən sonra dullara, yetimlərə və asılı olanlara qanuni köməklə dəstək olun.",
+    ],
+    actions: [
+      "Yas tutanlara müsibət duasını öyrədin.",
+      "Ziyafət gözləmək əvəzinə yemək və işlərdə kömək edin.",
+      "Ölənin üçün sakit dua və sədəqəni davam etdirin.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Heç bir müsəlmana müsibət toxunub Allaha qayıdışın əmr olunmuş sözlərini demir və daha yaxşı əvəz istəmir ki, Allah onu daha yaxşısı ilə əvəz etməsin.",
+      },
+    ],
+    appLinks: [{ label: "Sədəqə məqsədləri" }],
+  },
 ];

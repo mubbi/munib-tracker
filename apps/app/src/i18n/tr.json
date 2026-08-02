@@ -3328,7 +3328,20 @@
     },
     "versesIntroTv": "Kur'an okuyucusunda açmak için bir ayet seçin. Kısa özetler eğitici niteliktedir; tam tefsirin yerine geçmez.",
     "preparationHabitsHintTv": "Bir takip açmak veya günlük niyeti değiştirmek için seçin",
-    "characterHintTv": "Bugünkü davranışınızı gözden geçirdiğinizde seçin"
+    "characterHintTv": "Bugünkü davranışınızı gözden geçirdiğinizde seçin",
+    "mizan": {
+      "panHeavy": "Ağır kefe",
+      "panLight": "Hafif kefe",
+      "pansCaption": "Sahih nasların Mizan'da ağır dediği şeyler",
+      "noLeaderboard": "Bu ifadeler ağırlığı ve fazileti anlatır — her amelin eksiksiz ilahi sıralaması değildir.",
+      "deedsTitle": "Naslarda adı geçen ameller",
+      "category": {
+        "heavy-on-scale": "Mizan'da ağır",
+        "fills-the-scale": "Mizan'ı doldurur",
+        "best-beloved": "En hayırlı / en sevgili",
+        "equal-reward": "Denk tutulan büyük sevap"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Öğren",
@@ -4254,10 +4267,10 @@
     "newTitle": "Yeni adhkar",
     "delete": "Sil",
     "emptyTitle": "Henüz custom adhkar yok",
-    "emptyDesc": "your own zikr with its Arabic text, transliteration, and meaning. Ekle",
+    "emptyDesc": "Kendi zikrinizi ekleyin — bir başlık yeterlidir; Arapça, transliterasyon ve anlam isteğe bağlıdır.",
     "field": {
       "title": "Başlık",
-      "arabic": "Arapça text",
+      "arabic": "Arapça metin (isteğe bağlı)",
       "transliteration": "Transkripsiyon (isteğe bağlı)",
       "translation": "Meaning (isteğe bağlı)",
       "reference": "Reference (isteğe bağlı)"
@@ -4329,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” kalıcı olarak kaldırılacak.",
     "searchPlaceholder": "Adhkarlarınızı arayın",
     "noResults": "Eşleşen adhkar yok",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Bu adhkar kaydedilemedi. Tekrar deneyin."
   },
   "tahajjud": {
     "eyebrow": "Night namaz",
@@ -4597,7 +4611,15 @@
       "mercy": "Merhamet",
       "supplication": "Dua"
     },
-    "versesLeadTv": "Kur'an okuyucusunda açmak için herhangi bir ayeti seçin."
+    "versesLeadTv": "Kur'an okuyucusunda açmak için herhangi bir ayeti seçin.",
+    "mizan": {
+      "weightCallout": "Müminin Mizan'ında güzel ahlaktan daha ağır bir şey yoktur — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Güzel ahlakın özellikleri",
+      "buildsTitle": "Ahlakı inşa eder",
+      "buildsHint": "Bir seferde bir özelliği çalışın — doğruluk, sabır, merhamet ve adalet.",
+      "destroysTitle": "Ahlakı bozanlar",
+      "destroysHint": "Nasların uyardığı alışkanlıklar — ilgili ders için bir kutuya dokunun."
+    }
   },
   "jahannam": {
     "eyebrow": "Öğren",
@@ -4731,7 +4753,19 @@
       "protection": "Koruma"
     },
     "versesLeadTv": "Kur'an okuyucusunda açmak için herhangi bir ayeti seçin.",
-    "reflectionLeadTv": "Durun ve bu soruları kendinize sorun. İlgili takibi veya dersi açmak için bir satır seçin."
+    "reflectionLeadTv": "Durun ve bu soruları kendinize sorun. İlgili takibi veya dersi açmak için bir satır seçin.",
+    "mizan": {
+      "warningCallout": "Naslar 'helak edici' ve 'en büyük' gibi sözlerle uyarır — bu bir uyarı hiyerarşisidir, Mizan sıralaması değildir.",
+      "ladder": {
+        "gravest": "En ağır uyarılar",
+        "seven": "Yedi helak edici",
+        "consumes": "İyilikleri tüketir"
+      },
+      "sevenTitle": "Yedi helak edici günah",
+      "bankruptTitle": "Müflis kimse",
+      "bankruptLink": "Kıyamet Günü'ndeki hesaba dair okuyun",
+      "hopeCallout": "Allah'ın rahmetinden ümit kesmeyin — tövbe edenlerin bütün günahlarını bağışlar (Qur'an 39:53). Tövbesiz şirk üzere ölmek, nasların açıkladığı istisnadır."
+    }
   },
   "tour": {
     "eyebrow": "Rehberli tur",
@@ -5225,7 +5259,7 @@
     "eyebrow": "Öğrenmek",
     "title": "Janazah kılavuzu",
     "subtitle": "Cenaze namazı, yıkanma, defin ve sahih dualar",
-    "intro": "Toplumsal bir görev olarak __MÜNİB_TOKEN_0__ konusuna pratik bir genel bakış - rüku veya secde olmadan dört tekbir nasıl kılınır ve merhum için __MÜNİB_TOKEN_1__ dualar.",
+    "intro": "Toplumsal bir görev olarak cenazeye pratik bir bakış — rükû ve secdesiz dört tekbir, erkekler, kadınlar ve çocuklar için Hisnul Muslim duaları; yıkama, defin, şehitler ve yaslılar için rehberlik.",
     "section": {
       "obligation": "Yükümlülük",
       "prepare": "Hazırlık",

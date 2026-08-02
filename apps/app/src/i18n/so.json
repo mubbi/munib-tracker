@@ -3328,7 +3328,20 @@
     },
     "versesIntroTv": "Dooro aayad si aad ugu furto akhristaha Qur'anka. Soo koobid kooban waa waxbarasho, ee ma aha bedel tafsir buuxa.",
     "preparationHabitsHintTv": "Dooro si aad u furto raadraace ama u beddesho ujeeddo maalinle ah",
-    "characterHintTv": "Dooro markaad dib u eegto dhaqankaaga maanta"
+    "characterHintTv": "Dooro markaad dib u eegto dhaqankaaga maanta",
+    "mizan": {
+      "panHeavy": "Dhinaca culus",
+      "panLight": "Dhinaca fudud",
+      "pansCaption": "Waxa qoraallada saxda ah ugu yeeraan culus Mizan-ka",
+      "noLeaderboard": "Weedhahaan waxay qeexayaan miisaanka iyo fadliga — ma aha kala sarreyn dhammaystiran oo rabbaani ah ee fal kasta.",
+      "deedsTitle": "Fallo lagu magacaabay qoraallada",
+      "category": {
+        "heavy-on-scale": "Culus Mizan-ka",
+        "fills-the-scale": "Buuxiya Mizan-ka",
+        "best-beloved": "Ugu fiican / ugu jeclaan",
+        "equal-reward": "Abaal weyn oo la simay"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Baro",
@@ -4254,10 +4267,10 @@
     "newTitle": "New dhkr",
     "delete": "Tirtir",
     "emptyTitle": "No cusum dhkr yet",
-    "emptyDesc": "ku dr kg own zikr with its Crbi text, trnslitertiku, iyo mengudhg.",
+    "emptyDesc": "Ku dar zikrkaaga — cinwaan keliya waa ku filan; Carabi, tarjumaadda qoraalka iyo macnaha waa ikhtiyaari.",
     "field": {
       "title": "Cinwaanka",
-      "arabic": "Crbi text",
+      "arabic": "Qoraal Carabi (ikhtiyaari)",
       "transliteration": "Trnslitertiku (ikhtiyri)",
       "translation": "Mengudhg (ikhtiyri)",
       "reference": "Reference (ikhtiyri)"
@@ -4329,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” waa laga saari doonaa si joogto ah.",
     "searchPlaceholder": "Raadi adhkar-kaaga",
     "noResults": "Ma jiraan adhkar is-waafaqaya",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Adhkarkan lama keydin karin. Isku day mar kale."
   },
   "tahajjud": {
     "eyebrow": "Salah habeenkii",
@@ -4597,7 +4611,15 @@
       "mercy": "Naxariis",
       "supplication": "Supplictiku"
     },
-    "versesLeadTv": "Dooro aayad kasta si aad ugu furto akhristaha Qur'anka."
+    "versesLeadTv": "Dooro aayad kasta si aad ugu furto akhristaha Qur'anka.",
+    "mizan": {
+      "weightCallout": "Wax culus oo ka weyn Mizan-ka mu'minka ma jiro oo ka weyn akhlaaqda wanaagsan — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Sifooyinka akhlaaqda wanaagsan",
+      "buildsTitle": "Wuxuu dhisayaa akhlaaqda",
+      "buildsHint": "Ku tababar sifo kaliya mar — run, samir, naxariis iyo caddaalad.",
+      "destroysTitle": "Waxa burburiya akhlaaqda",
+      "destroysHint": "Caadooyin qoraalladu ka digayaan — taabo shaxda casharka la xiriira."
+    }
   },
   "jahannam": {
     "eyebrow": "Baro",
@@ -4731,7 +4753,19 @@
       "protection": "Protectiku"
     },
     "versesLeadTv": "Dooro aayad kasta si aad ugu furto akhristaha Qur'anka.",
-    "reflectionLeadTv": "Hakad qaado oo is weydii su'aalahan. Dooro saf si aad u furto raadraacaha ama casharka laxidhiidha."
+    "reflectionLeadTv": "Hakad qaado oo is weydii su'aalahan. Dooro saf si aad u furto raadraacaha ama casharka laxidhiidha.",
+    "mizan": {
+      "warningCallout": "Qoraalladu waxay digayaan ereyo sida 'halaagaya' iyo 'ugu weyn' — taasi waa kala sarreyn digtoon, ma aha miisaanka Mizan.",
+      "ladder": {
+        "gravest": "Digtoonada ugu culus",
+        "seven": "Toddoba halaagaya",
+        "consumes": "Wuxuu baabi'iyaa ficillada wanaagsan"
+      },
+      "sevenTitle": "Toddobada dembi ee halaagaya",
+      "bankruptTitle": "Qofka kacsan",
+      "bankruptLink": "Akhri xisaabta Maalinta Dambe",
+      "hopeCallout": "Ha quusanin naxariista Allah — wuxuu cafiyaa dhammaan dembiyada kuwa soo noqda (Qur'an 39:53). In lagu dhinto shirk iyada oo aan toobad la keenin waa ka-reebka qoraalladu caddeeyeen."
+    }
   },
   "tour": {
     "eyebrow": "Guided uur",
@@ -5225,7 +5259,7 @@
     "eyebrow": "Baro",
     "title": "Janazah hage",
     "subtitle": "Salaada janaasada, dhaqida, xabaasha, iyo ducooyinka dhabta ah",
-    "intro": "Dulmar wax ku ool ah oo ku saabsan Janazah sida waajib beeleed - sida loo tukado afar takbiir oo aan rukuuc iyo sujuud lahayn, iyo Hisnul Muslim ducadii marxuumka.",
+    "intro": "Dulmar wax ku ool ah oo ku saabsan Janazah sida waajib beeleed — afar takbiir oo aan rukuu iyo sujuud lahayn, ducooyinka Hisnul Muslim ee ragga, dumarka iyo carruurta, iyo hagitaan maydhitaanka, aaska, shahiidiinta iyo kuwa murugada leh.",
     "section": {
       "obligation": "Waajib",
       "prepare": "Diyaarinta",

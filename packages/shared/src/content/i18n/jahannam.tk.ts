@@ -460,6 +460,98 @@ export const JAHANNAM_CORE_TOPICS_TK: DeepPartial<JahannamTopic>[] = [
     ],
     appLinks: [{}, {}, {}],
   },
+  {
+    title: "Heläk ediji günäler",
+    summary: "Allanyň rehmetinden daşlaşdyrýan uly günälerden saklanyň.",
+    body: [
+      "Uly günäler Gurhanda we Sünnetde berk duýdurylýar.",
+      "Töwbe gapysy ölüm gelýänçä açykdyr.",
+      "Günäni taşlaň, puşman boluň we gaýtmazlyga niýetleniň.",
+      "Adamlaryň hakyny gaýtarmak töwbäniň bir bölegidir.",
+      "Allanyň rehmetinden umytsyz bolmaň.",
+    ],
+    destructiveItems: [
+      {
+        title: "Şirk",
+        summary: "Alla şärik goşmak iň uly zulumdyr.",
+      },
+      {
+        title: "Jadygöýlük",
+        summary: "Jady etmek ýa-da jadygöýe ýüz tutmak haramdyr.",
+      },
+      {
+        title: "Adam öldürmek",
+        summary: "Bigünä jany öldürmek örän agyr jenaýatdyr.",
+      },
+      {
+        title: "Süýthorlyk",
+        summary: "Riba almak hem bermek haramdyr.",
+      },
+      {
+        title: "Ýetimiň maly",
+        summary: "Ýetimiň malyny nähak iýmek.",
+      },
+      {
+        title: "Söweşden gaçmak",
+        summary: "Kanuny söweşde meýdandan gaçmak.",
+      },
+      {
+        title: "Päk kişä töhmet",
+        summary: "Päk mömine zyna töhmetini atmak.",
+      },
+      {
+        title: "Müflislik",
+        summary: "Kyýamatda adamlaryň haky sebäpli sogapdan galmak.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Alla Özüne şärik goşulmagyny bagyşlamaz.",
+      },
+      {
+        excerpt: "Kim bir jany nähak öldürse, ähli adamlary öldüren ýalydyr.",
+      },
+      {
+        excerpt: "Ýetimleriň malyny zulum bilen iýýänler od iýýändir.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Ýedi heläk ediji günäden saklanyň.",
+      },
+      {
+        excerpt: "Müflis namaz bilen gelip, adamlara zulum eden kişidir.",
+      },
+      {
+        excerpt: "Şirkden saklanyň.",
+      },
+      {
+        excerpt: "Töwbe eden günäsiz ýalydyr.",
+      },
+      {
+        excerpt: "Alla bendesiniň töwbesine şatlanýar.",
+      },
+    ],
+    actions: [
+      "Yhlasly töwbe ediň.",
+      "Adamlaryň hakyny gaýtaryň.",
+      "Günä eltýän ýollardan daşlaşyň.",
+    ],
+    appLinks: [
+      {
+        label: "Töwbe dogalary",
+      },
+      {
+        label: "Namaz gözegçiligi",
+      },
+      {
+        label: "Karzlar we amanatlar",
+      },
+      {
+        label: "Gündelik zikr",
+      },
+    ],
+  },
 ];
 
 export const JAHANNAM_MAJOR_SIN_TOPICS_TK: DeepPartial<JahannamTopic>[] = [

@@ -194,11 +194,25 @@ export default function JahannamScreen() {
                   {topics.map((topic) => (
                     <JannahNavRow
                       key={topic.id}
-                      icon={{
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
-                      }}
+                      icon={
+                        topic.id === "destructive-sins"
+                          ? {
+                              ios: "shield.lefthalf.filled",
+                              android: "shield",
+                              web: "shield",
+                            }
+                          : topic.id === "major-sins"
+                            ? {
+                                ios: "exclamationmark.triangle.fill",
+                                android: "warning",
+                                web: "warning",
+                              }
+                            : {
+                                ios: "text.book.closed",
+                                android: "article",
+                                web: "article",
+                              }
+                      }
                       title={topic.title}
                       subtitle={topic.summary}
                       badge={

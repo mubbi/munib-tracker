@@ -400,7 +400,110 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "Pardonnez aux autres et réparez les relations brisées.",
       "Réfléchissez à votre personnage après salah dans un journal quotidien.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Véracité",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        quran: {
+          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+        },
+      },
+      {
+        title: "Patience",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        quran: {
+          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+        },
+      },
+      {
+        title: "Maîtrise de la colère",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        quran: {
+          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+        },
+      },
+      {
+        title: "Pardon",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        quran: {
+          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+        },
+      },
+      {
+        title: "Humilité",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        quran: {
+          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+        },
+      },
+      {
+        title: "Fiabilité",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        quran: {
+          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+        },
+      },
+      {
+        title: "Bonté envers les parents",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        quran: {
+          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+        },
+      },
+      {
+        title: "Bonne parole",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+      {
+        title: "Sourire",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        hadith: {
+          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
+        },
+      },
+      {
+        title: "Justice",
+        summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
+        quran: {
+          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Mensonge",
+      },
+      {
+        title: "Méditance",
+      },
+      {
+        title: "Calomnie",
+      },
+      {
+        title: "Orgueil",
+      },
+      {
+        title: "Oppression",
+      },
+      {
+        title: "Promesses rompues",
+      },
+      {
+        title: "Moquerie",
+      },
+      {
+        title: "Dureté",
+      },
+    ],
   },
   {
     title: "En quête de connaissances",

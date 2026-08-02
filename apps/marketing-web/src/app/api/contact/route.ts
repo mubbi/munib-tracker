@@ -13,7 +13,7 @@ type ContactBody = {
   company?: string;
 };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,253}\.[^\s@]{2,63}$/;
 
 const MAX_NAME = 100;
 const MAX_EMAIL = 254;
@@ -50,11 +50,8 @@ export async function POST(request: Request) {
   if (name.length > MAX_NAME) {
     return NextResponse.json({ error: "Name is too long" }, { status: 400 });
   }
-  if (!email || !EMAIL_RE.test(email)) {
+  if (!email || email.length > MAX_EMAIL || !EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "Valid email required" }, { status: 400 });
-  }
-  if (email.length > MAX_EMAIL) {
-    return NextResponse.json({ error: "Email is too long" }, { status: 400 });
   }
   if (!message) {
     return NextResponse.json({ error: "Message required" }, { status: 400 });

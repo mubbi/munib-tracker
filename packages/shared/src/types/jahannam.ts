@@ -5,6 +5,7 @@ import type {
   JannahImportance,
   JannahQuranRef,
 } from "./jannah";
+import type { DestructiveSinItem } from "./mizan";
 
 /** Hub section grouping on the Understanding Jahannam screen. */
 export type JahannamSection =
@@ -28,6 +29,8 @@ export interface JahannamTopic {
   actions?: string[];
   appLinks?: JannahAppLink[];
   disclaimer?: string;
+  /** Structured list for the destructive-sins Mizan UI (seven + related). */
+  destructiveItems?: DestructiveSinItem[];
 }
 
 /** Qur'anic name of Hell with scholarly context. */

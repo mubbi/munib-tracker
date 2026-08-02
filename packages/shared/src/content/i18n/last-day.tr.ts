@@ -583,11 +583,121 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
     ],
     appLinks: [
       { label: "Hazırlık Panom" },
+      { label: "Mîzanda ağır gelenler" },
       { label: "Namazı Öğren" },
       { label: "Kur'an Öğren" },
       { label: "Dua Öğren" },
       { label: "Akîde Öğren" },
       { label: "Namaz Takipçisi" },
+    ],
+  },
+  {
+    title: "Mîzanda ağır gelenler",
+    summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+    body: [
+      "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+      "Amelleri Allah için ihlasla yapın.",
+      "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Güzel ahlak",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+      {
+        title: "İki hafif söz",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+      {
+        title: "Elhamdülillah mîzanı doldurur",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+      {
+        title: "Şehadet kartı",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+      {
+        title: "En faziletli zikir",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+      {
+        title: "Dört sevgili söz",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+      {
+        title: "Yüz defa Subhanallah",
+        summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+        hadith: {
+          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+      },
+      {
+        excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+      {
+        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+      },
+    ],
+    misconceptions: [
+      "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+      "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+    ],
+    actions: [
+      "Amelleri Allah için ihlasla yapın.",
+      "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+      "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
+      "Amelleri Allah için ihlasla yapın.",
+    ],
+    appLinks: [
+      {
+        label: "Mîzanda ağır gelenler",
+      },
+      {
+        label: "Güzel ahlak",
+      },
+      {
+        label: "Dhikr",
+      },
+      {
+        label: "Tasbeeh",
+      },
+      {
+        label: "Repentance",
+      },
     ],
   },
 ];
@@ -716,6 +826,24 @@ export const LAST_DAY_HADITH_TR: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'İlmin kalkması' hakiki âlimlerin ve yaşanan uygulamanın ortadan kalkması demektir — bilgi eksikliği değil.",
+  },
+  {
+    hadith: {
+      excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+    },
+    context: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+  },
+  {
+    hadith: {
+      excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+    },
+    context: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
+  },
+  {
+    hadith: {
+      excerpt: "Dilde hafif, mîzanda ağır iki söz.",
+    },
+    context: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
   },
 ];
 
@@ -953,6 +1081,18 @@ export const LAST_DAY_QUIZ_TR: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Doğru", "Yanlış"],
     explanation:
       "Âyet, herkesin ondan geçeceğini belirtir; Allah takva sahiplerini kurtarır. Âlimler kimin düştüğüne dair ayrıntıları tartışır.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

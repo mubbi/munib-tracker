@@ -46,6 +46,19 @@ export function getLastDayTopicsBySection(): Record<LastDaySection, LastDayTopic
     const bucket = grouped[topic.section];
     if (bucket) bucket.push(topic);
   }
+
+  // Keep the Scale catalog immediately after the Mizan theology lesson.
+  const events = grouped.events;
+  if (events?.length) {
+    const heavyIdx = events.findIndex((t) => t.id === "heavy-on-the-scale");
+    const scaleIdx = events.findIndex((t) => t.id === "scale");
+    if (heavyIdx >= 0 && scaleIdx >= 0 && heavyIdx !== scaleIdx + 1) {
+      const [heavy] = events.splice(heavyIdx, 1);
+      const insertAt = events.findIndex((t) => t.id === "scale") + 1;
+      events.splice(insertAt, 0, heavy);
+    }
+  }
+
   return grouped;
 }
 

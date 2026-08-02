@@ -3328,7 +3328,20 @@
     },
     "versesIntroTv": "Zaɓi aya don buɗe ta a mai karanta Qur'an. Taƙaitattun bayanai na ilimi ne, ba maye gurbin cikakken tafsir ba.",
     "preparationHabitsHintTv": "Zaɓi don buɗe mai biyo ko kunna niyyar yau da kullum",
-    "characterHintTv": "Zaɓi lokacin da ka duba halinka yau"
+    "characterHintTv": "Zaɓi lokacin da ka duba halinka yau",
+    "mizan": {
+      "panHeavy": "Gefen nauyi",
+      "panLight": "Gefen sauƙi",
+      "pansCaption": "Abin da sahihah nassoshi suka kira nauyi a Mizan",
+      "noLeaderboard": "Waɗannan kalmomi suna bayyana nauyi da falala — ba cikakken jerin Allah ba ne na kowace aiki.",
+      "deedsTitle": "Ayyukan da aka ambata a nassoshi",
+      "category": {
+        "heavy-on-scale": "Nauyi a Mizan",
+        "fills-the-scale": "Yana cika Mizan",
+        "best-beloved": "Mafi kyau / mafi ƙauna",
+        "equal-reward": "Babban lada da aka daidaita"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Koyi",
@@ -4254,10 +4267,10 @@
     "newTitle": "Sabuwar adhkar",
     "delete": "Share",
     "emptyTitle": "Babu adhkar na al'ada tukuna",
-    "emptyDesc": "Ƙara your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "Ƙara naku zikr — take kawai ya isa; Larabci, fassarar rubutu, da ma'ana na zaɓi ne.",
     "field": {
       "title": "Take",
-      "arabic": "Nemopça text",
+      "arabic": "Rubutun Larabci (na zaɓi)",
       "transliteration": "Fassara (na zaɓi)",
       "translation": "Ma'ana (na zaɓi)",
       "reference": "Magana (na zaɓi)"
@@ -4329,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” za a cire shi har abada.",
     "searchPlaceholder": "Nemo adhkarka",
     "noResults": "Babu adhkar da suka dace",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "An kasa adana wannan adhkar. Gwada kuma."
   },
   "tahajjud": {
     "eyebrow": "Night sallah",
@@ -4597,7 +4611,15 @@
       "mercy": "Rahama",
       "supplication": "Roƙo"
     },
-    "versesLeadTv": "Zaɓi kowace aya don buɗe ta a mai karanta Qur'an."
+    "versesLeadTv": "Zaɓi kowace aya don buɗe ta a mai karanta Qur'an.",
+    "mizan": {
+      "weightCallout": "Babu abin da ya fi nauyi a Mizan ɗin mumini kamar kyawawan ɗabi'a — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Halayen kyawawan ɗabi'a",
+      "buildsTitle": "Yana gina ɗabi'a",
+      "buildsHint": "Yi atisayen hali ɗaya a lokaci — gaskiya, hakuri, rahama da adalci.",
+      "destroysTitle": "Abin da ke lalata ɗabi'a",
+      "destroysHint": "Halaye da nassoshi ke gargadi game da su — taɓa tile don darasi mai alaƙa."
+    }
   },
   "jahannam": {
     "eyebrow": "Koyi",
@@ -4731,7 +4753,19 @@
       "protection": "Kariya"
     },
     "versesLeadTv": "Zaɓi kowace aya don buɗe ta a mai karanta Qur'an.",
-    "reflectionLeadTv": "Dakata ka yi wa kanka waɗannan tambayoyi. Zaɓi jeri don buɗe mai biyo ko darasi mai alaƙa."
+    "reflectionLeadTv": "Dakata ka yi wa kanka waɗannan tambayoyi. Zaɓi jeri don buɗe mai biyo ko darasi mai alaƙa.",
+    "mizan": {
+      "warningCallout": "Nassoshi suna gargadi da kalmomi kamar 'masu halaka' da 'mafi girma' — wannan tsarin gargadi ne, ba jerin Mizan ba.",
+      "ladder": {
+        "gravest": "Mafi tsananin gargadi",
+        "seven": "Bakwai masu halaka",
+        "consumes": "Yana cinye kyawawan ayyuka"
+      },
+      "sevenTitle": "Bakwai zunuban da ke halaka",
+      "bankruptTitle": "Mutumin da ya ɓata",
+      "bankruptLink": "Karanta game da hisabi a Ranar Ƙarshe",
+      "hopeCallout": "Kada ku yi yanke bege daga rahamar Allah — Yana gafarta dukan zunubai ga waɗanda suka tuba (Qur'an 39:53). Mutuwa a kan shirki ba tare da tuba ba keɓaɓɓen da nassoshi suka bayyana ne."
+    }
   },
   "tour": {
     "eyebrow": "yawon shakatawa mai jagora",
@@ -5225,7 +5259,7 @@
     "eyebrow": "Koyi",
     "title": "Jagorar Janazah",
     "subtitle": "Sallar jana'iza, wanka, jana'iza, da addu'o'i na kwarai",
-    "intro": "Bayanin aiki na Janazah a matsayin wajibin al'umma — yadda ake yin takbira huɗu ba tare da ruku'u ko sujudi ba, da addu'o'in Hisnul Muslim ga mamaci.",
+    "intro": "Bayanin aiki na Janazah a matsayin wajibin al'umma — takbirai hudu ba tare da ruku'u ko sujuda ba, addu'o'in Hisnul Muslim ga maza, mata da yara, da jagora ga wanki, binne, shahidai da masu baƙin ciki.",
     "section": {
       "obligation": "Wajibi",
       "prepare": "Shiri",

@@ -69,6 +69,10 @@ export const PROTECTED_CONTENT_KEYS: ReadonlySet<string> = new Set([
   "branch",
   "parentId",
   "siblingOf",
+  "iconKey",
+  "order",
+  "arabic",
+  "kind",
 ]);
 
 /**

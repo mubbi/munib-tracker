@@ -2,6 +2,7 @@
 
 | Doc | Use when you need… |
 |-----|-------------------|
+| [`ARTICLE.md`](./ARTICLE.md) | Medium-style product story (features, platforms, open release) |
 | [`BACKLOG.md`](./BACKLOG.md) | Open work (product, perf, devices, content) |
 | [`FEATURES.md`](./FEATURES.md) | Shipped product features (NF-* catalog) |
 | [`OPEN_SOURCE.md`](./OPEN_SOURCE.md) | Source-available release checklist (PolyForm NC) |

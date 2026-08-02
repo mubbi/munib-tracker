@@ -581,7 +581,119 @@ export const LAST_DAY_TOPICS_SO: DeepPartial<LastDayTopic>[] = [
       "Buuxi xuquuqda lagu leeyahay qoyska, deriska, iyo deyn bixiyayaasha.",
       "Ka fiirso joornaalka ducadaada khushu iyo daacadnimada niyada.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Ku culus Miisaanka" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Ku culus Miisaanka",
+    summary:
+      "Camallada ay qoraallada sugan ku tilmaameen kuwo culus, buuxiya miisaanka ama ugu jecel.",
+    body: [
+      "Qur'aanka iyo Sunnadu ma bixiyaan liis tirooyin ah oo camal kasta; waxaan ku ekaanaynaa erayada nusuusta.",
+      "Culayska Miisaanka waxa sal u ah ikhlaaska; camal yar oo daacad ah ayaa ka culus camal weyn oo ismuujin ah.",
+      "Si joogto ah oo qalbi jooga ugu dhaqma xuskan iyo akhlaaqda wanaagsan.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Akhlaaq wanaagsan",
+        summary: "Wax ka culus akhlaaqda wanaagsan ma jiro Miisaanka mu'minka.",
+        hadith: {
+          excerpt:
+            "Wax ka culus akhlaaqda wanaagsan ma jiro Miisaanka mu'minka Maalinta Qiyaamaha.",
+        },
+      },
+      {
+        title: "Laba eray oo fudud",
+        summary:
+          "Carrabka way ku fudud yihiin, Miisaanka way ku culus yihiin, Raxmaankana way u jecel yihiin.",
+        hadith: {
+          excerpt: "Subxaanallaahi wa bixamdihi, Subxaanallaahil cadiim.",
+        },
+      },
+      {
+        title: "Alxamdulillaah wuxuu buuxiyaa Miisaanka",
+        summary: "Mahaddu Alle ayay u sugnaatay, waxayna buuxisaa Miisaanka.",
+        hadith: {
+          excerpt: "Alxamdulillaah wuxuu buuxiyaa Miisaanka.",
+        },
+      },
+      {
+        title: "Kaarka shahaadada",
+        summary: "Towxiidka daacadda ahi wuu ka culus yahay waraaqaha dembiyada.",
+        hadith: {
+          excerpt: "Kaarka shahaadada ayaa ka culusay waraaqaha dembiyada.",
+        },
+      },
+      {
+        title: "Xuska ugu fiican",
+        summary: "Xuska ugu fiican waa Laa ilaaha illallaah.",
+        hadith: {
+          excerpt: "Xuska ugu fiican waa Laa ilaaha illallaah.",
+        },
+      },
+      {
+        title: "Afarta weedhood ee ugu jecel",
+        summary: "Hadalka Alle ugu jecel waa afar weedhood.",
+        hadith: {
+          excerpt: "Subxaanallaah, Alxamdulillaah, Laa ilaaha illallaah, Allaahu akbar.",
+        },
+      },
+      {
+        title: "Subxaanallaahi wa bixamdihi ×100",
+        summary: "Qofkii maalintii boqol jeer yiraahda waxaa loo ballanqaaday cafis.",
+        hadith: {
+          excerpt: "Qofkii boqol jeer maalintii yiraahda, dembiyadiisa waa la cafiyaa.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Camal daacad ah ayaa ku culus Miisaanka.",
+      },
+      {
+        excerpt: "Akhlaaqda wanaagsani aad bay ugu culus tahay Miisaanka mu'minka.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Wax ka culus akhlaaqda wanaagsan ma jiro Miisaanka mu'minka Maalinta Qiyaamaha.",
+      },
+      {
+        excerpt: "Subxaanallaahi wa bixamdihi, Subxaanallaahil cadiim.",
+      },
+      {
+        excerpt: "Alxamdulillaah wuxuu buuxiyaa Miisaanka.",
+      },
+      {
+        excerpt: "Kaarka shahaadada ayaa ka culusay waraaqaha dembiyada.",
+      },
+    ],
+    misconceptions: [
+      "Qur'aanka iyo Sunnadu ma bixiyaan liis tirooyin ah oo camal kasta; waxaan ku ekaanaynaa erayada nusuusta.",
+      "Culayska Miisaanka waxa sal u ah ikhlaaska; camal yar oo daacad ah ayaa ka culus camal weyn oo ismuujin ah.",
+    ],
+    actions: [
+      "Si joogto ah oo qalbi jooga ugu dhaqma xuskan iyo akhlaaqda wanaagsan.",
+      "Carrabka way ku fudud yihiin, Miisaanka way ku culus yihiin, Raxmaankana way u jecel yihiin.",
+      "Mahaddu Alle ayay u sugnaatay, waxayna buuxisaa Miisaanka.",
+      "Wax ka culus akhlaaqda wanaagsan ma jiro Miisaanka mu'minka.",
+    ],
+    appLinks: [
+      {
+        label: "Ku culus Miisaanka",
+      },
+      {
+        label: "Laba eray oo fudud",
+      },
+      {
+        label: "Alxamdulillaah wuxuu buuxiyaa Miisaanka",
+      },
+      {
+        label: "Run sheegid",
+      },
+      {
+        label: "U diyaargarow Miisaan culus",
+      },
+    ],
   },
 ];
 
@@ -714,6 +826,24 @@ export const LAST_DAY_HADITH_SO: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'Aqoonta luminta' macneheedu waa luminta aqoonyahanno wanaagsan iyo ku-dhaqan nololeed - ma aha yaraanta macluumaadka.",
+  },
+  {
+    hadith: {
+      excerpt: "Camal daacad ah ayaa ku culus Miisaanka.",
+    },
+    context: "U diyaargarow Miisaan culus",
+  },
+  {
+    hadith: {
+      excerpt: "Akhlaaqda wanaagsani aad bay ugu culus tahay Miisaanka mu'minka.",
+    },
+    context: "Ku culus Miisaanka",
+  },
+  {
+    hadith: {
+      excerpt: "Xusku carrabka wuu ku fudud yahay, Miisaankana wuu ku culus yahay.",
+    },
+    context: "Ku culus Miisaanka",
   },
 ];
 
@@ -962,6 +1092,18 @@ export const LAST_DAY_QUIZ_SO: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Run", "Been"],
     explanation:
       "Aayaddu waxay sheegaysaa dhammaan way ka gudbi doonaan; Eebbana waa koriya kuwa wax dhawrsada. Culimadu waxay tafaasiil ka bixiyeen cidda ku dhacda.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

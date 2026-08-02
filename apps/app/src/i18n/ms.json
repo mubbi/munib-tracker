@@ -3340,7 +3340,20 @@
     },
     "versesIntroTv": "Pilih ayat untuk membukanya dalam pembaca Qur'an. Ringkasan ringkas bersifat pendidikan, bukan pengganti tafsir penuh.",
     "preparationHabitsHintTv": "Pilih untuk membuka penjejak atau togol niat harian",
-    "characterHintTv": "Pilih selepas anda menyemak tingkah laku hari ini"
+    "characterHintTv": "Pilih selepas anda menyemak tingkah laku hari ini",
+    "mizan": {
+      "panHeavy": "Dulang berat",
+      "panLight": "Dulang ringan",
+      "pansCaption": "Apa yang disebut teks sahih sebagai berat di Mizan",
+      "noLeaderboard": "Ungkapan ini menggambarkan berat dan keutamaan — bukan kedudukan ilahi lengkap untuk setiap amal.",
+      "deedsTitle": "Amal yang disebut dalam teks",
+      "category": {
+        "heavy-on-scale": "Berat di Mizan",
+        "fills-the-scale": "Memenuhi Mizan",
+        "best-beloved": "Terbaik / paling dikasihi",
+        "equal-reward": "Pahala besar yang disamakan"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Belajar",
@@ -4346,10 +4359,10 @@
     "newTitle": "Baru adhkar",
     "delete": "Padam",
     "emptyTitle": "Tiada custom adhkar lagi",
-    "emptyDesc": "Tambah your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "Tambah zikir anda sendiri — tajuk sahaja sudah cukup; teks Arab, transliterasi dan makna adalah pilihan.",
     "field": {
       "title": "Judul",
-      "arabic": "Carib teks",
+      "arabic": "Teks Arab (pilihan)",
       "transliteration": "Transliterasi (sunah)",
       "translation": "Meaning (sunah)",
       "reference": "Reference (sunah)"
@@ -4421,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” akan dibuang secara kekal.",
     "searchPlaceholder": "Cari adhkar anda",
     "noResults": "Tiada adhkar yang sepadan",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Tidak dapat menyimpan adhkar ini. Cuba lagi."
   },
   "tahajjud": {
     "eyebrow": "Malam solat",
@@ -4689,7 +4703,15 @@
       "mercy": "Rahmat",
       "supplication": "Dua"
     },
-    "versesLeadTv": "Pilih mana-mana ayat untuk membukanya dalam pembaca Qur'an."
+    "versesLeadTv": "Pilih mana-mana ayat untuk membukanya dalam pembaca Qur'an.",
+    "mizan": {
+      "weightCallout": "Tiada yang lebih berat di Mizan orang beriman selain akhlak yang baik — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Sifat-sifat akhlak yang baik",
+      "buildsTitle": "Membina akhlak",
+      "buildsHint": "Latih satu sifat pada satu masa — kebenaran, kesabaran, belas kasihan dan keadilan.",
+      "destroysTitle": "Yang merosakkan akhlak",
+      "destroysHint": "Tabiat yang diberi amaran oleh teks — ketik jubin untuk pelajaran berkaitan."
+    }
   },
   "jahannam": {
     "eyebrow": "Belajar",
@@ -4823,7 +4845,19 @@
       "protection": "Perlindungan"
     },
     "versesLeadTv": "Pilih mana-mana ayat untuk membukanya dalam pembaca Qur'an.",
-    "reflectionLeadTv": "Berhenti sejenak dan tanya diri anda soalan-soalan ini. Pilih baris untuk membuka penjejak atau pelajaran berkaitan."
+    "reflectionLeadTv": "Berhenti sejenak dan tanya diri anda soalan-soalan ini. Pilih baris untuk membuka penjejak atau pelajaran berkaitan.",
+    "mizan": {
+      "warningCallout": "Teks memberi amaran dengan kata seperti 'membinasakan' dan 'terbesar' — itu hierarki amaran, bukan papan kedudukan Mizan.",
+      "ladder": {
+        "gravest": "Amaran paling berat",
+        "seven": "Tujuh yang membinasakan",
+        "consumes": "Menghapuskan amal baik"
+      },
+      "sevenTitle": "Tujuh dosa yang membinasakan",
+      "bankruptTitle": "Orang yang muflis",
+      "bankruptLink": "Baca tentang hisab pada Hari Akhir",
+      "hopeCallout": "Jangan berputus asa daripada rahmat Allah — Dia mengampuni semua dosa bagi yang bertaubat (Qur'an 39:53). Meninggal dalam syirik tanpa taubat ialah pengecualian yang dijelaskan teks."
+    }
   },
   "tour": {
     "eyebrow": "Lawatan berpandu",
@@ -5317,7 +5351,7 @@
     "eyebrow": "Belajar",
     "title": "Janazah panduan",
     "subtitle": "Solat jenazah, basuhan, pengebumian, dan do'a sahih",
-    "intro": "Tinjauan praktikal Janazah sebagai kewajipan bersama — cara solat empat takbir tanpa ruku atau sujud, dan Hisnul Muslim doa untuk si mati.",
+    "intro": "Tinjauan praktikal Janazah sebagai kewajipan bersama — empat takbir tanpa ruku dan sujud, doa Hisnul Muslim untuk lelaki, wanita dan kanak-kanak, serta panduan basuhan, pengebumian, syuhada dan yang berduka.",
     "section": {
       "obligation": "Kewajipan",
       "prepare": "Persediaan",

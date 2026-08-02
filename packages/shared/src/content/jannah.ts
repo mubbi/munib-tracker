@@ -12,7 +12,7 @@ import type {
  * or authentic hadith. Does not map deeds to numbered levels (that is not in the
  * texts). Bump the version when content changes.
  */
-export const JANNAH_CONTENT_VERSION = 2;
+export const JANNAH_CONTENT_VERSION = 3;
 
 export const JANNAH_PATH_TOPIC_IDS = [
   "tawheed",
@@ -558,11 +558,149 @@ export const JANNAH_TOPICS: JannahTopic[] = [
     summary: "The heaviest thing on the Scale may be excellent manners.",
     importance: "highly-recommended",
     body: [
-      "Good character (husn al-khuluq) is the collection of noble traits a believer displays in dealing with Allah's creation: truthfulness, patience, humility, mercy, generosity, gentleness, and keeping one's promises. Far from being a mere social nicety, Islam treats character as a core measure of faith and one of the heaviest deeds a person can carry to the Day of Judgement.",
-      "Its rank is stated in the plainest terms. The Prophet ﷺ said that nothing is placed on the Scale heavier than good character, and that the believers most complete in faith are those with the best character. He even summarised his own mission by saying he was sent to perfect noble character. This means the way you treat your parents, your spouse, your children, your neighbours, and even strangers is not separate from your worship — it is a central part of it.",
-      "Beautiful character is powerful because of what the Prophet ﷺ promised it can achieve: by his good manners a believer can reach the rank of one who fasts all day and prays all night. In other words, excellent character can lift an ordinary person to the level of the most devoted worshippers, because it is difficult, constant, and tests the ego at every turn — restraining anger, forgiving insult, and choosing gentleness when harshness would be easier.",
-      "The wisdom is that Islam is not only a private relationship between a person and Allah; it is meant to overflow into how one treats everyone around him. A worshipper whose prayer does not soften his dealings has missed the point, whereas good character is dawah in itself, drawing people toward the faith through living example. This is why the texts pair worship of Allah with excellence toward His creation again and again.",
-      "Practically: work on one trait at a time — hold your tongue when provoked, forgive those who wrong you, mend a relationship you have let break, and keep your promises even when they cost you. A short daily reflection after salah on how you treated people that day is a simple way to grow steadily.",
+      "Good character (husn al-khuluq) is not mere politeness or a smile. It is the way a believer consistently behaves with Allah, with other people, and with himself: truthfulness, patience, humility, mercy, generosity, gentleness, keeping promises, and restraining anger. Allah praised His Messenger ﷺ: 'And indeed, you are of a great moral character' (Qur'an 68:4).",
+      "Its rank on the Last Day is stated plainly. The Prophet ﷺ said that nothing is heavier on the believer's Scale than good character (Jami' at-Tirmidhi 2002, hasan). He summarised righteousness itself as good character (Sahih Muslim 2553), and taught that the most beloved of his companions to him — and the closest to him on the Day of Resurrection — are those with the best character (Jami' at-Tirmidhi 2018, hasan).",
+      "Many acts of worship primarily benefit the worshipper; good character touches everyone around you. Truthful speech, patience when harmed, fairness toward someone you dislike, and kindness to parents and neighbours fill a record through countless daily moments. That is why the Scale language around husn al-khuluq is so strong.",
+      "Practically: work on one trait at a time — hold your tongue when provoked, forgive when you could retaliate, mend a broken relationship, and keep promises even when they cost you. Use the mosaic below for traits the texts praise, and the contrast list for qualities that destroy character.",
+    ],
+    characterTraits: [
+      {
+        id: "truthfulness",
+        title: "Truthfulness",
+        summary: "Be with the truthful — honesty is the foundation of trust.",
+        iconKey: "truthfulness",
+        quran: {
+          surah: 9,
+          ayahFrom: 119,
+          label: "Qur'an 9:119",
+          excerpt: "O you who have believed, fear Allah and be with those who are true.",
+        },
+      },
+      {
+        id: "patience",
+        title: "Patience",
+        summary: "Seek help through patience and Salah.",
+        iconKey: "patience",
+        quran: {
+          surah: 2,
+          ayahFrom: 153,
+          label: "Qur'an 2:153",
+          excerpt: "O you who have believed, seek help through patience and prayer.",
+        },
+      },
+      {
+        id: "anger",
+        title: "Restraining anger",
+        summary: "Those who restrain anger and pardon people — Allah loves the doers of good.",
+        iconKey: "anger",
+        quran: {
+          surah: 3,
+          ayahFrom: 134,
+          label: "Qur'an 3:134",
+          excerpt:
+            "Those who spend in ease and hardship, who restrain anger and pardon people — and Allah loves the doers of good.",
+        },
+      },
+      {
+        id: "forgiveness",
+        title: "Forgiving others",
+        summary: "Let them pardon and overlook — would you not love that Allah should forgive you?",
+        iconKey: "forgiveness",
+        quran: {
+          surah: 24,
+          ayahFrom: 22,
+          label: "Qur'an 24:22",
+          excerpt:
+            "Let them pardon and overlook. Would you not love that Allah should forgive you? And Allah is Forgiving and Merciful.",
+        },
+      },
+      {
+        id: "humility",
+        title: "Humility",
+        summary: "The servants of the Most Merciful walk upon the earth humbly.",
+        iconKey: "humility",
+        quran: {
+          surah: 25,
+          ayahFrom: 63,
+          label: "Qur'an 25:63",
+          excerpt:
+            "And the servants of the Most Merciful are those who walk upon the earth easily, and when the ignorant address them [harshly], they say [words of] peace.",
+        },
+      },
+      {
+        id: "trustworthiness",
+        title: "Trustworthiness",
+        summary: "Allah commands you to render trusts to whom they are due.",
+        iconKey: "trustworthiness",
+        quran: {
+          surah: 4,
+          ayahFrom: 58,
+          label: "Qur'an 4:58",
+          excerpt:
+            "Indeed, Allah commands you to render trusts to whom they are due and when you judge between people to judge with justice.",
+        },
+      },
+      {
+        id: "parents",
+        title: "Kindness to parents",
+        summary: "Worship Allah and be good to parents — their right follows His.",
+        iconKey: "parents",
+        quran: {
+          surah: 17,
+          ayahFrom: 23,
+          label: "Qur'an 17:23",
+          excerpt:
+            "Your Lord has decreed that you not worship except Him, and to parents, good treatment.",
+        },
+      },
+      {
+        id: "speech",
+        title: "Speak good or remain silent",
+        summary: "Whoever believes in Allah and the Last Day, let him speak good or remain silent.",
+        iconKey: "speech",
+        hadith: {
+          collection: "Sahih al-Bukhari",
+          citation: "6018",
+          grade: "sahih",
+          excerpt:
+            "Whoever believes in Allah and the Last Day, let him speak good or remain silent.",
+        },
+      },
+      {
+        id: "smiling",
+        title: "A sincere smile",
+        summary: "Your smiling in the face of your brother is charity.",
+        iconKey: "smiling",
+        hadith: {
+          collection: "Jami' at-Tirmidhi",
+          citation: "1956",
+          grade: "hasan",
+          excerpt: "Your smiling in the face of your brother is charity.",
+        },
+      },
+      {
+        id: "justice",
+        title: "Justice",
+        summary: "Be just — that is nearer to righteousness.",
+        iconKey: "justice",
+        quran: {
+          surah: 5,
+          ayahFrom: 8,
+          label: "Qur'an 5:8",
+          excerpt:
+            "O you who have believed, be persistently standing firm for Allah, witnesses in justice.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      { id: "lying", title: "Lying", route: "/jahannam/sins-of-tongue" },
+      { id: "backbiting", title: "Backbiting (ghibah)", route: "/jahannam/sins-of-tongue" },
+      { id: "slander", title: "Slander (buhtan)", route: "/jahannam/sins-of-tongue" },
+      { id: "arrogance", title: "Arrogance", route: "/jahannam/destructive-sins" },
+      { id: "oppression", title: "Oppression (zulm)", route: "/jahannam/sins-against-others" },
+      { id: "breaking-promises", title: "Breaking promises", route: "/jahannam/hypocrisy" },
+      { id: "mockery", title: "Mocking believers", route: "/jahannam/sins-of-tongue" },
+      { id: "harshness", title: "Unjust harshness", route: "/jahannam/sins-against-others" },
     ],
     quran: [
       {
@@ -581,26 +719,51 @@ export const JANNAH_TOPICS: JannahTopic[] = [
     ],
     hadith: [
       {
-        collection: "Sunan al-Tirmidhi",
+        collection: "Jami' at-Tirmidhi",
         citation: "2002",
-        grade: "sahih",
+        grade: "hasan",
         excerpt:
-          "Nothing is heavier on the Scale of a believer on the Day of Resurrection than good character. Indeed, Allah dislikes the obscene and coarse person.",
+          "Nothing is heavier on the Scale of a believer on the Day of Resurrection than good character.",
       },
       {
-        collection: "Sunan al-Tirmidhi",
+        collection: "Sahih Muslim",
+        citation: "2553",
+        grade: "sahih",
+        excerpt: "Righteousness is good character, and sin is what wavers in your chest.",
+      },
+      {
+        collection: "Jami' at-Tirmidhi",
+        citation: "2018",
+        grade: "hasan",
+        excerpt:
+          "The most beloved of you to me and the closest to me on the Day of Resurrection are those with the best character.",
+      },
+      {
+        collection: "Jami' at-Tirmidhi",
         citation: "1162",
         grade: "hasan",
         excerpt:
           "The most complete of the believers in faith are those with the best character, and the best of you are those who are best to their wives.",
       },
+      {
+        collection: "Sahih Muslim",
+        citation: "91",
+        grade: "sahih",
+        excerpt: "No one who has an atom's weight of arrogance in his heart will enter Paradise.",
+      },
     ],
     actions: [
       "Practice patience when provoked.",
       "Forgive others and mend broken relationships.",
+      "Speak good or remain silent — guard the tongue daily.",
       "Reflect on your character after salah in a daily journal.",
     ],
-    appLinks: [{ label: "Khushu & character journal", route: "/journal" }],
+    appLinks: [
+      { label: "Khushu & character journal", route: "/journal" },
+      { label: "Heavy on the Scale", route: "/last-day/heavy-on-the-scale" },
+      { label: "Sins of the tongue", route: "/jahannam/sins-of-tongue" },
+      { label: "Sins against others", route: "/jahannam/sins-against-others" },
+    ],
   },
   {
     id: "knowledge",

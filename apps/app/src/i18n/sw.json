@@ -3340,7 +3340,20 @@
     },
     "versesIntroTv": "Chagua aya kuifungua katika kisoma cha Qur'an. Muhtasari mfupi ni wa kielimu, si badala ya tafsir kamili.",
     "preparationHabitsHintTv": "Chagua kufungua kifuatiliaji au kubadilisha nia ya kila siku",
-    "characterHintTv": "Chagua unapokagua mwenendo wako leo"
+    "characterHintTv": "Chagua unapokagua mwenendo wako leo",
+    "mizan": {
+      "panHeavy": "Upande mzito",
+      "panLight": "Upande mwepesi",
+      "pansCaption": "Yanayoitwa na matini sahihi kuwa mazito kwenye Mizani",
+      "noLeaderboard": "Misemo hii inaeleza uzito na fadhila — si orodha kamili ya kiungu ya kila amali.",
+      "deedsTitle": "Amali zilizotajwa katika matini",
+      "category": {
+        "heavy-on-scale": "Nzito kwenye Mizani",
+        "fills-the-scale": "Hujaza Mizani",
+        "best-beloved": "Bora / inayopendwa zaidi",
+        "equal-reward": "Thawab kubwa iliyolinganishwa"
+      }
+    }
   },
   "taharah": {
     "eyebrow": "Jifunze",
@@ -4346,10 +4359,10 @@
     "newTitle": "Adkar mpya",
     "delete": "Futa",
     "emptyTitle": "Bado hakuna adhkar maalum",
-    "emptyDesc": "Washageza your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "Ongeza zikr yako — kichwa kinatosha; Kiarabu, unukuzi na maana ni ya hiari.",
     "field": {
       "title": "Kichwa",
-      "arabic": "Tafutapça text",
+      "arabic": "Maandishi ya Kiarabu (si lazima)",
       "transliteration": "Unukuzi wa mfumo wa kuandika (si lazima)",
       "translation": "Maana (si lazima)",
       "reference": "Marejeleo (ya hiari)"
@@ -4421,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” itaondolewa kabisa.",
     "searchPlaceholder": "Tafuta adhkar zako",
     "noResults": "Hakuna adhkar zinazolingana",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Haikuweza kuhifadhi adhkar hii. Jaribu tena."
   },
   "tahajjud": {
     "eyebrow": "Night swala",
@@ -4689,7 +4703,15 @@
       "mercy": "Rehema",
       "supplication": "Dua"
     },
-    "versesLeadTv": "Chagua aya yoyote kuifungua katika kisoma cha Qur'an."
+    "versesLeadTv": "Chagua aya yoyote kuifungua katika kisoma cha Qur'an.",
+    "mizan": {
+      "weightCallout": "Hakuna kizito zaidi kwenye Mizani ya muumini kuliko tabia njema — Jami' at-Tirmidhi 2002.",
+      "traitsTitle": "Sifa za tabia njema",
+      "buildsTitle": "Hujenga tabia",
+      "buildsHint": "Fanya mazoezi ya sifa moja kwa wakati — ukweli, subira, rehema na haki.",
+      "destroysTitle": "Yanayoharibu tabia",
+      "destroysHint": "Desturi ambazo matini huonya — gusa kigae kwa somo husika."
+    }
   },
   "jahannam": {
     "eyebrow": "Jifunze",
@@ -4823,7 +4845,19 @@
       "protection": "Ulinzi"
     },
     "versesLeadTv": "Chagua aya yoyote kuifungua katika kisoma cha Qur'an.",
-    "reflectionLeadTv": "Simama na ujiulize maswali haya. Chagua safu kufungua kifuatiliaji au somo linalohusiana."
+    "reflectionLeadTv": "Simama na ujiulize maswali haya. Chagua safu kufungua kifuatiliaji au somo linalohusiana.",
+    "mizan": {
+      "warningCallout": "Matini huonya kwa maneno kama 'yanayoharibu' na 'kubwa zaidi' — hiyo ni ngazi ya onyo, si orodha ya Mizani.",
+      "ladder": {
+        "gravest": "Maonyo mazito zaidi",
+        "seven": "Saba zinazoharibu",
+        "consumes": "Humeza amali njema"
+      },
+      "sevenTitle": "Dhambi saba zinazoharibu",
+      "bankruptTitle": "Mtu aliyefilisika",
+      "bankruptLink": "Soma kuhusu hisabu Siku ya Mwisho",
+      "hopeCallout": "Usikate tamaa na rehema za Allah — Anasamehe dhambi zote kwa wanaotubu (Qur'an 39:53). Kufa katika shirki bila toba ndiyo isipokuwa matini yaliyoeleza."
+    }
   },
   "tour": {
     "eyebrow": "Ziara ya kuongozwa",
@@ -5317,7 +5351,7 @@
     "eyebrow": "Jifunze",
     "title": "Janazah mwongozo",
     "subtitle": "Sala ya mazishi, kuosha, kuzika, na dua za kweli",
-    "intro": "Muhtasari wa vitendo wa Janazah kama wajibu wa jumuiya - jinsi ya kuomba takbira nne bila rukuu au sujud, na dua Hisnul Muslim kwa marehemu.",
+    "intro": "Muhtasari wa vitendo wa Janazah kama wajibu wa jamii — takbira nne bila rukuu wala sujudi, dua za Hisnul Muslim kwa wanaume, wanawake na watoto, na mwongozo wa kuosha, kuzika, mashahidi na waliofiwa.",
     "section": {
       "obligation": "Wajibu",
       "prepare": "Maandalizi",

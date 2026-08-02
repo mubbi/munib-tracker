@@ -247,7 +247,7 @@ export function GenealogyTreeMap({
           }
         : null)}
     >
-      <Svg width="100%" height="100%" style={StyleSheet.absoluteFill} pointerEvents="none">
+      <Svg width="100%" height="100%" style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
         <Defs>
           <Pattern
             id="genealogyDots"
@@ -264,7 +264,7 @@ export function GenealogyTreeMap({
         <Rect width="100%" height="100%" fill="url(#genealogyDots)" />
       </Svg>
 
-      <View style={styles.toolbar} pointerEvents="box-none">
+      <View style={[styles.toolbar, { pointerEvents: "box-none" }]}>
         <View
           style={[
             styles.toolbarCluster,
@@ -428,8 +428,10 @@ export function GenealogyTreeMap({
       </GestureDetector>
 
       <View
-        style={[styles.legend, { backgroundColor: colors.card, borderColor: colors.border }]}
-        pointerEvents="none"
+        style={[
+          styles.legend,
+          { backgroundColor: colors.card, borderColor: colors.border, pointerEvents: "none" },
+        ]}
       >
         <View style={styles.legendRow}>
           <View style={[styles.legendLine, { backgroundColor: colors.accent }]} />

@@ -1,7 +1,7 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { type ReactNode, useEffect } from "react";
 import { AppState, type AppStateStatus } from "react-native";
-import { runWhenIdle } from "@/lib/run-when-idle";
+import { type IdleTaskHandle, runWhenIdle } from "@/lib/run-when-idle";
 import { continueStore } from "@/stores/continue-store";
 import { locationStore } from "@/stores/location-store";
 import { quranStore } from "@/stores/quran-store";
@@ -18,6 +18,7 @@ import { weatherStore } from "@/stores/weather-store";
 export function AppProviders({ children }: { children: ReactNode }) {
   useEffect(() => {
     let mounted = true;
+    let weatherIdle: IdleTaskHandle | null = null;
     void locationStore.getState().load();
     // Tracker backs the home goal card — load with location so first paint of
     // below-fold content has salah/zikr totals (quran/continue/weather can wait).
@@ -30,6 +31,14 @@ export function AppProviders({ children }: { children: ReactNode }) {
       void weatherStore.getState().load();
     });
 
+    const scheduleWeatherSync = () => {
+      weatherIdle?.cancel();
+      weatherIdle = runWhenIdle(() => {
+        if (!mounted) return;
+        void weatherStore.getState().sync();
+      });
+    };
+
     let lastCoords: { latitude: number; longitude: number } | null = null;
     const unsubscribeLocation = locationStore.subscribe(() => {
       const { latitude, longitude } = locationStore.getState().location;
@@ -37,13 +46,15 @@ export function AppProviders({ children }: { children: ReactNode }) {
         lastCoords && lastCoords.latitude === latitude && lastCoords.longitude === longitude;
       if (unchanged) return;
       lastCoords = { latitude, longitude };
-      void weatherStore.getState().sync();
+      // Defer so GPS/coord updates do not land a weather re-render on the same
+      // native layout pass as resume (iOS AppHang / Android ReactTextView ANR).
+      scheduleWeatherSync();
     });
 
     const onChange = (status: AppStateStatus) => {
       if (!mounted || status !== "active") return;
       void locationStore.getState().refresh();
-      void weatherStore.getState().sync();
+      scheduleWeatherSync();
       const tracker = trackerStore.getState();
       if (tracker.date !== getLocalDateString()) {
         void tracker.load();
@@ -56,6 +67,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     return () => {
       mounted = false;
       idle.cancel();
+      weatherIdle?.cancel();
       unsubscribeLocation();
       subscription.remove();
     };

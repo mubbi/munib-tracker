@@ -576,7 +576,116 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Ailəyə, qonşulara və kreditorlara borclu olan hüquqları yerinə yetirin.",
       "Namaz jurnalınızda huşunu və niyyətin səmimiyyətini əks etdirin.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Tərəzidə ağır olanlar" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Tərəzidə ağır olanlar",
+    summary: "Səhih mətnlərin ağır, dolduran və ən sevimli adlandırdığı əməllər.",
+    body: [
+      "Qur'an və Sünnə bütün əməllər üçün rəqəmli siyahı vermir; mətnin öz sözlərinə bağlı qalırıq.",
+      "Tərəzidə ağırlığın əsası ixlasdır; kiçik, səmimi əməl böyük görünən riyakarlıqdan ağır ola bilər.",
+      "Bu zikrləri və gözəl əxlaqı davamlı, qəlb oyaq şəkildə yaşayın.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Gözəl əxlaq",
+        summary: "Möminin tərəzisində gözəl əxlaqdan ağır heç nə yoxdur.",
+        hadith: {
+          excerpt: "Qiyamət günü möminin tərəzisində gözəl əxlaqdan ağır heç nə yoxdur.",
+        },
+      },
+      {
+        title: "İki yüngül kəlmə",
+        summary: "Dildə yüngül, tərəzidə ağır və Rəhmana sevimlidir.",
+        hadith: {
+          excerpt: "Sübhanəllahi və bihəmdihi, Sübhanəllahil-azim.",
+        },
+      },
+      {
+        title: "Əlhəmdülillah tərəzini doldurur",
+        summary: "Həmd Allaha məxsusdur və tərəzini doldurur.",
+        hadith: {
+          excerpt: "Əlhəmdülillah tərəzini doldurur.",
+        },
+      },
+      {
+        title: "Şəhadət kartı",
+        summary: "Səmimi tövhid günah dəftərlərindən ağır gəlir.",
+        hadith: {
+          excerpt: "Şəhadət kartı tərəzidə günah dəftərlərindən ağır gəldi.",
+        },
+      },
+      {
+        title: "Ən yaxşı zikr",
+        summary: "Ən üstün zikr: Lə iləhə illəllah.",
+        hadith: {
+          excerpt: "Ən yaxşı zikr Lə iləhə illəllahdır.",
+        },
+      },
+      {
+        title: "Ən sevimli dörd kəlmə",
+        summary: "Allaha ən sevimli sözlər dörd zikrdir.",
+        hadith: {
+          excerpt: "Sübhanallah, Əlhəmdülillah, Lə iləhə illəllah, Allahu əkbər.",
+        },
+      },
+      {
+        title: "Sübhanəllahi və bihəmdihi ×100",
+        summary: "Gündə yüz dəfə deyənə günahlarının bağışlanması vəd edilmişdir.",
+        hadith: {
+          excerpt: "Kim bunu gündə yüz dəfə desə, günahları bağışlanar.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Tərəziyə ağır gələn səmimi əməl.",
+      },
+      {
+        excerpt: "Gözəl əxlaq möminin tərəzisində çox ağırdır.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Qiyamət günü möminin tərəzisində gözəl əxlaqdan ağır heç nə yoxdur.",
+      },
+      {
+        excerpt: "Sübhanəllahi və bihəmdihi, Sübhanəllahil-azim.",
+      },
+      {
+        excerpt: "Əlhəmdülillah tərəzini doldurur.",
+      },
+      {
+        excerpt: "Şəhadət kartı tərəzidə günah dəftərlərindən ağır gəldi.",
+      },
+    ],
+    misconceptions: [
+      "Qur'an və Sünnə bütün əməllər üçün rəqəmli siyahı vermir; mətnin öz sözlərinə bağlı qalırıq.",
+      "Tərəzidə ağırlığın əsası ixlasdır; kiçik, səmimi əməl böyük görünən riyakarlıqdan ağır ola bilər.",
+    ],
+    actions: [
+      "Bu zikrləri və gözəl əxlaqı davamlı, qəlb oyaq şəkildə yaşayın.",
+      "Dildə yüngül, tərəzidə ağır və Rəhmana sevimlidir.",
+      "Həmd Allaha məxsusdur və tərəzini doldurur.",
+      "Möminin tərəzisində gözəl əxlaqdan ağır heç nə yoxdur.",
+    ],
+    appLinks: [
+      {
+        label: "Tərəzidə ağır olanlar",
+      },
+      {
+        label: "İki yüngül kəlmə",
+      },
+      {
+        label: "Əlhəmdülillah tərəzini doldurur",
+      },
+      {
+        label: "Doğruluq",
+      },
+      {
+        label: "Ağır tərəziyə hazırlıq",
+      },
+    ],
   },
 ];
 
@@ -707,6 +816,24 @@ export const LAST_DAY_HADITH_AZ: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "“Bilik itkisi” sağlam alimlərin və yaşamış təcrübənin itirilməsi deməkdir – məlumat çatışmazlığı deyil.",
+  },
+  {
+    hadith: {
+      excerpt: "Tərəziyə ağır gələn səmimi əməl.",
+    },
+    context: "Ağır tərəziyə hazırlıq",
+  },
+  {
+    hadith: {
+      excerpt: "Gözəl əxlaq möminin tərəzisində çox ağırdır.",
+    },
+    context: "Tərəzidə ağır olanlar",
+  },
+  {
+    hadith: {
+      excerpt: "Zikr dildə yüngül, tərəzidə ağırdır.",
+    },
+    context: "Tərəzidə ağır olanlar",
   },
 ];
 
@@ -943,6 +1070,18 @@ export const LAST_DAY_QUIZ_AZ: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Doğrudur", "Yalan"],
     explanation:
       "Ayədə hər şeyin onun üzərindən keçəcəyi bildirilir; Allah düşünənləri xilas edər. Alimlər kimin yıxılmasının təfərrüatlarını müzakirə edirlər.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

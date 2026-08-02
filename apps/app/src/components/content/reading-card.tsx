@@ -161,6 +161,7 @@ export function ReadingCard({
 
   const transliteration = item.transliteration?.trim() ?? "";
   const translationText = displayTranslation.trim();
+  const arabicText = item.arabic.trim();
   const showTranslit = showTransliteration && Boolean(transliteration);
   const showMeaning = showTranslation && Boolean(translationText);
   const hasMeta = showTranslit || showMeaning || !!item.virtues?.trim() || !!item.reference?.trim();
@@ -228,12 +229,14 @@ export function ReadingCard({
         </View>
       </View>
 
-      <ThemedText
-        type="arabic"
-        style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
-      >
-        {item.arabic}
-      </ThemedText>
+      {arabicText ? (
+        <ThemedText
+          type="arabic"
+          style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
+        >
+          {arabicText}
+        </ThemedText>
+      ) : null}
 
       {hasMeta ? <View style={[styles.divider, { backgroundColor: tokens.hairline }]} /> : null}
 

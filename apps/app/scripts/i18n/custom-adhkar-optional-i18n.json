@@ -1,0 +1,112 @@
+{
+  "ar": {
+    "customAdhkar.saveFailed": "تعذّر حفظ هذا الذكر. حاول مرة أخرى.",
+    "customAdhkar.emptyDesc": "أضف ذكرك الخاص — يكفي العنوان؛ النص العربي والنقحرة والمعنى اختيارية.",
+    "customAdhkar.field.arabic": "النص العربي (اختياري)"
+  },
+  "ur": {
+    "customAdhkar.saveFailed": "یہ ذکر محفوظ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
+    "customAdhkar.emptyDesc": "اپنا ذکر شامل کریں — صرف عنوان کافی ہے؛ عربی، نقلِ حرفی اور معنیٰ اختیاری ہیں۔",
+    "customAdhkar.field.arabic": "عربی متن (اختیاری)"
+  },
+  "id": {
+    "customAdhkar.saveFailed": "Tidak dapat menyimpan adhkar ini. Coba lagi.",
+    "customAdhkar.emptyDesc": "Tambahkan zikir Anda sendiri — judul saja cukup; teks Arab, transliterasi, dan makna bersifat opsional.",
+    "customAdhkar.field.arabic": "Teks Arab (opsional)"
+  },
+  "tr": {
+    "customAdhkar.saveFailed": "Bu adhkar kaydedilemedi. Tekrar deneyin.",
+    "customAdhkar.emptyDesc": "Kendi zikrinizi ekleyin — bir başlık yeterlidir; Arapça, transliterasyon ve anlam isteğe bağlıdır.",
+    "customAdhkar.field.arabic": "Arapça metin (isteğe bağlı)"
+  },
+  "bn": {
+    "customAdhkar.saveFailed": "এই আযকার সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+    "customAdhkar.emptyDesc": "নিজের যিকির যোগ করুন — শুধু শিরোনামই যথেষ্ট; আরবি, উচ্চারণ ও অর্থ ঐচ্ছিক।",
+    "customAdhkar.field.arabic": "আরবি পাঠ (ঐচ্ছিক)"
+  },
+  "ms": {
+    "customAdhkar.saveFailed": "Tidak dapat menyimpan adhkar ini. Cuba lagi.",
+    "customAdhkar.emptyDesc": "Tambah zikir anda sendiri — tajuk sahaja sudah cukup; teks Arab, transliterasi dan makna adalah pilihan.",
+    "customAdhkar.field.arabic": "Teks Arab (pilihan)"
+  },
+  "fa": {
+    "customAdhkar.saveFailed": "ذخیره این ذکر ممکن نشد. دوباره امتحان کنید.",
+    "customAdhkar.emptyDesc": "ذکر خود را اضافه کنید — عنوان کافی است؛ عربی، آوانگاری و معنی اختیاری‌اند.",
+    "customAdhkar.field.arabic": "متن عربی (اختیاری)"
+  },
+  "fr": {
+    "customAdhkar.saveFailed": "Impossible d'enregistrer cet adhkar. Réessayez.",
+    "customAdhkar.emptyDesc": "Ajoutez votre propre zikr — un titre suffit ; l'arabe, la translittération et le sens sont facultatifs.",
+    "customAdhkar.field.arabic": "Texte arabe (facultatif)"
+  },
+  "ha": {
+    "customAdhkar.saveFailed": "An kasa adana wannan adhkar. Gwada kuma.",
+    "customAdhkar.emptyDesc": "Ƙara naku zikr — take kawai ya isa; Larabci, fassarar rubutu, da ma'ana na zaɓi ne.",
+    "customAdhkar.field.arabic": "Rubutun Larabci (na zaɓi)"
+  },
+  "sw": {
+    "customAdhkar.saveFailed": "Haikuweza kuhifadhi adhkar hii. Jaribu tena.",
+    "customAdhkar.emptyDesc": "Ongeza zikr yako — kichwa kinatosha; Kiarabu, unukuzi na maana ni ya hiari.",
+    "customAdhkar.field.arabic": "Maandishi ya Kiarabu (si lazima)"
+  },
+  "ru": {
+    "customAdhkar.saveFailed": "Не удалось сохранить этот азкар. Попробуйте ещё раз.",
+    "customAdhkar.emptyDesc": "Добавьте свой зикр — достаточно названия; арабский текст, транслитерация и смысл необязательны.",
+    "customAdhkar.field.arabic": "Арабский текст (необязательно)"
+  },
+  "az": {
+    "customAdhkar.saveFailed": "Bu adhkarı saxlamaq mümkün olmadı. Yenidən cəhd edin.",
+    "customAdhkar.emptyDesc": "Öz zikrinizi əlavə edin — başlıq kifayətdir; ərəb mətni, transliterasiya və məna ixtiyaridir.",
+    "customAdhkar.field.arabic": "Ərəb mətni (ixtiyari)"
+  },
+  "ps": {
+    "customAdhkar.saveFailed": "دا اذکار خوندي نشو. بیا هڅه وکړئ.",
+    "customAdhkar.emptyDesc": "خپل ذکر اضافه کړئ — یوازې سرلیک کافی دی؛ عربي، ژباړه او معنی اختیاري دي.",
+    "customAdhkar.field.arabic": "عربي متن (اختیاري)"
+  },
+  "so": {
+    "customAdhkar.saveFailed": "Adhkarkan lama keydin karin. Isku day mar kale.",
+    "customAdhkar.emptyDesc": "Ku dar zikrkaaga — cinwaan keliya waa ku filan; Carabi, tarjumaadda qoraalka iyo macnaha waa ikhtiyaari.",
+    "customAdhkar.field.arabic": "Qoraal Carabi (ikhtiyaari)"
+  },
+  "uz": {
+    "customAdhkar.saveFailed": "Bu adhkarni saqlab bo‘lmadi. Qayta urinib ko‘ring.",
+    "customAdhkar.emptyDesc": "O‘z zikringizni qo‘shing — sarlavha yetarli; arabcha matn, transliteratsiya va ma’no ixtiyoriy.",
+    "customAdhkar.field.arabic": "Arabcha matn (ixtiyoriy)"
+  },
+  "kk": {
+    "customAdhkar.saveFailed": "Бұл адхкарды сақтау мүмкін болмады. Қайтадан байқап көріңіз.",
+    "customAdhkar.emptyDesc": "Өз зікіріңізді қосыңыз — тақырып жеткілікті; араб мәтіні, транслитерация және мағына міндетті емес.",
+    "customAdhkar.field.arabic": "Араб мәтіні (міндетті емес)"
+  },
+  "ku": {
+    "customAdhkar.saveFailed": "Ev adhkar nehat tomarkirin. Dîsa biceribîne.",
+    "customAdhkar.emptyDesc": "Zikra xwe zêde bike — sernav bes e; erebî, translîterasyon û wate ne ferz in.",
+    "customAdhkar.field.arabic": "Nivîsa erebî (ne ferz)"
+  },
+  "bs": {
+    "customAdhkar.saveFailed": "Nije moguće sačuvati ovaj adhkar. Pokušajte ponovo.",
+    "customAdhkar.emptyDesc": "Dodajte svoj zikr — naslov je dovoljan; arapski tekst, transliteracija i značenje su opcionalni.",
+    "customAdhkar.field.arabic": "Arapski tekst (opcionalno)"
+  },
+  "sq": {
+    "customAdhkar.saveFailed": "Nuk mund të ruhej ky adhkar. Provo sërish.",
+    "customAdhkar.emptyDesc": "Shto zikrin tënd — titulli mjafton; arabishtja, transliterimi dhe kuptimi janë opsionale.",
+    "customAdhkar.field.arabic": "Teksti arab (opsionale)"
+  },
+  "ky": {
+    "customAdhkar.saveFailed": "Бул адхкар сакталган жок. Кайра аракет кыл.",
+    "customAdhkar.emptyDesc": "Өз зикириңизди кошуңуз — аталыш жетиштүү; арабча текст, транслитерация жана маани милдеттүү эмес.",
+    "customAdhkar.field.arabic": "Арабча текст (милдеттүү эмес)"
+  },
+  "tg": {
+    "customAdhkar.saveFailed": "Ин азкорро захира карда нашуд. Бори дигар кӯшиш кунед.",
+    "customAdhkar.emptyDesc": "Зикри худро илова кунед — унвон кифоя аст; матни арабӣ, транслитератсия ва маъно ихтиёрӣ мебошанд.",
+    "customAdhkar.field.arabic": "Матни арабӣ (ихтиёрӣ)"
+  },
+  "tk": {
+    "customAdhkar.saveFailed": "Bu adhkary saklap bolmady. Gaýtadan synanyşyň.",
+    "customAdhkar.emptyDesc": "Öz zikriňizi goşuň — at ýeterlik; arapça tekst, transliterasiýa we manysy islege bagly.",
+    "customAdhkar.field.arabic": "Arapça tekst (istege bagly)"
+  }
+}

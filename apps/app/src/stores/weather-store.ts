@@ -26,6 +26,27 @@ export interface WeatherState {
 
 let syncPromise: Promise<void> | null = null;
 
+const EMPTY_EFFECTS: WeatherEffectKind[] = [];
+const effectsCache = new Map<string, WeatherEffectKind[]>();
+
+/** True when the hero would show the same temperature / condition chrome. */
+export function isSameWeatherView(
+  previous: WeatherSnapshot | null,
+  next: WeatherSnapshot | null,
+): boolean {
+  if (previous === next) return true;
+  if (!previous || !next) return false;
+  return (
+    previous.condition === next.condition &&
+    previous.isWindy === next.isWindy &&
+    previous.temperatureCelsius === next.temperatureCelsius &&
+    previous.windSpeedKmh === next.windSpeedKmh &&
+    previous.cloudCoverPercent === next.cloudCoverPercent &&
+    previous.latitude === next.latitude &&
+    previous.longitude === next.longitude
+  );
+}
+
 async function resolveSnapshot(force: boolean): Promise<WeatherSnapshot | null> {
   const { latitude, longitude } = locationStore.getState().location;
   const cached = await WeatherCacheRepository.get(latitude, longitude);
@@ -73,6 +94,11 @@ export const weatherStore = createStore<WeatherState>((set, get) => ({
 
       try {
         const snapshot = await resolveSnapshot(Boolean(options?.force));
+        // Skip subscribers when the hero would not change — avoids remounting
+        // dozens of Reanimated weather overlays during a foreground refresh.
+        if (isSameWeatherView(previous, snapshot) && get().status === "ready") {
+          return;
+        }
         set({ snapshot, status: "ready" });
       } catch {
         if (previous) {
@@ -98,15 +124,23 @@ export function useWeatherStatus(): WeatherStatus {
   return useStore(weatherStore, (s) => s.status);
 }
 
+/**
+ * Stable effect arrays keyed by condition (+ windy). Home re-renders every
+ * second for the clock; returning a fresh array each time forced
+ * `HeroWeatherEffects` to rebuild cloud/particle trees.
+ */
 export function resolveWeatherEffects(
   snapshot: WeatherSnapshot | null,
   prefs: WeatherPreferences,
 ): WeatherEffectKind[] {
-  if (!snapshot || !prefs.effectsEnabled) return [];
-  const effects: WeatherEffectKind[] = [snapshot.condition];
-  if (snapshot.isWindy) {
-    effects.push("windy");
-  }
+  if (!snapshot || !prefs.effectsEnabled) return EMPTY_EFFECTS;
+  const key = snapshot.isWindy ? `${snapshot.condition}|windy` : snapshot.condition;
+  const cached = effectsCache.get(key);
+  if (cached) return cached;
+  const effects: WeatherEffectKind[] = snapshot.isWindy
+    ? [snapshot.condition, "windy"]
+    : [snapshot.condition];
+  effectsCache.set(key, effects);
   return effects;
 }
 

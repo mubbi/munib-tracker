@@ -95,8 +95,18 @@ export function __resetColdStartForTests(): void {
   }
 }
 
+/** Embed a string literal in generated JS (JSON.stringify + HTML/JS edge cases). */
+function embedJsString(value: string): string {
+  return JSON.stringify(value)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+}
+
 /**
  * Inline script for `+html.tsx` — paints `html`/`body` with the stored scheme
  * before the JS bundle so full refresh does not flash the dark splash color.
  */
-export const BOOT_THEME_SCRIPT = `(function(){try{var k=${JSON.stringify(STORAGE_KEYS.colorMode)};var mode=localStorage.getItem(k);var dark=true;if(mode==="light")dark=false;else if(mode==="system")dark=window.matchMedia("(prefers-color-scheme: dark)").matches;else if(mode==="dark")dark=true;var bg=dark?"${BOOT_BACKGROUND_DARK}":"${BOOT_BACKGROUND_LIGHT}";var s=dark?"dark":"light";document.documentElement.style.backgroundColor=bg;document.documentElement.style.colorScheme=s;if(document.body){document.body.style.backgroundColor=bg;}}catch(e){}})();`;
+export const BOOT_THEME_SCRIPT = `(function(){try{var k=${embedJsString(STORAGE_KEYS.colorMode)};var mode=localStorage.getItem(k);var dark=true;if(mode==="light")dark=false;else if(mode==="system")dark=window.matchMedia("(prefers-color-scheme: dark)").matches;else if(mode==="dark")dark=true;var bg=dark?${embedJsString(BOOT_BACKGROUND_DARK)}:${embedJsString(BOOT_BACKGROUND_LIGHT)};var s=dark?"dark":"light";document.documentElement.style.backgroundColor=bg;document.documentElement.style.colorScheme=s;if(document.body){document.body.style.backgroundColor=bg;}}catch(e){}})();`;

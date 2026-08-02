@@ -19,10 +19,17 @@ function setByPath(obj, path, value) {
   let cur = obj;
   for (let i = 0; i < parts.length - 1; i++) {
     const p = parts[i];
-    if (!(p in cur) || typeof cur[p] !== "object") cur[p] = {};
+    if (p === "__proto__" || p === "constructor" || p === "prototype") {
+      throw new Error(`Unsafe i18n path segment: ${p}`);
+    }
+    if (!(p in cur) || typeof cur[p] !== "object") cur[p] = Object.create(null);
     cur = cur[p];
   }
-  cur[parts[parts.length - 1]] = value;
+  const last = parts[parts.length - 1];
+  if (last === "__proto__" || last === "constructor" || last === "prototype") {
+    throw new Error(`Unsafe i18n path segment: ${last}`);
+  }
+  cur[last] = value;
 }
 
 function loadPatches() {

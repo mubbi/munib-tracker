@@ -4,6 +4,8 @@ export type JannahHub = "about" | "ranks" | "paths" | "warnings" | "supplication
 /** How strongly the texts emphasize a deed — not a guaranteed rank. */
 export type JannahImportance = "foundational" | "obligatory" | "highly-recommended" | "recommended";
 
+import type { CharacterDestroyerItem, CharacterTraitItem } from "./mizan";
+
 export interface JannahQuranRef {
   surah: number;
   ayahFrom: number;
@@ -38,6 +40,10 @@ export interface JannahTopic {
   actions?: string[];
   appLinks?: JannahAppLink[];
   disclaimer?: string;
+  /** Virtue mosaic tiles for the good-character Mizan UI. */
+  characterTraits?: CharacterTraitItem[];
+  /** Opposite qualities with optional Jahannam lesson links. */
+  characterDestroyers?: CharacterDestroyerItem[];
 }
 
 /** One of the gates of Paradise mentioned in authentic hadith. */

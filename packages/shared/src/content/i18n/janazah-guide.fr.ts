@@ -218,4 +218,138 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Takbir par takbir — les étapes de la prière",
+    summary: "Une liste pratique des quatre takbirs et de ce qui vient entre eux.",
+    body: [
+      "Premier takbir : lever les mains (selon votre école), dire Allahu Akbar, puis réciter la sourate al-Fatihah. Ibn Abbas a récité al-Fatihah dans une prière funéraire et a dit que cela faisait partie de la sunnah (Sahih al-Bukhari 1335).",
+      "Deuxième takbir : envoyer les salawat sur le Prophète ﷺ — la même salawat ibrahimique utilisée dans le tashahhud est largement enseignée pour cette étape. Troisième takbir : faire une dua sincère pour le défunt (formulations Hisnul Muslim dans ce guide). Quatrième takbir : de nombreux savants font alors une brève dua générale, puis terminent par le taslim à droite (et à gauche, selon l'école).",
+      "Il n'y a ni ruku, ni sujud, ni assise. On reste debout tout au long. Si plusieurs funérailles sont présentes, une seule Janazah avec intention pour toutes est pratiquée dans de nombreuses communautés — suivez l'imam. L'ordre entre salawat et dua peut légèrement varier selon le madhhab ; le cadre des quatre takbirs est commun.",
+    ],
+    madhhabNote:
+      "Les manuels hanafi, maliki, shafi'i et hanbali divergent sur le fait de lever les mains à chaque takbir et sur le moment exact de la dua. Suivez l'imam devant vous.",
+    actions: [
+      "Apprenez la séquence des quatre takbirs avant d'en avoir besoin.",
+      "Mémorisez la Fatihah, les salawat et au moins une dua funéraire.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Ibn Abbas a offert une prière funéraire et a récité la Fatihah, disant qu'elle provenait de la sunnah.",
+      },
+    ],
+  },
+  {
+    title: "Duas pour les hommes, les femmes et les enfants",
+    summary: "Les mêmes formulations prophétiques — adaptez les pronoms arabes au défunt.",
+    body: [
+      "Hisnul Muslim (et les collections de hadith classiques) enregistrent les duas de Janazah surtout au masculin. Cela ne signifie pas une dua « inventée » séparée pour les femmes. Les savants majoritaires enseignent que vous pouvez garder la formulation masculine avec l'intention pour la personne, ou — de préférence et le plus souvent — adapter la grammaire au défunt : لَهُ / هُ / هِ → لَهَا / هَا ; عَبْدُكَ → أَمَتُكَ ; ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ ; et pour une fillette اجْعَلْهُ → اجْعَلْهَا, شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Pour une femme décédée, certains savants conseillent de la prudence avec la phrase « un époux meilleur que son époux » (زَوْجًا خَيْرًا مِنْ زَوْجِهَا), notant qu'elle peut être réunie à son mari au Paradis — vous pouvez omettre cette clause ou garder une formulation générale. Pour les enfants, utilisez les entrées Hisnul propres à l'enfant (hisn-160, hisn-161) plutôt que les seuls textes adultes axés sur le pardon.",
+      "La formulation collective « pardonne à nos hommes et à nos femmes » (hisn-157) couvre déjà les deux genres sans changement. Nous n'inventons pas d'arabe nouveau au-delà de l'adaptation grammaticale de textes authentiques — ouvrez la dua adulte liée comme base et appliquez la carte des pronoms ci-dessus.",
+    ],
+    madhhabNote:
+      "Garder les formes masculines avec intention et adapter les formes féminines sont toutes deux acceptées chez les savants majoritaires. En cas de doute, utilisez hisn-157 (hommes et femmes) ou demandez à l'imam.",
+    actions: [
+      "Entraînez-vous aux substitutions de pronoms féminins pour la dua que vous mémorisez.",
+      "Utilisez les duas spécifiques à l'enfant pour ceux qui n'ont pas atteint la puberté.",
+      "Préférez l'authenticité aux livrets longs non authentifiés.",
+    ],
+    appLinks: [{ label: "Dua funéraire adulte #1" }],
+  },
+  {
+    title: "Martyrs, fausse couche et cas particuliers",
+    summary: "Quand le lavage ou les règles de Janazah diffèrent du cas habituel.",
+    body: [
+      "Les martyrs du champ de bataille morts au combat sont, dans le jugement classique tiré d'Uhud, enterrés dans leurs vêtements sans le ghusl habituel ; le Prophète ﷺ a ordonné que les martyrs d'Uhud soient enterrés avec leur sang et sans lavage (Sahih al-Bukhari 1346). D'autres catégories appelées « martyrs » en récompense (p. ex. peste, noyade) reçoivent normalement le lavage et la Janazah — demandez à un savant pour les cas limites.",
+      "Pour une fausse couche ou un mort-né, les écoles divergent sur le moment où la prière funéraire et le lavage complet s'appliquent (souvent lié à la forme reconnaissable ou au stade du souffle de l'âme). Un hadith encourage à prier sur une fausse couche et à demander pardon et miséricorde pour les parents (Abu Dawud 3180). Suivez le comité funéraire de votre madhhab plutôt que de deviner.",
+      "Les proches non musulmans ne reçoivent pas la prière musulmane de Janazah ; la bonté, l'aide licite à l'enterrement le cas échéant, et le deuil personnel sont distincts de la prière rituelle pour les croyants. Confirmez toujours les cas particuliers auprès d'un guide local qualifié.",
+    ],
+    madhhabNote:
+      "Les définitions du martyre au combat, des stades de fausse couche et de la prière sur le mort-né varient selon les écoles. Ce sujet signale les questions — ce n'est pas une fatwa.",
+    disclaimer:
+      "Les règles particulières sont sensibles. Confirmez auprès d'un savant qualifié ou du service funéraire de votre communauté avant d'agir.",
+    actions: [
+      "Ne lavez pas un martyr du champ de bataille contrairement à l'instruction savante.",
+      "Demandez au comité funéraire pour les cas de fausse couche ou de mortinaissance.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Le Prophète ﷺ a ordonné que les martyrs d'Uhud soient enterrés avec leur sang, et ils n'ont pas été lavés.",
+      },
+      {
+        excerpt:
+          "La prière funéraire est offerte sur la fausse couche, et l'on prie pour les parents avec pardon et miséricorde.",
+      },
+    ],
+  },
+  {
+    title: "Janazah en absence",
+    summary: "Le Prophète ﷺ a prié pour Negus alors que le corps était loin.",
+    body: [
+      "Jabir a rapporté que le Prophète ﷺ est sorti vers ses Compagnons, les a alignés et a prié quatre takbirs pour Negus (al-Najashi), le roi abyssinen mort à l'étranger (Sahih al-Bukhari 1334 ; Sahih Muslim 952). C'est la preuve principale de Salat al-Janazah en absence (alā al-ghā'ib).",
+      "Les écoles divergent sur l'étendue de ce précédent : certaines le limitent aux cas comme Negus (pas de prière musulmane locale), d'autres l'autorisent plus largement lorsque le corps est distant. Ne sautez pas une Janazah locale lorsque le corps est présent et que la communauté peut prier. Suivez un savant local de confiance pour savoir quand la prière en absence convient dans votre école.",
+      "La forme est la même prière à quatre takbirs ; l'intention est pour le défunt absent. Utilisez les mêmes duas authentiques, en adaptant le genre au besoin.",
+    ],
+    madhhabNote:
+      "La portée de la Janazah en absence est un point de divergence connu. Préférez la pratique des imams qualifiés de votre communauté.",
+    actions: [
+      "Priez localement chaque fois que le corps est présent.",
+      "Demandez avant d'organiser une Janazah en absence comme événement public.",
+    ],
+    hadith: [
+      {
+        excerpt: "Le Prophète ﷺ a offert la prière funéraire pour Negus et a dit quatre takbirs.",
+      },
+      {
+        excerpt:
+          "Le Messager d'Allah ﷺ a aligné les Compagnons et a prié pour Negus, en disant quatre takbirs.",
+      },
+    ],
+  },
+  {
+    title: "Au chevet du mourant — dernières paroles",
+    summary: "Incitez le mourant à dire la ilaha illallah avec douceur.",
+    body: [
+      "Le Prophète ﷺ a dit : « Incitez vos mourants à dire la ilaha illallah » (Sahih Muslim 916 ; Abu Dawud 3117). Hisnul Muslim conserve l'enseignement que quiconque dont les dernières paroles sont « Nul n'a le droit d'être adoré sauf Allah » entrera au Paradis (hisn-153, d'après Abu Dawud 3116).",
+      "Incitez avec douceur et sans dureté ; ne forcez pas et ne disputez pas. Ceux qui approchent la mort peuvent aussi être réconfortés par des paroles d'espoir authentiques conservées dans Hisnul Muslim (hisn-150–152). Fermez les yeux lorsque l'âme est prise et utilisez la dua de fermeture des yeux (sujet précédent).",
+      "Évitez les lamentations bruyantes et les paroles qui irritent Allah. La maisonnée doit dire ce qui est bon, car les anges disent amin à leurs paroles (Sahih Muslim 920).",
+    ],
+    actions: [
+      "Rappelez doucement au mourant la shahadah.",
+      "Gardez la pièce calme et occupée de bonnes paroles.",
+    ],
+    hadith: [
+      {
+        excerpt: "Incitez vos mourants à dire : la ilaha illallah.",
+      },
+      {
+        excerpt:
+          "Celui dont les dernières paroles sont « Nul n'a le droit d'être adoré sauf Allah » entrera au Paradis.",
+      },
+    ],
+    appLinks: [{ label: "Duas d'espoir de vie" }, { label: "En fermant les yeux" }],
+  },
+  {
+    title: "Condoléances et les endeuillés",
+    summary: "Réconfortez les vivants avec la dua prophétique de la calamité.",
+    body: [
+      "Umm Salamah a rapporté que le Messager d'Allah ﷺ a dit : « Il n'est pas de musulman frappé d'une calamité qui dise ensuite ce qu'Allah a ordonné — « À Allah nous appartenons et à Lui nous retournons. Ô Allah, récompense-moi dans ma calamité et remplace-la pour moi par quelque chose de meilleur » — sans qu'Allah ne le remplace pour lui par quelque chose de meilleur » (Sahih Muslim 918). Hisnul Muslim conserve cette formulation (hisn-154).",
+      "Offrez des condoléances avec des paroles brèves et vraies ; préparez de la nourriture pour la famille du défunt plutôt que de les charger de l'hospitalité (Abu Dawud 3132 — le récit concernant la famille de Ja'far). Évitez les cérémonies innovées à dates fixes sans preuve, tout en poursuivant la dua privée, la sadaqah et la bonté.",
+      "Le chagrin en larmes est permis ; les lamentations, se frapper les joues et déchirer les vêtements étaient interdits. Soutenez les veuves, les orphelins et les personnes à charge avec une aide licite après l'enterrement.",
+    ],
+    actions: [
+      "Enseignez aux endeuillés la dua de la calamité.",
+      "Aidez avec la nourriture et les courses au lieu d'attendre un festin.",
+      "Continuez la dua tranquille et la sadaqah pour le défunt.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Aucun musulman n'est frappé d'une calamité et ne dit les paroles ordonnées du retour à Allah en demandant un remplacement meilleur, sans qu'Allah ne le remplace par quelque chose de meilleur.",
+      },
+    ],
+    appLinks: [{ label: "Objectifs de sadaqah" }],
+  },
 ];

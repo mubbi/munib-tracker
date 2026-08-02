@@ -169,7 +169,8 @@
       "brace-expansion@5.0.8": "patches/brace-expansion@5.0.8.patch",
       "expo-router@57.0.8": "patches/expo-router@57.0.8.patch",
       "expo-image-picker@57.0.6": "patches/expo-image-picker@57.0.6.patch",
-      "expo-navigation-bar@57.0.2": "patches/expo-navigation-bar@57.0.2.patch"
+      "expo-navigation-bar@57.0.2": "patches/expo-navigation-bar@57.0.2.patch",
+      "expo-location@57.0.6": "patches/expo-location@57.0.6.patch"
     }
   }
 }

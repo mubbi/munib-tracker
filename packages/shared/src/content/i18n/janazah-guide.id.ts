@@ -215,4 +215,138 @@ export const JANAZAH_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       },
     ],
   },
+  // --- v2 appended topics (keep index-aligned with English) ---
+  {
+    title: "Takbir demi takbir — langkah-langkah sholat",
+    summary: "Daftar praktis empat takbir dan apa yang diucapkan di antaranya.",
+    body: [
+      "Takbir pertama: angkat tangan (sesuai mazhab Anda), ucapkan Allahu Akbar, lalu baca Surat al-Fatihah. Ibnu Abbas membaca al-Fatihah dalam salat jenazah dan mengatakan itu dari sunnah (Sahih al-Bukhari 1335).",
+      "Takbir kedua: kirimkan shalawat kepada Nabi ﷺ — shalawat Ibrahimiyah yang sama dipakai dalam tasyahud banyak diajarkan untuk langkah ini. Takbir ketiga: panjatkan doa yang ikhlas untuk almarhum (lafadz Hisnul Muslim dalam panduan ini). Takbir keempat: banyak ulama kemudian berdoa singkat secara umum, lalu menutup dengan salam ke kanan (dan ke kiri, sesuai mazhab).",
+      "Tidak ada ruku, sujud, atau duduk. Berdiri sepanjang salat. Jika ada beberapa jenazah, satu Janazah dengan niat untuk semua diamalkan di banyak komunitas — ikuti imam. Posisi shalawat versus doa bisa sedikit berbeda menurut madzhab; kerangka empat takbir tetap sama.",
+    ],
+    madhhabNote:
+      "Manual Hanafi, Maliki, Syafi'i, dan Hanbali berbeda soal apakah tangan diangkat setiap takbir dan tepat kapan doa diucapkan. Ikuti imam di depan Anda.",
+    actions: [
+      "Pelajari urutan empat takbir sebelum Anda membutuhkannya.",
+      "Hafalkan Fatihah, shalawat, dan setidaknya satu doa jenazah.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Ibnu Abbas melaksanakan salat jenazah dan membacakan Fatihah, dengan mengatakan bahwa itu berasal dari sunnah.",
+      },
+    ],
+  },
+  {
+    title: "Doa untuk laki-laki, perempuan, dan anak-anak",
+    summary: "Lafadz kenabian yang sama — sesuaikan kata ganti Arab dengan almarhum.",
+    body: [
+      "Hisnul Muslim (dan koleksi hadits klasik) mencatat doa Janazah terutama dalam bentuk maskulin. Itu bukan berarti doa 'ciptaan' terpisah untuk perempuan. Ulama arus utama mengajarkan bahwa Anda boleh mempertahankan lafadz maskulin dengan niat untuk orang tersebut, atau — lebih utama dan umum — mengubah tata bahasa agar sesuai almarhum: لَهُ / هُ / هِ → لَهَا / هَا; عَبْدُكَ → أَمَتُكَ; ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ; dan untuk anak perempuan اجْعَلْهُ → اجْعَلْهَا, شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "Untuk wanita yang meninggal, sebagian ulama menasihati kehati-hatian dengan frasa 'pasangan yang lebih baik dari pasangannya' (زَوْجًا خَيْرًا مِنْ زَوْجِهَا), karena ia mungkin bersatu kembali dengan suaminya di Surga — Anda boleh menghilangkan klausa itu atau memakai lafadz umum. Untuk anak-anak, gunakan entri Hisnul khusus anak (hisn-160, hisn-161) daripada hanya teks dewasa yang berfokus pada ampunan.",
+      "Lafadz kolektif 'ampunilah laki-laki dan perempuan kami' (hisn-157) sudah mencakup kedua jenis kelamin tanpa perubahan. Kita tidak mengada-adakan bahasa Arab baru selain adaptasi gramatikal teks yang sahih — buka doa dewasa tertaut sebagai dasar dan terapkan peta kata ganti di atas.",
+    ],
+    madhhabNote:
+      "Mempertahankan bentuk maskulin dengan niat dan menyesuaikan bentuk feminin keduanya diterima di kalangan ulama arus utama. Jika ragu, gunakan hisn-157 (laki-laki dan perempuan) atau tanya imam.",
+    actions: [
+      "Latih penggantian kata ganti feminin untuk doa yang Anda hafal.",
+      "Gunakan doa khusus anak bagi mereka yang belum baligh.",
+      "Utamakan keaslian daripada booklet panjang yang tidak bersanad.",
+    ],
+    appLinks: [{ label: "Doa jenazah dewasa #1" }],
+  },
+  {
+    title: "Syuhada, keguguran, dan kasus khusus",
+    summary: "Ketika hukum memandikan atau Janazah berbeda dari kasus biasa.",
+    body: [
+      "Syuhada medan perang yang gugur dalam pertempuran, menurut hukum klasik dari Uhud, dikuburkan dengan pakaian mereka tanpa ghusl biasa; Nabi ﷺ memerintahkan syuhada Uhud dikuburkan dengan darah mereka dan tanpa dimandikan (Sahih al-Bukhari 1346). Kategori lain yang disebut 'syahid' dalam pahala (mis. wabah, tenggelam) biasanya tetap dimandikan dan dishalatkan Janazah — tanyakan ulama untuk kasus perbatasan.",
+      "Untuk keguguran atau bayi lahir mati, mazhab berbeda soal kapan salat jenazah dan mandi sempurna berlaku (sering terkait bentuk yang dapat dikenali atau tahap peniupan ruh). Sebuah hadits menganjurkan menyalatkan keguguran dan memohon ampunan serta rahmat bagi orang tua (Abu Dawud 3180). Ikuti panitia jenazah mazhab Anda, jangan menebak sendiri.",
+      "Kerabat non-Muslim tidak diberi salat Janazah Muslim; kebaikan, bantuan penguburan yang halal bila relevan, dan duka pribadi terpisah dari salat ritual bagi orang beriman. Selalu konfirmasikan kasus khusus dengan panduan lokal yang kompeten.",
+    ],
+    madhhabNote:
+      "Definisi syahid medan perang, tahap keguguran, dan salat atas bayi lahir mati berbeda antarmazhab. Topik ini menandai isu tersebut — bukan fatwa.",
+    disclaimer:
+      "Hukum khusus bersifat sensitif. Konfirmasikan dengan ulama yang kompeten atau layanan jenazah komunitas Anda sebelum bertindak.",
+    actions: [
+      "Jangan memandikan syahid medan perang bertentangan dengan arahan ulama.",
+      "Tanyakan panitia jenazah tentang kasus keguguran atau lahir mati.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Nabi ﷺ memerintahkan agar syuhada Uhud dikuburkan dengan darah mereka, dan mereka tidak dimandikan.",
+      },
+      {
+        excerpt:
+          "Salat jenazah dipanjatkan atas keguguran, dan orang tua didoakan dengan ampunan serta rahmat.",
+      },
+    ],
+  },
+  {
+    title: "Janazah ghaib",
+    summary: "Nabi ﷺ menyalatkan Negus ketika jenazah jauh.",
+    body: [
+      "Jabir meriwayatkan bahwa Nabi ﷺ keluar menemui para Sahabat, merapikan barisan mereka, dan bertakbir empat kali untuk Negus (al-Najashi), raja Habsyi yang meninggal di negeri jauh (Sahih al-Bukhari 1334; Sahih Muslim 952). Ini adalah dalil utama Salat al-Janazah ghaib (alā al-ghā'ib).",
+      "Mazhab berbeda soal seberapa luas preceden itu diterapkan: sebagian membatasinya pada kasus seperti Negus (tidak ada salat Muslim setempat), sebagian membolehkannya lebih luas ketika jenazah jauh. Jangan melewatkan Janazah lokal ketika jenazah hadir dan komunitas dapat shalat. Ikuti ulama lokal terpercaya untuk kapan salat ghaib sesuai mazhab Anda.",
+      "Bentuknya sama: salat empat takbir; niatnya untuk almarhum yang tidak hadir. Gunakan doa sahih yang sama, sesuaikan jenis kelamin bila perlu.",
+    ],
+    madhhabNote:
+      "Cakupan Janazah ghaib adalah titik perbedaan yang dikenal. Utamakan praktik imam yang kompeten di komunitas Anda.",
+    actions: [
+      "Shalat secara lokal setiap kali jenazah hadir.",
+      "Bertanya dulu sebelum mengadakan Janazah ghaib sebagai acara publik.",
+    ],
+    hadith: [
+      {
+        excerpt: "Nabi ﷺ memanjatkan salat jenazah Negus dan mengucapkan empat takbir.",
+      },
+      {
+        excerpt:
+          "Rasulullah ﷺ merapikan barisan para Sahabat dan menyalatkan Negus dengan empat takbir.",
+      },
+    ],
+  },
+  {
+    title: "Di sisi orang sekarat — kata terakhir",
+    summary: "Bimbing orang sekarat mengucapkan la ilaha illallah dengan lembut.",
+    body: [
+      "Nabi ﷺ bersabda: 'Talqinilah orang yang sekarat di antara kalian dengan la ilaha illallah' (Sahih Muslim 916; Abu Dawud 3117). Hisnul Muslim menjaga ajaran bahwa barangsiapa yang kata terakhirnya 'Tidak ada yang berhak disembah kecuali Allah' akan masuk Surga (hisn-153, dari Abu Dawud 3116).",
+      "Talqinilah dengan lembut tanpa kekerasan; jangan memaksa atau berdebat. Orang yang mendekati ajal juga dapat dihibur dengan kata-kata harapan sahih dalam Hisnul Muslim (hisn-150–152). Tutup mata ketika ruh dicabut dan gunakan doa menutup mata (topik sebelumnya).",
+      "Hindari ratapan keras dan ucapan yang memurkai Allah. Keluarga hendaknya mengucapkan yang baik, karena para malaikat mengucapkan amin atas perkataan mereka (Sahih Muslim 920).",
+    ],
+    actions: [
+      "Ingatkan orang sekarat tentang syahadah dengan lembut.",
+      "Jaga ruangan tetap tenang dan terisi ucapan yang baik.",
+    ],
+    hadith: [
+      {
+        excerpt: "Talqinilah orang yang sekarat di antara kalian: la ilaha illallah.",
+      },
+      {
+        excerpt:
+          "Barangsiapa yang kata terakhirnya 'Tidak ada yang berhak disembah kecuali Allah' akan masuk Surga.",
+      },
+    ],
+    appLinks: [{ label: "Doa harapan hidup" }, { label: "Menutup mata" }],
+  },
+  {
+    title: "Takziah dan keluarga yang berduka",
+    summary: "Hibur orang yang hidup dengan doa musibah kenabian.",
+    body: [
+      "Ummu Salamah meriwayatkan bahwa Rasulullah ﷺ bersabda: 'Tidaklah seorang Muslim tertimpa musibah lalu mengucapkan apa yang Allah perintahkan — \"Sesungguhnya kita milik Allah dan kepada-Nya kita kembali. Ya Allah, berilah pahala kepadaku dalam musibahku dan gantilah bagiku dengan yang lebih baik\" — melainkan Allah akan menggantikannya dengan yang lebih baik' (Sahih Muslim 918). Hisnul Muslim menjaga lafadz ini (hisn-154).",
+      "Sampaikan belasungkawa dengan kata singkat dan jujur; siapkan makanan untuk keluarga almarhum daripada membebani mereka dengan menjamu (Abu Dawud 3132 — riwayat tentang keluarga Ja'far). Hindari upacara bid'ah berhari tetap tanpa dalil sambil terus berdoa pribadi, bersedekah, dan berbuat baik.",
+      "Kesedihan bercucuran air mata diperbolehkan; meratap, menampar pipi, dan merobek pakaian dilarang. Dukung janda, yatim, dan tanggungan dengan bantuan yang halal setelah penguburan.",
+    ],
+    actions: [
+      "Ajarkan keluarga yang berduka doa musibah.",
+      "Bantu dengan makanan dan urusan alih-alih mengharapkan jamuan.",
+      "Teruskan doa tenang dan sedekah untuk almarhum.",
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Tidaklah seorang Muslim tertimpa musibah lalu mengucapkan kata-kata yang diperintahkan tentang kembali kepada Allah dan memohon pengganti yang lebih baik, melainkan Allah menggantikannya dengan yang lebih baik.",
+      },
+    ],
+    appLinks: [{ label: "Target sedekah" }],
+  },
 ];

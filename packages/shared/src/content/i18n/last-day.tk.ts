@@ -571,7 +571,116 @@ export const LAST_DAY_TOPICS_TK: DeepPartial<LastDayTopic>[] = [
       "Maşgala, goňşulara we karz berijilere berlen hukuklary ýerine ýetiriň.",
       "Doga journalurnalyňyzda huşu we niýetiň yhlasy hakda pikirleniň.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Terezide agyr" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Terezide agyr amallar",
+    summary: "Yhlas bilen edilen kiçi amallar Kyýamat terezisinde agyr bolar.",
+    body: [
+      "Alla amalyň köpüsine däl, yhlasyna garaýar.",
+      "Dil, häsiýet we ýürek amallarynyň agramy uludyr.",
+      "Kiçi, emma dowamly ýagşylyklary artdyryň.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Gowy häsiýet",
+        summary: "Mylaýymlyk we gowy gatnaşyk.",
+        hadith: {
+          excerpt: "Terezide gowy häsiýetden agyr zat ýokdur.",
+        },
+      },
+      {
+        title: "Iki söz",
+        summary: "Dile ýeňil, tereziye agyr.",
+        hadith: {
+          excerpt: "Subhanallahi we bihamdihi, Subhanallahil-azym.",
+        },
+      },
+      {
+        title: "Alhamdulillah",
+        summary: "Terezini doldurýar.",
+        hadith: {
+          excerpt: "Alhamdulillah terezini doldurýar.",
+        },
+      },
+      {
+        title: "Bitaka",
+        summary: "Töwhid günäleri basýar.",
+        hadith: {
+          excerpt: "La ilaha illallah ýazylan kartoçka terezini agyr edýär.",
+        },
+      },
+      {
+        title: "Iň gowy zikr",
+        summary: "Töwhidi köp aýtmak.",
+        hadith: {
+          excerpt: "Iň gowy zikr — la ilaha illallah.",
+        },
+      },
+      {
+        title: "Dört söz",
+        summary: "Allanyň söýýän sözleri.",
+        hadith: {
+          excerpt: "Subhanallah, alhamdulillah, la ilaha illallah, Allahu ekber.",
+        },
+      },
+      {
+        title: "Ýüz tesbih",
+        summary: "Bagyşlanmaga sebäp bolýar.",
+        hadith: {
+          excerpt: "Kim ýüz gezek Subhanallah diýse, günäleri bagyşlanar.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Şol gün tereziler adalat bilen goýlar.",
+      },
+      {
+        excerpt: "Kimiň terezisi agyr bolsa, ol razy durmuşdadyr.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Allanyň iň söýýän amaly az bolsa-da dowamlysydyr.",
+      },
+      {
+        excerpt: "Hiç bir ýagşylygy kiçi görmäň.",
+      },
+      {
+        excerpt: "Ýylgyrmak sadakadyr.",
+      },
+      {
+        excerpt: "Musulman — adamlar dilinden we elinden aman bolan kişidir.",
+      },
+    ],
+    misconceptions: [
+      "Diňe köp amal ýeter diýen pikir nädogrudyr; yhlas gerek.",
+      "Ýüregiň amallary ähmiýetsiz diýen pikir nädogrudyr.",
+    ],
+    actions: [
+      "Her gün zikr ediň.",
+      "Häsiýetiňizi gowulandyryň.",
+      "Dowamly kiçi amal saýlaň.",
+      "Her işi yhlas bilen başlaň.",
+    ],
+    appLinks: [
+      {
+        label: "Gündelik zikr",
+      },
+      {
+        label: "Dogalar",
+      },
+      {
+        label: "Guran okamak",
+      },
+      {
+        label: "Sadaka gündeligi",
+      },
+      {
+        label: "Häsiýeti ösdürmek",
+      },
+    ],
   },
 ];
 
@@ -702,6 +811,24 @@ export const LAST_DAY_HADITH_TK: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'Bilimi ýitirmek', maglumat ýetmezçiligini däl-de, sagdyn alymlaryň we durmuş tejribesiniň ýitmegini aňladýar.",
+  },
+  {
+    hadith: {
+      excerpt: "Arassaçylyk imanyň ýarysydyr.",
+    },
+    context: "Iman amallary tereziye agram berýär.",
+  },
+  {
+    hadith: {
+      excerpt: "Gowy söz sadakadyr.",
+    },
+    context: "Diliň ýagşylygy uly sogapdyr.",
+  },
+  {
+    hadith: {
+      excerpt: "Alla mylaýymlygy söýýär.",
+    },
+    context: "Mylaýymlygy gündelik endik ediň.",
   },
 ];
 
@@ -941,6 +1068,18 @@ export const LAST_DAY_QUIZ_TK: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Dogry", "Sealňyş"],
     explanation:
       "Bu aýat hemmeleriň üstünden geçjekdigini aýdýar; Allatagalalary halas edýär. Alymlar kimiň ýykylýandygy barada jikme-jiklikleri ara alyp maslahatlaşýarlar.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

@@ -14,6 +14,13 @@ export interface DatabaseSslInput {
   host?: string;
 }
 
+/** True when `host` is exactly `domain` or a subdomain of it. */
+function hostnameMatches(host: string, domain: string): boolean {
+  const h = host.toLowerCase();
+  const d = domain.toLowerCase();
+  return h === d || h.endsWith(`.${d}`);
+}
+
 /**
  * Managed Postgres hosts that require TLS even when `DATABASE_SSL` is unset.
  * Matches admin Drizzle (`packages/db`) so Nest and admin share the same rule.
@@ -21,13 +28,18 @@ export interface DatabaseSslInput {
 export function hostRequiresDatabaseSsl(host: string | undefined | null): boolean {
   if (!host) return false;
   const h = host.toLowerCase();
-  return h.includes("supabase") || h.includes("neon.tech") || h.includes("amazonaws.com");
+  return (
+    hostnameMatches(h, "supabase.co") ||
+    hostnameMatches(h, "supabase.com") ||
+    hostnameMatches(h, "neon.tech") ||
+    hostnameMatches(h, "amazonaws.com")
+  );
 }
 
 export function isSupabaseHost(host: string | undefined | null): boolean {
   if (!host) return false;
   const h = host.toLowerCase();
-  return h.includes("supabase");
+  return hostnameMatches(h, "supabase.co") || hostnameMatches(h, "supabase.com");
 }
 
 /**

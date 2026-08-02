@@ -10,6 +10,11 @@ export type OssAudioUriClassification = {
   contentMeta: OssContentDownloadFailureMeta;
 };
 
+/** True when `host` is exactly `domain` or a subdomain of it. */
+function hostnameMatches(host: string, domain: string): boolean {
+  return host === domain || host.endsWith(`.${domain}`);
+}
+
 /**
  * Map a remote audio URL to OSS failure telemetry fields so `audio-cache`
  * can report without each caller passing context.
@@ -20,7 +25,7 @@ export function classifyOssAudioUri(remoteUri: string): OssAudioUriClassificatio
     const host = url.hostname.toLowerCase();
     const path = decodeURIComponent(url.pathname);
 
-    if (host.includes("everyayah.com")) {
+    if (hostnameMatches(host, "everyayah.com")) {
       const parts = path.split("/").filter(Boolean);
       // /data/{reciterDir}/{SSSAAA}.mp3
       const dataIdx = parts.indexOf("data");
@@ -43,7 +48,7 @@ export function classifyOssAudioUri(remoteUri: string): OssAudioUriClassificatio
       };
     }
 
-    if (host.includes("quranicaudio.com")) {
+    if (hostnameMatches(host, "quranicaudio.com")) {
       return {
         contentKind: "quran_audio",
         contentKey: `quran_audio:quranicaudio:${path}`,
@@ -55,7 +60,7 @@ export function classifyOssAudioUri(remoteUri: string): OssAudioUriClassificatio
       };
     }
 
-    if (host.includes("jsdelivr.net") && /adhan-mp3/i.test(path)) {
+    if (hostnameMatches(host, "jsdelivr.net") && /adhan-mp3/i.test(path)) {
       const file = path.split("/").pop() ?? path;
       return {
         contentKind: "adhan_audio",
@@ -68,7 +73,7 @@ export function classifyOssAudioUri(remoteUri: string): OssAudioUriClassificatio
       };
     }
 
-    if (host.includes("jsdelivr.net") && /audio\/adhan\/phrases/i.test(path)) {
+    if (hostnameMatches(host, "jsdelivr.net") && /audio\/adhan\/phrases/i.test(path)) {
       const file = path.split("/").pop() ?? path;
       return {
         contentKind: "adhan_audio",
@@ -81,7 +86,7 @@ export function classifyOssAudioUri(remoteUri: string): OssAudioUriClassificatio
       };
     }
 
-    if (host.includes("wikimedia.org") || host.includes("wikipedia.org")) {
+    if (hostnameMatches(host, "wikimedia.org") || hostnameMatches(host, "wikipedia.org")) {
       const file = path.split("/").pop() ?? path;
       return {
         contentKind: "adhan_audio",
@@ -94,7 +99,7 @@ export function classifyOssAudioUri(remoteUri: string): OssAudioUriClassificatio
       };
     }
 
-    if (host.includes("jsdelivr.net") && /99-names-of-allah/i.test(path)) {
+    if (hostnameMatches(host, "jsdelivr.net") && /99-names-of-allah/i.test(path)) {
       return {
         contentKind: "content_audio",
         contentKey: `content_audio:names:${path.split("/").pop() ?? path}`,
@@ -106,7 +111,7 @@ export function classifyOssAudioUri(remoteUri: string): OssAudioUriClassificatio
       };
     }
 
-    if (host.includes("archive.org") || host.includes("jsdelivr.net")) {
+    if (hostnameMatches(host, "archive.org") || hostnameMatches(host, "jsdelivr.net")) {
       return {
         contentKind: "content_audio",
         contentKey: `content_audio:${host}:${path.slice(0, 180)}`,

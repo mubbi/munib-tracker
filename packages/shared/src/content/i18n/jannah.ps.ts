@@ -393,6 +393,104 @@ export const JANNAH_TOPICS_PS: DeepPartial<JannahTopic>[] = [
       "نورو ته بښنه وکړئ او مات شوي اړیکې سم کړئ.",
       "په ورځني ژورنال کې د لمانځه وروسته خپل شخصیت ته انعکاس وکړئ.",
     ],
+    characterTraits: [
+      {
+        title: "رښتينولي",
+        summary: "رښتيا ويل.",
+        quran: {
+          excerpt: "له رښتينو سره اوسئ.",
+        },
+      },
+      {
+        title: "صبر",
+        summary: "په ازموينه کې ټينګوالی.",
+        quran: {
+          excerpt: "الله له صابرانو سره دی.",
+        },
+      },
+      {
+        title: "غوسه",
+        summary: "غوسه کنټرولول.",
+        hadith: {
+          excerpt: "زورور د غوسې کنټرولوونکی دی.",
+        },
+      },
+      {
+        title: "بښنه",
+        summary: "تېروتل.",
+        quran: {
+          excerpt: "وبښئ او تېر شئ.",
+        },
+      },
+      {
+        title: "تواضع",
+        summary: "ځان لوړ نه ګڼل.",
+        hadith: {
+          excerpt: "الله متواضع لوړوي.",
+        },
+      },
+      {
+        title: "امانتداري",
+        summary: "امانت ساتل.",
+        quran: {
+          excerpt: "امانتونه ساتي.",
+        },
+      },
+      {
+        title: "مور او پلار",
+        summary: "احترام.",
+        quran: {
+          excerpt: "اف هم مه وايئ.",
+        },
+      },
+      {
+        title: "ښه خبره",
+        summary: "ښه ووايئ يا چوپ شئ.",
+        hadith: {
+          excerpt: "ښه خبره ووايئ يا چوپ شئ.",
+        },
+      },
+      {
+        title: "مسکا",
+        summary: "خوشاله مخ.",
+        hadith: {
+          excerpt: "مسکا صدقه ده.",
+        },
+      },
+      {
+        title: "عدل",
+        summary: "انصاف.",
+        quran: {
+          excerpt: "عدل وکړئ.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "دروغ",
+      },
+      {
+        title: "غيبت",
+      },
+      {
+        title: "چغلخوري",
+      },
+      {
+        title: "تکبر",
+      },
+      {
+        title: "ظلم",
+      },
+      {
+        title: "وعده ماتول",
+      },
+      {
+        title: "ملنډې",
+      },
+      {
+        title: "سختي",
+      },
+    ],
   },
   {
     title: "د پوهې په لټه کې",

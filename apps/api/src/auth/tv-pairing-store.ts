@@ -36,11 +36,17 @@ function pruneMemory(now = Date.now()): void {
 }
 
 export function generateTvPairingCode(): string {
-  const bytes = randomBytes(CODE_LENGTH);
+  const alphabetLen = CODE_ALPHABET.length;
+  // Rejection sampling avoids modulo bias from cryptographically secure bytes.
+  const maxUnbiased = Math.floor(256 / alphabetLen) * alphabetLen;
   let out = "";
-  for (let i = 0; i < CODE_LENGTH; i += 1) {
-    const byte = bytes[i] ?? 0;
-    out += CODE_ALPHABET[byte % CODE_ALPHABET.length];
+  while (out.length < CODE_LENGTH) {
+    const bytes = randomBytes(CODE_LENGTH - out.length);
+    for (const byte of bytes) {
+      if (byte >= maxUnbiased) continue;
+      out += CODE_ALPHABET[byte % alphabetLen];
+      if (out.length === CODE_LENGTH) break;
+    }
   }
   return out;
 }

@@ -10,6 +10,7 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { WarningLadderBlock } from "@/components/learn-mizan";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -46,6 +47,10 @@ export function JahannamTopicContent({ topic }: { topic: JahannamTopic }) {
 
       <JannahTakeaway text={topic.summary} />
       <JannahBody paragraphs={topic.body} />
+
+      {topic.id === "destructive-sins" && topic.destructiveItems?.length ? (
+        <WarningLadderBlock items={topic.destructiveItems} />
+      ) : null}
 
       {topic.quran?.length ? <JannahQuranEvidence refs={topic.quran} /> : null}
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}

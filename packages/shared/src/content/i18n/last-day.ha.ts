@@ -576,7 +576,117 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Cika haƙƙoƙin da ake bin iyali, maƙwabta, da masu bashi.",
       "Yi tunani a cikin littafin addu'ar ku akan khushu da ikhlasi na niyya.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [{}, { label: "Mai nauyi a Mizan" }, {}, {}, {}, {}, {}],
+  },
+  {
+    title: "Mai nauyi a Mizan",
+    summary:
+      "Ayyukan da ingantattun nassosi suka kira masu nauyi, masu cika ma'auni, ko mafi soyuwa.",
+    body: [
+      "Alkur'ani da Sunna ba su ba da jeri na dukkan ayyuka ba; muna tsaya ga kalmomin nassosi.",
+      "Nauyi a Mizan yana fara ne da ikhlasi; ƙaramin aiki na gaskiya zai fi babban riya nauyi.",
+      "Ku dawwama a kan wannan zikiri da kyawawan halaye da zuciya mai hankali.",
+    ],
+    mizanDeeds: [
+      {
+        title: "Kyakkyawan hali",
+        summary: "Babu abin da ya fi kyakkyawan hali nauyi a ma'aunin mumini.",
+        hadith: {
+          excerpt: "Babu abin da ya fi kyakkyawan hali nauyi a ma'aunin mumini.",
+        },
+      },
+      {
+        title: "Kalmomi biyu masu sauƙi",
+        summary: "Masu sauƙi a harshe, masu nauyi a Mizan kuma masoya ga Mai rahama.",
+        hadith: {
+          excerpt: "Subhanallahi wa bihamdihi, Subhanallahil-azim.",
+        },
+      },
+      {
+        title: "Alhamdulillah yana cika Mizan",
+        summary: "Godiya ga Allah tana cika ma'auni.",
+        hadith: {
+          excerpt: "Alhamdulillah yana cika Mizan.",
+        },
+      },
+      {
+        title: "Katin shahada",
+        summary: "Tauhidi na gaskiya ya fi takardun zunubi nauyi.",
+        hadith: {
+          excerpt: "Katin shahada ya fi takardun zunubi nauyi.",
+        },
+      },
+      {
+        title: "Mafi alherin zikiri",
+        summary: "Mafi alherin zikiri shi ne La ilaha illallah.",
+        hadith: {
+          excerpt: "Mafi alherin zikiri shi ne La ilaha illallah.",
+        },
+      },
+      {
+        title: "Kalmomi huɗu mafi soyuwa",
+        summary: "Magana mafi soyuwa ga Allah kalmomi huɗu ne.",
+        hadith: {
+          excerpt: "Subhanallah, Alhamdulillah, La ilaha illallah, Allahu Akbar.",
+        },
+      },
+      {
+        title: "Subhanallahi wa bihamdihi ×100",
+        summary: "Wanda ya faɗa sau ɗari a rana an yi masa albishir da gafara.",
+        hadith: {
+          excerpt: "Wanda ya faɗa sau ɗari a rana, za a gafarta masa zunubansa.",
+        },
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Aiki da ikhlasi yana da nauyi a Mizan.",
+      },
+      {
+        excerpt: "Kyakkyawan hali yana da nauyi ƙwarai a ma'aunin mumini.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt: "Babu abin da ya fi kyakkyawan hali nauyi a ma'aunin mumini.",
+      },
+      {
+        excerpt: "Subhanallahi wa bihamdihi, Subhanallahil-azim.",
+      },
+      {
+        excerpt: "Alhamdulillah yana cika Mizan.",
+      },
+      {
+        excerpt: "Katin shahada ya fi takardun zunubi nauyi.",
+      },
+    ],
+    misconceptions: [
+      "Alkur'ani da Sunna ba su ba da jeri na dukkan ayyuka ba; muna tsaya ga kalmomin nassosi.",
+      "Nauyi a Mizan yana fara ne da ikhlasi; ƙaramin aiki na gaskiya zai fi babban riya nauyi.",
+    ],
+    actions: [
+      "Ku dawwama a kan wannan zikiri da kyawawan halaye da zuciya mai hankali.",
+      "Masu sauƙi a harshe, masu nauyi a Mizan kuma masoya ga Mai rahama.",
+      "Godiya ga Allah tana cika ma'auni.",
+      "Babu abin da ya fi kyakkyawan hali nauyi a ma'aunin mumini.",
+    ],
+    appLinks: [
+      {
+        label: "Mai nauyi a Mizan",
+      },
+      {
+        label: "Kalmomi biyu masu sauƙi",
+      },
+      {
+        label: "Alhamdulillah yana cika Mizan",
+      },
+      {
+        label: "Gaskiya",
+      },
+      {
+        label: "Shirin Mizan mai nauyi",
+      },
+    ],
   },
 ];
 
@@ -708,6 +818,24 @@ export const LAST_DAY_HADITH_HA: DeepPartial<LastDayHadithEntry>[] = [
     },
     context:
       "'Rashin ilimi' yana nufin asarar ƙwararrun malamai da aikin rayuwa - ba ƙarancin bayanai ba.",
+  },
+  {
+    hadith: {
+      excerpt: "Aiki da ikhlasi yana da nauyi a Mizan.",
+    },
+    context: "Shirin Mizan mai nauyi",
+  },
+  {
+    hadith: {
+      excerpt: "Kyakkyawan hali yana da nauyi ƙwarai a ma'aunin mumini.",
+    },
+    context: "Mai nauyi a Mizan",
+  },
+  {
+    hadith: {
+      excerpt: "Zikiri mai sauƙi a harshe yana da nauyi a Mizan.",
+    },
+    context: "Mai nauyi a Mizan",
   },
 ];
 
@@ -952,6 +1080,18 @@ export const LAST_DAY_QUIZ_HA: DeepPartial<LastDayQuizQuestion>[] = [
     options: ["Gaskiya", "Karya"],
     explanation:
       "Ayar ta ce duk za su wuce ta; Allah yana tsĩrar da masu hankali. Malamai sun tattauna cikakken bayani kan wanda ya fadi.",
+  },
+  {
+    prompt:
+      "Which phrase did the Prophet ﷺ describe as light on the tongue and heavy on the Scale?",
+    options: [
+      "Only the five daily prayers",
+      "SubhanAllahi wa bihamdih and SubhanAllahil-'Azim",
+      "Any long speech in Arabic",
+      "Silence alone",
+    ],
+    explanation:
+      "Sahih al-Bukhari 6406: two words light on the tongue, heavy on the Scale, beloved to the Most Merciful.",
   },
 ];
 

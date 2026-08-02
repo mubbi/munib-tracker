@@ -398,7 +398,110 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Boshqalarni kechiring va buzilgan munosabatlarni tuzating.",
       "Kundalik jurnalda namozdan keyin xarakteringiz haqida o'ylang.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {},
+      {
+        label: "Sins against others",
+      },
+    ],
+    characterTraits: [
+      {
+        title: "Rostgo'ylik",
+        summary: "So'z va amalda rost bo'lish.",
+        quran: {
+          excerpt: "Allohdan qo'rqinglar va rostgo'ylar bilan bo'linglar.",
+        },
+      },
+      {
+        title: "Sabr",
+        summary: "Sinovda bardoshli bo'lish.",
+        quran: {
+          excerpt: "Albatta, Alloh sabr qiluvchilar bilan.",
+        },
+      },
+      {
+        title: "G'azabni boshqarish",
+        summary: "G'azabda o'zini tiyish.",
+        hadith: {
+          excerpt: "Kuchli kishi g'azabda o'zini tuta olgan kishidir.",
+        },
+      },
+      {
+        title: "Kechirim",
+        summary: "Odamlarning xatosini kechirish.",
+        quran: {
+          excerpt: "Kechirsinlar va o'tib ketsinlar.",
+        },
+      },
+      {
+        title: "Kamtarlik",
+        summary: "O'zini ulug' ko'rmaslik.",
+        hadith: {
+          excerpt: "Kim Alloh uchun kamtar bo'lsa, Alloh uni yuksaltiradi.",
+        },
+      },
+      {
+        title: "Omonatdorlik",
+        summary: "Ishonib topshirilgan narsani asrash.",
+        quran: {
+          excerpt: "Ular omonat va ahdlariga rioya qiladilar.",
+        },
+      },
+      {
+        title: "Ota-onaga yaxshilik",
+        summary: "Hurmat va g'amxo'rlik.",
+        quran: {
+          excerpt: "Ularga «uf» ham demang.",
+        },
+      },
+      {
+        title: "Yaxshi so'z",
+        summary: "Yaxshilikni aytish yoki jim turish.",
+        hadith: {
+          excerpt: "Yaxshi so'z aytsin yoki jim tursin.",
+        },
+      },
+      {
+        title: "Tabassum",
+        summary: "Birodarga ochiq chehra ko'rsatish.",
+        hadith: {
+          excerpt: "Birodaringizga tabassum qilish sadaqadir.",
+        },
+      },
+      {
+        title: "Adolat",
+        summary: "Hamma bilan adolatli bo'lish.",
+        quran: {
+          excerpt: "Adolat qilinglar, bu taqvoga yaqinroqdir.",
+        },
+      },
+    ],
+    characterDestroyers: [
+      {
+        title: "Yolg'on",
+      },
+      {
+        title: "G'iybat",
+      },
+      {
+        title: "Chaqqonlik",
+      },
+      {
+        title: "Kibr",
+      },
+      {
+        title: "Zulm",
+      },
+      {
+        title: "Va'dani buzish",
+      },
+      {
+        title: "Mazax qilish",
+      },
+      {
+        title: "Qo'pollik",
+      },
+    ],
   },
   {
     title: "Bilim izlash",
