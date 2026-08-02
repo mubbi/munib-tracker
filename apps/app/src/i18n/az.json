@@ -4267,10 +4267,10 @@
     "newTitle": "New dhkr",
     "delete": "Sil",
     "emptyTitle": "No cus-m dhkr yet",
-    "emptyDesc": "əlvə et siziçində own zikr with its ərəb text, trnslitertiüzərində, və meniçindəg.",
+    "emptyDesc": "Öz zikrinizi əlavə edin — başlıq kifayətdir; ərəb mətni, transliterasiya və məna ixtiyaridir.",
     "field": {
       "title": "Başlıq",
-      "arabic": "ərəb text",
+      "arabic": "Ərəb mətni (ixtiyari)",
       "transliteration": "Trnslitertiüzərində (ixtiyri)",
       "translation": "Meniçindəg (ixtiyri)",
       "reference": "Reference (ixtiyri)"
@@ -4342,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” həmişəlik silinəcək.",
     "searchPlaceholder": "Adhkarlarınızı axtarın",
     "noResults": "Uyğun adhkar yoxdur",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Bu adhkarı saxlamaq mümkün olmadı. Yenidən cəhd edin."
   },
   "tahajjud": {
     "eyebrow": "Gecə salahı",

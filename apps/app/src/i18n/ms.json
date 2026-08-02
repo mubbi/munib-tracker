@@ -4359,10 +4359,10 @@
     "newTitle": "Baru adhkar",
     "delete": "Padam",
     "emptyTitle": "Tiada custom adhkar lagi",
-    "emptyDesc": "Tambah your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "Tambah zikir anda sendiri — tajuk sahaja sudah cukup; teks Arab, transliterasi dan makna adalah pilihan.",
     "field": {
       "title": "Judul",
-      "arabic": "Carib teks",
+      "arabic": "Teks Arab (pilihan)",
       "transliteration": "Transliterasi (sunah)",
       "translation": "Meaning (sunah)",
       "reference": "Reference (sunah)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” akan dibuang secara kekal.",
     "searchPlaceholder": "Cari adhkar anda",
     "noResults": "Tiada adhkar yang sepadan",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Tidak dapat menyimpan adhkar ini. Cuba lagi."
   },
   "tahajjud": {
     "eyebrow": "Malam solat",

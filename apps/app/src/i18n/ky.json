@@ -4359,10 +4359,10 @@
     "newTitle": "Жаңы adhkar",
     "delete": "Өчүрүү",
     "emptyTitle": "Азырынча ыңгайлаштырылган adhkar жок",
-    "emptyDesc": "Кошуу сиздин own zikr менен its Arabic text, transliteration, жана meaning.",
+    "emptyDesc": "Өз зикириңизди кошуңуз — аталыш жетиштүү; арабча текст, транслитерация жана маани милдеттүү эмес.",
     "field": {
       "title": "Аталышы",
-      "arabic": "Арабча текст",
+      "arabic": "Арабча текст (милдеттүү эмес)",
       "transliteration": "Transliteration (милдеттүү эмес)",
       "translation": "Meaning (милдеттүү эмес)",
       "reference": "Reference (милдеттүү эмес)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” түбөлүккө өчүрүлөт.",
     "searchPlaceholder": "Азкарыңызды издөө",
     "noResults": "Дал келген азкар жок",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Бул адхкар сакталган жок. Кайра аракет кыл."
   },
   "tahajjud": {
     "eyebrow": "Түнкү намаз",

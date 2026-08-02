@@ -4267,10 +4267,10 @@
     "newTitle": "New dhkr",
     "delete": "Tirtir",
     "emptyTitle": "No cusum dhkr yet",
-    "emptyDesc": "ku dr kg own zikr with its Crbi text, trnslitertiku, iyo mengudhg.",
+    "emptyDesc": "Ku dar zikrkaaga — cinwaan keliya waa ku filan; Carabi, tarjumaadda qoraalka iyo macnaha waa ikhtiyaari.",
     "field": {
       "title": "Cinwaanka",
-      "arabic": "Crbi text",
+      "arabic": "Qoraal Carabi (ikhtiyaari)",
       "transliteration": "Trnslitertiku (ikhtiyri)",
       "translation": "Mengudhg (ikhtiyri)",
       "reference": "Reference (ikhtiyri)"
@@ -4342,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” waa laga saari doonaa si joogto ah.",
     "searchPlaceholder": "Raadi adhkar-kaaga",
     "noResults": "Ma jiraan adhkar is-waafaqaya",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Adhkarkan lama keydin karin. Isku day mar kale."
   },
   "tahajjud": {
     "eyebrow": "Salah habeenkii",

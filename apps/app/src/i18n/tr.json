@@ -4267,10 +4267,10 @@
     "newTitle": "Yeni adhkar",
     "delete": "Sil",
     "emptyTitle": "Henüz custom adhkar yok",
-    "emptyDesc": "your own zikr with its Arabic text, transliteration, and meaning. Ekle",
+    "emptyDesc": "Kendi zikrinizi ekleyin — bir başlık yeterlidir; Arapça, transliterasyon ve anlam isteğe bağlıdır.",
     "field": {
       "title": "Başlık",
-      "arabic": "Arapça text",
+      "arabic": "Arapça metin (isteğe bağlı)",
       "transliteration": "Transkripsiyon (isteğe bağlı)",
       "translation": "Meaning (isteğe bağlı)",
       "reference": "Reference (isteğe bağlı)"
@@ -4342,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” kalıcı olarak kaldırılacak.",
     "searchPlaceholder": "Adhkarlarınızı arayın",
     "noResults": "Eşleşen adhkar yok",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Bu adhkar kaydedilemedi. Tekrar deneyin."
   },
   "tahajjud": {
     "eyebrow": "Night namaz",

@@ -260,7 +260,7 @@ function logIosKeysSummary(projectRoot) {
     process.env.EXPO_ASC_ISSUER_ID?.trim();
   console.log(
     issuer
-      ? `  ASC Issuer ID: ${issuer}`
+      ? `  ASC Issuer ID: set (${issuer.length} chars)`
       : "  ASC Issuer ID: (set APP_STORE_CONNECT_API_ISSUER_ID in ios-keys/app-store-connect.env)",
   );
   console.log("");

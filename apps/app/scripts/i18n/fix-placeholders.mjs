@@ -79,10 +79,17 @@ function setAt(obj, path, value) {
   let cur = obj;
   for (let i = 0; i < parts.length - 1; i++) {
     const part = parts[i];
-    if (cur[part] == null) cur[part] = {};
+    if (part === "__proto__" || part === "constructor" || part === "prototype") {
+      throw new Error(`Unsafe i18n path segment: ${part}`);
+    }
+    if (cur[part] == null) cur[part] = Object.create(null);
     cur = cur[part];
   }
-  cur[parts[parts.length - 1]] = value;
+  const last = parts[parts.length - 1];
+  if (last === "__proto__" || last === "constructor" || last === "prototype") {
+    throw new Error(`Unsafe i18n path segment: ${last}`);
+  }
+  cur[last] = value;
 }
 
 const interpVars = (s) => [...new Set(s.match(/\{\{[^}]+\}\}/g) ?? [])].sort();

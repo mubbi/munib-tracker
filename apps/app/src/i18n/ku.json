@@ -4359,10 +4359,10 @@
     "newTitle": "Nû adhkar",
     "delete": "Jê bibe",
     "emptyTitle": "Hîn jî adkara xwerû tune",
-    "emptyDesc": "Zêde bike we own zikr bi its Arabic text, transliteration, û meaning.",
+    "emptyDesc": "Zikra xwe zêde bike — sernav bes e; erebî, translîterasyon û wate ne ferz in.",
     "field": {
       "title": "Nav",
-      "arabic": "Nivîsa Erebî",
+      "arabic": "Nivîsa erebî (ne ferz)",
       "transliteration": "Transliteration (ne ferz)",
       "translation": "Meaning (ne ferz)",
       "reference": "Reference (ne ferz)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "“{{title}}” bi awayekî berdewam were jêbirin.",
     "searchPlaceholder": "Adhkarên xwe bigere",
     "noResults": "Adhkarên lihevhatî tune",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Ev adhkar nehat tomarkirin. Dîsa biceribîne."
   },
   "tahajjud": {
     "eyebrow": "Night salah",

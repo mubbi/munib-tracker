@@ -4342,13 +4342,14 @@
     "confirmDeleteTitle": "Delete this adhkar?",
     "confirmDeleteMsg": "“{{title}}” will be removed permanently.",
     "emptyTitle": "No custom adhkar yet",
-    "emptyDesc": "Add your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "Add your own zikr — a title is enough; Arabic, transliteration, and meaning are optional.",
     "searchPlaceholder": "Search your adhkar",
     "noResults": "No matching adhkar",
     "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Could not save this adhkar. Try again.",
     "field": {
       "title": "Title",
-      "arabic": "Arabic text",
+      "arabic": "Arabic text (optional)",
       "transliteration": "Transliteration (optional)",
       "translation": "Meaning (optional)",
       "reference": "Reference (optional)"

@@ -4359,10 +4359,10 @@
     "newTitle": "New dhkr",
     "delete": "Supprimer",
     "emptyTitle": "Pas encore d'adhkar personnalisé",
-    "emptyDesc": "Ajouter your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "Ajoutez votre propre zikr — un titre suffit ; l'arabe, la translittération et le sens sont facultatifs.",
     "field": {
       "title": "Titre",
-      "arabic": "Rechercherpça text",
+      "arabic": "Texte arabe (facultatif)",
       "transliteration": "Translittération (facultatif)",
       "translation": "Signification (facultatif)",
       "reference": "Référence (facultatif)"
@@ -4434,7 +4434,8 @@
     "confirmDeleteMsg": "« {{title}} » sera supprimé définitivement.",
     "searchPlaceholder": "Rechercher vos adhkar",
     "noResults": "Aucun adhkar correspondant",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Impossible d'enregistrer cet adhkar. Réessayez."
   },
   "tahajjud": {
     "eyebrow": "Night salah",

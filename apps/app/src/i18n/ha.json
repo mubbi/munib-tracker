@@ -4267,10 +4267,10 @@
     "newTitle": "Sabuwar adhkar",
     "delete": "Share",
     "emptyTitle": "Babu adhkar na al'ada tukuna",
-    "emptyDesc": "Ƙara your own zikr with its Arabic text, transliteration, and meaning.",
+    "emptyDesc": "Ƙara naku zikr — take kawai ya isa; Larabci, fassarar rubutu, da ma'ana na zaɓi ne.",
     "field": {
       "title": "Take",
-      "arabic": "Nemopça text",
+      "arabic": "Rubutun Larabci (na zaɓi)",
       "transliteration": "Fassara (na zaɓi)",
       "translation": "Ma'ana (na zaɓi)",
       "reference": "Magana (na zaɓi)"
@@ -4342,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” za a cire shi har abada.",
     "searchPlaceholder": "Nemo adhkarka",
     "noResults": "Babu adhkar da suka dace",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "An kasa adana wannan adhkar. Gwada kuma."
   },
   "tahajjud": {
     "eyebrow": "Night sallah",

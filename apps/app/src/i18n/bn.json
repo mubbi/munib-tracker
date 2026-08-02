@@ -4276,10 +4276,10 @@
     "newTitle": "নতুন adhkar",
     "delete": "মুছুন",
     "emptyTitle": "এখনো custom adhkar নেই",
-    "emptyDesc": "your own zikr with its Arabic text, transliteration, and meaning. যোগ",
+    "emptyDesc": "নিজের যিকির যোগ করুন — শুধু শিরোনামই যথেষ্ট; আরবি, উচ্চারণ ও অর্থ ঐচ্ছিক।",
     "field": {
       "title": "Judul",
-      "arabic": "আrabic text",
+      "arabic": "আরবি পাঠ (ঐচ্ছিক)",
       "transliteration": "লিপ্যন্তর (ঐচ্ছিক)",
       "translation": "Meaning (ঐচ্ছিক)",
       "reference": "Reference (ঐচ্ছিক)"
@@ -4351,7 +4351,8 @@
     "confirmDeleteMsg": "“{{title}}” স্থায়ীভাবে সরানো হবে।",
     "searchPlaceholder": "আপনার আযকার খুঁজুন",
     "noResults": "কোনো মিলযুক্ত আযকার নেই",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "এই আযকার সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।"
   },
   "tahajjud": {
     "eyebrow": "Night নামাজ",

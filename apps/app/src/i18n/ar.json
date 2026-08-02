@@ -3860,13 +3860,14 @@
     "confirmDeleteTitle": "حذف هذا الذكر؟",
     "confirmDeleteMsg": "سيتم حذف «{{title}}» نهائيًا.",
     "emptyTitle": "لا أذكار مخصصة بعد",
-    "emptyDesc": "أضف ذكرك الخاص بنصه العربي والنقحرة والمعنى.",
+    "emptyDesc": "أضف ذكرك الخاص — يكفي العنوان؛ النص العربي والنقحرة والمعنى اختيارية.",
     "searchPlaceholder": "ابحث في أذكارك",
     "noResults": "لا أذكار مطابقة",
     "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "تعذّر حفظ هذا الذكر. حاول مرة أخرى.",
     "field": {
       "title": "العنوان",
-      "arabic": "النص العربي",
+      "arabic": "النص العربي (اختياري)",
       "transliteration": "النقحرة (اختياري)",
       "translation": "المعنى (اختياري)",
       "reference": "المرجع (اختياري)"

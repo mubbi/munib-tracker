@@ -3,6 +3,7 @@
 Track Your Journey Back to Allah.
 
 [![CI](https://github.com/mubbi/munib-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/mubbi/munib-tracker/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/mubbi/munib-tracker/graph/badge.svg?token=9N29838KX5)](https://codecov.io/gh/mubbi/munib-tracker)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0)
 

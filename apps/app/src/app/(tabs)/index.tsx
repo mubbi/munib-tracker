@@ -1,6 +1,6 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { lazy, Suspense, useCallback, useState } from "react";
+import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -101,6 +101,10 @@ export default function HomeScreen() {
   const weather = useWeatherDisplay();
   const weatherSnapshot = useWeatherSnapshot();
   const { weatherPrefs } = usePreferences();
+  const weatherEffects = useMemo(
+    () => resolveWeatherEffects(weatherSnapshot, weatherPrefs),
+    [weatherSnapshot, weatherPrefs],
+  );
   const notificationCount = useNotificationBadgeCount();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -157,7 +161,7 @@ export default function HomeScreen() {
               notificationCount={notificationCount}
               weatherSummary={weather?.summary ?? null}
               weatherAccessibilityLabel={weather?.accessibilityLabel ?? null}
-              weatherEffects={resolveWeatherEffects(weatherSnapshot, weatherPrefs)}
+              weatherEffects={weatherEffects}
               onSearchPress={() => router.push("/search")}
               onNotificationsPress={() => router.push("/notifications")}
               onLocationPress={() => router.push("/location")}

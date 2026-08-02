@@ -4267,10 +4267,10 @@
     "newTitle": "Yeni adhkar",
     "delete": "Pozmak",
     "emptyTitle": "Henüz custom adhkar yok",
-    "emptyDesc": "your own zikr with its Gözlegbic text, transliteration, and meaning. Ekle",
+    "emptyDesc": "Öz zikriňizi goşuň — at ýeterlik; arapça tekst, transliterasiýa we manysy islege bagly.",
     "field": {
       "title": "Ady",
-      "arabic": "Gözlegpça text",
+      "arabic": "Arapça tekst (istege bagly)",
       "transliteration": "Transkripsiyon (istege bagly)",
       "translation": "Meaning (istege bagly)",
       "reference": "Reference (istege bagly)"
@@ -4342,7 +4342,8 @@
     "confirmDeleteMsg": "“{{title}}” hemişelik öçüriler.",
     "searchPlaceholder": "Adhkarlaryňyzy gözläň",
     "noResults": "Gabat gelýän adhkar ýok",
-    "itemNumberLabel": "{{number}}. {{title}}"
+    "itemNumberLabel": "{{number}}. {{title}}",
+    "saveFailed": "Bu adhkary saklap bolmady. Gaýtadan synanyşyň."
   },
   "tahajjud": {
     "eyebrow": "Night namaz",
