@@ -17,7 +17,15 @@ export default defineConfig({
       reporter: ["text", "html", "clover"],
       reportsDirectory: "./coverage",
       include: ["src/**/*.{ts,tsx}"],
-      exclude: ["src/**/*.spec.ts", "src/main.ts", "src/**/*.module.ts"],
+      exclude: [
+        "src/**/*.spec.ts",
+        "src/main.ts",
+        "src/**/*.module.ts",
+        "src/database/migrations/**",
+        "src/database/data-source.ts",
+        "src/vercel-handler.ts",
+        "src/create-app.ts",
+      ],
     },
   },
   plugins: [

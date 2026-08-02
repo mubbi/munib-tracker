@@ -13,14 +13,9 @@
       "supportsTablet": true,
       "usesAppleSignIn": true,
       "icon": "./assets/images/icon.png",
-      "associatedDomains": [
-        "applinks:my.munibtracker.app"
-      ],
+      "associatedDomains": ["applinks:my.munibtracker.app"],
       "infoPlist": {
-        "UIBackgroundModes": [
-          "remote-notification",
-          "audio"
-        ],
+        "UIBackgroundModes": ["remote-notification", "audio"],
         "NSSupportsLiveActivities": true,
         "NSFaceIDUsageDescription": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled.",
         "NSCameraUsageDescription": "Munib Tracker uses the camera so you can attach photos to custom adhkar.",
@@ -38,9 +33,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "blockedPermissions": [
-        "android.permission.ACTIVITY_RECOGNITION"
-      ],
+      "blockedPermissions": ["android.permission.ACTIVITY_RECOGNITION"],
       "intentFilters": [
         {
           "action": "VIEW",
@@ -52,10 +45,7 @@
               "pathPrefix": "/oauth/apple"
             }
           ],
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
+          "category": ["BROWSABLE", "DEFAULT"]
         }
       ]
     },
@@ -121,9 +111,7 @@
         {
           "icon": "./assets/images/icon.png",
           "color": "#059669",
-          "sounds": [
-            "./assets/audio/adhan/adhan.mp3"
-          ],
+          "sounds": ["./assets/audio/adhan/adhan.mp3"],
           "mode": "production"
         }
       ],
@@ -179,36 +167,28 @@
                   "bundleIdentifier": "app.munibtracker.munibtrackerwidgets",
                   "targetName": "MunibTrackerWidgets",
                   "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.app.munibtracker.widgets"
-                    ]
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
                   }
                 },
                 {
                   "bundleIdentifier": "app.munibtracker.munibtrackerwatch.widgets",
                   "targetName": "MunibTrackerWatchWidgets",
                   "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.app.munibtracker.widgets"
-                    ]
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
                   }
                 },
                 {
                   "bundleIdentifier": "app.munibtracker.munibtrackerwatch",
                   "targetName": "MunibTrackerWatch",
                   "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.app.munibtracker.widgets"
-                    ]
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
                   }
                 },
                 {
                   "bundleIdentifier": "app.munibtracker.munibtrackerintents",
                   "targetName": "MunibTrackerIntents",
                   "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.app.munibtracker.widgets"
-                    ]
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
                   }
                 }
               ]
