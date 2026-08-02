@@ -1,0 +1,50 @@
+# Codecov: prefer meaningful product/library coverage over migrations & route shells.
+# https://docs.codecov.com/docs/codecov-yaml
+
+coverage:
+  status:
+    project:
+      default:
+        # Informational until apps coverage climbs further via real tests.
+        target: auto
+        threshold: 2%
+    patch:
+      default:
+        target: auto
+        threshold: 2%
+
+ignore:
+  - "apps/api/src/database/migrations/**"
+  - "apps/api/src/database/data-source.ts"
+  - "apps/api/src/main.ts"
+  - "apps/api/src/create-app.ts"
+  - "apps/api/src/vercel-handler.ts"
+  - "**/*.module.ts"
+  # Expo Router screens are mostly declarative UI; unit coverage focuses on lib/stores/hooks.
+  - "apps/app/src/app/**"
+  - "apps/app/src/**/*.d.ts"
+  - "apps/admin/lib/actions/**"
+  - "apps/admin/lib/queries/**"
+  - "apps/admin/lib/auth/**"
+  - "apps/admin/lib/redis/**"
+  - "apps/admin/lib/db.ts"
+  - "apps/admin/lib/db-probe.ts"
+  - "apps/admin/lib/audit.ts"
+  - "apps/admin/lib/env.ts"
+  - "apps/admin/lib/platform.ts"
+  - "apps/admin/lib/app-versions.ts"
+  - "apps/admin/lib/notifications/broadcastAudience.ts"
+  - "apps/admin/lib/notifications/broadcastCompletion.ts"
+  - "apps/admin/lib/notifications/broadcastConstants.ts"
+  - "apps/admin/lib/notifications/broadcastCron.ts"
+  - "apps/admin/lib/notifications/broadcastFilterOptions.ts"
+  - "apps/admin/lib/notifications/broadcastFilters.ts"
+  - "apps/admin/lib/notifications/broadcastInAppWriter.ts"
+  - "apps/admin/lib/notifications/broadcastProcessor.ts"
+  - "apps/admin/lib/notifications/broadcastPushLoader.ts"
+  - "apps/admin/lib/notifications/broadcastRouteData.ts"
+  - "apps/admin/lib/notifications/bulkBroadcast.ts"
+  - "apps/admin/lib/notifications/pushDelivery.ts"
+  - "apps/admin/lib/cron/runProcessBroadcastsCron.ts"
+  - "**/coverage/**"
+  - "**/node_modules/**"

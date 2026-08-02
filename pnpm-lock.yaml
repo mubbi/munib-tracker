@@ -141,6 +141,9 @@ importers:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@munib-tracker/vitest-config':
+        specifier: workspace:*
+        version: link:../../packages/vitest-config
       '@tailwindcss/postcss':
         specifier: 4.3.0
         version: 4.3.0
@@ -156,12 +159,18 @@ importers:
       '@types/web-push':
         specifier: ^3.6.4
         version: 3.6.4
+      '@vitest/coverage-v8':
+        specifier: ^3.2.0
+        version: 3.2.6(vitest@3.2.6(@types/node@20.19.43)(jiti@2.7.0)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.5)(yaml@2.9.0))
       tailwindcss:
         specifier: 4.3.0
         version: 4.3.0
       typescript:
         specifier: ^6.0.0
         version: 6.0.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.6(@types/node@20.19.43)(jiti@2.7.0)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.5)(yaml@2.9.0)
 
   apps/api:
     dependencies:
