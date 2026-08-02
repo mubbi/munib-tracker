@@ -3,9 +3,9 @@
 #
 # separate-pull-requests means each app gets its own Release PR, and every PR
 # also touches .release-please-manifest.json. Merging one PR can leave siblings
-# conflicted; release-please then reports them as "remained the same" while
-# they still carry "autorelease: pending". The heal jobs below drop that label
-# and re-run so branches are rebuilt from main. See:
+# conflicted; release-please then reports them as "remained the same". The
+# heal jobs below close conflicted Release PRs, delete their branches, and
+# re-run so fresh PRs are opened from main. See:
 # https://github.com/googleapis/release-please/issues/1870
 name: release-please
 
@@ -42,7 +42,7 @@ jobs:
     outputs:
       need_rebase: ${{ steps.check.outputs.need_rebase }}
     steps:
-      - name: Drop pending label on non-mergeable release PRs
+      - name: Close conflicted release PRs so they can be recreated
         id: check
         env:
           GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
@@ -50,22 +50,24 @@ jobs:
         run: |
           set -euo pipefail
           need_rebase=false
-          pending_prs=$(gh pr list --repo "$REPO" --label "autorelease: pending" --state open --json number --jq '.[].number')
+          pending_prs=$(gh pr list --repo "$REPO" --label "autorelease: pending" --state open --json number,headRefName --jq '.[] | "\(.number) \(.headRefName)"')
           if [[ -z "${pending_prs}" ]]; then
             echo "No pending release PRs."
             echo "need_rebase=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          for pr_num in ${pending_prs}; do
+          while read -r pr_num head_ref; do
+            [[ -z "${pr_num}" ]] && continue
             # Viewing the PR forces GitHub to compute mergeable status.
             mergeable=$(gh pr view --repo "$REPO" "$pr_num" --json mergeable --jq '.mergeable')
-            echo "PR #${pr_num} mergeable=${mergeable}"
+            echo "PR #${pr_num} (${head_ref}) mergeable=${mergeable}"
             if [[ "${mergeable}" != "MERGEABLE" ]]; then
-              echo "Removing autorelease: pending from #${pr_num}"
-              gh pr edit --repo "$REPO" "$pr_num" --remove-label "autorelease: pending"
+              echo "Closing conflicted release PR #${pr_num}"
+              gh pr close --repo "$REPO" "$pr_num" --comment "Auto-closed: conflicted on .release-please-manifest.json after a sibling release merge. Release Please will open a fresh PR from main."
+              gh api -X DELETE "repos/${REPO}/git/refs/heads/${head_ref}" || true
               need_rebase=true
             fi
-          done
+          done <<< "${pending_prs}"
           echo "need_rebase=${need_rebase}" >> "$GITHUB_OUTPUT"
 
   release-please-rebase:
