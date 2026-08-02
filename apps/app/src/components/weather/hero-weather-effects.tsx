@@ -1,6 +1,6 @@
 import type { WeatherEffectKind } from "@munib-tracker/shared/types";
-import { useEffect, useMemo } from "react";
-import { Platform, StyleSheet, View, type ViewStyle } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { AppState, Platform, StyleSheet, View, type ViewStyle } from "react-native";
 import Animated, {
   Easing,
   interpolate,
@@ -23,9 +23,17 @@ import {
 import { createShadow } from "@/constants/theme";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { gradientBackground } from "@/lib/gradient";
+import { runWhenIdle } from "@/lib/run-when-idle";
 
 /** Global scale — keeps location, clock, and prayer row legible over the hero. */
 const EFFECTS_MASTER_OPACITY = 0.62;
+
+/**
+ * Fewer native animated views on phone/TV. Resume layout + rain was AppHanging
+ * ~2s on iOS (UIImageView sample) and ANRing on Android (ReactTextView.onMeasure /
+ * TextView.stopMarquee during Fabric mount).
+ */
+const PARTICLE_SCALE = Platform.OS === "web" ? 1 : 0.55;
 
 type HeroWeatherEffectsProps = {
   effects: WeatherEffectKind[];
@@ -49,6 +57,10 @@ type CloudConfig = {
 function seed(index: number, salt: number): number {
   const x = Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453;
   return x - Math.floor(x);
+}
+
+function particleCount(full: number): number {
+  return Math.max(4, Math.round(full * PARTICLE_SCALE));
 }
 
 function cloudConfigsFor(effects: WeatherEffectKind[]): CloudConfig[] {
@@ -81,7 +93,7 @@ function cloudConfigsFor(effects: WeatherEffectKind[]): CloudConfig[] {
   );
 }
 
-const RAIN_DROPS = Array.from({ length: 42 }, (_, index) => ({
+const RAIN_DROPS = Array.from({ length: particleCount(42) }, (_, index) => ({
   left: `${seed(index, 1) * 100}%`,
   delay: seed(index, 2) * 1400,
   duration: 700 + seed(index, 3) * 600,
@@ -89,14 +101,14 @@ const RAIN_DROPS = Array.from({ length: 42 }, (_, index) => ({
   length: 14 + seed(index, 13) * 12,
 }));
 
-const SNOW_FLAKES = Array.from({ length: 26 }, (_, index) => ({
+const SNOW_FLAKES = Array.from({ length: particleCount(26) }, (_, index) => ({
   left: `${seed(index, 5) * 100}%`,
   delay: seed(index, 6) * 1800,
   duration: 3200 + seed(index, 7) * 2200,
   size: 3 + seed(index, 8) * 4,
 }));
 
-const WIND_STREAKS = Array.from({ length: 14 }, (_, index) => ({
+const WIND_STREAKS = Array.from({ length: particleCount(14) }, (_, index) => ({
   top: `${6 + seed(index, 9) * 78}%`,
   delay: seed(index, 10) * 1200,
   duration: 1200 + seed(index, 11) * 800,
@@ -106,9 +118,51 @@ const WIND_STREAKS = Array.from({ length: 14 }, (_, index) => ({
 /**
  * Non-interactive weather overlays for the home hero gradient.
  * Sits above the readability scrim; hero text uses a higher z-index.
+ *
+ * Mount is deferred until the JS thread is idle, two frames have painted, and
+ * the app is active so foreground resume does not commit dozens of Reanimated
+ * views in the same native layout pass as hero Text (iOS AppHang /
+ * Android ANR in ReactTextView.onMeasure).
  */
 export function HeroWeatherEffects({ effects }: HeroWeatherEffectsProps) {
   const reducedMotion = useHydrationSafeReducedMotion();
+  const effectsKey = effects.join("|");
+  const [appActive, setAppActive] = useState(() => AppState.currentState === "active");
+  const [mountReady, setMountReady] = useState(false);
+
+  useEffect(() => {
+    const sub = AppState.addEventListener("change", (status) => {
+      setAppActive(status === "active");
+    });
+    return () => sub.remove();
+  }, []);
+
+  useEffect(() => {
+    if (!appActive || reducedMotion || effectsKey.length === 0) {
+      setMountReady(false);
+      return;
+    }
+    let cancelled = false;
+    let raf1 = 0;
+    let raf2 = 0;
+    const handle = runWhenIdle(() => {
+      // requestIdleCallback polyfill is ~1ms; wait out the next Fabric layout
+      // so hero ThemedText measure (stopMarquee → onMeasure) is not batched with
+      // rain/cloud/Reanimated mount.
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => {
+          if (!cancelled) setMountReady(true);
+        });
+      });
+    });
+    return () => {
+      cancelled = true;
+      handle.cancel();
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, [appActive, reducedMotion, effectsKey]);
+
   const cloudConfigs = useMemo(() => cloudConfigsFor(effects), [effects]);
 
   const showRain = effects.includes("rain") || effects.includes("thunderstorm");
@@ -124,7 +178,7 @@ export function HeroWeatherEffects({ effects }: HeroWeatherEffectsProps) {
   const showWind = effects.includes("windy");
   const showThunder = effects.includes("thunderstorm");
 
-  if (reducedMotion || effects.length === 0) return null;
+  if (reducedMotion || effects.length === 0 || !mountReady) return null;
 
   return (
     <View style={[styles.root, { opacity: EFFECTS_MASTER_OPACITY, pointerEvents: "none" }]}>

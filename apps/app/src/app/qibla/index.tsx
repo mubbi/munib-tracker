@@ -304,22 +304,7 @@ export default function QiblaScreen() {
     let magSub: { remove: () => void } | null = null;
     let cancelled = false;
 
-    void (async () => {
-      try {
-        headingSub = await Location.watchHeadingAsync((data) => {
-          if (cancelled) return;
-          const hasTrue = data.trueHeading != null && data.trueHeading >= 0;
-          const value = hasTrue ? data.trueHeading : data.magHeading;
-          if (value == null || Number.isNaN(value)) return;
-          setHasCompass(true);
-          setHasTrueNorth(hasTrue);
-          applyHeading((value + 360) % 360);
-        });
-        return;
-      } catch {
-        // Fall through to magnetometer.
-      }
-
+    const startMagnetometer = async () => {
       const available = await Magnetometer.isAvailableAsync().catch(() => false);
       if (!available || cancelled) return;
       setHasCompass(true);
@@ -329,11 +314,48 @@ export default function QiblaScreen() {
         if (cancelled) return;
         applyHeading(magnetometerHeading(data.x, data.y));
       });
+    };
+
+    void (async () => {
+      // Android's expo-location removeWatchAsync historically rejected when
+      // location was denied, even for compass watches. Prefer Location heading
+      // (true north) only when already authorized; otherwise use magnetometer.
+      const permitted = await getLocationPermissionGranted();
+      if (cancelled) return;
+
+      if (permitted) {
+        try {
+          headingSub = await Location.watchHeadingAsync((data) => {
+            if (cancelled) return;
+            const hasTrue = data.trueHeading != null && data.trueHeading >= 0;
+            const value = hasTrue ? data.trueHeading : data.magHeading;
+            if (value == null || Number.isNaN(value)) return;
+            setHasCompass(true);
+            setHasTrueNorth(hasTrue);
+            applyHeading((value + 360) % 360);
+          });
+          if (cancelled) {
+            headingSub.remove();
+            headingSub = null;
+            return;
+          }
+          return;
+        } catch {
+          // Fall through to magnetometer.
+        }
+      }
+
+      await startMagnetometer();
     })();
 
     return () => {
       cancelled = true;
-      headingSub?.remove();
+      try {
+        headingSub?.remove();
+      } catch {
+        // Subscription.remove is sync; native rejections are swallowed in the
+        // expo-location patch. Keep a local guard for unexpected sync throws.
+      }
       magSub?.remove();
     };
   }, [applyHeading]);
