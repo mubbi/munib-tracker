@@ -45,6 +45,8 @@ Mitigations in this repo:
    on every push to `main` (and on `workflow_dispatch`), close non-mergeable
    Release PRs, delete their head branches, and re-run Release Please so it
    opens fresh PRs from `main`.
+   Heal only closes PRs GitHub reports as `CONFLICTING` (not `UNKNOWN`,
+   which is common for a few seconds after a push to `main`).
 
 If a Release PR is stuck conflicting: open **Actions → release-please → Run
 workflow**. Prefer merging one Release PR at a time and waiting for the heal
