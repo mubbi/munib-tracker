@@ -1,2 +1,6 @@
 # Husky hooks must use LF — CRLF breaks `sh -e` under Git for Windows.
 .husky/** text eol=lf
+
+# Keep package manifests LF so Release Please bumps do not fail Biome on Windows/CI.
+**/package.json text eol=lf
+**/.release-please-manifest.json text eol=lf
