@@ -1,4 +1,6 @@
+import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
 import type { CookieOptions, Request, Response } from "express";
+import { DEV_JWT_SECRET } from "../config/env.schema";
 
 export const REFRESH_TOKEN_COOKIE = "mt_refresh_token";
 export const ACCESS_TOKEN_COOKIE = "mt_access_token";
@@ -28,9 +30,49 @@ function cookieBase(): Pick<CookieOptions, "httpOnly" | "secure" | "sameSite"> {
   };
 }
 
+/** 32-byte AES key derived from JWT_SECRET (dedicated purpose string). */
+function cookieEncryptionKey(): Buffer {
+  const secret = process.env.JWT_SECRET?.trim() || DEV_JWT_SECRET;
+  return createHash("sha256").update(`auth-cookie:${secret}`).digest();
+}
+
+/**
+ * Encrypt a session token before writing it to an HttpOnly cookie.
+ * Format: `v1.<iv>.<tag>.<ciphertext>` (base64url parts).
+ */
+export function sealAuthCookieValue(plaintext: string): string {
+  const iv = randomBytes(12);
+  const cipher = createCipheriv("aes-256-gcm", cookieEncryptionKey(), iv);
+  const encrypted = Buffer.concat([cipher.update(plaintext, "utf8"), cipher.final()]);
+  return ["v1", iv, cipher.getAuthTag(), encrypted]
+    .map((part) => (typeof part === "string" ? part : part.toString("base64url")))
+    .join(".");
+}
+
+/** Decrypt a sealed auth cookie value; returns null if malformed or tampered. */
+export function openAuthCookieValue(sealed: string): string | null {
+  const [version, iv, tag, encrypted] = sealed.split(".");
+  if (version !== "v1" || !iv || !tag || !encrypted) {
+    return null;
+  }
+  try {
+    const decipher = createDecipheriv(
+      "aes-256-gcm",
+      cookieEncryptionKey(),
+      Buffer.from(iv, "base64url"),
+    );
+    decipher.setAuthTag(Buffer.from(tag, "base64url"));
+    return Buffer.concat([
+      decipher.update(Buffer.from(encrypted, "base64url")),
+      decipher.final(),
+    ]).toString("utf8");
+  } catch {
+    return null;
+  }
+}
+
 export function setRefreshTokenCookie(res: Response, refreshToken: string): void {
-  // codeql[js/clear-text-storage-of-sensitive-data]: Web session tokens are stored in HttpOnly+Secure+SameSite cookies (not localStorage); this is the intended OWASP pattern.
-  res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, {
+  res.cookie(REFRESH_TOKEN_COOKIE, sealAuthCookieValue(refreshToken), {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
@@ -40,8 +82,7 @@ export function setRefreshTokenCookie(res: Response, refreshToken: string): void
 }
 
 export function setAccessTokenCookie(res: Response, accessToken: string): void {
-  // codeql[js/clear-text-storage-of-sensitive-data]: Web session tokens are stored in HttpOnly+Secure+SameSite cookies (not localStorage); this is the intended OWASP pattern.
-  res.cookie(ACCESS_TOKEN_COOKIE, accessToken, {
+  res.cookie(ACCESS_TOKEN_COOKIE, sealAuthCookieValue(accessToken), {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
@@ -67,7 +108,7 @@ export function clearRefreshTokenCookie(res: Response): void {
 export function readAccessTokenFromRequest(req: Request): string | null {
   const fromCookie = req.cookies?.[ACCESS_TOKEN_COOKIE];
   if (typeof fromCookie === "string" && fromCookie.trim()) {
-    return fromCookie.trim();
+    return openAuthCookieValue(fromCookie.trim());
   }
   return null;
 }
@@ -75,7 +116,7 @@ export function readAccessTokenFromRequest(req: Request): string | null {
 export function readRefreshTokenFromRequest(req: Request): string | null {
   const fromCookie = req.cookies?.[REFRESH_TOKEN_COOKIE];
   if (typeof fromCookie === "string" && fromCookie.trim()) {
-    return fromCookie.trim();
+    return openAuthCookieValue(fromCookie.trim());
   }
   return null;
 }

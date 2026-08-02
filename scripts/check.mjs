@@ -36,7 +36,17 @@ const steps = {
   format: { cmd: "pnpm", args: ["format-and-lint"] },
   lint: { cmd: "pnpm", args: ["exec", "turbo", "run", "lint"] },
   typecheck: { cmd: "pnpm", args: ["exec", "turbo", "run", "check-types"] },
-  test: { cmd: "pnpm", args: ["exec", "turbo", "run", "test"] },
+  // GitHub Actions needs coverage artifacts for Codecov; local pre-push stays fast.
+  test: {
+    cmd: "pnpm",
+    args: [
+      "exec",
+      "turbo",
+      "run",
+      process.env.GITHUB_ACTIONS === "true" ? "test:coverage" : "test",
+    ],
+  },
+
   build: { cmd: "pnpm", args: ["exec", "turbo", "run", "build"] },
 };
 

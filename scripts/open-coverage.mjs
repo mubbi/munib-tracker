@@ -30,39 +30,42 @@ const COVERAGE_PACKAGES = [
 ];
 
 /**
- * Only open coverage reports that resolve under this repo (allowlisted packages).
- * @param {string} filePath
+ * Open an allowlisted relative coverage report (never pass repo-root absolute
+ * paths into a shell interpreter such as cmd.exe).
+ * @param {{ id: string, dir: string }} pkg
  */
-function assertAllowedCoverageReport(filePath) {
-  const resolved = path.resolve(filePath);
-  const allowed = COVERAGE_PACKAGES.some(({ dir }) => {
-    const expected = path.resolve(root, dir, "coverage", "index.html");
-    return resolved === expected;
-  });
-  if (!allowed) {
-    throw new Error(`Refusing to open path outside known coverage reports: ${filePath}`);
+function openCoverageReport(pkg) {
+  // Literal allowlist segment only — keeps argv free of uncontrolled abs paths.
+  const relativeReport = path.join(pkg.dir, "coverage", "index.html");
+  const absoluteReport = path.join(root, relativeReport);
+  if (!fs.existsSync(absoluteReport)) {
+    return { missing: true };
   }
-  return resolved;
-}
 
-/**
- * @param {string} filePath
- */
-function openPath(filePath) {
-  const safePath = assertAllowedCoverageReport(filePath);
   const platform = process.platform;
+  /** @type {import("node:child_process").SpawnSyncReturns<Buffer>} */
+  let result;
   if (platform === "win32") {
-    // `start` is a cmd builtin; empty title arg avoids treating the path as the title.
-    return spawnSync("cmd", ["/c", "start", "", safePath], {
+    // explorer.exe + relative path + cwd — no cmd.exe (CodeQL CWE-078/088).
+    result = spawnSync("explorer.exe", [relativeReport.split(path.sep).join("\\")], {
+      cwd: root,
       stdio: "ignore",
       windowsHide: true,
       shell: false,
     });
+    // explorer.exe often exits 1 even when it successfully opens the file.
+    if (result.error) {
+      return { id: pkg.id, report: absoluteReport, result, failed: true };
+    }
+    return { id: pkg.id, report: absoluteReport, result, failed: false };
   }
   if (platform === "darwin") {
-    return spawnSync("open", [safePath], { stdio: "ignore", shell: false });
+    result = spawnSync("open", [relativeReport], { cwd: root, stdio: "ignore", shell: false });
+  } else {
+    result = spawnSync("xdg-open", [relativeReport], { cwd: root, stdio: "ignore", shell: false });
   }
-  return spawnSync("xdg-open", [safePath], { stdio: "ignore", shell: false });
+  const failed = Boolean(result.error || (result.status !== null && result.status !== 0));
+  return { id: pkg.id, report: absoluteReport, result, failed };
 }
 
 /**
@@ -95,26 +98,22 @@ const found = [];
 const missing = [];
 
 for (const pkg of selected) {
-  const report = path.join(root, pkg.dir, "coverage", "index.html");
-  if (fs.existsSync(report)) {
-    found.push({ id: pkg.id, report });
-  } else {
+  const outcome = openCoverageReport(pkg);
+  if (outcome.missing) {
     missing.push(pkg.id);
+    continue;
   }
+  found.push(outcome);
+  if (outcome.failed) {
+    console.error(`Failed to open ${outcome.id}: ${outcome.report}`);
+    continue;
+  }
+  console.log(`Opened ${outcome.id}: ${path.relative(root, outcome.report)}`);
 }
 
 if (found.length === 0) {
   console.error("No coverage reports found. Generate them first:\n  pnpm test:coverage");
   process.exit(1);
-}
-
-for (const { id, report } of found) {
-  const result = openPath(report);
-  if (result.error || (result.status !== null && result.status !== 0)) {
-    console.error(`Failed to open ${id}: ${report}`);
-    continue;
-  }
-  console.log(`Opened ${id}: ${path.relative(root, report)}`);
 }
 
 if (missing.length > 0) {
