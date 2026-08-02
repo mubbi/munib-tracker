@@ -4,3 +4,12 @@
 # Keep package manifests LF so Release Please bumps do not fail Biome on Windows/CI.
 **/package.json text eol=lf
 **/.release-please-manifest.json text eol=lf
+
+# Biome treats CRLF as a format error; keep source LF on all platforms.
+*.cjs text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.css text eol=lf
+*.md text eol=lf
