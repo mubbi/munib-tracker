@@ -1,11 +1,19 @@
 # Manifest-mode Release Please (v4). Official guide:
 # https://github.com/googleapis/release-please-action
+#
+# separate-pull-requests means each app gets its own Release PR, and every PR
+# also touches .release-please-manifest.json. Merging one PR can leave siblings
+# conflicted; release-please then reports them as "remained the same". The
+# heal jobs below close conflicted Release PRs, delete their branches, and
+# re-run so fresh PRs are opened from main. See:
+# https://github.com/googleapis/release-please/issues/1870
 name: release-please
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,11 +23,60 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
     steps:
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           # PAT / GitHub App token so CI runs on Release Please PRs.
           # Default GITHUB_TOKEN does not re-trigger workflows (GitHub docs).
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  heal-conflicting-release-prs:
+    needs: release-please
+    if: needs.release-please.outputs.releases_created == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    outputs:
+      need_rebase: ${{ steps.check.outputs.need_rebase }}
+    steps:
+      - name: Close conflicted release PRs so they can be recreated
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          need_rebase=false
+          pending_prs=$(gh pr list --repo "$REPO" --label "autorelease: pending" --state open --json number,headRefName --jq '.[] | "\(.number) \(.headRefName)"')
+          if [[ -z "${pending_prs}" ]]; then
+            echo "No pending release PRs."
+            echo "need_rebase=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          while read -r pr_num head_ref; do
+            [[ -z "${pr_num}" ]] && continue
+            # Viewing the PR forces GitHub to compute mergeable status.
+            mergeable=$(gh pr view --repo "$REPO" "$pr_num" --json mergeable --jq '.mergeable')
+            echo "PR #${pr_num} (${head_ref}) mergeable=${mergeable}"
+            if [[ "${mergeable}" != "MERGEABLE" ]]; then
+              echo "Closing conflicted release PR #${pr_num}"
+              gh pr close --repo "$REPO" "$pr_num" --comment "Auto-closed: conflicted on .release-please-manifest.json after a sibling release merge. Release Please will open a fresh PR from main."
+              gh api -X DELETE "repos/${REPO}/git/refs/heads/${head_ref}" || true
+              need_rebase=true
+            fi
+          done <<< "${pending_prs}"
+          echo "need_rebase=${need_rebase}" >> "$GITHUB_OUTPUT"
+
+  release-please-rebase:
+    needs: heal-conflicting-release-prs
+    if: needs.heal-conflicting-release-prs.outputs.need_rebase == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
