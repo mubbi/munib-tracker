@@ -2,5 +2,5 @@
   "apps/app": "1.0.0",
   "apps/api": "1.0.0",
   "apps/admin": "1.0.0",
-  "apps/marketing-web": "1.0.0"
+  "apps/marketing-web": "1.0.1"
 }
