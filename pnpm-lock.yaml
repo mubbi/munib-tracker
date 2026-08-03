@@ -203,7 +203,7 @@ importers:
         version: 11.4.5(@nestjs/common@11.1.27(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.27)(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)
       '@nestjs/typeorm':
         specifier: ^11.0.0
-        version: 11.0.3(@nestjs/common@11.1.27(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.27)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@0.3.31(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3)))
+        version: 11.0.3(@nestjs/common@11.1.27(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.27)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.0(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3)))
       '@upstash/qstash':
         specifier: ^2.11.2
         version: 2.11.2
@@ -241,8 +241,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       typeorm:
-        specifier: ^0.3.31
-        version: 0.3.31(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3))
+        specifier: ^1.1.0
+        version: 1.1.0(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3))
     devDependencies:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
@@ -1290,8 +1290,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-transform-regenerator@7.29.7':
-    resolution: {integrity: sha512-rNNFV0DBAJp988xW2DOntfDoYn1eR8GGF5AT5vYc+rjyfaQkM242c9tZUHHPe7KYaiJizXPWhQTzzdbXySyhBw==}
+  '@babel/plugin-transform-regenerator@7.29.8':
+    resolution: {integrity: sha512-0UpIXPtdDtMXfnV2OJAVMLpj3H/92vmkA6lpSRakmycJvj3VUy6Xs1dM8tXRugupykr5WB+LpiVl0J8LMVg2mg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -4347,10 +4347,6 @@ packages:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
 
-  app-root-path@3.1.0:
-    resolution: {integrity: sha512-biN3PwB2gUtjaYy/isrU3aNWI5w+fAfvHkSvCKeQGxhmYpwKFUxudR3Yya+KqVRHBmEDYh+/lTozYCFbmzX4nA==}
-    engines: {node: '>= 6.0.0'}
-
   append-field@1.0.0:
     resolution: {integrity: sha512-klpgFSWLW1ZEs8svjfb7g4qWY0YS5imI82dTg+QahUvJ8YqAY0P10Uk8tTyh9ZGuYEZEMaeJYCF5BFuX552hsw==}
 
@@ -6633,8 +6629,8 @@ packages:
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
 
-  ip-address@10.3.1:
-    resolution: {integrity: sha512-1e9d3kb97NHJTIJDZW9rKqW2h6+dFa50Dy0fpPSMQp2ADje5gvKsXmdiK6dwY5t76TaTt5+P5N1Y/LoToIxP6g==}
+  ip-address@10.4.0:
+    resolution: {integrity: sha512-oSK96Grm3aP6OrS263xVxbNDGVL7rzBtYdpGqlDG8iQdoenDoTs/nkki+DflYbAEE8Xl6o5YxhxlrKvI3nqKXQ==}
     engines: {node: '>= 12'}
 
   ipaddr.js@1.9.1:
@@ -8810,11 +8806,6 @@ packages:
     resolution: {integrity: sha512-TPbeg0b7ylrswdGCji8FRGFAKuqbpQlLbL8SOle3j1iHSs5Ob5mhvMAxWN2UItOjgALAB5Zp3fmMfj8mbWvXKw==}
     engines: {node: '>=10'}
 
-  sha.js@2.4.12:
-    resolution: {integrity: sha512-8LzC5+bvI45BjpfXU8V5fdU2mfeKiQe1D1gIMn7XUlF3OTUrpdJpPPH4EMAnF0DsHHdSZqCdSss5qCmJKuiO3w==}
-    engines: {node: '>= 0.10'}
-    hasBin: true
-
   shallowequal@1.1.0:
     resolution: {integrity: sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==}
 
@@ -9338,10 +9329,6 @@ packages:
   tmpl@1.0.5:
     resolution: {integrity: sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==}
 
-  to-buffer@1.2.2:
-    resolution: {integrity: sha512-db0E3UJjcFhpDhAF4tLo03oli3pwl3dbnzXOUIlRKrp+ldk/VUxzpWYZENsw2SZiuBjHAk7DfB0VU7NKdpb6sw==}
-    engines: {node: '>= 0.4'}
-
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
@@ -9501,27 +9488,26 @@ packages:
     peerDependencies:
       typescript: 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x || 5.6.x || 5.7.x || 5.8.x || 5.9.x || 6.0.x
 
-  typeorm@0.3.31:
-    resolution: {integrity: sha512-6u9EFtdLBgHjnPm78NStVeM+I/1MolTzKykDDcydzKUkh6E++YS6XViU/fePJbvDvEGU4Xq34KOM/CLeer9I2A==}
-    engines: {node: '>=16.13.0'}
+  typeorm@1.1.0:
+    resolution: {integrity: sha512-iX/kvsV42/htCNAQUyElGW87E4Z12neZc6YUFBTEu0BnLiREYDNT5Wfw3wRqZw9vyOEC36zUBAY6Qvywoig06Q==}
+    engines: {node: ^20.19.0 || ^22.13.0 || >=24.11.0}
     hasBin: true
     peerDependencies:
-      '@google-cloud/spanner': ^5.18.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+      '@google-cloud/spanner': ^8.0.0
       '@sap/hana-client': ^2.14.22
-      better-sqlite3: ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0
+      better-sqlite3: ^12.0.0
       ioredis: ^5.0.4
-      mongodb: ^5.8.0 || ^6.0.0
-      mssql: ^9.1.1 || ^10.0.0 || ^11.0.0 || ^12.0.0
-      mysql2: ^2.2.5 || ^3.0.1
+      mongodb: ^7.0.0
+      mssql: ^12.0.0
+      mysql2: ^3.15.3
       oracledb: ^6.3.0 || ^7.0.0
       pg: ^8.5.1
       pg-native: ^3.0.0
       pg-query-stream: ^4.0.0
-      redis: ^3.1.1 || ^4.0.0 || ^5.0.14
+      redis: ^5.0.0 || ^6.0.0
       sql.js: ^1.4.0
-      sqlite3: ^5.0.3 || ^6.0.0
-      ts-node: ^10.7.0
-      typeorm-aurora-data-api-driver: ^2.0.0 || ^3.0.0
+      ts-node: ^10.9.2
+      typeorm-aurora-data-api-driver: ^3.0.0
     peerDependenciesMeta:
       '@google-cloud/spanner':
         optional: true
@@ -9548,8 +9534,6 @@ packages:
       redis:
         optional: true
       sql.js:
-        optional: true
-      sqlite3:
         optional: true
       ts-node:
         optional: true
@@ -9709,10 +9693,6 @@ packages:
 
   utrie@1.0.2:
     resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
-
-  uuid@11.1.1:
-    resolution: {integrity: sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==}
-    hasBin: true
 
   uuid@14.0.1:
     resolution: {integrity: sha512-6ZxzVpzDXDa3bJWaHilVayA+BH/1zmxCJoVgvmqJnid/gPoKHxUrS/aC/T6LGQtNHT+XHG9fXPJB4d+IrU30Ew==}
@@ -10708,7 +10688,7 @@ snapshots:
       '@babel/helper-annotate-as-pure': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-regenerator@7.29.7(@babel/core@7.29.7)':
+  '@babel/plugin-transform-regenerator@7.29.8(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
@@ -12492,13 +12472,13 @@ snapshots:
     optionalDependencies:
       '@nestjs/platform-express': 11.1.27(@nestjs/common@11.1.27(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.27)
 
-  '@nestjs/typeorm@11.0.3(@nestjs/common@11.1.27(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.27)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@0.3.31(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3)))':
+  '@nestjs/typeorm@11.0.3(@nestjs/common@11.1.27(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.27)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.0(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3)))':
     dependencies:
       '@nestjs/common': 11.1.27(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.27(@nestjs/common@11.1.27(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.27)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
-      typeorm: 0.3.31(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3))
+      typeorm: 1.1.0(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3))
 
   '@next/env@16.2.11': {}
 
@@ -13013,7 +12993,7 @@ snapshots:
       '@babel/plugin-transform-react-jsx': 7.29.7(@babel/core@7.29.7)
       '@babel/plugin-transform-react-jsx-self': 7.29.7(@babel/core@7.29.7)
       '@babel/plugin-transform-react-jsx-source': 7.29.7(@babel/core@7.29.7)
-      '@babel/plugin-transform-regenerator': 7.29.7(@babel/core@7.29.7)
+      '@babel/plugin-transform-regenerator': 7.29.8(@babel/core@7.29.7)
       '@babel/plugin-transform-runtime': 7.29.7(@babel/core@7.29.7)
       '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7)
       '@babel/plugin-transform-unicode-regex': 7.29.7(@babel/core@7.29.7)
@@ -14304,8 +14284,6 @@ snapshots:
     dependencies:
       normalize-path: 3.0.0
       picomatch: 2.3.2
-
-  app-root-path@3.1.0: {}
 
   append-field@1.0.0: {}
 
@@ -16964,7 +16942,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  ip-address@10.3.1:
+  ip-address@10.4.0:
     optional: true
 
   ipaddr.js@1.9.1: {}
@@ -19621,12 +19599,6 @@ snapshots:
 
   sf-symbols-typescript@2.2.0: {}
 
-  sha.js@2.4.12:
-    dependencies:
-      inherits: 2.0.4
-      safe-buffer: 5.2.1
-      to-buffer: 1.2.2
-
   shallowequal@1.1.0: {}
 
   sharp@0.35.3(@types/node@20.19.43):
@@ -19777,7 +19749,7 @@ snapshots:
 
   socks@2.8.9:
     dependencies:
-      ip-address: 10.3.1
+      ip-address: 10.4.0
       smart-buffer: 4.2.0
     optional: true
 
@@ -20198,12 +20170,6 @@ snapshots:
 
   tmpl@1.0.5: {}
 
-  to-buffer@1.2.2:
-    dependencies:
-      isarray: 2.0.5
-      safe-buffer: 5.2.1
-      typed-array-buffer: 1.0.3
-
   to-regex-range@5.0.1:
     dependencies:
       is-number: 7.0.0
@@ -20380,29 +20346,23 @@ snapshots:
       typescript: 6.0.3
       yaml: 2.9.0
 
-  typeorm@0.3.31(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3)):
+  typeorm@1.1.0(better-sqlite3@12.11.1)(pg@8.22.0)(redis@6.1.0)(sql.js@1.14.1)(ts-node@10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3)):
     dependencies:
       '@sqltools/formatter': 1.2.5
       ansis: 4.3.1
-      app-root-path: 3.1.0
-      buffer: 6.0.3
       dayjs: 1.11.21
       debug: 4.4.3(supports-color@8.1.1)
       dedent: 1.7.2
-      dotenv: 16.6.1
-      glob: 10.5.0
       reflect-metadata: 0.2.2
-      sha.js: 2.4.12
       sql-highlight: 6.1.0
+      tinyglobby: 0.2.17
       tslib: 2.8.1
-      uuid: 11.1.1
-      yargs: 17.7.3
+      yargs: 18.1.0
     optionalDependencies:
       better-sqlite3: 12.11.1
       pg: 8.22.0
       redis: 6.1.0
       sql.js: 1.14.1
-      sqlite3: 5.1.7
       ts-node: 10.9.2(@swc/core@1.15.43)(@types/node@20.19.43)(typescript@6.0.3)
     transitivePeerDependencies:
       - babel-plugin-macros
@@ -20541,8 +20501,6 @@ snapshots:
   utrie@1.0.2:
     dependencies:
       base64-arraybuffer: 1.0.2
-
-  uuid@11.1.1: {}
 
   uuid@14.0.1: {}
 
