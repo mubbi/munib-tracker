@@ -19,7 +19,7 @@
     "@munib-tracker/theme": "workspace:*",
     "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.42.2",
-    "lucide-react": "^1.23.0",
+    "lucide-react": "^1.28.0",
     "next": "16.2.11",
     "pg": "^8.16.0",
     "react": "19.2.3",
