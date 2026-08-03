@@ -22,7 +22,7 @@
     "@munib-tracker/typescript-config": "workspace:*",
     "orval": "^7.17.0",
     "typescript": "^6.0.0",
-    "@types/node": "^20"
+    "@types/node": "^26"
   },
   "peerDependencies": {
     "react": "^19.0.0"
