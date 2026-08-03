@@ -185,7 +185,9 @@
     "fidyah": "Fidye ve kefaret",
     "janazah": "Janazah kılavuzu",
     "sadaqah": "Sadaqah gol",
-    "whiteDays": "Eyyâm-ı Bîd orucu"
+    "whiteDays": "Eyyâm-ı Bîd orucu",
+    "goodCharacter": "Güzel ahlak",
+    "heavyOnTheScale": "Mîzanda ağır gelenler"
   },
   "quickActions": {
     "checklistSubtitle": "Bugünkü namazları kaydet",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Tamamlandı olarak işaretle",
     "undoDoneHint": "Geri almak ve tamamlanmamış yapmak için dokunun",
     "favEmptyDescTv": "Hızlı erişim için herhangi bir zikrin yıldızını seçerek buraya kaydedin.",
-    "undoDoneHintTv": "Geri almak ve yapılmadı olarak işaretlemek için seçin"
+    "undoDoneHintTv": "Geri almak ve yapılmadı olarak işaretlemek için seçin",
+    "alternateWording": "Alternatif sahih lafız"
   },
   "zikrCat": {
     "morning": "Sabah zikirleri",

@@ -185,7 +185,9 @@
     "fidyah": "Fidyah dan kafarat",
     "janazah": "Janazah panduan",
     "sadaqah": "Sadaqah gol",
-    "whiteDays": "Puasa Ayyām al-Bīḍ"
+    "whiteDays": "Puasa Ayyām al-Bīḍ",
+    "goodCharacter": "Akhlak yang baik",
+    "heavyOnTheScale": "Amal berat di timbangan"
   },
   "quickActions": {
     "checklistSubtitle": "Catat doa hari ini",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Tandai selesai",
     "undoDoneHint": "Ketuk untuk batalkan dan tandai belum selesai",
     "favEmptyDescTv": "Pilih bintang pada zikr mana pun untuk menyimpannya di sini agar cepat diakses.",
-    "undoDoneHintTv": "Pilih untuk membatalkan dan menandai belum selesai"
+    "undoDoneHintTv": "Pilih untuk membatalkan dan menandai belum selesai",
+    "alternateWording": "Lafaz autentik alternatif"
   },
   "zikrCat": {
     "morning": "Adhkar Pagi",

@@ -185,7 +185,9 @@
     "fidyah": "Фидия жана каффарат",
     "janazah": "Janazah гид",
     "sadaqah": "Sadaqah максаттары",
-    "whiteDays": "Ак күндөрдүн орозосу"
+    "whiteDays": "Ак күндөрдүн орозосу",
+    "goodCharacter": "Жакшы мүнөз",
+    "heavyOnTheScale": "Таразада оор амалдар"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's prayers",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Аткарылды деп белгилөө",
     "undoDoneHint": "Жокко чыгарып, аткарылган эмес деп белгилөө үчүн басыңыз",
     "favEmptyDescTv": "Тез кирүү үчүн каалаган зикрдеги жылдызды тандап бул жерде сактаңыз.",
-    "undoDoneHintTv": "Жокко чыгаруу жана аткарылган эмес деп белгилөө үчүн тандаңыз"
+    "undoDoneHintTv": "Жокко чыгаруу жана аткарылган эмес деп белгилөө үчүн тандаңыз",
+    "alternateWording": "Альтернативдүү анык сөздөр"
   },
   "zikrCat": {
     "morning": "таңкы ырлар",

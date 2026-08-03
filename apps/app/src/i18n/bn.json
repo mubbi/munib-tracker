@@ -185,7 +185,9 @@
     "fidyah": "ফিদইয়া ও কাফফারা",
     "janazah": "Janazah গাইড",
     "sadaqah": "Sadaqah লক্ষ্য",
-    "whiteDays": "আইয়ামে বীজের রোজা"
+    "whiteDays": "আইয়ামে বীজের রোজা",
+    "goodCharacter": "উত্তম চরিত্র",
+    "heavyOnTheScale": "মীযানে ভারী আমল"
   },
   "quickActions": {
     "checklistSubtitle": "আজকের নামাজ লগ করুন",
@@ -1259,7 +1261,8 @@
     "markAsDone": "সম্পন্ন হিসেবে চিহ্নিত করুন",
     "undoDoneHint": "বাতিল করে অসম্পন্ন করতে ট্যাপ করুন",
     "favEmptyDescTv": "দ্রুত অ্যাক্সেসের জন্য যেকোনো যিকিরে তারকা সিলেক্ট করে এখানে রাখুন।",
-    "undoDoneHintTv": "বাতিল করে অসম্পন্ন চিহ্নিত করতে সিলেক্ট করুন"
+    "undoDoneHintTv": "বাতিল করে অসম্পন্ন চিহ্নিত করতে সিলেক্ট করুন",
+    "alternateWording": "বিকল্প প্রামাণিক শব্দবন্ধ"
   },
   "zikrCat": {
     "morning": "সকালের আযকার",

@@ -185,7 +185,9 @@
     "fidyah": "Fidyə və kəffarə",
     "janazah": "Janazah bələdçi",
     "sadaqah": "Sadaqah hədəflər",
-    "whiteDays": "Ağ günlər orucu"
+    "whiteDays": "Ağ günlər orucu",
+    "goodCharacter": "Yaxşı əxlaq",
+    "heavyOnTheScale": "Tərəzidə ağır olanlar"
   },
   "quickActions": {
     "checklistSubtitle": "Bu günkü namazları qeyd et",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Tamamlandı kimi işarələ",
     "undoDoneHint": "Ləğv etmək və tamamlanmamış etmək üçün toxunun",
     "favEmptyDescTv": "Tez giriş üçün istənilən zikrdə ulduzu seçib onu burada saxlayın.",
-    "undoDoneHintTv": "Ləğv edib yerinə yetirilməmiş kimi qeyd etmək üçün seçin"
+    "undoDoneHintTv": "Ləğv edib yerinə yetirilməmiş kimi qeyd etmək üçün seçin",
+    "alternateWording": "Alternativ səhih ifadə"
   },
   "zikrCat": {
     "morning": "səhər dhkr",

@@ -687,7 +687,9 @@
     "login.or": "ko",
     "login.guestHint": "Kuna iya haɗa asusu kowane lokaci daga Bayanan martaba.",
     "zikr.markAsDone": "Alama a matsayin an gama",
-    "zikr.undoDoneHint": "Taɓa don sokewa da cire alamar kammala"
+    "zikr.undoDoneHint": "Taɓa don sokewa da cire alamar kammala",
+    "actions.goodCharacter": "Kyakkyawan hali",
+    "actions.heavyOnTheScale": "Mai nauyi a Mizan"
   },
   "ku": {
     "home.streakStat": "Zincîre",
@@ -1331,7 +1333,9 @@
     "whiteDays.section.track": "Track li Munib",
     "whiteDays.notFound": "Mijar nehat dîtin",
     "whiteDays.disclaimer": "Nêrîna perwerdehiyê - ne fetwa. ",
-    "whiteDays.continueInApp": "Li Munibê berdewam dikin"
+    "whiteDays.continueInApp": "Li Munibê berdewam dikin",
+    "actions.goodCharacter": "Exlaqê baş",
+    "actions.heavyOnTheScale": "Kiryarên giran li mîzanê"
   },
   "bs": {
     "actions.whiteDays": "Post Bijelih dana",
@@ -2009,7 +2013,9 @@
     "login.or": "ili",
     "login.guestHint": "Račun možete povezati bilo kada iz Profila.",
     "zikr.markAsDone": "Označi kao završeno",
-    "zikr.undoDoneHint": "Dodirnite da poništite i označite kao nezavršeno"
+    "zikr.undoDoneHint": "Dodirnite da poništite i označite kao nezavršeno",
+    "actions.goodCharacter": "Dobar karakter",
+    "actions.heavyOnTheScale": "Teško na Vagi"
   },
   "ms": {
     "search.cat.zikr": "Adhkar",
@@ -2658,7 +2664,9 @@
     "whiteDays.section.track": "Jejak dalam Munib",
     "whiteDays.notFound": "Topik tidak dijumpai",
     "whiteDays.disclaimer": "Ringkasan pendidikan — bukan fatwa. Tarikh tepat bergantung pada bulan Hijrah yang berbeza mengikut rukyah; ikuti masjid tempatan atau ulama yang berkelayakan untuk tarikh dan hukum agama.",
-    "whiteDays.continueInApp": "Teruskan dalam Munib"
+    "whiteDays.continueInApp": "Teruskan dalam Munib",
+    "actions.goodCharacter": "Akhlak yang baik",
+    "actions.heavyOnTheScale": "Berat pada neraca"
   },
   "sw": {
     "actions.whiteDays": "Funga Siku Nyeupe",
@@ -3312,7 +3320,9 @@
     "login.or": "au",
     "login.guestHint": "Unaweza kuunganisha akaunti wakati wowote kutoka Wasifu.",
     "zikr.markAsDone": "Weka alama kuwa imekamilika",
-    "zikr.undoDoneHint": "Gusa ili kutengua na kuweka kuwa haijakamilika"
+    "zikr.undoDoneHint": "Gusa ili kutengua na kuweka kuwa haijakamilika",
+    "actions.goodCharacter": "Tabia nzuri",
+    "actions.heavyOnTheScale": "Amali nzito katika mizani"
   },
   "id": {
     "actions.whiteDays": "Puasa Ayyām al-Bīḍ",
@@ -3906,7 +3916,9 @@
     "login.or": "atau",
     "login.guestHint": "Anda dapat menautkan akun kapan saja dari Profil.",
     "zikr.markAsDone": "Tandai selesai",
-    "zikr.undoDoneHint": "Ketuk untuk batalkan dan tandai belum selesai"
+    "zikr.undoDoneHint": "Ketuk untuk batalkan dan tandai belum selesai",
+    "actions.goodCharacter": "Akhlak yang baik",
+    "actions.heavyOnTheScale": "Amal berat di timbangan"
   },
   "ru": {
     "actions.whiteDays": "Пост в белые дни",
@@ -5801,7 +5813,9 @@
     "login.or": "или",
     "login.guestHint": "Вы можете привязать аккаунт в любой момент в разделе «Профиль».",
     "zikr.markAsDone": "Отметить выполненным",
-    "zikr.undoDoneHint": "Нажмите, чтобы отменить и снять отметку"
+    "zikr.undoDoneHint": "Нажмите, чтобы отменить и снять отметку",
+    "actions.goodCharacter": "Хороший нрав",
+    "actions.heavyOnTheScale": "Тяжёлое на Весах"
   },
   "tr": {
     "actions.whiteDays": "Eyyâm-ı Bîd orucu",
@@ -6428,7 +6442,9 @@
     "login.or": "veya",
     "login.guestHint": "Hesabınızı istediğiniz zaman Profil'den bağlayabilirsiniz.",
     "zikr.markAsDone": "Tamamlandı olarak işaretle",
-    "zikr.undoDoneHint": "Geri almak ve tamamlanmamış yapmak için dokunun"
+    "zikr.undoDoneHint": "Geri almak ve tamamlanmamış yapmak için dokunun",
+    "actions.goodCharacter": "Güzel ahlak",
+    "actions.heavyOnTheScale": "Mîzanda ağır gelenler"
   },
   "fr": {
     "actions.whiteDays": "Jeûne des Jours blancs",
@@ -7055,7 +7071,9 @@
     "login.or": "ou",
     "login.guestHint": "Vous pouvez lier un compte à tout moment depuis Profil.",
     "zikr.markAsDone": "Marquer comme terminé",
-    "zikr.undoDoneHint": "Appuyez pour annuler et marquer comme non terminé"
+    "zikr.undoDoneHint": "Appuyez pour annuler et marquer comme non terminé",
+    "actions.goodCharacter": "Bon caractère",
+    "actions.heavyOnTheScale": "Lourd sur la Balance"
   },
   "fa": {
     "home.continueListening": "صدا",
@@ -7965,7 +7983,9 @@
     "whiteDays.section.track": "پیگیری در Munib",
     "whiteDays.notFound": "موضوع یافت نشد",
     "whiteDays.disclaimer": "مرور آموزشی — فتوا نیست. تاریخ‌های دقیق به ماه هجری بستگی دارد که با رؤیت هلال متفاوت است؛ برای تاریخ‌ها و احکام دینی از مسجد محلی یا عالم شایسته پیروی کنید.",
-    "whiteDays.continueInApp": "ادامه در Munib"
+    "whiteDays.continueInApp": "ادامه در Munib",
+    "actions.goodCharacter": "حسن خلق",
+    "actions.heavyOnTheScale": "سنگین در میزان"
   },
   "az": {
     "actions.whiteDays": "Ağ günlər orucu",
@@ -9690,7 +9710,9 @@
     "login.or": "və ya",
     "login.guestHint": "Hesabı istənilən vaxt Profil bölməsindən bağlaya bilərsiniz.",
     "zikr.markAsDone": "Tamamlandı kimi işarələ",
-    "zikr.undoDoneHint": "Ləğv etmək və tamamlanmamış etmək üçün toxunun"
+    "zikr.undoDoneHint": "Ləğv etmək və tamamlanmamış etmək üçün toxunun",
+    "actions.goodCharacter": "Yaxşı əxlaq",
+    "actions.heavyOnTheScale": "Tərəzidə ağır olanlar"
   },
   "ps": {
     "actions.whiteDays": "د سپینو ورځو روژه",
@@ -11621,7 +11643,9 @@
     "login.or": "یا",
     "login.guestHint": "تاسو کولی شئ هر وخت له پروفایل څخه حساب ونښلوئ.",
     "zikr.markAsDone": "بشپړ شوی نښه کړئ",
-    "zikr.undoDoneHint": "د بیرته اخیستو او ناسم بشپړولو لپاره ټایپ کړئ"
+    "zikr.undoDoneHint": "د بیرته اخیستو او ناسم بشپړولو لپاره ټایپ کړئ",
+    "actions.goodCharacter": "ښه اخلاق",
+    "actions.heavyOnTheScale": "په تله کې درنې کړنې"
   },
   "so": {
     "language.scriptureAvailable": "Turjumaadda Quraanka waa la heli karaa",
@@ -13345,7 +13369,9 @@
     "whiteDays.section.track": "Kala soco Munib",
     "whiteDays.notFound": "Mawduuca lama helin",
     "whiteDays.disclaimer": "Dulmar waxbarasho — ma aha fatwo. Taariikhaha saxda ahi waxay ku xiran yihiin bisha Hijriga iyo aragga dayaxa; raac masjidkaaga ama caalim aqoon leh.",
-    "whiteDays.continueInApp": "Ka sii wad Munib"
+    "whiteDays.continueInApp": "Ka sii wad Munib",
+    "actions.goodCharacter": "Dabeecad wanaagsan",
+    "actions.heavyOnTheScale": "Ku culus Miisaanka"
   },
   "uz": {
     "language.scriptureAvailable": "Qur'on tarjimasi mavjud",
@@ -15070,7 +15096,9 @@
     "whiteDays.section.track": "Munibda kuzatish",
     "whiteDays.notFound": "Mavzu topilmadi",
     "whiteDays.disclaimer": "Ta’limiy sharh — fatvo emas. Aniq sanalar hijriy oy va hilol ko‘rilishiga bog‘liq; diniy sanalar va hukmlar uchun mahalliy masjid yoki malakali olimga murojaat qiling.",
-    "whiteDays.continueInApp": "Munibda davom etish"
+    "whiteDays.continueInApp": "Munibda davom etish",
+    "actions.goodCharacter": "Yaxshi axloq",
+    "actions.heavyOnTheScale": "Tarozida og'ir amallar"
   },
   "tg": {
     "language.scriptureAvailable": "Тарҷумаи Қуръон дастрас аст",
@@ -16967,7 +16995,9 @@
     "whiteDays.section.track": "Пайгирӣ дар Munib",
     "whiteDays.notFound": "Мавзӯъ ёфт нашуд",
     "whiteDays.disclaimer": "Шарҳи таълимӣ — фатво нест. Санаҳои дақиқ ба моҳи ҳиҷрӣ вобастаанд, ки бо дидани моҳ фарқ мекунад; барои санаҳо ва ҳукмҳои динӣ масҷиди маҳаллӣ ё олими боэътимодро пайравӣ кунед.",
-    "whiteDays.continueInApp": "Дар Munib идома диҳед"
+    "whiteDays.continueInApp": "Дар Munib идома диҳед",
+    "actions.goodCharacter": "Ахлоқи нек",
+    "actions.heavyOnTheScale": "Амалҳои сангин дар тарозу"
   },
   "tk": {
     "language.scriptureAvailable": "Guran terjimesi elýeterli",
@@ -17602,7 +17632,9 @@
     "whiteDays.section.track": "Munib-de yzarla",
     "whiteDays.notFound": "Mowzuk tapylmady",
     "whiteDays.disclaimer": "Bilim beriji syn — fetwa däl. Takyk seneler Aýy görmäge görä üýtgeýän hijri aýyna baglydyr; dini seneler we hökümler üçin ýerli metjidiňizi ýa-da ygtybarly alymy eýeriň.",
-    "whiteDays.continueInApp": "Munib-de dowam et"
+    "whiteDays.continueInApp": "Munib-de dowam et",
+    "actions.goodCharacter": "Gowy ahlak",
+    "actions.heavyOnTheScale": "Terezide agyr amallar"
   },
   "kk": {
     "language.scriptureAvailable": "Құран аудармасы қолжетімді",
@@ -18170,7 +18202,9 @@
     "whiteDays.section.track": "Мунибтегі трек",
     "whiteDays.notFound": "Тақырып табылмады",
     "whiteDays.disclaimer": "Тәрбиелік шолу — пәтуа емес. ",
-    "whiteDays.continueInApp": "Мунибте жалғастырыңыз"
+    "whiteDays.continueInApp": "Мунибте жалғастырыңыз",
+    "actions.goodCharacter": "Жақсы мінез",
+    "actions.heavyOnTheScale": "Таразыда ауыр амалдар"
   },
   "sq": {
     "language.scriptureAvailable": "Përkthimi i Kur'anit është i disponueshëm",
@@ -18760,7 +18794,9 @@
     "whiteDays.section.track": "Ndjek në Munib",
     "whiteDays.notFound": "Tema nuk u gjet",
     "whiteDays.disclaimer": "Përmbledhje edukative — jo fetva. Datat e sakta varen nga muaji Hixhri që ndryshon me shikimin e hënës; ndiqni xhaminë lokale ose një dijetar të kualifikuar për datat dhe vendimet fetare.",
-    "whiteDays.continueInApp": "Vazhdo në Munib"
+    "whiteDays.continueInApp": "Vazhdo në Munib",
+    "actions.goodCharacter": "Karakter i mirë",
+    "actions.heavyOnTheScale": "Vepra të rënda në peshore"
   },
   "ky": {
     "language.scriptureAvailable": "Куран котормосу бар",
@@ -19337,7 +19373,9 @@
     "whiteDays.section.track": "Munib-те көзөмөлдөө",
     "whiteDays.notFound": "Тема табылган жок",
     "whiteDays.disclaimer": "Билим берүүчү сереп — фетва эмес. Так даталар ай көрүүгө жараша өзгөрүүчү хижри айга көз каранды; диний даталар жана өкүмдөр үчүн жергиликтүү мечитти же ишенимдүү аалымды ээрчиңиз.",
-    "whiteDays.continueInApp": "Munib-те улантуу"
+    "whiteDays.continueInApp": "Munib-те улантуу",
+    "actions.goodCharacter": "Жакшы мүнөз",
+    "actions.heavyOnTheScale": "Таразада оор амалдар"
   },
   "bn": {
     "onboarding.locationEyebrow": "অবস্থান ও অনুস্মারক",
@@ -19890,7 +19928,9 @@
     "whiteDays.section.track": "Munib-এ ট্র্যাক করুন",
     "whiteDays.notFound": "বিষয় পাওয়া যায়নি",
     "whiteDays.disclaimer": "শিক্ষামূলক সারসংক্ষেপ — এটি ফতোয়া নয়। সঠিক তারিখ হিজরি মাসের উপর নির্ভর করে যা চাঁদ দেখার ভিত্তিতে ভিন্ন হয়; ধর্মীয় তারিখ ও বিধানের জন্য স্থানীয় মসজিদ বা যোগ্য আলেমের অনুসরণ করুন।",
-    "whiteDays.continueInApp": "Munib-এ চালিয়ে যান"
+    "whiteDays.continueInApp": "Munib-এ চালিয়ে যান",
+    "actions.goodCharacter": "উত্তম চরিত্র",
+    "actions.heavyOnTheScale": "মীযানে ভারী আমল"
   },
   "ar": {
     "zakat.agriculture.cardHint": "مستحق عند الحصاد - 10% مطر/ ينابيع، 5% مروي.",

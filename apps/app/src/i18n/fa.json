@@ -185,7 +185,9 @@
     "fidyah": "فدیه و کفاره",
     "janazah": "راهنمای Janazah",
     "sadaqah": "اهداف Sadaqah",
-    "whiteDays": "روزهٔ ایام البیض"
+    "whiteDays": "روزهٔ ایام البیض",
+    "goodCharacter": "حسن خلق",
+    "heavyOnTheScale": "سنگین در میزان"
   },
   "quickActions": {
     "checklistSubtitle": "ثبت نمازهای امروز",
@@ -1258,7 +1260,8 @@
     "markAsDone": "علامت‌گذاری به عنوان انجام‌شده",
     "undoDoneHint": "برای بازگرداندن و لغو تکمیل ضربه بزنید",
     "favEmptyDescTv": "برای دسترسی سریع، ستاره هر ذکری را انتخاب کنید تا اینجا بماند.",
-    "undoDoneHintTv": "برای لغو و علامت‌گذاری به‌عنوان انجام‌نشده انتخاب کنید"
+    "undoDoneHintTv": "برای لغو و علامت‌گذاری به‌عنوان انجام‌نشده انتخاب کنید",
+    "alternateWording": "عبارت اصیل جایگزین"
   },
   "zikrCat": {
     "morning": "فجر zikirleri",
@@ -4362,7 +4365,7 @@
     "emptyDesc": "ذکر خود را اضافه کنید — عنوان کافی است؛ عربی، آوانگاری و معنی اختیاری‌اند.",
     "field": {
       "title": "عنوان",
-      "arabic": "متن عربی (اختیاری)",
+      "arabic": "متن عربی",
       "transliteration": "نقلِ حرفی (اختیاری)",
       "translation": "معنیٰ (اختیاری)",
       "reference": "حوالہ (اختیاری)"

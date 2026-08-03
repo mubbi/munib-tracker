@@ -156,8 +156,10 @@
     "ramadan": "Ramadan",
     "salahGuide": "Learn Salah",
     "jannah": "Journey to Jannah",
+    "goodCharacter": "Good character",
     "jahannam": "Understanding Jahannam",
     "lastDay": "The Day of Judgment",
+    "heavyOnTheScale": "Heavy on the Scale",
     "battles": "Battles in Islam",
     "taharah": "Learn Purification",
     "prophets": "Learn the Prophets",
@@ -1281,6 +1283,7 @@
     "searchInCategory": "Search in this category…",
     "searchResultCount": "{{count}} matches",
     "noResults": "No adhkar matched your search.",
+    "alternateWording": "Alternate authentic wording",
     "favEmptyDescTv": "Select the star on any zikr to keep it here for quick access.",
     "undoDoneHintTv": "Select to undo and mark as not done"
   },

@@ -185,7 +185,9 @@
     "fidyah": "Fidyah dan kaffarah",
     "janazah": "Janazah panduan",
     "sadaqah": "Sadaqah matlamat",
-    "whiteDays": "Puasa Ayyām al-Bīḍ"
+    "whiteDays": "Puasa Ayyām al-Bīḍ",
+    "goodCharacter": "Akhlak yang baik",
+    "heavyOnTheScale": "Berat pada neraca"
   },
   "quickActions": {
     "checklistSubtitle": "Log solat hari ini",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Tandakan selesai",
     "undoDoneHint": "Ketik untuk buat asal dan tandakan belum selesai",
     "favEmptyDescTv": "Pilih bintang pada mana-mana zikr untuk menyimpannya di sini bagi akses pantas.",
-    "undoDoneHintTv": "Pilih untuk buat asal dan tandakan belum selesai"
+    "undoDoneHintTv": "Pilih untuk buat asal dan tandakan belum selesai",
+    "alternateWording": "Lafaz autentik alternatif"
   },
   "zikrCat": {
     "morning": "Adhkar Pagi",

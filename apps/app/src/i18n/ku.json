@@ -185,7 +185,9 @@
     "fidyah": "فیدیە و کەفارەت",
     "janazah": "Janazah rêber",
     "sadaqah": "Sadaqah armanc",
-    "whiteDays": "Rojiya Rojên Spî"
+    "whiteDays": "Rojiya Rojên Spî",
+    "goodCharacter": "Exlaqê baş",
+    "heavyOnTheScale": "Kiryarên giran li mîzanê"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Wekî temam nîşan bike",
     "undoDoneHint": "Ji bo betal kirin û wekî netemam nîşankirinê bitikîne",
     "favEmptyDescTv": "ئەستێرە لەسەر هەر زیکرێک هەڵبژێرە بۆ ئەوەی لێرە بمێنێتەوە بۆ دەستگەیشتنی خێرا.",
-    "undoDoneHintTv": "بۆ پاشگەزبوونەوە و نیشانکردنی وەک تەواونەکراو هەڵبژێرە"
+    "undoDoneHintTv": "بۆ پاشگەزبوونەوە و نیشانکردنی وەک تەواونەکراو هەڵبژێرە",
+    "alternateWording": "دەربڕینی ڕەسەنی جێگرەوە"
   },
   "zikrCat": {
     "morning": "بەیانی ئەدکار",

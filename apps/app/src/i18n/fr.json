@@ -185,7 +185,9 @@
     "fidyah": "Fidyah et kaffarah",
     "janazah": "Guide Janazah",
     "sadaqah": "Sadaqah objectifs",
-    "whiteDays": "Jeûne des Jours blancs"
+    "whiteDays": "Jeûne des Jours blancs",
+    "goodCharacter": "Bon caractère",
+    "heavyOnTheScale": "Lourd sur la Balance"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Marquer comme terminé",
     "undoDoneHint": "Appuyez pour annuler et marquer comme non terminé",
     "favEmptyDescTv": "Sélectionnez l'étoile sur n'importe quel zikr pour le garder ici en accès rapide.",
-    "undoDoneHintTv": "Sélectionner pour annuler et marquer comme non fait"
+    "undoDoneHintTv": "Sélectionner pour annuler et marquer comme non fait",
+    "alternateWording": "Formulation authentique alternative"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",

@@ -185,7 +185,9 @@
     "fidyah": "Fidja i kefaret",
     "janazah": "Janazah vodič",
     "sadaqah": "Sadaqah golova",
-    "whiteDays": "Post Bijelih dana"
+    "whiteDays": "Post Bijelih dana",
+    "goodCharacter": "Dobar karakter",
+    "heavyOnTheScale": "Teško na Vagi"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Označi kao završeno",
     "undoDoneHint": "Dodirnite da poništite i označite kao nezavršeno",
     "favEmptyDescTv": "Odaberite zvjezdicu na bilo kojem zikru da ga držite ovdje za brzi pristup.",
-    "undoDoneHintTv": "Odaberite da poništite i označite kao nedovršeno"
+    "undoDoneHintTv": "Odaberite da poništite i označite kao nedovršeno",
+    "alternateWording": "Alternativna autentična formulacija"
   },
   "zikrCat": {
     "morning": "Sabah zikirleri",

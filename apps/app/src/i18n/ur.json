@@ -156,8 +156,10 @@
     "ramadan": "رمضان",
     "salahGuide": "نماز سیکھیں",
     "jannah": "جنت کا سفر",
+    "goodCharacter": "حسنِ اخلاق",
     "jahannam": "جہنم کو سمجھنا",
     "lastDay": "یوم القیامہ",
+    "heavyOnTheScale": "میزان میں بھاری",
     "battles": "اسلام میں معرکے",
     "learnQuran": "قرآن سیکھیں",
     "taharah": "طہارت سیکھیں",
@@ -1218,7 +1220,8 @@
     "searchResultCount": "{{count}} نتائج",
     "noResults": "آپ کی تلاش سے کوئی ذکر نہیں ملا۔",
     "favEmptyDescTv": "فوری رسائی کے لیے کسی بھی ذکر پر ستارہ پر منتخب دبائیں تاکہ یہاں محفوظ ہو۔",
-    "undoDoneHintTv": "واپس لینے اور غیر مکمل کرنے کے لیے منتخب دبائیں"
+    "undoDoneHintTv": "واپس لینے اور غیر مکمل کرنے کے لیے منتخب دبائیں",
+    "alternateWording": "متبادل صحیح الفاظ"
   },
   "zikrCat": {
     "morning": "صبح کے اذکار",

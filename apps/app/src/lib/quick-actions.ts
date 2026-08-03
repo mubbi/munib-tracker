@@ -38,8 +38,10 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   ramadan: "/ramadan",
   salahGuide: "/salah-guide",
   jannah: "/jannah" as Href,
+  goodCharacter: "/jannah/character" as Href,
   jahannam: "/jahannam" as Href,
   lastDay: "/last-day" as Href,
+  heavyOnTheScale: "/last-day/heavy-on-the-scale" as Href,
   battles: "/battles" as Href,
   learnQuran: "/learn-quran" as Href,
   taharah: "/taharah" as Href,
@@ -229,6 +231,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     tone: "success",
   },
   {
+    id: "goodCharacter",
+    labelKey: "actions.goodCharacter",
+    icon: { ios: "person.fill.checkmark", android: "verified_user", web: "verified_user" },
+    tone: "success",
+  },
+  {
     id: "battles",
     labelKey: "actions.battles",
     icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
@@ -237,6 +245,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
   {
     id: "lastDay",
     labelKey: "actions.lastDay",
+    icon: { ios: "scalemass.fill", android: "balance", web: "balance" },
+    tone: "info",
+  },
+  {
+    id: "heavyOnTheScale",
+    labelKey: "actions.heavyOnTheScale",
     icon: { ios: "scalemass.fill", android: "balance", web: "balance" },
     tone: "info",
   },
@@ -425,7 +439,6 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
  */
 export const DEFAULT_QUICK_ACTION_ORDER: string[] = [
   "quran",
-  "checklist",
   "qibla",
   "tasbeeh",
   "zikr",
@@ -436,6 +449,17 @@ export const DEFAULT_QUICK_ACTION_ORDER: string[] = [
   "calendar",
   "events",
   "stats",
+  "adhkarBuilder",
+  "tahajjud",
+  "journal",
+  "names",
+  "dateConverter",
+  "achievements",
+  "ruqyah",
+  "flashCards",
+  "verseDetector",
+  "goodCharacter",
+  "heavyOnTheScale",
 ];
 
 type QuickActionTheme = {

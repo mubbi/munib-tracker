@@ -150,7 +150,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "O Allah, help me to remember You, to thank You, and to worship You in the best manner.",
     translations: {
-      bn: "হে আল্লাহ! আপনার যিক্‌র করতে, আপনার শুকরিয়া জ্ঞাপন করতে এবং সুন্দরভাবে আপনার ইবাদত করতে আমাকে সাহায্য করুন",
+      bn: "হে আল্লাহ, আপনি আমাকে আপনার যিকর করতে, শুকর করতে এবং আপনার ইবাদত সুন্দরভাবে করতে তাওফীক ও ক্ষমতা প্রদান করুন।",
     },
     virtues: "The Prophet ﷺ advised Mu'adh never to leave this after every prayer.",
     reference: "Abu Dawud & An-Nasa'i",
@@ -259,12 +259,16 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "daily-distress",
     categoryId: "distress",
     title: "In times of distress",
-    arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ",
-    transliteration: "La ilaha illallahul-'Azimul-Halim, la ilaha illallahu Rabbul-'Arshil-'Azim",
+    arabic:
+      "لَا إِلَٰهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ السَّمَوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ",
+    transliteration:
+      "La ilaha illallahul-'Azimul-Halim, la ilaha illallahu Rabbul-'Arshil-'Azim, la ilaha illallahu Rabbus-samawati wa Rabbul-ardi wa Rabbul-'Arshil-Karim",
     translation:
-      "There is no god but Allah, the Magnificent, the Forbearing; there is no god but Allah, Lord of the Magnificent Throne.",
+      "There is no god but Allah, the Magnificent, the Forbearing; there is no god but Allah, Lord of the Magnificent Throne; there is no god but Allah, Lord of the heavens, Lord of the earth, and Lord of the Noble Throne.",
     virtues: "The Prophet ﷺ would say it in times of distress.",
-    reference: "Bukhari & Muslim",
+    reference: "Bukhari & Muslim 2730",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/122hm.mp3",
   },
   {
     id: "quranic-yusuf-ending",
@@ -681,12 +685,9 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "prayer",
     title: "Supplication when going to the masjid",
     arabic:
-      "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُوْراً، وَفِي لِسَانِي نُوْراً، وَ فِي سَمْعِي نُوْراً، وَ فِي بَصَري نُوْراً، وَ مِنْ فَوقِي نُوْراً، وَمِنْ تحْتِي نُوْراً، وَعَنْ يَمِيْنِي نُوْراً، وَ عَنْ شِمَالِي نُوْراً، وَ مِنْ أَمَامِي نُوْراً، وَ مِنْ خَلْفِي نُوراً، واجْعَلْ فِي نَفْسِي نُوراً، وَ أعْظِمْ لي نُوراً، وَ عَظِّمْ لي نُوراً، وَاجْعَلْ لي نُوراً، وَاجْعَلْنِي نُوراً، اللهم أَعْطِنِي نُوراً، وَاجْعَلْ في عَصَبِي نُوراً، وَ في لَحْمِي نُوراً، وَ في دَمِي نُوراً، وَ في شَعْرِي نُوراً، وَ في بَشَرِي نُوراً . .",
+      "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُوْراً، وَفِي لِسَانِي نُوْراً، وَ فِي سَمْعِي نُوْراً، وَ فِي بَصَري نُوْراً، وَ مِنْ فَوقِي نُوْراً، وَمِنْ تحْتِي نُوْراً، وَعَنْ يَمِيْنِي نُوْراً، وَ عَنْ شِمَالِي نُوْراً، وَ مِنْ أَمَامِي نُوْراً، وَ مِنْ خَلْفِي نُوراً، واجْعَلْ فِي نَفْسِي نُوراً، وَ أعْظِمْ لي نُوراً، وَ عَظِّمْ لي نُوراً، وَاجْعَلْ لي نُوراً، وَاجْعَلْنِي نُوراً، اللهم أَعْطِنِي نُوراً، وَاجْعَلْ في عَصَبِي نُوراً، وَ في لَحْمِي نُوراً، وَ في دَمِي نُوراً، وَ في شَعْرِي نُوراً، وَ في بَشَرِي نُوراً. وَ زِدْنِي نُوراً، وَ زِدْنِي نُوراً، وَ زِدْنِي نُوراً وَهَبْ لِي نُوراً عَلَى نُورٍ.",
     translation:
       "O Allah, place light in my heart, and on my tongue light, and in my ears light and in my sight light, and above me light, and below me light, and to my right light, and to my left light, and before me light and behind me light. Place in my soul light. Magnify for me light, and amplify for me light. Make for me light and make me a light. O Allah, grant me light, and place light in my nerves, and in my body light and in my blood light and in my hair light and in my skin light.[O Allah, make for me a light in my grave... and a light in my bones].[Increase me in light, increase me in light, increase me in light].",
-    translations: {
-      bn: "হে আল্লাহ! আপনি আমার অন্তরে নূর (বা আলো) দান করুন, আমার যবানে নূর দান করুন, আমার শ্রবণশক্তিতে নূর দান করুন, আমার দর্শনশক্তিতে নূর দান করুন, আমার উপরে নূর দান করুন, আমার নীচে নূর দান করুন, আমার ডানে নূর দান করুন, আমার বামে নূর দান করুন, আমার সামনে নূর দান করুন, আমার পেছনে নূর দান করুন, আমার আত্মায় নূর দান করুন, আমার জন্য নূরকে বড় করে দিন, আমার জন্য নূর বাড়িয়ে দিন, আমার জন্য নূর নির্ধারণ করুন, আমাকে আলোকময় করুন। হে আল্লাহ! আমাকে নূর দান করুন, আমার পেশীতে নূর প্রদান করুন, আমার গোশ্‌তে নূর দান করুন, আমার রক্তে নূর দান করুন, আমার চুলে নূর দান করুন ও আমার চামড়ায় নূর দান করুন। [১]",
-    },
     reference:
       "(1) Al-Bukhârî [6316](11/116) and Muslim [763](1/526,529,530).\n(2) At-Tirmidhî [3419](5/483).",
     audioUri:
@@ -697,7 +698,7 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "prayer",
     title: "Upon entering the masjid",
     arabic:
-      "(يَبْدَأُ بِرِجْلِهِ اليُمْنَى) ، ويقول: (أَعُوْذُ بِاللَّهِ الْعَظِيمِ، وَبِوَجْهِهِ الْكَرِيمِ، وَسُلْطَانِهِ الْقَدِيمِ، مِنَ الشَّيْطَانِ الرَّجِيمِ) ، (بِسْمِ اللَّهِ, وَالصَّلاةُ) . ، (اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ) .",
+      "(يَبْدَأُ بِرِجْلِهِ اليُمْنَى)، ويقول: (أَعُوْذُ بِاللَّهِ الْعَظِيمِ، وَبِوَجْهِهِ الْكَرِيمِ، وَسُلْطَانِهِ الْقَدِيمِ، مِنَ الشَّيْطَانِ الرَّجِيمِ)، (بِسْمِ اللَّهِ, وَالصَّلاةُ). وَالسَّلامُ عَلَى رَسُوْلِ اللَّهِ، (اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ).",
     translation:
       "(Enter with your right foot) , and then say: (I take refuge with Allah, The Supreme and with His Noble Face, and His eternal authority from the accursed devil.) , (In the name of Allah, and prayers) [and peace be upon the Messenger of Allah] , (O Allah, open the gates of Your mercy for me) .",
     reference:
@@ -710,7 +711,7 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "prayer",
     title: "Upon leaving the masjid",
     arabic:
-      "(يَبْدَأُ بِرِجْلِهِ الْيُسْرَى) ، وَ يَقُولُ: (بِسْمِ اللهِ وَ الصَّلاةُ وَالسَّلامُ عَلَى رَسُولِ اللهِ، اللهم إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ، اللهم اعْصِمْنِي مِنَ الشَّيْطَانِ الرَّجِيْمِ) .",
+      "(يَبْدَأُ بِرِجْلِهِ الْيُسْرَى)، وَ يَقُولُ: (بِسْمِ اللهِ وَ الصَّلاةُ وَالسَّلامُ عَلَى رَسُولِ اللهِ، اللهم إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ، اللهم اعْصِمْنِي مِنَ الشَّيْطَانِ الرَّجِيْمِ).",
     translation:
       "(Leave with your left foot) , and then say: (In the name of Allah, and prayers and peace be upon the Messenger of Allah. O Allah, I ask You from Your favor. O Allah, guard me from the accursed devil) .",
     reference:
@@ -735,7 +736,7 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "prayer",
     title: "Supplications related to the Athân (call to prayer) #2",
     arabic:
-      "يَقُولُ: «وَ أَنَا أَشْهَدُ أَنْ لَا إله إلَّا اللهُ وَ حْدَهُ لَا شَرِيْكَ لَهُ، وَ أَنَّ مُحَمَّداً عَبْدُهُ وَ رَسُولُهُ، رَضِيْتُ بِاللهِ رَبًّا، وَ بِمُحَمَّدٍ رَسُولًا، وَ بِالإِسْلامِ دِيْنًا» «يَقُولَ ذَلِكَ عَقِبَ تَشَهُّدِ المُؤَذِّنِ» .",
+      "يَقُولُ: «وَ أَنَا أَشْهَدُ أَنْ لَا إله إلَّا اللهُ وَ حْدَهُ لَا شَرِيْكَ لَهُ، وَ أَنَّ مُحَمَّداً عَبْدُهُ وَ رَسُولُهُ، رَضِيْتُ بِاللهِ رَبًّا، وَ بِمُحَمَّدٍ رَسُولًا، وَ بِالإِسْلامِ دِيْنًا» «يَقُولَ ذَلِكَ عَقِبَ تَشَهُّدِ المُؤَذِّنِ».",
     translation:
       "Immediately following the declaration of faith called by the muadhdhin, one says:\n\n(1) ‘And I too bear witness that none has the right to be worshipped except Allah, alone, without partner, and that Muhammad is His slave and Messenger. I am pleased with Allah as a Lord, and Muhammad as a Messenger and Islam as a religion.’",
     reference: "(1) Muslim [386](1/290).\n(2) Ibn Khuzaîymah [422](1/220).",
@@ -756,7 +757,7 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "prayer",
     title: "Supplications related to the Athân (call to prayer) #4",
     arabic:
-      "يَقُولُ: «اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ ، وَالصَّلاةِ القَائِمَةِ ، آتِ مُحَمَّداً الوَسِيْلَةَ وَالفَضِيْلَةَ ، وَابْعَثْهُ مَقَاماً مَحْمُوْداً الَّذِي وَعَدْتَهُ ، »",
+      "يَقُولُ: «اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاةِ القَائِمَةِ، آتِ مُحَمَّداً الوَسِيْلَةَ وَالفَضِيْلَةَ، وَابْعَثْهُ مَقَاماً مَحْمُوْداً الَّذِي وَعَدْتَهُ، إِنَّكَ لاَ تُخْلِفُ الْمِيعَادِ »",
     translation:
       "Say: ‘O Allah, Owner of this perfect call and Owner of this prayer to be performed, bestow upon Mohammad Al-Wasîlah and Al-Faďîlah and send him upon a praised platform which You have promised him. [Verily, You never fail in Your promise.]’",
     reference:
@@ -843,7 +844,7 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "prayer",
     title: "Supplications at the start of Ŝalâh (prayer) #6",
     arabic:
-      "اللهم لَكَ الحَمْدُ أنْتَ نُورُ السَّمَوَاتِ و الأرْضِ وَ مَنْ فِيهِنَّ، وَ لَكَ الحَمْدُ أنْتَ قَيِّمُ السَّمَوَاتِ وَ الأرْضِ وَ مَنْ فِيهِنَّ، ، .",
+      "اللهم لَكَ الحَمْدُ أنْتَ نُورُ السَّمَوَاتِ و الأرْضِ وَ مَنْ فِيهِنَّ، وَ لَكَ الحَمْدُ أنْتَ قَيِّمُ السَّمَوَاتِ وَ الأرْضِ وَ مَنْ فِيهِنَّ، وَ لَكَ الحَمْدُ أنْتَ رَبُّ السَّمَوَاتِ وَ الأرْضِ وَ مَنْ فِيهِنَّ، وَ لَكَ الحَمْدُ لَكَ مُلْكُ السَّمَوَاتِ وَ الأرْضِ وَ مَنْ فِيهِنَّ وَ لَكَ الحَمْدُ أنْتَ مَلِكُ السَّمَوَاتِ وَ الأرْضِ وَ لَكَ الحَمْدُ أنْتَ الحَقُّ، وَ وَعْدُكَ الحَقُّ، وَ قَولُكَ الحَقُّ، وَ لِقَاؤُكَ الحَقُّ، وَ الجَنَّةُ حَقٌّ، وَ النَّارُ حَقٌّ، وَ النَّبِيُّونَ حَقٌّ، وَ مُحَمَّدٌﷺ حَقٌّ، وَالسَّاعَةُ حَقٌّ اللهم لَكَ أسْلَمْتُ، وَ عَلَيْكَ تَوَكَّلْتُ، وَ بِكَ آمَنْتُ، وَ إلَيْكَ أنَبْتُ، وَ بِكَ خَاصَمْتُ، وَ إلَيْكَ حَاكَمْتُ. فَاغْفِرْ لِي مَا قَدَّمْتُ، و أخَّرْتُ، وَ مَا أسْرَرْتُ، وَ مَا أعْلَنْتُ أنْتَ المُقَدِّمُ، وَ أنْتَ المُؤَخِّرُ لَا إله إلَّا أنْتَ أنْتَ إلَهِي لَا إله إلَّا أنْتَ.",
     translation:
       "The Prophet (salla Allaahu ʻalayhi wa salaam) would say (as an opening supplication in prayer) when arising from sleep to perform prayers during the night:\n‘O Allah, to You belongs all praise, You are the Light of the heavens and the Earth and all that is within them. To You belongs all praise, You are the Sustainer of the heavens and the Earth and all that is within them. To You belongs all praise. You are Lord of the heavens and the Earth and all that is within them. To You belongs all praise and the kingdom of the heavens and the Earth and all that is within them. To You belongs all praise, You are the King of the heavens and the Earth and to You belongs all praise. You are The Truth, Your promise is true, Your Word is true, and the Day in which we will encounter You is true, the Garden of Paradise is true and the Fire is true, and the Prophets are true, Muhammad (salla Allaahu ʻalayhi wa salaam) is true and the Final Hour is true. O Allah, unto You I have submitted, and upon You I have relied, and in You I have believed, and to You I have turned in repentance, and over You I have disputed, and to You I have turned for judgment. So forgive me for what has come to pass of my sins and what will come to pass, and what I have hidden and what I have made public. You are Al-Muqqaddim and Al-Mu’akhkhir. None has the right to be worshipped except You, You are my Deity, none has the right to be worshipped except You.’",
     reference:
@@ -892,9 +893,13 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-36",
     categoryId: "prayer",
     title: "While bowing in Ŝalâh (Rukû') #4",
-    arabic: "اللَّهُمَّ لَكَ رَكَعْتُ ، وَبِكَ آمَنْتُ ، وَلَكَ أَسْلَمْتُ ، خَشَعَ لَكَ سَمْعِي ، وَبَصَرِي ، وَمُخِّي ، وَعَظْمِي ، وَعَصَبِي ،",
+    arabic:
+      "اللَّهُمَّ لَكَ رَكَعْتُ، وَبِكَ آمَنْتُ، وَلَكَ أَسْلَمْتُ، خَشَعَ لَكَ سَمْعِي، وَبَصَرِي، وَمُخِّي، وَعَظْمِي، وَعَصَبِي، وَمَا اسْتَقَلَّت بِهِ قَدَمِي",
     translation:
       "O Allah, unto You I have bowed, and in You I have believed, and to You I have submitted. My hearing, sight, mind, bones, tendons and what my feet carry are humbled before You.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার জন্যেই রুকু করেছি, আপনার উপরই ঈমান এনেছি এবং আপনার কাছেই আত্মসমর্পণ করেছি। আমার কান, আমার চোখ, আমার মস্তিষ্ক, আমার হাড়, আমার পেশী, সবই আপনার জন্য বিনয়াবনত। আর যা আমার পা বহন করে দাঁড়িয়ে আছে [মানে আমার সমগ্র সত্তা] তাও (আপনার জন্য বিনয়াবনত)",
+    },
     reference:
       "Muslim [771](1/534), Abû Dâwud [760], At-Tirmidhî [266] and An-Nisâ'i [2/130]. The extension is found in Ibn Ĥibân, see Ŝaĥîĥ Ibn Ĥibân [1901] and Ŝaĥîĥ Ibn Khuzaîmah [607].",
     audioUri:
@@ -904,7 +909,7 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-37",
     categoryId: "prayer",
     title: "While bowing in Ŝalâh (Rukû') #5",
-    arabic: "سُبْحَانَ ذِي الْجَبَروتِ ، وَالْمَلَكُوتِ ، وَالكِبْرِيَاءِ ، وَالْعَظَمَةِ.",
+    arabic: "سُبْحَانَ ذِي الْجَبَروتِ، وَالْمَلَكُوتِ، وَالكِبْرِيَاءِ، وَالْعَظَمَةِ.",
     translation:
       "How perfect He is, The Possessor of total power, sovereignty, magnificence and grandeur.",
     translations: {
@@ -943,7 +948,7 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "prayer",
     title: "Upon rising from Rukû' (bowing position in Ŝalâh) #3",
     arabic:
-      "مِلْءَ السَّمَوَاتِ وَمِلْءَ الأَرْضِ وَمَا بَيْنَهُمَا ، وَمِلْءَ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ ، أَهْلَ الثَّنَاءِ وَالْمَجْدِ ، أَحَقُّ مَا قَالَ الْعَبْدُ ، وَكُلُّنَا لَكَ عَبْدٌ ، اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ ، وَلَامُعْطِي لِمَا مَنَعْتَ ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ.",
+      "مِلْءَ السَّمَوَاتِ وَمِلْءَ الأَرْضِ وَمَا بَيْنَهُمَا، وَمِلْءَ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ، أَهْلَ الثَّنَاءِ وَالْمَجْدِ، أَحَقُّ مَا قَالَ الْعَبْدُ، وَكُلُّنَا لَكَ عَبْدٌ، اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَامُعْطِي لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ.",
     translation:
       "The heavens and the Earth and all between them abound with Your praises, and all that You will abounds with Your praises. O Possessor of praise and majesty, the truest thing a slave has said (of You) and we are all Your slaves. O Allah, none can prevent what You have willed to bestow and none can bestow what You have willed to prevent, and no wealth or majesty can benefit anyone, as from You is all wealth and majesty.",
     reference: "Muslim [477](1/346).",
@@ -1308,6 +1313,29 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/69hm.mp3",
   },
   {
+    id: "hisn-70",
+    categoryId: "prayer",
+    title: "Remembrance after the Taslîm #5",
+    arabic: "(١) (قُلْ هُوَ اللَّهُ أَحَدٌ.) (٢) (قٌلْ أَعُوْذُ بِرَبَّ الْفَلَقِ.) (٣) (قُلْ أَعُوْذُ بِرَبَّ النَّاسِ.)",
+    translation:
+      "The following three surahs should be recited once after Zuhr, ‘Asar and ‘Isha’ prayers and thrice after Fajr and Maghrib:\n(1) Al-Ikhlas\n(2) Al-Falaq\n(3) An-Naas",
+    reference: "Abû Dâwud [1523](2/86) and An-Nisâ'i (3/68). Also see Ŝaĥîĥ At-Tirmidhî (2/8).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/70hm.mp3",
+  },
+  {
+    id: "hisn-71",
+    categoryId: "prayer",
+    title: "Remembrance after the Taslîm #6",
+    arabic: "(اللَّهُ لا إِلَهَ إِلا هُوَ الْحَيُّ الْقَيُّومُ لا تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ.)",
+    translation:
+      "It is also from the Sunnah to recite Ayat al-Kursi after each prayer:\n[Al Baqarah: 255]",
+    reference:
+      "An-Nisâ'i ('Amal al-Yawm wa al-Laylah)(100) and Ibn Sinnî [121]. Al-Albânî authenticated it in Ŝaĥîĥ Al-Jâmi' [6464](5/339) and Silsilah Al-Ahâdîth Aŝ-Ŝaĥîĥah [972](2/697).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/71hm.mp3",
+  },
+  {
     id: "hisn-72",
     categoryId: "prayer",
     title: "Remembrance after the Taslîm #7",
@@ -1343,6 +1371,18 @@ export const DUA_ITEMS: DuaItem[] = [
     reference: "(1) Al-Bukhârî [1162](7/162).\n(2) Qur'an Al-'Imran [3:159].",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/74hm.mp3",
+  },
+  {
+    id: "hisn-75",
+    categoryId: "morning_evening",
+    title: "Remembrance said in the morning and evening #1",
+    arabic: "﴿اللهُ لَا إله إلَّا هُوَ الحَيُّ القَيُّومُ لَا.﴾",
+    translation:
+      "Whoever says this (Âyat al-Kursî) when he rises in the morning will be protected from jinns until he retires in the evening, and whoever says it when retiring in the evening will be protected from them until he rises in the morning.",
+    reference:
+      "Al-Hâkim (1/562) and Al-Albânî authenticated it in Ŝaĥîĥ At-Targhîb wa At-Tarhîb [655](1/273) and he attributed it to An-Nisâ'i ['Amal al-Yawm wa al-Laylah][960] and Ťabarânî [Al-Kabîr][541] and said that the latter's chain is good.",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/75hm.mp3",
   },
   {
     id: "hisn-77",
@@ -1400,6 +1440,19 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/80hm.mp3",
   },
   {
+    id: "hisn-81",
+    categoryId: "morning_evening",
+    title: "Remembrance said in the morning and evening #7",
+    arabic:
+      "أللهم مَا أصْبَحَ بِي مِنْ نِعْمَةٍ، أوْ بِأحَدٍ مِنْ خَلْقِكَ، فَمِنْكَ وَحْدَكَ لَا شَرِيْكَ لَكَ، فَلَكَ الحَمْدُ وَ لَكَ الشُّكْرُ. و إذَا أمْسَى قَالَ: اللهم مَا أمْسَى بِي.",
+    translation:
+      "O Allah, what blessing I or any of Your creation have risen upon, is from You alone, without partner, so for You is all praise and unto You all thanks.",
+    reference:
+      "Abû Dâwud [5073](4/318), An-Nisâ'i ['Amal al-Yawm wa al-Laylah][7], Ibn As-Sunnî [41], Ibn Ĥibân [Muwârid][2361]. Shaykh Ibn Bâz declared its chain Ĥasan in [Tuĥfat Al-Akhyâr][pg. 24]. However Al-Albânî declared it weak. See Al-Kalim Ať-Ťayyib [26].",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/81hm.mp3",
+  },
+  {
     id: "hisn-82",
     categoryId: "morning_evening",
     title: "Remembrance said in the morning and evening #8",
@@ -1438,7 +1491,7 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "morning_evening",
     title: "Remembrance said in the morning and evening #10",
     arabic:
-      "اللَّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَ العَافِيَةَ في الدُّنْيَا وَالآخِرَةِ، اللّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَ العَافِيَةَ في دِيْنِي وَدُنْيَايَ وَأهْلي وَمالي، اللَّهُمَّ اسْتُرْ عَوْرَاتي، وَآمِنْ رَوْعَاتي، اللَّهُمَّ احْفَظْني مِنْ بَيْنِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِيْنِي وَعَنْ شِمَالي، وَمِنْ فَوْقي ، وَ أعُوذُ بِعَظَمَتِكَ أنْ أُغْتَالَ مِنْ تَحْتِي.",
+      "اللَّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَ العَافِيَةَ في الدُّنْيَا وَالآخِرَةِ، اللّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَ العَافِيَةَ في دِيْنِي وَدُنْيَايَ وَأهْلي وَمالي، اللَّهُمَّ اسْتُرْ عَوْرَاتي، وَآمِنْ رَوْعَاتي، اللَّهُمَّ احْفَظْني مِنْ بَيْنِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِيْنِي وَعَنْ شِمَالي، وَمِنْ فَوْقي، وَ أعُوذُ بِعَظَمَتِكَ أنْ أُغْتَالَ مِنْ تَحْتِي.",
     translation:
       "O Allah, I ask You for pardon and well-being in this life and the next. O Allah, I ask You for pardon and well-being in my religious and worldly affairs, and my family and my wealth. O Allah, veil my weaknesses and set at ease my dismay. O Allah, preserve me from the front and from behind and on my right and on my left and from above, and I take refuge in Your greatness lest I be swallowed up by the earth.",
     translations: {
@@ -1555,7 +1608,7 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-92",
     categoryId: "morning_evening",
     title: "Remembrance said in the morning and evening #18",
-    arabic: "لَا إلَهَ إلَّا اللهُ وحْدَهُ لَا شَرِيكَ لهُ، لهُ المُلْكُ ولهُ الحَمْدُ، وهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ. أو .",
+    arabic: "لَا إلَهَ إلَّا اللهُ وحْدَهُ لَا شَرِيكَ لهُ، لهُ المُلْكُ ولهُ الحَمْدُ، وهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ. أو.",
     translation:
       "None has the right to be worshipped except Allah, alone, without partner, to Him belongs all sovereignty and praise and He is over all things omnipotent. [Ten Times](١) or [Once](٢).",
     reference:
@@ -1584,7 +1637,7 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-94",
     categoryId: "morning_evening",
     title: "Remembrance said in the morning and evening #20",
-    arabic: "سُبْحَانَ اللهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ ، وَمِدَادَ كَلِمَاتِهِ.",
+    arabic: "سُبْحَانَ اللهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.",
     translation:
       "How perfect Allah is and I praise Him by the number of His creation and His pleasure, and by the weight of His throne, and the ink of His words. [Three times in the morning]",
     translations: {
@@ -1613,14 +1666,9 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-96",
     categoryId: "morning_evening",
     title: "Remembrance said in the morning and evening #22",
-    arabic: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",
-    transliteration: "astaghfirullah wa atubu ilayh",
+    arabic: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ مِئَةَ مَرَّةٍ اليَوْمِ",
     translation:
       "I seek Your forgiveness, Allah, and repent unto You. [One hundred times in a day]",
-    translations: {
-      bn: "আমি আল্লাহ্‌র কাছে ক্ষমা প্রার্থনা করছি এবং তাঁর নিকটই তাওবা করছি",
-      id: "Aku memohon ampunan kepada Allah dan bertaubat kepada-Nya.",
-    },
     reference: "Al-Bukhârî [6307](11/101) and Muslim [2702](4/2075).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/96hm.mp3",
@@ -1653,6 +1701,28 @@ export const DUA_ITEMS: DuaItem[] = [
       "Ať-Ťabarânî through two chains, one of which is good. See Majm'u Az-Zawâ 'id (10/120) and Ŝaĥîĥ At-Targhîb wa At-Tarhîb [656](1/273).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/98hm.mp3",
+  },
+  {
+    id: "hisn-100",
+    categoryId: "sleep",
+    title: "Remembrance before sleeping #2",
+    arabic: "﴿اللهُ لَا إلَهَ إلَّا هُوَ الحَيُّ القَيُّومُ. ﴾",
+    translation:
+      "The Prophet (salla Allaahu ʻalayhi wa salaam) also said: 'When you are about to sleep, recit Ayat Al-Kursî, for there will remain over you a protection from Allah and no devil will draw near you until morning.'",
+    reference: "Al-Bukhârî [2311](4/487).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/100hm.mp3",
+  },
+  {
+    id: "hisn-101",
+    categoryId: "sleep",
+    title: "Remembrance before sleeping #3",
+    arabic: "﴿ءامَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ مِن رَّبِّهِ وَالْمُؤْمِنُونَ.﴾",
+    translation:
+      "The Prophet (salla Allaahu ʻalayhi wa salaam) also said: 'Whoever recites the last two verses of Surah Al-Baqarah at night; those two verses shall be sufficient for him.'",
+    reference: "Al-Bukhârî [4008](9/94) and Muslim [808](1/554).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/101hm.mp3",
   },
   {
     id: "hisn-102",
@@ -1761,6 +1831,15 @@ export const DUA_ITEMS: DuaItem[] = [
     reference: "Abû Dâwud [5083](4/317). Also see Ŝaĥîĥ At-Tirmidhî (3/142).",
   },
   {
+    id: "hisn-110",
+    categoryId: "sleep",
+    title: "Remembrance before sleeping #12",
+    arabic: "يَقْرَاُ ﴿الٓمٓ. تَنْزِيْلُ الْكِتَابِ.﴾ وَ ﴿تَبَارَكَ الَّذِي بِيَدِهِ المُلْكَ.﴾",
+    translation: "Recite Sûrah As-Sajdah and Sûrah Al-Mulk.",
+    reference:
+      "At-Tirmidhî [3404] and An-Nisâ'i ['Amal al-Yawm wa al-Laylah][707]. Also see Ŝaĥîĥ Al-Jâmi' [4873](4/255).",
+  },
+  {
     id: "hisn-111",
     categoryId: "sleep",
     title: "Remembrance before sleeping #13",
@@ -1824,9 +1903,12 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "prayer",
     title: "Du'â Qunût Al-Witr  #1",
     arabic:
-      "اللَّهُمَّ اهْدِنِي فِيْمَنْ هَدَيْتَ، وَعَافِنِي فِيْمَنْ عَافَيْتَ، وَتَوَلَّنِي فِيْمَنْ تَوَلَّيْتَ، وَبَارِكْ لِي فِيْمَا أَعْطَيْتَ، وَقِنِي شَرَّ مَا قَضَيْتَ، فَإِنَّكَ تَقْضِي وَلَا يُقْضَى عَلَيْكَ، إِنَّهُ لَا يَذِلُّ مَنْ والَيْتَ، ، تَبارَكْتَ رَبَّنَا وَتَعَالَيْتَ",
+      "اللَّهُمَّ اهْدِنِي فِيْمَنْ هَدَيْتَ، وَعَافِنِي فِيْمَنْ عَافَيْتَ، وَتَوَلَّنِي فِيْمَنْ تَوَلَّيْتَ، وَبَارِكْ لِي فِيْمَا أَعْطَيْتَ، وَقِنِي شَرَّ مَا قَضَيْتَ، فَإِنَّكَ تَقْضِي وَلَا يُقْضَى عَلَيْكَ، إِنَّهُ لَا يَذِلُّ مَنْ والَيْتَ، وَ لَا يَعِزُّ مَنْ عَادَيْتَ، تَبارَكْتَ رَبَّنَا وَتَعَالَيْتَ",
     translation:
       "O Allah, guide me along with those whom You have guided, pardon me along with those whom You have pardoned, be an ally to me along with those whom You are an ally to and bless for me that which You have bestowed. Protect me from the evil You have decreed for verily You decree and none can decree over You. For surety, he whom You show allegiance to is never abased and he whom You take as an enemy is never honoured and mighty. O our Lord, Blessed and Exalted are You.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি যাদেরকে হেদায়াত করেছেন তাদের মধ্যে আমাকেও হেদায়াত দিন, আপনি যাদেরকে নিরাপত্তা প্রদান করেছেন তাদের মধ্যে আমাকেও নিরাপত্তা দিন, আপনি যাদের অভিভাবকত্ব গ্রহণ করেছেন, তাদের মধ্যে আমার অভিভাবকত্বও গ্রহণ করুন, আপনি আমাকে যা দিয়েছেন তাতে বরকত দিন। আপনি যা ফয়সালা করেছেন তার অকল্যাণ থেকে আমাকে রক্ষা করুন। কারণ আপনিই চুড়ান্ত ফয়সালা দেন, আপনার বিপরীতে ফয়সালা দেওয়া হয় না। আপনি যার সাথে বন্ধুত্ব করেছেন সে অবশ্যই অপমানিত হয় না [এবং আপনি যার সাথে শত্রুতা করেছেন সে সম্মানিত হয় না] আপনি বরকতপূর্ণ হে আমাদের রব্ব! আর আপনি সুউচ্চ-সুমহান",
+    },
     reference:
       "Abû Dâwud [1425], At-Tirmidhî [464], An-Nisâ'i (1/252), Ibn Mâjah [1178], Aĥmad (1/200), Ad-Dârimî (1/373), Al-Hâkim (3/172), Al-Baihaqî (2/209,497,498). What is between the brackets is from Al-Baihaqî. Also see Ŝaĥîĥ At-Tirmidhî (1/144), Ŝaĥîĥ Ibn Mâjah (1/194), and Irwâ'-ul-Ghalîl (2/172).",
     audioUri:
@@ -1852,7 +1934,8 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-119",
     categoryId: "prayer",
     title: "Remembrance immediately after the Taslîm of the Witr Ŝalâh",
-    arabic: "سُبْحَانَ المَلِكِ القُدُّوسِ (ثَلاثَ مَرَّاتٍ، وَ الثَّالِثَةُ يَجْهَرُ بِهَا وَيَمُدُّ صَوْتَهُ يَقُولُ: )",
+    arabic:
+      "سُبْحَانَ المَلِكِ القُدُّوسِ (ثَلاثَ مَرَّاتٍ، وَ الثَّالِثَةُ يَجْهَرُ بِهَا وَيَمُدُّ صَوْتَهُ يَقُولُ: ربِّ المَلائِكَةِ وَالرُّوحِ )",
     translation:
       "How perfect The King, The Holy One is (Three times, and on the third time the Prophet would raise his voice, elongate it and add: [Lord of the angels and the Rûĥ.]).",
     reference:
@@ -1889,18 +1972,6 @@ export const DUA_ITEMS: DuaItem[] = [
     reference: "Al-Bukhârî [6363](7/158), see Fatĥ al-Bârî (11/173).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/121hm.mp3",
-  },
-  {
-    id: "hisn-122",
-    categoryId: "distress",
-    title: "Supplication for one in distress #1",
-    arabic:
-      "لَا إلَهَ إِلَّا اللَّهُ الْعَظِيْمُ الْحَلِيْمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ العَرْشِ العَظِيْمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَوَاتِ، وَرَبُّ الأَرْضِ وَرَبُّ العَرْشِ الكَرِيْمِ",
-    translation:
-      "None has the right to be worshipped except Allah Forbearing. None has the right to be worshipped except Allah, Lord of the magnificent throne. None has the right to be worshipped except Allah, Lord of the heavens, Lord of the Earth and Lord of the noble throne.",
-    reference: "Al-Bukhârî [6346](7/154) and Muslim [2730](4/2092).",
-    audioUri:
-      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/122hm.mp3",
   },
   {
     id: "hisn-123",
@@ -2368,6 +2439,20 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/161hm.mp3",
   },
   {
+    id: "hisn-162",
+    categoryId: "illness",
+    title: "Condolence",
+    arabic: "إِنَّ لِلَّهِ مَا أَخَذَ، وَلَهُ مَا أَعْطَى، وَكُلُّ شَيءٍ عِنْدَهُ بِأَجَلٍ مُسَمَّىً.فَلْتَصْبِرْ وَ لْتَحْتَسِبْ",
+    translation:
+      "Verily to Allah, belongs what He took and to Him belongs what He gave, and everything with Him has an appointed time.",
+    translations: {
+      bn: "নিশ্চয় যা নিয়ে গেছেন আল্লাহ্‌ তা তাঁরই, আর যা কিছু প্রদান করেছেন তাও তাঁর। তাঁর কাছে সব কিছুর একটি নির্দিষ্ট সময় রয়েছে। কাজেই সবর করা এবং সওয়াবের আশা করা উচিত।",
+    },
+    reference: "Al-Bukhârî [1284](2/80) and Muslim [923](2/636).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/162hm.mp3",
+  },
+  {
     id: "hisn-163",
     categoryId: "illness",
     title: "Placing the deceased in the grave",
@@ -2396,9 +2481,12 @@ export const DUA_ITEMS: DuaItem[] = [
     categoryId: "illness",
     title: "Visiting the graves",
     arabic:
-      "السَّلَامُ عَلَيْكُمْ أَهْلَ الدِّيَارِ، مِنَ المُؤْمِنِيْنَ، وَالْمُسْلِمِيْنَ، وَإِنَّا إِنْ شَاءَ اللهُ بِكُمْ لَاحِقُونَ، أسْألُ اللهَ لَنَا وَلَكُمْ العَافِيَةَ",
+      "السَّلَامُ عَلَيْكُمْ أَهْلَ الدِّيَارِ، مِنَ المُؤْمِنِيْنَ، وَالْمُسْلِمِيْنَ، وَإِنَّا إِنْ شَاءَ اللهُ بِكُمْ لَاحِقُونَ، وَ يَرْ حَمُ اللهُ المُسْتَقْدِمِيْنَ مِنَّا وَ المُسْتَأخِرِيْنَ أسْألُ اللهَ لَنَا وَلَكُمْ العَافِيَةَ",
     translation:
       "Peace be upon you all, O inhabitants of the graves, amongst the believers and the Muslims. Verily we will, Allah willing, be united with you, we ask Allah for well-being for us and you.",
+    translations: {
+      bn: "হে গৃহসমূহের অধিবাসী মুমিন ও মুসলিমগণ! তোমাদের প্রতি শান্তি বর্ষিত হোক। আর নিশ্চয় আমরা ইনশাআল্লাহ আপনাদের সাথে মিলিত হবো। [আল্লাহ আমাদের পুর্ববর্তীদের এবং পরবর্তীদের প্রতি দয়া করুন।] আমি আল্লাহ্‌র নিকট আমাদের জন্য এবং তোমাদের জন্য নিরাপত্তা প্রার্থনা করি।",
+    },
     reference:
       "Muslim [975](2/671) and Ibn Mâjah [1547](1/494) and the wording is his. What is between the brackets is from the hadith of 'Â'ishah collected by Muslim [974](2/671).",
     audioUri:
@@ -2614,9 +2702,12 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-181",
     categoryId: "food",
     title: "Upon completion of a meal #2",
-    arabic: "الْحَمْدُ لِلَّهِ حَمْداً كَثِيْراً طَيِّباً مُبَارَكاً فِيْهِ، غَيْرَ مُوَدَّعٍ، وَلَا مُسْتَغْنىً عَنْهُ رَبُّنَا",
+    arabic: "الْحَمْدُ لِلَّهِ حَمْداً كَثِيْراً طَيِّباً مُبَارَكاً فِيْهِ، غَيْرَ مَكْفِيٍّ وَلَا مُوَدَّعٍ، وَلَا مُسْتَغْنىً عَنْهُ رَبُّنَا",
     translation:
       "Allah be praised with an abundant beautiful blessed praise, a never-ending praise, a praise which we will never bid farewell to and an indispensable praise, He is our Lord.",
+    translations: {
+      bn: "আল্লাহর জন্যই সকল প্রশংসা; এমন প্রশংসা যা অঢেল, পবিত্র ও যাতে রয়েছে বরকত; [যা যথেষ্ট করা হয় নি] , যা বিদায় দিতে পারব না, আর যা থেকে বিমুখ হতে পারব না, হে আমাদের রব্ব!",
+    },
     reference: "Al-Bukhârî [5458](6/214) and At-Tirmidhî [3456](5/507) and the wording is his.",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/181hm.mp3",
@@ -3210,9 +3301,12 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-232",
     categoryId: "social",
     title: "For the one that has been praised",
-    arabic: "اللَّهُمَّ لَا تُؤَاخِذْنِي بِمَا يَقُولُونَ، وَ اغْفِرْ لِي مَا لاَ يَعْلَمُونَ",
+    arabic: "اللَّهُمَّ لَا تُؤَاخِذْنِي بِمَا يَقُولُونَ، وَ اغْفِرْ لِي مَا لاَ يَعْلَمُونَ وَ اجْعَلْنِي خَيْراً مِمَّا يَظُنُّونَ",
     translation:
       "O Allah, do not punish me for what they say, forgive me for what they do not know (and make me better than what they think of me).",
+    translations: {
+      bn: "হে আল্লাহ, তারা যা বলছে তার জন্য আমাকে পাকড়াও করবেন না, তারা (আমার ব্যাপারে) যা জানে না সে ব্যাপারে আমাকে ক্ষমা করুন। (আর তারা যা ধারণা করে তার চাইতেও আমাকে উত্তম বানান)",
+    },
     reference:
       "Al-Bukhârî [Adab Al-Mufrad][761] and Al-Albânî declared its chain Ĥasan in Ŝaĥîĥ Adab Al-Mufrad [585]. What is between the brackets is an extension from Al-Baihaqî [Shu'ab Al-Imân](4/228) through a different way.",
     audioUri:
@@ -3243,6 +3337,18 @@ export const DUA_ITEMS: DuaItem[] = [
     reference: "Al-Bukhârî [1612](1/476).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/234hm.mp3",
+  },
+  {
+    id: "hisn-236",
+    categoryId: "hajj",
+    title: "When at Mount Ŝaffâ and Mount Marwah",
+    arabic:
+      "لَمَّا دَنَا النَّبِيُّ ﷺ مِنَ الصَّفَا قَرَأ: ﴿إنَّ الصَّفَا وَ المَرْوَةَ مِنْ شَعَائِرِ اللهِ﴾«أبْدَأ بِمَا بَدَأ اللهُ بِهِ» فَبَدأ بِالصَّفَا، فَرَقِيَ عَلَيْهِ، حَتَّى رَأَى البَيْتَ، فَاسْتَقْبَلَ القِبْلَةَ، فَوَحَّدَ اللهَ، وَ كَبَّرَهُ، وَ قَالَ: «لَا إلَهَ إلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ، لَهُ المُلْكُ وَ لَهُ الحَمْدُ، وَ هُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ، لَا إلَهَ إلَّا اللهٌ وَ حْدَهُ، أنْجَزَ وَعْدَهُ، وَ نَصَرَ عَبْدَهُ، وَ هَزَمَ الأَحْزَابَ وَحْدَهُ، ثُمَّ دَعَا بَيْنَ ذَلِكَ، قَالَ مِثْلَ هَذَا ثَلَاثَ مَرَّاتٍ.، الحَدِيْثُ، وَ فِيْهِ: فَفَعَلَ عَلَى المَرْوَةِ كَمَا فَعَلَ عَلَى الصَّفَا»",
+    translation:
+      "Indeed Safa and Marwah are from the places of worship of Allah…None has the right to be worshipped except Allah, Allah is the greatest. None has the right to be worshipped except Allah, alone, without partner.To Him belongs all sovereignty and praise and He is over all things amnipotent. None has the right to be worshipped except Allah alone. He fulfilled His promise, aided His Servant and single-handedly defeated the allies.",
+    reference: "Muslim [1218](2/888).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/236hm.mp3",
   },
   {
     id: "hisn-238",
@@ -3316,9 +3422,12 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-246",
     categoryId: "food",
     title: "When slaughtering or offering a sacrifice",
-    arabic: "بِسْمِ اللهِ واللهُ أَكْبَرُ اللَّهُمَّ تَقَبَّلْ مِنِّي",
+    arabic: "بِسْمِ اللهِ واللهُ أَكْبَرُ اللَّهُمَّ مِنْكَ ولَكَ اللَّهُمَّ تَقَبَّلْ مِنِّي",
     translation:
       "In the name of Allah, and Allah is the greatest. O Allah, (it is) from You and belongs to You, O Allah, accept this from me.",
+    translations: {
+      bn: "আল্লাহ্‌র নামে, আর আল্লাহ সবচেয়ে বড়। [হে আল্লাহ! এটা আপনার নিকট থেকে প্রাপ্ত এবং আপনার জন্যই] হে আল্লাহ! আপনি আমার তরফ থেকে তা কবুল করুন।",
+    },
     reference:
       "Muslim [1966](3/1557) and Baihaqî (9/287). What is between the brackets is from Baihaqî and others.",
     audioUri:

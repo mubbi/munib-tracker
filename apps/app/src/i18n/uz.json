@@ -185,7 +185,9 @@
     "fidyah": "Fidya va kafforat",
     "janazah": "Janazah qoʻllanma",
     "sadaqah": "Sadaqah gol",
-    "whiteDays": "Oq kunlar ro‘zasi"
+    "whiteDays": "Oq kunlar ro‘zasi",
+    "goodCharacter": "Yaxshi axloq",
+    "heavyOnTheScale": "Tarozida og'ir amallar"
   },
   "quickActions": {
     "checklistSubtitle": "Bugungi namozlarni qayd eting",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Bajarildi deb belgilash",
     "undoDoneHint": "Bekor qilish va bajarilmagan deb belgilash uchun bosing",
     "favEmptyDescTv": "Tez kirish uchun istalgan zikrdagi yulduzni tanlab shu yerda saqlang.",
-    "undoDoneHintTv": "Bekor qilish va bajarilmagan deb belgilash uchun tanlang"
+    "undoDoneHintTv": "Bekor qilish va bajarilmagan deb belgilash uchun tanlang",
+    "alternateWording": "Muqobil ishonchli ibora"
   },
   "zikrCat": {
     "morning": "ertlb dhkr",

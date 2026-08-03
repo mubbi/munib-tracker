@@ -185,7 +185,9 @@
     "fidyah": "Fidyo iyo kafaaro",
     "janazah": "Janazah hage",
     "sadaqah": "Sadaqah gool",
-    "whiteDays": "Soonka Maalmaha Cad"
+    "whiteDays": "Soonka Maalmaha Cad",
+    "goodCharacter": "Dabeecad wanaagsan",
+    "heavyOnTheScale": "Ku culus Miisaanka"
   },
   "quickActions": {
     "checklistSubtitle": "Diiwaangeli salaha maanta",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Calaamadee dhammaystiran",
     "undoDoneHint": "Taabo si aad u noqoto oo aad uga saarto dhammaystirka",
     "favEmptyDescTv": "Dooro xiddigta zikr kasta si aad halkan ugu hayso gelitaan degdeg ah.",
-    "undoDoneHintTv": "Dooro si aad u noqoto oo aad u calaamadaysid aan la dhammayn"
+    "undoDoneHintTv": "Dooro si aad u noqoto oo aad u calaamadaysid aan la dhammayn",
+    "alternateWording": "Ereyo sax ah oo kale"
   },
   "zikrCat": {
     "morning": "subx dhkr",

@@ -185,7 +185,9 @@
     "fidyah": "Fidje dhe kefaret",
     "janazah": "Janazah udhëzues",
     "sadaqah": "Sadaqah gola",
-    "whiteDays": "Agjërimi i Ditëve të Bardha"
+    "whiteDays": "Agjërimi i Ditëve të Bardha",
+    "goodCharacter": "Karakter i mirë",
+    "heavyOnTheScale": "Vepra të rënda në peshore"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Shëno si të përfunduar",
     "undoDoneHint": "Prek për ta zhbërë dhe shënuar si të papërfunduar",
     "favEmptyDescTv": "Zgjidhni yllin në çdo zikr për ta mbajtur këtu për qasje të shpejtë.",
-    "undoDoneHintTv": "Zgjidhni për të zhbërë dhe shënuar si të papërfunduar"
+    "undoDoneHintTv": "Zgjidhni për të zhbërë dhe shënuar si të papërfunduar",
+    "alternateWording": "Formulim autentik alternativ"
   },
   "zikrCat": {
     "morning": "Adhkar i mëngjesit",

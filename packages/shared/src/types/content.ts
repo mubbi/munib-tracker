@@ -33,6 +33,17 @@ export type DuaCategoryId =
   | "social"
   | "quranic";
 
+/**
+ * Alternate authentic wording of the same remembrance (e.g. Bukhari 6314 vs
+ * 6324 for the before-sleep dua). Both forms are sahih — neither is a correction.
+ */
+export interface AuthenticWordingVariant {
+  arabic: string;
+  transliteration?: string;
+  translation?: string;
+  reference?: string;
+}
+
 export interface DuaItem {
   id: string;
   categoryId: DuaCategoryId;

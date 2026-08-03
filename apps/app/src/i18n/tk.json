@@ -185,7 +185,9 @@
     "fidyah": "Fidýä we keffarat",
     "janazah": "Janazah gollanma",
     "sadaqah": "Sadaqah maksatlar",
-    "whiteDays": "Ak günleriň orazy"
+    "whiteDays": "Ak günleriň orazy",
+    "goodCharacter": "Gowy ahlak",
+    "heavyOnTheScale": "Terezide agyr amallar"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Tamamlanan diýip belläň",
     "undoDoneHint": "Yza gaýtarmak we tamamlanmadyk diýip bellemek üçin basyň",
     "favEmptyDescTv": "Çalt giriş üçin islendik zikrdäki ýyldyzy saýlap şu ýerde saklaň.",
-    "undoDoneHintTv": "Yza almak we gutarylmadyk diýip bellemek üçin saýlaň"
+    "undoDoneHintTv": "Yza almak we gutarylmadyk diýip bellemek üçin saýlaň",
+    "alternateWording": "Alternatiw ygtybarly sözler"
   },
   "zikrCat": {
     "morning": "Ertir zikirleri",

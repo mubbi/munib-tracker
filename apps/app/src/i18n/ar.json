@@ -156,8 +156,10 @@
     "ramadan": "رمضان",
     "salahGuide": "تعلّم الصلاة",
     "jannah": "الطريق إلى الجنة",
+    "goodCharacter": "حسن الخلق",
     "jahannam": "فهم جهنم",
     "lastDay": "يوم القيامة",
+    "heavyOnTheScale": "ثقيل في الميزان",
     "battles": "معارك الإسلام",
     "learnQuran": "تعلّم القرآن",
     "taharah": "تعلّم الطهارة",
@@ -1246,7 +1248,8 @@
     "searchResultCount": "{{count}} نتيجة",
     "noResults": "لم يطابق أي ذكر بحثك.",
     "favEmptyDescTv": "اضغط اختيار على النجمة على أي ذكر لحفظه هنا للوصول السريع.",
-    "undoDoneHintTv": "اضغط اختيار للتراجع وإلغاء الإكمال"
+    "undoDoneHintTv": "اضغط اختيار للتراجع وإلغاء الإكمال",
+    "alternateWording": "صيغة أصيلة أخرى"
   },
   "zikrCat": {
     "morning": "أذكار الصباح",

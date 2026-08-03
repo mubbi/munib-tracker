@@ -185,7 +185,9 @@
     "fidyah": "Fidya da kaffara",
     "janazah": "Jagorar Janazah",
     "sadaqah": "Sadaqah kwallaye",
-    "whiteDays": "Azumin Fararen Ranaku"
+    "whiteDays": "Azumin Fararen Ranaku",
+    "goodCharacter": "Kyakkyawan hali",
+    "heavyOnTheScale": "Mai nauyi a Mizan"
   },
   "quickActions": {
     "checklistSubtitle": "Rubuta sallar yau",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Alama a matsayin an gama",
     "undoDoneHint": "Taɓa don sokewa da cire alamar kammala",
     "favEmptyDescTv": "Zaɓi tauraro a kowane zikr don ajiye shi anan don saurin shiga.",
-    "undoDoneHintTv": "Zaɓi don soke kuma alama a matsayin ba a yi ba"
+    "undoDoneHintTv": "Zaɓi don soke kuma alama a matsayin ba a yi ba",
+    "alternateWording": "Kalma ta gaskiya ta madadin"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",

@@ -185,7 +185,9 @@
     "fidyah": "Fidia na kafara",
     "janazah": "Janazah mwongozo",
     "sadaqah": "Sadaqah mabao",
-    "whiteDays": "Funga Siku Nyeupe"
+    "whiteDays": "Funga Siku Nyeupe",
+    "goodCharacter": "Tabia nzuri",
+    "heavyOnTheScale": "Amali nzito katika mizani"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Weka alama kuwa imekamilika",
     "undoDoneHint": "Gusa ili kutengua na kuweka kuwa haijakamilika",
     "favEmptyDescTv": "Chagua nyota kwenye zikr yoyote kuiweka hapa kwa ufikiaji wa haraka.",
-    "undoDoneHintTv": "Chagua kutengua na kuashiria kuwa haijakamilika"
+    "undoDoneHintTv": "Chagua kutengua na kuashiria kuwa haijakamilika",
+    "alternateWording": "Maneno mbadala sahihi"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",

@@ -185,7 +185,9 @@
     "fidyah": "Пидия және кәффарат",
     "janazah": "Janazah нұсқаулық",
     "sadaqah": "Sadaqah мақсаттар",
-    "whiteDays": "Ақ күндер ораза"
+    "whiteDays": "Ақ күндер ораза",
+    "goodCharacter": "Жақсы мінез",
+    "heavyOnTheScale": "Таразыда ауыр амалдар"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's prayers",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Орындалды деп белгілеу",
     "undoDoneHint": "Бас тарту және орындалмаған деп белгілеу үшін түртіңіз",
     "favEmptyDescTv": "Жылдам қолжетімділік үшін кез келген зікірдегі жұлдызды таңдап осында сақтаңыз.",
-    "undoDoneHintTv": "Болдырмау және орындалмаған деп белгілеу үшін таңдаңыз"
+    "undoDoneHintTv": "Болдырмау және орындалмаған деп белгілеу үшін таңдаңыз",
+    "alternateWording": "Балама шынайы тұжырым"
   },
   "zikrCat": {
     "morning": "Қайырлы таң",
