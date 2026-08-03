@@ -20,7 +20,7 @@
     "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.23.0",
-    "next": "16.2.11",
+    "next": "16.2.12",
     "pg": "^8.16.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
