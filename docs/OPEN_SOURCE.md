@@ -55,7 +55,6 @@ Munib Tracker. See [`SUPPORT.md`](../SUPPORT.md).
 
 - CI (`workflows/ci.yml`) — `pnpm check:ci` (lint, types, test, build, OpenAPI drift)
 - Release Please (`workflows/release-please.yml`) — per-app semver Release PRs, tags, and changelogs ([`RELEASES.md`](./RELEASES.md); official action: [googleapis/release-please-action](https://github.com/googleapis/release-please-action))
-- Dependabot (`dependabot.yml`) — weekly npm + monthly Actions
 - PR labeler (`workflows/labeler.yml` + `labeler.yml`)
 - CodeQL (`workflows/codeql.yml`)
 - Issue / PR templates

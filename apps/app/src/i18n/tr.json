@@ -185,7 +185,9 @@
     "fidyah": "Fidye ve kefaret",
     "janazah": "Janazah kılavuzu",
     "sadaqah": "Sadaqah gol",
-    "whiteDays": "Eyyâm-ı Bîd orucu"
+    "whiteDays": "Eyyâm-ı Bîd orucu",
+    "goodCharacter": "Güzel ahlak",
+    "heavyOnTheScale": "Mîzanda ağır gelenler"
   },
   "quickActions": {
     "checklistSubtitle": "Bugünkü namazları kaydet",
@@ -932,10 +934,10 @@
     "locationHighlight3": "Namaz, Zikir ve Kaza için isteğe bağlı hatırlatmalar",
     "locationPrivacyTitle": "Cihazınızda gizli",
     "locationPrivacyBody": "Koordinatlarınız namaz vakitleri ve kıble için bu cihazda kalır. Bildirimler yerel hatırlatmalardır — hareketlerinizi izlemez veya verilerinizi satmayız.",
-    "locationAllow": "Konuma ve bildirimlere izin ver",
+    "locationAllow": "Devam",
     "locationLocating": "Hazırlanıyor…",
     "locationSkip": "Sonra ayarla",
-    "locationHighlight4": "İstediğiniz zaman atlayın — konumu veya bildirimleri sonra ayarlayın",
+    "locationHighlight4": "Konumu veya hatırlatıcıları istediğiniz zaman Ayarlar'dan değiştirin",
     "chooseLanguage": "Dil seçin",
     "chooseLanguageHint": "Bu tanıtımı takip edebilmek için uygulama dilini değiştirin",
     "locationBodyTv": "Namaz vakitlerinin doğru kalması için şehrinizi seçin. Konumu istediğiniz zaman Ayarlar'dan değiştirebilirsiniz.",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Tamamlandı olarak işaretle",
     "undoDoneHint": "Geri almak ve tamamlanmamış yapmak için dokunun",
     "favEmptyDescTv": "Hızlı erişim için herhangi bir zikrin yıldızını seçerek buraya kaydedin.",
-    "undoDoneHintTv": "Geri almak ve yapılmadı olarak işaretlemek için seçin"
+    "undoDoneHintTv": "Geri almak ve yapılmadı olarak işaretlemek için seçin",
+    "alternateWording": "Alternatif sahih lafız"
   },
   "zikrCat": {
     "morning": "Sabah zikirleri",
@@ -2611,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Konum ve hatırlatmalar",
-      "description": "Doğru namaz vakitleri, kıble ve isteğe bağlı hatırlatmalar için konum ve bildirimlere izin verin — veya sonra ayarlayın."
+      "description": "Munib Tracker doğru namaz vakitleri, kıble ve isteğe bağlı hatırlatmalar için konum ve bildirimleri kullanır. İstediğiniz zaman Ayarlar'dan değiştirebilirsiniz."
     },
     "tasbeehDurood": {
       "description": "Bu salavatı dokunmatik tesbih sayacıyla sayın."

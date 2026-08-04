@@ -185,7 +185,9 @@
     "fidyah": "Fidya da kaffara",
     "janazah": "Jagorar Janazah",
     "sadaqah": "Sadaqah kwallaye",
-    "whiteDays": "Azumin Fararen Ranaku"
+    "whiteDays": "Azumin Fararen Ranaku",
+    "goodCharacter": "Kyakkyawan hali",
+    "heavyOnTheScale": "Mai nauyi a Mizan"
   },
   "quickActions": {
     "checklistSubtitle": "Rubuta sallar yau",
@@ -932,10 +934,10 @@
     "locationHighlight3": "Zaɓaɓɓun tunatarwa na Sallah, Zikir, da Qaza",
     "locationPrivacyTitle": "Sirri a kan na'urarku",
     "locationPrivacyBody": "Mahangar wurinku tana kan wannan na'ura don lokutan sallah da qibla. Sanarwa tunatarwa ne na gida — ba ma bin ƙafar ku ko sayar da bayanan ku.",
-    "locationAllow": "Bada izinin wuri da sanarwa",
+    "locationAllow": "Ci gaba",
     "locationLocating": "Ana shiryawa…",
     "locationSkip": "Saita daga baya",
-    "locationHighlight4": "Tsallake kowane lokaci — saita wuri ko kunna sanarwa daga baya",
+    "locationHighlight4": "Canza wuri ko tunatarwa kowane lokaci a Saiti",
     "chooseLanguage": "Zaɓi harshe",
     "chooseLanguageHint": "Canza harshen app ɗin don ku iya bin wannan gabatarwa",
     "locationBodyTv": "Zaɓi birninka domin lokutan salla su kasance daidai. Za ka iya canza wuri kowane lokaci daga Saiti.",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Alama a matsayin an gama",
     "undoDoneHint": "Taɓa don sokewa da cire alamar kammala",
     "favEmptyDescTv": "Zaɓi tauraro a kowane zikr don ajiye shi anan don saurin shiga.",
-    "undoDoneHintTv": "Zaɓi don soke kuma alama a matsayin ba a yi ba"
+    "undoDoneHintTv": "Zaɓi don soke kuma alama a matsayin ba a yi ba",
+    "alternateWording": "Kalma ta gaskiya ta madadin"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -2611,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Wuri da tunatarwa",
-      "description": "Bada izinin wuri da sanarwa don ingantattun lokutan sallah, qibla, da zaɓaɓɓun tunatarwa — ko saita daga baya."
+      "description": "Munib Tracker yana amfani da wuri da sanarwa don ingantattun lokutan sallah, qibla, da zaɓaɓɓun tunatarwa. Kuna iya canza su daga baya a Saiti."
     },
     "tasbeehDurood": {
       "description": "Ƙidaya wannan durood da ƙugiya mai taɓawa."

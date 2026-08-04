@@ -185,7 +185,9 @@
     "fidyah": "Fidýä we keffarat",
     "janazah": "Janazah gollanma",
     "sadaqah": "Sadaqah maksatlar",
-    "whiteDays": "Ak günleriň orazy"
+    "whiteDays": "Ak günleriň orazy",
+    "goodCharacter": "Gowy ahlak",
+    "heavyOnTheScale": "Terezide agyr amallar"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -932,10 +934,10 @@
     "locationHighlight3": "Namaz, Zikr we Kaza üçin islege bagly ýatladyjylar",
     "locationPrivacyTitle": "Enjamyňyzda şahsy",
     "locationPrivacyBody": "Koordinatalaryňyz namaz wagtlary we gyla üçin şu enjamda galýar. Bildirişler ýerli ýatladyjylar — hereketleriňizi yzarlamaýarys we maglumatlaryňyzy satmaýarys.",
-    "locationAllow": "Ýerleşişe we bildirişlere rugsat beriň",
+    "locationAllow": "Dowam et",
     "locationLocating": "Taýýarlanýar…",
     "locationSkip": "Soň sazla",
-    "locationHighlight4": "Islän wagtyňyz geçiriň — ýerleşişi ýa-da bildirişleri soň sazlaň",
+    "locationHighlight4": "Ýerleşişi ýa-da ýatladyjylary islendik wagt Sazlamalarda üýtgediň",
     "chooseLanguage": "Dili saýlaň",
     "chooseLanguageHint": "Bu giriş bilen yzarlamak üçin programmanyň dilini üýtgediň",
     "locationBodyTv": "Namaz wagtlary takyk bolmagy üçin şäheri saýlaň. Ýerleşişi islendik wagt Sazlamalardan üýtgedip bilersiňiz.",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Tamamlanan diýip belläň",
     "undoDoneHint": "Yza gaýtarmak we tamamlanmadyk diýip bellemek üçin basyň",
     "favEmptyDescTv": "Çalt giriş üçin islendik zikrdäki ýyldyzy saýlap şu ýerde saklaň.",
-    "undoDoneHintTv": "Yza almak we gutarylmadyk diýip bellemek üçin saýlaň"
+    "undoDoneHintTv": "Yza almak we gutarylmadyk diýip bellemek üçin saýlaň",
+    "alternateWording": "Alternatiw ygtybarly sözler"
   },
   "zikrCat": {
     "morning": "Ertir zikirleri",
@@ -2611,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Ýerleşiş we ýatladyjylar",
-      "description": "Takyk namaz wagtlary, gyla we islege bagly ýatladyjylar üçin ýerleşişe we bildirişlere rugsat beriň — ýa-da soň sazlaň."
+      "description": "Munib Tracker takyk namaz wagtlary, gyla we islege bagly ýatladyjylar üçin ýerleşiş we bildirişleri ulanýar. Soň Sazlamalarda üýtgedip bilersiňiz."
     },
     "tasbeehDurood": {
       "description": "Bu salavaty degişli tasbeeh hasaplaýjy bilen sanaň."

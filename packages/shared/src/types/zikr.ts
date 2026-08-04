@@ -1,3 +1,4 @@
+import type { AuthenticWordingVariant } from "./content";
 import type { AfterSalahPrayer } from "./prayer";
 
 export type ZikrCategoryId =
@@ -18,6 +19,11 @@ export interface ZikrItem {
   translation: string;
   virtues?: string;
   reference?: string;
+  /**
+   * Other authentic narrations of the same remembrance (same meaning, different
+   * wording). Primary `arabic` / `reference` stay the displayed default.
+   */
+  variants?: AuthenticWordingVariant[];
   audioUri?: string;
   /** Dataset-sourced translations keyed by app locale (never AI-generated). */
   translations?: Partial<Record<string, string>>;

@@ -185,7 +185,9 @@
     "fidyah": "Fidyah et kaffarah",
     "janazah": "Guide Janazah",
     "sadaqah": "Sadaqah objectifs",
-    "whiteDays": "Jeûne des Jours blancs"
+    "whiteDays": "Jeûne des Jours blancs",
+    "goodCharacter": "Bon caractère",
+    "heavyOnTheScale": "Lourd sur la Balance"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -932,10 +934,10 @@
     "locationHighlight3": "Rappels optionnels pour Salah, Zikr et Qaza",
     "locationPrivacyTitle": "Privé sur votre appareil",
     "locationPrivacyBody": "Vos coordonnées restent sur cet appareil pour les horaires de Salah et la qibla. Les notifications sont des rappels locaux — nous ne suivons pas vos déplacements ni ne vendons vos données.",
-    "locationAllow": "Autoriser la localisation et les notifications",
+    "locationAllow": "Continuer",
     "locationLocating": "Configuration…",
     "locationSkip": "Configurer plus tard",
-    "locationHighlight4": "Ignorez à tout moment — définissez la localisation ou activez les notifications plus tard",
+    "locationHighlight4": "Modifiez la localisation ou les rappels à tout moment dans Réglages",
     "chooseLanguage": "Choisir la langue",
     "chooseLanguageHint": "Changez la langue de l'application pour suivre cette introduction",
     "locationBodyTv": "Choisissez votre ville pour des horaires de prière précis. Vous pouvez changer de lieu à tout moment dans Paramètres.",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Marquer comme terminé",
     "undoDoneHint": "Appuyez pour annuler et marquer comme non terminé",
     "favEmptyDescTv": "Sélectionnez l'étoile sur n'importe quel zikr pour le garder ici en accès rapide.",
-    "undoDoneHintTv": "Sélectionner pour annuler et marquer comme non fait"
+    "undoDoneHintTv": "Sélectionner pour annuler et marquer comme non fait",
+    "alternateWording": "Formulation authentique alternative"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -2611,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Localisation et rappels",
-      "description": "Autorisez la localisation et les notifications pour des horaires de Salah précis, la qibla et des rappels optionnels — ou configurez-les plus tard."
+      "description": "Munib Tracker utilise la localisation et les notifications pour des horaires de Salah précis, la qibla et des rappels optionnels. Vous pouvez modifier cela plus tard dans Réglages."
     },
     "tasbeehDurood": {
       "description": "Comptez ce salawat avec le compteur tactile de tasbeeh."

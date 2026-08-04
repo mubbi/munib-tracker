@@ -39,6 +39,12 @@ export type ReadingItem = {
   virtues?: string;
   reference?: string;
   audioUri?: string;
+  variants?: Array<{
+    arabic: string;
+    transliteration?: string;
+    translation?: string;
+    reference?: string;
+  }>;
 };
 
 /**
@@ -280,6 +286,64 @@ export function ReadingCard({
       {item.reference ? (
         <ReferenceLine reference={item.reference} style={styles.reference} />
       ) : null}
+
+      {item.variants?.length
+        ? item.variants.map((variant) => {
+            const variantArabic = variant.arabic.trim();
+            const variantTranslit = variant.transliteration?.trim() ?? "";
+            const variantMeaning = variant.translation?.trim() ?? "";
+            const showVariantTranslit = showTransliteration && Boolean(variantTranslit);
+            const showVariantMeaning = showTranslation && Boolean(variantMeaning);
+            return (
+              <View
+                key={variant.reference ?? variantArabic}
+                style={[styles.variantBlock, { borderTopColor: tokens.hairline }]}
+              >
+                <ThemedText
+                  type="smallBold"
+                  themeColor="mutedForeground"
+                  style={styles.variantLabel}
+                >
+                  {t("zikr.alternateWording")}
+                </ThemedText>
+                {variantArabic ? (
+                  <ThemedText
+                    type="arabic"
+                    style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
+                  >
+                    {variantArabic}
+                  </ThemedText>
+                ) : null}
+                {showVariantTranslit ? (
+                  <ThemedText
+                    type="small"
+                    style={[
+                      styles.transliteration,
+                      { color: colors.accentText },
+                      textSize ? { fontSize: textSize } : null,
+                    ]}
+                  >
+                    {variantTranslit}
+                  </ThemedText>
+                ) : null}
+                {showVariantMeaning ? (
+                  <ThemedText
+                    type="default"
+                    style={[
+                      styles.translation,
+                      textSize ? translationReadingStyle(translationLocale, textSize) : null,
+                    ]}
+                  >
+                    {variantMeaning}
+                  </ThemedText>
+                ) : null}
+                {variant.reference ? (
+                  <ReferenceLine reference={variant.reference} style={styles.reference} />
+                ) : null}
+              </View>
+            );
+          })
+        : null}
     </>
   );
 
@@ -343,4 +407,11 @@ const styles = StyleSheet.create({
   },
   noteText: { flex: 1 },
   reference: { marginTop: Spacing.three },
+  variantBlock: {
+    marginTop: Spacing.four,
+    paddingTop: Spacing.four,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    gap: Spacing.two,
+  },
+  variantLabel: { marginBottom: Spacing.one },
 });

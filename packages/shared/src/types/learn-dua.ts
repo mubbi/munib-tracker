@@ -1,3 +1,4 @@
+import type { AuthenticWordingVariant } from "./content";
 import type { JannahAppLink, JannahHadithRef, JannahImportance, JannahQuranRef } from "./jannah";
 
 /** Hub section grouping on the Learn Dua screen. */
@@ -12,6 +13,8 @@ export interface LearnDuaPhrase {
   transliteration: string;
   translation: string;
   reference?: string;
+  /** Other authentic narrations of the same dua (same meaning, different wording). */
+  variants?: AuthenticWordingVariant[];
   /** Bundled Hisnul Muslim id when available. */
   duaId?: string;
 }

@@ -55,14 +55,25 @@ export function LearnDuaTopicContent({ topic }: { topic: LearnDuaTopic }) {
       <JannahBody paragraphs={topic.body} />
 
       {topic.phrases?.map((phrase) => (
-        <JannahDuaBlock
-          key={phrase.id}
-          title={`${phrase.title} — ${phrase.when}`}
-          arabic={phrase.arabic}
-          transliteration={phrase.transliteration}
-          translation={phrase.translation}
-          reference={phrase.reference}
-        />
+        <View key={phrase.id} style={styles.phraseStack}>
+          <JannahDuaBlock
+            title={`${phrase.title} — ${phrase.when}`}
+            arabic={phrase.arabic}
+            transliteration={phrase.transliteration}
+            translation={phrase.translation}
+            reference={phrase.reference}
+          />
+          {phrase.variants?.map((variant, index) => (
+            <JannahDuaBlock
+              key={`${phrase.id}-variant-${variant.reference ?? index}`}
+              title={t("zikr.alternateWording")}
+              arabic={variant.arabic}
+              transliteration={variant.transliteration}
+              translation={variant.translation ?? phrase.translation}
+              reference={variant.reference}
+            />
+          ))}
+        </View>
       ))}
 
       {topic.quran?.length ? <JannahQuranEvidence refs={topic.quran} /> : null}
@@ -108,6 +119,7 @@ export function LearnDuaTopicContent({ topic }: { topic: LearnDuaTopic }) {
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.four },
+  phraseStack: { gap: Spacing.three },
   links: { gap: Spacing.two, marginTop: Spacing.three },
   topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
 });

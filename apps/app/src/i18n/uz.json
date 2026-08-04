@@ -185,7 +185,9 @@
     "fidyah": "Fidya va kafforat",
     "janazah": "Janazah qoʻllanma",
     "sadaqah": "Sadaqah gol",
-    "whiteDays": "Oq kunlar ro‘zasi"
+    "whiteDays": "Oq kunlar ro‘zasi",
+    "goodCharacter": "Yaxshi axloq",
+    "heavyOnTheScale": "Tarozida og'ir amallar"
   },
   "quickActions": {
     "checklistSubtitle": "Bugungi namozlarni qayd eting",
@@ -932,10 +934,10 @@
     "locationHighlight3": "Namoz, Zikr va Qazo uchun ixtiyoriy eslatmalar",
     "locationPrivacyTitle": "Qurilmangizda shaxsiy",
     "locationPrivacyBody": "Koordinatalaringiz namoz vaqtlari va qibla uchun shu qurilmada qoladi. Bildirishnomalar mahalliy eslatmalar — harakatlaringizni kuzatmaymiz va ma’lumotlaringizni sotmaymiz.",
-    "locationAllow": "Joylashuv va bildirishnomalarga ruxsat bering",
+    "locationAllow": "Davom etish",
     "locationLocating": "Tayyorlanmoqda…",
     "locationSkip": "Keyin sozlash",
-    "locationHighlight4": "Istalgan vaqtda o‘tkazing — joylashuv yoki bildirishnomalarni keyin sozlang",
+    "locationHighlight4": "Joylashuv yoki eslatmalarni istalgan vaqtda Sozlamalarda o‘zgartiring",
     "chooseLanguage": "Tilni tanlang",
     "chooseLanguageHint": "Ushbu tanishuvni kuzatish uchun ilova tilini o‘zgartiring",
     "locationBodyTv": "Namoz vaqtlari aniq bo‘lishi uchun shaharni tanlang. Joylashuvni istalgan vaqtda Sozlamalardan o‘zgartirishingiz mumkin.",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Bajarildi deb belgilash",
     "undoDoneHint": "Bekor qilish va bajarilmagan deb belgilash uchun bosing",
     "favEmptyDescTv": "Tez kirish uchun istalgan zikrdagi yulduzni tanlab shu yerda saqlang.",
-    "undoDoneHintTv": "Bekor qilish va bajarilmagan deb belgilash uchun tanlang"
+    "undoDoneHintTv": "Bekor qilish va bajarilmagan deb belgilash uchun tanlang",
+    "alternateWording": "Muqobil ishonchli ibora"
   },
   "zikrCat": {
     "morning": "ertlb dhkr",
@@ -2611,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Joylashuv va eslatmalar",
-      "description": "Aniq namoz vaqtlari, qibla va ixtiyoriy eslatmalar uchun joylashuv va bildirishnomalarga ruxsat bering — yoki keyin sozlang."
+      "description": "Munib Tracker aniq namoz vaqtlari, qibla va ixtiyoriy eslatmalar uchun joylashuv va bildirishnomalardan foydalanadi. Keyin Sozlamalarda o‘zgartirishingiz mumkin."
     },
     "tasbeehDurood": {
       "description": "Bu salavotni teginishli tasbeeh hisoblagichi bilan sanang."

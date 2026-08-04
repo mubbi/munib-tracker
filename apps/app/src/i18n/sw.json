@@ -185,7 +185,9 @@
     "fidyah": "Fidia na kafara",
     "janazah": "Janazah mwongozo",
     "sadaqah": "Sadaqah mabao",
-    "whiteDays": "Funga Siku Nyeupe"
+    "whiteDays": "Funga Siku Nyeupe",
+    "goodCharacter": "Tabia nzuri",
+    "heavyOnTheScale": "Amali nzito katika mizani"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -932,10 +934,10 @@
     "locationHighlight3": "Vikumbusho vya hiari kwa Swala, Zikr, na Qaza",
     "locationPrivacyTitle": "Faragha kwenye kifaa chako",
     "locationPrivacyBody": "Kuratibu zako zinabaki kwenye kifaa hiki kwa nyakati za swala na qibla. Arifa ni vikumbusho vya ndani — hatufuatilii harakati zako wala hatuuuzi data yako.",
-    "locationAllow": "Ruhusu mahali na arifa",
+    "locationAllow": "Endelea",
     "locationLocating": "Inaandaa…",
     "locationSkip": "Weka baadaye",
-    "locationHighlight4": "Ruka wakati wowote — weka mahali au washa arifa baadaye",
+    "locationHighlight4": "Badilisha mahali au vikumbusho wakati wowote katika Mipangilio",
     "chooseLanguage": "Chagua lugha",
     "chooseLanguageHint": "Badilisha lugha ya programu ili uweze kufuata utangulizi huu",
     "locationBodyTv": "Chagua mji wako ili nyakati za swala ziwe sahihi. Unaweza kubadilisha eneo wakati wowote kutoka Mipangilio.",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Weka alama kuwa imekamilika",
     "undoDoneHint": "Gusa ili kutengua na kuweka kuwa haijakamilika",
     "favEmptyDescTv": "Chagua nyota kwenye zikr yoyote kuiweka hapa kwa ufikiaji wa haraka.",
-    "undoDoneHintTv": "Chagua kutengua na kuashiria kuwa haijakamilika"
+    "undoDoneHintTv": "Chagua kutengua na kuashiria kuwa haijakamilika",
+    "alternateWording": "Maneno mbadala sahihi"
   },
   "zikrCat": {
     "morning": "Fajr zikirleri",
@@ -2611,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Mahali na vikumbusho",
-      "description": "Ruhusu mahali na arifa kwa nyakati sahihi za swala, qibla, na vikumbusho vya hiari — au weka baadaye."
+      "description": "Munib Tracker hutumia mahali na arifa kwa nyakati sahihi za swala, qibla, na vikumbusho vya hiari. Unaweza kubadilisha baadaye katika Mipangilio."
     },
     "tasbeehDurood": {
       "description": "Hesabu durood hii kwa kihesabu cha tasbeeh cha mguso."

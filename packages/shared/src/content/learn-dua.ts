@@ -231,7 +231,15 @@ export const LEARN_DUA_TOPICS: LearnDuaTopic[] = [
         arabic: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
         transliteration: "Bismika Allahumma amutu wa ahya",
         translation: "In Your name, O Allah, I die and I live.",
-        reference: "Sahih al-Bukhari 6324",
+        reference: "Sahih al-Bukhari 6324 · Sahih al-Bukhari 6314",
+        variants: [
+          {
+            arabic: "اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا",
+            transliteration: "Allahumma bismika amutu wa ahya",
+            translation: "O Allah, in Your name I die and I live.",
+            reference: "Sahih al-Bukhari 6314",
+          },
+        ],
       },
       {
         id: "sleep-ayat-al-kursi",

@@ -64,6 +64,15 @@ function sanitizeItemEnglish(item) {
   for (const key of ENGLISH_DISPLAY_KEYS) {
     if (typeof out[key] === "string") out[key] = sanitizeEnglishDisplay(out[key]);
   }
+  if (Array.isArray(out.variants)) {
+    out.variants = out.variants.map((variant) => {
+      const v = { ...variant };
+      for (const key of ENGLISH_DISPLAY_KEYS) {
+        if (typeof v[key] === "string") v[key] = sanitizeEnglishDisplay(v[key]);
+      }
+      return v;
+    });
+  }
   return out;
 }
 
@@ -165,19 +174,43 @@ function hasArabic(text) {
 
 /**
  * Strip the source's editorial notation from a Hisnul Muslim Arabic field:
- * `[optional/variant additions]` and `--(1)--` footnote markers. Whatever
- * remains is verbatim. (Entries still carrying a `…` after this are abbreviated
- * Qur'an-recitation directives — those are dropped, since the full text ships
- * complete in the zikr sets / Qur'an reader instead.)
+ * footnote markers `--(1)--`, count/timing brackets (`[ثلاث مرات]`), and
+ * ellipsis-abbreviated brackets. Authentic optional phrases in `[…]` are
+ * unwrapped into the text — stripping them left incomplete duas (e.g. hisn-36
+ * ending mid-list at وَعَصَبِي ،). Entries still carrying a bare `…` after this
+ * are dropped by the caller (abbreviated Qur'an directives).
  */
 // `--(1)--` footnote markers, with ASCII, Arabic-Indic (٠-٩) or Persian (۰-۹) digits.
 const HISN_FOOTNOTE = /--\([0-9٠-٩۰-۹]+\)--/g;
+/** Count / timing instructions Hisnul wraps in brackets — not dua wording. */
+const HISN_COUNT_BRACKET =
+  /^(?:ثَ?لَ?اث(?:َ?اً)?|أرْ?بَ?ع|سَ?بْ?ع|عَ?شْ?ر|مِ?ئَ?ة|مئة|مرة|مرات|ثلاث مرات|أربع مرات|عشر مرات)/u;
+
+function cleanHisnBracketInner(inner) {
+  const t = inner.trim();
+  if (!t) return " ";
+  // Abbreviated / editorial snippets — drop.
+  if (/…|\.\.\./.test(t)) return " ";
+  // Pure count / timing notes — drop (targetCount lives elsewhere when known).
+  if (HISN_COUNT_BRACKET.test(t) || /مرات|مرةٍ|مرةً|مرةٍ|إذا أصْ?بَح|إذا أمْ?سَى/.test(t)) {
+    // Keep if the bracket is mostly dua text that merely ends with a count note
+    // (rare); otherwise drop short instruction-only brackets.
+    const withoutCount = t
+      .replace(/ثَ?لَ?اث(?:َ?اً)?|أرْ?بَ?ع|سَ?بْ?ع|عَ?شْ?ر|مِ?ئَ?ة|مئة|مرات|مرة|إذا أصْ?بَحَ?|إذا أمْ?سَى/gu, "")
+      .replace(/\s+/g, "");
+    if (withoutCount.length < 12) return " ";
+  }
+  // Authentic optional / variant wording — keep.
+  return ` ${t} `;
+}
 
 function cleanHisnArabic(text) {
   return (text ?? "")
-    .replace(/\[[^\]]*\]/g, " ")
+    .replace(/\[[^\]]*\]/g, (m) => cleanHisnBracketInner(m.slice(1, -1)))
     .replace(HISN_FOOTNOTE, " ")
+    .replace(/\s*\.\s*\.\s*/g, " ")
     .replace(/\s+/g, " ")
+    .replace(/\s+([،,.])/g, "$1")
     .trim();
 }
 
@@ -1024,15 +1057,20 @@ const ZIKR_ITEMS = [
     reference: "Muslim",
     targetCount: 3,
   },
+  // Full Sahih Muslim 2723 narration (not the truncated opening line alone).
+  // Arabic matches the fitrahive/Hisnul evening entry so mergeUnique dedupes
+  // and layers bn/id translations onto this preserved id.
   {
     id: "evening-amsayna",
     categoryId: "evening",
     title: "We have reached the evening",
-    arabic: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ",
-    transliteration: "Amsayna wa amsal-mulku lillah, wal-hamdu lillah",
+    arabic:
+      "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ للهِ، وَالْحَمْدُ للهِ، لَا إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوذُبِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُبِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُبِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ",
+    transliteration:
+      "Amsayna wa amsal-mulku lillah, wal-hamdu lillah. La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamd, wa huwa 'ala kulli shay'in qadir. Rabbi as'aluka khayra ma fi hadhihil-laylah wa khayra ma ba'daha, wa a'udhu bika min sharri ma fi hadhihil-laylah wa sharri ma ba'daha. Rabbi a'udhu bika minal-kasali wa su'il-kibar. Rabbi a'udhu bika min 'adhabin fin-nar wa 'adhabin fil-qabr",
     translation:
-      "We have reached the evening and at this time the whole dominion belongs to Allah, and all praise is for Allah.",
-    reference: "Muslim",
+      "We have reached the evening and at this time the whole dominion belongs to Allah, and all praise is for Allah. There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs the dominion and to Him is praise, and He is over all things competent. My Lord, I ask You for the good of this night and the good of what follows it, and I seek refuge in You from the evil of this night and the evil of what follows it. My Lord, I seek refuge in You from laziness and the evil of old age. My Lord, I seek refuge in You from the punishment of the Fire and the punishment of the grave.",
+    reference: "Muslim 2723",
     targetCount: 1,
   },
 
@@ -1172,13 +1210,25 @@ const ZIKR_ITEMS = [
     targetCount: 1,
   },
   {
+    // Primary wording = Bukhari 6324 (matches Hisnul Muslim audio). Bukhari 6314
+    // has the equally authentic order اللَّهُمَّ بِاسْمِكَ — both are sahih.
     id: "before_sleep-name",
     categoryId: "before_sleep",
     title: "Bismika Allahumma amutu wa ahya",
     arabic: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
     transliteration: "Bismika Allahumma amutu wa ahya",
     translation: "In Your name, O Allah, I die and I live.",
-    reference: "Bukhari 6314",
+    virtues:
+      "Both wordings are authentically transmitted in Sahih al-Bukhari — neither is a correction of the other.",
+    reference: "Bukhari 6324 · Bukhari 6314",
+    variants: [
+      {
+        arabic: "اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا",
+        transliteration: "Allahumma bismika amutu wa ahya",
+        translation: "O Allah, in Your name I die and I live.",
+        reference: "Bukhari 6314",
+      },
+    ],
     targetCount: 1,
   },
   {
@@ -1554,16 +1604,20 @@ const DUA_ITEMS = [
     translation: "O Allah, open for me the gates of Your mercy.",
     reference: "Muslim",
   },
+  // Full Bukhari/Muslim 2730 narration (three phrases) — matches Hisnul #122 so
+  // buildDuaCorpus dedupes onto this preserved id instead of shipping a half dua.
   {
     id: "daily-distress",
     categoryId: "daily",
     title: "In times of distress",
-    arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ",
-    transliteration: "La ilaha illallahul-'Azimul-Halim, la ilaha illallahu Rabbul-'Arshil-'Azim",
+    arabic:
+      "لَا إِلَٰهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ السَّمَوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ",
+    transliteration:
+      "La ilaha illallahul-'Azimul-Halim, la ilaha illallahu Rabbul-'Arshil-'Azim, la ilaha illallahu Rabbus-samawati wa Rabbul-ardi wa Rabbul-'Arshil-Karim",
     translation:
-      "There is no god but Allah, the Magnificent, the Forbearing; there is no god but Allah, Lord of the Magnificent Throne.",
+      "There is no god but Allah, the Magnificent, the Forbearing; there is no god but Allah, Lord of the Magnificent Throne; there is no god but Allah, Lord of the heavens, Lord of the earth, and Lord of the Noble Throne.",
     virtues: "The Prophet ﷺ would say it in times of distress.",
-    reference: "Bukhari & Muslim",
+    reference: "Bukhari & Muslim 2730",
   },
 
   // ── Added from the docs/zikr-duas collection ─────────────
@@ -1824,6 +1878,7 @@ function renderZikr(items, audioById) {
     "translations",
     "virtues",
     "reference",
+    "variants",
     "targetCount",
     "prayers",
     "chapter",
@@ -1836,7 +1891,7 @@ function renderZikr(items, audioById) {
   return `import type { ZikrItem } from "../types/index";
 
 /** Bump when the bundled zikr content changes so clients can re-seed. */
-export const ZIKR_CONTENT_VERSION = 6;
+export const ZIKR_CONTENT_VERSION = 7;
 
 /**
  * Curated adhkar for every part of the day. Generated by
@@ -1941,6 +1996,13 @@ function assertContent(zikr, dua, durood) {
   for (const item of all) {
     if (/…|\.\.\./.test(item.arabic ?? "")) {
       throw new Error(`[adhkar] ${item.id} has truncated Arabic (contains "…")`);
+    }
+    // Trailing list punctuation usually means a bracketed phrase was stripped
+    // and the sentence was left unfinished (see hisn-36).
+    if (/[،,;]\s*$/.test((item.arabic ?? "").trim())) {
+      throw new Error(
+        `[adhkar] ${item.id} Arabic ends with trailing punctuation (likely truncated)`,
+      );
     }
   }
   for (const item of [...zikr, ...dua]) {

@@ -16,6 +16,8 @@
 >
 > **Apple TV:** Same bundle ID (`app.munibtracker`) via `EXPO_TV=1` tvOS build. App Icon + Top Shelf assets live under `apps/app/assets/images/tv/` (regenerate with `pnpm generate:app:brand-assets`). Use local provisioning for tvOS when also shipping iPhone. Store screenshots: `pnpm screenshots:tvos` validates the pipeline; set `RUN_CAPTURE=1` when submitting the TV SKU — see [`TV.md`](./TV.md).
 
+> **App Store metadata (Aug 2026 review):** Screenshots and promotional text must not mention price, “free”, or discounts (guideline 2.3.7). iOS descriptions must not mention Android / Wear OS / Google Play (guideline 2.3.10). Prefer “offline and private” / “no ads” instead of “free”.
+
 ---
 
 ## How to submit
@@ -38,9 +40,9 @@ Salah, Qur'an & worship
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Track your journey back to Allah — offline, ad-free, and free. Log salah, clear qaza, read Qur'an, and remember Allah every day. No account required.
+Track your journey back to Allah — offline and private. Log salah, clear qaza, read Qur'an, and remember Allah every day. No account required.
 
-*~148/170 chars*
+*~140/170 chars*
 
 ---
 
@@ -78,7 +80,7 @@ Week, month, and year charts. Infinite achievement tracks for salah, streaks, zi
 One fuzzy search bar across ayahs, hadith, duas, adhkar, duroods, and the Names of Allah. Arabic-aware normalization. Typo-tolerant offline search.
 
 **WHEREVER YOU ARE**
-iOS, Android, and web — same companion on phone, tablet, or browser. Home-screen widgets, Live Activities, Apple Watch, Wear OS, and Siri shortcuts on native builds. PIN or biometric app lock.
+On iPhone, iPad, Apple Watch, and the web — the same companion wherever you worship. Home-screen widgets, Live Activities, and Siri shortcuts. PIN or biometric app lock.
 
 **23 LANGUAGES**
 English, Arabic, Urdu, Indonesian, Turkish, Bengali, Malay, Persian, French, Hausa, Swahili, Russian, and more — with RTL support for Arabic, Urdu, Persian, Pashto, and Kurdish.
@@ -149,7 +151,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-تتبّع رحلتك إلى الله — بدون إنترنت، بدون إعلانات، ومجانًا. سجّل صلاتك، وأكمل قضاءك، واقرأ القرآن، واذكر الله كل يوم. لا حاجة لحساب.
+تتبّع رحلتك إلى الله — بدون إنترنت وبدون إعلانات. سجّل صلاتك، وأكمل قضاءك، واقرأ القرآن، واذكر الله كل يوم. لا حاجة لحساب.
 
 *~130 Unicode code points / 170 chars*
 
@@ -189,7 +191,7 @@ Munib Tracker رفيق هادئ يعمل بدون إنترنت للصلاة وا
 شريط بحث واحد عبر الآيات والحديث والأدعية والأذكار. بحث ذكي يعمل بدون إنترنت.
 
 **أينما كنت**
-iOS وAndroid والويب — نفس الرفيق على الهاتف واللوحي والمتصفح. ويدجت الشاشة الرئيسية، الأنشطة الحية، الساعة، واختصارات Siri. قفل PIN أو بصمة.
+على iPhone وiPad وApple Watch والويب — نفس الرفيق أينما تعبد. ويدجت الشاشة الرئيسية، الأنشطة الحية، واختصارات Siri. قفل PIN أو بصمة.
 
 **23 لغة**
 العربية والإنجليزية والأردية والإندونيسية والتركية والبنغالية والماليزية والفارسية والفرنسية والروسية والمزيد — مع دعم RTL.
@@ -260,7 +262,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-اللہ کی طرف واپسی کا سفر — آف لائن، بغیر اشتہار، مفت۔ نماز درج کریں، قضا پورا کریں، قرآن پڑھیں، اور ہر روز اللہ کو یاد کریں۔ اکاؤنٹ نہیں چاہیے۔
+اللہ کی طرف واپسی کا سفر — آف لائن اور بغیر اشتہار۔ نماز درج کریں، قضا پورا کریں، قرآن پڑھیں، اور ہر روز اللہ کو یاد کریں۔ اکاؤنٹ نہیں چاہیے۔
 
 *~145 Unicode code points / 170 chars*
 
@@ -300,7 +302,7 @@ Munib Tracker نماز، ذکر، قضا، قرآن، حدیث اور روزان
 ایک سرچ بار — آیات، حدیث، دعائیں، اذکار۔ آف لائن، ٹائپو برداشت۔
 
 **جہاں بھی ہوں**
-iOS، Android اور ویب۔ ہوم اسکرین ویجٹ، لائیو ایکٹیویٹی، گھڑی، Siri شارٹ کٹس۔ PIN یا بائیومیٹرک لاک۔
+iPhone، iPad، Apple Watch اور ویب پر — جہاں بھی عبادت کریں، یہی رفیق۔ ہوم اسکرین ویجٹ، لائیو ایکٹیویٹی، اور Siri شارٹ کٹس۔ PIN یا بائیومیٹرک لاک۔
 
 **23 زبانیں**
 اردو، عربی، انگریزی، انڈونیشیائی، ترکی، بنگالی، فارسی، فرانسیسی، روسی اور مزید — RTL سپورٹ۔
@@ -369,7 +371,7 @@ Salat, Al-Qur'an & ibadah
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Temani perjalanan kembali kepada Allah — offline, tanpa iklan, gratis. Catat salat, qadha, baca Al-Qur'an, dan berdzikir setiap hari. Tanpa akun.
+Temani perjalanan kembali kepada Allah — offline dan tanpa iklan. Catat salat, qadha, baca Al-Qur'an, dan berdzikir setiap hari. Tanpa akun.
 
 *~145/170 chars*
 
@@ -409,7 +411,7 @@ Grafik mingguan, bulanan, tahunan. Pencapaian salat, streak, dzikir. Pengingat o
 Satu bilah pencarian di seluruh ayat, hadits, doa, dzikir — offline, toleran typo.
 
 **DI MANA SAJA**
-iOS, Android, web. Widget, Live Activity, jam tangan, Siri. Kunci PIN atau biometrik. **23 bahasa.**
+Di iPhone, iPad, Apple Watch, dan web. Widget, Live Activity, dan pintasan Siri. Kunci PIN atau biometrik. **23 bahasa.**
 
 **PRIVASI UTAMA**
 Penyimpanan lokal, sinkronisasi cloud opsional (Google/Apple). Cadangan lokal. Hapus akun kapan saja.
@@ -473,7 +475,7 @@ Namaz, Kur'an & ibadet
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Allah'a dönüş yolculuğunuz — çevrimdışı, reklamsız, ücretsiz. Namaz kaydedin, kaza edin, Kur'an okuyun, her gün zikredin. Hesap gerekmez.
+Allah'a dönüş yolculuğunuz — çevrimdışı ve reklamsız. Namaz kaydedin, kaza edin, Kur'an okuyun, her gün zikredin. Hesap gerekmez.
 
 *~138/170 chars*
 
@@ -513,7 +515,7 @@ Haftalık, aylık, yıllık grafikler. Başarım izleri. İsteğe bağlı hatır
 Ayet, hadis, dua, zikir — tek çubuk, çevrimdışı.
 
 **HER YERDE**
-iOS, Android, web. Widget, Live Activity, saat, Siri. PIN veya biyometrik kilit. **23 dil.**
+iPhone, iPad, Apple Watch ve web. Widget, Live Activity ve Siri kısayolları. PIN veya biyometrik kilit. **23 dil.**
 
 **GİZLİLİK ÖNCELİKLİ**
 Yerel depolama, isteğe bağlı bulut senkronizasyonu. Yerel yedek. Hesabı silin.
@@ -577,7 +579,7 @@ Salat, Coran & adoration
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Suivez votre retour vers Allah — hors ligne, sans pub, gratuit. Enregistrez la salat, le qada, lisez le Coran et faites dhikr chaque jour. Sans compte.
+Suivez votre retour vers Allah — hors ligne et sans publicité. Enregistrez la salat, le qada, lisez le Coran et faites dhikr chaque jour. Sans compte.
 
 *~148/170 chars*
 
@@ -675,7 +677,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Путь обратно к Аллаху — офлайн, без рекламы, бесплатно. Записывайте намаз, када, читайте Коран и поминайте Аллаха каждый день. Без аккаунта.
+Путь обратно к Аллаху — офлайн и без рекламы. Записывайте намаз, када, читайте Коран и поминайте Аллаха каждый день. Без аккаунта.
 
 *~145/170 chars*
 
@@ -773,7 +775,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-আল্লাহর দিকে ফিরে যাওয়ার যাত্রা — অফলাইন, বিজ্ঞাপনবিহীন, বিনামূল্যে। সালাত, কাজা, কুরআন পড়ুন, প্রতিদিন যিকর করুন। অ্যাকাউন্ট লাগে না।
+আল্লাহর দিকে ফিরে যাওয়ার যাত্রা — অফলাইন ও বিজ্ঞাপনবিহীন। সালাত, কাজা, কুরআন পড়ুন, প্রতিদিন যিকর করুন। অ্যাকাউন্ট লাগে না।
 
 *~155 Unicode code points / 170 chars*
 
@@ -871,7 +873,7 @@ Solat, Quran & ibadah
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Perjalanan kembali kepada Allah — luar talian, tanpa iklan, percuma. Catat solat, qada, baca Quran, berzikir setiap hari. Tanpa akaun.
+Perjalanan kembali kepada Allah — luar talian dan tanpa iklan. Catat solat, qada, baca Quran, berzikir setiap hari. Tanpa akaun.
 
 *~132/170 chars*
 
@@ -963,7 +965,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-سفر بازگشت به الله — آفلاین، بدون تبلیغ، رایگان. نماز، قضا، قرآن و ذکر روزانه. بدون حساب.
+سفر بازگشت به الله — آفلاین و بدون تبلیغ. نماز، قضا، قرآن و ذکر روزانه. بدون حساب.
 
 *~95 Unicode code points / 170 chars*
 
@@ -1063,7 +1065,7 @@ Salah, Qur'an & Anbetung
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Dein Weg zurück zu Allah — offline, werbefrei und kostenlos. Salah protokollieren, Qaza nachholen, Qur'an lesen, täglich Dhikr. Kein Konto nötig.
+Dein Weg zurück zu Allah — offline und werbefrei. Salah protokollieren, Qaza nachholen, Qur'an lesen, täglich Dhikr. Kein Konto nötig.
 
 *~145/170 chars*
 
@@ -1155,7 +1157,7 @@ Salat, Corán y adoración
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Tu camino de vuelta a Alá — sin conexión, sin anuncios, gratis. Registra salat, qadha, lee el Corán y haz dhikr cada día. Sin cuenta.
+Tu camino de vuelta a Alá — sin conexión y sin anuncios. Registra salat, qadha, lee el Corán y haz dhikr cada día. Sin cuenta.
 
 *~130/170 chars*
 
@@ -1249,7 +1251,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-अल्लाह की ओर वापसी का सफ़र — ऑफ़लाइन, बिना विज्ञापन, मुफ़्त। नमाज़, क़ज़ा, क़ुरआन और ज़िक्र। अकाउंट नहीं चाहिए।
+अल्लाह की ओर वापसी का सफ़र — ऑफ़लाइन और बिना विज्ञापन। नमाज़, क़ज़ा, क़ुरआन और ज़िक्र। अकाउंट नहीं चाहिए।
 
 *~130 Unicode code points / 170 chars*
 
@@ -1343,7 +1345,7 @@ Salat, Alcorão & adoração
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Sua jornada de volta a Allah — offline, sem anúncios, grátis. Registre salat, qadha, leia o Alcorão e faça dhikr todo dia. Sem conta.
+Sua jornada de volta a Allah — offline e sem anúncios. Registre salat, qadha, leia o Alcorão e faça dhikr todo dia. Sem conta.
 
 *~132/170 chars*
 
@@ -1437,7 +1439,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-アッラーへの帰還の旅 — オフライン、広告なし、無料。礼拝記録、カダー、クルアーン、毎日のズィクル。アカウント不要。
+アッラーへの帰還の旅 — オフライン、広告なし。礼拝記録、カダー、クルアーン、毎日のズィクル。アカウント不要。
 
 *~55 Unicode code points / 170 chars*
 
@@ -1531,7 +1533,7 @@ Cầu nguyện, Qur'an & thờ
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Hành trình trở về Allah — ngoại tuyến, không quảng cáo, miễn phí. Ghi salat, qadha, đọc Qur'an, dhikr mỗi ngày. Không cần tài khoản.
+Hành trình trở về Allah — ngoại tuyến và không quảng cáo. Ghi salat, qadha, đọc Qur'an, dhikr mỗi ngày. Không cần tài khoản.
 
 *~135/170 chars*
 
@@ -1625,7 +1627,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-回归真主的旅程 — 离线、无广告、免费。记录礼拜、还补、阅读古兰经、每日记念。无需账号。
+回归真主的旅程 — 离线、无广告。记录礼拜、还补、阅读古兰经、每日记念。无需账号。
 
 *~40 Unicode code points / 170 chars*
 
@@ -1719,7 +1721,7 @@ Sallah, Alkur'ani & ibada
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Tafiya komawa ga Allah — offline, ba tada talla, kyauta. Rubuta sallah, kaza, karanta Alkur'ani, da zikiri kowace rana. Ba buƙatar asusu.
+Tafiya komawa ga Allah — offline, ba tada talla. Rubuta sallah, kaza, karanta Alkur'ani, da zikiri kowace rana. Ba buƙatar asusu.
 
 *~145/170 chars*
 
@@ -1813,7 +1815,7 @@ Swala, Qur'an & ibada
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Safari ya kurudi kwa Allah — nje ya mtandao, bila matangazo, bure. Rekodi swala, qadha, soma Qur'an, na dhikr kila siku. Hakuna akaunti inahitajika.
+Safari ya kurudi kwa Allah — nje ya mtandao na bila matangazo. Rekodi swala, qadha, soma Qur'an, na dhikr kila siku. Hakuna akaunti inahitajika.
 
 *~148/170 chars*
 
@@ -1907,7 +1909,7 @@ Namaz, Qur'an və ibadət
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Allaha qayıdış yolculuğunuz — oflayn, reklamsız, pulsuz. Namaz qeyd edin, qəza edin, Qur'an oxuyun, hər gün zikr edin. Hesab lazım deyil.
+Allaha qayıdış yolculuğunuz — oflayn və reklamsız. Namaz qeyd edin, qəza edin, Qur'an oxuyun, hər gün zikr edin. Hesab lazım deyil.
 
 *~138/170 chars*
 
@@ -2003,7 +2005,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-الله ته د راستنیدو سفر — آفلاین، پرته له اعلاناتو، وړیا. لمونځ ثبت کړئ، قضا، قرآن ولولئ، هره ورځ ذکر. حساب ته اړتیا نشته.
+الله ته د راستنیدو سفر — آفلاین او پرته له اعلاناتو. لمونځ ثبت کړئ، قضا، قرآن ولولئ، هره ورځ ذکر. حساب ته اړتیا نشته.
 
 *~120 Unicode code points / 170 chars*
 
@@ -2097,7 +2099,7 @@ Salaadda, Qur'aanka & cibaado
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Safarkaaga dib ugu noqoshada Allah — offline, xayeysiis la'aan, bilaash. Diiwaangeli salaadda, qadha, akhri Qur'aanka, xus Allah maalin kasta. Akoon looma baahna.
+Safarkaaga dib ugu noqoshada Allah — offline iyo xayeysiis la'aan. Diiwaangeli salaadda, qadha, akhri Qur'aanka, xus Allah maalin kasta. Akoon looma baahna.
 
 *~155/170 chars*
 
@@ -2191,7 +2193,7 @@ Namoz, Qur'on va ibodat
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Allohga qaytish yo'lingiz — oflayn, reklamasiz, bepul. Namoz yozing, qazo qiling, Qur'on o'qing, har kuni zikr qiling. Hisob kerak emas.
+Allohga qaytish yo'lingiz — oflayn va reklamasiz. Namoz yozing, qazo qiling, Qur'on o'qing, har kuni zikr qiling. Hisob kerak emas.
 
 *~135/170 chars*
 
@@ -2285,7 +2287,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Аллаға оралу жолыңыз — офлайн, жарнамасыз, тегін. Намаз жазып, қаза оқып, Құран оқып, күн сайын зікір айтыңыз. Тіркелгі қажет емес.
+Аллаға оралу жолыңыз — офлайн және жарнамасыз. Намаз жазып, қаза оқып, Құран оқып, күн сайын зікір айтыңыз. Тіркелгі қажет емес.
 
 *~130 Unicode code points / 170 chars*
 
@@ -2381,7 +2383,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-گەڕانەوە بۆ خوای گەورە — ئۆفلاین، بێ ڕیکلام، بەخۆڕایی. نوێژ تۆمار بکە، قەزا، قورئان بخوێنە، هەموو ڕۆژێک زیکر. پێویستی بە هەژمار نییە.
+گەڕانەوە بۆ خوای گەورە — ئۆفلاین و بێ ڕیکلام. نوێژ تۆمار بکە، قەزا، قورئان بخوێنە، هەموو ڕۆژێک زیکر. پێویستی بە هەژمار نییە.
 
 *~130 Unicode code points / 170 chars*
 
@@ -2475,7 +2477,7 @@ Namaz, Kur'an i ibadet
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Vaše putovanje nazad Allahu — offline, bez reklama, besplatno. Zabilježite namaz, kazu, čitajte Kur'an, zikir svaki dan. Nije potreban račun.
+Vaše putovanje nazad Allahu — offline i bez reklama. Zabilježite namaz, kazu, čitajte Kur'an, zikir svaki dan. Nije potreban račun.
 
 *~140/170 chars*
 
@@ -2569,7 +2571,7 @@ Namazi, Kurani & adhurimi
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Udhëtimi juaj përsëri te Allahu — offline, pa reklama, falas. Regjistroni namazin, kazën, lexoni Kuranin, dhikr çdo ditë. Nuk kërkohet llogari.
+Udhëtimi juaj përsëri te Allahu — offline dhe pa reklama. Regjistroni namazin, kazën, lexoni Kuranin, dhikr çdo ditë. Nuk kërkohet llogari.
 
 *~145/170 chars*
 
@@ -2663,7 +2665,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Аллага кайтуу жолуңуз — офлайн, жарнамасыз, акысыз. Намаз жазып, каза окуп, Коран окуп, күн сайын зикир кылыңыз. Аккаунт керек эмес.
+Аллага кайтуу жолуңуз — офлайн жана жарнамасыз. Намаз жазып, каза окуп, Коран окуп, күн сайын зикир кылыңыз. Аккаунт керек эмес.
 
 *~125 Unicode code points / 170 chars*
 
@@ -2757,7 +2759,7 @@ https://munibtracker.app
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Сафари бозгашт ба Аллоҳ — офлайн, бе реклама, ройгон. Намоз сабт кунед, қазо, Қуръон хонед, ҳар рӯз зикр кунед. Ҳисоб лозим нест.
+Сафари бозгашт ба Аллоҳ — офлайн ва бе реклама. Намоз сабт кунед, қазо, Қуръон хонед, ҳар рӯз зикр кунед. Ҳисоб лозим нест.
 
 *~125 Unicode code points / 170 chars*
 
@@ -2851,7 +2853,7 @@ Namaz, Kuran we ybadat
 
 ### Field 1 — Promotional Text *(170 chars max)*
 
-Allaha gaýdyp gelýän ýoluňyz — awtonom, reklamasyz, mugt. Namaz ýazgy et, kaza, Kuran oka, her gün zikr et. Hasap gerek däl.
+Allaha gaýdyp gelýän ýoluňyz — awtonom we reklamasyz. Namaz ýazgy et, kaza, Kuran oka, her gün zikr et. Hasap gerek däl.
 
 *~125/170 chars*
 

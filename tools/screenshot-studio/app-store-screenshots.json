@@ -28,9 +28,9 @@
           {
             "id": "hero-badge",
             "text": {
-              "en": "Offline-first · Private · Free, no ads",
-              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
-              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+              "en": "Offline-first · Private · No ads",
+              "ar": "بدون إنترنت · خصوصية · بلا إعلانات",
+              "ur": "آف لائن · نجی · بغیر اشتہارات"
             },
             "transform": {
               "x": 132,
@@ -160,9 +160,9 @@
           {
             "id": "hero-badge",
             "text": {
-              "en": "Offline-first · Private · Free, no ads",
-              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
-              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+              "en": "Offline-first · Private · No ads",
+              "ar": "بدون إنترنت · خصوصية · بلا إعلانات",
+              "ur": "آف لائن · نجی · بغیر اشتہارات"
             },
             "transform": {
               "x": 90,
@@ -292,9 +292,9 @@
           {
             "id": "hero-badge",
             "text": {
-              "en": "Offline-first · Private · Free, no ads",
-              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
-              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+              "en": "Offline-first · Private · No ads",
+              "ar": "بدون إنترنت · خصوصية · بلا إعلانات",
+              "ur": "آف لائن · نجی · بغیر اشتہارات"
             },
             "transform": {
               "x": 232,

@@ -33,4 +33,15 @@ describe.concurrent("zikr content", () => {
     expect(getZikrById(first?.id ?? "")).toEqual(first);
     expect(getZikrById("does-not-exist")).toBeUndefined();
   });
+
+  it("stores both authentic Bukhari wordings for the before-sleep name dua", () => {
+    const item = getZikrById("before_sleep-name");
+    expect(item).toBeDefined();
+    expect(item?.arabic).toContain("بِاسْمِكَ اللَّهُمَّ");
+    expect(item?.reference).toMatch(/6324/);
+    expect(item?.reference).toMatch(/6314/);
+    expect(item?.variants?.length).toBeGreaterThanOrEqual(1);
+    expect(item?.variants?.[0]?.arabic).toContain("اللَّهُمَّ بِاسْمِكَ");
+    expect(item?.variants?.[0]?.reference).toMatch(/6314/);
+  });
 });

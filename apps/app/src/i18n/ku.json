@@ -185,7 +185,9 @@
     "fidyah": "فیدیە و کەفارەت",
     "janazah": "Janazah rêber",
     "sadaqah": "Sadaqah armanc",
-    "whiteDays": "Rojiya Rojên Spî"
+    "whiteDays": "Rojiya Rojên Spî",
+    "goodCharacter": "Exlaqê baş",
+    "heavyOnTheScale": "Kiryarên giran li mîzanê"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -932,10 +934,10 @@
     "locationHighlight3": "Bîranînên vebijarkî ji bo Nimêj, Zikr û Qaza",
     "locationPrivacyTitle": "Taybet li ser amûra te",
     "locationPrivacyBody": "Koordinatên te ji bo demên nimêjê û qiblê li ser vê amûrê dimînin. Agahdarî bîranînên herêmî ne — em tevgera te nagrin û daneyên te nafiroşin.",
-    "locationAllow": "Destûrê bide cih û agahdariyan",
+    "locationAllow": "Berdewam bike",
     "locationLocating": "Tê amadekirin…",
     "locationSkip": "Paşê saz bike",
-    "locationHighlight4": "Her dem derbas bike — cih an agahdariyan paşê saz bike",
+    "locationHighlight4": "Her dem cih an bîranînan di Mîhengan de biguherînin",
     "chooseLanguage": "Ziman hilbijêre",
     "chooseLanguageHint": "Zimanê sepanê biguherîne da ku tu karibî vê pêşkêşiyê bişopînî",
     "locationBodyTv": "شارەکەت هەڵبژێرە بۆ ئەوەی کاتەکانی نوێژ ورد بن. هەر کاتێک دەتوانیت شوێن لە ڕێکخستنەکان بگۆڕیت.",
@@ -1258,7 +1260,8 @@
     "markAsDone": "Wekî temam nîşan bike",
     "undoDoneHint": "Ji bo betal kirin û wekî netemam nîşankirinê bitikîne",
     "favEmptyDescTv": "ئەستێرە لەسەر هەر زیکرێک هەڵبژێرە بۆ ئەوەی لێرە بمێنێتەوە بۆ دەستگەیشتنی خێرا.",
-    "undoDoneHintTv": "بۆ پاشگەزبوونەوە و نیشانکردنی وەک تەواونەکراو هەڵبژێرە"
+    "undoDoneHintTv": "بۆ پاشگەزبوونەوە و نیشانکردنی وەک تەواونەکراو هەڵبژێرە",
+    "alternateWording": "دەربڕینی ڕەسەنی جێگرەوە"
   },
   "zikrCat": {
     "morning": "بەیانی ئەدکار",
@@ -2611,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Cih û bîranîn",
-      "description": "Ji bo demên nimêjê yên rast, qiblê û bîranînên vebijarkî destûrê bide cih û agahdariyan — an paşê saz bike."
+      "description": "Munib Tracker ji bo demên nimêjê yên rast, qiblê û bîranînên vebijarkî cih û agahdariyan bi kar tîne. Paşê dikarin di Mîhengan de biguherînin."
     },
     "tasbeehDurood": {
       "description": "Vê salawatê bi hejmarê tasbîhê yê destî bihejîne."
