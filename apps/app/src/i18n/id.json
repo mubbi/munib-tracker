@@ -934,10 +934,10 @@
     "locationHighlight3": "Pengingat opsional untuk Sholat, Zikir, dan Qaza",
     "locationPrivacyTitle": "Pribadi di perangkat Anda",
     "locationPrivacyBody": "Koordinat Anda tetap di perangkat ini untuk waktu sholat dan kiblat. Notifikasi adalah pengingat lokal — kami tidak melacak pergerakan Anda atau menjual data Anda.",
-    "locationAllow": "Izinkan lokasi & notifikasi",
+    "locationAllow": "Lanjutkan",
     "locationLocating": "Menyiapkan…",
     "locationSkip": "Atur nanti",
-    "locationHighlight4": "Lewati kapan saja — atur lokasi atau aktifkan notifikasi nanti",
+    "locationHighlight4": "Ubah lokasi atau pengingat kapan saja di Pengaturan",
     "chooseLanguage": "Pilih bahasa",
     "chooseLanguageHint": "Ubah bahasa aplikasi agar Anda bisa mengikuti pengenalan ini",
     "locationBodyTv": "Pilih kota Anda agar waktu shalat tetap akurat. Anda dapat mengubah lokasi kapan saja dari Pengaturan.",
@@ -2614,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Lokasi & pengingat",
-      "description": "Izinkan lokasi dan notifikasi untuk waktu sholat akurat, kiblat, dan pengingat opsional — atau atur nanti."
+      "description": "Munib Tracker menggunakan lokasi dan notifikasi untuk waktu sholat akurat, kiblat, dan pengingat opsional. Anda dapat mengubahnya nanti di Pengaturan."
     },
     "tasbeehDurood": {
       "description": "Hitung shalawat ini dengan penghitung tasbih sentuh."

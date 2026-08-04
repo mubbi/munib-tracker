@@ -934,10 +934,10 @@
     "locationHighlight3": "Opcionalni podsjetnici za namaz, zikr i kazu",
     "locationPrivacyTitle": "Privatno na vašem uređaju",
     "locationPrivacyBody": "Vaše koordinate ostaju na ovom uređaju za vremena namaza i kible. Obavještenja su lokalni podsjetnici — ne pratimo vaše kretanje niti prodajemo vaše podatke.",
-    "locationAllow": "Dozvoli lokaciju i obavještenja",
+    "locationAllow": "Nastavi",
     "locationLocating": "Priprema…",
     "locationSkip": "Podesi kasnije",
-    "locationHighlight4": "Preskočite bilo kada — lokaciju ili obavještenja podesite kasnije",
+    "locationHighlight4": "Promijenite lokaciju ili podsjetnike bilo kada u Postavkama",
     "chooseLanguage": "Odaberite jezik",
     "chooseLanguageHint": "Promijenite jezik aplikacije kako biste mogli pratiti ovaj uvod",
     "locationBodyTv": "Odaberite grad da vremena molitve ostanu tačna. Lokaciju možete promijeniti bilo kada u Postavkama.",
@@ -2614,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Lokacija i podsjetnici",
-      "description": "Dozvolite lokaciju i obavještenja za tačna vremena namaza, kible i opcionalne podsjetnike — ili podesite kasnije."
+      "description": "Munib Tracker koristi lokaciju i obavještenja za tačna vremena namaza, kible i opcionalne podsjetnike. Možete promijeniti kasnije u Postavkama."
     },
     "tasbeehDurood": {
       "description": "Brojite ovaj salavat taktilnim brojačem tesbiha."

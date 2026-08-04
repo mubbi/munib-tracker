@@ -934,10 +934,10 @@
     "locationHighlight3": "Namaz, Zikr we Kaza üçin islege bagly ýatladyjylar",
     "locationPrivacyTitle": "Enjamyňyzda şahsy",
     "locationPrivacyBody": "Koordinatalaryňyz namaz wagtlary we gyla üçin şu enjamda galýar. Bildirişler ýerli ýatladyjylar — hereketleriňizi yzarlamaýarys we maglumatlaryňyzy satmaýarys.",
-    "locationAllow": "Ýerleşişe we bildirişlere rugsat beriň",
+    "locationAllow": "Dowam et",
     "locationLocating": "Taýýarlanýar…",
     "locationSkip": "Soň sazla",
-    "locationHighlight4": "Islän wagtyňyz geçiriň — ýerleşişi ýa-da bildirişleri soň sazlaň",
+    "locationHighlight4": "Ýerleşişi ýa-da ýatladyjylary islendik wagt Sazlamalarda üýtgediň",
     "chooseLanguage": "Dili saýlaň",
     "chooseLanguageHint": "Bu giriş bilen yzarlamak üçin programmanyň dilini üýtgediň",
     "locationBodyTv": "Namaz wagtlary takyk bolmagy üçin şäheri saýlaň. Ýerleşişi islendik wagt Sazlamalardan üýtgedip bilersiňiz.",
@@ -2614,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Ýerleşiş we ýatladyjylar",
-      "description": "Takyk namaz wagtlary, gyla we islege bagly ýatladyjylar üçin ýerleşişe we bildirişlere rugsat beriň — ýa-da soň sazlaň."
+      "description": "Munib Tracker takyk namaz wagtlary, gyla we islege bagly ýatladyjylar üçin ýerleşiş we bildirişleri ulanýar. Soň Sazlamalarda üýtgedip bilersiňiz."
     },
     "tasbeehDurood": {
       "description": "Bu salavaty degişli tasbeeh hasaplaýjy bilen sanaň."

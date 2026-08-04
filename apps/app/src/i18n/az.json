@@ -934,10 +934,10 @@
     "locationHighlight3": "Namaz, Zikr və Qaza üçün istəyə bağlı xatırlatmalar",
     "locationPrivacyTitle": "Cihazınızda şəxsi",
     "locationPrivacyBody": "Koordinatlarınız namaz vaxtları və qiblə üçün bu cihazda qalır. Bildirişlər yerli xatırlatmalardır — hərəkətlərinizi izləmirik və məlumatlarınızı satmırıq.",
-    "locationAllow": "Məkan və bildirişlərə icazə ver",
+    "locationAllow": "Davam et",
     "locationLocating": "Hazırlanır…",
     "locationSkip": "Sonra qur",
-    "locationHighlight4": "İstədiyiniz vaxt keçin — məkanı və ya bildirişləri sonra qurun",
+    "locationHighlight4": "Məkanı və ya xatırlatmaları istənilən vaxt Parametrlərdə dəyişin",
     "chooseLanguage": "Dil seçin",
     "chooseLanguageHint": "Bu təqdimatı izləyə bilmək üçün tətbiq dilini dəyişin",
     "locationBodyTv": "Namaz vaxtlarının dəqiq olması üçün şəhərinizi seçin. Yeri istənilən vaxt Parametrlərdən dəyişə bilərsiniz.",
@@ -2614,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Məkan və xatırlatmalar",
-      "description": "Dəqiq namaz vaxtları, qiblə və istəyə bağlı xatırlatmalar üçün məkan və bildirişlərə icazə verin — və ya sonra qurun."
+      "description": "Munib Tracker dəqiq namaz vaxtları, qiblə və istəyə bağlı xatırlatmalar üçün məkan və bildirişlərdən istifadə edir. Sonra Parametrlərdə dəyişə bilərsiniz."
     },
     "tasbeehDurood": {
       "description": "Bu salavatı toxunma təsbeh sayğacı ilə sayın."

@@ -934,10 +934,10 @@
     "locationHighlight3": "Peringatan pilihan untuk Solah, Zikir, dan Qaza",
     "locationPrivacyTitle": "Peribadi pada peranti anda",
     "locationPrivacyBody": "Koordinat anda kekal pada peranti ini untuk waktu solah dan kiblat. Pemberitahuan ialah peringatan tempatan — kami tidak menjejak pergerakan anda atau menjual data anda.",
-    "locationAllow": "Benarkan lokasi & pemberitahuan",
+    "locationAllow": "Teruskan",
     "locationLocating": "Menyediakan…",
     "locationSkip": "Sediakan kemudian",
-    "locationHighlight4": "Langkau bila-bila masa — tetapkan lokasi atau dayakan pemberitahuan kemudian",
+    "locationHighlight4": "Tukar lokasi atau peringatan bila-bila masa dalam Tetapan",
     "chooseLanguage": "Pilih bahasa",
     "chooseLanguageHint": "Tukar bahasa aplikasi supaya anda boleh mengikuti pengenalan ini",
     "locationBodyTv": "Pilih bandar anda supaya waktu solat kekal tepat. Anda boleh tukar lokasi bila-bila masa dari Tetapan.",
@@ -2614,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Lokasi & peringatan",
-      "description": "Benarkan lokasi dan pemberitahuan untuk waktu solah tepat, kiblat, dan peringatan pilihan — atau sediakan kemudian."
+      "description": "Munib Tracker menggunakan lokasi dan pemberitahuan untuk waktu solah tepat, kiblat, dan peringatan pilihan. Anda boleh mengubahnya kemudian dalam Tetapan."
     },
     "tasbeehDurood": {
       "description": "Kira durood ini dengan kaunter tasbih sentuh."

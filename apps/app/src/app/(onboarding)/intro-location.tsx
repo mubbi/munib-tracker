@@ -46,8 +46,10 @@ function resolveNext(raw: string | string[] | undefined): Href {
 
 /**
  * Final onboarding step: explain location + reminder notifications, then request
- * both permissions only when the user taps Allow. Skip keeps defaults; the OS
- * dialogs can still appear later from the location picker or notifications screen.
+ * both system permissions when the user taps Continue (App Store 5.1.1(iv): no
+ * "Allow" CTA and no Later/skip that delays the iOS permission dialogs).
+ * Android / web / TV may still offer "Set up later"; OS dialogs can also appear
+ * later from the location picker or notifications screen.
  */
 export default function OnboardingLocationScreen() {
   const router = useRouter();
@@ -59,6 +61,9 @@ export default function OnboardingLocationScreen() {
   const status = useLocationStatus();
   const [busy, setBusy] = useState(false);
   const tv = isTV();
+  // Apple 5.1.1(iv): after the pre-prompt, users must proceed to the system
+  // permission request — no Later/skip on iPhone/iPad.
+  const showSkip = tv || Platform.OS !== "ios";
 
   const highlights = [
     tTv(t, "onboarding.locationHighlight1", "onboarding.locationHighlight1Tv"),
@@ -74,7 +79,7 @@ export default function OnboardingLocationScreen() {
 
   const requestRemindersIfSupported = async () => {
     // Reminder notifications aren't a TV use case — this path is unreachable
-    // there anyway since onAllow() returns early for isTV(), but guard explicitly.
+    // there anyway since onContinue() returns early for isTV(), but guard explicitly.
     if (isTV()) return;
     if (Platform.OS !== "web" && !canEnableLocalReminders()) return;
     const webGesture = isWeb ? beginWebNotificationPermissionRequest() : null;
@@ -86,7 +91,7 @@ export default function OnboardingLocationScreen() {
     await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
   };
 
-  const onAllow = async () => {
+  const onContinue = async () => {
     if (busy) return;
     setBusy(true);
     triggerHaptic("light");
@@ -213,20 +218,22 @@ export default function OnboardingLocationScreen() {
             preferredFocus={tv}
             disabled={locating}
             icon={LOCATION_ICON}
-            onPress={() => void onAllow()}
+            onPress={() => void onContinue()}
           />
-          <Button
-            label={t("onboarding.locationSkip")}
-            variant="ghost"
-            fullWidth
-            disabled={locating}
-            labelColor={Brand.heroText}
-            onPress={onSkip}
-            style={{
-              backgroundColor: Brand.onHeroStrongSurface,
-              borderColor: withAlpha(Brand.heroText, 0.32),
-            }}
-          />
+          {showSkip ? (
+            <Button
+              label={t("onboarding.locationSkip")}
+              variant="ghost"
+              fullWidth
+              disabled={locating}
+              labelColor={Brand.heroText}
+              onPress={onSkip}
+              style={{
+                backgroundColor: Brand.onHeroStrongSurface,
+                borderColor: withAlpha(Brand.heroText, 0.32),
+              }}
+            />
+          ) : null}
         </View>
       </TvFocusGuide>
     </View>

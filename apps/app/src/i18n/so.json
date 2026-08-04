@@ -934,10 +934,10 @@
     "locationHighlight3": "Xusuusin ikhtiyaari ah oo Salaad, Zikr, iyo Qaza",
     "locationPrivacyTitle": "Gaar ah qalabkaaga",
     "locationPrivacyBody": "Isku-duweyntaadu waxay ku sii jirtaa qalabkan waqtiyada salaadda iyo qibla. Ogeysiisyadu waa xusuusin maxalli ah — ma raadino dhaqdhaqaaqaaga mana iibino xogtaada.",
-    "locationAllow": "Oggolow goobta & ogeysiisyada",
+    "locationAllow": "Sii wad",
     "locationLocating": "Waa la diyaarinayaa…",
     "locationSkip": "Dambe deji",
-    "locationHighlight4": "Ka bood waqti kasta — goobta ama ogeysiisyada dambe deji",
+    "locationHighlight4": "Beddel goobta ama xusuusinta goor kasta Dejinta",
     "chooseLanguage": "Dooro luqadda",
     "chooseLanguageHint": "Beddel luqadda app-ka si aad u raaci karto hordhaca",
     "locationBodyTv": "Dooro magaaladaada si waqtiyada salaadda u ahaadaan kuwo sax ah. Goobta waxaad ka beddeli kartaa Dejinta goor kasta.",
@@ -2614,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Goobta & xusuusin",
-      "description": "Oggolow goobta iyo ogeysiisyada waqtiyo sax ah oo salaad, qibla, iyo xusuusin ikhtiyaari ah — ama dambe deji."
+      "description": "Munib Tracker waxay isticmaashaa goobta iyo ogeysiisyada waqtiyo sax ah oo salaad, qibla, iyo xusuusin ikhtiyaari ah. Dambe waxaad ka beddeli kartaa Dejinta."
     },
     "tasbeehDurood": {
       "description": "Ku tiri salawatkan adigoo isticmaalaya tirinta tasbeeh taabasho."

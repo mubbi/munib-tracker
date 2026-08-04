@@ -956,10 +956,10 @@
     "locationHighlight1": "Salah times matched to your city",
     "locationHighlight2": "Qibla compass for where you stand",
     "locationHighlight3": "Optional reminders for Salah, Zikr, and Qaza",
-    "locationHighlight4": "Skip anytime — set location or enable notifications later",
+    "locationHighlight4": "Change location or reminders anytime in Settings",
     "locationPrivacyTitle": "Private on your device",
     "locationPrivacyBody": "Your coordinates stay on this device for salah times and qibla. Notifications are local reminders — we do not track your movements or sell your data.",
-    "locationAllow": "Allow location & notifications",
+    "locationAllow": "Continue",
     "locationLocating": "Setting up…",
     "locationSkip": "Set up later",
     "chooseLanguage": "Choose language",
@@ -2622,7 +2622,7 @@
     },
     "introLocation": {
       "title": "Location & reminders",
-      "description": "Allow location and notifications for accurate salah times, qibla, and optional reminders — or set them up later."
+      "description": "Munib Tracker uses location and notifications for accurate salah times, qibla, and optional reminders. You can change either later in Settings."
     },
     "login": {
       "description": "Sign in to sync your worship data across devices."

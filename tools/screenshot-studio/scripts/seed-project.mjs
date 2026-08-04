@@ -29,9 +29,9 @@ const COPY = {
       ur: "اپنا سفر\n**اللہ کی طرف**",
     },
     badge: {
-      en: "Offline-first · Private · Free, no ads",
-      ar: "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
-      ur: "آف لائن · نجی · مفت، بغیر اشتہارات",
+      en: "Offline-first · Private · No ads",
+      ar: "بدون إنترنت · خصوصية · بلا إعلانات",
+      ur: "آف لائن · نجی · بغیر اشتہارات",
     },
   },
   salah: {

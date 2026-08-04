@@ -934,10 +934,10 @@
     "locationHighlight3": "Rikujtime opsionale për Namaz, Zikr dhe Kaza",
     "locationPrivacyTitle": "Private në pajisjen tuaj",
     "locationPrivacyBody": "Koordinatat tuaja mbeten në këtë pajisje për oraret e namazit dhe kiblën. Njoftimet janë rikujtime lokale — nuk ndjekim lëvizjet tuaja dhe nuk shesim të dhënat tuaja.",
-    "locationAllow": "Lejo vendndodhjen dhe njoftimet",
+    "locationAllow": "Vazhdo",
     "locationLocating": "Duke u përgatitur…",
     "locationSkip": "Vendos më vonë",
-    "locationHighlight4": "Anashkaloje kur të duash — vendose vendndodhjen ose njoftimet më vonë",
+    "locationHighlight4": "Ndryshoni vendndodhjen ose rikujtimet në çdo kohë te Cilësimet",
     "chooseLanguage": "Zgjidh gjuhën",
     "chooseLanguageHint": "Ndrysho gjuhën e aplikacionit që të ndjekësh këtë hyrje",
     "locationBodyTv": "Zgjidhni qytetin që oraret e namazit të mbeten të sakta. Vendndodhjen mund ta ndryshoni në çdo kohë te Cilësimet.",
@@ -2614,7 +2614,7 @@
     },
     "introLocation": {
       "title": "Vendndodhja dhe rikujtimet",
-      "description": "Lejoni vendndodhjen dhe njoftimet për orare të sakta namazi, kiblë dhe rikujtime opsionale — ose vendosini më vonë."
+      "description": "Munib Tracker përdor vendndodhjen dhe njoftimet për orare të sakta namazi, kiblë dhe rikujtime opsionale. Mund t'i ndryshoni më vonë te Cilësimet."
     },
     "tasbeehDurood": {
       "description": "Numëroni këtë salawat me një numërues tasbeeh me prekje."
