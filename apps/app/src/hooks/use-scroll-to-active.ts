@@ -212,6 +212,9 @@ export function useScrollToActiveIndex(
     if (!activeKey) return;
     const index = resolver.current(activeKey);
     if (!isIndexInRange(index, countRef.current)) return;
+    // Always animated: a non-animated jump emits a single scroll event, and two
+    // sparse events in a row trip VirtualizedList's naive "slow to update"
+    // heuristic (dt > 500 between events) even on an idle JS thread.
     const timer = setTimeout(() => scrollToIndexSafe(index, true), 60);
     return () => clearTimeout(timer);
   }, [activeKey, scrollToIndexSafe]);

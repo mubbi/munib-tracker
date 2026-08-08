@@ -386,7 +386,7 @@ export function useShareContentCard() {
       </View>
     ) : null;
 
-  return { share, isSharing, isGesturePending, activeShareKey, SnapshotHost };
+  return { share, isSharing, isGesturePending, activeShareKey, gesturePendingKey, SnapshotHost };
 }
 
 const styles = StyleSheet.create({

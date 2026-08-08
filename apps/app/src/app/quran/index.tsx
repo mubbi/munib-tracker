@@ -907,10 +907,10 @@ export default function QuranHomeScreen() {
             contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
-            initialNumToRender={12}
-            maxToRenderPerBatch={6}
-            windowSize={5}
-            updateCellsBatchingPeriod={100}
+            initialNumToRender={8}
+            maxToRenderPerBatch={4}
+            windowSize={3}
+            updateCellsBatchingPeriod={50}
             removeClippedSubviews={!tv}
           />
           {isListDetail ? (

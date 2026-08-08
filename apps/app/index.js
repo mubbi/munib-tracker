@@ -3,6 +3,7 @@
  * Headless widget updates do not mount app/_layout, so registration must happen here.
  */
 import "react-native-gesture-handler";
+import "./src/lib/dev-log-filter";
 import "./src/lib/request-idle-callback-polyfill";
 // Must run before the app tree mounts so OAuth redirect popups can close.
 import "./src/lib/auth/auth-session-bootstrap";

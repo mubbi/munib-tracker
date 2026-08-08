@@ -382,6 +382,7 @@ const NameRow = memo(function NameRow({
         padding="three"
         style={[
           styles.card,
+          !tv && styles.cardPhone,
           isPlaying
             ? { borderColor: colors.accent, borderWidth: 1 }
             : { borderColor: tokens.hairline, borderWidth: 1 },
@@ -397,13 +398,17 @@ const NameRow = memo(function NameRow({
             {name.arabic}
           </ThemedText>
         </View>
-        <ThemedText type="smallBold" numberOfLines={1} style={{ color: colors.accentText }}>
+        <ThemedText
+          type="smallBold"
+          numberOfLines={1}
+          style={[{ color: colors.accentText }, styles.clampText]}
+        >
           {name.transliteration}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.meaning}>
           {displayMeaning}
         </ThemedText>
-        <View style={styles.footer}>
+        <View style={[styles.footer, !tv && styles.footerPhone]}>
           {name.audioUri ? (
             <LabeledIconButton
               name={isPlaying && isAudioPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
@@ -415,11 +420,12 @@ const NameRow = memo(function NameRow({
               accessibilityLabel={isPlaying && isAudioPlaying ? t("names.pause") : t("names.play")}
               accessibilityState={{ selected: isPlaying }}
               onPress={handlePlay}
+              style={tv ? undefined : styles.playButton}
             />
           ) : (
             <View />
           )}
-          <View style={styles.footerActions}>
+          <View style={[styles.footerActions, !tv && styles.footerActionsPhone]}>
             <IconButton
               name={
                 isFavorite
@@ -459,7 +465,7 @@ const styles = StyleSheet.create({
   list: { flex: 1, width: "100%", minHeight: 0 },
   listContent: { gap: Spacing.two },
   columnWrapper: { gap: Spacing.two },
-  cell: { flex: 1 },
+  cell: { flex: 1, minWidth: 0 },
   headerWrap: { marginBottom: Spacing.two, gap: Spacing.two },
   headerCard: { gap: Spacing.three },
   playActions: {
@@ -482,7 +488,11 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
+    minWidth: 0,
     gap: Spacing.one,
+  },
+  cardPhone: {
+    paddingHorizontal: Spacing.two,
   },
   cardHeader: {
     flexDirection: "row",
@@ -500,9 +510,15 @@ const styles = StyleSheet.create({
   },
   arabic: {
     fontSize: 26,
+    flexShrink: 1,
+    minWidth: 0,
+  },
+  clampText: {
+    minWidth: 0,
   },
   meaning: {
     marginTop: Spacing.half,
+    minWidth: 0,
   },
   footer: {
     flexDirection: "row",
@@ -511,10 +527,22 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginTop: "auto",
     paddingTop: Spacing.two,
+    minWidth: 0,
+  },
+  footerPhone: {
+    gap: Spacing.one,
+  },
+  playButton: {
+    flex: 1,
+    minWidth: 0,
   },
   footerActions: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
+    flexShrink: 0,
+  },
+  footerActionsPhone: {
+    gap: Spacing.one,
   },
 });

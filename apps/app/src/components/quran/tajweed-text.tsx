@@ -1,5 +1,5 @@
 import type { TajweedRuleId, TajweedSegment } from "@munib-tracker/shared/types";
-import { useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, Text, type TextStyle, View } from "react-native";
 
@@ -11,7 +11,8 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { withArabicJoiningZwj } from "@/lib/arabic-text-join";
 import { tTv } from "@/lib/i18n/t-tv";
 import { arabicReadingLayout, resolveArabicLineHeight } from "@/lib/reading-typography";
-import { usePreferences } from "@/stores/preferences-store";
+import { useStore } from "@/stores/create-store";
+import { preferencesStore } from "@/stores/preferences-store";
 
 type TajweedTextProps = {
   segments?: TajweedSegment[] | null;
@@ -45,15 +46,20 @@ function formatRuleTooltip(rule: TajweedRuleDef, t: (key: string) => string): st
  * Colored Arabic ayah text for ayah study. Colored runs show a floating tajweed
  * tooltip on hover (desktop web, help cursor) or tap (native / mobile web).
  */
-export function TajweedText({ segments, fallback, fontSize, style }: TajweedTextProps) {
+export const TajweedText = memo(function TajweedText({
+  segments,
+  fallback,
+  fontSize,
+  style,
+}: TajweedTextProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const fontFamily = useArabicFontFamily();
-  const { fontPrefs } = usePreferences();
+  const arabicFamilyId = useStore(preferencesStore, (s) => s.prefs.fontPrefs.arabic.family);
   const fineHover = useFinePointerHover();
   const [activeRuleId, setActiveRuleId] = useState<TajweedRuleId | null>(null);
 
-  const lineHeight = resolveArabicLineHeight(fontSize, fontPrefs.arabic.family);
+  const lineHeight = resolveArabicLineHeight(fontSize, arabicFamilyId);
   const baseStyle = [
     styles.arabic,
     arabicReadingLayout(fontSize),
@@ -153,7 +159,7 @@ export function TajweedText({ segments, fallback, fontSize, style }: TajweedText
       </Text>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   wrap: {

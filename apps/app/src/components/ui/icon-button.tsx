@@ -78,6 +78,8 @@ export function IconButton({
       style={[
         styles.base,
         {
+          width: hitTarget,
+          height: hitTarget,
           minWidth: hitTarget,
           minHeight: hitTarget,
           opacity: disabled ? 0.4 : 1,
@@ -122,6 +124,9 @@ const styles = StyleSheet.create({
   },
   glyph: {
     pointerEvents: "none",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
   },
   glassWell: {
     borderCurve: "continuous",
