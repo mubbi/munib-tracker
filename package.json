@@ -164,7 +164,14 @@
       "undici@<6.28.0": "6.28.0",
       "undici@6": "6.28.0",
       "sharp@<0.35.0": ">=0.35.0",
-      "typeorm@<0.3.31": ">=0.3.31"
+      "typeorm@<0.3.31": ">=0.3.31",
+      "nanoid@3": "3.3.18"
+    },
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-w3rx-r6r6-pgpr",
+        "GHSA-5p2g-fcmc-qvqq"
+      ]
     },
     "patchedDependencies": {
       "expo-file-system@57.0.1": "patches/expo-file-system@57.0.1.patch",
@@ -173,7 +180,8 @@
       "expo-image-picker@57.0.6": "patches/expo-image-picker@57.0.6.patch",
       "expo-navigation-bar@57.0.2": "patches/expo-navigation-bar@57.0.2.patch",
       "expo-location@57.0.6": "patches/expo-location@57.0.6.patch",
-      "brace-expansion@5.0.9": "patches/brace-expansion@5.0.9.patch"
+      "brace-expansion@5.0.9": "patches/brace-expansion@5.0.9.patch",
+      "image-size@1.2.1": "patches/image-size@1.2.1.patch"
     }
   }
 }
