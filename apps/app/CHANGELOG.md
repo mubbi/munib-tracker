@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/mubbi/munib-tracker/compare/app-v1.1.0...app-v1.1.1) (2026-08-04)
+
+
+### Bug Fixes
+
+* dua and zikr ([2be5620](https://github.com/mubbi/munib-tracker/commit/2be56200f4fa6932b18363d35046e4773dad6b6b))
+* store issues ([5d49181](https://github.com/mubbi/munib-tracker/commit/5d491814f61a1b762dc54340aa364b04996816ef))
+
 ## [1.1.0](https://github.com/mubbi/munib-tracker/compare/app-v1.0.0...app-v1.1.0) (2026-08-02)
 
 
