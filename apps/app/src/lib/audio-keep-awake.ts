@@ -1,4 +1,5 @@
 import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
+import { useEffect } from "react";
 import { Platform } from "react-native";
 
 import { isTV } from "@/lib/platform/is-tv";
@@ -26,4 +27,19 @@ export async function setAudioKeepAwake(active: boolean): Promise<void> {
   } catch {
     // Wake-lock APIs can fail on some devices; never block playback for this.
   }
+}
+
+/**
+ * Hold the screen awake while recitation/TTS is playing or translation TTS is
+ * speaking after an ayah. Releases on pause, stop, or unmount.
+ */
+export function useAudioKeepAwake(isPlaying: boolean, isSpeakingTranslation = false): void {
+  const active = isPlaying || isSpeakingTranslation;
+  useEffect(() => {
+    if (!active) return;
+    void setAudioKeepAwake(true);
+    return () => {
+      void setAudioKeepAwake(false);
+    };
+  }, [active]);
 }
