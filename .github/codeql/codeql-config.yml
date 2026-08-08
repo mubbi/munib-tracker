@@ -1,0 +1,5 @@
+name: munib-tracker
+paths-ignore:
+  - .agents/**
+  - "**/coverage/**"
+  - apps/app/assets/data/**

@@ -8,23 +8,36 @@ on:
   schedule:
     - cron: "17 7 * * 1"
 
-permissions:
-  contents: read
-  actions: read
-  security-events: write
-
 concurrency:
   group: codeql-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Advanced setup only. Do not enable GitHub CodeQL Default setup alongside this
+# workflow — it auto-detects Kotlin/Swift/Ruby and fails (see docs/OPEN_SOURCE.md).
+#
+# Intentionally omitted:
+#   java-kotlin — Expo modules need the generated android/ Gradle tree (gitignored)
+#   swift       — widgets / Expo iOS modules need the generated ios/ Xcode project
+#   ruby        — CocoaPods .podspec files only; not a Ruby app
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      packages: read
+      security-events: write
     strategy:
       fail-fast: false
       matrix:
-        language: [javascript-typescript]
+        include:
+          - language: javascript-typescript
+            build-mode: none
+          - language: python
+            build-mode: none
+          - language: actions
+            build-mode: none
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -33,9 +46,8 @@ jobs:
         uses: github/codeql-action/init@v4.37.3
         with:
           languages: ${{ matrix.language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v4.37.3
+          build-mode: ${{ matrix.build-mode }}
+          config-file: ./.github/codeql/codeql-config.yml
 
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v4.37.3
