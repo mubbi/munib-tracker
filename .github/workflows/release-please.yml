@@ -35,6 +35,53 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
+  # Expo release-type rewrites apps/app/app.json with JSON.stringify (expanded
+  # arrays). Biome wants compact single-line arrays — reformat pending app
+  # Release PRs so CI lint does not fail after every app-v* bump.
+  format-expo-app-json:
+    needs: release-please
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Biome-format app.json on pending app Release PRs
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          REPO: ${{ github.repository }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          pending=$(gh pr list --repo "$REPO" --label "autorelease: pending" --state open --json number,headRefName --jq '.[] | "\(.number) \(.headRefName)"')
+          if [[ -z "${pending}" ]]; then
+            echo "No pending Release PRs."
+            exit 0
+          fi
+          while read -r pr_num head_ref; do
+            [[ -z "${pr_num}" ]] && continue
+            if ! gh pr diff --repo "$REPO" "$pr_num" --name-only | grep -qx 'apps/app/app.json'; then
+              echo "PR #${pr_num} does not touch apps/app/app.json; skip"
+              continue
+            fi
+            echo "Formatting apps/app/app.json on PR #${pr_num} (${head_ref})"
+            git fetch origin "$head_ref"
+            git checkout "$head_ref"
+            npx --yes @biomejs/biome@2.5.2 check --write apps/app/app.json
+            if git diff --quiet -- apps/app/app.json; then
+              echo "Already formatted."
+              continue
+            fi
+            git add apps/app/app.json
+            git commit -m "style(app): biome-format app.json after Release Please"
+            git push origin "$head_ref"
+          done <<< "${pending}"
+
   # Always scan: conflicts also appear after non-release merges to main
   # (e.g. manifest fillers / workflow edits), not only after cutting a release.
   heal-conflicting-release-prs:
