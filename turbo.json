@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalPassThroughEnv": ["TURBO_UI"],
+  "globalPassThroughEnv": ["TURBO_UI", "GITHUB_ACTIONS"],
   "tasks": {
     "build": {
       "description": "Compiles and bundles applications for production",

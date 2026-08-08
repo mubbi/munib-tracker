@@ -1,13 +1,17 @@
+import type { ContentReportReference } from "@munib-tracker/shared/types/content-report";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { ThemedText } from "@/components/themed-text";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Sheet } from "@/components/ui/sheet";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
+import type { HifzStatus } from "@/stores/hifz-store";
 
 type AyahActionSheetProps = {
   visible: boolean;
@@ -31,6 +35,12 @@ type AyahActionSheetProps = {
   onBookmark: () => void;
   onShare: () => void;
   onClose: () => void;
+  hifzStatus?: HifzStatus;
+  onHifz?: () => void;
+  onTafsir?: () => void;
+  reportRef?: ContentReportReference;
+  isSharing?: boolean;
+  isGesturePending?: boolean;
 };
 
 export function AyahActionSheet({
@@ -55,6 +65,12 @@ export function AyahActionSheet({
   onBookmark,
   onShare,
   onClose,
+  hifzStatus,
+  onHifz,
+  onTafsir,
+  reportRef,
+  isSharing = false,
+  isGesturePending = false,
 }: AyahActionSheetProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -134,6 +150,48 @@ export function AyahActionSheet({
           accessibilityLabel={isPlaying ? t("quran.pauseAyah") : t("quran.playAyah", { n: ayah })}
           onPress={onPlay}
         />
+        {onHifz ? (
+          <LabeledIconButton
+            name={
+              hifzStatus === "memorized"
+                ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
+                : hifzStatus === "review"
+                  ? { ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }
+                  : { ios: "book.closed", android: "menu_book", web: "menu_book" }
+            }
+            label={
+              hifzStatus === "memorized"
+                ? t("quran.actionMemorized")
+                : hifzStatus === "review"
+                  ? t("quran.actionReview")
+                  : t("hifz.short")
+            }
+            tintColor={
+              hifzStatus === "memorized"
+                ? tokens.status.success.color
+                : hifzStatus === "review"
+                  ? tokens.status.warning.color
+                  : colors.mutedForeground
+            }
+            labelColor={
+              hifzStatus === "memorized"
+                ? tokens.status.success.color
+                : hifzStatus === "review"
+                  ? tokens.status.warning.color
+                  : colors.mutedForeground
+            }
+            accessibilityLabel={
+              hifzStatus === "memorized"
+                ? t("hifz.clear")
+                : hifzStatus === "review"
+                  ? t("hifz.markMemorized")
+                  : t("hifz.markReview")
+            }
+            accessibilityState={{ selected: !!hifzStatus }}
+            haptic="selection"
+            onPress={onHifz}
+          />
+        ) : null}
         <LabeledIconButton
           name={
             isBookmarked
@@ -145,13 +203,30 @@ export function AyahActionSheet({
           accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
           onPress={onBookmark}
         />
+        {onTafsir ? (
+          <LabeledIconButton
+            name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+            label={t("quran.actionTafsir")}
+            tintColor={colors.mutedForeground}
+            labelColor={colors.mutedForeground}
+            accessibilityLabel={t("quran.openTafsir")}
+            onPress={onTafsir}
+          />
+        ) : null}
         <LabeledIconButton
           name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-          label={t("quran.actionShare")}
+          label={
+            isGesturePending
+              ? tTv(t, "share.tapToShare", "share.selectToShare")
+              : t("quran.actionShare")
+          }
           tintColor={colors.mutedForeground}
           accessibilityLabel={t("quran.shareAyah")}
+          loading={isSharing}
+          loadingLabel={t("share.preparing")}
           onPress={onShare}
         />
+        {reportRef ? <ContentReportButton contentRef={reportRef} /> : null}
       </View>
     </Sheet>
   );

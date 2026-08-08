@@ -56,16 +56,26 @@ function shallowEqual<S>(a: S, b: S): boolean {
   return true;
 }
 
-/** Subscribe to a selected slice of a store, re-rendering only on shallow change. */
+/**
+ * Subscribe to a selected slice of a store, re-rendering only on shallow change.
+ *
+ * `getSnapshot` must be referentially stable. Inline selectors are new every
+ * render; putting them in `useCallback` deps made `getSnapshot` new too, and
+ * React 19 then treated each new object returned by those selectors as a store
+ * update → "Maximum update depth exceeded" on home / widget sync.
+ */
 export function useStore<T, S>(store: Store<T>, selector: (state: T) => S): S {
+  "use no memo";
+  const selectorRef = useRef(selector);
+  selectorRef.current = selector;
   const cache = useRef<{ value: S } | null>(null);
   const getSnapshot = useCallback(() => {
-    const next = selector(store.getState());
+    const next = selectorRef.current(store.getState());
     if (cache.current && shallowEqual(cache.current.value, next)) {
       return cache.current.value;
     }
     cache.current = { value: next };
     return next;
-  }, [store, selector]);
+  }, [store]);
   return useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);
 }

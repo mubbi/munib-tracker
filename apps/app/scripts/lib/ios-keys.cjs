@@ -238,6 +238,14 @@ function requireIosKey(projectRoot, role) {
   return key;
 }
 
+function hasAscIssuerId() {
+  return (
+    Boolean(process.env.APP_STORE_CONNECT_API_ISSUER_ID?.trim()) ||
+    Boolean(process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim()) ||
+    Boolean(process.env.EXPO_ASC_ISSUER_ID?.trim())
+  );
+}
+
 function logIosKeysSummary(projectRoot) {
   const keys = resolveIosKeys(projectRoot);
   console.log("\n--- ios-keys ---");
@@ -254,15 +262,13 @@ function logIosKeysSummary(projectRoot) {
     );
   }
 
-  const issuer =
-    process.env.APP_STORE_CONNECT_API_ISSUER_ID?.trim() ||
-    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() ||
-    process.env.EXPO_ASC_ISSUER_ID?.trim();
-  console.log(
-    issuer
-      ? `  ASC Issuer ID: set (${issuer.length} chars)`
-      : "  ASC Issuer ID: (set APP_STORE_CONNECT_API_ISSUER_ID in ios-keys/app-store-connect.env)",
-  );
+  if (hasAscIssuerId()) {
+    console.log("  ASC Issuer ID: set");
+  } else {
+    console.log(
+      "  ASC Issuer ID: (set APP_STORE_CONNECT_API_ISSUER_ID in ios-keys/app-store-connect.env)",
+    );
+  }
   console.log("");
 }
 

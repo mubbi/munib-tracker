@@ -32,6 +32,7 @@ Munib Tracker. See [`SUPPORT.md`](../SUPPORT.md).
 - [ ] Repository → **Settings → General**: public; add topics; set homepage to `https://munibtracker.app`
 - [ ] **Settings → Code security**: enable Dependabot alerts, Dependabot security updates, secret scanning, push protection
 - [ ] **Settings → Code security**: enable private vulnerability reporting (pairs with `SECURITY.md`)
+- [ ] **Settings → Code security → CodeQL**: leave **Default setup** disabled. This repo uses advanced setup (`.github/workflows/codeql.yml`) for JavaScript/TypeScript, Python, and GitHub Actions. Do **not** enable Java/Kotlin, Swift, or Ruby — Expo `android/` / `ios/` trees are generated and gitignored; `.podspec` files are not a Ruby app.
 - [ ] **Settings → Branches**: protect `main` — require PR, require status check `Type-check, lint, test, build, OpenAPI drift`, dismiss stale reviews
 - [ ] **Settings → Actions**: allow GitHub Actions; restrict secrets from forks
 - [ ] **Settings → Actions → General**: enable **Allow GitHub Actions to create and approve pull requests** (required for [Release Please](https://github.com/googleapis/release-please-action))
@@ -56,7 +57,7 @@ Munib Tracker. See [`SUPPORT.md`](../SUPPORT.md).
 - CI (`workflows/ci.yml`) — `pnpm check:ci` (lint, types, test, build, OpenAPI drift)
 - Release Please (`workflows/release-please.yml`) — per-app semver Release PRs, tags, and changelogs ([`RELEASES.md`](./RELEASES.md); official action: [googleapis/release-please-action](https://github.com/googleapis/release-please-action))
 - PR labeler (`workflows/labeler.yml` + `labeler.yml`)
-- CodeQL (`workflows/codeql.yml`)
+- CodeQL (`workflows/codeql.yml` + `codeql/codeql-config.yml`) — JS/TS, Python, Actions only (see checklist above)
 - Issue / PR templates
 - `CODEOWNERS`
 - Husky: `pre-commit` (Biome), `commit-msg` (commitlint / Conventional Commits), `pre-push` (`pnpm check:ci`)

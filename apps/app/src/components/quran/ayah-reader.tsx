@@ -9,6 +9,8 @@ import { isTV } from "@/lib/platform/is-tv";
 /** Virtualized ayah list for the surah study reader (Level A ayah layout). */
 export type SurahAyahListProps = Omit<FlatListProps<Ayah>, "ref"> & {
   listRef: RefObject<FlatList<Ayah> | null>;
+  /** Word-by-word rows are very tall — keep the render window to one viewport. */
+  heavyRows?: boolean;
 };
 
 export function SurahAyahList({
@@ -16,25 +18,28 @@ export function SurahAyahList({
   contentContainerStyle,
   style,
   removeClippedSubviews,
+  heavyRows = false,
   ...props
 }: SurahAyahListProps) {
   const tv = isTV();
   return (
     <TvFlatList
       ref={listRef}
+      {...props}
       style={[styles.list, style]}
       contentContainerStyle={[styles.listContent, contentContainerStyle]}
-      initialNumToRender={tv ? 12 : 6}
-      maxToRenderPerBatch={tv ? 8 : 4}
-      windowSize={tv ? 7 : 5}
-      updateCellsBatchingPeriod={100}
+      // Ayah cards are heavy (Arabic + optional tajweed/word study). Keep the
+      // window tiny and apply AFTER `{...props}` so callers cannot widen it.
+      initialNumToRender={tv ? 6 : heavyRows ? 2 : 3}
+      maxToRenderPerBatch={1}
+      windowSize={tv ? 4 : heavyRows ? 1 : 2}
+      updateCellsBatchingPeriod={heavyRows ? 120 : 80}
       // Android TV: clipping + zero-height flex hosts leave a blank body while
       // the floating header (sibling) still paints.
       removeClippedSubviews={removeClippedSubviews ?? !tv}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
       scrollEventThrottle={16}
-      {...props}
     />
   );
 }

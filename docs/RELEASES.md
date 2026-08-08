@@ -88,6 +88,11 @@ The product app uses **one marketing semver** across phone, TV, and web
 (Release Please `expo` type updates `package.json` + `app.json` `expo.version`,
 and `.env.example` marketing keys via `x-release-please-version` markers).
 
+The `expo` updater rewrites the whole `apps/app/app.json` with `JSON.stringify`,
+which expands short arrays. Biome then fails `app#lint` on the Release PR (and
+on `develop` → `main` merge CI). The release-please workflow reformats
+`app.json` with Biome on pending app Release PRs after each run.
+
 | Owned by Release Please | Owned by store/CI (manual or EAS `autoIncrement`) |
 |-------------------------|--------------------------------------------------|
 | `package.json` / `app.json` version | `EXPO_ANDROID_VERSION_CODE` |

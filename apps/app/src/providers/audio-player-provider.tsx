@@ -25,6 +25,7 @@ import {
   prefetchAudioUri,
   resolveCachedAudioUri,
 } from "@/lib/audio-cache";
+import { useAudioKeepAwake } from "@/lib/audio-keep-awake";
 import {
   activateLockScreenControls,
   deactivateLockScreenControls,
@@ -1611,6 +1612,11 @@ function AudioPlayerProviderLive({
       : isQueueSessionActive
         ? true
         : status.playing || isTransitioning || willAutoAdvance;
+
+  // Keep the screen on while audio (or translation TTS) is playing so users can
+  // read along without the idle timer locking the display.
+  useAudioKeepAwake(isPlaying, isSpeakingTranslation);
+
   const value = useMemo<AudioContextValue>(
     () => ({
       current,

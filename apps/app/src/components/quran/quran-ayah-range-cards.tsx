@@ -359,7 +359,11 @@ function RangeAyahCard({
     <Card padding="four" style={isActive ? { borderColor: accent, borderWidth: 1 } : undefined}>
       <View style={styles.ayahHeader}>
         <View style={[styles.ayahBadge, { backgroundColor: accentSoft }]}>
-          <ThemedText type="caption" style={{ color: accent }}>
+          <ThemedText
+            type="caption"
+            numberOfLines={1}
+            style={{ color: accent, textAlign: "center" }}
+          >
             {ayah.ayah}
           </ThemedText>
         </View>
@@ -445,12 +449,13 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.three,
   },
   ayahBadge: {
-    minWidth: 28,
-    height: 28,
+    minWidth: 36,
+    minHeight: 28,
     borderRadius: 14,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: Spacing.one + 2,
+    paddingHorizontal: Spacing.two,
+    flexShrink: 0,
   },
   ayahActions: {
     flexDirection: "row",
@@ -459,6 +464,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     gap: Spacing.one,
     flex: 1,
+    minWidth: 0,
   },
   arabic: {
     marginBottom: Spacing.two,

@@ -1,5 +1,5 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { ActivityIndicator, StyleSheet } from "react-native";
+import { ActivityIndicator, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -27,6 +27,8 @@ type LabeledIconButtonProps = {
   loading?: boolean;
   /** Label shown while `loading` (defaults to `label`). */
   loadingLabel?: string;
+  /** Layout overrides — e.g. `flex: 1` / `minWidth: 0` in dense grids. */
+  style?: StyleProp<ViewStyle>;
 };
 
 /** Icon with a short text label beneath — for actions where glyphs alone are unclear. */
@@ -45,6 +47,7 @@ export function LabeledIconButton({
   disabled,
   loading = false,
   loadingLabel,
+  style,
 }: LabeledIconButtonProps) {
   const tv = isTV();
   const resolvedIconSize = iconSize ?? (tv ? 24 : 18);
@@ -66,13 +69,16 @@ export function LabeledIconButton({
         { borderRadius: Radius.sm },
         background ? { backgroundColor: background } : null,
         isDisabled ? styles.disabled : null,
+        style,
       ]}
     >
-      {loading ? (
-        <ActivityIndicator size="small" color={tintColor} style={styles.spinner} />
-      ) : (
-        <SymbolView name={name} size={resolvedIconSize} tintColor={tintColor} />
-      )}
+      <View style={[styles.glyphBox, { width: resolvedIconSize, height: resolvedIconSize }]}>
+        {loading ? (
+          <ActivityIndicator size="small" color={tintColor} style={styles.spinner} />
+        ) : (
+          <SymbolView name={name} size={resolvedIconSize} tintColor={tintColor} />
+        )}
+      </View>
       <ThemedText
         type="caption"
         numberOfLines={1}
@@ -102,10 +108,16 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     gap: Spacing.one,
   },
+  glyphBox: {
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
   label: {
     fontSize: 10,
     lineHeight: 12,
     textAlign: "center",
+    alignSelf: "stretch",
   },
   labelTv: {
     fontSize: 13,
