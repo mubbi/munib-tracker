@@ -117,6 +117,13 @@ describe("useAudioKeepAwake", () => {
     });
   });
 
+  it("activates when recitation and translation TTS are both active", async () => {
+    renderHook(() => useAudioKeepAwake(true, true));
+    await waitFor(() => {
+      expect(activateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
+    });
+  });
+
   it("releases keep-awake when playback stops", async () => {
     const { rerender } = renderHook(
       ({ playing, speaking }: { playing: boolean; speaking: boolean }) =>

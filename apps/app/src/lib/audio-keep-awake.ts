@@ -8,7 +8,13 @@ import { isTV } from "@/lib/platform/is-tv";
 export const AUDIO_KEEP_AWAKE_TAG = "munib-audio-playback";
 
 function isKeepAwakeSupported(): boolean {
-  return Platform.OS === "ios" || Platform.OS === "android";
+  switch (Platform.OS) {
+    case "ios":
+    case "android":
+      return true;
+    default:
+      return false;
+  }
 }
 
 /**
@@ -17,13 +23,14 @@ function isKeepAwakeSupported(): boolean {
  * No-op on web/TV. Safe to call repeatedly.
  */
 export async function setAudioKeepAwake(active: boolean): Promise<void> {
-  if (!isKeepAwakeSupported() || isTV()) return;
+  if (!isKeepAwakeSupported()) return;
+  if (isTV()) return;
   try {
     if (active) {
       await activateKeepAwakeAsync(AUDIO_KEEP_AWAKE_TAG);
-    } else {
-      await deactivateKeepAwake(AUDIO_KEEP_AWAKE_TAG);
+      return;
     }
+    await deactivateKeepAwake(AUDIO_KEEP_AWAKE_TAG);
   } catch {
     // Wake-lock APIs can fail on some devices; never block playback for this.
   }
@@ -34,9 +41,11 @@ export async function setAudioKeepAwake(active: boolean): Promise<void> {
  * speaking after an ayah. Releases on pause, stop, or unmount.
  */
 export function useAudioKeepAwake(isPlaying: boolean, isSpeakingTranslation = false): void {
-  const active = isPlaying || isSpeakingTranslation;
+  const active = isPlaying ? true : isSpeakingTranslation;
   useEffect(() => {
-    if (!active) return;
+    if (!active) {
+      return;
+    }
     void setAudioKeepAwake(true);
     return () => {
       void setAudioKeepAwake(false);
