@@ -19,8 +19,21 @@ APP_IMAGES = Path(__file__).resolve().parent.parent / "assets" / "images"
 APP_PUBLIC_IMAGES = Path(__file__).resolve().parent.parent / "public" / "assets" / "images"
 APP_PUBLIC = Path(__file__).resolve().parent.parent / "public"
 MARKETING_PUBLIC = REPO_ROOT / "apps" / "marketing-web" / "public"
+WATCH_APPICON = (
+    Path(__file__).resolve().parent.parent
+    / "targets"
+    / "munib-tracker-watch"
+    / "Assets.xcassets"
+    / "AppIcon.appiconset"
+    / "App-Icon-1024x1024@1x.png"
+)
+# Circular logo on a light canvas — App Review rejects full-bleed dark Watch icons
+# (Guideline 4: black/near-black backgrounds don't read as circular on watchOS).
+WATCH_ICON_SOURCE = APP_IMAGES / "icon-512-watch-apple.png"
 
 BRAND_BG = (21, 41, 33)  # #152921 — matches in-app hero gradient
+WATCH_ICON_BG = (255, 255, 255)
+WATCH_ICON_FILL = 0.90  # leave a light rim inside the system circular mask
 
 
 def _ensure_source() -> Image.Image:
@@ -161,6 +174,58 @@ def _landscape_brand(
     return out
 
 
+def _non_near_white_bbox(
+    img: Image.Image, *, thresh: int = 248, pad: int = 2
+) -> tuple[int, int, int, int]:
+    """Bounding box of pixels that are not near-white, with optional padding."""
+    rgb = img.convert("RGB")
+    w, h = rgb.size
+    pixels = rgb.load()
+    minx, miny, maxx, maxy = w, h, 0, 0
+    found = False
+    for y in range(h):
+        for x in range(w):
+            r, g, b = pixels[x, y]
+            if r < thresh or g < thresh or b < thresh:
+                found = True
+                minx, miny = min(minx, x), min(miny, y)
+                maxx, maxy = max(maxx, x), max(maxy, y)
+    if not found:
+        return 0, 0, w, h
+    return (
+        max(0, minx - pad),
+        max(0, miny - pad),
+        min(w, maxx + 1 + pad),
+        min(h, maxy + 1 + pad),
+    )
+
+
+def _generate_watch_app_icon() -> None:
+    """Build the watchOS 1024 AppIcon from the light-background Watch source art."""
+    if not WATCH_ICON_SOURCE.exists():
+        print(
+            f"  skip watch AppIcon — missing {WATCH_ICON_SOURCE.relative_to(REPO_ROOT)}",
+            file=sys.stderr,
+        )
+        return
+
+    src = Image.open(WATCH_ICON_SOURCE).convert("RGBA")
+    box = _non_near_white_bbox(src)
+    cropped = src.crop(box)
+    size = 1024
+    target = int(size * WATCH_ICON_FILL)
+    fitted = ImageOps.contain(cropped, (target, target), method=Image.Resampling.LANCZOS)
+    canvas = Image.new("RGBA", (size, size), (*WATCH_ICON_BG, 255))
+    x = (size - fitted.width) // 2
+    y = (size - fitted.height) // 2
+    canvas.paste(fitted, (x, y), fitted)
+    out = Image.new("RGB", (size, size), WATCH_ICON_BG)
+    out.paste(canvas, mask=canvas.split()[3])
+    _save_png(out, WATCH_APPICON)
+    # Keep a square reference copy next to other brand icons (source stays hand-authored).
+    _save_png(out, APP_IMAGES / "icon-watch-1024.png")
+
+
 def _generate_tv_assets(logo: Image.Image) -> None:
     """Android Leanback + Apple TV + Amazon Fire TV console brand assets."""
     tv_dir = APP_IMAGES / "tv"
@@ -245,6 +310,9 @@ def main() -> None:
 
     # Apple TV / Android TV (Leanback banner, TV icon, top shelf)
     _generate_tv_assets(logo)
+
+    # Apple Watch AppIcon (light canvas — required for App Review Guideline 4)
+    _generate_watch_app_icon()
 
     # Sync to app public/ for PWA
     for name in ["icon-180.png", "icon-192.png", "icon-512.png"]:
