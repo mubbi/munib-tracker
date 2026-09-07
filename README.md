@@ -34,8 +34,8 @@ This is a **pnpm + Turborepo** monorepo:
 
 ## Prerequisites
 
-- Node.js ≥ 20.9 (CI uses Node 22)
-- pnpm 9.15 (`corepack enable`)
+- Node.js ≥ 22 (CI uses Node 22)
+- pnpm 11.26 (`corepack enable`)
 - For native dev: Xcode (iOS) and/or Android Studio (Android)
 
 ## Getting started

@@ -7,7 +7,7 @@ Universal **Expo SDK 57** app (iOS · Android · Web · **Apple TV / Android TV*
 ## Develop
 
 ```bash
-pnpm install                   # from repo root (pnpm 9 workspace)
+pnpm install                   # from repo root (pnpm 11 workspace)
 pnpm --filter app dev          # Expo dev server — pick a platform in the CLI
 pnpm --filter app ios          # iOS simulator (dev build)
 pnpm --filter app android      # Android emulator (dev build)

@@ -57,7 +57,7 @@
 - **Expo experiments ON:** `typedRoutes: true` (routes are type-checked — new `app/quran/*` &
   `app/hadith/*` files auto-generate route types on `expo start`) and `reactCompiler: true` (don't
   fight the compiler with manual memo hacks).
-- **Package manager:** **pnpm 9 workspace + Turborepo.** Commands: `pnpm --filter app <script>`.
+- **Package manager:** **pnpm 11 workspace + Turborepo.** Commands: `pnpm --filter app <script>`.
 
 ---
 
