@@ -1,0 +1,98 @@
+/* Munib Tracker — A4 pamphlet base (210 × 297 mm, full-bleed backgrounds, content kept inside ~14 mm safe margins) */
+
+@page {
+  size: 210mm 297mm;
+  margin: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 210mm;
+  height: 297mm;
+}
+
+body {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-family: "Inter", system-ui, sans-serif;
+  overflow: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+}
+
+/* Brand palette — from packages/theme + apps/marketing-web/globals.css */
+:root {
+  --cream: #f5f0e6;
+  --cream-soft: #fffcf7;
+  --ink: #152921;
+  --ink-soft: #5c7268;
+  --forest: #2e7d32;
+  --emerald: #059669;
+  --emerald-bright: #10b981;
+  --gold: #e6c065;
+  --gold-deep: #b8924a;
+  --gold-pale: #e4ce9e;
+  --hero-from: #0d4235;
+  --hero-mid: #0a2f27;
+  --hero-to: #05201a;
+  --dark-card: #1c322c;
+  --dark-border: #2a453c;
+  --dark-fg: #e8dcc8;
+}
+
+.display {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+}
+
+.ar {
+  font-family: "Amiri", serif;
+  direction: rtl;
+}
+
+.serif {
+  font-family: "Lora", Georgia, serif;
+}
+
+/* QR tile: quiet zone is the tile padding — keep generous for scanability */
+.qr-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.qr-tile .qr-box {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 9px;
+  line-height: 0;
+}
+
+.qr-tile img {
+  display: block;
+}
+
+.qr-tile .qr-label {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.qr-tile .qr-sub {
+  font-size: 7.5px;
+  letter-spacing: 0.02em;
+}

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Munib — Concept 01 · The Return (Minimal &amp; Premium)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Amiri:wght@400;700&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  .page {
+    background: var(--cream);
+    color: var(--ink);
+    padding: 15mm 16mm 13mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* faint 8-point star geometry, single ornament, very low contrast */
+  .geometry {
+    position: absolute;
+    top: 88px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 560px;
+    height: 560px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand img {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+  }
+  .brand .name {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .masthead .kicker {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .hero {
+    text-align: center;
+    margin-top: 52px;
+    position: relative;
+  }
+  .hero .ar-name {
+    font-size: 132px;
+    line-height: 1.15;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .hero .meaning {
+    margin-top: 4px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 43px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin-top: 26px;
+  }
+  .hero .sub {
+    margin: 18px auto 0;
+    max-width: 470px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .features {
+    margin-top: 44px;
+    border-top: 1px solid #c9c0ae;
+  }
+  .features .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 12.5px 2px;
+    border-bottom: 1px solid #c9c0ae;
+  }
+  .features .row .t {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+  .features .row .d {
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+  .features .row .num {
+    font-size: 10px;
+    color: var(--gold-deep);
+    font-weight: 600;
+    width: 34px;
+    letter-spacing: 0.08em;
+  }
+  .features .row .t-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    flex: 1;
+  }
+
+  .cta {
+    margin-top: auto;
+  }
+  .cta .lead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cta .lead h2 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+  }
+  .cta .lead .free {
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .qr-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+  .qr-card {
+    border: 1px solid #c9c0ae;
+    border-radius: 14px;
+    padding: 14px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    background: var(--cream-soft);
+  }
+  .qr-card img {
+    width: 88px;
+    height: 88px;
+    display: block;
+  }
+  .qr-card .qr-label {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .qr-card .qr-sub {
+    font-size: 8px;
+    color: var(--ink-soft);
+    margin-top: -5px;
+  }
+
+  .footer {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- Subtle 8-point star line geometry -->
+  <svg class="geometry" viewBox="0 0 200 200" fill="none">
+    <g stroke="#152921" stroke-opacity="0.06" stroke-width="0.5">
+      <rect x="40" y="40" width="120" height="120" />
+      <rect x="40" y="40" width="120" height="120" transform="rotate(45 100 100)" />
+      <circle cx="100" cy="100" r="84" />
+      <circle cx="100" cy="100" r="60" />
+    </g>
+    <g stroke="#b8924a" stroke-opacity="0.14" stroke-width="0.5">
+      <rect x="52" y="52" width="96" height="96" />
+      <rect x="52" y="52" width="96" height="96" transform="rotate(45 100 100)" />
+    </g>
+  </svg>
+
+  <div class="masthead">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Munib logo" />
+      <span class="name">Munib Tracker</span>
+    </div>
+    <div class="kicker">Salah · Zikr · Qaza · Qur’an</div>
+  </div>
+
+  <div class="hero">
+    <div class="ar-name ar">مُنيب</div>
+    <div class="meaning">Munib — the one who returns to Allah</div>
+    <h1>Track your journey<br />back to Allah.</h1>
+    <p class="sub">A calm, private companion for your salah, zikr, qaza, and Qur’an. Free, offline-first, with no ads and no account required.</p>
+  </div>
+
+  <div class="features">
+    <div class="row">
+      <div class="t-wrap"><span class="num">01</span><span class="t">Salah tracking</span></div>
+      <div class="d">Five daily prayers, streaks &amp; full prayer history</div>
+    </div>
+    <div class="row">
+      <div class="t-wrap"><span class="num">02</span><span class="t">Qaza made simple</span></div>
+      <div class="d">Counters, a lifetime calculator &amp; a gentle daily plan</div>
+    </div>
+    <div class="row">
+      <div class="t-wrap"><span class="num">03</span><span class="t">Zikr &amp; adhkar</span></div>
+      <div class="d">Morning &amp; evening adhkar, favorites &amp; tasbeeh counter</div>
+    </div>
+    <div class="row">
+      <div class="t-wrap"><span class="num">04</span><span class="t">Progress &amp; statistics</span></div>
+      <div class="d">Daily goals, calendars &amp; achievements that keep you going</div>
+    </div>
+    <div class="row">
+      <div class="t-wrap"><span class="num">05</span><span class="t">Made for every believer</span></div>
+      <div class="d">23 languages · light &amp; dark mode · guest or synced account</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="lead">
+      <h2>Begin today — scan to download.</h2>
+      <span class="free">100% free · no ads · works offline</span>
+    </div>
+    <div class="qr-row">
+      <div class="qr-card">
+        <img src="qr/appstore-ink.svg" alt="App Store QR" />
+        <div class="qr-label">App Store</div>
+        <div class="qr-sub">iPhone &amp; iPad</div>
+      </div>
+      <div class="qr-card">
+        <img src="qr/play-ink.svg" alt="Google Play QR" />
+        <div class="qr-label">Google Play</div>
+        <div class="qr-sub">Android</div>
+      </div>
+      <div class="qr-card">
+        <img src="qr/web-ink.svg" alt="Website QR" />
+        <div class="qr-label">munibtracker.app</div>
+        <div class="qr-sub">Learn more · use on the web</div>
+      </div>
+    </div>
+    <div class="footer">
+      <span>Munib Tracker — Track Your Journey Back to Allah.</span>
+      <span>iOS · Android · Web &nbsp;—&nbsp; munibtracker.app</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

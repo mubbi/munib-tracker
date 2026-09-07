@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Munib — Concept 02 · One Prayer at a Time (Journey)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Amiri:wght@400;700&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  .page {
+    background: linear-gradient(168deg, var(--hero-from) 0%, var(--hero-mid) 46%, var(--hero-to) 100%);
+    color: var(--dark-fg);
+    padding: 15mm 16mm 13mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand img {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+  }
+  .brand .name {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #f5f0e6;
+  }
+  .brand-ar {
+    font-size: 20px;
+    color: var(--gold);
+  }
+
+  .hero {
+    margin-top: 34px;
+    max-width: 400px;
+  }
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  h1 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 47px;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    color: #f5f0e6;
+    margin-top: 14px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .hero p {
+    margin-top: 16px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #b9cdbf;
+    max-width: 330px;
+  }
+
+  /* Journey canvas */
+  .journey {
+    position: relative;
+    flex: 1;
+    margin-top: 6px;
+  }
+  .journey svg.path {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .glow {
+    position: absolute;
+    top: -30px;
+    right: 22px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(230, 192, 101, 0.28) 0%, rgba(230, 192, 101, 0) 65%);
+    border-radius: 50%;
+  }
+  .arch {
+    position: absolute;
+    top: 8px;
+    right: 92px;
+    width: 128px;
+    text-align: center;
+  }
+  .arch .arch-label {
+    margin-top: 10px;
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .milestone {
+    position: absolute;
+    width: 196px;
+  }
+  .milestone .day {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .milestone .what {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 15.5px;
+    color: #f5f0e6;
+    margin-top: 3px;
+  }
+  .milestone .how {
+    font-size: 10.5px;
+    line-height: 1.55;
+    color: #9fb8aa;
+    margin-top: 4px;
+  }
+  .milestone.right {
+    text-align: right;
+  }
+
+  .cta {
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: 18px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  .cta .words h2 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    max-width: 250px;
+  }
+  .cta .words p {
+    margin-top: 8px;
+    font-size: 10px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 260px;
+  }
+  .cta .words .url {
+    margin-top: 9px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--forest);
+  }
+  .cta .qrs {
+    display: flex;
+    gap: 14px;
+  }
+  .cta .qr-tile img {
+    width: 78px;
+    height: 78px;
+  }
+  .cta .qr-tile .qr-box {
+    border: 1px solid #c9c0ae;
+    padding: 8px;
+  }
+  .cta .qr-tile .qr-label {
+    font-size: 8.5px;
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="masthead">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Munib logo" />
+      <span class="name">Munib Tracker</span>
+    </div>
+    <div class="brand-ar ar">مُنيب</div>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">Your prayers · Your path · His pleasure</div>
+    <h1>The journey back begins with <em>one prayer</em>.</h1>
+    <p>Munib (مُنيب) means the one who returns to Allah. The app walks with you — one salah, one zikr, one day at a time.</p>
+  </div>
+
+  <div class="journey">
+    <div class="glow"></div>
+
+    <!-- winding gold path -->
+    <svg class="path" viewBox="0 0 700 470" fill="none" preserveAspectRatio="none">
+      <path d="M40 468 C 150 440, 55 350, 205 302 C 380 250, 250 205, 400 165 C 540 126, 480 105, 560 58"
+        stroke="#e6c065" stroke-width="2" stroke-dasharray="1 9" stroke-linecap="round" />
+      <circle cx="40" cy="468" r="5" fill="#e6c065" />
+      <circle cx="205" cy="302" r="5" fill="#e6c065" />
+      <circle cx="400" cy="165" r="5" fill="#e6c065" />
+      <circle cx="560" cy="58" r="5" fill="#e6c065" />
+      <circle cx="40" cy="468" r="10" stroke="#e6c065" stroke-opacity="0.4" />
+      <circle cx="205" cy="302" r="10" stroke="#e6c065" stroke-opacity="0.4" />
+      <circle cx="400" cy="165" r="10" stroke="#e6c065" stroke-opacity="0.4" />
+    </svg>
+
+    <!-- destination arch -->
+    <div class="arch">
+      <svg viewBox="0 0 100 118" width="86" fill="none" style="display:block;margin:0 auto;">
+        <path d="M14 118 V52 C14 24, 32 10, 50 4 C68 10, 86 24, 86 52 V118"
+          stroke="#e6c065" stroke-width="2.5" />
+        <path d="M24 118 V54 C24 32, 37 20, 50 15 C63 20, 76 32, 76 54 V118"
+          stroke="#e6c065" stroke-opacity="0.35" stroke-width="1.5" />
+        <path d="M50 34 l3.5 7.5 7.5 1.2 -5.5 5.6 1.3 8 -6.8 -3.8 -6.8 3.8 1.3 -8 -5.5 -5.6 7.5 -1.2 z" fill="#e6c065" />
+      </svg>
+      <div class="arch-label">Closer, every&nbsp;day</div>
+    </div>
+
+    <div class="milestone" style="left: 152px; bottom: 78px;">
+      <div class="day">Day 1</div>
+      <div class="what">Fajr — logged.</div>
+      <div class="how">Tap once. Munib remembers it, and reminds you gently tomorrow.</div>
+    </div>
+
+    <div class="milestone right" style="left: 20px; top: 138px;">
+      <div class="day">Day 7</div>
+      <div class="what">Your first streak.</div>
+      <div class="how">Five prayers a day, a week in a row — watch your progress ring fill.</div>
+    </div>
+
+    <div class="milestone" style="left: 428px; top: 195px;">
+      <div class="day">Day 30</div>
+      <div class="what">12 qaza cleared.</div>
+      <div class="how">The qaza planner turns years of missed prayers into a steady daily pace.</div>
+    </div>
+
+    <div class="milestone right" style="left: 205px; top: 8px;">
+      <div class="day">Day 90</div>
+      <div class="what">Adhkar, a habit.</div>
+      <div class="how">Morning and evening remembrance — now part of your day, not a task.</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="words">
+      <h2>Start your journey back to Allah.</h2>
+      <p>Free · offline-first · no ads · no account required. Salah, qaza, zikr, Qur’an &amp; reminders in one calm app.</p>
+      <div class="url">munibtracker.app</div>
+    </div>
+    <div class="qrs">
+      <div class="qr-tile">
+        <div class="qr-box"><img src="qr/appstore-ink.svg" width="78" height="78" alt="App Store QR" /></div>
+        <div class="qr-label">App Store</div>
+      </div>
+      <div class="qr-tile">
+        <div class="qr-box"><img src="qr/play-ink.svg" width="78" height="78" alt="Google Play QR" /></div>
+        <div class="qr-label">Google Play</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

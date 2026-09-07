@@ -99,6 +99,16 @@
       }
     },
     {
+      "includes": ["tools/pamphlets/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "off"
+          }
+        }
+      }
+    },
+    {
       "includes": ["tools/screenshot-studio/**"],
       "linter": {
         "rules": {
