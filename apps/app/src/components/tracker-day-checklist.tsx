@@ -30,6 +30,7 @@ import { FRIDAY_CHECKLIST_FOCUS, isFridayDateString } from "@/lib/friday";
 import { useChevronForward } from "@/lib/rtl";
 import { isWhiteDayDateString, WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
 import { ensureZikrCorpus, zikrCategories } from "@/lib/zikr";
+import { zikrCategoryBadge } from "@/lib/zikr-list-progress";
 
 function salahAdhkarCategories() {
   const byId = new Map(zikrCategories().map((category) => [category.id, category]));
@@ -344,17 +345,22 @@ export function TrackerDayChecklist({
           {t("tracker.salahAdhkarSubtitle")}
         </ThemedText>
         <View style={styles.rows}>
-          {salahAdhkarCategories().map((category) => (
-            <NavRow
-              key={category.id}
-              icon={category.icon}
-              label={t(`zikrCat.${category.id}`)}
-              count={category.count}
-              onPress={() =>
-                router.push({ pathname: "/zikr/[category]", params: { category: category.id } })
-              }
-            />
-          ))}
+          {salahAdhkarCategories().map((category) => {
+            const progress = zikrCategoryBadge(category.id, zikrCounts, t("zikr.done"));
+            return (
+              <NavRow
+                key={category.id}
+                icon={category.icon}
+                label={t(`zikrCat.${category.id}`)}
+                badge={progress?.label}
+                completed={progress?.completed}
+                count={progress ? undefined : category.count}
+                onPress={() =>
+                  router.push({ pathname: "/zikr/[category]", params: { category: category.id } })
+                }
+              />
+            );
+          })}
         </View>
       </Card>
 

@@ -3,6 +3,7 @@
 | Doc | Use when you need… |
 |-----|-------------------|
 | [`ARTICLE.md`](./ARTICLE.md) | Medium-style product story (features, platforms, open release) |
+| [`HACKATHON.md`](./HACKATHON.md) | Devpost-style project story (inspiration through what's next) |
 | [`BACKLOG.md`](./BACKLOG.md) | Open work (product, perf, devices, content) |
 | [`FEATURES.md`](./FEATURES.md) | Shipped product features (NF-* catalog) |
 | [`OPEN_SOURCE.md`](./OPEN_SOURCE.md) | Source-available release checklist (PolyForm NC) |
@@ -16,7 +17,7 @@
 | Topic | Doc |
 |-------|-----|
 | Releases / semver (Release Please) | [`RELEASES.md`](./RELEASES.md) |
-| Internationalization (23 locales) | [`I18N_GUIDE.md`](./I18N_GUIDE.md) |
+| Internationalization (24 locales) | [`I18N_GUIDE.md`](./I18N_GUIDE.md) |
 | Content pipeline | [`DATA_INGESTION.md`](./DATA_INGESTION.md) |
 | Data sources & licenses | [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |
 | Native surfaces (widgets, Live Activities, Watch, Wear) | [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) |

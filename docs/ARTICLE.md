@@ -308,11 +308,11 @@ Weekly, monthly, and yearly charts. Weekly worship reports. Achievement tracks. 
 
 Reminders are available for prayer, zikr, qaza, daily content, and Friday — all optional, all yours to configure.
 
-### 11. Personalisation and 23 languages
+### 11. Personalisation and 24 languages
 
 Light, dark, or system theme. Accent presets and custom colours.
 
-**23 locales**, with proper RTL support for Arabic, Urdu, Persian, Pashto, and Kurdish. Scripture language and interface language stay separate — so you can read an Urdu translation inside an English interface, or the reverse.
+**24 locales**, with proper RTL support for Arabic, Urdu, Persian, Pashto, and Kurdish. Scripture language and interface language stay separate — so you can read an Urdu translation inside an English interface, or the reverse.
 
 <!-- MEDIUM IMAGE (optional light/dark pair): upload docs/article_imgs/15-marketing-home-light.png and 16-marketing-home-dark.png -->
 ![Munib Tracker home screen in light theme](./article_imgs/15-marketing-home-light.png)
@@ -543,7 +543,7 @@ No. Qur'an, hadith, adhkar, duas, and the 99 Names come from open datasets throu
 
 ### Which languages does Munib Tracker support?
 
-23 locales, including full RTL support for Arabic, Urdu, Persian, Pashto, and Kurdish. You can also keep your scripture language separate from your interface language.
+24 locales, including full RTL support for Arabic, Urdu, Persian, Pashto, and Kurdish. You can also keep your scripture language separate from your interface language.
 
 ### Is it suitable for new Muslims?
 

@@ -56,6 +56,11 @@ export const ZikrRow = memo(function ZikrRow({
     [item.id, onToggleFavorite],
   );
 
+  const statusLabel = completed ? (progressLabel ?? t("zikr.done")) : progressLabel;
+  const accessibilityLabel = [index != null ? `${index}. ${item.title}` : item.title, statusLabel]
+    .filter(Boolean)
+    .join(", ");
+
   return (
     // The favorite toggle is rendered as a sibling overlay rather than nested
     // inside the row's Pressable — on web, nesting a <button> inside another
@@ -65,10 +70,10 @@ export const ZikrRow = memo(function ZikrRow({
         haptic="light"
         onPress={handlePress}
         accessibilityRole="button"
-        accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
+        accessibilityLabel={accessibilityLabel}
         style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
       >
-        {index != null ? <ListIndexBadge index={index} /> : null}
+        {index != null ? <ListIndexBadge index={index} completed={completed} /> : null}
 
         <View style={styles.body}>
           <ThemedText type="small">{item.title}</ThemedText>
@@ -93,8 +98,8 @@ export const ZikrRow = memo(function ZikrRow({
                 <Pill
                   compact
                   label={progressLabel}
-                  color={colors.mutedForeground}
-                  background={colors.card}
+                  color={colors.accent}
+                  background={tokens.accentSoft}
                   style={styles.badge}
                 />
               ) : item.targetCount ? (

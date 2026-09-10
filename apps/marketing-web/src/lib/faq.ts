@@ -60,7 +60,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Which languages are supported?",
     answer:
-      "The app interface ships in 23 locales, including English, Arabic, Urdu, Indonesian, Turkish, Bengali, Malay, Persian, French, and more — with full RTL for Arabic, Urdu, Persian, Pashto, and Kurdish. Scripture translation language for religious content can be set separately in settings.",
+      "The app interface ships in 24 locales, including English, Arabic, Urdu, Indonesian, Turkish, Bengali, Malay, Persian, French, Hindi, and more — with full RTL for Arabic, Urdu, Persian, Pashto, and Kurdish. Scripture translation language for religious content can be set separately in settings.",
   },
   {
     question: "How do reminders work?",

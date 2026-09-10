@@ -4,7 +4,7 @@
 >
 > **Package name:** `app.munibtracker` · **Play listing:** https://play.google.com/store/apps/details?id=app.munibtracker
 >
-> **Short description only** (Google Play, 80 characters max). Covers all **23 app-shipped locales** plus **7 optional ASO-only locales** (de, es, hi, pt-BR, ja, vi, zh). Full description, keywords, and URLs: [`IOS_APP_COPY.md`](./IOS_APP_COPY.md).
+> **Short description only** (Google Play, 80 characters max). Covers all **24 app-shipped locales** plus **6 optional ASO-only locales** (de, es, pt-BR, ja, vi, zh). Full description, keywords, and URLs: [`IOS_APP_COPY.md`](./IOS_APP_COPY.md).
 >
 > **Play policy tip:** Avoid ranking-style words in the short description (e.g. `first`, `best`, `#1`) — Google may reject superlative claims.
 >

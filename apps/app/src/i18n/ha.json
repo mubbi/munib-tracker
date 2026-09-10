@@ -382,7 +382,7 @@
     "checklistHint": "Cika lissafin ayyukan yau da kullun",
     "excusedPausedLabel": "An dakata",
     "excusedGoalHint": "An dakatar da bin diddigin {{reason}} - ana gudanar da bibiyar ku.",
-    "excusedGoalBody": "An dakatar da bin diddigin wajibi don yau. Har yanzu kuna iya shiga ibada ta zaɓi.",
+    "excusedGoalBody": "An dakatar da bin diddigin wajibi don wannan lokaci. Har yanzu kuna iya shiga ibada ta zaɓi.",
     "tasksProgress": "{{done}} na {{total}} ayyuka",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Fara sa ido",
@@ -598,10 +598,10 @@
     "title": "Mai bin diddigi",
     "subtitle": "Durumunu wataarlamak don dwataa sallaha dokunun — bu cihazda kwatadedilir.",
     "excusedTitle": "Mazeretli rana",
-    "excusedHint": "Hayd, cuta, ko tafiya — dakatar da bin diddigin farilla ba tare da katsewa jerin ba.",
-    "excusedActive": "An yi wa wannan rana uzuri — an dakatar da bin farilla kuma an riƙe jerinka.",
-    "excusedConfirmTitle": "Alama a yau a matsayin uzuri?",
-    "excusedConfirmMsg": "Bin farilla zai dakata a yau ({{reason}}). Jerinka zai riƙe.",
+    "excusedHint": "Hayd, cuta, ko tafiya — dakatar da bin diddigin farilla ba tare da katsewa jerin ba. Dakatawar tana ci gaba kowace rana har sai kun ci gaba.",
+    "excusedActive": "An dakatar da bin diddigin farilla don wannan lokaci — an riƙe jerinka har sai kun ci gaba.",
+    "excusedConfirmTitle": "A fara lokacin uzuri?",
+    "excusedConfirmMsg": "Bin farilla zai dakata ({{reason}}) kuma zai ci gaba kowace rana har sai kun ci gaba. Jerinka zai riƙe.",
     "excusedConfirmAction": "Alama a matsayin uzuri",
     "excusedReason": {
       "hayd": "Hayd",
@@ -2882,7 +2882,7 @@
       "body": "Witr sunna ce mu'akkadah (karfin jaddadawa) kuma kada a bar shi yayin tafiya. Yi Sallah bayan Isha'i - ko da kun haɗa Maghrib da Isha - a matsayin raka'a ɗaya, uku, ko fiye gwargwadon abin da za ku iya sarrafa. Idan kun ji tsoron yin barci kafin Isha'i yayin tafiya, Manzon Allah SAW ya halatta yin sallar witiri tun da farko bayan Magariba Isha'i."
     },
     "disclaimer": "Wannan abun ciki ne na ilimi, ba fatawar mutum ba. Matsakaicin nisa, lokacin tsayawa, hada dokoki, da kuma ko Jam' ta iyakance ga buƙata sun bambanta tsakanin makarantu huɗu - tuntuɓi ƙwararren malami don tafiyarku.",
-    "markExcused": "todwata as excused (tradal) İşaretle",
+    "markExcused": "Fara lokacin uzuri (tafiya)",
     "clearExcused": "Ci gaba obligatory tracking"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Idan haydi ko nifas ya kare, sai a yi tafsirin gaba daya kafin a ci gaba da sAllah. Ci gaba da azumi bayan an gama hayid; duk wani azumin Ramadan da aka rasa a lokacin haydi dole ne a rama shi a wasu ranaku.\n\nSalatin da aka rasa a lokacin hayd bai cika ba - Allah ya ɗaga wannan wajibi. Wannan ya bambanta da rashin lafiya ko tafiya, inda sallar da ba a yi ba na iya buƙatar qaza. Bayan ghusl, ci gaba da ibadar ku ta al'ada da bin diddigin wajibi a cikin app."
     },
     "disclaimer": "Wannan shiriyar ce ta ilimi, ba hukuncin mutum ba. Bayanan da ke sama sun bambanta tsakanin makarantu - tuntuɓi ƙwararrun ƙwararrun mata idan halin ku bai fayyace ba.",
-    "markExcused": "Alama yau a matsayin uzuri (hayd)",
+    "markExcused": "Fara lokacin uzuri (hayd)",
     "clearExcused": "Ci gaba da bin diddigin wajibi"
   },
   "sick": {
@@ -2971,7 +2971,7 @@
       "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nYa rasa salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
     },
     "disclaimer": "Wannan shiriyar ce ta ilimi, ba hukuncin mutum ba. Yaya yawan rashin lafiya ke ba da izinin kowane rangwame ya bambanta da makaranta da tsanani - tuntuɓi ƙwararren malami don halin ku.",
-    "markExcused": "todwata as excused (illness) İşaretle",
+    "markExcused": "Fara lokacin uzuri (cuta)",
     "clearExcused": "Ci gaba obligatory tracking"
   },
   "homeCustomize": {
@@ -4900,7 +4900,7 @@
     "marked": "Sallah marked",
     "alreadyDone": "Tuni aka yi alama",
     "allDone": "Tüm obligatory Sallah marked for todwata",
-    "excused": "An dakatar da bin diddigi don yau",
+    "excused": "An dakatar da bin diddigi don wannan lokacin uzuri",
     "locked": "Aç  app  mark Sallah",
     "failed": "Could not mark Sallah",
     "intents": {

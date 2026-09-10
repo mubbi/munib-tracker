@@ -126,6 +126,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/aqeedah.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/aqeedah.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/aqeedah.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/aqeedah.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/aqeedah.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/aqeedah.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/aqeedah.ku") as Promise<OverlayModule>,
@@ -150,6 +151,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/battles.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/battles.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/battles.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/battles.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/battles.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/battles.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/battles.ku") as Promise<OverlayModule>,
@@ -174,6 +176,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/eid-guide.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/eid-guide.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/eid-guide.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/eid-guide.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/eid-guide.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/eid-guide.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/eid-guide.ku") as Promise<OverlayModule>,
@@ -205,6 +208,8 @@ export const CONTENT_OVERLAY_LOADERS: Record<
       import("@munib-tracker/shared/content/i18n/fidyah-guide.fr") as Promise<OverlayModule>,
     ha: () =>
       import("@munib-tracker/shared/content/i18n/fidyah-guide.ha") as Promise<OverlayModule>,
+    hi: () =>
+      import("@munib-tracker/shared/content/i18n/fidyah-guide.hi") as Promise<OverlayModule>,
     id: () =>
       import("@munib-tracker/shared/content/i18n/fidyah-guide.id") as Promise<OverlayModule>,
     kk: () =>
@@ -251,6 +256,8 @@ export const CONTENT_OVERLAY_LOADERS: Record<
       import("@munib-tracker/shared/content/i18n/friday-guide.fr") as Promise<OverlayModule>,
     ha: () =>
       import("@munib-tracker/shared/content/i18n/friday-guide.ha") as Promise<OverlayModule>,
+    hi: () =>
+      import("@munib-tracker/shared/content/i18n/friday-guide.hi") as Promise<OverlayModule>,
     id: () =>
       import("@munib-tracker/shared/content/i18n/friday-guide.id") as Promise<OverlayModule>,
     kk: () =>
@@ -290,6 +297,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/hajj.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/hajj.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/hajj.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/hajj.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/hajj.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/hajj.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/hajj.ku") as Promise<OverlayModule>,
@@ -321,6 +329,8 @@ export const CONTENT_OVERLAY_LOADERS: Record<
       import("@munib-tracker/shared/content/i18n/islamic-finance.fr") as Promise<OverlayModule>,
     ha: () =>
       import("@munib-tracker/shared/content/i18n/islamic-finance.ha") as Promise<OverlayModule>,
+    hi: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-finance.hi") as Promise<OverlayModule>,
     id: () =>
       import("@munib-tracker/shared/content/i18n/islamic-finance.id") as Promise<OverlayModule>,
     kk: () =>
@@ -367,6 +377,8 @@ export const CONTENT_OVERLAY_LOADERS: Record<
       import("@munib-tracker/shared/content/i18n/islamic-history.fr") as Promise<OverlayModule>,
     ha: () =>
       import("@munib-tracker/shared/content/i18n/islamic-history.ha") as Promise<OverlayModule>,
+    hi: () =>
+      import("@munib-tracker/shared/content/i18n/islamic-history.hi") as Promise<OverlayModule>,
     id: () =>
       import("@munib-tracker/shared/content/i18n/islamic-history.id") as Promise<OverlayModule>,
     kk: () =>
@@ -406,6 +418,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/jahannam.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/jahannam.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/jahannam.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/jahannam.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/jahannam.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/jahannam.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/jahannam.ku") as Promise<OverlayModule>,
@@ -437,6 +450,8 @@ export const CONTENT_OVERLAY_LOADERS: Record<
       import("@munib-tracker/shared/content/i18n/janazah-guide.fr") as Promise<OverlayModule>,
     ha: () =>
       import("@munib-tracker/shared/content/i18n/janazah-guide.ha") as Promise<OverlayModule>,
+    hi: () =>
+      import("@munib-tracker/shared/content/i18n/janazah-guide.hi") as Promise<OverlayModule>,
     id: () =>
       import("@munib-tracker/shared/content/i18n/janazah-guide.id") as Promise<OverlayModule>,
     kk: () =>
@@ -476,6 +491,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/jannah.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/jannah.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/jannah.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/jannah.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/jannah.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/jannah.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/jannah.ku") as Promise<OverlayModule>,
@@ -500,6 +516,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/last-day.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/last-day.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/last-day.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/last-day.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/last-day.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/last-day.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/last-day.ku") as Promise<OverlayModule>,
@@ -531,6 +548,8 @@ export const CONTENT_OVERLAY_LOADERS: Record<
       import("@munib-tracker/shared/content/i18n/laylat-al-qadr.fr") as Promise<OverlayModule>,
     ha: () =>
       import("@munib-tracker/shared/content/i18n/laylat-al-qadr.ha") as Promise<OverlayModule>,
+    hi: () =>
+      import("@munib-tracker/shared/content/i18n/laylat-al-qadr.hi") as Promise<OverlayModule>,
     id: () =>
       import("@munib-tracker/shared/content/i18n/laylat-al-qadr.id") as Promise<OverlayModule>,
     kk: () =>
@@ -570,6 +589,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/learn-dua.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/learn-dua.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/learn-dua.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/learn-dua.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/learn-dua.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/learn-dua.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/learn-dua.ku") as Promise<OverlayModule>,
@@ -594,6 +614,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/new-muslim.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/new-muslim.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/new-muslim.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/new-muslim.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/new-muslim.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/new-muslim.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/new-muslim.ku") as Promise<OverlayModule>,
@@ -618,6 +639,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/prophets.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/prophets.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/prophets.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/prophets.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/prophets.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/prophets.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/prophets.ku") as Promise<OverlayModule>,
@@ -649,6 +671,8 @@ export const CONTENT_OVERLAY_LOADERS: Record<
       import("@munib-tracker/shared/content/i18n/prophets-genealogy.fr") as Promise<OverlayModule>,
     ha: () =>
       import("@munib-tracker/shared/content/i18n/prophets-genealogy.ha") as Promise<OverlayModule>,
+    hi: () =>
+      import("@munib-tracker/shared/content/i18n/prophets-genealogy.hi") as Promise<OverlayModule>,
     id: () =>
       import("@munib-tracker/shared/content/i18n/prophets-genealogy.id") as Promise<OverlayModule>,
     kk: () =>
@@ -688,6 +712,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/quran-guide.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/quran-guide.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/quran-guide.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/quran-guide.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/quran-guide.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/quran-guide.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/quran-guide.ku") as Promise<OverlayModule>,
@@ -712,6 +737,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/ruqyah.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/ruqyah.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/ruqyah.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/ruqyah.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/ruqyah.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/ruqyah.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/ruqyah.ku") as Promise<OverlayModule>,
@@ -736,6 +762,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/sahaba.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/sahaba.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/sahaba.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/sahaba.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/sahaba.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/sahaba.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/sahaba.ku") as Promise<OverlayModule>,
@@ -760,6 +787,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/salah-guide.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/salah-guide.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/salah-guide.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/salah-guide.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/salah-guide.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/salah-guide.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/salah-guide.ku") as Promise<OverlayModule>,
@@ -784,6 +812,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/seerah.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/seerah.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/seerah.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/seerah.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/seerah.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/seerah.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/seerah.ku") as Promise<OverlayModule>,
@@ -808,6 +837,7 @@ export const CONTENT_OVERLAY_LOADERS: Record<
     fa: () => import("@munib-tracker/shared/content/i18n/taharah.fa") as Promise<OverlayModule>,
     fr: () => import("@munib-tracker/shared/content/i18n/taharah.fr") as Promise<OverlayModule>,
     ha: () => import("@munib-tracker/shared/content/i18n/taharah.ha") as Promise<OverlayModule>,
+    hi: () => import("@munib-tracker/shared/content/i18n/taharah.hi") as Promise<OverlayModule>,
     id: () => import("@munib-tracker/shared/content/i18n/taharah.id") as Promise<OverlayModule>,
     kk: () => import("@munib-tracker/shared/content/i18n/taharah.kk") as Promise<OverlayModule>,
     ku: () => import("@munib-tracker/shared/content/i18n/taharah.ku") as Promise<OverlayModule>,
@@ -839,6 +869,8 @@ export const CONTENT_OVERLAY_LOADERS: Record<
       import("@munib-tracker/shared/content/i18n/white-days-guide.fr") as Promise<OverlayModule>,
     ha: () =>
       import("@munib-tracker/shared/content/i18n/white-days-guide.ha") as Promise<OverlayModule>,
+    hi: () =>
+      import("@munib-tracker/shared/content/i18n/white-days-guide.hi") as Promise<OverlayModule>,
     id: () =>
       import("@munib-tracker/shared/content/i18n/white-days-guide.id") as Promise<OverlayModule>,
     kk: () =>

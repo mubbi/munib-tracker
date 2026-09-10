@@ -1,10 +1,10 @@
 import type { AppLocale } from "./app-locale";
 
 /** Delivery phase this locale shipped in (documentation only — all listed locales are live). */
-export type LocalePhase = 1 | 2 | 3 | 4;
+export type LocalePhase = 1 | 2 | 3 | 4 | 5;
 
 /** Writing system a locale's translated UI text is authored in. */
-export type LocaleScript = "latin" | "arabic" | "bengali" | "cyrillic";
+export type LocaleScript = "latin" | "arabic" | "bengali" | "cyrillic" | "devanagari";
 
 export interface LocaleDefinition {
   code: AppLocale;
@@ -388,6 +388,21 @@ export const LOCALE_REGISTRY: readonly LocaleDefinition[] = [
     quranEditionId: "tr-diyanet",
     scriptureSupported: false,
   },
+  {
+    code: "hi",
+    nativeName: "हिन्दी",
+    englishName: "Hindi",
+    bcp47: "hi-IN",
+    direction: "ltr",
+    script: "devanagari",
+    regionCode: "in",
+    ogLocale: "hi_IN",
+    hreflang: "hi",
+    sortOrder: 24,
+    phase: 5,
+    quranEditionId: "hi-maulanaazizulha",
+    scriptureSupported: false,
+  },
 ] satisfies readonly LocaleDefinition[];
 
 const BY_CODE: ReadonlyMap<AppLocale, LocaleDefinition> = new Map(
@@ -459,4 +474,5 @@ export const SCRIPT_UNICODE_RANGES: Record<LocaleScript, RegExp> = {
   arabic: /[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿]/,
   bengali: /[ঀ-৿]/,
   cyrillic: /[Ѐ-ӿ]/,
+  devanagari: /[ऀ-ॿ]/,
 };

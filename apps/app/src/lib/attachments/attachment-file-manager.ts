@@ -39,19 +39,14 @@ function sanitizeFileName(fileName: string): string {
 /** Cross-platform document-picker types (UTIs on iOS, MIME on Android/web). */
 function attachmentDocumentPickerTypes(): string | string[] {
   if (Platform.OS === "ios") {
-    return [
-      "public.image",
-      "public.jpeg",
-      "public.png",
-      "public.heic",
-      "com.adobe.pdf",
-      "public.data",
-    ];
+    // Only types we can sniff + upload — avoid HEIC / generic public.image which
+    // fail later as UNSUPPORTED_MIME after the user already picked a file.
+    return ["public.jpeg", "public.png", "com.adobe.pdf"];
   }
   if (Platform.OS === "android") {
     return [...ATTACHMENT_PICKER_TYPES];
   }
-  return [...ATTACHMENT_PICKER_TYPES, "*/*"];
+  return [...ATTACHMENT_PICKER_TYPES];
 }
 
 function assetFromImagePicker(
@@ -107,7 +102,8 @@ export async function pickAttachmentFromGallery(): Promise<AttachmentPickOutcome
 
   const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ["images"],
-    quality: 1,
+    // Match content-report — full-res phone photos often exceed the 1 MB cap.
+    quality: 0.7,
     exif: false,
     allowsMultipleSelection: false,
   });
@@ -187,13 +183,16 @@ export async function validatePickedAttachment(
   const bytes = await readUriAsBytes(attachment.uri);
   assertAttachmentSizeBytes(bytes.length);
 
+  // Magic bytes are authoritative — picker MIME / extension can disagree
+  // (octet-stream, wrong extension, JPEG reported as PNG, etc.).
   const sniffed = sniffAttachmentMime(bytes);
-  if (!sniffed || sniffed !== attachment.mimeType) {
+  if (!sniffed) {
     throw new Error("UNSUPPORTED_MIME");
   }
 
   return {
     ...attachment,
+    mimeType: sniffed,
     sizeBytes: bytes.length,
   };
 }

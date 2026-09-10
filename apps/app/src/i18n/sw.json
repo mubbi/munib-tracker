@@ -382,7 +382,7 @@
     "checklistHint": "Kamilisha orodha ya shughuli za kila siku",
     "excusedPausedLabel": "Imesitishwa",
     "excusedGoalHint": "Ufuatiliaji umesitishwa kwa {{reason}} - mfululizo wako umezuiliwa.",
-    "excusedGoalBody": "Ufuatiliaji wa lazima umesitishwa kwa leo. Bado unaweza kuingia katika ibada ya hiari.",
+    "excusedGoalBody": "Ufuatiliaji wa lazima umesitishwa kwa kipindi hiki. Bado unaweza kuingia katika ibada ya hiari.",
     "tasksProgress": "{{done}} kati ya {{total}} kazi",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Anza kufuatilia",
@@ -598,10 +598,10 @@
     "title": "Kifuatiliaji",
     "subtitle": "Durumunu mweziarlamak kwa moja swalaa dokunun — bu cihazda kmwezidedilir.",
     "excusedTitle": "Mazeretli siku",
-    "excusedHint": "Hayd, ugonjwa, au safari — simamisha ufuatiliaji wa lazima bila kuvunja mfululizo wako.",
-    "excusedActive": "Siku hii imesamehewa — ufuatiliaji wa lazima umesitishwa na mfululizo wako umehifadhiwa.",
-    "excusedConfirmTitle": "Weka alama leo kama iliyosamehewa?",
-    "excusedConfirmMsg": "Ufuatiliaji wa lazima utasitishwa kwa leo ({{reason}}). Mfululizo wako utahifadhiwa.",
+    "excusedHint": "Hayd, ugonjwa, au safari — simamisha ufuatiliaji wa lazima bila kuvunja mfululizo wako. Kusimamishwa kunaendelea kila siku hadi urudishe.",
+    "excusedActive": "Ufuatiliaji wa lazima umesitishwa kwa kipindi hiki — mfululizo wako umehifadhiwa hadi urudishe.",
+    "excusedConfirmTitle": "Anzisha kipindi cha udhuru?",
+    "excusedConfirmMsg": "Ufuatiliaji wa lazima utasitishwa ({{reason}}) na kuendelea kila siku hadi urudishe. Mfululizo wako utahifadhiwa.",
     "excusedConfirmAction": "Weka alama imesamehewa",
     "excusedReason": {
       "hayd": "Hayd",
@@ -2882,7 +2882,7 @@
       "body": "Witr ni sunna mu'akkadah (iliyosisitizwa sana) na haipaswi kuachwa wakati wa safari. Sali baada ya Isha - hata kama umechanganya Maghrib na Isha - kama rakaa moja, tatu, au zaidi isiyo ya kawaida kulingana na unavyoweza kusimamia. Ikiwa unaogopa kulala kabla ya Isha ukiwa safarini, Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) aliruhusu kuswali Witr mapema baada ya Maghrib-Isha."
     },
     "disclaimer": "Haya ni maudhui ya kielimu, sio fatwa binafsi. Viwango vya umbali, muda wa kukaa, sheria za kuchanganya na iwapo Jam' inahitajika tu hutofautiana kati ya shule nne - wasiliana na mwanachuoni aliyehitimu kwa safari yako.",
-    "markExcused": "todmwezi as excused (tranal) İşaretle",
+    "markExcused": "Anzisha kipindi cha udhuru (safari)",
     "clearExcused": "Mwishoelea obligatory tracking"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Hayd au nifas inapoisha, fanya ghusl kamili kabla ya kuanza tena swala. Anza tena kufunga tu baada ya hayd kumalizika; Saumu zozote za Ramadhani zilizokosa wakati wa nyasi lazima zirudishwe siku zingine.\n\nSwalah iliyokosa wakati wa nyasi haitolewi - Mwenyezi Mungu aliiondoa faradhi hiyo. Hii ni tofauti na ugonjwa au safari, ambapo maombi yaliyokosa yanaweza kuhitaji qaza. Baada ya ghusl, endelea na ibada yako ya kawaida na ufuatiliaji wa lazima katika programu."
     },
     "disclaimer": "Huu ni mwongozo wa kielimu, sio uamuzi wa kibinafsi. Maelezo hapo juu yanatofautiana kati ya shule - wasiliana na mwanachuoni wa kike aliyehitimu ikiwa hali yako haijulikani.",
-    "markExcused": "Weka alama leo kama udhuru (hayd)",
+    "markExcused": "Anzisha kipindi cha udhuru (hayd)",
     "clearExcused": "Rejesha ufuatiliaji wa lazima",
     "hadith[0]": {
       "reference": "Sahih al-Bukhari · 321",
@@ -2983,7 +2983,7 @@
       "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nImekosa salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
     },
     "disclaimer": "Huu ni mwongozo wa kielimu, sio uamuzi wa kibinafsi. Kiasi gani cha ugonjwa kinahalalisha kila kibali hutofautiana kulingana na shule na ukali - wasiliana na mwanachuoni aliyehitimu kwa hali yako.",
-    "markExcused": "todmwezi as excused (illness) İşaretle",
+    "markExcused": "Anzisha kipindi cha udhuru (ugonjwa)",
     "clearExcused": "Mwishoelea obligatory tracking"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "Swala marked",
     "alreadyDone": "Tayari imetiwa alama",
     "allDone": "Tüm obligatory Swala marked for todmwezi",
-    "excused": "Ufuatiliaji umesitishwa kwa leo",
+    "excused": "Ufuatiliaji umesitishwa kwa kipindi hiki cha udhuru",
     "locked": "Aç  app  mark Swala",
     "failed": "Could not mark Swala",
     "intents": {

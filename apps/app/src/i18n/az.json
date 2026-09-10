@@ -382,7 +382,7 @@
     "checklistHint": "Complete  gündəlik ctivity yoxlm siyhısı",
     "excusedPausedLabel": "Paused",
     "excusedGoalHint": "{{reason}} üçün izləmə dayandırıldı — ardıcıllığınız saxlanılır.",
-    "excusedGoalBody": "Məcburi izləmə bu gün üçün dayandırılıb. Siz hələ də isteğe bağlı ibadətə daxil ola bilərsiniz.",
+    "excusedGoalBody": "Məcburi izləmə bu müddət üçün dayandırılıb. Siz hələ də isteğe bağlı ibadəti qeyd edə bilərsiniz.",
     "tasksProgress": "{{done}} -içində {{total}} tsks",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "İzləməyə başlayın",
@@ -598,10 +598,10 @@
     "title": "Tracker",
     "subtitle": "Statusunu təyin etmək üçün namazya toxunun — bu cihazda saxlanılıb.",
     "excusedTitle": "Excused dy",
-    "excusedHint": "Hayd, xəstəlik və ya səyahət - ardıcıllığı pozmadan məcburi izləməni dayandırın.",
-    "excusedActive": "Bu gün üzrlüdür - məcburi izləmə dayandırılır və ardıcıllığınız saxlanılır.",
-    "excusedConfirmTitle": "Mrk bu gün s excused?",
-    "excusedConfirmMsg": "Məcburi izləmə bu gün dayandırılacaq ({{reason}}). Sizin seriyanız keçiriləcək.",
+    "excusedHint": "Hayd, xəstəlik və ya səyahət — ardıcıllığı pozmadan məcburi izləməni dayandırın. Fasilə siz davam edənə qədər hər gün davam edir.",
+    "excusedActive": "Məcburi izləmə bu müddət üçün dayandırılıb — ardıcıllığınız siz davam edənə qədər saxlanılır.",
+    "excusedConfirmTitle": "Üzr müddəti başlasın?",
+    "excusedConfirmMsg": "Məcburi izləmə dayandırılacaq ({{reason}}) və siz davam edənə qədər hər gün davam edəcək. Seriyanız saxlanılacaq.",
     "excusedConfirmAction": "Mrk excused",
     "excusedReason": {
       "hayd": "Hyd",
@@ -2882,7 +2882,7 @@
       "body": "Vitr sünnəti müəkkədədir (qüvvətlə vurğulanır) və səfər zamanı tərk edilməməlidir. İşa namazından sonra - məğrib və işanı birləşdirsəniz belə - bacardığınız qədər bir, üç və ya daha çox tək rükət olaraq qılın. Əgər səfərdə olarkən işadan əvvəl yatmaqdan qorxursansa, Peyğəmbər ﷺ vitr namazını məğrib-işa namazından sonra daha tez qılmağa icazə verdi."
     },
     "disclaimer": "Bu, şəxsi fətva deyil, maarifləndirici məzmundur. Məsafə hədləri, qalma müddəti, birləşən qaydalar və Jam'in ehtiyacla məhdud olub-olmaması dörd məktəb arasında dəyişir — səyahətiniz üçün ixtisaslı alimlə məsləhətləşin.",
-    "markExcused": "Mrk bu gün s excused (trvel)",
+    "markExcused": "Üzr müddətinə başla (səyahət)",
     "clearExcused": "Məcburi izləməni bərpa edin"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Heyz və ya nifas bitəndə salaha qayıtmazdan əvvəl tam qüsl edin. Oruca yalnız heyz bitəndən sonra qayıdın; heyz zamanı buraxılan Ramazan orucları başqa günlərdə qəza edilməlidir.\n\nHeyz zamanı buraxılan salahlar qəza edilmir — Allah bu borcu qaldırmışdır. Bu, buraxılmış salahların qəza oluna biləcəyi xəstəlik və ya səfərdən fərqlidir. Qüsl etdikdən sonra normal ibadət və tətbiqdə vacib izləməyə qayıdın."
     },
     "disclaimer": "bu dir eductiüzərindəl guidnce, deyil  persüzərindəl ruliçindəg.  detils bove vry between schools — cüzərindəsult  qulified femle scholr if siziçində situtiüzərində dir uncler.",
-    "markExcused": "Mrk bu gün s excused (hyd)",
+    "markExcused": "Üzr müddətinə başla (hayd)",
     "clearExcused": "Resume obligtvə yy trckiçindəg"
   },
   "sick": {
@@ -2971,7 +2971,7 @@
       "body": "Ramazanda oruc xəstəliyinizi ağırlaşdıracaq və ya sağalmanı gecikdirəcəksə, orucu açın və sağaldıqdan sonra başqa günlərdə qəza edin — Qur'an xəstələr üçün buna açıq icazə verir.\n\nHər buraxılmış Ramazan orucu sonradan bir gün orucla qəza edilir; oruc etibarlı üzr olmadan pozulmayıbsa, kəffarə yoxdur.\n\nXəstəlik zamanı buraxılan salahlar da imkan yarananda sırası ilə qəza edilməlidir — buraxılmış salahların qəza edilmədiyi heyz halından fərqli olaraq. Sağalandan sonra normal izləməyə qayıdın və qazalarınızı davamlı templə yerinə yetirin."
     },
     "disclaimer": "bu dir eductiüzərindəl guidnce, deyil  persüzərindəl ruliçindəg. How much illness justifies ech cüzərindəcessiüzərində vries by school və severity — cüzərindəsult  qulified scholr üçün siziçində situtiüzərində.",
-    "markExcused": "Mrk bu gün s excused (illness)",
+    "markExcused": "Üzr müddətinə başla (xəstəlik)",
     "clearExcused": "Resume obligtvə yy trckiçindəg"
   },
   "homeCustomize": {
@@ -4900,7 +4900,7 @@
     "marked": "Salah qeyd edib",
     "alreadyDone": "Artıq qeyd olunub",
     "allDone": "Bütün məcburi Namazlar bu gün üçün qeyd edilmişdir",
-    "excused": "İzləmə bu gün dayandırılıb",
+    "excused": "İzləmə bu üzr müddəti üçün dayandırılıb",
     "locked": "Salahı qeyd etmək üçün tətbiqin kilidini açın",
     "failed": "Salahı qeyd edə bilmədi",
     "intents": {

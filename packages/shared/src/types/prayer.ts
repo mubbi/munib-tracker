@@ -18,7 +18,11 @@ export type PrayerStatus = "pending" | "completed" | "missed" | "delayed" | "qaz
 
 export type PrayerLogSource = "manual" | "bulk_import" | "sync";
 
-/** Why a day is excused from obligatory tracking (streak frozen, no qaza prompt). */
+/**
+ * Why obligatory tracking is paused (streak frozen, no qaza prompt).
+ * Multi-day periods (especially hayd) continue via `UserPreferences.activeExcusedReason`
+ * until the user resumes; each calendar day still stores flags on prayer logs.
+ */
 export type ExcusedReason = "hayd" | "sick" | "travel";
 
 export interface PrayerLog {
@@ -35,6 +39,7 @@ export interface PrayerLog {
   /**
    * The day is excused (hayd / illness / travel): obligatory tracking is paused,
    * the streak is frozen across it, and no qaza is prompted (NF-1.2, NF-1.4).
+   * An active period auto-applies these flags on new calendar days until resume.
    */
   isExcused?: boolean;
   excusedReason?: ExcusedReason;

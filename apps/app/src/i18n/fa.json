@@ -382,7 +382,7 @@
     "checklistHint": "چک لیست فعالیت روزانه را تکمیل کنید",
     "excusedPausedLabel": "مکث کرد",
     "excusedGoalHint": "پیگیری برای {{reason}} متوقف شد - ردیابی شما متوقف شد.",
-    "excusedGoalBody": "پیگیری اجباری برای امروز متوقف شده است. هنوز می توانید عبادت اختیاری را وارد کنید.",
+    "excusedGoalBody": "پیگیری واجب برای این دوره متوقف شده است. هنوز می‌توانید عبادت اختیاری را ثبت کنید.",
     "tasksProgress": "{{done}} از {{total}} کارها",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "ردیابی را شروع کنید",
@@ -598,10 +598,10 @@
     "title": "ردیاب",
     "subtitle": "برای تعیین وضعیت هر نماز بزنید — اطلاعات روی همین دستگاه ذخیره می‌شود.",
     "excusedTitle": "Mazeretli روز",
-    "excusedHint": "حیض، بیماری یا سفر — پیگیری واجب را بدون از بین رفتن تداوم متوقف کنید.",
-    "excusedActive": "این روز mazeretli — farz takibi duraklatıldı و seriniz korunuyor.",
-    "excusedConfirmTitle": "امروز mazeretli olarak işaretlensin mi?",
-    "excusedConfirmMsg": "پیگیری واجب امروز به‌دلیل {{reason}} متوقف می‌شود. تداوم شما حفظ خواهد شد.",
+    "excusedHint": "حیض، بیماری یا سفر — پیگیری واجب را بدون از بین رفتن تداوم متوقف کنید. توقف هر روز ادامه می‌یابد تا زمانی که از سر بگیرید.",
+    "excusedActive": "پیگیری واجب برای این دوره متوقف است — تداوم شما تا زمان ازسرگیری حفظ می‌شود.",
+    "excusedConfirmTitle": "دوره عذر آغاز شود؟",
+    "excusedConfirmMsg": "پیگیری واجب به‌دلیل {{reason}} متوقف می‌شود و تا زمان ازسرگیری هر روز ادامه می‌یابد. تداوم شما حفظ خواهد شد.",
     "excusedConfirmAction": "معذور قرار دیں",
     "excusedReason": {
       "hayd": "Hayd",
@@ -2882,7 +2882,7 @@
       "body": "وتر سنتِ مؤکدہ ہے، سفر میں نہ چھوڑیں۔ عشاء کے بعد — چاہے مغرب و عشاء جمع کی ہوں — ایک، تین یا زیادہ وتر طاقت کے مطابق۔ سفر میں عشاء سے پہلے سونے کا خوف ہو تو مغرب و عشاء جمع کے بعد وتر جلد پڑھنے کی رخصت ہے۔"
     },
     "disclaimer": "یہ تعلیمی مواد ہے، ذاتی فتویٰ نہیں۔ مسافت، قیام کی مدت، جمع کے قواعد اور حاجت کی قید مذاہب میں مختلف ہیں — اپنے سفر کے لیے مستند عالم سے رجوع کریں۔",
-    "markExcused": "امروز را معذور ثبت کن (سفر)",
+    "markExcused": "شروع دوره عذر (سفر)",
     "clearExcused": "ادامه obligatory tracking"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "وقتی حید یا نفاس تمام شد، قبل از شروع مجدد نماز، غسل کامل را انجام دهید. فقط پس از پایان حید روزه را از سر بگیرید. هر روزه ای که ماه مبارک رمضان در حید گرفته شده باید در روزهای دیگر قضا شود.\n\nصلاح از دست رفته در حید قضا نمی شود - خداوند این واجب را برداشت. این با بیماری یا مسافرت متفاوت است، جایی که ممکن است نماز قضا نیاز به قضا داشته باشد. پس از غسل، عبادت عادی و پیگیری واجب خود را در برنامه از سر بگیرید."
     },
     "disclaimer": "این یک راهنمایی آموزشی است نه یک حکم شخصی. جزئیات بالا بین مدارس متفاوت است - اگر وضعیت شما نامشخص است، با یک محقق زن واجد شرایط مشورت کنید.",
-    "markExcused": "علامت گذاری امروز به عنوان معذور (حید)",
+    "markExcused": "شروع دوره عذر (حیض)",
     "clearExcused": "ردیابی اجباری را از سر بگیرید",
     "hadith[0]": {
       "reference": "صحیح البخاری · ۳۲۱",
@@ -2983,7 +2983,7 @@
       "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nاز دست رفته salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
     },
     "disclaimer": "یہ تعلیمی رہنمائی ہے، ذاتی فتویٰ نہیں۔ کون سی رخصت کس حد بیماری پر ہے مذاہب اور شدت کے لحاظ سے مختلف ہے — اپنی صورتِ حال کے لیے مستند عالم سے رجوع کریں۔",
-    "markExcused": "امروز را معذور ثبت کن (بیماری)",
+    "markExcused": "شروع دوره عذر (بیماری)",
     "clearExcused": "ادامه obligatory tracking"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "نماز marked",
     "alreadyDone": "قبلا علامت گذاری شده است",
     "allDone": "همه نمازهای واجب امروز ثبت شدند",
-    "excused": "آج کی نگرانی روکی گئی ہے",
+    "excused": "پیگیری برای این دوره عذر متوقف است",
     "locked": "Aç  app  mark نماز",
     "failed": "Could not mark نماز",
     "intents": {

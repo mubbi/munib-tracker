@@ -153,9 +153,9 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     id: "personalize",
     title: "Make the app yours",
     summary:
-      "Light, dark, or system theme — twelve accent presets, custom colors, fonts, and twenty-three languages.",
+      "Light, dark, or system theme — twelve accent presets, custom colors, fonts, and twenty-four languages.",
     highlights: [
-      "23 UI locales with RTL for Arabic, Urdu, Persian, Pashto, and Kurdish",
+      "24 UI locales with RTL for Arabic, Urdu, Persian, Pashto, and Kurdish",
       "12 accent colors plus custom hex picker; seasonal Hijri themes",
       "Arabic font families (Amiri, Scheherazade, Noto Naskh, QPC Hafs) and sizes",
       "Customizable home modules, quick actions, and library order",

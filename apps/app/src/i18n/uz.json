@@ -382,7 +382,7 @@
     "checklistHint": "Complete  kunlik ctivity tekshiruv ro'yxti",
     "excusedPausedLabel": "Paused",
     "excusedGoalHint": "{{reason}} uchun kuzatuv toʻxtatildi — seriyangiz saqlanib qoldi.",
-    "excusedGoalBody": "Majburiy kuzatuv bugun to'xtatildi. Siz hali ham ixtiyoriy ibodatga kirishingiz mumkin.",
+    "excusedGoalBody": "Majburiy kuzatuv shu davr uchun toʻxtatildi. Siz hali ham ixtiyoriy ibodatni qayd qilishingiz mumkin.",
     "tasksProgress": "{{done}} -nichidg {{total}} tsks",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Kuzatishni boshlang",
@@ -598,10 +598,10 @@
     "title": "Tracker",
     "subtitle": "Maqomini oʻrnatish uchun namozga teging — bu qurilmada saqlangan.",
     "excusedTitle": "Excused dy",
-    "excusedHint": "Hayd, kasallik yoki sayohat - chiziqni buzmasdan majburiy kuzatuvni to'xtating.",
-    "excusedActive": "Bu kun kechiriladi - majburiy kuzatuv to'xtatiladi va sizning chiziqingiz ushlab turiladi.",
-    "excusedConfirmTitle": "Mrk bugun s excused?",
-    "excusedConfirmMsg": "Majburiy kuzatuv bugun pauza qilinadi ({{reason}}). Sizning seriyangiz saqlanib qoladi.",
+    "excusedHint": "Hayd, kasallik yoki sayohat — seriyani buzmasdan majburiy kuzatuvni toʻxtating. Pauza siz davom ettirmaguningizcha har kuni davom etadi.",
+    "excusedActive": "Majburiy kuzatuv shu davr uchun toʻxtatildi — seriyangiz siz davom ettirmaguningizcha saqlanadi.",
+    "excusedConfirmTitle": "Uzr davrini boshlaysizmi?",
+    "excusedConfirmMsg": "Majburiy kuzatuv pauza qilinadi ({{reason}}) va siz davom ettirmaguningizcha har kuni davom etadi. Seriyangiz saqlanib qoladi.",
     "excusedConfirmAction": "Mrk excused",
     "excusedReason": {
       "hayd": "Hyd",
@@ -2882,7 +2882,7 @@
       "body": "Vitr sunnat muakkada (qattiq ta'kidlangan) bo'lib, sayohat paytida uni tark etmaslik kerak. Xuftondan keyin, hatto shom va xuftonni birlashtirgan bo'lsangiz ham, qo'lingizdan kelganicha bir, uch yoki undan ortiq toq rakat namoz o'qing. Agar safar chog‘ida xuftondan oldin uxlab qolishdan qo‘rqsangiz, Rasululloh sollallohu alayhi vasallam vitr namozini qo‘shma shomdan keyin o‘qishga ruxsat berganlar."
     },
     "disclaimer": "Bu shaxsiy fatvo emas, ta'lim mazmuni. Masofa chegaralari, qolish muddati, qoidalarni birlashtirish va Jam'ning ehtiyoj bilan cheklanganligi to'rtta maktab o'rtasida farq qiladi - sayohatingiz uchun malakali olim bilan maslahatlashing.",
-    "markExcused": "Mrk bugun s excused (trvel)",
+    "markExcused": "Uzr davrini boshlash (sayohat)",
     "clearExcused": "Majburiy kuzatuvni davom ettiring"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Hayz yoki nifas tugagach, salahga qaytishdan oldin to‘liq g‘usl qiling. Hayzda o‘tkazib yuborilgan Ramazon ro‘zalarini boshqa kunlarda qazo qiling.\n\nHayzda o‘tkazib yuborilgan salahlar qazo qilinmaydi — Alloh bu majburiyatni ko‘targan. G‘usldan so‘ng odatiy ibodat va ilovadagi majburiy kuzatuvga qayting."
     },
     "disclaimer": "bu bu eductidl guidnce, ems  persdl rulichidg.  detils bove vry between schools — cdsult  qulified femle scholr if siznichidg situtid bu uncler.",
-    "markExcused": "Mrk bugun s excused (hyd)",
+    "markExcused": "Uzr davrini boshlash (hayd)",
     "clearExcused": "Resume obligtyokiy trckichidg"
   },
   "sick": {
@@ -2971,7 +2971,7 @@
       "body": "Ramazonda ro‘za kasalligingizni kuchaytirsa yoki tuzalishni kechiktirsa, ro‘zani oching va sog‘aygach boshqa kunlarda qazo qiling.\n\nHar o‘tkazib yuborilgan Ramazon ro‘zasi keyin bir kun ro‘za bilan qazo qilinadi; uzrsiz buzilmagan bo‘lsa kafforat yo‘q.\n\nKasallikdagi o‘tkazib yuborilgan salahlar ham imkon bo‘lgach tartib bilan qazo qilinadi."
     },
     "disclaimer": "bu bu eductidl guidnce, ems  persdl rulichidg. How much illness justifies ech cdcessid vries by school v severity — cdsult  qulified scholr uchun siznichidg situtid.",
-    "markExcused": "Mrk bugun s excused (illness)",
+    "markExcused": "Uzr davrini boshlash (kasallik)",
     "clearExcused": "Resume obligtyokiy trckichidg"
   },
   "homeCustomize": {
@@ -4900,7 +4900,7 @@
     "marked": "Belgilangan Salah",
     "alreadyDone": "Belgilangan",
     "allDone": "Barcha majburiy namozlar bugun uchun belgilangan",
-    "excused": "Kuzatuv bugun uchun toʻxtatilgan",
+    "excused": "Kuzatuv ushbu uzr davri uchun toʻxtatilgan",
     "locked": "Salahni belgilash uchun ilovani qulfdan chiqaring",
     "failed": "Salohni belgilay olmadi",
     "intents": {

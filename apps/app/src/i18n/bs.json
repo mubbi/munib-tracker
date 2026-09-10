@@ -382,7 +382,7 @@
     "checklistHint": "Ispunite kontrolnu listu dnevnih aktivnosti",
     "excusedPausedLabel": "Pauzirano",
     "excusedGoalHint": "Praćenje je pauzirano za {{reason}} — vaš niz je zadržan.",
-    "excusedGoalBody": "Obavezno praćenje je pauzirano za danas. Još uvijek možete prijaviti neobavezno obožavanje.",
+    "excusedGoalBody": "Obavezno praćenje je pauzirano za ovaj period. Još uvijek možete prijaviti neobavezno ibadet.",
     "tasksProgress": "{{done}} od {{total}} zadataka",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Počnite pratiti",
@@ -598,10 +598,10 @@
     "title": "Takip",
     "subtitle": "Dodirnite molitvu da postavite status — sačuvano na ovom uređaju.",
     "excusedTitle": "Excused dan",
-    "excusedHint": "Hayd, illness, ili travel — pause obligatory tracking without breaking vaš serija.",
-    "excusedActive": "Ovo dan je excused — obligatory tracking je paused i vaš serija je held.",
-    "excusedConfirmTitle": "Označiti danas kao opravdano?",
-    "excusedConfirmMsg": "Obavezno praćenje će se pauzirati za danas ({{reason}}). Vaš niz će biti sačuvan.",
+    "excusedHint": "Hayd, bolest ili putovanje — pauzirajte obavezno praćenje bez prekida niza. Pauza se nastavlja svaki dan dok ne nastavite.",
+    "excusedActive": "Obavezno praćenje je pauzirano za ovaj period — vaš niz se čuva dok ne nastavite.",
+    "excusedConfirmTitle": "Započeti period opravdanja?",
+    "excusedConfirmMsg": "Obavezno praćenje će se pauzirati ({{reason}}) i nastaviti svaki dan dok ne nastavite. Vaš niz će biti sačuvan.",
     "excusedConfirmAction": "Označi opravdano",
     "excusedReason": {
       "hayd": "Hayd",
@@ -2882,7 +2882,7 @@
       "body": "Witr je sunnah mu'akkadah (strongly emphasized) i should not be abandoned while travelling. Pray it after Isha — even if vi combined Maghrib i Isha — as one, three, ili more odd rakahs according u what vi can manage. If vi fear sleeping before Isha while travelling,  Prophet ﷺ permitted praying Witr earlier after  combined Maghrib-Isha."
     },
     "disclaimer": "Ovo je obrazovno sadržaj, not  lično fatwa. Distance thresholds, stay duration, combining rules, i whether Jam' je limited u need vary between  four schools — consult  qualified učenjak za vaš putovanje.",
-    "markExcused": "Mark danas as excused (travel)",
+    "markExcused": "Započni period opravdanja (putovanje)",
     "clearExcused": "Resume obligatory tracking"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Kada završi hajd ili nifas, obavite puni gusl prije nego što nastavite namaz. Nastavite sa postom tek nakon završetka hajda; svi ramazanski postovi propušteni tokom hajda moraju se nadoknaditi drugim danima.\n\nNamaz propušten tokom hajda se ne nadoknađuje — Allah je ukinuo tu obavezu. Ovo se razlikuje od bolesti ili putovanja, gdje će za propuštene namaze možda biti potrebna qaza. Nakon gusla, nastavite sa svojim normalnim klanjanjem i obaveznim praćenjem u aplikaciji."
     },
     "disclaimer": "Ovo je obrazovno vodstvo, a ne lična odluka. Gore navedeni detalji razlikuju se od škole do škole - konsultujte se sa kvalifikovanom naučnicom ako je vaša situacija nejasna.",
-    "markExcused": "Označi današnji dan kao opravdan (hayd)",
+    "markExcused": "Započni period opravdanja (hayd)",
     "clearExcused": "Nastavi obavezno praćenje",
     "hadith[0]": {
       "reference": "Sahih el-Buhari · 321",
@@ -2983,7 +2983,7 @@
       "body": "If post u Ramadan would worsen vaš illness ili delay recovery, break  fast i make it up na other dana after vi recover —  Kur'an explicitly permits ovo za  ill.\n\nEach propušteno Ramadan fast je made up sa one dan  post later; there je no kaffarah (expiation) unless  fast was broken without  valid excuse.\n\nPropušteno salah during illness must also be made up u order once vi su able — unlike hayd, where propušteno salah su not qaza. When vi recover, resume normal tracking i work through vaš qaza at  sustainable pace."
     },
     "disclaimer": "Ovo je obrazovno guidance, not  lično ruling. How much illness justifies each concession varies by school i severity — consult  qualified učenjak za vaš situation.",
-    "markExcused": "Mark danas as excused (illness)",
+    "markExcused": "Započni period opravdanja (bolest)",
     "clearExcused": "Resume obligatory tracking"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "Salah označeno",
     "alreadyDone": "Već označeno",
     "allDone": "Sve obligatory Salah označeno za danas",
-    "excused": "Tracking je paused za danas",
+    "excused": "Praćenje je pauzirano za ovaj period opravdanja",
     "locked": "Unlock  app u mark Salah",
     "failed": "Could not mark Namaz",
     "intents": {

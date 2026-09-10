@@ -22,16 +22,14 @@ import { useScrollToActiveHorizontal } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   afterSalahApplicablePrayers,
-  afterSalahItemProgress,
   afterSalahProgressForPrayer,
-  getZikrCountFromMap,
-  isZikrItemDone,
 } from "@/lib/after-salah-adhkar-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
+import { zikrListProgress, zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 import { useZikrCounts } from "@/stores/tracker-store";
@@ -124,10 +122,13 @@ export default function ZikrCategoryScreen() {
     [items, query, searching, zikrIndex],
   );
 
-  const prayerProgress = useMemo(() => {
-    if (!showPrayerFilter || prayerFilter === "all") return null;
-    return afterSalahProgressForPrayer(prayerFilter, zikrCounts);
-  }, [showPrayerFilter, prayerFilter, zikrCounts]);
+  const listProgress = useMemo(() => {
+    if (showPrayerFilter) {
+      if (prayerFilter === "all") return null;
+      return afterSalahProgressForPrayer(prayerFilter, zikrCounts);
+    }
+    return zikrListProgress(items, zikrCounts);
+  }, [items, showPrayerFilter, prayerFilter, zikrCounts]);
 
   const onOpen = useCallback(
     (id: string) =>
@@ -143,24 +144,11 @@ export default function ZikrCategoryScreen() {
 
   const renderZikrRow = useCallback(
     (item: ZikrItem) => {
-      let completed = false;
-      let progressLabel: string | undefined;
-
-      if (showPrayerFilter) {
-        if (prayerFilter === "all") {
-          const slot = afterSalahItemProgress(item, zikrCounts);
-          completed = slot.completed >= slot.total;
-          progressLabel = `${slot.completed}/${slot.total}`;
-        } else {
-          const count = getZikrCountFromMap(zikrCounts, item.id, prayerFilter);
-          completed = isZikrItemDone(count, item.targetCount);
-          progressLabel = completed
-            ? undefined
-            : item.targetCount
-              ? `${count}/${item.targetCount}`
-              : undefined;
-        }
-      }
+      const { completed, progressLabel } = zikrListRowProgress(
+        item,
+        zikrCounts,
+        showPrayerFilter ? prayerFilter : "all",
+      );
 
       return (
         <ZikrRow
@@ -169,8 +157,8 @@ export default function ZikrCategoryScreen() {
           isFavorite={favoriteIds.includes(item.id)}
           onToggleFavorite={toggleFavorite}
           onPress={onOpen}
-          completed={showPrayerFilter ? completed : undefined}
-          progressLabel={showPrayerFilter ? progressLabel : undefined}
+          completed={completed}
+          progressLabel={progressLabel}
         />
       );
     },
@@ -243,21 +231,23 @@ export default function ZikrCategoryScreen() {
           </TvScrollView>
         </TvFocusGuide>
       ) : null}
-      {prayerProgress ? (
+      {listProgress && listProgress.total > 0 ? (
         <View style={styles.progressBlock}>
           <View style={styles.progressHeader}>
             <ThemedText type="smallBold">
-              {t("zikr.afterSalahTodayForPrayer", { prayer: t(`prayers.${prayerFilter}`) })}
+              {showPrayerFilter && prayerFilter !== "all"
+                ? t("zikr.afterSalahTodayForPrayer", { prayer: t(`prayers.${prayerFilter}`) })
+                : t("zikr.today")}
             </ThemedText>
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("zikr.afterSalahProgress", {
-                completed: prayerProgress.completed,
-                total: prayerProgress.total,
+                completed: listProgress.completed,
+                total: listProgress.total,
               })}
             </ThemedText>
           </View>
           <ProgressBar
-            value={prayerProgress.total > 0 ? prayerProgress.completed / prayerProgress.total : 0}
+            value={listProgress.total > 0 ? listProgress.completed / listProgress.total : 0}
             height={4}
           />
         </View>
@@ -337,7 +327,7 @@ export default function ZikrCategoryScreen() {
                 key={showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}
                 style={styles.flatList}
                 data={filtered}
-                extraData={prayerFilter}
+                extraData={zikrCounts}
                 keyExtractor={keyExtractor}
                 renderItem={renderItem}
                 ItemSeparatorComponent={ListSeparator}

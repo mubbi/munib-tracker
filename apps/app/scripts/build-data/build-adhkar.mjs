@@ -415,6 +415,7 @@ const LOCALE_QURAN_EDITIONS = [
   ["sq", "sq-ahmeti"],
   ["ky", "ky-hakim"],
   ["tg", "tg-ayati"],
+  ["hi", "hi-maulanaazizulha"],
 ];
 
 /** Parse a single-ayah `Quran S:A` reference from a Hisnul Muslim cite string.

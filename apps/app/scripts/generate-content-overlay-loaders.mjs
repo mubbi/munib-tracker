@@ -42,6 +42,7 @@ const LOCALES = [
   "fa",
   "fr",
   "ha",
+  "hi",
   "id",
   "kk",
   "ku",

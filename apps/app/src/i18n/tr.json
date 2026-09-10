@@ -382,7 +382,7 @@
     "checklistHint": "Günlük aktivite kontrol listesini tamamlayın",
     "excusedPausedLabel": "Duraklatıldı",
     "excusedGoalHint": "{{reason}} nedeniyle takip duraklatıldı — seriniz korunuyor.",
-    "excusedGoalBody": "Bugün farz takibi duraklatıldı. İsteğe bağlı ibadetleri yine de kaydedebilirsiniz.",
+    "excusedGoalBody": "Bu dönem için farz takibi duraklatıldı. İsteğe bağlı ibadetleri yine de kaydedebilirsiniz.",
     "tasksProgress": "{{total}} görevden {{done}}",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Takibe başla",
@@ -598,10 +598,10 @@
     "title": "Takip",
     "subtitle": "Durumu ayarlamak için bir namaza dokunun — bu cihazda kaydedilir.",
     "excusedTitle": "Mazeretli gün",
-    "excusedHint": "Hayız, hastalık veya seyahat — serinizi bozmadan farz takibini duraklatın.",
-    "excusedActive": "Bu gün mazeretli — farz takibi duraklatıldı ve seriniz korunuyor.",
-    "excusedConfirmTitle": "Bugünü mazeretli olarak işaretle?",
-    "excusedConfirmMsg": "Farz takibi bugün duraklatılacak ({{reason}}). Seriniz korunur.",
+    "excusedHint": "Hayız, hastalık veya seyahat — serinizi bozmadan farz takibini duraklatın. Duraklama, siz devam edene kadar her gün sürer.",
+    "excusedActive": "Bu dönem için farz takibi duraklatıldı — seriniz siz devam edene kadar korunur.",
+    "excusedConfirmTitle": "Mazeret dönemi başlatılsın mı?",
+    "excusedConfirmMsg": "Farz takibi duraklatılacak ({{reason}}) ve siz devam edene kadar her gün sürecek. Seriniz korunur.",
     "excusedConfirmAction": "Mazeretli işaretle",
     "excusedReason": {
       "hayd": "Hayız",
@@ -2882,7 +2882,7 @@
       "body": "Vitir dir sunnah mu'akkadah (strongly emphasized) ve should not be abandoned while travelling. Pray it after Yatsı — even if siz combined Akşam ve Yatsı — as one, three, veya more odd rakahs according  what siz can yönet. If siz fear sleeping before Yatsı while travelling,  Prophet ﷺ permitted praying Vitir earlier after  combined Akşam-Yatsı."
     },
     "disclaimer": "Bu dir eğitim içerik, not  personal fatwa. Distance thresholds, stay duration, combining rules, ve whether Jam' dir limited  need vary between  four schools — consult  qualified alim için sizin yolculuk.",
-    "markExcused": "today as excused (travel) İşaretle",
+    "markExcused": "Mazeret dönemini başlat (seyahat)",
     "clearExcused": "Resume obligatory tracking"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "When hayız veya nifas ends, perform  full ghusl before resuming salah. Resume oruç only after hayız ends; any Ramazan fasts kaçırıldı during hayız must be made up  other gün.\n\nNamaz kaçırıldı during hayız dir not made up — Allah lifted şu obligation. Bu dir different den hastalık veya seyahat, where kaçırıldı prayers may need kaza. After ghusl, resume sizin normal ibadet ve farz tracking içinde  app."
     },
     "disclaimer": "Bu dir eğitim guidance, not  personal ruling.  details above vary between schools — consult  qualified female alim if sizin situation dir unclear.",
-    "markExcused": "today as excused (hayd) İşaretle",
+    "markExcused": "Mazeret dönemini başlat (hayız)",
     "clearExcused": "Resume obligatory tracking"
   },
   "sick": {
@@ -2971,7 +2971,7 @@
       "body": "If oruç içinde Ramazan would worsen sizin hastalık veya delay recovery, break  oruç ve make it up  other gün after siz recover —  Kur'an explicitly permits bu için  ill.\n\nEach kaçırıldı Ramazan oruç dir made up ile one gün  oruç later; there dir no kaffarah (expiation) unless  oruç was broken without  valid excuse.\n\nKaçırıldı salah during hastalık must also be made up içinde order once siz dir able — unlike hayız, where kaçırıldı prayers dir not kaza. When siz recover, resume normal tracking ve work through sizin kaza at  sustainable tempo."
     },
     "disclaimer": "Bu dir eğitim guidance, not  personal ruling. How much hastalık justifies each concession varies by school ve severity — consult  qualified alim için sizin situation.",
-    "markExcused": "today as excused (illness) İşaretle",
+    "markExcused": "Mazeret dönemini başlat (hastalık)",
     "clearExcused": "Resume obligatory tracking"
   },
   "homeCustomize": {
@@ -4900,7 +4900,7 @@
     "marked": "Namaz marked",
     "alreadyDone": "Zaten işaretlendi",
     "allDone": "Tüm obligatory Namaz marked for today",
-    "excused": "Tracking dir paused için bugün",
+    "excused": "Bu mazeret dönemi için takip duraklatıldı",
     "locked": "Aç  app  mark Namaz",
     "failed": "Could not mark Namaz",
     "intents": {

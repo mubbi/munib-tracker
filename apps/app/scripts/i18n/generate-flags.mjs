@@ -28,6 +28,7 @@ const FLAGS = {
   kg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513 342"><path fill="#E8112D" d="M0 0h513v342H0z"/><circle fill="#FFEF00" cx="256" cy="171" r="55"/></svg>`,
   tj: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513 342"><path fill="#006600" d="M0 228h513v114H0z"/><path fill="#FFF" d="M0 114h513v114H0z"/><path fill="#CC0000" d="M0 0h513v114H0z"/></svg>`,
   tm: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513 342"><path fill="#00843D" d="M0 0h513v342H0z"/><path fill="#FFF" d="M0 0h513v68H0z"/><path fill="#E30A17" d="M0 68h513v68H0z"/><path fill="#FFF" d="M0 136h513v68H0z"/><path fill="#E30A17" d="M0 204h513v68H0z"/><path fill="#FFF" d="M0 272h513v70H0z"/></svg>`,
+  in: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513 342"><path fill="#FF9933" d="M0 0h513v114H0z"/><path fill="#FFF" d="M0 114h513v114H0z"/><path fill="#138808" d="M0 228h513v114H0z"/><circle fill="#000080" cx="256" cy="171" r="32" fill-opacity="0"/><circle stroke="#000080" stroke-width="3" fill="none" cx="256" cy="171" r="28"/><circle fill="#000080" cx="256" cy="171" r="4"/></svg>`,
 };
 
 for (const [code, svg] of Object.entries(FLAGS)) {

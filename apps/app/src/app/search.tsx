@@ -36,8 +36,11 @@ import {
 } from "@/lib/search";
 import { clearRecentSearches, loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
 import { abortStt, type SttErrorKind } from "@/lib/stt";
+import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
+import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useToast } from "@/providers/toast-provider";
+import { useZikrCounts } from "@/stores/tracker-store";
 
 const DEBOUNCE_MS = 180;
 /** Matches fetched per light group; ample for a filtered view, cheap for tiny corpora. */
@@ -185,6 +188,7 @@ export default function SearchScreen() {
       if (active) setRecent(list);
     });
     void preloadSearchCorpora();
+    void ensureZikrCorpus();
     return () => {
       active = false;
     };
@@ -739,7 +743,18 @@ function ResultRow({
   onPress: () => void;
 }) {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const zikrCounts = useZikrCounts();
+  const zikrItem =
+    result.category === "zikr" && result.params?.id ? getZikrById(result.params.id) : undefined;
+  const zikrProgress = zikrItem ? zikrListRowProgress(zikrItem, zikrCounts) : null;
+  const statusLabel = zikrProgress
+    ? zikrProgress.completed
+      ? (zikrProgress.progressLabel ?? t("zikr.done"))
+      : zikrProgress.progressLabel
+    : undefined;
+  const badgeLabel = statusLabel ?? result.badge;
+  const badgeCompleted = Boolean(zikrProgress?.completed);
   const accessibilityHint =
     tv && (category === "quran" || category === "hadith")
       ? t(`search.suggestion.${category}Tv`)
@@ -748,7 +763,7 @@ function ResultRow({
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={result.title}
+      accessibilityLabel={statusLabel ? `${result.title}, ${statusLabel}` : result.title}
       accessibilityHint={accessibilityHint}
       onPress={onPress}
       style={[
@@ -773,10 +788,22 @@ function ResultRow({
             numberOfLines={2}
             style={styles.rowTitle}
           />
-          {result.badge ? (
-            <View style={[styles.badge, { backgroundColor: colors.card }]}>
-              <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                {result.badge}
+          {badgeLabel ? (
+            <View
+              style={[
+                styles.badge,
+                {
+                  backgroundColor: badgeCompleted ? tokens.status.success.soft : colors.card,
+                },
+              ]}
+            >
+              <ThemedText
+                type="caption"
+                themeColor={badgeCompleted ? undefined : "mutedForeground"}
+                numberOfLines={1}
+                style={badgeCompleted ? { color: tokens.status.success.color } : undefined}
+              >
+                {badgeLabel}
               </ThemedText>
             </View>
           ) : null}

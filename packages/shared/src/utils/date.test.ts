@@ -4,6 +4,7 @@ import {
   diffInDays,
   formatShortDate,
   getLocalDateString,
+  msUntilNextLocalMidnight,
   parseLocalDateString,
 } from "./date";
 
@@ -31,6 +32,12 @@ describe.concurrent("date utils", () => {
   it("computes whole-day differences", () => {
     expect(diffInDays("2026-07-03", "2026-07-01")).toBe(2);
     expect(diffInDays("2026-07-01", "2026-07-03")).toBe(-2);
+  });
+
+  it("reports positive ms until the next local midnight", () => {
+    const noon = new Date(2026, 6, 3, 12, 0, 0);
+    const ms = msUntilNextLocalMidnight(noon, 0);
+    expect(ms).toBe(12 * 60 * 60 * 1000);
   });
 
   it("throws on malformed date strings instead of silently defaulting", () => {

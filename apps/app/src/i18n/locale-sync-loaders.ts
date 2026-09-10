@@ -35,4 +35,5 @@ export const LOCALE_SYNC_LOADERS: Record<Exclude<AppLocale, "en">, () => Catalog
   ky: () => require("./ky.json") as Catalog,
   tg: () => require("./tg.json") as Catalog,
   tk: () => require("./tk.json") as Catalog,
+  hi: () => require("./hi.json") as Catalog,
 };

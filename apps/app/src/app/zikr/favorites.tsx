@@ -11,14 +11,17 @@ import { Spacing } from "@/constants/theme";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
+import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
+import { useZikrCounts } from "@/stores/tracker-store";
 
 export default function ZikrFavoritesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const order = useFavoriteZikrIds();
   const { setFavoriteOrder, toggleFavorite } = usePreferencesActions();
+  const zikrCounts = useZikrCounts();
   const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
     void ensureZikrCorpus().then(() => setCorpusReady(true));
@@ -61,19 +64,24 @@ export default function ZikrFavoritesScreen() {
       ) : (
         <Card padding="three">
           <View style={styles.list}>
-            {items.map((item, index) => (
-              <FavoritesOrderRow
-                key={item.id}
-                index={index}
-                total={items.length}
-                title={item.title}
-                subtitle={item.transliteration}
-                onPress={() => pushZikrDetail(router, item.id)}
-                onMove={(direction) => move(index, direction)}
-                onRemove={() => toggleFavorite(item.id)}
-                removeAccessibilityLabel={t("zikr.removeFavorite")}
-              />
-            ))}
+            {items.map((item, index) => {
+              const { completed, progressLabel } = zikrListRowProgress(item, zikrCounts);
+              return (
+                <FavoritesOrderRow
+                  key={item.id}
+                  index={index}
+                  total={items.length}
+                  title={item.title}
+                  subtitle={item.transliteration}
+                  onPress={() => pushZikrDetail(router, item.id)}
+                  onMove={(direction) => move(index, direction)}
+                  onRemove={() => toggleFavorite(item.id)}
+                  removeAccessibilityLabel={t("zikr.removeFavorite")}
+                  completed={completed}
+                  progressLabel={progressLabel}
+                />
+              );
+            })}
           </View>
         </Card>
       )}

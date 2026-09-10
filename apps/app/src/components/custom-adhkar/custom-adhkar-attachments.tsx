@@ -17,13 +17,17 @@ import {
 import { attachmentPickErrorFromUnknown } from "@/lib/attachments/attachment-mime";
 import { attachmentPickFailureFromOutcome } from "@/lib/attachments/map-attachment-pick-outcome";
 import { isTV } from "@/lib/platform/is-tv";
-import { runAfterSheetDismiss } from "@/lib/platform/run-after-sheet-dismiss";
 import { useToast } from "@/providers/toast-provider";
 
 export type DraftAdhkarAttachment = {
+  /** Local file URI, or authenticated content URL for an already-uploaded file. */
   uri: string;
   mimeType: string;
   filename: string;
+  /** Set when this draft row is an existing `/user-media` attachment. */
+  mediaId?: string;
+  /** Auth headers for remote thumbs (Bearer). */
+  headers?: Record<string, string>;
 };
 
 export function CustomAdhkarAttachments({
@@ -133,9 +137,8 @@ export function CustomAdhkarAttachments({
 
   const handleSourceSelect = (source: AttachmentPickSource) => {
     setSourceOpen(false);
-    runAfterSheetDismiss(() => {
-      void runPick(source);
-    });
+    // Inline source list (no nested Modal) — picker can open immediately.
+    void runPick(source);
   };
 
   const removeAt = (index: number) => {
@@ -148,34 +151,43 @@ export function CustomAdhkarAttachments({
         {t("customAdhkar.attachments.label")}
       </ThemedText>
       {!tv && attachments.length < USER_MEDIA_MAX_PER_ENTITY ? (
-        <View style={[styles.addField, { backgroundColor: colors.muted }]}>
-          <View style={styles.addCopy}>
-            <ThemedText type="smallBold">{t("customAdhkar.attachments.add")}</ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {canUpload
-                ? t("customAdhkar.attachments.hint")
-                : t("customAdhkar.attachments.signInRequired")}
-            </ThemedText>
+        sourceOpen ? (
+          <AttachmentSourceSheet
+            visible
+            embedded
+            onClose={() => setSourceOpen(false)}
+            onSelect={handleSourceSelect}
+          />
+        ) : (
+          <View style={[styles.addField, { backgroundColor: colors.muted }]}>
+            <View style={styles.addCopy}>
+              <ThemedText type="smallBold">{t("customAdhkar.attachments.add")}</ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {canUpload
+                  ? t("customAdhkar.attachments.hint")
+                  : t("customAdhkar.attachments.signInRequired")}
+              </ThemedText>
+            </View>
+            <PressableScale
+              accessibilityRole="button"
+              accessibilityLabel={t("customAdhkar.attachments.add")}
+              onPress={openSourcePicker}
+              disabled={!canUpload}
+              style={[styles.addButton, { backgroundColor: tokens.accentSoft }]}
+              haptic="light"
+            >
+              <SymbolView
+                name={{
+                  ios: "plus",
+                  android: "add",
+                  web: "add",
+                }}
+                size={22}
+                tintColor={colors.accent}
+              />
+            </PressableScale>
           </View>
-          <PressableScale
-            accessibilityRole="button"
-            accessibilityLabel={t("customAdhkar.attachments.add")}
-            onPress={openSourcePicker}
-            disabled={!canUpload}
-            style={[styles.addButton, { backgroundColor: tokens.accentSoft }]}
-            haptic="light"
-          >
-            <SymbolView
-              name={{
-                ios: "plus",
-                android: "add",
-                web: "add",
-              }}
-              size={22}
-              tintColor={colors.accent}
-            />
-          </PressableScale>
-        </View>
+        )
       ) : null}
       {tv ? (
         <ThemedText type="caption" themeColor="mutedForeground">
@@ -186,10 +198,15 @@ export function CustomAdhkarAttachments({
         <View style={styles.grid}>
           {attachments.map((attachment, index) => (
             <View
-              key={attachment.uri}
+              key={attachment.mediaId ?? `${attachment.uri}-${index}`}
               style={[styles.thumb, { borderColor: colors.border, backgroundColor: colors.muted }]}
             >
-              <AttachmentThumb uri={attachment.uri} mimeType={attachment.mimeType} iconSize={28} />
+              <AttachmentThumb
+                uri={attachment.uri}
+                mimeType={attachment.mimeType}
+                headers={attachment.headers}
+                iconSize={28}
+              />
               <PressableScale
                 accessibilityRole="button"
                 accessibilityLabel={t("customAdhkar.attachments.remove")}
@@ -210,12 +227,6 @@ export function CustomAdhkarAttachments({
           ))}
         </View>
       ) : null}
-
-      <AttachmentSourceSheet
-        visible={sourceOpen}
-        onClose={() => setSourceOpen(false)}
-        onSelect={handleSourceSelect}
-      />
     </View>
   );
 }

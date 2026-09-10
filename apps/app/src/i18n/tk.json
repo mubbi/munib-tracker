@@ -382,7 +382,7 @@
     "checklistHint": "Günlük aktivite kontrol listesini tamamlayyn",
     "excusedPausedLabel": "Duraklatyldy",
     "excusedGoalHint": "Tracking paused for {{reason}} — your streak is held.",
-    "excusedGoalBody": "Şu gün farz takibi duraklatyldy. Ystege bagly ibadetleri yine de kaydedebilirsiniz.",
+    "excusedGoalBody": "Hökmany yzarlaýyş şu döwür üçin wagtlaýyn togtadyldy. Islendik ibadeti henizem ýazyp bilersiňiz.",
     "tasksProgress": "{{total}} görevden {{done}}",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Takibe başla",
@@ -598,10 +598,10 @@
     "title": "Yzarlaýjy",
     "subtitle": "Durumunu ayarlamak için bir namaza dokunun — bu cihazda kaydedilir.",
     "excusedTitle": "Mazeretli gün",
-    "excusedHint": "Hayyz, hastalyk veya seyahat — serinizi bozmadan farz takibini duraklatyn.",
-    "excusedActive": "Bu gün üçin üzr berildi — hökmany yzarlaýyş wagtlaýyn togtadyldy we yzygiderliligiňiz saklanýar.",
-    "excusedConfirmTitle": "Şu gün mazeretli olarak işaretlensin mi?",
-    "excusedConfirmMsg": "Şu gün farz takibi duraklatylacak ({{reason}}). Seriniz korunacak.",
+    "excusedHint": "Haýyz, kesel ýa-da syýahat — yzygiderliligiňizi bozman hökmany yzarlaýşy togtadyň. Togtadylma siz dowam edýänçä her gün dowam edýär.",
+    "excusedActive": "Hökmany yzarlaýyş şu döwür üçin wagtlaýyn togtadyldy — yzygiderliligiňiz siz dowam edýänçä saklanýar.",
+    "excusedConfirmTitle": "Özür döwrüni başladyňmy?",
+    "excusedConfirmMsg": "Hökmany yzarlaýyş togtadylar ({{reason}}) we siz dowam edýänçä her gün dowam eder. Yzygiderliligiňiz saklanar.",
     "excusedConfirmAction": "Mazeretli işaretle",
     "excusedReason": {
       "hayd": "Hayyz",
@@ -2882,7 +2882,7 @@
       "body": "Vitir dir sunnah mu'akkadah (strongly emphasized) ve should not be abandoned while travelling. Pray it after Ýatsy — even if siz combined Agşam ve Ýatsy — as one, three, veya more odd rakahs according  what siz can yönet. If siz fear sleeping before Ýatsy while travelling,  Prophet ﷺ permitted praying Vitir earlier after  combined Agşam-Ýatsy."
     },
     "disclaimer": "Bu dir egitim içerik, not  personal fatwa. Distance thresholds, stay duration, combining rules, ve whether Jam' dir limited  need vary between  four schools — consult  qualified alim için sizin yolculuk.",
-    "markExcused": "today as excused (travel) Yşaretle",
+    "markExcused": "Özür döwrüni başlat (syýahat)",
     "clearExcused": "Resume obligatory tracking"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Haýz ýa-da nifas gutaranda namazy dowam etdirmezden öň doly gusal ediň. Orujy diňe haýz gutarandan soň dowam ediň; şol döwürde geçen Ramadan oruçlaryny başga günlerde kaza etmeli.\n\nHaýzda geçen namazlar kaza edilmeýär — Allah bu borjy ýeňilletdi. Gusaldan soň adaty ybadatyňyzy we hökmany yzarlaýyşy dowam ediň."
     },
     "disclaimer": "Bu dir egitim guidance, not  personal ruling.  details above vary between schools — consult  qualified female alim if sizin situation dir unclear.",
-    "markExcused": "today as excused (hayd) Yşaretle",
+    "markExcused": "Özür döwrüni başlat (haýyz)",
     "clearExcused": "Resume obligatory tracking"
   },
   "sick": {
@@ -2971,7 +2971,7 @@
       "body": "Ramazanda oruç tutmak keseliňizi agyrlaşdyrsa ýa-da sagalmagy gijikdirse, oruçy açyp, sagalanyňyzdan soň başga günlerde kaza ediň — Gur’an muňa rugsat berýär.\n\nHer geçen Ramadan oruçy soň bir gün oruç bilen kaza edilýär; dogry sebäpsiz bozulan oruçdan başga kaffarat ýok.\n\nKesel döwründe geçen namazlar hem başaryňyzda tertip bilen kaza edilmelidir. Sagalanyňyzda adaty yzarlaýyşy dowam etdirip, kazany durnukly depginde ýerine ýetiriň."
     },
     "disclaimer": "Bu dir egitim guidance, not  personal ruling. How much hastalyk justifies each concession varies by school ve severity — consult  qualified alim için sizin situation.",
-    "markExcused": "today as excused (illness) Yşaretle",
+    "markExcused": "Özür döwrüni başlat (kesel)",
     "clearExcused": "Resume obligatory tracking"
   },
   "homeCustomize": {
@@ -4900,7 +4900,7 @@
     "marked": "Namaz marked",
     "alreadyDone": "Eýýäm bellendi",
     "allDone": "Tüm obligatory Namaz marked for today",
-    "excused": "Tracking dir paused için bugün",
+    "excused": "Yzarlaýyş şu özür döwri üçin togtadyldy",
     "locked": "Aç  app  mark Namaz",
     "failed": "Could not mark Namaz",
     "intents": {

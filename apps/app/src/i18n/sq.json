@@ -382,7 +382,7 @@
     "checklistHint": "Plotësoni listën kontrolluese të aktivitetit ditor",
     "excusedPausedLabel": "Në pauzë",
     "excusedGoalHint": "Ndjekja u ndërpre për {{reason}} — brezi juaj është mbajtur.",
-    "excusedGoalBody": "Gjurmimi i detyrueshëm është ndërprerë për sot. Ju ende mund të regjistroni adhurimin fakultativ.",
+    "excusedGoalBody": "Gjurmimi i detyrueshëm është ndërprerë për këtë periudhë. Ju ende mund të regjistroni adhurimin fakultativ.",
     "tasksProgress": "{{done}} nga {{total}} detyra",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Filloni të gjurmoni",
@@ -598,10 +598,10 @@
     "title": "Tracker",
     "subtitle": "Tap  salah në set its status — saved në kjo pajisja.",
     "excusedTitle": "Excused ditë",
-    "excusedHint": "Hayd, illness, ose travel — pause obligatory tracking without breaking juaj seria.",
-    "excusedActive": "Kjo ditë është excused — obligatory tracking është paused dhe juaj seria është held.",
-    "excusedConfirmTitle": "Mark sot as excused?",
-    "excusedConfirmMsg": "Obligatory tracking will pause për sot ({{reason}}). Juaj seria will be held.",
+    "excusedHint": "Hayd, sëmundje ose udhëtim — ndërpritni gjurmimin e detyrueshëm pa thyer serinë. Ndërprerja vazhdon çdo ditë derisa të rifilloni.",
+    "excusedActive": "Gjurmimi i detyrueshëm është ndërprerë për këtë periudhë — seria juaj ruhet derisa të rifilloni.",
+    "excusedConfirmTitle": "Të niset një periudhë justifikimi?",
+    "excusedConfirmMsg": "Gjurmimi i detyrueshëm do të ndërpritet ({{reason}}) dhe do të vazhdojë çdo ditë derisa të rifilloni. Seria juaj do të ruhet.",
     "excusedConfirmAction": "Mrk excused",
     "excusedReason": {
       "hayd": "Hyd",
@@ -2882,7 +2882,7 @@
       "body": "Witr është sunnah mu'akkadah (strongly emphasized) dhe should not be abandoned while travelling. Pray it after Isha — even if ju combined Maghrib dhe Isha — as one, three, ose more odd rakahs according në what ju can manage. If ju fear sleeping before Isha while travelling,  Prophet ﷺ permitted praying Witr earlier after  combined Maghrib-Isha."
     },
     "disclaimer": "Kjo është edukative përmbajtja, not  personale fatwa. Distance thresholds, stay duration, combining rules, dhe whether Jam' është limited në need vary between  four schools — consult  qualified dijetar për juaj udhëtimi.",
-    "markExcused": "Mark sot as excused (travel)",
+    "markExcused": "Nis periudhën e justifikimit (udhëtim)",
     "clearExcused": "Rifilloni ndjekjen e detyrueshme"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Kur të përfundojë hajdi ose nifasi, bëni një gusl të plotë përpara se të rifilloni namazin. Rifilloni agjërimin vetëm pasi të përfundojë hajdi; çdo agjërim i Ramazanit i lënë gjatë hajdit duhet të kompensohet në ditët e tjera.\n\nNamazi i humbur gjatë hajdit nuk kompensohet - Allahu e hoqi atë obligim. Kjo është e ndryshme nga sëmundja ose udhëtimi, ku lutjet e humbura mund të kenë nevojë për kaza. Pas guslit, rifilloni adhurimin tuaj normal dhe ndjekjen e detyrueshme në aplikacion."
     },
     "disclaimer": "Ky është udhëzim arsimor, jo një vendim personal. Detajet e mësipërme ndryshojnë midis shkollave - konsultohuni me një studiuese të kualifikuar nëse situata juaj është e paqartë.",
-    "markExcused": "Shëno sot si të justifikuar (hajd)",
+    "markExcused": "Nis periudhën e justifikimit (hayd)",
     "clearExcused": "Rifilloni ndjekjen e detyrueshme",
     "hadith[0]": {
       "reference": "Sahih el-Buhari · 321",
@@ -2983,7 +2983,7 @@
       "body": "If agjërimi në Ramazani would worsen juaj illness ose delay recovery, break  fast dhe make it up në other ditë after ju recover —  Kurani explicitly permits kjo për  ill.\n\nEach humbur Ramazani fast është made up me one ditë e agjërimi later; there është no kaffarah (expiation) unless  fast was broken without  valid excuse.\n\nHumbur salah during illness must also be made up në order once ju janë able — unlike hayd, where humbur salah janë not qaza. When ju recover, resume normal tracking dhe work through juaj qaza at  sustainable pace."
     },
     "disclaimer": "Kjo është edukative guidance, not  personale ruling. How much illness justifies each concession varies by school dhe severity — consult  qualified dijetar për juaj situation.",
-    "markExcused": "Mark sot as excused (illness)",
+    "markExcused": "Nis periudhën e justifikimit (sëmundje)",
     "clearExcused": "Rifilloni ndjekjen e detyrueshme"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "Salah shënuar",
     "alreadyDone": "Tashmë e shënuar",
     "allDone": "Të gjitha obligatory Salah shënuar për sot",
-    "excused": "Tracking është paused për sot",
+    "excused": "Gjurmimi është ndërprerë për këtë periudhë justifikimi",
     "locked": "Unlock  app në mark Salah",
     "failed": "Nuk mundi të shënonte Salah",
     "intents": {

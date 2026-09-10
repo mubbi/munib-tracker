@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
+import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -22,6 +23,9 @@ type FavoritesOrderRowProps = {
   onMove: (direction: -1 | 1) => void;
   onRemove: () => void;
   removeAccessibilityLabel: string;
+  /** Today's remaining count (e.g. "1/3") when this row is a zikr. */
+  progressLabel?: string;
+  completed?: boolean;
 };
 
 /**
@@ -37,11 +41,14 @@ export function FavoritesOrderRow({
   onMove,
   onRemove,
   removeAccessibilityLabel,
+  progressLabel,
+  completed,
 }: FavoritesOrderRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const isFirst = index === 0;
   const isLast = index >= total - 1;
+  const statusLabel = completed ? (progressLabel ?? t("zikr.done")) : progressLabel;
 
   return (
     <View
@@ -53,12 +60,12 @@ export function FavoritesOrderRow({
         },
       ]}
     >
-      <ListIndexBadge index={index + 1} />
+      <ListIndexBadge index={index + 1} completed={completed} />
 
       <PressableScale
         haptic="light"
         accessibilityRole="button"
-        accessibilityLabel={`${index + 1}. ${title}`}
+        accessibilityLabel={[`${index + 1}. ${title}`, statusLabel].filter(Boolean).join(", ")}
         onPress={onPress}
         style={styles.body}
       >
@@ -69,6 +76,22 @@ export function FavoritesOrderRow({
           <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
             {subtitle}
           </ThemedText>
+        ) : null}
+        {completed ? (
+          <Pill
+            compact
+            label={progressLabel ?? t("zikr.done")}
+            color={tokens.status.success.color}
+            background={tokens.status.success.soft}
+            icon={{ ios: "checkmark", android: "check", web: "check" }}
+          />
+        ) : progressLabel ? (
+          <Pill
+            compact
+            label={progressLabel}
+            color={colors.accent}
+            background={tokens.accentSoft}
+          />
         ) : null}
       </PressableScale>
 

@@ -36,7 +36,7 @@
 | Bundled religious data (`assets/data`) | **~12 MB** (Qur’an ~9.1 MB, Hadith ~2.4 MB) |
 | All `apps/app/assets` | **~15 MB** |
 | `@munib-tracker/shared` content (non-test `.ts`) | **~1.4 MB** under `packages/shared/src/content` |
-| i18n JSON (**23** catalogs: `en` + 22 translations) | **~5+ MB** raw on disk; **locale-on-demand** via `import()` (only `en` + active locale at boot) |
+| i18n JSON (**24** catalogs: `en` + 23 translations) | **~5+ MB** raw on disk; **locale-on-demand** via `import()` (only `en` + active locale at boot) |
 
 ### 2.2 Web production export (`apps/app/dist`) — 2026-07-12 pass 2
 

@@ -16,22 +16,35 @@ type NavRowProps = {
   label: string;
   /** Optional trailing count pill. */
   count?: number;
+  /** Optional string badge (takes precedence over `count`), e.g. "3/14" or "Done". */
+  badge?: string;
+  /** Success tint when today's remaining work in this destination is finished. */
+  completed?: boolean;
   onPress: () => void;
   /** TV: request initial D-pad focus on this row. */
   preferredFocus?: boolean;
 };
 
 /** A tappable navigation row: icon well + label + optional count + chevron. */
-export function NavRow({ icon, label, count, onPress, preferredFocus }: NavRowProps) {
+export function NavRow({
+  icon,
+  label,
+  count,
+  badge,
+  completed,
+  onPress,
+  preferredFocus,
+}: NavRowProps) {
   const { colors, tokens } = useThemeTokens();
   const rtl = useIsRTL();
   const chevron = useChevronForward();
   const tv = isTV();
+  const trailing = badge ?? (count != null ? String(count) : undefined);
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={label}
+      accessibilityLabel={trailing ? `${label}, ${trailing}` : label}
       onPress={onPress}
       {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
@@ -40,10 +53,23 @@ export function NavRow({ icon, label, count, onPress, preferredFocus }: NavRowPr
       <ThemedText type="small" style={[styles.label, tv && { fontSize: TvLayout.bodyFontSize }]}>
         {label}
       </ThemedText>
-      {count != null ? (
-        <View style={[styles.countBadge, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="caption" style={[styles.countText, { color: colors.mutedForeground }]}>
-            {count}
+      {trailing ? (
+        <View
+          style={[
+            styles.countBadge,
+            {
+              backgroundColor: completed ? tokens.status.success.soft : tokens.accentSoft,
+            },
+          ]}
+        >
+          <ThemedText
+            type="caption"
+            style={[
+              styles.countText,
+              { color: completed ? tokens.status.success.color : colors.mutedForeground },
+            ]}
+          >
+            {trailing}
           </ThemedText>
         </View>
       ) : null}
