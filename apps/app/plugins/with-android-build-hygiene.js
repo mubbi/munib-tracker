@@ -1,8 +1,12 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const {
+  AndroidConfig,
   createRunOncePlugin,
+  withAppBuildGradle,
+  withAndroidStyles,
   withDangerousMod,
+  withFinalizedMod,
   withGradleProperties,
   withProjectBuildGradle,
 } = require("@expo/config-plugins");
@@ -10,8 +14,50 @@ const {
 const MARKER = "with-android-build-hygiene";
 
 /**
+ * Prefer R8 full optimizations for Play vitals (proguard-android.txt includes
+ * -dontoptimize and tanks obfuscation/optimize scores).
+ * @param {string} contents
+ */
+function patchProguardOptimizeFile(contents) {
+  return contents.replace(
+    /getDefaultProguardFile\(["']proguard-android\.txt["']\)/g,
+    'getDefaultProguardFile("proguard-android-optimize.txt")',
+  );
+}
+
+/**
+ * Android 15+ deprecates Window status/navigation bar color APIs. Transparent
+ * theme attrs still surface in Play's edge-to-edge deprecated-API report.
+ * Edge-to-edge is already enabled via gradle.properties; safe-area handles insets.
+ * @param {string} contents
+ */
+function stripDeprecatedSystemBarColorAttrs(contents) {
+  return contents
+    .replace(/\s*<item name="android:statusBarColor">[^<]*<\/item>/g, "")
+    .replace(/\s*<item name="android:navigationBarColor">[^<]*<\/item>/g, "");
+}
+
+/**
+ * @param {import('@expo/config-plugins').AndroidStyleXML} styles
+ */
+function removeDeprecatedSystemBarColorStyles(styles) {
+  const parent = AndroidConfig.Styles.getAppThemeGroup();
+  let next = AndroidConfig.Styles.removeStylesItem({
+    xml: styles,
+    parent,
+    name: "android:statusBarColor",
+  });
+  next = AndroidConfig.Styles.removeStylesItem({
+    xml: next,
+    parent,
+    name: "android:navigationBarColor",
+  });
+  return next;
+}
+
+/**
  * Post-prebuild fixes for noisy Android build warnings that upstream Expo/RN
- * templates and modules still emit on SDK 57.
+ * templates and modules still emit on SDK 57, plus Play optimization hygiene.
  */
 function withAndroidBuildHygiene(config) {
   config = withDangerousMod(config, [
@@ -37,6 +83,36 @@ function withAndroidBuildHygiene(config) {
       return config;
     },
   ]);
+
+  // Remove after Expo SystemBars (which re-adds transparent bar colors).
+  config = withAndroidStyles(config, (config) => {
+    config.modResults = removeDeprecatedSystemBarColorStyles(config.modResults);
+    return config;
+  });
+
+  // Finalized runs after styles are written — belt-and-suspenders vs SystemBars.
+  config = withFinalizedMod(config, [
+    "android",
+    async (config) => {
+      const stylesPath = path.join(
+        config.modRequest.platformProjectRoot,
+        "app/src/main/res/values/styles.xml",
+      );
+      if (fs.existsSync(stylesPath)) {
+        const before = fs.readFileSync(stylesPath, "utf8");
+        const after = stripDeprecatedSystemBarColorAttrs(before);
+        if (after !== before) {
+          fs.writeFileSync(stylesPath, after);
+        }
+      }
+      return config;
+    },
+  ]);
+
+  config = withAppBuildGradle(config, (config) => {
+    config.modResults.contents = patchProguardOptimizeFile(config.modResults.contents);
+    return config;
+  });
 
   config = withGradleProperties(config, (config) => {
     config.modResults.push({
@@ -107,5 +183,8 @@ subprojects { subproject ->
 module.exports = createRunOncePlugin(
   withAndroidBuildHygiene,
   "with-android-build-hygiene",
-  "1.0.0",
+  "1.1.0",
 );
+module.exports.patchProguardOptimizeFile = patchProguardOptimizeFile;
+module.exports.stripDeprecatedSystemBarColorAttrs = stripDeprecatedSystemBarColorAttrs;
+module.exports.removeDeprecatedSystemBarColorStyles = removeDeprecatedSystemBarColorStyles;

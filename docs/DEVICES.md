@@ -30,7 +30,9 @@ Related: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) · [`TV.md`](./TV.md) · [
 | **Apple TV (tvOS)** | ✅ | Full Expo app via `react-native-tvos` + `EXPO_TV=1` — see [`TV.md`](./TV.md) |
 | **Android TV / Fire TV** | ✅ | Same TV build (Leanback); Fire TV uses standard Android TV APK |
 
-**Orientation:** portrait-only on phone (`orientation: "portrait"` in `app.json`); TV builds are landscape-friendly via `@react-native-tvos/config-tv`.
+**Orientation:** unlocked (`orientation: "default"` in `app.json`) so phones, tablets, and foldables can rotate — required for Google Play large-screen guidance (Android 16 ignores portrait locks on ≥600dp anyway). Layouts adapt by window width (below). TV builds remain landscape-friendly via `@react-native-tvos/config-tv`. PWA stays portrait-preferred in the web manifest only.
+
+**Android Play optimization:** Release AABs enable R8 minify + resource shrinking (`expo-build-properties`) and `android.r8.optimizedResourceShrinking=true` (AGP 8.12 from Expo SDK 57 / RN). Do not fork AGP to 9.0 in-app — that lands when Expo/RN bumps the version catalog. Play’s edge-to-edge deprecated-API report may still list React Native `StatusBarModule` / Material until upstream removes those calls; app themes no longer set `statusBarColor` / `navigationBarColor`.
 
 **Tablet / TV UX:** Native and web adapt by **window width**: side rail at ≥768px ([`use-large-screen-layout.ts`](../apps/app/src/hooks/use-large-screen-layout.ts), [`app-tabs-wide.tsx`](../apps/app/src/components/app-tabs-wide.tsx)); Qur'an and Tracker use list–detail at ≥900px. **TV always uses the side rail** and 10-foot focus chrome.
 

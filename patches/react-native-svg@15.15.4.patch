@@ -1,0 +1,41 @@
+diff --git a/android/src/main/java/com/horcrux/svg/VirtualView.java b/android/src/main/java/com/horcrux/svg/VirtualView.java
+index 4d718063..a3e2f883 100644
+--- a/android/src/main/java/com/horcrux/svg/VirtualView.java
++++ b/android/src/main/java/com/horcrux/svg/VirtualView.java
+@@ -611,14 +611,28 @@ public abstract class VirtualView extends ReactViewGroup {
+     EventDispatcher eventDispatcher =
+         UIManagerHelper.getEventDispatcherForReactTag(mContext, getId());
+     if (eventDispatcher != null) {
+-      eventDispatcher.dispatchEvent(
+-        new SvgOnLayoutEvent(
+-          UIManagerHelper.getSurfaceId(VirtualView.this),
+-          this.getId(),
+-          left,
+-          top,
+-          width,
+-          height));
++      final int surfaceId = UIManagerHelper.getSurfaceId(VirtualView.this);
++      final int reactTag = getId();
++      final int layoutLeft = left;
++      final int layoutTop = top;
++      final int layoutWidth = width;
++      final int layoutHeight = height;
++      // setClientRect runs from SvgView.onDraw. Dispatching into Fabric /
++      // Reanimated during the draw pass can ANR (Binder IPC on the UI thread).
++      post(
++          new Runnable() {
++            @Override
++            public void run() {
++              EventDispatcher dispatcher =
++                  UIManagerHelper.getEventDispatcherForReactTag(mContext, reactTag);
++              if (dispatcher == null) {
++                return;
++              }
++              dispatcher.dispatchEvent(
++                  new SvgOnLayoutEvent(
++                      surfaceId, reactTag, layoutLeft, layoutTop, layoutWidth, layoutHeight));
++            }
++          });
+     }
+   }
+ 

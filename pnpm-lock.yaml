@@ -60,6 +60,9 @@ patchedDependencies:
   expo-router@57.0.8: cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92
   image-size@1.2.1: 4b22b3eb5fbfa353f32b4916c3455f7c3dc47b0b14fccf02cd99d0f04baaa6e5
   react-native-android-widget@0.20.3: ab01bb50e89bf11062074ad24d6041d2a31038b55410a7eab398d761e70e8110
+  react-native-reanimated@4.5.0: f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c
+  react-native-svg@15.15.4: dcd4b3ee6fa70d6b25ad96001f56ad7cbf870c870a41e6d26c3837e6485c2a8e
+  react-native-tvos@0.86.0-2: 096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864
 
 importers:
 
@@ -417,7 +420,7 @@ importers:
         version: 6.0.2(expo@57.0.8)(supports-color@8.1.1)(typescript@6.0.3)
       expo-router:
         specifier: ~57.0.8
-        version: 57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(8292877210107e1e2b5e04d06196c912)
+        version: 57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(e108413f04b3970000ef28ccc4f14f02)
       expo-secure-store:
         specifier: ~57.0.1
         version: 57.0.1(expo@57.0.8)
@@ -474,7 +477,7 @@ importers:
         version: 15.7.4(i18next@24.2.3(typescript@6.0.3))(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)(typescript@6.0.3)
       react-native:
         specifier: npm:react-native-tvos@0.86.0-2
-        version: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+        version: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       react-native-android-widget:
         specifier: ^0.20.3
         version: 0.20.3(patch_hash=ab01bb50e89bf11062074ad24d6041d2a31038b55410a7eab398d761e70e8110)(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3)
@@ -486,13 +489,13 @@ importers:
         version: 8.0.3(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-qrcode-styled:
         specifier: ^0.4.0
-        version: 0.4.0(react-native-svg@15.15.4(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
+        version: 0.4.0(react-native-svg@15.15.4(patch_hash=dcd4b3ee6fa70d6b25ad96001f56ad7cbf870c870a41e6d26c3837e6485c2a8e)(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-quick-crypto:
         specifier: ^1.1.5
         version: 1.1.5(expo-build-properties@57.0.7(expo@57.0.8))(expo@57.0.8)(react-native-nitro-modules@0.36.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-quick-base64@3.0.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-reanimated:
         specifier: 4.5.0
-        version: 4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
+        version: 4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
       react-native-safe-area-context:
         specifier: ~5.7.0
         version: 5.7.0(react-native-tvos@0.86.0-2)(react@19.2.3)
@@ -501,7 +504,7 @@ importers:
         version: 4.26.2(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-svg:
         specifier: 15.15.4
-        version: 15.15.4(react-native-tvos@0.86.0-2)(react@19.2.3)
+        version: 15.15.4(patch_hash=dcd4b3ee6fa70d6b25ad96001f56ad7cbf870c870a41e6d26c3837e6485c2a8e)(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-view-shot:
         specifier: ^5.1.1
         version: 5.1.1(react-native-tvos@0.86.0-2)(react@19.2.3)
@@ -516,7 +519,7 @@ importers:
         version: 0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       reanimated-color-picker:
         specifier: ^5.1.1
-        version: 5.1.2(expo@57.0.8)(react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-reanimated@4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
+        version: 5.1.2(expo@57.0.8)(react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-reanimated@4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
     devDependencies:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
@@ -10612,8 +10615,8 @@ snapshots:
       ws: 8.21.0
       zod: 3.25.76
     optionalDependencies:
-      expo-router: 57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(8292877210107e1e2b5e04d06196c912)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      expo-router: 57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(e108413f04b3970000ef28ccc4f14f02)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     transitivePeerDependencies:
       - '@expo/dom-webview'
       - '@expo/metro-runtime'
@@ -10724,13 +10727,13 @@ snapshots:
       chalk: 4.1.2
     optionalDependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   '@expo/dom-webview@57.0.1(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3)':
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   '@expo/eas-build-job@1.0.231':
     dependencies:
@@ -10883,7 +10886,7 @@ snapshots:
       anser: 1.4.10
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       stacktrace-parser: 0.1.11
 
   '@expo/logger@1.0.221':
@@ -10942,7 +10945,7 @@ snapshots:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       pretty-format: 29.7.0
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       stacktrace-parser: 0.1.11
       whatwg-fetch: 3.6.20
     optionalDependencies:
@@ -11112,7 +11115,7 @@ snapshots:
       react: 19.2.3
     optionalDependencies:
       '@expo/metro-runtime': 57.0.7(@expo/log-box@57.0.1)(expo@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
-      expo-router: 57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(8292877210107e1e2b5e04d06196c912)
+      expo-router: 57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(e108413f04b3970000ef28ccc4f14f02)
       react-dom: 19.2.3(react@19.2.3)
     transitivePeerDependencies:
       - supports-color
@@ -11164,7 +11167,7 @@ snapshots:
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       sf-symbols-typescript: 2.2.0
       vaul: 1.1.2(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
     optionalDependencies:
@@ -12298,12 +12301,12 @@ snapshots:
   '@react-native-async-storage/async-storage@2.2.0(react-native-tvos@0.86.0-2)':
     dependencies:
       merge-options: 3.0.4
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   '@react-native-masked-view/masked-view@0.3.2(react-native-tvos@0.86.0-2)(react@19.2.3)':
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   '@react-native-tvos/config-tv@0.1.6(expo@57.0.8)':
     dependencies:
@@ -12316,7 +12319,7 @@ snapshots:
       invariant: 2.2.4
       nullthrows: 1.1.1
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     optionalDependencies:
       '@types/react': 19.2.17
 
@@ -12703,7 +12706,7 @@ snapshots:
       '@sentry/expo-upload-sourcemaps': 8.18.0(@expo/env@2.4.2(supports-color@8.1.1))(dotenv@17.4.1)
       '@sentry/react': 10.64.0(react@19.2.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     optionalDependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
     transitivePeerDependencies:
@@ -12938,7 +12941,7 @@ snapshots:
       picocolors: 1.1.1
       pretty-format: 30.4.1
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       react-test-renderer: 19.2.3(react@19.2.3)
       redent: 3.0.0
     optionalDependencies:
@@ -14799,7 +14802,7 @@ snapshots:
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-application@57.0.2(expo@57.0.8):
     dependencies:
@@ -14811,7 +14814,7 @@ snapshots:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       expo-constants: 57.0.7(expo@57.0.8)(react-native-tvos@0.86.0-2)(supports-color@8.1.1)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -14821,7 +14824,7 @@ snapshots:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       expo-asset: 57.0.7(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-auth-session@57.0.5(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1):
     dependencies:
@@ -14832,7 +14835,7 @@ snapshots:
       expo-web-browser: 57.0.2(expo@57.0.8)(react-native-tvos@0.86.0-2)
       invariant: 2.2.4
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     transitivePeerDependencies:
       - expo
       - supports-color
@@ -14841,7 +14844,7 @@ snapshots:
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-build-properties@57.0.7(expo@57.0.8):
     dependencies:
@@ -14854,7 +14857,7 @@ snapshots:
     dependencies:
       '@expo/env': 2.4.2(supports-color@8.1.1)
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -14879,7 +14882,7 @@ snapshots:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       expo-dev-menu: 57.0.9(expo@57.0.8)(react-native-tvos@0.86.0-2)
       expo-manifests: 57.0.1(expo@57.0.8)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-dev-menu-interface@57.0.0(expo@57.0.8):
     dependencies:
@@ -14889,7 +14892,7 @@ snapshots:
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       expo-dev-menu-interface: 57.0.0(expo@57.0.8)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-document-picker@57.0.1(expo@57.0.8):
     dependencies:
@@ -14898,20 +14901,20 @@ snapshots:
   expo-file-system@57.0.1(patch_hash=816f516b7ebc4386a8ef47f1749c068988c4cddfb6b4d742c5afa12e8779b312)(expo@57.0.8)(react-native-tvos@0.86.0-2):
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-font@57.0.1(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       fontfaceobserver: 2.3.0
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-glass-effect@57.0.1(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-haptics@57.0.1(expo@57.0.8):
     dependencies:
@@ -14930,7 +14933,7 @@ snapshots:
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       sf-symbols-typescript: 2.2.0
     optionalDependencies:
       react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -14947,7 +14950,7 @@ snapshots:
       expo-constants: 57.0.7(expo@57.0.8)(react-native-tvos@0.86.0-2)(supports-color@8.1.1)
       invariant: 2.2.4
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     transitivePeerDependencies:
       - expo
       - supports-color
@@ -14992,20 +14995,20 @@ snapshots:
       expo-modules-jsi: 57.0.4(react-native-tvos@0.86.0-2)
       invariant: 2.2.4
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     optionalDependencies:
       react-native-worklets: 0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-modules-jsi@57.0.4(react-native-tvos@0.86.0-2):
     dependencies:
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-navigation-bar@57.0.2(patch_hash=d1d5d611a05f9c3f252d853b6c7f43464805aed72ab0000b4e2d82c3fd1620e2)(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1):
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -15023,7 +15026,7 @@ snapshots:
       expo-application: 57.0.2(expo@57.0.8)
       expo-constants: 57.0.7(expo@57.0.8)(react-native-tvos@0.86.0-2)(supports-color@8.1.1)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -15038,7 +15041,7 @@ snapshots:
       - supports-color
       - typescript
 
-  expo-router@57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(8292877210107e1e2b5e04d06196c912):
+  expo-router@57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(e108413f04b3970000ef28ccc4f14f02):
     dependencies:
       '@expo/log-box': 57.0.1(@expo/dom-webview@57.0.1)(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3)
       '@expo/metro-runtime': 57.0.7(@expo/log-box@57.0.1)(expo@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
@@ -15066,8 +15069,8 @@ snapshots:
       react: 19.2.3
       react-fast-compare: 3.2.2
       react-is: 19.2.8
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
-      react-native-drawer-layout: 4.2.5(react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-reanimated@4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native-drawer-layout: 4.2.5(react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-reanimated@4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-safe-area-context: 5.7.0(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-screens: 4.26.2(react-native-tvos@0.86.0-2)(react@19.2.3)
       server-only: 0.0.1
@@ -15079,7 +15082,7 @@ snapshots:
       '@testing-library/react-native': 13.3.3(jest@29.7.0(@types/node@20.19.43)(supports-color@8.1.1)(ts-node@10.9.2(@swc/core@1.15.43(@swc/helpers@0.5.23))(@types/node@20.19.43)(typescript@6.0.3)))(react-native-tvos@0.86.0-2)(react-test-renderer@19.2.3(react@19.2.3))(react@19.2.3)
       react-dom: 19.2.3(react@19.2.3)
       react-native-gesture-handler: 2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3)
-      react-native-reanimated: 4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
+      react-native-reanimated: 4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
       react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
     transitivePeerDependencies:
       - '@babel/core'
@@ -15098,7 +15101,7 @@ snapshots:
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       invariant: 2.2.4
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-server@57.0.1: {}
 
@@ -15109,7 +15112,7 @@ snapshots:
       '@expo/plist': 0.8.1
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -15118,7 +15121,7 @@ snapshots:
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-speech@57.0.1(expo@57.0.8):
     dependencies:
@@ -15138,12 +15141,12 @@ snapshots:
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-store-review@57.0.1(expo@57.0.8)(react-native-tvos@0.86.0-2):
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo-symbols@57.0.1(expo-font@57.0.1)(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
@@ -15151,7 +15154,7 @@ snapshots:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       expo-font: 57.0.1(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3)
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       sf-symbols-typescript: 2.2.0
 
   expo-system-ui@57.0.1(expo@57.0.8)(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(supports-color@8.1.1):
@@ -15159,7 +15162,7 @@ snapshots:
       '@react-native/normalize-colors': 0.86.0
       debug: 4.4.3(supports-color@8.1.1)
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     optionalDependencies:
       react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
     transitivePeerDependencies:
@@ -15168,7 +15171,7 @@ snapshots:
   expo-task-manager@57.0.6(expo@57.0.8)(react-native-tvos@0.86.0-2):
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       unimodules-app-loader: 57.0.1
 
   expo-updates-interface@57.0.1(expo@57.0.8):
@@ -15178,7 +15181,7 @@ snapshots:
   expo-web-browser@57.0.2(expo@57.0.8)(react-native-tvos@0.86.0-2):
     dependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   expo@57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3):
     dependencies:
@@ -15203,7 +15206,7 @@ snapshots:
       expo-modules-core: 57.0.7(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
       pretty-format: 29.7.0
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       react-refresh: 0.14.2
       whatwg-url-minimum: 0.1.2
     optionalDependencies:
@@ -16273,7 +16276,7 @@ snapshots:
       jest-watch-typeahead: 2.2.1(jest@29.7.0(@types/node@20.19.43)(supports-color@8.1.1)(ts-node@10.9.2(@swc/core@1.15.43(@swc/helpers@0.5.23))(@types/node@20.19.43)(typescript@6.0.3)))
       json5: 2.2.3
       lodash: 4.18.1
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       react-test-renderer: 19.2.3(react@19.2.3)
       server-only: 0.0.1
       stacktrace-js: 2.0.2
@@ -17858,7 +17861,7 @@ snapshots:
       react: 19.2.3
     optionalDependencies:
       react-dom: 19.2.3(react@19.2.3)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       typescript: 6.0.3
 
   react-is@16.13.1: {}
@@ -17872,17 +17875,17 @@ snapshots:
   react-native-android-widget@0.20.3(patch_hash=ab01bb50e89bf11062074ad24d6041d2a31038b55410a7eab398d761e70e8110)(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
     optionalDependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
 
-  react-native-drawer-layout@4.2.5(react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-reanimated@4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3):
+  react-native-drawer-layout@4.2.5(react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-reanimated@4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       color: 4.2.3
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       react-native-gesture-handler: 2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3)
-      react-native-reanimated: 4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
+      react-native-reanimated: 4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
       use-latest-callback: 0.2.6(react@19.2.3)
 
   react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3):
@@ -17892,43 +17895,43 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       invariant: 2.2.4
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   react-native-is-edge-to-edge@1.3.1(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   react-native-nitro-modules@0.36.1(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   react-native-pager-view@8.0.3(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
-  react-native-qrcode-styled@0.4.0(react-native-svg@15.15.4(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3):
+  react-native-qrcode-styled@0.4.0(react-native-svg@15.15.4(patch_hash=dcd4b3ee6fa70d6b25ad96001f56ad7cbf870c870a41e6d26c3837e6485c2a8e)(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       fast-text-encoding: 1.0.6
       qrcode: 1.5.4
       react: 19.2.3
       react-fast-compare: 3.2.2
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
-      react-native-svg: 15.15.4(react-native-tvos@0.86.0-2)(react@19.2.3)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native-svg: 15.15.4(patch_hash=dcd4b3ee6fa70d6b25ad96001f56ad7cbf870c870a41e6d26c3837e6485c2a8e)(react-native-tvos@0.86.0-2)(react@19.2.3)
 
   react-native-quick-base64@3.0.0(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   react-native-quick-crypto@1.1.5(expo-build-properties@57.0.7(expo@57.0.8))(expo@57.0.8)(react-native-nitro-modules@0.36.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-quick-base64@3.0.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       '@craftzdog/react-native-buffer': 6.1.2(react-native-tvos@0.86.0-2)(react@19.2.3)
       events: 3.3.0
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       react-native-nitro-modules: 0.36.1(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-quick-base64: 3.0.0(react-native-tvos@0.86.0-2)(react@19.2.3)
       readable-stream: 4.7.0
@@ -17939,10 +17942,10 @@ snapshots:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       expo-build-properties: 57.0.7(expo@57.0.8)
 
-  react-native-reanimated@4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3):
+  react-native-reanimated@4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       react-native-is-edge-to-edge: 1.3.1(react-native-tvos@0.86.0-2)(react@19.2.3)
       react-native-worklets: 0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       semver: 7.8.5
@@ -17950,24 +17953,24 @@ snapshots:
   react-native-safe-area-context@5.7.0(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   react-native-screens@4.26.2(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       react: 19.2.3
       react-freeze: 1.0.4(react@19.2.3)
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       warn-once: 0.1.1
 
-  react-native-svg@15.15.4(react-native-tvos@0.86.0-2)(react@19.2.3):
+  react-native-svg@15.15.4(patch_hash=dcd4b3ee6fa70d6b25ad96001f56ad7cbf870c870a41e6d26c3837e6485c2a8e)(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       css-select: 5.2.2
       css-tree: 1.1.3
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       warn-once: 0.1.1
 
-  react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1):
+  react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1):
     dependencies:
       '@react-native-tvos/virtualized-lists': 0.86.0-2(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)
       '@react-native/assets-registry': 0.86.0
@@ -18018,7 +18021,7 @@ snapshots:
     dependencies:
       html2canvas: 1.4.1
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
@@ -18040,7 +18043,7 @@ snapshots:
       escape-string-regexp: 4.0.0
       invariant: 2.2.4
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
 
   react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1):
     dependencies:
@@ -18058,7 +18061,7 @@ snapshots:
       '@react-native/metro-config': 0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       convert-source-map: 2.0.0
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       semver: 7.8.5
     transitivePeerDependencies:
       - supports-color
@@ -18120,12 +18123,12 @@ snapshots:
 
   readdirp@5.1.1: {}
 
-  reanimated-color-picker@5.1.2(expo@57.0.8)(react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-reanimated@4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3):
+  reanimated-color-picker@5.1.2(expo@57.0.8)(react-native-gesture-handler@2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-reanimated@4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3))(react-native-tvos@0.86.0-2)(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-native: react-native-tvos@0.86.0-2(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
+      react-native: react-native-tvos@0.86.0-2(patch_hash=096c2b457f1f8fa2fc2c0d6e32c0abbbf0ff4476b6d36bd63c63c1127ef39864)(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/jest-preset@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)
       react-native-gesture-handler: 2.32.0(react-native-tvos@0.86.0-2)(react@19.2.3)
-      react-native-reanimated: 4.5.0(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
+      react-native-reanimated: 4.5.0(patch_hash=f2e77be3f8fd387e22a1ed956e67f9036bd9be4edfb1e6917b9eb56efabdc20c)(react-native-tvos@0.86.0-2)(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)
     optionalDependencies:
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
 

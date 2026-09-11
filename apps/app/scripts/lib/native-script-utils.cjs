@@ -16,9 +16,11 @@ const WINDOWS_GRADLE_PROPERTIES = {
   "org.gradle.workers.max": "2",
 };
 
-/** Applied on every release build — lint vital on third-party AARs is slow and OOM-prone. */
+/** Applied on every release/prebuild — lint quiet + R8 resource pipeline (AGP 8.12). */
 const ANDROID_RELEASE_GRADLE_PROPERTIES = {
   "android.lint.checkReleaseBuilds": "false",
+  // Play vitals / DEX optimization — pairs with enableMinifyInReleaseBuilds.
+  "android.r8.optimizedResourceShrinking": "true",
 };
 
 /**
