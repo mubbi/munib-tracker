@@ -6,3 +6,5 @@ export const PENDING_COMMANDS_KEY = "pending_commands_v1";
 
 /** iOS static home-screen shortcut limit (UIApplicationShortcutItem). */
 export const IOS_QUICK_ACTION_LIMIT = 4;
+/** Android launcher shortcut limit when the device does not report `maxCount`. */
+export const ANDROID_QUICK_ACTION_LIMIT = 4;

@@ -1,4 +1,4 @@
-import { IOS_QUICK_ACTION_LIMIT } from "@/lib/appSurfaces/config";
+import { ANDROID_QUICK_ACTION_LIMIT, IOS_QUICK_ACTION_LIMIT } from "@/lib/appSurfaces/config";
 import {
   getActiveQuickActionDefinitions,
   getQuickActionById,
@@ -33,6 +33,17 @@ describe("getActiveQuickActionDefinitions", () => {
       );
       expect(sliced[0]?.id).toBe("mark-current");
       expect(sliced.length).toBe(IOS_QUICK_ACTION_LIMIT);
+    }
+  });
+
+  it("stays within the Android launcher shortcut fallback after slicing", () => {
+    for (const isRamadanActive of [false, true]) {
+      const sliced = getActiveQuickActionDefinitions(isRamadanActive).slice(
+        0,
+        ANDROID_QUICK_ACTION_LIMIT,
+      );
+      expect(sliced[0]?.id).toBe("mark-current");
+      expect(sliced.length).toBe(ANDROID_QUICK_ACTION_LIMIT);
     }
   });
 });
