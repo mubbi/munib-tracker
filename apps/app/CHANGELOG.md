@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0](https://github.com/mubbi/munib-tracker/compare/app-v1.1.2...app-v1.2.0) (2026-09-11)
+
+
+### Features
+
+* add Hindi locale and excused-period carry-forward ([3482ecd](https://github.com/mubbi/munib-tracker/commit/3482ecdf42210bd36e968a3289413afdda37a780))
+
+
+### Bug Fixes
+
+* android warnings, errors and optimizations ([367409a](https://github.com/mubbi/munib-tracker/commit/367409a38b7d894c5ee8a1f361db72f8ce8a52ea))
+* apple icon ([c62e390](https://github.com/mubbi/munib-tracker/commit/c62e3907db75f47083456afbf8912b79a6055be2))
+* apple watch icon ([dad543f](https://github.com/mubbi/munib-tracker/commit/dad543faf071ad7211558ff033452f345ec55a6e))
+* apple watch icons ([485cdd1](https://github.com/mubbi/munib-tracker/commit/485cdd1d5c4e20353f87617ecd71b73658193353))
+* splash logo visibility ([d590a06](https://github.com/mubbi/munib-tracker/commit/d590a062a2bdbd9b35972bf3da32e7491402af8b))
+
 ## [1.1.2](https://github.com/mubbi/munib-tracker/compare/app-v1.1.1...app-v1.1.2) (2026-08-08)
 
 
