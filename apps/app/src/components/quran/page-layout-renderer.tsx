@@ -1,5 +1,5 @@
 import type { Ayah } from "@munib-tracker/shared/types";
-import { useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, Text, View } from "react-native";
 
@@ -11,7 +11,11 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahByNumber } from "@/lib/quran";
-import { arabicReadingLayout } from "@/lib/reading-typography";
+import {
+  arabicReadingLayout,
+  iosInlineAyahMarker,
+  toArabicIndicDigits,
+} from "@/lib/reading-typography";
 
 type PageLayoutRendererProps = {
   ayahs: Ayah[];
@@ -31,14 +35,8 @@ type PageLayoutRendererProps = {
 };
 
 const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
-const ARABIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
-/** Unicode ARABIC END OF AYAH (۝) — ornament; digits are layered (web/Android) or inline (iOS). */
+/** Unicode ARABIC END OF AYAH (۝) — Android/web overlay ornament only; never send this to iOS TextKit. */
 const END_OF_AYAH = "\u06DD";
-
-/** Renders a Western number as Arabic-Indic digits for the in-line ayah marker. */
-function toArabicDigits(value: number): string {
-  return String(value).replace(/\d/g, (d) => ARABIC_DIGITS[Number(d)]);
-}
 
 /**
  * Metrics for the gilt end-of-ayah rosette. Numbers are sized to the *inner*
@@ -58,15 +56,12 @@ function ayahMarkerMetrics(fontSize: number, digitCount: number) {
 }
 
 /**
- * Gilt end-of-ayah rosette with the verse number.
+ * Gilt end-of-ayah rosette with the verse number (Android/web).
  *
- * Android/web: layered `View` centers digits inside the ornament.
- *
- * iOS: nested `Text` only. CoreText does not give View-in-Text a stable advance
- * under RTL (justify or block), and the old invisible-spacer + `marginStart: -box`
- * overlay drifts into the preceding word when A−/A+ changes size. Nested `Text`
- * stays in the run and reflows with the ayah. A ZWSP between U+06DD and the
- * digits breaks enclosing-mark shaping so the ornament keeps its own advance.
+ * iOS never uses this: U+06DD is an enclosing mark, and nesting a smaller
+ * digit `Text` inside a justified RTL page hangs TextKit when the default
+ * `ui-serif` face lacks the glyph. Callers inline {@link iosInlineAyahMarker}
+ * into the ayah string instead (same run, no mixed-size nested Text).
  */
 function AyahEndMarker({
   ayah,
@@ -79,40 +74,8 @@ function AyahEndMarker({
   color: string;
   fontFamily?: string;
 }) {
-  const digits = toArabicDigits(ayah);
+  const digits = toArabicIndicDigits(ayah);
   const { box, rosetteSize, numberSize, gutter } = ayahMarkerMetrics(fontSize, digits.length);
-
-  // iOS: never View-in-Text — advance/overlap bugs under RTL + size changes.
-  if (Platform.OS === "ios") {
-    const lineHeight = Math.round(rosetteSize * 1.3);
-    return (
-      <Text
-        accessibilityElementsHidden
-        importantForAccessibility="no-hide-descendants"
-        style={{
-          fontSize: rosetteSize,
-          lineHeight,
-          color,
-          fontFamily,
-        }}
-      >
-        {"\u200A"}
-        {END_OF_AYAH}
-        {"\u200B"}
-        <Text
-          style={{
-            fontSize: numberSize,
-            lineHeight,
-            color,
-            fontFamily,
-          }}
-        >
-          {digits}
-        </Text>
-        {"\u200A"}
-      </Text>
-    );
-  }
 
   return (
     <View
@@ -183,6 +146,19 @@ function ayahMatchesHighlight(
   highlightAyah?: { surah: number; ayah: number },
 ): boolean {
   return highlightAyah?.surah === ayah.surah && highlightAyah?.ayah === ayah.ayah;
+}
+
+/** iOS: one string run. Android/web: ayah + layered U+06DD rosette. */
+function ayahTextWithMarker(ayah: Ayah, marker: ReactNode): ReactNode {
+  if (Platform.OS === "ios") {
+    return `${ayah.arabic}${iosInlineAyahMarker(ayah.ayah)}`;
+  }
+  return (
+    <>
+      {ayah.arabic}
+      {marker}
+    </>
+  );
 }
 
 /**
@@ -285,8 +261,7 @@ export function PageLayoutRenderer({
                       type="arabic"
                       style={[styles.blockArabic, { fontSize: arabicSize }]}
                     >
-                      {ayah.arabic}
-                      {renderMarker(ayah)}
+                      {ayahTextWithMarker(ayah, renderMarker(ayah))}
                     </ThemedText>
                     {translit ? (
                       <ThemedText
@@ -355,8 +330,7 @@ export function PageLayoutRenderer({
                         highlighted ? { backgroundColor: mushaf.highlight } : null,
                       ]}
                     >
-                      {ayah.arabic}
-                      {renderMarker(ayah)}
+                      {ayahTextWithMarker(ayah, renderMarker(ayah))}
                     </ThemedText>
                   );
                 })}

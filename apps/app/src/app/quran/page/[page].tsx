@@ -126,6 +126,10 @@ export default function QuranPageReaderScreen() {
   const [mushafFontLoading, setMushafFontLoading] = useState(false);
   const navigatingRef = useRef(false);
   const flushRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // First paint of Continue reading / deep link: mount only the visible page so
+  // NSATSTypesetter is not asked to layout three justified Arabic pages on the
+  // same main-thread pass (iOS AppHang). Expand to ±1 after the first frame.
+  const [pageMountWindow, setPageMountWindow] = useState(0);
 
   const layout = prefs.readerLayout === "mushaf" ? "mushaf" : "page";
   const pageStart = pageToStartAyah(currentPage);
@@ -298,12 +302,26 @@ export default function QuranPageReaderScreen() {
   }, [currentPage, persistPage, readingProgress]);
 
   useEffect(() => {
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => {
+        setPageMountWindow(PAGE_MOUNT_WINDOW);
+      });
+    });
+    return () => {
+      cancelAnimationFrame(outer);
+      cancelAnimationFrame(inner);
+    };
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (flushRef.current) clearTimeout(flushRef.current);
     };
   }, []);
 
   const onPageSelected = useCallback((index: number) => {
+    setPageMountWindow(PAGE_MOUNT_WINDOW);
     setCurrentPage(index + 1);
   }, []);
 
@@ -314,6 +332,7 @@ export default function QuranPageReaderScreen() {
   const navigateToPage = useCallback(
     async (page: number) => {
       const clamped = Math.min(getPageCount(), Math.max(1, page));
+      setPageMountWindow(PAGE_MOUNT_WINDOW);
       setCurrentPage(clamped);
       if (layout !== "mushaf") {
         jumpToPage(clamped);
@@ -548,7 +567,7 @@ export default function QuranPageReaderScreen() {
           >
             {Array.from({ length: getPageCount() }, (_, index) => {
               const page = index + 1;
-              const mounted = Math.abs(page - currentPage) <= PAGE_MOUNT_WINDOW;
+              const mounted = Math.abs(page - currentPage) <= pageMountWindow;
               if (!mounted) {
                 return <View key={page} style={styles.pagePlaceholder} />;
               }
