@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/mubbi/munib-tracker/compare/api-v1.1.0...api-v1.2.0) (2026-09-11)
+
+
+### Features
+
+* add Hindi locale and excused-period carry-forward ([3482ecd](https://github.com/mubbi/munib-tracker/commit/3482ecdf42210bd36e968a3289413afdda37a780))
+
 ## [1.1.0](https://github.com/mubbi/munib-tracker/compare/api-v1.0.0...api-v1.1.0) (2026-08-02)
 
 
