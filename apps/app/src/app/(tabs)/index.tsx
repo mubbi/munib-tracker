@@ -162,6 +162,7 @@ export default function HomeScreen() {
               weatherSummary={weather?.summary ?? null}
               weatherAccessibilityLabel={weather?.accessibilityLabel ?? null}
               weatherEffects={weatherEffects}
+              weatherEffectsEnabled={isFocused}
               onSearchPress={() => router.push("/search")}
               onNotificationsPress={() => router.push("/notifications")}
               onLocationPress={() => router.push("/location")}

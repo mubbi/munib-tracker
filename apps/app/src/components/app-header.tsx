@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { type LayoutChangeEvent, Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
+import { GlassSurface } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { NotificationBadge } from "@/components/ui/notification-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -70,7 +70,9 @@ export function AppHeader({
           accessibilityLabel={t("common.goBack")}
           onPress={withNavigationBlur(onBack)}
           background={tokens.accentSoft}
-          glass
+          // No nested GlassView: this bar is already GlassSurface, and an
+          // interactive well would FluidSpring-animate on the same turn as the
+          // native stack pop (iOS AppHang).
           hitTarget={44}
         />
       ) : null}
@@ -92,25 +94,20 @@ export function AppHeader({
       </View>
 
       {onNotificationsPress ? (
-        <GlassControl radius={Radius.md}>
-          <PressableScale
-            accessibilityLabel={t("common.notifications")}
-            accessibilityRole="button"
-            haptic="light"
-            onPress={withNavigationBlur(onNotificationsPress)}
-            style={[
-              styles.notificationButton,
-              !hasLiquidGlass && { backgroundColor: tokens.accentSoft },
-            ]}
-          >
-            <SymbolView
-              name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-              size={19}
-              tintColor={colors.accent}
-            />
-            <NotificationBadge count={notificationCount} />
-          </PressableScale>
-        </GlassControl>
+        <PressableScale
+          accessibilityLabel={t("common.notifications")}
+          accessibilityRole="button"
+          haptic="light"
+          onPress={withNavigationBlur(onNotificationsPress)}
+          style={[styles.notificationButton, { backgroundColor: tokens.accentSoft }]}
+        >
+          <SymbolView
+            name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+            size={19}
+            tintColor={colors.accent}
+          />
+          <NotificationBadge count={notificationCount} />
+        </PressableScale>
       ) : null}
     </GlassSurface>
   );

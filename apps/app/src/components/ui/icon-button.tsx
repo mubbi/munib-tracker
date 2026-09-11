@@ -104,7 +104,10 @@ export function IconButton({
   if (useGlass) {
     return (
       <GlassView
-        isInteractive
+        // Static well only — `isInteractive` runs SwiftUI FluidSpringAnimation on
+        // press, which AppHangs when stacked with native navigation (Sentry).
+        // PressableScale already supplies the press feedback.
+        isInteractive={false}
         glassEffectStyle="regular"
         style={[styles.glassWell, { borderRadius: wellRadius, opacity: disabled ? 0.4 : 1 }]}
       >

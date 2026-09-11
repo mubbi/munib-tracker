@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Platform, StyleSheet, Text, type TextProps, useWindowDimensions } from "react-native";
 
 import { Fonts, type ThemeColor } from "@/constants/theme";
@@ -64,6 +65,21 @@ const LINE_HEIGHTS: Partial<Record<NonNullable<ThemedTextProps["type"]>, number>
   linkPrimary: 30,
 };
 
+function sanitizeArabicChildren(children: ReactNode): ReactNode {
+  if (typeof children === "string") return sanitizeArabicText(children);
+  if (Array.isArray(children)) {
+    let changed = false;
+    const next = children.map((child) => {
+      if (typeof child !== "string") return child;
+      const sanitized = sanitizeArabicText(child);
+      if (sanitized !== child) changed = true;
+      return sanitized;
+    });
+    return changed ? next : children;
+  }
+  return children;
+}
+
 export function ThemedText({
   style,
   type = "default",
@@ -102,10 +118,9 @@ export function ThemedText({
     type === "arabic" && arabicFontSize != null
       ? { lineHeight: resolveArabicLineHeight(arabicFontSize, arabicFamily) * fontScale }
       : null;
-  // The ﷺ ligature (U+FDFA) hangs iOS TextKit under font fallback — see
-  // sanitizeArabicText. Only scripture (`type="arabic"`) strings carry it.
-  const content =
-    type === "arabic" && typeof children === "string" ? sanitizeArabicText(children) : children;
+  // Honorific ligatures / U+06DD hang iOS TextKit under font fallback — see
+  // sanitizeArabicText. Walk string children so `{arabic}{marker}` still sanitizes.
+  const content = type === "arabic" ? sanitizeArabicChildren(children) : children;
 
   return (
     <Text

@@ -37,7 +37,24 @@ const PARTICLE_SCALE = Platform.OS === "web" ? 1 : 0.55;
 
 type HeroWeatherEffectsProps = {
   effects: WeatherEffectKind[];
+  /**
+   * Home stays mounted under the root stack. Unmount particles while another
+   * screen is focused so a back-pop does not Auto Layout rain/clouds during
+   * iOS 26 SwiftUI FluidSpringAnimation (Sentry AppHang 2.0–2.8s).
+   */
+  enabled?: boolean;
 };
+
+/**
+ * iOS 26 NativeTabs / stack / Liquid Glass springs run ~350–500ms. Committing
+ * Reanimated particle trees in that window stalls the main thread in
+ * `FluidSpringAnimation` + `UIView` content-hugging layout.
+ */
+export const IOS_WEATHER_EFFECTS_SETTLE_MS = 450;
+
+export function weatherEffectsMountDelayMs(os: typeof Platform.OS = Platform.OS): number {
+  return os === "ios" ? IOS_WEATHER_EFFECTS_SETTLE_MS : 0;
+}
 
 type CloudConfig = {
   id: number;
@@ -119,12 +136,13 @@ const WIND_STREAKS = Array.from({ length: particleCount(14) }, (_, index) => ({
  * Non-interactive weather overlays for the home hero gradient.
  * Sits above the readability scrim; hero text uses a higher z-index.
  *
- * Mount is deferred until the JS thread is idle, two frames have painted, and
- * the app is active so foreground resume does not commit dozens of Reanimated
- * views in the same native layout pass as hero Text (iOS AppHang /
+ * Mount is deferred until the JS thread is idle, two frames have painted, the
+ * iOS navigation spring has settled, and the app/screen is active so resume or
+ * a stack pop does not commit dozens of Reanimated views in the same native
+ * layout pass as SwiftUI FluidSpringAnimation / hero Text (iOS AppHang /
  * Android ANR in ReactTextView.onMeasure).
  */
-export function HeroWeatherEffects({ effects }: HeroWeatherEffectsProps) {
+export function HeroWeatherEffects({ effects, enabled = true }: HeroWeatherEffectsProps) {
   const reducedMotion = useHydrationSafeReducedMotion();
   const effectsKey = effects.join("|");
   const [appActive, setAppActive] = useState(() => AppState.currentState === "active");
@@ -138,20 +156,28 @@ export function HeroWeatherEffects({ effects }: HeroWeatherEffectsProps) {
   }, []);
 
   useEffect(() => {
-    if (!appActive || reducedMotion || effectsKey.length === 0) {
+    if (!enabled || !appActive || reducedMotion || effectsKey.length === 0) {
       setMountReady(false);
       return;
     }
     let cancelled = false;
     let raf1 = 0;
     let raf2 = 0;
+    let settle: ReturnType<typeof setTimeout> | undefined;
     const handle = runWhenIdle(() => {
       // requestIdleCallback polyfill is ~1ms; wait out the next Fabric layout
       // so hero ThemedText measure (stopMarquee → onMeasure) is not batched with
       // rain/cloud/Reanimated mount.
       raf1 = requestAnimationFrame(() => {
         raf2 = requestAnimationFrame(() => {
-          if (!cancelled) setMountReady(true);
+          const delay = weatherEffectsMountDelayMs();
+          if (delay <= 0) {
+            if (!cancelled) setMountReady(true);
+            return;
+          }
+          settle = setTimeout(() => {
+            if (!cancelled) setMountReady(true);
+          }, delay);
         });
       });
     });
@@ -160,8 +186,9 @@ export function HeroWeatherEffects({ effects }: HeroWeatherEffectsProps) {
       handle.cancel();
       cancelAnimationFrame(raf1);
       cancelAnimationFrame(raf2);
+      if (settle) clearTimeout(settle);
     };
-  }, [appActive, reducedMotion, effectsKey]);
+  }, [enabled, appActive, reducedMotion, effectsKey]);
 
   const cloudConfigs = useMemo(() => cloudConfigsFor(effects), [effects]);
 
@@ -181,7 +208,10 @@ export function HeroWeatherEffects({ effects }: HeroWeatherEffectsProps) {
   if (reducedMotion || effects.length === 0 || !mountReady) return null;
 
   return (
-    <View style={[styles.root, { opacity: EFFECTS_MASTER_OPACITY, pointerEvents: "none" }]}>
+    <View
+      testID="hero-weather-effects"
+      style={[styles.root, { opacity: EFFECTS_MASTER_OPACITY, pointerEvents: "none" }]}
+    >
       {showClear ? <SunShimmer /> : null}
       {showClouds ? <CloudLayer configs={cloudConfigs} /> : null}
       {showFog ? <FogLayer /> : null}
