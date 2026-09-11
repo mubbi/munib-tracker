@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 try:
-    from PIL import Image, ImageDraw, ImageFilter, ImageOps
+    from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageOps
 except ImportError:
     print("Install Pillow: pip install pillow", file=sys.stderr)
     sys.exit(1)
@@ -34,6 +34,11 @@ WATCH_ICON_SOURCE = APP_IMAGES / "icon-512-watch-apple.png"
 BRAND_BG = (21, 41, 33)  # #152921 — matches in-app hero gradient
 WATCH_ICON_BG = (255, 255, 255)
 WATCH_ICON_FILL = 0.90  # leave a light rim inside the system circular mask
+# Brand.heroAccent #E4CE9E — gilt rim so the squircle reads on BRAND_BG.
+_SPLASH_RIM_GOLD = (228, 206, 158)
+_SPLASH_RIM_STROKE_RATIO = 8 / 500
+_SPLASH_RIM_GLOW_RATIO = 22 / 500
+_SPLASH_RIM_GLOW_ALPHA = 180
 
 
 def _ensure_source() -> Image.Image:
@@ -64,6 +69,40 @@ def _contain_transparent(img: Image.Image, size: int) -> Image.Image:
     y = (size - fitted.height) // 2
     canvas.paste(fitted, (x, y), fitted)
     return canvas
+
+
+def _odd(n: int) -> int:
+    n = max(3, n)
+    return n if n % 2 == 1 else n + 1
+
+
+def _with_gold_rim(img: Image.Image) -> Image.Image:
+    """Gold stroke + soft glow around the opaque silhouette.
+
+    The logo fill matches the dark splash background (#152921), so without a
+    rim the squircle disappears. Native splash cannot use CSS shadows.
+    """
+    if img.mode != "RGBA":
+        img = img.convert("RGBA")
+    size = max(img.size)
+    stroke = max(4, round(size * _SPLASH_RIM_STROKE_RATIO))
+    glow_r = max(8, round(size * _SPLASH_RIM_GLOW_RATIO))
+    alpha = img.split()[3]
+
+    glow_mask = alpha.filter(ImageFilter.GaussianBlur(glow_r))
+    glow_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    glow_color = Image.new("RGBA", img.size, (*_SPLASH_RIM_GOLD, _SPLASH_RIM_GLOW_ALPHA))
+    glow_layer.paste(glow_color, mask=glow_mask)
+
+    dilated = alpha.filter(ImageFilter.MaxFilter(_odd(stroke * 2 + 1)))
+    eroded = alpha.filter(ImageFilter.MinFilter(_odd(max(3, (stroke // 2) * 2 + 1))))
+    ring = Image.new("RGBA", img.size, (*_SPLASH_RIM_GOLD, 255))
+    ring.putalpha(ImageChops.subtract(dilated, eroded))
+
+    out = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    out = Image.alpha_composite(out, glow_layer)
+    out = Image.alpha_composite(out, img)
+    return Image.alpha_composite(out, ring)
 
 
 def _save_png(img: Image.Image, path: Path) -> None:
@@ -297,7 +336,8 @@ def main() -> None:
     # Native splash: keep transparent corners so the baked-in squircle shows
     # (Android 12+ still applies a circular clip viewport — transparent outside
     # the squircle lets the brand background show through instead of a hard disc).
-    _save_png(_contain_transparent(logo, 1024), APP_IMAGES / "splash-icon.png")
+    # Gold rim + glow lift the icon off the matching #152921 fill.
+    _save_png(_with_gold_rim(_contain_transparent(logo, 1024)), APP_IMAGES / "splash-icon.png")
 
     # Decorative glow
     _save_png(_generate_logo_glow(), APP_IMAGES / "logo-glow.png")

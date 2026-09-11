@@ -2,6 +2,7 @@ import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 import Animated, { Easing, Keyframe } from "react-native-reanimated";
 
+import { Brand, withAlpha } from "@/constants/theme";
 import { useSplashDismissal } from "@/hooks/use-splash-dismissal";
 import i18n from "@/i18n";
 import { useTheme } from "@/providers/theme-provider";
@@ -29,7 +30,7 @@ export function AnimatedSplashOverlay() {
         { opacity, pointerEvents: "auto", backgroundColor: colors.background },
       ]}
     >
-      <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
+      <Image style={styles.splashImage} source={require("@/assets/images/splash-icon.png")} />
     </Animated.View>
   );
 }
@@ -115,5 +116,8 @@ const styles = StyleSheet.create({
   splashImage: {
     width: 280,
     height: 280,
+    // Alpha-aware glow on top of the baked gold rim (rectangular box-shadow
+    // would sit in the logo's transparent padding and miss the squircle).
+    filter: `drop-shadow(0px 0px 18px ${withAlpha(Brand.heroAccent, 0.55)})`,
   },
 });
