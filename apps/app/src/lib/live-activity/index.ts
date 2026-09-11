@@ -21,7 +21,10 @@ export {
   registerLiveActivitySchedule,
   rememberLiveActivitySnapshot,
 } from "@/lib/live-activity/register";
-export { buildLiveActivityPushSchedule } from "@/lib/live-activity/schedule";
+export {
+  buildLiveActivityPushSchedule,
+  LIVE_ACTIVITY_PUSH_LEAD_MS,
+} from "@/lib/live-activity/schedule";
 export type { LiveActivityState } from "@/lib/live-activity/state";
 export { buildLiveActivityState } from "@/lib/live-activity/state";
 

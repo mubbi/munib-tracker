@@ -92,7 +92,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 | JS bridge | `src/lib/live-activity/` — `syncLiveActivity()` after each widget snapshot write |
 | Preference | `UserPreferences.liveActivityEnabled` (default off) |
 
-**Flow:** snapshot refresh → `syncLiveActivity()` starts/updates/ends activity. `staleDate` = next phase boundary / next prayer; views use `Text(timerInterval:)` for ticking countdown while in the **upcoming** phase.
+**Flow:** snapshot refresh → `syncLiveActivity()` starts/updates/ends activity. Upcoming `staleDate` is ~2 minutes after adhan (not the countdown end) so the banner does not go stale at 00:00 before the QStash/APNs mark-Salah push; views use `Text(timerInterval:)` for ticking countdown while in the **upcoming** phase.
 
 **Phase windows:** for ~15 minutes after the current Salah begins, the activity shows that Salah with **Mark Salah**; once marked (or after 15 minutes) through ~30 minutes it offers **after-Salah adhkar**; after 30 minutes it returns to the **upcoming Salah** countdown + Prepare. Qibla remains available on the expanded presentation.
 

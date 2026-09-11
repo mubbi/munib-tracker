@@ -21,6 +21,19 @@ export type LiveActivityPushUpdate = {
 };
 
 /**
+ * Fire ActivityKit pushes this far before the true phase boundary. Native
+ * `Text(timerInterval:)` stays at 00:00 until content-state is replaced, and
+ * QStash/APNs routinely land a few seconds late if we wait until adhan.
+ */
+export const LIVE_ACTIVITY_PUSH_LEAD_MS = 20_000;
+
+function withPushLead(executeAtIso: string, nowMs: number): string {
+  const executeMs = Date.parse(executeAtIso);
+  if (!Number.isFinite(executeMs) || executeMs <= nowMs) return executeAtIso;
+  return new Date(Math.max(nowMs + 1_000, executeMs - LIVE_ACTIVITY_PUSH_LEAD_MS)).toISOString();
+}
+
+/**
  * Precomputes ActivityKit content-state updates at each phase boundary so the
  * API can push them while the app is suspended or killed.
  */
@@ -35,6 +48,7 @@ export function buildLiveActivityPushSchedule(
     now,
     horizonMs: SALAH_ACTIVITY_HORIZON_MS,
   });
+  const nowMs = now.getTime();
 
   return boundaries.map((boundary) => {
     const executeAt = new Date(boundary.executeAt);
@@ -48,7 +62,7 @@ export function buildLiveActivityPushSchedule(
         : snapshot;
     return {
       phase: boundary.phase,
-      executeAt: boundary.executeAt,
+      executeAt: withPushLead(boundary.executeAt, nowMs),
       staleAt: boundary.staleAt,
       contentState: buildLiveActivityState(source, executeAt),
     };

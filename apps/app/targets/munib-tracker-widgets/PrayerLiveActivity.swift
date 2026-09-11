@@ -126,7 +126,9 @@ private struct CountdownText: View {
           .minimumScaleFactor(0.65)
           .contentTransition(.numericText(countsDown: true))
       } else {
-        Text(state.countdownLabel.isEmpty ? state.prayerTime : state.countdownLabel)
+        // Frozen "in 45 min" labels are worse than the prayer clock if a push
+        // is late and ActivityKit re-renders after staleDate.
+        Text(state.prayerTimeLabel.isEmpty ? state.prayerTime : state.prayerTimeLabel)
           .font(font)
           .foregroundStyle(color)
           .multilineTextAlignment(alignment)

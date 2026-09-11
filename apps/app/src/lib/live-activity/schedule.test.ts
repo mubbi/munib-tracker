@@ -1,5 +1,8 @@
 import { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
-import { buildLiveActivityPushSchedule } from "@/lib/live-activity/schedule";
+import {
+  buildLiveActivityPushSchedule,
+  LIVE_ACTIVITY_PUSH_LEAD_MS,
+} from "@/lib/live-activity/schedule";
 import {
   LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS,
   LIVE_ACTIVITY_MARK_WINDOW_MS,
@@ -53,20 +56,38 @@ describe("buildLiveActivityPushSchedule", () => {
     const currentAt = snapshot.nextPrayer.currentPrayerAtMs;
     const nextAt = snapshot.nextPrayer.targetTimeMs;
     if (currentAt > 0) {
-      expect(executeTimes).toEqual(
-        expect.arrayContaining([
-          currentAt + LIVE_ACTIVITY_MARK_WINDOW_MS,
-          currentAt + LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS,
-        ]),
-      );
+      const nowMs = now.getTime();
+      const expectedCurrent = [
+        currentAt + LIVE_ACTIVITY_MARK_WINDOW_MS,
+        currentAt + LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS,
+      ]
+        .filter((at) => at > nowMs + 1_000)
+        .map((at) => Math.max(nowMs + 1_000, at - LIVE_ACTIVITY_PUSH_LEAD_MS));
+      if (expectedCurrent.length > 0) {
+        expect(executeTimes).toEqual(expect.arrayContaining(expectedCurrent));
+      }
     }
     expect(executeTimes).toEqual(
       expect.arrayContaining([
-        nextAt,
-        nextAt + LIVE_ACTIVITY_MARK_WINDOW_MS,
-        nextAt + LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS,
+        nextAt - LIVE_ACTIVITY_PUSH_LEAD_MS,
+        nextAt + LIVE_ACTIVITY_MARK_WINDOW_MS - LIVE_ACTIVITY_PUSH_LEAD_MS,
+        nextAt + LIVE_ACTIVITY_AFTER_SALAH_WINDOW_MS - LIVE_ACTIVITY_PUSH_LEAD_MS,
       ]),
     );
+  });
+
+  it("keeps markSalah content when the adhan push is fired before 00:00", () => {
+    const now = new Date("2026-07-06T09:00:00.000Z");
+    const snapshot = makeSnapshot(now);
+    const nextAt = snapshot.nextPrayer.targetTimeMs;
+    const updates = buildLiveActivityPushSchedule(snapshot, now);
+    const arrival = updates.find(
+      (u) => Date.parse(u.executeAt) === nextAt - LIVE_ACTIVITY_PUSH_LEAD_MS,
+    );
+
+    expect(arrival?.phase).toBe("markSalah");
+    expect(arrival?.contentState.phase).toBe("markSalah");
+    expect(arrival?.contentState.prayerId).toBe(snapshot.nextPrayer.prayerId);
   });
 
   it("re-queues an overdue afterSalah→upcoming flip so the lock screen can catch up", () => {

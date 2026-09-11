@@ -125,10 +125,18 @@ describe("deliverLiveActivityJob", () => {
     expect(store.jobs.get("job-1")?.status).toBe("delivered");
   });
 
-  it("loses the race when another worker already claimed the job", async () => {
+  it("delivers jobs that arrive slightly before their boundary", async () => {
     const key = resolveActivityKitEncryptionKey({ jwtSecret: "test-secret" });
-    const store = makeStore({ job: { status: "processing" } });
-    const sendUpdate = vi.fn();
+    const store = makeStore({
+      job: { executeAt: new Date(Date.now() + 45_000) },
+      token: { tokenCiphertext: encryptActivityKitToken("d".repeat(64), key) },
+    });
+    const sendUpdate = vi.fn(
+      async (): Promise<ApnsLiveActivityResult> => ({
+        ok: true,
+        apnsId: "apns-early",
+      }),
+    );
 
     await deliverLiveActivityJob({
       store,
@@ -137,6 +145,26 @@ describe("deliverLiveActivityJob", () => {
       jobId: "job-1",
     });
 
+    expect(sendUpdate).toHaveBeenCalledOnce();
+    expect(store.jobs.get("job-1")?.status).toBe("delivered");
+  });
+
+  it("rethrows an in-flight claim as retryable instead of succeeding", async () => {
+    const key = resolveActivityKitEncryptionKey({ jwtSecret: "test-secret" });
+    const store = makeStore({ job: { status: "processing" } });
+    const sendUpdate = vi.fn();
+
+    await expect(
+      deliverLiveActivityJob({
+        store,
+        apns: { sendUpdate, isConfigured: () => true, close: () => undefined } as never,
+        encryptionKey: key,
+        jobId: "job-1",
+      }),
+    ).rejects.toMatchObject({
+      code: "IN_FLIGHT",
+      retryable: true,
+    } satisfies Partial<LiveActivityDeliveryError>);
     expect(sendUpdate).not.toHaveBeenCalled();
   });
 

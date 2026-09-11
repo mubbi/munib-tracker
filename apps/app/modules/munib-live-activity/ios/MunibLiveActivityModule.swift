@@ -101,7 +101,7 @@ final class PrayerActivityController {
       Task { await running.end(nil, dismissalPolicy: .immediate) }
       activity = nil
     }
-    let content = ActivityContent(state: state, staleDate: state.targetDate)
+    let content = ActivityContent(state: state, staleDate: contentStaleDate(for: state))
     do {
       let created = try Activity.request(
         attributes: PrayerActivityAttributes(),
@@ -117,7 +117,7 @@ final class PrayerActivityController {
   }
 
   func update(state: PrayerActivityAttributes.ContentState) async {
-    let content = ActivityContent(state: state, staleDate: state.targetDate)
+    let content = ActivityContent(state: state, staleDate: contentStaleDate(for: state))
     guard let running = liveActivity else { return }
     await running.update(content)
   }
@@ -128,6 +128,16 @@ final class PrayerActivityController {
     }
     activity = nil
     cancelObservers()
+  }
+
+  /// Keep upcoming activities fresh past adhan. `Text(timerInterval:)` does not
+  /// re-render SwiftUI at 00:00, so marking stale at `targetDate` froze the
+  /// lock-screen timer until (or instead of) the remote markSalah push.
+  private func contentStaleDate(for state: PrayerActivityAttributes.ContentState) -> Date {
+    if state.phase == "upcoming" {
+      return state.targetDate.addingTimeInterval(120)
+    }
+    return state.targetDate
   }
 
   func observeExisting() {

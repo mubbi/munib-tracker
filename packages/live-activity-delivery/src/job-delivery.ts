@@ -27,22 +27,55 @@ export async function deliverLiveActivityJob(input: DeliverLiveActivityJobInput)
   const { store, apns, encryptionKey, jobId, cancelScheduledMessages } = input;
   const now = input.now ?? new Date();
 
-  const claimed = await store.claimJob(jobId);
-  if (!claimed) return;
-
-  const job = await store.getJobWithToken(jobId);
-  if (!job) {
+  const existing = await store.getJobWithToken(jobId);
+  if (!existing) {
     throw new LiveActivityDeliveryError("Live Activity job not found", "NOT_FOUND");
   }
 
-  if (job.executeAt.getTime() > now.getTime() + EARLY_DELIVERY_TOLERANCE_MS) {
-    job.status = "pending";
-    await store.saveJob(job);
+  if (
+    existing.status === "delivered" ||
+    existing.status === "cancelled" ||
+    existing.status === "failed"
+  ) {
+    return;
+  }
+
+  if (existing.executeAt.getTime() > now.getTime() + EARLY_DELIVERY_TOLERANCE_MS) {
     throw new LiveActivityDeliveryError(
       "Live Activity job arrived before its boundary",
       "TOO_EARLY",
       true,
     );
+  }
+
+  if (existing.status === "processing") {
+    throw new LiveActivityDeliveryError(
+      "Live Activity job is already in flight",
+      "IN_FLIGHT",
+      true,
+    );
+  }
+
+  const claimed = await store.claimJob(jobId);
+  if (!claimed) {
+    const raced = await store.getJobWithToken(jobId);
+    if (
+      raced?.status === "delivered" ||
+      raced?.status === "cancelled" ||
+      raced?.status === "failed"
+    ) {
+      return;
+    }
+    throw new LiveActivityDeliveryError(
+      "Live Activity job is already in flight",
+      "IN_FLIGHT",
+      true,
+    );
+  }
+
+  const job = await store.getJobWithToken(jobId);
+  if (!job) {
+    throw new LiveActivityDeliveryError("Live Activity job not found", "NOT_FOUND");
   }
 
   const activity = job.activityToken;
