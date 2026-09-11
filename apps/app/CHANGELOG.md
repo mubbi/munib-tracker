@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.1](https://github.com/mubbi/munib-tracker/compare/app-v1.2.0...app-v1.2.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* **app:** cap Quran page layout work to avoid iOS TextKit hangs ([eba53ed](https://github.com/mubbi/munib-tracker/commit/eba53edf99f2aa24be69f397a1ac890238c56d36))
+* **app:** copy tab icons as drawables to avoid Fresco ANR ([0318ba4](https://github.com/mubbi/munib-tracker/commit/0318ba4cc4c664726bb2af92ee33067a15cff16d))
+* **app:** defer first-run work that trips the iOS watchdog ([c6c99e3](https://github.com/mubbi/munib-tracker/commit/c6c99e3ca947d29d684e64d5b81db7605409a44b))
+* **app:** prevent ExpoQuickActions NPE on Android shortcut sync ([028b11a](https://github.com/mubbi/munib-tracker/commit/028b11a3bab5223ab00622e801cd6cf2f36022ab))
+* **app:** recover when the OS refuses to schedule notifications ([83c36a4](https://github.com/mubbi/munib-tracker/commit/83c36a4220dc3b47e3f5709f95228d1b84e09c0b))
+* **app:** shard AsyncStorage caches under the SQLite size limit ([7d143e7](https://github.com/mubbi/munib-tracker/commit/7d143e70d05e804b6a5e78e37e04a05c77b88393))
+* **app:** stop FluidSpring animations that hang iOS UI ([4537b08](https://github.com/mubbi/munib-tracker/commit/4537b08bad8eaee24a8928588f2edef0154c66d5))
+* keep lock-screen Live Activity moving past 00:00 ([241c92e](https://github.com/mubbi/munib-tracker/commit/241c92ede2f4b9b033140dc0495bc82de6674e90))
+
 ## [1.2.0](https://github.com/mubbi/munib-tracker/compare/app-v1.1.2...app-v1.2.0) (2026-09-11)
 
 
