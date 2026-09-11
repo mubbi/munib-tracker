@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/mubbi/munib-tracker/compare/api-v1.2.0...api-v1.2.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* keep lock-screen Live Activity moving past 00:00 ([241c92e](https://github.com/mubbi/munib-tracker/commit/241c92ede2f4b9b033140dc0495bc82de6674e90))
+
 ## [1.2.0](https://github.com/mubbi/munib-tracker/compare/api-v1.1.0...api-v1.2.0) (2026-09-11)
 
 
