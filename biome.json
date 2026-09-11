@@ -21,6 +21,7 @@
       "!**/.agents/skills/*/scripts",
       "!**/packages/api-client/src/generated",
       "!**/packages/api-contract/openapi.json",
+      "!**/apps/app/targets/**/Assets.xcassets",
       "!**/apps/app/assets/data",
       "!**/apps/app/scripts/build-data/.cache",
       "!**/apps/app/scripts/i18n/_tmp",

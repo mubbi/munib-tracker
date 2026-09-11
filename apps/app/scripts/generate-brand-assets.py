@@ -226,7 +226,9 @@ def _write_ico(icon_48: Image.Image, ico_path: Path) -> None:
     ico_path.parent.mkdir(parents=True, exist_ok=True)
     # Pillow builds multi-size ICOs by resizing a single source via `sizes=` —
     # `append_images` is ignored by the ICO plugin and only yields 16×16.
-    icon_48.save(ico_path, format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+    # Next.js / Turbopack ICO decoder requires embedded PNGs in RGBA (not RGB).
+    rgba = icon_48.convert("RGBA")
+    rgba.save(ico_path, format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
     print(f"  wrote {ico_path.relative_to(REPO_ROOT)}")
 
 
