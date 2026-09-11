@@ -1,4 +1,6 @@
 import type { ZikrItem } from "@munib-tracker/shared/types";
+import { loadZikrItemsSyncForTests } from "@/lib/search-corpora-test-loader";
+import { __setZikrItemsForTests } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import {
   zikrCategoryBadge,
@@ -71,7 +73,17 @@ describe("zikrListRowProgress", () => {
     const counts = { [zikrCountKey(zikr.id, "asr")]: 33 };
 
     expect(zikrListRowProgress(zikr, counts, "asr")).toEqual({ completed: true });
-    expect(zikrListRowProgress(zikr, counts, "maghrib").completed).toBe(false);
+    expect(zikrListRowProgress(zikr, counts, "maghrib")).toEqual({
+      completed: false,
+      progressLabel: "0/33",
+    });
+  });
+
+  it("omits a progress label when the item has no recitation target", () => {
+    const zikr = item({ id: "open-ended", categoryId: "anytime", targetCount: undefined });
+
+    expect(zikrListRowProgress(zikr, {})).toEqual({ completed: false });
+    expect(zikrListRowProgress(zikr, { "open-ended": 1 })).toEqual({ completed: true });
   });
 });
 
@@ -89,6 +101,10 @@ describe("zikrListProgress", () => {
 });
 
 describe("zikrCategoryTodayProgress", () => {
+  afterEach(() => {
+    __setZikrItemsForTests(loadZikrItemsSyncForTests());
+  });
+
   it("counts remaining morning adhkar from today's map", () => {
     expect(zikrCategoryTodayProgress("morning", {})).toEqual(
       expect.objectContaining({ completed: 0, total: expect.any(Number) }),
@@ -107,5 +123,18 @@ describe("zikrCategoryTodayProgress", () => {
     const badge = zikrCategoryBadge("morning", {}, "Done");
     expect(badge?.completed).toBe(false);
     expect(badge?.label).toMatch(/^\d+\/\d+$/);
+  });
+
+  it("labels a finished category as Done", () => {
+    __setZikrItemsForTests([item({ id: "only", categoryId: "morning", targetCount: 1 })]);
+    expect(zikrCategoryBadge("morning", { only: 1 }, "Done")).toEqual({
+      label: "Done",
+      completed: true,
+    });
+  });
+
+  it("omits a badge when the category has no items", () => {
+    __setZikrItemsForTests([]);
+    expect(zikrCategoryBadge("morning", {}, "Done")).toBeUndefined();
   });
 });

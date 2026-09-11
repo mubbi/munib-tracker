@@ -15,6 +15,11 @@ describe.concurrent("excusedReasonForDate", () => {
     const logs = [log("2026-07-03", "fajr", "pending", { isExcused: true, excusedReason: "hayd" })];
     expect(excusedReasonForDate(logs, "2026-07-03")).toBe("hayd");
   });
+
+  it("defaults a missing excused reason to sick", () => {
+    const logs = [log("2026-07-03", "fajr", "pending", { isExcused: true })];
+    expect(excusedReasonForDate(logs, "2026-07-03")).toBe("sick");
+  });
 });
 
 describe.concurrent("inferExcusedReasonFromYesterday", () => {

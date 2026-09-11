@@ -9,7 +9,9 @@ import {
   resolveArabicFontFamily,
   resolveArabicLineHeight,
   resolveReadingFontSizes,
+  resolveTranslationFontFamily,
   TEXT_SIZE_BOUNDS,
+  translationReadingStyle,
 } from "@/lib/reading-typography";
 import { arabicTextAlign } from "@/lib/rtl";
 
@@ -119,5 +121,27 @@ describe("arabicReadingLayout", () => {
       writingDirection: "rtl",
       textAlign: "center",
     });
+  });
+});
+
+describe("resolveTranslationFontFamily", () => {
+  const originalOS = Platform.OS;
+
+  afterEach(() => {
+    Platform.OS = originalOS;
+  });
+
+  it("uses the bundled Devanagari family for Hindi on native", () => {
+    Platform.OS = "ios";
+    expect(resolveTranslationFontFamily("hi")).toBe("NotoSansDevanagari");
+    expect(translationReadingStyle("hi", 16).fontFamily).toBe("NotoSansDevanagari");
+  });
+
+  it("uses a CSS stack for Hindi on web", () => {
+    const spy = jest
+      .spyOn(Platform, "select")
+      .mockImplementation((spec: { web?: string; default?: string }) => spec.web ?? spec.default);
+    expect(resolveTranslationFontFamily("hi")).toContain("Noto Sans Devanagari");
+    spy.mockRestore();
   });
 });

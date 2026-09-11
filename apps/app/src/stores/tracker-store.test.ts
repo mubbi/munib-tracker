@@ -4,6 +4,7 @@ import { addDays, getLocalDateString } from "@munib-tracker/shared/utils";
 import { PrayerRepository, PreferencesRepository, QazaRepository } from "@/db";
 import { loadTrackerStore, resetTrackerStore } from "@/test-support/store";
 
+import { preferencesStore } from "./preferences-store";
 import { trackerStore } from "./tracker-store";
 
 beforeEach(resetTrackerStore);
@@ -196,5 +197,17 @@ describe("trackerStore", () => {
     await trackerStore.getState().setDayExcused("sick");
     expect(trackerStore.getState().excusedReason).toBe("sick");
     expect((await PreferencesRepository.get()).activeExcusedReason).toBe("sick");
+  });
+
+  it("writes the excused reason through the repository when preferences are not ready", async () => {
+    preferencesStore.setState({ isReady: false });
+    await trackerStore.getState().setDayExcused("travel");
+    expect((await PreferencesRepository.get()).activeExcusedReason).toBe("travel");
+  });
+
+  it("updates the in-memory preferences store once it is ready", async () => {
+    await preferencesStore.getState().load();
+    await trackerStore.getState().setDayExcused("hayd");
+    expect(preferencesStore.getState().prefs.activeExcusedReason).toBe("hayd");
   });
 });
