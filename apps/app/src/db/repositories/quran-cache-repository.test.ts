@@ -5,6 +5,7 @@ import { storageShardKey } from "../store";
 import { QuranCacheRepository } from "./quran-cache-repository";
 
 beforeEach(async () => {
+  jest.restoreAllMocks();
   await QuranCacheRepository.clear();
   await AsyncStorage.clear();
 });
@@ -62,5 +63,16 @@ describe("QuranCacheRepository", () => {
       await AsyncStorage.getItem(storageShardKey(DB_KEYS.quranEditionCache, "en-saheeh:1")),
     ).toBeNull();
     expect(await QuranCacheRepository.get("en-saheeh", 1)).toBeNull();
+  });
+
+  it("keeps the session cache when disk writes fail", async () => {
+    jest.spyOn(AsyncStorage, "setItem").mockRejectedValueOnce(new Error("quota exceeded"));
+
+    await expect(
+      QuranCacheRepository.set("en-saheeh", 1, { "1": "In the name of Allah" }),
+    ).resolves.toBeUndefined();
+    expect(await QuranCacheRepository.get("en-saheeh", 1)).toEqual({
+      "1": "In the name of Allah",
+    });
   });
 });

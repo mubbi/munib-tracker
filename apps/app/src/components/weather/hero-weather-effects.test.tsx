@@ -13,6 +13,13 @@ describe("weatherEffectsMountDelayMs", () => {
     expect(weatherEffectsMountDelayMs("android")).toBe(0);
     expect(weatherEffectsMountDelayMs("web")).toBe(0);
   });
+
+  it("defaults to the current Platform.OS", () => {
+    const originalOS = Platform.OS;
+    Platform.OS = "ios";
+    expect(weatherEffectsMountDelayMs()).toBe(IOS_WEATHER_EFFECTS_SETTLE_MS);
+    Platform.OS = originalOS;
+  });
 });
 
 describe("HeroWeatherEffects", () => {
@@ -78,6 +85,35 @@ describe("HeroWeatherEffects", () => {
     expect(screen.getByTestId("hero-weather-effects")).toBeTruthy();
 
     rerender(<HeroWeatherEffects effects={["clear"]} enabled={false} />);
+    expect(screen.queryByTestId("hero-weather-effects")).toBeNull();
+  });
+
+  it("does not mount when there are no weather effects", () => {
+    Platform.OS = "android";
+    render(<HeroWeatherEffects effects={[]} />);
+    act(() => {
+      jest.runAllTimers();
+    });
+    expect(screen.queryByTestId("hero-weather-effects")).toBeNull();
+  });
+
+  it("unmounts particles when the app leaves the foreground", () => {
+    Platform.OS = "android";
+    let onChange: ((status: string) => void) | undefined;
+    jest.spyOn(AppState, "addEventListener").mockImplementation((_event, handler) => {
+      onChange = handler as (status: string) => void;
+      return { remove: jest.fn() };
+    });
+
+    render(<HeroWeatherEffects effects={["clear"]} />);
+    act(() => {
+      jest.runAllTimers();
+    });
+    expect(screen.getByTestId("hero-weather-effects")).toBeTruthy();
+
+    act(() => {
+      onChange?.("background");
+    });
     expect(screen.queryByTestId("hero-weather-effects")).toBeNull();
   });
 });

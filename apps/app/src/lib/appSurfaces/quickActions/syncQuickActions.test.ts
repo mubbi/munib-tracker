@@ -61,6 +61,13 @@ describe("definitionToAction", () => {
     expect(action.subtitle).toBe(def.subtitleFallback);
     expect(action.icon).toBe(def.iosSymbol);
   });
+
+  it("uses the fallback label when i18n returns an empty string", () => {
+    const empty = (() => "   ") as import("i18next").TFunction;
+    const action = definitionToAction(def, empty, true);
+    expect(action.title).toBe(def.titleFallback);
+    expect(action.subtitle).toBe(def.subtitleFallback);
+  });
 });
 
 describe("resolveQuickActionLimit", () => {
@@ -74,6 +81,12 @@ describe("resolveQuickActionLimit", () => {
 
   it("falls back to the Android recommendation when maxCount is missing", () => {
     expect(resolveQuickActionLimit(false)).toBe(ANDROID_QUICK_ACTION_LIMIT);
+  });
+
+  it("ignores a non-positive or non-finite Android maxCount", () => {
+    expect(resolveQuickActionLimit(false, 0)).toBe(ANDROID_QUICK_ACTION_LIMIT);
+    expect(resolveQuickActionLimit(false, -3)).toBe(ANDROID_QUICK_ACTION_LIMIT);
+    expect(resolveQuickActionLimit(false, Number.NaN)).toBe(ANDROID_QUICK_ACTION_LIMIT);
   });
 });
 
@@ -117,6 +130,12 @@ describe("syncAppQuickActions", () => {
     Platform.OS = "web";
     await syncAppQuickActions(t);
     expect(mockIsSupported).not.toHaveBeenCalled();
+    expect(mockSetItems).not.toHaveBeenCalled();
+  });
+
+  it("skips setItems when the device reports no shortcut support", async () => {
+    mockIsSupported.mockResolvedValue(false);
+    await syncAppQuickActions(t);
     expect(mockSetItems).not.toHaveBeenCalled();
   });
 });

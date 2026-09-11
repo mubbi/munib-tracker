@@ -72,6 +72,9 @@ const mockCancelAll = Notifications.cancelAllScheduledNotificationsAsync as jest
 const mockSchedule = Notifications.scheduleNotificationAsync as jest.MockedFunction<
   typeof Notifications.scheduleNotificationAsync
 >;
+const mockGetAll = Notifications.getAllScheduledNotificationsAsync as jest.MockedFunction<
+  typeof Notifications.getAllScheduledNotificationsAsync
+>;
 const mockPermission = readNotificationPermissionUiState as jest.MockedFunction<
   typeof readNotificationPermissionUiState
 >;
@@ -114,6 +117,8 @@ beforeEach(() => {
   mockCancelAll.mockResolvedValue(undefined);
   mockSchedule.mockClear();
   mockSchedule.mockResolvedValue("id");
+  mockGetAll.mockReset();
+  mockGetAll.mockResolvedValue([]);
   mockSupported.mockReturnValue(true);
   mockPermission.mockResolvedValue("granted");
 });
@@ -246,6 +251,58 @@ describe("rescheduleAll", () => {
     await expect(rescheduleAll(prefs, SET_LOCATION)).resolves.toBeUndefined();
 
     expect(mockSchedule.mock.calls.length).toBeGreaterThan(1);
+  });
+
+  it("restores pending snoozes after cancel so a rebuild does not drop them", async () => {
+    mockGetAll.mockResolvedValue([
+      {
+        identifier: "snooze:fajr",
+        content: {
+          title: "Fajr",
+          body: "Pray",
+          data: { channelId: "prayer", reminderId: "prayer:fajr" },
+        },
+        trigger: { type: "timeInterval", seconds: 400 },
+      },
+      {
+        identifier: "prayer:dhuhr",
+        content: { title: "Dhuhr", body: "Pray", data: {} },
+        trigger: { type: "timeInterval", seconds: 10 },
+      },
+    ] as never);
+
+    await rescheduleAll(makePrefs(), SET_LOCATION);
+
+    const snoozeCall = mockSchedule.mock.calls
+      .map(([arg]) => arg as { identifier?: string; trigger: { seconds?: number } })
+      .find((arg) => arg.identifier === "snooze:fajr");
+    expect(snoozeCall?.trigger.seconds).toBe(400);
+  });
+
+  it("keeps scheduling reminders when restoring a snooze throws", async () => {
+    mockGetAll.mockResolvedValue([
+      {
+        identifier: "snooze:fajr",
+        content: { title: "Fajr", body: "Pray", data: {} },
+        trigger: { type: "timeInterval", seconds: 120 },
+      },
+    ] as never);
+    mockSchedule.mockImplementation(async (arg) => {
+      if ((arg as { identifier?: string }).identifier?.startsWith("snooze:")) {
+        throw new Error("quota");
+      }
+      return "id";
+    });
+
+    await expect(rescheduleAll(makePrefs(), SET_LOCATION)).resolves.toBeUndefined();
+    expect(mockSchedule.mock.calls.length).toBeGreaterThan(1);
+  });
+
+  it("does not leave the reschedule queue wedged when cancelAll fails", async () => {
+    mockCancelAll.mockRejectedValueOnce(new Error("cancel failed"));
+
+    await expect(rescheduleAll(makePrefs(), SET_LOCATION)).rejects.toThrow("cancel failed");
+    await expect(rescheduleAll(makePrefs(), SET_LOCATION)).resolves.toBeUndefined();
   });
 });
 

@@ -41,4 +41,16 @@ describe("cache manager", () => {
     expect(await AsyncStorage.getItem(shard)).toBeNull();
     expect(await AsyncStorage.getItem(DB_KEYS.prayerLogs)).toBe("user-data");
   });
+
+  it("includes ayah-study shards in the Qur'an group size and removes them on clear", async () => {
+    const shard = `${DB_KEYS.quranStudyCache}/${encodeURIComponent("tajweed:1:1")}`;
+    await AsyncStorage.setItem(shard, "z".repeat(24));
+
+    const summary = await getCacheSummary();
+    const quran = summary.find((g) => g.id === "quran");
+    expect(quran?.bytes).toBe(24);
+
+    await clearCacheKeys([DB_KEYS.quranStudyCache]);
+    expect(await AsyncStorage.getItem(shard)).toBeNull();
+  });
 });

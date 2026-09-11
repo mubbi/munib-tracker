@@ -45,4 +45,26 @@ describe("PageLayoutRenderer ayah markers", () => {
     });
     expect(screen.queryByText("\u06DD")).toBeNull();
   });
+
+  it("renders the U+06DD rosette on Android instead of inlining the iOS marker", async () => {
+    Platform.OS = "android";
+    render(
+      <MunibThemeProvider>
+        <PageLayoutRenderer
+          ayahs={[ayah]}
+          arabicSize={28}
+          showTransliteration={false}
+          showTranslation={false}
+          translationDir="ltr"
+          secondTranslationDir="ltr"
+          page={15}
+        />
+      </MunibThemeProvider>,
+    );
+
+    await waitFor(() => {
+      expect(JSON.stringify(screen.toJSON())).toContain("\u06DD");
+    });
+    expect(JSON.stringify(screen.toJSON())).not.toContain(iosInlineAyahMarker(98));
+  });
 });
