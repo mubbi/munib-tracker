@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.2.1](https://github.com/mubbi/munib-tracker/compare/app-v1.2.0...app-v1.2.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* **app:** cap Quran page layout work to avoid iOS TextKit hangs ([eba53ed](https://github.com/mubbi/munib-tracker/commit/eba53edf99f2aa24be69f397a1ac890238c56d36))
+* **app:** copy tab icons as drawables to avoid Fresco ANR ([0318ba4](https://github.com/mubbi/munib-tracker/commit/0318ba4cc4c664726bb2af92ee33067a15cff16d))
+* **app:** defer first-run work that trips the iOS watchdog ([c6c99e3](https://github.com/mubbi/munib-tracker/commit/c6c99e3ca947d29d684e64d5b81db7605409a44b))
+* **app:** prevent ExpoQuickActions NPE on Android shortcut sync ([028b11a](https://github.com/mubbi/munib-tracker/commit/028b11a3bab5223ab00622e801cd6cf2f36022ab))
+* **app:** recover when the OS refuses to schedule notifications ([83c36a4](https://github.com/mubbi/munib-tracker/commit/83c36a4220dc3b47e3f5709f95228d1b84e09c0b))
+* **app:** shard AsyncStorage caches under the SQLite size limit ([7d143e7](https://github.com/mubbi/munib-tracker/commit/7d143e70d05e804b6a5e78e37e04a05c77b88393))
+* **app:** stop FluidSpring animations that hang iOS UI ([4537b08](https://github.com/mubbi/munib-tracker/commit/4537b08bad8eaee24a8928588f2edef0154c66d5))
+* keep lock-screen Live Activity moving past 00:00 ([241c92e](https://github.com/mubbi/munib-tracker/commit/241c92ede2f4b9b033140dc0495bc82de6674e90))
+
+## [1.2.0](https://github.com/mubbi/munib-tracker/compare/app-v1.1.2...app-v1.2.0) (2026-09-11)
+
+
+### Features
+
+* add Hindi locale and excused-period carry-forward ([3482ecd](https://github.com/mubbi/munib-tracker/commit/3482ecdf42210bd36e968a3289413afdda37a780))
+
+
+### Bug Fixes
+
+* android warnings, errors and optimizations ([367409a](https://github.com/mubbi/munib-tracker/commit/367409a38b7d894c5ee8a1f361db72f8ce8a52ea))
+* apple icon ([c62e390](https://github.com/mubbi/munib-tracker/commit/c62e3907db75f47083456afbf8912b79a6055be2))
+* apple watch icon ([dad543f](https://github.com/mubbi/munib-tracker/commit/dad543faf071ad7211558ff033452f345ec55a6e))
+* apple watch icons ([485cdd1](https://github.com/mubbi/munib-tracker/commit/485cdd1d5c4e20353f87617ecd71b73658193353))
+* splash logo visibility ([d590a06](https://github.com/mubbi/munib-tracker/commit/d590a062a2bdbd9b35972bf3da32e7491402af8b))
+
 ## [1.1.2](https://github.com/mubbi/munib-tracker/compare/app-v1.1.1...app-v1.1.2) (2026-08-08)
 
 

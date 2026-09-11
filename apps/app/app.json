@@ -2,14 +2,14 @@
   "expo": {
     "name": "Munib Tracker",
     "slug": "munib-tracker",
-    "version": "1.1.1",
+    "version": "1.2.1",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "munib-tracker",
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "app.munibtracker",
-      "buildNumber": "1.1.2",
+      "buildNumber": "1.2.1",
       "supportsTablet": true,
       "usesAppleSignIn": true,
       "icon": "./assets/images/icon.png",
@@ -25,7 +25,7 @@
     },
     "android": {
       "package": "app.munibtracker",
-      "versionCode": 570010102,
+      "versionCode": 570010201,
       "adaptiveIcon": {
         "backgroundColor": "#152921",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

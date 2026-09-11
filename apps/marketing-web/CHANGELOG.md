@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/mubbi/munib-tracker/compare/marketing-web-v1.0.1...marketing-web-v1.1.0) (2026-09-11)
+
+
+### Features
+
+* add Hindi locale and excused-period carry-forward ([3482ecd](https://github.com/mubbi/munib-tracker/commit/3482ecdf42210bd36e968a3289413afdda37a780))
+
 ## [1.0.1](https://github.com/mubbi/munib-tracker/compare/marketing-web-v1.0.0...marketing-web-v1.0.1) (2026-08-02)
 
 
