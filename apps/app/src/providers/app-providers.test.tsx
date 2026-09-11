@@ -15,6 +15,12 @@ const mockStores = {
   continueLoad: jest.fn(),
 };
 
+const mockPrefs = {
+  isReady: true,
+  hasCompletedOnboarding: true,
+  listeners: new Set<() => void>(),
+};
+
 jest.mock("@munib-tracker/shared/utils", () => {
   const actual = jest.requireActual(
     "@munib-tracker/shared/utils",
@@ -71,6 +77,19 @@ jest.mock("@/stores/continue-store", () => ({
   },
 }));
 
+jest.mock("@/stores/preferences-store", () => ({
+  preferencesStore: {
+    getState: () => ({
+      isReady: mockPrefs.isReady,
+      prefs: { hasCompletedOnboarding: mockPrefs.hasCompletedOnboarding },
+    }),
+    subscribe: (listener: () => void) => {
+      mockPrefs.listeners.add(listener);
+      return () => mockPrefs.listeners.delete(listener);
+    },
+  },
+}));
+
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { AppProviders } from "./app-providers";
 
@@ -85,6 +104,9 @@ describe("AppProviders", () => {
     mockStores.trackerDate = "2026-07-03";
     mockStores.locationCoords = { latitude: 24.86, longitude: 67.0 };
     mockStores.locationListeners.clear();
+    mockPrefs.isReady = true;
+    mockPrefs.hasCompletedOnboarding = true;
+    mockPrefs.listeners.clear();
     appStateHandler = undefined;
     getLocalDateStringMock.mockReturnValue("2026-07-03");
     jest.spyOn(AppState, "addEventListener").mockImplementation((_event, handler) => {
@@ -151,5 +173,49 @@ describe("AppProviders", () => {
 
     unmount();
     expect(removeAppState).toHaveBeenCalled();
+  });
+
+  it("does not warm home stores before preferences hydrate", () => {
+    mockPrefs.isReady = false;
+
+    const { unmount } = render(
+      <AppProviders>
+        <Text>ready</Text>
+      </AppProviders>,
+    );
+
+    expect(mockStores.locationLoad).not.toHaveBeenCalled();
+    expect(mockStores.weatherLoad).not.toHaveBeenCalled();
+    unmount();
+  });
+
+  it("does not warm home stores during onboarding, then boots when it completes", () => {
+    mockPrefs.hasCompletedOnboarding = false;
+
+    const { unmount } = render(
+      <AppProviders>
+        <Text>ready</Text>
+      </AppProviders>,
+    );
+
+    expect(mockStores.locationLoad).not.toHaveBeenCalled();
+    expect(mockStores.trackerLoad).not.toHaveBeenCalled();
+    expect(mockStores.quranLoad).not.toHaveBeenCalled();
+    expect(mockStores.continueLoad).not.toHaveBeenCalled();
+    expect(mockStores.weatherLoad).not.toHaveBeenCalled();
+    expect(mockStores.weatherSync).not.toHaveBeenCalled();
+
+    mockPrefs.hasCompletedOnboarding = true;
+    act(() => {
+      for (const listener of mockPrefs.listeners) listener();
+    });
+
+    expect(mockStores.locationLoad).toHaveBeenCalled();
+    expect(mockStores.trackerLoad).toHaveBeenCalled();
+    expect(mockStores.quranLoad).toHaveBeenCalled();
+    expect(mockStores.continueLoad).toHaveBeenCalled();
+    expect(mockStores.weatherLoad).toHaveBeenCalled();
+
+    unmount();
   });
 });
