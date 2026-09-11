@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.2](https://github.com/mubbi/munib-tracker/compare/app-v1.1.1...app-v1.1.2) (2026-08-08)
+
+
+### Bug Fixes
+
+* **ci:** biome-format app.json after Release Please expo rewrite ([358868c](https://github.com/mubbi/munib-tracker/commit/358868c20affaefd2f49f37f16c40e5b78f8dadb))
+* github ai reported issues ([4cd2aa5](https://github.com/mubbi/munib-tracker/commit/4cd2aa57572882c55fdd7441b5b2c38f349af449))
+* optimizations issues in surah player ([ba3f0d7](https://github.com/mubbi/munib-tracker/commit/ba3f0d765afeb03c032836d0d3d3158075995151))
+
 ## [1.1.1](https://github.com/mubbi/munib-tracker/compare/app-v1.1.0...app-v1.1.1) (2026-08-04)
 
 
