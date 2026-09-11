@@ -188,6 +188,13 @@ type GlassControlProps = {
   tintColor?: string;
   /** Override Liquid Glass appearance — use `"dark"` on colourful hero art. */
   colorScheme?: "light" | "dark";
+  /**
+   * Liquid Glass press lens (`FluidSpringAnimation`). Leave on for in-place
+   * controls (play/pause). Turn off when the press starts a stack push/pop so
+   * SwiftUI spring allocation does not share the main thread with the native
+   * transition (iOS AppHang).
+   */
+  interactive?: boolean;
   style?: StyleProp<ViewStyle>;
   children: ReactNode;
 };
@@ -202,13 +209,14 @@ export function GlassControl({
   radius,
   tintColor,
   colorScheme,
+  interactive = true,
   style,
   children,
 }: GlassControlProps) {
   if (!hasLiquidGlass) return <>{children}</>;
   return (
     <GlassView
-      isInteractive
+      isInteractive={interactive}
       glassEffectStyle="regular"
       tintColor={tintColor}
       colorScheme={colorScheme}

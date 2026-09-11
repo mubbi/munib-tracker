@@ -5,12 +5,15 @@ import { Platform } from "react-native";
 import {
   ARABIC_SIZE_BOUNDS,
   arabicReadingLayout,
+  iosInlineAyahMarker,
   nextReadingDelta,
   resolveArabicFontFamily,
   resolveArabicLineHeight,
   resolveReadingFontSizes,
   resolveTranslationFontFamily,
+  sanitizeArabicText,
   TEXT_SIZE_BOUNDS,
+  toArabicIndicDigits,
   translationReadingStyle,
 } from "@/lib/reading-typography";
 import { arabicTextAlign } from "@/lib/rtl";
@@ -143,5 +146,34 @@ describe("resolveTranslationFontFamily", () => {
       .mockImplementation((spec: { web?: string; default?: string }) => spec.web ?? spec.default);
     expect(resolveTranslationFontFamily("hi")).toContain("Noto Sans Devanagari");
     spy.mockRestore();
+  });
+});
+
+describe("sanitizeArabicText", () => {
+  const originalOS = Platform.OS;
+
+  afterEach(() => {
+    Platform.OS = originalOS;
+  });
+
+  it("spells out honorific ligatures and strips U+06DD on iOS", () => {
+    Platform.OS = "ios";
+    expect(sanitizeArabicText("اللهم \uFDFA")).toContain("صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ");
+    expect(sanitizeArabicText("\uFDFD")).toBe("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ");
+    expect(sanitizeArabicText("ءَامَنَ\u06DD")).toBe("ءَامَنَ");
+  });
+
+  it("leaves the same characters untouched on Android", () => {
+    Platform.OS = "android";
+    expect(sanitizeArabicText("اللهم \uFDFA")).toBe("اللهم \uFDFA");
+    expect(sanitizeArabicText("ءَامَنَ\u06DD")).toBe("ءَامَنَ\u06DD");
+  });
+});
+
+describe("iosInlineAyahMarker", () => {
+  it("uses parenthesized Arabic-Indic digits without U+06DD", () => {
+    expect(iosInlineAyahMarker(98)).toBe("\u00A0(٩٨)\u00A0");
+    expect(iosInlineAyahMarker(1)).not.toContain("\u06DD");
+    expect(toArabicIndicDigits(15)).toBe("١٥");
   });
 });

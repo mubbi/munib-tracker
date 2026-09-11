@@ -48,6 +48,23 @@ def _ensure_source() -> Image.Image:
     return Image.open(SOURCE).convert("RGBA")
 
 
+def _opaque_bbox(img: Image.Image, *, min_alpha: int = 8, pad: int = 2) -> tuple[int, int, int, int]:
+    """Bounding box of visible pixels, ignoring near-transparent export padding."""
+    if img.mode != "RGBA":
+        img = img.convert("RGBA")
+    mask = img.split()[3].point(lambda a: 255 if a >= min_alpha else 0)
+    bbox = mask.getbbox()
+    if bbox is None:
+        return (0, 0, img.width, img.height)
+    left, top, right, bottom = bbox
+    return (
+        max(0, left - pad),
+        max(0, top - pad),
+        min(img.width, right + pad),
+        min(img.height, bottom + pad),
+    )
+
+
 def _flatten_on_bg(img: Image.Image, size: int, bg: tuple[int, int, int] = BRAND_BG) -> Image.Image:
     """Composite logo onto brand background at exact square size (fully opaque RGB)."""
     canvas = Image.new("RGBA", (size, size), (*bg, 255))
@@ -58,6 +75,58 @@ def _flatten_on_bg(img: Image.Image, size: int, bg: tuple[int, int, int] = BRAND
     # Flatten alpha — store icons / adaptive backgrounds must be opaque.
     out = Image.new("RGB", (size, size), bg)
     out.paste(canvas, mask=canvas.split()[3])
+    return out
+
+
+def _rim_padding(img: Image.Image) -> int:
+    """Pixels to expand so `_with_gold_rim` stroke + glow are not clipped."""
+    size = max(img.size)
+    stroke = max(4, round(size * _SPLASH_RIM_STROKE_RATIO))
+    glow_r = max(8, round(size * _SPLASH_RIM_GLOW_RATIO))
+    return stroke + glow_r + 2
+
+
+def _with_gold_rim_padded(img: Image.Image) -> Image.Image:
+    """Gold rim around a tightly-cropped silhouette (pad first, then stroke)."""
+    if img.mode != "RGBA":
+        img = img.convert("RGBA")
+    pad = _rim_padding(img)
+    canvas = Image.new("RGBA", (img.width + pad * 2, img.height + pad * 2), (0, 0, 0, 0))
+    canvas.paste(img, (pad, pad), img)
+    return _with_gold_rim(canvas)
+
+
+def _flatten_full_bleed(
+    img: Image.Image,
+    size: int,
+    bg: tuple[int, int, int] = BRAND_BG,
+    *,
+    gold_rim: bool = False,
+) -> Image.Image:
+    """Crop to the logo silhouette and fill the square — no extra canvas padding.
+
+    The source mark is a squircle with transparent export padding. iOS / App Store
+    apply their own mask, so compositing that squircle onto a larger background
+    produces a tiny inset icon with a double-rounded frame. Fill the canvas and
+    let the platform round the corners.
+    """
+    if img.mode != "RGBA":
+        img = img.convert("RGBA")
+    cropped = img.crop(_opaque_bbox(img))
+    if gold_rim:
+        cropped = _with_gold_rim_padded(cropped)
+        # Keep the gilt stroke; drop the faint outer glow so padding does not return.
+        cropped = cropped.crop(_opaque_bbox(cropped, min_alpha=48, pad=1))
+    side = max(cropped.size)
+    square = Image.new("RGBA", (side, side), (*bg, 255))
+    square.paste(
+        cropped,
+        ((side - cropped.width) // 2, (side - cropped.height) // 2),
+        cropped,
+    )
+    fitted = square.resize((size, size), Image.Resampling.LANCZOS)
+    out = Image.new("RGB", (size, size), bg)
+    out.paste(fitted, mask=fitted.split()[3])
     return out
 
 
@@ -157,16 +226,18 @@ def _write_ico(icon_48: Image.Image, ico_path: Path) -> None:
     ico_path.parent.mkdir(parents=True, exist_ok=True)
     # Pillow builds multi-size ICOs by resizing a single source via `sizes=` —
     # `append_images` is ignored by the ICO plugin and only yields 16×16.
-    icon_48.save(ico_path, format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+    # Next.js / Turbopack ICO decoder requires embedded PNGs in RGBA (not RGB).
+    rgba = icon_48.convert("RGBA")
+    rgba.save(ico_path, format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
     print(f"  wrote {ico_path.relative_to(REPO_ROOT)}")
 
 
 def _write_favicon_set(logo: Image.Image, dest_dir: Path, *, ico_path: Path | None = None) -> None:
     """Write favicon.png (48), 16/32 PNGs, optional multi-size .ico, and SVG shim."""
     dest_dir.mkdir(parents=True, exist_ok=True)
-    icon_48 = _flatten_on_bg(logo, 48)
-    icon_32 = _flatten_on_bg(logo, 32)
-    icon_16 = _flatten_on_bg(logo, 16)
+    icon_48 = _flatten_full_bleed(logo, 48)
+    icon_32 = _flatten_full_bleed(logo, 32)
+    icon_16 = _flatten_full_bleed(logo, 16)
     _save_png(icon_48, dest_dir / "favicon.png")
     _save_png(icon_32, dest_dir / "favicon-32.png")
     _save_png(icon_16, dest_dir / "favicon-16.png")
@@ -312,20 +383,18 @@ def main() -> None:
     # Canonical in-app logo (keep original with transparency for UI overlays)
     _save_png(logo, APP_IMAGES / "munib-logo.png")
 
-    # App / store icon (1024×1024)
-    icon_1024 = _flatten_on_bg(logo, 1024)
+    # App / store icon (1024×1024). Full-bleed + gilt rim; iOS applies the squircle mask.
+    icon_1024 = _flatten_full_bleed(logo, 1024, gold_rim=True)
     _save_png(icon_1024, APP_IMAGES / "icon.png")
 
-    # PWA / favicon sizes (opaque — platforms / browsers apply their own masks)
-    for name, size in [
-        ("icon-180.png", 180),
-        ("icon-192.png", 192),
-        ("icon-512.png", 512),
-    ]:
-        _save_png(_flatten_on_bg(logo, size), APP_IMAGES / name)
+    # PWA sizes. 180 / 512 are full-bleed (iOS home screen + "any" purpose).
+    # 192 stays inset so Android maskable icons keep the 80% safe zone.
+    _save_png(_flatten_full_bleed(logo, 180, gold_rim=True), APP_IMAGES / "icon-180.png")
+    _save_png(_flatten_on_bg(logo, 192), APP_IMAGES / "icon-192.png")
+    _save_png(_flatten_full_bleed(logo, 512, gold_rim=True), APP_IMAGES / "icon-512.png")
 
     # App favicon (48px PNG for expo web.favicon + multi-size .ico for /favicon.ico)
-    icon_48 = _flatten_on_bg(logo, 48)
+    icon_48 = _flatten_full_bleed(logo, 48)
     _save_png(icon_48, APP_IMAGES / "favicon.png")
     _write_ico(icon_48, APP_PUBLIC / "favicon.ico")
     shutil.copy2(APP_IMAGES / "favicon.png", APP_PUBLIC_IMAGES / "favicon.png")
@@ -364,12 +433,9 @@ def main() -> None:
 
     # Marketing site assets
     MARKETING_PUBLIC.mkdir(parents=True, exist_ok=True)
-    for name, size in [
-        ("icon-192.png", 192),
-        ("icon-512.png", 512),
-        ("apple-touch-icon.png", 180),
-    ]:
-        _save_png(_flatten_on_bg(logo, size), MARKETING_PUBLIC / name)
+    _save_png(_flatten_on_bg(logo, 192), MARKETING_PUBLIC / "icon-192.png")
+    _save_png(_flatten_full_bleed(logo, 512, gold_rim=True), MARKETING_PUBLIC / "icon-512.png")
+    _save_png(_flatten_full_bleed(logo, 180, gold_rim=True), MARKETING_PUBLIC / "apple-touch-icon.png")
 
     marketing_app = REPO_ROOT / "apps" / "marketing-web" / "src" / "app"
     _write_favicon_set(

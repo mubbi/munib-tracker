@@ -182,9 +182,15 @@ jest.mock("expo-router", () => ({
 }));
 
 // `<Seo>` uses the vendored Helmet, which needs a document head context absent in Jest.
-jest.mock("expo-router/vendor/react-helmet-async/lib", () => ({
-  Helmet: ({ children }: { children?: ReactNode }) => children ?? null,
-}));
+// `virtual`: Expo Router 57 no longer ships this path on disk; the mock still
+// intercepts the import graph Seo uses in tests.
+jest.mock(
+  "expo-router/vendor/react-helmet-async/lib",
+  () => ({
+    Helmet: ({ children }: { children?: ReactNode }) => children ?? null,
+  }),
+  { virtual: true },
+);
 
 jest.mock("react-native-safe-area-context", () => ({
   SafeAreaProvider: ({ children }: { children: ReactNode }) => children,

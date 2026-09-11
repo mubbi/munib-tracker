@@ -3,7 +3,9 @@ import { type ReactNode, useEffect } from "react";
 import { AppState, type AppStateStatus } from "react-native";
 import { type IdleTaskHandle, runWhenIdle } from "@/lib/run-when-idle";
 import { continueStore } from "@/stores/continue-store";
+import { useStore } from "@/stores/create-store";
 import { locationStore } from "@/stores/location-store";
+import { preferencesStore } from "@/stores/preferences-store";
 import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
 import { weatherStore } from "@/stores/weather-store";
@@ -26,9 +28,17 @@ function refreshTrackerForCurrentDay(): void {
  * immediately (hero needs them) and only refreshes GPS when permission was
  * already granted — never prompts at startup. Tracker / quran / continue /
  * weather warm after the first paint.
+ *
+ * First-run intro skips this warm-up so SQLite loads, Open-Meteo, and reminder
+ * reschedule do not compete with the first paint (Sentry WatchdogTermination).
  */
 export function AppProviders({ children }: { children: ReactNode }) {
+  const prefsReady = useStore(preferencesStore, (s) => s.isReady);
+  const onboardingDone = useStore(preferencesStore, (s) => s.prefs.hasCompletedOnboarding);
+
   useEffect(() => {
+    if (!prefsReady || !onboardingDone) return;
+
     let mounted = true;
     let weatherIdle: IdleTaskHandle | null = null;
     let dayRolloverTimer: ReturnType<typeof setTimeout> | null = null;
@@ -94,7 +104,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       unsubscribeLocation();
       subscription.remove();
     };
-  }, []);
+  }, [prefsReady, onboardingDone]);
 
   return <>{children}</>;
 }

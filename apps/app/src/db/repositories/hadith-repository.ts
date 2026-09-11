@@ -5,7 +5,16 @@ import { LruMap } from "@/lib/lru-map";
 
 import { createId } from "../id";
 import { DB_KEYS } from "../keys";
-import { KeyedCollection, readJSON, removeKey, updateJSON, writeJSON } from "../store";
+import {
+  KeyedCollection,
+  migrateMonolithToShards,
+  readJSON,
+  removeKey,
+  removeKeyTree,
+  storageShardKey,
+  writeJSON,
+  writeJSONIfSafe,
+} from "../store";
 
 /** A saved hadith resolved back to its full content for display. */
 export interface BookmarkedHadith {
@@ -42,21 +51,13 @@ export const DEFAULT_HADITH_PREFS: HadithPrefs = {
   showSharh: true,
 };
 
-type BookCache = Record<string, HadithCollectionData>;
-
 /** Cap in-memory remote collections (disk cache remains authoritative). */
 const bookMemory = new LruMap<string, HadithCollectionData>(12);
-let bookStorageLoaded = false;
 
 const bookmarks = new KeyedCollection<HadithBookmark>(DB_KEYS.hadithBookmarks);
 
-async function ensureBookStorageLoaded(): Promise<void> {
-  if (bookStorageLoaded) return;
-  const cache = await readJSON<BookCache>(DB_KEYS.hadithBookCache, {});
-  for (const [key, value] of Object.entries(cache)) {
-    bookMemory.set(key, value);
-  }
-  bookStorageLoaded = true;
+function bookShardKey(cacheKey: string): string {
+  return storageShardKey(DB_KEYS.hadithBookCache, cacheKey);
 }
 
 export const HadithRepository = {
@@ -161,8 +162,10 @@ export const HadithRepository = {
     const hit = bookMemory.get(cacheKey);
     if (hit) return hit;
 
-    await ensureBookStorageLoaded();
-    return bookMemory.get(cacheKey) ?? null;
+    await migrateMonolithToShards(DB_KEYS.hadithBookCache);
+    const stored = await readJSON<HadithCollectionData | null>(bookShardKey(cacheKey), null);
+    if (stored) bookMemory.set(cacheKey, stored);
+    return stored;
   },
 
   /**
@@ -180,29 +183,25 @@ export const HadithRepository = {
     // localStorage on web). Never let a cache-write failure break the fetch —
     // the collection simply won't be available offline.
     try {
-      await updateJSON<BookCache>(DB_KEYS.hadithBookCache, {}, (cache) => {
-        cache[cacheKey] = data;
-        return cache;
-      });
+      await migrateMonolithToShards(DB_KEYS.hadithBookCache);
+      await writeJSONIfSafe(bookShardKey(cacheKey), data);
     } catch {
-      // storage full / unavailable — skip caching
+      // storage full / unavailable / over CursorWindow-safe size — skip caching
     }
   },
 
   /** Clears only the offline collection cache (keeps bookmarks) — for NF-1.14. */
   async clearBookCache(): Promise<void> {
     bookMemory.clear();
-    bookStorageLoaded = false;
-    await removeKey(DB_KEYS.hadithBookCache);
+    await removeKeyTree(DB_KEYS.hadithBookCache);
   },
 
   async clear(): Promise<void> {
     bookMemory.clear();
-    bookStorageLoaded = false;
     await Promise.all([
       bookmarks.clear(),
       removeKey(DB_KEYS.hadithBookmarksUpdatedAt),
-      removeKey(DB_KEYS.hadithBookCache),
+      removeKeyTree(DB_KEYS.hadithBookCache),
       removeKey(DB_KEYS.hadithPrefs),
     ]);
   },

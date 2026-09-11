@@ -13,6 +13,8 @@ export type Action = {
 
 export const initial: Action | null = null;
 
+export const maxCount: number | undefined = undefined;
+
 export async function isSupported(): Promise<boolean> {
   return false;
 }

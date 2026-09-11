@@ -32,7 +32,10 @@ export class LiveActivityQStashService {
       body: { jobId },
       notBefore: Math.floor(executeAt.getTime() / 1000),
       retries: 5,
-      timeout: 20,
+      // Default exponential retries collapse into a few seconds and can
+      // exhaust before adhan when a first attempt is slightly too early.
+      retryDelay: "min(120000, 10000 * pow(2, retried))",
+      timeout: 30,
       deduplicationId: `live-activity-${jobId}`,
       label: "live-activity",
     });

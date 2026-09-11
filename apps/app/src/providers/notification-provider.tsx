@@ -63,6 +63,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const activeLocale = i18n.resolvedLanguage ?? i18n.language;
   const { session, isAuthenticated } = useAuth();
   const { deliver } = useInAppNotifications();
+  const onboardingDone = useStore(preferencesStore, (s) => s.prefs.hasCompletedOnboarding);
   const notificationPrefs = useStore(preferencesStore, (s) => s.prefs.notificationPrefs);
   const prayerAlerts = useStore(preferencesStore, (s) => s.prefs.prayerAlerts);
   const prayerReminderOffsets = useStore(preferencesStore, (s) => s.prefs.prayerReminderOffsets);
@@ -90,7 +91,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   }, [session?.accessToken, tv]);
 
   useEffect(() => {
-    if (tv || Platform.OS !== "ios") return;
+    if (!onboardingDone || tv || Platform.OS !== "ios") return;
     const unsubscribeToken = subscribeLiveActivityPushTokens((event) => {
       handleLiveActivityPushToken(event);
     });
@@ -103,7 +104,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       unsubscribeToken();
       unsubscribeLifecycle();
     };
-  }, [tv]);
+  }, [tv, onboardingDone]);
 
   useEffect(() => {
     if (!isWeb || tv) return;
@@ -141,7 +142,16 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   }, [deliver, tv]);
 
   useEffect(() => {
-    if (!notificationsOk || !activeLocale || !ready || !locationReady || !trackerReady) return;
+    if (
+      !onboardingDone ||
+      !notificationsOk ||
+      !activeLocale ||
+      !ready ||
+      !locationReady ||
+      !trackerReady
+    ) {
+      return;
+    }
     // qazaDebtKey keeps this effect tied to remaining debt so OS nudges drop when cleared.
     void qazaDebtKey;
     const prefs = preferencesStore.getState().prefs;
@@ -161,10 +171,11 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     bedtime,
     activeLocale,
     location,
+    onboardingDone,
   ]);
 
   useEffect(() => {
-    if (!notificationsOk || !activeLocale) return;
+    if (!onboardingDone || !notificationsOk || !activeLocale) return;
     const sub = AppState.addEventListener("change", (status) => {
       if (status !== "active" || !ready || !locationReady) return;
       const prefs = preferencesStore.getState().prefs;
@@ -189,6 +200,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     location,
     isAuthenticated,
     session?.accessToken,
+    onboardingDone,
   ]);
 
   useEffect(() => {

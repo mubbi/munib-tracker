@@ -1,0 +1,46 @@
+diff --git a/android/src/main/java/com/swmansion/rnscreens/gamma/helpers/ImageLoader.kt b/android/src/main/java/com/swmansion/rnscreens/gamma/helpers/ImageLoader.kt
+index db114794b49e75db7714fe88fa3bb39df949d9d7..a971bb5227206adffa4931a08a6469ae7399c134 100644
+--- a/android/src/main/java/com/swmansion/rnscreens/gamma/helpers/ImageLoader.kt
++++ b/android/src/main/java/com/swmansion/rnscreens/gamma/helpers/ImageLoader.kt
+@@ -18,21 +18,35 @@ import com.facebook.imagepipeline.image.CloseableImage
+ import com.facebook.imagepipeline.image.CloseableStaticBitmap
+ import com.facebook.imagepipeline.request.ImageRequestBuilder
+ import java.util.Locale
++import java.util.concurrent.Executors
+ 
+ private const val TAG = "ImageLoader"
+ 
++private val loadExecutor =
++    Executors.newSingleThreadExecutor { runnable ->
++        Thread(runnable, "RNScreensImageLoader").apply { isDaemon = true }
++    }
++
++private val mainHandler = Handler(Looper.getMainLooper())
++
+ internal fun loadImage(
+     context: Context,
+     uri: String,
+     onLoaded: (Drawable?) -> Unit,
+ ) {
+-    // Since image loading might happen on a background thread
+-    // ref. https://frescolib.org/docs/intro-image-pipeline.html
+-    // We should schedule rendering the result on the UI thread
++    // Resolve the URI on the caller thread (resource lookup is cheap). Building
++    // ImageRequestBuilder triggers Fresco Priority.<clinit>; doing that on the
++    // main thread ANRs low-RAM devices when NativeTabs set imageIconResource.
++    val appContext = context.applicationContext
+     val resolvedUri = ImageSource(context, uri).getUri(context) ?: return
+-    loadImageInternal(context, resolvedUri) { drawable ->
+-        Handler(Looper.getMainLooper()).post {
+-            onLoaded(drawable)
++    loadExecutor.execute {
++        try {
++            loadImageInternal(appContext, resolvedUri) { drawable ->
++                mainHandler.post { onLoaded(drawable) }
++            }
++        } catch (error: Exception) {
++            Log.e(TAG, "[RNScreens] Error loading image: $resolvedUri", error)
++            mainHandler.post { onLoaded(null) }
+         }
+     }
+ }

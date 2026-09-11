@@ -7,8 +7,8 @@ import { fetchStaticJson } from "@/lib/static-json-fetch";
 
 /**
  * On-demand ayah tafsir (spa5k/tafsir_api + fawaz Siraj). Cache-first over
- * AsyncStorage via {@link QuranCacheRepository} with a `tafsir:` id prefix so
- * keys never collide with translation edition caches.
+ * AsyncStorage via {@link QuranCacheRepository} (one shard per surah) with a
+ * `tafsir:` id prefix so keys never collide with translation edition caches.
  */
 
 const SPA5K_BASE = "https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir";

@@ -251,7 +251,12 @@ export class LiveActivitiesService {
   private rethrowAsHttp(error: unknown): never {
     if (error instanceof LiveActivityDeliveryError) {
       if (error.code === "NOT_FOUND") throw new NotFoundException(error.message);
-      if (error.code === "TOO_EARLY" || error.code === "TRANSIENT_APNS" || error.retryable) {
+      if (
+        error.code === "TOO_EARLY" ||
+        error.code === "IN_FLIGHT" ||
+        error.code === "TRANSIENT_APNS" ||
+        error.retryable
+      ) {
         throw new ServiceUnavailableException(error.message);
       }
       throw new ServiceUnavailableException(error.message);

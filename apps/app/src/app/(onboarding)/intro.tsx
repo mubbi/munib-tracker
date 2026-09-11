@@ -86,6 +86,12 @@ const HIGHLIGHT_ICON: SymbolViewProps["name"] = {
 
 const PAGE_COUNT = SLIDES.length;
 
+/** Current slide plus neighbors — keeps off-screen pages from mounting nested
+ *  ScrollViews / SF Symbols during cold start (Sentry WatchdogTermination). */
+function isNearbySlide(logicalIndex: number, currentIndex: number): boolean {
+  return Math.abs(logicalIndex - currentIndex) <= 1;
+}
+
 /** Pager page index (LTR content offset units) ↔ narrative slide index. */
 function pageIndexForLogical(logical: number, rtl: boolean): number {
   return rtl ? PAGE_COUNT - 1 - logical : logical;
@@ -281,43 +287,49 @@ export default function OnboardingIntroScreen() {
         ]}
         {...(Platform.OS === "web" ? ({ dir: "ltr" } as const) : null)}
       >
-        {pagerSlides.map((item) => (
-          <View
-            key={item.key}
-            style={[
-              styles.slidePage,
-              {
-                width,
-                paddingHorizontal: topBarPadX,
-              },
-            ]}
-            {...(tv ? { focusable: false } : null)}
-          >
-            <TvScrollView
-              style={styles.slideScroll}
-              contentContainerStyle={[
-                styles.slideScrollContent,
+        {pagerSlides.map((item) => {
+          const logicalIndex = SLIDES.findIndex((slide) => slide.key === item.key);
+          const mounted = isNearbySlide(logicalIndex, index);
+          return (
+            <View
+              key={item.key}
+              style={[
+                styles.slidePage,
                 {
-                  paddingVertical: tv ? Spacing.four : Spacing.two,
-                  paddingBottom: slidePadBottom,
-                  justifyContent: tv ? "flex-start" : "center",
-                  paddingTop: tv ? Spacing.five : Spacing.two,
+                  width,
+                  paddingHorizontal: topBarPadX,
                 },
               ]}
-              scrollEnabled={!tv}
-              showsVerticalScrollIndicator={false}
-              bounces={false}
+              {...(tv ? { focusable: false } : null)}
             >
-              {item.kind === "brand" ? (
-                <BrandSlide />
-              ) : item.kind === "cta" ? (
-                <CtaSlide icon={item.icon} tv={tv} />
-              ) : (
-                <FeatureSlide slide={item} tv={tv} />
-              )}
-            </TvScrollView>
-          </View>
-        ))}
+              {mounted ? (
+                <TvScrollView
+                  style={styles.slideScroll}
+                  contentContainerStyle={[
+                    styles.slideScrollContent,
+                    {
+                      paddingVertical: tv ? Spacing.four : Spacing.two,
+                      paddingBottom: slidePadBottom,
+                      justifyContent: tv ? "flex-start" : "center",
+                      paddingTop: tv ? Spacing.five : Spacing.two,
+                    },
+                  ]}
+                  scrollEnabled={!tv}
+                  showsVerticalScrollIndicator={false}
+                  bounces={false}
+                >
+                  {item.kind === "brand" ? (
+                    <BrandSlide />
+                  ) : item.kind === "cta" ? (
+                    <CtaSlide icon={item.icon} tv={tv} />
+                  ) : (
+                    <FeatureSlide slide={item} tv={tv} />
+                  )}
+                </TvScrollView>
+              ) : null}
+            </View>
+          );
+        })}
       </TvScrollView>
 
       <View
@@ -430,8 +442,22 @@ function BrandSlide() {
       </ThemedText>
 
       <View style={styles.logoWrap}>
-        <Image style={styles.logoGlow} source={require("@/assets/images/logo-glow.png")} />
-        <Image style={styles.logo} source={require("@/assets/images/munib-logo.png")} />
+        <Image
+          style={styles.logoGlow}
+          source={require("@/assets/images/logo-glow.png")}
+          contentFit="contain"
+          cachePolicy="memory"
+          transition={0}
+          priority="low"
+        />
+        <Image
+          style={styles.logo}
+          source={require("@/assets/images/munib-logo.png")}
+          contentFit="contain"
+          cachePolicy="memory"
+          transition={0}
+          priority="high"
+        />
       </View>
 
       <ThemedText type="header" style={[styles.brandTitle, { color: Brand.heroText }]}>

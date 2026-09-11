@@ -104,8 +104,9 @@ Regenerate client after OpenAPI changes: `pnpm generate:api`.
 ## Operational notes
 
 - **Phase windows:** ~15 min Mark Salah → ~30 min after-Salah → upcoming (see `LIVE_ACTIVITY_*_WINDOW_MS` in app + docs in NATIVE_SURFACES).
-- **Idempotency:** deliver claims `pending` → `processing` atomically so QStash + cron + a future worker cannot double-send the same job.
-- **QStash free tier exhaust / schedule errors:** job stays `pending` in Postgres; cron drains it (slightly later).
+- **Adhan lead:** the client schedules ActivityKit jobs ~20s before each boundary (`LIVE_ACTIVITY_PUSH_LEAD_MS`) so APNs can replace `Text(timerInterval:)` before it freezes at 00:00. Native `staleDate` for upcoming is `targetDate + 120s`, not the countdown end.
+- **Idempotency:** deliver claims `pending` → `processing` atomically so QStash + cron + a future worker cannot double-send the same job. An in-flight row returns **503** (not 200) so QStash retries; `processing` leases recover after 60s.
+- **QStash:** `notBefore` unix seconds + `retryDelay` backoff. Slightly early callbacks are accepted (90s tolerance). Exhaust / schedule errors leave the job `pending`; cron drains it.
 - **BadDeviceToken / 410:** token marked `invalid`; remaining jobs cancelled.
 - **ActivityKit lifetime:** ~8h; schedules are capped; expired rows cleaned after retention.
 - **Scale:** prayer-time spikes create many *due* jobs, not “all users.” If backlog grows (latency ≫ cron interval), raise frequency/batch or add a worker (below) — not BullMQ by default.

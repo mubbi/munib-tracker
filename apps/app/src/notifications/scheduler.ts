@@ -58,6 +58,15 @@ export const MARK_ACTION_IDENTIFIER = "markcurrent";
 export const SNOOZE_ACTION_IDENTIFIER = "snooze";
 const SNOOZE_MINUTES = 10;
 const SNOOZE_ID_PREFIX = "snooze:";
+/**
+ * Expo iOS DATE triggers become `UNTimeIntervalNotificationTrigger(timeIntervalSinceNow)`
+ * with the timestamp truncated to whole seconds. Intervals ≤ 0 throw
+ * `ERR_NOTIFICATIONS_FAILED_TO_SCHEDULE` (native reason often just "undefined reason").
+ * Keep a 2s lead so truncation and scheduling latency cannot go non-positive.
+ */
+export const MIN_DATE_TRIGGER_LEAD_MS = 2_000;
+/** Match `buildReminders`: still deliver a DATE reminder that fired up to 60s ago. */
+const JUST_MISSED_WINDOW_MS = 60_000;
 
 type PendingSnooze = {
   identifier: string;
@@ -96,17 +105,76 @@ async function collectPendingSnoozes(): Promise<PendingSnooze[]> {
 
 async function restoreSnoozes(snoozes: PendingSnooze[]): Promise<void> {
   for (const snooze of snoozes) {
-    await Notifications.scheduleNotificationAsync({
-      identifier: snooze.identifier,
-      content: snooze.content,
-      trigger: {
-        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
-        seconds: snooze.seconds,
-        channelId: snooze.channelId,
-        repeats: false,
-      },
-    });
+    try {
+      await Notifications.scheduleNotificationAsync({
+        identifier: snooze.identifier,
+        content: snooze.content,
+        trigger: {
+          type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+          seconds: snooze.seconds,
+          channelId: snooze.channelId,
+          repeats: false,
+        },
+      });
+    } catch (error) {
+      captureAppException(error, {
+        tags: { area: "notifications", phase: "restore-snooze" },
+        extra: { identifier: snooze.identifier },
+      });
+    }
   }
+}
+
+/** Stable extras for Sentry — never throws on Invalid Date. */
+function reminderScheduleExtra(reminder: BuiltReminder): Record<string, string> {
+  const fireAtMs = reminder.fireAt.getTime();
+  return {
+    reminderId: reminder.id,
+    repeat: reminder.repeat,
+    fireAt: Number.isFinite(fireAtMs) ? new Date(fireAtMs).toISOString() : "invalid",
+  };
+}
+
+/**
+ * Native trigger for one reminder. Returns `null` when the OS would reject it
+ * (invalid clock, or DATE more than a minute in the past).
+ */
+export function osTriggerForReminder(
+  reminder: BuiltReminder,
+  nowMs = Date.now(),
+): Notifications.NotificationTriggerInput | null {
+  const fireAtMs = reminder.fireAt.getTime();
+  if (!Number.isFinite(fireAtMs)) return null;
+
+  if (reminder.repeat === "daily") {
+    const hour = reminder.fireAt.getHours();
+    const minute = reminder.fireAt.getMinutes();
+    if (!Number.isInteger(hour) || hour < 0 || hour > 23) return null;
+    if (!Number.isInteger(minute) || minute < 0 || minute > 59) return null;
+    return {
+      type: Notifications.SchedulableTriggerInputTypes.DAILY,
+      hour,
+      minute,
+      channelId: reminder.channelId,
+    };
+  }
+
+  const delayMs = fireAtMs - nowMs;
+  if (delayMs < MIN_DATE_TRIGGER_LEAD_MS) {
+    if (delayMs < -JUST_MISSED_WINDOW_MS) return null;
+    return {
+      type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+      seconds: 1,
+      channelId: reminder.channelId,
+      repeats: false,
+    };
+  }
+
+  return {
+    type: Notifications.SchedulableTriggerInputTypes.DATE,
+    date: reminder.fireAt,
+    channelId: reminder.channelId,
+  };
 }
 
 /** Sets the foreground handler and Android channels. Call once at startup. */
@@ -161,6 +229,9 @@ export async function cancelAll(): Promise<void> {
 }
 
 async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
+  const trigger = osTriggerForReminder(reminder);
+  if (!trigger) return;
+
   // Mark + Snooze only when this is a fard prayer-time reminder (has prayerId).
   const isPrayerNow = Boolean(reminder.prayerId && reminder.prayerDateKey);
   const content = {
@@ -178,28 +249,10 @@ async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
     },
   };
 
-  if (reminder.repeat === "daily") {
-    await Notifications.scheduleNotificationAsync({
-      identifier: reminder.id,
-      content,
-      trigger: {
-        type: Notifications.SchedulableTriggerInputTypes.DAILY,
-        hour: reminder.fireAt.getHours(),
-        minute: reminder.fireAt.getMinutes(),
-        channelId: reminder.channelId,
-      },
-    });
-    return;
-  }
-
   await Notifications.scheduleNotificationAsync({
     identifier: reminder.id,
     content,
-    trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.DATE,
-      date: reminder.fireAt,
-      channelId: reminder.channelId,
-    },
+    trigger,
   });
 }
 
@@ -218,28 +271,24 @@ export async function rescheduleAll(
         ? buildReminders(prefs, location, new Date(), buildReminderOptions())
         : [];
     const now = Date.now();
-    const toSchedule = nextReminders.filter((reminder) => reminder.fireAt.getTime() > now - 60_000);
+    const toSchedule = nextReminders.filter(
+      (reminder) => reminder.fireAt.getTime() > now - JUST_MISSED_WINDOW_MS,
+    );
 
-    // Build the replacement set first; only cancel after we know what to arm.
-    // If scheduling throws mid-loop, restore snoozes and report — user may briefly
-    // lack some reminders until the next successful reschedule.
+    // Cancel only after we know what to arm. Schedule each reminder independently —
+    // one iOS DATE reject must not leave the user with an empty pending set.
     await cancelAll();
-    try {
-      for (const reminder of toSchedule) {
-        await scheduleReminder(reminder);
-      }
-      await restoreSnoozes(snoozes);
-    } catch (error) {
-      captureAppException(error, { tags: { area: "notifications", phase: "schedule" } });
+    for (const reminder of toSchedule) {
       try {
-        await restoreSnoozes(snoozes);
-      } catch (restoreError) {
-        captureAppException(restoreError, {
-          tags: { area: "notifications", phase: "restore-snooze" },
+        await scheduleReminder(reminder);
+      } catch (error) {
+        captureAppException(error, {
+          tags: { area: "notifications", phase: "schedule" },
+          extra: reminderScheduleExtra(reminder),
         });
       }
-      throw error;
     }
+    await restoreSnoozes(snoozes);
   });
 }
 

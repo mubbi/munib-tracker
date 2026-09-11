@@ -35,7 +35,14 @@ export function AnimatedSplashOverlay() {
       ]}
     >
       {!dismissed ? (
-        <Image style={styles.splashImage} source={require("@/assets/images/splash-icon.png")} />
+        <Image
+          style={styles.splashImage}
+          source={require("@/assets/images/splash-icon.png")}
+          contentFit="contain"
+          cachePolicy="memory"
+          transition={0}
+          priority="high"
+        />
       ) : null}
     </Animated.View>
   );
@@ -71,11 +78,23 @@ export function AnimatedIcon() {
   return (
     <View style={styles.iconContainer}>
       <Animated.View entering={glowKeyframe.duration(60 * 1000 * 4)} style={styles.glow}>
-        <Image style={styles.glow} source={require("@/assets/images/logo-glow.png")} />
+        <Image
+          style={styles.glow}
+          source={require("@/assets/images/logo-glow.png")}
+          contentFit="contain"
+          cachePolicy="memory"
+          transition={0}
+        />
       </Animated.View>
 
       <Animated.View style={styles.imageContainer} entering={logoKeyframe.duration(600)}>
-        <Image style={styles.image} source={require("@/assets/images/munib-logo.png")} />
+        <Image
+          style={styles.image}
+          source={require("@/assets/images/munib-logo.png")}
+          contentFit="contain"
+          cachePolicy="memory"
+          transition={0}
+        />
       </Animated.View>
     </View>
   );

@@ -23,10 +23,11 @@ export type QuickActionDefinition = {
 };
 
 /**
- * Registry of home-screen icon shortcuts. Order matters on iOS (first N items only —
- * see `IOS_QUICK_ACTION_LIMIT`). Add new entries here — sync and Android icons follow
- * automatically. Use `getActiveQuickActionDefinitions` (not this array directly) to
- * resolve the list actually shown, so seasonal entries swap in/out correctly.
+ * Registry of home-screen icon shortcuts. Order matters (first N items only —
+ * see `IOS_QUICK_ACTION_LIMIT` / `ANDROID_QUICK_ACTION_LIMIT`). Add new entries
+ * here — sync and Android icons follow automatically. Use
+ * `getActiveQuickActionDefinitions` (not this array directly) to resolve the
+ * list actually shown, so seasonal entries swap in/out correctly.
  */
 export const QUICK_ACTION_REGISTRY: QuickActionDefinition[] = [
   {

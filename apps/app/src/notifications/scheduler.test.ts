@@ -2,7 +2,7 @@ import { DEFAULT_NOTIFICATION_PREFERENCES } from "@munib-tracker/shared/constant
 import type { UserPreferences } from "@munib-tracker/shared/types";
 
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
-import { buildReminders } from "@/lib/notifications/build-reminders";
+import { type BuiltReminder, buildReminders } from "@/lib/notifications/build-reminders";
 
 /** Same coords as the seeded fallback, but marked as a real fix so prayer reminders schedule. */
 const SET_LOCATION: StoredLocation = {
@@ -61,6 +61,7 @@ import {
   configureNotifications,
   MARK_ACTION_IDENTIFIER,
   markFromNotification,
+  osTriggerForReminder,
   rescheduleAll,
   snoozeNotification,
 } from "./scheduler";
@@ -70,6 +71,9 @@ const mockCancelAll = Notifications.cancelAllScheduledNotificationsAsync as jest
 >;
 const mockSchedule = Notifications.scheduleNotificationAsync as jest.MockedFunction<
   typeof Notifications.scheduleNotificationAsync
+>;
+const mockGetAll = Notifications.getAllScheduledNotificationsAsync as jest.MockedFunction<
+  typeof Notifications.getAllScheduledNotificationsAsync
 >;
 const mockPermission = readNotificationPermissionUiState as jest.MockedFunction<
   typeof readNotificationPermissionUiState
@@ -113,6 +117,8 @@ beforeEach(() => {
   mockCancelAll.mockResolvedValue(undefined);
   mockSchedule.mockClear();
   mockSchedule.mockResolvedValue("id");
+  mockGetAll.mockReset();
+  mockGetAll.mockResolvedValue([]);
   mockSupported.mockReturnValue(true);
   mockPermission.mockResolvedValue("granted");
 });
@@ -172,7 +178,13 @@ describe("rescheduleAll", () => {
       const reminder = byId.get(identifier);
       expect(reminder).toBeDefined();
       if (!reminder) continue;
-      expect(trigger.type).toBe(reminder.repeat === "daily" ? TRIGGER.DAILY : TRIGGER.DATE);
+      if (reminder.repeat === "daily") {
+        expect(trigger.type).toBe(TRIGGER.DAILY);
+        continue;
+      }
+      // Imminent / just-missed DATE reminders use TIME_INTERVAL so iOS cannot
+      // reject a non-positive timeIntervalSinceNow.
+      expect([TRIGGER.DATE, TRIGGER.TIME_INTERVAL]).toContain(trigger.type);
     }
 
     expect(built.some((r) => r.repeat === "daily")).toBe(true);
@@ -228,6 +240,137 @@ describe("rescheduleAll", () => {
     }
     expect(openCancels).toBe(0);
     expect(ops.filter((op) => op === "cancel:start").length).toBe(2);
+  });
+
+  it("keeps scheduling remaining reminders when one native schedule call fails", async () => {
+    const prefs = makePrefs();
+    mockSchedule
+      .mockRejectedValueOnce(new Error("ERR_NOTIFICATIONS_FAILED_TO_SCHEDULE: undefined reason"))
+      .mockResolvedValue("id");
+
+    await expect(rescheduleAll(prefs, SET_LOCATION)).resolves.toBeUndefined();
+
+    expect(mockSchedule.mock.calls.length).toBeGreaterThan(1);
+  });
+
+  it("restores pending snoozes after cancel so a rebuild does not drop them", async () => {
+    mockGetAll.mockResolvedValue([
+      {
+        identifier: "snooze:fajr",
+        content: {
+          title: "Fajr",
+          body: "Pray",
+          data: { channelId: "prayer", reminderId: "prayer:fajr" },
+        },
+        trigger: { type: "timeInterval", seconds: 400 },
+      },
+      {
+        identifier: "prayer:dhuhr",
+        content: { title: "Dhuhr", body: "Pray", data: {} },
+        trigger: { type: "timeInterval", seconds: 10 },
+      },
+    ] as never);
+
+    await rescheduleAll(makePrefs(), SET_LOCATION);
+
+    const snoozeCall = mockSchedule.mock.calls
+      .map(([arg]) => arg as { identifier?: string; trigger: { seconds?: number } })
+      .find((arg) => arg.identifier === "snooze:fajr");
+    expect(snoozeCall?.trigger.seconds).toBe(400);
+  });
+
+  it("keeps scheduling reminders when restoring a snooze throws", async () => {
+    mockGetAll.mockResolvedValue([
+      {
+        identifier: "snooze:fajr",
+        content: { title: "Fajr", body: "Pray", data: {} },
+        trigger: { type: "timeInterval", seconds: 120 },
+      },
+    ] as never);
+    mockSchedule.mockImplementation(async (arg) => {
+      if ((arg as { identifier?: string }).identifier?.startsWith("snooze:")) {
+        throw new Error("quota");
+      }
+      return "id";
+    });
+
+    await expect(rescheduleAll(makePrefs(), SET_LOCATION)).resolves.toBeUndefined();
+    expect(mockSchedule.mock.calls.length).toBeGreaterThan(1);
+  });
+
+  it("does not leave the reschedule queue wedged when cancelAll fails", async () => {
+    mockCancelAll.mockRejectedValueOnce(new Error("cancel failed"));
+
+    await expect(rescheduleAll(makePrefs(), SET_LOCATION)).rejects.toThrow("cancel failed");
+    await expect(rescheduleAll(makePrefs(), SET_LOCATION)).resolves.toBeUndefined();
+  });
+});
+
+function dateReminder(over: Partial<BuiltReminder> = {}): BuiltReminder {
+  return {
+    id: "prayer:fajr:2026-09-03",
+    fireAt: new Date("2026-09-03T11:30:00.000Z"),
+    title: "Fajr",
+    body: "Pray",
+    channelId: "prayer",
+    repeat: "date",
+    route: "/tracker",
+    priority: 10,
+    ...over,
+  };
+}
+
+describe("osTriggerForReminder", () => {
+  const nowMs = Date.parse("2026-09-03T11:02:05.000Z");
+
+  it("uses a DATE trigger when the fire time is safely in the future", () => {
+    const reminder = dateReminder({ fireAt: new Date(nowMs + 60_000) });
+    expect(osTriggerForReminder(reminder, nowMs)).toEqual({
+      type: TRIGGER.DATE,
+      date: reminder.fireAt,
+      channelId: "prayer",
+    });
+  });
+
+  it("uses a 1s TIME_INTERVAL when the fire time is in the just-missed window", () => {
+    const reminder = dateReminder({ fireAt: new Date(nowMs - 30_000) });
+    expect(osTriggerForReminder(reminder, nowMs)).toEqual({
+      type: TRIGGER.TIME_INTERVAL,
+      seconds: 1,
+      channelId: "prayer",
+      repeats: false,
+    });
+  });
+
+  it("uses a 1s TIME_INTERVAL when the fire time is inside the DATE truncation lead", () => {
+    const reminder = dateReminder({ fireAt: new Date(nowMs + 500) });
+    expect(osTriggerForReminder(reminder, nowMs)?.type).toBe(TRIGGER.TIME_INTERVAL);
+  });
+
+  it("skips DATE reminders more than a minute in the past", () => {
+    const reminder = dateReminder({ fireAt: new Date(nowMs - 90_000) });
+    expect(osTriggerForReminder(reminder, nowMs)).toBeNull();
+  });
+
+  it("skips invalid fire times", () => {
+    expect(osTriggerForReminder(dateReminder({ fireAt: new Date(Number.NaN) }), nowMs)).toBeNull();
+  });
+
+  it("uses a DAILY trigger at the local hour and minute", () => {
+    const fireAt = new Date(nowMs);
+    fireAt.setHours(7, 0, 0, 0);
+    const reminder = dateReminder({
+      id: "morningZikr",
+      fireAt,
+      repeat: "daily",
+      channelId: "zikr",
+    });
+    expect(osTriggerForReminder(reminder, nowMs)).toEqual({
+      type: TRIGGER.DAILY,
+      hour: 7,
+      minute: 0,
+      channelId: "zikr",
+    });
   });
 });
 

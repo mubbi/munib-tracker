@@ -70,6 +70,7 @@ export class LiveActivityDeliveryError extends Error {
     readonly code:
       | "NOT_CONFIGURED"
       | "TOO_EARLY"
+      | "IN_FLIGHT"
       | "NOT_FOUND"
       | "TRANSIENT_APNS"
       | "INVALID_TOKEN"

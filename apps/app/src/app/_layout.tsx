@@ -29,8 +29,6 @@ import { ReviewPromptProvider } from "@/features/reviews/context/ReviewPromptCon
 import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { resolveAppPlatform } from "@/lib/app/resolve-app-platform";
 import { resolveAppVersion } from "@/lib/app/resolve-app-version";
-import { BENGALI_FONT_FILES } from "@/lib/bengali-fonts";
-import { DEVANAGARI_FONT_FILES } from "@/lib/devanagari-fonts";
 import { isTV } from "@/lib/platform/is-tv";
 import { DEFAULT_ARABIC_FONT_ID } from "@/lib/reading-typography";
 import { Sentry } from "@/lib/sentry";
@@ -90,9 +88,9 @@ setAppVersionInfo(resolveAppVersion(), resolveAppPlatform());
 SplashScreen.preventAutoHideAsync();
 
 /**
- * Optional scripture/UI typefaces — loaded after first paint so splash is not
- * gated on ~1.5 MB of Arabic + Bengali TTFs. Arabic picker faces load from
- * Settings → Fonts; Bengali OFL face warms here for locale `bn`.
+ * Optional scripture/UI typefaces — loaded after prefs hydrate so splash / intro
+ * are not gated on unused TTFs. Arabic picker faces load from Settings → Fonts;
+ * Bengali / Devanagari OFL faces warm only for `bn` / `hi`.
  *
  * Do not block the root tree on `useFonts` — on Android TV / slow emulators an
  * empty `useFonts({})` can leave `ready=false` indefinitely, which stuck the
@@ -103,29 +101,50 @@ function useDeferredReadingFonts() {
 
   useEffect(() => {
     let cancelled = false;
-    void (async () => {
+    let lastKey = "";
+
+    const loadForCurrentPrefs = async () => {
+      if (cancelled || !preferencesStore.getState().isReady) return;
+      const prefs = preferencesStore.getState().prefs;
+      const key = `${prefs.locale}:${prefs.translationLocale}:${prefs.fontPrefs.arabic.family}`;
+      if (key === lastKey) return;
+      lastKey = key;
       try {
         const Font = await import("expo-font");
         if (cancelled) return;
-        const family = preferencesStore.getState().prefs.fontPrefs.arabic.family;
-        const files: Record<string, unknown> = {
-          ...BENGALI_FONT_FILES,
-          ...DEVANAGARI_FONT_FILES,
-        };
+        const locales = [prefs.locale, prefs.translationLocale];
+        const files: Record<string, unknown> = {};
+        if (locales.includes("bn")) {
+          const { BENGALI_FONT_FILES } = await import("@/lib/bengali-fonts");
+          Object.assign(files, BENGALI_FONT_FILES);
+        }
+        if (locales.includes("hi")) {
+          const { DEVANAGARI_FONT_FILES } = await import("@/lib/devanagari-fonts");
+          Object.assign(files, DEVANAGARI_FONT_FILES);
+        }
         // Dynamic import keeps all Arabic TTFs out of the root layout graph until needed.
+        const family = prefs.fontPrefs.arabic.family;
         if (family && family !== DEFAULT_ARABIC_FONT_ID) {
           const { ARABIC_FONT_FILES } = await import("@/lib/arabic-font-files");
           if (family in ARABIC_FONT_FILES) {
             files[family] = ARABIC_FONT_FILES[family as keyof typeof ARABIC_FONT_FILES];
           }
         }
+        if (Object.keys(files).length === 0) return;
         await Font.loadAsync(files as Parameters<typeof Font.loadAsync>[0]);
       } catch (err) {
+        lastKey = "";
         console.error("[RootLayout] Deferred font load failed", err);
       }
-    })();
+    };
+
+    void loadForCurrentPrefs();
+    const unsubscribe = preferencesStore.subscribe(() => {
+      void loadForCurrentPrefs();
+    });
     return () => {
       cancelled = true;
+      unsubscribe();
     };
   }, []);
 }

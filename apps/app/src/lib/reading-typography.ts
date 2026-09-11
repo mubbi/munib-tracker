@@ -68,18 +68,43 @@ export const ARABIC_FONT_OPTIONS: ArabicFontOption[] = [
 ];
 
 /**
- * U+FDFA (ﷺ, "sallallahu alayhi wa sallam" ligature) hangs iOS TextKit when the
- * active Arabic face lacks the glyph (e.g. the `ui-serif` default): CoreText's
- * fallback cascade expands the single codepoint into thousands of glyphs and
- * `NSLayoutManager._fillLayoutHoleForCharacterRange` loops until the watchdog
- * kills the app (seen on /duroods). Spell the phrase out on iOS instead.
+ * U+FDFA (ﷺ) and U+FDFD (﷽) hang iOS TextKit when the active Arabic face lacks
+ * the glyph (e.g. the `ui-serif` default): CoreText's fallback cascade expands
+ * the codepoint into thousands of glyphs and NSATSTypesetter blocks the main
+ * thread until the watchdog kills the app (seen on /duroods and Continue
+ * reading → Qur'an page layout). Spell the phrases out on iOS instead.
+ *
+ * U+06DD (۝, ARABIC END OF AYAH) is an enclosing mark with the same hang. Strip
+ * it from scripture strings; page layout inlines a parenthesized number instead.
  */
 const SALLALLAHU_LIGATURE = /\uFDFA/g;
 const SALLALLAHU_SPELLED = "صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ";
+const BISMILLAH_LIGATURE = /\uFDFD/g;
+const BISMILLAH_SPELLED = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+const END_OF_AYAH_MARK = /\u06DD/g;
+
+const ARABIC_INDIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
 
 export function sanitizeArabicText(text: string): string {
   if (Platform.OS !== "ios") return text;
-  return text.replace(SALLALLAHU_LIGATURE, SALLALLAHU_SPELLED);
+  return text
+    .replace(SALLALLAHU_LIGATURE, SALLALLAHU_SPELLED)
+    .replace(BISMILLAH_LIGATURE, BISMILLAH_SPELLED)
+    .replace(END_OF_AYAH_MARK, "");
+}
+
+/** Arabic-Indic digits for in-line mushaf ayah numbers. */
+export function toArabicIndicDigits(value: number): string {
+  return String(value).replace(/\d/g, (d) => ARABIC_INDIC_DIGITS[Number(d)]);
+}
+
+/**
+ * Same-run ayah number for iOS page flow. Do not use U+06DD here — enclosing
+ * marks plus mixed-size nested `Text` hang TextKit under the default `ui-serif`
+ * face (see {@link sanitizeArabicText}).
+ */
+export function iosInlineAyahMarker(ayah: number): string {
+  return `\u00A0(${toArabicIndicDigits(ayah)})\u00A0`;
 }
 
 /** Resolves the stored Arabic family id to a concrete `fontFamily` (falls back to serif). */

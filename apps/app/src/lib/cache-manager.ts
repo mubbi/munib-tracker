@@ -1,6 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { DB_KEYS } from "@/db/keys";
+import { byteSizeOfKeyTree, removeKeyTree } from "@/db/store";
 import { clearAudioCache, getAudioCacheInfo } from "@/lib/audio-cache";
 import { clearQcfFontCache, getQcfFontCacheInfo } from "@/lib/qcf-font-cache";
 
@@ -54,8 +53,7 @@ export async function getCacheSummary(): Promise<CacheGroupSize[]> {
   for (const group of CACHE_GROUPS) {
     let bytes = 0;
     for (const key of group.keys) {
-      const raw = await AsyncStorage.getItem(key);
-      bytes += raw?.length ?? 0;
+      bytes += await byteSizeOfKeyTree(key);
     }
     let count = 0;
     if (group.id === "audio") {
@@ -85,7 +83,7 @@ export async function clearDownloadedAudio(): Promise<void> {
 
 /** Removes the given cache keys (safe — they refetch on demand). */
 export async function clearCacheKeys(keys: string[]): Promise<void> {
-  await Promise.all(keys.map((key) => AsyncStorage.removeItem(key)));
+  await Promise.all(keys.map((key) => removeKeyTree(key)));
 }
 
 /** Deletes cached mushaf page fonts (native files or web cache). */

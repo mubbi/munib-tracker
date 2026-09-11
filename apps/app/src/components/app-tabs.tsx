@@ -44,14 +44,20 @@ export default function AppTabs() {
           contentInsetAdjustmentBehavior "never" → "automatic" and double-pad. */}
       <NativeTabs.Trigger name="index" disableAutomaticContentInsets>
         <NativeTabs.Trigger.Label>{t("tabs.home")}</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf={{ default: "house", selected: "house.fill" }} md="home" />
+        {/* Android uses `drawable` (vector XML), not `md`. Material Symbols go
+            through Fresco ImageRequestBuilder on the main thread and ANR on
+            low-RAM devices. Drawables are copied by with-android-tab-drawables. */}
+        <NativeTabs.Trigger.Icon
+          sf={{ default: "house", selected: "house.fill" }}
+          drawable="ic_tab_home"
+        />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="tracker" disableAutomaticContentInsets>
         <NativeTabs.Trigger.Label>{t("tabs.tracker")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           sf={{ default: "list.bullet.clipboard", selected: "list.bullet.clipboard.fill" }}
-          md="checklist"
+          drawable="ic_tab_tracker"
         />
       </NativeTabs.Trigger>
 
@@ -59,7 +65,7 @@ export default function AppTabs() {
         <NativeTabs.Trigger.Label>{t("tabs.library")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           sf={{ default: "books.vertical", selected: "books.vertical.fill" }}
-          md="local_library"
+          drawable="ic_tab_library"
         />
       </NativeTabs.Trigger>
 
@@ -67,7 +73,7 @@ export default function AppTabs() {
         <NativeTabs.Trigger.Label>{t("tabs.settings")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           sf={{ default: "gearshape", selected: "gearshape.fill" }}
-          md="settings"
+          drawable="ic_tab_settings"
         />
       </NativeTabs.Trigger>
     </NativeTabs>

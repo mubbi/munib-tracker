@@ -4,9 +4,11 @@
  *
  * 1. Load .env and set EXPO_PREBUILD_PLATFORM=ios (app.config.js picks EXPO_IOS_APP_VERSION)
  * 2. expo prebuild --platform ios
- * 3. pod install when --clean regenerated ios/ (macOS only)
- * 4. Sync marketing version + build number into the Xcode project
+ * 3. Restore trailing newlines on apple-targets xcassets JSON (Biome)
+ * 4. pod install when --clean regenerated ios/ (macOS only)
+ * 5. Sync marketing version + build number into the Xcode project
  */
+const fs = require("node:fs");
 const path = require("node:path");
 const {
   loadAppEnv,
@@ -32,6 +34,7 @@ const prebuildEnv = {
 };
 
 runStep("Expo prebuild (iOS)", "pnpm", expoArgs, { env: prebuildEnv });
+ensureTargetXcassetsTrailingNewlines(appRoot);
 
 if (isClean && process.platform === "darwin") {
   runStep("pod install (post-clean prebuild)", "pod", ["install"], {
@@ -46,3 +49,39 @@ syncIosBuildNumber(buildNumber, { strict: false });
 logReleaseVersionSummary(appRoot, { activePlatform: "ios" });
 
 console.log("\nDone. iOS native project uses semver from EXPO_IOS_APP_VERSION.");
+
+/**
+ * `@bacons/apple-targets` rewrites widget/watch `Contents.json` without a trailing
+ * newline, which fails Biome and the pre-push hook. Re-add it after prebuild.
+ *
+ * @param {string} appRoot
+ */
+function ensureTargetXcassetsTrailingNewlines(appRoot) {
+  const targetsDir = path.join(appRoot, "targets");
+  if (!fs.existsSync(targetsDir)) {
+    return;
+  }
+
+  /** @param {string} dir */
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+        continue;
+      }
+      if (
+        entry.name !== "Contents.json" ||
+        !full.includes(`${path.sep}Assets.xcassets${path.sep}`)
+      ) {
+        continue;
+      }
+      const text = fs.readFileSync(full, "utf8");
+      if (text.length > 0 && !text.endsWith("\n")) {
+        fs.writeFileSync(full, `${text}\n`);
+      }
+    }
+  }
+
+  walk(targetsDir);
+}

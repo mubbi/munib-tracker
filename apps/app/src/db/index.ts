@@ -1,6 +1,6 @@
 import { RESET_KEYS } from "./keys";
 import { runMigrations } from "./migrations";
-import { removeKey } from "./store";
+import { removeKeyTree } from "./store";
 
 export { createId } from "./id";
 export { DB_KEYS } from "./keys";
@@ -40,5 +40,5 @@ export function initDatabase(): Promise<void> {
  * cleared automatically as new features are added — no key can be forgotten here.
  */
 export async function resetDatabase(): Promise<void> {
-  await Promise.all(RESET_KEYS.map((key) => removeKey(key)));
+  await Promise.all(RESET_KEYS.map((key) => removeKeyTree(key)));
 }

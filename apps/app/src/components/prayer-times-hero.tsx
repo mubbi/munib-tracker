@@ -66,6 +66,8 @@ type PrayerTimesHeroProps = {
   weatherSummary?: string | null;
   weatherAccessibilityLabel?: string | null;
   weatherEffects?: WeatherEffectKind[];
+  /** Unmount particle trees while home is covered by a stack screen. */
+  weatherEffectsEnabled?: boolean;
   onSearchPress?: () => void;
   onNotificationsPress?: () => void;
   /** Re-request / refresh the stored location (fires on tapping the location row). */
@@ -115,6 +117,7 @@ export function PrayerTimesHero({
   weatherSummary = null,
   weatherAccessibilityLabel = null,
   weatherEffects = [],
+  weatherEffectsEnabled = true,
   onSearchPress,
   onNotificationsPress,
   onLocationPress,
@@ -221,7 +224,7 @@ export function PrayerTimesHero({
             ),
           ]}
         />
-        <HeroWeatherEffects effects={weatherEffects} />
+        <HeroWeatherEffects effects={weatherEffects} enabled={weatherEffectsEnabled} />
 
         {/* Top bar: location + actions. */}
         <View style={styles.heroForeground}>
@@ -426,9 +429,9 @@ function HeroIconButton({
   return (
     // Floating chrome over the hero art — a natural home for Liquid Glass on
     // iOS 26+; elsewhere it keeps the translucent on-hero surface.
-    // Dark glass over the gradient sky so cream hero glyphs stay legible in
-    // light mode (light glass + heroText was nearly invisible).
-    <GlassControl radius={Radius.md} colorScheme="dark">
+    // Non-interactive: these buttons push routes; the Liquid Glass press lens
+    // would FluidSpring-animate on the same main-thread turn as the stack push.
+    <GlassControl radius={Radius.md} colorScheme="dark" interactive={false}>
       <PressableScale
         accessibilityRole="button"
         accessibilityLabel={label}
