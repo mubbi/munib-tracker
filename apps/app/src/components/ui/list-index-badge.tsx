@@ -6,19 +6,23 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type ListIndexBadgeProps = {
   index: number;
+  /** Success tint when today's target is already met. */
+  completed?: boolean;
 };
 
 /** Compact ordinal badge for scannable lists (duas, adhkar, names, etc.). */
-export function ListIndexBadge({ index }: ListIndexBadgeProps) {
+export function ListIndexBadge({ index, completed }: ListIndexBadgeProps) {
   const { colors, tokens } = useThemeTokens();
+  const backgroundColor = completed ? tokens.status.success.soft : tokens.accentSoft;
+  const foreground = completed ? tokens.status.success.color : colors.accentText;
 
   return (
     <View
-      style={[styles.badge, { backgroundColor: tokens.accentSoft }]}
+      style={[styles.badge, { backgroundColor }]}
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
     >
-      <ThemedText type="caption" style={{ color: colors.accentText }}>
+      <ThemedText type="caption" style={{ color: foreground }}>
         {index}
       </ThemedText>
     </View>

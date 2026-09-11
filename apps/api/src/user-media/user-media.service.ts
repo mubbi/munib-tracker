@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto";
 import {
-  normalizeUserMediaMime,
   sniffUserMediaMime,
   USER_MEDIA_MAX_BYTES,
   USER_MEDIA_MAX_PER_ENTITY,
@@ -146,17 +145,11 @@ export class UserMediaService {
   }
 
   private resolveAndSniffMime(file: UploadedUserMedia): string {
-    const declared =
-      normalizeUserMediaMime(file.mimetype) ??
-      normalizeUserMediaMime(extensionMimeFromName(file.originalname) ?? "");
     const sniffed = sniffUserMediaMime(file.buffer);
     if (!sniffed) {
       throw new BadRequestException("Unsupported attachment type. Use JPEG, PNG, WebP, or PDF.");
     }
-    // Prefer sniffed bytes; reject when the client declared a different allowed type.
-    if (declared && declared !== sniffed) {
-      throw new BadRequestException("Unsupported attachment type. Use JPEG, PNG, WebP, or PDF.");
-    }
+    // Magic bytes are authoritative; picker / client MIME metadata is often wrong.
     return sniffed;
   }
 
@@ -189,22 +182,5 @@ function extensionForMime(mime: string): string {
       return ".pdf";
     default:
       return ".bin";
-  }
-}
-
-function extensionMimeFromName(name: string): string | undefined {
-  const ext = name.split(".").pop()?.toLowerCase();
-  switch (ext) {
-    case "jpg":
-    case "jpeg":
-      return "image/jpeg";
-    case "png":
-      return "image/png";
-    case "webp":
-      return "image/webp";
-    case "pdf":
-      return "application/pdf";
-    default:
-      return undefined;
   }
 }

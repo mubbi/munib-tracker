@@ -50,14 +50,14 @@
   `lib/hadith.ts`.
 - **Home surfaces features** via the `quickActions: QuickActionItem[]` array in
   `src/app/(tabs)/index.tsx` (`router.push("/zikr")`, etc.). Add Qur'an + Hadith entries there.
-- **i18n:** `src/i18n/{locale}.json` for **23 locales** (see [`I18N_GUIDE.md`](./I18N_GUIDE.md)). Existing namespaces include `actions`, `zikr`, `zikrCat`,
+- **i18n:** `src/i18n/{locale}.json` for **24 locales** (see [`I18N_GUIDE.md`](./I18N_GUIDE.md)). Existing namespaces include `actions`, `zikr`, `zikrCat`,
   `dua`, `duaCat`, `duroods`, `names`, and a shared `reading` (`{ reference: "Reference: {{ref}}" }`).
   Add `actions.quran`, `actions.hadith`, and `quran`/`hadith`/`credits` namespaces in **all 23**
   locales. Reuse `reading.reference`.
 - **Expo experiments ON:** `typedRoutes: true` (routes are type-checked — new `app/quran/*` &
   `app/hadith/*` files auto-generate route types on `expo start`) and `reactCompiler: true` (don't
   fight the compiler with manual memo hacks).
-- **Package manager:** **pnpm 9 workspace + Turborepo.** Commands: `pnpm --filter app <script>`.
+- **Package manager:** **pnpm 11 workspace + Turborepo.** Commands: `pnpm --filter app <script>`.
 
 ---
 

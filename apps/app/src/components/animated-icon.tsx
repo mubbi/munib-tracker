@@ -35,7 +35,7 @@ export function AnimatedSplashOverlay() {
       ]}
     >
       {!dismissed ? (
-        <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
+        <Image style={styles.splashImage} source={require("@/assets/images/splash-icon.png")} />
       ) : null}
     </Animated.View>
   );

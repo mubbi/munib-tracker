@@ -224,5 +224,14 @@
     "direction": "ltr",
     "kind": "translation",
     "bundled": false
+  },
+  {
+    "id": "hi-maulanaazizulha",
+    "fawaz": "hin-maulanaazizulha",
+    "name": "Maulana Azizul Haque Al Umari",
+    "language": "hi",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": false
   }
 ]

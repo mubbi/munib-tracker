@@ -12,6 +12,7 @@ export const FLAG_ASSETS: Record<string, ImageSourcePropType> = {
   bd: require("./bd.svg"),
   fr: require("./fr.svg"),
   id: require("./id.svg"),
+  in: require("./in.svg"),
   ir: require("./ir.svg"),
   kg: require("./kg.svg"),
   ku: require("./ku.svg"),

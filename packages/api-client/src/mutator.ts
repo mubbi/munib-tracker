@@ -83,7 +83,14 @@ function isAuthRefreshUrl(url: string): boolean {
 }
 
 function isFormDataBody(body: unknown): boolean {
-  return typeof FormData !== "undefined" && body instanceof FormData;
+  if (body == null || typeof body !== "object") return false;
+  // Prefer instanceof, but RN / multi-realm runtimes can fail it — fall back to
+  // duck-typing so we never force Content-Type: application/json on multipart.
+  if (typeof FormData !== "undefined" && body instanceof FormData) return true;
+  return (
+    typeof (body as FormData).append === "function" &&
+    Object.prototype.toString.call(body) === "[object FormData]"
+  );
 }
 
 function headersRecord(init?: HeadersInit): Record<string, string> {

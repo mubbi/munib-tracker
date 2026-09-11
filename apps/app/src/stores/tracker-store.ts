@@ -21,15 +21,26 @@ import {
   buildDailySummary,
   computeStreak,
   countPerfectDays,
+  datesNeedingExcuseCarryForward,
+  excusedReasonForDate,
   getLocalDateString,
+  inferExcusedReasonFromYesterday,
 } from "@munib-tracker/shared/utils";
 
-import { initDatabase, PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
+import {
+  initDatabase,
+  PrayerRepository,
+  PreferencesRepository,
+  QazaRepository,
+  ZikrRepository,
+} from "@/db";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
+import { markPreferencesDirty } from "@/lib/sync/preferences-cloud-sync";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 
 import { createStore, useStore } from "./create-store";
+import { preferencesStore } from "./preferences-store";
 
 const OBLIGATORY_SET = new Set<string>(OBLIGATORY_PRAYERS);
 
@@ -165,6 +176,59 @@ function patchQazaCounters(
   });
 }
 
+/** Persist the ongoing excused period and keep the preferences store / sync in sync. */
+async function syncActiveExcusedReason(reason: ExcusedReason | null): Promise<void> {
+  if (preferencesStore.getState().isReady) {
+    await preferencesStore.getState().update({ activeExcusedReason: reason });
+    return;
+  }
+  await PreferencesRepository.update({ activeExcusedReason: reason });
+  markPreferencesDirty();
+}
+
+/**
+ * Continues an active excused period onto `date` (and empty gap days) so hayd /
+ * illness / travel do not silently drop at midnight until the user resumes.
+ *
+ * @param allowLegacyBootstrap When true (default), an undefined preference is
+ *   inferred from today or yesterday so upgrades mid-period keep working. Pass
+ *   false after historical calendar edits so marking a past day does not start
+ *   an ongoing period.
+ */
+async function ensureContinuingExcusedPeriod(
+  date: string,
+  options?: { allowLegacyBootstrap?: boolean },
+): Promise<void> {
+  const allowLegacyBootstrap = options?.allowLegacyBootstrap !== false;
+  const [allLogs, prefs] = await Promise.all([
+    PrayerRepository.getAll(),
+    PreferencesRepository.get(),
+  ]);
+
+  let active = prefs.activeExcusedReason;
+
+  if (active === undefined) {
+    const todayReason = excusedReasonForDate(allLogs, date);
+    const inferred =
+      todayReason ?? (allowLegacyBootstrap ? inferExcusedReasonFromYesterday(allLogs, date) : null);
+    if (inferred == null) return;
+    await syncActiveExcusedReason(inferred);
+    active = inferred;
+  }
+
+  if (active == null) return;
+
+  const datesToFlag = datesNeedingExcuseCarryForward(allLogs, date);
+  for (const day of datesToFlag) {
+    for (const prayerId of OBLIGATORY_PRAYERS) {
+      await PrayerRepository.setFlags(prayerId, day, {
+        isExcused: true,
+        excusedReason: active,
+      });
+    }
+  }
+}
+
 async function recompute(date: string): Promise<Partial<TrackerState>> {
   const [allLogs, todayZikr, allZikr, counters, roza, schedule, dailyProgress] = await Promise.all([
     PrayerRepository.getAll(),
@@ -252,8 +316,9 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
   const today = getLocalDateString();
 
   /** Recompute without re-entering the mutation queue (safe inside enqueue). */
-  async function refreshUnlocked(): Promise<void> {
+  async function refreshUnlocked(options?: { allowLegacyBootstrap?: boolean }): Promise<void> {
     const date = getLocalDateString();
+    await ensureContinuingExcusedPeriod(date, options);
     const next = await recompute(date);
     set({ ...next, date });
     await persistAchievementSync(next.achievementStats ?? emptyStats());
@@ -280,6 +345,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       return enqueue(async () => {
         await initDatabase();
         const date = getLocalDateString();
+        await ensureContinuingExcusedPeriod(date);
         const next = await recompute(date);
         set({ ...next, date, isReady: true });
         await persistAchievementSync(next.achievementStats ?? emptyStats());
@@ -358,7 +424,15 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
             excusedReason: reason ?? undefined,
           });
         }
-        await refreshUnlocked();
+        // Only today's mark/clear owns the ongoing period — calendar edits to
+        // past days must not start or stop carry-forward.
+        if (date === getLocalDateString()) {
+          await syncActiveExcusedReason(reason);
+          await refreshUnlocked();
+        } else {
+          // Skip yesterday-bootstrap so historical edits do not start a period.
+          await refreshUnlocked({ allowLegacyBootstrap: false });
+        }
       });
     },
 

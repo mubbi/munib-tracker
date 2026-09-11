@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { LOCALE_REGISTRY } from "./locale-registry";
+import { LOCALE_REGISTRY, SCRIPT_UNICODE_RANGES } from "./locale-registry";
 
 describe("locale registry", () => {
   it("has a unique code per entry", () => {
@@ -43,5 +43,16 @@ describe("locale registry", () => {
         expect(entry.script, entry.code).toBe("arabic");
       }
     }
+  });
+
+  it("registers Hindi as a Devanagari LTR locale", () => {
+    const hi = LOCALE_REGISTRY.find((entry) => entry.code === "hi");
+    expect(hi).toMatchObject({
+      script: "devanagari",
+      direction: "ltr",
+      phase: 5,
+      regionCode: "in",
+    });
+    expect(SCRIPT_UNICODE_RANGES.devanagari.test("हिन्दी")).toBe(true);
   });
 });

@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { describe, expect, it } from "vitest";
 import { APP_DESCRIPTION } from "../constants/branding";
 import {
@@ -128,7 +129,7 @@ describe("English Islamic terminology (shared content)", () => {
     const offenders: string[] = [];
 
     for (const file of englishContentModules()) {
-      const mod = (await import(file)) as Record<string, unknown>;
+      const mod = (await import(pathToFileURL(file).href)) as Record<string, unknown>;
       const leaves: Array<{ path: string; text: string }> = [];
       for (const [exportName, value] of Object.entries(mod)) {
         if (exportName.endsWith("_VERSION") || exportName.endsWith("Version")) continue;

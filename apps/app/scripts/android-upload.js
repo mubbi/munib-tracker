@@ -53,7 +53,7 @@ function buildReleaseNotes(versionName) {
     `• Adhkar, tasbeeh, duas, Qur'an, and hadith — offline\n` +
     `• Prayer times, qibla, and optional adhan reminders` +
     tvExtra +
-    `• 23 languages including Arabic and Urdu (RTL)\n` +
+    `• 24 languages including Arabic, Urdu (RTL), and Hindi\n` +
     `• Private by default — no ads, optional sync & backup`
   );
 }

@@ -382,7 +382,7 @@
     "checklistHint": "Lengkapkan senarai semak aktiviti harian",
     "excusedPausedLabel": "Dijeda",
     "excusedGoalHint": "Penjejakan dijeda untuk {{reason}} — coretan anda ditahan.",
-    "excusedGoalBody": "Penjejakan wajib dijeda untuk hari ini. Anda masih boleh log ibadat pilihan.",
+    "excusedGoalBody": "Penjejakan wajib dijeda untuk tempoh ini. Anda masih boleh log ibadat pilihan.",
     "tasksProgress": "{{done}} daripada {{total}} tugas",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Mula menjejak",
@@ -598,10 +598,10 @@
     "title": "Pelacak",
     "subtitle": "Ketik solat untuk tetapkan status — disimpan pada peranti ini.",
     "excusedTitle": "Hari dimaafkan",
-    "excusedHint": "Haid, sakit, atau musafir — jeda pelacakan wajib tanpa memutus streak.",
-    "excusedActive": "Hari ini dimaafkan — pelacakan wajib dijeda dan streak dipertahankan.",
-    "excusedConfirmTitle": "Tandakan hari ini sebagai uzur?",
-    "excusedConfirmMsg": "Penjejakan wajib akan dijeda hari ini ({{reason}}). Rentetan anda akan dikekalkan.",
+    "excusedHint": "Haid, sakit, atau musafir — jeda pelacakan wajib tanpa memutus streak. Jeda berterusan setiap hari sehingga anda sambung semula.",
+    "excusedActive": "Penjejakan wajib dijeda untuk tempoh ini — streak anda dikekalkan sehingga anda sambung semula.",
+    "excusedConfirmTitle": "Mulakan tempoh uzur?",
+    "excusedConfirmMsg": "Penjejakan wajib akan dijeda ({{reason}}) dan berterusan setiap hari sehingga anda sambung semula. Rentetan anda akan dikekalkan.",
     "excusedConfirmAction": "Tandakan uzur",
     "excusedReason": {
       "hayd": "Haid",
@@ -2882,7 +2882,7 @@
       "body": "Witir adalah sunnah mu'akkadah (strongly emphasized) dan should tidak be abandoned while travelling. Pray it after Isya — even if Anda combined Maghrib dan Isya — as one, three, atau lebih odd rakahs according ke what Anda can kelola. If Anda fear sleeping before Isya while travelling,  Prophet ﷺ permitted praying Witir earlier after  combined Maghrib-Isya."
     },
     "disclaimer": "Ini adalah pendidikan konten, tidak  personal fatwa. Distance thresholds, stay duration, combining rules, dan whether Jam' adalah limited ke need vary between  four schools — consult  qualified ulama untuk Anda perjalanan.",
-    "markExcused": "Tandai today as excused (travel)",
+    "markExcused": "Mulakan tempoh uzur (musafir)",
     "clearExcused": "Lanjutkan obligatory tracking"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Apabila haid atau nifas tamat, lakukan mandi dengan penuh sebelum menyambung solat. Sambung semula puasa hanya selepas hayd berakhir; mana-mana puasa Ramadhan yang tertinggal semasa hayd mesti diqadha pada hari-hari lain.\n\nSolat yang tertinggal semasa hayd tidak dibuat - Allah telah mencabut kewajipan itu. Ini berbeza dengan sakit atau perjalanan, di mana solat yang tertinggal mungkin memerlukan qaza. Selepas mandi, sambung semula ibadah biasa dan penjejakan wajib anda dalam apl."
     },
     "disclaimer": "Ini adalah panduan pendidikan, bukan peraturan peribadi. Butiran di atas berbeza-beza antara sekolah — rujuk sarjana wanita yang berkelayakan jika keadaan anda tidak jelas.",
-    "markExcused": "Tandai hari ini sebagai dimaafkan (hayd)",
+    "markExcused": "Mulakan tempoh uzur (haid)",
     "clearExcused": "Sambung semula penjejakan wajib",
     "hadith[0]": {
       "reference": "Sahih al-Bukhari · 321",
@@ -2983,7 +2983,7 @@
       "body": "If puasa di Ramadan would worsen Anda penyakit atau delay recovery, break  puasa dan make it up pada other hari after Anda recover —  Al-Al-Al-Al-Al-Al-Qur'an explicitly permits ini untuk  ill.\n\nEach terlewat Ramadan puasa adalah made up dengan one hari dari puasa later; there adalah tidak kaffarah (expiation) unless  puasa was broken without  valid excuse.\n\nTerlewat salah during penyakit must also be made up di order once Anda adalah able — unlike haid, where terlewat shalat adalah tidak qadha. When Anda recover, lanjutkan normal tracking dan work through Anda qadha pada  sustainable tempo."
     },
     "disclaimer": "Ini adalah pendidikan guidance, tidak  personal ruling. How much penyakit justifies each concession varies oleh school dan severity — consult  qualified ulama untuk Anda situation.",
-    "markExcused": "Tandai today as excused (illness)",
+    "markExcused": "Mulakan tempoh uzur (sakit)",
     "clearExcused": "Lanjutkan obligatory tracking"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "Solah marked",
     "alreadyDone": "Sudah ditanda",
     "allDone": "Semua obligatory Solah marked for today",
-    "excused": "Tracking adalah paused untuk hari ini",
+    "excused": "Penjejakan dijeda untuk tempoh uzur ini",
     "locked": "Buka  app ke mark Solah",
     "failed": "Could tidak mark Solah",
     "intents": {

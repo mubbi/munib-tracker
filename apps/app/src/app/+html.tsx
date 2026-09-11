@@ -73,12 +73,12 @@ export default function Root({ children }: PropsWithChildren) {
         <link rel="dns-prefetch" href="https://api.open-meteo.com" />
         <link rel="dns-prefetch" href="https://geocoding-api.open-meteo.com" />
 
-        {/* Bengali UI: bundled OFL face via expo-font (see bengali-fonts.ts).
+        {/* Bengali / Devanagari UI: bundled OFL faces via expo-font.
             Do not inject render-blocking Google Fonts CSS on every page. */}
         <style
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: document-level CSS variable for Bengali script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: document-level CSS variables for Indic scripts
           dangerouslySetInnerHTML={{
-            __html: `:root { --font-bengali: 'NotoSansBengali', 'Noto Sans Bengali', system-ui, sans-serif; }`,
+            __html: `:root { --font-bengali: 'NotoSansBengali', 'Noto Sans Bengali', system-ui, sans-serif; --font-devanagari: 'NotoSansDevanagari', 'Noto Sans Devanagari', system-ui, sans-serif; }`,
           }}
         />
 

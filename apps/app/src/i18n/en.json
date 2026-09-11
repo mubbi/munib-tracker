@@ -382,7 +382,7 @@
     "checklistHint": "Complete the daily activity checklist",
     "excusedPausedLabel": "Paused",
     "excusedGoalHint": "Tracking paused for {{reason}} — your streak is held.",
-    "excusedGoalBody": "Obligatory tracking is paused for today. You can still log optional worship.",
+    "excusedGoalBody": "Obligatory tracking is paused for this period. You can still log optional worship.",
     "tasksProgress": "{{done}} of {{total}} tasks",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Start tracking",
@@ -599,10 +599,10 @@
     "subtitle": "Tap a prayer to set its status — saved on this device.",
     "tvSubtitle": "Select a prayer to set its status — saved on this device.",
     "excusedTitle": "Excused day",
-    "excusedHint": "Hayd, illness, or travel — pause obligatory tracking without breaking your streak.",
-    "excusedActive": "This day is excused — obligatory tracking is paused and your streak is held.",
-    "excusedConfirmTitle": "Mark today as excused?",
-    "excusedConfirmMsg": "Obligatory tracking will pause for today ({{reason}}). Your streak will be held.",
+    "excusedHint": "Hayd, illness, or travel — pause obligatory tracking without breaking your streak. The pause continues each day until you resume.",
+    "excusedActive": "Obligatory tracking is paused for this period — your streak is held until you resume.",
+    "excusedConfirmTitle": "Start an excused period?",
+    "excusedConfirmMsg": "Obligatory tracking will pause ({{reason}}) and continue each day until you resume. Your streak will be held.",
     "excusedConfirmAction": "Mark excused",
     "excusedReason": {
       "hayd": "Hayd",
@@ -2905,7 +2905,7 @@
       "body": "Witr is sunnah mu'akkadah (strongly emphasized) and should not be abandoned while travelling. Pray it after Isha — even if you combined Maghrib and Isha — as one, three, or more odd rakahs according to what you can manage. If you fear sleeping before Isha while travelling, the Prophet ﷺ permitted praying Witr earlier after the combined Maghrib-Isha."
     },
     "disclaimer": "This is educational content, not a personal fatwa. Distance thresholds, stay duration, combining rules, and whether Jam' is limited to need vary between the four schools — consult a qualified scholar for your journey.",
-    "markExcused": "Mark today as excused (travel)",
+    "markExcused": "Start excused period (travel)",
     "clearExcused": "Resume obligatory tracking"
   },
   "hayd": {
@@ -2947,7 +2947,7 @@
       "body": "When hayd or nifas ends, perform a full ghusl before resuming salah. Resume fasting only after hayd ends; any Ramadan fasts missed during hayd must be made up on other days.\n\nSalah missed during hayd is not made up — Allah lifted that obligation. This is different from illness or travel, where missed prayers may need qaza. After ghusl, resume your normal worship and obligatory tracking in the app."
     },
     "disclaimer": "This is educational guidance, not a personal ruling. The details above vary between schools — consult a qualified female scholar if your situation is unclear.",
-    "markExcused": "Mark today as excused (hayd)",
+    "markExcused": "Start excused period (hayd)",
     "clearExcused": "Resume obligatory tracking"
   },
   "sick": {
@@ -2994,7 +2994,7 @@
       "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nMissed salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
     },
     "disclaimer": "This is educational guidance, not a personal ruling. How much illness justifies each concession varies by school and severity — consult a qualified scholar for your situation.",
-    "markExcused": "Mark today as excused (illness)",
+    "markExcused": "Start excused period (illness)",
     "clearExcused": "Resume obligatory tracking"
   },
   "homeCustomize": {
@@ -4991,7 +4991,7 @@
     "marked": "Salah marked",
     "alreadyDone": "Already marked",
     "allDone": "All obligatory Salah marked for today",
-    "excused": "Tracking is paused for today",
+    "excused": "Tracking is paused for this excused period",
     "locked": "Unlock the app to mark Salah",
     "failed": "Could not mark Salah",
     "intents": {

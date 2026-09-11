@@ -382,7 +382,7 @@
     "checklistHint": "Remplissez la liste de contrôle des activités quotidiennes",
     "excusedPausedLabel": "En pause",
     "excusedGoalHint": "Suivi interrompu pendant {{reason}} : votre séquence est suspendue.",
-    "excusedGoalBody": "Le suivi obligatoire est suspendu pour aujourd'hui. Vous pouvez toujours enregistrer un culte facultatif.",
+    "excusedGoalBody": "Le suivi obligatoire est suspendu pour cette période. Vous pouvez toujours enregistrer un culte facultatif.",
     "tasksProgress": "{{done}} sur {{total}} tâches",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Commencer le suivi",
@@ -598,10 +598,10 @@
     "title": "Suivi",
     "subtitle": "Appuyez sur une prière pour définir son statut — enregistré sur cet appareil.",
     "excusedTitle": "Mazeretli jour",
-    "excusedHint": "Hmoisız, hastalık ou seyahat — serinizi bozmadan farz takibini duraklatın.",
-    "excusedActive": "Ce jour mazeretli — farz takibi duraklatıldı et seriniz korunuyor.",
-    "excusedConfirmTitle": "Marquer aujourd'hui comme excusé ?",
-    "excusedConfirmMsg": "Le suivi obligatoire sera en pause aujourd'hui ({{reason}}). Votre série sera conservée.",
+    "excusedHint": "Hayd, maladie ou voyage — mettez en pause le suivi obligatoire sans interrompre votre série. La pause continue chaque jour jusqu'à ce que vous repreniez.",
+    "excusedActive": "Le suivi obligatoire est suspendu pour cette période — votre série est conservée jusqu'à ce que vous repreniez.",
+    "excusedConfirmTitle": "Commencer une période d'excuse ?",
+    "excusedConfirmMsg": "Le suivi obligatoire sera en pause ({{reason}}) et continuera chaque jour jusqu'à ce que vous repreniez. Votre série sera conservée.",
     "excusedConfirmAction": "Marquer excusé",
     "excusedReason": {
       "hayd": "Hmoisız",
@@ -2882,7 +2882,7 @@
       "body": "Witr est sunnah mu'akkadah (fortement souligné) et ne doit pas être abandonné en voyage. Priez-le après Isha – même si vous avez combiné Maghrib et Isha – comme une, trois ou plusieurs rakahs impaires selon ce que vous pouvez gérer. Si vous craignez de dormir avant Isha pendant un voyage, le Prophète ﷺ a autorisé la prière du Witr plus tôt après le Maghrib-Isha combiné."
     },
     "disclaimer": "Il s’agit d’un contenu éducatif et non d’une fatwa personnelle. Les seuils de distance, la durée du séjour, les règles de combinaison et la limitation ou non de Jam' aux besoins varient entre les quatre écoles — consultez un universitaire qualifié pour votre voyage.",
-    "markExcused": "todmois as excused (traetl) İşaretle",
+    "markExcused": "Commencer la période d'excuse (voyage)",
     "clearExcused": "Reprendre obligatory tracking"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Lorsque le hayd ou le nifas se termine, effectuez un ghusl complet avant de reprendre la Salah. Reprenez le jeûne seulement après la fin du foin ; tout jeûne du Ramadan manqué pendant le hayd doit être rattrapé les autres jours.\n\nLa prière manquée pendant le hayd n'est pas rattrapée – Allah a levé cette obligation. Ceci est différent de la maladie ou du voyage, où les prières manquées peuvent nécessiter du qaza. Après le ghusl, reprenez votre culte normal et le suivi obligatoire dans l'application."
     },
     "disclaimer": "Il s’agit d’une orientation pédagogique et non d’une décision personnelle. Les détails ci-dessus varient selon les écoles – consultez une universitaire qualifiée si votre situation n’est pas claire.",
-    "markExcused": "Marquer aujourd'hui comme excusé (hayd)",
+    "markExcused": "Commencer la période d'excuse (hayd)",
     "clearExcused": "Reprendre le suivi obligatoire",
     "hadith[0]": {
       "reference": "Sahih al-Bukhari · 321",
@@ -2983,7 +2983,7 @@
       "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nManqué salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
     },
     "disclaimer": "Il s’agit d’une orientation pédagogique et non d’une décision personnelle. Le degré de maladie justifiant chaque concession varie selon l'école et la gravité – consultez un spécialiste qualifié pour votre situation.",
-    "markExcused": "todmois as excused (illness) İşaretle",
+    "markExcused": "Commencer la période d'excuse (maladie)",
     "clearExcused": "Reprendre obligatory tracking"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "Salah marked",
     "alreadyDone": "Déjà marqué",
     "allDone": "Tüm obligatory Salah marked for todmois",
-    "excused": "Le suivi est suspendu pour aujourd'hui",
+    "excused": "Le suivi est suspendu pour cette période d'excuse",
     "locked": "Aç  app  mark Salah",
     "failed": "Je n'ai pas pu marquer Salah",
     "intents": {

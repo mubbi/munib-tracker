@@ -3,6 +3,7 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
+import { apiAuthHeaders } from "@/api/auth-options";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ReadingCard } from "@/components/content/reading-card";
 import {
@@ -31,15 +32,18 @@ import { arabicTextAlign, useIsRTL } from "@/lib/rtl";
 import { createCustomAdhkarSearch } from "@/lib/search";
 import type { SttErrorKind } from "@/lib/stt";
 import {
+  customAdhkarMediaIds,
   deleteUserMediaMany,
   isGuestUserMediaError,
   purgeCustomAdhkarAttachments,
   uploadUserMedia,
+  userMediaContentUrl,
 } from "@/lib/user-media-api";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
 import {
   type CustomAdhkar,
+  type CustomAdhkarImage,
   type CustomAdhkarInput,
   useCustomAdhkarActions,
   useCustomAdhkarList,
@@ -149,41 +153,88 @@ export default function AdhkarBuilderScreen() {
       translation: item.translation ?? "",
       reference: item.reference ?? "",
     });
-    setDraftAttachments([]);
+    const authHeaders = apiAuthHeaders(session?.accessToken);
+    setDraftAttachments(
+      (item.images ?? [])
+        .map((image, index): DraftAdhkarAttachment | null => {
+          if (image.mediaId) {
+            return {
+              uri: userMediaContentUrl(image.mediaId),
+              mimeType: image.mimeType || "image/jpeg",
+              filename: image.filename ?? `attachment-${index + 1}`,
+              mediaId: image.mediaId,
+              headers: authHeaders,
+            };
+          }
+          if (image.localUri) {
+            return {
+              uri: image.localUri,
+              mimeType: image.mimeType || "image/jpeg",
+              filename: image.filename ?? `attachment-${index + 1}`,
+            };
+          }
+          return null;
+        })
+        .filter((row): row is DraftAdhkarAttachment => row !== null),
+    );
     setFormOpen(true);
   };
 
   const save = async () => {
     if (!canSave) return;
     setSaving(true);
-    const hasAttachments = draftAttachments.length > 0;
+
+    const existingKept = draftAttachments.filter((item) => Boolean(item.mediaId));
+    const toUpload = draftAttachments.filter((item) => !item.mediaId);
+
     try {
-      if (isEditing && editingId) {
-        await update(editingId, draft);
-      } else if (hasAttachments) {
-        if (!isAuthenticated || !session?.accessToken) {
-          toast.warning(t("customAdhkar.attachments.signInRequired"));
-          return;
+      if (toUpload.length > 0 && (!isAuthenticated || !session?.accessToken)) {
+        toast.warning(t("customAdhkar.attachments.signInRequired"));
+        return;
+      }
+
+      const uploaded =
+        toUpload.length > 0 && session?.accessToken
+          ? await uploadUserMedia(session.accessToken, toUpload)
+          : [];
+
+      const nextImages: CustomAdhkarImage[] = [
+        ...existingKept.map((item) => ({
+          mediaId: item.mediaId,
+          mimeType: item.mimeType,
+          filename: item.filename,
+        })),
+        ...uploaded.map((item) => ({
+          mediaId: item.id,
+          mimeType: item.mimeType,
+          filename: item.filename,
+        })),
+      ];
+
+      try {
+        if (isEditing && editingId) {
+          const previous = items.find((item) => item.id === editingId);
+          const previousIds = new Set(customAdhkarMediaIds(previous?.images));
+          const nextIds = new Set(customAdhkarMediaIds(nextImages));
+          const removedIds = [...previousIds].filter((id) => !nextIds.has(id));
+
+          await update(editingId, { ...draft, images: nextImages });
+          if (removedIds.length > 0) {
+            await deleteUserMediaMany(session?.accessToken, removedIds);
+          }
+        } else if (nextImages.length > 0) {
+          await create({ ...draft, images: nextImages });
+        } else {
+          await create(draft);
         }
-        const uploaded = await uploadUserMedia(session.accessToken, draftAttachments);
-        try {
-          await create({
-            ...draft,
-            images: uploaded.map((item) => ({
-              mediaId: item.id,
-              mimeType: item.mimeType,
-              filename: item.filename,
-            })),
-          });
-        } catch (error) {
+      } catch (error) {
+        if (uploaded.length > 0 && session?.accessToken) {
           await deleteUserMediaMany(
             session.accessToken,
             uploaded.map((item) => item.id),
           );
-          throw error;
         }
-      } else {
-        await create(draft);
+        throw error;
       }
 
       resetForm();
@@ -191,7 +242,7 @@ export default function AdhkarBuilderScreen() {
     } catch (error) {
       if (isGuestUserMediaError(error)) {
         toast.warning(t("customAdhkar.attachments.signInRequired"));
-      } else if (hasAttachments) {
+      } else if (toUpload.length > 0) {
         toast.error(t("customAdhkar.attachments.uploadFailed"));
       } else {
         toast.error(t("customAdhkar.saveFailed"));
@@ -427,13 +478,11 @@ export default function AdhkarBuilderScreen() {
           {input("transliteration", "customAdhkar.field.transliteration", { multiline: true })}
           {input("translation", "customAdhkar.field.translation", { multiline: true })}
           {input("reference", "customAdhkar.field.reference")}
-          {!isEditing ? (
-            <CustomAdhkarAttachments
-              attachments={draftAttachments}
-              onChange={setDraftAttachments}
-              canUpload={isAuthenticated}
-            />
-          ) : null}
+          <CustomAdhkarAttachments
+            attachments={draftAttachments}
+            onChange={setDraftAttachments}
+            canUpload={isAuthenticated}
+          />
         </TvScrollView>
         <Button
           label={saving ? t("customAdhkar.attachments.uploading") : t("common.save")}

@@ -382,7 +382,7 @@
     "checklistHint": "Lîsteya kontrolê ya çalakiya rojane temam bikin",
     "excusedPausedLabel": "Rawestiyan",
     "excusedGoalHint": "Şopandin ji bo {{reason}} rawestiya - rêzika we tê girtin.",
-    "excusedGoalBody": "Şopandina mecbûrî ji bo îro tê sekinandin. Hûn hîn jî dikarin îbadeta vebijarkî têkevin.",
+    "excusedGoalBody": "Şopandina mecbûrî ji bo vê serdemê tê sekinandin. Hûn hîn jî dikarin îbadeta vebijarkî têkevin.",
     "tasksProgress": "{{done}} ji {{total}} peywiran",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Dest bi şopandinê bikin",
@@ -598,10 +598,10 @@
     "title": "شوێنپێهەڵگر",
     "subtitle": "Li nimêjekê bitikîne da ku rewşa wê diyar bike — li ser vê cîhazê tê tomarkirin.",
     "excusedTitle": "Excused roj",
-    "excusedHint": "Hayd, illness, an travel — pause obligatory tracking without breaking we zincîre.",
-    "excusedActive": "Ev roj e excused — obligatory tracking e paused û we zincîre e held.",
-    "excusedConfirmTitle": "Îro wekî muaf nîşan bike?",
-    "excusedConfirmMsg": "Şopandina mecbûrî ji bo îro dê bisekine ({{reason}}). Zincîra te dê were girtin.",
+    "excusedHint": "Hayd, nexweşî, an rêwîtî — şopandina mecbûrî bisekinînin bêyî ku zincîra we bişkê. Sekinandin her roj berdewam dike heta hûn dîsa dest pê bikin.",
+    "excusedActive": "Şopandina mecbûrî ji bo vê serdemê tê sekinandin — zincîra we tê girtin heta hûn dîsa dest pê bikin.",
+    "excusedConfirmTitle": "Serdemeke uzrê dest pê bikin?",
+    "excusedConfirmMsg": "Şopandina mecbûrî dê bisekine ({{reason}}) û her roj berdewam bike heta hûn dîsa dest pê bikin. Zincîra te dê were girtin.",
     "excusedConfirmAction": "Wekî muaf nîşan bike",
     "excusedReason": {
       "hayd": "حەید",
@@ -2882,7 +2882,7 @@
       "body": "Witr e sunnah mu'akkadah (strongly emphasized) û should not be abandoned while travelling. Pray it after Isha — even if hûn combined Maghrib û Isha — as one, three, an more odd rakahs according bo what hûn can manage. If hûn fear sleeping before Isha while travelling,  Prophet ﷺ permitted praying Witr earlier after  combined Maghrib-Isha."
     },
     "disclaimer": "Ev e perwerdehî naverok, not  kesane fatwa. Distance thresholds, stay duration, combining rules, û whether Jam' e limited bo need vary between  four schools — consult  qualified alim ji bo we rêwîtî.",
-    "markExcused": "Mark îro as excused (travel)",
+    "markExcused": "Serdema uzrê dest pê bike (rêwîtî)",
     "clearExcused": "Ji nû ve şopandina mecbûrî"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Wexta ku hayd an nifas qediya, berî nimêja nimêjê bi tevahî gosîl bikin. Tenê piştî ku hayd qediya rojîbûnê ji nû ve bidin destpêkirin; her rojiyên Remezanê yên ku di dema haydê de wenda bûne, divê di rojên din de bên îdam kirin.\n\nSalah ku di dema haydê de ji dest çû nayê îade kirin - Xwedê ew erk rakir. Ev ji nexweşî an rêwîtiyê cûda ye, ku dibe ku nimêjên windakirî hewcedarî qezayê bin. Piştî guslê, di sepanê de îbadeta xweya normal û şopandina mecbûrî ji nû ve bidin destpêkirin."
     },
     "disclaimer": "Ev rêbernameyek perwerdehiyê ye, ne hukmek kesane. Agahiyên li jor di navbera dibistanan de diguhezin - heke rewşa we ne diyar e bi zanyarek jinek jêhatî şêwir bikin.",
-    "markExcused": "Îro wekî behane nîşan bide (hayd)",
+    "markExcused": "Serdema uzrê dest pê bike (hayd)",
     "clearExcused": "Ji nû ve şopandina mecbûrî",
     "hadith[0]": {
       "reference": "Sahih el-Buxarî · 321",
@@ -2983,7 +2983,7 @@
       "body": "If rojî di Ramadan would worsen we illness an delay recovery, break  fast û make it up li other roj after hûn recover —  Qur'an explicitly permits ev ji bo  ill.\n\nEach qedexe Ramadan fast e made up bi one roj ya rojî later; there e no kaffarah (expiation) unless  fast was broken without  valid excuse.\n\nQedexe salah during illness must also be made up di order once hûn in able — unlike hayd, where qedexe salah in not qaza. When hûn recover, resume normal tracking û work through we qaza at  sustainable pace."
     },
     "disclaimer": "Ev e perwerdehî guidance, not  kesane ruling. How much illness justifies each concession varies by school û severity — consult  qualified alim ji bo we situation.",
-    "markExcused": "Mark îro as excused (illness)",
+    "markExcused": "Serdema uzrê dest pê bike (nexweşî)",
     "clearExcused": "Ji nû ve şopandina mecbûrî"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "Salah nîşan kir",
     "alreadyDone": "پێشتر نیشانە کراوە",
     "allDone": "Hemî Cewadên ferz ji bo îro hatine nîşankirin",
-    "excused": "Tracking e paused ji bo îro",
+    "excused": "Şopandin ji bo vê serdema uzrê hatiye sekinandin",
     "locked": "Unlock  app bo mark Salah",
     "failed": "Nikare Salah nîşan bide",
     "intents": {

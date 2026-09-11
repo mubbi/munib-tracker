@@ -4,7 +4,7 @@
 >
 > **App Store Connect ID:** `6787222180` · **Bundle ID:** `app.munibtracker` · **Public URL:** https://apps.apple.com/app/id6787222180
 >
-> Covers all **23 app-shipped locales** from [`packages/shared/src/i18n/locale-registry.ts`](../packages/shared/src/i18n/locale-registry.ts), plus **7 optional ASO-only locales** (de, es, hi, pt-BR, ja, vi, zh) for markets where the in-app UI is English today. Each section follows the same structure so you can copy-paste directly into App Store Connect.
+> Covers all **24 app-shipped locales** from [`packages/shared/src/i18n/locale-registry.ts`](../packages/shared/src/i18n/locale-registry.ts), plus **6 optional ASO-only locales** (de, es, pt-BR, ja, vi, zh) for markets where the in-app UI is English today. Each section follows the same structure so you can copy-paste directly into App Store Connect.
 >
 > **Character limits are strictly enforced by Apple.** An estimated count is noted after each field.
 >
@@ -82,7 +82,7 @@ One fuzzy search bar across ayahs, hadith, duas, adhkar, duroods, and the Names 
 **WHEREVER YOU ARE**
 On iPhone, iPad, Apple Watch, and the web — the same companion wherever you worship. Home-screen widgets, Live Activities, and Siri shortcuts. PIN or biometric app lock.
 
-**23 LANGUAGES**
+**24 LANGUAGES**
 English, Arabic, Urdu, Indonesian, Turkish, Bengali, Malay, Persian, French, Hausa, Swahili, Russian, and more — with RTL support for Arabic, Urdu, Persian, Pashto, and Kurdish.
 
 **PRIVATE BY DEFAULT**
@@ -108,7 +108,7 @@ From day one: log salah and qaza, read Qur'an and hadith offline, remember Allah
 
 Prayer times, qibla, Hijri calendar, Ramadan mode, zakat calculator, hajj guide, and gentle reminders — all optional, all in your control.
 
-Home-screen widgets, Live Activities, watch companions, and Siri shortcuts on native builds. Twenty-three languages. No ads. No account required.
+Home-screen widgets, Live Activities, watch companions, and Siri shortcuts on native builds. Twenty-four languages. No ads. No account required.
 
 We would love your feedback: https://munibtracker.app/contact
 
@@ -193,7 +193,7 @@ Munib Tracker رفيق هادئ يعمل بدون إنترنت للصلاة وا
 **أينما كنت**
 على iPhone وiPad وApple Watch والويب — نفس الرفيق أينما تعبد. ويدجت الشاشة الرئيسية، الأنشطة الحية، واختصارات Siri. قفل PIN أو بصمة.
 
-**23 لغة**
+**24 لغة**
 العربية والإنجليزية والأردية والإندونيسية والتركية والبنغالية والماليزية والفارسية والفرنسية والروسية والمزيد — مع دعم RTL.
 
 **خصوصيتك أولًا**
@@ -219,7 +219,7 @@ Munib Tracker هنا — رفيقك بدون إنترنت في رحلتك إلى
 
 أوقات الصلاة والقبلة والتقويم الهجري ووضع رمضان وحاسبة الزكاة ودليل الحج — كلها اختيارية وتحت سيطرتك.
 
-ويدجت الشاشة الرئيسية والأنشطة الحية والساعة واختصارات Siri. 23 لغة. بدون إعلانات. لا حاجة لحساب.
+ويدجت الشاشة الرئيسية والأنشطة الحية والساعة واختصارات Siri. 24 لغة. بدون إعلانات. لا حاجة لحساب.
 
 ملاحظاتكم تهمّنا: https://munibtracker.app/contact
 
@@ -304,7 +304,7 @@ Munib Tracker نماز، ذکر، قضا، قرآن، حدیث اور روزان
 **جہاں بھی ہوں**
 iPhone، iPad، Apple Watch اور ویب پر — جہاں بھی عبادت کریں، یہی رفیق۔ ہوم اسکرین ویجٹ، لائیو ایکٹیویٹی، اور Siri شارٹ کٹس۔ PIN یا بائیومیٹرک لاک۔
 
-**23 زبانیں**
+**24 زبانیں**
 اردو، عربی، انگریزی، انڈونیشیائی، ترکی، بنگالی، فارسی، فرانسیسی، روسی اور مزید — RTL سپورٹ۔
 
 **پرائیویسی پہلے**
@@ -330,7 +330,7 @@ Munib Tracker آ گیا — اللہ کی طرف واپسی کا آف لائن �
 
 اوقاتِ نماز، قبلہ، ہجری کیلنڈر، رمضان، زکوٰۃ، حج گائیڈ — سب اختیاری۔
 
-ویجٹ، لائیو ایکٹیویٹی، گھڑی، Siri۔ 23 زبانیں۔ بغیر اشتہار۔ بغیر اکاؤنٹ۔
+ویجٹ، لائیو ایکٹیویٹی، گھڑی، Siri۔ 24 زبانیں۔ بغیر اشتہار۔ بغیر اکاؤنٹ۔
 
 فیڈبیک: https://munibtracker.app/contact
 
@@ -411,7 +411,7 @@ Grafik mingguan, bulanan, tahunan. Pencapaian salat, streak, dzikir. Pengingat o
 Satu bilah pencarian di seluruh ayat, hadits, doa, dzikir — offline, toleran typo.
 
 **DI MANA SAJA**
-Di iPhone, iPad, Apple Watch, dan web. Widget, Live Activity, dan pintasan Siri. Kunci PIN atau biometrik. **23 bahasa.**
+Di iPhone, iPad, Apple Watch, dan web. Widget, Live Activity, dan pintasan Siri. Kunci PIN atau biometrik. **24 bahasa.**
 
 **PRIVASI UTAMA**
 Penyimpanan lokal, sinkronisasi cloud opsional (Google/Apple). Cadangan lokal. Hapus akun kapan saja.
@@ -434,7 +434,7 @@ Munib Tracker hadir — teman offline untuk perjalanan kembali kepada Allah.
 
 Salat & qadha, Al-Qur'an & hadits offline, dzikir & tasbih, pelajaran aqidah & sirah, waktu salat & kiblat, Ramadan, zakat, haji — semua opsional.
 
-Widget, Live Activity, jam tangan, Siri. 23 bahasa. Tanpa iklan. Tanpa akun.
+Widget, Live Activity, jam tangan, Siri. 24 bahasa. Tanpa iklan. Tanpa akun.
 
 Masukan? https://munibtracker.app/contact
 
@@ -515,7 +515,7 @@ Haftalık, aylık, yıllık grafikler. Başarım izleri. İsteğe bağlı hatır
 Ayet, hadis, dua, zikir — tek çubuk, çevrimdışı.
 
 **HER YERDE**
-iPhone, iPad, Apple Watch ve web. Widget, Live Activity ve Siri kısayolları. PIN veya biyometrik kilit. **23 dil.**
+iPhone, iPad, Apple Watch ve web. Widget, Live Activity ve Siri kısayolları. PIN veya biyometrik kilit. **24 dil.**
 
 **GİZLİLİK ÖNCELİKLİ**
 Yerel depolama, isteğe bağlı bulut senkronizasyonu. Yerel yedek. Hesabı silin.
@@ -538,7 +538,7 @@ Munib Tracker burada — Allah'a dönüş yolculuğunuz için çevrimdışı yol
 
 Namaz ve kaza, çevrimdışı Kur'an ve hadis, zikir ve tesbih, akide ve siyer dersleri, vakitler ve kıble — hepsi isteğe bağlı.
 
-Widget, Live Activity, saat, Siri. 23 dil. Reklam yok. Hesap gerekmez.
+Widget, Live Activity, saat, Siri. 24 dil. Reklam yok. Hesap gerekmez.
 
 Geri bildirim: https://munibtracker.app/contact
 
@@ -613,7 +613,7 @@ Heures précises, calendrier hijri, boussole qibla, adhan optionnel.
 Guides salat et wudu, calculateur zakat, checklist hajj, mode Ramadan.
 
 **VOTRE PROGRÈS**
-Graphiques, succès, rappels optionnels. **23 langues.** Widgets, Live Activities, montre, Siri. Verrou PIN/biométrique.
+Graphiques, succès, rappels optionnels. **24 langues.** Widgets, Live Activities, montre, Siri. Verrou PIN/biométrique.
 
 **CONFIDENTIALITÉ**
 Stockage local, sync cloud optionnelle (Google/Apple), sauvegarde locale.
@@ -636,7 +636,7 @@ Munib Tracker est là — votre compagnon hors ligne pour le retour vers Allah.
 
 Salat et qada, Coran et hadiths hors ligne, dhikr, leçons d'aqidah et de sîra, horaires et qibla — tout est optionnel.
 
-Widgets, Live Activities, montre, Siri. 23 langues. Sans pub. Sans compte.
+Widgets, Live Activities, montre, Siri. 24 langues. Sans pub. Sans compte.
 
 Retours : https://munibtracker.app/contact
 
@@ -711,7 +711,7 @@ Munib Tracker — спокойный офлайн-компаньон для на
 Намаз и вуду, закят, хадж, Рамадан, путешествие, хайд.
 
 **ПРОГРЕСС**
-Графики, достижения, напоминания. **23 языка.** Виджеты, Live Activities, часы, Siri. PIN/биометрия.
+Графики, достижения, напоминания. **24 языка.** Виджеты, Live Activities, часы, Siri. PIN/биометрия.
 
 **КОНФИДЕНЦИАЛЬНОСТЬ**
 Локальное хранение, облачная синхронизация по желанию, локальный бэкап.
@@ -734,7 +734,7 @@ Munib Tracker уже здесь — офлайн-компаньон на пут�
 
 Намаз и када, офлайн Коран и хадисы, зикр, уроки акиды и сиры, время намаза и кибла — всё опционально.
 
-Виджеты, Live Activities, часы, Siri. 23 языка. Без рекламы. Без аккаунта.
+Виджеты, Live Activities, часы, Siri. 24 языка. Без рекламы. Без аккаунта.
 
 Отзывы: https://munibtracker.app/contact
 
@@ -904,7 +904,7 @@ Aqidah, nabi, sirah, syurga, neraka — pelajaran berstruktur.
 Waktu tepat, kalendar Hijrah, kompas kiblat.
 
 **KEMAJUAN & PRIVASI**
-Carta, pencapaian, peringatan. **23 bahasa.** Widget, Live Activity, jam tangan, Siri.
+Carta, pencapaian, peringatan. **24 bahasa.** Widget, Live Activity, jam tangan, Siri.
 
 ---
 Catat solat pertama dalam satu minit. Semua luar talian.
@@ -924,7 +924,7 @@ Munib Tracker tiba — teman luar talian untuk perjalanan kembali kepada Allah.
 
 Solat & qada, Quran & hadis luar talian, zikir, pelajaran aqidah & sirah — semua pilihan.
 
-Widget, Live Activity, jam tangan, Siri. 23 bahasa. Tanpa iklan. Tanpa akaun.
+Widget, Live Activity, jam tangan, Siri. 24 bahasa. Tanpa iklan. Tanpa akaun.
 
 Maklum balas: https://munibtracker.app/contact
 
@@ -1096,7 +1096,7 @@ Aqidah, Propheten, Sira, Paradies & Hölle — mit Quellen.
 Genaue Zeiten, Hijri-Kalender, Qibla-Kompass.
 
 **FORTSCHRITT & PRIVATSPHÄRE**
-Diagramme, Erfolge, Erinnerungen. **23 Sprachen.** Widgets, Live Activities, Uhr, Siri.
+Diagramme, Erfolge, Erinnerungen. **24 Sprachen.** Widgets, Live Activities, Uhr, Siri.
 
 ---
 Erstes Gebet in unter einer Minute. Alles offline.
@@ -1116,7 +1116,7 @@ Munib Tracker ist da — dein Offline-Begleiter auf dem Weg zurück zu Allah.
 
 Salah & Qaza, offline Qur'an & Hadith, Dhikr, Lektionen, Gebetszeiten & Qibla — alles optional.
 
-Widgets, Live Activities, Uhr, Siri. 23 Sprachen. Keine Werbung. Kein Konto.
+Widgets, Live Activities, Uhr, Siri. 24 Sprachen. Keine Werbung. Kein Konto.
 
 Feedback: https://munibtracker.app/contact
 
@@ -1187,7 +1187,7 @@ Aqidah, profetas, sira, paraíso e infierno — con citas.
 **HORARIOS Y QIBLA**
 Horarios precisos, calendario hijri, brújula qibla.
 
-**23 idiomas.** Widgets, Live Activities, reloj, Siri. Bloqueo PIN.
+**24 idiomas.** Widgets, Live Activities, reloj, Siri. Bloqueo PIN.
 
 **PRIVACIDAD**
 Almacenamiento local, sincronización opcional, copia de seguridad.
@@ -1210,7 +1210,7 @@ Munib Tracker ya está aquí — tu compañero offline en el camino de vuelta a 
 
 Salat y qadha, Corán y hadices offline, dhikr, lecciones, horarios y qibla — todo opcional.
 
-Widgets, Live Activities, reloj, Siri. 23 idiomas. Sin anuncios. Sin cuenta.
+Widgets, Live Activities, reloj, Siri. 24 idiomas. Sin anuncios. Sin cuenta.
 
 Comentarios: https://munibtracker.app/contact
 
@@ -1281,7 +1281,7 @@ Munib Tracker सलाह, ज़िक्र, क़ज़ा, क़ुरआ
 **नमाज़ के समय और क़िबला**
 सटीक समय, हिजरी कैलेंडर, क़िबला कम्पास।
 
-**23 भाषाएँ।** विजेट, Live Activity, घड़ी, Siri। PIN लॉक।
+**24 भाषाएँ।** विजेट, Live Activity, घड़ी, Siri। PIN लॉक।
 
 **गोपनीयता**
 लोकल स्टोरेज, वैकल्पिक क्लाउड सिंक।
@@ -1304,7 +1304,7 @@ Munib Tracker आ गया — अल्लाह की ओर वापसी
 
 नमाज़ और क़ज़ा, ऑफ़लाइन क़ुरआन-हदीस, ज़िक्र, पाठ, समय और क़िबला — सब वैकल्पिक।
 
-विजेट, Live Activity, घड़ी, Siri। 23 भाषाएँ। बिना विज्ञापन। बिना अकाउंट।
+विजेट, Live Activity, घड़ी, Siri। 24 भाषाएँ। बिना विज्ञापन। बिना अकाउंट।
 
 प्रतिक्रिया: https://munibtracker.app/contact
 
@@ -1375,7 +1375,7 @@ Aqidah, profetas, sira, paraíso e inferno.
 **HORÁRIOS E QIBLA**
 Horários precisos, calendário hijri, bússola qibla.
 
-**23 idiomas.** Widgets, Live Activities, relógio, Siri.
+**24 idiomas.** Widgets, Live Activities, relógio, Siri.
 
 **PRIVACIDADE**
 Armazenamento local, sincronização opcional.
@@ -1398,7 +1398,7 @@ Munib Tracker chegou — seu companheiro offline na jornada de volta a Allah.
 
 Salat e qadha, Alcorão e hadith offline, dhikr, lições, horários e qibla — tudo opcional.
 
-Widgets, Live Activities, relógio, Siri. 23 idiomas. Sem anúncios. Sem conta.
+Widgets, Live Activities, relógio, Siri. 24 idiomas. Sem anúncios. Sem conta.
 
 Feedback: https://munibtracker.app/contact
 
@@ -1563,7 +1563,7 @@ Aqidah, các tiên tri, sira, thiên đàng và địa ngục.
 **GIỜ CẦU NGUYỆN & QIBLA**
 Giờ chính xác, lịch Hijri, la bàn qibla.
 
-**23 ngôn ngữ.** Widget, Live Activity, đồng hồ, Siri.
+**24 ngôn ngữ.** Widget, Live Activity, đồng hồ, Siri.
 
 **QUYỀN RIÊNG TƯ**
 Lưu cục bộ, đồng bộ tùy chọn.
@@ -1586,7 +1586,7 @@ Munib Tracker đã ra mắt — bạn đồng hành ngoại tuyến trên hành 
 
 Salat & qadha, Qur'an & hadith offline, dhikr, bài học, giờ cầu nguyện & qibla — tất cả tùy chọn.
 
-Widget, Live Activity, đồng hồ, Siri. 23 ngôn ngữ. Không quảng cáo. Không cần tài khoản.
+Widget, Live Activity, đồng hồ, Siri. 24 ngôn ngữ. Không quảng cáo. Không cần tài khoản.
 
 Phản hồi: https://munibtracker.app/contact
 
@@ -1751,7 +1751,7 @@ Aqidah, annabawa, sira, aljanna da jahannama — darussa da nassoshi.
 **LOKUTAN SALLAH & QIBLA**
 Lokuta daidai, kalandar Hijira, kamfas qibla.
 
-**23 harshe.** Widgets, Live Activities, agogo, Siri. Kulle PIN.
+**24 harshe.** Widgets, Live Activities, agogo, Siri. Kulle PIN.
 
 **KEBEWA**
 Ajiya ta gida, daidaitawa ta cloud (Google/Apple), backup.
@@ -1774,7 +1774,7 @@ Munib Tracker ya iso — abokin offline don komawa ga Allah.
 
 Sallah da kaza, Alkur'ani da hadisi offline, zikiri, darussa, lokutan sallah da qibla — duk zaɓi ne.
 
-Widgets, Live Activities, agogo, Siri. Harsuna 23. Babu talla. Babu asusu.
+Widgets, Live Activities, agogo, Siri. Harsuna 24. Babu talla. Babu asusu.
 
 Ra'ayoyi: https://munibtracker.app/contact
 
@@ -1845,7 +1845,7 @@ Aqidah, manabii, sira, peponi na jehanamu.
 **NYAKATI ZA SWALA & QIBLA**
 Nyakati sahihi, kalenda ya Hijria, dira ya qibla.
 
-**Lugha 23.** Widgets, Live Activities, saa, Siri.
+**Lugha 24.** Widgets, Live Activities, saa, Siri.
 
 **FARAGHA**
 Hifadhi ya ndani, usawazishaji wa hiari.
@@ -1868,7 +1868,7 @@ Munib Tracker imefika — rafiki wa nje ya mtandao kwa safari ya kurudi kwa Alla
 
 Swala na qadha, Qur'an na hadithi offline, dhikr, masomo, nyakati na qibla — yote ni hiari.
 
-Widgets, Live Activities, saa, Siri. Lugha 23. Hakuna matangazo. Hakuna akaunti.
+Widgets, Live Activities, saa, Siri. Lugha 24. Hakuna matangazo. Hakuna akaunti.
 
 Maoni: https://munibtracker.app/contact
 
@@ -1939,7 +1939,7 @@ Tam Qur'an, əlfəcinlər, oxu, oflayn axtarış.
 **NAMAZ VAXTLARI VƏ QİBLƏ**
 Dəqiq vaxtlar, Hicri təqvim, qiblə kompası.
 
-**23 dil.** Vidcetlər, Live Activity, saat, Siri.
+**24 dil.** Vidcetlər, Live Activity, saat, Siri.
 
 **MƏXFİLİK**
 Yerli saxlama, istəyə bağlı bulud sinxronizasiyası.
@@ -1962,7 +1962,7 @@ Munib Tracker buradadır — Allaha qayıdış üçün oflayn yol yoldaşınız.
 
 Namaz və qəza, oflayn Qur'an və hədis, zikr, dərslər, vaxtlar və qiblə — hamısı istəyə bağlı.
 
-Vidcetlər, Live Activity, saat, Siri. 23 dil. Reklam yoxdur. Hesab lazım deyil.
+Vidcetlər, Live Activity, saat, Siri. 24 dil. Reklam yoxdur. Hesab lazım deyil.
 
 Rəy: https://munibtracker.app/contact
 
@@ -2129,7 +2129,7 @@ Aqidah, nabiyada, sira, jannada iyo jahannam.
 **WAQTIGA SALAADDA & QIBLA**
 Waqtiyo sax ah, taariikhda Hijriga, buskudka qibla.
 
-**23 luqadood.** Widgets, Live Activities, saacad, Siri.
+**24 luqadood.** Widgets, Live Activities, saacad, Siri.
 
 **ASTURNAAAN**
 Kaydinta gudaha, isku-dubarid cloud ikhtiyaari ah.
@@ -2152,7 +2152,7 @@ Munib Tracker waa yimid — saaxiibkaaga offline ee safarka dib ugu noqoshada Al
 
 Salaadda iyo qadha, Qur'aanka iyo xadiiska offline, xuska, casharrada, waqtiyada iyo qibla — dhammaan ikhtiyaari.
 
-Widgets, Live Activities, saacad, Siri. 23 luqadood. Xayeysiis la'aan. Akoon la'aan.
+Widgets, Live Activities, saacad, Siri. 24 luqadood. Xayeysiis la'aan. Akoon la'aan.
 
 Jawaab celin: https://munibtracker.app/contact
 
@@ -2223,7 +2223,7 @@ Aqida, payg'ambarlar, sira, jannat va do'zax.
 **NAMOZ VAQTLARI VA QIBLA**
 Aniq vaqtlar, Hijriy taqvim, qibla kompasi.
 
-**23 til.** Vidjetlar, Live Activity, soat, Siri.
+**24 til.** Vidjetlar, Live Activity, soat, Siri.
 
 **MAXFIYLIK**
 Mahalliy saqlash, ixtiyoriy bulut sinxronizatsiyasi.
@@ -2246,7 +2246,7 @@ Munib Tracker keldi — Allohga qaytish uchun oflayn hamrohingiz.
 
 Namoz va qazo, oflayn Qur'on va hadis, zikr, darslar, vaqtlar va qibla — hammasi ixtiyoriy.
 
-Vidjetlar, Live Activity, soat, Siri. 23 til. Reklama yo'q. Hisob kerak emas.
+Vidjetlar, Live Activity, soat, Siri. 24 til. Reklama yo'q. Hisob kerak emas.
 
 Fikr-mulohaza: https://munibtracker.app/contact
 
@@ -2317,7 +2317,7 @@ Munib Tracker — намаз, зікір, қаза, Құран, хадис жә�
 **НАМАЗ УАҚЫТТАРЫ ЖӘНЕ ҚИБЛА**
 Дәл уақыттар, Хижри күнтізбе, қибла компасы.
 
-**23 тіл.** Виджеттер, Live Activity, сағат, Siri.
+**24 тіл.** Виджеттер, Live Activity, сағат, Siri.
 
 **ҚҰПИЯЛЫЛЫҚ**
 Жергілікті сақтау, міндетті емес бұлт синхрондау.
@@ -2340,7 +2340,7 @@ Munib Tracker келді — Аллаға оралу үшін офлайн се�
 
 Намаз және қаза, офлайн Құран мен хадис, зікір, сабақтар, уақыттар мен қибла — бәрі міндетті емес.
 
-Виджеттер, Live Activity, сағат, Siri. 23 тіл. Жарнамасыз. Тіркелгісіз.
+Виджеттер, Live Activity, сағат, Siri. 24 тіл. Жарнамасыз. Тіркелгісіз.
 
 Пікір: https://munibtracker.app/contact
 
@@ -2507,7 +2507,7 @@ Aqidah, vjerovjesnici, sira, džennet i džehennem.
 **VREMENA NAMAZA I KIBLA**
 Tačna vremena, hijrijski kalendar, kompas kible.
 
-**23 jezika.** Widgeti, Live Activity, sat, Siri.
+**24 jezika.** Widgeti, Live Activity, sat, Siri.
 
 **PRIVATNOST**
 Lokalna pohrana, opcionalna cloud sinhronizacija.
@@ -2530,7 +2530,7 @@ Munib Tracker je stigao — vaš offline pratilac na putu nazad Allahu.
 
 Namaz i kaza, offline Kur'an i hadis, zikr, lekcije, vremena i kibla — sve opcionalno.
 
-Widgeti, Live Activity, sat, Siri. 23 jezika. Bez reklama. Bez računa.
+Widgeti, Live Activity, sat, Siri. 24 jezika. Bez reklama. Bez računa.
 
 Povratne informacije: https://munibtracker.app/contact
 
@@ -2601,7 +2601,7 @@ Aqidah, profetët, sira, xhenneti dhe xhehenneti.
 **KOHA E NAMAZIT & KIBLA**
 Kohë të sakta, kalendar hijri, busulla kible.
 
-**23 gjuhë.** Widget-e, Live Activity, orë, Siri.
+**24 gjuhë.** Widget-e, Live Activity, orë, Siri.
 
 **PRIVATËSIA**
 Ruajtje lokale, sinkronizim cloud opsional.
@@ -2624,7 +2624,7 @@ Munib Tracker është këtu — shoqëruesi juaj offline në rrugën përsëri t
 
 Namaz dhe kazë, Kuran dhe hadith offline, dhikr, mësime, kohë dhe kibla — të gjitha opsionale.
 
-Widget-e, Live Activity, orë, Siri. 23 gjuhë. Pa reklama. Pa llogari.
+Widget-e, Live Activity, orë, Siri. 24 gjuhë. Pa reklama. Pa llogari.
 
 Komente: https://munibtracker.app/contact
 
@@ -2695,7 +2695,7 @@ Munib Tracker — намаз, зикр, каза, Коран, хадис жан�
 **НАМАЗ УБАКТАРЫ ЖАНА КИБЛА**
 Так убакыттар, Хижри календарь, кибла компасы.
 
-**23 тил.** Виджеттер, Live Activity, саат, Siri.
+**24 тил.** Виджеттер, Live Activity, саат, Siri.
 
 **КУПУЯЛЫК**
 Жергиликтүү сактоо, каалаган булут синхрону.
@@ -2718,7 +2718,7 @@ Munib Tracker келди — Аллага кайтуу үчүн офлайн ш�
 
 Намаз жана каза, офлайн Коран жана хадис, зикр, сабактар, убакыттар жана кибла — баары каалаганча.
 
-Виджеттер, Live Activity, саат, Siri. 23 тил. Жарнамасыз. Аккаунтсуз.
+Виджеттер, Live Activity, саат, Siri. 24 тил. Жарнамасыз. Аккаунтсуз.
 
 Пикир: https://munibtracker.app/contact
 
@@ -2789,7 +2789,7 @@ Munib Tracker — ҳамроҳи ороми офлайн барои намоз, 
 **ВАҚТИ НАМОЗ ВА ҚИБЛА**
 Вақтҳои дақиқ, тақвими ҳиҷрӣ, компаси қибла.
 
-**23 забон.** Виҷетҳо, Live Activity, соат, Siri.
+**24 забон.** Виҷетҳо, Live Activity, соат, Siri.
 
 **МАХФИЯТ**
 Нигоҳдории маҳаллӣ, ҳамоҳангсозии абрӣ ихтиёрӣ.
@@ -2812,7 +2812,7 @@ Munib Tracker омад — ҳамроҳи офлайни бозгашт ба А�
 
 Намоз ва қазо, Қуръон ва ҳадиси офлайн, зикр, дарсҳо, вақтҳо ва қибла — ҳама ихтиёрӣ.
 
-Виҷетҳо, Live Activity, соат, Siri. 23 забон. Бе реклама. Бе ҳисоб.
+Виҷетҳо, Live Activity, соат, Siri. 24 забон. Бе реклама. Бе ҳисоб.
 
 Фикрҳо: https://munibtracker.app/contact
 
@@ -2883,7 +2883,7 @@ Akida, peýgamberler, sira, jannat we jahanam.
 **NAMAZ WAGTY WE KIBLA**
 Takyk wagtlar, Hijri senenamasy, kibla kompasy.
 
-**23 dil.** Widjetler, Live Activity, sagat, Siri.
+**24 dil.** Widjetler, Live Activity, sagat, Siri.
 
 **GIZLINLIK**
 Ýerli saklamak, islege bagly bulut sinhronizasiýasy.
@@ -2906,7 +2906,7 @@ Munib Tracker geldi — Allaha gaýdyp gelmek üçin awtonom ýoldaşyňyz.
 
 Namaz we kaza, awtonom Kuran we hadys, zikr, sapaklar, wagtlar we kibla — hemmesi islege bagly.
 
-Widjetler, Live Activity, sagat, Siri. 23 dil. Reklamasyz. Hasapsyz.
+Widjetler, Live Activity, sagat, Siri. 24 dil. Reklamasyz. Hasapsyz.
 
 Pikir: https://munibtracker.app/contact
 

@@ -23,6 +23,7 @@ export const APP_LOCALE_CODES = [
   "ky",
   "tg",
   "tk",
+  "hi",
 ] as const;
 
 export type AppLocale = (typeof APP_LOCALE_CODES)[number];

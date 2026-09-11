@@ -9,7 +9,7 @@ const OUT_DIR = path.join(ROOT, "src/config/seo-routes-locale");
 
 const LOCALES = fs
   .readdirSync(path.join(ROOT, "src/i18n"))
-  .filter((f) => f.endsWith(".json") && f !== "en.json")
+  .filter((f) => /^[a-z]{2,3}\.json$/.test(f) && f !== "en.json")
   .map((f) => f.replace(".json", ""));
 
 const en = JSON.parse(fs.readFileSync(SRC, "utf8"));

@@ -1,0 +1,14 @@
+{
+  "name": "munib-pamphlets",
+  "private": true,
+  "type": "module",
+  "description": "Print-ready A4 advertisement/pamphlet concepts for Munib Tracker",
+  "scripts": {
+    "qr": "node scripts/make-qr.mjs",
+    "render": "node scripts/render.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^24.0.0",
+    "qrcode": "^1.5.4"
+  }
+}

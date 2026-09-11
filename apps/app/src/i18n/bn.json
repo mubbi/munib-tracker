@@ -382,7 +382,7 @@
     "checklistHint": "দৈনিক কার্যকলাপের চেকলিস্ট সম্পন্ন করুন",
     "excusedPausedLabel": "বিরতি",
     "excusedGoalHint": "{{reason}}-এর জন্য ট্র্যাকিং বিরত — আপনার ধারা রক্ষিত।",
-    "excusedGoalBody": "আজ ফরজ ট্র্যাকিং বিরত। আপনি এখনও ঐচ্ছিক ইবাদত লগ করতে পারেন।",
+    "excusedGoalBody": "এই সময়ের জন্য ফরজ ট্র্যাকিং বিরত। আপনি এখনও ঐচ্ছিক ইবাদত লগ করতে পারেন।",
     "tasksProgress": "{{total}}টি কাজের {{done}}টি",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "ট্র্যাকিং শুরু",
@@ -598,10 +598,10 @@
     "title": "ট্র্যাকার",
     "subtitle": "স্ট্যাটাস সেট করতে নামাজে ট্যাপ করুন — এই ডিভাইসে সংরক্ষিত।",
     "excusedTitle": "ছাড়প্রাপ্ত দিন",
-    "excusedHint": "হায়েজ, অসুস্থতা বা ভ্রমণ — ধারা ভাঙে না করে ফরজ ট্র্যাকিং বিরত।",
-    "excusedActive": "আজ ছাড় — ফরজ ট্র্যাকিং বিরত এবং ধারা রক্ষিত।",
-    "excusedConfirmTitle": "আজ ছাড় হিসেবে চিহ্নিত করবেন?",
-    "excusedConfirmMsg": "আজ ফরজ ট্র্যাকিং বিরত হবে ({{reason}})। আপনার ধারা রক্ষিত থাকবে।",
+    "excusedHint": "হায়েজ, অসুস্থতা বা ভ্রমণ — ধারা না ভেঙে ফরজ ট্র্যাকিং বিরত রাখুন। আপনি আবার শুরু না করা পর্যন্ত বিরতি প্রতিদিন চলবে।",
+    "excusedActive": "এই সময়ের জন্য ফরজ ট্র্যাকিং বিরত — আপনি আবার শুরু না করা পর্যন্ত ধারা রক্ষিত।",
+    "excusedConfirmTitle": "উজর সময় শুরু করবেন?",
+    "excusedConfirmMsg": "ফরজ ট্র্যাকিং বিরত হবে ({{reason}}) এবং আপনি আবার শুরু না করা পর্যন্ত প্রতিদিন চলবে। আপনার ধারা রক্ষিত থাকবে।",
     "excusedConfirmAction": "ছাড় চিহ্নিত",
     "excusedReason": {
       "hayd": "হায়েজ",
@@ -2891,7 +2891,7 @@
       "body": "বিতর হয় sunnah mu'akkadah (strongly emphasized) এবং should not be abandoned while travelling. Pray it after ইশা — even if আপনি combined মাগরিব এবং ইশা — as one, three, অথবা more odd rakahs according তে what আপনি can পরিচালনা. If আপনি fear sleeping before ইশা while travelling,  Prophet ﷺ permitted praying বিতর earlier after  combined মাগরিব-ইশা."
     },
     "disclaimer": "এই হয় শিক্ষামূলক বিষয়বস্তু, not  personal fatwa. Distance thresholds, stay duration, combining rules, এবং whether Jam' হয় limited তে need vary between  four schools — consult  qualified আলেম জন্য আপনার যাত্রা.",
-    "markExcused": "today as excused (travel) চিহ্নিত করুন",
+    "markExcused": "উজর সময় শুরু করুন (ভ্রমণ)",
     "clearExcused": "obligatory tracking পুনরায় শুরু"
   },
   "hayd": {
@@ -2933,7 +2933,7 @@
       "body": "When হায়েজ অথবা nifas ends, perform  full ghusl before resuming salah. Resume রোজা only after হায়েজ ends; any রমজান fasts মিস during হায়েজ must be made up এ other দিন.\n\nনামাজ মিস during হায়েজ হয় not made up — আল্লাহ lifted সেই obligation. এই হয় different থেকে অসুস্থতা অথবা ভ্রমণ, where মিস prayers may need কাজা. After ghusl, resume আপনার normal ইবাদত এবং ফরজ tracking এ  app."
     },
     "disclaimer": "এই হয় শিক্ষামূলক guidance, not  personal ruling.  details above vary between schools — consult  qualified female আলেম if আপনার situation হয় unclear.",
-    "markExcused": "today as excused (hayd) চিহ্নিত করুন",
+    "markExcused": "উজর সময় শুরু করুন (হায়েজ)",
     "clearExcused": "obligatory tracking পুনরায় শুরু"
   },
   "sick": {
@@ -2980,7 +2980,7 @@
       "body": "If রোজা এ রমজান would worsen আপনার অসুস্থতা অথবা delay recovery, break  রোজা এবং make it up এ other দিন after আপনি recover —  কুরআন explicitly permits এই জন্য  ill.\n\nEach মিস রমজান রোজা হয় made up সহ one দিন এর রোজা later; there হয় no kaffarah (expiation) unless  রোজা was broken without  valid excuse.\n\nমিস salah during অসুস্থতা must also be made up এ order once আপনি হয় able — unlike হায়েজ, where মিস prayers হয় not কাজা. When আপনি recover, resume normal tracking এবং work through আপনার কাজা at  sustainable গতি."
     },
     "disclaimer": "এই হয় শিক্ষামূলক guidance, not  personal ruling. How much অসুস্থতা justifies each concession varies by school এবং severity — consult  qualified আলেম জন্য আপনার situation.",
-    "markExcused": "today as excused (illness) চিহ্নিত করুন",
+    "markExcused": "উজর সময় শুরু করুন (অসুস্থতা)",
     "clearExcused": "obligatory tracking পুনরায় শুরু"
   },
   "homeCustomize": {
@@ -4909,7 +4909,7 @@
     "marked": "নামাজ marked",
     "alreadyDone": "ইতিমধ্যেই চিহ্নিত৷",
     "allDone": "সব obligatory নামাজ marked for today",
-    "excused": "Tracking হয় paused জন্য আজ",
+    "excused": "এই উজর সময়ের জন্য ট্র্যাকিং বিরত",
     "locked": "আনলক  app তে mark নামাজ",
     "failed": "Could not mark নামাজ",
     "intents": {

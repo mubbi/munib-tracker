@@ -57,7 +57,7 @@ export default function AboutPage() {
           seerah, sahaba, the Hereafter, learn dua, and seasonal guides; a guided path to read and
           understand the Qur&apos;an; and practical worship guides for salah, taharah, zakat,
           Friday, and a Hajj & Umrah learn guide with separate rite checklists — every lesson
-          referenced to Qur&apos;an and authenticated hadith. The interface ships in 23 languages.
+          referenced to Qur&apos;an and authenticated hadith. The interface ships in 24 languages.
         </p>
       </ContentSection>
 

@@ -104,6 +104,21 @@ describe("UserMediaService", () => {
     );
   });
 
+  it("accepts files when picker MIME disagrees with sniffed bytes", async () => {
+    const jpeg = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46]);
+    const items = await service.upload("token", [
+      {
+        buffer: jpeg,
+        mimetype: "image/png",
+        originalname: "mislabelled.png",
+        size: jpeg.length,
+      },
+    ]);
+
+    expect(items).toHaveLength(1);
+    expect(items[0]?.mimeType).toBe("image/jpeg");
+  });
+
   it("rejects oversized images", async () => {
     await expect(
       service.upload("token", [

@@ -2,7 +2,7 @@ import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type { AppLocale, ExcusedReason, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { NativeScrollEvent, NativeSyntheticEvent, ScrollView } from "react-native";
 import { CalendarWeekStrip } from "@/components/calendar-week-strip";
@@ -57,18 +57,6 @@ export default function CalendarDayScreen() {
   const sheetPrayer = activePrayer ?? lastActivePrayer.current;
   const remindAfterSalahAdhkar = useAfterSalahAdhkarReminder();
 
-  useFocusEffect(
-    useCallback(() => {
-      let active = true;
-      void PrayerRepository.getAll().then((logs) => {
-        if (active) setActivity(aggregateByDate(logs));
-      });
-      return () => {
-        active = false;
-      };
-    }, []),
-  );
-
   const selectDate = useCallback(
     (nextDate: string) => {
       router.replace({
@@ -80,6 +68,10 @@ export default function CalendarDayScreen() {
   );
 
   const reload = useCallback(async () => {
+    // Carry an active excused period onto today before reading local logs.
+    if (date === getLocalDateString()) {
+      await trackerStore.getState().refresh();
+    }
     const [logs, allLogs, zikrEntries] = await Promise.all([
       PrayerRepository.getByDate(date),
       PrayerRepository.getAll(),
@@ -107,9 +99,17 @@ export default function CalendarDayScreen() {
     setActivity(aggregateByDate(allLogs));
   }, [date]);
 
-  useEffect(() => {
-    void reload();
-  }, [reload]);
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      void reload().finally(() => {
+        if (!active) return;
+      });
+      return () => {
+        active = false;
+      };
+    }, [reload]),
+  );
 
   const applyStatus = async (
     prayerId: PrayerId,

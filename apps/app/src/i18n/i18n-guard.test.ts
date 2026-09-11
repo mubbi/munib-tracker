@@ -137,12 +137,13 @@ const LATIN_OK_WORDS = new Set(
   ),
 );
 
-const localeCatalogs: Array<[string, Json, "latin" | "arabic" | "bengali" | "cyrillic", number]> =
-  LOCALE_REGISTRY.filter((entry) => entry.code !== "en").map((entry) => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const catalog = require(`./${entry.code}.json`) as Json;
-    return [entry.code, catalog, entry.script, entry.phase];
-  });
+const localeCatalogs: Array<
+  [string, Json, "latin" | "arabic" | "bengali" | "cyrillic" | "devanagari", number]
+> = LOCALE_REGISTRY.filter((entry) => entry.code !== "en").map((entry) => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const catalog = require(`./${entry.code}.json`) as Json;
+  return [entry.code, catalog, entry.script, entry.phase];
+});
 
 function leakedLatinWords(value: string): string[] {
   const stripped = value.replace(/\{\{[^}]+\}\}/g, "");

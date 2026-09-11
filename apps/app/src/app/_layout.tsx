@@ -30,6 +30,7 @@ import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { resolveAppPlatform } from "@/lib/app/resolve-app-platform";
 import { resolveAppVersion } from "@/lib/app/resolve-app-version";
 import { BENGALI_FONT_FILES } from "@/lib/bengali-fonts";
+import { DEVANAGARI_FONT_FILES } from "@/lib/devanagari-fonts";
 import { isTV } from "@/lib/platform/is-tv";
 import { DEFAULT_ARABIC_FONT_ID } from "@/lib/reading-typography";
 import { Sentry } from "@/lib/sentry";
@@ -107,7 +108,10 @@ function useDeferredReadingFonts() {
         const Font = await import("expo-font");
         if (cancelled) return;
         const family = preferencesStore.getState().prefs.fontPrefs.arabic.family;
-        const files: Record<string, unknown> = { ...BENGALI_FONT_FILES };
+        const files: Record<string, unknown> = {
+          ...BENGALI_FONT_FILES,
+          ...DEVANAGARI_FONT_FILES,
+        };
         // Dynamic import keeps all Arabic TTFs out of the root layout graph until needed.
         if (family && family !== DEFAULT_ARABIC_FONT_ID) {
           const { ARABIC_FONT_FILES } = await import("@/lib/arabic-font-files");

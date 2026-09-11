@@ -200,7 +200,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
         title: "Personalization, backup & privacy",
         items: [
           "Light, dark, or system theme with 12 accent presets and a custom hex picker",
-          "23 languages (UI) with RTL for Arabic, Urdu, Persian, Pashto, and Kurdish",
+          "24 languages (UI) with RTL for Arabic, Urdu, Persian, Pashto, and Kurdish",
           "Arabic font families and separate Arabic / translation sizes; scripture locale separate from UI",
           "Customize home modules, quick actions, and library menu order",
           "Local backup export/import, offline download manager, and bulk prayer import",

@@ -382,7 +382,7 @@
     "checklistHint": "Complete  mlgudhle ctivity liwk hubgudht",
     "excusedPausedLabel": "Paused",
     "excusedGoalHint": "Raadraacinta waa la hakiyay {{reason}} - diilintaada waa la hayaa.",
-    "excusedGoalBody": "Dabagalka waajibka ah waa la hakiyay maanta. Wali waad gali kartaa cibaadada ikhtiyaarka ah.",
+    "excusedGoalBody": "Dabagalka waajibka ah waa la hakiyay muddadan. Weli waad gali kartaa cibaadada ikhtiyaarka ah.",
     "tasksProgress": "{{done}} ee {{total}} tsks",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Bilow raadraaca",
@@ -598,10 +598,10 @@
     "title": "Tracker",
     "subtitle": "Taabo salaadda si aad u dejiso xaaladdeeda - ku kaydsan qalabkan.",
     "excusedTitle": "Excused dy",
-    "excusedHint": "Hayd, jirro, ama safarka - jooji raadraaca waajibka ah adiga oo aan jebin xariijimahaaga.",
-    "excusedActive": "Maalintan waa la cudur daartay - dabagalka waajibka ah waa la hakiyay oo tariikhdaadi waa la hayaa.",
-    "excusedConfirmTitle": "Mrk mnt s excused?",
-    "excusedConfirmMsg": "Dabagalka waajibka ah ayaa hakad ku jiri doona maanta ({{reason}}). Dhibicdaada waa la qaban doonaa.",
+    "excusedHint": "Hayd, jirro, ama safar — jooji raadraaca waajibka ah adiga oo aan jebin taxanahaaga. Hakadku wuu sii socdaa maalin kasta ilaa aad dib u bilowdo.",
+    "excusedActive": "Dabagalka waajibka ah waa la hakiyay muddadan — taxanahaaga waa la hayaa ilaa aad dib u bilowdo.",
+    "excusedConfirmTitle": "Bilow muddo cudur daar ah?",
+    "excusedConfirmMsg": "Dabagalka waajibka ah ayaa hakad ku jiri doona ({{reason}}) oo maalin kasta sii socon doona ilaa aad dib u bilowdo. Taxanahaaga waa la qaban doonaa.",
     "excusedConfirmAction": "Mrk excused",
     "excusedReason": {
       "hayd": "Hyd",
@@ -2882,7 +2882,7 @@
       "body": "Witr waa sunnah mu'akkadah (si adag loo adkeeyay) mana aha in laga tagin marka la safrayo. Tuko cisha ka dib - xitaa haddii aad isku dartid Maghrib iyo Isha - sida hal, saddex, ama ka badan oo rakcyo ah sida aad maamuli karto. Haddii aad ka baqeyso inaad seexato cishaha ka hor markaad safar ku jirto, nabigu ﷺ wuu fasaxay inaad ku tukato Witr ka hor ka dib markii la isku daray Maghrib-cisha."
     },
     "disclaimer": "Tani waa nuxur waxbarasho, ee maaha fatwo qofeed. Xadka fogaanta, muddada joogitaanka, isku darka xeerarka, iyo in Jam' ay ku kooban tahay baahidu way ku kala duwan yihiin afarta dugsi - la tasho aqoonyahan aqoon u leh safarkaaga.",
-    "markExcused": "Mrk mnt s excused (trvel)",
+    "markExcused": "Bilow muddada cudur daar (safar)",
     "clearExcused": "Dib u bilaw raadraaca waajibka ah"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Marka hayd ama nifas dhammaado, qubays buuxa samee ka hor intaadan Salah ku noqon. Soonka ku noqo haydka ka dib; soon kasta oo Ramadan ah oo hayd ku maqnaa waa in maalmo kale la gudo.\n\nSalahyada hayd ku maqan lama gudo — Alle ayaa waajibkaas qaaday. Qubayska ka dib, ku noqo cibaadadaadii caadiga ahayd iyo raadraaca waajibka ah ee app-ka."
     },
     "disclaimer": "kn w eductikul guidnce, m  perskul rulgudhg.  detils bove vry between schools — ckusult  qulified femle scholr if kg situtiku w uncler.",
-    "markExcused": "Mrk mnt s excused (hyd)",
+    "markExcused": "Bilow muddada cudur daar (hayd)",
     "clearExcused": "Resume obligtmy trckgudhg"
   },
   "sick": {
@@ -2971,7 +2971,7 @@
       "body": "Haddii soonka Ramadan xanuunkaaga sii darayo ama bogsashada dib u dhigayo, soonka jebiso oo maalmo kale gudo markaad bogsato — Qur'aanku si cad ayuu ugu fasaxay bukaanka.\n\nSoon kasta oo Ramadan ah oo maqnaada waxaa lagu gudiyaa hal maalin oo dambe; kaffaarah ma jiro ilaa soonka loo jebiyey cudurdaar sax ah la'aan.\n\nSalahyada xanuunka ku maqan sidoo kale waa in la gudo marka aad awooddo, si kala horreeya. Marka aad bogsato, ku noqo raadraaca caadiga ah oo Qaza ku gud xawaare waara."
     },
     "disclaimer": "kn w eductikul guidnce, m  perskul rulgudhg. How much illness justifies ech ckucessiku vries by school iyo severity — ckusult  qulified scholr u kg situtiku.",
-    "markExcused": "Mrk mnt s excused (illness)",
+    "markExcused": "Bilow muddada cudur daar (jirro)",
     "clearExcused": "Resume obligtmy trckgudhg"
   },
   "homeCustomize": {
@@ -4900,7 +4900,7 @@
     "marked": "Saalax ayaa calaamadeeyay",
     "alreadyDone": "Horaa loo calaamadeeyay",
     "allDone": "Dhammaan Salaadda waajibka ah ayaa la calaamadeeyay maanta",
-    "excused": "Dabagalku waa hakad maanta",
+    "excused": "Dabagalku waa hakad muddadan cudur daar ah",
     "locked": "Fur abka si aad u calaamadiso Salah",
     "failed": "Ma calaamadin kari waayay Saalax",
     "intents": {

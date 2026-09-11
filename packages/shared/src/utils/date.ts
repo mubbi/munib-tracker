@@ -42,6 +42,12 @@ export function addDays(dateString: string, days: number): string {
   return getLocalDateString(date);
 }
 
+/** Milliseconds until the next local midnight (plus a small buffer for clock skew). */
+export function msUntilNextLocalMidnight(now: Date = new Date(), bufferMs = 50): number {
+  const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  return Math.max(0, next.getTime() - now.getTime()) + bufferMs;
+}
+
 /** Whole-day difference (a - b). Positive when a is after b. */
 export function diffInDays(a: string, b: string): number {
   const msPerDay = 24 * 60 * 60 * 1000;

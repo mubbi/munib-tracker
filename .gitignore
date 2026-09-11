@@ -77,4 +77,7 @@ report.xml
 apps/app/android-keys/
 apps/app/.screenshots-work/
 packages/shared/scripts/.overlay-translate-cache/
+packages/shared/scripts/.hi-*-cache.json
 apps/app/scripts/i18n/.translation-cache/
+apps/app/src/i18n/*-partial-*.json
+apps/app/src/config/seo-routes-locale/.*extract.json

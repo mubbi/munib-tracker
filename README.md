@@ -34,8 +34,8 @@ This is a **pnpm + Turborepo** monorepo:
 
 ## Prerequisites
 
-- Node.js ≥ 20.9 (CI uses Node 22)
-- pnpm 9.15 (`corepack enable`)
+- Node.js ≥ 22 (CI uses Node 22)
+- pnpm 11.26 (`corepack enable`)
 - For native dev: Xcode (iOS) and/or Android Studio (Android)
 
 ## Getting started
@@ -63,7 +63,7 @@ Universal Expo app for salah, zikr, qaza, and Islamic content — offline-first 
 - Expo SDK 57 with React Compiler, typed routes, `expo-dev-client`
 - Offline-first persistence on AsyncStorage (`src/db/` repositories + a zero-dep `useSyncExternalStore` store), no SQLite
 - Centralized `ThemeProvider` — light/dark/system + preset & custom-hex accents (persisted)
-- Full i18n (**23 locales**: English + 22 translations; RTL for Arabic, Urdu, Persian, Pashto, Kurdish); motion + a11y (WCAG AA contrast, ≥44pt targets) design system
+- Full i18n (**24 locales**: English + 23 translations; RTL for Arabic, Urdu, Persian, Pashto, Kurdish); motion + a11y (WCAG AA contrast, ≥44pt targets) design system
 
 **Worship & tracking:**
 - Prayer tracker (5 fard + Witr + sunnah) with statuses, notes, streaks

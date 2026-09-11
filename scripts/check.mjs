@@ -11,6 +11,7 @@
  *   ci|push   lint → typecheck → test → build → generate (matches CI + pre-push)
  *
  * Individual steps: format, lint, typecheck, test, build, generate
+ *   (also `pnpm check:test` / `pnpm check:generate`)
  *
  * Git hooks:
  *   pre-commit  — Biome --write --staged + restage (see .husky/pre-commit)

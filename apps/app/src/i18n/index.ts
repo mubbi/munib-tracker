@@ -46,6 +46,7 @@ const LOCALE_LOADERS: Record<Exclude<AppLocale, "en">, () => Promise<{ default: 
   ky: () => import("./ky.json"),
   tg: () => import("./tg.json"),
   tk: () => import("./tk.json"),
+  hi: () => import("./hi.json"),
 };
 
 const loadedLocales = new Set<AppLocale>(["en"]);

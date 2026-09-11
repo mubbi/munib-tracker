@@ -382,7 +382,7 @@
     "checklistHint": "Күнүмдүк аракетти текшерүү тизмесин толтуруңуз",
     "excusedPausedLabel": "Тындырылды",
     "excusedGoalHint": "Көз салуу {{reason}} үчүн тындырылды — сызыгыңыз сакталды.",
-    "excusedGoalBody": "Милдеттүү көз салуу бүгүн тындырылды. Сиз дагы эле кошумча сыйынууну киргизе аласыз.",
+    "excusedGoalBody": "Милдеттүү көз салуу ушул мезгилге тындырылды. Сиз дагы эле кошумча сыйынууну жаза аласыз.",
     "tasksProgress": "{{total}} тапшырманын ичинен {{done}}",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Көзөмөлдү баштаңыз",
@@ -598,10 +598,10 @@
     "title": "Аягына жеткирүү",
     "subtitle": "Tap  salah га set its status — saved үстүндө бул түзмөк.",
     "excusedTitle": "Excused күн",
-    "excusedHint": "Hayd, illness, же travel — pause obligatory tracking without breaking сиздин серия.",
-    "excusedActive": "Бул күн  excused — obligatory tracking  paused жана сиздин серия  held.",
-    "excusedConfirmTitle": "Mark бүгүн as excused?",
-    "excusedConfirmMsg": "Obligatory tracking will pause үчүн бүгүн ({{reason}}). Сиздин серия will be held.",
+    "excusedHint": "Хайд, оору же сапар — серияңызды үзбөстөн милдеттүү көз салууну токтотуңуз. Тындыруу сиз кайра баштаганга чейин күн сайын уланат.",
+    "excusedActive": "Милдеттүү көз салуу ушул мезгилге тындырылды — серияңыз сиз кайра баштаганга чейин сакталат.",
+    "excusedConfirmTitle": "Узр мезгилин баштайсызбы?",
+    "excusedConfirmMsg": "Милдеттүү көз салуу тындатылат ({{reason}}) жана сиз кайра баштаганга чейин күн сайын уланат. Серияңыз сакталат.",
     "excusedConfirmAction": "Актануу менен белгиле",
     "excusedReason": {
       "hayd": "этек кир",
@@ -2882,7 +2882,7 @@
       "body": "Witr  sunnah mu'akkadah (strongly emphasized) жана should not be abandoned while travelling. Pray it after Isha — even if сиз combined Maghrib жана Isha — as one, three, же more odd rakahs according га what сиз can manage. If сиз fear sleeping before Isha while travelling,  Prophet ﷺ permitted praying Witr earlier after  combined Maghrib-Isha."
     },
     "disclaimer": "Бул  билим берүү мазмун, not  жеке fatwa. Distance thresholds, stay duration, combining rules, жана whether Jam'  limited га need vary between  four schools — consult  qualified адис үчүн сиздин сапар.",
-    "markExcused": "Mark бүгүн as excused (travel)",
+    "markExcused": "Узр мезгилин баштоо (сапар)",
     "clearExcused": "милдеттүү көз салуу Улантуу"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Хайд же нифас бүткөндө намазды кайра баштоодон мурда толук гусул алуу керек. Орозону саап бүткөндөн кийин гана улантуу; Хайд учурунда кармалбаган Рамазан орозосу башка күндөрү кармалышы керек.\n\nХайд учурунда каза болгон намаз каза болбойт - Аллах ал парзды алып салды. Бул оорудан же сапардан айырмаланып, каза намаздар каза болушу мүмкүн. Гусул алгандан кийин, тиркемеде кадимки ибадатыңызды жана милдеттүү байкооңузду улантыңыз."
     },
     "disclaimer": "Бул жеке чечим эмес, тарбиялык көрсөтмө. Жогорудагы чоо-жай мектептердин ортосунда ар кандай болот — эгер сиздин абалыңыз түшүнүксүз болсо, квалификациялуу аял окумуштууга кайрылыңыз.",
-    "markExcused": "Бүгүн кечиримдүү деп белгилөө (хайд)",
+    "markExcused": "Узр мезгилин баштоо (хайд)",
     "clearExcused": "Милдеттүү байкоону улантыңыз",
     "hadith[0]": {
       "reference": "Сахих аль-Бухари · 321",
@@ -2983,7 +2983,7 @@
       "body": "If орозо ичинде Рамазан would worsen сиздин illness же delay recovery, break  fast жана make it up үстүндө other күн after сиз recover —  Куран explicitly permits бул үчүн  ill.\n\nEach өткөрүлдү Рамазан fast  made up менен one күн  орозо later; there  no kaffarah (expiation) unless  fast was broken without  valid excuse.\n\nӨткөрүлдү salah during illness must also be made up ичинде order once сиз  able — unlike hayd, where өткөрүлдү salah  not qaza. When сиз recover, resume normal tracking жана work through сиздин qaza at  sustainable pace."
     },
     "disclaimer": "Бул  билим берүү guidance, not  жеке ruling. How much illness justifies each concession varies by school жана severity — consult  qualified адис үчүн сиздин situation.",
-    "markExcused": "Mark бүгүн as excused (illness)",
+    "markExcused": "Узр мезгилин баштоо (оору)",
     "clearExcused": "милдеттүү көз салуу Улантуу"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "Salah белгиленди",
     "alreadyDone": "Белгиленген",
     "allDone": "Баары obligatory Salah белгиленди үчүн бүгүн",
-    "excused": "Tracking  paused үчүн бүгүн",
+    "excused": "Көз салуу ушул узр мезгилине тындырылды",
     "locked": "Unlock  app га mark Salah",
     "failed": "Намазды белгилей алган жок",
     "intents": {

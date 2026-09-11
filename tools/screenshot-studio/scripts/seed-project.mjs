@@ -4,7 +4,7 @@
 //
 // Copy rules: one idea per headline, 3–5 words per line, intentional line breaks,
 // one **emphasis** word per slide (rendered as the Forest accent gradient).
-// App ships 23 UI locales (en + 22) — never claim "3 languages".
+// App ships 24 UI locales (en + 23) — never claim "3 languages".
 
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
@@ -101,16 +101,16 @@ const COPY = {
       ur: "اور مزید",
     },
     headline: {
-      en: "Widgets · PIN lock\nTasbeeh · Journal\n**23 languages**",
-      ar: "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
-      ur: "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**",
+      en: "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
+      ar: "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
+      ur: "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**",
     },
   },
   featureGraphic: {
     headline: {
-      en: "Salah, Zikr, Qaza & learning — offline.\n23 languages. Private by design.",
-      ar: "صلاة وذكر وقضاء وتعلّم — بدون إنترنت.\n23 لغة. خصوصية بالتصميم.",
-      ur: "نماز، ذکر، قضا اور تعلیم — آف لائن۔\n23 زبانیں۔ رازداری بنیادی اصول۔",
+      en: "Salah, Zikr, Qaza & learning — offline.\n24 languages. Private by design.",
+      ar: "صلاة وذكر وقضاء وتعلّم — بدون إنترنت.\n24 لغة. خصوصية بالتصميم.",
+      ur: "نماز، ذکر، قضا اور تعلیم — آف لائن۔\n24 زبانیں۔ رازداری بنیادی اصول۔",
     },
   },
 };

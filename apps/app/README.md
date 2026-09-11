@@ -7,7 +7,7 @@ Universal **Expo SDK 57** app (iOS · Android · Web · **Apple TV / Android TV*
 ## Develop
 
 ```bash
-pnpm install                   # from repo root (pnpm 9 workspace)
+pnpm install                   # from repo root (pnpm 11 workspace)
 pnpm --filter app dev          # Expo dev server — pick a platform in the CLI
 pnpm --filter app ios          # iOS simulator (dev build)
 pnpm --filter app android      # Android emulator (dev build)
@@ -45,6 +45,6 @@ Content is sourced from open datasets, never hand-written. See [`docs/DATA_INGES
 - **Routing:** Expo Router (typed routes), root `Stack` + `(tabs)` group under `src/app/`.
 - **Persistence:** AsyncStorage behind `src/db/` repositories (`KeyedCollection` + `DB_KEYS`), no SQLite.
 - **State:** zero-dep `useSyncExternalStore` stores in `src/stores/` (`tracker-store` is the reactive hub).
-- **Theme/i18n:** `ThemeProvider` (light/dark + preset & custom-hex accents) and `react-i18next` (**23 locales**, RTL for `ar`/`ur`/`fa`/`ps`/`ku`). See [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md).
+- **Theme/i18n:** `ThemeProvider` (light/dark + preset & custom-hex accents) and `react-i18next` (**24 locales**, RTL for `ar`/`ur`/`fa`/`ps`/`ku`). See [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md).
 - **Search:** one Fuse.js engine in `src/lib/search.ts` — extend it, don't scatter `new Fuse()` (see [`AGENTS.md`](AGENTS.md)).
 - **Content library / times / sync:** see the project memory + [`docs/`](../../docs).

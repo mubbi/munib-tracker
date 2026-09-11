@@ -5,6 +5,7 @@ import { Platform } from "react-native";
 
 import { Fonts } from "@/constants/theme";
 import { BENGALI_FONT_FAMILY } from "@/lib/bengali-fonts";
+import { DEVANAGARI_FONT_FAMILY } from "@/lib/devanagari-fonts";
 import { arabicTextAlign } from "@/lib/rtl";
 
 /**
@@ -104,7 +105,7 @@ export function resolveArabicLineHeight(fontSize: number, familyId?: string): nu
   return Math.round(fontSize * ratio);
 }
 
-/** Optional translation font for non-Latin scripts (Bengali UI text in reading surfaces). */
+/** Optional translation font for non-Latin scripts (Bengali / Devanagari UI text). */
 export function resolveTranslationFontFamily(locale: AppLocale): string | undefined {
   const script = getLocaleDefinition(locale).script;
   if (script === "bengali") {
@@ -113,6 +114,14 @@ export function resolveTranslationFontFamily(locale: AppLocale): string | undefi
       ios: BENGALI_FONT_FAMILY,
       android: BENGALI_FONT_FAMILY,
       default: BENGALI_FONT_FAMILY,
+    });
+  }
+  if (script === "devanagari") {
+    return Platform.select({
+      web: "var(--font-devanagari, 'Noto Sans Devanagari', system-ui, sans-serif)",
+      ios: DEVANAGARI_FONT_FAMILY,
+      android: DEVANAGARI_FONT_FAMILY,
+      default: DEVANAGARI_FONT_FAMILY,
     });
   }
   return undefined;

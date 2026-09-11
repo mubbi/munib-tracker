@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Munib — Concept 03 · Never Lose Count (Salah · Qaza · Zikr)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Amiri:wght@400;700&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  .page {
+    background: #fafcfb;
+    color: var(--ink);
+    padding: 14mm 0 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .inner {
+    padding: 0 15mm;
+  }
+
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand img {
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+  }
+  .brand .name {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+  .masthead .tag {
+    font-size: 10px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .masthead .tag b {
+    color: var(--emerald);
+  }
+
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 26px;
+    margin-top: 30px;
+    flex: 1;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    gap: 7px;
+    align-items: center;
+    background: #d1fae5;
+    color: #047857;
+    font-weight: 700;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+  h1 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 41px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-top: 16px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--emerald);
+  }
+  .sub {
+    margin-top: 14px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 335px;
+  }
+
+  .feature-list {
+    margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .feature {
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+  }
+  .feature .icon {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feature .icon svg {
+    width: 17px;
+    height: 17px;
+  }
+  .feature h3 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+  .feature p {
+    font-size: 10.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-top: 3px;
+    max-width: 350px;
+  }
+
+  .phones {
+    position: relative;
+  }
+  .phone {
+    position: absolute;
+    border-radius: 26px;
+    border: 5px solid #152921;
+    overflow: hidden;
+    background: #152921;
+    box-shadow: 0 22px 45px rgba(21, 41, 33, 0.28);
+  }
+  .phone img {
+    display: block;
+    width: 100%;
+  }
+  .phone.back {
+    width: 198px;
+    right: 112px;
+    top: 0;
+    transform: rotate(-4deg);
+    opacity: 0.98;
+  }
+  .phone.front {
+    width: 218px;
+    right: -16px;
+    top: 158px;
+    transform: rotate(3deg);
+  }
+
+  .stats {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    margin-top: 22px;
+    border-top: 1px solid #e3eae6;
+    padding-top: 18px;
+  }
+  .stat {
+    flex: 1;
+    text-align: center;
+  }
+  .stat + .stat {
+    border-left: 1px solid #e3eae6;
+  }
+  .stat .n {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 27px;
+    color: var(--emerald);
+    letter-spacing: -0.02em;
+  }
+  .stat .l {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .cta-band {
+    margin-top: 20px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 20px 15mm 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .cta-band .words h2 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    max-width: 270px;
+  }
+  .cta-band .words p {
+    margin-top: 8px;
+    font-size: 10px;
+    line-height: 1.65;
+    color: #a9bfb1;
+    max-width: 280px;
+  }
+  .cta-band .words .url {
+    margin-top: 8px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 11.5px;
+    color: var(--gold);
+  }
+  .cta-band .qrs {
+    display: flex;
+    gap: 16px;
+  }
+  .cta-band .qr-tile img {
+    width: 82px;
+    height: 82px;
+  }
+  .cta-band .qr-tile .qr-label {
+    font-size: 8.5px;
+    color: var(--cream);
+    letter-spacing: 0.12em;
+  }
+  .cta-band .qr-tile .qr-sub {
+    color: #8ba89a;
+    margin-top: -4px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="inner masthead">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Munib logo" />
+      <span class="name">Munib Tracker <span style="color:#5c7268;font-weight:500;">· مُنيب</span></span>
+    </div>
+    <div class="tag"><b>Free</b> · offline-first · no ads</div>
+  </div>
+
+  <div class="inner body-grid">
+    <div class="copy">
+      <span class="eyebrow">Salah · Qaza · Zikr</span>
+      <h1>Never lose count of <em>what matters most</em>.</h1>
+      <p class="sub">Every fard, every missed prayer, every tasbeeh — counted, remembered, and turned into steady progress you can see.</p>
+
+      <div class="feature-list">
+        <div class="feature">
+          <div class="icon" style="background:#d1fae5;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <div>
+            <h3>Prayer tracker</h3>
+            <p>Log the five daily prayers plus witr and sunnah in one tap — with streaks, a progress ring, and a full prayer history calendar.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="icon" style="background:#f2ddab;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8a6d2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 3v5h5"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <div>
+            <h3>Qaza, made simple</h3>
+            <p>Per-prayer counters, a lifetime estimate calculator, and a daily pace planner that quietly clears years of missed prayers.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="icon" style="background:#d1fae5;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/></svg>
+          </div>
+          <div>
+            <h3>Tasbeeh &amp; adhkar</h3>
+            <p>A hands-free counter for any zikr, plus 54 authentic adhkar — morning &amp; evening, before &amp; after salah — with favorites.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="icon" style="background:#f2ddab;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8a6d2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>
+          </div>
+          <div>
+            <h3>History &amp; statistics</h3>
+            <p>Daily goals, charts, and achievements — see your consistency grow week by week.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="icon" style="background:#d1fae5;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          </div>
+          <div>
+            <h3>Reminders that respect you</h3>
+            <p>Prayer, zikr, qaza, and Friday reminders — all opt-in, never noisy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phones">
+      <div class="phone back"><img src="assets/shot-qaza-light.png" alt="Qaza screen" /></div>
+      <div class="phone front"><img src="assets/shot-tracker-dark.png" alt="Tracker screen" /></div>
+    </div>
+  </div>
+
+  <div class="inner stats">
+    <div class="stat"><div class="n">5 + witr</div><div class="l">Daily prayers tracked</div></div>
+    <div class="stat"><div class="n">54</div><div class="l">Authentic adhkar</div></div>
+    <div class="stat"><div class="n">∞</div><div class="l">Tasbeeh counter</div></div>
+    <div class="stat"><div class="n">23</div><div class="l">Languages</div></div>
+  </div>
+
+  <div class="cta-band">
+    <div class="words">
+      <h2>Download free. No account needed.</h2>
+      <p>Start as a guest in seconds — or sign in to sync across your phone, tablet, and the web.</p>
+      <div class="url">munibtracker.app</div>
+    </div>
+    <div class="qrs">
+      <div class="qr-tile">
+        <div class="qr-box"><img src="qr/appstore-ink.svg" width="82" height="82" alt="App Store QR" /></div>
+        <div class="qr-label">App Store</div>
+        <div class="qr-sub">iPhone &amp; iPad</div>
+      </div>
+      <div class="qr-tile">
+        <div class="qr-box"><img src="qr/play-ink.svg" width="82" height="82" alt="Google Play QR" /></div>
+        <div class="qr-label">Google Play</div>
+        <div class="qr-sub">Android</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

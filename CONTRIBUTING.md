@@ -34,7 +34,7 @@ Look for issues labeled `good first issue` or `help wanted`.
 
 ## Development setup
 
-**Prerequisites:** Node.js ≥ 20.9 (CI uses Node 22), pnpm 9.15 (`corepack enable`).
+**Prerequisites:** Node.js ≥ 22 (CI uses Node 22), pnpm 11.26 (`corepack enable`).
 
 ```bash
 pnpm install          # always from repo root

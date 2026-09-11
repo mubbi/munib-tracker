@@ -68,6 +68,7 @@ const allLocales =
         "ky",
         "tg",
         "tk",
+        "hi",
       ]
     : LOCALES;
 

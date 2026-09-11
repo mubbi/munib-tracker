@@ -1,6 +1,6 @@
 # Internationalization guide (Munib Tracker)
 
-Reference for **23 app locales** (`en` + 22 translations): architecture, workflows, and scripture rules.
+Reference for **24 app locales** (`en` + 23 translations): architecture, workflows, and scripture rules.
 
 ---
 
@@ -12,8 +12,9 @@ Reference for **23 app locales** (`en` + 22 translations): architecture, workflo
 | 2 | `id`, `tr`, `bn`, `ms`, `fa` | Key parity + polish | 24 modules each | `bn`/`id`/`ms` partial+ | **Shipped** |
 | 3 | `fr`, `ha`, `sw`, `ru`, `az`, `ps` | Key parity + polish | Native overlays | `fr`/`ru` hadith remote | **Shipped** |
 | 4 | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Key parity + polish | Native overlays | English fallback | **Shipped** |
+| 5 | `hi` | Key parity + polish | Native overlays | Qur'an OSS; dua/hadith EN fallback | **Shipped** |
 
-**CI:** App i18n Jest suite (`pnpm --filter app test -- i18n`) · Shared overlay coverage ≥90% · SEO **22×132** routes (non-`en` locale packs × `seo-routes.data.json`) · ICU plural audit for `ar`/`ru`/`bn` · curated UI polish in `ui-polish-patches.json` (**22** locales, ~2,170 unique keys / ~20k locale→string patches).
+**CI:** App i18n Jest suite (`pnpm --filter app test -- i18n`) · Shared overlay coverage ≥90% · SEO **22×132** routes (non-`en` locale packs × `seo-routes.data.json`) · ICU plural audit for `ar`/`ru`/`bn` · curated UI polish in `ui-polish-patches.json` (**23** locales, ~2,170 unique keys / ~20k locale→string patches).
 
 **RTL:** `ar`, `ur`, `fa`, `ps`, `ku` — `apps/app/src/lib/i18n/rtl-locale.ts`.
 
@@ -114,7 +115,7 @@ pnpm --filter app build:data
 
 | Content | Bundled / remote | Source |
 |---------|------------------|--------|
-| **Qur'an** | All 23 locales | `quran-edition-defs.json` → fawazahmed0 |
+| **Qur'an** | All 24 locales | `quran-edition-defs.json` → fawazahmed0 |
 | **Dua/zikr** | `bn`, `id`, Qur'anic backfill for 20 locales | `build-adhkar.mjs` |
 | **Hadith (remote)** | `ur`, `id`, `tr`, `bn`, `fr`, `ru` | `hadith-remote.ts` |
 | **99 Names** | `id`, `ms`, `fr`, `ur`, `bn` | Multiple OSS APIs — see [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |

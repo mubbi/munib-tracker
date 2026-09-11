@@ -1,5 +1,5 @@
 import type { AppLocale } from "../i18n/app-locale";
-import type { PrayerId } from "./prayer";
+import type { ExcusedReason, PrayerId } from "./prayer";
 import type { WeatherPreferences } from "./weather";
 
 export type { AppLocale };
@@ -187,6 +187,12 @@ export interface UserPreferences {
     dismissed: boolean;
     status: "active" | "ended" | "dismissed";
   } | null;
+  /**
+   * Ongoing excused period (hayd / illness / travel). Persists across calendar
+   * days until the user taps resume. `undefined` = never set (legacy bootstrap
+   * from yesterday's logs); `null` = explicitly cleared.
+   */
+  activeExcusedReason?: ExcusedReason | null;
   /** ISO datetime the preferences blob was last edited (sync last-write-wins). */
   updatedAt?: string;
   /** ISO datetime the favorite-zikr list was last edited (sync last-write-wins). */

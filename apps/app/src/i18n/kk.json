@@ -382,7 +382,7 @@
     "checklistHint": "Күнделікті әрекетті тексеру тізімін толтырыңыз",
     "excusedPausedLabel": "Кідіртілді",
     "excusedGoalHint": "Бақылау {{reason}} үшін кідіртілді — сіздің жолыңыз сақталады.",
-    "excusedGoalBody": "Міндетті бақылау бүгінге тоқтатылды. Сіз әлі де қосымша ғибадатқа кіре аласыз.",
+    "excusedGoalBody": "Міндетті бақылау осы кезеңге тоқтатылды. Сіз әлі де қосымша ғибадатты жаза аласыз.",
     "tasksProgress": "{{total}} тапсырманың {{done}}",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Бақылауды бастаңыз",
@@ -598,10 +598,10 @@
     "title": "Трекер",
     "subtitle": "Басыңыз  salah ға set its status — saved үстінде бұл құрылғы.",
     "excusedTitle": "Excused күн",
-    "excusedHint": "Hayd, illness, немесе travel — pause міндетті бақылау without breaking сіздің серия.",
-    "excusedActive": "Бұл күн  excused — міндетті бақылау  paused және сіздің серия  held.",
-    "excusedConfirmTitle": "Mark бүгін as excused?",
-    "excusedConfirmMsg": "Міндетті бақылау will pause үшін бүгін ({{reason}}). Сіздің серия will be held.",
+    "excusedHint": "Хайд, ауру немесе сапар — серияңызды үзбей міндетті бақылауды тоқтатыңыз. Кідіріс сіз қайта бастағанша күн сайын жалғасады.",
+    "excusedActive": "Міндетті бақылау осы кезеңге тоқтатылды — серияңыз сіз қайта бастағанша сақталады.",
+    "excusedConfirmTitle": "Узр кезеңін бастау керек пе?",
+    "excusedConfirmMsg": "Міндетті бақылау тоқтатылады ({{reason}}) және сіз қайта бастағанша күн сайын жалғасады. Серияңыз сақталады.",
     "excusedConfirmAction": "Марк кешірді",
     "excusedReason": {
       "hayd": "Хайд",
@@ -2882,7 +2882,7 @@
       "body": "Witr  sunnah mu'akkadah (strongly emphasized) және should емес be abandoned while travelling. Pray it after Isha — even if сіз combined Maghrib және Isha — as one, үш, немесе more odd rakahs according ға what сіз can manage. If сіз қорқыныш sleeping before Isha while travelling,  Prophet ﷺ permitted praying Witr earlier after  combined Maghrib-Isha."
     },
     "disclaimer": "Бұл  білім беру мазмұн, емес  жеке фетва. Distance thresholds, stay duration, combining rules, және whether Jam'  limited ға қажет vary between  төрт schools — consult  білікті ғалым үшін сіздің сапар.",
-    "markExcused": "Mark бүгін as excused (travel)",
+    "markExcused": "Узр кезеңін бастау (сапар)",
     "clearExcused": "Resume міндетті бақылау"
   },
   "hayd": {
@@ -2924,7 +2924,7 @@
       "body": "Хайд немесе нифас біткен кезде, намазды қайта бастаудан бұрын толық ғұсыл алыңыз. Оразаны шөп біткеннен кейін ғана жалғастырыңыз; хайд кезінде ұсталған Рамазан оразасы басқа күндерде өтелуі керек.\n\nХайдта қаза болған намаз қазасы өтелмейді — Аллаһ ол парызды алып тастады. Бұл ауру немесе сапардан айырмашылығы, қаза намазы қаза болуы мүмкін. Ғұсылдан кейін қалыпты ғибадатыңызды және қолданбадағы міндетті бақылауды жалғастырыңыз."
     },
     "disclaimer": "Бұл жеке шешім емес, тәрбиелік нұсқау. Жоғарыда келтірілген мәліметтер мектептерде әр түрлі болады — жағдайыңыз түсініксіз болса, білікті әйел ғалыммен кеңесіңіз.",
-    "markExcused": "Бүгін кешірілді деп белгілеу (хайд)",
+    "markExcused": "Узр кезеңін бастау (хайд)",
     "clearExcused": "Міндетті бақылауды жалғастыру",
     "hadith[0]": {
       "reference": "Сахих әл-Бухари · 321",
@@ -2983,7 +2983,7 @@
       "body": "If ораза ішінде Рамазан would worsen сіздің illness немесе delay recovery, break  fast және make it up үстінде other күн after сіз recover —  Құран explicitly permits бұл үшін  ill.\n\nӘр өткізілді Рамазан fast  made up бірге one күн  ораза кейінгі; there  жоқ kaffarah (expiation) unless  fast was broken without  жарамды excuse.\n\nӨткізілді salah during illness must also be made up ішінде order once сіз  able — unlike hayd, where өткізілді salah  емес qaza. When сіз recover, resume normal бақылау және work бойымен сіздің qaza да  sustainable pace."
     },
     "disclaimer": "Бұл  білім беру guidance, емес  жеке ruling. How much illness justifies әр concession varies арқылы school және severity — consult  білікті ғалым үшін сіздің situation.",
-    "markExcused": "Mark бүгін as excused (illness)",
+    "markExcused": "Узр кезеңін бастау (ауру)",
     "clearExcused": "Resume міндетті бақылау"
   },
   "homeCustomize": {
@@ -4992,7 +4992,7 @@
     "marked": "Salah белгіленді",
     "alreadyDone": "Белгіленген",
     "allDone": "Барлық міндетті Salah белгіленді үшін бүгін",
-    "excused": "Бақылау  paused үшін бүгін",
+    "excused": "Бақылау осы узр кезеңіне тоқтатылды",
     "locked": "Unlock  қолданба ға mark Salah",
     "failed": "Could емес mark Salah",
     "intents": {

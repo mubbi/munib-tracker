@@ -1,0 +1,96 @@
+diff --git a/ReactAndroid/src/main/java/com/facebook/react/views/view/ReactViewManager.kt b/ReactAndroid/src/main/java/com/facebook/react/views/view/ReactViewManager.kt
+index cf03a08f..7792ebe1 100644
+--- a/ReactAndroid/src/main/java/com/facebook/react/views/view/ReactViewManager.kt
++++ b/ReactAndroid/src/main/java/com/facebook/react/views/view/ReactViewManager.kt
+@@ -69,6 +69,10 @@ public open class ReactViewManager : ReactClippingViewManager<ReactViewGroup>()
+     private const val CMD_SET_PRESSED = 2
+     private const val CMD_SET_DESTINATIONS = 3
+     private const val HOTSPOT_UPDATE_KEY = "hotspotUpdate"
++
++    private val talkbackCacheLock = Any()
++    @Volatile private var talkbackEnabledCached: Boolean? = null
++    @Volatile private var talkbackListenerRegistered = false
+   }
+ 
+   init {
+@@ -569,35 +573,61 @@ public open class ReactViewManager : ReactClippingViewManager<ReactViewGroup>()
+   }
+ 
+   private fun manageFocusGuideAccessibilityDelegate(view: ReactViewGroup) {
+-    val accessibilityManager = view.context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+-    val a11yServiceList = accessibilityManager.getEnabledAccessibilityServiceList(
+-      AccessibilityServiceInfo.FEEDBACK_SPOKEN)
+-    var isTalkbackInstalledAndEnabled = false
+-
+-    for (serviceInfo in a11yServiceList) {
+-      val a11yServiceId = serviceInfo.id
+-      if (a11yServiceId != null && a11yServiceId.contains("talkback")) {
+-        isTalkbackInstalledAndEnabled = true
+-      }
++    val hasDelegate = view.hasFocusGuideTalkbackAccessibilityDelegate()
++    // TalkBack focus-guide wiring is only needed for TVFocusGuide views (or
++    // views that already have the delegate). Querying AccessibilityManager via
++    // Binder on every View prop update ANRs Android when Reanimated applies
++    // synchronous updates during SVG onDraw.
++    if (!view.isTVFocusGuide && !hasDelegate) {
++      return
+     }
+ 
+     val isTVFocusable = view.descendantFocusability != ViewGroup.FOCUS_BLOCK_DESCENDANTS
+-    if (!view.hasFocusGuideTalkbackAccessibilityDelegate()) {
+-      if (view.isTVFocusGuide && isTVFocusable && isTalkbackInstalledAndEnabled) {
++    val isTalkbackInstalledAndEnabled = isSpokenFeedbackTalkbackEnabled(view.context)
++
++    if (!hasDelegate) {
++      if (isTVFocusable && isTalkbackInstalledAndEnabled) {
+         // Custom accessibility delegate is needed only for Talkback,
+         // as it's not handling TV focus guide scenarios as well as e.g. Amazon's VoiceView
+         //
+         // Delegate should only be set if TVFocusGuideView is focusable
+         view.initializeFocusGuideTalkbackAccessibilityDelegate()
+       }
+-    } else {
+-      if (!view.isTVFocusGuide || !isTVFocusable || !isTalkbackInstalledAndEnabled) {
+-        // If this view had delegate set, but is no longer a "focus guide"
+-        // or is no longer focusable
+-        // or talkback is no longer enabled
+-        // then the delegate should be cleared
+-        view.cleanupFocusGuideTalkbackAccessibilityDelegate()
++    } else if (!view.isTVFocusGuide || !isTVFocusable || !isTalkbackInstalledAndEnabled) {
++      // If this view had delegate set, but is no longer a "focus guide"
++      // or is no longer focusable
++      // or talkback is no longer enabled
++      // then the delegate should be cleared
++      view.cleanupFocusGuideTalkbackAccessibilityDelegate()
++    }
++  }
++
++  private fun isSpokenFeedbackTalkbackEnabled(context: Context): Boolean {
++    synchronized(talkbackCacheLock) {
++      talkbackEnabledCached?.let {
++        return it
++      }
++      val accessibilityManager =
++          context.applicationContext.getSystemService(Context.ACCESSIBILITY_SERVICE)
++              as AccessibilityManager
++      if (!talkbackListenerRegistered) {
++        talkbackListenerRegistered = true
++        accessibilityManager.addAccessibilityStateChangeListener {
++          synchronized(talkbackCacheLock) {
++            talkbackEnabledCached = null
++          }
++        }
++      }
++      if (!accessibilityManager.isEnabled) {
++        talkbackEnabledCached = false
++        return false
+       }
++      val enabled =
++          accessibilityManager
++              .getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_SPOKEN)
++              .any { serviceInfo -> serviceInfo.id?.contains("talkback") == true }
++      talkbackEnabledCached = enabled
++      return enabled
+     }
+   }
+ 

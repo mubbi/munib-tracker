@@ -19,14 +19,17 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
+import { zikrCategoryBadge, zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
+import { useZikrCounts } from "@/stores/tracker-store";
 
 export default function ZikrHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const favoriteIds = useFavoriteZikrIds();
+  const zikrCounts = useZikrCounts();
   const [zikrReady, setZikrReady] = useState(false);
   const [zikrItems, setZikrItems] = useState<ZikrItem[]>([]);
   const categories = zikrReady ? zikrCategories() : [];
@@ -131,6 +134,7 @@ export default function ZikrHomeScreen() {
                     item={item}
                     index={indexById.get(item.id)}
                     categoryLabel={t(`zikrCat.${item.categoryId}`)}
+                    counts={zikrCounts}
                     onPress={onOpenDetail}
                   />
                 ))}
@@ -156,20 +160,25 @@ export default function ZikrHomeScreen() {
               icon={{ ios: "square.grid.2x2.fill", android: "grid_view", web: "grid_view" }}
             />
             <View style={styles.list}>
-              {categories.map((category) => (
-                <NavRow
-                  key={category.id}
-                  icon={category.icon}
-                  label={t(`zikrCat.${category.id}`)}
-                  count={category.count}
-                  onPress={() =>
-                    router.push({
-                      pathname: "/zikr/[category]",
-                      params: { category: category.id },
-                    })
-                  }
-                />
-              ))}
+              {categories.map((category) => {
+                const progress = zikrCategoryBadge(category.id, zikrCounts, t("zikr.done"));
+                return (
+                  <NavRow
+                    key={category.id}
+                    icon={category.icon}
+                    label={t(`zikrCat.${category.id}`)}
+                    badge={progress?.label}
+                    completed={progress?.completed}
+                    count={progress ? undefined : category.count}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/zikr/[category]",
+                        params: { category: category.id },
+                      })
+                    }
+                  />
+                );
+              })}
             </View>
           </Card>
         ) : null}
@@ -182,14 +191,26 @@ function ZikrSearchRow({
   item,
   index,
   categoryLabel,
+  counts,
   onPress,
 }: {
   item: ZikrItem;
   index?: number;
   categoryLabel: string;
+  counts: Record<string, number>;
   onPress: (id: string) => void;
 }) {
-  return <ZikrRow item={item} index={index} categoryLabel={categoryLabel} onPress={onPress} />;
+  const { completed, progressLabel } = zikrListRowProgress(item, counts);
+  return (
+    <ZikrRow
+      item={item}
+      index={index}
+      categoryLabel={categoryLabel}
+      onPress={onPress}
+      completed={completed}
+      progressLabel={progressLabel}
+    />
+  );
 }
 
 const styles = StyleSheet.create({

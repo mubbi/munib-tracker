@@ -24,9 +24,9 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | ID | Feature | Key touchpoints |
 |----|---------|-------------------|
 | NF-1.1 | Ramadan mode | `lib/ramadan.ts`, `/ramadan`, fasting store |
-| NF-1.2 | Hayd / excused period | Streak freeze, excused-day UI |
+| NF-1.2 | Hayd / excused period | `activeExcusedReason` prefs + day flags; continues until resume; streak freeze |
 | NF-1.3 | Travel guide (Qasr / Jam') | `/travel` |
-| NF-1.4 | Sick / unable mode | `ExcusedDayPicker`, calendar |
+| NF-1.4 | Sick / unable mode | Same excused-period carry-forward as NF-1.2; `ExcusedDayPicker`, calendar |
 | NF-1.5 | Jama' flag | `PrayerLog.isJama` |
 | NF-1.6 | Weekly worship report | `buildWeeklyReport` |
 | NF-1.7 | Per-prayer reminder offsets | `/settings/reminder-offsets` |

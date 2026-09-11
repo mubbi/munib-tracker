@@ -1,6 +1,10 @@
-import { QazaRepository } from "@/db";
+import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { addDays, getLocalDateString } from "@munib-tracker/shared/utils";
+
+import { PrayerRepository, PreferencesRepository, QazaRepository } from "@/db";
 import { loadTrackerStore, resetTrackerStore } from "@/test-support/store";
 
+import { preferencesStore } from "./preferences-store";
 import { trackerStore } from "./tracker-store";
 
 beforeEach(resetTrackerStore);
@@ -131,5 +135,79 @@ describe("trackerStore", () => {
     await trackerStore.getState().setPrayerStatus("maghrib", "completed");
     await loadTrackerStore();
     expect(trackerStore.getState().prayerStatus.maghrib).toBe("completed");
+  });
+
+  it("continues an active hayd period onto a new day until resumed (NF-1.2)", async () => {
+    await trackerStore.getState().setDayExcused("hayd");
+    expect(trackerStore.getState().excusedReason).toBe("hayd");
+    expect((await PreferencesRepository.get()).activeExcusedReason).toBe("hayd");
+
+    const today = getLocalDateString();
+    const yesterday = addDays(today, -1);
+    // Seed yesterday as the start of the period, then clear today to simulate
+    // a calendar rollover with an active preference still set.
+    for (const prayerId of OBLIGATORY_PRAYERS) {
+      await PrayerRepository.setFlags(prayerId, yesterday, {
+        isExcused: true,
+        excusedReason: "hayd",
+      });
+      await PrayerRepository.setFlags(prayerId, today, { isExcused: false });
+    }
+
+    await trackerStore.getState().refresh();
+    expect(trackerStore.getState().excusedReason).toBe("hayd");
+    const logs = await PrayerRepository.getAll();
+    expect(logs.some((log) => log.date === today && log.isExcused)).toBe(true);
+
+    await trackerStore.getState().setDayExcused(null);
+    expect(trackerStore.getState().excusedReason).toBeNull();
+    expect((await PreferencesRepository.get()).activeExcusedReason).toBeNull();
+
+    await trackerStore.getState().refresh();
+    expect(trackerStore.getState().excusedReason).toBeNull();
+  });
+
+  it("does not start a period when only a past calendar day is marked excused", async () => {
+    const yesterday = addDays(getLocalDateString(), -1);
+    await trackerStore.getState().setDayExcusedOnDate(yesterday, "sick");
+    expect((await PreferencesRepository.get()).activeExcusedReason).toBeUndefined();
+    expect(trackerStore.getState().excusedReason).toBeNull();
+  });
+
+  it("bootstraps a legacy overnight hayd period from yesterday when preference is unset", async () => {
+    const today = getLocalDateString();
+    const yesterday = addDays(today, -1);
+    for (const prayerId of OBLIGATORY_PRAYERS) {
+      await PrayerRepository.setFlags(prayerId, yesterday, {
+        isExcused: true,
+        excusedReason: "hayd",
+      });
+    }
+
+    await trackerStore.getState().refresh();
+    expect(trackerStore.getState().excusedReason).toBe("hayd");
+    expect((await PreferencesRepository.get()).activeExcusedReason).toBe("hayd");
+    expect(
+      (await PrayerRepository.getAll()).some((log) => log.date === today && log.isExcused),
+    ).toBe(true);
+  });
+
+  it("switches the active period reason and updates the preference", async () => {
+    await trackerStore.getState().setDayExcused("hayd");
+    await trackerStore.getState().setDayExcused("sick");
+    expect(trackerStore.getState().excusedReason).toBe("sick");
+    expect((await PreferencesRepository.get()).activeExcusedReason).toBe("sick");
+  });
+
+  it("writes the excused reason through the repository when preferences are not ready", async () => {
+    preferencesStore.setState({ isReady: false });
+    await trackerStore.getState().setDayExcused("travel");
+    expect((await PreferencesRepository.get()).activeExcusedReason).toBe("travel");
+  });
+
+  it("updates the in-memory preferences store once it is ready", async () => {
+    await preferencesStore.getState().load();
+    await trackerStore.getState().setDayExcused("hayd");
+    expect(preferencesStore.getState().prefs.activeExcusedReason).toBe("hayd");
   });
 });
