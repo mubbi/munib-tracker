@@ -131,6 +131,7 @@
         }
       ],
       "./plugins/with-android-build-hygiene.js",
+      "./plugins/with-android-tab-drawables.js",
       "./plugins/withAndroidReleaseSigning.cjs",
       [
         "expo-build-properties",
