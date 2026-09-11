@@ -18,10 +18,13 @@ export const DB_KEYS = {
   quranLastRead: `${PREFIX}/quran_last_read`,
   quranReadingProgress: `${PREFIX}/quran_reading_progress`,
   quranPrefs: `${PREFIX}/quran_prefs`,
+  // Sharded under `${quranEditionCache}/${encodeURIComponent(edition:surah)}`.
   quranEditionCache: `${PREFIX}/quran_edition_cache`,
+  // Sharded under `${quranStudyCache}/${encodeURIComponent(studyKey)}`.
   quranStudyCache: `${PREFIX}/quran_study_cache`,
   hadithBookmarks: `${PREFIX}/hadith_bookmarks`,
   hadithPrefs: `${PREFIX}/hadith_prefs`,
+  // Sharded under `${hadithBookCache}/${encodeURIComponent(collectionKey)}`.
   hadithBookCache: `${PREFIX}/hadith_book_cache`,
   continueActivity: `${PREFIX}/continue_activity`,
   // Ordered favorite-dua id list. Kept under the user_preferences namespace for

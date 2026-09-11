@@ -12,7 +12,7 @@ import { fetchStaticJson } from "@/lib/static-json-fetch";
 
 /**
  * D2 — extra Qur'an translations fetched on demand from fawazahmed0/quran-api
- * (no key). Cache-first over AsyncStorage (`quran-cache-repository`).
+ * (no key). Cache-first over AsyncStorage (`quran-cache-repository`, one key per surah).
  */
 
 const FAWAZ = "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions";

@@ -1,23 +1,22 @@
 import { DB_KEYS } from "../keys";
-import { readJSON, removeKey, updateJSON } from "../store";
+import {
+  migrateMonolithToShards,
+  readJSON,
+  removeKeyTree,
+  storageShardKey,
+  writeJSONIfSafe,
+} from "../store";
 
 /**
  * Offline cache for ayah-study remote payloads (tajweed segments, word-by-word).
- * Same pattern as {@link QuranCacheRepository}: in-memory + AsyncStorage.
+ * Same pattern as {@link QuranCacheRepository}: in-memory + one AsyncStorage
+ * shard per study key (not a single growing blob — Android CursorWindow).
  */
 
-type StudyCache = Record<string, unknown>;
-
 const memory = new Map<string, unknown>();
-let storageLoaded = false;
 
-async function ensureStorageLoaded(): Promise<void> {
-  if (storageLoaded) return;
-  const cache = await readJSON<StudyCache>(DB_KEYS.quranStudyCache, {});
-  for (const [key, value] of Object.entries(cache)) {
-    memory.set(key, value);
-  }
-  storageLoaded = true;
+function shardKey(key: string): string {
+  return storageShardKey(DB_KEYS.quranStudyCache, key);
 }
 
 export const QuranStudyCacheRepository = {
@@ -25,19 +24,18 @@ export const QuranStudyCacheRepository = {
     const hit = memory.get(key);
     if (hit !== undefined) return hit as T;
 
-    await ensureStorageLoaded();
-    const stored = memory.get(key);
-    return stored !== undefined ? (stored as T) : null;
+    await migrateMonolithToShards(DB_KEYS.quranStudyCache);
+    const stored = await readJSON<T | null>(shardKey(key), null);
+    if (stored !== null) memory.set(key, stored);
+    return stored;
   },
 
   async set(key: string, value: unknown, persist = true): Promise<void> {
     memory.set(key, value);
     if (!persist) return;
     try {
-      await updateJSON<StudyCache>(DB_KEYS.quranStudyCache, {}, (cache) => {
-        cache[key] = value;
-        return cache;
-      });
+      await migrateMonolithToShards(DB_KEYS.quranStudyCache);
+      await writeJSONIfSafe(shardKey(key), value);
     } catch {
       // storage full / unavailable — keep session cache only
     }
@@ -45,8 +43,7 @@ export const QuranStudyCacheRepository = {
 
   async clear(): Promise<void> {
     memory.clear();
-    storageLoaded = false;
-    await removeKey(DB_KEYS.quranStudyCache);
+    await removeKeyTree(DB_KEYS.quranStudyCache);
   },
 };
 
