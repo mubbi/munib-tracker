@@ -72,6 +72,7 @@
     "check:ci": "node scripts/check.mjs ci",
     "check:push": "node scripts/check.mjs ci",
     "check:generate": "node scripts/check.mjs generate",
+    "check:test": "node scripts/check.mjs test",
     "dev:marketing-web": "pnpm --filter marketing-web dev",
     "dev:admin": "pnpm --filter @munib-tracker/admin dev",
     "build:admin": "pnpm --filter @munib-tracker/admin build",
