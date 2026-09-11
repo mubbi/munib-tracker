@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { describe, expect, it } from "vitest";
 import { APP_DESCRIPTION } from "../constants/branding";
 import {
@@ -82,27 +83,15 @@ function findOffenders(label: string, text: string): string[] {
 
 const CONTENT_DIR = join(import.meta.dirname);
 
-function isEnglishContentFileName(name: string): boolean {
-  return (
-    name.endsWith(".ts") &&
-    !name.endsWith(".test.ts") &&
-    name !== "index.ts" &&
-    name !== "content-verification.ts"
-  );
-}
-
-/** Vite-managed loaders — avoid `import(absolutePath)`, which races the SSR cache on Windows. */
-const contentModuleLoaders = import.meta.glob("./*.ts");
-
-function englishContentLoaders(): Array<[string, () => Promise<Record<string, unknown>>]> {
-  return Object.entries(contentModuleLoaders).filter(([specifier]) =>
-    isEnglishContentFileName(specifier.slice(specifier.lastIndexOf("/") + 1)),
-  ) as Array<[string, () => Promise<Record<string, unknown>>]>;
-}
-
-function englishContentSourceFiles(): string[] {
+function englishContentModules(): string[] {
   return readdirSync(CONTENT_DIR)
-    .filter(isEnglishContentFileName)
+    .filter(
+      (name) =>
+        name.endsWith(".ts") &&
+        !name.endsWith(".test.ts") &&
+        name !== "index.ts" &&
+        name !== "content-verification.ts",
+    )
     .map((name) => join(CONTENT_DIR, name));
 }
 
@@ -139,14 +128,14 @@ describe("English Islamic terminology (shared content)", () => {
   it("uses standardized spellings in English learn/guide content modules", async () => {
     const offenders: string[] = [];
 
-    for (const [specifier, load] of englishContentLoaders()) {
-      const mod = await load();
+    for (const file of englishContentModules()) {
+      const mod = (await import(pathToFileURL(file).href)) as Record<string, unknown>;
       const leaves: Array<{ path: string; text: string }> = [];
       for (const [exportName, value] of Object.entries(mod)) {
         if (exportName.endsWith("_VERSION") || exportName.endsWith("Version")) continue;
         walkStrings(value, exportName, leaves);
       }
-      const rel = `content/${specifier.replace(/^\.\//, "")}`;
+      const rel = file.replace(/.*[\\/]content[\\/]/, "content/");
       for (const { path, text } of leaves) {
         // Skip OSS / credit URLs and github paths that embed source repo names.
         if (/https?:\/\//i.test(text) || /github\.com|dua-dhikr|jsdelivr/i.test(text)) continue;
@@ -163,7 +152,7 @@ describe("English Islamic terminology (shared content)", () => {
     // Source-text sweep catches string literals the import walker might miss
     // (e.g. private helpers). Skip id:/transliteration:/url lines and URI literals.
     const offenders: string[] = [];
-    for (const file of englishContentSourceFiles()) {
+    for (const file of englishContentModules()) {
       const src = readFileSync(file, "utf8");
       const rel = file.replace(/.*[\\/]content[\\/]/, "content/");
       for (const [index, line] of src.split(/\r?\n/).entries()) {
