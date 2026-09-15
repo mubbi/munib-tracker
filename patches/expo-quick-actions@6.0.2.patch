@@ -2,7 +2,7 @@ diff --git a/android/build.gradle b/android/build.gradle
 index ab72888c3a078ec06f6bbddf3c94ad745c66a01d..460bfeda672a9e49462205814acebe4526ce1776 100644
 --- a/android/build.gradle
 +++ b/android/build.gradle
-@@ -36,6 +36,7 @@
+@@ -36,6 +36,7 @@ android {
    defaultConfig {
      versionCode 3
      versionName "1.0.0"
@@ -12,18 +12,26 @@ index ab72888c3a078ec06f6bbddf3c94ad745c66a01d..460bfeda672a9e49462205814acebe45
      abortOnError false
 diff --git a/android/consumer-rules.pro b/android/consumer-rules.pro
 new file mode 100644
-index 0000000000000000000000000000000000000000..673c76158186138ba160f7e7990fe06ffc202e01
+index 0000000000000000000000000000000000000000..9b8aa799f4b42f3e9432c1fd00690b0359f0cd2a
 --- /dev/null
 +++ b/android/consumer-rules.pro
 @@ -0,0 +1,3 @@
-+# Expo Record conversion reads ActionObject fields via reflection.
++# Keep ActionObject for Kotlin construction after we parse ReadableMap in setItems.
 +-keep class expo.modules.quickactions.ActionObject { *; }
 +-keepclassmembers class expo.modules.quickactions.ActionObject { *; }
 diff --git a/android/src/main/java/expo/modules.quickactions/ExpoQuickActionsModule.kt b/android/src/main/java/expo/modules.quickactions/ExpoQuickActionsModule.kt
-index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..81326fac533e03b9ad70d5d34075839374dae764 100644
+index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..b337cebeafcba81ecd6b3b9398e9f4346727e157 100644
 --- a/android/src/main/java/expo/modules.quickactions/ExpoQuickActionsModule.kt
 +++ b/android/src/main/java/expo/modules.quickactions/ExpoQuickActionsModule.kt
-@@ -18,7 +18,13 @@
+@@ -12,13 +12,21 @@ import android.os.Bundle
+ import android.os.Parcelable
+ import android.os.PersistableBundle
+ import androidx.annotation.RequiresApi
++import com.facebook.react.bridge.ReadableMap
++import com.facebook.react.bridge.ReadableType
+ import expo.modules.kotlin.exception.Exceptions
+ import expo.modules.kotlin.modules.Module
+ import expo.modules.kotlin.modules.ModuleDefinition
  import expo.modules.kotlin.records.Field
  import expo.modules.kotlin.records.Record
  
@@ -38,7 +46,7 @@ index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..81326fac533e03b9ad70d5d340758393
      @Field
      val id: String = id
      @Field
-@@ -100,7 +106,7 @@
+@@ -100,7 +108,7 @@ fun mapToBundle(map: Map<String, Any>?): Bundle {
              is Bundle -> bundle.putBundle(key, value)
              is Parcelable -> bundle.putParcelable(key, value)
              is java.io.Serializable -> bundle.putSerializable(key, value)
@@ -47,7 +55,59 @@ index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..81326fac533e03b9ad70d5d340758393
          }
      }
      return bundle
-@@ -226,10 +232,14 @@
+@@ -116,6 +124,40 @@ fun bundleToMap(bundle: Bundle?): Map<String, Any> {
+     return map
+ }
+ 
++/**
++ * Parse a JS shortcut object without going through Expo Record conversion.
++ * `List<ActionObject>` NPEs on some Android devices when ReadableNativeMap
++ * cannot be reflected into ActionObject (`params` Map<String, Any>, optional
++ * nulls, R8-stripped constructors). ReadableMap is a trivial converter.
++ */
++private fun readableString(map: ReadableMap, key: String): String? {
++    if (!map.hasKey(key) || map.isNull(key)) return null
++    return if (map.getType(key) == ReadableType.String) map.getString(key) else null
++}
++
++private fun readableParams(map: ReadableMap, key: String): Map<String, Any>? {
++    if (!map.hasKey(key) || map.isNull(key)) return null
++    if (map.getType(key) != ReadableType.Map) return null
++    val nested = map.getMap(key) ?: return null
++    val out = mutableMapOf<String, Any>()
++    nested.toHashMap().forEach { (nestedKey, value) ->
++        when (value) {
++            is String, is Number, is Boolean -> out[nestedKey] = value
++        }
++    }
++    return out.ifEmpty { null }
++}
++
++private fun actionFromReadableMap(map: ReadableMap): ActionObject {
++    return ActionObject(
++        id = readableString(map, "id") ?: "",
++        title = readableString(map, "title") ?: "",
++        subtitle = readableString(map, "subtitle"),
++        icon = readableString(map, "icon"),
++        params = readableParams(map, "params")
++    )
++}
++
+ // Intent ID -- this should never change.
+ val UNIQ_ACTION_ID = "expo.modules.quickactions.SHORTCUT"
+ 
+@@ -183,8 +225,8 @@ class ExpoQuickActionsModule : Module() {
+     override fun definition() = ModuleDefinition {
+         Name("ExpoQuickActions")
+ 
+-        AsyncFunction("setItems") { items: List<ActionObject> ->
+-          setItems(items)
++        AsyncFunction("setItems") { items: List<ReadableMap> ->
++          setItems(items.map(::actionFromReadableMap))
+         }
+ 
+         Constants {
+@@ -226,10 +268,14 @@ class ExpoQuickActionsModule : Module() {
  
      @RequiresApi(Build.VERSION_CODES.N_MR1)
      private fun setShortcuts(items: List<ActionObject>) {
@@ -63,7 +123,7 @@ index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..81326fac533e03b9ad70d5d340758393
              intent.action = UNIQ_ACTION_ID
              intent.putExtra("shortcut_data", it.toBundle());
              val builder = ShortcutInfo.Builder(context, it.id)
-@@ -247,6 +257,18 @@
+@@ -247,6 +293,18 @@ class ExpoQuickActionsModule : Module() {
          shortcutManager.dynamicShortcuts = shortcuts
      }
  

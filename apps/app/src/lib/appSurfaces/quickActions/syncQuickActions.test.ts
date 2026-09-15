@@ -31,6 +31,7 @@ jest.mock("@/stores/location-store", () => ({
 import { QUICK_ACTION_REGISTRY } from "@/lib/appSurfaces/quickActions/registry";
 import {
   definitionToAction,
+  isLegacyAndroidQuickActionCastError,
   resolveQuickActionLimit,
   syncAppQuickActions,
 } from "@/lib/appSurfaces/quickActions/syncQuickActions";
@@ -137,5 +138,35 @@ describe("syncAppQuickActions", () => {
     mockIsSupported.mockResolvedValue(false);
     await syncAppQuickActions(t);
     expect(mockSetItems).not.toHaveBeenCalled();
+  });
+
+  it("does not report the legacy Android ActionObject cast NPE to Sentry", async () => {
+    mockSetItems.mockRejectedValue(
+      new Error(
+        "Call to function 'ExpoQuickActions.setItems' has been rejected. → Caused by: Cannot cast 'class com.facebook.react.bridge.ReadableNativeMap' to 'class expo.modules.quickactions.ActionObject'",
+      ),
+    );
+    await expect(syncAppQuickActions(t)).resolves.toBeUndefined();
+    expect(captureAppException).not.toHaveBeenCalled();
+  });
+});
+
+describe("isLegacyAndroidQuickActionCastError", () => {
+  it("matches the production Sentry payload", () => {
+    expect(
+      isLegacyAndroidQuickActionCastError(
+        new Error(
+          "Call to function 'ExpoQuickActions.setItems' has been rejected. → Caused by: The 1st argument cannot be cast to type interface java.util.List<class expo.modules.quickactions.ActionObject>",
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not match unrelated setItems failures", () => {
+    expect(
+      isLegacyAndroidQuickActionCastError(
+        new Error("Call to function 'ExpoQuickActions.setItems' has been rejected."),
+      ),
+    ).toBe(false);
   });
 });

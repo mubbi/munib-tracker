@@ -56,6 +56,18 @@ describe("gregorianToHijri with a location observer", () => {
     expect(gregorianToHijri(new Date(2025, 2, 1))).toEqual({ year: 1446, month: 9, day: 1 });
   });
 
+  it("does not throw for the Punjab GPS fix that crashed production web", () => {
+    // Sentry: TypeError reading 'M_ID' after /location → / at 30.91514, 71.05094.
+    setHijriObserver({ latitude: 30.91514, longitude: 71.05094 });
+    expect(() => gregorianToHijri(new Date(2026, 8, 11))).not.toThrow();
+    const hijri = gregorianToHijri(new Date(2026, 8, 11));
+    expect(hijri.year).toBeGreaterThan(1400);
+    expect(hijri.month).toBeGreaterThanOrEqual(1);
+    expect(hijri.month).toBeLessThanOrEqual(12);
+    expect(hijri.day).toBeGreaterThanOrEqual(1);
+    expect(hijri.day).toBeLessThanOrEqual(30);
+  });
+
   it("differs from Umm al-Qura only in the day, never the month numbering", () => {
     setHijriObserver(KARACHI);
     const sighted = gregorianToHijri(new Date(2026, 6, 20));

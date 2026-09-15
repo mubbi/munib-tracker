@@ -57,7 +57,7 @@ patchedDependencies:
   expo-image-picker@57.0.6: 00e74816969e598b4d1b89cbd275ca5483a4b6b8f8c210c2760d9213cefc1e56
   expo-location@57.0.6: 1133ffe99eca3c1c8bb86c80c6508dcdc8600fe35f31d33d217d2c854c338c69
   expo-navigation-bar@57.0.2: d1d5d611a05f9c3f252d853b6c7f43464805aed72ab0000b4e2d82c3fd1620e2
-  expo-quick-actions@6.0.2: 707f3c099ccbc15522a003bba805e9f6f89c1d4138085af232199b2a706cba0d
+  expo-quick-actions@6.0.2: d3d89aba0b9c4671e7337b482ac2c65c17de12f91f481954af7dd091e0c5b50e
   expo-router@57.0.8: cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92
   image-size@1.2.1: 4b22b3eb5fbfa353f32b4916c3455f7c3dc47b0b14fccf02cd99d0f04baaa6e5
   react-native-android-widget@0.20.3: ab01bb50e89bf11062074ad24d6041d2a31038b55410a7eab398d761e70e8110
@@ -419,7 +419,7 @@ importers:
         version: 57.0.7(expo@57.0.8)(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)
       expo-quick-actions:
         specifier: ^6.0.2
-        version: 6.0.2(patch_hash=707f3c099ccbc15522a003bba805e9f6f89c1d4138085af232199b2a706cba0d)(expo@57.0.8)(supports-color@8.1.1)(typescript@6.0.3)
+        version: 6.0.2(patch_hash=d3d89aba0b9c4671e7337b482ac2c65c17de12f91f481954af7dd091e0c5b50e)(expo@57.0.8)(supports-color@8.1.1)(typescript@6.0.3)
       expo-router:
         specifier: ~57.0.8
         version: 57.0.8(patch_hash=cb76aa23d31828ec9b4fa6e400591ad3864353692cfc8a0e3e2b6a3802b2ac92)(362b0a9f99dd317504c1a7a25b522826)
@@ -15033,7 +15033,7 @@ snapshots:
       - supports-color
       - typescript
 
-  expo-quick-actions@6.0.2(patch_hash=707f3c099ccbc15522a003bba805e9f6f89c1d4138085af232199b2a706cba0d)(expo@57.0.8)(supports-color@8.1.1)(typescript@6.0.3):
+  expo-quick-actions@6.0.2(patch_hash=d3d89aba0b9c4671e7337b482ac2c65c17de12f91f481954af7dd091e0c5b50e)(expo@57.0.8)(supports-color@8.1.1)(typescript@6.0.3):
     dependencies:
       '@expo/image-utils': 0.8.14(supports-color@8.1.1)(typescript@6.0.3)
       expo: 57.0.8(@babel/core@7.29.7(supports-color@8.1.1))(@expo/dom-webview@57.0.1)(@expo/metro-runtime@57.0.7)(expo-router@57.0.8)(react-dom@19.2.3(react@19.2.3))(react-native-tvos@0.86.0-2)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-native-webview@13.16.1(react-native-tvos@0.86.0-2)(react@19.2.3))(react-native-worklets@0.10.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.86.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native-tvos@0.86.0-2)(react@19.2.3)(supports-color@8.1.1))(react@19.2.3)(supports-color@8.1.1)(typescript@6.0.3)

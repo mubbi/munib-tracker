@@ -18,6 +18,7 @@ import {
   cancelWebReminderTimers,
   scheduleWebReminderTimers,
 } from "@/lib/notifications/web-reminder-scheduler";
+import { captureAppException } from "@/lib/sentry";
 import { trackerStore } from "@/stores/tracker-store";
 
 /**
@@ -61,8 +62,14 @@ export async function rescheduleAll(
     return;
   }
 
-  const reminders = buildReminders(prefs, location, new Date(), buildReminderOptions());
-  scheduleWebReminderTimers(reminders);
+  try {
+    const reminders = buildReminders(prefs, location, new Date(), buildReminderOptions());
+    scheduleWebReminderTimers(reminders);
+  } catch (error) {
+    // Home fires `void rescheduleAll()` after location changes; a throw here
+    // becomes an unhandledrejection (Sentry `M_ID` / crescent math).
+    captureAppException(error, { tags: { area: "notifications", phase: "reschedule" } });
+  }
 }
 
 type ReminderActionData = {
@@ -141,10 +148,15 @@ export async function listScheduled(
   { id: string; title: string; body: string; time?: string; fireAt: string; route?: string }[]
 > {
   if (!prefs.notificationPrefs.masterEnabled) return [];
-  return summarizeReminders(
-    buildReminders(prefs, location, new Date(), buildReminderOptions()),
-    prefs.timeFormat,
-    new Date(),
-    location.timeZone,
-  );
+  try {
+    return summarizeReminders(
+      buildReminders(prefs, location, new Date(), buildReminderOptions()),
+      prefs.timeFormat,
+      new Date(),
+      location.timeZone,
+    );
+  } catch (error) {
+    captureAppException(error, { tags: { area: "notifications", phase: "list" } });
+    return [];
+  }
 }

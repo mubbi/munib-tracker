@@ -2,6 +2,7 @@ import { act, render, screen } from "@testing-library/react-native";
 import { AppState, Platform } from "react-native";
 
 import {
+  ANDROID_WEATHER_EFFECTS_SETTLE_MS,
   HeroWeatherEffects,
   IOS_WEATHER_EFFECTS_SETTLE_MS,
   weatherEffectsMountDelayMs,
@@ -10,7 +11,7 @@ import {
 describe("weatherEffectsMountDelayMs", () => {
   it("waits out iOS 26 NativeTabs / stack springs before mounting particles", () => {
     expect(weatherEffectsMountDelayMs("ios")).toBe(IOS_WEATHER_EFFECTS_SETTLE_MS);
-    expect(weatherEffectsMountDelayMs("android")).toBe(0);
+    expect(weatherEffectsMountDelayMs("android")).toBe(ANDROID_WEATHER_EFFECTS_SETTLE_MS);
     expect(weatherEffectsMountDelayMs("web")).toBe(0);
   });
 
