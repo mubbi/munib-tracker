@@ -62,6 +62,11 @@ function withDebuggableReleaseBuildGradle(fn) {
         `${block}\n            ${marker}\n            debuggable true\n            minifyEnabled false\n`,
     );
   }
+  // AGP rejects shrinkResources without minify, so turn resource shrinking off too.
+  patched = patched.replace(
+    /(buildTypes\s*\{[\s\S]*?release\s*\{[\s\S]*?)shrinkResources\s+[^\n]+/,
+    "$1shrinkResources false // munib-screenshot-apk",
+  );
   if (patched === original || !patched.includes(marker)) {
     throw new Error("Could not patch android/app/build.gradle release block for screenshot APK.");
   }

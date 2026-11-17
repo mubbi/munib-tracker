@@ -106,6 +106,8 @@ const TV_BLOCKED_ANDROID_PERMISSIONS = [
   "android.permission.USE_FINGERPRINT",
   "android.permission.BLUETOOTH",
   "android.permission.BLUETOOTH_CONNECT",
+  // Precise Adhan timing (exact alarms) is a phone-only setting.
+  "android.permission.SCHEDULE_EXACT_ALARM",
 ];
 
 /** True when generating Apple TV / Android TV native projects (`EXPO_TV=1`). */

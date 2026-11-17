@@ -3,7 +3,6 @@ const path = require("node:path");
 const {
   AndroidConfig,
   createRunOncePlugin,
-  withAppBuildGradle,
   withAndroidStyles,
   withDangerousMod,
   withFinalizedMod,
@@ -12,18 +11,6 @@ const {
 } = require("@expo/config-plugins");
 
 const MARKER = "with-android-build-hygiene";
-
-/**
- * Prefer R8 full optimizations for Play vitals (proguard-android.txt includes
- * -dontoptimize and tanks obfuscation/optimize scores).
- * @param {string} contents
- */
-function patchProguardOptimizeFile(contents) {
-  return contents.replace(
-    /getDefaultProguardFile\(["']proguard-android\.txt["']\)/g,
-    'getDefaultProguardFile("proguard-android-optimize.txt")',
-  );
-}
 
 /**
  * Android 15+ deprecates Window status/navigation bar color APIs. Transparent
@@ -57,7 +44,9 @@ function removeDeprecatedSystemBarColorStyles(styles) {
 
 /**
  * Post-prebuild fixes for noisy Android build warnings that upstream Expo/RN
- * templates and modules still emit on SDK 57, plus Play optimization hygiene.
+ * templates and modules still emit, plus Play optimization hygiene.
+ * (The Expo SDK 58 template already uses proguard-android-optimize.txt, so the
+ * old ProGuard-file rewrite was removed.)
  */
 function withAndroidBuildHygiene(config) {
   config = withDangerousMod(config, [
@@ -109,17 +98,21 @@ function withAndroidBuildHygiene(config) {
     },
   ]);
 
-  config = withAppBuildGradle(config, (config) => {
-    config.modResults.contents = patchProguardOptimizeFile(config.modResults.contents);
-    return config;
-  });
-
   config = withGradleProperties(config, (config) => {
-    config.modResults.push({
-      type: "property",
-      key: "org.gradle.warning.mode",
-      value: "none",
-    });
+    // "summary" (not "none"): keep the count of Gradle / AGP 9 deprecations visible
+    // so they get fixed instead of piling up unseen.
+    const warningMode = config.modResults.find(
+      (entry) => entry.type === "property" && entry.key === "org.gradle.warning.mode",
+    );
+    if (warningMode) {
+      warningMode.value = "summary";
+    } else {
+      config.modResults.push({
+        type: "property",
+        key: "org.gradle.warning.mode",
+        value: "summary",
+      });
+    }
 
     const {
       WINDOWS_GRADLE_PROPERTIES,
@@ -183,8 +176,7 @@ subprojects { subproject ->
 module.exports = createRunOncePlugin(
   withAndroidBuildHygiene,
   "with-android-build-hygiene",
-  "1.1.0",
+  "1.2.0",
 );
-module.exports.patchProguardOptimizeFile = patchProguardOptimizeFile;
 module.exports.stripDeprecatedSystemBarColorAttrs = stripDeprecatedSystemBarColorAttrs;
 module.exports.removeDeprecatedSystemBarColorStyles = removeDeprecatedSystemBarColorStyles;

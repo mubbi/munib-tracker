@@ -69,22 +69,24 @@ private final class WatchBridge: NSObject, WCSessionDelegate {
 }
 
 public class MunibExternalCommandsModule: Module {
+  // Expo Modules lifecycle hooks (SDK 58 replacements for the deprecated
+  // `OnCreate` / `OnDestroy` DSL components).
+  public override func didCreate() {
+    WatchBridge.shared.onCommand = { [weak self] in
+      self?.sendEvent("onCommandsAvailable")
+    }
+    WatchBridge.shared.activate()
+    startObservingQueueWrites()
+  }
+
+  public override func willDestroy() {
+    stopObservingQueueWrites()
+  }
+
   public func definition() -> ModuleDefinition {
     Name("MunibExternalCommands")
 
     Events("onCommandsAvailable")
-
-    OnCreate {
-      WatchBridge.shared.onCommand = { [weak self] in
-        self?.sendEvent("onCommandsAvailable")
-      }
-      WatchBridge.shared.activate()
-      self.startObservingQueueWrites()
-    }
-
-    OnDestroy {
-      self.stopObservingQueueWrites()
-    }
 
     AsyncFunction("activateWatchSession") {
       WatchBridge.shared.activate()

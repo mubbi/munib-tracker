@@ -1,35 +1,26 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+// expo-module-gradle-plugin supplies compileSdk / minSdk / targetSdk, Kotlin (AGP 9
+// built-in Kotlin or the Kotlin Gradle plugin, matching the app) and expo-modules-core.
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
 
 group = 'expo.modules.munibexternalcommands'
 version = '1.0.0'
 
 android {
   namespace "expo.modules.munibexternalcommands"
-  compileSdkVersion safeExtGet("compileSdkVersion", 36)
-
   defaultConfig {
-    minSdkVersion safeExtGet("minSdkVersion", 24)
-    targetSdkVersion safeExtGet("targetSdkVersion", 36)
+    versionCode 1
+    versionName "1.0.0"
   }
-
-  lintOptions {
+  lint {
     abortOnError false
   }
 }
 
 dependencies {
-  implementation project(':expo-modules-core')
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
-  implementation "com.google.android.gms:play-services-wearable:18.2.0"
+  implementation "com.google.android.gms:play-services-wearable:20.0.1"
   // NotificationCompat.ProgressStyle + setRequestPromotedOngoing (Android 16 Live Updates).
-  implementation "androidx.core:core-ktx:1.17.0"
-}
-
-def safeExtGet(prop, fallback) {
-  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
-
-def getKotlinVersion() {
-  return rootProject.ext.has("kotlinVersion") ? rootProject.ext.kotlinVersion : "2.0.21"
+  implementation "androidx.core:core-ktx:1.19.1"
 }

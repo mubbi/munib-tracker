@@ -43,6 +43,103 @@ function mergeGradlePropertiesFile(gradlePropsPath, properties) {
   fs.writeFileSync(gradlePropsPath, contents);
 }
 
+/** Android SDK root: ANDROID_HOME / ANDROID_SDK_ROOT, else the Android Studio default. */
+function resolveAndroidSdkDir() {
+  const candidates = [
+    process.env.ANDROID_HOME,
+    process.env.ANDROID_SDK_ROOT,
+    process.env.LOCALAPPDATA && path.join(process.env.LOCALAPPDATA, "Android", "Sdk"),
+  ].filter(Boolean);
+  return candidates.find((dir) => fs.existsSync(dir)) ?? null;
+}
+
+/** Oldest SDK CMake whose bundled ninja (1.12+) is long-path aware on Windows. */
+const MIN_LONG_PATH_CMAKE = [3, 31];
+
+/**
+ * Newest installed SDK CMake 3.x that is >= 3.31 (CMake 4 drops support for the
+ * old `cmake_minimum_required` values some native libraries still declare).
+ *
+ * @param {string} sdkDir
+ * @returns {string | null}
+ */
+function findLongPathCmakeDir(sdkDir) {
+  const cmakeRoot = path.join(sdkDir, "cmake");
+  let versions;
+  try {
+    versions = fs.readdirSync(cmakeRoot);
+  } catch {
+    return null;
+  }
+  const parsed = versions
+    .map((name) => ({ name, parts: name.split(".").map(Number) }))
+    .filter(
+      ({ parts }) =>
+        parts.length >= 2 &&
+        parts.every(Number.isFinite) &&
+        parts[0] === MIN_LONG_PATH_CMAKE[0] &&
+        parts[1] >= MIN_LONG_PATH_CMAKE[1],
+    )
+    .sort((a, b) => {
+      for (let i = 0; i < Math.max(a.parts.length, b.parts.length); i++) {
+        const diff = (b.parts[i] ?? 0) - (a.parts[i] ?? 0);
+        if (diff) return diff;
+      }
+      return 0;
+    });
+  const best = parsed.find(({ name }) =>
+    fs.existsSync(path.join(cmakeRoot, name, "bin", "ninja.exe")),
+  );
+  return best ? path.join(cmakeRoot, best.name) : null;
+}
+
+/** `local.properties` paths use forward slashes (backslashes are escapes there). */
+function toPropertiesPath(dir) {
+  return dir.replaceAll("\\", "/");
+}
+
+/**
+ * Windows only: write `android/local.properties` (a clean prebuild deletes it).
+ *
+ * - `sdk.dir`, so Gradle builds from shells that don't export ANDROID_HOME.
+ * - `cmake.dir`, pointing at SDK CMake >= 3.31. The default 3.22.1 ships ninja
+ *   1.10, which is not long-path aware: since react-native-gesture-handler 3 the
+ *   codegen object paths exceed 260 characters and the C++ build fails with
+ *   "Filename longer than 260 characters". Install one with
+ *   `sdkmanager "cmake;3.31.6"`. Windows long paths must also be enabled
+ *   (HKLM\SYSTEM\CurrentControlSet\Control\FileSystem\LongPathsEnabled = 1).
+ *
+ * @param {string} appRoot
+ */
+function writeWindowsLocalProperties(appRoot) {
+  const androidDir = path.join(appRoot, "android");
+  if (!fs.existsSync(androidDir)) return;
+
+  const sdkDir = resolveAndroidSdkDir();
+  if (!sdkDir) {
+    console.warn("[android] Android SDK not found — set ANDROID_HOME.");
+    return;
+  }
+  const cmakeDir = findLongPathCmakeDir(sdkDir);
+  const file = path.join(androidDir, "local.properties");
+  const keep = fs.existsSync(file)
+    ? fs
+        .readFileSync(file, "utf8")
+        .split(/\r?\n/)
+        .filter((line) => line.trim() && !/^(sdk|cmake)\.dir=/.test(line))
+    : [];
+  const lines = [...keep, `sdk.dir=${toPropertiesPath(sdkDir)}`];
+  if (cmakeDir) {
+    lines.push(`cmake.dir=${toPropertiesPath(cmakeDir)}`);
+  } else {
+    console.warn(
+      "[android] No SDK CMake >= 3.31 found. C++ builds can fail on Windows with " +
+        '"Filename longer than 260 characters". Install one: sdkmanager "cmake;3.31.6"',
+    );
+  }
+  fs.writeFileSync(file, `${lines.join("\n")}\n`);
+}
+
 /**
  * Remove stale Metro file-map caches (v8 serialized blobs in the OS temp dir).
  * Corrupted entries cause "Unable to deserialize cloned data" on startup.
@@ -165,6 +262,7 @@ function prepareWindowsAndroidBuild(appRoot = DEFAULT_APP_ROOT) {
 
   const gradlePropsPath = path.join(appRoot, "android", "gradle.properties");
   mergeGradlePropertiesFile(gradlePropsPath, WINDOWS_GRADLE_PROPERTIES);
+  writeWindowsLocalProperties(appRoot);
   stopGradleDaemon(appRoot);
 }
 
@@ -181,6 +279,7 @@ function prepareAndroidReleaseBuild(appRoot = DEFAULT_APP_ROOT) {
     ...(process.platform === "win32" ? WINDOWS_GRADLE_PROPERTIES : {}),
   };
   mergeGradlePropertiesFile(gradlePropsPath, properties);
+  if (process.platform === "win32") writeWindowsLocalProperties(appRoot);
   stopGradleDaemon(appRoot);
   console.log(
     "Gradle release settings applied (release lint off" +
