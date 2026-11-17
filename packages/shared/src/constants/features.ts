@@ -7,7 +7,8 @@ export type AppFeatureIcon =
   | "reminders"
   | "learn"
   | "guides"
-  | "times";
+  | "times"
+  | "practice";
 
 export type AppFeaturePillar = {
   id: string;
@@ -76,6 +77,19 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "25 translation editions (two bundled), 123 tafsir editions on demand, eight reciters",
       "Bundled Nawawi 40 & Riyad as-Salihin; six major collections on demand",
       "270 duas, 54 adhkar, nine duroods, 99 Names, and universal fuzzy search",
+    ],
+  },
+  {
+    id: "quran-practice",
+    title: "Practise your recitation",
+    summary:
+      "An on-device AI listener follows your recitation word by word, so you can memorize and revise the Qur'an on your own, privately and for free.",
+    highlights: [
+      "Words light up as you recite, with gentle try-again marks and no scores",
+      "Follow, Check, Hide words, and Hide ayahs modes for memorization",
+      "Revision queue that spaces reviews out (1, 3, 7, 14, then 30 days) with an optional reminder",
+      "Audio is processed on your device; it is never recorded, stored, or uploaded",
+      "Optional pronunciation drills for selected tajweed lessons",
     ],
   },
   {
@@ -209,6 +223,13 @@ export const APP_HOME_FEATURES: AppHomeFeature[] = [
     description:
       "Surah, juz, and 604-page mushaf — translations, tafsir, recitation, khatm, and hifz offline.",
     icon: "quran",
+  },
+  {
+    id: "quran-practice",
+    title: "Qur'an practice with AI",
+    description:
+      "Recite and an on-device listener follows you word by word. Memorize, revise, and hide words to test yourself; no audio leaves your phone.",
+    icon: "practice",
   },
   {
     id: "hadith",

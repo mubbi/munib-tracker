@@ -126,6 +126,25 @@ export const RUNTIME_DATA_CREDITS: readonly DataCredit[] = [
 /** Libraries and services that power calculations or enrichment (not scripture text). */
 export const SERVICE_DATA_CREDITS: readonly DataCredit[] = [
   {
+    id: "quran-practice-listener",
+    name: "Qur'an practice — on-device listener",
+    license:
+      "NPL-1.2 (model weights and phoneme corpus; non-commercial, share-alike) / MIT (Tilawa code)",
+    attribution:
+      "Tilawa (yazinsai/tilawa, MIT) with the Zipformer a0w model and phoneme corpus derived from Quran-Lab/zipformer_p-arabic-v3 and alketab's prompter (NPL-1.2). Alternate FastConformer listener: NVIDIA stt_ar_fastconformer (CC-BY-4.0). Inference by ONNX Runtime (MIT). Practice word data: Quran.com API v4.",
+    url: "https://github.com/yazinsai/tilawa",
+    note: "Downloaded on request onto the device; never charged for, never behind ads. Audio stays on the device.",
+  },
+  {
+    id: "quran-practice-pronunciation",
+    name: "Qur'an practice — pronunciation listener",
+    license: "NPL-1.2 (Quran-Lab No-Profit License)",
+    attribution:
+      "TajweedFormer V4 and SDKs by Quran Lab (a waqf). Results are a practice aid, not a ruling.",
+    url: "https://sdk.quranlab.ai/licence",
+    note: "Optional; downloaded only after you agree on the pronunciation consent sheet.",
+  },
+  {
     id: "prayer-times",
     name: "Prayer times calculation",
     license: "MIT",
