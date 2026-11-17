@@ -9,13 +9,13 @@ The Arabic-font picker in **Settings → Fonts** (`ARABIC_FONT_OPTIONS` in
 `src/lib/reading-typography.ts`) offers these families. `System default` always
 works; the others are the bundled files below, registered at startup.
 
-| Picker option     | `fontFamily`      | File                          | License                       | Source (`google/fonts`)      |
-| ----------------- | ----------------- | ----------------------------- | ----------------------------- | ---------------------------- |
-| Amiri             | `Amiri`           | `Amiri-Regular.ttf`           | `Amiri-OFL.txt`               | `ofl/amiri`                  |
-| Scheherazade      | `ScheherazadeNew` | `ScheherazadeNew-Regular.ttf` | `ScheherazadeNew-OFL.txt`     | `ofl/scheherazadenew`        |
-| Noto Naskh Arabic | `NotoNaskhArabic` | `NotoNaskhArabic-Regular.ttf` | `NotoNaskhArabic-OFL.txt`     | `ofl/notonaskharabic`        |
-| QPC Hafs (mushaf) | `QPC_Hafs`        | `qpc-hafs.ttf`                | King Fahd Complex             | Uthmanic Hafs                |
-| Noto Sans Bengali | `NotoSansBengali` | `NotoSansBengali-Regular.ttf` | `NotoSansBengali-OFL.txt`     | `ofl/notosansbengali`        |
+| Picker option        | `fontFamily`         | File                             | License                      | Source (`google/fonts`)  |
+| -------------------- | -------------------- | -------------------------------- | ---------------------------- | ------------------------ |
+| Amiri                | `Amiri`              | `Amiri-Regular.ttf`              | `Amiri-OFL.txt`              | `ofl/amiri`              |
+| Scheherazade         | `ScheherazadeNew`    | `ScheherazadeNew-Regular.ttf`    | `ScheherazadeNew-OFL.txt`    | `ofl/scheherazadenew`    |
+| Noto Naskh Arabic    | `NotoNaskhArabic`    | `NotoNaskhArabic-Regular.ttf`    | `NotoNaskhArabic-OFL.txt`    | `ofl/notonaskharabic`    |
+| QPC Hafs (mushaf)    | `QPC_Hafs`           | `qpc-hafs.ttf`                   | King Fahd Complex            | Uthmanic Hafs            |
+| Noto Sans Bengali    | `NotoSansBengali`    | `NotoSansBengali-Regular.ttf`    | `NotoSansBengali-OFL.txt`    | `ofl/notosansbengali`    |
 | Noto Sans Devanagari | `NotoSansDevanagari` | `NotoSansDevanagari-Regular.ttf` | `NotoSansDevanagari-OFL.txt` | `ofl/notosansdevanagari` |
 
 All four Arabic families ship under the SIL Open Font License (OFL 1.1); the `*-OFL.txt` files in

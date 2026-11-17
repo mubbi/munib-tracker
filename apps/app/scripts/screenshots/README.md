@@ -10,12 +10,12 @@ Part of the store-assets pipeline — see [`docs/STORE_ASSETS.md`](../../../../d
 
 ## Prerequisites
 
-| Tool | Android | iOS | Apple Watch | Apple TV / Android TV |
-|------|---------|-----|-------------|------------------------|
-| App build | `screenshots:android` APK | `screenshots:ios` Release sim | `screenshots:watch` builds phone+watch via `expo run:ios` | `EXPO_TV=1` Leanback / tvOS (`prebuild:app:tv*`) |
-| Emulator / Simulator | Android SDK + AVD | Xcode iOS Simulator | Xcode watchOS Simulator (Ultra 3) + paired iPhone | Apple TV sim / Android TV AVD |
-| Automation | [Maestro CLI](https://maestro.mobile.dev) | Maestro CLI | `xcrun simctl` + App Group seed (no Maestro) | Deep link + `simctl` / `adb screencap` (opt-in `RUN_CAPTURE=1`) |
-| Storage seed | `sqlite3` + `adb` → RKStorage | `sqlite3` + `simctl` | App Group `widget_snapshot_v1` plist | Same phone inject patterns (when capturing) |
+| Tool                 | Android                                   | iOS                           | Apple Watch                                               | Apple TV / Android TV                                           |
+| -------------------- | ----------------------------------------- | ----------------------------- | --------------------------------------------------------- | --------------------------------------------------------------- |
+| App build            | `screenshots:android` APK                 | `screenshots:ios` Release sim | `screenshots:watch` builds phone+watch via `expo run:ios` | `EXPO_TV=1` Leanback / tvOS (`prebuild:app:tv*`)                |
+| Emulator / Simulator | Android SDK + AVD                         | Xcode iOS Simulator           | Xcode watchOS Simulator (Ultra 3) + paired iPhone         | Apple TV sim / Android TV AVD                                   |
+| Automation           | [Maestro CLI](https://maestro.mobile.dev) | Maestro CLI                   | `xcrun simctl` + App Group seed (no Maestro)              | Deep link + `simctl` / `adb screencap` (opt-in `RUN_CAPTURE=1`) |
+| Storage seed         | `sqlite3` + `adb` → RKStorage             | `sqlite3` + `simctl`          | App Group `widget_snapshot_v1` plist                      | Same phone inject patterns (when capturing)                     |
 
 > **Android note:** Do **not** rely on Expo Dev Client + Metro for captures. The capture script builds/installs a self-contained APK so the app launches without a bundler.
 >
@@ -93,16 +93,16 @@ apps/app/store-assets/android/screenshots/android-tv-1080p/<locale>/
 
 After each **dark** capture for a **studio locale**, marketing scenes are copied to `store-assets/captures/<platform>/<locale>/` (`STUDIO_ALIASES` in `lib/config.mjs`):
 
-| Studio file | Scene id |
-|-------------|----------|
-| `home.jpg` | `home` |
-| `tracker.jpg` | `tracker`, `tracker-status-sheet` |
-| `qaza.jpg` | `qaza` |
-| `zikr.jpg` | `zikr` |
-| `quran.jpg` | `quran` |
-| `qibla.jpg` | `qibla` |
-| `names-of-allah.jpg` | `names-of-allah` |
-| `tasbeeh.jpg` | `tasbeeh` |
+| Studio file          | Scene id                          |
+| -------------------- | --------------------------------- |
+| `home.jpg`           | `home`                            |
+| `tracker.jpg`        | `tracker`, `tracker-status-sheet` |
+| `qaza.jpg`           | `qaza`                            |
+| `zikr.jpg`           | `zikr`                            |
+| `quran.jpg`          | `quran`                           |
+| `qibla.jpg`          | `qibla`                           |
+| `names-of-allah.jpg` | `names-of-allah`                  |
+| `tasbeeh.jpg`        | `tasbeeh`                         |
 
 Android and iOS write to separate folders (`captures/android/…` vs `captures/ios/…`) so one platform never overwrites the other.
 
@@ -119,39 +119,39 @@ Then run `pnpm sync:screenshot-captures` from the repo root.
 
 ## Scene groups
 
-| Group | Examples |
-|-------|----------|
-| `tabs` | home, tracker, library, settings |
-| `track` | qaza, statistics, ramadan, tasbeeh, tracker-status-sheet |
-| `read` | quran, hadith, bookmarks |
-| `supplicate` | dua, zikr, duroods, names-of-allah |
-| `learn` | salah-guide, jannah, learn-quran, seerah |
-| `more` | calendar, qibla, search, profile |
-| `settings` | appearance, language, backup, offline-data |
+| Group        | Examples                                                 |
+| ------------ | -------------------------------------------------------- |
+| `tabs`       | home, tracker, library, settings                         |
+| `track`      | qaza, statistics, ramadan, tasbeeh, tracker-status-sheet |
+| `read`       | quran, hadith, bookmarks                                 |
+| `supplicate` | dua, zikr, duroods, names-of-allah                       |
+| `learn`      | salah-guide, jannah, learn-quran, seerah                 |
+| `more`       | calendar, qibla, search, profile                         |
+| `settings`   | appearance, language, backup, offline-data               |
 
 ## Module map
 
-| File | Role |
-|------|------|
-| `capture-android.mjs` / `capture-ios.mjs` | Phone orchestrators (same batching / filters) |
-| `capture-watch.mjs` | Apple Watch Ultra 3 App Store captures |
+| File                                          | Role                                                     |
+| --------------------------------------------- | -------------------------------------------------------- |
+| `capture-android.mjs` / `capture-ios.mjs`     | Phone orchestrators (same batching / filters)            |
+| `capture-watch.mjs`                           | Apple Watch Ultra 3 App Store captures                   |
 | `capture-tvos.mjs` / `capture-android-tv.mjs` | TV store captures (validate-only unless `RUN_CAPTURE=1`) |
-| `validate.mjs` | CI-safe validation (includes TV structure) |
-| `lib/app-locales.mjs` | Loads AppLocale + studio locale lists |
-| `lib/scenes.mjs` | Phone scene catalog |
-| `lib/watch-scenes.mjs` | Watch scenes + demo `widget_snapshot_v1` builders |
-| `lib/tv-scenes.mjs` | TV scene catalog (1080p) |
-| `lib/tv-capture.mjs` | TV deep-link + screencap helpers |
-| `lib/widget-scenes.mjs` | Home-screen widget store scene builders (manual capture) |
-| `lib/demo-data.mjs` | AsyncStorage demo seed |
-| `lib/db-keys.mjs` | Mirror of `src/db/keys.ts` + theme keys |
-| `lib/maestro.mjs` | YAML flow generator |
-| `lib/run-maestro-batches.mjs` | Shared Android/iOS Maestro batch runner |
-| `lib/build-screenshot-apk.mjs` | Self-contained Android APK (no Metro) |
-| `lib/inject-storage-*.mjs` | Phone storage injection |
-| `lib/inject-watch-snapshot.mjs` | Watch App Group seed + simctl screenshot |
-| `lib/i18n.mjs` | Localized labels (all AppLocale catalogs) |
-| `lib/config.mjs` | App IDs, timing, `LOCALES`, `STUDIO_ALIASES`, `WATCH` |
+| `validate.mjs`                                | CI-safe validation (includes TV structure)               |
+| `lib/app-locales.mjs`                         | Loads AppLocale + studio locale lists                    |
+| `lib/scenes.mjs`                              | Phone scene catalog                                      |
+| `lib/watch-scenes.mjs`                        | Watch scenes + demo `widget_snapshot_v1` builders        |
+| `lib/tv-scenes.mjs`                           | TV scene catalog (1080p)                                 |
+| `lib/tv-capture.mjs`                          | TV deep-link + screencap helpers                         |
+| `lib/widget-scenes.mjs`                       | Home-screen widget store scene builders (manual capture) |
+| `lib/demo-data.mjs`                           | AsyncStorage demo seed                                   |
+| `lib/db-keys.mjs`                             | Mirror of `src/db/keys.ts` + theme keys                  |
+| `lib/maestro.mjs`                             | YAML flow generator                                      |
+| `lib/run-maestro-batches.mjs`                 | Shared Android/iOS Maestro batch runner                  |
+| `lib/build-screenshot-apk.mjs`                | Self-contained Android APK (no Metro)                    |
+| `lib/inject-storage-*.mjs`                    | Phone storage injection                                  |
+| `lib/inject-watch-snapshot.mjs`               | Watch App Group seed + simctl screenshot                 |
+| `lib/i18n.mjs`                                | Localized labels (all AppLocale catalogs)                |
+| `lib/config.mjs`                              | App IDs, timing, `LOCALES`, `STUDIO_ALIASES`, `WATCH`    |
 
 ## Adding a scene
 

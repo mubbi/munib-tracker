@@ -12,15 +12,15 @@ Source: https://github.com/itsnavee/prayeraudio (`sounds/adhan.mp3`).
 Seven short MP3s matching the numbered sentence cards on `/salah-guide/adhan`
 (standard Sunni lines, no Fajr-only phrase).
 
-| File | Line |
-|------|------|
-| `01-allahu-akbar-x4.mp3` | Allahu Akbar (×4) |
-| `02-ashhadu-la-ilaha.mp3` | Ashhadu an la ilaha illallah (×2) |
-| `03-ashhadu-muhammad.mp3` | Ashhadu anna Muhammadan rasulullah (×2) |
-| `04-hayya-ala-salah.mp3` | Hayya 'ala as-salah (×2) |
-| `05-hayya-ala-falah.mp3` | Hayya 'ala al-falah (×2) |
-| `06-allahu-akbar-x2.mp3` | Allahu Akbar (×2) |
-| `07-la-ilaha-illallah.mp3` | La ilaha illallah |
+| File                       | Line                                    |
+| -------------------------- | --------------------------------------- |
+| `01-allahu-akbar-x4.mp3`   | Allahu Akbar (×4)                       |
+| `02-ashhadu-la-ilaha.mp3`  | Ashhadu an la ilaha illallah (×2)       |
+| `03-ashhadu-muhammad.mp3`  | Ashhadu anna Muhammadan rasulullah (×2) |
+| `04-hayya-ala-salah.mp3`   | Hayya 'ala as-salah (×2)                |
+| `05-hayya-ala-falah.mp3`   | Hayya 'ala al-falah (×2)                |
+| `06-allahu-akbar-x2.mp3`   | Allahu Akbar (×2)                       |
+| `07-la-ilaha-illallah.mp3` | La ilaha illallah                       |
 
 **Source:** [Wikimedia Commons — Adhan_wiki.oga](https://commons.wikimedia.org/wiki/File:Adhan_wiki.oga)
 (author Jarih, Sunni lecture, ~27 s).

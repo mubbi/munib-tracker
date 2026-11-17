@@ -18,7 +18,7 @@ You know the feeling. You glance at the clock, realise Asr slipped away an hour 
 
 Maybe it has been longer than one prayer. Maybe there is a stretch of months you would rather not count. Most Islamic apps I tried in that moment were content dumps with a crescent icon — more library than companion, more guilt than plan. They wanted an account before you could log a single salah. They nagged. They were useless on a plane or in a basement masjid with no signal.
 
-**Munib (مُنيب)** is an Arabic word for the one who turns back — who returns to Allah in repentance. Not once, dramatically. Over and over, quietly, for a lifetime. It appears in the Qur'an: Ibrahim (peace be upon him) is described as *munīb* in Surah Hud (11:75), and Surah Qaf (50:33) speaks of the one who comes *bi-qalbin munīb* — with a returning heart.
+**Munib (مُنيب)** is an Arabic word for the one who turns back — who returns to Allah in repentance. Not once, dramatically. Over and over, quietly, for a lifetime. It appears in the Qur'an: Ibrahim (peace be upon him) is described as _munīb_ in Surah Hud (11:75), and Surah Qaf (50:33) speaks of the one who comes _bi-qalbin munīb_ — with a returning heart.
 
 That word is the entire reason this app exists.
 
@@ -60,12 +60,12 @@ Munib Tracker is a calm, offline-first worship companion. Start as a guest in un
 
 Munib Tracker is a **pnpm + Turborepo** monorepo designed around two hard problems: reliable offline worship tracking, and a large bundled content library that must never invent scripture.
 
-| Piece | Stack |
-|-------|--------|
-| Product app | Expo SDK 57 — iOS, Android, web, Apple TV, Android TV (`react-native-tvos` + `EXPO_TV=1`) |
-| Marketing site | Next.js 16 + Tailwind CSS v4 |
-| API | NestJS 11 — auth, OpenAPI, typed cloud sync |
-| Admin console | Next.js ops console (users, reports, in-app / push broadcasts) |
+| Piece           | Stack                                                                                                                |
+| --------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Product app     | Expo SDK 58 — iOS, Android, web, Apple TV, Android TV (`react-native-tvos` + `EXPO_TV=1`)                            |
+| Marketing site  | Next.js 16 + Tailwind CSS v4                                                                                         |
+| API             | NestJS 11 — auth, OpenAPI, typed cloud sync                                                                          |
+| Admin console   | Next.js ops console (users, reports, in-app / push broadcasts)                                                       |
 | Shared packages | Domain types, theme tokens, API contract + Orval client, ActivityKit / surface-push delivery, store screenshot specs |
 
 **Offline-first.** Worship data lives in AsyncStorage repositories and `useSyncExternalStore` stores — no SQLite, no account, no network required for the core journey. Cloud sync is last-write-wins across typed records and blob entities, with a manual sync status UI when you opt in.

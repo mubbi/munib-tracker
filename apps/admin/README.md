@@ -2,12 +2,12 @@
 
 Next.js 16 App Router ops console for Munib Tracker.
 
-| | |
-|--|--|
-| **URL (prod)** | https://admin.munibtracker.app |
-| **Dev** | `pnpm dev:admin` → http://localhost:3002 |
-| **Package** | `@munib-tracker/admin` |
-| **Data** | Drizzle via `@munib-tracker/db` (same Postgres as Nest) |
+|                |                                                         |
+| -------------- | ------------------------------------------------------- |
+| **URL (prod)** | https://admin.munibtracker.app                          |
+| **Dev**        | `pnpm dev:admin` → http://localhost:3002                |
+| **Package**    | `@munib-tracker/admin`                                  |
+| **Data**       | Drizzle via `@munib-tracker/db` (same Postgres as Nest) |
 
 ## Quick start
 
@@ -30,10 +30,10 @@ Open http://localhost:3002/dashboard (local bypass acts as super_admin). For rea
 
 ## Scripts
 
-| Script | Command |
-|--------|---------|
-| Dev | `pnpm dev:admin` or `pnpm --filter @munib-tracker/admin dev` |
-| Build | `pnpm build:admin` |
-| Seed admin | `node apps/admin/scripts/seed-admin.mjs email@example.com [role]` |
-| DB smoke | `pnpm --filter @munib-tracker/admin test:db` |
-| Lint / types | `pnpm --filter @munib-tracker/admin lint` / `check-types` |
+| Script       | Command                                                           |
+| ------------ | ----------------------------------------------------------------- |
+| Dev          | `pnpm dev:admin` or `pnpm --filter @munib-tracker/admin dev`      |
+| Build        | `pnpm build:admin`                                                |
+| Seed admin   | `node apps/admin/scripts/seed-admin.mjs email@example.com [role]` |
+| DB smoke     | `pnpm --filter @munib-tracker/admin test:db`                      |
+| Lint / types | `pnpm --filter @munib-tracker/admin lint` / `check-types`         |

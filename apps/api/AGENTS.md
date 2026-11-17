@@ -4,18 +4,18 @@ NestJS backend for cloud sync, social login, and future server-side features.
 
 ## Quick reference
 
-| Item | Value |
-|------|-------|
-| **Path** | `apps/api` |
-| **Dev command** | `pnpm dev:api` |
+| Item             | Value                              |
+| ---------------- | ---------------------------------- |
+| **Path**         | `apps/api`                         |
+| **Dev command**  | `pnpm dev:api`                     |
 | **Default port** | `3001` (marketing-web uses `3000`) |
-| **Base path** | `/api/v1` |
-| **OpenAPI docs** | `http://localhost:3001/docs` |
+| **Base path**    | `/api/v1`                          |
+| **OpenAPI docs** | `http://localhost:3001/docs`       |
 
 ## Stack
 
-- **NestJS 11** + **TypeScript 6** + **Express**
-- **PostgreSQL** via **TypeORM** (`@nestjs/typeorm`)
+- **NestJS 12** + **TypeScript 7** (`tsc` from `@typescript/native`) + **Express 5**
+- **PostgreSQL** via **TypeORM 1.x** (`@nestjs/typeorm`) — find `where` values that are `null`/`undefined` throw; use `IsNull()` or guard first
 - **OpenAPI** exported to `@munib-tracker/api-contract` → Orval SDK in `@munib-tracker/api-client`
 - **Webpack + SWC** monorepo build
 - **Biome** lint, **Vitest** tests
@@ -37,19 +37,19 @@ pnpm generate:api
 
 ## Modules
 
-| Module | Purpose |
-|--------|---------|
-| `health` | Liveness probes at `GET /` and `GET /api/v1/health` |
-| `auth` | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions |
-| `sync` | Pull/push cloud sync (last-write-wins) |
-| `content-reports` | User content issue reports with optional attachments |
-| `user-media` | Private custom-adhkar images (Cloudinary authenticated / disk) |
-| `app-feedback` | Low-star in-app feedback submissions |
-| `oss-content-failures` | On-demand OSS CDN download failures from the Expo app |
-| `version` | Soft/hard update policy (`app_versions`) |
-| `notifications` | Product inbox + push tokens for admin broadcasts (`/notifications/*`); review-reactivation dedupe |
-| `live-activities` | ActivityKit token registration + scheduled phase updates (`/live-activities/*`); QStash/APNs delivery via `@munib-tracker/live-activity-delivery` |
-| `surface-push` | Expo + Web Push Salah phase jobs (`/surface-push/*`) for Android Live Updates and PWA; `@munib-tracker/surface-push-delivery` |
+| Module                 | Purpose                                                                                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `health`               | Liveness probes at `GET /` and `GET /api/v1/health`                                                                                               |
+| `auth`                 | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions                                                                 |
+| `sync`                 | Pull/push cloud sync (last-write-wins)                                                                                                            |
+| `content-reports`      | User content issue reports with optional attachments                                                                                              |
+| `user-media`           | Private custom-adhkar images (Cloudinary authenticated / disk)                                                                                    |
+| `app-feedback`         | Low-star in-app feedback submissions                                                                                                              |
+| `oss-content-failures` | On-demand OSS CDN download failures from the Expo app                                                                                             |
+| `version`              | Soft/hard update policy (`app_versions`)                                                                                                          |
+| `notifications`        | Product inbox + push tokens for admin broadcasts (`/notifications/*`); review-reactivation dedupe                                                 |
+| `live-activities`      | ActivityKit token registration + scheduled phase updates (`/live-activities/*`); QStash/APNs delivery via `@munib-tracker/live-activity-delivery` |
+| `surface-push`         | Expo + Web Push Salah phase jobs (`/surface-push/*`) for Android Live Updates and PWA; `@munib-tracker/surface-push-delivery`                     |
 
 ## Environment
 
@@ -61,20 +61,20 @@ cp apps/api/.env.example apps/api/.env
 
 Key variables:
 
-| Area | Vars |
-|------|------|
-| Server | `PORT`, `JWT_SECRET`, `JWT_ACCESS_TTL`, `JWT_REFRESH_TTL_DAYS`, `CORS_ORIGINS` |
-| Google | `GOOGLE_OAUTH_CLIENT_IDS`, `GOOGLE_OAUTH_WEB_CLIENT_ID`, `GOOGLE_OAUTH_WEB_CLIENT_SECRET` |
-| Apple | `APPLE_CLIENT_IDS`, `APPLE_SERVICES_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` |
-| OAuth allowlist | `OAUTH_REDIRECT_URI_ALLOWLIST` (required in production for code exchange) |
-| Facebook | `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` |
-| Redis (optional) | `REDIS_URL`, `REDIS_KEY_PREFIX`, optional `REDIS_TLS` — rate limits, app-version cache; graceful degrade when unset. Redis Cloud: paste console URI as-is (`redis://` if TLS off, `rediss://` if on) |
-| Surface Push | Expo Push for Android (no API credentials); optional `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` / `VAPID_SUBJECT` for Web Push; surface cron `SURFACE_PUSH_CRON_SECRET` |
+| Area             | Vars                                                                                                                                                                                                                                               |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Server           | `PORT`, `JWT_SECRET`, `JWT_ACCESS_TTL`, `JWT_REFRESH_TTL_DAYS`, `CORS_ORIGINS`                                                                                                                                                                     |
+| Google           | `GOOGLE_OAUTH_CLIENT_IDS`, `GOOGLE_OAUTH_WEB_CLIENT_ID`, `GOOGLE_OAUTH_WEB_CLIENT_SECRET`                                                                                                                                                          |
+| Apple            | `APPLE_CLIENT_IDS`, `APPLE_SERVICES_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY`                                                                                                                                                      |
+| OAuth allowlist  | `OAUTH_REDIRECT_URI_ALLOWLIST` (required in production for code exchange)                                                                                                                                                                          |
+| Facebook         | `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET`                                                                                                                                                                                                           |
+| Redis (optional) | `REDIS_URL`, `REDIS_KEY_PREFIX`, optional `REDIS_TLS` — rate limits, app-version cache; graceful degrade when unset. Redis Cloud: paste console URI as-is (`redis://` if TLS off, `rediss://` if on)                                               |
+| Surface Push     | Expo Push for Android (no API credentials); optional `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` / `VAPID_SUBJECT` for Web Push; surface cron `SURFACE_PUSH_CRON_SECRET`                                                                              |
 | ActivityKit push | `APNS_TEAM_ID`, `APNS_KEY_ID`, `APNS_PRIVATE_KEY`, `APNS_BUNDLE_ID`; `LIVE_ACTIVITY_CRON_SECRET`; optional `QSTASH_*`, `API_PUBLIC_URL`, `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` — see [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md) |
 
 Full product OAuth console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md). Live Activity remote push (QStash/cron/Fly): [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md). Web + Android Expo surface phases: [`docs/WEB_PUSH.md`](../../docs/WEB_PUSH.md). Admin ops (separate app, same DB): [`docs/ADMIN.md`](../../docs/ADMIN.md) · [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md).
 
-**Vercel:** project root `apps/api` — see `vercel.json` (`framework: null`, `outputDirectory: "."` — functions-only, no static `public/`). Do not use NestJS zero-config (loads workspace `.ts` exports at runtime). Serverless entry is `api/index.js` → webpack `dist/vercel-handler.js`, which forwards Vercel `(req, res)` to the Nest Express instance (do not use `serverless-http` — it targets AWS Lambda and never writes the Node response).
+**Vercel:** project root `apps/api` — see `vercel.json` (`framework: null`, `outputDirectory: "."` — functions-only, no static `public/`). Do not use NestJS zero-config (loads workspace `.ts` exports at runtime). Serverless entry is `api/index.js` → rspack `dist/vercel-handler.js` (Nest CLI `builder: rspack`, config in `rspack.config.js`), which forwards Vercel `(req, res)` to the Nest Express instance (do not use `serverless-http` — it targets AWS Lambda and never writes the Node response).
 
 ## Commands
 

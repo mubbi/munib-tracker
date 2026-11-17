@@ -18,15 +18,15 @@ Full workflow: [`docs/STORE_ASSETS.md`](../../docs/STORE_ASSETS.md).
 
 Seven inputs per platform × locale under `apps/app/store-assets/captures/<android|ios>/<locale>/`:
 
-| File | Marketing slide |
-|------|-----------------|
-| `home` | 01-home |
-| `tracker` | 02-salah |
-| `qaza` | 03-qaza |
-| `zikr` | 04-library (primary) |
-| `quran` | 04-library (secondary) |
-| `settings-privacy` | 05-privacy |
-| `settings-sync` | 06-offline |
+| File               | Marketing slide        |
+| ------------------ | ---------------------- |
+| `home`             | 01-home                |
+| `tracker`          | 02-salah               |
+| `qaza`             | 03-qaza                |
+| `zikr`             | 04-library (primary)   |
+| `quran`            | 04-library (secondary) |
+| `settings-privacy` | 05-privacy             |
+| `settings-sync`    | 06-offline             |
 
 Slide `07-more` reuses deck layout without a dedicated capture file.
 
@@ -34,16 +34,16 @@ Native Maestro scripts map app scenes → these filenames via `STUDIO_ALIASES` i
 
 ## Export sizes (`EXPORT_SIZES`)
 
-| Device kind | Resolutions |
-|-------------|-------------|
-| `iphone` | 1320×2868 (6.9"), 1242×2688 (6.5") |
-| `ipad` | 2064×2752 (13") |
-| `android` | 1080×1920 |
-| `android-7` | 1200×1920 portrait; 1920×1200 landscape |
-| `android-10` | 1600×2560 portrait; 2560×1600 landscape |
-| `feature-graphic` | 1024×500 |
-| `watch` | 422×514 (Ultra 3; Apple scales to smaller watches) |
-| `apple-tv` / `android-tv` | 1920×1080 (living-room store screenshots) |
+| Device kind               | Resolutions                                        |
+| ------------------------- | -------------------------------------------------- |
+| `iphone`                  | 1320×2868 (6.9"), 1242×2688 (6.5")                 |
+| `ipad`                    | 2064×2752 (13")                                    |
+| `android`                 | 1080×1920                                          |
+| `android-7`               | 1200×1920 portrait; 1920×1200 landscape            |
+| `android-10`              | 1600×2560 portrait; 2560×1600 landscape            |
+| `feature-graphic`         | 1024×500                                           |
+| `watch`                   | 422×514 (Ultra 3; Apple scales to smaller watches) |
+| `apple-tv` / `android-tv` | 1920×1080 (living-room store screenshots)          |
 
 ### Apple Watch
 
@@ -55,9 +55,9 @@ Native Maestro scripts map app scenes → these filenames via `STUDIO_ALIASES` i
 
 ## Files
 
-| File | Role |
-|------|------|
-| `spec.json` | JSON mirror for Node scripts (sync, seed) |
-| `src/index.ts` | Typed exports for TypeScript consumers |
+| File           | Role                                      |
+| -------------- | ----------------------------------------- |
+| `spec.json`    | JSON mirror for Node scripts (sync, seed) |
+| `src/index.ts` | Typed exports for TypeScript consumers    |
 
 When adding a capture or slide, update **both** `spec.json` and `src/index.ts`, then re-seed screenshot-studio and update native capture aliases if applicable.

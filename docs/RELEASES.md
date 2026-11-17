@@ -4,11 +4,11 @@ Munib Tracker versions its four deployable apps independently with
 [googleapis/release-please-action](https://github.com/googleapis/release-please-action)
 **v4** in **manifest** mode. Config lives at the repo root:
 
-| File | Role |
-|------|------|
-| [`release-please-config.json`](../release-please-config.json) | Per-package release types, components, `extra-files` |
-| [`.release-please-manifest.json`](../.release-please-manifest.json) | Last released semver per package path |
-| [`.github/workflows/release-please.yml`](../.github/workflows/release-please.yml) | Runs on push to `main` |
+| File                                                                              | Role                                                 |
+| --------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| [`release-please-config.json`](../release-please-config.json)                     | Per-package release types, components, `extra-files` |
+| [`.release-please-manifest.json`](../.release-please-manifest.json)               | Last released semver per package path                |
+| [`.github/workflows/release-please.yml`](../.github/workflows/release-please.yml) | Runs on push to `main`                               |
 
 Companion schema / `extra-files` docs:
 [googleapis/release-please](https://github.com/googleapis/release-please)
@@ -16,12 +16,12 @@ Companion schema / `extra-files` docs:
 
 ## Packages and tags
 
-| Path | Release type | Tag example | Changelog |
-|------|--------------|-------------|-----------|
-| `apps/app` | `expo` | `app-v1.2.3` | [`apps/app/CHANGELOG.md`](../apps/app/CHANGELOG.md) |
-| `apps/api` | `node` | `api-v0.1.0` | [`apps/api/CHANGELOG.md`](../apps/api/CHANGELOG.md) |
-| `apps/admin` | `node` | `admin-v0.1.0` | [`apps/admin/CHANGELOG.md`](../apps/admin/CHANGELOG.md) |
-| `apps/marketing-web` | `node` | `marketing-web-v0.1.4` | [`apps/marketing-web/CHANGELOG.md`](../apps/marketing-web/CHANGELOG.md) |
+| Path                 | Release type                                    | Tag example            | Changelog                                                               |
+| -------------------- | ----------------------------------------------- | ---------------------- | ----------------------------------------------------------------------- |
+| `apps/app`           | `node` (+ `app.json` `expo.version` extra-file) | `app-v1.2.3`           | [`apps/app/CHANGELOG.md`](../apps/app/CHANGELOG.md)                     |
+| `apps/api`           | `node`                                          | `api-v0.1.0`           | [`apps/api/CHANGELOG.md`](../apps/api/CHANGELOG.md)                     |
+| `apps/admin`         | `node`                                          | `admin-v0.1.0`         | [`apps/admin/CHANGELOG.md`](../apps/admin/CHANGELOG.md)                 |
+| `apps/marketing-web` | `node`                                          | `marketing-web-v0.1.4` | [`apps/marketing-web/CHANGELOG.md`](../apps/marketing-web/CHANGELOG.md) |
 
 Internal workspace packages (`packages/*`) and `tools/screenshot-studio` are **not**
 Release Please packages. The monorepo root is not versioned as a release artifact.
@@ -66,11 +66,11 @@ are ready to cut that app’s release.
 
 ### Conventional Commits → semver
 
-| Prefix | SemVer bump |
-|--------|-------------|
-| `fix:` | patch |
-| `feat:` | minor |
-| `feat!:` / `fix!:` / `BREAKING CHANGE:` | major |
+| Prefix                                  | SemVer bump |
+| --------------------------------------- | ----------- |
+| `fix:`                                  | patch       |
+| `feat:`                                 | minor       |
+| `feat!:` / `fix!:` / `BREAKING CHANGE:` | major       |
 
 Scopes (`feat(app):`, `fix(api):`) help humans; Release Please primarily
 attributes commits by **files changed under each package path**.
@@ -84,27 +84,44 @@ in the same PR as an app file touch).
 
 ## Product app marketing semver vs build numbers
 
-The product app uses **one marketing semver** across phone, TV, and web
-(Release Please `expo` type updates `package.json` + `app.json` `expo.version`,
-and `.env.example` marketing keys via `x-release-please-version` markers).
+The product app uses **one marketing semver** across phone, TV, Wear OS, and web.
+Release Please (`node` type) updates `package.json`, `app.json` `expo.version`
+(a `json` extra-file), and the `.env.example` marketing keys via
+`x-release-please-version` markers.
 
-The `expo` updater rewrites the whole `apps/app/app.json` with `JSON.stringify`,
-which expands short arrays. Biome then fails `app#lint` on the Release PR (and
-on `develop` → `main` merge CI). The release-please workflow reformats
-`app.json` with Biome on pending app Release PRs after each run.
+The app used the `expo` release type until the Expo SDK 58 upgrade. That type also
+wrote `ios.buildNumber` and an SDK-derived `android.versionCode` (e.g. `570010201`)
+into `app.json` on every release — values `app.config.js` always overrode. It was
+replaced so `.env` is the only source of build integers. The release-please workflow
+still reformats `app.json` with Biome on pending app Release PRs after each run.
 
-| Owned by Release Please | Owned by store/CI (manual or EAS `autoIncrement`) |
-|-------------------------|--------------------------------------------------|
-| `package.json` / `app.json` version | `EXPO_ANDROID_VERSION_CODE` |
-| `EXPO_*_APP_VERSION` / `EXPO_PUBLIC_APP_VERSION` defaults in `.env.example` | `EXPO_ANDROID_TV_VERSION_CODE` |
-| `apps/app/CHANGELOG.md` | `EXPO_IOS_APP_BUILD_NUMBER` / `EXPO_TVOS_APP_BUILD_NUMBER` |
+| Owned by Release Please                                                     | Owned by you, in `apps/app/.env`                           |
+| --------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `package.json` / `app.json` `expo.version`                                  | `EXPO_ANDROID_VERSION_CODE` (phone)                        |
+| `EXPO_*_APP_VERSION` / `EXPO_PUBLIC_APP_VERSION` defaults in `.env.example` | `EXPO_ANDROID_TV_VERSION_CODE` (Android TV)                |
+| `apps/app/CHANGELOG.md`                                                     | `EXPO_WEAR_VERSION_CODE` (Wear OS)                         |
+|                                                                             | `EXPO_IOS_APP_BUILD_NUMBER` / `EXPO_TVOS_APP_BUILD_NUMBER` |
 
-Phone + Android TV share Play package `app.munibtracker` — version codes must
-stay unique and increasing across both form factors. See [`TV.md`](./TV.md).
+### Build integers: `.env` is the single source of truth
+
+- `eas.json` uses `cli.appVersionSource: "local"` with no `autoIncrement`, so EAS
+  builds use exactly the codes `app.config.js` reads from the environment.
+- Phone, Android TV, and Wear OS share Play package `app.munibtracker`: every
+  version code must be unique and higher than any code already uploaded, across
+  all three form factors. See [`TV.md`](./TV.md).
+- **Bump before every store upload.** Set the code above the highest one in Play
+  Console / App Store Connect. (Before SDK 58, EAS kept its own remote counter, so
+  check the stores the first time.)
+- Release scripts (`pnpm release:app:*`, uploads) and EAS `production*` builds
+  **fail** when a code is missing instead of falling back to `1`
+  (`scripts/lib/platform-versions.cjs`).
+- EAS builds don't see your local `.env`. Before `pnpm build:app:*`, set the same
+  variables in the EAS project environment (`eas env:create --environment production
+  --name EXPO_ANDROID_VERSION_CODE --value <code> --force`, and likewise for the others).
 
 After merging an `app-v*` Release PR, copy the new marketing semver from
-`.env.example` into local `apps/app/.env` / EAS secrets before the next store
-upload, then bump build integers as usual.
+`.env.example` into local `apps/app/.env` / EAS environment before the next store
+upload, then bump the build integers.
 
 ## Deploy relationship
 
