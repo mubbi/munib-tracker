@@ -1286,7 +1286,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
               background={colors.muted}
               accessibilityLabel={t("player.seekBack", { seconds: SEEK_STEP })}
               onPress={() => seekBy(-SEEK_STEP)}
-              hitTarget={TvLayout.minFocusTarget}
+              hitTarget={TvLayout.minFocusTargetDp}
             />
             <IconButton
               name={{ ios: "goforward.10", android: "forward_10", web: "forward_10" }}
@@ -1295,7 +1295,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
               background={colors.muted}
               accessibilityLabel={t("player.seekForward", { seconds: SEEK_STEP })}
               onPress={() => seekBy(SEEK_STEP)}
-              hitTarget={TvLayout.minFocusTarget}
+              hitTarget={TvLayout.minFocusTargetDp}
             />
           </View>
         ) : null}

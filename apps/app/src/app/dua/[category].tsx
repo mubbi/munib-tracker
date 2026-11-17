@@ -15,6 +15,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { useResponsiveColumns } from "@/components/ui/responsive-grid";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
@@ -339,7 +340,7 @@ const DuaRow = memo(function DuaRow({
         accessibilityState={{ selected: isFavorite }}
         haptic="selection"
         onPress={handleToggleFavorite}
-        hitTarget={tv ? TvLayout.minFocusTarget : FAVORITE_HIT}
+        hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
         background={tv ? colors.muted : undefined}
         style={tv ? undefined : styles.favoriteButton}
       />
@@ -363,7 +364,7 @@ const styles = StyleSheet.create({
   },
   inputTv: {
     minHeight: TvLayout.minFocusTarget,
-    fontSize: TvLayout.bodyFontSize,
+    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
     paddingHorizontal: Spacing.four,
   },
   separator: { height: Spacing.two },

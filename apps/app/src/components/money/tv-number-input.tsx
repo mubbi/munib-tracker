@@ -85,14 +85,14 @@ export function TvStepButtons({
         name={{ ios: "minus", android: "remove", web: "remove" }}
         accessibilityLabel={t("common.decrease", { label })}
         disabled={current <= min}
-        hitTarget={TvLayout.minFocusTarget}
+        hitTarget={TvLayout.minFocusTargetDp}
         background={colors.card}
         onPress={() => set(current - step)}
       />
       <IconButton
         name={{ ios: "plus", android: "add", web: "add" }}
         accessibilityLabel={t("common.increase", { label })}
-        hitTarget={TvLayout.minFocusTarget}
+        hitTarget={TvLayout.minFocusTargetDp}
         background={colors.card}
         onPress={() => set(current + step)}
       />

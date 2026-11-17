@@ -1,0 +1,56 @@
+diff --git a/AsyncStorage.podspec b/AsyncStorage.podspec
+index a50585b2c9d4e2826a1aca5b07655a88a23dc656..a21ea6ceb98c2ce22be5fd6263caf34a972aecfc 100644
+--- a/AsyncStorage.podspec
++++ b/AsyncStorage.podspec
+@@ -10,7 +10,8 @@ Pod::Spec.new do |s|
+   s.license      = package["license"]
+   s.authors      = package["author"]
+ 
+-  s.platforms    = { :ios => "13.0", :osx => "12.0", :visionos => "1.0" }
++  # tvOS: legacy storage only (SharedAsyncStorage.xcframework has no tvOS slice).
++  s.platforms    = { :ios => "13.0", :osx => "12.0", :visionos => "1.0", :tvos => "13.4" }
+   s.source       = { :git => "https://github.com/react-native-async-storage/async-storage.git", :tag => "#{s.version}" }
+   s.resource_bundles = { "AsyncStorage_resources" => "apple/PrivacyInfo.xcprivacy" }
+ 
+diff --git a/apple/AsyncStorage.mm b/apple/AsyncStorage.mm
+index 61006c1540674f1dfea8714e079d8ed7d4463441..edc8c7bf46c0f0c15bcc575cfb1ea6ea30557166 100644
+--- a/apple/AsyncStorage.mm
++++ b/apple/AsyncStorage.mm
+@@ -2,7 +2,7 @@
+ 
+ #import "RNCAsyncStorage.h"  // legacy storage
+ 
+-#if !TARGET_OS_VISION
++#if !TARGET_OS_VISION && !TARGET_OS_TV
+ 
+ #if __has_include("AsyncStorage-Swift.h")
+ #import "AsyncStorage-Swift.h"
+@@ -15,7 +15,7 @@
+ @implementation AsyncStorage
+ RCT_EXPORT_MODULE(RNAsyncStorage)
+ 
+-#if !TARGET_OS_VISION  // visionos not supported for SharedStorage
++#if !TARGET_OS_VISION && !TARGET_OS_TV  // visionOS / tvOS: no SharedStorage
+ RCT_EXPORT_METHOD(getValues
+                   : (nonnull NSString *)dbName keys
+                   : (nonnull NSArray *)keys resolve
+diff --git a/apple/storage/RNStorage.swift b/apple/storage/RNStorage.swift
+index d0c52abe0ab5b64fb0c5695c8e4a1d4124b03001..47d524c4f9057802a096613cabf3d3f2d6d9628e 100644
+--- a/apple/storage/RNStorage.swift
++++ b/apple/storage/RNStorage.swift
+@@ -1,4 +1,4 @@
+-#if !os(visionOS) // not supported
++#if !os(visionOS) && !os(tvOS) // not supported (no SharedAsyncStorage slice)
+     import React
+     import SharedAsyncStorage
+ 
+diff --git a/apple/storage/StorageRegistry.swift b/apple/storage/StorageRegistry.swift
+index f84b0565e4ab0985ac4233d351661a742487c957..bf6f3f02f51ce21c8a1c79be7e9c9c8ab21922e8 100644
+--- a/apple/storage/StorageRegistry.swift
++++ b/apple/storage/StorageRegistry.swift
+@@ -1,4 +1,4 @@
+-#if !os(visionOS) // not supported
++#if !os(visionOS) && !os(tvOS) // not supported (no SharedAsyncStorage slice)
+     import SharedAsyncStorage
+ 
+     /**

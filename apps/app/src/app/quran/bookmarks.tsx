@@ -123,7 +123,7 @@ export default function QuranBookmarksScreen() {
                       accessibilityLabel={t("quran.bookmarkRemove")}
                       accessibilityState={{ selected: true }}
                       background={colors.muted}
-                      hitTarget={TvLayout.minFocusTarget}
+                      hitTarget={TvLayout.minFocusTargetDp}
                       onPress={() => toggleBookmark(bm.surah, bm.ayah)}
                     />
                   </View>

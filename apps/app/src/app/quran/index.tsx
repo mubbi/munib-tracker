@@ -28,6 +28,7 @@ import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
@@ -915,7 +916,7 @@ export default function QuranHomeScreen() {
                 onPress={() => setQuery("")}
                 size={18}
                 tintColor={colors.mutedForeground}
-                hitTarget={tv ? TvLayout.minFocusTarget : 36}
+                hitTarget={tv ? TvLayout.minFocusTargetDp : 36}
                 haptic="light"
               />
             ) : null}
@@ -1231,7 +1232,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   searchInputTv: {
-    fontSize: TvLayout.bodyFontSize,
+    // TextInput bypasses ThemedText's tvOS density scaling — apply it here.
+    fontSize: tvDp(TvLayout.bodyFontSize),
     paddingVertical: Spacing.three,
     minWidth: 0,
     flexGrow: 1,
@@ -1243,6 +1245,8 @@ const styles = StyleSheet.create({
   filterRowTv: {
     gap: Spacing.three,
     paddingVertical: Spacing.one,
+    // Don't stretch chips to the scroller's height (rendered as tall ovals on tvOS).
+    alignItems: "center",
   },
   filterChip: {
     paddingHorizontal: Spacing.three,
@@ -1254,7 +1258,9 @@ const styles = StyleSheet.create({
   filterChipTv: {
     minHeight: TvLayout.chipMinHeight,
     paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
+    // minHeight already gives the focus target; extra padding made chips taller
+    // than wide, so the pill radius turned short labels ("All") into ovals.
+    paddingVertical: Spacing.one,
     justifyContent: "center",
   },
   row: {

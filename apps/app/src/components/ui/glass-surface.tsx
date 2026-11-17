@@ -86,15 +86,13 @@ export function GlassSurface({
   const wash =
     resolvedWashOpacity > 0 ? withAlpha(colors.background, resolvedWashOpacity) : undefined;
 
-  // TV: no live blur / Liquid Glass — content rarely scrolls beneath chrome
-  // there, and per-frame blur is a real cost on Fire TV sticks / Android TV.
-  // A near-opaque scheme surface reads the same from the couch.
+  // TV: no live blur / Liquid Glass — per-frame blur is a real cost on Fire TV
+  // sticks / Android TV. Fully opaque: D-pad focus scrolls lists (e.g. Tracker)
+  // beneath the floating header, and any translucency lets that text bleed
+  // through the title from couch distance.
   if (isTV()) {
     return (
-      <View
-        style={[style, { backgroundColor: withAlpha(colors.background, 0.96) }]}
-        onLayout={onLayout}
-      >
+      <View style={[style, { backgroundColor: colors.background }]} onLayout={onLayout}>
         {children}
       </View>
     );

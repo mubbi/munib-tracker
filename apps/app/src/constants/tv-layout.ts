@@ -18,6 +18,12 @@ import { tvDp } from "./tv-density";
 export const TvLayout = {
   /** Minimum touch/focus target height for list rows and primary controls. */
   minFocusTarget: tvDp(64),
+  /**
+   * Same target, **unscaled** dp — for APIs that apply {@link tvDp} themselves
+   * (e.g. `IconButton`'s `hitTarget`). Passing `minFocusTarget` there would
+   * double-scale on tvOS (256pt boxes).
+   */
+  minFocusTargetDp: 64,
   /** Extra vertical padding inside scroll content. */
   contentPaddingY: tvDp(32),
   /** Horizontal overscan-safe inset (5% of 960dp; ≥ tvOS 80pt side margin). */

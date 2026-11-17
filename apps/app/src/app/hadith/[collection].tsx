@@ -38,6 +38,7 @@ import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { HadithRepository } from "@/db";
 import type { HadithPrefs } from "@/db/repositories/hadith-repository";
@@ -1344,7 +1345,7 @@ const styles = StyleSheet.create({
   },
   inputTv: {
     minHeight: TvLayout.minFocusTarget,
-    fontSize: TvLayout.bodyFontSize,
+    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.three,
   },

@@ -552,7 +552,14 @@ function BrandSlide({ layout }: { layout: SlideLayout }) {
       <ThemedText type="header" style={[styles.brandTitle, { color: Brand.heroText }]}>
         {APP_NAME}
       </ThemedText>
-      <ThemedText type="subtitle" style={[styles.brandTagline, { color: Brand.heroSubtext }]}>
+      <ThemedText
+        type="subtitle"
+        style={[
+          styles.brandTagline,
+          tv ? styles.brandTaglineTv : null,
+          { color: Brand.heroSubtext },
+        ]}
+      >
         {t("common.appTagline")}
       </ThemedText>
     </>
@@ -569,7 +576,10 @@ function BrandSlide({ layout }: { layout: SlideLayout }) {
       <ThemedText type="label" style={[styles.duaLabel, { color: Brand.heroAccent }]}>
         {t("onboarding.brandDuaLabel")}
       </ThemedText>
-      <ThemedText type="arabic" style={[styles.duaArabic, { color: Brand.heroText }]}>
+      <ThemedText
+        type="arabic"
+        style={[styles.duaArabic, tv ? styles.duaArabicTv : null, { color: Brand.heroText }]}
+      >
         {t("onboarding.brandDuaArabic")}
       </ThemedText>
       <ThemedText type="caption" style={[styles.duaTranslit, { color: Brand.heroSubtext }]}>
@@ -893,22 +903,35 @@ const styles = StyleSheet.create({
     height: 108,
     borderRadius: 24,
   },
+  // TV slides don't scroll: keep the brand column (bismillah → logo → title →
+  // tagline) inside the ~235dp band between the top bar and the dots.
   logoWrapTv: {
-    width: tvDp(112),
-    height: tvDp(112),
+    width: tvDp(84),
+    height: tvDp(84),
+    marginVertical: 0,
   },
   logoGlowTv: {
-    width: tvDp(144),
-    height: tvDp(144),
+    width: tvDp(108),
+    height: tvDp(108),
   },
   logoTv: {
-    width: tvDp(92),
-    height: tvDp(92),
-    borderRadius: tvDp(20),
+    width: tvDp(68),
+    height: tvDp(68),
+    borderRadius: tvDp(16),
   },
+  // Wider card + tighter Arabic line so the full dua (incl. translation) fits
+  // without clipping on the non-scrolling TV slide.
   duaCardTv: {
-    maxWidth: tvDp(440),
+    maxWidth: tvDp(480),
     alignSelf: "center",
+    paddingTop: Spacing.two,
+    paddingBottom: Spacing.two,
+    gap: Spacing.one,
+    marginTop: 0,
+  },
+  duaArabicTv: {
+    fontSize: 17,
+    lineHeight: 28,
   },
   brandTitle: {
     textAlign: "center",
@@ -916,6 +939,10 @@ const styles = StyleSheet.create({
   brandTagline: {
     textAlign: "center",
     maxWidth: 300,
+  },
+  /** TV: 300 is unscaled — at 2× text that wraps the tagline to 3+ lines. */
+  brandTaglineTv: {
+    maxWidth: tvDp(360),
   },
   duaCard: {
     width: "100%",

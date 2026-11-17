@@ -156,7 +156,7 @@ function KhatmMotivationCard({ seed, onShuffle }: { seed: number; onShuffle: () 
           onPress={onShuffle}
           size={18}
           tintColor={tokens.status.info.color}
-          hitTarget={isTV() ? TvLayout.minFocusTarget : 40}
+          hitTarget={isTV() ? TvLayout.minFocusTargetDp : 40}
           haptic="light"
         />
       </View>
@@ -300,7 +300,7 @@ function CustomPlanCard({
                 background={colors.muted}
                 accessibilityLabel={t("common.decrease", { label: t("khatm.customPlan") })}
                 onPress={() => stepDays(-1)}
-                hitTarget={TvLayout.minFocusTarget}
+                hitTarget={TvLayout.minFocusTargetDp}
                 haptic="light"
               />
               <ThemedText type="smallBold" style={styles.tvDaysValue}>
@@ -313,7 +313,7 @@ function CustomPlanCard({
                 background={colors.muted}
                 accessibilityLabel={t("common.increase", { label: t("khatm.customPlan") })}
                 onPress={() => stepDays(1)}
-                hitTarget={TvLayout.minFocusTarget}
+                hitTarget={TvLayout.minFocusTargetDp}
                 haptic="light"
               />
             </View>
@@ -700,7 +700,7 @@ function KhatmActivePlanCard({
               background={colors.muted}
               accessibilityLabel={lessA11y}
               onPress={() => bumpLogAmount(isPageUnit ? -1 : -10)}
-              hitTarget={isTV() ? TvLayout.minFocusTarget : 44}
+              hitTarget={isTV() ? TvLayout.minFocusTargetDp : 44}
               haptic="light"
             />
             <TextInput
@@ -729,7 +729,7 @@ function KhatmActivePlanCard({
               background={colors.muted}
               accessibilityLabel={moreA11y}
               onPress={() => bumpLogAmount(isPageUnit ? 1 : 10)}
-              hitTarget={isTV() ? TvLayout.minFocusTarget : 44}
+              hitTarget={isTV() ? TvLayout.minFocusTargetDp : 44}
               haptic="light"
             />
           </View>

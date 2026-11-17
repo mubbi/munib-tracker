@@ -236,7 +236,7 @@ function RangeField({
             accessibilityLabel={t("common.decrease", { label })}
             disabled={value <= 1}
             onPress={() => onChange(Math.max(1, value - 1))}
-            hitTarget={TvLayout.minFocusTarget}
+            hitTarget={TvLayout.minFocusTargetDp}
           />
           <ThemedText type="smallBold" style={styles.rangeValueTv}>
             {value}
@@ -249,7 +249,7 @@ function RangeField({
             accessibilityLabel={t("common.increase", { label })}
             disabled={value >= max}
             onPress={() => onChange(Math.min(max, value + 1))}
-            hitTarget={TvLayout.minFocusTarget}
+            hitTarget={TvLayout.minFocusTargetDp}
           />
         </View>
       </View>

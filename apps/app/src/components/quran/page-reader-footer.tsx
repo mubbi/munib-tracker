@@ -111,7 +111,7 @@ export function PageReaderFooter({
       onPress={onPlay}
       background={colors.accent}
       tintColor={colors.accentForeground}
-      hitTarget={tv ? TvLayout.minFocusTarget : compact ? 44 : 48}
+      hitTarget={tv ? TvLayout.minFocusTargetDp : compact ? 44 : 48}
       style={styles.playBtn}
     />
   );

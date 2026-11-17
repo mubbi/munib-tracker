@@ -144,6 +144,8 @@ function overcastStrength(effects: WeatherEffectKind[]): number {
 const OVERCAST_TINT = "#3C4856";
 /** Sun disc core — a warm white that stays brighter than every sky glow. */
 const SUN_CORE = "#FFF6DC";
+/** TV: half-width (% of hero) of the band the centred date chip covers, plus the disc radius. */
+const TV_DATE_CHIP_HALF_SPAN_PCT = 26;
 /** Widest the prayer row + timeline grow on tablets / desktop before centring. */
 const DAY_SECTION_MAX_WIDTH = 720;
 
@@ -193,7 +195,11 @@ export function PrayerTimesHero({
   // arc runs behind the chip / clock (and the moon would repeat the chip's own
   // moon glyph), so phones show the moving glow alone.
   const roomyLayout = variant === "card" || tv;
-  const bodyVisible = roomyLayout && celestial.body != null && overcast === 0;
+  // TV: the centred date chip spans roughly the middle half of the hero, so a
+  // disc in that band sits half-hidden behind it (and the moon doubles the
+  // chip's own moon glyph). Show it only while it rides the open sky either side.
+  const clearOfTvDateChip = !tv || Math.abs(celestial.x - 50) > TV_DATE_CHIP_HALF_SPAN_PCT;
+  const bodyVisible = roomyLayout && clearOfTvDateChip && celestial.body != null && overcast === 0;
   // "Clear" draws sun rays — only meaningful while the sun is actually up.
   const skyEffects = useMemo(
     () => (celestial.body === "sun" ? weatherEffects : weatherEffects.filter((e) => e !== "clear")),

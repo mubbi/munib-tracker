@@ -98,7 +98,7 @@ export default function NameFavoritesScreen() {
                   tintColor={tokens.status.warning.color}
                   accessibilityLabel={t("names.unfavorite")}
                   haptic="warning"
-                  hitTarget={isTV() ? TvLayout.minFocusTarget : undefined}
+                  hitTarget={isTV() ? TvLayout.minFocusTargetDp : undefined}
                   onPress={() => toggle(name.id)}
                 />
               </View>

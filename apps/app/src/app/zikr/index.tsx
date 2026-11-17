@@ -15,6 +15,8 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -93,7 +95,12 @@ export default function ZikrHomeScreen() {
         placeholder={t("zikr.searchPlaceholder")}
         placeholderTextColor={colors.mutedForeground}
         accessibilityLabel={t("zikr.searchPlaceholder")}
-        style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
+        style={[
+          styles.input,
+          tv ? styles.inputTv : null,
+          tokens.inputSurface,
+          { color: colors.foreground },
+        ]}
       />
     </Card>
   );
@@ -248,6 +255,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.three,
     fontSize: 15,
+  },
+  // TextInput bypasses ThemedText's tvOS density scaling — match Library's input.
+  inputTv: {
+    minHeight: TvLayout.minFocusTarget,
+    fontSize: tvDp(TvLayout.bodyFontSize),
   },
   gridTop: { marginTop: Spacing.three },
   topRowWide: { flexDirection: "row", alignItems: "stretch", gap: Spacing.three },

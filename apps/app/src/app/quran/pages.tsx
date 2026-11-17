@@ -24,6 +24,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { responsiveColumns } from "@/components/ui/responsive-grid";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -440,7 +441,7 @@ const styles = StyleSheet.create({
   goRowWide: { maxWidth: GO_ROW_MAX_WIDTH, width: "100%" },
   goInputTv: {
     height: TvLayout.minFocusTarget,
-    fontSize: TvLayout.bodyFontSize,
+    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
     lineHeight: TvLayout.bodyFontSize + 6,
   },
   goButtonTv: {

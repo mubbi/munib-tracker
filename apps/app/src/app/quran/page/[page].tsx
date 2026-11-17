@@ -1028,7 +1028,15 @@ const styles = StyleSheet.create({
   pager: { flex: 1, minHeight: 0 },
   pagePlaceholder: { flex: 1 },
   // Two facing pages: odd (first) page on the physical right in every UI language.
-  spread: { flex: 1, flexDirection: "row-reverse", direction: "ltr" },
+  // RN Web rejects the Yoga `direction` prop; it maps `writingDirection` to CSS `direction`.
+  spread: {
+    flex: 1,
+    flexDirection: "row-reverse",
+    ...Platform.select({
+      web: { writingDirection: "ltr" } as const,
+      default: { direction: "ltr" } as const,
+    }),
+  },
   pageScroll: { flex: 1 },
   pageContent: { padding: Spacing.three, flexGrow: 1 },
   sideTurn: {

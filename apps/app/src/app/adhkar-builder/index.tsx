@@ -488,7 +488,7 @@ export default function AdhkarBuilderScreen() {
                       background={tokens.accentSoft}
                       accessibilityLabel={t("common.edit")}
                       onPress={() => openEdit(item)}
-                      hitTarget={tv ? TvLayout.minFocusTarget : undefined}
+                      hitTarget={tv ? TvLayout.minFocusTargetDp : undefined}
                     />
                     <IconButton
                       name={{ ios: "trash", android: "delete", web: "delete" }}
@@ -498,7 +498,7 @@ export default function AdhkarBuilderScreen() {
                       accessibilityLabel={t("customAdhkar.delete")}
                       haptic="warning"
                       onPress={() => setPendingDelete(item)}
-                      hitTarget={tv ? TvLayout.minFocusTarget : undefined}
+                      hitTarget={tv ? TvLayout.minFocusTargetDp : undefined}
                     />
                   </View>
                 </View>

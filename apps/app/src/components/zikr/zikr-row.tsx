@@ -154,7 +154,7 @@ export const ZikrRow = memo(function ZikrRow({
           accessibilityState={{ selected: isFavorite }}
           haptic="selection"
           onPress={handleToggleFavorite}
-          hitTarget={tv ? TvLayout.minFocusTarget : FAVORITE_HIT}
+          hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
           background={tv ? colors.muted : undefined}
           style={tv ? undefined : styles.favoriteButton}
         />

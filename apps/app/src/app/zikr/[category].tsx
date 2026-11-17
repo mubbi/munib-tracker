@@ -24,6 +24,7 @@ import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useScrollToActiveHorizontal } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -433,7 +434,7 @@ const styles = StyleSheet.create({
   },
   inputTv: {
     minHeight: TvLayout.minFocusTarget,
-    fontSize: TvLayout.bodyFontSize,
+    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
     paddingHorizontal: Spacing.four,
   },
   separator: { height: Spacing.two },

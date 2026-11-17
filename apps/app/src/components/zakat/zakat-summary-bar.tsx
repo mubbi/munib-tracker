@@ -145,7 +145,7 @@ export function ZakatSummaryBar({
               web: "restart_alt",
             }}
             size={18}
-            hitTarget={tv ? TvLayout.minFocusTarget : 44}
+            hitTarget={tv ? TvLayout.minFocusTargetDp : 44}
             tintColor={hasInput ? tokens.status.danger.color : colors.mutedForeground}
             background={
               hasInput

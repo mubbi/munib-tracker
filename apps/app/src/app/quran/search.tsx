@@ -14,6 +14,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
@@ -407,7 +408,7 @@ const styles = StyleSheet.create({
   },
   inputTv: {
     minHeight: TvLayout.minFocusTarget,
-    fontSize: TvLayout.bodyFontSize,
+    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
   },
   rowTv: { minHeight: TvLayout.minFocusTarget },
   hint: { marginTop: Spacing.two },
