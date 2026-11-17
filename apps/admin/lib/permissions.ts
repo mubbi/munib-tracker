@@ -49,6 +49,12 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/media", label: "User media", module: "7", roles: ["super_admin", "support", "ops"] },
   { href: "/sync", label: "Sync & devices", module: "8", roles: ["super_admin", "support", "ops"] },
   {
+    href: "/quran-practice",
+    label: "Qur'an practice",
+    module: "15",
+    roles: ["super_admin", "ops", "analytics", "content"],
+  },
+  {
     href: "/auth-abuse",
     label: "Auth & abuse",
     module: "9",

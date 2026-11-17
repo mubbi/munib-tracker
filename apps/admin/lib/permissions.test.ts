@@ -146,3 +146,17 @@ describe("canModerateReports", () => {
     expect(canModerateReports(role)).toBe(expected);
   });
 });
+
+describe("Qur'an practice module", () => {
+  const item = NAV_ITEMS.find((nav) => nav.href === "/quran-practice");
+
+  it("is visible to analytics, ops, content and super_admin, not support", () => {
+    expect(item).toBeDefined();
+    if (!item) return;
+    expect(canAccessModule("super_admin", item)).toBe(true);
+    expect(canAccessModule("analytics", item)).toBe(true);
+    expect(canAccessModule("ops", item)).toBe(true);
+    expect(canAccessModule("content", item)).toBe(true);
+    expect(canAccessModule("support", item)).toBe(false);
+  });
+});
