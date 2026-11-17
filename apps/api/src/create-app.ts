@@ -99,6 +99,11 @@ export async function createApp(
     }),
   );
   app.use(cookieParser());
+  // Sync pushes whole blobs in one request. A full hafiz's Qur'an practice
+  // memorization map (up to 6,236 compact records, ~470 KB) plus other changed
+  // entities would exceed Express's 100 KB default. Scoped to the sync routes:
+  // this parser runs before Nest's global one, which then skips the parsed body.
+  app.use("/api/v1/sync", express.json({ limit: "2mb" }));
   app.use(express.urlencoded({ extended: true }));
   // Only enable credentialed CORS against an explicit allowlist. When no origins
   // are configured, `corsOrigins` is `false` (deny) so we never reflect an

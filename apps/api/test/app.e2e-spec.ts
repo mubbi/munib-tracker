@@ -154,6 +154,46 @@ describe("API (e2e)", () => {
     expect(conflict.body.conflicts[0].data.status).toBe("completed");
   });
 
+  it("accepts the Qur'an practice blob entities and still rejects unknown ones", async () => {
+    const signIn = await http().post("/api/v1/auth/oauth/google").send({ code: "e2e-practice" });
+    const bearer = { Authorization: `Bearer ${signIn.body.accessToken as string}` };
+    const updatedAt = "2026-11-17T09:00:00.000Z";
+
+    await http()
+      .post("/api/v1/sync/push")
+      .set(bearer)
+      .send({
+        changes: [
+          {
+            entity: "quran_companion_prefs",
+            id: "quran_companion_prefs",
+            data: { value: { schemaVersion: 1 } },
+            updatedAt,
+          },
+          {
+            entity: "quran_practice_sessions",
+            id: "quran_practice_sessions",
+            data: { value: { schemaVersion: 1, items: [] } },
+            updatedAt,
+          },
+          {
+            entity: "quran_memorization",
+            id: "quran_memorization",
+            data: { value: { schemaVersion: 1, records: {} } },
+            updatedAt,
+          },
+        ],
+      })
+      .expect(200)
+      .expect(({ body }) => expect(body.accepted).toBe(3));
+
+    await http()
+      .post("/api/v1/sync/push")
+      .set(bearer)
+      .send({ changes: [{ entity: "not_an_entity", id: "x", data: {}, updatedAt }] })
+      .expect(400);
+  });
+
   it("permanently deletes the account and all its synced data", async () => {
     // A distinct identity (apple) so this test's deletion never disturbs the
     // google account the round-trip test above relies on.

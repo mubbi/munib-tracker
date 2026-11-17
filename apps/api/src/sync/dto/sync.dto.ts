@@ -72,6 +72,10 @@ export const SYNC_ENTITIES = [
   "fidyah_calculator",
   "sadaqah_goals",
   "tours_seen",
+  // Qur'an practice (recitation companion): prefs, session history, revision ladder.
+  "quran_companion_prefs",
+  "quran_practice_sessions",
+  "quran_memorization",
 ] as const;
 
 export type SyncEntity = (typeof SYNC_ENTITIES)[number];

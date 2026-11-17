@@ -1869,7 +1869,10 @@
               "zakat_calculator",
               "fidyah_calculator",
               "sadaqah_goals",
-              "tours_seen"
+              "tours_seen",
+              "quran_companion_prefs",
+              "quran_practice_sessions",
+              "quran_memorization"
             ]
           },
           "id": {
