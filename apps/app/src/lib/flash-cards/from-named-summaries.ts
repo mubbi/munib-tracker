@@ -1,4 +1,4 @@
-import { buildMcq } from "./mcq-helpers";
+import { buildMcq, condenseText } from "./mcq-helpers";
 import type { StudyMcq, StudySourceId } from "./types";
 
 type NamedSummary = {
@@ -17,7 +17,7 @@ export function mcqsFromNamedSummaries(
   if (usable.length < 4) return [];
 
   const titles = usable.map((e) => e.title);
-  const bodies = usable.map((e) => e.body);
+  const bodies = usable.map((e) => condenseText(e.body));
   const out: StudyMcq[] = [];
 
   for (const event of usable) {
@@ -25,7 +25,7 @@ export function mcqsFromNamedSummaries(
       id: `${sourceId}:event-describe:${event.id}`,
       sourceId,
       prompt: `What best describes “${event.title}”?`,
-      correct: event.body,
+      correct: condenseText(event.body),
       distractorPool: bodies,
       explanation: event.body,
       categoryLabelKey,
@@ -35,7 +35,7 @@ export function mcqsFromNamedSummaries(
     const identify = buildMcq({
       id: `${sourceId}:event-identify:${event.id}`,
       sourceId,
-      prompt: `Which event is this: “${event.body}”?`,
+      prompt: `Which event is this: “${condenseText(event.body, 80)}”?`,
       correct: event.title,
       distractorPool: titles,
       explanation: event.body,
@@ -63,7 +63,7 @@ export function mcqsFromProfiles(
   if (usable.length < 4) return [];
 
   const names = usable.map((p) => p.name);
-  const summaries = usable.map((p) => p.summary);
+  const summaries = usable.map((p) => condenseText(p.summary));
   const out: StudyMcq[] = [];
 
   for (const profile of usable) {
@@ -71,7 +71,7 @@ export function mcqsFromProfiles(
       id: `${sourceId}:profile-describe:${profile.id}`,
       sourceId,
       prompt: `What best describes ${profile.name}?`,
-      correct: profile.summary,
+      correct: condenseText(profile.summary),
       distractorPool: summaries,
       explanation: profile.summary,
       categoryLabelKey,
@@ -81,7 +81,7 @@ export function mcqsFromProfiles(
     const identify = buildMcq({
       id: `${sourceId}:profile-identify:${profile.id}`,
       sourceId,
-      prompt: `Who is this: “${profile.summary}”?`,
+      prompt: `Who is this: “${condenseText(profile.summary, 80)}”?`,
       correct: profile.name,
       distractorPool: names,
       explanation: profile.summary,

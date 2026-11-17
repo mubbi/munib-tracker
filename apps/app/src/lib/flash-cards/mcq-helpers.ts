@@ -15,6 +15,54 @@ export function truncateText(text: string, max = 110): string {
   return `${base.trimEnd()}…`;
 }
 
+/** Flash-card length budgets (≈1–4 lines on a phone). */
+export const FLASH_PROMPT_MAX = 140;
+export const FLASH_OPTION_MAX = 95;
+export const FLASH_EXPLANATION_MAX = 170;
+
+const SENTENCE_BREAK = /(?<=[.!?])\s+(?=[A-Z"“‘'(])/;
+
+/**
+ * Shorten long copy for flash cards: keep whole leading sentences that fit in `max`;
+ * if even the first sentence is too long, cut at a clause break or word and add “…”.
+ */
+export function condenseText(text: string, max = FLASH_OPTION_MAX): string {
+  const cleaned = normalizeMcqText(text);
+  if (cleaned.length <= max) return cleaned;
+
+  let acc = "";
+  for (const sentence of cleaned.split(SENTENCE_BREAK)) {
+    const next = acc ? `${acc} ${sentence}` : sentence;
+    if (next.length > max) break;
+    acc = next;
+  }
+  if (acc.length >= max * 0.35) return acc;
+
+  const slice = cleaned.slice(0, max - 1);
+  const clause = Math.max(
+    slice.lastIndexOf("; "),
+    slice.lastIndexOf(" — "),
+    slice.lastIndexOf(": "),
+    slice.lastIndexOf(", "),
+  );
+  if (clause > max * 0.45) return `${slice.slice(0, clause).trimEnd()}…`;
+  const space = slice.lastIndexOf(" ");
+  const base = space > max * 0.5 ? slice.slice(0, space) : slice;
+  return `${base.replace(/[\s,;:—–-]+$/, "")}…`;
+}
+
+/** True when a card is short enough to read at a glance. */
+export function isCompactCard(card: {
+  prompt: string;
+  options: readonly string[];
+  explanation?: string;
+}): boolean {
+  return (
+    card.prompt.length <= FLASH_PROMPT_MAX + 30 &&
+    card.options.every((option) => option.length <= FLASH_OPTION_MAX + 5)
+  );
+}
+
 /** Fisher–Yates shuffle (mutates a copy). */
 export function shuffleArray<T>(items: readonly T[], random = Math.random): T[] {
   const next = [...items];
@@ -59,13 +107,14 @@ type BuildMcqInput = {
  * Builds a 4-option MCQ when enough distractors exist; otherwise returns null.
  */
 export function buildMcq(input: BuildMcqInput): StudyMcq | null {
-  // Options keep full wording so study cards stay readable; only collapse whitespace.
-  const correct = normalizeMcqText(input.correct);
+  // Flash cards must be quick to read: condense every option to a short phrase.
+  const correct = condenseText(input.correct, FLASH_OPTION_MAX);
   if (!correct || !input.prompt.trim()) return null;
+  if (input.prompt.trim().length > FLASH_PROMPT_MAX + 30) return null;
 
   const distractors = pickDistractors(
     correct,
-    input.distractorPool.map((d) => normalizeMcqText(d)),
+    input.distractorPool.map((d) => condenseText(d, FLASH_OPTION_MAX)),
     3,
     input.random,
   );
@@ -81,7 +130,7 @@ export function buildMcq(input: BuildMcqInput): StudyMcq | null {
     prompt: input.prompt.trim(),
     options,
     correctIndex,
-    explanation: truncateText(input.explanation, 280),
+    explanation: condenseText(input.explanation, FLASH_EXPLANATION_MAX),
     categoryLabelKey: input.categoryLabelKey,
   };
 }

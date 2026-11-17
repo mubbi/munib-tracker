@@ -2,6 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import {
   __resetFlashCardWarmCachesForTests,
+  ensureFlashCardContent,
   getFlashCardPool,
   toQuizPlayerQuestions,
 } from "./build-bank";
@@ -50,5 +51,18 @@ describe("build-bank", () => {
     __resetFlashCardWarmCachesForTests();
     const after = getFlashCardPool(() => "x").length;
     expect(after).toBe(before);
+  });
+});
+
+describe("flash card length", () => {
+  it("keeps every prompt, option and explanation short", async () => {
+    await ensureFlashCardContent();
+    const pool = getFlashCardPool(() => "A short sample translation for a guide section.");
+    expect(pool.length).toBeGreaterThan(50);
+    for (const card of pool) {
+      expect(card.prompt.length).toBeLessThanOrEqual(175);
+      for (const option of card.options) expect(option.length).toBeLessThanOrEqual(100);
+      expect(card.explanation.length).toBeLessThanOrEqual(175);
+    }
   });
 });
