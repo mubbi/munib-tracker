@@ -51,7 +51,7 @@ import { runWhenIdle } from "@/lib/run-when-idle";
 import { clearAyahIndex } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
-import { abortStt, type SttErrorKind } from "@/lib/stt";
+import type { SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -326,7 +326,6 @@ function DetectorBody({ twoPane }: { twoPane: boolean }) {
     onError: handleSttError,
   });
 
-  useEffect(() => () => abortStt(), []);
   useEffect(() => () => clearAyahIndex(), []);
 
   useEffect(() => {

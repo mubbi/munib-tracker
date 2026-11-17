@@ -47,7 +47,7 @@ import {
 } from "@/lib/search";
 import { clearRecentSearches, loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { abortStt, type SttErrorKind } from "@/lib/stt";
+import type { SttErrorKind } from "@/lib/stt";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
@@ -158,8 +158,6 @@ export default function SearchScreen() {
     onTranscript: setQuery,
     onError: handleSttError,
   });
-
-  useEffect(() => () => abortStt(), []);
 
   const toggleVoiceSearch = () => {
     if (stt.listening) {

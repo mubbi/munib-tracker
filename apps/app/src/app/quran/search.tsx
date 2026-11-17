@@ -33,7 +33,7 @@ import { runWhenIdle } from "@/lib/run-when-idle";
 import { clearAyahIndex } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
-import { abortStt, type SttErrorKind } from "@/lib/stt";
+import type { SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
 
 const MAX_RESULTS = 40;
@@ -99,7 +99,6 @@ export default function QuranSearchScreen() {
     onError: handleSttError,
   });
 
-  useEffect(() => () => abortStt(), []);
   // Reclaim the multi-MB ayah Fuse heap when leaving this screen.
   useEffect(() => () => clearAyahIndex(), []);
 

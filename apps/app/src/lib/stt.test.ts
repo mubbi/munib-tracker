@@ -31,6 +31,7 @@ import {
   resolveSttLang,
   startStt,
   stopStt,
+  sttLangCandidates,
 } from "@/lib/stt";
 
 describe("stt", () => {
@@ -85,6 +86,30 @@ describe("stt", () => {
     expect(mockStart.mock.calls[0]?.[0]).not.toHaveProperty("requiresOnDeviceRecognition");
   });
 
+  it("reports web availability from the browser Speech API module", () => {
+    Platform.OS = "web";
+    mockIsRecognitionAvailable.mockReturnValueOnce(true);
+    expect(isSttAvailable()).toBe(true);
+    mockIsRecognitionAvailable.mockReturnValueOnce(false);
+    expect(isSttAvailable()).toBe(false);
+  });
+
+  it("starts web recognition without native volume metering", () => {
+    Platform.OS = "web";
+    mockStart.mockClear();
+    startStt({ lang: "en-US", volumeMetering: true });
+    expect(mockStart).toHaveBeenCalledWith(expect.objectContaining({ lang: "en-US" }));
+    expect(mockStart.mock.calls[0]?.[0]).not.toHaveProperty("volumeChangeEventOptions");
+  });
+
+  it("orders language fallbacks without leaving Arabic for Arabic fields", () => {
+    expect(sttLangCandidates("en", "arabic")).toEqual(["ar-SA", "ar"]);
+    const urdu = sttLangCandidates("ur", "other");
+    expect(urdu[0]).toMatch(/^ur/);
+    expect(urdu.at(-1)).toBe("en-US");
+    expect(sttLangCandidates("en", "other")).not.toContain("ar");
+  });
+
   it("normalizes recognizer volume to 0→1", () => {
     expect(normalizeSttVolume(-2)).toBe(0);
     expect(normalizeSttVolume(10)).toBe(1);
@@ -113,6 +138,7 @@ describe("stt", () => {
     expect(classifySttError("not-allowed")).toBe("permission");
     expect(classifySttError("no-speech")).toBe("noSpeech");
     expect(classifySttError("service-not-allowed")).toBe("unavailable");
+    expect(classifySttError("audio-capture")).toBe("unavailable");
     expect(classifySttError("network")).toBe("generic");
   });
 });
