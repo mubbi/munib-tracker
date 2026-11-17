@@ -1,5 +1,6 @@
 /**
- * Wraps Expo CLI with extra heap for large monorepo web exports and post-export manifest patching.
+ * Wraps Expo CLI with extra heap for the dev server (native + web + SSR bundles share one
+ * Metro process) and large web exports, plus post-export manifest patching.
  */
 const { spawnSync } = require("child_process");
 const path = require("path");
