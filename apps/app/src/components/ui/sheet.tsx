@@ -22,8 +22,6 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { hasLiquidGlass } from "@/components/ui/glass-surface";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
@@ -32,6 +30,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAnimatedKeyboardHeight } from "@/hooks/use-animated-keyboard-height";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { useBlurTarget } from "@/providers/blur-target-provider";
@@ -90,7 +89,7 @@ export function Sheet({
   const { t } = useTranslation();
   const { colors, tokens, scheme } = useThemeTokens();
   const blurTarget = useBlurTarget();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const tv = isTV();
   // Large screens (tablet / desktop web): Material 3 caps bottom sheets at 640dp

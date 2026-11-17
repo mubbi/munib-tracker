@@ -167,15 +167,22 @@ export function WebGlobalRail({ windowWidth }: { windowWidth: number }) {
         accessibilityRole="link"
         accessibilityLabel={t("common.appName")}
         onPress={() => onNavigate("/")}
-        style={[styles.brand, !expanded && styles.brandCompact]}
+        style={(state) => [
+          expanded ? styles.brandExpanded : styles.brandCompact,
+          state.pressed && styles.pressed,
+        ]}
       >
         <Image
           source={require("@/assets/images/munib-logo.png")}
-          style={styles.logo}
+          style={expanded ? styles.logoExpanded : styles.logoCompact}
           contentFit="contain"
         />
         {expanded ? (
-          <ThemedText type="smallBold" numberOfLines={1} style={{ color: colors.accent }}>
+          <ThemedText
+            type="smallBold"
+            numberOfLines={1}
+            style={[styles.brandTitle, { color: colors.accent }]}
+          >
             {t("common.appName")}
           </ThemedText>
         ) : null}
@@ -198,22 +205,32 @@ const styles = StyleSheet.create({
     // Sticky column beside the scrolling stack content.
     flexShrink: 0,
   } as ViewStyle,
-  brand: {
-    flexDirection: "row",
+  // Expanded rail (248px): large logo stacked over the app name.
+  brandExpanded: {
     alignItems: "center",
-    gap: Spacing.two + 2,
-    paddingHorizontal: Spacing.two,
+    gap: Spacing.three,
+    paddingTop: Spacing.two,
+    marginBottom: Spacing.four,
+  },
+  brandCompact: {
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: Spacing.four,
     minHeight: 44,
   },
-  brandCompact: {
-    justifyContent: "center",
-    paddingHorizontal: 0,
+  logoExpanded: {
+    width: 136,
+    height: 136,
+    borderRadius: Radius.xl,
   },
-  logo: {
-    width: 36,
-    height: 36,
+  logoCompact: {
+    width: 44,
+    height: 44,
     borderRadius: Radius.md,
+  },
+  brandTitle: {
+    fontSize: 19,
+    textAlign: "center",
   },
   group: {
     gap: Spacing.one,

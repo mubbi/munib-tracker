@@ -13,18 +13,17 @@ import { PanResponder, Platform, StyleSheet, View } from "react-native";
 import Animated, {
   FadeInDown,
   FadeOut,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
+import { scheduleOnRN } from "react-native-worklets";
 import { ThemedText } from "@/components/themed-text";
 import { OverlayGlassFill } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 
@@ -129,7 +128,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 /** Frosted toast banners — mount inside BlurTargetProvider overlays. */
 export function ToastHost() {
   const controller = useContext(ToastControllerContext);
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
 
   if (!controller) return null;
 
@@ -185,7 +184,7 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
             dismissing.current = true;
             opacity.value = withTiming(0, { duration: 140 });
             translateY.value = withTiming(-160, { duration: 160 }, (finished) => {
-              if (finished) runOnJS(setSwipedAway)(true);
+              if (finished) scheduleOnRN(setSwipedAway, true);
             });
             return;
           }

@@ -350,7 +350,6 @@ function QuranEvidenceItem({ refItem }: { refItem: JannahQuranRef }) {
             surah={refItem.surah}
             ayahFrom={refItem.ayahFrom}
             ayahTo={refItem.ayahTo}
-            compact
           />
           <QuranAyahBookmarkButton surah={refItem.surah} ayah={refItem.ayahFrom} />
         </View>

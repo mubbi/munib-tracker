@@ -23,8 +23,8 @@ jest.mock("@/components/prayer-tracker-row", () => ({
 }));
 
 describe("TrackerDayChecklist", () => {
-  it("shows remaining salah-adhkar progress on category rows", () => {
-    render(
+  it("shows remaining salah-adhkar progress on category rows", async () => {
+    await render(
       <MunibThemeProvider>
         <TrackerDayChecklist
           date="2026-07-06"

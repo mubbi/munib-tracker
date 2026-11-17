@@ -4,7 +4,13 @@ import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/vali
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ListRenderItem, type ScrollView, StyleSheet, TextInput, View } from "react-native";
+import {
+  type ListRenderItem,
+  type ScrollViewInstance,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -28,6 +34,7 @@ import {
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
 import { zikrListProgress, zikrListRowProgress } from "@/lib/zikr-list-progress";
@@ -100,7 +107,7 @@ export default function ZikrCategoryScreen() {
     if (linkedPrayer) setPrayerFilter(linkedPrayer);
   }, [linkedPrayer]);
 
-  const chipsScrollRef = useRef<ScrollView>(null);
+  const chipsScrollRef = useRef<ScrollViewInstance>(null);
   // Hold null until the chip bar mounts so deep-linked Maghrib/Witr still scroll
   // into view after the corpus finishes loading.
   const activePrayerChip = showPrayerFilter && corpusReady ? prayerFilter : null;
@@ -371,7 +378,7 @@ export default function ZikrCategoryScreen() {
                 maxToRenderPerBatch={8}
                 windowSize={7}
                 removeClippedSubviews={false}
-                ListEmptyComponent={empty}
+                ListEmptyComponent={empty ?? undefined}
               />
             </View>
           )}
@@ -434,3 +441,6 @@ const styles = StyleSheet.create({
   gridRow: { marginHorizontal: -Spacing.one },
   gridCell: { paddingHorizontal: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/zikr/[category]");

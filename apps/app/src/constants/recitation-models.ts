@@ -12,7 +12,7 @@ import data from "./recitation-models.json";
  * Every URL points at a GitHub release tag, never `latest` or a branch. SHA-256
  * values are GitHub's published digests; MD5 values were computed from the same
  * verified downloads so native code can verify with
- * `getInfoAsync(uri, { md5: true })` without reading the file into JS.
+ * `File.digest("MD5")` (lowercase hex) without reading the file into JS.
  *
  * Where the files come from:
  * - iOS / Android download straight from the GitHub release.

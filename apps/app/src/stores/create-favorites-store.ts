@@ -25,7 +25,7 @@ interface FavoritesState {
   setOrder: (order: string[]) => Promise<void>;
 }
 
-interface FavoritesActions {
+export interface FavoritesActions {
   load: () => Promise<void>;
   toggle: (id: string) => Promise<void>;
   setOrder: (order: string[]) => Promise<void>;
@@ -37,10 +37,8 @@ export interface FavoritesStoreApi {
   readBlob: () => Promise<FavoritesBlob>;
   /** Applies a pulled blob with last-write-wins on `updatedAt`. */
   applyRemote: (order: string[], updatedAt?: string) => Promise<void>;
-  useEnsureLoaded: () => void;
-  useFavoriteIds: () => string[];
-  useIsFavorite: (id: string) => boolean;
-  useActions: () => FavoritesActions;
+  /** Stable action singleton — never changes reference. */
+  actions: FavoritesActions;
 }
 
 export function createFavoritesStore(storageKey: string, updatedAtKey: string): FavoritesStoreApi {
@@ -115,31 +113,28 @@ export function createFavoritesStore(storageKey: string, updatedAtKey: string): 
     setOrder: (order) => store.getState().setOrder(order),
   };
 
-  function useEnsureLoaded(): void {
-    useEffect(() => {
-      if (!store.getState().isReady) void store.getState().load();
-    }, []);
-  }
-
-  function useFavoriteIds(): string[] {
-    return useStore(store, (s) => s.order);
-  }
-
-  function useIsFavorite(id: string): boolean {
-    return useStore(store, (s) => s.order.includes(id));
-  }
-
-  function useActions(): FavoritesActions {
-    return actions;
-  }
-
   return {
     store,
     readBlob,
     applyRemote,
-    useEnsureLoaded,
-    useFavoriteIds,
-    useIsFavorite,
-    useActions,
+    actions,
   };
+}
+
+// Hooks live at module scope (Biome `noComponentHookFactories`); each domain
+// store binds them to its own api in a module-level `use*` wrapper.
+
+/** Kicks off the one-time AsyncStorage load for a favorites store. */
+export function useEnsureFavoritesLoaded(api: FavoritesStoreApi): void {
+  useEffect(() => {
+    if (!api.store.getState().isReady) void api.store.getState().load();
+  }, [api]);
+}
+
+export function useFavoritesOrder(api: FavoritesStoreApi): string[] {
+  return useStore(api.store, (s) => s.order);
+}
+
+export function useIsInFavorites(api: FavoritesStoreApi, id: string): boolean {
+  return useStore(api.store, (s) => s.order.includes(id));
 }

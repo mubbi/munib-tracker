@@ -138,7 +138,9 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
   );
   const [lockoutUntil, setLockoutUntil] = useState<number | null>(null);
   const [lockoutRemainingMs, setLockoutRemainingMs] = useState(0);
-  const appStateRef = useRef<AppStateStatus>(AppState.currentState);
+  const appStateRef = useRef<AppStateStatus>(
+    (AppState.currentState as AppStateStatus | null) ?? "active",
+  );
   const backgroundedAtRef = useRef<number | null>(null);
   const wasBackgroundedRef = useRef(false);
   const biometricAuthInProgressRef = useRef(false);

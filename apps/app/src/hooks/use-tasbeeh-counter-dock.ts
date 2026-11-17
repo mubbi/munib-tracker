@@ -4,7 +4,7 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   useWindowDimensions,
-  type View,
+  type ViewInstance,
 } from "react-native";
 
 /** Fraction of the main counter that must be on screen before we hide the dock. */
@@ -16,7 +16,7 @@ const USABLE_VISIBLE_RATIO = 0.5;
  * floating bottom dock so the user can keep counting while reading.
  */
 export function useTasbeehCounterDock() {
-  const counterRef = useRef<View>(null);
+  const counterRef = useRef<ViewInstance>(null);
   const { height: windowHeight } = useWindowDimensions();
   const [dockVisible, setDockVisible] = useState(false);
   const [hasMeasured, setHasMeasured] = useState(false);

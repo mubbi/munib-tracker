@@ -45,6 +45,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { isRTL, useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { createNameSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
@@ -370,7 +371,7 @@ export default function NamesOfAllahScreen() {
       renderItem={renderItem}
       numColumns={columns}
       columnWrapperStyle={styles.columnWrapper}
-      ListHeaderComponent={showPanel ? null : header}
+      ListHeaderComponent={showPanel ? undefined : header}
       getItemLayout={tv ? undefined : getItemLayout}
       onScroll={onScroll}
       scrollEventThrottle={16}
@@ -857,3 +858,6 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/names-of-allah");

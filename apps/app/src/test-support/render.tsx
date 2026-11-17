@@ -23,6 +23,9 @@ function TestProviders({ children }: { children: ReactNode }) {
  * feature tests exercise the same context the app uses. Mirrors Testing
  * Library's `render` signature.
  */
-export function renderWithProviders(ui: ReactElement, options?: Omit<RenderOptions, "wrapper">) {
-  return render(ui, { wrapper: TestProviders, ...options });
+export async function renderWithProviders(
+  ui: ReactElement,
+  options?: Omit<RenderOptions, "wrapper">,
+) {
+  return await render(ui, { wrapper: TestProviders, ...options });
 }

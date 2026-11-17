@@ -32,6 +32,7 @@ import {
   getQuranGuideTajweedLessons,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import {
   useEnsurePronunciationLoaded,
@@ -174,7 +175,6 @@ export default function LearnQuranTajweedDetailScreen() {
                       <QuranGuideClipPlayButton
                         audio={lesson.practiceAudio}
                         sourceHref={`/learn-quran/tajweed/${lesson.id}`}
-                        compact
                       />
                     ) : null}
                   </View>
@@ -222,3 +222,6 @@ const styles = StyleSheet.create({
   },
   practiceText: { flex: 1 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/tajweed/[id]");

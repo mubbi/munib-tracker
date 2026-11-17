@@ -1,9 +1,13 @@
 import { SymbolView } from "expo-symbols";
 import type { RefObject } from "react";
 import { useTranslation } from "react-i18next";
-import { type LayoutChangeEvent, Platform, StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
+import {
+  type LayoutChangeEvent,
+  Platform,
+  StyleSheet,
+  View,
+  type ViewInstance,
+} from "react-native";
 import { GlassSurface } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { NotificationBadge } from "@/components/ui/notification-badge";
@@ -11,6 +15,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { isTV } from "@/lib/platform/is-tv";
@@ -25,7 +30,7 @@ type AppHeaderProps = {
   onNotificationsPress?: () => void;
   onBack?: () => void;
   /** Android: scroll content captured beneath this floating header. */
-  blurTargetRef?: RefObject<View | null>;
+  blurTargetRef?: RefObject<ViewInstance | null>;
   /** Reports the rendered header height so the layout can inset content beneath it. */
   onLayout?: (event: LayoutChangeEvent) => void;
   /**
@@ -46,7 +51,7 @@ export function AppHeader({
   onLayout,
   contentMaxWidth,
 }: AppHeaderProps) {
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const rtl = useIsRTL();

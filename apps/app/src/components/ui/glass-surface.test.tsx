@@ -24,8 +24,8 @@ jest.mock("expo-glass-effect", () => {
 import { GlassControl } from "@/components/ui/glass-surface";
 
 describe("GlassControl", () => {
-  it("can disable the Liquid Glass press lens so navigation taps skip FluidSpring", () => {
-    render(
+  it("can disable the Liquid Glass press lens so navigation taps skip FluidSpring", async () => {
+    await render(
       <GlassControl radius={12} interactive={false}>
         <Text>Go</Text>
       </GlassControl>,
@@ -34,8 +34,8 @@ describe("GlassControl", () => {
     expect(screen.getByTestId("glass-view").props.accessibilityState).toEqual({ selected: false });
   });
 
-  it("keeps the press lens on in-place controls by default", () => {
-    render(
+  it("keeps the press lens on in-place controls by default", async () => {
+    await render(
       <GlassControl radius={12}>
         <Text>Play</Text>
       </GlassControl>,

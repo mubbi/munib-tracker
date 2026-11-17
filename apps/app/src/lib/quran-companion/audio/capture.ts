@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import type { RecitationCapture } from "./types";
 import { CaptureError } from "./types";
 
@@ -20,4 +22,9 @@ export function createRecitationCapture(): RecitationCapture {
     },
     async stop() {},
   };
+}
+
+/** One capture per mounted practice session (same shape as the native hook). */
+export function useRecitationCapture(): RecitationCapture {
+  return useMemo(() => createRecitationCapture(), []);
 }

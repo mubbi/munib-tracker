@@ -30,6 +30,7 @@ import {
 } from "@/lib/app/app-version-policy";
 import { resolveAppPlatform } from "@/lib/app/resolve-app-platform";
 import { resolveAppVersion } from "@/lib/app/resolve-app-version";
+import { isTV } from "@/lib/platform/is-tv";
 import { useAuth } from "@/providers/auth-provider";
 
 export type AppVersionContextValue = {
@@ -107,6 +108,11 @@ export function AppVersionProvider({ children }: { children: ReactNode }) {
 
   const ingestVersionMeta = useCallback(
     (meta: AppVersionMeta) => {
+      // TV builds are versioned on their own (EXPO_ANDROID_TV_APP_VERSION /
+      // EXPO_TVOS_APP_VERSION) but report the same platform as the phone app, and
+      // the API has no TV platform yet. Applying the phone policy would put every
+      // TV install behind a permanent "Update required" gate.
+      if (isTV()) return;
       setVersionMeta((prev) => applyVersionMeta(prev, meta, clientVersion));
     },
     [clientVersion],

@@ -10,7 +10,7 @@ import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tr
 import { useFocusEffect } from "expo-router";
 import { type RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ScrollView, StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { ThemedText } from "@/components/themed-text";
 import { TrackerDayChecklist } from "@/components/tracker-day-checklist";
@@ -160,7 +160,7 @@ type CalendarDayPanelProps = {
   locale: AppLocale;
   /** Fresh all-days aggregate after each load/edit, so the month grid re-colours. */
   onActivityChange?: (activity: Map<string, DayActivity>) => void;
-  scrollRef?: RefObject<ScrollView | null>;
+  scrollRef?: RefObject<ScrollViewInstance | null>;
   getScrollY?: () => number;
 };
 

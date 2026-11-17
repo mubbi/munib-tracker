@@ -298,3 +298,20 @@ export function filterValueTextStyle(value: string): TextStyle {
     textAlign: uiTextAlign(rtl),
   };
 }
+
+/**
+ * Horizontal safe-area padding as logical (start/end) props.
+ *
+ * Safe-area insets are physical edges, while layout flips in RTL. iOS 27 puts the
+ * system bars into a vertical rail on the left or right edge of large iPhone
+ * windows (iPhone Duo), and landscape notches also inset an edge — this maps each
+ * physical inset onto the logical side it lands on, in LTR and RTL alike.
+ */
+export function horizontalSafeAreaPadding(
+  insets: { left: number; right: number },
+  rtl: boolean = I18nManager.isRTL,
+): Pick<ViewStyle, "paddingStart" | "paddingEnd"> {
+  return rtl
+    ? { paddingStart: insets.right, paddingEnd: insets.left }
+    : { paddingStart: insets.left, paddingEnd: insets.right };
+}

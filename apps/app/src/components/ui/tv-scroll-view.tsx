@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { ScrollView, type ScrollViewProps } from "react-native";
+import { ScrollView, type ScrollViewInstance, type ScrollViewProps } from "react-native";
 
 import { isTV } from "@/lib/platform/is-tv";
 
@@ -13,7 +13,7 @@ import { isTV } from "@/lib/platform/is-tv";
  *
  * Override with `focusable` when a screen intentionally needs a focusable scroller.
  */
-export const TvScrollView = forwardRef<ScrollView, ScrollViewProps>(function TvScrollView(
+export const TvScrollView = forwardRef<ScrollViewInstance, ScrollViewProps>(function TvScrollView(
   { focusable, ...rest },
   ref,
 ) {

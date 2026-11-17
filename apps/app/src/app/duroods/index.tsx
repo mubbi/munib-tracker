@@ -40,6 +40,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { createDuroodSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import {
   useDuroodFavoritesActions,
@@ -268,7 +269,7 @@ export default function DuroodsScreen() {
                 icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
                 title={t("duroods.noResults")}
               />
-            ) : null
+            ) : undefined
           }
         />
         {showSideFilters ? (
@@ -324,3 +325,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/duroods");

@@ -1,8 +1,8 @@
 import { usePathname } from "expo-router";
 import { Platform, useWindowDimensions } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useIsTabScreen } from "@/hooks/use-tab-screen";
 import { isTV } from "@/lib/platform/is-tv";
 import { isChromelessRoute } from "@/lib/web/nav-section";
@@ -47,10 +47,14 @@ export function useWebGlobalRail(): { visible: boolean; width: number } {
  */
 export function useLargeScreenLayout() {
   const { width } = useWindowDimensions();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const inTabs = useIsTabScreen();
   const tv = isTV();
   const isWide = tv || width >= SIDE_RAIL_BREAKPOINT;
+  // iPhones (incl. iPhone Duo) always use system NativeTabs, never our custom rail
+  // (see app-tabs.tsx), so no rail width is reserved there even on wide windows.
+  const iPhone = Platform.OS === "ios" && !Platform.isPad && !tv;
+  const customRail = isWide && !iPhone;
   const isListDetail = tv || width >= LIST_DETAIL_BREAKPOINT;
   const bottomTabBarHeight = getWebBottomTabBarHeight(insets.bottom);
   const railWidth = tv ? TvLayout.sideRailWidthExpanded : SIDE_RAIL_WIDTH;
@@ -66,7 +70,7 @@ export function useLargeScreenLayout() {
      * rail (see `useWebGlobalRail`) is beside every routed screen.
      */
     // Web: the global rail sits beside every routed screen (not only tabs).
-    sideRailWidth: webRail.visible ? webRail.width : isWide && inTabs ? railWidth : 0,
+    sideRailWidth: webRail.visible ? webRail.width : customRail && inTabs ? railWidth : 0,
     /** Bottom offset for docked chrome (0 when the side rail replaces the tab bar). */
     bottomTabBarOffset: isWide ? 0 : bottomTabBarHeight,
   };

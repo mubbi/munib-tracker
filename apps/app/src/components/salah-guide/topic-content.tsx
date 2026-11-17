@@ -1,7 +1,7 @@
 import type { SalahGuideTopic } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, type ViewInstance } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
 import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
@@ -66,7 +66,7 @@ export type SalahGuideStepsAudioProps = {
    * Register a step row for auto-scroll while audio highlight moves
    * (`useScrollToActive` callback ref factory).
    */
-  registerStep?: (index: number) => (node: View | null) => void;
+  registerStep?: (index: number) => (node: ViewInstance | null) => void;
 };
 
 function SalahGuideSteps({

@@ -4,7 +4,7 @@ import { MunibThemeProvider } from "./theme-provider";
 
 describe("MunibThemeProvider", () => {
   it("renders children with default theme after preferences load", async () => {
-    render(
+    await render(
       <MunibThemeProvider>
         <Text testID="child">Hello</Text>
       </MunibThemeProvider>,

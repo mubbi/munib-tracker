@@ -30,8 +30,8 @@ const baseItem: ReadingItem = {
   reference: "Sahih al-Bukhari 6324",
 };
 
-function renderCard(item: ReadingItem) {
-  return render(
+async function renderCard(item: ReadingItem) {
+  return await render(
     <MunibThemeProvider>
       <ReadingCard item={item} enableContextMenu={false} />
     </MunibThemeProvider>,
@@ -48,7 +48,7 @@ describe("ReadingCard variants", () => {
   });
 
   it("renders alternate authentic wordings with transliteration, meaning, and reference", async () => {
-    renderCard({
+    await renderCard({
       ...baseItem,
       variants: [
         {
@@ -75,7 +75,7 @@ describe("ReadingCard variants", () => {
   });
 
   it("omits the variants block when the item has none", async () => {
-    renderCard(baseItem);
+    await renderCard(baseItem);
 
     await waitFor(() => {
       expect(screen.getByText("In Your name, O Allah, I die and I live.")).toBeTruthy();

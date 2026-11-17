@@ -1,7 +1,7 @@
 import { type Href, useRouter } from "expo-router";
 import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { type ScrollView, StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
@@ -31,6 +31,7 @@ import {
   isLetterPronunciationTrack,
   letterIdFromTrack,
 } from "@/lib/quran-guide-audio";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 
 const SOURCE_HREF = "/learn-quran/letters";
@@ -56,7 +57,7 @@ export default function LearnQuranLettersScreen() {
   const lettersActive = isLetterPronunciationTrack(audio.current?.id);
   const activeLetterId = lettersActive ? letterIdFromTrack(audio.current?.id) : null;
 
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const { register, onScroll } = useScrollToActive(
     scrollRef,
     lettersActive ? activeLetterId : null,
@@ -231,3 +232,6 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/letters");

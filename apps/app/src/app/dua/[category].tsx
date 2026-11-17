@@ -22,6 +22,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import { createDuaSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import {
   useDuaFavoritesActions,
@@ -243,7 +244,7 @@ export default function DuaCategoryScreen() {
               initialNumToRender={12}
               maxToRenderPerBatch={8}
               windowSize={7}
-              ListEmptyComponent={empty}
+              ListEmptyComponent={empty ?? undefined}
             />
           </View>
         )}
@@ -410,3 +411,6 @@ const styles = StyleSheet.create({
     end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_SIZE / 2 - FAVORITE_HIT / 2,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/dua/[category]");

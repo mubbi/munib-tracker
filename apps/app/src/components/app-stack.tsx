@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { useMemo } from "react";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 
+import { ScreenErrorBoundary } from "@/components/navigation/screen-error-boundary";
 import { WebGlobalRail } from "@/components/web/web-global-rail";
 import { useWebGlobalRail } from "@/hooks/use-large-screen-layout";
 import { createNavigationTheme } from "@/lib/navigation-theme";
@@ -54,8 +55,9 @@ export function AppStack() {
       <View style={styles.webShell}>
         {webRail.visible && showApp ? <WebGlobalRail windowWidth={windowWidth} /> : null}
         <View style={styles.stackColumn}>
-          <Stack screenOptions={screenOptions}>
-            <Stack.Protected guard={showApp}>
+          <Stack screenOptions={screenOptions} unstable_screenErrorBoundary={ScreenErrorBoundary}>
+            {/* SDK 58: a failed guard renders a redirect (the route stays registered). */}
+            <Stack.Protected guard={showApp} redirectTo="/intro">
               <Stack.Screen name="(tabs)" />
             </Stack.Protected>
             <Stack.Screen name="(onboarding)/intro" options={{ gestureEnabled: false }} />

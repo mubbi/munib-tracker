@@ -161,7 +161,7 @@ export async function removeKeyTree(baseKey: string): Promise<void> {
     const keys = await listKeyTree(baseKey);
     if (keys.length === 0) return;
     for (const key of keys) unreadableKeys.delete(key);
-    await AsyncStorage.multiRemove(keys);
+    await AsyncStorage.removeMany(keys);
   });
 }
 

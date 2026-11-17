@@ -10,7 +10,7 @@ import {
   type ListRenderItem,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  type ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   TextInput,
   View,
@@ -64,6 +64,7 @@ import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typo
 import { isRTL, useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { buildHadithSharePayload } from "@/lib/share";
 import { resolveHadithTranslation } from "@/lib/translation-locale";
@@ -139,7 +140,7 @@ export default function HadithCollectionScreen() {
   const { updatePrefs } = useHadithActions();
   const readingSizes = resolveReadingFontSizes("hadith", fontPrefs);
   const listRef = useRef<FlatList<HadithItem>>(null);
-  const screenScrollRef = useRef<ScrollView>(null);
+  const screenScrollRef = useRef<ScrollViewInstance>(null);
   const [toolbarVisible, setToolbarVisible] = useState(false);
   const headerCardHeightRef = useRef(0);
   const readingProgress = useSharedValue(0);
@@ -1452,3 +1453,6 @@ const styles = StyleSheet.create({
   narrator: { fontStyle: "italic" },
   english: { marginTop: Spacing.three, lineHeight: 26 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/hadith/[collection]");

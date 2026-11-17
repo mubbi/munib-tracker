@@ -1,11 +1,10 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { ActivityIndicator, I18nManager, StyleSheet, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Fonts, MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import i18n from "@/i18n";
 import { isTV } from "@/lib/platform/is-tv";
 import { useResolvedThemeScheme } from "@/lib/resolved-theme-scheme";
@@ -41,7 +40,7 @@ const HEADER_BAND = 60;
 export function SuspenseFallback({ route }: SuspenseFallbackProps) {
   const scheme = useResolvedThemeScheme();
   const palette = scheme === "dark" ? darkPalette : lightPalette;
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const router = useRouter();
   const title = i18n.t("common.loadingRoute");
   const hint = i18n.t("common.loadingRouteHint");

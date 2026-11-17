@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { type ComponentType, lazy, type ReactNode, Suspense } from "react";
+import { type ComponentType, lazy, type ReactNode, Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import {
@@ -155,6 +155,7 @@ export function HomeBelowFold({
   useReviewRouteTrigger("home");
   useReviewStreakTrigger(streak);
   const { quickActionOrder, hiddenHomeModules } = usePreferences();
+  const [exploreExpanded, setExploreExpanded] = useState(false);
   // "New" badges (15 days per device) — also adds new tiles once to a customised grid.
   useEnsureNewFeaturesLoaded(usePreferencesReady());
   const newFeatureIds = useNewFeatureIds();
@@ -262,6 +263,16 @@ export function HomeBelowFold({
 
   // Dashboard: more tiles per row in the wider main column.
   const quickActionColumns = tv ? 3 : dashboard ? (width >= 1600 ? 6 : width >= 1280 ? 5 : 4) : 4;
+
+  // Explore opens on the user's top shortcuts (their saved order) and reveals
+  // the rest on demand, so a long grid doesn't bury the cards below it. TV keeps
+  // the full grid — a mid-list toggle would break D-pad focus flow.
+  const exploreCollapsedCount = quickActionColumns * (quickActionColumns >= 5 ? 2 : 3);
+  const exploreCollapsible = !tv && visibleQuickActions.length > exploreCollapsedCount;
+  const exploreShowsAll = !exploreCollapsible || exploreExpanded;
+  const exploreItems = exploreShowsAll
+    ? visibleQuickActions
+    : visibleQuickActions.slice(0, exploreCollapsedCount);
 
   const goalCard = (
     <Card>
@@ -467,15 +478,41 @@ export function HomeBelowFold({
         }}
         onActionPress={() => router.push("/settings/home")}
       />
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.exploreHint}>
-        {tTv(t, "home.exploreHint", "home.exploreHintTv", {
-          shown: visibleQuickActions.length,
-          total: allQuickActions.length,
-        })}
-      </ThemedText>
       <View style={styles.quickActions}>
-        <QuickActionGrid items={visibleQuickActions} columns={quickActionColumns} />
+        <QuickActionGrid items={exploreItems} columns={quickActionColumns} />
       </View>
+      {exploreCollapsible ? (
+        <PressableScale
+          accessibilityRole="button"
+          accessibilityState={{ expanded: exploreExpanded }}
+          onPress={() => setExploreExpanded((value) => !value)}
+          haptic="light"
+          dimOnPress
+          style={[styles.exploreToggle, { backgroundColor: tokens.accentSoft }]}
+        >
+          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+            {exploreExpanded ? t("reading.showLess") : t("reading.showMore")}
+          </ThemedText>
+          <SymbolView
+            name={
+              exploreExpanded
+                ? { ios: "chevron.up", android: "expand_less", web: "expand_less" }
+                : { ios: "chevron.down", android: "expand_more", web: "expand_more" }
+            }
+            size={14}
+            tintColor={colors.accentText}
+          />
+        </PressableScale>
+      ) : null}
+      {/* Shown once the whole grid is visible, so the count matches what's on screen. */}
+      {exploreShowsAll ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.exploreHint}>
+          {tTv(t, "home.exploreHint", "home.exploreHintTv", {
+            shown: visibleQuickActions.length,
+            total: allQuickActions.length,
+          })}
+        </ThemedText>
+      ) : null}
     </Card>
   ) : null;
 
@@ -632,5 +669,17 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
   },
   quickActions: { marginTop: Spacing.two },
-  exploreHint: { marginTop: Spacing.half },
+  exploreToggle: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    gap: Spacing.one,
+    minHeight: 44,
+    marginTop: Spacing.two,
+    paddingHorizontal: Spacing.four,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+  },
+  exploreHint: { marginTop: Spacing.three, textAlign: "center" },
 });

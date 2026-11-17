@@ -51,7 +51,14 @@ export async function getSecureItem(key: string): Promise<string | null> {
       const value = await SecureStore.getItemAsync(key, options);
       if (value == null) continue;
       if (options === LEGACY_SECURE_STORE_OPTIONS) {
-        await deleteSecureItemWithOptions(key, LEGACY_SECURE_STORE_OPTIONS);
+        // Best effort: expo-secure-store 58 rejects when the iOS keychain refuses a
+        // delete. The value is already read, and the write below re-stores it with
+        // the current (and, since 58, overwrite-applied) accessibility.
+        try {
+          await deleteSecureItemWithOptions(key, LEGACY_SECURE_STORE_OPTIONS);
+        } catch {
+          // keep going — never fail the read because the legacy copy lingers
+        }
         await setSecureItem(key, value);
       }
       return value;

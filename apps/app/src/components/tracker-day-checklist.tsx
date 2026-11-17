@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { Fragment, type RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ScrollView, StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View, type ViewInstance } from "react-native";
 
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { FridayTrackerSection } from "@/components/friday-tracker-section";
@@ -74,10 +74,10 @@ export type TrackerDayChecklistProps = {
   /** When omitted, excused chips use the tracker store and guide flow (today tab). */
   onExcusedChange?: (reason: ExcusedReason | null) => void;
   /** Parent ScreenLayout scroll — used to jump to the Jumu'ah checklist. */
-  scrollRef?: RefObject<ScrollView | null>;
+  scrollRef?: RefObject<ScrollViewInstance | null>;
   getScrollY?: () => number;
   /** Deep-link registration for `?focus=friday` (Tracker tab). */
-  registerFocus?: (key: string) => (node: View | null) => void;
+  registerFocus?: (key: string) => (node: ViewInstance | null) => void;
   fridayFocused?: boolean;
   whiteDaysFocused?: boolean;
   /** TV: request initial D-pad focus on the first obligatory Salah row. */
@@ -107,10 +107,10 @@ export function TrackerDayChecklist({
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
   const [, setZikrReady] = useState(false);
-  const fridaySectionRef = useRef<View>(null);
+  const fridaySectionRef = useRef<ViewInstance>(null);
   const [fridayHighlight, setFridayHighlight] = useState(false);
   const showFriday = isFridayDateString(date);
-  const whiteDaysSectionRef = useRef<View>(null);
+  const whiteDaysSectionRef = useRef<ViewInstance>(null);
   const [whiteDaysHighlight, setWhiteDaysHighlight] = useState(false);
   const showWhiteDays = isWhiteDayDateString(date);
   const tv = isTV();
@@ -150,7 +150,7 @@ export function TrackerDayChecklist({
   };
 
   const setFridaySectionRef = useCallback(
-    (node: View | null) => {
+    (node: ViewInstance | null) => {
       fridaySectionRef.current = node;
       registerFocus?.(FRIDAY_CHECKLIST_FOCUS)(node);
     },
@@ -166,7 +166,7 @@ export function TrackerDayChecklist({
   }, [getScrollY, scrollRef]);
 
   const setWhiteDaysSectionRef = useCallback(
-    (node: View | null) => {
+    (node: ViewInstance | null) => {
       whiteDaysSectionRef.current = node;
       registerFocus?.(WHITE_DAYS_CHECKLIST_FOCUS)(node);
     },

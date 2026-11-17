@@ -4,7 +4,6 @@ import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -14,6 +13,7 @@ import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -24,6 +24,7 @@ import {
 import { isWeb } from "@/lib/notifications/platform";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { locationStore, useLocationActions, useLocationStatus } from "@/stores/location-store";
 import { preferencesStore, usePreferencesActions } from "@/stores/preferences-store";
@@ -58,7 +59,7 @@ function resolveNext(raw: string | string[] | undefined): Href {
 export default function OnboardingLocationScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { next: nextParam } = useLocalSearchParams<{ next?: string }>();
   const { update, setNotificationPrefs } = usePreferencesActions();
   const { requestDeviceLocation } = useLocationActions();
@@ -473,3 +474,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(onboarding)/intro-location");

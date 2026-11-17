@@ -1,7 +1,7 @@
 import { type Href, useRouter } from "expo-router";
 import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { type ScrollView, StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import {
@@ -35,6 +35,7 @@ import {
   isGlyphPronunciationTrack,
   pronunciationGlyphTracks,
 } from "@/lib/quran-guide-audio";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 
 const SOURCE_HREF = "/learn-quran/pronunciation";
@@ -72,7 +73,7 @@ export default function LearnQuranPronunciationScreen() {
     return null;
   }, [audio.current?.id, glyphQueue, glyphsActive, pairs]);
 
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const { register, onScroll } = useScrollToActive(
     scrollRef,
     glyphsActive ? activePairId : null,
@@ -213,3 +214,6 @@ const styles = StyleSheet.create({
   letter: { textAlign: "center" },
   examples: { gap: Spacing.one, marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/pronunciation");

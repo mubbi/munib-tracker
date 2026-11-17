@@ -35,9 +35,7 @@ import {
 const MARK_URI = buildAppUrl("/mark-current");
 
 function liveUpdatedAgo(updatedAt: string): string | undefined {
-  const label = formatUpdatedAgo(updatedAt, (key, fallback, options) =>
-    i18n.t(key, { defaultValue: fallback, ...(options ?? {}) }),
-  );
+  const label = formatUpdatedAgo(updatedAt, i18n.t);
   return label || undefined;
 }
 

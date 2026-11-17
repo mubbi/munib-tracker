@@ -1,5 +1,5 @@
 import { forwardRef, type ReactNode, useEffect } from "react";
-import { StyleSheet, View, type ViewStyle } from "react-native";
+import { StyleSheet, View, type ViewInstance, type ViewStyle } from "react-native";
 import Animated, {
   cancelAnimation,
   useAnimatedStyle,
@@ -27,7 +27,7 @@ type FocusHighlightProps = {
  * Pulses a soft accent ring when `active` — used after deep-linking from seasonal
  * banners so the target card is obvious before the ring fades out.
  */
-export const FocusHighlight = forwardRef<View, FocusHighlightProps>(function FocusHighlight(
+export const FocusHighlight = forwardRef<ViewInstance, FocusHighlightProps>(function FocusHighlight(
   { active, children, style, borderRadius = Radius.lg, borderColor },
   ref,
 ) {

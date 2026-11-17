@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ScrollView, StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
@@ -45,6 +45,7 @@ import {
   getSalahGuideTopic,
   isSalahGuideContentReady,
 } from "@/lib/salah-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
 
@@ -188,7 +189,7 @@ export default function SalahGuideAdhanScreen() {
       ? followAlongStep
       : null;
 
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const activeScrollKey =
     activeStepIndex != null && (phrasesActive || followAlongActive)
       ? stepScrollKey(activeStepIndex)
@@ -321,3 +322,6 @@ const styles = StyleSheet.create({
   },
   sourceText: { lineHeight: 18 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/salah-guide/adhan");

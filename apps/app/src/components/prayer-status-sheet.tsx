@@ -19,7 +19,7 @@ import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
 import {
   PRAYER_STATUS_META,
-  PRAYER_STATUS_ORDER,
+  selectablePrayerStatuses,
   statusToneColor,
   statusToneSoft,
 } from "@/lib/prayer-ui";
@@ -75,11 +75,11 @@ export function PrayerStatusSheet({
   const [qazaPromptOpen, setQazaPromptOpen] = useState(false);
   const [pendingStatus, setPendingStatus] = useState<PrayerStatus | null>(null);
   const tv = isTV();
+  // Sunnah salah only offer Completed / Missed (no Delayed or Qaza).
+  const statusOptions = selectablePrayerStatuses(prayerId);
   // TV: open on the current status, or on "completed" when still pending, so
   // Select → Select marks the prayer prayed without hunting for the option.
-  const preferredStatus = PRAYER_STATUS_ORDER.some((status) => status === currentStatus)
-    ? currentStatus
-    : PRAYER_STATUS_ORDER[0];
+  const preferredStatus = statusOptions.includes(currentStatus) ? currentStatus : statusOptions[0];
 
   useEffect(() => {
     if (!visible) {
@@ -98,7 +98,7 @@ export function PrayerStatusSheet({
     onClose();
   };
 
-  const handleStatusPress = (status: (typeof PRAYER_STATUS_ORDER)[number]) => {
+  const handleStatusPress = (status: PrayerStatus) => {
     const active = currentStatus === status;
     const next = active ? "pending" : status;
     triggerHaptic(outcomeHaptic(next));
@@ -122,7 +122,7 @@ export function PrayerStatusSheet({
         </ThemedText>
 
         <View style={styles.options}>
-          {PRAYER_STATUS_ORDER.map((status) => {
+          {statusOptions.map((status) => {
             const meta = PRAYER_STATUS_META[status];
             const active = currentStatus === status;
             const toneColor = statusToneColor(meta.tone, colors, tokens);

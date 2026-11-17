@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import type { ScrollView } from "react-native";
+import type { ScrollViewInstance } from "react-native";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
@@ -28,6 +28,7 @@ import {
   howToPrayStepIndexFromId,
   isHowToPrayTrack,
 } from "@/lib/salah-how-to-pray-audio";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranPrefs } from "@/stores/quran-store";
@@ -75,7 +76,7 @@ export default function SalahGuideTopicScreen() {
     ? (howToPrayStepIndexFromId(audio.current?.id) ?? null)
     : null;
 
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const activeScrollKey =
     isHowToPray && phrasesActive && activeStepIndex != null ? stepScrollKey(activeStepIndex) : null;
   const { register, onScroll } = useScrollToActive(
@@ -200,3 +201,6 @@ export default function SalahGuideTopicScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/salah-guide/[topic]");

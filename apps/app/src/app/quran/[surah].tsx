@@ -24,14 +24,14 @@ import {
   type FlatList,
   type LayoutChangeEvent,
   type ListRenderItemInfo,
+  type ListViewToken,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
-  type ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   TextInput,
   View,
-  type ViewToken,
 } from "react-native";
 import Animated, {
   cancelAnimation,
@@ -111,6 +111,7 @@ import { ALL_QURAN_TRANSLATIONS } from "@/lib/quran-translation-options";
 import { activeWordIndexAt } from "@/lib/quran-word-timing";
 import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { useChevronBackward, useChevronForward, useIsRTL } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { buildAyahSharePayload } from "@/lib/share";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
@@ -229,7 +230,7 @@ export default function SurahReaderScreen() {
   const trackDurationsRef = useRef(audio.trackDurations);
   trackDurationsRef.current = audio.trackDurations;
   const listRef = useRef<FlatList<Ayah>>(null);
-  const screenScrollRef = useRef<ScrollView>(null);
+  const screenScrollRef = useRef<ScrollViewInstance>(null);
   const { share, activeShareKey, gesturePendingKey, SnapshotHost } = useShareContentCard();
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
@@ -316,7 +317,7 @@ export default function SurahReaderScreen() {
   const ayahCountRef = useRef(0);
   const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 0 }).current;
 
-  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ListViewToken[] }) => {
     const total = ayahCountRef.current;
     if (total <= 1) {
       readingProgress.value = total === 1 ? 1 : 0;
@@ -1398,7 +1399,7 @@ export default function SurahReaderScreen() {
                   heavyRows={showWordByWord}
                   keyExtractor={ayahKeyExtractor}
                   renderItem={renderItem}
-                  ListHeaderComponent={listHeader}
+                  ListHeaderComponent={listHeader ?? undefined}
                   ItemSeparatorComponent={AyahSeparator}
                   onScroll={onListScroll}
                   onScrollBeginDrag={onScrollBeginDrag}
@@ -2682,3 +2683,6 @@ const styles = StyleSheet.create({
   },
   rtl: { writingDirection: "rtl" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/[surah]");

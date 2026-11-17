@@ -9,7 +9,14 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { I18nManager, Platform, StyleSheet, useWindowDimensions, View } from "react-native";
+import {
+  I18nManager,
+  Platform,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  type ViewInstance,
+} from "react-native";
 import { CalendarDayPanel } from "@/components/calendar-day-panel";
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -39,11 +46,12 @@ import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { isTypingTarget } from "@/lib/web/is-typing-target";
 import { useLocation } from "@/stores/location-store";
 
 /** Stable empty list so row-edge guides stay tvOS-selectable without re-setting on render. */
-const NO_DESTINATIONS: unknown[] = [];
+const NO_DESTINATIONS: ViewInstance[] = [];
 
 type FocusGuideHandle = { setDestinations?: (destinations: unknown[]) => void };
 
@@ -76,9 +84,9 @@ export default function CalendarScreen() {
   const twoPane = !tv && width >= 1024;
   const [selectedDate, setSelectedDate] = useState(() => getLocalDateString());
   // TV row-wrap: day-cell host nodes + invisible edge guides per week row.
-  const cellRefs = useRef(new Map<string, View | null>());
-  const rowStartGuides = useRef<(View | null)[]>([]);
-  const rowEndGuides = useRef<(View | null)[]>([]);
+  const cellRefs = useRef(new Map<string, ViewInstance | null>());
+  const rowStartGuides = useRef<(ViewInstance | null)[]>([]);
+  const rowEndGuides = useRef<(ViewInstance | null)[]>([]);
 
   const locale: AppLocale = toAppLocale(i18n.language ?? "en");
 
@@ -680,3 +688,6 @@ const styles = StyleSheet.create({
     gap: 2,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/calendar");

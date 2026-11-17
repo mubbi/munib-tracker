@@ -122,8 +122,8 @@ describe("AppProviders", () => {
     jest.clearAllMocks();
   });
 
-  it("boots stores, refreshes on resume, and reloads the tracker after midnight", () => {
-    const { unmount } = render(
+  it("boots stores, refreshes on resume, and reloads the tracker after midnight", async () => {
+    const { unmount } = await render(
       <AppProviders>
         <Text>ready</Text>
       </AppProviders>,
@@ -147,12 +147,12 @@ describe("AppProviders", () => {
 
     mockStores.trackerLoad.mockClear();
     mockStores.trackerRefresh.mockClear();
-    act(() => {
+    await act(() => {
       appStateHandler?.("background");
     });
     expect(mockStores.trackerRefresh).not.toHaveBeenCalled();
 
-    act(() => {
+    await act(() => {
       appStateHandler?.("active");
     });
     expect(mockStores.locationRefresh).toHaveBeenCalled();
@@ -160,25 +160,25 @@ describe("AppProviders", () => {
     expect(mockStores.trackerLoad).not.toHaveBeenCalled();
 
     getLocalDateStringMock.mockReturnValue("2026-07-04");
-    act(() => {
+    await act(() => {
       appStateHandler?.("active");
     });
     expect(mockStores.trackerLoad).toHaveBeenCalled();
 
     mockStores.trackerLoad.mockClear();
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(25);
     });
     expect(mockStores.trackerLoad).toHaveBeenCalled();
 
-    unmount();
+    await unmount();
     expect(removeAppState).toHaveBeenCalled();
   });
 
-  it("does not warm home stores before preferences hydrate", () => {
+  it("does not warm home stores before preferences hydrate", async () => {
     mockPrefs.isReady = false;
 
-    const { unmount } = render(
+    const { unmount } = await render(
       <AppProviders>
         <Text>ready</Text>
       </AppProviders>,
@@ -186,13 +186,13 @@ describe("AppProviders", () => {
 
     expect(mockStores.locationLoad).not.toHaveBeenCalled();
     expect(mockStores.weatherLoad).not.toHaveBeenCalled();
-    unmount();
+    await unmount();
   });
 
-  it("does not warm home stores during onboarding, then boots when it completes", () => {
+  it("does not warm home stores during onboarding, then boots when it completes", async () => {
     mockPrefs.hasCompletedOnboarding = false;
 
-    const { unmount } = render(
+    const { unmount } = await render(
       <AppProviders>
         <Text>ready</Text>
       </AppProviders>,
@@ -206,7 +206,7 @@ describe("AppProviders", () => {
     expect(mockStores.weatherSync).not.toHaveBeenCalled();
 
     mockPrefs.hasCompletedOnboarding = true;
-    act(() => {
+    await act(() => {
       for (const listener of mockPrefs.listeners) listener();
     });
 
@@ -216,6 +216,6 @@ describe("AppProviders", () => {
     expect(mockStores.continueLoad).toHaveBeenCalled();
     expect(mockStores.weatherLoad).toHaveBeenCalled();
 
-    unmount();
+    await unmount();
   });
 });

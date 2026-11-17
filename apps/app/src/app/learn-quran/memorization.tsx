@@ -29,6 +29,7 @@ import {
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import { QURAN_GUIDE_MEMORIZATION_LISTEN } from "@/lib/quran-guide-audio";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LearnQuranMemorizationScreen() {
   const router = useRouter();
@@ -73,7 +74,6 @@ export default function LearnQuranMemorizationScreen() {
                           <QuranGuideClipPlayButton
                             audio={listen}
                             sourceHref="/learn-quran/memorization"
-                            compact
                           />
                         ) : null}
                       </View>
@@ -167,3 +167,6 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/memorization");

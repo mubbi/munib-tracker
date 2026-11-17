@@ -16,21 +16,21 @@ describe("cold-start", () => {
     __resetColdStartForTests();
   });
 
-  it("starts unpainted", () => {
-    const { result } = renderHook(() => useColdStartReady());
+  it("starts unpainted", async () => {
+    const { result } = await renderHook(() => useColdStartReady());
     expect(result.current).toBe(false);
   });
 
-  it("becomes painted after markColdStartReady", () => {
-    const { result } = renderHook(() => useColdStartReady());
-    act(() => {
+  it("becomes painted after markColdStartReady", async () => {
+    const { result } = await renderHook(() => useColdStartReady());
+    await act(() => {
       markColdStartReady();
     });
     expect(result.current).toBe(true);
   });
 
-  it("useMarkColdStartReady paints on mount", () => {
-    const { result } = renderHook(() => {
+  it("useMarkColdStartReady paints on mount", async () => {
+    const { result } = await renderHook(() => {
       useMarkColdStartReady();
       return useColdStartReady();
     });

@@ -1,4 +1,5 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import type { TFunction } from "i18next";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, I18nManager, StyleSheet, TextInput, View } from "react-native";
@@ -423,7 +424,7 @@ function WeightCalculator({
 }
 
 function livestockSummaryLines(
-  t: (key: string, opts?: Record<string, unknown>) => string,
+  t: TFunction,
   animals: ZakatCalculatorState["result"]["livestockAnimals"],
 ): string[] {
   const lines: string[] = [];

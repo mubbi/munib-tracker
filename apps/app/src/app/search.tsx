@@ -7,10 +7,11 @@ import {
   Platform,
   StyleSheet,
   TextInput,
+  type TextInputInstance,
   useWindowDimensions,
   View,
+  type ViewInstance,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Seo } from "@/components/seo/seo";
 import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
@@ -24,6 +25,7 @@ import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -44,6 +46,7 @@ import {
   tokenize,
 } from "@/lib/search";
 import { clearRecentSearches, loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { abortStt, type SttErrorKind } from "@/lib/stt";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
@@ -99,7 +102,7 @@ type FilterKey = SearchCategory | "all";
 export default function SearchScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const toast = useToast();
   const chevronBackIcon = useChevronBack();
@@ -128,8 +131,8 @@ export default function SearchScreen() {
         alignSelf: "center" as const,
       }
     : null;
-  const inputRef = useRef<TextInput>(null);
-  const resultsRef = useRef<View>(null);
+  const inputRef = useRef<TextInputInstance>(null);
+  const resultsRef = useRef<ViewInstance>(null);
 
   const handleSttError = useCallback(
     (kind: SttErrorKind) => {
@@ -1343,3 +1346,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/search");

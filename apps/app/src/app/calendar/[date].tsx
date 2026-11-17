@@ -4,7 +4,7 @@ import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { NativeScrollEvent, NativeSyntheticEvent, ScrollView } from "react-native";
+import type { NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from "react-native";
 import { CalendarDayStatusSheet, useCalendarDayRecords } from "@/components/calendar-day-panel";
 import { CalendarWeekStrip } from "@/components/calendar-week-strip";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -17,6 +17,7 @@ import { usePrayerTimesForDate } from "@/hooks/use-prayer-times-for-date";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function CalendarDayScreen() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function CalendarDayScreen() {
   const records = useCalendarDayRecords(date);
   const { status, notes, jama, excusedReason, zikrCounts, activity, completed } = records;
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const scrollYRef = useRef(0);
   const onDayScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrollYRef.current = event.nativeEvent.contentOffset.y;
@@ -115,3 +116,6 @@ export default function CalendarDayScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/calendar/[date]");

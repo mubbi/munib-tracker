@@ -7,11 +7,11 @@ import {
   type TabTriggerSlotProps,
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import type { Ref } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
+import { Pressable, StyleSheet, useWindowDimensions, View, type ViewInstance } from "react-native";
 import { MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { SIDE_RAIL_BREAKPOINT } from "@/hooks/use-web-tab-layout";
 import { blurActiveElement } from "@/lib/blur-active-element";
@@ -27,7 +27,8 @@ type TabConfig = {
 
 const tabs: TabConfig[] = [
   {
-    name: "home",
+    // Trigger names match the (tabs) route files, like the native and wide navigators.
+    name: "index",
     href: "/",
     labelKey: "tabs.home",
     icon: { ios: "house.fill", android: "home", web: "home" },
@@ -93,7 +94,13 @@ export default function AppTabs() {
 
 type TabVariant = "bar" | "rail";
 
-type TabButtonProps = TabTriggerSlotProps & {
+/**
+ * expo-router types the slot ref as `RefAttributes<View>` (a component, not an
+ * instance), which React Native 0.88's strict API rejects. The trigger passes a
+ * host-view ref at runtime, so it is typed as the instance here.
+ */
+type TabButtonProps = Omit<TabTriggerSlotProps, "ref"> & {
+  ref?: Ref<ViewInstance>;
   label: string;
   icon: TabConfig["icon"];
   variant?: TabVariant;
@@ -105,6 +112,7 @@ export function TabButton({
   isFocused,
   variant = "bar",
   onPress,
+  ref,
   ...props
 }: TabButtonProps) {
   const { colors, tokens } = useThemeTokens();
@@ -119,6 +127,7 @@ export function TabButton({
   return (
     <Pressable
       {...props}
+      ref={ref}
       accessibilityRole="tab"
       accessibilityState={{ selected: isFocused }}
       onPress={handlePress}
@@ -150,7 +159,7 @@ export function TabButton({
 }
 
 export function BottomTabBar(props: TabListProps) {
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
 
   return (

@@ -1,13 +1,5 @@
 import type { ProphetsGenealogyNode } from "@munib-tracker/shared/types";
-import {
-  type ComponentProps,
-  type ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { type ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Platform,
@@ -15,16 +7,20 @@ import {
   Text,
   useWindowDimensions,
   View,
+  type ViewInstance,
   type ViewStyle,
 } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import Animated, {
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import {
+  GestureDetector,
+  useCompetingGestures,
+  usePanGesture,
+  usePinchGesture,
+  useSimultaneousGestures,
+  useTapGesture,
+} from "react-native-gesture-handler";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import Svg, { Circle, Defs, Path, Pattern, Rect } from "react-native-svg";
+import { scheduleOnRN } from "react-native-worklets";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -154,7 +150,7 @@ export function GenealogyTreeMap({
   // Web: wheel / trackpad-pinch zooms about the cursor. Registered natively as a
   // non-passive listener — React's onWheel is passive, so preventDefault there
   // can't stop the page from scrolling underneath the map.
-  const viewportRef = useRef<View>(null);
+  const viewportRef = useRef<ViewInstance>(null);
   const zoomAtRef = useRef(zoomAt);
   zoomAtRef.current = zoomAt;
   useEffect(() => {
@@ -205,8 +201,9 @@ export function GenealogyTreeMap({
     viewportW,
   ]);
 
-  const pinch = Gesture.Pinch()
-    .onUpdate((event) => {
+  // Gesture Handler 3 hook API (the v2 `Gesture.*` builders are legacy).
+  const pinch = usePinchGesture({
+    onUpdate: (event) => {
       const next = Math.min(Math.max(savedScale.value * event.scale, MIN_SCALE), MAX_SCALE);
       const fx = event.focalX;
       const fy = event.focalY;
@@ -215,37 +212,40 @@ export function GenealogyTreeMap({
       scale.value = next;
       translateX.value = fx - worldX * next;
       translateY.value = fy - worldY * next;
-    })
-    .onEnd(() => {
+    },
+    onDeactivate: () => {
       savedScale.value = scale.value;
       savedTranslateX.value = translateX.value;
       savedTranslateY.value = translateY.value;
-    });
+    },
+  });
 
-  const pan = Gesture.Pan()
-    .averageTouches(true)
-    .minPointers(1)
-    .maxPointers(2)
-    .activeOffsetX([-12, 12])
-    .activeOffsetY([-12, 12])
-    .onUpdate((event) => {
+  const pan = usePanGesture({
+    averageTouches: true,
+    minPointers: 1,
+    maxPointers: 2,
+    activeOffsetX: [-12, 12],
+    activeOffsetY: [-12, 12],
+    onUpdate: (event) => {
       translateX.value = savedTranslateX.value + event.translationX;
       translateY.value = savedTranslateY.value + event.translationY;
-    })
-    .onEnd(() => {
+    },
+    onDeactivate: () => {
       savedTranslateX.value = translateX.value;
       savedTranslateY.value = translateY.value;
-    });
+    },
+  });
 
-  const doubleTap = Gesture.Tap()
-    .numberOfTaps(2)
-    .maxDuration(280)
-    .onEnd(() => {
-      "worklet";
-      runOnJS(fitToView)();
-    });
+  const doubleTap = useTapGesture({
+    numberOfTaps: 2,
+    maxDuration: 280,
+    onActivate: () => {
+      scheduleOnRN(fitToView);
+    },
+  });
 
-  const composed = Gesture.Race(doubleTap, Gesture.Simultaneous(pinch, pan));
+  const pinchAndPan = useSimultaneousGestures(pinch, pan);
+  const composed = useCompetingGestures(doubleTap, pinchAndPan);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -509,7 +509,7 @@ function MaybeGestureDetector({
   gesture,
   children,
 }: {
-  gesture: ComponentProps<typeof GestureDetector>["gesture"] | null;
+  gesture: ReturnType<typeof useCompetingGestures> | null;
   children: ReactElement;
 }) {
   if (!gesture) return children;
