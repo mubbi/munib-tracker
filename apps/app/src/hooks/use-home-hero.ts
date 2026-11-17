@@ -22,11 +22,18 @@ import {
   prayerSlots,
   type ScheduleKind,
   tahajjudTime,
-  windowProgress,
   witrTime,
 } from "@/lib/prayer-times";
 import { type ScheduleEntryStatus, scheduleEntryStatus } from "@/lib/schedule-ui";
-import { type SkyMarkers, type SkyPalette, skyPalette, skyPhaseForTime } from "@/lib/sky";
+import {
+  type CelestialPosition,
+  celestialPosition,
+  dayTimelinePosition,
+  type SkyMarkers,
+  type SkyPalette,
+  skyPalette,
+  skyPhaseForTime,
+} from "@/lib/sky";
 import { dayKeyInTimeZone, prayerDayAnchor, shiftPrayerDay } from "@/lib/time";
 import { useLocation, useLocationStatus } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
@@ -47,8 +54,10 @@ export interface HomeHeroData {
   moonLabel: string;
   /** Mirror moon lit side for observers south of the equator. */
   southernHemisphere: boolean;
-  /** Fraction (0..1) of the current prayer window that has elapsed. */
-  windowProgress: number;
+  /** Where the sun / moon sits in the hero sky right now. */
+  celestial: CelestialPosition;
+  /** Position (0..1) of "now" along the prayer row's day timeline. */
+  dayProgress: number;
   /** Pre-localized "in {{time}}" until the next marker, e.g. "in 27m". */
   nextIn: string;
   /** Schedule entry id of the next upcoming timed marker. */
@@ -219,17 +228,15 @@ export function useHomeHero(): HomeHeroData {
       schedule,
       nextScheduleId: nextEntry?.id ?? null,
       nextEntryAt: nextEntry?.at ?? null,
-      windowStart: day.slots[next.currentIndex]?.date ?? now,
     };
   }, [day, crossingKey, location.method, location.madhab, location.timeZone, timeFormat, t]);
 
   // Minute-scoped layer: the clock, countdown, live progress, and sky/moon. These
   // are cheap scalars derived from the memoized selection + day objects each tick.
   return useMemo(() => {
-    const { next, windowStart, nextEntryAt } = selection;
+    const { next, nextEntryAt } = selection;
     const tz = location.timeZone;
 
-    const progress = windowProgress(windowStart, next.date, now);
     // `minutesUntil` is recomputed live from the memoized `next.date` so the
     // countdown ticks every minute without re-running the adhan selection.
     const minutesUntil = Math.max(0, Math.round((next.date.getTime() - now.getTime()) / 60000));
@@ -265,7 +272,8 @@ export function useHomeHero(): HomeHeroData {
       sky,
       moonLabel,
       southernHemisphere: location.latitude < 0,
-      windowProgress: progress,
+      celestial: celestialPosition(now, day.markers),
+      dayProgress: dayTimelinePosition(now, day.markers),
       nextIn,
       nextScheduleId: selection.nextScheduleId,
       schedule: selection.schedule,

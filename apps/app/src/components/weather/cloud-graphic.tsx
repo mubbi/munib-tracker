@@ -33,7 +33,7 @@ export function CloudGraphic({
 
   return (
     <Svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
-      <G x={offsetX} y={offsetY}>
+      <G transform={`translate(${offsetX} ${offsetY})`}>
         {parts.map((part, index) => {
           const cx = baseWidth * part.cx;
           const cy = baseHeight * part.cy;

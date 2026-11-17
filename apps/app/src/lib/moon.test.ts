@@ -79,11 +79,14 @@ describe("moonIconGeometry", () => {
     ["waningGibbous", 0.625, false, false, false, false],
     ["lastQuarter", 0.75, false, false, false, false],
     ["waningCrescent", 0.875, false, false, true, false],
-  ] as const)("northern hemisphere %s lights the correct side", (_label, fraction, waxing, litOnRight, isCrescent, _) => {
-    const g = north(fraction, waxing);
-    expect(g.litOnRight).toBe(litOnRight);
-    expect(g.isCrescent).toBe(isCrescent);
-  });
+  ] as const)(
+    "northern hemisphere %s lights the correct side",
+    (_label, fraction, waxing, litOnRight, isCrescent, _) => {
+      const g = north(fraction, waxing);
+      expect(g.litOnRight).toBe(litOnRight);
+      expect(g.isCrescent).toBe(isCrescent);
+    },
+  );
 
   it("mirrors the lit side in the southern hemisphere", () => {
     expect(north(0.25, true).litOnRight).toBe(true);
