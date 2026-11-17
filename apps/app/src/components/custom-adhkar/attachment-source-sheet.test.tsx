@@ -13,12 +13,12 @@ jest.mock("@/components/ui/sheet", () => {
   };
 });
 
-function renderSheet(
+async function renderSheet(
   props: { visible?: boolean; embedded?: boolean; onSelect?: jest.Mock; onClose?: jest.Mock } = {},
 ) {
   const onSelect = props.onSelect ?? jest.fn();
   const onClose = props.onClose ?? jest.fn();
-  render(
+  await render(
     <MunibThemeProvider>
       <AttachmentSourceSheet
         visible={props.visible ?? true}
@@ -38,39 +38,39 @@ describe("AttachmentSourceSheet", () => {
     Platform.OS = originalOS;
   });
 
-  it("renders nothing when the embedded picker is closed", () => {
-    renderSheet({ embedded: true, visible: false });
+  it("renders nothing when the embedded picker is closed", async () => {
+    await renderSheet({ embedded: true, visible: false });
     expect(screen.queryByText("Add attachment")).toBeNull();
     expect(screen.queryByLabelText("Cancel")).toBeNull();
   });
 
-  it("shows an in-place list that selects a source and can cancel", () => {
+  it("shows an in-place list that selects a source and can cancel", async () => {
     Platform.OS = "ios";
-    const { onSelect, onClose } = renderSheet({ embedded: true, visible: true });
+    const { onSelect, onClose } = await renderSheet({ embedded: true, visible: true });
 
     expect(screen.getByText("Add attachment")).toBeTruthy();
-    fireEvent.press(screen.getByLabelText("Take a photo"));
+    await fireEvent.press(screen.getByLabelText("Take a photo"));
     expect(onSelect).toHaveBeenCalledWith("camera");
 
-    fireEvent.press(screen.getByLabelText("Cancel"));
+    await fireEvent.press(screen.getByLabelText("Cancel"));
     expect(onClose).toHaveBeenCalled();
   });
 
-  it("only offers the document picker on web", () => {
+  it("only offers the document picker on web", async () => {
     Platform.OS = "web";
-    renderSheet({ embedded: true, visible: true });
+    await renderSheet({ embedded: true, visible: true });
 
     expect(screen.getByLabelText("Files")).toBeTruthy();
     expect(screen.queryByLabelText("Take a photo")).toBeNull();
     expect(screen.queryByLabelText("Photo library")).toBeNull();
   });
 
-  it("renders source options inside a sheet when not embedded", () => {
+  it("renders source options inside a sheet when not embedded", async () => {
     Platform.OS = "ios";
-    const { onSelect } = renderSheet({ visible: true });
+    const { onSelect } = await renderSheet({ visible: true });
 
     expect(screen.getByTestId("attachment-sheet")).toBeTruthy();
-    fireEvent.press(screen.getByLabelText("Photo library"));
+    await fireEvent.press(screen.getByLabelText("Photo library"));
     expect(onSelect).toHaveBeenCalledWith("gallery");
   });
 });

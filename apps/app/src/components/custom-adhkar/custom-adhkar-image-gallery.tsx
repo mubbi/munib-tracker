@@ -2,7 +2,13 @@ import { Image } from "expo-image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, StyleSheet, useWindowDimensions, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import {
+  GestureDetector,
+  usePanGesture,
+  usePinchGesture,
+  useSimultaneousGestures,
+  useTapGesture,
+} from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { apiAuthHeaders } from "@/api/auth-options";
 import { AttachmentMediaLoader, AttachmentThumb } from "@/components/attachments/attachment-thumb";
@@ -16,6 +22,7 @@ import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { isPdfMime } from "@/lib/attachments/attachment-mime";
+import { useAuthedMediaUri } from "@/lib/attachments/authed-media";
 import { openAttachmentExternally } from "@/lib/attachments/open-attachment-externally";
 import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
@@ -78,6 +85,7 @@ function ZoomableImage({
   height: number;
 }) {
   const [ready, setReady] = useState(false);
+  const media = useAuthedMediaUri(uri, headers);
   const scale = useSharedValue(1);
   const savedScale = useSharedValue(1);
   const translateX = useSharedValue(0);
@@ -86,8 +94,8 @@ function ZoomableImage({
   const savedTranslateY = useSharedValue(0);
 
   useEffect(() => {
-    setReady(false);
-  }, []);
+    if (media.failed) setReady(true);
+  }, [media.failed]);
 
   const clampTranslation = (nextScale: number, x: number, y: number) => {
     "worklet";
@@ -99,15 +107,16 @@ function ZoomableImage({
     };
   };
 
-  const pinch = Gesture.Pinch()
-    .onUpdate((event) => {
+  // Gesture Handler 3 hook API (the v2 `Gesture.*` builders are legacy).
+  const pinch = usePinchGesture({
+    onUpdate: (event) => {
       const next = Math.min(Math.max(savedScale.value * event.scale, MIN_SCALE), MAX_SCALE);
       scale.value = next;
       const clamped = clampTranslation(next, translateX.value, translateY.value);
       translateX.value = clamped.x;
       translateY.value = clamped.y;
-    })
-    .onEnd(() => {
+    },
+    onDeactivate: () => {
       savedScale.value = scale.value;
       if (scale.value <= 1.01) {
         scale.value = withTiming(1);
@@ -117,11 +126,12 @@ function ZoomableImage({
         savedTranslateX.value = 0;
         savedTranslateY.value = 0;
       }
-    });
+    },
+  });
 
-  const pan = Gesture.Pan()
-    .averageTouches(true)
-    .onUpdate((event) => {
+  const pan = usePanGesture({
+    averageTouches: true,
+    onUpdate: (event) => {
       if (savedScale.value <= 1.01) return;
       const clamped = clampTranslation(
         savedScale.value,
@@ -130,15 +140,16 @@ function ZoomableImage({
       );
       translateX.value = clamped.x;
       translateY.value = clamped.y;
-    })
-    .onEnd(() => {
+    },
+    onDeactivate: () => {
       savedTranslateX.value = translateX.value;
       savedTranslateY.value = translateY.value;
-    });
+    },
+  });
 
-  const doubleTap = Gesture.Tap()
-    .numberOfTaps(2)
-    .onEnd(() => {
+  const doubleTap = useTapGesture({
+    numberOfTaps: 2,
+    onActivate: () => {
       if (savedScale.value > 1.01) {
         scale.value = withTiming(1);
         savedScale.value = 1;
@@ -150,9 +161,10 @@ function ZoomableImage({
       }
       scale.value = withTiming(2.5);
       savedScale.value = 2.5;
-    });
+    },
+  });
 
-  const composed = Gesture.Simultaneous(pinch, pan, doubleTap);
+  const composed = useSimultaneousGestures(pinch, pan, doubleTap);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -167,15 +179,17 @@ function ZoomableImage({
       {!ready ? <AttachmentMediaLoader onDark style={StyleSheet.absoluteFill} /> : null}
       <GestureDetector gesture={composed}>
         <Animated.View style={[{ width, height, opacity: ready ? 1 : 0 }, animatedStyle]}>
-          <Image
-            source={{ uri, headers }}
-            style={{ width, height }}
-            contentFit="contain"
-            transition={180}
-            onLoad={() => setReady(true)}
-            onError={() => setReady(true)}
-            accessibilityIgnoresInvertColors
-          />
+          {media.uri === null ? null : (
+            <Image
+              source={{ uri: media.uri }}
+              style={{ width, height }}
+              contentFit="contain"
+              transition={{ duration: 180, skipOnCacheHit: "all" }}
+              onLoad={() => setReady(true)}
+              onError={() => setReady(true)}
+              accessibilityIgnoresInvertColors
+            />
+          )}
         </Animated.View>
       </GestureDetector>
     </View>

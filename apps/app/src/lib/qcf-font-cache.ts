@@ -1,11 +1,3 @@
-import {
-  deleteAsync,
-  documentDirectory,
-  downloadAsync,
-  getInfoAsync,
-  makeDirectoryAsync,
-  readDirectoryAsync,
-} from "expo-file-system/legacy";
 import * as Font from "expo-font";
 import { Platform } from "react-native";
 
@@ -15,6 +7,15 @@ import {
   qcfPageFontFamily,
   qcfPageFontRemoteUrl,
 } from "@/lib/arabic-fonts";
+import {
+  deletePath,
+  directoryExists,
+  documentDirectoryUri,
+  downloadToUri,
+  ensureDirectory,
+  fileInfo,
+  listDirectory,
+} from "@/lib/native-file-store";
 import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 
 const QCF_SOURCE_PROVIDER = "nuqayah/qpc-fonts";
@@ -53,7 +54,10 @@ function reportQcfFontFailure(input: {
  * `expo-font` (same pattern as {@link resolveCachedAudioUri} in audio-cache.ts).
  */
 
-const QCF_FONT_CACHE_DIR = `${documentDirectory ?? ""}munib-qcf-fonts/`;
+/** Same `<documents>/munib-qcf-fonts/` folder older (legacy-API) builds wrote to. */
+function qcfFontCacheDir(): string {
+  return `${documentDirectoryUri() ?? ""}munib-qcf-fonts/`;
+}
 const WEB_QCF_FONT_CACHE = "munib-qcf-fonts-v1";
 
 /** How many mushaf page fonts to register ahead of the current page (mirrors audio prefetch). */
@@ -91,12 +95,12 @@ export function isMushafPageFontReady(page: number, needsBsml: boolean): boolean
 }
 
 function nativeStoreAvailable(): boolean {
-  return Platform.OS !== "web" && Boolean(documentDirectory);
+  return Platform.OS !== "web" && Boolean(documentDirectoryUri());
 }
 
 function localPathFor(page: number): string {
   const fileName = qcfPageFontRemoteUrl(page).split("/").pop();
-  return `${QCF_FONT_CACHE_DIR}${fileName}`;
+  return `${qcfFontCacheDir()}${fileName}`;
 }
 
 function webCacheAvailable(): boolean {
@@ -185,7 +189,7 @@ export async function resolveCachedQcfFontUri(page: number): Promise<string> {
 
   const localUri = localPathFor(page);
   try {
-    const info = await getInfoAsync(localUri);
+    const info = fileInfo(localUri);
     if (info.exists) return localUri;
   } catch {
     return qcfPageFontRemoteUrl(page);
@@ -197,8 +201,18 @@ export async function resolveCachedQcfFontUri(page: number): Promise<string> {
   const remoteUri = qcfPageFontRemoteUrl(page);
   const task = (async () => {
     try {
-      await makeDirectoryAsync(QCF_FONT_CACHE_DIR, { intermediates: true });
-      const result = await downloadAsync(remoteUri, localUri);
+      ensureDirectory(qcfFontCacheDir());
+      const result = await downloadToUri(remoteUri, localUri);
+      if (result.status < 200 || result.status >= 300) {
+        reportQcfFontFailure({
+          page,
+          sourceUrl: remoteUri,
+          contentKey: `qcf_font:page:${page}`,
+          httpStatus: result.status,
+          errorMessage: `HTTP ${result.status} for ${remoteUri}`,
+        });
+        return remoteUri;
+      }
       return result.uri;
     } catch (error) {
       reportQcfFontFailure({
@@ -278,9 +292,9 @@ async function resolveCachedQcfBsmlFontUri(): Promise<string> {
   }
 
   if (!nativeStoreAvailable()) return remoteUri;
-  const localUri = `${QCF_FONT_CACHE_DIR}QCF2BSML.ttf`;
+  const localUri = `${qcfFontCacheDir()}QCF2BSML.ttf`;
   try {
-    const info = await getInfoAsync(localUri);
+    const info = fileInfo(localUri);
     if (info.exists) return localUri;
   } catch {
     return remoteUri;
@@ -289,8 +303,17 @@ async function resolveCachedQcfBsmlFontUri(): Promise<string> {
   if (bsmlUriInflight) return bsmlUriInflight;
   bsmlUriInflight = (async () => {
     try {
-      await makeDirectoryAsync(QCF_FONT_CACHE_DIR, { intermediates: true });
-      const result = await downloadAsync(remoteUri, localUri);
+      ensureDirectory(qcfFontCacheDir());
+      const result = await downloadToUri(remoteUri, localUri);
+      if (result.status < 200 || result.status >= 300) {
+        reportQcfFontFailure({
+          sourceUrl: remoteUri,
+          contentKey: "qcf_font:bsml",
+          httpStatus: result.status,
+          errorMessage: `HTTP ${result.status} for ${remoteUri}`,
+        });
+        return remoteUri;
+      }
       return result.uri;
     } catch (error) {
       reportQcfFontFailure({
@@ -479,19 +502,15 @@ export async function getQcfFontCacheInfo(): Promise<{ bytes: number; count: num
   if (Platform.OS === "web") return getWebQcfFontCacheInfo();
   if (!nativeStoreAvailable()) return { bytes: 0, count: 0 };
   try {
-    const dirInfo = await getInfoAsync(QCF_FONT_CACHE_DIR);
-    if (!dirInfo.exists) return { bytes: 0, count: 0 };
-    const files = await readDirectoryAsync(QCF_FONT_CACHE_DIR);
+    const dir = qcfFontCacheDir();
+    if (!directoryExists(dir)) return { bytes: 0, count: 0 };
+    const entries = listDirectory(dir);
     let total = 0;
-    for (const name of files) {
-      try {
-        const info = await getInfoAsync(`${QCF_FONT_CACHE_DIR}${name}`);
-        if (info.exists && typeof info.size === "number") total += info.size;
-      } catch {
-        // Skip an entry we can't stat.
-      }
+    for (const entry of entries) {
+      // An entry we can't stat reports no size; skip it.
+      if (typeof entry.size === "number") total += entry.size;
     }
-    return { bytes: total, count: files.length };
+    return { bytes: total, count: entries.length };
   } catch {
     return { bytes: 0, count: 0 };
   }
@@ -532,7 +551,7 @@ export async function clearQcfFontCache(): Promise<void> {
 
   if (!nativeStoreAvailable()) return;
   try {
-    await deleteAsync(QCF_FONT_CACHE_DIR, { idempotent: true });
+    deletePath(qcfFontCacheDir());
   } catch {
     // Best-effort.
   }

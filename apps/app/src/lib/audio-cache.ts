@@ -1,16 +1,23 @@
-import {
-  deleteAsync,
-  documentDirectory,
-  downloadAsync,
-  getFreeDiskStorageAsync,
-  getInfoAsync,
-  makeDirectoryAsync,
-  readDirectoryAsync,
-} from "expo-file-system/legacy";
+import type { OssContentErrorCode } from "@munib-tracker/shared/types/oss-content-download-failure";
+import { Paths } from "expo-file-system";
 import { Platform } from "react-native";
 import { classifyOssAudioUri } from "@/lib/classify-oss-audio-uri";
-import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
+import {
+  deletePath,
+  directoryExists,
+  documentDirectoryUri,
+  downloadToUri,
+  ensureDirectory,
+  fileInfo,
+  listDirectory,
+} from "@/lib/native-file-store";
+import {
+  classifyFetchError,
+  reportOssContentDownloadFailure,
+} from "@/lib/report-oss-content-download-failure";
 import { preferencesStore } from "@/stores/preferences-store";
+
+const HTTP_RANGE_NOT_SATISFIABLE = 416;
 
 /**
  * Centralized offline store for streamed audio (Qur'an recitation & translation,
@@ -33,7 +40,7 @@ import { preferencesStore } from "@/stores/preferences-store";
 function reportAudioDownloadFailure(
   remoteUri: string,
   input: {
-    errorCode?: "http_error" | "network_error" | "empty_payload" | "download_failed";
+    errorCode?: OssContentErrorCode;
     errorMessage: string;
     httpStatus?: number;
     error?: unknown;
@@ -52,7 +59,10 @@ function reportAudioDownloadFailure(
 
 // Persistent (documents) rather than the OS-evictable cache directory, so a
 // downloaded recitation keeps replaying locally until the user clears it.
-const AUDIO_CACHE_DIR = `${documentDirectory ?? ""}munib-audio/`;
+// Same `<documents>/munib-audio/` folder older (legacy-API) builds wrote to.
+function audioCacheDir(): string {
+  return `${documentDirectoryUri() ?? ""}munib-audio/`;
+}
 
 /** Dedupe concurrent downloads of the same remote URL (native). */
 const inflight = new Map<string, Promise<string>>();
@@ -77,12 +87,12 @@ function cacheKeyFor(remoteUri: string): string {
 }
 
 function localPathFor(remoteUri: string): string {
-  return `${AUDIO_CACHE_DIR}${cacheKeyFor(remoteUri)}.mp3`;
+  return `${audioCacheDir()}${cacheKeyFor(remoteUri)}.mp3`;
 }
 
 /** Whether the native file store is usable (false on web / before FS is ready). */
 function nativeStoreAvailable(): boolean {
-  return Platform.OS !== "web" && Boolean(documentDirectory);
+  return Platform.OS !== "web" && Boolean(documentDirectoryUri());
 }
 
 /**
@@ -102,13 +112,14 @@ let cachedFreeDisk: { bytes: number; at: number } | null = null;
  * know the disk is low, degrading gracefully to streaming the remote URL.
  */
 async function hasRoomToCacheNative(): Promise<boolean> {
-  if (typeof getFreeDiskStorageAsync !== "function") return true;
   const now = Date.now();
   if (cachedFreeDisk && now - cachedFreeDisk.at < FREE_DISK_TTL_MS) {
     return cachedFreeDisk.bytes >= MIN_FREE_DISK_BYTES;
   }
   try {
-    const free = await getFreeDiskStorageAsync();
+    // Space the app can actually use (excludes system-reserved blocks).
+    const free = Paths.availableDiskSpace;
+    if (typeof free !== "number" || !Number.isFinite(free)) return true;
     cachedFreeDisk = { bytes: free, at: now };
     return free >= MIN_FREE_DISK_BYTES;
   } catch {
@@ -195,7 +206,7 @@ export async function peekNativeCachedAudioUri(remoteUri: string): Promise<strin
   if (!remoteUri.startsWith("http") || !nativeStoreAvailable()) return null;
   const localUri = localPathFor(remoteUri);
   try {
-    const info = await getInfoAsync(localUri);
+    const info = fileInfo(localUri);
     if (info.exists && (typeof info.size !== "number" || info.size > 0)) {
       return localUri;
     }
@@ -254,11 +265,7 @@ async function resolveWebCachedAudioUri(remoteUri: string): Promise<string> {
       rememberObjectUrl(remoteUri, objectUrl);
       return objectUrl;
     } catch (error) {
-      reportAudioDownloadFailure(remoteUri, {
-        errorCode: "network_error",
-        errorMessage: error instanceof Error ? error.message : String(error),
-        error,
-      });
+      reportAudioDownloadFailure(remoteUri, { ...classifyFetchError(error), error });
       return remoteUri;
     } finally {
       webInflight.delete(remoteUri);
@@ -317,7 +324,7 @@ export async function resolveCachedAudioUri(remoteUri: string): Promise<string> 
 
   const localUri = localPathFor(remoteUri);
   try {
-    const info = await getInfoAsync(localUri);
+    const info = fileInfo(localUri);
     // Treat empty/partial files as a miss so a failed prior download can't
     // pin the player on a 0-byte clip forever.
     if (info.exists && (typeof info.size !== "number" || info.size > 0)) {
@@ -325,7 +332,7 @@ export async function resolveCachedAudioUri(remoteUri: string): Promise<string> 
     }
     if (info.exists) {
       try {
-        await deleteAsync(localUri, { idempotent: true });
+        deletePath(localUri);
       } catch {
         // Best-effort cleanup before re-download.
       }
@@ -346,15 +353,26 @@ export async function resolveCachedAudioUri(remoteUri: string): Promise<string> 
 
   const task = (async () => {
     try {
-      await makeDirectoryAsync(AUDIO_CACHE_DIR, { intermediates: true });
-      const result = await downloadAsync(remoteUri, localUri);
+      ensureDirectory(audioCacheDir());
+      let result = await downloadToUri(remoteUri, localUri);
+      if (result.status === HTTP_RANGE_NOT_SATISFIABLE) {
+        // 416: the OS URL cache / a stale partial file made the request resume
+        // with a `Range` past the end of the clip (seen on everyayah.com). Drop
+        // the partial bytes and refetch the whole file, bypassing caches.
+        try {
+          deletePath(localUri);
+        } catch {
+          // Best-effort — the retry overwrites anyway (idempotent).
+        }
+        result = await downloadToUri(remoteUri, localUri, { "Cache-Control": "no-cache" });
+      }
       if (typeof result.status === "number" && result.status >= 400) {
         reportAudioDownloadFailure(remoteUri, {
           httpStatus: result.status,
           errorMessage: `HTTP ${result.status} for ${remoteUri}`,
         });
         try {
-          await deleteAsync(localUri, { idempotent: true });
+          deletePath(localUri);
         } catch {
           // Best-effort cleanup of a failed download.
         }
@@ -362,10 +380,12 @@ export async function resolveCachedAudioUri(remoteUri: string): Promise<string> 
       }
       return result.uri;
     } catch (error) {
-      reportAudioDownloadFailure(remoteUri, {
-        errorMessage: error instanceof Error ? error.message : String(error),
-        error,
-      });
+      try {
+        deletePath(localUri);
+      } catch {
+        // Best-effort — don't leave a partial clip behind for the next attempt.
+      }
+      reportAudioDownloadFailure(remoteUri, { ...classifyFetchError(error), error });
       return remoteUri;
     } finally {
       inflight.delete(remoteUri);
@@ -404,19 +424,15 @@ export async function getAudioCacheInfo(): Promise<{ bytes: number; count: numbe
   if (Platform.OS === "web") return getWebAudioCacheInfo();
   if (!nativeStoreAvailable()) return { bytes: 0, count: 0 };
   try {
-    const dirInfo = await getInfoAsync(AUDIO_CACHE_DIR);
-    if (!dirInfo.exists) return { bytes: 0, count: 0 };
-    const files = await readDirectoryAsync(AUDIO_CACHE_DIR);
+    const dir = audioCacheDir();
+    if (!directoryExists(dir)) return { bytes: 0, count: 0 };
+    const entries = listDirectory(dir);
     let total = 0;
-    for (const name of files) {
-      try {
-        const info = await getInfoAsync(`${AUDIO_CACHE_DIR}${name}`);
-        if (info.exists && typeof info.size === "number") total += info.size;
-      } catch {
-        // Skip an entry we can't stat; keep summing the rest.
-      }
+    for (const entry of entries) {
+      // An entry we can't stat reports no size; keep summing the rest.
+      if (typeof entry.size === "number") total += entry.size;
     }
-    return { bytes: total, count: files.length };
+    return { bytes: total, count: entries.length };
   } catch {
     return { bytes: 0, count: 0 };
   }
@@ -464,7 +480,7 @@ export async function invalidateCachedAudioUri(remoteUri: string): Promise<void>
 
   if (!nativeStoreAvailable()) return;
   try {
-    await deleteAsync(localPathFor(remoteUri), { idempotent: true });
+    deletePath(localPathFor(remoteUri));
   } catch {
     // Best-effort — nothing to clean up if the file was already gone.
   }
@@ -501,7 +517,7 @@ export async function clearAudioCache(): Promise<void> {
 
   if (!nativeStoreAvailable()) return;
   try {
-    await deleteAsync(AUDIO_CACHE_DIR, { idempotent: true });
+    deletePath(audioCacheDir());
   } catch {
     // Best-effort — nothing to clean up if the folder was already gone.
   }

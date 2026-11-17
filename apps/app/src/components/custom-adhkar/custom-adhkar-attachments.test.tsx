@@ -47,7 +47,7 @@ describe("CustomAdhkarAttachments", () => {
 
   it("renders existing remote attachments and opens the inline source list", async () => {
     const onChange = jest.fn();
-    render(
+    await render(
       <MunibThemeProvider>
         <CustomAdhkarAttachments
           canUpload
@@ -67,10 +67,10 @@ describe("CustomAdhkarAttachments", () => {
 
     expect(screen.getByLabelText("remote-thumb")).toBeTruthy();
 
-    fireEvent.press(screen.getByLabelText("Add file"));
+    await fireEvent.press(screen.getByLabelText("Add file"));
     expect(screen.getByText("Add attachment")).toBeTruthy();
 
-    fireEvent.press(screen.getByLabelText("Take a photo"));
+    await fireEvent.press(screen.getByLabelText("Take a photo"));
     expect(mockPickAttachmentFromSource).toHaveBeenCalledWith("camera");
     expect(screen.queryByText("Add attachment")).toBeNull();
   });

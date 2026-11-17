@@ -13,6 +13,7 @@ import Animated, {
 
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isPdfMime } from "@/lib/attachments/attachment-mime";
+import { useAuthedMediaUri } from "@/lib/attachments/authed-media";
 
 /** Soft pulsing fill for attachment thumbs while remote/local media resolves. */
 function AttachmentThumbPulse({ style, color }: { style?: StyleProp<ViewStyle>; color?: string }) {
@@ -71,10 +72,13 @@ export function AttachmentThumb({
   const { colors } = useThemeTokens();
   const pdf = isPdfMime(mimeType);
   const [ready, setReady] = useState(false);
+  // Private remote media is fetched with the session (refreshing on 401) and
+  // rendered from a local URI — see `authed-media.ts`.
+  const media = useAuthedMediaUri(pdf ? null : uri, headers);
 
   useEffect(() => {
-    setReady(false);
-  }, []);
+    if (media.failed) setReady(true);
+  }, [media.failed]);
 
   return (
     <View style={[styles.root, style]}>
@@ -91,12 +95,12 @@ export function AttachmentThumb({
             tintColor={colors.accent}
           />
         </View>
-      ) : (
+      ) : media.uri === null ? null : (
         <Image
-          source={{ uri, headers }}
+          source={{ uri: media.uri }}
           style={[styles.image, imageStyle, !ready ? styles.hiddenContent : null]}
           contentFit={contentFit}
-          transition={180}
+          transition={{ duration: 180, skipOnCacheHit: "all" }}
           onLoad={() => setReady(true)}
           onError={() => setReady(true)}
           accessibilityIgnoresInvertColors
