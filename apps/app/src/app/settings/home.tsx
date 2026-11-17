@@ -24,6 +24,7 @@ import {
   resolveQuickActionTint,
   TV_HIDDEN_QUICK_ACTION_IDS,
 } from "@/lib/quick-actions";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 /** Home modules the user can hide (NF-1.21). */
@@ -324,3 +325,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/home");

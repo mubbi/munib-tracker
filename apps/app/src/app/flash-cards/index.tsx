@@ -10,6 +10,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { ensureFlashCardContent, getFlashCardPool, type StudyMcq } from "@/lib/flash-cards";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function FlashCardsScreen() {
   const router = useRouter();
@@ -58,3 +59,6 @@ export default function FlashCardsScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/flash-cards");

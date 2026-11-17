@@ -32,6 +32,7 @@ import {
   getSahabaProfilesByCategory,
   isSahabaContentReady,
 } from "@/lib/sahaba";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export function generateStaticParams(): Array<{ id: string }> {
@@ -283,3 +284,6 @@ const styles = StyleSheet.create({
   body: { gap: Spacing.three, marginTop: Spacing.two },
   paragraph: { lineHeight: 22 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/sahaba/[id]");

@@ -30,6 +30,7 @@ import {
   getQuranGuideThemes,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export function generateStaticParams(): Array<{ id: string }> {
@@ -144,3 +145,6 @@ const styles = StyleSheet.create({
   lessons: { gap: Spacing.two, marginTop: Spacing.three },
   links: { gap: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/theme/[id]");

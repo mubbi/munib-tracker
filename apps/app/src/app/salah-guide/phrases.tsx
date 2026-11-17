@@ -28,6 +28,7 @@ import {
   isSalahGuideContentReady,
 } from "@/lib/salah-guide";
 import { salahGuidePhraseAudio } from "@/lib/salah-how-to-pray-audio";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranPrefs } from "@/stores/quran-store";
 
@@ -206,3 +207,6 @@ const styles = StyleSheet.create({
   meaningLabel: { textTransform: "uppercase", letterSpacing: 0.5 },
   reference: { marginTop: Spacing.two, lineHeight: 18 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/salah-guide/phrases");

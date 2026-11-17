@@ -42,6 +42,7 @@ import {
   formatPrayerTime,
 } from "@/lib/prayer-times";
 import { chevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 import { trackerStore, usePrayerStatus, useTrackerActions } from "@/stores/tracker-store";
@@ -556,3 +557,6 @@ const styles = StyleSheet.create({
   hadithHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   hadithBody: { marginTop: Spacing.two, marginBottom: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tahajjud");

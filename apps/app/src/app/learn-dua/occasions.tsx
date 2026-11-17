@@ -23,6 +23,7 @@ import {
   isLearnDuaContentReady,
 } from "@/lib/learn-dua";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const CATEGORY_ORDER = ["daily", "situational", "quranic"] as const;
 
@@ -96,3 +97,6 @@ export default function LearnDuaOccasionsScreen() {
 const styles = StyleSheet.create({
   rows: { gap: Spacing.two, marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-dua/occasions");

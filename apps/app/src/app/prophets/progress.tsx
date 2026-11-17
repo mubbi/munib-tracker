@@ -23,6 +23,7 @@ import {
   isProphetsContentReady,
 } from "@/lib/prophets";
 import { buildProphetsProgress } from "@/lib/prophets-progress";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureProphetsProgressLoaded,
   useProphetsCompletedCount,
@@ -130,3 +131,6 @@ const styles = StyleSheet.create({
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/prophets/progress");

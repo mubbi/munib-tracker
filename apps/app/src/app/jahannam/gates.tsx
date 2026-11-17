@@ -23,6 +23,7 @@ import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJahannamContent, getJahannamGates, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean }) {
   const { tokens } = useThemeTokens();
@@ -119,3 +120,6 @@ const styles = StyleSheet.create({
   copy: { flex: 1, gap: Spacing.two },
   scholarly: { fontStyle: "italic" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam/gates");

@@ -19,6 +19,7 @@ import { gradientBackground } from "@/lib/gradient";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -328,3 +329,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(auth)/login");

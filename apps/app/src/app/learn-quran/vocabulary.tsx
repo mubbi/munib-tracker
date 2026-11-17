@@ -31,6 +31,7 @@ import {
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import { arabicReadingLayout } from "@/lib/reading-typography";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function VocabWord({ word }: { word: ReturnType<typeof getQuranGuideVocabulary>[number] }) {
   const { sizes } = useReadingTypography();
@@ -138,3 +139,6 @@ const styles = StyleSheet.create({
   wordArabic: { flex: 1, minWidth: 0 },
   example: { fontStyle: "italic", marginTop: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/vocabulary");

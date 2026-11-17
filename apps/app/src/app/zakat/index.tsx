@@ -34,6 +34,7 @@ import { tTv } from "@/lib/i18n/t-tv";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 /** Fallback bar chrome height before onLayout (excludes safe-area already in ScreenLayout). */
 const SUMMARY_BAR_FALLBACK = 72;
@@ -289,3 +290,6 @@ const styles = StyleSheet.create({
   learnHint: { marginTop: Spacing.one, lineHeight: 20 },
   gridTop: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/zakat");

@@ -26,6 +26,7 @@ import {
 } from "@/lib/format-currency";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   type SadaqahPeriod,
   sumSadaqahInPeriod,
@@ -431,3 +432,6 @@ const styles = StyleSheet.create({
   logText: { flex: 1, gap: 2 },
   rows: { gap: Spacing.two, marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/sadaqah");

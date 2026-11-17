@@ -2,7 +2,6 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
-
 import { claimTvPairing } from "@/api/endpoints";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +12,7 @@ import { Spacing } from "@/constants/theme";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 
 /**
@@ -164,3 +164,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tv-pair");

@@ -25,6 +25,7 @@ import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platfor
 import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatDisplayDateTime } from "@/lib/time";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { useAuth } from "@/providers/auth-provider";
@@ -214,3 +215,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/notifications");

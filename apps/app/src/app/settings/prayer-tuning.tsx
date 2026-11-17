@@ -24,6 +24,7 @@ import {
   type HighLatitudeRuleKey,
   type PrayerSlotId,
 } from "@/lib/prayer-times";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { locationStore, useLocation, useLocationActions } from "@/stores/location-store";
 import { preferencesStore } from "@/stores/preferences-store";
@@ -240,3 +241,6 @@ const styles = StyleSheet.create({
   tvColumns: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
   tvColumn: { flex: 1, minWidth: 0 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/prayer-tuning");

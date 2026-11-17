@@ -16,6 +16,7 @@ import { useTasbeehCounterDock } from "@/hooks/use-tasbeeh-counter-dock";
 import { getDuroodByIdFrom, loadDuroodItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences } from "@/stores/preferences-store";
 import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
@@ -193,3 +194,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tasbeeh/durood/[id]");

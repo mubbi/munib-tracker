@@ -22,6 +22,7 @@ import {
   getQuranGuideThemes,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LearnQuranThemesScreen() {
   const router = useRouter();
@@ -79,3 +80,6 @@ export default function LearnQuranThemesScreen() {
 const styles = StyleSheet.create({
   rows: { gap: Spacing.two, marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/themes");

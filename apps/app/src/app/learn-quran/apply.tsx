@@ -24,6 +24,7 @@ import {
   getQuranGuideApplyChallengeForDate,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureQuranGuideProgressLoaded,
   useQuranGuideApplyChallengeCompleted,
@@ -212,3 +213,6 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/apply");

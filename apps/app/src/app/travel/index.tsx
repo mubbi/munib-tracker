@@ -8,6 +8,7 @@ import { Seo } from "@/components/seo/seo";
 import { TravelGuideContent } from "@/components/travel/travel-guide-content";
 import { Stagger } from "@/components/ui/stagger";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function TravelGuideScreen() {
   const router = useRouter();
@@ -36,3 +37,6 @@ export default function TravelGuideScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/travel");

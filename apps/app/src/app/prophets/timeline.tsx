@@ -23,6 +23,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { ensureProphetsContent, getProphetsTimeline, isProphetsContentReady } from "@/lib/prophets";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const noop = () => {};
 
@@ -152,3 +153,6 @@ const styles = StyleSheet.create({
   title: { marginBottom: Spacing.one },
   linkRow: { flexDirection: "row", alignItems: "center", gap: Spacing.one, marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/prophets/timeline");

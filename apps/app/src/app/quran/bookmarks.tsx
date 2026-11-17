@@ -19,6 +19,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { getBundledEdition, getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { arabicReadingLayout, DEFAULT_ARABIC_SIZE } from "@/lib/reading-typography";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
 import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranBookmarks } from "@/stores/quran-store";
@@ -239,3 +240,6 @@ const styles = StyleSheet.create({
     gap: Spacing.half,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/bookmarks");

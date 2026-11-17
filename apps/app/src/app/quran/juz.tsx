@@ -18,6 +18,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { getJuzList, juzForAyah } from "@/lib/quran";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLastRead } from "@/stores/quran-store";
 
 const JUZ_LIST = getJuzList();
@@ -177,3 +178,6 @@ const styles = StyleSheet.create({
   rowName: { flexShrink: 1, minWidth: 0 },
   rowArabic: { fontSize: 18, writingDirection: "rtl" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/juz");

@@ -28,6 +28,7 @@ import { DEFAULT_NUMBER_FORMAT, formatNumberInput } from "@/lib/format-currency"
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const SECTION_ICONS: Record<string, AppIcon> = {
   overview: { ios: "info.circle.fill", android: "info", web: "info" },
@@ -293,3 +294,6 @@ const styles = StyleSheet.create({
   resultAside: { marginTop: 0 },
   gridTop: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/fidyah");

@@ -22,6 +22,7 @@ import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { ensureLastDayContent, getLastDayLessonCount, isLastDayContentReady } from "@/lib/last-day";
 import { buildLastDayProgress } from "@/lib/last-day-progress";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureLastDayProgressLoaded,
   useLastDayCompletedCount,
@@ -137,3 +138,6 @@ const styles = StyleSheet.create({
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/last-day/progress");

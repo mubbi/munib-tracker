@@ -20,6 +20,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getUpcomingEvents } from "@/lib/islamic-events";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLocation } from "@/stores/location-store";
 
 export default function IslamicEventsScreen() {
@@ -182,3 +183,6 @@ const styles = StyleSheet.create({
   description: { marginTop: Spacing.two, lineHeight: 20 },
   disclaimer: { textAlign: "center", marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/events");

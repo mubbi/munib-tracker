@@ -15,6 +15,7 @@ import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { ensureAqeedahContent, getAqeedahGlossary, isAqeedahContentReady } from "@/lib/aqeedah";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function AqeedahGlossaryScreen() {
   const router = useRouter();
@@ -74,3 +75,6 @@ const styles = StyleSheet.create({
   list: { gap: Spacing.four, marginTop: Spacing.three },
   term: { gap: Spacing.half },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/aqeedah/glossary");

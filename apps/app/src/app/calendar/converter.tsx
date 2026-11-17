@@ -26,6 +26,7 @@ import { toAppLocale } from "@/lib/locale-bcp47";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLocation } from "@/stores/location-store";
 
 type ConverterDirection = "toHijri" | "toGregorian";
@@ -405,3 +406,6 @@ const styles = StyleSheet.create({
   },
   resultCopy: { flex: 1, gap: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/calendar/converter");

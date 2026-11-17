@@ -2,7 +2,6 @@ import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
@@ -23,6 +22,7 @@ import {
 } from "@/lib/library-menu";
 import { isTV } from "@/lib/platform/is-tv";
 import { TV_HIDDEN_QUICK_ACTION_IDS } from "@/lib/quick-actions";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useEnsureNewFeaturesLoaded, useNewFeatureIds } from "@/stores/new-features-store";
 import { usePreferencesReady } from "@/stores/preferences-store";
 
@@ -176,3 +176,6 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(tabs)/library");

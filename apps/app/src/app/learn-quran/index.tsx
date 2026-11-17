@@ -34,6 +34,7 @@ import {
   getQuranGuideTopicsByJourney,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureQuranGuideProgressLoaded,
   useQuranGuideCompletedCount,
@@ -274,3 +275,6 @@ const styles = StyleSheet.create({
   phaseHint: { marginTop: Spacing.one, lineHeight: 20 },
   pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran");

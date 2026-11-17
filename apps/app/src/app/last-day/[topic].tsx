@@ -18,6 +18,7 @@ import {
   isLastDayContentReady,
 } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useStore } from "@/stores/create-store";
 import {
@@ -109,3 +110,6 @@ export default function LastDayTopicScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/last-day/[topic]");

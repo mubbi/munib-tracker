@@ -8,6 +8,7 @@ import { useHomeHero } from "@/hooks/use-home-hero";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatScheduleShare } from "@/lib/share";
 
 const SHARE_KEY = "today-schedule";
@@ -78,3 +79,6 @@ export default function ScheduleScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/schedule");

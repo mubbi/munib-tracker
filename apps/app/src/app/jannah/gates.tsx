@@ -27,6 +27,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJannahContent, getJannahGates, isJannahContentReady } from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const GATE_ICONS: Record<string, AppIcon> = {
   salah: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
@@ -179,3 +180,6 @@ const styles = StyleSheet.create({
   },
   quoteText: { lineHeight: 22, fontStyle: "italic" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jannah/gates");

@@ -22,6 +22,7 @@ import {
   getQuranGuideStructureLevels,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LearnQuranStructureScreen() {
   const router = useRouter();
@@ -156,3 +157,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/structure");

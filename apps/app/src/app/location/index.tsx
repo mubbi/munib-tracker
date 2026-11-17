@@ -31,6 +31,7 @@ import {
   type MadhabKey,
 } from "@/lib/prayer-times";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { rescheduleAll } from "@/notifications/scheduler";
 import {
   locationStore,
@@ -462,3 +463,6 @@ const styles = StyleSheet.create({
   },
   rowText: { flex: 1, gap: 2 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/location");

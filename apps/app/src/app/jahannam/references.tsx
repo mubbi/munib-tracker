@@ -26,6 +26,7 @@ import {
   isJahannamContentReady,
 } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function JahannamReferencesScreen() {
   const router = useRouter();
@@ -110,3 +111,6 @@ const styles = StyleSheet.create({
   },
   copy: { flex: 1, gap: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam/references");

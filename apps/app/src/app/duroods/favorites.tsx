@@ -35,6 +35,7 @@ import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useDuroodFavoritesActions,
   useEnsureDuroodFavoritesLoaded,
@@ -234,3 +235,6 @@ const styles = StyleSheet.create({
   title: { marginStart: Spacing.one },
   separator: { height: Spacing.four },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/duroods/favorites");

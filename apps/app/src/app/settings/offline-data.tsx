@@ -31,6 +31,7 @@ import {
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
 
 type PendingClear = { kind: "group"; group: CacheGroupSize } | { kind: "all" } | null;
@@ -229,3 +230,6 @@ const styles = StyleSheet.create({
   total: { marginTop: Spacing.three, textAlign: I18nManager.isRTL ? "left" : "right" },
   note: { textAlign: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/offline-data");

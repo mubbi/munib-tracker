@@ -21,6 +21,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildHadithSharePayload } from "@/lib/share";
 import { resolveHadithTranslation } from "@/lib/translation-locale";
 
@@ -192,3 +193,6 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/hadith/bookmarks");

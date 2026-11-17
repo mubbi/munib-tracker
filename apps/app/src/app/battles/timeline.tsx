@@ -20,6 +20,7 @@ import { ensureBattlesContent, getBattlesTimeline, isBattlesContentReady } from 
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function BattlesTimelineScreen() {
   const router = useRouter();
@@ -167,3 +168,6 @@ const styles = StyleSheet.create({
   title: { marginBottom: Spacing.one },
   linkRow: { flexDirection: "row", alignItems: "center", gap: Spacing.one, marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles/timeline");

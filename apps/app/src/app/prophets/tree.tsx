@@ -33,6 +33,7 @@ import {
   getProphetsGenealogyNodes,
   searchProphetsGenealogy,
 } from "@/lib/prophets-genealogy";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function CertaintyPill({ certainty }: { certainty: ProphetsGenealogyNode["certainty"] }) {
   const { t } = useTranslation();
@@ -481,3 +482,6 @@ const styles = StyleSheet.create({
   note: { lineHeight: 21, marginBottom: Spacing.two, paddingStart: Spacing.two + 2 },
   sources: { lineHeight: 18, marginBottom: Spacing.two, paddingStart: Spacing.two + 2 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/prophets/tree");

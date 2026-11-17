@@ -52,6 +52,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import {
   useAchievementStats,
@@ -719,3 +720,6 @@ const styles = StyleSheet.create({
     gap: 2,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/statistics");

@@ -19,6 +19,7 @@ import {
   isBattlesContentReady,
 } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import {
   battlesProgressStore,
@@ -111,3 +112,6 @@ export default function BattlesTopicScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles/[topic]");

@@ -19,6 +19,7 @@ import {
   isAqeedahContentReady,
 } from "@/lib/aqeedah";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureAqeedahProgressLoaded } from "@/stores/aqeedah-progress-store";
 
@@ -95,3 +96,6 @@ export default function AqeedahTopicScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/aqeedah/[topic]");

@@ -28,6 +28,7 @@ import { tTv } from "@/lib/i18n/t-tv";
 import { ensureJannahContent, getJannahVerses, isJannahContentReady } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const THEME_ORDER = ["description", "reward", "ranks", "mercy", "supplication"] as const;
 
@@ -190,3 +191,6 @@ const styles = StyleSheet.create({
   rowCopy: { flex: 1, gap: Spacing.one },
   excerpt: { lineHeight: 20 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jannah/verses");

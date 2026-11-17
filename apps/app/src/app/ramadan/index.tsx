@@ -29,6 +29,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { formatDuration, formatPrayerTime } from "@/lib/prayer-times";
 import { getRamadanInfo, RAMADAN_MONTH } from "@/lib/ramadan";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   type FastStatus,
   useEnsureFastingLoaded,
@@ -652,3 +653,6 @@ const styles = StyleSheet.create({
   disclaimerRow: { flexDirection: "row", gap: Spacing.two, alignItems: "flex-start" },
   disclaimer: { flex: 1 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/ramadan");

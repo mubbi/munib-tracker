@@ -24,6 +24,7 @@ import {
   getQuranGuideTadabburPrompts,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LearnQuranTadabburScreen() {
   const router = useRouter();
@@ -84,3 +85,6 @@ export default function LearnQuranTadabburScreen() {
 const styles = StyleSheet.create({
   card: { gap: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/tadabbur");

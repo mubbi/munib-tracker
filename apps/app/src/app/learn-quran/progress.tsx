@@ -23,6 +23,7 @@ import {
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import { buildQuranGuideProgress } from "@/lib/quran-guide-progress";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureQuranGuideProgressLoaded,
   useQuranGuideCompletedCount,
@@ -125,3 +126,6 @@ const styles = StyleSheet.create({
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/progress");

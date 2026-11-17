@@ -24,6 +24,7 @@ import { locationCalcExtras } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { computePrayerTimes, formatPrayerTime } from "@/lib/prayer-times";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { prayerDayAnchor } from "@/lib/time";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { locationStore, useLocation } from "@/stores/location-store";
@@ -183,3 +184,6 @@ const styles = StyleSheet.create({
   value: { textAlign: "center" },
   notifyTime: { textAlign: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/reminder-offsets");

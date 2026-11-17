@@ -19,6 +19,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { zikrCategoryBadge, zikrListRowProgress } from "@/lib/zikr-list-progress";
@@ -254,3 +255,6 @@ const styles = StyleSheet.create({
   sideColWide: { flex: 2, minWidth: 0, gap: Spacing.three },
   fill: { flexGrow: 1, justifyContent: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/zikr");

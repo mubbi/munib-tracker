@@ -40,6 +40,7 @@ import {
 } from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const HUB_ICONS: Record<string, AppIcon> = {
   about: { ios: "leaf.fill", android: "park", web: "park" },
@@ -360,3 +361,6 @@ const styles = StyleSheet.create({
   promisedSummary: { lineHeight: 18 },
   promisedNote: { lineHeight: 16, fontStyle: "italic" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jannah");

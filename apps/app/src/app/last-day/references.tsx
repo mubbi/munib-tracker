@@ -19,6 +19,7 @@ import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { ensureLastDayContent, getLastDayReferences, isLastDayContentReady } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LastDayReferencesScreen() {
   const router = useRouter();
@@ -73,3 +74,6 @@ const styles = StyleSheet.create({
   item: { gap: Spacing.one },
   note: { lineHeight: 18 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/last-day/references");

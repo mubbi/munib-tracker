@@ -32,6 +32,7 @@ import { persistAchievementSync } from "@/lib/achievements-persistence";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatAchievementShare } from "@/lib/share";
 
 const OBLIGATORY = new Set<string>(OBLIGATORY_PRAYERS);
@@ -521,3 +522,6 @@ const styles = StyleSheet.create({
     marginTop: Spacing.one,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/achievements");

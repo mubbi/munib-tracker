@@ -37,6 +37,7 @@ import {
   getSalahGuideTopicsByJourney,
   isSalahGuideContentReady,
 } from "@/lib/salah-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureSalahGuideProgressLoaded,
   useSalahGuideCompletedCount,
@@ -373,3 +374,6 @@ const styles = StyleSheet.create({
   colNum: { width: tvDp(64), textAlign: "center" },
   pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/salah-guide");
