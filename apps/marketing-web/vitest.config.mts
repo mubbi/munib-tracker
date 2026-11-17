@@ -5,7 +5,7 @@ import { mergeConfig } from "vitest/config";
 export default mergeConfig(reactConfig, {
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
   test: {
