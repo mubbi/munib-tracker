@@ -126,7 +126,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 **Play Console (App Actions uploads):** set Privacy policy to `https://munibtracker.app/privacy`, then **Setup → Advanced settings → App Actions → accept Terms of Service**.
 
-**Force-quit limitation:** if the app process is killed, Siri/Assistant/widget/watch/Wear marks still enqueue into `pending_commands_v1`; the drain (`ExternalCommandProcessor`) only runs once the app is relaunched or foregrounded, so the visible mark (checklist tick, streak, widget refresh) is delayed until then — the queued command itself is never lost. Surfaced to users in **Settings → Siri & voice shortcuts** (`externalCommands.siriHint` / `assistantHint`).
+**Force-quit limitation:** if the app process is killed, Siri/Assistant/widget/Wear marks still enqueue into `pending_commands_v1` (Apple Watch marks wait in the system `transferUserInfo` queue and are enqueued once the phone app runs); the drain (`ExternalCommandProcessor`) only runs once the app is relaunched or foregrounded, so the visible mark (checklist tick, streak, widget refresh) is delayed until then — the queued command itself is never lost. Surfaced to users in **Settings → Siri & voice shortcuts** (`externalCommands.siriHint` / `assistantHint`).
 
 **Mark my Salah (quick action / deep link):** only completes the _current window_ obligatory Salah (never cascades to the next pending). Icon quick-action cold-start is handled once per launch so remounts cannot re-open `/mark-current` and mark again. Duplicate `mark-current-obligatory` entries in one drain pass are coalesced.
 
@@ -140,6 +140,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 - Requires paired iPhone with Munib Tracker installed
 - Phone pushes `widget_snapshot_v1` over WatchConnectivity (`updateApplicationContext` + complication userInfo) so the face stays fresh
 - **Tasbeeh (watch-local):** `WatchTasbeehView.swift` — a NavigationLink from the root list opens a self-contained `@State` counter (33 / 99 / 100 / unlimited via segmented picker). Tap or Digital Crown rotation (`digitalCrownRotation`) increments; haptics (`WKInterfaceDevice.current().play`) on tap/target-reached/reset. **No ExternalCommand, no WatchConnectivity** — purely local to the watch, independent of the phone counter.
+
 ### Face complications (WidgetKit)
 
 - Target: `targets/munib-tracker-watch-widgets/` (`type: "watch-widget"`) — embedded into the watch app at prebuild

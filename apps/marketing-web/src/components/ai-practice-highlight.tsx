@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 /**
  * Landing-page spotlight for Qur'an practice — the app's on-device AI listener.
  *
- * Wording rule (docs/AI_POWERED_QURAN_COMPANION_TODO.md §14): the listener *follows*
+ * Wording rule (Qur'an practice, NF-2.38): the listener *follows*
  * your recitation. Never promise "mistake detection", "tajweed correction", or a score.
  */
 const POINTS: { id: string; icon: LucideIcon; title: string; body: string }[] = [

@@ -64,7 +64,7 @@ Munib Tracker is a **pnpm + Turborepo** monorepo designed around two hard proble
 | --------------- | -------------------------------------------------------------------------------------------------------------------- |
 | Product app     | Expo SDK 58 — iOS, Android, web, Apple TV, Android TV (`react-native-tvos` + `EXPO_TV=1`)                            |
 | Marketing site  | Next.js 16 + Tailwind CSS v4                                                                                         |
-| API             | NestJS 11 — auth, OpenAPI, typed cloud sync                                                                          |
+| API             | NestJS 12 — auth, OpenAPI, typed cloud sync                                                                          |
 | Admin console   | Next.js ops console (users, reports, in-app / push broadcasts)                                                       |
 | Shared packages | Domain types, theme tokens, API contract + Orval client, ActivityKit / surface-push delivery, store screenshot specs |
 

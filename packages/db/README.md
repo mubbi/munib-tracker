@@ -1,6 +1,6 @@
 # `@munib-tracker/db`
 
-Drizzle ORM schemas for the **admin console** (`apps/admin`). Same Postgres database as Nest (`apps/api`).
+Drizzle ORM (`drizzle-orm` ^0.45) schemas for the **admin console** (`apps/admin`) and the marketing contact form (`apps/marketing-web` → `contact_messages`). Same Postgres database as Nest (`apps/api`).
 
 ## Ownership
 
@@ -13,8 +13,9 @@ When you change columns: add/update a TypeORM migration first, then mirror the t
 
 ## Layout
 
-- `src/schema/` — table definitions (`users`, `admin_*`, `broadcast_jobs`, `in_app_notifications`, `push_tokens`, content reports, feedback, contact messages, sync, media, versions, …)
+- `src/schema/` — table definitions (`users`, `admin_*`, `admin_broadcasts`, `cron_runs`, `canned_replies`, `in_app_notifications`, `push_tokens`, `live_activity_push_*`, `surface_push_*`, content reports, feedback, contact messages, OSS download failures, sync, media, versions, auth sessions, deleted accounts, …)
 - `src/pg/createDb.ts` — `pg` pool + Drizzle client
+- `src/pg/preparePgConnection.ts` — URL sanitising + SSL (Supabase CA, pooler detection); exported as `@munib-tracker/db/pg/preparePgConnection`
 - `src/index.ts` — package exports
 
 ## Usage

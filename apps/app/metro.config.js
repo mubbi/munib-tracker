@@ -131,7 +131,7 @@ function assertInternalAliasTarget(pkg, relFile, importerFiles, needle) {
   if (!fs.existsSync(target) || !stillImported) {
     throw new Error(
       `[metro.config] ${pkg}/${relFile} is no longer imported via "${needle}". ` +
-        "Update the matching alias in metro.config.js resolveRequest (see docs/EXPO_SDK_58_UPGRADE_PLAN.md §5.1).",
+        "Update the matching alias in metro.config.js resolveRequest (see apps/app/AGENTS.md, Expo internals we depend on).",
     );
   }
 }

@@ -9,7 +9,7 @@ This is a **pnpm + Turborepo** monorepo for Munib Tracker (salah, zikr, qaza).
 | **Product**   | `apps/app`           | Expo SDK 58 — iOS, Android, Web, **Apple TV / Android TV** (single codebase) | `pnpm dev:app`           |
 | **Marketing** | `apps/marketing-web` | Next.js 16 landing site (port 3000)                                          | `pnpm dev:marketing-web` |
 | **Admin**     | `apps/admin`         | Next.js ops console (port 3002) — users, reports, broadcasts, platform       | `pnpm dev:admin`         |
-| **API**       | `apps/api`           | NestJS 11 — cloud sync, auth, backend services (port 3001)                   | `pnpm dev:api`           |
+| **API**       | `apps/api`           | NestJS 12 — cloud sync, auth, backend services (port 3001)                   | `pnpm dev:api`           |
 
 Deploy web surfaces to Vercel (four projects): see [`docs/PRODUCTION.md`](docs/PRODUCTION.md). Admin ops: [`docs/ADMIN.md`](docs/ADMIN.md).
 
@@ -32,12 +32,17 @@ Import via workspace package names:
 - `@munib-tracker/api-contract` — OpenAPI spec exported from `apps/api`
 - `@munib-tracker/api-client` — Orval-generated fetch + TanStack Query SDK
 
-**Outside the pnpm workspace:** `tools/screenshot-studio/` — standalone screenshot editor (port **3010**, `pnpm dev:screenshot-studio`). Workflow: [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md).
+**Outside the pnpm workspace:**
+
+- `tools/screenshot-studio/` — standalone screenshot editor (port **3010**, `pnpm dev:screenshot-studio`). Workflow: [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md).
+- `tools/pamphlets/` — print-ready A4 promo pamphlets (HTML + Puppeteer render, own `npm` install). See [`tools/pamphlets/README.md`](tools/pamphlets/README.md).
 
 ## Conventions
 
+- **Toolchain:** Node ≥ 24.15 (`.nvmrc`), pnpm 12 (`packageManager`), Turborepo 2. Each `CLAUDE.md` is a one-line `@AGENTS.md` pointer — edit the `AGENTS.md`, not the `CLAUDE.md`.
+- **TypeScript:** `typescript` is aliased to `@typescript/typescript6` (Expo, Jest, Orval and other tools need the TS JS API); `@typescript/native` (TS 7) provides the fast `tsc` for `check-types`. Don't replace the alias with plain `typescript`.
 - **Lint/format:** Biome at repo root (`pnpm lint`, `pnpm format-and-lint:fix`)
-- **Tests:** Vitest (marketing-web, api, packages) + Jest (apps/app). No Playwright/Maestro **E2E in CI** — Maestro is used only for store screenshot capture (`pnpm screenshots:*`, [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)).
+- **Tests:** Vitest 5 (marketing-web, admin, api, packages; configs are `vitest.config.mts`) + Jest 30 (apps/app). No Playwright/Maestro **E2E in CI** — Maestro is used only for store screenshot capture (`pnpm screenshots:*`, [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)).
 - **Product theme:** All screens use `useTheme()` from `apps/app/src/providers/theme-provider.tsx` — no hardcoded colors.
 - **Marketing styling:** Tailwind CSS v4.3 with `@source` scanning monorepo packages in `globals.css`.
 - **Fuzzy search:** Fuse.js v7 in `apps/app` — canonical module `apps/app/src/lib/search.ts`. See [apps/app/AGENTS.md](apps/app/AGENTS.md) and `.agents/skills/fuse-js/SKILL.md`.
@@ -118,7 +123,7 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`FEATURES.md`](docs/FEATURES.md)                                                                           | Shipped NF-* feature catalog                                        |
 | [`OPEN_SOURCE.md`](docs/OPEN_SOURCE.md)                                                                     | Public release checklist (PolyForm NC)                              |
 | [`RELEASES.md`](docs/RELEASES.md)                                                                           | Per-app semver via Release Please (tags, changelogs, build numbers) |
-| [`I18N_GUIDE.md`](docs/I18N_GUIDE.md)                                                                       | 23-locale i18n ops, scripture rules                                 |
+| [`I18N_GUIDE.md`](docs/I18N_GUIDE.md)                                                                       | 24-locale i18n ops, scripture rules                                 |
 | [`OAUTH_SETUP.md`](docs/OAUTH_SETUP.md)                                                                     | Google / Apple / Facebook sign-in (native + web)                    |
 | [`DEEP_LINKS.md`](docs/DEEP_LINKS.md)                                                                       | Custom scheme + HTTPS App Links (incl. Apple OAuth)                 |
 | [`PRODUCTION.md`](docs/PRODUCTION.md)                                                                       | Vercel deploys + production env (incl. OAuth + admin)               |

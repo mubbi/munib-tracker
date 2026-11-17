@@ -87,6 +87,11 @@ pnpm cleanbuild:app:tv:ios
 # Run (after TV prebuild)
 pnpm dev:app:tv:android
 pnpm dev:app:tv:ios
+pnpm dev:app:tv:remote <key>        # adb D-pad keys (see emulator controls below)
+
+# Clean TV prebuild + run in one step
+pnpm rebuild:app:tv:android
+pnpm rebuild:app:tv:ios
 
 # Local signed release (mirrors phone release:app:*)
 pnpm release:app:android-tv          # Leanback AAB → android/play-upload/tv/
@@ -161,7 +166,11 @@ Do **not** open the LAN IP (`192.168.x.x`) from the TV emulator — Dev Client h
 
 **Metro (`EXPO_TV=1`):** phone-only packages resolve to stubs under `apps/app/src/lib/tv-stubs/` so imports cannot crash Leanback/tvOS JS. Covered today: `expo-speech-recognition`, `react-native-android-widget`, `expo-quick-actions`, `expo-web-browser`, `react-native-webview`, `react-native-pager-view`, `expo-notifications`, `expo-location`, `expo-sensors`, `expo-haptics`, `expo-local-authentication`, `expo-image-picker`, `expo-document-picker`, `expo-sharing`, `expo-store-review`, `expo-speech`, `expo-apple-authentication`, `expo-navigation-bar`, `expo-hinge`, `onnxruntime-react-native`.
 
-**One exclusion list:** `apps/app/plugins/tvExcludedPackages.cjs` is the single source for phone-only native packages. `react-native.config.js` (React Native autolinking; Expo SDK 58 autolinking also honours its `null` overrides) and `plugins/withTvExpoModuleExcludes.cjs` (Podfile `use_expo_modules!(exclude: …)` + Android `expoAutolinking.exclude`) both read it — including the local `munib-tajweedformer`, `munib-wear` and `munib-external-commands` modules, which previously still linked into Android TV. `plugins/withTvNilSafeFabricComponents.cjs` also nil-safes `RCTThirdPartyComponentsProvider.mm` so any remaining unlinked Fabric Class does not abort at JS load.
+**One exclusion list:** `apps/app/plugins/tvExcludedPackages.cjs` is the single source for phone-only native packages. `react-native.config.js` (React Native autolinking; Expo SDK 58 autolinking also honours its `null` overrides) and `plugins/withTvExpoModuleExcludes.cjs` (Podfile `use_expo_modules!(exclude: …)` + Android `expoAutolinking.exclude`) both read it — including the local `munib-tajweedformer`, `munib-wear` and `munib-external-commands` modules, which previously still linked into Android TV. `plugins/withTvNilSafeFabricComponents.cjs` also nil-safes `RCTThirdPartyComponentsProvider.mm` (via `scripts/nil-safe-fabric-third-party-components.cjs`) so any remaining unlinked Fabric Class does not abort at JS load.
+
+**tvOS codegen must see `EXPO_TV=1`.** Xcode re-runs Fabric codegen at build time (ReactCodegen `[CP-User] Generate Specs`), so the plugin appends `export EXPO_TV=1` to `ios/.xcode.env` and hooks the nil-safe patch into that ReactCodegen phase from the Podfile `post_install` (an app-target phase runs too late — ReactCodegen has already compiled the file). `prebuild-tv.js` also runs the post-clean `pod install` with `EXPO_TV=1`. Without this, build-time codegen re-adds phone-only providers (`RNCWebView`, pager-view) and the app aborts at launch.
+
+**AsyncStorage on tvOS:** `patches/@react-native-async-storage__async-storage@3.1.1.patch` adds a `:tvos` platform to the podspec and compiles out the `SharedAsyncStorage` path (its xcframework has no tvOS slice), so tvOS uses legacy storage under `Library/Caches` (the screenshot storage injector checks that path too).
 
 ## Runtime degradations (`Platform.isTV` / `isTV()`)
 
@@ -238,17 +247,18 @@ TV type ramp (`TvType`, dp): body 18 · small 16 · caption 14 · label 13 · su
 
 ## Layout widths (10-foot)
 
-| Token / rule                               | Value / behavior                                                                                                                                                                      |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `TvLayout.contentPaddingX`                 | 48 — overscan inset on ScreenLayout / sheets / AppHeader (5% of 960dp)                                                                                                                |
-| `TvLayout.overscanY`                       | 28 — top/bottom overscan (AppHeader, side rail)                                                                                                                                       |
-| `TvLayout.proseMaxWidth`                   | 800 — Learn prose column                                                                                                                                                              |
-| `TvLayout.gridGap`                         | 20 — tile/card gutter                                                                                                                                                                 |
-| ScreenLayout default on TV                 | **Uncapped** (fills the tab pane). Learn prose routes stay at `MaxContentWidth` (800) for readability.                                                                                |
-| `TvLayout.listDetailMaxWidth`              | 1720 — Qur’an / Hadith list–detail shells                                                                                                                                             |
-| `TvLayout.detailPaneMinWidth` / `MaxWidth` | 420 / 720 — secondary panes                                                                                                                                                           |
-| Selected vs focused                        | Soft fill (`accentSoft`) + hairline for **selected**; solid accent / thick ring only for **D-pad focus**. Never paint accent borders on selected rows that also receive a focus ring. |
-| Search placeholders                        | Prefer short keys on TV (e.g. `quran.search` vs long phone placeholders)                                                                                                              |
+| Token / rule                                   | Value / behavior                                                                                                                                                                      |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TvLayout.minFocusTarget` / `minFocusTargetDp` | 64 — row / control focus target; use the unscaled `…Dp` for APIs that apply `tvDp()` themselves (e.g. `IconButton` `hitTarget`) to avoid double-scaling on tvOS                       |
+| `TvLayout.contentPaddingX`                     | 48 — overscan inset on ScreenLayout / sheets / AppHeader (5% of 960dp)                                                                                                                |
+| `TvLayout.overscanY`                           | 28 — top/bottom overscan (AppHeader, side rail)                                                                                                                                       |
+| `TvLayout.proseMaxWidth`                       | 800 — Learn prose column                                                                                                                                                              |
+| `TvLayout.gridGap`                             | 20 — tile/card gutter                                                                                                                                                                 |
+| ScreenLayout default on TV                     | **Uncapped** (fills the tab pane). Learn prose routes stay at `MaxContentWidth` (800) for readability.                                                                                |
+| `TvLayout.listDetailMaxWidth`                  | 1720 — Qur’an / Hadith list–detail shells                                                                                                                                             |
+| `TvLayout.detailPaneMinWidth` / `MaxWidth`     | 420 / 720 — secondary panes                                                                                                                                                           |
+| Selected vs focused                            | Soft fill (`accentSoft`) + hairline for **selected**; solid accent / thick ring only for **D-pad focus**. Never paint accent borders on selected rows that also receive a focus ring. |
+| Search placeholders                            | Prefer short keys on TV (e.g. `quran.search` vs long phone placeholders)                                                                                                              |
 
 ## QA checklist
 

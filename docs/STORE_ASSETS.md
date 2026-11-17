@@ -10,17 +10,17 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
 │    pnpm screenshots:android | pnpm screenshots:ios                      │
 │    → store-assets/captures-native/{android|ios}/<locale>/<theme>/*.png   │
 └───────────────────────────────┬─────────────────────────────────────────┘
-                                │ dark captures → STUDIO_ALIASES copy
+                                │ studio-locale captures → STUDIO_ALIASES copy
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │ 2. Studio inputs (per platform × locale)                                │
-│    → store-assets/captures/{android|ios}/<locale>/{home,tracker,…}.jpg │
+│    → store-assets/captures/{android|ios}/<locale>/<theme>/{home,…}.jpg │
 └───────────────────────────────┬─────────────────────────────────────────┘
                                 │ pnpm sync:screenshot-captures
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │ 3. Screenshot Studio editor (Next.js, port 3010)                      │
-│    pnpm dev:screenshot-studio → export bundles                          │
+│    pnpm dev:screenshot-studio → export bundles (UI or export:…)         │
 │    iPhone/iPad decks ← captures/ios · Android decks ← captures/android  │
 └───────────────────────────────┬─────────────────────────────────────────┘
                                 │ pnpm distribute:screenshot-exports
@@ -33,17 +33,18 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
 
 ## Quick reference
 
-| Step | Command | Output |
-|------|---------|--------|
-| Validate capture scripts (CI-safe) | `pnpm screenshots:validate` | — |
-| Native full matrix | `pnpm screenshots:android` / `pnpm screenshots:ios` | `captures-native/` |
-| Apple Watch (Ultra 3) | `pnpm screenshots:watch` | `captures-native/watch/` + `ios/screenshots/watch-ultra-3/` |
-| Apple TV / Android TV (validate) | `pnpm screenshots:tvos` / `screenshots:android-tv` / `screenshots:tv` | No PNGs unless `RUN_CAPTURE=1` → `apple-tv-1080p/` / `android-tv-1080p/` |
-| Seed studio decks + copy | `pnpm seed:screenshot-studio` | `tools/screenshot-studio/app-store-screenshots.json` |
-| Sync Munib logo/icon into studio | `pnpm sync:screenshot-brand-assets` | `tools/screenshot-studio/public/app-icon.png` |
-| Sync captures into editor | `pnpm sync:screenshot-captures` | `tools/screenshot-studio/public/screenshots/app/` |
-| Open editor | `pnpm dev:screenshot-studio` | http://localhost:3010 |
-| Copy exports to store layout | `pnpm distribute:screenshot-exports` | `store-assets/ios/`, `android/` |
+| Step                                                                | Command                                                               | Output                                                                   |
+| ------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Validate capture scripts (CI-safe)                                  | `pnpm screenshots:validate`                                           | —                                                                        |
+| Native full matrix                                                  | `pnpm screenshots:android` / `pnpm screenshots:ios`                   | `captures-native/`                                                       |
+| Apple Watch (Ultra 3)                                               | `pnpm screenshots:watch`                                              | `captures-native/watch/` + `ios/screenshots/watch-ultra-3/`              |
+| Apple TV / Android TV (validate)                                    | `pnpm screenshots:tvos` / `screenshots:android-tv` / `screenshots:tv` | No PNGs unless `RUN_CAPTURE=1` → `apple-tv-1080p/` / `android-tv-1080p/` |
+| Seed studio decks + copy                                            | `pnpm seed:screenshot-studio`                                         | `tools/screenshot-studio/app-store-screenshots.json`                     |
+| Sync Munib logo/icon into studio                                    | `pnpm sync:screenshot-brand-assets`                                   | `tools/screenshot-studio/public/app-icon.png`                            |
+| Sync captures into editor                                           | `pnpm sync:screenshot-captures`                                       | `tools/screenshot-studio/public/screenshots/app/`                        |
+| Open editor                                                         | `pnpm dev:screenshot-studio`                                          | http://localhost:3010                                                    |
+| Headless export (optional; editor must be running, uses Playwright) | `pnpm export:screenshot-studio`                                       | `tools/screenshot-studio/exports/`                                       |
+| Copy exports to store layout                                        | `pnpm distribute:screenshot-exports`                                  | `store-assets/ios/`, `android/`                                          |
 
 ## Native capture (`apps/app/scripts/screenshots/`)
 
@@ -85,20 +86,20 @@ Full detail: [`apps/app/scripts/screenshots/README.md`](../apps/app/scripts/scre
 
 ### Studio alias mapping
 
-After each dark capture run for a **studio locale** (`packages/store-screenshots/spec.json`, typically en/ar/ur), key scenes are copied into `store-assets/captures/<platform>/<locale>/` for the marketing editor (`lib/config.mjs` → `STUDIO_ALIASES`):
+After each capture run (light **and** dark) for a **studio locale** (`packages/store-screenshots/spec.json` → `locales`, currently en/ar/ur), key scenes are copied into `store-assets/captures/<platform>/<locale>/<theme>/` for the marketing editor (`lib/config.mjs` → `STUDIO_ALIASES`). `sync:screenshot-captures` loads the `STUDIO_THEME` folder (default `light`, from `spec.json` → `studioTheme`; override with `STUDIO_THEME=dark`):
 
-| Studio file | Source scene |
-|-------------|--------------|
-| `home.jpg` | `home` |
-| `tracker.jpg` | `tracker` or `tracker-status-sheet` |
-| `qaza.jpg` | `qaza` |
-| `zikr.jpg` | `zikr` |
-| `quran.jpg` | `quran` |
-| `qibla.jpg` | `qibla` |
-| `names-of-allah.jpg` | `names-of-allah` |
-| `tasbeeh.jpg` | `tasbeeh` |
+| Studio file          | Source scene                        |
+| -------------------- | ----------------------------------- |
+| `home.jpg`           | `home`                              |
+| `tracker.jpg`        | `tracker` or `tracker-status-sheet` |
+| `qaza.jpg`           | `qaza`                              |
+| `zikr.jpg`           | `zikr`                              |
+| `quran.jpg`          | `quran`                             |
+| `qibla.jpg`          | `qibla`                             |
+| `names-of-allah.jpg` | `names-of-allah`                    |
+| `tasbeeh.jpg`        | `tasbeeh`                           |
 
-Native Maestro output is PNG; files land with `.jpg` names for deck compatibility. `sync-app-screenshots.mjs` accepts `.jpg`, `.jpeg`, or `.png` sources. iOS and Android stay in separate trees so captures never overwrite across platforms.
+Native Maestro output is PNG; files land with `.jpg` names for deck compatibility. `sync-app-screenshots.mjs` accepts `.jpg`, `.jpeg`, or `.png` sources (and still falls back to the legacy flat `<locale>/` path without a theme folder). iOS and Android stay in separate trees so captures never overwrite across platforms.
 
 ## Screenshot Studio (`tools/screenshot-studio/`)
 
@@ -121,15 +122,15 @@ Full detail: [`tools/screenshot-studio/README.md`](../tools/screenshot-studio/RE
 
 ## Output layout (`apps/app/store-assets/`)
 
-| Path | Purpose |
-|------|---------|
-| `captures-native/` | Full native matrix (platform × locale × theme × scene) + `watch/en/` |
-| `captures/<android\|ios>/<locale>/` | Studio input images per platform × locale |
-| `ios/screenshots/` | App Store PNGs (6.9", 6.5", iPad 13", `watch-ultra-3/`, `apple-tv-1080p/`) |
-| `android/screenshots/` | Play Store PNGs (phone, 7", 10" portrait/landscape, `android-tv-1080p/`) |
-| `android/feature-graphic/` | Play feature graphic 1024×500 |
+| Path                                        | Purpose                                                                                                 |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `captures-native/`                          | Full native matrix (platform × locale × theme × scene) + `watch/en/`                                    |
+| `captures/<android\|ios>/<locale>/<theme>/` | Studio input images per platform × locale × theme                                                       |
+| `ios/screenshots/`                          | App Store PNGs (`6.9-inch/`, `6.5-inch/`, `13-inch/` iPad, `watch-ultra-3/`, `apple-tv-1080p/`)         |
+| `android/screenshots/`                      | Play Store PNGs (`phone/`, `tablet-7-inch/`, `tablet-10-inch/` portrait/landscape, `android-tv-1080p/`) |
+| `android/feature-graphic/`                  | Play feature graphic 1024×500 (`<locale>.png`)                                                          |
 
-Marketing slide order: `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-privacy`, `06-offline`, `07-more`.
+Marketing slide order (`spec.json` → `slideScenes`): `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-qibla`, `06-names`, `07-more`.
 
 Full detail: [`apps/app/store-assets/README.md`](../apps/app/store-assets/README.md).
 
@@ -137,14 +138,14 @@ Full detail: [`apps/app/store-assets/README.md`](../apps/app/store-assets/README
 
 Living-room builds use the same product binary (`EXPO_TV=1`) — see [`TV.md`](./TV.md).
 
-| Asset | Size | Path | Wired via |
-|-------|------|------|-----------|
-| Android TV banner (Leanback) | 320×180 | `apps/app/assets/images/tv/android-banner.png` | `@react-native-tvos/config-tv` → `androidTVBanner` |
-| Android TV icon | 512×512 | `apps/app/assets/images/tv/android-icon.png` | `androidTVIcon` |
-| Apple TV icon | 1280×768 / 400×240 / 800×480 | `apps/app/assets/images/tv/tvos-icon-*.png` | `appleTVImages.icon*` |
-| Apple TV Top Shelf | 1920×720 (+2x, wide, wide2x) | `apps/app/assets/images/tv/tvos-topshelf-*.png` | `appleTVImages.topShelf*` |
-| Fire TV background | 1920×1080 | `…/tv/firetv-background-1920x1080.png` | **Amazon console only** (not APK) |
-| Fire TV icons | 1280×720, 512, 114 | `…/tv/firetv-icon-*.png` | **Amazon console only** |
+| Asset                        | Size                         | Path                                            | Wired via                                          |
+| ---------------------------- | ---------------------------- | ----------------------------------------------- | -------------------------------------------------- |
+| Android TV banner (Leanback) | 320×180                      | `apps/app/assets/images/tv/android-banner.png`  | `@react-native-tvos/config-tv` → `androidTVBanner` |
+| Android TV icon              | 512×512                      | `apps/app/assets/images/tv/android-icon.png`    | `androidTVIcon`                                    |
+| Apple TV icon                | 1280×768 / 400×240 / 800×480 | `apps/app/assets/images/tv/tvos-icon-*.png`     | `appleTVImages.icon*`                              |
+| Apple TV Top Shelf           | 1920×720 (+2x, wide, wide2x) | `apps/app/assets/images/tv/tvos-topshelf-*.png` | `appleTVImages.topShelf*`                          |
+| Fire TV background           | 1920×1080                    | `…/tv/firetv-background-1920x1080.png`          | **Amazon console only** (not APK)                  |
+| Fire TV icons                | 1280×720, 512, 114           | `…/tv/firetv-icon-*.png`                        | **Amazon console only**                            |
 
 ```bash
 pnpm generate:app:brand-assets   # Leanback + Apple TV + Fire TV console PNGs (overwrites)
@@ -158,10 +159,10 @@ Single source for locales, capture filenames, canvas/export sizes, and slide sce
 
 ## AI skills
 
-| Skill | Use when |
-|-------|----------|
-| [`.agents/skills/screenshot-studio/SKILL.md`](../.agents/skills/screenshot-studio/SKILL.md) | Store frames, copy updates, export/distribute |
-| [`.agents/skills/expo-deployment/`](../.agents/skills/expo-deployment/) | Submitting to App Store / Play after assets are ready |
+| Skill                                                                                       | Use when                                              |
+| ------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [`.agents/skills/screenshot-studio/SKILL.md`](../.agents/skills/screenshot-studio/SKILL.md) | Store frames, copy updates, export/distribute         |
+| [`.agents/skills/expo-deployment/`](../.agents/skills/expo-deployment/)                     | Submitting to App Store / Play after assets are ready |
 
 ## Adding a new marketing slide
 

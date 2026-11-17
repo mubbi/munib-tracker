@@ -1,6 +1,6 @@
 # `@munib-tracker/admin`
 
-Next.js 16 App Router ops console for Munib Tracker.
+Next.js 16.4 App Router ops console (React 19.3, Tailwind CSS 4.3) for Munib Tracker.
 
 |                |                                                         |
 | -------------- | ------------------------------------------------------- |
@@ -30,10 +30,11 @@ Open http://localhost:3002/dashboard (local bypass acts as super_admin). For rea
 
 ## Scripts
 
-| Script       | Command                                                           |
-| ------------ | ----------------------------------------------------------------- |
-| Dev          | `pnpm dev:admin` or `pnpm --filter @munib-tracker/admin dev`      |
-| Build        | `pnpm build:admin`                                                |
-| Seed admin   | `node apps/admin/scripts/seed-admin.mjs email@example.com [role]` |
-| DB smoke     | `pnpm --filter @munib-tracker/admin test:db`                      |
-| Lint / types | `pnpm --filter @munib-tracker/admin lint` / `check-types`         |
+| Script       | Command                                                                 |
+| ------------ | ----------------------------------------------------------------------- |
+| Dev          | `pnpm dev:admin` or `pnpm --filter @munib-tracker/admin dev`            |
+| Build        | `pnpm build:admin`                                                      |
+| Seed admin   | `node apps/admin/scripts/seed-admin.mjs email@example.com [role]`       |
+| Tests        | `pnpm --filter @munib-tracker/admin test` (Vitest, `vitest.config.mts`) |
+| DB smoke     | `pnpm --filter @munib-tracker/admin test:db`                            |
+| Lint / types | `pnpm --filter @munib-tracker/admin lint` / `check-types`               |

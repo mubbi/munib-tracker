@@ -11,8 +11,10 @@ future Fly.io (or similar) worker.
 - APNs HTTP/2 `liveactivity` client (`ApnsLiveActivityClient`)
 - ActivityKit token encrypt/decrypt helpers
 - Atomic job claim + deliver + due-batch dispatch (`LiveActivityJobStore`,
-  `deliverLiveActivityJob`, `dispatchDueLiveActivityJobs`)
-- Shared constants (`DELIVERY_BATCH_SIZE`, leases, lifetime)
+  `deliverLiveActivityJob`, `dispatchDueLiveActivityJobs`); a job is cancelled
+  instead of sent when the store reports a newer due phase (`hasNewerDueJob`)
+- Shared constants (`DELIVERY_BATCH_SIZE`, `PROCESSING_LEASE_MS`, `EARLY_DELIVERY_TOLERANCE_MS`,
+  `RETENTION_MS`, lifetime)
 
 ## What stays in `apps/api`
 

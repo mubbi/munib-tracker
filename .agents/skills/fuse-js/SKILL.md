@@ -11,7 +11,7 @@ license: MIT
 
 Official docs (source of truth): [github.com/krisk/Fuse/tree/main/docs](https://github.com/krisk/Fuse/tree/main/docs)
 
-Installed version: `fuse.js@^7.4.2` in `apps/app` (full build — includes token + extended + logical search).
+Installed version: `fuse.js@^7.5.0` in `apps/app` (full build — includes token + extended + logical search).
 
 ## When to Use
 
@@ -23,40 +23,40 @@ Installed version: `fuse.js@^7.4.2` in `apps/app` (full build — includes token
 
 ## Munib Tracker conventions
 
-**Canonical implementation:** `apps/app/src/lib/search.ts`
+**Canonical implementation:** `apps/app/src/lib/search.ts` (corpora, indexes, public API). Shared Fuse plumbing — `normalize()`, `tokenize()`, `makeFuse()`, `fusePattern()`, `fuseSearch()`, `createFuzzyIndex()`, and the defaults below — lives in `apps/app/src/lib/search-fuse.ts` and is re-exported from `search.ts`.
 
 - All universal / cross-content search goes through this module — do **not** scatter ad-hoc `new Fuse()` calls across screens.
-- Screen-local search bars (e.g. Qur'an surah list) should reuse helpers from `search.ts` or follow the same `makeFuse` / `fuseSearch` patterns.
+- Screen-local search bars should use a `create*Search()` factory from `search.ts` (or `createFuzzyIndex(items, fields)` for a one-off list), memoized per list.
 - **Pre-normalize** searchable text with `normalize()` before indexing. Fuse's `ignoreDiacritics` only handles Latin accents; our Arabic harakat folding, alef variants, and transliteration joiner removal live in `normalize()`.
-- **Lazy indexes:** small corpora index on first use; the Qur'an ayah full-text index is built once and deferred off the interaction thread (`InteractionManager` in `search.tsx`).
+- **Lazy indexes:** small corpora index on first use; the Qur'an ayah full-text index is built once and deferred off the interaction thread (`runWhenIdle()` from `apps/app/src/lib/run-when-idle.ts` in `search.tsx` — React Native 0.88 removed `InteractionManager`).
 - **UI layering:** `searchLight()` returns instant results; `searchQuranAyahs()` runs after for the heavy ayah pass. Keep this split for responsive typing.
 - **Tests:** add cases to `apps/app/src/lib/search.test.ts` for new corpora or matching edge cases.
 
 ### Project defaults (do not change casually)
 
-| Option | Value | Why |
-|--------|-------|-----|
-| `threshold` | `0.2` | Tolerates real typos without noisy matches; tuned down from `0.3` to drop false positives on short fields (surah names). Official default `0.6` is too permissive |
-| `ignoreLocation` | `true` | Matches can appear anywhere in long translation/body fields |
-| `minMatchCharLength` | `2` | Drops single-char noise; aligns with `tokenize()` minimum |
-| `includeScore` | `true` | Enables relevance-ranked results |
-| `useExtendedSearch` | `true` | Multi-word queries use whitespace AND (each term fuzzy-matched) |
-| Key weights | title/name highest | Title matches outrank body text |
+| Option               | Value              | Why                                                                                                                                                               |
+| -------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `threshold`          | `0.2`              | Tolerates real typos without noisy matches; tuned down from `0.3` to drop false positives on short fields (surah names). Official default `0.6` is too permissive |
+| `ignoreLocation`     | `true`             | Matches can appear anywhere in long translation/body fields                                                                                                       |
+| `minMatchCharLength` | `2`                | Drops single-char noise; aligns with `tokenize()` minimum                                                                                                         |
+| `includeScore`       | `true`             | Enables relevance-ranked results                                                                                                                                  |
+| `useExtendedSearch`  | `true`             | Multi-word queries use whitespace AND (each term fuzzy-matched)                                                                                                   |
+| Key weights          | title/name highest | Title matches outrank body text                                                                                                                                   |
 
 Query pattern: `fusePattern()` → normalized tokens joined by spaces → `fuse.search(pattern)`.
 
 ## Quick start
 
 ```js
-import Fuse from 'fuse.js'
+import Fuse from "fuse.js";
 
 const fuse = new Fuse(items, {
-  keys: ['title', 'author'],
+  keys: ["title", "author"],
   threshold: 0.3,
   ignoreLocation: true,
-})
+});
 
-const results = fuse.search('jon')
+const results = fuse.search("jon");
 // [{ item: { title: "Old Man's War", ... }, refIndex: 0, score: 0.12 }]
 ```
 
@@ -64,10 +64,10 @@ Scores: `0` = perfect match, `1` = complete mismatch.
 
 ### Builds
 
-| Build | Import | Includes |
-|-------|--------|----------|
-| **Full** (default) | `import Fuse from 'fuse.js'` | Fuzzy + extended + logical + token search |
-| **Basic** | `import Fuse from 'fuse.js/basic'` | Fuzzy only (~2 kB smaller) |
+| Build              | Import                             | Includes                                  |
+| ------------------ | ---------------------------------- | ----------------------------------------- |
+| **Full** (default) | `import Fuse from 'fuse.js'`       | Fuzzy + extended + logical + token search |
+| **Basic**          | `import Fuse from 'fuse.js/basic'` | Fuzzy only (~2 kB smaller)                |
 
 We use the **full build**. Do not switch to basic unless bundle size is proven critical.
 
@@ -77,12 +77,12 @@ Fuse uses a modified [Bitap algorithm](https://en.wikipedia.org/wiki/Bitap_algor
 
 ### Controlling fuzziness
 
-| Option | Default | Effect |
-|--------|---------|--------|
-| `threshold` | `0.6` | Cutoff for fuzziness. `0` = exact; `1` = match anything. We use `0.2`. |
-| `location` | `0` | Expected match position; distant matches are penalized. |
-| `distance` | `100` | Max offset from `location` before exclusion. Effective window ≈ `threshold × distance`. |
-| `ignoreLocation` | `false` | When `true`, position doesn't affect score. **We set `true`** for long text fields. |
+| Option           | Default | Effect                                                                                  |
+| ---------------- | ------- | --------------------------------------------------------------------------------------- |
+| `threshold`      | `0.6`   | Cutoff for fuzziness. `0` = exact; `1` = match anything. We use `0.2`.                  |
+| `location`       | `0`     | Expected match position; distant matches are penalized.                                 |
+| `distance`       | `100`   | Max offset from `location` before exclusion. Effective window ≈ `threshold × distance`. |
+| `ignoreLocation` | `false` | When `true`, position doesn't affect score. **We set `true`** for long text fields.     |
 
 > With defaults (`threshold: 0.6`, `distance: 100`), only the first ~60 characters are effectively searched. For long fields, use `ignoreLocation: true` or increase `distance`.
 
@@ -98,9 +98,9 @@ Fuse uses a modified [Bitap algorithm](https://en.wikipedia.org/wiki/Bitap_algor
 
 ```js
 keys: [
-  { name: 'title', weight: 5 },
-  { name: 'body', weight: 1 },
-]
+  { name: "title", weight: 5 },
+  { name: "body", weight: 1 },
+];
 ```
 
 Higher weight = more influence on final ranking. Weights are normalized internally.
@@ -112,11 +112,11 @@ Designed for **search bars** with multi-word natural queries.
 ```js
 const fuse = new Fuse(docs, {
   useTokenSearch: true,
-  keys: ['title', 'description'],
+  keys: ["title", "description"],
   threshold: 0.3,
-})
+});
 
-fuse.search('javascrpt paterns') // each word fuzzy-matched independently
+fuse.search("javascrpt paterns"); // each word fuzzy-matched independently
 ```
 
 ### When to prefer token search
@@ -127,10 +127,10 @@ fuse.search('javascrpt paterns') // each word fuzzy-matched independently
 
 ### `tokenMatch`
 
-| Value | Behavior |
-|-------|----------|
-| `'any'` (default) | OR — record matches if **any** query word matches (ranked search) |
-| `'all'` | AND — record must match **every** word somewhere across all fields |
+| Value             | Behavior                                                           |
+| ----------------- | ------------------------------------------------------------------ |
+| `'any'` (default) | OR — record matches if **any** query word matches (ranked search)  |
+| `'all'`           | AND — record must match **every** word somewhere across all fields |
 
 Words are matched across all fields of a record, not per-field.
 
@@ -146,21 +146,21 @@ Override for tokens with internal punctuation (`node.js`, `c++`) or CJK word seg
 
 Unix-like operators for precise control. Enable with `useExtendedSearch: true`.
 
-| Token | Match type |
-|-------|-----------|
-| `jscript` | fuzzy-match |
-| `=scheme` | exact-match |
-| `'python` | include-match (substring) |
-| `!ruby` | inverse — does not include |
-| `^java` | prefix-exact-match |
-| `!.go$` | inverse suffix |
-| `.js$` | suffix-exact-match |
+| Token     | Match type                 |
+| --------- | -------------------------- |
+| `jscript` | fuzzy-match                |
+| `=scheme` | exact-match                |
+| `'python` | include-match (substring)  |
+| `!ruby`   | inverse — does not include |
+| `^java`   | prefix-exact-match         |
+| `!.go$`   | inverse suffix             |
+| `.js$`    | suffix-exact-match         |
 
 - **Whitespace** = AND (all terms must match)
 - **Pipe** `|` = OR
 
 ```js
-fuse.search("'Man 'Old | Artist$")
+fuse.search("'Man 'Old | Artist$");
 ```
 
 Use double quotes for phrases: `="scheme language"`.
@@ -171,11 +171,8 @@ Pass an expression object instead of a string:
 
 ```js
 fuse.search({
-  $and: [
-    { title: 'old war' },
-    { $or: [{ title: '^lock' }, { title: '!arts' }] },
-  ],
-})
+  $and: [{ title: "old war" }, { $or: [{ title: "^lock" }, { title: "!arts" }] }],
+});
 ```
 
 Pairs with extended search when `useExtendedSearch: true`. Use `$path` / `$val` for keys containing literal dots.
@@ -187,17 +184,17 @@ Pairs with extended search when `useExtendedSearch: true`. Use `$path` / `$val` 
 `new Fuse(list, options)` walks every item. Scales with list size, key count, and value length.
 
 | List size | Index (3 keys) | With token search |
-|-----------|----------------|-------------------|
-| 1,000 | ~3 ms | ~17 ms |
-| 10,000 | ~28 ms | ~182 ms |
-| 50,000 | ~147 ms | ~963 ms |
-| 100,000 | ~299 ms | ~2,061 ms |
+| --------- | -------------- | ----------------- |
+| 1,000     | ~3 ms          | ~17 ms            |
+| 10,000    | ~28 ms         | ~182 ms           |
+| 50,000    | ~147 ms        | ~963 ms           |
+| 100,000   | ~299 ms        | ~2,061 ms         |
 
 **Pre-built index** for large datasets on load:
 
 ```js
-const index = Fuse.createIndex(keys, list)
-const fuse = new Fuse(list, options, index)
+const index = Fuse.createIndex(keys, list);
+const fuse = new Fuse(list, options, index);
 ```
 
 ### Search cost
@@ -217,26 +214,26 @@ Our bundled corpora are small (hundreds to low thousands per index). The Qur'an 
 For 10k+ items where synchronous search freezes the UI:
 
 ```js
-import { FuseWorker } from 'fuse.js/worker'
+import { FuseWorker } from "fuse.js/worker";
 
-const fuse = new FuseWorker(docs, { keys: ['title'], threshold: 0.4 })
-const results = await fuse.search('javascript')
-fuse.terminate() // always clean up
+const fuse = new FuseWorker(docs, { keys: ["title"], threshold: 0.4 });
+const results = await fuse.search("javascript");
+fuse.terminate(); // always clean up
 ```
 
-| Dataset | Recommendation |
-|---------|----------------|
-| < 5k | `Fuse` (simpler, no worker overhead) |
-| 5k–10k | Either — benchmark |
-| 10k+ | `FuseWorker` |
+| Dataset | Recommendation                       |
+| ------- | ------------------------------------ |
+| < 5k    | `Fuse` (simpler, no worker overhead) |
+| 5k–10k  | Either — benchmark                   |
+| 10k+    | `FuseWorker`                         |
 
 **Limitations:** `search()` returns a `Promise`; no `useTokenSearch`, custom `sortFn`, or `getFn`; use `setCollection()` instead of `remove()`. Not available in Node/React Native workers without a Web Worker polyfill — stick with `Fuse` + `InteractionManager` in Expo.
 
 ## Dynamic collection updates
 
 ```js
-fuse.add({ title: 'New Book' })
-fuse.remove((doc) => doc.title === 'Old Book')
+fuse.add({ title: "New Book" });
+fuse.remove((doc) => doc.title === "Old Book");
 ```
 
 Token search maintains an inverted index on add/remove.
@@ -248,7 +245,7 @@ Token search maintains an inverted index on add/remove.
 3. Set `ignoreLocation: true` for any long-text key.
 4. Weight title/primary identifiers higher than body/reference fields.
 5. Debounce UI input (~180 ms in `search.tsx`); use `useMemo` for search results.
-6. Defer heavy index builds with `InteractionManager.runAfterInteractions`.
+6. Defer heavy index builds with `runWhenIdle()` (`@/lib/run-when-idle`); `InteractionManager` no longer exists in RN 0.88.
 7. Add tests in `search.test.ts` for normalization edge cases and at least one match per corpus.
 8. Run `pnpm --filter app test -- search` before shipping.
 

@@ -2,6 +2,29 @@
 
 Read the exact versioned docs at https://docs.expo.dev/versions/v58.0.0/ before writing any code.
 
+Stack: Expo `~58.0.25` on `react-native-tvos@0.88.1-0`, React 19.3, TypeScript 6 (`@typescript/typescript6`), Jest 30 + `@testing-library/react-native` 14 (`await render(...)` / `await act(...)`). Node `>=24.15` (`.nvmrc` 24), pnpm 12.
+
+## SDK 58 / RN 0.88 conventions
+
+- **Dev server heap:** `dev`, `web`, `start:*` and `build:web` run Expo CLI via `scripts/metro-node-heap.cjs` (`--max-old-space-size=6144`, override `METRO_NODE_HEAP_MB`). Add new Metro/export scripts through the wrapper, not bare `expo start`/`expo export`.
+- **File system:** class-based `expo-file-system` (`File` / `Directory` / `Paths`) only — no `expo-file-system/legacy`. Use `src/lib/native-file-store.ts` (`documentDirectoryUri()`, `cacheDirectoryUri()`, `downloadToUri()`) so on-disk paths stay compatible with caches written by older builds.
+- **Idle work:** `InteractionManager` is gone — defer heavy work with `runWhenIdle()` (`src/lib/run-when-idle.ts`).
+- **Safe area:** use `useAppSafeAreaInsets()` (`src/hooks/use-app-safe-area-insets.ts`; web reads CSS `env(safe-area-inset-*)`), not `useSafeAreaInsets` directly.
+- **Errors:** `app-stack.tsx` / `app-tabs.tsx` pass `unstable_screenErrorBoundary={ScreenErrorBoundary}` (`src/components/navigation/screen-error-boundary.tsx`) — one failing screen gets a retry, not the global fallback.
+- **Web `<head>`:** every route file exports `generateMetadata = routeMetadata("<route template>")` (`src/lib/seo/route-metadata.ts`, data in `src/config/seo-routes.data.json`); `<Head>` tags no longer reach the static export. New routes must add it.
+- **Foldables:** `useHingePosture()` (`src/lib/platform/hinge.ts`, `expo-hinge`, stubbed on TV) drives interactions only (e.g. tabletop tasbeeh); layout still follows window size.
+- **Remote JSON:** fetch CDN scripture via `src/lib/static-json-fetch.ts` — jsDelivr `gh/` URLs auto-retry on `raw.githubusercontent.com`; failures report through `report-oss-content-download-failure.ts` (connectivity errors stay out of Sentry).
+- **iOS ONNX:** `plugins/withOnnxruntimeSymbolIsolation.cjs` runs `scripts/isolate-onnxruntime-symbol.cjs` after `pod install` so `onnxruntime-react-native` and the TajweedFormer shim don't share `OrtGetApiBase` (pnpm patch `patches/onnxruntime-react-native@1.24.3.patch`). Keep both if you touch ORT versions.
+
+### Expo internals we depend on (re-check on every SDK bump)
+
+None of these are public APIs; most fail silently when Expo moves a file.
+
+- `metro.config.js` aliases `expo-router` `build/views/SuspenseFallback.js` and `expo-notifications` `build/PushTokenManager.js` (web shim) — `assertInternalAliasTarget()` throws at Metro start-up if either moves.
+- `src/lib/navigation-theme.ts` deep-imports `DarkTheme` / `DefaultTheme` from `expo-router/build/react-navigation/...` (build error if moved).
+- `scripts/ensure-expo-env.mjs` (run by `check-types`) generates typed routes via `expo-router/internal/testing`, `@expo/router-server/build/typed-routes/generate` and `expo-router/_ctx-shared`.
+- `scripts/prepare-web-export-env.cjs` + `scripts/patch-web-export-app-manifest.cjs` mirror `babel-preset-expo` manifest handling for the web export — re-validate against a fresh `build:web`.
+
 ## Apple TV / Android TV
 
 Full product app on TV via `react-native-tvos` (`npm:react-native-tvos@0.88.1-0`) and `@react-native-tvos/config-tv`. Set `EXPO_TV=1` for TV prebuild; omit phone-only plugins (widgets, Watch, Wear, App Intents, quick actions). Guide: [`docs/TV.md`](../../docs/TV.md). Use `isTV()` from `src/lib/platform/is-tv.ts` for runtime gates — never crash on unsupported modules.
@@ -47,7 +70,7 @@ Widget snapshot sync drives `src/lib/live-activity/` (start/update/end, phase sc
 
 ## Internationalization & Islamic terminology (READ BEFORE ADDING ANY SCREEN, COMPONENT, OR CONTENT)
 
-The app ships **24 locales** (`en` + 23 translations). Phase 1 (`en`, `ar`, `ur`) is human-reviewed; Phase 2–4 have key parity with English. Full guide: [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md).
+The app ships **24 locales** (`en` + 23 translations). Phase 1 (`en`, `ar`, `ur`) is human-reviewed; Phase 2–5 have key parity with English. Full guide: [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md).
 
 Every new feature or content update MUST follow these rules. They are enforced by `src/i18n/i18n-guard.test.ts` and `plural-audit.test.ts` (runs in `pnpm test` / CI). Run locally after any UI or catalog change:
 
@@ -55,7 +78,7 @@ Every new feature or content update MUST follow these rules. They are enforced b
 pnpm --filter app test -- i18n
 ```
 
-**1. No hardcoded user-facing strings.** Every visible string — `<Text>` children, titles/eyebrows/subtitles, button labels, placeholders, `accessibilityLabel`/`accessibilityHint`, `Alert`/toast/notification text, empty states, validation messages — comes from `t("namespace.key")`. The single source of truth is `src/i18n/en.json`, organized by feature namespace. Author **English first**, then run `node scripts/i18n/merge-missing-keys.mjs` and translate (or add to `scripts/i18n/ui-polish-patches.json` + `apply-ui-polish.mjs`). For Phase 1, add **Urdu and Arabic** for the same keys. Do NOT hardcode English as a fallback in `t(key, "English default", …)` and skip the key.
+**1. No hardcoded user-facing strings.** Every visible string — `<Text>` children, titles/eyebrows/subtitles, button labels, placeholders, `accessibilityLabel`/`accessibilityHint`, `Alert`/toast/notification text, empty states, validation messages — comes from `t("namespace.key")`. The single source of truth is `src/i18n/en.json`, organized by feature namespace. Author **English first**, then run `node scripts/i18n/merge-missing-keys.mjs` and translate (feature work usually adds a `scripts/i18n/<feature>-i18n.json` patch applied by `apply-patch-i18n.mjs`; polish goes in `ui-polish-patches.json` + `apply-ui-polish.mjs`). For Phase 1, add **Urdu and Arabic** for the same keys. Do NOT hardcode English as a fallback in `t(key, "English default", …)` and skip the key.
 
 **2. Standardized Islamic terminology — use ONLY the left-hand spelling in English source copy** (never the alternatives). The guard rejects the banned spellings:
 
@@ -74,7 +97,7 @@ pnpm --filter app test -- i18n
 
 _Also: Fajr, Dhuhr, Asr, Maghrib, Isha, Witr, Tahajjud, Sunnah, Nafl, Wudu, Ghusl, Ramadan, Jumu'ah, Qur'an — spelled consistently._ The one nuance: **"Salah"** is for discrete labels; natural "prayer(s)" is allowed _only_ mid-sentence in long educational prose under `prayerInfo.*` (and proper compounds like "Salat al-Wusta"). Everywhere else a bare "Prayer" label must be "Salah".
 
-**3. Translation quality.** Phase 1 (`ar`, `ur`): fully translated UI — no English words left inside (the guard flags 4+-letter Latin except allowlisted proper nouns). Phase 2–4: key parity required; prefer native labels via `ui-polish-patches.json`. Keep the exact same `{{interpolation}}` variables as English. For `ar`, `ru`, `bn`, include all CLDR plural suffixes (`plural-audit.test.ts`). Never leave a value empty. **Religious text bodies** must come from OSS datasets via `src/lib/translation-locale.ts` — never AI-generated in JSON catalogs. When you rewrite English, re-translate Phase 1 `ur`/`ar` too.
+**3. Translation quality.** Phase 1 (`ar`, `ur`): fully translated UI — no English words left inside (the guard flags 4+-letter Latin except allowlisted proper nouns). Phase 2–5: key parity required; prefer native labels via `ui-polish-patches.json`. Keep the exact same `{{interpolation}}` variables as English. For `ar`, `ru`, `bn`, include all CLDR plural suffixes (`plural-audit.test.ts`). Never leave a value empty. **Religious text bodies** must come from OSS datasets via `src/lib/translation-locale.ts` — never AI-generated in JSON catalogs. When you rewrite English, re-translate Phase 1 `ur`/`ar` too.
 
 **4. RTL.** `ar`, `ur`, `fa`, `ps`, and `ku` are RTL (`RTL_LOCALES` in `src/lib/i18n/rtl-locale.ts`). Layout is flexbox and auto-flips, so: use **logical** style props (`marginStart`/`paddingEnd`/`borderStartWidth`) never physical (`marginLeft`/`left`); for direction-encoding glyphs use the helpers in **`src/lib/rtl.ts`** (`chevronForward`, `chevronBack`, `chevronBackward`, `arrowForward`) — never hardcode `chevron.right`/`arrow.left`. Concept icons (clock, calendar, mosque, moon, qibla turn-arrows) must NOT mirror. `textAlign:"right"` is correct only when paired with `writingDirection:"rtl"` (Arabic content); UI-chrome that must flip uses `I18nManager.isRTL ? "left" : "right"`. Language + layout direction are owned by `changeAppLocale` in `src/i18n/index.ts`, called from `preferences-store` hydration and `setLocale` — never apply RTL from init or a reactive provider effect.
 
@@ -86,28 +109,29 @@ If a check's allowlist needs a genuinely new proper noun or Latin-legit key, ext
 
 ## Fuzzy search (Fuse.js)
 
-All search bars and content filtering use **[Fuse.js v7](https://github.com/krisk/Fuse/tree/main/docs)** (`fuse.js@^7.4.2`, full build). Read `.agents/skills/fuse-js/SKILL.md` before implementing or changing search.
+All search bars and content filtering use **[Fuse.js v7](https://github.com/krisk/Fuse/tree/main/docs)** (`fuse.js@^7.5.0`, full build). Read `.agents/skills/fuse-js/SKILL.md` before implementing or changing search.
 
 ### Canonical module
 
-`src/lib/search.ts` — universal offline search across Qur'an, hadith, duas, adhkar, duroods, the 99 names, and Learn guides (single `learn` tab via `search-guides.ts` / `searchLightWithGuides`).
+`src/lib/search.ts` — universal offline search across Qur'an, hadith, duas, adhkar, duroods, the 99 names, and Learn guides (single `learn` tab via `search-guides.ts` / `searchLightWithGuides` in `search-with-guides.ts`). Shared Fuse plumbing (`normalize`, `tokenize`, `makeFuse`, `fuseSearch`, `createFuzzyIndex`, defaults) lives in `src/lib/search-fuse.ts` and is re-exported from `search.ts`.
 
-| Export                                    | Purpose                                                                                             |
-| ----------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `searchLight()`                           | Instant results (all sources except Qur'an ayah full-text)                                          |
-| `preloadSearchCorpora()`                  | Warm dua/zikr/names/duroods async chunks (call from search screens on mount)                        |
-| `ensureAyahFuse()` / `searchQuranAyahs()` | Heavy ayah index — `ensureAyahFuse` dynamic-imports `@/lib/quran`; run off the interaction thread   |
-| `searchAll()`                             | Synchronous full search (tests / non-interactive callers)                                           |
-| `normalize()` / `tokenize()`              | Diacritic-insensitive, Arabic-aware text folding                                                    |
-| `createFuzzyIndex(items, fields)`         | Reusable `FuzzyIndex` for a screen-local list (project defaults + `normalize()`) — memoize per list |
-| `createHadithSearch(items)`               | `FuzzyIndex<HadithItem>` for an in-collection hadith search bar                                     |
-| `createDuaSearch(items)`                  | `FuzzyIndex<DuaItem>` for an in-category dua search bar                                             |
-| `createZikrSearch(items)`                 | `FuzzyIndex<ZikrItem>` for an in-category zikr search bar                                           |
-| `searchDuaList(query, limit?)`            | Ranked `DuaItem[]` for the duas index filter                                                        |
-| `searchZikrList(query, limit?)`           | Ranked `ZikrItem[]` for the zikr index filter                                                       |
-| `searchSurahList(query, limit?)`          | Ranked `Surah[]` for the Qur'an index filter (reuses the cached surah index)                        |
+| Export                                                                 | Purpose                                                                                             |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `searchLight()`                                                        | Instant results (all sources except Qur'an ayah full-text)                                          |
+| `preloadSearchCorpora()`                                               | Warm dua/zikr/names/duroods async chunks (call from search screens on mount)                        |
+| `ensureAyahFuse()` / `searchQuranAyahs()`                              | Heavy ayah index — `ensureAyahFuse` dynamic-imports `@/lib/quran`; run off the interaction thread   |
+| `searchAll()`                                                          | Synchronous full search (tests / non-interactive callers)                                           |
+| `normalize()` / `tokenize()`                                           | Diacritic-insensitive, Arabic-aware text folding                                                    |
+| `createFuzzyIndex(items, fields)`                                      | Reusable `FuzzyIndex` for a screen-local list (project defaults + `normalize()`) — memoize per list |
+| `createHadithSearch(items)`                                            | `FuzzyIndex<HadithItem>` for an in-collection hadith search bar                                     |
+| `createDuaSearch(items)`                                               | `FuzzyIndex<DuaItem>` for an in-category dua search bar                                             |
+| `createZikrSearch(items)`                                              | `FuzzyIndex<ZikrItem>` for an in-category zikr search bar                                           |
+| `createDuroodSearch` / `createNameSearch` / `createCustomAdhkarSearch` | `FuzzyIndex` for the duroods, 99 Names and adhkar-builder lists                                     |
+| `searchDuaList(query, limit?)`                                         | Ranked `DuaItem[]` for the duas index filter                                                        |
+| `searchZikrList(query, limit?)`                                        | Ranked `ZikrItem[]` for the zikr index filter                                                       |
+| `searchSurahList(query, opts?)`                                        | Ranked `Surah[]` for the Qur'an index filter; `opts` = `limit` or `{ revelation }`                  |
 
-Search bars wired to these: home `src/app/search.tsx` (universal), `quran/index.tsx` (surah filter → `searchSurahList`), `quran/search.tsx` (ayah full-text → `searchQuranAyahs`), `hadith/[collection].tsx` (in-collection → `createHadithSearch`), `dua/index.tsx` + `dua/[category].tsx` (→ `searchDuaList` / `createDuaSearch`), `zikr/index.tsx` + `zikr/[category].tsx` (→ `searchZikrList` / `createZikrSearch`).
+Search bars wired to these: home `src/app/search.tsx` (universal, incl. `ensureAyahFuse` → `searchQuranAyahs`), `quran/index.tsx` + practice passage picker (→ `searchSurahList`), `hadith/[collection].tsx` (→ `createHadithSearch`), `dua/index.tsx` + `dua/[category].tsx` (→ `searchDuaList` / `createDuaSearch`), `zikr/index.tsx` + `zikr/[category].tsx` (→ `searchZikrList` / `createZikrSearch`), `duroods/`, `names-of-allah/`, `adhkar-builder/` (→ `create*Search`). `quran/search.tsx` is a verse-detector search (`src/lib/quran-verse-detector.ts`), not Fuse.
 
 ### Rules for agents
 
@@ -115,9 +139,9 @@ Search bars wired to these: home `src/app/search.tsx` (universal), `quran/index.
 2. **Pre-normalize** indexed fields with `normalize()` before passing to Fuse (Arabic harakat, Latin accents, transliteration joiners).
 3. **Reuse project defaults:** `threshold: 0.2`, `ignoreLocation: true`, `minMatchCharLength: 2`, `useExtendedSearch: true`, weighted keys (title/name highest). (`0.2` was tuned down from `0.3` to drop false positives on short fields like surah names while keeping typo tolerance.)
 4. **Multi-word queries:** join normalized tokens with spaces (extended-search AND) or consider `useTokenSearch: true` for new indexes — see the skill for trade-offs.
-5. **Performance:** lazy-build indexes; call `preloadSearchCorpora()` on search screens; use `ensureAyahFuse()` before `searchQuranAyahs`; use `limit` for UI caps. For surah **meta** only, import `@/lib/quran-meta` — never pull `@/lib/quran` (ayah JSON loaders) into home/shared graphs. Riyad hadith: `ensureBundledCollection` / `import()`, never `require()` of the JSON. Web bundle details: [`docs/PROFILING.md`](../../docs/PROFILING.md). `FuseWorker` only if a corpus exceeds ~10k items and profiling shows jank.
+5. **Performance:** lazy-build indexes (defer with `runWhenIdle()`); call `preloadSearchCorpora()` on search screens; use `ensureAyahFuse()` before `searchQuranAyahs`; use `limit` for UI caps. For surah **meta** only, import `@/lib/quran-meta` — never pull `@/lib/quran` (ayah JSON loaders) into home/shared graphs. Riyad hadith: `ensureBundledCollection` / `import()`, never `require()` of the JSON. Web bundle details: [`docs/PROFILING.md`](../../docs/PROFILING.md). `FuseWorker` only if a corpus exceeds ~10k items and profiling shows jank.
 6. **Tests:** `src/lib/search.test.ts` — run with `pnpm --filter app test -- search`.
 
 ### Per-screen search bars
 
-Screen-local filters (e.g. a single list) may use Fuse inline but must follow the same `makeFuse` / `fuseSearch` patterns and defaults from `search.ts`. Prefer extracting shared helpers into `search.ts` when a second screen needs the same corpus.
+Screen-local filters (e.g. a single list) use `createFuzzyIndex(items, fields)` (memoized) so they share the project defaults; no inline `new Fuse()`. Prefer extracting shared helpers into `search.ts` when a second screen needs the same corpus.

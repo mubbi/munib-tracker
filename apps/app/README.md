@@ -7,8 +7,8 @@ Universal **Expo SDK 58** app (iOS · Android · Web · **Apple TV / Android TV*
 ## Develop
 
 ```bash
-pnpm install                   # from repo root (pnpm 12 workspace)
-pnpm --filter app dev          # Expo dev server — pick a platform in the CLI
+pnpm install                   # from repo root (pnpm 12 workspace, Node >=24.15 / .nvmrc 24)
+pnpm --filter app dev          # Expo dev server via scripts/metro-node-heap.cjs (6 GB Metro heap)
 pnpm --filter app ios          # iOS simulator (dev build)
 pnpm --filter app android      # Android emulator (dev build)
 pnpm --filter app web          # web (~8081)
@@ -28,7 +28,7 @@ TV guide (prebuild ↔ release ↔ upload): [`docs/TV.md`](../../docs/TV.md). Th
 
 ```bash
 pnpm --filter app check-types
-pnpm --filter app test         # Jest + Testing Library RN
+pnpm --filter app test         # Jest 30 + Testing Library RN 14
 pnpm format-and-lint:fix       # Biome (repo root)
 ```
 
@@ -37,13 +37,14 @@ pnpm format-and-lint:fix       # Biome (repo root)
 Bundled religious content lives under [`assets/data/`](assets/data) and is **generated** — never hand-edit it (or `src/lib/quran-loader.ts`). Regenerate with:
 
 ```bash
-pnpm --filter app build:data   # adhkar, duas, 99 Names, Qur'an, hadith highlights + manifest.json
+pnpm --filter app build:data   # adhkar, duas, 99 Names, Qur'an (+ mushaf layout), hadith highlights + sharh/isnad, manifest.json
 ```
 
 Content is sourced from open datasets, never hand-written. See [`docs/DATA_INGESTION.md`](../../docs/DATA_INGESTION.md) and [`docs/FREE_OPEN_SOURCE_DATA.md`](../../docs/FREE_OPEN_SOURCE_DATA.md).
 
 ## Architecture at a glance
 
+- **Stack:** Expo SDK 58 on `react-native-tvos` 0.88, React 19.3, TypeScript 6. SDK 58 conventions (file system, safe area, idle work, per-route `generateMetadata`) are listed in [`AGENTS.md`](AGENTS.md).
 - **Routing:** Expo Router (typed routes), root `Stack` + `(tabs)` group under `src/app/`.
 - **Persistence:** AsyncStorage behind `src/db/` repositories (`KeyedCollection` + `DB_KEYS`), no SQLite.
 - **State:** zero-dep `useSyncExternalStore` stores in `src/stores/` (`tracker-store` is the reactive hub).

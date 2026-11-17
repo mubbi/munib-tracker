@@ -17,7 +17,7 @@ This is a **pnpm + Turborepo** monorepo:
 | --------------------------------------- | --------------------------------- | ------------------------------------------------------------------------ |
 | **Product app**                         | `apps/app`                        | Expo SDK 58 — iOS, Android, Web, Apple TV / Android TV (single codebase) |
 | **Marketing site**                      | `apps/marketing-web`              | Next.js 16 landing site (port 3000)                                      |
-| **API server**                          | `apps/api`                        | NestJS 11 — auth + cloud sync (port 3001)                                |
+| **API server**                          | `apps/api`                        | NestJS 12 — auth + cloud sync (port 3001)                                |
 | **Admin console**                       | `apps/admin`                      | Next.js ops console (port 3002) — users, reports, broadcasts             |
 | `@munib-tracker/shared`                 | `packages/shared`                 | Domain types, constants, validators, content, achievements               |
 | `@munib-tracker/db`                     | `packages/db`                     | Drizzle schema mirror for admin (DDL owned by API TypeORM migrations)    |
@@ -30,12 +30,12 @@ This is a **pnpm + Turborepo** monorepo:
 | `@munib-tracker/typescript-config`      | `packages/typescript-config`      | Shared TS configs                                                        |
 | `@munib-tracker/vitest-config`          | `packages/vitest-config`          | Vitest presets                                                           |
 
-**Note:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), `apps/admin` (port 3002), and `apps/app` web (Expo, ~8081) are different apps. Screenshot framing lives in `tools/screenshot-studio/` (not a workspace package; port 3010).
+**Note:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), `apps/admin` (port 3002), and `apps/app` web (Expo, ~8081) are different apps. Screenshot framing lives in `tools/screenshot-studio/` (not a workspace package; port 3010); print pamphlets live in `tools/pamphlets/`.
 
 ## Prerequisites
 
-- Node.js ≥ 22 (CI uses Node 22)
-- pnpm 11.26 (`corepack enable`)
+- Node.js ≥ 24.15 (`.nvmrc`; CI uses Node 24)
+- pnpm 12.21 (`corepack enable`)
 - For native dev: Xcode (iOS) and/or Android Studio (Android)
 
 ## Getting started
@@ -100,7 +100,7 @@ Next.js 16 marketing landing page with Tailwind CSS v4.3.
 
 ## API server (`apps/api`)
 
-NestJS 11 backend for authentication and cloud sync (port 3001, base path `/api/v1`).
+NestJS 12 backend for authentication and cloud sync (port 3001, base path `/api/v1`).
 
 | Command                  | Description                                                       |
 | ------------------------ | ----------------------------------------------------------------- |

@@ -30,14 +30,14 @@ Track this Salah (guest or linked)
 
 ## Configure
 
-| Var                        | Where                                            | Notes                     |
-| -------------------------- | ------------------------------------------------ | ------------------------- |
-| `VAPID_PUBLIC_KEY`         | API, admin, app (`EXPO_PUBLIC_VAPID_PUBLIC_KEY`) | Same key everywhere       |
-| `VAPID_PRIVATE_KEY`        | API + admin                                      | Required to send          |
-| `VAPID_SUBJECT`            | API (+ admin optional)                           | `mailto:` or `https:`     |
-| `API_PUBLIC_URL`           | API                                              | QStash callbacks          |
-| `QSTASH_*`                 | API                                              | Shared with Live Activity |
-| `SURFACE_PUSH_CRON_SECRET` | API                                              | Cron drain                |
+| Var                        | Where                                            | Notes                                                      |
+| -------------------------- | ------------------------------------------------ | ---------------------------------------------------------- |
+| `VAPID_PUBLIC_KEY`         | API, admin, app (`EXPO_PUBLIC_VAPID_PUBLIC_KEY`) | Same key everywhere                                        |
+| `VAPID_PRIVATE_KEY`        | API + admin                                      | Required to send                                           |
+| `VAPID_SUBJECT`            | API + admin (optional)                           | `mailto:` or `https:`; defaults to `mailto:` support email |
+| `API_PUBLIC_URL`           | API                                              | QStash callbacks                                           |
+| `QSTASH_*`                 | API                                              | Shared with Live Activity                                  |
+| `SURFACE_PUSH_CRON_SECRET` | API                                              | Cron drain                                                 |
 
 Cron every 1–5 minutes:
 
@@ -71,7 +71,7 @@ Migration: `1720000011000-SurfacePush`. Regenerate client: `pnpm generate:api`.
 - Replaceable notifications — not a Live Activity / Dynamic Island.
 - 48h client-precomputed horizon; reopen the app to refresh.
 - 404/410 Web Push and Expo `DeviceNotRegistered` responses invalidate the registration.
-- Delivery mirrors Live Activity: an in-flight job returns **503** (QStash retries with backoff), a deleted/terminal job is a no-op 200, and an older job is cancelled when a newer phase is already due or delivered.
+- Registration dedupes updates by `dedupeKey` (last write wins). Delivery mirrors Live Activity: an in-flight / too-early job or a transient provider failure returns **503** (QStash retries with backoff), a deleted/terminal job is a no-op 200, and an older job is cancelled when a newer phase is already due or delivered.
 - Web Push is sent with `urgency: high` and a TTL capped at the phase `staleAt`; a web job that is already stale is cancelled rather than shown late. Expo payloads (silent corrections) are not stale-capped.
 - Cron also expires registrations past `expiresAt` (cancelling their jobs) and deletes ended/invalid/expired registrations after 7 days.
 - The client persists the last registration id, so Stop / sign-out after a restart still ends server jobs. Android ignores data pushes whose `sessionId` is not the active, undismissed tracking session.

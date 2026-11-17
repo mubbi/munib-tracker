@@ -115,7 +115,7 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
 - NestJS boots once per cold start via `api/index.js` → rspack `dist/vercel-handler.js` (built by `nest build` with `builder: rspack`)
   (Express adapter; Vercel `(req, res)` forwarded directly to Express — not `serverless-http`);
   `vercel.json` rewrites all paths to `/api`.
-- `vercel.json` sets `"framework": null` so Vercel does **not** use NestJS zero-config (that builder leaves `@munib-tracker/shared` as `.ts` requires Node cannot load). Webpack allowlists `@munib-tracker/*` so those sources are inlined into `dist/vercel-handler.js`. `"outputDirectory": "."` — API is functions-only (no static `public/` site).
+- `vercel.json` sets `"framework": null` so Vercel does **not** use NestJS zero-config (that builder leaves `@munib-tracker/shared` as `.ts` requires Node cannot load). `rspack.config.js` allowlists `@munib-tracker/*` so those sources are inlined into `dist/vercel-handler.js`. `"outputDirectory": "."` — API is functions-only (no static `public/` site).
 - Runtime is pinned to **Node 22.x** (`engines` in `apps/api/package.json`) — avoid Node 24 on Vercel (native optional deps like `dtrace-provider` from the monorepo lockfile fail to compile). Local development and CI use Node 24 (`.nvmrc`, `engines` in the root `package.json`); NestJS 12 supports both. `dtrace-provider` is listed under `allowBuilds: false` in `pnpm-workspace.yaml` (its install script never runs), so moving the API to Node 24 is worth re-testing on a preview deployment.
 - Package manager: **pnpm 12.21** (`packageManager` in the root `package.json`; Vercel resolves it through Corepack).
 - Build runs TypeORM migrations (`migration:run`) before `nest build`.
@@ -128,7 +128,9 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
   `CLOUDINARY_USER_MEDIA_FOLDER` (default `munib-tracker/custom-adhkar`; authenticated
   delivery). Uploads use `asset_folder` `{prefix}/{userOrReportId}` so each owner’s
   media stays in one folder. Local disk (`REPORT_ATTACHMENTS_DIR` / `USER_MEDIA_DIR`)
-  is for development only.
+  is for development only (defaults `./uploads/reports` and `./uploads/user-media` under `apps/api/`).
+  Filenames are kept as UTF-8 (Arabic/Urdu safe) and downloads send an RFC 5987
+  `filename*` header.
 - Rate limits (content reports, app feedback, auth) and short-lived caches (app
   version meta): set `REDIS_URL` (and optional `REDIS_KEY_PREFIX`) for durable
   limits across instances; otherwise in-memory fallback. Monitor via
@@ -137,7 +139,7 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
   **off** in the console, use `redis://…`; if TLS is **on**, use `rediss://…`.
   Optional `REDIS_TLS=true|false` overrides the scheme. Ensure the database CIDR
   allow list permits Vercel (or leave the public endpoint open with a strong password).
-- Optional `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` for Web Push (admin + API scheduler).
+- Optional `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` (+ `VAPID_SUBJECT`) for Web Push (admin + API scheduler).
 - **ActivityKit Live Activity push:** `APNS_*`, `LIVE_ACTIVITY_CRON_SECRET` (+ cron), optional `QSTASH_*` / `API_PUBLIC_URL` / `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` — [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md).
 - **Surface push (Web + Android Expo Push):** `SURFACE_PUSH_CRON_SECRET` — [`WEB_PUSH.md`](./WEB_PUSH.md).
 

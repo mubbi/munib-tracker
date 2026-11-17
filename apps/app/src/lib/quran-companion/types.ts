@@ -1,7 +1,7 @@
 /**
  * Qur'an Companion (recitation practice) — shared types.
  *
- * Spec: docs/AI_POWERED_QURAN_COMPANION_TODO.md. Everything in this folder that
+ * Feature: docs/FEATURES.md (NF-2.38). Everything in this folder that
  * does not need a microphone is pure TypeScript so Jest covers it.
  */
 

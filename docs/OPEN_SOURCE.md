@@ -76,6 +76,6 @@ Create these labels in the GitHub UI (or via `gh label create`) so the labeler c
 | Product           | `apps/app`                | Expo SDK 58 — iOS, Android, Web, Apple TV / Android TV                                                      |
 | Marketing         | `apps/marketing-web`      | Next.js 16 (port 3000)                                                                                      |
 | Admin             | `apps/admin`              | Next.js ops console (port 3002)                                                                             |
-| API               | `apps/api`                | NestJS 11 (port 3001)                                                                                       |
+| API               | `apps/api`                | NestJS 12 (port 3001)                                                                                       |
 | Packages          | `packages/*`              | shared, db, theme, api-client/contract, live-activity-delivery, surface-push-delivery, store-screenshots, … |
 | Screenshot studio | `tools/screenshot-studio` | Outside workspace; port 3010                                                                                |

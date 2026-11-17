@@ -9,7 +9,7 @@ Two-stage pipeline:
 1. **Native capture** — Maestro scripts drive Android/iOS emulators, seed demo data, screenshot every screen × locale × theme.
 2. **Screenshot Studio** — Next.js editor composes headlines + device frames at exact store resolutions.
 
-Canonical overview: [`docs/STORE_ASSETS.md`](../../docs/STORE_ASSETS.md).
+Canonical overview: [`docs/STORE_ASSETS.md`](../../../docs/STORE_ASSETS.md).
 
 ## When to use
 
@@ -22,15 +22,15 @@ Canonical overview: [`docs/STORE_ASSETS.md`](../../docs/STORE_ASSETS.md).
 
 ## Architecture
 
-| Piece | Path |
-|-------|------|
-| Native capture (Maestro) | `apps/app/scripts/screenshots/` |
-| Editor (Next.js, standalone npm) | `tools/screenshot-studio/` |
-| Shared sizes & scene names | `packages/store-screenshots/` |
-| Full native matrix | `apps/app/store-assets/captures-native/{android\|ios}/<locale>/<theme>/` |
-| Studio inputs (8 files/locale/platform) | `apps/app/store-assets/captures/{android\|ios}/<locale>/` |
-| Final PNG outputs | `apps/app/store-assets/ios/…`, `android/…` |
-| Project state (git-tracked) | `tools/screenshot-studio/app-store-screenshots.json` |
+| Piece                                         | Path                                                                     |
+| --------------------------------------------- | ------------------------------------------------------------------------ |
+| Native capture (Maestro)                      | `apps/app/scripts/screenshots/`                                          |
+| Editor (Next.js, standalone npm)              | `tools/screenshot-studio/`                                               |
+| Shared locales, capture files & slide names   | `packages/store-screenshots/spec.json` (scripts read this)               |
+| Full native matrix                            | `apps/app/store-assets/captures-native/{android\|ios}/<locale>/<theme>/` |
+| Studio inputs (8 files/locale/platform/theme) | `apps/app/store-assets/captures/{android\|ios}/<locale>/<theme>/`        |
+| Final PNG outputs                             | `apps/app/store-assets/ios/…`, `android/…`                               |
+| Project state (git-tracked)                   | `tools/screenshot-studio/app-store-screenshots.json`                     |
 
 The studio is **not** in the pnpm workspace. Run `npm install` inside `tools/screenshot-studio`.
 
@@ -43,10 +43,12 @@ Automates realistic screenshots with pre-seeded demo data. Requires Maestro CLI 
 ```bash
 pnpm screenshots:validate                    # CI-safe structure check
 pnpm screenshots:android                     # or screenshots:ios (macOS)
-pnpm sync:screenshot-captures              # after dark aliases land in captures/
+pnpm sync:screenshot-captures              # after aliases land in captures/ (syncs STUDIO_THEME, default light)
 ```
 
 **Filter env vars:** `LOCALES`, `THEMES`, `SCENES`, `GROUPS`, `SKIP_EMULATOR` / `SKIP_SIMULATOR`, `SKIP_BUILD`, `VALIDATE_ONLY`, `SCENE_BATCH`.
+
+**TV:** `pnpm screenshots:tvos` / `screenshots:android-tv` / `screenshots:tv` validate only; `RUN_CAPTURE=1` writes `apple-tv-1080p/` / `android-tv-1080p/` PNGs (needs an `EXPO_TV=1` build — see `docs/TV.md`).
 
 **Watch:** `pnpm screenshots:watch` (macOS) — `WATCH_SIMULATOR_DEVICE`, `IOS_SIMULATOR_DEVICE`, `SCENES`, `SKIP_BUILD`, `SKIP_SIMULATOR`.
 
@@ -56,9 +58,9 @@ pnpm sync:screenshot-captures              # after dark aliases land in captures
 
 Android and iOS share Maestro batching (`lib/run-maestro-batches.mjs`). iOS requires macOS. Watch uses App Group seeding + `simctl` (no Maestro).
 
-After a dark capture run, `STUDIO_ALIASES` copies key scenes into `captures/<platform>/<locale>/` as the studio JPEG filenames (`home.jpg`, `tracker.jpg`, …). See `apps/app/scripts/screenshots/lib/config.mjs`. Android and iOS use separate folders.
+After each capture run (light and dark), `STUDIO_ALIASES` copies key scenes into `captures/<platform>/<locale>/<theme>/` as the studio JPEG filenames (`home.jpg`, `tracker.jpg`, …). See `apps/app/scripts/screenshots/lib/config.mjs`. Android and iOS use separate folders.
 
-Manual capture is still valid: place JPEGs/PNGs under `captures/<android|ios>/<locale>/` yourself (dark theme, native resolution).
+Manual capture is still valid: place JPEGs/PNGs under `captures/<android|ios>/<locale>/<theme>/` yourself (native resolution). The studio syncs the `STUDIO_THEME` folder — default `light` (`spec.json` → `studioTheme`); set `STUDIO_THEME=dark` to use dark captures.
 
 ### Phase B — Studio frames & export
 
@@ -70,16 +72,17 @@ pnpm seed:screenshot-studio    # from repo root — refresh decks + en/ar/ur cop
 pnpm sync:screenshot-captures  # copies captures → public/screenshots/app/
 pnpm dev:screenshot-studio     # http://localhost:3010
 # Export each device tab → writes tools/screenshot-studio/exports/
+# (or headless, with the editor running: pnpm export:screenshot-studio)
 pnpm distribute:screenshot-exports
 ```
 
-If `sync-app-screenshots.mjs` reports missing files, run native capture or add images under `apps/app/store-assets/captures/<android|ios>/<locale>/`.
+If `sync-app-screenshots.mjs` reports missing files, run native capture or add images under `apps/app/store-assets/captures/<android|ios>/<locale>/<theme>/`.
 
 **Brand assets:** `public/app-icon.png` must be the Munib Tracker app icon (not a placeholder from another project). Refresh with `pnpm sync:screenshot-brand-assets` or `pnpm generate:app:brand-assets` (also runs at end of `pnpm seed:screenshot-studio`).
 
 Required capture files (see `packages/store-screenshots/spec.json`):
 
-- `home.jpg`, `tracker.jpg`, `qaza.jpg`, `zikr.jpg`, `quran.jpg`, `settings-privacy.jpg`, `settings-sync.jpg`
+- `home.jpg`, `tracker.jpg`, `qaza.jpg`, `zikr.jpg`, `quran.jpg`, `qibla.jpg`, `names-of-allah.jpg`, `tasbeeh.jpg`
 
 ### Copy changes
 
@@ -102,17 +105,18 @@ For **tablet-only English** sets: temporarily set `"locales": ["en"]` in `app-st
 
 ## Device export sizes
 
-From `@munib-tracker/store-screenshots`:
+From `tools/screenshot-studio/src/lib/constants.ts` (mirrors `packages/store-screenshots`):
 
-| Device | Export |
-|--------|--------|
-| iPhone | 1320×2868 (6.9"), 1242×2688 (6.5") |
-| iPad | 2064×2752 (13") |
-| Android phone | 1080×1920 |
-| Android 7" | 1200×1920 portrait, 1920×1200 landscape |
-| Android 10" | 1600×2560 portrait, 2560×1600 landscape |
-| Feature graphic | 1024×500 |
-| Apple Watch | 422×514 (Ultra 3) — via `pnpm screenshots:watch`, not Screenshot Studio |
+| Device                | Export                                                                                                      |
+| --------------------- | ----------------------------------------------------------------------------------------------------------- |
+| iPhone                | 1320×2868 (6.9"), 1242×2688 (6.5")                                                                          |
+| iPad                  | 2064×2752 (13")                                                                                             |
+| Android phone         | 1080×1920                                                                                                   |
+| Android 7"            | 1200×1920 portrait, 1920×1200 landscape                                                                     |
+| Android 10"           | 1600×2560 portrait, 2560×1600 landscape                                                                     |
+| Feature graphic       | 1024×500                                                                                                    |
+| Apple Watch           | 422×514 (Ultra 3) — via `pnpm screenshots:watch`, not Screenshot Studio                                     |
+| Apple TV / Android TV | 1920×1080 — via `pnpm screenshots:tvos` / `screenshots:android-tv` (`RUN_CAPTURE=1`), not Screenshot Studio |
 
 ## Apple Watch captures
 
@@ -150,7 +154,7 @@ Studio theme id: **`munib-tracker`** — charcoal `#060a09`, inverted slides `#0
 
 ## Related
 
-- [`docs/STORE_ASSETS.md`](../../docs/STORE_ASSETS.md) — pipeline diagram + command table
+- [`docs/STORE_ASSETS.md`](../../../docs/STORE_ASSETS.md) — pipeline diagram + command table
 - `apps/app/scripts/screenshots/README.md` — Maestro capture details
 - `tools/screenshot-studio/README.md` — editor details
 - `apps/app/store-assets/README.md` — output layout

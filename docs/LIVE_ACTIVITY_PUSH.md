@@ -109,6 +109,7 @@ Regenerate client after OpenAPI changes: `pnpm generate:api`.
 - **QStash:** `notBefore` unix seconds + `retryDelay` backoff. Slightly early callbacks are accepted (90s tolerance). Exhaust / schedule errors leave the job `pending`; cron drains it.
 - **Ordering:** a job is cancelled ("Superseded by a newer due phase") when a later boundary for the same activity is already due or delivered, so a retried/late push never rolls the lock screen back to an older phase. Stores implement `hasNewerDueJob`.
 - **BadDeviceToken / 410:** token marked `invalid`; remaining jobs cancelled. `ExpiredProviderToken` refreshes the cached APNs JWT and retries.
+- **Duplicate boundaries:** a registration carrying the same `(phase, executeAt)` twice keeps the last entry (last write wins) instead of tripping `live_activity_push_jobs_phase_unique`.
 - **Account switch:** re-registering an `activityId` from another account is allowed only when the request carries the same ActivityKit token (proof of device possession); otherwise 403.
 - **Retention:** `expired`, `ended`, and `invalid` token rows (encrypted tokens) are deleted after 7 days.
 - **Client:** registrations and lifecycle calls are serialized on device so overlapping PUTs cannot interleave server-side.

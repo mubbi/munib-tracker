@@ -4,7 +4,7 @@ Ops console at `apps/admin` (`@munib-tracker/admin`). Full product docs: [`docs/
 
 ## Stack
 
-- **Next.js 16** App Router, port **3002** (`app/`, `lib/`, `components/` — no `src/`)
+- **Next.js 16.4** App Router (React 19.3, Tailwind 4.3, Vitest 5 — `vitest.config.mts`), port **3002** (`app/`, `lib/`, `components/` — no `src/`)
 - **Drizzle** through `@munib-tracker/db` — same Postgres as Nest; **no Nest admin CRUD**
 - **Custom Google OAuth** + jose-signed cookie `mt_admin_session` (`ADMIN_SESSION_SECRET`)
 - **Allowlist** `admin_users` with `enabled`; roles: `super_admin` | `support` | `ops` | `content` | `analytics`
@@ -20,6 +20,7 @@ Ops console at `apps/admin` (`@munib-tracker/admin`). Full product docs: [`docs/
 - Keep sidebar modules Munib-only (see `NAV_ITEMS` in `lib/permissions.ts`)
 - OSS CDN download failures: `/oss-failures` (module 13) — read-only ops list from `oss_content_download_failures`
 - Marketing contact inbox: `/contact-messages` (module 14) — triage + admin notes on `contact_messages`
+- Qur'an practice analytics: `/quran-practice` (module 15) — aggregate-only stats parsed from `sync_records` practice blobs (`lib/quran-practice-stats.ts`); no per-user rows
 - Broadcast fan-out: `BROADCAST_USER_BATCH_SIZE` from `@munib-tracker/shared/admin-broadcasts`; product user ids are **UUIDs**
 - Platform health: Nest `GET /api/v1/health` (via `API_URL`) — includes Redis snapshot when `REDIS_URL` is set on the API
 - Optional `REDIS_URL` / `REDIS_KEY_PREFIX` (same Redis as API) for broadcast cron leader locks
@@ -43,7 +44,7 @@ Loads `apps/admin/.env.local` or API `DATABASE_*`.
 
 ## Cron
 
-External `ADMIN_CRON_SECRET` bearer against `/api/cron/process-broadcasts` (see playbooks + [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md)). Log runs to `cron_run_log`.
+External `ADMIN_CRON_SECRET` bearer against `/api/cron/process-broadcasts` (see playbooks + [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md)). Redis leader lock when `REDIS_URL` is set (fail-open without it). Each run that holds the lock writes one `cron_runs` row (`ok` / `error`, duration, error message) via `recordCronRun()` in `lib/cron/recordCronRun.ts` — wrap any new cron bucket the same way; lock-skipped runs aren't logged.
 
 ## Branding
 

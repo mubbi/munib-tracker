@@ -30,8 +30,8 @@
 
 | Metric                                              |                                                                                           Value |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------------------: |
-| Expo route files (`apps/app/src/app/**/*.tsx`)      |                                                                                         **206** |
-| Largest route families                              |      `learn-quran` (20), `settings` (18), `jahannam` (11), `battles` / `last-day` / `quran` (9) |
+| Expo route files (`apps/app/src/app/**/*.tsx`)      |                                                                                         **225** |
+| Largest route families                              |  `learn-quran` (21), `settings` (19), `quran` (13), `jahannam` (11), `battles` / `last-day` (9) |
 | `apps/app/src` total                                |                                                                                     **~5.2 MB** |
 | Bundled religious data (`assets/data`)              |                                                     **~12 MB** (Qur’an ~9.1 MB, Hadith ~2.4 MB) |
 | All `apps/app/assets`                               |                                                                                      **~15 MB** |
@@ -52,6 +52,8 @@
 | Locale catalogs (`ar`, `ur`, …)                     |                                            **own async chunks** (~500–580 KB each) |
 
 **`__common` probes (pass 2):** `NAMES` meanings **absent**; zikr `Subhan-Allah` **absent**; Nawawi English body **absent**; `search-guides` module **absent**; `ScheherazadeNew-Regular` TTF **absent**; Qur’an arabic / color picker / Riyad full JSON **absent**. Still present: some dua/guide string fragments shared across multi-route modules.
+
+**Metro heap + static head (SDK 58):** `dev`, `web`, `start:*` and `build:web` run Expo CLI through `scripts/metro-node-heap.cjs`, which sets `NODE_OPTIONS=--max-old-space-size=6144` (override with `METRO_NODE_HEAP_MB`; skipped if `NODE_OPTIONS` already sets it) because native + web + SSR bundles share one Metro process; on `export` it also runs `prepare-web-export-env.cjs` and patches the exported web manifest. The SDK 58 streaming static renderer drops `<Head>` tags, so every route file exports `generateMetadata = routeMetadata("<route>")` (`src/lib/seo/route-metadata.ts`, fed by `src/config/seo-routes.data.json`); `scripts/inject-seo-head.mjs` then fills dynamic routes post-export.
 
 **Metro rule (critical):** never `require()` content/JSON from production modules — even behind `NODE_ENV === "test"`. Jest warms via `jest.setup.ts` setters (`__set*ForTests`). Guides live in `search-with-guides.ts`, loaded only from the search screen runner.
 
@@ -105,7 +107,7 @@ pnpm release:app:android   # or EAS production AAB
 bundletool get-size total --apks=app.apks
 ```
 
-**Native takeaway:** Install size is driven by **RN/Hermes/Reanimated/QuickCrypto/.so**, not by whether each of the 206 routes uses `React.lazy`. Route code-splitting will not shrink those native libraries.
+**Native takeaway:** Install size is driven by **RN/Hermes/Reanimated/QuickCrypto/.so**, not by whether each of the 225 routes uses `React.lazy`. Route code-splitting will not shrink those native libraries.
 
 ---
 
@@ -155,9 +157,9 @@ Is the pain opening Qur’an / Hadith memory?
 
 ### Guide B — Turn on web async routes
 
-1. In `apps/app` app config (`app.json` / `app.config.js`), set the Expo Router plugin `asyncRoutes` as in P0.1.
+1. In `apps/app/app.json`, the Expo Router plugin sets `asyncRoutes` (already `web: true`; keep native off).
 2. Clear Metro: `pnpm --filter app dev:web:clear` or export with a clean cache.
-3. `pnpm --filter app build:web`.
+3. `pnpm --filter app build:web` (runs `expo export` through `scripts/metro-node-heap.cjs`, see §2.2).
 4. Compare `find dist/_expo/static/js/web -name '*.js' -exec ls -la {} \;`.
 5. Smoke-test deep links (`/quran`, `/learn-quran/...`, `/settings/appearance`) for Suspense flashes; add a small shared fallback if needed.
 6. Keep `asyncRoutes` **off for native production** until Expo documents native production splitting (still web-first as of SDK 58 docs).
