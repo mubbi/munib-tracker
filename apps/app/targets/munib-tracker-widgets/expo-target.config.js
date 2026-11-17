@@ -7,7 +7,7 @@ module.exports = (config) => ({
   deploymentTarget: "17.0",
   frameworks: ["AppIntents", "WidgetKit"],
   colors: {
-    $widgetBackground: "#FFFCF7",
+    $widgetBackground: "#FFFDF9",
     $accent: "#059669",
   },
   entitlements: {

@@ -93,7 +93,7 @@ function writePreviewLayout(layoutDir) {
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="12dp"
-    android:background="#FFFCF7">
+    android:background="#FFFDF9">
     <TextView
         android:id="@+id/widget_preview_title"
         android:layout_width="match_parent"
