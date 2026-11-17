@@ -995,6 +995,8 @@
     "adhanSub": "بنڈل شدہ اذان کی آواز چلائیں",
     "playAdhan": "نماز کے وقت اذان چلائیں",
     "playAdhanHint": "فرض نمازوں کی یاد دہانیاں وقت پر اذان چلاتی ہیں۔",
+    "preciseAdhan": "اذان کا درست وقت",
+    "preciseAdhanHint": "بیٹری سیور میں بھی اذان بالکل وقت پر چلتی ہے۔ اذان چلنے تک اینڈرائیڈ اسٹیٹس بار میں الارم کا نشان دکھاتا ہے۔",
     "liveActivity": "لائیو سرگرمی",
     "liveActivityHint": "لاک اسکرین اور ڈائنامک آئی لینڈ پر اگلی نماز کی لائیو گنتی دکھائیں۔",
     "liveActivityHintAndroid": "اگلی نماز کی لائیو گنتی اور نماز سے پہلے کے اذکار کی تیاری کے عمل کے ساتھ ایک مستقل اطلاع دکھائیں۔",
@@ -1589,7 +1591,10 @@
     "bookmarkEmptyDescTv": "کسی بھی آیت پر بک مارک آئیکن پر منتخب دبائیں تاکہ یہاں محفوظ ہو۔",
     "goToAyahPlaceholder": "آیت 1–{{max}}",
     "goToAyahA11y": "آیت نمبر پر جائیں",
-    "goToAyahInvalid": "1 سے {{max}} کے درمیان آیت نمبر درج کریں"
+    "goToAyahInvalid": "1 سے {{max}} کے درمیان آیت نمبر درج کریں",
+    "searchAyahs": "آیات تلاش کریں",
+    "findSurah": "سورت تلاش کریں",
+    "noSurahResults": "کوئی سورت آپ کی تلاش سے مطابقت نہیں رکھتی۔"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",
@@ -5478,7 +5483,12 @@
       "reveal": "ظاہر کریں",
       "revealHint": "اگلا چھپا ہوا لفظ ظاہر کرتا ہے۔ باقی آیت کے لیے دیر تک دبائیں۔",
       "end": "ختم",
-      "revealAll": "سب ظاہر کریں"
+      "revealAll": "سب ظاہر کریں",
+      "revealAllConfirmTitle": "پوری آیت ظاہر کریں؟",
+      "revealAllConfirmMessage": "اس آیت کے تمام چھپے ہوئے الفاظ دکھا دیے جائیں گے۔",
+      "endConfirmTitle": "یہ مشق ختم کریں؟",
+      "endConfirmMessage": "اب تک کی مشق کا خلاصہ آپ کو دکھایا جائے گا۔",
+      "endConfirm": "مشق ختم کریں"
     },
     "word": {
       "matched": "مطابق",
@@ -5498,16 +5508,11 @@
       "hearAyah": "یہ آیت سنیں",
       "markMemorized": "حفظ کے طور پر نشان زد کریں",
       "listened": "آپ نے یہ حصہ سنا۔ اپنی آواز کے ساتھ چلنے کے لیے سامع ڈاؤن لوڈ کریں۔",
-      "countMatched_one": "{{count}} مطابق",
-      "countMatched_other": "{{count}} مطابق",
-      "countNotSure_one": "{{count}} غیر یقینی",
-      "countNotSure_other": "{{count}} غیر یقینی",
-      "countTryAgain_one": "{{count}} دوبارہ پڑھنے کے لیے",
-      "countTryAgain_other": "{{count}} دوبارہ پڑھنے کے لیے",
-      "countNotReached_one": "{{count}} تک نہیں پہنچے",
-      "countNotReached_other": "{{count}} تک نہیں پہنچے",
-      "listenerNotSure_one": "سامع {{count}} لفظ کے بارے میں یقینی نہیں تھا",
-      "listenerNotSure_other": "سامع {{count}} الفاظ کے بارے میں یقینی نہیں تھا"
+      "headListened": "آپ نے یہ حصہ سنا",
+      "practiseAgain": "دوبارہ مشق کریں",
+      "weakAyahsTitle": "دوبارہ مشق کے لیے آیات",
+      "ayahChip": "آیت {{ayah}}",
+      "practiseAyah": "آیت {{ayah}} کی دوبارہ مشق کریں"
     },
     "revision": {
       "title": "دہرائی",

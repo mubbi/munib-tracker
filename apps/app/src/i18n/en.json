@@ -1060,6 +1060,8 @@
     "adhanSub": "Play the bundled call-to-prayer sound",
     "playAdhan": "Play adhan at prayer time",
     "playAdhanHint": "Obligatory-prayer reminders play the adhan when they fire.",
+    "preciseAdhan": "Precise Adhan timing",
+    "preciseAdhanHint": "Delivers the Adhan exactly on time, even in battery saver. Android shows an alarm icon in the status bar until it plays.",
     "liveActivity": "Live Activity",
     "liveActivityHint": "Show a live next-prayer countdown on the lock screen and Dynamic Island.",
     "liveActivityHintAndroid": "Show a sticky notification with a live next-prayer countdown and a Prepare action for before-Salah adhkar.",
@@ -1653,7 +1655,10 @@
     "bookmarkEmptyDescTv": "Select the bookmark icon on any ayah to save it here.",
     "goToAyahPlaceholder": "Ayah 1–{{max}}",
     "goToAyahA11y": "Go to ayah number",
-    "goToAyahInvalid": "Enter an ayah between 1 and {{max}}"
+    "goToAyahInvalid": "Enter an ayah between 1 and {{max}}",
+    "searchAyahs": "Search ayahs",
+    "findSurah": "Find a surah",
+    "noSurahResults": "No surahs matched your search."
   },
   "hadith": {
     "eyebrow": "Prophetic tradition",
@@ -5477,7 +5482,12 @@
       "reveal": "Reveal",
       "revealHint": "Reveals the next hidden word. Long-press to reveal the rest of the ayah.",
       "end": "End",
-      "revealAll": "Reveal all"
+      "revealAll": "Reveal all",
+      "revealAllConfirmTitle": "Reveal the whole ayah?",
+      "revealAllConfirmMessage": "Every hidden word in this ayah will be shown.",
+      "endConfirmTitle": "End this session?",
+      "endConfirmMessage": "You'll see a summary of what you've practised so far.",
+      "endConfirm": "End session"
     },
     "word": {
       "matched": "matched",
@@ -5497,16 +5507,11 @@
       "hearAyah": "Hear this ayah",
       "markMemorized": "Mark memorized",
       "listened": "You listened to this passage. Download the listener to have it follow your voice.",
-      "countMatched_one": "{{count}} matched",
-      "countMatched_other": "{{count}} matched",
-      "countNotSure_one": "{{count}} not sure",
-      "countNotSure_other": "{{count}} not sure",
-      "countTryAgain_one": "{{count}} to try again",
-      "countTryAgain_other": "{{count}} to try again",
-      "countNotReached_one": "{{count}} not reached",
-      "countNotReached_other": "{{count}} not reached",
-      "listenerNotSure_one": "The listener was not sure about {{count}} word",
-      "listenerNotSure_other": "The listener was not sure about {{count}} words"
+      "headListened": "You listened to this passage",
+      "practiseAgain": "Practise again",
+      "weakAyahsTitle": "Ayahs to practise again",
+      "ayahChip": "Ayah {{ayah}}",
+      "practiseAyah": "Practise ayah {{ayah}} again"
     },
     "revision": {
       "title": "Revision",
