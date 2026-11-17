@@ -1,6 +1,6 @@
 import { APP_NAME, APP_TAGLINE, OFFICIAL_IOS_APP_STORE_ID } from "@munib-tracker/shared/constants";
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Amiri_Quran, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@/components/analytics";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { SiteBackground } from "@/components/day-arc/site-background";
@@ -15,6 +15,15 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+});
+
+/** Qur'an script for Arabic ayah text (landing-page practice preview). Not preloaded. */
+const amiriQuran = Amiri_Quran({
+  variable: "--font-amiri-quran",
+  subsets: ["arabic"],
+  weight: "400",
+  display: "swap",
+  preload: false,
 });
 
 const jakarta = Plus_Jakarta_Sans({
@@ -100,7 +109,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${jakarta.variable} h-full antialiased`}
+      className={`${inter.variable} ${jakarta.variable} ${amiriQuran.variable} h-full antialiased`}
     >
       <head>
         <JsonLd />

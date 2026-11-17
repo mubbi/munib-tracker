@@ -25,6 +25,11 @@ export const FAQ_ITEMS: FaqItem[] = [
       "No. Guest mode gives you full access with all data stored locally on your device. Sign in with Google, Apple, or Facebook only when you want to sync across devices.",
   },
   {
+    question: "Does Qur'an practice record my voice?",
+    answer:
+      "No. When you tap the microphone, an AI listener on your device follows your recitation word by word. The audio is processed on the device and is never recorded, stored, or uploaded; practice keeps only counts (such as how many words matched) and ayah numbers. The listener is a one-time optional download (about 70 MB) and then works offline. It follows your recitation to help you memorize and revise; it is not a replacement for a teacher.",
+  },
+  {
     question: "Does it work offline?",
     answer:
       "Yes. Prayer tracking, qaza, 54 adhkar, tasbeeh, 270 duas, bundled Qur'an and hadith highlights, the full learning library (350+ topics), and worship guides all work without an internet connection. Full hadith collections, extra Qur'an translations (25 editions), tafsir (123 editions), recitation, and audio download on demand and can be cached from Settings → Offline data.",

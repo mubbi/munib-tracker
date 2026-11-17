@@ -2,7 +2,7 @@
 
 import { APP_TAGLINE } from "@munib-tracker/shared/constants";
 import { motion, type Variants } from "framer-motion";
-import { Award, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
+import { ArrowRight, Award, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
 import { PrayerArc } from "@/components/day-arc/prayer-arc";
@@ -67,10 +67,24 @@ export function Hero() {
           className="text-center lg:text-left"
         >
           <motion.div variants={item} className="flex justify-center lg:justify-start">
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] px-5 py-2.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] [text-shadow:0_1px_6px_rgba(0,0,0,0.4)]">
-              <Sparkles className="size-4 text-gold drop-shadow-[0_0_6px_rgba(240,200,120,0.8)]" />
-              Your prayers. Your path. His pleasure.
-            </span>
+            <TrackedLink
+              href="#quran-practice"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] py-1.5 pr-4 pl-1.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:border-white/35"
+              track="select_content"
+              contentType="announcement"
+              itemId="quran_practice_ai"
+              placement="hero"
+            >
+              <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-b from-[#f8e7b2] to-[#dcae5e] px-2.5 py-1 text-xs font-bold text-[#1a1408] [text-shadow:none]">
+                <Sparkles className="size-3.5" aria-hidden />
+                New
+              </span>
+              Qur&apos;an practice with AI
+              <ArrowRight
+                className="size-4 transition-transform group-hover:translate-x-0.5"
+                aria-hidden
+              />
+            </TrackedLink>
           </motion.div>
 
           <motion.h1

@@ -153,6 +153,21 @@ export function IconTimes(props: IconProps) {
   );
 }
 
+export function IconPractice(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path d="M19.5 3.5l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5z" fill="currentColor" />
+    </svg>
+  );
+}
+
 export const FEATURE_ICONS = {
   quran: IconQuran,
   hadith: IconHadith,
@@ -163,4 +178,5 @@ export const FEATURE_ICONS = {
   learn: IconLearn,
   guides: IconGuides,
   times: IconTimes,
+  practice: IconPractice,
 } as const;

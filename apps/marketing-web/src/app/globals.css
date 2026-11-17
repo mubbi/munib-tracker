@@ -63,6 +63,7 @@
   /* Typography */
   --font-sans: var(--font-inter);
   --font-display: var(--font-jakarta);
+  --font-quran: var(--font-amiri-quran), "Amiri Quran", "Noto Naskh Arabic", serif;
 
   /* Radius */
   --radius-card: 1.5rem;

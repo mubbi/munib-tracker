@@ -15,6 +15,7 @@ export type CtaName =
   | "get_app"
   | "explore_features"
   | "explore_library"
+  | "try_quran_practice"
   | "view_all_faq"
   | "return_home";
 
@@ -23,7 +24,8 @@ export type CtaPlacement =
   | "home_learn"
   | "home_pillars"
   | "home_faq"
-  | "home_bento";
+  | "home_bento"
+  | "home_ai_practice";
 
 export function trackDownloadClick(platform: DownloadPlatform, placement: DownloadPlacement): void {
   trackGtagEvent("download_click", { platform, placement });
