@@ -1,7 +1,21 @@
-/** Shared App Store / Play Store screenshot dimensions and asset layout for Munib Tracker. */
+/**
+ * Shared App Store / Play Store screenshot dimensions and asset layout for Munib Tracker.
+ *
+ * `spec.json` is the single source of truth for locales, capture files and slide scenes
+ * (the screenshot-studio and capture scripts read it directly); this module re-exports
+ * those values typed, plus canvas/export sizes that only TS consumers need.
+ */
 
-export const STORE_SCREENSHOT_LOCALES = ["en", "ar", "ur"] as const;
-export type StoreScreenshotLocale = (typeof STORE_SCREENSHOT_LOCALES)[number];
+import spec from "../spec.json" with { type: "json" };
+
+export type StoreScreenshotLocale = string;
+export type SlideScenes = Readonly<Record<string, string>>;
+
+/** Marketing deck locales (a subset of the app's 24 UI locales). */
+export const STORE_SCREENSHOT_LOCALES: readonly StoreScreenshotLocale[] = spec.locales;
+
+/** Default studio theme subfolder (`captures/<platform>/<locale>/<theme>/`). */
+export const STUDIO_THEME: "light" | "dark" = spec.studioTheme === "dark" ? "dark" : "light";
 
 export type ExportSize = { label: string; w: number; h: number };
 
@@ -59,24 +73,13 @@ export const WATCH_SCREENSHOT_SIZES = [
 export const WATCH_PREFERRED_SIZE = WATCH_SCREENSHOT_SIZES[0];
 
 /** Watch store slide filenames produced by `pnpm screenshots:watch`. */
-export const WATCH_SLIDE_SCENES = {
-  "01": "01-schedule",
-  "02": "02-morning",
-  "03": "03-location",
-} as const;
+export const WATCH_SLIDE_SCENES: SlideScenes = spec.watch.slideScenes;
 
 /** Preferred TV store size (Apple TV + Android TV / Fire TV screenshots). */
-export const TV_PREFERRED_SIZE = { label: "tv-1080p", w: 1920, h: 1080 } as const;
+export const TV_PREFERRED_SIZE: ExportSize = spec.tv.preferredSize;
 
 /** TV store slide filenames from `pnpm screenshots:tvos` / `screenshots:android-tv`. */
-export const TV_SLIDE_SCENES = {
-  "01": "01-home",
-  "02": "02-tracker",
-  "03": "03-library",
-  "04": "04-quran",
-  "05": "05-zikr",
-  "06": "06-settings",
-} as const;
+export const TV_SLIDE_SCENES: SlideScenes = spec.tv.slideScenes;
 
 /** Amazon Fire TV console assets (not in APK) — regenerate via `pnpm generate:app:brand-assets`. */
 export const FIRE_TV_CONSOLE_ASSETS = [
@@ -94,25 +97,9 @@ export const EXPORT_SIZES_LANDSCAPE: Partial<Record<DeviceKind, ExportSize[]>> =
 };
 
 /** Raw app captures synced into the studio (see tools/screenshot-studio/scripts/sync-app-screenshots.mjs). */
-export const CAPTURE_FILES = [
-  "home",
-  "tracker",
-  "qaza",
-  "zikr",
-  "quran",
-  "settings-privacy",
-  "settings-sync",
-] as const;
+export const CAPTURE_FILES: readonly string[] = spec.captureFiles;
 
 /** Marketing slide order → export filename prefix (01-home.png, …). */
-export const SLIDE_SCENES: Record<string, string> = {
-  "01": "01-home",
-  "02": "02-salah",
-  "03": "03-qaza",
-  "04": "04-library",
-  "05": "05-privacy",
-  "06": "06-offline",
-  "07": "07-more",
-};
+export const SLIDE_SCENES: SlideScenes = spec.slideScenes;
 
-export const STORE_ASSETS_ROOT = "apps/app/store-assets";
+export const STORE_ASSETS_ROOT: string = spec.storeAssetsRoot;
