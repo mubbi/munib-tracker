@@ -143,6 +143,16 @@ function reminderScheduleExtra(reminder: BuiltReminder): Record<string, string> 
   };
 }
 
+export type ReminderTriggerOptions = {
+  /**
+   * "Precise Adhan timing" (Android): schedule Adhan-channel reminders with
+   * `delivery: "alarmClock"` (AlarmManager.setAlarmClock) so battery optimisation
+   * can't defer them. Without the exact-alarm permission Android falls back to
+   * best-effort delivery on its own.
+   */
+  preciseAdhan?: boolean;
+};
+
 /**
  * Native trigger for one reminder. Returns `null` when the OS would reject it
  * (invalid clock, or DATE more than a minute in the past).
@@ -150,9 +160,14 @@ function reminderScheduleExtra(reminder: BuiltReminder): Record<string, string> 
 export function osTriggerForReminder(
   reminder: BuiltReminder,
   nowMs = Date.now(),
+  { preciseAdhan = false }: ReminderTriggerOptions = {},
 ): Notifications.NotificationTriggerInput | null {
   const fireAtMs = reminder.fireAt.getTime();
   if (!Number.isFinite(fireAtMs)) return null;
+  const alarmClock =
+    preciseAdhan && Platform.OS === "android" && reminder.channelId === "prayerAdhan"
+      ? ({ delivery: "alarmClock" } as const)
+      : null;
 
   if (reminder.repeat === "daily") {
     const hour = reminder.fireAt.getHours();
@@ -164,6 +179,7 @@ export function osTriggerForReminder(
       hour,
       minute,
       channelId: reminder.channelId,
+      ...alarmClock,
     };
   }
 
@@ -182,6 +198,7 @@ export function osTriggerForReminder(
     type: Notifications.SchedulableTriggerInputTypes.DATE,
     date: reminder.fireAt,
     channelId: reminder.channelId,
+    ...alarmClock,
   };
 }
 
@@ -236,8 +253,11 @@ export async function cancelAll(): Promise<void> {
   await Notifications.cancelAllScheduledNotificationsAsync();
 }
 
-async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
-  const trigger = osTriggerForReminder(reminder);
+async function scheduleReminder(
+  reminder: BuiltReminder,
+  options: ReminderTriggerOptions = {},
+): Promise<void> {
+  const trigger = osTriggerForReminder(reminder, Date.now(), options);
   if (!trigger) return;
 
   // Mark + Snooze only when this is a fard prayer-time reminder (has prayerId).
@@ -246,6 +266,9 @@ async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
     title: reminder.title,
     body: reminder.body,
     ...(isPrayerNow ? { categoryIdentifier: PRAYER_NOW_CATEGORY } : {}),
+    // Stack related reminders (Salah / Adhan / Zikr / Qaza) together: Android group
+    // key and iOS notification-centre thread (expo-notifications 58).
+    threadIdentifier: reminder.channelId,
     // iOS plays the per-notification sound; Android takes it from the channel.
     ...(reminder.sound ? { sound: reminder.sound } : {}),
     data: {
@@ -288,7 +311,9 @@ export async function rescheduleAll(
     await cancelAll();
     for (const reminder of toSchedule) {
       try {
-        await scheduleReminder(reminder);
+        await scheduleReminder(reminder, {
+          preciseAdhan: prefs.notificationPrefs.preciseAdhan === true,
+        });
       } catch (error) {
         captureAppException(error, {
           tags: { area: "notifications", phase: "schedule" },

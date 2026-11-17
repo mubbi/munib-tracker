@@ -26,10 +26,16 @@ import { useNotificationPermissions } from "@/hooks/use-notification-permissions
 import { ADHAN_STYLES, adhanTrack, DEFAULT_ADHAN_STYLE } from "@/lib/adhan-audio";
 import { isLiveActivitySupported } from "@/lib/live-activity";
 import { goBackOrReplace } from "@/lib/navigation";
+import {
+  hasExactAlarmPermission,
+  requestExactAlarmPermission,
+  supportsPreciseAdhan,
+} from "@/lib/notifications/exact-alarm";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
 import { isTV } from "@/lib/platform/is-tv";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatDisplayDateTime } from "@/lib/time";
 import { listScheduled, rescheduleAll } from "@/notifications/scheduler";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
@@ -45,7 +51,10 @@ type Scheduled = Awaited<ReturnType<typeof listScheduled>>;
 
 const UPCOMING_PREVIEW_COUNT = 6;
 
-type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled" | "reviewReactivationEnabled">;
+type ToggleKey = keyof Omit<
+  NotificationPreferences,
+  "masterEnabled" | "reviewReactivationEnabled" | "preciseAdhan"
+>;
 
 const GROUPS: { titleKey: string; items: ToggleKey[] }[] = [
   { titleKey: "groupWorship", items: ["prayer", "sunnahPrayer", "qaza", "afterAzan"] },
@@ -95,7 +104,19 @@ export default function NotificationsScreen() {
   useFocusEffect(
     useCallback(() => {
       void reloadScheduled();
-    }, [reloadScheduled]),
+      // The exact-alarm permission can be revoked from system settings at any time;
+      // if so, turn Precise Adhan timing off rather than show a stale "on".
+      if (
+        supportsPreciseAdhan() &&
+        preferencesStore.getState().prefs.notificationPrefs.preciseAdhan
+      ) {
+        void hasExactAlarmPermission().then(async (granted) => {
+          if (granted) return;
+          await setNotificationPrefs({ preciseAdhan: false });
+          await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+        });
+      }
+    }, [reloadScheduled, setNotificationPrefs]),
   );
 
   const upcoming = useMemo<NotificationListItem[]>(
@@ -155,6 +176,12 @@ export default function NotificationsScreen() {
     await setNotificationPrefs(patch);
     await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
     await reloadScheduled();
+  };
+
+  /** Precise Adhan timing (Android exact alarms): ask for the permission first. */
+  const onPreciseAdhanToggle = async (value: boolean) => {
+    if (value && !(await requestExactAlarmPermission())) return;
+    await onNotificationToggle({ preciseAdhan: value });
   };
 
   const onSelectAdhanStyle = async (adhanStyleId: string) => {
@@ -258,6 +285,18 @@ export default function NotificationsScreen() {
           onValueChange={(value) => void onNotificationToggle({ playAdhanOnPrayer: value })}
         />
       </View>
+      {supportsPreciseAdhan() ? (
+        <View style={styles.adhanToggle}>
+          <ToggleRow
+            icon={{ ios: "alarm.fill", android: "alarm", web: "alarm" }}
+            title={t("notif.preciseAdhan")}
+            subtitle={t("notif.preciseAdhanHint")}
+            value={prefs.notificationPrefs.preciseAdhan === true}
+            disabled={!obligatoryEnabled}
+            onValueChange={(value) => void onPreciseAdhanToggle(value)}
+          />
+        </View>
+      ) : null}
       <View style={styles.adhanToggle}>
         <SettingsRow
           icon={{ ios: "clock.badge", android: "more_time", web: "more_time" }}
@@ -476,3 +515,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/notifications");
