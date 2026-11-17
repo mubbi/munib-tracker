@@ -175,6 +175,8 @@ module.exports = ({ config }) => {
         "./plugins/withAndroidWidgetGallery.cjs",
         /** Qur'an practice Phase 6: lets the minSdk-26 Quran Lab AAR merge into the minSdk-24 app; JS gates on API 26. */
         "./modules/munib-tajweedformer/app.plugin.js",
+        /** iOS: TajweedFormer's zf_rt shim exports OrtGetApiBase — keep onnxruntime-react-native on the real runtime. */
+        "./plugins/withOnnxruntimeSymbolIsolation.cjs",
       ];
 
   const configTvPlugin = [

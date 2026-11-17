@@ -116,8 +116,11 @@ export function createRecitationModelStore(): RecitationModelStore {
         const partUri = target + PART;
         const task = File.createDownloadTask(file.url, new File(partUri), {
           onProgress: (p) => {
+            // SDK 58 native delivers the Int64 counter as a BigInt despite the
+            // `number` typing; Math.min(BigInt, number) throws a TypeError.
+            const written = Number(p.bytesWritten);
             onProgress({
-              bytesDone: doneBefore + Math.min(p.bytesWritten, file.bytes),
+              bytesDone: doneBefore + Math.min(written, file.bytes),
               bytesTotal: total,
             });
           },
