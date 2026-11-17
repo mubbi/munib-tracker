@@ -28,6 +28,14 @@
 
 ---
 
+## App Review notes — Qur'an practice (microphone)
+
+Paste into App Review Information → Notes when submitting the build that adds Qur'an practice:
+
+> The microphone is used only when the user taps it: in Qur'an → Practice (or Practise on any ayah in the reader) to follow their recitation, and to dictate custom adhkar. To reach it: Qur'an tab → Practise → Start. Voice following needs an optional ~71 MB on-device listener (Settings → Qur'an practice → Download); reading and listening work without it, so the session opens in listen-only mode until it is downloaded. Audio is processed on the device; it is not recorded, stored, or uploaded. The optional pronunciation drill (Learn Qur'an → Tajweed → Qalqalah → Practise this sound) uses Quran Lab's on-device SDK with analytics turned off.
+
+App Privacy answers: Audio data — **not collected**. No change to tracking.
+
 ## 1. English (en-US)
 
 ### App Subtitle *(30 chars max)*

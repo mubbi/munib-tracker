@@ -234,6 +234,19 @@ Do **not** use CC-BY-NC corpora (e.g. Tadabur) or neural TTS as gold tajweed aud
 | **Internet Archive** | Ibrahim Walk **English-only** & Arabic+English combined editions | Per-surah | ✅ Mirror/backup. Saheeh Intl text is copyrighted-but-freely-distributed → credit + verbatim. |
 | Urdu audio translations | Available on QuranicAudio / Archive (various qaris) | Per-surah | ◻︎ Add per audience. |
 
+### 9.1b Qur'an practice listener (on-device speech models)
+
+Never bundled, never committed: downloaded on request into the device (native documents directory / web Cache Storage), verified against pinned checksums in `apps/app/src/constants/recitation-models.ts`.
+
+| Asset | Source (release tag) | Size | License | Use |
+|---|---|---|---|---|
+| `zipformer_a0w_ep1_a05.int8.onnx` | github.com/yazinsai/tilawa `zipformer-a0w-ep1-a0.5` | 69.2 MB | **NPL-1.2** (non-commercial, share-alike) | Recommended listener |
+| `zipformer_quran.json` (phoneme corpus) | tilawa `v0.3.0` | 5.5 MB | **NPL-1.2** | Word list + alignment for the listener |
+| `fastconformer_full_mixed.onnx` + `vocab.json`, `quran_ctc_tokens.json`, `quran.json`, `export_metadata.json` | tilawa `v0.2.0` | 88.3 MB + 15.4 MB | NVIDIA CC-BY-4.0 / MIT | Alternate listener (follow-along only) |
+| TajweedFormer V4 | Quran Lab CDN via its SDK (key required) | ~56.5 MB | **NPL-1.2** | Optional pronunciation drill |
+
+NPL-1.2 means practice can never be charged for, paywalled, or shown with ads while these models ship.
+
 ### 9.3 Transliteration audio — **no separate dataset needed**
 
 The transliteration is just the Latin rendering of the **same Arabic sound**, so the **Qur'an

@@ -81,6 +81,8 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 | `/quran/{surah}?ayah={n}` | `munib-tracker://quran/2?ayah=255` |
 | `/quran/page/{page}` | Mushaf page 1–604 |
 | `/quran/juz`, `/quran/pages`, `/quran/khatm`, `/quran/hifz`, `/quran/search`, `/quran/bookmarks` | Hubs |
+| `/quran/practice`, `/quran/revision`, `/settings/quran-practice` | Qur'an practice hub, revision queue, practice settings (hidden on TV) |
+| `/quran/practice/session?surah=&from=&to=&mode=` | One practice passage (validated on entry; invalid params land on the hub). `/quran/practice/summary` opened cold redirects to the hub. |
 | `/hadith`, `/hadith/{collection}?q=…` | Collection + optional search seed |
 | `/hadith/daily`, `/hadith/bookmarks` | Daily + saved |
 | `/dua`, `/dua/{category}`, `/dua/detail/{id}` | Duas |

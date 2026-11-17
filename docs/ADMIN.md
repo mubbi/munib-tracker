@@ -25,6 +25,7 @@ Defined in `apps/admin/lib/permissions.ts`:
 | 4 | App feedback | `/feedback` | Reviews / NPS + canned replies |
 | 14 | Contact messages | `/contact-messages` | Marketing-site contact form inbox + admin notes |
 | 13 | OSS download failures | `/oss-failures` | On-demand CDN failures (Qur’an editions, hadith, QCF fonts, audio) |
+| 15 | Qur'an practice | `/quran-practice` | Aggregates from the synced practice blobs (`quran_practice_sessions`, `quran_companion_prefs`, `quran_memorization`): sessions, modes, listener use and quality, revision backlog, settings mix. Signed-in users only; counts only, no per-user rows. Roles: super_admin, ops, analytics, content |
 | 5 | App versions | `/versions` | Force-update / soft-update rows (`app_versions`) |
 | 6 | Notifications | `/notifications` | Compose & send in-app + push broadcasts |
 | 7 | User media | `/media` | Custom-adhkar attachments |

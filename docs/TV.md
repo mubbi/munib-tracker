@@ -10,7 +10,8 @@ Full Munib Tracker product app on living-room devices via the [React Native TV](
 | RN | `"react-native": "npm:react-native-tvos@0.86.0-2"` (Expo SDK 57) |
 | Toggle | `EXPO_TV=1` during prebuild / EAS |
 | Plugin | `@react-native-tvos/config-tv` with Leanback banner + Apple TV icons/top shelf |
-| Chrome | Side rail always (`WideAppTabs`); focus rings on `PressableScale` |
+| Chrome | Side rail always (`WideAppTabs`, overlay drawer on TV); focus rings on `PressableScale` |
+| Density | Android TV / Fire TV = 960×540 dp; Apple TV = 1920×1080 pt → `TV_DENSITY` (2 on tvOS) |
 
 Phone ↔ TV always needs a **clean** prebuild (`pnpm prebuild:app:tv` vs `pnpm cleanbuild:app:android` / `ios`).
 
@@ -173,9 +174,12 @@ Do **not** open the LAN IP (`192.168.x.x`) from the TV emulator — Dev Client h
 | Camera / gallery / document pickers | Canceled / toast |
 | Haptics / store review | No-op |
 | Social OAuth | Best-effort on remote; **QR companion login** preferred (`POST /auth/tv/pairing` + phone `/tv-pair`) |
-| Side rail | Collapses to icons when focus is in content; expands with labels + brand when focused |
-| Back / Menu | Ladder: stack pop → expand rail + preferred tab focus → confirm exit (`TvRemoteBridge`) |
+| Side rail | Starts collapsed (icons). D-pad toward the rail from the leading content edge, or Back, opens it as an **overlay drawer** with a scrim — content never reflows |
+| Back / Menu | Ladder: stack pop (expo-router) → expand rail + preferred tab focus → **system Home** (no exit confirm — Android TV TV-DB / tvOS HIG). tvOS Menu key is captured only while there is something in-app to go back to |
+| Fire TV Menu key | Ignored (it is the options key, not Back) |
 | Play/Pause remote | Toggles in-app audio when a track is loaded |
+| Fast-forward / Rewind | Next / previous track in the audio queue (per ayah for Qur'an) |
+| On-screen back button | Hidden on TV — `AppHeader` relies on the remote's Back / Menu |
 | Lock-screen media | Intentional no-op on TV |
 | Focus | Rings + scale-on-focus (reduce-motion gated); `hasTVPreferredFocus`; `TvFocusGuide` `autoFocus` (focus memory) |
 | Copy | `tTv()` prefers `*.tv` / `*Tv` Select wording; high-traffic “Tap …” strings have TV variants |
@@ -196,11 +200,49 @@ Do **not** open the LAN IP (`192.168.x.x`) from the TV emulator — Dev Client h
 
 **Simulator tip:** click the TV window so it has keyboard focus, then **Arrow keys** = D-pad and **Enter** = Select. Mouse clicks alone often do not advance focus.
 
+## Density & type (Apple TV vs Android TV)
+
+Android TV and Fire TV lay out at **960×540 dp**; Apple TV at **1920×1080 pt**. All tokens are authored in Android‑TV dp and scaled by `TV_DENSITY` ([`tv-density.ts`](../apps/app/src/constants/tv-density.ts) — `2` on tvOS, `1` everywhere else):
+
+| Scaled automatically on tvOS | How |
+|------|-----|
+| `Spacing`, `Radius` | `tvDp()` in [`theme.ts`](../apps/app/src/constants/theme.ts) |
+| `TvLayout` layout tokens | `tvDp()` in [`tv-layout.ts`](../apps/app/src/constants/tv-layout.ts) (font tokens stay dp) |
+| All `ThemedText` font metrics (incl. `fontSize` / `lineHeight` passed via `style`) | [`themed-text.tsx`](../apps/app/src/components/themed-text.tsx) |
+| Every `SymbolView` `size` | Metro aliases `expo-symbols` → [`tv-shims/expo-symbols.tsx`](../apps/app/src/lib/tv-shims/expo-symbols.tsx) (EXPO_TV + ios only) |
+| Fixed sizes in `components/ui/*` primitives | `tvDp()` |
+
+Raw numeric widths/heights in screens are **not** scaled — wrap them in `tvDp()` inside TV branches when they matter. **Apple TV needs a visual QA pass on a Mac after density changes.**
+
+TV type ramp (`TvType`, dp): body 18 · small 16 · caption 14 · label 13 · subtitle 22 · header 28 — nothing below Fire TV's 14sp floor except uppercase labels.
+
+## Store / manifest (TV prebuild)
+
+`app.config.js` skips permission-only config plugins on `EXPO_TV=1` (image/document picker, local-auth, location, speech recognition) and adds `blockedPermissions` for CAMERA, RECORD_AUDIO, location, biometrics and Bluetooth. Google Play treats permission-implied hardware as `required="true"` and would otherwise hide the Leanback build from most TVs. `@react-native-tvos/config-tv` adds `LEANBACK_LAUNCHER`, the banner, and `touchscreen` / `faketouch` / `leanback` `required="false"`.
+
+## Screen patterns (use these, don't reinvent)
+
+| Need | Use |
+|------|-----|
+| Long prose / read-only cards must be scrollable by D-pad (TV scrollers are not focus targets) | [`TvReadableBlock`](../apps/app/src/components/ui/tv-readable-block.tsx) — one focus stop per paragraph/card, no zoom (`tvFocusScale={1}`). Never wrap content that already has buttons |
+| Numeric entry without typing | `Stepper` (56dp on TV), [`tv-number-stepper.tsx`](../apps/app/src/components/tv-number-stepper.tsx), [`money/tv-number-input.tsx`](../apps/app/src/components/money/tv-number-input.tsx) |
+| Horizontal chip / filter rows | `TvFocusGuide autoFocus trapFocusLeft trapFocusRight` — **never** `trapFocusUp/Down` (blocks leaving the row) |
+| Initial focus | `Button preferredFocus`, `IconButton preferredFocus`, `LabeledIconButton preferredFocus`, or `hasTVPreferredFocus` |
+| Selected vs focused | Selected = `accentSoft` fill + hairline; focus ring comes from `PressableScale` |
+| Long-press menus | `ContextMenu` is a no-op on TV — expose actions as buttons/sheets |
+| Blur / Liquid Glass | `GlassSurface` renders a flat near-opaque surface on TV (perf) |
+| Share, device TTS, mic, camera, file pickers, links to web | Hidden on TV; web links open a QR sheet ("scan with your phone") |
+| Back inside a sub-mode (expanded mini-player, hadith book) | TV-only `BackHandler` listener registered while the mode is open (runs before expo-router's) |
+| TV copy | `tTv(t, phoneKey, tvKey)`; strings live in [`scripts/i18n/tv-ux-i18n.json`](../apps/app/scripts/i18n/tv-ux-i18n.json) for all 24 locales |
+
 ## Layout widths (10-foot)
 
 | Token / rule | Value / behavior |
 |--------------|------------------|
-| `TvLayout.contentPaddingX` | 48 — overscan inset on ScreenLayout / sheets |
+| `TvLayout.contentPaddingX` | 48 — overscan inset on ScreenLayout / sheets / AppHeader (5% of 960dp) |
+| `TvLayout.overscanY` | 28 — top/bottom overscan (AppHeader, side rail) |
+| `TvLayout.proseMaxWidth` | 800 — Learn prose column |
+| `TvLayout.gridGap` | 20 — tile/card gutter |
 | ScreenLayout default on TV | **Uncapped** (fills the tab pane). Learn prose routes stay at `MaxContentWidth` (800) for readability. |
 | `TvLayout.listDetailMaxWidth` | 1720 — Qur’an / Hadith list–detail shells |
 | `TvLayout.detailPaneMinWidth` / `MaxWidth` | 420 / 720 — secondary panes |
@@ -211,8 +253,12 @@ Do **not** open the LAN IP (`192.168.x.x`) from the TV emulator — Dev Client h
 
 - [ ] Android TV emulator: cold start → home side rail; D-pad between tabs
 - [ ] Apple TV simulator: same
-- [ ] Back from nested screen pops stack; from tab content expands rail; from rail root shows exit confirm
+- [ ] Back from nested screen pops stack (once — not twice on tvOS); from tab content expands rail; from rail at a tab root returns to the TV home screen (no confirm)
+- [ ] D-pad Left from the leftmost content item opens the rail drawer; content does not shift
+- [ ] Fire TV Menu key does nothing (not Back); FF / REW step through ayahs while reciting
 - [ ] Play/Pause toggles Qur’an / audio mini-player when media is active
+- [ ] Apple TV: text, icons and spacing match Android TV's physical size (density 2×)
+- [ ] Leanback manifest has no CAMERA / RECORD_AUDIO / location permissions
 - [ ] Focus scale + ring on primary tiles; reduce-motion disables scale
 - [ ] Continue card receives preferred focus when present
 - [ ] Mark Salah / tracker update (Select wording; large prayer rows)

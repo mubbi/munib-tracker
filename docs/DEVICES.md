@@ -36,6 +36,21 @@ Related: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) · [`TV.md`](./TV.md) · [
 
 **Tablet / TV UX:** Native and web adapt by **window width**: side rail at ≥768px ([`use-large-screen-layout.ts`](../apps/app/src/hooks/use-large-screen-layout.ts), [`app-tabs-wide.tsx`](../apps/app/src/components/app-tabs-wide.tsx)); Qur'an and Tracker use list–detail at ≥900px. **TV always uses the side rail** and 10-foot focus chrome.
 
+**Large-screen web (desktop / tablet browser):**
+
+| Width | Chrome / layout |
+|-------|-----------------|
+| < 768 | Phone layout + floating bottom tab bar |
+| ≥ 768 | Persistent global side rail beside **every** page ([`web-global-rail.tsx`](../apps/app/src/components/web/web-global-rail.tsx), mounted in [`app-stack.tsx`](../apps/app/src/components/app-stack.tsx)) — compact 88px (icon + label); active section from the URL ([`nav-section.ts`](../apps/app/src/lib/web/nav-section.ts)). Bottom sheets cap at 640px and center. Grids go 2-up |
+| ≥ 1024 | Content column 1120px (Learn prose 880px); AppHeader row aligned to the column |
+| ≥ 1200 | 3-column grids; dashboards/readers add side asides |
+| ≥ 1280 | Rail expands to 248px with brand + labels |
+| ≥ 1600 | Content column 1320px; 4-column grids |
+
+Use [`ResponsiveGrid` / `useResponsiveColumns`](../apps/app/src/components/ui/responsive-grid.tsx) for card grids. Desktop affordances are automatic: hover tint + pointer cursor on every `PressableScale`, a theme-coloured `:focus-visible` ring for keyboard users ([`+html.tsx`](../apps/app/src/app/+html.tsx)), and `/` or Ctrl/⌘+K to open search ([`web-keyboard-shortcuts.tsx`](../apps/app/src/components/web/web-keyboard-shortcuts.tsx)). First-run / auth routes (`/intro`, `/login`, `/oauth*`) stay chromeless.
+
+Reusable large-screen helpers: Learn split + topic aside + timeline ([`learn-guide/learn-wide-layout.tsx`](../apps/app/src/components/learn-guide/learn-wide-layout.tsx), `learn-topic-aside.tsx`, `learn-timeline.tsx`), module hub two-pane / container-width grids ([`jannah/hub-layout.tsx`](../apps/app/src/components/jannah/hub-layout.tsx)), settings form caps / columns ([`settings/settings-layout.tsx`](../apps/app/src/components/settings/settings-layout.tsx)), calendar day side panel ([`calendar-day-panel.tsx`](../apps/app/src/components/calendar-day-panel.tsx)). Web keyboard shortcuts inside a screen use `useWebScreenKeyHandler` ([`use-web-key-handler.ts`](../apps/app/src/hooks/use-web-key-handler.ts)) — active only while that route is focused, never while typing. Desktop shortcuts: readers ←/→ (surah, Mushaf page, hadith book, 99 Names), Space play/pause or count (tasbeeh), quizzes 1–4 + Enter, calendar arrows / Home / PageUp/Down, flash cards A–D/1–4.
+
 ### Companion / extension surfaces
 
 Ship with **EAS dev or production builds** — not Expo Go, not web.
