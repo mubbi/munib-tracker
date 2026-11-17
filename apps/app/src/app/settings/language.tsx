@@ -14,6 +14,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 export default function LanguageScreen() {
@@ -119,3 +120,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/language");

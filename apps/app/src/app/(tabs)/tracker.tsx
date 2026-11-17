@@ -75,6 +75,7 @@ import {
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { createSalahTrackingSession, endSalahTrackingSession } from "@/lib/salah-phase";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   endSurfacePushRegistration,
   registerSurfacePushSchedule,
@@ -822,10 +823,16 @@ const styles = StyleSheet.create({
   dashboardAside: {
     flexShrink: 0,
   },
+  // A definite, non-growing detail pane: with `flex: 1` the schedule's content
+  // width won the flex negotiation and squeezed the summary column to ~160dp on
+  // a 1080p TV (word-per-line copy, truncated Excused Day chips).
   listDetailSecondaryTv: {
-    width: undefined,
-    flex: 1,
-    minWidth: TvLayout.detailPaneMinWidth,
+    width: TvLayout.detailPaneMinWidth,
+    flexGrow: 0,
+    flexShrink: 0,
     maxWidth: TvLayout.detailPaneMaxWidth,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(tabs)/tracker");

@@ -1,7 +1,7 @@
 // Quran Lab TajweedFormer bridge (Phase 6 pronunciation drills).
 //
 // Min SDK: the Quran Lab AAR declares minSdk 26 (Android 8.0); the app's minSdk is 24.
-// This library keeps the app's minSdk so it compiles into the app, and the module's
+// This library keeps the app's minSdk (supplied by expo-module-gradle-plugin) so it compiles into the app, and the module's
 // config plugin (`../app.plugin.js`) adds
 //   <uses-sdk tools:overrideLibrary="ai.quranlab.tajweedformer" />
 // to the app manifest so the manifest merger accepts the AAR. The JS caller only
@@ -13,38 +13,28 @@
 // plus the Play Integrity library. Android TV excludes this module from autolinking
 // (plugins/withTvExpoModuleExcludes.cjs), so none of that reaches the TV build.
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
 
 group = 'expo.modules.munibtajweedformer'
 version = '1.0.0'
 
 android {
   namespace "expo.modules.munibtajweedformer"
-  compileSdkVersion safeExtGet("compileSdkVersion", 36)
-
   defaultConfig {
-    minSdkVersion safeExtGet("minSdkVersion", 24)
-    targetSdkVersion safeExtGet("targetSdkVersion", 36)
+    versionCode 1
+    versionName "1.0.0"
   }
-
-  lintOptions {
+  lint {
     abortOnError false
   }
 }
 
 dependencies {
-  implementation project(':expo-modules-core')
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
-  // Pinned: the Kotlin SDK and the iOS SDK (3.1.4) share one engine and one error catalogue.
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
+  // Pinned: the Kotlin SDK and the iOS SDK share one engine and one error catalogue.
+  // 3.1.5 is the latest Android artifact on Maven Central (the npm JS package is 3.1.6).
   implementation "ai.quranlab:tajweedformer:3.1.5"
-}
-
-def safeExtGet(prop, fallback) {
-  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
-
-def getKotlinVersion() {
-  return rootProject.ext.has("kotlinVersion") ? rootProject.ext.kotlinVersion : "2.0.21"
 }

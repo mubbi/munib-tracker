@@ -27,7 +27,7 @@ export type QueuedContentReport = {
 async function ensureQueueSchema(): Promise<void> {
   const version = await AsyncStorage.getItem(QUEUE_SCHEMA_KEY);
   if (version === QUEUE_SCHEMA_VERSION) return;
-  await AsyncStorage.multiRemove([DB_KEYS.contentReportQueue, QUEUE_SCHEMA_KEY]);
+  await AsyncStorage.removeMany([DB_KEYS.contentReportQueue, QUEUE_SCHEMA_KEY]);
   await AsyncStorage.setItem(QUEUE_SCHEMA_KEY, QUEUE_SCHEMA_VERSION);
 }
 
@@ -116,5 +116,5 @@ export async function readContentReportQueueForTests(): Promise<QueuedContentRep
 }
 
 export async function clearContentReportQueueForTests(): Promise<void> {
-  await AsyncStorage.multiRemove([DB_KEYS.contentReportQueue, QUEUE_SCHEMA_KEY]);
+  await AsyncStorage.removeMany([DB_KEYS.contentReportQueue, QUEUE_SCHEMA_KEY]);
 }

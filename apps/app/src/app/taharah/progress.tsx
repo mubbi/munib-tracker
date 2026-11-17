@@ -20,6 +20,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { ensureTaharahContent, getTaharahLessonCount, isTaharahContentReady } from "@/lib/taharah";
 import { buildTaharahProgress } from "@/lib/taharah-progress";
 import {
@@ -141,3 +142,6 @@ const styles = StyleSheet.create({
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/taharah/progress");

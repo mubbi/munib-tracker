@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View, type ViewInstance } from "react-native";
 import { ShareAchievementContent } from "@/components/share/share-achievement-content";
 import { ShareAyahContent } from "@/components/share/share-ayah-content";
 import { ShareContentSnapshot } from "@/components/share/share-content-snapshot";
@@ -267,7 +267,7 @@ function renderShareBody(content: ShareContentBody) {
 export function useShareContentCard() {
   const { t } = useTranslation();
   const snapshotWidth = useShareSnapshotWidth();
-  const captureRef = useRef<View>(null);
+  const captureRef = useRef<ViewInstance>(null);
   const {
     markQrReady,
     waitForQrCodes,

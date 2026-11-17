@@ -22,6 +22,7 @@ import {
   DEFAULT_ARABIC_FONT_ID,
   resolveArabicLineHeight,
 } from "@/lib/reading-typography";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 const ARABIC_SIZES = [
@@ -245,3 +246,6 @@ const styles = StyleSheet.create({
   tvControls: { flex: 3, minWidth: 0, gap: Spacing.four },
   tvPreview: { flex: 2, minWidth: 0 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/fonts");

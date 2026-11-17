@@ -7,8 +7,6 @@
  */
 
 export type SyncControllerPullParams = {
-/**
- * ISO timestamp — return changes updated after this moment
- */
-since?: string;
+  /** ISO timestamp — return changes updated after this moment */
+  since?: string;
 };

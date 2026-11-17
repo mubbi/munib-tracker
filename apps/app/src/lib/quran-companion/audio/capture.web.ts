@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import { createResampler, TARGET_SAMPLE_RATE } from "./resample";
 import { CaptureError, type MicPermission, type RecitationCapture } from "./types";
 
@@ -160,4 +162,9 @@ export function createRecitationCapture(): RecitationCapture {
       await release();
     },
   };
+}
+
+/** One capture per mounted practice session (same shape as the native hook). */
+export function useRecitationCapture(): RecitationCapture {
+  return useMemo(() => createRecitationCapture(), []);
 }

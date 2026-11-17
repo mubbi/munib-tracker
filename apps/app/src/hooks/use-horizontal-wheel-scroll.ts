@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import { Platform, type ScrollView } from "react-native";
+import { Platform, type ScrollViewInstance } from "react-native";
 
 /**
  * On desktop web a horizontal `ScrollView` ignores the (vertical) mouse wheel
@@ -11,7 +11,7 @@ import { Platform, type ScrollView } from "react-native";
 export function useHorizontalWheelScroll() {
   const cleanup = useRef<(() => void) | null>(null);
 
-  return useCallback((scroll: ScrollView | null) => {
+  return useCallback((scroll: ScrollViewInstance | null) => {
     cleanup.current?.();
     cleanup.current = null;
     if (Platform.OS !== "web" || !scroll) return;

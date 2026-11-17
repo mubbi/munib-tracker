@@ -25,6 +25,7 @@ import { getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   type HifzEntry,
   listHifzEntries,
@@ -278,3 +279,6 @@ const styles = StyleSheet.create({
   },
   rowName: { flex: 1, minWidth: 0 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/hifz");

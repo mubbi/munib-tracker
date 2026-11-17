@@ -1,8 +1,8 @@
 import { ApiError, apiFetch, getApiBaseUrl } from "@munib-tracker/api-client";
 import { USER_MEDIA_MAX_BYTES, USER_MEDIA_MAX_PER_ENTITY } from "@munib-tracker/shared/constants";
-import { Platform } from "react-native";
 
 import { apiAuthOptions } from "@/api/auth-options";
+import { appendUploadFile } from "@/lib/attachments/multipart-file-part";
 
 /** @deprecated Prefer USER_MEDIA_MAX_PER_ENTITY from shared constants. */
 export const CUSTOM_ADHKAR_MAX_IMAGES = USER_MEDIA_MAX_PER_ENTITY;
@@ -32,27 +32,28 @@ export async function uploadUserMedia(
   accessToken: string,
   files: UserMediaUploadInput[],
 ): Promise<UserMediaDto[]> {
-  const form = new FormData();
-
-  for (const file of files) {
-    if (Platform.OS === "web") {
-      const blobResponse = await fetch(file.uri);
-      const blob = await blobResponse.blob();
-      form.append("files", blob, file.filename);
-    } else {
-      form.append("files", {
-        uri: file.uri,
-        name: file.filename,
-        type: file.mimeType,
-      } as unknown as Blob);
+  // One file per request: five attachments at the 1 MiB cap would not fit in a
+  // single serverless request body (Vercel rejects bodies over 4.5 MB).
+  const uploaded: UserMediaDto[] = [];
+  try {
+    for (const file of files) {
+      const form = new FormData();
+      await appendUploadFile(form, "files", file);
+      const result = await apiFetch<{ items: UserMediaDto[] }>(
+        { url: "/user-media", method: "POST", body: form },
+        apiAuthOptions(accessToken),
+      );
+      uploaded.push(...result.items);
     }
+  } catch (error) {
+    // Do not strand the files that did upload when a later one fails.
+    await deleteUserMediaMany(
+      accessToken,
+      uploaded.map((item) => item.id),
+    );
+    throw error;
   }
-
-  const result = await apiFetch<{ items: UserMediaDto[] }>(
-    { url: "/user-media", method: "POST", body: form },
-    apiAuthOptions(accessToken),
-  );
-  return result.items;
+  return uploaded;
 }
 
 export async function deleteUserMedia(

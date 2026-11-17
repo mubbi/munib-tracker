@@ -62,14 +62,18 @@ export async function createApp(
 
   // rawBody: true preserves Buffer for QStash signature verification on
   // POST /live-activities/internal/deliver (see Nest RawBodyRequest docs).
-  const nestOptions = { rawBody: true as const };
+  // bodyParser: false — parsers are registered explicitly below. Nest 12 skips
+  // its own global parsers when an Express layer named `jsonParser` /
+  // `urlencodedParser` already exists, so the sync-scoped `express.json()` would
+  // otherwise leave every other route without a parsed body (and no rawBody).
+  const nestOptions = { rawBody: true as const, bodyParser: false };
   const app = options.express
     ? await NestFactory.create<NestExpressApplication>(
         rootModule,
         new ExpressAdapter(options.express),
         nestOptions,
       )
-    : await NestFactory.create(rootModule, nestOptions);
+    : await NestFactory.create<NestExpressApplication>(rootModule, nestOptions);
 
   const configService = app.get(ConfigService<EnvironmentVariables, true>);
   const corsOrigins = parseCorsOrigins(configService.get("CORS_ORIGINS", { infer: true }));
@@ -102,9 +106,11 @@ export async function createApp(
   // Sync pushes whole blobs in one request. A full hafiz's Qur'an practice
   // memorization map (up to 6,236 compact records, ~470 KB) plus other changed
   // entities would exceed Express's 100 KB default. Scoped to the sync routes:
-  // this parser runs before Nest's global one, which then skips the parsed body.
+  // this parser runs before the global one, which then skips the parsed body.
   app.use("/api/v1/sync", express.json({ limit: "2mb" }));
-  app.use(express.urlencoded({ extended: true }));
+  // Global parsers via Nest so `rawBody` (QStash signatures) is captured.
+  app.useBodyParser("json");
+  app.useBodyParser("urlencoded", { extended: true });
   // Only enable credentialed CORS against an explicit allowlist. When no origins
   // are configured, `corsOrigins` is `false` (deny) so we never reflect an
   // arbitrary origin back with `credentials: true`.

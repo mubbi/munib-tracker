@@ -33,6 +33,7 @@ import {
   getProphetsTopicsBySection,
   isProphetsContentReady,
 } from "@/lib/prophets";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureProphetsProgressLoaded,
   useProphetsCompletedCount,
@@ -295,3 +296,6 @@ const styles = StyleSheet.create({
   sectionHint: { marginTop: Spacing.one, lineHeight: 20 },
   pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/prophets");

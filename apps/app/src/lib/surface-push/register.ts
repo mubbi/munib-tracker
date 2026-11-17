@@ -1,4 +1,5 @@
 import { apiFetch } from "@munib-tracker/api-client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
 import { apiAuthOptions } from "@/api/auth-options";
@@ -20,7 +21,39 @@ export type SurfacePushRegistrationResponse = {
   sessionId?: string | null;
 };
 
+/**
+ * Persisted so "Stop" / sign-out after an app restart (or a reloaded PWA tab)
+ * can still end the server registration. Memory-only, the id was lost and the
+ * API kept pushing phases for a session the user had already stopped.
+ */
+const SURFACE_REGISTRATION_ID_KEY = "@munib_tracker_surface_push_registration_id";
+
 let lastSurfaceRegistrationId: number | null = null;
+
+async function rememberRegistrationId(id: number | null): Promise<void> {
+  lastSurfaceRegistrationId = id;
+  try {
+    if (id == null) await AsyncStorage.removeItem(SURFACE_REGISTRATION_ID_KEY);
+    else await AsyncStorage.setItem(SURFACE_REGISTRATION_ID_KEY, String(id));
+  } catch {
+    /* in-memory id still covers this process */
+  }
+}
+
+async function resolveRegistrationId(explicit?: number | null): Promise<number | null> {
+  if (explicit) return explicit;
+  if (lastSurfaceRegistrationId) return lastSurfaceRegistrationId;
+  try {
+    const stored = Number(await AsyncStorage.getItem(SURFACE_REGISTRATION_ID_KEY));
+    return Number.isInteger(stored) && stored > 0 ? stored : null;
+  } catch {
+    return null;
+  }
+}
+
+async function forgetRegistrationId(id: number): Promise<void> {
+  if ((await resolveRegistrationId()) === id) await rememberRegistrationId(null);
+}
 
 /** Register / replace Expo or Web Push phase jobs for an active tracking session. */
 export async function registerSurfacePushSchedule(input: {
@@ -97,7 +130,7 @@ export async function registerSurfacePushSchedule(input: {
     },
     apiAuthOptions(accessToken),
   );
-  lastSurfaceRegistrationId = result.registrationId;
+  await rememberRegistrationId(result.registrationId);
   return result;
 }
 
@@ -107,7 +140,7 @@ export async function endSurfacePushRegistration(
   state: "ended" | "dismissed" = "ended",
 ): Promise<void> {
   if (Platform.OS !== "web" && isTV()) return;
-  const id = registrationId ?? lastSurfaceRegistrationId;
+  const id = await resolveRegistrationId(registrationId);
   if (!id) return;
   try {
     await apiFetch(
@@ -119,9 +152,11 @@ export async function endSurfacePushRegistration(
       apiAuthOptions(accessToken),
     );
   } catch {
-    /* best-effort */
+    // Keep the id so a later stop / sign-out can retry; the server also
+    // expires the registration at the session's `endsAt`.
+    return;
   }
-  if (id === lastSurfaceRegistrationId) lastSurfaceRegistrationId = null;
+  await forgetRegistrationId(id);
 }
 
 export async function deleteSurfacePushRegistration(
@@ -129,14 +164,14 @@ export async function deleteSurfacePushRegistration(
   registrationId?: number | null,
 ): Promise<void> {
   if (Platform.OS !== "web" && isTV()) return;
-  const id = registrationId ?? lastSurfaceRegistrationId;
+  const id = await resolveRegistrationId(registrationId);
   if (!id) return;
   try {
     await apiFetch({ url: `/surface-push/${id}`, method: "DELETE" }, apiAuthOptions(accessToken));
   } catch {
-    /* best-effort */
+    return;
   }
-  if (id === lastSurfaceRegistrationId) lastSurfaceRegistrationId = null;
+  await forgetRegistrationId(id);
 }
 
 /**
@@ -155,7 +190,38 @@ export async function handleSurfacePhaseDataMessage(
         ? data.payloadJson
         : null;
   if (!payload) return;
+  if (!(await isPayloadForActiveSession(payload))) return;
   await nativeApplyOngoingPhasePayload(payload);
+}
+
+/**
+ * Server jobs can outlive the session (lifecycle call failed offline, or the
+ * push was already in flight when the user tapped Stop). Native only guards
+ * *dismissed* sessions, so without this a late push re-posted a promoted Live
+ * Update for a session the user had ended. Fails open: if preferences cannot be
+ * read, local state is still authoritative on the next app sync.
+ */
+async function isPayloadForActiveSession(payloadJson: string): Promise<boolean> {
+  let sessionId: unknown;
+  try {
+    sessionId = (JSON.parse(payloadJson) as { sessionId?: unknown }).sessionId;
+  } catch {
+    return false;
+  }
+  if (typeof sessionId !== "string" || sessionId === "ambient") return true;
+  try {
+    // Lazy: this module is on the headless-task boot path (index.js).
+    const { PreferencesRepository } = await import("@/db");
+    const session = (await PreferencesRepository.get()).salahTrackingSession;
+    return (
+      session?.sessionId === sessionId &&
+      session.status === "active" &&
+      !session.dismissed &&
+      Date.parse(session.endsAt) > Date.now()
+    );
+  } catch {
+    return true;
+  }
 }
 
 export function getLastSurfaceRegistrationId(): number | null {

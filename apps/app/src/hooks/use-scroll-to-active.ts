@@ -3,8 +3,8 @@ import type {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  ScrollView,
-  View,
+  ScrollViewInstance,
+  ViewInstance,
 } from "react-native";
 import { useWindowDimensions } from "react-native";
 
@@ -20,15 +20,15 @@ import { useObstructedBottomInset } from "@/hooks/use-content-bottom-inset";
  * change `activeKey`, so the active card stays put.
  */
 export function useScrollToActive(
-  scrollRef: RefObject<ScrollView | null>,
+  scrollRef: RefObject<ScrollViewInstance | null>,
   activeKey: string | null | undefined,
   offset = 96,
 ) {
-  const nodes = useRef(new Map<string, View>());
+  const nodes = useRef(new Map<string, ViewInstance>());
   const scrollY = useRef(0);
 
   const register = useCallback(
-    (key: string) => (node: View | null) => {
+    (key: string) => (node: ViewInstance | null) => {
       if (node) nodes.current.set(key, node);
       else nodes.current.delete(key);
     },
@@ -46,7 +46,7 @@ export function useScrollToActive(
       const node = nodes.current.get(activeKey);
       const scroll = scrollRef.current;
       // ScrollView's ref exposes scrollTo; measure lives on the host node.
-      const scrollNode = scroll as unknown as View | null;
+      const scrollNode = scroll as unknown as ViewInstance | null;
       if (!node?.measure || !scroll || !scrollNode?.measure) return;
       scrollNode.measure(
         (
@@ -86,14 +86,14 @@ export function useScrollToActive(
  * mounted so the effect re-runs after first layout.
  */
 export function useScrollToActiveHorizontal(
-  scrollRef: RefObject<ScrollView | null>,
+  scrollRef: RefObject<ScrollViewInstance | null>,
   activeKey: string | null | undefined,
 ) {
-  const nodes = useRef(new Map<string, View>());
+  const nodes = useRef(new Map<string, ViewInstance>());
   const scrollX = useRef(0);
 
   const register = useCallback(
-    (key: string) => (node: View | null) => {
+    (key: string) => (node: ViewInstance | null) => {
       if (node) nodes.current.set(key, node);
       else nodes.current.delete(key);
     },
@@ -109,7 +109,7 @@ export function useScrollToActiveHorizontal(
     const timer = setTimeout(() => {
       const node = nodes.current.get(activeKey);
       const scroll = scrollRef.current;
-      const scrollNode = scroll as unknown as View | null;
+      const scrollNode = scroll as unknown as ViewInstance | null;
       if (!node?.measure || !scroll || !scrollNode?.measure) return;
       scrollNode.measure(
         (_sx: number, _sy: number, sw: number, _sh: number, spx: number, _spy: number) => {
@@ -250,14 +250,14 @@ export function useScrollToActiveIndex(
 
 /** Scroll a `ScrollView` so `childRef` is visible (e.g. after a quick-action tap). */
 export function scrollChildIntoView(
-  scrollRef: RefObject<ScrollView | null>,
-  childRef: RefObject<View | null>,
+  scrollRef: RefObject<ScrollViewInstance | null>,
+  childRef: RefObject<ViewInstance | null>,
   scrollY: number,
   offset = 96,
 ) {
   const node = childRef.current;
   const scroll = scrollRef.current;
-  const scrollNode = scroll as unknown as View | null;
+  const scrollNode = scroll as unknown as ViewInstance | null;
   if (!node?.measure || !scroll || !scrollNode?.measure) return;
   scrollNode.measure(
     (_sx: number, _sy: number, _sw: number, _sh: number, _spx: number, containerPageY: number) => {

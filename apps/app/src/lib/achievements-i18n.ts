@@ -9,11 +9,11 @@ import i18n from "@/i18n";
 export function milestoneTitle(
   milestone: Pick<MilestoneProgress, "titleKey" | "titleParams">,
 ): string {
-  return i18n.t(milestone.titleKey, milestone.titleParams);
+  return i18n.t(milestone.titleKey, milestone.titleParams ?? {});
 }
 
 export function milestoneDescription(
   milestone: Pick<MilestoneProgress, "descriptionKey" | "descriptionParams">,
 ): string {
-  return i18n.t(milestone.descriptionKey, milestone.descriptionParams);
+  return i18n.t(milestone.descriptionKey, milestone.descriptionParams ?? {});
 }

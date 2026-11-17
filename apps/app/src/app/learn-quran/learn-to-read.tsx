@@ -24,6 +24,7 @@ import {
   getQuranGuideReadingLevels,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function LevelCard({ level }: { level: QuranGuideReadingLevel }) {
   const { t } = useTranslation();
@@ -36,8 +37,8 @@ function LevelCard({ level }: { level: QuranGuideReadingLevel }) {
     <Card padding="three" style={styles.card}>
       <View style={styles.cardHeader}>
         <Pill
-          label={t("learnQuran.levelBadge", { level: level.level })}
           compact
+          label={t("learnQuran.levelBadge", { level: level.level })}
           color={colors.accentText}
           background={tokens.accentSoft}
           style={styles.badge}
@@ -46,7 +47,6 @@ function LevelCard({ level }: { level: QuranGuideReadingLevel }) {
           <QuranGuideClipPlayButton
             audio={level.practiceAudio}
             sourceHref="/learn-quran/learn-to-read"
-            compact
           />
         ) : null}
       </View>
@@ -145,3 +145,6 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/learn-to-read");

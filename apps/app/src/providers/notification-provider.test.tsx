@@ -51,8 +51,8 @@ jest.mock("@/lib/notifications/register-push-token", () => ({
 jest.mock("expo-notifications", () => ({
   addNotificationReceivedListener: jest.fn(() => ({ remove: jest.fn() })),
   addNotificationResponseReceivedListener: jest.fn(() => ({ remove: jest.fn() })),
-  getLastNotificationResponseAsync: jest.fn(async () => null),
-  clearLastNotificationResponseAsync: jest.fn(async () => undefined),
+  getLastNotificationResponse: jest.fn(() => null),
+  clearLastNotificationResponse: jest.fn(),
 }));
 
 jest.mock("@/providers/in-app-notifications-provider", () => ({
@@ -123,7 +123,7 @@ describe("NotificationProvider", () => {
   });
 
   it("does not arm reminders or Live Activity until onboarding finishes", async () => {
-    render(
+    await render(
       <NotificationProvider>
         <Text>child</Text>
       </NotificationProvider>,
@@ -141,7 +141,7 @@ describe("NotificationProvider", () => {
   it("arms reminders and Live Activity after onboarding", async () => {
     mockPrefs.hasCompletedOnboarding = true;
 
-    render(
+    await render(
       <NotificationProvider>
         <Text>child</Text>
       </NotificationProvider>,

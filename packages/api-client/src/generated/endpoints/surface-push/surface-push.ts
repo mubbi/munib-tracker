@@ -84,9 +84,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type SurfacePushControllerUpsertMutationError = unknown
     export type SurfacePushControllerUpsertMutationVariables = {data: UpsertSurfacePushDto}
 
-    /**
- * @summary Register Expo or Web Push target and schedule Salah phase updates (guest + linked)
- */
+    /** @summary Register Expo or Web Push target and schedule Salah phase updates (guest + linked) */
 export const useSurfacePushControllerUpsert = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof surfacePushControllerUpsert>>, TError,SurfacePushControllerUpsertMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -152,9 +150,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type SurfacePushControllerLifecycleMutationError = unknown
     export type SurfacePushControllerLifecycleMutationVariables = {registrationId: number;data: SurfacePushLifecycleDto}
 
-    /**
- * @summary Mark a surface registration as ended/dismissed and cancel jobs
- */
+    /** @summary Mark a surface registration as ended/dismissed and cancel jobs */
 export const useSurfacePushControllerLifecycle = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof surfacePushControllerLifecycle>>, TError,SurfacePushControllerLifecycleMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -217,9 +213,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type SurfacePushControllerDeleteMutationError = unknown
     export type SurfacePushControllerDeleteMutationVariables = {registrationId: number}
 
-    /**
- * @summary Delete a surface push registration and cancel jobs
- */
+    /** @summary Delete a surface push registration and cancel jobs */
 export const useSurfacePushControllerDelete = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof surfacePushControllerDelete>>, TError,SurfacePushControllerDeleteMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -284,9 +278,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type SurfacePushControllerDeliverMutationError = unknown
     export type SurfacePushControllerDeliverMutationVariables = {data: DispatchSurfaceJobDto}
 
-    /**
- * @summary QStash callback: deliver one scheduled surface push job
- */
+    /** @summary QStash callback: deliver one scheduled surface push job */
 export const useSurfacePushControllerDeliver = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof surfacePushControllerDeliver>>, TError,SurfacePushControllerDeliverMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -349,9 +341,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type SurfacePushControllerDispatchDueMutationError = unknown
 
 
-    /**
- * @summary Cron fallback: deliver due surface push jobs
- */
+    /** @summary Cron fallback: deliver due surface push jobs */
 export const useSurfacePushControllerDispatchDue = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof surfacePushControllerDispatchDue>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<

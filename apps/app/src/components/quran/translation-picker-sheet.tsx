@@ -313,7 +313,7 @@ export function TranslationPickerSheet({
                   <View style={styles.checkSpacer} />
                 )}
               </PressableScale>
-            ) : null
+            ) : undefined
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           ListEmptyComponent={

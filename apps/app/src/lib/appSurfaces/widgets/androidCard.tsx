@@ -142,6 +142,29 @@ type CardProps = {
   children: React.ReactNode;
 };
 
+/**
+ * Flatten widget children and drop empty slots (`null` / `undefined` / booleans).
+ *
+ * react-native-android-widget's `buildWidgetTree` runs `.filter(x => !!x)`
+ * *before* `.flat(1)`, so a `null` nested inside a children array (e.g. a
+ * `{cond ? <X /> : null}` slot passed through `{children}`) survives the
+ * filter and crashes with "Cannot read property 'type' of null" — the widget
+ * then never updates (Sentry REACT-NATIVE-16).
+ */
+export function compactWidgetChildren(children: React.ReactNode): React.ReactNode[] {
+  const out: React.ReactNode[] = [];
+  const visit = (node: React.ReactNode): void => {
+    if (node == null || typeof node === "boolean" || node === "") return;
+    if (Array.isArray(node)) {
+      for (const child of node) visit(child);
+      return;
+    }
+    out.push(node);
+  };
+  visit(children);
+  return out;
+}
+
 export function AndroidSurfaceCard({
   title,
   summary,
@@ -214,7 +237,7 @@ export function AndroidSurfaceCard({
           </FlexWidget>
         </FlexWidget>
       ) : null}
-      {children}
+      {compactWidgetChildren(children)}
       {!compact && markLabel && (markClickAction || markUri) ? (
         <FlexWidget
           clickAction={markClickAction ?? "OPEN_URI"}

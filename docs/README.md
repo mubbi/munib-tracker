@@ -5,7 +5,6 @@
 | [`ARTICLE.md`](./ARTICLE.md) | Medium-style product story (features, platforms, open release) |
 | [`HACKATHON.md`](./HACKATHON.md) | Devpost-style project story (inspiration through what's next) |
 | [`BACKLOG.md`](./BACKLOG.md) | Open work (product, perf, devices, content) |
-| [`AI_POWERED_QURAN_COMPANION_TODO.md`](./AI_POWERED_QURAN_COMPANION_TODO.md) | Quran Companion spec (on-device recitation, hifz practice, revision) |
 | [`FEATURES.md`](./FEATURES.md) | Shipped product features (NF-* catalog) |
 | [`OPEN_SOURCE.md`](./OPEN_SOURCE.md) | Source-available release checklist (PolyForm NC) |
 | [`RELEASES.md`](./RELEASES.md) | Semver / Release Please (per-app tags, changelogs, build numbers) |
@@ -26,6 +25,7 @@
 | Web Push + Android Expo surface phases | [`WEB_PUSH.md`](./WEB_PUSH.md) |
 | Device & platform support | [`DEVICES.md`](./DEVICES.md) |
 | Apple TV / Android TV | [`TV.md`](./TV.md) |
+| Expo SDK 57 → 58 upgrade plan (deps, breaking changes, iPhone Duo) | [`EXPO_SDK_58_UPGRADE_PLAN.md`](./EXPO_SDK_58_UPGRADE_PLAN.md) |
 | Performance profiling | [`PROFILING.md`](./PROFILING.md) |
 | App Store / Play screenshots | [`STORE_ASSETS.md`](./STORE_ASSETS.md) |
 | iOS App Store listing copy | [`IOS_APP_COPY.md`](./IOS_APP_COPY.md) |

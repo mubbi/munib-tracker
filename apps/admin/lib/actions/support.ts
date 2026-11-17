@@ -24,6 +24,7 @@ import {
   assertSupportActions,
 } from "@/lib/auth/action-guards";
 import { getDb } from "@/lib/db";
+import { prunePushTokens } from "@/lib/notifications/broadcastPushLoader";
 import { type PushTargetRow, sendBroadcastPush } from "@/lib/notifications/pushDelivery";
 import { requireUserExists } from "@/lib/queries/users";
 import { normalizeEmail } from "@/lib/utils";
@@ -263,16 +264,20 @@ export async function sendTestPushToUser(ctx: ActionContext, userId: string) {
     throw new AdminActionValidationError("User has no push tokens registered");
   }
 
-  const stats = await sendBroadcastPush(tokens, {
+  const { invalidTokens, ...stats } = await sendBroadcastPush(tokens, {
     title: "Test notification",
     body: "Delivery test from Munib Tracker support — no action needed.",
     collapseId: `admin_test_${userId}`,
   });
+  // Dead tokens found by a support test are pruned like broadcast fan-out; raw
+  // token strings never leave the server action.
+  await prunePushTokens(invalidTokens);
   await audit(ctx, "send_test_push", "user", userId, {
     tokens: tokens.length,
     expoSent: stats.expoSent,
     webSent: stats.webSent,
     failed: stats.failed,
+    pruned: invalidTokens.length,
   });
   revalidatePath(`/users/${userId}`);
   return stats;

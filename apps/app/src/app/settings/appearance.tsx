@@ -21,6 +21,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { normalizeHex, relativeLuminance } from "@/lib/color";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 type InlineCustomColorPickerProps = {
   value: string;
@@ -513,3 +514,6 @@ const styles = StyleSheet.create({
     marginTop: Spacing.one,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/appearance");

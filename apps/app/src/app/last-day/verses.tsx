@@ -27,6 +27,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { ensureLastDayContent, getLastDayVerses, isLastDayContentReady } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LastDayVersesScreen() {
   const router = useRouter();
@@ -159,3 +160,6 @@ const styles = StyleSheet.create({
   },
   copy: { flex: 1, gap: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/last-day/verses");

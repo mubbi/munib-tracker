@@ -1,8 +1,8 @@
 import { BlurTargetView } from "expo-blur";
 import { createContext, type ReactNode, type RefObject, useContext, useRef } from "react";
-import { Platform, type View as RNView, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View, type ViewInstance } from "react-native";
 
-const BlurTargetContext = createContext<RefObject<RNView | null> | null>(null);
+const BlurTargetContext = createContext<RefObject<ViewInstance | null> | null>(null);
 
 /** Ref to the Android `BlurTargetView` that `GlassSurface` blurs. Null off Android. */
 export function useBlurTarget() {
@@ -22,7 +22,7 @@ type BlurTargetProviderProps = {
  * the root; overlays sit outside the target so they can blur what's beneath.
  */
 export function BlurTargetProvider({ children, overlays }: BlurTargetProviderProps) {
-  const targetRef = useRef<RNView | null>(null);
+  const targetRef = useRef<ViewInstance | null>(null);
   const contextValue = Platform.OS === "android" ? targetRef : null;
 
   return (

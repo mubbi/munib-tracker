@@ -1208,7 +1208,9 @@
       "a11yStart": "Anza kufuatilia Salah inayofuata kwenye skrini iliyofungwa",
       "a11yStop": "Acha kufuatilia sasisho za moja kwa moja za Salah"
     },
-    "tvUnavailableBody": "Vikumbusho vya ndani na Live Activities havipatikani kwenye TV. Dhibiti mapendeleo ya arifa kwenye simu yako."
+    "tvUnavailableBody": "Vikumbusho vya ndani na Live Activities havipatikani kwenye TV. Dhibiti mapendeleo ya arifa kwenye simu yako.",
+    "preciseAdhan": "Muda kamili wa adhana",
+    "preciseAdhanHint": "Adhana husikika kwa wakati kamili, hata katika hali ya kuokoa betri. Android huonyesha ikoni ya kengele kwenye upau wa hali hadi isikike."
   },
   "fonts": {
     "eyebrow": "Mipangilio",
@@ -1412,16 +1414,16 @@
     "favEmptyDescTv": "Chagua nyota kwenye jina lolote kulihifadhi hapa."
   },
   "quran": {
-    "eyebrow": " Noble Qur'ani",
+    "eyebrow": "Qur'ani Tukufu",
     "title": "Qur'ani",
-    "subtitle": "Read, listen, na reflect",
-    "searchSurah": "by name, meaning, or number Tafuta",
+    "subtitle": "Soma, sikiliza na tafakari",
+    "searchSurah": "Tafuta kwa jina, maana au namba",
     "filterAll": "Zote",
     "continueReading": "Endelea kusoma",
-    "continueAt": "سورة {{surah}} · آية {{ayah}}",
-    "makki": "مكية",
-    "madani": "مدنية",
-    "ayahCount": "Ayah {{count}}",
+    "continueAt": "Sura {{surah}} · Aya {{ayah}}",
+    "makki": "Makki",
+    "madani": "Madani",
+    "ayahCount": "Aya {{count}}",
     "surahList": "Sura",
     "surahCount": "{{shown}} kati ya {{total}}",
     "reciter": "Msomaji",
@@ -1442,17 +1444,17 @@
     "bookmarkEmptyTitle": "Bado hakuna alamisho",
     "bookmarkEmptyDesc": "Gonga aikoni ya alamisho kwenye ayah yoyote ili kuihifadhi hapa.",
     "removeBookmark": "Washadoa bookmark",
-    "juz": "الجزء",
+    "juz": "Juzuu",
     "learn": "Jifunze",
     "juzSubtitle": "Read  Qur'ani kwade its 30 parts",
     "juzN": "الجزء {{n}}",
     "browseByJuz": "Vinjari kwa Juz",
     "search": "Tafuta",
-    "searchTitle": "Tafuta the Qur'an",
-    "searchSubtitle": "Find mweziahs by çeviri au transkripsiyon",
-    "searchPlaceholder": "words in translation… Tafuta",
-    "searchHint": "Searches  bundled çeviri na transkripsiyon nje ya mtandao.",
-    "noResults": "No mweziahs matched sizin ara.",
+    "searchTitle": "Tafuta katika Qur'ani",
+    "searchSubtitle": "Tafuta aya kwa Kiarabu, Kiingereza, unukuzi au marejeo",
+    "searchPlaceholder": "Tafuta tafsiri, unukuzi au 2:255…",
+    "searchHint": "Utafutaji wa takriban bila mtandao katika Kiarabu, tafsiri ya Kiingereza na unukuzi — pamoja na majina na marejeo ya aya.",
+    "noResults": "Hakuna aya inayolingana na utafutaji wako.",
     "resultsCount": "Matokeo {{count}}",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Sura haikupatikana",
@@ -1470,7 +1472,7 @@
     "bookmarkAdd": "Yer imi narse",
     "bookmarkRemove": "Washadoa bookmark",
     "loadingTranslation": "Inapakia tafsiri...",
-    "searching": "Tafutaing…",
+    "searching": "Inatafuta…",
     "secondTranslation": "Tafsiri ya pili",
     "secondTranslationNone": "Hakuna",
     "selectTranslator": "Chagua mtafsiri — {{language}}",
@@ -1489,9 +1491,9 @@
     "pagePickerTitle": "Rukia kwenye ukurasa",
     "pagePickerSearch": "page or surah… Tafuta",
     "readerLayout": "Mpangilio wa msomaji",
-    "layoutAyah": "Utafiti wa Aya",
+    "layoutAyah": "Somo la aya",
     "layoutPage": "Mwonekano wa ukurasa",
-    "layoutMushaf": "مصحف",
+    "layoutMushaf": "Msahafu",
     "mushafOnlyHint": "Tafutapça only",
     "loadingMushafFont": "Inapakia…",
     "pageReaderTitle": "Qur'ani page {{page}}  {{total}}",
@@ -1621,7 +1623,7 @@
       "otherMatches": "Mechi nyingine",
       "tvUnavailableBody": "Kutambua aya kunahitaji maikrofoni, ambayo TV haina. Badala yake, tafuta Qur'an kwa maneno, au tumia programu kwenye simu yako."
     },
-    "searchPlaceholderArabic": "Tafuta maandishi ya Kiarabu au rejea kama ٢:٢٥٥…",
+    "searchPlaceholderArabic": "Tafuta maandishi ya Kiarabu au marejeo kama ٢:٢٥٥…",
     "goToPagePlaceholder": "Page 1–{{max}}",
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
@@ -1633,7 +1635,10 @@
     "bookmarkEmptyDescTv": "Chagua ikoni ya alamisho kwenye ayah yoyote kuihifadhi hapa.",
     "goToAyahPlaceholder": "Aya 1–{{max}}",
     "goToAyahA11y": "Nenda kwenye nambari ya aya",
-    "goToAyahInvalid": "Weka aya kati ya 1 na {{max}}"
+    "goToAyahInvalid": "Weka aya kati ya 1 na {{max}}",
+    "searchAyahs": "Tafuta aya",
+    "findSurah": "Pata sura",
+    "noSurahResults": "Hakuna sura inayolingana na utafutaji wako."
   },
   "hadith": {
     "eyebrow": "Mila ya kinabii",
@@ -2699,7 +2704,7 @@
   },
   "khatm": {
     "eyebrow": " Noble Qur'ani",
-    "short": "ختمة",
+    "short": "Khitma",
     "title": "Mpango wa Khatm",
     "subtitle": "Maliza Kurani kwa mwendo wa utulivu",
     "startTitle": "a plan Anzat",
@@ -2810,7 +2815,7 @@
     "correctTotalConfirmAction": "Sasisha jumla"
   },
   "hifz": {
-    "short": "الحفظ",
+    "short": "Hifdhi",
     "title": "Mfuatiliaji wa Hifz",
     "subtitle": "Ayahs you'na memorized au need  gözden geçir",
     "markMemorized": "Mark alikariri",
@@ -5478,7 +5483,7 @@
   },
   "quranCompanion": {
     "entry": {
-      "practise": "Mazoezi",
+      "practise": "Fanya mazoezi",
       "practiseAyah": "Fanya mazoezi ya aya {{n}}",
       "practisePlan": "Fanya mazoezi ya sura hii",
       "toRevise_other": "{{count}} za kurudia",
@@ -5574,7 +5579,12 @@
       "reveal": "Fichua",
       "revealHint": "Inafichua neno lililofichwa linalofuata. Bonyeza kwa muda kwa sehemu iliyobaki.",
       "end": "Maliza",
-      "revealAll": "Fichua yote"
+      "revealAll": "Fichua yote",
+      "revealAllConfirmTitle": "Fichua aya nzima?",
+      "revealAllConfirmMessage": "Maneno yote yaliyofichwa katika aya hii yataonyeshwa.",
+      "endConfirmTitle": "Maliza kipindi hiki?",
+      "endConfirmMessage": "Utaona muhtasari wa ulichofanyia mazoezi hadi sasa.",
+      "endConfirm": "Maliza kipindi"
     },
     "word": {
       "matched": "imelingana",
@@ -5594,16 +5604,11 @@
       "hearAyah": "Sikiliza aya hii",
       "markMemorized": "Weka alama imehifadhiwa",
       "listened": "Umesikiliza sehemu hii. Pakua msikilizaji ili afuate sauti yako.",
-      "countMatched_other": "{{count}} yamelingana",
-      "countMatched_one": "{{count}} imelingana",
-      "countNotSure_other": "{{count}} bila uhakika",
-      "countNotSure_one": "{{count}} bila uhakika",
-      "countTryAgain_other": "{{count}} ya kusoma tena",
-      "countTryAgain_one": "{{count}} ya kusoma tena",
-      "countNotReached_other": "{{count}} hayakufikiwa",
-      "countNotReached_one": "{{count}} halikufikiwa",
-      "listenerNotSure_other": "Msikilizaji hakuwa na uhakika na maneno {{count}}",
-      "listenerNotSure_one": "Msikilizaji hakuwa na uhakika na neno {{count}}"
+      "headListened": "Umesikiliza sehemu hii",
+      "practiseAgain": "Fanya mazoezi tena",
+      "weakAyahsTitle": "Aya za kufanyia mazoezi tena",
+      "ayahChip": "Aya {{ayah}}",
+      "practiseAyah": "Fanya mazoezi ya aya {{ayah}} tena"
     },
     "revision": {
       "title": "Marudio",

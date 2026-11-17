@@ -3,7 +3,6 @@ import { SymbolView } from "expo-symbols";
 import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ListenerStatusStrip } from "@/components/quran/listener-status-strip";
 import { PracticePills } from "@/components/quran/practice-pills";
@@ -38,6 +37,7 @@ import type {
   PracticeMode,
   StartFrom,
 } from "@/lib/quran-companion/types";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences } from "@/stores/preferences-store";
 import {
   useCompanionPrefs,
@@ -666,3 +666,6 @@ const styles = StyleSheet.create({
   },
   statusDot: { width: 8, height: 8, borderRadius: 4 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/quran-practice");

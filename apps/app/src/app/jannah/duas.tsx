@@ -25,6 +25,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { ensureJannahContent, getJannahDuas, isJannahContentReady } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
@@ -154,3 +155,6 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jannah/duas");

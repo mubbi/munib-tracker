@@ -1,8 +1,9 @@
-import { NativeTabs } from "expo-router/unstable-native-tabs";
+import { NativeTabs } from "expo-router/native-tabs";
 import { useTranslation } from "react-i18next";
 import { Platform, useWindowDimensions } from "react-native";
 
 import { WideAppTabs } from "@/components/app-tabs-wide";
+import { ScreenErrorBoundary } from "@/components/navigation/screen-error-boundary";
 import { withAlpha } from "@/constants/theme";
 import { SIDE_RAIL_BREAKPOINT } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -13,14 +14,22 @@ export default function AppTabs() {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
 
-  // TV and wide windows (iPad / Android tablet / foldable): side rail.
-  // TV always uses the rail — NativeTabs / bottom bars are poor for D-pad.
-  if (isTV() || width >= SIDE_RAIL_BREAKPOINT) {
+  // iPhone (including the folding iPhone Duo): always system NativeTabs. iOS 27
+  // moves bars into a vertical rail on the left/right edge on large iPhone windows
+  // and `preferredPlacement="automatic"` lets the system choose rail vs bar, so the
+  // custom rail must never stack beside it.
+  // TV and wide windows elsewhere (iPad / Android tablet / Android foldable / web):
+  // our side rail. TV always uses the rail — bottom bars are poor for D-pad.
+  const iPhone = Platform.OS === "ios" && !Platform.isPad && !isTV();
+  if (!iPhone && (isTV() || width >= SIDE_RAIL_BREAKPOINT)) {
     return <WideAppTabs />;
   }
 
   return (
     <NativeTabs
+      unstable_screenErrorBoundary={ScreenErrorBoundary}
+      // iOS 27+: system decides between the bottom tab bar and the sidebar/rail.
+      preferredPlacement="automatic"
       // Android keeps its themed Material 3 surface; on iOS we omit the opaque
       // background so the bar adopts the system material — Liquid Glass on
       // iOS 26+, the translucent system blur on earlier versions.

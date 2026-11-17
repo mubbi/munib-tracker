@@ -1,4 +1,4 @@
-import { buildMcq } from "./mcq-helpers";
+import { buildMcq, condenseText } from "./mcq-helpers";
 import type { StudyMcq, StudySourceId, TermLike } from "./types";
 
 /** Term ↔ definition recognition cards. */
@@ -9,7 +9,7 @@ export function mcqsFromGlossary(
 ): StudyMcq[] {
   if (terms.length < 4) return [];
 
-  const definitions = terms.map((t) => t.definition);
+  const definitions = terms.map((t) => condenseText(t.definition));
   const labels = terms.map((t) => t.term);
   const out: StudyMcq[] = [];
 
@@ -20,7 +20,7 @@ export function mcqsFromGlossary(
       id: `${sourceId}:glossary-meaning:${entry.id}`,
       sourceId,
       prompt: `What does “${entry.term}” mean?`,
-      correct: entry.definition,
+      correct: condenseText(entry.definition),
       distractorPool: definitions,
       explanation: entry.definition,
       categoryLabelKey,
@@ -30,7 +30,7 @@ export function mcqsFromGlossary(
     const term = buildMcq({
       id: `${sourceId}:glossary-term:${entry.id}`,
       sourceId,
-      prompt: `Which term means: “${entry.definition}”?`,
+      prompt: `Which term means: “${condenseText(entry.definition, 80)}”?`,
       correct: entry.term,
       distractorPool: labels,
       explanation: entry.definition,

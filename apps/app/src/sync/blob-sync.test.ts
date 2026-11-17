@@ -117,7 +117,9 @@ describe("buildBlobRecords", () => {
     });
     const record = (await buildBlobRecords(T1)).find((r) => r.entity === "location");
     expect(record).toBeDefined();
-    expect((record?.data as { value: { method: string } }).value.method).toBe("Egyptian");
+    expect((record?.data as { value: { method: string } } | undefined)?.value.method).toBe(
+      "Egyptian",
+    );
   });
 });
 
@@ -274,7 +276,9 @@ describe("Qur'an practice blobs (§10, D7)", () => {
     const pushed = records.find((r) => r.entity === "quran_practice_sessions");
     expect(pushed?.updatedAt).toBe(T3);
     expect(
-      (pushed?.data as { value: { items: { id: string }[] } }).value.items.map((i) => i.id),
+      (pushed?.data as { value: { items: { id: string }[] } } | undefined)?.value.items.map(
+        (i) => i.id,
+      ),
     ).toEqual(["local", "remote"]);
   });
 });

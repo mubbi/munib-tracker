@@ -22,6 +22,7 @@ import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { ensureBattlesContent, getBattlesLessonCount, isBattlesContentReady } from "@/lib/battles";
 import { buildBattlesProgress } from "@/lib/battles-progress";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useBattlesCompletedCount,
   useEnsureBattlesProgressLoaded,
@@ -137,3 +138,6 @@ const styles = StyleSheet.create({
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles/progress");

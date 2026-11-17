@@ -47,6 +47,23 @@ export type NotificationResponse = {
 
 export function setNotificationHandler(_handler: unknown): void {}
 
+/** Exact alarms (Precise Adhan timing) are phone-only; TVs never grant them. */
+export async function getExactAlarmPermissionsAsync(): Promise<{
+  status: string;
+  granted: boolean;
+  canAskAgain: boolean;
+}> {
+  return { status: "denied", granted: false, canAskAgain: false };
+}
+
+export async function requestExactAlarmPermissionsAsync(): Promise<{
+  status: string;
+  granted: boolean;
+  canAskAgain: boolean;
+}> {
+  return { status: "denied", granted: false, canAskAgain: false };
+}
+
 export async function getPermissionsAsync(): Promise<{
   status: string;
   granted: boolean;
@@ -88,9 +105,11 @@ export async function getAllScheduledNotificationsAsync(): Promise<Notification[
   return [];
 }
 
-export async function getLastNotificationResponseAsync(): Promise<NotificationResponse | null> {
+export function getLastNotificationResponse(): NotificationResponse | null {
   return null;
 }
+
+export function clearLastNotificationResponse(): void {}
 
 export function addNotificationReceivedListener(
   _listener: (notification: Notification) => void,
@@ -108,6 +127,8 @@ export default {
   AndroidImportance,
   SchedulableTriggerInputTypes,
   setNotificationHandler,
+  getExactAlarmPermissionsAsync,
+  requestExactAlarmPermissionsAsync,
   getPermissionsAsync,
   requestPermissionsAsync,
   getExpoPushTokenAsync,
@@ -116,7 +137,8 @@ export default {
   cancelScheduledNotificationAsync,
   cancelAllScheduledNotificationsAsync,
   getAllScheduledNotificationsAsync,
-  getLastNotificationResponseAsync,
+  getLastNotificationResponse,
+  clearLastNotificationResponse,
   addNotificationReceivedListener,
   addNotificationResponseReceivedListener,
 };

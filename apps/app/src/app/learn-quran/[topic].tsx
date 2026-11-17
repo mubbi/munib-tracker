@@ -19,6 +19,7 @@ import {
   getQuranGuideTopics,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureQuranGuideProgressLoaded } from "@/stores/quran-guide-progress-store";
 
@@ -99,3 +100,6 @@ export default function LearnQuranTopicScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/[topic]");

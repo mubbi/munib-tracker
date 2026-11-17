@@ -3,11 +3,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AccessibilityInfo,
-  type ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   useWindowDimensions,
   View,
 } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { type AyahChipState, PracticeAyahChips } from "@/components/quran/practice-ayah-chips";
 import { PracticeAyahResult } from "@/components/quran/practice-ayah-result";
 import { PracticeDock } from "@/components/quran/practice-dock";
@@ -40,6 +41,7 @@ import {
   resolveReadingFontSizes,
   translationReadingStyle,
 } from "@/lib/reading-typography";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences } from "@/stores/preferences-store";
 import {
   useCompanionPrefs,
@@ -214,7 +216,7 @@ function PracticeSessionScreen({
 
   // §9.2: in a long ayah, scroll only when the active word leaves the visible
   // band between the header and the dock — never with reduced motion on.
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const scrollY = useRef(0);
   const reduceMotion = useHydrationSafeReducedMotion();
   const keepActiveWordVisible = useCallback(
@@ -232,6 +234,15 @@ function PracticeSessionScreen({
 
   const micDenied = s.micPermission === "denied";
   const [pickerOpen, setPickerOpen] = useState(false);
+  // Dock "Reveal all" / "End" are hard to undo — confirm first.
+  // Kind outlives `open` so the copy doesn't swap while the sheet animates out.
+  const [confirmKind, setConfirmKind] = useState<"revealAll" | "end">("end");
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const askConfirm = (kind: "revealAll" | "end") => {
+    setConfirmKind(kind);
+    setConfirmOpen(true);
+  };
+  const isEndConfirm = confirmKind === "end";
 
   const chipState = (ayah: number): AyahChipState => {
     if (ayah === s.ayah) return "current";
@@ -559,10 +570,31 @@ function PracticeSessionScreen({
             void s.toggleMic();
           }}
           onReveal={s.revealNext}
-          onRevealAll={s.revealAll}
-          onEnd={() => void onEnd()}
+          onRevealAll={() => askConfirm("revealAll")}
+          onEnd={() => askConfirm("end")}
         />
       </View>
+      <ConfirmDialog
+        visible={confirmOpen}
+        title={
+          isEndConfirm
+            ? t("quranCompanion.dock.endConfirmTitle")
+            : t("quranCompanion.dock.revealAllConfirmTitle")
+        }
+        message={
+          isEndConfirm
+            ? t("quranCompanion.dock.endConfirmMessage")
+            : t("quranCompanion.dock.revealAllConfirmMessage")
+        }
+        confirmLabel={
+          isEndConfirm ? t("quranCompanion.dock.endConfirm") : t("quranCompanion.dock.revealAll")
+        }
+        onConfirm={() => {
+          if (isEndConfirm) void onEnd();
+          else s.revealAll();
+        }}
+        onClose={() => setConfirmOpen(false)}
+      />
     </View>
   );
 }
@@ -621,3 +653,6 @@ const styles = StyleSheet.create({
   placeholder: { alignItems: "flex-end", justifyContent: "center", gap: Spacing.two },
   placeholderLine: { borderRadius: 8, opacity: 0.6 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/practice/session");

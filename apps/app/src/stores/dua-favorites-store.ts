@@ -1,6 +1,13 @@
 import { DB_KEYS } from "@/db/keys";
 
-import { createFavoritesStore, type FavoritesBlob } from "./create-favorites-store";
+import {
+  createFavoritesStore,
+  type FavoritesActions,
+  type FavoritesBlob,
+  useEnsureFavoritesLoaded,
+  useFavoritesOrder,
+  useIsInFavorites,
+} from "./create-favorites-store";
 
 /**
  * Standalone favorites store for duas — an ordered id list persisted to
@@ -14,7 +21,19 @@ const api = createFavoritesStore(DB_KEYS.duaFavorites, DB_KEYS.duaFavoritesUpdat
 export const duaFavoritesStore = api.store;
 export const readDuaFavoritesBlob = api.readBlob;
 export const applyRemoteDuaFavorites = api.applyRemote;
-export const useEnsureDuaFavoritesLoaded = api.useEnsureLoaded;
-export const useFavoriteDuaIds = api.useFavoriteIds;
-export const useIsFavoriteDua = api.useIsFavorite;
-export const useDuaFavoritesActions = api.useActions;
+
+export function useEnsureDuaFavoritesLoaded(): void {
+  useEnsureFavoritesLoaded(api);
+}
+
+export function useFavoriteDuaIds(): string[] {
+  return useFavoritesOrder(api);
+}
+
+export function useIsFavoriteDua(id: string): boolean {
+  return useIsInFavorites(api, id);
+}
+
+export function useDuaFavoritesActions(): FavoritesActions {
+  return api.actions;
+}

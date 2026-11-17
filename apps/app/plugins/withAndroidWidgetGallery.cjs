@@ -6,6 +6,7 @@
  */
 const {
   withDangerousMod,
+  withFinalizedMod,
   createRunOncePlugin,
   withAndroidManifest,
 } = require("@expo/config-plugins");
@@ -128,11 +129,13 @@ function writePreviewLayout(layoutDir) {
 }
 
 function patchProviderXml(xmlDir) {
-  if (!fs.existsSync(xmlDir)) return;
+  let found = 0;
+  if (!fs.existsSync(xmlDir)) return found;
   for (const file of fs.readdirSync(xmlDir)) {
     if (!file.startsWith("widgetprovider_") || !file.endsWith(".xml")) continue;
     const filePath = path.join(xmlDir, file);
     let contents = fs.readFileSync(filePath, "utf8");
+    found += 1;
     if (!contents.includes("android:previewLayout")) {
       contents = contents.replace(
         'android:initialLayout="@layout/rn_widget"',
@@ -144,6 +147,7 @@ function patchProviderXml(xmlDir) {
     }
     fs.writeFileSync(filePath, contents);
   }
+  return found;
 }
 
 function withAndroidWidgetGallery(config) {
@@ -159,7 +163,7 @@ function withAndroidWidgetGallery(config) {
     return config;
   });
 
-  return withDangerousMod(config, [
+  config = withDangerousMod(config, [
     "android",
     async (config) => {
       const resRoot = path.join(config.modRequest.platformProjectRoot, "app/src/main/res");
@@ -167,7 +171,20 @@ function withAndroidWidgetGallery(config) {
         writeLocaleStrings(resRoot, locale, loadGallery(locale));
       }
       writePreviewLayout(path.join(resRoot, "layout"));
-      patchProviderXml(path.join(resRoot, "xml"));
+      return config;
+    },
+  ]);
+
+  // Finalized: runs after every other mod, so react-native-android-widget has
+  // already written its provider XML (from v0.26 it does so after this plugin's
+  // dangerous mod, which silently left previews unpatched).
+  return withFinalizedMod(config, [
+    "android",
+    async (config) => {
+      const xmlDir = path.join(config.modRequest.platformProjectRoot, "app/src/main/res/xml");
+      if (patchProviderXml(xmlDir) === 0) {
+        console.warn("[withAndroidWidgetGallery] no widgetprovider_*.xml found to patch");
+      }
       return config;
     },
   ]);

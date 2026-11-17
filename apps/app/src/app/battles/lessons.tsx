@@ -20,6 +20,7 @@ import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureBattlesContent, getBattlesLessonCards, isBattlesContentReady } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function BattlesLessonsScreen() {
   const router = useRouter();
@@ -101,3 +102,6 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles/lessons");

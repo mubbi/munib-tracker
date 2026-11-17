@@ -2,7 +2,6 @@ import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
@@ -15,6 +14,7 @@ import { Spacing } from "@/constants/theme";
 import { getIntentsForPlatform } from "@/lib/appSurfaces/intents/registry";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function VoiceShortcutsScreen() {
   const formMaxWidth = useSettingsFormMaxWidth();
@@ -174,3 +174,6 @@ const styles = StyleSheet.create({
     gap: 2,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/voice-shortcuts");

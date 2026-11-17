@@ -32,6 +32,7 @@ import {
   resolveNightBoundsForNow,
 } from "@/lib/prayer-times";
 import { arrowForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatDisplayHhMm } from "@/lib/time";
 import { useLocation } from "@/stores/location-store";
 
@@ -452,3 +453,6 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/last-third-night");

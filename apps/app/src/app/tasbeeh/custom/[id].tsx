@@ -14,6 +14,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useCustomTasbeeh,
   useCustomTasbeehActions,
@@ -172,3 +173,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tasbeeh/custom/[id]");

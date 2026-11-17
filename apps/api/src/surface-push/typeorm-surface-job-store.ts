@@ -5,7 +5,7 @@ import type {
 } from "@munib-tracker/surface-push-delivery";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { LessThanOrEqual, Repository } from "typeorm";
+import { In, LessThan, LessThanOrEqual, Repository } from "typeorm";
 import { SurfacePushJobEntity, SurfacePushRegistrationEntity } from "../database/entities";
 
 @Injectable()
@@ -30,7 +30,7 @@ export class TypeOrmSurfaceJobStore implements SurfaceJobStore {
   async getJobWithRegistration(jobId: string): Promise<SurfaceJobRecord | null> {
     const job = await this.jobRepository.findOne({
       where: { id: jobId },
-      relations: ["registration"],
+      relations: { registration: true },
     });
     if (!job?.registration) return null;
     return this.toRecord(job);
@@ -99,9 +99,47 @@ export class TypeOrmSurfaceJobStore implements SurfaceJobStore {
       where: { status: "pending", executeAt: LessThanOrEqual(now) },
       order: { executeAt: "ASC" },
       take: limit,
-      select: ["id"],
+      select: { id: true },
     });
     return rows.map((row) => row.id);
+  }
+
+  async hasNewerDueJob(
+    job: Pick<SurfaceJobRecord, "id" | "registrationId" | "executeAt">,
+    now: Date,
+  ): Promise<boolean> {
+    const count = await this.jobRepository
+      .createQueryBuilder("job")
+      .where("job.registrationId = :registrationId", { registrationId: job.registrationId })
+      .andWhere("job.id != :id", { id: job.id })
+      .andWhere("job.executeAt > :executeAt", { executeAt: job.executeAt })
+      .andWhere("job.executeAt <= :now", { now })
+      .andWhere("job.status IN (:...statuses)", {
+        statuses: ["pending", "processing", "delivered"],
+      })
+      .getCount();
+    return count > 0;
+  }
+
+  async expireRegistrations(now: Date): Promise<number[]> {
+    const expired = await this.registrationRepository.find({
+      where: { status: "active", expiresAt: LessThanOrEqual(now) },
+      select: { id: true },
+    });
+    if (expired.length === 0) return [];
+    const ids = expired.map((row) => row.id);
+    await this.registrationRepository.update({ id: In(ids) }, { status: "expired" });
+    return ids;
+  }
+
+  async deleteOldInactiveRegistrations(cutoff: Date): Promise<number> {
+    // Ended / invalid / expired rows still hold a push token or Web Push
+    // endpoint + keys; purge them after retention (jobs cascade).
+    const result = await this.registrationRepository.delete({
+      status: In(["ended", "invalid", "expired"]),
+      updatedAt: LessThan(cutoff),
+    });
+    return result.affected ?? 0;
   }
 
   async deleteOldJobs(cutoff: Date): Promise<number> {

@@ -19,6 +19,7 @@ import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getNewMuslimSectionOrder, getNewMuslimTopicsBySection } from "@/lib/new-muslim";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const SECTION_ICONS: Record<string, AppIcon> = {
   start: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
@@ -109,3 +110,6 @@ export default function NewMuslimScreen() {
 const styles = StyleSheet.create({
   gridTop: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/new-muslim");

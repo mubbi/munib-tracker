@@ -11,9 +11,9 @@ describe("ThemedText arabic sanitization", () => {
     Platform.OS = originalOS;
   });
 
-  it("strips U+06DD from a scripture string on iOS", () => {
+  it("strips U+06DD from a scripture string on iOS", async () => {
     Platform.OS = "ios";
-    render(
+    await render(
       <MunibThemeProvider>
         <ThemedText type="arabic">{"ءَامَنَ\u06DD"}</ThemedText>
       </MunibThemeProvider>,
@@ -23,9 +23,9 @@ describe("ThemedText arabic sanitization", () => {
     expect(screen.queryByText("\u06DD")).toBeNull();
   });
 
-  it("walks mixed children so `{arabic}{marker}` still sanitizes", () => {
+  it("walks mixed children so `{arabic}{marker}` still sanitizes", async () => {
     Platform.OS = "ios";
-    render(
+    await render(
       <MunibThemeProvider>
         <ThemedText type="arabic">
           {"ءَامَنَ\u06DD"}
@@ -39,9 +39,9 @@ describe("ThemedText arabic sanitization", () => {
     expect(JSON.stringify(screen.toJSON())).not.toContain("\u06DD");
   });
 
-  it("leaves non-scripture copy unsanitized", () => {
+  it("leaves non-scripture copy unsanitized", async () => {
     Platform.OS = "ios";
-    render(
+    await render(
       <MunibThemeProvider>
         <ThemedText>{"ءَامَنَ\u06DD"}</ThemedText>
       </MunibThemeProvider>,

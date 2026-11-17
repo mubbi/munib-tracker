@@ -1208,7 +1208,9 @@
       "a11yStart": "Mulai melacak Salah berikutnya di layar kunci",
       "a11yStop": "Berhenti melacak pembaruan langsung Salah"
     },
-    "tvUnavailableBody": "Pengingat lokal dan Live Activities tidak tersedia di TV. Kelola preferensi notifikasi di ponsel Anda."
+    "tvUnavailableBody": "Pengingat lokal dan Live Activities tidak tersedia di TV. Kelola preferensi notifikasi di ponsel Anda.",
+    "preciseAdhan": "Waktu azan yang tepat",
+    "preciseAdhanHint": "Azan diputar tepat pada waktunya, bahkan dalam mode hemat baterai. Android menampilkan ikon alarm di bilah status hingga azan berbunyi."
   },
   "fonts": {
     "eyebrow": "Pengaturan",
@@ -1412,15 +1414,15 @@
     "favEmptyDescTv": "Pilih bintang pada nama mana pun untuk menyimpannya di sini."
   },
   "quran": {
-    "eyebrow": " Noble Al-Al-Al-Al-Al-Al-Qur'an",
-    "title": "Alquran",
-    "subtitle": "Read, listen, dan reflect",
-    "searchSurah": "Cari by name, meaning, or number",
+    "eyebrow": "Al-Qur'an Al-Karim",
+    "title": "Al-Qur'an",
+    "subtitle": "Baca, dengarkan, dan renungkan",
+    "searchSurah": "Cari berdasarkan nama, arti, atau nomor",
     "filterAll": "Semua",
     "continueReading": "Lanjutkan membaca",
-    "continueAt": "Surah {{surah}} · Ayah {{ayah}}",
-    "makki": "Makki",
-    "madani": "Madani",
+    "continueAt": "Surah {{surah}} · Ayat {{ayah}}",
+    "makki": "Makkiyah",
+    "madani": "Madaniyah",
     "ayahCount": "{{count}} ayat",
     "surahList": "Surah",
     "surahCount": "{{shown}} dari {{total}}",
@@ -1435,8 +1437,8 @@
     "playPage": "Putar page",
     "playAyah": "Putar ayah {{n}}",
     "bookmark": "Markah",
-    "bookmarks": "Bookmark",
-    "viewBookmarks": "Lihat bookmarks",
+    "bookmarks": "Penanda",
+    "viewBookmarks": "Lihat penanda",
     "bookmarksTitle": "Bookmark",
     "bookmarksSubtitle": "Anda tersimpan ayahs",
     "bookmarkEmptyTitle": "Tiada bookmarks lagi",
@@ -1448,11 +1450,11 @@
     "juzN": "Juz {{n}}",
     "browseByJuz": "Browse oleh Juz",
     "search": "Cari",
-    "searchTitle": "Cari the Al-Al-Al-Al-Al-Qur'an",
-    "searchSubtitle": "Find ayahs oleh terjemahan atau transliterasi",
-    "searchPlaceholder": "Cari words in translation…",
-    "searchHint": "Searches  bundled terjemahan dan transliterasi offline.",
-    "noResults": "Tidak ayahs matched Anda cari.",
+    "searchTitle": "Cari di Al-Qur'an",
+    "searchSubtitle": "Temukan ayat berdasarkan teks Arab, bahasa Inggris, transliterasi, atau rujukan",
+    "searchPlaceholder": "Cari terjemahan, transliterasi, atau 2:255…",
+    "searchHint": "Pencarian fleksibel offline di teks Arab, terjemahan bahasa Inggris, dan transliterasi — termasuk nama dan rujukan ayat.",
+    "noResults": "Tidak ada ayat yang cocok dengan pencarian Anda.",
     "resultsCount": "{{count}} hasil",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Surah tidak found",
@@ -1470,7 +1472,7 @@
     "bookmarkAdd": "Markah verse",
     "bookmarkRemove": "Buang bookmark",
     "loadingTranslation": "Memuat translation…",
-    "searching": "Mencari… ",
+    "searching": "Mencari…",
     "secondTranslation": "Second terjemahan",
     "secondTranslationNone": "Tidak ada",
     "selectTranslator": "Pilih penerjemah — {{language}}",
@@ -1489,8 +1491,8 @@
     "pagePickerTitle": "Jump ke page",
     "pagePickerSearch": "Cari page or surah…",
     "readerLayout": "Tata letak pembaca",
-    "layoutAyah": "Studi ayat",
-    "layoutPage": "Page lihat",
+    "layoutAyah": "Kajian ayat",
+    "layoutPage": "Tampilan halaman",
     "layoutMushaf": "Mushaf",
     "mushafOnlyHint": "Arab only",
     "loadingMushafFont": "Memuat…",
@@ -1633,7 +1635,10 @@
     "bookmarkEmptyDescTv": "Pilih ikon markah pada ayah mana pun untuk menyimpannya di sini.",
     "goToAyahPlaceholder": "Ayat 1–{{max}}",
     "goToAyahA11y": "Buka nomor ayat",
-    "goToAyahInvalid": "Masukkan ayat antara 1 dan {{max}}"
+    "goToAyahInvalid": "Masukkan ayat antara 1 dan {{max}}",
+    "searchAyahs": "Cari ayat",
+    "findSurah": "Temukan surah",
+    "noSurahResults": "Tidak ada surah yang cocok dengan pencarian Anda."
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -2699,7 +2704,7 @@
   },
   "khatm": {
     "eyebrow": " Noble Al-Al-Al-Al-Al-Al-Qur'an",
-    "short": "Khatm",
+    "short": "Khatam",
     "title": "Khatm rencana",
     "subtitle": "Selesaikan Al-Qur'an dengan kecepatan tetap",
     "startTitle": "Mulai a plan",
@@ -2810,7 +2815,7 @@
     "correctTotalConfirmAction": "Perbarui total"
   },
   "hifz": {
-    "short": "Hifzhhhhhhh",
+    "short": "Hafalan",
     "title": "Hifzhhhhhhh tracker",
     "subtitle": "Ayahs you've memorized atau need ke tinjau",
     "markMemorized": "Tandai memorized",
@@ -5482,7 +5487,12 @@
       "reveal": "Tampilkan",
       "revealHint": "Menampilkan kata tersembunyi berikutnya. Tekan lama untuk sisa ayat.",
       "end": "Selesai",
-      "revealAll": "Tampilkan semua"
+      "revealAll": "Tampilkan semua",
+      "revealAllConfirmTitle": "Tampilkan seluruh ayat?",
+      "revealAllConfirmMessage": "Semua kata tersembunyi di ayat ini akan ditampilkan.",
+      "endConfirmTitle": "Akhiri sesi ini?",
+      "endConfirmMessage": "Anda akan melihat ringkasan latihan sejauh ini.",
+      "endConfirm": "Akhiri sesi"
     },
     "word": {
       "matched": "cocok",
@@ -5502,16 +5512,11 @@
       "hearAyah": "Dengarkan ayat ini",
       "markMemorized": "Tandai sudah hafal",
       "listened": "Anda mendengarkan bagian ini. Unduh pendengar agar mengikuti suara Anda.",
-      "countMatched_other": "{{count}} cocok",
-      "countMatched_one": "{{count}} cocok",
-      "countNotSure_other": "{{count}} kurang yakin",
-      "countNotSure_one": "{{count}} kurang yakin",
-      "countTryAgain_other": "{{count}} perlu diulang",
-      "countTryAgain_one": "{{count}} perlu diulang",
-      "countNotReached_other": "{{count}} belum terbaca",
-      "countNotReached_one": "{{count}} belum terbaca",
-      "listenerNotSure_other": "Pendengar kurang yakin pada {{count}} kata",
-      "listenerNotSure_one": "Pendengar kurang yakin pada {{count}} kata"
+      "headListened": "Anda mendengarkan bagian ini",
+      "practiseAgain": "Latihan lagi",
+      "weakAyahsTitle": "Ayat untuk dilatih lagi",
+      "ayahChip": "Ayat {{ayah}}",
+      "practiseAyah": "Latih ayat {{ayah}} lagi"
     },
     "revision": {
       "title": "Murajaah",

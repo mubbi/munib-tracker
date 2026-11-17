@@ -49,6 +49,7 @@ import { arabicReadingLayout, resolveArabicFontFamily } from "@/lib/reading-typo
 import { useChevronForward } from "@/lib/rtl";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { clearAyahIndex } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
 import { abortStt, type SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
@@ -891,3 +892,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.half,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/verse-detector");

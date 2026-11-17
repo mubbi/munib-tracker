@@ -19,6 +19,7 @@ import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { ensureBattlesContent, getBattlesGlossary, isBattlesContentReady } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function BattlesGlossaryScreen() {
   const router = useRouter();
@@ -79,3 +80,6 @@ const styles = StyleSheet.create({
   list: { marginTop: Spacing.three },
   term: { gap: Spacing.half },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles/glossary");

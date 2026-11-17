@@ -16,12 +16,11 @@ import Animated, {
   withSequence,
   withTiming,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { PinDotsRow } from "@/features/pin-lock/components/pin-keypad";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type Props = {
@@ -59,7 +58,7 @@ export function PinShell({
 }: Props) {
   const { t } = useTranslation();
   const { colors, scheme, tokens } = useThemeTokens();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const shakeX = useSharedValue(0);
 
   const shakeStyle = useAnimatedStyle(() => ({

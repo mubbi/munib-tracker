@@ -323,6 +323,43 @@ function dateReminder(over: Partial<BuiltReminder> = {}): BuiltReminder {
 describe("osTriggerForReminder", () => {
   const nowMs = Date.parse("2026-09-03T11:02:05.000Z");
 
+  describe("precise Adhan timing (Android alarm-clock delivery)", () => {
+    const { Platform } = require("react-native") as typeof import("react-native");
+    afterEach(() => jest.restoreAllMocks());
+
+    it("adds alarmClock delivery to Adhan-channel DATE triggers on Android", () => {
+      jest.replaceProperty(Platform, "OS", "android");
+      const reminder = dateReminder({
+        fireAt: new Date(nowMs + 60_000),
+        channelId: "prayerAdhan",
+      });
+      expect(osTriggerForReminder(reminder, nowMs, { preciseAdhan: true })).toEqual({
+        type: TRIGGER.DATE,
+        date: reminder.fireAt,
+        channelId: "prayerAdhan",
+        delivery: "alarmClock",
+      });
+    });
+
+    it("leaves other channels and the default setting on best-effort delivery", () => {
+      jest.replaceProperty(Platform, "OS", "android");
+      const adhan = dateReminder({ fireAt: new Date(nowMs + 60_000), channelId: "prayerAdhan" });
+      const zikr = dateReminder({ fireAt: new Date(nowMs + 60_000), channelId: "zikr" });
+      expect(osTriggerForReminder(adhan, nowMs)).not.toHaveProperty("delivery");
+      expect(osTriggerForReminder(zikr, nowMs, { preciseAdhan: true })).not.toHaveProperty(
+        "delivery",
+      );
+    });
+
+    it("never sets alarmClock delivery on iOS", () => {
+      jest.replaceProperty(Platform, "OS", "ios");
+      const reminder = dateReminder({ fireAt: new Date(nowMs + 60_000), channelId: "prayerAdhan" });
+      expect(osTriggerForReminder(reminder, nowMs, { preciseAdhan: true })).not.toHaveProperty(
+        "delivery",
+      );
+    });
+  });
+
   it("uses a DATE trigger when the fire time is safely in the future", () => {
     const reminder = dateReminder({ fireAt: new Date(nowMs + 60_000) });
     expect(osTriggerForReminder(reminder, nowMs)).toEqual({

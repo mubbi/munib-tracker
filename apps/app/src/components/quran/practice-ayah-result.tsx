@@ -161,8 +161,8 @@ export function PracticeAyahResult({
             accessibilityElementsHidden
             importantForAccessibility="no-hide-descendants"
           >
-            {segments.map((s) => (
-              <View key={s.key} style={{ flex: s.value, backgroundColor: s.color }} />
+            {segments.map(({ key, value: flex, color }) => (
+              <View key={key} style={{ flex, backgroundColor: color }} />
             ))}
           </View>
           <View style={styles.stats}>

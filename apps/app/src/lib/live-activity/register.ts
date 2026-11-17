@@ -15,8 +15,14 @@ type PendingRegistration = {
 
 let pending: PendingRegistration | null = null;
 let lastRegistrationKey: string | null = null;
-let inFlightKey: string | null = null;
 let latestSnapshot: WidgetSnapshot | null = null;
+/**
+ * Registrations run one at a time. Two overlapping PUTs for the same activity
+ * interleave server-side (both wipe, both insert), which could leave an older
+ * schedule — or both — queued. Each queued run reads the latest `pending`, so
+ * bursts of snapshot syncs collapse into the newest schedule.
+ */
+let flushChain: Promise<void> = Promise.resolve();
 
 /**
  * Keep the latest widget snapshot so a late ActivityKit push-token event can
@@ -58,10 +64,21 @@ export async function registerLiveActivitySchedule(
   }
 }
 
-export async function notifyLiveActivityLifecycle(
+export function notifyLiveActivityLifecycle(
   activityId: string,
   state: "ended" | "dismissed",
 ): Promise<void> {
+  // Drop the pending registration first so no queued flush re-registers it,
+  // then run behind any in-flight PUT — otherwise that PUT could land after
+  // this call and flip the server row back to `active`.
+  if (pending?.activityId === activityId) pending = null;
+  lastRegistrationKey = null;
+  const run = flushChain.then(() => sendLifecycle(activityId, state));
+  flushChain = run.catch(() => undefined);
+  return run;
+}
+
+async function sendLifecycle(activityId: string, state: "ended" | "dismissed"): Promise<void> {
   try {
     const session = await SessionStore.get();
     const accessToken = session?.accessToken;
@@ -76,13 +93,16 @@ export async function notifyLiveActivityLifecycle(
     );
   } catch {
     // Best-effort; expired jobs are cleaned by cron / ActivityKit lifetime.
-  } finally {
-    if (pending?.activityId === activityId) pending = null;
-    lastRegistrationKey = null;
   }
 }
 
-async function flushLiveActivityRegistration(): Promise<void> {
+function flushLiveActivityRegistration(): Promise<void> {
+  const run = flushChain.then(flushLatestRegistration, flushLatestRegistration);
+  flushChain = run.catch(() => undefined);
+  return run;
+}
+
+async function flushLatestRegistration(): Promise<void> {
   const current = pending;
   if (!current?.snapshot || current.snapshot.locationDenied) return;
   if (!/^[0-9a-f]{64,512}$/.test(current.pushToken)) return;
@@ -96,14 +116,13 @@ async function flushLiveActivityRegistration(): Promise<void> {
     current.environment,
     updates.map((u) => `${u.phase}:${u.executeAt}`).join("|"),
   ].join("::");
-  if (registrationKey === lastRegistrationKey || registrationKey === inFlightKey) return;
+  if (registrationKey === lastRegistrationKey) return;
 
   try {
     const session = await SessionStore.get();
     const accessToken = session?.accessToken;
     if (!accessToken) return;
 
-    inFlightKey = registrationKey;
     await apiFetch(
       {
         url: "/live-activities",
@@ -117,10 +136,9 @@ async function flushLiveActivityRegistration(): Promise<void> {
       },
       apiAuthOptions(accessToken),
     );
-    lastRegistrationKey = registrationKey;
+    // The activity may have ended while the request was in flight.
+    if (pending?.activityId === current.activityId) lastRegistrationKey = registrationKey;
   } catch {
     // Registration is best-effort (offline / unsigned / simulator).
-  } finally {
-    if (inFlightKey === registrationKey) inFlightKey = null;
   }
 }

@@ -28,6 +28,7 @@ import { tTv } from "@/lib/i18n/t-tv";
 import { ensureJahannamContent, getJahannamVerses, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const THEME_ORDER = [
   "warnings",
@@ -192,3 +193,6 @@ const styles = StyleSheet.create({
   rowCopy: { flex: 1, gap: Spacing.one },
   tafsir: { lineHeight: 16, fontStyle: "italic" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam/verses");

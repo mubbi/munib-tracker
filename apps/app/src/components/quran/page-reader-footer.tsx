@@ -1,14 +1,13 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { ThemedText } from "@/components/themed-text";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { isRTL, mushafPageBackward, mushafPageForward } from "@/lib/rtl";
@@ -40,7 +39,7 @@ export function PageReaderFooter({
 }: PageReaderFooterProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { width } = useWindowDimensions();
   const layoutRtl = isRTL();
   const tv = isTV();

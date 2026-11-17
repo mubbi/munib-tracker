@@ -117,6 +117,38 @@ const routeSuspenseFallback = path.join(
 );
 
 /**
+ * The resolver below aliases two *internal* files of Expo packages. If an SDK
+ * upgrade moves them, the alias silently stops matching (the custom loader / web
+ * push shim just disappear), so fail loudly at Metro start-up instead.
+ */
+function assertInternalAliasTarget(pkg, relFile, importerFiles, needle) {
+  const pkgDir = path.dirname(require.resolve(`${pkg}/package.json`, { paths: [projectRoot] }));
+  const target = path.join(pkgDir, relFile);
+  const importers = importerFiles.map((f) => path.join(pkgDir, f));
+  const stillImported = importers.some(
+    (f) => fs.existsSync(f) && fs.readFileSync(f, "utf8").includes(needle),
+  );
+  if (!fs.existsSync(target) || !stillImported) {
+    throw new Error(
+      `[metro.config] ${pkg}/${relFile} is no longer imported via "${needle}". ` +
+        "Update the matching alias in metro.config.js resolveRequest (see docs/EXPO_SDK_58_UPGRADE_PLAN.md §5.1).",
+    );
+  }
+}
+assertInternalAliasTarget(
+  "expo-router",
+  "build/views/SuspenseFallback.js",
+  ["build/exports.js", "build/useScreens.js"],
+  "./views/SuspenseFallback",
+);
+assertInternalAliasTarget(
+  "expo-notifications",
+  "build/PushTokenManager.js",
+  ["build/getDevicePushTokenAsync.js", "build/TokenEmitter.js"],
+  "./PushTokenManager",
+);
+
+/**
  * Orval used to wipe+rewrite packages/api-client/src/generated (now clean:false
  * in orval.config.ts). If generated files still disappear from Metro's FileMap
  * on Windows, doesFileExist can be false while paths exist on disk — fall back
@@ -175,6 +207,7 @@ const tvNativeStubs = isTvMetro
       "expo-location": path.join(projectRoot, "src/lib/tv-stubs/expo-location.ts"),
       "expo-sensors": path.join(projectRoot, "src/lib/tv-stubs/expo-sensors.ts"),
       "expo-haptics": path.join(projectRoot, "src/lib/tv-stubs/expo-haptics.ts"),
+      "expo-hinge": path.join(projectRoot, "src/lib/tv-stubs/expo-hinge.ts"),
       "expo-local-authentication": path.join(
         projectRoot,
         "src/lib/tv-stubs/expo-local-authentication.ts",

@@ -174,6 +174,35 @@ describe("LiveActivitiesService", () => {
     expect(apns.sendUpdate).toHaveBeenCalled();
   });
 
+  it("hands an activity to a new account only when it presents the same push token", async () => {
+    const first = await authService.completeOAuth(AuthProvider.Google, { code: "first" });
+    const second = await authService.createGuestSession({ deviceId: "guest-device-la-switch" });
+    const register = (accessToken: string, pushToken: string) =>
+      service.upsert(accessToken, {
+        activityId: "activity-switch",
+        pushToken,
+        environment: LiveActivityApnsEnvironment.Sandbox,
+        updates: [
+          {
+            phase: "markSalah",
+            executeAt: new Date(Date.now() + 5 * 60_000).toISOString(),
+            contentState: contentState(),
+          },
+        ],
+      });
+
+    await register(first.accessToken, "1".repeat(64));
+    await expect(register(second.accessToken, "2".repeat(64))).rejects.toThrow(/another account/);
+    await expect(register(second.accessToken, "1".repeat(64))).resolves.toMatchObject({
+      scheduled: 1,
+    });
+
+    const token = await dataSource
+      .getRepository(LiveActivityPushTokenEntity)
+      .findOneOrFail({ where: { activityId: "activity-switch" } });
+    expect(token.userId).toBe(second.userId);
+  });
+
   it("rejects content states that exceed the APNs budget", async () => {
     const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
     await expect(

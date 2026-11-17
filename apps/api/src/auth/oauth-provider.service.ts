@@ -77,6 +77,19 @@ export class OAuthProviderService {
       throw new BadRequestException("An OAuth code, id_token, or access_token is required");
     }
 
+    const profile = await this.exchangeWithProvider(provider, dto);
+    // The account id keys user lookups (TypeORM `where`), so a provider response
+    // without a stable id must never reach the database layer.
+    if (typeof profile.providerAccountId !== "string" || profile.providerAccountId.trim() === "") {
+      throw new UnauthorizedException(`${provider} did not return an account id`);
+    }
+    return profile;
+  }
+
+  private exchangeWithProvider(
+    provider: AuthProvider,
+    dto: OAuthCallbackDto,
+  ): Promise<OAuthProfile> {
     switch (provider) {
       case "google":
         return this.exchangeGoogle(dto);

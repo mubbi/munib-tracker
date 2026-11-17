@@ -23,6 +23,7 @@ import { loadDuaItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { createDuaSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
 
@@ -298,3 +299,6 @@ const styles = StyleSheet.create({
   },
   resultBody: { flex: 1, gap: 2 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/dua");

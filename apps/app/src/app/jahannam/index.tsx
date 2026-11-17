@@ -37,6 +37,7 @@ import {
 } from "@/lib/jahannam";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function JahannamScreen() {
   const router = useRouter();
@@ -386,3 +387,6 @@ const styles = StyleSheet.create({
   },
   sinTileThird: { width: "31%" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam");

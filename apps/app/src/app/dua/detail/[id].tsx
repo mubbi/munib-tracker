@@ -24,6 +24,7 @@ import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { recordContinueActivity } from "@/stores/continue-store";
@@ -212,3 +213,6 @@ const styles = StyleSheet.create({
     gap: Spacing.four,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/dua/detail/[id]");

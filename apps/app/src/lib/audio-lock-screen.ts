@@ -1,9 +1,10 @@
-import type { AudioMetadata } from "expo-audio";
+import type { AudioLockScreenOptions, AudioMetadata } from "expo-audio";
 import { type AudioPlayer, requestNotificationPermissionsAsync } from "expo-audio";
 import { Image, Platform } from "react-native";
 
 import i18n from "@/i18n";
 
+import { PLAYER_SEEK_STEP_SECONDS } from "@/lib/audio-seek-step";
 import { isTV } from "@/lib/platform/is-tv";
 
 const APP_ICON = require("../../assets/images/icon.png");
@@ -79,10 +80,24 @@ export function buildLockScreenMetadata(
   return metadata;
 }
 
-export type LockScreenControlOptions = {
-  showSeekForward?: boolean;
-  showSeekBackward?: boolean;
-};
+/**
+ * Lock-screen / media-notification transport for the shared player.
+ *
+ * Seek ±{@link PLAYER_SEEK_STEP_SECONDS}s only when a queue is loaded (matching
+ * the in-app skip buttons). Native next / previous track is deliberately not
+ * enabled: expo-audio only routes those commands to an `AudioPlaylist`
+ * (`supportsNextTrack` is false for a single `AudioPlayer`, and no JS event is
+ * emitted), while our queue is JS-driven over two `AudioPlayer`s (gapless A/B
+ * hand-off, Qur'an repeat plans, translation TTS between ayahs, clip ends).
+ */
+export function buildLockScreenOptions(hasQueue: boolean): AudioLockScreenOptions {
+  return {
+    showSeekForward: hasQueue,
+    showSeekBackward: hasQueue,
+    seekForwardIntervalSeconds: PLAYER_SEEK_STEP_SECONDS,
+    seekBackwardIntervalSeconds: PLAYER_SEEK_STEP_SECONDS,
+  };
+}
 
 /** Register the active player with OS lock-screen / notification media controls. */
 export function activateLockScreenControls(
@@ -98,15 +113,12 @@ export function activateLockScreenControls(
     ? { ...track, lockScreenGroupId: trackId?.split(":")[0] }
     : track;
 
-  const options: LockScreenControlOptions = {
-    // expo-audio 57 maps skip ±10s to next/prev on web; on native this at least
-    // enables adjacent transport buttons when OS track skip is unavailable.
-    showSeekForward: hasQueue,
-    showSeekBackward: hasQueue,
-  };
-
   try {
-    player.setActiveForLockScreen(true, buildLockScreenMetadata(trackInfo, queue), options);
+    player.setActiveForLockScreen(
+      true,
+      buildLockScreenMetadata(trackInfo, queue),
+      buildLockScreenOptions(hasQueue),
+    );
   } catch {
     // Non-fatal: in-app playback still works.
   }

@@ -26,6 +26,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { resolveAppVersion } from "@/lib/app/resolve-app-version";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? "https://munibtracker.app";
 const PRIVACY_URL = `${SITE_URL}/privacy`;
@@ -296,3 +297,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/about");

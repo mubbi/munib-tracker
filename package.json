@@ -37,6 +37,8 @@
     "release:app:android-tv": "pnpm --filter app android:bundle:release:tv",
     "release:app:android-tv:apk": "pnpm --filter app android:apk:release:tv",
     "release:app:android-tv:upload": "pnpm --filter app android:upload:release:tv",
+    "release:app:wear": "pnpm --filter app android:bundle:release:wear",
+    "release:app:wear:upload": "pnpm --filter app android:upload:release:wear",
     "release:app:ios": "pnpm --filter app ios:archive:release",
     "release:app:ios:upload": "pnpm --filter app ios:upload:release",
     "release:app:ios:upload:validate": "pnpm --filter app ios:upload:release:validate",
@@ -109,17 +111,18 @@
     "distribute:screenshot-exports": "node tools/screenshot-studio/scripts/distribute-exports.mjs"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.0",
-    "@commitlint/cli": "^21.2.1",
-    "@commitlint/config-conventional": "^21.2.0",
+    "@biomejs/biome": "^2.6.8",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
     "commitizen": "^4.3.2",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.1.7",
-    "turbo": "^2.5.4",
-    "typescript": "^6.0.0"
+    "turbo": "^2.11.11",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "@typescript/native": "npm:typescript@^7.0.2"
   },
-  "packageManager": "pnpm@11.26.0",
+  "packageManager": "pnpm@12.21.0",
   "engines": {
-    "node": ">=22"
+    "node": ">=24.15.0"
   }
 }

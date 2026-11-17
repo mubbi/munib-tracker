@@ -64,7 +64,13 @@ export function NavRow({
       ]}
     >
       <IconWell icon={icon} well={tv ? 48 : undefined} size={tv ? 22 : undefined} />
-      <ThemedText type="small" style={[styles.label, tv && { fontSize: TvLayout.bodyFontSize }]}>
+      <ThemedText
+        type="small"
+        // A single word wider than the label slot (TV 3-column Library grid,
+        // long locales) otherwise breaks with an orphaned letter ("Bookmark / s").
+        android_hyphenationFrequency="normal"
+        style={[styles.label, tv && { fontSize: TvLayout.bodyFontSize }]}
+      >
         {label}
       </ThemedText>
       {isNew ? <NewBadge style={styles.newBadge} /> : null}
@@ -115,6 +121,8 @@ const styles = StyleSheet.create({
   },
   rowTv: {
     minHeight: TvLayout.minFocusTarget,
+    // Tighter than phone: in the 3-column Library grid the label slot is ~90dp.
+    gap: Spacing.two,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.four,
     borderRadius: Radius.lg,

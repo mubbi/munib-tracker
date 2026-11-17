@@ -32,6 +32,7 @@ import { isTV } from "@/lib/platform/is-tv";
 import { resolveArabicLineHeight } from "@/lib/reading-typography";
 import { arabicTextAlign, useIsRTL } from "@/lib/rtl";
 import { createCustomAdhkarSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import type { SttErrorKind } from "@/lib/stt";
 import {
   customAdhkarMediaIds,
@@ -653,3 +654,6 @@ const styles = StyleSheet.create({
   inputRtl: { writingDirection: "rtl", fontSize: 20 },
   saveButton: { marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/adhkar-builder");

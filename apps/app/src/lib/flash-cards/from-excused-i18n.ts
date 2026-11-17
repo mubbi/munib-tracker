@@ -4,7 +4,7 @@ import {
   TRAVEL_SECTIONS,
 } from "@munib-tracker/shared/content/travel-guide";
 
-import { buildMcq } from "./mcq-helpers";
+import { buildMcq, condenseText } from "./mcq-helpers";
 import type { StudyMcq, StudySourceId } from "./types";
 
 type Translate = (key: string) => string;
@@ -28,7 +28,7 @@ function guideSectionCards(
   if (topics.length < 4) return [];
 
   const titles = topics.map((tpc) => tpc.title);
-  const bodies = topics.map((tpc) => tpc.summary);
+  const bodies = topics.map((tpc) => condenseText(tpc.summary));
   const out: StudyMcq[] = [];
 
   for (const topic of topics) {
@@ -36,7 +36,7 @@ function guideSectionCards(
       id: `${sourceId}:guide-describe:${topic.id}`,
       sourceId,
       prompt: `What best describes “${topic.title}”?`,
-      correct: topic.summary,
+      correct: condenseText(topic.summary),
       distractorPool: bodies,
       explanation: topic.summary,
       categoryLabelKey: `flashCards.category.${sourceId}`,
@@ -46,7 +46,7 @@ function guideSectionCards(
     const identify = buildMcq({
       id: `${sourceId}:guide-identify:${topic.id}`,
       sourceId,
-      prompt: `Which topic covers this: “${topic.summary}”?`,
+      prompt: `Which topic covers this: “${condenseText(topic.summary, 80)}”?`,
       correct: topic.title,
       distractorPool: titles,
       explanation: topic.summary,
@@ -72,7 +72,7 @@ function obligationCards(
 
   if (obligations.length < 4) return [];
 
-  const pool = obligations.map((o) => o.text);
+  const pool = obligations.map((o) => condenseText(o.text));
   const out: StudyMcq[] = [];
 
   for (const item of obligations) {
@@ -80,7 +80,7 @@ function obligationCards(
       id: `${sourceId}:obligation:${item.id}`,
       sourceId,
       prompt: `Which of these is a key point in the ${t(`${namespace}.title`)} guide?`,
-      correct: item.text,
+      correct: condenseText(item.text),
       distractorPool: pool,
       explanation: item.text,
       categoryLabelKey: `flashCards.category.${sourceId}`,

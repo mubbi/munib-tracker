@@ -1,13 +1,13 @@
 # Munib Tracker — Product app (`apps/app`)
 
-Universal **Expo SDK 57** app (iOS · Android · Web · **Apple TV / Android TV** from one codebase) for salah, zikr, qaza, and Islamic content. Offline-first, guest-first.
+Universal **Expo SDK 58** app (iOS · Android · Web · **Apple TV / Android TV** from one codebase) for salah, zikr, qaza, and Islamic content. Offline-first, guest-first.
 
-> Part of the [Munib Tracker monorepo](../../README.md). Always run commands from the **repo root** with pnpm workspace filters. Read [`AGENTS.md`](AGENTS.md) before writing code (it mandates the Expo SDK 57 docs + the Fuse.js search rules).
+> Part of the [Munib Tracker monorepo](../../README.md). Always run commands from the **repo root** with pnpm workspace filters. Read [`AGENTS.md`](AGENTS.md) before writing code (it mandates the Expo SDK 58 docs + the Fuse.js search rules).
 
 ## Develop
 
 ```bash
-pnpm install                   # from repo root (pnpm 11 workspace)
+pnpm install                   # from repo root (pnpm 12 workspace)
 pnpm --filter app dev          # Expo dev server — pick a platform in the CLI
 pnpm --filter app ios          # iOS simulator (dev build)
 pnpm --filter app android      # Android emulator (dev build)
@@ -21,6 +21,8 @@ pnpm generate:app:brand-assets # phone + TV icons / Leanback banner / Top Shelf
 ```
 
 TV guide (prebuild ↔ release ↔ upload): [`docs/TV.md`](../../docs/TV.md). This uses `expo-dev-client` (not Expo Go) — native modules need a dev build.
+
+**Windows Android builds** need SDK CMake 3.31+ (`sdkmanager "cmake;3.31.6"`) and Windows long paths enabled (`LongPathsEnabled=1`). Since react-native-gesture-handler 3, C++ object paths exceed 260 characters, and the default CMake 3.22.1 ships a ninja that can't handle them. The prebuild, run, and release scripts write `android/local.properties` with `sdk.dir` and `cmake.dir`, so `ANDROID_HOME` doesn't have to be exported. Run Metro from PowerShell, not Git Bash.
 
 ## Gates
 

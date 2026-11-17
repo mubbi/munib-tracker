@@ -95,6 +95,7 @@ export type AppVersionControllerGetVersionMetaQueryResult = NonNullable<Awaited<
 export type AppVersionControllerGetVersionMetaQueryError = unknown
 
 
+/** @summary Compare client semver with platform update policy */
 export function useAppVersionControllerGetVersionMeta<TData = Awaited<ReturnType<typeof appVersionControllerGetVersionMeta>>, TError = unknown>(
  params: AppVersionControllerGetVersionMetaParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof appVersionControllerGetVersionMeta>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -105,6 +106,7 @@ export function useAppVersionControllerGetVersionMeta<TData = Awaited<ReturnType
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Compare client semver with platform update policy */
 export function useAppVersionControllerGetVersionMeta<TData = Awaited<ReturnType<typeof appVersionControllerGetVersionMeta>>, TError = unknown>(
  params: AppVersionControllerGetVersionMetaParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof appVersionControllerGetVersionMeta>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -115,14 +117,12 @@ export function useAppVersionControllerGetVersionMeta<TData = Awaited<ReturnType
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Compare client semver with platform update policy */
 export function useAppVersionControllerGetVersionMeta<TData = Awaited<ReturnType<typeof appVersionControllerGetVersionMeta>>, TError = unknown>(
  params: AppVersionControllerGetVersionMetaParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof appVersionControllerGetVersionMeta>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Compare client semver with platform update policy
- */
-
+/** @summary Compare client semver with platform update policy */
 export function useAppVersionControllerGetVersionMeta<TData = Awaited<ReturnType<typeof appVersionControllerGetVersionMeta>>, TError = unknown>(
  params: AppVersionControllerGetVersionMetaParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof appVersionControllerGetVersionMeta>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient

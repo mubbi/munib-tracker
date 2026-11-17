@@ -6,9 +6,10 @@ import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  type ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   View,
+  type ViewInstance,
 } from "react-native";
 import {
   JannahCallout,
@@ -45,6 +46,7 @@ import {
   getSahabaProfilesByCategory,
   isSahabaContentReady,
 } from "@/lib/sahaba";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const CATEGORY_ICONS: Record<SahabaCategory, AppIcon> = {
   caliphs: { ios: "crown.fill", android: "workspace_premium", web: "workspace_premium" },
@@ -62,8 +64,8 @@ export default function SahabaScreen() {
     ensureSahabaContent,
     isSahabaContentReady,
   );
-  const scrollRef = useRef<ScrollView>(null);
-  const directoryRef = useRef<View>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
+  const directoryRef = useRef<ViewInstance>(null);
   const scrollYRef = useRef(0);
   const tv = isTV();
   // TV: "jump to directory" moves D-pad focus (bumping this remounts the first
@@ -347,3 +349,6 @@ const styles = StyleSheet.create({
   rowsTv: { flexDirection: "row", flexWrap: "wrap" },
   cellTv: { flexBasis: "48%", flexGrow: 1 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/sahaba");

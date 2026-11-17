@@ -482,7 +482,7 @@
       "audio": "Ses"
     },
     "continueAction": {
-      "quran": "Continue reading",
+      "quran": "Okumaya devam edin",
       "hadith": "Hadise dön",
       "dua": "Duayı aç",
       "zikr": "Zikirleri aç",
@@ -1208,7 +1208,9 @@
       "a11yStart": "Kilit ekranında sonraki namaz takibini başlat",
       "a11yStop": "Namaz canlı güncelleme takibini durdur"
     },
-    "tvUnavailableBody": "Yerel hatırlatıcılar ve Live Activities TV'de kullanılamaz. Bildirim tercihlerinizi telefonunuzdan yönetin."
+    "tvUnavailableBody": "Yerel hatırlatıcılar ve Live Activities TV'de kullanılamaz. Bildirim tercihlerinizi telefonunuzdan yönetin.",
+    "preciseAdhan": "Ezan için tam zamanlama",
+    "preciseAdhanHint": "Ezan, pil tasarrufu modunda bile tam vaktinde okunur. Android, ezan başlayana kadar durum çubuğunda bir alarm simgesi gösterir."
   },
   "fonts": {
     "eyebrow": "Ayarlar",
@@ -1412,18 +1414,18 @@
     "favEmptyDescTv": "Buraya kaydetmek için herhangi bir ismin yıldızını seçin."
   },
   "quran": {
-    "eyebrow": " Noble Kur'an",
+    "eyebrow": "Kur'an-ı Kerim",
     "title": "Kur'an",
-    "subtitle": "Read, listen, ve reflect",
-    "searchSurah": "by name, meaning, or number Ara",
-    "filterAll": "Tüm",
-    "continueReading": "Okumaya sürdür",
+    "subtitle": "Oku, dinle ve tefekkür et",
+    "searchSurah": "Ad, anlam veya numaraya göre ara",
+    "filterAll": "Tümü",
+    "continueReading": "Okumaya devam edin",
     "continueAt": "Sure {{surah}} · Ayet {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
     "ayahCount": "{{count}} ayet",
     "surahList": "Sureler",
-    "surahCount": "{{shown}}  {{total}}",
+    "surahCount": "{{shown}} / {{total}}",
     "reciter": "Okuyucu",
     "translation": "Çeviri",
     "showTransliteration": "transliteration Göster",
@@ -1436,7 +1438,7 @@
     "playAyah": "Oynat ayah {{n}}",
     "bookmark": "Yer imi",
     "bookmarks": "Yer imleri",
-    "viewBookmarks": "bookmarks Görüntüle",
+    "viewBookmarks": "Yer imlerini görüntüle",
     "bookmarksTitle": "Yer imleri",
     "bookmarksSubtitle": "Sizin kaydedildi ayahs",
     "bookmarkEmptyTitle": "Henüz bookmarks yok",
@@ -1448,11 +1450,11 @@
     "juzN": "Cüz {{n}}",
     "browseByJuz": "Cüze göre göz at",
     "search": "Ara",
-    "searchTitle": "the Kur'an Ara",
-    "searchSubtitle": "Find ayahs by çeviri veya transkripsiyon",
-    "searchPlaceholder": "words in translation… Ara",
-    "searchHint": "Searches  bundled çeviri ve transkripsiyon çevrimdışı.",
-    "noResults": "No ayahs matched sizin ara.",
+    "searchTitle": "Kur'an'da ara",
+    "searchSubtitle": "Ayetleri Arapça, İngilizce, harf çevirisi veya referansla bulun",
+    "searchPlaceholder": "Meal, harf çevirisi veya 2:255 ara…",
+    "searchHint": "Arapça, İngilizce meal ve harf çevirisinde çevrimdışı esnek arama — ayet adları ve referanslar dahil.",
+    "noResults": "Aramanızla eşleşen ayet bulunamadı.",
     "resultsCount": "{{count}} sonuç",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Sure bulunamadı",
@@ -1633,7 +1635,10 @@
     "bookmarkEmptyDescTv": "Buraya kaydetmek için herhangi bir ayette yer imi simgesini seçin.",
     "goToAyahPlaceholder": "Ayet 1–{{max}}",
     "goToAyahA11y": "Ayet numarasına git",
-    "goToAyahInvalid": "1 ile {{max}} arasında bir ayet girin"
+    "goToAyahInvalid": "1 ile {{max}} arasında bir ayet girin",
+    "searchAyahs": "Ayet ara",
+    "findSurah": "Sure bul",
+    "noSurahResults": "Aramanızla eşleşen sure bulunamadı."
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -2810,7 +2815,7 @@
     "correctTotalConfirmAction": "Toplamı güncelle"
   },
   "hifz": {
-    "short": "Hifz",
+    "short": "Hıfz",
     "title": "Hifz takibi",
     "subtitle": "Ayahs you've memorized veya need  gözden geçir",
     "markMemorized": "memorized İşaretle",
@@ -5482,7 +5487,12 @@
       "reveal": "Göster",
       "revealHint": "Sıradaki gizli kelimeyi gösterir. Ayetin kalanı için uzun basın.",
       "end": "Bitir",
-      "revealAll": "Tümünü göster"
+      "revealAll": "Tümünü göster",
+      "revealAllConfirmTitle": "Ayetin tamamı gösterilsin mi?",
+      "revealAllConfirmMessage": "Bu ayetteki tüm gizli kelimeler gösterilecek.",
+      "endConfirmTitle": "Bu oturum bitirilsin mi?",
+      "endConfirmMessage": "Şimdiye kadar yaptığınız alıştırmanın özetini göreceksiniz.",
+      "endConfirm": "Oturumu bitir"
     },
     "word": {
       "matched": "eşleşti",
@@ -5502,16 +5512,11 @@
       "hearAyah": "Bu ayeti dinle",
       "markMemorized": "Ezberlendi olarak işaretle",
       "listened": "Bu bölümü dinlediniz. Sesinizi takip etmesi için dinleyiciyi indirin.",
-      "countMatched_other": "{{count}} eşleşti",
-      "countMatched_one": "{{count}} eşleşti",
-      "countNotSure_other": "{{count}} emin değil",
-      "countNotSure_one": "{{count}} emin değil",
-      "countTryAgain_other": "{{count}} yeniden denenecek",
-      "countTryAgain_one": "{{count}} yeniden denenecek",
-      "countNotReached_other": "{{count}} ulaşılmadı",
-      "countNotReached_one": "{{count}} ulaşılmadı",
-      "listenerNotSure_other": "Dinleyici {{count}} kelimeden emin olamadı",
-      "listenerNotSure_one": "Dinleyici {{count}} kelimeden emin olamadı"
+      "headListened": "Bu bölümü dinlediniz",
+      "practiseAgain": "Yeniden çalış",
+      "weakAyahsTitle": "Yeniden çalışılacak ayetler",
+      "ayahChip": "Ayet {{ayah}}",
+      "practiseAyah": "{{ayah}}. ayeti yeniden çalış"
     },
     "revision": {
       "title": "Tekrar",

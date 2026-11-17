@@ -23,6 +23,7 @@ import {
 } from "@/lib/backup";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
 import { reloadAllStores } from "@/stores/reload-all-stores";
 
@@ -202,3 +203,6 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/backup");

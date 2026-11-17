@@ -1,4 +1,4 @@
-import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
@@ -52,6 +52,7 @@ export function QuickActionGrid({
   items,
   columns,
   singleRow = false,
+  overflow = "wrap",
 }: {
   items: QuickActionItem[];
   /** Override the responsive column count; omit to reflow with viewport width. */
@@ -61,6 +62,12 @@ export function QuickActionGrid({
    * wrapping grid so labels stay readable instead of clipping.
    */
   singleRow?: boolean;
+  /**
+   * What a `singleRow` does when the tiles don't fit: `"wrap"` (default) falls
+   * back to the grid; `"scroll"` keeps one row and scrolls it sideways, with a
+   * part-visible tile at the edge hinting there is more. TV always wraps.
+   */
+  overflow?: "wrap" | "scroll";
 }) {
   const { width } = useWindowDimensions();
   const available = contentWidthFor(width);
@@ -70,6 +77,25 @@ export function QuickActionGrid({
   const wellSize = fitSingleRow ? compactWellSize(available, items.length) : 52;
   const iconSize = fitSingleRow ? Math.round(wellSize * 0.45) : 24;
   const tv = isTV();
+
+  if (singleRow && !fitSingleRow && overflow === "scroll" && !tv) {
+    return (
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={styles.scrollRow}
+      >
+        {items.map((item) => (
+          <View key={item.id} style={styles.tileSlotScroll}>
+            {/* Not `compact`: labels may wrap to two lines here — the fixed
+                tile width can't grow, and one-line labels truncate. */}
+            <QuickAction item={item} wellSize={52} iconSize={24} compact={false} />
+          </View>
+        ))}
+      </ScrollView>
+    );
+  }
 
   const grid = (
     <View style={[styles.grid, fitSingleRow && styles.gridSingleRow]}>
@@ -110,18 +136,23 @@ function QuickAction({
   const wellRadius = wellSize < 50 ? Radius.md : Radius.lg;
 
   return (
-    <View style={[styles.tileWrap, compact && styles.tileWrapCompact]}>
+    // The whole tile (well + label) is one target: a larger hit area than the
+    // well alone, a single hover/ripple/TV-focus surface, and no dead zone
+    // between the icon and its label.
+    <PressableScale
+      accessibilityRole="button"
+      accessibilityLabel={
+        item.isNew && item.newLabel ? `${item.label}, ${item.newLabel}` : item.label
+      }
+      onPress={item.onPress}
+      scaleTo={0.95}
+      haptic="light"
+      style={[styles.tile, compact && styles.tileCompact]}
+    >
       {/* Tinted wells on opaque cards — not Liquid Glass. GlassView on a solid
           card + inside Stagger's opacity animation intermittently drops tint and
           symbols until the tile remounts (tab switch / scroll back). */}
-      <PressableScale
-        accessibilityRole="button"
-        accessibilityLabel={
-          item.isNew && item.newLabel ? `${item.label}, ${item.newLabel}` : item.label
-        }
-        onPress={item.onPress}
-        scaleTo={0.92}
-        haptic="light"
+      <View
         style={[
           styles.iconWell,
           {
@@ -134,8 +165,10 @@ function QuickAction({
         ]}
       >
         <AppIcon icon={item.icon} size={iconSize} tintColor={tint} />
-      </PressableScale>
-      {item.isNew ? <NewBadge style={styles.newBadge} /> : null}
+        {/* Anchored to the well's corner (not the slot) so it stays attached to
+            its icon at every column width. */}
+        {item.isNew ? <NewBadge style={styles.newBadge} /> : null}
+      </View>
       <ThemedText
         type="caption"
         style={[styles.label, compact && styles.labelCompact, { color: colors.foreground }]}
@@ -145,7 +178,7 @@ function QuickAction({
       >
         {item.label}
       </ThemedText>
-    </View>
+    </PressableScale>
   );
 }
 
@@ -153,7 +186,8 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    rowGap: Spacing.three,
+    // Tiles carry their own vertical padding, so rows only need a hairline gap.
+    rowGap: Spacing.one,
     columnGap: 0,
   },
   gridSingleRow: {
@@ -161,26 +195,40 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   tileSlot: {
-    alignItems: "center",
-    paddingHorizontal: Spacing.one,
+    paddingHorizontal: Spacing.half,
   },
   tileSlotSingleRow: {
     flex: 1,
     minWidth: 0,
-    alignItems: "center",
   },
-  tileWrap: {
+  scrollRow: {
+    flexDirection: "row",
+    gap: Spacing.one,
+  },
+  /** ~4.5 tiles across a phone column — the half tile signals the row scrolls. */
+  tileSlotScroll: {
+    width: 72,
+  },
+  tile: {
+    alignSelf: "stretch",
     alignItems: "center",
     gap: Spacing.two,
-    width: "100%",
+    // Top padding also keeps the "New" pill inside the tile's ripple clip.
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.one,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
   },
-  tileWrapCompact: {
+  tileCompact: {
     gap: Spacing.one,
+    paddingVertical: Spacing.one,
+    paddingHorizontal: 0,
+    borderRadius: Radius.md,
   },
   newBadge: {
     position: "absolute",
-    top: -6,
-    end: Spacing.one,
+    top: -Spacing.two,
+    end: -Spacing.three,
     alignSelf: "auto",
   },
   iconWell: {
@@ -190,10 +238,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   label: {
+    alignSelf: "stretch",
     textAlign: "center",
   },
   labelCompact: {
-    width: "100%",
     paddingHorizontal: Spacing.half,
   },
 });

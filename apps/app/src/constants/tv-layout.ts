@@ -46,8 +46,6 @@ export const TvLayout = {
   sideRailWidthExpanded: tvDp(288),
   /** Icon-only rail when D-pad focus is in content. */
   sideRailWidthCollapsed: tvDp(96),
-  /** @deprecated Prefer sideRailWidthExpanded — kept for wide-layout helpers. */
-  sideRailWidth: tvDp(288),
   /** Focus ring width (pt). */
   focusRingWidth: tvDp(3),
   /** Dense chip / filter row min height on TV. */

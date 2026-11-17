@@ -30,6 +30,7 @@ import {
 } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
   const router = useRouter();
@@ -124,3 +125,6 @@ const styles = StyleSheet.create({
   },
   copy: { flex: 1, gap: Spacing.half },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam/reflection");

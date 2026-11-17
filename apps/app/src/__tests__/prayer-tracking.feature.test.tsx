@@ -19,7 +19,7 @@ describe("Prayer tracking dashboard", () => {
   jest.setTimeout(30_000);
 
   it("reflects a completed prayer in the Prayers stat card", async () => {
-    renderWithProviders(<HomeScreen />);
+    await renderWithProviders(<HomeScreen />);
 
     await waitFor(
       () => {

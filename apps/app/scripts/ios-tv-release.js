@@ -139,6 +139,7 @@ function main() {
   const { marketingVersion, buildNumber, versionEnvKey, buildEnvKey } = preparePlatformRelease(
     "tvos",
     appRoot,
+    { requireVersionCodes: true },
   );
   logReleaseVersionSummary(appRoot, { activePlatform: "tvos" });
   syncIosMarketingVersion(marketingVersion, { envKey: versionEnvKey });

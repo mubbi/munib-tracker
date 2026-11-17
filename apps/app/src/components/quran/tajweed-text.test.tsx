@@ -8,8 +8,10 @@ import { MunibThemeProvider } from "@/providers/theme-provider";
 
 const segments: TajweedSegment[] = [{ text: "بِسْ", rule: "ghunnah" }, { text: "مِ" }];
 
-function renderTajweed(props: { fallback?: string; segments?: TajweedSegment[] | null } = {}) {
-  return render(
+async function renderTajweed(
+  props: { fallback?: string; segments?: TajweedSegment[] | null } = {},
+) {
+  return await render(
     <MunibThemeProvider>
       <TajweedText
         fallback={props.fallback ?? "بِسْمِ اللَّهِ"}
@@ -22,21 +24,21 @@ function renderTajweed(props: { fallback?: string; segments?: TajweedSegment[] |
 
 describe("TajweedText", () => {
   it("renders fallback Arabic when segments are missing", async () => {
-    renderTajweed({ fallback: "قُلْ هُوَ ٱللَّهُ أَحَدٌ" });
+    await renderTajweed({ fallback: "قُلْ هُوَ ٱللَّهُ أَحَدٌ" });
     await waitFor(() => {
       expect(screen.getByText("قُلْ هُوَ ٱللَّهُ أَحَدٌ")).toBeTruthy();
     });
   });
 
   it("renders fallback Arabic when segments are empty", async () => {
-    renderTajweed({ fallback: "fallback ayah", segments: [] });
+    await renderTajweed({ fallback: "fallback ayah", segments: [] });
     await waitFor(() => {
       expect(screen.getByText("fallback ayah")).toBeTruthy();
     });
   });
 
   it("toggles a tajweed tooltip when a colored segment is pressed", async () => {
-    renderTajweed({ segments });
+    await renderTajweed({ segments });
 
     await waitFor(() => {
       expect(screen.getByText(`بِسْ${ARABIC_ZWJ}`)).toBeTruthy();
@@ -44,24 +46,24 @@ describe("TajweedText", () => {
     expect(screen.getByText("مِ")).toBeTruthy();
     expect(screen.queryByText("Ghunnah — Nasal sound — 2 beats")).toBeNull();
 
-    fireEvent.press(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"));
+    await fireEvent.press(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"));
     expect(screen.getByText("Ghunnah — Nasal sound — 2 beats")).toBeTruthy();
 
-    fireEvent.press(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"));
+    await fireEvent.press(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"));
     expect(screen.queryByText("Ghunnah — Nasal sound — 2 beats")).toBeNull();
   });
 
   it("clears the tooltip when the surrounding ayah text is pressed", async () => {
-    renderTajweed({ segments });
+    await renderTajweed({ segments });
 
     await waitFor(() => {
       expect(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats")).toBeTruthy();
     });
 
-    fireEvent.press(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"));
+    await fireEvent.press(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"));
     expect(screen.getByText("Ghunnah — Nasal sound — 2 beats")).toBeTruthy();
 
-    fireEvent.press(screen.getByText("مِ"));
+    await fireEvent.press(screen.getByText("مِ"));
     expect(screen.queryByText("Ghunnah — Nasal sound — 2 beats")).toBeNull();
   });
 
@@ -90,23 +92,23 @@ describe("TajweedText", () => {
     Platform.OS = "web";
 
     try {
-      const { unmount } = renderTajweed({ segments });
+      const { unmount } = await renderTajweed({ segments });
       await waitFor(() => {
         expect(matchMedia).toHaveBeenCalledWith("(hover: hover) and (pointer: fine)");
       });
 
-      fireEvent(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"), "mouseEnter");
+      await fireEvent(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"), "mouseEnter");
       expect(screen.getByText("Ghunnah — Nasal sound — 2 beats")).toBeTruthy();
 
-      fireEvent(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"), "mouseLeave");
+      await fireEvent(screen.getByLabelText("Ghunnah — Nasal sound — 2 beats"), "mouseLeave");
       expect(screen.queryByText("Ghunnah — Nasal sound — 2 beats")).toBeNull();
 
       media.matches = false;
-      act(() => {
+      await act(() => {
         for (const listener of listeners) listener({ matches: false });
       });
 
-      unmount();
+      await unmount();
       expect(media.removeEventListener).toHaveBeenCalled();
     } finally {
       Platform.OS = originalOS;

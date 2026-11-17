@@ -13,6 +13,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import {
   ensureTaharahContent,
@@ -111,3 +112,6 @@ export default function TaharahTopicScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/taharah/[topic]");

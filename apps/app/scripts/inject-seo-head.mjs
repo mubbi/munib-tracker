@@ -424,7 +424,7 @@ function buildHeadTags(route, meta) {
       `<script data-rh="true" type="application/ld+json">${JSON.stringify(block)}</script>`,
     );
   }
-  return { fullTitle: escapeHtml(fullTitle), tags: tags.join("") };
+  return { fullTitle: escapeHtml(fullTitle), tags };
 }
 
 function routeForFile(file) {
@@ -454,11 +454,80 @@ function destFileForLocalizedRoute(route, locale) {
   return path.join(distDir, localized.slice(1), "index.html");
 }
 
-function injectHeadIntoHtml(html, fullTitle, tags, htmlLang) {
-  html = html.replace(/<title[^>]*>.*?<\/title>/i, `<title data-rh="true">${fullTitle}</title>`);
+const attr = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`, "i"))?.[1];
+const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * Regex matching an existing tag in the page that is "the same tag" as `tag`
+ * (same meta name/property, canonical, or hreflang alternate). Attribute order
+ * differs between Expo's generateMetadata output and ours, hence the lookaheads.
+ * JSON-LD blocks have no identity beyond their exact content.
+ */
+function existingTagPattern(tag) {
+  if (tag.startsWith("<script")) return null;
+  if (tag.startsWith("<meta")) {
+    const name = attr(tag, "name");
+    if (name) return new RegExp(`<meta(?=[^>]*\\bname="${escapeRe(name)}")[^>]*>`, "i");
+    const property = attr(tag, "property");
+    if (!property) return null;
+    if (property === "og:locale:alternate") {
+      const content = attr(tag, "content") ?? "";
+      return new RegExp(
+        `<meta(?=[^>]*\\bproperty="og:locale:alternate")(?=[^>]*\\bcontent="${escapeRe(content)}")[^>]*>`,
+        "i",
+      );
+    }
+    return new RegExp(`<meta(?=[^>]*\\bproperty="${escapeRe(property)}")[^>]*>`, "i");
+  }
+  if (tag.startsWith("<link")) {
+    const rel = attr(tag, "rel");
+    if (rel === "canonical") return /<link(?=[^>]*\brel="canonical")[^>]*>/i;
+    const hreflang = attr(tag, "hreflang");
+    if (rel === "alternate" && hreflang) {
+      return new RegExp(
+        `<link(?=[^>]*\\brel="alternate")(?=[^>]*\\bhreflang="${escapeRe(hreflang)}")[^>]*>`,
+        "i",
+      );
+    }
+  }
+  return null;
+}
+
+let tagsAdded = 0;
+let tagsReplaced = 0;
+
+/**
+ * Safety net after Expo Router's `generateMetadata` (SDK 58+):
+ * - `mode: "fill"` (English pages): add only the tags a page is missing, so a route's
+ *   own generateMetadata output always wins.
+ * - `mode: "replace"` (`/{locale}/…` copies cloned from the English page): swap each
+ *   matching tag for its localized version.
+ */
+function injectHeadIntoHtml(html, fullTitle, tags, htmlLang, { mode = "fill" } = {}) {
+  // SDK 58 export only renders a <title> for routes whose generateMetadata returns
+  // one (registry routes); every other page has none, so insert it.
+  const titleTag = `<title data-rh="true">${fullTitle}</title>`;
+  const titlePattern = /<title[^>]*>[\s\S]*?<\/title>/i;
+  html = titlePattern.test(html)
+    ? html.replace(titlePattern, titleTag)
+    : html.replace(/<head([^>]*)>/i, `<head$1>${titleTag}`);
   html = html.replace(/<html([^>]*)lang="[^"]*"/i, `<html$1 lang="${htmlLang}"`);
-  if (!html.includes('rel="canonical"')) {
-    html = html.replace("</head>", `${tags}</head>`);
+  const missing = [];
+  for (const tag of tags) {
+    if (html.includes(tag)) continue;
+    const pattern = existingTagPattern(tag);
+    if (pattern?.test(html)) {
+      if (mode === "replace") {
+        html = html.replace(pattern, tag);
+        tagsReplaced += 1;
+      }
+      continue;
+    }
+    missing.push(tag);
+  }
+  if (missing.length > 0) {
+    html = html.replace("</head>", `${missing.join("")}</head>`);
+    tagsAdded += missing.length;
   }
   if (!html.includes("munib-locale-boot")) {
     html = html.replace("</head>", `<script>${LOCALE_BOOT_SCRIPT}</script></head>`);
@@ -506,14 +575,16 @@ function main() {
       const { fullTitle, tags } = buildHeadTags(route, meta);
       const dest = destFileForLocalizedRoute(route, entry.code);
       fs.mkdirSync(path.dirname(dest), { recursive: true });
-      const html = injectHeadIntoHtml(template, fullTitle, tags, entry.hreflang);
+      const html = injectHeadIntoHtml(template, fullTitle, tags, entry.hreflang, {
+        mode: "replace",
+      });
       fs.writeFileSync(dest, html, "utf8");
       localeCopies += 1;
     }
   }
 
   console.log(
-    `[seo] Injected per-route head into ${injected} HTML files (locale=${SEO_LOCALE}, hreflang×${LOCALE_META.length}, locale copies=${localeCopies}).`,
+    `[seo] Injected per-route head into ${injected} HTML files (locale=${SEO_LOCALE}, hreflang×${LOCALE_META.length}, locale copies=${localeCopies}; tags added=${tagsAdded}, localized=${tagsReplaced}).`,
   );
 }
 

@@ -19,6 +19,7 @@ import {
   getProphetsTopics,
   isProphetsContentReady,
 } from "@/lib/prophets";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureProphetsProgressLoaded } from "@/stores/prophets-progress-store";
 
@@ -95,3 +96,6 @@ export default function ProphetsTopicScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/prophets/[topic]");

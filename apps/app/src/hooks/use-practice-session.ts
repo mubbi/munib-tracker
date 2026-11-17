@@ -11,7 +11,7 @@ import { isTV } from "@/lib/platform/is-tv";
 import { singleAyahTrack } from "@/lib/quran-audio";
 import { alignPracticeWords } from "@/lib/quran-companion/align-words";
 import { enterRecordMode, restorePlaybackMode } from "@/lib/quran-companion/audio/audio-mode";
-import { createRecitationCapture } from "@/lib/quran-companion/audio/capture";
+import { useRecitationCapture } from "@/lib/quran-companion/audio/capture";
 import type { MicPermission, RecitationCapture } from "@/lib/quran-companion/audio/types";
 import type { RecitationEngine } from "@/lib/quran-companion/engine/types";
 import { reportPracticeError, toPracticeErrorCode } from "@/lib/quran-companion/error-codes";
@@ -169,8 +169,11 @@ export function usePracticeSession(input: {
   // Until the listener store has read its manifest, the state is unknown — stay
   // "loading" rather than flashing listen-only and back (dock + captions flicker).
   const listenerLoaded = useStore(quranListenerStore, (st) => st.isReady);
-  const captureRef = useRef<RecitationCapture | null>(null);
-  if (!captureRef.current) captureRef.current = createRecitationCapture();
+  // expo-audio's `useAudioStream` owns the native stream on iOS / Android; the
+  // capture is stable for the session, the ref keeps callbacks off its identity.
+  const capture = useRecitationCapture();
+  const captureRef = useRef<RecitationCapture | null>(capture);
+  captureRef.current = capture;
 
   useEffect(() => {
     let cancelled = false;

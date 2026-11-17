@@ -17,6 +17,7 @@ import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 const UNITS: { id: TemperatureUnit; labelKey: "unitCelsius" | "unitFahrenheit" }[] = [
@@ -163,3 +164,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/weather");

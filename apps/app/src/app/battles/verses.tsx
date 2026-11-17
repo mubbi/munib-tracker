@@ -31,6 +31,7 @@ import {
 } from "@/lib/battles";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function BattlesVersesScreen() {
   const router = useRouter();
@@ -157,3 +158,6 @@ const styles = StyleSheet.create({
   },
   copy: { flex: 1, gap: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles/verses");

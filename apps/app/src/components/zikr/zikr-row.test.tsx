@@ -15,21 +15,21 @@ const item: ZikrItem = {
 };
 
 describe("ZikrRow", () => {
-  it("includes remaining recitations in the accessibility label", () => {
+  it("includes remaining recitations in the accessibility label", async () => {
     const onPress = jest.fn();
-    render(
+    await render(
       <MunibThemeProvider>
         <ZikrRow item={item} index={1} progressLabel="1/3" onPress={onPress} />
       </MunibThemeProvider>,
     );
 
-    fireEvent.press(screen.getByLabelText("1. Bismillah, 1/3"));
+    await fireEvent.press(screen.getByLabelText("1. Bismillah, 1/3"));
     expect(onPress).toHaveBeenCalledWith("morning-bismillah");
     expect(screen.getByText("1/3")).toBeTruthy();
   });
 
-  it("announces Done when today's target is met", () => {
-    render(
+  it("announces Done when today's target is met", async () => {
+    await render(
       <MunibThemeProvider>
         <ZikrRow item={item} index={2} completed onPress={jest.fn()} />
       </MunibThemeProvider>,

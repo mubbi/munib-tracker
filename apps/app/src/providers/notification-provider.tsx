@@ -218,7 +218,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       if (!isMounted) return;
 
       const clearLastResponse = () => {
-        void Notifications.clearLastNotificationResponseAsync();
+        Notifications.clearLastNotificationResponse();
       };
 
       const handleResponse = (response: NotificationResponse) => {
@@ -266,10 +266,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
       // Cold start: the app was launched by tapping a notification. The live
       // listener doesn't replay that launch tap, so handle it explicitly once.
-      void Notifications.getLastNotificationResponseAsync().then((response) => {
-        if (!isMounted || !response) return;
-        handleResponse(response);
-      });
+      const launchResponse = Notifications.getLastNotificationResponse();
+      if (isMounted && launchResponse) handleResponse(launchResponse);
     });
 
     return () => {

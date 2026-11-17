@@ -25,6 +25,7 @@ import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJahannamContent, getJahannamHadith, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const THEME_ORDER = ["warning", "mercy", "repentance", "accountability", "protection"] as const;
 
@@ -163,3 +164,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam/hadith");

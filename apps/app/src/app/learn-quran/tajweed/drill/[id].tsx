@@ -29,6 +29,7 @@ import {
   getQuranGuideTajweedLesson,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useEnsureCompanionPrefsLoaded } from "@/stores/quran-companion-prefs-store";
 import {
@@ -301,3 +302,6 @@ const styles = StyleSheet.create({
   gap: { marginTop: Spacing.two },
   center: { textAlign: "center", marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/tajweed/drill/[id]");

@@ -14,6 +14,8 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
+  NotFoundException,
+  ServiceUnavailableException,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -54,15 +56,29 @@ export class SurfacePushService {
     const targetHash = hashTarget(target);
 
     const overdueGraceMs = 30 * 60_000;
-    const updates = dto.updates
-      .map((update) => ({
+    // Last write wins per dedupeKey — a duplicate would violate
+    // `surface_push_jobs_dedupe_unique` and 500 the whole registration.
+    const byDedupeKey = new Map<
+      string,
+      (typeof dto.updates)[number] & {
+        executeDate: Date;
+        staleDate: Date | null;
+        payloadJson: string;
+      }
+    >();
+    for (const update of dto.updates) {
+      const executeDate = new Date(update.executeAt);
+      if (executeDate.getTime() < now.getTime() - overdueGraceMs) continue;
+      byDedupeKey.set(update.dedupeKey, {
         ...update,
-        executeDate: new Date(update.executeAt),
+        executeDate,
         staleDate: update.staleAt ? new Date(update.staleAt) : null,
         payloadJson: this.validatePayload(update.payload),
-      }))
-      .filter((update) => update.executeDate.getTime() >= now.getTime() - overdueGraceMs)
-      .sort((a, b) => a.executeDate.getTime() - b.executeDate.getTime());
+      });
+    }
+    const updates = [...byDedupeKey.values()].sort(
+      (a, b) => a.executeDate.getTime() - b.executeDate.getTime(),
+    );
 
     if (updates.length === 0) {
       throw new BadRequestException("No future surface push updates");
@@ -267,11 +283,15 @@ export class SurfacePushService {
     return this.authService.getCurrentUser(accessToken);
   }
 
+  /**
+   * Map delivery outcomes for the QStash callback: retryable states (too early,
+   * in flight, transient provider failure, sender not configured) are 503 so
+   * QStash backs off and retries; they are not client errors.
+   */
   private rethrowAsHttp(error: unknown): never {
     if (error instanceof SurfaceDeliveryError) {
-      if (error.code === "TOO_EARLY") throw new BadRequestException(error.message);
-      if (error.code === "NOT_FOUND") throw new BadRequestException(error.message);
-      if (error.retryable) throw new BadRequestException(error.message);
+      if (error.code === "NOT_FOUND") throw new NotFoundException(error.message);
+      throw new ServiceUnavailableException(error.message);
     }
     throw error;
   }

@@ -1,7 +1,6 @@
 import type { AppVersionMeta } from "@munib-tracker/api-client";
 import { useTranslation } from "react-i18next";
 import { Platform, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
@@ -10,12 +9,14 @@ import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useLocalizedSiteUrls } from "@/hooks/use-localized-site-urls";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebPlatform, performAppUpdate } from "@/lib/app/app-update-actions";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import { useAppVersion } from "@/providers/app-version-provider";
+import { UPDATE_HARD_ICON, UPDATE_SOFT_ICON } from "./update-icons";
 
 type UpdateRequiredModalProps = {
   visible: boolean;
@@ -33,7 +34,7 @@ export function UpdateRequiredModal({
   const { clientVersion, dismissUpdatePrompt } = useAppVersion();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
   const isWeb = isWebPlatform();
   const { locale } = useLocalizedSiteUrls();
@@ -62,7 +63,7 @@ export function UpdateRequiredModal({
     <View style={[styles.content, tv && styles.contentTv]}>
       <View style={[styles.iconWrap, { backgroundColor: `${accentColor}18` }]}>
         <AppIcon
-          icon={isHard ? "exclamationmark.triangle.fill" : "arrow.down.circle.fill"}
+          icon={isHard ? UPDATE_HARD_ICON : UPDATE_SOFT_ICON}
           size={36}
           tintColor={accentColor}
         />

@@ -16,6 +16,7 @@ import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useTasbeehCounterDock } from "@/hooks/use-tasbeeh-counter-dock";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { usePreferences } from "@/stores/preferences-store";
@@ -218,3 +219,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tasbeeh/[zikrId]");

@@ -370,10 +370,10 @@ struct BasicWidgetProvider: TimelineProvider {
 
 /// Widget-side mark intent — writes to the shared App Group command queue.
 struct MarkCurrentSalahWidgetIntent: AppIntent {
-  static var title: LocalizedStringResource = "Mark Salah"
-  static var description = IntentDescription("Mark the current obligatory Salah as completed.")
-  static var isDiscoverable: Bool = false
-  static var openAppWhenRun: Bool = false
+  static let title: LocalizedStringResource = "Mark Salah"
+  static let description = IntentDescription("Mark the current obligatory Salah as completed.")
+  static let isDiscoverable: Bool = false
+  static let openAppWhenRun: Bool = false
 
   func perform() async throws -> some IntentResult {
     let payload: [String: Any] = [
@@ -392,10 +392,10 @@ struct MarkCurrentSalahWidgetIntent: AppIntent {
 /// Widget-side mark intent for a specific prayer (Schedule row buttons, Next Salah).
 /// Mirrors the `mark-prayer` command shape used by Siri/watch (`MunibWatchApp.swift`).
 struct MarkNamedSalahIntent: AppIntent {
-  static var title: LocalizedStringResource = "Mark Salah"
-  static var description = IntentDescription("Mark a specific obligatory Salah as completed.")
-  static var isDiscoverable: Bool = false
-  static var openAppWhenRun: Bool = false
+  static let title: LocalizedStringResource = "Mark Salah"
+  static let description = IntentDescription("Mark a specific obligatory Salah as completed.")
+  static let isDiscoverable: Bool = false
+  static let openAppWhenRun: Bool = false
 
   @Parameter(title: "Prayer")
   var prayerId: String

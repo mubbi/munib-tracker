@@ -89,6 +89,7 @@ export type RootControllerGetRootQueryResult = NonNullable<Awaited<ReturnType<ty
 export type RootControllerGetRootQueryError = unknown
 
 
+/** @summary Root liveness probe */
 export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -99,6 +100,7 @@ export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootC
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Root liveness probe */
 export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -109,14 +111,12 @@ export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootC
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Root liveness probe */
 export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Root liveness probe
- */
-
+/** @summary Root liveness probe */
 export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -181,6 +181,7 @@ export type HealthControllerGetHealthQueryResult = NonNullable<Awaited<ReturnTyp
 export type HealthControllerGetHealthQueryError = unknown
 
 
+/** @summary Liveness and readiness probe */
 export function useHealthControllerGetHealth<TData = Awaited<ReturnType<typeof healthControllerGetHealth>>, TError = unknown>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof healthControllerGetHealth>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -191,6 +192,7 @@ export function useHealthControllerGetHealth<TData = Awaited<ReturnType<typeof h
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Liveness and readiness probe */
 export function useHealthControllerGetHealth<TData = Awaited<ReturnType<typeof healthControllerGetHealth>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof healthControllerGetHealth>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -201,14 +203,12 @@ export function useHealthControllerGetHealth<TData = Awaited<ReturnType<typeof h
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Liveness and readiness probe */
 export function useHealthControllerGetHealth<TData = Awaited<ReturnType<typeof healthControllerGetHealth>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof healthControllerGetHealth>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Liveness and readiness probe
- */
-
+/** @summary Liveness and readiness probe */
 export function useHealthControllerGetHealth<TData = Awaited<ReturnType<typeof healthControllerGetHealth>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof healthControllerGetHealth>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient

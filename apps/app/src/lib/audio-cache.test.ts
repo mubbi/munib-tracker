@@ -20,89 +20,151 @@ jest.mock("@/stores/preferences-store", () => ({
 }));
 
 // Functional in-memory file store (overrides the empty default in jest.setup.ts).
-jest.mock("expo-file-system/legacy", () => {
-  const files = new Map<string, number>(); // local uri -> byte size
-  const DIR = "file:///document/munib-audio/";
+// Mirrors the class-based `expo-file-system` surface `native-file-store.ts` uses.
+jest.mock("expo-file-system", () => {
+  const files = new Map<string, number>(); // local file uri -> byte size
+  const DOCUMENT = "file:///document/";
   const FILE_BYTES = 2048;
+  const state = { freeDisk: 10 * 1024 * 1024 * 1024 };
+  const deleted = jest.fn((_uri: string) => undefined);
+
+  const withSlash = (uri: string) => (uri.endsWith("/") ? uri : `${uri}/`);
+  const under = (dir: string) => Array.from(files.keys()).filter((k) => k.startsWith(dir));
+
+  class MockFile {
+    readonly uri: string;
+    constructor(uri: string) {
+      this.uri = uri;
+    }
+    get name(): string {
+      return this.uri.split("/").pop() ?? "";
+    }
+    get exists(): boolean {
+      return files.has(this.uri);
+    }
+    get size(): number | null {
+      return files.get(this.uri) ?? null;
+    }
+    info() {
+      const size = files.get(this.uri);
+      return size != null
+        ? { exists: true, uri: this.uri, size }
+        : { exists: false, uri: this.uri };
+    }
+    delete(): void {
+      if (!files.has(this.uri)) throw new Error(`${this.uri} does not exist`);
+      files.delete(this.uri);
+      deleted(this.uri);
+    }
+    static downloadFileAsync = jest.fn(async (_remote: string, destination: MockFile) => {
+      files.set(destination.uri, FILE_BYTES);
+      return destination;
+    });
+  }
+
+  class MockDirectory {
+    readonly uri: string;
+    constructor(uri: string) {
+      this.uri = withSlash(uri);
+    }
+    get name(): string {
+      return this.uri.slice(0, -1).split("/").pop() ?? "";
+    }
+    get exists(): boolean {
+      return this.uri === DOCUMENT || under(this.uri).length > 0;
+    }
+    get size(): number | null {
+      return null;
+    }
+    create(): void {}
+    list(): MockFile[] {
+      return under(this.uri).map((k) => new MockFile(k));
+    }
+    delete(): void {
+      for (const k of under(this.uri)) files.delete(k);
+      deleted(this.uri);
+    }
+  }
+
   return {
     __esModule: true,
-    documentDirectory: "file:///document/",
-    cacheDirectory: "file:///cache/",
-    __reset: () => files.clear(),
+    File: MockFile,
+    Directory: MockDirectory,
+    Paths: {
+      get document() {
+        return new MockDirectory(DOCUMENT);
+      },
+      get cache() {
+        return new MockDirectory("file:///cache/");
+      },
+      // Plenty of headroom by default so caching proceeds; tests lower it to
+      // simulate a nearly-full device.
+      get availableDiskSpace() {
+        return state.freeDisk;
+      },
+      info(uri: string) {
+        if (files.has(uri)) return { exists: true, isDirectory: false };
+        if (under(withSlash(uri)).length > 0) return { exists: true, isDirectory: true };
+        return { exists: false, isDirectory: null };
+      },
+    },
+    __reset: () => {
+      files.clear();
+      state.freeDisk = 10 * 1024 * 1024 * 1024;
+    },
     __set: (uri: string, size: number) => {
       files.set(uri, size);
     },
-    downloadAsync: jest.fn(async (_remote: string, local: string) => {
-      files.set(local, FILE_BYTES);
-      return { uri: local, status: 200 };
-    }),
-    getInfoAsync: jest.fn(async (uri: string) => {
-      if (uri === DIR) return { exists: files.size > 0, isDirectory: true, uri };
-      const size = files.get(uri);
-      return size != null
-        ? { exists: true, isDirectory: false, uri, size }
-        : { exists: false, uri };
-    }),
-    makeDirectoryAsync: jest.fn(async () => undefined),
-    readDirectoryAsync: jest.fn(async (dir: string) =>
-      Array.from(files.keys())
-        .filter((k) => k.startsWith(dir))
-        .map((k) => k.slice(dir.length)),
-    ),
-    deleteAsync: jest.fn(async (uri: string) => {
-      if (uri === DIR) files.clear();
-      else files.delete(uri);
-    }),
-    // Plenty of headroom by default so caching proceeds; tests override to
-    // simulate a nearly-full device.
-    getFreeDiskStorageAsync: jest.fn(async () => 10 * 1024 * 1024 * 1024),
+    __setFreeDisk: (bytes: number) => {
+      state.freeDisk = bytes;
+    },
+    __deleted: deleted,
   };
 });
 
-const FS = jest.requireMock("expo-file-system/legacy") as {
+const FS = jest.requireMock("expo-file-system") as {
   __reset: () => void;
   __set: (uri: string, size: number) => void;
-  downloadAsync: jest.Mock;
-  deleteAsync: jest.Mock;
-  getFreeDiskStorageAsync: jest.Mock;
+  __setFreeDisk: (bytes: number) => void;
+  __deleted: jest.Mock;
+  File: { downloadFileAsync: jest.Mock };
 };
+const download = FS.File.downloadFileAsync;
 
 const AYAH = "https://everyayah.com/data/Alafasy_128kbps/001001.mp3";
 const DUA = "https://cdn.jsdelivr.net/gh/example/audio/dua.mp3";
 
 beforeEach(() => {
+  // Clears files and restores the default "plenty of room" free space.
   FS.__reset();
   clearAudioCacheInflight();
-  FS.downloadAsync.mockClear();
-  FS.deleteAsync.mockClear();
+  download.mockClear();
+  FS.__deleted.mockClear();
   mockPrefs.cacheAudioLocally = true;
-  // Restore the default "plenty of room" implementation (tests override per-case).
-  FS.getFreeDiskStorageAsync.mockReset();
-  FS.getFreeDiskStorageAsync.mockResolvedValue(10 * 1024 * 1024 * 1024);
 });
 
 describe("audio cache", () => {
   it("returns non-remote URIs untouched, without downloading", async () => {
     expect(await resolveCachedAudioUri("file:///bundled.mp3")).toBe("file:///bundled.mp3");
-    expect(FS.downloadAsync).not.toHaveBeenCalled();
+    expect(download).not.toHaveBeenCalled();
   });
 
   it("downloads a clip once, then replays it from the local file", async () => {
     const first = await resolveCachedAudioUri(AYAH);
     expect(first).toContain("munib-audio/");
     expect(first).not.toBe(AYAH);
-    expect(FS.downloadAsync).toHaveBeenCalledTimes(1);
+    expect(download).toHaveBeenCalledTimes(1);
 
     const second = await resolveCachedAudioUri(AYAH);
     expect(second).toBe(first);
     // Cache hit — no second network download.
-    expect(FS.downloadAsync).toHaveBeenCalledTimes(1);
+    expect(download).toHaveBeenCalledTimes(1);
   });
 
   it("dedupes concurrent downloads of the same clip", async () => {
     const [a, b] = await Promise.all([resolveCachedAudioUri(AYAH), resolveCachedAudioUri(AYAH)]);
     expect(a).toBe(b);
-    expect(FS.downloadAsync).toHaveBeenCalledTimes(1);
+    expect(download).toHaveBeenCalledTimes(1);
   });
 
   it("streams instead of caching when the user disabled local audio storage", async () => {
@@ -111,17 +173,17 @@ describe("audio cache", () => {
 
     const resolved = await resolveCachedAudioUri(AYAH);
     expect(resolved).toBe(AYAH);
-    expect(FS.downloadAsync).not.toHaveBeenCalled();
+    expect(download).not.toHaveBeenCalled();
   });
 
   it("streams instead of caching when the device is low on disk", async () => {
     // Only 10 MB free — below the 250 MB safety threshold.
-    FS.getFreeDiskStorageAsync.mockResolvedValueOnce(10 * 1024 * 1024);
+    FS.__setFreeDisk(10 * 1024 * 1024);
 
     const resolved = await resolveCachedAudioUri(AYAH);
     // Falls back to the remote URL (streamed), nothing written to disk.
     expect(resolved).toBe(AYAH);
-    expect(FS.downloadAsync).not.toHaveBeenCalled();
+    expect(download).not.toHaveBeenCalled();
   });
 
   it("still serves an already-cached clip even when disk is low", async () => {
@@ -131,7 +193,7 @@ describe("audio cache", () => {
     clearAudioCacheInflight(); // reset the free-disk reading
 
     // Now the device is full — an existing file is still returned from disk.
-    FS.getFreeDiskStorageAsync.mockResolvedValue(1 * 1024 * 1024);
+    FS.__setFreeDisk(1 * 1024 * 1024);
     const again = await resolveCachedAudioUri(AYAH);
     expect(again).toBe(cached);
   });
@@ -161,42 +223,67 @@ describe("audio cache", () => {
     expect(cached).toContain("munib-audio/");
     expect(fileName.length).toBeLessThanOrEqual(255);
     expect(fileName).toMatch(/^[0-9a-f]{16}\.mp3$/);
-    expect(FS.downloadAsync).toHaveBeenCalledWith(adhan, cached);
+    expect(download).toHaveBeenCalledWith(
+      adhan,
+      expect.objectContaining({ uri: cached }),
+      expect.objectContaining({ idempotent: true }),
+    );
   });
 
   it("peeks a native cached file without starting a download", async () => {
     expect(await peekNativeCachedAudioUri(AYAH)).toBeNull();
     const cached = await resolveCachedAudioUri(AYAH);
-    FS.downloadAsync.mockClear();
+    download.mockClear();
 
     expect(await peekNativeCachedAudioUri(AYAH)).toBe(cached);
-    expect(FS.downloadAsync).not.toHaveBeenCalled();
+    expect(download).not.toHaveBeenCalled();
   });
 
   it("deletes an empty cache entry and re-downloads", async () => {
     const cached = await resolveCachedAudioUri(AYAH);
     FS.__set(cached, 0); // simulate a truncated / failed prior write
-    FS.downloadAsync.mockClear();
+    download.mockClear();
     clearAudioCacheInflight();
 
     const again = await resolveCachedAudioUri(AYAH);
     expect(again).toBe(cached);
-    expect(FS.deleteAsync).toHaveBeenCalledWith(cached, { idempotent: true });
-    expect(FS.downloadAsync).toHaveBeenCalledTimes(1);
+    expect(FS.__deleted).toHaveBeenCalledWith(cached);
+    expect(download).toHaveBeenCalledTimes(1);
   });
 
   it("invalidates a single native cache entry so the next resolve re-downloads", async () => {
     const cached = await resolveCachedAudioUri(AYAH);
-    FS.downloadAsync.mockClear();
+    download.mockClear();
     clearAudioCacheInflight();
 
     await invalidateCachedAudioUri(AYAH);
-    expect(FS.deleteAsync).toHaveBeenCalledWith(cached, { idempotent: true });
+    expect(FS.__deleted).toHaveBeenCalledWith(cached);
     expect(await peekNativeCachedAudioUri(AYAH)).toBeNull();
 
     const again = await resolveCachedAudioUri(AYAH);
     expect(again).toBe(cached);
-    expect(FS.downloadAsync).toHaveBeenCalledTimes(1);
+    expect(download).toHaveBeenCalledTimes(1);
+  });
+
+  it("streams the remote URL when the server answers with an HTTP error", async () => {
+    // The class-based API rejects on non-2xx instead of resolving with a status.
+    download.mockRejectedValueOnce(new Error("Unable to download a file: response has status 404"));
+
+    expect(await resolveCachedAudioUri(AYAH)).toBe(AYAH);
+    expect(await peekNativeCachedAudioUri(AYAH)).toBeNull();
+  });
+
+  it("retries a 416 (Range Not Satisfiable) once without cache, then caches the clip", async () => {
+    download.mockRejectedValueOnce(new Error("Unable to download a file: response has status 416"));
+
+    const resolved = await resolveCachedAudioUri(AYAH);
+    expect(resolved).toContain("munib-audio/");
+    expect(download).toHaveBeenCalledTimes(2);
+    expect(download).toHaveBeenLastCalledWith(
+      AYAH,
+      expect.objectContaining({ uri: resolved }),
+      expect.objectContaining({ headers: { "Cache-Control": "no-cache" } }),
+    );
   });
 });
 

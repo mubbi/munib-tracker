@@ -1,13 +1,8 @@
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useRef, useState } from "react";
 import { Platform } from "react-native";
-import {
-  Easing,
-  runOnJS,
-  type SharedValue,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import { Easing, type SharedValue, useSharedValue, withTiming } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 
 import { useColdStartReady } from "@/lib/boot/cold-start";
 import { isTV } from "@/lib/platform/is-tv";
@@ -59,7 +54,7 @@ export function useSplashDismissal(): SplashDismissal {
         0,
         { duration: SPLASH_FADE_MS, easing: Easing.out(Easing.cubic) },
         (finished) => {
-          if (finished) runOnJS(finish)();
+          if (finished) scheduleOnRN(finish);
         },
       );
     };

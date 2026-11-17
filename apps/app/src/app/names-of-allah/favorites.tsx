@@ -16,6 +16,7 @@ import { loadNamesOfAllah } from "@/lib/content-loaders";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureNameFavoritesLoaded,
   useFavoriteNameIds,
@@ -130,3 +131,6 @@ const styles = StyleSheet.create({
   body: { flex: 1, gap: 2 },
   arabic: { fontSize: 20 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/names-of-allah/favorites");

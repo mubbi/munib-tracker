@@ -12,6 +12,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebPlatform, performAppUpdate } from "@/lib/app/app-update-actions";
 import { isTV } from "@/lib/platform/is-tv";
 import { useAppVersion } from "@/providers/app-version-provider";
+import { UPDATE_HARD_ICON, UPDATE_SOFT_ICON } from "./update-icons";
 
 /** Window width at which the update actions sit side by side. */
 const WIDE_MIN_WIDTH = 768;
@@ -51,7 +52,7 @@ export function AppUpdateSection() {
       <View style={styles.row}>
         <View style={[styles.iconWrap, { backgroundColor: `${accent}18` }]}>
           <AppIcon
-            icon={isHard ? "exclamationmark.triangle.fill" : "arrow.down.circle.fill"}
+            icon={isHard ? UPDATE_HARD_ICON : UPDATE_SOFT_ICON}
             size={22}
             tintColor={accent}
           />

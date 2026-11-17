@@ -47,58 +47,58 @@ describe("HeroWeatherEffects", () => {
     Platform.OS = originalOS;
   });
 
-  it("does not mount particle trees while the home screen is covered", () => {
+  it("does not mount particle trees while the home screen is covered", async () => {
     Platform.OS = "android";
-    render(<HeroWeatherEffects effects={["clear"]} enabled={false} />);
-    act(() => {
+    await render(<HeroWeatherEffects effects={["clear"]} enabled={false} />);
+    await act(() => {
       jest.runAllTimers();
     });
     expect(screen.queryByTestId("hero-weather-effects")).toBeNull();
   });
 
-  it("defers iOS mount until after the navigation spring settle window", () => {
+  it("defers iOS mount until after the navigation spring settle window", async () => {
     Platform.OS = "ios";
-    render(<HeroWeatherEffects effects={["clear"]} />);
+    await render(<HeroWeatherEffects effects={["clear"]} />);
 
-    act(() => {
+    await act(() => {
       jest.runOnlyPendingTimers();
       jest.runOnlyPendingTimers();
     });
     expect(screen.queryByTestId("hero-weather-effects")).toBeNull();
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(IOS_WEATHER_EFFECTS_SETTLE_MS - 1);
     });
     expect(screen.queryByTestId("hero-weather-effects")).toBeNull();
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(1);
     });
     expect(screen.getByTestId("hero-weather-effects")).toBeTruthy();
   });
 
-  it("unmounts when home loses focus so a stack pop does not relayout rain", () => {
+  it("unmounts when home loses focus so a stack pop does not relayout rain", async () => {
     Platform.OS = "android";
-    const { rerender } = render(<HeroWeatherEffects effects={["clear"]} enabled />);
-    act(() => {
+    const { rerender } = await render(<HeroWeatherEffects effects={["clear"]} enabled />);
+    await act(() => {
       jest.runAllTimers();
     });
     expect(screen.getByTestId("hero-weather-effects")).toBeTruthy();
 
-    rerender(<HeroWeatherEffects effects={["clear"]} enabled={false} />);
+    await rerender(<HeroWeatherEffects effects={["clear"]} enabled={false} />);
     expect(screen.queryByTestId("hero-weather-effects")).toBeNull();
   });
 
-  it("does not mount when there are no weather effects", () => {
+  it("does not mount when there are no weather effects", async () => {
     Platform.OS = "android";
-    render(<HeroWeatherEffects effects={[]} />);
-    act(() => {
+    await render(<HeroWeatherEffects effects={[]} />);
+    await act(() => {
       jest.runAllTimers();
     });
     expect(screen.queryByTestId("hero-weather-effects")).toBeNull();
   });
 
-  it("unmounts particles when the app leaves the foreground", () => {
+  it("unmounts particles when the app leaves the foreground", async () => {
     Platform.OS = "android";
     let onChange: ((status: string) => void) | undefined;
     jest.spyOn(AppState, "addEventListener").mockImplementation((_event, handler) => {
@@ -106,13 +106,13 @@ describe("HeroWeatherEffects", () => {
       return { remove: jest.fn() };
     });
 
-    render(<HeroWeatherEffects effects={["clear"]} />);
-    act(() => {
+    await render(<HeroWeatherEffects effects={["clear"]} />);
+    await act(() => {
       jest.runAllTimers();
     });
     expect(screen.getByTestId("hero-weather-effects")).toBeTruthy();
 
-    act(() => {
+    await act(() => {
       onChange?.("background");
     });
     expect(screen.queryByTestId("hero-weather-effects")).toBeNull();

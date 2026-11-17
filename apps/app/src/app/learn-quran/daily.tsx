@@ -29,6 +29,7 @@ import {
   getQuranGuideDailyLessonForDate,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LearnQuranDailyScreen() {
   const router = useRouter();
@@ -80,7 +81,6 @@ export default function LearnQuranDailyScreen() {
                     ayahFrom={lesson.ayahFrom}
                     ayahTo={lesson.ayahTo}
                     sourceHref="/learn-quran/daily"
-                    compact
                   />
                 </View>
                 <ThemedText type="arabic" style={styles.arabic}>
@@ -140,3 +140,6 @@ const styles = StyleSheet.create({
   translation: { lineHeight: 24, marginTop: Spacing.two },
   block: { marginTop: Spacing.three, lineHeight: 22 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/daily");

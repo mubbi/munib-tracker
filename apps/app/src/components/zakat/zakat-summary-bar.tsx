@@ -2,8 +2,6 @@ import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type LayoutChangeEvent, StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { MoneyText } from "@/components/money/money-text";
 import { ThemedText } from "@/components/themed-text";
@@ -12,6 +10,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ZakatCalculatorState } from "@/hooks/use-zakat-calculator";
 import { isTV } from "@/lib/platform/is-tv";
@@ -38,7 +37,7 @@ export function ZakatSummaryBar({
 }: ZakatSummaryBarProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const [confirmReset, setConfirmReset] = useState(false);
   const success = tokens.status.success;
   const hasDue = hasInput && result.totalDue > 0;

@@ -5,12 +5,14 @@
  * Requires: android-keys/play-console-service-account.json
  * Default AAB: android/play-upload/app-release.aab from pnpm release:app:android
  * TV AAB:      android/play-upload/tv/app-release.aab from pnpm release:app:android-tv
+ * Wear AAB:    android/play-upload/wear/wear-release.aab from pnpm release:app:wear
  *
  * Usage:
  *   pnpm android:upload:release
  *   pnpm android:upload:release:tv
  *   node scripts/android-upload.js --aab path/to.aab
  *   node scripts/android-upload.js --tv
+ *   node scripts/android-upload.js --wear   # Play Wear OS form-factor track (wear:internal)
  */
 const fs = require("node:fs");
 const path = require("node:path");
@@ -24,12 +26,13 @@ const {
 const projectRoot = path.resolve(__dirname, "..");
 const packageName = "app.munibtracker";
 const isTv = process.argv.includes("--tv");
+const isWear = process.argv.includes("--wear");
 const defaultAabPath = path.join(
   projectRoot,
   "android",
   "play-upload",
-  ...(isTv ? ["tv"] : []),
-  "app-release.aab",
+  ...(isTv ? ["tv"] : isWear ? ["wear"] : []),
+  isWear ? "wear-release.aab" : "app-release.aab",
 );
 const defaultServiceAccountPath = path.join(
   projectRoot,
@@ -38,12 +41,17 @@ const defaultServiceAccountPath = path.join(
 );
 
 const ANDROID_PUBLISHER_SCOPE = "https://www.googleapis.com/auth/androidpublisher";
-const TRACK = "internal";
+/** Play form-factor tracks are prefixed (e.g. "wear:internal"); phone and TV share "internal". */
+const TRACK = isWear ? "wear:internal" : "internal";
+/** Build command suffix for messages (pnpm release:app:<command>). */
+const releaseCommand = isTv ? "android-tv" : isWear ? "wear" : "android";
 
 function buildReleaseNotes(versionName) {
   const tvExtra = isTv
     ? `\n• Android TV / Fire TV — 10-foot focus UI, Leanback launcher\n`
-    : `\n• Home screen widgets: next prayer, schedule, and progress\n`;
+    : isWear
+      ? `\n• Wear OS tiles: next Salah (tap to mark) and a Tasbeeh counter\n`
+      : `\n• Home screen widgets: next prayer, schedule, and progress\n`;
   return (
     `Munib Tracker ${versionName} — Track Your Journey Back to Allah\n` +
     `\n` +
@@ -71,7 +79,7 @@ function resolveAabPath(explicit) {
   if (!fs.existsSync(aabPath)) {
     console.error(
       `\nMissing AAB: ${aabPath}\n` +
-        `  Build first: pnpm release:app:android${isTv ? "-tv" : ""}\n` +
+        `  Build first: pnpm release:app:${releaseCommand}\n` +
         "  Or pass: node scripts/android-upload.js --aab /path/to.aab\n",
     );
     process.exit(1);
@@ -109,22 +117,34 @@ async function main() {
   }
   assertVersionEnv({ tv: isTv });
 
-  const androidPlatform = isTv ? "android-tv" : "android";
+  const androidPlatform = isTv ? "android-tv" : isWear ? "wear" : "android";
   const versionName = resolvePlatformVersion(androidPlatform, projectRoot);
+  process.env.MUNIB_REQUIRE_VERSION_CODES = "1";
   const expectedVersionCode = resolveAndroidVersionCode(androidPlatform);
-  const versionCodeEnvKey = isTv ? "EXPO_ANDROID_TV_VERSION_CODE" : "EXPO_ANDROID_VERSION_CODE";
-  const releaseName = `${versionName} (${expectedVersionCode})${isTv ? " TV" : ""}`;
+  const versionCodeEnvKey = isTv
+    ? "EXPO_ANDROID_TV_VERSION_CODE"
+    : isWear
+      ? "EXPO_WEAR_VERSION_CODE"
+      : "EXPO_ANDROID_VERSION_CODE";
+  const releaseName = `${versionName} (${expectedVersionCode})${isTv ? " TV" : isWear ? " Wear OS" : ""}`;
   const releaseNotes = buildReleaseNotes(versionName);
 
   const aabPath = resolveAabPath(parseAabArg());
   const serviceAccountPath = resolveServiceAccountPath();
 
-  console.log(`\n--- Play Console upload (internal)${isTv ? " — Android TV AAB" : ""} ---`);
+  console.log(
+    `\n--- Play Console upload (${TRACK})${isTv ? " — Android TV AAB" : isWear ? " — Wear OS AAB" : ""} ---`,
+  );
   console.log(`  Package        → ${packageName}`);
   console.log(`  Track          → ${TRACK}`);
   console.log(`  Release name   → ${releaseName}`);
   console.log(`  AAB            → ${aabPath}`);
   console.log(`  Service account→ ${serviceAccountPath}\n`);
+  if (isWear) {
+    console.log(
+      "  Note: same package as phone. Enable Wear OS in Play Console → Advanced settings → Form factors.\n",
+    );
+  }
   if (isTv) {
     console.log(
       "  Note: same package as phone. Enable Android TV in Play Console form factors.\n" +
@@ -184,7 +204,7 @@ async function main() {
   if (uploadedVersionCode !== expectedVersionCode) {
     console.error(
       `\nAAB versionCode (${uploadedVersionCode}) does not match ${versionCodeEnvKey} (${expectedVersionCode}).\n` +
-        `  Rebuild with pnpm release:app:android${isTv ? "-tv" : ""} after updating apps/app/.env, then upload again.\n`,
+        `  Rebuild with pnpm release:app:${releaseCommand} after updating apps/app/.env, then upload again.\n`,
     );
     try {
       await androidpublisher.edits.delete({ packageName, editId });
@@ -221,7 +241,7 @@ async function main() {
   await androidpublisher.edits.commit({ packageName, editId });
 
   console.log(
-    `\nUpload committed to internal testing.\n` +
+    `\nUpload committed to ${TRACK} testing.\n` +
       `  Release: ${releaseName}\n` +
       `  Play Console → ${packageName} → Testing → Internal testing\n` +
       `  Processing can take a few minutes before testers see the build.\n`,

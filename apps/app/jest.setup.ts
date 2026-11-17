@@ -70,13 +70,19 @@ jest.mock("react-native-reanimated", () => {
     cancelAnimation: () => {},
     interpolate: () => 0,
     interpolateColor: () => "#000000",
-    runOnJS: (fn: unknown) => fn,
     Easing: new Proxy({}, { get: () => () => 0 }),
     FadeIn: chain,
     FadeInDown: chain,
     FadeOut: chain,
   };
 });
+
+// The worklets runtime is native-only. `scheduleOnRN` (the replacement for
+// Reanimated's deprecated `runOnJS`) just calls straight through under Jest.
+jest.mock("react-native-worklets", () => ({
+  scheduleOnRN: (fn: (...args: unknown[]) => unknown, ...args: unknown[]) => fn(...args),
+  scheduleOnUI: (fn: (...args: unknown[]) => unknown, ...args: unknown[]) => fn(...args),
+}));
 
 jest.mock("@/components/ui/stagger", () => {
   const React = require("react");
@@ -128,21 +134,111 @@ jest.mock("expo-haptics", () => ({
   NotificationFeedbackType: { Success: "success", Warning: "warning", Error: "error" },
 }));
 
-jest.mock("@react-native-async-storage/async-storage", () =>
-  require("@react-native-async-storage/async-storage/jest/async-storage-mock"),
-);
+// AsyncStorage 3's official in-memory mock exposes plain methods. Wrap them in
+// jest.fn (still backed by the mock's storage) so tests can stub failures with
+// `mockRejectedValueOnce` and assert calls.
+jest.mock("@react-native-async-storage/async-storage", () => {
+  const actual = require("@react-native-async-storage/async-storage/jest");
+  const storage = actual.default as Record<string, unknown>;
+  for (const method of [
+    "getItem",
+    "setItem",
+    "removeItem",
+    "getMany",
+    "setMany",
+    "removeMany",
+    "getAllKeys",
+    "clear",
+  ]) {
+    const impl = storage[method] as (...args: unknown[]) => unknown;
+    storage[method] = jest.fn((...args: unknown[]) => impl.apply(storage, args));
+  }
+  return { ...actual, __esModule: true, default: storage };
+});
 
-// Default: an empty on-device audio store. Tests that exercise the store
-// (audio-cache.test.ts) provide their own functional mock, which overrides this.
-jest.mock("expo-file-system/legacy", () => ({
-  documentDirectory: "file:///document/",
-  cacheDirectory: "file:///cache/",
-  downloadAsync: jest.fn(async (_remote: string, local: string) => ({ uri: local })),
-  getInfoAsync: jest.fn(async (uri: string) => ({ exists: false, uri })),
-  makeDirectoryAsync: jest.fn(async () => undefined),
-  readDirectoryAsync: jest.fn(async () => [] as string[]),
-  deleteAsync: jest.fn(async () => undefined),
-}));
+// Default: an empty on-device file store for the class-based `expo-file-system`
+// API (`File` / `Directory` / `Paths`, wrapped by `src/lib/native-file-store.ts`).
+// Nothing exists, writes/downloads are accepted but not persisted, and listings
+// are empty. Tests that exercise a store (audio-cache.test.ts) or a specific call
+// (read-uri-bytes.test.ts) provide their own mock, which overrides this one.
+jest.mock("expo-file-system", () => {
+  const withSlash = (uri: string) => (uri.endsWith("/") ? uri : `${uri}/`);
+  const joinUris = (parts: unknown[]) =>
+    parts
+      .map((p) => (typeof p === "string" ? p : (p as { uri: string }).uri))
+      .reduce((acc, part) => (acc ? `${withSlash(acc)}${part.replace(/^\/+/, "")}` : part), "");
+  const lastSegment = (uri: string) => uri.replace(/\/+$/, "").split("/").pop() ?? "";
+
+  class MockFile {
+    readonly uri: string;
+    constructor(...uris: unknown[]) {
+      this.uri = joinUris(uris);
+    }
+    get name() {
+      return lastSegment(this.uri);
+    }
+    exists = false;
+    size: number | null = null;
+    md5: string | null = null;
+    type = "";
+    info = jest.fn(() => ({ exists: false, uri: this.uri }));
+    digest = jest.fn(async () => "");
+    text = jest.fn(async () => "");
+    base64 = jest.fn(async () => "");
+    bytes = jest.fn(async () => new Uint8Array());
+    write = jest.fn(async () => undefined);
+    writeSync = jest.fn();
+    create = jest.fn();
+    delete = jest.fn();
+    copy = jest.fn(async () => undefined);
+    copySync = jest.fn();
+    move = jest.fn(async () => undefined);
+    moveSync = jest.fn();
+    static downloadFileAsync = jest.fn(
+      async (_url: string, destination: MockFile | MockDirectory) => destination,
+    );
+    static createDownloadTask = jest.fn(
+      (_url: string, destination: MockFile | MockDirectory, _options?: unknown) => ({
+        downloadAsync: jest.fn(async () => destination),
+        cancel: jest.fn(),
+        release: jest.fn(),
+      }),
+    );
+  }
+
+  class MockDirectory {
+    readonly uri: string;
+    constructor(...uris: unknown[]) {
+      this.uri = withSlash(joinUris(uris));
+    }
+    get name() {
+      return lastSegment(this.uri);
+    }
+    exists = false;
+    size: number | null = null;
+    info = jest.fn(() => ({ exists: false, uri: this.uri }));
+    create = jest.fn();
+    delete = jest.fn();
+    list = jest.fn(() => [] as (MockFile | MockDirectory)[]);
+  }
+
+  return {
+    __esModule: true,
+    File: MockFile,
+    Directory: MockDirectory,
+    Paths: {
+      get document() {
+        return new MockDirectory("file:///document/");
+      },
+      get cache() {
+        return new MockDirectory("file:///cache/");
+      },
+      totalDiskSpace: 64 * 1024 * 1024 * 1024,
+      availableDiskSpace: 10 * 1024 * 1024 * 1024,
+      info: jest.fn(() => ({ exists: false, isDirectory: null })),
+    },
+  };
+});
 
 jest.mock("expo-splash-screen", () => ({
   preventAutoHideAsync: jest.fn(),
@@ -171,26 +267,32 @@ jest.mock("expo", () => {
 jest.mock("expo-router", () => ({
   useRouter: () => ({
     push: jest.fn(),
+    navigate: jest.fn(),
     back: jest.fn(),
     replace: jest.fn(),
+    dismiss: jest.fn(),
+    dismissTo: jest.fn(),
+    setParams: jest.fn(),
     canGoBack: () => false,
     canDismiss: () => false,
   }),
+  useCanGoBack: () => false,
   useFocusEffect: jest.fn(),
+  useIsFocused: () => true,
+  useLocalSearchParams: () => ({}),
+  useGlobalSearchParams: () => ({}),
+  useNavigationContainerRef: () => ({ addListener: () => () => {}, isReady: () => true }),
   usePathname: () => "/",
   useSegments: () => ["(tabs)"],
+  Redirect: () => null,
 }));
 
-// `<Seo>` uses the vendored Helmet, which needs a document head context absent in Jest.
-// `virtual`: Expo Router 57 no longer ships this path on disk; the mock still
-// intercepts the import graph Seo uses in tests.
-jest.mock(
-  "expo-router/vendor/react-helmet-async/lib",
-  () => ({
-    Helmet: ({ children }: { children?: ReactNode }) => children ?? null,
-  }),
-  { virtual: true },
-);
+// `<Seo>` renders `expo-router/head`, which needs a document head context absent in
+// Jest (it is web-only anyway: `<Seo>` returns null on native).
+jest.mock("expo-router/head", () => ({
+  __esModule: true,
+  default: () => null,
+}));
 
 jest.mock("react-native-safe-area-context", () => ({
   SafeAreaProvider: ({ children }: { children: ReactNode }) => children,
@@ -331,3 +433,11 @@ require("./src/i18n");
   // poisons suite-level mocks (notifications, Platform, RTL). Home tests inject
   // below-fold via `__setHomeBelowFoldForTests` themselves.
 })();
+
+// Foldable hinge (iPhone Duo / Android foldables) is native-only: no hinge in tests.
+jest.mock("expo-hinge", () => ({
+  isAvailable: () => false,
+  getHinge: () => null,
+  useHinge: () => null,
+  addHingeListener: () => ({ remove: () => {} }),
+}));

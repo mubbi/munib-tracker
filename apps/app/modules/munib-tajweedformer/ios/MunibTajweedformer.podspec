@@ -4,11 +4,11 @@
 # product `TajweedFormer`), iOS 15+ on Apple silicon (arm64 devices / arm64
 # simulator only — no x86_64 simulator). CocoaPods cannot depend on a Swift
 # package directly, so this uses React Native's `spm_dependency` podspec helper
-# (react-native ≥ 0.75; this app runs react-native-tvos 0.86).
+# (react-native ≥ 0.75; this app runs react-native-tvos 0.88).
 #
 # iOS only: the platforms list has no :tvos, so the tvOS Podfile never links it
 # (and `plugins/withTvExpoModuleExcludes.cjs` also excludes it on TV prebuilds).
-# The app's deployment target is Expo SDK 57's default (15.1), which satisfies iOS 15.
+# The app's deployment target is Expo SDK 58's minimum (iOS 16.4), which satisfies iOS 15.
 Pod::Spec.new do |s|
   s.name           = 'MunibTajweedformer'
   s.version        = '1.0.0'
@@ -16,9 +16,10 @@ Pod::Spec.new do |s|
   s.description    = 'Wraps the Quran Lab TajweedFormer Swift SDK (client, model, listen, read) for Expo.'
   s.author         = 'Munib Tracker'
   s.homepage       = 'https://munibtracker.app'
-  s.platforms      = { :ios => '15.1' }
+  s.platforms      = { :ios => '16.4' }
   s.source         = { git: '' }
   s.static_framework = true
+  s.swift_version  = '5.10'
 
   s.dependency 'ExpoModulesCore'
 

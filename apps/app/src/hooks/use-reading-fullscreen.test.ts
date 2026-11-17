@@ -34,7 +34,7 @@ describe("useReadingFullscreen", () => {
 
   it("supports immersive toggle on iOS", async () => {
     Platform.OS = "ios";
-    const { result } = renderHook(() => useReadingFullscreen());
+    const { result } = await renderHook(() => useReadingFullscreen());
 
     expect(result.current.supported).toBe(true);
     expect(result.current.active).toBe(false);
@@ -52,7 +52,7 @@ describe("useReadingFullscreen", () => {
 
   it("supports immersive toggle on Android", async () => {
     Platform.OS = "android";
-    const { result } = renderHook(() => useReadingFullscreen());
+    const { result } = await renderHook(() => useReadingFullscreen());
 
     expect(result.current.supported).toBe(true);
 
@@ -67,23 +67,23 @@ describe("useReadingFullscreen", () => {
     expect(result.current.active).toBe(false);
   });
 
-  it("does not support fullscreen on TV", () => {
+  it("does not support fullscreen on TV", async () => {
     Platform.OS = "android";
     isTVMock.mockReturnValue(true);
-    const { result } = renderHook(() => useReadingFullscreen());
+    const { result } = await renderHook(() => useReadingFullscreen());
     expect(result.current.supported).toBe(false);
   });
 
   it("exits on blur when exitOnBlur is set", async () => {
     Platform.OS = "ios";
-    const { result, unmount } = renderHook(() => useReadingFullscreen({ exitOnBlur: true }));
+    const { result, unmount } = await renderHook(() => useReadingFullscreen({ exitOnBlur: true }));
 
     await act(async () => {
       await result.current.toggle();
     });
     expect(result.current.active).toBe(true);
 
-    unmount();
+    await unmount();
     expect(getReadingFullscreenActive()).toBe(false);
   });
 });

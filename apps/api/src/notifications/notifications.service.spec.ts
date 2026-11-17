@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { createAuthTestingModule } from "../../test/support/testing-module";
 import { AuthService } from "../auth/auth.service";
 import { AuthProvider } from "../auth/dto/auth.dto";
-import { InAppNotificationEntity } from "../database/entities";
+import { InAppNotificationEntity, PushTokenEntity } from "../database/entities";
 import { NotificationsService } from "./notifications.service";
 
 describe("NotificationsService", () => {
@@ -51,6 +51,27 @@ describe("NotificationsService", () => {
     expect(marked.readAt).toBeTruthy();
     const unread = await notificationsService.unreadCount(session.accessToken);
     expect(unread.count).toBe(0);
+  });
+
+  it("moves a device push token to the account that last registered it", async () => {
+    const first = await authService.completeOAuth(AuthProvider.Google, { code: "first" });
+    const second = await authService.createGuestSession({});
+    const token = "ExponentPushToken[shared_device]";
+
+    await notificationsService.upsertPushToken(first.accessToken, {
+      token,
+      deviceId: "device-a",
+      platform: "expo",
+    });
+    await notificationsService.upsertPushToken(second.accessToken, {
+      token,
+      deviceId: "device-a",
+      platform: "expo",
+    });
+
+    const rows = await dataSource.getRepository(PushTokenEntity).find({ where: { token } });
+    expect(rows).toHaveLength(1);
+    expect(rows[0]?.userId).toBe(second.userId);
   });
 
   it("increments broadcast opened_count and clicked_count on engage", async () => {

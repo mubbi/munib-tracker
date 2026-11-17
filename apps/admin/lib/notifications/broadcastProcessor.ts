@@ -12,7 +12,7 @@ import {
   updateBroadcastBatchProgress,
 } from "./broadcastCompletion";
 import { bulkInsertInAppNotifications } from "./broadcastInAppWriter";
-import { loadPushTargetsForUsers } from "./broadcastPushLoader";
+import { loadPushTargetsForUsers, prunePushTokens } from "./broadcastPushLoader";
 import { sendBroadcastPush } from "./pushDelivery";
 
 export type BroadcastBatchResult = {
@@ -104,6 +104,7 @@ export async function processBroadcastBatch(broadcastId: number): Promise<Broadc
       pushExpoSent = pushStats.expoSent;
       pushWebSent = pushStats.webSent;
       pushFailed = pushStats.failed;
+      await prunePushTokens(pushStats.invalidTokens);
     }
 
     const lastUserId = userIds[userIds.length - 1];

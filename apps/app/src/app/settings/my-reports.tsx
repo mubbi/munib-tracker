@@ -19,6 +19,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { listContentReports } from "@/lib/content-report-api";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 
 export default function MyReportsScreen() {
@@ -186,3 +187,6 @@ const styles = StyleSheet.create({
   description: { marginTop: Spacing.one },
   sheetBody: { gap: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/my-reports");

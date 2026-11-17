@@ -17,7 +17,7 @@ export default defineConfig({
   plugins: [swc.vite()],
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./src"),
+      "@": resolve(import.meta.dirname, "./src"),
     },
   },
 });

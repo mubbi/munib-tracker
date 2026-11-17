@@ -9,7 +9,6 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "app.munibtracker",
-      "buildNumber": "1.2.1",
       "supportsTablet": true,
       "usesAppleSignIn": true,
       "icon": "./assets/images/icon.png",
@@ -25,7 +24,6 @@
     },
     "android": {
       "package": "app.munibtracker",
-      "versionCode": 570010201,
       "adaptiveIcon": {
         "backgroundColor": "#152921",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -47,7 +45,8 @@
           ],
           "category": ["BROWSABLE", "DEFAULT"]
         }
-      ]
+      ],
+      "permissions": ["android.permission.SCHEDULE_EXACT_ALARM"]
     },
     "web": {
       "bundler": "metro",
@@ -154,13 +153,6 @@
       "webAppVersion": "1.0.0",
       "vapidPublicKey": "vapid_9c7f2d18a4e64b9e9d5c3f7b1a8e62d",
       "serviceWorkerPath": "/expo-service-worker.js",
-      "router": {
-        "asyncRoutes": {
-          "web": true,
-          "android": false,
-          "ios": false
-        }
-      },
       "eas": {
         "build": {
           "experimental": {

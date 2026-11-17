@@ -7,12 +7,11 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
-  type ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   useWindowDimensions,
   View,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -25,6 +24,7 @@ import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useTheme } from "@/hooks/use-theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { EXPLORE_TOUR, type FeatureTourStep, getFeatureTour } from "@/lib/feature-tours";
@@ -32,6 +32,7 @@ import { triggerHaptic } from "@/lib/haptics";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { arrowForward, chevronBack, chevronForward, useIsRTL } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToursActions } from "@/stores/tours-store";
 
 /** Tablet / desktop web: cap toolbar + footer chrome to a centered column. */
@@ -43,7 +44,7 @@ const SPLIT_MIN_WIDTH = 900;
 export default function TourScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { scheme } = useTheme();
   const { colors, tokens } = useThemeTokens();
   const { markSeen } = useToursActions();
@@ -51,7 +52,7 @@ export default function TourScreen() {
   const { tour: tourParam } = useLocalSearchParams<{ tour?: string }>();
   const tour = getFeatureTour(tourParam ?? "explore") ?? EXPLORE_TOUR;
   const tourTitleKey = tour.id === "jannah" ? "jannah.title" : "tour.title";
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const [index, setIndex] = useState(0);
   const [pageWidth, setPageWidth] = useState(0);
   const tv = isTV();
@@ -591,3 +592,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tour");

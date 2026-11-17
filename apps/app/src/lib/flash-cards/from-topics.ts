@@ -1,4 +1,4 @@
-import { buildMcq } from "./mcq-helpers";
+import { buildMcq, condenseText } from "./mcq-helpers";
 import type { StudyMcq, StudySourceId, TopicLike } from "./types";
 
 /**
@@ -14,7 +14,7 @@ export function mcqsFromTopics(
   if (topics.length < 4) return [];
 
   const titles = topics.map((t) => t.title);
-  const summaries = topics.map((t) => t.summary);
+  const summaries = topics.map((t) => condenseText(t.summary));
   const out: StudyMcq[] = [];
 
   for (const topic of topics) {
@@ -24,7 +24,7 @@ export function mcqsFromTopics(
       id: `${sourceId}:topic-describe:${topic.id}`,
       sourceId,
       prompt: `What best describes “${topic.title}”?`,
-      correct: topic.summary,
+      correct: condenseText(topic.summary),
       distractorPool: summaries,
       explanation: topic.summary,
       categoryLabelKey,
@@ -34,7 +34,7 @@ export function mcqsFromTopics(
     const identify = buildMcq({
       id: `${sourceId}:topic-identify:${topic.id}`,
       sourceId,
-      prompt: `Which lesson covers this: “${topic.summary}”?`,
+      prompt: `Which lesson covers this: “${condenseText(topic.summary, 80)}”?`,
       correct: topic.title,
       distractorPool: titles,
       explanation: topic.summary,

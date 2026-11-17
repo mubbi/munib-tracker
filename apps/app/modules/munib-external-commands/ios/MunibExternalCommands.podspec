@@ -5,9 +5,10 @@ Pod::Spec.new do |s|
   s.description    = 'Queues Siri/watch/assistant commands and bridges WatchConnectivity messages to JS.'
   s.author         = 'Munib Tracker'
   s.homepage       = 'https://munibtracker.app'
-  s.platforms      = { :ios => '16.2' }
+  s.platforms      = { :ios => '16.4' }
   s.source         = { git: '' }
   s.static_framework = true
+  s.swift_version  = '5.10'
 
   s.dependency 'ExpoModulesCore'
 

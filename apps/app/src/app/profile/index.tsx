@@ -27,6 +27,7 @@ import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reason
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { formatRelativeWhen } from "@/lib/relative-time";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
@@ -765,3 +766,6 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/profile");

@@ -77,8 +77,9 @@ function isColorMode(value: string | null | undefined): value is ColorMode {
 /** Keep native Appearance in lockstep with the in-app color mode (tab bar, blur, StatusBar). */
 function syncNativeColorScheme(mode: ColorMode) {
   // `setColorScheme` is native-only; it's absent on react-native-web.
-  // "unspecified" clears the override so the app tracks the OS again.
-  Appearance.setColorScheme?.(mode === "system" ? "unspecified" : mode);
+  // "auto" clears the override so the app tracks the OS again ("unspecified" is
+  // deprecated since React Native 0.88).
+  Appearance.setColorScheme?.(mode === "system" ? "auto" : mode);
 }
 
 /**

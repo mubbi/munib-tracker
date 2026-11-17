@@ -4,10 +4,10 @@ Drizzle ORM schemas for the **admin console** (`apps/admin`). Same Postgres data
 
 ## Ownership
 
-| Concern | Owner |
-|---------|--------|
+| Concern              | Owner                                          |
+| -------------------- | ---------------------------------------------- |
 | **DDL / migrations** | TypeORM in `apps/api/src/database/migrations/` |
-| **Admin queries** | Drizzle schemas in this package |
+| **Admin queries**    | Drizzle schemas in this package                |
 
 When you change columns: add/update a TypeORM migration first, then mirror the table in `src/schema/`.
 

@@ -1,5 +1,11 @@
 import { type ComponentType, forwardRef, type ReactNode, type Ref } from "react";
-import { type StyleProp, View, type ViewProps, type ViewStyle } from "react-native";
+import {
+  type StyleProp,
+  View,
+  type ViewInstance,
+  type ViewProps,
+  type ViewStyle,
+} from "react-native";
 
 import { isTV } from "@/lib/platform/is-tv";
 
@@ -11,21 +17,21 @@ type TvFocusGuideProps = ViewProps & {
    * child on revisit (react-native-tvos focus memory).
    */
   autoFocus?: boolean;
-  /** Explicit focus destinations (takes precedence over autoFocus). */
-  destinations?: unknown[];
+  /** Explicit focus destinations (takes precedence over autoFocus); host view refs. */
+  destinations?: ViewProps["destinations"];
   trapFocusUp?: boolean;
   trapFocusDown?: boolean;
   trapFocusLeft?: boolean;
   trapFocusRight?: boolean;
 };
 
-type TvFocusGuideNativeProps = TvFocusGuideProps & { ref?: Ref<View> };
+type TvFocusGuideNativeProps = TvFocusGuideProps & { ref?: Ref<ViewInstance> };
 
 /**
  * Focus trap / destination guide for TV remotes. On phone/web this is a plain View.
  * Use around dense lists or side-rail + content so D-pad focus does not get stuck.
  */
-export const TvFocusGuide = forwardRef<View, TvFocusGuideProps>(function TvFocusGuide(
+export const TvFocusGuide = forwardRef<ViewInstance, TvFocusGuideProps>(function TvFocusGuide(
   {
     children,
     style,

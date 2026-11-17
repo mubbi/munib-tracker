@@ -19,6 +19,7 @@ import { createId, PrayerRepository, QazaRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -245,3 +246,6 @@ const styles = StyleSheet.create({
   qazaToggle: { marginTop: Spacing.three },
   disclaimer: { marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/import");

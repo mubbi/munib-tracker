@@ -8,6 +8,7 @@ import {
   type StyleProp,
   StyleSheet,
   View,
+  type ViewInstance,
   type ViewStyle,
 } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
@@ -122,6 +123,9 @@ function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
 
   const hostStyle: Record<string, ViewStyle[keyof ViewStyle]> = {};
   const innerStyle: Record<string, ViewStyle[keyof ViewStyle]> = {};
+  // A uniform border eats into the host's content box; the inner must match that
+  // box, or it overflows bottom/end and centred content (icons) sits off-centre.
+  const borderInset = typeof flatStyle.borderWidth === "number" ? flatStyle.borderWidth * 2 : 0;
   for (const [key, value] of Object.entries(flatStyle) as [
     keyof ViewStyle,
     ViewStyle[keyof ViewStyle],
@@ -139,7 +143,7 @@ function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
       // absolute badges resolve against the well. Percentage widths stay host-only
       // so flex grids are not double-shrunk.
       if ((key === "width" || key === "height") && typeof value === "number") {
-        innerStyle[key] = value;
+        innerStyle[key] = Math.max(0, value - borderInset);
       }
     }
   }
@@ -239,7 +243,7 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
  * drawn as background/foreground — so we wrap bounded ripples in a rounded
  * clip View (borderRadius + overflow hidden) that clips the whole Pressable.
  */
-export const PressableScale = forwardRef<View, PressableScaleProps>(function PressableScale(
+export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(function PressableScale(
   {
     children,
     scaleTo = 0.96,

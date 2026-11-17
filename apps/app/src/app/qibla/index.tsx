@@ -38,6 +38,7 @@ import {
   qiblaArrowAngle,
 } from "@/lib/qibla-guidance";
 import { getRouteFaq } from "@/lib/seo/faq-content";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   locationStore,
@@ -918,3 +919,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/qibla");

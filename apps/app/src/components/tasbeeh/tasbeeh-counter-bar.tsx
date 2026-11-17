@@ -9,8 +9,6 @@ import Animated, {
   withSequence,
   withSpring,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
 import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
@@ -19,6 +17,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Springs } from "@/constants/motion";
 import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
@@ -49,7 +48,7 @@ export function TasbeehCounterBar({
 }: TasbeehCounterBarProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const [confirmUndo, setConfirmUndo] = useState(false);
   const displayCount = target > 0 ? Math.min(count, target) : count;
   const atLimit = target > 0 && count >= target;

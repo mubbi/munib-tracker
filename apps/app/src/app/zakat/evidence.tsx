@@ -7,6 +7,7 @@ import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
 import { ZakatEvidenceContent } from "@/components/zakat/zakat-evidence-content";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function ZakatEvidenceScreen() {
   const router = useRouter();
@@ -29,3 +30,6 @@ export default function ZakatEvidenceScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/zakat/evidence");

@@ -33,6 +33,20 @@ import {
   UserMediaService,
 } from "./user-media.service";
 
+/**
+ * `Content-Disposition` for a user-supplied filename. Header values must be
+ * latin1 — a raw Arabic/Urdu name makes Node throw (500) — so send an ASCII
+ * fallback plus the RFC 5987 `filename*` form for the real name.
+ */
+export function inlineContentDisposition(filename: string): string {
+  const ascii = filename.replace(/[^\x20-\x7e]/g, "_").replace(/["\\]/g, "_");
+  const encoded = encodeURIComponent(filename).replace(
+    /['()*]/g,
+    (char) => `%${char.charCodeAt(0).toString(16).toUpperCase()}`,
+  );
+  return `inline; filename="${ascii}"; filename*=UTF-8''${encoded}`;
+}
+
 @ApiTags("user-media")
 @Controller("user-media")
 export class UserMediaController {
@@ -110,7 +124,7 @@ export class UserMediaController {
     );
     return new StreamableFile(buffer, {
       type: mimeType,
-      disposition: `inline; filename="${filename.replace(/"/g, "")}"`,
+      disposition: inlineContentDisposition(filename),
     });
   }
 

@@ -86,7 +86,7 @@ function EqualizerBar({
   const style = useAnimatedStyle(() => {
     const lvl = active.value > 0.5 ? level.value : 0;
     const e = (lvl - onset) * gain;
-    const eff = e < 0 ? 0 : e > 1 ? 1 : e;
+    const eff = e < 0 ? 0 : Math.min(e, 1);
     const len = barBase + barExtra * eff * amplitude;
     const dist = innerRadius + len / 2;
     return {

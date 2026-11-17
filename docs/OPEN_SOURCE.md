@@ -9,12 +9,12 @@ Requirements were: free to use, modify, and redistribute; **not** for sale or
 commercial customization-for-sale; mandatory credit + link to
 [https://munibtracker.app](https://munibtracker.app).
 
-| Option | Fit |
-|--------|-----|
+| Option                                    | Fit                                                                                                                |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | **PolyForm Noncommercial 1.0.0** (chosen) | Written for software; clear non-commercial grant; supports `Required Notice:` lines for marketing-site attribution |
-| CC BY-NC 4.0 | Similar intent, but aimed at creative works rather than code |
-| MIT / Apache-2.0 | Allow commercial sale — does **not** match requirements |
-| AGPL / GPL | Strong copyleft, but still allow commercial use |
+| CC BY-NC 4.0                              | Similar intent, but aimed at creative works rather than code                                                       |
+| MIT / Apache-2.0                          | Allow commercial sale — does **not** match requirements                                                            |
+| AGPL / GPL                                | Strong copyleft, but still allow commercial use                                                                    |
 
 This is **source-available / non-commercial**, not OSI “Open Source.” Prefer that
 wording in marketing copy.
@@ -71,11 +71,11 @@ Create these labels in the GitHub UI (or via `gh label create`) so the labeler c
 
 ## Monorepo surfaces (for reviewers)
 
-| Surface | Path | Notes |
-|---------|------|--------|
-| Product | `apps/app` | Expo SDK 57 — iOS, Android, Web, Apple TV / Android TV |
-| Marketing | `apps/marketing-web` | Next.js 16 (port 3000) |
-| Admin | `apps/admin` | Next.js ops console (port 3002) |
-| API | `apps/api` | NestJS 11 (port 3001) |
-| Packages | `packages/*` | shared, db, theme, api-client/contract, live-activity-delivery, surface-push-delivery, store-screenshots, … |
-| Screenshot studio | `tools/screenshot-studio` | Outside workspace; port 3010 |
+| Surface           | Path                      | Notes                                                                                                       |
+| ----------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Product           | `apps/app`                | Expo SDK 58 — iOS, Android, Web, Apple TV / Android TV                                                      |
+| Marketing         | `apps/marketing-web`      | Next.js 16 (port 3000)                                                                                      |
+| Admin             | `apps/admin`              | Next.js ops console (port 3002)                                                                             |
+| API               | `apps/api`                | NestJS 11 (port 3001)                                                                                       |
+| Packages          | `packages/*`              | shared, db, theme, api-client/contract, live-activity-delivery, surface-push-delivery, store-screenshots, … |
+| Screenshot studio | `tools/screenshot-studio` | Outside workspace; port 3010                                                                                |

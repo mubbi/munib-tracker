@@ -102,7 +102,7 @@ export function SettingsRow({
           type={tv ? "small" : "caption"}
           themeColor="mutedForeground"
           numberOfLines={tv ? 1 : undefined}
-          style={tv ? styles.valueTv : undefined}
+          style={[styles.value, { textAlign: rtl ? "left" : "right" }, tv && styles.valueTv]}
         >
           {value}
         </ThemedText>
@@ -237,6 +237,15 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     gap: 2,
+    // Keep room for the title's longest word: a long trailing value (e.g. a
+    // calculation-method name) otherwise squeezed it to ~80dp and Android broke
+    // "Calculation" mid-word.
+    minWidth: "40%",
+  },
+  /** Trailing value shrinks and wraps instead of claiming its full text width. */
+  value: {
+    flexShrink: 1,
+    maxWidth: "45%",
   },
   valueTv: {
     maxWidth: "40%",

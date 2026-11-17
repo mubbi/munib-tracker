@@ -35,11 +35,13 @@ try {
     writeFileSync(routerTypesPath, file);
   }
 } catch (error) {
-  // Typed routes are best-effort; leave any existing router.d.ts in place.
-  if (!existsSync(routerTypesPath)) {
-    console.warn(
-      "[ensure-expo-env] Could not regenerate typed routes:",
-      error instanceof Error ? error.message : error,
-    );
-  }
+  // Fatal: a stale router.d.ts would let `check-types` pass against an old route
+  // tree (the `Href` type is used across ~150 files). These internal entry points
+  // (expo-router/internal/testing, @expo/router-server typed-routes, _ctx-shared)
+  // can move between Expo SDKs — fix the imports above when that happens.
+  console.error(
+    "[ensure-expo-env] Could not regenerate typed routes:",
+    error instanceof Error ? error.message : error,
+  );
+  process.exit(1);
 }

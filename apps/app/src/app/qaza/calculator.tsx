@@ -7,6 +7,7 @@ import {
 } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import type { TFunction } from "i18next";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -33,6 +34,7 @@ import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { getRouteFaq } from "@/lib/seo/faq-content";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import { useQazaCounters, useTrackerActions } from "@/stores/tracker-store";
 
@@ -41,12 +43,9 @@ function toInt(value: string): number {
   return Number.isFinite(n) ? n : 0;
 }
 
-function issueMessage(
-  t: (key: string, options?: Record<string, string | number>) => string,
-  issue: QazaCalculatorIssue,
-): string {
+function issueMessage(t: TFunction, issue: QazaCalculatorIssue): string {
   const key = `qazaCalc.validation.${issue.code}` as const;
-  return t(key, issue.meta);
+  return t(key, issue.meta ?? {});
 }
 
 export default function QazaCalculatorScreen() {
@@ -578,3 +577,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/qaza/calculator");

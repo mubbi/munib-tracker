@@ -5,6 +5,16 @@
       "post": {
         "operationId": "AuthController_createGuestSession",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GuestSessionDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -335,6 +345,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OAuthCallbackDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -357,6 +377,16 @@
       "post": {
         "operationId": "AuthController_refresh",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -389,6 +419,16 @@
       "post": {
         "operationId": "AuthController_linkAccount",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkAccountDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -1529,6 +1569,16 @@
       }
     },
     "schemas": {
+      "GuestSessionDto": {
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "type": "string",
+            "description": "Optional stable device id to reuse guest sessions",
+            "example": "device-abc-123"
+          }
+        }
+      },
       "AuthSessionResponseDto": {
         "type": "object",
         "properties": {
@@ -1769,6 +1819,81 @@
           "codeVerifier",
           "redirectUri",
           "returnUrl"
+        ]
+      },
+      "OAuthCallbackDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Authorization code from the OAuth provider"
+          },
+          "idToken": {
+            "type": "string",
+            "description": "OpenID Connect id_token from a native sign-in (Apple, Google native)"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "Google OAuth access token from on-device PKCE exchange (native Google)"
+          },
+          "codeVerifier": {
+            "type": "string",
+            "description": "PKCE code verifier when using auth code + PKCE"
+          },
+          "redirectUri": {
+            "type": "string",
+            "description": "Redirect URI used in the OAuth request"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Display name from Apple native credential (first sign-in)"
+          }
+        }
+      },
+      "RefreshTokenDto": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "description": "Opaque refresh token; optional for web clients that send mt_refresh_token cookie"
+          }
+        }
+      },
+      "LinkAccountDto": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "enum": [
+              "google",
+              "apple",
+              "facebook"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "description": "Authorization code from the OAuth provider"
+          },
+          "idToken": {
+            "type": "string",
+            "description": "OpenID Connect id_token from a native sign-in (Apple, Google native)"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "Google OAuth access token from on-device PKCE exchange"
+          },
+          "codeVerifier": {
+            "type": "string"
+          },
+          "redirectUri": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
         ]
       },
       "ResetAppDataDto": {

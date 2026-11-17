@@ -8,11 +8,19 @@ import type { AudioMode } from "expo-audio";
 export const PLAYBACK_AUDIO_MODE: Partial<AudioMode> = {
   playsInSilentMode: true,
   shouldPlayInBackground: true,
-  interruptionMode: "doNotMix",
+  // Persistent exclusive focus (expo-audio 58; Android AUDIOFOCUS_GAIN, iOS no
+  // "notify others on deactivation"). Qur'an recitation and the Adhan are
+  // long-form, lock-screen-controlled playback, and the A/B queue briefly
+  // abandons focus between ayahs: with transient `doNotMix` another app's music
+  // would resume in every gap. Lock-screen controls accept either mode.
+  interruptionMode: "doNotMixPersistent",
   allowsRecording: false,
 };
 
-/** Record mode for a practice take. Capture never runs in the background. */
+/**
+ * Record mode for a practice take. Capture never runs in the background. A take
+ * is short, so transient `doNotMix` is right here.
+ */
 export const RECORDING_AUDIO_MODE: Partial<AudioMode> = {
   playsInSilentMode: true,
   shouldPlayInBackground: false,

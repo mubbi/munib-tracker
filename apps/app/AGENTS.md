@@ -1,10 +1,10 @@
 # Expo Product App (`apps/app`)
 
-Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
+Read the exact versioned docs at https://docs.expo.dev/versions/v58.0.0/ before writing any code.
 
 ## Apple TV / Android TV
 
-Full product app on TV via `react-native-tvos` (`npm:react-native-tvos@0.86.0-2`) and `@react-native-tvos/config-tv`. Set `EXPO_TV=1` for TV prebuild; omit phone-only plugins (widgets, Watch, Wear, App Intents, quick actions). Guide: [`docs/TV.md`](../../docs/TV.md). Use `isTV()` from `src/lib/platform/is-tv.ts` for runtime gates — never crash on unsupported modules.
+Full product app on TV via `react-native-tvos` (`npm:react-native-tvos@0.88.1-0`) and `@react-native-tvos/config-tv`. Set `EXPO_TV=1` for TV prebuild; omit phone-only plugins (widgets, Watch, Wear, App Intents, quick actions). Guide: [`docs/TV.md`](../../docs/TV.md). Use `isTV()` from `src/lib/platform/is-tv.ts` for runtime gates — never crash on unsupported modules.
 
 ```
 pnpm prebuild:app:tv
@@ -29,11 +29,11 @@ Phone ↔ TV always needs a **clean** prebuild. Release scripts refuse the wrong
 
 Guest-first sessions with optional Google / Apple / Facebook sign-in for cloud sync. Canonical ops guide: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md) · App Links: [`docs/DEEP_LINKS.md`](../../docs/DEEP_LINKS.md).
 
-| Platform | Google | Apple | Facebook |
-|----------|--------|-------|----------|
-| **iOS** | On-device PKCE → `POST /auth/google` `{ accessToken }` | Native `expo-apple-authentication` → `POST /auth/apple` | PKCE → `POST /auth/oauth/facebook` |
-| **Android** | Same as iOS | Services ID PKCE → HTTPS App Link → `POST /auth/apple/oauth` | Same as iOS |
-| **Web** | PKCE → `POST /auth/google/oauth` (HttpOnly cookies) | Apple `form_post` via API callback → cookies | PKCE → `POST /auth/oauth/facebook` (cookies) |
+| Platform    | Google                                                 | Apple                                                        | Facebook                                     |
+| ----------- | ------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------- |
+| **iOS**     | On-device PKCE → `POST /auth/google` `{ accessToken }` | Native `expo-apple-authentication` → `POST /auth/apple`      | PKCE → `POST /auth/oauth/facebook`           |
+| **Android** | Same as iOS                                            | Services ID PKCE → HTTPS App Link → `POST /auth/apple/oauth` | Same as iOS                                  |
+| **Web**     | PKCE → `POST /auth/google/oauth` (HttpOnly cookies)    | Apple `form_post` via API callback → cookies                 | PKCE → `POST /auth/oauth/facebook` (cookies) |
 
 Key files: `src/hooks/use-social-auth.ts`, `src/lib/auth/oauth-config.ts`, `src/lib/auth/appleAuth.ios.ts`, `src/providers/auth-provider.tsx`, `src/auth/session-store.ts`. Social buttons only render when the matching `EXPO_PUBLIC_*` client env is set.
 
@@ -59,20 +59,20 @@ pnpm --filter app test -- i18n
 
 **2. Standardized Islamic terminology — use ONLY the left-hand spelling in English source copy** (never the alternatives). The guard rejects the banned spellings:
 
-| Use (canonical) | Never write |
-|---|---|
-| **Salah** (the ritual prayer, in labels/stats/reminders) | Prayer/Prayers *as a bare label*, Namaz, Salat* |
-| **Zikr** (singular); **Adhkar** (plural) | Dhikr |
-| **Adhan** | Azan |
-| **Qaza** | Qada, Qadha |
-| **Fasting** (English); روزہ / الصيام in ur/ar | Roza (in English) |
-| **Tasbeeh** | Tasbih |
-| **Dua** | Du'a |
-| **Masjid** | Mosque |
-| **rakah** / **rakahs** | rak'ah, rakat, rakats, rakaat |
-| **Tarawih** | Taraweeh |
+| Use (canonical)                                          | Never write                                     |
+| -------------------------------------------------------- | ----------------------------------------------- |
+| **Salah** (the ritual prayer, in labels/stats/reminders) | Prayer/Prayers _as a bare label_, Namaz, Salat* |
+| **Zikr** (singular); **Adhkar** (plural)                 | Dhikr                                           |
+| **Adhan**                                                | Azan                                            |
+| **Qaza**                                                 | Qada, Qadha                                     |
+| **Fasting** (English); روزہ / الصيام in ur/ar            | Roza (in English)                               |
+| **Tasbeeh**                                              | Tasbih                                          |
+| **Dua**                                                  | Du'a                                            |
+| **Masjid**                                               | Mosque                                          |
+| **rakah** / **rakahs**                                   | rak'ah, rakat, rakats, rakaat                   |
+| **Tarawih**                                              | Taraweeh                                        |
 
-*Also: Fajr, Dhuhr, Asr, Maghrib, Isha, Witr, Tahajjud, Sunnah, Nafl, Wudu, Ghusl, Ramadan, Jumu'ah, Qur'an — spelled consistently.* The one nuance: **"Salah"** is for discrete labels; natural "prayer(s)" is allowed *only* mid-sentence in long educational prose under `prayerInfo.*` (and proper compounds like "Salat al-Wusta"). Everywhere else a bare "Prayer" label must be "Salah".
+_Also: Fajr, Dhuhr, Asr, Maghrib, Isha, Witr, Tahajjud, Sunnah, Nafl, Wudu, Ghusl, Ramadan, Jumu'ah, Qur'an — spelled consistently._ The one nuance: **"Salah"** is for discrete labels; natural "prayer(s)" is allowed _only_ mid-sentence in long educational prose under `prayerInfo.*` (and proper compounds like "Salat al-Wusta"). Everywhere else a bare "Prayer" label must be "Salah".
 
 **3. Translation quality.** Phase 1 (`ar`, `ur`): fully translated UI — no English words left inside (the guard flags 4+-letter Latin except allowlisted proper nouns). Phase 2–4: key parity required; prefer native labels via `ui-polish-patches.json`. Keep the exact same `{{interpolation}}` variables as English. For `ar`, `ru`, `bn`, include all CLDR plural suffixes (`plural-audit.test.ts`). Never leave a value empty. **Religious text bodies** must come from OSS datasets via `src/lib/translation-locale.ts` — never AI-generated in JSON catalogs. When you rewrite English, re-translate Phase 1 `ur`/`ar` too.
 
@@ -92,20 +92,20 @@ All search bars and content filtering use **[Fuse.js v7](https://github.com/kris
 
 `src/lib/search.ts` — universal offline search across Qur'an, hadith, duas, adhkar, duroods, the 99 names, and Learn guides (single `learn` tab via `search-guides.ts` / `searchLightWithGuides`).
 
-| Export | Purpose |
-|--------|---------|
-| `searchLight()` | Instant results (all sources except Qur'an ayah full-text) |
-| `preloadSearchCorpora()` | Warm dua/zikr/names/duroods async chunks (call from search screens on mount) |
-| `ensureAyahFuse()` / `searchQuranAyahs()` | Heavy ayah index — `ensureAyahFuse` dynamic-imports `@/lib/quran`; run off the interaction thread |
-| `searchAll()` | Synchronous full search (tests / non-interactive callers) |
-| `normalize()` / `tokenize()` | Diacritic-insensitive, Arabic-aware text folding |
-| `createFuzzyIndex(items, fields)` | Reusable `FuzzyIndex` for a screen-local list (project defaults + `normalize()`) — memoize per list |
-| `createHadithSearch(items)` | `FuzzyIndex<HadithItem>` for an in-collection hadith search bar |
-| `createDuaSearch(items)` | `FuzzyIndex<DuaItem>` for an in-category dua search bar |
-| `createZikrSearch(items)` | `FuzzyIndex<ZikrItem>` for an in-category zikr search bar |
-| `searchDuaList(query, limit?)` | Ranked `DuaItem[]` for the duas index filter |
-| `searchZikrList(query, limit?)` | Ranked `ZikrItem[]` for the zikr index filter |
-| `searchSurahList(query, limit?)` | Ranked `Surah[]` for the Qur'an index filter (reuses the cached surah index) |
+| Export                                    | Purpose                                                                                             |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `searchLight()`                           | Instant results (all sources except Qur'an ayah full-text)                                          |
+| `preloadSearchCorpora()`                  | Warm dua/zikr/names/duroods async chunks (call from search screens on mount)                        |
+| `ensureAyahFuse()` / `searchQuranAyahs()` | Heavy ayah index — `ensureAyahFuse` dynamic-imports `@/lib/quran`; run off the interaction thread   |
+| `searchAll()`                             | Synchronous full search (tests / non-interactive callers)                                           |
+| `normalize()` / `tokenize()`              | Diacritic-insensitive, Arabic-aware text folding                                                    |
+| `createFuzzyIndex(items, fields)`         | Reusable `FuzzyIndex` for a screen-local list (project defaults + `normalize()`) — memoize per list |
+| `createHadithSearch(items)`               | `FuzzyIndex<HadithItem>` for an in-collection hadith search bar                                     |
+| `createDuaSearch(items)`                  | `FuzzyIndex<DuaItem>` for an in-category dua search bar                                             |
+| `createZikrSearch(items)`                 | `FuzzyIndex<ZikrItem>` for an in-category zikr search bar                                           |
+| `searchDuaList(query, limit?)`            | Ranked `DuaItem[]` for the duas index filter                                                        |
+| `searchZikrList(query, limit?)`           | Ranked `ZikrItem[]` for the zikr index filter                                                       |
+| `searchSurahList(query, limit?)`          | Ranked `Surah[]` for the Qur'an index filter (reuses the cached surah index)                        |
 
 Search bars wired to these: home `src/app/search.tsx` (universal), `quran/index.tsx` (surah filter → `searchSurahList`), `quran/search.tsx` (ayah full-text → `searchQuranAyahs`), `hadith/[collection].tsx` (in-collection → `createHadithSearch`), `dua/index.tsx` + `dua/[category].tsx` (→ `searchDuaList` / `createDuaSearch`), `zikr/index.tsx` + `zikr/[category].tsx` (→ `searchZikrList` / `createZikrSearch`).
 

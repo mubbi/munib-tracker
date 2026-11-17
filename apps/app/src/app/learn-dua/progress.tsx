@@ -23,6 +23,7 @@ import {
 } from "@/lib/learn-dua";
 import { buildLearnDuaProgress } from "@/lib/learn-dua-progress";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureLearnDuaProgressLoaded,
   useLearnDuaCompletedCount,
@@ -132,3 +133,6 @@ const styles = StyleSheet.create({
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-dua/progress");

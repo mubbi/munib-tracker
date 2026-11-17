@@ -1,55 +1,73 @@
-import {
-  createDownloadResumable,
-  type DownloadResumable,
-  deleteAsync,
-  documentDirectory,
-  getFreeDiskStorageAsync,
-  getInfoAsync,
-  makeDirectoryAsync,
-  moveAsync,
-  readAsStringAsync,
-  readDirectoryAsync,
-} from "expo-file-system/legacy";
+import { File, Paths } from "expo-file-system";
 
 import { RECITATION_MODELS } from "@/constants/recitation-models";
+import {
+  deletePath,
+  directoryExists,
+  documentDirectoryUri,
+  ensureDirectory,
+  fileInfo,
+  httpStatusFromDownloadError,
+  listDirectory,
+  moveFile,
+} from "@/lib/native-file-store";
 
 import { PracticeError } from "../error-codes";
 import type { EngineId } from "../types";
 import type { RecitationModelStore } from "./types";
 
 /**
- * Native listener files (§7 Model files): `${documentDirectory}recitation-models/`
- * via `expo-file-system/legacy` (the same import the audio cache uses). Downloads
- * go to `<name>.part` and are renamed only after size + MD5 pass — MD5 is computed
- * natively by `getInfoAsync(uri, { md5: true })`, so a 66 MB file is never read
+ * Native listener files (§7 Model files): `<documents>/recitation-models/` via
+ * `native-file-store.ts` (the same helpers the audio cache uses). Downloads go to
+ * `<name>.part` and are renamed only after size + MD5 pass — MD5 is computed
+ * natively by `File.digest("MD5")` (lowercase hex, the same format the legacy
+ * `getInfoAsync(uri, { md5: true })` returned), so a 66 MB file is never read
  * into JS. Not inside `munib-audio/`, so clearing audio never touches it.
  */
 
-export const MODEL_DIR = `${documentDirectory ?? ""}recitation-models/`;
+export const MODEL_DIR = `${documentDirectoryUri() ?? ""}recitation-models/`;
 const PART = ".part";
 
 function stripScheme(uri: string): string {
   return uri.replace(/^file:\/\//, "");
 }
 
-async function ensureDir(): Promise<void> {
-  const info = await getInfoAsync(MODEL_DIR);
-  if (!info.exists) await makeDirectoryAsync(MODEL_DIR, { intermediates: true });
+function ensureDir(): void {
+  ensureDirectory(MODEL_DIR);
 }
 
-/** Resume data for the one automatic resume after an interruption (§7). */
-let interrupted: { engine: EngineId; resumable: DownloadResumable } | null = null;
+function deleteQuietly(uri: string): void {
+  try {
+    deletePath(uri);
+  } catch {
+    // best effort
+  }
+}
+
+/** Size + MD5 check against the pinned manifest values (lowercase hex). */
+async function matchesSpec(uri: string, spec: { bytes: number; md5: string }): Promise<boolean> {
+  const info = fileInfo(uri);
+  if (!info.exists || info.size !== spec.bytes) return false;
+  const md5 = await new File(uri).digest("MD5");
+  return md5.toLowerCase() === spec.md5.toLowerCase();
+}
+
+/**
+ * Marker for the one automatic resume after an interruption (§7). The legacy
+ * `DownloadResumable.downloadAsync()` retry never had pause data (the store
+ * never pauses), so it re-requested the file into the same `.part`; a fresh
+ * download task does exactly that.
+ */
+let interrupted: { engine: EngineId } | null = null;
 
 export function createRecitationModelStore(): RecitationModelStore {
   return {
     async sizeOnDisk() {
       try {
-        const info = await getInfoAsync(MODEL_DIR);
-        if (!info.exists) return 0;
+        if (!directoryExists(MODEL_DIR)) return 0;
         let total = 0;
-        for (const name of await readDirectoryAsync(MODEL_DIR)) {
-          const file = await getInfoAsync(MODEL_DIR + name);
-          if (file.exists && !file.isDirectory) total += file.size ?? 0;
+        for (const entry of listDirectory(MODEL_DIR)) {
+          if (!entry.isDirectory) total += entry.size ?? 0;
         }
         return total;
       } catch {
@@ -59,7 +77,7 @@ export function createRecitationModelStore(): RecitationModelStore {
 
     async isPresent(manifest) {
       for (const f of manifest.files) {
-        const info = await getInfoAsync(MODEL_DIR + f.fileName);
+        const info = fileInfo(MODEL_DIR + f.fileName);
         if (!info.exists || (info.size ?? -1) !== f.bytes) return false;
       }
       return true;
@@ -67,7 +85,9 @@ export function createRecitationModelStore(): RecitationModelStore {
 
     async freeBytes() {
       try {
-        return await getFreeDiskStorageAsync();
+        // Space the app can actually use (excludes system-reserved blocks).
+        const free = Paths.availableDiskSpace;
+        return typeof free === "number" && Number.isFinite(free) ? free : null;
       } catch {
         return null;
       }
@@ -82,65 +102,75 @@ export function createRecitationModelStore(): RecitationModelStore {
       const total = spec.files.reduce((sum, f) => sum + f.bytes, 0);
       const free = await this.freeBytes();
       if (free != null && free < total * 2) throw new PracticeError("not-enough-space");
-      await ensureDir();
+      ensureDir();
 
       let doneBefore = 0;
       for (const file of spec.files) {
         if (signal.cancelled) throw new PracticeError("download-cancelled");
         const target = MODEL_DIR + file.fileName;
-        const existing = await getInfoAsync(target, { md5: true });
-        if (existing.exists && existing.size === file.bytes && existing.md5 === file.md5) {
+        if (await matchesSpec(target, file)) {
           doneBefore += file.bytes;
           onProgress({ bytesDone: doneBefore, bytesTotal: total });
           continue;
         }
         const partUri = target + PART;
-        const resumable =
-          interrupted?.engine === engine
-            ? interrupted.resumable
-            : createDownloadResumable(file.url, partUri, {}, (p) => {
-                onProgress({
-                  bytesDone: doneBefore + Math.min(p.totalBytesWritten, file.bytes),
-                  bytesTotal: total,
-                });
-              });
+        const task = File.createDownloadTask(file.url, new File(partUri), {
+          onProgress: (p) => {
+            onProgress({
+              bytesDone: doneBefore + Math.min(p.bytesWritten, file.bytes),
+              bytesTotal: total,
+            });
+          },
+        });
         interrupted = null;
         signal.onCancel = () => {
-          void resumable.cancelAsync().catch(() => {});
+          try {
+            task.cancel();
+          } catch {
+            // Already settled.
+          }
         };
         let result: { status: number } | undefined;
         try {
-          result = (await resumable.downloadAsync()) ?? undefined;
+          // Resolves null only when paused, which this store never does.
+          result = (await task.downloadAsync()) ? { status: 200 } : undefined;
         } catch (error) {
           if (signal.cancelled) {
-            await deleteAsync(partUri, { idempotent: true }).catch(() => {});
+            deleteQuietly(partUri);
             throw new PracticeError("download-cancelled");
           }
-          // Keep the resumable for one automatic resume on the next foreground.
-          interrupted = { engine, resumable };
-          const message = (error as Error)?.message ?? "";
-          throw new PracticeError(
-            /network|connection|offline|timed out|host/i.test(message)
-              ? "no-connection"
-              : "download-failed",
-            message,
-          );
+          // The class-based API rejects on a non-2xx response instead of
+          // resolving with its status; keep the legacy "HTTP <status>" failure.
+          const status = httpStatusFromDownloadError(error);
+          if (status == null) {
+            // Keep the marker for one automatic resume on the next foreground.
+            interrupted = { engine };
+            const message = (error as Error)?.message ?? "";
+            throw new PracticeError(
+              /network|connection|offline|timed out|host/i.test(message)
+                ? "no-connection"
+                : "download-failed",
+              message,
+            );
+          }
+          result = { status };
+        } finally {
+          task.release();
         }
         if (signal.cancelled) {
-          await deleteAsync(partUri, { idempotent: true }).catch(() => {});
+          deleteQuietly(partUri);
           throw new PracticeError("download-cancelled");
         }
         if (!result || result.status < 200 || result.status >= 300) {
-          await deleteAsync(partUri, { idempotent: true }).catch(() => {});
+          deleteQuietly(partUri);
           throw new PracticeError("download-failed", `HTTP ${result?.status ?? "?"}`);
         }
-        const info = await getInfoAsync(partUri, { md5: true });
-        if (!info.exists || info.size !== file.bytes || info.md5 !== file.md5) {
-          await deleteAsync(partUri, { idempotent: true }).catch(() => {});
+        if (!(await matchesSpec(partUri, file))) {
+          deleteQuietly(partUri);
           throw new PracticeError("checksum-mismatch");
         }
-        await deleteAsync(target, { idempotent: true }).catch(() => {});
-        await moveAsync({ from: partUri, to: target });
+        deleteQuietly(target);
+        await moveFile(partUri, target);
         doneBefore += file.bytes;
         onProgress({ bytesDone: doneBefore, bytesTotal: total });
       }
@@ -160,18 +190,17 @@ export function createRecitationModelStore(): RecitationModelStore {
 
     async deleteAll() {
       interrupted = null;
-      await deleteAsync(MODEL_DIR, { idempotent: true }).catch(() => {});
+      deleteQuietly(MODEL_DIR);
     },
 
     async cleanupOrphans(manifest) {
       try {
-        const info = await getInfoAsync(MODEL_DIR);
-        if (!info.exists) return;
+        if (!directoryExists(MODEL_DIR)) return;
         const keep = new Set(manifest?.files.map((f) => f.fileName) ?? []);
-        for (const name of await readDirectoryAsync(MODEL_DIR)) {
+        for (const { name } of listDirectory(MODEL_DIR)) {
           // A pending resume still owns its `.part` file.
           if (name.endsWith(PART) && interrupted) continue;
-          if (!keep.has(name)) await deleteAsync(MODEL_DIR + name, { idempotent: true });
+          if (!keep.has(name)) deletePath(MODEL_DIR + name);
         }
       } catch {
         // best effort
@@ -185,12 +214,11 @@ export function createRecitationModelStore(): RecitationModelStore {
       for (const file of spec.files) {
         const uri = MODEL_DIR + file.fileName;
         if (file.kind === "model") {
-          const info = await getInfoAsync(uri);
-          if (!info.exists) throw new PracticeError("model-missing");
+          if (!fileInfo(uri).exists) throw new PracticeError("model-missing");
           modelPath = stripScheme(uri);
         } else if (file.kind === "json") {
           try {
-            json[file.fileName] = JSON.parse(await readAsStringAsync(uri));
+            json[file.fileName] = JSON.parse(await new File(uri).text());
           } catch (error) {
             throw new PracticeError("model-missing", (error as Error)?.message);
           }
@@ -204,7 +232,7 @@ export function createRecitationModelStore(): RecitationModelStore {
 /** Wipe helper for `wipeLocalDeviceData` (no store instance needed). */
 export async function deleteRecitationModelFiles(): Promise<void> {
   interrupted = null;
-  await deleteAsync(MODEL_DIR, { idempotent: true }).catch(() => {});
+  deleteQuietly(MODEL_DIR);
 }
 
 export async function recitationModelBytesOnDisk(): Promise<number> {

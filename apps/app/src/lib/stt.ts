@@ -44,7 +44,7 @@ export function resolveSttLang(localeOrTag: string, field: "arabic" | "other" = 
  */
 export function normalizeSttVolume(value: number): number {
   const level = (value + 2) / 12;
-  return level <= 0 ? 0 : level >= 1 ? 1 : level;
+  return level <= 0 ? 0 : Math.min(level, 1);
 }
 
 /** Whether the platform reports speech recognition as available. */

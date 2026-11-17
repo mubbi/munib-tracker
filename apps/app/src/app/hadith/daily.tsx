@@ -22,6 +22,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureDailyHadithPool, recentDailyHadith } from "@/lib/daily-hadith";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useHadithPrefs } from "@/stores/hadith-store";
 
 const ARCHIVE_DAYS = 21;
@@ -194,3 +195,6 @@ const styles = StyleSheet.create({
   narrator: { marginBottom: Spacing.one },
   english: { marginTop: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/hadith/daily");

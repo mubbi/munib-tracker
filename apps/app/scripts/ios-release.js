@@ -86,7 +86,9 @@ function main() {
   ensurePodsInstalled();
   loadProjectEnv();
 
-  const { marketingVersion, buildNumber } = preparePlatformRelease("ios", appRoot);
+  const { marketingVersion, buildNumber } = preparePlatformRelease("ios", appRoot, {
+    requireVersionCodes: true,
+  });
   logReleaseVersionSummary(appRoot, { activePlatform: "ios" });
   syncIosMarketingVersion(marketingVersion);
   syncIosBuildNumber(buildNumber);

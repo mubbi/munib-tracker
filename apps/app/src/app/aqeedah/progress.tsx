@@ -19,6 +19,7 @@ import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { ensureAqeedahContent, getAqeedahLessonCount, isAqeedahContentReady } from "@/lib/aqeedah";
 import { buildAqeedahProgress } from "@/lib/aqeedah-progress";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useAqeedahCompletedCount,
   useEnsureAqeedahProgressLoaded,
@@ -126,3 +127,6 @@ const styles = StyleSheet.create({
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/aqeedah/progress");

@@ -10,13 +10,12 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
-  type ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   useWindowDimensions,
   View,
   type ViewStyle,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LanguagePickerSheet } from "@/components/language-picker-sheet";
 import { LocaleFlag } from "@/components/locale-flag";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
@@ -29,6 +28,7 @@ import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
@@ -36,6 +36,7 @@ import { tTv } from "@/lib/i18n/t-tv";
 import { APP_LOCALES } from "@/lib/locale-display";
 import { isTV } from "@/lib/platform/is-tv";
 import { useArrowForward, useIsRTL } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 type SlideKind = "brand" | "feature" | "cta";
@@ -114,7 +115,7 @@ export default function OnboardingIntroScreen() {
   useMarkColdStartReady();
   const router = useRouter();
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const arrowForward = useArrowForward();
   const isRtl = useIsRTL();
   const { width } = useWindowDimensions();
@@ -133,7 +134,7 @@ export default function OnboardingIntroScreen() {
       ? WIDE_FOOTER_MAX_WIDTH
       : undefined;
   const slidePadBottom = tv ? Spacing.three : Spacing.two;
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const buttonDrivenScrollRef = useRef(false);
   const [index, setIndex] = useState(0);
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
@@ -1106,3 +1107,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(onboarding)/intro");

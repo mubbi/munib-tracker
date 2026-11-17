@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -11,6 +10,7 @@ import { SafeRefreshControl } from "@/components/ui/safe-refresh-control";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
@@ -18,7 +18,9 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { isTV } from "@/lib/platform/is-tv";
+import { horizontalSafeAreaPadding } from "@/lib/rtl";
 import { HOME_FAQ } from "@/lib/seo/faq-content";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { faqSchema } from "@/lib/seo/structured-data";
 import { useLocationActions } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
@@ -95,7 +97,7 @@ export default function HomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const tv = isTV();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { width } = useWindowDimensions();
   const dashboard = !tv && width >= HOME_DASHBOARD_BREAKPOINT;
   const { colors, tokens } = useThemeTokens();
@@ -143,7 +145,8 @@ export default function HomeScreen() {
       now={hero.now}
       moonLabel={hero.moonLabel}
       southernHemisphere={hero.southernHemisphere}
-      windowProgress={hero.windowProgress}
+      celestial={hero.celestial}
+      dayProgress={hero.dayProgress}
       notificationCount={notificationCount}
       weatherSummary={weather?.summary ?? null}
       weatherAccessibilityLabel={weather?.accessibilityLabel ?? null}
@@ -169,7 +172,12 @@ export default function HomeScreen() {
       // scroll view by walking first subviews from the tab screen root, so the
       // wrapper must not be view-flattened away from that chain.
       collapsable={false}
-      style={[styles.root, { backgroundColor: colors.background }]}
+      // Left/right safe area: iOS 27 vertical system rail (iPhone Duo) and notches.
+      style={[
+        styles.root,
+        { backgroundColor: colors.background },
+        isTV() ? null : horizontalSafeAreaPadding(insets),
+      ]}
     >
       <Seo path="/" isHome jsonLd={[faqSchema(HOME_FAQ)]} />
       {/* Dashboard: the hero is an inset card, so the status bar sits on the page background. */}
@@ -278,3 +286,6 @@ const styles = StyleSheet.create({
     gap: Spacing.half,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(tabs)");

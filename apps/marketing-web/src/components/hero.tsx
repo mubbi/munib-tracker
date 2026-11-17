@@ -1,7 +1,7 @@
 "use client";
 
 import { APP_TAGLINE } from "@munib-tracker/shared/constants";
-import { motion, type Variants } from "framer-motion";
+import { motion, stagger, type Variants } from "framer-motion";
 import { ArrowRight, Award, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
@@ -13,7 +13,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const container: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+  show: { transition: { delayChildren: stagger(0.09, { startDelay: 0.05 }) } },
 };
 
 const item: Variants = {
@@ -92,8 +92,10 @@ export function Hero() {
             id="hero-heading"
             className="hero-text-shadow mt-7 font-sans text-[3rem] font-semibold leading-[1.04] tracking-[-0.015em] text-[#f4f1ea] sm:text-6xl lg:text-[4.35rem]"
           >
-            <span className="block whitespace-nowrap">Track Your</span>
-            <span className="block whitespace-nowrap">Journey</span>
+            {/* Explicit spaces keep the accessible name ("Track Your Journey Back
+                to Allah.") intact; they collapse visually between block spans. */}
+            <span className="block whitespace-nowrap">Track Your</span>{" "}
+            <span className="block whitespace-nowrap">Journey</span>{" "}
             <span className="block whitespace-nowrap bg-gradient-to-r from-[#f8e7b2] via-[#eecd81] to-[#dcae5e] bg-clip-text text-transparent [text-shadow:none] drop-shadow-[0_2px_14px_rgba(30,20,4,0.45)]">
               Back to Allah.
             </span>

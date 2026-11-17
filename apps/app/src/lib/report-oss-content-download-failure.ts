@@ -114,20 +114,32 @@ export function reportOssContentDownloadFailure(input: ReportOssContentFailureIn
       ? input.error
       : new Error(input.errorMessage || `OSS download failed: ${input.contentKey}`);
 
-  captureAppException(error, {
-    tags: {
-      oss_content_kind: input.contentKind,
-      oss_error_code: input.errorCode,
-      oss_source_provider: input.sourceProvider,
-    },
-    extra: {
-      contentKey: input.contentKey,
-      sourceUrl: input.sourceUrl,
-      httpStatus: input.httpStatus,
-      contentMeta: input.contentMeta ?? {},
-    },
-    fingerprint: ["oss-content-download", input.contentKind, input.contentKey, input.errorCode],
-  });
+  // Offline / DNS / dropped-connection failures are the device's network, not a
+  // content or code defect — keep them out of Sentry (they were ~60% of issues,
+  // one per surah/clip). Still sent to the API for the admin content dashboard.
+  if (!isConnectivityError(error) && !isConnectivityError(input.errorMessage)) {
+    captureAppException(error, {
+      tags: {
+        oss_content_kind: input.contentKind,
+        oss_error_code: input.errorCode,
+        oss_source_provider: input.sourceProvider,
+      },
+      extra: {
+        contentKey: input.contentKey,
+        sourceUrl: input.sourceUrl,
+        httpStatus: input.httpStatus,
+        contentMeta: input.contentMeta ?? {},
+      },
+      // One Sentry issue per provider + failure type (not per surah / clip).
+      fingerprint: [
+        "oss-content-download",
+        input.contentKind,
+        input.sourceProvider,
+        input.errorCode,
+        String(input.httpStatus ?? ""),
+      ],
+    });
+  }
 
   void (async () => {
     try {
@@ -155,6 +167,25 @@ export function httpStatusFromMessage(message: string): number | undefined {
   return Number.isFinite(status) ? status : undefined;
 }
 
+/**
+ * Device connectivity failures across platforms — offline, DNS, dropped or
+ * timed-out sockets, user-aborted requests:
+ * - Android (OkHttp via Expo modules): `UnknownHostException`, `Unable to resolve host`
+ * - iOS (NSURLSession): `The Internet connection appears to be offline`, `network connection was lost`
+ * - Web: `Failed to fetch` (Chrome), `Load failed` (Safari), `NetworkError …` (Firefox)
+ * - RN fetch: `Network request failed`
+ */
+const CONNECTIVITY_RE =
+  /network request failed|failed to fetch|load failed|networkerror|network error|unable to resolve host|unknownhostexception|no address associated with hostname|appears to be offline|not connected to the internet|network connection was lost|internet connection|could not connect to the server|connectexception|sockettimeoutexception|socketexception|timed out|timeout|enotfound|econnreset|econnrefused|enetunreach|err_internet_disconnected|err_name_not_resolved|aborterror|aborted/i;
+
+/** True when an error/message is a device connectivity failure (not a CDN or code defect). */
+export function isConnectivityError(error: unknown): boolean {
+  if (error == null) return false;
+  const message =
+    error instanceof Error ? `${error.name}: ${error.message}` : String(error as string);
+  return CONNECTIVITY_RE.test(message);
+}
+
 export function classifyFetchError(error: unknown): {
   errorCode: OssContentErrorCode;
   errorMessage: string;
@@ -165,7 +196,7 @@ export function classifyFetchError(error: unknown): {
   if (httpStatus != null) {
     return { errorCode: "http_error", errorMessage: message, httpStatus };
   }
-  if (/network|failed to fetch|timeout|offline|aborted/i.test(message)) {
+  if (isConnectivityError(error) || /network|offline/i.test(message)) {
     return { errorCode: "network_error", errorMessage: message };
   }
   if (/json|unexpected token|syntaxerror/i.test(message)) {

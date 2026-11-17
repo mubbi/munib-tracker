@@ -1,16 +1,7 @@
-import {
-  cacheDirectory,
-  downloadAsync,
-  EncodingType,
-  makeDirectoryAsync,
-  readAsStringAsync,
-} from "expo-file-system/legacy";
+import { File } from "expo-file-system";
 import { Platform } from "react-native";
 
-function sanitizeFileName(fileName: string): string {
-  const base = fileName.replace(/[/\\?%*:|"<>]/g, "_").trim() || "attachment.pdf";
-  return base.slice(0, 120);
-}
+import { loadAuthedMedia } from "@/lib/attachments/authed-media";
 
 function arrayBufferToBase64(buffer: ArrayBuffer): string {
   const bytes = new Uint8Array(buffer);
@@ -22,24 +13,6 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
   return btoa(binary);
 }
 
-async function downloadRemoteToCache(
-  remoteUri: string,
-  fileName: string,
-  headers?: Record<string, string>,
-): Promise<string> {
-  const baseDir = cacheDirectory;
-  if (!baseDir) {
-    throw new Error("No cache directory available");
-  }
-  const dir = `${baseDir}user-media-preview/`;
-  await makeDirectoryAsync(dir, { intermediates: true });
-  const localUri = `${dir}${Date.now()}-${sanitizeFileName(fileName)}`;
-  const result = await downloadAsync(remoteUri, localUri, {
-    headers: headers ?? {},
-  });
-  return result.uri;
-}
-
 /**
  * Load attachment bytes as base64 for inline PDF preview.
  * Supports remote API URLs (cookies + optional Bearer) and local file URIs.
@@ -49,39 +22,18 @@ export async function readAttachmentAsBase64(options: {
   headers?: Record<string, string>;
   fileName?: string;
 }): Promise<string> {
-  const { uri, headers, fileName = "attachment.pdf" } = options;
-
-  if (uri.startsWith("http://") || uri.startsWith("https://")) {
-    if (Platform.OS === "web") {
-      const response = await fetch(uri, {
-        headers,
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error(`Failed to load attachment (${response.status})`);
-      }
-      return arrayBufferToBase64(await response.arrayBuffer());
-    }
-    const localUri = await downloadRemoteToCache(uri, fileName, headers);
-    return readAsStringAsync(localUri, { encoding: EncodingType.Base64 });
-  }
+  // Remote → authenticated local copy (blob: on web, cache file on native).
+  const localUri = await loadAuthedMedia(options.uri, options.headers);
 
   if (Platform.OS === "web") {
-    if (uri.startsWith("blob:") || uri.startsWith("data:")) {
-      const response = await fetch(uri);
-      if (!response.ok) {
-        throw new Error(`Failed to load attachment (${response.status})`);
-      }
-      return arrayBufferToBase64(await response.arrayBuffer());
-    }
-    const response = await fetch(uri);
+    const response = await fetch(localUri);
     if (!response.ok) {
       throw new Error(`Failed to load attachment (${response.status})`);
     }
     return arrayBufferToBase64(await response.arrayBuffer());
   }
 
-  return readAsStringAsync(uri, { encoding: EncodingType.Base64 });
+  return new File(localUri).base64();
 }
 
 /**

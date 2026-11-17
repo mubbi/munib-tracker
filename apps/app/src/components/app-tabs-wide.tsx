@@ -14,15 +14,22 @@ import {
   type TabTriggerSlotProps,
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type Ref, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Pressable, StyleSheet, View, type ViewStyle } from "react-native";
+import {
+  findNodeHandle,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View,
+  type ViewInstance,
+  type ViewStyle,
+} from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { SIDE_RAIL_WIDTH } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
@@ -67,7 +74,13 @@ const tabs: TabConfig[] = [
 const RAIL_COLLAPSE_MS = 160;
 const RAIL_BLUR_COLLAPSE_MS = 180;
 
-type WideTabButtonProps = TabTriggerSlotProps & {
+/**
+ * expo-router types the slot ref as `RefAttributes<View>` (a component, not an
+ * instance), which React Native 0.88's strict API rejects. The trigger passes a
+ * host-view ref at runtime, so it is typed as the instance here.
+ */
+type WideTabButtonProps = Omit<TabTriggerSlotProps, "ref"> & {
+  ref?: Ref<ViewInstance>;
   label: string;
   icon: TabConfig["icon"];
   expanded: boolean;
@@ -75,7 +88,7 @@ type WideTabButtonProps = TabTriggerSlotProps & {
   /** When true and this tab is selected, request TV focus after Back-to-rail. */
   preferRailFocus?: boolean;
   /** TV: D-pad right leaves the rail into the main content guide. */
-  nextFocusRightTarget?: View | null;
+  nextFocusRightTarget?: ViewInstance | null;
 };
 
 function WideTabButton({
@@ -87,6 +100,7 @@ function WideTabButton({
   onRailFocusChange,
   preferRailFocus,
   nextFocusRightTarget,
+  ref,
   ...props
 }: WideTabButtonProps) {
   const { colors, tokens } = useThemeTokens();
@@ -101,12 +115,16 @@ function WideTabButton({
   return (
     <Pressable
       {...props}
+      ref={ref}
       accessibilityRole="tab"
       accessibilityState={{ selected: isFocused }}
       accessibilityLabel={label}
       onPress={handlePress}
       {...(tv && preferRailFocus && isFocused ? { hasTVPreferredFocus: true } : {})}
-      {...(tv && nextFocusRightTarget != null ? { nextFocusRight: nextFocusRightTarget } : {})}
+      {...(tv && nextFocusRightTarget != null
+        ? // Typed as a node tag; react-native-tvos resolves instances the same way.
+          { nextFocusRight: findNodeHandle(nextFocusRightTarget) ?? undefined }
+        : {})}
       onFocus={(event) => {
         onRailFocusChange(true);
         props.onFocus?.(event);
@@ -176,7 +194,7 @@ type SideRailProps = TabListProps & {
 };
 
 function SideRail({ expanded, style, children, ...props }: SideRailProps) {
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const tv = isTV();
@@ -302,8 +320,8 @@ export function WideAppTabs() {
   const [railExpanded, setRailExpanded] = useState(!tv);
   const [preferRailFocus, setPreferRailFocus] = useState(false);
   const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const contentGuideRef = useRef<View>(null);
-  const [contentFocusTarget, setContentFocusTarget] = useState<View | null>(null);
+  const contentGuideRef = useRef<ViewInstance>(null);
+  const [contentFocusTarget, setContentFocusTarget] = useState<ViewInstance | null>(null);
 
   const onRailFocusChange = useCallback(
     (focused: boolean) => {

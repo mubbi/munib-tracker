@@ -4,9 +4,9 @@ import type {
   ContentReportListResponse,
   CreateContentReportPayload,
 } from "@munib-tracker/shared/types/content-report";
-import { Platform } from "react-native";
 
 import { apiAuthOptions } from "@/api/auth-options";
+import { appendUploadFile } from "@/lib/attachments/multipart-file-part";
 
 export type ReportAttachmentInput = {
   uri: string;
@@ -23,17 +23,7 @@ export async function submitContentReport(
   form.append("payload", JSON.stringify(payload));
 
   for (const attachment of attachments) {
-    if (Platform.OS === "web") {
-      const blobResponse = await fetch(attachment.uri);
-      const blob = await blobResponse.blob();
-      form.append("attachments", blob, attachment.filename);
-    } else {
-      form.append("attachments", {
-        uri: attachment.uri,
-        name: attachment.filename,
-        type: attachment.mimeType,
-      } as unknown as Blob);
-    }
+    await appendUploadFile(form, "attachments", attachment);
   }
 
   return apiFetch<ContentReportDetail>(

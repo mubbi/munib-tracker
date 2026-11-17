@@ -29,6 +29,7 @@ import {
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const noop = () => {};
 
@@ -184,3 +185,6 @@ const styles = StyleSheet.create({
   title: { marginBottom: Spacing.one },
   linkRow: { flexDirection: "row", alignItems: "center", gap: Spacing.one, marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/revelation");

@@ -21,6 +21,7 @@ import { dailyHadith, ensureDailyHadithPool } from "@/lib/daily-hadith";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 
 const HADITH_ITEMS = getBundledCollections().map((collection) => ({
@@ -219,3 +220,6 @@ const styles = StyleSheet.create({
   dailyBody: { marginBottom: Spacing.two },
   topRowWide: { flexDirection: "row", alignItems: "stretch", gap: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/hadith");

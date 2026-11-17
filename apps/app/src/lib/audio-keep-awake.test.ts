@@ -90,7 +90,7 @@ describe("useAudioKeepAwake", () => {
   });
 
   it("does not activate while idle", async () => {
-    renderHook(() => useAudioKeepAwake(false, false));
+    await renderHook(() => useAudioKeepAwake(false, false));
     await act(async () => {
       await Promise.resolve();
     });
@@ -99,33 +99,33 @@ describe("useAudioKeepAwake", () => {
   });
 
   it("activates while playing and releases on unmount", async () => {
-    const { unmount } = renderHook(() => useAudioKeepAwake(true));
+    const { unmount } = await renderHook(() => useAudioKeepAwake(true));
     await waitFor(() => {
       expect(activateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     });
 
-    unmount();
+    await unmount();
     await waitFor(() => {
       expect(deactivateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     });
   });
 
   it("activates while translation TTS is speaking even if audio is paused", async () => {
-    renderHook(() => useAudioKeepAwake(false, true));
+    await renderHook(() => useAudioKeepAwake(false, true));
     await waitFor(() => {
       expect(activateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     });
   });
 
   it("activates when recitation and translation TTS are both active", async () => {
-    renderHook(() => useAudioKeepAwake(true, true));
+    await renderHook(() => useAudioKeepAwake(true, true));
     await waitFor(() => {
       expect(activateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     });
   });
 
   it("releases keep-awake when playback stops", async () => {
-    const { rerender } = renderHook(
+    const { rerender } = await renderHook(
       ({ playing, speaking }: { playing: boolean; speaking: boolean }) =>
         useAudioKeepAwake(playing, speaking),
       { initialProps: { playing: true, speaking: false } },
@@ -135,7 +135,7 @@ describe("useAudioKeepAwake", () => {
       expect(activateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     });
 
-    rerender({ playing: false, speaking: false });
+    await rerender({ playing: false, speaking: false });
     await waitFor(() => {
       expect(deactivateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     });

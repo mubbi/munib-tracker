@@ -56,8 +56,6 @@ export function QuranAyahPlayButton({
   ayahFrom: number;
   ayahTo?: number;
   sourceHref?: string;
-  /** @deprecated Ignored — guide play always uses the labeled circled control. */
-  compact?: boolean;
 }) {
   const { t } = useTranslation();
   const prefs = useQuranPrefs();
@@ -81,8 +79,6 @@ export function QuranGuideClipPlayButton({
   audio: QuranGuideAyahAudio;
   sourceHref?: string;
   title?: string;
-  /** @deprecated Ignored — guide play always uses the labeled circled control. */
-  compact?: boolean;
 }) {
   const prefs = useQuranPrefs();
   const track = guideAyahTrack(prefs.preferredReciterDir, audio, title);
@@ -95,8 +91,6 @@ export function QuranExamplePlayButton({
 }: {
   example: string;
   sourceHref?: string;
-  /** @deprecated Ignored — guide play always uses the labeled circled control. */
-  compact?: boolean;
 }) {
   const prefs = useQuranPrefs();
   const track = examplePhraseTrack(prefs.preferredReciterDir, example);
@@ -113,8 +107,6 @@ export function QuranVocabPlayButton({
   vocabId: string;
   title?: string;
   sourceHref?: string;
-  /** @deprecated Ignored — guide play always uses the labeled circled control. */
-  compact?: boolean;
 }) {
   const { t } = useTranslation();
   const prefs = useQuranPrefs();
@@ -137,8 +129,6 @@ export function QuranLetterPlayButton({
   letterId: string;
   title: string;
   sourceHref?: string;
-  /** @deprecated Ignored — guide play always uses the labeled circled control. */
-  compact?: boolean;
 }) {
   const track = letterPronunciationTrack(letterId, title);
   if (!track) return null;
@@ -153,8 +143,6 @@ export function QuranGlyphPlayButton({
   glyph: string;
   title: string;
   sourceHref?: string;
-  /** @deprecated Ignored — guide play always uses the labeled circled control. */
-  compact?: boolean;
 }) {
   const track = glyphPronunciationTrack(glyph, title);
   if (!track) return null;

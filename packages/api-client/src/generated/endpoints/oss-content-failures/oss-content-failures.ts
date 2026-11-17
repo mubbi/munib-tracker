@@ -80,9 +80,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type OssContentFailuresControllerReportMutationError = unknown
     export type OssContentFailuresControllerReportMutationVariables = {data: ReportOssContentDownloadFailureDto}
 
-    /**
- * @summary Report a failed on-demand open-source content download (CDN / remote JSON / fonts)
- */
+    /** @summary Report a failed on-demand open-source content download (CDN / remote JSON / fonts) */
 export const useOssContentFailuresControllerReport = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ossContentFailuresControllerReport>>, TError,OssContentFailuresControllerReportMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<

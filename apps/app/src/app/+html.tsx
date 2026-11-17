@@ -1,5 +1,5 @@
 import { OFFICIAL_IOS_APP_STORE_ID } from "@munib-tracker/shared/constants";
-import { ScrollViewStyleReset } from "expo-router/html";
+import { ScrollViewStyleReset, useServerDocumentContext } from "expo-router/html";
 import type { PropsWithChildren } from "react";
 
 import {
@@ -10,7 +10,6 @@ import {
   PWA_THEME_COLOR_DARK,
   PWA_THEME_COLOR_LIGHT,
 } from "@/config/pwa";
-import { SEO_AUTHOR } from "@/config/seo";
 import { BOOT_THEME_SCRIPT } from "@/lib/boot/cold-start";
 import { LOCALE_PATH_BOOT_SCRIPT } from "@/lib/locale-path";
 import { siteGraphSchema } from "@/lib/seo/structured-data";
@@ -20,14 +19,20 @@ import { siteGraphSchema } from "@/lib/seo/structured-data";
  *
  * Holds only site-wide invariants: charset/viewport, PWA manifest + icons,
  * theme color, resource hints, and the Organization / WebSite /
- * SoftwareApplication JSON-LD graph. Per-page metadata (title, description,
- * canonical, Open Graph, Twitter, hreflang, page-level structured data) is
- * emitted by <Seo> into <head> via expo-router/head — intentionally NOT
- * duplicated here.
+ * SoftwareApplication JSON-LD graph. Per-page metadata comes from each route's
+ * `generateMetadata` (rendered through `headNodes` below) and
+ * scripts/inject-seo-head.mjs after export — intentionally NOT duplicated here.
+ *
+ * Expo Router SDK 58: `useServerDocumentContext()` supplies the generated
+ * `<html>`/`<body>` attributes, the per-route `headNodes` (metadata, styles,
+ * fonts) and the `bodyNodes` (hydration bundles — without them the page never
+ * becomes interactive). The boot scripts stay ahead of `headNodes` so they run
+ * before any bundle.
  */
 export default function Root({ children }: PropsWithChildren) {
+  const { htmlAttributes, bodyAttributes, headNodes, bodyNodes } = useServerDocumentContext();
   return (
-    <html lang="en">
+    <html lang="en" {...htmlAttributes}>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -35,7 +40,6 @@ export default function Root({ children }: PropsWithChildren) {
 
         {/* App identity */}
         <meta name="application-name" content={PWA_SHORT_NAME} />
-        <meta name="author" content={SEO_AUTHOR.name} />
         <meta name="format-detection" content="telephone=no" />
 
         {/* PWA / manifest + icons */}
@@ -106,6 +110,15 @@ export default function Root({ children }: PropsWithChildren) {
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Expo Router +html.tsx pattern for base document styles
           dangerouslySetInnerHTML={{
             __html: `
+              /* Safe areas for the installed PWA (viewport-fit=cover). From Expo
+                 SDK 58 the router no longer measures web insets, so
+                 useAppSafeAreaInsets() (web) reads these variables. */
+              :root {
+                --munib-safe-top: env(safe-area-inset-top, 0px);
+                --munib-safe-right: env(safe-area-inset-right, 0px);
+                --munib-safe-bottom: env(safe-area-inset-bottom, 0px);
+                --munib-safe-left: env(safe-area-inset-left, 0px);
+              }
               html {
                 height: 100%;
                 height: 100dvh;
@@ -147,8 +160,12 @@ export default function Root({ children }: PropsWithChildren) {
             `,
           }}
         />
+        {headNodes}
       </head>
-      <body>{children}</body>
+      <body {...bodyAttributes}>
+        {children}
+        {bodyNodes}
+      </body>
     </html>
   );
 }

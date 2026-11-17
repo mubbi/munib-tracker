@@ -12,6 +12,7 @@ import {
 } from "@nestjs/common";
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
@@ -20,6 +21,7 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import type { Request, Response } from "express";
+import { LenientBody } from "../common/lenient-body.decorator";
 import { AuthService } from "./auth.service";
 import { AuthOAuthService } from "./auth-oauth.service";
 import {
@@ -32,10 +34,10 @@ import {
   AuthSessionResponseDto,
   AuthUserResponseDto,
   DeleteAccountDto,
-  type GuestSessionDto,
-  type LinkAccountDto,
-  type OAuthCallbackDto,
-  type RefreshTokenDto,
+  GuestSessionDto,
+  LinkAccountDto,
+  OAuthCallbackDto,
+  RefreshTokenDto,
   ResetAppDataDto,
   TvPairingClaimBodyDto,
   TvPairingCreateResponseDto,
@@ -65,9 +67,10 @@ export class AuthController {
   @Post("guest")
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: "Create or resume a guest session" })
+  @ApiBody({ type: GuestSessionDto })
   @ApiCreatedResponse({ type: AuthSessionResponseDto })
   createGuestSession(
-    @Body() dto: GuestSessionDto,
+    @LenientBody() dto: GuestSessionDto,
     @Req() req: Request,
   ): Promise<AuthSessionResponseDto> {
     return this.authService.createGuestSession(dto, clientIp(req));
@@ -190,10 +193,11 @@ export class AuthController {
     summary: "Complete OAuth sign-in (Facebook, or legacy Google/Apple code/idToken path)",
   })
   @ApiParam({ name: "provider", enum: AuthProvider })
+  @ApiBody({ type: OAuthCallbackDto })
   @ApiCreatedResponse({ type: AuthSessionResponseDto })
   completeOAuth(
     @Param("provider") provider: AuthProvider,
-    @Body() dto: OAuthCallbackDto,
+    @LenientBody() dto: OAuthCallbackDto,
     @Req() req: Request,
   ): Promise<AuthSessionResponseDto> {
     return this.authService.completeOAuth(provider, dto, clientIp(req));
@@ -202,10 +206,11 @@ export class AuthController {
   @Post("refresh")
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: "Rotate the refresh token and issue a new access token" })
+  @ApiBody({ type: RefreshTokenDto })
   @ApiCreatedResponse({ type: AuthSessionResponseDto })
   @ApiOkResponse({ type: WebAuthSessionResponseDto })
   async refresh(
-    @Body() dto: RefreshTokenDto,
+    @LenientBody() dto: RefreshTokenDto,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
@@ -218,11 +223,12 @@ export class AuthController {
   @Post("link")
   @ApiBearerAuth()
   @ApiOperation({ summary: "Upgrade a guest account by linking an OAuth provider" })
+  @ApiBody({ type: LinkAccountDto })
   @ApiOkResponse({ type: AuthSessionResponseDto })
   @ApiOkResponse({ type: WebAuthSessionResponseDto })
   async linkAccount(
     @Headers("authorization") authorization: string | undefined,
-    @Body() dto: LinkAccountDto,
+    @LenientBody() dto: LinkAccountDto,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {

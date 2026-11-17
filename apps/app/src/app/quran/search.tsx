@@ -30,6 +30,7 @@ import {
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { clearAyahIndex } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
 import { abortStt, type SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
@@ -439,3 +440,6 @@ const styles = StyleSheet.create({
   },
   rowName: { flexShrink: 1 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/search");

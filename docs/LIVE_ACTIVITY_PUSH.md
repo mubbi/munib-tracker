@@ -19,14 +19,14 @@ iOS ActivityKit (pushType: .token)
   → device Live Activity UI updates
 ```
 
-| Piece | Role |
-|-------|------|
-| App `src/lib/live-activity/` | Start/update/end; build schedule; register token; lifecycle ended/dismissed |
-| Nest `apps/api/src/live-activities/` | Auth, upsert, QStash schedule/verify, TypeORM store adapter |
-| `@munib-tracker/live-activity-delivery` | Framework-agnostic APNs client, token crypto, claim/deliver/dispatch |
-| Postgres | Source of truth for tokens + pending jobs (migration `1720000010000-LiveActivityPush`) |
-| QStash | Optional exact-time wake-ups (`notBefore`) |
-| Cron | Required safety net + sole path when QStash is unset/exhausted |
+| Piece                                   | Role                                                                                   |
+| --------------------------------------- | -------------------------------------------------------------------------------------- |
+| App `src/lib/live-activity/`            | Start/update/end; build schedule; register token; lifecycle ended/dismissed            |
+| Nest `apps/api/src/live-activities/`    | Auth, upsert, QStash schedule/verify, TypeORM store adapter                            |
+| `@munib-tracker/live-activity-delivery` | Framework-agnostic APNs client, token crypto, claim/deliver/dispatch                   |
+| Postgres                                | Source of truth for tokens + pending jobs (migration `1720000010000-LiveActivityPush`) |
+| QStash                                  | Optional exact-time wake-ups (`notBefore`)                                             |
+| Cron                                    | Required safety net + sole path when QStash is unset/exhausted                         |
 
 **Do not** route ActivityKit tokens through Expo Push / admin broadcast fan-out — different protocol.
 
@@ -36,17 +36,17 @@ iOS ActivityKit (pushType: .token)
 
 On the **API** Vercel project (`apps/api/.env.example`):
 
-| Var | Notes |
-|-----|--------|
-| `APNS_TEAM_ID` | Apple Developer Team ID |
-| `APNS_KEY_ID` | Key ID of an **APNs** Auth Key (`.p8`) — prefer dedicated, not Sign in with Apple |
-| `APNS_PRIVATE_KEY` | PEM on one line with literal `\n` |
-| `APNS_BUNDLE_ID` | Default `app.munibtracker` → topic `{bundle}.push-type.liveactivity` |
+| Var                | Notes                                                                             |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `APNS_TEAM_ID`     | Apple Developer Team ID                                                           |
+| `APNS_KEY_ID`      | Key ID of an **APNs** Auth Key (`.p8`) — prefer dedicated, not Sign in with Apple |
+| `APNS_PRIVATE_KEY` | PEM on one line with literal `\n`                                                 |
+| `APNS_BUNDLE_ID`   | Default `app.munibtracker` → topic `{bundle}.push-type.liveactivity`              |
 
 ### 2. Encryption (recommended)
 
-| Var | Notes |
-|-----|--------|
+| Var                                | Notes                                                             |
+| ---------------------------------- | ----------------------------------------------------------------- |
 | `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` | Optional 32-byte key, base64. If unset, derived from `JWT_SECRET` |
 
 ### 3. Scheduler — pick one or both
@@ -55,20 +55,20 @@ On the **API** Vercel project (`apps/api/.env.example`):
 
 #### QStash (optional, preferred timing)
 
-| Var | Notes |
-|-----|--------|
-| `API_PUBLIC_URL` | Public API origin, no trailing slash (e.g. `https://api.munibtracker.app`) |
-| `QSTASH_TOKEN` | Upstash token |
-| `QSTASH_CURRENT_SIGNING_KEY` | For `POST …/internal/deliver` JWT verify |
-| `QSTASH_NEXT_SIGNING_KEY` | Next signing key (rotation) |
+| Var                          | Notes                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| `API_PUBLIC_URL`             | Public API origin, no trailing slash (e.g. `https://api.munibtracker.app`) |
+| `QSTASH_TOKEN`               | Upstash token                                                              |
+| `QSTASH_CURRENT_SIGNING_KEY` | For `POST …/internal/deliver` JWT verify                                   |
+| `QSTASH_NEXT_SIGNING_KEY`    | Next signing key (rotation)                                                |
 
 Callback URL (published by the API):  
 `{API_PUBLIC_URL}/api/v1/live-activities/internal/deliver`
 
 #### Cron fallback (keep even with QStash)
 
-| Var | Notes |
-|-----|--------|
+| Var                         | Notes                      |
+| --------------------------- | -------------------------- |
 | `LIVE_ACTIVITY_CRON_SECRET` | Bearer secret for dispatch |
 
 Schedule (e.g. [cron-job.org](https://cron-job.org)) every **1–5 minutes**:
@@ -92,11 +92,11 @@ API Vercel build already runs `pnpm --filter api migration:run`. Tables: `live_a
 
 ## API surface
 
-| Method | Path | Auth |
-|--------|------|------|
-| `PUT` | `/api/v1/live-activities` | Bearer JWT — upsert token + schedule updates |
-| `PUT` | `/api/v1/live-activities/:activityId/lifecycle` | Bearer JWT — ended/dismissed → cancel jobs |
-| `POST` | `/api/v1/live-activities/internal/deliver` | QStash signature (`upstash-signature` + raw body) |
+| Method | Path                                            | Auth                                               |
+| ------ | ----------------------------------------------- | -------------------------------------------------- |
+| `PUT`  | `/api/v1/live-activities`                       | Bearer JWT — upsert token + schedule updates       |
+| `PUT`  | `/api/v1/live-activities/:activityId/lifecycle` | Bearer JWT — ended/dismissed → cancel jobs         |
+| `POST` | `/api/v1/live-activities/internal/deliver`      | QStash signature (`upstash-signature` + raw body)  |
 | `POST` | `/api/v1/live-activities/internal/dispatch-due` | `Authorization: Bearer $LIVE_ACTIVITY_CRON_SECRET` |
 
 Regenerate client after OpenAPI changes: `pnpm generate:api`.
@@ -107,9 +107,13 @@ Regenerate client after OpenAPI changes: `pnpm generate:api`.
 - **Adhan lead:** the client schedules ActivityKit jobs ~20s before each boundary (`LIVE_ACTIVITY_PUSH_LEAD_MS`) so APNs can replace `Text(timerInterval:)` before it freezes at 00:00. Native `staleDate` for upcoming is `targetDate + 120s`, not the countdown end.
 - **Idempotency:** deliver claims `pending` → `processing` atomically so QStash + cron + a future worker cannot double-send the same job. An in-flight row returns **503** (not 200) so QStash retries; `processing` leases recover after 60s.
 - **QStash:** `notBefore` unix seconds + `retryDelay` backoff. Slightly early callbacks are accepted (90s tolerance). Exhaust / schedule errors leave the job `pending`; cron drains it.
-- **BadDeviceToken / 410:** token marked `invalid`; remaining jobs cancelled.
+- **Ordering:** a job is cancelled ("Superseded by a newer due phase") when a later boundary for the same activity is already due or delivered, so a retried/late push never rolls the lock screen back to an older phase. Stores implement `hasNewerDueJob`.
+- **BadDeviceToken / 410:** token marked `invalid`; remaining jobs cancelled. `ExpiredProviderToken` refreshes the cached APNs JWT and retries.
+- **Account switch:** re-registering an `activityId` from another account is allowed only when the request carries the same ActivityKit token (proof of device possession); otherwise 403.
+- **Retention:** `expired`, `ended`, and `invalid` token rows (encrypted tokens) are deleted after 7 days.
+- **Client:** registrations and lifecycle calls are serialized on device so overlapping PUTs cannot interleave server-side.
 - **ActivityKit lifetime:** ~8h; schedules are capped; expired rows cleaned after retention.
-- **Scale:** prayer-time spikes create many *due* jobs, not “all users.” If backlog grows (latency ≫ cron interval), raise frequency/batch or add a worker (below) — not BullMQ by default.
+- **Scale:** prayer-time spikes create many _due_ jobs, not “all users.” If backlog grows (latency ≫ cron interval), raise frequency/batch or add a worker (below) — not BullMQ by default.
 
 ## Checklist (ship remote push)
 
@@ -145,12 +149,12 @@ Optional Redis (redis.io / Upstash Redis) only if you later add BullMQ for other
 2. Implement `LiveActivityJobStore` against Supabase (same tables). Prefer atomic claim (`UPDATE … WHERE status = 'pending'` or `FOR UPDATE SKIP LOCKED`).
 3. Env on Fly (same secrets as API):
 
-   | Var | Purpose |
-   |-----|---------|
-   | `DATABASE_URL` | Supabase session/pooler URL suitable for a long-lived process |
-   | `APNS_*` | Same as API |
-   | `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` or `JWT_SECRET` | Must match API so ciphertext decrypts |
-   | Optional | Drop or stop publishing QStash once worker is primary; keep cron briefly as backup |
+   | Var                                                | Purpose                                                                            |
+   | -------------------------------------------------- | ---------------------------------------------------------------------------------- |
+   | `DATABASE_URL`                                     | Supabase session/pooler URL suitable for a long-lived process                      |
+   | `APNS_*`                                           | Same as API                                                                        |
+   | `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` or `JWT_SECRET` | Must match API so ciphertext decrypts                                              |
+   | Optional                                           | Drop or stop publishing QStash once worker is primary; keep cron briefly as backup |
 
 4. Worker loop:
 
@@ -179,9 +183,9 @@ for (;;) {
 
 ### Cost / ops reminder
 
-| Host | Always-on worker |
-|------|------------------|
-| Fly.io | Usage-based; small shared VM ~$2–6/mo |
+| Host   | Always-on worker                                                |
+| ------ | --------------------------------------------------------------- |
+| Fly.io | Usage-based; small shared VM ~$2–6/mo                           |
 | Render | Background workers start ~Starter (~$7/mo); no free worker tier |
 
 Package reference: [`packages/live-activity-delivery/README.md`](../packages/live-activity-delivery/README.md).

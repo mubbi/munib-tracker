@@ -33,6 +33,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { getRouteFaq } from "@/lib/seo/faq-content";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   useQazaCounters,
@@ -575,3 +576,6 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/qaza");

@@ -11,6 +11,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { getFridayGuideTopic, getFridayGuideTopics } from "@/lib/friday-guide";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
@@ -91,3 +92,6 @@ export default function FridayTopicScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/friday/[topic]");

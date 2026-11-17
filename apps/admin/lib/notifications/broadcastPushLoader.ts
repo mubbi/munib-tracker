@@ -27,3 +27,19 @@ export async function loadPushTargetsForUsers(
   }
   return unique;
 }
+
+/**
+ * Delete tokens a push provider reported as permanently gone (Expo
+ * `DeviceNotRegistered`, Web Push 404/410). Best-effort — a failed prune must
+ * never fail the broadcast batch that already delivered.
+ */
+export async function prunePushTokens(tokens: readonly string[]): Promise<void> {
+  if (tokens.length === 0) return;
+  try {
+    await getDb()
+      .delete(pushTokensTable)
+      .where(inArray(pushTokensTable.token, [...new Set(tokens)]));
+  } catch {
+    // Retried naturally on the next broadcast that hits the same token.
+  }
+}

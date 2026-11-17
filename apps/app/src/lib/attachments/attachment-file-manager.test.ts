@@ -18,12 +18,17 @@ jest.mock("expo-image-picker", () => ({
   requestMediaLibraryPermissionsAsync: jest.fn(),
 }));
 
+jest.mock("@/lib/attachments/read-uri-bytes", () => ({
+  readUriAsBytes: jest.fn(),
+}));
+
 jest.mock("@/lib/platform/is-tv", () => ({
   isTV: jest.fn(() => false),
 }));
 
 import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
+import { readUriAsBytes } from "@/lib/attachments/read-uri-bytes";
 import { isTV } from "@/lib/platform/is-tv";
 
 const getDocumentAsync = DocumentPicker.getDocumentAsync as jest.MockedFunction<
@@ -33,6 +38,7 @@ const launchImageLibraryAsync = ImagePicker.launchImageLibraryAsync as jest.Mock
   typeof ImagePicker.launchImageLibraryAsync
 >;
 const isTVMock = isTV as jest.MockedFunction<typeof isTV>;
+const readUriAsBytesMock = readUriAsBytes as jest.MockedFunction<typeof readUriAsBytes>;
 
 const JPEG_BYTES = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10]);
 
@@ -92,12 +98,7 @@ describe("attachment-file-manager", () => {
   });
 
   it("replaces picker MIME with the sniffed type from magic bytes", async () => {
-    const fetchMock = jest.fn(async () => ({
-      ok: true,
-      arrayBuffer: async () => JPEG_BYTES.buffer,
-    }));
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = fetchMock as unknown as typeof fetch;
+    readUriAsBytesMock.mockResolvedValue(JPEG_BYTES);
 
     const result = await validatePickedAttachment({
       uri: "file:///photo.jpg",
@@ -108,16 +109,10 @@ describe("attachment-file-manager", () => {
 
     expect(result.mimeType).toBe("image/jpeg");
     expect(result.sizeBytes).toBe(JPEG_BYTES.length);
-
-    globalThis.fetch = originalFetch;
   });
 
   it("rejects files whose bytes are not an allowed type", async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = jest.fn(async () => ({
-      ok: true,
-      arrayBuffer: async () => new Uint8Array([0x00, 0x01, 0x02]).buffer,
-    })) as unknown as typeof fetch;
+    readUriAsBytesMock.mockResolvedValue(new Uint8Array([0x00, 0x01, 0x02]));
 
     await expect(
       validatePickedAttachment({
@@ -127,7 +122,5 @@ describe("attachment-file-manager", () => {
         sizeBytes: 3,
       }),
     ).rejects.toThrow("UNSUPPORTED_MIME");
-
-    globalThis.fetch = originalFetch;
   });
 });

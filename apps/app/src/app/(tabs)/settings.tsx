@@ -15,6 +15,7 @@ import { useFormatTime } from "@/hooks/use-time-format";
 import { tTv } from "@/lib/i18n/t-tv";
 import { APP_LOCALES } from "@/lib/locale-display";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
@@ -289,3 +290,6 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(tabs)/settings");

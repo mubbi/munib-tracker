@@ -10,6 +10,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import { getHajjChecklistItems } from "@/lib/hajj-guide";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureHajjChecklistLoaded,
   useHajjChecklist,
@@ -49,3 +50,6 @@ export default function HajjChecklistScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/hajj/checklist");

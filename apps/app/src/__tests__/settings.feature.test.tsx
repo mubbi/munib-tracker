@@ -17,10 +17,10 @@ describe("Settings screen feature", () => {
   jest.setTimeout(30_000);
 
   it("updates accent color when a swatch is selected", async () => {
-    renderWithProviders(<AppearanceScreen />);
+    await renderWithProviders(<AppearanceScreen />);
     await waitForAppearanceScreen();
 
-    fireEvent.press(screen.getByLabelText("Teal"));
+    await fireEvent.press(screen.getByLabelText("Teal"));
 
     await waitFor(
       () => {
@@ -31,10 +31,10 @@ describe("Settings screen feature", () => {
   });
 
   it("updates color mode when dark is selected", async () => {
-    renderWithProviders(<AppearanceScreen />);
+    await renderWithProviders(<AppearanceScreen />);
     await waitForAppearanceScreen();
 
-    fireEvent.press(screen.getByText("Dark"));
+    await fireEvent.press(screen.getByText("Dark"));
 
     await waitFor(
       () => {

@@ -28,6 +28,7 @@ import {
 } from "@/lib/islamic-history";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function HistoryScreen() {
   const router = useRouter();
@@ -163,3 +164,6 @@ const styles = StyleSheet.create({
   title: { marginBottom: Spacing.one },
   disclaimer: { textAlign: "center", marginBottom: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/history");

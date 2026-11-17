@@ -26,7 +26,7 @@ describe("PageLayoutRenderer ayah markers", () => {
 
   it("does not send U+06DD to iOS TextKit", async () => {
     Platform.OS = "ios";
-    render(
+    await render(
       <MunibThemeProvider>
         <PageLayoutRenderer
           ayahs={[ayah]}
@@ -48,7 +48,7 @@ describe("PageLayoutRenderer ayah markers", () => {
 
   it("renders the U+06DD rosette on Android instead of inlining the iOS marker", async () => {
     Platform.OS = "android";
-    render(
+    await render(
       <MunibThemeProvider>
         <PageLayoutRenderer
           ayahs={[ayah]}

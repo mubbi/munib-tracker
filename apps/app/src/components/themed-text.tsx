@@ -87,7 +87,8 @@ function tvDensityTextStyle(styles: unknown[]): TextStyle | null {
   if (TV_DENSITY === 1) return null;
   const merged = StyleSheet.flatten(styles as TextProps["style"]) as TextStyle | undefined;
   if (!merged) return null;
-  const out: TextStyle = {};
+  // RN 0.88 types style props as read-only, so build a mutable object first.
+  const out: { fontSize?: number; lineHeight?: number; letterSpacing?: number } = {};
   if (typeof merged.fontSize === "number") out.fontSize = merged.fontSize * TV_DENSITY;
   if (typeof merged.lineHeight === "number") out.lineHeight = merged.lineHeight * TV_DENSITY;
   if (typeof merged.letterSpacing === "number") {

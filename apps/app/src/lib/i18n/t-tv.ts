@@ -12,8 +12,8 @@ export function tTv(
   tvKey: string,
   options?: Record<string, unknown>,
 ): string {
-  if (!isTV()) return t(phoneKey, options);
+  if (!isTV()) return t(phoneKey, options ?? {});
   const tv = t(tvKey, { ...(options ?? {}), defaultValue: "" });
   if (typeof tv === "string" && tv.length > 0 && tv !== tvKey) return tv;
-  return t(phoneKey, options);
+  return t(phoneKey, options ?? {});
 }

@@ -30,15 +30,16 @@ public final class MunibTajweedformerModule: Module {
   private var session: TajweedSession?
   private var takeTasks: [Task<Void, Never>] = []
 
+  // Expo Modules lifecycle hook (SDK 58 replacement for the deprecated `OnDestroy`).
+  public override func willDestroy() {
+    cancelTakeTasks()
+    client?.close()
+  }
+
   public func definition() -> ModuleDefinition {
     Name("MunibTajweedformer")
 
     Events("onProgress", "onChunk", "onEnded")
-
-    OnDestroy {
-      self.cancelTakeTasks()
-      self.client?.close()
-    }
 
     AsyncFunction("configure") { (key: String) in
       if self.client != nil { return }

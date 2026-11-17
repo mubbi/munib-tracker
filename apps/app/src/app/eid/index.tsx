@@ -19,6 +19,7 @@ import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import { getEidGuideSectionOrder, getEidGuideTopicsBySection } from "@/lib/eid-guide";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const SECTION_ICONS: Record<string, AppIcon> = {
   fitr: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
@@ -103,3 +104,6 @@ export default function EidScreen() {
 const styles = StyleSheet.create({
   gridTop: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/eid");

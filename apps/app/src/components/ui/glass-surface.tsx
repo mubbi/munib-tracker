@@ -7,6 +7,7 @@ import {
   type StyleProp,
   StyleSheet,
   View,
+  type ViewInstance,
   type ViewStyle,
 } from "react-native";
 
@@ -47,7 +48,7 @@ type GlassSurfaceProps = {
    * target, never a descendant — blurring an ancestor that contains the BlurView
    * overflows the RenderThread view tree.
    */
-  blurTargetRef?: RefObject<View | null>;
+  blurTargetRef?: RefObject<ViewInstance | null>;
   /** Fired with the rendered size — used to inset content beneath floating chrome. */
   onLayout?: (event: LayoutChangeEvent) => void;
 };

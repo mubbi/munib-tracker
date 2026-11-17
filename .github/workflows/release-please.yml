@@ -72,7 +72,7 @@ jobs:
             echo "Formatting apps/app/app.json on PR #${pr_num} (${head_ref})"
             git fetch origin "$head_ref"
             git checkout "$head_ref"
-            npx --yes @biomejs/biome@2.5.2 check --write apps/app/app.json
+            npx --yes @biomejs/biome@2.6.8 check --write apps/app/app.json
             if git diff --quiet -- apps/app/app.json; then
               echo "Already formatted."
               continue

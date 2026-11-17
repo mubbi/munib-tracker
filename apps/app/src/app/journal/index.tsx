@@ -35,6 +35,7 @@ import { averageRating, groupByDate, KHUSHU_MAX, KHUSHU_MIN, type KhushuEntry } 
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import type { SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
 import { useEnsureKhushuLoaded, useKhushuActions, useKhushuEntries } from "@/stores/khushu-store";
@@ -783,3 +784,6 @@ const styles = StyleSheet.create({
   },
   formActionButton: { flex: 1 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/journal");

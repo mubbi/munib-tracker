@@ -1,5 +1,5 @@
 import { forwardRef, useMemo } from "react";
-import { View, type ViewProps } from "react-native";
+import { View, type ViewInstance, type ViewProps } from "react-native";
 
 import { ShareProofFooter } from "@/components/share/share-proof-footer";
 import { ShareProofHeader } from "@/components/share/share-proof-header";
@@ -20,7 +20,7 @@ type Props = Omit<ViewProps, "children"> & {
   children: React.ReactNode;
 };
 
-export const ShareContentSnapshot = forwardRef<View, Props>(function ShareContentSnapshot(
+export const ShareContentSnapshot = forwardRef<ViewInstance, Props>(function ShareContentSnapshot(
   { frameWidth, sectionTitle, contentLabel, exportedAtLabel, onQrReady, children, style, ...rest },
   ref,
 ) {

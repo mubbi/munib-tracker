@@ -1,10 +1,11 @@
 import {
-  AudioModule,
   type AudioStream,
   type AudioStreamBuffer,
   getRecordingPermissionsAsync,
   requestRecordingPermissionsAsync,
+  useAudioStream,
 } from "expo-audio";
+import { useMemo, useRef } from "react";
 
 import { isTV } from "@/lib/platform/is-tv";
 
@@ -12,11 +13,21 @@ import { createResampler, int16ToFloat32, TARGET_SAMPLE_RATE } from "./resample"
 import { CaptureError, type MicPermission, type RecitationCapture } from "./types";
 
 /**
- * iOS / Android capture (§7, decision D1): `expo-audio` `AudioStream`, the
- * object behind `useAudioStream`. The requested 16 kHz mono float32 is a hint —
- * every buffer carries the delivered rate and channel count, and all of it goes
- * through the resampler. Nothing is written to disk.
+ * iOS / Android capture (§7, decision D1): expo-audio's public `useAudioStream`
+ * hook. The hook owns the native `AudioStream` (created on mount, released on
+ * unmount); this module only starts/stops it per take. The requested 16 kHz mono
+ * float32 is a hint — every buffer carries the delivered rate and channel count,
+ * and all of it goes through the resampler. Nothing is written to disk.
  */
+
+/** Requested stream format. Constant, so the hook never recreates the stream. */
+const STREAM_OPTIONS = {
+  sampleRate: TARGET_SAMPLE_RATE,
+  channels: 1,
+  encoding: "float32",
+} as const;
+
+type BufferSink = { current: ((buffer: AudioStreamBuffer) => void) | null };
 
 function toPermission(status: {
   granted: boolean;
@@ -28,98 +39,79 @@ function toPermission(status: {
   return "denied";
 }
 
-export function createRecitationCapture(): RecitationCapture {
-  let stream: AudioStream | null = null;
-  let subscriptions: { remove: () => void }[] = [];
+async function getPermission(): Promise<MicPermission> {
+  try {
+    return toPermission(await getRecordingPermissionsAsync());
+  } catch {
+    return "undetermined";
+  }
+}
+
+async function requestPermission(): Promise<MicPermission> {
+  try {
+    return toPermission(await requestRecordingPermissionsAsync());
+  } catch {
+    return "denied";
+  }
+}
+
+/**
+ * Capture around a hook-owned stream. Without a stream (module scope, e.g. the
+ * settings screen) only the permission helpers work.
+ */
+export function createRecitationCapture(
+  stream: AudioStream | null = null,
+  sink: BufferSink = { current: null },
+): RecitationCapture {
+  let statusSub: { remove: () => void } | null = null;
   let stopping = false;
   const resampler = createResampler(TARGET_SAMPLE_RATE);
 
   const release = () => {
-    for (const sub of subscriptions) sub.remove();
-    subscriptions = [];
+    sink.current = null;
+    statusSub?.remove();
+    statusSub = null;
     if (stream) {
       try {
         stream.stop();
       } catch {
-        // already stopped
-      }
-      try {
-        (stream as unknown as { release?: () => void }).release?.();
-      } catch {
-        // released
+        // already stopped, or released by the hook on unmount
       }
     }
-    stream = null;
     resampler.reset();
   };
 
   return {
-    available: !isTV(),
-
-    async getPermission() {
-      try {
-        return toPermission(await getRecordingPermissionsAsync());
-      } catch {
-        return "undetermined";
-      }
-    },
-
-    async requestPermission() {
-      try {
-        return toPermission(await requestRecordingPermissionsAsync());
-      } catch {
-        return "denied";
-      }
-    },
+    available: !isTV() && stream != null,
+    getPermission,
+    requestPermission,
 
     async start(onChunk, onStatus) {
-      if (isTV()) throw new CaptureError("mic-unavailable");
+      if (isTV() || !stream) throw new CaptureError("mic-unavailable");
       release();
       stopping = false;
+      sink.current = (buffer) => {
+        if (!buffer?.data) return;
+        // We request float32; only the rate and channel count may differ from the request.
+        const samples =
+          buffer.data.byteLength % 4 === 0
+            ? new Float32Array(buffer.data)
+            : int16ToFloat32(buffer.data);
+        const out = resampler.push(
+          samples,
+          buffer.sampleRate || TARGET_SAMPLE_RATE,
+          buffer.channels || 1,
+        );
+        if (out.length) onChunk(out);
+      };
       try {
-        const StreamCtor = (
-          AudioModule as unknown as {
-            AudioStream: new (o: {
-              sampleRate: number;
-              channels: number;
-              encoding: string;
-            }) => AudioStream;
-          }
-        ).AudioStream;
-        stream = new StreamCtor({
-          sampleRate: TARGET_SAMPLE_RATE,
-          channels: 1,
-          encoding: "float32",
+        statusSub = stream.addListener("audioStreamStatus", (status) => {
+          if (!status.isStreaming && !stopping) onStatus?.({ interrupted: true });
         });
       } catch (error) {
+        release();
         throw new CaptureError("mic-unavailable", (error as Error)?.message);
       }
-      const s = stream as unknown as {
-        addListener: (event: string, fn: (payload: unknown) => void) => { remove: () => void };
-      };
-      subscriptions.push(
-        s.addListener("audioStreamBuffer", (payload) => {
-          const buffer = payload as AudioStreamBuffer;
-          if (!buffer?.data) return;
-          // We request float32; only the rate and channel count may differ from the request.
-          const samples =
-            buffer.data.byteLength % 4 === 0
-              ? new Float32Array(buffer.data)
-              : int16ToFloat32(buffer.data);
-          const out = resampler.push(
-            samples,
-            buffer.sampleRate || TARGET_SAMPLE_RATE,
-            buffer.channels || 1,
-          );
-          if (out.length) onChunk(out);
-        }),
-        s.addListener("audioStreamStatus", (payload) => {
-          const status = payload as { isStreaming: boolean };
-          if (!status.isStreaming && !stopping) {
-            onStatus?.({ interrupted: true });
-          }
-        }),
-      );
       try {
         await stream.start();
         onStatus?.({ sampleRate: stream.sampleRate });
@@ -139,3 +131,25 @@ export function createRecitationCapture(): RecitationCapture {
     },
   };
 }
+
+function usePhoneRecitationCapture(): RecitationCapture {
+  const sink = useRef<((buffer: AudioStreamBuffer) => void) | null>(null);
+  const { stream } = useAudioStream({
+    ...STREAM_OPTIONS,
+    onBuffer: (buffer) => sink.current?.(buffer),
+  });
+  return useMemo(() => createRecitationCapture(stream, sink), [stream]);
+}
+
+function useTvRecitationCapture(): RecitationCapture {
+  return useMemo(() => createRecitationCapture(), []);
+}
+
+/**
+ * One capture per mounted practice session. TV never constructs a native stream
+ * (`AudioStream` is not built for tvOS), so the hook is chosen once at module
+ * load — `isTV()` is fixed for the process, so hook order never changes.
+ */
+export const useRecitationCapture: () => RecitationCapture = isTV()
+  ? useTvRecitationCapture
+  : usePhoneRecitationCapture;

@@ -70,8 +70,8 @@ const topicWithVariants: LearnDuaTopic = {
   ],
 };
 
-function renderTopic(topic: LearnDuaTopic) {
-  return render(
+async function renderTopic(topic: LearnDuaTopic) {
+  return await render(
     <MunibThemeProvider>
       <LearnDuaTopicContent topic={topic} />
     </MunibThemeProvider>,
@@ -80,7 +80,7 @@ function renderTopic(topic: LearnDuaTopic) {
 
 describe("LearnDuaTopicContent", () => {
   it("renders alternate authentic wordings for a phrase", async () => {
-    renderTopic(topicWithVariants);
+    await renderTopic(topicWithVariants);
 
     await waitFor(() => {
       expect(screen.getByText("Frame the day with remembrance.")).toBeTruthy();
@@ -111,7 +111,7 @@ describe("LearnDuaTopicContent", () => {
       ],
     };
 
-    renderTopic(topic);
+    await renderTopic(topic);
 
     await waitFor(() => {
       expect(screen.getByText("Dua on waking — Immediately upon waking")).toBeTruthy();

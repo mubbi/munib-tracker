@@ -2,7 +2,6 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
-
 import { RevisionQueue } from "@/components/quran/revision-queue";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +16,7 @@ import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { type DueItem, todaysSitting } from "@/lib/quran-companion/due-queue";
 import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
 import type { MemorizationStatus } from "@/lib/quran-companion/types";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useEnsureHifzLoaded, useHifzMap } from "@/stores/hifz-store";
 import {
   useCompanionPrefs,
@@ -173,3 +173,6 @@ const styles = StyleSheet.create({
   caption: { marginTop: Spacing.two },
   sheet: { gap: Spacing.two, padding: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/revision");

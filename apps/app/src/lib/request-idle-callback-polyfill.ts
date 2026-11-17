@@ -1,7 +1,8 @@
 /**
- * React Native does not ship `requestIdleCallback`. RN 0.86 deprecates
- * `InteractionManager` in favour of this API, so we polyfill it early in app
- * startup (see `index.js`) before navigation or list code runs deferred work.
+ * `requestIdleCallback` replaces React Native's removed `InteractionManager` (gone in
+ * RN 0.87). React Native defines it on native, so this is a no-op there; it fills
+ * the gap on web browsers without it (Safari). Installed early in app startup (see
+ * `index.js`) before navigation or list code runs deferred work.
  */
 export function installRequestIdleCallbackPolyfill(): void {
   if (typeof globalThis.requestIdleCallback === "function") return;

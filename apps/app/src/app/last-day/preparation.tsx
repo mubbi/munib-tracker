@@ -33,6 +33,7 @@ import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureLastDayProgressLoaded,
   useLastDayCharacterChecked,
@@ -243,3 +244,6 @@ const styles = StyleSheet.create({
   copy: { flex: 1, gap: Spacing.one },
   head: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/last-day/preparation");

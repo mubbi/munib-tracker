@@ -85,6 +85,16 @@ function makeStore(seed?: {
         .slice(0, limit)
         .map((row) => row.id);
     },
+    async hasNewerDueJob(target, now) {
+      return [...jobs.values()].some(
+        (row) =>
+          row.id !== target.id &&
+          row.activityTokenId === target.activityTokenId &&
+          row.executeAt > target.executeAt &&
+          row.executeAt <= now &&
+          (row.status === "pending" || row.status === "processing" || row.status === "delivered"),
+      );
+    },
     async expireActiveTokens(now = new Date()) {
       const ids: number[] = [];
       for (const tokenRow of tokens.values()) {
@@ -251,6 +261,58 @@ describe("deliverLiveActivityJob", () => {
       retryable: true,
     } satisfies Partial<LiveActivityDeliveryError>);
     expect(sendUpdate).not.toHaveBeenCalled();
+  });
+
+  it("cancels a stale job when a newer phase for the activity is already delivered", async () => {
+    const key = resolveActivityKitEncryptionKey({ jwtSecret: "test-secret" });
+    const store = makeStore({
+      job: { executeAt: new Date(Date.now() - 10 * 60_000) },
+      token: { tokenCiphertext: encryptActivityKitToken("f".repeat(64), key) },
+    });
+    const newer = structuredClone(store.jobs.get("job-1"));
+    if (!newer) throw new Error("seed job missing");
+    store.jobs.set("job-2", {
+      ...newer,
+      id: "job-2",
+      executeAt: new Date(Date.now() - 60_000),
+      status: "delivered",
+    });
+    const sendUpdate = vi.fn();
+
+    await deliverLiveActivityJob({
+      store,
+      apns: { sendUpdate, isConfigured: () => true, close: () => undefined } as never,
+      encryptionKey: key,
+      jobId: "job-1",
+    });
+
+    expect(sendUpdate).not.toHaveBeenCalled();
+    expect(store.jobs.get("job-1")?.status).toBe("cancelled");
+  });
+
+  it("still delivers when the newer phase is not yet due", async () => {
+    const key = resolveActivityKitEncryptionKey({ jwtSecret: "test-secret" });
+    const store = makeStore({
+      token: { tokenCiphertext: encryptActivityKitToken("9".repeat(64), key) },
+    });
+    const seed = structuredClone(store.jobs.get("job-1"));
+    if (!seed) throw new Error("seed job missing");
+    store.jobs.set("job-2", {
+      ...seed,
+      id: "job-2",
+      executeAt: new Date(Date.now() + 15 * 60_000),
+    });
+    const sendUpdate = vi.fn(async (): Promise<ApnsLiveActivityResult> => ({ ok: true }));
+
+    await deliverLiveActivityJob({
+      store,
+      apns: { sendUpdate, isConfigured: () => true, close: () => undefined } as never,
+      encryptionKey: key,
+      jobId: "job-1",
+    });
+
+    expect(sendUpdate).toHaveBeenCalledOnce();
+    expect(store.jobs.get("job-1")?.status).toBe("delivered");
   });
 
   it("throws NOT_FOUND when the job disappears after a successful claim", async () => {

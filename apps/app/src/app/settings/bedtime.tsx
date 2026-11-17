@@ -14,6 +14,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useTimeFormat } from "@/hooks/use-time-format";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   type DayPeriod,
   formatHhMm,
@@ -183,3 +184,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/bedtime");
