@@ -829,3 +829,35 @@ Still open: 7 (apple-targets 5 on the Mac), 9 (Duo measurements), 13 (store vers
 | Deprecated Nest CLI `compilerOptions.webpack`                                                                                              | rspack                         | `builder: { type: "rspack" }` with `rspack.config.js` (same entries, externals, workspace inlining). Build is 7 s instead of 63 s; bundles are about 7% smaller. `dist/vercel-handler.js` was smoke-tested behind an HTTP server. `webpack.config.js` and `swc-loader` are removed. Verify on a Vercel preview deploy before production |
 | Postgres migrations on TypeORM 1                                                                                                           | Skip for now                   | Deferred (14.6)                                                                                                                                                                                                                                                                                                                         |
 | Store version codes                                                                                                                        | Owner sets before upload       | `.env` cleaned up and placeholder added (14.6). `.env.example` codes are now distinct (1/2/3)                                                                                                                                                                                                                                           |
+
+### 14.8 Android emulator verification, 2026-11-17
+
+Debug (dev client) builds on two emulators: an Android TV 1080p (API 34) and an API 35 phone. Both apps were driven through their main flows. Android native compile: phone + Wear + TV all pass.
+
+| Area                                                                                                                    | TV                              | Phone |
+| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ----- |
+| Launch, Home (clock, Hijri date, prayer timeline, weather)                                                              | Pass                            | Pass  |
+| Onboarding                                                                                                              | n/a                             | Pass  |
+| Tracker, Library, Settings, Zikr, Qur'an index, Qur'an practice                                                         | Pass (D-pad focus, Back ladder) | Pass  |
+| Location permission + device fix + reverse geocode (`expo-location` patch)                                              | n/a (manual city)               | Pass  |
+| Notification permission, scheduled reminders (`expo-notifications`)                                                     | n/a                             | Pass  |
+| Precise Adhan: exact-alarm settings hand-off, toggle restores on focus, Adhan reminders registered with `setAlarmClock` | n/a                             | Pass  |
+
+Bugs found and fixed:
+
+- **Windows native builds:** C++ object paths exceeded 260 characters (react-native-gesture-handler 3 codegen), and SDK CMake 3.22.1 ships ninja 1.10, which isn't long-path aware. The prebuild, run, and release scripts now write `android/local.properties` with `sdk.dir` and `cmake.dir` (SDK CMake 3.31+, ninja 1.12). This also fixes builds from shells without `ANDROID_HOME`. Documented in `apps/app/README.md`.
+- **TV locked behind "Update required":** TV builds are versioned separately but report the phone platform, and the API has no TV platform, so every phone `required` bump blocked TV. TV now ignores the phone version policy (`app-version-provider.tsx`). Proper fix later: a TV platform in the version API.
+- **Blank icons on Android / web:** the update prompt passed bare SF Symbol names, which `expo-symbols` draws only on iOS. It now uses `{ ios, android, web }` (`update-icons.ts`).
+- **TV Tracker:** the summary column was squeezed to about 160dp (word-per-line copy, truncated chips). The detail pane now has a definite width.
+- **Text breaking mid-word:** "Bookmark / s" in the TV Library grid (NavRow TV gap + Android hyphenation), and "Calcu / lation method" in phone settings rows (`SettingsRow` title keeps 40%, and a trailing value wraps within 45%).
+- Dev-only `console.warn` when device location fails; it was previously swallowed silently.
+
+Environment notes (not app bugs):
+
+- The 1 GB TV AVD thrashes (swap exhausted, low-memory killer) under a Metro **dev** bundle. Functional testing used `-memory 3072`. Measure memory on 1 GB with a release build (9.3).
+- The API 36.1 phone image never finished booting on this host. The API 35 image was used instead.
+- Emulators have no location until one is injected. `geo fix` does not answer low-accuracy fused requests; use `cmd location providers set-test-provider-location`.
+- Metro started with `CI=1` disables file watching (no Fast Refresh, new files unresolved). Don't set `CI` for interactive runs.
+- First launch of the debug build hit a startup ANR while the emulator was still compiling dex (a system app hit the same). Second launch: 3.7 s cold start, no ANR.
+
+Not covered on the emulator: Wear OS app, widgets / lock-screen widgets, Live Updates, recitation capture (needs mic), OAuth sign-in, release (R8) builds.
