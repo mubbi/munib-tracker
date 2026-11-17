@@ -53,6 +53,12 @@ function getVapidPrivateKey(): string | null {
   return typeof key === "string" && key.trim() !== "" ? key.trim() : null;
 }
 
+/** `VAPID_SUBJECT` (`mailto:` / `https:`) when set, else `mailto:` the official support email — same as apps/api. */
+export function resolveVapidSubject(raw: string | undefined = process.env.VAPID_SUBJECT): string {
+  const subject = raw?.trim();
+  return subject ? subject : `mailto:${OFFICIAL_SUPPORT_EMAIL}`;
+}
+
 function isWebPushConfigured(): boolean {
   return !!getVapidPublicKey() && !!getVapidPrivateKey();
 }
@@ -119,7 +125,7 @@ async function sendWebPushOne(
   const privateKey = getVapidPrivateKey();
   if (!publicKey || !privateKey) return "failed";
 
-  setVapidDetails(`mailto:${OFFICIAL_SUPPORT_EMAIL}`, publicKey, privateKey);
+  setVapidDetails(resolveVapidSubject(), publicKey, privateKey);
   const data: Record<string, unknown> = {
     ...(payload.routeData ?? {}),
     ...(inAppId != null
