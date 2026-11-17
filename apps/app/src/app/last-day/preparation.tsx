@@ -4,6 +4,12 @@ import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+  useLearnTileStyle,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -15,7 +21,8 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -24,6 +31,7 @@ import type { LastDayPreparationRowId } from "@/lib/last-day-preparation";
 import { buildLastDayPreparation } from "@/lib/last-day-preparation";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import {
   useEnsureLastDayProgressLoaded,
@@ -52,15 +60,20 @@ function PreparationRow({
   row,
   today,
   onPress,
+  tiled,
 }: {
   row: ReturnType<typeof buildLastDayPreparation>["rows"][number];
   today: string;
   onPress: () => void;
+  /** Wide grid cell: tile chrome instead of the hairline separator. */
+  tiled: boolean;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
   const isToggle = TOGGLE_ROWS.includes(row.id);
+  const tileStyle = useLearnTileStyle();
+  const tile = tiled ? [tileStyle, styles.rowTile] : null;
   const repentance = useLastDayRepentanceChecked(today);
   const character = useLastDayCharacterChecked(today);
   const checked = row.id === "repentance" ? repentance : row.id === "character" ? character : false;
@@ -73,7 +86,7 @@ function PreparationRow({
         accessibilityLabel={t(row.labelKey)}
         onPress={onPress}
         haptic="selection"
-        style={[styles.row, { borderTopColor: tokens.hairline }]}
+        style={[styles.row, isTV() && styles.rowTv, { borderTopColor: tokens.hairline }, tile]}
       >
         <IconWell
           icon={ROW_ICONS[row.id]}
@@ -107,7 +120,7 @@ function PreparationRow({
       haptic="light"
       accessibilityRole="button"
       accessibilityLabel={`${t(row.labelKey)}. ${row.value}`}
-      style={[styles.row, { borderTopColor: tokens.hairline }]}
+      style={[styles.row, isTV() && styles.rowTv, { borderTopColor: tokens.hairline }, tile]}
     >
       <IconWell icon={ROW_ICONS[row.id]} tint={colors.accent} well={40} size={18} />
       <View style={styles.copy}>
@@ -139,6 +152,9 @@ export default function LastDayPreparationScreen() {
     isLastDayContentReady,
   );
   const today = getLocalDateString();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: habit rows lay out two per row.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 2 });
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
@@ -172,6 +188,7 @@ export default function LastDayPreparationScreen() {
       title={t("lastDay.preparationTitle")}
       subtitle={t("lastDay.preparationSubtitle")}
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/preparation" />
       <LearnContentGate ready={contentReady}>
@@ -186,16 +203,17 @@ export default function LastDayPreparationScreen() {
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
               {tTv(t, "lastDay.preparationHabitsHint", "lastDay.preparationHabitsHintTv")}
             </ThemedText>
-            <View style={styles.list}>
+            <LearnColumnsGrid columns={columns} stackGap={0} style={styles.list}>
               {snapshot.rows.map((row) => (
                 <PreparationRow
                   key={row.id}
                   row={row}
                   today={today}
+                  tiled={columns > 1}
                   onPress={() => handleRowPress(row.id, row.route)}
                 />
               ))}
-            </View>
+            </LearnColumnsGrid>
           </Card>
 
           <JannahDisclaimer textKey="lastDay.preparationDisclaimer" />
@@ -214,6 +232,13 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     paddingVertical: Spacing.three,
     borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  rowTile: { borderTopWidth: 0 },
+  // TV: 10-foot target + inset so the focus ring clears the icon / value.
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
   },
   copy: { flex: 1, gap: Spacing.one },
   head: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },

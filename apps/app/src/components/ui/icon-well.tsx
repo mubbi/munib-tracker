@@ -2,6 +2,7 @@ import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
 import { AppIcon } from "@/components/ui/app-icon";
 import { Radius } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 
@@ -35,8 +36,8 @@ export function IconWell({
       style={[
         styles.well,
         {
-          width: well,
-          height: well,
+          width: tvDp(well),
+          height: tvDp(well),
           borderRadius: radius,
           backgroundColor: background ?? tokens.accentSoft,
         },

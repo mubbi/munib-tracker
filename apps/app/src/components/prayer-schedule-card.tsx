@@ -10,9 +10,11 @@ import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import type { ScheduleItem } from "@/hooks/use-home-hero";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
 import type { PrayerInfoId } from "@/lib/prayer-info";
 import type { ScheduleKind } from "@/lib/prayer-times";
 import {
@@ -35,6 +37,11 @@ export type PrayerScheduleCardProps = {
   onShare?: () => void;
   shareLoading?: boolean;
   shareGesturePending?: boolean;
+  /**
+   * `split`: timeline and the flexible (Duha / Tahajjud…) block side by side —
+   * for wide screens where the card spans a full content column.
+   */
+  layout?: "stack" | "split";
 };
 
 type RowVisuals = {
@@ -137,6 +144,7 @@ function ScheduleCollapseBar({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const isPast = variant === "past";
+  const tv = isTV();
 
   const title = expanded
     ? isPast
@@ -171,9 +179,11 @@ function ScheduleCollapseBar({
       onPress={onPress}
       style={[
         styles.collapseBar,
+        tv ? styles.collapseBarTv : null,
         {
           backgroundColor: expanded ? colors.muted : tokens.accentSoft,
-          borderColor: expanded ? colors.border : colors.accent,
+          // TV: the D-pad ring is the only accent outline (soft fill + hairline at rest).
+          borderColor: expanded || tv ? colors.border : colors.accent,
         },
       ]}
     >
@@ -487,6 +497,7 @@ export function PrayerScheduleCard({
   onShare,
   shareLoading = false,
   shareGesturePending = false,
+  layout = "stack",
 }: PrayerScheduleCardProps) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
@@ -497,6 +508,8 @@ export function PrayerScheduleCard({
     () => computeScheduleFocusWindow(schedule, nextScheduleId),
     [schedule, nextScheduleId],
   );
+
+  const split = layout === "split";
 
   const segments = useMemo(
     () =>
@@ -519,7 +532,8 @@ export function PrayerScheduleCard({
             />
             <ThemedText type="subtitle">{t("home.scheduleTitle")}</ThemedText>
           </View>
-          {onShare ? (
+          {/* Share sheet is phone-only — never offer it on TV. */}
+          {onShare && !isTV() ? (
             <LabeledIconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
               label={
@@ -547,23 +561,27 @@ export function PrayerScheduleCard({
         <ScheduleLegend />
       </View>
 
-      <View style={styles.groups}>
-        <ScheduleTimeline
-          segments={segments}
-          nextScheduleId={nextScheduleId}
-          nextIn={nextIn}
-          pastExpanded={pastExpanded}
-          futureExpanded={futureExpanded}
-          onTogglePast={() => setPastExpanded((value) => !value)}
-          onToggleFuture={() => setFutureExpanded((value) => !value)}
-        />
-
-        {window.flexible.length > 0 ? (
-          <ScheduleFlexibleBlock
-            items={window.flexible}
+      <View style={split ? styles.groupsSplit : styles.groups}>
+        <View style={split ? styles.splitPane : undefined}>
+          <ScheduleTimeline
+            segments={segments}
             nextScheduleId={nextScheduleId}
             nextIn={nextIn}
+            pastExpanded={pastExpanded}
+            futureExpanded={futureExpanded}
+            onTogglePast={() => setPastExpanded((value) => !value)}
+            onToggleFuture={() => setFutureExpanded((value) => !value)}
           />
+        </View>
+
+        {window.flexible.length > 0 ? (
+          <View style={split ? styles.splitPane : undefined}>
+            <ScheduleFlexibleBlock
+              items={window.flexible}
+              nextScheduleId={nextScheduleId}
+              nextIn={nextIn}
+            />
+          </View>
         ) : null}
       </View>
     </Card>
@@ -606,6 +624,15 @@ const styles = StyleSheet.create({
   groups: {
     gap: Spacing.half,
   },
+  groupsSplit: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  splitPane: {
+    flex: 1,
+    minWidth: 0,
+  },
   group: {
     gap: Spacing.half,
   },
@@ -625,6 +652,11 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth * 2,
     marginVertical: Spacing.half,
+  },
+  collapseBarTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.three,
+    borderWidth: StyleSheet.hairlineWidth,
   },
   collapseIconWrap: {
     width: 28,

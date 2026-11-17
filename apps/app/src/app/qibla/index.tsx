@@ -2,6 +2,7 @@ import { Coordinates, Qibla } from "adhan";
 import * as Location from "expo-location";
 import { type Href, useRouter } from "expo-router";
 import { Magnetometer } from "expo-sensors";
+import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
@@ -241,7 +242,8 @@ export default function QiblaScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const reducedMotion = useReducedMotion();
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const tv = isTV();
   const location = useLocation();
   const locationStatus = useLocationStatus();
   const { requestDeviceLocation } = useLocationActions();
@@ -269,7 +271,17 @@ export default function QiblaScreen() {
   const [hasTrueNorth, setHasTrueNorth] = useState(false);
   const [, setAligned] = useState(false);
 
-  const dialSize = Math.min(windowWidth - Spacing.four * 2, 320);
+  // TV (landscape, ~540dp tall): size the dial from the height so the dial,
+  // stats and the city/hint card all fit without scrolling past focusables.
+  /** Desktop / wide web: dial beside an info aside (stats, location, hints). */
+  const twoPane = !tv && windowWidth >= 1024;
+  const dialSize = tv
+    ? Math.round(Math.min(windowHeight * 0.42, windowWidth * 0.3))
+    : twoPane
+      ? windowWidth >= 1280
+        ? 400
+        : 340
+      : Math.min(windowWidth - Spacing.four * 2, 320);
   const needleSize = Math.round(dialSize * 0.26);
 
   const smoothedRef = useRef(0);
@@ -459,7 +471,6 @@ export default function QiblaScreen() {
   const hairlineColor = tokens.hairline;
   const accentColor = colors.accent;
   const isWeb = Platform.OS === "web";
-  const tv = isTV();
   const glowShadowPeak = withAlpha(accentColor, 0.35);
   const glowShadowBase = withAlpha(accentColor, 0);
 
@@ -496,8 +507,207 @@ export default function QiblaScreen() {
     `radial-gradient(circle at 50% 42%, ${withAlpha(colors.accent, tokens.isDark ? 0.18 : 0.12)} 0%, ${withAlpha(colors.card, 0)} 68%)`,
   );
 
+  const guidanceCard = showTurnGuidance ? (
+    <Card
+      style={[
+        styles.guidanceCard,
+        {
+          backgroundColor: isAligned ? tokens.accentSoft : tokens.surfaceRaised,
+          borderColor: isAligned ? tokens.accentBorder : tokens.hairline,
+        },
+      ]}
+    >
+      <View style={styles.guidanceRow}>
+        {chevron ? (
+          <Animated.View style={chevronStyle}>
+            <QiblaTurnIcon
+              kind={guidance.kind}
+              size={36}
+              color={isAligned ? colors.accent : colors.foreground}
+              backgroundColor={isAligned ? tokens.accentSoft : tokens.surfaceRaised}
+            />
+          </Animated.View>
+        ) : null}
+        <View style={styles.guidanceCopy}>
+          <ThemedText
+            type="header"
+            style={{ color: isAligned ? colors.accentText : colors.foreground }}
+          >
+            {t(TURN_I18N[guidance.kind])}
+          </ThemedText>
+          {isAligned ? (
+            <ThemedText type="small" themeColor="mutedForeground">
+              {t("qibla.alignedHint")}
+            </ThemedText>
+          ) : (
+            <ThemedText type="small" themeColor="mutedForeground">
+              {t("qibla.degreesOff", { deg: guidance.absDeg })}
+            </ThemedText>
+          )}
+        </View>
+      </View>
+    </Card>
+  ) : null;
+
+  const statsRow = (
+    <View style={[styles.statsRow, tv && styles.statsRowTv]}>
+      <View style={[styles.statBlock, { backgroundColor: tokens.surfaceRaised }]}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("qibla.bearingLabel")}
+        </ThemedText>
+        <ThemedText type="header">{Math.round(bearing)}°</ThemedText>
+      </View>
+
+      <View style={[styles.statBlock, { backgroundColor: tokens.surfaceRaised }]}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("qibla.distanceLabel")}
+        </ThemedText>
+        <ThemedText type="header">{distance.toLocaleString()} km</ThemedText>
+      </View>
+    </View>
+  );
+
+  const compassCard = (
+    <Card style={[styles.compassCard, tv && styles.compassCardTv, compassGradient]}>
+      <View style={styles.compassStage}>
+        <Animated.View
+          accessible
+          accessibilityRole="image"
+          accessibilityLabel={compassA11yLabel}
+          accessibilityLiveRegion="polite"
+          style={[
+            styles.dialOuter,
+            ringStyle,
+            {
+              width: dialSize + 24,
+              height: dialSize + 24,
+              borderRadius: (dialSize + 24) / 2,
+            },
+          ]}
+        >
+          <View
+            style={[
+              styles.dial,
+              {
+                width: dialSize,
+                height: dialSize,
+                borderRadius: dialSize / 2,
+                borderColor: tokens.hairline,
+                backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.55 : 0.72),
+              },
+            ]}
+          >
+            {hasCompass ? (
+              <Animated.View style={[styles.dialInner, dialStyle]}>
+                <CompassFace
+                  dialSize={dialSize}
+                  bearing={bearing}
+                  heading={heading}
+                  tokens={tokens}
+                  colors={colors}
+                  t={t}
+                />
+              </Animated.View>
+            ) : (
+              <>
+                <CompassFace
+                  dialSize={dialSize}
+                  bearing={bearing}
+                  tokens={tokens}
+                  colors={colors}
+                  t={t}
+                />
+
+                <Animated.View style={[styles.needle, needleStyle]}>
+                  <QiblaNeedle size={needleSize} color={colors.accent} />
+                </Animated.View>
+              </>
+            )}
+          </View>
+
+          {hasCompass ? (
+            <View style={[styles.topPointer, { borderBottomColor: colors.accent }]} />
+          ) : null}
+        </Animated.View>
+      </View>
+      {twoPane ? null : statsRow}
+    </Card>
+  );
+
+  const defaultLocationCard =
+    location.source === "default" ? (
+      <Card variant="muted" padding="three">
+        <ThemedText type="small" themeColor="mutedForeground">
+          {t("qibla.defaultLocationHint")}
+        </ThemedText>
+        <Button
+          label={t("qibla.setLocation")}
+          variant="secondary"
+          preferredFocus={tv}
+          onPress={() => router.push("/location" as Href)}
+        />
+      </Card>
+    ) : null;
+
+  const hintCard = tv ? (
+    // TV: no compass / GPS — static bearing for the chosen city, plus a
+    // focusable way to change it (the screen otherwise has no D-pad target).
+    <Card variant="muted" padding="three" style={styles.tvHintCard}>
+      {location.label ? (
+        <ThemedText type="smallBold" numberOfLines={1}>
+          {location.label}
+        </ThemedText>
+      ) : null}
+      <ThemedText type="small" themeColor="mutedForeground">
+        {t("qibla.tvHint")}
+      </ThemedText>
+      {location.source !== "default" ? (
+        <Button
+          label={t("hero.changeLocation")}
+          variant="secondary"
+          icon={{ ios: "location.fill", android: "location_on", web: "location_on" }}
+          preferredFocus
+          onPress={() => router.push("/location" as Href)}
+        />
+      ) : null}
+    </Card>
+  ) : !hasCompass ? (
+    <Card variant="muted" padding="three">
+      <ThemedText type="small" themeColor="mutedForeground">
+        {Platform.OS === "web" ? t("qibla.webHint") : t("qibla.noCompassHint")}
+      </ThemedText>
+    </Card>
+  ) : (
+    <Card variant="muted" padding="three">
+      <ThemedText type="small" themeColor="mutedForeground">
+        {showTurnGuidance
+          ? t("qibla.rotatePhone")
+          : hasCompass && !hasTrueNorth
+            ? t("qibla.noCompassHint")
+            : t("qibla.calibrateHint")}
+      </ThemedText>
+    </Card>
+  );
+
+  // GPS retry is phone-only — TV uses the manual city picker above.
+  const errorCard =
+    locationError && !tv ? (
+      <Card variant="muted" padding="three">
+        <ThemedText type="small" themeColor="mutedForeground">
+          {t(locationError)}
+        </ThemedText>
+        <Button
+          label={t("qibla.tryAgain")}
+          onPress={() => {
+            void locationStore.getState().requestDeviceLocation();
+          }}
+        />
+      </Card>
+    ) : null;
+
   return (
     <ScreenLayout
+      maxContentWidth={twoPane ? 1320 : undefined}
       eyebrow={t("qibla.eyebrow")}
       title={t("settings.qibla")}
       subtitle={t("qibla.subtitle")}
@@ -523,183 +733,77 @@ export default function QiblaScreen() {
         ]}
       />
       <Stagger>
-        {showTurnGuidance ? (
-          <Card
-            style={[
-              styles.guidanceCard,
-              {
-                backgroundColor: isAligned ? tokens.accentSoft : tokens.surfaceRaised,
-                borderColor: isAligned ? tokens.accentBorder : tokens.hairline,
-              },
-            ]}
-          >
-            <View style={styles.guidanceRow}>
-              {chevron ? (
-                <Animated.View style={chevronStyle}>
-                  <QiblaTurnIcon
-                    kind={guidance.kind}
-                    size={36}
-                    color={isAligned ? colors.accent : colors.foreground}
-                    backgroundColor={isAligned ? tokens.accentSoft : tokens.surfaceRaised}
+        {twoPane ? (
+          <View style={styles.split}>
+            <View style={styles.primary}>{compassCard}</View>
+            <View style={styles.aside}>
+              {guidanceCard}
+              <Card padding="three">{statsRow}</Card>
+              {location.source !== "default" ? (
+                <Card variant="muted" padding="three" style={styles.locationCard}>
+                  {location.label ? (
+                    <View style={styles.locationRow}>
+                      <SymbolView
+                        name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
+                        size={16}
+                        tintColor={colors.accent}
+                      />
+                      <ThemedText type="smallBold" numberOfLines={2} style={styles.locationLabel}>
+                        {location.label}
+                      </ThemedText>
+                    </View>
+                  ) : null}
+                  <Button
+                    label={t("hero.changeLocation")}
+                    variant="secondary"
+                    size="sm"
+                    onPress={() => router.push("/location" as Href)}
                   />
-                </Animated.View>
+                </Card>
               ) : null}
-              <View style={styles.guidanceCopy}>
-                <ThemedText
-                  type="header"
-                  style={{ color: isAligned ? colors.accentText : colors.foreground }}
-                >
-                  {t(TURN_I18N[guidance.kind])}
-                </ThemedText>
-                {isAligned ? (
-                  <ThemedText type="small" themeColor="mutedForeground">
-                    {t("qibla.alignedHint")}
-                  </ThemedText>
-                ) : (
-                  <ThemedText type="small" themeColor="mutedForeground">
-                    {t("qibla.degreesOff", { deg: guidance.absDeg })}
-                  </ThemedText>
-                )}
-              </View>
-            </View>
-          </Card>
-        ) : null}
-
-        <Card style={[styles.compassCard, compassGradient]}>
-          <View style={styles.compassStage}>
-            <Animated.View
-              accessible
-              accessibilityRole="image"
-              accessibilityLabel={compassA11yLabel}
-              accessibilityLiveRegion="polite"
-              style={[
-                styles.dialOuter,
-                ringStyle,
-                {
-                  width: dialSize + 24,
-                  height: dialSize + 24,
-                  borderRadius: (dialSize + 24) / 2,
-                },
-              ]}
-            >
-              <View
-                style={[
-                  styles.dial,
-                  {
-                    width: dialSize,
-                    height: dialSize,
-                    borderRadius: dialSize / 2,
-                    borderColor: tokens.hairline,
-                    backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.55 : 0.72),
-                  },
-                ]}
-              >
-                {hasCompass ? (
-                  <Animated.View style={[styles.dialInner, dialStyle]}>
-                    <CompassFace
-                      dialSize={dialSize}
-                      bearing={bearing}
-                      heading={heading}
-                      tokens={tokens}
-                      colors={colors}
-                      t={t}
-                    />
-                  </Animated.View>
-                ) : (
-                  <>
-                    <CompassFace
-                      dialSize={dialSize}
-                      bearing={bearing}
-                      tokens={tokens}
-                      colors={colors}
-                      t={t}
-                    />
-
-                    <Animated.View style={[styles.needle, needleStyle]}>
-                      <QiblaNeedle size={needleSize} color={colors.accent} />
-                    </Animated.View>
-                  </>
-                )}
-              </View>
-
-              {hasCompass ? (
-                <View style={[styles.topPointer, { borderBottomColor: colors.accent }]} />
-              ) : null}
-            </Animated.View>
-          </View>
-
-          <View style={styles.statsRow}>
-            <View style={[styles.statBlock, { backgroundColor: tokens.surfaceRaised }]}>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("qibla.bearingLabel")}
-              </ThemedText>
-              <ThemedText type="header">{Math.round(bearing)}°</ThemedText>
-            </View>
-
-            <View style={[styles.statBlock, { backgroundColor: tokens.surfaceRaised }]}>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("qibla.distanceLabel")}
-              </ThemedText>
-              <ThemedText type="header">{distance.toLocaleString()} km</ThemedText>
+              {defaultLocationCard}
+              {hintCard}
+              {errorCard}
             </View>
           </View>
-        </Card>
-
-        {location.source === "default" ? (
-          <Card variant="muted" padding="three">
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("qibla.defaultLocationHint")}
-            </ThemedText>
-            <Button
-              label={t("qibla.setLocation")}
-              variant="secondary"
-              preferredFocus={tv}
-              onPress={() => router.push("/location" as Href)}
-            />
-          </Card>
         ) : null}
-
-        {!hasCompass ? (
-          <Card variant="muted" padding="three">
-            <ThemedText type="small" themeColor="mutedForeground">
-              {tv
-                ? t("qibla.tvHint")
-                : Platform.OS === "web"
-                  ? t("qibla.webHint")
-                  : t("qibla.noCompassHint")}
-            </ThemedText>
-          </Card>
-        ) : (
-          <Card variant="muted" padding="three">
-            <ThemedText type="small" themeColor="mutedForeground">
-              {showTurnGuidance
-                ? t("qibla.rotatePhone")
-                : hasCompass && !hasTrueNorth
-                  ? t("qibla.noCompassHint")
-                  : t("qibla.calibrateHint")}
-            </ThemedText>
-          </Card>
-        )}
-
-        {locationError ? (
-          <Card variant="muted" padding="three">
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t(locationError)}
-            </ThemedText>
-            <Button
-              label={t("qibla.tryAgain")}
-              onPress={() => {
-                void locationStore.getState().requestDeviceLocation();
-              }}
-            />
-          </Card>
-        ) : null}
+        {twoPane ? null : guidanceCard}
+        {twoPane ? null : compassCard}
+        {twoPane ? null : defaultLocationCard}
+        {twoPane ? null : hintCard}
+        {twoPane ? null : errorCard}
       </Stagger>
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  split: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  primary: {
+    flex: 1,
+    minWidth: 0,
+  },
+  aside: {
+    width: 360,
+    maxWidth: "40%",
+    gap: Spacing.three,
+  },
+  locationCard: {
+    gap: Spacing.three,
+  },
+  locationRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  locationLabel: {
+    flex: 1,
+    minWidth: 0,
+  },
   guidanceCard: {
     borderWidth: 1,
     borderCurve: "continuous",
@@ -720,6 +824,11 @@ const styles = StyleSheet.create({
     gap: Spacing.four,
     paddingVertical: Spacing.five,
     overflow: "hidden",
+  },
+  compassCardTv: {
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingVertical: Spacing.four,
   },
   compassStage: {
     alignItems: "center",
@@ -788,6 +897,16 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     width: "100%",
     paddingHorizontal: Spacing.two,
+  },
+  statsRowTv: {
+    flexDirection: "column",
+    width: "auto",
+    flex: 1,
+    maxWidth: 360,
+    paddingHorizontal: 0,
+  },
+  tvHintCard: {
+    gap: Spacing.three,
   },
   statBlock: {
     flex: 1,

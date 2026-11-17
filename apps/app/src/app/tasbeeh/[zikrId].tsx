@@ -2,7 +2,7 @@ import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
@@ -15,6 +15,7 @@ import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementB
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useTasbeehCounterDock } from "@/hooks/use-tasbeeh-counter-dock";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { usePreferences } from "@/stores/preferences-store";
@@ -36,7 +37,14 @@ export default function ZikrTasbeehScreen() {
   const zikrId = paramId(params.zikrId);
   const prayerParam = paramId(params.prayer);
   const contentBottomInset = useContentBottomInset();
-  const { counterRef, dockVisible, onScroll, onCounterLayout, recompute } = useTasbeehCounterDock();
+  const { width: windowWidth } = useWindowDimensions();
+  // Wide web / tablets: the counter sits beside the zikr text (TV keeps its layout).
+  const wide = !isTV() && windowWidth >= 1024;
+  const dock = useTasbeehCounterDock();
+  const { counterRef, onScroll, onCounterLayout, recompute } = dock;
+  // TV: the landscape counter fits the viewport and keeps preferred focus — a
+  // second floating glass dock would only add focus targets (and blur cost).
+  const dockVisible = dock.dockVisible && !isTV();
   const { showTransliteration, showTranslation } = useReadingTextVisibility();
   const { fontPrefs } = usePreferences();
   const [dockBarHeight, setDockBarHeight] = useState(DOCK_BAR_FALLBACK);
@@ -137,6 +145,19 @@ export default function ZikrTasbeehScreen() {
     ? Math.max(Spacing.three, dockBarHeight - contentBottomInset + Spacing.two)
     : 0;
 
+  const readingBlock = <TasbeehReadingBlock item={item} />;
+  const counterCard = (
+    <Card variant="plain" padding="five" style={styles.card}>
+      <TasbeehCounter
+        count={count}
+        target={target}
+        onIncrement={() => persist(count + 1)}
+        onDecrement={() => persist(count - 1)}
+        onReset={() => persist(0)}
+      />
+    </Card>
+  );
+
   return (
     <View style={styles.root}>
       <ScreenLayout
@@ -152,19 +173,26 @@ export default function ZikrTasbeehScreen() {
           description={t("seo.tasbeehZikr.description")}
           index={false}
         />
-        <TasbeehReadingBlock item={item} />
-
-        <View ref={counterRef} onLayout={onCounterLayout} collapsable={false}>
-          <Card variant="plain" padding="five" style={styles.card}>
-            <TasbeehCounter
-              count={count}
-              target={target}
-              onIncrement={() => persist(count + 1)}
-              onDecrement={() => persist(count - 1)}
-              onReset={() => persist(0)}
-            />
-          </Card>
-        </View>
+        {wide ? (
+          <View style={styles.wideRow}>
+            <View style={styles.wideReading}>{readingBlock}</View>
+            <View
+              ref={counterRef}
+              onLayout={onCounterLayout}
+              collapsable={false}
+              style={styles.wideCounter}
+            >
+              {counterCard}
+            </View>
+          </View>
+        ) : (
+          <>
+            {readingBlock}
+            <View ref={counterRef} onLayout={onCounterLayout} collapsable={false}>
+              {counterCard}
+            </View>
+          </>
+        )}
       </ScreenLayout>
 
       {dockVisible ? (
@@ -182,6 +210,9 @@ export default function ZikrTasbeehScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
+  wideRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  wideReading: { flex: 1, minWidth: 0 },
+  wideCounter: { width: 420, flexShrink: 0 },
   card: {
     alignItems: "stretch",
     flex: 1,

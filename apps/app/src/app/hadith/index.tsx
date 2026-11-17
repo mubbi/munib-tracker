@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { REMOTE_COLLECTIONS } from "@/api/hadith-remote";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -20,6 +20,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { dailyHadith, ensureDailyHadithPool } from "@/lib/daily-hadith";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 
 const HADITH_ITEMS = getBundledCollections().map((collection) => ({
@@ -40,6 +41,11 @@ export default function HadithHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  // Wide web / tablets: bookmarks + today side by side, collection lists in two columns.
+  const wide = !tv && width >= 768;
+  const twoCols = tv || (!tv && width >= 1024);
 
   const bundled = getBundledCollections();
   const remote = REMOTE_COLLECTIONS;
@@ -69,6 +75,86 @@ export default function HadithHomeScreen() {
   const open = (id: string) =>
     router.push({ pathname: "/hadith/[collection]", params: { collection: id } });
 
+  const highlightsCard = (
+    <Card key="highlights" padding="three" style={twoCols ? styles.columnTv : undefined}>
+      <SectionHeader
+        title={t("hadith.highlights")}
+        icon={{ ios: "star.fill", android: "star", web: "star" }}
+      />
+      <View style={styles.list}>
+        {bundled.map((collection) => (
+          <NavRow
+            key={collection.id}
+            icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+            label={collection.nameEnglish}
+            count={getBundledCollection(collection.id)?.items.length}
+            onPress={() => open(collection.id)}
+          />
+        ))}
+      </View>
+    </Card>
+  );
+
+  const fullCollectionsCard = (
+    <Card key="full" padding="three" style={twoCols ? styles.columnTv : undefined}>
+      <SectionHeader
+        title={t("hadith.fullCollections")}
+        icon={{ ios: "books.vertical.fill", android: "library_books", web: "library_books" }}
+      />
+      <View style={styles.list}>
+        {remote.map((collection) => (
+          <NavRow
+            key={collection.id}
+            icon={{ ios: "book.fill", android: "book", web: "book" }}
+            label={collection.nameEnglish}
+            onPress={() => open(collection.id)}
+          />
+        ))}
+      </View>
+    </Card>
+  );
+
+  const savedCard = (
+    <SavedNavCard
+      key="saved"
+      title={t("hadith.bookmarks")}
+      viewLabel={t("hadith.viewBookmarks")}
+      count={bookmarkCount > 0 ? bookmarkCount : undefined}
+      headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+      rowIcon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
+      onPress={() => router.push("/hadith/bookmarks")}
+    />
+  );
+
+  const todayCard = today ? (
+    <Card
+      key="today"
+      padding="three"
+      onPress={() => router.push("/hadith/daily")}
+      accessibilityLabel={t("dailyHadith.title")}
+      style={{
+        backgroundColor: tokens.status.info.soft,
+        borderColor: tokens.status.info.color,
+        borderWidth: StyleSheet.hairlineWidth,
+      }}
+    >
+      <View style={styles.dailyHead}>
+        <SymbolView
+          name={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
+          size={16}
+          tintColor={tokens.status.info.color}
+        />
+        <ThemedText type="smallBold" style={{ color: tokens.status.info.text }}>
+          {t("dailyHadith.cardTitle")}
+        </ThemedText>
+      </View>
+      <TodayHadithPreview hadith={today} />
+      <ThemedText type="caption" style={{ color: tokens.status.info.text }}>
+        {today.reference} · {t("dailyHadith.seeArchive")}
+      </ThemedText>
+    </Card>
+  ) : null;
+
   return (
     <ScreenLayout
       eyebrow={t("hadith.eyebrow")}
@@ -97,77 +183,24 @@ export default function HadithHomeScreen() {
         ]}
       />
       <Stagger>
-        <SavedNavCard
-          title={t("hadith.bookmarks")}
-          viewLabel={t("hadith.viewBookmarks")}
-          count={bookmarkCount > 0 ? bookmarkCount : undefined}
-          headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-          rowIcon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
-          onPress={() => router.push("/hadith/bookmarks")}
-        />
-
-        {today ? (
-          <Card
-            padding="three"
-            onPress={() => router.push("/hadith/daily")}
-            accessibilityLabel={t("dailyHadith.title")}
-            style={{
-              backgroundColor: tokens.status.info.soft,
-              borderColor: tokens.status.info.color,
-              borderWidth: StyleSheet.hairlineWidth,
-            }}
-          >
-            <View style={styles.dailyHead}>
-              <SymbolView
-                name={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
-                size={16}
-                tintColor={tokens.status.info.color}
-              />
-              <ThemedText type="smallBold" style={{ color: tokens.status.info.text }}>
-                {t("dailyHadith.cardTitle")}
-              </ThemedText>
-            </View>
-            <TodayHadithPreview hadith={today} />
-            <ThemedText type="caption" style={{ color: tokens.status.info.text }}>
-              {today.reference} · {t("dailyHadith.seeArchive")}
-            </ThemedText>
-          </Card>
-        ) : null}
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("hadith.highlights")}
-            icon={{ ios: "star.fill", android: "star", web: "star" }}
-          />
-          <View style={styles.list}>
-            {bundled.map((collection) => (
-              <NavRow
-                key={collection.id}
-                icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-                label={collection.nameEnglish}
-                count={getBundledCollection(collection.id)?.items.length}
-                onPress={() => open(collection.id)}
-              />
-            ))}
+        {wide ? (
+          <View style={styles.topRowWide}>
+            <View style={styles.columnTv}>{savedCard}</View>
+            {todayCard ? <View style={styles.columnTv}>{todayCard}</View> : null}
           </View>
-        </Card>
+        ) : (
+          [savedCard, todayCard]
+        )}
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("hadith.fullCollections")}
-            icon={{ ios: "books.vertical.fill", android: "library_books", web: "library_books" }}
-          />
-          <View style={styles.list}>
-            {remote.map((collection) => (
-              <NavRow
-                key={collection.id}
-                icon={{ ios: "book.fill", android: "book", web: "book" }}
-                label={collection.nameEnglish}
-                onPress={() => open(collection.id)}
-              />
-            ))}
+        {/* TV + wide web: highlights and full collections side by side. */}
+        {twoCols ? (
+          <View style={styles.columnsTv}>
+            {highlightsCard}
+            {fullCollectionsCard}
           </View>
-        </Card>
+        ) : (
+          [highlightsCard, fullCollectionsCard]
+        )}
       </Stagger>
     </ScreenLayout>
   );
@@ -175,6 +208,8 @@ export default function HadithHomeScreen() {
 
 const styles = StyleSheet.create({
   list: { gap: Spacing.two, marginTop: Spacing.three },
+  columnsTv: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  columnTv: { flex: 1, minWidth: 0 },
   dailyHead: {
     flexDirection: "row",
     alignItems: "center",
@@ -182,4 +217,5 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
   },
   dailyBody: { marginBottom: Spacing.two },
+  topRowWide: { flexDirection: "row", alignItems: "stretch", gap: Spacing.three },
 });

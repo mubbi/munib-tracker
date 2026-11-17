@@ -23,14 +23,22 @@ import {
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
 import { isLocalNotificationSupported } from "@/lib/notifications/platform";
+import { quranRevisionReminderOptions } from "@/lib/quran-companion/reminder-options";
 import { captureAppException } from "@/lib/sentry";
 import { formatDisplayHhMm } from "@/lib/time";
 import { trackerStore } from "@/stores/tracker-store";
 
 /** Snapshot current Qaza/roza debt for reminder builds. */
-function buildReminderOptions() {
+/**
+ * Async: also reads the Qur'an practice revision-reminder inputs straight from
+ * their repositories (the practice stores are lazy and usually not loaded at launch).
+ */
+async function buildReminderOptions() {
   const { qazaCounters, roza } = trackerStore.getState();
-  return { hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza) };
+  return {
+    hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza),
+    ...(await quranRevisionReminderOptions()),
+  };
 }
 
 /** Serializes reschedule passes so overlapping calls cannot stack duplicate OS notifications. */
@@ -268,7 +276,7 @@ export async function rescheduleAll(
     const snoozes = await collectPendingSnoozes();
     const nextReminders =
       prefs.notificationPrefs.masterEnabled && (await getPermissionStatus()) === "granted"
-        ? buildReminders(prefs, location, new Date(), buildReminderOptions())
+        ? buildReminders(prefs, location, new Date(), await buildReminderOptions())
         : [];
     const now = Date.now();
     const toSchedule = nextReminders.filter(
@@ -362,7 +370,7 @@ export async function listScheduled(
   prefs: UserPreferences,
   location: StoredLocation,
 ): Promise<ScheduledReminderRow[]> {
-  const options = buildReminderOptions();
+  const options = await buildReminderOptions();
   if (!isLocalNotificationSupported()) {
     if (!prefs.notificationPrefs.masterEnabled) return [];
     return summarizeReminders(

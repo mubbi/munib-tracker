@@ -27,7 +27,7 @@ import { SIDE_RAIL_WIDTH } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { isTV } from "@/lib/platform/is-tv";
-import { registerTvRailBackHandler } from "@/lib/tv/tv-rail-back";
+import { registerTvRailBackHandler, setTvRailExpanded } from "@/lib/tv/tv-rail-back";
 import { ThemedText } from "./themed-text";
 
 type TabConfig = {
@@ -242,27 +242,33 @@ function SideRail({ expanded, style, children, ...props }: SideRailProps) {
   const list = <View style={[styles.railList, tv && styles.railListTv]}>{children}</View>;
 
   if (tv) {
+    // Compose-for-TV "modal navigation drawer": the rail always reserves only its
+    // collapsed width in layout; the expanded drawer overlays content. Animating
+    // the layout width instead reflowed the whole tab pane every frame — visible
+    // jank on Fire TV sticks / low-end Android TV.
     return (
-      <Animated.View
-        {...props}
-        style={[
-          styles.railContainer,
-          animatedWidth,
-          {
-            paddingTop: Math.max(insets.top, Spacing.five),
-            paddingBottom: Math.max(insets.bottom, Spacing.five),
-            borderEndColor: tokens.hairline,
-            paddingHorizontal: expanded ? Spacing.three : Spacing.two,
-          },
-          style,
-        ]}
-      >
-        {wash}
-        <TvFocusGuide style={styles.railFocusGuide} autoFocus>
-          {brand}
-          {list}
-        </TvFocusGuide>
-      </Animated.View>
+      <View {...props} style={[styles.railFootprint, style]}>
+        <Animated.View
+          style={[
+            styles.railContainer,
+            styles.railOverlay,
+            animatedWidth,
+            {
+              paddingTop: Math.max(insets.top, TvLayout.overscanY),
+              paddingBottom: Math.max(insets.bottom, TvLayout.overscanY),
+              borderEndColor: tokens.hairline,
+              paddingHorizontal: expanded ? Spacing.three : Spacing.two,
+              backgroundColor: colors.background,
+            },
+          ]}
+        >
+          {wash}
+          <TvFocusGuide style={styles.railFocusGuide} autoFocus>
+            {brand}
+            {list}
+          </TvFocusGuide>
+        </Animated.View>
+      </View>
     );
   }
 
@@ -288,10 +294,12 @@ function SideRail({ expanded, style, children, ...props }: SideRailProps) {
 
 /** Side-rail tab shell for wide windows (tablet / desktop / TV). */
 export function WideAppTabs() {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const tv = isTV();
-  const [railExpanded, setRailExpanded] = useState(true);
+  // TV starts collapsed: initial focus lands in content (Continue card / hero),
+  // and the first Back press reveals the rail (Leanback pattern).
+  const [railExpanded, setRailExpanded] = useState(!tv);
   const [preferRailFocus, setPreferRailFocus] = useState(false);
   const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const contentGuideRef = useRef<View>(null);
@@ -324,7 +332,19 @@ export function WideAppTabs() {
     };
   }, []);
 
-  // Expose rail expand to the root TV back ladder (stack → rail → exit).
+  // Publish rail state so the TV back ladder knows when Back should reach the system.
+  useEffect(() => {
+    if (tv) setTvRailExpanded(railExpanded);
+  }, [tv, railExpanded]);
+
+  // Scrim over content while the drawer is open (opacity only — no layout work).
+  const scrim = useSharedValue(0);
+  useEffect(() => {
+    scrim.value = withTiming(tv && railExpanded ? 1 : 0, { duration: RAIL_COLLAPSE_MS });
+  }, [tv, railExpanded, scrim]);
+  const scrimStyle = useAnimatedStyle(() => ({ opacity: scrim.value }));
+
+  // Expose rail expand to the root TV back ladder (stack → rail → system Home).
   useEffect(() => {
     if (!tv) {
       registerTvRailBackHandler(null);
@@ -363,12 +383,26 @@ export function WideAppTabs() {
         ref={contentGuideRef}
         style={styles.wideSlot}
         autoFocus
-        trapFocusLeft
+        // No trapFocusLeft: D-pad toward the rail from the leading content edge
+        // opens the nav drawer (Android TV / Fire TV navigation guidance) instead
+        // of being a dead end.
         onLayout={() => {
           if (tv) setContentFocusTarget(contentGuideRef.current);
         }}
       >
         <TabSlot style={styles.wideSlotFill} />
+        {tv ? (
+          <Animated.View
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                pointerEvents: "none",
+                backgroundColor: withAlpha(colors.background, tokens.isDark ? 0.6 : 0.5),
+              },
+              scrimStyle,
+            ]}
+          />
+        ) : null}
       </TvFocusGuide>
     </Tabs>
   );
@@ -396,6 +430,21 @@ const styles = StyleSheet.create({
   },
   railFocusGuide: {
     flex: 1,
+  },
+  /** Layout footprint of the TV rail — always the collapsed width. */
+  railFootprint: {
+    width: TvLayout.sideRailWidthCollapsed,
+    height: "100%",
+    zIndex: 20,
+    overflow: "visible",
+  },
+  /** Expanded TV drawer floats over the content pane. */
+  railOverlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    start: 0,
+    zIndex: 20,
   },
   brandRow: {
     flexDirection: "row",

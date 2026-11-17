@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
@@ -105,7 +106,13 @@ export function WarningLadderBlock({ items }: { items: DestructiveSinItem[] }) {
               </View>
             );
 
-            if (!item.route) return <View key={item.id}>{row}</View>;
+            if (!item.route)
+              return (
+                // TV: link-less seals are prose-only D-pad stops.
+                <View key={item.id}>
+                  <TvReadableBlock>{row}</TvReadableBlock>
+                </View>
+              );
 
             return (
               <PressableScale

@@ -7,6 +7,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { ZAKAT_TOPIC_ICONS } from "@/components/zakat/zakat-guide-icons";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -51,13 +52,15 @@ export function ZakatTopicContent({ topicId }: ZakatTopicContentProps) {
             title={t("zakat.nisabWeightsTitle")}
             icon={{ ios: "scalemass.fill", android: "balance", web: "balance" }}
           />
-          <View style={styles.weightTable}>
-            <ThemedText type="small">{t("zakat.nisabWeightGold")}</ThemedText>
-            <ThemedText type="small">{t("zakat.nisabWeightSilver")}</ThemedText>
-          </View>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.weightNote}>
-            {t("zakat.nisabWeightNote")}
-          </ThemedText>
+          <TvReadableBlock>
+            <View style={styles.weightTable}>
+              <ThemedText type="small">{t("zakat.nisabWeightGold")}</ThemedText>
+              <ThemedText type="small">{t("zakat.nisabWeightSilver")}</ThemedText>
+            </View>
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.weightNote}>
+              {t("zakat.nisabWeightNote")}
+            </ThemedText>
+          </TvReadableBlock>
         </Card>
       ) : null}
 
@@ -73,17 +76,16 @@ export function ZakatTopicContent({ topicId }: ZakatTopicContentProps) {
           />
           <View style={styles.recipientList}>
             {ZAKAT_RECIPIENT_IDS.map((recipientId) => (
-              <View
-                key={recipientId}
-                style={[styles.recipientItem, { borderLeftColor: colors.accent }]}
-              >
-                <ThemedText type="smallBold">
-                  {t(`zakat.recipients.${recipientId}.title`)}
-                </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t(`zakat.recipients.${recipientId}.body`)}
-                </ThemedText>
-              </View>
+              <TvReadableBlock key={recipientId}>
+                <View style={[styles.recipientItem, { borderLeftColor: colors.accent }]}>
+                  <ThemedText type="smallBold">
+                    {t(`zakat.recipients.${recipientId}.title`)}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t(`zakat.recipients.${recipientId}.body`)}
+                  </ThemedText>
+                </View>
+              </TvReadableBlock>
             ))}
           </View>
         </Card>

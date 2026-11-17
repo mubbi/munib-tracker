@@ -6,7 +6,10 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 
 const MAX_NOTES = 500;
 
@@ -26,7 +29,7 @@ export function PrayerNotesModal({
   onSave,
   onClose,
 }: PrayerNotesModalProps) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const [value, setValue] = useState(initialValue ?? "");
 
@@ -50,7 +53,9 @@ export function PrayerNotesModal({
         multiline
         style={[
           styles.input,
-          { color: colors.foreground, backgroundColor: colors.muted, borderColor: colors.border },
+          isTV() ? styles.inputTv : null,
+          tokens.inputSurface,
+          { color: colors.foreground },
         ]}
       />
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.counter}>
@@ -81,6 +86,11 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     fontSize: 15,
     textAlignVertical: "top",
+  },
+  /** Plain TextInput is not auto-scaled on tvOS — size it explicitly. */
+  inputTv: {
+    minHeight: tvDp(120),
+    fontSize: tvDp(TvLayout.bodyFontSize),
   },
   counter: {
     alignSelf: "flex-end",

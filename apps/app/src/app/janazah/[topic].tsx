@@ -1,7 +1,9 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnGuideTopicContent } from "@/components/learn-guide/learn-guide-topic-content";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -19,6 +21,8 @@ export default function JanazahTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
   const topic = getJanazahGuideTopic(topicId);
 
   const detailPath = topic ? `/janazah/${topic.id}` : "/janazah";
@@ -36,6 +40,7 @@ export default function JanazahTopicScreen() {
       title={topic?.title ?? t("janazah.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/janazah" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -65,12 +70,27 @@ export default function JanazahTopicScreen() {
           onAction={() => router.replace("/janazah" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="jannah">
-            <LearnGuideTopicContent topic={topic} ns="janazah" sectionTitle={t("janazah.title")} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="janazah.disclaimer" />
-        </Stagger>
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("janazah.title")}
+              basePath="/janazah"
+              topics={getJanazahGuideTopics()}
+              currentId={topic.id}
+            />
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="jannah">
+              <LearnGuideTopicContent
+                topic={topic}
+                ns="janazah"
+                sectionTitle={t("janazah.title")}
+              />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="janazah.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

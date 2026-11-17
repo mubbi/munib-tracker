@@ -8,6 +8,7 @@ import { AttachmentSourceSheet } from "@/components/custom-adhkar/attachment-sou
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   type AttachmentPickSource,
@@ -199,7 +200,11 @@ export function CustomAdhkarAttachments({
           {attachments.map((attachment, index) => (
             <View
               key={attachment.mediaId ?? `${attachment.uri}-${index}`}
-              style={[styles.thumb, { borderColor: colors.border, backgroundColor: colors.muted }]}
+              style={[
+                styles.thumb,
+                tv && thumbTvStyle,
+                { borderColor: colors.border, backgroundColor: colors.muted },
+              ]}
             >
               <AttachmentThumb
                 uri={attachment.uri}
@@ -215,11 +220,16 @@ export function CustomAdhkarAttachments({
                 scaleTo={0.9}
                 onPress={() => removeAt(index)}
                 onLongPress={() => removeAt(index)}
-                style={[styles.removeBadge, { backgroundColor: colors.background }]}
+                // TV: the × is the only control on a thumb — make it a real focus target.
+                style={[
+                  styles.removeBadge,
+                  tv && removeBadgeTvStyle,
+                  { backgroundColor: colors.background },
+                ]}
               >
                 <SymbolView
                   name={{ ios: "xmark", android: "close", web: "close" }}
-                  size={14}
+                  size={tv ? 18 : 14}
                   tintColor={colors.mutedForeground}
                 />
               </PressableScale>
@@ -230,6 +240,15 @@ export function CustomAdhkarAttachments({
     </View>
   );
 }
+
+const THUMB_TV = tvDp(112);
+const REMOVE_BADGE_TV = tvDp(40);
+const thumbTvStyle = { width: THUMB_TV, height: THUMB_TV } as const;
+const removeBadgeTvStyle = {
+  width: REMOVE_BADGE_TV,
+  height: REMOVE_BADGE_TV,
+  borderRadius: REMOVE_BADGE_TV / 2,
+} as const;
 
 const styles = StyleSheet.create({
   wrap: { gap: Spacing.two, marginBottom: Spacing.three },

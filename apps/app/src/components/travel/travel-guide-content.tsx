@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { LearnTwoPane, useLearnHubLayout } from "@/components/jannah/hub-layout";
 import {
   JannahHadithEvidence,
   JannahQuranEvidence,
@@ -27,7 +28,9 @@ import { Card } from "@/components/ui/card";
 import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
 
@@ -48,6 +51,9 @@ export function TravelGuideContent() {
   const excusedReason = useDayExcused();
   const { setDayExcused } = useTrackerActions();
   const [confirmOpen, setConfirmOpen] = useState(false);
+  // Desktop: article in the main column; the excused toggle, rakah table and
+  // duas link stay beside it.
+  const wide = useLearnHubLayout();
   const isActive = excusedReason === "travel";
 
   const quranRefs = useMemo((): JannahQuranRef[] => {
@@ -89,129 +95,173 @@ export function TravelGuideContent() {
     setConfirmOpen(false);
   };
 
-  return (
-    <>
-      <Stagger>
-        {isActive ? (
-          <Button
-            label={t("travel.clearExcused")}
-            variant="secondary"
-            fullWidth
-            onPress={() => void setDayExcused(null)}
-          />
-        ) : (
-          <Button label={t("travel.markExcused")} fullWidth onPress={() => setConfirmOpen(true)} />
-        )}
+  const excusedButton = isActive ? (
+    <Button
+      label={t("travel.clearExcused")}
+      variant="secondary"
+      fullWidth
+      onPress={() => void setDayExcused(null)}
+    />
+  ) : (
+    <Button label={t("travel.markExcused")} fullWidth onPress={() => setConfirmOpen(true)} />
+  );
 
-        <JannahTakeaway text={t("travel.takeaway")} />
+  const takeaway = <JannahTakeaway text={t("travel.takeaway")} />;
 
-        {TRAVEL_SECTIONS.map((sectionKey) => (
-          <Card key={sectionKey} padding="three">
-            <SectionHeader
-              title={t(`travel.${sectionKey}.title`)}
-              icon={SECTION_ICONS[sectionKey]}
-            />
-            <LearnProseText themeColor="mutedForeground" style={styles.body}>
-              {t(`travel.${sectionKey}.body`)}
-            </LearnProseText>
-          </Card>
-        ))}
+  const sectionCards = TRAVEL_SECTIONS.map((sectionKey) => (
+    <Card key={sectionKey} padding="three">
+      <SectionHeader title={t(`travel.${sectionKey}.title`)} icon={SECTION_ICONS[sectionKey]} />
+      <TvReadableBlock>
+        <LearnProseText themeColor="mutedForeground" style={styles.body}>
+          {t(`travel.${sectionKey}.body`)}
+        </LearnProseText>
+      </TvReadableBlock>
+    </Card>
+  ));
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("travel.rakatsTitle")}
-            icon={{
-              ios: "list.number",
-              android: "format_list_numbered",
-              web: "format_list_numbered",
-            }}
-          />
-          <View style={styles.tableHead}>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.colName}>
-              {t("travel.rakatsPrayer")}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
-              {t("travel.rakatsResident")}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
-              {t("travel.rakatsTravel")}
-            </ThemedText>
-          </View>
-          {TRAVEL_RAKATS.map((row) => (
-            <View key={row.prayerId} style={[styles.tableRow, { borderTopColor: tokens.hairline }]}>
-              <ThemedText type="small" style={styles.colName}>
-                {t(`prayers.${row.prayerId}`)}
-              </ThemedText>
-              <ThemedText type="small" style={styles.colNum}>
-                {row.resident}
-              </ThemedText>
-              <ThemedText
-                type="small"
-                style={[
-                  styles.colNum,
-                  row.travel < row.resident ? { color: colors.accent } : undefined,
-                ]}
-              >
-                {row.travel}
-              </ThemedText>
-            </View>
-          ))}
-          <LearnProseText proseRole="caption" themeColor="mutedForeground" style={styles.tableNote}>
-            {t("travel.rakatsNote")}
-          </LearnProseText>
-        </Card>
-
-        <JannahQuranEvidence refs={quranRefs} />
-        <JannahHadithEvidence refs={hadithRefs} />
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("travel.obligationsTitle")}
-            icon={{
-              ios: "checklist",
-              android: "checklist",
-              web: "checklist",
-            }}
-          />
-          <View style={styles.steps}>
-            {obligations.map((step, index) => (
-              <View key={step} style={styles.stepRow}>
-                <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
-                  <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                    {index + 1}
-                  </ThemedText>
-                </View>
-                <LearnProseText themeColor="mutedForeground" style={styles.stepText}>
-                  {step}
-                </LearnProseText>
-              </View>
-            ))}
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <NavRow
-            icon={{
-              ios: "hands.sparkles.fill",
-              android: "volunteer_activism",
-              web: "volunteer_activism",
-            }}
-            label={t("travel.duasLink")}
-            onPress={() => router.push("/dua/travel")}
-          />
-        </Card>
-
-        <View style={[styles.disclaimer, { backgroundColor: tokens.status.info.soft }]}>
-          <SymbolView
-            name={{ ios: "info.circle.fill", android: "info", web: "info" }}
-            size={16}
-            tintColor={tokens.status.info.color}
-          />
-          <ThemedText type="caption" style={[styles.disclaimerText, { color: colors.foreground }]}>
-            {t("travel.disclaimer")}
+  const rakatsCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("travel.rakatsTitle")}
+        icon={{
+          ios: "list.number",
+          android: "format_list_numbered",
+          web: "format_list_numbered",
+        }}
+      />
+      <TvReadableBlock>
+        <View style={styles.tableHead}>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.colName}>
+            {t("travel.rakatsPrayer")}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
+            {t("travel.rakatsResident")}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
+            {t("travel.rakatsTravel")}
           </ThemedText>
         </View>
-      </Stagger>
+        {TRAVEL_RAKATS.map((row) => (
+          <View key={row.prayerId} style={[styles.tableRow, { borderTopColor: tokens.hairline }]}>
+            <ThemedText type="small" style={styles.colName}>
+              {t(`prayers.${row.prayerId}`)}
+            </ThemedText>
+            <ThemedText type="small" style={styles.colNum}>
+              {row.resident}
+            </ThemedText>
+            <ThemedText
+              type="small"
+              style={[
+                styles.colNum,
+                row.travel < row.resident ? { color: colors.accent } : undefined,
+              ]}
+            >
+              {row.travel}
+            </ThemedText>
+          </View>
+        ))}
+        <LearnProseText proseRole="caption" themeColor="mutedForeground" style={styles.tableNote}>
+          {t("travel.rakatsNote")}
+        </LearnProseText>
+      </TvReadableBlock>
+    </Card>
+  );
+
+  const obligationsCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("travel.obligationsTitle")}
+        icon={{
+          ios: "checklist",
+          android: "checklist",
+          web: "checklist",
+        }}
+      />
+      <View style={styles.steps}>
+        {obligations.map((step, index) => (
+          <TvReadableBlock key={step}>
+            <View style={styles.stepRow}>
+              <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
+                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                  {index + 1}
+                </ThemedText>
+              </View>
+              <LearnProseText themeColor="mutedForeground" style={styles.stepText}>
+                {step}
+              </LearnProseText>
+            </View>
+          </TvReadableBlock>
+        ))}
+      </View>
+    </Card>
+  );
+
+  const duasLinkCard = (
+    <Card padding="three">
+      <NavRow
+        icon={{
+          ios: "hands.sparkles.fill",
+          android: "volunteer_activism",
+          web: "volunteer_activism",
+        }}
+        label={t("travel.duasLink")}
+        onPress={() => router.push("/dua/travel")}
+      />
+    </Card>
+  );
+
+  const disclaimer = (
+    <TvReadableBlock>
+      <View style={[styles.disclaimer, { backgroundColor: tokens.status.info.soft }]}>
+        <SymbolView
+          name={{ ios: "info.circle.fill", android: "info", web: "info" }}
+          size={16}
+          tintColor={tokens.status.info.color}
+        />
+        <ThemedText type="caption" style={[styles.disclaimerText, { color: colors.foreground }]}>
+          {t("travel.disclaimer")}
+        </ThemedText>
+      </View>
+    </TvReadableBlock>
+  );
+
+  return (
+    <>
+      {wide.twoPane ? (
+        <Stagger>
+          <LearnTwoPane
+            main={
+              <>
+                {takeaway}
+                {sectionCards}
+                <JannahQuranEvidence refs={quranRefs} />
+                <JannahHadithEvidence refs={hadithRefs} />
+                {obligationsCard}
+              </>
+            }
+            aside={
+              <>
+                {excusedButton}
+                {rakatsCard}
+                {duasLinkCard}
+              </>
+            }
+          />
+          {disclaimer}
+        </Stagger>
+      ) : (
+        <Stagger>
+          {excusedButton}
+          {takeaway}
+          {sectionCards}
+          {rakatsCard}
+          <JannahQuranEvidence refs={quranRefs} />
+          <JannahHadithEvidence refs={hadithRefs} />
+          {obligationsCard}
+          {duasLinkCard}
+          {disclaimer}
+        </Stagger>
+      )}
 
       <ConfirmDialog
         visible={confirmOpen}
@@ -241,14 +291,14 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
   },
   colName: { flex: 1 },
-  colNum: { width: 72, textAlign: "center" },
+  colNum: { width: tvDp(72), textAlign: "center" },
   tableNote: { marginTop: Spacing.three },
   steps: { gap: Spacing.three, marginTop: Spacing.three },
   stepRow: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   stepBadge: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: tvDp(28),
+    height: tvDp(28),
+    borderRadius: tvDp(14),
     alignItems: "center",
     justifyContent: "center",
   },

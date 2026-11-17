@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
+import { DEFAULT_COMPANION_PREFS } from "@/lib/quran-companion/prefs";
 
 import { applyRemoteBlob, buildBlobRecords, isBlobEntity } from "./blob-sync";
 
@@ -181,5 +182,99 @@ describe("applyRemoteBlob (union-merge)", () => {
       remote: "missed",
       local: "fasted",
     });
+  });
+});
+
+describe("Qur'an practice blobs (§10, D7)", () => {
+  const sessionsKey = DB_KEYS.quranPracticeSessions;
+  const memoKey = DB_KEYS.quranMemorization;
+
+  it("registers the three practice entities", () => {
+    expect(isBlobEntity("quran_companion_prefs")).toBe(true);
+    expect(isBlobEntity("quran_practice_sessions")).toBe(true);
+    expect(isBlobEntity("quran_memorization")).toBe(true);
+  });
+
+  it("never pushes pristine default practice prefs from a fresh device", async () => {
+    await writeJSON(DB_KEYS.quranCompanionPrefs, {
+      ...DEFAULT_COMPANION_PREFS,
+      showTranslation: false,
+      readingTogglesSeeded: true,
+    });
+    const records = await buildBlobRecords(T1);
+    expect(records.find((r) => r.entity === "quran_companion_prefs")).toBeUndefined();
+  });
+
+  it("pushes prefs once the person changes a practice setting", async () => {
+    await writeJSON(DB_KEYS.quranCompanionPrefs, {
+      ...DEFAULT_COMPANION_PREFS,
+      dailyRevisionLimit: 20,
+    });
+    const records = await buildBlobRecords(T1);
+    expect(records.find((r) => r.entity === "quran_companion_prefs")).toBeDefined();
+  });
+
+  it("converges memorization on the later record, even when local is newer by watermark", async () => {
+    await writeJSON(memoKey, {
+      schemaVersion: 1,
+      records: { "1:1": { s: "p", k: 1, i: 1, n: "2026-07-02", a: 100, l: 0, u: 100 } },
+    });
+    await buildBlobRecords(T3);
+    const applied = await applyRemoteBlob(
+      "quran_memorization",
+      {
+        value: {
+          schemaVersion: 1,
+          records: {
+            "1:1": { s: "p", k: 2, i: 3, n: "2026-07-05", a: 200, l: 0, u: 200 },
+            "2:255": { s: "l", k: 0, i: 0, n: "2026-07-02", a: 150, l: 0, u: 150 },
+          },
+        },
+      },
+      T1,
+    );
+    expect(applied).toBe(true);
+    const stored = await readJSON<{ records: Record<string, { i: number }> }>(memoKey, {
+      records: {},
+    });
+    expect(stored.records["1:1"].i).toBe(3);
+    expect(Object.keys(stored.records).sort()).toEqual(["1:1", "2:255"]);
+  });
+
+  it("a remote history clear removes local sessions that ended before it", async () => {
+    await writeJSON(sessionsKey, {
+      schemaVersion: 1,
+      items: [{ id: "old", endedAt: "2026-07-01T10:00:00.000Z" }],
+    });
+    await applyRemoteBlob(
+      "quran_practice_sessions",
+      { value: { schemaVersion: 1, clearedAt: "2026-07-01T12:00:00.000Z", items: [] } },
+      T2,
+    );
+    const stored = await readJSON<{ items: unknown[]; clearedAt?: string }>(sessionsKey, {
+      items: [],
+    });
+    expect(stored.items).toEqual([]);
+    expect(stored.clearedAt).toBe("2026-07-01T12:00:00.000Z");
+  });
+
+  it("pushes the merged value back when it differs from the server's", async () => {
+    await writeJSON(sessionsKey, {
+      schemaVersion: 1,
+      items: [{ id: "local", endedAt: "2026-07-02T10:00:00.000Z" }],
+    });
+    await applyRemoteBlob(
+      "quran_practice_sessions",
+      {
+        value: { schemaVersion: 1, items: [{ id: "remote", endedAt: "2026-07-01T10:00:00.000Z" }] },
+      },
+      T2,
+    );
+    const records = await buildBlobRecords(T3);
+    const pushed = records.find((r) => r.entity === "quran_practice_sessions");
+    expect(pushed?.updatedAt).toBe(T3);
+    expect(
+      (pushed?.data as { value: { items: { id: string }[] } }).value.items.map((i) => i.id),
+    ).toEqual(["local", "remote"]);
   });
 });

@@ -1,7 +1,9 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnGuideTopicContent } from "@/components/learn-guide/learn-guide-topic-content";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -19,6 +21,8 @@ export default function HajjTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
   const topic = getHajjGuideTopic(topicId);
 
   const detailPath = topic ? `/hajj/${topic.id}` : "/hajj";
@@ -36,6 +40,7 @@ export default function HajjTopicScreen() {
       title={topic?.title ?? t("hajj.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/hajj" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -65,12 +70,23 @@ export default function HajjTopicScreen() {
           onAction={() => router.replace("/hajj" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="jannah">
-            <LearnGuideTopicContent topic={topic} ns="hajj" sectionTitle={t("hajj.title")} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="hajj.disclaimer" />
-        </Stagger>
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("hajj.title")}
+              basePath="/hajj"
+              topics={getHajjGuideTopics()}
+              currentId={topic.id}
+            />
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="jannah">
+              <LearnGuideTopicContent topic={topic} ns="hajj" sectionTitle={t("hajj.title")} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="hajj.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

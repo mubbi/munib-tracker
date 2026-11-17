@@ -6,9 +6,13 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 
 const ROW_GAP = Spacing.two;
+/** Measured row width at/above which every glance ring fits on a single row. */
+const WIDE_ROW_MIN_WIDTH = 560;
 /** ScreenLayout horizontal pad + Card default `padding="four"` on both sides. */
 const OUTER_HORIZONTAL_PAD = Spacing.four * 4;
 
@@ -17,13 +21,22 @@ const OUTER_HORIZONTAL_PAD = Spacing.four * 4;
  * Salah") stay readable when qaza / khatm rings appear; 4 items use a balanced
  * 2×2 instead of a cramped four-across row.
  */
-function columnsForCount(count: number): number {
+function columnsForCount(count: number, tv = false, rowWidth = 0): number {
+  // TV: the landscape pane fits every glance ring on one row (max five groups).
+  if (tv) return Math.max(1, Math.min(count, 5));
+  // Wide tablet / desktop rows (≥ ~5 × 110px tiles): one row instead of 2×2 / 3+2.
+  if (rowWidth >= WIDE_ROW_MIN_WIDTH) return Math.max(1, Math.min(count, 5));
   if (count <= 3) return count;
   if (count === 4) return 2;
   return 3;
 }
 
-function ringMetrics(cellWidth: number) {
+function ringMetrics(cellWidth: number, tv = false) {
+  if (tv) {
+    // Ring size is a raw layout number (not auto-scaled) — tvDp keeps tvOS physical size.
+    const ringSize = Math.max(tvDp(48), Math.min(tvDp(72), Math.floor(cellWidth * 0.5)));
+    return { ringSize, stroke: tvDp(7), valueFontSize: 16 };
+  }
   const ringSize = Math.max(44, Math.min(56, Math.floor(cellWidth * 0.52)));
   const stroke = ringSize < 50 ? 5 : 6;
   const valueFontSize = ringSize < 50 ? 12 : 14;
@@ -145,14 +158,15 @@ export function TrackerProgressRings({ items }: { items: TrackerProgressRingItem
 
   if (items.length === 0) return null;
 
-  const columns = columnsForCount(items.length);
+  const tv = isTV();
+  const columns = columnsForCount(items.length, tv, rowWidth);
   const onRowLayout = (event: LayoutChangeEvent) => {
     const next = event.nativeEvent.layout.width;
     setRowWidth((prev) => (Math.abs(prev - next) < 0.5 ? prev : next));
   };
 
   const cellWidth = Math.floor((rowWidth - ROW_GAP * (columns - 1)) / columns);
-  const { ringSize, stroke, valueFontSize } = ringMetrics(cellWidth);
+  const { ringSize, stroke, valueFontSize } = ringMetrics(cellWidth, tv);
 
   return (
     <View style={styles.row} onLayout={onRowLayout}>

@@ -5,6 +5,8 @@ import { StyleSheet, View } from "react-native";
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnDuaTopicAside } from "@/components/learn-dua/learn-dua-aside";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -28,6 +30,7 @@ import {
 
 export default function LearnDuaProgressScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   useEnsureLearnDuaProgressLoaded();
   const completedCount = useLearnDuaCompletedCount();
@@ -54,68 +57,71 @@ export default function LearnDuaProgressScreen() {
       title={t("learnDua.progressTitle")}
       subtitle={t("learnDua.progressSubtitle")}
       onBack={() => goBackOrReplace(router, "/learn-dua" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-dua/progress" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="warning">{t("learnDua.progressIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<LearnDuaTopicAside />}>
+          <Stagger>
+            <JannahCallout tone="warning">{t("learnDua.progressIntro")}</JannahCallout>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("learnDua.lessonsTitle")}
-              icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("learnDua.lessonsHint")}
-            </ThemedText>
-            <View style={styles.lessonRow}>
-              <ThemedText type="title">
-                {t("learnDua.lessonsCount", {
-                  completed: snapshot.lessonsCompleted,
-                  total: snapshot.lessonsTotal,
-                })}
+            <Card padding="three">
+              <SectionHeader
+                title={t("learnDua.lessonsTitle")}
+                icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("learnDua.lessonsHint")}
               </ThemedText>
-              <ProgressBar value={snapshot.lessonProgress} />
-            </View>
-          </Card>
+              <View style={styles.lessonRow}>
+                <ThemedText type="title">
+                  {t("learnDua.lessonsCount", {
+                    completed: snapshot.lessonsCompleted,
+                    total: snapshot.lessonsTotal,
+                  })}
+                </ThemedText>
+                <ProgressBar value={snapshot.lessonProgress} />
+              </View>
+            </Card>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("learnDua.exploreTitle")}
-              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("learnDua.progressExploreHint")}
-            </ThemedText>
-            <ContentLinkList
-              style={styles.links}
-              links={[
-                {
-                  label: t("learnDua.morningEveningTitle"),
-                  onPress: () =>
-                    router.push({
-                      pathname: "/learn-dua/[topic]",
-                      params: { topic: "morning-evening" },
-                    }),
-                },
-                {
-                  label: t("learnDua.duaEtiquetteTitle"),
-                  onPress: () =>
-                    router.push({
-                      pathname: "/learn-dua/[topic]",
-                      params: { topic: "dua-etiquette" },
-                    }),
-                },
-                {
-                  label: t("learnDua.occasionsTitle"),
-                  onPress: () => router.push("/learn-dua/occasions" as Href),
-                },
-              ]}
-            />
-          </Card>
+            <Card padding="three">
+              <SectionHeader
+                title={t("learnDua.exploreTitle")}
+                icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("learnDua.progressExploreHint")}
+              </ThemedText>
+              <ContentLinkList
+                style={styles.links}
+                links={[
+                  {
+                    label: t("learnDua.morningEveningTitle"),
+                    onPress: () =>
+                      router.push({
+                        pathname: "/learn-dua/[topic]",
+                        params: { topic: "morning-evening" },
+                      }),
+                  },
+                  {
+                    label: t("learnDua.duaEtiquetteTitle"),
+                    onPress: () =>
+                      router.push({
+                        pathname: "/learn-dua/[topic]",
+                        params: { topic: "dua-etiquette" },
+                      }),
+                  },
+                  {
+                    label: t("learnDua.occasionsTitle"),
+                    onPress: () => router.push("/learn-dua/occasions" as Href),
+                  },
+                ]}
+              />
+            </Card>
 
-          <JannahDisclaimer textKey="learnDua.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="learnDua.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );

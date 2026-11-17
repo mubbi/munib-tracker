@@ -29,7 +29,8 @@
       "encouragementPerfect": "Belle revue - qu'Allah vous augmente en connaissances bénéfiques.",
       "encouragementStrong": "Güçlü un kavrmoisış. Eksikleri pekiştirmek pour tekrar gözden geçirin.",
       "encouragementSteady": "İyi aetcrleme. Eksikleri un sonraki çalışma hedefleriniz olarak kullanın.",
-      "encouragementKeepGoing": "Her eksik un derstir. Notları gözden geçirin, sonra tekrar deneyin."
+      "encouragementKeepGoing": "Her eksik un derstir. Notları gözden geçirin, sonra tekrar deneyin.",
+      "keyboardHint": "Appuyez sur 1–4 pour répondre, Entrée pour continuer."
     },
     "skip": "Ignorer",
     "apply": "Appliquer",
@@ -86,7 +87,10 @@
     "selectToContinue": "Appuyez sur Sélectionner pour continuer",
     "selectToOpen": "Sélectionner pour ouvrir",
     "selectToSave": "Sélectionner pour enregistrer",
-    "selectDay": "Sélectionnez un jour à consulter"
+    "selectDay": "Sélectionnez un jour à consulter",
+    "newBadge": "Nouveau",
+    "decreaseByTv": "Diminuer {{label}} de {{step}}",
+    "increaseByTv": "Augmenter {{label}} de {{step}}"
   },
   "search": {
     "placeholder": "Rechercher Coran, hadith, duas, Apprendre…",
@@ -187,7 +191,8 @@
     "sadaqah": "Sadaqah objectifs",
     "whiteDays": "Jeûne des Jours blancs",
     "goodCharacter": "Bon caractère",
-    "heavyOnTheScale": "Lourd sur la Balance"
+    "heavyOnTheScale": "Lourd sur la Balance",
+    "quranPractice": "S'exercer au Coran"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -713,7 +718,9 @@
           "hint": "Dernier des Jours blancs"
         }
       }
-    }
+    },
+    "cardTipTv": "Sélectionnez une salah pour la mettre à jour · Adhkar pour le zikr · Infos pour les détails",
+    "tapToMarkTv": "Sélectionner pour marquer"
   },
   "update": {
     "title": "Mise à jour disponible",
@@ -887,7 +894,8 @@
     "heroSignedIn": "Bon retour — votre compte est lié. Vos Salah, qaza et zikr peuvent se synchroniser entre appareils.",
     "continueSignedIn": "Continuer",
     "or": "ou",
-    "guestHint": "Vous pouvez lier un compte à tout moment depuis Profil."
+    "guestHint": "Vous pouvez lier un compte à tout moment depuis Profil.",
+    "guestHintTv": "Scannez le code QR pour vous connecter depuis votre téléphone. Ou continuez en invité — liez un compte à tout moment depuis Profil sur votre téléphone."
   },
   "onboarding": {
     "begin": "Commencer",
@@ -944,7 +952,8 @@
     "locationHighlight1Tv": "Horaires de prière précis pour votre ville",
     "locationHighlight2Tv": "Direction de la Qibla depuis votre position",
     "locationHighlight3Tv": "Les rappels fonctionnent mieux sur un téléphone",
-    "locationHighlight4Tv": "Changez de ville à tout moment dans Paramètres"
+    "locationHighlight4Tv": "Changez de ville à tout moment dans Paramètres",
+    "ctaBodyTv": "Commencez en invité, ou connectez-vous en scannant un code QR avec votre téléphone. Tout fonctionne hors ligne sur cette TV."
   },
   "appearance": {
     "eyebrow": "Paramètres",
@@ -1609,7 +1618,8 @@
       "dictate": "Réciter le verset",
       "stopDictate": "Arrêter l'écoute",
       "bestMatch": "Meilleure correspondance",
-      "otherMatches": "Autres correspondances"
+      "otherMatches": "Autres correspondances",
+      "tvUnavailableBody": "La détection de versets nécessite un micro, ce que la TV n'a pas. Recherchez plutôt dans le Coran par mots, ou utilisez l'app sur votre téléphone."
     },
     "searchPlaceholderArabic": "Rechercher le texte arabe ou une référence comme ٢:٢٥٥…",
     "goToPagePlaceholder": "Page 1–{{max}}",
@@ -1620,7 +1630,10 @@
     "surahNumber": "Sourate {{number}}",
     "selectSurah": "Choisir une sourate",
     "openReader": "Ouvrir le lecteur",
-    "bookmarkEmptyDescTv": "Sélectionnez l'icône de signet sur n'importe quel ayah pour l'enregistrer ici."
+    "bookmarkEmptyDescTv": "Sélectionnez l'icône de signet sur n'importe quel ayah pour l'enregistrer ici.",
+    "goToAyahPlaceholder": "Ayah 1–{{max}}",
+    "goToAyahA11y": "Aller au numéro d'ayah",
+    "goToAyahInvalid": "Saisissez un ayah entre 1 et {{max}}"
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",
@@ -1863,7 +1876,8 @@
     "history": "Histoire",
     "rowDone": "{{completed}} rattrapées",
     "rowDoneWithDaily": "{{completed}} rattrapées · aujourd'hui {{done}}/{{target}}",
-    "hintTv": "Sélectionnez la coche pour enregistrer une prière rattrapée. Manquer une prière dans le suivi ajoute automatiquement à ces compteurs."
+    "hintTv": "Sélectionnez la coche pour enregistrer une prière rattrapée. Manquer une prière dans le suivi ajoute automatiquement à ces compteurs.",
+    "editCountHintTv": "Utilisez − et + pour indiquer combien de cette salah il vous reste à rattraper."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1895,7 +1909,8 @@
       "pubertyAfterAge": "L’âge de la puberté ne peut pas être postérieur à votre âge actuel.",
       "yearsPrayedExceed": "Les années de salah ({{entered}}) ne peuvent pas dépasser les années depuis la puberté ({{obligatedYears}}).",
       "exemptExceedsYear": "Les jours d’exonération ({{entered}}) ne peuvent pas dépasser la durée d’année choisie ({{maxDays}})."
-    }
+    },
+    "enterAgePromptTv": "Indiquez votre âge actuel ci-dessus pour voir une estimation."
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -1992,7 +2007,8 @@
     "confirmAddEstimateMsg": "Ajouter {{count}} jeûnes au reste (nouveau total : {{total}}) ?",
     "confirmResetTitle": "Réinitialiser le compteur ?",
     "confirmResetMsg": "Effacer tous les décomptes rapides ({{remaining}} restant, {{completed}} terminé) ? Cela ne peut pas être annulé.",
-    "adjustHintTv": "Sélectionnez le nombre ou utilisez −/+ pour ajuster"
+    "adjustHintTv": "Sélectionnez le nombre ou utilisez −/+ pour ajuster",
+    "editCountHintTv": "Utilisez − et + pour indiquer combien de jeûnes qaza il vous reste à rattraper."
   },
   "calendar": {
     "eyebrow": "Historique",
@@ -2113,7 +2129,8 @@
     "confirmStartAgainTitle": "again? Commencert",
     "confirmStartAgainMessage": "Vousin completed smois will be cleared so siz can begin  yeni round.",
     "dockLabel": "Compter",
-    "tapToCountTv": "Appuyez sur Sélectionner pour compter"
+    "tapToCountTv": "Appuyez sur Sélectionner pour compter",
+    "tapToCountKeyboard": "Cliquez sur le cercle ou appuyez sur Espace pour compter"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} n'est qu'à {{min}} minutes",
@@ -2188,7 +2205,9 @@
     "defaultLabel": "La Mecque, Arabie saoudite",
     "defaultTimesHint": "Les horaires de Salah utilisent actuellement La Mecque. Définissez votre ville pour des horaires précis. Les rappels Salah et Adhan restent désactivés jusque-là.",
     "setLocation": "Définir le lieu",
-    "searchAutoFocusOff": "Rechercher une ville"
+    "searchAutoFocusOff": "Rechercher une ville",
+    "subtitleTv": "Les heures de salah sont calculées pour ce lieu. Recherchez votre ville avec la télécommande.",
+    "hintTv": "Sélectionnez le champ de recherche, puis saisissez au moins deux lettres de votre ville."
   },
   "moon": {
     "aria": "Phase de lune : {{phase}}",
@@ -2549,7 +2568,8 @@
     "authenticityTitle": "Authenticité du contenu",
     "authenticityBody": "Les adhkar et supplications proviennent de collections reconnues et restent proches des textes largement publiés. Veuillez vérifier auprès d'un savant ou d'une source fiable avant de vous fier à une règle ou un nombre précis.",
     "privacyPolicy": "Politique de confidentialité",
-    "termsOfService": "Conditions d'utilisation"
+    "termsOfService": "Conditions d'utilisation",
+    "scanOnPhoneTv": "Scannez avec votre téléphone pour ouvrir cette page."
   },
   "player": {
     "nowPlaying": "Now Lireing",
@@ -2582,7 +2602,9 @@
     "loading": "Chargement…",
     "streamingOnlyNote": "Streaming uniquement : l'audio n'est pas enregistré sur cet appareil",
     "ttsVoice": "Voix",
-    "ttsVoiceHint": "Choisir une voix de synthèse vocale"
+    "ttsVoiceHint": "Choisir une voix de synthèse vocale",
+    "seekBack": "Reculer de {{seconds}} secondes",
+    "seekForward": "Avancer de {{seconds}} secondes"
   },
   "errors": {
     "title": "Une erreur s'est produite",
@@ -2810,7 +2832,7 @@
     "confirmReviewBody": "{{ref}} will be flagged pour gözden geçir.",
     "confirmMemorizedBody": "{{ref}} sera marqué comme mémorisé.",
     "confirmClearBody": "{{ref}} will be kaldırıldı den votre Hifz tracker.",
-    "emptyDescTv": "Sélectionnez Hifz sur n'importe quel ayah dans le lecteur pour le marquer comme mémorisé."
+    "emptyDescTv": "Sélectionnez un ayah dans le lecteur, puis choisissez Hifz pour le marquer comme mémorisé."
   },
   "travel": {
     "eyebrow": "Apprendre",
@@ -3312,7 +3334,8 @@
       "reflectionHint": "Khushu et réflexions de prière",
       "learning": "Progrès d'apprentissage",
       "learningHint": "Sujets complétés dans ce module",
-      "characterHintTv": "Sélectionnez lorsque vous avez passé en revue votre conduite aujourd'hui"
+      "characterHintTv": "Sélectionnez lorsque vous avez passé en revue votre conduite aujourd'hui",
+      "repentanceHintTv": "Renouvelez la tawbah — sélectionnez quand vous vous êtes repenti aujourd'hui"
     },
     "progressTitle": "Progrès de l'apprentissage",
     "progressSubtitle": "Étude de piste - pas de rang spirituel auprès d'Allah",
@@ -3356,7 +3379,8 @@
         "best-beloved": "Meilleur / le plus aimé",
         "equal-reward": "Grande récompense assimilée"
       }
-    }
+    },
+    "timelineCardHintTv": "L'élément central — sélectionnez chaque étape pour la leçon complète"
   },
   "taharah": {
     "eyebrow": "Apprendre",
@@ -3532,7 +3556,8 @@
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "tapHintTv": "Sélectionnez un nom sur la carte pour lire la note sourcée."
+      "tapHintTv": "Sélectionnez un nom sur la carte pour lire la note sourcée.",
+      "listHintTv": "Sélectionnez un nom dans la liste pour lire la note sourcée."
     }
   },
   "aqeedah": {
@@ -4391,7 +4416,7 @@
       "label": "Pièces jointes (facultatif)",
       "add": "Ajouter un fichier",
       "remove": "Supprimer la pièce jointe",
-      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez longuement sur une vignette pour la supprimer.",
+      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez sur × sur une miniature pour retirer.",
       "signInRequired": "Connectez-vous pour joindre des fichiers privés à votre adhkar.",
       "permissionDenied": "Une autorisation est requise pour joindre des fichiers.",
       "permissionTitle": "Autoriser l'accès",
@@ -4421,7 +4446,8 @@
       "loadingPdf": "Chargement du PDF…",
       "pdfHint": "Défiler · pincer ou utiliser +/− pour zoomer · double-tap pour réinitialiser · Ouvrir le PDF pour partager",
       "pdfPreviewTitle": "Aperçu PDF",
-      "tvUnavailable": "Les pièces jointes nécessitent un téléphone ou une tablette. Ajoutez-y des photos ou des PDF."
+      "tvUnavailable": "Les pièces jointes nécessitent un téléphone ou une tablette. Ajoutez-y des photos ou des PDF.",
+      "pdfTvUnavailable": "Les PDF ne peuvent pas être prévisualisés sur la TV. Ouvrez cette pièce jointe sur votre téléphone ou votre tablette."
     },
     "stt": {
       "dictate": "Dicter avec un microphone",
@@ -4451,13 +4477,20 @@
     "markTonight": "I prmoised Tahajjud tonight",
     "markedTonight": "Prié tonight — mashaAllah",
     "lastNights": "Dernières {{count}} nuits",
-    "lastNightsHint": "Chaque point correspond à une nuit, étiquetée par date du calendrier (la plus récente à gauche).",
     "virtueTitle": "Virtue   night salah",
     "virtueBody": " best salah after  farz prmoisers dir  night salah.",
     "virtueRef": "Shih Muslim 1163",
     "streakRow": "Tahajjud seri",
     "calculatorCta": "Calculateur du dernier tiers de la nuit",
-    "calculatorHint": "Trouvez minuit et la meilleure fenêtre de Tahajjud entre Maghrib et Fajr"
+    "calculatorHint": "Trouvez minuit et la meilleure fenêtre de Tahajjud entre Maghrib et Fajr",
+    "tonightTitle": "Ce soir",
+    "bestLabel": "Meilleure série",
+    "totalLabel": "Nuits au total",
+    "startTonight": "Votre série commence ce soir.",
+    "calendarHint": "Touchez une nuit passée pour l'enregistrer ou l'effacer.",
+    "calendarHintTv": "Sélectionnez une nuit passée pour l'enregistrer ou l'effacer.",
+    "legendPrayed": "Priée",
+    "inWindow": "Meilleur moment"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Les dates sont des estimations calculées – l’observation locale de la lune peut différer.",
@@ -4713,8 +4746,10 @@
       "buildsTitle": "Construit le caractère",
       "buildsHint": "Pratiquez un trait à la fois — vérité, patience, miséricorde et justice.",
       "destroysTitle": "Ce qui mine le caractère",
-      "destroysHint": "Habitudes contre lesquelles les textes mettent en garde — touchez une tuile pour la leçon liée."
-    }
+      "destroysHint": "Habitudes contre lesquelles les textes mettent en garde — touchez une tuile pour la leçon liée.",
+      "destroysHintTv": "Des habitudes contre lesquelles les textes mettent en garde — sélectionnez une tuile pour une leçon associée."
+    },
+    "pathsHintTv": "Des actes qui élèvent le rang par la permission d'Allah — sélectionnez un chemin pour les preuves et les liens de l'app."
   },
   "jahannam": {
     "eyebrow": "Apprendre",
@@ -5206,7 +5241,7 @@
     "eyebrow": "Calendrier",
     "title": "Convertisseur de dates",
     "subtitle": "Conversion entre les calendriers hégirien et grégorien",
-    "intro": "Entrez une date dans l'un ou l'autre calendrier pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
+    "intro": "Entrez une date dans l'un des calendriers pour voir son équivalent dans l'autre, calculé hors ligne d'après la visibilité du croissant à votre emplacement.",
     "toHijri": "Grégorien → Hijri",
     "toGregorian": "hijri → grégorien",
     "gregorianDateLabel": "date grégorienne",
@@ -5216,7 +5251,7 @@
     "year": "Année",
     "useToday": "Utiliser aujourd'hui",
     "invalidDate": "Entrez une date valide",
-    "disclaimer": "Il s'agit d'une approximation arithmétique (le tableau \"algorithme koweïtien\") et peut différer d'un jour des annonces locales d'observation de la lune - suivez toujours votre mosquée locale ou votre autorité pour les dates religieuses.",
+    "disclaimer": "Les dates sont calculées d'après la visibilité du croissant (hilāl) à votre emplacement et peuvent différer d'un jour des annonces officielles d'observation de la lune — suivez toujours votre masjid local ou autorité pour les dates religieuses.",
     "directionTitle": "Sens de conversion",
     "resultFrom": "De {{date}}",
     "quickLinksTitle": "Connexes",
@@ -5301,7 +5336,8 @@
     "editHint": "Les résultats se mettent à jour quand vous changez l'heure.",
     "nightLengthLabel": "Durée de la nuit",
     "willStartIn": "Commence dans {{time}}",
-    "timeRemaining": "{{time}} restantes"
+    "timeRemaining": "{{time}} restantes",
+    "autoDetectHintTv": "{{location}} · sélectionnez une heure à ajuster"
   },
   "friday": {
     "eyebrow": "Apprendre",
@@ -5354,7 +5390,7 @@
     "eyebrow": "Apprendre",
     "title": "Guide Janazah",
     "subtitle": "Prière funéraire, lavage, enterrement et duas authentiques",
-    "intro": "Un aperçu pratique de la Janazah comme obligation communautaire — quatre takbirs sans ruku ni sujud, duas Hisnul Muslim pour hommes, femmes et enfants, et conseils pour le lavage, l'enterrement, les martyrs et les endeuillés.",
+    "intro": "Un aperçu pratique du Janazah en tant qu'obligation communautaire – comment prier quatre takbirs sans ruku ni sujud, et les duas Hisnul Muslim pour le défunt.",
     "section": {
       "obligation": "Le devoir",
       "prepare": "Préparation",
@@ -5439,5 +5475,404 @@
     "notFound": "Sujet introuvable",
     "disclaimer": "Aperçu éducatif — pas une fatwa. Les dates exactes dépendent de l’observation lunaire ; suivez votre mosquée locale ou un savant qualifié.",
     "continueInApp": "Continuer dans Munib"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "S'exercer",
+      "practiseAyah": "S'exercer sur le verset {{n}}",
+      "practisePlan": "S'exercer sur cette sourate",
+      "toRevise_one": "{{count}} à réviser",
+      "toRevise_other": "{{count}} à réviser"
+    },
+    "mode": {
+      "follow": "Suivre",
+      "check": "Vérifier",
+      "hideWords": "Masquer les mots",
+      "hideAyahs": "Masquer les versets"
+    },
+    "range": {
+      "ayah": "Ce verset",
+      "next5": "Les 5 suivants",
+      "surah": "Cette sourate",
+      "page": "Cette page",
+      "custom": "Personnalisé",
+      "fromAyah": "Du verset",
+      "toAyah": "Au verset",
+      "increase": "Augmenter {{label}}",
+      "decrease": "Diminuer {{label}}"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "Exercice",
+      "subtitle": "Récitez, masquez puis révélez, et révisez ce que vous mémorisez",
+      "continue": "Continuer",
+      "start": "Commencer",
+      "listen": "Écouter",
+      "manage": "Gérer",
+      "rangeTitle": "Étendue",
+      "modeTitle": "Mode",
+      "startRevision": "Commencer la révision",
+      "openQueue": "Voir la liste de révision",
+      "captionReady": "L'écoute reste sur cet appareil.",
+      "captionMissing": "Téléchargez le module d'écoute pour suivre votre voix. Vous pouvez quand même écouter.",
+      "captionOffline": "Le module d'écoute a besoin d'une connexion pour se télécharger. L'écoute reste possible.",
+      "captionFailed": "Le module d'écoute n'a pas démarré. Vous pouvez quand même écouter.",
+      "captionWebUnsupported": "Ce navigateur ne peut pas faire fonctionner le module d'écoute.",
+      "captionUnsupported": "Le module d'écoute n'est pas disponible sur cet appareil. L'écoute reste possible.",
+      "captionManualMode": "Sans module d'écoute, ce mode affiche le texte pour que vous le révéliez vous-même, sans marquer les mots.",
+      "downloadListener": "Télécharger le module d'écoute ({{size}} Mo)",
+      "reviseTitle_one": "{{count}} verset à réviser",
+      "reviseTitle_other": "{{count}} versets à réviser",
+      "reviseRemaining_one": "{{count}} autre un autre jour",
+      "reviseRemaining_other": "{{count}} autres d'autres jours",
+      "passageLabel": "Votre passage",
+      "change": "Changer",
+      "startPassage": "Commencer {{passage}}",
+      "ayahCount_one": "{{count}} verset",
+      "ayahCount_other": "{{count}} versets",
+      "recentTitle": "Récents",
+      "recentHint": "Relance ce passage dans le même mode"
+    },
+    "session": {
+      "loading": "Chargement du verset…",
+      "preparing": "Préparation du module d'écoute…",
+      "ayahOf": "Verset {{n}} sur {{total}}",
+      "revisionEyebrow": "Révision",
+      "coach": "Lisez le verset, puis touchez le micro et récitez.",
+      "retry": "Réessayer",
+      "settled": "Le module d'écoute a suivi ce verset.",
+      "someNotSure": "Le module d'écoute n'était pas sûr de certains mots. Vous pouvez réciter à nouveau ou continuer.",
+      "listeningStopped": "L'écoute s'est arrêtée. Vous pouvez révéler les mots et continuer.",
+      "listenerDidNotStart": "Le module d'écoute n'a pas démarré. Vous pouvez quand même écouter et révéler les mots.",
+      "listenOnly": "Touchez lecture pour entendre le verset. Téléchargez le module d'écoute dans les Paramètres pour suivre votre voix.",
+      "listenOnlyHide": "Révélez les mots quand vous êtes prêt. Le module d'écoute n'est pas sur cet appareil, les mots ne sont donc pas marqués.",
+      "micOff": "Le micro est désactivé pour Munib Tracker. Vous pouvez quand même écouter.",
+      "openSettings": "Ouvrir les réglages",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "tryAgainLine_one": "Réessayez {{count}} mot",
+      "tryAgainLine_other": "Réessayez {{count}} mots",
+      "changePassage": "Changer",
+      "chipDone": "terminé",
+      "chipRetry": "mots à réessayer",
+      "chipCurrent": "en cours",
+      "chipTodo": "pas encore",
+      "chipLabel": "Verset {{n}}, {{state}}",
+      "listeningHint": "À l'écoute… récitez le verset. L'écoute s'arrête seule après le dernier mot, ou touchez Arrêter."
+    },
+    "dock": {
+      "hear": "Écouter",
+      "stopHearing": "Arrêter la récitation",
+      "listen": "Écouter",
+      "start": "Démarrer",
+      "listening": "À l'écoute",
+      "micStartHint": "Commence à écouter votre récitation de ce verset",
+      "micStopHint": "Termine ce verset",
+      "reveal": "Révéler",
+      "revealHint": "Révèle le mot masqué suivant. Appui long pour révéler le reste du verset.",
+      "end": "Terminer",
+      "revealAll": "Tout révéler"
+    },
+    "word": {
+      "matched": "correspond",
+      "corrected": "correspond au deuxième essai",
+      "notSure": "pas sûr",
+      "tryAgain": "à réessayer",
+      "notYet": "pas encore",
+      "hidden": "Mot masqué {{n}}",
+      "tapToHear": "Fait entendre ce mot"
+    },
+    "summary": {
+      "subtitle": "Séance terminée",
+      "tryAyahAgain": "Réessayer ce verset",
+      "nextAyah": "Verset suivant",
+      "nextRevision": "Révision suivante",
+      "done": "Terminé",
+      "hearAyah": "Écouter ce verset",
+      "markMemorized": "Marquer comme mémorisé",
+      "listened": "Vous avez écouté ce passage. Téléchargez le module d'écoute pour qu'il suive votre voix.",
+      "countMatched_one": "{{count}} correspond",
+      "countMatched_other": "{{count}} correspondent",
+      "countNotSure_one": "{{count}} incertain",
+      "countNotSure_other": "{{count}} incertains",
+      "countTryAgain_one": "{{count}} à réessayer",
+      "countTryAgain_other": "{{count}} à réessayer",
+      "countNotReached_one": "{{count}} non atteint",
+      "countNotReached_other": "{{count}} non atteints",
+      "listenerNotSure_one": "Le module d'écoute n'était pas sûr de {{count}} mot",
+      "listenerNotSure_other": "Le module d'écoute n'était pas sûr de {{count}} mots"
+    },
+    "revision": {
+      "title": "Révision",
+      "subtitle": "Versets à revoir aujourd'hui, les plus anciens d'abord",
+      "emptyTitle": "Rien à réviser aujourd'hui",
+      "emptyDesc": "Les versets travaillés en mode Vérifier ou Masquer reviennent ici à leur date.",
+      "dueToday": "À revoir aujourd'hui",
+      "markedMemorized": "Marqué comme mémorisé",
+      "notNow": "Pas maintenant",
+      "setStatus": "Changer l'état",
+      "skip": "Passer",
+      "practiseRow": "S'exercer sur {{surah}} {{ayah}}",
+      "sittingProgress": "{{n}} sur {{total}}",
+      "hifzRowSub": "Exercez-vous et révisez les versets que vous mémorisez",
+      "status": {
+        "learning": "En apprentissage",
+        "practising": "En exercice",
+        "needsRevision": "À réviser"
+      },
+      "overdue_one": "{{count}} jour de retard",
+      "overdue_other": "{{count}} jours de retard"
+    },
+    "settings": {
+      "title": "Exercice du Coran",
+      "rowSubtitle": "Écoute, retours et révision",
+      "valueReady": "Prêt",
+      "valueNotDownloaded": "Non téléchargé",
+      "valueDownloading": "Téléchargement {{percent}} %",
+      "valueRetry": "Nouvel essai nécessaire",
+      "practiceTitle": "Exercice",
+      "defaultMode": "Mode par défaut",
+      "feedbackTiming": "Quand montrer les mots à réessayer",
+      "timing": {
+        "ayah": "Après chaque verset",
+        "live": "Pendant la récitation",
+        "end": "À la fin"
+      },
+      "showTranslation": "Afficher la traduction",
+      "showTransliteration": "Afficher la translittération",
+      "showTajweed": "Couleurs du tajwid",
+      "showTajweedSub": "Les couleurs peuvent rendre les marques d'exercice moins visibles.",
+      "hearBeforeRecite": "Écouter avant de réciter",
+      "hear": {
+        "off": "Non",
+        "once": "Une fois",
+        "every": "Chaque verset"
+      },
+      "autoAdvance": "Avancer automatiquement",
+      "autoAdvanceSub": "Passer au verset suivant quand celui-ci est terminé.",
+      "keepAwake": "Garder l'écran allumé",
+      "startFromTitle": "Commencer depuis",
+      "startFrom": {
+        "lastPractice": "Dernier exercice",
+        "lastRead": "Là où je lisais",
+        "ask": "Me demander"
+      },
+      "revisionTitle": "Révision",
+      "dailyLimit": "Versets par jour",
+      "includeHifz": "Inclure la révision du hifz",
+      "includeHifzSub": "Les versets marqués à revoir sont inclus.",
+      "reminder": "Rappel de révision",
+      "reminderSub": "Un rappel sur cet appareil quand des versets sont à revoir.",
+      "reminderMasterOff": "Les rappels sont désactivés dans Notifications.",
+      "openNotifications": "Ouvrir les réglages de notification",
+      "sessionTitle": "Pendant la séance",
+      "displayTitle": "À l'écran",
+      "timingHelp": {
+        "ayah": "Les mots à réessayer s'affichent à la fin de chaque verset — jamais pendant la récitation.",
+        "live": "Les marques apparaissent dès que le module d'écoute est sûr, pendant la récitation.",
+        "end": "Seul le mot en cours est souligné. Les résultats s'affichent à la fin."
+      },
+      "hearHelp": {
+        "off": "Le récitateur ne lit que lorsque vous touchez Écouter.",
+        "once": "Le récitateur lit le premier verset avant que vous commenciez.",
+        "every": "Le récitateur lit chaque verset avant que vous le récitiez."
+      },
+      "startHelp": {
+        "lastPractice": "Reprendre là où s'est arrêté votre dernier exercice.",
+        "lastRead": "Commencer au verset que vous lisiez dans le Coran.",
+        "ask": "Choisir le passage vous-même à chaque fois."
+      },
+      "dailyLimitHelp_one": "Jusqu'à {{count}} verset par jour ; le reste attend les jours suivants.",
+      "dailyLimitHelp_many": "Jusqu'à {{count}} versets par jour ; le reste attend les jours suivants.",
+      "dailyLimitHelp_other": "Jusqu'à {{count}} versets par jour ; le reste attend les jours suivants."
+    },
+    "listener": {
+      "title": "Module d'écoute sur l'appareil",
+      "notOnDevice": "Absent de cet appareil",
+      "aboutSize": "Environ {{size}} Mo",
+      "download": "Télécharger",
+      "staysOnDevice": "Reste sur cet appareil. La lecture fonctionne sans lui.",
+      "downloadingBytes": "{{done}} sur {{total}}",
+      "downloadingLine": "Module d'écoute {{done}} sur {{total}} ({{percent}} %)",
+      "cancel": "Annuler",
+      "verifying": "Vérification du fichier",
+      "ready": "Prêt",
+      "version": "Version {{version}}",
+      "delete": "Supprimer",
+      "deleteTitle": "Supprimer le module d'écoute ?",
+      "deleteBody": "L'exercice peut toujours lire les récitations. Le suivi de la voix demandera un nouveau téléchargement.",
+      "confirmRemove": "Retirer",
+      "needsRetry": "Nouvel essai nécessaire",
+      "tryAgain": "Réessayer",
+      "updateAvailable": "Une mise à jour est prête",
+      "updateSize": "Environ {{size}} Mo. Le module actuel continue de fonctionner.",
+      "updateTitle": "Remplacer le module d'écoute ?",
+      "downloadUpdate": "Télécharger la mise à jour",
+      "wifiOnly": "Télécharger uniquement en Wi-Fi",
+      "cellularTitle": "Utiliser les données mobiles ?",
+      "cellularBody": "Le module d'écoute fait environ {{size}} Mo. Il reste sur cet appareil.",
+      "useMobileData": "Utiliser les données mobiles",
+      "advanced": "Avancé",
+      "recommended": "module d'écoute recommandé",
+      "alternate": "module d'écoute alternatif",
+      "recommendedSize": "Recommandé, environ {{size}} Mo",
+      "alternateSize": "Alternatif, environ {{size}} Mo",
+      "alternateCaption": "N'utilisez l'alternatif que si le module recommandé ne fonctionne pas. Il peut ne pas marquer les mots à réessayer.",
+      "switchTitle": "Changer de module d'écoute ?",
+      "engineCaption": "Utilise le {{engine}}.",
+      "unsupported": "Le module d'écoute n'est pas disponible sur cet appareil.",
+      "webUnsupported": "Ce navigateur ne peut pas faire fonctionner le module d'écoute.",
+      "knownLimits": "Fonctionne mieux dans un endroit calme, avec une seule voix, à un rythme de récitation normal. Il peut être moins fiable avec des voix d'enfants.",
+      "detailsLine": "{{size}} Mo sur cet appareil · {{engine}}"
+    },
+    "privacy": {
+      "title": "Confidentialité et sources",
+      "onDevice": "Votre voix est traitée sur cet appareil. Elle n'est ni envoyée ni enregistrée.",
+      "microphone": "Micro",
+      "micAllowed": "Autorisé",
+      "micBlocked": "Bloqué",
+      "micNotAsked": "Pas encore demandé",
+      "deleteHistory": "Supprimer l'historique d'exercice",
+      "deleteHistoryTitle": "Supprimer l'historique d'exercice ?",
+      "deleteHistoryBody": "Les résumés de séance sont supprimés. Vos marques de hifz, le calendrier de révision et le module d'écoute restent.",
+      "practiceAid": "Le module d'écoute est une aide à l'exercice. Il ne remplace pas un enseignant.",
+      "sources": "Le fichier du module d'écoute est téléchargé depuis {{host}}. Conçu avec le projet Tilawa, le texte Tanzil et les données de mots de Quran.com.",
+      "licence": "Le module recommandé est partagé sous licence NPL-1.2 : gratuit, jamais vendu, jamais accompagné de publicité."
+    },
+    "offlineRow": {
+      "title": "Module d'écoute du Coran",
+      "subtitle": "Géré dans Exercice du Coran. « Tout effacer » le conserve."
+    },
+    "reminder": {
+      "title": "Révision du Coran",
+      "body_one": "{{count}} verset à réviser aujourd'hui",
+      "body_other": "{{count}} versets à réviser aujourd'hui"
+    },
+    "error": {
+      "noConnection": "Pas de connexion",
+      "notEnoughSpace": "Espace insuffisant",
+      "checksum": "Le fichier ne correspond pas",
+      "downloadFailed": "Le téléchargement n'a pas abouti",
+      "downloadCancelled": "Téléchargement annulé",
+      "modelMissing": "Le fichier du module d'écoute est absent",
+      "didNotStart": "N'a pas démarré",
+      "outOfMemory": "Cet appareil manque de mémoire. Vous pouvez quand même écouter.",
+      "unsupported": "Non disponible sur cet appareil",
+      "micDenied": "Le micro est désactivé",
+      "micUnavailable": "Aucun micro disponible",
+      "captureFailed": "Le micro n'a pas démarré",
+      "interrupted": "L'écoute a été interrompue",
+      "listeningStopped": "L'écoute s'est arrêtée",
+      "unknown": "Un problème est survenu"
+    },
+    "pronunciation": {
+      "title": "Module d'écoute de la prononciation",
+      "explainer": "Un second module d'écoute, facultatif, pour les leçons de tajwid. Il compare un son à la fois avec l'exemple et ne donne jamais de note.",
+      "notSetUp": "Non configuré",
+      "notOnDevice": "Absent de cet appareil",
+      "ready": "Prêt (version {{version}})",
+      "setUp": "Configurer",
+      "downloading": "Téléchargement du module de prononciation…",
+      "consentTitle": "Avant de le configurer",
+      "consentDownload": "Cela télécharge un second module d'écoute d'environ 57 Mo depuis Quran Lab.",
+      "consentActivation": "L'application contacte Quran Lab une fois pour l'activer, puis pour vérifier les mises à jour.",
+      "consentOnDevice": "Votre récitation est traitée sur cet appareil.",
+      "consentRemotePause": "Quran Lab peut suspendre ce module pour tous les utilisateurs. Les leçons continuent alors de fonctionner.",
+      "agree": "Accepter et télécharger",
+      "notNow": "Pas maintenant",
+      "deleteTitle": "Supprimer le module de prononciation ?",
+      "deleteBody": "Les leçons de tajwid continuent de fonctionner. S'exercer sur un son demandera un nouveau téléchargement.",
+      "sharingSwitch": "Partager mes récitations avec Quran Lab",
+      "sharingSub": "Uniquement si vous avez accepté sur la fenêtre de Quran Lab. Le désactiver arrête les envois et supprime la file non envoyée.",
+      "deleteShared": "Supprimer ce que j'ai partagé",
+      "deleteSharedTitle": "Supprimer ce que vous avez partagé ?",
+      "deleteSharedBody": "Chaque enregistrement partagé depuis cette application est supprimé des serveurs de Quran Lab, et le partage s'arrête.",
+      "deletedShared": "Vos enregistrements partagés ont été supprimés",
+      "sharingFailed": "Cela n'a pas abouti. Veuillez réessayer.",
+      "recoveryCode": "Code de récupération : {{code}}",
+      "sourcesLine": "TajweedFormer de Quran Lab, partagé sous licence NPL-1.2.",
+      "practiseSound": "S'exercer sur ce son",
+      "drillTitle": "S'exercer sur ce son",
+      "drillIntro": "Écoutez l'exemple, puis touchez Réciter et prononcez-le de la même façon.",
+      "needsSetup": "Configurez le module de prononciation pour vous exercer sur ce son.",
+      "needsConnectionOnce": "La configuration demande une connexion une seule fois.",
+      "notAvailableForSound": "Le retour pour ce son n'est pas encore disponible. Écoutez l'exemple et réessayez.",
+      "recite": "Réciter",
+      "stop": "Arrêter",
+      "listening": "À l'écoute…",
+      "verdictMatched": "Cela correspond à l'exemple.",
+      "verdictTryAgain": "Écoutez encore et réessayez.",
+      "verdictNotSure": "Le module d'écoute n'était pas sûr.",
+      "error": {
+        "noConnection": "La configuration demande une connexion une seule fois.",
+        "paused": "Quran Lab a suspendu ce module. Les leçons continuent de fonctionner.",
+        "noSpace": "Espace insuffisant",
+        "notYet": "Ce module n'est pas encore disponible. Veuillez réessayer plus tard.",
+        "micDenied": "Le micro est désactivé pour Munib Tracker.",
+        "unsupported": "Non disponible sur cet appareil",
+        "generic": "Cela n'a pas fonctionné. Veuillez réessayer."
+      }
+    },
+    "modeHelp": {
+      "follow": "Récitez avec le texte sous les yeux. Le module d'écoute vous suit mot à mot.",
+      "check": "Récitez avec le texte visible. Après chaque verset, vous verrez les mots à réessayer.",
+      "hideWords": "Les mots après le premier sont masqués. Récitez de mémoire ; les mots entendus se révèlent d'eux-mêmes.",
+      "hideAyahs": "Tout le verset reste masqué jusqu'à la fin ou jusqu'à « Révéler ». Idéal pour la révision."
+    },
+    "listenerStatus": {
+      "ready": "Module d'écoute prêt",
+      "readySub": "Votre voix est traitée sur cet appareil et n'est jamais envoyée.",
+      "downloading": "Téléchargement du module d'écoute · {{percent}} %",
+      "failed": "Le téléchargement n'a pas abouti",
+      "missing": "Suivre votre voix",
+      "missingSub": "Téléchargez le module d'écoute sur l'appareil ({{size}} Mo). Vous pouvez écouter et révéler sans lui.",
+      "offlineSub": "Connectez-vous une fois pour le télécharger. L'écoute fonctionne hors ligne.",
+      "stillListen": "Vous pouvez toujours écouter et révéler les mots."
+    },
+    "picker": {
+      "title": "Choisissez ce que vous voulez pratiquer",
+      "searchSurah": "Chercher une sourate par nom ou numéro",
+      "changeSurah": "Changer de sourate",
+      "fromAyah": "Commencer au verset",
+      "toAyah": "Finir au verset",
+      "toEnd": "Jusqu'à la fin",
+      "ayahN": "Verset {{n}}",
+      "confirm": "S'exercer sur {{passage}}",
+      "ayahCount_one": "{{count}} verset",
+      "ayahCount_other": "{{count}} versets"
+    },
+    "result": {
+      "headAllMatched": "Chaque mot correspond",
+      "headTryAgain_one": "{{count}} mot à réessayer",
+      "headTryAgain_many": "{{count}} mots à réessayer",
+      "headTryAgain_other": "{{count}} mots à réessayer",
+      "headMissed_one": "{{count}} mot non atteint",
+      "headMissed_many": "{{count}} mots non atteints",
+      "headMissed_other": "{{count}} mots non atteints",
+      "headNotSure_one": "Le module d'écoute n'était pas sûr de {{count}} mot",
+      "headNotSure_many": "Le module d'écoute n'était pas sûr de {{count}} mots",
+      "headNotSure_other": "Le module d'écoute n'était pas sûr de {{count}} mots",
+      "heardOf": "{{heard}} mots entendus sur {{total}}",
+      "matched": "Correspond",
+      "tryAgain": "À réessayer",
+      "notSure": "Pas sûr",
+      "missed": "Non atteints",
+      "groupTryAgain": "À réessayer",
+      "groupMissed": "Non atteints",
+      "groupNotSure": "Pas sûr",
+      "nextAyah": "Verset suivant",
+      "reciteAgain": "Réciter à nouveau",
+      "moveOn": "Passer au verset suivant",
+      "finish": "Terminer et voir le bilan",
+      "headNothingHeard": "Le module d'écoute n'a capté aucun mot",
+      "nothingHeardTip": "Récitez un peu plus fort, près du micro, en commençant par le premier mot."
+    },
+    "view": {
+      "title": "Affichage",
+      "mushafCoarse": "Les repères de mots dans le mushaf nécessitent la liste des mots. Connectez-vous une fois pour la télécharger — les versets restent affichés."
+    }
   }
 }

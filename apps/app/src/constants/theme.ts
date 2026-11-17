@@ -1,5 +1,7 @@
 import { Platform, type ViewStyle } from "react-native";
 
+import { tvDp } from "./tv-density";
+
 export type ThemeColor =
   | "foreground"
   | "background"
@@ -31,22 +33,26 @@ export const Fonts = Platform.select({
   },
 });
 
+/**
+ * Spacing scale (dp). On Apple TV (1920×1080pt layout) every step is doubled via
+ * {@link tvDp} so tvOS matches Android TV's physical size; identity elsewhere.
+ */
 export const Spacing = {
-  half: 2,
-  one: 4,
-  two: 8,
-  three: 16,
-  four: 24,
-  five: 32,
-  six: 64,
+  half: tvDp(2),
+  one: tvDp(4),
+  two: tvDp(8),
+  three: tvDp(16),
+  four: tvDp(24),
+  five: tvDp(32),
+  six: tvDp(64),
 } as const;
 
 /** Corner radii scale (squircle-friendly via `borderCurve: "continuous"`). */
 export const Radius = {
-  sm: 10,
-  md: 14,
-  lg: 20,
-  xl: 28,
+  sm: tvDp(10),
+  md: tvDp(14),
+  lg: tvDp(20),
+  xl: tvDp(28),
   pill: 999,
 } as const;
 

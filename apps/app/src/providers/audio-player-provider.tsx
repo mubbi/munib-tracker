@@ -42,9 +42,11 @@ import {
   queueDurationForProgress,
   queueStartBoundary,
 } from "@/lib/audio-queue-timing";
+import { PLAYBACK_AUDIO_MODE } from "@/lib/audio-session-mode";
 import { applyVolume } from "@/lib/audio-volume";
 import { buildAudioActivity } from "@/lib/continue-activity";
 import { triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 import { nextIndexForRepeatPlan } from "@/lib/quran-repeat";
 import {
   canPauseTts,
@@ -478,11 +480,8 @@ function AudioPlayerProviderLive({
   // first playback via ensureAndroidMediaNotificationPermission.
   useEffect(() => {
     if (Platform.OS === "web") return;
-    setAudioModeAsync({
-      playsInSilentMode: true,
-      shouldPlayInBackground: true,
-      interruptionMode: "doNotMix",
-    }).catch(() => {
+    // Shared with Qur'an practice, which restores exactly this after a take.
+    setAudioModeAsync(PLAYBACK_AUDIO_MODE).catch(() => {
       // Non-fatal: playback still works, just without the preferred session mode.
     });
   }, []);
@@ -1455,7 +1454,10 @@ function AudioPlayerProviderLive({
     finishHandlingRef.current = true;
     const nextIdx = resolveNextIndex();
     const tts = finishingTrack?.tts;
+    // TV has no device TTS (expo-speech is stubbed) — a phone-synced "after"
+    // preference must not stall the queue waiting for speech that never ends.
     const shouldSpeak =
+      !isTV() &&
       translationAudioRef.current === "after" &&
       isQuranAyahTrack(finishingTrack) &&
       Boolean(tts?.text?.trim());

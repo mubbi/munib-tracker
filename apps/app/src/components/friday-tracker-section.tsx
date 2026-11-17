@@ -11,8 +11,10 @@ import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isFridayDateString } from "@/lib/friday";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import {
   useEnsureFridayChecklistLoaded,
@@ -66,7 +68,7 @@ export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
                 onPress={() => void toggle(item.id, date)}
                 scaleTo={0.98}
                 haptic="selection"
-                style={styles.rowMain}
+                style={[styles.rowMain, isTV() ? styles.rowMainTv : null]}
               >
                 <SymbolView
                   name={
@@ -104,6 +106,7 @@ export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
                   scaleTo={0.96}
                   style={[
                     styles.detailsChip,
+                    isTV() ? styles.detailsChipTv : null,
                     {
                       backgroundColor: tokens.accentSoft,
                       borderColor: colors.border,
@@ -124,7 +127,7 @@ export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
         accessibilityRole="link"
         onPress={() => router.push("/friday" as Href)}
         scaleTo={0.98}
-        style={styles.learnLink}
+        style={[styles.learnLink, isTV() ? styles.learnLinkTv : null]}
       >
         <ThemedText type="smallBold" style={{ color: colors.accent }}>
           {t("tracker.friday.learnMore")}
@@ -151,6 +154,12 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.one,
     minWidth: 0,
   },
+  /** TV: a full-row Select target with room for the focus ring. */
+  rowMainTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
+  },
   rowText: { flex: 1, gap: 2, minWidth: 0 },
   detailsChip: {
     flexDirection: "row",
@@ -162,10 +171,20 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
   },
+  detailsChipTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.three,
+  },
   learnLink: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
     marginTop: Spacing.three,
+  },
+  learnLinkTv: {
+    alignSelf: "flex-start",
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
   },
 });

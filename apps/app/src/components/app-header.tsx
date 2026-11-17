@@ -9,8 +9,11 @@ import { IconButton } from "@/components/ui/icon-button";
 import { NotificationBadge } from "@/components/ui/notification-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBack, useIsRTL } from "@/lib/rtl";
 import { ThemedText } from "./themed-text";
 
@@ -25,6 +28,11 @@ type AppHeaderProps = {
   blurTargetRef?: RefObject<View | null>;
   /** Reports the rendered header height so the layout can inset content beneath it. */
   onLayout?: (event: LayoutChangeEvent) => void;
+  /**
+   * Wide screens: cap + center the header row so the title lines up with the
+   * ScreenLayout content column instead of hugging the window edge.
+   */
+  contentMaxWidth?: number;
 };
 
 export function AppHeader({
@@ -36,12 +44,18 @@ export function AppHeader({
   onBack,
   blurTargetRef,
   onLayout,
+  contentMaxWidth,
 }: AppHeaderProps) {
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const rtl = useIsRTL();
   const backIcon = useChevronBack();
+  const tv = isTV();
+  // TV: the remote's Back / Menu key is the only back affordance (Android TV
+  // navigation guidance: no on-screen back button). A focusable chevron at the
+  // top also steals D-pad Up from the first content row.
+  const showBack = Boolean(onBack) && !tv;
 
   const withNavigationBlur = (handler?: () => void) => () => {
     if (Platform.OS === "web") blurActiveElement();
@@ -59,74 +73,94 @@ export function AppHeader({
           paddingTop: insets.top + Spacing.two,
           borderBottomColor: tokens.hairline,
         },
+        // Overscan-safe title on TV, aligned with ScreenLayout's content inset.
+        tv && {
+          paddingTop: TvLayout.overscanY,
+          paddingHorizontal: TvLayout.contentPaddingX,
+        },
       ]}
     >
-      {onBack ? (
-        <IconButton
-          key={rtl ? "back-rtl" : "back-ltr"}
-          name={backIcon}
-          size={19}
-          tintColor={colors.accent}
-          accessibilityLabel={t("common.goBack")}
-          onPress={withNavigationBlur(onBack)}
-          background={tokens.accentSoft}
-          // No nested GlassView: this bar is already GlassSurface, and an
-          // interactive well would FluidSpring-animate on the same turn as the
-          // native stack pop (iOS AppHang).
-          hitTarget={44}
-        />
-      ) : null}
-
-      <View style={styles.textBlock}>
-        {eyebrow ? (
-          <ThemedText type="label" style={{ color: colors.accentText }}>
-            {eyebrow}
-          </ThemedText>
-        ) : null}
-        <ThemedText type="header" heading={1}>
-          {title}
-        </ThemedText>
-        {subtitle ? (
-          <ThemedText type="small" themeColor="mutedForeground">
-            {subtitle}
-          </ThemedText>
-        ) : null}
-      </View>
-
-      {onNotificationsPress ? (
-        <PressableScale
-          accessibilityLabel={t("common.notifications")}
-          accessibilityRole="button"
-          haptic="light"
-          onPress={withNavigationBlur(onNotificationsPress)}
-          style={[styles.notificationButton, { backgroundColor: tokens.accentSoft }]}
-        >
-          <SymbolView
-            name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+      <View style={[styles.row, contentMaxWidth != null ? { maxWidth: contentMaxWidth } : null]}>
+        {showBack ? (
+          <IconButton
+            key={rtl ? "back-rtl" : "back-ltr"}
+            name={backIcon}
             size={19}
             tintColor={colors.accent}
+            accessibilityLabel={t("common.goBack")}
+            onPress={withNavigationBlur(onBack)}
+            background={tokens.accentSoft}
+            // No nested GlassView: this bar is already GlassSurface, and an
+            // interactive well would FluidSpring-animate on the same turn as the
+            // native stack pop (iOS AppHang).
+            hitTarget={44}
           />
-          <NotificationBadge count={notificationCount} />
-        </PressableScale>
-      ) : null}
+        ) : null}
+
+        <View style={styles.textBlock}>
+          {eyebrow ? (
+            <ThemedText type="label" style={{ color: colors.accentText }}>
+              {eyebrow}
+            </ThemedText>
+          ) : null}
+          <ThemedText type="header" heading={1}>
+            {title}
+          </ThemedText>
+          {subtitle ? (
+            <ThemedText type="small" themeColor="mutedForeground">
+              {subtitle}
+            </ThemedText>
+          ) : null}
+        </View>
+
+        {onNotificationsPress ? (
+          <PressableScale
+            accessibilityLabel={t("common.notifications")}
+            accessibilityRole="button"
+            haptic="light"
+            onPress={withNavigationBlur(onNotificationsPress)}
+            style={[
+              styles.notificationButton,
+              tv && styles.notificationButtonTv,
+              { backgroundColor: tokens.accentSoft },
+            ]}
+          >
+            <SymbolView
+              name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+              size={19}
+              tintColor={colors.accent}
+            />
+            <NotificationBadge count={notificationCount} />
+          </PressableScale>
+        ) : null}
+      </View>
     </GlassSurface>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    paddingHorizontal: Spacing.four,
+    paddingBottom: Spacing.three,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  /** Header content row — capped to the ScreenLayout column on wide screens. */
+  row: {
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: Spacing.four,
-    paddingBottom: Spacing.three,
     gap: Spacing.three,
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   textBlock: {
     flex: 1,
     gap: Spacing.half,
     alignSelf: "stretch",
+  },
+  notificationButtonTv: {
+    width: tvDp(56),
+    height: tvDp(56),
   },
   notificationButton: {
     width: 44,

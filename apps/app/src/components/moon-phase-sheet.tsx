@@ -9,11 +9,14 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
 import { formatHijriDate, gregorianToHijri, hijriMonthName, hijriMonthProgress } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { moonPhase } from "@/lib/moon";
+import { isTV } from "@/lib/platform/is-tv";
 import { useArrowForward } from "@/lib/rtl";
 import { useLocation } from "@/stores/location-store";
 
@@ -74,12 +77,13 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
         <View
           style={[
             styles.stage,
+            isTV() ? styles.stageTv : null,
             gradientBackground("radial-gradient(circle at 50% 42%, #1D2A48, #0D1424)"),
           ]}
         >
           <MoonPhaseIcon
             date={date}
-            size={72}
+            size={isTV() ? tvDp(72) : 72}
             litColor="#F5EBCB"
             shadowColor="#37527E"
             southernHemisphere={location.latitude < 0}
@@ -127,7 +131,7 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
             }}
             haptic="light"
             scaleTo={0.98}
-            style={styles.noteCta}
+            style={[styles.noteCta, isTV() ? styles.noteCtaTv : null]}
           >
             <ThemedText type="smallBold" style={{ color: colors.accent }}>
               {t("moonSheet.note.whiteDaysCta")}
@@ -222,5 +226,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.one,
     marginTop: Spacing.one,
+  },
+  noteCtaTv: {
+    alignSelf: "flex-start",
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
+  },
+  /** Fixed raw size — scale for tvOS density so the moon is not half-size. */
+  stageTv: {
+    width: tvDp(104),
+    height: tvDp(104),
+    borderRadius: tvDp(52),
   },
 });

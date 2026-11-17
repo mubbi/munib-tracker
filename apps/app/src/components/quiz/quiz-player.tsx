@@ -1,9 +1,11 @@
+import { useFocusEffect } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import { type ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
+import { LearnGrid, useLearnColumns } from "@/components/learn-guide/learn-wide-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -13,8 +15,11 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar, SegmentedProgress } from "@/components/ui/progress-bar";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 
 export type QuizPlayerQuestion = {
@@ -47,6 +52,25 @@ function isCorrectAnswer(question: QuizPlayerQuestion, selected: number | null):
   return question.correctIndex === selected;
 }
 
+/**
+ * Optional desktop hint ("Press 1–4 to answer, Enter to continue"). Rendered
+ * only once the catalog defines it, so the screen never shows a raw key.
+ */
+const KEYBOARD_HINT_KEY = "common.quiz.keyboardHint";
+
+/** True while the user is typing in a field — keyboard shortcuts must not fire. */
+function isTypingTarget(target: EventTarget | null): boolean {
+  if (typeof HTMLElement === "undefined" || !(target instanceof HTMLElement)) return false;
+  const tag = target.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target.isContentEditable;
+}
+
+/** Enter on a focused button/link already activates it natively — don't double-fire. */
+function isActivatableTarget(target: EventTarget | null): boolean {
+  if (typeof HTMLElement === "undefined" || !(target instanceof HTMLElement)) return false;
+  return target.closest('button, a, [role="button"], [role="link"]') != null;
+}
+
 function encouragementKey(score: number, total: number): string {
   if (total <= 0) return "common.quiz.encouragementSteady";
   const ratio = score / total;
@@ -67,10 +91,17 @@ export function QuizPlayer({
   completeActions,
   footer,
 }: QuizPlayerProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronBackward = useChevronBackward();
   const chevronForward = useChevronForward();
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  // Tablet / desktop (non-TV): answers in two columns so short options don't
+  // stretch across the whole card.
+  const twoColumnOptions = !tv && width >= 768;
+  const keyboardHints = Platform.OS === "web" && !tv && width >= 768;
+  const reviewColumns = useLearnColumns({ max: 2 });
 
   const scored = useMemo(() => questions.filter(isScoredQuestion), [questions]);
   const [index, setIndex] = useState(0);
@@ -142,6 +173,42 @@ export function QuizPlayer({
     setFinished(false);
   };
 
+  // Web keyboard: 1–9 picks an answer, Enter marks a reflection / continues.
+  // A ref keeps the listener stable while always reading the latest state.
+  const keyStateRef = useRef({ current, answered, finished, selectOption, markReflection, goNext });
+  keyStateRef.current = { current, answered, finished, selectOption, markReflection, goNext };
+  useFocusEffect(
+    useCallback(() => {
+      if (Platform.OS !== "web" || tv || typeof window === "undefined") return;
+      const onKeyDown = (event: KeyboardEvent) => {
+        if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
+        if (isTypingTarget(event.target)) return;
+        const state = keyStateRef.current;
+        if (state.finished || !state.current) return;
+        if (event.key === "Enter") {
+          if (isActivatableTarget(event.target)) return;
+          if (!state.answered && state.current.type === "reflection") {
+            event.preventDefault();
+            state.markReflection();
+          } else if (state.answered) {
+            event.preventDefault();
+            state.goNext();
+          }
+          return;
+        }
+        if (/^[1-9]$/.test(event.key) && !state.answered) {
+          const optionIndex = Number(event.key) - 1;
+          if (optionIndex < (state.current.options?.length ?? 0)) {
+            event.preventDefault();
+            state.selectOption(optionIndex);
+          }
+        }
+      };
+      window.addEventListener("keydown", onKeyDown);
+      return () => window.removeEventListener("keydown", onKeyDown);
+    }, [tv]),
+  );
+
   if (finished) {
     const ratio = scored.length > 0 ? score / scored.length : 1;
     const ringColor =
@@ -182,96 +249,110 @@ export function QuizPlayer({
               <ThemedText type="smallBold" style={styles.reviewHeading}>
                 {t("common.quiz.reviewTitle")}
               </ThemedText>
-              {questions.map((question, questionIndex) => {
-                const answer = answers[questionIndex];
-                const scoredQ = isScoredQuestion(question);
-                const correct = isCorrectAnswer(question, answer);
-                const status: "correct" | "incorrect" | "reflection" | "skipped" = !scoredQ
-                  ? "reflection"
-                  : answer == null
-                    ? "skipped"
-                    : correct
-                      ? "correct"
-                      : "incorrect";
-                const palette =
-                  status === "correct"
-                    ? tokens.status.success
-                    : status === "incorrect"
-                      ? tokens.status.danger
-                      : status === "skipped"
-                        ? tokens.status.warning
-                        : tokens.status.info;
-                const statusLabel =
-                  status === "correct"
-                    ? t("common.quiz.statusCorrect")
-                    : status === "incorrect"
-                      ? t("common.quiz.statusIncorrect")
-                      : status === "skipped"
-                        ? t("common.quiz.statusSkipped")
-                        : t("common.quiz.statusReflection");
-                const statusIcon: AppIconType =
-                  status === "correct"
-                    ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-                    : status === "incorrect"
-                      ? { ios: "xmark.circle.fill", android: "cancel", web: "cancel" }
-                      : status === "skipped"
-                        ? {
-                            ios: "exclamationmark.circle.fill",
-                            android: "error",
-                            web: "error",
-                          }
-                        : { ios: "heart.fill", android: "favorite", web: "favorite" };
+              <LearnGrid maxColumns={2} gap={Spacing.two}>
+                {questions.map((question, questionIndex) => {
+                  const answer = answers[questionIndex];
+                  const scoredQ = isScoredQuestion(question);
+                  const correct = isCorrectAnswer(question, answer);
+                  const status: "correct" | "incorrect" | "reflection" | "skipped" = !scoredQ
+                    ? "reflection"
+                    : answer == null
+                      ? "skipped"
+                      : correct
+                        ? "correct"
+                        : "incorrect";
+                  const palette =
+                    status === "correct"
+                      ? tokens.status.success
+                      : status === "incorrect"
+                        ? tokens.status.danger
+                        : status === "skipped"
+                          ? tokens.status.warning
+                          : tokens.status.info;
+                  const statusLabel =
+                    status === "correct"
+                      ? t("common.quiz.statusCorrect")
+                      : status === "incorrect"
+                        ? t("common.quiz.statusIncorrect")
+                        : status === "skipped"
+                          ? t("common.quiz.statusSkipped")
+                          : t("common.quiz.statusReflection");
+                  const statusIcon: AppIconType =
+                    status === "correct"
+                      ? {
+                          ios: "checkmark.circle.fill",
+                          android: "check_circle",
+                          web: "check_circle",
+                        }
+                      : status === "incorrect"
+                        ? { ios: "xmark.circle.fill", android: "cancel", web: "cancel" }
+                        : status === "skipped"
+                          ? {
+                              ios: "exclamationmark.circle.fill",
+                              android: "error",
+                              web: "error",
+                            }
+                          : { ios: "heart.fill", android: "favorite", web: "favorite" };
 
-                return (
-                  <PressableScale
-                    key={question.id}
-                    haptic="selection"
-                    accessibilityRole="button"
-                    accessibilityLabel={`${t("common.quiz.progress", {
-                      current: questionIndex + 1,
-                      total: questions.length,
-                    })}. ${statusLabel}. ${question.prompt}`}
-                    onPress={() => reviewFrom(questionIndex)}
-                    style={[
-                      styles.reviewRow,
-                      {
-                        backgroundColor: palette.soft,
-                        borderColor: withAlpha(palette.color, 0.28),
-                      },
-                    ]}
-                  >
-                    <IconWell
-                      icon={statusIcon}
-                      tint={palette.color}
-                      background={withAlpha(palette.color, 0.14)}
-                      well={34}
-                      size={16}
-                    />
-                    <View style={styles.reviewCopy}>
-                      <ThemedText type="caption" style={{ color: palette.text }}>
-                        {t("common.quiz.progress", {
-                          current: questionIndex + 1,
-                          total: questions.length,
-                        })}{" "}
-                        · {statusLabel}
-                      </ThemedText>
-                      <ThemedText type="small" numberOfLines={2}>
-                        {question.prompt}
-                      </ThemedText>
-                    </View>
-                    <SymbolView
-                      name={chevronForward}
-                      size={14}
-                      tintColor={colors.mutedForeground}
-                    />
-                  </PressableScale>
-                );
-              })}
+                  return (
+                    <PressableScale
+                      key={question.id}
+                      haptic="selection"
+                      accessibilityRole="button"
+                      accessibilityLabel={`${t("common.quiz.progress", {
+                        current: questionIndex + 1,
+                        total: questions.length,
+                      })}. ${statusLabel}. ${question.prompt}`}
+                      onPress={() => reviewFrom(questionIndex)}
+                      style={[
+                        styles.reviewRow,
+                        tv && styles.reviewRowTv,
+                        reviewColumns > 1 && styles.reviewRowFill,
+                        {
+                          backgroundColor: palette.soft,
+                          borderColor: withAlpha(palette.color, 0.28),
+                        },
+                      ]}
+                    >
+                      <IconWell
+                        icon={statusIcon}
+                        tint={palette.color}
+                        background={withAlpha(palette.color, 0.14)}
+                        well={34}
+                        size={16}
+                      />
+                      <View style={styles.reviewCopy}>
+                        <ThemedText type="caption" style={{ color: palette.text }}>
+                          {t("common.quiz.progress", {
+                            current: questionIndex + 1,
+                            total: questions.length,
+                          })}{" "}
+                          · {statusLabel}
+                        </ThemedText>
+                        <ThemedText type="small" numberOfLines={2}>
+                          {question.prompt}
+                        </ThemedText>
+                      </View>
+                      <SymbolView
+                        name={chevronForward}
+                        size={14}
+                        tintColor={colors.mutedForeground}
+                      />
+                    </PressableScale>
+                  );
+                })}
+              </LearnGrid>
             </View>
           ) : null}
 
           <View style={styles.actions}>
-            <Button label={t("common.quiz.retry")} variant="primary" fullWidth onPress={restart} />
+            <Button
+              label={t("common.quiz.retry")}
+              variant="primary"
+              fullWidth
+              onPress={restart}
+              preferredFocus
+            />
             {completeActions}
           </View>
         </Card>
@@ -353,10 +434,12 @@ export function QuizPlayer({
           <View style={styles.reflectionBlock}>
             {!answered ? (
               <Button
+                key={`${current.id}-reflect`}
                 label={t("common.quiz.reflectMark")}
                 variant="primary"
                 fullWidth
                 onPress={markReflection}
+                preferredFocus
               />
             ) : (
               <Animated.View
@@ -389,81 +472,98 @@ export function QuizPlayer({
           </View>
         ) : null}
 
-        {current.options?.map((option, optionIndex) => {
-          const isSelected = selected === optionIndex;
-          const isCorrectOption = current.correctIndex === optionIndex;
-          const ordinal = optionIndex + 1;
+        <View style={twoColumnOptions ? styles.optionGrid : undefined}>
+          {current.options?.map((option, optionIndex) => {
+            const isSelected = selected === optionIndex;
+            const isCorrectOption = current.correctIndex === optionIndex;
+            const ordinal = optionIndex + 1;
 
-          let background = colors.muted;
-          let borderColor = "transparent";
-          let letterBg = colors.card;
-          let letterFg = colors.mutedForeground;
-          let labelColor = colors.foreground;
-          let trailingIcon: AppIconType | null = null;
+            let background = colors.muted;
+            let borderColor = "transparent";
+            let letterBg = colors.card;
+            let letterFg = colors.mutedForeground;
+            let labelColor = colors.foreground;
+            let trailingIcon: AppIconType | null = null;
 
-          if (showResult && isCorrectOption) {
-            background = tokens.status.success.soft;
-            borderColor = withAlpha(tokens.status.success.color, 0.45);
-            letterBg = tokens.status.success.color;
-            letterFg = colors.card;
-            labelColor = tokens.status.success.text;
-            trailingIcon = {
-              ios: "checkmark.circle.fill",
-              android: "check_circle",
-              web: "check_circle",
-            };
-          } else if (showResult && isSelected && !isCorrectOption) {
-            background = tokens.status.danger.soft;
-            borderColor = withAlpha(tokens.status.danger.color, 0.45);
-            letterBg = tokens.status.danger.color;
-            letterFg = colors.card;
-            labelColor = tokens.status.danger.text;
-            trailingIcon = { ios: "xmark.circle.fill", android: "cancel", web: "cancel" };
-          } else if (!showResult && isSelected) {
-            background = tokens.accentSoft;
-            borderColor = withAlpha(colors.accent, 0.45);
-            letterBg = colors.accent;
-            letterFg = colors.accentForeground;
-            labelColor = colors.accentText;
-          }
+            if (showResult && isCorrectOption) {
+              background = tokens.status.success.soft;
+              borderColor = withAlpha(tokens.status.success.color, 0.45);
+              letterBg = tokens.status.success.color;
+              letterFg = colors.card;
+              labelColor = tokens.status.success.text;
+              trailingIcon = {
+                ios: "checkmark.circle.fill",
+                android: "check_circle",
+                web: "check_circle",
+              };
+            } else if (showResult && isSelected && !isCorrectOption) {
+              background = tokens.status.danger.soft;
+              borderColor = withAlpha(tokens.status.danger.color, 0.45);
+              letterBg = tokens.status.danger.color;
+              letterFg = colors.card;
+              labelColor = tokens.status.danger.text;
+              trailingIcon = { ios: "xmark.circle.fill", android: "cancel", web: "cancel" };
+            } else if (!showResult && isSelected) {
+              background = tokens.accentSoft;
+              borderColor = withAlpha(colors.accent, 0.45);
+              letterBg = colors.accent;
+              letterFg = colors.accentForeground;
+              labelColor = colors.accentText;
+            }
 
-          return (
-            <PressableScale
-              key={`${current.id}-${option}`}
-              haptic="selection"
-              disabled={answered}
-              accessibilityRole="button"
-              accessibilityState={{ selected: isSelected, disabled: answered }}
-              accessibilityLabel={`${ordinal}. ${option}`}
-              onPress={() => selectOption(optionIndex)}
-              style={[
-                styles.option,
-                {
-                  backgroundColor: background,
-                  borderColor,
-                },
-              ]}
-            >
-              <View style={[styles.letterBadge, { backgroundColor: letterBg }]}>
-                <ThemedText type="caption" style={{ color: letterFg }}>
-                  {ordinal}
+            return (
+              <PressableScale
+                key={`${current.id}-${option}`}
+                haptic="selection"
+                // TV: stay focusable after answering (no-op press) so focus is never
+                // dropped and Up can revisit the prompt; phone keeps the disabled lock.
+                disabled={answered && !tv}
+                // TV: first option is the preferred D-pad stop for each new question.
+                {...(tv && optionIndex === 0 && !answered ? { hasTVPreferredFocus: true } : {})}
+                accessibilityRole="button"
+                accessibilityState={{ selected: isSelected, disabled: answered }}
+                accessibilityLabel={`${ordinal}. ${option}`}
+                onPress={() => selectOption(optionIndex)}
+                style={[
+                  styles.option,
+                  tv && styles.optionTv,
+                  twoColumnOptions && styles.optionHalf,
+                  {
+                    backgroundColor: background,
+                    borderColor,
+                  },
+                ]}
+              >
+                <View
+                  style={[
+                    styles.letterBadge,
+                    tv && styles.letterBadgeTv,
+                    { backgroundColor: letterBg },
+                  ]}
+                >
+                  <ThemedText type={tv ? "smallBold" : "caption"} style={{ color: letterFg }}>
+                    {ordinal}
+                  </ThemedText>
+                </View>
+                <ThemedText
+                  type={tv ? "default" : "small"}
+                  style={[styles.optionLabel, tv && styles.optionLabelTv, { color: labelColor }]}
+                >
+                  {option}
                 </ThemedText>
-              </View>
-              <ThemedText type="small" style={[styles.optionLabel, { color: labelColor }]}>
-                {option}
-              </ThemedText>
-              {trailingIcon ? (
-                <SymbolView
-                  name={trailingIcon}
-                  size={18}
-                  tintColor={
-                    isCorrectOption ? tokens.status.success.color : tokens.status.danger.color
-                  }
-                />
-              ) : null}
-            </PressableScale>
-          );
-        })}
+                {trailingIcon ? (
+                  <SymbolView
+                    name={trailingIcon}
+                    size={18}
+                    tintColor={
+                      isCorrectOption ? tokens.status.success.color : tokens.status.danger.color
+                    }
+                  />
+                ) : null}
+              </PressableScale>
+            );
+          })}
+        </View>
 
         {showResult ? (
           <Animated.View
@@ -511,6 +611,7 @@ export function QuizPlayer({
             {current.type === "reflection"
               ? t("common.quiz.reflectHint")
               : t("common.quiz.answerHint")}
+            {keyboardHints && i18n.exists(KEYBOARD_HINT_KEY) ? ` ${t(KEYBOARD_HINT_KEY)}` : null}
           </ThemedText>
         ) : null}
 
@@ -518,17 +619,20 @@ export function QuizPlayer({
           <Button
             label={t("common.previous")}
             variant="secondary"
-            size="sm"
+            size={tv ? "md" : "sm"}
             disabled={index === 0}
             icon={chevronBackward}
             onPress={goPrevious}
             style={styles.navButton}
           />
           <Button
+            // Remount once answered so TV preferred focus jumps to Next.
+            key={`${current.id}-${answered ? "next" : "locked"}`}
             label={nextLabel}
             variant="primary"
-            size="sm"
+            size={tv ? "md" : "sm"}
             disabled={!canGoNext}
+            preferredFocus={answered}
             trailingIcon={isLast ? undefined : chevronForward}
             onPress={goNext}
             style={styles.navButton}
@@ -580,6 +684,19 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
     minHeight: 52,
   },
+  optionGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  optionHalf: {
+    width: "49%",
+  },
+  optionTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.three,
+    gap: Spacing.three,
+  },
   letterBadge: {
     width: 28,
     height: 28,
@@ -589,9 +706,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexShrink: 0,
   },
+  letterBadgeTv: {
+    width: tvDp(36),
+    height: tvDp(36),
+  },
   optionLabel: {
     flex: 1,
     lineHeight: 20,
+  },
+  optionLabelTv: {
+    lineHeight: 26,
   },
   feedbackCard: {
     flexDirection: "row",
@@ -654,6 +778,13 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
+  },
+  reviewRowFill: {
+    flexGrow: 1,
+  },
+  reviewRowTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.three,
   },
   reviewCopy: {
     flex: 1,

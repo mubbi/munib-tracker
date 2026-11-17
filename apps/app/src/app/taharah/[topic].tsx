@@ -1,7 +1,9 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -18,7 +20,11 @@ import {
   getTaharahTopics,
   isTaharahContentReady,
 } from "@/lib/taharah";
-import { useEnsureTaharahProgressLoaded } from "@/stores/taharah-progress-store";
+import { useStore } from "@/stores/create-store";
+import {
+  taharahProgressStore,
+  useEnsureTaharahProgressLoaded,
+} from "@/stores/taharah-progress-store";
 
 export function generateStaticParams(): Array<{ topic: string }> {
   return getTaharahTopics().map((tpc) => ({ topic: tpc.id }));
@@ -28,6 +34,9 @@ export default function TaharahTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
+  const completedIds = useStore(taharahProgressStore, (s) => s.completedTopicIds);
   const { ready: contentReady } = useEnsureContent(ensureTaharahContent, isTaharahContentReady);
   const topic = getTaharahTopic(topicId);
   const reportRef = useGuideContentReportRef("taharah", topic, "/taharah");
@@ -48,6 +57,7 @@ export default function TaharahTopicScreen() {
       title={topic?.title ?? t("taharah.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/taharah" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -79,12 +89,24 @@ export default function TaharahTopicScreen() {
           onAction={() => router.replace("/taharah" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="taharah">
-            <TaharahTopicContent topic={topic} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="taharah.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("taharah.title")}
+              basePath="/taharah"
+              topics={getTaharahTopics()}
+              currentId={topic.id}
+              completedIds={completedIds}
+            />
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="taharah">
+              <TaharahTopicContent topic={topic} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="taharah.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

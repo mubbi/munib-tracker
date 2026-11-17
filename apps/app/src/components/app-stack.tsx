@@ -1,8 +1,10 @@
 import { Redirect, Stack, ThemeProvider } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useMemo } from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 
+import { WebGlobalRail } from "@/components/web/web-global-rail";
+import { useWebGlobalRail } from "@/hooks/use-large-screen-layout";
 import { createNavigationTheme } from "@/lib/navigation-theme";
 import { isIndexingBot } from "@/lib/seo/is-indexing-bot";
 import { useTheme } from "@/providers/theme-provider";
@@ -24,6 +26,8 @@ export function AppStack() {
   const prefs = usePreferences();
 
   const navigationTheme = useMemo(() => createNavigationTheme(colors, scheme), [colors, scheme]);
+  const { width: windowWidth } = useWindowDimensions();
+  const webRail = useWebGlobalRail();
 
   const screenOptions = useMemo(
     () => ({
@@ -45,14 +49,21 @@ export function AppStack() {
           including screens that leave StatusBar unmanaged or hard-code light icons. */}
       <StatusBar style={scheme === "dark" ? "light" : "dark"} />
       {!showApp ? <Redirect href="/intro" /> : null}
-      <Stack screenOptions={screenOptions}>
-        <Stack.Protected guard={showApp}>
-          <Stack.Screen name="(tabs)" />
-        </Stack.Protected>
-        <Stack.Screen name="(onboarding)/intro" options={{ gestureEnabled: false }} />
-        <Stack.Screen name="(onboarding)/intro-location" options={{ gestureEnabled: false }} />
-        <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
-      </Stack>
+      {/* Wide web: persistent rail beside the stack so every page keeps primary
+          navigation (not just the four tab roots). */}
+      <View style={styles.webShell}>
+        {webRail.visible && showApp ? <WebGlobalRail windowWidth={windowWidth} /> : null}
+        <View style={styles.stackColumn}>
+          <Stack screenOptions={screenOptions}>
+            <Stack.Protected guard={showApp}>
+              <Stack.Screen name="(tabs)" />
+            </Stack.Protected>
+            <Stack.Screen name="(onboarding)/intro" options={{ gestureEnabled: false }} />
+            <Stack.Screen name="(onboarding)/intro-location" options={{ gestureEnabled: false }} />
+            <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
+          </Stack>
+        </View>
+      </View>
     </ThemeProvider>
   );
 }
@@ -60,5 +71,13 @@ export function AppStack() {
 const styles = StyleSheet.create({
   bootShell: {
     flex: 1,
+  },
+  webShell: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  stackColumn: {
+    flex: 1,
+    minWidth: 0,
   },
 });

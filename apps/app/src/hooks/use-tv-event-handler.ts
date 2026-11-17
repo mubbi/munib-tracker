@@ -9,9 +9,31 @@ export type TvHwEvent = {
   tag?: number;
 };
 
+type TvEventControl = {
+  enableTVMenuKey?: () => void;
+  disableTVMenuKey?: () => void;
+};
+
+function tvEventControl(): TvEventControl | undefined {
+  if (!isTV() || Platform.OS === "web") return undefined;
+  return (require("react-native") as { TVEventControl?: TvEventControl }).TVEventControl;
+}
+
 /**
- * Safe wrapper around react-native-tvos `useTVEventHandler`.
- * No-ops on phone/web so callers can mount unconditionally.
+ * Apple TV: capture (true) or release (false) the Menu / Back key. While
+ * released, Menu goes to the system (Home) — required at the app root by the
+ * tvOS HIG. Owned by `TvRemoteBridge` only; screens must not toggle it.
+ */
+export function setTvMenuKeyEnabled(enabled: boolean): void {
+  const control = tvEventControl();
+  if (enabled) control?.enableTVMenuKey?.();
+  else control?.disableTVMenuKey?.();
+}
+
+/**
+ * Safe wrapper around react-native-tvos `TVEventHandler`.
+ * No-ops on phone/web so callers can mount unconditionally. Does not touch the
+ * Menu key (see {@link setTvMenuKeyEnabled}) so multiple listeners can coexist.
  */
 export function useTvEventHandler(handleEvent: (event: TvHwEvent) => void): void {
   useEffect(() => {
@@ -21,19 +43,11 @@ export function useTvEventHandler(handleEvent: (event: TvHwEvent) => void): void
       TVEventHandler?: {
         addListener: (listener: (event: TvHwEvent) => void) => { remove: () => void } | undefined;
       };
-      TVEventControl?: {
-        enableTVMenuKey?: () => void;
-        disableTVMenuKey?: () => void;
-      };
     };
-
-    // Receive Menu on Apple TV instead of immediately exiting to the system home.
-    RN.TVEventControl?.enableTVMenuKey?.();
 
     const subscription = RN.TVEventHandler?.addListener?.(handleEvent);
     return () => {
       subscription?.remove();
-      RN.TVEventControl?.disableTVMenuKey?.();
     };
   }, [handleEvent]);
 }
@@ -48,6 +62,18 @@ export function isTvKeyDown(event: TvHwEvent): boolean {
 export function isTvPlayPauseEvent(event: TvHwEvent): boolean {
   const type = event.eventType.toLowerCase();
   return type === "playpause" || type === "play" || type === "pause";
+}
+
+/** Fast-forward / next-track remote keys (Fire TV, Android TV, Siri Remote). */
+export function isTvNextEvent(event: TvHwEvent): boolean {
+  const type = event.eventType.toLowerCase();
+  return type === "fastforward" || type === "next" || type === "skipforward";
+}
+
+/** Rewind / previous-track remote keys. */
+export function isTvPreviousEvent(event: TvHwEvent): boolean {
+  const type = event.eventType.toLowerCase();
+  return type === "rewind" || type === "previous" || type === "skipbackward";
 }
 
 export function isTvMenuOrBackEvent(event: TvHwEvent): boolean {

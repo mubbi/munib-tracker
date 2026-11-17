@@ -1,7 +1,7 @@
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -12,6 +12,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { useResponsiveColumns } from "@/components/ui/responsive-grid";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -62,6 +63,9 @@ export default function DuaCategoryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const tv = isTV();
+  // Wide web / tablets: duas flow into 2-3 columns (FlatList stays virtualized).
+  const autoColumns = useResponsiveColumns({ max: 3 });
+  const columns = tv ? 1 : autoColumns;
   useEnsureDuaFavoritesLoaded();
   const favoriteIds = useFavoriteDuaIds();
   const { toggle } = useDuaFavoritesActions();
@@ -86,7 +90,7 @@ export default function DuaCategoryScreen() {
     () => duaItems.filter((item) => item.categoryId === categoryId),
     [categoryId, duaItems],
   );
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
 
@@ -99,6 +103,12 @@ export default function DuaCategoryScreen() {
     () => (searching ? duaIndex.search(query) : items),
     [duaIndex, items, query, searching],
   );
+  // TV: the first dua row takes initial D-pad focus (not the search field).
+  // Pinned once so search changes never yank focus back into the list.
+  const tvFirstFocusId = useRef<string | null>(null);
+  if (tv && tvFirstFocusId.current == null && !searching && filtered[0]) {
+    tvFirstFocusId.current = filtered[0].id;
+  }
 
   // Stable, id-taking handlers so memoized rows keep their prop identity and
   // only the toggled row re-renders on a favorite change.
@@ -110,16 +120,23 @@ export default function DuaCategoryScreen() {
   const keyExtractor = useCallback((item: DuaItem) => item.id, []);
 
   const renderItem = useCallback<ListRenderItem<DuaItem>>(
-    ({ item }) => (
-      <DuaRow
-        item={item}
-        index={indexById.get(item.id)}
-        isFavorite={favoriteIds.includes(item.id)}
-        onToggleFavorite={toggle}
-        onOpen={onOpen}
-      />
-    ),
-    [favoriteIds, indexById, toggle, onOpen],
+    ({ item }) => {
+      const row = (
+        <DuaRow
+          item={item}
+          index={indexById.get(item.id)}
+          isFavorite={favoriteIds.includes(item.id)}
+          onToggleFavorite={toggle}
+          onOpen={onOpen}
+        />
+      );
+      return columns > 1 ? (
+        <View style={[styles.gridCell, { width: `${100 / columns}%` as const }]}>{row}</View>
+      ) : (
+        row
+      );
+    },
+    [columns, favoriteIds, indexById, toggle, onOpen],
   );
 
   const categoryName = t(`duaCat.${categoryId}`);
@@ -140,7 +157,9 @@ export default function DuaCategoryScreen() {
       style={[
         styles.input,
         tv && styles.inputTv,
-        { backgroundColor: colors.muted, color: colors.foreground },
+        columns > 1 && styles.inputWide,
+        tokens.inputSurface,
+        { color: colors.foreground },
       ]}
     />
   );
@@ -202,6 +221,7 @@ export default function DuaCategoryScreen() {
                       isFavorite={favoriteIds.includes(item.id)}
                       onToggleFavorite={toggle}
                       onOpen={onOpen}
+                      preferredFocus={item.id === tvFirstFocusId.current}
                     />
                   </View>
                 ))}
@@ -209,6 +229,10 @@ export default function DuaCategoryScreen() {
         ) : (
           <View style={styles.listHost}>
             <TvFlatList
+              // numColumns cannot change on the fly — remount when the column count changes.
+              key={`cols-${columns}`}
+              numColumns={columns}
+              columnWrapperStyle={columns > 1 ? styles.gridRow : undefined}
               style={styles.flatList}
               data={filtered}
               keyExtractor={keyExtractor}
@@ -244,12 +268,15 @@ const DuaRow = memo(function DuaRow({
   isFavorite,
   onToggleFavorite,
   onOpen,
+  preferredFocus,
 }: {
   item: DuaItem;
   index?: number;
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
   onOpen: (id: string) => void;
+  /** TV: initial D-pad focus. No-op on phone/web. */
+  preferredFocus?: boolean;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -266,13 +293,21 @@ const DuaRow = memo(function DuaRow({
     // The favorite toggle is a sibling overlay, not nested inside the row's
     // Pressable — nesting a <button> inside another <button> is invalid HTML on
     // web (matches the ZikrRow pattern).
-    <View style={styles.rowWrap}>
+    //
+    // TV: the star sits *beside* the row (flex sibling), not over it — a D-pad
+    // focus search can't move "right" into a control inside the row's bounds.
+    <View style={[styles.rowWrap, tv ? styles.rowWrapTv : styles.fill]}>
       <PressableScale
         haptic="light"
         accessibilityRole="button"
         accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
         onPress={handleOpen}
-        style={[styles.rowHeader, tv && styles.rowHeaderTv, { backgroundColor: colors.muted }]}
+        {...(tv && preferredFocus ? { hasTVPreferredFocus: true } : {})}
+        style={[
+          styles.rowHeader,
+          tv ? styles.rowHeaderTv : styles.fill,
+          { backgroundColor: colors.muted, borderColor: tokens.hairline },
+        ]}
       >
         {index != null ? <ListIndexBadge index={index} /> : null}
         <View style={styles.body}>
@@ -283,7 +318,7 @@ const DuaRow = memo(function DuaRow({
             {item.transliteration ?? item.translation}
           </ThemedText>
         </View>
-        <View style={styles.favoriteSlot} />
+        {tv ? null : <View style={styles.favoriteSlot} />}
         <SymbolView
           name={chevronForwardIcon}
           size={CHEVRON_SIZE}
@@ -303,7 +338,9 @@ const DuaRow = memo(function DuaRow({
         accessibilityState={{ selected: isFavorite }}
         haptic="selection"
         onPress={handleToggleFavorite}
-        style={styles.favoriteButton}
+        hitTarget={tv ? TvLayout.minFocusTarget : FAVORITE_HIT}
+        background={tv ? colors.muted : undefined}
+        style={tv ? undefined : styles.favoriteButton}
       />
     </View>
   );
@@ -329,8 +366,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
   },
   separator: { height: Spacing.two },
+  inputWide: { maxWidth: 640 },
+  gridRow: { marginHorizontal: -Spacing.one },
+  gridCell: { paddingHorizontal: Spacing.one },
   rowWrap: {
     position: "relative",
+  },
+  /** Equal-height cells when rows sit side by side in a multi-column grid. */
+  fill: { flexGrow: 1 },
+  rowWrapTv: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
   },
   rowHeader: {
     flexDirection: "row",
@@ -339,10 +386,13 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    borderWidth: 1,
   },
   // Horizontal padding stays put — the favorite button's absolute `end` offset
   // below is computed against it. Only height/vertical padding grow for TV.
   rowHeaderTv: {
+    flex: 1,
+    minWidth: 0,
     minHeight: TvLayout.minFocusTarget,
     paddingVertical: Spacing.four,
     borderRadius: Radius.lg,

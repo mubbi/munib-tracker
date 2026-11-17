@@ -1,6 +1,7 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { ExcusedGuideContent } from "@/components/excused/excused-guide-content";
+import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -10,6 +11,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 export default function SickGuideScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const wide = useLearnHubLayout();
 
   return (
     <ScreenLayout
@@ -17,6 +19,7 @@ export default function SickGuideScreen() {
       title={t("sick.title")}
       subtitle={t("sick.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.twoPane ? wide.maxContentWidth : undefined}
     >
       <Seo path="/sick" />
       <Stagger>

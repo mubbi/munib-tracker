@@ -5,6 +5,7 @@ import { ActivityIndicator, I18nManager, StyleSheet, TextInput, View } from "rea
 
 import { CurrencyGlyph } from "@/components/money/currency-glyph";
 import { MoneyText } from "@/components/money/money-text";
+import { TvStepButtons, useTvInputFocus } from "@/components/money/tv-number-input";
 import { ThemedText } from "@/components/themed-text";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -14,6 +15,8 @@ import { NumberFormatPickerSheet } from "@/components/zakat/number-format-picker
 import { ZakatFormSection } from "@/components/zakat/zakat-form-section";
 import { ZakatSectionInfoSheet } from "@/components/zakat/zakat-section-info-sheet";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ZakatCalculatorState } from "@/hooks/use-zakat-calculator";
 import { ZAKAT_ASSET_GROUPS } from "@/hooks/use-zakat-calculator";
@@ -24,6 +27,7 @@ import {
   type NumberFormatStyle,
   parseNumberInput,
 } from "@/lib/format-currency";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   GOLD_KARATS,
   type GoldKarat,
@@ -41,6 +45,11 @@ type ZakatCalculatorProps = ZakatCalculatorState & {
   onCurrencyPickerOpenChange?: (open: boolean) => void;
   numberFormatPickerOpen?: boolean;
   onNumberFormatPickerOpenChange?: (open: boolean) => void;
+  /**
+   * Desktop / tablet: simple field groups (assets, metals, agriculture,
+   * deductions) flow into this many columns. Default 1 (phone / TV).
+   */
+  formColumns?: number;
 };
 
 const FIELD_ICONS: Record<string, SymbolViewProps["name"]> = {
@@ -103,6 +112,7 @@ function ChipSelect<T extends string | number>({
             onPress={() => onChange(option)}
             style={[
               styles.chip,
+              isTV() && styles.chipTv,
               {
                 backgroundColor: selected ? tokens.accentSoft : colors.muted,
                 borderColor: selected ? withAlpha(colors.accent, 0.35) : "transparent",
@@ -148,8 +158,9 @@ function MoneyField({
   maxFractionDigits?: number;
   numberFormat: NumberFormatStyle;
 }) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const tint = iconTint ?? colors.accent;
+  const tvFocus = useTvInputFocus();
 
   return (
     <View style={styles.fieldBlock}>
@@ -159,7 +170,7 @@ function MoneyField({
           {label}
         </ThemedText>
       </View>
-      <View style={[styles.inputRow, { backgroundColor: colors.muted }]}>
+      <View style={[styles.inputRow, tokens.inputSurface, tvFocus.containerStyle]}>
         {currencyGlyph ? (
           <CurrencyGlyph glyph={currencyGlyph} size={16} color={colors.mutedForeground} />
         ) : currencySymbol ? (
@@ -168,6 +179,7 @@ function MoneyField({
           </ThemedText>
         ) : null}
         <TextInput
+          {...tvFocus.focusProps}
           value={value}
           onChangeText={(text) =>
             onChange(formatNumberInput(text, maxFractionDigits, numberFormat))
@@ -201,19 +213,37 @@ function CountField({
   onChange: (v: string) => void;
   numberFormat: NumberFormatStyle;
 }) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const tvFocus = useTvInputFocus();
+  const tv = isTV();
   return (
     <View style={styles.fieldBlock}>
       <ThemedText type="smallBold">{label}</ThemedText>
-      <View style={[styles.inputRow, { backgroundColor: colors.muted }]}>
-        <TextInput
+      <View style={tv ? styles.tvLine : undefined}>
+        <View
+          style={[
+            styles.inputRow,
+            tv && styles.tvLineInput,
+            tokens.inputSurface,
+            tvFocus.containerStyle,
+          ]}
+        >
+          <TextInput
+            {...tvFocus.focusProps}
+            value={value}
+            onChangeText={(text) => onChange(formatNumberInput(text, 0, numberFormat))}
+            keyboardType="number-pad"
+            placeholder="0"
+            placeholderTextColor={colors.mutedForeground}
+            accessibilityLabel={label}
+            style={[styles.input, { color: colors.foreground }]}
+          />
+        </View>
+        <TvStepButtons
           value={value}
-          onChangeText={(text) => onChange(formatNumberInput(text, 0, numberFormat))}
-          keyboardType="number-pad"
-          placeholder="0"
-          placeholderTextColor={colors.mutedForeground}
-          accessibilityLabel={label}
-          style={[styles.input, { color: colors.foreground }]}
+          onChange={onChange}
+          label={label}
+          numberFormat={numberFormat}
         />
       </View>
       {hint ? (
@@ -259,7 +289,9 @@ function WeightCalculator({
   numberFormat: NumberFormatStyle;
 }) {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const weightFocus = useTvInputFocus();
+  const priceFocus = useTvInputFocus();
   const tint = metal === "gold" ? "#D4A017" : "#A8B0B8";
   const weightNum = parseNumberInput(weight, numberFormat);
   const pureGrams =
@@ -333,12 +365,19 @@ function WeightCalculator({
             {t(`zakat.weight.${metal}.amount`)}
           </ThemedText>
           <TextInput
+            {...weightFocus.focusProps}
             value={weight}
             onChangeText={(text) => setWeight(formatNumberInput(text, 4, numberFormat))}
             keyboardType="decimal-pad"
             placeholder="0"
             placeholderTextColor={colors.mutedForeground}
-            style={[styles.bareInput, { backgroundColor: colors.muted, color: colors.foreground }]}
+            accessibilityLabel={t(`zakat.weight.${metal}.amount`)}
+            style={[
+              styles.bareInput,
+              tokens.inputSurface,
+              { color: colors.foreground },
+              weightFocus.containerStyle,
+            ]}
           />
         </View>
         <View style={styles.weightField}>
@@ -348,12 +387,23 @@ function WeightCalculator({
               : t("zakat.weight.silver.pricePerGramFine")}
           </ThemedText>
           <TextInput
+            {...priceFocus.focusProps}
             value={price}
             onChangeText={(text) => setPrice(formatNumberInput(text, 4, numberFormat))}
             keyboardType="decimal-pad"
             placeholder="0"
             placeholderTextColor={colors.mutedForeground}
-            style={[styles.bareInput, { backgroundColor: colors.muted, color: colors.foreground }]}
+            accessibilityLabel={
+              metal === "gold"
+                ? t("zakat.weight.gold.pricePerGram24k")
+                : t("zakat.weight.silver.pricePerGramFine")
+            }
+            style={[
+              styles.bareInput,
+              tokens.inputSurface,
+              { color: colors.foreground },
+              priceFocus.containerStyle,
+            ]}
           />
         </View>
       </View>
@@ -428,6 +478,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
   );
 
   const openInfo = (sectionId: ZakatCalcSectionId) => setInfoSection(sectionId);
+  const formColumns = props.formColumns ?? 1;
 
   return (
     <View style={styles.stack}>
@@ -519,7 +570,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
               accessibilityLabel={t("zakat.market.refreshA11y")}
               onPress={props.applyLivePrices}
               disabled={marketLoading}
-              style={styles.refreshBtn}
+              style={[styles.refreshBtn, isTV() && styles.iconBtnTv]}
             >
               {marketLoading ? (
                 <ActivityIndicator size="small" color={colors.accent} />
@@ -577,7 +628,11 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
                   onPress={props.applyLivePrices}
                   accessibilityRole="button"
                   accessibilityLabel={t("zakat.market.useLiveA11y")}
-                  style={[styles.useLiveBtn, { backgroundColor: tokens.accentSoft }]}
+                  style={[
+                    styles.useLiveBtn,
+                    isTV() && styles.chipTv,
+                    { backgroundColor: tokens.accentSoft },
+                  ]}
                 >
                   <ThemedText type="caption" style={{ color: colors.accent, fontWeight: "600" }}>
                     {t("zakat.market.useLive")}
@@ -609,6 +664,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
           icon={GROUP_ICONS[group.id]}
           hint={t(`zakat.groupHint.${group.id}`)}
           onLearnMore={openInfo}
+          columns={formColumns}
         >
           {group.fieldKeys.map((key) => (
             <MoneyField
@@ -633,6 +689,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
         icon={{ ios: "scalemass", android: "scale", web: "scale" }}
         hint={t("zakat.weight.cardHint")}
         onLearnMore={openInfo}
+        columns={formColumns}
       >
         <WeightCalculator
           metal="gold"
@@ -756,6 +813,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
         icon={{ ios: "leaf.fill", android: "eco", web: "eco" }}
         hint={t("zakat.agriculture.cardHint")}
         onLearnMore={openInfo}
+        columns={formColumns}
         footer={
           props.result.agricultureDue > 0 ? (
             <MoneyText style={[styles.computed, { color: colors.accent, marginTop: Spacing.two }]}>
@@ -798,6 +856,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
         icon={{ ios: "minus.circle.fill", android: "remove_circle", web: "remove_circle" }}
         hint={t("zakat.deductionsCardHint")}
         onLearnMore={openInfo}
+        columns={formColumns}
       >
         <MoneyField
           label={t("zakat.field.debts")}
@@ -978,6 +1037,18 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
   },
+  // TV: 10-foot chip height; selection stays the soft fill, focus is the ring.
+  chipTv: { minHeight: TvLayout.chipMinHeight, justifyContent: "center" },
+  iconBtnTv: {
+    minWidth: TvLayout.chipMinHeight,
+    minHeight: TvLayout.chipMinHeight,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: Radius.md,
+  },
+  // TV: count input + remote −/+ buttons side by side.
+  tvLine: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  tvLineInput: { flex: 1 },
   computed: { fontSize: 12, fontWeight: "600" },
   irrigationBlock: { gap: Spacing.two },
   nisabSummary: {
@@ -997,8 +1068,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   currencyBadge: {
-    width: 40,
-    height: 40,
+    width: tvDp(40),
+    height: tvDp(40),
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",

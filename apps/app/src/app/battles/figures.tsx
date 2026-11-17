@@ -5,6 +5,11 @@ import {
   ContentInlineLink,
   ContentInlineLinkGroup,
 } from "@/components/content/content-inline-link";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
@@ -14,6 +19,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -32,6 +38,65 @@ export default function BattlesFiguresScreen() {
   const { focus } = useLocalSearchParams<{ focus?: string }>();
   const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const figures = getBattlesFigures();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: figure profiles flow into 2–3 columns.
+  const columns = learnColumnsFor(wide.contentWidth, { minCell: 340, gap: Spacing.four, max: 3 });
+
+  const figureCards = figures.map((figure) => {
+    const isFocused = focus === figure.id;
+    return (
+      <Card
+        key={figure.id}
+        padding="three"
+        style={isFocused ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
+      >
+        <TvReadableBlock preferredFocus={isFocused}>
+          <SectionHeader
+            title={figure.name}
+            icon={{ ios: "person.fill", android: "person", web: "person" }}
+          />
+          {figure.epithet ? (
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {figure.epithet}
+            </ThemedText>
+          ) : null}
+          <LearnProseText style={styles.summary}>{figure.summary}</LearnProseText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("battles.figureRole", { role: figure.role })}
+          </ThemedText>
+        </TvReadableBlock>
+
+        <View style={styles.battles}>
+          <ThemedText type="smallBold">{t("battles.figureBattles")}</ThemedText>
+          <ContentInlineLinkGroup>
+            {figure.battles.map((battleId) => {
+              const battle = getBattlesTopic(battleId);
+              if (!battle) return null;
+              return (
+                <ContentInlineLink
+                  key={battleId}
+                  label={battle.title}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/battles/[topic]",
+                      params: { topic: battleId },
+                    })
+                  }
+                />
+              );
+            })}
+          </ContentInlineLinkGroup>
+        </View>
+
+        <TvReadableBlock>
+          <View style={styles.lesson}>
+            <ThemedText type="smallBold">{t("battles.figureLesson")}</ThemedText>
+            <LearnProseText themeColor="mutedForeground">{figure.lesson}</LearnProseText>
+          </View>
+        </TvReadableBlock>
+      </Card>
+    );
+  });
 
   return (
     <ScreenLayout
@@ -39,6 +104,7 @@ export default function BattlesFiguresScreen() {
       title={t("battles.figuresTitle")}
       subtitle={t("battles.figuresSubtitle")}
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/battles/figures" />
       <LearnContentGate ready={contentReady}>
@@ -46,57 +112,13 @@ export default function BattlesFiguresScreen() {
           <JannahCallout tone="info">{t("battles.figuresIntro")}</JannahCallout>
 
           <LearnReadingChrome surface="battles">
-            {figures.map((figure) => {
-              const isFocused = focus === figure.id;
-              return (
-                <Card
-                  key={figure.id}
-                  padding="three"
-                  style={isFocused ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
-                >
-                  <SectionHeader
-                    title={figure.name}
-                    icon={{ ios: "person.fill", android: "person", web: "person" }}
-                  />
-                  {figure.epithet ? (
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {figure.epithet}
-                    </ThemedText>
-                  ) : null}
-                  <LearnProseText style={styles.summary}>{figure.summary}</LearnProseText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("battles.figureRole", { role: figure.role })}
-                  </ThemedText>
-
-                  <View style={styles.battles}>
-                    <ThemedText type="smallBold">{t("battles.figureBattles")}</ThemedText>
-                    <ContentInlineLinkGroup>
-                      {figure.battles.map((battleId) => {
-                        const battle = getBattlesTopic(battleId);
-                        if (!battle) return null;
-                        return (
-                          <ContentInlineLink
-                            key={battleId}
-                            label={battle.title}
-                            onPress={() =>
-                              router.push({
-                                pathname: "/battles/[topic]",
-                                params: { topic: battleId },
-                              })
-                            }
-                          />
-                        );
-                      })}
-                    </ContentInlineLinkGroup>
-                  </View>
-
-                  <View style={styles.lesson}>
-                    <ThemedText type="smallBold">{t("battles.figureLesson")}</ThemedText>
-                    <LearnProseText themeColor="mutedForeground">{figure.lesson}</LearnProseText>
-                  </View>
-                </Card>
-              );
-            })}
+            {columns > 1 ? (
+              <LearnColumnsGrid columns={columns} gap={Spacing.four}>
+                {figureCards}
+              </LearnColumnsGrid>
+            ) : (
+              figureCards
+            )}
           </LearnReadingChrome>
 
           <JannahDisclaimer textKey="battles.disclaimer" />

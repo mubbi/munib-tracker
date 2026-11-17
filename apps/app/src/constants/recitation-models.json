@@ -1,0 +1,87 @@
+{
+  "$comment": "Pinned on-device listener files (Qur'an practice). Single source of truth for the app (constants/recitation-models.ts) and the web build script (scripts/fetch-recitation-models.mjs). sha256 = GitHub release digest; md5 computed from the same verified downloads.",
+  "tilawaCoreVersion": "0.4.0",
+  "ortWebVersion": "1.24.3",
+  "engines": {
+    "tilawa-zipformer": {
+      "version": "0.4.0+zipformer-a0w-ep1-a0.5+corpus-v0.3.0",
+      "confirmedMismatchEnabled": true,
+      "supportsCorrection": true,
+      "webHosted": true,
+      "files": [
+        {
+          "fileName": "zipformer_a0w_ep1_a05.int8.onnx",
+          "url": "https://github.com/yazinsai/tilawa/releases/download/zipformer-a0w-ep1-a0.5/zipformer_a0w_ep1_a05.int8.onnx",
+          "bytes": 69246033,
+          "sha256": "bfb5b712695634a6099b45a6a78003bd5103417c4eae6338277d54679254905a",
+          "md5": "e775738a8b365b8e5298ec58ed775635",
+          "kind": "model"
+        },
+        {
+          "fileName": "zipformer_quran.json",
+          "url": "https://github.com/yazinsai/tilawa/releases/download/v0.3.0/zipformer_quran.json",
+          "bytes": 5453439,
+          "sha256": "24360c05ec88fcacf3419c1fe6cd81d69e653326a0bf0e4fb507e7b98fc88127",
+          "md5": "5b634e84c4444142ac416075113785e0",
+          "kind": "json"
+        },
+        {
+          "fileName": "NPL-1.2.txt",
+          "url": "https://github.com/yazinsai/tilawa/releases/download/zipformer-a0w-ep1-a0.5/NPL-1.2.txt",
+          "bytes": 7041,
+          "sha256": "77526bdbfac94132e5114c3a34492c33f915e4b7f310f00b9995500d3610cab5",
+          "md5": "dfffc61bae6b1c4dbfaf5ba19ad844f2",
+          "kind": "text"
+        }
+      ]
+    },
+    "tilawa-fastconformer": {
+      "version": "0.4.0+fastconformer-v0.2.0",
+      "confirmedMismatchEnabled": false,
+      "supportsCorrection": false,
+      "webHosted": false,
+      "files": [
+        {
+          "fileName": "fastconformer_full_mixed.onnx",
+          "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/fastconformer_full_mixed.onnx",
+          "bytes": 88307366,
+          "sha256": "4767182cd92975869f81a7e32700b14ca2b04e8dc97a15ff220a8697f4639488",
+          "md5": "84fee3dd9a590ee20fd3a874b84adb81",
+          "kind": "model"
+        },
+        {
+          "fileName": "vocab.json",
+          "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/vocab.json",
+          "bytes": 21062,
+          "sha256": "c55877f3bff8bc3aaefc160e8c2fb88cb349088d092513d40210ccfe535e671b",
+          "md5": "8af808a05442990a52e7622a0c350247",
+          "kind": "json"
+        },
+        {
+          "fileName": "quran_ctc_tokens.json",
+          "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/quran_ctc_tokens.json",
+          "bytes": 12211783,
+          "sha256": "96aa32d188d075598536fcbb936dc793466fce2a8da331e48f15932022f4dce8",
+          "md5": "eb0efdba069cb925b36eb12e54e39433",
+          "kind": "json"
+        },
+        {
+          "fileName": "quran.json",
+          "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/quran.json",
+          "bytes": 3186385,
+          "sha256": "6e6f31f642c701b49a1ba090311ca4c7a97c6a5b79a302712dff815a9d7b3d03",
+          "md5": "55c92e5294248a085d479da5f9b29a71",
+          "kind": "json"
+        },
+        {
+          "fileName": "export_metadata.json",
+          "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/export_metadata.json",
+          "bytes": 1130,
+          "sha256": "449588983498ff19f0efd0c9ebaf03e1b58e7e2c959bf2893297fe0533c6eae1",
+          "md5": "e53681a538d998bd677c8eb021b551dc",
+          "kind": "json"
+        }
+      ]
+    }
+  }
+}

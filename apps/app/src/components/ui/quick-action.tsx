@@ -2,6 +2,7 @@ import { StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
+import { NewBadge } from "@/components/ui/new-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
@@ -15,6 +16,10 @@ export type QuickActionItem = {
   icon: AppIconType;
   tint?: string;
   onPress?: () => void;
+  /** Show a "New" pill on the tile (recently released features). */
+  isNew?: boolean;
+  /** Accessibility label suffix for the badge, e.g. "New". */
+  newLabel?: string;
 };
 
 /** Derive a column count from viewport width so wide web/tablet fills the row. */
@@ -111,7 +116,9 @@ function QuickAction({
           symbols until the tile remounts (tab switch / scroll back). */}
       <PressableScale
         accessibilityRole="button"
-        accessibilityLabel={item.label}
+        accessibilityLabel={
+          item.isNew && item.newLabel ? `${item.label}, ${item.newLabel}` : item.label
+        }
         onPress={item.onPress}
         scaleTo={0.92}
         haptic="light"
@@ -128,6 +135,7 @@ function QuickAction({
       >
         <AppIcon icon={item.icon} size={iconSize} tintColor={tint} />
       </PressableScale>
+      {item.isNew ? <NewBadge style={styles.newBadge} /> : null}
       <ThemedText
         type="caption"
         style={[styles.label, compact && styles.labelCompact, { color: colors.foreground }]}
@@ -168,6 +176,12 @@ const styles = StyleSheet.create({
   },
   tileWrapCompact: {
     gap: Spacing.one,
+  },
+  newBadge: {
+    position: "absolute",
+    top: -6,
+    end: Spacing.one,
+    alignSelf: "auto",
   },
   iconWell: {
     borderCurve: "continuous",

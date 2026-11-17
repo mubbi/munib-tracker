@@ -7,8 +7,10 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 import type { FastStatus } from "@/stores/fasting-store";
 
 type SymbolName = SymbolViewProps["name"];
@@ -70,6 +72,10 @@ export function FastStatusSheet({
 }: FastStatusSheetProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const tv = isTV();
+  // TV: open on the current status (or "fasted" when unmarked) for one-press logging.
+  const preferredKey =
+    FAST_OPTIONS.find((option) => option.value === (currentStatus ?? null))?.key ?? "fasted";
 
   const toneColor = (tone: FastTone) =>
     tone === "muted" ? colors.mutedForeground : tokens.status[tone].color;
@@ -100,11 +106,14 @@ export function FastStatusSheet({
               accessibilityLabel={t(`fastStatusSheet.${option.key}`)}
               accessibilityState={{ selected: active }}
               onPress={() => handlePress(option.value)}
+              {...(tv && option.key === preferredKey ? { hasTVPreferredFocus: true } : {})}
               style={[
                 styles.option,
+                tv ? styles.optionTv : null,
                 {
                   backgroundColor: active ? toneSoft(option.tone) : colors.muted,
-                  borderColor: active ? color : "transparent",
+                  // TV: selected = soft fill + hairline; the thick ring is focus only.
+                  borderColor: active ? (tv ? tokens.hairline : color) : "transparent",
                 },
               ]}
             >
@@ -138,5 +147,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: 1.5,
+  },
+  optionTv: {
+    minHeight: TvLayout.minFocusTarget,
+    borderWidth: StyleSheet.hairlineWidth,
   },
 });

@@ -117,6 +117,33 @@ export default function Root({ children }: PropsWithChildren) {
                 margin: 0;
                 overflow: hidden;
               }
+              /* Keyboard users get a visible ring; mouse clicks do not. */
+              :focus:not(:focus-visible) {
+                outline: none;
+              }
+              /* Screen landmarks are focused programmatically on navigation
+                 (a11y) — never draw a ring around the whole page. */
+              [tabindex="-1"]:focus,
+              [tabindex="-1"]:focus-visible {
+                outline: none;
+              }
+              a:focus-visible,
+              button:focus-visible,
+              [role="button"]:focus-visible,
+              [role="link"]:focus-visible,
+              [role="tab"]:focus-visible,
+              [role="switch"]:focus-visible,
+              [role="checkbox"]:focus-visible,
+              [tabindex="0"]:focus-visible {
+                outline: 2px solid var(--munib-focus, #2e7d32);
+                outline-offset: 2px;
+              }
+              /* Slimmer desktop scrollbars that follow the color scheme. */
+              @media (hover: hover) and (pointer: fine) {
+                * {
+                  scrollbar-width: thin;
+                }
+              }
             `,
           }}
         />

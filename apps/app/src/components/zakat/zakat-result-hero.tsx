@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { MoneyText } from "@/components/money/money-text";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
@@ -20,7 +23,13 @@ type ZakatResultHeroProps = Pick<
   | "silverNisab"
   | "suggestedNisab"
   | "currencyCode"
->;
+> & {
+  /**
+   * Wide two-pane layout: the docked summary bar (which owns Reset) is replaced
+   * by this hero in the aside, so the hero hosts the reset action instead.
+   */
+  onReset?: () => void;
+};
 
 export function ZakatResultHero({
   result,
@@ -31,8 +40,10 @@ export function ZakatResultHero({
   silverNisab,
   suggestedNisab,
   currencyCode,
+  onReset,
 }: ZakatResultHeroProps) {
   const { t } = useTranslation();
+  const [confirmReset, setConfirmReset] = useState(false);
   const { colors, tokens } = useThemeTokens();
   const success = tokens.status.success;
   const hasDue = hasInput && result.totalDue > 0;
@@ -168,6 +179,30 @@ export function ZakatResultHero({
           ) : null}
         </View>
       ) : null}
+
+      {onReset ? (
+        <>
+          <Button
+            label={t("zakat.reset.confirm")}
+            variant="secondary"
+            size="sm"
+            icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+            disabled={!hasInput}
+            accessibilityHint={t("zakat.reset.hint")}
+            onPress={() => setConfirmReset(true)}
+            style={styles.reset}
+          />
+          <ConfirmDialog
+            visible={confirmReset}
+            title={t("zakat.reset.title")}
+            message={t("zakat.reset.message")}
+            confirmLabel={t("zakat.reset.confirm")}
+            destructive
+            onConfirm={onReset}
+            onClose={() => setConfirmReset(false)}
+          />
+        </>
+      ) : null}
     </Card>
   );
 }
@@ -189,4 +224,5 @@ const styles = StyleSheet.create({
   status: { marginTop: Spacing.two, lineHeight: 20 },
   hawl: { marginTop: Spacing.two, lineHeight: 18 },
   pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, marginTop: Spacing.three },
+  reset: { marginTop: Spacing.three, alignSelf: "flex-start" },
 });

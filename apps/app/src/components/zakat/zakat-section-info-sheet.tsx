@@ -3,11 +3,11 @@ import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Pill } from "@/components/ui/pill";
 import { Sheet } from "@/components/ui/sheet";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ZAKAT_CALC_SECTIONS, type ZakatCalcSectionId } from "@/lib/zakat-section-info";
@@ -90,28 +90,31 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
         {t("zakat.sectionInfo.educational")}
       </ThemedText>
 
-      <ThemedText type="small" style={[styles.body, { color: colors.foreground }]}>
-        {t(`zakat.sectionInfo.${sectionId}.body`)}
-      </ThemedText>
+      <TvReadableBlock>
+        <ThemedText type="small" style={[styles.body, { color: colors.foreground }]}>
+          {t(`zakat.sectionInfo.${sectionId}.body`)}
+        </ThemedText>
+      </TvReadableBlock>
 
       {refs.quran.length > 0 ? (
         <View style={styles.block}>
           <ThemedText type="smallBold">{t("jannah.quranTitle")}</ThemedText>
           {refs.quran.map((item) => (
-            <View
-              key={item.label}
-              style={[
-                styles.quote,
-                { backgroundColor: tokens.accentSoft, borderLeftColor: colors.accent },
-              ]}
-            >
-              <ThemedText type="caption" style={{ color: colors.accent, fontWeight: "700" }}>
-                {item.label}
-              </ThemedText>
-              <ThemedText type="small" style={{ color: colors.foreground, lineHeight: 20 }}>
-                {item.excerpt}
-              </ThemedText>
-            </View>
+            <TvReadableBlock key={item.label}>
+              <View
+                style={[
+                  styles.quote,
+                  { backgroundColor: tokens.accentSoft, borderLeftColor: colors.accent },
+                ]}
+              >
+                <ThemedText type="caption" style={{ color: colors.accent, fontWeight: "700" }}>
+                  {item.label}
+                </ThemedText>
+                <ThemedText type="small" style={{ color: colors.foreground, lineHeight: 20 }}>
+                  {item.excerpt}
+                </ThemedText>
+              </View>
+            </TvReadableBlock>
           ))}
         </View>
       ) : null}
@@ -120,24 +123,26 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
         <View style={styles.block}>
           <ThemedText type="smallBold">{t("jannah.hadithTitle")}</ThemedText>
           {refs.hadith.map((item) => (
-            <View key={item.label} style={[styles.quoteMuted, { backgroundColor: colors.muted }]}>
-              <View style={styles.hadithTop}>
-                <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
-                  {item.label}
+            <TvReadableBlock key={item.label}>
+              <View style={[styles.quoteMuted, { backgroundColor: colors.muted }]}>
+                <View style={styles.hadithTop}>
+                  <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
+                    {item.label}
+                  </ThemedText>
+                  {item.grade ? (
+                    <Pill
+                      label={t(`jannah.grade.${item.grade}`)}
+                      compact
+                      color={tokens.status.success.color}
+                      background={tokens.status.success.soft}
+                    />
+                  ) : null}
+                </View>
+                <ThemedText type="small" themeColor="mutedForeground" style={{ lineHeight: 20 }}>
+                  {item.excerpt}
                 </ThemedText>
-                {item.grade ? (
-                  <Pill
-                    label={t(`jannah.grade.${item.grade}`)}
-                    compact
-                    color={tokens.status.success.color}
-                    background={tokens.status.success.soft}
-                  />
-                ) : null}
               </View>
-              <ThemedText type="small" themeColor="mutedForeground" style={{ lineHeight: 20 }}>
-                {item.excerpt}
-              </ThemedText>
-            </View>
+            </TvReadableBlock>
           ))}
         </View>
       ) : null}

@@ -1,6 +1,11 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -9,6 +14,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { ensureLastDayContent, getLastDayReferences, isLastDayContentReady } from "@/lib/last-day";
@@ -19,6 +25,9 @@ export default function LastDayReferencesScreen() {
   const { t } = useTranslation();
   const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const references = getLastDayReferences();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: references flow into 2–3 columns.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 280, max: 3 });
 
   return (
     <ScreenLayout
@@ -26,6 +35,7 @@ export default function LastDayReferencesScreen() {
       title={t("lastDay.referencesTitle")}
       subtitle={t("lastDay.referencesSubtitle")}
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/references" />
       <LearnContentGate ready={contentReady}>
@@ -37,16 +47,18 @@ export default function LastDayReferencesScreen() {
               title={t("lastDay.referencesListTitle")}
               icon={{ ios: "books.vertical.fill", android: "library_books", web: "library_books" }}
             />
-            <View style={styles.list}>
+            <LearnColumnsGrid columns={columns} gap={Spacing.four} style={styles.list}>
               {references.map((ref) => (
-                <View key={ref.id} style={styles.item}>
-                  <ThemedText type="smallBold">{ref.title}</ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground" style={styles.note}>
-                    {ref.note}
-                  </ThemedText>
-                </View>
+                <TvReadableBlock key={ref.id}>
+                  <View style={styles.item}>
+                    <ThemedText type="smallBold">{ref.title}</ThemedText>
+                    <ThemedText type="caption" themeColor="mutedForeground" style={styles.note}>
+                      {ref.note}
+                    </ThemedText>
+                  </View>
+                </TvReadableBlock>
               ))}
-            </View>
+            </LearnColumnsGrid>
           </Card>
 
           <JannahDisclaimer textKey="lastDay.disclaimer" />
@@ -57,7 +69,7 @@ export default function LastDayReferencesScreen() {
 }
 
 const styles = StyleSheet.create({
-  list: { marginTop: Spacing.three, gap: Spacing.four },
+  list: { marginTop: Spacing.three },
   item: { gap: Spacing.one },
   note: { lineHeight: 18 },
 });

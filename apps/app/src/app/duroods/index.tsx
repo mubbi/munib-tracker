@@ -144,19 +144,27 @@ export default function DuroodsScreen() {
     [favoriteSet, locale, router, t, toggle],
   );
 
+  const savedCard = useMemo(
+    () => (
+      <SavedNavCard
+        title={t("duroods.favorites")}
+        viewLabel={t("duroods.favorites")}
+        count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
+        headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
+        rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+        onPress={() => router.push("/duroods/favorites")}
+      />
+    ),
+    [favoriteIds.length, router, t],
+  );
+
   const listHeader = useMemo(
     () => (
       <View style={styles.listHeader} onLayout={onHeaderCardLayout}>
-        <SavedNavCard
-          title={t("duroods.favorites")}
-          viewLabel={t("duroods.favorites")}
-          count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
-          headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
-          rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
-          onPress={() => router.push("/duroods/favorites")}
-        />
+        {/* Wide web / tablets: saved duroods live in the aside instead. */}
+        {showSideFilters ? null : savedCard}
         <Card padding="three">
-          <View style={[styles.searchBox, { backgroundColor: colors.muted }]}>
+          <View style={[styles.searchBox, tokens.inputSurface]}>
             <SymbolView
               name={{ ios: "magnifyingglass", android: "search", web: "search" }}
               size={17}
@@ -179,14 +187,13 @@ export default function DuroodsScreen() {
     ),
     [
       colors.foreground,
-      colors.muted,
       colors.mutedForeground,
-      favoriteIds.length,
+      savedCard,
       showSideFilters,
       onHeaderCardLayout,
       query,
-      router,
       t,
+      tokens.inputSurface,
     ],
   );
 
@@ -282,6 +289,7 @@ export default function DuroodsScreen() {
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
             >
+              {savedCard}
               <ScriptureReadingFilters />
             </TvScrollView>
           </View>

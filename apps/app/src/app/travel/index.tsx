@@ -1,5 +1,6 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,6 +12,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 export default function TravelGuideScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const wide = useLearnHubLayout();
 
   return (
     <ScreenLayout
@@ -18,6 +20,7 @@ export default function TravelGuideScreen() {
       title={t("travel.title")}
       subtitle={t("travel.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.twoPane ? wide.maxContentWidth : undefined}
     >
       <Seo path="/travel" />
       <LearnReadingChrome surface="jannah">

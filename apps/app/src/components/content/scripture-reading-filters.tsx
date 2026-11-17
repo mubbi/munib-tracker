@@ -138,6 +138,7 @@ export function ScriptureReadingToolbar({
 }: ScriptureReadingToolbarProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const scrollRef = useHorizontalWheelScroll();
   const fullscreen = useReadingFullscreen({ exitOnBlur: true });
   const { showTransliteration, showTranslation } = useReadingTextVisibility();
@@ -166,23 +167,30 @@ export function ScriptureReadingToolbar({
         animatedStyle,
       ]}
     >
-      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-        <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
-      </View>
+      {/* TV: skip the live blur (expensive on Fire TV sticks) — opaque card wash. */}
+      {!tv ? (
+        <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+          <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+        </View>
+      ) : null}
       <View
         style={[
           StyleSheet.absoluteFill,
           {
             pointerEvents: "none",
-            backgroundColor: withAlpha(
-              colors.card,
-              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
-            ),
+            backgroundColor: tv
+              ? colors.card
+              : withAlpha(
+                  colors.card,
+                  hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
+                ),
           },
         ]}
       />
       <View style={styles.row}>
-        {showBackToTop && onBackToTop ? (
+        {/* TV: back-to-top scrolls away from the focused card, stranding focus
+            off-screen — remote users press Up instead. */}
+        {showBackToTop && onBackToTop && !tv ? (
           <PressableScale
             haptic="light"
             accessibilityRole="button"
@@ -197,7 +205,9 @@ export function ScriptureReadingToolbar({
             />
           </PressableScale>
         ) : null}
-        <TvFocusGuide trapFocusUp trapFocusDown>
+        {/* Horizontal chip row: never trap Up/Down — Down must reach the reading
+            content below (a vertical trap here was a TV dead end). */}
+        <TvFocusGuide>
           <TvScrollView
             ref={scrollRef}
             horizontal
@@ -277,10 +287,12 @@ export function ScriptureReaderChrome({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const fullscreen = useReadingFullscreen({ exitOnBlur: true });
+  const tv = isTV();
 
   return (
     <View style={styles.readerChromeRow}>
-      {toolbarVisible ? (
+      {/* TV: hidden — scrolling to top strands D-pad focus off-screen. */}
+      {toolbarVisible && !tv ? (
         <PressableScale
           haptic="light"
           accessibilityRole="button"
@@ -380,8 +392,9 @@ function PrefToggle({
         style={[
           styles.prefToggleTv,
           {
+            // On = soft fill + muted hairline; the solid accent ring is D-pad focus.
             backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-            borderColor: enabled ? colors.accent : tokens.hairline,
+            borderColor: enabled ? withAlpha(colors.accent, 0.35) : tokens.hairline,
           },
         ]}
       >
@@ -446,6 +459,7 @@ function ToggleChip({
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const tint = enabled ? colors.accent : colors.mutedForeground;
   return (
     <PressableScale
@@ -456,14 +470,23 @@ function ToggleChip({
       onPress={onPress}
       style={[
         styles.chip,
+        tv && styles.chipTv,
         {
           backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-          borderColor: enabled ? colors.accent : "transparent",
+          borderColor: enabled
+            ? tv
+              ? withAlpha(colors.accent, 0.35)
+              : colors.accent
+            : "transparent",
         },
       ]}
     >
-      <SymbolView name={icon} size={16} tintColor={tint} />
-      <ThemedText type="smallBold" numberOfLines={1} style={{ color: tint }}>
+      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
+      <ThemedText
+        type="smallBold"
+        numberOfLines={1}
+        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
+      >
         {label}
       </ThemedText>
     </PressableScale>
@@ -570,6 +593,12 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: 1,
     borderColor: "transparent",
+  },
+  chipTv: {
+    maxWidth: 280,
+    minHeight: TvLayout.chipMinHeight,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
   },
   fontChip: {
     flexDirection: "row",

@@ -11,8 +11,11 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Fonts, Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   ARABIC_FONT_OPTIONS,
   arabicReadingLayout,
@@ -52,6 +55,8 @@ export default function FontsScreen() {
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
   const sizeLabel = (id: SizeId) => t(`fonts.${SIZE_LABEL_KEY[id]}`);
+  const tv = isTV();
+  const { isListDetail } = useLargeScreenLayout();
 
   // Register Arabic picker faces only when this screen opens (dynamic import keeps TTFs out of `__common`).
   useEffect(() => {
@@ -84,6 +89,109 @@ export default function FontsScreen() {
     });
   };
 
+  const preview = (
+    <Card variant="muted" style={styles.preview}>
+      <ThemedText type="label" themeColor="mutedForeground">
+        {t("fonts.preview")}
+      </ThemedText>
+      <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
+        سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
+      </ThemedText>
+      <ThemedText style={{ fontSize: translationSize, lineHeight: translationSize * 1.5 }}>
+        {t("fonts.sampleTranslation")}
+      </ThemedText>
+    </Card>
+  );
+
+  // Array (not a fragment) so phone Stagger still cascades each card.
+  const controls = [
+    <Card padding="three" key="family">
+      <ThemedText type="smallBold" style={styles.label}>
+        {t("fonts.arabicFamilyTitle")}
+      </ThemedText>
+      <View style={styles.familyList}>
+        {ARABIC_FONT_OPTIONS.map((option) => {
+          const selected = option.id === arabicFamily;
+          return (
+            <PressableScale
+              key={option.id}
+              haptic="selection"
+              accessibilityRole="button"
+              accessibilityState={{ selected }}
+              accessibilityLabel={t(option.labelKey)}
+              {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
+              onPress={() => setArabicFamily(option.id)}
+              style={[
+                styles.familyRow,
+                tv && styles.familyRowTv,
+                { backgroundColor: selected ? tokens.accentSoft : colors.muted },
+              ]}
+            >
+              <View style={styles.familyBody}>
+                <ThemedText type="small">{t(option.labelKey)}</ThemedText>
+                <ThemedText
+                  style={[
+                    styles.familySample,
+                    arabicReadingLayout(20),
+                    {
+                      fontFamily: option.fontFamily ?? Fonts.serif,
+                      lineHeight: resolveArabicLineHeight(20, option.id),
+                    },
+                  ]}
+                  numberOfLines={1}
+                >
+                  بِسْمِ اللَّهِ
+                </ThemedText>
+              </View>
+              {selected ? (
+                <SymbolView
+                  name={{
+                    ios: "checkmark.circle.fill",
+                    android: "check_circle",
+                    web: "check_circle",
+                  }}
+                  size={20}
+                  tintColor={colors.accent}
+                />
+              ) : null}
+            </PressableScale>
+          );
+        })}
+      </View>
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.familyHint}>
+        {t("fonts.arabicFamilyHint")}
+      </ThemedText>
+    </Card>,
+    <Card padding="three" key="arabicSize">
+      <ThemedText type="smallBold" style={styles.label}>
+        {t("fonts.arabicText")}
+      </ThemedText>
+      <SegmentedControl<SizeId>
+        options={ARABIC_SIZES.map((s) => ({ id: s.id, label: sizeLabel(s.id) }))}
+        value={idForSize(ARABIC_SIZES, arabicSize, "m")}
+        onChange={setArabic}
+      />
+    </Card>,
+    <Card padding="three" key="translationSize">
+      <ThemedText type="smallBold" style={styles.label}>
+        {t("fonts.translationText")}
+      </ThemedText>
+      <SegmentedControl<SizeId>
+        options={TEXT_SIZES.map((s) => ({ id: s.id, label: sizeLabel(s.id) }))}
+        value={idForSize(TEXT_SIZES, translationSize, "m")}
+        onChange={setTranslation}
+      />
+    </Card>,
+    <ThemedText
+      key="footer"
+      type="caption"
+      themeColor="mutedForeground"
+      style={{ color: tokens.status.info.color }}
+    >
+      {t("fonts.footer")}
+    </ThemedText>,
+  ];
+
   return (
     <ScreenLayout
       eyebrow={t("fonts.eyebrow")}
@@ -92,105 +200,20 @@ export default function FontsScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/settings/fonts" />
-      <Stagger>
-        <Card variant="muted" style={styles.preview}>
-          <ThemedText type="label" themeColor="mutedForeground">
-            {t("fonts.preview")}
-          </ThemedText>
-          <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
-            سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
-          </ThemedText>
-          <ThemedText style={{ fontSize: translationSize, lineHeight: translationSize * 1.5 }}>
-            {t("fonts.sampleTranslation")}
-          </ThemedText>
-        </Card>
-
-        <Card padding="three">
-          <ThemedText type="smallBold" style={styles.label}>
-            {t("fonts.arabicFamilyTitle")}
-          </ThemedText>
-          <View style={styles.familyList}>
-            {ARABIC_FONT_OPTIONS.map((option) => {
-              const selected = option.id === arabicFamily;
-              return (
-                <PressableScale
-                  key={option.id}
-                  haptic="selection"
-                  accessibilityRole="button"
-                  accessibilityState={{ selected }}
-                  accessibilityLabel={t(option.labelKey)}
-                  onPress={() => setArabicFamily(option.id)}
-                  style={[
-                    styles.familyRow,
-                    { backgroundColor: selected ? tokens.accentSoft : colors.muted },
-                  ]}
-                >
-                  <View style={styles.familyBody}>
-                    <ThemedText type="small">{t(option.labelKey)}</ThemedText>
-                    <ThemedText
-                      style={[
-                        styles.familySample,
-                        arabicReadingLayout(20),
-                        {
-                          fontFamily: option.fontFamily ?? Fonts.serif,
-                          lineHeight: resolveArabicLineHeight(20, option.id),
-                        },
-                      ]}
-                      numberOfLines={1}
-                    >
-                      بِسْمِ اللَّهِ
-                    </ThemedText>
-                  </View>
-                  {selected ? (
-                    <SymbolView
-                      name={{
-                        ios: "checkmark.circle.fill",
-                        android: "check_circle",
-                        web: "check_circle",
-                      }}
-                      size={20}
-                      tintColor={colors.accent}
-                    />
-                  ) : null}
-                </PressableScale>
-              );
-            })}
-          </View>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.familyHint}>
-            {t("fonts.arabicFamilyHint")}
-          </ThemedText>
-        </Card>
-
-        <Card padding="three">
-          <ThemedText type="smallBold" style={styles.label}>
-            {t("fonts.arabicText")}
-          </ThemedText>
-          <SegmentedControl<SizeId>
-            options={ARABIC_SIZES.map((s) => ({ id: s.id, label: sizeLabel(s.id) }))}
-            value={idForSize(ARABIC_SIZES, arabicSize, "m")}
-            onChange={setArabic}
-          />
-        </Card>
-
-        <Card padding="three">
-          <ThemedText type="smallBold" style={styles.label}>
-            {t("fonts.translationText")}
-          </ThemedText>
-          <SegmentedControl<SizeId>
-            options={TEXT_SIZES.map((s) => ({ id: s.id, label: sizeLabel(s.id) }))}
-            value={idForSize(TEXT_SIZES, translationSize, "m")}
-            onChange={setTranslation}
-          />
-        </Card>
-
-        <ThemedText
-          type="caption"
-          themeColor="mutedForeground"
-          style={{ color: tokens.status.info.color }}
-        >
-          {t("fonts.footer")}
-        </ThemedText>
-      </Stagger>
+      {tv || isListDetail ? (
+        // TV list–detail: controls on the start column, a live preview pinned beside
+        // them so it stays visible while the D-pad walks the options. Wide web /
+        // tablets reuse it so the preview sits beside the controls it reflects.
+        <View style={styles.tvColumns}>
+          <View style={styles.tvControls}>{controls}</View>
+          <View style={styles.tvPreview}>{preview}</View>
+        </View>
+      ) : (
+        <Stagger>
+          {preview}
+          {controls}
+        </Stagger>
+      )}
     </ScreenLayout>
   );
 }
@@ -217,4 +240,8 @@ const styles = StyleSheet.create({
   familyBody: { flex: 1, gap: 2 },
   familySample: { writingDirection: "rtl" },
   familyHint: { marginTop: Spacing.three },
+  familyRowTv: { minHeight: TvLayout.minFocusTarget },
+  tvColumns: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  tvControls: { flex: 3, minWidth: 0, gap: Spacing.four },
+  tvPreview: { flex: 2, minWidth: 0 },
 });

@@ -4,6 +4,11 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
@@ -14,6 +19,7 @@ import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -37,6 +43,9 @@ export default function JahannamHadithScreen() {
   const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const { sizes } = useReadingTypography();
   const entries = getJahannamHadith();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: hadith quotes flow into 2–3 columns per theme.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 3 });
 
   const grouped = useMemo(() => {
     const map = new Map<string, typeof entries>();
@@ -55,6 +64,7 @@ export default function JahannamHadithScreen() {
       title={t("jahannam.hadithTitle")}
       subtitle={t("jahannam.hadithSubtitle")}
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/hadith" />
       <LearnContentGate ready={contentReady}>
@@ -70,11 +80,15 @@ export default function JahannamHadithScreen() {
                     title={t(`jahannam.hadithTheme.${theme}`)}
                     icon={THEME_ICONS[theme]}
                   />
-                  <View style={styles.list}>
+                  <LearnColumnsGrid columns={columns} gap={Spacing.three} style={styles.list}>
                     {items.map((entry) => (
                       <View
                         key={entry.id}
-                        style={[styles.quote, { backgroundColor: tokens.accentSoft }]}
+                        style={[
+                          styles.quote,
+                          columns > 1 && styles.quoteFill,
+                          { backgroundColor: tokens.accentSoft },
+                        ]}
                       >
                         <View style={styles.quoteMeta}>
                           <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
@@ -95,25 +109,27 @@ export default function JahannamHadithScreen() {
                             />
                           </View>
                         </View>
-                        <ThemedText
-                          type="small"
-                          themeColor="mutedForeground"
-                          style={{
-                            fontSize: sizes.translation,
-                            lineHeight: sizes.translation * 1.45,
-                            fontStyle: "italic",
-                          }}
-                        >
-                          "{entry.hadith.excerpt}"
-                        </ThemedText>
-                        {entry.context ? (
-                          <ThemedText type="caption" themeColor="mutedForeground">
-                            {entry.context}
+                        <TvReadableBlock>
+                          <ThemedText
+                            type="small"
+                            themeColor="mutedForeground"
+                            style={{
+                              fontSize: sizes.translation,
+                              lineHeight: sizes.translation * 1.45,
+                              fontStyle: "italic",
+                            }}
+                          >
+                            "{entry.hadith.excerpt}"
                           </ThemedText>
-                        ) : null}
+                          {entry.context ? (
+                            <ThemedText type="caption" themeColor="mutedForeground">
+                              {entry.context}
+                            </ThemedText>
+                          ) : null}
+                        </TvReadableBlock>
                       </View>
                     ))}
-                  </View>
+                  </LearnColumnsGrid>
                 </Card>
               );
             })}
@@ -126,7 +142,8 @@ export default function JahannamHadithScreen() {
 }
 
 const styles = StyleSheet.create({
-  list: { marginTop: Spacing.two, gap: Spacing.three },
+  list: { marginTop: Spacing.two },
+  quoteFill: { flexGrow: 1 },
   quote: {
     padding: Spacing.three,
     borderRadius: Radius.md,

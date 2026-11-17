@@ -1,8 +1,10 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { BattlesTopicContent } from "@/components/battles/topic-content";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -18,7 +20,11 @@ import {
 } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
-import { useEnsureBattlesProgressLoaded } from "@/stores/battles-progress-store";
+import {
+  battlesProgressStore,
+  useEnsureBattlesProgressLoaded,
+} from "@/stores/battles-progress-store";
+import { useStore } from "@/stores/create-store";
 
 export function generateStaticParams(): Array<{ topic: string }> {
   return getBattlesTopics().map((tpc) => ({ topic: tpc.id }));
@@ -28,6 +34,9 @@ export default function BattlesTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
+  const completedIds = useStore(battlesProgressStore, (s) => s.completedTopicIds);
   const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const topic = getBattlesTopic(topicId);
   const reportRef = useGuideContentReportRef("battles", topic, "/battles");
@@ -48,6 +57,7 @@ export default function BattlesTopicScreen() {
       title={topic?.title ?? t("battles.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -79,12 +89,24 @@ export default function BattlesTopicScreen() {
           onAction={() => router.replace("/battles" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="battles">
-            <BattlesTopicContent topic={topic} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="battles.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("battles.title")}
+              basePath="/battles"
+              topics={getBattlesTopics()}
+              currentId={topic.id}
+              completedIds={completedIds}
+            />
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="battles">
+              <BattlesTopicContent topic={topic} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="battles.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

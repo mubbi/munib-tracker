@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { apiAuthHeaders } from "@/api/auth-options";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -23,10 +23,12 @@ import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { resolveArabicLineHeight } from "@/lib/reading-typography";
 import { arabicTextAlign, useIsRTL } from "@/lib/rtl";
 import { createCustomAdhkarSearch } from "@/lib/search";
@@ -65,6 +67,10 @@ export default function AdhkarBuilderScreen() {
   const arabicFontFamily = useArabicFontFamily();
   const arabicInputLineHeight = resolveArabicLineHeight(20, fontPrefs.arabic.family);
   const rtl = useIsRTL();
+  const tv = isTV();
+  const { width: windowWidth } = useWindowDimensions();
+  // Wide web / tablets: list beside an inline editor + live preview (no sheet).
+  const wide = !tv && windowWidth >= 1024;
   const { isAuthenticated, session } = useAuth();
   const toast = useToast();
   useEnsureCustomAdhkarLoaded();
@@ -307,10 +313,10 @@ export default function AdhkarBuilderScreen() {
                   ]
                 : null,
               {
-                backgroundColor: colors.muted,
+                backgroundColor: colors.input,
                 color: colors.foreground,
-                borderWidth: listeningHere ? 1.5 : 0,
-                borderColor: listeningHere ? colors.accent : "transparent",
+                borderWidth: listeningHere ? 1.5 : 1,
+                borderColor: listeningHere ? colors.accent : colors.inputBorder,
               },
             ]}
           />
@@ -334,14 +340,77 @@ export default function AdhkarBuilderScreen() {
     );
   };
 
-  return (
-    <ScreenLayout
-      eyebrow={t("customAdhkar.eyebrow")}
-      title={t("customAdhkar.title")}
-      subtitle={t("customAdhkar.subtitle")}
-      onBack={() => goBackOrReplace(router, "/zikr")}
-    >
-      <Seo path="/adhkar-builder" />
+  const formFields = (
+    <>
+      {input("title", "customAdhkar.field.title")}
+      {input("arabic", "customAdhkar.field.arabic", { multiline: true, rtl: true })}
+      {input("transliteration", "customAdhkar.field.transliteration", { multiline: true })}
+      {input("translation", "customAdhkar.field.translation", { multiline: true })}
+      {input("reference", "customAdhkar.field.reference")}
+      <CustomAdhkarAttachments
+        attachments={draftAttachments}
+        onChange={setDraftAttachments}
+        canUpload={isAuthenticated}
+      />
+    </>
+  );
+
+  const saveButton = (
+    <Button
+      label={saving ? t("customAdhkar.attachments.uploading") : t("common.save")}
+      fullWidth
+      disabled={!canSave}
+      onPress={() => void save()}
+      style={styles.saveButton}
+    />
+  );
+
+  const hasPreview = Boolean(
+    draft.arabic?.trim() ||
+      draft.transliteration?.trim() ||
+      draft.translation?.trim() ||
+      draft.reference?.trim(),
+  );
+
+  // Wide web: the editor is always on screen — a fresh draft, or the row being edited.
+  const editorPanel = (
+    <View style={styles.editorStack}>
+      <Card padding="four">
+        <ThemedText type="subtitle" style={styles.sheetTitle}>
+          {isEditing ? t("customAdhkar.editTitle") : t("customAdhkar.newTitle")}
+        </ThemedText>
+        {formFields}
+        {saveButton}
+        {isEditing ? (
+          <Button
+            label={t("common.cancel")}
+            variant="ghost"
+            fullWidth
+            disabled={saving}
+            onPress={resetForm}
+            style={styles.saveButton}
+          />
+        ) : null}
+      </Card>
+      {hasPreview ? (
+        <Card padding="four">
+          {draft.title.trim() ? (
+            <ThemedText type="smallBold" style={styles.previewTitle}>
+              {draft.title}
+            </ThemedText>
+          ) : null}
+          <ReadingCard
+            item={{ ...draft, arabic: draft.arabic ?? "", translation: draft.translation ?? "" }}
+            enableContextMenu={false}
+            framed={false}
+          />
+        </Card>
+      ) : null}
+    </View>
+  );
+
+  const listSection = (
+    <>
       <Button
         label={t("customAdhkar.add")}
         icon={{ ios: "plus", android: "add", web: "add" }}
@@ -352,7 +421,7 @@ export default function AdhkarBuilderScreen() {
 
       {items.length > 0 ? (
         <Card padding="three" style={styles.searchCard}>
-          <View style={[styles.searchBox, { backgroundColor: colors.muted }]}>
+          <View style={[styles.searchBox, tokens.inputSurface]}>
             <SymbolView
               name={{ ios: "magnifyingglass", android: "search", web: "search" }}
               size={17}
@@ -418,6 +487,7 @@ export default function AdhkarBuilderScreen() {
                       background={tokens.accentSoft}
                       accessibilityLabel={t("common.edit")}
                       onPress={() => openEdit(item)}
+                      hitTarget={tv ? TvLayout.minFocusTarget : undefined}
                     />
                     <IconButton
                       name={{ ios: "trash", android: "delete", web: "delete" }}
@@ -427,6 +497,7 @@ export default function AdhkarBuilderScreen() {
                       accessibilityLabel={t("customAdhkar.delete")}
                       haptic="warning"
                       onPress={() => setPendingDelete(item)}
+                      hitTarget={tv ? TvLayout.minFocusTarget : undefined}
                     />
                   </View>
                 </View>
@@ -452,9 +523,28 @@ export default function AdhkarBuilderScreen() {
           })}
         </Stagger>
       )}
+    </>
+  );
+
+  return (
+    <ScreenLayout
+      eyebrow={t("customAdhkar.eyebrow")}
+      title={t("customAdhkar.title")}
+      subtitle={t("customAdhkar.subtitle")}
+      onBack={() => goBackOrReplace(router, "/zikr")}
+    >
+      <Seo path="/adhkar-builder" />
+      {wide ? (
+        <View style={styles.wideRoot}>
+          <View style={styles.wideList}>{listSection}</View>
+          <View style={styles.wideEditor}>{editorPanel}</View>
+        </View>
+      ) : (
+        listSection
+      )}
 
       <Sheet
-        visible={formOpen}
+        visible={formOpen && !wide}
         onClose={() => {
           if (saving) return;
           setFormOpen(false);
@@ -473,24 +563,9 @@ export default function AdhkarBuilderScreen() {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {input("title", "customAdhkar.field.title")}
-          {input("arabic", "customAdhkar.field.arabic", { multiline: true, rtl: true })}
-          {input("transliteration", "customAdhkar.field.transliteration", { multiline: true })}
-          {input("translation", "customAdhkar.field.translation", { multiline: true })}
-          {input("reference", "customAdhkar.field.reference")}
-          <CustomAdhkarAttachments
-            attachments={draftAttachments}
-            onChange={setDraftAttachments}
-            canUpload={isAuthenticated}
-          />
+          {formFields}
         </TvScrollView>
-        <Button
-          label={saving ? t("customAdhkar.attachments.uploading") : t("common.save")}
-          fullWidth
-          disabled={!canSave}
-          onPress={() => void save()}
-          style={styles.saveButton}
-        />
+        {saveButton}
       </Sheet>
 
       <ConfirmDialog
@@ -513,6 +588,11 @@ export default function AdhkarBuilderScreen() {
 }
 
 const styles = StyleSheet.create({
+  wideRoot: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  wideList: { flex: 1, minWidth: 0 },
+  wideEditor: { width: 460, flexShrink: 0 },
+  editorStack: { gap: Spacing.three },
+  previewTitle: { marginBottom: Spacing.two },
   addButton: { marginBottom: Spacing.three },
   searchCard: { marginBottom: Spacing.three },
   searchBox: {

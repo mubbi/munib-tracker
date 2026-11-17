@@ -10,6 +10,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Spacing } from "@/constants/theme";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useAuth } from "@/providers/auth-provider";
@@ -32,6 +33,7 @@ export default function TvPairScreen() {
   const [error, setError] = useState<string | null>(null);
   const claimedRef = useRef(false);
   const tv = isTV();
+  const { isWide } = useLargeScreenLayout();
 
   const claim = useCallback(async () => {
     if (!code || !session?.accessToken || claimedRef.current) return;
@@ -64,9 +66,18 @@ export default function TvPairScreen() {
   if (tv) {
     return (
       <ScreenLayout title={t("tv.qrTitle")} onBack={() => goBackOrReplace(router, "/login")}>
-        <ThemedText type="small" themeColor="mutedForeground">
-          {t("tv.qrPhoneOnly")}
-        </ThemedText>
+        <View style={styles.body}>
+          <ThemedText type="small" themeColor="mutedForeground">
+            {t("tv.qrPhoneOnly")}
+          </ThemedText>
+          {/* Something must hold D-pad focus — jump to the TV QR sign-in panel. */}
+          <Button
+            label={t("tv.qrTitle")}
+            fullWidth
+            preferredFocus
+            onPress={() => router.replace("/login")}
+          />
+        </View>
       </ScreenLayout>
     );
   }
@@ -77,6 +88,8 @@ export default function TvPairScreen() {
       title={t("tv.qrPhoneTitle")}
       subtitle={code ? t("tv.qrPhoneSubtitle", { code }) : t("tv.qrMissingCode")}
       onBack={() => goBackOrReplace(router, "/")}
+      // Wide web: align the header with the 420px claim column below.
+      maxContentWidth={isWide ? PAIR_COLUMN_MAX_WIDTH + Spacing.four * 2 : undefined}
     >
       <Seo
         path="/tv-pair"
@@ -141,10 +154,12 @@ export default function TvPairScreen() {
   );
 }
 
+const PAIR_COLUMN_MAX_WIDTH = 420;
+
 const styles = StyleSheet.create({
   body: {
     gap: Spacing.four,
-    maxWidth: 420,
+    maxWidth: PAIR_COLUMN_MAX_WIDTH,
     alignSelf: "center",
     width: "100%",
   },

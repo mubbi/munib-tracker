@@ -1,0 +1,242 @@
+{
+  "en": {
+    "quranCompanion.view.title": "View",
+    "quranCompanion.view.mushafCoarse": "Word marks in the mushaf need the word list. Connect once to download it — the ayahs still show.",
+    "quranCompanion.range.fromAyah": "From ayah",
+    "quranCompanion.range.toAyah": "To ayah",
+    "quranCompanion.range.increase": "Increase {{label}}",
+    "quranCompanion.range.decrease": "Decrease {{label}}",
+    "quranCompanion.hub.recentTitle": "Recent",
+    "quranCompanion.hub.recentHint": "Starts this passage again in the same mode"
+  },
+  "ar": {
+    "quranCompanion.view.title": "طريقة العرض",
+    "quranCompanion.view.mushafCoarse": "تحتاج علامات الكلمات في المصحف إلى قائمة الكلمات. اتصل بالإنترنت مرة واحدة لتنزيلها، وستظل الآيات معروضة.",
+    "quranCompanion.range.fromAyah": "من الآية",
+    "quranCompanion.range.toAyah": "إلى الآية",
+    "quranCompanion.range.increase": "زيادة {{label}}",
+    "quranCompanion.range.decrease": "إنقاص {{label}}",
+    "quranCompanion.hub.recentTitle": "الأخيرة",
+    "quranCompanion.hub.recentHint": "يبدأ هذا المقطع من جديد بالوضع نفسه"
+  },
+  "ur": {
+    "quranCompanion.view.title": "انداز",
+    "quranCompanion.view.mushafCoarse": "مصحف میں الفاظ کے نشانات کے لیے الفاظ کی فہرست درکار ہے۔ اسے ڈاؤن لوڈ کرنے کے لیے ایک بار انٹرنیٹ سے جڑیں، آیات پھر بھی نظر آئیں گی۔",
+    "quranCompanion.range.fromAyah": "آیت سے",
+    "quranCompanion.range.toAyah": "آیت تک",
+    "quranCompanion.range.increase": "{{label}} بڑھائیں",
+    "quranCompanion.range.decrease": "{{label}} کم کریں",
+    "quranCompanion.hub.recentTitle": "حالیہ",
+    "quranCompanion.hub.recentHint": "یہ حصہ اسی انداز میں دوبارہ شروع ہوگا"
+  },
+  "az": {
+    "quranCompanion.view.title": "Görünüş",
+    "quranCompanion.view.mushafCoarse": "Mushafda söz işarələri üçün söz siyahısı lazımdır. Onu yükləmək üçün bir dəfə qoşulun — ayələr yenə göstərilir.",
+    "quranCompanion.range.fromAyah": "Ayədən",
+    "quranCompanion.range.toAyah": "Ayəyə qədər",
+    "quranCompanion.range.increase": "{{label}} artır",
+    "quranCompanion.range.decrease": "{{label}} azalt",
+    "quranCompanion.hub.recentTitle": "Son",
+    "quranCompanion.hub.recentHint": "Bu hissəni eyni rejimdə yenidən başladır"
+  },
+  "bn": {
+    "quranCompanion.view.title": "দৃশ্য",
+    "quranCompanion.view.mushafCoarse": "মুসহাফে শব্দ চিহ্নের জন্য শব্দ তালিকা লাগবে। এটি ডাউনলোড করতে একবার সংযোগ করুন — আয়াতগুলো তবুও দেখা যাবে।",
+    "quranCompanion.range.fromAyah": "আয়াত থেকে",
+    "quranCompanion.range.toAyah": "আয়াত পর্যন্ত",
+    "quranCompanion.range.increase": "{{label}} বাড়ান",
+    "quranCompanion.range.decrease": "{{label}} কমান",
+    "quranCompanion.hub.recentTitle": "সাম্প্রতিক",
+    "quranCompanion.hub.recentHint": "একই মোডে এই অংশটি আবার শুরু করে"
+  },
+  "bs": {
+    "quranCompanion.view.title": "Prikaz",
+    "quranCompanion.view.mushafCoarse": "Oznake riječi u mushafu trebaju listu riječi. Povežite se jednom da je preuzmete — ajeti se i dalje prikazuju.",
+    "quranCompanion.range.fromAyah": "Od ajeta",
+    "quranCompanion.range.toAyah": "Do ajeta",
+    "quranCompanion.range.increase": "Povećaj {{label}}",
+    "quranCompanion.range.decrease": "Smanji {{label}}",
+    "quranCompanion.hub.recentTitle": "Nedavno",
+    "quranCompanion.hub.recentHint": "Ponovo pokreće ovaj odlomak u istom načinu"
+  },
+  "fa": {
+    "quranCompanion.view.title": "نما",
+    "quranCompanion.view.mushafCoarse": "نشانه‌های واژه در مصحف به فهرست واژه‌ها نیاز دارد. برای دریافت آن یک بار متصل شوید؛ آیه‌ها همچنان نمایش داده می‌شوند.",
+    "quranCompanion.range.fromAyah": "از آیه",
+    "quranCompanion.range.toAyah": "تا آیه",
+    "quranCompanion.range.increase": "افزایش {{label}}",
+    "quranCompanion.range.decrease": "کاهش {{label}}",
+    "quranCompanion.hub.recentTitle": "اخیر",
+    "quranCompanion.hub.recentHint": "این بخش را با همان حالت دوباره شروع می‌کند"
+  },
+  "fr": {
+    "quranCompanion.view.title": "Affichage",
+    "quranCompanion.view.mushafCoarse": "Les repères de mots dans le mushaf nécessitent la liste des mots. Connectez-vous une fois pour la télécharger — les versets restent affichés.",
+    "quranCompanion.range.fromAyah": "Du verset",
+    "quranCompanion.range.toAyah": "Au verset",
+    "quranCompanion.range.increase": "Augmenter {{label}}",
+    "quranCompanion.range.decrease": "Diminuer {{label}}",
+    "quranCompanion.hub.recentTitle": "Récents",
+    "quranCompanion.hub.recentHint": "Relance ce passage dans le même mode"
+  },
+  "ha": {
+    "quranCompanion.view.title": "Kallo",
+    "quranCompanion.view.mushafCoarse": "Alamomin kalmomi a mushafi suna buƙatar jerin kalmomi. Haɗa sau ɗaya don sauke shi — ayoyi za su ci gaba da bayyana.",
+    "quranCompanion.range.fromAyah": "Daga aya",
+    "quranCompanion.range.toAyah": "Zuwa aya",
+    "quranCompanion.range.increase": "Ƙara {{label}}",
+    "quranCompanion.range.decrease": "Rage {{label}}",
+    "quranCompanion.hub.recentTitle": "Na kwanan nan",
+    "quranCompanion.hub.recentHint": "Yana sake fara wannan sashe a yanayi ɗaya"
+  },
+  "hi": {
+    "quranCompanion.view.title": "दृश्य",
+    "quranCompanion.view.mushafCoarse": "मुसहफ़ में शब्द चिह्नों के लिए शब्द सूची चाहिए। इसे डाउनलोड करने के लिए एक बार कनेक्ट करें — आयतें फिर भी दिखेंगी।",
+    "quranCompanion.range.fromAyah": "आयत से",
+    "quranCompanion.range.toAyah": "आयत तक",
+    "quranCompanion.range.increase": "{{label}} बढ़ाएँ",
+    "quranCompanion.range.decrease": "{{label}} घटाएँ",
+    "quranCompanion.hub.recentTitle": "हाल के",
+    "quranCompanion.hub.recentHint": "इस हिस्से को उसी मोड में फिर से शुरू करता है"
+  },
+  "id": {
+    "quranCompanion.view.title": "Tampilan",
+    "quranCompanion.view.mushafCoarse": "Tanda kata di mushaf memerlukan daftar kata. Sambungkan sekali untuk mengunduhnya — ayat tetap ditampilkan.",
+    "quranCompanion.range.fromAyah": "Dari ayat",
+    "quranCompanion.range.toAyah": "Sampai ayat",
+    "quranCompanion.range.increase": "Tambah {{label}}",
+    "quranCompanion.range.decrease": "Kurangi {{label}}",
+    "quranCompanion.hub.recentTitle": "Terbaru",
+    "quranCompanion.hub.recentHint": "Memulai bagian ini lagi dengan mode yang sama"
+  },
+  "kk": {
+    "quranCompanion.view.title": "Көрініс",
+    "quranCompanion.view.mushafCoarse": "Мұсхафтағы сөз белгілеріне сөздер тізімі керек. Оны жүктеу үшін бір рет қосылыңыз — аяттар бәрібір көрсетіледі.",
+    "quranCompanion.range.fromAyah": "Аяттан",
+    "quranCompanion.range.toAyah": "Аятқа дейін",
+    "quranCompanion.range.increase": "{{label}} арттыру",
+    "quranCompanion.range.decrease": "{{label}} азайту",
+    "quranCompanion.hub.recentTitle": "Соңғы",
+    "quranCompanion.hub.recentHint": "Бұл бөлікті сол режимде қайта бастайды"
+  },
+  "ku": {
+    "quranCompanion.view.title": "پیشاندان",
+    "quranCompanion.view.mushafCoarse": "نیشانەکانی وشە لە موسحەفدا پێویستیان بە لیستی وشەکانە. جارێک پەیوەندی بکە بۆ داگرتنی — ئایەتەکان هەر پیشان دەدرێن.",
+    "quranCompanion.range.fromAyah": "لە ئایەتی",
+    "quranCompanion.range.toAyah": "بۆ ئایەتی",
+    "quranCompanion.range.increase": "زیادکردنی {{label}}",
+    "quranCompanion.range.decrease": "کەمکردنەوەی {{label}}",
+    "quranCompanion.hub.recentTitle": "دواترین",
+    "quranCompanion.hub.recentHint": "ئەم بەشە بە هەمان شێواز دووبارە دەست پێدەکاتەوە"
+  },
+  "ky": {
+    "quranCompanion.view.title": "Көрүнүш",
+    "quranCompanion.view.mushafCoarse": "Мусхафтагы сөз белгилери үчүн сөздөр тизмеси керек. Аны жүктөө үчүн бир жолу туташыңыз — аяттар баары бир көрүнөт.",
+    "quranCompanion.range.fromAyah": "Аяттан",
+    "quranCompanion.range.toAyah": "Аятка чейин",
+    "quranCompanion.range.increase": "{{label}} көбөйтүү",
+    "quranCompanion.range.decrease": "{{label}} азайтуу",
+    "quranCompanion.hub.recentTitle": "Акыркы",
+    "quranCompanion.hub.recentHint": "Бул бөлүктү ошол эле режимде кайра баштайт"
+  },
+  "ms": {
+    "quranCompanion.view.title": "Paparan",
+    "quranCompanion.view.mushafCoarse": "Tanda perkataan dalam mushaf memerlukan senarai perkataan. Sambung sekali untuk memuat turunnya — ayat masih dipaparkan.",
+    "quranCompanion.range.fromAyah": "Dari ayat",
+    "quranCompanion.range.toAyah": "Hingga ayat",
+    "quranCompanion.range.increase": "Tambah {{label}}",
+    "quranCompanion.range.decrease": "Kurangkan {{label}}",
+    "quranCompanion.hub.recentTitle": "Terkini",
+    "quranCompanion.hub.recentHint": "Memulakan bahagian ini semula dalam mod yang sama"
+  },
+  "ps": {
+    "quranCompanion.view.title": "بڼه",
+    "quranCompanion.view.mushafCoarse": "په مصحف کې د کلمو نښو ته د کلمو لړلیک اړین دی. د ښکته کولو لپاره یو ځل وصل شئ — آیتونه بیا هم ښکاري.",
+    "quranCompanion.range.fromAyah": "له آیت",
+    "quranCompanion.range.toAyah": "تر آیت",
+    "quranCompanion.range.increase": "{{label}} زیات کړئ",
+    "quranCompanion.range.decrease": "{{label}} کم کړئ",
+    "quranCompanion.hub.recentTitle": "وروستي",
+    "quranCompanion.hub.recentHint": "دا برخه په همغه حالت کې بیا پیلوي"
+  },
+  "ru": {
+    "quranCompanion.view.title": "Вид",
+    "quranCompanion.view.mushafCoarse": "Для отметок слов в мусхафе нужен список слов. Подключитесь один раз, чтобы загрузить его, — аяты всё равно видны.",
+    "quranCompanion.range.fromAyah": "С аята",
+    "quranCompanion.range.toAyah": "По аят",
+    "quranCompanion.range.increase": "Увеличить: {{label}}",
+    "quranCompanion.range.decrease": "Уменьшить: {{label}}",
+    "quranCompanion.hub.recentTitle": "Недавние",
+    "quranCompanion.hub.recentHint": "Начинает этот отрывок снова в том же режиме"
+  },
+  "so": {
+    "quranCompanion.view.title": "Muuqaal",
+    "quranCompanion.view.mushafCoarse": "Calaamadaha erayada ee mushafka waxay u baahan yihiin liiska erayada. Hal mar ku xirmo si aad u soo dejiso — aayadaha weli way muuqdaan.",
+    "quranCompanion.range.fromAyah": "Laga bilaabo aayadda",
+    "quranCompanion.range.toAyah": "Ilaa aayadda",
+    "quranCompanion.range.increase": "Kordhi {{label}}",
+    "quranCompanion.range.decrease": "Yaree {{label}}",
+    "quranCompanion.hub.recentTitle": "Dhawaan",
+    "quranCompanion.hub.recentHint": "Qaybtan mar kale ayuu ku bilaabaa isla qaabka"
+  },
+  "sq": {
+    "quranCompanion.view.title": "Pamja",
+    "quranCompanion.view.mushafCoarse": "Shënjat e fjalëve në mus'haf kërkojnë listën e fjalëve. Lidhuni një herë për ta shkarkuar — ajetet shfaqen gjithsesi.",
+    "quranCompanion.range.fromAyah": "Nga ajeti",
+    "quranCompanion.range.toAyah": "Deri te ajeti",
+    "quranCompanion.range.increase": "Rrit {{label}}",
+    "quranCompanion.range.decrease": "Ul {{label}}",
+    "quranCompanion.hub.recentTitle": "Së fundi",
+    "quranCompanion.hub.recentHint": "E nis sërish këtë pjesë në të njëjtën mënyrë"
+  },
+  "sw": {
+    "quranCompanion.view.title": "Mwonekano",
+    "quranCompanion.view.mushafCoarse": "Alama za maneno kwenye msahafu zinahitaji orodha ya maneno. Unganisha mara moja kuipakua — aya bado zinaonyeshwa.",
+    "quranCompanion.range.fromAyah": "Kutoka aya",
+    "quranCompanion.range.toAyah": "Hadi aya",
+    "quranCompanion.range.increase": "Ongeza {{label}}",
+    "quranCompanion.range.decrease": "Punguza {{label}}",
+    "quranCompanion.hub.recentTitle": "Za karibuni",
+    "quranCompanion.hub.recentHint": "Huanza sehemu hii tena kwa hali ile ile"
+  },
+  "tg": {
+    "quranCompanion.view.title": "Намуд",
+    "quranCompanion.view.mushafCoarse": "Барои аломатҳои калима дар мусҳаф рӯйхати калимаҳо лозим аст. Барои боргирӣ як бор пайваст шавед — оятҳо ба ҳар ҳол намоиш дода мешаванд.",
+    "quranCompanion.range.fromAyah": "Аз оят",
+    "quranCompanion.range.toAyah": "То оят",
+    "quranCompanion.range.increase": "Зиёд кардани {{label}}",
+    "quranCompanion.range.decrease": "Кам кардани {{label}}",
+    "quranCompanion.hub.recentTitle": "Охирин",
+    "quranCompanion.hub.recentHint": "Ин қисмро дар ҳамон реҷа аз нав оғоз мекунад"
+  },
+  "tk": {
+    "quranCompanion.view.title": "Görnüş",
+    "quranCompanion.view.mushafCoarse": "Musdakdaky söz bellikleri üçin sözler sanawy gerek. Ony ýüklemek üçin bir gezek birigiň — aýatlar ýene görkezilýär.",
+    "quranCompanion.range.fromAyah": "Aýatdan",
+    "quranCompanion.range.toAyah": "Aýata çenli",
+    "quranCompanion.range.increase": "{{label}} artdyr",
+    "quranCompanion.range.decrease": "{{label}} azalt",
+    "quranCompanion.hub.recentTitle": "Soňky",
+    "quranCompanion.hub.recentHint": "Bu bölegi şol tertipde täzeden başlaýar"
+  },
+  "tr": {
+    "quranCompanion.view.title": "Görünüm",
+    "quranCompanion.view.mushafCoarse": "Mushafta kelime işaretleri için kelime listesi gerekir. İndirmek için bir kez bağlanın — ayetler yine de görünür.",
+    "quranCompanion.range.fromAyah": "Ayetten",
+    "quranCompanion.range.toAyah": "Ayete kadar",
+    "quranCompanion.range.increase": "{{label}} artır",
+    "quranCompanion.range.decrease": "{{label}} azalt",
+    "quranCompanion.hub.recentTitle": "Son",
+    "quranCompanion.hub.recentHint": "Bu bölümü aynı modda yeniden başlatır"
+  },
+  "uz": {
+    "quranCompanion.view.title": "Ko'rinish",
+    "quranCompanion.view.mushafCoarse": "Mushafdagi so'z belgilari uchun so'zlar ro'yxati kerak. Uni yuklab olish uchun bir marta ulaning — oyatlar baribir ko'rinadi.",
+    "quranCompanion.range.fromAyah": "Oyatdan",
+    "quranCompanion.range.toAyah": "Oyatgacha",
+    "quranCompanion.range.increase": "{{label}} oshirish",
+    "quranCompanion.range.decrease": "{{label}} kamaytirish",
+    "quranCompanion.hub.recentTitle": "So'nggi",
+    "quranCompanion.hub.recentHint": "Bu qismni o'sha rejimda qaytadan boshlaydi"
+  }
+}

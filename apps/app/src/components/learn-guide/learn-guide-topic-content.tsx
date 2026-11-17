@@ -11,11 +11,13 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { LearnGrid } from "@/components/learn-guide/learn-wide-layout";
 import { LinkedDuaCard } from "@/components/learn-guide/linked-dua-card";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 
 /**
@@ -61,15 +63,17 @@ export function LearnGuideTopicContent({
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
           />
           <View style={styles.links}>
-            {topic.appLinks.map((link) => (
-              <Button
-                key={link.route}
-                label={link.label}
-                variant="secondary"
-                fullWidth
-                onPress={() => router.push(link.route as Href)}
-              />
-            ))}
+            <LearnGrid maxColumns={2} gap={Spacing.two} passthrough>
+              {topic.appLinks.map((link) => (
+                <Button
+                  key={link.route}
+                  label={link.label}
+                  variant="secondary"
+                  fullWidth
+                  onPress={() => router.push(link.route as Href)}
+                />
+              ))}
+            </LearnGrid>
           </View>
         </Card>
       ) : null}
@@ -77,9 +81,11 @@ export function LearnGuideTopicContent({
       <GuideTopicFooter ns={ns} topic={topic} sectionTitle={sectionTitle} />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );

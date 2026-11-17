@@ -13,6 +13,7 @@ import {
 import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { SettingsColumns, useSettingsTwoColumn } from "@/components/settings/settings-layout";
 import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -174,6 +175,218 @@ export default function NotificationsScreen() {
     await reloadScheduled();
   };
 
+  const permissionBanner = <NotificationPermissionBanner />;
+
+  const defaultLocationCard =
+    location.source === "default" ? (
+      <Card padding="three" style={styles.defaultLocationCard}>
+        <ThemedText type="smallBold">{t("notif.defaultLocationTitle")}</ThemedText>
+        <ThemedText type="small" themeColor="mutedForeground">
+          {t("notif.defaultLocationMessage")}
+        </ThemedText>
+        <Button
+          label={t("location.setLocation")}
+          variant="secondary"
+          onPress={() => router.push("/location")}
+        />
+      </Card>
+    ) : null;
+
+  const masterCard = (
+    <Card padding="three">
+      <ToggleRow
+        icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+        title={t("notif.master")}
+        subtitle={t("notif.masterSub")}
+        value={master}
+        onValueChange={async (value) => {
+          if (value) {
+            await enableMaster();
+            return;
+          }
+          await onDisableMaster();
+        }}
+      />
+    </Card>
+  );
+
+  const upcomingCard =
+    master && upcoming.length > 0 ? (
+      <Card padding="three">
+        <SectionHeader
+          title={t("notif.upcomingTitle")}
+          icon={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.upcomingHint}>
+          {t("notif.upcomingHint")}
+        </ThemedText>
+        <View style={styles.upcomingList}>
+          {upcoming.map((item) => (
+            <NotificationListRow key={item.id} item={item} formattedWhen={formatWhen(item.at)} />
+          ))}
+        </View>
+      </Card>
+    ) : null;
+
+  const adhanCard = (
+    <Card padding="three">
+      <SettingsRow
+        icon={{ ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }}
+        title={t("notif.adhanTitle")}
+        subtitle={t("notif.adhanSub")}
+        onPress={() =>
+          audio.play([adhanTrack(prefs.adhanStyleId)], 0, {
+            sourceHref: "/settings/notifications",
+          })
+        }
+      />
+      {ADHAN_STYLES.length > 1 ? (
+        <View style={styles.adhanPicker}>
+          <AdhanStylePicker
+            value={prefs.adhanStyleId ?? DEFAULT_ADHAN_STYLE}
+            onChange={(id) => void onSelectAdhanStyle(id)}
+          />
+        </View>
+      ) : null}
+      <View style={styles.adhanToggle}>
+        <ToggleRow
+          icon={{ ios: "megaphone.fill", android: "campaign", web: "campaign" }}
+          title={t("notif.playAdhan")}
+          subtitle={t("notif.playAdhanHint")}
+          value={prefs.notificationPrefs.playAdhanOnPrayer}
+          disabled={!obligatoryEnabled}
+          onValueChange={(value) => void onNotificationToggle({ playAdhanOnPrayer: value })}
+        />
+      </View>
+      <View style={styles.adhanToggle}>
+        <SettingsRow
+          icon={{ ios: "clock.badge", android: "more_time", web: "more_time" }}
+          title={t("reminderOffsets.title")}
+          subtitle={t("reminderOffsets.rowSub")}
+          onPress={() => router.push("/settings/reminder-offsets")}
+        />
+      </View>
+    </Card>
+  );
+
+  const liveActivityBanner = !tv && (isIOS || isAndroid) ? <LiveActivityDiscoveryBanner /> : null;
+
+  const ongoingCard =
+    !tv && (isIOS || isAndroid) ? (
+      <Card padding="three">
+        <ToggleRow
+          icon={{
+            ios: "platter.filled.top.iphone",
+            android: "widgets",
+            web: "widgets",
+          }}
+          title={t("notif.liveActivity")}
+          subtitle={
+            isAndroid
+              ? t("notif.liveActivityHintAndroid")
+              : liveActivitySupported
+                ? t("notif.liveActivityHint")
+                : t("notif.liveActivityUnavailable")
+          }
+          value={prefs.liveActivityEnabled === true}
+          disabled={isIOS && !liveActivitySupported}
+          onValueChange={(value) => void update({ liveActivityEnabled: value })}
+        />
+      </Card>
+    ) : null;
+
+  const groupCards = GROUPS.map((group) => (
+    <Card key={group.titleKey} padding="three">
+      <SectionHeader
+        title={t(`notif.${group.titleKey}`)}
+        icon={{
+          ios: "bell.badge.fill",
+          android: "notifications_active",
+          web: "notifications_active",
+        }}
+      />
+      <View style={styles.rows}>
+        {group.items.map((key) => (
+          <ToggleRow
+            key={key}
+            title={t(`notif.items.${key}.title`)}
+            subtitle={t(`notif.items.${key}.subtitle`)}
+            value={prefs.notificationPrefs[key]}
+            disabled={!master}
+            onValueChange={(value) => void onNotificationToggle({ [key]: value })}
+          />
+        ))}
+      </View>
+    </Card>
+  ));
+
+  const obligatoryAlertsCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("notif.prayerAlertsObligatory")}
+        icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
+      />
+      <View style={styles.rows}>
+        {OBLIGATORY_PRAYERS.map((prayerId) => (
+          <ToggleRow
+            key={prayerId}
+            title={t(`prayers.${prayerId}`)}
+            subtitle={t(`notif.prayerAlertItems.${prayerId}.subtitle`)}
+            value={isPrayerAlertEnabled(prefs, prayerId)}
+            disabled={!obligatoryEnabled}
+            onValueChange={(value) => void onPrayerAlertChange(prayerId, value)}
+          />
+        ))}
+      </View>
+    </Card>
+  );
+
+  const sunnahAlertsCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("notif.prayerAlertsSunnah")}
+        icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
+      />
+      <View style={styles.rows}>
+        {[WITR_PRAYER, ...SUNNAH_ALERTABLE_PRAYERS].map((prayerId) => (
+          <ToggleRow
+            key={prayerId}
+            title={t(`prayers.${prayerId}`)}
+            subtitle={t(`notif.prayerAlertItems.${prayerId}.subtitle`)}
+            value={isPrayerAlertEnabled(prefs, prayerId)}
+            disabled={!sunnahEnabled}
+            onValueChange={(value) => void onPrayerAlertChange(prayerId, value)}
+          />
+        ))}
+      </View>
+    </Card>
+  );
+
+  const reactivationCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("settings.reviewReactivationEnabled")}
+        icon={{ ios: "star.bubble.fill", android: "rate_review", web: "rate_review" }}
+      />
+      <ToggleRow
+        title={t("settings.reviewReactivationEnabled")}
+        subtitle={t("settings.reviewReactivationEnabledDesc")}
+        value={prefs.notificationPrefs.reviewReactivationEnabled !== false}
+        disabled={!master}
+        onValueChange={(value) => void setNotificationPrefs({ reviewReactivationEnabled: value })}
+      />
+    </Card>
+  );
+
+  const footerNote = (
+    <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
+      {t("notif.footer")}
+    </ThemedText>
+  );
+
+  // Wide web / tablets: two card columns instead of one long stretched stack.
+  const twoColumn = useSettingsTwoColumn();
+
   return (
     <ScreenLayout
       eyebrow={t("notif.eyebrow")}
@@ -188,207 +401,47 @@ export default function NotificationsScreen() {
           title={t("common.tvUnavailableTitle")}
           description={t("notif.tvUnavailableBody")}
         />
+      ) : twoColumn ? (
+        // Wide web / tablets: master switch + banners up top, then delivery
+        // settings (adhan, Salah alerts) beside the reminder groups.
+        <View style={styles.wideStack}>
+          {permissionBanner}
+          {defaultLocationCard}
+          {masterCard}
+          <SettingsColumns
+            start={
+              <>
+                {upcomingCard}
+                {adhanCard}
+                {liveActivityBanner}
+                {ongoingCard}
+                {obligatoryAlertsCard}
+                {sunnahAlertsCard}
+              </>
+            }
+            end={
+              <>
+                {groupCards}
+                {reactivationCard}
+              </>
+            }
+          />
+          {footerNote}
+        </View>
       ) : (
         <Stagger>
-          <NotificationPermissionBanner />
-
-          {location.source === "default" ? (
-            <Card padding="three" style={styles.defaultLocationCard}>
-              <ThemedText type="smallBold">{t("notif.defaultLocationTitle")}</ThemedText>
-              <ThemedText type="small" themeColor="mutedForeground">
-                {t("notif.defaultLocationMessage")}
-              </ThemedText>
-              <Button
-                label={t("location.setLocation")}
-                variant="secondary"
-                onPress={() => router.push("/location")}
-              />
-            </Card>
-          ) : null}
-
-          <Card padding="three">
-            <ToggleRow
-              icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-              title={t("notif.master")}
-              subtitle={t("notif.masterSub")}
-              value={master}
-              onValueChange={async (value) => {
-                if (value) {
-                  await enableMaster();
-                  return;
-                }
-                await onDisableMaster();
-              }}
-            />
-          </Card>
-
-          {master && upcoming.length > 0 ? (
-            <Card padding="three">
-              <SectionHeader
-                title={t("notif.upcomingTitle")}
-                icon={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.upcomingHint}>
-                {t("notif.upcomingHint")}
-              </ThemedText>
-              <View style={styles.upcomingList}>
-                {upcoming.map((item) => (
-                  <NotificationListRow
-                    key={item.id}
-                    item={item}
-                    formattedWhen={formatWhen(item.at)}
-                  />
-                ))}
-              </View>
-            </Card>
-          ) : null}
-
-          <Card padding="three">
-            <SettingsRow
-              icon={{ ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }}
-              title={t("notif.adhanTitle")}
-              subtitle={t("notif.adhanSub")}
-              onPress={() =>
-                audio.play([adhanTrack(prefs.adhanStyleId)], 0, {
-                  sourceHref: "/settings/notifications",
-                })
-              }
-            />
-            {ADHAN_STYLES.length > 1 ? (
-              <View style={styles.adhanPicker}>
-                <AdhanStylePicker
-                  value={prefs.adhanStyleId ?? DEFAULT_ADHAN_STYLE}
-                  onChange={(id) => void onSelectAdhanStyle(id)}
-                />
-              </View>
-            ) : null}
-            <View style={styles.adhanToggle}>
-              <ToggleRow
-                icon={{ ios: "megaphone.fill", android: "campaign", web: "campaign" }}
-                title={t("notif.playAdhan")}
-                subtitle={t("notif.playAdhanHint")}
-                value={prefs.notificationPrefs.playAdhanOnPrayer}
-                disabled={!obligatoryEnabled}
-                onValueChange={(value) => void onNotificationToggle({ playAdhanOnPrayer: value })}
-              />
-            </View>
-            <View style={styles.adhanToggle}>
-              <SettingsRow
-                icon={{ ios: "clock.badge", android: "more_time", web: "more_time" }}
-                title={t("reminderOffsets.title")}
-                subtitle={t("reminderOffsets.rowSub")}
-                onPress={() => router.push("/settings/reminder-offsets")}
-              />
-            </View>
-          </Card>
-
-          {!tv && (isIOS || isAndroid) ? <LiveActivityDiscoveryBanner /> : null}
-
-          {!tv && (isIOS || isAndroid) ? (
-            <Card padding="three">
-              <ToggleRow
-                icon={{
-                  ios: "platter.filled.top.iphone",
-                  android: "widgets",
-                  web: "widgets",
-                }}
-                title={t("notif.liveActivity")}
-                subtitle={
-                  isAndroid
-                    ? t("notif.liveActivityHintAndroid")
-                    : liveActivitySupported
-                      ? t("notif.liveActivityHint")
-                      : t("notif.liveActivityUnavailable")
-                }
-                value={prefs.liveActivityEnabled === true}
-                disabled={isIOS && !liveActivitySupported}
-                onValueChange={(value) => void update({ liveActivityEnabled: value })}
-              />
-            </Card>
-          ) : null}
-
-          {GROUPS.map((group) => (
-            <Card key={group.titleKey} padding="three">
-              <SectionHeader
-                title={t(`notif.${group.titleKey}`)}
-                icon={{
-                  ios: "bell.badge.fill",
-                  android: "notifications_active",
-                  web: "notifications_active",
-                }}
-              />
-              <View style={styles.rows}>
-                {group.items.map((key) => (
-                  <ToggleRow
-                    key={key}
-                    title={t(`notif.items.${key}.title`)}
-                    subtitle={t(`notif.items.${key}.subtitle`)}
-                    value={prefs.notificationPrefs[key]}
-                    disabled={!master}
-                    onValueChange={(value) => void onNotificationToggle({ [key]: value })}
-                  />
-                ))}
-              </View>
-            </Card>
-          ))}
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("notif.prayerAlertsObligatory")}
-              icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
-            />
-            <View style={styles.rows}>
-              {OBLIGATORY_PRAYERS.map((prayerId) => (
-                <ToggleRow
-                  key={prayerId}
-                  title={t(`prayers.${prayerId}`)}
-                  subtitle={t(`notif.prayerAlertItems.${prayerId}.subtitle`)}
-                  value={isPrayerAlertEnabled(prefs, prayerId)}
-                  disabled={!obligatoryEnabled}
-                  onValueChange={(value) => void onPrayerAlertChange(prayerId, value)}
-                />
-              ))}
-            </View>
-          </Card>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("notif.prayerAlertsSunnah")}
-              icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
-            />
-            <View style={styles.rows}>
-              {[WITR_PRAYER, ...SUNNAH_ALERTABLE_PRAYERS].map((prayerId) => (
-                <ToggleRow
-                  key={prayerId}
-                  title={t(`prayers.${prayerId}`)}
-                  subtitle={t(`notif.prayerAlertItems.${prayerId}.subtitle`)}
-                  value={isPrayerAlertEnabled(prefs, prayerId)}
-                  disabled={!sunnahEnabled}
-                  onValueChange={(value) => void onPrayerAlertChange(prayerId, value)}
-                />
-              ))}
-            </View>
-          </Card>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("settings.reviewReactivationEnabled")}
-              icon={{ ios: "star.bubble.fill", android: "rate_review", web: "rate_review" }}
-            />
-            <ToggleRow
-              title={t("settings.reviewReactivationEnabled")}
-              subtitle={t("settings.reviewReactivationEnabledDesc")}
-              value={prefs.notificationPrefs.reviewReactivationEnabled !== false}
-              disabled={!master}
-              onValueChange={(value) =>
-                void setNotificationPrefs({ reviewReactivationEnabled: value })
-              }
-            />
-          </Card>
-
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
-            {t("notif.footer")}
-          </ThemedText>
+          {permissionBanner}
+          {defaultLocationCard}
+          {masterCard}
+          {upcomingCard}
+          {adhanCard}
+          {liveActivityBanner}
+          {ongoingCard}
+          {groupCards}
+          {obligatoryAlertsCard}
+          {sunnahAlertsCard}
+          {reactivationCard}
+          {footerNote}
         </Stagger>
       )}
     </ScreenLayout>
@@ -396,6 +449,9 @@ export default function NotificationsScreen() {
 }
 
 const styles = StyleSheet.create({
+  wideStack: {
+    gap: Spacing.four,
+  },
   defaultLocationCard: {
     gap: Spacing.three,
   },

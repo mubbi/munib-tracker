@@ -22,11 +22,14 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { WhiteDaysTrackerSection } from "@/components/white-days-tracker-section";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { afterSalahProgressForPrayer } from "@/lib/after-salah-adhkar-progress";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { FRIDAY_CHECKLIST_FOCUS, isFridayDateString } from "@/lib/friday";
+import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import { isWhiteDayDateString, WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
 import { ensureZikrCorpus, zikrCategories } from "@/lib/zikr";
@@ -77,6 +80,8 @@ export type TrackerDayChecklistProps = {
   registerFocus?: (key: string) => (node: View | null) => void;
   fridayFocused?: boolean;
   whiteDaysFocused?: boolean;
+  /** TV: request initial D-pad focus on the first obligatory Salah row. */
+  preferredFocusFirstPrayer?: boolean;
 };
 
 export function TrackerDayChecklist({
@@ -95,6 +100,7 @@ export function TrackerDayChecklist({
   registerFocus,
   fridayFocused = false,
   whiteDaysFocused = false,
+  preferredFocusFirstPrayer = false,
 }: TrackerDayChecklistProps) {
   const router = useRouter();
   const { t } = useTranslation();
@@ -107,6 +113,8 @@ export function TrackerDayChecklist({
   const whiteDaysSectionRef = useRef<View>(null);
   const [whiteDaysHighlight, setWhiteDaysHighlight] = useState(false);
   const showWhiteDays = isWhiteDayDateString(date);
+  const tv = isTV();
+  const cardTip = tTv(t, "tracker.cardTip", "tracker.cardTipTv");
 
   const obligatoryDone = useMemo(() => countCompleted(OBLIGATORY_PRAYERS, status), [status]);
   const witrDone = status[WITR_PRAYER] === "completed" ? 1 : 0;
@@ -187,15 +195,18 @@ export function TrackerDayChecklist({
           { backgroundColor: tokens.accentSoft, borderColor: colors.border },
         ]}
         accessibilityRole="text"
-        accessibilityLabel={t("tracker.cardTip")}
+        accessibilityLabel={cardTip}
       >
         <SymbolView
           name={{ ios: "lightbulb.fill", android: "lightbulb", web: "lightbulb" }}
           size={14}
           tintColor={colors.accent}
         />
-        <ThemedText type="caption" style={[styles.tipText, { color: colors.accent }]}>
-          {t("tracker.cardTip")}
+        <ThemedText
+          type="caption"
+          style={[styles.tipText, tv ? styles.tipTextTv : null, { color: colors.accent }]}
+        >
+          {cardTip}
         </ThemedText>
       </View>
 
@@ -215,7 +226,7 @@ export function TrackerDayChecklist({
           }
         />
         <View style={styles.rows}>
-          {OBLIGATORY_PRAYERS.map((prayerId) => {
+          {OBLIGATORY_PRAYERS.map((prayerId, prayerIndex) => {
             const afterSalahProgress = afterSalahProgressForPrayer(prayerId, zikrCounts);
             return (
               <Fragment key={prayerId}>
@@ -232,8 +243,11 @@ export function TrackerDayChecklist({
                       : undefined
                   }
                   onPress={() => onPrayerPress(prayerId)}
+                  preferredFocus={tv && preferredFocusFirstPrayer && prayerIndex === 0}
                 />
-                {prayerId === "fajr" && showFriday ? (
+                {/* TV: the Jumu'ah / White Days sections are the next D-pad stops
+                  below — a scroll-jump shortcut would strand focus off-screen. */}
+                {prayerId === "fajr" && showFriday && !tv ? (
                   <PressableScale
                     accessibilityRole="button"
                     accessibilityLabel={t("tracker.friday.jumpA11y")}
@@ -258,7 +272,7 @@ export function TrackerDayChecklist({
                     <AppIcon icon={chevronForward} size={16} tintColor={colors.accent} />
                   </PressableScale>
                 ) : null}
-                {prayerId === "fajr" && showWhiteDays ? (
+                {prayerId === "fajr" && showWhiteDays && !tv ? (
                   <PressableScale
                     accessibilityRole="button"
                     accessibilityLabel={t("tracker.whiteDays.jumpA11y")}
@@ -437,6 +451,10 @@ const styles = StyleSheet.create({
   tipText: {
     flex: 1,
     minWidth: 0,
+  },
+  tipTextTv: {
+    fontSize: TvLayout.bodyFontSize - 2,
+    lineHeight: TvLayout.bodyFontSize + 4,
   },
   rows: {
     gap: Spacing.two,

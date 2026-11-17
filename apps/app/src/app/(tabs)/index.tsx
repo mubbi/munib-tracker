@@ -2,7 +2,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { Seo } from "@/components/seo/seo";
@@ -25,6 +25,16 @@ import { usePreferences } from "@/stores/preferences-store";
 import { useTrackerActions } from "@/stores/tracker-store";
 import { resolveWeatherEffects, useWeatherSnapshot, weatherActions } from "@/stores/weather-store";
 
+/**
+ * Window width at/above which home becomes a two-column dashboard (hero + main
+ * cards on the start side, today's schedule + secondary cards in an aside).
+ * Never on TV — TV keeps its tuned landscape stack.
+ */
+const HOME_DASHBOARD_BREAKPOINT = 1024;
+/** Content caps for the dashboard — match `ScreenLayout`'s wide / x-wide columns. */
+const HOME_DASHBOARD_MAX_WIDTH = 1120;
+const HOME_DASHBOARD_MAX_WIDTH_XL = 1320;
+
 const HomeBelowFoldLazy = lazy(() =>
   import("@/components/home-below-fold").then((mod) => ({ default: mod.HomeBelowFold })),
 );
@@ -39,7 +49,7 @@ export function __setHomeBelowFoldForTests(
 }
 
 /** Visible placeholder while the lazy below-fold chunk loads (avoids a blank “stuck” home). */
-function HomeBelowFoldFallback() {
+function HomeBelowFoldFallback({ dashboard = false }: { dashboard?: boolean }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const title = t("common.loadingRoute");
@@ -47,7 +57,7 @@ function HomeBelowFoldFallback() {
 
   return (
     <View
-      style={styles.belowFoldFallback}
+      style={dashboard ? styles.belowFoldFallbackDashboard : styles.belowFoldFallback}
       accessibilityRole="progressbar"
       accessibilityLabel={title}
       accessibilityLiveRegion="polite"
@@ -86,7 +96,9 @@ export default function HomeScreen() {
   const { t } = useTranslation();
   const tv = isTV();
   const insets = useSafeAreaInsets();
-  const { colors } = useThemeTokens();
+  const { width } = useWindowDimensions();
+  const dashboard = !tv && width >= HOME_DASHBOARD_BREAKPOINT;
+  const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const [isFocused, setIsFocused] = useState(true);
   useFocusEffect(
@@ -117,6 +129,40 @@ export default function HomeScreen() {
     }
   };
 
+  const heroElement = (
+    <PrayerTimesHero
+      location={hero.location}
+      displayDates={hero.displayDates}
+      currentTime={hero.currentTime}
+      countdown={hero.countdown}
+      prayers={hero.prayers}
+      activeIndex={hero.activeIndex}
+      topInset={dashboard ? Spacing.two : insets.top}
+      variant={dashboard ? "card" : "banner"}
+      sky={hero.sky}
+      now={hero.now}
+      moonLabel={hero.moonLabel}
+      southernHemisphere={hero.southernHemisphere}
+      windowProgress={hero.windowProgress}
+      notificationCount={notificationCount}
+      weatherSummary={weather?.summary ?? null}
+      weatherAccessibilityLabel={weather?.accessibilityLabel ?? null}
+      weatherEffects={weatherEffects}
+      // Particle trees are too heavy for low-end Fire TV / Android TV sticks.
+      weatherEffectsEnabled={isFocused && !tv}
+      onSearchPress={() => router.push("/search")}
+      onNotificationsPress={() => router.push("/notifications")}
+      onLocationPress={() => router.push("/location")}
+    />
+  );
+  const belowFoldProps = {
+    schedule: hero.schedule,
+    nextIn: hero.nextIn,
+    nextScheduleId: hero.nextScheduleId,
+    scheduleDateLabel: hero.displayDates.primary,
+    scheduleLocationLabel: hero.location,
+  };
+
   return (
     <View
       // iOS 26 tab-bar minimize-on-scroll: UIKit resolves the tab's content
@@ -126,57 +172,68 @@ export default function HomeScreen() {
       style={[styles.root, { backgroundColor: colors.background }]}
     >
       <Seo path="/" isHome jsonLd={[faqSchema(HOME_FAQ)]} />
-      {isFocused && !tv ? <StatusBar style="light" /> : null}
+      {/* Dashboard: the hero is an inset card, so the status bar sits on the page background. */}
+      {isFocused && !tv ? (
+        <StatusBar style={dashboard && !tokens.isDark ? "dark" : "light"} />
+      ) : null}
       <TvFocusGuide autoFocus={tv} style={styles.root}>
         <TvScrollView
           contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
           contentInsetAdjustmentBehavior="never"
           showsVerticalScrollIndicator={false}
+          // TV: no pull gesture on a remote — data refreshes on focus / sync instead.
           refreshControl={
-            <SafeRefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              tintColor={colors.accent}
-              colors={[colors.accent]}
-            />
+            tv ? undefined : (
+              <SafeRefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                tintColor={colors.accent}
+                colors={[colors.accent]}
+              />
+            )
           }
         >
-          <View style={styles.column}>
+          {/* TV: fill the landscape pane (overscan lives on hero / body padding). */}
+          <View
+            style={[
+              styles.column,
+              tv ? styles.columnTv : null,
+              dashboard
+                ? [
+                    styles.columnDashboard,
+                    {
+                      maxWidth:
+                        width >= 1600 ? HOME_DASHBOARD_MAX_WIDTH_XL : HOME_DASHBOARD_MAX_WIDTH,
+                      paddingTop: insets.top + Spacing.four,
+                    },
+                  ]
+                : null,
+            ]}
+          >
             <ThemedText heading={1} style={styles.srOnly}>
               {t("common.appName")} — {t("common.appTagline")}
             </ThemedText>
-            <PrayerTimesHero
-              location={hero.location}
-              displayDates={hero.displayDates}
-              currentTime={hero.currentTime}
-              countdown={hero.countdown}
-              prayers={hero.prayers}
-              activeIndex={hero.activeIndex}
-              topInset={insets.top}
-              sky={hero.sky}
-              now={hero.now}
-              moonLabel={hero.moonLabel}
-              southernHemisphere={hero.southernHemisphere}
-              windowProgress={hero.windowProgress}
-              notificationCount={notificationCount}
-              weatherSummary={weather?.summary ?? null}
-              weatherAccessibilityLabel={weather?.accessibilityLabel ?? null}
-              weatherEffects={weatherEffects}
-              weatherEffectsEnabled={isFocused}
-              onSearchPress={() => router.push("/search")}
-              onNotificationsPress={() => router.push("/notifications")}
-              onLocationPress={() => router.push("/location")}
-            />
-
-            <Suspense fallback={<HomeBelowFoldFallback />}>
-              <BelowFold
-                schedule={hero.schedule}
-                nextIn={hero.nextIn}
-                nextScheduleId={hero.nextScheduleId}
-                scheduleDateLabel={hero.displayDates.primary}
-                scheduleLocationLabel={hero.location}
-              />
-            </Suspense>
+            {dashboard ? (
+              // Dashboard: the hero renders inside the below-fold grid (beside the
+              // schedule aside); the fallback paints it first so LCP is unchanged.
+              <Suspense
+                fallback={
+                  <>
+                    {heroElement}
+                    <HomeBelowFoldFallback dashboard />
+                  </>
+                }
+              >
+                <BelowFold {...belowFoldProps} hero={heroElement} />
+              </Suspense>
+            ) : (
+              <>
+                {heroElement}
+                <Suspense fallback={<HomeBelowFoldFallback />}>
+                  <BelowFold {...belowFoldProps} />
+                </Suspense>
+              </>
+            )}
           </View>
         </TvScrollView>
       </TvFocusGuide>
@@ -189,12 +246,15 @@ const styles = StyleSheet.create({
   srOnly: { position: "absolute", width: 1, height: 1, margin: -1, overflow: "hidden", opacity: 0 },
   scrollContent: { flexGrow: 1, alignItems: "center" },
   column: { width: "100%", maxWidth: MaxContentWidth },
+  columnTv: { maxWidth: undefined },
+  columnDashboard: { paddingHorizontal: Spacing.four, gap: Spacing.four },
   // Match `HomeBelowFold` body inset so the loader sits where cards will land.
   belowFoldFallback: {
     paddingHorizontal: Spacing.four,
     marginTop: -Spacing.five,
     zIndex: 1,
   },
+  belowFoldFallbackDashboard: { width: "100%", maxWidth: 560 },
   belowFoldStatus: {
     flexDirection: "row",
     alignItems: "center",

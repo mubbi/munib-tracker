@@ -8,12 +8,12 @@ import {
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, useWindowDimensions, View, type ViewStyle } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { SIDE_RAIL_BREAKPOINT, SIDE_RAIL_WIDTH } from "@/hooks/use-web-tab-layout";
+import { SIDE_RAIL_BREAKPOINT } from "@/hooks/use-web-tab-layout";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { ThemedText } from "./themed-text";
 import { GlassSurface } from "./ui/glass-surface";
@@ -68,12 +68,13 @@ export default function AppTabs() {
   // Wide viewports (tablet / desktop web): rail beside the content column.
   // TabList/TabSlot stay DIRECT children of Tabs — required for expo-router
   // to discover the triggers.
+  // The visible rail is the global WebGlobalRail beside the root stack (so it
+  // persists on non-tab pages too); the TabList stays mounted but hidden so
+  // expo-router still discovers the tab triggers.
   if (isWide) {
     return (
       <Tabs style={[styles.wideRoot, { backgroundColor: colors.background }]}>
-        <TabList asChild>
-          <SideRail>{triggers("rail")}</SideRail>
-        </TabList>
+        <TabList style={styles.hiddenTabList}>{triggers("rail")}</TabList>
         <TabSlot style={styles.wideSlot} />
       </Tabs>
     );
@@ -148,64 +149,6 @@ export function TabButton({
   );
 }
 
-/**
- * Frosted chrome for the side rail. The bottom tab bar floats over scrollable
- * content so `BlurView` can backdrop-blur it; the rail sits beside the column
- * with nothing behind it, and `expo-blur`'s system-chrome tint reads as flat
- * gray. Use a themed translucent wash + CSS blur instead.
- */
-function SideRailChrome() {
-  const { colors, tokens } = useThemeTokens();
-  const washAlpha = tokens.isDark ? 0.22 : 0.32;
-
-  return (
-    <View
-      style={[
-        StyleSheet.absoluteFill,
-        {
-          pointerEvents: "none",
-          backgroundColor: withAlpha(colors.background, tokens.isDark ? 0.78 : 0.86),
-          // RN Web maps this to backdrop-filter for a subtle frosted edge.
-          backdropFilter: "blur(20px) saturate(160%)",
-        } as ViewStyle,
-      ]}
-    >
-      <View
-        style={[StyleSheet.absoluteFill, { backgroundColor: withAlpha(colors.card, washAlpha) }]}
-      />
-    </View>
-  );
-}
-
-/**
- * Persistent left navigation rail shown on wide web / tablet. Receives the same
- * `TabTrigger` children as the bottom bar (via `TabList asChild`), so routing
- * behaviour is identical — only the presentation differs.
- */
-export function SideRail(props: TabListProps) {
-  const insets = useSafeAreaInsets();
-  const { tokens } = useThemeTokens();
-
-  return (
-    <View
-      {...props}
-      // A11y: this is the primary site navigation landmark on web.
-      role="navigation"
-      style={[
-        styles.railContainer,
-        {
-          paddingTop: Math.max(insets.top, Spacing.four),
-          paddingBottom: Math.max(insets.bottom, Spacing.four),
-          borderEndColor: tokens.hairline,
-        },
-      ]}
-    >
-      <SideRailChrome />
-      <View style={styles.railList}>{props.children}</View>
-    </View>
-  );
-}
-
 export function BottomTabBar(props: TabListProps) {
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
@@ -247,20 +190,12 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
   },
+  hiddenTabList: {
+    display: "none",
+  },
   narrowSlot: {
     flex: 1,
     height: "100%",
-  },
-  railContainer: {
-    width: SIDE_RAIL_WIDTH,
-    height: "100%",
-    borderEndWidth: StyleSheet.hairlineWidth,
-    paddingHorizontal: Spacing.three,
-    overflow: "hidden",
-  },
-  railList: {
-    flexDirection: "column",
-    gap: Spacing.one,
   },
   railButton: {
     width: "100%",

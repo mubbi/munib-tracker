@@ -7,6 +7,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -119,6 +120,10 @@ export function HadithSharhBlock({
             contentContainerStyle={styles.scrollContent}
             nestedScrollEnabled
             showsVerticalScrollIndicator
+            // TV: the capped pane holds only text (no focusable children), so it
+            // must take focus itself for D-pad ↑/↓ to scroll the sharh; focus
+            // leaves it once the end is reached.
+            focusable={isTV() ? true : undefined}
           >
             <ThemedText type="arabic" style={arabicReadingLayout(arabicSize)}>
               {body}

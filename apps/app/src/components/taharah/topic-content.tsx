@@ -17,7 +17,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   useTaharahProgressActions,
@@ -46,31 +48,33 @@ function TaharahSteps({ steps }: { steps: NonNullable<TaharahTopic["steps"]> }) 
       />
       <View style={styles.steps}>
         {steps.map((step, index) => (
-          <View key={step.title} style={styles.stepRow}>
-            <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
-              <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                {index + 1}
-              </ThemedText>
+          <TvReadableBlock key={step.title}>
+            <View style={styles.stepRow}>
+              <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
+                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                  {index + 1}
+                </ThemedText>
+              </View>
+              <View style={styles.stepCopy}>
+                <LearnProseText proseRole="title">{step.title}</LearnProseText>
+                <LearnProseText themeColor="mutedForeground">{step.body}</LearnProseText>
+                {step.arabic || step.transliteration ? (
+                  <ReligiousTextStack
+                    arabic={step.arabic}
+                    transliteration={step.transliteration}
+                    compact
+                  />
+                ) : null}
+                {step.tip ? (
+                  <View style={[styles.tip, { backgroundColor: tokens.status.warning.soft }]}>
+                    <LearnProseText proseRole="caption" style={{ color: colors.foreground }}>
+                      {step.tip}
+                    </LearnProseText>
+                  </View>
+                ) : null}
+              </View>
             </View>
-            <View style={styles.stepCopy}>
-              <LearnProseText proseRole="title">{step.title}</LearnProseText>
-              <LearnProseText themeColor="mutedForeground">{step.body}</LearnProseText>
-              {step.arabic || step.transliteration ? (
-                <ReligiousTextStack
-                  arabic={step.arabic}
-                  transliteration={step.transliteration}
-                  compact
-                />
-              ) : null}
-              {step.tip ? (
-                <View style={[styles.tip, { backgroundColor: tokens.status.warning.soft }]}>
-                  <LearnProseText proseRole="caption" style={{ color: colors.foreground }}>
-                    {step.tip}
-                  </LearnProseText>
-                </View>
-              ) : null}
-            </View>
-          </View>
+          </TvReadableBlock>
         ))}
       </View>
     </Card>
@@ -132,9 +136,11 @@ export function TaharahTopicContent({ topic }: { topic: TaharahTopic }) {
       />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );
@@ -145,8 +151,8 @@ const styles = StyleSheet.create({
   steps: { gap: Spacing.three, marginTop: Spacing.three },
   stepRow: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   stepBadge: {
-    width: 32,
-    height: 32,
+    width: tvDp(32),
+    height: tvDp(32),
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",

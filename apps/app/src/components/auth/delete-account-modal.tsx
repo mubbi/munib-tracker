@@ -14,6 +14,7 @@ import {
   type AccountClosureReasonCode,
   type DeleteAccountRequestBody,
 } from "@/lib/auth/account-closure-reasons";
+import { isTV } from "@/lib/platform/is-tv";
 
 type DeleteAccountModalProps = {
   visible: boolean;
@@ -30,6 +31,8 @@ export function DeleteAccountModal({
 }: DeleteAccountModalProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  /** TV: selected reason = soft fill + hairline; the accent ring is D-pad focus. */
+  const selectedBorder = isTV() ? tokens.accentBorder : colors.accent;
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [primaryReason, setPrimaryReason] = useState<AccountClosureReasonCode | null>(null);
   const [details, setDetails] = useState("");
@@ -141,7 +144,7 @@ export function DeleteAccountModal({
                   style={[
                     styles.reasonRow,
                     {
-                      borderColor: selected ? colors.accent : colors.border,
+                      borderColor: selected ? selectedBorder : colors.border,
                       backgroundColor: selected ? tokens.accentSoft : "transparent",
                     },
                   ]}
@@ -175,14 +178,7 @@ export function DeleteAccountModal({
               placeholderTextColor={colors.mutedForeground}
               multiline
               editable={!loading}
-              style={[
-                styles.detailsInput,
-                {
-                  color: colors.foreground,
-                  borderColor: colors.border,
-                  backgroundColor: colors.muted,
-                },
-              ]}
+              style={[styles.detailsInput, tokens.inputSurface, { color: colors.foreground }]}
             />
           </>
         ) : null}
@@ -206,14 +202,7 @@ export function DeleteAccountModal({
               autoCapitalize="characters"
               autoCorrect={false}
               editable={!loading}
-              style={[
-                styles.confirmInput,
-                {
-                  color: colors.foreground,
-                  borderColor: colors.border,
-                  backgroundColor: colors.muted,
-                },
-              ]}
+              style={[styles.confirmInput, tokens.inputSurface, { color: colors.foreground }]}
             />
             <PressableScale
               accessibilityRole="checkbox"

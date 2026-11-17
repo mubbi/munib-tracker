@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -73,58 +74,66 @@ function BattlesBattleDetailsCard({
         title={t("battles.detailTitle")}
         icon={{ ios: "map.fill", android: "map", web: "map" }}
       />
-      <View style={styles.detailRows}>
-        {rows.map((row) => (
-          <View key={row.label} style={[styles.detailRow, { borderTopColor: tokens.hairline }]}>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {row.label}
-            </ThemedText>
-            <ThemedText type="small" style={{ fontSize: sizes.translation }}>
-              {row.value}
-            </ThemedText>
-          </View>
-        ))}
-      </View>
+      <TvReadableBlock>
+        <View style={styles.detailRows}>
+          {rows.map((row) => (
+            <View key={row.label} style={[styles.detailRow, { borderTopColor: tokens.hairline }]}>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {row.label}
+              </ThemedText>
+              <ThemedText type="small" style={{ fontSize: sizes.translation }}>
+                {row.value}
+              </ThemedText>
+            </View>
+          ))}
+        </View>
+      </TvReadableBlock>
 
       {details.keyEvents.length ? (
-        <View style={styles.subsection}>
-          <ThemedText type="smallBold">{t("battles.detail.keyEvents")}</ThemedText>
-          {details.keyEvents.map((event) => (
-            <ThemedText
-              key={event}
-              type="small"
-              themeColor="mutedForeground"
-              style={{ fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 }}
-            >
-              • {event}
-            </ThemedText>
-          ))}
-        </View>
+        <TvReadableBlock>
+          <View style={styles.subsection}>
+            <ThemedText type="smallBold">{t("battles.detail.keyEvents")}</ThemedText>
+            {details.keyEvents.map((event) => (
+              <ThemedText
+                key={event}
+                type="small"
+                themeColor="mutedForeground"
+                style={{ fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 }}
+              >
+                • {event}
+              </ThemedText>
+            ))}
+          </View>
+        </TvReadableBlock>
       ) : null}
 
-      <View style={[styles.lessonBox, { backgroundColor: tokens.accentSoft }]}>
-        <ThemedText type="caption" style={{ color: colors.accent }}>
-          {t("battles.detail.leadership")}
-        </ThemedText>
-        <ThemedText type="small">{details.leadershipLesson}</ThemedText>
-      </View>
+      <TvReadableBlock>
+        <View style={[styles.lessonBox, { backgroundColor: tokens.accentSoft }]}>
+          <ThemedText type="caption" style={{ color: colors.accent }}>
+            {t("battles.detail.leadership")}
+          </ThemedText>
+          <ThemedText type="small">{details.leadershipLesson}</ThemedText>
+        </View>
 
-      <View style={[styles.lessonBox, { backgroundColor: tokens.status.success.soft }]}>
-        <ThemedText type="caption" style={{ color: tokens.status.success.color }}>
-          {t("battles.detail.spiritual")}
-        </ThemedText>
-        <ThemedText type="small">{details.spiritualLesson}</ThemedText>
-      </View>
+        <View style={[styles.lessonBox, { backgroundColor: tokens.status.success.soft }]}>
+          <ThemedText type="caption" style={{ color: tokens.status.success.color }}>
+            {t("battles.detail.spiritual")}
+          </ThemedText>
+          <ThemedText type="small">{details.spiritualLesson}</ThemedText>
+        </View>
+      </TvReadableBlock>
 
       {details.facts?.length ? (
-        <View style={styles.subsection}>
-          <ThemedText type="smallBold">{t("battles.detail.facts")}</ThemedText>
-          {details.facts.map((fact) => (
-            <ThemedText key={fact} type="caption" themeColor="mutedForeground">
-              • {fact}
-            </ThemedText>
-          ))}
-        </View>
+        <TvReadableBlock>
+          <View style={styles.subsection}>
+            <ThemedText type="smallBold">{t("battles.detail.facts")}</ThemedText>
+            {details.facts.map((fact) => (
+              <ThemedText key={fact} type="caption" themeColor="mutedForeground">
+                • {fact}
+              </ThemedText>
+            ))}
+          </View>
+        </TvReadableBlock>
       ) : null}
     </Card>
   );
@@ -186,9 +195,11 @@ export function BattlesTopicContent({ topic }: { topic: BattlesTopic }) {
       />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );

@@ -3,7 +3,7 @@ import type { ContentReportReference } from "@munib-tracker/shared/types/content
 import { SymbolView } from "expo-symbols";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
 import { ContentReportFooterLink } from "@/components/content-report/content-report-footer-link";
@@ -21,7 +21,10 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useQuranAyahRange } from "@/hooks/use-quran-ayah-range";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
@@ -89,9 +92,11 @@ export function JannahDisclaimer({
   return (
     <View>
       <View style={[styles.disclaimerWrap, { borderColor: tokens.hairline }]}>
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
-          {t(textKey)}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
+            {t(textKey)}
+          </ThemedText>
+        </TvReadableBlock>
       </View>
       {contentRef ? <ContentReportFooterLink contentRef={contentRef} /> : null}
     </View>
@@ -106,6 +111,7 @@ export function JannahNavRow({
   badge,
   onPress,
   tint,
+  preferredFocus,
 }: {
   icon: AppIconType;
   title: string;
@@ -113,6 +119,8 @@ export function JannahNavRow({
   badge?: string;
   onPress: () => void;
   tint?: string;
+  /** TV: request initial D-pad focus on this row. */
+  preferredFocus?: boolean;
 }) {
   const { colors } = useThemeTokens();
   const chevronForward = useChevronForward();
@@ -125,9 +133,12 @@ export function JannahNavRow({
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
+      {...(preferredFocus && isTV() ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.navRow,
-        isTV() ? [tvLearnRowStyle, styles.navRowTv] : null,
+        // Grid cells (wide hubs): fill the row height so tiles line up. Inert in
+        // the phone stack, where the parent has no spare height to distribute.
+        isTV() ? [tvLearnRowStyle, styles.navRowTv] : styles.navRowFill,
         { backgroundColor: colors.muted },
       ]}
     >
@@ -156,10 +167,76 @@ export function JannahNavRow({
   );
 }
 
-/** 2×2 quick-link grid for hub shortcuts. */
+/**
+ * Pressable list row that also hosts its own secondary control (e.g. a bookmark
+ * button). Phone/web: one `PressableScale` with `actions` inline before
+ * `trailing` — unchanged layout. TV: nested focusables are unreachable on tvOS
+ * (and awkward on Android TV), so the row splits into the pressable body plus
+ * `actions` as a sibling the D-pad reaches with Right.
+ */
+export function JannahActionRow({
+  onPress,
+  accessibilityLabel,
+  accessibilityRole = "link",
+  style,
+  children,
+  actions,
+  trailing,
+}: {
+  onPress: () => void;
+  accessibilityLabel?: string;
+  accessibilityRole?: "link" | "button";
+  /** Row container style (flex row, padding, separators). */
+  style?: StyleProp<ViewStyle>;
+  /** Leading content (icon + copy). */
+  children: ReactNode;
+  /** Secondary focusable controls — moved beside the row on TV. */
+  actions?: ReactNode;
+  /** Non-interactive trailing glyph (chevron) — stays inside the row. */
+  trailing?: ReactNode;
+}) {
+  if (!isTV()) {
+    return (
+      <PressableScale
+        haptic="light"
+        accessibilityRole={accessibilityRole}
+        accessibilityLabel={accessibilityLabel}
+        onPress={onPress}
+        style={style}
+      >
+        {children}
+        {actions}
+        {trailing}
+      </PressableScale>
+    );
+  }
+  const flat: ViewStyle = StyleSheet.flatten(style) ?? {};
+  return (
+    <View style={[style, styles.actionRowTv]}>
+      <PressableScale
+        accessibilityRole={accessibilityRole}
+        accessibilityLabel={accessibilityLabel}
+        onPress={onPress}
+        style={[
+          styles.actionRowBodyTv,
+          { alignItems: flat.alignItems ?? "center", gap: flat.gap ?? Spacing.three },
+        ]}
+      >
+        {children}
+        {trailing}
+      </PressableScale>
+      {actions}
+    </View>
+  );
+}
+
+/** 2×2 quick-link grid for hub shortcuts (one row of 4 on wide hubs via `columns`). */
 export function JannahQuickLinkGrid({
   items,
+  columns = 2,
 }: {
+  /** Tiles per row — 2 (phone / aside default) or 4 (wide full-width hub). */
+  columns?: 2 | 4;
   items: {
     id: string;
     icon: AppIconType;
@@ -179,7 +256,11 @@ export function JannahQuickLinkGrid({
           accessibilityRole="button"
           accessibilityLabel={`${item.title}. ${item.subtitle}`}
           onPress={item.onPress}
-          style={[styles.quickTile, { backgroundColor: colors.muted }]}
+          style={[
+            styles.quickTile,
+            columns === 4 && !isTV() ? styles.quickTileQuarter : null,
+            { backgroundColor: colors.muted },
+          ]}
         >
           <IconWell
             icon={item.icon}
@@ -206,16 +287,18 @@ export function JannahTakeaway({ text }: { text: string }) {
   useRegisterLearnListenText(text);
 
   return (
-    <View
-      style={[
-        styles.takeaway,
-        { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
-      ]}
-    >
-      <LearnProseText proseRole="title" type="smallBold" style={{ color: colors.accentText }}>
-        {text}
-      </LearnProseText>
-    </View>
+    <TvReadableBlock>
+      <View
+        style={[
+          styles.takeaway,
+          { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
+        ]}
+      >
+        <LearnProseText proseRole="title" type="smallBold" style={{ color: colors.accentText }}>
+          {text}
+        </LearnProseText>
+      </View>
+    </TvReadableBlock>
   );
 }
 
@@ -233,14 +316,15 @@ export function JannahBody({
   return (
     <View style={styles.bodyBlock}>
       {paragraphs.map((paragraph, index) => (
-        <LearnProseText
-          key={paragraph.slice(0, 48)}
-          type={uniform || index > 0 ? "small" : "default"}
-          themeColor={uniform || index > 0 ? "mutedForeground" : "foreground"}
-          style={styles.bodyParagraph}
-        >
-          {paragraph}
-        </LearnProseText>
+        <TvReadableBlock key={paragraph.slice(0, 48)}>
+          <LearnProseText
+            type={uniform || index > 0 ? "small" : "default"}
+            themeColor={uniform || index > 0 ? "mutedForeground" : "foreground"}
+            style={styles.bodyParagraph}
+          >
+            {paragraph}
+          </LearnProseText>
+        </TvReadableBlock>
       ))}
     </View>
   );
@@ -271,12 +355,14 @@ function QuranEvidenceItem({ refItem }: { refItem: JannahQuranRef }) {
           <QuranAyahBookmarkButton surah={refItem.surah} ayah={refItem.ayahFrom} />
         </View>
       </View>
-      <ReligiousTextStack
-        arabic={range?.arabic}
-        transliteration={range?.transliteration}
-        translation={refItem.excerpt}
-        compact
-      />
+      <TvReadableBlock>
+        <ReligiousTextStack
+          arabic={range?.arabic}
+          transliteration={range?.transliteration}
+          translation={refItem.excerpt}
+          compact
+        />
+      </TvReadableBlock>
     </View>
   );
 }
@@ -331,9 +417,11 @@ export function JannahHadithEvidence({ refs }: { refs: JannahHadithRef[] }) {
                 <HadithCitationBookmarkButton collection={ref.collection} citation={ref.citation} />
               </View>
             </View>
-            <LearnProseText type="small" themeColor="mutedForeground" style={styles.quoteText}>
-              “{ref.excerpt}”
-            </LearnProseText>
+            <TvReadableBlock>
+              <LearnProseText type="small" themeColor="mutedForeground" style={styles.quoteText}>
+                “{ref.excerpt}”
+              </LearnProseText>
+            </TvReadableBlock>
           </View>
         ))}
       </View>
@@ -355,16 +443,18 @@ export function JannahActionSteps({ steps }: { steps: string[] }) {
       />
       <View style={styles.steps}>
         {steps.map((step, index) => (
-          <View key={step} style={styles.stepRow}>
-            <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
-              <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                {index + 1}
-              </ThemedText>
+          <TvReadableBlock key={step}>
+            <View style={styles.stepRow}>
+              <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
+                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                  {index + 1}
+                </ThemedText>
+              </View>
+              <LearnProseText type="small" themeColor="mutedForeground" style={styles.stepText}>
+                {step}
+              </LearnProseText>
             </View>
-            <LearnProseText type="small" themeColor="mutedForeground" style={styles.stepText}>
-              {step}
-            </LearnProseText>
-          </View>
+          </TvReadableBlock>
         ))}
       </View>
     </Card>
@@ -389,35 +479,37 @@ export function JannahDuaBlock({
   const { sizes } = useReadingTypography();
 
   return (
-    <Card padding="three">
-      {title ? (
-        <ThemedText type="smallBold" style={styles.duaTitle}>
-          {title}
-        </ThemedText>
-      ) : null}
-      <View
-        style={[
-          styles.duaInner,
-          { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
-        ]}
-      >
-        <ReligiousTextStack
-          arabic={arabic}
-          transliteration={transliteration}
-          translation={translation}
-          compact
-        />
-      </View>
-      {reference ? (
-        <ThemedText
-          type="caption"
-          themeColor="mutedForeground"
-          style={[styles.duaRef, { fontSize: sizes.transliteration }]}
+    <TvReadableBlock>
+      <Card padding="three">
+        {title ? (
+          <ThemedText type="smallBold" style={styles.duaTitle}>
+            {title}
+          </ThemedText>
+        ) : null}
+        <View
+          style={[
+            styles.duaInner,
+            { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
+          ]}
         >
-          {reference}
-        </ThemedText>
-      ) : null}
-    </Card>
+          <ReligiousTextStack
+            arabic={arabic}
+            transliteration={transliteration}
+            translation={translation}
+            compact
+          />
+        </View>
+        {reference ? (
+          <ThemedText
+            type="caption"
+            themeColor="mutedForeground"
+            style={[styles.duaRef, { fontSize: sizes.transliteration }]}
+          >
+            {reference}
+          </ThemedText>
+        ) : null}
+      </Card>
+    </TvReadableBlock>
   );
 }
 
@@ -453,7 +545,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     gap: Spacing.four,
   },
+  navRowFill: { flexGrow: 1 },
   navCopy: { flex: 1, gap: Spacing.half, minWidth: 0 },
+  actionRowTv: { alignItems: "center" },
+  actionRowBodyTv: {
+    flex: 1,
+    flexDirection: "row",
+    minHeight: TvLayout.minFocusTarget,
+    padding: Spacing.two,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
   navBadge: { alignSelf: "flex-start", marginTop: Spacing.half },
   quickGrid: {
     flexDirection: "row",
@@ -473,6 +575,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     gap: Spacing.two,
   },
+  // Wide hubs: one row of four (gap-aware, grows to fill the row).
+  quickTileQuarter: { width: "23%", minWidth: 0 },
   quickTitle: { marginTop: Spacing.half },
   takeaway: {
     padding: Spacing.three,
@@ -519,8 +623,8 @@ const styles = StyleSheet.create({
   steps: { gap: Spacing.three, marginTop: Spacing.three },
   stepRow: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   stepBadge: {
-    width: 28,
-    height: 28,
+    width: tvDp(28),
+    height: tvDp(28),
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",

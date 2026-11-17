@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { type ComponentType, lazy, Suspense } from "react";
+import { type ComponentType, lazy, type ReactNode, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import {
   AcceptanceHourGoalReminder,
   useAcceptanceHourActive,
@@ -54,7 +54,8 @@ import { isWhiteDay } from "@/lib/white-days";
 import { useContinueActivity } from "@/stores/continue-store";
 import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
 import { useLocation } from "@/stores/location-store";
-import { usePreferences } from "@/stores/preferences-store";
+import { useEnsureNewFeaturesLoaded, useNewFeatureIds } from "@/stores/new-features-store";
+import { usePreferences, usePreferencesReady } from "@/stores/preferences-store";
 import {
   useDailySummary,
   useDayExcused,
@@ -115,6 +116,12 @@ export type HomeBelowFoldProps = Pick<
   scheduleDateLabel: string;
   /** Location label for schedule share. */
   scheduleLocationLabel: string;
+  /**
+   * Wide-screen dashboard: when set, the hero renders at the top of the main
+   * column and today's schedule + secondary cards move into an aside beside it.
+   * Omitted on phones / TV (stacked layout tucked under the full-bleed hero).
+   */
+  hero?: ReactNode;
 };
 
 /**
@@ -127,10 +134,13 @@ export function HomeBelowFold({
   nextScheduleId,
   scheduleDateLabel,
   scheduleLocationLabel,
+  hero,
 }: HomeBelowFoldProps) {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { width } = useWindowDimensions();
+  const dashboard = hero != null;
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const summary = useDailySummary();
   const excusedReason = useDayExcused();
@@ -145,6 +155,9 @@ export function HomeBelowFold({
   useReviewRouteTrigger("home");
   useReviewStreakTrigger(streak);
   const { quickActionOrder, hiddenHomeModules } = usePreferences();
+  // "New" badges (15 days per device) — also adds new tiles once to a customised grid.
+  useEnsureNewFeaturesLoaded(usePreferencesReady());
+  const newFeatureIds = useNewFeatureIds();
   const location = useLocation();
   const continueActivity = useContinueActivity();
   const arrowForward = useArrowForward();
@@ -238,12 +251,292 @@ export function HomeBelowFold({
   const devotionLevelProgress = devotion.noor - devotion.noorForCurrentLevel;
   const devotionLevelSpan = devotion.noorForNextLevel - devotion.noorForCurrentLevel;
 
-  const allQuickActions = buildQuickActionItems(t, router.push, { colors, tokens });
+  const allQuickActions = buildQuickActionItems(t, router.push, { colors, tokens }).map((item) =>
+    newFeatureIds.has(item.id) ? { ...item, isNew: true, newLabel: t("common.newBadge") } : item,
+  );
   const visibleQuickActions = orderQuickActions(
     allQuickActions,
     quickActionOrder?.length ? quickActionOrder : DEFAULT_QUICK_ACTION_ORDER,
   );
   const tv = isTV();
+
+  // Dashboard: more tiles per row in the wider main column.
+  const quickActionColumns = tv ? 3 : dashboard ? (width >= 1600 ? 6 : width >= 1280 ? 5 : 4) : 4;
+
+  const goalCard = (
+    <Card>
+      <View style={styles.goalHeader}>
+        <View style={styles.goalTitle}>
+          <ThemedText type="subtitle">{t("home.todaysGoal")}</ThemedText>
+          <ThemedText type="small" themeColor="mutedForeground">
+            {isExcused
+              ? t("home.excusedGoalHint", {
+                  reason: t(`tracker.excusedReason.${excusedReason}`),
+                })
+              : isFreshStart
+                ? t("home.freshStartHint")
+                : t("home.checklistHint")}
+          </ThemedText>
+        </View>
+        <View style={styles.goalPills}>
+          {acceptanceHourActive ? (
+            <Pill
+              label={t("home.acceptanceHourCard.badge")}
+              compact
+              color={colors.accent}
+              background={tokens.accentSoft}
+              icon={{
+                ios: "hands.sparkles.fill",
+                android: "volunteer_activism",
+                web: "volunteer_activism",
+              }}
+            />
+          ) : isFriday() ? (
+            <Pill
+              label={t("home.fridayCard.badge")}
+              compact
+              color={colors.accent}
+              background={tokens.accentSoft}
+              icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
+            />
+          ) : isWhiteDay() ? (
+            <Pill
+              label={t("home.whiteDaysCard.badge")}
+              compact
+              color={colors.accent}
+              background={tokens.accentSoft}
+              icon={{ ios: "moon.circle.fill", android: "brightness_3", web: "brightness_3" }}
+            />
+          ) : null}
+          {khatmToday ? (
+            <Pill
+              label={t("home.khatmCard.badge")}
+              compact
+              color={khatmToday.pace === "behind" ? tokens.status.warning.color : colors.accent}
+              background={
+                khatmToday.pace === "behind" ? tokens.status.warning.soft : tokens.accentSoft
+              }
+              icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+            />
+          ) : null}
+          {isExcused ? (
+            <Pill
+              label={t("home.excusedPausedLabel")}
+              color={tokens.status.info.color}
+              background={colors.card}
+              icon={{
+                ios: "pause.circle.fill",
+                android: "pause_circle",
+                web: "pause_circle",
+              }}
+            />
+          ) : (
+            <Pill
+              label={`${progressPct}%`}
+              color={colors.accentForeground}
+              background={colors.accent}
+            />
+          )}
+        </View>
+      </View>
+
+      <AcceptanceHourGoalReminder />
+      <FridayGoalReminder />
+      <WhiteDaysGoalReminder />
+      <KhatmGoalReminder />
+
+      {isExcused ? (
+        <View
+          style={[
+            styles.pausedBanner,
+            {
+              backgroundColor: colors.card,
+              borderColor: tokens.status.info.color,
+            },
+          ]}
+        >
+          <SymbolView
+            name={{
+              ios: "pause.circle.fill",
+              android: "pause_circle",
+              web: "pause_circle",
+            }}
+            size={22}
+            tintColor={tokens.status.info.color}
+          />
+          <View style={styles.pausedCopy}>
+            <ThemedText type="smallBold" style={{ color: tokens.status.info.color }}>
+              {t("home.excusedPausedLabel")}
+            </ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("home.excusedGoalBody")}
+            </ThemedText>
+          </View>
+        </View>
+      ) : (
+        <View style={styles.goalProgress}>
+          <ThemedText type="smallBold" themeColor="mutedForeground">
+            {t("home.tasksProgress", { done: tasksDone, total: tasksTotal })}
+          </ThemedText>
+          <SegmentedProgress total={Math.max(tasksTotal, 1)} completed={tasksDone} />
+          {goalBreakdown.length > 0 ? (
+            <View style={styles.goalBreakdown}>
+              {goalBreakdown.map((item) => {
+                const tier = resolveGoalTier(item.done, item.total);
+                const status = tokens.status[tier.tone];
+                return (
+                  <View
+                    key={item.key}
+                    style={[
+                      styles.breakdownChip,
+                      {
+                        backgroundColor: status.soft,
+                        borderColor: status.color,
+                      },
+                    ]}
+                  >
+                    <SymbolView name={tier.icon} size={13} tintColor={status.color} />
+                    <ThemedText type="caption" style={{ color: status.text }}>
+                      {item.label}
+                    </ThemedText>
+                    <ThemedText type="caption" style={{ color: status.text, fontWeight: "700" }}>
+                      {t("home.tasksFraction", {
+                        done: formatCount(item.done),
+                        total: formatCount(item.total),
+                      })}
+                    </ThemedText>
+                  </View>
+                );
+              })}
+            </View>
+          ) : null}
+        </View>
+      )}
+
+      <ExcusedDayPicker variant="inline" />
+
+      <PressableScale
+        onPress={() => router.push("/achievements")}
+        haptic="light"
+        scaleTo={0.98}
+        accessibilityRole="button"
+        accessibilityLabel={t("home.devotionA11y", {
+          level: devotion.level,
+          noor: devotion.noor,
+          current: devotionLevelProgress,
+          next: devotionLevelSpan,
+        })}
+        style={[
+          styles.achievementBlock,
+          {
+            backgroundColor: colors.muted,
+            borderColor: tokens.hairline,
+          },
+        ]}
+      >
+        <DevotionAchievementSummary compact milestonePillBackground={colors.card} />
+      </PressableScale>
+
+      <Button
+        label={
+          isExcused
+            ? t("home.goToChecklist")
+            : isFreshStart
+              ? t("home.startTracking")
+              : t("home.goToChecklist")
+        }
+        variant={isExcused ? "secondary" : "primary"}
+        fullWidth
+        trailingIcon={arrowForward}
+        onPress={() => router.push("/tracker")}
+      />
+    </Card>
+  );
+
+  const quickActionsCard = !hiddenModules.has("quickActions") ? (
+    <Card padding="three">
+      <SectionHeader
+        title={t("home.explore")}
+        icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+        actionLabel={t("home.manage")}
+        actionAccessibilityLabel={t("home.manageA11y")}
+        actionIcon={{
+          ios: "slider.horizontal.3",
+          android: "tune",
+          web: "tune",
+        }}
+        onActionPress={() => router.push("/settings/home")}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.exploreHint}>
+        {tTv(t, "home.exploreHint", "home.exploreHintTv", {
+          shown: visibleQuickActions.length,
+          total: allQuickActions.length,
+        })}
+      </ThemedText>
+      <View style={styles.quickActions}>
+        <QuickActionGrid items={visibleQuickActions} columns={quickActionColumns} />
+      </View>
+    </Card>
+  ) : null;
+
+  const qazaCard = showQazaCard ? (
+    <QazaSummaryCard
+      remaining={qaza.remaining}
+      completed={qaza.completed}
+      rozaRemaining={roza.remaining}
+      onPress={() => router.push("/qaza")}
+    />
+  ) : null;
+
+  const scheduleCard = !hiddenModules.has("schedule") ? (
+    <PrayerScheduleCard
+      schedule={schedule}
+      nextIn={nextIn}
+      nextScheduleId={nextScheduleId}
+      // Share sheet is phone-only — no share affordance on TV.
+      onShare={tv ? undefined : onShareSchedule}
+      shareLoading={isSharing(SCHEDULE_SHARE_KEY)}
+      shareGesturePending={isGesturePending(SCHEDULE_SHARE_KEY)}
+    />
+  ) : null;
+
+  const knowledgeCard =
+    // TV ~1GB AVDs OOM if home also loads @/lib/quran + hadith for this card.
+    !tv && !hiddenModules.has("knowledge") ? (
+      <Suspense fallback={null}>
+        <KnowledgeFlashCardLazy />
+      </Suspense>
+    ) : null;
+
+  if (dashboard) {
+    // Wide web / tablets: hero + daily goal + discovery on the start side;
+    // today's schedule and secondary progress cards in an aside beside the hero.
+    return (
+      <View style={styles.dashboard}>
+        {SnapshotHost}
+        <View style={styles.dashboardMain}>
+          {hero}
+          <IosPwaInstallBanner />
+          <Stagger entranceKey="home">
+            {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
+            {showSeasonalBanner ? <SeasonalThemeBanner /> : null}
+            {goalCard}
+            {knowledgeCard}
+            {quickActionsCard}
+          </Stagger>
+        </View>
+        <View style={[styles.dashboardAside, { width: width >= 1440 ? 400 : 340 }]}>
+          <Stagger entranceKey="home-aside">
+            {scheduleCard}
+            {showRamadanCard ? <RamadanCard /> : null}
+            {showKhatmCard ? <KhatmCard /> : null}
+            {showContinueCard ? <ContinueCard /> : null}
+            {qazaCard}
+          </Stagger>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.body, tv ? { paddingHorizontal: TvLayout.contentPaddingX } : null]}>
@@ -255,254 +548,24 @@ export function HomeBelowFold({
         {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
         {showSeasonalBanner ? <SeasonalThemeBanner /> : null}
 
-        <Card>
-          <View style={styles.goalHeader}>
-            <View style={styles.goalTitle}>
-              <ThemedText type="subtitle">{t("home.todaysGoal")}</ThemedText>
-              <ThemedText type="small" themeColor="mutedForeground">
-                {isExcused
-                  ? t("home.excusedGoalHint", {
-                      reason: t(`tracker.excusedReason.${excusedReason}`),
-                    })
-                  : isFreshStart
-                    ? t("home.freshStartHint")
-                    : t("home.checklistHint")}
-              </ThemedText>
-            </View>
-            <View style={styles.goalPills}>
-              {acceptanceHourActive ? (
-                <Pill
-                  label={t("home.acceptanceHourCard.badge")}
-                  compact
-                  color={colors.accent}
-                  background={tokens.accentSoft}
-                  icon={{
-                    ios: "hands.sparkles.fill",
-                    android: "volunteer_activism",
-                    web: "volunteer_activism",
-                  }}
-                />
-              ) : isFriday() ? (
-                <Pill
-                  label={t("home.fridayCard.badge")}
-                  compact
-                  color={colors.accent}
-                  background={tokens.accentSoft}
-                  icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
-                />
-              ) : isWhiteDay() ? (
-                <Pill
-                  label={t("home.whiteDaysCard.badge")}
-                  compact
-                  color={colors.accent}
-                  background={tokens.accentSoft}
-                  icon={{ ios: "moon.circle.fill", android: "brightness_3", web: "brightness_3" }}
-                />
-              ) : null}
-              {khatmToday ? (
-                <Pill
-                  label={t("home.khatmCard.badge")}
-                  compact
-                  color={khatmToday.pace === "behind" ? tokens.status.warning.color : colors.accent}
-                  background={
-                    khatmToday.pace === "behind" ? tokens.status.warning.soft : tokens.accentSoft
-                  }
-                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                />
-              ) : null}
-              {isExcused ? (
-                <Pill
-                  label={t("home.excusedPausedLabel")}
-                  color={tokens.status.info.color}
-                  background={colors.card}
-                  icon={{
-                    ios: "pause.circle.fill",
-                    android: "pause_circle",
-                    web: "pause_circle",
-                  }}
-                />
-              ) : (
-                <Pill
-                  label={`${progressPct}%`}
-                  color={colors.accentForeground}
-                  background={colors.accent}
-                />
-              )}
-            </View>
-          </View>
+        {/* TV: Continue owns preferred focus — keep it right under the hero so the
+          landing scroll stays shallow and the hero clock remains on screen. */}
+        {tv && showContinueCard ? <ContinueCard /> : null}
 
-          <AcceptanceHourGoalReminder />
-          <FridayGoalReminder />
-          <WhiteDaysGoalReminder />
-          <KhatmGoalReminder />
-
-          {isExcused ? (
-            <View
-              style={[
-                styles.pausedBanner,
-                {
-                  backgroundColor: colors.card,
-                  borderColor: tokens.status.info.color,
-                },
-              ]}
-            >
-              <SymbolView
-                name={{
-                  ios: "pause.circle.fill",
-                  android: "pause_circle",
-                  web: "pause_circle",
-                }}
-                size={22}
-                tintColor={tokens.status.info.color}
-              />
-              <View style={styles.pausedCopy}>
-                <ThemedText type="smallBold" style={{ color: tokens.status.info.color }}>
-                  {t("home.excusedPausedLabel")}
-                </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("home.excusedGoalBody")}
-                </ThemedText>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.goalProgress}>
-              <ThemedText type="smallBold" themeColor="mutedForeground">
-                {t("home.tasksProgress", { done: tasksDone, total: tasksTotal })}
-              </ThemedText>
-              <SegmentedProgress total={Math.max(tasksTotal, 1)} completed={tasksDone} />
-              {goalBreakdown.length > 0 ? (
-                <View style={styles.goalBreakdown}>
-                  {goalBreakdown.map((item) => {
-                    const tier = resolveGoalTier(item.done, item.total);
-                    const status = tokens.status[tier.tone];
-                    return (
-                      <View
-                        key={item.key}
-                        style={[
-                          styles.breakdownChip,
-                          {
-                            backgroundColor: status.soft,
-                            borderColor: status.color,
-                          },
-                        ]}
-                      >
-                        <SymbolView name={tier.icon} size={13} tintColor={status.color} />
-                        <ThemedText type="caption" style={{ color: status.text }}>
-                          {item.label}
-                        </ThemedText>
-                        <ThemedText
-                          type="caption"
-                          style={{ color: status.text, fontWeight: "700" }}
-                        >
-                          {t("home.tasksFraction", {
-                            done: formatCount(item.done),
-                            total: formatCount(item.total),
-                          })}
-                        </ThemedText>
-                      </View>
-                    );
-                  })}
-                </View>
-              ) : null}
-            </View>
-          )}
-
-          <ExcusedDayPicker variant="inline" />
-
-          <PressableScale
-            onPress={() => router.push("/achievements")}
-            haptic="light"
-            scaleTo={0.98}
-            accessibilityRole="button"
-            accessibilityLabel={t("home.devotionA11y", {
-              level: devotion.level,
-              noor: devotion.noor,
-              current: devotionLevelProgress,
-              next: devotionLevelSpan,
-            })}
-            style={[
-              styles.achievementBlock,
-              {
-                backgroundColor: colors.muted,
-                borderColor: tokens.hairline,
-              },
-            ]}
-          >
-            <DevotionAchievementSummary compact milestonePillBackground={colors.card} />
-          </PressableScale>
-
-          <Button
-            label={
-              isExcused
-                ? t("home.goToChecklist")
-                : isFreshStart
-                  ? t("home.startTracking")
-                  : t("home.goToChecklist")
-            }
-            variant={isExcused ? "secondary" : "primary"}
-            fullWidth
-            trailingIcon={arrowForward}
-            onPress={() => router.push("/tracker")}
-          />
-        </Card>
+        {goalCard}
 
         {showRamadanCard ? <RamadanCard /> : null}
         {showKhatmCard ? <KhatmCard /> : null}
 
-        {showContinueCard ? <ContinueCard /> : null}
+        {!tv && showContinueCard ? <ContinueCard /> : null}
 
-        {/* TV ~1GB AVDs OOM if home also loads @/lib/quran + hadith for this card. */}
-        {!tv && !hiddenModules.has("knowledge") ? (
-          <Suspense fallback={null}>
-            <KnowledgeFlashCardLazy />
-          </Suspense>
-        ) : null}
+        {knowledgeCard}
 
-        {!hiddenModules.has("quickActions") ? (
-          <Card padding="three">
-            <SectionHeader
-              title={t("home.explore")}
-              icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-              actionLabel={t("home.manage")}
-              actionAccessibilityLabel={t("home.manageA11y")}
-              actionIcon={{
-                ios: "slider.horizontal.3",
-                android: "tune",
-                web: "tune",
-              }}
-              onActionPress={() => router.push("/settings/home")}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.exploreHint}>
-              {tTv(t, "home.exploreHint", "home.exploreHintTv", {
-                shown: visibleQuickActions.length,
-                total: allQuickActions.length,
-              })}
-            </ThemedText>
-            <View style={styles.quickActions}>
-              <QuickActionGrid items={visibleQuickActions} columns={tv ? 3 : 4} />
-            </View>
-          </Card>
-        ) : null}
+        {quickActionsCard}
 
-        {showQazaCard ? (
-          <QazaSummaryCard
-            remaining={qaza.remaining}
-            completed={qaza.completed}
-            rozaRemaining={roza.remaining}
-            onPress={() => router.push("/qaza")}
-          />
-        ) : null}
+        {qazaCard}
 
-        {!hiddenModules.has("schedule") ? (
-          <PrayerScheduleCard
-            schedule={schedule}
-            nextIn={nextIn}
-            nextScheduleId={nextScheduleId}
-            onShare={onShareSchedule}
-            shareLoading={isSharing(SCHEDULE_SHARE_KEY)}
-            shareGesturePending={isGesturePending(SCHEDULE_SHARE_KEY)}
-          />
-        ) : null}
+        {scheduleCard}
       </Stagger>
     </View>
   );
@@ -511,6 +574,9 @@ export function HomeBelowFold({
 const styles = StyleSheet.create({
   // Tuck into the hero curve without covering the prayer-time row.
   body: { paddingHorizontal: Spacing.four, marginTop: -Spacing.five, gap: Spacing.four, zIndex: 1 },
+  dashboard: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  dashboardMain: { flex: 1, minWidth: 0, gap: Spacing.four },
+  dashboardAside: { flexShrink: 0, gap: Spacing.four },
   goalHeader: {
     flexDirection: "row",
     alignItems: "flex-start",

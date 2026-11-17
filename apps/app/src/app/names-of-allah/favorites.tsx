@@ -8,11 +8,14 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadNamesOfAllah } from "@/lib/content-loaders";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   useEnsureNameFavoritesLoaded,
   useFavoriteNameIds,
@@ -68,7 +71,8 @@ export default function NameFavoritesScreen() {
         />
       ) : (
         <Card padding="three">
-          <View style={styles.list}>
+          {/* Wide web / tablets: saved names in 2-3 columns (TV keeps one). */}
+          <ResponsiveGrid columns={isTV() ? 1 : undefined} maxColumns={3} gap={Spacing.two}>
             {items.map((name) => (
               <View key={name.id} style={[styles.row, { backgroundColor: colors.muted }]}>
                 <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
@@ -93,11 +97,12 @@ export default function NameFavoritesScreen() {
                   tintColor={tokens.status.warning.color}
                   accessibilityLabel={t("names.unfavorite")}
                   haptic="warning"
+                  hitTarget={isTV() ? TvLayout.minFocusTarget : undefined}
                   onPress={() => toggle(name.id)}
                 />
               </View>
             ))}
-          </View>
+          </ResponsiveGrid>
         </Card>
       )}
     </ScreenLayout>
@@ -105,8 +110,8 @@ export default function NameFavoritesScreen() {
 }
 
 const styles = StyleSheet.create({
-  list: { gap: Spacing.two },
   row: {
+    flexGrow: 1,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,

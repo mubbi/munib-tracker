@@ -1,7 +1,14 @@
 import { SymbolView } from "expo-symbols";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import {
+  Platform,
+  type StyleProp,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  type ViewStyle,
+} from "react-native";
 import Animated, {
   useAnimatedStyle,
   useReducedMotion,
@@ -16,7 +23,10 @@ import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import {
   chartCoordinateStyle,
   progressRingKnobStyle,
@@ -39,9 +49,12 @@ export const TASBEEH_MODES: TasbeehMode[] = [
 ];
 
 const RING_SIZE = 272;
-const RING_SIZE_TV = 320;
+/** TV: landscape stage beside the controls — sized so the whole card fits 540dp. */
+const RING_SIZE_TV = 288;
 const RING_STROKE = 14;
 const TAP_PADDING = 48;
+const TAP_PADDING_TV = 32;
+const RING_GLOW = 36;
 
 type TasbeehCounterProps = {
   count: number;
@@ -52,6 +65,11 @@ type TasbeehCounterProps = {
   modes?: TasbeehMode[];
   onSelectMode?: (target: number) => void;
   onCustom?: () => void;
+  /**
+   * Desktop web: Space / Enter count while no field or control has focus.
+   * Screens pass `false` while one of their own modals is open.
+   */
+  keyboardShortcuts?: boolean;
 };
 
 type PendingConfirm = "decrement" | "reset" | "startAgain";
@@ -65,15 +83,18 @@ export function TasbeehCounter({
   modes = TASBEEH_MODES,
   onSelectMode,
   onCustom,
+  keyboardShortcuts = true,
 }: TasbeehCounterProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const [pending, setPending] = useState<PendingConfirm | null>(null);
   const tv = isTV();
-  // TV: a bigger tap target reads better from the couch and is easier to hit
-  // with a D-pad-driven focus ring.
-  const ringSize = tv ? RING_SIZE_TV : RING_SIZE;
-  const tapSize = ringSize + TAP_PADDING;
+  // TV: the ring is the one big Select target (preferred focus). A landscape
+  // layout puts modes / undo / reset in a side column so the card fits the
+  // 540dp viewport and Reset is never the next thing below the counter.
+  const ringSize = tv ? tvDp(RING_SIZE_TV) : RING_SIZE;
+  const ringStroke = tv ? tvDp(RING_STROKE) : RING_STROKE;
+  const tapSize = ringSize + (tv ? tvDp(TAP_PADDING_TV) : TAP_PADDING);
   const tapHitSlop = (tapSize - ringSize) / 2;
   const displayCount = target > 0 ? Math.min(count, target) : count;
   const atLimit = target > 0 && count >= target;
@@ -107,6 +128,20 @@ export function TasbeehCounter({
     triggerHaptic("light");
     onIncrement();
   };
+
+  // Desktop web: Space / Enter count. A focused button / chip keeps its own
+  // Space / Enter (so nothing fires twice); held keys don't auto-repeat counts.
+  const { width: windowWidth } = useWindowDimensions();
+  const keyboardHint = Platform.OS === "web" && !tv && windowWidth >= 768;
+  useWebScreenKeyHandler(
+    (event) => {
+      if (event.key !== " " && event.key !== "Enter") return undefined;
+      if (isWebInteractiveTarget(event.target)) return undefined;
+      if (!event.repeat) handleTap();
+      return true;
+    },
+    !tv && keyboardShortcuts && pending === null,
+  );
 
   const confirmCopy = useMemo(() => {
     switch (pending) {
@@ -148,20 +183,53 @@ export function TasbeehCounter({
     }
   };
 
+  const modeBar = onSelectMode ? (
+    <TargetModeBar
+      modes={modes}
+      target={target}
+      count={displayCount}
+      onSelectMode={onSelectMode}
+      onCustom={onCustom}
+    />
+  ) : null;
+
+  const status = complete ? (
+    <CompletionBanner onStartAgain={() => setPending("startAgain")} />
+  ) : (
+    <View style={[styles.hintRow, tv && styles.hintRowTv]}>
+      {target > 0 ? (
+        <View style={[styles.remainingPill, { backgroundColor: tokens.accentSoft }]}>
+          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+            {t("tasbeehUi.remaining", { count: remaining })}
+          </ThemedText>
+        </View>
+      ) : null}
+      <ThemedText
+        type="caption"
+        themeColor="mutedForeground"
+        style={[styles.hintText, tv && styles.hintTextTv]}
+      >
+        {keyboardHint
+          ? t("tasbeehUi.tapToCountKeyboard")
+          : tTv(t, "tasbeehUi.tapToCount", "tasbeehUi.tapToCountTv")}
+      </ThemedText>
+    </View>
+  );
+
+  const controls = (
+    <ControlBar
+      count={displayCount}
+      onDecrement={() => setPending("decrement")}
+      onReset={() => setPending("reset")}
+    />
+  );
+
   return (
     <Fragment>
-      <View style={styles.root}>
-        {onSelectMode ? (
-          <TargetModeBar
-            modes={modes}
-            target={target}
-            count={displayCount}
-            onSelectMode={onSelectMode}
-            onCustom={onCustom}
-          />
-        ) : null}
+      <View style={[styles.root, tv && styles.rootTv]}>
+        {tv ? null : modeBar}
 
-        <View style={[styles.counterStage, { minHeight: tapSize }]}>
+        <View style={[styles.counterStage, { minHeight: tapSize }, tv && { width: tapSize }]}>
           <PartyPopper burstKey={celebrationKey} colors={celebrationColors} />
           <PressableScale
             haptic={false}
@@ -182,32 +250,23 @@ export function TasbeehCounter({
               target={target}
               complete={complete}
               ringSize={ringSize}
+              ringStroke={ringStroke}
             />
           </PressableScale>
         </View>
 
-        {complete ? (
-          <CompletionBanner onStartAgain={() => setPending("startAgain")} />
-        ) : (
-          <View style={styles.hintRow}>
-            {target > 0 ? (
-              <View style={[styles.remainingPill, { backgroundColor: tokens.accentSoft }]}>
-                <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-                  {t("tasbeehUi.remaining", { count: remaining })}
-                </ThemedText>
-              </View>
-            ) : null}
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hintText}>
-              {tTv(t, "tasbeehUi.tapToCount", "tasbeehUi.tapToCountTv")}
-            </ThemedText>
+        {tv ? (
+          <View style={styles.tvSide}>
+            {modeBar}
+            {status}
+            {controls}
           </View>
+        ) : (
+          <>
+            {status}
+            {controls}
+          </>
         )}
-
-        <ControlBar
-          count={displayCount}
-          onDecrement={() => setPending("decrement")}
-          onReset={() => setPending("reset")}
-        />
       </View>
 
       {/* Sibling of the animated counter tree so Fabric + Reanimated cannot
@@ -240,6 +299,7 @@ function TargetModeBar({
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const tv = isTV();
   const isCustom =
     onCustom && target > 0 && !modes.some((mode) => mode.target === target && mode.target > 0);
 
@@ -302,7 +362,7 @@ function TargetModeBar({
             accessibilityLabel={t("tasbeehUi.modeLabel", { mode: modeName, count })}
             accessibilityState={{ selected: active }}
             onPress={() => onSelectMode(mode.target)}
-            style={styles.modeSegment}
+            style={[styles.modeSegment, tv && styles.modeSegmentTv]}
           >
             <ThemedText
               type="smallBold"
@@ -323,7 +383,7 @@ function TargetModeBar({
           })}
           accessibilityState={{ selected: !!isCustom }}
           onPress={onCustom}
-          style={styles.modeSegment}
+          style={[styles.modeSegment, tv && styles.modeSegmentTv]}
         >
           <ThemedText
             type="smallBold"
@@ -342,11 +402,13 @@ function CounterRing({
   target,
   complete,
   ringSize,
+  ringStroke,
 }: {
   count: number;
   target: number;
   complete: boolean;
   ringSize: number;
+  ringStroke: number;
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -402,8 +464,9 @@ function CounterRing({
     };
   }, [progressTarget, reducedMotion]);
 
-  const knob = RING_STROKE + 2;
-  const inset = RING_STROKE;
+  const knob = ringStroke + 2;
+  const inset = ringStroke;
+  const glow = ringSize + (isTV() ? tvDp(RING_GLOW) : RING_GLOW);
 
   const countAnimStyle = useAnimatedStyle(() => ({
     transform: [{ scale: countPop.value }],
@@ -415,9 +478,9 @@ function CounterRing({
         style={[
           styles.ringGlow,
           {
-            width: ringSize + 36,
-            height: ringSize + 36,
-            borderRadius: (ringSize + 36) / 2,
+            width: glow,
+            height: glow,
+            borderRadius: glow / 2,
             backgroundColor: withAlpha(fill, glowOpacity),
           },
         ]}
@@ -426,7 +489,7 @@ function CounterRing({
       {target > 0 ? (
         <ArcProgressRing
           size={ringSize}
-          stroke={RING_STROKE}
+          stroke={ringStroke}
           progress={displayProgress}
           fillColor={fill}
           trackColor={tokens.track}
@@ -439,7 +502,7 @@ function CounterRing({
             StyleSheet.absoluteFill,
             {
               borderRadius: ringSize / 2,
-              borderWidth: RING_STROKE,
+              borderWidth: ringStroke,
               borderColor: withAlpha(colors.accent, 0.35),
             },
           ]}
@@ -462,7 +525,7 @@ function CounterRing({
       {target > 0 && displayProgress > 0 ? (
         <View
           style={[
-            progressRingKnobStyle(ringSize, RING_STROKE, displayProgress, knob),
+            progressRingKnobStyle(ringSize, ringStroke, displayProgress, knob),
             styles.knob,
             {
               borderRadius: knob / 2,
@@ -533,7 +596,11 @@ function CompletionBanner({ onStartAgain }: { onStartAgain: () => void }) {
       <PressableScale
         haptic="light"
         onPress={onStartAgain}
-        style={[styles.startAgain, { backgroundColor: colors.muted, borderColor: tokens.hairline }]}
+        style={[
+          styles.startAgain,
+          isTV() && styles.startAgainTv,
+          { backgroundColor: colors.muted, borderColor: tokens.hairline },
+        ]}
       >
         <SymbolView
           name={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
@@ -557,6 +624,33 @@ function ControlBar({
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+
+  if (isTV()) {
+    // TV: separate pills stacked vertically — Undo first, Reset last with a
+    // gap — so a stray D-pad move off the counter never lands next to Reset.
+    // Both still go through the confirm dialog.
+    const pill = [
+      styles.controlPillTv,
+      { backgroundColor: colors.muted, borderColor: tokens.hairline },
+    ];
+    return (
+      <View style={styles.controlColumnTv}>
+        <ControlButton
+          icon={{ ios: "minus", android: "remove", web: "remove" }}
+          label={t("tasbeehUi.undo")}
+          onPress={onDecrement}
+          disabled={count <= 0}
+          style={pill}
+        />
+        <ControlButton
+          icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+          label={t("common.reset")}
+          onPress={onReset}
+          style={pill}
+        />
+      </View>
+    );
+  }
 
   return (
     <View
@@ -583,11 +677,13 @@ function ControlButton({
   label,
   onPress,
   disabled = false,
+  style,
 }: {
   icon: Parameters<typeof SymbolView>[0]["name"];
   label: string;
   onPress: () => void;
   disabled?: boolean;
+  style?: StyleProp<ViewStyle>;
 }) {
   const { colors } = useThemeTokens();
 
@@ -598,7 +694,7 @@ function ControlButton({
       accessibilityState={{ disabled }}
       disabled={disabled}
       onPress={onPress}
-      style={[styles.controlButton, disabled && styles.controlDisabled]}
+      style={[styles.controlButton, style, disabled && styles.controlDisabled]}
     >
       <SymbolView
         name={icon}
@@ -617,6 +713,17 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     gap: Spacing.four,
     width: "100%",
+  },
+  rootTv: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.five,
+  },
+  tvSide: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.four,
+    justifyContent: "center",
   },
   modeTrack: {
     position: "relative",
@@ -643,6 +750,9 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     minHeight: 40,
     zIndex: 1,
+  },
+  modeSegmentTv: {
+    minHeight: TvLayout.chipMinHeight,
   },
   counterStage: {
     position: "relative",
@@ -705,8 +815,14 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
     borderCurve: "continuous",
   },
+  hintRowTv: {
+    alignItems: "flex-start",
+  },
   hintText: {
     textAlign: "center",
+  },
+  hintTextTv: {
+    textAlign: "auto",
   },
   completionBlock: {
     alignItems: "center",
@@ -734,6 +850,10 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
   },
+  startAgainTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.four,
+  },
   controlBar: {
     flexDirection: "row",
     borderRadius: Radius.lg,
@@ -748,6 +868,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: Spacing.one,
     paddingVertical: Spacing.three,
+  },
+  controlColumnTv: {
+    gap: Spacing.four,
+  },
+  controlPillTv: {
+    flex: 0,
+    minHeight: TvLayout.minFocusTarget,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
   },
   controlDisabled: {
     opacity: 0.45,

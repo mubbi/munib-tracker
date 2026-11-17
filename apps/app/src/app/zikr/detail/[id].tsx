@@ -146,6 +146,93 @@ export default function ZikrDetailScreen() {
     { name: zikrTitle, path: `/zikr/detail/${item.id}` },
   ];
 
+  const progressCard =
+    target > 0 ? (
+      <Card key="progress" padding="three">
+        <View style={styles.progressHeader}>
+          <ThemedText type="smallBold">{t("zikr.today")}</ThemedText>
+          <ThemedText type="small" themeColor="mutedForeground">
+            {Math.min(count, target)} / {target}
+          </ThemedText>
+        </View>
+        <SegmentedProgress total={target} completed={Math.min(count, target)} />
+      </Card>
+    ) : null;
+
+  const actionButtons = (
+    <View key="actions" style={styles.actions}>
+      {isSingleRecitation ? (
+        <Button
+          label={isDone ? t("zikr.done") : t("zikr.markAsDone")}
+          icon={
+            isDone
+              ? { ios: "checkmark.seal.fill", android: "verified", web: "verified" }
+              : { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
+          }
+          variant={isDone ? "secondary" : "primary"}
+          fullWidth
+          accessibilityHint={
+            isDone ? tTv(t, "zikr.undoDoneHint", "zikr.undoDoneHintTv") : undefined
+          }
+          onPress={() => {
+            const next = isDone ? 0 : 1;
+            void setZikrCount(
+              item.id,
+              next,
+              target,
+              afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
+            );
+            if (!isDone) trackReviewInteraction("mark_zikr");
+          }}
+        />
+      ) : (
+        <Button
+          label={t("zikr.openInTasbeeh")}
+          icon={TASBEEH_ICON}
+          fullWidth
+          onPress={() =>
+            router.push({
+              pathname: "/tasbeeh/[zikrId]",
+              params: afterSalahPrayer
+                ? { zikrId: item.id, prayer: afterSalahPrayer }
+                : { zikrId: item.id },
+            })
+          }
+        />
+      )}
+      <View style={styles.actionRow}>
+        <Button
+          label={isFavorite ? t("zikr.favorited") : t("zikr.favorite")}
+          variant="secondary"
+          icon={
+            isFavorite
+              ? { ios: "star.fill", android: "star", web: "star" }
+              : { ios: "star", android: "star_border", web: "star_border" }
+          }
+          onPress={() => toggleFavorite(item.id)}
+          style={styles.flex}
+        />
+        {/* No share sheet on TV (phone-only capability). */}
+        {tv ? null : (
+          <Button
+            label={
+              shareCard.isSharing(item.id)
+                ? t("share.preparing")
+                : shareCard.isGesturePending(item.id)
+                  ? t("share.tapToShare")
+                  : t("zikr.share")
+            }
+            variant="ghost"
+            icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+            disabled={shareCard.isSharing(item.id)}
+            onPress={onShare}
+            style={styles.flex}
+          />
+        )}
+      </View>
+    </View>
+  );
+
   const sourceHref = `/zikr/detail/${item.id}`;
   const readingBody = (
     <Stagger>
@@ -185,86 +272,9 @@ export default function ZikrDetailScreen() {
         />
       )}
 
-      {target > 0 ? (
-        <Card padding="three">
-          <View style={styles.progressHeader}>
-            <ThemedText type="smallBold">{t("zikr.today")}</ThemedText>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {Math.min(count, target)} / {target}
-            </ThemedText>
-          </View>
-          <SegmentedProgress total={target} completed={Math.min(count, target)} />
-        </Card>
-      ) : null}
-
-      <View style={styles.actions}>
-        {isSingleRecitation ? (
-          <Button
-            label={isDone ? t("zikr.done") : t("zikr.markAsDone")}
-            icon={
-              isDone
-                ? { ios: "checkmark.seal.fill", android: "verified", web: "verified" }
-                : { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-            }
-            variant={isDone ? "secondary" : "primary"}
-            fullWidth
-            accessibilityHint={
-              isDone ? tTv(t, "zikr.undoDoneHint", "zikr.undoDoneHintTv") : undefined
-            }
-            onPress={() => {
-              const next = isDone ? 0 : 1;
-              void setZikrCount(
-                item.id,
-                next,
-                target,
-                afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
-              );
-              if (!isDone) trackReviewInteraction("mark_zikr");
-            }}
-          />
-        ) : (
-          <Button
-            label={t("zikr.openInTasbeeh")}
-            icon={TASBEEH_ICON}
-            fullWidth
-            onPress={() =>
-              router.push({
-                pathname: "/tasbeeh/[zikrId]",
-                params: afterSalahPrayer
-                  ? { zikrId: item.id, prayer: afterSalahPrayer }
-                  : { zikrId: item.id },
-              })
-            }
-          />
-        )}
-        <View style={styles.actionRow}>
-          <Button
-            label={isFavorite ? t("zikr.favorited") : t("zikr.favorite")}
-            variant="secondary"
-            icon={
-              isFavorite
-                ? { ios: "star.fill", android: "star", web: "star" }
-                : { ios: "star", android: "star_border", web: "star_border" }
-            }
-            onPress={() => toggleFavorite(item.id)}
-            style={styles.flex}
-          />
-          <Button
-            label={
-              shareCard.isSharing(item.id)
-                ? t("share.preparing")
-                : shareCard.isGesturePending(item.id)
-                  ? tTv(t, "share.tapToShare", "share.selectToShare")
-                  : t("zikr.share")
-            }
-            variant="ghost"
-            icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-            disabled={shareCard.isSharing(item.id)}
-            onPress={onShare}
-            style={styles.flex}
-          />
-        </View>
-      </View>
+      {/* Wide web / tablets: progress + actions move into the aside beside the text. */}
+      {showSideFilters ? null : progressCard}
+      {showSideFilters ? null : actionButtons}
     </Stagger>
   );
 
@@ -314,6 +324,8 @@ export default function ZikrDetailScreen() {
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
             >
+              {progressCard}
+              {actionButtons}
               <ScriptureReadingFilters />
             </TvScrollView>
           </View>

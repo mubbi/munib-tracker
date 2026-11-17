@@ -44,6 +44,7 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   heavyOnTheScale: "/last-day/heavy-on-the-scale" as Href,
   battles: "/battles" as Href,
   learnQuran: "/learn-quran" as Href,
+  quranPractice: "/quran/practice" as Href,
   taharah: "/taharah" as Href,
   prophets: "/prophets" as Href,
   aqeedah: "/aqeedah" as Href,
@@ -397,6 +398,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     tone: "success",
   },
   {
+    id: "quranPractice",
+    labelKey: "actions.quranPractice",
+    icon: { ios: "mic.fill", android: "mic", web: "mic" },
+    tone: "accent",
+  },
+  {
     id: "verseDetector",
     labelKey: "actions.verseDetector",
     icon: { ios: "waveform", android: "graphic_eq", web: "graphic_eq" },
@@ -439,6 +446,7 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
  */
 export const DEFAULT_QUICK_ACTION_ORDER: string[] = [
   "quran",
+  "quranPractice",
   "qibla",
   "tasbeeh",
   "zikr",
@@ -478,7 +486,7 @@ export function resolveQuickActionTint(
 }
 
 /** Quick-action / library ids that need mic, camera, or phone-only chrome. */
-export const TV_HIDDEN_QUICK_ACTION_IDS = new Set(["verseDetector"]);
+export const TV_HIDDEN_QUICK_ACTION_IDS = new Set(["verseDetector", "quranPractice"]);
 
 /** Builds the home Explore grid from shared quick-action metadata. */
 export function buildQuickActionItems(

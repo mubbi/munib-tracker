@@ -2,7 +2,7 @@ import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
 import type { QazaPrayer } from "@munib-tracker/shared/types";
 import { sumQazaScheduleTargets } from "@munib-tracker/shared/utils";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -11,6 +11,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stepper } from "@/components/ui/stepper";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { useQazaDailyProgress, useQazaSchedule, useTrackerActions } from "@/stores/tracker-store";
 
@@ -28,6 +29,10 @@ export function QazaDailyTargets({ showProgress = true, framed = true }: QazaDai
   const progress = useQazaDailyProgress();
   const { setQazaSchedule } = useTrackerActions();
   const dailyTotal = sumQazaScheduleTargets(schedule);
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  /** TV + tablet/desktop: 2-column grid so wide screens aren't one stretched list. */
+  const grid = tv || width >= 768;
 
   const setTarget = (prayerId: QazaPrayer, target: number) => {
     void setQazaSchedule({
@@ -39,12 +44,15 @@ export function QazaDailyTargets({ showProgress = true, framed = true }: QazaDai
   };
 
   const rows = (
-    <View style={styles.rows}>
+    <View style={[styles.rows, grid && styles.rowsTv]}>
       {QAZA_PRAYERS.map((prayerId) => {
         const target = schedule.targets[prayerId] ?? 0;
         const done = progress.completed[prayerId] ?? 0;
         return (
-          <View key={prayerId} style={[styles.row, { backgroundColor: colors.muted }]}>
+          <View
+            key={prayerId}
+            style={[styles.row, grid && styles.rowTv, { backgroundColor: colors.muted }]}
+          >
             <IconWell icon={PRAYER_ICONS[prayerId]} />
             <View style={styles.rowBody}>
               <ThemedText type="small">{t(`prayers.${prayerId}`)}</ThemedText>
@@ -63,6 +71,7 @@ export function QazaDailyTargets({ showProgress = true, framed = true }: QazaDai
               label={t("qaza.dailyTargetA11y", { prayer: t(`prayers.${prayerId}`) })}
               onDecrement={() => setTarget(prayerId, target - 1)}
               onIncrement={() => setTarget(prayerId, target + 1)}
+              size={tv ? "md" : "sm"}
             />
           </View>
         );
@@ -95,6 +104,15 @@ const styles = StyleSheet.create({
   rows: {
     gap: Spacing.two,
     marginTop: Spacing.three,
+  },
+  /** TV: 2-column grid so the landscape width is used. */
+  rowsTv: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  rowTv: {
+    flexBasis: "45%",
+    flexGrow: 1,
   },
   row: {
     flexDirection: "row",

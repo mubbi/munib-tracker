@@ -3,6 +3,11 @@ import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
@@ -39,7 +44,7 @@ function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
       onPress={() => {
         if (entry.appLink) router.push(entry.appLink.route as never);
       }}
-      style={[styles.row, { backgroundColor: colors.muted }]}
+      style={[styles.row, styles.rowFill, { backgroundColor: colors.muted }]}
     >
       <IconWell
         icon={{ ios: "questionmark.circle.fill", android: "help", web: "help" }}
@@ -67,6 +72,9 @@ export default function JahannamReflectionScreen() {
   const { t } = useTranslation();
   const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const reflections = getJahannamReflections();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: reflection prompts flow into 2 columns.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 340, max: 2 });
 
   return (
     <ScreenLayout
@@ -74,6 +82,7 @@ export default function JahannamReflectionScreen() {
       title={t("jahannam.reflectionTitle")}
       subtitle={t("jahannam.reflectionSubtitle")}
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/reflection" />
       <LearnContentGate ready={contentReady}>
@@ -87,11 +96,11 @@ export default function JahannamReflectionScreen() {
                 title={t("jahannam.reflectionListTitle")}
                 icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
               />
-              <View style={styles.list}>
+              <LearnColumnsGrid columns={columns} style={styles.list}>
                 {reflections.map((entry) => (
                   <ReflectionRow key={entry.id} entry={entry} />
                 ))}
-              </View>
+              </LearnColumnsGrid>
             </Card>
           </LearnReadingChrome>
           <JannahDisclaimer textKey="jahannam.disclaimer" />
@@ -102,7 +111,9 @@ export default function JahannamReflectionScreen() {
 }
 
 const styles = StyleSheet.create({
-  list: { marginTop: Spacing.three, gap: Spacing.two },
+  list: { marginTop: Spacing.three },
+  // Grid cells: fill the row height (inert in the phone stack).
+  rowFill: { flexGrow: 1 },
   row: {
     flexDirection: "row",
     alignItems: "center",

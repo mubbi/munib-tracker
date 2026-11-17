@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { FastStatusSheet } from "@/components/fast-status-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -41,6 +41,12 @@ import { usePreferences } from "@/stores/preferences-store";
 
 /** Six columns × five rows keeps all 29–30 days evenly spaced on any screen width. */
 const GRID_COLUMNS = 6;
+/** TV: 10 × 3 grid fits the whole month in the landscape pane (fewer D-pad rows). */
+const TV_GRID_COLUMNS = 10;
+/** Wide web / tablets: three rows of ten beside the times aside. */
+const WIDE_GRID_COLUMNS = 10;
+/** Window width at/above which the fasting log sits beside a times/summary aside. */
+const WIDE_BREAKPOINT = 1024;
 
 function useMinuteClock(): Date {
   const [now, setNow] = useState(() => new Date());
@@ -83,6 +89,8 @@ export default function RamadanScreen() {
   const todayStatus = useFastStatus(today);
   const [sheetDay, setSheetDay] = useState<{ day: number; date: string } | null>(null);
   const tv = isTV();
+  const { width } = useWindowDimensions();
+  const wide = !tv && width >= WIDE_BREAKPOINT;
 
   const info = useMemo(() => getRamadanInfo(location, now), [location, now]);
   const locale = prefs.locale as AppLocale;
@@ -112,18 +120,19 @@ export default function RamadanScreen() {
   type RamadanDayCell = (typeof ramadanDays)[number];
   type GridCell = RamadanDayCell | { type: "pad"; key: string };
 
+  const gridColumns = tv ? TV_GRID_COLUMNS : wide ? WIDE_GRID_COLUMNS : GRID_COLUMNS;
   const gridRows = useMemo(() => {
     const rows: GridCell[][] = [];
-    for (let i = 0; i < ramadanDays.length; i += GRID_COLUMNS) {
-      const slice = ramadanDays.slice(i, i + GRID_COLUMNS);
+    for (let i = 0; i < ramadanDays.length; i += gridColumns) {
+      const slice = ramadanDays.slice(i, i + gridColumns);
       const row: GridCell[] = [...slice];
-      for (let pad = slice.length; pad < GRID_COLUMNS; pad += 1) {
+      for (let pad = slice.length; pad < gridColumns; pad += 1) {
         row.push({ type: "pad", key: `pad-${i + pad}` });
       }
       rows.push(row);
     }
     return rows;
-  }, [ramadanDays]);
+  }, [ramadanDays, gridColumns]);
 
   const fastedCount = ramadanDays.filter((d) => days[d.date] === "fasted").length;
   const missedCount = ramadanDays.filter((d) => days[d.date] === "missed").length;
@@ -172,6 +181,324 @@ export default function RamadanScreen() {
     return t("ramadan.statusNone");
   };
 
+  const todayCard = info.isRamadan ? (
+    <Card
+      padding="three"
+      style={[
+        styles.todayCard,
+        { backgroundColor: tokens.accentSoft, borderColor: colors.accent, borderWidth: 1 },
+      ]}
+    >
+      <View style={styles.todayRow}>
+        <IconWell
+          icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
+          tint={colors.accent}
+          background={withAlpha(colors.accent, 0.12)}
+          well={44}
+          size={20}
+        />
+        <View style={styles.todayCopy}>
+          <ThemedText type="smallBold">{t("ramadan.todayTitle")}</ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("ramadan.dayOf", { day: info.day, total: info.totalDays })}
+          </ThemedText>
+        </View>
+        <IconButton
+          name={
+            todayStatus === "fasted"
+              ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
+              : {
+                  ios: "circle",
+                  android: "radio_button_unchecked",
+                  web: "radio_button_unchecked",
+                }
+          }
+          size={28}
+          tintColor={todayStatus === "fasted" ? success.color : colors.mutedForeground}
+          accessibilityLabel={t("ramadan.fastedToday")}
+          accessibilityState={{ selected: todayStatus === "fasted" }}
+          haptic="selection"
+          onPress={() => setStatus(today, todayStatus === "fasted" ? null : "fasted")}
+        />
+      </View>
+    </Card>
+  ) : null;
+
+  const timesCard = (
+    <FocusHighlight ref={register("ramadan-times")} active={isFocused("ramadan-times")}>
+      <Card padding="three">
+        <SectionHeader
+          title={t("ramadan.timesTitle")}
+          icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
+        />
+        <View
+          style={[
+            styles.countdownBanner,
+            {
+              backgroundColor:
+                countdown.tone === "iftar"
+                  ? tokens.status.warning.soft
+                  : countdown.tone === "suhoor"
+                    ? tokens.accentSoft
+                    : success.soft,
+            },
+          ]}
+        >
+          <ThemedText
+            type="smallBold"
+            style={{
+              color:
+                countdown.tone === "iftar"
+                  ? tokens.status.warning.color
+                  : countdown.tone === "suhoor"
+                    ? colors.accent
+                    : success.color,
+            }}
+          >
+            {countdown.label}
+          </ThemedText>
+        </View>
+        <View style={styles.times}>
+          <View
+            style={[
+              styles.timeBox,
+              {
+                backgroundColor: tokens.accentSoft,
+                borderColor: withAlpha(colors.accent, 0.2),
+              },
+            ]}
+          >
+            <IconWell
+              icon={{ ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" }}
+              tint={colors.accent}
+              background={withAlpha(colors.accent, 0.14)}
+              well={36}
+              size={16}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("ramadan.suhoor")}
+            </ThemedText>
+            <ThemedText type="header" style={{ color: colors.accent }}>
+              {formatPrayerTime(info.suhoorEnds, prefs.timeFormat, location.timeZone)}
+            </ThemedText>
+          </View>
+          <View
+            style={[
+              styles.timeBox,
+              {
+                backgroundColor: tokens.status.warning.soft,
+                borderColor: tokens.status.warning.border,
+              },
+            ]}
+          >
+            <IconWell
+              icon={{ ios: "sunset.fill", android: "wb_sunny", web: "wb_sunny" }}
+              tint={tokens.status.warning.color}
+              background={withAlpha(tokens.status.warning.color, 0.14)}
+              well={36}
+              size={16}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("ramadan.iftar")}
+            </ThemedText>
+            <ThemedText type="header" style={{ color: tokens.status.warning.color }}>
+              {formatPrayerTime(info.iftar, prefs.timeFormat, location.timeZone)}
+            </ThemedText>
+          </View>
+        </View>
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+          {t("ramadan.timesHint")}
+        </ThemedText>
+      </Card>
+    </FocusHighlight>
+  );
+
+  const lastTenCard = showLastTenCard ? (
+    <FocusHighlight ref={register("ramadan-lastTen")} active={isFocused("ramadan-lastTen")}>
+      <Card padding="three">
+        <SectionHeader
+          title={t("ramadan.lastTenTitle")}
+          icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.seasonBody}>
+          {t("ramadan.lastTenBody")}
+        </ThemedText>
+      </Card>
+    </FocusHighlight>
+  ) : null;
+
+  const laylatCard = showLaylatCard ? (
+    <FocusHighlight ref={register("ramadan-laylatQadr")} active={isFocused("ramadan-laylatQadr")}>
+      <Card padding="three">
+        <SectionHeader
+          title={t("ramadan.laylatQadrTitle")}
+          icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.seasonBody}>
+          {t("ramadan.laylatQadrBody")}
+        </ThemedText>
+      </Card>
+    </FocusHighlight>
+  ) : null;
+
+  const fastingCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("ramadan.fastingTitle")}
+        icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
+      />
+
+      {showBackfillNote ? (
+        <View
+          style={[
+            styles.logNote,
+            { backgroundColor: tokens.accentSoft, borderColor: withAlpha(colors.accent, 0.2) },
+          ]}
+        >
+          <ThemedText type="caption" style={{ color: colors.accent }}>
+            {tTv(t, "ramadan.fastingLogBackfillNote", "ramadan.fastingLogBackfillNoteTv", {
+              year: info.fastingLogHijriYear,
+              gregorian: fastingLogGregorianRange,
+            })}
+          </ThemedText>
+        </View>
+      ) : null}
+
+      {showFutureDaysNote ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.logNoteInline}>
+          {t("ramadan.gridFutureDaysNote")}
+        </ThemedText>
+      ) : null}
+
+      <View style={styles.statsRow}>
+        <View
+          style={[styles.statBox, { backgroundColor: success.soft, borderColor: success.border }]}
+        >
+          <ThemedText type="header" style={[styles.statValue, { color: success.text }]}>
+            {formatCount(fastedCount, locale)}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("ramadan.statusFasted")}
+          </ThemedText>
+        </View>
+        <View
+          style={[styles.statBox, { backgroundColor: danger.soft, borderColor: danger.border }]}
+        >
+          <ThemedText type="header" style={[styles.statValue, { color: danger.text }]}>
+            {formatCount(missedCount, locale)}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("ramadan.statusMissed")}
+          </ThemedText>
+        </View>
+        <View
+          style={[styles.statBox, { backgroundColor: infoTone.soft, borderColor: infoTone.border }]}
+        >
+          <ThemedText type="header" style={[styles.statValue, { color: infoTone.text }]}>
+            {formatCount(exemptCount, locale)}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("ramadan.statusExempt")}
+          </ThemedText>
+        </View>
+      </View>
+
+      <View style={styles.progressBlock}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("ramadan.fastedCount", { count: fastedCount, total: info.fastingLogTotalDays })}
+          {progressPct > 0 ? ` · ${progressPct}%` : ""}
+        </ThemedText>
+        <ProgressBar value={progress} height={6} color={success.color} />
+      </View>
+
+      <View style={styles.grid}>
+        {gridRows.map((row) => (
+          <View key={row.find((cell) => "day" in cell)?.day} style={styles.gridRow}>
+            {row.map((cell) => {
+              if (!("day" in cell)) {
+                return <View key={cell.key} style={styles.gridCell} />;
+              }
+
+              const { day, date } = cell;
+              const status = days[date];
+              const palette = statusColor(status);
+              const isToday = date === today;
+              const isFuture = date > today;
+              const gregorianLabel = formatCompactGridDateFromIso(date, "gregorian", locale);
+
+              return (
+                <View key={day} style={styles.gridCell}>
+                  <PressableScale
+                    haptic="selection"
+                    disabled={isFuture}
+                    accessibilityRole="button"
+                    accessibilityLabel={t("ramadan.dayCellStatus", {
+                      day,
+                      gregorian: gregorianLabel,
+                      status: statusLabel(status),
+                    })}
+                    accessibilityHint={
+                      isFuture ? undefined : tTv(t, "ramadan.dayCellHint", "ramadan.dayCellHintTv")
+                    }
+                    accessibilityState={{ disabled: isFuture }}
+                    onPress={() => setSheetDay({ day, date })}
+                    // borderRadius must live on PressableScale so Android's
+                    // Material ripple clips to the circle (not a square).
+                    style={[
+                      styles.dayCircle,
+                      tv ? styles.dayCircleTv : null,
+                      {
+                        backgroundColor: palette ? palette.soft : colors.muted,
+                        // TV: mark "today" in foreground, not accent — the accent
+                        // ring is reserved for D-pad focus.
+                        borderColor: isToday
+                          ? tv
+                            ? colors.foreground
+                            : colors.accent
+                          : (palette?.border ?? "transparent"),
+                        borderWidth: isToday ? 2 : palette ? 1 : 0,
+                        opacity: isFuture ? 0.35 : 1,
+                      },
+                    ]}
+                  >
+                    <ThemedText
+                      type="smallBold"
+                      style={{ color: palette ? palette.color : colors.mutedForeground }}
+                    >
+                      {formatCount(day, locale)}
+                    </ThemedText>
+                  </PressableScale>
+                </View>
+              );
+            })}
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.legend}>
+        <LegendSwatch color={success.color} label={t("ramadan.statusFasted")} />
+        <LegendSwatch color={danger.color} label={t("ramadan.statusMissed")} />
+        <LegendSwatch color={infoTone.color} label={t("ramadan.statusExempt")} />
+      </View>
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
+        {tTv(t, "ramadan.gridHint", "ramadan.gridHintTv")}
+      </ThemedText>
+    </Card>
+  );
+
+  const disclaimer = (
+    <View style={styles.disclaimerRow}>
+      <SymbolView
+        name={{ ios: "info.circle", android: "info", web: "info" }}
+        size={14}
+        tintColor={colors.mutedForeground}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
+        {t("ramadan.disclaimer")}
+      </ThemedText>
+    </View>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("ramadan.eyebrow")}
@@ -186,326 +513,35 @@ export default function RamadanScreen() {
       onScroll={onScroll}
     >
       <Seo path="/ramadan" />
-      <Stagger>
-        {info.isRamadan ? (
-          <Card
-            padding="three"
-            style={[
-              styles.todayCard,
-              { backgroundColor: tokens.accentSoft, borderColor: colors.accent, borderWidth: 1 },
-            ]}
-          >
-            <View style={styles.todayRow}>
-              <IconWell
-                icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
-                tint={colors.accent}
-                background={withAlpha(colors.accent, 0.12)}
-                well={44}
-                size={20}
-              />
-              <View style={styles.todayCopy}>
-                <ThemedText type="smallBold">{t("ramadan.todayTitle")}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("ramadan.dayOf", { day: info.day, total: info.totalDays })}
-                </ThemedText>
-              </View>
-              <IconButton
-                name={
-                  todayStatus === "fasted"
-                    ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-                    : {
-                        ios: "circle",
-                        android: "radio_button_unchecked",
-                        web: "radio_button_unchecked",
-                      }
-                }
-                size={28}
-                tintColor={todayStatus === "fasted" ? success.color : colors.mutedForeground}
-                accessibilityLabel={t("ramadan.fastedToday")}
-                accessibilityState={{ selected: todayStatus === "fasted" }}
-                haptic="selection"
-                onPress={() => setStatus(today, todayStatus === "fasted" ? null : "fasted")}
-              />
-            </View>
-          </Card>
-        ) : null}
-
-        <FocusHighlight ref={register("ramadan-times")} active={isFocused("ramadan-times")}>
-          <Card padding="three">
-            <SectionHeader
-              title={t("ramadan.timesTitle")}
-              icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
-            />
-            <View
-              style={[
-                styles.countdownBanner,
-                {
-                  backgroundColor:
-                    countdown.tone === "iftar"
-                      ? tokens.status.warning.soft
-                      : countdown.tone === "suhoor"
-                        ? tokens.accentSoft
-                        : success.soft,
-                },
-              ]}
-            >
-              <ThemedText
-                type="smallBold"
-                style={{
-                  color:
-                    countdown.tone === "iftar"
-                      ? tokens.status.warning.color
-                      : countdown.tone === "suhoor"
-                        ? colors.accent
-                        : success.color,
-                }}
-              >
-                {countdown.label}
-              </ThemedText>
-            </View>
-            <View style={styles.times}>
-              <View
-                style={[
-                  styles.timeBox,
-                  {
-                    backgroundColor: tokens.accentSoft,
-                    borderColor: withAlpha(colors.accent, 0.2),
-                  },
-                ]}
-              >
-                <IconWell
-                  icon={{ ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" }}
-                  tint={colors.accent}
-                  background={withAlpha(colors.accent, 0.14)}
-                  well={36}
-                  size={16}
-                />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("ramadan.suhoor")}
-                </ThemedText>
-                <ThemedText type="header" style={{ color: colors.accent }}>
-                  {formatPrayerTime(info.suhoorEnds, prefs.timeFormat, location.timeZone)}
-                </ThemedText>
-              </View>
-              <View
-                style={[
-                  styles.timeBox,
-                  {
-                    backgroundColor: tokens.status.warning.soft,
-                    borderColor: tokens.status.warning.border,
-                  },
-                ]}
-              >
-                <IconWell
-                  icon={{ ios: "sunset.fill", android: "wb_sunny", web: "wb_sunny" }}
-                  tint={tokens.status.warning.color}
-                  background={withAlpha(tokens.status.warning.color, 0.14)}
-                  well={36}
-                  size={16}
-                />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("ramadan.iftar")}
-                </ThemedText>
-                <ThemedText type="header" style={{ color: tokens.status.warning.color }}>
-                  {formatPrayerTime(info.iftar, prefs.timeFormat, location.timeZone)}
-                </ThemedText>
-              </View>
-            </View>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("ramadan.timesHint")}
-            </ThemedText>
-          </Card>
-        </FocusHighlight>
-
-        {showLastTenCard ? (
-          <FocusHighlight ref={register("ramadan-lastTen")} active={isFocused("ramadan-lastTen")}>
-            <Card padding="three">
-              <SectionHeader
-                title={t("ramadan.lastTenTitle")}
-                icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.seasonBody}>
-                {t("ramadan.lastTenBody")}
-              </ThemedText>
-            </Card>
-          </FocusHighlight>
-        ) : null}
-
-        {showLaylatCard ? (
-          <FocusHighlight
-            ref={register("ramadan-laylatQadr")}
-            active={isFocused("ramadan-laylatQadr")}
-          >
-            <Card padding="three">
-              <SectionHeader
-                title={t("ramadan.laylatQadrTitle")}
-                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.seasonBody}>
-                {t("ramadan.laylatQadrBody")}
-              </ThemedText>
-            </Card>
-          </FocusHighlight>
-        ) : null}
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("ramadan.fastingTitle")}
-            icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
-          />
-
-          {showBackfillNote ? (
-            <View
-              style={[
-                styles.logNote,
-                { backgroundColor: tokens.accentSoft, borderColor: withAlpha(colors.accent, 0.2) },
-              ]}
-            >
-              <ThemedText type="caption" style={{ color: colors.accent }}>
-                {tTv(t, "ramadan.fastingLogBackfillNote", "ramadan.fastingLogBackfillNoteTv", {
-                  year: info.fastingLogHijriYear,
-                  gregorian: fastingLogGregorianRange,
-                })}
-              </ThemedText>
-            </View>
-          ) : null}
-
-          {showFutureDaysNote ? (
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.logNoteInline}>
-              {t("ramadan.gridFutureDaysNote")}
-            </ThemedText>
-          ) : null}
-
-          <View style={styles.statsRow}>
-            <View
-              style={[
-                styles.statBox,
-                { backgroundColor: success.soft, borderColor: success.border },
-              ]}
-            >
-              <ThemedText type="header" style={[styles.statValue, { color: success.text }]}>
-                {formatCount(fastedCount, locale)}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("ramadan.statusFasted")}
-              </ThemedText>
-            </View>
-            <View
-              style={[styles.statBox, { backgroundColor: danger.soft, borderColor: danger.border }]}
-            >
-              <ThemedText type="header" style={[styles.statValue, { color: danger.text }]}>
-                {formatCount(missedCount, locale)}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("ramadan.statusMissed")}
-              </ThemedText>
-            </View>
-            <View
-              style={[
-                styles.statBox,
-                { backgroundColor: infoTone.soft, borderColor: infoTone.border },
-              ]}
-            >
-              <ThemedText type="header" style={[styles.statValue, { color: infoTone.text }]}>
-                {formatCount(exemptCount, locale)}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("ramadan.statusExempt")}
-              </ThemedText>
-            </View>
+      {wide ? (
+        // Wide web / tablets: the 30-day log gets the main column (3 rows of 10);
+        // today, Suhoor / Iftar and seasonal notes sit in an aside beside it.
+        <View style={styles.wideRoot}>
+          <View style={styles.wideMain}>
+            <Stagger>
+              {fastingCard}
+              {disclaimer}
+            </Stagger>
           </View>
-
-          <View style={styles.progressBlock}>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("ramadan.fastedCount", { count: fastedCount, total: info.fastingLogTotalDays })}
-              {progressPct > 0 ? ` · ${progressPct}%` : ""}
-            </ThemedText>
-            <ProgressBar value={progress} height={6} color={success.color} />
+          <View style={[styles.wideAside, { width: width >= 1440 ? 400 : 360 }]}>
+            <Stagger entranceKey="ramadan-aside">
+              {todayCard}
+              {timesCard}
+              {lastTenCard}
+              {laylatCard}
+            </Stagger>
           </View>
-
-          <View style={styles.grid}>
-            {gridRows.map((row) => (
-              <View key={row.find((cell) => "day" in cell)?.day} style={styles.gridRow}>
-                {row.map((cell) => {
-                  if (!("day" in cell)) {
-                    return <View key={cell.key} style={styles.gridCell} />;
-                  }
-
-                  const { day, date } = cell;
-                  const status = days[date];
-                  const palette = statusColor(status);
-                  const isToday = date === today;
-                  const isFuture = date > today;
-                  const gregorianLabel = formatCompactGridDateFromIso(date, "gregorian", locale);
-
-                  return (
-                    <View key={day} style={styles.gridCell}>
-                      <PressableScale
-                        haptic="selection"
-                        disabled={isFuture}
-                        accessibilityRole="button"
-                        accessibilityLabel={t("ramadan.dayCellStatus", {
-                          day,
-                          gregorian: gregorianLabel,
-                          status: statusLabel(status),
-                        })}
-                        accessibilityHint={
-                          isFuture
-                            ? undefined
-                            : tTv(t, "ramadan.dayCellHint", "ramadan.dayCellHintTv")
-                        }
-                        accessibilityState={{ disabled: isFuture }}
-                        onPress={() => setSheetDay({ day, date })}
-                        // borderRadius must live on PressableScale so Android's
-                        // Material ripple clips to the circle (not a square).
-                        style={[
-                          styles.dayCircle,
-                          tv ? styles.dayCircleTv : null,
-                          {
-                            backgroundColor: palette ? palette.soft : colors.muted,
-                            borderColor: isToday
-                              ? colors.accent
-                              : (palette?.border ?? "transparent"),
-                            borderWidth: isToday ? 2 : palette ? 1 : 0,
-                            opacity: isFuture ? 0.35 : 1,
-                          },
-                        ]}
-                      >
-                        <ThemedText
-                          type="smallBold"
-                          style={{ color: palette ? palette.color : colors.mutedForeground }}
-                        >
-                          {formatCount(day, locale)}
-                        </ThemedText>
-                      </PressableScale>
-                    </View>
-                  );
-                })}
-              </View>
-            ))}
-          </View>
-
-          <View style={styles.legend}>
-            <LegendSwatch color={success.color} label={t("ramadan.statusFasted")} />
-            <LegendSwatch color={danger.color} label={t("ramadan.statusMissed")} />
-            <LegendSwatch color={infoTone.color} label={t("ramadan.statusExempt")} />
-          </View>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
-            {tTv(t, "ramadan.gridHint", "ramadan.gridHintTv")}
-          </ThemedText>
-        </Card>
-
-        <View style={styles.disclaimerRow}>
-          <SymbolView
-            name={{ ios: "info.circle", android: "info", web: "info" }}
-            size={14}
-            tintColor={colors.mutedForeground}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
-            {t("ramadan.disclaimer")}
-          </ThemedText>
         </View>
-      </Stagger>
+      ) : (
+        <Stagger>
+          {todayCard}
+          {timesCard}
+          {lastTenCard}
+          {laylatCard}
+          {fastingCard}
+          {disclaimer}
+        </Stagger>
+      )}
 
       <FastStatusSheet
         visible={sheetDay != null}
@@ -540,6 +576,9 @@ function LegendSwatch({ color, label }: { color: string; label: string }) {
 
 const styles = StyleSheet.create({
   todayCard: { gap: Spacing.two },
+  wideRoot: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  wideMain: { flex: 1, minWidth: 0 },
+  wideAside: { flexShrink: 0 },
   todayRow: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
   todayCopy: { flex: 1, gap: 2 },
   countdownBanner: {

@@ -1,8 +1,10 @@
 import type { ZakatGuideSectionKey } from "@munib-tracker/shared/content/zakat-guide";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -29,6 +31,12 @@ export default function ZakatTopicScreen() {
     );
   }, []);
   const contentReady = sections !== null;
+  // Desktop (≥1200): sibling zakat topics in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
+  const asideTopics = useMemo(
+    () => (sections ?? []).map((id) => ({ id, title: t(`zakat.guide.${id}.title`) })),
+    [sections, t],
+  );
   const valid = contentReady && sections.includes(topicId as ZakatGuideSectionKey);
   const locale = i18n.language?.split("-")[0] ?? "en";
   const reportRef = valid
@@ -57,6 +65,7 @@ export default function ZakatTopicScreen() {
       title={valid ? t(`zakat.guide.${topicId}.title`) : t("zakat.title")}
       subtitle={valid ? t(`zakat.guide.${topicId}.summary`) : ""}
       onBack={() => goBackOrReplace(router, "/zakat")}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -86,12 +95,23 @@ export default function ZakatTopicScreen() {
           onAction={() => router.replace("/zakat")}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="jannah">
-            <ZakatTopicContent topicId={topicId as ZakatGuideSectionKey} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="zakat.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("zakat.title")}
+              basePath="/zakat"
+              topics={asideTopics}
+              currentId={topicId}
+            />
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="jannah">
+              <ZakatTopicContent topicId={topicId as ZakatGuideSectionKey} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="zakat.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

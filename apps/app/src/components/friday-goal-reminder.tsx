@@ -11,6 +11,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { fridayChecklistHref, isFriday } from "@/lib/friday";
+import { isTV } from "@/lib/platform/is-tv";
 import { useArrowForward } from "@/lib/rtl";
 import {
   useEnsureFridayChecklistLoaded,
@@ -48,7 +49,8 @@ export function FridayGoalReminder() {
         styles.banner,
         {
           backgroundColor: tokens.accentSoft,
-          borderColor: colors.accent,
+          // TV: quiet edge at rest — the solid accent ring means D-pad focus.
+          borderColor: isTV() ? tokens.accentBorder : colors.accent,
         },
       ]}
     >

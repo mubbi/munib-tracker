@@ -22,7 +22,6 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
-import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { articleSchema } from "@/lib/seo/structured-data";
@@ -128,20 +127,23 @@ export default function DuaDetailScreen() {
         contentRef={contentRef}
         enableContextMenu={!tv}
       />
-      <Button
-        label={
-          shareCard.isSharing(item.id)
-            ? t("share.preparing")
-            : shareCard.isGesturePending(item.id)
-              ? tTv(t, "share.tapToShare", "share.selectToShare")
-              : t("dua.share")
-        }
-        variant="secondary"
-        icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-        fullWidth
-        disabled={shareCard.isSharing(item.id)}
-        onPress={onShare}
-      />
+      {/* No share sheet on TV (phone-only capability). */}
+      {tv ? null : (
+        <Button
+          label={
+            shareCard.isSharing(item.id)
+              ? t("share.preparing")
+              : shareCard.isGesturePending(item.id)
+                ? t("share.tapToShare")
+                : t("dua.share")
+          }
+          variant="secondary"
+          icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+          fullWidth
+          disabled={shareCard.isSharing(item.id)}
+          onPress={onShare}
+        />
+      )}
     </Stagger>
   );
 

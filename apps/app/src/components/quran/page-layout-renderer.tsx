@@ -10,6 +10,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { getSurahByNumber } from "@/lib/quran";
 import {
   arabicReadingLayout,
@@ -32,6 +33,14 @@ type PageLayoutRendererProps = {
   secondTranslationDir: "ltr" | "rtl";
   highlightAyah?: { surah: number; ayah: number };
   onAyahPress?: (surah: number, ayah: number) => void;
+  /**
+   * TV: request D-pad focus on mount — the block holding this ayah, or the
+   * first focusable block when `"first"` / not on the page.
+   */
+  tvFocusTarget?: { surah: number; ayah: number } | "first";
+  /** TV: lets the reader know focus is inside the page body (D-pad Left/Right turns pages). */
+  onItemFocus?: () => void;
+  onItemBlur?: () => void;
 };
 
 const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
@@ -183,13 +192,31 @@ export function PageLayoutRenderer({
   secondTranslationDir,
   highlightAyah,
   onAyahPress,
+  tvFocusTarget,
+  onItemFocus,
+  onItemBlur,
 }: PageLayoutRendererProps) {
   const { t } = useTranslation();
+  const tv = isTV();
   const { colors, tokens } = useThemeTokens();
   const { mushaf } = tokens;
   const arabicFontFamily = useArabicFontFamily();
   const groups = useMemo(() => groupBySurah(ayahs), [ayahs]);
   const interleaved = showTransliteration || showTranslation;
+
+  // TV: key of the block (interleaved: ayah, flow: surah group) that takes
+  // initial D-pad focus.
+  let tvFocusKey: string | null = null;
+  if (tv && tvFocusTarget) {
+    const target =
+      tvFocusTarget === "first"
+        ? undefined
+        : ayahs.find((a) => a.surah === tvFocusTarget.surah && a.ayah === tvFocusTarget.ayah);
+    const anchor = target ?? ayahs[0];
+    if (anchor) {
+      tvFocusKey = interleaved ? `${anchor.surah}:${anchor.ayah}` : `surah-${anchor.surah}`;
+    }
+  }
 
   // Gilt end-of-ayah rosette with the verse number centered inside, sized to
   // the running Arabic so it sits on the baseline like a printed mushaf.
@@ -248,6 +275,11 @@ export function PageLayoutRenderer({
                     accessibilityRole="button"
                     accessibilityLabel={t("quran.ayahRef", { surah: ayah.surah, ayah: ayah.ayah })}
                     onPress={() => onAyahPress?.(ayah.surah, ayah.ayah)}
+                    onFocus={onItemFocus}
+                    onBlur={onItemBlur}
+                    {...(tvFocusKey === `${ayah.surah}:${ayah.ayah}`
+                      ? { hasTVPreferredFocus: true }
+                      : {})}
                     style={[
                       styles.ayahBlock,
                       { borderBottomColor: mushaf.bandBorder },
@@ -305,6 +337,49 @@ export function PageLayoutRenderer({
                   </PressableScale>
                 );
               })
+            ) : tv ? (
+              // TV: inline Text presses are not D-pad focusable, so the whole
+              // justified paragraph is one focus stop. Select opens the playing /
+              // highlighted ayah in this group, else its first ayah.
+              <PressableScale
+                scaleTo={0.995}
+                accessibilityRole="button"
+                accessibilityLabel={t("quran.ayahRef", {
+                  surah: group.surah,
+                  ayah: group.ayahs[0]?.ayah ?? 1,
+                })}
+                onPress={() => {
+                  const target =
+                    group.ayahs.find((a) => ayahMatchesHighlight(a, highlightAyah)) ??
+                    group.ayahs[0];
+                  if (target) onAyahPress?.(target.surah, target.ayah);
+                }}
+                onFocus={onItemFocus}
+                onBlur={onItemBlur}
+                {...(tvFocusKey === `surah-${group.surah}` ? { hasTVPreferredFocus: true } : {})}
+                style={styles.flowTv}
+              >
+                <ThemedText
+                  key={`flow-${group.surah}-${arabicSize}`}
+                  type="arabic"
+                  style={[styles.flow, { fontSize: arabicSize }]}
+                >
+                  {group.ayahs.map((ayah) => (
+                    <ThemedText
+                      key={`${ayah.surah}:${ayah.ayah}`}
+                      type="arabic"
+                      style={[
+                        { fontSize: arabicSize },
+                        ayahMatchesHighlight(ayah, highlightAyah)
+                          ? { backgroundColor: mushaf.highlight }
+                          : null,
+                      ]}
+                    >
+                      {ayahTextWithMarker(ayah, renderMarker(ayah))}
+                    </ThemedText>
+                  ))}
+                </ThemedText>
+              </PressableScale>
             ) : (
               // Remount when reading size changes so justified RTL layout
               // recomputes glyph advances (avoids stale inline runs after A±).
@@ -355,6 +430,11 @@ const styles = StyleSheet.create({
   flow: {
     textAlign: "justify",
     writingDirection: "rtl",
+  },
+  flowTv: {
+    borderRadius: Radius.sm,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.one,
   },
   ayahBlock: {
     gap: Spacing.two,

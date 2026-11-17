@@ -22,9 +22,12 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { HeroWeatherEffects } from "@/components/weather/hero-weather-effects";
 import { Durations } from "@/constants/motion";
 import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import type { DualCalendarDates } from "@/lib/calendar-format";
 import { gradientBackground } from "@/lib/gradient";
 import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import type { SkyPalette } from "@/lib/sky";
 
@@ -72,6 +75,12 @@ type PrayerTimesHeroProps = {
   onNotificationsPress?: () => void;
   /** Re-request / refresh the stored location (fires on tapping the location row). */
   onLocationPress?: () => void;
+  /**
+   * `banner` (default): full-bleed sky with rounded bottom corners that the
+   * below-fold cards tuck into (phones / TV). `card`: fully rounded tile for the
+   * wide-screen home dashboard, where the hero sits beside the schedule aside.
+   */
+  variant?: "banner" | "card";
 };
 
 /**
@@ -121,6 +130,7 @@ export function PrayerTimesHero({
   onSearchPress,
   onNotificationsPress,
   onLocationPress,
+  variant = "banner",
 }: PrayerTimesHeroProps) {
   const { t } = useTranslation();
   const { primary: primaryDate, secondary: secondaryDate } = displayDates;
@@ -129,13 +139,16 @@ export function PrayerTimesHero({
   const drift = useSharedValue(0);
   const [moonOpen, setMoonOpen] = useState(false);
   const chevronForward = useChevronForward();
+  const tv = isTV();
 
   useEffect(() => {
-    if (Platform.OS === "web" || reducedMotion) return;
+    // TV: static sky — three infinite full-bleed transform loops are too costly
+    // for low-end Fire TV / Android TV sticks and add little from the sofa.
+    if (Platform.OS === "web" || reducedMotion || tv) return;
     const easing = Easing.inOut(Easing.sin);
     breath.value = withRepeat(withTiming(1, { duration: Durations.ambient, easing }), -1, true);
     drift.value = withRepeat(withTiming(1, { duration: Durations.wallpaper, easing }), -1, true);
-  }, [reducedMotion, breath, drift]);
+  }, [reducedMotion, tv, breath, drift]);
 
   const baseSkyStyle = useAnimatedStyle(() => ({
     transform: [
@@ -165,7 +178,15 @@ export function PrayerTimesHero({
   return (
     <>
       <View
-        style={[styles.hero, { paddingTop: topInset + Spacing.two, backgroundColor: sky.bottom }]}
+        style={[
+          styles.hero,
+          tv ? styles.heroTv : null,
+          variant === "card" ? styles.heroCard : null,
+          {
+            paddingTop: tv ? TvLayout.contentPaddingY : topInset + Spacing.two,
+            backgroundColor: sky.bottom,
+          },
+        ]}
       >
         {/* Base vertical gradient sky — slow drift for a live-wallpaper feel. */}
         <SkyGradientLayer
@@ -243,17 +264,22 @@ export function PrayerTimesHero({
                     })
                   : t("hero.changeLocation")
               }
-              style={styles.locationRow}
+              style={[styles.locationRow, tv ? styles.locationRowTv : null]}
             >
               <SymbolView
                 name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
-                size={14}
+                size={tv ? 20 : 14}
                 tintColor={sky.accent}
               />
               <ThemedText
                 type="smallBold"
                 numberOfLines={1}
-                style={[styles.softShadow, styles.locationText, { color: Brand.heroText }]}
+                style={[
+                  styles.softShadow,
+                  styles.locationText,
+                  tv ? styles.topBarTextTv : null,
+                  { color: Brand.heroText },
+                ]}
               >
                 {location}
               </ThemedText>
@@ -261,20 +287,29 @@ export function PrayerTimesHero({
                 <>
                   <ThemedText
                     type="smallBold"
-                    style={[styles.softShadow, { color: Brand.heroSubtext }]}
+                    style={[
+                      styles.softShadow,
+                      tv ? styles.topBarTextTv : null,
+                      { color: Brand.heroSubtext },
+                    ]}
                   >
                     ·
                   </ThemedText>
                   <ThemedText
                     type="smallBold"
                     numberOfLines={1}
-                    style={[styles.softShadow, styles.weatherText, { color: Brand.heroText }]}
+                    style={[
+                      styles.softShadow,
+                      styles.weatherText,
+                      tv ? styles.topBarTextTv : null,
+                      { color: Brand.heroText },
+                    ]}
                   >
                     {weatherSummary}
                   </ThemedText>
                 </>
               ) : null}
-              <SymbolView name={chevronForward} size={11} tintColor={Brand.heroText} />
+              <SymbolView name={chevronForward} size={tv ? 14 : 11} tintColor={Brand.heroText} />
             </PressableScale>
             <View style={styles.actions}>
               <HeroIconButton
@@ -303,19 +338,33 @@ export function PrayerTimesHero({
                 phase: moonLabel,
                 dates: secondaryDate ? `${primaryDate}. ${secondaryDate}` : primaryDate,
               })}
-              style={styles.dateRow}
+              style={[styles.dateRow, tv ? styles.dateRowTv : null]}
             >
-              <MoonPhaseIcon date={now} size={22} southernHemisphere={southernHemisphere} />
+              <MoonPhaseIcon
+                date={now}
+                size={tv ? tvDp(30) : 22}
+                southernHemisphere={southernHemisphere}
+              />
               <View style={styles.dateLines}>
                 <ThemedText
-                  style={[styles.dateTextPrimary, styles.softShadow, { color: Brand.heroText }]}
+                  style={[
+                    styles.dateTextPrimary,
+                    tv ? styles.dateTextPrimaryTv : null,
+                    styles.softShadow,
+                    { color: Brand.heroText },
+                  ]}
                   numberOfLines={1}
                 >
                   {primaryDate}
                 </ThemedText>
                 {secondaryDate ? (
                   <ThemedText
-                    style={[styles.dateTextSecondary, styles.softShadow, { color: Brand.heroText }]}
+                    style={[
+                      styles.dateTextSecondary,
+                      tv ? styles.dateTextSecondaryTv : null,
+                      styles.softShadow,
+                      { color: Brand.heroText },
+                    ]}
                     numberOfLines={1}
                   >
                     {secondaryDate}
@@ -323,7 +372,7 @@ export function PrayerTimesHero({
                 ) : null}
               </View>
               <View style={styles.dateChevron}>
-                <SymbolView name={chevronForward} size={12} tintColor={Brand.heroText} />
+                <SymbolView name={chevronForward} size={tv ? 16 : 12} tintColor={Brand.heroText} />
               </View>
             </PressableScale>
             <View
@@ -335,14 +384,21 @@ export function PrayerTimesHero({
               <ThemedText type="display" style={[styles.clock, { color: Brand.heroText }]}>
                 {currentTime}
               </ThemedText>
-              <ThemedText style={[styles.countdown, styles.softShadow, { color: Brand.heroText }]}>
+              <ThemedText
+                style={[
+                  styles.countdown,
+                  tv ? styles.countdownTv : null,
+                  styles.softShadow,
+                  { color: Brand.heroText },
+                ]}
+              >
                 {countdown}
               </ThemedText>
             </View>
             {/* Thin progress through the current prayer window, tinted with the sky accent. */}
             <ProgressBar
               value={windowProgress}
-              height={4}
+              height={tv ? tvDp(6) : 4}
               color={sky.accent}
               trackColor={Brand.onHeroStrongSurface}
               style={styles.windowProgress}
@@ -378,13 +434,18 @@ export function PrayerTimesHero({
                     numberOfLines={1}
                     adjustsFontSizeToFit
                     minimumFontScale={0.8}
-                    style={[styles.softShadow, styles.prayerLabel, { color: textColor }]}
+                    style={[
+                      styles.softShadow,
+                      styles.prayerLabel,
+                      tv ? styles.prayerLabelTv : null,
+                      { color: textColor },
+                    ]}
                   >
                     {prayer.name}
                   </ThemedText>
                   <SymbolView
                     name={prayer.icon}
-                    size={19}
+                    size={tv ? 26 : 19}
                     tintColor={active ? sky.accent : INACTIVE_PRAYER_TEXT}
                   />
                   <ThemedText
@@ -395,6 +456,7 @@ export function PrayerTimesHero({
                     style={[
                       styles.softShadow,
                       styles.prayerTime,
+                      tv ? styles.prayerTimeTv : null,
                       { color: textColor, fontWeight: "700" },
                     ]}
                   >
@@ -426,6 +488,7 @@ function HeroIconButton({
   onPress?: () => void;
   badgeCount?: number;
 }) {
+  const tv = isTV();
   return (
     // Floating chrome over the hero art — a natural home for Liquid Glass on
     // iOS 26+; elsewhere it keeps the translucent on-hero surface.
@@ -440,11 +503,12 @@ function HeroIconButton({
         scaleTo={0.9}
         style={[
           styles.iconButton,
+          tv ? styles.iconButtonTv : null,
           !hasLiquidGlass && { backgroundColor: Brand.onHeroMutedSurface },
         ]}
       >
         <View style={styles.iconButtonGlyph}>
-          <SymbolView name={icon} size={18} tintColor={Brand.heroText} />
+          <SymbolView name={icon} size={tv ? 24 : 18} tintColor={Brand.heroText} />
         </View>
         {badgeCount > 0 ? (
           <View style={styles.badge}>
@@ -472,6 +536,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingBottom: Spacing.six,
     gap: Spacing.four,
+  },
+  /** Wide-screen dashboard tile: all corners rounded, no tuck-under padding. */
+  heroCard: {
+    borderRadius: Radius.xl + 4,
+    paddingBottom: Spacing.four,
+  },
+  /** TV: overscan-safe sides (ScreenLayout padding does not wrap the home hero). */
+  heroTv: {
+    paddingHorizontal: TvLayout.contentPaddingX,
   },
   fill: {
     position: "absolute",
@@ -505,8 +578,20 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     minWidth: 0,
   },
+  /** TV: hug content so the focus ring frames the label, not the whole bar. */
+  locationRowTv: {
+    flex: 0,
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.three,
+    gap: Spacing.two,
+    borderRadius: Radius.md,
+  },
   locationText: {
     flexShrink: 1,
+  },
+  topBarTextTv: {
+    fontSize: TvLayout.bodyFontSize,
+    lineHeight: TvLayout.bodyFontSize + 6,
   },
   weatherText: {
     flexShrink: 0,
@@ -523,6 +608,10 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
+  },
+  iconButtonTv: {
+    width: TvLayout.chipMinHeight + Spacing.two,
+    height: TvLayout.chipMinHeight + Spacing.two,
   },
   iconButtonGlyph: {
     ...StyleSheet.absoluteFill,
@@ -566,6 +655,12 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     paddingHorizontal: Spacing.two,
   },
+  dateRowTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.three,
+    gap: Spacing.two + 2,
+    borderRadius: Radius.md,
+  },
   dateLines: {
     flexShrink: 1,
     alignItems: "center",
@@ -581,6 +676,14 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     fontWeight: "600",
     letterSpacing: 0.2,
+  },
+  dateTextPrimaryTv: {
+    fontSize: 22,
+    lineHeight: 28,
+  },
+  dateTextSecondaryTv: {
+    fontSize: 18,
+    lineHeight: 24,
   },
   dateTextSecondary: {
     textAlign: "center",
@@ -606,6 +709,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "600",
+  },
+  countdownTv: {
+    fontSize: 24,
+    lineHeight: 30,
   },
   /** Soft dark shadow that lifts light text off any sky. */
   softShadow: {
@@ -645,5 +752,14 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
     fontVariant: ["tabular-nums"],
+  },
+  /** TV: prayer names / times readable from the sofa (~3m). */
+  prayerLabelTv: {
+    fontSize: 18,
+    lineHeight: 24,
+  },
+  prayerTimeTv: {
+    fontSize: 22,
+    lineHeight: 28,
   },
 });

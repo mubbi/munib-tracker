@@ -29,7 +29,8 @@
       "encouragementPerfect": "Divan osvrt — neka vas Allah obdari blagotvornim znanjem.",
       "encouragementStrong": "Snažno razumijevanje. Ponovo pregledajte promašaje da ih utvrdite.",
       "encouragementSteady": "Dobar napredak. Promašaje koristite kao sljedeće ciljeve učenja.",
-      "encouragementKeepGoing": "Svaka greška je lekcija. Pregledajte bilješke, zatim pokušajte ponovo."
+      "encouragementKeepGoing": "Svaka greška je lekcija. Pregledajte bilješke, zatim pokušajte ponovo.",
+      "keyboardHint": "Pritisnite 1–4 za odgovor, Enter za nastavak."
     },
     "skip": "Atla",
     "apply": "Primijeni",
@@ -86,7 +87,10 @@
     "selectToContinue": "Pritisnite Odaberi za nastavak",
     "selectToOpen": "Odaberite za otvaranje",
     "selectToSave": "Odaberite za spremanje",
-    "selectDay": "Odaberite dan za pregled"
+    "selectDay": "Odaberite dan za pregled",
+    "newBadge": "Novo",
+    "decreaseByTv": "Smanji {{label}} za {{step}}",
+    "increaseByTv": "Povećaj {{label}} za {{step}}"
   },
   "search": {
     "placeholder": "Pretraži Qur'an, hadis, duas, Uči…",
@@ -187,7 +191,8 @@
     "sadaqah": "Sadaqah golova",
     "whiteDays": "Post Bijelih dana",
     "goodCharacter": "Dobar karakter",
-    "heavyOnTheScale": "Teško na Vagi"
+    "heavyOnTheScale": "Teško na Vagi",
+    "quranPractice": "Vježba Kur'ana"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -713,7 +718,9 @@
           "hint": "Posljednji od Bijelih dana"
         }
       }
-    }
+    },
+    "cardTipTv": "Odaberite namaz za ažuriranje · Adhkar za zikr · Info za detalje",
+    "tapToMarkTv": "Odaberite za označavanje"
   },
   "update": {
     "title": "Ažuriranje dostupno",
@@ -887,7 +894,8 @@
     "heroSignedIn": "Dobrodošli nazad — vaš račun je povezan. Namaz, kaza i zikr mogu se sinkronizirati između uređaja.",
     "continueSignedIn": "Nastavi",
     "or": "ili",
-    "guestHint": "Račun možete povezati bilo kada iz Profila."
+    "guestHint": "Račun možete povezati bilo kada iz Profila.",
+    "guestHintTv": "Skenirajte QR kod da se prijavite s telefona. Ili nastavite kao gost — račun možete povezati bilo kada iz Profila na telefonu."
   },
   "onboarding": {
     "begin": "Započni",
@@ -944,7 +952,8 @@
     "locationHighlight1Tv": "Tačna vremena molitve za vaš grad",
     "locationHighlight2Tv": "Smjer kible s vaše lokacije",
     "locationHighlight3Tv": "Podsjetnici najbolje rade na telefonu",
-    "locationHighlight4Tv": "Promijenite grad bilo kada u Postavkama"
+    "locationHighlight4Tv": "Promijenite grad bilo kada u Postavkama",
+    "ctaBodyTv": "Počnite kao gost ili se prijavite skeniranjem QR koda telefonom. Na ovom TV-u sve radi bez interneta."
   },
   "appearance": {
     "eyebrow": "Postavke",
@@ -1609,7 +1618,8 @@
       "dictate": "Recitiraj ajet",
       "stopDictate": "Prestani slušati",
       "bestMatch": "Najbolje podudaranje",
-      "otherMatches": "Ostala podudaranja"
+      "otherMatches": "Ostala podudaranja",
+      "tvUnavailableBody": "Prepoznavanje ajeta traži mikrofon, a TV ga nema. Umjesto toga pretražujte Kur'an po riječima ili koristite aplikaciju na telefonu."
     },
     "searchPlaceholderArabic": "Traži arapski tekst ili referencu poput ٢:٢٥٥…",
     "goToPagePlaceholder": "Page 1–{{max}}",
@@ -1620,7 +1630,10 @@
     "surahNumber": "Sura {{number}}",
     "selectSurah": "Odaberite suru",
     "openReader": "Otvori čitač",
-    "bookmarkEmptyDescTv": "Odaberite ikonu oznake na bilo kojem ajetu da ga sačuvate ovdje."
+    "bookmarkEmptyDescTv": "Odaberite ikonu oznake na bilo kojem ajetu da ga sačuvate ovdje.",
+    "goToAyahPlaceholder": "Ajet 1–{{max}}",
+    "goToAyahA11y": "Idi na broj ajeta",
+    "goToAyahInvalid": "Unesite ajet između 1 i {{max}}"
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -1863,7 +1876,8 @@
     "history": "Istorija",
     "rowDone": "{{completed}} nadoknađeno",
     "rowDoneWithDaily": "{{completed}} nadoknađeno · danas {{done}}/{{target}}",
-    "hintTv": "Odaberite kvačicu da zabilježite nadoknađenu molitvu. Propuštena molitva u trackeru automatski se dodaje ovim brojačima."
+    "hintTv": "Odaberite kvačicu da zabilježite nadoknađenu molitvu. Propuštena molitva u trackeru automatski se dodaje ovim brojačima.",
+    "editCountHintTv": "Pomoću − i + postavite koliko vam je još ovog namaza ostalo da naklanjate."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1895,7 +1909,8 @@
       "pubertyAfterAge": "Dob puberteta ne može biti kasnija od trenutne starosti.",
       "yearsPrayedExceed": "Godine namaza ({{entered}}) ne mogu premašiti godine od puberteta ({{obligatedYears}}).",
       "exemptExceedsYear": "Izuzeti dani ({{entered}}) ne mogu premašiti dužinu godine koju ste odabrali ({{maxDays}})."
-    }
+    },
+    "enterAgePromptTv": "Postavite svoje trenutne godine iznad da vidite procjenu."
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -1992,7 +2007,8 @@
     "confirmAddEstimateMsg": "Dodati {{count}} postova preostalim (novo ukupno: {{total}})?",
     "confirmResetTitle": "Resetirati brojač?",
     "confirmResetMsg": "Obrisati sva brza brojanja ({{remaining}} preostalo, {{completed}} završeno)? Ovo se ne može poništiti.",
-    "adjustHintTv": "Odaberite broj ili koristite −/+ za podešavanje"
+    "adjustHintTv": "Odaberite broj ili koristite −/+ za podešavanje",
+    "editCountHintTv": "Pomoću − i + postavite koliko vam je još kada posta ostalo da napostite."
   },
   "calendar": {
     "eyebrow": "Historija",
@@ -2113,7 +2129,8 @@
     "confirmStartAgainTitle": "Počni again?",
     "confirmStartAgainMessage": "Vaš završeno count will be očišćeno so vi can begin  novi round.",
     "dockLabel": "Broj",
-    "tapToCountTv": "Pritisnite Odaberi za brojanje"
+    "tapToCountTv": "Pritisnite Odaberi za brojanje",
+    "tapToCountKeyboard": "Kliknite krug ili pritisnite Razmak za brojanje"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} je only {{min}} min away",
@@ -2188,7 +2205,9 @@
     "defaultLabel": "Meka, Saudijska Arabija",
     "defaultTimesHint": "Vremena namaza trenutno koriste Meku. Postavite svoj grad za tačna vremena. Podsjetnici za namaz i ezan ostaju isključeni do tada.",
     "setLocation": "Postavi lokaciju",
-    "searchAutoFocusOff": "Potražite grad"
+    "searchAutoFocusOff": "Potražite grad",
+    "subtitleTv": "Vremena namaza računaju se za ovo mjesto. Pronađite svoj grad pomoću daljinskog.",
+    "hintTv": "Odaberite polje za pretragu, zatim upišite barem dva slova naziva grada."
   },
   "moon": {
     "aria": "Ay evresi: {{phase}}",
@@ -2549,7 +2568,8 @@
     "authenticityTitle": "Autentičnost sadržaja",
     "authenticityBody": "Adhkar i dovale uzeti su iz poznatih zbirki i držani blizu široko objavljenih verzija. Provjerite kod pouzdanog učenjaka ili izvora prije nego što se oslonite na bilo koje specifično pravilo ili broj.",
     "privacyPolicy": "Politika privatnosti",
-    "termsOfService": "Uslovi korištenja"
+    "termsOfService": "Uslovi korištenja",
+    "scanOnPhoneTv": "Skenirajte telefonom da otvorite ovu stranicu."
   },
   "player": {
     "nowPlaying": "Sada svira",
@@ -2582,7 +2602,9 @@
     "loading": "Učitavanje…",
     "streamingOnlyNote": "Streaming only — audio je not saved na ovo uređaj",
     "ttsVoice": "Glas",
-    "ttsVoiceHint": "Odaberite glas za tekst-u-govor"
+    "ttsVoiceHint": "Odaberite glas za tekst-u-govor",
+    "seekBack": "{{seconds}} sekundi nazad",
+    "seekForward": "{{seconds}} sekundi naprijed"
   },
   "errors": {
     "title": "Bir şeyler ters gitti",
@@ -2810,7 +2832,7 @@
     "confirmReviewBody": "{{ref}} will be flagged za review.",
     "confirmMemorizedBody": "{{ref}} will be označeno as memorized.",
     "confirmClearBody": "{{ref}} will be removed od vaš Hifz tracker.",
-    "emptyDescTv": "Odaberite Hifz na bilo kojem ajetu u čitaču da ga označite kao naučen."
+    "emptyDescTv": "Odaberite ajet u čitaču, zatim odaberite Hifz da ga označite kao naučen."
   },
   "travel": {
     "eyebrow": "Nauči",
@@ -3312,7 +3334,8 @@
       "reflectionHint": "Khushu i molitvena razmišljanja",
       "learning": "Napredak učenja",
       "learningHint": "Teme završene u ovom modulu",
-      "characterHintTv": "Odaberite kada ste danas pregledali svoje ponašanje"
+      "characterHintTv": "Odaberite kada ste danas pregledali svoje ponašanje",
+      "repentanceHintTv": "Obnovi tevbu — odaberi kada se danas pokaješ"
     },
     "progressTitle": "Napredak u učenju",
     "progressSubtitle": "Pratite učenje - ne duhovni rang kod Allaha",
@@ -3356,7 +3379,8 @@
         "best-beloved": "Najbolje / najomiljenije",
         "equal-reward": "Velika izjednačena nagrada"
       }
-    }
+    },
+    "timelineCardHintTv": "Središnji dio — odaberite svaku etapu za cijelu lekciju"
   },
   "taharah": {
     "eyebrow": "Nauči",
@@ -3532,7 +3556,8 @@
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "tapHintTv": "Odaberite ime na mapi da pročitate bilješku s izvorom."
+      "tapHintTv": "Odaberite ime na mapi da pročitate bilješku s izvorom.",
+      "listHintTv": "Odaberite ime na listi da pročitate bilješku s izvorom."
     }
   },
   "aqeedah": {
@@ -4391,7 +4416,7 @@
       "label": "Prilozi (opcionalno)",
       "add": "Dodaj fajl",
       "remove": "Uklonite prilog",
-      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), svaka od 1 MB. Dugo pritisnite sličicu za uklanjanje.",
+      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), 1 MB svaka. Dodirnite × na sličici da uklonite.",
       "signInRequired": "Prijavite se da priložite privatne fajlove svom adhkaru.",
       "permissionDenied": "Za prilaganje fajlova potrebna je dozvola.",
       "permissionTitle": "Dozvoli pristup",
@@ -4421,7 +4446,8 @@
       "loadingPdf": "Učitavanje PDF…",
       "pdfHint": "Pomicanje · štipanje ili +/− za zum · dvostruki dodir za reset · Otvori PDF za dijeljenje",
       "pdfPreviewTitle": "PDF pregled",
-      "tvUnavailable": "Prilozi trebaju telefon ili tablet. Dodajte fotografije ili PDF-ove tamo."
+      "tvUnavailable": "Prilozi trebaju telefon ili tablet. Dodajte fotografije ili PDF-ove tamo.",
+      "pdfTvUnavailable": "PDF datoteke se ne mogu pregledati na TV-u. Otvorite ovaj prilog na telefonu ili tabletu."
     },
     "stt": {
       "dictate": "Diktirajte mikrofonom",
@@ -4451,13 +4477,20 @@
     "markTonight": "I prayed Teheccüd tonight",
     "markedTonight": "Molio se večeras — mašaAllah",
     "lastNights": "Posljednjih {{count}} noći",
-    "lastNightsHint": "Each dot je one night, labeled by calendar date (most recent na  left).",
     "virtueTitle": "Virtue   night salah",
     "virtueBody": " best salah after  obligatory salah je  night salah.",
     "virtueRef": "Shih Muslim 1163",
     "streakRow": "Tahajjud serija",
     "calculatorCta": "Kalkulator posljednje trećine noći",
-    "calculatorHint": "Pronađite ponoć i najbolje vrijeme za Tahajjud od Maghriba i Fajra"
+    "calculatorHint": "Pronađite ponoć i najbolje vrijeme za Tahajjud od Maghriba i Fajra",
+    "tonightTitle": "Večeras",
+    "bestLabel": "Najbolji niz",
+    "totalLabel": "Ukupno noći",
+    "startTonight": "Vaš niz počinje večeras.",
+    "calendarHint": "Dodirnite prošlu noć da je zabilježite ili poništite.",
+    "calendarHintTv": "Odaberite prošlu noć da je zabilježite ili poništite.",
+    "legendPrayed": "Klanjano",
+    "inWindow": "Sada je najbolje vrijeme"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates su calculated estimates — local moon-sighting may differ.",
@@ -4713,8 +4746,10 @@
       "buildsTitle": "Gradi ahlak",
       "buildsHint": "Vježbajte jednu osobinu odjednom — istinu, strpljenje, milost i pravdu.",
       "destroysTitle": "Što narušava ahlak",
-      "destroysHint": "Navike na koje tekstovi upozoravaju — dodirnite pločicu za povezanu lekciju."
-    }
+      "destroysHint": "Navike na koje tekstovi upozoravaju — dodirnite pločicu za povezanu lekciju.",
+      "destroysHintTv": "Navike na koje tekstovi upozoravaju — odaberite pločicu za povezanu lekciju."
+    },
+    "pathsHintTv": "Djela koja Allahovom dozvolom podižu stepen — odaberite bilo koji put za dokaze i linkove u aplikaciji."
   },
   "jahannam": {
     "eyebrow": "Naučite",
@@ -5206,7 +5241,7 @@
     "eyebrow": "Kalendar",
     "title": "Konverter datuma",
     "subtitle": "Pretvorite između hidžretskog i gregorijanskog kalendara",
-    "intro": "Unesite datum u bilo koji kalendar da vidite njegov ekvivalent u drugom, izračunatom van mreže pomoću tabelarnog kuvajtskog algoritma.",
+    "intro": "Unesite datum u bilo kojem kalendaru da vidite ekvivalent u drugom, izračunat offline iz vidljivosti polumjeseca na vašoj lokaciji.",
     "toHijri": "Gregorijanski → Hidžri",
     "toGregorian": "hidžretski → gregorijanski",
     "gregorianDateLabel": "Gregorijanski datum",
@@ -5216,7 +5251,7 @@
     "year": "Godina",
     "useToday": "Iskoristite danas",
     "invalidDate": "Unesite važeći datum",
-    "disclaimer": "Ovo je aritmetička aproksimacija (tabelarni \"Kuvajtski algoritam\") i može se razlikovati za jedan dan od lokalnih najava o viđenju Mjeseca - uvijek pratite svoj lokalni mesdžid ili autoritet za vjerske datume.",
+    "disclaimer": "Datumi se računaju iz vidljivosti polumjeseca (hilāl) na vašoj lokaciji i mogu se razlikovati za jedan dan od službenih najava o viđenju mjeseca — uvijek slijedite lokalni masjid ili vlast za vjerske datume.",
     "directionTitle": "Smjer konverzije",
     "resultFrom": "Od {{date}}",
     "quickLinksTitle": "Povezano",
@@ -5301,7 +5336,8 @@
     "editHint": "Rezultati se ažuriraju dok mijenjate vrijeme.",
     "nightLengthLabel": "Dužina noći",
     "willStartIn": "Počinje za {{time}}",
-    "timeRemaining": "Preostalo {{time}}"
+    "timeRemaining": "Preostalo {{time}}",
+    "autoDetectHintTv": "{{location}} · odaberite vrijeme za podešavanje"
   },
   "friday": {
     "eyebrow": "Uči",
@@ -5354,7 +5390,7 @@
     "eyebrow": "Naučite",
     "title": "Janazah vodič",
     "subtitle": "Dženaza, umivanje, sahrana i autentične dove",
-    "intro": "Praktični pregled dženaze kao zajedničke obaveze — četiri tekbira bez rukua i sedžde, Hisnul Muslim dove za muškarce, žene i djecu, te upute za pranje, ukop, šehide i ožalošćene.",
+    "intro": "Praktični pregled Janazah kao zajedničke obaveze — kako klanjati četiri tekbira bez ruku ili sujuda, i Hisnul Muslim dove za pokojnika.",
     "section": {
       "obligation": "Obaveza",
       "prepare": "Priprema",
@@ -5439,5 +5475,417 @@
     "notFound": "Tema nije pronađena",
     "disclaimer": "Edukativni pregled — nije fetva. Tačni datumi zavise od viđenja mjeseca; za vjerske datume i propise slijedite lokalni mesdžid ili kvalificiranog učenjaka.",
     "continueInApp": "Nastavi u Munibu"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "Vježba",
+      "practiseAyah": "Vježbaj ajet {{n}}",
+      "practisePlan": "Vježbaj ovu suru",
+      "toRevise_other": "{{count}} za ponavljanje",
+      "toRevise_one": "{{count}} za ponavljanje",
+      "toRevise_few": "{{count}} za ponavljanje"
+    },
+    "mode": {
+      "follow": "Praćenje",
+      "check": "Provjera",
+      "hideWords": "Sakrij riječi",
+      "hideAyahs": "Sakrij ajete"
+    },
+    "range": {
+      "ayah": "Ovaj ajet",
+      "next5": "Sljedećih 5",
+      "surah": "Ova sura",
+      "page": "Ova stranica",
+      "custom": "Prilagođeno",
+      "fromAyah": "Od ajeta",
+      "toAyah": "Do ajeta",
+      "increase": "Povećaj {{label}}",
+      "decrease": "Smanji {{label}}"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "Vježba",
+      "subtitle": "Učite, sakrijte pa otkrijte i ponavljajte ono što pamtite",
+      "continue": "Nastavi",
+      "start": "Počni",
+      "listen": "Slušaj",
+      "manage": "Upravljaj",
+      "rangeTitle": "Raspon",
+      "modeTitle": "Način",
+      "startRevision": "Počni ponavljanje",
+      "openQueue": "Pogledaj listu ponavljanja",
+      "captionReady": "Slušač ostaje na ovom uređaju.",
+      "captionMissing": "Preuzmite slušač da prati vaš glas. Slušati možete i bez njega.",
+      "captionOffline": "Za preuzimanje slušača potrebna je veza. Slušanje i dalje radi.",
+      "captionFailed": "Slušač se nije pokrenuo. Slušati i dalje možete.",
+      "captionWebUnsupported": "Ovaj preglednik ne može pokrenuti slušač.",
+      "captionUnsupported": "Slušač nije dostupan na ovom uređaju. Slušanje i dalje radi.",
+      "captionManualMode": "Bez slušača ovaj način prikazuje tekst da ga sami otkrivate i ne označava riječi.",
+      "downloadListener": "Preuzmi slušač ({{size}} MB)",
+      "reviseTitle_other": "{{count}} ajeta za ponavljanje",
+      "reviseTitle_one": "{{count}} ajet za ponavljanje",
+      "reviseTitle_few": "{{count}} ajeta za ponavljanje",
+      "reviseRemaining_other": "Još {{count}} drugih dana",
+      "reviseRemaining_one": "Još {{count}} drugog dana",
+      "reviseRemaining_few": "Još {{count}} drugih dana",
+      "passageLabel": "Vaš odlomak",
+      "change": "Promijeni",
+      "startPassage": "Počni {{passage}}",
+      "ayahCount_one": "{{count}} ajet",
+      "ayahCount_few": "{{count}} ajeta",
+      "ayahCount_other": "{{count}} ajeta",
+      "recentTitle": "Nedavno",
+      "recentHint": "Ponovo pokreće ovaj odlomak u istom načinu"
+    },
+    "session": {
+      "loading": "Učitavanje ajeta…",
+      "preparing": "Priprema slušača…",
+      "ayahOf": "Ajet {{n}} od {{total}}",
+      "revisionEyebrow": "Ponavljanje",
+      "coach": "Pročitajte ajet, zatim dodirnite mikrofon i učite.",
+      "retry": "Ponovi",
+      "settled": "Slušač je pratio ovaj ajet.",
+      "someNotSure": "Slušač nije bio siguran za neke riječi. Možete ponovo učiti ili nastaviti.",
+      "listeningStopped": "Slušanje je prestalo. Možete otkriti riječi i nastaviti.",
+      "listenerDidNotStart": "Slušač se nije pokrenuo. I dalje možete slušati i otkrivati riječi.",
+      "listenOnly": "Dodirnite reprodukciju da čujete ajet. Preuzmite slušač u Postavkama da prati vaš glas.",
+      "listenOnlyHide": "Otkrijte riječi kad budete spremni. Slušač nije na ovom uređaju pa riječi nisu označene.",
+      "micOff": "Mikrofon je isključen za Munib Tracker. I dalje možete slušati.",
+      "openSettings": "Otvori postavke",
+      "previous": "Prethodni",
+      "next": "Sljedeći",
+      "tryAgainLine_other": "Pokušajte ponovo {{count}} riječi",
+      "tryAgainLine_one": "Pokušajte ponovo {{count}} riječ",
+      "tryAgainLine_few": "Pokušajte ponovo {{count}} riječi",
+      "changePassage": "Promijeni",
+      "chipDone": "gotovo",
+      "chipRetry": "riječi za ponovno učenje",
+      "chipCurrent": "trenutni",
+      "chipTodo": "još ne",
+      "chipLabel": "Ajet {{n}}, {{state}}",
+      "listeningHint": "Slušam… učite ajet. Završava se samo nakon posljednje riječi, ili dodirnite zaustavi."
+    },
+    "dock": {
+      "hear": "Slušaj",
+      "stopHearing": "Zaustavi učenje",
+      "listen": "Slušaj",
+      "start": "Počni",
+      "listening": "Slušam",
+      "micStartHint": "Počinje slušati vaše učenje ovog ajeta",
+      "micStopHint": "Završava ovaj ajet",
+      "reveal": "Otkrij",
+      "revealHint": "Otkriva sljedeću skrivenu riječ. Dugo pritisnite za ostatak ajeta.",
+      "end": "Kraj",
+      "revealAll": "Otkrij sve"
+    },
+    "word": {
+      "matched": "podudara se",
+      "corrected": "podudara se iz drugog pokušaja",
+      "notSure": "nije sigurno",
+      "tryAgain": "pokušaj ponovo",
+      "notYet": "još ne",
+      "hidden": "Skrivena riječ {{n}}",
+      "tapToHear": "Pušta ovu riječ"
+    },
+    "summary": {
+      "subtitle": "Sesija je završena",
+      "tryAyahAgain": "Ponovi ovaj ajet",
+      "nextAyah": "Sljedeći ajet",
+      "nextRevision": "Sljedeće ponavljanje",
+      "done": "Gotovo",
+      "hearAyah": "Poslušaj ovaj ajet",
+      "markMemorized": "Označi kao naučeno",
+      "listened": "Poslušali ste ovaj odlomak. Preuzmite slušač da prati vaš glas.",
+      "countMatched_other": "{{count}} podudarnih",
+      "countMatched_one": "{{count}} podudarno",
+      "countMatched_few": "{{count}} podudarna",
+      "countNotSure_other": "{{count}} nesigurnih",
+      "countNotSure_one": "{{count}} nesigurno",
+      "countNotSure_few": "{{count}} nesigurna",
+      "countTryAgain_other": "{{count}} za ponovni pokušaj",
+      "countTryAgain_one": "{{count}} za ponovni pokušaj",
+      "countTryAgain_few": "{{count}} za ponovni pokušaj",
+      "countNotReached_other": "{{count}} nedostignutih",
+      "countNotReached_one": "{{count}} nedostignuto",
+      "countNotReached_few": "{{count}} nedostignuta",
+      "listenerNotSure_other": "Slušač nije bio siguran za {{count}} riječi",
+      "listenerNotSure_one": "Slušač nije bio siguran za {{count}} riječ",
+      "listenerNotSure_few": "Slušač nije bio siguran za {{count}} riječi"
+    },
+    "revision": {
+      "title": "Ponavljanje",
+      "subtitle": "Ajeti za danas, najstariji prvo",
+      "emptyTitle": "Danas nema ništa za ponavljanje",
+      "emptyDesc": "Ajeti koje vježbate u načinu provjere ili sakrivanja vraćaju se ovdje kad im dođe vrijeme.",
+      "dueToday": "Za danas",
+      "markedMemorized": "Označeno kao naučeno",
+      "notNow": "Ne sada",
+      "setStatus": "Postavi status",
+      "skip": "Preskoči",
+      "practiseRow": "Vježbaj {{surah}} {{ayah}}",
+      "sittingProgress": "{{n}} od {{total}}",
+      "hifzRowSub": "Vježbajte i ponavljajte ajete koje pamtite",
+      "status": {
+        "learning": "Učim",
+        "practising": "Vježbam",
+        "needsRevision": "Treba ponoviti"
+      },
+      "overdue_other": "Kasni {{count}} dana",
+      "overdue_one": "Kasni {{count}} dan",
+      "overdue_few": "Kasni {{count}} dana"
+    },
+    "settings": {
+      "title": "Vježba Kur'ana",
+      "rowSubtitle": "Slušač, povratne informacije i ponavljanje",
+      "valueReady": "Spremno",
+      "valueNotDownloaded": "Nije preuzeto",
+      "valueDownloading": "Preuzimanje {{percent}}%",
+      "valueRetry": "Treba novi pokušaj",
+      "practiceTitle": "Vježba",
+      "defaultMode": "Zadani način",
+      "feedbackTiming": "Kada prikazati riječi za ponovni pokušaj",
+      "timing": {
+        "ayah": "Nakon svakog ajeta",
+        "live": "Dok učim",
+        "end": "Na kraju"
+      },
+      "showTranslation": "Prikaži prijevod",
+      "showTransliteration": "Prikaži transliteraciju",
+      "showTajweed": "Boje tedžvida",
+      "showTajweedSub": "Boje mogu otežati uočavanje oznaka vježbe.",
+      "hearBeforeRecite": "Slušaj prije učenja",
+      "hear": {
+        "off": "Isključeno",
+        "once": "Jednom",
+        "every": "Svaki ajet"
+      },
+      "autoAdvance": "Automatski nastavi",
+      "autoAdvanceSub": "Pređi na sljedeći ajet kad je ovaj završen.",
+      "keepAwake": "Drži ekran uključenim",
+      "startFromTitle": "Počni od",
+      "startFrom": {
+        "lastPractice": "Zadnje vježbe",
+        "lastRead": "Gdje sam čitao",
+        "ask": "Pitaj me"
+      },
+      "revisionTitle": "Ponavljanje",
+      "dailyLimit": "Ajeta dnevno",
+      "includeHifz": "Uključi ponavljanje hifza",
+      "includeHifzSub": "Uključeni su ajeti koje ste označili za ponavljanje.",
+      "reminder": "Podsjetnik za ponavljanje",
+      "reminderSub": "Podsjetnik na ovom uređaju kad ima ajeta za ponavljanje.",
+      "reminderMasterOff": "Podsjetnici su isključeni u Obavještenjima.",
+      "openNotifications": "Otvori postavke obavještenja",
+      "sessionTitle": "Tokom vježbe",
+      "displayTitle": "Na ekranu",
+      "timingHelp": {
+        "ayah": "Riječi za ponavljanje pojavljuju se kad završite svaki ajet — nikad dok učite.",
+        "live": "Oznake se pojavljuju čim slušač bude siguran, dok učite.",
+        "end": "Podvučena je samo trenutna riječ. Rezultati se pojavljuju na kraju."
+      },
+      "hearHelp": {
+        "off": "Učač uči samo kad dodirnete Slušaj.",
+        "once": "Učač uči prvi ajet prije nego počnete.",
+        "every": "Učač uči svaki ajet prije nego ga vi proučite."
+      },
+      "startHelp": {
+        "lastPractice": "Nastavite gdje je završila posljednja vježba.",
+        "lastRead": "Počnite od ajeta koji ste čitali u Kur'anu.",
+        "ask": "Svaki put sami izaberite odlomak."
+      },
+      "dailyLimitHelp_one": "Do {{count}} ajeta dnevno; ostali čekaju naredne dane.",
+      "dailyLimitHelp_few": "Do {{count}} ajeta dnevno; ostali čekaju naredne dane.",
+      "dailyLimitHelp_other": "Do {{count}} ajeta dnevno; ostali čekaju naredne dane."
+    },
+    "listener": {
+      "title": "Slušač na uređaju",
+      "notOnDevice": "Nije na ovom uređaju",
+      "aboutSize": "Oko {{size}} MB",
+      "download": "Preuzmi",
+      "staysOnDevice": "Ostaje na ovom uređaju. Čitanje radi i bez njega.",
+      "downloadingBytes": "{{done}} od {{total}}",
+      "downloadingLine": "Slušač {{done}} od {{total}} ({{percent}}%)",
+      "cancel": "Otkaži",
+      "verifying": "Provjera datoteke",
+      "ready": "Spremno",
+      "version": "Verzija {{version}}",
+      "delete": "Izbriši",
+      "deleteTitle": "Izbrisati slušač?",
+      "deleteBody": "Vježba i dalje pušta učenja. Za praćenje glasa treba ponovo preuzeti.",
+      "confirmRemove": "Ukloni",
+      "needsRetry": "Treba novi pokušaj",
+      "tryAgain": "Pokušaj ponovo",
+      "updateAvailable": "Ažuriranje je spremno",
+      "updateSize": "Oko {{size}} MB. Trenutni slušač i dalje radi.",
+      "updateTitle": "Zamijeniti slušač?",
+      "downloadUpdate": "Preuzmi ažuriranje",
+      "wifiOnly": "Preuzimaj samo preko Wi-Fi",
+      "cellularTitle": "Koristiti mobilne podatke?",
+      "cellularBody": "Slušač ima oko {{size}} MB i ostaje na ovom uređaju.",
+      "useMobileData": "Koristi mobilne podatke",
+      "advanced": "Napredno",
+      "recommended": "preporučeni slušač",
+      "alternate": "alternativni slušač",
+      "recommendedSize": "Preporučeni, oko {{size}} MB",
+      "alternateSize": "Alternativni, oko {{size}} MB",
+      "alternateCaption": "Alternativni koristite samo ako preporučeni ne radi. Možda neće označavati riječi za ponovni pokušaj.",
+      "switchTitle": "Promijeniti slušač?",
+      "engineCaption": "Koristi se {{engine}}.",
+      "unsupported": "Slušač nije dostupan na ovom uređaju.",
+      "webUnsupported": "Ovaj preglednik ne može pokrenuti slušač.",
+      "knownLimits": "Najbolje radi u tihoj prostoriji, s jednim glasom i uobičajenim tempom učenja. S dječijim glasovima može biti manje pouzdan.",
+      "detailsLine": "{{size}} MB na ovom uređaju · {{engine}}"
+    },
+    "privacy": {
+      "title": "Privatnost i izvori",
+      "onDevice": "Vaš glas se obrađuje na ovom uređaju. Ne šalje se i ne čuva.",
+      "microphone": "Mikrofon",
+      "micAllowed": "Dozvoljeno",
+      "micBlocked": "Blokirano",
+      "micNotAsked": "Još nije traženo",
+      "deleteHistory": "Izbriši historiju vježbi",
+      "deleteHistoryTitle": "Izbrisati historiju vježbi?",
+      "deleteHistoryBody": "Brišu se sažeci sesija. Oznake hifza, raspored ponavljanja i slušač ostaju.",
+      "practiceAid": "Slušač je pomoć pri vježbi. Ne zamjenjuje učitelja.",
+      "sources": "Datoteka slušača preuzima se s {{host}}. Napravljeno uz projekat Tilawa, tekst Tanzil i podatke o riječima s Quran.com.",
+      "licence": "Preporučeni slušač dijeli se pod licencom NPL-1.2: besplatan, nikad se ne prodaje i bez reklama."
+    },
+    "offlineRow": {
+      "title": "Slušač Kur'ana",
+      "subtitle": "Upravlja se u Vježbi Kur'ana. «Očisti sve» ga zadržava."
+    },
+    "reminder": {
+      "title": "Ponavljanje Kur'ana",
+      "body_other": "Danas {{count}} ajeta za ponavljanje",
+      "body_one": "Danas {{count}} ajet za ponavljanje",
+      "body_few": "Danas {{count}} ajeta za ponavljanje"
+    },
+    "error": {
+      "noConnection": "Nema veze",
+      "notEnoughSpace": "Nema dovoljno prostora",
+      "checksum": "Datoteka se ne podudara",
+      "downloadFailed": "Preuzimanje nije završeno",
+      "downloadCancelled": "Preuzimanje otkazano",
+      "modelMissing": "Datoteka slušača nedostaje",
+      "didNotStart": "Nije se pokrenuo",
+      "outOfMemory": "Uređaj je ostao bez memorije. I dalje možete slušati.",
+      "unsupported": "Nije dostupno na ovom uređaju",
+      "micDenied": "Mikrofon je isključen",
+      "micUnavailable": "Nema mikrofona",
+      "captureFailed": "Mikrofon se nije pokrenuo",
+      "interrupted": "Slušanje je prekinuto",
+      "listeningStopped": "Slušanje je prestalo",
+      "unknown": "Nešto nije u redu"
+    },
+    "pronunciation": {
+      "title": "Slušač izgovora",
+      "explainer": "Neobavezni drugi slušač za lekcije tedžvida. Uspoređuje jedan glas s primjerom i nikad ne daje ocjenu.",
+      "notSetUp": "Nije postavljeno",
+      "notOnDevice": "Nije na ovom uređaju",
+      "ready": "Spremno (verzija {{version}})",
+      "setUp": "Postavi",
+      "downloading": "Preuzimanje slušača izgovora…",
+      "consentTitle": "Prije postavljanja",
+      "consentDownload": "Ovo preuzima drugi slušač od oko 57 MB od Quran Lab.",
+      "consentActivation": "Aplikacija se jednom javlja Quran Lab radi aktivacije, a zatim radi provjere ažuriranja.",
+      "consentOnDevice": "Vaše učenje se obrađuje na ovom uređaju.",
+      "consentRemotePause": "Quran Lab može pauzirati ovaj slušač za sve korisnike. Lekcije tada i dalje rade.",
+      "agree": "Prihvati i preuzmi",
+      "notNow": "Ne sada",
+      "deleteTitle": "Izbrisati slušač izgovora?",
+      "deleteBody": "Lekcije tedžvida i dalje rade. Za vježbu glasa treba ponovo preuzeti.",
+      "sharingSwitch": "Dijeli moja učenja s Quran Lab",
+      "sharingSub": "Samo ako ste pristali na listu Quran Lab. Isključivanje zaustavlja slanje i briše neposlani red.",
+      "deleteShared": "Izbriši ono što sam podijelio",
+      "deleteSharedTitle": "Izbrisati ono što ste podijelili?",
+      "deleteSharedBody": "Svaki snimak koji ste podijelili iz ove aplikacije briše se sa servera Quran Lab, a dijeljenje se isključuje.",
+      "deletedShared": "Vaši podijeljeni snimci su izbrisani",
+      "sharingFailed": "To nije uspjelo. Pokušajte ponovo.",
+      "recoveryCode": "Kod za oporavak: {{code}}",
+      "sourcesLine": "TajweedFormer od Quran Lab, pod licencom NPL-1.2.",
+      "practiseSound": "Vježbaj ovaj glas",
+      "drillTitle": "Vježbaj ovaj glas",
+      "drillIntro": "Poslušajte primjer, zatim dodirnite Uči i izgovorite isto.",
+      "needsSetup": "Postavite slušač izgovora da vježbate ovaj glas.",
+      "needsConnectionOnce": "Postavljanje jednom traži vezu.",
+      "notAvailableForSound": "Povratna informacija za ovaj glas još nije dostupna. Poslušajte primjer i pokušajte ponovo.",
+      "recite": "Uči",
+      "stop": "Zaustavi",
+      "listening": "Slušam…",
+      "verdictMatched": "To se podudara s primjerom.",
+      "verdictTryAgain": "Poslušajte ponovo i pokušajte još jednom.",
+      "verdictNotSure": "Slušač nije bio siguran.",
+      "error": {
+        "noConnection": "Postavljanje jednom traži vezu.",
+        "paused": "Quran Lab je pauzirao ovaj slušač. Lekcije i dalje rade.",
+        "noSpace": "Nema dovoljno prostora",
+        "notYet": "Ovaj slušač još nije dostupan. Pokušajte kasnije.",
+        "micDenied": "Mikrofon je isključen za Munib Tracker.",
+        "unsupported": "Nije dostupno na ovom uređaju",
+        "generic": "To nije uspjelo. Pokušajte ponovo."
+      }
+    },
+    "modeHelp": {
+      "follow": "Učite s tekstom pred sobom. Slušač vas prati riječ po riječ.",
+      "check": "Učite s vidljivim tekstom. Nakon svakog ajeta vidjet ćete riječi za ponovno učenje.",
+      "hideWords": "Riječi nakon prve su pokrivene. Učite napamet; čute riječi se same otkrivaju.",
+      "hideAyahs": "Cijeli ajet je pokriven dok ne završite ili ne dodirnete Otkrij. Najbolje za ponavljanje."
+    },
+    "listenerStatus": {
+      "ready": "Slušač je spreman",
+      "readySub": "Vaš glas se obrađuje na ovom uređaju i nikad se ne šalje.",
+      "downloading": "Preuzimanje slušača · {{percent}}%",
+      "failed": "Preuzimanje nije završeno",
+      "missing": "Neka prati vaš glas",
+      "missingSub": "Preuzmite slušač na uređaj ({{size}} MB). I bez njega možete slušati i otkrivati.",
+      "offlineSub": "Povežite se jednom da preuzmete slušač. Slušanje radi bez interneta.",
+      "stillListen": "I dalje možete slušati i otkrivati riječi."
+    },
+    "picker": {
+      "title": "Odaberite šta ćete vježbati",
+      "searchSurah": "Tražite suru po imenu ili broju",
+      "changeSurah": "Promijeni suru",
+      "fromAyah": "Počni od ajeta",
+      "toAyah": "Završi na ajetu",
+      "toEnd": "Do kraja",
+      "ayahN": "Ajet {{n}}",
+      "confirm": "Vježbaj {{passage}}",
+      "ayahCount_one": "{{count}} ajet",
+      "ayahCount_few": "{{count}} ajeta",
+      "ayahCount_other": "{{count}} ajeta"
+    },
+    "result": {
+      "headAllMatched": "Sve riječi se podudaraju",
+      "headTryAgain_one": "Pokušajte ponovo {{count}} riječ",
+      "headTryAgain_few": "Pokušajte ponovo {{count}} riječi",
+      "headTryAgain_other": "Pokušajte ponovo {{count}} riječi",
+      "headMissed_one": "{{count}} riječ nije dostignuta",
+      "headMissed_few": "{{count}} riječi nisu dostignute",
+      "headMissed_other": "{{count}} riječi nije dostignuto",
+      "headNotSure_one": "Slušač nije bio siguran za {{count}} riječ",
+      "headNotSure_few": "Slušač nije bio siguran za {{count}} riječi",
+      "headNotSure_other": "Slušač nije bio siguran za {{count}} riječi",
+      "heardOf": "Čuto {{heard}} od {{total}} riječi",
+      "matched": "Podudara se",
+      "tryAgain": "Pokušaj ponovo",
+      "notSure": "Nije sigurno",
+      "missed": "Propušteno",
+      "groupTryAgain": "Pokušajte ove ponovo",
+      "groupMissed": "Nedostignuto",
+      "groupNotSure": "Nije sigurno",
+      "nextAyah": "Sljedeći ajet",
+      "reciteAgain": "Uči ponovo",
+      "moveOn": "Pređi na sljedeći ajet",
+      "finish": "Završi i pogledaj sažetak",
+      "headNothingHeard": "Slušač nije uhvatio nijednu riječ",
+      "nothingHeardTip": "Učite malo glasnije, blizu mikrofona, i počnite od prve riječi."
+    },
+    "view": {
+      "title": "Prikaz",
+      "mushafCoarse": "Oznake riječi u mushafu trebaju listu riječi. Povežite se jednom da je preuzmete — ajeti se i dalje prikazuju."
+    }
   }
 }

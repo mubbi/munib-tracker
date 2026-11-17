@@ -5,7 +5,13 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
-import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+  useLearnTileStyle,
+} from "@/components/jannah/hub-layout";
+import { JannahActionRow, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,7 +19,6 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
@@ -42,8 +47,9 @@ const THEME_ICONS: Record<(typeof THEME_ORDER)[number], SymbolViewProps["name"]>
   hope: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
 };
 
-function JahannamVersesList() {
+function JahannamVersesList({ columns }: { columns: number }) {
   const router = useRouter();
+  const tileStyle = useLearnTileStyle();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
@@ -72,11 +78,15 @@ function JahannamVersesList() {
         return (
           <Card key={theme} padding="three">
             <SectionHeader title={t(`jahannam.verseTheme.${theme}`)} icon={THEME_ICONS[theme]} />
-            <View style={styles.list}>
+            <LearnColumnsGrid
+              columns={columns}
+              gap={Spacing.three}
+              stackGap={0}
+              style={styles.list}
+            >
               {items.map((verse, index) => (
-                <PressableScale
+                <JannahActionRow
                   key={verse.id}
-                  haptic="light"
                   accessibilityRole="link"
                   accessibilityLabel={`${verse.label}. ${verse.excerpt}`}
                   onPress={() =>
@@ -87,11 +97,21 @@ function JahannamVersesList() {
                   }
                   style={[
                     styles.row,
-                    index > 0 && {
-                      borderTopColor: tokens.hairline,
-                      borderTopWidth: StyleSheet.hairlineWidth,
-                    },
+                    columns > 1
+                      ? tileStyle
+                      : index > 0 && {
+                          borderTopColor: tokens.hairline,
+                          borderTopWidth: StyleSheet.hairlineWidth,
+                        },
                   ]}
+                  actions={<QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />}
+                  trailing={
+                    <SymbolView
+                      name={chevronForwardIcon}
+                      size={14}
+                      tintColor={colors.mutedForeground}
+                    />
+                  }
                 >
                   <IconWell
                     icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -122,15 +142,9 @@ function JahannamVersesList() {
                       </ThemedText>
                     ) : null}
                   </View>
-                  <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
-                  <SymbolView
-                    name={chevronForwardIcon}
-                    size={14}
-                    tintColor={colors.mutedForeground}
-                  />
-                </PressableScale>
+                </JannahActionRow>
               ))}
-            </View>
+            </LearnColumnsGrid>
           </Card>
         );
       })}
@@ -143,18 +157,22 @@ export default function JahannamVersesScreen() {
   const { t } = useTranslation();
 
   const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: verse cards flow into 2–3 columns per theme.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 3 });
   return (
     <ScreenLayout
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.versesTitle")}
       subtitle={t("jahannam.versesSubtitle")}
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/verses" />
       <LearnContentGate ready={contentReady}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
-            <JahannamVersesList />
+            <JahannamVersesList columns={columns} />
           </LearnReadingChrome>
           <JannahDisclaimer textKey="jahannam.disclaimer" />
         </Stagger>

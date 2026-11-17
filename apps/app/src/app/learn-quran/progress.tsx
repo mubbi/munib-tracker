@@ -5,6 +5,8 @@ import { StyleSheet, View } from "react-native";
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -28,6 +30,7 @@ import {
 
 export default function LearnQuranProgressScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   useEnsureQuranGuideProgressLoaded();
   const completedCount = useQuranGuideCompletedCount();
@@ -54,61 +57,64 @@ export default function LearnQuranProgressScreen() {
       title={t("learnQuran.progressTitle")}
       subtitle={t("learnQuran.progressSubtitle")}
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-quran/progress" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="warning">{t("learnQuran.progressIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<QuranGuideTopicAside />}>
+          <Stagger>
+            <JannahCallout tone="warning">{t("learnQuran.progressIntro")}</JannahCallout>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("learnQuran.lessonsTitle")}
-              icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("learnQuran.lessonsHint")}
-            </ThemedText>
-            <View style={styles.lessonRow}>
-              <ThemedText type="title">
-                {t("learnQuran.lessonsCount", {
-                  completed: snapshot.lessonsCompleted,
-                  total: snapshot.lessonsTotal,
-                })}
+            <Card padding="three">
+              <SectionHeader
+                title={t("learnQuran.lessonsTitle")}
+                icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("learnQuran.lessonsHint")}
               </ThemedText>
-              <ProgressBar value={snapshot.lessonProgress} />
-            </View>
-          </Card>
+              <View style={styles.lessonRow}>
+                <ThemedText type="title">
+                  {t("learnQuran.lessonsCount", {
+                    completed: snapshot.lessonsCompleted,
+                    total: snapshot.lessonsTotal,
+                  })}
+                </ThemedText>
+                <ProgressBar value={snapshot.lessonProgress} />
+              </View>
+            </Card>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("learnQuran.exploreTitle")}
-              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("learnQuran.progressExploreHint")}
-            </ThemedText>
-            <ContentLinkList
-              style={styles.links}
-              links={[
-                {
-                  label: t("learnQuran.dailyTitle"),
-                  onPress: () => router.push("/learn-quran/daily" as Href),
-                },
-                {
-                  label: t("learnQuran.vocabTitle"),
-                  onPress: () => router.push("/learn-quran/vocabulary" as Href),
-                },
-                {
-                  label: t("learnQuran.themesTitle"),
-                  onPress: () => router.push("/learn-quran/themes" as Href),
-                },
-                { label: t("actions.quran"), onPress: () => router.push("/quran") },
-              ]}
-            />
-          </Card>
+            <Card padding="three">
+              <SectionHeader
+                title={t("learnQuran.exploreTitle")}
+                icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("learnQuran.progressExploreHint")}
+              </ThemedText>
+              <ContentLinkList
+                style={styles.links}
+                links={[
+                  {
+                    label: t("learnQuran.dailyTitle"),
+                    onPress: () => router.push("/learn-quran/daily" as Href),
+                  },
+                  {
+                    label: t("learnQuran.vocabTitle"),
+                    onPress: () => router.push("/learn-quran/vocabulary" as Href),
+                  },
+                  {
+                    label: t("learnQuran.themesTitle"),
+                    onPress: () => router.push("/learn-quran/themes" as Href),
+                  },
+                  { label: t("actions.quran"), onPress: () => router.push("/quran") },
+                ]}
+              />
+            </Card>
 
-          <JannahDisclaimer textKey="learnQuran.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );

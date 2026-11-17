@@ -11,8 +11,10 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -20,6 +22,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { locationCalcExtras } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { computePrayerTimes, formatPrayerTime } from "@/lib/prayer-times";
 import { prayerDayAnchor } from "@/lib/time";
 import { rescheduleAll } from "@/notifications/scheduler";
@@ -33,6 +36,7 @@ import {
 const STEP = 5;
 
 export default function ReminderOffsetsScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
@@ -80,8 +84,28 @@ export default function ReminderOffsetsScreen() {
     return formatPrayerTime(fireAt, prefs.timeFormat, location.timeZone);
   };
 
+  // Reminders are phone-only (TV scheduler is a no-op) — match settings/notifications.
+  if (isTV()) {
+    return (
+      <ScreenLayout
+        maxContentWidth={formMaxWidth}
+        eyebrow={t("settings.title")}
+        title={t("reminderOffsets.title")}
+        onBack={() => goBackOrReplace(router, "/settings")}
+      >
+        <Seo path="/settings/reminder-offsets" />
+        <EmptyState
+          icon={{ ios: "tv", android: "tv", web: "tv" }}
+          title={t("common.tvUnavailableTitle")}
+          description={t("notif.tvUnavailableBody")}
+        />
+      </ScreenLayout>
+    );
+  }
+
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.title")}
       title={t("reminderOffsets.title")}
       subtitle={t("reminderOffsets.subtitle")}

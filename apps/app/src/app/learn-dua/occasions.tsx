@@ -1,8 +1,14 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
-import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
+import { StyleSheet } from "react-native";
+import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnDuaTopicAside } from "@/components/learn-dua/learn-dua-aside";
+import {
+  LearnSplitLayout,
+  LearnTopicGrid,
+  useLearnWideLayout,
+} from "@/components/learn-guide/learn-wide-layout";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
@@ -22,6 +28,7 @@ const CATEGORY_ORDER = ["daily", "situational", "quranic"] as const;
 
 export default function LearnDuaOccasionsScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   const { ready: contentReady } = useEnsureContent(ensureLearnDuaContent, isLearnDuaContentReady);
   const occasions = getLearnDuaOccasions();
@@ -34,51 +41,53 @@ export default function LearnDuaOccasionsScreen() {
       title={t("learnDua.occasionsTitle")}
       subtitle={t("learnDua.occasionsSubtitle")}
       onBack={() => goBackOrReplace(router, "/learn-dua" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-dua/occasions" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="info">
-            {tTv(t, "learnDua.occasionsIntro", "learnDua.occasionsIntroTv")}
-          </JannahCallout>
+        <LearnSplitLayout aside={<LearnDuaTopicAside />}>
+          <Stagger>
+            <JannahCallout tone="info">
+              {tTv(t, "learnDua.occasionsIntro", "learnDua.occasionsIntroTv")}
+            </JannahCallout>
 
-          {CATEGORY_ORDER.map((category) => {
-            const items = occasions.filter((occasion) => occasion.category === category);
-            if (!items?.length) return null;
-            return (
-              <Card key={category} padding="three">
-                <SectionHeader
-                  title={t(`learnDua.occasionsCategory.${category}`)}
-                  icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
-                />
-                <View style={styles.rows}>
-                  {items.map((occasion) => (
-                    <JannahNavRow
-                      key={occasion.id}
-                      icon={{
+            {CATEGORY_ORDER.map((category) => {
+              const items = occasions.filter((occasion) => occasion.category === category);
+              if (!items?.length) return null;
+              return (
+                <Card key={category} padding="three">
+                  <SectionHeader
+                    title={t(`learnDua.occasionsCategory.${category}`)}
+                    icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
+                  />
+                  <LearnTopicGrid
+                    style={styles.rows}
+                    maxColumns={2}
+                    items={items.map((occasion) => ({
+                      id: occasion.id,
+                      icon: {
                         ios: occasion.topicId ? "text.book.closed.fill" : "hands.sparkles.fill",
                         android: occasion.topicId ? "auto_stories" : "volunteer_activism",
                         web: occasion.topicId ? "auto_stories" : "volunteer_activism",
-                      }}
-                      title={occasion.title}
-                      subtitle={occasion.summary}
-                      onPress={() =>
+                      },
+                      title: occasion.title,
+                      subtitle: occasion.summary,
+                      onPress: () =>
                         occasion.topicId
                           ? router.push({
                               pathname: "/learn-dua/[topic]",
                               params: { topic: occasion.topicId },
                             })
-                          : router.push("/dua")
-                      }
-                    />
-                  ))}
-                </View>
-              </Card>
-            );
-          })}
+                          : router.push("/dua"),
+                    }))}
+                  />
+                </Card>
+              );
+            })}
 
-          <JannahDisclaimer textKey="learnDua.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="learnDua.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Platform, type StyleProp, type ViewStyle } from "react-native";
 
 import { triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 
 export type ContextMenuAction = {
   /** Stable id passed back to `onAction`. */
@@ -38,7 +39,9 @@ type ContextMenuProps = {
  * to intrinsic width. Prefer wrapping compact triggers, not full-width home cards.
  */
 export function ContextMenu({ actions, onAction, children, title, style }: ContextMenuProps) {
-  if (actions.length === 0 || Platform.OS === "web" || Platform.OS === "android") {
+  // TV: long-press menus are undiscoverable on a remote (and @expo/ui's MenuView
+  // is not a tvOS focus target) — screens expose the same actions as buttons.
+  if (actions.length === 0 || Platform.OS === "web" || Platform.OS === "android" || isTV()) {
     return <>{children}</>;
   }
 

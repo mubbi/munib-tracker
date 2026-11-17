@@ -4,6 +4,8 @@ import { DB_KEYS } from "@/db/keys";
 import { readJSON, withKeyLock, writeJSON } from "@/db/store";
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
 import { DEFAULT_CALCULATION_METHOD, DEFAULT_MADHAB } from "@/lib/prayer-times";
+import { mergeMemorization, mergeSessions } from "@/lib/quran-companion/merge";
+import { isPristineCompanionPrefs } from "@/lib/quran-companion/prefs";
 import { aqeedahProgressStore } from "@/stores/aqeedah-progress-store";
 import { battlesProgressStore } from "@/stores/battles-progress-store";
 import { customAdhkarStore } from "@/stores/custom-adhkar-store";
@@ -20,7 +22,10 @@ import { lastDayProgressStore } from "@/stores/last-day-progress-store";
 import { learnDuaProgressStore } from "@/stores/learn-dua-progress-store";
 import { locationStore } from "@/stores/location-store";
 import { prophetsProgressStore } from "@/stores/prophets-progress-store";
+import { quranCompanionPrefsStore } from "@/stores/quran-companion-prefs-store";
 import { quranGuideProgressStore } from "@/stores/quran-guide-progress-store";
+import { quranMemorizationStore } from "@/stores/quran-memorization-store";
+import { quranPracticeStore } from "@/stores/quran-practice-store";
 import { quranStore } from "@/stores/quran-store";
 import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
 import { sadaqahStore } from "@/stores/sadaqah-store";
@@ -66,6 +71,12 @@ interface BlobEntity {
    * doesn't push defaults and clobber real data on another device.
    */
   isPristine?: (value: unknown) => boolean;
+  /**
+   * Optional entity-specific merge, used instead of the generic union rule when
+   * the generic `{ ...remote, ...local }` cannot converge (per-key records edited
+   * on two devices) or cannot propagate a delete (a cleared history). Pure.
+   */
+  merge?: (local: unknown, remote: unknown) => unknown;
 }
 
 /** Reloads a store's persisted state only if it has already been loaded once. */
@@ -245,6 +256,26 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     storageKey: DB_KEYS.toursSeen,
     reload: reloadIfReady(toursStore),
   },
+  // Qur'an practice (§10). Prefs are whole-value LWW guarded by `isPristine`;
+  // memorization and history use their own merges (decision D7).
+  {
+    entity: "quran_companion_prefs",
+    storageKey: DB_KEYS.quranCompanionPrefs,
+    reload: reloadIfReady(quranCompanionPrefsStore),
+    isPristine: isPristineCompanionPrefs,
+  },
+  {
+    entity: "quran_practice_sessions",
+    storageKey: DB_KEYS.quranPracticeSessions,
+    reload: reloadIfReady(quranPracticeStore),
+    merge: mergeSessions,
+  },
+  {
+    entity: "quran_memorization",
+    storageKey: DB_KEYS.quranMemorization,
+    reload: reloadIfReady(quranMemorizationStore),
+    merge: mergeMemorization,
+  },
 ];
 
 const BLOB_BY_ENTITY = new Map(BLOB_ENTITIES.map((e) => [e.entity, e]));
@@ -349,7 +380,7 @@ export async function applyRemoteBlob(
   return withKeyLock(DB_KEYS.blobSyncState, async () => {
     const state = await readJSON<BlobSyncState>(DB_KEYS.blobSyncState, {});
     const tracked = state[entity];
-    const unionMerge = UNION_MERGE_ENTITIES.has(entity);
+    const unionMerge = UNION_MERGE_ENTITIES.has(entity) || !!e.merge;
 
     // Pure LWW blobs: keep local when it is the same age or newer.
     if (!unionMerge && tracked && updatedAt && tracked.updatedAt >= updatedAt) return false;
@@ -372,7 +403,14 @@ export async function applyRemoteBlob(
     if (tracked?.hash === hash && tracked.updatedAt === nextUpdatedAt) return false;
 
     await withKeyLock(e.storageKey, () => writeJSON(e.storageKey, value));
-    state[entity] = { hash, updatedAt: nextUpdatedAt };
+    // Custom merges: when the merged value differs from what the server holds,
+    // track the server's fingerprint so the next push sends the merged value and
+    // both devices converge after one round trip each.
+    const remoteHash = e.merge ? fingerprint(remoteValue) : hash;
+    state[entity] = {
+      hash: e.merge && remoteHash !== hash ? remoteHash : hash,
+      updatedAt: nextUpdatedAt,
+    };
     await writeJSON(DB_KEYS.blobSyncState, state);
     return true;
   });
@@ -403,6 +441,8 @@ async function mergeBlobValue(
   storageKey: string,
   remoteValue: unknown,
 ): Promise<unknown> {
+  const custom = BLOB_BY_ENTITY.get(entity)?.merge;
+  if (custom) return custom(await readJSON<unknown>(storageKey, null), remoteValue);
   if (!UNION_MERGE_ENTITIES.has(entity)) return remoteValue;
 
   const localValue = await readJSON<unknown>(storageKey, null);

@@ -6,7 +6,9 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { getPageList } from "@/lib/quran";
 
 type PagePickerSheetProps = {
@@ -17,6 +19,13 @@ type PagePickerSheetProps = {
 };
 
 const PAGE_LIST = getPageList();
+/**
+ * TV: fixed row height so the list can open scrolled to the current page
+ * (`initialScrollIndex` needs `getItemLayout`) and land D-pad focus on it —
+ * otherwise the remote starts at page 1 of 604.
+ */
+const TV_ROW_HEIGHT = tvDp(72);
+const TV_ROW_STRIDE = TV_ROW_HEIGHT + Spacing.two;
 
 export function PagePickerSheet({
   visible,
@@ -27,6 +36,9 @@ export function PagePickerSheet({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [query, setQuery] = useState("");
+  const tv = isTV();
+  const tvStartIndex =
+    tv && query.trim() === "" ? Math.max(0, Math.min(PAGE_LIST.length - 1, selectedPage - 1)) : 0;
 
   const filtered = useMemo(() => {
     const q = query.trim();
@@ -48,6 +60,16 @@ export function PagePickerSheet({
         style={styles.list}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
+        {...(tv
+          ? {
+              getItemLayout: (_: unknown, index: number) => ({
+                length: TV_ROW_STRIDE,
+                offset: TV_ROW_STRIDE * index,
+                index,
+              }),
+              initialScrollIndex: tvStartIndex,
+            }
+          : {})}
         ListHeaderComponent={
           <View style={styles.header}>
             <ThemedText type="subtitle">{t("quran.pagePickerTitle")}</ThemedText>
@@ -57,14 +79,7 @@ export function PagePickerSheet({
               placeholder={t("quran.pagePickerSearch")}
               placeholderTextColor={colors.mutedForeground}
               keyboardType="number-pad"
-              style={[
-                styles.input,
-                {
-                  backgroundColor: colors.muted,
-                  color: colors.foreground,
-                  borderColor: tokens.hairline,
-                },
-              ]}
+              style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
             />
           </View>
         }
@@ -79,8 +94,10 @@ export function PagePickerSheet({
                 onSelect(item.page);
                 onClose();
               }}
+              {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
               style={[
                 styles.row,
+                tv && styles.rowTv,
                 {
                   backgroundColor: selected ? tokens.accentSoft : colors.muted,
                 },
@@ -120,6 +137,10 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
+  },
+  rowTv: {
+    height: TV_ROW_HEIGHT,
+    justifyContent: "center",
   },
   row: {
     borderRadius: Radius.md,

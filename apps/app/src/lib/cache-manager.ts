@@ -2,6 +2,7 @@ import { DB_KEYS } from "@/db/keys";
 import { byteSizeOfKeyTree, removeKeyTree } from "@/db/store";
 import { clearAudioCache, getAudioCacheInfo } from "@/lib/audio-cache";
 import { clearQcfFontCache, getQcfFontCacheInfo } from "@/lib/qcf-font-cache";
+import { recitationModelBytesOnDisk } from "@/lib/quran-companion/model/model-store";
 
 /**
  * Offline download / cache manager (NF-1.14). Lists the rebuildable caches
@@ -89,6 +90,19 @@ export async function clearCacheKeys(keys: string[]): Promise<void> {
 /** Deletes cached mushaf page fonts (native files or web cache). */
 export async function clearDownloadedQcfFonts(): Promise<void> {
   await clearQcfFontCache();
+}
+
+/**
+ * Bytes of the on-device Qur'an listener (practice). Reported on Offline data as a
+ * read-only row — deliberately NOT a cache group, so "Clear all" never deletes it.
+ * Removing the model is a separate decision, made on Settings → Qur'an practice.
+ */
+export async function getRecitationListenerBytes(): Promise<number> {
+  try {
+    return await recitationModelBytesOnDisk();
+  } catch {
+    return 0;
+  }
 }
 
 /** Human-readable size, e.g. 1536 → "1.5 KB". */

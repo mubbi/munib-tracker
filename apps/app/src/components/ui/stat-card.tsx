@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type StatCardProps = {
@@ -35,12 +36,12 @@ export function StatCard({ label, value, icon, tint }: StatCardProps) {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    minWidth: 96,
+    minWidth: tvDp(96),
     gap: Spacing.one,
   },
   iconWrap: {
-    width: 36,
-    height: 36,
+    width: tvDp(36),
+    height: tvDp(36),
     borderRadius: Radius.md,
     borderCurve: "continuous",
     alignItems: "center",

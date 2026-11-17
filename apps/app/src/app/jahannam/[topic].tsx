@@ -1,8 +1,10 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JahannamTopicContent } from "@/components/jahannam/topic-content";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -26,6 +28,8 @@ export default function JahannamTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
   const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const topic = getJahannamTopic(topicId);
 
@@ -44,6 +48,7 @@ export default function JahannamTopicScreen() {
       title={topic?.title ?? t("jahannam.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -75,12 +80,23 @@ export default function JahannamTopicScreen() {
           onAction={() => router.replace("/jahannam" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="jahannam">
-            <JahannamTopicContent topic={topic} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="jahannam.disclaimer" />
-        </Stagger>
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("jahannam.title")}
+              basePath="/jahannam"
+              topics={getJahannamTopics()}
+              currentId={topic.id}
+            />
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="jahannam">
+              <JahannamTopicContent topic={topic} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="jahannam.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

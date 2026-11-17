@@ -11,7 +11,9 @@ import {
   type ViewStyle,
 } from "react-native";
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
+import { useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { GenealogyTreeMap } from "@/components/prophets/genealogy-tree-map";
+import { GenealogyTvNodeList } from "@/components/prophets/genealogy-tv-node-list";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -20,10 +22,12 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   getProphetsGenealogyBranchOrder,
   getProphetsGenealogyNodes,
@@ -57,6 +61,16 @@ function HorizontalChipRow({
   children: ReactNode;
   accessibilityLabel: string;
 }) {
+  const { wide } = useLearnWideLayout();
+  // Tablet / desktop web: wrap chips so mouse users see every branch (no
+  // shift+wheel horizontal scrolling needed).
+  if (Platform.OS === "web" && wide) {
+    return (
+      <View accessibilityLabel={accessibilityLabel} style={styles.chipWrap}>
+        {children}
+      </View>
+    );
+  }
   if (Platform.OS === "web") {
     return (
       <View
@@ -94,6 +108,7 @@ export default function ProphetsTreeScreen() {
   const [focusId, setFocusId] = useState<string | null>("ibrahim");
   const [activeBranch, setActiveBranch] = useState<string | null>(null);
   const overlayVersion = getContentOverlaysReadyVersion();
+  const tv = isTV();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlays change
   const allNodes = useMemo(() => getProphetsGenealogyNodes(), [i18n.language, overlayVersion]);
@@ -115,7 +130,15 @@ export default function ProphetsTreeScreen() {
     return null;
   }, [searching, filtered, activeBranch, allNodes]);
 
-  const mapHeight = Math.max(400, Math.min(620, windowH * 0.58));
+  const { split } = useLearnWideLayout();
+  // TV (landscape 540dp): shorter overview map beside the D-pad node list.
+  // Desktop (≥1200): taller map beside a sticky-feeling detail column.
+  const mapHeight = tv
+    ? Math.round(windowH * 0.5)
+    : split
+      ? Math.max(480, Math.min(780, windowH * 0.72))
+      : Math.max(400, Math.min(620, windowH * 0.58));
+  const tvListHeight = Math.round(windowH * 0.72);
 
   const onSelect = (node: ProphetsGenealogyNode) => {
     setSelectedId(node.id);
@@ -130,13 +153,59 @@ export default function ProphetsTreeScreen() {
         : tokens.status.warning
     : null;
 
+  const detail =
+    selected && selectedTone ? (
+      <Card padding="three">
+        <View style={styles.detailBody}>
+          <View style={[styles.detailAccent, { backgroundColor: selectedTone.color }]} />
+          <View style={styles.detailHeader}>
+            <View style={styles.detailTitles}>
+              <ThemedText type="subtitle">{selected.name}</ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t(`prophets.tree.branch.${selected.branch}`)}
+              </ThemedText>
+            </View>
+            <CertaintyPill certainty={selected.certainty} />
+          </View>
+          <ThemedText type="small" style={styles.note}>
+            {selected.relationNote}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.sources}>
+            {t("prophets.tree.sources")}: {selected.sources.join(" · ")}
+          </ThemedText>
+          {selected.prophetId ? (
+            <JannahNavRow
+              icon={{ ios: "text.book.closed", android: "article", web: "article" }}
+              title={t("prophets.tree.openBio")}
+              subtitle={selected.name}
+              onPress={() =>
+                router.push({
+                  pathname: "/prophets/[topic]",
+                  params: { topic: selected.prophetId },
+                } as Href)
+              }
+            />
+          ) : null}
+        </View>
+      </Card>
+    ) : (
+      <JannahCallout tone="info">
+        {tv
+          ? // TV picks from the node list, not the map.
+            t("prophets.tree.listHintTv", {
+              defaultValue: tTv(t, "prophets.tree.tapHint", "prophets.tree.tapHintTv"),
+            })
+          : t("prophets.tree.tapHint")}
+      </JannahCallout>
+    );
+
   return (
     <ScreenLayout
       eyebrow={t("prophets.eyebrow")}
       title={t("prophets.tree.title")}
       subtitle={t("prophets.tree.subtitle")}
       onBack={() => goBackOrReplace(router, "/prophets" as Href)}
-      maxContentWidth={1120}
+      maxContentWidth={split ? 1320 : 1120}
     >
       <Seo path="/prophets/tree" />
       <View style={styles.stack}>
@@ -145,12 +214,7 @@ export default function ProphetsTreeScreen() {
         </ThemedText>
 
         <View style={styles.controls}>
-          <View
-            style={[
-              styles.searchRow,
-              { backgroundColor: colors.muted, borderColor: colors.border },
-            ]}
-          >
+          <View style={[styles.searchRow, tokens.inputSurface]}>
             <TextInput
               value={query}
               onChangeText={(text) => {
@@ -177,7 +241,7 @@ export default function ProphetsTreeScreen() {
               onPress={() => setActiveBranch(null)}
               accessibilityRole="button"
               accessibilityState={{ selected: activeBranch === null }}
-              style={styles.branchChip}
+              style={[styles.branchChip, tv && styles.chipTv]}
             >
               <Pill
                 compact
@@ -194,7 +258,7 @@ export default function ProphetsTreeScreen() {
                   onPress={() => setActiveBranch(selectedBranch ? null : branch)}
                   accessibilityRole="button"
                   accessibilityState={{ selected: selectedBranch }}
-                  style={styles.branchChip}
+                  style={[styles.branchChip, tv && styles.chipTv]}
                 >
                   <Pill
                     compact
@@ -224,6 +288,7 @@ export default function ProphetsTreeScreen() {
                     onPress={() => onSelect(node)}
                     style={[
                       styles.hit,
+                      tv && styles.chipTv,
                       {
                         backgroundColor: selectedId === node.id ? tokens.accentSoft : colors.muted,
                         borderColor: selectedId === node.id ? colors.accent : colors.border,
@@ -240,53 +305,58 @@ export default function ProphetsTreeScreen() {
           ) : null}
         </View>
 
-        <GenealogyTreeMap
-          nodes={allNodes}
-          selectedId={selectedId}
-          highlightIds={highlightIds}
-          focusId={focusId}
-          onSelect={onSelect}
-          height={mapHeight}
-        />
-
-        {selected && selectedTone ? (
-          <Card padding="three">
-            <View style={styles.detailBody}>
-              <View style={[styles.detailAccent, { backgroundColor: selectedTone.color }]} />
-              <View style={styles.detailHeader}>
-                <View style={styles.detailTitles}>
-                  <ThemedText type="subtitle">{selected.name}</ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t(`prophets.tree.branch.${selected.branch}`)}
-                  </ThemedText>
-                </View>
-                <CertaintyPill certainty={selected.certainty} />
-              </View>
-              <ThemedText type="small" style={styles.note}>
-                {selected.relationNote}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.sources}>
-                {t("prophets.tree.sources")}: {selected.sources.join(" · ")}
-              </ThemedText>
-              {selected.prophetId ? (
-                <JannahNavRow
-                  icon={{ ios: "text.book.closed", android: "article", web: "article" }}
-                  title={t("prophets.tree.openBio")}
-                  subtitle={selected.name}
-                  onPress={() =>
-                    router.push({
-                      pathname: "/prophets/[topic]",
-                      params: { topic: selected.prophetId },
-                    } as Href)
-                  }
-                />
-              ) : null}
+        {tv ? (
+          // TV: list–detail — D-pad node list (start) + overview map & sourced note (end).
+          <View style={styles.tvSplit}>
+            <View style={styles.tvListColumn}>
+              <GenealogyTvNodeList
+                nodes={allNodes}
+                branchOrder={branchOrder}
+                selectedId={selectedId}
+                highlightIds={highlightIds}
+                onSelect={onSelect}
+                height={tvListHeight}
+              />
             </View>
-          </Card>
+            <View style={styles.tvDetailColumn}>
+              <GenealogyTreeMap
+                nodes={allNodes}
+                selectedId={selectedId}
+                highlightIds={highlightIds}
+                focusId={focusId}
+                onSelect={onSelect}
+                height={mapHeight}
+              />
+              {detail}
+            </View>
+          </View>
+        ) : split ? (
+          // Desktop: map + selected-node detail side by side (no scrolling to read).
+          <View style={styles.wideSplit}>
+            <View style={styles.wideMapColumn}>
+              <GenealogyTreeMap
+                nodes={allNodes}
+                selectedId={selectedId}
+                highlightIds={highlightIds}
+                focusId={focusId}
+                onSelect={onSelect}
+                height={mapHeight}
+              />
+            </View>
+            <View style={styles.wideDetailColumn}>{detail}</View>
+          </View>
         ) : (
-          <JannahCallout tone="info">
-            {tTv(t, "prophets.tree.tapHint", "prophets.tree.tapHintTv")}
-          </JannahCallout>
+          <>
+            <GenealogyTreeMap
+              nodes={allNodes}
+              selectedId={selectedId}
+              highlightIds={highlightIds}
+              focusId={focusId}
+              onSelect={onSelect}
+              height={mapHeight}
+            />
+            {detail}
+          </>
         )}
 
         <JannahDisclaimer textKey="prophets.tree.disclaimer" />
@@ -339,6 +409,37 @@ const styles = StyleSheet.create({
   },
   branchChip: {
     flexShrink: 0,
+  },
+  chipTv: {
+    minHeight: TvLayout.chipMinHeight,
+    justifyContent: "center",
+  },
+  chipWrap: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.half,
+  },
+  wideSplit: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  wideMapColumn: { flex: 1, minWidth: 0 },
+  wideDetailColumn: { width: 340, gap: Spacing.three },
+  tvSplit: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  tvListColumn: {
+    width: "36%",
+  },
+  tvDetailColumn: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.three,
   },
   hitsPanel: {
     borderRadius: Radius.md,

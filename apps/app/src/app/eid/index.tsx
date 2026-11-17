@@ -1,7 +1,12 @@
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -27,6 +32,9 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 export default function EidScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: topic rows flow into 2–3 columns inside each section card.
+  const navCols = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 280, max: 3 });
   // Topic list is sync; overlay version re-localizes titles when a locale pack lands.
   const overlayVersion = getContentOverlaysReadyVersion();
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
@@ -42,6 +50,7 @@ export default function EidScreen() {
       title={t("eid.title")}
       subtitle={t("eid.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/eid" />
       <Stagger>
@@ -68,7 +77,7 @@ export default function EidScreen() {
                   }
                 }
               />
-              <View style={styles.rows}>
+              <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
                 {topics.map((topic) => (
                   <JannahNavRow
                     key={topic.id}
@@ -80,7 +89,7 @@ export default function EidScreen() {
                     }
                   />
                 ))}
-              </View>
+              </LearnColumnsGrid>
             </Card>
           );
         })}
@@ -92,5 +101,5 @@ export default function EidScreen() {
 }
 
 const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  gridTop: { marginTop: Spacing.three },
 });

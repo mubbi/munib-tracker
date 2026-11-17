@@ -1,4 +1,5 @@
 import type { MushafLine, MushafPageLayout } from "@munib-tracker/shared/types";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -9,6 +10,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
 import { useQcfPageFont } from "@/hooks/use-qcf-page-font";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { getSurahByNumber, parseVerseRange } from "@/lib/quran";
 import { DEFAULT_ARABIC_SIZE } from "@/lib/reading-typography";
 
@@ -19,6 +21,19 @@ type MushafLineRendererProps = {
   arabicSize?: number;
   highlightAyah?: { surah: number; ayah: number };
   onAyahPress?: (surah: number, ayah: number) => void;
+  /**
+   * TV: request D-pad focus on mount — the line holding this ayah, or the first
+   * text line when `"first"` / not on the page.
+   */
+  tvFocusTarget?: { surah: number; ayah: number } | "first";
+  /** TV: lets the reader know focus is inside the page body (D-pad Left/Right turns pages). */
+  onItemFocus?: () => void;
+  onItemBlur?: () => void;
+  /**
+   * Draw a text line's glyphs yourself (Qur'an practice colours, hides and
+   * reveals single words). Return null to fall back to the plain glyph run.
+   */
+  renderLineGlyphs?: (lineIndex: number, glyphs: string) => ReactNode | null;
 };
 
 /**
@@ -75,6 +90,10 @@ export function MushafLineRenderer({
   arabicSize,
   highlightAyah,
   onAyahPress,
+  tvFocusTarget,
+  onItemFocus,
+  onItemBlur,
+  renderLineGlyphs,
 }: MushafLineRendererProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -99,10 +118,27 @@ export function MushafLineRenderer({
   const hasBasmala = layout.lines.some((line) => line.type === "basmala");
   const { ready, fontFamily, basmalaFontFamily } = useQcfPageFont(page, hasBasmala);
 
+  // TV: which text line should take initial D-pad focus (by line index).
+  let tvFocusLineIndex = -1;
+  if (isTV() && tvFocusTarget) {
+    const textLines = layout.lines
+      .map((line, index) => ({ line, index }))
+      .filter((entry) => entry.line.type === "text");
+    const targeted =
+      tvFocusTarget === "first"
+        ? undefined
+        : textLines.find(
+            ({ line }) =>
+              line.type === "text" &&
+              lineHighlightsAyah(parseVerseRange(line.verseRange), tvFocusTarget),
+          );
+    tvFocusLineIndex = (targeted ?? textLines[0])?.index ?? -1;
+  }
+
   return (
     <MushafPageFrame page={page} fill>
       <View style={[styles.lines, dense ? styles.linesDense : styles.linesSparse]}>
-        {layout.lines.map((line) => {
+        {layout.lines.map((line, lineIndex) => {
           const lineKey = mushafLineKey(page, line);
           if (line.type === "surah_name") {
             const meta = getSurahByNumber(line.surah);
@@ -147,6 +183,9 @@ export function MushafLineRenderer({
                   : t("quran.pageN", { n: page })
               }
               onPress={() => primary && onAyahPress?.(primary.surah, primary.ayah)}
+              onFocus={onItemFocus}
+              onBlur={onItemBlur}
+              {...(lineIndex === tvFocusLineIndex ? { hasTVPreferredFocus: true } : {})}
               style={[
                 styles.textLine,
                 highlighted ? { backgroundColor: tokens.mushaf.highlight } : null,
@@ -161,7 +200,7 @@ export function MushafLineRenderer({
                   line.alignment === "centered" ? styles.centeredText : styles.justifiedText,
                 ]}
               >
-                {line.glyphs}
+                {renderLineGlyphs?.(lineIndex, line.glyphs) ?? line.glyphs}
               </Text>
             </PressableScale>
           );

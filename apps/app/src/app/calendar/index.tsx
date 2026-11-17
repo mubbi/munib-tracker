@@ -1,10 +1,16 @@
 import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
-import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
+import {
+  addDays,
+  aggregateByDate,
+  type DayActivity,
+  getLocalDateString,
+} from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { I18nManager, Platform, StyleSheet, useWindowDimensions, View } from "react-native";
+import { CalendarDayPanel } from "@/components/calendar-day-panel";
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -14,6 +20,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { PrayerRepository } from "@/db";
@@ -32,7 +39,15 @@ import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
+import { isTypingTarget } from "@/lib/web/is-typing-target";
 import { useLocation } from "@/stores/location-store";
+
+/** Stable empty list so row-edge guides stay tvOS-selectable without re-setting on render. */
+const NO_DESTINATIONS: unknown[] = [];
+
+type FocusGuideHandle = { setDestinations?: (destinations: unknown[]) => void };
+
+/** True when a key event comes from a text-entry control (never hijack typing). */
 
 export default function CalendarScreen() {
   const router = useRouter();
@@ -53,6 +68,17 @@ export default function CalendarScreen() {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
   const tv = isTV();
+  const { width } = useWindowDimensions();
+  /**
+   * Desktop / wide web: a large month grid with the selected day's checklist in
+   * a side panel (edited in place) instead of navigating to `/calendar/[date]`.
+   */
+  const twoPane = !tv && width >= 1024;
+  const [selectedDate, setSelectedDate] = useState(() => getLocalDateString());
+  // TV row-wrap: day-cell host nodes + invisible edge guides per week row.
+  const cellRefs = useRef(new Map<string, View | null>());
+  const rowStartGuides = useRef<(View | null)[]>([]);
+  const rowEndGuides = useRef<(View | null)[]>([]);
 
   const locale: AppLocale = toAppLocale(i18n.language ?? "en");
 
@@ -69,8 +95,41 @@ export default function CalendarScreen() {
   );
 
   const today = getLocalDateString();
-  const weeks =
-    mode === "hijri" ? buildHijriMonthGrid(hYear, hMonth, today) : buildMonthGrid(year, month);
+  const weeks = useMemo(
+    () =>
+      mode === "hijri" ? buildHijriMonthGrid(hYear, hMonth, today) : buildMonthGrid(year, month),
+    [mode, hYear, hMonth, year, month, today],
+  );
+
+  // TV: D-pad past the end of a week wraps to the next week's first selectable
+  // day (and before its start to the previous week's last one). Edge guides
+  // redirect focus natively on both tvOS and Android TV.
+  useEffect(() => {
+    if (!tv) return;
+    const selectable = weeks.map((week) =>
+      week.filter((day) => day.inMonth && !day.isFuture).map((day) => day.date),
+    );
+    const nodeFor = (date: string | undefined) => {
+      const node = date ? cellRefs.current.get(date) : null;
+      return node ? [node] : [];
+    };
+    const findRow = (from: number, step: 1 | -1) => {
+      for (let i = from; i >= 0 && i < selectable.length; i += step) {
+        if (selectable[i].length > 0) return selectable[i];
+      }
+      return null;
+    };
+    selectable.forEach((_, index) => {
+      const next = findRow(index + 1, 1);
+      const prev = findRow(index - 1, -1);
+      (rowEndGuides.current[index] as unknown as FocusGuideHandle | null)?.setDestinations?.(
+        nodeFor(next?.[0]),
+      );
+      (rowStartGuides.current[index] as unknown as FocusGuideHandle | null)?.setDestinations?.(
+        nodeFor(prev?.[prev.length - 1]),
+      );
+    });
+  }, [tv, weeks]);
   const label =
     mode === "hijri"
       ? hijriMonthLabel(hYear, hMonth, locale)
@@ -106,8 +165,279 @@ export default function CalendarScreen() {
     setMonth(next.getMonth());
   };
 
+  /** Select a day in the side panel and keep its month on screen (both calendars). */
+  const selectDay = useCallback(
+    (date: string) => {
+      const clamped = date > today ? today : date;
+      setSelectedDate(clamped);
+      // Already in the visible month (mouse clicks) — don't re-derive the month.
+      if (weeks.some((week) => week.some((day) => day.inMonth && day.date === clamped))) return;
+      const parsed = new Date(`${clamped}T00:00:00`);
+      setYear(parsed.getFullYear());
+      setMonth(parsed.getMonth());
+      const hijri = gregorianToHijri(parsed, location.timeZone);
+      setHYear(hijri.year);
+      setHMonth(hijri.month);
+    },
+    [location.timeZone, today, weeks],
+  );
+
+  // Desktop web: ←/→ move a day (mirrored in RTL), ↑/↓ a week, Home jumps to
+  // today, PageUp/PageDown change month. Only while this screen is focused, never
+  // while typing or with a dialog (month picker / status sheet) open.
+  const shiftRef = useRef(shift);
+  shiftRef.current = shift;
+  const selectedRef = useRef(selectedDate);
+  selectedRef.current = selectedDate;
+  useFocusEffect(
+    useCallback(() => {
+      if (Platform.OS !== "web" || !twoPane || typeof window === "undefined") return;
+      const onKeyDown = (event: KeyboardEvent) => {
+        if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
+        if (isTypingTarget(event.target)) return;
+        if (document.querySelector('[aria-modal="true"]')) return;
+        const forward = I18nManager.isRTL ? -1 : 1;
+        let delta: number | null = null;
+        switch (event.key) {
+          case "ArrowRight":
+            delta = forward;
+            break;
+          case "ArrowLeft":
+            delta = -forward;
+            break;
+          case "ArrowDown":
+            delta = 7;
+            break;
+          case "ArrowUp":
+            delta = -7;
+            break;
+          case "Home":
+            event.preventDefault();
+            selectDay(getLocalDateString());
+            return;
+          case "PageUp":
+            event.preventDefault();
+            shiftRef.current(-1);
+            return;
+          case "PageDown":
+            event.preventDefault();
+            shiftRef.current(1);
+            return;
+          default:
+            return;
+        }
+        event.preventDefault();
+        selectDay(addDays(selectedRef.current, delta));
+      };
+      window.addEventListener("keydown", onKeyDown);
+      return () => window.removeEventListener("keydown", onKeyDown);
+    }, [selectDay, twoPane]),
+  );
+
+  const modeControl = (
+    <SegmentedControl<CalendarMode>
+      options={[
+        { id: "gregorian", label: t("calendar.gregorian") },
+        { id: "hijri", label: t("calendar.hijri") },
+      ]}
+      value={mode}
+      onChange={setMode}
+    />
+  );
+
+  const monthCard = (
+    <Card padding="three">
+      <View style={styles.header}>
+        <NavButton
+          icon={chevronBackward}
+          label={t("calendar.prevMonth")}
+          onPress={() => shift(-1)}
+        />
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={t("calendar.pickMonthYear")}
+          onPress={() => setPickerOpen(true)}
+          style={styles.monthLabelButton}
+        >
+          <ThemedText
+            type="subtitle"
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.85}
+            style={styles.monthLabelText}
+          >
+            {label}
+          </ThemedText>
+          <SymbolView
+            name={{
+              ios: "chevron.down",
+              android: "keyboard_arrow_down",
+              web: "keyboard_arrow_down",
+            }}
+            size={14}
+            tintColor={colors.mutedForeground}
+          />
+        </PressableScale>
+        <NavButton icon={chevronForward} label={t("calendar.nextMonth")} onPress={() => shift(1)} />
+      </View>
+
+      <View style={styles.weekRow}>
+        {weekdays.map((weekday) => (
+          <View key={weekday.key} style={styles.cell}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {weekday.label}
+            </ThemedText>
+          </View>
+        ))}
+      </View>
+
+      {weeks.map((week, weekIndex) => (
+        <View key={week[0]?.date} style={styles.weekRow}>
+          {tv ? (
+            <TvFocusGuide
+              ref={(node) => {
+                rowStartGuides.current[weekIndex] = node;
+              }}
+              destinations={NO_DESTINATIONS}
+              style={[styles.rowEdgeGuide, styles.rowEdgeGuideStart]}
+            />
+          ) : null}
+          {week.map((day) => {
+            const info = activity.get(day.date);
+            const level = info?.level ?? 0;
+            const hasMiss = (info?.missed ?? 0) > 0;
+            const fill =
+              level > 0
+                ? withAlpha(tokens.status.success.color, 0.2 + level * 0.55)
+                : "transparent";
+            const disabled = !day.inMonth || day.isFuture;
+            const isSelected = twoPane && day.date === selectedDate;
+
+            return (
+              <View key={day.date} style={styles.cell}>
+                <PressableScale
+                  ref={
+                    tv
+                      ? (node) => {
+                          cellRefs.current.set(day.date, node);
+                        }
+                      : undefined
+                  }
+                  // TV: start on today so the D-pad begins where the user is.
+                  {...(tv && day.isToday && !disabled ? { hasTVPreferredFocus: true } : {})}
+                  haptic="light"
+                  disabled={disabled}
+                  accessibilityRole="button"
+                  accessibilityLabel={describeDay(day.date, day.isToday)}
+                  accessibilityState={twoPane ? { disabled, selected: isSelected } : { disabled }}
+                  onPress={() =>
+                    twoPane
+                      ? selectDay(day.date)
+                      : router.push({
+                          pathname: "/calendar/[date]",
+                          params: { date: day.date, calendar: mode },
+                        })
+                  }
+                  style={[
+                    styles.dayCircle,
+                    tv ? styles.dayCircleTv : null,
+                    { backgroundColor: fill },
+                    // TV keeps the accent ring for D-pad focus only; today
+                    // gets a neutral inner ring (below) instead.
+                    day.isToday && !tv && { borderColor: colors.accent, borderWidth: 2 },
+                    twoPane && styles.dayCellWide,
+                    isSelected && { borderColor: colors.foreground, borderWidth: 2 },
+                  ]}
+                >
+                  {tv && day.isToday ? (
+                    <View style={[styles.todayRingTv, { borderColor: colors.foreground }]} />
+                  ) : null}
+                  <ThemedText
+                    type={(tv && day.isToday) || isSelected ? "smallBold" : "small"}
+                    style={{
+                      color: day.inMonth ? colors.foreground : colors.mutedForeground,
+                      opacity: disabled && !day.isToday ? 0.4 : 1,
+                    }}
+                  >
+                    {day.day}
+                  </ThemedText>
+                </PressableScale>
+                {hasMiss ? (
+                  <View style={[styles.dot, { backgroundColor: tokens.status.danger.color }]} />
+                ) : (
+                  <View style={styles.dot} />
+                )}
+              </View>
+            );
+          })}
+          {tv ? (
+            <TvFocusGuide
+              ref={(node) => {
+                rowEndGuides.current[weekIndex] = node;
+              }}
+              destinations={NO_DESTINATIONS}
+              style={[styles.rowEdgeGuide, styles.rowEdgeGuideEnd]}
+            />
+          ) : null}
+        </View>
+      ))}
+    </Card>
+  );
+
+  const legendCard = (
+    <Card variant="muted" padding="three">
+      <View style={styles.legend}>
+        <LegendSwatch
+          color={withAlpha(tokens.status.success.color, 0.75)}
+          label={t("calendar.prayed")}
+        />
+        <LegendSwatch
+          color={withAlpha(tokens.status.success.color, 0.3)}
+          label={t("calendar.partial")}
+        />
+        <LegendDot color={tokens.status.danger.color} label={t("calendar.missed")} />
+      </View>
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
+        {tTv(t, "calendar.legendHint", "calendar.legendHintTv", {
+          date: formatCalendarDate(
+            new Date(`${today}T00:00:00`),
+            mode,
+            locale,
+            undefined,
+            location.timeZone,
+          ),
+        })}
+      </ThemedText>
+    </Card>
+  );
+
+  const converterCard = (
+    <Card
+      padding="three"
+      onPress={() => router.push("/calendar/converter")}
+      accessibilityLabel={t("calendar.converterRowTitle")}
+    >
+      <View style={styles.converterRow}>
+        <IconWell
+          icon={{ ios: "arrow.left.arrow.right", android: "sync_alt", web: "sync_alt" }}
+          tint={colors.accent}
+          background={tokens.accentSoft}
+        />
+        <View style={styles.converterCopy}>
+          <ThemedText type="smallBold">{t("calendar.converterRowTitle")}</ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("calendar.converterRowSubtitle")}
+          </ThemedText>
+        </View>
+        <SymbolView name={chevronForward} size={16} tintColor={colors.mutedForeground} />
+      </View>
+    </Card>
+  );
+
   return (
     <ScreenLayout
+      maxContentWidth={twoPane ? 1320 : undefined}
       eyebrow={t("calendar.eyebrow")}
       title={t("calendar.title")}
       subtitle={t("calendar.subtitle")}
@@ -115,120 +445,26 @@ export default function CalendarScreen() {
     >
       <Seo path="/calendar" />
       <Stagger>
-        <SegmentedControl<CalendarMode>
-          options={[
-            { id: "gregorian", label: t("calendar.gregorian") },
-            { id: "hijri", label: t("calendar.hijri") },
-          ]}
-          value={mode}
-          onChange={setMode}
-        />
-
-        <Card padding="three">
-          <View style={styles.header}>
-            <NavButton
-              icon={chevronBackward}
-              label={t("calendar.prevMonth")}
-              onPress={() => shift(-1)}
-            />
-            <PressableScale
-              haptic="light"
-              accessibilityRole="button"
-              accessibilityLabel={t("calendar.pickMonthYear")}
-              onPress={() => setPickerOpen(true)}
-              style={styles.monthLabelButton}
-            >
-              <ThemedText
-                type="subtitle"
-                numberOfLines={1}
-                adjustsFontSizeToFit
-                minimumFontScale={0.85}
-                style={styles.monthLabelText}
-              >
-                {label}
-              </ThemedText>
-              <SymbolView
-                name={{
-                  ios: "chevron.down",
-                  android: "keyboard_arrow_down",
-                  web: "keyboard_arrow_down",
-                }}
-                size={14}
-                tintColor={colors.mutedForeground}
-              />
-            </PressableScale>
-            <NavButton
-              icon={chevronForward}
-              label={t("calendar.nextMonth")}
-              onPress={() => shift(1)}
-            />
-          </View>
-
-          <View style={styles.weekRow}>
-            {weekdays.map((weekday) => (
-              <View key={weekday.key} style={styles.cell}>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {weekday.label}
-                </ThemedText>
-              </View>
-            ))}
-          </View>
-
-          {weeks.map((week) => (
-            <View key={week[0]?.date} style={styles.weekRow}>
-              {week.map((day) => {
-                const info = activity.get(day.date);
-                const level = info?.level ?? 0;
-                const hasMiss = (info?.missed ?? 0) > 0;
-                const fill =
-                  level > 0
-                    ? withAlpha(tokens.status.success.color, 0.2 + level * 0.55)
-                    : "transparent";
-                const disabled = !day.inMonth || day.isFuture;
-
-                return (
-                  <View key={day.date} style={styles.cell}>
-                    <PressableScale
-                      haptic="light"
-                      disabled={disabled}
-                      accessibilityRole="button"
-                      accessibilityLabel={describeDay(day.date, day.isToday)}
-                      accessibilityState={{ disabled }}
-                      onPress={() =>
-                        router.push({
-                          pathname: "/calendar/[date]",
-                          params: { date: day.date, calendar: mode },
-                        })
-                      }
-                      style={[
-                        styles.dayCircle,
-                        tv ? styles.dayCircleTv : null,
-                        { backgroundColor: fill },
-                        day.isToday && { borderColor: colors.accent, borderWidth: 2 },
-                      ]}
-                    >
-                      <ThemedText
-                        type="small"
-                        style={{
-                          color: day.inMonth ? colors.foreground : colors.mutedForeground,
-                          opacity: disabled && !day.isToday ? 0.4 : 1,
-                        }}
-                      >
-                        {day.day}
-                      </ThemedText>
-                    </PressableScale>
-                    {hasMiss ? (
-                      <View style={[styles.dot, { backgroundColor: tokens.status.danger.color }]} />
-                    ) : (
-                      <View style={styles.dot} />
-                    )}
-                  </View>
-                );
-              })}
+        {twoPane ? (
+          <View style={styles.split}>
+            <View style={styles.primary}>
+              {modeControl}
+              {monthCard}
+              {legendCard}
+              {converterCard}
             </View>
-          ))}
-        </Card>
-
+            <View style={styles.aside}>
+              <CalendarDayPanel
+                date={selectedDate}
+                calendarMode={mode}
+                locale={locale}
+                onActivityChange={setActivity}
+              />
+            </View>
+          </View>
+        ) : null}
+        {twoPane ? null : modeControl}
+        {twoPane ? null : monthCard}
         <CalendarMonthPicker
           visible={pickerOpen}
           onClose={() => setPickerOpen(false)}
@@ -249,51 +485,8 @@ export default function CalendarScreen() {
           }}
         />
 
-        <Card variant="muted" padding="three">
-          <View style={styles.legend}>
-            <LegendSwatch
-              color={withAlpha(tokens.status.success.color, 0.75)}
-              label={t("calendar.prayed")}
-            />
-            <LegendSwatch
-              color={withAlpha(tokens.status.success.color, 0.3)}
-              label={t("calendar.partial")}
-            />
-            <LegendDot color={tokens.status.danger.color} label={t("calendar.missed")} />
-          </View>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
-            {tTv(t, "calendar.legendHint", "calendar.legendHintTv", {
-              date: formatCalendarDate(
-                new Date(`${today}T00:00:00`),
-                mode,
-                locale,
-                undefined,
-                location.timeZone,
-              ),
-            })}
-          </ThemedText>
-        </Card>
-
-        <Card
-          padding="three"
-          onPress={() => router.push("/calendar/converter")}
-          accessibilityLabel={t("calendar.converterRowTitle")}
-        >
-          <View style={styles.converterRow}>
-            <IconWell
-              icon={{ ios: "arrow.left.arrow.right", android: "sync_alt", web: "sync_alt" }}
-              tint={colors.accent}
-              background={tokens.accentSoft}
-            />
-            <View style={styles.converterCopy}>
-              <ThemedText type="smallBold">{t("calendar.converterRowTitle")}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("calendar.converterRowSubtitle")}
-              </ThemedText>
-            </View>
-            <SymbolView name={chevronForward} size={16} tintColor={colors.mutedForeground} />
-          </View>
-        </Card>
+        {twoPane ? null : legendCard}
+        {twoPane ? null : converterCard}
       </Stagger>
     </ScreenLayout>
   );
@@ -315,7 +508,11 @@ function NavButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={onPress}
-      style={[styles.navButton, { backgroundColor: tokens.accentSoft }]}
+      style={[
+        styles.navButton,
+        isTV() ? styles.navButtonTv : null,
+        { backgroundColor: tokens.accentSoft },
+      ]}
     >
       <SymbolView name={icon} size={18} tintColor={colors.accent} />
     </PressableScale>
@@ -345,6 +542,28 @@ function LegendDot({ color, label }: { color: string; label: string }) {
 }
 
 const styles = StyleSheet.create({
+  split: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  primary: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.three,
+  },
+  aside: {
+    width: 400,
+    maxWidth: "42%",
+  },
+  /** Desktop: big rounded day tiles instead of 36px circles. */
+  dayCellWide: {
+    width: "100%",
+    maxWidth: 96,
+    height: 60,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -373,8 +592,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  navButtonTv: {
+    width: TvLayout.minFocusTarget,
+    height: TvLayout.minFocusTarget,
+  },
   weekRow: {
     flexDirection: "row",
+  },
+  /** Invisible TV focus guides at each week's edges (row wrap). */
+  rowEdgeGuide: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    width: 2,
+  },
+  rowEdgeGuideStart: {
+    start: 0,
+  },
+  rowEdgeGuideEnd: {
+    end: 0,
   },
   cell: {
     flex: 1,
@@ -392,6 +628,16 @@ const styles = StyleSheet.create({
     width: TvLayout.minFocusTarget,
     height: TvLayout.minFocusTarget,
     borderRadius: TvLayout.minFocusTarget / 2,
+  },
+  todayRingTv: {
+    position: "absolute",
+    top: 4,
+    bottom: 4,
+    start: 4,
+    end: 4,
+    borderRadius: TvLayout.minFocusTarget / 2,
+    borderWidth: 2,
+    pointerEvents: "none",
   },
   dot: {
     width: 4,

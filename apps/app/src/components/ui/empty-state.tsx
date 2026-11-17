@@ -5,6 +5,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -44,7 +45,10 @@ export function EmptyState({ icon, title, description, actionLabel, onAction }: 
           <ThemedText
             type="small"
             themeColor="mutedForeground"
-            style={[styles.description, tv && { fontSize: TvLayout.bodyFontSize, maxWidth: 420 }]}
+            style={[
+              styles.description,
+              tv && { fontSize: TvLayout.bodyFontSize, maxWidth: tvDp(420) },
+            ]}
           >
             {description}
           </ThemedText>
@@ -70,16 +74,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: TvLayout.contentPaddingX,
   },
   iconWell: {
-    width: 72,
-    height: 72,
+    width: tvDp(72),
+    height: tvDp(72),
     borderRadius: Radius.xl,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
   },
   iconWellTv: {
-    width: 96,
-    height: 96,
+    width: tvDp(96),
+    height: tvDp(96),
   },
   text: {
     alignItems: "center",
@@ -93,6 +97,6 @@ const styles = StyleSheet.create({
   },
   description: {
     textAlign: "center",
-    maxWidth: 280,
+    maxWidth: tvDp(280),
   },
 });

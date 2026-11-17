@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { PilgrimageChecklistView } from "@/components/hajj/pilgrimage-checklist-view";
+import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -18,6 +19,7 @@ import {
 export default function HajjChecklistScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+  const wide = useLearnHubLayout();
   useEnsureHajjChecklistLoaded();
   const done = useHajjChecklist();
   const { toggle, reset } = useHajjChecklistActions();
@@ -31,6 +33,7 @@ export default function HajjChecklistScreen() {
       title={t("hajj.hajjChecklistTitle")}
       subtitle={t("hajj.hajjChecklistSubtitle")}
       onBack={() => goBackOrReplace(router, "/hajj" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/hajj/checklist" />
       <Stagger>

@@ -6,6 +6,7 @@ import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { localeToBcp47 } from "@/lib/locale-bcp47";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   isTtsAvailable,
   type ReadingTtsTarget,
@@ -60,7 +61,9 @@ export function ReadingTtsButton({
 
   const hasAnyText = Boolean(arabic?.trim() || transliteration?.trim() || translation?.trim());
 
-  if (!hasAnyText) return null;
+  // TV builds have no speech synthesis (expo-speech is stubbed) — hide rather
+  // than offer a control that can only show "unavailable".
+  if (!hasAnyText || isTV()) return null;
 
   const stop = () => {
     if (isThisQueue) audio.stop();

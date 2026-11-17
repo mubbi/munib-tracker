@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 import type { ScrollView } from "react-native";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { SalahGuideTopicAside } from "@/components/salah-guide/salah-guide-aside";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -52,6 +54,7 @@ export default function SalahGuideTopicScreen() {
   const topic = getSalahGuideTopic(topicId);
   const reportRef = useGuideContentReportRef("salah_guide", topic, "/salah-guide");
   useEnsureSalahGuideProgressLoaded();
+  const { maxContentWidth } = useLearnWideLayout();
   const audio = useAudioPlayerContext();
   const prefs = useQuranPrefs();
 
@@ -151,6 +154,7 @@ export default function SalahGuideTopicScreen() {
       title={topic?.title ?? t("salahGuide.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/salah-guide")}
+      maxContentWidth={maxContentWidth}
       scrollRef={isHowToPray ? scrollRef : undefined}
       onScroll={isHowToPray ? onScroll : undefined}
     >
@@ -184,12 +188,14 @@ export default function SalahGuideTopicScreen() {
           onAction={() => router.replace("/salah-guide")}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="salah_guide">
-            <SalahGuideTopicContent topic={topic} stepsAudio={stepsAudio} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="salahGuide.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout aside={<SalahGuideTopicAside currentId={topic.id} />}>
+          <Stagger>
+            <LearnReadingChrome surface="salah_guide">
+              <SalahGuideTopicContent topic={topic} stepsAudio={stepsAudio} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="salahGuide.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

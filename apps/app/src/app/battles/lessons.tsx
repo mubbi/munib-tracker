@@ -1,6 +1,11 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
@@ -22,6 +27,37 @@ export default function BattlesLessonsScreen() {
   const { colors, tokens } = useThemeTokens();
   const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const cards = getBattlesLessonCards();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: lesson cards flow into 2–3 columns.
+  const columns = learnColumnsFor(wide.contentWidth, { minCell: 320, gap: Spacing.four, max: 3 });
+
+  const lessonCards = cards.map((card) => (
+    <PressableScale
+      key={card.id}
+      haptic="light"
+      accessibilityRole="button"
+      style={columns > 1 ? styles.fill : undefined}
+      onPress={() =>
+        router.push({
+          pathname: "/battles/[topic]",
+          params: { topic: card.battleId },
+        })
+      }
+    >
+      <Card padding="three" style={[styles.card, columns > 1 && styles.fill]}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {card.battleTitle}
+        </ThemedText>
+        <LearnProseText proseRole="title">{card.lesson}</LearnProseText>
+        <LearnProseText themeColor="mutedForeground">{card.detail}</LearnProseText>
+        <View style={[styles.chip, { backgroundColor: tokens.accentSoft }]}>
+          <ThemedText type="caption" style={{ color: colors.accent }}>
+            {t("battles.readBattle")}
+          </ThemedText>
+        </View>
+      </Card>
+    </PressableScale>
+  ));
 
   return (
     <ScreenLayout
@@ -29,6 +65,7 @@ export default function BattlesLessonsScreen() {
       title={t("battles.lessonsTitle")}
       subtitle={t("battles.lessonsSubtitle")}
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/battles/lessons" />
       <LearnContentGate ready={contentReady}>
@@ -36,32 +73,13 @@ export default function BattlesLessonsScreen() {
           <JannahCallout tone="info">{t("battles.lessonsIntro")}</JannahCallout>
 
           <LearnReadingChrome surface="battles">
-            {cards.map((card) => (
-              <PressableScale
-                key={card.id}
-                haptic="light"
-                accessibilityRole="button"
-                onPress={() =>
-                  router.push({
-                    pathname: "/battles/[topic]",
-                    params: { topic: card.battleId },
-                  })
-                }
-              >
-                <Card padding="three" style={styles.card}>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {card.battleTitle}
-                  </ThemedText>
-                  <LearnProseText proseRole="title">{card.lesson}</LearnProseText>
-                  <LearnProseText themeColor="mutedForeground">{card.detail}</LearnProseText>
-                  <View style={[styles.chip, { backgroundColor: tokens.accentSoft }]}>
-                    <ThemedText type="caption" style={{ color: colors.accent }}>
-                      {t("battles.readBattle")}
-                    </ThemedText>
-                  </View>
-                </Card>
-              </PressableScale>
-            ))}
+            {columns > 1 ? (
+              <LearnColumnsGrid columns={columns} gap={Spacing.four}>
+                {lessonCards}
+              </LearnColumnsGrid>
+            ) : (
+              lessonCards
+            )}
           </LearnReadingChrome>
 
           <JannahDisclaimer textKey="battles.disclaimer" />
@@ -73,6 +91,8 @@ export default function BattlesLessonsScreen() {
 
 const styles = StyleSheet.create({
   card: { gap: Spacing.two },
+  // Grid cells: equal-height cards per row.
+  fill: { flexGrow: 1 },
   chip: {
     alignSelf: "flex-start",
     paddingHorizontal: Spacing.two,

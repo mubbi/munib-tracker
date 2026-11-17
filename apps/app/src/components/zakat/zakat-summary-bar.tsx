@@ -10,8 +10,11 @@ import { ThemedText } from "@/components/themed-text";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ZakatCalculatorState } from "@/hooks/use-zakat-calculator";
+import { isTV } from "@/lib/platform/is-tv";
 
 type ZakatSummaryBarProps = Pick<
   ZakatCalculatorState,
@@ -40,6 +43,8 @@ export function ZakatSummaryBar({
   const success = tokens.status.success;
   const hasDue = hasInput && result.totalDue > 0;
   const accent = hasDue ? success.color : colors.mutedForeground;
+  // TV: no live blur on low-end sticks — an opaque card bar reads better at 10 ft.
+  const tv = isTV();
 
   const onLayout = (event: LayoutChangeEvent) => {
     onHeightChange?.(event.nativeEvent.layout.height);
@@ -52,31 +57,37 @@ export function ZakatSummaryBar({
         accessibilityRole="text"
         style={[
           styles.shell,
+          tv && styles.shellTv,
           {
             borderTopColor: tokens.hairline,
             paddingBottom: Math.max(insets.bottom, Spacing.two),
           },
+          tv && { backgroundColor: colors.card },
         ]}
       >
         {/* No `backdropCapture`: this bar lives inside the root BlurTargetView, so
             capturing that ancestor would nest BlurView under its target and crash
             Android RenderThread (stack overflow in computeTransformImpl). Same
             pattern as page-reader-footer / reading-toolbar in-screen chrome. */}
-        <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-          <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
-        </View>
-        <View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              pointerEvents: "none",
-              backgroundColor: withAlpha(
-                colors.card,
-                hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.55 : 0.7,
-              ),
-            },
-          ]}
-        />
+        {tv ? null : (
+          <>
+            <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+              <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+            </View>
+            <View
+              style={[
+                StyleSheet.absoluteFill,
+                {
+                  pointerEvents: "none",
+                  backgroundColor: withAlpha(
+                    colors.card,
+                    hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.55 : 0.7,
+                  ),
+                },
+              ]}
+            />
+          </>
+        )}
 
         <View style={styles.inner}>
           <View style={[styles.iconWell, { backgroundColor: withAlpha(accent, 0.14) }]}>
@@ -135,7 +146,7 @@ export function ZakatSummaryBar({
               web: "restart_alt",
             }}
             size={18}
-            hitTarget={44}
+            hitTarget={tv ? TvLayout.minFocusTarget : 44}
             tintColor={hasInput ? tokens.status.danger.color : colors.mutedForeground}
             background={
               hasInput
@@ -174,6 +185,7 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.two + 2,
     paddingHorizontal: Spacing.four,
   },
+  shellTv: { paddingHorizontal: TvLayout.contentPaddingX },
   inner: {
     width: "100%",
     maxWidth: MaxContentWidth,
@@ -183,8 +195,8 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
   },
   iconWell: {
-    width: 40,
-    height: 40,
+    width: tvDp(40),
+    height: tvDp(40),
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",

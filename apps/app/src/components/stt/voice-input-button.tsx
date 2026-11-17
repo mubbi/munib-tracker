@@ -10,6 +10,7 @@ import Animated, {
 import { IconButton } from "@/components/ui/icon-button";
 import { Radius, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 
 type VoiceInputSize = "sm" | "md";
 
@@ -170,6 +171,10 @@ export function VoiceInputButton({
 
   const tint = listening ? colors.accent : colors.mutedForeground;
   const well = listening ? withAlpha(colors.accent, 0.18) : undefined;
+
+  // TV builds have no microphone path — callers should gate on availability,
+  // but never render a dead mic if one slips through.
+  if (isTV()) return null;
 
   return (
     <View style={[styles.wrap, { width: fieldSize, height: fieldSize }]}>

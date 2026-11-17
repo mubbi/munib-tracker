@@ -3,16 +3,24 @@ import type { AppLocale } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, TextInput, View } from "react-native";
+import { Platform, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { LocaleFlag } from "@/components/locale-flag";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { APP_LOCALES, localeSecondaryLabel, matchesLocaleSearch } from "@/lib/locale-display";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward, useIsRTL } from "@/lib/rtl";
+
+/** TV: 24 locales fit a 3-column grid on a landscape screen — no text entry needed. */
+const TV_COLUMNS = 3;
+/** Wide windows: the sheet is a centered ~640px panel — two language columns fit. */
+const WIDE_COLUMNS = 2;
+const WIDE_MIN_WIDTH = 768;
 
 type LanguagePickerSheetProps = {
   visible: boolean;
@@ -42,7 +50,7 @@ export function LanguageSelectRow({ locale, onPress, accessibilityLabel }: Langu
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
-      style={[styles.trigger, { backgroundColor: colors.muted }]}
+      style={[styles.trigger, isTV() && styles.triggerTv, { backgroundColor: colors.muted }]}
     >
       <LocaleFlag
         locale={locale}
@@ -75,6 +83,9 @@ export function LanguagePickerSheet({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [search, setSearch] = useState("");
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  const columns = tv ? TV_COLUMNS : width >= WIDE_MIN_WIDTH ? WIDE_COLUMNS : 1;
 
   useEffect(() => {
     if (!visible) setSearch("");
@@ -103,51 +114,60 @@ export function LanguagePickerSheet({
   return (
     <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false} solid>
       <TvFlatList
+        // numColumns can't change on a mounted FlatList — remount per column count.
+        key={columns}
         data={filtered}
         keyExtractor={(item) => item.code}
         style={styles.list}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator
+        numColumns={columns}
+        columnWrapperStyle={
+          tv ? styles.columnWrapTv : columns > 1 ? styles.columnWrapWide : undefined
+        }
         ListHeaderComponent={
           <View style={styles.header}>
             <ThemedText type="subtitle">{title}</ThemedText>
-            <View style={[styles.searchRow, { backgroundColor: colors.muted }]}>
-              <SymbolView
-                name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-                size={16}
-                tintColor={colors.mutedForeground}
-              />
-              <TextInput
-                value={search}
-                onChangeText={setSearch}
-                placeholder={t("languagePicker.searchLanguages")}
-                placeholderTextColor={colors.mutedForeground}
-                autoCapitalize="none"
-                autoCorrect={false}
-                returnKeyType="search"
-                style={[styles.searchInput, { color: colors.foreground }]}
-              />
-              {search.length > 0 ? (
-                <PressableScale
-                  haptic="light"
-                  hitSlop={8}
-                  accessibilityRole="button"
-                  accessibilityLabel={t("search.clear")}
-                  onPress={() => setSearch("")}
-                >
-                  <SymbolView
-                    name={{
-                      ios: "xmark.circle.fill",
-                      android: "cancel",
-                      web: "cancel",
-                    }}
-                    size={16}
-                    tintColor={colors.mutedForeground}
-                  />
-                </PressableScale>
-              ) : null}
-            </View>
+            {/* TV: browse the grid with the D-pad instead of typing on the remote. */}
+            {tv ? null : (
+              <View style={[styles.searchRow, tokens.inputSurface]}>
+                <SymbolView
+                  name={{ ios: "magnifyingglass", android: "search", web: "search" }}
+                  size={16}
+                  tintColor={colors.mutedForeground}
+                />
+                <TextInput
+                  value={search}
+                  onChangeText={setSearch}
+                  placeholder={t("languagePicker.searchLanguages")}
+                  placeholderTextColor={colors.mutedForeground}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  returnKeyType="search"
+                  style={[styles.searchInput, { color: colors.foreground }]}
+                />
+                {search.length > 0 ? (
+                  <PressableScale
+                    haptic="light"
+                    hitSlop={8}
+                    accessibilityRole="button"
+                    accessibilityLabel={t("search.clear")}
+                    onPress={() => setSearch("")}
+                  >
+                    <SymbolView
+                      name={{
+                        ios: "xmark.circle.fill",
+                        android: "cancel",
+                        web: "cancel",
+                      }}
+                      size={16}
+                      tintColor={colors.mutedForeground}
+                    />
+                  </PressableScale>
+                ) : null}
+              </View>
+            )}
           </View>
         }
         ItemSeparatorComponent={() => <View style={styles.separator} />}
@@ -173,8 +193,10 @@ export function LanguagePickerSheet({
               accessibilityRole="button"
               accessibilityState={{ selected }}
               onPress={() => handleSelect(code)}
+              {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
               style={[
                 styles.row,
+                tv ? styles.rowTv : columns > 1 ? styles.rowWide : null,
                 {
                   backgroundColor: selected ? tokens.accentSoft : colors.muted,
                   borderColor: selected ? tokens.accentBorder : "transparent",
@@ -235,6 +257,9 @@ const styles = StyleSheet.create({
     minHeight: 52,
     marginTop: Spacing.three,
   },
+  triggerTv: {
+    minHeight: TvLayout.minFocusTarget,
+  },
   triggerLabelWrap: {
     flex: 1,
     minWidth: 0,
@@ -272,6 +297,23 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: 1,
     minHeight: 52,
+  },
+  rowTv: {
+    flex: 1,
+    minHeight: TvLayout.minFocusTarget,
+    // Selected = soft fill + hairline; the D-pad ring is drawn by PressableScale.
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  columnWrapTv: {
+    gap: Spacing.three,
+  },
+  columnWrapWide: {
+    gap: Spacing.two,
+  },
+  /** Wide two-column grid: equal-width cells (the last odd cell keeps half width). */
+  rowWide: {
+    flex: 1,
+    maxWidth: "50%",
   },
   rowText: {
     flex: 1,

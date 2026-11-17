@@ -17,6 +17,13 @@ export type ThemeTokens = {
   accentSoft: string;
   accentBorder: string;
   hairline: string;
+  /**
+   * Drop-in style for every text input / search field: fill + ≥3:1 outline.
+   * Spread it into the TextInput (or its wrapper row) style array.
+   */
+  inputSurface: { backgroundColor: string; borderColor: string; borderWidth: number };
+  /** Same as `inputSurface` but with the accent ring — use while the field is focused. */
+  inputSurfaceFocused: { backgroundColor: string; borderColor: string; borderWidth: number };
   surfaceRaised: string;
   /** Sliding thumb on a muted segmented track — must read clearly in both schemes. */
   segmentThumb: string;
@@ -69,11 +76,22 @@ export function computeThemeTokens(colors: ThemeColors, scheme: "light" | "dark"
     // Light soft fills need more chroma on cream surfaces than dark glass.
     accentSoft: withAlpha(colors.accent, isDark ? 0.24 : 0.18),
     accentBorder: withAlpha(colors.accent, isDark ? 0.45 : 0.36),
-    hairline: withAlpha(colors.foreground, isDark ? 0.1 : 0.08),
+    // 0.14 / 0.12: the old 0.10 / 0.08 hairlines disappeared on dark-green cards.
+    hairline: withAlpha(colors.foreground, isDark ? 0.14 : 0.12),
+    inputSurface: {
+      backgroundColor: colors.input,
+      borderColor: colors.inputBorder,
+      borderWidth: 1,
+    },
+    inputSurfaceFocused: {
+      backgroundColor: colors.input,
+      borderColor: colors.accent,
+      borderWidth: 1,
+    },
     surfaceRaised: isDark ? colors.muted : colors.card,
     // Dark `card` ≈ `muted`, so lift the thumb with a translucent foreground wash.
     segmentThumb: isDark ? withAlpha(colors.foreground, 0.22) : colors.card,
-    track: withAlpha(colors.foreground, isDark ? 0.18 : 0.12),
+    track: withAlpha(colors.foreground, isDark ? 0.2 : 0.14),
     ripple: withAlpha(colors.foreground, isDark ? 0.16 : 0.1),
     scrim: withAlpha("#000000", 0.4),
     hero: Brand,

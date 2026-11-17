@@ -4,25 +4,37 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import {
+  LearnColumnsGrid,
+  LearnTwoPane,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 
 function CheckStep({
   item,
   done,
   onToggle,
+  preferredFocus,
 }: {
   item: PilgrimageChecklistItem;
   done: boolean;
   onToggle: () => void;
+  /** TV: initial D-pad focus (first rite — never the destructive Reset). */
+  preferredFocus?: boolean;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   return (
     <PressableScale
       accessibilityRole="checkbox"
@@ -31,7 +43,8 @@ function CheckStep({
       onPress={onToggle}
       scaleTo={0.98}
       haptic="selection"
-      style={styles.step}
+      {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
+      style={[styles.step, tv && [styles.stepTv, { backgroundColor: colors.muted }]]}
     >
       <SymbolView
         name={
@@ -81,6 +94,12 @@ export function PilgrimageChecklistView({
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
   const [resetOpen, setResetOpen] = useState(false);
+  const wide = useLearnHubLayout();
+  // Desktop: rites in two columns per day; progress pinned in a side column.
+  const stepColumns = learnColumnsFor(wide.mainWidth - Spacing.three * 2, {
+    minCell: 300,
+    max: 2,
+  });
 
   const totalSteps = items.length;
   const doneCount = useMemo(() => items.filter((item) => done[item.id]).length, [items, done]);
@@ -97,46 +116,56 @@ export function PilgrimageChecklistView({
     return [...byDay.entries()];
   }, [items]);
 
+  const progressCard = (
+    <Card padding="three" style={styles.progressCard}>
+      <View style={styles.progressHead}>
+        <ThemedText type="smallBold">
+          {t(`${progressKeyPrefix}.progress`, { done: doneCount, total: totalSteps })}
+        </ThemedText>
+        {doneCount > 0 ? (
+          <Button
+            label={t(`${progressKeyPrefix}.reset`)}
+            variant="ghost"
+            size="sm"
+            onPress={() => setResetOpen(true)}
+          />
+        ) : null}
+      </View>
+      <ProgressBar value={progress} height={6} color={tokens.status.success.color} />
+    </Card>
+  );
+
+  const dayCards = grouped.map(([day, dayItems], groupIndex) => (
+    <Card key={day || "rites"} padding="three" style={styles.sectionCard}>
+      {day ? (
+        <ThemedText type="subtitle" style={styles.dayTitle}>
+          {day}
+        </ThemedText>
+      ) : null}
+      <LearnColumnsGrid columns={stepColumns} gap={Spacing.three}>
+        {dayItems.map((item, itemIndex) => (
+          <CheckStep
+            key={item.id}
+            preferredFocus={groupIndex === 0 && itemIndex === 0}
+            item={item}
+            done={!!done[item.id]}
+            onToggle={() => onToggle(item.id)}
+          />
+        ))}
+      </LearnColumnsGrid>
+    </Card>
+  ));
+
   return (
     <>
-      <View style={styles.stack}>
-        <Card padding="three" style={styles.progressCard}>
-          <View style={styles.progressHead}>
-            <ThemedText type="smallBold">
-              {t(`${progressKeyPrefix}.progress`, { done: doneCount, total: totalSteps })}
-            </ThemedText>
-            {doneCount > 0 ? (
-              <Button
-                label={t(`${progressKeyPrefix}.reset`)}
-                variant="ghost"
-                size="sm"
-                onPress={() => setResetOpen(true)}
-              />
-            ) : null}
-          </View>
-          <ProgressBar value={progress} height={6} color={tokens.status.success.color} />
-        </Card>
-
-        {grouped.map(([day, dayItems]) => (
-          <Card key={day || "rites"} padding="three" style={styles.sectionCard}>
-            {day ? (
-              <ThemedText type="subtitle" style={styles.dayTitle}>
-                {day}
-              </ThemedText>
-            ) : null}
-            <View style={styles.steps}>
-              {dayItems.map((item) => (
-                <CheckStep
-                  key={item.id}
-                  item={item}
-                  done={!!done[item.id]}
-                  onToggle={() => onToggle(item.id)}
-                />
-              ))}
-            </View>
-          </Card>
-        ))}
-      </View>
+      {wide.twoPane ? (
+        <LearnTwoPane main={dayCards} aside={progressCard} />
+      ) : (
+        <View style={styles.stack}>
+          {progressCard}
+          {dayCards}
+        </View>
+      )}
 
       <ConfirmDialog
         visible={resetOpen}
@@ -168,8 +197,14 @@ const styles = StyleSheet.create({
   },
   sectionCard: { gap: Spacing.three },
   dayTitle: { marginBottom: Spacing.one },
-  steps: { gap: Spacing.three },
   step: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.three },
+  // TV: a full-width 10-foot toggle row so the focus ring frames the whole rite.
+  stepTv: {
+    minHeight: TvLayout.minFocusTarget,
+    alignItems: "center",
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+  },
   stepCopy: { flex: 1, gap: Spacing.one },
   stepHead: {
     flexDirection: "row",

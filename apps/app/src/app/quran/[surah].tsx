@@ -5,9 +5,19 @@ import type {
   QuranWord,
   TajweedSegment,
 } from "@munib-tracker/shared/types";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { memo, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  createContext,
+  memo,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
@@ -16,8 +26,10 @@ import {
   type ListRenderItemInfo,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
+  Platform,
   type ScrollView,
   StyleSheet,
+  TextInput,
   View,
   type ViewToken,
 } from "react-native";
@@ -31,6 +43,7 @@ import Animated, {
 import { hasEditionAyahs, isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
 import { AyahSeparator, ayahKeyExtractor, SurahAyahList } from "@/components/quran/ayah-reader";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
 import { PlaybackSettingsSheet } from "@/components/quran/playback-settings-sheet";
@@ -75,10 +88,12 @@ import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useScrollToActive, useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { runAfterSheetDismiss } from "@/lib/platform/run-after-sheet-dismiss";
 import {
   getBundledEdition,
   getEditionById,
@@ -89,11 +104,13 @@ import {
   getTransliteration,
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
+import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { normalizeRepeatPlan } from "@/lib/quran-repeat";
 import { resolvePreferredTafsirId } from "@/lib/quran-tafsir-options";
 import { ALL_QURAN_TRANSLATIONS } from "@/lib/quran-translation-options";
 import { activeWordIndexAt } from "@/lib/quran-word-timing";
 import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
+import { useChevronBackward, useChevronForward, useIsRTL } from "@/lib/rtl";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { buildAyahSharePayload } from "@/lib/share";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
@@ -130,8 +147,21 @@ const LAST_READ_FLUSH_MS = 600;
 
 /** Extra width so the ayah list and filters pane can sit side by side. */
 const LIST_DETAIL_MAX_WIDTH = 1280;
+/** Desktop (≥1600): match the global wide content column. */
+const LIST_DETAIL_MAX_WIDTH_XL = 1320;
+/** Readable measure for the ayah column when the reader has a side pane. */
+const READING_COLUMN_MAX_WIDTH = 800;
+const TOTAL_SURAHS = 114;
 
 const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
+
+/**
+ * TV follow-along bookkeeping (refs, never state — focus changes must not
+ * re-render the ayah list). `focused` is the ayah card holding D-pad focus;
+ * `prevPlaying` the ayah that was playing before the current track.
+ */
+type AyahFocusTracker = { focused: number | null; prevPlaying: number | null };
+const AyahFocusTrackerContext = createContext<{ current: AyahFocusTracker } | null>(null);
 
 const LAYOUT_OPTIONS: Array<{ id: QuranReaderLayout; labelKey: string }> = [
   { id: "page", labelKey: "quran.layoutPage" },
@@ -164,8 +194,9 @@ export default function SurahReaderScreen() {
 
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
-  const { isListDetail } = useLargeScreenLayout();
+  const { isListDetail, width: windowWidth } = useLargeScreenLayout();
   const tv = isTV();
+  const uiRtl = useIsRTL();
   // Wide tablet/desktop: sticky side filters. TV: single column — the fixed-width
   // secondary pane clipped past overscan (A− peeking on the right edge).
   const showSideFilters = isListDetail && !tv;
@@ -207,6 +238,9 @@ export default function SurahReaderScreen() {
   const [tafsirAyah, setTafsirAyah] = useState<number | null>(null);
   const [layoutPickerOpen, setLayoutPickerOpen] = useState(false);
   const [playbackSheetOpen, setPlaybackSheetOpen] = useState(false);
+  /** TV: row index whose ayah action sheet is open (Select on an ayah card). */
+  const [tvActionIndex, setTvActionIndex] = useState<number | null>(null);
+  const ayahFocusRef = useRef<AyahFocusTracker>({ focused: null, prevPlaying: null });
   const [focusHighlightAyah, setFocusHighlightAyah] = useState<number | undefined>(focusAyah);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const focusTargetKey = focusAyah != null ? `${surahNumber}:${focusAyah}` : null;
@@ -508,6 +542,11 @@ export default function SurahReaderScreen() {
     (showTajweed && tajweedQuery.isPending) || (showWordByWord && wordsQuery.isPending);
 
   const playingAyahNumber = audioActiveKey ? Number(audioActiveKey.split(":")[1]) : null;
+  // Runs after the render that activated the new ayah, so cards compare the
+  // focused ayah against the *previous* track when deciding to follow along.
+  useEffect(() => {
+    ayahFocusRef.current.prevPlaying = playingAyahNumber;
+  }, [playingAyahNumber]);
   const recitationId = quranComRecitationId(prefs.preferredReciterDir);
   const segmentsQuery = useAyahWordSegments(
     recitationId,
@@ -609,8 +648,9 @@ export default function SurahReaderScreen() {
 
   useEffect(() => {
     setRepeatPlan(repeatPlan);
-    setTranslationAudio(prefs.translationAudio ?? "off");
-  }, [setRepeatPlan, setTranslationAudio, repeatPlan, prefs.translationAudio]);
+    // TV has no speech synthesis — never queue translation TTS there.
+    setTranslationAudio(tv ? "off" : (prefs.translationAudio ?? "off"));
+  }, [setRepeatPlan, setTranslationAudio, repeatPlan, prefs.translationAudio, tv]);
 
   const playFrom = useCallback(
     (index: number, nextReciterDir = reciterDir) => {
@@ -765,6 +805,89 @@ export default function SurahReaderScreen() {
     }
     listRef.current?.scrollToOffset({ offset: 0, animated: true });
   }, [tvMappedList]);
+
+  // ── Desktop navigation: side-pane surah stepper / ayah jump + keyboard ─────
+  const goToSurah = useCallback(
+    (n: number) => {
+      if (n < 1 || n > TOTAL_SURAHS || n === surahNumber) return;
+      router.replace({ pathname: "/quran/[surah]", params: { surah: String(n) } });
+    },
+    [router, surahNumber],
+  );
+
+  const jumpHighlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (jumpHighlightTimerRef.current) clearTimeout(jumpHighlightTimerRef.current);
+    },
+    [],
+  );
+  const jumpToAyah = useCallback(
+    (ayahNumber: number) => {
+      const index = indexForKey(`${surahNumber}:${ayahNumber}`);
+      if (index < 0) return;
+      // An explicit jump is user intent — let the resume point follow it.
+      userMovedListRef.current = true;
+      listRef.current?.scrollToIndex({ index, animated: true, viewOffset: Spacing.two });
+      setFocusHighlightAyah(ayahNumber);
+      if (jumpHighlightTimerRef.current) clearTimeout(jumpHighlightTimerRef.current);
+      jumpHighlightTimerRef.current = setTimeout(
+        () => setFocusHighlightAyah(undefined),
+        FOCUS_HIGHLIGHT_HOLD_MS + FOCUS_HIGHLIGHT_FADE_MS,
+      );
+    },
+    [indexForKey, surahNumber],
+  );
+
+  /** Pause/resume this surah's audio, or start it from the top-most ayah on screen. */
+  const playPauseSurah = useCallback(() => {
+    if (audioActiveKey != null) {
+      toggleAudio();
+      return;
+    }
+    const top = topVisibleAyahRef.current ?? 1;
+    playFrom(Math.max(0, Math.min(ayahs.length - 1, top - 1)));
+  }, [audioActiveKey, ayahs.length, playFrom, toggleAudio]);
+
+  // Web keyboard: ←/→ previous/next surah (reading-direction aware), Space
+  // play/pause. Off while typing, while a sheet is open, or when this screen
+  // is not the focused route (stack screens below stay mounted on web).
+  const [screenFocused, setScreenFocused] = useState(true);
+  useFocusEffect(
+    useCallback(() => {
+      setScreenFocused(true);
+      return () => setScreenFocused(false);
+    }, []),
+  );
+  const anySheetOpen =
+    reciterPickerOpen ||
+    translationPickerOpen ||
+    secondaryPickerOpen ||
+    tafsirPickerOpen ||
+    tafsirAyah != null ||
+    layoutPickerOpen ||
+    playbackSheetOpen ||
+    hifzPending != null;
+  useWebScreenKeyHandler(
+    (event) => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        if (event.shiftKey) return undefined;
+        if ((event.target as HTMLElement | null)?.getAttribute?.("role") === "slider") {
+          return undefined;
+        }
+        const forward = (event.key === "ArrowRight") !== uiRtl;
+        goToSurah(surahNumber + (forward ? 1 : -1));
+        return true;
+      }
+      if (event.key === " ") {
+        if (isWebInteractiveTarget(event.target)) return undefined;
+        playPauseSurah();
+        return true;
+      }
+      return undefined;
+    },
+    Platform.OS === "web" && !tv && screenFocused && !anySheetOpen,
+  );
 
   const readerChrome = showSideFilters ? (
     <View style={styles.readerChromeRow}>
@@ -963,12 +1086,14 @@ export default function SurahReaderScreen() {
           </View>
         </View>
 
-        <PlaySurahButton onPress={() => playFrom(0)} />
+        {/* Side pane: play / pause lives in the surah navigation card above. */}
+        {showSideFilters ? null : <PlaySurahButton onPress={() => playFrom(0)} />}
       </Card>
     );
   }, [
     colors.accent,
     playFrom,
+    showSideFilters,
     prefs.showTransliteration,
     prefs.showTranslation,
     showWordByWord,
@@ -1074,6 +1199,10 @@ export default function SurahReaderScreen() {
   const ayahRowExtrasRef = useRef(ayahRowExtras);
   ayahRowExtrasRef.current = ayahRowExtras;
 
+  // TV lean-back: land on the deep-linked / resumed ayah, else the first ayah.
+  const tvInitialFocusIndex = tv ? Math.max(0, (focusAyah ?? 1) - 1) : -1;
+  const openAyahActions = useCallback((index: number) => setTvActionIndex(index), []);
+
   const renderAyahCard = useCallback(
     (ayah: Ayah, index: number) => {
       const extras = ayahRowExtrasRef.current;
@@ -1109,16 +1238,21 @@ export default function SurahReaderScreen() {
           onOpenTafsir={openTafsirForAyah}
           isSharing={extras.activeShareKey === ayahShareKey}
           isGesturePending={extras.gesturePendingKey === ayahShareKey}
+          onOpenActions={tv ? openAyahActions : undefined}
+          tvPreferredFocus={index === tvInitialFocusIndex}
         />
       );
     },
     [
       handleBookmarkAyah,
       handleHifzAyah,
+      openAyahActions,
       openTafsirForAyah,
       playOrToggleAyah,
       shareAyah,
       surahNumber,
+      tv,
+      tvInitialFocusIndex,
     ],
   );
 
@@ -1191,7 +1325,13 @@ export default function SurahReaderScreen() {
         title={surah.nameTransliteration}
         subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
         onBack={() => goBackOrReplace(router, "/")}
-        maxContentWidth={showSideFilters ? LIST_DETAIL_MAX_WIDTH : undefined}
+        maxContentWidth={
+          showSideFilters
+            ? windowWidth >= 1600
+              ? LIST_DETAIL_MAX_WIDTH_XL
+              : LIST_DETAIL_MAX_WIDTH
+            : undefined
+        }
         headerAccessory={
           showSideFilters ? undefined : (
             <View>
@@ -1228,71 +1368,87 @@ export default function SurahReaderScreen() {
           )
         }
       >
-        <QuranWordStudyProviders
-          wordAudioEnabled={showWordByWord}
-          playingAyah={playingAyahNumber}
-          audioIsPlaying={audioIsPlaying}
-          activeWordIndex={activeWordIndex}
-          wordsByAyah={wordByWordByAyah}
-        >
-          {tvMappedList ? (
-            <View style={[styles.tvMappedRoot, { paddingBottom: contentBottomInset }]}>
-              {listHeader}
-              {ayahs.map((ayah, index) => (
-                <View
-                  key={ayahKeyExtractor(ayah)}
-                  ref={registerAyahScroll(`${surahNumber}:${ayah.ayah}`)}
-                >
-                  {index > 0 ? <AyahSeparator /> : null}
-                  {renderAyahCard(ayah, index)}
-                </View>
-              ))}
-            </View>
-          ) : (
-            <View style={showSideFilters ? styles.listDetailRoot : styles.readerRoot}>
-              <SurahAyahList
-                listRef={listRef}
-                data={ayahs}
-                extraData={ayahRowExtras}
-                heavyRows={showWordByWord}
-                keyExtractor={ayahKeyExtractor}
-                renderItem={renderItem}
-                ListHeaderComponent={listHeader}
-                ItemSeparatorComponent={AyahSeparator}
-                onScroll={onListScroll}
-                onScrollBeginDrag={onScrollBeginDrag}
-                onViewableItemsChanged={onViewableItemsChanged}
-                viewabilityConfig={viewabilityConfig}
-                onScrollToIndexFailed={onScrollToIndexFailed}
-                style={showSideFilters ? styles.listDetailPrimary : undefined}
-                contentContainerStyle={{ paddingBottom: contentBottomInset }}
-              />
-              {showSideFilters ? (
-                <View
-                  style={[
-                    styles.listDetailSecondary,
-                    tv && styles.listDetailSecondaryTv,
-                    { borderStartColor: tokens.hairline },
-                  ]}
-                >
-                  {readerChrome}
-                  <TvScrollView
-                    style={styles.listDetailSecondaryScroll}
-                    contentContainerStyle={[
-                      styles.listDetailSecondaryContent,
-                      { paddingBottom: contentBottomInset },
-                    ]}
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps="handled"
+        <AyahFocusTrackerContext.Provider value={ayahFocusRef}>
+          <QuranWordStudyProviders
+            wordAudioEnabled={showWordByWord}
+            playingAyah={playingAyahNumber}
+            audioIsPlaying={audioIsPlaying}
+            activeWordIndex={activeWordIndex}
+            wordsByAyah={wordByWordByAyah}
+          >
+            {tvMappedList ? (
+              <View style={[styles.tvMappedRoot, { paddingBottom: contentBottomInset }]}>
+                {listHeader}
+                {ayahs.map((ayah, index) => (
+                  <View
+                    key={ayahKeyExtractor(ayah)}
+                    ref={registerAyahScroll(`${surahNumber}:${ayah.ayah}`)}
                   >
-                    {showTajweed ? <TajweedLegend /> : null}
-                    {readerFilters}
-                  </TvScrollView>
-                </View>
-              ) : null}
-            </View>
-          )}
-        </QuranWordStudyProviders>
+                    {index > 0 ? <AyahSeparator /> : null}
+                    {renderAyahCard(ayah, index)}
+                  </View>
+                ))}
+              </View>
+            ) : (
+              <View style={showSideFilters ? styles.listDetailRoot : styles.readerRoot}>
+                <SurahAyahList
+                  listRef={listRef}
+                  data={ayahs}
+                  extraData={ayahRowExtras}
+                  heavyRows={showWordByWord}
+                  keyExtractor={ayahKeyExtractor}
+                  renderItem={renderItem}
+                  ListHeaderComponent={listHeader}
+                  ItemSeparatorComponent={AyahSeparator}
+                  onScroll={onListScroll}
+                  onScrollBeginDrag={onScrollBeginDrag}
+                  onViewableItemsChanged={onViewableItemsChanged}
+                  viewabilityConfig={viewabilityConfig}
+                  onScrollToIndexFailed={onScrollToIndexFailed}
+                  style={showSideFilters ? styles.listDetailPrimary : undefined}
+                  contentContainerStyle={[
+                    { paddingBottom: contentBottomInset },
+                    // Keep the Arabic + translation at a readable measure; the
+                    // side pane takes the remaining width.
+                    showSideFilters && styles.readingColumn,
+                  ]}
+                />
+                {showSideFilters ? (
+                  <View
+                    style={[
+                      styles.listDetailSecondary,
+                      tv && styles.listDetailSecondaryTv,
+                      { borderStartColor: tokens.hairline },
+                    ]}
+                  >
+                    {readerChrome}
+                    <TvScrollView
+                      style={styles.listDetailSecondaryScroll}
+                      contentContainerStyle={[
+                        styles.listDetailSecondaryContent,
+                        { paddingBottom: contentBottomInset },
+                      ]}
+                      showsVerticalScrollIndicator={false}
+                      keyboardShouldPersistTaps="handled"
+                    >
+                      <SurahNavCard
+                        surahNumber={surahNumber}
+                        ayahCount={ayahs.length}
+                        audioActive={audioActiveKey != null}
+                        audioPlaying={audioActiveKey != null && audioIsPlaying}
+                        onGoToSurah={goToSurah}
+                        onJumpToAyah={jumpToAyah}
+                        onPlayPause={playPauseSurah}
+                      />
+                      {showTajweed ? <TajweedLegend /> : null}
+                      {readerFilters}
+                    </TvScrollView>
+                  </View>
+                ) : null}
+              </View>
+            )}
+          </QuranWordStudyProviders>
+        </AyahFocusTrackerContext.Provider>
       </ScreenLayout>
 
       <OptionPickerSheet
@@ -1368,6 +1524,48 @@ export default function SurahReaderScreen() {
           updatePrefs({ ttsVoiceByLang: next });
         }}
       />
+      {tv ? (
+        <TvAyahActions
+          ayah={tvActionIndex != null ? ayahs[tvActionIndex] : undefined}
+          surahNumber={surahNumber}
+          surahName={surah.nameTransliteration}
+          surahNameEnglish={surah.nameEnglish}
+          locale={locale}
+          translation={translation}
+          isBookmarked={
+            tvActionIndex != null && ayahs[tvActionIndex] != null
+              ? bookmarkedSet.has(`${surahNumber}:${ayahs[tvActionIndex].ayah}`)
+              : false
+          }
+          isPlaying={
+            tvActionIndex != null &&
+            audioIsPlaying &&
+            currentAudioId === `${surahNumber}:${ayahs[tvActionIndex]?.ayah}`
+          }
+          hifzStatus={
+            tvActionIndex != null && ayahs[tvActionIndex] != null
+              ? hifzMap[hifzKey(surahNumber, ayahs[tvActionIndex].ayah)]
+              : undefined
+          }
+          onClose={() => setTvActionIndex(null)}
+          onPlay={() => {
+            if (tvActionIndex == null) return;
+            const index = tvActionIndex;
+            // Close first so the reader sees the follow-along highlight.
+            setTvActionIndex(null);
+            playOrToggleAyah(index);
+          }}
+          onBookmark={(ayahNum) => void toggleBookmark(surahNumber, ayahNum)}
+          onHifz={(ayahNum) => {
+            setTvActionIndex(null);
+            runAfterSheetDismiss(() => handleHifzAyah(surahNumber, ayahNum));
+          }}
+          onTafsir={(ayahNum) => {
+            setTvActionIndex(null);
+            runAfterSheetDismiss(() => openTafsirForAyah(ayahNum));
+          }}
+        />
+      ) : null}
       <ConfirmDialog
         visible={hifzPending != null}
         title={t("hifz.confirmTitle")}
@@ -1455,8 +1653,9 @@ function PrefToggle({
         style={[
           styles.prefToggleTv,
           {
+            // On = soft fill + muted hairline; the solid accent ring is D-pad focus.
             backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-            borderColor: enabled ? colors.accent : tokens.hairline,
+            borderColor: enabled ? withAlpha(colors.accent, 0.35) : tokens.hairline,
           },
         ]}
       >
@@ -1534,6 +1733,160 @@ function PlaySurahButton({ onPress }: { onPress: () => void }) {
 }
 
 /**
+ * Desktop / wide-tablet side pane: previous / next surah, jump to an ayah, and
+ * a play–pause control for this surah (keyboard: ←/→ and Space on web).
+ */
+function SurahNavCard({
+  surahNumber,
+  ayahCount,
+  audioActive,
+  audioPlaying,
+  onGoToSurah,
+  onJumpToAyah,
+  onPlayPause,
+}: {
+  surahNumber: number;
+  ayahCount: number;
+  audioActive: boolean;
+  audioPlaying: boolean;
+  onGoToSurah: (n: number) => void;
+  onJumpToAyah: (ayah: number) => void;
+  onPlayPause: () => void;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const backwardIcon = useChevronBackward();
+  const forwardIcon = useChevronForward();
+  const [ayahInput, setAyahInput] = useState("");
+  const [invalid, setInvalid] = useState(false);
+  const prev = surahNumber > 1 ? getSurahByNumber(surahNumber - 1) : undefined;
+  const next = surahNumber < TOTAL_SURAHS ? getSurahByNumber(surahNumber + 1) : undefined;
+
+  const submit = () => {
+    const n = Number.parseInt(ayahInput, 10);
+    if (!Number.isFinite(n) || n < 1 || n > ayahCount) {
+      setInvalid(true);
+      return;
+    }
+    setInvalid(false);
+    setAyahInput("");
+    onJumpToAyah(n);
+  };
+
+  const playLabel = audioActive
+    ? audioPlaying
+      ? t("quran.actionPause")
+      : t("quran.actionPlay")
+    : t("quran.playSurah");
+
+  const stepButton = (target: typeof prev, direction: "prev" | "next"): ReactNode => {
+    const label = direction === "prev" ? t("common.previous") : t("common.next");
+    const disabled = !target;
+    return (
+      <PressableScale
+        haptic="light"
+        accessibilityRole="button"
+        accessibilityLabel={target ? `${label}: ${target.nameTransliteration}` : label}
+        accessibilityState={{ disabled }}
+        disabled={disabled}
+        onPress={() => target && onGoToSurah(target.number)}
+        scaleTo={0.97}
+        style={[
+          styles.navStep,
+          direction === "next" && styles.navStepNext,
+          { backgroundColor: colors.muted, opacity: disabled ? 0.45 : 1 },
+        ]}
+      >
+        {direction === "prev" ? (
+          <SymbolView name={backwardIcon} size={14} tintColor={colors.mutedForeground} />
+        ) : null}
+        <View style={[styles.navStepCopy, direction === "next" && styles.navStepCopyNext]}>
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {label}
+          </ThemedText>
+          <ThemedText type="smallBold" numberOfLines={1}>
+            {target ? target.nameTransliteration : "—"}
+          </ThemedText>
+        </View>
+        {direction === "next" ? (
+          <SymbolView name={forwardIcon} size={14} tintColor={colors.mutedForeground} />
+        ) : null}
+      </PressableScale>
+    );
+  };
+
+  return (
+    <Card padding="three" style={styles.navCard}>
+      <View style={styles.navStepsRow}>
+        {stepButton(prev, "prev")}
+        {stepButton(next, "next")}
+      </View>
+
+      <View style={styles.navJumpRow}>
+        <TextInput
+          value={ayahInput}
+          onChangeText={(text) => {
+            setAyahInput(text.replace(/[^0-9]/g, ""));
+            if (invalid) setInvalid(false);
+          }}
+          onSubmitEditing={submit}
+          keyboardType="number-pad"
+          inputMode="numeric"
+          returnKeyType="go"
+          maxLength={3}
+          placeholder={t("quran.goToAyahPlaceholder", { max: ayahCount })}
+          placeholderTextColor={colors.mutedForeground}
+          accessibilityLabel={t("quran.goToAyahA11y")}
+          style={[
+            styles.navJumpInput,
+            {
+              color: colors.foreground,
+              backgroundColor: colors.input,
+              borderColor: invalid ? tokens.status.danger.color : colors.inputBorder,
+              borderWidth: 1,
+            },
+          ]}
+        />
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={t("quran.goToAyahA11y")}
+          onPress={submit}
+          scaleTo={0.97}
+          style={[styles.navJumpGo, { backgroundColor: tokens.accentSoft }]}
+        >
+          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+            {t("quran.goToPageAction")}
+          </ThemedText>
+        </PressableScale>
+      </View>
+      {invalid ? (
+        <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
+          {t("quran.goToAyahInvalid", { max: ayahCount })}
+        </ThemedText>
+      ) : null}
+
+      <PressableScale
+        haptic="light"
+        accessibilityRole="button"
+        accessibilityLabel={playLabel}
+        onPress={onPlayPause}
+        style={[styles.playSurah, styles.navPlay, { backgroundColor: colors.accent }]}
+      >
+        <SymbolView
+          name={audioPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
+          size={20}
+          tintColor={colors.accentForeground}
+        />
+        <ThemedText type="smallBold" style={{ color: colors.accentForeground }}>
+          {playLabel}
+        </ThemedText>
+      </PressableScale>
+    </Card>
+  );
+}
+
+/**
  * A single ayah card. Memoized so scrolling the virtualized list only re-renders
  * rows whose props actually change (e.g. the playing/highlighted row), not every
  * mounted row on each parent render.
@@ -1569,6 +1922,9 @@ type AyahRowProps = {
   onOpenTafsir: (ayahNumber: number) => void;
   isSharing: boolean;
   isGesturePending: boolean;
+  /** TV only: Select on the card opens the action sheet (inline actions hidden). */
+  onOpenActions?: (index: number) => void;
+  tvPreferredFocus?: boolean;
 };
 
 function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): boolean {
@@ -1596,7 +1952,9 @@ function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): boolean {
     prev.onShareAyah === next.onShareAyah &&
     prev.onOpenTafsir === next.onOpenTafsir &&
     prev.isSharing === next.isSharing &&
-    prev.isGesturePending === next.isGesturePending
+    prev.isGesturePending === next.isGesturePending &&
+    prev.onOpenActions === next.onOpenActions &&
+    prev.tvPreferredFocus === next.tvPreferredFocus
   );
 }
 
@@ -1626,10 +1984,147 @@ function AyahFocusRing({ color }: { color: string }) {
   );
 }
 
-function AyahStudyCard({ ayahNumber, children }: { ayahNumber: number; children: ReactNode }) {
-  const { colors } = useThemeTokens();
+/**
+ * TV: Select on an ayah card opens this sheet instead of a row of six inline
+ * buttons per ayah, so D-pad Up/Down moves ayah-by-ayah.
+ */
+function TvAyahActions({
+  ayah,
+  surahNumber,
+  surahName,
+  surahNameEnglish,
+  locale,
+  translation,
+  isBookmarked,
+  isPlaying,
+  hifzStatus,
+  onClose,
+  onPlay,
+  onBookmark,
+  onHifz,
+  onTafsir,
+}: {
+  ayah?: Ayah;
+  surahNumber: number;
+  surahName: string;
+  surahNameEnglish: string;
+  locale: string;
+  translation: Record<string, string>;
+  isBookmarked: boolean;
+  isPlaying: boolean;
+  hifzStatus?: HifzStatus;
+  onClose: () => void;
+  onPlay: () => void;
+  onBookmark: (ayah: number) => void;
+  onHifz: (ayah: number) => void;
+  onTafsir: (ayah: number) => void;
+}) {
+  const ayahNum = ayah?.ayah ?? 1;
+  const reportRef = useMemo(
+    () =>
+      ayah
+        ? buildContentReportRef(
+            "quran_ayah",
+            String(ayah.ayah),
+            `/quran/${surahNumber}?ayah=${ayah.ayah}`,
+            locale,
+            {
+              parentId: String(surahNumber),
+              snapshot: {
+                arabic: ayah.arabic,
+                translation: translation[String(ayah.ayah)] ?? "",
+                reference: `${surahNumber}:${ayah.ayah}`,
+              },
+            },
+          )
+        : undefined,
+    [ayah, locale, surahNumber, translation],
+  );
+  return (
+    <AyahActionSheet
+      visible={ayah != null}
+      surah={surahNumber}
+      ayah={ayahNum}
+      surahName={surahName}
+      surahNameEnglish={surahNameEnglish}
+      juz={ayah?.juz}
+      isBookmarked={isBookmarked}
+      isPlaying={isPlaying}
+      hifzStatus={hifzStatus}
+      onPlay={onPlay}
+      onBookmark={() => onBookmark(ayahNum)}
+      onHifz={() => onHifz(ayahNum)}
+      onTafsir={() => onTafsir(ayahNum)}
+      // The sheet hides Share on TV (no system share sheet); keep the prop satisfied.
+      onShare={onClose}
+      reportRef={reportRef}
+      onClose={onClose}
+    />
+  );
+}
+
+function AyahStudyCard({
+  surahNumber,
+  ayahNumber,
+  children,
+  onSelect,
+  preferredFocus,
+}: {
+  surahNumber: number;
+  ayahNumber: number;
+  children: ReactNode;
+  /** TV: the whole card is one focus target; Select opens the ayah action sheet. */
+  onSelect?: () => void;
+  preferredFocus?: boolean;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
   const { ayah } = useQuranPlayback();
+  const tracker = useContext(AyahFocusTrackerContext);
   const isActive = ayah === ayahNumber;
+
+  if (onSelect) {
+    const focus = tracker?.current;
+    // Follow-along: hand focus to the newly playing ayah only when the reader
+    // was resting on the previously playing card — never steal it from chrome
+    // or from an ayah the user browsed to.
+    const follow = Boolean(
+      isActive &&
+        focus &&
+        focus.focused != null &&
+        focus.focused !== ayahNumber &&
+        focus.focused === focus.prevPlaying,
+    );
+    return (
+      <PressableScale
+        accessibilityRole="button"
+        accessibilityLabel={t("quran.ayahRef", { surah: surahNumber, ayah: ayahNumber })}
+        accessibilityState={{ selected: isActive }}
+        onPress={onSelect}
+        onFocus={() => {
+          if (focus) focus.focused = ayahNumber;
+        }}
+        onBlur={() => {
+          if (focus && focus.focused === ayahNumber) focus.focused = null;
+        }}
+        {...(preferredFocus || follow ? { hasTVPreferredFocus: true } : {})}
+        scaleTo={0.99}
+        style={[
+          styles.ayahCardTv,
+          // Playing = soft fill + hairline; the accent ring is reserved for focus.
+          isActive
+            ? {
+                backgroundColor: tokens.accentSoft,
+                borderColor: withAlpha(colors.accent, 0.35),
+              }
+            : { backgroundColor: colors.card, borderColor: tokens.hairline },
+        ]}
+      >
+        {children}
+      </PressableScale>
+    );
+  }
+
   return (
     <Card
       padding="four"
@@ -1719,6 +2214,8 @@ const AyahRow = memo(function AyahRow({
   onOpenTafsir,
   isSharing,
   isGesturePending,
+  onOpenActions,
+  tvPreferredFocus,
 }: AyahRowProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -1734,9 +2231,27 @@ const AyahRow = memo(function AyahRow({
     [ayah.arabic, ayah.ayah, onShareAyah, surahNumber, translation, transliteration],
   );
   const handleTafsir = useCallback(() => onOpenTafsir(ayah.ayah), [ayah.ayah, onOpenTafsir]);
+  const handleOpenActions = useCallback(() => onOpenActions?.(index), [index, onOpenActions]);
+  const cardActions = Boolean(tv && onOpenActions);
   const handleHifz = useCallback(
     () => onHifzAyah(surahNumber, ayah.ayah),
     [ayah.ayah, onHifzAyah, surahNumber],
+  );
+  const practiceRouter = useRouter();
+  const showPractise = !tv && isPracticeAvailable();
+  // "Practise this ayah": straight into a one-ayah session in the saved default mode.
+  const handlePractise = useCallback(
+    () =>
+      practiceRouter.push({
+        pathname: "/quran/practice/session",
+        params: {
+          surah: String(surahNumber),
+          from: String(ayah.ayah),
+          to: String(ayah.ayah),
+          source: "reader",
+        },
+      }),
+    [ayah.ayah, practiceRouter, surahNumber],
   );
 
   const reportRef = useMemo(
@@ -1760,7 +2275,12 @@ const AyahRow = memo(function AyahRow({
 
   return (
     <View style={styles.ayahRow}>
-      <AyahStudyCard ayahNumber={ayah.ayah}>
+      <AyahStudyCard
+        surahNumber={surahNumber}
+        ayahNumber={ayah.ayah}
+        onSelect={cardActions ? handleOpenActions : undefined}
+        preferredFocus={cardActions && tvPreferredFocus}
+      >
         <View style={[styles.ayahHeader, tv && styles.ayahHeaderTv]}>
           <View style={styles.ayahIdentity}>
             <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
@@ -1774,87 +2294,105 @@ const AyahRow = memo(function AyahRow({
             </View>
             <AyahContinuePill ayahNumber={ayah.ayah} highlighted={highlighted} />
           </View>
-          <View style={[styles.ayahActions, tv && styles.ayahActionsTv]}>
-            {ayah.sajda ? (
+          {cardActions ? (
+            ayah.sajda ? (
               <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
-            ) : null}
-            <AyahPlayButton ayahNumber={ayah.ayah} onPlay={handlePlay} />
-            <LabeledIconButton
-              name={
-                hifzStatus === "memorized"
-                  ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-                  : hifzStatus === "review"
-                    ? { ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }
-                    : { ios: "book.closed", android: "menu_book", web: "menu_book" }
-              }
-              label={
-                hifzStatus === "memorized"
-                  ? t("quran.actionMemorized")
-                  : hifzStatus === "review"
-                    ? t("quran.actionReview")
-                    : t("hifz.short")
-              }
-              tintColor={
-                hifzStatus === "memorized"
-                  ? tokens.status.success.color
-                  : hifzStatus === "review"
-                    ? tokens.status.warning.color
-                    : colors.mutedForeground
-              }
-              labelColor={
-                hifzStatus === "memorized"
-                  ? tokens.status.success.color
-                  : hifzStatus === "review"
-                    ? tokens.status.warning.color
-                    : colors.mutedForeground
-              }
-              accessibilityLabel={
-                hifzStatus === "memorized"
-                  ? t("hifz.clear")
-                  : hifzStatus === "review"
-                    ? t("hifz.markMemorized")
-                    : t("hifz.markReview")
-              }
-              accessibilityState={{ selected: !!hifzStatus }}
-              haptic="selection"
-              onPress={handleHifz}
-            />
-            <LabeledIconButton
-              name={
-                isBookmarked
-                  ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
-                  : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
-              }
-              label={isBookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
-              tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
-              labelColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
-              accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
-              accessibilityState={{ selected: isBookmarked }}
-              onPress={handleBookmark}
-            />
-            <LabeledIconButton
-              name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-              label={t("quran.actionTafsir")}
-              tintColor={colors.mutedForeground}
-              labelColor={colors.mutedForeground}
-              accessibilityLabel={t("quran.openTafsir")}
-              onPress={handleTafsir}
-            />
-            <LabeledIconButton
-              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              label={
-                isGesturePending
-                  ? tTv(t, "share.tapToShare", "share.selectToShare")
-                  : t("quran.actionShare")
-              }
-              tintColor={colors.mutedForeground}
-              accessibilityLabel={t("quran.shareAyah")}
-              loading={isSharing}
-              loadingLabel={t("share.preparing")}
-              onPress={handleShare}
-            />
-            <ContentReportButton contentRef={reportRef} />
-          </View>
+            ) : null
+          ) : (
+            <View style={[styles.ayahActions, tv && styles.ayahActionsTv]}>
+              {ayah.sajda ? (
+                <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
+              ) : null}
+              <AyahPlayButton ayahNumber={ayah.ayah} onPlay={handlePlay} />
+              <LabeledIconButton
+                name={
+                  hifzStatus === "memorized"
+                    ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
+                    : hifzStatus === "review"
+                      ? { ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }
+                      : { ios: "book.closed", android: "menu_book", web: "menu_book" }
+                }
+                label={
+                  hifzStatus === "memorized"
+                    ? t("quran.actionMemorized")
+                    : hifzStatus === "review"
+                      ? t("quran.actionReview")
+                      : t("hifz.short")
+                }
+                tintColor={
+                  hifzStatus === "memorized"
+                    ? tokens.status.success.color
+                    : hifzStatus === "review"
+                      ? tokens.status.warning.color
+                      : colors.mutedForeground
+                }
+                labelColor={
+                  hifzStatus === "memorized"
+                    ? tokens.status.success.color
+                    : hifzStatus === "review"
+                      ? tokens.status.warning.color
+                      : colors.mutedForeground
+                }
+                accessibilityLabel={
+                  hifzStatus === "memorized"
+                    ? t("hifz.clear")
+                    : hifzStatus === "review"
+                      ? t("hifz.markMemorized")
+                      : t("hifz.markReview")
+                }
+                accessibilityState={{ selected: !!hifzStatus }}
+                haptic="selection"
+                onPress={handleHifz}
+              />
+              {showPractise ? (
+                <LabeledIconButton
+                  name={{ ios: "mic", android: "mic_none", web: "mic_none" }}
+                  label={t("quranCompanion.entry.practise")}
+                  tintColor={colors.mutedForeground}
+                  labelColor={colors.mutedForeground}
+                  accessibilityLabel={t("quranCompanion.entry.practiseAyah", { n: ayah.ayah })}
+                  onPress={handlePractise}
+                />
+              ) : null}
+              <LabeledIconButton
+                name={
+                  isBookmarked
+                    ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+                    : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
+                }
+                label={isBookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
+                tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+                labelColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+                accessibilityLabel={
+                  isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")
+                }
+                accessibilityState={{ selected: isBookmarked }}
+                onPress={handleBookmark}
+              />
+              <LabeledIconButton
+                name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+                label={t("quran.actionTafsir")}
+                tintColor={colors.mutedForeground}
+                labelColor={colors.mutedForeground}
+                accessibilityLabel={t("quran.openTafsir")}
+                onPress={handleTafsir}
+              />
+              <LabeledIconButton
+                name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                label={
+                  isGesturePending
+                    ? tTv(t, "share.tapToShare", "share.selectToShare")
+                    : t("quran.actionShare")
+                }
+                tintColor={colors.mutedForeground}
+                accessibilityLabel={t("quran.shareAyah")}
+                loading={isSharing}
+                loadingLabel={t("share.preparing")}
+                onPress={handleShare}
+              />
+              <ContentReportButton contentRef={reportRef} />
+            </View>
+          )}
         </View>
 
         <TajweedText
@@ -1916,6 +2454,47 @@ const AyahRow = memo(function AyahRow({
 
 const styles = StyleSheet.create({
   readerRoot: { flex: 1, width: "100%" },
+  readingColumn: {
+    width: "100%",
+    maxWidth: READING_COLUMN_MAX_WIDTH,
+    alignSelf: "center",
+  },
+  navCard: { gap: Spacing.three },
+  navStepsRow: { flexDirection: "row", gap: Spacing.two },
+  navStep: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.two + 2,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+  },
+  navStepNext: { justifyContent: "flex-end" },
+  navStepCopy: { flex: 1, minWidth: 0, gap: 2 },
+  navStepCopyNext: { alignItems: "flex-end" },
+  navJumpRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  navJumpInput: {
+    flex: 1,
+    minWidth: 0,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+    fontSize: 15,
+  },
+  navJumpGo: {
+    minHeight: 38,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  navPlay: { marginTop: 0 },
   tvMappedRoot: { width: "100%", gap: 0 },
   listDetailRoot: {
     flex: 1,
@@ -2041,6 +2620,13 @@ const styles = StyleSheet.create({
   },
   bismillah: { marginBottom: Spacing.two },
   ayahRow: { position: "relative" },
+  ayahCardTv: {
+    width: "100%",
+    padding: Spacing.four,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+  },
   focusRing: {
     ...StyleSheet.absoluteFill,
     borderWidth: 1,

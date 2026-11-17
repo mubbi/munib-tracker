@@ -1,7 +1,9 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnGuideTopicContent } from "@/components/learn-guide/learn-guide-topic-content";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -19,6 +21,8 @@ export default function LaylatAlQadrTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
   const topic = getLaylatAlQadrTopic(topicId);
 
   const detailPath = topic ? `/laylat-al-qadr/${topic.id}` : "/laylat-al-qadr";
@@ -36,6 +40,7 @@ export default function LaylatAlQadrTopicScreen() {
       title={topic?.title ?? t("laylatAlQadr.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/laylat-al-qadr" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -65,16 +70,27 @@ export default function LaylatAlQadrTopicScreen() {
           onAction={() => router.replace("/laylat-al-qadr" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="jannah">
-            <LearnGuideTopicContent
-              topic={topic}
-              ns="laylatAlQadr"
-              sectionTitle={t("laylatAlQadr.title")}
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("laylatAlQadr.title")}
+              basePath="/laylat-al-qadr"
+              topics={getLaylatAlQadrTopics()}
+              currentId={topic.id}
             />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="laylatAlQadr.disclaimer" />
-        </Stagger>
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="jannah">
+              <LearnGuideTopicContent
+                topic={topic}
+                ns="laylatAlQadr"
+                sectionTitle={t("laylatAlQadr.title")}
+              />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="laylatAlQadr.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

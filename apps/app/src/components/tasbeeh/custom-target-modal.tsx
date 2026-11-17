@@ -16,7 +16,7 @@ type CustomTargetModalProps = {
 };
 
 export function CustomTargetModal({ visible, initial, onSubmit, onClose }: CustomTargetModalProps) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const [value, setValue] = useState(initial ? String(initial) : "");
 
@@ -45,10 +45,7 @@ export function CustomTargetModal({ visible, initial, onSubmit, onClose }: Custo
         placeholder={t("tasbeehUi.customPlaceholder")}
         placeholderTextColor={colors.mutedForeground}
         accessibilityLabel={t("tasbeehUi.customPlaceholder")}
-        style={[
-          styles.input,
-          { color: colors.foreground, backgroundColor: colors.muted, borderColor: colors.border },
-        ]}
+        style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
       />
       <View style={styles.actions}>
         <Button label={t("common.cancel")} variant="ghost" onPress={onClose} />

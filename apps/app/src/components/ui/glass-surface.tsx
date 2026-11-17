@@ -12,6 +12,7 @@ import {
 
 import { withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { useBlurTarget } from "@/providers/blur-target-provider";
 
 /**
@@ -83,6 +84,20 @@ export function GlassSurface({
   const resolvedWashOpacity = washOpacity ?? defaultWashOpacity;
   const wash =
     resolvedWashOpacity > 0 ? withAlpha(colors.background, resolvedWashOpacity) : undefined;
+
+  // TV: no live blur / Liquid Glass — content rarely scrolls beneath chrome
+  // there, and per-frame blur is a real cost on Fire TV sticks / Android TV.
+  // A near-opaque scheme surface reads the same from the couch.
+  if (isTV()) {
+    return (
+      <View
+        style={[style, { backgroundColor: withAlpha(colors.background, 0.96) }]}
+        onLayout={onLayout}
+      >
+        {children}
+      </View>
+    );
+  }
 
   if (hasLiquidGlass) {
     return (

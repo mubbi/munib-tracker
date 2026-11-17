@@ -7,6 +7,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
+import { LearnTwoPane, useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { JannahBody } from "@/components/jannah/primitives";
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { LearnProseText } from "@/components/reading-typography-context";
@@ -16,6 +17,7 @@ import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
@@ -46,6 +48,9 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
   const excusedReason = useDayExcused();
   const { setDayExcused } = useTrackerActions();
   const [confirmOpen, setConfirmOpen] = useState(false);
+  // Desktop: evidence + rulings in the main column; the excused toggle and
+  // practical steps stay beside it.
+  const wide = useLearnHubLayout();
   const isActive = excusedReason === reason;
 
   const hadithRefs = useMemo((): JannahHadithRef[] => {
@@ -71,118 +76,152 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
     setConfirmOpen(false);
   };
 
+  const excusedButton = isActive ? (
+    <Button
+      label={t(`${ns}.clearExcused`)}
+      variant="secondary"
+      fullWidth
+      onPress={() => void setDayExcused(null)}
+    />
+  ) : (
+    <Button label={t(`${ns}.markExcused`)} fullWidth onPress={() => setConfirmOpen(true)} />
+  );
+
+  const hadithCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t(`${ns}.hadithTitle`)}
+        icon={{ ios: "text.book.closed.fill", android: "auto_stories", web: "auto_stories" }}
+      />
+      <View style={styles.evidenceList}>
+        {hadithRefs.map((ref, index) => (
+          <View
+            key={`${ref.collection}-${ref.citation}`}
+            style={[styles.hadithQuote, { backgroundColor: colors.muted }]}
+          >
+            <View style={styles.hadithMeta}>
+              <ThemedText
+                type="caption"
+                style={{ color: colors.accent, flex: 1, flexShrink: 1, minWidth: 0 }}
+              >
+                {t(`${ns}.hadith.${index}.reference`)}
+              </ThemedText>
+              <View style={styles.hadithMetaActions}>
+                {ref.grade ? (
+                  <Pill
+                    label={t(`jannah.grade.${ref.grade}`)}
+                    compact
+                    color={tokens.status.success.color}
+                    background={tokens.status.success.soft}
+                  />
+                ) : null}
+                <HadithCitationBookmarkButton collection={ref.collection} citation={ref.citation} />
+              </View>
+            </View>
+            <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
+              “{ref.excerpt}”
+            </LearnProseText>
+          </View>
+        ))}
+      </View>
+    </Card>
+  );
+
+  const obligationsCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t(`${ns}.obligationsTitle`)}
+        icon={{
+          ios: "checklist",
+          android: "checklist",
+          web: "checklist",
+        }}
+      />
+      <View style={styles.steps}>
+        {obligations.map((step, index) => (
+          // TV: text-only steps are D-pad reading stops so the page scrolls.
+          <TvReadableBlock key={step}>
+            <View style={styles.stepRow}>
+              <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
+                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                  {index + 1}
+                </ThemedText>
+              </View>
+              <LearnProseText themeColor="mutedForeground" style={styles.stepText}>
+                {step}
+              </LearnProseText>
+            </View>
+          </TvReadableBlock>
+        ))}
+      </View>
+    </Card>
+  );
+
+  const extraSections = config.extraSections?.map((sectionKey) => (
+    <Card key={sectionKey} padding="three">
+      <SectionHeader
+        title={t(`${ns}.${sectionKey}.title`)}
+        icon={
+          EXTRA_SECTION_ICONS[sectionKey] ?? {
+            ios: "info.circle",
+            android: "info",
+            web: "info",
+          }
+        }
+      />
+      <View style={styles.sectionBody}>
+        <JannahBody
+          uniform
+          paragraphs={t(`${ns}.${sectionKey}.body`).split("\n\n").filter(Boolean)}
+        />
+      </View>
+    </Card>
+  ));
+
+  const disclaimer = (
+    <TvReadableBlock>
+      <View style={[styles.disclaimer, { backgroundColor: tokens.status.info.soft }]}>
+        <SymbolView
+          name={{ ios: "info.circle.fill", android: "info", web: "info" }}
+          size={16}
+          tintColor={tokens.status.info.color}
+        />
+        <ThemedText type="caption" style={[styles.disclaimerText, { color: colors.foreground }]}>
+          {t(`${ns}.disclaimer`)}
+        </ThemedText>
+      </View>
+    </TvReadableBlock>
+  );
+
   return (
     <>
-      <Stagger>
-        {isActive ? (
-          <Button
-            label={t(`${ns}.clearExcused`)}
-            variant="secondary"
-            fullWidth
-            onPress={() => void setDayExcused(null)}
+      {wide.twoPane ? (
+        <Stagger>
+          <LearnTwoPane
+            main={
+              <>
+                {hadithCard}
+                {extraSections}
+              </>
+            }
+            aside={
+              <>
+                {excusedButton}
+                {obligationsCard}
+              </>
+            }
           />
-        ) : (
-          <Button label={t(`${ns}.markExcused`)} fullWidth onPress={() => setConfirmOpen(true)} />
-        )}
-
-        <Card padding="three">
-          <SectionHeader
-            title={t(`${ns}.hadithTitle`)}
-            icon={{ ios: "text.book.closed.fill", android: "auto_stories", web: "auto_stories" }}
-          />
-          <View style={styles.evidenceList}>
-            {hadithRefs.map((ref, index) => (
-              <View
-                key={`${ref.collection}-${ref.citation}`}
-                style={[styles.hadithQuote, { backgroundColor: colors.muted }]}
-              >
-                <View style={styles.hadithMeta}>
-                  <ThemedText
-                    type="caption"
-                    style={{ color: colors.accent, flex: 1, flexShrink: 1, minWidth: 0 }}
-                  >
-                    {t(`${ns}.hadith.${index}.reference`)}
-                  </ThemedText>
-                  <View style={styles.hadithMetaActions}>
-                    {ref.grade ? (
-                      <Pill
-                        label={t(`jannah.grade.${ref.grade}`)}
-                        compact
-                        color={tokens.status.success.color}
-                        background={tokens.status.success.soft}
-                      />
-                    ) : null}
-                    <HadithCitationBookmarkButton
-                      collection={ref.collection}
-                      citation={ref.citation}
-                    />
-                  </View>
-                </View>
-                <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
-                  “{ref.excerpt}”
-                </LearnProseText>
-              </View>
-            ))}
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t(`${ns}.obligationsTitle`)}
-            icon={{
-              ios: "checklist",
-              android: "checklist",
-              web: "checklist",
-            }}
-          />
-          <View style={styles.steps}>
-            {obligations.map((step, index) => (
-              <View key={step} style={styles.stepRow}>
-                <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
-                  <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                    {index + 1}
-                  </ThemedText>
-                </View>
-                <LearnProseText themeColor="mutedForeground" style={styles.stepText}>
-                  {step}
-                </LearnProseText>
-              </View>
-            ))}
-          </View>
-        </Card>
-
-        {config.extraSections?.map((sectionKey) => (
-          <Card key={sectionKey} padding="three">
-            <SectionHeader
-              title={t(`${ns}.${sectionKey}.title`)}
-              icon={
-                EXTRA_SECTION_ICONS[sectionKey] ?? {
-                  ios: "info.circle",
-                  android: "info",
-                  web: "info",
-                }
-              }
-            />
-            <View style={styles.sectionBody}>
-              <JannahBody
-                uniform
-                paragraphs={t(`${ns}.${sectionKey}.body`).split("\n\n").filter(Boolean)}
-              />
-            </View>
-          </Card>
-        ))}
-
-        <View style={[styles.disclaimer, { backgroundColor: tokens.status.info.soft }]}>
-          <SymbolView
-            name={{ ios: "info.circle.fill", android: "info", web: "info" }}
-            size={16}
-            tintColor={tokens.status.info.color}
-          />
-          <ThemedText type="caption" style={[styles.disclaimerText, { color: colors.foreground }]}>
-            {t(`${ns}.disclaimer`)}
-          </ThemedText>
-        </View>
-      </Stagger>
+          {disclaimer}
+        </Stagger>
+      ) : (
+        <Stagger>
+          {excusedButton}
+          {hadithCard}
+          {obligationsCard}
+          {extraSections}
+          {disclaimer}
+        </Stagger>
+      )}
 
       <ConfirmDialog
         visible={confirmOpen}

@@ -2,9 +2,11 @@ import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { AqeedahTopicAside } from "@/components/aqeedah/aqeedah-aside";
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -24,6 +26,7 @@ import {
 
 export default function AqeedahProgressScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   useEnsureAqeedahProgressLoaded();
   const completedCount = useAqeedahCompletedCount();
@@ -48,68 +51,71 @@ export default function AqeedahProgressScreen() {
       title={t("aqeedah.progressTitle")}
       subtitle={t("aqeedah.progressSubtitle")}
       onBack={() => goBackOrReplace(router, "/aqeedah" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/aqeedah/progress" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="warning">{t("aqeedah.progressIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<AqeedahTopicAside />}>
+          <Stagger>
+            <JannahCallout tone="warning">{t("aqeedah.progressIntro")}</JannahCallout>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("aqeedah.lessonsTitle")}
-              icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("aqeedah.lessonsHint")}
-            </ThemedText>
-            <View style={styles.lessonRow}>
-              <ThemedText type="title">
-                {t("aqeedah.lessonsCount", {
-                  completed: snapshot.lessonsCompleted,
-                  total: snapshot.lessonsTotal,
-                })}
+            <Card padding="three">
+              <SectionHeader
+                title={t("aqeedah.lessonsTitle")}
+                icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("aqeedah.lessonsHint")}
               </ThemedText>
-              <ProgressBar value={snapshot.lessonProgress} />
-            </View>
-          </Card>
+              <View style={styles.lessonRow}>
+                <ThemedText type="title">
+                  {t("aqeedah.lessonsCount", {
+                    completed: snapshot.lessonsCompleted,
+                    total: snapshot.lessonsTotal,
+                  })}
+                </ThemedText>
+                <ProgressBar value={snapshot.lessonProgress} />
+              </View>
+            </Card>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("aqeedah.exploreTitle")}
-              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("aqeedah.progressExploreHint")}
-            </ThemedText>
-            <ContentLinkList
-              style={styles.links}
-              links={[
-                {
-                  label: t("aqeedah.sixArticlesTitle"),
-                  onPress: () =>
-                    router.push({
-                      pathname: "/aqeedah/[topic]",
-                      params: { topic: "six-articles" },
-                    }),
-                },
-                {
-                  label: t("aqeedah.tawheedTitle"),
-                  onPress: () =>
-                    router.push({
-                      pathname: "/aqeedah/[topic]",
-                      params: { topic: "tawheed-explained" },
-                    }),
-                },
-                {
-                  label: t("aqeedah.glossaryTitle"),
-                  onPress: () => router.push("/aqeedah/glossary" as Href),
-                },
-              ]}
-            />
-          </Card>
+            <Card padding="three">
+              <SectionHeader
+                title={t("aqeedah.exploreTitle")}
+                icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("aqeedah.progressExploreHint")}
+              </ThemedText>
+              <ContentLinkList
+                style={styles.links}
+                links={[
+                  {
+                    label: t("aqeedah.sixArticlesTitle"),
+                    onPress: () =>
+                      router.push({
+                        pathname: "/aqeedah/[topic]",
+                        params: { topic: "six-articles" },
+                      }),
+                  },
+                  {
+                    label: t("aqeedah.tawheedTitle"),
+                    onPress: () =>
+                      router.push({
+                        pathname: "/aqeedah/[topic]",
+                        params: { topic: "tawheed-explained" },
+                      }),
+                  },
+                  {
+                    label: t("aqeedah.glossaryTitle"),
+                    onPress: () => router.push("/aqeedah/glossary" as Href),
+                  },
+                ]}
+              />
+            </Card>
 
-          <JannahDisclaimer textKey="aqeedah.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="aqeedah.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );

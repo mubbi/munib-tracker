@@ -10,8 +10,10 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import {
   isWhiteDayDateString,
@@ -90,7 +92,7 @@ export function WhiteDaysTrackerSection({ date }: WhiteDaysTrackerSectionProps) 
                 onPress={() => void toggle(item.id, monthKey)}
                 scaleTo={0.98}
                 haptic="selection"
-                style={styles.rowMain}
+                style={[styles.rowMain, isTV() ? styles.rowMainTv : null]}
               >
                 <SymbolView
                   name={
@@ -128,7 +130,7 @@ export function WhiteDaysTrackerSection({ date }: WhiteDaysTrackerSectionProps) 
         accessibilityRole="link"
         onPress={() => router.push("/white-days" as Href)}
         scaleTo={0.98}
-        style={styles.learnLink}
+        style={[styles.learnLink, isTV() ? styles.learnLinkTv : null]}
       >
         <ThemedText type="smallBold" style={{ color: colors.accent }}>
           {t("tracker.whiteDays.learnMore")}
@@ -155,11 +157,23 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.one,
     minWidth: 0,
   },
+  /** TV: a full-row Select target with room for the focus ring. */
+  rowMainTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
+  },
   rowText: { flex: 1, gap: 2, minWidth: 0 },
   learnLink: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
     marginTop: Spacing.three,
+  },
+  learnLinkTv: {
+    alignSelf: "flex-start",
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
   },
 });

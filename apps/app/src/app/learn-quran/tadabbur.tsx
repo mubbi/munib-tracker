@@ -3,12 +3,19 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import {
+  LearnGrid,
+  LearnSplitLayout,
+  useLearnWideLayout,
+} from "@/components/learn-guide/learn-wide-layout";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -20,6 +27,7 @@ import {
 
 export default function LearnQuranTadabburScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   const { ready: contentReady } = useEnsureContent(
     ensureQuranGuideContent,
@@ -35,32 +43,39 @@ export default function LearnQuranTadabburScreen() {
       title={t("learnQuran.tadabburTitle")}
       subtitle={t("learnQuran.tadabburSubtitle")}
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-quran/tadabbur" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="info">{t("learnQuran.tadabburIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<QuranGuideTopicAside currentId="tadabbur" />}>
+          <Stagger>
+            <JannahCallout tone="info">{t("learnQuran.tadabburIntro")}</JannahCallout>
 
-          <LearnReadingChrome surface="learn_quran">
-            {prompts.map((prompt) => (
-              <Card key={prompt.id} padding="three" style={styles.card}>
-                <LearnProseText proseRole="title">{prompt.question}</LearnProseText>
-                <LearnProseText proseRole="caption" themeColor="mutedForeground">
-                  {prompt.hint}
-                </LearnProseText>
-              </Card>
-            ))}
+            <LearnReadingChrome surface="learn_quran">
+              <LearnGrid maxColumns={2} gap={Spacing.four} passthrough>
+                {prompts.map((prompt) => (
+                  <TvReadableBlock key={prompt.id}>
+                    <Card padding="three" style={styles.card}>
+                      <LearnProseText proseRole="title">{prompt.question}</LearnProseText>
+                      <LearnProseText proseRole="caption" themeColor="mutedForeground">
+                        {prompt.hint}
+                      </LearnProseText>
+                    </Card>
+                  </TvReadableBlock>
+                ))}
+              </LearnGrid>
 
-            <Button
-              label={t("learnQuran.openJournal")}
-              variant="secondary"
-              fullWidth
-              onPress={() => router.push("/journal" as Href)}
-            />
-          </LearnReadingChrome>
+              <Button
+                label={t("learnQuran.openJournal")}
+                variant="secondary"
+                fullWidth
+                onPress={() => router.push("/journal" as Href)}
+              />
+            </LearnReadingChrome>
 
-          <JannahDisclaimer textKey="learnQuran.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );

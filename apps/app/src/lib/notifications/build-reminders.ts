@@ -102,6 +102,8 @@ const PRIORITY = {
   acceptanceHour: 83,
   /** White Days fasting — morning of Hijri 13–15. */
   whiteDays: 86,
+  /** Qur'an practice revision — lowest: a full budget drops it before any Salah alert. */
+  quranRevision: 90,
 } as const;
 
 /** Registered adhan sound file (see the `sounds` array in `app.json`). */
@@ -297,6 +299,46 @@ function pushDailyReminder(
   });
 }
 
+/**
+ * Qur'an practice revision reminder (§10): a dated row per day in the schedule
+ * horizon with ayahs due, at 09:00 local. Never names the ayah — only the count.
+ */
+function pushQuranRevisionReminders(
+  reminders: BuiltReminder[],
+  location: StoredLocation,
+  now: Date,
+  options: BuildRemindersOptions,
+): void {
+  if (!options.revisionReminderEnabled || !options.revisionDueByDay) return;
+  const { hour, minute } = parseHhMm("09:00");
+  const anchor = prayerDayAnchor(now, location.timeZone);
+  for (let offset = 0; offset < SCHEDULE_DAYS_AHEAD; offset += 1) {
+    const day = shiftPrayerDay(anchor, offset);
+    const dayKey = `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
+    const count = options.revisionDueByDay[dayKey] ?? 0;
+    if (count <= 0) continue;
+    const fireAt = wallClockInTimeZoneToDate(
+      day.getFullYear(),
+      day.getMonth() + 1,
+      day.getDate(),
+      hour,
+      minute,
+      location.timeZone,
+    );
+    if (fireAt.getTime() <= now.getTime() - 60_000) continue;
+    reminders.push({
+      id: `quran-revision:${dayKey}`,
+      fireAt,
+      title: i18n.t("quranCompanion.reminder.title"),
+      body: i18n.t("quranCompanion.reminder.body", { count }),
+      channelId: "zikr",
+      repeat: "date",
+      route: "/quran/revision",
+      priority: PRIORITY.quranRevision,
+    });
+  }
+}
+
 /** Next Friday (or today if still upcoming) — single DATE, refreshed on reschedule. */
 function pushFridayReminder(
   reminders: BuiltReminder[],
@@ -470,6 +512,10 @@ export function isQazaReminderId(id: string): boolean {
 }
 
 export type BuildRemindersOptions = {
+  /** Qur'an practice: the revision reminder toggle (lives in practice prefs, not UserPreferences). */
+  revisionReminderEnabled?: boolean;
+  /** Qur'an practice: local day key (YYYY-MM-DD) → ayahs due on or before that day. */
+  revisionDueByDay?: Record<string, number>;
   /**
    * When false, the daily Qaza nudge is omitted even if the preference is on.
    * Defaults to false so empty/cleared debt never schedules a make-up reminder.
@@ -568,6 +614,8 @@ export function buildReminders(
   pushAcceptanceHourReminders(reminders, location, now, n.friday);
   // White Days fasting — morning of each upcoming Hijri 13–15.
   pushWhiteDaysReminders(reminders, location, now, n.whiteDays);
+  // Qur'an revision — 09:00 on days with ayahs due (opt-in, practice prefs).
+  pushQuranRevisionReminders(reminders, location, now, options);
 
   // Drop reminders whose fire time has already passed (DATE only; daily uses next slot).
   const upcoming = reminders.filter(

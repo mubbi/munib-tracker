@@ -115,4 +115,25 @@ describe("DEEP_LINK_PATHS catalog", () => {
       ]),
     );
   });
+
+  it("includes the five Qur'an practice routes", () => {
+    expect(DEEP_LINK_PATHS).toEqual(
+      expect.arrayContaining([
+        "/quran/practice",
+        "/quran/practice/session",
+        "/quran/practice/summary",
+        "/quran/revision",
+        "/settings/quran-practice",
+      ]),
+    );
+  });
+});
+
+describe("Qur'an practice links", () => {
+  it("builds a practice session link with its passage", () => {
+    expect(appLink.quranPracticeSession(1, 2, 4).path).toBe(
+      "/quran/practice/session?surah=1&from=2&to=4",
+    );
+    expect(appLink.quranRevision().path).toBe("/quran/revision");
+  });
 });

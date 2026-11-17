@@ -12,10 +12,14 @@ import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { isPdfMime } from "@/lib/attachments/attachment-mime";
 import { openAttachmentExternally } from "@/lib/attachments/open-attachment-externally";
-import { useChevronBack, useChevronForward } from "@/lib/rtl";
+import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
+import { isRTL, useChevronBack, useChevronForward } from "@/lib/rtl";
 import { userMediaContentUrl } from "@/lib/user-media-api";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -193,6 +197,7 @@ export function CustomAdhkarImageGallery({
   const chevronForward = useChevronForward();
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+  const tv = isTV();
 
   const resolved = useMemo(
     () => resolveViewerItems(images, session?.accessToken),
@@ -215,6 +220,18 @@ export function CustomAdhkarImageGallery({
     );
   }, [resolved.length]);
 
+  // Desktop web: Left/Right arrows page through the open viewer (mirrored in RTL).
+  useWebScreenKeyHandler(
+    (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return undefined;
+      const forward = (event.key === "ArrowRight") !== isRTL();
+      if (forward) showNext();
+      else showPrev();
+      return true;
+    },
+    viewerIndex !== null && resolved.length > 1,
+  );
+
   const openPdfExternally = useCallback(
     async (item: ViewerItem) => {
       try {
@@ -235,7 +252,8 @@ export function CustomAdhkarImageGallery({
   if (resolved.length === 0) return null;
 
   const active = viewerIndex !== null ? resolved[viewerIndex] : null;
-  const thumbSize = compact ? 72 : 96;
+  // TV: larger 10-foot thumbs; tvDp keeps tvOS (1920pt) the same physical size.
+  const thumbSize = tv ? tvDp(compact ? 96 : 120) : compact ? 72 : 96;
   const activeIsPdf = active ? isPdfMime(active.mimeType) : false;
   const stageHeight = Math.max(240, windowHeight - (activeIsPdf ? 180 : 140));
 
@@ -297,7 +315,17 @@ export function CustomAdhkarImageGallery({
 
           {active ? (
             <View style={[styles.viewerStage, { height: stageHeight }]}>
-              {activeIsPdf ? (
+              {activeIsPdf && tv ? (
+                // TV: no WebView (pdf.js) and no external opener — explain instead
+                // of rendering the empty WebView stub.
+                <ThemedText type="small" style={[styles.viewerCounter, styles.viewerTvNote]}>
+                  {tTv(
+                    t,
+                    "customAdhkar.attachments.tvUnavailable",
+                    "customAdhkar.attachments.pdfTvUnavailable",
+                  )}
+                </ThemedText>
+              ) : activeIsPdf ? (
                 <PdfPreview
                   key={active.key}
                   uri={active.uri}
@@ -318,11 +346,14 @@ export function CustomAdhkarImageGallery({
             </View>
           ) : null}
 
-          <ThemedText type="caption" style={styles.viewerHint}>
-            {activeIsPdf
-              ? t("customAdhkar.attachments.pdfHint")
-              : t("customAdhkar.attachments.zoomHint")}
-          </ThemedText>
+          {/* TV: pinch / pan / double-tap and PDF zoom don't exist on a remote. */}
+          {tv ? null : (
+            <ThemedText type="caption" style={styles.viewerHint}>
+              {activeIsPdf
+                ? t("customAdhkar.attachments.pdfHint")
+                : t("customAdhkar.attachments.zoomHint")}
+            </ThemedText>
+          )}
 
           {resolved.length > 1 ? (
             <View style={styles.viewerNav}>
@@ -345,7 +376,7 @@ export function CustomAdhkarImageGallery({
             </View>
           ) : null}
 
-          {active && activeIsPdf ? (
+          {active && activeIsPdf && !tv ? (
             <View style={styles.pdfActions}>
               <Button
                 label={t("customAdhkar.attachments.openPdf")}
@@ -390,6 +421,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: Spacing.two,
+  },
+  viewerTvNote: {
+    textAlign: "center",
+    paddingHorizontal: Spacing.five,
   },
   viewerHint: {
     color: "rgba(255,255,255,0.72)",

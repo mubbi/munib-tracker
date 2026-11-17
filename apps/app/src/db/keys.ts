@@ -104,6 +104,21 @@ export const DB_KEYS = {
   sadaqahGoals: `${PREFIX}/sadaqah_goals`,
   // Show/hide transliteration + translation on dua/zikr/durood reading surfaces — cloud-synced.
   readingTextVisibility: `${PREFIX}/reading_text_visibility`,
+  // Qur'an practice (recitation companion) prefs — cloud-synced, LWW.
+  quranCompanionPrefs: `${PREFIX}/quran_companion_prefs`,
+  // Last 30 practice session summaries + a clearedAt marker — cloud-synced, custom merge.
+  quranPracticeSessions: `${PREFIX}/quran_practice_sessions`,
+  // Per-ayah revision ladder records — cloud-synced, custom merge.
+  quranMemorization: `${PREFIX}/quran_memorization`,
+  // Manifest of the downloaded on-device listener. The files live in the documents
+  // directory (native) / Cache Storage (web); wipe deletes them explicitly.
+  quranRecitationModel: `${PREFIX}/quran_recitation_model`,
+  // Phase 6: the Quran Lab model version + which drill heads its calibration
+  // validates. The model files live in the SDK's own storage.
+  quranPronunciationModel: `${PREFIX}/quran_pronunciation_model`,
+  // "New" badges: when this device first showed each new feature (starts its
+  // 15-day window) and whether it was added to a customised home grid.
+  newFeaturesSeen: `${PREFIX}/new_features_seen`,
 } as const;
 
 /**
@@ -189,6 +204,12 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   fidyahCalculator: "userData",
   sadaqahGoals: "userData",
   readingTextVisibility: "userData",
+  quranCompanionPrefs: "userData",
+  quranPracticeSessions: "userData",
+  quranMemorization: "userData",
+  quranRecitationModel: "deviceLocal",
+  quranPronunciationModel: "deviceLocal",
+  newFeaturesSeen: "deviceLocal",
 };
 
 function keysMatching(classes: readonly KeyPersistence[]): string[] {

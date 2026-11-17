@@ -1,11 +1,11 @@
 import { type ComponentType, forwardRef, type ReactNode, type Ref } from "react";
-import { View, type ViewProps, type ViewStyle } from "react-native";
+import { type StyleProp, View, type ViewProps, type ViewStyle } from "react-native";
 
 import { isTV } from "@/lib/platform/is-tv";
 
 type TvFocusGuideProps = ViewProps & {
   children?: ReactNode;
-  style?: ViewStyle | ViewStyle[];
+  style?: StyleProp<ViewStyle>;
   /**
    * Prefer this guide when the screen gains focus. Also restores the last focused
    * child on revisit (react-native-tvos focus memory).

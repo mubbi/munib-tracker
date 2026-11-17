@@ -4,6 +4,12 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+  useLearnTileStyle,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -15,11 +21,13 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { PrayerRepository } from "@/db/repositories/prayer-repository";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildJannahJourney, type JannahJourneyRow } from "@/lib/jannah-journey";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import {
   type JannahIntentionId,
@@ -61,7 +69,11 @@ function IntentionRow({ id }: { id: JannahIntentionId }) {
       accessibilityLabel={t(`jannah.intentions.${id}`)}
       onPress={() => void toggle(id)}
       haptic="selection"
-      style={[styles.intentionRow, { backgroundColor: colors.muted }]}
+      style={[
+        styles.intentionRow,
+        isTV() ? styles.rowTv : styles.rowFill,
+        { backgroundColor: colors.muted },
+      ]}
     >
       <IconWell
         icon={INTENTION_ICONS[id]}
@@ -94,8 +106,18 @@ function IntentionRow({ id }: { id: JannahIntentionId }) {
   );
 }
 
-function MetricRow({ row, onPress }: { row: JannahJourneyRow; onPress: () => void }) {
+function MetricRow({
+  row,
+  onPress,
+  tiled,
+}: {
+  row: JannahJourneyRow;
+  onPress: () => void;
+  /** Wide grid cell: tile chrome instead of the hairline separator. */
+  tiled: boolean;
+}) {
   const { t } = useTranslation();
+  const tileStyle = useLearnTileStyle();
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
 
@@ -105,7 +127,12 @@ function MetricRow({ row, onPress }: { row: JannahJourneyRow; onPress: () => voi
       haptic="light"
       accessibilityRole="button"
       accessibilityLabel={`${t(row.labelKey)}. ${row.value}`}
-      style={[styles.metricRow, { borderTopColor: tokens.hairline }]}
+      style={[
+        styles.metricRow,
+        isTV() && [styles.rowTv, styles.metricRowTv],
+        { borderTopColor: tokens.hairline },
+        tiled ? [tileStyle, styles.metricTile] : null,
+      ]}
     >
       <IconWell icon={METRIC_ICONS[row.id]} tint={colors.accent} well={40} size={18} />
       <View style={styles.metricCopy}>
@@ -131,6 +158,9 @@ export default function JannahJourneyScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   useEnsureJannahIntentionsLoaded();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: metrics and intentions lay out two per row.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 2 });
 
   const summary = useDailySummary();
   const streak = useStreak();
@@ -178,6 +208,7 @@ export default function JannahJourneyScreen() {
       title={t("jannah.journeyTitle")}
       subtitle={t("jannah.journeySubtitle")}
       onBack={() => goBackOrReplace(router, "/jannah")}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jannah/journey" />
       <Stagger>
@@ -200,11 +231,16 @@ export default function JannahJourneyScreen() {
               </ThemedText>
             </View>
           ) : null}
-          <View style={styles.rows}>
+          <LearnColumnsGrid columns={columns} stackGap={0} style={styles.rows}>
             {snapshot.rows.map((row) => (
-              <MetricRow key={row.id} row={row} onPress={() => router.push(row.route)} />
+              <MetricRow
+                key={row.id}
+                row={row}
+                tiled={columns > 1}
+                onPress={() => router.push(row.route)}
+              />
             ))}
-          </View>
+          </LearnColumnsGrid>
         </Card>
 
         <Card padding="three">
@@ -215,11 +251,11 @@ export default function JannahJourneyScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.intentionsHint}>
             {t("jannah.intentionsHint")}
           </ThemedText>
-          <View style={styles.intentions}>
+          <LearnColumnsGrid columns={columns} style={styles.intentions}>
             {INTENTION_IDS.map((id) => (
               <IntentionRow key={id} id={id} />
             ))}
-          </View>
+          </LearnColumnsGrid>
         </Card>
 
         <JannahDisclaimer textKey="jannah.journeyDisclaimer" />
@@ -244,6 +280,9 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
     borderTopWidth: StyleSheet.hairlineWidth,
   },
+  metricTile: { borderTopWidth: 0 },
+  // TV: inset so the focus ring does not sit on the icon / value text.
+  metricRowTv: { paddingHorizontal: Spacing.two, borderRadius: Radius.md },
   metricCopy: { flex: 1, gap: Spacing.one },
   metricHead: {
     flexDirection: "row",
@@ -252,7 +291,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   intentionsHint: { marginTop: Spacing.one, lineHeight: 18 },
-  intentions: { marginTop: Spacing.three, gap: Spacing.two },
+  intentions: { marginTop: Spacing.three },
   intentionRow: {
     flexDirection: "row",
     gap: Spacing.three,
@@ -262,4 +301,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   intentionCopy: { flex: 1, gap: Spacing.half },
+  rowTv: { minHeight: TvLayout.minFocusTarget },
+  // Grid cells: fill the row height (inert in the phone stack).
+  rowFill: { flexGrow: 1 },
 });

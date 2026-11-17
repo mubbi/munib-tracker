@@ -17,8 +17,11 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { type LocationSearchResult, searchLocations } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -57,6 +60,7 @@ export default function LocationScreen() {
   const status = useLocationStatus();
   const actions = useLocationActions();
   const tv = isTV();
+  const { isListDetail } = useLargeScreenLayout();
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<LocationSearchResult[]>([]);
@@ -137,183 +141,206 @@ export default function LocationScreen() {
         ? t("location.gpsBadge")
         : t("location.defaultBadge");
 
+  const currentCard = (
+    <Card>
+      <View style={styles.currentHeader}>
+        <View style={[styles.pin, { backgroundColor: tokens.accentSoft }]}>
+          <SymbolView
+            name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
+            size={18}
+            tintColor={colors.accent}
+          />
+        </View>
+        <View style={styles.currentText}>
+          <ThemedText type="smallBold" numberOfLines={1}>
+            {location.label}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("location.currentTitle")}
+          </ThemedText>
+        </View>
+        <Pill label={sourceBadge} color={colors.accent} background={tokens.accentSoft} />
+      </View>
+
+      {!tv ? (
+        <Button
+          label={locating ? t("location.locating") : t("location.useCurrent")}
+          icon={{ ios: "location.circle.fill", android: "my_location", web: "my_location" }}
+          variant="secondary"
+          fullWidth
+          disabled={locating}
+          onPress={onUseCurrent}
+          style={styles.useCurrent}
+        />
+      ) : null}
+      {!tv && locating ? (
+        <View style={styles.gpsStatus}>
+          <ActivityIndicator size="small" color={colors.accent} />
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("location.locating")}
+          </ThemedText>
+        </View>
+      ) : !tv && gpsError ? (
+        <ThemedText type="caption" style={[styles.gpsError, { color: tokens.status.danger.color }]}>
+          {gpsError === "denied" ? t("location.permissionDenied") : t("location.deviceError")}
+        </ThemedText>
+      ) : null}
+    </Card>
+  );
+
+  const searchCard = (
+    <Card padding="three">
+      <View style={[styles.searchBox, tokens.inputSurface]}>
+        <SymbolView
+          name={{ ios: "magnifyingglass", android: "search", web: "search" }}
+          size={17}
+          tintColor={colors.mutedForeground}
+        />
+        <TextInput
+          value={query}
+          onChangeText={setQuery}
+          placeholder={t("location.searchPlaceholder")}
+          placeholderTextColor={colors.mutedForeground}
+          accessibilityLabel={t("location.searchLabel")}
+          autoFocus={!tv}
+          autoCorrect={false}
+          returnKeyType="search"
+          style={[styles.input, tv && styles.inputTv, { color: colors.foreground }]}
+        />
+        {searching ? <ActivityIndicator size="small" color={colors.accent} /> : null}
+      </View>
+
+      {showEmpty ? (
+        <EmptyState
+          icon={{ ios: "mappin.slash", android: "wrong_location", web: "wrong_location" }}
+          title={t("location.noResultsTitle")}
+          description={t("location.noResultsDesc")}
+        />
+      ) : results.length > 0 ? (
+        <View style={styles.list}>
+          {results.map((place) => {
+            const selected = place.label === location.label;
+            const subtitle = [place.admin, place.country].filter(Boolean).join(", ");
+            return (
+              <PressableScale
+                key={place.id}
+                haptic="light"
+                accessibilityRole="button"
+                accessibilityLabel={place.label}
+                accessibilityState={{ selected }}
+                onPress={() => void onSelect(place)}
+                style={[
+                  styles.row,
+                  tv ? { minHeight: TvLayout.minFocusTarget } : null,
+                  { backgroundColor: colors.muted },
+                ]}
+              >
+                <View style={styles.rowText}>
+                  <ThemedText type="smallBold" numberOfLines={1}>
+                    {place.name}
+                  </ThemedText>
+                  {subtitle ? (
+                    <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                      {subtitle}
+                    </ThemedText>
+                  ) : null}
+                </View>
+                <SymbolView
+                  name={
+                    selected
+                      ? {
+                          ios: "checkmark.circle.fill",
+                          android: "check_circle",
+                          web: "check_circle",
+                        }
+                      : chevronForward
+                  }
+                  size={selected ? 20 : 15}
+                  tintColor={selected ? colors.accent : colors.mutedForeground}
+                />
+              </PressableScale>
+            );
+          })}
+        </View>
+      ) : (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+          {tTv(t, "location.hint", "location.hintTv")}
+        </ThemedText>
+      )}
+    </Card>
+  );
+
+  const calcCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("location.calculationTitle")}
+        icon={{ ios: "gearshape.fill", android: "tune", web: "tune" }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
+        {t("location.methodHint")}
+      </ThemedText>
+      <View style={styles.calcRow}>
+        <SettingsRow
+          icon={{ ios: "globe", android: "public", web: "public" }}
+          title={t("location.method")}
+          value={t(`location.methods.${location.method}`)}
+          onPress={() => setMethodSheetOpen(true)}
+        />
+      </View>
+
+      <ThemedText type="smallBold" style={styles.madhabLabel}>
+        {t("location.madhab")}
+      </ThemedText>
+      <SegmentedControl<MadhabKey>
+        options={[
+          { id: "shafi", label: t("location.madhabShafi") },
+          { id: "hanafi", label: t("location.madhabHanafi") },
+        ]}
+        value={location.madhab}
+        onChange={(key) => void onSelectMadhab(key)}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
+        {t("location.madhabHint")}
+      </ThemedText>
+
+      <View style={styles.calcRow}>
+        <SettingsRow
+          icon={{ ios: "slider.horizontal.3", android: "tune", web: "tune" }}
+          title={t("prayerTuning.title")}
+          value={t("prayerTuning.rowValue")}
+          onPress={() => router.push("/settings/prayer-tuning")}
+        />
+      </View>
+    </Card>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("location.eyebrow")}
       title={t("location.title")}
-      subtitle={t("location.subtitle")}
+      subtitle={tTv(t, "location.subtitle", "location.subtitleTv")}
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/location" />
-      <Card>
-        <View style={styles.currentHeader}>
-          <View style={[styles.pin, { backgroundColor: tokens.accentSoft }]}>
-            <SymbolView
-              name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
-              size={18}
-              tintColor={colors.accent}
-            />
+      {tv || isListDetail ? (
+        // TV: place + search on the start column, calculation settings beside it,
+        // so the landscape width is used and D-pad Right jumps between them.
+        // Wide web / tablets reuse the same two columns (search stays in reach of
+        // the results; calculation settings don't sink below the fold).
+        <View style={styles.tvColumns}>
+          <View style={styles.tvColumn}>
+            {currentCard}
+            {searchCard}
           </View>
-          <View style={styles.currentText}>
-            <ThemedText type="smallBold" numberOfLines={1}>
-              {location.label}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("location.currentTitle")}
-            </ThemedText>
-          </View>
-          <Pill label={sourceBadge} color={colors.accent} background={tokens.accentSoft} />
+          <View style={styles.tvColumn}>{calcCard}</View>
         </View>
-
-        {!tv ? (
-          <Button
-            label={locating ? t("location.locating") : t("location.useCurrent")}
-            icon={{ ios: "location.circle.fill", android: "my_location", web: "my_location" }}
-            variant="secondary"
-            fullWidth
-            disabled={locating}
-            onPress={onUseCurrent}
-            style={styles.useCurrent}
-          />
-        ) : null}
-        {!tv && locating ? (
-          <View style={styles.gpsStatus}>
-            <ActivityIndicator size="small" color={colors.accent} />
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("location.locating")}
-            </ThemedText>
-          </View>
-        ) : !tv && gpsError ? (
-          <ThemedText
-            type="caption"
-            style={[styles.gpsError, { color: tokens.status.danger.color }]}
-          >
-            {gpsError === "denied" ? t("location.permissionDenied") : t("location.deviceError")}
-          </ThemedText>
-        ) : null}
-      </Card>
-
-      <Card padding="three">
-        <View style={[styles.searchBox, { backgroundColor: colors.muted }]}>
-          <SymbolView
-            name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            size={17}
-            tintColor={colors.mutedForeground}
-          />
-          <TextInput
-            value={query}
-            onChangeText={setQuery}
-            placeholder={t("location.searchPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("location.searchLabel")}
-            autoFocus={!tv}
-            autoCorrect={false}
-            returnKeyType="search"
-            style={[styles.input, { color: colors.foreground }]}
-          />
-          {searching ? <ActivityIndicator size="small" color={colors.accent} /> : null}
-        </View>
-
-        {showEmpty ? (
-          <EmptyState
-            icon={{ ios: "mappin.slash", android: "wrong_location", web: "wrong_location" }}
-            title={t("location.noResultsTitle")}
-            description={t("location.noResultsDesc")}
-          />
-        ) : results.length > 0 ? (
-          <View style={styles.list}>
-            {results.map((place) => {
-              const selected = place.label === location.label;
-              const subtitle = [place.admin, place.country].filter(Boolean).join(", ");
-              return (
-                <PressableScale
-                  key={place.id}
-                  haptic="light"
-                  accessibilityRole="button"
-                  accessibilityLabel={place.label}
-                  accessibilityState={{ selected }}
-                  onPress={() => void onSelect(place)}
-                  style={[
-                    styles.row,
-                    tv ? { minHeight: TvLayout.minFocusTarget } : null,
-                    { backgroundColor: colors.muted },
-                  ]}
-                >
-                  <View style={styles.rowText}>
-                    <ThemedText type="smallBold" numberOfLines={1}>
-                      {place.name}
-                    </ThemedText>
-                    {subtitle ? (
-                      <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                        {subtitle}
-                      </ThemedText>
-                    ) : null}
-                  </View>
-                  <SymbolView
-                    name={
-                      selected
-                        ? {
-                            ios: "checkmark.circle.fill",
-                            android: "check_circle",
-                            web: "check_circle",
-                          }
-                        : chevronForward
-                    }
-                    size={selected ? 20 : 15}
-                    tintColor={selected ? colors.accent : colors.mutedForeground}
-                  />
-                </PressableScale>
-              );
-            })}
-          </View>
-        ) : (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("location.hint")}
-          </ThemedText>
-        )}
-      </Card>
-
-      <Card padding="three">
-        <SectionHeader
-          title={t("location.calculationTitle")}
-          icon={{ ios: "gearshape.fill", android: "tune", web: "tune" }}
-        />
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
-          {t("location.methodHint")}
-        </ThemedText>
-        <View style={styles.calcRow}>
-          <SettingsRow
-            icon={{ ios: "globe", android: "public", web: "public" }}
-            title={t("location.method")}
-            value={t(`location.methods.${location.method}`)}
-            onPress={() => setMethodSheetOpen(true)}
-          />
-        </View>
-
-        <ThemedText type="smallBold" style={styles.madhabLabel}>
-          {t("location.madhab")}
-        </ThemedText>
-        <SegmentedControl<MadhabKey>
-          options={[
-            { id: "shafi", label: t("location.madhabShafi") },
-            { id: "hanafi", label: t("location.madhabHanafi") },
-          ]}
-          value={location.madhab}
-          onChange={(key) => void onSelectMadhab(key)}
-        />
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
-          {t("location.madhabHint")}
-        </ThemedText>
-
-        <View style={styles.calcRow}>
-          <SettingsRow
-            icon={{ ios: "slider.horizontal.3", android: "tune", web: "tune" }}
-            title={t("prayerTuning.title")}
-            value={t("prayerTuning.rowValue")}
-            onPress={() => router.push("/settings/prayer-tuning")}
-          />
-        </View>
-      </Card>
+      ) : (
+        <>
+          {currentCard}
+          {searchCard}
+          {calcCard}
+        </>
+      )}
 
       <Sheet visible={methodSheetOpen} onClose={() => setMethodSheetOpen(false)} variant="bottom">
         <ThemedText type="subtitle" style={styles.sheetTitle}>
@@ -333,9 +360,11 @@ export default function LocationScreen() {
                 accessibilityRole="button"
                 accessibilityState={{ selected }}
                 accessibilityLabel={t(`location.methods.${key}`)}
+                {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
                 onPress={() => void onSelectMethod(key)}
                 style={[
                   styles.methodRow,
+                  tv && styles.methodRowTv,
                   { backgroundColor: selected ? tokens.accentSoft : colors.muted },
                 ]}
               >
@@ -418,6 +447,10 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   methodText: { flex: 1, gap: 2 },
+  methodRowTv: { minHeight: TvLayout.minFocusTarget },
+  inputTv: { fontSize: tvDp(TvLayout.bodyFontSize) },
+  tvColumns: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  tvColumn: { flex: 1, minWidth: 0, gap: Spacing.four },
   list: { gap: Spacing.two, marginTop: Spacing.three },
   row: {
     flexDirection: "row",

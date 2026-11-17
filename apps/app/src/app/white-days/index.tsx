@@ -1,7 +1,12 @@
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -29,6 +34,9 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 export default function WhiteDaysScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: topic rows flow into 2–3 columns inside each section card.
+  const navCols = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 280, max: 3 });
   const overlayVersion = getContentOverlaysReadyVersion();
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
   const topicsBySection = useMemo(
@@ -43,6 +51,7 @@ export default function WhiteDaysScreen() {
       title={t("whiteDays.title")}
       subtitle={t("whiteDays.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/white-days" />
       <Stagger>
@@ -69,7 +78,7 @@ export default function WhiteDaysScreen() {
                   }
                 }
               />
-              <View style={styles.rows}>
+              <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
                 {topics.map((topic) => (
                   <JannahNavRow
                     key={topic.id}
@@ -84,7 +93,7 @@ export default function WhiteDaysScreen() {
                     }
                   />
                 ))}
-              </View>
+              </LearnColumnsGrid>
             </Card>
           );
         })}
@@ -96,5 +105,5 @@ export default function WhiteDaysScreen() {
 }
 
 const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  gridTop: { marginTop: Spacing.three },
 });

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ import { trackerStore } from "@/stores/tracker-store";
 const MAX_ERRORS_SHOWN = 8;
 
 export default function ImportScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -38,6 +40,7 @@ export default function ImportScreen() {
   if (isTV()) {
     return (
       <ScreenLayout
+        maxContentWidth={formMaxWidth}
         eyebrow={t("settings.title")}
         title={t("import.title")}
         onBack={() => goBackOrReplace(router, "/settings")}
@@ -92,6 +95,7 @@ export default function ImportScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.title")}
       title={t("import.title")}
       subtitle={t("import.subtitle")}
@@ -116,14 +120,7 @@ export default function ImportScreen() {
             multiline
             autoCapitalize="none"
             autoCorrect={false}
-            style={[
-              styles.input,
-              {
-                backgroundColor: colors.muted,
-                color: colors.foreground,
-                borderColor: colors.border,
-              },
-            ]}
+            style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
           />
           <Button
             label={t("import.preview")}

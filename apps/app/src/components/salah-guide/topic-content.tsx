@@ -11,6 +11,7 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { LearnGrid } from "@/components/learn-guide/learn-wide-layout";
 import { useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -19,8 +20,10 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   useSalahGuideProgressActions,
@@ -191,10 +194,14 @@ function SalahGuideSteps({
           );
 
           if (!hasAudio || !stepHasAudio) {
+            // TV: non-audio steps are prose-only — each is a D-pad stop so the
+            // remote can scroll through them (no wrapper on phone/web).
             return (
-              <View key={step.title} ref={audio?.registerStep?.(index)} style={styles.stepRow}>
-                {row}
-              </View>
+              <TvReadableBlock key={step.title}>
+                <View ref={audio?.registerStep?.(index)} style={styles.stepRow}>
+                  {row}
+                </View>
+              </TvReadableBlock>
             );
           }
 
@@ -266,15 +273,17 @@ export function SalahGuideTopicContent({
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
           />
           <View style={styles.links}>
-            {topic.appLinks.map((link) => (
-              <Button
-                key={link.route}
-                label={link.label}
-                variant="secondary"
-                fullWidth
-                onPress={() => router.push(link.route as never)}
-              />
-            ))}
+            <LearnGrid maxColumns={2} gap={Spacing.two} passthrough>
+              {topic.appLinks.map((link) => (
+                <Button
+                  key={link.route}
+                  label={link.label}
+                  variant="secondary"
+                  fullWidth
+                  onPress={() => router.push(link.route as never)}
+                />
+              ))}
+            </LearnGrid>
           </View>
         </Card>
       ) : null}
@@ -288,9 +297,11 @@ export function SalahGuideTopicContent({
       />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );
@@ -309,8 +320,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   stepBadge: {
-    width: 32,
-    height: 32,
+    width: tvDp(32),
+    height: tvDp(32),
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",

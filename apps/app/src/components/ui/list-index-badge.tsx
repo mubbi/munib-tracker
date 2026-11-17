@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Radius } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type ListIndexBadgeProps = {
@@ -31,8 +32,8 @@ export function ListIndexBadge({ index, completed }: ListIndexBadgeProps) {
 
 const styles = StyleSheet.create({
   badge: {
-    minWidth: 26,
-    height: 26,
+    minWidth: tvDp(26),
+    height: tvDp(26),
     paddingHorizontal: 4,
     borderRadius: Radius.sm,
     borderCurve: "continuous",

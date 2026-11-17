@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -13,6 +13,7 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
@@ -74,7 +75,11 @@ const CATEGORIES: DuaCategoryId[] = [
 export default function DuaHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  // Wide web / tablets: search + saved side by side above a multi-column grid.
+  const wide = !tv && width >= 768;
   useEnsureDuaFavoritesLoaded();
   const favoriteCount = useFavoriteDuaIds().length;
   const [query, setQuery] = useState("");
@@ -105,6 +110,31 @@ export default function DuaHomeScreen() {
     }
     return map;
   }, [duaItems]);
+
+  const savedCard = (
+    <SavedNavCard
+      key="saved"
+      title={t("dua.favorites")}
+      viewLabel={t("dua.viewFavorites")}
+      count={favoriteCount > 0 ? favoriteCount : undefined}
+      headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
+      rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+      onPress={() => router.push("/dua/favorites")}
+    />
+  );
+
+  const searchCard = (
+    <Card key="search" padding="three" style={wide ? styles.fill : undefined}>
+      <TextInput
+        value={query}
+        onChangeText={setQuery}
+        placeholder={t("dua.searchPlaceholder")}
+        placeholderTextColor={colors.mutedForeground}
+        accessibilityLabel={t("dua.searchPlaceholder")}
+        style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
+      />
+    </Card>
+  );
 
   return (
     <ScreenLayout
@@ -139,25 +169,14 @@ export default function DuaHomeScreen() {
         ]}
       />
       <Stagger>
-        <SavedNavCard
-          title={t("dua.favorites")}
-          viewLabel={t("dua.viewFavorites")}
-          count={favoriteCount > 0 ? favoriteCount : undefined}
-          headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
-          rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
-          onPress={() => router.push("/dua/favorites")}
-        />
-
-        <Card padding="three">
-          <TextInput
-            value={query}
-            onChangeText={setQuery}
-            placeholder={t("dua.searchPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("dua.searchPlaceholder")}
-            style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
-          />
-        </Card>
+        {wide ? (
+          <View style={styles.topRowWide}>
+            <View style={styles.searchColWide}>{searchCard}</View>
+            <View style={styles.savedColWide}>{savedCard}</View>
+          </View>
+        ) : (
+          [savedCard, searchCard]
+        )}
 
         {searching ? (
           !corpusReady ? null : results.length === 0 ? (
@@ -168,7 +187,7 @@ export default function DuaHomeScreen() {
             />
           ) : (
             <Card padding="three">
-              <View style={styles.list}>
+              <ResponsiveGrid columns={tv ? 1 : undefined} maxColumns={2} gap={Spacing.two}>
                 {results.map((item) => (
                   <DuaSearchRow
                     key={item.id}
@@ -180,14 +199,16 @@ export default function DuaHomeScreen() {
                     }
                   />
                 ))}
-              </View>
+              </ResponsiveGrid>
             </Card>
           )
         ) : null}
 
         {!searching ? (
           <Card padding="three">
-            <View style={styles.list}>
+            {/* TV: two-column grid (D-pad left/right between columns). Wide web /
+                tablets: 2-4 columns by width. Phones: one column. */}
+            <ResponsiveGrid columns={tv ? 2 : undefined} gap={Spacing.two}>
               {CATEGORIES.map((categoryId) => (
                 <NavRow
                   key={categoryId}
@@ -195,11 +216,14 @@ export default function DuaHomeScreen() {
                   label={t(`duaCat.${categoryId}`)}
                   count={duaItems.filter((item) => item.categoryId === categoryId).length}
                   onPress={() =>
-                    router.push({ pathname: "/dua/[category]", params: { category: categoryId } })
+                    router.push({
+                      pathname: "/dua/[category]",
+                      params: { category: categoryId },
+                    })
                   }
                 />
               ))}
-            </View>
+            </ResponsiveGrid>
           </Card>
         ) : null}
       </Stagger>
@@ -227,7 +251,11 @@ function DuaSearchRow({
       accessibilityRole="button"
       accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
       onPress={onPress}
-      style={[styles.resultRow, tv && styles.resultRowTv, { backgroundColor: colors.muted }]}
+      style={[
+        styles.resultRow,
+        tv && styles.resultRowTv,
+        { flexGrow: 1, backgroundColor: colors.muted },
+      ]}
     >
       {index != null ? <ListIndexBadge index={index} /> : null}
       <View style={styles.resultBody}>
@@ -251,7 +279,10 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
     fontSize: 15,
   },
-  list: { gap: Spacing.two },
+  topRowWide: { flexDirection: "row", alignItems: "stretch", gap: Spacing.three },
+  searchColWide: { flex: 3, minWidth: 0 },
+  savedColWide: { flex: 2, minWidth: 0 },
+  fill: { flexGrow: 1, justifyContent: "center" },
   resultRow: {
     flexDirection: "row",
     alignItems: "center",

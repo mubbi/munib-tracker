@@ -4,7 +4,13 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
-import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+  useLearnTileStyle,
+} from "@/components/jannah/hub-layout";
+import { JannahActionRow, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,7 +19,6 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
@@ -30,6 +35,10 @@ export default function LastDayVersesScreen() {
   const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const { sizes } = useReadingTypography();
   const verses = getLastDayVerses();
+  const tileStyle = useLearnTileStyle();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: verse cards flow into 2–3 columns per theme.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 3 });
 
   const grouped = useMemo(() => {
     const map = new Map<string, typeof verses>();
@@ -49,6 +58,7 @@ export default function LastDayVersesScreen() {
       title={t("lastDay.versesTitle")}
       subtitle={t("lastDay.versesSubtitle")}
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/verses" />
       <LearnContentGate ready={contentReady}>
@@ -66,11 +76,15 @@ export default function LastDayVersesScreen() {
                     title={t(`lastDay.verseTheme.${theme}`)}
                     icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
                   />
-                  <View style={styles.list}>
+                  <LearnColumnsGrid
+                    columns={columns}
+                    gap={Spacing.three}
+                    stackGap={0}
+                    style={styles.list}
+                  >
                     {items.map((verse, index) => (
-                      <PressableScale
+                      <JannahActionRow
                         key={verse.id}
-                        haptic="light"
                         accessibilityRole="link"
                         onPress={() =>
                           router.push({
@@ -80,11 +94,16 @@ export default function LastDayVersesScreen() {
                         }
                         style={[
                           styles.row,
-                          index > 0 && {
-                            borderTopColor: tokens.hairline,
-                            borderTopWidth: StyleSheet.hairlineWidth,
-                          },
+                          columns > 1
+                            ? tileStyle
+                            : index > 0 && {
+                                borderTopColor: tokens.hairline,
+                                borderTopWidth: StyleSheet.hairlineWidth,
+                              },
                         ]}
+                        actions={
+                          <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
+                        }
                       >
                         <IconWell
                           icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -115,10 +134,9 @@ export default function LastDayVersesScreen() {
                             />
                           ) : null}
                         </View>
-                        <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
-                      </PressableScale>
+                      </JannahActionRow>
                     ))}
-                  </View>
+                  </LearnColumnsGrid>
                 </Card>
               );
             })}

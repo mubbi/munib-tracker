@@ -1,9 +1,15 @@
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
-import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
+import { StyleSheet } from "react-native";
+import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import {
+  LearnSplitLayout,
+  LearnTopicGrid,
+  useLearnWideLayout,
+} from "@/components/learn-guide/learn-wide-layout";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
@@ -20,6 +26,7 @@ import {
 
 export default function LearnQuranTajweedScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t, i18n } = useTranslation();
   const { ready: contentReady } = useEnsureContent(
     ensureQuranGuideContent,
@@ -40,37 +47,39 @@ export default function LearnQuranTajweedScreen() {
       title={t("learnQuran.tajweedTitle")}
       subtitle={t("learnQuran.tajweedSubtitle")}
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-quran/tajweed" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="info">{t("learnQuran.tajweedIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<QuranGuideTopicAside currentId="tajweed" />}>
+          <Stagger>
+            <JannahCallout tone="info">{t("learnQuran.tajweedIntro")}</JannahCallout>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("learnQuran.tajweedListTitle")}
-              icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
-            />
-            <View style={styles.rows}>
-              {lessons.map((lesson) => (
-                <JannahNavRow
-                  key={lesson.id}
-                  icon={{ ios: "music.note", android: "music_note", web: "music_note" }}
-                  title={lesson.title}
-                  subtitle={lesson.summary}
-                  onPress={() =>
+            <Card padding="three">
+              <SectionHeader
+                title={t("learnQuran.tajweedListTitle")}
+                icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+              />
+              <LearnTopicGrid
+                style={styles.rows}
+                maxColumns={2}
+                items={lessons.map((lesson) => ({
+                  id: lesson.id,
+                  icon: { ios: "music.note", android: "music_note", web: "music_note" },
+                  title: lesson.title,
+                  subtitle: lesson.summary,
+                  onPress: () =>
                     router.push({
                       pathname: "/learn-quran/tajweed/[id]",
                       params: { id: lesson.id },
-                    })
-                  }
-                />
-              ))}
-            </View>
-          </Card>
+                    }),
+                }))}
+              />
+            </Card>
 
-          <JannahDisclaimer textKey="learnQuran.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );

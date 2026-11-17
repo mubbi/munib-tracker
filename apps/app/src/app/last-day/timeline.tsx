@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -12,10 +13,12 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureLastDayContent, getLastDayTimeline, isLastDayContentReady } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 
 export default function LastDayTimelineScreen() {
@@ -25,6 +28,9 @@ export default function LastDayTimelineScreen() {
   const chevronForwardIcon = useChevronForward();
   const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const events = getLastDayTimeline();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: steps alternate either side of a centred rail.
+  const zigzag = wide.contentWidth >= 760;
 
   return (
     <ScreenLayout
@@ -32,23 +38,20 @@ export default function LastDayTimelineScreen() {
       title={t("lastDay.timelineTitle")}
       subtitle={t("lastDay.timelineSubtitle")}
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/timeline" />
       <LearnContentGate ready={contentReady}>
         <Stagger>
           <JannahCallout tone="info">{t("lastDay.timelineIntro")}</JannahCallout>
 
-          {events.map((event, index) => (
-            <View key={event.id} style={styles.row}>
-              <View style={styles.railColumn}>
-                <View style={[styles.dot, { backgroundColor: colors.accent }]} />
-                {index < events.length - 1 ? (
-                  <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
-                ) : null}
-              </View>
+          {events.map((event, index) => {
+            const card = (
               <PressableScale
                 haptic="light"
-                disabled={!event.topicId}
+                // TV: keep link-less steps focusable so the D-pad can step
+                // through (and scroll) the whole timeline.
+                disabled={!event.topicId && !isTV()}
                 accessibilityRole={event.topicId ? "button" : "text"}
                 onPress={
                   event.topicId
@@ -94,8 +97,32 @@ export default function LastDayTimelineScreen() {
                   ) : null}
                 </Card>
               </PressableScale>
-            </View>
-          ))}
+            );
+            const rail = (
+              <View style={styles.railColumn}>
+                <View style={[styles.dot, { backgroundColor: colors.accent }]} />
+                {index < events.length - 1 ? (
+                  <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
+                ) : null}
+              </View>
+            );
+            if (!zigzag) {
+              return (
+                <View key={event.id} style={styles.row}>
+                  {rail}
+                  {card}
+                </View>
+              );
+            }
+            const startSide = index % 2 === 0;
+            return (
+              <View key={event.id} style={styles.row}>
+                <View style={styles.side}>{startSide ? card : null}</View>
+                {rail}
+                <View style={styles.side}>{startSide ? null : card}</View>
+              </View>
+            );
+          })}
 
           <JannahDisclaimer textKey="lastDay.disclaimer" />
         </Stagger>
@@ -106,9 +133,10 @@ export default function LastDayTimelineScreen() {
 
 const styles = StyleSheet.create({
   row: { flexDirection: "row", gap: Spacing.three },
-  railColumn: { alignItems: "center", width: 16, paddingTop: Spacing.three },
-  dot: { width: 12, height: 12, borderRadius: Radius.pill },
-  rail: { width: 2, flex: 1, marginTop: Spacing.one },
+  side: { flex: 1, minWidth: 0 },
+  railColumn: { alignItems: "center", width: tvDp(16), paddingTop: Spacing.three },
+  dot: { width: tvDp(12), height: tvDp(12), borderRadius: Radius.pill },
+  rail: { width: tvDp(2), flex: 1, marginTop: Spacing.one },
   cardPressable: {
     flex: 1,
     marginBottom: Spacing.three,

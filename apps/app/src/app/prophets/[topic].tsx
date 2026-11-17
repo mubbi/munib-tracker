@@ -2,6 +2,8 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { ProphetsTopicAside } from "@/components/prophets/prophets-aside";
 import { ProphetsTopicContent } from "@/components/prophets/topic-content";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -32,6 +34,7 @@ export default function ProphetsTopicScreen() {
   const topic = getProphetsTopic(topicId);
   const reportRef = useGuideContentReportRef("prophets", topic, "/prophets");
   useEnsureProphetsProgressLoaded();
+  const { maxContentWidth } = useLearnWideLayout();
 
   const detailPath = topic ? `/prophets/${topic.id}` : "/prophets";
   const crumbs = topic
@@ -48,6 +51,7 @@ export default function ProphetsTopicScreen() {
       title={topic?.title ?? t("prophets.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/prophets" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -79,12 +83,14 @@ export default function ProphetsTopicScreen() {
           onAction={() => router.replace("/prophets" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="prophets">
-            <ProphetsTopicContent topic={topic} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="prophets.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout aside={<ProphetsTopicAside currentId={topic.id} />}>
+          <Stagger>
+            <LearnReadingChrome surface="prophets">
+              <ProphetsTopicContent topic={topic} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="prophets.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

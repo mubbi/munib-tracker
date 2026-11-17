@@ -8,7 +8,9 @@ import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { isRTL, mushafPageBackward, mushafPageForward } from "@/lib/rtl";
 
 /** Stack the footer on two rows below this width so nav labels and page chip fit. */
@@ -41,6 +43,7 @@ export function PageReaderFooter({
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const layoutRtl = isRTL();
+  const tv = isTV();
   const compact = width < COMPACT_FOOTER_WIDTH;
   const pageLabel = compact
     ? t("quran.pageFraction", { page: currentPage, total: totalPages })
@@ -78,6 +81,7 @@ export function PageReaderFooter({
       onPress={onOpenPage}
       style={[
         styles.pageChip,
+        tv && styles.pageChipTv,
         { backgroundColor: colors.muted },
         compact && styles.pageChipCompact,
       ]}
@@ -108,7 +112,7 @@ export function PageReaderFooter({
       onPress={onPlay}
       background={colors.accent}
       tintColor={colors.accentForeground}
-      hitTarget={compact ? 44 : 48}
+      hitTarget={tv ? TvLayout.minFocusTarget : compact ? 44 : 48}
       style={styles.playBtn}
     />
   );
@@ -123,18 +127,23 @@ export function PageReaderFooter({
         },
       ]}
     >
-      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-        <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
-      </View>
+      {/* TV: skip the live blur (expensive on Fire TV sticks) — opaque card wash. */}
+      {!tv ? (
+        <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+          <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+        </View>
+      ) : null}
       <View
         style={[
           StyleSheet.absoluteFill,
           {
             pointerEvents: "none",
-            backgroundColor: withAlpha(
-              colors.card,
-              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
-            ),
+            backgroundColor: tv
+              ? colors.card
+              : withAlpha(
+                  colors.card,
+                  hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
+                ),
           },
         ]}
       />
@@ -208,6 +217,7 @@ function PageNavButton({
 }) {
   const { colors, tokens } = useThemeTokens();
   const layoutRtl = isRTL();
+  const tv = isTV();
   const contentDirection = iconFirst && layoutRtl ? "row-reverse" : "row";
 
   return (
@@ -221,6 +231,7 @@ function PageNavButton({
       style={[
         styles.navBtn,
         expanded ? styles.navBtnExpanded : styles.navBtnCompact,
+        tv && styles.navBtnTv,
         {
           backgroundColor: tokens.accentSoft,
           opacity: disabled ? 0.45 : 1,
@@ -296,6 +307,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: Spacing.three,
   },
+  navBtnTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.four,
+  },
   center: {
     flex: 1,
     flexDirection: "row",
@@ -315,6 +330,9 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
+  },
+  pageChipTv: {
+    minHeight: TvLayout.minFocusTarget,
   },
   pageChipCompact: {
     paddingHorizontal: Spacing.two,

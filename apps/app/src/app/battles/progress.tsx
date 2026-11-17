@@ -3,6 +3,11 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ContentLinkList } from "@/components/content/content-inline-link";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -26,6 +31,9 @@ export default function BattlesProgressScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   useEnsureBattlesProgressLoaded();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: progress + explore cards sit side by side.
+  const columns = learnColumnsFor(wide.contentWidth, { minCell: 360, gap: Spacing.four, max: 2 });
   const completedCount = useBattlesCompletedCount();
 
   const { version: contentVersion, ready: contentReady } = useEnsureContent(
@@ -42,6 +50,60 @@ export default function BattlesProgressScreen() {
     [completedCount, contentVersion],
   );
 
+  const lessonsCard = (
+    <Card key="lessons" padding="three">
+      <SectionHeader
+        title={t("battles.lessonsTitle")}
+        icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+        {t("battles.lessonsHint")}
+      </ThemedText>
+      <View style={styles.lessonRow}>
+        <ThemedText type="title">
+          {t("battles.lessonsCount", {
+            completed: snapshot.lessonsCompleted,
+            total: snapshot.lessonsTotal,
+          })}
+        </ThemedText>
+        <ProgressBar value={snapshot.lessonProgress} />
+      </View>
+    </Card>
+  );
+
+  const exploreCard = (
+    <Card key="explore" padding="three">
+      <SectionHeader
+        title={t("battles.exploreTitle")}
+        icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+        {t("battles.progressExploreHint")}
+      </ThemedText>
+      <ContentLinkList
+        style={styles.links}
+        links={[
+          {
+            label: t("battles.timelineTitle"),
+            onPress: () => router.push("/battles/timeline" as Href),
+          },
+          {
+            label: t("battles.lessonsTitle"),
+            onPress: () => router.push("/battles/lessons" as Href),
+          },
+          {
+            label: t("battles.versesTitle"),
+            onPress: () => router.push("/battles/verses" as Href),
+          },
+          {
+            label: t("battles.glossaryTitle"),
+            onPress: () => router.push("/battles/glossary" as Href),
+          },
+        ]}
+      />
+    </Card>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("battles.eyebrow")}
@@ -54,55 +116,14 @@ export default function BattlesProgressScreen() {
         <Stagger>
           <JannahCallout tone="warning">{t("battles.progressIntro")}</JannahCallout>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("battles.lessonsTitle")}
-              icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("battles.lessonsHint")}
-            </ThemedText>
-            <View style={styles.lessonRow}>
-              <ThemedText type="title">
-                {t("battles.lessonsCount", {
-                  completed: snapshot.lessonsCompleted,
-                  total: snapshot.lessonsTotal,
-                })}
-              </ThemedText>
-              <ProgressBar value={snapshot.lessonProgress} />
-            </View>
-          </Card>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("battles.exploreTitle")}
-              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("battles.progressExploreHint")}
-            </ThemedText>
-            <ContentLinkList
-              style={styles.links}
-              links={[
-                {
-                  label: t("battles.timelineTitle"),
-                  onPress: () => router.push("/battles/timeline" as Href),
-                },
-                {
-                  label: t("battles.lessonsTitle"),
-                  onPress: () => router.push("/battles/lessons" as Href),
-                },
-                {
-                  label: t("battles.versesTitle"),
-                  onPress: () => router.push("/battles/verses" as Href),
-                },
-                {
-                  label: t("battles.glossaryTitle"),
-                  onPress: () => router.push("/battles/glossary" as Href),
-                },
-              ]}
-            />
-          </Card>
+          {columns > 1 ? (
+            <LearnColumnsGrid columns={columns} gap={Spacing.four}>
+              {lessonsCard}
+              {exploreCard}
+            </LearnColumnsGrid>
+          ) : (
+            [lessonsCard, exploreCard]
+          )}
 
           <JannahDisclaimer textKey="battles.disclaimer" />
         </Stagger>

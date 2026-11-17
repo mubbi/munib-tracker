@@ -3,6 +3,11 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
+import {
   JannahCallout,
   JannahDisclaimer,
   JannahHadithEvidence,
@@ -15,6 +20,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { ensureLastDayContent, getLastDayHadith, isLastDayContentReady } from "@/lib/last-day";
@@ -25,6 +31,9 @@ export default function LastDayHadithScreen() {
   const { t } = useTranslation();
   const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const entries = getLastDayHadith();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: hadith entries sit two per row.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 380, max: 2 });
 
   const grouped = useMemo(() => {
     const map = new Map<string, typeof entries>();
@@ -44,6 +53,7 @@ export default function LastDayHadithScreen() {
       title={t("lastDay.hadithTitle")}
       subtitle={t("lastDay.hadithSubtitle")}
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/hadith" />
       <LearnContentGate ready={contentReady}>
@@ -63,18 +73,20 @@ export default function LastDayHadithScreen() {
                       web: "auto_stories",
                     }}
                   />
-                  <View style={styles.list}>
+                  <LearnColumnsGrid columns={columns} gap={Spacing.four} style={styles.list}>
                     {items.map((entry) => (
                       <View key={entry.id} style={styles.entry}>
                         <JannahHadithEvidence refs={[entry.hadith]} />
                         {entry.context ? (
-                          <ThemedText type="caption" themeColor="mutedForeground">
-                            {entry.context}
-                          </ThemedText>
+                          <TvReadableBlock>
+                            <ThemedText type="caption" themeColor="mutedForeground">
+                              {entry.context}
+                            </ThemedText>
+                          </TvReadableBlock>
                         ) : null}
                       </View>
                     ))}
-                  </View>
+                  </LearnColumnsGrid>
                 </Card>
               );
             })}
@@ -88,6 +100,6 @@ export default function LastDayHadithScreen() {
 }
 
 const styles = StyleSheet.create({
-  list: { marginTop: Spacing.three, gap: Spacing.four },
+  list: { marginTop: Spacing.three },
   entry: { gap: Spacing.two },
 });

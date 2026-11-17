@@ -8,11 +8,19 @@ import { BrandQrCode } from "@/components/share/brand-qr-code";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildHttpsAppUrl } from "@/lib/app-links";
+import { isTV } from "@/lib/platform/is-tv";
 
 const POLL_MS = 2500;
+
+/**
+ * Couch-distance QR: ≥ 240dp so phone cameras lock on from ~3 m. `tvDp` keeps
+ * the same physical size on tvOS (1920×1080pt) as Android TV (960×540dp).
+ */
+const TV_QR_SIZE = tvDp(248);
 
 type TvQrLoginPanelProps = {
   onSession: (session: AuthSessionResponseDto) => Promise<void>;
@@ -84,6 +92,7 @@ export function TvQrLoginPanel({ onSession, preferredFocus }: TvQrLoginPanelProp
     <View
       style={[
         styles.panel,
+        isTV() && styles.panelTv,
         {
           backgroundColor: tokens.accentSoft,
           borderColor: tokens.accentBorder,
@@ -104,7 +113,7 @@ export function TvQrLoginPanel({ onSession, preferredFocus }: TvQrLoginPanelProp
         <>
           <BrandQrCode
             data={pairing.claimUrl}
-            size={200}
+            size={isTV() ? TV_QR_SIZE : 200}
             accessibilityLabel={t("tv.qrImageA11y")}
           />
           <ThemedText type="title" style={[styles.code, { color: colors.accentText }]}>
@@ -143,6 +152,10 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
+  },
+  panelTv: {
+    gap: Spacing.two,
+    padding: Spacing.three,
   },
   hint: {
     textAlign: "center",

@@ -18,6 +18,7 @@ import {
   cancelWebReminderTimers,
   scheduleWebReminderTimers,
 } from "@/lib/notifications/web-reminder-scheduler";
+import { quranRevisionReminderOptions } from "@/lib/quran-companion/reminder-options";
 import { captureAppException } from "@/lib/sentry";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -31,9 +32,16 @@ export const MARK_ACTION_IDENTIFIER = "markcurrent";
 export const SNOOZE_ACTION_IDENTIFIER = "snooze";
 const SNOOZE_MINUTES = 10;
 
-function buildReminderOptions() {
+/**
+ * Async: also reads the Qur'an practice revision-reminder inputs straight from
+ * their repositories (the practice stores are lazy and usually not loaded at launch).
+ */
+async function buildReminderOptions() {
   const { qazaCounters, roza } = trackerStore.getState();
-  return { hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza) };
+  return {
+    hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza),
+    ...(await quranRevisionReminderOptions()),
+  };
 }
 
 export async function configureNotifications(): Promise<void> {
@@ -63,7 +71,7 @@ export async function rescheduleAll(
   }
 
   try {
-    const reminders = buildReminders(prefs, location, new Date(), buildReminderOptions());
+    const reminders = buildReminders(prefs, location, new Date(), await buildReminderOptions());
     scheduleWebReminderTimers(reminders);
   } catch (error) {
     // Home fires `void rescheduleAll()` after location changes; a throw here
@@ -150,7 +158,7 @@ export async function listScheduled(
   if (!prefs.notificationPrefs.masterEnabled) return [];
   try {
     return summarizeReminders(
-      buildReminders(prefs, location, new Date(), buildReminderOptions()),
+      buildReminders(prefs, location, new Date(), await buildReminderOptions()),
       prefs.timeFormat,
       new Date(),
       location.timeZone,

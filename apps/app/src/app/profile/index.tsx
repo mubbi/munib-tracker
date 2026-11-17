@@ -19,7 +19,9 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { usePinLock } from "@/features/pin-lock";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reasons";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -31,6 +33,9 @@ import { useInAppNotifications } from "@/providers/in-app-notifications-provider
 import { useToast } from "@/providers/toast-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 import { readSyncMetadata, type SyncMetadata } from "@/sync/sync-engine";
+
+/** Window width at which the account page splits into two columns. */
+const PROFILE_TWO_COLUMN_MIN_WIDTH = 1024;
 
 const PROVIDER_LOGOS: Record<AuthUserResponseDtoProvider, number> = {
   google: require("@/assets/brands/google.svg"),
@@ -99,6 +104,10 @@ export default function ProfileScreen() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const locale = i18n.language?.split("-")[0];
+  const tv = isTV();
+  const { width } = useLargeScreenLayout();
+  // Wide web / tablets: two-column account layout instead of one long stack.
+  const twoColumn = !tv && width >= PROFILE_TWO_COLUMN_MIN_WIDTH;
 
   const refreshSyncMeta = useCallback(async () => {
     setSyncMeta(await readSyncMetadata());
@@ -121,7 +130,7 @@ export default function ProfileScreen() {
   };
 
   const pickAvatar = async () => {
-    if (isTV()) {
+    if (tv) {
       toast.info(t("common.tvUnavailableBody"));
       return;
     }
@@ -183,6 +192,347 @@ export default function ProfileScreen() {
     return PROVIDER_LOGOS[provider];
   }, [provider]);
 
+  const heroCard = (
+    <Card padding="three" style={styles.hero}>
+      <View style={styles.identityRow}>
+        <PressableScale
+          haptic="light"
+          onPress={pickAvatar}
+          disabled={tv}
+          accessibilityLabel={t("profile.changeAvatar")}
+        >
+          <View style={styles.avatarWrap}>
+            {prefs.avatarUri ? (
+              <Image
+                source={{ uri: prefs.avatarUri }}
+                style={[styles.avatar, { borderColor: tokens.hairline }]}
+              />
+            ) : (
+              <View
+                style={[
+                  styles.avatar,
+                  styles.avatarPlaceholder,
+                  {
+                    backgroundColor: tokens.accentSoft,
+                    borderColor: withAlpha(colors.accent, 0.28),
+                  },
+                ]}
+              >
+                <ThemedText type="header" style={{ color: colors.accent }}>
+                  {displayName.slice(0, 1).toUpperCase()}
+                </ThemedText>
+              </View>
+            )}
+            {/* TV has no photo picker — drop the camera affordance. */}
+            {tv ? null : (
+              <View
+                style={[
+                  styles.cameraBadge,
+                  {
+                    backgroundColor: colors.accent,
+                    borderColor: colors.card,
+                  },
+                ]}
+              >
+                <SymbolView
+                  name={{ ios: "camera.fill", android: "photo_camera", web: "photo_camera" }}
+                  size={11}
+                  tintColor={colors.accentForeground}
+                />
+              </View>
+            )}
+          </View>
+        </PressableScale>
+
+        <View style={styles.identityBody}>
+          {editing ? (
+            <View style={styles.nameEdit}>
+              <TextInput
+                value={nameDraft}
+                onChangeText={setNameDraft}
+                autoFocus
+                accessibilityLabel={t("profile.editName")}
+                style={[styles.nameInput, tokens.inputSurface, { color: colors.foreground }]}
+              />
+              <Button label={t("common.save")} size="sm" onPress={saveName} />
+            </View>
+          ) : (
+            <PressableScale
+              haptic="light"
+              onPress={() => {
+                setNameDraft(displayName);
+                setEditing(true);
+              }}
+              accessibilityLabel={t("profile.editName")}
+              accessibilityRole="button"
+              style={styles.nameRow}
+            >
+              <ThemedText type="subtitle" numberOfLines={2} style={styles.nameText}>
+                {displayName}
+              </ThemedText>
+              <View style={[styles.editChip, { backgroundColor: colors.muted }]}>
+                <SymbolView
+                  name={{ ios: "pencil", android: "edit", web: "edit" }}
+                  size={13}
+                  tintColor={colors.mutedForeground}
+                />
+              </View>
+            </PressableScale>
+          )}
+
+          {user?.email ? (
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+              {user.email}
+            </ThemedText>
+          ) : null}
+
+          <View
+            style={[
+              styles.providerChip,
+              {
+                backgroundColor: isGuest ? colors.muted : tokens.status.success.soft,
+              },
+            ]}
+          >
+            {providerLogo && !isGuest ? (
+              <Image source={providerLogo} style={styles.providerLogo} contentFit="contain" />
+            ) : (
+              <SymbolView
+                name={{
+                  ios: isGuest ? "person.fill" : "checkmark.seal.fill",
+                  android: isGuest ? "person" : "verified",
+                  web: isGuest ? "person" : "verified",
+                }}
+                size={12}
+                tintColor={isGuest ? colors.mutedForeground : tokens.status.success.color}
+              />
+            )}
+            <ThemedText
+              type="caption"
+              style={{
+                color: isGuest ? colors.mutedForeground : tokens.status.success.text,
+              }}
+            >
+              {statusLabel}
+            </ThemedText>
+          </View>
+        </View>
+      </View>
+      {tv ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.avatarHintTv}>
+          {t("profile.tvAvatarHint")}
+        </ThemedText>
+      ) : null}
+    </Card>
+  );
+
+  const signInCard = isGuest ? (
+    <Card padding="three">
+      <SectionHeader
+        title={t("profile.signInToSync")}
+        icon={{
+          ios: "person.crop.circle.badge.plus",
+          android: "person_add",
+          web: "person_add",
+        }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.signInHint}>
+        {t("profile.signInHint")}
+      </ThemedText>
+      <View style={styles.signIn}>
+        {tv ? (
+          // TV: OAuth popups are unreliable on a remote — use the QR companion
+          // sign-in on /login instead of provider buttons.
+          <Button
+            label={t("tv.qrTitle")}
+            icon={{ ios: "qrcode", android: "qr_code_2", web: "qr_code_2" }}
+            fullWidth
+            onPress={() => router.push("/login")}
+          />
+        ) : (
+          <SocialLoginButtons />
+        )}
+      </View>
+    </Card>
+  ) : null;
+
+  const syncCard = isAuthenticated ? (
+    <Card padding="three">
+      <SectionHeader
+        title={t("sync.title")}
+        icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
+      />
+
+      <View style={[styles.syncPanel, { backgroundColor: colors.muted }]}>
+        <View style={styles.syncMetaRow}>
+          <IconWell
+            icon={{
+              ios: syncUpToDate ? "checkmark.icloud.fill" : "icloud.fill",
+              android: syncUpToDate ? "cloud_done" : "cloud",
+              web: syncUpToDate ? "cloud_done" : "cloud",
+            }}
+            size={18}
+            well={40}
+            tint={syncUpToDate ? tokens.status.success.color : colors.accent}
+            background={syncUpToDate ? tokens.status.success.soft : withAlpha(colors.accent, 0.14)}
+          />
+          <View style={styles.syncMetaText}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("sync.lastSynced")}
+            </ThemedText>
+            <ThemedText type="smallBold">
+              {syncMeta?.lastSyncedAt
+                ? formatRelativeWhen(syncMeta.lastSyncedAt, locale, t, prefs.defaultCalendar)
+                : t("sync.never")}
+            </ThemedText>
+          </View>
+        </View>
+
+        {syncMeta?.lastOutcomeAt ? (
+          <View style={[styles.syncDetail, { borderTopColor: tokens.hairline }]}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {syncUpToDate
+                ? t("sync.mergeNoChanges")
+                : t("sync.mergeSummary", {
+                    received: syncMeta.lastPulled ?? 0,
+                    sent: syncMeta.lastPushed ?? 0,
+                  })}
+            </ThemedText>
+            {(syncMeta.lastConflicts ?? 0) > 0 ? (
+              <View style={styles.conflictRow}>
+                <SymbolView
+                  name={{
+                    ios: "arrow.triangle.merge",
+                    android: "merge_type",
+                    web: "merge_type",
+                  }}
+                  size={13}
+                  tintColor={tokens.status.warning.color}
+                />
+                <ThemedText type="caption" style={{ color: tokens.status.warning.text, flex: 1 }}>
+                  {t("sync.conflictsResolved", { count: syncMeta.lastConflicts ?? 0 })}
+                </ThemedText>
+              </View>
+            ) : null}
+            {syncMeta.lastConflictEntities && syncMeta.lastConflictEntities.length > 0 ? (
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("sync.conflictAffected", {
+                  list: syncMeta.lastConflictEntities
+                    .map((entity) => friendlyEntity(entity, t))
+                    .join(", "),
+                })}
+              </ThemedText>
+            ) : null}
+          </View>
+        ) : null}
+      </View>
+
+      <Button
+        label={isSyncing ? t("sync.syncing") : t("sync.now")}
+        icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
+        fullWidth
+        disabled={isSyncing}
+        onPress={() => void onSyncNow()}
+        style={styles.syncButton}
+      />
+      {isSyncing ? (
+        <View style={styles.syncSpinner}>
+          <ActivityIndicator size="small" color={colors.accent} />
+        </View>
+      ) : null}
+    </Card>
+  ) : null;
+
+  const sessionCard = isAuthenticated ? (
+    <Card padding="three">
+      <SectionHeader
+        title={t("profile.sessionTitle")}
+        icon={{
+          ios: "rectangle.portrait.and.arrow.right",
+          android: "logout",
+          web: "logout",
+        }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.sessionHint}>
+        {t("profile.sessionHint")}
+      </ThemedText>
+      <Button
+        label={t("common.signOut")}
+        variant="secondary"
+        icon={{
+          ios: "rectangle.portrait.and.arrow.right",
+          android: "logout",
+          web: "logout",
+        }}
+        fullWidth
+        onPress={() => setConfirmSignOut(true)}
+        style={styles.sessionButton}
+      />
+    </Card>
+  ) : null;
+
+  const dangerCard = (
+    <Card padding="three" variant="muted">
+      <SectionHeader title={t("profile.dangerTitle")} />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.dangerHint}>
+        {t("profile.dangerHint")}
+      </ThemedText>
+      <View style={styles.dangerActions}>
+        <PressableScale
+          haptic="medium"
+          accessibilityRole="button"
+          accessibilityLabel={t("profile.resetData")}
+          onPress={() => {
+            if (!isResetting) setConfirmResetData(true);
+          }}
+          style={[
+            styles.dangerButton,
+            tv && styles.dangerButtonTv,
+            {
+              backgroundColor: tokens.status.danger.soft,
+              borderColor: tokens.status.danger.border,
+            },
+          ]}
+        >
+          <SymbolView
+            name={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+            size={16}
+            tintColor={tokens.status.danger.color}
+          />
+          <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
+            {t("profile.resetData")}
+          </ThemedText>
+        </PressableScale>
+
+        {isAuthenticated ? (
+          <PressableScale
+            haptic="medium"
+            accessibilityRole="button"
+            accessibilityLabel={t("profile.deleteAccount")}
+            onPress={() => setConfirmDeleteAccount(true)}
+            style={[
+              styles.dangerButton,
+              tv && styles.dangerButtonTv,
+              {
+                backgroundColor: tokens.status.danger.soft,
+                borderColor: tokens.status.danger.border,
+              },
+            ]}
+          >
+            <SymbolView
+              name={{ ios: "trash", android: "delete", web: "delete" }}
+              size={16}
+              tintColor={tokens.status.danger.color}
+            />
+            <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
+              {t("profile.deleteAccount")}
+            </ThemedText>
+          </PressableScale>
+        ) : null}
+      </View>
+    </Card>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("profile.eyebrow")}
@@ -191,340 +541,29 @@ export default function ProfileScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/profile" />
-      <Stagger>
-        <Card padding="three" style={styles.hero}>
-          <View style={styles.identityRow}>
-            <PressableScale
-              haptic="light"
-              onPress={pickAvatar}
-              disabled={isTV()}
-              accessibilityLabel={t("profile.changeAvatar")}
-            >
-              <View style={styles.avatarWrap}>
-                {prefs.avatarUri ? (
-                  <Image
-                    source={{ uri: prefs.avatarUri }}
-                    style={[styles.avatar, { borderColor: tokens.hairline }]}
-                  />
-                ) : (
-                  <View
-                    style={[
-                      styles.avatar,
-                      styles.avatarPlaceholder,
-                      {
-                        backgroundColor: tokens.accentSoft,
-                        borderColor: withAlpha(colors.accent, 0.28),
-                      },
-                    ]}
-                  >
-                    <ThemedText type="header" style={{ color: colors.accent }}>
-                      {displayName.slice(0, 1).toUpperCase()}
-                    </ThemedText>
-                  </View>
-                )}
-                <View
-                  style={[
-                    styles.cameraBadge,
-                    {
-                      backgroundColor: colors.accent,
-                      borderColor: colors.card,
-                    },
-                  ]}
-                >
-                  <SymbolView
-                    name={{ ios: "camera.fill", android: "photo_camera", web: "photo_camera" }}
-                    size={11}
-                    tintColor={colors.accentForeground}
-                  />
-                </View>
-              </View>
-            </PressableScale>
-
-            <View style={styles.identityBody}>
-              {editing ? (
-                <View style={styles.nameEdit}>
-                  <TextInput
-                    value={nameDraft}
-                    onChangeText={setNameDraft}
-                    autoFocus
-                    accessibilityLabel={t("profile.editName")}
-                    style={[
-                      styles.nameInput,
-                      {
-                        color: colors.foreground,
-                        borderColor: colors.border,
-                        backgroundColor: colors.muted,
-                      },
-                    ]}
-                  />
-                  <Button label={t("common.save")} size="sm" onPress={saveName} />
-                </View>
-              ) : (
-                <PressableScale
-                  haptic="light"
-                  onPress={() => {
-                    setNameDraft(displayName);
-                    setEditing(true);
-                  }}
-                  accessibilityLabel={t("profile.editName")}
-                  accessibilityRole="button"
-                  style={styles.nameRow}
-                >
-                  <ThemedText type="subtitle" numberOfLines={2} style={styles.nameText}>
-                    {displayName}
-                  </ThemedText>
-                  <View style={[styles.editChip, { backgroundColor: colors.muted }]}>
-                    <SymbolView
-                      name={{ ios: "pencil", android: "edit", web: "edit" }}
-                      size={13}
-                      tintColor={colors.mutedForeground}
-                    />
-                  </View>
-                </PressableScale>
-              )}
-
-              {user?.email ? (
-                <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                  {user.email}
-                </ThemedText>
-              ) : null}
-
-              <View
-                style={[
-                  styles.providerChip,
-                  {
-                    backgroundColor: isGuest ? colors.muted : tokens.status.success.soft,
-                  },
-                ]}
-              >
-                {providerLogo && !isGuest ? (
-                  <Image source={providerLogo} style={styles.providerLogo} contentFit="contain" />
-                ) : (
-                  <SymbolView
-                    name={{
-                      ios: isGuest ? "person.fill" : "checkmark.seal.fill",
-                      android: isGuest ? "person" : "verified",
-                      web: isGuest ? "person" : "verified",
-                    }}
-                    size={12}
-                    tintColor={isGuest ? colors.mutedForeground : tokens.status.success.color}
-                  />
-                )}
-                <ThemedText
-                  type="caption"
-                  style={{
-                    color: isGuest ? colors.mutedForeground : tokens.status.success.text,
-                  }}
-                >
-                  {statusLabel}
-                </ThemedText>
-              </View>
-            </View>
+      {twoColumn ? (
+        // Wide web: identity + account actions on the start side, sync status
+        // and the danger zone on the end side (account-settings layout).
+        <View style={styles.columns}>
+          <View style={styles.column}>
+            {heroCard}
+            {signInCard}
+            {sessionCard}
           </View>
-          {isTV() ? (
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.avatarHintTv}>
-              {t("profile.tvAvatarHint")}
-            </ThemedText>
-          ) : null}
-        </Card>
-
-        {isGuest ? (
-          <Card padding="three">
-            <SectionHeader
-              title={t("profile.signInToSync")}
-              icon={{
-                ios: "person.crop.circle.badge.plus",
-                android: "person_add",
-                web: "person_add",
-              }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.signInHint}>
-              {t("profile.signInHint")}
-            </ThemedText>
-            <View style={styles.signIn}>
-              <SocialLoginButtons />
-            </View>
-          </Card>
-        ) : null}
-
-        {isAuthenticated ? (
-          <Card padding="three">
-            <SectionHeader
-              title={t("sync.title")}
-              icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
-            />
-
-            <View style={[styles.syncPanel, { backgroundColor: colors.muted }]}>
-              <View style={styles.syncMetaRow}>
-                <IconWell
-                  icon={{
-                    ios: syncUpToDate ? "checkmark.icloud.fill" : "icloud.fill",
-                    android: syncUpToDate ? "cloud_done" : "cloud",
-                    web: syncUpToDate ? "cloud_done" : "cloud",
-                  }}
-                  size={18}
-                  well={40}
-                  tint={syncUpToDate ? tokens.status.success.color : colors.accent}
-                  background={
-                    syncUpToDate ? tokens.status.success.soft : withAlpha(colors.accent, 0.14)
-                  }
-                />
-                <View style={styles.syncMetaText}>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("sync.lastSynced")}
-                  </ThemedText>
-                  <ThemedText type="smallBold">
-                    {syncMeta?.lastSyncedAt
-                      ? formatRelativeWhen(syncMeta.lastSyncedAt, locale, t, prefs.defaultCalendar)
-                      : t("sync.never")}
-                  </ThemedText>
-                </View>
-              </View>
-
-              {syncMeta?.lastOutcomeAt ? (
-                <View style={[styles.syncDetail, { borderTopColor: tokens.hairline }]}>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {syncUpToDate
-                      ? t("sync.mergeNoChanges")
-                      : t("sync.mergeSummary", {
-                          received: syncMeta.lastPulled ?? 0,
-                          sent: syncMeta.lastPushed ?? 0,
-                        })}
-                  </ThemedText>
-                  {(syncMeta.lastConflicts ?? 0) > 0 ? (
-                    <View style={styles.conflictRow}>
-                      <SymbolView
-                        name={{
-                          ios: "arrow.triangle.merge",
-                          android: "merge_type",
-                          web: "merge_type",
-                        }}
-                        size={13}
-                        tintColor={tokens.status.warning.color}
-                      />
-                      <ThemedText
-                        type="caption"
-                        style={{ color: tokens.status.warning.text, flex: 1 }}
-                      >
-                        {t("sync.conflictsResolved", { count: syncMeta.lastConflicts ?? 0 })}
-                      </ThemedText>
-                    </View>
-                  ) : null}
-                  {syncMeta.lastConflictEntities && syncMeta.lastConflictEntities.length > 0 ? (
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("sync.conflictAffected", {
-                        list: syncMeta.lastConflictEntities
-                          .map((entity) => friendlyEntity(entity, t))
-                          .join(", "),
-                      })}
-                    </ThemedText>
-                  ) : null}
-                </View>
-              ) : null}
-            </View>
-
-            <Button
-              label={isSyncing ? t("sync.syncing") : t("sync.now")}
-              icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
-              fullWidth
-              disabled={isSyncing}
-              onPress={() => void onSyncNow()}
-              style={styles.syncButton}
-            />
-            {isSyncing ? (
-              <View style={styles.syncSpinner}>
-                <ActivityIndicator size="small" color={colors.accent} />
-              </View>
-            ) : null}
-          </Card>
-        ) : null}
-
-        {isAuthenticated ? (
-          <Card padding="three">
-            <SectionHeader
-              title={t("profile.sessionTitle")}
-              icon={{
-                ios: "rectangle.portrait.and.arrow.right",
-                android: "logout",
-                web: "logout",
-              }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.sessionHint}>
-              {t("profile.sessionHint")}
-            </ThemedText>
-            <Button
-              label={t("common.signOut")}
-              variant="secondary"
-              icon={{
-                ios: "rectangle.portrait.and.arrow.right",
-                android: "logout",
-                web: "logout",
-              }}
-              fullWidth
-              onPress={() => setConfirmSignOut(true)}
-              style={styles.sessionButton}
-            />
-          </Card>
-        ) : null}
-
-        <Card padding="three" variant="muted">
-          <SectionHeader title={t("profile.dangerTitle")} />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.dangerHint}>
-            {t("profile.dangerHint")}
-          </ThemedText>
-          <View style={styles.dangerActions}>
-            <PressableScale
-              haptic="medium"
-              accessibilityRole="button"
-              accessibilityLabel={t("profile.resetData")}
-              onPress={() => {
-                if (!isResetting) setConfirmResetData(true);
-              }}
-              style={[
-                styles.dangerButton,
-                {
-                  backgroundColor: tokens.status.danger.soft,
-                  borderColor: tokens.status.danger.border,
-                },
-              ]}
-            >
-              <SymbolView
-                name={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
-                size={16}
-                tintColor={tokens.status.danger.color}
-              />
-              <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
-                {t("profile.resetData")}
-              </ThemedText>
-            </PressableScale>
-
-            {isAuthenticated ? (
-              <PressableScale
-                haptic="medium"
-                accessibilityRole="button"
-                accessibilityLabel={t("profile.deleteAccount")}
-                onPress={() => setConfirmDeleteAccount(true)}
-                style={[
-                  styles.dangerButton,
-                  {
-                    backgroundColor: tokens.status.danger.soft,
-                    borderColor: tokens.status.danger.border,
-                  },
-                ]}
-              >
-                <SymbolView
-                  name={{ ios: "trash", android: "delete", web: "delete" }}
-                  size={16}
-                  tintColor={tokens.status.danger.color}
-                />
-                <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
-                  {t("profile.deleteAccount")}
-                </ThemedText>
-              </PressableScale>
-            ) : null}
+          <View style={styles.column}>
+            {syncCard}
+            {dangerCard}
           </View>
-        </Card>
-      </Stagger>
+        </View>
+      ) : (
+        <Stagger>
+          {heroCard}
+          {signInCard}
+          {syncCard}
+          {sessionCard}
+          {dangerCard}
+        </Stagger>
+      )}
 
       <ConfirmDialog
         visible={confirmSignOut}
@@ -556,6 +595,16 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
+  columns: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  column: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.four,
+  },
   hero: {
     gap: Spacing.three,
   },
@@ -699,6 +748,9 @@ const styles = StyleSheet.create({
   dangerActions: {
     marginTop: Spacing.three,
     gap: Spacing.two,
+  },
+  dangerButtonTv: {
+    minHeight: TvLayout.minFocusTarget,
   },
   dangerButton: {
     minHeight: 48,

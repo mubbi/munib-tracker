@@ -1,7 +1,9 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnGuideTopicContent } from "@/components/learn-guide/learn-guide-topic-content";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -19,6 +21,8 @@ export default function FridayTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
   const topic = getFridayGuideTopic(topicId);
 
   const detailPath = topic ? `/friday/${topic.id}` : "/friday";
@@ -36,6 +40,7 @@ export default function FridayTopicScreen() {
       title={topic?.title ?? t("friday.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/friday" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -65,12 +70,23 @@ export default function FridayTopicScreen() {
           onAction={() => router.replace("/friday" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="jannah">
-            <LearnGuideTopicContent topic={topic} ns="friday" sectionTitle={t("friday.title")} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="friday.disclaimer" />
-        </Stagger>
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("friday.title")}
+              basePath="/friday"
+              topics={getFridayGuideTopics()}
+              currentId={topic.id}
+            />
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="jannah">
+              <LearnGuideTopicContent topic={topic} ns="friday" sectionTitle={t("friday.title")} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="friday.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );

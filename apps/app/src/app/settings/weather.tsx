@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -12,8 +13,10 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 const UNITS: { id: TemperatureUnit; labelKey: "unitCelsius" | "unitFahrenheit" }[] = [
@@ -22,6 +25,7 @@ const UNITS: { id: TemperatureUnit; labelKey: "unitCelsius" | "unitFahrenheit" }
 ];
 
 export default function WeatherSettingsScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
@@ -29,6 +33,7 @@ export default function WeatherSettingsScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.title")}
       title={t("weather.title")}
       subtitle={t("weather.subtitle")}
@@ -101,7 +106,11 @@ function UnitChoices({
             accessibilityRole="button"
             accessibilityState={{ selected }}
             onPress={() => onChange(unit.id)}
-            style={[styles.row, { backgroundColor: selected ? tokens.accentSoft : colors.muted }]}
+            style={[
+              styles.row,
+              isTV() && styles.rowTv,
+              { backgroundColor: selected ? tokens.accentSoft : colors.muted },
+            ]}
           >
             <ThemedText type="small" style={styles.rowLabel}>
               {t(`weather.${unit.labelKey}`)}
@@ -143,6 +152,9 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
   },
   rowLabel: {
     flex: 1,

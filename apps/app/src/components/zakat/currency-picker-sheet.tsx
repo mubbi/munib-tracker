@@ -2,14 +2,18 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { I18nManager, StyleSheet, TextInput, View } from "react-native";
 import { CurrencyGlyph } from "@/components/money/currency-glyph";
+import { useTvInputFocus } from "@/components/money/tv-number-input";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { type CurrencyDef, getCurrencyInfo, SUPPORTED_CURRENCIES } from "@/constants/currencies";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ZAKAT_PINNED_CURRENCY_CODES } from "@/lib/format-currency";
+import { isTV } from "@/lib/platform/is-tv";
 import { createFuzzyIndex } from "@/lib/search";
 
 type CurrencyPickerSheetProps = {
@@ -42,6 +46,8 @@ export function CurrencyPickerSheet({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [search, setSearch] = useState("");
+  const searchFocus = useTvInputFocus();
+  const tv = isTV();
 
   useEffect(() => {
     if (!visible) setSearch("");
@@ -77,6 +83,7 @@ export function CurrencyPickerSheet({
       </ThemedText>
 
       <TextInput
+        {...searchFocus.focusProps}
         value={search}
         onChangeText={setSearch}
         placeholder={t("zakat.currency.searchPlaceholder")}
@@ -86,11 +93,12 @@ export function CurrencyPickerSheet({
         autoCapitalize="characters"
         style={[
           styles.search,
+          tokens.inputSurface,
           {
-            backgroundColor: colors.muted,
             color: colors.foreground,
             textAlign: I18nManager.isRTL ? "right" : "left",
           },
+          searchFocus.containerStyle,
         ]}
       />
 
@@ -98,7 +106,7 @@ export function CurrencyPickerSheet({
         data={filtered}
         keyExtractor={(item) => item.code}
         keyboardShouldPersistTaps="handled"
-        style={styles.list}
+        style={tv ? styles.listTv : styles.list}
         contentContainerStyle={styles.listContent}
         ItemSeparatorComponent={() => <View style={{ height: Spacing.one }} />}
         ListEmptyComponent={
@@ -114,8 +122,14 @@ export function CurrencyPickerSheet({
               accessibilityRole="button"
               accessibilityState={{ selected }}
               accessibilityLabel={`${item.code} ${item.name}`}
+              // TV: land on the current currency, not the search field.
+              {...(selected && tv ? { hasTVPreferredFocus: true } : {})}
               onPress={() => handleSelect(item.code)}
-              style={[styles.row, { backgroundColor: selected ? tokens.accentSoft : colors.muted }]}
+              style={[
+                styles.row,
+                tv && styles.rowTv,
+                { backgroundColor: selected ? tokens.accentSoft : colors.muted },
+              ]}
             >
               <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
                 {item.glyph ? (
@@ -151,6 +165,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.three,
   },
   list: { maxHeight: 420 },
+  listTv: { maxHeight: tvDp(300) },
+  rowTv: { minHeight: TvLayout.minFocusTarget },
   listContent: { paddingBottom: Spacing.two },
   row: {
     flexDirection: "row",
@@ -162,8 +178,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   badge: {
-    width: 40,
-    height: 40,
+    width: tvDp(40),
+    height: tvDp(40),
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",

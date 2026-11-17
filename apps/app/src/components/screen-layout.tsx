@@ -39,6 +39,14 @@ import { isTV } from "@/lib/platform/is-tv";
 const WideBreakpoint = 1024;
 /** Wider cap used on large viewports so content isn't a narrow single column. */
 const WideMaxContentWidth = 1120;
+/** Desktop (≥1600px): grids and list–detail screens can use more of the canvas. */
+const XWideBreakpoint = 1600;
+const XWideMaxContentWidth = 1320;
+/**
+ * Learn prose on wide screens: ~75–85 characters per line at body size. Screens
+ * that add a side panel (TOC / related) pass their own `maxContentWidth`.
+ */
+const WideProseMaxWidth = 880;
 
 type ScreenLayoutProps = {
   title: string;
@@ -190,10 +198,14 @@ export function ScreenLayout({
     maxContentWidth ??
     (tv
       ? isLearnRoute
-        ? MaxContentWidth
+        ? TvLayout.proseMaxWidth
         : undefined
       : width >= WideBreakpoint
-        ? WideMaxContentWidth
+        ? isLearnRoute
+          ? WideProseMaxWidth
+          : width >= XWideBreakpoint
+            ? XWideMaxContentWidth
+            : WideMaxContentWidth
         : MaxContentWidth);
 
   const content = (
@@ -347,6 +359,7 @@ export function ScreenLayout({
             onNotificationsPress={onNotificationsPress}
             onBack={onBack}
             blurTargetRef={Platform.OS === "android" && !tv ? contentBlurTargetRef : undefined}
+            contentMaxWidth={maxWidth}
           />
         ) : null}
         {headerAccessory}
