@@ -7,7 +7,7 @@
   "bn": {
     "quran.surahNumber": "সূরা {{number}}",
     "quran.selectSurah": "একটি সূরা নির্বাচন করুন",
-    "quran.openReader": "পাঠক খুলুন"
+    "quran.openReader": "রিডার খুলুন"
   },
   "bs": {
     "quran.surahNumber": "Sura {{number}}",
@@ -17,7 +17,7 @@
   "fa": {
     "quran.surahNumber": "سوره {{number}}",
     "quran.selectSurah": "یک سوره انتخاب کنید",
-    "quran.openReader": "باز کردن قاری"
+    "quran.openReader": "باز کردن خواننده"
   },
   "fr": {
     "quran.surahNumber": "Sourate {{number}}",
@@ -25,8 +25,8 @@
     "quran.openReader": "Ouvrir le lecteur"
   },
   "ha": {
-    "quran.surahNumber": "Surah {{number}}",
-    "quran.selectSurah": "Zaɓi surah",
+    "quran.surahNumber": "Sura {{number}}",
+    "quran.selectSurah": "Zaɓi sura",
     "quran.openReader": "Buɗe mai karatu"
   },
   "id": {
@@ -37,17 +37,17 @@
   "kk": {
     "quran.surahNumber": "Сүре {{number}}",
     "quran.selectSurah": "Сүре таңдаңыз",
-    "quran.openReader": "Оқырманды ашу"
+    "quran.openReader": "Оқу режимін ашу"
   },
   "ku": {
-    "quran.surahNumber": "Sûre {{number}}",
-    "quran.selectSurah": "Sureyekê hilbijêre",
-    "quran.openReader": "Xwînerê veke"
+    "quran.surahNumber": "Sûreya {{number}}",
+    "quran.selectSurah": "Sûreyekê hilbijêre",
+    "quran.openReader": "Xwendekarê veke"
   },
   "ky": {
     "quran.surahNumber": "Сүрө {{number}}",
     "quran.selectSurah": "Сүрө тандаңыз",
-    "quran.openReader": "Окуучуну ачуу"
+    "quran.openReader": "Окуу режимин ачуу"
   },
   "ms": {
     "quran.surahNumber": "Surah {{number}}",
@@ -55,22 +55,22 @@
     "quran.openReader": "Buka pembaca"
   },
   "ps": {
-    "quran.surahNumber": "سوره {{number}}",
-    "quran.selectSurah": "یوه سوره وټاکئ",
-    "quran.openReader": "لوستونکی پرانیسئ"
+    "quran.surahNumber": "سورت {{number}}",
+    "quran.selectSurah": "یو سورت وټاکئ",
+    "quran.openReader": "لوستونکی پرانیزئ"
   },
   "ru": {
     "quran.surahNumber": "Сура {{number}}",
     "quran.selectSurah": "Выберите суру",
-    "quran.openReader": "Открыть чтец"
+    "quran.openReader": "Открыть чтение"
   },
   "so": {
     "quran.surahNumber": "Suurad {{number}}",
     "quran.selectSurah": "Dooro suurad",
-    "quran.openReader": "Fur akhristaha"
+    "quran.openReader": "Fur akhriyaha"
   },
   "sq": {
-    "quran.surahNumber": "Sure {{number}}",
+    "quran.surahNumber": "Sureja {{number}}",
     "quran.selectSurah": "Zgjidhni një sure",
     "quran.openReader": "Hap lexuesin",
     "externalCommands.intents.markCurrent": "Shëno Salah-un tim"
@@ -81,14 +81,14 @@
     "quran.openReader": "Fungua kisomaji"
   },
   "tg": {
-    "quran.surahNumber": "Сура {{number}}",
+    "quran.surahNumber": "Сураи {{number}}",
     "quran.selectSurah": "Сураро интихоб кунед",
-    "quran.openReader": "Хонандаро кушоед"
+    "quran.openReader": "Кушодани хонанда"
   },
   "tk": {
-    "quran.surahNumber": "Sure {{number}}",
-    "quran.selectSurah": "Sure saýlaň",
-    "quran.openReader": "Okadyjyny aç"
+    "quran.surahNumber": "Süre {{number}}",
+    "quran.selectSurah": "Süre saýlaň",
+    "quran.openReader": "Okaýjyny aç"
   },
   "tr": {
     "quran.surahNumber": "Sure {{number}}",
@@ -98,6 +98,6 @@
   "uz": {
     "quran.surahNumber": "Sura {{number}}",
     "quran.selectSurah": "Surani tanlang",
-    "quran.openReader": "O'quvchini ochish"
+    "quran.openReader": "O'qish oynasini ochish"
   }
 }
