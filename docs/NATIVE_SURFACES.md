@@ -136,7 +136,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 - Target: `targets/munib-tracker-watch/` (`type: "watch"`, watchOS 10+)
 - Reads `widget_snapshot_v1` from App Group (same schema as WidgetKit)
-- Marks via App Group command queue + WatchConnectivity nudge to phone
+- Marks reach the phone over WatchConnectivity only (the watch's App Group is on the watch): `sendMessage` when the phone is reachable, falling back to queued `transferUserInfo` when it isn't (or the live send fails). The phone bridge (`MunibExternalCommandsModule`) handles both `didReceiveMessage` variants and `didReceiveUserInfo`, enqueueing into `pending_commands_v1`
 - Requires paired iPhone with Munib Tracker installed
 - Phone pushes `widget_snapshot_v1` over WatchConnectivity (`updateApplicationContext` + complication userInfo) so the face stays fresh
 - **Tasbeeh (watch-local):** `WatchTasbeehView.swift` — a NavigationLink from the root list opens a self-contained `@State` counter (33 / 99 / 100 / unlimited via segmented picker). Tap or Digital Crown rotation (`digitalCrownRotation`) increments; haptics (`WKInterfaceDevice.current().play`) on tap/target-reached/reset. **No ExternalCommand, no WatchConnectivity** — purely local to the watch, independent of the phone counter.
