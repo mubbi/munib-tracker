@@ -36,6 +36,7 @@ import {
 } from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
+import { useHingePosture } from "@/lib/platform/hinge";
 import { isTV } from "@/lib/platform/is-tv";
 import { isRTL, ltrControlViewProps } from "@/lib/rtl";
 
@@ -89,6 +90,10 @@ export function TasbeehCounter({
   const { t } = useTranslation();
   const [pending, setPending] = useState<PendingConfirm | null>(null);
   const tv = isTV();
+  // Foldables (iPhone Duo, Android foldables) in tabletop posture: the count stays
+  // readable on the upper half and a full-width tap pad fills the lower half. The
+  // hinge drives this interaction only — layout still follows window size.
+  const tabletop = useHingePosture() === "halfOpen" && !tv;
   // TV: the ring is the one big Select target (preferred focus). A landscape
   // layout puts modes / undo / reset in a side column so the card fits the
   // 540dp viewport and Reset is never the next thing below the counter.
@@ -265,6 +270,27 @@ export function TasbeehCounter({
           <>
             {status}
             {controls}
+            {tabletop ? (
+              <PressableScale
+                haptic={false}
+                onPress={handleTap}
+                scaleTo={0.98}
+                accessibilityRole="button"
+                accessibilityLabel={t("common.count")}
+                accessibilityHint={t("tasbeehUi.tapToCount")}
+                style={[
+                  styles.tabletopPad,
+                  {
+                    backgroundColor: tokens.accentSoft,
+                    borderColor: withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28),
+                  },
+                ]}
+              >
+                <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+                  {t("tasbeehUi.tapToCount")}
+                </ThemedText>
+              </PressableScale>
+            ) : null}
           </>
         )}
       </View>
@@ -709,6 +735,16 @@ function ControlButton({
 }
 
 const styles = StyleSheet.create({
+  tabletopPad: {
+    alignSelf: "stretch",
+    minHeight: 160,
+    marginTop: Spacing.three,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   root: {
     alignItems: "stretch",
     gap: Spacing.four,
