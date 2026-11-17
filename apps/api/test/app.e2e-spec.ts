@@ -93,6 +93,35 @@ describe("API (e2e)", () => {
       .expect(401);
   });
 
+  it("validates auth bodies but strips unknown fields (LenientBody)", async () => {
+    // Wrong type on a declared field is rejected…
+    await http().post("/api/v1/auth/guest").send({ deviceId: 12345 }).expect(400);
+    await http()
+      .post("/api/v1/auth/guest")
+      .send({ deviceId: "x".repeat(129) })
+      .expect(400);
+    await http()
+      .post("/api/v1/auth/refresh")
+      .send({ refreshToken: { $ne: "" } })
+      .expect(400);
+    await http().post("/api/v1/auth/oauth/google").send({ code: 42 }).expect(400);
+
+    // …while extra fields older app builds send are dropped, not a 400.
+    const guest = await http()
+      .post("/api/v1/auth/guest")
+      .send({ deviceId: "e2e-lenient-xxxxxxx", platform: "ios" })
+      .expect(201);
+    const signIn = await http()
+      .post("/api/v1/auth/oauth/google")
+      .send({ code: "e2e-code-lenient", identityToken: "legacy", email: "x@example.com" })
+      .expect(201);
+    expect(signIn.body.accountType).toBe("user");
+    await http()
+      .post("/api/v1/auth/refresh")
+      .send({ refreshToken: guest.body.refreshToken, extra: true })
+      .expect(201);
+  });
+
   it("blocks guests from cloud sync with 403", async () => {
     const guest = await http().post("/api/v1/auth/guest").send({ deviceId: "e2e-guest-sync-xxxx" });
 

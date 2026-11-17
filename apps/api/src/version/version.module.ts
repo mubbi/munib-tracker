@@ -13,6 +13,8 @@ import { AppVersionService } from "./app-version.service";
 })
 export class VersionModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(AppVersionHeadersMiddleware).forRoutes({ path: "*", method: RequestMethod.ALL });
+    consumer
+      .apply(AppVersionHeadersMiddleware)
+      .forRoutes({ path: "{*path}", method: RequestMethod.ALL });
   }
 }

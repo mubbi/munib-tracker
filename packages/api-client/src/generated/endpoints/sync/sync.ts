@@ -101,6 +101,7 @@ export type SyncControllerPullQueryResult = NonNullable<Awaited<ReturnType<typeo
 export type SyncControllerPullQueryError = unknown
 
 
+/** @summary Pull cloud changes since a timestamp */
 export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(
  params: undefined |  SyncControllerPullParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -111,6 +112,7 @@ export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncCont
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Pull cloud changes since a timestamp */
 export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(
  params?: SyncControllerPullParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -121,14 +123,12 @@ export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncCont
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Pull cloud changes since a timestamp */
 export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(
  params?: SyncControllerPullParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Pull cloud changes since a timestamp
- */
-
+/** @summary Pull cloud changes since a timestamp */
 export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(
  params?: SyncControllerPullParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -200,9 +200,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type SyncControllerPushMutationError = unknown
     export type SyncControllerPushMutationVariables = {data: SyncPushDto}
 
-    /**
- * @summary Push local changes using last-write-wins semantics
- */
+    /** @summary Push local changes using last-write-wins semantics */
 export const useSyncControllerPush = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof syncControllerPush>>, TError,SyncControllerPushMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
