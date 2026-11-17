@@ -4,7 +4,7 @@
   "separate-pull-requests": true,
   "packages": {
     "apps/app": {
-      "release-type": "expo",
+      "release-type": "node",
       "component": "app",
       "package-name": "app",
       "changelog-path": "CHANGELOG.md",
@@ -12,6 +12,11 @@
         {
           "type": "generic",
           "path": ".env.example"
+        },
+        {
+          "type": "json",
+          "path": "app.json",
+          "jsonpath": "$.expo.version"
         }
       ]
     },
