@@ -51,8 +51,19 @@ export interface LiveActivityJobStore {
   cancelPendingForActivity(activityTokenId: number, reason: string): Promise<string[]>;
   recoverExpiredLeases(leaseMs: number, now?: Date): Promise<void>;
   listDuePendingJobIds(limit: number, now?: Date): Promise<string[]>;
+  /**
+   * True when a later boundary for the same activity is already due or
+   * delivered. Delivering the older job after it would roll the lock screen
+   * back to a stale phase (e.g. a retried "Mark Salah" landing after
+   * "after-Salah"), so the caller cancels it instead.
+   */
+  hasNewerDueJob(
+    job: Pick<LiveActivityJobRecord, "id" | "activityTokenId" | "executeAt">,
+    now: Date,
+  ): Promise<boolean>;
   /** Mark active tokens past expiresAt as expired; return their ids for cancel. */
   expireActiveTokens(now?: Date): Promise<number[]>;
+  /** Delete non-active (expired / ended / invalid) token rows last touched before `cutoff`. */
   deleteOldExpiredTokens(cutoff: Date): Promise<number>;
 }
 

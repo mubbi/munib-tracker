@@ -81,6 +81,18 @@ export class ApnsLiveActivityClient {
 
     if (response.status === 200) return { ok: true, apnsId: response.apnsId };
     const reason = parseApnsReason(response.body);
+    if (reason === "ExpiredProviderToken" || reason === "InvalidProviderToken") {
+      // Clock skew / long-lived worker: mint a fresh provider JWT next attempt
+      // instead of permanently failing every job until the process recycles.
+      this.authTokenCache = null;
+      return {
+        ok: false,
+        status: response.status,
+        reason,
+        retryable: reason === "ExpiredProviderToken",
+        invalidateToken: false,
+      };
+    }
     const invalidateToken =
       response.status === 410 ||
       reason === "BadDeviceToken" ||

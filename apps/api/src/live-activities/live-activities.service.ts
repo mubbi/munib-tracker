@@ -18,7 +18,7 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { LiveActivityPushJobEntity, LiveActivityPushTokenEntity } from "../database/entities";
@@ -57,24 +57,45 @@ export class LiveActivitiesService {
     // Clients re-queue the latest due boundary with its original executeAt so a
     // cancel/recreate race cannot leave ActivityKit stuck on afterSalah.
     const overdueGraceMs = 30 * 60_000;
-    const updates = dto.updates
-      .map((update) => ({
+    // Last write wins per (phase, executeAt) — a duplicate would violate
+    // `live_activity_push_jobs_phase_unique` and 500 the whole registration.
+    const byBoundary = new Map<
+      string,
+      (typeof dto.updates)[number] & {
+        executeDate: Date;
+        staleDate: Date | null;
+        contentStateJson: string;
+      }
+    >();
+    for (const update of dto.updates) {
+      const executeDate = new Date(update.executeAt);
+      if (executeDate.getTime() < now.getTime() - overdueGraceMs) continue;
+      byBoundary.set(`${update.phase}@${executeDate.getTime()}`, {
         ...update,
-        executeDate: new Date(update.executeAt),
+        executeDate,
         staleDate: update.staleAt ? new Date(update.staleAt) : null,
         contentStateJson: this.validateContentState(update.contentState),
-      }))
-      .filter((update) => update.executeDate.getTime() >= now.getTime() - overdueGraceMs)
-      .sort((a, b) => a.executeDate.getTime() - b.executeDate.getTime());
+      });
+    }
+    const updates = [...byBoundary.values()].sort(
+      (a, b) => a.executeDate.getTime() - b.executeDate.getTime(),
+    );
 
     if (updates.length === 0) throw new BadRequestException("No future Live Activity updates");
     if (updates.some((update) => update.executeDate > expiresAt)) {
       throw new BadRequestException("Live Activity updates cannot exceed ActivityKit lifetime");
     }
 
+    const tokenHash = hashActivityKitToken(dto.pushToken);
     const existing = await this.tokenRepository.findOne({ where: { activityId: dto.activityId } });
     if (existing && existing.userId !== user.userId) {
-      throw new ForbiddenException("Live Activity belongs to another account");
+      // Same device after sign-out / account switch: presenting the exact
+      // ActivityKit token proves possession, so hand the activity over instead
+      // of silently stranding the lock screen without remote updates.
+      if (existing.tokenHash !== tokenHash) {
+        throw new ForbiddenException("Live Activity belongs to another account");
+      }
+      existing.userId = user.userId;
     }
 
     // Deliver already-due pending jobs before wiping them. Otherwise a sync that
@@ -113,15 +134,21 @@ export class LiveActivitiesService {
         activityId: dto.activityId,
         userId: user.userId,
       });
-    const tokenHash = hashActivityKitToken(dto.pushToken);
     // ActivityKit may reuse a push token across restarts; clear older rows that
     // still hold the same hash so the unique index does not reject the upsert.
-    await this.tokenRepository
-      .createQueryBuilder()
-      .delete()
-      .where("tokenHash = :tokenHash", { tokenHash })
-      .andWhere(existing ? "id != :id" : "1=1", existing ? { id: existing.id } : {})
-      .execute();
+    const staleRows = await this.tokenRepository.find({ where: { tokenHash } });
+    const staleIds = staleRows.map((row) => row.id).filter((id) => id !== existing?.id);
+    if (staleIds.length > 0) {
+      const staleMessageIds = (
+        await this.jobRepository.find({
+          where: { activityTokenId: In(staleIds), status: "pending" },
+        })
+      )
+        .map((job) => job.qstashMessageId)
+        .filter((id): id is string => Boolean(id));
+      await this.tokenRepository.delete({ id: In(staleIds) });
+      await this.qstash.cancel(staleMessageIds);
+    }
 
     activity.tokenHash = tokenHash;
     activity.tokenCiphertext = encryptActivityKitToken(dto.pushToken, this.encryptionKey());

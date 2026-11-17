@@ -32,6 +32,9 @@ export class SurfacePushQStashService {
       body: { jobId },
       notBefore: Math.floor(executeAt.getTime() / 1000),
       retries: 5,
+      // Same backoff as Live Activity: default exponential retries collapse
+      // into seconds and exhaust while a slightly-early callback is 503'd.
+      retryDelay: "min(120000, 10000 * pow(2, retried))",
       timeout: 20,
       deduplicationId: `surface-push-${jobId}`,
       label: "surface-push",

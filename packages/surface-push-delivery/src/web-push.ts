@@ -1,6 +1,6 @@
-import webpush from "web-push";
+import { sendNotification, setVapidDetails } from "web-push";
 
-import type { SurfaceSender, SurfaceSendResult } from "./types.js";
+import type { SurfaceSender, SurfaceSendOptions, SurfaceSendResult } from "./types.js";
 
 export type WebPushSubscription = {
   endpoint: string;
@@ -29,12 +29,16 @@ export function isValidWebPushSubscription(value: unknown): value is WebPushSubs
 }
 
 export function createWebPushSender(config: WebPushSenderConfig): SurfaceSender {
-  webpush.setVapidDetails(config.subject, config.publicKey, config.privateKey);
+  setVapidDetails(config.subject, config.publicKey, config.privateKey);
   const ttl = config.ttlSeconds ?? 86_400;
 
   return {
     channel: "web_push",
-    async send(target: string, payloadJson: string): Promise<SurfaceSendResult> {
+    async send(
+      target: string,
+      payloadJson: string,
+      options?: SurfaceSendOptions,
+    ): Promise<SurfaceSendResult> {
       let subscription: WebPushSubscription;
       try {
         subscription = JSON.parse(target) as WebPushSubscription;
@@ -56,10 +60,15 @@ export function createWebPushSender(config: WebPushSenderConfig): SurfaceSender 
       }
 
       try {
-        await webpush.sendNotification(
+        await sendNotification(
           { endpoint: subscription.endpoint, keys: subscription.keys },
           payloadJson,
-          { TTL: ttl },
+          {
+            TTL: options?.ttlSeconds != null ? Math.min(ttl, options.ttlSeconds) : ttl,
+            // Phase boundaries are time-critical; "normal" lets mobile push
+            // services defer delivery under battery saver.
+            urgency: "high",
+          },
         );
         return { ok: true };
       } catch (err) {
