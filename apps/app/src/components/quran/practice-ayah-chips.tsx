@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, type ScrollViewInstance, StyleSheet } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -30,7 +30,7 @@ export function PracticeAyahChips({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const currentIndex = ayahs.findIndex((a) => stateOf(a) === "current");
 
   useEffect(() => {

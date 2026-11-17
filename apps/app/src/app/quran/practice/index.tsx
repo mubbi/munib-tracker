@@ -1,13 +1,12 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ListenerStatusStrip } from "@/components/quran/listener-status-strip";
 import { PracticePassagePicker } from "@/components/quran/practice-passage-picker";
-import { PracticePills } from "@/components/quran/practice-pills";
+import { type PracticePillOption, PracticePills } from "@/components/quran/practice-pills";
 import { PracticeRangeEditor } from "@/components/quran/practice-range-editor";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -15,10 +14,11 @@ import { SettingsRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { engineDownloadMb } from "@/constants/recitation-models";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useIsOnline } from "@/hooks/use-is-online";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -29,6 +29,7 @@ import { clampPassage, modeNeedsListener, passageForPreset } from "@/lib/quran-c
 import type { Passage, PracticeMode, PracticeView, RangePreset } from "@/lib/quran-companion/types";
 import { getSurahByNumber } from "@/lib/quran-meta";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useEnsureHifzLoaded } from "@/stores/hifz-store";
 import {
   useCompanionPrefs,
@@ -57,6 +58,41 @@ const MODE_HELP_KEY: Record<PracticeMode, string> = {
 };
 
 type RangeChoice = RangePreset | "custom";
+type Icon = SymbolViewProps["name"];
+
+const MODE_ICON: Record<PracticeMode, Icon> = {
+  follow: { ios: "waveform", android: "graphic_eq", web: "graphic_eq" },
+  check: { ios: "checkmark.circle", android: "fact_check", web: "fact_check" },
+  "hide-words": { ios: "eye.slash", android: "visibility_off", web: "visibility_off" },
+  "hide-ayahs": { ios: "eye.slash.circle", android: "hide_source", web: "hide_source" },
+};
+
+const RANGE_ICON: Record<RangeChoice, Icon> = {
+  ayah: { ios: "text.alignleft", android: "short_text", web: "short_text" },
+  next5: { ios: "list.number", android: "format_list_numbered", web: "format_list_numbered" },
+  surah: { ios: "book.closed", android: "menu_book", web: "menu_book" },
+  page: { ios: "doc.text", android: "description", web: "description" },
+  custom: { ios: "slider.horizontal.3", android: "tune", web: "tune" },
+};
+
+const VIEW_ICON: Record<PracticeView, Icon> = {
+  ayah: { ios: "text.justify", android: "view_agenda", web: "view_agenda" },
+  page: { ios: "doc.plaintext", android: "article", web: "article" },
+  mushaf: { ios: "book", android: "auto_stories", web: "auto_stories" },
+};
+
+/** Small icon well + bold label that opens each choice group (and card titles). */
+function SectionLabel({ icon, label, first }: { icon: Icon; label: string; first?: boolean }) {
+  return (
+    <View
+      style={[styles.sectionLabel, first ? null : styles.sectionGap]}
+      accessibilityRole="header"
+    >
+      <IconWell icon={icon} size={14} well={26} radius={8} />
+      <ThemedText type="smallBold">{label}</ThemedText>
+    </View>
+  );
+}
 
 /**
  * Practice hub (§9.1). Read top to bottom: what the listener can do, what you
@@ -152,25 +188,27 @@ export default function PracticeHubScreen() {
     return out;
   }, [history.items]);
 
-  const rangeOptions: { id: RangeChoice; label: string }[] = [
-    { id: "ayah", label: t("quranCompanion.range.ayah") },
-    { id: "next5", label: t("quranCompanion.range.next5") },
-    { id: "surah", label: t("quranCompanion.range.surah") },
-    ...(pageKnown ? [{ id: "page" as const, label: t("quranCompanion.range.page") }] : []),
-    { id: "custom", label: t("quranCompanion.range.custom") },
+  const rangeOptions: PracticePillOption<RangeChoice>[] = [
+    { id: "ayah", label: t("quranCompanion.range.ayah"), icon: RANGE_ICON.ayah },
+    { id: "next5", label: t("quranCompanion.range.next5"), icon: RANGE_ICON.next5 },
+    { id: "surah", label: t("quranCompanion.range.surah"), icon: RANGE_ICON.surah },
+    ...(pageKnown
+      ? [{ id: "page" as const, label: t("quranCompanion.range.page"), icon: RANGE_ICON.page }]
+      : []),
+    { id: "custom", label: t("quranCompanion.range.custom"), icon: RANGE_ICON.custom },
   ];
 
-  const viewOptions: { id: PracticeView; label: string }[] = [
-    { id: "ayah", label: t("quran.layoutAyah") },
-    { id: "page", label: t("quran.layoutPage") },
-    { id: "mushaf", label: t("quran.layoutMushaf") },
+  const viewOptions: PracticePillOption<PracticeView>[] = [
+    { id: "ayah", label: t("quran.layoutAyah"), icon: VIEW_ICON.ayah },
+    { id: "page", label: t("quran.layoutPage"), icon: VIEW_ICON.page },
+    { id: "mushaf", label: t("quran.layoutMushaf"), icon: VIEW_ICON.mushaf },
   ];
 
-  const modeOptions: { id: PracticeMode; label: string }[] = [
-    { id: "follow", label: t("quranCompanion.mode.follow") },
-    { id: "check", label: t("quranCompanion.mode.check") },
-    { id: "hide-words", label: t("quranCompanion.mode.hideWords") },
-    { id: "hide-ayahs", label: t("quranCompanion.mode.hideAyahs") },
+  const modeOptions: PracticePillOption<PracticeMode>[] = [
+    { id: "follow", label: t("quranCompanion.mode.follow"), icon: MODE_ICON.follow },
+    { id: "check", label: t("quranCompanion.mode.check"), icon: MODE_ICON.check },
+    { id: "hide-words", label: t("quranCompanion.mode.hideWords"), icon: MODE_ICON["hide-words"] },
+    { id: "hide-ayahs", label: t("quranCompanion.mode.hideAyahs"), icon: MODE_ICON["hide-ayahs"] },
   ];
 
   const usable = isListenerUsable(listener);
@@ -262,47 +300,71 @@ export default function PracticeHubScreen() {
     sitting.items.length > 0 ? (
       <Card padding="three">
         <View style={styles.reviseHeader}>
-          <SymbolView
-            name={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
+          <IconWell
+            icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
             size={20}
-            tintColor={tokens.status.warning.color}
+            tint={tokens.status.warning.color}
+            background={tokens.status.warning.soft}
           />
-          <ThemedText type="subtitle" style={styles.flex}>
-            {t("quranCompanion.hub.reviseTitle", { count: queue.length })}
-          </ThemedText>
+          <View style={styles.flex}>
+            <ThemedText type="subtitle">
+              {t("quranCompanion.hub.reviseTitle", { count: queue.length })}
+            </ThemedText>
+            {sitting.remaining > 0 ? (
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("quranCompanion.hub.reviseRemaining", { count: sitting.remaining })}
+              </ThemedText>
+            ) : null}
+          </View>
         </View>
-        {sitting.remaining > 0 ? (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.gapTop}>
-            {t("quranCompanion.hub.reviseRemaining", { count: sitting.remaining })}
-          </ThemedText>
-        ) : null}
         <View style={styles.reviseActions}>
           <Button
             label={t("quranCompanion.hub.startRevision")}
+            icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
             variant="secondary"
             onPress={startRevision}
             style={styles.flex}
           />
           <Button
             label={t("quranCompanion.hub.openQueue")}
+            icon={{
+              ios: "list.bullet",
+              android: "format_list_bulleted",
+              web: "format_list_bulleted",
+            }}
             variant="ghost"
             onPress={() => router.push("/quran/revision" as Href)}
+            style={styles.flex}
           />
         </View>
       </Card>
     ) : null;
   const passageCard = (
     <Card padding="three">
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {picked ? t("quranCompanion.hub.passageLabel") : t("quranCompanion.hub.continue")}
-      </ThemedText>
+      <View style={styles.eyebrowRow}>
+        <SymbolView
+          name={
+            picked
+              ? { ios: "book", android: "menu_book", web: "menu_book" }
+              : { ios: "clock.arrow.circlepath", android: "history", web: "history" }
+          }
+          size={14}
+          tintColor={colors.mutedForeground}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {picked ? t("quranCompanion.hub.passageLabel") : t("quranCompanion.hub.continue")}
+        </ThemedText>
+      </View>
       <PressableScale
         haptic="light"
         accessibilityRole="button"
         accessibilityLabel={`${passageLabel}. ${t("quranCompanion.hub.change")}`}
         accessibilityHint={t("quranCompanion.picker.title")}
         onPress={() => setPickerOpen(true)}
-        style={[styles.passageRow, { backgroundColor: colors.muted }]}
+        style={[
+          styles.passageRow,
+          { backgroundColor: colors.muted, borderColor: tokens.accentBorder },
+        ]}
       >
         <View style={[styles.passageBadge, { backgroundColor: tokens.accentSoft }]}>
           <ThemedText type="smallBold" style={{ color: colors.accent }}>
@@ -318,17 +380,22 @@ export default function PracticeHubScreen() {
             {surahMeta?.nameArabic ? ` · ${surahMeta.nameArabic}` : ""}
           </ThemedText>
         </View>
-        <View style={styles.changeLink}>
+        <View style={[styles.changeLink, { backgroundColor: tokens.accentSoft }]}>
+          <SymbolView
+            name={{ ios: "pencil", android: "edit", web: "edit" }}
+            size={14}
+            tintColor={colors.accent}
+          />
           <ThemedText type="smallBold" style={{ color: colors.accent }}>
             {t("quranCompanion.hub.change")}
           </ThemedText>
-          <SymbolView name={chevron} size={14} tintColor={colors.accent} />
         </View>
       </PressableScale>
 
-      <ThemedText type="smallBold" style={styles.sectionGap}>
-        {t("quranCompanion.hub.rangeTitle")}
-      </ThemedText>
+      <SectionLabel
+        icon={{ ios: "arrow.left.and.right", android: "straighten", web: "straighten" }}
+        label={t("quranCompanion.hub.rangeTitle")}
+      />
       <PracticePills
         options={rangeOptions}
         value={rangeChoice}
@@ -337,21 +404,31 @@ export default function PracticeHubScreen() {
       />
       {custom ? <PracticeRangeEditor value={custom} onChange={setCustom} /> : null}
 
-      <ThemedText type="smallBold" style={styles.sectionGap}>
-        {t("quranCompanion.hub.modeTitle")}
-      </ThemedText>
+      <SectionLabel
+        icon={{ ios: "graduationcap", android: "school", web: "school" }}
+        label={t("quranCompanion.hub.modeTitle")}
+      />
       <PracticePills
         options={modeOptions}
         value={prefs.defaultMode}
         onChange={(id) => void update({ defaultMode: id })}
         accessibilityLabel={t("quranCompanion.hub.modeTitle")}
       />
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.gapTop}>
-        {t(MODE_HELP_KEY[prefs.defaultMode])}
-      </ThemedText>
-      <ThemedText type="smallBold" style={styles.sectionGap}>
-        {t("quranCompanion.view.title")}
-      </ThemedText>
+      <View style={[styles.modeHelp, { backgroundColor: withAlpha(colors.accent, 0.08) }]}>
+        <SymbolView
+          name={MODE_ICON[prefs.defaultMode]}
+          size={16}
+          tintColor={colors.accent}
+          style={styles.calloutIcon}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
+          {t(MODE_HELP_KEY[prefs.defaultMode])}
+        </ThemedText>
+      </View>
+      <SectionLabel
+        icon={{ ios: "square.split.1x2", android: "view_agenda", web: "view_agenda" }}
+        label={t("quranCompanion.view.title")}
+      />
       <PracticePills
         options={viewOptions}
         value={prefs.practiceView}
@@ -369,7 +446,13 @@ export default function PracticeHubScreen() {
             },
           ]}
         >
-          <ThemedText type="caption" style={{ color: tokens.status.warning.color }}>
+          <SymbolView
+            name={{ ios: "exclamationmark.triangle", android: "warning", web: "warning" }}
+            size={16}
+            tintColor={tokens.status.warning.color}
+            style={styles.calloutIcon}
+          />
+          <ThemedText type="caption" style={[styles.flex, { color: tokens.status.warning.color }]}>
             {t("quranCompanion.hub.captionManualMode")}
           </ThemedText>
         </View>
@@ -392,7 +475,11 @@ export default function PracticeHubScreen() {
   const recentCard =
     recent.length > 0 ? (
       <Card padding="three">
-        <ThemedText type="smallBold">{t("quranCompanion.hub.recentTitle")}</ThemedText>
+        <SectionLabel
+          first
+          icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
+          label={t("quranCompanion.hub.recentTitle")}
+        />
         <View style={styles.recentList}>
           {recent.map((r) => {
             const name =
@@ -416,17 +503,27 @@ export default function PracticeHubScreen() {
                 onPress={() => openSession(r.passage, r.mode)}
                 style={[styles.recentRow, { backgroundColor: colors.muted }]}
               >
-                <SymbolView
-                  name={{ ios: "arrow.clockwise", android: "replay", web: "replay" }}
-                  size={16}
-                  tintColor={colors.accent}
-                />
+                <View style={[styles.recentIcon, { backgroundColor: tokens.accentSoft }]}>
+                  <SymbolView
+                    name={{ ios: "arrow.clockwise", android: "replay", web: "replay" }}
+                    size={14}
+                    tintColor={colors.accent}
+                  />
+                </View>
                 <ThemedText type="smallBold" style={styles.flex} numberOfLines={1}>
                   {label}
                 </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {modeLabel}
-                </ThemedText>
+                <View style={[styles.modeChip, { borderColor: colors.border }]}>
+                  <SymbolView
+                    name={MODE_ICON[r.mode]}
+                    size={12}
+                    tintColor={colors.mutedForeground}
+                  />
+                  <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                    {modeLabel}
+                  </ThemedText>
+                </View>
+                <SymbolView name={chevron} size={14} tintColor={colors.mutedForeground} />
               </PressableScale>
             );
           })}
@@ -515,9 +612,27 @@ const styles = StyleSheet.create({
   wideMain: { flex: 1, minWidth: 0, maxWidth: 720 },
   wideAside: { flex: 1, minWidth: 300, maxWidth: 400, gap: Spacing.three },
   flex: { flex: 1, minWidth: 0 },
-  gapTop: { marginTop: Spacing.two },
-  sectionGap: { marginTop: Spacing.three, marginBottom: Spacing.one },
-  reviseHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  sectionLabel: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    marginBottom: Spacing.two,
+  },
+  sectionGap: { marginTop: Spacing.four },
+  eyebrowRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  modeHelp: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.two,
+    marginTop: Spacing.two,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  /** Nudge so a 16pt symbol lines up with the first caption line. */
+  calloutIcon: { marginTop: 1 },
+  reviseHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
   reviseActions: {
     flexDirection: "row",
     alignItems: "center",
@@ -532,6 +647,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
   },
   passageBadge: {
     width: 44,
@@ -540,8 +656,32 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  changeLink: { flexDirection: "row", alignItems: "center", gap: 4 },
-  recentList: { gap: Spacing.two, marginTop: Spacing.two },
+  changeLink: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingVertical: 6,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.pill,
+  },
+  recentList: { gap: Spacing.two },
+  recentIcon: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modeChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingVertical: 2,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.pill,
+    borderWidth: StyleSheet.hairlineWidth,
+    flexShrink: 1,
+  },
   recentRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -552,6 +692,9 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   note: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.two,
     marginTop: Spacing.two,
     padding: Spacing.two,
     borderRadius: Radius.sm,
@@ -559,3 +702,6 @@ const styles = StyleSheet.create({
   },
   startButton: { marginTop: Spacing.four },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/practice");

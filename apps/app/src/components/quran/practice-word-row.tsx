@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, type ViewInstance } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -54,7 +54,7 @@ export const PracticeWordRow = memo(function PracticeWordRow({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const rtl = useIsRTL();
-  const activeRef = useRef<View>(null);
+  const activeRef = useRef<ViewInstance>(null);
 
   useEffect(() => {
     if (activeIndex == null || !onActiveWordMeasured) return;

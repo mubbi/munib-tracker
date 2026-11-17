@@ -2,19 +2,24 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import {
+  PracticeSessionSummary,
+  type SummaryAction,
+  summaryOutcome,
+} from "@/components/quran/practice-session-summary";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Spacing } from "@/constants/theme";
 import { singleAyahTrack } from "@/lib/quran-audio";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { ayahCount } from "@/lib/quran-companion/passage";
 import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
+import type { SessionMode } from "@/lib/quran-companion/types";
 import { getSurahByNumber } from "@/lib/quran-meta";
+import { useArrowForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useToast } from "@/providers/toast-provider";
 import { hifzKey, useEnsureHifzLoaded, useHifzActions, useHifzMap } from "@/stores/hifz-store";
@@ -31,7 +36,8 @@ import {
 import { useQuranPrefs } from "@/stores/quran-store";
 
 /**
- * Session summary (§9.3). The next action comes first; the counts are a caption.
+ * Session summary (§9.3). Headline + counts, then the next action; a session
+ * where nothing was heard offers the passage again instead of moving on.
  * No percentage, no confetti, no streak. "Mark memorized" is a text button,
  * shown only when the ladder offers it, and runs the existing hifz transition
  * behind the same confirm the reader uses.
@@ -45,6 +51,7 @@ export default function PracticeSummaryScreen() {
   const sitting = useRevisionSitting();
   const audio = useAudioPlayerContext();
   const quranPrefs = useQuranPrefs();
+  const forward = useArrowForward();
   useEnsureHifzLoaded();
   useEnsureMemorizationLoaded();
   const hifz = useHifzMap();
@@ -81,33 +88,31 @@ export default function PracticeSummaryScreen() {
   if (!summary || !isPracticeAvailable()) return null;
 
   const surahName = getSurahByNumber(summary.surah)?.nameTransliteration ?? String(summary.surah);
-  const listened = summary.engine === "none";
-  const tryAgainAyah = !listened && summary.confirmedMismatch > 0 ? summary.weakAyahs[0] : null;
+  const outcome = summaryOutcome(summary);
+  const tryAgainAyah =
+    !outcome.listened && summary.confirmedMismatch > 0 ? summary.weakAyahs[0] : null;
   const hasLaterAyah = !isRevision && summary.ayahEnd < ayahCount(summary.surah);
+  const source = isRevision ? "revision" : "hub";
 
-  const openSession = (surah: number, from: number, to: number, mode: string, source: string) =>
+  const openSession = (surah: number, from: number, to: number, mode: string, src: string) =>
     router.replace({
       pathname: "/quran/practice/session",
-      params: { surah: String(surah), from: String(from), to: String(to), mode, source },
+      params: { surah: String(surah), from: String(from), to: String(to), mode, source: src },
     });
 
-  const primary = (() => {
-    if (tryAgainAyah != null) {
-      return {
-        label: t("quranCompanion.summary.tryAyahAgain"),
-        onPress: () =>
-          openSession(
-            summary.surah,
-            tryAgainAyah,
-            tryAgainAyah,
-            summary.mode,
-            isRevision ? "revision" : "hub",
-          ),
-      };
-    }
+  const micIcon: SummaryAction["icon"] = { ios: "mic.fill", android: "mic", web: "mic" };
+  const repeatPassage: SummaryAction = {
+    label: t("quranCompanion.summary.practiseAgain"),
+    icon: { ios: "arrow.counterclockwise", android: "replay", web: "replay" },
+    onPress: () =>
+      openSession(summary.surah, summary.ayahStart, summary.ayahEnd, summary.mode, source),
+  };
+
+  const moveOn: SummaryAction = (() => {
     if (nextRevisionItem) {
       return {
         label: t("quranCompanion.summary.nextRevision"),
+        icon: forward,
         onPress: () => {
           quranPracticeStore.getState().advanceSitting();
           openSession(
@@ -124,11 +129,13 @@ export default function PracticeSummaryScreen() {
       const next = summary.ayahEnd + 1;
       return {
         label: t("quranCompanion.summary.nextAyah"),
+        icon: forward,
         onPress: () => openSession(summary.surah, next, next, summary.mode, "hub"),
       };
     }
     return {
       label: t("quranCompanion.summary.done"),
+      icon: { ios: "checkmark", android: "check", web: "check" },
       onPress: () => {
         if (isRevision) quranPracticeStore.getState().startSitting(null);
         router.replace(isRevision ? ("/quran/revision" as Href) : ("/quran/practice" as Href));
@@ -136,31 +143,31 @@ export default function PracticeSummaryScreen() {
     };
   })();
 
+  // A retry leads when something needs another go (nothing heard → the whole
+  // passage; a confirmed mismatch → that ayah); moving on is then the secondary.
+  // When moving on leads, the secondary repeats the passage.
+  const retry: SummaryAction | null = outcome.nothingHeard
+    ? { ...repeatPassage, icon: micIcon }
+    : tryAgainAyah != null
+      ? {
+          label: t("quranCompanion.summary.tryAyahAgain"),
+          icon: micIcon,
+          onPress: () =>
+            openSession(summary.surah, tryAgainAyah, tryAgainAyah, summary.mode, source),
+        }
+      : null;
+  const primary = retry ?? moveOn;
+  const secondary = retry ? moveOn : repeatPassage;
+  const singleAyah = summary.ayahStart === summary.ayahEnd;
+
   const hearAyah = summary.weakAyahs[0] ?? summary.ayahStart;
   const ref = (ayah: number) => t("hifz.toastRef", { surah: surahName, ayah });
-
-  const counts = listened
-    ? t("quranCompanion.summary.listened")
-    : summary.mismatchesUnconfirmed
-      ? [
-          t("quranCompanion.summary.countMatched", { count: summary.matched + summary.corrected }),
-          t("quranCompanion.summary.listenerNotSure", {
-            count: summary.uncertain + summary.confirmedMismatch,
-          }),
-          t("quranCompanion.summary.countNotReached", { count: summary.notReached }),
-        ].join(" · ")
-      : [
-          t("quranCompanion.summary.countMatched", { count: summary.matched + summary.corrected }),
-          t("quranCompanion.summary.countNotSure", { count: summary.uncertain }),
-          t("quranCompanion.summary.countTryAgain", { count: summary.confirmedMismatch }),
-          t("quranCompanion.summary.countNotReached", { count: summary.notReached }),
-        ].join(" · ");
 
   return (
     <ScreenLayout
       eyebrow={t("quranCompanion.hub.title")}
       title={
-        summary.ayahStart === summary.ayahEnd
+        singleAyah
           ? t("quranCompanion.passage.single", { surah: surahName, ayah: summary.ayahStart })
           : t("quranCompanion.passage.range", {
               surah: surahName,
@@ -168,7 +175,7 @@ export default function PracticeSummaryScreen() {
               to: summary.ayahEnd,
             })
       }
-      subtitle={t("quranCompanion.summary.subtitle")}
+      subtitle={`${t("quranCompanion.summary.subtitle")} · ${t(MODE_LABEL[summary.mode])}`}
       // Desktop: a results card + actions, not a 1100px-wide button.
       maxContentWidth={SUMMARY_MAX_WIDTH}
       onBack={() =>
@@ -176,32 +183,23 @@ export default function PracticeSummaryScreen() {
       }
     >
       <Seo path="/quran/practice/summary" />
-      <Card padding="four">
-        <Button label={primary.label} onPress={primary.onPress} fullWidth />
-        <Button
-          label={t("quranCompanion.summary.hearAyah")}
-          variant="ghost"
-          size="sm"
-          onPress={() =>
-            audio.play(
-              [singleAyahTrack(quranPrefs.preferredReciterDir, surahName, summary.surah, hearAyah)],
-              0,
-            )
-          }
-          style={styles.secondary}
-        />
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.counts}>
-          {counts}
-        </ThemedText>
-        {isRevision && sitting ? (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.counts}>
-            {t("quranCompanion.revision.sittingProgress", {
-              n: Math.min(sitting.index + 1, sitting.items.length),
-              total: sitting.items.length,
-            })}
-          </ThemedText>
-        ) : null}
-      </Card>
+      <PracticeSessionSummary
+        summary={summary}
+        primary={primary}
+        secondary={secondary}
+        onHear={() =>
+          audio.play(
+            [singleAyahTrack(quranPrefs.preferredReciterDir, surahName, summary.surah, hearAyah)],
+            0,
+          )
+        }
+        onOpenAyah={(ayah) => openSession(summary.surah, ayah, ayah, summary.mode, source)}
+        progress={
+          isRevision && sitting
+            ? { n: Math.min(sitting.index + 1, sitting.items.length), total: sitting.items.length }
+            : null
+        }
+      />
 
       {offerAyah != null ? (
         <View style={styles.center}>
@@ -209,6 +207,7 @@ export default function PracticeSummaryScreen() {
             label={t("quranCompanion.summary.markMemorized")}
             variant="ghost"
             size="sm"
+            icon={{ ios: "checkmark.seal", android: "verified", web: "verified" }}
             onPress={() => setConfirmAyah(offerAyah)}
           />
         </View>
@@ -242,8 +241,18 @@ export default function PracticeSummaryScreen() {
 
 const SUMMARY_MAX_WIDTH = 640;
 
+/** Session mode → its label key, shown beside "Session finished". */
+const MODE_LABEL: Record<SessionMode, string> = {
+  follow: "quranCompanion.mode.follow",
+  check: "quranCompanion.mode.check",
+  "hide-words": "quranCompanion.mode.hideWords",
+  "hide-ayahs": "quranCompanion.mode.hideAyahs",
+  revision: "quranCompanion.revision.title",
+};
+
 const styles = StyleSheet.create({
-  secondary: { marginTop: Spacing.two },
-  counts: { marginTop: Spacing.three, textAlign: "center" },
-  center: { alignItems: "center", marginTop: Spacing.two },
+  center: { alignItems: "center", marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/practice/summary");
