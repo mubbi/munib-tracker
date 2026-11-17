@@ -19,6 +19,7 @@
       "!**/ios",
       "!**/.agents/skills/nestjs/docs",
       "!**/.agents/skills/*/scripts",
+      "!**/.agents/skills/**/*.md",
       "!**/packages/api-client/src/generated",
       "!**/packages/api-contract/openapi.json",
       "!**/CHANGELOG.md",
