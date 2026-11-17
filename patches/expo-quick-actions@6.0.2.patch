@@ -1,15 +1,59 @@
 diff --git a/android/build.gradle b/android/build.gradle
-index ab72888c3a078ec06f6bbddf3c94ad745c66a01d..460bfeda672a9e49462205814acebe4526ce1776 100644
+index ab72888c3a078ec06f6bbddf3c94ad745c66a01d..0675f9371a33c70e3b582b93b30ced77f794ee7f 100644
 --- a/android/build.gradle
 +++ b/android/build.gradle
-@@ -36,6 +36,7 @@ android {
+@@ -1,43 +1,21 @@
+-apply plugin: 'com.android.library'
++// expo-module-gradle-plugin supplies compileSdk / minSdk / targetSdk, Kotlin and
++// expo-modules-core (replaces the deprecated ExpoModulesCorePlugin.gradle helpers).
++plugins {
++  id 'com.android.library'
++  id 'expo-module-gradle-plugin'
++}
+ 
+ group = 'expo.modules.quickactions'
+ version = '1.0.0'
+ 
+-def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+-apply from: expoModulesCorePlugin
+-applyKotlinExpoModulesCorePlugin()
+-useCoreDependencies()
+-useExpoPublishing()
+-
+-// If you want to use the managed Android SDK versions from expo-modules-core, set this to true.
+-// The Android SDK versions will be bumped from time to time in SDK releases and may introduce breaking changes in your module code.
+-// Most of the time, you may like to manage the Android SDK versions yourself.
+-def useManagedAndroidSdkVersions = false
+-if (useManagedAndroidSdkVersions) {
+-  useDefaultAndroidSdkVersions()
+-} else {
+-  buildscript {
+-    // Simple helper that allows the root project to override versions declared by this library.
+-    ext.safeExtGet = { prop, fallback ->
+-      rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+-    }
+-  }
+-  project.android {
+-    compileSdkVersion safeExtGet("compileSdkVersion", 34)
+-    defaultConfig {
+-      minSdkVersion safeExtGet("minSdkVersion", 21)
+-      targetSdkVersion safeExtGet("targetSdkVersion", 34)
+-    }
+-  }
+-}
+-
+ android {
+   namespace "expo.modules.quickactions"
    defaultConfig {
      versionCode 3
      versionName "1.0.0"
 +    consumerProguardFiles 'consumer-rules.pro'
    }
-   lintOptions {
+-  lintOptions {
++  lint {
      abortOnError false
+   }
+ }
 diff --git a/android/consumer-rules.pro b/android/consumer-rules.pro
 new file mode 100644
 index 0000000000000000000000000000000000000000..9b8aa799f4b42f3e9432c1fd00690b0359f0cd2a
@@ -20,18 +64,10 @@ index 0000000000000000000000000000000000000000..9b8aa799f4b42f3e9432c1fd00690b03
 +-keep class expo.modules.quickactions.ActionObject { *; }
 +-keepclassmembers class expo.modules.quickactions.ActionObject { *; }
 diff --git a/android/src/main/java/expo/modules.quickactions/ExpoQuickActionsModule.kt b/android/src/main/java/expo/modules.quickactions/ExpoQuickActionsModule.kt
-index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..b337cebeafcba81ecd6b3b9398e9f4346727e157 100644
+index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..1fa506695716e9e9149b2d5fa160a19f30439779 100644
 --- a/android/src/main/java/expo/modules.quickactions/ExpoQuickActionsModule.kt
 +++ b/android/src/main/java/expo/modules.quickactions/ExpoQuickActionsModule.kt
-@@ -12,13 +12,21 @@ import android.os.Bundle
- import android.os.Parcelable
- import android.os.PersistableBundle
- import androidx.annotation.RequiresApi
-+import com.facebook.react.bridge.ReadableMap
-+import com.facebook.react.bridge.ReadableType
- import expo.modules.kotlin.exception.Exceptions
- import expo.modules.kotlin.modules.Module
- import expo.modules.kotlin.modules.ModuleDefinition
+@@ -18,7 +18,13 @@ import expo.modules.kotlin.modules.ModuleDefinition
  import expo.modules.kotlin.records.Field
  import expo.modules.kotlin.records.Record
  
@@ -46,7 +82,7 @@ index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..b337cebeafcba81ecd6b3b9398e9f434
      @Field
      val id: String = id
      @Field
-@@ -100,7 +108,7 @@ fun mapToBundle(map: Map<String, Any>?): Bundle {
+@@ -100,7 +106,7 @@ fun mapToBundle(map: Map<String, Any>?): Bundle {
              is Bundle -> bundle.putBundle(key, value)
              is Parcelable -> bundle.putParcelable(key, value)
              is java.io.Serializable -> bundle.putSerializable(key, value)
@@ -55,59 +91,56 @@ index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..b337cebeafcba81ecd6b3b9398e9f434
          }
      }
      return bundle
-@@ -116,6 +124,40 @@ fun bundleToMap(bundle: Bundle?): Map<String, Any> {
+@@ -116,6 +122,37 @@ fun bundleToMap(bundle: Bundle?): Map<String, Any> {
      return map
  }
  
 +/**
 + * Parse a JS shortcut object without going through Expo Record conversion.
-+ * `List<ActionObject>` NPEs on some Android devices when ReadableNativeMap
++ * `List<ActionObject>` NPEs on some Android devices when the JS object
 + * cannot be reflected into ActionObject (`params` Map<String, Any>, optional
-+ * nulls, R8-stripped constructors). ReadableMap is a trivial converter.
++ * nulls, R8-stripped constructors). A plain `Map<String, Any?>` argument is a
++ * trivial converter and, unlike ReadableMap, needs no react-android dependency
++ * (SDK 58's expo-module-gradle-plugin no longer exposes it to modules).
 + */
-+private fun readableString(map: ReadableMap, key: String): String? {
-+    if (!map.hasKey(key) || map.isNull(key)) return null
-+    return if (map.getType(key) == ReadableType.String) map.getString(key) else null
-+}
++private fun mapString(map: Map<String, Any?>, key: String): String? = map[key] as? String
 +
-+private fun readableParams(map: ReadableMap, key: String): Map<String, Any>? {
-+    if (!map.hasKey(key) || map.isNull(key)) return null
-+    if (map.getType(key) != ReadableType.Map) return null
-+    val nested = map.getMap(key) ?: return null
++private fun mapParams(map: Map<String, Any?>, key: String): Map<String, Any>? {
++    val nested = map[key] as? Map<*, *> ?: return null
 +    val out = mutableMapOf<String, Any>()
-+    nested.toHashMap().forEach { (nestedKey, value) ->
-+        when (value) {
-+            is String, is Number, is Boolean -> out[nestedKey] = value
++    nested.forEach { (nestedKey, value) ->
++        if (nestedKey is String && (value is String || value is Number || value is Boolean)) {
++            out[nestedKey] = value
 +        }
 +    }
 +    return out.ifEmpty { null }
 +}
 +
-+private fun actionFromReadableMap(map: ReadableMap): ActionObject {
++private fun actionFromMap(map: Map<String, Any?>): ActionObject {
 +    return ActionObject(
-+        id = readableString(map, "id") ?: "",
-+        title = readableString(map, "title") ?: "",
-+        subtitle = readableString(map, "subtitle"),
-+        icon = readableString(map, "icon"),
-+        params = readableParams(map, "params")
++        id = mapString(map, "id") ?: "",
++        title = mapString(map, "title") ?: "",
++        subtitle = mapString(map, "subtitle"),
++        icon = mapString(map, "icon"),
++        params = mapParams(map, "params")
 +    )
 +}
 +
  // Intent ID -- this should never change.
  val UNIQ_ACTION_ID = "expo.modules.quickactions.SHORTCUT"
  
-@@ -183,8 +225,8 @@ class ExpoQuickActionsModule : Module() {
+@@ -183,8 +220,8 @@ class ExpoQuickActionsModule : Module() {
      override fun definition() = ModuleDefinition {
          Name("ExpoQuickActions")
  
 -        AsyncFunction("setItems") { items: List<ActionObject> ->
 -          setItems(items)
-+        AsyncFunction("setItems") { items: List<ReadableMap> ->
-+          setItems(items.map(::actionFromReadableMap))
++        AsyncFunction("setItems") { items: List<Map<String, Any?>> ->
++          setItems(items.map(::actionFromMap))
          }
  
          Constants {
-@@ -226,10 +268,14 @@ class ExpoQuickActionsModule : Module() {
+@@ -226,10 +263,14 @@ class ExpoQuickActionsModule : Module() {
  
      @RequiresApi(Build.VERSION_CODES.N_MR1)
      private fun setShortcuts(items: List<ActionObject>) {
@@ -123,7 +156,7 @@ index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..b337cebeafcba81ecd6b3b9398e9f434
              intent.action = UNIQ_ACTION_ID
              intent.putExtra("shortcut_data", it.toBundle());
              val builder = ShortcutInfo.Builder(context, it.id)
-@@ -247,6 +293,18 @@ class ExpoQuickActionsModule : Module() {
+@@ -247,6 +288,18 @@ class ExpoQuickActionsModule : Module() {
          shortcutManager.dynamicShortcuts = shortcuts
      }
  
@@ -142,3 +175,51 @@ index 66dc4a06c7fe4b91bfefb7a300449e463af5f745..b337cebeafcba81ecd6b3b9398e9f434
      private fun loadIconRes(icon: String?): Int {
          if (icon == null) {
              return 0
+diff --git a/ios/AppDelegate.swift b/ios/AppDelegate.swift
+index 37558e006b606eae26e2e5be6e44afee93590547..aa0d0b2e25f3e23184e13f54a8d6d9ee88422bb4 100644
+--- a/ios/AppDelegate.swift
++++ b/ios/AppDelegate.swift
+@@ -17,6 +17,13 @@ public class ExpoQuickActionsAppDelegate: ExpoAppDelegateSubscriber {
+   }
+ 
+   public func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
++    // UIKit scene life cycle (Expo SDK 58 / iOS 27 SDK): a cold-start shortcut no
++    // longer arrives in `launchOptions`. ExpoAppSceneDelegate forwards the scene's
++    // `connectionOptions.shortcutItem` here instead — before the JS module exists
++    // and can listen — so keep it as the initial action.
++    if !quickActionsInitialConsumed {
++      initialAction = shortcutItem
++    }
+     NotificationCenter.default.post(name: Notification.Name(onQuickAction), object: shortcutItem)
+     completionHandler(true)
+   }
+diff --git a/ios/ExpoQuickActionsModule.swift b/ios/ExpoQuickActionsModule.swift
+index 252da492ce374eef886d574a2c38af242de6d6c3..46f05955dd0e90e5f2b672b6199164df9d8202ce 100644
+--- a/ios/ExpoQuickActionsModule.swift
++++ b/ios/ExpoQuickActionsModule.swift
+@@ -72,16 +72,23 @@ func toActionObject(item: UIApplicationShortcutItem?) -> ActionObject? {
+ }
+ 
+ var initialAction: UIApplicationShortcutItem?
++/// Set once JS has read the `initial` constant; until then forwarded shortcuts become `initialAction`.
++var quickActionsInitialConsumed = false
++
++func consumeInitialAction() -> Record.Dict? {
++    quickActionsInitialConsumed = true
++    return toActionObject(item: initialAction)?.toDictionary()
++}
+ 
+ public class ExpoQuickActionsModule: Module {
+-    
++
+     public func definition() -> ModuleDefinition {
+         Name("ExpoQuickActions")
+         
+         Constants([
+             // https://developer.apple.com/design/human-interface-guidelines/home-screen-quick-actions
+             "maxCount": 4,
+-            "initial": toActionObject(item: initialAction)?.toDictionary()
++            "initial": consumeInitialAction()
+         ])
+                 
+         AsyncFunction("setItems") { (items: [ActionObject]?) in

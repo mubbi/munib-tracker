@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.5.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.6.8/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -21,6 +21,7 @@
       "!**/.agents/skills/*/scripts",
       "!**/packages/api-client/src/generated",
       "!**/packages/api-contract/openapi.json",
+      "!**/CHANGELOG.md",
       "!**/apps/app/targets/**/Assets.xcassets",
       "!**/apps/app/assets/data",
       "!**/apps/app/src/lib/quran-companion/__fixtures__",
