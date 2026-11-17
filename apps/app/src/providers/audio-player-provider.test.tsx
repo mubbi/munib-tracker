@@ -105,7 +105,7 @@ describe("AudioPlayerProvider keep-awake", () => {
   });
 
   it("holds the screen awake while TTS playback is active and releases on stop", async () => {
-    render(
+    await render(
       <AudioPlayerProvider>
         <Probe />
       </AudioPlayerProvider>,
@@ -114,7 +114,7 @@ describe("AudioPlayerProvider keep-awake", () => {
     expect(screen.getByTestId("playing").props.children).toBe("false");
     expect(activateMock).not.toHaveBeenCalled();
 
-    fireEvent.press(screen.getByTestId("play"));
+    await fireEvent.press(screen.getByTestId("play"));
 
     await waitFor(() => {
       expect(screen.getByTestId("playing").props.children).toBe("true");
@@ -123,7 +123,7 @@ describe("AudioPlayerProvider keep-awake", () => {
       expect(activateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     });
 
-    fireEvent.press(screen.getByTestId("stop"));
+    await fireEvent.press(screen.getByTestId("stop"));
 
     await waitFor(() => {
       expect(screen.getByTestId("playing").props.children).toBe("false");

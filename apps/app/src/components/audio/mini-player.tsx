@@ -12,8 +12,10 @@ import {
   PanResponder,
   Platform,
   Pressable,
+  type StyleProp,
   StyleSheet,
   View,
+  type ViewInstance,
   type ViewStyle,
 } from "react-native";
 import Reanimated, {
@@ -24,7 +26,6 @@ import Reanimated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TtsVoiceControl } from "@/components/audio/tts-voice-control";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QuranPlaybackSettingsControl } from "@/components/quran/quran-playback-settings-control";
@@ -37,6 +38,7 @@ import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
 import { useIsTabScreen } from "@/hooks/use-tab-screen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -46,6 +48,7 @@ import {
   queuePosition as computeQueuePosition,
   queueDurationForProgress,
 } from "@/lib/audio-queue-timing";
+import { PLAYER_SEEK_STEP_SECONDS } from "@/lib/audio-seek-step";
 import { supportsProgrammaticVolume } from "@/lib/audio-volume";
 import { triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
@@ -78,8 +81,11 @@ const REPLAY_ICON: SymbolViewProps["name"] = {
   web: "replay",
 };
 
-/** How far a keyboard/AT increment or decrement nudges the position, in seconds. */
-const SEEK_STEP = 10;
+/**
+ * How far the skip buttons and a keyboard/AT increment or decrement nudge the
+ * position, in seconds. Shared with the OS lock-screen skip buttons.
+ */
+const SEEK_STEP = PLAYER_SEEK_STEP_SECONDS;
 
 /** Volume slider step for keyboard/AT adjustments (0–1). */
 const VOLUME_STEP = 0.1;
@@ -327,7 +333,7 @@ function CompactPlayer({
    */
   focusOnMount?: boolean;
 }) {
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const inTabs = useIsTabScreen();
   const tabBarOffset = useTabBarOffset();
   const { sideRailWidth, width: windowWidth } = useWebTabLayout();
@@ -769,7 +775,7 @@ function VerticalVolumeBar({
 }) {
   const { t } = useTranslation();
   const [scrub, setScrub] = useState<number | null>(null);
-  const trackRef = useRef<View>(null);
+  const trackRef = useRef<ViewInstance>(null);
   const trackWindowRef = useRef({ y: 0, height: VERTICAL_VOLUME_HEIGHT });
 
   const measureTrack = useCallback(() => {
@@ -1017,7 +1023,7 @@ function VolumePopover({
 // ── Expanded full player ─────────────────────────────────────────────────────
 
 function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { width: windowWidth } = useWebTabLayout();
   // Web: Escape minimises the expanded player (before any early return).
   useWebKeyHandler((event) => {
@@ -1436,7 +1442,13 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
 }
 
 /** Phone/web: plain View. TV: focus guide trapping all four edges (+ focus memory). */
-function ExpandedSheetHost({ style, children }: { style: ViewStyle; children: ReactNode }) {
+function ExpandedSheetHost({
+  style,
+  children,
+}: {
+  style: StyleProp<ViewStyle>;
+  children: ReactNode;
+}) {
   if (!isTV()) return <View style={style}>{children}</View>;
   return (
     <TvFocusGuide autoFocus trapFocusUp trapFocusDown trapFocusLeft trapFocusRight style={style}>

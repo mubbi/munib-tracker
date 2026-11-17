@@ -1,4 +1,5 @@
-import { buildLockScreenMetadata } from "@/lib/audio-lock-screen";
+import { buildLockScreenMetadata, buildLockScreenOptions } from "@/lib/audio-lock-screen";
+import { PLAYER_SEEK_STEP_SECONDS } from "@/lib/audio-seek-step";
 
 jest.mock("expo-audio", () => ({
   requestNotificationPermissionsAsync: jest.fn().mockResolvedValue({ granted: true }),
@@ -48,5 +49,24 @@ describe("buildLockScreenMetadata", () => {
       { queueIndex: 2, queueLength: 5 },
     );
     expect(meta.albumTitle).toBe("Track 3 of 5");
+  });
+});
+
+describe("buildLockScreenOptions", () => {
+  it("uses the in-app skip interval for the lock-screen skip buttons", () => {
+    expect(buildLockScreenOptions(true)).toEqual({
+      showSeekForward: true,
+      showSeekBackward: true,
+      seekForwardIntervalSeconds: PLAYER_SEEK_STEP_SECONDS,
+      seekBackwardIntervalSeconds: PLAYER_SEEK_STEP_SECONDS,
+    });
+  });
+
+  it("hides skip buttons for a single track and never enables native next/previous", () => {
+    const options = buildLockScreenOptions(false);
+    expect(options.showSeekForward).toBe(false);
+    expect(options.showSeekBackward).toBe(false);
+    expect(options.showNextTrack).toBeUndefined();
+    expect(options.showPreviousTrack).toBeUndefined();
   });
 });
