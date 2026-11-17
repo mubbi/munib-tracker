@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -7,7 +8,31 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = join(root, "dist");
 await mkdir(outDir, { recursive: true });
 
-const CHROME = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe";
+/** Chrome / Chromium for puppeteer-core: CHROME_PATH (or PUPPETEER_EXECUTABLE_PATH) wins, else common install paths. */
+const CHROME_CANDIDATES = {
+  darwin: [
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+  ],
+  linux: [
+    "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
+  ],
+  win32: [
+    "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+  ],
+};
+const CHROME =
+  process.env.CHROME_PATH ||
+  process.env.PUPPETEER_EXECUTABLE_PATH ||
+  (CHROME_CANDIDATES[process.platform] ?? []).find((p) => existsSync(p));
+if (!CHROME) {
+  console.error("Chrome not found. Set CHROME_PATH to your Chrome/Chromium executable.");
+  process.exit(1);
+}
 
 const concepts = process.argv.slice(2).length
   ? process.argv.slice(2)
