@@ -81,3 +81,9 @@ packages/shared/scripts/.hi-*-cache.json
 apps/app/scripts/i18n/.translation-cache/
 apps/app/src/i18n/*-partial-*.json
 apps/app/src/config/seo-routes-locale/.*extract.json
+
+# Qur'an practice: downloaded listener models are never committed (NPL-1.2),
+# and the ONNX Runtime web files are copied from node_modules at build time.
+*.onnx
+apps/app/public/ort/
+apps/app/public/recitation-models/

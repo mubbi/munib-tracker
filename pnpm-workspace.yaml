@@ -16,6 +16,7 @@ allowBuilds:
   "@swc/core": true
   better-sqlite3: true
   esbuild: true
+  protobufjs: false
 
 audit:
   ignore:
@@ -84,3 +85,8 @@ patchedDependencies:
   react-native-reanimated@4.5.0: patches/react-native-reanimated@4.5.0.patch
   expo-quick-actions@6.0.2: patches/expo-quick-actions@6.0.2.patch
   react-native-screens@4.26.2: patches/react-native-screens@4.26.2.patch
+  '@tilawa/core@0.4.0': patches/@tilawa__core@0.4.0.patch
+  onnxruntime-react-native@1.24.3: patches/onnxruntime-react-native@1.24.3.patch
+
+minimumReleaseAgeExclude:
+  - '@quran-lab/tajweedformer@3.1.6'

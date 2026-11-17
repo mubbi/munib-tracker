@@ -31,6 +31,11 @@ const TV_EXCLUDED = [
   "expo-speech",
   "expo-apple-authentication",
   "expo-navigation-bar",
+  // Qur'an practice: on-device listener runtime (no microphone path on TV).
+  "onnxruntime-react-native",
+  // Quran Lab pronunciation bridge (local Expo module; also excluded via
+  // withTvExpoModuleExcludes for Expo autolinking on iOS and Android).
+  "munib-tajweedformer",
 ];
 
 /** @type {import('@react-native-community/cli-types').Config} */

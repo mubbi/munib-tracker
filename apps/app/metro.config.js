@@ -189,13 +189,43 @@ const tvNativeStubs = isTvMetro
         "src/lib/tv-stubs/expo-apple-authentication.ts",
       ),
       "expo-navigation-bar": path.join(projectRoot, "src/lib/tv-stubs/expo-navigation-bar.ts"),
+      // Qur'an practice listener runtime — phone/web only (no microphone path on TV).
+      "onnxruntime-react-native": path.join(
+        projectRoot,
+        "src/lib/tv-stubs/onnxruntime-react-native.ts",
+      ),
     }
   : null;
+
+/**
+ * Apple TV density shim: tvOS lays out at 1920×1080pt (2× Android TV dp), so
+ * `expo-symbols` resolves to a wrapper that doubles `size` (see
+ * src/lib/tv-shims/expo-symbols.tsx). The shim's own import of the real package
+ * falls through to normal resolution.
+ */
+const tvosSymbolsShim = path.join(projectRoot, "src/lib/tv-shims/expo-symbols.tsx");
+
+/**
+ * Web: expo-notifications' web PushTokenManager warns on every load (its own
+ * auto-registration side effect adds a token listener). Swap in a silent no-op.
+ */
+const webPushTokenManagerShim = path.join(
+  projectRoot,
+  "src/lib/web-shims/expo-notifications-push-token-manager.ts",
+);
 
 const originalResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (tvNativeStubs?.[moduleName]) {
     return { type: "sourceFile", filePath: tvNativeStubs[moduleName] };
+  }
+  if (
+    isTvMetro &&
+    platform === "ios" &&
+    moduleName === "expo-symbols" &&
+    watchPathKey(context.originModulePath || "") !== watchPathKey(tvosSymbolsShim)
+  ) {
+    return { type: "sourceFile", filePath: tvosSymbolsShim };
   }
   if (moduleName.startsWith("@/assets/")) {
     const assetPath = path.join(projectRoot, "assets", moduleName.slice("@/assets/".length));
@@ -204,6 +234,13 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   // Async routes always use expo-router's built-in SuspenseFallback (tiny toast /
   // blank). Alias it to our themed content-space placeholder instead.
   const origin = (context.originModulePath || "").replace(/\\/g, "/");
+  if (
+    platform === "web" &&
+    moduleName === "./PushTokenManager" &&
+    origin.includes("/expo-notifications/build/")
+  ) {
+    return { filePath: webPushTokenManagerShim, type: "sourceFile" };
+  }
   if (
     origin.includes("/expo-router/") &&
     (moduleName === "./views/SuspenseFallback" ||

@@ -29,6 +29,14 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, immutable" }]
     },
     {
+      "source": "/recitation-models/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/ort/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
       "source": "/expo-service-worker.js",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     },

@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <!-- The Quran Lab AAR declares minSdk 26; this library stays at the app's minSdk. -->
+  <uses-sdk tools:overrideLibrary="ai.quranlab.tajweedformer" />
+</manifest>
