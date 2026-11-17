@@ -48,7 +48,8 @@ apps/app/ios-keys/ExportOptions.tvos.plist
 apps/app/ios-keys/**/*.cer
 !apps/app/ios-keys/*.env.example
 !apps/app/ios-keys/ExportOptions.plist.template
-!apps/app/ios-keys/tvos-signing/README.txt
+apps/app/ios-keys/tvos-signing/README.txt
+!apps/app/ios-keys/tvos-signing/README.txt.example
 
 # Debug
 npm-debug.*
@@ -87,3 +88,6 @@ apps/app/src/config/seo-routes-locale/.*extract.json
 *.onnx
 apps/app/public/ort/
 apps/app/public/recitation-models/
+
+# Local API uploads (dev disk storage when Cloudinary is unset; e2e tests write here too)
+apps/api/uploads/

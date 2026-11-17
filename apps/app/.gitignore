@@ -53,7 +53,8 @@ ios-keys/team.env
 ios-keys/**/*.cer
 !ios-keys/*.env.example
 !ios-keys/ExportOptions.plist.template
-!ios-keys/tvos-signing/README.txt
+ios-keys/tvos-signing/README.txt
+!ios-keys/tvos-signing/README.txt.example
 !ios-keys/README.md
 
 # Android signing keys & Play Console PEPK artifacts (never commit)

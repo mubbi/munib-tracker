@@ -1,0 +1,8 @@
+Local tvOS App Store signing material lives in this folder (never commit it).
+
+Copy this file to README.txt and fill in your own values:
+
+p12 password: <your distribution.p12 export password>
+cert id: <Apple Distribution certificate id>
+
+distribution.key / distribution.p12 / README.txt are gitignored.
