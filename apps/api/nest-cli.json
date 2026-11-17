@@ -4,7 +4,11 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "webpack": true,
-    "webpackConfigPath": "webpack.config.js"
+    "builder": {
+      "type": "rspack",
+      "options": {
+        "configPath": "rspack.config.js"
+      }
+    }
   }
 }
