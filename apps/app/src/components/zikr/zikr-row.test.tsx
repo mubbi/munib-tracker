@@ -1,41 +1,62 @@
-import type { ZikrItem } from "@munib-tracker/shared/types";
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 
 import { ZikrRow } from "@/components/zikr/zikr-row";
-import { MunibThemeProvider } from "@/providers/theme-provider";
+import { buildZikrItem } from "@/test-support/fixtures/zikr";
+import { usePlatform } from "@/test-support/platform";
+import { renderWithTheme } from "@/test-support/render";
 
-const item: ZikrItem = {
-  id: "morning-bismillah",
-  categoryId: "morning",
-  title: "Bismillah",
-  arabic: "",
-  transliteration: "Bismillah",
-  translation: "",
-  targetCount: 3,
-};
+type Props = Parameters<typeof ZikrRow>[0];
+
+async function renderRow(overrides: Partial<Props> = {}) {
+  const onPress = jest.fn();
+  await renderWithTheme(<ZikrRow item={buildZikrItem()} onPress={onPress} {...overrides} />);
+  return onPress;
+}
 
 describe("ZikrRow", () => {
-  it("includes remaining recitations in the accessibility label", async () => {
-    const onPress = jest.fn();
-    await render(
-      <MunibThemeProvider>
-        <ZikrRow item={item} index={1} progressLabel="1/3" onPress={onPress} />
-      </MunibThemeProvider>,
-    );
-
+  it("includes remaining recitations in the accessibility label and opens the zikr", async () => {
+    const onPress = await renderRow({ index: 1, progressLabel: "1/3" });
     await fireEvent.press(screen.getByLabelText("1. Bismillah, 1/3"));
     expect(onPress).toHaveBeenCalledWith("morning-bismillah");
     expect(screen.getByText("1/3")).toBeTruthy();
   });
 
   it("announces Done when today's target is met", async () => {
-    await render(
-      <MunibThemeProvider>
-        <ZikrRow item={item} index={2} completed onPress={jest.fn()} />
-      </MunibThemeProvider>,
-    );
-
+    await renderRow({ index: 2, completed: true });
     expect(screen.getByLabelText("2. Bismillah, Done")).toBeTruthy();
     expect(screen.getByText("Done")).toBeTruthy();
+  });
+
+  it("shows the target count and category without progress", async () => {
+    await renderRow({ categoryLabel: "Morning" });
+    expect(screen.getByLabelText("Bismillah")).toBeTruthy();
+    expect(screen.getByText("×3")).toBeTruthy();
+    expect(screen.getByText("Morning")).toBeTruthy();
+  });
+
+  it("omits badges when there is nothing to show", async () => {
+    await renderRow({ item: buildZikrItem({ targetCount: 0, transliteration: "" }) });
+    expect(screen.queryByText("×3")).toBeNull();
+  });
+
+  it.each([
+    [false, "Favorite"],
+    [true, "Remove favorite"],
+  ])("toggles favorite (isFavorite=%s)", async (isFavorite, label) => {
+    const onToggleFavorite = jest.fn();
+    await renderRow({ isFavorite, onToggleFavorite });
+    await fireEvent.press(screen.getByLabelText(label));
+    expect(onToggleFavorite).toHaveBeenCalledWith("morning-bismillah");
+  });
+
+  describe("on TV", () => {
+    usePlatform({ isTV: true });
+
+    it("puts the favorite beside the row", async () => {
+      const onToggleFavorite = jest.fn();
+      await renderRow({ onToggleFavorite, preferredFocus: true });
+      await fireEvent.press(screen.getByLabelText("Favorite"));
+      expect(onToggleFavorite).toHaveBeenCalled();
+    });
   });
 });

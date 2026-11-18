@@ -1,24 +1,18 @@
 import type { TajweedSegment } from "@munib-tracker/shared/types";
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react-native";
-import { Platform } from "react-native";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import { TajweedText } from "@/components/quran/tajweed-text";
 import { ARABIC_ZWJ } from "@/lib/arabic-text-join";
-import { MunibThemeProvider } from "@/providers/theme-provider";
+import { setPlatform } from "@/test-support/platform";
+import { renderWithTheme } from "@/test-support/render";
 
 const segments: TajweedSegment[] = [{ text: "بِسْ", rule: "ghunnah" }, { text: "مِ" }];
 
 async function renderTajweed(
   props: { fallback?: string; segments?: TajweedSegment[] | null } = {},
 ) {
-  return await render(
-    <MunibThemeProvider>
-      <TajweedText
-        fallback={props.fallback ?? "بِسْمِ اللَّهِ"}
-        fontSize={24}
-        segments={props.segments}
-      />
-    </MunibThemeProvider>,
+  return await renderWithTheme(
+    <TajweedText fallback={props.fallback ?? "بِسْمِ اللَّهِ"} fontSize={24} segments={props.segments} />,
   );
 }
 
@@ -68,7 +62,6 @@ describe("TajweedText", () => {
   });
 
   it("shows the tooltip on hover when a fine pointer is available on web", async () => {
-    const originalOS = Platform.OS;
     const listeners = new Set<(event: { matches: boolean }) => void>();
     const media = {
       matches: true,
@@ -89,7 +82,7 @@ describe("TajweedText", () => {
       writable: true,
       value: matchMedia,
     });
-    Platform.OS = "web";
+    const restorePlatform = setPlatform({ OS: "web" });
 
     try {
       const { unmount } = await renderTajweed({ segments });
@@ -111,7 +104,7 @@ describe("TajweedText", () => {
       await unmount();
       expect(media.removeEventListener).toHaveBeenCalled();
     } finally {
-      Platform.OS = originalOS;
+      restorePlatform();
     }
   });
 });

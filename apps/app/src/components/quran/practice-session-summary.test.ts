@@ -1,27 +1,18 @@
 import type { PracticeSummary } from "@/lib/quran-companion/types";
 
+import { buildPracticeSummary } from "@/test-support/fixtures/quran-companion";
+
 import { summaryOutcome } from "./practice-session-summary";
 
+/** A listener session with nothing counted yet. */
 function summary(over: Partial<PracticeSummary> = {}): PracticeSummary {
-  return {
-    id: "s1",
-    mode: "check",
-    surah: 1,
-    ayahStart: 1,
+  return buildPracticeSummary({
     ayahEnd: 1,
-    startedAt: "2026-11-17T10:00:00.000Z",
-    endedAt: "2026-11-17T10:01:00.000Z",
-    durationMs: 60_000,
     engine: "tilawa-zipformer",
     engineVersion: "1",
     matched: 0,
-    uncertain: 0,
-    confirmedMismatch: 0,
-    corrected: 0,
-    notReached: 0,
-    weakAyahs: [],
     ...over,
-  };
+  });
 }
 
 describe("summaryOutcome", () => {

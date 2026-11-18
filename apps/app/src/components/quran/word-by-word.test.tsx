@@ -1,5 +1,5 @@
 import type { QuranWord } from "@munib-tracker/shared/types";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react-native";
+import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 import type { ReactNode } from "react";
 import { Text } from "react-native";
 
@@ -8,8 +8,8 @@ import {
   useQuranPlayback,
   WordByWord,
 } from "@/components/quran/word-by-word";
-import { isTV } from "@/lib/platform/is-tv";
-import { MunibThemeProvider } from "@/providers/theme-provider";
+import { setPlatform } from "@/test-support/platform";
+import { renderWithTheme } from "@/test-support/render";
 
 const mockPlayer = {
   pause: jest.fn(),
@@ -25,12 +25,6 @@ jest.mock("expo-audio", () => ({
 jest.mock("expo-symbols", () => ({
   SymbolView: "SymbolView",
 }));
-
-jest.mock("@/lib/platform/is-tv", () => ({
-  isTV: jest.fn(() => false),
-}));
-
-const isTVMock = isTV as jest.MockedFunction<typeof isTV>;
 
 const wordsByAyah: Record<string, QuranWord[]> = {
   "1": [
@@ -64,24 +58,21 @@ async function renderStudy(
     wordsByAyah?: Record<string, QuranWord[]>;
   } = {},
 ) {
-  return await render(
-    <MunibThemeProvider>
-      <QuranWordStudyProviders
-        wordAudioEnabled={providers.wordAudioEnabled ?? false}
-        playingAyah={providers.playingAyah ?? null}
-        audioIsPlaying={providers.audioIsPlaying}
-        activeWordIndex={providers.activeWordIndex ?? null}
-        wordsByAyah={providers.wordsByAyah}
-      >
-        {child}
-      </QuranWordStudyProviders>
-    </MunibThemeProvider>,
+  return await renderWithTheme(
+    <QuranWordStudyProviders
+      wordAudioEnabled={providers.wordAudioEnabled ?? false}
+      playingAyah={providers.playingAyah ?? null}
+      audioIsPlaying={providers.audioIsPlaying}
+      activeWordIndex={providers.activeWordIndex ?? null}
+      wordsByAyah={providers.wordsByAyah}
+    >
+      {child}
+    </QuranWordStudyProviders>,
   );
 }
 
 describe("WordByWord", () => {
   beforeEach(() => {
-    isTVMock.mockReturnValue(false);
     mockPlayer.pause.mockReset();
     mockPlayer.play.mockReset();
     mockPlayer.seekTo.mockReset();
@@ -242,16 +233,14 @@ describe("WordByWord", () => {
     });
 
     await rerender(
-      <MunibThemeProvider>
-        <QuranWordStudyProviders
-          wordAudioEnabled
-          playingAyah={1}
-          activeWordIndex={0}
-          wordsByAyah={wordsByAyah}
-        >
-          <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />
-        </QuranWordStudyProviders>
-      </MunibThemeProvider>,
+      <QuranWordStudyProviders
+        wordAudioEnabled
+        playingAyah={1}
+        activeWordIndex={0}
+        wordsByAyah={wordsByAyah}
+      >
+        <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />
+      </QuranWordStudyProviders>,
     );
 
     expect(screen.getByText("بِسْمِ")).toBeTruthy();
@@ -293,15 +282,19 @@ describe("WordByWord", () => {
   });
 
   it("uses TV tile sizes when running on television", async () => {
-    isTVMock.mockReturnValue(true);
-    await renderStudy(
-      <WordByWord ayahNumber={1} arabicSize={28} translitSize={16} glossSize={15} />,
-      {
-        wordsByAyah,
-      },
-    );
+    const restorePlatform = setPlatform({ isTV: true });
+    try {
+      await renderStudy(
+        <WordByWord ayahNumber={1} arabicSize={28} translitSize={16} glossSize={15} />,
+        {
+          wordsByAyah,
+        },
+      );
 
-    expect(screen.getByText("بِسْمِ")).toBeTruthy();
-    expect(screen.getByText("Word by word")).toBeTruthy();
+      expect(screen.getByText("بِسْمِ")).toBeTruthy();
+      expect(screen.getByText("Word by word")).toBeTruthy();
+    } finally {
+      restorePlatform();
+    }
   });
 });
