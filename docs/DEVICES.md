@@ -50,7 +50,16 @@ Layout follows **window size**, never the device model; the hinge only drives in
 | Tasbeeh           | Tabletop posture (`useHingePosture() === "halfOpen"`, [`hinge.ts`](../apps/app/src/lib/platform/hinge.ts)) adds a full-width tap pad on the lower half ([`tasbeeh-counter.tsx`](../apps/app/src/components/tasbeeh/tasbeeh-counter.tsx)); not on TV.                              |
 | Hinge API         | `expo-hinge` (iOS 27.1+, Android 11+); `null` on web, TV, and devices without a hinge. Excluded from TV builds (Metro stub `src/lib/tv-stubs/expo-hinge.ts`).                                                                                                                     |
 
-Window sizes of the Duo's two displays are not published yet; measure them in the Xcode 27.1 Device Hub simulator and record them here before tuning breakpoints.
+Duo displays, measured in the Xcode 27.2 simulator (iOS 27.2 `iPhone19,4` runtime, 2026-11-19). Pixel sizes are the framebuffers `simctl io` reports; point sizes assume @3x, which matches the breakpoints observed in the app (list–detail ≥900 pt only appears unfolded in landscape; the ≥1024 pt home dashboard never does):
+
+| Display          | Posture   | Pixels    | Points (@3x) | Layout seen                                              |
+| ---------------- | --------- | --------- | ------------ | -------------------------------------------------------- |
+| Inner (unfolded) | portrait  | 2007×2853 | 669×951      | Phone layout, bottom tab bar                             |
+| Inner (unfolded) | landscape | 2853×2007 | 951×669      | List–detail (Tracker schedule, Qur'an detail), side rail |
+| Outer (folded)   | portrait  | 1398×2034 | 466×678      | Phone layout, vertical system rail on the right edge     |
+| Outer (folded)   | landscape | 2034×1398 | 678×466      | Phone layout, vertical system rail                       |
+
+The vertical system rail is a physical **right** inset in both LTR and RTL; `horizontalSafeAreaInsets()` maps it to the logical end/start side (the floating `AppHeader` applies it itself because it spans the screen's padding box).
 
 **Tablet / TV UX:** Native and web adapt by **window width**: side rail at ≥768px ([`use-large-screen-layout.ts`](../apps/app/src/hooks/use-large-screen-layout.ts), [`app-tabs-wide.tsx`](../apps/app/src/components/app-tabs-wide.tsx)); Qur'an and Tracker use list–detail at ≥900px. **TV always uses the side rail** and 10-foot focus chrome.
 

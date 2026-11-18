@@ -51,16 +51,17 @@ Support matrix: [`DEVICES.md`](./DEVICES.md)
 
 Upgrade shipped in PR #71 (`b349d54a`); these checks were still open when it merged.
 
-| Item                 | Notes                                                                                                                                            |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| On-device QA matrix  | Cache migration, recitation capture, audio focus, quick-action cold start, Precise Adhan under Doze, AsyncStorage downgrade                      |
-| Device-only surfaces | Release (R8) builds, Wear OS app, widgets, Android Live Updates and OAuth not yet verified on device                                             |
-| Mac builds           | `cleanbuild:app:ios` / `cleanbuild:app:tv`, Xcode build of app + local modules + targets, iOS and tvOS archives, `@bacons/apple-targets` 5 check |
-| iPhone Duo           | Measure folded / unfolded window sizes in the simulator                                                                                          |
-| Store version codes  | Set from Play Console / App Store Connect before the next upload ([`RELEASES.md`](./RELEASES.md))                                                |
-| TypeORM 1 migrations | Run Postgres migrations against a throwaway DB before the first API deploy                                                                       |
-| TV in version API    | Add a TV platform to the app-version API                                                                                                         |
-| SDK 58 experiments   | Not trialled: granular web chunking, `LocaleProvider`, `activityEnabled`, `expo-location/next`, variable fonts, `requireConfirmation`            |
+| Item                 | Notes                                                                                                                                                  |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| On-device QA matrix  | Cache migration, recitation capture, audio focus, quick-action cold start, Precise Adhan under Doze, AsyncStorage downgrade                            |
+| Device-only surfaces | Release (R8) builds, Wear OS app, widgets, Android Live Updates and OAuth not yet verified on device                                                   |
+| Mac builds           | `cleanbuild:app:ios` / `cleanbuild:app:tv`, Xcode build of app + local modules + targets, iOS and tvOS archives, `@bacons/apple-targets` 5 check       |
+| iPhone Duo           | Vertical-bar status glyphs ignore per-screen `StatusBar` style on iOS 27.2 (dark clock on the night home hero) — sizes in [`DEVICES.md`](./DEVICES.md) |
+| Store screenshots    | Pending sets (Play phone/tablet refresh, Wear OS, Android TV banner) — status table in [`STORE_ASSETS.md`](./STORE_ASSETS.md#store-screenshot-status)  |
+| Store version codes  | Set from Play Console / App Store Connect before the next upload ([`RELEASES.md`](./RELEASES.md))                                                      |
+| TypeORM 1 migrations | Run Postgres migrations against a throwaway DB before the first API deploy                                                                             |
+| TV in version API    | Add a TV platform to the app-version API                                                                                                               |
+| SDK 58 experiments   | Not trialled: granular web chunking, `LocaleProvider`, `activityEnabled`, `expo-location/next`, variable fonts, `requireConfirmation`                  |
 
 ---
 
