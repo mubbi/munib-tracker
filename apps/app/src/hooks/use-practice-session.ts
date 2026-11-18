@@ -468,12 +468,16 @@ export function usePracticeSession(input: {
       const capture = captureRef.current;
       const engine = engineRef.current;
       engineRef.current = null;
+      // Best-effort teardown: a failing step must neither skip the others nor
+      // escape as an unhandled rejection from this fire-and-forget cleanup.
       void (async () => {
-        try {
-          await capture?.stop();
-        } finally {
-          await restorePlaybackMode();
-          await engine?.dispose();
+        const steps = [() => capture?.stop(), restorePlaybackMode, () => engine?.dispose()];
+        for (const step of steps) {
+          try {
+            await step();
+          } catch {
+            // ignore — the screen is gone; nothing left to report to
+          }
         }
       })();
     };

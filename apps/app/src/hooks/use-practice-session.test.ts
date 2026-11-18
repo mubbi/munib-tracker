@@ -311,6 +311,23 @@ describe("usePracticeSession — engine", () => {
     expect(mockCapture?.stop).toHaveBeenCalled();
     expect(restorePlaybackMode).toHaveBeenCalled();
   });
+
+  it("keeps tearing down when releasing the recorder fails", async () => {
+    const unhandled = jest.fn();
+    process.on("unhandledRejection", unhandled);
+    try {
+      const hook = await setup();
+      mockCapture?.stop.mockRejectedValueOnce(new Error("recorder busy"));
+      jest.mocked(restorePlaybackMode).mockRejectedValueOnce(new Error("audio session"));
+      await hook.unmount();
+      await flush();
+      await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+      expect(restorePlaybackMode).toHaveBeenCalled();
+      expect(unhandled).not.toHaveBeenCalled();
+    } finally {
+      process.off("unhandledRejection", unhandled);
+    }
+  });
 });
 
 describe("usePracticeSession — lifecycle", () => {
