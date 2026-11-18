@@ -168,6 +168,28 @@ describe("ReviewPromptSheet", () => {
       expect(props.onClose).toHaveBeenCalledTimes(1);
     });
 
+    it("stays open for a retry when sending fails, without an unhandled rejection", async () => {
+      const unhandled = jest.fn();
+      process.on("unhandledRejection", unhandled);
+      try {
+        const { props } = await renderSheet({
+          onFeedbackSent: jest.fn(async () => {
+            throw new Error("feedback_failed");
+          }),
+        });
+        await pickStars(2);
+        await press(TEXT.feedbackCta);
+        await flushPromises();
+        await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
+        expect(props.onClose).not.toHaveBeenCalled();
+        expect(screen.getByText(TEXT.feedbackCta)).toBeTruthy();
+        expect(unhandled).not.toHaveBeenCalled();
+      } finally {
+        process.off("unhandledRejection", unhandled);
+      }
+    });
+
     it("shows the submission error", async () => {
       await renderSheet({ feedbackError: "Could not send" });
       await pickStars(1);

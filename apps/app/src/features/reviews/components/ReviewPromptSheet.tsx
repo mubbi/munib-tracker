@@ -95,6 +95,8 @@ export function ReviewPromptSheet({
       await onFeedbackSent(stars, feedback.trim());
       reset();
       onClose();
+    } catch {
+      // The caller already surfaced `feedbackError`; stay open so the user can retry.
     } finally {
       setSubmitting(false);
     }
