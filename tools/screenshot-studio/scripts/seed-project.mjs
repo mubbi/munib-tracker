@@ -140,7 +140,7 @@ const SURFACE_SHOT = (surface, locale, scene) =>
 const HERO_BADGE = {
   iphone: { x: 132, y: 520, width: 1056, height: 100, fontSize: 38 },
   android: { x: 90, y: 320, width: 900, height: 68, fontSize: 27 },
-  ipad: { x: 232, y: 680, width: 1600, height: 100, fontSize: 46 },
+  ipad: { x: 232, y: 590, width: 1600, height: 100, fontSize: 46 },
 };
 
 function phoneDeck(device) {

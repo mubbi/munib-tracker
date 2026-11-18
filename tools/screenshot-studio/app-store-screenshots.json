@@ -134,8 +134,8 @@
         },
         "headline": {
           "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
         },
         "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
         "inverted": true
@@ -277,7 +277,7 @@
             },
             "transform": {
               "x": 232,
-              "y": 680,
+              "y": 590,
               "width": 1600,
               "height": 100,
               "zIndex": 5
@@ -377,8 +377,8 @@
         },
         "headline": {
           "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
         },
         "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
         "inverted": true
@@ -669,8 +669,8 @@
         },
         "headline": {
           "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
         },
         "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
         "inverted": true
@@ -780,8 +780,8 @@
         },
         "headline": {
           "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
         },
         "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
         "inverted": true
@@ -891,8 +891,8 @@
         },
         "headline": {
           "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
         },
         "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
         "inverted": true
@@ -1003,8 +1003,8 @@
         "label": {},
         "headline": {
           "en": "Salah, Zikr, Qaza & learning — offline.\n24 languages. Private by design.",
-          "ar": "صلاة وذكر وقضاء وتعلّم — بدون إنترنت.\n23 لغة. خصوصية بالتصميم.",
-          "ur": "نماز، ذکر، قضا اور تعلیم — آف لائن۔\n23 زبانیں۔ رازداری بنیادی اصول۔"
+          "ar": "صلاة وذكر وقضاء وتعلّم — بدون إنترنت.\n24 لغة. خصوصية بالتصميم.",
+          "ur": "نماز، ذکر، قضا اور تعلیم — آف لائن۔\n24 زبانیں۔ رازداری بنیادی اصول۔"
         },
         "screenshot": ""
       }
