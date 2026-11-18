@@ -61,3 +61,37 @@ describe("notification-visuals", () => {
     expect(visual.category).toBe("milestone");
   });
 });
+
+describe("notification-visuals edge cases", () => {
+  it.each([
+    ["beforePrayer:asr:2026-07-04", { kind: "beforePrayer", prayerId: "asr" }],
+    ["afterPrayer:isha:2026-07-04", { kind: "afterPrayer", prayerId: "isha" }],
+    ["afterAzan:fajr", { kind: "afterAzan", prayerId: "fajr" }],
+    ["friday", { kind: "daily", id: "friday" }],
+  ])("parses %s", (key, expected) => {
+    expect(parseReminderKey(key)).toEqual(expected);
+  });
+
+  it.each(["prayer:unknown", "mystery:fajr", "prayer"])("rejects %s", (key) => {
+    expect(parseReminderKey(key)).toBeNull();
+  });
+
+  it.each([
+    ["afterPrayer:isha", "zikr"],
+    ["beforePrayer:asr", "zikr"],
+  ])("maps %s to the %s category", (reminderKey, category) => {
+    expect(resolveNotificationVisual({ reminderKey }).category).toBe(category);
+  });
+
+  it.each([
+    ["admin_announcement", "announcement"],
+    ["system", "system"],
+  ] as const)("maps %s notifications to %s", (kind, category) => {
+    expect(resolveNotificationVisual({ kind }).category).toBe(category);
+  });
+
+  it("extracts a key from scheduled row ids and ignores others", () => {
+    expect(extractReminderKey("scheduled:qaza")).toBe("qaza");
+    expect(extractReminderKey("row-1", "inbox-1")).toBeUndefined();
+  });
+});

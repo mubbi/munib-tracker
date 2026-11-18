@@ -1,17 +1,11 @@
-import { Platform } from "react-native";
-
 import { isIndexingBot } from "@/lib/seo/is-indexing-bot";
+import { DESKTOP_CHROME_UA, installBrowser } from "@/test-support/browser";
+import { usePlatform, usePlatformSwitch } from "@/test-support/platform";
 
 describe("isIndexingBot", () => {
-  const originalOS = Platform.OS;
+  const onPlatform = usePlatformSwitch();
 
-  beforeEach(() => {
-    Platform.OS = "web";
-  });
-
-  afterEach(() => {
-    Platform.OS = originalOS;
-  });
+  beforeEach(() => onPlatform({ OS: "web" }));
 
   it("detects Lighthouse and major crawlers", () => {
     expect(
@@ -37,9 +31,25 @@ describe("isIndexingBot", () => {
   });
 
   it("is always false on native", () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     expect(
       isIndexingBot("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"),
     ).toBe(false);
+  });
+});
+
+describe("isIndexingBot default user agent", () => {
+  usePlatform({ OS: "web" });
+
+  it.each([
+    ["Mozilla/5.0 (compatible; GPTBot/1.0)", true],
+    [DESKTOP_CHROME_UA, false],
+  ])("reads navigator.userAgent %s → %p", (userAgent, expected) => {
+    const restore = installBrowser({ userAgent });
+    try {
+      expect(isIndexingBot()).toBe(expected);
+    } finally {
+      restore();
+    }
   });
 });

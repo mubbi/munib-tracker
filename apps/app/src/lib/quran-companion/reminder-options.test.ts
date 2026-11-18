@@ -13,8 +13,6 @@ import type { MemorizationRecord } from "./types";
  * repositories (the practice stores are lazy and not loaded at launch).
  */
 
-jest.mock("@/lib/platform/is-tv", () => ({ isTV: jest.fn(() => false) }));
-
 const NOW = new Date(2026, 10, 17, 8, 0, 0); // local 17 Nov 2026, 08:00
 
 function due(nextReviewAt: string): MemorizationRecord {

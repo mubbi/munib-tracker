@@ -60,3 +60,21 @@ describe("chunker", () => {
     expect(c.droppedSamples).toBeGreaterThan(0);
   });
 });
+
+describe("chunker bookkeeping", () => {
+  it("counts dropped samples and clears them on reset", () => {
+    const chunker = createChunker(10, 20); // 160-sample chunks, 320-sample queue
+    chunker.push(new Float32Array(200));
+    chunker.push(new Float32Array(200));
+    expect(chunker.droppedSamples).toBe(200);
+    chunker.reset();
+    expect(chunker.droppedSamples).toBe(0);
+    expect(chunker.take(true)).toBeNull();
+  });
+
+  it("ignores empty pushes", () => {
+    const chunker = createChunker(10);
+    chunker.push(new Float32Array(0));
+    expect(chunker.take(true)).toBeNull();
+  });
+});

@@ -77,3 +77,27 @@ describe("alignPracticeWords (§6)", () => {
     expect(splitAyahWords("كَلِمَةٌ ۚ أُخۡرَىٰ")).toHaveLength(2);
   });
 });
+
+describe("alignPracticeWords divergence", () => {
+  const alignOf = (study: string[], engine: string[]) => alignPracticeWords("", study, engine);
+
+  it("links a close misspelling inside an equal-length gap", () => {
+    const { engineToStudy } = alignOf(["الرحمان", "الرحيم"], ["الرحمن", "الرحيم"]);
+    expect(engineToStudy).toEqual([[0], [1]]);
+  });
+
+  it("leaves a dissimilar pair unmapped", () => {
+    const { engineToStudy } = alignOf(["قلم", "الرحيم"], ["كتابهم", "الرحيم"]);
+    expect(engineToStudy).toEqual([[], [1]]);
+  });
+
+  it("skips an unequal gap without guessing", () => {
+    const { studyToEngine } = alignOf(["أ", "ب", "ج", "د"], ["س", "د"]);
+    expect(studyToEngine[3]).toEqual([1]);
+    expect(studyToEngine.slice(0, 3)).toEqual([[], [], []]);
+  });
+
+  it("handles an empty side", () => {
+    expect(alignOf([], ["س"]).engineToStudy).toEqual([[]]);
+  });
+});

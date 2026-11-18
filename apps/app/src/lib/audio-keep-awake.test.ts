@@ -1,73 +1,61 @@
 import { act, renderHook, waitFor } from "@testing-library/react-native";
 import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
-import { Platform } from "react-native";
 
 import { AUDIO_KEEP_AWAKE_TAG, setAudioKeepAwake, useAudioKeepAwake } from "@/lib/audio-keep-awake";
-import { isTV } from "@/lib/platform/is-tv";
+import { usePlatform, usePlatformSwitch } from "@/test-support/platform";
 
 jest.mock("expo-keep-awake", () => ({
   activateKeepAwakeAsync: jest.fn().mockResolvedValue(undefined),
   deactivateKeepAwake: jest.fn().mockResolvedValue(undefined),
 }));
 
-jest.mock("@/lib/platform/is-tv", () => ({
-  isTV: jest.fn(() => false),
-}));
-
-const isTVMock = isTV as jest.MockedFunction<typeof isTV>;
 const activateMock = activateKeepAwakeAsync as jest.MockedFunction<typeof activateKeepAwakeAsync>;
 const deactivateMock = deactivateKeepAwake as jest.MockedFunction<typeof deactivateKeepAwake>;
 
 describe("setAudioKeepAwake", () => {
-  const originalOS = Platform.OS;
+  const onPlatform = usePlatformSwitch();
 
   beforeEach(() => {
-    isTVMock.mockReturnValue(false);
     activateMock.mockReset().mockResolvedValue(undefined);
     deactivateMock.mockReset().mockResolvedValue(undefined);
   });
 
-  afterEach(() => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: originalOS });
-  });
-
   it("activates keep-awake on iOS while playing", async () => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: "ios" });
+    onPlatform({ OS: "ios" });
     await setAudioKeepAwake(true);
     expect(activateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     expect(deactivateMock).not.toHaveBeenCalled();
   });
 
   it("deactivates keep-awake when playback stops", async () => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: "android" });
+    onPlatform({ OS: "android" });
     await setAudioKeepAwake(false);
     expect(deactivateMock).toHaveBeenCalledWith(AUDIO_KEEP_AWAKE_TAG);
     expect(activateMock).not.toHaveBeenCalled();
   });
 
   it("is a no-op on web", async () => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: "web" });
+    onPlatform({ OS: "web" });
     await setAudioKeepAwake(true);
     expect(activateMock).not.toHaveBeenCalled();
     expect(deactivateMock).not.toHaveBeenCalled();
   });
 
   it("is a no-op on TV even when the OS would otherwise support wake lock", async () => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: "ios" });
-    isTVMock.mockReturnValue(true);
+    onPlatform({ OS: "ios", isTV: true });
     await setAudioKeepAwake(true);
     expect(activateMock).not.toHaveBeenCalled();
     expect(deactivateMock).not.toHaveBeenCalled();
   });
 
   it("swallows activate failures so playback is never blocked", async () => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: "ios" });
+    onPlatform({ OS: "ios" });
     activateMock.mockRejectedValueOnce(new Error("wake-lock unavailable"));
     await expect(setAudioKeepAwake(true)).resolves.toBeUndefined();
   });
 
   it("swallows deactivate failures so stop is never blocked", async () => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: "android" });
+    onPlatform({ OS: "android" });
     deactivateMock.mockImplementationOnce(() => {
       throw new Error("wake-lock unavailable");
     });
@@ -76,17 +64,11 @@ describe("setAudioKeepAwake", () => {
 });
 
 describe("useAudioKeepAwake", () => {
-  const originalOS = Platform.OS;
+  usePlatform({ OS: "ios" });
 
   beforeEach(() => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: "ios" });
-    isTVMock.mockReturnValue(false);
     activateMock.mockReset().mockResolvedValue(undefined);
     deactivateMock.mockReset().mockResolvedValue(undefined);
-  });
-
-  afterEach(() => {
-    Object.defineProperty(Platform, "OS", { configurable: true, value: originalOS });
   });
 
   it("does not activate while idle", async () => {

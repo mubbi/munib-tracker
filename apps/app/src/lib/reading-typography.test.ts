@@ -1,7 +1,5 @@
 import { DEFAULT_USER_PREFERENCES } from "@munib-tracker/shared/constants";
 import type { FontPreferences } from "@munib-tracker/shared/types";
-import { Platform } from "react-native";
-
 import {
   ARABIC_SIZE_BOUNDS,
   arabicReadingLayout,
@@ -17,6 +15,7 @@ import {
   translationReadingStyle,
 } from "@/lib/reading-typography";
 import { arabicTextAlign } from "@/lib/rtl";
+import { usePlatformSwitch } from "@/test-support/platform";
 
 function fontPrefs(patch: Partial<FontPreferences> = {}): FontPreferences {
   return { ...DEFAULT_USER_PREFERENCES.fontPrefs, ...patch };
@@ -106,14 +105,10 @@ describe("resolveArabicLineHeight", () => {
 });
 
 describe("arabicReadingLayout", () => {
-  const originalOS = Platform.OS;
-
-  afterEach(() => {
-    Platform.OS = originalOS;
-  });
+  const onPlatform = usePlatformSwitch();
 
   it("uses arabicTextAlign so native RTL keeps scripture on the physical right", () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     expect(arabicReadingLayout(22).textAlign).toBe(arabicTextAlign(false));
     // Simulate RTL by calling arabicTextAlign directly — arabicReadingLayout reads isRTL().
     expect(arabicReadingLayout(22, "center").textAlign).toBe("center");
@@ -128,43 +123,32 @@ describe("arabicReadingLayout", () => {
 });
 
 describe("resolveTranslationFontFamily", () => {
-  const originalOS = Platform.OS;
-
-  afterEach(() => {
-    Platform.OS = originalOS;
-  });
+  const onPlatform = usePlatformSwitch();
 
   it("uses the bundled Devanagari family for Hindi on native", () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     expect(resolveTranslationFontFamily("hi")).toBe("NotoSansDevanagari");
     expect(translationReadingStyle("hi", 16).fontFamily).toBe("NotoSansDevanagari");
   });
 
   it("uses a CSS stack for Hindi on web", () => {
-    const spy = jest
-      .spyOn(Platform, "select")
-      .mockImplementation((spec: { web?: string; default?: string }) => spec.web ?? spec.default);
+    onPlatform({ OS: "web" });
     expect(resolveTranslationFontFamily("hi")).toContain("Noto Sans Devanagari");
-    spy.mockRestore();
   });
 });
 
 describe("sanitizeArabicText", () => {
-  const originalOS = Platform.OS;
-
-  afterEach(() => {
-    Platform.OS = originalOS;
-  });
+  const onPlatform = usePlatformSwitch();
 
   it("spells out honorific ligatures and strips U+06DD on iOS", () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     expect(sanitizeArabicText("اللهم \uFDFA")).toContain("صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ");
     expect(sanitizeArabicText("\uFDFD")).toBe("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ");
     expect(sanitizeArabicText("ءَامَنَ\u06DD")).toBe("ءَامَنَ");
   });
 
   it("leaves the same characters untouched on Android", () => {
-    Platform.OS = "android";
+    onPlatform({ OS: "android" });
     expect(sanitizeArabicText("اللهم \uFDFA")).toBe("اللهم \uFDFA");
     expect(sanitizeArabicText("ءَامَنَ\u06DD")).toBe("ءَامَنَ\u06DD");
   });

@@ -1,5 +1,3 @@
-import { Platform } from "react-native";
-
 import { appendUploadFile } from "./multipart-file-part";
 
 jest.mock("@/lib/attachments/read-uri-bytes", () => ({
@@ -7,6 +5,7 @@ jest.mock("@/lib/attachments/read-uri-bytes", () => ({
 }));
 
 import { readUriAsBytes } from "@/lib/attachments/read-uri-bytes";
+import { usePlatformSwitch } from "@/test-support/platform";
 
 const readUriAsBytesMock = readUriAsBytes as jest.MockedFunction<typeof readUriAsBytes>;
 
@@ -27,16 +26,13 @@ function expoSerialize(form: FormData): Promise<{ body: Uint8Array; boundary: st
 }
 
 describe("appendUploadFile", () => {
-  const originalOS = Platform.OS;
+  const onPlatform = usePlatformSwitch();
 
   beforeEach(() => {
     readUriAsBytesMock.mockResolvedValue(JPEG_BYTES);
   });
 
-  afterEach(() => {
-    Platform.OS = originalOS;
-    jest.clearAllMocks();
-  });
+  afterEach(() => jest.clearAllMocks());
 
   it("documents the regression: Expo's fetch rejects React Native { uri } file parts", async () => {
     const form = createNativeFormData();
@@ -50,7 +46,7 @@ describe("appendUploadFile", () => {
   });
 
   it("builds a native part Expo's fetch can serialise, with filename, type and bytes", async () => {
-    Platform.OS = "android";
+    onPlatform({ OS: "android" });
     const form = createNativeFormData();
 
     await appendUploadFile(form, "files", {
@@ -68,7 +64,7 @@ describe("appendUploadFile", () => {
   });
 
   it("keeps the part compatible with React Native networking (uri, no enumerable bytes)", async () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     const form = createNativeFormData();
 
     await appendUploadFile(form, "files", {
@@ -88,7 +84,7 @@ describe("appendUploadFile", () => {
   });
 
   it("appends a typed Blob with the filename on web", async () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     const append = jest.fn();
 
     await appendUploadFile({ append } as unknown as FormData, "files", {

@@ -5,7 +5,16 @@ import * as Endpoints from "@/api/endpoints";
 import { SessionStore } from "@/auth/session-store";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
-import { pushPreferencesNow } from "@/lib/sync/push-preferences";
+import {
+  hasPendingPreferenceChanges,
+  markPreferencesDirty,
+} from "@/lib/sync/preferences-cloud-sync";
+import {
+  cancelScheduledPreferencesCloudSync,
+  pushPreferencesNow,
+  schedulePreferencesCloudSync,
+} from "@/lib/sync/push-preferences";
+import { buildGuestSession, buildStoredSession } from "@/test-support/fixtures/auth";
 
 const prefs = {
   ...DEFAULT_USER_PREFERENCES,
@@ -57,6 +66,61 @@ describe("pushPreferencesNow", () => {
     const pushSpy = jest.spyOn(Endpoints, "syncPush");
 
     expect(await pushPreferencesNow(prefs)).toBe(false);
+    expect(pushSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe("schedulePreferencesCloudSync", () => {
+  let pushSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+    markPreferencesDirty();
+    pushSpy = jest.spyOn(Endpoints, "syncPush").mockResolvedValue({
+      accepted: 1,
+      conflicts: [],
+      serverTime: "2026-07-04T00:00:00.000Z",
+    });
+  });
+  afterEach(() => {
+    cancelScheduledPreferencesCloudSync();
+    jest.useRealTimers();
+  });
+
+  it("debounces bursts into one push and clears the dirty flag", async () => {
+    jest.spyOn(SessionStore, "get").mockResolvedValue(buildStoredSession());
+    schedulePreferencesCloudSync(prefs);
+    schedulePreferencesCloudSync({ ...prefs, updatedAt: undefined } as never);
+    await jest.advanceTimersByTimeAsync(400);
+    expect(pushSpy).toHaveBeenCalledTimes(1);
+    expect(pushSpy.mock.calls[0][1][0]).toMatchObject({
+      entity: "preferences",
+      updatedAt: expect.any(String),
+    });
+    expect(hasPendingPreferenceChanges()).toBe(false);
+  });
+
+  it("keeps changes pending for guests", async () => {
+    jest.spyOn(SessionStore, "get").mockResolvedValue(buildGuestSession());
+    schedulePreferencesCloudSync(prefs);
+    await jest.advanceTimersByTimeAsync(400);
+    expect(pushSpy).not.toHaveBeenCalled();
+    expect(hasPendingPreferenceChanges()).toBe(true);
+  });
+
+  it("swallows push failures", async () => {
+    jest.spyOn(SessionStore, "get").mockResolvedValue(buildStoredSession());
+    pushSpy.mockRejectedValueOnce(new Error("offline"));
+    schedulePreferencesCloudSync(prefs);
+    await jest.advanceTimersByTimeAsync(400);
+    expect(hasPendingPreferenceChanges()).toBe(true);
+  });
+
+  it("can be cancelled before it fires", async () => {
+    schedulePreferencesCloudSync(prefs);
+    cancelScheduledPreferencesCloudSync();
+    cancelScheduledPreferencesCloudSync();
+    await jest.advanceTimersByTimeAsync(400);
     expect(pushSpy).not.toHaveBeenCalled();
   });
 });

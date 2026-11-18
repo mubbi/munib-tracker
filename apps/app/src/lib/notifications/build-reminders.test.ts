@@ -8,8 +8,10 @@ import {
   isQazaReminderId,
   MAX_PENDING_REMINDERS,
   summarizeReminders,
+  trimRemindersToBudget,
 } from "@/lib/notifications/build-reminders";
 import { computePrayerTimes } from "@/lib/prayer-times";
+import { buildReminder } from "@/test-support/fixtures/notifications";
 
 /** Same coords as the seeded fallback, but marked as a real fix so prayer reminders schedule. */
 const SET_LOCATION: StoredLocation = {
@@ -476,5 +478,23 @@ describe("Qur'an revision reminder (§10)", () => {
       expect(reminders.some((r) => r.id.startsWith("quran-revision:"))).toBe(false);
     }
     expect(reminders.length).toBeLessThanOrEqual(MAX_PENDING_REMINDERS);
+  });
+});
+
+describe("trimRemindersToBudget", () => {
+  const at = (h: number) => new Date(`2026-07-03T${String(h).padStart(2, "0")}:00:00.000Z`);
+
+  it("returns the list unchanged when within budget", () => {
+    const reminders = [buildReminder()];
+    expect(trimRemindersToBudget(reminders, 2)).toBe(reminders);
+  });
+
+  it("keeps the highest-priority reminders, earliest first on ties, sorted by time", () => {
+    const reminders = [
+      buildReminder({ id: "late-low", priority: 3, fireAt: at(1) }),
+      buildReminder({ id: "fard-b", priority: 1, fireAt: at(9) }),
+      buildReminder({ id: "fard-a", priority: 1, fireAt: at(5) }),
+    ];
+    expect(trimRemindersToBudget(reminders, 2).map((r) => r.id)).toEqual(["fard-a", "fard-b"]);
   });
 });

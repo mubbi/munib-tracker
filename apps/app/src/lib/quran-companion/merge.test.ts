@@ -1,5 +1,16 @@
+import { buildPracticeSummary } from "@/test-support/fixtures/quran-companion";
+
 import { encodeMap, encodeRecord } from "./memorization-codec";
-import { MAX_HISTORY, mergeMemorization, mergeSessions } from "./merge";
+import {
+  asMemorizationMap,
+  asPracticeHistory,
+  EMPTY_HISTORY,
+  EMPTY_MEMORIZATION,
+  MAX_HISTORY,
+  mergeMemorization,
+  mergeSessions,
+  normalizeHistory,
+} from "./merge";
 import type { MemorizationRecord, PracticeSummary } from "./types";
 
 function rec(updatedAt: string, intervalDays = 1): MemorizationRecord {
@@ -95,6 +106,64 @@ describe("mergeSessions (D7)", () => {
     const after = summary("new", "2026-11-17T13:00:00.000Z");
     expect(mergeSessions({ ...offline, items: [after] }, cleared).items.map((i) => i.id)).toEqual([
       "new",
+    ]);
+  });
+});
+
+describe("merge edge cases", () => {
+  it.each([null, "x", [1]])("coerces %p to empty blobs", (value) => {
+    expect(asMemorizationMap(value)).toEqual(EMPTY_MEMORIZATION);
+    expect(asPracticeHistory(value)).toEqual(EMPTY_HISTORY);
+  });
+
+  it("returns null for blobs written by a newer schema", () => {
+    expect(asMemorizationMap({ schemaVersion: 2 })).toBeNull();
+    expect(asPracticeHistory({ schemaVersion: 2 })).toBeNull();
+  });
+
+  it("drops malformed fields", () => {
+    expect(asMemorizationMap({ records: [1] })).toEqual({ schemaVersion: 1, records: {} });
+    expect(asPracticeHistory({ items: "x", clearedAt: 5 })).toEqual({
+      schemaVersion: 1,
+      items: [],
+    });
+  });
+
+  it("leaves newer local blobs untouched and ignores newer remote blobs", () => {
+    const newer = { schemaVersion: 2, records: { a: 1 } };
+    expect(mergeMemorization(newer, {})).toBe(newer);
+    expect(mergeMemorization({ records: { "1:1": { u: 1 } } }, newer)).toEqual({
+      schemaVersion: 1,
+      records: { "1:1": { u: 1 } },
+    });
+    const newerHistory = { schemaVersion: 2, items: [] };
+    expect(mergeSessions(newerHistory, {})).toBe(newerHistory);
+    expect(mergeSessions({ items: [] }, newerHistory)).toEqual({ schemaVersion: 1, items: [] });
+  });
+
+  it("keeps local records on equal or missing timestamps", () => {
+    const merged = mergeMemorization(
+      { records: { a: { u: 5, n: "local" }, b: { n: "local-b" } } },
+      { records: { a: { u: 5, n: "remote" }, b: { n: "remote-b" } } },
+    );
+    expect(merged.records.a).toMatchObject({ n: "local" });
+    expect(merged.records.b).toMatchObject({ n: "local-b" });
+  });
+
+  it("dedupes history by id, keeping the latest copy, and skips invalid items", () => {
+    const history = normalizeHistory({
+      schemaVersion: 1,
+      items: [
+        buildPracticeSummary({ id: "a", endedAt: "2026-01-01T00:00:00.000Z" }),
+        buildPracticeSummary({ id: "a", endedAt: "2026-01-02T00:00:00.000Z" }),
+        buildPracticeSummary({ id: "b", endedAt: "2026-01-02T00:00:00.000Z" }),
+        { id: "", endedAt: "x" } as never,
+        null as never,
+      ],
+    });
+    expect(history.items.map((i) => `${i.id}@${i.endedAt.slice(0, 10)}`)).toEqual([
+      "a@2026-01-02",
+      "b@2026-01-02",
     ]);
   });
 });

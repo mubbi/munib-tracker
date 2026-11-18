@@ -13,6 +13,7 @@ import {
   isContinueContentHref,
   navigateToContinue,
 } from "./continue-activity";
+import { zikrQuranHref } from "./zikr-quran";
 
 describe("isContinueContentHref", () => {
   it("matches content routes", () => {
@@ -199,5 +200,101 @@ describe("navigateToContinue", () => {
       pathname: "/hadith/[collection]",
       params: { collection: "nawawi40", q: "Hadith 1" },
     });
+  });
+});
+
+describe("continue-activity edge cases", () => {
+  const activity = (href: string) => ({
+    kind: "quran" as const,
+    href,
+    title: "x",
+    updatedAt: "2026-01-01",
+  });
+
+  it("falls back for unknown surahs and keeps ayah mode when page has no layout", () => {
+    const unknown = buildQuranActivity(999, 3);
+    expect(unknown.title).toBe("Surah 999");
+    expect(unknown.subtitle).toBe("Ayah 3");
+    expect(unknown.preview).toBeUndefined();
+    const noLayout = buildQuranActivity(2, 5, { page: 3, isAudio: true });
+    expect(noLayout.href).toBe("/quran/2?ayah=5");
+    expect(noLayout.isAudio).toBe(true);
+    const mushaf = buildQuranActivity(2, 5, { page: 3, layout: "mushaf" });
+    expect(mushaf.href).toBe("/quran/page/3?surah=2&ayah=5");
+  });
+
+  it("uses narrator and English when there is no collection name or Arabic", () => {
+    const longEnglish = "word ".repeat(60);
+    const h = buildHadithActivity(
+      {
+        id: "x:1",
+        collection: "x",
+        reference: "Ref 1",
+        arabic: "",
+        english: longEnglish,
+        narrator: "Abu Hurairah",
+      } as HadithItem,
+      undefined,
+      { isAudio: true },
+    );
+    expect(h.subtitle).toBe("Abu Hurairah");
+    expect(h.preview?.endsWith("…")).toBe(true);
+    expect(h.preview?.length).toBeLessThanOrEqual(120);
+    expect(h.isAudio).toBe(true);
+  });
+
+  it("keeps an explicit durood title", () => {
+    expect(buildDuroodActivity({ title: "Ibrahimi", arabic: "ص" }).title).toBe("Ibrahimi");
+  });
+
+  it.each([
+    ["/hadith/bukhari", "hadith"],
+    ["/dua/detail/x", "dua"],
+    ["/zikr/detail/y", "zikr"],
+    ["/duroods", "durood"],
+    ["/names-of-allah", "names"],
+  ])("infers %s audio as %s", (href, kind) => {
+    expect(buildAudioActivity(href, { title: "t" })?.kind).toBe(kind);
+  });
+
+  it("navigates a quran href without an ayah", () => {
+    const push = jest.fn();
+    navigateToContinue({ push }, activity("/quran/18"));
+    expect(push).toHaveBeenCalledWith({ pathname: "/quran/[surah]", params: { surah: "18" } });
+  });
+
+  it("navigates a hadith collection without a query", () => {
+    const push = jest.fn();
+    navigateToContinue({ push }, activity("/hadith/sahih%20muslim"));
+    expect(push).toHaveBeenCalledWith({
+      pathname: "/hadith/[collection]",
+      params: { collection: "sahih muslim" },
+    });
+  });
+
+  it("navigates dua and zikr detail routes", () => {
+    const push = jest.fn();
+    navigateToContinue({ push }, activity("/dua/detail/morning-1"));
+    expect(push).toHaveBeenLastCalledWith({
+      pathname: "/dua/detail/[id]",
+      params: { id: "morning-1" },
+    });
+    navigateToContinue({ push }, activity("/zikr/detail/subhanallah"));
+    expect(push).toHaveBeenLastCalledWith({
+      pathname: "/zikr/detail/[id]",
+      params: { id: "subhanallah" },
+    });
+  });
+
+  it("sends Qur'an-backed zikr detail links to the reader", () => {
+    const push = jest.fn();
+    navigateToContinue({ push }, activity("/zikr/detail/before_sleep-mulk"));
+    expect(push).toHaveBeenCalledWith(zikrQuranHref("before_sleep-mulk"));
+  });
+
+  it("pushes any other href verbatim", () => {
+    const push = jest.fn();
+    navigateToContinue({ push }, activity("/names-of-allah"));
+    expect(push).toHaveBeenCalledWith("/names-of-allah");
   });
 });

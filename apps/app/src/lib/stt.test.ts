@@ -1,5 +1,4 @@
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
-import { Platform } from "react-native";
 
 const mockIsRecognitionAvailable = jest.fn(() => true);
 const mockRequestPermissions = jest.fn(async () => ({
@@ -33,12 +32,12 @@ import {
   stopStt,
   sttLangCandidates,
 } from "@/lib/stt";
+import { usePlatformSwitch } from "@/test-support/platform";
 
 describe("stt", () => {
-  const originalOS = Platform.OS;
+  const onPlatform = usePlatformSwitch();
 
   afterEach(() => {
-    Platform.OS = originalOS;
     mockRequestPermissions.mockClear();
   });
 
@@ -50,7 +49,7 @@ describe("stt", () => {
   });
 
   it("requests permissions and returns a simple grant flag", async () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     mockRequestPermissions.mockResolvedValueOnce({
       granted: false,
       canAskAgain: true,
@@ -64,7 +63,7 @@ describe("stt", () => {
   });
 
   it("skips the unsupported permission API on web", async () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     await expect(requestSttPermissions()).resolves.toEqual({
       granted: true,
       canAskAgain: true,
@@ -87,7 +86,7 @@ describe("stt", () => {
   });
 
   it("reports web availability from the browser Speech API module", () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     mockIsRecognitionAvailable.mockReturnValueOnce(true);
     expect(isSttAvailable()).toBe(true);
     mockIsRecognitionAvailable.mockReturnValueOnce(false);
@@ -95,7 +94,7 @@ describe("stt", () => {
   });
 
   it("starts web recognition without native volume metering", () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     mockStart.mockClear();
     startStt({ lang: "en-US", volumeMetering: true });
     expect(mockStart).toHaveBeenCalledWith(expect.objectContaining({ lang: "en-US" }));

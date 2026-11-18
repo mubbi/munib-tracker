@@ -1,5 +1,3 @@
-import { Platform } from "react-native";
-
 import { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 import { DEFAULT_LOCATION } from "@/lib/location";
 
@@ -12,7 +10,9 @@ import {
   nativeCancelOngoingNotification,
   nativeUpdateOngoingNotification,
 } from "@/lib/external-commands/native-bridge";
-import { syncOngoingNotification } from "@/lib/ongoing-notification";
+import { stopOngoingNotification, syncOngoingNotification } from "@/lib/ongoing-notification";
+import { buildSalahTrackingSession } from "@/test-support/fixtures/salah-phase";
+import { usePlatform, usePlatformSwitch } from "@/test-support/platform";
 
 const t = (_key: string, fallback: string) => fallback;
 
@@ -42,15 +42,12 @@ function makeSnapshot() {
 }
 
 describe("syncOngoingNotification", () => {
-  const originalOS = Platform.OS;
+  const onPlatform = usePlatformSwitch();
 
-  afterEach(() => {
-    Platform.OS = originalOS;
-    jest.clearAllMocks();
-  });
+  afterEach(() => jest.clearAllMocks());
 
   it("no-ops off Android", async () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     await syncOngoingNotification({ snapshot: makeSnapshot(), enabled: true });
 
     expect(nativeUpdateOngoingNotification).not.toHaveBeenCalled();
@@ -58,7 +55,7 @@ describe("syncOngoingNotification", () => {
   });
 
   it("posts the ongoing notification with the next-prayer state when enabled on Android", async () => {
-    Platform.OS = "android";
+    onPlatform({ OS: "android" });
     const snapshot = makeSnapshot();
     await syncOngoingNotification({ snapshot, enabled: true });
 
@@ -77,7 +74,7 @@ describe("syncOngoingNotification", () => {
   });
 
   it("cancels the ongoing notification on Android when the preference is off", async () => {
-    Platform.OS = "android";
+    onPlatform({ OS: "android" });
     await syncOngoingNotification({ snapshot: makeSnapshot(), enabled: false });
 
     expect(nativeCancelOngoingNotification).toHaveBeenCalledTimes(1);
@@ -85,7 +82,7 @@ describe("syncOngoingNotification", () => {
   });
 
   it("requests promotion when an imminent tracking session is supplied", async () => {
-    Platform.OS = "android";
+    onPlatform({ OS: "android" });
     const snapshot = makeSnapshot();
     const now = new Date("2026-07-06T09:00:00.000Z");
     snapshot.nextPrayer.targetTimeMs = now.getTime() + 10 * 60_000;
@@ -111,5 +108,46 @@ describe("syncOngoingNotification", () => {
     );
     expect(payload.requestPromoted).toBe(true);
     expect(payload.sessionId).toBe("sess-1");
+  });
+});
+
+describe("stopOngoingNotification / TV", () => {
+  afterEach(() => jest.clearAllMocks());
+
+  it("does nothing off Android", async () => {
+    await stopOngoingNotification();
+    expect(nativeCancelOngoingNotification).not.toHaveBeenCalled();
+  });
+
+  describe("on Android phones", () => {
+    usePlatform({ OS: "android" });
+
+    it("cancels the notification", async () => {
+      await stopOngoingNotification();
+      expect(nativeCancelOngoingNotification).toHaveBeenCalledTimes(1);
+    });
+
+    it("ignores a dismissed session and falls back to the ambient countdown", async () => {
+      await syncOngoingNotification({
+        snapshot: makeSnapshot(),
+        enabled: true,
+        session: buildSalahTrackingSession({ dismissed: true }),
+      });
+      const payload = JSON.parse(
+        (nativeUpdateOngoingNotification as jest.Mock).mock.calls[0][0] as string,
+      );
+      expect(payload.sessionId).toBe("ambient");
+    });
+  });
+
+  describe("on Android TV", () => {
+    usePlatform({ OS: "android", isTV: true });
+
+    it("does nothing", async () => {
+      await syncOngoingNotification({ snapshot: makeSnapshot(), enabled: true });
+      await stopOngoingNotification();
+      expect(nativeUpdateOngoingNotification).not.toHaveBeenCalled();
+      expect(nativeCancelOngoingNotification).not.toHaveBeenCalled();
+    });
   });
 });

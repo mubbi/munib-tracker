@@ -47,3 +47,43 @@ describe("scheduledFireAtIso", () => {
     expect(scheduledFireAtIso(Number.MAX_SAFE_INTEGER)).toBeNull();
   });
 });
+
+describe("parseScheduledTriggerAtMs edge cases", () => {
+  const NOW = new Date("2026-07-03T10:00:00").getTime();
+  // Clock-time triggers read the wall clock (not `nowMs`), so pin it.
+  beforeEach(() => jest.useFakeTimers({ now: NOW }));
+  afterEach(() => jest.useRealTimers());
+
+  it.each([
+    [
+      "an ISO date string",
+      { type: "date", date: "2026-07-03T12:00:00.000Z" },
+      Date.parse("2026-07-03T12:00:00.000Z"),
+    ],
+    ["epoch seconds", { type: "date", value: 1_780_000_000 }, 1_780_000_000_000],
+    ["an invalid date string", { type: "date", date: "nope" }, null],
+    ["a date trigger without an instant", { type: "date" }, null],
+    ["a non-object", "daily" as never, null],
+  ])("handles %s", (_label, trigger, expected) => {
+    expect(parseScheduledTriggerAtMs(trigger as never, NOW)).toBe(expected);
+  });
+
+  it("reads iOS calendar dateComponents and rolls past times to tomorrow", () => {
+    const at = parseScheduledTriggerAtMs(
+      { type: "calendar", dateComponents: { hour: 9 } } as never,
+      NOW,
+    );
+    const expected = new Date(NOW);
+    expected.setDate(expected.getDate() + 1);
+    expected.setHours(9, 0, 0, 0);
+    expect(at).toBe(expected.getTime());
+  });
+
+  it("uses dateComponents minutes when present", () => {
+    const at = parseScheduledTriggerAtMs(
+      { type: "calendar", dateComponents: { hour: 11, minute: 30 } } as never,
+      NOW,
+    );
+    expect(new Date(at as number).getMinutes()).toBe(30);
+  });
+});

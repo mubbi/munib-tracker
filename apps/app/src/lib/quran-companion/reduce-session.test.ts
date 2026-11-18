@@ -155,3 +155,45 @@ describe("visibleWordStates (feedback timing)", () => {
     expect(visibleWordStates(flagged, "end", false).every((s) => s === "idle")).toBe(true);
   });
 });
+
+describe("reduceSession lifecycle events", () => {
+  it("starts listening and clears a failure", () => {
+    const failed = run([{ type: "failed", code: "engine-runtime" }]);
+    expect(run([{ type: "started" }], failed)).toMatchObject({
+      status: "listening",
+      failure: null,
+    });
+  });
+
+  it("settles on completed", () => {
+    expect(run([{ type: "completed" }]).status).toBe("settled");
+  });
+
+  it("counts extra words on the ayah", () => {
+    const s = run([{ type: "extra", surah: 1, ayah: 2, engineWord: 1 }]);
+    expect(s.ayahs[2].extras).toBe(1);
+  });
+
+  it("marks heard and upcoming words uncertain, keeping mismatches", () => {
+    const s = run([
+      pos([0]),
+      { type: "confirmedMismatch", surah: 1, ayah: 2, engineWord: 1, words: 1, reason: "wrong" },
+      { type: "uncertain", surah: 1, ayah: 2, engineWord: 0, words: 3 },
+    ]);
+    expect(s.ayahs[2].states.slice(0, 3)).toEqual(["uncertain", "confirmedMismatch", "uncertain"]);
+  });
+
+  it("ignores uncertain events on listen-only rows", () => {
+    const listen = beginTake(createSessionState([createAyahState(2, WORDS, null)]), 2);
+    const s = run([{ type: "uncertain", surah: 1, ayah: 2, engineWord: 0, words: 0 }], listen);
+    expect(s.ayahs[2].states).toEqual(["idle", "idle", "idle", "idle"]);
+  });
+
+  it("ignores events for unknown ayahs and unknown types", () => {
+    const start = session();
+    expect(run([{ type: "extra", surah: 1, ayah: 99, engineWord: 0 }], start).ayahs).toEqual(
+      start.ayahs,
+    );
+    expect(reduceSession(start, { type: "mystery" } as never)).toBe(start);
+  });
+});

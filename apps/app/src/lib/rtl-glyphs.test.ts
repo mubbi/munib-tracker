@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { Platform } from "react-native";
 
 import i18n from "@/i18n";
 import {
@@ -16,6 +15,7 @@ import {
   uiTextStyle,
 } from "@/lib/rtl";
 import { preferencesStore } from "@/stores/preferences-store";
+import { usePlatform, usePlatformSwitch } from "@/test-support/platform";
 
 jest.mock("@/stores/preferences-store", () => ({
   preferencesStore: {
@@ -26,10 +26,9 @@ jest.mock("@/stores/preferences-store", () => ({
 const getState = preferencesStore.getState as jest.MockedFunction<typeof preferencesStore.getState>;
 
 describe("isRTL on web", () => {
-  const originalOS = Platform.OS;
+  usePlatform({ OS: "web" });
 
   beforeEach(() => {
-    Platform.OS = "web";
     void i18n.changeLanguage("en");
     getState.mockReturnValue({
       prefs: { locale: "en" },
@@ -37,7 +36,6 @@ describe("isRTL on web", () => {
   });
 
   afterEach(() => {
-    Platform.OS = originalOS;
     void i18n.changeLanguage("en");
   });
 
@@ -57,14 +55,10 @@ describe("isRTL on web", () => {
 });
 
 describe("uiTextStyle", () => {
-  const originalOS = Platform.OS;
-
-  afterEach(() => {
-    Platform.OS = originalOS;
-  });
+  const onPlatform = usePlatformSwitch();
 
   it("uses start-edge align on native (left = start under I18nManager RTL swap)", () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     expect(uiTextStyle(false)).toEqual({
       writingDirection: "ltr",
       textAlign: "left",
@@ -76,7 +70,7 @@ describe("uiTextStyle", () => {
   });
 
   it("uses physical right on web when the locale is RTL", () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     expect(uiTextStyle(false)).toEqual({
       writingDirection: "ltr",
       textAlign: "left",
@@ -89,21 +83,17 @@ describe("uiTextStyle", () => {
 });
 
 describe("arabicTextAlign", () => {
-  const originalOS = Platform.OS;
-
-  afterEach(() => {
-    Platform.OS = originalOS;
-  });
+  const onPlatform = usePlatformSwitch();
 
   it("keeps Arabic on the physical right edge on native", () => {
-    Platform.OS = "android";
+    onPlatform({ OS: "android" });
     expect(arabicTextAlign(false)).toBe("right");
     // Native mirrors left→physical right when I18nManager.isRTL.
     expect(arabicTextAlign(true)).toBe("left");
   });
 
   it("keeps Arabic on the physical right edge on web", () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     expect(arabicTextAlign(false)).toBe("right");
     expect(arabicTextAlign(true)).toBe("right");
   });
@@ -160,10 +150,9 @@ describe("forwardChevronIcon / backChevronIcon", () => {
 });
 
 describe("chevronForward", () => {
-  const originalOS = Platform.OS;
+  usePlatform({ OS: "web" });
 
   beforeEach(() => {
-    Platform.OS = "web";
     void i18n.changeLanguage("en");
     getState.mockReturnValue({
       prefs: { locale: "en" },
@@ -171,7 +160,6 @@ describe("chevronForward", () => {
   });
 
   afterEach(() => {
-    Platform.OS = originalOS;
     void i18n.changeLanguage("en");
   });
 
@@ -197,10 +185,9 @@ describe("chevronForward", () => {
 });
 
 describe("chevronBack", () => {
-  const originalOS = Platform.OS;
+  usePlatform({ OS: "web" });
 
   beforeEach(() => {
-    Platform.OS = "web";
     void i18n.changeLanguage("en");
     getState.mockReturnValue({
       prefs: { locale: "en" },
@@ -208,7 +195,6 @@ describe("chevronBack", () => {
   });
 
   afterEach(() => {
-    Platform.OS = originalOS;
     void i18n.changeLanguage("en");
   });
 

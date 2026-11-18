@@ -5,11 +5,16 @@ import { DB_KEYS } from "@/db/keys";
 import {
   clearReverseGeocodeMemoryCache,
   coordsMatchCache,
+  DEFAULT_LOCATION,
   getDeviceLocation,
+  getLocationPermissionGranted,
+  locationCalcExtras,
   resolvePlaceFromCoordinates,
   reverseGeocodeCacheKey,
   searchLocations,
 } from "@/lib/location";
+import { fakeResponse, mockFetch } from "@/test-support/fetch";
+import { usePlatformSwitch } from "@/test-support/platform";
 
 const mockRequestPermissions = Location.requestForegroundPermissionsAsync as jest.MockedFunction<
   typeof Location.requestForegroundPermissionsAsync
@@ -30,15 +35,6 @@ const KARACHI = {
   country_code: "PK",
   admin1: "Sindh",
 };
-
-function mockFetchOnce(value: unknown, ok = true) {
-  const fetchMock = jest.fn().mockResolvedValue({
-    ok,
-    json: async () => value,
-  });
-  global.fetch = fetchMock as unknown as typeof fetch;
-  return fetchMock;
-}
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -84,8 +80,7 @@ describe("getDeviceLocation", () => {
   });
 
   it("reuses stored place data when the fix is in the same cache bucket", async () => {
-    const fetchMock = jest.fn();
-    global.fetch = fetchMock as unknown as typeof fetch;
+    const fetchMock = mockFetch();
 
     const result = await getDeviceLocation({
       latitude: 24.8608,
@@ -109,8 +104,7 @@ describe("getDeviceLocation", () => {
       DB_KEYS.reverseGeocodeCache,
       JSON.stringify({ [key]: { city: "Karachi", country: "Pakistan" } }),
     );
-    const fetchMock = jest.fn();
-    global.fetch = fetchMock as unknown as typeof fetch;
+    const fetchMock = mockFetch();
 
     const result = await getDeviceLocation();
 
@@ -122,11 +116,7 @@ describe("getDeviceLocation", () => {
   });
 
   it("dedupes concurrent reverse-geocode requests for the same coordinates", async () => {
-    const fetchMock = jest.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({ city: "Karachi", countryName: "Pakistan" }),
-    });
-    global.fetch = fetchMock as unknown as typeof fetch;
+    const fetchMock = mockFetch(fakeResponse({ city: "Karachi", countryName: "Pakistan" }));
 
     const [a, b, c] = await Promise.all([
       getDeviceLocation(),
@@ -152,8 +142,7 @@ describe("resolvePlaceFromCoordinates", () => {
       DB_KEYS.reverseGeocodeCache,
       JSON.stringify({ [key]: { city: "Karachi", country: "Pakistan" } }),
     );
-    const fetchMock = jest.fn();
-    global.fetch = fetchMock as unknown as typeof fetch;
+    const fetchMock = mockFetch();
 
     const place = await resolvePlaceFromCoordinates(24.8608, 67.0011);
 
@@ -166,7 +155,7 @@ describe("resolvePlaceFromCoordinates", () => {
   });
 
   it("falls back to coordinates when reverse geocoding fails", async () => {
-    global.fetch = jest.fn().mockRejectedValue(new Error("offline")) as unknown as typeof fetch;
+    mockFetch(new Error("offline"));
 
     const place = await resolvePlaceFromCoordinates(12.34, 56.78);
 
@@ -176,14 +165,14 @@ describe("resolvePlaceFromCoordinates", () => {
 
 describe("searchLocations", () => {
   it("skips the network for queries shorter than two characters", async () => {
-    const fetchMock = mockFetchOnce({ results: [] });
+    const fetchMock = mockFetch(fakeResponse({ results: [] }));
     expect(await searchLocations("k")).toEqual([]);
     expect(await searchLocations("  ")).toEqual([]);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("maps geocoder rows into display-ready results", async () => {
-    mockFetchOnce({ results: [KARACHI] });
+    mockFetch(fakeResponse({ results: [KARACHI] }));
     const [result] = await searchLocations("karachi");
     expect(result).toEqual({
       id: "1174872",
@@ -197,13 +186,13 @@ describe("searchLocations", () => {
   });
 
   it("drops the region when it merely repeats the city name", async () => {
-    mockFetchOnce({ results: [{ ...KARACHI, name: "Sindh", admin1: "Sindh" }] });
+    mockFetch(fakeResponse({ results: [{ ...KARACHI, name: "Sindh", admin1: "Sindh" }] }));
     const [result] = await searchLocations("sindh");
     expect(result.admin).toBeUndefined();
   });
 
   it("encodes the query and requests up to ten results", async () => {
-    const fetchMock = mockFetchOnce({ results: [] });
+    const fetchMock = mockFetch(fakeResponse({ results: [] }));
     await searchLocations("São Paulo");
     const url = fetchMock.mock.calls[0][0] as string;
     expect(url).toContain("name=S%C3%A3o%20Paulo");
@@ -211,17 +200,195 @@ describe("searchLocations", () => {
   });
 
   it("returns [] on a non-ok response", async () => {
-    mockFetchOnce({}, false);
+    mockFetch(fakeResponse({}, { status: 500 }));
     expect(await searchLocations("karachi")).toEqual([]);
   });
 
   it("returns [] when the request throws (offline / aborted)", async () => {
-    global.fetch = jest.fn().mockRejectedValue(new Error("network")) as unknown as typeof fetch;
+    mockFetch(new Error("network"));
     expect(await searchLocations("karachi")).toEqual([]);
   });
 
   it("tolerates a payload with no results array", async () => {
-    mockFetchOnce({});
+    mockFetch(fakeResponse({}));
     expect(await searchLocations("zzzzzz")).toEqual([]);
+  });
+});
+
+describe("location extras", () => {
+  const mockReverseGeocode = Location.reverseGeocodeAsync as jest.MockedFunction<
+    typeof Location.reverseGeocodeAsync
+  >;
+  const mockGetPermissions = Location.getForegroundPermissionsAsync as jest.MockedFunction<
+    typeof Location.getForegroundPermissionsAsync
+  >;
+  const onPlatform = usePlatformSwitch();
+  const position = (latitude: number, longitude: number) =>
+    ({
+      coords: {
+        latitude,
+        longitude,
+        altitude: null,
+        accuracy: 10,
+        altitudeAccuracy: null,
+        heading: null,
+        speed: null,
+      },
+      timestamp: 0,
+    }) as Location.LocationObject;
+
+  beforeEach(async () => {
+    await AsyncStorage.clear();
+    mockRequestPermissions.mockResolvedValue({ status: "granted" } as never);
+    mockGetCurrentPosition.mockResolvedValue(position(10.5, 20.5));
+    mockGetLastKnown.mockResolvedValue(null);
+    mockReverseGeocode.mockResolvedValue([]);
+  });
+
+  afterEach(() => jest.useRealTimers());
+
+  it("locationCalcExtras bundles the high-latitude rule and offsets", () => {
+    expect(
+      locationCalcExtras({
+        ...DEFAULT_LOCATION,
+        highLatitudeRule: "seventhofthenight" as never,
+        prayerAdjustments: { fajr: 2 } as never,
+      }),
+    ).toEqual({ highLatitudeRule: "seventhofthenight", adjustments: { fajr: 2 } });
+    expect(locationCalcExtras(DEFAULT_LOCATION)).toEqual({
+      highLatitudeRule: undefined,
+      adjustments: undefined,
+    });
+  });
+
+  describe("getLocationPermissionGranted", () => {
+    it("reflects the current permission without prompting", async () => {
+      mockGetPermissions.mockResolvedValueOnce({ status: "granted" } as never);
+      await expect(getLocationPermissionGranted()).resolves.toBe(true);
+      mockGetPermissions.mockResolvedValueOnce({ status: "denied" } as never);
+      await expect(getLocationPermissionGranted()).resolves.toBe(false);
+      expect(mockRequestPermissions).not.toHaveBeenCalled();
+    });
+
+    it("is false when the check throws or on TV", async () => {
+      mockGetPermissions.mockRejectedValueOnce(new Error("no module"));
+      await expect(getLocationPermissionGranted()).resolves.toBe(false);
+      onPlatform({ isTV: true });
+      await expect(getLocationPermissionGranted()).resolves.toBe(false);
+    });
+  });
+
+  describe("getDeviceLocation", () => {
+    it("never uses GPS on TV", async () => {
+      onPlatform({ isTV: true });
+      await expect(getDeviceLocation()).resolves.toEqual({ status: "denied" });
+      expect(mockRequestPermissions).not.toHaveBeenCalled();
+    });
+
+    it("returns denied when permission is refused", async () => {
+      mockRequestPermissions.mockResolvedValueOnce({ status: "denied" } as never);
+      await expect(getDeviceLocation()).resolves.toEqual({ status: "denied" });
+    });
+
+    it("uses the OS geocoder on native with city fallbacks", async () => {
+      const fetchMock = mockFetch();
+      mockReverseGeocode.mockResolvedValueOnce([
+        { city: null, subregion: null, district: "Saddar", country: "Pakistan" } as never,
+      ]);
+      const result = await getDeviceLocation();
+      expect(result).toEqual({
+        status: "granted",
+        location: expect.objectContaining({
+          city: "Saddar",
+          country: "Pakistan",
+          label: "Saddar, Pakistan",
+          source: "device",
+          timeZone: undefined,
+        }),
+      });
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    it("ignores a stored place without a name even in the same bucket", async () => {
+      mockReverseGeocode.mockResolvedValueOnce([
+        { city: null, subregion: "Sub", district: null, country: null } as never,
+      ]);
+      const result = await getDeviceLocation({ latitude: 10.5, longitude: 20.5 });
+      expect(result.status === "granted" && result.location.label).toBe("Sub");
+    });
+
+    it("falls back to the network when the OS geocoder throws", async () => {
+      mockReverseGeocode.mockRejectedValueOnce(new Error("geocoder unavailable"));
+      mockFetch(fakeResponse({ locality: "Town", countryName: "" }));
+      const result = await getDeviceLocation();
+      expect(result.status === "granted" && result.location).toEqual(
+        expect.objectContaining({ city: "Town", country: undefined, label: "Town" }),
+      );
+    });
+
+    it("labels by coordinates when the network geocoder is not ok or empty", async () => {
+      mockFetch(fakeResponse({}, { status: 500 }));
+      const a = await getDeviceLocation();
+      expect(a.status === "granted" && a.location.label).toBe("10.50, 20.50");
+      mockFetch(fakeResponse({}));
+      clearReverseGeocodeMemoryCache();
+      const b = await getDeviceLocation();
+      expect(b.status === "granted" && b.location.city).toBeUndefined();
+    });
+
+    it("skips the OS geocoder on web", async () => {
+      onPlatform({ OS: "web" });
+      const fetchMock = mockFetch(fakeResponse({ city: "Web City", countryName: "Webland" }));
+      const result = await getDeviceLocation();
+      expect(mockReverseGeocode).not.toHaveBeenCalled();
+      expect(result.status === "granted" && result.location.label).toBe("Web City, Webland");
+      // Memory cache hit on the next lookup.
+      await resolvePlaceFromCoordinates(10.5, 20.5);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+
+    it("falls back to the last known fix when GPS times out", async () => {
+      jest.useFakeTimers();
+      mockGetCurrentPosition.mockReturnValue(new Promise(() => {}));
+      mockGetLastKnown.mockResolvedValueOnce(position(30, 40));
+      mockReverseGeocode.mockResolvedValueOnce([{ city: "Last", country: "Known" } as never]);
+      const pending = getDeviceLocation();
+      await jest.advanceTimersByTimeAsync(10_000);
+      const result = await pending;
+      expect(result.status === "granted" && result.location).toEqual(
+        expect.objectContaining({ latitude: 30, longitude: 40, label: "Last, Known" }),
+      );
+    });
+
+    it("reports an error when GPS times out with no last known fix", async () => {
+      jest.useFakeTimers();
+      const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
+      mockGetCurrentPosition.mockReturnValue(new Promise(() => {}));
+      const pending = getDeviceLocation();
+      await jest.advanceTimersByTimeAsync(10_000);
+      await expect(pending).resolves.toEqual({ status: "error" });
+      expect(warn).toHaveBeenCalledWith(
+        "[location] device location failed:",
+        expect.objectContaining({ message: "Location request timed out" }),
+      );
+      warn.mockRestore();
+    });
+  });
+
+  it("uses admin2 when admin1 is missing or repeats the city", async () => {
+    mockFetch(
+      fakeResponse({
+        results: [
+          { id: 1, name: "Alpha", latitude: 1, longitude: 2, admin1: "Alpha", admin2: "District" },
+          { id: 2, name: "Beta", latitude: 1, longitude: 2, admin2: "Beta" },
+          { id: 3, name: "Gamma", latitude: 1, longitude: 2, timezone: "Asia/Karachi" },
+        ],
+      }),
+    );
+    const results = await searchLocations("al", "ur");
+    expect(results.map((r) => r.admin)).toEqual(["District", undefined, undefined]);
+    expect(results[2]).toEqual(
+      expect.objectContaining({ label: "Gamma", timeZone: "Asia/Karachi", country: undefined }),
+    );
   });
 });

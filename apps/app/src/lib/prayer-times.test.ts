@@ -4,9 +4,12 @@ import {
   type Coords,
   computeNightDividers,
   computePrayerTimes,
+  currentPrayer,
   detectNightPrayerWallClock,
   duhaWindow,
+  formatDuration,
   formatPrayerTime,
+  hasValidPrayerTimes,
   ishraqTime,
   ishraqWindow,
   lastThirdOfNight,
@@ -16,9 +19,11 @@ import {
   nextScheduleEntry,
   nightBoundsFromWallClock,
   PRAYER_SLOT_ORDER,
+  prayerReminderTime,
   prayerSlots,
   resolveNightBoundsForNow,
   tahajjudTime,
+  windowProgress,
   witrTime,
   zawalTime,
 } from "@/lib/prayer-times";
@@ -362,4 +367,113 @@ describe("buildPrayerTimeMap", () => {
     expect(map.tahajjud).toMatch(/^\d{2}:\d{2}$/);
     expect(map.tahiyyatul_masjid).toBe("Any time");
   });
+});
+
+describe("high-latitude rules", () => {
+  // Oslo near the June solstice: twilight never ends, so the rule decides Fajr/Isha.
+  const OSLO: Coords = { latitude: 59.91, longitude: 10.75 };
+  const SOLSTICE = new Date(Date.UTC(2025, 5, 21));
+
+  it.each(["MiddleOfTheNight", "SeventhOfTheNight", "TwilightAngle", "recommended"] as const)(
+    "%s yields valid times",
+    (highLatitudeRule) => {
+      const times = computePrayerTimes(OSLO, SOLSTICE, "MuslimWorldLeague", "shafi", {
+        highLatitudeRule,
+      });
+      expect(hasValidPrayerTimes(times)).toBe(true);
+    },
+  );
+
+  it("produces different Fajr times for different rules", () => {
+    const fajr = (highLatitudeRule: "MiddleOfTheNight" | "SeventhOfTheNight") =>
+      computePrayerTimes(OSLO, SOLSTICE, "MuslimWorldLeague", "shafi", {
+        highLatitudeRule,
+      }).fajr.getTime();
+    expect(fajr("MiddleOfTheNight")).not.toBe(fajr("SeventhOfTheNight"));
+  });
+
+  it("flags times that could not be computed", () => {
+    const times = computePrayerTimes(MAKKAH, MAKKAH_TEST_DAY);
+    expect(hasValidPrayerTimes({ ...times, isha: new Date(Number.NaN) } as typeof times)).toBe(
+      false,
+    );
+  });
+});
+
+describe("currentPrayer", () => {
+  it("returns the latest marker that has begun today", () => {
+    const times = computePrayerTimes(MAKKAH, MAKKAH_TEST_DAY);
+    const now = new Date(times.asr.getTime() + 60_000);
+    expect(currentPrayer(MAKKAH, now, undefined, undefined, MAKKAH_TZ).id).toBe("asr");
+  });
+
+  it("returns the previous day's Isha before Fajr", () => {
+    const now = makkahPreDawn();
+    const current = currentPrayer(MAKKAH, now, "MuslimWorldLeague", "shafi", MAKKAH_TZ);
+    expect(current.id).toBe("isha");
+    expect(current.date.getTime()).toBeLessThan(now.getTime());
+  });
+});
+
+describe("formatDuration", () => {
+  it.each([
+    [27, "27m"],
+    [60, "1h"],
+    [95, "1h 35m"],
+    [-5, "0m"],
+    [0.4, "0m"],
+  ])("%p minutes → %s", (minutes, expected) => {
+    expect(formatDuration(minutes)).toBe(expected);
+  });
+});
+
+describe("windowProgress", () => {
+  const start = new Date(1_000);
+  const end = new Date(3_000);
+
+  it.each([
+    [500, 0],
+    [2_000, 0.5],
+    [5_000, 1],
+  ])("at %pms → %p", (now, expected) => {
+    expect(windowProgress(start, end, new Date(now))).toBe(expected);
+  });
+
+  it("is zero for an empty window", () => {
+    expect(windowProgress(end, start, new Date(2_000))).toBe(0);
+  });
+});
+
+describe("prayerReminderTime", () => {
+  const times = computePrayerTimes(MAKKAH, MAKKAH_TEST_DAY);
+  const tomorrowFajr = new Date(times.fajr.getTime() + 24 * 3_600_000);
+  const yesterdayMaghrib = new Date(times.maghrib.getTime() - 24 * 3_600_000);
+  const afterFajr = new Date(times.fajr.getTime() + 60_000);
+  const remind = (id: Parameters<typeof prayerReminderTime>[0], now = afterFajr) =>
+    prayerReminderTime(id, times, tomorrowFajr, yesterdayMaghrib, now);
+
+  it.each(["fajr", "dhuhr", "asr", "maghrib", "isha"] as const)("fires %s at its adhan", (id) => {
+    expect(remind(id)).toBe(times[id]);
+  });
+
+  it.each([
+    ["witr", witrTime(times.isha)],
+    ["ishraq", ishraqTime(times.sunrise)],
+    ["duha", duhaWindow(times.sunrise, times.dhuhr).recommended],
+    ["tahajjud", lastThirdOfNight(times.maghrib, tomorrowFajr)],
+  ] as const)("derives %s from the day's markers", (id, expected) => {
+    expect(remind(id)).toEqual(expected);
+  });
+
+  it("uses last night's span for tahajjud before Fajr", () => {
+    const beforeFajr = new Date(times.fajr.getTime() - 60_000);
+    expect(remind("tahajjud", beforeFajr)).toEqual(lastThirdOfNight(yesterdayMaghrib, times.fajr));
+  });
+
+  it.each(["tahiyyatul_masjid", "hajat_istikhara", "unknown"] as const)(
+    "has no reminder time for %s",
+    (id) => {
+      expect(remind(id as never)).toBeNull();
+    },
+  );
 });

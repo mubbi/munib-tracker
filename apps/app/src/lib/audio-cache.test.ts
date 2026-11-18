@@ -1,4 +1,3 @@
-import { Platform } from "react-native";
 import {
   clearAudioCache,
   clearAudioCacheInflight,
@@ -8,8 +7,12 @@ import {
   isAudioLocalCacheEnabled,
   peekCachedAudioUri,
   peekNativeCachedAudioUri,
+  prefetchAudioUri,
   resolveCachedAudioUri,
 } from "@/lib/audio-cache";
+import { mockFetch } from "@/test-support/fetch";
+import { usePlatform } from "@/test-support/platform";
+import { fakeCacheResponse, installWebCache, type WebCacheFake } from "@/test-support/web-cache";
 
 const mockPrefs = { cacheAudioLocally: true };
 
@@ -25,7 +28,7 @@ jest.mock("expo-file-system", () => {
   const files = new Map<string, number>(); // local file uri -> byte size
   const DOCUMENT = "file:///document/";
   const FILE_BYTES = 2048;
-  const state = { freeDisk: 10 * 1024 * 1024 * 1024 };
+  const state: { freeDisk: number | Error } = { freeDisk: 10 * 1024 * 1024 * 1024 };
   const deleted = jest.fn((_uri: string) => undefined);
 
   const withSlash = (uri: string) => (uri.endsWith("/") ? uri : `${uri}/`);
@@ -100,6 +103,7 @@ jest.mock("expo-file-system", () => {
       // Plenty of headroom by default so caching proceeds; tests lower it to
       // simulate a nearly-full device.
       get availableDiskSpace() {
+        if (state.freeDisk instanceof Error) throw state.freeDisk;
         return state.freeDisk;
       },
       info(uri: string) {
@@ -115,7 +119,7 @@ jest.mock("expo-file-system", () => {
     __set: (uri: string, size: number) => {
       files.set(uri, size);
     },
-    __setFreeDisk: (bytes: number) => {
+    __setFreeDisk: (bytes: number | Error) => {
       state.freeDisk = bytes;
     },
     __deleted: deleted,
@@ -125,7 +129,7 @@ jest.mock("expo-file-system", () => {
 const FS = jest.requireMock("expo-file-system") as {
   __reset: () => void;
   __set: (uri: string, size: number) => void;
-  __setFreeDisk: (bytes: number) => void;
+  __setFreeDisk: (bytes: number | Error) => void;
   __deleted: jest.Mock;
   File: { downloadFileAsync: jest.Mock };
 };
@@ -287,96 +291,95 @@ describe("audio cache", () => {
   });
 });
 
+describe("audio cache (native edge cases)", () => {
+  /** Let a fire-and-forget prefetch settle. */
+  const settle = () => new Promise((resolve) => setImmediate(resolve));
+
+  it("streams the remote URL and leaves no partial file when the download throws", async () => {
+    download.mockRejectedValueOnce(new Error("Network request failed"));
+    expect(await resolveCachedAudioUri(AYAH)).toBe(AYAH);
+    expect(await getAudioCacheInfo()).toEqual({ bytes: 0, count: 0 });
+  });
+
+  it.each([
+    ["unknown (NaN)", Number.NaN],
+    ["unreadable", new Error("statfs")],
+  ])("still caches when free disk space is %s", async (_label, freeDisk) => {
+    FS.__setFreeDisk(freeDisk);
+    expect(await resolveCachedAudioUri(AYAH)).toContain("munib-audio/");
+  });
+
+  it("reuses a recent free-space reading", async () => {
+    await resolveCachedAudioUri(AYAH);
+    FS.__setFreeDisk(1);
+    expect(await resolveCachedAudioUri(DUA)).toContain("munib-audio/");
+  });
+
+  it("peeks nothing for non-remote or uncached clips", async () => {
+    expect(await peekNativeCachedAudioUri("file:///x.mp3")).toBeNull();
+    expect(await peekNativeCachedAudioUri(AYAH)).toBeNull();
+  });
+
+  it("never peeks a blob URL on native", () => {
+    expect(peekCachedAudioUri(AYAH)).toBeNull();
+  });
+
+  it("prefetches a remote clip into the cache", async () => {
+    prefetchAudioUri(AYAH);
+    await settle();
+    expect(await peekNativeCachedAudioUri(AYAH)).toContain("munib-audio/");
+  });
+
+  it.each([
+    ["a non-remote URI", "file:///x.mp3", true],
+    ["a remote clip when caching is disabled", AYAH, false],
+  ])("does not prefetch %s", async (_label, uri, enabled) => {
+    mockPrefs.cacheAudioLocally = enabled;
+    prefetchAudioUri(uri);
+    await settle();
+    expect(download).not.toHaveBeenCalled();
+  });
+
+  it("ignores invalidation of non-remote URIs and missing files", async () => {
+    await expect(invalidateCachedAudioUri("file:///x.mp3")).resolves.toBeUndefined();
+    await expect(invalidateCachedAudioUri(AYAH)).resolves.toBeUndefined();
+  });
+
+  it("reports the cache size in bytes", async () => {
+    await resolveCachedAudioUri(AYAH);
+    expect(await getAudioCacheSize()).toBe(2048);
+  });
+});
+
 // ── Web: Cache Storage + blob URLs ───────────────────────────────────────────
 
-const CLIP_BODY = "x".repeat(1500);
-
-class FakeResponse {
-  ok = true;
-  type: "basic" | "opaque";
-  private readonly body: string;
-  headers: { get: (key: string) => string | null };
-  constructor(body: string, opts?: { type?: "basic" | "opaque" }) {
-    this.body = body;
-    this.type = opts?.type ?? "basic";
-    this.headers = {
-      get: (key) => (key.toLowerCase() === "content-length" ? String(body.length) : null),
-    };
-  }
-  clone(): FakeResponse {
-    const clone = new FakeResponse(this.body, { type: this.type });
-    clone.ok = this.ok;
-    return clone;
-  }
-  async blob(): Promise<{ size: number }> {
-    return { size: this.body.length };
-  }
-  async arrayBuffer(): Promise<ArrayBuffer> {
-    return new ArrayBuffer(this.body.length);
-  }
-}
-
-class FakeCache {
-  store = new Map<string, FakeResponse>();
-  async match(req: string | { url: string }): Promise<FakeResponse | undefined> {
-    return this.store.get(typeof req === "string" ? req : req.url);
-  }
-  async put(req: string | { url: string }, res: FakeResponse): Promise<void> {
-    this.store.set(typeof req === "string" ? req : req.url, res);
-  }
-  async delete(req: string | { url: string }): Promise<boolean> {
-    return this.store.delete(typeof req === "string" ? req : req.url);
-  }
-  async keys(): Promise<{ url: string }[]> {
-    return Array.from(this.store.keys()).map((url) => ({ url }));
-  }
-}
-
 describe("audio cache (web)", () => {
-  const originalOS = Platform.OS;
-  let cache: FakeCache;
+  usePlatform({ OS: "web" });
+  const CLIP_BODY = "x".repeat(1500);
+  let web: WebCacheFake;
   let fetchMock: jest.Mock;
-  let objectUrlCounter: number;
 
   beforeEach(async () => {
-    // biome-ignore lint/suspicious/noExplicitAny: test-time platform override.
-    (Platform as any).OS = "web";
     mockPrefs.cacheAudioLocally = true;
-    cache = new FakeCache();
-    objectUrlCounter = 0;
-    fetchMock = jest.fn(async () => new FakeResponse(CLIP_BODY));
-
-    (globalThis as unknown as { caches: unknown }).caches = {
-      open: async () => cache,
-      delete: async () => {
-        cache = new FakeCache();
-        return true;
-      },
-    };
-    (globalThis as unknown as { fetch: unknown }).fetch = fetchMock;
-    URL.createObjectURL = jest.fn(() => `blob:mock-${objectUrlCounter++}`);
-    URL.revokeObjectURL = jest.fn();
-
+    web = installWebCache();
     await clearAudioCache();
-    fetchMock.mockClear();
-    (URL.createObjectURL as jest.Mock).mockClear();
+    web.revokeObjectURL.mockClear();
+    fetchMock = mockFetch(fakeCacheResponse({ body: CLIP_BODY }));
   });
 
-  afterEach(() => {
-    // biome-ignore lint/suspicious/noExplicitAny: restore platform.
-    (Platform as any).OS = originalOS;
-    (globalThis as unknown as { caches?: unknown }).caches = undefined;
-    (globalThis as unknown as { fetch?: unknown }).fetch = undefined;
-  });
+  afterEach(() => web.restore());
 
   it("resolves a clip to a blob URL, downloading it only once", async () => {
     const first = await resolveCachedAudioUri(AYAH);
-    expect(first).toMatch(/^blob:mock-/);
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-
+    expect(first).toMatch(/^blob:fake-/);
     // Replay: served from the in-memory object URL — no second network call.
-    const second = await resolveCachedAudioUri(AYAH);
-    expect(second).toBe(first);
+    expect(await resolveCachedAudioUri(AYAH)).toBe(first);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("dedupes concurrent resolves of the same clip", async () => {
+    const [a, b] = await Promise.all([resolveCachedAudioUri(AYAH), resolveCachedAudioUri(AYAH)]);
+    expect(a).toBe(b);
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
@@ -387,58 +390,114 @@ describe("audio cache (web)", () => {
   });
 
   it("reuses a Cache Storage hit without re-fetching (persists across reloads)", async () => {
-    // Bucket populated in a prior session; no in-memory object URL yet (reload).
-    cache.store.set(AYAH, new FakeResponse(CLIP_BODY));
-    expect(peekCachedAudioUri(AYAH)).toBeNull();
-
-    const resolved = await resolveCachedAudioUri(AYAH);
-    expect(resolved).toMatch(/^blob:mock-/);
-    // Served from the persisted cache — no network download at all.
+    web.store.set(AYAH, fakeCacheResponse({ body: CLIP_BODY }));
+    expect(await resolveCachedAudioUri(AYAH)).toMatch(/^blob:fake-/);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("re-fetches an opaque cached body as CORS so it yields a playable blob", async () => {
-    cache.store.set(AYAH, new FakeResponse(CLIP_BODY, { type: "opaque" }));
+    web.store.set(AYAH, fakeCacheResponse({ type: "opaque" }));
+    expect(await resolveCachedAudioUri(AYAH)).toMatch(/^blob:fake-/);
+    expect(fetchMock).toHaveBeenCalledWith(AYAH, { mode: "cors", credentials: "omit" });
+  });
 
-    const resolved = await resolveCachedAudioUri(AYAH);
-    expect(resolved).toMatch(/^blob:mock-/);
-    // Opaque bodies read back empty, so a readable CORS copy is fetched once.
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+  it("still plays from the fetched response when caching it fails", async () => {
+    web.cache.put.mockRejectedValueOnce(new Error("quota"));
+    expect(await resolveCachedAudioUri(AYAH)).toMatch(/^blob:fake-/);
+  });
+
+  it.each([
+    ["an HTTP error", fakeCacheResponse({ status: 404 })],
+    ["an empty body", fakeCacheResponse({ body: "" })],
+    ["a network error", new Error("Failed to fetch")],
+  ])("streams the remote URL after %s", async (_label, reply) => {
+    mockFetch(reply);
+    expect(await resolveCachedAudioUri(AYAH)).toBe(AYAH);
+    expect(peekCachedAudioUri(AYAH)).toBeNull();
   });
 
   it("streams instead of caching when the user disabled local audio storage", async () => {
     mockPrefs.cacheAudioLocally = false;
-
-    const resolved = await resolveCachedAudioUri(AYAH);
-    expect(resolved).toBe(AYAH);
+    expect(await resolveCachedAudioUri(AYAH)).toBe(AYAH);
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("revokes the least recently used blob URL beyond 512 clips", async () => {
+    for (let i = 0; i <= 512; i++) await resolveCachedAudioUri(`${DUA}?n=${i}`);
+    expect(web.revokeObjectURL).toHaveBeenCalledTimes(1);
+    expect(web.revokeObjectURL).toHaveBeenCalledWith("blob:fake-1");
+    expect(peekCachedAudioUri(`${DUA}?n=0`)).toBeNull();
+  });
+
+  it("prefetches a clip to a blob URL once", async () => {
+    prefetchAudioUri(AYAH);
+    await resolveCachedAudioUri(AYAH);
+    prefetchAudioUri(AYAH);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(peekCachedAudioUri(AYAH)).toMatch(/^blob:fake-/);
   });
 
   it("reports size + count and clears the bucket", async () => {
     await resolveCachedAudioUri(AYAH);
     await resolveCachedAudioUri(DUA);
-    const info = await getAudioCacheInfo();
-    expect(info.count).toBe(2);
-    expect(info.bytes).toBe(CLIP_BODY.length * 2);
+    expect(await getAudioCacheInfo()).toEqual({ bytes: CLIP_BODY.length * 2, count: 2 });
 
     await clearAudioCache();
-    const cleared = await getAudioCacheInfo();
-    expect(cleared).toEqual({ bytes: 0, count: 0 });
+    expect(await getAudioCacheInfo()).toEqual({ bytes: 0, count: 0 });
+  });
+
+  it("sizes entries by content-length, then body, skipping opaque, unreadable and missing ones", async () => {
+    web.store.set("a", fakeCacheResponse({ headers: { "content-length": "100" } }));
+    web.store.set("b", fakeCacheResponse({ headers: { "content-length": "junk" } }));
+    web.store.set("c", fakeCacheResponse({ body: "x".repeat(50) }));
+    web.store.set("d", fakeCacheResponse({ type: "opaque" }));
+    web.store.set("e", fakeCacheResponse({ unreadable: true }));
+    web.store.set("f", fakeCacheResponse());
+    web.cache.match.mockImplementation(async (key: string) =>
+      key === "f" ? undefined : web.store.get(key),
+    );
+    expect(await getAudioCacheInfo()).toEqual({ bytes: 150, count: 6 });
+  });
+
+  it("reports an empty cache when the bucket cannot be opened", async () => {
+    web.caches.open.mockRejectedValueOnce(new Error("SecurityError"));
+    expect(await getAudioCacheInfo()).toEqual({ bytes: 0, count: 0 });
   });
 
   it("invalidates a single web clip so peek misses and the next resolve re-fetches", async () => {
     const first = await resolveCachedAudioUri(AYAH);
-    expect(peekCachedAudioUri(AYAH)).toBe(first);
-    fetchMock.mockClear();
-
     await invalidateCachedAudioUri(AYAH);
     expect(peekCachedAudioUri(AYAH)).toBeNull();
-    expect(URL.revokeObjectURL).toHaveBeenCalledWith(first);
-    expect(cache.store.has(AYAH)).toBe(false);
+    expect(web.revokeObjectURL).toHaveBeenCalledWith(first);
+    expect(web.store.has(AYAH)).toBe(false);
 
     const second = await resolveCachedAudioUri(AYAH);
-    expect(second).toMatch(/^blob:mock-/);
     expect(second).not.toBe(first);
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("swallows revoke and bucket failures when invalidating and clearing", async () => {
+    await resolveCachedAudioUri(AYAH);
+    await resolveCachedAudioUri(DUA);
+    web.revokeObjectURL.mockImplementation(() => {
+      throw new Error("revoke");
+    });
+    web.caches.open.mockRejectedValueOnce(new Error("open"));
+    web.caches.delete.mockRejectedValueOnce(new Error("delete"));
+    await expect(invalidateCachedAudioUri(AYAH)).resolves.toBeUndefined();
+    await expect(clearAudioCache()).resolves.toBeUndefined();
+  });
+
+  describe("without Cache Storage", () => {
+    beforeEach(() => web.restore());
+
+    it("streams remote clips and reports an empty cache", async () => {
+      expect(await resolveCachedAudioUri(AYAH)).toBe(AYAH);
+      prefetchAudioUri(AYAH);
+      await invalidateCachedAudioUri(AYAH);
+      await clearAudioCache();
+      expect(await getAudioCacheInfo()).toEqual({ bytes: 0, count: 0 });
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
   });
 });

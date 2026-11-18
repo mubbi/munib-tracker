@@ -1,4 +1,7 @@
-import { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
+import {
+  buildWidgetSnapshot,
+  formatUpdatedAgo,
+} from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 import { DEFAULT_LOCATION } from "@/lib/location";
 
 const t = (_key: string, fallback: string, options?: Record<string, unknown>) => {
@@ -139,5 +142,99 @@ describe("buildWidgetSnapshot", () => {
     expect(monday.tasbeeh.target).toBe(0);
     expect(monday.friday.isFriday).toBe(false);
     expect(monday.friday.daysUntil).toBe(4);
+  });
+});
+
+describe("buildWidgetSnapshot variations", () => {
+  const NOW = new Date("2026-07-06T09:00:00.000Z");
+  const build = (overrides: Partial<Parameters<typeof buildWidgetSnapshot>[0]> = {}) =>
+    buildWidgetSnapshot({
+      ...baseInput,
+      location: DEFAULT_LOCATION,
+      locationDenied: false,
+      now: NOW,
+      ...overrides,
+    });
+
+  it("formats prayer times in 12-hour mode", () => {
+    expect(build({ timeFormat: "12" }).nextPrayer.prayerTime).toMatch(/AM|PM/i);
+  });
+
+  it("marks completed schedule rows", () => {
+    const rows = build().schedule.rows;
+    expect(rows.find((r) => r.id === "fajr")?.status).toBe("completed");
+    expect(rows.find((r) => r.id === "isha")?.status).not.toBe("completed");
+  });
+
+  it("returns no schedule rows without a location", () => {
+    const snapshot = build({ location: null, locationDenied: false });
+    expect(snapshot.schedule.rows).toEqual([]);
+  });
+
+  it("normalises theme colours without a leading #", () => {
+    expect(
+      build({ theme: { isDark: true, primaryColor: "2563EB", followsSystem: false } }).theme,
+    ).toMatchObject({
+      primary: "#2563EB",
+      isDark: true,
+      followsSystem: false,
+    });
+  });
+
+  it("reports 0% progress when there are no Salah to track", () => {
+    expect(build({ salahCompleted: 0, salahTotal: 0 }).progress.progressPercent).toBe(0);
+  });
+
+  it("caps qaza progress at 100%", () => {
+    expect(build({ qazaCompletedToday: 9, qazaTargetToday: 3 }).qaza.progressPercent).toBe(100);
+  });
+
+  it("uses Gregorian-first dates and RTL flags for Arabic", () => {
+    const snapshot = build({ calendar: "gregorian", locale: "ar", translationLocale: "ar" });
+    expect(snapshot.isRtl).toBe(true);
+    expect(snapshot.locale).toBe("ar");
+    expect(snapshot.hijriDate.weekday.length).toBeGreaterThan(0);
+  });
+
+  it("caps tasbeeh progress and labels a finished count", () => {
+    const snapshot = build({ tasbeehToday: { title: "", count: 120, target: 100 } });
+    expect(snapshot.tasbeeh.progressPercent).toBe(100);
+    expect(snapshot.tasbeeh.hasActivity).toBe(true);
+  });
+
+  it("celebrates a fully completed Jumu'ah checklist", () => {
+    const friday = new Date("2026-07-10T09:00:00.000Z");
+    const all = Object.fromEntries(
+      require("@munib-tracker/shared/content/friday-checklist").FRIDAY_CHECKLIST.map(
+        (item: { id: string }) => [item.id, true],
+      ),
+    );
+    const snapshot = build({ now: friday, fridayChecklistDone: all });
+    expect(snapshot.friday.progressPercent).toBe(100);
+    expect(JSON.stringify(snapshot.friday)).toMatch(/All done/);
+  });
+
+  it.each([
+    [0, "Behind"],
+    [6236, "Complete"],
+  ])("labels khatm pace after %i ayahs as %s", (read, pace) => {
+    const snapshot = build({
+      khatmPlan: { startDate: "2026-07-06", days: 30 } as never,
+      khatmAyahsRead: read,
+    });
+    expect(snapshot.khatm.paceLabel).toBe(pace);
+  });
+});
+
+describe("formatUpdatedAgo", () => {
+  it.each([
+    [-60_000, ""],
+    [3 * 3_600_000, "Updated 3h ago"],
+  ])("formats an age of %i ms as %p", (ageMs, expected) => {
+    expect(formatUpdatedAgo(new Date(Date.now() - ageMs).toISOString(), t as never)).toBe(expected);
+  });
+
+  it("returns empty for an invalid timestamp", () => {
+    expect(formatUpdatedAgo("nope", t as never)).toBe("");
   });
 });

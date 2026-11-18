@@ -78,3 +78,72 @@ describe("listener state machine (§9.5 Card 1)", () => {
     }
   });
 });
+
+describe("listener state machine edge transitions", () => {
+  const start = initialListenerState("tilawa-zipformer");
+  const ready = listenerReducer(start, {
+    type: "loaded",
+    manifest,
+    present: true,
+    engine: "tilawa-zipformer",
+  });
+  const stale = { ...manifest, version: "old" };
+
+  it("marks platforms without a runtime unsupported", () => {
+    expect(listenerReducer(start, { type: "unsupported" }).status).toBe("unsupported");
+  });
+
+  it("ignores progress outside a download", () => {
+    expect(listenerReducer(ready, { type: "progress", bytesDone: 1, bytesTotal: 2 })).toBe(ready);
+  });
+
+  it("cancelling an update returns to update-available", () => {
+    const loaded = listenerReducer(start, {
+      type: "loaded",
+      manifest: stale,
+      present: true,
+      engine: "tilawa-zipformer",
+    });
+    const downloading = listenerReducer(loaded, {
+      type: "start",
+      engine: "tilawa-zipformer",
+      bytesTotal: 1,
+    });
+    expect(listenerReducer(downloading, { type: "cancelled" }).status).toBe("update-available");
+  });
+
+  it("cancelling a re-download of a current file stays ready", () => {
+    const downloading = listenerReducer(ready, {
+      type: "start",
+      engine: "tilawa-zipformer",
+      bytesTotal: 1,
+    });
+    expect(listenerReducer(downloading, { type: "cancelled" }).status).toBe("ready");
+  });
+
+  it("a checksum mismatch during an update fails even with an old file", () => {
+    expect(listenerReducer(ready, { type: "failed", code: "checksum-mismatch" }).status).toBe(
+      "failed",
+    );
+  });
+
+  it("deleting resets to not downloaded", () => {
+    expect(listenerReducer(ready, { type: "deleted" })).toEqual(start);
+  });
+
+  it("ignores unknown actions", () => {
+    expect(listenerReducer(ready, { type: "nope" } as never)).toBe(ready);
+  });
+
+  it.each([
+    [{ bytesDone: 5, bytesTotal: 0 }, 0],
+    [{ bytesDone: 150, bytesTotal: 100 }, 100],
+    [{ bytesDone: -5, bytesTotal: 100 }, 0],
+  ])("downloadPercent(%o) is %i", (bytes, expected) => {
+    expect(downloadPercent({ ...start, ...bytes })).toBe(expected);
+  });
+
+  it("a ready state without a manifest is not usable", () => {
+    expect(isListenerUsable({ ...start, status: "ready" })).toBe(false);
+  });
+});

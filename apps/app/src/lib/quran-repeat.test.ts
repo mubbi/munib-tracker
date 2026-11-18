@@ -87,3 +87,60 @@ describe("surahNumberFromSourceHref", () => {
     expect(surahNumberFromSourceHref(null)).toBeNull();
   });
 });
+
+describe("repeat plan edge cases", () => {
+  it.each([
+    [{ mode: "off" as const }, 0, 0, null],
+    [{ mode: "off" as const }, 9, 3, null],
+    [{ mode: "range" as const }, 1, 3, 2],
+    [{ mode: "range" as const }, 2, 3, 0],
+    [{ mode: "range" as const, start: 2, end: 3 }, 0, 5, 1],
+    [{ mode: "range" as const, start: 0, end: 99 }, 4, 5, 0],
+    [{ mode: "range" as const, start: 4, end: 2 }, 3, 5, 3],
+  ])("plan %p at %p of %p → %p", (plan, current, length, expected) => {
+    expect(nextIndexForRepeatPlan(current, length, plan)).toBe(expected);
+  });
+
+  it.each([
+    [undefined, undefined, 7, { mode: "off" }],
+    ["verse", undefined, 7, { mode: "verse" }],
+    ["range", undefined, 7, { mode: "range", start: 1, end: 7 }],
+    ["range", undefined, 0, { mode: "range", start: 1, end: 1 }],
+    ["range", { start: 5, end: 2 }, 7, { mode: "range", start: 5, end: 5 }],
+  ] as const)("normalizes %p %p over %p ayahs", (mode, range, count, expected) => {
+    expect(normalizeRepeatPlan(mode, range, count)).toEqual(expected);
+  });
+
+  it.each([
+    [{ mode: "range" as const }, undefined, { kind: "range", start: 1, end: 1 }, false],
+    [
+      { mode: "range" as const, start: 3 },
+      "after" as const,
+      { kind: "range", start: 3, end: 3 },
+      true,
+    ],
+    [{ mode: "surah" as const }, "off" as const, { kind: "surah" }, false],
+    [{ mode: "verse" as const }, undefined, { kind: "verse" }, false],
+  ])("summarises %p with TTS %p", (plan, translationAudio, repeat, tts) => {
+    expect(resolvePlaybackSummary({ plan, translationAudio })).toEqual({
+      active: true,
+      repeat,
+      tts,
+    });
+  });
+
+  it("treats unset translation audio as off", () => {
+    expect(isPlaybackSettingsActive({ mode: "off" }, undefined)).toBe(false);
+  });
+
+  it.each([
+    [null, null],
+    [undefined, null],
+    ["/quran/0", null],
+    ["/quran/115", null],
+    ["/quran/2?ayah=5", 2],
+    ["/tracker", null],
+  ])("surahNumberFromSourceHref(%p) → %p", (href, expected) => {
+    expect(surahNumberFromSourceHref(href)).toBe(expected);
+  });
+});

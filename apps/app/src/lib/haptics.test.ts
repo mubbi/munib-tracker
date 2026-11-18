@@ -38,3 +38,63 @@ describe("haptics", () => {
     expect(Haptics.notificationAsync).not.toHaveBeenCalled();
   });
 });
+
+describe("haptic types", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    syncHapticsEnabled(true);
+  });
+
+  it.each([
+    ["light", Haptics.ImpactFeedbackStyle.Light],
+    ["medium", Haptics.ImpactFeedbackStyle.Medium],
+    ["heavy", Haptics.ImpactFeedbackStyle.Heavy],
+  ] as const)("%s → an impact of that style", (type, style) => {
+    triggerHaptic(type);
+    expect(Haptics.impactAsync).toHaveBeenCalledWith(style);
+  });
+
+  it.each([
+    ["warning", Haptics.NotificationFeedbackType.Warning],
+    ["error", Haptics.NotificationFeedbackType.Error],
+  ] as const)("%s → a notification of that type", (type, feedback) => {
+    triggerHaptic(type);
+    expect(Haptics.notificationAsync).toHaveBeenCalledWith(feedback);
+  });
+
+  it("defaults to a light impact", () => {
+    triggerHaptic();
+    expect(Haptics.impactAsync).toHaveBeenCalledWith(Haptics.ImpactFeedbackStyle.Light);
+  });
+
+  it("swallows a throwing haptics module", () => {
+    jest.mocked(Haptics.selectionAsync).mockImplementationOnce(() => {
+      throw new Error("no engine");
+    });
+    expect(() => triggerHaptic("selection")).not.toThrow();
+  });
+});
+
+describe.each([
+  ["web", { OS: "web" as const }],
+  ["TV", { isTV: true }],
+])("on %s", (_label, platform) => {
+  /** `supported` is computed at import, so load a fresh copy for the platform. */
+  function setup() {
+    let subject!: typeof import("./haptics");
+    let haptics!: typeof Haptics;
+    jest.isolateModules(() => {
+      require("@/test-support/platform").setPlatform(platform);
+      haptics = require("expo-haptics");
+      subject = require("./haptics");
+    });
+    return { ...subject, haptics };
+  }
+
+  it("never fires haptics", () => {
+    const { isHapticsEnabled: enabled, triggerHaptic: trigger, haptics } = setup();
+    trigger("heavy");
+    expect(enabled()).toBe(false);
+    expect(haptics.impactAsync).not.toHaveBeenCalled();
+  });
+});

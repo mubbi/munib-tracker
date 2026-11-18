@@ -1,12 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { SessionStore } from "@/auth/session-store";
+import * as appPlatform from "@/lib/app/resolve-app-platform";
+import * as ossApi from "@/lib/oss-content-failure-api";
 import * as sentry from "@/lib/sentry";
+import { buildGuestSession } from "@/test-support/fixtures/auth";
 
 import {
   classifyFetchError,
   clearOssContentFailureDedupe,
+  flushPendingOssContentFailures,
   httpStatusFromMessage,
   isConnectivityError,
+  type ReportOssContentFailureInput,
   reportOssContentDownloadFailure,
 } from "./report-oss-content-download-failure";
 
@@ -101,5 +107,176 @@ describe("reportOssContentDownloadFailure → Sentry", () => {
         "404",
       ],
     });
+  });
+});
+
+describe("classifyFetchError edge cases", () => {
+  it.each([
+    [new Error("Unexpected token < in JSON"), { errorCode: "parse_error" }],
+    [new Error("device offline"), { errorCode: "network_error" }],
+    [new Error("ERR_FILESYSTEM_CANNOT_DOWNLOAD"), { errorCode: "download_failed" }],
+    ["HTTP 500 for x", { errorCode: "http_error", httpStatus: 500 }],
+    [undefined, { errorCode: "download_failed", errorMessage: "Unknown error" }],
+  ])("classifies %p", (error, expected) => {
+    expect(classifyFetchError(error)).toMatchObject(expected);
+  });
+
+  it.each([
+    [null, false],
+    [undefined, false],
+    ["Network request failed", true],
+    [Object.assign(new Error("x"), { name: "AbortError" }), true],
+  ])("isConnectivityError(%p) → %p", (error, expected) => {
+    expect(isConnectivityError(error)).toBe(expected);
+  });
+});
+
+describe("reportOssContentDownloadFailure delivery", () => {
+  const submit = jest.fn<typeof ossApi.submitOssContentDownloadFailure>();
+  const getSession = jest.fn<typeof SessionStore.get>();
+  const capture = jest.fn();
+
+  /** Let the fire-and-forget delivery task settle. */
+  const settle = () => new Promise((resolve) => setImmediate(resolve));
+
+  function buildInput(overrides: Partial<ReportOssContentFailureInput> = {}) {
+    return {
+      contentKind: "quran_translation",
+      contentKey: "quran_translation:fr:1",
+      sourceProvider: "fawazahmed0/quran-api",
+      sourceUrl: "https://cdn.example/fr/1.json",
+      errorCode: "http_error",
+      errorMessage: "HTTP 404 for https://cdn.example/fr/1.json",
+      httpStatus: 404,
+      ...overrides,
+    } as ReportOssContentFailureInput;
+  }
+
+  beforeEach(() => {
+    clearOssContentFailureDedupe();
+    submit.mockReset().mockResolvedValue(undefined);
+    getSession.mockReset().mockResolvedValue(buildGuestSession());
+    capture.mockReset();
+    jest.spyOn(ossApi, "submitOssContentDownloadFailure").mockImplementation(submit);
+    jest.spyOn(SessionStore, "get").mockImplementation(getSession);
+    jest.spyOn(sentry, "captureAppException").mockImplementation(capture);
+  });
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it("posts the failure with the session token and current prefs", async () => {
+    reportOssContentDownloadFailure(buildInput({ contentKey: "k".repeat(300) }));
+    await settle();
+    expect(submit).toHaveBeenCalledWith(
+      "access-guest",
+      expect.objectContaining({
+        contentKind: "quran_translation",
+        contentKey: "k".repeat(256),
+        contentMeta: {},
+        httpStatus: 404,
+        platform: "ios",
+        locale: expect.any(String),
+      }),
+    );
+  });
+
+  it("reports the same content + error only once per dedupe window", async () => {
+    reportOssContentDownloadFailure(buildInput());
+    reportOssContentDownloadFailure(buildInput());
+    reportOssContentDownloadFailure(buildInput({ errorCode: "parse_error" }));
+    await settle();
+    expect(submit).toHaveBeenCalledTimes(2);
+  });
+
+  it("reports again once the dedupe window has passed", async () => {
+    const now = jest.spyOn(Date, "now").mockReturnValue(1_000_000);
+    reportOssContentDownloadFailure(buildInput());
+    now.mockReturnValue(1_000_000 + 16 * 60 * 1000);
+    reportOssContentDownloadFailure(buildInput());
+    await settle();
+    expect(submit).toHaveBeenCalledTimes(2);
+  });
+
+  it("captures an Error synthesized from the message when given a non-Error", () => {
+    reportOssContentDownloadFailure(buildInput({ error: "boom", errorMessage: "Bad payload" }));
+    expect(capture).toHaveBeenCalledWith(
+      expect.objectContaining({ message: "Bad payload" }),
+      expect.anything(),
+    );
+  });
+
+  it("skips Sentry when only the message describes a connectivity failure", () => {
+    reportOssContentDownloadFailure(
+      buildInput({ error: new Error("wrapped"), errorMessage: "Network request failed" }),
+    );
+    expect(capture).not.toHaveBeenCalled();
+  });
+
+  it("swallows API failures", async () => {
+    submit.mockRejectedValueOnce(new Error("500"));
+    reportOssContentDownloadFailure(buildInput());
+    await expect(settle()).resolves.toBeUndefined();
+  });
+
+  it("does nothing on an unsupported platform", async () => {
+    jest.spyOn(appPlatform, "resolveAppPlatform").mockReturnValue("tv" as never);
+    reportOssContentDownloadFailure(buildInput());
+    await settle();
+    expect(capture).not.toHaveBeenCalled();
+    expect(getSession).not.toHaveBeenCalled();
+  });
+
+  describe("without a session", () => {
+    beforeEach(() => getSession.mockResolvedValue(null));
+
+    it("queues failures and posts them once a session exists", async () => {
+      reportOssContentDownloadFailure(buildInput());
+      await settle();
+      expect(submit).not.toHaveBeenCalled();
+
+      getSession.mockResolvedValue(buildGuestSession());
+      flushPendingOssContentFailures();
+      await settle();
+      expect(submit).toHaveBeenCalledTimes(1);
+    });
+
+    it("re-queues on flush while there is still no session", async () => {
+      reportOssContentDownloadFailure(buildInput());
+      await settle();
+      flushPendingOssContentFailures();
+      await settle();
+
+      getSession.mockResolvedValue(buildGuestSession());
+      flushPendingOssContentFailures();
+      await settle();
+      expect(submit).toHaveBeenCalledTimes(1);
+    });
+
+    it("caps the pending queue at 20 failures", async () => {
+      for (let i = 0; i < 25; i++)
+        reportOssContentDownloadFailure(buildInput({ contentKey: `k${i}` }));
+      await settle();
+      getSession.mockResolvedValue(buildGuestSession());
+      flushPendingOssContentFailures();
+      await settle();
+      expect(submit).toHaveBeenCalledTimes(20);
+    });
+
+    it("drops queued failures on an unsupported platform and swallows flush errors", async () => {
+      reportOssContentDownloadFailure(buildInput({ contentKey: "a" }));
+      reportOssContentDownloadFailure(buildInput({ contentKey: "b" }));
+      await settle();
+      const platform = jest.spyOn(appPlatform, "resolveAppPlatform");
+      platform.mockReturnValueOnce("tv" as never);
+      getSession.mockRejectedValueOnce(new Error("keychain"));
+      flushPendingOssContentFailures();
+      await settle();
+      expect(submit).not.toHaveBeenCalled();
+    });
+  });
+
+  it("flush is a no-op with nothing pending", () => {
+    flushPendingOssContentFailures();
+    expect(getSession).not.toHaveBeenCalled();
   });
 });

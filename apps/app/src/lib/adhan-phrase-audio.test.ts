@@ -63,3 +63,28 @@ describe("adhan-phrase-cues", () => {
     expect(getAdhanFollowAlongCueCount()).toBe(7);
   });
 });
+
+describe("adhan follow-along cue edges", () => {
+  it.each([null, undefined, "adhan:other"])("does not treat %p as the follow-along track", (id) => {
+    expect(isAdhanFollowAlongTrack(id)).toBe(false);
+  });
+
+  it("recognises the follow-along track", () => {
+    expect(isAdhanFollowAlongTrack(`adhan:${ADHAN_FOLLOW_ALONG_STYLE_ID}`)).toBe(true);
+  });
+
+  it.each([
+    [-1, undefined],
+    [0, 0],
+    [189.89, 6],
+    [200, undefined],
+  ])("position %p → phrase %p", (position, index) => {
+    expect(phraseIndexAtCueTime(position)).toBe(index);
+  });
+
+  it("seeks to each phrase start and exposes the cue count", () => {
+    expect(getAdhanFollowAlongCueCount()).toBe(7);
+    expect(cueStartSec(6)).toBe(179.64);
+    expect(cueStartSec(99)).toBeUndefined();
+  });
+});
