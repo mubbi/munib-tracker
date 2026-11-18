@@ -91,7 +91,11 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            minifyEnabled false
+            // R8 shrinks Guava / Play Services out of the watch APK, and AGP embeds the
+            // mapping file in the AAB so Play can deobfuscate crashes and ANRs.
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             if (keystorePropertiesFile.exists()) {
                 signingConfig signingConfigs.release
             } else if (gradle.startParameter.taskNames.any { it.toLowerCase().contains("release") }) {
@@ -108,6 +112,17 @@ dependencies {
     implementation 'com.google.android.gms:play-services-wearable:20.0.1'
     implementation 'com.google.guava:guava:33.8.0-android'
 }
+`,
+      );
+
+      fs.writeFileSync(
+        path.join(wearDir, "proguard-rules.pro"),
+        `# Wear OS tiles (R8). Tile services are kept through the manifest; libraries ship
+# their own consumer rules. Guava references compile-only annotation jars.
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn com.google.j2objc.annotations.**
+-dontwarn javax.annotation.**
+-dontwarn org.checkerframework.**
 `,
       );
 
