@@ -30,8 +30,6 @@ async function waitForSearchResults() {
 }
 
 describe("Universal search screen", () => {
-  jest.setTimeout(20_000);
-
   beforeEach(() => {
     // Skip the heavy Qur'an ayah index build in component tests; surah-name
     // matches (from the un-mocked light search) still exercise the Qur'an group.

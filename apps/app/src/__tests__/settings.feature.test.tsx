@@ -14,8 +14,6 @@ async function waitForAppearanceScreen() {
 }
 
 describe("Settings screen feature", () => {
-  jest.setTimeout(30_000);
-
   it("updates accent color when a swatch is selected", async () => {
     await renderWithProviders(<AppearanceScreen />);
     await waitForAppearanceScreen();

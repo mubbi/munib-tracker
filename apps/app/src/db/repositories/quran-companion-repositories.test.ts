@@ -5,6 +5,7 @@ import { ayahCount } from "@/lib/quran-companion/passage";
 import { DEFAULT_COMPANION_PREFS } from "@/lib/quran-companion/prefs";
 import type { MemorizationRecord, PracticeSummary } from "@/lib/quran-companion/types";
 import { DB_KEYS } from "../keys";
+import { readJSON, writeJSON } from "../store";
 import { QuranCompanionPrefsRepository } from "./quran-companion-prefs-repository";
 import { QuranMemorizationRepository } from "./quran-memorization-repository";
 import { QuranPracticeRepository } from "./quran-practice-repository";
@@ -122,5 +123,18 @@ describe("QuranMemorizationRepository", () => {
     expect(Object.keys(records)).toHaveLength(6236);
     const bytes = new TextEncoder().encode(JSON.stringify(encodeMap(records))).length;
     expect(bytes).toBeLessThan(600 * 1024);
+  });
+
+  it("ignores an empty upsert and reads nothing from an empty device", async () => {
+    await QuranMemorizationRepository.upsert({});
+    await expect(QuranMemorizationRepository.getAll()).resolves.toEqual({});
+  });
+
+  it("leaves a newer-schema map untouched and reads it as empty", async () => {
+    const newer = { schemaVersion: 99, records: { "1:1": "x" } };
+    await writeJSON(DB_KEYS.quranMemorization, newer);
+    await QuranMemorizationRepository.upsert({ "1:1": record });
+    expect(await readJSON(DB_KEYS.quranMemorization, null)).toEqual(newer);
+    await expect(QuranMemorizationRepository.getAll()).resolves.toEqual({});
   });
 });

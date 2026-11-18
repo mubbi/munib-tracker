@@ -1,93 +1,105 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { BUNDLED_QURAN_EDITION_IDS } from "@munib-tracker/shared/i18n";
 
+import { QuranCacheRepository } from "@/db";
+import * as ossReport from "@/lib/report-oss-content-download-failure";
 import { clearStaticJsonCache } from "@/lib/static-json-fetch";
+import { fakeResponse, mockFetch } from "@/test-support/fetch";
 
-const mockGet =
-  jest.fn<(editionId: string, surah: number) => Promise<Record<string, string> | null>>();
-const mockSet =
-  jest.fn<
-    (
-      editionId: string,
-      surah: number,
-      ayahText: Record<string, string>,
-      persist?: boolean,
-    ) => Promise<void>
-  >();
+import {
+  fetchRemoteEditionSurah,
+  hasEditionAyahs,
+  isRemoteEdition,
+  REMOTE_EDITIONS,
+} from "./quran-remote";
 
-jest.mock("@/db", () => ({
-  QuranCacheRepository: {
-    get: (...args: [string, number]) => mockGet(...args),
-    set: (...args: [string, number, Record<string, string>, boolean?]) => mockSet(...args),
-  },
-}));
+// jest.setup.ts preloads this module graph, so report through a spy, not jest.mock.
+const report = jest
+  .spyOn(ossReport, "reportOssContentDownloadFailure")
+  .mockImplementation(() => {});
 
-import { fetchRemoteEditionSurah, hasEditionAyahs } from "./quran-remote";
+beforeEach(async () => {
+  clearStaticJsonCache();
+  await QuranCacheRepository.clear();
+  report.mockClear();
+});
 
-describe("quran-remote", () => {
-  beforeEach(() => {
-    clearStaticJsonCache();
-    mockGet.mockReset();
-    mockSet.mockReset();
-    jest.restoreAllMocks();
+describe("hasEditionAyahs", () => {
+  it.each([
+    [null, false],
+    [{}, false],
+    [{ "1": "   " }, false],
+    [{ "1": "In the Name of Allah" }, true],
+  ])("%j → %p", (input, expected) => {
+    expect(hasEditionAyahs(input)).toBe(expected);
+  });
+});
+
+describe("isRemoteEdition", () => {
+  it("is true for a fetched translation", () => {
+    expect(isRemoteEdition("en-clearquran")).toBe(true);
   });
 
-  it("hasEditionAyahs rejects empty or whitespace-only maps", () => {
-    expect(hasEditionAyahs(null)).toBe(false);
-    expect(hasEditionAyahs({})).toBe(false);
-    expect(hasEditionAyahs({ "1": "   " })).toBe(false);
-    expect(hasEditionAyahs({ "1": "In the Name of Allah" })).toBe(true);
+  it("is false for a bundled edition and an unknown id", () => {
+    const [bundled] = [...BUNDLED_QURAN_EDITION_IDS];
+    expect(isRemoteEdition(bundled ?? "")).toBe(false);
+    expect(isRemoteEdition("nope")).toBe(false);
   });
 
+  it("exposes remote editions as not bundled", () => {
+    expect(REMOTE_EDITIONS.length).toBeGreaterThan(0);
+    expect(REMOTE_EDITIONS.every((e) => e.bundled === false)).toBe(true);
+  });
+});
+
+describe("fetchRemoteEditionSurah", () => {
   it("parses fawaz chapter[] payloads and caches ayah text", async () => {
-    mockGet.mockResolvedValue(null);
-    mockSet.mockResolvedValue(undefined);
-    jest.spyOn(globalThis, "fetch").mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        chapter: [
-          { chapter: 1, verse: 1, text: "In the Name of Allah" },
-          { chapter: 1, verse: 2, text: "All praise is for Allah" },
-        ],
-      }),
-    } as Response);
-
-    const result = await fetchRemoteEditionSurah("en-clearquran", 1);
-
-    expect(result).toEqual({
+    const fetchMock = mockFetch(
+      fakeResponse({ chapter: [{ verse: 1, text: "In the Name of Allah" }] }),
+    );
+    await expect(fetchRemoteEditionSurah("en-clearquran", 1)).resolves.toEqual({
       "1": "In the Name of Allah",
-      "2": "All praise is for Allah",
     });
-    expect(mockSet).toHaveBeenCalledWith("en-clearquran", 1, result);
+    expect(String(fetchMock.mock.calls[0]?.[0])).toMatch(/\/editions\/[^/]+\/1\.json$/);
+    await expect(QuranCacheRepository.get("en-clearquran", 1)).resolves.toEqual({
+      "1": "In the Name of Allah",
+    });
   });
 
   it("refetches when the cache holds an empty map from a bad parse", async () => {
-    mockGet.mockResolvedValue({});
-    mockSet.mockResolvedValue(undefined);
-    jest.spyOn(globalThis, "fetch").mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        chapter: [{ chapter: 1, verse: 1, text: "Saheeh text" }],
-      }),
-    } as Response);
+    await QuranCacheRepository.set("en-saheehintl", 2, {});
+    const fetchMock = mockFetch(fakeResponse({ chapter: [{ verse: 1, text: "Saheeh text" }] }));
+    await expect(fetchRemoteEditionSurah("en-saheehintl", 2)).resolves.toEqual({
+      "1": "Saheeh text",
+    });
+    expect(fetchMock).toHaveBeenCalled();
+  });
 
-    const result = await fetchRemoteEditionSurah("en-saheehintl", 1);
-
-    expect(result).toEqual({ "1": "Saheeh text" });
-    expect(globalThis.fetch).toHaveBeenCalled();
+  it("returns a cached surah without fetching", async () => {
+    await QuranCacheRepository.set("en-yusufali", 3, { "1": "Cached" });
+    const fetchMock = mockFetch(new Error("offline"));
+    await expect(fetchRemoteEditionSurah("en-yusufali", 3)).resolves.toEqual({ "1": "Cached" });
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("still accepts legacy quran[] payloads", async () => {
-    mockGet.mockResolvedValue(null);
-    mockSet.mockResolvedValue(undefined);
-    jest.spyOn(globalThis, "fetch").mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        quran: [{ verse: 1, text: "Legacy shape" }],
-      }),
-    } as Response);
-
-    await expect(fetchRemoteEditionSurah("en-yusufali", 1)).resolves.toEqual({
+    mockFetch(fakeResponse({ quran: [{ verse: 1, text: "Legacy shape" }] }));
+    await expect(fetchRemoteEditionSurah("en-yusufali", 4)).resolves.toEqual({
       "1": "Legacy shape",
     });
+  });
+
+  it("reports and rejects an unknown edition", async () => {
+    await expect(fetchRemoteEditionSurah("nope", 1)).rejects.toThrow(
+      "Unknown remote Qur'an edition: nope",
+    );
+    expect(report).toHaveBeenCalledWith(expect.objectContaining({ errorCode: "unknown_content" }));
+  });
+
+  it("reports and rejects an empty payload", async () => {
+    mockFetch(fakeResponse({}));
+    await expect(fetchRemoteEditionSurah("en-clearquran", 5)).rejects.toThrow(
+      "Empty Qur'an edition payload for en-clearquran surah 5",
+    );
+    expect(report).toHaveBeenCalledWith(expect.objectContaining({ errorCode: "empty_payload" }));
   });
 });

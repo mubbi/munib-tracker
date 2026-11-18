@@ -40,3 +40,11 @@ describe("useStore", () => {
     expect(result.current).toBe(2);
   });
 });
+
+describe("createStore setState", () => {
+  it("accepts an updater function of the previous state", () => {
+    const store = createStore<{ count: number }>(() => ({ count: 1 }));
+    store.setState((prev) => ({ count: prev.count + 1 }));
+    expect(store.getState().count).toBe(2);
+  });
+});

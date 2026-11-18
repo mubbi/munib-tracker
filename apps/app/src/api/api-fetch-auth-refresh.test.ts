@@ -5,13 +5,10 @@ import {
   WEB_COOKIE_SESSION_TOKEN,
 } from "@munib-tracker/api-client";
 
-describe("apiFetch auth refresh", () => {
-  const originalFetch = globalThis.fetch;
+import { fakeResponse, mockFetch } from "@/test-support/fetch";
 
-  afterEach(() => {
-    setTokenRefresher(null);
-    globalThis.fetch = originalFetch;
-  });
+describe("apiFetch auth refresh", () => {
+  afterEach(() => setTokenRefresher(null));
 
   it("does not re-enter the token refresher for /auth/refresh (avoids deadlock)", async () => {
     let refresherCalls = 0;
@@ -20,9 +17,9 @@ describe("apiFetch auth refresh", () => {
       return WEB_COOKIE_SESSION_TOKEN;
     });
 
-    globalThis.fetch = jest.fn(async () =>
-      Response.json({ message: "Invalid or expired refresh token" }, { status: 401 }),
-    ) as typeof fetch;
+    const fetchMock = mockFetch(
+      fakeResponse({ message: "Invalid or expired refresh token" }, { status: 401 }),
+    );
 
     await expect(
       apiFetch(
@@ -32,7 +29,7 @@ describe("apiFetch auth refresh", () => {
     ).rejects.toBeInstanceOf(ApiError);
 
     expect(refresherCalls).toBe(0);
-    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it("skips refresh for /auth/refresh even without skipAuthRefresh", async () => {
@@ -42,9 +39,7 @@ describe("apiFetch auth refresh", () => {
       return "new-token";
     });
 
-    globalThis.fetch = jest.fn(async () =>
-      Response.json({ message: "Invalid or expired refresh token" }, { status: 401 }),
-    ) as typeof fetch;
+    mockFetch(fakeResponse({ message: "Invalid or expired refresh token" }, { status: 401 }));
 
     await expect(
       apiFetch({ url: "/auth/refresh", method: "POST", body: JSON.stringify({}) }),
@@ -60,10 +55,10 @@ describe("apiFetch auth refresh", () => {
       return "fresh-access-token";
     });
 
-    globalThis.fetch = jest
-      .fn()
-      .mockResolvedValueOnce(Response.json({ message: "expired" }, { status: 401 }))
-      .mockResolvedValueOnce(Response.json({ userId: "u1", accountType: "user" })) as typeof fetch;
+    const fetchMock = mockFetch(
+      fakeResponse({ message: "expired" }, { status: 401 }),
+      fakeResponse({ userId: "u1", accountType: "user" }),
+    );
 
     const body = await apiFetch<{ userId: string }>(
       { url: "/auth/me", method: "GET" },
@@ -72,25 +67,21 @@ describe("apiFetch auth refresh", () => {
 
     expect(body.userId).toBe("u1");
     expect(refresherCalls).toBe(1);
-    expect(globalThis.fetch).toHaveBeenCalledTimes(2);
-    const retryHeaders = (globalThis.fetch as jest.Mock).mock.calls[1][1].headers as Record<
-      string,
-      string
-    >;
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const retryHeaders = (fetchMock.mock.calls[1] as unknown as [string, RequestInit])[1]
+      .headers as Record<string, string>;
     expect(retryHeaders.Authorization).toBe("Bearer fresh-access-token");
   });
 
   it("does not clear-and-retry when the refresher returns null", async () => {
     setTokenRefresher(async () => null);
 
-    globalThis.fetch = jest.fn(async () =>
-      Response.json({ message: "unauthorized" }, { status: 401 }),
-    ) as typeof fetch;
+    const fetchMock = mockFetch(fakeResponse({ message: "unauthorized" }, { status: 401 }));
 
     await expect(
       apiFetch({ url: "/auth/me", method: "GET" }, { accessToken: "stale-token" }),
     ).rejects.toMatchObject({ status: 401 });
 
-    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

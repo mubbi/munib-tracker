@@ -74,4 +74,13 @@ describe("runMigrations", () => {
     expect(meta.lastPushedAt).toBeUndefined();
     expect(meta.lastSyncedAt).toBe("2026-07-01T00:00:00.000Z");
   });
+
+  it("drops the sync metadata row when lastPushedAt was its only field", async () => {
+    await writeJSON(DB_KEYS.version, 1);
+    await writeJSON(DB_KEYS.syncMetadata, { lastPushedAt: "2026-07-01T00:00:00.000Z" });
+
+    await runMigrations();
+
+    expect(await readJSON(DB_KEYS.syncMetadata, null)).toBeNull();
+  });
 });

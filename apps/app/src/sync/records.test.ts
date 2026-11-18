@@ -127,3 +127,39 @@ describe("buildSyncRecords", () => {
     expect(reset.filter((r) => r.entity === "qaza_entries")).toHaveLength(2);
   });
 });
+
+describe("buildSyncRecords blob fallbacks", () => {
+  const NOW = "2026-07-03T12:00:00.000Z";
+  function setup(overrides: Partial<Parameters<typeof buildSyncRecords>[0]> = {}) {
+    return buildSyncRecords({
+      nowIso: NOW,
+      prayerLogs: [],
+      zikrProgress: [],
+      qazaCounters: [],
+      roza: { remaining: 0, completed: 0 },
+      preferences: prefs,
+      tombstones: [],
+      ...blobFields,
+      ...overrides,
+    });
+  }
+
+  it("sends an empty payload for tombstones of non-prayer entities", () => {
+    const records = setup({
+      tombstones: [{ entity: "zikr_progress", id: "z::d", deletedAt: NOW }],
+    });
+    expect(records.find((r) => r.deletedAt)?.data).toEqual({});
+  });
+
+  it("stamps a last-read position without its own time with the sync time", () => {
+    const records = setup({ quranLastRead: { surah: 2, ayah: 255 } });
+    expect(records.find((r) => r.entity === "quran_last_read")?.updatedAt).toBe(NOW);
+  });
+
+  it("stamps bookmarks without a watermark with the sync time", () => {
+    const records = setup({
+      quranBookmarks: [{ id: "b", surah: 1, ayah: 1, createdAt: NOW }],
+    });
+    expect(records.find((r) => r.entity === "quran_bookmarks")?.updatedAt).toBe(NOW);
+  });
+});

@@ -6,6 +6,7 @@ import type {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { syncPull, syncPush } from "@/api/endpoints";
 import type { StoredSession } from "@/auth/session-store";
+import { SessionStore } from "@/auth/session-store";
 import {
   HadithRepository,
   PrayerRepository,
@@ -13,6 +14,7 @@ import {
   QazaRepository,
   QuranRepository,
   TombstoneRepository,
+  ZikrRepository,
 } from "@/db";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
@@ -23,10 +25,13 @@ import {
   markPreferencesDirty,
 } from "@/lib/sync/preferences-cloud-sync";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
-import { readCustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
+import { customTasbeehStore, readCustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
 import { applyRemoteDuaFavorites, readDuaFavoritesBlob } from "@/stores/dua-favorites-store";
+import { readDuroodFavoritesBlob } from "@/stores/durood-favorites-store";
+import { readNameFavoritesBlob } from "@/stores/name-favorites-store";
+import { quranStore } from "@/stores/quran-store";
 
-import { __setBlobSyncModuleForTests, runSync } from "./sync-engine";
+import { __setBlobSyncModuleForTests, readSyncMetadata, runSync } from "./sync-engine";
 
 // jest.mock is hoisted above the imports by babel-jest, so the endpoints module
 // is mocked before sync-engine (and this file) import it.
@@ -566,5 +571,164 @@ describe("runSync", () => {
         expect.objectContaining({ entity: "prayer_logs", id: "isha::2026-07-03" }),
       ]),
     );
+  });
+});
+
+describe("runSync applying pulled records", () => {
+  const T = "2026-07-04T00:00:00.000Z";
+  const record = (
+    entity: string,
+    data: Record<string, unknown>,
+    over: Partial<SyncRecordDto> = {},
+  ) => ({ entity, id: entity, data, updatedAt: T, ...over }) as SyncRecordDto;
+
+  async function pull(...changes: SyncRecordDto[]) {
+    mockPull.mockResolvedValue(pullResult({ changes }));
+    return runSync(user);
+  }
+
+  it("applies zikr progress and ignores a zikr deletion", async () => {
+    await pull(
+      record("zikr_progress", {
+        id: "zp",
+        zikrId: "z1",
+        date: "2026-07-03",
+        count: 4,
+        target: 10,
+        completed: false,
+        updatedAt: T,
+      }),
+      record("zikr_progress", { zikrId: "z2", date: "2026-07-03" }, { deletedAt: T }),
+    );
+    expect((await ZikrRepository.getProgress("z1", "2026-07-03"))?.count).toBe(4);
+    expect(await ZikrRepository.getAll()).toHaveLength(1);
+  });
+
+  it("applies qaza counters and the roza counter, skipping unknown ids", async () => {
+    await pull(
+      record("qaza_entries", { remaining: 3, completed: 1 }, { id: "asr" }),
+      record("qaza_entries", { remaining: 2, estimatedMissed: 30 }, { id: "roza" }),
+      record("qaza_entries", {}, { id: "roza-legacy" }),
+      record("qaza_entries", {}, { id: "witr" }),
+    );
+    expect(await QazaRepository.getCounter("asr")).toMatchObject({ remaining: 3, completed: 1 });
+    expect(await QazaRepository.getRoza()).toMatchObject({
+      remaining: 2,
+      completed: 0,
+      estimatedMissed: 30,
+    });
+  });
+
+  it("defaults missing qaza counts to zero", async () => {
+    await pull(
+      record("qaza_entries", {}, { id: "isha" }),
+      record("qaza_entries", {}, { id: "roza" }),
+    );
+    expect(await QazaRepository.getCounter("isha")).toMatchObject({ remaining: 0, completed: 0 });
+    expect((await QazaRepository.getRoza()).estimatedMissed).toBeUndefined();
+  });
+
+  it("applies durood and name favorites", async () => {
+    await pull(
+      record("durood_favorites", { order: ["d1"] }),
+      record("name_favorites", { order: ["n1"] }),
+    );
+    expect((await readDuroodFavoritesBlob()).order).toEqual(["d1"]);
+    expect((await readNameFavoritesBlob()).order).toEqual(["n1"]);
+  });
+
+  it("uses favorite ids as the order when no order is sent", async () => {
+    await pull(record("favorites", { ids: ["z1", "z2"] }));
+    expect(await PreferencesRepository.get()).toMatchObject({
+      favoriteZikrIds: ["z1", "z2"],
+      favoriteZikrOrder: ["z1", "z2"],
+    });
+  });
+
+  it("treats malformed list payloads as empty", async () => {
+    await pull(
+      record("favorites", { ids: "nope" }),
+      record("dua_favorites", { order: "nope" }),
+      record("durood_favorites", {}),
+      record("name_favorites", {}),
+      record("quran_bookmarks", {}),
+      record("hadith_bookmarks", {}),
+      record("custom_tasbeeh", {}),
+    );
+    expect((await PreferencesRepository.get()).favoriteZikrIds).toEqual([]);
+    expect(await QuranRepository.getBookmarks()).toEqual([]);
+    expect(await HadithRepository.getBookmarks()).toEqual([]);
+    expect((await readCustomTasbeehBlob()).items).toEqual([]);
+  });
+
+  it("ignores deletions of blob-like typed entities", async () => {
+    const deleted = { deletedAt: T };
+    await pull(
+      record("dua_favorites", { order: ["x"] }, deleted),
+      record("durood_favorites", { order: ["x"] }, deleted),
+      record("name_favorites", { order: ["x"] }, deleted),
+      record("quran_bookmarks", { bookmarks: [{ surah: 1, ayah: 1 }] }, deleted),
+      record("quran_last_read", { surah: 1, ayah: 1 }, deleted),
+      record("hadith_bookmarks", { bookmarks: [{ hadithId: "x" }] }, deleted),
+      record("custom_tasbeeh", { items: [{ id: "x" }] }, deleted),
+    );
+    expect((await readDuaFavoritesBlob()).order).toEqual([]);
+    expect(await QuranRepository.getLastRead()).toBeNull();
+  });
+
+  it("ignores a last-read position without numbers and stamps one without its own time", async () => {
+    await pull(record("quran_last_read", { surah: "x", ayah: 1 }));
+    expect(await QuranRepository.getLastRead()).toBeNull();
+
+    await pull(record("quran_last_read", { surah: 2, ayah: 3 }));
+    expect(await QuranRepository.getLastRead()).toEqual({ surah: 2, ayah: 3, updatedAt: T });
+  });
+
+  it("skips a prayer deletion that lacks its prayer and date", async () => {
+    await PrayerRepository.upsertLog({
+      id: "p",
+      prayerId: "fajr",
+      date: "2026-07-03",
+      status: "completed",
+      updatedAt: T,
+      source: "manual",
+    });
+    await pull(record("prayer_logs", {}, { deletedAt: T }));
+    expect(await PrayerRepository.getAll()).toHaveLength(1);
+  });
+});
+
+describe("runSync session and store refresh", () => {
+  afterEach(() => jest.restoreAllMocks());
+
+  it("pulls with the token persisted by a refresh during push", async () => {
+    jest.spyOn(SessionStore, "get").mockResolvedValueOnce({ ...user, accessToken: "rotated" });
+    await runSync(user);
+    expect(mockPull).toHaveBeenCalledWith("rotated", undefined);
+  });
+
+  it("reloads the Qur'an and tasbeeh stores when they are live", async () => {
+    const quranLoad = jest.fn(async () => {});
+    const tasbeehLoad = jest.fn(async () => {});
+    const quran = quranStore.getState();
+    const tasbeeh = customTasbeehStore.getState();
+    quranStore.setState({ isReady: true, load: quranLoad });
+    customTasbeehStore.setState({ isReady: true, load: tasbeehLoad });
+
+    await runSync(user);
+
+    quranStore.setState(quran);
+    customTasbeehStore.setState(tasbeeh);
+    expect(quranLoad).toHaveBeenCalledTimes(1);
+    expect(tasbeehLoad).toHaveBeenCalledTimes(1);
+  });
+
+  it("readSyncMetadata exposes the stored sync outcome", async () => {
+    await runSync(user);
+    await expect(readSyncMetadata()).resolves.toMatchObject({
+      lastSyncedAt: "2026-07-04T00:00:00.000Z",
+      lastPulled: 0,
+      lastConflicts: 0,
+    });
   });
 });
