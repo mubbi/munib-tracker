@@ -55,6 +55,9 @@ describe("report-oss-content-download-failure helpers", () => {
     "Unable to download a file: response has status 416",
     "ERR_FILESYSTEM_CANNOT_DOWNLOAD: undefined reason",
     "Empty hadith collection payload for bukhari",
+    // Safari's "Load failed" must not match inside "download failed".
+    "OSS download failed: quran_audio:alafasy:1",
+    "Recitation download failed (checksum mismatch)",
   ])("keeps %j reportable (not connectivity)", (message) => {
     expect(isConnectivityError(new Error(message))).toBe(false);
   });
@@ -86,6 +89,14 @@ describe("reportOssContentDownloadFailure → Sentry", () => {
       error,
     });
     expect(mockCapture).not.toHaveBeenCalled();
+  });
+
+  it("sends a failure without an error message (synthesised fallback) to Sentry", () => {
+    reportOssContentDownloadFailure({ ...base, errorCode: "download_failed", errorMessage: "" });
+    expect(mockCapture).toHaveBeenCalledTimes(1);
+    expect(mockCapture.mock.calls[0]?.[0]).toEqual(
+      new Error(`OSS download failed: ${base.contentKey}`),
+    );
   });
 
   it("sends real CDN failures grouped per provider + status", () => {

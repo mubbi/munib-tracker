@@ -176,7 +176,7 @@ export function httpStatusFromMessage(message: string): number | undefined {
  * - RN fetch: `Network request failed`
  */
 const CONNECTIVITY_RE =
-  /network request failed|failed to fetch|load failed|networkerror|network error|unable to resolve host|unknownhostexception|no address associated with hostname|appears to be offline|not connected to the internet|network connection was lost|internet connection|could not connect to the server|connectexception|sockettimeoutexception|socketexception|timed out|timeout|enotfound|econnreset|econnrefused|enetunreach|err_internet_disconnected|err_name_not_resolved|aborterror|aborted/i;
+  /network request failed|failed to fetch|\bload failed|networkerror|network error|unable to resolve host|unknownhostexception|no address associated with hostname|appears to be offline|not connected to the internet|network connection was lost|internet connection|could not connect to the server|connectexception|sockettimeoutexception|socketexception|timed out|timeout|enotfound|econnreset|econnrefused|enetunreach|err_internet_disconnected|err_name_not_resolved|aborterror|aborted/i;
 
 /** True when an error/message is a device connectivity failure (not a CDN or code defect). */
 export function isConnectivityError(error: unknown): boolean {
