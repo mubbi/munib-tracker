@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { makeAchievementStats } from "../test-support/factories";
 import {
   buildActiveDebtGoals,
   buildClearedDebtMilestones,
@@ -16,14 +17,7 @@ import {
   totalNoorForDevotionLevel,
 } from "./definitions";
 
-const base: AchievementStats = {
-  streak: 0,
-  prayersCompleted: 0,
-  zikrCompleted: 0,
-  perfectDays: 0,
-  qazaDebt: null,
-  rozaDebt: null,
-};
+const base = makeAchievementStats();
 
 describe.concurrent("evaluateProgression", () => {
   it("returns four infinite track goals when no qaza or roza debt is tracked", () => {

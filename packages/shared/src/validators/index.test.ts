@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  isAfterSalahPrayer,
   isObligatoryPrayer,
   isPrayerId,
   isPrayerStatus,
@@ -46,5 +47,15 @@ describe.concurrent("validators", () => {
   it("recognises zikr category ids", () => {
     expect(isZikrCategoryId("morning")).toBe(true);
     expect(isZikrCategoryId("random")).toBe(false);
+  });
+});
+
+describe("isAfterSalahPrayer", () => {
+  it.each([
+    ["fajr", true],
+    ["witr", true],
+    ["tahajjud", false],
+  ])("%s -> %s", (prayer, expected) => {
+    expect(isAfterSalahPrayer(prayer)).toBe(expected);
   });
 });

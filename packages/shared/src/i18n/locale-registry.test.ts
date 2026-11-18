@@ -1,5 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { LOCALE_REGISTRY, SCRIPT_UNICODE_RANGES } from "./locale-registry";
+import type { AppLocale } from "./app-locale";
+import {
+  getLocaleDefinition,
+  getLocaleDefinitionOrNull,
+  isRtlLocale,
+  LOCALE_REGISTRY,
+  matchDeviceLocale,
+  normalizeAppLocale,
+  RTL_LOCALE_CODES,
+  resolveIntlLocale,
+  SCRIPT_UNICODE_RANGES,
+  SORTED_LOCALE_REGISTRY,
+} from "./locale-registry";
 
 describe("locale registry", () => {
   it("has a unique code per entry", () => {
@@ -54,5 +66,67 @@ describe("locale registry", () => {
       regionCode: "in",
     });
     expect(SCRIPT_UNICODE_RANGES.devanagari.test("हिन्दी")).toBe(true);
+  });
+});
+
+describe("locale registry lookups", () => {
+  it("getLocaleDefinition returns the entry for a known code", () => {
+    expect(getLocaleDefinition("ur").direction).toBe("rtl");
+  });
+
+  it("getLocaleDefinition throws for unknown codes", () => {
+    expect(() => getLocaleDefinition("xx" as AppLocale)).toThrow("Unknown app locale: xx");
+  });
+
+  it.each([
+    ["fr", "fr-FR"],
+    ["xx", undefined],
+  ])("getLocaleDefinitionOrNull(%s) bcp47 -> %s", (code, bcp47) => {
+    expect(getLocaleDefinitionOrNull(code)?.bcp47).toBe(bcp47);
+  });
+
+  it("sorts by sortOrder starting with English", () => {
+    const orders = SORTED_LOCALE_REGISTRY.map((entry) => entry.sortOrder);
+
+    expect(SORTED_LOCALE_REGISTRY[0]?.code).toBe("en");
+    expect(orders).toEqual([...orders].sort((a, b) => a - b));
+  });
+
+  it.each([
+    ["ar", true],
+    ["fa", true],
+    ["ur", true],
+    ["en", false],
+  ] as const)("isRtlLocale(%s) -> %s", (code, rtl) => {
+    expect(isRtlLocale(code)).toBe(rtl);
+    expect(RTL_LOCALE_CODES.has(code)).toBe(rtl);
+  });
+
+  it.each([
+    ["en", "en-US"],
+    ["ar", "ar"],
+  ] as const)("resolveIntlLocale(%s) -> %s", (code, tag) => {
+    expect(resolveIntlLocale(code)).toBe(tag);
+  });
+
+  it.each([
+    [undefined, "en"],
+    [null, "en"],
+    ["", "en"],
+    ["-US", "en"],
+    ["TR", "tr"],
+    ["ur-PK", "ur"],
+    ["de-DE", "en"],
+  ])("normalizeAppLocale(%j) -> %s", (raw, expected) => {
+    expect(normalizeAppLocale(raw)).toBe(expected);
+  });
+
+  it.each([
+    [["de-DE", "", "-x", "FR-ca", "ar"], "fr"],
+    [[42 as unknown as string, "bn-BD"], "bn"],
+    [["de", "ja-JP"], null],
+    [[], null],
+  ])("matchDeviceLocale(%j) -> %s", (tags, expected) => {
+    expect(matchDeviceLocale(tags)).toBe(expected);
   });
 });
