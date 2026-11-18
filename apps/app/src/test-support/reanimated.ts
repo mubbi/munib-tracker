@@ -11,7 +11,6 @@ export function captureAnimatedStyles() {
   const worklets: (() => Record<string, unknown>)[] = [];
   jest
     .spyOn(Reanimated, "useSharedValue")
-    // biome-ignore lint/correctness/useHookAtTopLevel: runs inside the component's render
     .mockImplementation((initial) => useRef({ value: initial }).current as never);
   jest.spyOn(Reanimated, "useAnimatedStyle").mockImplementation((worklet) => {
     worklets.push(worklet as () => Record<string, unknown>);
