@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/mubbi/munib-tracker/compare/app-v1.3.0...app-v1.3.1) (2026-11-18)
+
+
+### Bug Fixes
+
+* android tv config ([99aa0a5](https://github.com/mubbi/munib-tracker/commit/99aa0a5c0f7e26eeb5b404f5bd349ba58af812b6))
+* **app:** self-host tajweedformer web sdk so its wasm resolves ([ee0a26b](https://github.com/mubbi/munib-tracker/commit/ee0a26bc0043564e4974fac21349cb7b76d993a3))
+
 ## [1.3.0](https://github.com/mubbi/munib-tracker/compare/app-v1.2.1...app-v1.3.0) (2026-11-18)
 
 
