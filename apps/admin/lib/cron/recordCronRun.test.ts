@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { getDb } from "@/lib/db";
 import { type CronRunRecord, recordCronRun } from "./recordCronRun";
 
 vi.mock("@/lib/db", () => ({ getDb: vi.fn() }));
@@ -60,5 +61,14 @@ describe("recordCronRun", () => {
     expect(result).toBe("done");
     expect(consoleError).toHaveBeenCalled();
     consoleError.mockRestore();
+  });
+
+  it("writes through the default Drizzle writer when none is given", async () => {
+    const values = vi.fn().mockResolvedValue(undefined);
+    vi.mocked(getDb).mockReturnValue({ insert: vi.fn(() => ({ values })) } as never);
+    await expect(recordCronRun("bucket", [], async () => "done")).resolves.toBe("done");
+    expect(values).toHaveBeenCalledWith(
+      expect.objectContaining({ bucketId: "bucket", status: "ok" }),
+    );
   });
 });

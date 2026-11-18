@@ -82,3 +82,26 @@ describe("sanitizeDatabaseErrorDetail", () => {
     expect(detail.length).toBeLessThanOrEqual(280);
   });
 });
+
+describe("classifyAdminDatabaseError error causes", () => {
+  it.each([
+    [
+      "an Error cause",
+      new Error("outer", { cause: new Error("ECONNREFUSED inner") }),
+      "db_connect",
+    ],
+    [
+      "a message-bearing cause object",
+      new Error("outer", { cause: { message: "getaddrinfo ENOTFOUND db" } }),
+      "db_connect",
+    ],
+    [
+      "a cause without a string message",
+      new Error("outer", { cause: { message: 42 } }),
+      "db_unavailable",
+    ],
+    ["a non-Error value", "terminated unexpectedly", "db_unavailable"],
+  ])("classifies errors with %s", (_label, error, code) => {
+    expect(classifyAdminDatabaseError(error)).toBe(code);
+  });
+});
