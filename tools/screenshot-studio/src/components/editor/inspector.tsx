@@ -24,7 +24,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { LAYOUT_HINT, LAYOUT_LABEL } from "@/lib/constants";
+import {
+  allowsLayout,
+  isBrandOnlyDevice,
+  LAYOUT_HINT,
+  LAYOUT_LABEL,
+  rendersBrandBanner,
+} from "@/lib/constants";
 import { nid } from "@/lib/defaults";
 import {
   isBuiltInElementId,
@@ -71,11 +77,13 @@ export function Inspector({
   onChange,
   onSelectElement,
 }: Props) {
-  const isFeatureGraphic = device === "feature-graphic" || slide.layout === "feature-graphic";
+  const brandOnly = isBrandOnlyDevice(device);
+  const isFeatureGraphic = rendersBrandBanner(device, slide.layout);
   const isNoDevice = slide.layout === "no-device";
-  const layoutValue = device === "feature-graphic" ? "feature-graphic" : slide.layout;
+  const isFullBleed = slide.layout === "full-bleed";
+  const layoutValue: SlideLayout = brandOnly ? "feature-graphic" : slide.layout;
   const layoutOptions = Object.entries(LAYOUT_LABEL).filter(([layout]) =>
-    device === "feature-graphic" ? layout === "feature-graphic" : layout !== "feature-graphic",
+    allowsLayout(device, layout as SlideLayout),
   );
   const localeLabel = slide.label?.[locale] ?? "";
   const localeHeadline = slide.headline?.[locale] ?? "";
@@ -94,14 +102,14 @@ export function Inspector({
   }
 
   React.useEffect(() => {
-    if (device === "feature-graphic" && slide.layout !== "feature-graphic") {
+    if (brandOnly && slide.layout !== "feature-graphic") {
       onChange({
         layout: "feature-graphic",
         transforms: undefined,
         screenshotSecondary: undefined,
       });
     }
-  }, [device, onChange, slide.layout]);
+  }, [brandOnly, onChange, slide.layout]);
 
   return (
     <div className="flex h-full flex-col">
@@ -145,7 +153,7 @@ export function Inspector({
           </Select>
         </div>
 
-        {!isFeatureGraphic && (
+        {!isFeatureGraphic && !isFullBleed && (
           <div className="space-y-1.5">
             <Label className="text-xs">Label</Label>
             <Input
@@ -156,18 +164,20 @@ export function Inspector({
           </div>
         )}
 
-        <div className="space-y-1.5">
-          <div className="flex items-baseline justify-between">
-            <Label className="text-xs">{isFeatureGraphic ? "Tagline" : "Headline"}</Label>
-            <span className="text-[10px] text-muted-foreground">newline = break</span>
+        {!isFullBleed && (
+          <div className="space-y-1.5">
+            <div className="flex items-baseline justify-between">
+              <Label className="text-xs">{isFeatureGraphic ? "Tagline" : "Headline"}</Label>
+              <span className="text-[10px] text-muted-foreground">newline = break</span>
+            </div>
+            <Textarea
+              value={localeHeadline}
+              onChange={(e) => setLocaleField("headline", e.target.value)}
+              rows={3}
+              placeholder={headlinePlaceholder}
+            />
           </div>
-          <Textarea
-            value={localeHeadline}
-            onChange={(e) => setLocaleField("headline", e.target.value)}
-            rows={3}
-            placeholder={headlinePlaceholder}
-          />
-        </div>
+        )}
 
         {!isFeatureGraphic && !isNoDevice && (
           <div className="space-y-1.5">
@@ -238,7 +248,7 @@ function ElementTransformControls({
   onChange: (patch: Partial<Slide>) => void;
   onSelectElement: (id: ElementId | null) => void;
 }) {
-  const present: ElementId[] = ["caption"];
+  const present: ElementId[] = slide.layout === "full-bleed" ? [] : ["caption"];
   if (slide.layout !== "no-device") present.push("device");
   if (slide.layout === "two-devices") present.push("deviceSecondary");
   for (const element of slide.textElements || []) present.push(toTextElementId(element.id));

@@ -1,9 +1,16 @@
 "use client";
-import { toPng } from "html-to-image";
+import { toCanvas, toPng } from "html-to-image";
 import JSZip from "jszip";
 import * as React from "react";
 import { Toaster, toast } from "sonner";
-import { getExportSizes, hasTheme, supportsLandscape, themeById } from "@/lib/constants";
+import {
+  getExportSizes,
+  hasTheme,
+  isBrandOnlyDevice,
+  rendersBrandBanner,
+  supportsLandscape,
+  themeById,
+} from "@/lib/constants";
 import { detectPlatform, nid } from "@/lib/defaults";
 import { isBuiltInElementId, isTextElementId, textElementKey } from "@/lib/elements";
 import { preloadImages } from "@/lib/image-cache";
@@ -373,7 +380,7 @@ export function ScreenshotEditor() {
       .map((slide, index) => ({ slide, index }))
       .filter(
         ({ slide }) =>
-          state.device !== "feature-graphic" &&
+          !isBrandOnlyDevice(state.device) &&
           slide.layout === "two-devices" &&
           slide.screenshot &&
           !slide.screenshotSecondary,
@@ -531,16 +538,50 @@ export function ScreenshotEditor() {
     el.style.transformOrigin = "top left";
     el.style.zIndex = "-1";
     try {
-      const dataUrl = await toPng(el, {
+      const aspectDrift = Math.abs(exportW / exportH / (sourceW / sourceH) - 1);
+      if (aspectDrift <= 0.01) {
+        // Near-identical aspect (e.g. iPhone 6.9" → 6.5"/6.3"): scale straight in.
+        return await toPng(el, {
+          width: sourceW,
+          height: sourceH,
+          canvasWidth: exportW,
+          canvasHeight: exportH,
+          pixelRatio: 1,
+          cacheBust: false,
+          backgroundColor: "#ffffff",
+        });
+      }
+      // Larger drift (e.g. iPhone Duo 2007×2853 → 1398×2034): scale uniformly to
+      // cover the export size and centre-crop, instead of stretching the design.
+      const scale = Math.max(exportW / sourceW, exportH / sourceH);
+      const rendered = await toCanvas(el, {
         width: sourceW,
         height: sourceH,
-        canvasWidth: exportW,
-        canvasHeight: exportH,
+        canvasWidth: Math.ceil(sourceW * scale),
+        canvasHeight: Math.ceil(sourceH * scale),
         pixelRatio: 1,
         cacheBust: false,
         backgroundColor: "#ffffff",
       });
-      return dataUrl;
+      const out = document.createElement("canvas");
+      out.width = exportW;
+      out.height = exportH;
+      const ctx = out.getContext("2d");
+      if (!ctx) throw new Error("2D canvas unavailable");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, exportW, exportH);
+      ctx.drawImage(
+        rendered,
+        Math.max(0, (rendered.width - exportW) / 2),
+        Math.max(0, (rendered.height - exportH) / 2),
+        exportW,
+        exportH,
+        0,
+        0,
+        exportW,
+        exportH,
+      );
+      return out.toDataURL("image/png");
     } finally {
       el.style.left = prev.left || "-99999px";
       el.style.top = prev.top || "0px";
@@ -734,8 +775,8 @@ function slugify(s: string) {
 }
 
 function slideNeedsScreenshot(device: Device, slide: Slide) {
-  if (device === "feature-graphic") return false;
-  return slide.layout !== "no-device" && slide.layout !== "feature-graphic";
+  if (rendersBrandBanner(device, slide.layout)) return false;
+  return slide.layout !== "no-device";
 }
 
 function stamp() {

@@ -1,6 +1,6 @@
-import { DEFAULT_THEME_ID, PROJECT_SCHEMA_VERSION } from "./constants";
+import { DEFAULT_THEME_ID, DEVICE_PLATFORM, PROJECT_SCHEMA_VERSION } from "./constants";
 import { DEFAULT_LOCALE } from "./locale";
-import type { Device, ProjectState, Slide } from "./types";
+import type { Device, Platform, ProjectState, Slide } from "./types";
 
 let _id = 0;
 export const nid = () => `s_${Date.now().toString(36)}_${(_id++).toString(36)}`;
@@ -107,6 +107,56 @@ function fgStarter(): Slide[] {
   ];
 }
 
+// Watch / Wear OS store screenshots should show only the app UI.
+function fullBleedStarter(count: number): Slide[] {
+  return Array.from({ length: count }, () => ({
+    id: nid(),
+    layout: "full-bleed",
+    label: {},
+    headline: {},
+    screenshot: "",
+  }));
+}
+
+function tvStarter(): Slide[] {
+  return [
+    {
+      id: nid(),
+      layout: "hero",
+      label: en("MEET YOUR APP"),
+      headline: en("Made for\nthe living room."),
+      screenshot: "",
+    },
+    {
+      id: nid(),
+      layout: "device-bottom",
+      label: en("FEATURE 01"),
+      headline: en("Your headline lives here."),
+      screenshot: "",
+    },
+    {
+      id: nid(),
+      layout: "full-bleed",
+      label: {},
+      headline: {},
+      screenshot: "",
+    },
+  ];
+}
+
+// Product page header / search results — one asset per locale.
+function bannerStarter(): Slide[] {
+  return [
+    {
+      id: nid(),
+      layout: "split-landscape",
+      label: en("MEET YOUR APP"),
+      headline: en("Sell one\nidea here."),
+      screenshot: "",
+    },
+  ];
+}
+
 export const DEFAULT_PROJECT: ProjectState = {
   schemaVersion: PROJECT_SCHEMA_VERSION,
   appName: "Munib Tracker",
@@ -119,15 +169,28 @@ export const DEFAULT_PROJECT: ProjectState = {
   appIcon: "/app-icon.png",
   slidesByDevice: {
     iphone: makeStarterSlides(),
-    android: makeStarterSlides(),
+    "iphone-duo": tabletStarter("10"),
     ipad: ipadStarter(),
+    "apple-watch": fullBleedStarter(3),
+    "apple-tv": tvStarter(),
+    "ios-header": bannerStarter(),
+    "ios-header-wide": bannerStarter(),
+    "ios-search": bannerStarter(),
+    "ios-search-3x2": bannerStarter(),
+    android: makeStarterSlides(),
     "android-7": tabletStarter("7"),
     "android-10": tabletStarter("10"),
+    "wear-os": fullBleedStarter(3),
+    "android-tv": tvStarter(),
+    "tv-banner": fgStarter(),
     "feature-graphic": fgStarter(),
   },
 };
 
 export function newSlide(layout: Slide["layout"] = "device-bottom"): Slide {
+  if (layout === "full-bleed") {
+    return { id: nid(), layout, label: {}, headline: {}, screenshot: "" };
+  }
   return {
     id: nid(),
     layout,
@@ -137,6 +200,6 @@ export function newSlide(layout: Slide["layout"] = "device-bottom"): Slide {
   };
 }
 
-export function detectPlatform(device: Device): "ios" | "android" {
-  return device === "iphone" || device === "ipad" ? "ios" : "android";
+export function detectPlatform(device: Device): Platform {
+  return DEVICE_PLATFORM[device] ?? "android";
 }

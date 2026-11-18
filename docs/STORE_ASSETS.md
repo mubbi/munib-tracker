@@ -122,13 +122,15 @@ Full detail: [`tools/screenshot-studio/README.md`](../tools/screenshot-studio/RE
 
 ## Output layout (`apps/app/store-assets/`)
 
-| Path                                        | Purpose                                                                                                 |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `captures-native/`                          | Full native matrix (platform × locale × theme × scene) + `watch/en/`                                    |
-| `captures/<android\|ios>/<locale>/<theme>/` | Studio input images per platform × locale × theme                                                       |
-| `ios/screenshots/`                          | App Store PNGs (`6.9-inch/`, `6.5-inch/`, `13-inch/` iPad, `watch-ultra-3/`, `apple-tv-1080p/`)         |
-| `android/screenshots/`                      | Play Store PNGs (`phone/`, `tablet-7-inch/`, `tablet-10-inch/` portrait/landscape, `android-tv-1080p/`) |
-| `android/feature-graphic/`                  | Play feature graphic 1024×500 (`<locale>.png`)                                                          |
+| Path                                        | Purpose                                                                                                                                                                                |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `captures-native/`                          | Full native matrix (platform × locale × theme × scene) + `watch/en/`                                                                                                                   |
+| `captures/<android\|ios>/<locale>/<theme>/` | Studio input images per platform × locale × theme                                                                                                                                      |
+| `ios/screenshots/`                          | App Store PNGs (`6.9-inch/`, `6.5-inch/`, `6.3-inch/`, `iphone-duo/`, `13-inch/` iPad, `watch-ultra-3/` native + `apple-watch/` studio, `apple-tv-1080p/` native + `apple-tv/` studio) |
+| `ios/product-page/`                         | Product page creative assets: `header/<WxH>/<locale>.png`, `search-results/<WxH>/<locale>.png`                                                                                         |
+| `android/screenshots/`                      | Play Store PNGs (`phone/`, `tablet-7-inch/`, `tablet-10-inch/` portrait/landscape, `wear-os/`, `android-tv-1080p/` native + `android-tv/` studio)                                      |
+| `android/feature-graphic/`                  | Play feature graphic 1024×500 (`<locale>.png`)                                                                                                                                         |
+| `android/tv-banner/`                        | Play Android TV banner 1280×720 (`<locale>.png`)                                                                                                                                       |
 
 Marketing slide order (`spec.json` → `slideScenes`): `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-qibla`, `06-names`, `07-more`.
 

@@ -141,9 +141,9 @@
         "inverted": true
       }
     ],
-    "android": [
+    "iphone-duo": [
       {
-        "id": "mt-android-01",
+        "id": "mt-iphone-duo-01",
         "layout": "hero",
         "label": {
           "en": "MUNIB TRACKER",
@@ -155,31 +155,10 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/android/{locale}/home.jpg",
-        "textElements": [
-          {
-            "id": "hero-badge",
-            "text": {
-              "en": "Offline-first · Private · No ads",
-              "ar": "بدون إنترنت · خصوصية · بلا إعلانات",
-              "ur": "آف لائن · نجی · بغیر اشتہارات"
-            },
-            "transform": {
-              "x": 90,
-              "y": 320,
-              "width": 900,
-              "height": 68,
-              "zIndex": 5
-            },
-            "fontSize": 27,
-            "fontWeight": 600,
-            "color": "#A9C6BB",
-            "align": "center"
-          }
-        ]
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
       },
       {
-        "id": "mt-android-02",
+        "id": "mt-iphone-duo-02",
         "layout": "device-bottom",
         "label": {
           "en": "SALAH TRACKER",
@@ -191,10 +170,10 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg"
       },
       {
-        "id": "mt-android-03",
+        "id": "mt-iphone-duo-03",
         "layout": "device-top",
         "label": {
           "en": "QAZA",
@@ -206,11 +185,11 @@
           "ar": "أنجِ **القضاء**\nبوضوح",
           "ur": "**قضا** واضح\nطریقے سے"
         },
-        "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/qaza.jpg",
         "inverted": true
       },
       {
-        "id": "mt-android-04",
+        "id": "mt-iphone-duo-04",
         "layout": "two-devices",
         "label": {
           "en": "LEARNING LIBRARY",
@@ -222,11 +201,11 @@
           "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
-        "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
       },
       {
-        "id": "mt-android-05",
+        "id": "mt-iphone-duo-05",
         "layout": "device-bottom",
         "label": {
           "en": "QIBLA",
@@ -238,10 +217,10 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg"
       },
       {
-        "id": "mt-android-06",
+        "id": "mt-iphone-duo-06",
         "layout": "hero",
         "label": {
           "en": "99 NAMES",
@@ -253,11 +232,11 @@
           "ar": "الأسماء الحسنى\nمع **الصوت**",
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
-        "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/names-of-allah.jpg",
         "inverted": true
       },
       {
-        "id": "mt-android-07",
+        "id": "mt-iphone-duo-07",
         "layout": "device-bottom",
         "label": {
           "en": "AND MORE",
@@ -266,10 +245,10 @@
         },
         "headline": {
           "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
         },
-        "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
         "inverted": true
       }
     ],
@@ -402,6 +381,298 @@
           "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
         },
         "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
+        "inverted": true
+      }
+    ],
+    "apple-watch": [
+      {
+        "id": "mt-apple-watch-01-schedule",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/apple-watch/en/01-schedule.png"
+      },
+      {
+        "id": "mt-apple-watch-02-morning",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/apple-watch/en/02-morning.png"
+      },
+      {
+        "id": "mt-apple-watch-03-location",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/apple-watch/en/03-location.png"
+      }
+    ],
+    "apple-tv": [
+      {
+        "id": "mt-apple-tv-01-home",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/apple-tv/{locale}/01-home.png"
+      },
+      {
+        "id": "mt-apple-tv-02-tracker",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH TRACKER",
+          "ar": "تتبّع الصلاة",
+          "ur": "نماز ٹریکر"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** habits",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/apple-tv/{locale}/02-tracker.png"
+      },
+      {
+        "id": "mt-apple-tv-03-library",
+        "layout": "device-top",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Qur'an, Zikr &\n**hadith** — offline",
+          "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+          "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/apple-tv/{locale}/03-library.png",
+        "inverted": true
+      },
+      {
+        "id": "mt-apple-tv-04-quran",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/apple-tv/{locale}/04-quran.png"
+      },
+      {
+        "id": "mt-apple-tv-05-zikr",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/apple-tv/{locale}/05-zikr.png"
+      },
+      {
+        "id": "mt-apple-tv-06-settings",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/apple-tv/{locale}/06-settings.png"
+      }
+    ],
+    "ios-header": [
+      {
+        "id": "mt-ios-header-01",
+        "layout": "split-landscape",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
+      }
+    ],
+    "ios-header-wide": [
+      {
+        "id": "mt-ios-header-wide-01",
+        "layout": "split-landscape",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
+      }
+    ],
+    "ios-search": [
+      {
+        "id": "mt-ios-search-01",
+        "layout": "split-landscape",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
+      }
+    ],
+    "ios-search-3x2": [
+      {
+        "id": "mt-ios-search-3x2-01",
+        "layout": "split-landscape",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
+      }
+    ],
+    "android": [
+      {
+        "id": "mt-android-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg",
+        "textElements": [
+          {
+            "id": "hero-badge",
+            "text": {
+              "en": "Offline-first · Private · No ads",
+              "ar": "بدون إنترنت · خصوصية · بلا إعلانات",
+              "ur": "آف لائن · نجی · بغیر اشتہارات"
+            },
+            "transform": {
+              "x": 90,
+              "y": 320,
+              "width": 900,
+              "height": 68,
+              "zIndex": 5
+            },
+            "fontSize": 27,
+            "fontWeight": 600,
+            "color": "#A9C6BB",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "mt-android-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH TRACKER",
+          "ar": "تتبّع الصلاة",
+          "ur": "نماز ٹریکر"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** habits",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-android-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Qur'an, Zikr &\n**hadith** — offline",
+          "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+          "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-android-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "QIBLA",
+          "ar": "القبلة",
+          "ur": "قبلہ"
+        },
+        "headline": {
+          "en": "Find the **Qibla**\nin seconds",
+          "ar": "اعثر على **القبلة**\nفي ثوانٍ",
+          "ur": "**قبلہ** چند\nسیکنڈ میں"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
+      },
+      {
+        "id": "mt-android-06",
+        "layout": "hero",
+        "label": {
+          "en": "99 NAMES",
+          "ar": "الأسماء الحسنى",
+          "ur": "۹۹ نام"
+        },
+        "headline": {
+          "en": "Asma-ul-Husna\nwith **audio**",
+          "ar": "الأسماء الحسنى\nمع **الصوت**",
+          "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-07",
+        "layout": "device-bottom",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
+          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
+          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
+        },
+        "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
         "inverted": true
       }
     ],
@@ -625,6 +896,104 @@
         },
         "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
         "inverted": true
+      }
+    ],
+    "wear-os": [
+      {
+        "id": "mt-wear-os-01-salah-tile",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/wear-os/en/01-salah-tile.png"
+      },
+      {
+        "id": "mt-wear-os-02-tasbeeh-tile",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/wear-os/en/02-tasbeeh-tile.png"
+      }
+    ],
+    "android-tv": [
+      {
+        "id": "mt-android-tv-01-home",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/android-tv/{locale}/01-home.png"
+      },
+      {
+        "id": "mt-android-tv-02-tracker",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH TRACKER",
+          "ar": "تتبّع الصلاة",
+          "ur": "نماز ٹریکر"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** habits",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/android-tv/{locale}/02-tracker.png"
+      },
+      {
+        "id": "mt-android-tv-03-library",
+        "layout": "device-top",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Qur'an, Zikr &\n**hadith** — offline",
+          "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+          "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/android-tv/{locale}/03-library.png",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-tv-04-quran",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/android-tv/{locale}/04-quran.png"
+      },
+      {
+        "id": "mt-android-tv-05-zikr",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/android-tv/{locale}/05-zikr.png"
+      },
+      {
+        "id": "mt-android-tv-06-settings",
+        "layout": "full-bleed",
+        "label": {},
+        "headline": {},
+        "screenshot": "/screenshots/app/android-tv/{locale}/06-settings.png"
+      }
+    ],
+    "tv-banner": [
+      {
+        "id": "mt-tv-banner-01",
+        "layout": "feature-graphic",
+        "label": {},
+        "headline": {
+          "en": "Offline-first · Private · No ads",
+          "ar": "بدون إنترنت · خصوصية · بلا إعلانات",
+          "ur": "آف لائن · نجی · بغیر اشتہارات"
+        },
+        "screenshot": ""
       }
     ],
     "feature-graphic": [
