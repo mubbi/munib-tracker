@@ -1470,6 +1470,10 @@ function AudioPlayerProviderLive({
         return;
       }
 
+      // Not staged: load it fresh — but still move the queue cursor, or the UI
+      // keeps showing the finished track and the next finish replays this one.
+      setIndex(nextIdx);
+      anchorQueueTimeline(nextIdx);
       beginTransition();
       playIndex(q, nextIdx, true);
     };

@@ -890,6 +890,24 @@ describe("AudioPlayerProvider auto-advance", () => {
     expect(replacedUris(A())).toContain(uriOf("r2"));
   });
 
+  it("moves the queue cursor when it falls back to a fresh load", async () => {
+    await renderAudioPlayer(queue);
+    B().isLoaded = false;
+    await finish(A());
+    expect(h.ctx.index).toBe(1);
+  });
+
+  it("keeps advancing after a fresh-load fallback instead of replaying it", async () => {
+    await renderAudioPlayer(queue);
+    B().isLoaded = false;
+    await finish(A());
+    await setStatus(A(), { didJustFinish: false });
+    A().replace.mockClear();
+    await finish(A());
+    expect(h.ctx.index).toBe(2);
+    expect(replacedUris(A())).not.toContain(uriOf("r2"));
+  });
+
   it("repeats once in loop 'one' mode, then resets loop to off", async () => {
     await renderAudioPlayer();
     await cycleLoopTo("one");
