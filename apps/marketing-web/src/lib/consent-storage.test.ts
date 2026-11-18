@@ -49,4 +49,25 @@ describe("consent-storage", () => {
     expect(() => setStoredConsent({ essential: true, analytics: false })).not.toThrow();
     spy.mockRestore();
   });
+
+  it.each([
+    ["missing preferences", { version: CONSENT_VERSION }],
+    ["missing version", { preferences: { essential: true, analytics: true } }],
+    ["null", null],
+  ])("returns null when the stored value has %s", (_label, value) => {
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(value));
+    expect(getStoredConsent()).toBeNull();
+  });
+
+  it("returns null when nothing is stored", () => {
+    expect(getStoredConsent()).toBeNull();
+  });
+
+  it("treats absent consent as invalid", () => {
+    expect(hasValidStoredConsent(null)).toBe(false);
+  });
+
+  it("rejects non-string consent item ids", () => {
+    expect(toConsentItemId(42)).toBeNull();
+  });
 });

@@ -4,6 +4,7 @@ import {
   ensureGtag,
   getGaMeasurementId,
   isGoogleAnalyticsConfigured,
+  isGoogleAnalyticsReady,
   trackGtagEvent,
   trackGtagPageView,
 } from "./gtag";
@@ -150,6 +151,49 @@ describe("gtag", () => {
         page_location: expect.any(String),
       });
       expect(gtagSpy).toHaveBeenCalledWith("config", "G-TEST", { page_path: "/download" });
+    });
+  });
+
+  describe("isGoogleAnalyticsReady", () => {
+    it.each([
+      ["no measurement id", "", true, false],
+      ["no gtag runtime", "G-TEST", false, false],
+      ["id and runtime", "G-TEST", true, true],
+    ])("is correct with %s", (_label, id, hasGtag, expected) => {
+      process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = id;
+      if (hasGtag) (globalThis as BrowserGtagGlobal).gtag = vi.fn();
+      expect(isGoogleAnalyticsReady()).toBe(expected);
+    });
+  });
+
+  describe("ensureGtag reuse", () => {
+    it("returns the existing gtag runtime instead of replacing it", () => {
+      const existing = vi.fn();
+      (globalThis as BrowserGtagGlobal).gtag = existing;
+      expect(ensureGtag()).toBe(existing);
+    });
+  });
+
+  describe("event defaults", () => {
+    it("sends an empty param bag when no params are passed", () => {
+      process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = "G-TEST";
+      const gtagSpy = vi.fn();
+      (globalThis as BrowserGtagGlobal).gtag = gtagSpy;
+      trackGtagEvent("ping");
+      expect(gtagSpy).toHaveBeenCalledWith("event", "ping", {});
+    });
+
+    it("falls back to the document title for page views", () => {
+      process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = "G-TEST";
+      document.title = "Doc title";
+      const gtagSpy = vi.fn();
+      (globalThis as BrowserGtagGlobal).gtag = gtagSpy;
+      trackGtagPageView("/");
+      expect(gtagSpy).toHaveBeenCalledWith(
+        "event",
+        "page_view",
+        expect.objectContaining({ page_title: "Doc title" }),
+      );
     });
   });
 });
