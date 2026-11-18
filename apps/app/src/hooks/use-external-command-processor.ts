@@ -12,6 +12,7 @@ import {
 } from "@/lib/external-commands/native-bridge";
 import { coalesceMarkCurrentCommands } from "@/lib/external-commands/queue";
 import { isTV } from "@/lib/platform/is-tv";
+import { captureAppException } from "@/lib/sentry";
 import { useToast } from "@/providers/toast-provider";
 
 function resultMessage(result: Awaited<ReturnType<typeof handleExternalCommand>>): string | null {
@@ -73,12 +74,21 @@ export function useExternalCommandProcessor(): void {
       const batch = coalesceMarkCurrentCommands([...pendingRef.current, ...nativeCommands]);
       pendingRef.current = [];
       for (const command of batch) {
-        await processOne(command);
+        // The batch has left the queue: one failing command must not drop the rest.
+        try {
+          await processOne(command);
+        } catch (error) {
+          captureAppException(error, { tags: { external_command: command.type } });
+          toast.info(i18n.t("externalCommands.failed"));
+        }
       }
+    } catch (error) {
+      // Native queue unreadable — callers fire-and-forget, so report instead of rejecting.
+      captureAppException(error, { tags: { external_command: "drain" } });
     } finally {
       processingRef.current = false;
     }
-  }, [processOne]);
+  }, [processOne, toast]);
 
   useEffect(() => {
     if (Platform.OS === "web" || isTV()) return;
