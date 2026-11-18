@@ -50,9 +50,6 @@ describe("scheduledFireAtIso", () => {
 
 describe("parseScheduledTriggerAtMs edge cases", () => {
   const NOW = new Date("2026-07-03T10:00:00").getTime();
-  // Clock-time triggers read the wall clock (not `nowMs`), so pin it.
-  beforeEach(() => jest.useFakeTimers({ now: NOW }));
-  afterEach(() => jest.useRealTimers());
 
   it.each([
     [
@@ -77,6 +74,12 @@ describe("parseScheduledTriggerAtMs edge cases", () => {
     expected.setDate(expected.getDate() + 1);
     expected.setHours(9, 0, 0, 0);
     expect(at).toBe(expected.getTime());
+  });
+
+  it("resolves clock-time triggers against nowMs, not the wall clock", () => {
+    const longAgo = new Date("2020-01-15T08:00:00").getTime();
+    const at = parseScheduledTriggerAtMs({ type: "daily", hour: 9, minute: 15 }, longAgo);
+    expect(at).toBe(new Date("2020-01-15T09:15:00").getTime());
   });
 
   it("uses dateComponents minutes when present", () => {

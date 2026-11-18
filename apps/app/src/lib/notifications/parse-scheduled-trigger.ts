@@ -63,7 +63,7 @@ export function parseScheduledTriggerAtMs(
         : 0;
 
   if (hour != null) {
-    const next = new Date();
+    const next = new Date(nowMs);
     next.setHours(hour, minute ?? 0, 0, 0);
     if (next.getTime() <= nowMs) next.setDate(next.getDate() + 1);
     const ms = next.getTime();
