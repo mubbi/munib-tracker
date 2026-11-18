@@ -57,3 +57,21 @@ describe("parseCorsOrigins", () => {
     ]);
   });
 });
+
+describe("validateEnvironment (decorator errors)", () => {
+  it("throws class-validator errors for invalid values", () => {
+    expect(() => validateEnvironment({ NODE_ENV: "staging-ish", DATABASE_TYPE: "sqlite" })).toThrow(
+      /NODE_ENV/,
+    );
+  });
+
+  it("rejects an empty production JWT secret", () => {
+    expect(() => validateEnvironment(prodConfig({ JWT_SECRET: "" }))).toThrow();
+  });
+});
+
+describe("parseCorsOrigins (separators only)", () => {
+  it("denies when the list contains only separators", () => {
+    expect(parseCorsOrigins(" , ,")).toBe(false);
+  });
+});

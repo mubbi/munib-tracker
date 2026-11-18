@@ -1,124 +1,136 @@
-import type { ConfigService } from "@nestjs/config";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { NodeEnvironment } from "../config/env.schema";
+import { jsonResponse } from "../test-support/fetch";
+import { buildConfig, stubFetchRoutes } from "../test-support/oauth";
 import { GoogleAccessTokenAudienceError, verifyGoogleAccessToken } from "./google-access-token";
-import { assertOAuthReturnUrlAllowed, assertRedirectUriAllowed } from "./oauth-redirect-allowlist";
 
-function makeConfig(env: Partial<EnvironmentVariables> = {}) {
+const CLIENT_ID = "allowed.apps.googleusercontent.com";
+const ALLOWED = { GOOGLE_OAUTH_CLIENT_IDS: CLIENT_ID };
+
+function setup(
+  env: Partial<EnvironmentVariables>,
+  tokenInfo: Response | object,
+  userInfo: Response | object = {},
+) {
+  const fetchMock = stubFetchRoutes({ tokeninfo: tokenInfo, userinfo: userInfo });
   return {
-    get: (key: keyof EnvironmentVariables) => env[key],
-  } as unknown as ConfigService<EnvironmentVariables, true>;
+    fetchMock,
+    verify: (token = "ya29.token") => verifyGoogleAccessToken(buildConfig(env), token),
+  };
 }
 
-describe("assertRedirectUriAllowed", () => {
-  it("allows any URI when allowlist is empty in development", () => {
-    expect(() =>
-      assertRedirectUriAllowed(
-        makeConfig({ NODE_ENV: NodeEnvironment.Development }),
-        "https://example.com",
-      ),
-    ).not.toThrow();
-  });
-
-  it("rejects URIs not on the allowlist", () => {
-    expect(() =>
-      assertRedirectUriAllowed(
-        makeConfig({
-          NODE_ENV: NodeEnvironment.Development,
-          OAUTH_REDIRECT_URI_ALLOWLIST: "https://my.munibtracker.app",
-        }),
-        "https://evil.example",
-      ),
-    ).toThrow(/Invalid redirect URI/);
-  });
-
-  it("requires allowlist in production", () => {
-    expect(() =>
-      assertRedirectUriAllowed(makeConfig({ NODE_ENV: NodeEnvironment.Production }), "https://x"),
-    ).toThrow(/OAUTH_REDIRECT_URI_ALLOWLIST/);
-  });
-});
-
-describe("assertOAuthReturnUrlAllowed", () => {
-  it("accepts return URLs whose origin matches an https allowlist entry", () => {
-    expect(() =>
-      assertOAuthReturnUrlAllowed(
-        makeConfig({
-          OAUTH_REDIRECT_URI_ALLOWLIST: "https://my.munibtracker.app/oauth/apple",
-        }),
-        "https://my.munibtracker.app/login",
-      ),
-    ).not.toThrow();
-  });
-});
-
 describe("verifyGoogleAccessToken", () => {
-  it("returns null for empty tokens", async () => {
-    await expect(verifyGoogleAccessToken(makeConfig(), "  ")).resolves.toBeNull();
-  });
-
-  it("rejects tokens whose azp is not in GOOGLE_OAUTH_CLIENT_IDS", async () => {
-    const fetchMock = vi.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        sub: "user-1",
-        azp: "other-client.apps.googleusercontent.com",
-        email: "a@b.com",
-        email_verified: "true",
-      }),
-    });
-    vi.stubGlobal("fetch", fetchMock);
-
-    await expect(
-      verifyGoogleAccessToken(
-        makeConfig({
-          GOOGLE_OAUTH_CLIENT_IDS: "allowed.apps.googleusercontent.com",
-        }),
-        "ya29.token",
-      ),
-    ).rejects.toBeInstanceOf(GoogleAccessTokenAudienceError);
-
+  afterEach(() => {
     vi.unstubAllGlobals();
   });
 
-  it("returns profile when azp matches", async () => {
-    const fetchMock = vi
-      .fn()
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          sub: "user-1",
-          azp: "allowed.apps.googleusercontent.com",
-          email: "a@b.com",
-          email_verified: "true",
-        }),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          sub: "user-1",
-          email: "a@b.com",
-          email_verified: true,
-          name: "Ada",
-        }),
-      });
-    vi.stubGlobal("fetch", fetchMock);
+  it("returns null for a blank token without calling Google", async () => {
+    const { fetchMock, verify } = setup(ALLOWED, {});
+    await expect(verify("  ")).resolves.toBeNull();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 
-    await expect(
-      verifyGoogleAccessToken(
-        makeConfig({
-          GOOGLE_OAUTH_CLIENT_IDS: "allowed.apps.googleusercontent.com",
-        }),
-        "ya29.token",
-      ),
-    ).resolves.toEqual({
+  it("posts the trimmed token in the tokeninfo form body", async () => {
+    const { fetchMock, verify } = setup({}, { sub: "u" });
+    await verify(" tok ");
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe("https://oauth2.googleapis.com/tokeninfo");
+    expect(String(init.body)).toBe("access_token=tok");
+  });
+
+  it.each([
+    ["a non-ok tokeninfo response", jsonResponse({ sub: "u" }, 400)],
+    ["a tokeninfo error payload", { error: "invalid_token", sub: "u" }],
+    ["a tokeninfo payload without sub", { aud: CLIENT_ID }],
+  ])("returns null for %s", async (_label, tokenInfo) => {
+    const { verify } = setup(ALLOWED, tokenInfo);
+    await expect(verify()).resolves.toBeNull();
+  });
+
+  it("returns the userinfo profile when azp matches", async () => {
+    const { verify } = setup(
+      ALLOWED,
+      { sub: "user-1", azp: CLIENT_ID, email: "a@b.com", email_verified: "true" },
+      { sub: "user-1", email: "a@b.com", email_verified: true, name: "Ada" },
+    );
+    await expect(verify()).resolves.toEqual({
       sub: "user-1",
       email: "a@b.com",
       name: "Ada",
       picture: undefined,
     });
+  });
 
-    vi.unstubAllGlobals();
+  it.each([
+    ["an azp outside the allowlist", { sub: "u", azp: "other-client" }, "other-client"],
+    ["no azp/aud", { sub: "u" }, undefined],
+  ])("throws an audience error for %s", async (_label, tokenInfo, clientId) => {
+    const { verify } = setup(ALLOWED, tokenInfo);
+    const error = await verify().catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(GoogleAccessTokenAudienceError);
+    expect(error).toMatchObject({ clientId });
+  });
+
+  it("explains a missing azp/aud in the audience error message", async () => {
+    const { verify } = setup(ALLOWED, { sub: "u" });
+    await expect(verify()).rejects.toThrow("missing azp/aud");
+  });
+
+  it("requires client ids in production", async () => {
+    const { verify } = setup({ NODE_ENV: NodeEnvironment.Production }, { sub: "u" });
+    await expect(verify()).rejects.toThrow("required in production");
+  });
+
+  it("falls back to GOOGLE_OAUTH_WEB_CLIENT_ID and the aud claim", async () => {
+    const { verify } = setup(
+      { NODE_ENV: NodeEnvironment.Production, GOOGLE_OAUTH_WEB_CLIENT_ID: " web-id " },
+      { sub: "u", aud: " web-id " },
+    );
+    await expect(verify()).resolves.toMatchObject({ sub: "u" });
+  });
+
+  it("falls back to tokeninfo fields when userinfo fails", async () => {
+    const { verify } = setup(
+      ALLOWED,
+      {
+        sub: "u",
+        azp: CLIENT_ID,
+        email: "Tok@Example.com",
+        email_verified: true,
+        name: "Token Name",
+        picture: "https://img/token.png",
+      },
+      jsonResponse({}, 401),
+    );
+    await expect(verify()).resolves.toEqual({
+      sub: "u",
+      email: "tok@example.com",
+      name: "Token Name",
+      picture: "https://img/token.png",
+    });
+  });
+
+  it("ignores a userinfo error payload", async () => {
+    const { verify } = setup(
+      ALLOWED,
+      { sub: "u", azp: CLIENT_ID, name: "Fallback" },
+      { error: "insufficient_scope", name: "Ignored" },
+    );
+    await expect(verify()).resolves.toMatchObject({ name: "Fallback" });
+  });
+
+  it("drops unverified emails and blank names, and trims pictures (no allowlist in dev)", async () => {
+    const { verify } = setup(
+      {},
+      { sub: "u", email: "x@y.z", email_verified: "false" },
+      { name: "  ", picture: " https://img/p.png ", email: "x@y.z" },
+    );
+    await expect(verify()).resolves.toEqual({
+      sub: "u",
+      email: undefined,
+      name: undefined,
+      picture: "https://img/p.png",
+    });
   });
 });

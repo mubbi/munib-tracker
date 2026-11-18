@@ -1,5 +1,5 @@
-import type { Request, Response } from "express";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
+import { buildRequest, buildResponse } from "../test-support/http";
 import {
   APPLE_OAUTH_SESSION_COOKIE,
   clearAppleOAuthSessionCookie,
@@ -7,16 +7,16 @@ import {
   setAppleOAuthSessionCookie,
 } from "./apple-oauth-session-cookie";
 
-function mockResponse() {
-  const res = {
-    cookie: vi.fn(),
-    clearCookie: vi.fn(),
-  };
-  return res as unknown as Response & { cookie: ReturnType<typeof vi.fn> };
-}
+const PAYLOAD = {
+  codeVerifier: "verifier-123",
+  redirectUri: "https://app.example/callback",
+  returnUrl: "https://app.example/login",
+};
 
-function mockRequest(cookies: Record<string, string> = {}) {
-  return { cookies } as unknown as Request;
+function requestWithCookie(value?: string) {
+  return buildRequest({
+    cookies: value === undefined ? {} : { [APPLE_OAUTH_SESSION_COOKIE]: value },
+  });
 }
 
 describe("apple-oauth-session-cookie", () => {
@@ -26,55 +26,43 @@ describe("apple-oauth-session-cookie", () => {
     process.env.NODE_ENV = prevNodeEnv;
   });
 
-  it("sets a sealed JSON session cookie", () => {
-    process.env.NODE_ENV = "development";
-    const res = mockResponse();
-    const payload = {
-      codeVerifier: "verifier-123",
-      redirectUri: "https://app.example/callback",
-      returnUrl: "https://app.example/login",
-    };
-
-    setAppleOAuthSessionCookie(res, payload);
-
-    expect(res.cookie).toHaveBeenCalledWith(
-      APPLE_OAUTH_SESSION_COOKIE,
-      JSON.stringify(payload),
-      expect.objectContaining({
-        httpOnly: true,
-        secure: true,
-        sameSite: "lax",
-        path: "/api/v1/auth",
-      }),
-    );
+  // Apple form_post is a cross-site POST, so production needs SameSite=None.
+  it.each([
+    ["development", "lax"],
+    ["production", "none"],
+  ])("sets the JSON session cookie in %s with SameSite=%s", (nodeEnv, sameSite) => {
+    process.env.NODE_ENV = nodeEnv;
+    const res = buildResponse();
+    setAppleOAuthSessionCookie(res, PAYLOAD);
+    expect(res.cookie).toHaveBeenCalledWith(APPLE_OAUTH_SESSION_COOKIE, JSON.stringify(PAYLOAD), {
+      httpOnly: true,
+      secure: true,
+      sameSite,
+      path: "/api/v1/auth",
+      maxAge: 10 * 60 * 1000,
+    });
   });
 
-  it("clears the session cookie", () => {
+  it("clears the session cookie with matching options and no maxAge", () => {
     process.env.NODE_ENV = "production";
-    const res = mockResponse();
-
+    const res = buildResponse();
     clearAppleOAuthSessionCookie(res);
-
-    expect(res.clearCookie).toHaveBeenCalledWith(
-      APPLE_OAUTH_SESSION_COOKIE,
-      expect.objectContaining({
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/api/v1/auth",
-      }),
-    );
+    expect(res.clearCookie).toHaveBeenCalledWith(APPLE_OAUTH_SESSION_COOKIE, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/api/v1/auth",
+    });
   });
 
   it("reads and trims a valid session cookie", () => {
-    const req = mockRequest({
-      [APPLE_OAUTH_SESSION_COOKIE]: JSON.stringify({
+    const req = requestWithCookie(
+      JSON.stringify({
         codeVerifier: "  verifier  ",
         redirectUri: " https://app.example/callback ",
         returnUrl: " https://app.example/login ",
       }),
-    });
-
+    );
     expect(readAppleOAuthSessionCookie(req)).toEqual({
       codeVerifier: "verifier",
       redirectUri: "https://app.example/callback",
@@ -82,37 +70,15 @@ describe("apple-oauth-session-cookie", () => {
     });
   });
 
-  it("returns null for missing cookie", () => {
-    expect(readAppleOAuthSessionCookie(mockRequest())).toBeNull();
-  });
-
-  it("returns null for invalid JSON", () => {
-    const req = mockRequest({ [APPLE_OAUTH_SESSION_COOKIE]: "{not-json" });
-    expect(readAppleOAuthSessionCookie(req)).toBeNull();
-  });
-
-  it("returns null when required fields are missing or empty", () => {
-    expect(
-      readAppleOAuthSessionCookie(
-        mockRequest({
-          [APPLE_OAUTH_SESSION_COOKIE]: JSON.stringify({
-            codeVerifier: "",
-            redirectUri: "https://app.example/callback",
-            returnUrl: "https://app.example/login",
-          }),
-        }),
-      ),
-    ).toBeNull();
-
-    expect(
-      readAppleOAuthSessionCookie(
-        mockRequest({
-          [APPLE_OAUTH_SESSION_COOKIE]: JSON.stringify({
-            redirectUri: "https://app.example/callback",
-            returnUrl: "https://app.example/login",
-          }),
-        }),
-      ),
-    ).toBeNull();
+  it.each([
+    ["a missing cookie", undefined],
+    ["a blank cookie", "  "],
+    ["invalid JSON", "{not-json"],
+    ["an empty codeVerifier", JSON.stringify({ ...PAYLOAD, codeVerifier: "" })],
+    ["a missing codeVerifier", JSON.stringify({ ...PAYLOAD, codeVerifier: undefined })],
+    ["a blank redirectUri", JSON.stringify({ ...PAYLOAD, redirectUri: " " })],
+    ["a non-string returnUrl", JSON.stringify({ ...PAYLOAD, returnUrl: 1 })],
+  ])("returns null for %s", (_label, value) => {
+    expect(readAppleOAuthSessionCookie(requestWithCookie(value))).toBeNull();
   });
 });

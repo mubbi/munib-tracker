@@ -1,122 +1,85 @@
 import { BadRequestException } from "@nestjs/common";
-import type { ConfigService } from "@nestjs/config";
 import { describe, expect, it } from "vitest";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { NodeEnvironment } from "../config/env.schema";
+import { buildConfig } from "../test-support/oauth";
 import { assertOAuthReturnUrlAllowed, assertRedirectUriAllowed } from "./oauth-redirect-allowlist";
 
-function makeConfig(env: Partial<EnvironmentVariables> = {}) {
-  return {
-    get: (key: keyof EnvironmentVariables) => env[key],
-  } as unknown as ConfigService<EnvironmentVariables, true>;
-}
+type Env = Partial<EnvironmentVariables>;
+
+const DEV: Env = { NODE_ENV: NodeEnvironment.Development };
+const PROD: Env = { NODE_ENV: NodeEnvironment.Production };
+const APP_ALLOWLIST = "https://app.example/callback,https://app.example/other";
 
 describe("assertRedirectUriAllowed", () => {
-  it("rejects empty redirectUri", () => {
-    expect(() =>
-      assertRedirectUriAllowed(makeConfig({ NODE_ENV: NodeEnvironment.Development }), "  "),
-    ).toThrow(BadRequestException);
-    expect(() =>
-      assertRedirectUriAllowed(makeConfig({ NODE_ENV: NodeEnvironment.Development }), "  "),
-    ).toThrow(/redirectUri is required/);
+  it.each<[string, Env, string, string]>([
+    ["a blank redirect URI", DEV, "  ", "redirectUri is required"],
+    [
+      "production without an allowlist",
+      PROD,
+      "https://example.com/callback",
+      "OAUTH_REDIRECT_URI_ALLOWLIST",
+    ],
+    [
+      "a URI not on the allowlist",
+      { ...DEV, OAUTH_REDIRECT_URI_ALLOWLIST: APP_ALLOWLIST },
+      "https://evil.example/callback",
+      "Invalid redirect URI",
+    ],
+  ])("rejects %s", (_label, env, uri, message) => {
+    const assert = () => assertRedirectUriAllowed(buildConfig(env), uri);
+    expect(assert).toThrow(BadRequestException);
+    expect(assert).toThrow(message);
   });
 
-  it("requires allowlist in production when unset", () => {
-    expect(() =>
-      assertRedirectUriAllowed(
-        makeConfig({ NODE_ENV: NodeEnvironment.Production }),
-        "https://example.com/callback",
-      ),
-    ).toThrow(/OAUTH_REDIRECT_URI_ALLOWLIST/);
-  });
-
-  it("allows any URI in non-production when allowlist is empty", () => {
-    expect(() =>
-      assertRedirectUriAllowed(
-        makeConfig({ NODE_ENV: NodeEnvironment.Development }),
-        "https://any.example/oauth",
-      ),
-    ).not.toThrow();
-  });
-
-  it("rejects URIs not on the allowlist", () => {
-    expect(() =>
-      assertRedirectUriAllowed(
-        makeConfig({
-          NODE_ENV: NodeEnvironment.Development,
-          OAUTH_REDIRECT_URI_ALLOWLIST: "https://app.example/callback",
-        }),
-        "https://evil.example/callback",
-      ),
-    ).toThrow(/Invalid redirect URI/);
-  });
-
-  it("allows URIs on the allowlist", () => {
-    expect(() =>
-      assertRedirectUriAllowed(
-        makeConfig({
-          NODE_ENV: NodeEnvironment.Production,
-          OAUTH_REDIRECT_URI_ALLOWLIST: "https://app.example/callback,https://app.example/other",
-        }),
-        "https://app.example/callback",
-      ),
-    ).not.toThrow();
+  it.each<[string, Env, string]>([
+    ["any URI in development without an allowlist", DEV, "https://any.example/oauth"],
+    [
+      "a trimmed URI on the allowlist",
+      { ...PROD, OAUTH_REDIRECT_URI_ALLOWLIST: APP_ALLOWLIST },
+      " https://app.example/other ",
+    ],
+  ])("allows %s", (_label, env, uri) => {
+    expect(() => assertRedirectUriAllowed(buildConfig(env), uri)).not.toThrow();
   });
 });
 
 describe("assertOAuthReturnUrlAllowed", () => {
-  it("rejects empty returnUrl", () => {
-    expect(() =>
-      assertOAuthReturnUrlAllowed(makeConfig({ NODE_ENV: NodeEnvironment.Development }), "  "),
-    ).toThrow(/returnUrl is required/);
+  const appleAllowlist: Env = { OAUTH_REDIRECT_URI_ALLOWLIST: "https://app.example/oauth/apple" };
+
+  it.each<[string, Env, string, string]>([
+    ["a blank return URL", DEV, "  ", "returnUrl is required"],
+    ["an unparseable URL", DEV, "not-a-url", "Invalid return URL"],
+    ["http in production", PROD, "http://localhost/login", "Invalid return URL"],
+    [
+      "an origin not on the allowlist",
+      appleAllowlist,
+      "https://other.example/login",
+      "Invalid return URL",
+    ],
+    [
+      "an origin matching only a malformed entry",
+      { OAUTH_REDIRECT_URI_ALLOWLIST: "https://[bad-host" },
+      "https://evil.example/x",
+      "Invalid return URL",
+    ],
+  ])("rejects %s", (_label, env, url, message) => {
+    expect(() => assertOAuthReturnUrlAllowed(buildConfig(env), url)).toThrow(message);
   });
 
-  it("rejects invalid URL strings", () => {
-    expect(() =>
-      assertOAuthReturnUrlAllowed(
-        makeConfig({ NODE_ENV: NodeEnvironment.Development }),
-        "not-a-url",
-      ),
-    ).toThrow(/Invalid return URL/);
-  });
-
-  it("rejects http return URLs in production", () => {
-    expect(() =>
-      assertOAuthReturnUrlAllowed(
-        makeConfig({ NODE_ENV: NodeEnvironment.Production }),
-        "http://localhost/login",
-      ),
-    ).toThrow(/Invalid return URL/);
-  });
-
-  it("accepts https return URLs in production when allowlist is empty", () => {
-    expect(() =>
-      assertOAuthReturnUrlAllowed(
-        makeConfig({ NODE_ENV: NodeEnvironment.Production }),
-        "https://app.example/login",
-      ),
-    ).not.toThrow();
-  });
-
-  it("accepts return URLs whose origin matches an https allowlist entry", () => {
-    expect(() =>
-      assertOAuthReturnUrlAllowed(
-        makeConfig({
-          OAUTH_REDIRECT_URI_ALLOWLIST: "https://app.example/oauth/apple",
-        }),
-        "https://app.example/dashboard?tab=login",
-      ),
-    ).not.toThrow();
-  });
-
-  it("rejects return URLs whose origin does not match allowlist", () => {
-    expect(() =>
-      assertOAuthReturnUrlAllowed(
-        makeConfig({
-          OAUTH_REDIRECT_URI_ALLOWLIST: "https://app.example/oauth/apple",
-        }),
-        "https://other.example/login",
-      ),
-    ).toThrow(/Invalid return URL/);
+  it.each<[string, Env, string]>([
+    ["https in production without an allowlist", PROD, "https://app.example/login"],
+    [
+      "an origin matching an https allowlist entry",
+      appleAllowlist,
+      "https://app.example/dashboard?tab=login",
+    ],
+    [
+      "a match after skipping a malformed entry",
+      { OAUTH_REDIRECT_URI_ALLOWLIST: "https://[bad-host, https://app.example/cb" },
+      "https://app.example/x",
+    ],
+  ])("accepts %s", (_label, env, url) => {
+    expect(() => assertOAuthReturnUrlAllowed(buildConfig(env), url)).not.toThrow();
   });
 });
