@@ -15,6 +15,7 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "html", "clover"],
       reportsDirectory: "./coverage",
+      exclude: ["**/test-support/**"],
     },
   },
 });

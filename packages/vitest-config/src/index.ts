@@ -10,6 +10,8 @@ export const baseConfig = defineConfig({
       provider: "v8",
       reporter: ["text", "html", "clover"],
       reportsDirectory: "./coverage",
+      // Shared test helpers/fixtures are not product code.
+      exclude: ["**/test-support/**"],
     },
   },
 });
@@ -25,6 +27,8 @@ export const reactConfig = defineConfig({
       provider: "v8",
       reporter: ["text", "html", "clover"],
       reportsDirectory: "./coverage",
+      // Shared test helpers/fixtures are not product code.
+      exclude: ["**/test-support/**"],
     },
   },
 });
