@@ -22,9 +22,9 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
-import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { recordContinueActivity } from "@/stores/continue-store";
@@ -128,20 +128,23 @@ export default function DuaDetailScreen() {
         contentRef={contentRef}
         enableContextMenu={!tv}
       />
-      <Button
-        label={
-          shareCard.isSharing(item.id)
-            ? t("share.preparing")
-            : shareCard.isGesturePending(item.id)
-              ? tTv(t, "share.tapToShare", "share.selectToShare")
-              : t("dua.share")
-        }
-        variant="secondary"
-        icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-        fullWidth
-        disabled={shareCard.isSharing(item.id)}
-        onPress={onShare}
-      />
+      {/* No share sheet on TV (phone-only capability). */}
+      {tv ? null : (
+        <Button
+          label={
+            shareCard.isSharing(item.id)
+              ? t("share.preparing")
+              : shareCard.isGesturePending(item.id)
+                ? t("share.tapToShare")
+                : t("dua.share")
+          }
+          variant="secondary"
+          icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+          fullWidth
+          disabled={shareCard.isSharing(item.id)}
+          onPress={onShare}
+        />
+      )}
     </Stagger>
   );
 
@@ -210,3 +213,6 @@ const styles = StyleSheet.create({
     gap: Spacing.four,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/dua/detail/[id]");

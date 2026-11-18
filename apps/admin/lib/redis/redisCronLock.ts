@@ -63,7 +63,7 @@ async function getRedisClient(): Promise<RedisClientType | null> {
       if (c) {
         try {
           c.removeAllListeners();
-          await c.disconnect().catch(() => undefined);
+          c.destroy();
         } catch {
           // ignore
         }

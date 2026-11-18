@@ -5,7 +5,9 @@ import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
+import { SalahGuideTopicAside } from "@/components/salah-guide/salah-guide-aside";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -13,6 +15,7 @@ import { Card } from "@/components/ui/card";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
@@ -25,6 +28,7 @@ import {
   isSalahGuideContentReady,
 } from "@/lib/salah-guide";
 import { salahGuidePhraseAudio } from "@/lib/salah-how-to-pray-audio";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranPrefs } from "@/stores/quran-store";
 
@@ -98,51 +102,55 @@ function PhraseCard({
           />
         ) : null}
       </View>
-      <ThemedText
-        type="caption"
-        themeColor="mutedForeground"
-        style={[
-          styles.when,
-          { fontSize: sizes.transliteration, lineHeight: sizes.transliteration * 1.35 },
-        ]}
-      >
-        {when}
-      </ThemedText>
-      <ReligiousTextStack
-        arabic={arabic}
-        transliteration={transliteration}
-        translation={translation}
-      />
-      <View style={[styles.meaning, { backgroundColor: tokens.accentSoft }]}>
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.meaningLabel}>
-          {t("salahGuide.meaningLabel")}
-        </ThemedText>
-        <ThemedText
-          type="small"
-          style={{
-            color: colors.foreground,
-            fontSize: sizes.translation,
-            lineHeight: sizes.translation * 1.45,
-          }}
-        >
-          {meaning}
-        </ThemedText>
-      </View>
-      {reference ? (
+      {/* TV: phrase body is a D-pad stop so long cards (and ones without audio) scroll by remote. */}
+      <TvReadableBlock>
         <ThemedText
           type="caption"
           themeColor="mutedForeground"
-          style={[styles.reference, { fontSize: sizes.transliteration }]}
+          style={[
+            styles.when,
+            { fontSize: sizes.transliteration, lineHeight: sizes.transliteration * 1.35 },
+          ]}
         >
-          {reference}
+          {when}
         </ThemedText>
-      ) : null}
+        <ReligiousTextStack
+          arabic={arabic}
+          transliteration={transliteration}
+          translation={translation}
+        />
+        <View style={[styles.meaning, { backgroundColor: tokens.accentSoft }]}>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.meaningLabel}>
+            {t("salahGuide.meaningLabel")}
+          </ThemedText>
+          <ThemedText
+            type="small"
+            style={{
+              color: colors.foreground,
+              fontSize: sizes.translation,
+              lineHeight: sizes.translation * 1.45,
+            }}
+          >
+            {meaning}
+          </ThemedText>
+        </View>
+        {reference ? (
+          <ThemedText
+            type="caption"
+            themeColor="mutedForeground"
+            style={[styles.reference, { fontSize: sizes.transliteration }]}
+          >
+            {reference}
+          </ThemedText>
+        ) : null}
+      </TvReadableBlock>
     </Card>
   );
 }
 
 export default function SalahGuidePhrasesScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t, i18n } = useTranslation();
   const { version: contentVersion, ready: contentReady } = useEnsureContent(
     ensureSalahGuideContent,
@@ -158,20 +166,23 @@ export default function SalahGuidePhrasesScreen() {
       title={t("salahGuide.phrasesTitle")}
       subtitle={t("salahGuide.phrasesSubtitle")}
       onBack={() => goBackOrReplace(router, "/salah-guide")}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/salah-guide/phrases" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <LearnReadingChrome surface="salah_guide">
-            <JannahCallout tone="accent">{t("salahGuide.phrasesIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<SalahGuideTopicAside currentId="how-to-pray" />}>
+          <Stagger>
+            <LearnReadingChrome surface="salah_guide">
+              <JannahCallout tone="accent">{t("salahGuide.phrasesIntro")}</JannahCallout>
 
-            {phrases.map((phrase) => (
-              <PhraseCard key={phrase.id} {...phrase} />
-            ))}
-          </LearnReadingChrome>
+              {phrases.map((phrase) => (
+                <PhraseCard key={phrase.id} {...phrase} />
+              ))}
+            </LearnReadingChrome>
 
-          <JannahDisclaimer textKey="salahGuide.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="salahGuide.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );
@@ -196,3 +207,6 @@ const styles = StyleSheet.create({
   meaningLabel: { textTransform: "uppercase", letterSpacing: 0.5 },
   reference: { marginTop: Spacing.two, lineHeight: 18 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/salah-guide/phrases");

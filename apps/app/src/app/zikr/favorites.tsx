@@ -10,6 +10,8 @@ import { FavoritesOrderRow } from "@/components/ui/favorites-order-row";
 import { Spacing } from "@/constants/theme";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
@@ -62,7 +64,9 @@ export default function ZikrFavoritesScreen() {
           onAction={() => router.replace("/zikr")}
         />
       ) : (
-        <Card padding="three">
+        // Wide web / tablets: a reorderable list reads best as one capped column
+        // (move up / down keeps a linear order). TV keeps the full width.
+        <Card padding="three" style={isTV() ? undefined : styles.listCard}>
           <View style={styles.list}>
             {items.map((item, index) => {
               const { completed, progressLabel } = zikrListRowProgress(item, zikrCounts);
@@ -90,7 +94,11 @@ export default function ZikrFavoritesScreen() {
 }
 
 const styles = StyleSheet.create({
+  listCard: { width: "100%", maxWidth: 760, alignSelf: "center" },
   list: {
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/zikr/favorites");

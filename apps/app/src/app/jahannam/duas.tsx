@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer, JannahDuaBlock } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -13,6 +18,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -24,6 +30,7 @@ import {
   isJahannamContentReady,
 } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
@@ -55,11 +62,13 @@ function JahannamDuaEntryBlock({
             web: "volunteer_activism",
           }}
         />
-        <View style={[styles.context, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="small" style={{ color: colors.foreground, lineHeight: 22 }}>
-            {entry.context}
-          </ThemedText>
-        </View>
+        <TvReadableBlock>
+          <View style={[styles.context, { backgroundColor: tokens.accentSoft }]}>
+            <ThemedText type="small" style={{ color: colors.foreground, lineHeight: 22 }}>
+              {entry.context}
+            </ThemedText>
+          </View>
+        </TvReadableBlock>
       </Card>
       <ReadingCard
         item={{
@@ -101,6 +110,15 @@ export default function JahannamDuasScreen() {
   const byId = new Map(duaItems.map((item) => [item.id, item]));
   useEnsureDuaFavoritesLoaded();
   const ready = contentReady && duasCatalogReady;
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: dua blocks sit two per row.
+  const columns = learnColumnsFor(wide.contentWidth, { minCell: 420, gap: Spacing.four, max: 2 });
+
+  const duaBlocks = entries.map((entry, index) => {
+    const dua = byId.get(entry.duaId);
+    if (!dua) return null;
+    return <JahannamDuaEntryBlock key={entry.id} entry={entry} dua={dua} index={index} />;
+  });
 
   return (
     <ScreenLayout
@@ -108,6 +126,7 @@ export default function JahannamDuasScreen() {
       title={t("jahannam.duasTitle")}
       subtitle={t("jahannam.duasSubtitle")}
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/duas" />
       <LearnContentGate ready={ready}>
@@ -125,11 +144,13 @@ export default function JahannamDuasScreen() {
               />
             ) : null}
 
-            {entries.map((entry, index) => {
-              const dua = byId.get(entry.duaId);
-              if (!dua) return null;
-              return <JahannamDuaEntryBlock key={entry.id} entry={entry} dua={dua} index={index} />;
-            })}
+            {columns > 1 ? (
+              <LearnColumnsGrid columns={columns} gap={Spacing.four}>
+                {duaBlocks}
+              </LearnColumnsGrid>
+            ) : (
+              duaBlocks
+            )}
           </LearnReadingChrome>
           <JannahDisclaimer textKey="jahannam.disclaimer" />
         </Stagger>
@@ -147,3 +168,6 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam/duas");

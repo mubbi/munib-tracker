@@ -3,9 +3,10 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 import { AppUpdateSection } from "@/components/app-update/app-update-section";
+import { QuranPracticeSettingsRow } from "@/components/quran/quran-practice-settings-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
+import { SettingsRow, SettingsRowGroup, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Spacing } from "@/constants/theme";
@@ -14,6 +15,7 @@ import { useFormatTime } from "@/hooks/use-time-format";
 import { tTv } from "@/lib/i18n/t-tv";
 import { APP_LOCALES } from "@/lib/locale-display";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
@@ -42,7 +44,7 @@ export default function SettingsScreen() {
         <AppUpdateSection />
 
         <Card padding="three">
-          <View style={styles.group}>
+          <SettingsRowGroup>
             <SettingsRow
               icon={{
                 ios: "person.crop.circle.fill",
@@ -56,11 +58,11 @@ export default function SettingsScreen() {
               preferredFocus={tv}
               onPress={() => router.push("/profile")}
             />
-          </View>
+          </SettingsRowGroup>
         </Card>
 
         <Card padding="three">
-          <View style={styles.group}>
+          <SettingsRowGroup>
             <SettingsRow
               icon={{ ios: "paintpalette.fill", android: "palette", web: "palette" }}
               title={t("settings.appearance")}
@@ -101,13 +103,16 @@ export default function SettingsScreen() {
               value={prefs.cacheHadithLocally !== false}
               onValueChange={(enabled) => void update({ cacheHadithLocally: enabled })}
             />
-            <SettingsRow
-              icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-              title={t("settings.notifications")}
-              subtitle={t("settings.notificationsSub")}
-              value={prefs.notificationPrefs.masterEnabled ? t("common.on") : t("common.off")}
-              onPress={() => router.push("/settings/notifications")}
-            />
+            {/* TV: no local notifications (scheduler is a no-op) — hide reminder rows. */}
+            {!tv ? (
+              <SettingsRow
+                icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+                title={t("settings.notifications")}
+                subtitle={t("settings.notificationsSub")}
+                value={prefs.notificationPrefs.masterEnabled ? t("common.on") : t("common.off")}
+                onPress={() => router.push("/settings/notifications")}
+              />
+            ) : null}
             <SettingsRow
               icon={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
               title={t("settings.timeFormat")}
@@ -134,13 +139,16 @@ export default function SettingsScreen() {
               }
               onPress={() => router.push("/settings/default-calendar")}
             />
-            <SettingsRow
-              icon={{ ios: "moon.zzz.fill", android: "bedtime", web: "bedtime" }}
-              title={t("settings.bedtime")}
-              subtitle={t("settings.bedtimeSub")}
-              value={formatStored(prefs.bedtime, { hour: 22, minute: 30 })}
-              onPress={() => router.push("/settings/bedtime")}
-            />
+            {/* Bedtime only drives the before-sleep adhkar reminder — phone-only. */}
+            {!tv ? (
+              <SettingsRow
+                icon={{ ios: "moon.zzz.fill", android: "bedtime", web: "bedtime" }}
+                title={t("settings.bedtime")}
+                subtitle={t("settings.bedtimeSub")}
+                value={formatStored(prefs.bedtime, { hour: 22, minute: 30 })}
+                onPress={() => router.push("/settings/bedtime")}
+              />
+            ) : null}
             <SettingsRow
               icon={{ ios: "textformat.size", android: "format_size", web: "format_size" }}
               title={t("settings.fonts")}
@@ -202,11 +210,11 @@ export default function SettingsScreen() {
                 onPress={() => router.push("/settings/voice-shortcuts" as Href)}
               />
             ) : null}
-          </View>
+          </SettingsRowGroup>
         </Card>
 
         <Card padding="three">
-          <View style={styles.group}>
+          <SettingsRowGroup>
             <SettingsRow
               icon={{ ios: "flag.fill", android: "flag", web: "flag" }}
               title={t("contentReport.myReportsTitle")}
@@ -237,6 +245,7 @@ export default function SettingsScreen() {
                 onPress={() => router.push("/settings/backup")}
               />
             ) : null}
+            {!tv ? <QuranPracticeSettingsRow /> : null}
             <SettingsRow
               icon={{ ios: "internaldrive.fill", android: "storage", web: "storage" }}
               title={t("settings.offlineData")}
@@ -261,7 +270,7 @@ export default function SettingsScreen() {
               subtitle={t("credits.settingsSub")}
               onPress={() => router.push("/credits")}
             />
-          </View>
+          </SettingsRowGroup>
         </Card>
 
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
@@ -276,11 +285,11 @@ const styles = StyleSheet.create({
   stack: {
     gap: Spacing.four,
   },
-  group: {
-    gap: Spacing.two,
-  },
   footer: {
     textAlign: "center",
     marginTop: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(tabs)/settings");

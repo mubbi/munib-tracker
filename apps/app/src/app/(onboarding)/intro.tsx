@@ -4,19 +4,18 @@ import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
-  type ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   useWindowDimensions,
   View,
   type ViewStyle,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LanguagePickerSheet } from "@/components/language-picker-sheet";
 import { LocaleFlag } from "@/components/locale-flag";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
@@ -27,13 +26,17 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
+import { tTv } from "@/lib/i18n/t-tv";
 import { APP_LOCALES } from "@/lib/locale-display";
 import { isTV } from "@/lib/platform/is-tv";
 import { useArrowForward, useIsRTL } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 type SlideKind = "brand" | "feature" | "cta";
@@ -86,6 +89,13 @@ const HIGHLIGHT_ICON: SymbolViewProps["name"] = {
 
 const PAGE_COUNT = SLIDES.length;
 
+/** Desktop / tablet web: slides split into art + copy columns at this width. */
+const WIDE_SPLIT_MIN_WIDTH = 900;
+/** Wide web: footer CTA column (instead of full-bleed buttons across the canvas). */
+const WIDE_FOOTER_MAX_WIDTH = 520;
+
+type SlideLayout = "phone" | "tv" | "wide";
+
 /** Current slide plus neighbors — keeps off-screen pages from mounting nested
  *  ScrollViews / SF Symbols during cold start (Sentry WatchdogTermination). */
 function isNearbySlide(logicalIndex: number, currentIndex: number): boolean {
@@ -105,17 +115,26 @@ export default function OnboardingIntroScreen() {
   useMarkColdStartReady();
   const router = useRouter();
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const arrowForward = useArrowForward();
   const isRtl = useIsRTL();
   const { width } = useWindowDimensions();
   const tv = isTV();
   /** Expo Dev Client gear sits top-right on TV; keep Skip clear of it. */
   const topBarPadX = tv ? TvLayout.contentPaddingX : Spacing.four;
-  const skipClearance = tv ? 72 : 0;
-  const footerMaxWidth = tv ? Math.min(520, width - topBarPadX * 2) : undefined;
-  const slidePadBottom = tv ? Spacing.six : Spacing.two;
-  const scrollRef = useRef<ScrollView>(null);
+  const skipClearance = tv ? tvDp(72) : 0;
+  // Wide (non-TV) windows: split slides into art + copy columns and cap the
+  // footer CTAs instead of stretching a phone column across the canvas.
+  const wide = !tv && width >= WIDE_SPLIT_MIN_WIDTH;
+  const layout: SlideLayout = tv ? "tv" : wide ? "wide" : "phone";
+  // TV: last slide lays its two CTAs side by side, so give the footer room.
+  const footerMaxWidth = tv
+    ? Math.min(tvDp(640), width - topBarPadX * 2)
+    : wide
+      ? WIDE_FOOTER_MAX_WIDTH
+      : undefined;
+  const slidePadBottom = tv ? Spacing.three : Spacing.two;
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const buttonDrivenScrollRef = useRef(false);
   const [index, setIndex] = useState(0);
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
@@ -175,6 +194,39 @@ export default function OnboardingIntroScreen() {
     setIndex(next);
     scrollToLogical(next, true);
   };
+
+  const goPrev = () => {
+    if (index === 0) return;
+    const prev = index - 1;
+    buttonDrivenScrollRef.current = true;
+    setIndex(prev);
+    scrollToLogical(prev, true);
+  };
+
+  // Web: Left/Right arrows page the carousel (mouse users can't swipe). The
+  // direction follows reading order, so in RTL the left arrow advances. Never
+  // hijack keys while typing or while the language sheet is open.
+  const keyNavRef = useRef({ goNext, goPrev, isRtl, blocked: languagePickerOpen });
+  keyNavRef.current = { goNext, goPrev, isRtl, blocked: languagePickerOpen };
+  useEffect(() => {
+    if (Platform.OS !== "web" || tv || typeof window === "undefined") return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      const nav = keyNavRef.current;
+      if (nav.blocked || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      const target = event.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target?.isContentEditable) {
+        return;
+      }
+      const forward = (event.key === "ArrowRight") !== nav.isRtl;
+      event.preventDefault();
+      if (forward) nav.goNext();
+      else nav.goPrev();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [tv]);
 
   // Re-snap after width / direction changes.
   const indexRef = useRef(index);
@@ -308,10 +360,12 @@ export default function OnboardingIntroScreen() {
                   contentContainerStyle={[
                     styles.slideScrollContent,
                     {
-                      paddingVertical: tv ? Spacing.four : Spacing.two,
+                      paddingVertical: tv ? Spacing.three : Spacing.two,
                       paddingBottom: slidePadBottom,
+                      // TV (scrollEnabled=false): top-align so any overflow clips at the
+                      // bottom rather than hiding the title.
                       justifyContent: tv ? "flex-start" : "center",
-                      paddingTop: tv ? Spacing.five : Spacing.two,
+                      paddingTop: tv ? Spacing.three : Spacing.two,
                     },
                   ]}
                   scrollEnabled={!tv}
@@ -319,11 +373,11 @@ export default function OnboardingIntroScreen() {
                   bounces={false}
                 >
                   {item.kind === "brand" ? (
-                    <BrandSlide />
+                    <BrandSlide layout={layout} />
                   ) : item.kind === "cta" ? (
-                    <CtaSlide icon={item.icon} tv={tv} />
+                    <CtaSlide icon={item.icon} layout={layout} />
                   ) : (
-                    <FeatureSlide slide={item} tv={tv} />
+                    <FeatureSlide slide={item} layout={layout} />
                   )}
                 </TvScrollView>
               ) : null}
@@ -368,14 +422,16 @@ export default function OnboardingIntroScreen() {
       >
         <View style={footerMaxWidth ? { width: "100%", maxWidth: footerMaxWidth } : undefined}>
           {isLast ? (
-            <View style={styles.finalActions}>
+            <View style={[styles.finalActions, tv || wide ? styles.finalActionsTv : null]}>
               {tv ? (
                 <>
+                  {/* Side by side on a 960×540 landscape screen; D-pad Left/Right. */}
                   <Button
                     label={t("common.continueAsGuest")}
                     fullWidth
                     preferredFocus
                     onPress={() => goToLocationStep("/")}
+                    style={styles.finalActionTv}
                   />
                   <Button
                     label={t("onboarding.signInToSync")}
@@ -383,10 +439,13 @@ export default function OnboardingIntroScreen() {
                     fullWidth
                     labelColor={Brand.heroText}
                     onPress={() => goToLocationStep("/login")}
-                    style={{
-                      backgroundColor: Brand.onHeroStrongSurface,
-                      borderColor: withAlpha(Brand.heroText, 0.32),
-                    }}
+                    style={[
+                      styles.finalActionTv,
+                      {
+                        backgroundColor: Brand.onHeroStrongSurface,
+                        borderColor: withAlpha(Brand.heroText, 0.32),
+                      },
+                    ]}
                   />
                 </>
               ) : (
@@ -395,6 +454,7 @@ export default function OnboardingIntroScreen() {
                     label={t("onboarding.signInToSync")}
                     fullWidth
                     onPress={() => goToLocationStep("/login")}
+                    style={wide ? styles.finalActionTv : undefined}
                   />
                   <Button
                     label={t("common.continueAsGuest")}
@@ -402,13 +462,41 @@ export default function OnboardingIntroScreen() {
                     fullWidth
                     labelColor={Brand.heroText}
                     onPress={() => goToLocationStep("/")}
-                    style={{
-                      backgroundColor: Brand.onHeroStrongSurface,
-                      borderColor: withAlpha(Brand.heroText, 0.32),
-                    }}
+                    style={[
+                      wide ? styles.finalActionTv : null,
+                      {
+                        backgroundColor: Brand.onHeroStrongSurface,
+                        borderColor: withAlpha(Brand.heroText, 0.32),
+                      },
+                    ]}
                   />
                 </>
               )}
+            </View>
+          ) : wide && index > 0 ? (
+            // Wide web: a visible Back beside Next (no swiping with a mouse).
+            <View style={styles.finalActionsTv}>
+              <Button
+                label={t("common.back")}
+                variant="ghost"
+                fullWidth
+                labelColor={Brand.heroText}
+                onPress={goPrev}
+                style={[
+                  styles.finalActionTv,
+                  {
+                    backgroundColor: Brand.onHeroStrongSurface,
+                    borderColor: withAlpha(Brand.heroText, 0.32),
+                  },
+                ]}
+              />
+              <Button
+                label={t("common.next")}
+                fullWidth
+                trailingIcon={arrowForward}
+                onPress={goNext}
+                style={styles.finalActionTv}
+              />
             </View>
           ) : (
             <Button
@@ -432,18 +520,19 @@ export default function OnboardingIntroScreen() {
   );
 }
 
-function BrandSlide() {
+function BrandSlide({ layout }: { layout: SlideLayout }) {
   const { t } = useTranslation();
+  const tv = layout === "tv";
 
-  return (
-    <View style={styles.brandSlide}>
+  const brandBlock = (
+    <>
       <ThemedText type="header" style={[styles.bismillah, { color: Brand.heroAccent }]}>
         ﷽
       </ThemedText>
 
-      <View style={styles.logoWrap}>
+      <View style={[styles.logoWrap, tv ? styles.logoWrapTv : null]}>
         <Image
-          style={styles.logoGlow}
+          style={[styles.logoGlow, tv ? styles.logoGlowTv : null]}
           source={require("@/assets/images/logo-glow.png")}
           contentFit="contain"
           cachePolicy="memory"
@@ -451,7 +540,7 @@ function BrandSlide() {
           priority="low"
         />
         <Image
-          style={styles.logo}
+          style={[styles.logo, tv ? styles.logoTv : null]}
           source={require("@/assets/images/munib-logo.png")}
           contentFit="contain"
           cachePolicy="memory"
@@ -463,119 +552,259 @@ function BrandSlide() {
       <ThemedText type="header" style={[styles.brandTitle, { color: Brand.heroText }]}>
         {APP_NAME}
       </ThemedText>
-      <ThemedText type="subtitle" style={[styles.brandTagline, { color: Brand.heroSubtext }]}>
+      <ThemedText
+        type="subtitle"
+        style={[
+          styles.brandTagline,
+          tv ? styles.brandTaglineTv : null,
+          { color: Brand.heroSubtext },
+        ]}
+      >
         {t("common.appTagline")}
       </ThemedText>
+    </>
+  );
 
-      <View style={[styles.duaCard, { backgroundColor: Brand.onHeroStrongSurface }]}>
-        <ThemedText type="label" style={[styles.duaLabel, { color: Brand.heroAccent }]}>
-          {t("onboarding.brandDuaLabel")}
+  const duaCard = (
+    <View
+      style={[
+        styles.duaCard,
+        tv ? styles.duaCardTv : null,
+        { backgroundColor: Brand.onHeroStrongSurface },
+      ]}
+    >
+      <ThemedText type="label" style={[styles.duaLabel, { color: Brand.heroAccent }]}>
+        {t("onboarding.brandDuaLabel")}
+      </ThemedText>
+      <ThemedText
+        type="arabic"
+        style={[styles.duaArabic, tv ? styles.duaArabicTv : null, { color: Brand.heroText }]}
+      >
+        {t("onboarding.brandDuaArabic")}
+      </ThemedText>
+      <ThemedText type="caption" style={[styles.duaTranslit, { color: Brand.heroSubtext }]}>
+        {t("onboarding.brandDuaTransliteration")}
+      </ThemedText>
+      <ThemedText type="small" style={[styles.duaTranslation, { color: Brand.heroSubtext }]}>
+        {t("onboarding.brandDuaTranslation")}
+      </ThemedText>
+    </View>
+  );
+
+  // TV (960×540 landscape, no scrolling) and wide web: brand beside the dua so
+  // nothing clips and the canvas isn't a narrow centered strip.
+  if (layout !== "phone") {
+    return (
+      <View style={[styles.slideTvRow, tv ? null : styles.slideWideRow]}>
+        <View style={[styles.brandSlide, styles.slideTvCol]}>{brandBlock}</View>
+        <View style={styles.slideTvCol}>{duaCard}</View>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.brandSlide}>
+      {brandBlock}
+      {duaCard}
+    </View>
+  );
+}
+
+/**
+ * Landscape slide: icon well beside a start-aligned text column. Pages don't
+ * scroll on TV (the pager is button-driven), so a landscape row keeps every line
+ * on a 960×540 screen instead of clipping a tall phone column. Wide web reuses
+ * the same split with larger art and a readable copy measure.
+ */
+function SlideRow({
+  layout,
+  icon,
+  eyebrow,
+  title,
+  body,
+  children,
+}: {
+  layout: "tv" | "wide";
+  icon?: SymbolViewProps["name"];
+  eyebrow: string;
+  title: string;
+  body: string;
+  children?: ReactNode;
+}) {
+  const tv = layout === "tv";
+  return (
+    <View style={[styles.slideTvRow, tv ? null : styles.slideWideRow]}>
+      <View
+        style={[
+          styles.icon,
+          tv ? styles.iconTv : styles.iconWide,
+          { backgroundColor: Brand.onHeroStrongSurface },
+        ]}
+      >
+        {icon ? <SymbolView name={icon} size={tv ? 56 : 96} tintColor={Brand.heroAccent} /> : null}
+      </View>
+      <View style={[styles.slideTvCol, styles.slideTvText]}>
+        <ThemedText
+          type="label"
+          style={[styles.eyebrow, styles.textStartTv, { color: Brand.heroAccent }]}
+        >
+          {eyebrow}
         </ThemedText>
-        <ThemedText type="arabic" style={[styles.duaArabic, { color: Brand.heroText }]}>
-          {t("onboarding.brandDuaArabic")}
+        <ThemedText
+          type="title"
+          style={[
+            styles.title,
+            tv ? styles.titleTv : null,
+            styles.textStartTv,
+            { color: Brand.heroText },
+          ]}
+        >
+          {title}
         </ThemedText>
-        <ThemedText type="caption" style={[styles.duaTranslit, { color: Brand.heroSubtext }]}>
-          {t("onboarding.brandDuaTransliteration")}
+        <ThemedText
+          type="default"
+          style={[
+            styles.body,
+            tv ? styles.bodyTv : styles.bodyWide,
+            styles.textStartTv,
+            { color: Brand.heroSubtext },
+          ]}
+        >
+          {body}
         </ThemedText>
-        <ThemedText type="small" style={[styles.duaTranslation, { color: Brand.heroSubtext }]}>
-          {t("onboarding.brandDuaTranslation")}
-        </ThemedText>
+        {children}
       </View>
     </View>
   );
 }
 
-function FeatureSlide({ slide, tv = false }: { slide: Slide; tv?: boolean }) {
+function FeatureSlide({ slide, layout }: { slide: Slide; layout: SlideLayout }) {
   const { t } = useTranslation();
+  const tv = layout === "tv";
   const highlights = Array.from({ length: slide.highlightCount ?? 0 }, (_, i) =>
     t(`onboarding.${slide.key}Highlight${i + 1}`),
   );
 
-  return (
-    <View style={[styles.featureSlide, tv ? styles.slideTv : null]}>
-      <View
-        style={[
-          styles.icon,
-          tv ? styles.iconTv : null,
-          { backgroundColor: Brand.onHeroStrongSurface },
-        ]}
+  const highlightList = (
+    <View
+      style={[
+        styles.highlights,
+        tv ? styles.highlightsTv : null,
+        layout === "wide" ? styles.copyWide : null,
+      ]}
+    >
+      {highlights.map((line) => (
+        <View key={line} style={styles.highlightRow}>
+          <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
+          <ThemedText type="small" style={[styles.highlightText, { color: Brand.heroText }]}>
+            {line}
+          </ThemedText>
+        </View>
+      ))}
+    </View>
+  );
+
+  if (layout !== "phone") {
+    return (
+      <SlideRow
+        layout={layout}
+        icon={slide.icon}
+        eyebrow={t(`onboarding.${slide.key}Eyebrow`)}
+        title={t(`onboarding.${slide.key}Title`)}
+        body={t(`onboarding.${slide.key}Body`)}
       >
+        {highlightList}
+      </SlideRow>
+    );
+  }
+
+  return (
+    <View style={styles.featureSlide}>
+      <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
         {slide.icon ? (
-          <SymbolView name={slide.icon} size={tv ? 44 : 52} tintColor={Brand.heroAccent} />
+          <SymbolView name={slide.icon} size={52} tintColor={Brand.heroAccent} />
         ) : null}
       </View>
 
       <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
         {t(`onboarding.${slide.key}Eyebrow`)}
       </ThemedText>
-      <ThemedText
-        type="title"
-        style={[styles.title, tv ? styles.titleTv : null, { color: Brand.heroText }]}
-      >
+      <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
         {t(`onboarding.${slide.key}Title`)}
       </ThemedText>
-      <ThemedText
-        type="default"
-        style={[styles.body, tv ? styles.bodyTv : null, { color: Brand.heroSubtext }]}
-      >
+      <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
         {t(`onboarding.${slide.key}Body`)}
       </ThemedText>
 
-      <View style={[styles.highlights, tv ? styles.highlightsTv : null]}>
-        {highlights.map((line) => (
-          <View key={line} style={styles.highlightRow}>
-            <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
-            <ThemedText type="small" style={[styles.highlightText, { color: Brand.heroText }]}>
-              {line}
-            </ThemedText>
-          </View>
-        ))}
-      </View>
+      {highlightList}
     </View>
   );
 }
 
-function CtaSlide({ icon, tv = false }: { icon?: SymbolViewProps["name"]; tv?: boolean }) {
+function CtaSlide({ icon, layout }: { icon?: SymbolViewProps["name"]; layout: SlideLayout }) {
   const { t } = useTranslation();
 
-  return (
-    <View style={[styles.ctaSlide, tv ? styles.slideTv : null]}>
-      <View
-        style={[
-          styles.icon,
-          tv ? styles.iconTv : null,
-          { backgroundColor: Brand.onHeroStrongSurface },
-        ]}
+  if (layout === "tv") {
+    // No privacy card on TV: the guest / QR sign-in choice sits right below.
+    return (
+      <SlideRow
+        layout="tv"
+        icon={icon}
+        eyebrow={t("onboarding.ctaEyebrow")}
+        title={t("onboarding.ctaTitle")}
+        body={tTv(t, "onboarding.ctaBody", "onboarding.ctaBodyTv")}
+      />
+    );
+  }
+
+  const privacyCard = (
+    <View
+      style={[
+        styles.privacyCard,
+        layout === "wide" ? styles.copyWide : null,
+        { backgroundColor: Brand.onHeroMutedSurface },
+      ]}
+    >
+      <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
+        {t("onboarding.ctaPrivacyTitle")}
+      </ThemedText>
+      <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
+        {t("onboarding.ctaPrivacyBody")}
+      </ThemedText>
+    </View>
+  );
+
+  if (layout === "wide") {
+    return (
+      <SlideRow
+        layout="wide"
+        icon={icon}
+        eyebrow={t("onboarding.ctaEyebrow")}
+        title={t("onboarding.ctaTitle")}
+        body={t("onboarding.ctaBody")}
       >
-        {icon ? <SymbolView name={icon} size={tv ? 44 : 52} tintColor={Brand.heroAccent} /> : null}
+        {privacyCard}
+      </SlideRow>
+    );
+  }
+
+  return (
+    <View style={styles.ctaSlide}>
+      <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
+        {icon ? <SymbolView name={icon} size={52} tintColor={Brand.heroAccent} /> : null}
       </View>
 
       <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
         {t("onboarding.ctaEyebrow")}
       </ThemedText>
-      <ThemedText
-        type="title"
-        style={[styles.title, tv ? styles.titleTv : null, { color: Brand.heroText }]}
-      >
+      <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
         {t("onboarding.ctaTitle")}
       </ThemedText>
-      <ThemedText
-        type="default"
-        style={[styles.body, tv ? styles.bodyTv : null, { color: Brand.heroSubtext }]}
-      >
-        {tv ? t("common.tvOauthHint") : t("onboarding.ctaBody")}
+      <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
+        {t("onboarding.ctaBody")}
       </ThemedText>
 
-      {!tv ? (
-        <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
-          <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
-            {t("onboarding.ctaPrivacyTitle")}
-          </ThemedText>
-          <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
-            {t("onboarding.ctaPrivacyBody")}
-          </ThemedText>
-        </View>
-      ) : null}
+      {privacyCard}
     </View>
   );
 }
@@ -674,12 +903,46 @@ const styles = StyleSheet.create({
     height: 108,
     borderRadius: 24,
   },
+  // TV slides don't scroll: keep the brand column (bismillah → logo → title →
+  // tagline) inside the ~235dp band between the top bar and the dots.
+  logoWrapTv: {
+    width: tvDp(84),
+    height: tvDp(84),
+    marginVertical: 0,
+  },
+  logoGlowTv: {
+    width: tvDp(108),
+    height: tvDp(108),
+  },
+  logoTv: {
+    width: tvDp(68),
+    height: tvDp(68),
+    borderRadius: tvDp(16),
+  },
+  // Wider card + tighter Arabic line so the full dua (incl. translation) fits
+  // without clipping on the non-scrolling TV slide.
+  duaCardTv: {
+    maxWidth: tvDp(480),
+    alignSelf: "center",
+    paddingTop: Spacing.two,
+    paddingBottom: Spacing.two,
+    gap: Spacing.one,
+    marginTop: 0,
+  },
+  duaArabicTv: {
+    fontSize: 17,
+    lineHeight: 28,
+  },
   brandTitle: {
     textAlign: "center",
   },
   brandTagline: {
     textAlign: "center",
     maxWidth: 300,
+  },
+  /** TV: 300 is unscaled — at 2× text that wraps the tagline to 3+ lines. */
+  brandTaglineTv: {
+    maxWidth: tvDp(360),
   },
   duaCard: {
     width: "100%",
@@ -722,11 +985,43 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     paddingVertical: Spacing.two,
   },
-  slideTv: {
-    gap: Spacing.three,
+  /** TV landscape slide: visual column beside the copy column. */
+  slideTvRow: {
+    flexDirection: "row",
+    alignItems: "center",
     alignSelf: "center",
     width: "100%",
-    maxWidth: 640,
+    maxWidth: tvDp(840),
+    gap: Spacing.five,
+  },
+  /** Wide web: same split as TV with web-sized art and gutters. */
+  slideWideRow: {
+    maxWidth: 1040,
+    gap: Spacing.six,
+    paddingHorizontal: Spacing.four,
+  },
+  iconWide: {
+    width: 220,
+    height: 220,
+    borderRadius: 64,
+    marginBottom: 0,
+  },
+  bodyWide: {
+    maxWidth: 520,
+  },
+  copyWide: {
+    maxWidth: 520,
+  },
+  slideTvCol: {
+    flex: 1,
+    minWidth: 0,
+  },
+  slideTvText: {
+    gap: Spacing.two,
+    alignItems: "flex-start",
+  },
+  textStartTv: {
+    textAlign: "auto",
   },
   icon: {
     width: 108,
@@ -738,10 +1033,10 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
   },
   iconTv: {
-    width: 88,
-    height: 88,
-    borderRadius: 28,
-    marginBottom: Spacing.one,
+    width: tvDp(144),
+    height: tvDp(144),
+    borderRadius: tvDp(40),
+    marginBottom: 0,
   },
   eyebrow: {
     textAlign: "center",
@@ -760,7 +1055,7 @@ const styles = StyleSheet.create({
     maxWidth: 320,
   },
   bodyTv: {
-    maxWidth: 560,
+    maxWidth: tvDp(560),
     fontSize: TvLayout.bodyFontSize,
     lineHeight: TvLayout.bodyFontSize + 8,
     marginBottom: Spacing.two,
@@ -772,8 +1067,8 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
   },
   highlightsTv: {
-    maxWidth: 560,
-    marginTop: Spacing.two,
+    maxWidth: tvDp(560),
+    marginTop: Spacing.one,
   },
   highlightRow: {
     flexDirection: "row",
@@ -803,7 +1098,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
   },
   dotsTv: {
-    paddingTop: Spacing.four,
+    paddingTop: Spacing.two,
     paddingBottom: Spacing.three,
     minHeight: 28,
   },
@@ -831,4 +1126,14 @@ const styles = StyleSheet.create({
   finalActions: {
     gap: Spacing.two,
   },
+  finalActionsTv: {
+    flexDirection: "row",
+    gap: Spacing.three,
+  },
+  finalActionTv: {
+    flex: 1,
+  },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(onboarding)/intro");

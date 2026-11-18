@@ -17,6 +17,7 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { goBackOrReplace } from "@/lib/navigation";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
@@ -24,6 +25,7 @@ import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platfor
 import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatDisplayDateTime } from "@/lib/time";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { useAuth } from "@/providers/auth-provider";
@@ -37,6 +39,8 @@ import {
 } from "@/stores/preferences-store";
 
 const PAGE_SIZE = 10;
+/** Wide web / tablets: keep inbox rows at a readable measure (≈ 80–90 chars). */
+const INBOX_MAX_WIDTH = 880;
 
 function mapInboxItems(
   inbox: ReturnType<typeof useInAppNotifications>["items"],
@@ -63,6 +67,7 @@ export default function NotificationCenterScreen() {
   const { session, isAuthenticated } = useAuth();
   const { items, unreadCount, open, markAllRead, clearAll } = useInAppNotifications();
   const { requestPermission, granted } = useNotificationPermissions();
+  const { isWide, isTv } = useLargeScreenLayout();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [confirmClear, setConfirmClear] = useState(false);
   const [markingAllRead, setMarkingAllRead] = useState(false);
@@ -122,6 +127,7 @@ export default function NotificationCenterScreen() {
       title={t("settings.notifications")}
       subtitle={t("notifCenter.inboxSubtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={isWide && !isTv ? INBOX_MAX_WIDTH : undefined}
     >
       <Seo path="/notifications" />
       <Stagger>
@@ -151,7 +157,8 @@ export default function NotificationCenterScreen() {
               unreadCount > 0 || markingAllRead ? () => void handleMarkAllRead() : undefined
             }
             onClearAll={delivered.length > 0 ? () => setConfirmClear(true) : undefined}
-            onOpenSettings={() => router.push("/settings/notifications")}
+            // TV: no local reminders — the settings screen would only be an empty state.
+            onOpenSettings={isTV() ? undefined : () => router.push("/settings/notifications")}
           />
 
           {delivered.length === 0 ? (
@@ -208,3 +215,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/notifications");

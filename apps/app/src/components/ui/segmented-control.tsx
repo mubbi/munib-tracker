@@ -7,6 +7,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
   },
   segment: {
     flex: 1,
-    minHeight: 44,
+    minHeight: tvDp(44),
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: Spacing.two + 2,

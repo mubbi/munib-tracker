@@ -1,8 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { renderHook, waitFor } from "@testing-library/react-native";
 
-import { readJSON } from "@/db/store";
+import { readJSON, writeJSON } from "@/db/store";
 
-import { createFavoritesStore } from "./create-favorites-store";
+import {
+  createFavoritesStore,
+  useEnsureFavoritesLoaded,
+  useFavoritesOrder,
+  useIsInFavorites,
+} from "./create-favorites-store";
 
 const STORAGE_KEY = "@test/fav_order";
 const UPDATED_AT_KEY = "@test/fav_updated_at";
@@ -46,5 +52,80 @@ describe("createFavoritesStore", () => {
     expect(await readJSON<string | undefined>(UPDATED_AT_KEY, undefined)).toBe(
       "2026-07-04T12:00:00.000Z",
     );
+  });
+});
+
+describe("createFavoritesStore extras", () => {
+  function setup() {
+    return createFavoritesStore(STORAGE_KEY, UPDATED_AT_KEY);
+  }
+
+  it("setOrder replaces the order and stamps updatedAt", async () => {
+    const api = setup();
+    await api.store.getState().setOrder(["c", "a"]);
+    expect(await api.readBlob()).toEqual({ order: ["c", "a"], updatedAt: expect.any(String) });
+  });
+
+  it("applyRemote de-duplicates the local list", async () => {
+    const api = setup();
+    await writeJSON(STORAGE_KEY, ["a", "a", "b"]);
+    await api.applyRemote(["b", "c"]);
+    expect(await readJSON<string[]>(STORAGE_KEY, [])).toEqual(["a", "b", "c"]);
+  });
+
+  it("applyRemote without any watermark leaves updatedAt unset", async () => {
+    const api = setup();
+    await api.applyRemote(["a"]);
+    expect(await readJSON(UPDATED_AT_KEY, null)).toBeNull();
+  });
+
+  it("applyRemote keeps the local watermark when the remote has none", async () => {
+    const api = setup();
+    await writeJSON(UPDATED_AT_KEY, "2026-01-01T00:00:00.000Z");
+    await api.applyRemote(["a"]);
+    expect(await readJSON(UPDATED_AT_KEY, null)).toBe("2026-01-01T00:00:00.000Z");
+  });
+
+  it("applyRemote updates a loaded store in memory", async () => {
+    const api = setup();
+    await api.store.getState().load();
+    await api.applyRemote(["r"], "2026-07-04T00:00:00.000Z");
+    expect(api.store.getState()).toMatchObject({
+      order: ["r"],
+      updatedAt: "2026-07-04T00:00:00.000Z",
+    });
+  });
+
+  it("applyRemote leaves an unloaded store untouched", async () => {
+    const api = setup();
+    await api.applyRemote(["r"], "2026-07-04T00:00:00.000Z");
+    expect(api.store.getState().order).toEqual([]);
+  });
+
+  it("actions route to the store", async () => {
+    const api = setup();
+    await api.actions.load();
+    await api.actions.toggle("a");
+    await api.actions.setOrder(["b"]);
+    expect(api.store.getState().order).toEqual(["b"]);
+  });
+
+  it("hooks expose order and membership after loading once", async () => {
+    const api = setup();
+    await writeJSON(STORAGE_KEY, ["a"]);
+    const { result } = await renderHook(() => {
+      useEnsureFavoritesLoaded(api);
+      return { order: useFavoritesOrder(api), hasA: useIsInFavorites(api, "a") };
+    });
+    await waitFor(() => expect(result.current.order).toEqual(["a"]));
+    expect(result.current.hasA).toBe(true);
+  });
+
+  it("useEnsureFavoritesLoaded skips a ready store", async () => {
+    const api = setup();
+    api.store.setState({ isReady: true });
+    await writeJSON(STORAGE_KEY, ["a"]);
+    await renderHook(() => useEnsureFavoritesLoaded(api));
+    expect(api.store.getState().order).toEqual([]);
   });
 });

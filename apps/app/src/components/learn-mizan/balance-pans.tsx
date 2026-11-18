@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -77,28 +78,31 @@ export function BalancePansBlock({ deeds }: { deeds: MizanDeedItem[] }) {
                   },
                 ]}
               >
-                <View style={styles.deedHeader}>
-                  <ThemedText type="smallBold" style={{ flex: 1 }}>
-                    {deed.title}
+                {/* TV: deed prose is a D-pad stop (the reference link stays its own stop). */}
+                <TvReadableBlock>
+                  <View style={styles.deedHeader}>
+                    <ThemedText type="smallBold" style={{ flex: 1 }}>
+                      {deed.title}
+                    </ThemedText>
+                    <Pill
+                      label={t(`lastDay.mizan.category.${deed.category}`)}
+                      compact
+                      color={palette.color}
+                      background={palette.soft}
+                    />
+                  </View>
+                  {deed.arabic ? (
+                    <ThemedText
+                      type="default"
+                      style={[styles.arabic, { color: colors.foreground, writingDirection: "rtl" }]}
+                    >
+                      {deed.arabic}
+                    </ThemedText>
+                  ) : null}
+                  <ThemedText type="small" themeColor="mutedForeground" style={styles.summary}>
+                    {deed.summary}
                   </ThemedText>
-                  <Pill
-                    label={t(`lastDay.mizan.category.${deed.category}`)}
-                    compact
-                    color={palette.color}
-                    background={palette.soft}
-                  />
-                </View>
-                {deed.arabic ? (
-                  <ThemedText
-                    type="default"
-                    style={[styles.arabic, { color: colors.foreground, writingDirection: "rtl" }]}
-                  >
-                    {deed.arabic}
-                  </ThemedText>
-                ) : null}
-                <ThemedText type="small" themeColor="mutedForeground" style={styles.summary}>
-                  {deed.summary}
-                </ThemedText>
+                </TvReadableBlock>
                 {ref ? <ReferenceLine reference={ref} /> : null}
               </View>
             );

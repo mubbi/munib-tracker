@@ -3,6 +3,12 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
+import {
+  LearnColumnsGrid,
+  LearnTile,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
@@ -14,12 +20,14 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJannahContent, getJannahGates, isJannahContentReady } from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const GATE_ICONS: Record<string, AppIcon> = {
   salah: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
@@ -49,19 +57,21 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
         },
       ]}
     >
-      <View style={styles.gateHead}>
-        <IconWell icon={icon} tint={colors.accent} well={44} size={20} />
-        <View style={styles.gateCopy}>
-          <LearnProseText proseRole="title">{gate.name}</LearnProseText>
-          <LearnProseText
-            proseRole="caption"
-            themeColor="mutedForeground"
-            style={styles.deedSummary}
-          >
-            {gate.deedSummary}
-          </LearnProseText>
+      <TvReadableBlock>
+        <View style={styles.gateHead}>
+          <IconWell icon={icon} tint={colors.accent} well={44} size={20} />
+          <View style={styles.gateCopy}>
+            <LearnProseText proseRole="title">{gate.name}</LearnProseText>
+            <LearnProseText
+              proseRole="caption"
+              themeColor="mutedForeground"
+              style={styles.deedSummary}
+            >
+              {gate.deedSummary}
+            </LearnProseText>
+          </View>
         </View>
-      </View>
+      </TvReadableBlock>
       {gate.hadith.map((ref) => (
         <View
           key={`${gate.id}-${ref.citation}`}
@@ -83,9 +93,11 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
               <HadithCitationBookmarkButton collection={ref.collection} citation={ref.citation} />
             </View>
           </View>
-          <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
-            “{ref.excerpt}”
-          </LearnProseText>
+          <TvReadableBlock>
+            <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
+              “{ref.excerpt}”
+            </LearnProseText>
+          </TvReadableBlock>
         </View>
       ))}
     </View>
@@ -96,6 +108,9 @@ export default function JannahGatesScreen() {
   const { ready: contentReady } = useEnsureContent(ensureJannahContent, isJannahContentReady);
   const router = useRouter();
   const { t } = useTranslation();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: gate cards flow into 2–3 columns.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 340, max: 3 });
   const gates = getJannahGates();
 
   return (
@@ -104,6 +119,7 @@ export default function JannahGatesScreen() {
       title={t("jannah.gatesTitle")}
       subtitle={t("jannah.gatesSubtitle")}
       onBack={() => goBackOrReplace(router, "/jannah")}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jannah/gates" />
       <LearnContentGate ready={contentReady}>
@@ -116,11 +132,18 @@ export default function JannahGatesScreen() {
                 title={t("jannah.gatesListTitle")}
                 icon={{ ios: "door.left.hand.open", android: "door_front", web: "door_front" }}
               />
-              <View style={styles.list}>
+              <LearnColumnsGrid
+                columns={columns}
+                gap={Spacing.three}
+                stackGap={0}
+                style={styles.list}
+              >
                 {gates.map((gate, index) => (
-                  <GateRow key={gate.id} gate={gate} isLast={index === gates.length - 1} />
+                  <LearnTile key={gate.id} tiled={columns > 1}>
+                    <GateRow gate={gate} isLast={columns > 1 || index === gates.length - 1} />
+                  </LearnTile>
                 ))}
-              </View>
+              </LearnColumnsGrid>
             </Card>
           </LearnReadingChrome>
 
@@ -157,3 +180,6 @@ const styles = StyleSheet.create({
   },
   quoteText: { lineHeight: 22, fontStyle: "italic" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jannah/gates");

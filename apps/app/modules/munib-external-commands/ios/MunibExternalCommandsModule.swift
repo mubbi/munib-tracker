@@ -29,6 +29,20 @@ private final class WatchBridge: NSObject, WCSessionDelegate {
     replyHandler(["ok": true])
   }
 
+  /// `sendMessage(_:replyHandler: nil, …)` is delivered here, not to the
+  /// reply-handler variant above — without it, watch marks were dropped.
+  func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+    enqueueFromWatchMessage(message)
+    onCommand?()
+  }
+
+  /// Queued `transferUserInfo` fallback the watch uses when the phone isn't
+  /// reachable (app backgrounded / not running) — delivered once it is.
+  func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+    enqueueFromWatchMessage(userInfo)
+    onCommand?()
+  }
+
   private func enqueueFromWatchMessage(_ message: [String: Any]) {
     if let command = message["command"] as? String, command == "mark-prayer",
        let prayerId = message["prayerId"] as? String,
@@ -69,22 +83,24 @@ private final class WatchBridge: NSObject, WCSessionDelegate {
 }
 
 public class MunibExternalCommandsModule: Module {
+  // Expo Modules lifecycle hooks (SDK 58 replacements for the deprecated
+  // `OnCreate` / `OnDestroy` DSL components).
+  public override func didCreate() {
+    WatchBridge.shared.onCommand = { [weak self] in
+      self?.sendEvent("onCommandsAvailable")
+    }
+    WatchBridge.shared.activate()
+    startObservingQueueWrites()
+  }
+
+  public override func willDestroy() {
+    stopObservingQueueWrites()
+  }
+
   public func definition() -> ModuleDefinition {
     Name("MunibExternalCommands")
 
     Events("onCommandsAvailable")
-
-    OnCreate {
-      WatchBridge.shared.onCommand = { [weak self] in
-        self?.sendEvent("onCommandsAvailable")
-      }
-      WatchBridge.shared.activate()
-      self.startObservingQueueWrites()
-    }
-
-    OnDestroy {
-      self.stopObservingQueueWrites()
-    }
 
     AsyncFunction("activateWatchSession") {
       WatchBridge.shared.activate()

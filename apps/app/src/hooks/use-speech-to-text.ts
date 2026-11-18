@@ -1,5 +1,6 @@
 import { useSpeechRecognitionEvent } from "expo-speech-recognition";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { Platform } from "react-native";
 import { type SharedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import { isTV } from "@/lib/platform/is-tv";
 import {
@@ -9,10 +10,10 @@ import {
   mergeSttTranscript,
   normalizeSttVolume,
   requestSttPermissions,
-  resolveSttLang,
   type SttErrorKind,
   startStt,
   stopStt,
+  sttLangCandidates,
 } from "@/lib/stt";
 
 export type UseSpeechToTextOptions = {
@@ -39,15 +40,28 @@ export type UseSpeechToTextResult = {
 };
 
 /**
- * Speech-to-text for form fields. One active field at a time; continuous mode
- * keeps the mic open until the user stops so longer dictation is possible.
- * Interim results replace the in-flight segment; finals append.
+ * The recognizer is a process-wide singleton and its events are broadcast to
+ * every subscriber. Several screens using this hook can be mounted at once
+ * (e.g. Search under a pushed Verse Detector), so only the instance that
+ * started the current session may react to events.
+ */
+let activeOwner: string | null = null;
+
+const IS_WEB = Platform.OS === "web";
+/** Web Speech API has no volume metering — pulse the visualizer while speech is heard. */
+const WEB_SPEECH_LEVEL = 0.55;
+
+/**
+ * Speech-to-text for form fields (iOS, Android and web). One active field at a
+ * time; continuous mode keeps the mic open until the user stops so longer
+ * dictation is possible. Interim results replace the in-flight segment; finals append.
  *
  * Loudness is smoothed into `level` the same way as the sample project's
  * `useVoiceCapture` → VoiceRainbowVisualizer pipeline.
  */
 export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTextResult {
   const { onTranscript, onError, uiLocale } = options;
+  const ownerId = useId();
   const [available, setAvailable] = useState(false);
   const [listening, setListening] = useState(false);
   const [activeField, setActiveField] = useState<string | null>(null);
@@ -59,6 +73,10 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
   const committedRef = useRef("");
   const listeningRef = useRef(false);
   const abortedRef = useRef(false);
+  /** Remaining language tags to try if the recognizer rejects the current one. */
+  const fallbackLangsRef = useRef<string[]>([]);
+  /** Set when an unsupported-language error should restart on the next `end`. */
+  const retryLangRef = useRef<string | null>(null);
   const onTranscriptRef = useRef(onTranscript);
   const onErrorRef = useRef(onError);
 
@@ -74,16 +92,46 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
     setAvailable(!isTV() && isSttAvailable());
   }, []);
 
+  // Release ownership (and the mic) if this screen unmounts mid-session.
+  useEffect(
+    () => () => {
+      if (activeOwner === ownerId) {
+        activeOwner = null;
+        abortStt();
+      }
+    },
+    [ownerId],
+  );
+
+  const owns = () => activeOwner === ownerId;
+
   const resetLevel = useCallback(() => {
     level.value = withTiming(0, { duration: 160 });
   }, [level]);
 
+  const launch = useCallback((lang: string) => {
+    startStt({ lang, interimResults: true, continuous: true, volumeMetering: true });
+  }, []);
+
   useSpeechRecognitionEvent("start", () => {
+    if (!owns()) return;
     listeningRef.current = true;
     setListening(true);
   });
 
   useSpeechRecognitionEvent("end", () => {
+    if (!owns()) return;
+    const retryLang = retryLangRef.current;
+    if (retryLang) {
+      retryLangRef.current = null;
+      try {
+        launch(retryLang);
+        return;
+      } catch {
+        onErrorRef.current?.("unavailable");
+      }
+    }
+    activeOwner = null;
     listeningRef.current = false;
     setListening(false);
     setActiveField(null);
@@ -91,6 +139,7 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
   });
 
   useSpeechRecognitionEvent("result", (event) => {
+    if (!owns()) return;
     const next = event.results[0]?.transcript ?? "";
     if (event.isFinal) {
       committedRef.current = mergeSttTranscript(committedRef.current, next);
@@ -105,6 +154,7 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
   });
 
   useSpeechRecognitionEvent("error", (event) => {
+    if (!owns()) return;
     if (abortedRef.current || event.error === "aborted") {
       abortedRef.current = false;
       return;
@@ -113,47 +163,68 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
     if (listeningRef.current && (event.error === "no-speech" || event.error === "speech-timeout")) {
       return;
     }
+    // Recognizer has no model for this language (e.g. Urdu on iOS) — retry with the next tag.
+    if (event.error === "language-not-supported" && fallbackLangsRef.current.length > 0) {
+      retryLangRef.current = fallbackLangsRef.current.shift() ?? null;
+      return;
+    }
     onErrorRef.current?.(classifySttError(event.error));
   });
 
   // Same smoothing as sample useVoiceCapture: withTiming(…, { duration: 130 }).
   useSpeechRecognitionEvent("volumechange", (event) => {
+    if (!owns()) return;
     const value = typeof event?.value === "number" ? event.value : -2;
     const next = normalizeSttVolume(value);
     level.value = withTiming(next, { duration: 130 });
   });
 
+  useSpeechRecognitionEvent("speechstart", () => {
+    if (!IS_WEB || !owns()) return;
+    level.value = withTiming(WEB_SPEECH_LEVEL, { duration: 160 });
+  });
+
+  useSpeechRecognitionEvent("speechend", () => {
+    if (!IS_WEB || !owns()) return;
+    resetLevel();
+  });
+
   const abort = useCallback(() => {
-    if (!listeningRef.current) {
-      abortStt();
-      setListening(false);
-      setActiveField(null);
-      resetLevel();
-      return;
+    if (activeOwner !== ownerId) return;
+    retryLangRef.current = null;
+    fallbackLangsRef.current = [];
+    if (listeningRef.current) {
+      abortedRef.current = true;
+      setTranscript("");
+      committedRef.current = "";
     }
-    abortedRef.current = true;
     abortStt();
+    activeOwner = null;
     listeningRef.current = false;
     setListening(false);
     setActiveField(null);
     resetLevel();
-    setTranscript("");
-    committedRef.current = "";
-  }, [resetLevel]);
+  }, [ownerId, resetLevel]);
 
   const stop = useCallback(() => {
+    if (activeOwner !== ownerId) return;
+    retryLangRef.current = null;
+    fallbackLangsRef.current = [];
     stopStt();
-  }, []);
+  }, [ownerId]);
 
   const start = useCallback(
     async (field: string, currentValue: string, kind: "arabic" | "other"): Promise<boolean> => {
-      if (!isSttAvailable()) {
+      // Only gate on "no recognizer at all" (TV, Firefox). Per-language support
+      // is resolved by the recognizer itself, with fallbacks below.
+      if (isTV() || (IS_WEB && !isSttAvailable())) {
         onErrorRef.current?.("unavailable");
         return false;
       }
 
-      if (listeningRef.current) {
-        abortedRef.current = true;
+      // Stop any session — ours or another mounted screen's — before taking over.
+      if (activeOwner !== null) {
+        abortedRef.current = activeOwner === ownerId;
         abortStt();
       }
 
@@ -163,6 +234,10 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
         return false;
       }
 
+      const [lang, ...fallbacks] = sttLangCandidates(uiLocale, kind);
+      activeOwner = ownerId;
+      fallbackLangsRef.current = fallbacks;
+      retryLangRef.current = null;
       baseRef.current = currentValue;
       committedRef.current = "";
       setTranscript("");
@@ -171,20 +246,16 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
       abortedRef.current = false;
 
       try {
-        startStt({
-          lang: resolveSttLang(uiLocale, kind),
-          interimResults: true,
-          continuous: true,
-          volumeMetering: true,
-        });
+        launch(lang ?? "en-US");
         return true;
       } catch {
+        activeOwner = null;
         setActiveField(null);
         onErrorRef.current?.("unavailable");
         return false;
       }
     },
-    [level, uiLocale],
+    [launch, level, ownerId, uiLocale],
   );
 
   return {

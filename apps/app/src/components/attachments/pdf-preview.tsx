@@ -7,6 +7,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Spacing } from "@/constants/theme";
 import { buildPdfJsViewerHtml, readAttachmentAsBase64 } from "@/lib/attachments/pdf-preview-source";
+import { isTV } from "@/lib/platform/is-tv";
 
 type PdfPreviewProps = {
   uri: string;
@@ -25,8 +26,11 @@ export function PdfPreview({ uri, fileName, headers, style, onOpenExternally }: 
   const [html, setHtml] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
   const [loading, setLoading] = useState(true);
+  const tv = isTV();
 
   useEffect(() => {
+    // TV: no WebView (Metro stubs it to a blank View) — skip the base64 read.
+    if (tv) return;
     let cancelled = false;
     setLoading(true);
     setFailed(false);
@@ -47,7 +51,17 @@ export function PdfPreview({ uri, fileName, headers, style, onOpenExternally }: 
     return () => {
       cancelled = true;
     };
-  }, [uri, headers, fileName]);
+  }, [uri, headers, fileName, tv]);
+
+  if (tv) {
+    return (
+      <View style={[styles.center, style]}>
+        <ThemedText type="caption" style={styles.message}>
+          {t("common.tvUnavailableBody")}
+        </ThemedText>
+      </View>
+    );
+  }
 
   if (failed) {
     return (

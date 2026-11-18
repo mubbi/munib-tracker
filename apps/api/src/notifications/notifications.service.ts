@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DataSource, IsNull, Repository } from "typeorm";
+import { DataSource, IsNull, Not, Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { InAppNotificationEntity, PushTokenEntity } from "../database/entities";
@@ -45,6 +45,11 @@ export class NotificationsService {
   ): Promise<PushTokenResponseDto> {
     const user = await this.requireAuthenticatedUser(accessToken);
     const deviceId = dto.deviceId?.trim() || null;
+
+    // A push token / Web Push endpoint identifies one device. After sign-out or
+    // an account switch, drop it from every other account so the previous
+    // user's broadcasts stop landing on this device.
+    await this.pushTokenRepository.delete({ token: dto.token, userId: Not(user.userId) });
 
     let row: PushTokenEntity | null = null;
     if (deviceId) {

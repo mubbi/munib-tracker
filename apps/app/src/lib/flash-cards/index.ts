@@ -16,6 +16,8 @@ export {
 export { getLearnSectionDef, LEARN_QUIZ_SECTIONS, type LearnQuizSectionId } from "./learn-sections";
 export {
   buildMcq,
+  condenseText,
+  isCompactCard,
   normalizeMcqText,
   pickDistractors,
   sampleMcqs,

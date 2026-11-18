@@ -1,44 +1,28 @@
 import type { LearnDuaTopic } from "@munib-tracker/shared/types";
-import { render, screen, waitFor } from "@testing-library/react-native";
+import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import { LearnDuaTopicContent } from "@/components/learn-dua/topic-content";
-import { MunibThemeProvider } from "@/providers/theme-provider";
+import { getLearnDuaTopics } from "@/lib/learn-dua";
+import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
+import { renderWithTheme } from "@/test-support/render";
 
-jest.mock("@/components/jannah/primitives", () => {
-  const React = require("react");
-  const { Text: MockText, View: MockView } = require("react-native");
-  return {
-    JannahTakeaway: ({ text }: { text: string }) => React.createElement(MockText, null, text),
-    JannahBody: ({ paragraphs }: { paragraphs: string[] }) =>
-      React.createElement(MockText, null, paragraphs.join(" ")),
-    JannahDuaBlock: ({
-      title,
-      arabic,
-      translation,
-      reference,
-    }: {
-      title?: string;
-      arabic: string;
-      translation: string;
-      reference?: string;
-    }) =>
-      React.createElement(
-        MockView,
-        null,
-        title ? React.createElement(MockText, null, title) : null,
-        React.createElement(MockText, null, arabic),
-        React.createElement(MockText, null, translation),
-        reference ? React.createElement(MockText, null, reference) : null,
-      ),
-    JannahQuranEvidence: () => null,
-    JannahHadithEvidence: () => null,
-    JannahActionSteps: () => null,
-  };
-});
+jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
+jest.mock(
+  "@/components/guide-topic-footer",
+  () => require("@/test-support/mocks/guide-topic-footer").guideTopicFooterMock,
+);
+jest.mock(
+  "@/providers/audio-player-provider",
+  () => require("@/test-support/mocks/audio-player-provider").audioPlayerProviderMock,
+);
+jest.mock(
+  "@/hooks/use-quran-ayah-range",
+  () => require("@/test-support/mocks/use-quran-ayah-range").quranAyahRangeMock,
+);
 
-jest.mock("@/components/guide-topic-footer", () => ({
-  GuideTopicFooter: () => null,
-}));
+/** Real bundled topics — together they exercise every optional section. */
+const topics = getLearnDuaTopics();
+const linked = topics.find((topic) => topic.appLinks?.length);
 
 const topicWithVariants: LearnDuaTopic = {
   id: "wake-sleep",
@@ -62,60 +46,56 @@ const topicWithVariants: LearnDuaTopic = {
           translation: "O Allah, in Your name I die and I live.",
           reference: "Sahih al-Bukhari 6314",
         },
-        {
-          arabic: "اللَّهُمَّ بِاسْمِكَ أَحْيَا",
-        },
+        { arabic: "اللَّهُمَّ بِاسْمِكَ أَحْيَا" },
       ],
     },
   ],
 };
 
-function renderTopic(topic: LearnDuaTopic) {
-  return render(
-    <MunibThemeProvider>
-      <LearnDuaTopicContent topic={topic} />
-    </MunibThemeProvider>,
-  );
-}
-
 describe("LearnDuaTopicContent", () => {
+  beforeEach(resetExpoRouterMock);
+
+  it.each(topics.map((topic) => [topic.id, topic] as const))(
+    "renders the %s topic summary",
+    async (_id, topic) => {
+      await renderWithTheme(<LearnDuaTopicContent topic={topic} />);
+      expect(screen.getByText(topic.summary)).toBeTruthy();
+    },
+  );
+
   it("renders alternate authentic wordings for a phrase", async () => {
-    renderTopic(topicWithVariants);
-
-    await waitFor(() => {
-      expect(screen.getByText("Frame the day with remembrance.")).toBeTruthy();
-    });
-
+    await renderWithTheme(<LearnDuaTopicContent topic={topicWithVariants} />);
     expect(screen.getByText("Dua before sleep — When lying down to sleep")).toBeTruthy();
-    expect(screen.getAllByText("Alternate authentic wording").length).toBe(2);
-    expect(screen.getByText("O Allah, in Your name I die and I live.")).toBeTruthy();
+    expect(screen.getAllByText("Alternate authentic wording")).toHaveLength(2);
     expect(screen.getByText("Sahih al-Bukhari 6314")).toBeTruthy();
-    // Variant without its own translation falls back to the primary phrase.
-    expect(screen.getAllByText("In Your name, O Allah, I die and I live.").length).toBeGreaterThan(
-      0,
-    );
+    // A variant without its own translation falls back to the primary phrase.
+    expect(screen.getAllByText("In Your name, O Allah, I die and I live.")).toHaveLength(2);
   });
 
   it("skips the variants list when a phrase has none", async () => {
-    const topic: LearnDuaTopic = {
-      ...topicWithVariants,
-      phrases: [
-        {
-          id: "wake-alhamdulillah",
-          title: "Dua on waking",
-          when: "Immediately upon waking",
-          arabic: "الْحَمْدُ لِلَّهِ",
-          transliteration: "Alhamdu lillah",
-          translation: "All praise is for Allah.",
-        },
-      ],
-    };
-
-    renderTopic(topic);
-
-    await waitFor(() => {
-      expect(screen.getByText("Dua on waking — Immediately upon waking")).toBeTruthy();
-    });
+    const [phrase] = topicWithVariants.phrases ?? [];
+    await renderWithTheme(
+      <LearnDuaTopicContent
+        topic={{ ...topicWithVariants, phrases: [{ ...phrase, variants: undefined }] }}
+      />,
+    );
     expect(screen.queryByText("Alternate authentic wording")).toBeNull();
+  });
+
+  it("opens in-app links", async () => {
+    if (!linked?.appLinks?.[0]) throw new Error("expected a topic with app links");
+    await renderWithTheme(<LearnDuaTopicContent topic={linked} />);
+    await fireEvent.press(screen.getByText(linked.appLinks[0].label));
+    expect(mockRouter.push).toHaveBeenCalledWith(linked.appLinks[0].route);
+  });
+
+  it("toggles lesson completion from the footer", async () => {
+    await renderWithTheme(<LearnDuaTopicContent topic={topicWithVariants} />);
+    await fireEvent.press(screen.getByTestId("guide-topic-footer"));
+    await waitFor(() =>
+      expect(screen.getByTestId("guide-topic-footer").props.accessibilityState).toEqual({
+        checked: true,
+      }),
+    );
   });
 });

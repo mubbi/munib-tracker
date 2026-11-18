@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { IconButton } from "@/components/ui/icon-button";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { isTtsPlaybackTrack } from "@/lib/tts-audio-tracks";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranActions, useQuranPrefs } from "@/stores/quran-store";
@@ -32,7 +33,8 @@ export function TtsVoiceControl({ size = 18, wellRadius = 20 }: TtsVoiceControlP
   const [open, setOpen] = useState(false);
 
   const track = audio.current;
-  if (!isTtsPlaybackTrack(track) || !track.ttsPlayback) return null;
+  // TV: no speech synthesis voices to pick (expo-speech is stubbed).
+  if (isTV() || !isTtsPlaybackTrack(track) || !track.ttsPlayback) return null;
 
   const lang = track.ttsPlayback.lang;
   const selectedVoiceId = track.ttsPlayback.voice ?? quranPrefs.ttsVoiceByLang?.[lang];

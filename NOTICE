@@ -38,3 +38,10 @@ project. There is no official payment, Sponsors, or donation channel.
 Bundled and remote Islamic datasets (Qur'an, hadith, adhkar, audio, etc.) remain
 under their original licenses and attributions. See `docs/FREE_OPEN_SOURCE_DATA.md`
 and the in-app / marketing Credits pages. Do not strip upstream attributions.
+
+Qur'an practice (on-device recitation listener)
+- Tilawa (https://github.com/yazinsai/tilawa) — MIT licence (code, used as the @tilawa/core npm package).
+- Zipformer a0w model weights and phoneme corpus (downloaded at run time, not distributed in this repository) — NPL-1.2, Quran-Lab No-Profit License: non-commercial, share-alike; features they power must stay free and ad-free.
+- FastConformer alternate model (downloaded at run time) — NVIDIA CC-BY-4.0.
+- ONNX Runtime (onnxruntime-web / onnxruntime-react-native) — MIT licence.
+- Quran Lab TajweedFormer SDKs and model (optional pronunciation drill, downloaded at run time) — NPL-1.2.

@@ -1,15 +1,18 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { ExcusedGuideContent } from "@/components/excused/excused-guide-content";
+import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function HaydGuideScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const wide = useLearnHubLayout();
 
   return (
     <ScreenLayout
@@ -17,6 +20,7 @@ export default function HaydGuideScreen() {
       title={t("hayd.title")}
       subtitle={t("hayd.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.twoPane ? wide.maxContentWidth : undefined}
     >
       <Seo path="/hayd" />
       <Stagger>
@@ -30,3 +34,6 @@ export default function HaydGuideScreen() {
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/hayd");

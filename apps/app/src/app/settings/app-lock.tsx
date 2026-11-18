@@ -3,9 +3,9 @@ import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -22,9 +22,11 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isExpoGo } from "@/lib/notifications/platform";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
 
 export default function AppLockScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -52,6 +54,7 @@ export default function AppLockScreen() {
   if (isTV()) {
     return (
       <ScreenLayout
+        maxContentWidth={formMaxWidth}
         eyebrow={t("settings.title")}
         title={t("pinLock.title")}
         onBack={() => goBackOrReplace(router, "/")}
@@ -69,6 +72,7 @@ export default function AppLockScreen() {
   if (!isNative) {
     return (
       <ScreenLayout
+        maxContentWidth={formMaxWidth}
         eyebrow={t("settings.title")}
         title={t("pinLock.title")}
         subtitle={t("pinLock.webUnavailable")}
@@ -87,6 +91,7 @@ export default function AppLockScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.title")}
       title={t("pinLock.title")}
       subtitle={t("pinLock.settingsSubtitle")}
@@ -416,3 +421,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/app-lock");

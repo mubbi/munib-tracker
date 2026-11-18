@@ -5,6 +5,7 @@ import { Platform, Share, StyleSheet, TextInput } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -22,13 +23,15 @@ import {
 } from "@/lib/backup";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
 import { reloadAllStores } from "@/stores/reload-all-stores";
 
 export default function BackupScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const toast = useToast();
 
   const [exported, setExported] = useState("");
@@ -39,6 +42,7 @@ export default function BackupScreen() {
   if (isTV()) {
     return (
       <ScreenLayout
+        maxContentWidth={formMaxWidth}
         eyebrow={t("settings.title")}
         title={t("backup.title")}
         onBack={() => goBackOrReplace(router, "/settings")}
@@ -99,6 +103,7 @@ export default function BackupScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.title")}
       title={t("backup.title")}
       subtitle={t("backup.subtitle")}
@@ -127,14 +132,7 @@ export default function BackupScreen() {
               editable={false}
               multiline
               selectTextOnFocus
-              style={[
-                styles.output,
-                {
-                  backgroundColor: colors.muted,
-                  color: colors.mutedForeground,
-                  borderColor: colors.border,
-                },
-              ]}
+              style={[styles.output, tokens.inputSurface, { color: colors.mutedForeground }]}
             />
           ) : null}
         </Card>
@@ -155,14 +153,7 @@ export default function BackupScreen() {
             multiline
             autoCapitalize="none"
             autoCorrect={false}
-            style={[
-              styles.input,
-              {
-                backgroundColor: colors.muted,
-                color: colors.foreground,
-                borderColor: colors.border,
-              },
-            ]}
+            style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
           />
           <Button
             label={t("backup.importAction")}
@@ -212,3 +203,6 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/backup");

@@ -1,8 +1,12 @@
-import { DEFAULT_NOTIFICATION_PREFERENCES } from "@munib-tracker/shared/constants";
 import type { UserPreferences } from "@munib-tracker/shared/types";
 
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
 import { type BuiltReminder, buildReminders } from "@/lib/notifications/build-reminders";
+import {
+  buildNotificationPreferences,
+  buildUserPreferences,
+} from "@/test-support/fixtures/preferences";
+import { usePlatform } from "@/test-support/platform";
 
 /** Same coords as the seeded fallback, but marked as a real fix so prayer reminders schedule. */
 const SET_LOCATION: StoredLocation = {
@@ -59,6 +63,8 @@ import { isLocalNotificationSupported } from "@/lib/notifications/platform";
 
 import {
   configureNotifications,
+  getPermissionStatus,
+  listScheduled,
   MARK_ACTION_IDENTIFIER,
   markFromNotification,
   osTriggerForReminder,
@@ -83,30 +89,7 @@ const mockSupported = isLocalNotificationSupported as jest.MockedFunction<
 >;
 
 function makePrefs(over: Partial<UserPreferences["notificationPrefs"]> = {}): UserPreferences {
-  return {
-    locale: "en",
-    translationLocale: "en",
-    timeFormat: "24",
-    bedtime: "22:30",
-    notificationPrefs: {
-      ...DEFAULT_NOTIFICATION_PREFERENCES,
-      masterEnabled: true,
-      prayer: true,
-      sunnahPrayer: true,
-      ...over,
-    },
-    prayerAlerts: {},
-    fontPrefs: {
-      global: {},
-      arabic: {},
-      translation: {},
-      transliteration: {},
-      titles: {},
-    },
-    favoriteZikrIds: [],
-    favoriteZikrOrder: [],
-    hasCompletedOnboarding: true,
-  };
+  return buildUserPreferences({ notificationPrefs: buildNotificationPreferences(over) });
 }
 
 /** Order of trigger-type resolution matters — pin the enum values from the mock. */
@@ -323,6 +306,43 @@ function dateReminder(over: Partial<BuiltReminder> = {}): BuiltReminder {
 describe("osTriggerForReminder", () => {
   const nowMs = Date.parse("2026-09-03T11:02:05.000Z");
 
+  describe("precise Adhan timing on Android (alarm-clock delivery)", () => {
+    usePlatform({ OS: "android" });
+
+    it("adds alarmClock delivery to Adhan-channel DATE triggers", () => {
+      const reminder = dateReminder({
+        fireAt: new Date(nowMs + 60_000),
+        channelId: "prayerAdhan",
+      });
+      expect(osTriggerForReminder(reminder, nowMs, { preciseAdhan: true })).toEqual({
+        type: TRIGGER.DATE,
+        date: reminder.fireAt,
+        channelId: "prayerAdhan",
+        delivery: "alarmClock",
+      });
+    });
+
+    it("leaves other channels and the default setting on best-effort delivery", () => {
+      const adhan = dateReminder({ fireAt: new Date(nowMs + 60_000), channelId: "prayerAdhan" });
+      const zikr = dateReminder({ fireAt: new Date(nowMs + 60_000), channelId: "zikr" });
+      expect(osTriggerForReminder(adhan, nowMs)).not.toHaveProperty("delivery");
+      expect(osTriggerForReminder(zikr, nowMs, { preciseAdhan: true })).not.toHaveProperty(
+        "delivery",
+      );
+    });
+  });
+
+  describe("precise Adhan timing on iOS", () => {
+    usePlatform({ OS: "ios" });
+
+    it("never sets alarmClock delivery", () => {
+      const reminder = dateReminder({ fireAt: new Date(nowMs + 60_000), channelId: "prayerAdhan" });
+      expect(osTriggerForReminder(reminder, nowMs, { preciseAdhan: true })).not.toHaveProperty(
+        "delivery",
+      );
+    });
+  });
+
   it("uses a DATE trigger when the fire time is safely in the future", () => {
     const reminder = dateReminder({ fireAt: new Date(nowMs + 60_000) });
     expect(osTriggerForReminder(reminder, nowMs)).toEqual({
@@ -482,5 +502,98 @@ describe("markFromNotification", () => {
       type: "mark-current-obligatory",
       source: "notification",
     });
+  });
+});
+
+describe("configureNotifications on Android", () => {
+  usePlatform({ OS: "android" });
+
+  it("creates every channel, giving the Adhan channel its sound at high importance", async () => {
+    const setChannel = Notifications.setNotificationChannelAsync as jest.Mock;
+    setChannel.mockClear();
+    await configureNotifications();
+    expect(setChannel).toHaveBeenCalledWith(
+      "prayerAdhan",
+      expect.objectContaining({ importance: 4, sound: "adhan.mp3" }),
+    );
+    expect(setChannel).toHaveBeenCalledWith(
+      "zikr",
+      expect.not.objectContaining({ sound: expect.anything() }),
+    );
+  });
+});
+
+describe("configureNotifications when unsupported", () => {
+  it("does nothing", async () => {
+    mockSupported.mockReturnValue(false);
+    const setHandler = Notifications.setNotificationHandler as jest.Mock;
+    setHandler.mockClear();
+    await configureNotifications();
+    expect(setHandler).not.toHaveBeenCalled();
+  });
+});
+
+describe("getPermissionStatus", () => {
+  it("reports the OS permission state", async () => {
+    mockPermission.mockResolvedValue("denied");
+    await expect(getPermissionStatus()).resolves.toBe("denied");
+  });
+});
+
+describe("listScheduled", () => {
+  const scheduled = (identifier: string, trigger: unknown, title: string | null, body = "b") => ({
+    identifier,
+    trigger,
+    content: { title, body, data: { route: `/r/${identifier}` } },
+  });
+
+  it("lists pending OS notifications soonest first, de-duplicated by text", async () => {
+    const soon = Date.now() + 60 * 60_000;
+    mockGetAll.mockResolvedValue([
+      scheduled("late", { type: "date", value: soon + 60_000 }, "Asr"),
+      scheduled("early", { type: "date", value: soon }, "Dhuhr"),
+      scheduled("dupe", { type: "date", value: soon + 120_000 }, "Dhuhr"),
+      scheduled("untitled", { type: "date", value: soon + 180_000 }, null, "x"),
+      scheduled("unparseable", null, "Bad"),
+    ] as never);
+
+    const rows = await listScheduled(makePrefs(), SET_LOCATION);
+
+    expect(rows.map((r) => r.id)).toEqual(["early", "late", "untitled"]);
+    expect(rows[0]).toMatchObject({ title: "Dhuhr", route: "/r/early", time: expect.any(String) });
+    expect(rows[2]?.title).toEqual(expect.any(String));
+  });
+
+  it("falls back to built reminders when nothing parseable is pending", async () => {
+    mockGetAll.mockResolvedValue([scheduled("bad", null, "Bad")] as never);
+    const rows = await listScheduled(makePrefs(), SET_LOCATION);
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it("falls back to built reminders when the OS queue is empty", async () => {
+    const rows = await listScheduled(makePrefs(), SET_LOCATION);
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it("builds the list itself where local notifications are unsupported", async () => {
+    mockSupported.mockReturnValue(false);
+    const rows = await listScheduled(makePrefs(), SET_LOCATION);
+    expect(rows.length).toBeGreaterThan(0);
+    expect(mockGetAll).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ["the OS queue is empty", () => {}],
+    [
+      "nothing parseable is pending",
+      () =>
+        mockGetAll.mockResolvedValue([{ identifier: "x", trigger: null, content: {} }] as never),
+    ],
+    ["local notifications are unsupported", () => mockSupported.mockReturnValue(false)],
+  ])("returns nothing with reminders switched off when %s", async (_label, arrange) => {
+    arrange();
+    await expect(listScheduled(makePrefs({ masterEnabled: false }), SET_LOCATION)).resolves.toEqual(
+      [],
+    );
   });
 });

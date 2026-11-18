@@ -3,8 +3,10 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
+import { NewBadge } from "@/components/ui/new-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
@@ -23,6 +25,10 @@ type NavRowProps = {
   onPress: () => void;
   /** TV: request initial D-pad focus on this row. */
   preferredFocus?: boolean;
+  /** Show a "New" pill after the label (recently released features). */
+  isNew?: boolean;
+  /** Accessibility label suffix for the badge, e.g. "New". */
+  newLabel?: string;
 };
 
 /** A tappable navigation row: icon well + label + optional count + chevron. */
@@ -34,6 +40,8 @@ export function NavRow({
   completed,
   onPress,
   preferredFocus,
+  isNew,
+  newLabel,
 }: NavRowProps) {
   const { colors, tokens } = useThemeTokens();
   const rtl = useIsRTL();
@@ -44,15 +52,28 @@ export function NavRow({
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={trailing ? `${label}, ${trailing}` : label}
+      accessibilityLabel={[label, isNew ? newLabel : undefined, trailing]
+        .filter(Boolean)
+        .join(", ")}
       onPress={onPress}
       {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
-      style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
+      style={[
+        styles.row,
+        tv && styles.rowTv,
+        { backgroundColor: colors.muted, borderColor: tokens.hairline },
+      ]}
     >
       <IconWell icon={icon} well={tv ? 48 : undefined} size={tv ? 22 : undefined} />
-      <ThemedText type="small" style={[styles.label, tv && { fontSize: TvLayout.bodyFontSize }]}>
+      <ThemedText
+        type="small"
+        // A single word wider than the label slot (TV 3-column Library grid,
+        // long locales) otherwise breaks with an orphaned letter ("Bookmark / s").
+        android_hyphenationFrequency="normal"
+        style={[styles.label, tv && { fontSize: TvLayout.bodyFontSize }]}
+      >
         {label}
       </ThemedText>
+      {isNew ? <NewBadge style={styles.newBadge} /> : null}
       {trailing ? (
         <View
           style={[
@@ -86,6 +107,7 @@ export function NavRow({
 const COUNT_SIZE = 24;
 
 const styles = StyleSheet.create({
+  newBadge: { alignSelf: "center" },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -94,10 +116,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    minHeight: 52,
+    borderWidth: 1,
+    minHeight: tvDp(52),
   },
   rowTv: {
     minHeight: TvLayout.minFocusTarget,
+    // Tighter than phone: in the 3-column Library grid the label slot is ~90dp.
+    gap: Spacing.two,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.four,
     borderRadius: Radius.lg,

@@ -5,8 +5,10 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ADHAN_STYLES } from "@/lib/adhan-audio";
+import { isTV } from "@/lib/platform/is-tv";
 
 type AdhanStylePickerProps = {
   value: string;
@@ -17,6 +19,7 @@ type AdhanStylePickerProps = {
 export function AdhanStylePicker({ value, onChange }: AdhanStylePickerProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const tv = isTV();
 
   return (
     <View style={styles.list}>
@@ -36,10 +39,12 @@ export function AdhanStylePicker({ value, onChange }: AdhanStylePickerProps) {
             }}
             style={[
               styles.row,
+              tv && styles.rowTv,
               {
                 backgroundColor: selected ? tokens.accentSoft : colors.muted,
                 borderColor: selected ? tokens.accentBorder : "transparent",
-                borderWidth: selected ? 1.5 : 0,
+                // TV: hairline only — the accent focus ring must stay distinct.
+                borderWidth: selected ? (tv ? StyleSheet.hairlineWidth : 1.5) : 0,
               },
             ]}
           >
@@ -83,6 +88,9 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two + 2,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
   },
   copy: {
     flex: 1,

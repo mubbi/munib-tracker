@@ -3,38 +3,48 @@ import { act, renderHook } from "@testing-library/react-native";
 import { createStore, useStore } from "./create-store";
 
 describe("useStore", () => {
-  it("does not loop when the selector returns a new object each call", () => {
+  it("does not loop when the selector returns a new object each call", async () => {
     const store = createStore<{ count: number; inc: () => void }>((set, get) => ({
       count: 0,
       inc: () => set({ count: get().count + 1 }),
     }));
 
-    const { result, rerender } = renderHook(() => useStore(store, (s) => ({ count: s.count })));
+    const { result, rerender } = await renderHook(() =>
+      useStore(store, (s) => ({ count: s.count })),
+    );
 
     expect(result.current.count).toBe(0);
     const first = result.current;
-    rerender();
+    await rerender();
     expect(result.current).toBe(first);
 
-    act(() => {
+    await act(() => {
       store.getState().inc();
     });
     expect(result.current.count).toBe(1);
     expect(result.current).not.toBe(first);
   });
 
-  it("re-reads when the selector closes over a new argument", () => {
+  it("re-reads when the selector closes over a new argument", async () => {
     const store = createStore<{ items: Record<string, number> }>(() => ({
       items: { a: 1, b: 2 },
     }));
 
-    const { result, rerender } = renderHook(
+    const { result, rerender } = await renderHook(
       ({ id }: { id: string }) => useStore(store, (s) => s.items[id] ?? 0),
       { initialProps: { id: "a" } },
     );
 
     expect(result.current).toBe(1);
-    rerender({ id: "b" });
+    await rerender({ id: "b" });
     expect(result.current).toBe(2);
+  });
+});
+
+describe("createStore setState", () => {
+  it("accepts an updater function of the previous state", () => {
+    const store = createStore<{ count: number }>(() => ({ count: 1 }));
+    store.setState((prev) => ({ count: prev.count + 1 }));
+    expect(store.getState().count).toBe(2);
   });
 });

@@ -38,6 +38,7 @@ import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-act
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useReviewPrompt } from "@/features/reviews/context/ReviewPromptContext";
 import { useReviewDailyTrackingInteraction } from "@/features/reviews/hooks/useReviewDailyTrackingInteraction";
@@ -74,6 +75,7 @@ import {
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { createSalahTrackingSession, endSalahTrackingSession } from "@/lib/salah-phase";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   endSurfacePushRegistration,
   registerSurfacePushSchedule,
@@ -131,6 +133,9 @@ function isZikrDone(count: number, targetCount?: number): boolean {
   return isZikrItemDone(count, targetCount);
 }
 
+/** Window width at/above which the tracker uses a dashboard (main + aside) layout. */
+const TRACKER_DASHBOARD_BREAKPOINT = 1200;
+
 export default function TrackerScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
@@ -150,7 +155,10 @@ export default function TrackerScreen() {
   const jamaMap = usePrayerJamaMap();
   const prayerTimes = useDailyPrayerTimes();
   const homeHero = useHomeHero();
-  const { isListDetail } = useLargeScreenLayout();
+  const { isListDetail, width } = useLargeScreenLayout();
+  // Desktop / wide tablet (never TV): checklist + summary in the main column,
+  // schedule, devotion and secondary cards in a side column.
+  const dashboard = !isTV() && width >= TRACKER_DASHBOARD_BREAKPOINT;
   const { setPrayerStatus, setPrayerNotes, setPrayerJama } = useTrackerActions();
   useEnsureKhatmLoaded();
   const { plan: khatmPlan, ayahsRead: khatmRead } = useKhatm();
@@ -510,11 +518,12 @@ export default function TrackerScreen() {
     },
   ];
 
+  const tv = isTV();
   const summaryRing = (
     <ProgressRing
       progress={progress}
-      size={100}
-      stroke={11}
+      size={tv ? tvDp(120) : 100}
+      stroke={tv ? tvDp(12) : 11}
       color={isComplete ? tokens.status.success.color : undefined}
       caption={t("tracker.salahCaption")}
     />
@@ -548,6 +557,151 @@ export default function TrackerScreen() {
     </View>
   );
 
+  const summaryCard = (
+    <View>
+      <Card>
+        <View style={styles.summaryRow}>
+          {/* Yoga flips row order under RTL — keep a single LTR child order. */}
+          {summaryRing}
+          {summaryCopy}
+        </View>
+
+        {glanceItems.length > 0 ? (
+          <View style={styles.glanceSection}>
+            <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.glanceHeader}>
+              {t("tracker.glanceTitle")}
+            </ThemedText>
+            <TrackerProgressRings items={glanceItems} />
+          </View>
+        ) : null}
+      </Card>
+
+      {/* Confetti overlays the summary card on a completion / unlock edge. */}
+      <PartyPopper burstKey={celebrationKey} colors={CONFETTI_COLORS} />
+    </View>
+  );
+
+  const achievementCard = (
+    <PressableScale
+      onPress={() => router.push("/achievements")}
+      haptic="light"
+      scaleTo={0.98}
+      accessibilityRole="button"
+      accessibilityLabel={t("home.devotionA11y", {
+        level: devotion.level,
+        noor: devotion.noor,
+        current: devotionLevelProgress,
+        next: devotionLevelSpan,
+      })}
+    >
+      <Card padding="three" style={styles.achievementCard}>
+        <DevotionAchievementSummary milestonePillBackground={colors.muted} />
+      </Card>
+    </PressableScale>
+  );
+
+  const checklist = (
+    <TrackerDayChecklist
+      date={getLocalDateString()}
+      isToday
+      status={status}
+      notes={notes}
+      jama={jamaMap}
+      zikrCounts={zikrCounts}
+      prayerTimes={prayerTimes}
+      onPrayerPress={setActivePrayer}
+      scrollRef={scrollRef}
+      getScrollY={() => scrollYRef.current}
+      registerFocus={register}
+      // TV: land on the first Salah row — marking prayers is the primary task.
+      preferredFocusFirstPrayer={tv}
+      fridayFocused={isFocused(FRIDAY_CHECKLIST_FOCUS)}
+      whiteDaysFocused={isFocused(WHITE_DAYS_CHECKLIST_FOCUS)}
+    />
+  );
+
+  const trackSalahCard =
+    !tv && (Platform.OS === "android" || Platform.OS === "web") && locationStatus !== "denied" ? (
+      <Card padding="three">
+        <SectionHeader
+          title={t("notif.trackSalah.title")}
+          icon={{
+            ios: "lock.iphone",
+            android: "notifications_active",
+            web: "notifications_active",
+          }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.salahAdhkarHint}>
+          {trackingActive
+            ? t("notif.trackSalah.activeHint")
+            : Platform.OS === "web"
+              ? t("notif.trackSalah.hintWeb")
+              : t("notif.trackSalah.hint")}
+        </ThemedText>
+        <View style={styles.rows}>
+          <NavRow
+            icon={{
+              ios: trackingActive ? "stop.circle" : "play.circle",
+              android: trackingActive ? "stop_circle" : "play_circle",
+              web: trackingActive ? "stop_circle" : "play_circle",
+            }}
+            label={
+              trackingActive
+                ? t("notif.trackSalah.active", {
+                    prayer: salahTrackingSession?.prayerName ?? "",
+                  })
+                : t("notif.trackSalah.start")
+            }
+            onPress={trackingActive ? stopTrackingSalah : startTrackingSalah}
+          />
+        </View>
+      </Card>
+    ) : null;
+
+  const journeyCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("jannah.journeyTitle")}
+        icon={{
+          ios: "chart.line.uptrend.xyaxis",
+          android: "trending_up",
+          web: "trending_up",
+        }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.salahAdhkarHint}>
+        {t("jannah.journeySummary")}
+      </ThemedText>
+      <View style={styles.rows}>
+        <NavRow
+          icon={{ ios: "leaf.fill", android: "park", web: "park" }}
+          label={t("jannah.journeySubtitle")}
+          onPress={() => router.push("/jannah/journey")}
+        />
+      </View>
+    </Card>
+  );
+
+  const keepGoingCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("tracker.keepGoing")}
+        icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+      />
+      <View style={styles.shortcuts}>
+        <QuickActionGrid items={shortcuts} columns={dashboard ? (width >= 1600 ? 6 : 5) : 4} />
+      </View>
+    </Card>
+  );
+
+  const scheduleCard = (
+    <PrayerScheduleCard
+      schedule={homeHero.schedule}
+      nextIn={homeHero.nextIn}
+      nextScheduleId={homeHero.nextScheduleId}
+    />
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("tracker.eyebrow")}
@@ -557,159 +711,44 @@ export default function TrackerScreen() {
       onScroll={onTrackerScroll}
     >
       <Seo path="/tracker" />
-      <View style={isListDetail ? styles.listDetailRoot : undefined}>
-        <View style={isListDetail ? styles.listDetailPrimary : undefined}>
-          <Stagger>
-            <View>
-              <Card>
-                <View style={styles.summaryRow}>
-                  {/* Yoga flips row order under RTL — keep a single LTR child order. */}
-                  {summaryRing}
-                  {summaryCopy}
-                </View>
-
-                {glanceItems.length > 0 ? (
-                  <View style={styles.glanceSection}>
-                    <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-                    <ThemedText
-                      type="caption"
-                      themeColor="mutedForeground"
-                      style={styles.glanceHeader}
-                    >
-                      {t("tracker.glanceTitle")}
-                    </ThemedText>
-                    <TrackerProgressRings items={glanceItems} />
-                  </View>
-                ) : null}
-              </Card>
-
-              {/* Confetti overlays the summary card on a completion / unlock edge. */}
-              <PartyPopper burstKey={celebrationKey} colors={CONFETTI_COLORS} />
-            </View>
-
-            <PressableScale
-              onPress={() => router.push("/achievements")}
-              haptic="light"
-              scaleTo={0.98}
-              accessibilityRole="button"
-              accessibilityLabel={t("home.devotionA11y", {
-                level: devotion.level,
-                noor: devotion.noor,
-                current: devotionLevelProgress,
-                next: devotionLevelSpan,
-              })}
-            >
-              <Card padding="three" style={styles.achievementCard}>
-                <DevotionAchievementSummary milestonePillBackground={colors.muted} />
-              </Card>
-            </PressableScale>
-
-            <TrackerDayChecklist
-              date={getLocalDateString()}
-              isToday
-              status={status}
-              notes={notes}
-              jama={jamaMap}
-              zikrCounts={zikrCounts}
-              prayerTimes={prayerTimes}
-              onPrayerPress={setActivePrayer}
-              scrollRef={scrollRef}
-              getScrollY={() => scrollYRef.current}
-              registerFocus={register}
-              fridayFocused={isFocused(FRIDAY_CHECKLIST_FOCUS)}
-              whiteDaysFocused={isFocused(WHITE_DAYS_CHECKLIST_FOCUS)}
-            />
-
-            {!isTV() &&
-            (Platform.OS === "android" || Platform.OS === "web") &&
-            locationStatus !== "denied" ? (
-              <Card padding="three">
-                <SectionHeader
-                  title={t("notif.trackSalah.title")}
-                  icon={{
-                    ios: "lock.iphone",
-                    android: "notifications_active",
-                    web: "notifications_active",
-                  }}
-                />
-                <ThemedText
-                  type="caption"
-                  themeColor="mutedForeground"
-                  style={styles.salahAdhkarHint}
-                >
-                  {trackingActive
-                    ? t("notif.trackSalah.activeHint")
-                    : Platform.OS === "web"
-                      ? t("notif.trackSalah.hintWeb")
-                      : t("notif.trackSalah.hint")}
-                </ThemedText>
-                <View style={styles.rows}>
-                  <NavRow
-                    icon={{
-                      ios: trackingActive ? "stop.circle" : "play.circle",
-                      android: trackingActive ? "stop_circle" : "play_circle",
-                      web: trackingActive ? "stop_circle" : "play_circle",
-                    }}
-                    label={
-                      trackingActive
-                        ? t("notif.trackSalah.active", {
-                            prayer: salahTrackingSession?.prayerName ?? "",
-                          })
-                        : t("notif.trackSalah.start")
-                    }
-                    onPress={trackingActive ? stopTrackingSalah : startTrackingSalah}
-                  />
-                </View>
-              </Card>
-            ) : null}
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("jannah.journeyTitle")}
-                icon={{
-                  ios: "chart.line.uptrend.xyaxis",
-                  android: "trending_up",
-                  web: "trending_up",
-                }}
-              />
-              <ThemedText
-                type="caption"
-                themeColor="mutedForeground"
-                style={styles.salahAdhkarHint}
-              >
-                {t("jannah.journeySummary")}
-              </ThemedText>
-              <View style={styles.rows}>
-                <NavRow
-                  icon={{ ios: "leaf.fill", android: "park", web: "park" }}
-                  label={t("jannah.journeySubtitle")}
-                  onPress={() => router.push("/jannah/journey")}
-                />
-              </View>
-            </Card>
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("tracker.keepGoing")}
-                icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-              />
-              <View style={styles.shortcuts}>
-                <QuickActionGrid items={shortcuts} columns={4} />
-              </View>
-            </Card>
-          </Stagger>
-        </View>
-
-        {isListDetail ? (
-          <View style={[styles.listDetailSecondary, isTV() && styles.listDetailSecondaryTv]}>
-            <PrayerScheduleCard
-              schedule={homeHero.schedule}
-              nextIn={homeHero.nextIn}
-              nextScheduleId={homeHero.nextScheduleId}
-            />
+      {dashboard ? (
+        <View style={styles.listDetailRoot}>
+          <View style={styles.listDetailPrimary}>
+            <Stagger>
+              {summaryCard}
+              {checklist}
+              {keepGoingCard}
+            </Stagger>
           </View>
-        ) : null}
-      </View>
+          <View style={[styles.dashboardAside, { width: width >= 1440 ? 400 : 360 }]}>
+            <Stagger entranceKey="tracker-aside">
+              {scheduleCard}
+              {achievementCard}
+              {trackSalahCard}
+              {journeyCard}
+            </Stagger>
+          </View>
+        </View>
+      ) : (
+        <View style={isListDetail ? styles.listDetailRoot : undefined}>
+          <View style={isListDetail ? styles.listDetailPrimary : undefined}>
+            <Stagger>
+              {summaryCard}
+              {achievementCard}
+              {checklist}
+              {trackSalahCard}
+              {journeyCard}
+              {keepGoingCard}
+            </Stagger>
+          </View>
+
+          {isListDetail ? (
+            <View style={[styles.listDetailSecondary, tv && styles.listDetailSecondaryTv]}>
+              {scheduleCard}
+            </View>
+          ) : null}
+        </View>
+      )}
 
       {sheetPrayer ? (
         <PrayerStatusSheet
@@ -781,10 +820,19 @@ const styles = StyleSheet.create({
     width: 340,
     maxWidth: "38%",
   },
+  dashboardAside: {
+    flexShrink: 0,
+  },
+  // A definite, non-growing detail pane: with `flex: 1` the schedule's content
+  // width won the flex negotiation and squeezed the summary column to ~160dp on
+  // a 1080p TV (word-per-line copy, truncated Excused Day chips).
   listDetailSecondaryTv: {
-    width: undefined,
-    flex: 1,
-    minWidth: TvLayout.detailPaneMinWidth,
+    width: TvLayout.detailPaneMinWidth,
+    flexGrow: 0,
+    flexShrink: 0,
     maxWidth: TvLayout.detailPaneMaxWidth,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(tabs)/tracker");

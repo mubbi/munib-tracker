@@ -181,7 +181,9 @@ export function formatNumberForInput(
   style: NumberFormatStyle = DEFAULT_NUMBER_FORMAT,
 ): string {
   if (!Number.isFinite(value) || value <= 0) return "";
-  const fixed = value.toFixed(maxFractionDigits).replace(/\.?0+$/, "");
+  const raw = value.toFixed(maxFractionDigits);
+  // Trim only fractional zeros — whole numbers ("50" at 0 digits) must keep theirs.
+  const fixed = raw.includes(".") ? raw.replace(/\.?0+$/, "") : raw;
   // formatNumberInput expects the style's decimal separator in the raw string.
   const { decimal } = FORMAT_CONFIG[style];
   const localized = fixed.replace(".", decimal);

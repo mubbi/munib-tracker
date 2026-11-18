@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # Marketing site (`apps/marketing-web`)
 
-Next.js 16 landing site (port **3000**). Full setup notes: [`README.md`](./README.md).
+Next.js 16.4 landing site (port **3000**; `cacheComponents` + `partialPrefetching` on). Full setup notes: [`README.md`](./README.md). Animations: framer-motion via `src/components/ui/motion.tsx` — use `delayChildren: stagger()`, not the deprecated `staggerChildren`.
 
 ## Product copy
 

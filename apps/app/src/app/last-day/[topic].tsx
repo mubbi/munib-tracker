@@ -1,8 +1,10 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LastDayTopicContent } from "@/components/last-day/topic-content";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -16,8 +18,13 @@ import {
   isLastDayContentReady,
 } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
-import { useEnsureLastDayProgressLoaded } from "@/stores/last-day-progress-store";
+import { useStore } from "@/stores/create-store";
+import {
+  lastDayProgressStore,
+  useEnsureLastDayProgressLoaded,
+} from "@/stores/last-day-progress-store";
 
 export function generateStaticParams(): Array<{ topic: string }> {
   return getLastDayTopics().map((tpc) => ({ topic: tpc.id }));
@@ -27,6 +34,9 @@ export default function LastDayTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
+  const completedIds = useStore(lastDayProgressStore, (s) => s.completedTopicIds);
   const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const topic = getLastDayTopic(topicId);
   useEnsureLastDayProgressLoaded();
@@ -46,6 +56,7 @@ export default function LastDayTopicScreen() {
       title={topic?.title ?? t("lastDay.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -77,13 +88,28 @@ export default function LastDayTopicScreen() {
           onAction={() => router.replace("/last-day" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="last_day">
-            <LastDayTopicContent topic={topic} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="lastDay.disclaimer" />
-        </Stagger>
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("lastDay.title")}
+              basePath="/last-day"
+              topics={getLastDayTopics()}
+              currentId={topic.id}
+              completedIds={completedIds}
+            />
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="last_day">
+              <LastDayTopicContent topic={topic} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="lastDay.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/last-day/[topic]");

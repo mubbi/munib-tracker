@@ -96,30 +96,40 @@ function equatorToUnitVector(eq: { ra: number; dec: number }): [number, number, 
  * before the sun (no crescent window at all).
  */
 function eveningYallopQ(observer: Observer, jdn: number, longitude: number): number | null {
-  const noon = solarNoonUtc(jdn, longitude);
-  const sunset = SearchRiseSet(Body.Sun, observer, -1, noon, 1.2);
-  if (!sunset) return null;
-  const moonset = SearchRiseSet(Body.Moon, observer, -1, sunset.date, 1.2);
-  if (!moonset) return null;
-  const lagMinutes = (moonset.date.getTime() - sunset.date.getTime()) / 60_000;
-  if (lagMinutes <= 0) return Number.NEGATIVE_INFINITY;
+  // Astronomy Engine's CalcMoon (GeoMoon / rise-set) can throw in some web
+  // minified builds — inner table lookup of an undefined row reads a mangled
+  // `.M_ID`. Never let that escape: a missed evening falls back to Umm al-Qura.
+  try {
+    const noon = solarNoonUtc(jdn, longitude);
+    const sunset = SearchRiseSet(Body.Sun, observer, -1, noon, 1.2);
+    if (!sunset) return null;
+    const moonset = SearchRiseSet(Body.Moon, observer, -1, sunset.date, 1.2);
+    if (!moonset) return null;
+    const lagMinutes = (moonset.date.getTime() - sunset.date.getTime()) / 60_000;
+    if (lagMinutes <= 0) return Number.NEGATIVE_INFINITY;
 
-  // Yallop's "best time": sunset + 4/9 of the sunset→moonset lag.
-  const best = new Date(sunset.date.getTime() + ((lagMinutes * 4) / 9) * 60_000);
-  const sunEq = Equator(Body.Sun, best, observer, true, true);
-  const moonEq = Equator(Body.Moon, best, observer, true, true);
-  const sunHor = Horizon(best, observer, sunEq.ra, sunEq.dec, "normal");
-  const moonHor = Horizon(best, observer, moonEq.ra, moonEq.dec, "normal");
+    // Yallop's "best time": sunset + 4/9 of the sunset→moonset lag.
+    const best = new Date(sunset.date.getTime() + ((lagMinutes * 4) / 9) * 60_000);
+    const sunEq = Equator(Body.Sun, best, observer, true, true);
+    const moonEq = Equator(Body.Moon, best, observer, true, true);
+    const sunHor = Horizon(best, observer, sunEq.ra, sunEq.dec, "normal");
+    const moonHor = Horizon(best, observer, moonEq.ra, moonEq.dec, "normal");
+    const moon = GeoMoon(best);
+    if (!moon || typeof moon.Length !== "function") return null;
 
-  const arcv = moonHor.altitude - sunHor.altitude;
-  const [sx, sy, sz] = equatorToUnitVector(sunEq);
-  const [mx, my, mz] = equatorToUnitVector(moonEq);
-  const dot = Math.min(1, Math.max(-1, sx * mx + sy * my + sz * mz));
-  const arcl = (Math.acos(dot) * 180) / Math.PI;
-  const moonDistKm = GeoMoon(best).Length() * KM_PER_AU;
-  const semiDiameter = SD_COEF / moonDistKm;
-  const w = semiDiameter * (1 - Math.cos((arcl * Math.PI) / 180));
-  return (arcv - (11.8371 - 6.3226 * w + 0.7319 * w * w - 0.1018 * w * w * w)) / 10;
+    const arcv = moonHor.altitude - sunHor.altitude;
+    const [sx, sy, sz] = equatorToUnitVector(sunEq);
+    const [mx, my, mz] = equatorToUnitVector(moonEq);
+    const dot = Math.min(1, Math.max(-1, sx * mx + sy * my + sz * mz));
+    const arcl = (Math.acos(dot) * 180) / Math.PI;
+    const moonDistKm = moon.Length() * KM_PER_AU;
+    if (!Number.isFinite(moonDistKm) || moonDistKm <= 0) return null;
+    const semiDiameter = SD_COEF / moonDistKm;
+    const w = semiDiameter * (1 - Math.cos((arcl * Math.PI) / 180));
+    return (arcv - (11.8371 - 6.3226 * w + 0.7319 * w * w - 0.1018 * w * w * w)) / 10;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -175,10 +185,18 @@ function clampBefore(nextStart: number, prevStart: number): number {
   return Math.min(nextStart - 29, Math.max(nextStart - 30, prevStart));
 }
 
+function searchConjunction(seed: Date): { date: Date } | null {
+  try {
+    return SearchMoonPhase(0, seed, 40);
+  } catch {
+    return null;
+  }
+}
+
 function buildTable(obs: SightingObserver, aroundJdn: number): SightingTable | null {
   const observer = new Observer(obs.latitude, obs.longitude, 0);
   const seed = solarNoonUtc(aroundJdn - 45, obs.longitude);
-  const conj = SearchMoonPhase(0, seed, 40);
+  const conj = searchConjunction(seed);
   if (!conj) return null;
   const start = monthStartForConjunction(observer, conj.date, obs.longitude);
   if (start === null) return null;
@@ -203,7 +221,7 @@ function ensureCovers(table: SightingTable, jdn: number): boolean {
   }
   // Forward: the last start must exceed jdn so the containing month is bounded.
   while (table.starts[table.starts.length - 1] <= jdn + 35) {
-    const next = SearchMoonPhase(0, new Date(table.lastConjunction.getTime() + 20 * DAY_MS), 40);
+    const next = searchConjunction(new Date(table.lastConjunction.getTime() + 20 * DAY_MS));
     if (!next) return false;
     const raw = monthStartForConjunction(table.observer, next.date, table.longitude);
     if (raw === null) return false;
@@ -215,7 +233,7 @@ function ensureCovers(table: SightingTable, jdn: number): boolean {
   }
   // Backward: the first start must be at or before jdn.
   while (table.starts[0] > jdn) {
-    const prev = SearchMoonPhase(0, new Date(table.firstConjunction.getTime() - 45 * DAY_MS), 40);
+    const prev = searchConjunction(new Date(table.firstConjunction.getTime() - 45 * DAY_MS));
     if (!prev) return false;
     const raw = monthStartForConjunction(table.observer, prev.date, table.longitude);
     if (raw === null) return false;
@@ -229,12 +247,20 @@ function ensureCovers(table: SightingTable, jdn: number): boolean {
 
 function tableFor(obs: SightingObserver, aroundJdn: number): SightingTable | null {
   if (!sightingAvailable(obs.latitude)) return null;
-  if (!cache || cache.key !== observerKey(obs)) {
-    cache = buildTable(obs, aroundJdn);
+  try {
+    if (!cache || cache.key !== observerKey(obs)) {
+      cache = buildTable(obs, aroundJdn);
+    }
+    if (!cache) return null;
+    if (!ensureCovers(cache, aroundJdn)) {
+      cache = null;
+      return null;
+    }
+    return cache;
+  } catch {
+    cache = null;
+    return null;
   }
-  if (!cache) return null;
-  if (!ensureCovers(cache, aroundJdn)) return null;
-  return cache;
 }
 
 /** Index of the month containing `jdn` (last start <= jdn), or -1. */

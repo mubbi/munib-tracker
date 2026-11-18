@@ -12,9 +12,11 @@ import { IconWell } from "@/components/ui/icon-well";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { QazaRepository } from "@/db";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import {
   useQazaCounters,
@@ -42,6 +44,8 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
   const { performQaza, undoQaza } = useTrackerActions();
   const [pending, setPending] = useState<PendingQazaAction | null>(null);
   const [historicalProgress, setHistoricalProgress] = useState(storeProgress);
+  const tv = isTV();
+  const iconTarget = tv ? TvLayout.minFocusTarget : 40;
 
   useEffect(() => {
     if (isToday) return;
@@ -119,7 +123,7 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
           <ProgressBar value={dailyTotal ? dailyDone / dailyTotal : 0} height={6} />
         </View>
 
-        <View style={styles.rows}>
+        <View style={[styles.rows, tv && styles.rowsTv]}>
           {QAZA_PRAYERS.map((prayerId) => {
             const target = schedule.targets[prayerId] ?? 0;
             if (target <= 0) return null;
@@ -134,7 +138,10 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
             const prayerName = t(`prayers.${prayerId}`);
 
             return (
-              <View key={prayerId} style={[styles.row, { backgroundColor: colors.muted }]}>
+              <View
+                key={prayerId}
+                style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
+              >
                 <IconWell icon={PRAYER_ICONS[prayerId]} />
                 <View style={styles.rowBody}>
                   <ThemedText type="small">{prayerName}</ThemedText>
@@ -154,7 +161,7 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
                     tintColor={tokens.status.warning.color}
                     accessibilityLabel={t("qaza.undoPerformed", { prayer: prayerName })}
                     disabled={!canUndo}
-                    hitTarget={40}
+                    hitTarget={iconTarget}
                     onPress={() => setPending({ kind: "undo", prayerId: prayerId as QazaPrayer })}
                   />
                   <IconButton
@@ -167,7 +174,7 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
                     tintColor={tokens.status.success.color}
                     accessibilityLabel={t("qaza.markPerformed", { prayer: prayerName })}
                     disabled={!canPerform}
-                    hitTarget={40}
+                    hitTarget={iconTarget}
                     onPress={() =>
                       setPending({ kind: "perform", prayerId: prayerId as QazaPrayer })
                     }
@@ -203,6 +210,15 @@ const styles = StyleSheet.create({
   rows: {
     gap: Spacing.two,
     marginTop: Spacing.three,
+  },
+  /** TV: 2-column grid so the landscape width is used. */
+  rowsTv: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  rowTv: {
+    flexBasis: "45%",
+    flexGrow: 1,
   },
   row: {
     flexDirection: "row",

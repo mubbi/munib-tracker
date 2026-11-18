@@ -10,11 +10,13 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { LearnGrid } from "@/components/learn-guide/learn-wide-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -89,15 +91,17 @@ export function QuranGuideTopicContent({ topic }: { topic: QuranGuideTopic }) {
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
           />
           <View style={styles.links}>
-            {topic.appLinks.map((link) => (
-              <Button
-                key={link.route}
-                label={link.label}
-                variant="secondary"
-                fullWidth
-                onPress={() => router.push(link.route as never)}
-              />
-            ))}
+            <LearnGrid maxColumns={2} gap={Spacing.two} passthrough>
+              {topic.appLinks.map((link) => (
+                <Button
+                  key={link.route}
+                  label={link.label}
+                  variant="secondary"
+                  fullWidth
+                  onPress={() => router.push(link.route as never)}
+                />
+              ))}
+            </LearnGrid>
           </View>
         </Card>
       ) : null}
@@ -112,9 +116,11 @@ export function QuranGuideTopicContent({ topic }: { topic: QuranGuideTopic }) {
       />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );

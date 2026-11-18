@@ -35,15 +35,17 @@ import {
   resolveReviewStoreListingTarget,
   resolveReviewStoreListingUrl,
 } from "@/lib/platform/storeReview";
+import { usePlatformSwitch } from "@/test-support/platform";
 
 describe("storeReview", () => {
+  // `react-native` is mocked wholesale (for `Linking`); setPlatform patches that mock's Platform.
+  const onPlatform = usePlatformSwitch();
+
   beforeEach(() => {
     jest.clearAllMocks();
     mockIsAvailableAsync.mockResolvedValue(true);
     mockRequestReview.mockResolvedValue(undefined);
     mockDetectWebPwaBrowserMatrix.mockReturnValue(null);
-    const rn = jest.requireMock<{ Platform: { OS: string } }>("react-native");
-    rn.Platform.OS = "ios";
   });
 
   it("requests review when available on native", async () => {
@@ -60,15 +62,13 @@ describe("storeReview", () => {
   });
 
   it("returns false on web for native review API", async () => {
-    const rn = jest.requireMock<{ Platform: { OS: string } }>("react-native");
-    rn.Platform.OS = "web";
+    onPlatform({ OS: "web" });
     expect(await isStoreReviewAvailable()).toBe(false);
     expect(await requestStoreReviewIfAvailable()).toBe(false);
   });
 
   it("opens the App Store listing on web iOS", async () => {
-    const rn = jest.requireMock<{ Platform: { OS: string } }>("react-native");
-    rn.Platform.OS = "web";
+    onPlatform({ OS: "web" });
     mockDetectWebPwaBrowserMatrix.mockReturnValue({ isIosWebKit: true, isAndroid: false });
 
     expect(resolveReviewStoreListingTarget()).toBe("ios");
@@ -83,5 +83,49 @@ describe("storeReview", () => {
     expect(url).toContain("play.google.com");
     await openReviewStoreListingUrl(url);
     expect(mockOpenURL).toHaveBeenCalledWith(url);
+  });
+
+  it("treats a throwing availability check as unavailable", async () => {
+    mockIsAvailableAsync.mockRejectedValue(new Error("native"));
+    expect(await isStoreReviewAvailable()).toBe(false);
+  });
+
+  it("returns false when the review request throws", async () => {
+    mockRequestReview.mockRejectedValue(new Error("native"));
+    expect(await requestStoreReviewIfAvailable()).toBe(false);
+  });
+
+  it("uses the in-app review sheet on native when it works", async () => {
+    expect(await openReviewStoreListing()).toBe(true);
+    expect(mockOpenURL).not.toHaveBeenCalled();
+  });
+
+  it("falls back to the store listing when the native sheet is unavailable", async () => {
+    onPlatform({ OS: "android" });
+    mockIsAvailableAsync.mockResolvedValue(false);
+    expect(resolveReviewStoreListingTarget()).toBe("android");
+    expect(await openReviewStoreListing()).toBe(true);
+    expect(mockOpenURL).toHaveBeenCalledWith(expect.stringContaining("play.google.com"));
+  });
+
+  it.each([
+    [{ isIosWebKit: false, isAndroid: true }, "android"],
+    [{ isIosWebKit: false, isAndroid: false }, "both"],
+    [null, "both"],
+  ])("resolves the web target for %o as %s", (matrix, target) => {
+    onPlatform({ OS: "web" });
+    mockDetectWebPwaBrowserMatrix.mockReturnValue(matrix);
+    expect(resolveReviewStoreListingTarget()).toBe(target);
+  });
+
+  it("does not open anything for an unknown web platform", async () => {
+    onPlatform({ OS: "web" });
+    expect(await openReviewStoreListing()).toBe(false);
+    expect(mockOpenURL).not.toHaveBeenCalled();
+  });
+
+  it("reports a failed URL open", async () => {
+    mockOpenURL.mockRejectedValueOnce(new Error("no handler"));
+    expect(await openReviewStoreListingUrl("https://x")).toBe(false);
   });
 });

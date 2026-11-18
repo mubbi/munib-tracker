@@ -2,13 +2,16 @@ import {
   camelZakatDue,
   cattleZakatDue,
   computeAgricultureDue,
+  computeLivestockAnimals,
   computeZakat,
   goldPureGrams,
   goldValueFromWeight,
+  livestockCashEstimate,
   lowerNisab,
   metalValue,
   nisabFromGoldPrice,
   nisabFromSilverPrice,
+  pricePerUnitFromGramPrice,
   sheepZakatDue,
   silverFineGrams,
   silverValueFromWeight,
@@ -118,5 +121,89 @@ describe("nisab helpers", () => {
     expect(lowerNisab(8748, 612)).toBe(612);
     expect(lowerNisab(0, 500)).toBe(500);
     expect(lowerNisab(0, 0)).toBe(0);
+  });
+});
+
+describe("livestock brackets", () => {
+  it.each([
+    [39, 0],
+    [40, 1],
+    [121, 2],
+    [201, 3],
+    [399, 3],
+    [500, 5],
+  ])("%p sheep → %p due", (count, due) => {
+    expect(sheepZakatDue(count)).toBe(due);
+  });
+
+  it.each([
+    [29, { tabi: 0, musinnah: 0 }],
+    [30, { tabi: 1, musinnah: 0 }],
+    [40, { tabi: 0, musinnah: 1 }],
+    [70, { tabi: 1, musinnah: 1 }],
+    [120, { tabi: 0, musinnah: 3 }],
+  ])("%p cattle → %p", (count, due) => {
+    expect(cattleZakatDue(count)).toEqual(due);
+  });
+
+  it.each([
+    [4, {}],
+    [5, { sheep: 1 }],
+    [10, { sheep: 2 }],
+    [15, { sheep: 3 }],
+    [20, { sheep: 4 }],
+    [25, { bintMakhad: 1 }],
+    [36, { bintLabun: 1 }],
+    [46, { hiqqah: 1 }],
+    [61, { jadhah: 1 }],
+    [76, { bintLabun: 2 }],
+    [91, { hiqqah: 2 }],
+    [200, { hiqqah: 5 }],
+  ])("%p camels → %p", (count, due) => {
+    expect(camelZakatDue(count)).toEqual({
+      sheep: 0,
+      bintMakhad: 0,
+      bintLabun: 0,
+      hiqqah: 0,
+      jadhah: 0,
+      ...due,
+    });
+  });
+
+  it("combines herds, adding camel-bracket sheep to the sheep due", () => {
+    const animals = computeLivestockAnimals({ sheep: 40, cattle: 30, camels: 5 });
+    expect(animals).toMatchObject({ sheep: 2, cattleTabi: 1, camelSheep: 1 });
+    expect(computeLivestockAnimals({})).toMatchObject({ sheep: 0, cattleTabi: 0, camelHiqqah: 0 });
+  });
+
+  it("estimates the cash value of animals due", () => {
+    const animals = computeLivestockAnimals({ sheep: 40, cattle: 30, camels: 46 });
+    expect(
+      livestockCashEstimate(animals, { sheepValue: 100, cattleValue: 500, camelValue: 2000 }),
+    ).toBe(100 + 500 + 2000);
+  });
+});
+
+describe("agriculture and nisab helpers", () => {
+  it.each([
+    [{ harvestValue: 1000, irrigation: "natural" }, 100],
+    [{ harvestValue: 1000, irrigation: "irrigated" }, 50],
+    [{ harvestValue: 0, irrigation: "natural" }, 0],
+  ] as const)("ushr on %p → %p", (input, due) => {
+    expect(computeAgricultureDue(input)).toBe(due);
+  });
+
+  it.each([
+    [100, 0, 100],
+    [0, 50, 50],
+    [0, 0, 0],
+    [100, 50, 50],
+  ])("lowerNisab(%p, %p) → %p", (gold, silver, expected) => {
+    expect(lowerNisab(gold, silver)).toBe(expected);
+  });
+
+  it("defaults the purity ratio to fine metal", () => {
+    expect(pricePerUnitFromGramPrice(10, "gram")).toBe(10);
+    expect(pricePerUnitFromGramPrice(-10, "gram")).toBe(0);
   });
 });

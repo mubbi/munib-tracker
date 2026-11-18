@@ -22,11 +22,11 @@ permissions:
 
 jobs:
   release-please:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@v5
         id: release
         with:
           # PAT / GitHub App token so CI runs on Release Please PRs.
@@ -40,10 +40,10 @@ jobs:
   # Release PRs so CI lint does not fail after every app-v* bump.
   format-expo-app-json:
     needs: release-please
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
@@ -72,7 +72,7 @@ jobs:
             echo "Formatting apps/app/app.json on PR #${pr_num} (${head_ref})"
             git fetch origin "$head_ref"
             git checkout "$head_ref"
-            npx --yes @biomejs/biome@2.5.2 check --write apps/app/app.json
+            npx --yes @biomejs/biome@2.6.8 check --write apps/app/app.json
             if git diff --quiet -- apps/app/app.json; then
               echo "Already formatted."
               continue
@@ -86,7 +86,7 @@ jobs:
   # (e.g. manifest fillers / workflow edits), not only after cutting a release.
   heal-conflicting-release-prs:
     needs: release-please
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       need_rebase: ${{ steps.check.outputs.need_rebase }}
     steps:
@@ -127,9 +127,9 @@ jobs:
   release-please-rebase:
     needs: heal-conflicting-release-prs
     if: needs.heal-conflicting-release-prs.outputs.need_rebase == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@v5
         id: rebase
         continue-on-error: true
         with:
@@ -138,7 +138,7 @@ jobs:
           manifest-file: .release-please-manifest.json
       - name: Retry rebase once if first attempt failed
         if: steps.rebase.outcome == 'failure'
-        uses: googleapis/release-please-action@v4
+        uses: googleapis/release-please-action@v5
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json

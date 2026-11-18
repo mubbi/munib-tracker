@@ -3,8 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -12,7 +11,9 @@ import { Button } from "@/components/ui/button";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -23,6 +24,7 @@ import {
 import { isWeb } from "@/lib/notifications/platform";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { locationStore, useLocationActions, useLocationStatus } from "@/stores/location-store";
 import { preferencesStore, usePreferencesActions } from "@/stores/preferences-store";
@@ -32,6 +34,9 @@ const LOCATION_ICON = {
   android: "location_on" as const,
   web: "location_on" as const,
 };
+
+/** Desktop / tablet web: split the step into visual + copy columns at this width. */
+const WIDE_SPLIT_MIN_WIDTH = 900;
 
 const HIGHLIGHT_ICON = {
   ios: "checkmark.circle.fill" as const,
@@ -54,13 +59,17 @@ function resolveNext(raw: string | string[] | undefined): Href {
 export default function OnboardingLocationScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { next: nextParam } = useLocalSearchParams<{ next?: string }>();
   const { update, setNotificationPrefs } = usePreferencesActions();
   const { requestDeviceLocation } = useLocationActions();
   const status = useLocationStatus();
   const [busy, setBusy] = useState(false);
   const tv = isTV();
+  const { width } = useWindowDimensions();
+  // Wide (non-TV) windows: icon art beside the copy, actions under the copy
+  // instead of a phone column + full-bleed buttons floating in a huge canvas.
+  const wide = !tv && width >= WIDE_SPLIT_MIN_WIDTH;
   // Apple 5.1.1(iv): after the pre-prompt, users must proceed to the system
   // permission request — no Later/skip on iPhone/iPad.
   const showSkip = tv || Platform.OS !== "ios";
@@ -97,9 +106,11 @@ export default function OnboardingLocationScreen() {
     triggerHaptic("light");
     try {
       if (isTV()) {
-        // No GPS on TV — finish onboarding then send the user to city search.
+        // No GPS on TV — finish onboarding (lands on Home or the QR sign-in the
+        // user picked), then stack city search on top so Back / picking a city
+        // returns there instead of dropping the chosen /login step.
         await finish();
-        router.replace("/location" as Href);
+        router.push("/location" as Href);
         return;
       }
       await requestDeviceLocation();
@@ -118,6 +129,43 @@ export default function OnboardingLocationScreen() {
   };
 
   const locating = busy || status === "loading";
+
+  const actions = (
+    <View style={[styles.actions, tv ? styles.actionsTv : null, wide ? styles.actionsWide : null]}>
+      <Button
+        label={
+          locating
+            ? t("onboarding.locationLocating")
+            : tv
+              ? t("qibla.setLocation")
+              : t("onboarding.locationAllow")
+        }
+        fullWidth
+        preferredFocus={tv}
+        disabled={locating}
+        icon={LOCATION_ICON}
+        onPress={() => void onContinue()}
+        style={tv || wide ? styles.actionTv : undefined}
+      />
+      {showSkip ? (
+        <Button
+          label={t("onboarding.locationSkip")}
+          variant="ghost"
+          fullWidth
+          disabled={locating}
+          labelColor={Brand.heroText}
+          onPress={onSkip}
+          style={[
+            tv || wide ? styles.actionTv : null,
+            {
+              backgroundColor: Brand.onHeroStrongSurface,
+              borderColor: withAlpha(Brand.heroText, 0.32),
+            },
+          ]}
+        />
+      ) : null}
+    </View>
+  );
 
   return (
     <View
@@ -138,9 +186,12 @@ export default function OnboardingLocationScreen() {
       <StatusBar style="light" />
       <MosqueSilhouette color={Brand.heroBottom} opacity={0.3} scale={1.6} />
 
-      <View style={styles.skipRow}>
-        <View style={styles.skipButton} />
-      </View>
+      {/* Spacer that mirrors the intro's Skip row; TV reclaims the height. */}
+      {tv ? null : (
+        <View style={styles.skipRow}>
+          <View style={styles.skipButton} />
+        </View>
+      )}
 
       <TvScrollView
         style={styles.scroll}
@@ -153,89 +204,118 @@ export default function OnboardingLocationScreen() {
         bounces={false}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={[styles.content, tv ? styles.contentTv : null]}>
-          <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
-            <SymbolView name={LOCATION_ICON} size={52} tintColor={Brand.heroAccent} />
+        {/* TV (landscape, non-scrolling): icon beside a start-aligned copy column. */}
+        <View
+          style={[styles.content, tv ? styles.contentTv : null, wide ? styles.contentWide : null]}
+        >
+          <View
+            style={[
+              styles.icon,
+              tv ? styles.iconTv : null,
+              wide ? styles.iconWide : null,
+              { backgroundColor: Brand.onHeroStrongSurface },
+            ]}
+          >
+            <SymbolView
+              name={LOCATION_ICON}
+              size={tv ? 56 : wide ? 104 : 52}
+              tintColor={Brand.heroAccent}
+            />
           </View>
 
-          <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
-            {t("onboarding.locationEyebrow")}
-          </ThemedText>
-          <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
-            {t("onboarding.locationTitle")}
-          </ThemedText>
-          <ThemedText
-            type="default"
-            style={[styles.body, tv ? styles.bodyTv : null, { color: Brand.heroSubtext }]}
-          >
-            {tTv(t, "onboarding.locationBody", "onboarding.locationBodyTv")}
-          </ThemedText>
+          <View style={tv || wide ? styles.textColTv : styles.textCol}>
+            <ThemedText
+              type="label"
+              style={[
+                styles.eyebrow,
+                tv || wide ? styles.textStartTv : null,
+                { color: Brand.heroAccent },
+              ]}
+            >
+              {t("onboarding.locationEyebrow")}
+            </ThemedText>
+            <ThemedText
+              type="title"
+              style={[
+                styles.title,
+                tv || wide ? styles.textStartTv : null,
+                { color: Brand.heroText },
+              ]}
+            >
+              {t("onboarding.locationTitle")}
+            </ThemedText>
+            <ThemedText
+              type="default"
+              style={[
+                styles.body,
+                tv
+                  ? [styles.bodyTv, styles.textStartTv]
+                  : wide
+                    ? [styles.textStartTv, styles.textWide]
+                    : null,
+                { color: Brand.heroSubtext },
+              ]}
+            >
+              {tTv(t, "onboarding.locationBody", "onboarding.locationBodyTv")}
+            </ThemedText>
 
-          <View style={[styles.highlights, tv ? styles.highlightsTv : null]}>
-            {highlights.map((line) => (
-              <View key={line} style={styles.highlightRow}>
-                <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
-                <ThemedText type="small" style={[styles.highlightText, { color: Brand.heroText }]}>
-                  {line}
+            <View
+              style={[
+                styles.highlights,
+                tv ? styles.highlightsTv : null,
+                wide ? styles.textWide : null,
+              ]}
+            >
+              {highlights.map((line) => (
+                <View key={line} style={styles.highlightRow}>
+                  <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
+                  <ThemedText
+                    type="small"
+                    style={[styles.highlightText, { color: Brand.heroText }]}
+                  >
+                    {line}
+                  </ThemedText>
+                </View>
+              ))}
+            </View>
+
+            {!tv ? (
+              <View
+                style={[
+                  styles.privacyCard,
+                  wide ? styles.textWide : null,
+                  { backgroundColor: Brand.onHeroMutedSurface },
+                ]}
+              >
+                <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
+                  {t("onboarding.locationPrivacyTitle")}
+                </ThemedText>
+                <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
+                  {t("onboarding.locationPrivacyBody")}
                 </ThemedText>
               </View>
-            ))}
-          </View>
+            ) : null}
 
-          {!tv ? (
-            <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
-              <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
-                {t("onboarding.locationPrivacyTitle")}
-              </ThemedText>
-              <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
-                {t("onboarding.locationPrivacyBody")}
-              </ThemedText>
-            </View>
-          ) : null}
+            {wide ? actions : null}
+          </View>
         </View>
       </TvScrollView>
 
-      <TvFocusGuide
-        autoFocus={tv}
-        style={[
-          styles.footer,
-          {
-            paddingBottom: insets.bottom + Spacing.four,
-            paddingHorizontal: tv ? TvLayout.contentPaddingX : Spacing.four,
-          },
-        ]}
-      >
-        <View style={styles.actions}>
-          <Button
-            label={
-              locating
-                ? t("onboarding.locationLocating")
-                : tv
-                  ? t("qibla.setLocation")
-                  : t("onboarding.locationAllow")
-            }
-            fullWidth
-            preferredFocus={tv}
-            disabled={locating}
-            icon={LOCATION_ICON}
-            onPress={() => void onContinue()}
-          />
-          {showSkip ? (
-            <Button
-              label={t("onboarding.locationSkip")}
-              variant="ghost"
-              fullWidth
-              disabled={locating}
-              labelColor={Brand.heroText}
-              onPress={onSkip}
-              style={{
-                backgroundColor: Brand.onHeroStrongSurface,
-                borderColor: withAlpha(Brand.heroText, 0.32),
-              }}
-            />
-          ) : null}
-        </View>
-      </TvFocusGuide>
+      {wide ? null : (
+        <TvFocusGuide
+          autoFocus={tv}
+          style={[
+            styles.footer,
+            {
+              paddingBottom: insets.bottom + Spacing.four,
+              paddingHorizontal: tv ? TvLayout.contentPaddingX : Spacing.four,
+            },
+            tv ? styles.footerTv : null,
+          ]}
+        >
+          {actions}
+        </TvFocusGuide>
+      )}
     </View>
   );
 }
@@ -269,8 +349,67 @@ const styles = StyleSheet.create({
   contentTv: {
     paddingHorizontal: 0,
     width: "100%",
-    maxWidth: 640,
+    maxWidth: tvDp(840),
     alignSelf: "center",
+    flexDirection: "row",
+    gap: Spacing.five,
+  },
+  /** Phone: transparent passthrough so the centered column is unchanged. */
+  textCol: {
+    alignSelf: "stretch",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  textColTv: {
+    flex: 1,
+    minWidth: 0,
+    alignItems: "flex-start",
+    gap: Spacing.two,
+  },
+  textStartTv: {
+    textAlign: "auto",
+  },
+  iconTv: {
+    width: tvDp(144),
+    height: tvDp(144),
+    borderRadius: tvDp(40),
+    marginBottom: 0,
+  },
+  /** Wide web: visual column beside the copy column (mirrors the TV row). */
+  contentWide: {
+    flexDirection: "row",
+    width: "100%",
+    maxWidth: 960,
+    alignSelf: "center",
+    gap: Spacing.six,
+    paddingHorizontal: Spacing.five,
+  },
+  iconWide: {
+    width: 240,
+    height: 240,
+    borderRadius: 72,
+    marginBottom: 0,
+  },
+  textWide: {
+    maxWidth: 520,
+  },
+  actionsWide: {
+    flexDirection: "row",
+    width: "100%",
+    maxWidth: 520,
+    marginTop: Spacing.four,
+  },
+  footerTv: {
+    alignItems: "center",
+  },
+  actionsTv: {
+    flexDirection: "row",
+    gap: Spacing.three,
+    width: "100%",
+    maxWidth: tvDp(640),
+  },
+  actionTv: {
+    flex: 1,
   },
   icon: {
     width: 108,
@@ -294,7 +433,7 @@ const styles = StyleSheet.create({
     maxWidth: 320,
   },
   bodyTv: {
-    maxWidth: 560,
+    maxWidth: tvDp(560),
     fontSize: TvLayout.bodyFontSize,
     lineHeight: TvLayout.bodyFontSize + 8,
   },
@@ -305,7 +444,8 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
   },
   highlightsTv: {
-    maxWidth: 560,
+    maxWidth: tvDp(560),
+    marginTop: Spacing.one,
   },
   highlightRow: {
     flexDirection: "row",
@@ -334,3 +474,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/(onboarding)/intro-location");

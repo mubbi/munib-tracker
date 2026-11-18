@@ -13,4 +13,12 @@ describe("Badge", () => {
     expect(screen.getByTestId("custom-icon")).toBeInTheDocument();
     expect(screen.getByText("Featured")).toBeInTheDocument();
   });
+
+  it.each([
+    ["default", "text-muted"],
+    ["hero", "text-hero-gold"],
+  ] as const)("applies the %s tone", (tone, className) => {
+    render(<Badge tone={tone}>Tone</Badge>);
+    expect(screen.getByText("Tone")).toHaveClass(className);
+  });
 });

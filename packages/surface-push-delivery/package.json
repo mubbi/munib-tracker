@@ -14,14 +14,16 @@
     "transit": "echo transit"
   },
   "dependencies": {
-    "web-push": "^3.6.7"
+    "web-push": "^4.0.0"
   },
   "devDependencies": {
     "@munib-tracker/typescript-config": "workspace:*",
-    "@types/node": "^20",
+    "@munib-tracker/vitest-config": "workspace:*",
+    "@types/node": "^24",
     "@types/web-push": "^3.6.4",
-    "@vitest/coverage-v8": "^4.1.11",
-    "typescript": "^6.0.0",
-    "vitest": "^4.1.11"
+    "@vitest/coverage-v8": "^5.1.0",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "vitest": "^5.1.0",
+    "@typescript/native": "npm:typescript@^7.0.2"
   }
 }

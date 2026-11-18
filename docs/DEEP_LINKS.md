@@ -8,16 +8,16 @@ Munib Tracker uses a **custom URL scheme** (`munib-tracker://`) for widgets, Sir
 
 ## Identifiers
 
-| Value | Default | Where |
-|-------|---------|-------|
-| Custom scheme | `munib-tracker` | `apps/app/app.json` → `expo.scheme` |
-| iOS bundle ID | `app.munibtracker` | `app.json` → `ios.bundleIdentifier` |
-| Android package | `app.munibtracker` | `app.json` → `android.package` |
-| App Store ID | `6787222180` | App Store Connect numeric ID |
-| App Store URL | `https://apps.apple.com/app/id6787222180` | `OFFICIAL_IOS_APP_STORE_URL` in `@munib-tracker/shared` |
-| Play Store URL | `https://play.google.com/store/apps/details?id=app.munibtracker` | `OFFICIAL_ANDROID_PLAY_STORE_URL` |
-| Product web origin | `https://my.munibtracker.app` | `EXPO_PUBLIC_APP_URL` |
-| Marketing site | `https://munibtracker.app` | `EXPO_PUBLIC_SITE_URL` |
+| Value              | Default                                                          | Where                                                   |
+| ------------------ | ---------------------------------------------------------------- | ------------------------------------------------------- |
+| Custom scheme      | `munib-tracker`                                                  | `apps/app/app.json` → `expo.scheme`                     |
+| iOS bundle ID      | `app.munibtracker`                                               | `app.json` → `ios.bundleIdentifier`                     |
+| Android package    | `app.munibtracker`                                               | `app.json` → `android.package`                          |
+| App Store ID       | `6787222180`                                                     | App Store Connect numeric ID                            |
+| App Store URL      | `https://apps.apple.com/app/id6787222180`                        | `OFFICIAL_IOS_APP_STORE_URL` in `@munib-tracker/shared` |
+| Play Store URL     | `https://play.google.com/store/apps/details?id=app.munibtracker` | `OFFICIAL_ANDROID_PLAY_STORE_URL`                       |
+| Product web origin | `https://my.munibtracker.app`                                    | `EXPO_PUBLIC_APP_URL`                                   |
+| Marketing site     | `https://munibtracker.app`                                       | `EXPO_PUBLIC_SITE_URL`                                  |
 
 Canonical URL builders: `apps/app/src/lib/app-links.ts` — `buildAppUrl()`, `buildHttpsAppUrl()`, `resolveAppLink()`, typed `appLink.*` helpers, and `DEEP_LINK_PATHS`.
 
@@ -30,17 +30,17 @@ Expo Router treats the path after `munib-tracker://` as an in-app route (leading
 ```ts
 import { appLink, buildAppUrl, buildHttpsAppUrl, resolveAppLink } from "@/lib/app-links";
 
-buildAppUrl("/quran");                    // munib-tracker://quran
-buildHttpsAppUrl("/quran");               // https://my.munibtracker.app/quran
-resolveAppLink("/tracker");               // { path, schemeUrl, httpsUrl }
+buildAppUrl("/quran"); // munib-tracker://quran
+buildHttpsAppUrl("/quran"); // https://my.munibtracker.app/quran
+resolveAppLink("/tracker"); // { path, schemeUrl, httpsUrl }
 
-appLink.quranSurah(2, { ayah: 255 });     // …/quran/2?ayah=255
-appLink.quranPage(255);                   // …/quran/page/255
+appLink.quranSurah(2, { ayah: 255 }); // …/quran/2?ayah=255
+appLink.quranPage(255); // …/quran/page/255
 appLink.hadithCollection("riyad", { q: "Muslim 591" });
 appLink.duaDetail("morning-1");
 appLink.zikrCategory("after_prayer");
-appLink.markCurrent();                    // special action bridge
-appLink.openReview("manual");             // review funnel bridge
+appLink.markCurrent(); // special action bridge
+appLink.openReview("manual"); // review funnel bridge
 ```
 
 Prefer `appLink.*` / `resolveAppLink` over hand-rolled strings so scheme and HTTPS stay aligned.
@@ -53,39 +53,40 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 
 ### Tabs
 
-| Path | Scheme example |
-|------|----------------|
-| `/` | `munib-tracker://` |
-| `/tracker` | `munib-tracker://tracker` |
-| `/library` | `munib-tracker://library` |
+| Path        | Scheme example             |
+| ----------- | -------------------------- |
+| `/`         | `munib-tracker://`         |
+| `/tracker`  | `munib-tracker://tracker`  |
+| `/library`  | `munib-tracker://library`  |
 | `/settings` | `munib-tracker://settings` |
 
 ### Worship & tools
 
-| Path | Notes |
-|------|-------|
-| `/schedule`, `/qibla`, `/location` | Prayer times / direction |
-| `/qaza`, `/qaza/history`, `/qaza/calculator`, `/qaza/planner`, `/qaza/roza` | Missed prayers & fasts |
-| `/tasbeeh/free` | Free counter |
-| `/ramadan`, `/tahajjud`, `/journal`, `/hayd`, `/sick` | Modes & logs |
-| `/calendar`, `/calendar/converter`, `/events`, `/statistics`, `/achievements` | Review & date tools |
-| `/search`, `/notifications`, `/profile`, `/bookmarks` | Hub screens |
-| `/login`, `/tv-pair` | Auth; TV companion claim (`/tv-pair?code=…`) |
-| `/login`, `/tv-pair` | Auth; TV companion claim (`/tv-pair?code=…`) |
+| Path                                                                          | Notes                                        |
+| ----------------------------------------------------------------------------- | -------------------------------------------- |
+| `/schedule`, `/qibla`, `/location`                                            | Prayer times / direction                     |
+| `/qaza`, `/qaza/history`, `/qaza/calculator`, `/qaza/planner`, `/qaza/roza`   | Missed prayers & fasts                       |
+| `/tasbeeh/free`                                                               | Free counter                                 |
+| `/ramadan`, `/tahajjud`, `/journal`, `/hayd`, `/sick`                         | Modes & logs                                 |
+| `/calendar`, `/calendar/converter`, `/events`, `/statistics`, `/achievements` | Review & date tools                          |
+| `/search`, `/notifications`, `/profile`, `/bookmarks`                         | Hub screens                                  |
+| `/login`, `/tv-pair`                                                          | Auth; TV companion claim (`/tv-pair?code=…`) |
 
 ### Qur'an, hadith, dua, zikr
 
-| Path / template | Example |
-|-----------------|---------|
-| `/quran` | Index |
-| `/quran/{surah}?ayah={n}` | `munib-tracker://quran/2?ayah=255` |
-| `/quran/page/{page}` | Mushaf page 1–604 |
-| `/quran/juz`, `/quran/pages`, `/quran/khatm`, `/quran/hifz`, `/quran/search`, `/quran/bookmarks` | Hubs |
-| `/hadith`, `/hadith/{collection}?q=…` | Collection + optional search seed |
-| `/hadith/daily`, `/hadith/bookmarks` | Daily + saved |
-| `/dua`, `/dua/{category}`, `/dua/detail/{id}` | Duas |
-| `/zikr`, `/zikr/{category}`, `/zikr/detail/{id}` | Adhkar |
-| `/duroods`, `/names-of-allah`, `/adhkar-builder` | Supplication tools |
+| Path / template                                                                                  | Example                                                                                                                                |
+| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `/quran`                                                                                         | Index                                                                                                                                  |
+| `/quran/{surah}?ayah={n}`                                                                        | `munib-tracker://quran/2?ayah=255`                                                                                                     |
+| `/quran/page/{page}`                                                                             | Mushaf page 1–604                                                                                                                      |
+| `/quran/juz`, `/quran/pages`, `/quran/khatm`, `/quran/hifz`, `/quran/search`, `/quran/bookmarks` | Hubs                                                                                                                                   |
+| `/quran/practice`, `/quran/revision`, `/settings/quran-practice`                                 | Qur'an practice hub, revision queue, practice settings (hidden on TV)                                                                  |
+| `/quran/practice/session?surah=&from=&to=&mode=`                                                 | One practice passage (validated on entry; invalid params land on the hub). `/quran/practice/summary` opened cold redirects to the hub. |
+| `/hadith`, `/hadith/{collection}?q=…`                                                            | Collection + optional search seed                                                                                                      |
+| `/hadith/daily`, `/hadith/bookmarks`                                                             | Daily + saved                                                                                                                          |
+| `/dua`, `/dua/{category}`, `/dua/detail/{id}`                                                    | Duas                                                                                                                                   |
+| `/zikr`, `/zikr/{category}`, `/zikr/detail/{id}`                                                 | Adhkar                                                                                                                                 |
+| `/duroods`, `/names-of-allah`, `/adhkar-builder`                                                 | Supplication tools                                                                                                                     |
 
 ### Learning hubs
 
@@ -97,10 +98,10 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 
 ### Special action bridges
 
-| Path | Behavior |
-|------|----------|
-| `/mark-current` | Enqueues mark-current obligatory, then opens tracker (`mark-current.tsx`) |
-| `/open-review?triggerId=…` | Opens review funnel (`ReviewDeepLinkBridge`) — not an Expo route file |
+| Path                       | Behavior                                                                  |
+| -------------------------- | ------------------------------------------------------------------------- |
+| `/mark-current`            | Enqueues mark-current obligatory, then opens tracker (`mark-current.tsx`) |
+| `/open-review?triggerId=…` | Opens review funnel (`ReviewDeepLinkBridge`) — not an Expo route file     |
 
 In-app content modules also use Expo Router paths (`/quran`, `/hadith`, …). `apps/app/src/lib/reference-link.ts` parses Qur'an `reference` strings into router targets.
 
@@ -112,63 +113,69 @@ In-app content modules also use Expo Router paths (`/quran`, `/hadith`, …). `a
 
 Registered from `apps/app/src/lib/appSurfaces/quickActions/registry.ts` via `expo-quick-actions`:
 
-| Quick action id | Deep link | Screen |
-|-----------------|-----------|--------|
-| `tracker` | `munib-tracker://tracker` | Salah checklist |
-| `qibla` | `munib-tracker://qibla` | Qibla compass |
-| `tasbeeh` | `munib-tracker://tasbeeh/free` | Tasbeeh counter |
-| `qaza` | `munib-tracker://qaza` | Qaza dashboard |
-| `quran` | `munib-tracker://quran` | Qur'an index |
+| Quick action id      | Deep link                      | Screen                                                |
+| -------------------- | ------------------------------ | ----------------------------------------------------- |
+| `mark-current`       | `munib-tracker://mark-current` | Mark current Salah bridge                             |
+| `tracker`            | `munib-tracker://tracker`      | Salah checklist                                       |
+| `qibla`              | `munib-tracker://qibla`        | Qibla compass                                         |
+| `tasbeeh`            | `munib-tracker://tasbeeh/free` | Tasbeeh counter                                       |
+| `qaza`               | `munib-tracker://qaza`         | Qaza dashboard                                        |
+| `quran`              | `munib-tracker://quran`        | Qur'an index                                          |
+| `ramadan` (seasonal) | `munib-tracker://ramadan`      | Swaps into the `tasbeeh` slot while Ramadan is active |
 
-Cold start / long-press routing: `useAppQuickActions()` → `expo-quick-actions/router`.
+Only the first 4 active entries are shown (`IOS_QUICK_ACTION_LIMIT` / `ANDROID_QUICK_ACTION_LIMIT` in `appSurfaces/config.ts`). Cold start / long-press routing: `useAppQuickActions()` → `expo-quick-actions/router`. Under the iOS scene life cycle (Expo SDK 58), cold-start shortcuts rely on `patches/expo-quick-actions@6.0.2.patch` — see [NATIVE_SURFACES.md](./NATIVE_SURFACES.md#ios-scene-life-cycle-expo-sdk-58).
 
 ### Siri & Assistant navigation intents (NF-2.15)
 
 From `apps/app/src/lib/appSurfaces/intents/registry.ts` (same routes as quick actions where applicable):
 
-| Intent | Deep link | Notes |
-|--------|-----------|-------|
-| Open checklist | `munib-tracker://tracker` | Foreground |
-| Open Qibla | `munib-tracker://qibla` | Foreground |
-| Open Tasbeeh | `munib-tracker://tasbeeh/free` | Foreground |
-| Mark my Salah | *(no URL)* / `munib-tracker://mark-current` | Background enqueue, or deep-link screen |
+| Intent                               | Deep link                                                       | Notes                                   |
+| ------------------------------------ | --------------------------------------------------------------- | --------------------------------------- |
+| Open checklist                       | `munib-tracker://tracker`                                       | Foreground                              |
+| Open Qibla                           | `munib-tracker://qibla`                                         | Foreground                              |
+| Open Tasbeeh                         | `munib-tracker://tasbeeh/free`                                  | Foreground                              |
+| Open Ramadan / Khatm / Qaza / Qur'an | `munib-tracker://ramadan`, `…/quran/khatm`, `…/qaza`, `…/quran` | Foreground                              |
+| Mark my Salah                        | _(no URL)_ / `munib-tracker://mark-current`                     | Background enqueue, or deep-link screen |
+| Mark a Salah (Fajr…Isha)             | _(no URL)_                                                      | Background enqueue (`mark-prayer`)      |
 
-Native hard-codes match in `targets/munib-tracker-intents/MunibAppIntents.swift`.
+Native hard-codes match in `targets/munib-tracker-intents/_shared/MunibAppIntents.swift`.
 
 ### Home-screen widgets (NF-1.18)
 
 Widget taps use `munib-tracker://` routes baked into the WidgetKit snapshot (`targets/munib-tracker-widgets/PrayerWidgets.swift`). Typical targets:
 
-| Widget | Default tap target |
-|--------|-------------------|
-| Next Salah | `munib-tracker://` |
-| Schedule / Progress | `munib-tracker://tracker` |
-| Salah streak | `munib-tracker://statistics` |
-| Qaza | `munib-tracker://qaza` |
-| Ramadan | `munib-tracker://ramadan` |
-| Khatm | `munib-tracker://quran/khatm` |
-| Daily hadith | `munib-tracker://hadith/daily` |
-| Islamic date | `munib-tracker://calendar` |
-| Qibla | `munib-tracker://qibla` |
+| Widget              | Default tap target                                                                             |
+| ------------------- | ---------------------------------------------------------------------------------------------- |
+| Next Salah          | `munib-tracker://`                                                                             |
+| Schedule / Progress | `munib-tracker://tracker`                                                                      |
+| Salah streak        | `munib-tracker://statistics`                                                                   |
+| Qaza                | `munib-tracker://qaza`                                                                         |
+| Ramadan             | `munib-tracker://ramadan`                                                                      |
+| Khatm               | `munib-tracker://quran/khatm`                                                                  |
+| Daily hadith        | `munib-tracker://hadith/daily`                                                                 |
+| Islamic date        | `munib-tracker://calendar`                                                                     |
+| Qibla               | `munib-tracker://qibla`                                                                        |
+| Tasbeeh glance      | `munib-tracker://tasbeeh/free`                                                                 |
+| Jumu'ah             | `munib-tracker://tracker?focus=…` (Friday checklist) on Fridays, else `munib-tracker://friday` |
 
 **Mark current Salah (in-widget action):**
 
-| Platform | Mechanism |
-|----------|-----------|
-| iOS | `MarkCurrentSalahWidgetIntent` → App Group `pending_commands_v1` (`source: "widget"`), no URL |
-| Android | Secondary Mark chip → `munib-tracker://mark-current` → `mark-current.tsx` enqueue |
+| Platform | Mechanism                                                                                     |
+| -------- | --------------------------------------------------------------------------------------------- |
+| iOS      | `MarkCurrentSalahWidgetIntent` → App Group `pending_commands_v1` (`source: "widget"`), no URL |
+| Android  | Secondary Mark chip → `munib-tracker://mark-current` → `mark-current.tsx` enqueue             |
 
 When location is denied, taps on location-dependent widgets open `munib-tracker://location` (Mark on Progress still works).
 Snapshot builder: `apps/app/src/lib/appSurfaces/widgets/buildWidgetSnapshot.ts`.
 
 ### OAuth redirects
 
-| Path | Purpose |
-|------|---------|
-| `munib-tracker:/oauth2redirect` / `oauth2redirect` route | Google OAuth resume when Custom Tabs dismiss |
-| `com.googleusercontent.apps.{client-id}:/oauth2redirect` | Google OAuth return on native (reversed Android/iOS client ID) |
-| `https://my.munibtracker.app/oauth/apple` | Apple OAuth App Link return (Android / iOS OAuth fallback) |
-| `https://api.munibtracker.app/api/v1/auth/apple/oauth/callback` | Apple web `form_post` callback (API) |
+| Path                                                            | Purpose                                                        |
+| --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `munib-tracker:/oauth2redirect` / `oauth2redirect` route        | Google OAuth resume when Custom Tabs dismiss                   |
+| `com.googleusercontent.apps.{client-id}:/oauth2redirect`        | Google OAuth return on native (reversed Android/iOS client ID) |
+| `https://my.munibtracker.app/oauth/apple`                       | Apple OAuth App Link return (Android / iOS OAuth fallback)     |
+| `https://api.munibtracker.app/api/v1/auth/apple/oauth/callback` | Apple web `form_post` callback (API)                           |
 
 Configured in `apps/app/src/lib/auth/oauth-config.ts`. App Links / associated domains are declared in `apps/app/app.json` (`ios.associatedDomains`, `android.intentFilters`).
 
@@ -188,20 +195,20 @@ Apple OAuth on Android (and iOS OAuth fallback) returns to **`https://my.munibtr
 
 Host verification files are generated into `apps/app/public/.well-known/` by `scripts/generate-well-known.mjs` (runs as part of `build:web`):
 
-| File | URL |
-|------|-----|
+| File                       | URL                                                                  |
+| -------------------------- | -------------------------------------------------------------------- |
 | Apple App Site Association | `https://my.munibtracker.app/.well-known/apple-app-site-association` |
-| Digital Asset Links | `https://my.munibtracker.app/.well-known/assetlinks.json` |
+| Digital Asset Links        | `https://my.munibtracker.app/.well-known/assetlinks.json`            |
 
 **Deploy env for production verification:**
 
-| Variable | Purpose |
-|----------|---------|
-| `EXPO_APPLE_TEAM_ID` | AASA `appID` prefix (required for real iOS verification; placeholder `TEAMID` if unset) |
+| Variable                               | Purpose                                                                                                                                                                                                                                                              |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `EXPO_APPLE_TEAM_ID`                   | AASA `appID` prefix (required for real iOS verification; placeholder `TEAMID` if unset)                                                                                                                                                                              |
 | `ANDROID_APP_LINK_SHA256_FINGERPRINTS` | Play App Signing + debug SHA-256 (comma-separated). **Required for Play Store installs** — the generator always includes the upload cert, but Play re-signs with the App Signing key. Without that fingerprint, `autoVerify` App Links fail for production installs. |
-| `EXPO_PUBLIC_APP_IDENTIFIER` | iOS bundle ID (`app.munibtracker`) |
-| `EXPO_PUBLIC_ANDROID_PACKAGE` | Android package (`app.munibtracker`) |
-| `EXPO_PUBLIC_WEB_APP_ORIGIN` | Product web origin used for Apple redirect URIs (falls back to `EXPO_PUBLIC_APP_URL`) |
+| `EXPO_PUBLIC_APP_IDENTIFIER`           | iOS bundle ID (`app.munibtracker`)                                                                                                                                                                                                                                   |
+| `EXPO_PUBLIC_ANDROID_PACKAGE`          | Android package (`app.munibtracker`)                                                                                                                                                                                                                                 |
+| `EXPO_PUBLIC_WEB_APP_ORIGIN`           | Product web origin used for Apple redirect URIs (falls back to `EXPO_PUBLIC_APP_URL`)                                                                                                                                                                                |
 
 **SHA-256 sources:**
 
@@ -218,6 +225,7 @@ curl -sI https://my.munibtracker.app/.well-known/apple-app-site-association
 [Google Asset Links tool](https://developers.google.com/digital-asset-links/tools/generator)
 
 Full OAuth console setup: [OAUTH_SETUP.md](./OAUTH_SETUP.md).
+
 ---
 
 ## Push notifications
@@ -234,18 +242,18 @@ Deep links, quick actions, and external commands are blocked until PIN/biometric
 
 ## Related code
 
-| Area | Path |
-|------|------|
-| Scheme + URL builders + catalog | `apps/app/src/lib/app-links.ts` |
-| Catalog / builder tests | `apps/app/src/lib/app-links.test.ts` |
-| OAuth redirect URIs | `apps/app/src/lib/auth/oauth-config.ts` |
-| Apple OAuth App Link route | `apps/app/src/app/oauth/apple.tsx` |
-| Google OAuth resume route | `apps/app/src/app/oauth2redirect.tsx` |
-| Mark-current bridge | `apps/app/src/app/mark-current.tsx` |
-| Review bridge | `apps/app/src/features/reviews/components/ReviewDeepLinkBridge.tsx` |
-| Quick actions | `apps/app/src/lib/appSurfaces/quickActions/` |
-| Voice intents | `apps/app/src/lib/appSurfaces/intents/registry.ts` |
-| External command queue | `apps/app/src/lib/external-commands/` |
-| Widget snapshot + deep links | `apps/app/src/lib/appSurfaces/widgets/` |
-| Expo config | `apps/app/app.json` |
-| Native surfaces overview | [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) |
+| Area                            | Path                                                                |
+| ------------------------------- | ------------------------------------------------------------------- |
+| Scheme + URL builders + catalog | `apps/app/src/lib/app-links.ts`                                     |
+| Catalog / builder tests         | `apps/app/src/lib/app-links.test.ts`                                |
+| OAuth redirect URIs             | `apps/app/src/lib/auth/oauth-config.ts`                             |
+| Apple OAuth App Link route      | `apps/app/src/app/oauth/apple.tsx`                                  |
+| Google OAuth resume route       | `apps/app/src/app/oauth2redirect.tsx`                               |
+| Mark-current bridge             | `apps/app/src/app/mark-current.tsx`                                 |
+| Review bridge                   | `apps/app/src/features/reviews/components/ReviewDeepLinkBridge.tsx` |
+| Quick actions                   | `apps/app/src/lib/appSurfaces/quickActions/`                        |
+| Voice intents                   | `apps/app/src/lib/appSurfaces/intents/registry.ts`                  |
+| External command queue          | `apps/app/src/lib/external-commands/`                               |
+| Widget snapshot + deep links    | `apps/app/src/lib/appSurfaces/widgets/`                             |
+| Expo config                     | `apps/app/app.json`                                                 |
+| Native surfaces overview        | [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md)                        |

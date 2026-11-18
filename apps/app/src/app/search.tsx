@@ -2,8 +2,16 @@ import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  ActivityIndicator,
+  Platform,
+  StyleSheet,
+  TextInput,
+  type TextInputInstance,
+  useWindowDimensions,
+  View,
+  type ViewInstance,
+} from "react-native";
 import { Seo } from "@/components/seo/seo";
 import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
@@ -11,10 +19,13 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -35,7 +46,8 @@ import {
   tokenize,
 } from "@/lib/search";
 import { clearRecentSearches, loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
-import { abortStt, type SttErrorKind } from "@/lib/stt";
+import { routeMetadata } from "@/lib/seo/route-metadata";
+import type { SttErrorKind } from "@/lib/stt";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
@@ -55,6 +67,19 @@ const PREVIEW_LIMIT = 4;
  * transliteration the offline index matches, so results are consistent in every
  * locale.
  */
+/**
+ * Wide-screen layout (never TV): centred column caps that match `ScreenLayout`,
+ * side filter list at ≥1024, multi-column results.
+ */
+function searchColumnMaxWidth(width: number): number {
+  if (width >= 1600) return 1320;
+  if (width >= 1024) return 1120;
+  return 880;
+}
+
+/** Focusable result/term controls inside the results body (RN-web Pressables). */
+const WEB_FOCUSABLE_SELECTOR = '[role="button"], [tabindex="0"]';
+
 const SUGGESTIONS: { key: string; query: string }[] = [
   { key: "kursi", query: "Ayat al-Kursi" },
   { key: "forgiveness", query: "Forgiveness" },
@@ -77,7 +102,7 @@ type FilterKey = SearchCategory | "all";
 export default function SearchScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const toast = useToast();
   const chevronBackIcon = useChevronBack();
@@ -95,6 +120,19 @@ export default function SearchScreen() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const filterScrollRef = useHorizontalWheelScroll();
   const tv = isTV();
+  const { width } = useWindowDimensions();
+  // Tablet / desktop (window width): centred column; ≥1024 adds the side filter list.
+  const wideColumn = !tv && width >= 768;
+  const sideFilters = !tv && width >= 1024;
+  const columnStyle = wideColumn
+    ? {
+        width: "100%" as const,
+        maxWidth: searchColumnMaxWidth(width),
+        alignSelf: "center" as const,
+      }
+    : null;
+  const inputRef = useRef<TextInputInstance>(null);
+  const resultsRef = useRef<ViewInstance>(null);
 
   const handleSttError = useCallback(
     (kind: SttErrorKind) => {
@@ -121,8 +159,6 @@ export default function SearchScreen() {
     onError: handleSttError,
   });
 
-  useEffect(() => () => abortStt(), []);
-
   const toggleVoiceSearch = () => {
     if (stt.listening) {
       stt.stop();
@@ -136,6 +172,8 @@ export default function SearchScreen() {
     if (stt.listening) stt.abort();
     setQuery(value);
   };
+  const setQueryFromInputRef = useRef(setQueryFromInput);
+  setQueryFromInputRef.current = setQueryFromInput;
   const categoryVisual = useMemo<Record<SearchCategory, CategoryVisual>>(
     () => ({
       quran: {
@@ -428,121 +466,116 @@ export default function SearchScreen() {
     setRecent([]);
   };
 
+  /** Web: move keyboard focus to the first result / suggestion in the body. */
+  const focusFirstResult = useCallback((): boolean => {
+    if (Platform.OS !== "web") return false;
+    const container = resultsRef.current as unknown as HTMLElement | null;
+    const first = container?.querySelector<HTMLElement>(WEB_FOCUSABLE_SELECTOR);
+    if (!first) return false;
+    first.focus();
+    return true;
+  }, []);
+
+  // Desktop web keyboard: ↓ from the field enters the results, ↑/↓ walk them
+  // (↑ on the first returns to the field), Esc clears the query. Enter on a
+  // focused result opens it (RN-web Pressable). Never on native / TV.
+  useEffect(() => {
+    if (Platform.OS !== "web" || tv || typeof window === "undefined") return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
+      const input = inputRef.current as unknown as HTMLElement | null;
+      const container = resultsRef.current as unknown as HTMLElement | null;
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
+      if (target === input) {
+        if (event.key === "ArrowDown" && focusFirstResult()) event.preventDefault();
+        else if (event.key === "Escape" && query.length > 0) {
+          event.preventDefault();
+          setQueryFromInputRef.current("");
+        }
+        return;
+      }
+      if (!container?.contains(target)) return;
+      if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+      const items = Array.from(container.querySelectorAll<HTMLElement>(WEB_FOCUSABLE_SELECTOR));
+      const index = items.indexOf(target);
+      if (index < 0) return;
+      event.preventDefault();
+      if (event.key === "ArrowDown") {
+        items[Math.min(items.length - 1, index + 1)]?.focus();
+      } else if (index === 0) {
+        input?.focus();
+      } else {
+        items[index - 1]?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [focusFirstResult, query.length, tv]);
+
+  const submitQuery = () => {
+    const trimmed = query.trim();
+    if (!trimmed) return;
+    remember(trimmed);
+    // Desktop web: Enter commits the query and hands focus to the results so
+    // ↑/↓ + Enter can pick one without the mouse.
+    if (Platform.OS === "web" && !tv) focusFirstResult();
+  };
+
   const busy = pending || lightSearching || ayahLoading;
   const showIdle = !rawHasQuery;
   const showLoading = rawHasQuery && busy && visibleGroups.length === 0;
   const showEmpty = hasQuery && !busy && visibleGroups.length === 0;
+  const showFilters = hasQuery && presentCategories.length > 0;
+  // "All" on wide screens: category groups side by side. A single category:
+  // its rows in a grid. TV keeps its two-column row grid.
+  const groupColumns = sideFilters && filter === "all" && width >= 1200 ? 2 : 1;
+  const rowColumns = tv
+    ? 2
+    : sideFilters && filter !== "all"
+      ? width >= 1600
+        ? 3
+        : 2
+      : wideColumn && filter !== "all"
+        ? 2
+        : 1;
 
-  return (
-    <View style={[styles.root, { backgroundColor: colors.background }]}>
-      <Seo path="/search" />
-      {/* Search bar */}
-      <View style={[styles.header, { paddingTop: insets.top + Spacing.two }]}>
-        <IconButton
-          accessibilityLabel={t("common.goBack")}
-          onPress={() => goBackOrReplace(router, "/")}
-          name={chevronBackIcon}
-          size={19}
-          tintColor={colors.accent}
-          background={tokens.accentSoft}
-          style={styles.backButton}
+  const filterChips = [
+    <FilterChip
+      key="all"
+      label={t("search.all")}
+      count={totalCount}
+      active={filter === "all"}
+      tv={tv}
+      vertical={sideFilters}
+      onPress={() => setFilter("all")}
+    />,
+    ...presentCategories.map((category) => {
+      const group = groups.find((g) => g.category === category);
+      return (
+        <FilterChip
+          key={category}
+          label={t(`search.cat.${category}`)}
+          count={group?.total ?? 0}
+          active={filter === category}
+          tv={tv}
+          vertical={sideFilters}
+          onPress={() => setFilter(category)}
         />
+      );
+    }),
+  ];
 
-        <View
-          style={[
-            styles.field,
-            {
-              backgroundColor: colors.muted,
-              borderWidth: stt.listening ? 1.5 : 0,
-              borderColor: stt.listening ? colors.accent : "transparent",
-            },
-          ]}
-        >
-          <SymbolView
-            name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            size={18}
-            tintColor={colors.mutedForeground}
-          />
-          <TextInput
-            value={query}
-            onChangeText={setQueryFromInput}
-            onSubmitEditing={() => query.trim() && remember(query.trim())}
-            placeholder={t("search.placeholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("search.placeholder")}
-            autoFocus={!tv}
-            autoCorrect={false}
-            returnKeyType="search"
-            style={[styles.input, { color: colors.foreground }]}
-          />
-          {stt.available ? (
-            <VoiceInputButton
-              size="sm"
-              listening={stt.listening}
-              level={stt.level}
-              accessibilityLabel={
-                stt.listening ? t("search.stt.stopDictate") : t("search.stt.dictate")
-              }
-              accessibilityHint={stt.listening ? t("search.stt.listening") : undefined}
-              onPress={toggleVoiceSearch}
-            />
-          ) : null}
-          {query.length > 0 ? (
-            <IconButton
-              accessibilityLabel={t("search.clear")}
-              onPress={() => setQueryFromInput("")}
-              name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
-              size={18}
-              tintColor={colors.mutedForeground}
-            />
-          ) : null}
-        </View>
-      </View>
-
-      {/* Filter chips */}
-      {hasQuery && presentCategories.length > 0 ? (
-        <View style={styles.filterWrap}>
-          <TvFocusGuide trapFocusUp trapFocusDown>
-            <TvScrollView
-              ref={filterScrollRef}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-              contentContainerStyle={styles.filterRow}
-            >
-              <FilterChip
-                label={t("search.all")}
-                count={totalCount}
-                active={filter === "all"}
-                tv={tv}
-                onPress={() => setFilter("all")}
-              />
-              {presentCategories.map((category) => {
-                const group = groups.find((g) => g.category === category);
-                return (
-                  <FilterChip
-                    key={category}
-                    label={t(`search.cat.${category}`)}
-                    count={group?.total ?? 0}
-                    active={filter === category}
-                    tv={tv}
-                    onPress={() => setFilter(category)}
-                  />
-                );
-              })}
-            </TvScrollView>
-          </TvFocusGuide>
-        </View>
-      ) : null}
-
-      <TvFocusGuide autoFocus={tv} style={styles.body}>
-        <TvScrollView
-          style={styles.body}
-          contentContainerStyle={styles.bodyContent}
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
-          showsVerticalScrollIndicator={false}
-        >
+  const resultsBody = (
+    <TvFocusGuide autoFocus={tv} style={styles.body}>
+      <TvScrollView
+        style={styles.body}
+        contentContainerStyle={[styles.bodyContent, tv ? styles.bodyContentTv : null]}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+        showsVerticalScrollIndicator={false}
+      >
+        <View ref={resultsRef}>
           {showIdle ? (
             <IdleState
               recent={recent}
@@ -552,7 +585,7 @@ export default function SearchScreen() {
               onClearRecent={clearRecent}
             />
           ) : visibleGroups.length > 0 ? (
-            <View style={styles.results}>
+            <ResponsiveGrid columns={groupColumns} gap={Spacing.four}>
               {visibleGroups.map((group) => {
                 const preview =
                   filter === "all" ? group.results.slice(0, PREVIEW_LIMIT) : group.results;
@@ -582,18 +615,31 @@ export default function SearchScreen() {
                       </ThemedText>
                     </View>
 
-                    <View style={styles.rows}>
-                      {preview.map((result) => (
-                        <ResultRow
-                          key={result.key}
-                          result={result}
-                          query={query}
-                          visual={visual}
-                          category={group.category}
-                          tv={tv}
-                          onPress={() => openResult(result)}
-                        />
-                      ))}
+                    {/* TV + wide screens: multi-column result grid uses the landscape width. */}
+                    <View style={rowColumns > 1 ? styles.rowsGrid : styles.rows}>
+                      {preview.map((result) => {
+                        const row = (
+                          <ResultRow
+                            key={result.key}
+                            result={result}
+                            query={query}
+                            visual={visual}
+                            category={group.category}
+                            tv={tv}
+                            onPress={() => openResult(result)}
+                          />
+                        );
+                        return rowColumns > 1 ? (
+                          <View
+                            key={result.key}
+                            style={[styles.rowsGridCell, { width: `${100 / rowColumns}%` }]}
+                          >
+                            {row}
+                          </View>
+                        ) : (
+                          row
+                        );
+                      })}
                     </View>
 
                     {showInlineQuranLoader ? (
@@ -610,7 +656,7 @@ export default function SearchScreen() {
                         haptic="light"
                         accessibilityRole="button"
                         onPress={() => setFilter(group.category)}
-                        style={styles.seeAll}
+                        style={[styles.seeAll, tv ? styles.seeAllTv : null]}
                       >
                         <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                           {t("search.seeAllCount", { count: group.total })}
@@ -650,7 +696,7 @@ export default function SearchScreen() {
                   </View>
                 </View>
               ) : null}
-            </View>
+            </ResponsiveGrid>
           ) : showLoading ? (
             <SearchLoading />
           ) : showEmpty ? (
@@ -660,8 +706,119 @@ export default function SearchScreen() {
               description={t("search.noResultsDesc")}
             />
           ) : null}
-        </TvScrollView>
-      </TvFocusGuide>
+        </View>
+      </TvScrollView>
+    </TvFocusGuide>
+  );
+
+  return (
+    <View style={[styles.root, { backgroundColor: colors.background }]}>
+      <Seo path="/search" />
+      {/* Search bar */}
+      <View
+        style={[
+          styles.header,
+          tv ? styles.headerTv : null,
+          columnStyle,
+          { paddingTop: tv ? TvLayout.contentPaddingY : insets.top + Spacing.two },
+        ]}
+      >
+        {/* TV: the remote Back/Menu button pops this screen — no on-screen Back. */}
+        {tv ? null : (
+          <IconButton
+            accessibilityLabel={t("common.goBack")}
+            onPress={() => goBackOrReplace(router, "/")}
+            name={chevronBackIcon}
+            size={19}
+            tintColor={colors.accent}
+            background={tokens.accentSoft}
+            style={styles.backButton}
+          />
+        )}
+
+        <View
+          style={[
+            styles.field,
+            tv ? styles.fieldTv : null,
+            {
+              backgroundColor: colors.input,
+              borderWidth: stt.listening ? 1.5 : 1,
+              borderColor: stt.listening ? colors.accent : colors.inputBorder,
+            },
+          ]}
+        >
+          <SymbolView
+            name={{ ios: "magnifyingglass", android: "search", web: "search" }}
+            size={18}
+            tintColor={colors.mutedForeground}
+          />
+          <TextInput
+            value={query}
+            onChangeText={setQueryFromInput}
+            ref={inputRef}
+            onSubmitEditing={submitQuery}
+            placeholder={t("search.placeholder")}
+            placeholderTextColor={colors.mutedForeground}
+            accessibilityLabel={t("search.placeholder")}
+            autoFocus={!tv}
+            autoCorrect={false}
+            returnKeyType="search"
+            style={[styles.input, tv ? styles.inputTv : null, { color: colors.foreground }]}
+          />
+          {/* No microphone dictation on TV remotes (phone-only capability). */}
+          {stt.available && !tv ? (
+            <VoiceInputButton
+              size="sm"
+              listening={stt.listening}
+              level={stt.level}
+              accessibilityLabel={
+                stt.listening ? t("search.stt.stopDictate") : t("search.stt.dictate")
+              }
+              accessibilityHint={stt.listening ? t("search.stt.listening") : undefined}
+              onPress={toggleVoiceSearch}
+            />
+          ) : null}
+          {query.length > 0 ? (
+            <IconButton
+              accessibilityLabel={t("search.clear")}
+              onPress={() => setQueryFromInput("")}
+              name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
+              size={18}
+              tintColor={colors.mutedForeground}
+            />
+          ) : null}
+        </View>
+      </View>
+
+      {/* Filter chips — horizontal strip on phones / TV; side list on wide screens. */}
+      {showFilters && !sideFilters ? (
+        <View style={[styles.filterWrap, columnStyle]}>
+          {/* Horizontal chip strip: keep Left/Right inside the strip; Up/Down must
+            stay free so the D-pad can reach the field above and results below. */}
+          <TvFocusGuide autoFocus={tv} trapFocusLeft trapFocusRight>
+            <TvScrollView
+              ref={filterScrollRef}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={[styles.filterRow, tv ? styles.filterRowTv : null]}
+            >
+              {filterChips}
+            </TvScrollView>
+          </TvFocusGuide>
+        </View>
+      ) : null}
+
+      {sideFilters ? (
+        <View style={[styles.wideBody, columnStyle]}>
+          {showFilters ? <View style={styles.filterAside}>{filterChips}</View> : null}
+          {resultsBody}
+        </View>
+      ) : wideColumn ? (
+        <View style={[styles.body, columnStyle]}>{resultsBody}</View>
+      ) : (
+        resultsBody
+      )}
     </View>
   );
 }
@@ -684,15 +841,23 @@ function FilterChip({
   count,
   active,
   tv = false,
+  vertical = false,
   onPress,
 }: {
   label: string;
   count: number;
   active: boolean;
   tv?: boolean;
+  /** Wide screens: full-width row in the side filter list. */
+  vertical?: boolean;
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const chipFg = active
+    ? tv
+      ? colors.accentText
+      : colors.accentForeground
+    : colors.mutedForeground;
   return (
     <PressableScale
       haptic="light"
@@ -704,22 +869,27 @@ function FilterChip({
       style={[
         styles.chip,
         tv ? styles.chipTv : null,
-        { backgroundColor: active ? colors.accent : colors.muted },
+        vertical ? styles.chipVertical : null,
+        // TV: selected = soft accent fill + hairline; the solid accent ring is
+        // reserved for D-pad focus so the two states never look identical.
+        tv
+          ? {
+              backgroundColor: active ? tokens.accentSoft : colors.muted,
+              borderColor: active ? tokens.accentBorder : "transparent",
+            }
+          : { backgroundColor: active ? colors.accent : colors.muted },
       ]}
     >
-      <ThemedText
-        type="smallBold"
-        style={{ color: active ? colors.accentForeground : colors.mutedForeground }}
-      >
+      <ThemedText type="smallBold" style={{ color: chipFg }}>
         {label}
       </ThemedText>
       <View
-        style={[styles.chipCount, { backgroundColor: active ? tokens.scrim : tokens.hairline }]}
+        style={[
+          styles.chipCount,
+          { backgroundColor: active && !tv ? tokens.scrim : tokens.hairline },
+        ]}
       >
-        <ThemedText
-          type="caption"
-          style={{ color: active ? colors.accentForeground : colors.mutedForeground }}
-        >
+        <ThemedText type="caption" style={{ color: chipFg }}>
           {count}
         </ThemedText>
       </View>
@@ -855,7 +1025,12 @@ function IdleState({
             <ThemedText type="smallBold" themeColor="mutedForeground">
               {t("search.recent")}
             </ThemedText>
-            <PressableScale accessibilityRole="button" onPress={onClearRecent} hitSlop={8}>
+            <PressableScale
+              accessibilityRole="button"
+              onPress={onClearRecent}
+              hitSlop={8}
+              style={tv ? styles.clearRecentTv : undefined}
+            >
               <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                 {t("search.clearRecent")}
               </ThemedText>
@@ -986,6 +1161,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingBottom: Spacing.three,
   },
+  headerTv: {
+    paddingHorizontal: TvLayout.contentPaddingX,
+  },
   backButton: {
     width: 44,
     height: 44,
@@ -1005,7 +1183,12 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     overflow: "visible",
   },
+  fieldTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.four,
+  },
   input: { flex: 1, fontSize: 15, paddingVertical: 0 },
+  inputTv: { fontSize: tvDp(TvLayout.bodyFontSize) },
   filterWrap: { paddingBottom: Spacing.two },
   filterRow: {
     flexDirection: "row",
@@ -1026,6 +1209,12 @@ const styles = StyleSheet.create({
     minHeight: TvLayout.chipMinHeight,
     paddingStart: Spacing.four,
     paddingEnd: Spacing.three,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  filterRowTv: {
+    paddingHorizontal: TvLayout.contentPaddingX,
+    // Room for the focus ring + scale so the strip does not clip it.
+    paddingVertical: Spacing.one,
   },
   chipCount: {
     minWidth: 20,
@@ -1035,12 +1224,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   body: { flex: 1 },
+  wideBody: { flex: 1, flexDirection: "row" },
+  /** ≥1024: category filters as a vertical list on the start side. */
+  filterAside: {
+    width: 220,
+    gap: Spacing.one,
+    paddingStart: Spacing.four,
+    paddingTop: Spacing.two,
+  },
+  chipVertical: {
+    justifyContent: "space-between",
+    borderRadius: Radius.md,
+  },
   bodyContent: {
     paddingHorizontal: Spacing.four,
     paddingTop: Spacing.two,
     paddingBottom: Spacing.six,
   },
-  results: { gap: Spacing.four },
+  bodyContentTv: {
+    paddingHorizontal: TvLayout.contentPaddingX,
+    paddingBottom: TvLayout.contentPaddingY,
+  },
   group: { gap: Spacing.two },
   groupHeader: {
     flexDirection: "row",
@@ -1050,6 +1254,16 @@ const styles = StyleSheet.create({
   },
   groupTitle: { flex: 1 },
   rows: { gap: Spacing.two },
+  // Padding gutters keep exact halves (percent widths + `gap` would overflow).
+  rowsGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginHorizontal: -Spacing.one,
+  },
+  rowsGridCell: {
+    paddingHorizontal: Spacing.one,
+    paddingBottom: Spacing.two,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -1083,6 +1297,17 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.one,
+  },
+  seeAllTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+  },
+  clearRecentTv: {
+    minHeight: TvLayout.chipMinHeight,
+    justifyContent: "center",
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
   },
   loading: {
     flexDirection: "row",
@@ -1119,3 +1344,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/search");

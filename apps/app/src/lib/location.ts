@@ -295,7 +295,8 @@ export async function getDeviceLocation(
         timeZone: undefined,
       },
     };
-  } catch {
+  } catch (error) {
+    if (__DEV__) console.warn("[location] device location failed:", error);
     return { status: "error" };
   }
 }

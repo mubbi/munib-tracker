@@ -15,8 +15,11 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ReportAttachmentInput } from "@/lib/content-report-api";
+import { isTV } from "@/lib/platform/is-tv";
 
 const MAX_DESCRIPTION = 4000;
 const MAX_CORRECTION = 4000;
@@ -51,6 +54,7 @@ export function ContentReportSheet({
   const [suggestedCorrection, setSuggestedCorrection] = useState("");
   const [userReference, setUserReference] = useState("");
   const [attachments, setAttachments] = useState<ReportAttachmentInput[]>([]);
+  const tv = isTV();
 
   useEffect(() => {
     if (!visible) return;
@@ -100,10 +104,13 @@ export function ContentReportSheet({
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("contentReport.issueTypeLabel")}
         </ThemedText>
+        {/* TV: wrap the chips so D-pad Left/Right/Down stay predictable (no
+            horizontal scroller to fight with). */}
         <TvScrollView
-          horizontal
+          horizontal={!tv}
+          scrollEnabled={!tv}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.chips}
+          contentContainerStyle={[styles.chips, tv && styles.chipsTv]}
         >
           {ISSUE_TYPE_ORDER.map((type) => {
             const selected = issueType === type;
@@ -113,11 +120,18 @@ export function ContentReportSheet({
                 accessibilityRole="button"
                 accessibilityState={{ selected }}
                 onPress={() => setIssueType(type)}
+                {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
                 style={[
                   styles.issueChip,
+                  tv && styles.issueChipTv,
                   {
                     backgroundColor: selected ? tokens.accentSoft : colors.muted,
-                    borderColor: selected ? colors.accent : colors.border,
+                    // TV: selected = soft fill + hairline; the accent ring is focus.
+                    borderColor: selected
+                      ? tv
+                        ? tokens.accentBorder
+                        : colors.accent
+                      : colors.border,
                   },
                 ]}
               >
@@ -145,7 +159,7 @@ export function ContentReportSheet({
             placeholderTextColor={colors.mutedForeground}
             multiline
             textAlignVertical="top"
-            style={[styles.input, styles.multiline, fieldStyle(colors)]}
+            style={[styles.input, styles.multiline, tv && styles.inputTv, fieldStyle(colors)]}
           />
           <View style={styles.fieldMeta}>
             <ThemedText type="caption" themeColor="mutedForeground">
@@ -167,7 +181,7 @@ export function ContentReportSheet({
             placeholderTextColor={colors.mutedForeground}
             multiline
             textAlignVertical="top"
-            style={[styles.input, styles.multiline, fieldStyle(colors)]}
+            style={[styles.input, styles.multiline, tv && styles.inputTv, fieldStyle(colors)]}
           />
         </Field>
 
@@ -177,7 +191,7 @@ export function ContentReportSheet({
             onChangeText={(text) => setUserReference(text.slice(0, MAX_REFERENCE))}
             placeholder={t("contentReport.sourcePlaceholder")}
             placeholderTextColor={colors.mutedForeground}
-            style={[styles.input, fieldStyle(colors)]}
+            style={[styles.input, tv && styles.inputTv, fieldStyle(colors)]}
           />
         </Field>
 
@@ -231,11 +245,12 @@ function Field({
   );
 }
 
-function fieldStyle(colors: { foreground: string; muted: string; border: string }) {
+function fieldStyle(colors: { foreground: string; input: string; inputBorder: string }) {
   return {
     color: colors.foreground,
-    backgroundColor: colors.muted,
-    borderColor: colors.border,
+    backgroundColor: colors.input,
+    borderColor: colors.inputBorder,
+    borderWidth: 1,
   };
 }
 
@@ -271,6 +286,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   multiline: { minHeight: 96 },
+  inputTv: { fontSize: tvDp(TvLayout.bodyFontSize) },
+  chipsTv: { flexWrap: "wrap" },
+  issueChipTv: { minHeight: TvLayout.chipMinHeight },
   actions: {
     marginTop: Spacing.three,
     gap: Spacing.two,

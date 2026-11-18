@@ -11,7 +11,7 @@ module.exports = (config) => {
     displayName: "Munib Tracker",
     deploymentTarget: "10.0",
     colors: {
-      $widgetBackground: "#FFFCF7",
+      $widgetBackground: "#FFFDF9",
       $accent: "#059669",
     },
     entitlements: {

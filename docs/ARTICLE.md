@@ -27,7 +27,7 @@ everything from the H1 onward as the article.
 <!-- MEDIUM IMAGE: upload docs/article_imgs/21-hero-return-to-allah.png -->
 ![A glowing path leading toward dawn, symbolising a Muslim returning to Allah in repentance](./article_imgs/21-hero-return-to-allah.png)
 
-*The journey of Munib: turning back to Allah, again and again.*
+_The journey of Munib: turning back to Allah, again and again._
 
 You know the feeling. You glance at the clock, realise Asr slipped away an hour ago, and something tightens in your chest.
 
@@ -41,14 +41,14 @@ That word is the entire reason this app exists.
 
 Munib Tracker is not another content dump with a crescent icon. It's a **tracker and a reminder** for the walk back: honest salah logging, missed prayers you can actually clear, daily zikr, gentle nudges, and a place to renew tawbah. Free, offline-first, no ads, no paywall on the journey.
 
-**Tagline:** *Track Your Journey Back to Allah.*
+**Tagline:** _Track Your Journey Back to Allah._
 
 I built it as a calm companion for that return — then made the entire codebase public so the ummah can use it, inspect it, and improve it.
 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/00-logo.png -->
 ![Munib Tracker app icon featuring the name Munib in Arabic script](./article_imgs/00-logo.png)
 
-*Munib (مُنيب) Tracker — the app mark.*
+_Munib (مُنيب) Tracker — the app mark._
 
 ---
 
@@ -89,9 +89,9 @@ If you only read one section, read this one.
 
 **Munib (مُنيب)** describes a person who turns back — one who returns to Allah in repentance and keeps returning.
 
-The word appears in the Qur'an. Allah describes Ibrahim (peace be upon him) as *"ḥalīmun awwāhun munīb"* in Surah Hud (11:75), and Surah Qaf (50:33) speaks of the one who comes *"bi-qalbin munīb"* — with a returning heart. Open the [full mushaf](/quran/) and read those verses in context; the Arabic will land better than any paraphrase of mine.
+The word appears in the Qur'an. Allah describes Ibrahim (peace be upon him) as _"ḥalīmun awwāhun munīb"_ in Surah Hud (11:75), and Surah Qaf (50:33) speaks of the one who comes _"bi-qalbin munīb"_ — with a returning heart. Open the [full mushaf](/quran/) and read those verses in context; the Arabic will land better than any paraphrase of mine.
 
-> **Did you know?** *Munib* comes from *inābah* — turning to Allah in repentance. Arabic dictionaries describe it as a turning back that repeats, not a single one-time U-turn. The word itself allows for the fact that you'll need to come back more than once.
+> **Did you know?** _Munib_ comes from _inābah_ — turning to Allah in repentance. Arabic dictionaries describe it as a turning back that repeats, not a single one-time U-turn. The word itself allows for the fact that you'll need to come back more than once.
 
 That's a mercy hiding in plain sight.
 
@@ -110,7 +110,7 @@ Munib Tracker is a free, offline-first worship companion for Muslims rebuilding 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/01-home-store.png -->
 ![Munib Tracker home screen showing prayer times, next prayer countdown, and today's worship goals](./article_imgs/01-home-store.png)
 
-*Home: prayer times, today's goals, and an honest start to the day.*
+_Home: prayer times, today's goals, and an honest start to the day._
 
 In practice, you use it to:
 
@@ -127,12 +127,12 @@ Start as a guest. Create an account only if you later want cloud sync.
 
 ### Where to open it
 
-| Surface | Link |
-|---------|------|
-| Marketing site | [munibtracker.app](https://munibtracker.app) |
-| Web app (PWA) | [my.munibtracker.app](https://my.munibtracker.app) |
-| iOS | [App Store — Munib Tracker](https://apps.apple.com/app/id6787222180) |
-| Android | [Google Play — Munib Tracker](https://play.google.com/store/apps/details?id=app.munibtracker) |
+| Surface        | Link                                                                                          |
+| -------------- | --------------------------------------------------------------------------------------------- |
+| Marketing site | [munibtracker.app](https://munibtracker.app)                                                  |
+| Web app (PWA)  | [my.munibtracker.app](https://my.munibtracker.app)                                            |
+| iOS            | [App Store — Munib Tracker](https://apps.apple.com/app/id6787222180)                          |
+| Android        | [Google Play — Munib Tracker](https://play.google.com/store/apps/details?id=app.munibtracker) |
 
 ---
 
@@ -140,7 +140,7 @@ Start as a guest. Create an account only if you later want cloud sync.
 
 Let's be honest about what an app can and can't do.
 
-Returning to Allah needs sincerity, and no software produces that. Tawbah happens in the heart. What a tool *can* do is remove the friction that keeps pulling you off course — forgetting, guessing, losing count, losing hope in a backlog that feels infinite.
+Returning to Allah needs sincerity, and no software produces that. Tawbah happens in the heart. What a tool _can_ do is remove the friction that keeps pulling you off course — forgetting, guessing, losing count, losing hope in a backlog that feels infinite.
 
 ### Benefits of tracking salah and zikr
 
@@ -153,19 +153,19 @@ Returning to Allah needs sincerity, and no software produces that. Tawbah happen
 
 Here's how each need maps to the app:
 
-| What you need | How Munib Tracker helps |
-|------|-----------------|
-| Show up for salah | Log every prayer, see streaks and an honest calendar, enable optional adhan and prayer reminders |
-| Make up what you missed | Qaza counters, a lifetime estimator, a daily pace planner, and a unified debt dashboard |
-| Remember Allah daily | Adhkar library, free tasbeeh, zikr goals, and bedtime-aware before-sleep reminders |
-| Renew repentance | "Today's Repentance" — a single tap when you've renewed tawbah |
-| Stay oriented | Prayer times, Hijri date, qibla compass, widgets, Live Activities, Watch and Wear |
-| Keep learning as you return | Offline Qur'an, hadith, cited lessons, and practical worship guides |
+| What you need               | How Munib Tracker helps                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------------------------ |
+| Show up for salah           | Log every prayer, see streaks and an honest calendar, enable optional adhan and prayer reminders |
+| Make up what you missed     | Qaza counters, a lifetime estimator, a daily pace planner, and a unified debt dashboard          |
+| Remember Allah daily        | Adhkar library, free tasbeeh, zikr goals, and bedtime-aware before-sleep reminders               |
+| Renew repentance            | "Today's Repentance" — a single tap when you've renewed tawbah                                   |
+| Stay oriented               | Prayer times, Hijri date, qibla compass, widgets, Live Activities, Watch and Wear                |
+| Keep learning as you return | Offline Qur'an, hadith, cited lessons, and practical worship guides                              |
 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/09-tracker-native.png -->
 ![Salah tracker screen in Munib Tracker showing five daily prayers marked as completed or missed](./article_imgs/09-tracker-native.png)
 
-*The tracker: an honest record of your prayers — not a scoreboard of shame.*
+_The tracker: an honest record of your prayers — not a scoreboard of shame._
 
 > **A note on tone:** Every reminder in the app is **opt-in**. Nothing nags you by default. You decide which parts of your deen you want the app to gently pull you back toward — salah, [daily zikr](/zikr/), qaza, or Friday.
 
@@ -182,7 +182,7 @@ Mark each prayer as completed, missed, delayed, or qaza. Add a note. Watch the s
 <!-- MEDIUM IMAGE: upload docs/article_imgs/02-salah-store.png -->
 ![Salah tracking screen with progress ring and prayer status options](./article_imgs/02-salah-store.png)
 
-*Salah on your journey — completed, missed, delayed, or qaza.*
+_Salah on your journey — completed, missed, delayed, or qaza._
 
 - Five fard prayers, plus Witr and sunnah categories
 - Progress ring, streaks, and gentle encouragement — never shame
@@ -203,7 +203,7 @@ Returning usually means facing what got left behind. This is the part people avo
 <!-- MEDIUM IMAGE: upload docs/article_imgs/03-qaza-store.png -->
 ![Qaza planner showing missed prayer counters and an estimated completion date](./article_imgs/03-qaza-store.png)
 
-*Qaza: estimate, pace, and clear what was missed.*
+_Qaza: estimate, pace, and clear what was missed._
 
 - Per-prayer counters that sync from your missed tracker entries
 - A lifetime qaza calculator (with a scholar disclaimer — see the note below)
@@ -213,7 +213,7 @@ Returning usually means facing what got left behind. This is the part people avo
 
 Ten make-up prayers a day sounds like nothing. Over a year it's more than three thousand. Seeing that arithmetic on screen is often the moment hopelessness breaks.
 
-> **Important:** Rulings on qaza salah differ between madhahib and cases. The calculator gives you an *estimate and a plan*, not a fatwa. For your specific situation, ask a qualified scholar you trust.
+> **Important:** Rulings on qaza salah differ between madhahib and cases. The calculator gives you an _estimate and a plan_, not a fatwa. For your specific situation, ask a qualified scholar you trust.
 
 ### 3. Zikr, adhkar, and tasbeeh
 
@@ -222,12 +222,12 @@ Morning and evening adhkar, situational duas, and a counter that genuinely feels
 <!-- MEDIUM IMAGE: upload docs/article_imgs/08-tasbeeh-native.png -->
 ![Free tasbeeh counter screen with a large tap target and dhikr count](./article_imgs/08-tasbeeh-native.png)
 
-*Free tasbeeh — remember Allah with a simple, tactile counter.*
+_Free tasbeeh — remember Allah with a simple, tactile counter._
 
 <!-- MEDIUM IMAGE (optional): upload docs/article_imgs/10-zikr-native.png -->
 ![Adhkar library listing morning, evening, and situational remembrance](./article_imgs/10-zikr-native.png)
 
-*Adhkar library: morning, evening, and situational remembrance.*
+_Adhkar library: morning, evening, and situational remembrance._
 
 - 54 adhkar across categories, with favorites you can reorder
 - A custom adhkar builder, including speech-to-text
@@ -242,7 +242,7 @@ Start with [morning and evening adhkar](/zikr/morning-evening) if you're not sur
 
 A simple daily check-in: renew your tawbah, then tap to mark it.
 
-No form. No journaling requirement. Just a small, visible reminder that the meaning of *Munib* belongs in your day, not only in the app's name.
+No form. No journaling requirement. Just a small, visible reminder that the meaning of _Munib_ belongs in your day, not only in the app's name.
 
 ### 5. Offline Qur'an, hadith, and duas
 
@@ -251,12 +251,12 @@ Read, search, and listen without needing a connection for the core library — o
 <!-- MEDIUM IMAGE: upload docs/article_imgs/04-library-store.png -->
 ![Offline Islamic library with Qur'an, hadith collections, and duas](./article_imgs/04-library-store.png)
 
-*Library: Qur'an, hadith, duas, and more — offline when you need them.*
+_Library: Qur'an, hadith, duas, and more — offline when you need them._
 
 <!-- MEDIUM IMAGE (optional): upload docs/article_imgs/06-names-store.png -->
 ![99 Names of Allah screen with Arabic, transliteration, and meaning](./article_imgs/06-names-store.png)
 
-*The 99 Names — learn, reflect, and return.*
+_The 99 Names — learn, reflect, and return._
 
 - Full mushaf: surah view, juz view, 604-page layout, word-by-word, tajweed colouring
 - Two bundled translations (more on demand), tafsir on demand, multiple reciters
@@ -294,7 +294,7 @@ Practical fiqh with checklists and calculators, for the moments you need an answ
 <!-- MEDIUM IMAGE: upload docs/article_imgs/05-qibla-store.png -->
 ![Qibla compass screen with alignment feedback toward the Kaaba](./article_imgs/05-qibla-store.png)
 
-*Know when to pray and which way to face.*
+_Know when to pray and which way to face._
 
 - GPS or city search, multiple calculation methods, and your Asr madhab
 - Hijri events, moon phase, and optional weather
@@ -317,11 +317,11 @@ Light, dark, or system theme. Accent presets and custom colours.
 <!-- MEDIUM IMAGE (optional light/dark pair): upload docs/article_imgs/15-marketing-home-light.png and 16-marketing-home-dark.png -->
 ![Munib Tracker home screen in light theme](./article_imgs/15-marketing-home-light.png)
 
-*Light theme home.*
+_Light theme home._
 
 ![Munib Tracker home screen in dark theme](./article_imgs/16-marketing-home-dark.png)
 
-*Dark theme home — same journey, your preference.*
+_Dark theme home — same journey, your preference._
 
 ---
 
@@ -366,27 +366,27 @@ Munib Tracker is a single Expo codebase, which means the same journey meets you 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/22-platforms-family.png -->
 ![Munib Tracker running on phone, tablet, TV, and smartwatch](./article_imgs/22-platforms-family.png)
 
-*One product family: phone, tablet, TV, and watch.*
+_One product family: phone, tablet, TV, and watch._
 
 ### Full app
 
-| Platform | Supported |
-|----------|-----------|
-| iPhone and Android phones | Yes |
-| iPad and Android tablets (adaptive layouts) | Yes |
-| Web / PWA | Yes |
-| Apple TV (tvOS) | Yes |
-| Android TV / Fire TV | Yes |
+| Platform                                    | Supported |
+| ------------------------------------------- | --------- |
+| iPhone and Android phones                   | Yes       |
+| iPad and Android tablets (adaptive layouts) | Yes       |
+| Web / PWA                                   | Yes       |
+| Apple TV (tvOS)                             | Yes       |
+| Android TV / Fire TV                        | Yes       |
 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/13-apple-tv-home.png -->
 ![Munib Tracker on Apple TV showing prayer times on the big screen](./article_imgs/13-apple-tv-home.png)
 
-*Apple TV — worship tracking on the big screen.*
+_Apple TV — worship tracking on the big screen._
 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/20-android-tv-home.png -->
 ![Munib Tracker on Android TV with a leanback layout](./article_imgs/20-android-tv-home.png)
 
-*Android TV / Fire TV — same companion, leanback layout.*
+_Android TV / Fire TV — same companion, leanback layout._
 
 The TV apps surprised people, but they make sense for families. Prayer times on the living-room screen become a shared reminder instead of a private one.
 
@@ -403,22 +403,22 @@ These ship with native builds (not Expo Go):
 <!-- MEDIUM IMAGE: upload docs/article_imgs/11-widget-next-prayer.png -->
 ![Next prayer home-screen widget showing time remaining](./article_imgs/11-widget-next-prayer.png)
 
-*Next prayer widget — a glance toward the next return.*
+_Next prayer widget — a glance toward the next return._
 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/17-widget-qaza.png -->
 ![Qaza debt widget showing remaining missed prayers](./article_imgs/17-widget-qaza.png)
 
-*Qaza widget — keep the backlog visible, not forgotten.*
+_Qaza widget — keep the backlog visible, not forgotten._
 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/18-widget-tasbeeh.png -->
 ![Tasbeeh glance widget on the home screen](./article_imgs/18-widget-tasbeeh.png)
 
-*Tasbeeh glance — dhikr from the home screen.*
+_Tasbeeh glance — dhikr from the home screen._
 
 <!-- MEDIUM IMAGE: upload docs/article_imgs/12-watch-schedule.png -->
 ![Munib Tracker on Apple Watch showing the prayer schedule](./article_imgs/12-watch-schedule.png)
 
-*Apple Watch schedule — mark salah from your wrist.*
+_Apple Watch schedule — mark salah from your wrist._
 
 On desktop, use the web app. visionOS and native desktop shells are out of scope on purpose — better to do fewer surfaces well.
 
@@ -430,12 +430,12 @@ If you're here for the architecture rather than the adhkar, welcome.
 
 Munib Tracker is a **pnpm + Turborepo** monorepo, designed around two hard problems: reliable offline worship tracking and a large bundled content library.
 
-| Piece | Stack and role |
-|-------|----------------|
-| Product app | Expo SDK 57 — iOS, Android, web, TV |
-| Marketing site | Next.js 16 + Tailwind |
-| API | NestJS 11 — auth and cloud sync, OpenAPI → typed client |
-| Admin console | Next.js ops console (users, reports, broadcasts) |
+| Piece           | Stack and role                                                                                                       |
+| --------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Product app     | Expo SDK 58 — iOS, Android, web, TV                                                                                  |
+| Marketing site  | Next.js 16 + Tailwind                                                                                                |
+| API             | NestJS 12 — auth and cloud sync, OpenAPI → typed client                                                              |
+| Admin console   | Next.js ops console (users, reports, broadcasts)                                                                     |
 | Shared packages | Domain types, theme tokens, API contract and client, Live Activity and surface push delivery, store screenshot specs |
 
 Data is offline-first on the device, through AsyncStorage repositories and stores. Content is generated from open datasets into bundled assets, with a credits registry shipped alongside it.
@@ -462,8 +462,8 @@ You should be able to run a local build, read the architecture, fix a bug, impro
 
 Munib Tracker is **source-available under [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0)**.
 
-| You may | You may not |
-|---------|-------------|
+| You may                                                                                                               | You may not                                                                                    |
+| --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Use, modify, and redistribute for personal, educational, religious, charitable, and other **non-commercial** purposes | Sell the software, sell customised versions, or use it commercially without a separate license |
 
 Keep the `LICENSE` and `NOTICE` files, and credit Munib Tracker with a link to [munibtracker.app](https://munibtracker.app).
@@ -489,7 +489,7 @@ If anyone claims to be collecting money on its behalf, they're not. See `NOTICE`
 <!-- MEDIUM IMAGE: upload docs/article_imgs/14-android-feature-graphic.png -->
 ![Munib Tracker Google Play feature graphic with the tagline Track Your Journey Back to Allah](./article_imgs/14-android-feature-graphic.png)
 
-*Find Munib Tracker on the App Store and Google Play.*
+_Find Munib Tracker on the App Store and Google Play._
 
 - **Marketing site:** [munibtracker.app](https://munibtracker.app)
 - **Web app:** [my.munibtracker.app](https://my.munibtracker.app)
@@ -511,7 +511,7 @@ If this was useful, send it to someone who's trying to find their way back — o
 
 ### What is Munib Tracker?
 
-A free, offline-first Islamic app for tracking salah, qaza (missed prayers), and daily zikr, bundled with prayer times, qibla, an offline Qur'an and hadith library, duas, and structured lessons. The tagline is *Track Your Journey Back to Allah.*
+A free, offline-first Islamic app for tracking salah, qaza (missed prayers), and daily zikr, bundled with prayer times, qibla, an offline Qur'an and hadith library, duas, and structured lessons. The tagline is _Track Your Journey Back to Allah._
 
 ### Is Munib Tracker really free?
 
@@ -586,6 +586,7 @@ No. The project does not accept sponsorship, funding, or donations of any kind.
 May Allah accept every return, however many times it takes.
 
 ---
+
 ---
 
 <!--
@@ -594,19 +595,19 @@ SUPPORTING SEO ASSETS — not part of the article body.
 
 ## 8. Suggested Internal Links
 
-| Anchor text | Target placeholder | Placement |
-|-------------|--------------------|-----------|
-| full mushaf | `/quran/` | "What does Munib mean?" and "Qur'an learning path" |
-| daily zikr | `/zikr/` | Tone callout in "Why tracking helps" |
-| morning and evening adhkar | `/zikr/morning-evening` | Zikr feature section |
-| before-sleep adhkar | `/zikr/before-sleep` | Zikr section and step 7 of "How to start" |
-| 99 Names of Allah | `/quran/99-names` | Offline library section |
-| learn-dua path | `/dua/learn` | "Learn your deen" |
-| salah guide | `/prayer/salah-guide` | Salah tracking section |
-| prayer times | `/prayer/times` | Prayer times and qibla section |
-| Qaza salah: how to estimate and clear a backlog | `/articles/qaza-salah-guide` | Suggested follow-up article link near "Common mistakes" |
-| Building consistent Islamic habits | `/articles/islamic-habit-building` | Suggested follow-up link in "Key takeaways" |
-| Dhikr for beginners | `/articles/dhikr-for-beginners` | Suggested follow-up link in the Zikr section |
+| Anchor text                                     | Target placeholder                 | Placement                                               |
+| ----------------------------------------------- | ---------------------------------- | ------------------------------------------------------- |
+| full mushaf                                     | `/quran/`                          | "What does Munib mean?" and "Qur'an learning path"      |
+| daily zikr                                      | `/zikr/`                           | Tone callout in "Why tracking helps"                    |
+| morning and evening adhkar                      | `/zikr/morning-evening`            | Zikr feature section                                    |
+| before-sleep adhkar                             | `/zikr/before-sleep`               | Zikr section and step 7 of "How to start"               |
+| 99 Names of Allah                               | `/quran/99-names`                  | Offline library section                                 |
+| learn-dua path                                  | `/dua/learn`                       | "Learn your deen"                                       |
+| salah guide                                     | `/prayer/salah-guide`              | Salah tracking section                                  |
+| prayer times                                    | `/prayer/times`                    | Prayer times and qibla section                          |
+| Qaza salah: how to estimate and clear a backlog | `/articles/qaza-salah-guide`       | Suggested follow-up article link near "Common mistakes" |
+| Building consistent Islamic habits              | `/articles/islamic-habit-building` | Suggested follow-up link in "Key takeaways"             |
+| Dhikr for beginners                             | `/articles/dhikr-for-beginners`    | Suggested follow-up link in the Zikr section            |
 
 ## 9. Suggested Schema.org Types
 
@@ -633,28 +634,28 @@ qaza prayer tracker · missed prayer calculator · zikr counter app · adhkar ap
 
 ## 13. Suggested Image Alt Text
 
-| Image | Alt text |
-|-------|----------|
-| `21-hero-return-to-allah.png` | A glowing path leading toward dawn, symbolising a Muslim returning to Allah in repentance |
-| `00-logo.png` | Munib Tracker app icon featuring the name Munib in Arabic script |
-| `01-home-store.png` | Munib Tracker home screen showing prayer times, next prayer countdown, and today's worship goals |
-| `09-tracker-native.png` | Salah tracker screen in Munib Tracker showing five daily prayers marked as completed or missed |
-| `02-salah-store.png` | Salah tracking screen with progress ring and prayer status options |
-| `03-qaza-store.png` | Qaza planner showing missed prayer counters and an estimated completion date |
-| `08-tasbeeh-native.png` | Free tasbeeh counter screen with a large tap target and dhikr count |
-| `10-zikr-native.png` | Adhkar library listing morning, evening, and situational remembrance |
-| `04-library-store.png` | Offline Islamic library with Qur'an, hadith collections, and duas |
-| `06-names-store.png` | 99 Names of Allah screen with Arabic, transliteration, and meaning |
-| `05-qibla-store.png` | Qibla compass screen with alignment feedback toward the Kaaba |
-| `15` / `16` | Munib Tracker home screen in light theme / in dark theme |
-| `22-platforms-family.png` | Munib Tracker running on phone, tablet, TV, and smartwatch |
-| `13-apple-tv-home.png` | Munib Tracker on Apple TV showing prayer times on the big screen |
-| `20-android-tv-home.png` | Munib Tracker on Android TV with a leanback layout |
-| `11-widget-next-prayer.png` | Next prayer home-screen widget showing time remaining |
-| `17-widget-qaza.png` | Qaza debt widget showing remaining missed prayers |
-| `18-widget-tasbeeh.png` | Tasbeeh glance widget on the home screen |
-| `12-watch-schedule.png` | Munib Tracker on Apple Watch showing the prayer schedule |
-| `14-android-feature-graphic.png` | Munib Tracker Google Play feature graphic with the tagline Track Your Journey Back to Allah |
+| Image                            | Alt text                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `21-hero-return-to-allah.png`    | A glowing path leading toward dawn, symbolising a Muslim returning to Allah in repentance        |
+| `00-logo.png`                    | Munib Tracker app icon featuring the name Munib in Arabic script                                 |
+| `01-home-store.png`              | Munib Tracker home screen showing prayer times, next prayer countdown, and today's worship goals |
+| `09-tracker-native.png`          | Salah tracker screen in Munib Tracker showing five daily prayers marked as completed or missed   |
+| `02-salah-store.png`             | Salah tracking screen with progress ring and prayer status options                               |
+| `03-qaza-store.png`              | Qaza planner showing missed prayer counters and an estimated completion date                     |
+| `08-tasbeeh-native.png`          | Free tasbeeh counter screen with a large tap target and dhikr count                              |
+| `10-zikr-native.png`             | Adhkar library listing morning, evening, and situational remembrance                             |
+| `04-library-store.png`           | Offline Islamic library with Qur'an, hadith collections, and duas                                |
+| `06-names-store.png`             | 99 Names of Allah screen with Arabic, transliteration, and meaning                               |
+| `05-qibla-store.png`             | Qibla compass screen with alignment feedback toward the Kaaba                                    |
+| `15` / `16`                      | Munib Tracker home screen in light theme / in dark theme                                         |
+| `22-platforms-family.png`        | Munib Tracker running on phone, tablet, TV, and smartwatch                                       |
+| `13-apple-tv-home.png`           | Munib Tracker on Apple TV showing prayer times on the big screen                                 |
+| `20-android-tv-home.png`         | Munib Tracker on Android TV with a leanback layout                                               |
+| `11-widget-next-prayer.png`      | Next prayer home-screen widget showing time remaining                                            |
+| `17-widget-qaza.png`             | Qaza debt widget showing remaining missed prayers                                                |
+| `18-widget-tasbeeh.png`          | Tasbeeh glance widget on the home screen                                                         |
+| `12-watch-schedule.png`          | Munib Tracker on Apple Watch showing the prayer schedule                                         |
+| `14-android-feature-graphic.png` | Munib Tracker Google Play feature graphic with the tagline Track Your Journey Back to Allah      |
 
 ## 14. Suggested Social Sharing Title
 
@@ -670,25 +671,25 @@ Missed prayers piling up? Munib Tracker turns your qaza backlog into a plan you 
 
 Upload from [`docs/article_imgs/`](./article_imgs/) (see also [`article_imgs/README.md`](./article_imgs/README.md)):
 
-| Order | File | Section |
-|------:|------|---------|
-| 1 | `21-hero-return-to-allah.png` | Opening hero |
-| 2 | `00-logo.png` | Intro / brand |
-| 3 | `01-home-store.png` | What is Munib Tracker |
-| 4 | `09-tracker-native.png` | Why tracking helps |
-| 5 | `02-salah-store.png` | Salah tracking |
-| 6 | `03-qaza-store.png` | Qaza |
-| 7 | `08-tasbeeh-native.png` | Zikr / tasbeeh |
-| 8 | `10-zikr-native.png` | Adhkar (optional) |
-| 9 | `04-library-store.png` | Offline library |
-| 10 | `06-names-store.png` | 99 Names (optional) |
-| 11 | `05-qibla-store.png` | Prayer times and qibla |
-| 12 | `15` / `16` marketing homes | Themes (optional) |
-| 13 | `22-platforms-family.png` | Every screen you already use |
-| 14 | `13-apple-tv-home.png` | Apple TV |
-| 15 | `20-android-tv-home.png` | Android TV |
-| 16 | `11` / `17` / `18` widgets | Companion surfaces |
-| 17 | `12-watch-schedule.png` | Apple Watch |
-| 18 | `14-android-feature-graphic.png` | Download and links |
+| Order | File                             | Section                      |
+| ----: | -------------------------------- | ---------------------------- |
+|     1 | `21-hero-return-to-allah.png`    | Opening hero                 |
+|     2 | `00-logo.png`                    | Intro / brand                |
+|     3 | `01-home-store.png`              | What is Munib Tracker        |
+|     4 | `09-tracker-native.png`          | Why tracking helps           |
+|     5 | `02-salah-store.png`             | Salah tracking               |
+|     6 | `03-qaza-store.png`              | Qaza                         |
+|     7 | `08-tasbeeh-native.png`          | Zikr / tasbeeh               |
+|     8 | `10-zikr-native.png`             | Adhkar (optional)            |
+|     9 | `04-library-store.png`           | Offline library              |
+|    10 | `06-names-store.png`             | 99 Names (optional)          |
+|    11 | `05-qibla-store.png`             | Prayer times and qibla       |
+|    12 | `15` / `16` marketing homes      | Themes (optional)            |
+|    13 | `22-platforms-family.png`        | Every screen you already use |
+|    14 | `13-apple-tv-home.png`           | Apple TV                     |
+|    15 | `20-android-tv-home.png`         | Android TV                   |
+|    16 | `11` / `17` / `18` widgets       | Companion surfaces           |
+|    17 | `12-watch-schedule.png`          | Apple Watch                  |
+|    18 | `14-android-feature-graphic.png` | Download and links           |
 
 Spare / alternate shots: `07-home-native.png`, `19-tvos-home-native.png`.

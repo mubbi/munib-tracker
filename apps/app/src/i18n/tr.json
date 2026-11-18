@@ -29,7 +29,8 @@
       "encouragementPerfect": "Güzel inceleme — Allah faydalı bilginizi artırsın.",
       "encouragementStrong": "Güçlü bir kavrayış. Eksikleri pekiştirmek için tekrar gözden geçirin.",
       "encouragementSteady": "İyi ilerleme. Eksikleri bir sonraki çalışma hedefleriniz olarak kullanın.",
-      "encouragementKeepGoing": "Her eksik bir derstir. Notları gözden geçirin, sonra tekrar deneyin."
+      "encouragementKeepGoing": "Her eksik bir derstir. Notları gözden geçirin, sonra tekrar deneyin.",
+      "keyboardHint": "Cevaplamak için 1–4, devam etmek için Enter'a basın."
     },
     "skip": "Atla",
     "apply": "Uygula",
@@ -86,7 +87,10 @@
     "selectToContinue": "Devam etmek için Seç'e basın",
     "selectToOpen": "Açmak için seçin",
     "selectToSave": "Kaydetmek için seçin",
-    "selectDay": "İncelemek için bir gün seçin"
+    "selectDay": "İncelemek için bir gün seçin",
+    "newBadge": "Yeni",
+    "decreaseByTv": "{{label}} değerini {{step}} azalt",
+    "increaseByTv": "{{label}} değerini {{step}} artır"
   },
   "search": {
     "placeholder": "Kur'an, hadis, dua, Öğren… ara",
@@ -187,7 +191,8 @@
     "sadaqah": "Sadaqah gol",
     "whiteDays": "Eyyâm-ı Bîd orucu",
     "goodCharacter": "Güzel ahlak",
-    "heavyOnTheScale": "Mîzanda ağır gelenler"
+    "heavyOnTheScale": "Mîzanda ağır gelenler",
+    "quranPractice": "Kur'an alıştırması"
   },
   "quickActions": {
     "checklistSubtitle": "Bugünkü namazları kaydet",
@@ -477,7 +482,7 @@
       "audio": "Ses"
     },
     "continueAction": {
-      "quran": "Continue reading",
+      "quran": "Okumaya devam edin",
       "hadith": "Hadise dön",
       "dua": "Duayı aç",
       "zikr": "Zikirleri aç",
@@ -713,7 +718,9 @@
           "hint": "Eyyâm-ı Bîd'in son günü"
         }
       }
-    }
+    },
+    "cardTipTv": "Güncellemek için bir namaz seçin · Zikir için ezkar · Ayrıntı için bilgi",
+    "tapToMarkTv": "İşaretlemek için seçin"
   },
   "update": {
     "title": "Güncelleme mevcut",
@@ -723,8 +730,8 @@
     "yourVersion": "Sürümünüz",
     "latestVersion": "En son",
     "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
-    "hardBody": "Update to version {{version}} to keep using the app.",
-    "hardNote": "This update is required to continue.",
+    "hardBody": "Uygulamayı kullanabilmek için {{version}} sürümüne güncelleyin.",
+    "hardNote": "Bu güncelleme zorunludur.",
     "updateButton": "Şimdi güncelle",
     "webReloadButton": "Yeniden yükle",
     "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
@@ -793,7 +800,7 @@
     "updateAvailableTitle": "Güncelleme mevcut",
     "updateRequiredTitle": "Güncelleme gerekli",
     "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
-    "updateRequiredDesc": "Update to version {{latest}} to continue using the app.",
+    "updateRequiredDesc": "Uygulamayı kullanabilmek için {{latest}} sürümüne güncelleyin.",
     "updateNow": "Şimdi güncelle",
     "viewUpdateDetails": "Ayrıntıları gör",
     "remindInSettings": "Ayarlar'da hatırlat",
@@ -887,7 +894,8 @@
     "heroSignedIn": "Tekrar hoş geldiniz — hesabınız bağlı. Namaz, kaza ve zikir cihazlar arasında senkronlanabilir.",
     "continueSignedIn": "Devam edin",
     "or": "veya",
-    "guestHint": "Hesabınızı istediğiniz zaman Profil'den bağlayabilirsiniz."
+    "guestHint": "Hesabınızı istediğiniz zaman Profil'den bağlayabilirsiniz.",
+    "guestHintTv": "Telefonunuzdan giriş yapmak için QR kodunu tarayın. Veya misafir olarak devam edin — hesabınızı istediğiniz zaman telefondaki Profil'den bağlayabilirsiniz."
   },
   "onboarding": {
     "begin": "Başla",
@@ -944,7 +952,8 @@
     "locationHighlight1Tv": "Şehriniz için doğru namaz vakitleri",
     "locationHighlight2Tv": "Konumunuzdan kıble yönü",
     "locationHighlight3Tv": "Hatırlatmalar telefonda en iyi çalışır",
-    "locationHighlight4Tv": "Şehri istediğiniz zaman Ayarlar'dan değiştirin"
+    "locationHighlight4Tv": "Şehri istediğiniz zaman Ayarlar'dan değiştirin",
+    "ctaBodyTv": "Misafir olarak başlayın veya telefonunuzla QR kodunu tarayarak giriş yapın. Bu TV'de her şey çevrimdışı çalışır."
   },
   "appearance": {
     "eyebrow": "Ayarlar",
@@ -1199,7 +1208,9 @@
       "a11yStart": "Kilit ekranında sonraki namaz takibini başlat",
       "a11yStop": "Namaz canlı güncelleme takibini durdur"
     },
-    "tvUnavailableBody": "Yerel hatırlatıcılar ve Live Activities TV'de kullanılamaz. Bildirim tercihlerinizi telefonunuzdan yönetin."
+    "tvUnavailableBody": "Yerel hatırlatıcılar ve Live Activities TV'de kullanılamaz. Bildirim tercihlerinizi telefonunuzdan yönetin.",
+    "preciseAdhan": "Ezan için tam zamanlama",
+    "preciseAdhanHint": "Ezan, pil tasarrufu modunda bile tam vaktinde okunur. Android, ezan başlayana kadar durum çubuğunda bir alarm simgesi gösterir."
   },
   "fonts": {
     "eyebrow": "Ayarlar",
@@ -1403,18 +1414,18 @@
     "favEmptyDescTv": "Buraya kaydetmek için herhangi bir ismin yıldızını seçin."
   },
   "quran": {
-    "eyebrow": " Noble Kur'an",
+    "eyebrow": "Kur'an-ı Kerim",
     "title": "Kur'an",
-    "subtitle": "Read, listen, ve reflect",
-    "searchSurah": "by name, meaning, or number Ara",
-    "filterAll": "Tüm",
-    "continueReading": "Okumaya sürdür",
+    "subtitle": "Oku, dinle ve tefekkür et",
+    "searchSurah": "Ad, anlam veya numaraya göre ara",
+    "filterAll": "Tümü",
+    "continueReading": "Okumaya devam edin",
     "continueAt": "Sure {{surah}} · Ayet {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
     "ayahCount": "{{count}} ayet",
     "surahList": "Sureler",
-    "surahCount": "{{shown}}  {{total}}",
+    "surahCount": "{{shown}} / {{total}}",
     "reciter": "Okuyucu",
     "translation": "Çeviri",
     "showTransliteration": "transliteration Göster",
@@ -1427,7 +1438,7 @@
     "playAyah": "Oynat ayah {{n}}",
     "bookmark": "Yer imi",
     "bookmarks": "Yer imleri",
-    "viewBookmarks": "bookmarks Görüntüle",
+    "viewBookmarks": "Yer imlerini görüntüle",
     "bookmarksTitle": "Yer imleri",
     "bookmarksSubtitle": "Sizin kaydedildi ayahs",
     "bookmarkEmptyTitle": "Henüz bookmarks yok",
@@ -1439,11 +1450,11 @@
     "juzN": "Cüz {{n}}",
     "browseByJuz": "Cüze göre göz at",
     "search": "Ara",
-    "searchTitle": "the Kur'an Ara",
-    "searchSubtitle": "Find ayahs by çeviri veya transkripsiyon",
-    "searchPlaceholder": "words in translation… Ara",
-    "searchHint": "Searches  bundled çeviri ve transkripsiyon çevrimdışı.",
-    "noResults": "No ayahs matched sizin ara.",
+    "searchTitle": "Kur'an'da ara",
+    "searchSubtitle": "Ayetleri Arapça, İngilizce, harf çevirisi veya referansla bulun",
+    "searchPlaceholder": "Meal, harf çevirisi veya 2:255 ara…",
+    "searchHint": "Arapça, İngilizce meal ve harf çevirisinde çevrimdışı esnek arama — ayet adları ve referanslar dahil.",
+    "noResults": "Aramanızla eşleşen ayet bulunamadı.",
     "resultsCount": "{{count}} sonuç",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Sure bulunamadı",
@@ -1609,7 +1620,8 @@
       "dictate": "Ayeti söyle",
       "stopDictate": "Dinlemeyi durdur",
       "bestMatch": "En iyi eşleşme",
-      "otherMatches": "Diğer eşleşmeler"
+      "otherMatches": "Diğer eşleşmeler",
+      "tvUnavailableBody": "Ayet algılama mikrofon gerektirir; TV'de mikrofon yok. Bunun yerine Kur'an'da kelimeyle arayın veya uygulamayı telefonunuzda kullanın."
     },
     "searchPlaceholderArabic": "Arapça metin veya ٢:٢٥٥ gibi bir referans ara…",
     "goToPagePlaceholder": "Page 1–{{max}}",
@@ -1620,7 +1632,13 @@
     "surahNumber": "Sure {{number}}",
     "selectSurah": "Bir sure seçin",
     "openReader": "Okuyucuyu aç",
-    "bookmarkEmptyDescTv": "Buraya kaydetmek için herhangi bir ayette yer imi simgesini seçin."
+    "bookmarkEmptyDescTv": "Buraya kaydetmek için herhangi bir ayette yer imi simgesini seçin.",
+    "goToAyahPlaceholder": "Ayet 1–{{max}}",
+    "goToAyahA11y": "Ayet numarasına git",
+    "goToAyahInvalid": "1 ile {{max}} arasında bir ayet girin",
+    "searchAyahs": "Ayet ara",
+    "findSurah": "Sure bul",
+    "noSurahResults": "Aramanızla eşleşen sure bulunamadı."
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -1863,7 +1881,8 @@
     "history": "Geçmiş",
     "rowDone": "{{completed}} kaza edildi",
     "rowDoneWithDaily": "{{completed}} kaza edildi · bugün {{done}}/{{target}}",
-    "hintTv": "Kaza namazını kaydetmek için onay işaretini seçin. Takipte kaçırılan namaz bu sayılara otomatik eklenir."
+    "hintTv": "Kaza namazını kaydetmek için onay işaretini seçin. Takipte kaçırılan namaz bu sayılara otomatik eklenir.",
+    "editCountHintTv": "Bu namazdan kaç kaza borcunuz kaldığını − ve + ile ayarlayın."
   },
   "qazaCalc": {
     "eyebrow": "Kaza",
@@ -1895,7 +1914,8 @@
       "pubertyAfterAge": "Ergenlik yaşı mevcut yaşınızdan sonra olamaz.",
       "yearsPrayedExceed": "Namaz yılları ({{entered}}), ergenlikten bu yana geçen yılları ({{obligatedYears}}) aşamaz.",
       "exemptExceedsYear": "Muaf günler ({{entered}}), seçtiğiniz yıl uzunluğunu ({{maxDays}}) aşamaz."
-    }
+    },
+    "enterAgePromptTv": "Tahmini görmek için yukarıda mevcut yaşınızı ayarlayın."
   },
   "qazaPlan": {
     "eyebrow": "Kaza",
@@ -1992,7 +2012,8 @@
     "confirmAddEstimateMsg": "{{count}} fasts to remaining (new total: {{total}})? Ekle",
     "confirmResetTitle": "counter? Sıfırla",
     "confirmResetMsg": "Clear tüm oruç counts ({{remaining}} kalan, {{completed}} completed)? Bu cannot be undone.",
-    "adjustHintTv": "Ayarlamak için sayıyı seçin veya −/+ kullanın"
+    "adjustHintTv": "Ayarlamak için sayıyı seçin veya −/+ kullanın",
+    "editCountHintTv": "Kaç kaza orucunuz kaldığını − ve + ile ayarlayın."
   },
   "calendar": {
     "eyebrow": "Geçmiş",
@@ -2113,7 +2134,8 @@
     "confirmStartAgainTitle": "again? Başlat",
     "confirmStartAgainMessage": "Sizin completed say will be cleared so siz can begin  yeni round.",
     "dockLabel": "Say",
-    "tapToCountTv": "Saymak için Seç'e basın"
+    "tapToCountTv": "Saymak için Seç'e basın",
+    "tapToCountKeyboard": "Saymak için daireye tıklayın veya Boşluk tuşuna basın"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} dir only {{min}} min away",
@@ -2188,7 +2210,9 @@
     "defaultLabel": "Mekke, Suudi Arabistan",
     "defaultTimesHint": "Salah vakitleri şu an Mekke'ye göre. Bulunduğunuz yer için şehrinizi ayarlayın. Salah ve Ezan hatırlatıcıları o zamana kadar kapalı kalır.",
     "setLocation": "Konumu ayarla",
-    "searchAutoFocusOff": "Şehir ara"
+    "searchAutoFocusOff": "Şehir ara",
+    "subtitleTv": "Namaz vakitleri bu konuma göre hesaplanır. Kumandayla şehrinizi arayın.",
+    "hintTv": "Arama alanını seçin, ardından şehrinizin en az iki harfini yazın."
   },
   "moon": {
     "aria": "Ay evresi: {{phase}}",
@@ -2549,7 +2573,8 @@
     "authenticityTitle": "İçerik güvenilirliği",
     "authenticityBody": "Zikirler ve dualar tanınmış koleksiyonlardan alınmış ve yaygın olarak yayımlanan metinlere yakın tutulmuştur. Belirli bir hüküm veya sayıya güvenmeden önce güvenilir bir alim veya kaynakla doğrulayın.",
     "privacyPolicy": "Gizlilik politikası",
-    "termsOfService": "Hizmet şartları"
+    "termsOfService": "Hizmet şartları",
+    "scanOnPhoneTv": "Bu sayfayı açmak için telefonunuzla tarayın."
   },
   "player": {
     "nowPlaying": "Şimdi çalıyor",
@@ -2582,7 +2607,9 @@
     "loading": "Yükleniyor…",
     "streamingOnlyNote": "Streaming only — ses dir not kaydedildi  bu cihaz",
     "ttsVoice": "Ses",
-    "ttsVoiceHint": "Bir metinden sese sesi seçin"
+    "ttsVoiceHint": "Bir metinden sese sesi seçin",
+    "seekBack": "{{seconds}} saniye geri",
+    "seekForward": "{{seconds}} saniye ileri"
   },
   "errors": {
     "title": "Bir şeyler ters gitti",
@@ -2788,7 +2815,7 @@
     "correctTotalConfirmAction": "Toplamı güncelle"
   },
   "hifz": {
-    "short": "Hifz",
+    "short": "Hıfz",
     "title": "Hifz takibi",
     "subtitle": "Ayahs you've memorized veya need  gözden geçir",
     "markMemorized": "memorized İşaretle",
@@ -2810,7 +2837,7 @@
     "confirmReviewBody": "{{ref}} will be flagged için gözden geçir.",
     "confirmMemorizedBody": "{{ref}} will be işaretlendi as memorized.",
     "confirmClearBody": "{{ref}} will be kaldırıldı den sizin Hifz tracker.",
-    "emptyDescTv": "Ezberlendi olarak işaretlemek için okuyucuda herhangi bir ayette Hifz'ı seçin."
+    "emptyDescTv": "Okuyucuda bir ayet seçin, ardından ezberlendi olarak işaretlemek için Hifz'ı seçin."
   },
   "travel": {
     "eyebrow": "Öğren",
@@ -3300,7 +3327,8 @@
       "reflectionHint": "Huşu ve namaz reflections",
       "learning": "Learning Ilerleme",
       "learningHint": "Topics completed içinde bu module",
-      "characterHintTv": "Bugünkü davranışınızı gözden geçirdiğinizde seçin"
+      "characterHintTv": "Bugünkü davranışınızı gözden geçirdiğinizde seçin",
+      "repentanceHintTv": "Tövbeni yenile — bugün tövbe ettiğinde seç"
     },
     "progressTitle": "Learning ilerleme",
     "progressSubtitle": "Parça çalışması - Allah katındaki manevi rütbe değil",
@@ -3344,7 +3372,8 @@
         "best-beloved": "En hayırlı / en sevgili",
         "equal-reward": "Denk tutulan büyük sevap"
       }
-    }
+    },
+    "timelineCardHintTv": "Ana bölüm — dersin tamamı için her aşamayı seçin"
   },
   "taharah": {
     "eyebrow": "Öğren",
@@ -3520,7 +3549,8 @@
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "tapHintTv": "Kaynaklı notu okumak için haritadaki bir ismi seçin."
+      "tapHintTv": "Kaynaklı notu okumak için haritadaki bir ismi seçin.",
+      "listHintTv": "Kaynaklı notu okumak için listeden bir isim seçin."
     }
   },
   "aqeedah": {
@@ -4299,7 +4329,7 @@
       "label": "Ekler (isteğe bağlı)",
       "add": "Dosya ekle",
       "remove": "Eki kaldır",
-      "hint": "Her biri 1 MB boyutunda en fazla 5 dosya (JPEG, PNG, WebP veya PDF). Kaldırmak için küçük resme uzun basın.",
+      "hint": "En fazla 5 dosya (JPEG, PNG, WebP veya PDF), her biri 1 MB. Kaldırmak için küçük resimdeki × işaretine dokunun.",
       "signInRequired": "Adhkar'ınıza özel dosyalar eklemek için oturum açın.",
       "permissionDenied": "Dosya eklemek için izin gereklidir.",
       "permissionTitle": "Erişime izin ver",
@@ -4329,7 +4359,8 @@
       "loadingPdf": "PDF yükleniyor…",
       "pdfHint": "Kaydırın · sıkıştırın veya +/− ile yakınlaştırın · sıfırlamak için çift dokunun · Paylaşmak için PDF'i açın",
       "pdfPreviewTitle": "PDF önizleme",
-      "tvUnavailable": "Ekler telefon veya tablet gerektirir. Fotoğraf veya PDF'leri oradan ekleyin."
+      "tvUnavailable": "Ekler telefon veya tablet gerektirir. Fotoğraf veya PDF'leri oradan ekleyin.",
+      "pdfTvUnavailable": "PDF'ler TV'de önizlenemez. Bu eki telefonunuzda veya tabletinizde açın."
     },
     "stt": {
       "dictate": "Mikrofonla dikte edin",
@@ -4359,13 +4390,20 @@
     "markTonight": "I prayed Teheccüd tonight",
     "markedTonight": "Bu gece kılındı — maşallah",
     "lastNights": "Son {{count}} gece",
-    "lastNightsHint": "Each dot dir one night, labeled by takvim date (most recent   left).",
     "virtueTitle": "Virtue   night namaz",
     "virtueBody": " best namaz after  farz prayers dir  night namaz.",
     "virtueRef": "Sahih Muslim 1163",
     "streakRow": "Teheccüd seri",
     "calculatorCta": "Gecenin son üçte biri hesaplayıcı",
-    "calculatorHint": "Maghrib ve Fajr'dan gece yarısını ve en iyi Teheccüd penceresini bulun"
+    "calculatorHint": "Maghrib ve Fajr'dan gece yarısını ve en iyi Teheccüd penceresini bulun",
+    "tonightTitle": "Bu gece",
+    "bestLabel": "En iyi seri",
+    "totalLabel": "Toplam gece",
+    "startTonight": "Serin bu gece başlıyor.",
+    "calendarHint": "Kaydetmek veya silmek için geçmiş bir geceye dokunun.",
+    "calendarHintTv": "Kaydetmek veya silmek için geçmiş bir gece seçin.",
+    "legendPrayed": "Kılındı",
+    "inWindow": "Şimdi en iyi vakit"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates dir calculated estimates — local moon-sighting may differ.",
@@ -4621,8 +4659,10 @@
       "buildsTitle": "Ahlakı inşa eder",
       "buildsHint": "Bir seferde bir özelliği çalışın — doğruluk, sabır, merhamet ve adalet.",
       "destroysTitle": "Ahlakı bozanlar",
-      "destroysHint": "Nasların uyardığı alışkanlıklar — ilgili ders için bir kutuya dokunun."
-    }
+      "destroysHint": "Nasların uyardığı alışkanlıklar — ilgili ders için bir kutuya dokunun.",
+      "destroysHintTv": "Naslarda uyarılan alışkanlıklar — ilgili ders için bir kutucuk seçin."
+    },
+    "pathsHintTv": "Allah'ın izniyle dereceyi yükselten ameller — deliller ve uygulama bağlantıları için herhangi bir yolu seçin."
   },
   "jahannam": {
     "eyebrow": "Öğren",
@@ -5114,7 +5154,7 @@
     "eyebrow": "Takvim",
     "title": "Tarih dönüştürücü",
     "subtitle": "Hicri ve Gregoryen takvimleri arasında dönüştürme",
-    "intro": "Takvimlerden herhangi birine bir tarih girin ve bunun diğer takvimdeki eşdeğerini görmek için Kuveyt tablo algoritması kullanılarak çevrimdışı olarak hesaplayın.",
+    "intro": "Bir takvimde tarih girin; diğerindeki karşılığını konumunuzdaki hilāl görünürlüğünden çevrimdışı hesaplanmış olarak görün.",
     "toHijri": "Gregoryen → Hicri",
     "toGregorian": "Hicri → Gregoryen",
     "gregorianDateLabel": "Gregoryen tarihi",
@@ -5124,7 +5164,7 @@
     "year": "Yıl",
     "useToday": "Bugün kullanın",
     "invalidDate": "Geçerli bir tarih girin",
-    "disclaimer": "Bu aritmetik bir yaklaşımdır (tablo \"Kuveyt algoritması\") ve yerel ay gözlemi duyurularından bir gün farklılık gösterebilir; dini tarihler için daima yerel mescidinizi veya otoritenizi takip edin.",
+    "disclaimer": "Tarihler konumunuzdaki hilāl görünürlüğünden hesaplanır ve resmi ay gözlemi duyurularından bir gün farklı olabilir — dini tarihler için her zaman yerel masjid veya otoritenizi takip edin.",
     "directionTitle": "Dönüşüm yönü",
     "resultFrom": "{{date}}'den",
     "quickLinksTitle": "İlgili",
@@ -5209,7 +5249,8 @@
     "editHint": "Vakti değiştirdikçe sonuçlar güncellenir.",
     "nightLengthLabel": "Gece süresi",
     "willStartIn": "{{time}} içinde başlayacak",
-    "timeRemaining": "{{time}} kaldı"
+    "timeRemaining": "{{time}} kaldı",
+    "autoDetectHintTv": "{{location}} · ayarlamak için bir saat seçin"
   },
   "friday": {
     "eyebrow": "Öğren",
@@ -5262,7 +5303,7 @@
     "eyebrow": "Öğrenmek",
     "title": "Janazah kılavuzu",
     "subtitle": "Cenaze namazı, yıkanma, defin ve sahih dualar",
-    "intro": "Toplumsal bir görev olarak cenazeye pratik bir bakış — rükû ve secdesiz dört tekbir, erkekler, kadınlar ve çocuklar için Hisnul Muslim duaları; yıkama, defin, şehitler ve yaslılar için rehberlik.",
+    "intro": "Toplumsal bir görev olarak __MÜNİB_TOKEN_0__ konusuna pratik bir genel bakış - rüku veya secde olmadan dört tekbir nasıl kılınır ve merhum için __MÜNİB_TOKEN_1__ dualar.",
     "section": {
       "obligation": "Yükümlülük",
       "prepare": "Hazırlık",
@@ -5347,5 +5388,400 @@
     "notFound": "Konu bulunamadı",
     "disclaimer": "Eğitici özet — fetva değildir. Kesin tarihler, hilal gözlemine göre değişen Hicrî aya bağlıdır; dinî tarihler ve hükümler için yerel mescidinizi veya ehil bir âlimi takip edin.",
     "continueInApp": "Munib'de sürdür"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "Alıştırma",
+      "practiseAyah": "{{n}}. ayeti çalış",
+      "practisePlan": "Bu sureyi çalış",
+      "toRevise_other": "{{count}} tekrar",
+      "toRevise_one": "{{count}} tekrar"
+    },
+    "mode": {
+      "follow": "Takip",
+      "check": "Kontrol",
+      "hideWords": "Kelimeleri gizle",
+      "hideAyahs": "Ayetleri gizle"
+    },
+    "range": {
+      "ayah": "Bu ayet",
+      "next5": "Sonraki 5",
+      "surah": "Bu sure",
+      "page": "Bu sayfa",
+      "custom": "Özel",
+      "fromAyah": "Ayetten",
+      "toAyah": "Ayete kadar",
+      "increase": "{{label}} artır",
+      "decrease": "{{label}} azalt"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "Alıştırma",
+      "subtitle": "Okuyun, gizleyip açın ve ezberlediklerinizi tekrar edin",
+      "continue": "Sürdür",
+      "start": "Başla",
+      "listen": "Dinle",
+      "manage": "Yönet",
+      "rangeTitle": "Aralık",
+      "modeTitle": "Mod",
+      "startRevision": "Tekrara başla",
+      "openQueue": "Tekrar listesini gör",
+      "captionReady": "Dinleyici bu cihazda kalır.",
+      "captionMissing": "Sesinizi takip etmesi için dinleyiciyi indirin. Yine de dinleyebilirsiniz.",
+      "captionOffline": "Dinleyiciyi indirmek için bağlantı gerekir. Dinleme yine çalışır.",
+      "captionFailed": "Dinleyici başlamadı. Yine de dinleyebilirsiniz.",
+      "captionWebUnsupported": "Bu tarayıcı dinleyiciyi çalıştıramıyor.",
+      "captionUnsupported": "Dinleyici bu cihazda kullanılamıyor. Dinleme yine çalışır.",
+      "captionManualMode": "Dinleyici olmadan bu mod metni sizin açmanız için gösterir ve kelimeleri işaretlemez.",
+      "downloadListener": "Dinleyiciyi indir ({{size}} MB)",
+      "reviseTitle_other": "Tekrar edilecek {{count}} ayet",
+      "reviseTitle_one": "Tekrar edilecek {{count}} ayet",
+      "reviseRemaining_other": "{{count}} tane başka günlere",
+      "reviseRemaining_one": "{{count}} tane başka bir güne",
+      "passageLabel": "Bölümünüz",
+      "change": "Değiştir",
+      "startPassage": "{{passage}} başlat",
+      "ayahCount_one": "{{count}} ayet",
+      "ayahCount_other": "{{count}} ayet",
+      "recentTitle": "Son",
+      "recentHint": "Bu bölümü aynı modda yeniden başlatır"
+    },
+    "session": {
+      "loading": "Ayet yükleniyor…",
+      "preparing": "Dinleyici hazırlanıyor…",
+      "ayahOf": "Ayet {{n}} / {{total}}",
+      "revisionEyebrow": "Tekrar",
+      "coach": "Ayeti okuyun, sonra mikrofona dokunup tilavet edin.",
+      "retry": "Yeniden dene",
+      "settled": "Dinleyici bu ayeti takip etti.",
+      "someNotSure": "Dinleyici bazı kelimelerden emin olamadı. Yeniden okuyabilir veya devam edebilirsiniz.",
+      "listeningStopped": "Dinleme durdu. Kelimeleri açıp devam edebilirsiniz.",
+      "listenerDidNotStart": "Dinleyici başlamadı. Yine de dinleyip kelimeleri açabilirsiniz.",
+      "listenOnly": "Ayeti duymak için oynata dokunun. Sesinizi takip etmesi için dinleyiciyi Ayarlar'dan indirin.",
+      "listenOnlyHide": "Hazır olduğunuzda kelimeleri açın. Dinleyici bu cihazda olmadığından kelimeler işaretlenmez.",
+      "micOff": "Munib Tracker için mikrofon kapalı. Yine de dinleyebilirsiniz.",
+      "openSettings": "Ayarları aç",
+      "previous": "Önceki",
+      "next": "Sonraki",
+      "tryAgainLine_other": "{{count}} kelimeyi yeniden deneyin",
+      "tryAgainLine_one": "{{count}} kelimeyi yeniden deneyin",
+      "changePassage": "Değiştir",
+      "chipDone": "tamam",
+      "chipRetry": "yeniden denenecek kelimeler",
+      "chipCurrent": "şu anki",
+      "chipTodo": "henüz değil",
+      "chipLabel": "Ayet {{n}}, {{state}}",
+      "listeningHint": "Dinleniyor… ayeti okuyun. Son kelimeden sonra kendiliğinden biter ya da durdura dokunun."
+    },
+    "dock": {
+      "hear": "Dinle",
+      "stopHearing": "Tilaveti durdur",
+      "listen": "Dinle",
+      "start": "Başla",
+      "listening": "Dinliyor",
+      "micStartHint": "Bu ayeti okuyuşunuzu dinlemeye başlar",
+      "micStopHint": "Bu ayeti bitirir",
+      "reveal": "Göster",
+      "revealHint": "Sıradaki gizli kelimeyi gösterir. Ayetin kalanı için uzun basın.",
+      "end": "Bitir",
+      "revealAll": "Tümünü göster",
+      "revealAllConfirmTitle": "Ayetin tamamı gösterilsin mi?",
+      "revealAllConfirmMessage": "Bu ayetteki tüm gizli kelimeler gösterilecek.",
+      "endConfirmTitle": "Bu oturum bitirilsin mi?",
+      "endConfirmMessage": "Şimdiye kadar yaptığınız alıştırmanın özetini göreceksiniz.",
+      "endConfirm": "Oturumu bitir"
+    },
+    "word": {
+      "matched": "eşleşti",
+      "corrected": "ikinci denemede eşleşti",
+      "notSure": "emin değil",
+      "tryAgain": "yeniden dene",
+      "notYet": "henüz değil",
+      "hidden": "Gizli kelime {{n}}",
+      "tapToHear": "Bu kelimeyi çalar"
+    },
+    "summary": {
+      "subtitle": "Oturum bitti",
+      "tryAyahAgain": "Bu ayeti yeniden dene",
+      "nextAyah": "Sonraki ayet",
+      "nextRevision": "Sonraki tekrar",
+      "done": "Tamam",
+      "hearAyah": "Bu ayeti dinle",
+      "markMemorized": "Ezberlendi olarak işaretle",
+      "listened": "Bu bölümü dinlediniz. Sesinizi takip etmesi için dinleyiciyi indirin.",
+      "headListened": "Bu bölümü dinlediniz",
+      "practiseAgain": "Yeniden çalış",
+      "weakAyahsTitle": "Yeniden çalışılacak ayetler",
+      "ayahChip": "Ayet {{ayah}}",
+      "practiseAyah": "{{ayah}}. ayeti yeniden çalış"
+    },
+    "revision": {
+      "title": "Tekrar",
+      "subtitle": "Bugün tekrarı gelen ayetler, en eskisi önce",
+      "emptyTitle": "Bugün tekrar edilecek bir şey yok",
+      "emptyDesc": "Kontrol veya gizleme modunda çalıştığınız ayetler, zamanı gelince buraya döner.",
+      "dueToday": "Bugün tekrarı var",
+      "markedMemorized": "Ezberlendi olarak işaretli",
+      "notNow": "Şimdi değil",
+      "setStatus": "Durumu ayarla",
+      "skip": "Atla",
+      "practiseRow": "{{surah}} {{ayah}} çalış",
+      "sittingProgress": "{{n}} / {{total}}",
+      "hifzRowSub": "Ezberlediğiniz ayetleri çalışın ve tekrar edin",
+      "status": {
+        "learning": "Öğreniliyor",
+        "practising": "Çalışılıyor",
+        "needsRevision": "Tekrar gerekiyor"
+      },
+      "overdue_other": "{{count}} gün gecikti",
+      "overdue_one": "{{count}} gün gecikti"
+    },
+    "settings": {
+      "title": "Kur'an alıştırması",
+      "rowSubtitle": "Dinleyici, geri bildirim ve tekrar",
+      "valueReady": "Hazır",
+      "valueNotDownloaded": "İndirilmedi",
+      "valueDownloading": "İndiriliyor %{{percent}}",
+      "valueRetry": "Yeniden denenmeli",
+      "practiceTitle": "Alıştırma",
+      "defaultMode": "Varsayılan mod",
+      "feedbackTiming": "Yeniden denenecek kelimeler ne zaman gösterilsin",
+      "timing": {
+        "ayah": "Her ayetten sonra",
+        "live": "Okurken",
+        "end": "Sonunda"
+      },
+      "showTranslation": "Meali göster",
+      "showTransliteration": "Okunuşu göster",
+      "showTajweed": "Tecvid renkleri",
+      "showTajweedSub": "Renkler alıştırma işaretlerini görmeyi zorlaştırabilir.",
+      "hearBeforeRecite": "Okumadan önce dinle",
+      "hear": {
+        "off": "Kapalı",
+        "once": "Bir kez",
+        "every": "Her ayet"
+      },
+      "autoAdvance": "Otomatik ilerle",
+      "autoAdvanceSub": "Bu ayet tamamlanınca sonrakine geç.",
+      "keepAwake": "Ekranı açık tut",
+      "startFromTitle": "Başlangıç",
+      "startFrom": {
+        "lastPractice": "Son alıştırma",
+        "lastRead": "Okuduğum yer",
+        "ask": "Bana sor"
+      },
+      "revisionTitle": "Tekrar",
+      "dailyLimit": "Günlük ayet",
+      "includeHifz": "Hıfz tekrarını dahil et",
+      "includeHifzSub": "Tekrar için işaretlediğiniz ayetler dahil edilir.",
+      "reminder": "Tekrar hatırlatıcısı",
+      "reminderSub": "Tekrarı gelen ayet olduğunda bu cihazda bir hatırlatma.",
+      "reminderMasterOff": "Hatırlatıcılar Bildirimler'de kapalı.",
+      "openNotifications": "Bildirim ayarlarını aç",
+      "sessionTitle": "Alıştırma sırasında",
+      "displayTitle": "Ekranda",
+      "timingHelp": {
+        "ayah": "Yeniden denenecek kelimeler her ayet bittiğinde görünür — okurken asla.",
+        "live": "Dinleyici emin olur olmaz, okurken işaretler görünür.",
+        "end": "Yalnızca geçerli kelimenin altı çizilir. Sonuçlar sonda görünür."
+      },
+      "hearHelp": {
+        "off": "Kari yalnızca Dinle'ye dokunduğunuzda okur.",
+        "once": "Kari, başlamadan önce ilk ayeti okur.",
+        "every": "Kari, siz okumadan önce her ayeti okur."
+      },
+      "startHelp": {
+        "lastPractice": "Son alıştırmanın bittiği yerden sürdürün.",
+        "lastRead": "Kur'an'da okuduğunuz ayetten başlayın.",
+        "ask": "Bölümü her seferinde kendiniz seçin."
+      },
+      "dailyLimitHelp_one": "Günde en fazla {{count}} ayet; kalanlar sonraki günleri bekler.",
+      "dailyLimitHelp_other": "Günde en fazla {{count}} ayet; kalanlar sonraki günleri bekler."
+    },
+    "listener": {
+      "title": "Cihazdaki dinleyici",
+      "notOnDevice": "Bu cihazda yok",
+      "aboutSize": "Yaklaşık {{size}} MB",
+      "download": "İndir",
+      "staysOnDevice": "Bu cihazda kalır. Okuma onsuz da çalışır.",
+      "downloadingBytes": "{{done}} / {{total}}",
+      "downloadingLine": "Dinleyici {{done}} / {{total}} (%{{percent}})",
+      "cancel": "İptal",
+      "verifying": "Dosya kontrol ediliyor",
+      "ready": "Hazır",
+      "version": "Sürüm {{version}}",
+      "delete": "Sil",
+      "deleteTitle": "Dinleyici silinsin mi?",
+      "deleteBody": "Alıştırma tilavetleri çalmaya devam eder. Ses takibi için yeniden indirmek gerekir.",
+      "confirmRemove": "Kaldır",
+      "needsRetry": "Yeniden denenmeli",
+      "tryAgain": "Yeniden dene",
+      "updateAvailable": "Bir güncelleme hazır",
+      "updateSize": "Yaklaşık {{size}} MB. Mevcut dinleyici çalışmaya devam eder.",
+      "updateTitle": "Dinleyici değiştirilsin mi?",
+      "downloadUpdate": "Güncellemeyi indir",
+      "wifiOnly": "Yalnızca Wi-Fi ile indir",
+      "cellularTitle": "Mobil veri kullanılsın mı?",
+      "cellularBody": "Dinleyici yaklaşık {{size}} MB ve bu cihazda kalır.",
+      "useMobileData": "Mobil veri kullan",
+      "advanced": "Gelişmiş",
+      "recommended": "önerilen dinleyici",
+      "alternate": "alternatif dinleyici",
+      "recommendedSize": "Önerilen, yaklaşık {{size}} MB",
+      "alternateSize": "Alternatif, yaklaşık {{size}} MB",
+      "alternateCaption": "Alternatifi yalnızca önerilen çalışmazsa kullanın. Yeniden denenecek kelimeleri işaretlemeyebilir.",
+      "switchTitle": "Dinleyici değiştirilsin mi?",
+      "engineCaption": "{{engine}} kullanılıyor.",
+      "unsupported": "Dinleyici bu cihazda kullanılamıyor.",
+      "webUnsupported": "Bu tarayıcı dinleyiciyi çalıştıramıyor.",
+      "knownLimits": "Sessiz bir ortamda, tek sesle ve normal okuma hızında en iyi çalışır. Çocuk seslerinde daha az güvenilir olabilir.",
+      "detailsLine": "Bu cihazda {{size}} MB · {{engine}}"
+    },
+    "privacy": {
+      "title": "Gizlilik ve kaynaklar",
+      "onDevice": "Sesiniz bu cihazda işlenir. Yüklenmez ve kaydedilmez.",
+      "microphone": "Mikrofon",
+      "micAllowed": "İzin verildi",
+      "micBlocked": "Engellendi",
+      "micNotAsked": "Henüz sorulmadı",
+      "deleteHistory": "Alıştırma geçmişini sil",
+      "deleteHistoryTitle": "Alıştırma geçmişi silinsin mi?",
+      "deleteHistoryBody": "Oturum özetleri silinir. Hıfz işaretleriniz, tekrar takviminiz ve dinleyici kalır.",
+      "practiceAid": "Dinleyici bir alıştırma yardımcısıdır. Bir öğretmenin yerini tutmaz.",
+      "sources": "Dinleyici dosyası {{host}} adresinden indirilir. Tilawa projesi, Tanzil metni ve Quran.com kelime verileriyle hazırlandı.",
+      "licence": "Önerilen dinleyici NPL-1.2 lisansıyla paylaşılır: ücretsizdir, asla satılmaz ve reklam içermez."
+    },
+    "offlineRow": {
+      "title": "Kur'an dinleyicisi",
+      "subtitle": "Kur'an alıştırmasında yönetilir. «Tümünü temizle» onu korur."
+    },
+    "reminder": {
+      "title": "Kur'an tekrarı",
+      "body_other": "Bugün tekrar edilecek {{count}} ayet",
+      "body_one": "Bugün tekrar edilecek {{count}} ayet"
+    },
+    "error": {
+      "noConnection": "Bağlantı yok",
+      "notEnoughSpace": "Yeterli alan yok",
+      "checksum": "Dosya eşleşmedi",
+      "downloadFailed": "İndirme tamamlanmadı",
+      "downloadCancelled": "İndirme iptal edildi",
+      "modelMissing": "Dinleyici dosyası eksik",
+      "didNotStart": "Başlamadı",
+      "outOfMemory": "Bu cihazın belleği yetmedi. Yine de dinleyebilirsiniz.",
+      "unsupported": "Bu cihazda kullanılamıyor",
+      "micDenied": "Mikrofon kapalı",
+      "micUnavailable": "Mikrofon yok",
+      "captureFailed": "Mikrofon başlamadı",
+      "interrupted": "Dinleme kesildi",
+      "listeningStopped": "Dinleme durdu",
+      "unknown": "Bir sorun oluştu"
+    },
+    "pronunciation": {
+      "title": "Telaffuz dinleyicisi",
+      "explainer": "Tecvid dersleri için isteğe bağlı ikinci bir dinleyici. Her seferinde bir sesi örnekle karşılaştırır, asla puan vermez.",
+      "notSetUp": "Kurulmadı",
+      "notOnDevice": "Bu cihazda yok",
+      "ready": "Hazır (sürüm {{version}})",
+      "setUp": "Kur",
+      "downloading": "Telaffuz dinleyicisi indiriliyor…",
+      "consentTitle": "Kurmadan önce",
+      "consentDownload": "Bu, Quran Lab'den yaklaşık 57 MB'lık ikinci bir dinleyici indirir.",
+      "consentActivation": "Uygulama etkinleştirmek için Quran Lab'e bir kez, güncellemeleri denetlemek için de tekrar bağlanır.",
+      "consentOnDevice": "Tilavetiniz bu cihazda işlenir.",
+      "consentRemotePause": "Quran Lab bu dinleyiciyi tüm kullanıcılar için duraklatabilir. O durumda dersler çalışmaya devam eder.",
+      "agree": "Kabul et ve indir",
+      "notNow": "Şimdi değil",
+      "deleteTitle": "Telaffuz dinleyicisi silinsin mi?",
+      "deleteBody": "Tecvid dersleri çalışmaya devam eder. Bir sesi çalışmak için yeniden indirmek gerekir.",
+      "sharingSwitch": "Tilavetlerimi Quran Lab ile paylaş",
+      "sharingSub": "Yalnızca Quran Lab'in sayfasında kabul ettiyseniz. Kapatmak yüklemeleri durdurur ve gönderilmemiş sırayı siler.",
+      "deleteShared": "Paylaştıklarımı sil",
+      "deleteSharedTitle": "Paylaştıklarınız silinsin mi?",
+      "deleteSharedBody": "Bu uygulamadan paylaştığınız her kayıt Quran Lab sunucularından silinir ve paylaşım kapanır.",
+      "deletedShared": "Paylaşılan kayıtlarınız silindi",
+      "sharingFailed": "Bu gerçekleşmedi. Lütfen yeniden deneyin.",
+      "recoveryCode": "Kurtarma kodu: {{code}}",
+      "sourcesLine": "TajweedFormer, Quran Lab tarafından NPL-1.2 lisansıyla paylaşılır.",
+      "practiseSound": "Bu sesi çalış",
+      "drillTitle": "Bu sesi çalış",
+      "drillIntro": "Örneği dinleyin, sonra Oku'ya dokunun ve aynı şekilde söyleyin.",
+      "needsSetup": "Bu sesi çalışmak için telaffuz dinleyicisini kurun.",
+      "needsConnectionOnce": "Kurulum bir kez bağlantı gerektirir.",
+      "notAvailableForSound": "Bu ses için geri bildirim henüz yok. Örneği dinleyip yeniden deneyin.",
+      "recite": "Oku",
+      "stop": "Durdur",
+      "listening": "Dinliyor…",
+      "verdictMatched": "Bu örnekle eşleşti.",
+      "verdictTryAgain": "Yeniden dinleyin ve bir kez daha deneyin.",
+      "verdictNotSure": "Dinleyici emin olamadı.",
+      "error": {
+        "noConnection": "Kurulum bir kez bağlantı gerektirir.",
+        "paused": "Quran Lab bu dinleyiciyi duraklattı. Dersler çalışmaya devam eder.",
+        "noSpace": "Yeterli alan yok",
+        "notYet": "Bu dinleyici henüz kullanılamıyor. Lütfen sonra yeniden deneyin.",
+        "micDenied": "Munib Tracker için mikrofon kapalı.",
+        "unsupported": "Bu cihazda kullanılamıyor",
+        "generic": "Bu işe yaramadı. Lütfen yeniden deneyin."
+      }
+    },
+    "modeHelp": {
+      "follow": "Metin önünüzdeyken okuyun. Dinleyici sizi kelime kelime takip eder.",
+      "check": "Metin görünürken okuyun. Her ayetten sonra yeniden denenecek kelimeleri görürsünüz.",
+      "hideWords": "İlk kelimeden sonrakiler örtülür. Ezberden okuyun; duyulan kelimeler kendiliğinden açılır.",
+      "hideAyahs": "Bitirene ya da Göster'e dokunana kadar ayetin tamamı örtülü kalır. Tekrar için en uygunu."
+    },
+    "listenerStatus": {
+      "ready": "Dinleyici hazır",
+      "readySub": "Sesiniz bu cihazda işlenir ve asla yüklenmez.",
+      "downloading": "Dinleyici indiriliyor · %{{percent}}",
+      "failed": "İndirme tamamlanmadı",
+      "missing": "Sesinizi takip etsin",
+      "missingSub": "Cihazdaki dinleyiciyi indirin ({{size}} MB). Onsuz da dinleyip gösterebilirsiniz.",
+      "offlineSub": "Dinleyiciyi indirmek için bir kez bağlanın. Dinleme çevrimdışı çalışır.",
+      "stillListen": "Yine de dinleyebilir ve kelimeleri gösterebilirsiniz."
+    },
+    "picker": {
+      "title": "Ne üzerinde çalışacağınızı seçin",
+      "searchSurah": "Sureyi ada veya numaraya göre ara",
+      "changeSurah": "Sureyi değiştir",
+      "fromAyah": "Bu ayetten başla",
+      "toAyah": "Bu ayette bitir",
+      "toEnd": "Sonuna kadar",
+      "ayahN": "Ayet {{n}}",
+      "confirm": "{{passage}} alıştırması",
+      "ayahCount_one": "{{count}} ayet",
+      "ayahCount_other": "{{count}} ayet"
+    },
+    "result": {
+      "headAllMatched": "Her kelime eşleşti",
+      "headTryAgain_one": "{{count}} kelimeyi yeniden deneyin",
+      "headTryAgain_other": "{{count}} kelimeyi yeniden deneyin",
+      "headMissed_one": "{{count}} kelimeye ulaşılmadı",
+      "headMissed_other": "{{count}} kelimeye ulaşılmadı",
+      "headNotSure_one": "Dinleyici {{count}} kelimeden emin değildi",
+      "headNotSure_other": "Dinleyici {{count}} kelimeden emin değildi",
+      "heardOf": "{{total}} kelimeden {{heard}} tanesi duyuldu",
+      "matched": "Eşleşti",
+      "tryAgain": "Yeniden dene",
+      "notSure": "Emin değil",
+      "missed": "Ulaşılmadı",
+      "groupTryAgain": "Bunları yeniden deneyin",
+      "groupMissed": "Ulaşılmadı",
+      "groupNotSure": "Emin değil",
+      "nextAyah": "Sonraki ayet",
+      "reciteAgain": "Yeniden oku",
+      "moveOn": "Sonraki ayete geç",
+      "finish": "Bitir ve özete bak",
+      "headNothingHeard": "Dinleyici hiçbir kelime duymadı",
+      "nothingHeardTip": "Biraz daha yüksek sesle, mikrofona yakın okuyun ve ilk kelimeden başlayın."
+    },
+    "view": {
+      "title": "Görünüm",
+      "mushafCoarse": "Mushafta kelime işaretleri için kelime listesi gerekir. İndirmek için bir kez bağlanın — ayetler yine de görünür."
+    }
   }
 }

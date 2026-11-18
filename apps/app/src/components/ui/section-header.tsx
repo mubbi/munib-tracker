@@ -6,6 +6,7 @@ import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconName } from "@/lib/names-of-allah-ui";
 
@@ -114,8 +115,8 @@ const styles = StyleSheet.create({
   },
   iconWell: {
     flexShrink: 0,
-    width: 28,
-    height: 28,
+    width: tvDp(28),
+    height: tvDp(28),
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
   },
   action: {
     flexShrink: 0,
-    minHeight: 44,
+    minHeight: tvDp(44),
     justifyContent: "center",
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,

@@ -54,4 +54,7 @@ export const SyncRecordDtoEntity = {
   fidyah_calculator: 'fidyah_calculator',
   sadaqah_goals: 'sadaqah_goals',
   tours_seen: 'tours_seen',
+  quran_companion_prefs: 'quran_companion_prefs',
+  quran_practice_sessions: 'quran_practice_sessions',
+  quran_memorization: 'quran_memorization',
 } as const;

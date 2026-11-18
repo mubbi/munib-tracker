@@ -28,7 +28,7 @@ export function ContactForm() {
     if (status === "error" && errors.form) errorRef.current?.focus();
   }, [status, errors.form]);
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors: Record<string, string> = {};
 

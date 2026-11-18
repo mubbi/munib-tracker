@@ -110,9 +110,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type UserMediaControllerUploadMutationError = unknown
     export type UserMediaControllerUploadMutationVariables = {data: UserMediaControllerUploadBody}
 
-    /**
- * @summary Upload private images/PDFs for custom adhkar (linked accounts only)
- */
+    /** @summary Upload private images/PDFs for custom adhkar (linked accounts only) */
 export const useUserMediaControllerUpload = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof userMediaControllerUpload>>, TError,UserMediaControllerUploadMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -170,6 +168,7 @@ export type UserMediaControllerGetMetaQueryResult = NonNullable<Awaited<ReturnTy
 export type UserMediaControllerGetMetaQueryError = unknown
 
 
+/** @summary Get metadata for a media item owned by the current user */
 export function useUserMediaControllerGetMeta<TData = Awaited<ReturnType<typeof userMediaControllerGetMeta>>, TError = unknown>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof userMediaControllerGetMeta>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -180,6 +179,7 @@ export function useUserMediaControllerGetMeta<TData = Awaited<ReturnType<typeof 
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Get metadata for a media item owned by the current user */
 export function useUserMediaControllerGetMeta<TData = Awaited<ReturnType<typeof userMediaControllerGetMeta>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userMediaControllerGetMeta>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -190,14 +190,12 @@ export function useUserMediaControllerGetMeta<TData = Awaited<ReturnType<typeof 
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Get metadata for a media item owned by the current user */
 export function useUserMediaControllerGetMeta<TData = Awaited<ReturnType<typeof userMediaControllerGetMeta>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userMediaControllerGetMeta>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Get metadata for a media item owned by the current user
- */
-
+/** @summary Get metadata for a media item owned by the current user */
 export function useUserMediaControllerGetMeta<TData = Awaited<ReturnType<typeof userMediaControllerGetMeta>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userMediaControllerGetMeta>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -267,9 +265,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type UserMediaControllerRemoveMutationError = unknown
     export type UserMediaControllerRemoveMutationVariables = {id: string}
 
-    /**
- * @summary Delete a media item owned by the current user
- */
+    /** @summary Delete a media item owned by the current user */
 export const useUserMediaControllerRemove = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof userMediaControllerRemove>>, TError,UserMediaControllerRemoveMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -327,6 +323,7 @@ export type UserMediaControllerGetContentQueryResult = NonNullable<Awaited<Retur
 export type UserMediaControllerGetContentQueryError = unknown
 
 
+/** @summary Download image bytes for a media item owned by the current user */
 export function useUserMediaControllerGetContent<TData = Awaited<ReturnType<typeof userMediaControllerGetContent>>, TError = unknown>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof userMediaControllerGetContent>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -337,6 +334,7 @@ export function useUserMediaControllerGetContent<TData = Awaited<ReturnType<type
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Download image bytes for a media item owned by the current user */
 export function useUserMediaControllerGetContent<TData = Awaited<ReturnType<typeof userMediaControllerGetContent>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userMediaControllerGetContent>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -347,14 +345,12 @@ export function useUserMediaControllerGetContent<TData = Awaited<ReturnType<type
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Download image bytes for a media item owned by the current user */
 export function useUserMediaControllerGetContent<TData = Awaited<ReturnType<typeof userMediaControllerGetContent>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userMediaControllerGetContent>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Download image bytes for a media item owned by the current user
- */
-
+/** @summary Download image bytes for a media item owned by the current user */
 export function useUserMediaControllerGetContent<TData = Awaited<ReturnType<typeof userMediaControllerGetContent>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userMediaControllerGetContent>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient

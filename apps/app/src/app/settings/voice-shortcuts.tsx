@@ -2,9 +2,9 @@ import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -14,8 +14,10 @@ import { Spacing } from "@/constants/theme";
 import { getIntentsForPlatform } from "@/lib/appSurfaces/intents/registry";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function VoiceShortcutsScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const isAndroid = Platform.OS === "android";
@@ -33,6 +35,7 @@ export default function VoiceShortcutsScreen() {
   if (isTV()) {
     return (
       <ScreenLayout
+        maxContentWidth={formMaxWidth}
         eyebrow={t("settings.title")}
         title={title}
         onBack={() => goBackOrReplace(router, "/settings")}
@@ -50,6 +53,7 @@ export default function VoiceShortcutsScreen() {
   if (Platform.OS === "web") {
     return (
       <ScreenLayout
+        maxContentWidth={formMaxWidth}
         eyebrow={t("settings.title")}
         title={title}
         subtitle={t("pinLock.webUnavailable")}
@@ -62,6 +66,7 @@ export default function VoiceShortcutsScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.title")}
       title={title}
       subtitle={subtitle}
@@ -169,3 +174,6 @@ const styles = StyleSheet.create({
     gap: 2,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/voice-shortcuts");

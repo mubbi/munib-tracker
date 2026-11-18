@@ -117,6 +117,38 @@ const routeSuspenseFallback = path.join(
 );
 
 /**
+ * The resolver below aliases two *internal* files of Expo packages. If an SDK
+ * upgrade moves them, the alias silently stops matching (the custom loader / web
+ * push shim just disappear), so fail loudly at Metro start-up instead.
+ */
+function assertInternalAliasTarget(pkg, relFile, importerFiles, needle) {
+  const pkgDir = path.dirname(require.resolve(`${pkg}/package.json`, { paths: [projectRoot] }));
+  const target = path.join(pkgDir, relFile);
+  const importers = importerFiles.map((f) => path.join(pkgDir, f));
+  const stillImported = importers.some(
+    (f) => fs.existsSync(f) && fs.readFileSync(f, "utf8").includes(needle),
+  );
+  if (!fs.existsSync(target) || !stillImported) {
+    throw new Error(
+      `[metro.config] ${pkg}/${relFile} is no longer imported via "${needle}". ` +
+        "Update the matching alias in metro.config.js resolveRequest (see apps/app/AGENTS.md, Expo internals we depend on).",
+    );
+  }
+}
+assertInternalAliasTarget(
+  "expo-router",
+  "build/views/SuspenseFallback.js",
+  ["build/exports.js", "build/useScreens.js"],
+  "./views/SuspenseFallback",
+);
+assertInternalAliasTarget(
+  "expo-notifications",
+  "build/PushTokenManager.js",
+  ["build/getDevicePushTokenAsync.js", "build/TokenEmitter.js"],
+  "./PushTokenManager",
+);
+
+/**
  * Orval used to wipe+rewrite packages/api-client/src/generated (now clean:false
  * in orval.config.ts). If generated files still disappear from Metro's FileMap
  * on Windows, doesFileExist can be false while paths exist on disk — fall back
@@ -175,6 +207,7 @@ const tvNativeStubs = isTvMetro
       "expo-location": path.join(projectRoot, "src/lib/tv-stubs/expo-location.ts"),
       "expo-sensors": path.join(projectRoot, "src/lib/tv-stubs/expo-sensors.ts"),
       "expo-haptics": path.join(projectRoot, "src/lib/tv-stubs/expo-haptics.ts"),
+      "expo-hinge": path.join(projectRoot, "src/lib/tv-stubs/expo-hinge.ts"),
       "expo-local-authentication": path.join(
         projectRoot,
         "src/lib/tv-stubs/expo-local-authentication.ts",
@@ -189,13 +222,43 @@ const tvNativeStubs = isTvMetro
         "src/lib/tv-stubs/expo-apple-authentication.ts",
       ),
       "expo-navigation-bar": path.join(projectRoot, "src/lib/tv-stubs/expo-navigation-bar.ts"),
+      // Qur'an practice listener runtime — phone/web only (no microphone path on TV).
+      "onnxruntime-react-native": path.join(
+        projectRoot,
+        "src/lib/tv-stubs/onnxruntime-react-native.ts",
+      ),
     }
   : null;
+
+/**
+ * Apple TV density shim: tvOS lays out at 1920×1080pt (2× Android TV dp), so
+ * `expo-symbols` resolves to a wrapper that doubles `size` (see
+ * src/lib/tv-shims/expo-symbols.tsx). The shim's own import of the real package
+ * falls through to normal resolution.
+ */
+const tvosSymbolsShim = path.join(projectRoot, "src/lib/tv-shims/expo-symbols.tsx");
+
+/**
+ * Web: expo-notifications' web PushTokenManager warns on every load (its own
+ * auto-registration side effect adds a token listener). Swap in a silent no-op.
+ */
+const webPushTokenManagerShim = path.join(
+  projectRoot,
+  "src/lib/web-shims/expo-notifications-push-token-manager.ts",
+);
 
 const originalResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (tvNativeStubs?.[moduleName]) {
     return { type: "sourceFile", filePath: tvNativeStubs[moduleName] };
+  }
+  if (
+    isTvMetro &&
+    platform === "ios" &&
+    moduleName === "expo-symbols" &&
+    watchPathKey(context.originModulePath || "") !== watchPathKey(tvosSymbolsShim)
+  ) {
+    return { type: "sourceFile", filePath: tvosSymbolsShim };
   }
   if (moduleName.startsWith("@/assets/")) {
     const assetPath = path.join(projectRoot, "assets", moduleName.slice("@/assets/".length));
@@ -204,6 +267,13 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   // Async routes always use expo-router's built-in SuspenseFallback (tiny toast /
   // blank). Alias it to our themed content-space placeholder instead.
   const origin = (context.originModulePath || "").replace(/\\/g, "/");
+  if (
+    platform === "web" &&
+    moduleName === "./PushTokenManager" &&
+    origin.includes("/expo-notifications/build/")
+  ) {
+    return { filePath: webPushTokenManagerShim, type: "sourceFile" };
+  }
   if (
     origin.includes("/expo-router/") &&
     (moduleName === "./views/SuspenseFallback" ||

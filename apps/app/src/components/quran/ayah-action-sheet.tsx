@@ -10,6 +10,7 @@ import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import type { HifzStatus } from "@/stores/hifz-store";
 
@@ -37,6 +38,8 @@ type AyahActionSheetProps = {
   onClose: () => void;
   hifzStatus?: HifzStatus;
   onHifz?: () => void;
+  /** "Practise this ayah" — opens a one-ayah practice session (omit to hide, e.g. on TV). */
+  onPractise?: () => void;
   onTafsir?: () => void;
   reportRef?: ContentReportReference;
   isSharing?: boolean;
@@ -67,6 +70,7 @@ export function AyahActionSheet({
   onClose,
   hifzStatus,
   onHifz,
+  onPractise,
   onTafsir,
   reportRef,
   isSharing = false,
@@ -192,6 +196,16 @@ export function AyahActionSheet({
             onPress={onHifz}
           />
         ) : null}
+        {onPractise ? (
+          <LabeledIconButton
+            name={{ ios: "mic", android: "mic_none", web: "mic_none" }}
+            label={t("quranCompanion.entry.practise")}
+            tintColor={colors.mutedForeground}
+            labelColor={colors.mutedForeground}
+            accessibilityLabel={t("quranCompanion.entry.practiseAyah", { n: ayah })}
+            onPress={onPractise}
+          />
+        ) : null}
         <LabeledIconButton
           name={
             isBookmarked
@@ -213,19 +227,22 @@ export function AyahActionSheet({
             onPress={onTafsir}
           />
         ) : null}
-        <LabeledIconButton
-          name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-          label={
-            isGesturePending
-              ? tTv(t, "share.tapToShare", "share.selectToShare")
-              : t("quran.actionShare")
-          }
-          tintColor={colors.mutedForeground}
-          accessibilityLabel={t("quran.shareAyah")}
-          loading={isSharing}
-          loadingLabel={t("share.preparing")}
-          onPress={onShare}
-        />
+        {/* No system share sheet on TV (phone-only capability). */}
+        {!isTV() ? (
+          <LabeledIconButton
+            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+            label={
+              isGesturePending
+                ? tTv(t, "share.tapToShare", "share.selectToShare")
+                : t("quran.actionShare")
+            }
+            tintColor={colors.mutedForeground}
+            accessibilityLabel={t("quran.shareAyah")}
+            loading={isSharing}
+            loadingLabel={t("share.preparing")}
+            onPress={onShare}
+          />
+        ) : null}
         {reportRef ? <ContentReportButton contentRef={reportRef} /> : null}
       </View>
     </Sheet>

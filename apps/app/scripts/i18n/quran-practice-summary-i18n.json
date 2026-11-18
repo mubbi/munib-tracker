@@ -1,0 +1,170 @@
+{
+  "en": {
+    "quranCompanion.summary.headListened": "You listened to this passage",
+    "quranCompanion.summary.practiseAgain": "Practise again",
+    "quranCompanion.summary.weakAyahsTitle": "Ayahs to practise again",
+    "quranCompanion.summary.ayahChip": "Ayah {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Practise ayah {{ayah}} again"
+  },
+  "ar": {
+    "quranCompanion.summary.headListened": "استمعت إلى هذا المقطع",
+    "quranCompanion.summary.practiseAgain": "تدرّب مرة أخرى",
+    "quranCompanion.summary.weakAyahsTitle": "آيات للتدرّب عليها مرة أخرى",
+    "quranCompanion.summary.ayahChip": "الآية {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "تدرّب على الآية {{ayah}} مرة أخرى"
+  },
+  "ur": {
+    "quranCompanion.summary.headListened": "آپ نے یہ حصہ سنا",
+    "quranCompanion.summary.practiseAgain": "دوبارہ مشق کریں",
+    "quranCompanion.summary.weakAyahsTitle": "دوبارہ مشق کے لیے آیات",
+    "quranCompanion.summary.ayahChip": "آیت {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "آیت {{ayah}} کی دوبارہ مشق کریں"
+  },
+  "fr": {
+    "quranCompanion.summary.headListened": "Vous avez écouté ce passage",
+    "quranCompanion.summary.practiseAgain": "S'exercer à nouveau",
+    "quranCompanion.summary.weakAyahsTitle": "Versets à retravailler",
+    "quranCompanion.summary.ayahChip": "Verset {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Retravailler le verset {{ayah}}"
+  },
+  "tr": {
+    "quranCompanion.summary.headListened": "Bu bölümü dinlediniz",
+    "quranCompanion.summary.practiseAgain": "Yeniden çalış",
+    "quranCompanion.summary.weakAyahsTitle": "Yeniden çalışılacak ayetler",
+    "quranCompanion.summary.ayahChip": "Ayet {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "{{ayah}}. ayeti yeniden çalış"
+  },
+  "ru": {
+    "quranCompanion.summary.headListened": "Вы прослушали этот отрывок",
+    "quranCompanion.summary.practiseAgain": "Повторить практику",
+    "quranCompanion.summary.weakAyahsTitle": "Аяты для повторения",
+    "quranCompanion.summary.ayahChip": "Аят {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Повторить аят {{ayah}}"
+  },
+  "bs": {
+    "quranCompanion.summary.headListened": "Poslušali ste ovaj odlomak",
+    "quranCompanion.summary.practiseAgain": "Vježbaj ponovo",
+    "quranCompanion.summary.weakAyahsTitle": "Ajeti za ponovnu vježbu",
+    "quranCompanion.summary.ayahChip": "Ajet {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Ponovo vježbaj ajet {{ayah}}"
+  },
+  "id": {
+    "quranCompanion.summary.headListened": "Anda mendengarkan bagian ini",
+    "quranCompanion.summary.practiseAgain": "Latihan lagi",
+    "quranCompanion.summary.weakAyahsTitle": "Ayat untuk dilatih lagi",
+    "quranCompanion.summary.ayahChip": "Ayat {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Latih ayat {{ayah}} lagi"
+  },
+  "ms": {
+    "quranCompanion.summary.headListened": "Anda mendengar petikan ini",
+    "quranCompanion.summary.practiseAgain": "Latih semula",
+    "quranCompanion.summary.weakAyahsTitle": "Ayat untuk dilatih semula",
+    "quranCompanion.summary.ayahChip": "Ayat {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Latih ayat {{ayah}} semula"
+  },
+  "fa": {
+    "quranCompanion.summary.headListened": "این بخش را گوش دادید",
+    "quranCompanion.summary.practiseAgain": "تمرین دوباره",
+    "quranCompanion.summary.weakAyahsTitle": "آیه‌هایی برای تمرین دوباره",
+    "quranCompanion.summary.ayahChip": "آیه {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "تمرین دوبارهٔ آیه {{ayah}}"
+  },
+  "ps": {
+    "quranCompanion.summary.headListened": "تاسو دا برخه واورېده",
+    "quranCompanion.summary.practiseAgain": "بیا تمرین وکړئ",
+    "quranCompanion.summary.weakAyahsTitle": "د بیا تمرین لپاره آیتونه",
+    "quranCompanion.summary.ayahChip": "آیت {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "د {{ayah}} آیت بیا تمرین وکړئ"
+  },
+  "ku": {
+    "quranCompanion.summary.headListened": "گوێت لەم بەشە گرت",
+    "quranCompanion.summary.practiseAgain": "دووبارە ڕاهێنان بکە",
+    "quranCompanion.summary.weakAyahsTitle": "ئایەتەکان بۆ ڕاهێنانی دووبارە",
+    "quranCompanion.summary.ayahChip": "ئایەتی {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "دووبارە ڕاهێنان لەسەر ئایەتی {{ayah}}"
+  },
+  "hi": {
+    "quranCompanion.summary.headListened": "आपने यह हिस्सा सुना",
+    "quranCompanion.summary.practiseAgain": "फिर से अभ्यास करें",
+    "quranCompanion.summary.weakAyahsTitle": "फिर से अभ्यास के लिए आयतें",
+    "quranCompanion.summary.ayahChip": "आयत {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "आयत {{ayah}} का फिर से अभ्यास करें"
+  },
+  "bn": {
+    "quranCompanion.summary.headListened": "আপনি এই অংশ শুনেছেন",
+    "quranCompanion.summary.practiseAgain": "আবার অনুশীলন করুন",
+    "quranCompanion.summary.weakAyahsTitle": "আবার অনুশীলনের আয়াত",
+    "quranCompanion.summary.ayahChip": "আয়াত {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "আয়াত {{ayah}} আবার অনুশীলন করুন"
+  },
+  "az": {
+    "quranCompanion.summary.headListened": "Bu hissəni dinlədiniz",
+    "quranCompanion.summary.practiseAgain": "Yenidən məşq et",
+    "quranCompanion.summary.weakAyahsTitle": "Yenidən məşq üçün ayələr",
+    "quranCompanion.summary.ayahChip": "Ayə {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "{{ayah}}. ayəni yenidən məşq et"
+  },
+  "kk": {
+    "quranCompanion.summary.headListened": "Сіз бұл бөлікті тыңдадыңыз",
+    "quranCompanion.summary.practiseAgain": "Қайта жаттығу",
+    "quranCompanion.summary.weakAyahsTitle": "Қайта жаттығуға арналған аяттар",
+    "quranCompanion.summary.ayahChip": "{{ayah}}-аят",
+    "quranCompanion.summary.practiseAyah": "{{ayah}}-аятты қайта жаттығу"
+  },
+  "ky": {
+    "quranCompanion.summary.headListened": "Бул бөлүктү уктуңуз",
+    "quranCompanion.summary.practiseAgain": "Кайра машыгуу",
+    "quranCompanion.summary.weakAyahsTitle": "Кайра машыгуу үчүн аяттар",
+    "quranCompanion.summary.ayahChip": "{{ayah}}-аят",
+    "quranCompanion.summary.practiseAyah": "{{ayah}}-аятты кайра машыгуу"
+  },
+  "tg": {
+    "quranCompanion.summary.headListened": "Шумо ин қисмро гӯш кардед",
+    "quranCompanion.summary.practiseAgain": "Боз машқ кардан",
+    "quranCompanion.summary.weakAyahsTitle": "Оятҳо барои машқи дубора",
+    "quranCompanion.summary.ayahChip": "Ояти {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Машқи дубораи ояти {{ayah}}"
+  },
+  "tk": {
+    "quranCompanion.summary.headListened": "Bu bölegi diňlediňiz",
+    "quranCompanion.summary.practiseAgain": "Gaýtadan türgenleş",
+    "quranCompanion.summary.weakAyahsTitle": "Gaýtadan türgenleşmek üçin aýatlar",
+    "quranCompanion.summary.ayahChip": "{{ayah}}-nji aýat",
+    "quranCompanion.summary.practiseAyah": "{{ayah}}-nji aýaty gaýtadan türgenleş"
+  },
+  "uz": {
+    "quranCompanion.summary.headListened": "Siz bu qismni tingladingiz",
+    "quranCompanion.summary.practiseAgain": "Qayta mashq qilish",
+    "quranCompanion.summary.weakAyahsTitle": "Qayta mashq qilinadigan oyatlar",
+    "quranCompanion.summary.ayahChip": "{{ayah}}-oyat",
+    "quranCompanion.summary.practiseAyah": "{{ayah}}-oyatni qayta mashq qilish"
+  },
+  "sq": {
+    "quranCompanion.summary.headListened": "E dëgjuat këtë pjesë",
+    "quranCompanion.summary.practiseAgain": "Ushtro sërish",
+    "quranCompanion.summary.weakAyahsTitle": "Ajete për t'i ushtruar sërish",
+    "quranCompanion.summary.ayahChip": "Ajeti {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Ushtro sërish ajetin {{ayah}}"
+  },
+  "ha": {
+    "quranCompanion.summary.headListened": "Ka saurari wannan sashe",
+    "quranCompanion.summary.practiseAgain": "Sake atisaye",
+    "quranCompanion.summary.weakAyahsTitle": "Ayoyin da za a sake atisaye",
+    "quranCompanion.summary.ayahChip": "Aya {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Sake atisayen aya {{ayah}}"
+  },
+  "sw": {
+    "quranCompanion.summary.headListened": "Umesikiliza sehemu hii",
+    "quranCompanion.summary.practiseAgain": "Fanya mazoezi tena",
+    "quranCompanion.summary.weakAyahsTitle": "Aya za kufanyia mazoezi tena",
+    "quranCompanion.summary.ayahChip": "Aya {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Fanya mazoezi ya aya {{ayah}} tena"
+  },
+  "so": {
+    "quranCompanion.summary.headListened": "Waad dhegeysatay qaybtan",
+    "quranCompanion.summary.practiseAgain": "Mar kale ku tababar",
+    "quranCompanion.summary.weakAyahsTitle": "Aayadaha mar kale lagu tababarayo",
+    "quranCompanion.summary.ayahChip": "Aayadda {{ayah}}",
+    "quranCompanion.summary.practiseAyah": "Mar kale ku tababar aayadda {{ayah}}"
+  }
+}

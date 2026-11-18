@@ -3,8 +3,11 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 
 export type Metric = {
@@ -79,15 +82,17 @@ type StatsGroupProps = {
 
 export function StatsGroup({ title, metrics, columns = 2 }: StatsGroupProps) {
   const { colors } = useThemeTokens();
+  // TV: read-only groups are D-pad stops so the remote can scroll the stats page
+  // (plain View on phone / web).
   return (
-    <View style={styles.group}>
+    <TvReadableBlock style={styles.group}>
       <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.groupTitle}>
         {title}
       </ThemedText>
       <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
         <MetricGrid metrics={metrics} columns={columns} />
       </View>
-    </View>
+    </TvReadableBlock>
   );
 }
 
@@ -134,7 +139,7 @@ export function LinkRow({ label, onPress }: LinkRowProps) {
       haptic="light"
       accessibilityRole="button"
       onPress={onPress}
-      style={styles.linkRow}
+      style={[styles.linkRow, isTV() ? styles.linkRowTv : null]}
     >
       <ThemedText type="smallBold" style={{ color: colors.accent }}>
         {label}
@@ -213,5 +218,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     minHeight: 44,
     paddingTop: Spacing.one,
+  },
+  linkRowTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingTop: 0,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
   },
 });

@@ -2,6 +2,7 @@ import type { WeatherEffectKind } from "@munib-tracker/shared/types";
 import { useEffect, useMemo, useState } from "react";
 import { AppState, Platform, StyleSheet, View, type ViewStyle } from "react-native";
 import Animated, {
+  cancelAnimation,
   Easing,
   interpolate,
   useAnimatedStyle,
@@ -32,8 +33,12 @@ const EFFECTS_MASTER_OPACITY = 0.62;
  * Fewer native animated views on phone/TV. Resume layout + rain was AppHanging
  * ~2s on iOS (UIImageView sample) and ANRing on Android (ReactTextView.onMeasure /
  * TextView.stopMarquee during Fabric mount).
+ *
+ * Android is lower still: each cloud is a multi-node react-native-svg tree, and
+ * SvgView.onDraw historically re-entered Reanimated during the draw pass (ANR
+ * on low-RAM devices — Sentry ApplicationNotResponding / JavaOnlyMap.putVal).
  */
-const PARTICLE_SCALE = Platform.OS === "web" ? 1 : 0.55;
+const PARTICLE_SCALE = Platform.OS === "web" ? 1 : Platform.OS === "android" ? 0.4 : 0.55;
 
 type HeroWeatherEffectsProps = {
   effects: WeatherEffectKind[];
@@ -52,8 +57,13 @@ type HeroWeatherEffectsProps = {
  */
 export const IOS_WEATHER_EFFECTS_SETTLE_MS = 450;
 
+/** Brief pause on Android so tab/stack focus handoff finishes before SVG clouds mount. */
+export const ANDROID_WEATHER_EFFECTS_SETTLE_MS = 120;
+
 export function weatherEffectsMountDelayMs(os: typeof Platform.OS = Platform.OS): number {
-  return os === "ios" ? IOS_WEATHER_EFFECTS_SETTLE_MS : 0;
+  if (os === "ios") return IOS_WEATHER_EFFECTS_SETTLE_MS;
+  if (os === "android") return ANDROID_WEATHER_EFFECTS_SETTLE_MS;
+  return 0;
 }
 
 type CloudConfig = {
@@ -94,19 +104,25 @@ function cloudConfigsFor(effects: WeatherEffectKind[]): CloudConfig[] {
   const overcast = cloudy && !rain && !storm && !effects.includes("snow");
 
   return cloudPlacementsFor({ partlyCloudy, heavy, cloudy: overcast, baseOpacity }).map(
-    (placement) => ({
-      id: placement.id,
-      top: placement.top,
-      left: placement.left,
-      scale: placement.scale,
-      variant,
-      opacity: placement.opacity,
-      duration: placement.duration,
-      offset: placement.offset,
-      drift: placement.drift,
-      size: placement.size,
-      parts: generateCumulusCloud(placement.id, placement.size),
-    }),
+    (placement) => {
+      // Android: prefer fewer SVG nodes per cloud (each Circle/Ellipse is a
+      // VirtualView that historically fired layout events during onDraw).
+      const size: CloudSize =
+        Platform.OS === "android" && placement.size === "large" ? "medium" : placement.size;
+      return {
+        id: placement.id,
+        top: placement.top,
+        left: placement.left,
+        scale: placement.scale,
+        variant,
+        opacity: placement.opacity,
+        duration: placement.duration,
+        offset: placement.offset,
+        drift: placement.drift,
+        size,
+        parts: generateCumulusCloud(placement.id, size),
+      };
+    },
   );
 }
 
@@ -238,6 +254,10 @@ function SunShimmer() {
       -1,
       true,
     );
+    return () => {
+      cancelAnimation(pulse);
+      cancelAnimation(drift);
+    };
   }, [pulse, drift]);
 
   const rayStyle = useAnimatedStyle(() => ({
@@ -319,6 +339,9 @@ function DriftingCloud({
       offset,
       withRepeat(withTiming(1, { duration, easing: Easing.inOut(Easing.sin) }), -1, true),
     );
+    return () => {
+      cancelAnimation(motion);
+    };
   }, [motion, duration, offset]);
 
   const style = useAnimatedStyle(() => ({
@@ -373,6 +396,10 @@ function FogLayer() {
       -1,
       true,
     );
+    return () => {
+      cancelAnimation(breath);
+      cancelAnimation(drift);
+    };
   }, [breath, drift]);
 
   const veilStyle = useAnimatedStyle(() => ({
@@ -435,6 +462,9 @@ function WindStreak({ top, delay, duration, width }: (typeof WIND_STREAKS)[numbe
       delay,
       withRepeat(withTiming(1, { duration, easing: Easing.linear }), -1, false),
     );
+    return () => {
+      cancelAnimation(progress);
+    };
   }, [delay, duration, progress]);
 
   const style = useAnimatedStyle(() => ({
@@ -468,6 +498,9 @@ function RainDrop({ left, delay, duration, opacity, length }: (typeof RAIN_DROPS
       delay,
       withRepeat(withTiming(460, { duration, easing: Easing.linear }), -1, false),
     );
+    return () => {
+      cancelAnimation(fall);
+    };
   }, [delay, duration, fall]);
 
   const style = useAnimatedStyle(() => ({
@@ -508,6 +541,10 @@ function SnowFlake({ left, delay, duration, size }: (typeof SNOW_FLAKES)[number]
         true,
       ),
     );
+    return () => {
+      cancelAnimation(fall);
+      cancelAnimation(sway);
+    };
   }, [delay, duration, fall, sway]);
 
   const style = useAnimatedStyle(() => ({
@@ -547,6 +584,9 @@ function ThunderFlash() {
       -1,
       false,
     );
+    return () => {
+      cancelAnimation(flash);
+    };
   }, [flash]);
 
   const style = useAnimatedStyle(() => ({

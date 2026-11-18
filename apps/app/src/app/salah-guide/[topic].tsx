@@ -1,10 +1,12 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import type { ScrollView } from "react-native";
+import type { ScrollViewInstance } from "react-native";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { SalahGuideTopicAside } from "@/components/salah-guide/salah-guide-aside";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -26,6 +28,7 @@ import {
   howToPrayStepIndexFromId,
   isHowToPrayTrack,
 } from "@/lib/salah-how-to-pray-audio";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranPrefs } from "@/stores/quran-store";
@@ -52,6 +55,7 @@ export default function SalahGuideTopicScreen() {
   const topic = getSalahGuideTopic(topicId);
   const reportRef = useGuideContentReportRef("salah_guide", topic, "/salah-guide");
   useEnsureSalahGuideProgressLoaded();
+  const { maxContentWidth } = useLearnWideLayout();
   const audio = useAudioPlayerContext();
   const prefs = useQuranPrefs();
 
@@ -72,7 +76,7 @@ export default function SalahGuideTopicScreen() {
     ? (howToPrayStepIndexFromId(audio.current?.id) ?? null)
     : null;
 
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const activeScrollKey =
     isHowToPray && phrasesActive && activeStepIndex != null ? stepScrollKey(activeStepIndex) : null;
   const { register, onScroll } = useScrollToActive(
@@ -151,6 +155,7 @@ export default function SalahGuideTopicScreen() {
       title={topic?.title ?? t("salahGuide.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/salah-guide")}
+      maxContentWidth={maxContentWidth}
       scrollRef={isHowToPray ? scrollRef : undefined}
       onScroll={isHowToPray ? onScroll : undefined}
     >
@@ -184,13 +189,18 @@ export default function SalahGuideTopicScreen() {
           onAction={() => router.replace("/salah-guide")}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="salah_guide">
-            <SalahGuideTopicContent topic={topic} stepsAudio={stepsAudio} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="salahGuide.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout aside={<SalahGuideTopicAside currentId={topic.id} />}>
+          <Stagger>
+            <LearnReadingChrome surface="salah_guide">
+              <SalahGuideTopicContent topic={topic} stepsAudio={stepsAudio} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="salahGuide.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/salah-guide/[topic]");

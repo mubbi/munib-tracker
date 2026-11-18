@@ -17,6 +17,7 @@ import {
 } from "@/lib/acceptance-hour";
 import { isFriday } from "@/lib/friday";
 import { locationCalcExtras } from "@/lib/location";
+import { isTV } from "@/lib/platform/is-tv";
 import { computePrayerTimes } from "@/lib/prayer-times";
 import { useArrowForward } from "@/lib/rtl";
 import { prayerDayAnchor } from "@/lib/time";
@@ -70,7 +71,8 @@ export function AcceptanceHourGoalReminder() {
         styles.banner,
         {
           backgroundColor: tokens.accentSoft,
-          borderColor: colors.accent,
+          // TV: quiet edge at rest — the solid accent ring means D-pad focus.
+          borderColor: isTV() ? tokens.accentBorder : colors.accent,
         },
       ]}
     >

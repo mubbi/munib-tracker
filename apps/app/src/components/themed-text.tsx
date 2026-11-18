@@ -1,8 +1,18 @@
 import type { ReactNode } from "react";
-import { Platform, StyleSheet, Text, type TextProps, useWindowDimensions } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  type TextProps,
+  type TextStyle,
+  useWindowDimensions,
+} from "react-native";
 
 import { Fonts, type ThemeColor } from "@/constants/theme";
+import { TV_DENSITY } from "@/constants/tv-density";
+import { TvType } from "@/constants/tv-layout";
 import { useTheme } from "@/hooks/use-theme";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   DEFAULT_ARABIC_SIZE,
   resolveArabicFontFamily,
@@ -65,6 +75,28 @@ const LINE_HEIGHTS: Partial<Record<NonNullable<ThemedTextProps["type"]>, number>
   linkPrimary: 30,
 };
 
+/** TV (10-foot) ramp per type — resolved once; `isTV()` is static per build. */
+const TV_TEXT = isTV();
+
+/**
+ * Apple TV lays out at 1920×1080pt (2× Android TV's 960×540dp). Scale the final
+ * font metrics — including explicit `fontSize` / `lineHeight` overrides passed
+ * via `style` — so every ThemedText renders at the same physical size.
+ */
+function tvDensityTextStyle(styles: unknown[]): TextStyle | null {
+  if (TV_DENSITY === 1) return null;
+  const merged = StyleSheet.flatten(styles as TextProps["style"]) as TextStyle | undefined;
+  if (!merged) return null;
+  // RN 0.88 types style props as read-only, so build a mutable object first.
+  const out: { fontSize?: number; lineHeight?: number; letterSpacing?: number } = {};
+  if (typeof merged.fontSize === "number") out.fontSize = merged.fontSize * TV_DENSITY;
+  if (typeof merged.lineHeight === "number") out.lineHeight = merged.lineHeight * TV_DENSITY;
+  if (typeof merged.letterSpacing === "number") {
+    out.letterSpacing = merged.letterSpacing * TV_DENSITY;
+  }
+  return out;
+}
+
 function sanitizeArabicChildren(children: ReactNode): ReactNode {
   if (typeof children === "string") return sanitizeArabicText(children);
   if (Array.isArray(children)) {
@@ -99,7 +131,8 @@ export function ThemedText({
   const rtl = useIsRTL();
   const localeTextStyle = useUiTextStyle();
   const resolvedColor = type === "linkPrimary" ? colors.accent : colors[themeColor ?? "foreground"];
-  const baseLineHeight = LINE_HEIGHTS[type];
+  const tvRamp = TV_TEXT && type !== "arabic" ? TvType[type as keyof typeof TvType] : undefined;
+  const baseLineHeight = tvRamp?.lineHeight ?? LINE_HEIGHTS[type];
   const flatStyle = StyleSheet.flatten(style);
   const localeTextAlign =
     type !== "arabic" && flatStyle?.textAlign == null ? localeTextStyle : null;
@@ -122,31 +155,34 @@ export function ThemedText({
   // sanitizeArabicText. Walk string children so `{arabic}{marker}` still sanitizes.
   const content = type === "arabic" ? sanitizeArabicChildren(children) : children;
 
+  const textStyles = [
+    { color: resolvedColor },
+    type === "default" && styles.default,
+    type === "display" && styles.display,
+    type === "title" && styles.title,
+    type === "header" && styles.header,
+    type === "subtitle" && styles.subtitle,
+    type === "small" && styles.small,
+    type === "smallBold" && styles.smallBold,
+    type === "caption" && styles.caption,
+    type === "label" && styles.label,
+    type === "link" && styles.link,
+    type === "linkPrimary" && styles.linkPrimary,
+    type === "code" && styles.code,
+    type === "arabic" && styles.arabic,
+    type === "arabic" && { fontFamily: resolveArabicFontFamily(arabicFamily) },
+    tvRamp ? { fontSize: tvRamp.fontSize } : null,
+    localeTextAlign,
+    arabicAlign,
+    scaledLineHeight,
+    style,
+    arabicMetrics,
+  ];
+
   return (
     <Text
       {...headingProps(heading)}
-      style={[
-        { color: resolvedColor },
-        type === "default" && styles.default,
-        type === "display" && styles.display,
-        type === "title" && styles.title,
-        type === "header" && styles.header,
-        type === "subtitle" && styles.subtitle,
-        type === "small" && styles.small,
-        type === "smallBold" && styles.smallBold,
-        type === "caption" && styles.caption,
-        type === "label" && styles.label,
-        type === "link" && styles.link,
-        type === "linkPrimary" && styles.linkPrimary,
-        type === "code" && styles.code,
-        type === "arabic" && styles.arabic,
-        type === "arabic" && { fontFamily: resolveArabicFontFamily(arabicFamily) },
-        localeTextAlign,
-        arabicAlign,
-        scaledLineHeight,
-        style,
-        arabicMetrics,
-      ]}
+      style={[...textStyles, tvDensityTextStyle(textStyles)]}
       {...rest}
     >
       {content}

@@ -10,7 +10,7 @@ describe("useEnsureContent", () => {
     });
     const ensure = jest.fn(() => shared);
 
-    const { result } = renderHook(() => useEnsureContent(ensure));
+    const { result } = await renderHook(() => useEnsureContent(ensure));
     expect(result.current.ready).toBe(false);
     expect(result.current.version).toBe(0);
 
@@ -26,9 +26,11 @@ describe("useEnsureContent", () => {
 
   it("starts ready when isCached reports a warm corpus", async () => {
     const ensure = jest.fn(() => Promise.resolve());
-    const { result } = renderHook(() => useEnsureContent(ensure, () => true));
+    const { result } = await renderHook(() => useEnsureContent(ensure, () => true));
     expect(result.current.ready).toBe(true);
-    expect(result.current.version).toBe(1);
+    // RNTL 14 renders asynchronously, so the warm-corpus ensure() may already have
+    // settled (version 2) by the time render resolves.
+    expect(result.current.version).toBeGreaterThanOrEqual(1);
 
     await waitFor(() => {
       expect(result.current.version).toBeGreaterThan(1);
@@ -42,12 +44,12 @@ describe("useEnsureContent", () => {
     });
     const ensure = jest.fn(() => shared);
 
-    const first = renderHook(() => useEnsureContent(ensure));
-    first.unmount();
+    const first = await renderHook(() => useEnsureContent(ensure));
+    await first.unmount();
 
     // Remount while the original promise is still pending — simulates Strict Mode /
     // a brief navigation remount where the first effect cleaned up before resolve.
-    const second = renderHook(() => useEnsureContent(ensure));
+    const second = await renderHook(() => useEnsureContent(ensure));
 
     await act(async () => {
       resolve();
@@ -61,7 +63,7 @@ describe("useEnsureContent", () => {
 
   it("keeps ready false when a cold ensure rejects", async () => {
     const ensure = jest.fn(() => Promise.reject(new Error("chunk failed")));
-    const { result } = renderHook(() => useEnsureContent(ensure, () => false));
+    const { result } = await renderHook(() => useEnsureContent(ensure, () => false));
 
     await act(async () => {
       await Promise.resolve();
@@ -77,7 +79,7 @@ describe("useEnsureContent", () => {
 
   it("stays ready when a warm ensure rejects", async () => {
     const ensure = jest.fn(() => Promise.reject(new Error("chunk failed")));
-    const { result } = renderHook(() => useEnsureContent(ensure, () => true));
+    const { result } = await renderHook(() => useEnsureContent(ensure, () => true));
     expect(result.current.ready).toBe(true);
 
     await act(async () => {

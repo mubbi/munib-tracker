@@ -9,7 +9,6 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "app.munibtracker",
-      "buildNumber": "1.2.1",
       "supportsTablet": true,
       "usesAppleSignIn": true,
       "icon": "./assets/images/icon.png",
@@ -25,7 +24,6 @@
     },
     "android": {
       "package": "app.munibtracker",
-      "versionCode": 570010201,
       "adaptiveIcon": {
         "backgroundColor": "#152921",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -47,7 +45,8 @@
           ],
           "category": ["BROWSABLE", "DEFAULT"]
         }
-      ]
+      ],
+      "permissions": ["android.permission.SCHEDULE_EXACT_ALARM"]
     },
     "web": {
       "bundler": "metro",
@@ -118,15 +117,15 @@
       [
         "expo-audio",
         {
-          "microphonePermission": false,
-          "recordAudioAndroid": false,
+          "microphonePermission": "Munib Tracker uses the microphone to follow your Qur'an recitation and to dictate custom adhkar. Audio stays on your device.",
+          "recordAudioAndroid": true,
           "enableBackgroundPlayback": true
         }
       ],
       [
         "expo-speech-recognition",
         {
-          "microphonePermission": "Munib Tracker uses the microphone so you can dictate custom adhkar.",
+          "microphonePermission": "Munib Tracker uses the microphone to follow your Qur'an recitation and to dictate custom adhkar. Audio stays on your device.",
           "speechRecognitionPermission": "Munib Tracker uses speech recognition so you can dictate custom adhkar."
         }
       ],
@@ -154,13 +153,6 @@
       "webAppVersion": "1.0.0",
       "vapidPublicKey": "vapid_9c7f2d18a4e64b9e9d5c3f7b1a8e62d",
       "serviceWorkerPath": "/expo-service-worker.js",
-      "router": {
-        "asyncRoutes": {
-          "web": true,
-          "android": false,
-          "ios": false
-        }
-      },
       "eas": {
         "build": {
           "experimental": {

@@ -12,12 +12,14 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   PRAYER_STATUS_META,
-  PRAYER_STATUS_ORDER,
+  selectablePrayerStatuses,
   statusToneColor,
   statusToneSoft,
 } from "@/lib/prayer-ui";
@@ -72,6 +74,12 @@ export function PrayerStatusSheet({
   const [notesOpen, setNotesOpen] = useState(false);
   const [qazaPromptOpen, setQazaPromptOpen] = useState(false);
   const [pendingStatus, setPendingStatus] = useState<PrayerStatus | null>(null);
+  const tv = isTV();
+  // Sunnah salah only offer Completed / Missed (no Delayed or Qaza).
+  const statusOptions = selectablePrayerStatuses(prayerId);
+  // TV: open on the current status, or on "completed" when still pending, so
+  // Select → Select marks the prayer prayed without hunting for the option.
+  const preferredStatus = statusOptions.includes(currentStatus) ? currentStatus : statusOptions[0];
 
   useEffect(() => {
     if (!visible) {
@@ -90,7 +98,7 @@ export function PrayerStatusSheet({
     onClose();
   };
 
-  const handleStatusPress = (status: (typeof PRAYER_STATUS_ORDER)[number]) => {
+  const handleStatusPress = (status: PrayerStatus) => {
     const active = currentStatus === status;
     const next = active ? "pending" : status;
     triggerHaptic(outcomeHaptic(next));
@@ -114,7 +122,7 @@ export function PrayerStatusSheet({
         </ThemedText>
 
         <View style={styles.options}>
-          {PRAYER_STATUS_ORDER.map((status) => {
+          {statusOptions.map((status) => {
             const meta = PRAYER_STATUS_META[status];
             const active = currentStatus === status;
             const toneColor = statusToneColor(meta.tone, colors, tokens);
@@ -126,13 +134,16 @@ export function PrayerStatusSheet({
                 accessibilityLabel={t(`prayerStatus.${status}`)}
                 accessibilityState={{ selected: active }}
                 onPress={() => handleStatusPress(status)}
+                {...(tv && status === preferredStatus ? { hasTVPreferredFocus: true } : {})}
                 style={[
                   styles.option,
+                  tv ? styles.optionTv : null,
                   {
                     backgroundColor: active
                       ? statusToneSoft(meta.tone, colors.muted, tokens)
                       : colors.muted,
-                    borderColor: active ? toneColor : "transparent",
+                    // TV: selected = soft tone fill + hairline; the thick ring is focus only.
+                    borderColor: active ? (tv ? tokens.hairline : toneColor) : "transparent",
                   },
                 ]}
               >
@@ -154,9 +165,14 @@ export function PrayerStatusSheet({
             onPress={() => onToggleJama(!isJama)}
             style={[
               styles.jamaRow,
+              tv ? styles.optionTv : null,
               {
                 backgroundColor: isJama ? tokens.status.success.soft : colors.muted,
-                borderColor: isJama ? tokens.status.success.color : "transparent",
+                borderColor: isJama
+                  ? tv
+                    ? tokens.hairline
+                    : tokens.status.success.color
+                  : "transparent",
               },
             ]}
           >
@@ -189,7 +205,11 @@ export function PrayerStatusSheet({
           haptic="light"
           accessibilityRole="button"
           onPress={() => setNotesOpen(true)}
-          style={[styles.notesRow, { backgroundColor: colors.muted, borderColor: colors.border }]}
+          style={[
+            styles.notesRow,
+            tv ? styles.rowTv : null,
+            { backgroundColor: colors.muted, borderColor: colors.border },
+          ]}
         >
           <SymbolView
             name={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
@@ -217,6 +237,7 @@ export function PrayerStatusSheet({
             }}
             style={[
               styles.adhkarRow,
+              tv ? styles.rowTv : null,
               {
                 backgroundColor: colors.muted,
                 borderColor: withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.3),
@@ -283,6 +304,14 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: 1.5,
+  },
+  /** TV: hairline at rest so selection never mimics the D-pad focus ring. */
+  optionTv: {
+    minHeight: TvLayout.minFocusTarget,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
   },
   notesRow: {
     flexDirection: "row",

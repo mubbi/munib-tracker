@@ -1,26 +1,23 @@
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
-import type { AppLocale, ExcusedReason, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
-import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
-import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import type { AppLocale, PrayerId } from "@munib-tracker/shared/types";
+import { getLocalDateString } from "@munib-tracker/shared/utils";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { NativeScrollEvent, NativeSyntheticEvent, ScrollView } from "react-native";
+import type { NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from "react-native";
+import { CalendarDayStatusSheet, useCalendarDayRecords } from "@/components/calendar-day-panel";
 import { CalendarWeekStrip } from "@/components/calendar-week-strip";
-import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { TrackerDayChecklist } from "@/components/tracker-day-checklist";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { PrayerRepository, ZikrRepository } from "@/db";
-import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { usePrayerTimesForDate } from "@/hooks/use-prayer-times-for-date";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
-import { zikrCountKey } from "@/lib/zikr-count-key";
-import { trackerStore } from "@/stores/tracker-store";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function CalendarDayScreen() {
   const router = useRouter();
@@ -40,22 +37,14 @@ export default function CalendarDayScreen() {
   const title = formatCalendarDateFromIso(date, calendarMode, locale);
   const prayerTimes = usePrayerTimesForDate(date);
 
-  const [status, setStatus] = useState<Record<string, PrayerStatus>>({});
-  const [notes, setNotes] = useState<Record<string, string | undefined>>({});
-  const [jama, setJama] = useState<Record<string, boolean>>({});
-  const [excusedReason, setExcusedReason] = useState<ExcusedReason | null>(null);
-  const [zikrCounts, setZikrCounts] = useState<Record<string, number>>({});
-  const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
+  const records = useCalendarDayRecords(date);
+  const { status, notes, jama, excusedReason, zikrCounts, activity, completed } = records;
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const scrollYRef = useRef(0);
   const onDayScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrollYRef.current = event.nativeEvent.contentOffset.y;
   }, []);
-  const lastActivePrayer = useRef<PrayerId | null>(activePrayer);
-  if (activePrayer) lastActivePrayer.current = activePrayer;
-  const sheetPrayer = activePrayer ?? lastActivePrayer.current;
-  const remindAfterSalahAdhkar = useAfterSalahAdhkarReminder();
 
   const selectDate = useCallback(
     (nextDate: string) => {
@@ -66,78 +55,6 @@ export default function CalendarDayScreen() {
     },
     [calendarMode, router],
   );
-
-  const reload = useCallback(async () => {
-    // Carry an active excused period onto today before reading local logs.
-    if (date === getLocalDateString()) {
-      await trackerStore.getState().refresh();
-    }
-    const [logs, allLogs, zikrEntries] = await Promise.all([
-      PrayerRepository.getByDate(date),
-      PrayerRepository.getAll(),
-      ZikrRepository.getByDate(date),
-    ]);
-    const nextStatus: Record<string, PrayerStatus> = {};
-    const nextNotes: Record<string, string | undefined> = {};
-    const nextJama: Record<string, boolean> = {};
-    let nextExcused: ExcusedReason | null = null;
-    for (const log of logs) {
-      nextStatus[log.prayerId] = log.status;
-      if (log.notes) nextNotes[log.prayerId] = log.notes;
-      if (log.isJama) nextJama[log.prayerId] = true;
-      if (log.isExcused) nextExcused = log.excusedReason ?? "sick";
-    }
-    const nextZikrCounts: Record<string, number> = {};
-    for (const entry of zikrEntries) {
-      nextZikrCounts[zikrCountKey(entry.zikrId, entry.prayerId)] = entry.count;
-    }
-    setStatus(nextStatus);
-    setNotes(nextNotes);
-    setJama(nextJama);
-    setExcusedReason(nextExcused);
-    setZikrCounts(nextZikrCounts);
-    setActivity(aggregateByDate(allLogs));
-  }, [date]);
-
-  useFocusEffect(
-    useCallback(() => {
-      let active = true;
-      void reload().finally(() => {
-        if (!active) return;
-      });
-      return () => {
-        active = false;
-      };
-    }, [reload]),
-  );
-
-  const applyStatus = async (
-    prayerId: PrayerId,
-    next: PrayerStatus,
-    options?: { addToQaza?: boolean },
-  ) => {
-    const previous = status[prayerId] ?? "pending";
-    await trackerStore.getState().setPrayerStatusOnDate(date, prayerId, next, options);
-    await reload();
-    remindAfterSalahAdhkar(prayerId, previous, next);
-  };
-
-  const applyNotes = async (prayerId: PrayerId, text: string) => {
-    await trackerStore.getState().setPrayerNotesOnDate(date, prayerId, text);
-    await reload();
-  };
-
-  const applyJama = async (prayerId: PrayerId, next: boolean) => {
-    await trackerStore.getState().setPrayerJamaOnDate(date, prayerId, next);
-    await reload();
-  };
-
-  const applyExcused = async (reason: ExcusedReason | null) => {
-    await trackerStore.getState().setDayExcusedOnDate(date, reason);
-    await reload();
-  };
-
-  const completed = OBLIGATORY_PRAYERS.filter((p) => status[p] === "completed").length;
 
   return (
     <ScreenLayout
@@ -184,27 +101,21 @@ export default function CalendarDayScreen() {
             excusedReason={excusedReason}
             prayerTimes={prayerTimes}
             onPrayerPress={setActivePrayer}
-            onExcusedChange={(reason) => void applyExcused(reason)}
+            onExcusedChange={(reason) => void records.applyExcused(reason)}
             scrollRef={scrollRef}
             getScrollY={() => scrollYRef.current}
           />
         )}
       </Stagger>
 
-      {sheetPrayer ? (
-        <PrayerStatusSheet
-          visible={activePrayer != null}
-          prayerId={sheetPrayer}
-          prayerLabel={t(`prayers.${sheetPrayer}`)}
-          currentStatus={status[sheetPrayer] ?? "pending"}
-          currentNotes={notes[sheetPrayer]}
-          isJama={jama[sheetPrayer] ?? false}
-          onToggleJama={(next) => applyJama(sheetPrayer, next)}
-          onSelect={(next, options) => applyStatus(sheetPrayer, next, options)}
-          onSaveNotes={(text) => applyNotes(sheetPrayer, text)}
-          onClose={() => setActivePrayer(null)}
-        />
-      ) : null}
+      <CalendarDayStatusSheet
+        activePrayer={activePrayer}
+        onClose={() => setActivePrayer(null)}
+        records={records}
+      />
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/calendar/[date]");

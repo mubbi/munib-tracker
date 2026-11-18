@@ -149,6 +149,10 @@ export const DEEP_LINK_DESTINATIONS = [
   "/quran/pages",
   "/quran/khatm",
   "/quran/hifz",
+  "/quran/practice",
+  "/quran/practice/session",
+  "/quran/practice/summary",
+  "/quran/revision",
   "/quran/search",
   "/verse-detector",
   "/quran/bookmarks",
@@ -178,6 +182,7 @@ export const DEEP_LINK_DESTINATIONS = [
   "/settings/reminder-offsets",
   "/settings/prayer-tuning",
   "/settings/voice-shortcuts",
+  "/settings/quran-practice",
   "/settings/about",
   // Special action bridges
   "/mark-current",
@@ -261,6 +266,12 @@ export const appLink = {
   quranPages: () => link("/quran/pages"),
   quranKhatm: () => link("/quran/khatm"),
   quranHifz: () => link("/quran/hifz"),
+  quranPractice: () => link("/quran/practice"),
+  quranRevision: () => link("/quran/revision"),
+  quranPracticeSettings: () => link("/settings/quran-practice"),
+  /** `/quran/practice/session` for one passage (validated on entry; invalid → hub). */
+  quranPracticeSession: (surah: number, from: number, to = from, mode?: string) =>
+    link(withQuery("/quran/practice/session", { surah, from, to, mode })),
   hadithDaily: () => link("/hadith/daily"),
   qazaHistory: () => link("/qaza/history"),
 

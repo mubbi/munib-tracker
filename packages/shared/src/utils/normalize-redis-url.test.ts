@@ -49,3 +49,37 @@ describe("isRedisCloudHost", () => {
     expect(isRedisCloudHost("localhost")).toBe(false);
   });
 });
+
+describe("normalizeRedisUrl edge cases", () => {
+  it.each([
+    ["a blank URL", "   ", {}, ""],
+    ["an unparsable URL", " not a url ", { forceTls: true }, "not a url"],
+    ["a non-redis URL", "https://example.com", { forceTls: true }, "https://example.com"],
+    ["redis:// with forceTls false", "redis://h:6379", { forceTls: false }, "redis://h:6379"],
+  ])("leaves %s unchanged", (_label, url, options, expected) => {
+    expect(normalizeRedisUrl(url, options)).toBe(expected);
+  });
+});
+
+describe("parseRedisTlsEnvFlag edge cases", () => {
+  it.each([
+    [undefined, undefined],
+    ["  ", undefined],
+    ["maybe", undefined],
+    [" YES ", true],
+    ["No", false],
+  ])("%j -> %s", (value, expected) => {
+    expect(parseRedisTlsEnvFlag(value)).toBe(expected);
+  });
+});
+
+describe("isRedisCloudHost edge cases", () => {
+  it.each([
+    [undefined, false],
+    [null, false],
+    ["", false],
+    [" redis-1.c1.us-east-1-2.ec2.redis-cloud.com ", true],
+  ])("%j -> %s", (host, expected) => {
+    expect(isRedisCloudHost(host)).toBe(expected);
+  });
+});

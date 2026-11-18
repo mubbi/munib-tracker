@@ -20,7 +20,10 @@ import { locationStore } from "./location-store";
 import { nameFavoritesStore } from "./name-favorites-store";
 import { preferencesStore } from "./preferences-store";
 import { prophetsProgressStore } from "./prophets-progress-store";
+import { quranCompanionPrefsStore } from "./quran-companion-prefs-store";
 import { quranGuideProgressStore } from "./quran-guide-progress-store";
+import { quranMemorizationStore } from "./quran-memorization-store";
+import { quranPracticeStore } from "./quran-practice-store";
 import { quranStore } from "./quran-store";
 import { readingTextVisibilityStore } from "./reading-text-visibility-store";
 import { sadaqahStore } from "./sadaqah-store";
@@ -73,5 +76,10 @@ export async function reloadAllStores(): Promise<void> {
     lastDayProgressStore.getState().load(),
     learnDuaProgressStore.getState().load(),
     sadaqahStore.getState().load(),
+    // Qur'an practice stays lazy at launch; after a restore/reset any already-mounted
+    // practice screen must see the new data.
+    quranCompanionPrefsStore.getState().load(),
+    quranPracticeStore.getState().load(),
+    quranMemorizationStore.getState().load(),
   ]);
 }

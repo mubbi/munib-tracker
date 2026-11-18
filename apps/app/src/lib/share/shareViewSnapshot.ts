@@ -1,7 +1,7 @@
 import { Directory, File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import type { RefObject } from "react";
-import { Platform, Share, type View, type ViewStyle } from "react-native";
+import { Platform, Share, type ViewInstance, type ViewStyle } from "react-native";
 import { captureRef } from "react-native-view-shot";
 
 import { runWhenIdle } from "@/lib/run-when-idle";
@@ -32,7 +32,7 @@ export const SHARE_SNAPSHOT_NATIVE_HOST_STYLE =
 const LAYOUT_WAIT_MAX_FRAMES = 120;
 
 /** Poll until a capture ref is attached (e.g. after lazy-mounting an off-screen snapshot). */
-export function waitForViewRef(ref: RefObject<View | null>): Promise<boolean> {
+export function waitForViewRef(ref: RefObject<ViewInstance | null>): Promise<boolean> {
   return new Promise((resolve) => {
     let frames = 0;
     const step = () => {
@@ -110,7 +110,7 @@ function persistNamedSnapshot(sourceUri: string, filename: string): string {
   return dest.uri;
 }
 
-function resolveCaptureTarget(target: View): View | HTMLElement {
+function resolveCaptureTarget(target: ViewInstance): ViewInstance | HTMLElement {
   if (Platform.OS === "web") {
     const host = resolveViewHostElement(target);
     if (host == null) {
@@ -127,7 +127,7 @@ export type ShareViewSnapshotResult = {
 
 /** Capture a mounted view and open the system share sheet with image (+ optional text). */
 export async function shareViewSnapshot(
-  viewRef: RefObject<View | null>,
+  viewRef: RefObject<ViewInstance | null>,
   options: ShareViewSnapshotOptions,
 ): Promise<ShareViewSnapshotResult> {
   if (Platform.OS !== "web") {
@@ -142,12 +142,23 @@ export async function shareViewSnapshot(
   }
 
   const captureTarget = resolveCaptureTarget(target);
-  const capturedUri = await captureRef(captureTarget, {
-    format: "png",
-    quality: 1,
-    result: Platform.OS === "web" ? "data-uri" : "tmpfile",
-    snapshotContentContainer: options.snapshotContentContainer ?? false,
-  });
+  // react-native-view-shot's web build calls html2canvas-pro without `logging: false`,
+  // which floods the console with DEBUG lines (incl. base64 images). Mute console.debug
+  // for the duration of the capture.
+  const isWeb = Platform.OS === "web";
+  const originalDebug = console.debug;
+  if (isWeb) console.debug = () => {};
+  let capturedUri: string;
+  try {
+    capturedUri = await captureRef(captureTarget, {
+      format: "png",
+      quality: 1,
+      result: isWeb ? "data-uri" : "tmpfile",
+      snapshotContentContainer: options.snapshotContentContainer ?? false,
+    });
+  } finally {
+    if (isWeb) console.debug = originalDebug;
+  }
 
   await options.afterCapture?.();
 

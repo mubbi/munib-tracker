@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { Platform, StyleSheet, TextInput, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { TvNumberStepper } from "@/components/tv-number-stepper";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
+
+/** Upper bound shared by the phone input (5 digits) and the TV stepper. */
+const MAX_COUNT = 99_999;
 
 type QazaCountEditModalProps = {
   visible: boolean;
@@ -33,8 +39,9 @@ export function QazaCountEditModal({
   onSubmit,
   onClose,
 }: QazaCountEditModalProps) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const tv = isTV();
   const [value, setValue] = useState(String(initialValue));
 
   useEffect(() => {
@@ -50,7 +57,8 @@ export function QazaCountEditModal({
   const parsed = Number.parseInt(value, 10);
   const canSubmit = Number.isFinite(parsed) && parsed >= 0;
   const resolvedTitle = title ?? t("qaza.editCountTitle", { prayer: prayerLabel ?? "" });
-  const resolvedHint = hint ?? t("qaza.editCountHint");
+  // TV has no typing: callers pass a TV-worded hint, or we use the stepper copy.
+  const resolvedHint = hint ?? tTv(t, "qaza.editCountHint", "qaza.editCountHintTv");
   const resolvedPlaceholder = placeholder ?? t("qaza.editCountPlaceholder");
   const resolvedA11y = accessibilityLabel ?? t("qaza.editCountA11y", { prayer: prayerLabel ?? "" });
 
@@ -60,18 +68,32 @@ export function QazaCountEditModal({
       <ThemedText type="caption" themeColor="mutedForeground">
         {resolvedHint}
       </ThemedText>
-      <TextInput
-        value={value}
-        onChangeText={(text) => setValue(text.replace(/[^0-9]/g, "").slice(0, 5))}
-        keyboardType="number-pad"
-        placeholder={resolvedPlaceholder}
-        placeholderTextColor={colors.mutedForeground}
-        accessibilityLabel={resolvedA11y}
-        style={[
-          styles.input,
-          { color: colors.foreground, backgroundColor: colors.muted, borderColor: colors.border },
-        ]}
-      />
+      {tv ? (
+        <View style={styles.tvStepper}>
+          <TvNumberStepper
+            value={canSubmit ? parsed : 0}
+            onChange={(next) => setValue(String(next))}
+            label={resolvedA11y}
+            max={MAX_COUNT}
+            steps={[1, 10, 100, 1000]}
+            preferredFocus
+          />
+        </View>
+      ) : (
+        <TextInput
+          value={value}
+          onChangeText={(text) => setValue(text.replace(/[^0-9]/g, "").slice(0, 5))}
+          keyboardType="number-pad"
+          // Desktop web: type straight away and press Enter to save.
+          autoFocus={Platform.OS === "web"}
+          selectTextOnFocus={Platform.OS === "web"}
+          onSubmitEditing={Platform.OS === "web" ? submit : undefined}
+          placeholder={resolvedPlaceholder}
+          placeholderTextColor={colors.mutedForeground}
+          accessibilityLabel={resolvedA11y}
+          style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
+        />
+      )}
       <View style={styles.actions}>
         <Button label={t("common.cancel")} variant="ghost" onPress={onClose} />
         <Button label={t("common.save")} disabled={!canSubmit} onPress={submit} />
@@ -91,6 +113,9 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     fontVariant: ["tabular-nums"],
+  },
+  tvStepper: {
+    marginTop: Spacing.three,
   },
   actions: {
     flexDirection: "row",

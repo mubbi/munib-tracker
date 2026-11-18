@@ -10,12 +10,14 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { LearnGrid } from "@/components/learn-guide/learn-wide-layout";
 import { useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -54,75 +56,96 @@ function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["
         icon={{ ios: "person.fill", android: "person", web: "person" }}
       />
       {rows.length ? (
-        <View style={styles.detailRows}>
-          {rows.map((row) => (
-            <View key={row.label} style={[styles.detailRow, { borderTopColor: tokens.hairline }]}>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {row.label}
-              </ThemedText>
-              <ThemedText type="small" style={{ fontSize: sizes.translation }}>
-                {row.value}
-              </ThemedText>
+        // TV: each profile block is a D-pad stop so the long card scrolls by remote.
+        <TvReadableBlock>
+          <View style={styles.detailRows}>
+            <LearnGrid maxColumns={2} gap={Spacing.three} passthrough>
+              {rows.map((row) => (
+                <View
+                  key={row.label}
+                  style={[styles.detailRow, { borderTopColor: tokens.hairline }]}
+                >
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {row.label}
+                  </ThemedText>
+                  <ThemedText type="small" style={{ fontSize: sizes.translation }}>
+                    {row.value}
+                  </ThemedText>
+                </View>
+              ))}
+            </LearnGrid>
+          </View>
+        </TvReadableBlock>
+      ) : null}
+
+      {/* Tablet / desktop: challenges · miracles · events side by side. */}
+      <LearnGrid maxColumns={2} gap={Spacing.three} passthrough>
+        {profile.challenges?.length ? (
+          <TvReadableBlock>
+            <View style={styles.subsection}>
+              <ThemedText type="smallBold">{t("prophets.profile.challenges")}</ThemedText>
+              {profile.challenges.map((item) => (
+                <ThemedText key={item} type="small" themeColor="mutedForeground">
+                  • {item}
+                </ThemedText>
+              ))}
             </View>
-          ))}
-        </View>
-      ) : null}
+          </TvReadableBlock>
+        ) : null}
 
-      {profile.challenges?.length ? (
-        <View style={styles.subsection}>
-          <ThemedText type="smallBold">{t("prophets.profile.challenges")}</ThemedText>
-          {profile.challenges.map((item) => (
-            <ThemedText key={item} type="small" themeColor="mutedForeground">
-              • {item}
-            </ThemedText>
-          ))}
-        </View>
-      ) : null}
+        {profile.miracles?.length ? (
+          <TvReadableBlock>
+            <View style={styles.subsection}>
+              <ThemedText type="smallBold">{t("prophets.profile.miracles")}</ThemedText>
+              {profile.miracles.map((item) => (
+                <ThemedText key={item} type="small" themeColor="mutedForeground">
+                  • {item}
+                </ThemedText>
+              ))}
+            </View>
+          </TvReadableBlock>
+        ) : null}
 
-      {profile.miracles?.length ? (
-        <View style={styles.subsection}>
-          <ThemedText type="smallBold">{t("prophets.profile.miracles")}</ThemedText>
-          {profile.miracles.map((item) => (
-            <ThemedText key={item} type="small" themeColor="mutedForeground">
-              • {item}
-            </ThemedText>
-          ))}
-        </View>
-      ) : null}
-
-      {profile.majorEvents?.length ? (
-        <View style={styles.subsection}>
-          <ThemedText type="smallBold">{t("prophets.profile.events")}</ThemedText>
-          {profile.majorEvents.map((item) => (
-            <ThemedText key={item} type="small" themeColor="mutedForeground">
-              • {item}
-            </ThemedText>
-          ))}
-        </View>
-      ) : null}
+        {profile.majorEvents?.length ? (
+          <TvReadableBlock>
+            <View style={styles.subsection}>
+              <ThemedText type="smallBold">{t("prophets.profile.events")}</ThemedText>
+              {profile.majorEvents.map((item) => (
+                <ThemedText key={item} type="small" themeColor="mutedForeground">
+                  • {item}
+                </ThemedText>
+              ))}
+            </View>
+          </TvReadableBlock>
+        ) : null}
+      </LearnGrid>
 
       {profile.lessons?.length ? (
-        <View style={[styles.lessonBox, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="caption" style={{ color: colors.accent }}>
-            {t("prophets.profile.lessons")}
-          </ThemedText>
-          {profile.lessons.map((item) => (
-            <ThemedText key={item} type="small">
-              • {item}
+        <TvReadableBlock>
+          <View style={[styles.lessonBox, { backgroundColor: tokens.accentSoft }]}>
+            <ThemedText type="caption" style={{ color: colors.accent }}>
+              {t("prophets.profile.lessons")}
             </ThemedText>
-          ))}
-        </View>
+            {profile.lessons.map((item) => (
+              <ThemedText key={item} type="small">
+                • {item}
+              </ThemedText>
+            ))}
+          </View>
+        </TvReadableBlock>
       ) : null}
 
       {profile.facts?.length ? (
-        <View style={styles.subsection}>
-          <ThemedText type="smallBold">{t("prophets.profile.facts")}</ThemedText>
-          {profile.facts.map((item) => (
-            <ThemedText key={item} type="caption" themeColor="mutedForeground">
-              • {item}
-            </ThemedText>
-          ))}
-        </View>
+        <TvReadableBlock>
+          <View style={styles.subsection}>
+            <ThemedText type="smallBold">{t("prophets.profile.facts")}</ThemedText>
+            {profile.facts.map((item) => (
+              <ThemedText key={item} type="caption" themeColor="mutedForeground">
+                • {item}
+              </ThemedText>
+            ))}
+          </View>
+        </TvReadableBlock>
       ) : null}
     </Card>
   );
@@ -162,15 +185,17 @@ export function ProphetsTopicContent({ topic }: { topic: ProphetsTopic }) {
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
           />
           <View style={styles.links}>
-            {topic.appLinks.map((link) => (
-              <Button
-                key={link.route}
-                label={link.label}
-                variant="secondary"
-                fullWidth
-                onPress={() => router.push(link.route as never)}
-              />
-            ))}
+            <LearnGrid maxColumns={2} gap={Spacing.two} passthrough>
+              {topic.appLinks.map((link) => (
+                <Button
+                  key={link.route}
+                  label={link.label}
+                  variant="secondary"
+                  fullWidth
+                  onPress={() => router.push(link.route as never)}
+                />
+              ))}
+            </LearnGrid>
           </View>
         </Card>
       ) : null}
@@ -184,9 +209,11 @@ export function ProphetsTopicContent({ topic }: { topic: ProphetsTopic }) {
       />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );

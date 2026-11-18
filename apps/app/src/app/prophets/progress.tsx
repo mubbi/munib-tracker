@@ -5,6 +5,8 @@ import { StyleSheet, View } from "react-native";
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { ProphetsTopicAside } from "@/components/prophets/prophets-aside";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -21,6 +23,7 @@ import {
   isProphetsContentReady,
 } from "@/lib/prophets";
 import { buildProphetsProgress } from "@/lib/prophets-progress";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureProphetsProgressLoaded,
   useProphetsCompletedCount,
@@ -28,6 +31,7 @@ import {
 
 export default function ProphetsProgressScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   useEnsureProphetsProgressLoaded();
   const completedCount = useProphetsCompletedCount();
@@ -52,68 +56,71 @@ export default function ProphetsProgressScreen() {
       title={t("prophets.progressTitle")}
       subtitle={t("prophets.progressSubtitle")}
       onBack={() => goBackOrReplace(router, "/prophets" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/prophets/progress" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="warning">{t("prophets.progressIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<ProphetsTopicAside />}>
+          <Stagger>
+            <JannahCallout tone="warning">{t("prophets.progressIntro")}</JannahCallout>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("prophets.lessonsTitle")}
-              icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("prophets.lessonsHint")}
-            </ThemedText>
-            <View style={styles.lessonRow}>
-              <ThemedText type="title">
-                {t("prophets.lessonsCount", {
-                  completed: snapshot.lessonsCompleted,
-                  total: snapshot.lessonsTotal,
-                })}
+            <Card padding="three">
+              <SectionHeader
+                title={t("prophets.lessonsTitle")}
+                icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("prophets.lessonsHint")}
               </ThemedText>
-              <ProgressBar value={snapshot.lessonProgress} />
-            </View>
-          </Card>
+              <View style={styles.lessonRow}>
+                <ThemedText type="title">
+                  {t("prophets.lessonsCount", {
+                    completed: snapshot.lessonsCompleted,
+                    total: snapshot.lessonsTotal,
+                  })}
+                </ThemedText>
+                <ProgressBar value={snapshot.lessonProgress} />
+              </View>
+            </Card>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("prophets.exploreTitle")}
-              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("prophets.progressExploreHint")}
-            </ThemedText>
-            <ContentLinkList
-              style={styles.links}
-              links={[
-                {
-                  label: t("prophets.timelineTitle"),
-                  onPress: () => router.push("/prophets/timeline" as Href),
-                },
-                {
-                  label: t("prophets.muhammadTitle"),
-                  onPress: () =>
-                    router.push({
-                      pathname: "/prophets/[topic]",
-                      params: { topic: "muhammad" },
-                    }),
-                },
-                {
-                  label: t("prophets.lessonsTopicTitle"),
-                  onPress: () =>
-                    router.push({
-                      pathname: "/prophets/[topic]",
-                      params: { topic: "prophets-lessons" },
-                    }),
-                },
-              ]}
-            />
-          </Card>
+            <Card padding="three">
+              <SectionHeader
+                title={t("prophets.exploreTitle")}
+                icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("prophets.progressExploreHint")}
+              </ThemedText>
+              <ContentLinkList
+                style={styles.links}
+                links={[
+                  {
+                    label: t("prophets.timelineTitle"),
+                    onPress: () => router.push("/prophets/timeline" as Href),
+                  },
+                  {
+                    label: t("prophets.muhammadTitle"),
+                    onPress: () =>
+                      router.push({
+                        pathname: "/prophets/[topic]",
+                        params: { topic: "muhammad" },
+                      }),
+                  },
+                  {
+                    label: t("prophets.lessonsTopicTitle"),
+                    onPress: () =>
+                      router.push({
+                        pathname: "/prophets/[topic]",
+                        params: { topic: "prophets-lessons" },
+                      }),
+                  },
+                ]}
+              />
+            </Card>
 
-          <JannahDisclaimer textKey="prophets.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="prophets.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );
@@ -124,3 +131,6 @@ const styles = StyleSheet.create({
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/prophets/progress");

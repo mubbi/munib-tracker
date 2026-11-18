@@ -3,20 +3,25 @@ import type { ZikrItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { NavRow } from "@/components/ui/nav-row";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { zikrCategoryBadge, zikrListRowProgress } from "@/lib/zikr-list-progress";
@@ -27,7 +32,11 @@ import { useZikrCounts } from "@/stores/tracker-store";
 export default function ZikrHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  // Wide web / tablets: search beside saved + My adhkar, categories in a grid.
+  const wide = !tv && width >= 768;
   const favoriteIds = useFavoriteZikrIds();
   const zikrCounts = useZikrCounts();
   const [zikrReady, setZikrReady] = useState(false);
@@ -66,6 +75,46 @@ export default function ZikrHomeScreen() {
 
   const onOpenDetail = useCallback((id: string) => pushZikrDetail(router, id), [router]);
 
+  const savedCard = (
+    <SavedNavCard
+      key="saved"
+      title={t("zikr.favorites")}
+      viewLabel={t("zikr.seeAll")}
+      count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
+      headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
+      rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+      onPress={() => router.push("/zikr/favorites")}
+    />
+  );
+
+  const searchCard = (
+    <Card key="search" padding="three" style={wide ? styles.fill : undefined}>
+      <TextInput
+        value={query}
+        onChangeText={setQuery}
+        placeholder={t("zikr.searchPlaceholder")}
+        placeholderTextColor={colors.mutedForeground}
+        accessibilityLabel={t("zikr.searchPlaceholder")}
+        style={[
+          styles.input,
+          tv ? styles.inputTv : null,
+          tokens.inputSurface,
+          { color: colors.foreground },
+        ]}
+      />
+    </Card>
+  );
+
+  const customCard = (
+    <Card key="custom" padding="three">
+      <NavRow
+        icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
+        label={t("customAdhkar.title")}
+        onPress={() => router.push("/adhkar-builder")}
+      />
+    </Card>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("zikr.eyebrow")}
@@ -98,25 +147,17 @@ export default function ZikrHomeScreen() {
         ]}
       />
       <Stagger>
-        <SavedNavCard
-          title={t("zikr.favorites")}
-          viewLabel={t("zikr.seeAll")}
-          count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
-          headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
-          rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
-          onPress={() => router.push("/zikr/favorites")}
-        />
-
-        <Card padding="three">
-          <TextInput
-            value={query}
-            onChangeText={setQuery}
-            placeholder={t("zikr.searchPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("zikr.searchPlaceholder")}
-            style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
-          />
-        </Card>
+        {wide ? (
+          <View style={styles.topRowWide}>
+            <View style={styles.searchColWide}>{searchCard}</View>
+            <View style={styles.sideColWide}>
+              {savedCard}
+              {searching ? null : customCard}
+            </View>
+          </View>
+        ) : (
+          [savedCard, searchCard]
+        )}
 
         {searching ? (
           !zikrReady ? null : results.length === 0 ? (
@@ -127,7 +168,7 @@ export default function ZikrHomeScreen() {
             />
           ) : (
             <Card padding="three">
-              <View style={styles.list}>
+              <ResponsiveGrid columns={tv ? 1 : undefined} maxColumns={2} gap={Spacing.two}>
                 {results.map((item) => (
                   <ZikrSearchRow
                     key={item.id}
@@ -138,20 +179,12 @@ export default function ZikrHomeScreen() {
                     onPress={onOpenDetail}
                   />
                 ))}
-              </View>
+              </ResponsiveGrid>
             </Card>
           )
         ) : null}
 
-        {!searching ? (
-          <Card padding="three">
-            <NavRow
-              icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
-              label={t("customAdhkar.title")}
-              onPress={() => router.push("/adhkar-builder")}
-            />
-          </Card>
-        ) : null}
+        {!searching && !wide ? customCard : null}
 
         {!searching ? (
           <Card padding="three">
@@ -159,7 +192,9 @@ export default function ZikrHomeScreen() {
               title={t("zikr.categories")}
               icon={{ ios: "square.grid.2x2.fill", android: "grid_view", web: "grid_view" }}
             />
-            <View style={styles.list}>
+            {/* TV: two-column grid (D-pad left/right between columns). Wide web /
+                tablets: 2-4 columns by width. Phones: one column. */}
+            <ResponsiveGrid columns={tv ? 2 : undefined} gap={Spacing.two} style={styles.gridTop}>
               {categories.map((category) => {
                 const progress = zikrCategoryBadge(category.id, zikrCounts, t("zikr.done"));
                 return (
@@ -179,7 +214,7 @@ export default function ZikrHomeScreen() {
                   />
                 );
               })}
-            </View>
+            </ResponsiveGrid>
           </Card>
         ) : null}
       </Stagger>
@@ -221,8 +256,17 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
     fontSize: 15,
   },
-  list: {
-    gap: Spacing.two,
-    marginTop: Spacing.three,
+  // TextInput bypasses ThemedText's tvOS density scaling — match Library's input.
+  inputTv: {
+    minHeight: TvLayout.minFocusTarget,
+    fontSize: tvDp(TvLayout.bodyFontSize),
   },
+  gridTop: { marginTop: Spacing.three },
+  topRowWide: { flexDirection: "row", alignItems: "stretch", gap: Spacing.three },
+  searchColWide: { flex: 3, minWidth: 0 },
+  sideColWide: { flex: 2, minWidth: 0, gap: Spacing.three },
+  fill: { flexGrow: 1, justifyContent: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/zikr");

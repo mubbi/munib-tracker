@@ -5,7 +5,9 @@ import { ThemedText } from "@/components/themed-text";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import type { CustomTasbeeh } from "@/stores/custom-tasbeeh-store";
 
@@ -31,7 +33,7 @@ export function CustomTasbeehRow({ item, onPress }: CustomTasbeehRowProps) {
       accessibilityRole="button"
       accessibilityLabel={item.title}
       onPress={onPress}
-      style={[styles.row, { backgroundColor: colors.muted }]}
+      style={[styles.row, isTV() && styles.rowTv, { backgroundColor: colors.muted }]}
     >
       <View style={styles.body}>
         <ThemedText type="small" numberOfLines={1}>
@@ -74,6 +76,9 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
   },
   body: {
     flex: 1,

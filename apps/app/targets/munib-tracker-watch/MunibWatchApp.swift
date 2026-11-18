@@ -75,9 +75,20 @@ final class WatchPrayerModel: ObservableObject {
     }
   }
 
+  /// The watch's App Group queue is on the watch, not the phone, so the phone
+  /// only ever learns of a mark through WatchConnectivity. Send live when the
+  /// phone is reachable; otherwise (or if the live send fails) queue a
+  /// `transferUserInfo`, which the system delivers once the phone app is
+  /// available — a mark is never silently dropped.
   private func sendToPhone(_ message: [String: Any]) {
-    guard let session, session.isReachable else { return }
-    session.sendMessage(message, replyHandler: nil, errorHandler: nil)
+    guard let session, session.activationState == .activated else { return }
+    if session.isReachable {
+      session.sendMessage(message, replyHandler: nil) { _ in
+        session.transferUserInfo(message)
+      }
+    } else {
+      session.transferUserInfo(message)
+    }
   }
 }
 

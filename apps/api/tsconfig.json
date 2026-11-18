@@ -1,15 +1,14 @@
 {
   "extends": "../../packages/typescript-config/nestjs.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "ignoreDeprecations": "6.0"
+    "outDir": "./dist"
   },
   "include": [
     "src/**/*.ts",
     "api/**/*.ts",
     "test/**/*.ts",
-    "vitest.config.ts",
-    "vitest.config.e2e.ts"
+    "vitest.config.mts",
+    "vitest.config.e2e.mts"
   ],
   "exclude": ["node_modules", "dist"]
 }

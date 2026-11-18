@@ -1,0 +1,13 @@
+diff --git a/android/src/main/AndroidManifest.xml b/android/src/main/AndroidManifest.xml
+index 283f6d503da5cf0567dbf46da61c4b3c84f49505..474beb128aea52e8e161cc4fcfc218db4ed4d448 100644
+--- a/android/src/main/AndroidManifest.xml
++++ b/android/src/main/AndroidManifest.xml
+@@ -3,7 +3,7 @@
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+     <application>
+-        <provider tools:replace="android:authorities" android:name=".FileSystemFileProvider" android:authorities="${applicationId}.FileSystemFileProvider" android:exported="false" android:grantUriPermissions="true">
++        <provider android:name=".FileSystemFileProvider" android:authorities="${applicationId}.FileSystemFileProvider" android:exported="false" android:grantUriPermissions="true">
+             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_system_provider_paths" />
+         </provider>
+     </application>

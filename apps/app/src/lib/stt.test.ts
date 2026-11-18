@@ -1,5 +1,4 @@
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
-import { Platform } from "react-native";
 
 const mockIsRecognitionAvailable = jest.fn(() => true);
 const mockRequestPermissions = jest.fn(async () => ({
@@ -31,13 +30,14 @@ import {
   resolveSttLang,
   startStt,
   stopStt,
+  sttLangCandidates,
 } from "@/lib/stt";
+import { usePlatformSwitch } from "@/test-support/platform";
 
 describe("stt", () => {
-  const originalOS = Platform.OS;
+  const onPlatform = usePlatformSwitch();
 
   afterEach(() => {
-    Platform.OS = originalOS;
     mockRequestPermissions.mockClear();
   });
 
@@ -49,7 +49,7 @@ describe("stt", () => {
   });
 
   it("requests permissions and returns a simple grant flag", async () => {
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     mockRequestPermissions.mockResolvedValueOnce({
       granted: false,
       canAskAgain: true,
@@ -63,7 +63,7 @@ describe("stt", () => {
   });
 
   it("skips the unsupported permission API on web", async () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     await expect(requestSttPermissions()).resolves.toEqual({
       granted: true,
       canAskAgain: true,
@@ -83,6 +83,30 @@ describe("stt", () => {
       }),
     );
     expect(mockStart.mock.calls[0]?.[0]).not.toHaveProperty("requiresOnDeviceRecognition");
+  });
+
+  it("reports web availability from the browser Speech API module", () => {
+    onPlatform({ OS: "web" });
+    mockIsRecognitionAvailable.mockReturnValueOnce(true);
+    expect(isSttAvailable()).toBe(true);
+    mockIsRecognitionAvailable.mockReturnValueOnce(false);
+    expect(isSttAvailable()).toBe(false);
+  });
+
+  it("starts web recognition without native volume metering", () => {
+    onPlatform({ OS: "web" });
+    mockStart.mockClear();
+    startStt({ lang: "en-US", volumeMetering: true });
+    expect(mockStart).toHaveBeenCalledWith(expect.objectContaining({ lang: "en-US" }));
+    expect(mockStart.mock.calls[0]?.[0]).not.toHaveProperty("volumeChangeEventOptions");
+  });
+
+  it("orders language fallbacks without leaving Arabic for Arabic fields", () => {
+    expect(sttLangCandidates("en", "arabic")).toEqual(["ar-SA", "ar"]);
+    const urdu = sttLangCandidates("ur", "other");
+    expect(urdu[0]).toMatch(/^ur/);
+    expect(urdu.at(-1)).toBe("en-US");
+    expect(sttLangCandidates("en", "other")).not.toContain("ar");
   });
 
   it("normalizes recognizer volume to 0→1", () => {
@@ -113,6 +137,7 @@ describe("stt", () => {
     expect(classifySttError("not-allowed")).toBe("permission");
     expect(classifySttError("no-speech")).toBe("noSpeech");
     expect(classifySttError("service-not-allowed")).toBe("unavailable");
+    expect(classifySttError("audio-capture")).toBe("unavailable");
     expect(classifySttError("network")).toBe("generic");
   });
 });

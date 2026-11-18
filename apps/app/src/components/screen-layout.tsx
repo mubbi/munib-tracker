@@ -11,15 +11,14 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
-  type ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   useWindowDimensions,
   View,
+  type ViewInstance,
   type ViewStyle,
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { AppHeader } from "@/components/app-header";
 import { ContentReportFooterLink } from "@/components/content-report/content-report-footer-link";
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -28,17 +27,27 @@ import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { MaxContentWidth, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useTheme } from "@/hooks/use-theme";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 import { isTV } from "@/lib/platform/is-tv";
+import { horizontalSafeAreaPadding } from "@/lib/rtl";
 
 /** Breakpoint above which we allow a wider content column (wide web/tablet). */
 const WideBreakpoint = 1024;
 /** Wider cap used on large viewports so content isn't a narrow single column. */
 const WideMaxContentWidth = 1120;
+/** Desktop (≥1600px): grids and list–detail screens can use more of the canvas. */
+const XWideBreakpoint = 1600;
+const XWideMaxContentWidth = 1320;
+/**
+ * Learn prose on wide screens: ~75–85 characters per line at body size. Screens
+ * that add a side panel (TOC / related) pass their own `maxContentWidth`.
+ */
+const WideProseMaxWidth = 880;
 
 type ScreenLayoutProps = {
   title: string;
@@ -63,7 +72,7 @@ type ScreenLayoutProps = {
    */
   maxContentWidth?: number;
   /** Ref to the internal ScrollView (e.g. to auto-scroll to a playing card). */
-  scrollRef?: RefObject<ScrollView | null>;
+  scrollRef?: RefObject<ScrollViewInstance | null>;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   /**
    * Show a thin scroll-progress line beneath the header for long-form reading
@@ -102,11 +111,11 @@ export function ScreenLayout({
   const { t, i18n } = useTranslation();
   const pathname = usePathname();
   const { width } = useWindowDimensions();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const contentBottomInset = useContentBottomInset();
   const { active: fullscreenActive } = useReadingFullscreen();
-  const rootRef = useRef<View>(null);
-  const contentBlurTargetRef = useRef<View>(null);
+  const rootRef = useRef<ViewInstance>(null);
+  const contentBlurTargetRef = useRef<ViewInstance>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
   // Hide the title bar in reading fullscreen so the surface grows; keep any
   // headerAccessory (e.g. Qur'an toolbar) for exit + reading controls.
@@ -190,10 +199,14 @@ export function ScreenLayout({
     maxContentWidth ??
     (tv
       ? isLearnRoute
-        ? MaxContentWidth
+        ? TvLayout.proseMaxWidth
         : undefined
       : width >= WideBreakpoint
-        ? WideMaxContentWidth
+        ? isLearnRoute
+          ? WideProseMaxWidth
+          : width >= XWideBreakpoint
+            ? XWideMaxContentWidth
+            : WideMaxContentWidth
         : MaxContentWidth);
 
   const content = (
@@ -309,13 +322,24 @@ export function ScreenLayout({
       // iOS 26 tab-bar minimize-on-scroll: UIKit walks first subviews from the
       // tab screen root to find the content scroll view — don't flatten.
       collapsable={false}
-      style={[styles.root, { backgroundColor: colors.background }]}
+      // Left/right safe area: iOS 27 vertical system rail (iPhone Duo) and notches.
+      style={[
+        styles.root,
+        { backgroundColor: colors.background },
+        tv ? null : horizontalSafeAreaPadding(insets),
+      ]}
     >
       {/* Native immersive reading: hide status bar (iOS HIG / Android immersive).
           Android also hides the nav bar; expo-navigation-bar uses transient
           swipe-to-reveal (BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE). */}
       {Platform.OS !== "web" && !tv ? (
-        <StatusBar hidden={fullscreenActive} hideTransitionAnimation="fade" />
+        <StatusBar
+          hidden={fullscreenActive}
+          hideTransitionAnimation="fade"
+          // iOS 27: immersive reading keeps the system bars out of the side rail so
+          // the page gets the full window width (iPhone Duo).
+          verticalBarBehaviorIOS={fullscreenActive ? "disabled" : "automatic"}
+        />
       ) : null}
       {Platform.OS === "android" && !tv ? <NavigationBar hidden={fullscreenActive} /> : null}
       {tv ? (
@@ -347,6 +371,7 @@ export function ScreenLayout({
             onNotificationsPress={onNotificationsPress}
             onBack={onBack}
             blurTargetRef={Platform.OS === "android" && !tv ? contentBlurTargetRef : undefined}
+            contentMaxWidth={maxWidth}
           />
         ) : null}
         {headerAccessory}

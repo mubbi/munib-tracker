@@ -1,8 +1,16 @@
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, Text, TextInput, type TextStyle, View } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextInput,
+  type TextStyle,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { JannahCallout } from "@/components/jannah/primitives";
 import {
   ReadingTypographyBar,
@@ -28,6 +36,7 @@ import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import i18n from "@/i18n";
+import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import {
@@ -40,8 +49,9 @@ import { arabicReadingLayout, resolveArabicFontFamily } from "@/lib/reading-typo
 import { useChevronForward } from "@/lib/rtl";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { clearAyahIndex } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
-import { abortStt, type SttErrorKind } from "@/lib/stt";
+import type { SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -274,7 +284,7 @@ function VerseResultCard({
   );
 }
 
-function DetectorBody() {
+function DetectorBody({ twoPane }: { twoPane: boolean }) {
   const router = useRouter();
   const { t } = useTranslation();
   const toast = useToast();
@@ -316,7 +326,6 @@ function DetectorBody() {
     onError: handleSttError,
   });
 
-  useEffect(() => () => abortStt(), []);
   useEffect(() => () => clearAyahIndex(), []);
 
   useEffect(() => {
@@ -375,6 +384,9 @@ function DetectorBody() {
   const hasInput = query.trim().length > 0;
   const topHit = results[0];
   const otherHits = results.slice(1);
+  const { width } = useWindowDimensions();
+  /** Very wide desktop: secondary matches in two columns beside each other. */
+  const otherColumns = twoPane && width >= 1440 ? 2 : 1;
 
   const examples = useMemo(
     () => [
@@ -444,206 +456,268 @@ function DetectorBody() {
     [t],
   );
 
+  const composerCard = (
+    <Card
+      padding="four"
+      style={[
+        styles.composer,
+        {
+          borderWidth: 1,
+          borderColor: colors.border,
+        },
+      ]}
+    >
+      <View style={styles.fieldGroup}>
+        <ThemedText type="smallBold">{t("quran.detector.languageLabel")}</ThemedText>
+        <SegmentedControl options={langOptions} value={lang} onChange={setLang} />
+      </View>
+
+      <View
+        style={[
+          styles.textField,
+          {
+            backgroundColor: colors.input,
+            borderColor: stt.listening ? colors.accent : colors.inputBorder,
+            borderWidth: stt.listening ? 1.5 : 1,
+          },
+        ]}
+      >
+        <TextInput
+          value={query}
+          onChangeText={setQueryFromInput}
+          placeholder={t("quran.detector.textPlaceholder")}
+          placeholderTextColor={colors.mutedForeground}
+          accessibilityLabel={t("quran.detector.textPlaceholder")}
+          multiline
+          textAlignVertical="top"
+          autoCorrect={false}
+          style={[
+            styles.textInput,
+            {
+              color: colors.foreground,
+              textAlign: lang === "ar" ? "right" : "left",
+              writingDirection: lang === "ar" ? "rtl" : "ltr",
+            },
+          ]}
+        />
+        <View style={styles.textFieldFooter}>
+          {stt.listening ? (
+            <View style={styles.listeningBadge}>
+              <SymbolView
+                name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+                size={14}
+                tintColor={colors.accent}
+              />
+              <ThemedText type="caption" style={{ color: colors.accent }}>
+                {t("quran.detector.listening")}
+              </ThemedText>
+            </View>
+          ) : (
+            <View style={styles.footerSpacer} />
+          )}
+          <View style={styles.textFieldActions}>
+            {hasInput ? (
+              <IconButton
+                accessibilityLabel={t("search.clear")}
+                onPress={() => setQueryFromInput("")}
+                name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
+                size={18}
+                tintColor={colors.mutedForeground}
+              />
+            ) : null}
+            {stt.available ? (
+              <VoiceInputButton
+                size="sm"
+                listening={stt.listening}
+                level={stt.level}
+                accessibilityLabel={
+                  stt.listening ? t("quran.detector.stopDictate") : t("quran.detector.dictate")
+                }
+                accessibilityHint={stt.listening ? t("quran.detector.listening") : undefined}
+                onPress={toggleVoice}
+              />
+            ) : null}
+          </View>
+        </View>
+      </View>
+
+      {!twoPane && !hasInput && !stt.listening ? (
+        <JannahCallout tone="info">{t("quran.detector.detectHint")}</JannahCallout>
+      ) : null}
+
+      {busy && !twoPane ? (
+        <View style={styles.statusRow}>
+          <ActivityIndicator size="small" color={colors.accent} />
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("quran.detector.detecting")}
+          </ThemedText>
+        </View>
+      ) : null}
+
+      <View style={styles.examplesBlock}>
+        <ThemedText type="smallBold">{t("quran.detector.examples")}</ThemedText>
+        {twoPane ? (
+          // Desktop: no swipe — wrap the example chips instead of a scroller.
+          <View style={styles.examplesWrap}>
+            {examples.map((example) => (
+              <PressableScale
+                key={example.id}
+                haptic="light"
+                accessibilityRole="button"
+                accessibilityLabel={example.label}
+                onPress={() => applyExample(example.id)}
+                style={[
+                  styles.exampleChip,
+                  {
+                    backgroundColor: colors.muted,
+                    borderColor: colors.border,
+                  },
+                ]}
+              >
+                <ThemedText type="caption" style={{ color: colors.foreground }}>
+                  {example.label}
+                </ThemedText>
+              </PressableScale>
+            ))}
+          </View>
+        ) : (
+          <TvScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.examplesRow}
+          >
+            {examples.map((example) => (
+              <PressableScale
+                key={example.id}
+                haptic="light"
+                accessibilityRole="button"
+                accessibilityLabel={example.label}
+                onPress={() => applyExample(example.id)}
+                style={[
+                  styles.exampleChip,
+                  {
+                    backgroundColor: colors.muted,
+                    borderColor: colors.border,
+                  },
+                ]}
+              >
+                <ThemedText type="caption" style={{ color: colors.foreground }}>
+                  {example.label}
+                </ThemedText>
+              </PressableScale>
+            ))}
+          </TvScrollView>
+        )}
+      </View>
+    </Card>
+  );
+
+  const emptyState = showEmpty ? (
+    <EmptyState
+      icon={{
+        ios: "text.magnifyingglass",
+        android: "manage_search",
+        web: "manage_search",
+      }}
+      title={t("quran.detector.noResults")}
+      description={t("quran.detector.noResultsHint")}
+    />
+  ) : null;
+
+  const resultsCard =
+    !busy && topHit ? (
+      <Card
+        padding="three"
+        style={[
+          styles.resultsCard,
+          {
+            borderWidth: 1,
+            borderColor: colors.border,
+          },
+        ]}
+      >
+        <ReadingTypographyBar surface="quran" />
+        <VerseResultCard
+          hit={topHit}
+          featured
+          expanded={expandedKey === `${topHit.surah}:${topHit.ayah}`}
+          onToggleExpanded={() =>
+            setExpandedKey((current) => {
+              const key = `${topHit.surah}:${topHit.ayah}`;
+              return current === key ? null : key;
+            })
+          }
+          onOpen={() => openHit(topHit)}
+          onShare={() => shareHit(topHit)}
+          isSharing={isSharing(`${topHit.surah}:${topHit.ayah}`)}
+          isGesturePending={isGesturePending(`${topHit.surah}:${topHit.ayah}`)}
+        />
+
+        {otherHits.length > 0 ? (
+          <View style={styles.otherBlock}>
+            <SectionHeader title={t("quran.detector.otherMatches")} />
+            <View style={[styles.resultsList, otherColumns > 1 && styles.resultsListGrid]}>
+              {otherHits.map((hit) => {
+                const key = `${hit.surah}:${hit.ayah}`;
+                return (
+                  <View key={key} style={otherColumns > 1 ? styles.resultsCell : undefined}>
+                    <VerseResultCard
+                      hit={hit}
+                      featured={false}
+                      expanded={expandedKey === key}
+                      onToggleExpanded={() =>
+                        setExpandedKey((current) => (current === key ? null : key))
+                      }
+                      onOpen={() => openHit(hit)}
+                      onShare={() => shareHit(hit)}
+                      isSharing={isSharing(key)}
+                      isGesturePending={isGesturePending(key)}
+                    />
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+        ) : null}
+      </Card>
+    ) : null;
+
   return (
     <>
       {SnapshotHost}
       <Stagger>
-        <Card
-          padding="four"
-          style={[
-            styles.composer,
-            {
-              borderWidth: 1,
-              borderColor: colors.border,
-            },
-          ]}
-        >
-          <View style={styles.fieldGroup}>
-            <ThemedText type="smallBold">{t("quran.detector.languageLabel")}</ThemedText>
-            <SegmentedControl options={langOptions} value={lang} onChange={setLang} />
-          </View>
-
-          <View
-            style={[
-              styles.textField,
-              {
-                backgroundColor: colors.background,
-                borderColor: stt.listening ? colors.accent : colors.border,
-                borderWidth: stt.listening ? 1.5 : 1,
-              },
-            ]}
-          >
-            <TextInput
-              value={query}
-              onChangeText={setQueryFromInput}
-              placeholder={t("quran.detector.textPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("quran.detector.textPlaceholder")}
-              multiline
-              textAlignVertical="top"
-              autoCorrect={false}
-              style={[
-                styles.textInput,
-                {
-                  color: colors.foreground,
-                  textAlign: lang === "ar" ? "right" : "left",
-                  writingDirection: lang === "ar" ? "rtl" : "ltr",
-                },
-              ]}
-            />
-            <View style={styles.textFieldFooter}>
-              {stt.listening ? (
-                <View style={styles.listeningBadge}>
-                  <SymbolView
-                    name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
-                    size={14}
-                    tintColor={colors.accent}
-                  />
-                  <ThemedText type="caption" style={{ color: colors.accent }}>
-                    {t("quran.detector.listening")}
+        {twoPane ? (
+          <View style={styles.split}>
+            <View style={styles.composerPane}>{composerCard}</View>
+            <View style={styles.resultsPane}>
+              {emptyState}
+              {resultsCard}
+              {!busy && !showEmpty && !topHit ? (
+                <EmptyState
+                  icon={{
+                    ios: "text.magnifyingglass",
+                    android: "manage_search",
+                    web: "manage_search",
+                  }}
+                  title={t("quran.detector.title")}
+                  description={t("quran.detector.detectHint")}
+                />
+              ) : null}
+              {busy ? (
+                <View style={styles.statusRow}>
+                  <ActivityIndicator size="small" color={colors.accent} />
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("quran.detector.detecting")}
                   </ThemedText>
                 </View>
-              ) : (
-                <View style={styles.footerSpacer} />
-              )}
-              <View style={styles.textFieldActions}>
-                {hasInput ? (
-                  <IconButton
-                    accessibilityLabel={t("search.clear")}
-                    onPress={() => setQueryFromInput("")}
-                    name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
-                    size={18}
-                    tintColor={colors.mutedForeground}
-                  />
-                ) : null}
-                {stt.available ? (
-                  <VoiceInputButton
-                    size="sm"
-                    listening={stt.listening}
-                    level={stt.level}
-                    accessibilityLabel={
-                      stt.listening ? t("quran.detector.stopDictate") : t("quran.detector.dictate")
-                    }
-                    accessibilityHint={stt.listening ? t("quran.detector.listening") : undefined}
-                    onPress={toggleVoice}
-                  />
-                ) : null}
-              </View>
+              ) : null}
             </View>
           </View>
-
-          {!hasInput && !stt.listening ? (
-            <JannahCallout tone="info">{t("quran.detector.detectHint")}</JannahCallout>
-          ) : null}
-
-          {busy ? (
-            <View style={styles.statusRow}>
-              <ActivityIndicator size="small" color={colors.accent} />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("quran.detector.detecting")}
-              </ThemedText>
-            </View>
-          ) : null}
-
-          <View style={styles.examplesBlock}>
-            <ThemedText type="smallBold">{t("quran.detector.examples")}</ThemedText>
-            <TvScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-              contentContainerStyle={styles.examplesRow}
-            >
-              {examples.map((example) => (
-                <PressableScale
-                  key={example.id}
-                  haptic="light"
-                  accessibilityRole="button"
-                  accessibilityLabel={example.label}
-                  onPress={() => applyExample(example.id)}
-                  style={[
-                    styles.exampleChip,
-                    {
-                      backgroundColor: colors.muted,
-                      borderColor: colors.border,
-                    },
-                  ]}
-                >
-                  <ThemedText type="caption" style={{ color: colors.foreground }}>
-                    {example.label}
-                  </ThemedText>
-                </PressableScale>
-              ))}
-            </TvScrollView>
-          </View>
-        </Card>
-
-        {showEmpty ? (
-          <EmptyState
-            icon={{
-              ios: "text.magnifyingglass",
-              android: "manage_search",
-              web: "manage_search",
-            }}
-            title={t("quran.detector.noResults")}
-            description={t("quran.detector.noResultsHint")}
-          />
         ) : null}
-
-        {!busy && topHit ? (
-          <Card
-            padding="three"
-            style={[
-              styles.resultsCard,
-              {
-                borderWidth: 1,
-                borderColor: colors.border,
-              },
-            ]}
-          >
-            <ReadingTypographyBar surface="quran" />
-            <VerseResultCard
-              hit={topHit}
-              featured
-              expanded={expandedKey === `${topHit.surah}:${topHit.ayah}`}
-              onToggleExpanded={() =>
-                setExpandedKey((current) => {
-                  const key = `${topHit.surah}:${topHit.ayah}`;
-                  return current === key ? null : key;
-                })
-              }
-              onOpen={() => openHit(topHit)}
-              onShare={() => shareHit(topHit)}
-              isSharing={isSharing(`${topHit.surah}:${topHit.ayah}`)}
-              isGesturePending={isGesturePending(`${topHit.surah}:${topHit.ayah}`)}
-            />
-
-            {otherHits.length > 0 ? (
-              <View style={styles.otherBlock}>
-                <SectionHeader title={t("quran.detector.otherMatches")} />
-                <View style={styles.resultsList}>
-                  {otherHits.map((hit) => {
-                    const key = `${hit.surah}:${hit.ayah}`;
-                    return (
-                      <VerseResultCard
-                        key={key}
-                        hit={hit}
-                        featured={false}
-                        expanded={expandedKey === key}
-                        onToggleExpanded={() =>
-                          setExpandedKey((current) => (current === key ? null : key))
-                        }
-                        onOpen={() => openHit(hit)}
-                        onShare={() => shareHit(hit)}
-                        isSharing={isSharing(key)}
-                        isGesturePending={isGesturePending(key)}
-                      />
-                    );
-                  })}
-                </View>
-              </View>
-            ) : null}
-          </Card>
-        ) : null}
+        {twoPane ? null : composerCard}
+        {twoPane ? null : emptyState}
+        {twoPane ? null : resultsCard}
       </Stagger>
     </>
   );
@@ -652,6 +726,9 @@ function DetectorBody() {
 export default function QuranVerseDetectorScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { width } = useWindowDimensions();
+  /** Desktop / wide web: composer on the start side, matches beside it. */
+  const twoPane = width >= 1024;
 
   if (isTV()) {
     return (
@@ -662,10 +739,14 @@ export default function QuranVerseDetectorScreen() {
         onBack={() => goBackOrReplace(router, "/library")}
       >
         <Seo path="/verse-detector" />
+        {/* TV has no microphone: explain, and offer text search as the focusable
+            next step so the screen is never a focus dead end. */}
         <EmptyState
           icon={{ ios: "tv", android: "tv", web: "tv" }}
           title={t("common.tvUnavailableTitle")}
-          description={t("common.tvUnavailableBody")}
+          description={tTv(t, "common.tvUnavailableBody", "quran.detector.tvUnavailableBody")}
+          actionLabel={t("quran.searchTitle")}
+          onAction={() => router.push("/quran/search" as Href)}
         />
       </ScreenLayout>
     );
@@ -673,6 +754,7 @@ export default function QuranVerseDetectorScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={twoPane ? 1320 : undefined}
       eyebrow={t("library.eyebrow")}
       title={t("quran.detector.title")}
       subtitle={t("quran.detector.subtitle")}
@@ -680,13 +762,42 @@ export default function QuranVerseDetectorScreen() {
     >
       <Seo path="/verse-detector" />
       <ReadingTypographyProvider surface="quran">
-        <DetectorBody />
+        <DetectorBody twoPane={twoPane} />
       </ReadingTypographyProvider>
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  split: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  composerPane: {
+    width: 440,
+    maxWidth: "44%",
+  },
+  resultsPane: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.three,
+  },
+  examplesWrap: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.two,
+  },
+  resultsListGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "stretch",
+  },
+  resultsCell: {
+    flexBasis: "45%",
+    flexGrow: 1,
+    minWidth: 0,
+  },
   composer: { gap: Spacing.three },
   fieldGroup: { gap: Spacing.two },
   textField: {
@@ -780,3 +891,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.half,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/verse-detector");

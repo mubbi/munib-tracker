@@ -14,7 +14,7 @@ import {
   WEB_PUSH_CONCURRENCY,
   type WebPushSubscription,
 } from "@munib-tracker/shared";
-import webpush from "web-push";
+import { sendNotification, setVapidDetails } from "web-push";
 
 const EXPO_PUSH_URL = "https://exp.host/--/api/v2/push/send";
 
@@ -28,13 +28,18 @@ export type ExpoPushTicket = {
   status: "ok" | "error";
   id?: string;
   message?: string;
+  details?: { error?: string };
 };
 
 export type PushDeliveryStats = {
   expoSent: number;
   webSent: number;
   failed: number;
+  /** Tokens the provider reported as permanently gone — callers should delete them. */
+  invalidTokens: string[];
 };
+
+type WebPushOutcome = "sent" | "gone" | "failed";
 
 export type { WebPushSubscription };
 
@@ -46,6 +51,12 @@ function getVapidPublicKey(): string | null {
 function getVapidPrivateKey(): string | null {
   const key = process.env.VAPID_PRIVATE_KEY;
   return typeof key === "string" && key.trim() !== "" ? key.trim() : null;
+}
+
+/** `VAPID_SUBJECT` (`mailto:` / `https:`) when set, else `mailto:` the official support email — same as apps/api. */
+export function resolveVapidSubject(raw: string | undefined = process.env.VAPID_SUBJECT): string {
+  const subject = raw?.trim();
+  return subject ? subject : `mailto:${OFFICIAL_SUPPORT_EMAIL}`;
 }
 
 function isWebPushConfigured(): boolean {
@@ -109,12 +120,12 @@ async function sendWebPushOne(
   subscription: WebPushSubscription,
   payload: BroadcastPushPayload,
   inAppId?: number,
-): Promise<boolean> {
+): Promise<WebPushOutcome> {
   const publicKey = getVapidPublicKey();
   const privateKey = getVapidPrivateKey();
-  if (!publicKey || !privateKey) return false;
+  if (!publicKey || !privateKey) return "failed";
 
-  webpush.setVapidDetails(`mailto:${OFFICIAL_SUPPORT_EMAIL}`, publicKey, privateKey);
+  setVapidDetails(resolveVapidSubject(), publicKey, privateKey);
   const data: Record<string, unknown> = {
     ...(payload.routeData ?? {}),
     ...(inAppId != null
@@ -136,22 +147,17 @@ async function sendWebPushOne(
   });
 
   try {
-    await webpush.sendNotification(
-      { endpoint: subscription.endpoint, keys: subscription.keys },
-      body,
-      { TTL: 86400 },
-    );
-    return true;
+    await sendNotification({ endpoint: subscription.endpoint, keys: subscription.keys }, body, {
+      TTL: 86400,
+    });
+    return "sent";
   } catch (err) {
-    if (
-      err &&
-      typeof err === "object" &&
-      "statusCode" in err &&
-      (err as { statusCode: number }).statusCode === 410
-    ) {
-      return false;
-    }
-    return false;
+    const status =
+      err && typeof err === "object" && "statusCode" in err
+        ? Number((err as { statusCode: unknown }).statusCode)
+        : undefined;
+    // 404/410: the browser unsubscribed or the endpoint expired — permanent.
+    return status === 404 || status === 410 ? "gone" : "failed";
   }
 }
 
@@ -159,11 +165,11 @@ export async function sendBroadcastPush(
   tokenRows: readonly PushTargetRow[],
   payload: BroadcastPushPayload,
 ): Promise<PushDeliveryStats> {
-  const stats: PushDeliveryStats = { expoSent: 0, webSent: 0, failed: 0 };
+  const stats: PushDeliveryStats = { expoSent: 0, webSent: 0, failed: 0, invalidTokens: [] };
   if (tokenRows.length === 0) return stats;
 
-  const expoMessages: Record<string, unknown>[] = [];
-  const webJobs: { sub: WebPushSubscription; inAppId?: number }[] = [];
+  const expoMessages: { token: string; message: Record<string, unknown> }[] = [];
+  const webJobs: { token: string; sub: WebPushSubscription; inAppId?: number }[] = [];
 
   for (const row of tokenRows) {
     const inAppId = payload.inAppIdsByUserId?.get(row.userId);
@@ -172,7 +178,7 @@ export async function sendBroadcastPush(
       try {
         const sub = JSON.parse(row.token) as WebPushSubscription;
         if (isValidWebPushSubscription(sub)) {
-          webJobs.push({ sub, inAppId });
+          webJobs.push({ token: row.token, sub, inAppId });
         } else {
           stats.failed += 1;
         }
@@ -183,7 +189,10 @@ export async function sendBroadcastPush(
     }
 
     if (isValidExpoPushToken(row.token)) {
-      expoMessages.push(buildExpoMessage(row.token, payload, inAppId));
+      expoMessages.push({
+        token: row.token,
+        message: buildExpoMessage(row.token, payload, inAppId),
+      });
     } else {
       stats.failed += 1;
     }
@@ -191,11 +200,19 @@ export async function sendBroadcastPush(
 
   for (const chunk of chunkArray(expoMessages, EXPO_PUSH_CHUNK_SIZE)) {
     try {
-      const tickets = await sendExpoChunk(chunk);
-      for (const ticket of tickets) {
-        if (ticket.status === "ok") stats.expoSent += 1;
-        else stats.failed += 1;
-      }
+      // Tickets are returned in request order.
+      const tickets = await sendExpoChunk(chunk.map((entry) => entry.message));
+      tickets.forEach((ticket, index) => {
+        if (ticket.status === "ok") {
+          stats.expoSent += 1;
+          return;
+        }
+        stats.failed += 1;
+        const token = chunk[index]?.token;
+        if (token && ticket.details?.error === "DeviceNotRegistered") {
+          stats.invalidTokens.push(token);
+        }
+      });
       if (tickets.length < chunk.length) {
         stats.failed += chunk.length - tickets.length;
       }
@@ -208,10 +225,15 @@ export async function sendBroadcastPush(
     const results = await mapWithConcurrency(webJobs, WEB_PUSH_CONCURRENCY, async (job) =>
       sendWebPushOne(job.sub, payload, job.inAppId),
     );
-    for (const ok of results) {
-      if (ok) stats.webSent += 1;
-      else stats.failed += 1;
-    }
+    results.forEach((outcome, index) => {
+      if (outcome === "sent") {
+        stats.webSent += 1;
+        return;
+      }
+      stats.failed += 1;
+      const token = webJobs[index]?.token;
+      if (outcome === "gone" && token) stats.invalidTokens.push(token);
+    });
   } else if (webJobs.length > 0) {
     stats.failed += webJobs.length;
   }

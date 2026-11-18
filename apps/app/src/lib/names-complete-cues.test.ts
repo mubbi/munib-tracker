@@ -28,3 +28,18 @@ describe("names-complete-cues", () => {
     expect(cueStartSec("missing-name")).toBeUndefined();
   });
 });
+
+describe("names-complete-cues edges", () => {
+  it.each([null, undefined])("does not treat %p as the names track", (id) => {
+    expect(isNamesCompleteTrack(id)).toBe(false);
+  });
+
+  it("returns undefined before playback starts", () => {
+    expect(nameIdAtCueTime(-1)).toBeUndefined();
+  });
+
+  it("stops at the recording's total duration even inside the last cue", () => {
+    expect(nameIdAtCueTime(111)).toBe("as-sabur");
+    expect(nameIdAtCueTime(112.5)).toBeUndefined();
+  });
+});

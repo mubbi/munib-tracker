@@ -4,6 +4,7 @@ import { ActivityIndicator, type StyleProp, StyleSheet, View, type ViewStyle } f
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import type { HapticFeedback } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
@@ -29,6 +30,8 @@ type LabeledIconButtonProps = {
   loadingLabel?: string;
   /** Layout overrides — e.g. `flex: 1` / `minWidth: 0` in dense grids. */
   style?: StyleProp<ViewStyle>;
+  /** TV: request initial D-pad focus on this control. */
+  preferredFocus?: boolean;
 };
 
 /** Icon with a short text label beneath — for actions where glyphs alone are unclear. */
@@ -48,6 +51,7 @@ export function LabeledIconButton({
   loading = false,
   loadingLabel,
   style,
+  preferredFocus,
 }: LabeledIconButtonProps) {
   const tv = isTV();
   const resolvedIconSize = iconSize ?? (tv ? 24 : 18);
@@ -62,6 +66,7 @@ export function LabeledIconButton({
       onPress={loading ? undefined : onPress}
       haptic={haptic}
       hitSlop={tv ? 8 : 4}
+      {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       rippleRadius={Radius.sm}
       style={[
         styles.base,
@@ -95,8 +100,8 @@ const styles = StyleSheet.create({
   base: {
     alignItems: "center",
     justifyContent: "center",
-    minWidth: 44,
-    minHeight: 44,
+    minWidth: tvDp(44),
+    minHeight: tvDp(44),
     paddingHorizontal: Spacing.one,
     gap: Spacing.half,
     borderCurve: "continuous",

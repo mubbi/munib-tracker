@@ -8,6 +8,8 @@ import {
 } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnTopicAside } from "@/components/learn-guide/learn-topic-aside";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +19,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -26,8 +29,10 @@ import {
   getBattlesFigureIdForSahaba,
   getSahabaProfile,
   getSahabaProfiles,
+  getSahabaProfilesByCategory,
   isSahabaContentReady,
 } from "@/lib/sahaba";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export function generateStaticParams(): Array<{ id: string }> {
@@ -92,6 +97,18 @@ export default function SahabaProfileScreen() {
       ]
     : undefined;
 
+  const { split, maxContentWidth } = useLearnWideLayout();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize on language/content
+  const categoryPeers = useMemo(() => {
+    const category = profile?.categories[0];
+    if (!category) return [];
+    return (getSahabaProfilesByCategory()[category] ?? []).map((peer) => ({
+      id: peer.id,
+      title: peer.name,
+      href: `/sahaba/${peer.id}` as Href,
+    }));
+  }, [profile, i18n.language]);
+
   if (contentReady && !profile) {
     return (
       <ScreenLayout
@@ -107,12 +124,79 @@ export default function SahabaProfileScreen() {
     );
   }
 
+  const headerCard = profile ? (
+    <Card padding="three">
+      <View style={styles.header}>
+        <View style={styles.titleBlock}>
+          {profile.arabicName ? (
+            <ThemedText type="arabic" style={styles.arabicName}>
+              {profile.arabicName}
+            </ThemedText>
+          ) : null}
+          <ThemedText type="smallBold">{profile.name}</ThemedText>
+          {profile.epithet ? (
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {profile.epithet}
+            </ThemedText>
+          ) : null}
+        </View>
+        {profile.lifespan ? (
+          <Pill
+            label={profile.lifespan}
+            compact
+            color={colors.mutedForeground}
+            background={colors.muted}
+          />
+        ) : null}
+      </View>
+
+      <View style={styles.tags}>
+        {profile.categories.map((category) => (
+          <Pill
+            key={category}
+            label={t(`sahaba.category.${category}`)}
+            compact
+            color={colors.accentText}
+            background={tokens.accentSoft}
+          />
+        ))}
+      </View>
+
+      <JannahCallout tone="info">{profile.summary}</JannahCallout>
+    </Card>
+  ) : null;
+  const relatedCard = profile ? (
+    <Card padding="three">
+      <SectionHeader
+        title={t("sahaba.relatedTitle")}
+        icon={{ ios: "link", android: "link", web: "link" }}
+      />
+      <ContentInlineLinkGroup>
+        {battlesFigureId ? (
+          <ContentInlineLink
+            label={t("sahaba.linkBattlesFigures")}
+            onPress={() => router.push(`/battles/figures?focus=${battlesFigureId}` as Href)}
+          />
+        ) : null}
+        <ContentInlineLink
+          label={t("sahaba.linkSeerah")}
+          onPress={() => router.push("/seerah" as Href)}
+        />
+        <ContentInlineLink
+          label={t("sahaba.linkHistory")}
+          onPress={() => router.push("/history" as Href)}
+        />
+      </ContentInlineLinkGroup>
+    </Card>
+  ) : null;
+
   return (
     <ScreenLayout
       eyebrow={t("sahaba.eyebrow")}
       title={profile?.name ?? t("sahaba.title")}
       subtitle={profile?.epithet}
       onBack={() => goBackOrReplace(router, "/sahaba" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -136,86 +220,45 @@ export default function SahabaProfileScreen() {
           surface="battles"
           listenText={[profile.summary, profile.body].filter(Boolean).join("\n\n")}
         >
-          <Stagger>
-            <Card padding="three">
-              <View style={styles.header}>
-                <View style={styles.titleBlock}>
-                  {profile.arabicName ? (
-                    <ThemedText type="arabic" style={styles.arabicName}>
-                      {profile.arabicName}
-                    </ThemedText>
-                  ) : null}
-                  <ThemedText type="smallBold">{profile.name}</ThemedText>
-                  {profile.epithet ? (
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {profile.epithet}
-                    </ThemedText>
-                  ) : null}
+          <LearnSplitLayout
+            aside={
+              <>
+                {headerCard}
+                {profile.categories[0] ? (
+                  <LearnTopicAside
+                    title={t(`sahaba.category.${profile.categories[0]}`)}
+                    hubHref={"/sahaba" as Href}
+                    topics={categoryPeers}
+                    currentId={profile.id}
+                  />
+                ) : null}
+                {relatedCard}
+              </>
+            }
+          >
+            <Stagger>
+              {split ? null : headerCard}
+
+              <Card padding="three">
+                <SectionHeader
+                  title={t("sahaba.profileBodyTitle")}
+                  icon={{ ios: "text.book.closed", android: "article", web: "article" }}
+                />
+                <View style={styles.body}>
+                  {paragraphs.map((paragraph) => (
+                    // TV: each paragraph is a D-pad stop so the biography scrolls by remote.
+                    <TvReadableBlock key={paragraph.slice(0, 24)}>
+                      <LearnProseText style={styles.paragraph}>{paragraph}</LearnProseText>
+                    </TvReadableBlock>
+                  ))}
                 </View>
-                {profile.lifespan ? (
-                  <Pill
-                    label={profile.lifespan}
-                    compact
-                    color={colors.mutedForeground}
-                    background={colors.muted}
-                  />
-                ) : null}
-              </View>
+              </Card>
 
-              <View style={styles.tags}>
-                {profile.categories.map((category) => (
-                  <Pill
-                    key={category}
-                    label={t(`sahaba.category.${category}`)}
-                    compact
-                    color={colors.accentText}
-                    background={tokens.accentSoft}
-                  />
-                ))}
-              </View>
+              {split ? null : relatedCard}
 
-              <JannahCallout tone="info">{profile.summary}</JannahCallout>
-            </Card>
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("sahaba.profileBodyTitle")}
-                icon={{ ios: "text.book.closed", android: "article", web: "article" }}
-              />
-              <View style={styles.body}>
-                {paragraphs.map((paragraph) => (
-                  <LearnProseText key={paragraph.slice(0, 24)} style={styles.paragraph}>
-                    {paragraph}
-                  </LearnProseText>
-                ))}
-              </View>
-            </Card>
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("sahaba.relatedTitle")}
-                icon={{ ios: "link", android: "link", web: "link" }}
-              />
-              <ContentInlineLinkGroup>
-                {battlesFigureId ? (
-                  <ContentInlineLink
-                    label={t("sahaba.linkBattlesFigures")}
-                    onPress={() => router.push(`/battles/figures?focus=${battlesFigureId}` as Href)}
-                  />
-                ) : null}
-                <ContentInlineLink
-                  label={t("sahaba.linkSeerah")}
-                  onPress={() => router.push("/seerah" as Href)}
-                />
-                <ContentInlineLink
-                  label={t("sahaba.linkHistory")}
-                  onPress={() => router.push("/history" as Href)}
-                />
-              </ContentInlineLinkGroup>
-            </Card>
-
-            <JannahDisclaimer textKey="sahaba.disclaimer" />
-          </Stagger>
+              <JannahDisclaimer textKey="sahaba.disclaimer" />
+            </Stagger>
+          </LearnSplitLayout>
         </LearnReadingChrome>
       ) : null}
     </ScreenLayout>
@@ -241,3 +284,6 @@ const styles = StyleSheet.create({
   body: { gap: Spacing.three, marginTop: Spacing.two },
   paragraph: { lineHeight: 22 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/sahaba/[id]");

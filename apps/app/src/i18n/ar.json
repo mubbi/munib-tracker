@@ -29,7 +29,8 @@
       "encouragementPerfect": "مراجعة رائعة — زادك الله علمًا نافعًا.",
       "encouragementStrong": "فهم قوي. راجع ما أخطأت فيه ليثبت لديك.",
       "encouragementSteady": "تقدم حسن. اجعل الأخطاء أهداف دراستك القادمة.",
-      "encouragementKeepGoing": "كل خطأ درس. راجع الملاحظات ثم حاول مجددًا."
+      "encouragementKeepGoing": "كل خطأ درس. راجع الملاحظات ثم حاول مجددًا.",
+      "keyboardHint": "اضغط 1–4 للإجابة، ومفتاح الإدخال للمتابعة."
     },
     "skip": "تخطّي",
     "apply": "تطبيق",
@@ -86,7 +87,10 @@
     "selectToContinue": "اضغط اختيار للمتابعة",
     "selectToOpen": "اضغط اختيار للفتح",
     "selectToSave": "اضغط اختيار للحفظ",
-    "selectDay": "اختر يومًا للمراجعة"
+    "selectDay": "اختر يومًا للمراجعة",
+    "newBadge": "جديد",
+    "decreaseByTv": "إنقاص {{label}} بمقدار {{step}}",
+    "increaseByTv": "زيادة {{label}} بمقدار {{step}}"
   },
   "search": {
     "placeholder": "ابحث في القرآن والحديث والأدعية والتعلّم…",
@@ -187,7 +191,8 @@
     "fidyah": "الفدية والكفارة",
     "janazah": "دليل الجنازة",
     "sadaqah": "أهداف الصدقة",
-    "whiteDays": "صيام الأيام البِيض"
+    "whiteDays": "صيام الأيام البِيض",
+    "quranPractice": "التدرّب على القرآن"
   },
   "quickActions": {
     "markCurrentSubtitle": "تسجيل الصلاة الحالية",
@@ -265,7 +270,7 @@
     "streak": "سلسلة الصلاة",
     "streakDays": "{{count}} يوم",
     "streakDays_zero": "{{count}} يوم",
-    "streakDays_one": "{{count}} يوم واحد",
+    "streakDays_one": "يوم واحد",
     "streakDays_two": "يومان",
     "streakDays_few": "{{count}} أيام",
     "streakDays_many": "{{count}} يومًا",
@@ -298,7 +303,7 @@
     "fridayAllDone": "اكتمل الكل — مقبول إن شاء الله",
     "fridayCountdown": "الجمعة بعد {{count}} يوم",
     "fridayCountdown_zero": "الجمعة بعد {{count}} يوم",
-    "fridayCountdown_one": "{{count}} الجمعة بعد يوم واحد",
+    "fridayCountdown_one": "الجمعة بعد يوم واحد",
     "fridayCountdown_two": "الجمعة بعد يومين",
     "fridayCountdown_few": "الجمعة بعد {{count}} أيام",
     "fridayCountdown_many": "الجمعة بعد {{count}} يومًا",
@@ -741,7 +746,9 @@
           "hint": "آخر الأيام البِيض"
         }
       }
-    }
+    },
+    "cardTipTv": "اختر صلاة لتحديثها · الأذكار للذكر · المعلومات للتفاصيل",
+    "tapToMarkTv": "اضغط اختيار للتحديد"
   },
   "settings": {
     "eyebrow": "خصّص",
@@ -875,7 +882,8 @@
     "guestHint": "يمكنك ربط حسابك في أي وقت من الملف الشخصي.",
     "error": "تعذّر تسجيل الدخول. تأكّد من تشغيل خادم API وأن هذا المزوّد مُهيّأ.",
     "providersUnavailableTitle": "تسجيل الدخول غير متاح بعد",
-    "providersUnavailableBody": "مزوّدو المزامنة السحابية غير مهيأين في هذا الإصدار. تابع كضيف — يبقى تقدّمك على هذا الجهاز."
+    "providersUnavailableBody": "مزوّدو المزامنة السحابية غير مهيأين في هذا الإصدار. تابع كضيف — يبقى تقدّمك على هذا الجهاز.",
+    "guestHintTv": "امسح رمز QR لتسجيل الدخول من هاتفك. أو تابع كضيف — يمكنك ربط حساب في أي وقت من الملف الشخصي على هاتفك."
   },
   "onboarding": {
     "begin": "ابدأ",
@@ -932,7 +940,8 @@
     "locationHighlight1Tv": "مواقيت صلاة دقيقة لمدينتك",
     "locationHighlight2Tv": "اتجاه القبلة من موضعك",
     "locationHighlight3Tv": "التذكيرات تعمل بشكل أفضل على الهاتف",
-    "locationHighlight4Tv": "غيّر المدينة في أي وقت من الإعدادات"
+    "locationHighlight4Tv": "غيّر المدينة في أي وقت من الإعدادات",
+    "ctaBodyTv": "ابدأ كضيف، أو سجّل الدخول بمسح رمز QR بهاتفك. كل شيء يعمل دون اتصال على هذا التلفاز."
   },
   "appearance": {
     "eyebrow": "الإعدادات",
@@ -1014,6 +1023,8 @@
     "adhanSub": "تشغيل صوت الأذان المضمّن",
     "playAdhan": "تشغيل الأذان في وقت الصلاة",
     "playAdhanHint": "تذكيرات الصلوات المفروضة تُشغّل الأذان عند حلول وقتها.",
+    "preciseAdhan": "توقيت دقيق للأذان",
+    "preciseAdhanHint": "يُطلق الأذان في وقته تمامًا حتى في وضع توفير البطارية. يعرض أندرويد رمز منبّه في شريط الحالة حتى يحين وقته.",
     "liveActivity": "نشاط مباشر",
     "liveActivityHint": "أظهِر عدًّا تنازليًّا مباشرًا للصلاة القادمة على شاشة القفل وفي الجزيرة الديناميكية.",
     "liveActivityHintAndroid": "أظهِر إشعارًا ثابتًا بعدٍّ تنازليٍّ مباشرٍ للصلاة القادمة مع إجراء للاستعداد بأذكار ما قبل الصلاة.",
@@ -1610,9 +1621,16 @@
       "dictate": "التلاوة صوتياً",
       "stopDictate": "إيقاف الاستماع",
       "bestMatch": "أفضل تطابق",
-      "otherMatches": "تطابقات أخرى"
+      "otherMatches": "تطابقات أخرى",
+      "tvUnavailableBody": "يحتاج التعرّف على الآيات إلى ميكروفون، وهو غير متوفر في التلفاز. ابحث في القرآن بالكلمات بدلًا من ذلك، أو استخدم التطبيق على هاتفك."
     },
-    "bookmarkEmptyDescTv": "اضغط اختيار على أيقونة الإشارة في أي آية لحفظها هنا."
+    "bookmarkEmptyDescTv": "اضغط اختيار على أيقونة الإشارة في أي آية لحفظها هنا.",
+    "goToAyahPlaceholder": "الآية 1–{{max}}",
+    "goToAyahA11y": "الانتقال إلى رقم الآية",
+    "goToAyahInvalid": "أدخل رقم آية بين 1 و{{max}}",
+    "searchAyahs": "ابحث في الآيات",
+    "findSurah": "ابحث عن سورة",
+    "noSurahResults": "لم تطابق أي سورة بحثك."
   },
   "hadith": {
     "eyebrow": "السنة النبوية",
@@ -1855,7 +1873,8 @@
     "history": "السجل",
     "rowDone": "{{completed}} مقضيّة",
     "rowDoneWithDaily": "{{completed}} مقضيّة · اليوم {{done}}/{{target}}",
-    "hintTv": "اضغط اختيار على علامة الصح لتسجيل صلاة مقضيّة. تفويت صلاة في المتابعة يزيد هذه الأعداد تلقائياً."
+    "hintTv": "اضغط اختيار على علامة الصح لتسجيل صلاة مقضيّة. تفويت صلاة في المتابعة يزيد هذه الأعداد تلقائياً.",
+    "editCountHintTv": "استخدم − و+ لتحديد عدد ما بقي عليك قضاؤه من هذه الصلاة."
   },
   "qazaCalc": {
     "eyebrow": "القضاء",
@@ -1887,7 +1906,8 @@
       "pubertyAfterAge": "عمر البلوغ لا يمكن أن يكون بعد عمرك الحالي.",
       "yearsPrayedExceed": "سنوات الصلاة ({{entered}}) لا يمكن أن تتجاوز السنوات منذ البلوغ ({{obligatedYears}}).",
       "exemptExceedsYear": "الأيام المعفاة ({{entered}}) لا يمكن أن تتجاوز طول السنة الذي اخترته ({{maxDays}})."
-    }
+    },
+    "enterAgePromptTv": "حدّد عمرك الحالي أعلاه لعرض التقدير."
   },
   "qazaPlan": {
     "eyebrow": "القضاء",
@@ -2000,7 +2020,8 @@
     "confirmAddEstimateMsg": "إضافة {{count}} يوم صيام إلى المتبقّي (المجموع الجديد: {{total}})؟",
     "confirmResetTitle": "إعادة ضبط العداد؟",
     "confirmResetMsg": "مسح جميع أعداد الصيام ({{remaining}} متبقّية، {{completed}} مكتملة)؟ لا يمكن التراجع عن ذلك.",
-    "adjustHintTv": "اضغط اختيار على العدد أو استخدم −/+ للتعديل"
+    "adjustHintTv": "اضغط اختيار على العدد أو استخدم −/+ للتعديل",
+    "editCountHintTv": "استخدم − و+ لتحديد عدد أيام الصيام التي بقي عليك قضاؤها."
   },
   "calendar": {
     "eyebrow": "السجل",
@@ -2121,7 +2142,8 @@
     "confirmStartAgainTitle": "البدء من جديد؟",
     "confirmStartAgainMessage": "سيُمسح العدّ المكتمل لتبدأ جولة جديدة.",
     "dockLabel": "العدّ",
-    "tapToCountTv": "اضغط اختيار للعدّ"
+    "tapToCountTv": "اضغط اختيار للعدّ",
+    "tapToCountKeyboard": "انقر على الدائرة أو اضغط مفتاح المسافة للعدّ"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} بعد {{min}} دقيقة فقط",
@@ -2196,7 +2218,9 @@
     "defaultLabel": "مكة، المملكة العربية السعودية",
     "defaultTimesHint": "أوقات الصلاة تستخدم مكة حالياً. حدّد مدينتك لأوقات دقيقة حيث أنت. تبقى تذكيرات الصلاة والأذان متوقفة حتى ذلك الحين.",
     "setLocation": "تعيين الموقع",
-    "searchAutoFocusOff": "ابحث عن مدينة"
+    "searchAutoFocusOff": "ابحث عن مدينة",
+    "subtitleTv": "تُحسب أوقات الصلاة لهذا المكان. ابحث عن مدينتك باستخدام جهاز التحكم.",
+    "hintTv": "اختر حقل البحث، ثم اكتب حرفين على الأقل من اسم مدينتك."
   },
   "moon": {
     "aria": "طور القمر: {{phase}}",
@@ -2600,7 +2624,8 @@
     "authenticityTitle": "صحّة المحتوى",
     "authenticityBody": "الأذكار والأدعية مستمدّة من مجموعات معروفة ومحفوظة قريبة من النصوص المنشورة على نطاق واسع. يُرجى التحقّق من عالم أو مصدر موثوق قبل الاعتماد على أي حكم أو عدد محدد.",
     "privacyPolicy": "سياسة الخصوصية",
-    "termsOfService": "شروط الخدمة"
+    "termsOfService": "شروط الخدمة",
+    "scanOnPhoneTv": "امسح الرمز بهاتفك لفتح هذه الصفحة."
   },
   "player": {
     "nowPlaying": "قيد التشغيل",
@@ -2633,7 +2658,9 @@
     "loading": "جارٍ التحميل…",
     "streamingOnlyNote": "بث مباشر فقط — لا يُحفَظ الصوت على هذا الجهاز",
     "ttsVoice": "الصوت",
-    "ttsVoiceHint": "اختر صوت التحويل إلى كلام"
+    "ttsVoiceHint": "اختر صوت التحويل إلى كلام",
+    "seekBack": "رجوع {{seconds}} ثوانٍ",
+    "seekForward": "تقديم {{seconds}} ثوانٍ"
   },
   "pwa": {
     "installBannerMessage": "ثبّت منيب تراكر على الشاشة الرئيسية لتجربة شبيهة بالتطبيق وإشعارات المتصفّح على iPhone.",
@@ -2833,7 +2860,7 @@
     "confirmReviewBody": "ستُعلَّم {{ref}} للمراجعة.",
     "confirmMemorizedBody": "ستُعلَّم {{ref}} كمحفوظة.",
     "confirmClearBody": "ستُزال {{ref}} من متتبّع الحفظ.",
-    "emptyDescTv": "اضغط اختيار على «الحفظ» على أي آية في القارئ لتمييزها كمحفوظة."
+    "emptyDescTv": "اختر آية في القارئ، ثم اختر «الحفظ» لتمييزها كمحفوظة."
   },
   "travel": {
     "eyebrow": "تعلّم",
@@ -3323,7 +3350,8 @@
       "reflectionHint": "خشوع الصلاة والتأمل",
       "learning": "تقدّم التعلّم",
       "learningHint": "مواضيع مكتملة في هذا الدليل",
-      "characterHintTv": "اضغط اختيار عندما راجعت سلوكك اليوم"
+      "characterHintTv": "اضغط اختيار عندما راجعت سلوكك اليوم",
+      "repentanceHintTv": "جدّد التوبة — اضغط اختيار إذا تبت اليوم"
     },
     "progressTitle": "تقدّم التعلّم",
     "progressSubtitle": "دراسة المسار — وليس المرتبة الروحية عند الله",
@@ -3367,7 +3395,8 @@
         "best-beloved": "الأفضل / الأحب",
         "equal-reward": "أجر عظيم مُشبَّه"
       }
-    }
+    },
+    "timelineCardHintTv": "محور الدرس — اختر كل مرحلة لعرض الدرس كاملًا"
   },
   "library": {
     "eyebrow": "المكتبة",
@@ -3926,7 +3955,8 @@
       "sourceGalleryHint": "اختر صورة من صورك",
       "sourceDocument": "ملفات",
       "sourceDocumentHint": "اختر صورة أو ملف PDF من ملفاتك",
-      "tvUnavailable": "المرفقات تحتاج هاتفًا أو جهازًا لوحيًا. أضف الصور أو ملفات بي دي إف هناك."
+      "tvUnavailable": "المرفقات تحتاج هاتفًا أو جهازًا لوحيًا. أضف الصور أو ملفات بي دي إف هناك.",
+      "pdfTvUnavailable": "لا يمكن معاينة ملفات PDF على التلفاز. افتح هذا المرفق على هاتفك أو جهازك اللوحي."
     },
     "stt": {
       "dictate": "إملاء مع الميكروفون",
@@ -3949,13 +3979,20 @@
     "markTonight": "صلّيت التهجّد الليلة",
     "markedTonight": "صلّيت الليلة — ما شاء الله",
     "lastNights": "آخر {{count}} ليلة",
-    "lastNightsHint": "كل نقطة تمثل ليلة واحدة، مع تاريخها التقويمي (الأحدث على اليسار).",
     "virtueTitle": "فضل صلاة الليل",
     "virtueBody": "أفضل الصلاة بعد الفريضة صلاة الليل.",
     "virtueRef": "صحيح مسلم ١١٦٣",
     "streakRow": "سلسلة التهجّد",
     "calculatorCta": "حاسبة الثلث الأخير من الليل",
-    "calculatorHint": "اعثر على منتصف الليل وأفضل وقت للتهجد من المغرب والفجر"
+    "calculatorHint": "اعثر على منتصف الليل وأفضل وقت للتهجد من المغرب والفجر",
+    "tonightTitle": "الليلة",
+    "bestLabel": "أطول سلسلة",
+    "totalLabel": "مجموع الليالي",
+    "startTonight": "تبدأ سلسلتك من الليلة.",
+    "calendarHint": "اضغط على ليلة سابقة لتسجيلها أو إلغائها.",
+    "calendarHintTv": "اختر ليلة سابقة لتسجيلها أو إلغائها.",
+    "legendPrayed": "صلّيت",
+    "inWindow": "أفضل وقت الآن"
   },
   "seasonalTheme": {
     "dateDisclaimer": "التواريخ تقديرية محسوبة — قد يختلف يوم الرؤية المحلي.",
@@ -4211,8 +4248,10 @@
       "buildsTitle": "يبني الخُلق",
       "buildsHint": "تدرّب على خُلق واحد في كل مرة — صدق وصبر ورحمة وعدل.",
       "destroysTitle": "ما يفسد الخُلق",
-      "destroysHint": "عادات تحذّر منها النصوص — اضغط بلاطة لدرس ذي صلة."
-    }
+      "destroysHint": "عادات تحذّر منها النصوص — اضغط بلاطة لدرس ذي صلة.",
+      "destroysHintTv": "عادات حذّرت منها النصوص — اختر مربعًا لعرض درس ذي صلة."
+    },
+    "pathsHintTv": "أعمال ترفع الدرجة بإذن الله — اختر أي طريق لعرض الأدلة وروابط التطبيق."
   },
   "jahannam": {
     "eyebrow": "تعلّم",
@@ -4589,7 +4628,8 @@
       "legendSibling": "إخوة",
       "allBranches": "كل الفروع",
       "tapHint": "اضغط اسمًا على الخريطة لقراءة الملاحظة الموثقة.",
-      "tapHintTv": "اضغط اختيار على اسم على الخريطة لقراءة الملاحظة الموثقة."
+      "tapHintTv": "اضغط اختيار على اسم على الخريطة لقراءة الملاحظة الموثقة.",
+      "listHintTv": "اختر اسمًا من القائمة لقراءة الملاحظة الموثّقة."
     }
   },
   "aqeedah": {
@@ -5302,7 +5342,8 @@
     "editHint": "تتحدث النتائج أثناء تغيير الوقت.",
     "nightLengthLabel": "طول الليل",
     "willStartIn": "يبدأ بعد {{time}}",
-    "timeRemaining": "متبقٍ {{time}}"
+    "timeRemaining": "متبقٍ {{time}}",
+    "autoDetectHintTv": "{{location}} · اختر وقتًا لتعديله"
   },
   "friday": {
     "eyebrow": "تعلّم",
@@ -5440,5 +5481,448 @@
     "notFound": "لم يُعثر على الموضوع",
     "disclaimer": "نظرة تعليمية عامة — وليست فتوى. تعتمد التواريخ الدقيقة على الشهر الهجري الذي يختلف برؤية الهلال؛ فاتبع مسجدك المحلي أو عالمًا موثوقًا في التواريخ والأحكام الشرعية.",
     "continueInApp": "تابع في منيب"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "تدرّب",
+      "practiseAyah": "تدرّب على الآية {{n}}",
+      "practisePlan": "تدرّب على هذه السورة",
+      "toRevise_zero": "لا شيء للمراجعة",
+      "toRevise_one": "آية واحدة للمراجعة",
+      "toRevise_two": "آيتان للمراجعة",
+      "toRevise_few": "{{count}} آيات للمراجعة",
+      "toRevise_many": "{{count}} آية للمراجعة",
+      "toRevise_other": "{{count}} آية للمراجعة"
+    },
+    "mode": {
+      "follow": "متابعة",
+      "check": "تحقّق",
+      "hideWords": "إخفاء الكلمات",
+      "hideAyahs": "إخفاء الآيات"
+    },
+    "range": {
+      "ayah": "هذه الآية",
+      "next5": "الخمس التالية",
+      "surah": "هذه السورة",
+      "page": "هذه الصفحة",
+      "custom": "مخصّص",
+      "fromAyah": "من الآية",
+      "toAyah": "إلى الآية",
+      "increase": "زيادة {{label}}",
+      "decrease": "إنقاص {{label}}"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "التدرّب",
+      "subtitle": "اقرأ، وأخفِ ثم اكشف، وراجع ما تحفظه",
+      "continue": "تابِع",
+      "start": "ابدأ",
+      "listen": "استمع",
+      "manage": "إدارة",
+      "rangeTitle": "النطاق",
+      "modeTitle": "الوضع",
+      "startRevision": "ابدأ المراجعة",
+      "openQueue": "عرض قائمة المراجعة",
+      "captionReady": "تبقى أداة الاستماع على هذا الجهاز.",
+      "captionMissing": "نزّل أداة الاستماع لتتابع صوتك. ويمكنك الاستماع على أي حال.",
+      "captionOffline": "تحتاج أداة الاستماع إلى اتصال لتنزيلها. الاستماع ما زال متاحًا.",
+      "captionFailed": "لم تبدأ أداة الاستماع. ويمكنك الاستماع على أي حال.",
+      "captionWebUnsupported": "هذا المتصفح لا يدعم أداة الاستماع.",
+      "captionUnsupported": "أداة الاستماع غير متاحة على هذا الجهاز. الاستماع ما زال متاحًا.",
+      "captionManualMode": "بدون أداة الاستماع يعرض هذا الوضع النص لتكشفه بنفسك، ولا يُعلِّم الكلمات.",
+      "downloadListener": "تنزيل أداة الاستماع ({{size}} م.ب)",
+      "reviseTitle_zero": "لا آيات للمراجعة",
+      "reviseTitle_one": "آية واحدة للمراجعة",
+      "reviseTitle_two": "آيتان للمراجعة",
+      "reviseTitle_few": "{{count}} آيات للمراجعة",
+      "reviseTitle_many": "{{count}} آية للمراجعة",
+      "reviseTitle_other": "{{count}} آية للمراجعة",
+      "reviseRemaining_zero": "لا شيء لأيام أخرى",
+      "reviseRemaining_one": "آية واحدة أخرى في يوم آخر",
+      "reviseRemaining_two": "آيتان أخريان في أيام أخرى",
+      "reviseRemaining_few": "{{count}} آيات أخرى في أيام أخرى",
+      "reviseRemaining_many": "{{count}} آية أخرى في أيام أخرى",
+      "reviseRemaining_other": "{{count}} آية أخرى في أيام أخرى",
+      "passageLabel": "مقطعك",
+      "change": "تغيير",
+      "startPassage": "ابدأ {{passage}}",
+      "ayahCount_zero": "لا آيات",
+      "ayahCount_one": "آية واحدة",
+      "ayahCount_two": "{{count}} آيتان",
+      "ayahCount_few": "{{count}} آيات",
+      "ayahCount_many": "{{count}} آية",
+      "ayahCount_other": "{{count}} آية",
+      "recentTitle": "الأخيرة",
+      "recentHint": "يبدأ هذا المقطع من جديد بالوضع نفسه"
+    },
+    "session": {
+      "loading": "جارٍ تحميل الآية…",
+      "preparing": "جارٍ تجهيز أداة الاستماع…",
+      "ayahOf": "الآية {{n}} من {{total}}",
+      "revisionEyebrow": "المراجعة",
+      "coach": "اقرأ الآية، ثم اضغط الميكروفون واتلُ.",
+      "retry": "أعد المحاولة",
+      "settled": "تابعت أداة الاستماع هذه الآية.",
+      "someNotSure": "لم تكن أداة الاستماع متأكدة من بعض الكلمات. يمكنك التلاوة مجددًا أو المتابعة.",
+      "listeningStopped": "توقّف الاستماع. يمكنك كشف الكلمات والمتابعة.",
+      "listenerDidNotStart": "لم تبدأ أداة الاستماع. يمكنك الاستماع وكشف الكلمات على أي حال.",
+      "listenOnly": "اضغط تشغيل لتسمع الآية. نزّل أداة الاستماع من الإعدادات لتتابع صوتك.",
+      "listenOnlyHide": "اكشف الكلمات حين تكون مستعدًا. أداة الاستماع ليست على هذا الجهاز، لذا لا تُعلَّم الكلمات.",
+      "micOff": "الميكروفون مغلق لتطبيق Munib Tracker. يمكنك الاستماع على أي حال.",
+      "openSettings": "فتح الإعدادات",
+      "previous": "السابقة",
+      "next": "التالية",
+      "tryAgainLine_zero": "لا كلمات لإعادة قراءتها",
+      "tryAgainLine_one": "أعد قراءة كلمة واحدة",
+      "tryAgainLine_two": "أعد قراءة كلمتين",
+      "tryAgainLine_few": "أعد قراءة {{count}} كلمات",
+      "tryAgainLine_many": "أعد قراءة {{count}} كلمة",
+      "tryAgainLine_other": "أعد قراءة {{count}} كلمة",
+      "changePassage": "تغيير",
+      "chipDone": "تمّت",
+      "chipRetry": "كلمات تُعاد قراءتها",
+      "chipCurrent": "الحالية",
+      "chipTodo": "لم تُقرأ بعد",
+      "chipLabel": "الآية {{n}}، {{state}}",
+      "listeningHint": "جارٍ الاستماع… اقرأ الآية. ينتهي تلقائيًا بعد الكلمة الأخيرة، أو اضغط إيقاف."
+    },
+    "dock": {
+      "hear": "استمع",
+      "stopHearing": "إيقاف التلاوة",
+      "listen": "استمع",
+      "start": "ابدأ",
+      "listening": "جارٍ الاستماع",
+      "micStartHint": "يبدأ الاستماع إلى تلاوتك لهذه الآية",
+      "micStopHint": "ينهي هذه الآية",
+      "reveal": "اكشف",
+      "revealHint": "يكشف الكلمة المخفية التالية. اضغط مطوّلًا لكشف بقية الآية.",
+      "end": "إنهاء",
+      "revealAll": "اكشف الكل",
+      "revealAllConfirmTitle": "إظهار الآية كاملة؟",
+      "revealAllConfirmMessage": "ستظهر جميع الكلمات المخفية في هذه الآية.",
+      "endConfirmTitle": "إنهاء هذه الجلسة؟",
+      "endConfirmMessage": "سيُعرض عليك ملخص ما تدربت عليه حتى الآن.",
+      "endConfirm": "إنهاء الجلسة"
+    },
+    "word": {
+      "matched": "متطابقة",
+      "corrected": "تطابقت في المحاولة الثانية",
+      "notSure": "غير مؤكدة",
+      "tryAgain": "أعد قراءتها",
+      "notYet": "لم تُقرأ بعد",
+      "hidden": "كلمة مخفية {{n}}",
+      "tapToHear": "يشغّل هذه الكلمة"
+    },
+    "summary": {
+      "subtitle": "انتهت الجلسة",
+      "tryAyahAgain": "أعد هذه الآية",
+      "nextAyah": "الآية التالية",
+      "nextRevision": "المراجعة التالية",
+      "done": "تم",
+      "hearAyah": "استمع إلى هذه الآية",
+      "markMemorized": "وضع علامة محفوظة",
+      "listened": "استمعت إلى هذا المقطع. نزّل أداة الاستماع لتتابع صوتك.",
+      "headListened": "استمعت إلى هذا المقطع",
+      "practiseAgain": "تدرّب مرة أخرى",
+      "weakAyahsTitle": "آيات للتدرّب عليها مرة أخرى",
+      "ayahChip": "الآية {{ayah}}",
+      "practiseAyah": "تدرّب على الآية {{ayah}} مرة أخرى"
+    },
+    "revision": {
+      "title": "المراجعة",
+      "subtitle": "الآيات المستحقة اليوم، الأقدم أولًا",
+      "emptyTitle": "لا شيء للمراجعة اليوم",
+      "emptyDesc": "الآيات التي تتدرّب عليها في وضع التحقّق أو الإخفاء تعود إلى هنا حين يحين موعدها.",
+      "dueToday": "مستحقة اليوم",
+      "markedMemorized": "معلَّمة كمحفوظة",
+      "notNow": "ليس الآن",
+      "setStatus": "تحديد الحالة",
+      "skip": "تخطٍّ",
+      "practiseRow": "تدرّب على {{surah}} {{ayah}}",
+      "sittingProgress": "{{n}} من {{total}}",
+      "hifzRowSub": "تدرّب وراجع الآيات التي تحفظها",
+      "status": {
+        "learning": "قيد التعلّم",
+        "practising": "قيد التدرّب",
+        "needsRevision": "تحتاج مراجعة"
+      },
+      "overdue_zero": "مستحقة اليوم",
+      "overdue_one": "متأخرة يومًا واحدًا",
+      "overdue_two": "متأخرة يومين",
+      "overdue_few": "متأخرة {{count}} أيام",
+      "overdue_many": "متأخرة {{count}} يومًا",
+      "overdue_other": "متأخرة {{count}} يوم"
+    },
+    "settings": {
+      "title": "التدرّب على القرآن",
+      "rowSubtitle": "أداة الاستماع والملاحظات والمراجعة",
+      "valueReady": "جاهزة",
+      "valueNotDownloaded": "غير منزّلة",
+      "valueDownloading": "جارٍ التنزيل {{percent}}٪",
+      "valueRetry": "تحتاج محاولة أخرى",
+      "practiceTitle": "التدرّب",
+      "defaultMode": "الوضع الافتراضي",
+      "feedbackTiming": "متى تظهر الكلمات المطلوب إعادتها",
+      "timing": {
+        "ayah": "بعد كل آية",
+        "live": "أثناء التلاوة",
+        "end": "في النهاية"
+      },
+      "showTranslation": "إظهار الترجمة",
+      "showTransliteration": "إظهار النطق بالحروف اللاتينية",
+      "showTajweed": "ألوان التجويد",
+      "showTajweedSub": "قد تجعل الألوان علامات التدرّب أصعب رؤية.",
+      "hearBeforeRecite": "الاستماع قبل التلاوة",
+      "hear": {
+        "off": "إيقاف",
+        "once": "مرة واحدة",
+        "every": "كل آية"
+      },
+      "autoAdvance": "الانتقال تلقائيًا",
+      "autoAdvanceSub": "انتقل إلى الآية التالية بعد اكتمال هذه.",
+      "keepAwake": "إبقاء الشاشة مضاءة",
+      "startFromTitle": "البدء من",
+      "startFrom": {
+        "lastPractice": "آخر تدرّب",
+        "lastRead": "حيث كنت أقرأ",
+        "ask": "اسألني"
+      },
+      "revisionTitle": "المراجعة",
+      "dailyLimit": "آيات في اليوم",
+      "includeHifz": "تضمين مراجعة الحفظ",
+      "includeHifzSub": "تُضمَّن الآيات التي وضعت عليها علامة للمراجعة.",
+      "reminder": "تذكير المراجعة",
+      "reminderSub": "تذكير على هذا الجهاز عندما تستحق آيات المراجعة.",
+      "reminderMasterOff": "التذكيرات مغلقة في الإشعارات.",
+      "openNotifications": "فتح إعدادات الإشعارات",
+      "sessionTitle": "أثناء الجلسة",
+      "displayTitle": "على الشاشة",
+      "timingHelp": {
+        "ayah": "تظهر الكلمات التي تحتاج إعادة عند انتهاء كل آية — وليس أثناء قراءتك أبدًا.",
+        "live": "تظهر العلامات بمجرد تأكد أداة الاستماع، أثناء قراءتك.",
+        "end": "تُميَّز الكلمة الحالية فقط. تظهر النتائج عند الانتهاء."
+      },
+      "hearHelp": {
+        "off": "يتلو القارئ فقط عند الضغط على استمع.",
+        "once": "يتلو القارئ الآية الأولى قبل أن تبدأ.",
+        "every": "يتلو القارئ كل آية قبل أن تقرأها."
+      },
+      "startHelp": {
+        "lastPractice": "تابع من حيث انتهى آخر تدرّب لك.",
+        "lastRead": "ابدأ من الآية التي كنت تقرؤها في القرآن.",
+        "ask": "اختر المقطع بنفسك في كل مرة."
+      },
+      "dailyLimitHelp_zero": "لا آيات يوميًا",
+      "dailyLimitHelp_one": "حتى آية واحدة يوميًا؛ والباقي ينتظر الأيام التالية.",
+      "dailyLimitHelp_two": "حتى {{count}} آيتين يوميًا؛ والباقي ينتظر الأيام التالية.",
+      "dailyLimitHelp_few": "حتى {{count}} آيات يوميًا؛ والباقي ينتظر الأيام التالية.",
+      "dailyLimitHelp_many": "حتى {{count}} آية يوميًا؛ والباقي ينتظر الأيام التالية.",
+      "dailyLimitHelp_other": "حتى {{count}} آية يوميًا؛ والباقي ينتظر الأيام التالية."
+    },
+    "listener": {
+      "title": "أداة الاستماع على الجهاز",
+      "notOnDevice": "غير موجودة على هذا الجهاز",
+      "aboutSize": "نحو {{size}} م.ب",
+      "download": "تنزيل",
+      "staysOnDevice": "تبقى على هذا الجهاز. القراءة تعمل بدونها.",
+      "downloadingBytes": "{{done}} من {{total}}",
+      "downloadingLine": "أداة الاستماع {{done}} من {{total}} ({{percent}}٪)",
+      "cancel": "إلغاء",
+      "verifying": "جارٍ فحص الملف",
+      "ready": "جاهزة",
+      "version": "الإصدار {{version}}",
+      "delete": "حذف",
+      "deleteTitle": "حذف أداة الاستماع؟",
+      "deleteBody": "سيظل التدرّب قادرًا على تشغيل التلاوات. متابعة الصوت تحتاج إلى التنزيل مجددًا.",
+      "confirmRemove": "إزالة",
+      "needsRetry": "تحتاج محاولة أخرى",
+      "tryAgain": "أعد المحاولة",
+      "updateAvailable": "يتوفر تحديث",
+      "updateSize": "نحو {{size}} م.ب. تظل أداة الاستماع الحالية تعمل.",
+      "updateTitle": "استبدال أداة الاستماع؟",
+      "downloadUpdate": "تنزيل التحديث",
+      "wifiOnly": "التنزيل عبر Wi-Fi فقط",
+      "cellularTitle": "استخدام بيانات الجوال؟",
+      "cellularBody": "حجم أداة الاستماع نحو {{size}} م.ب، وتبقى على هذا الجهاز.",
+      "useMobileData": "استخدام بيانات الجوال",
+      "advanced": "متقدم",
+      "recommended": "أداة الاستماع الموصى بها",
+      "alternate": "أداة الاستماع البديلة",
+      "recommendedSize": "الموصى بها، نحو {{size}} م.ب",
+      "alternateSize": "البديلة، نحو {{size}} م.ب",
+      "alternateCaption": "استخدم البديلة فقط إذا لم تعمل الموصى بها. قد لا تُعلِّم الكلمات المطلوب إعادتها.",
+      "switchTitle": "تبديل أداة الاستماع؟",
+      "engineCaption": "تستخدم {{engine}}.",
+      "unsupported": "أداة الاستماع غير متاحة على هذا الجهاز.",
+      "webUnsupported": "هذا المتصفح لا يدعم أداة الاستماع.",
+      "knownLimits": "تعمل على أفضل وجه في مكان هادئ، بصوت واحد، وبسرعة تلاوة معتادة. وقد تكون أقل دقة مع أصوات الأطفال.",
+      "detailsLine": "{{size}} ميغابايت على هذا الجهاز · {{engine}}"
+    },
+    "privacy": {
+      "title": "الخصوصية والمصادر",
+      "onDevice": "يُعالَج صوتك على هذا الجهاز، ولا يُرفع ولا يُحفظ.",
+      "microphone": "الميكروفون",
+      "micAllowed": "مسموح",
+      "micBlocked": "محظور",
+      "micNotAsked": "لم يُطلب بعد",
+      "deleteHistory": "حذف سجل التدرّب",
+      "deleteHistoryTitle": "حذف سجل التدرّب؟",
+      "deleteHistoryBody": "تُحذف ملخصات الجلسات. تبقى علامات الحفظ وجدول المراجعة وأداة الاستماع.",
+      "practiceAid": "أداة الاستماع وسيلة للتدرّب، ولا تُغني عن المعلّم.",
+      "sources": "يُنزَّل ملف أداة الاستماع من {{host}}. بُنيت بمشروع Tilawa ونص Tanzil وبيانات الكلمات من Quran.com.",
+      "licence": "أداة الاستماع الموصى بها متاحة برخصة NPL-1.2: مجانية، لا تُباع أبدًا، ولا تُعرض معها إعلانات."
+    },
+    "offlineRow": {
+      "title": "أداة الاستماع للقرآن",
+      "subtitle": "تُدار من التدرّب على القرآن. «مسح الكل» يُبقيها."
+    },
+    "reminder": {
+      "title": "مراجعة القرآن",
+      "body_zero": "لا آيات للمراجعة اليوم",
+      "body_one": "آية واحدة للمراجعة اليوم",
+      "body_two": "آيتان للمراجعة اليوم",
+      "body_few": "{{count}} آيات للمراجعة اليوم",
+      "body_many": "{{count}} آية للمراجعة اليوم",
+      "body_other": "{{count}} آية للمراجعة اليوم"
+    },
+    "error": {
+      "noConnection": "لا يوجد اتصال",
+      "notEnoughSpace": "لا توجد مساحة كافية",
+      "checksum": "الملف غير مطابق",
+      "downloadFailed": "لم يكتمل التنزيل",
+      "downloadCancelled": "أُلغي التنزيل",
+      "modelMissing": "ملف أداة الاستماع مفقود",
+      "didNotStart": "لم تبدأ",
+      "outOfMemory": "نفدت ذاكرة هذا الجهاز. يمكنك الاستماع على أي حال.",
+      "unsupported": "غير متاحة على هذا الجهاز",
+      "micDenied": "الميكروفون مغلق",
+      "micUnavailable": "لا يوجد ميكروفون",
+      "captureFailed": "لم يبدأ الميكروفون",
+      "interrupted": "انقطع الاستماع",
+      "listeningStopped": "توقّف الاستماع",
+      "unknown": "حدث خلل ما"
+    },
+    "pronunciation": {
+      "title": "أداة الاستماع للنطق",
+      "explainer": "أداة استماع ثانية اختيارية لدروس التجويد. تفحص صوتًا واحدًا في كل مرة مقارنةً بالمثال، ولا تعطي درجة أبدًا.",
+      "notSetUp": "لم تُجهَّز",
+      "notOnDevice": "غير موجودة على هذا الجهاز",
+      "ready": "جاهزة (الإصدار {{version}})",
+      "setUp": "تجهيز",
+      "downloading": "جارٍ تنزيل أداة الاستماع للنطق…",
+      "consentTitle": "قبل التجهيز",
+      "consentDownload": "سيُنزَّل أداة استماع ثانية بحجم نحو ٥٧ م.ب من Quran Lab.",
+      "consentActivation": "يتصل التطبيق بـ Quran Lab مرة لتفعيلها، ثم للتحقق من التحديثات.",
+      "consentOnDevice": "تُعالَج تلاوتك على هذا الجهاز.",
+      "consentRemotePause": "يمكن لـ Quran Lab إيقاف أداة الاستماع هذه لجميع المستخدمين، وتبقى الدروس تعمل في هذه الحالة.",
+      "agree": "أوافق وأنزِّل",
+      "notNow": "ليس الآن",
+      "deleteTitle": "حذف أداة الاستماع للنطق؟",
+      "deleteBody": "تبقى دروس التجويد تعمل. التدرّب على صوت يحتاج إلى التنزيل مجددًا.",
+      "sharingSwitch": "مشاركة تلاواتي مع Quran Lab",
+      "sharingSub": "فقط إن وافقت في نافذة Quran Lab. إيقافها يوقف الرفع ويحذف ما لم يُرسَل بعد.",
+      "deleteShared": "حذف ما شاركته",
+      "deleteSharedTitle": "حذف ما شاركته؟",
+      "deleteSharedBody": "يُحذف كل تسجيل شاركته من هذا التطبيق من خوادم Quran Lab، وتتوقف المشاركة.",
+      "deletedShared": "حُذفت تسجيلاتك المشارَكة",
+      "sharingFailed": "لم يتم ذلك. حاول مرة أخرى من فضلك.",
+      "recoveryCode": "رمز الاسترداد: {{code}}",
+      "sourcesLine": "‏TajweedFormer من Quran Lab، متاحة برخصة NPL-1.2.",
+      "practiseSound": "تدرّب على هذا الصوت",
+      "drillTitle": "تدرّب على هذا الصوت",
+      "drillIntro": "استمع إلى المثال، ثم اضغط «اتلُ» وانطقه بالطريقة نفسها.",
+      "needsSetup": "جهِّز أداة الاستماع للنطق لتتدرّب على هذا الصوت.",
+      "needsConnectionOnce": "يحتاج التجهيز إلى اتصال مرة واحدة.",
+      "notAvailableForSound": "الملاحظات على هذا الصوت غير متاحة بعد. استمع إلى المثال وحاول مجددًا.",
+      "recite": "اتلُ",
+      "stop": "إيقاف",
+      "listening": "جارٍ الاستماع…",
+      "verdictMatched": "تطابق ذلك مع المثال.",
+      "verdictTryAgain": "استمع مرة أخرى وحاول مجددًا.",
+      "verdictNotSure": "لم تكن أداة الاستماع متأكدة.",
+      "error": {
+        "noConnection": "يحتاج التجهيز إلى اتصال مرة واحدة.",
+        "paused": "أوقفت Quran Lab أداة الاستماع هذه مؤقتًا. تبقى الدروس تعمل.",
+        "noSpace": "لا توجد مساحة كافية",
+        "notYet": "أداة الاستماع هذه غير متاحة بعد. حاول لاحقًا من فضلك.",
+        "micDenied": "الميكروفون مغلق لتطبيق Munib Tracker.",
+        "unsupported": "غير متاحة على هذا الجهاز",
+        "generic": "لم ينجح ذلك. حاول مرة أخرى من فضلك."
+      }
+    },
+    "modeHelp": {
+      "follow": "اقرأ والنص أمامك، وتتابعك أداة الاستماع كلمةً كلمة.",
+      "check": "اقرأ والنص ظاهر، وبعد كل آية تظهر لك الكلمات التي تُعاد قراءتها.",
+      "hideWords": "تُغطّى الكلمات بعد الأولى. اقرأ من حفظك، وتظهر الكلمات المسموعة تلقائيًا.",
+      "hideAyahs": "تُغطّى الآية كاملة حتى تنتهي أو تضغط «اكشف». الأنسب للمراجعة."
+    },
+    "listenerStatus": {
+      "ready": "أداة الاستماع جاهزة",
+      "readySub": "يُعالَج صوتك على هذا الجهاز ولا يُرفع أبدًا.",
+      "downloading": "جارٍ تنزيل أداة الاستماع · {{percent}}٪",
+      "failed": "لم يكتمل التنزيل",
+      "missing": "تابِع صوتك",
+      "missingSub": "نزّل أداة الاستماع على الجهاز ({{size}} م.ب). يمكنك الاستماع والكشف بدونها.",
+      "offlineSub": "اتصل بالإنترنت مرة واحدة لتنزيل أداة الاستماع. الاستماع يعمل دون اتصال.",
+      "stillListen": "ما زال بإمكانك الاستماع وكشف الكلمات."
+    },
+    "picker": {
+      "title": "اختر ما تتدرّب عليه",
+      "searchSurah": "ابحث عن سورة بالاسم أو الرقم",
+      "changeSurah": "تغيير السورة",
+      "fromAyah": "ابدأ من الآية",
+      "toAyah": "انتهِ عند الآية",
+      "toEnd": "حتى النهاية",
+      "ayahN": "الآية {{n}}",
+      "confirm": "تدرّب على {{passage}}",
+      "ayahCount_zero": "لا آيات",
+      "ayahCount_one": "آية واحدة",
+      "ayahCount_two": "{{count}} آيتان",
+      "ayahCount_few": "{{count}} آيات",
+      "ayahCount_many": "{{count}} آية",
+      "ayahCount_other": "{{count}} آية"
+    },
+    "result": {
+      "headAllMatched": "كل الكلمات متطابقة",
+      "headTryAgain_zero": "لا كلمات لإعادة قراءتها",
+      "headTryAgain_one": "أعد قراءة كلمة واحدة",
+      "headTryAgain_two": "أعد قراءة {{count}} كلمتين",
+      "headTryAgain_few": "أعد قراءة {{count}} كلمات",
+      "headTryAgain_many": "أعد قراءة {{count}} كلمة",
+      "headTryAgain_other": "أعد قراءة {{count}} كلمة",
+      "headMissed_zero": "لم تبقَ كلمات لم تُبلَغ",
+      "headMissed_one": "كلمة واحدة لم تُبلَغ",
+      "headMissed_two": "{{count}} كلمتان لم تُبلَغا",
+      "headMissed_few": "{{count}} كلمات لم تُبلَغ",
+      "headMissed_many": "{{count}} كلمة لم تُبلَغ",
+      "headMissed_other": "{{count}} كلمة لم تُبلَغ",
+      "headNotSure_zero": "أداة الاستماع متأكدة من كل الكلمات",
+      "headNotSure_one": "أداة الاستماع غير متأكدة من كلمة واحدة",
+      "headNotSure_two": "أداة الاستماع غير متأكدة من {{count}} كلمتين",
+      "headNotSure_few": "أداة الاستماع غير متأكدة من {{count}} كلمات",
+      "headNotSure_many": "أداة الاستماع غير متأكدة من {{count}} كلمة",
+      "headNotSure_other": "أداة الاستماع غير متأكدة من {{count}} كلمة",
+      "heardOf": "سُمعت {{heard}} من {{total}} كلمة",
+      "matched": "متطابقة",
+      "tryAgain": "أعد قراءتها",
+      "notSure": "غير مؤكدة",
+      "missed": "لم تُبلَغ",
+      "groupTryAgain": "أعد قراءة هذه",
+      "groupMissed": "لم تُبلَغ",
+      "groupNotSure": "غير مؤكدة",
+      "nextAyah": "الآية التالية",
+      "reciteAgain": "اقرأ مجددًا",
+      "moveOn": "انتقل إلى الآية التالية",
+      "finish": "إنهاء وعرض الملخص",
+      "headNothingHeard": "لم تلتقط أداة الاستماع أي كلمة",
+      "nothingHeardTip": "اقرأ بصوت أعلى قليلًا وقريبًا من الميكروفون، وابدأ من الكلمة الأولى."
+    },
+    "view": {
+      "title": "طريقة العرض",
+      "mushafCoarse": "تحتاج علامات الكلمات في المصحف إلى قائمة الكلمات. اتصل بالإنترنت مرة واحدة لتنزيلها، وستظل الآيات معروضة."
+    }
   }
 }

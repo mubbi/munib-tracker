@@ -95,6 +95,8 @@ export function ReviewPromptSheet({
       await onFeedbackSent(stars, feedback.trim());
       reset();
       onClose();
+    } catch {
+      // The caller already surfaced `feedbackError`; stay open so the user can retry.
     } finally {
       setSubmitting(false);
     }
@@ -191,14 +193,7 @@ export function ReviewPromptSheet({
               placeholderTextColor={colors.mutedForeground}
               multiline
               maxLength={2000}
-              style={[
-                styles.feedbackInput,
-                {
-                  color: colors.foreground,
-                  borderColor: colors.border,
-                  backgroundColor: colors.muted,
-                },
-              ]}
+              style={[styles.feedbackInput, tokens.inputSurface, { color: colors.foreground }]}
             />
             {feedbackOffline ? (
               <ThemedText type="caption" themeColor="mutedForeground">

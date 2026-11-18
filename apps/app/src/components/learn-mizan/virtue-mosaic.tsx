@@ -9,8 +9,10 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -74,19 +76,22 @@ export function VirtueMosaicBlock({
                 accessibilityLabel={ref ? `${trait.title}. ${ref}` : trait.title}
                 style={[styles.tile, { backgroundColor: soft, borderColor: withAlpha(tint, 0.25) }]}
               >
-                <IconWell
-                  icon={TRAIT_ICONS[trait.iconKey] ?? FALLBACK_ICON}
-                  tint={tint}
-                  background={withAlpha(tint, 0.12)}
-                  well={36}
-                  size={16}
-                />
-                <ThemedText type="smallBold" numberOfLines={2}>
-                  {trait.title}
-                </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={4}>
-                  {trait.summary}
-                </ThemedText>
+                {/* TV: trait prose is a D-pad stop (the reference link stays its own stop). */}
+                <TvReadableBlock>
+                  <IconWell
+                    icon={TRAIT_ICONS[trait.iconKey] ?? FALLBACK_ICON}
+                    tint={tint}
+                    background={withAlpha(tint, 0.12)}
+                    well={36}
+                    size={16}
+                  />
+                  <ThemedText type="smallBold" numberOfLines={2}>
+                    {trait.title}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={4}>
+                    {trait.summary}
+                  </ThemedText>
+                </TvReadableBlock>
                 {ref ? <ReferenceLine reference={ref} /> : null}
               </View>
             );
@@ -97,7 +102,7 @@ export function VirtueMosaicBlock({
       <Card padding="three">
         <SectionHeader
           title={t("jannah.mizan.destroysTitle")}
-          subtitle={t("jannah.mizan.destroysHint")}
+          subtitle={tTv(t, "jannah.mizan.destroysHint", "jannah.mizan.destroysHintTv")}
           icon={{
             ios: "exclamationmark.shield.fill",
             android: "gpp_bad",
@@ -135,7 +140,7 @@ export function VirtueMosaicBlock({
             if (!item.route) {
               return (
                 <View key={item.id} style={styles.destroyCell}>
-                  {tile}
+                  <TvReadableBlock>{tile}</TvReadableBlock>
                 </View>
               );
             }

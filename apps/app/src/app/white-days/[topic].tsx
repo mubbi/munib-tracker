@@ -1,13 +1,16 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnGuideTopicContent } from "@/components/learn-guide/learn-guide-topic-content";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { getWhiteDaysGuideTopic, getWhiteDaysGuideTopics } from "@/lib/white-days-guide";
 
@@ -19,6 +22,8 @@ export default function WhiteDaysTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  // Desktop (≥1200): sibling topics + progress in a sticky aside.
+  const { maxContentWidth } = useLearnWideLayout();
   const topic = getWhiteDaysGuideTopic(topicId);
 
   const detailPath = topic ? `/white-days/${topic.id}` : "/white-days";
@@ -36,6 +41,7 @@ export default function WhiteDaysTopicScreen() {
       title={topic?.title ?? t("whiteDays.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/white-days" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -65,17 +71,31 @@ export default function WhiteDaysTopicScreen() {
           onAction={() => router.replace("/white-days" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="jannah">
-            <LearnGuideTopicContent
-              topic={topic}
-              ns="whiteDays"
-              sectionTitle={t("whiteDays.title")}
+        <LearnSplitLayout
+          aside={
+            <ModuleTopicAside
+              title={t("whiteDays.title")}
+              basePath="/white-days"
+              topics={getWhiteDaysGuideTopics()}
+              currentId={topic.id}
             />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="whiteDays.disclaimer" />
-        </Stagger>
+          }
+        >
+          <Stagger>
+            <LearnReadingChrome surface="jannah">
+              <LearnGuideTopicContent
+                topic={topic}
+                ns="whiteDays"
+                sectionTitle={t("whiteDays.title")}
+              />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="whiteDays.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/white-days/[topic]");

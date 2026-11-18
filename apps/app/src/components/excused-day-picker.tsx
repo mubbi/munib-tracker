@@ -8,6 +8,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
 
 /** Keep routes local — importing excused-guide content would pull guide copy into home `__common`. */
@@ -79,7 +80,14 @@ export function ExcusedDayPicker({
               styles.chip,
               {
                 backgroundColor: active ? tokens.status.info.soft : colors.muted,
-                borderColor: active ? tokens.status.info.color : "transparent",
+                // TV: selected keeps the soft fill + check glyph; a hairline edge so
+                // it never reads like the D-pad focus ring.
+                borderColor: active
+                  ? isTV()
+                    ? tokens.hairline
+                    : tokens.status.info.color
+                  : "transparent",
+                ...(isTV() ? { borderWidth: StyleSheet.hairlineWidth } : null),
               },
             ]}
           >

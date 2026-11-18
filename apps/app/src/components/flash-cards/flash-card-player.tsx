@@ -11,7 +11,9 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import type { StudyMcq } from "@/lib/flash-cards";
 import {
   advanceAfterAnswer,
@@ -19,7 +21,8 @@ import {
   startFlashDeck,
 } from "@/lib/flash-cards/flash-card-deck";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
-import { useChevronForward } from "@/lib/rtl";
+import { isTV } from "@/lib/platform/is-tv";
+import { isRTL, useChevronForward } from "@/lib/rtl";
 
 type FlashCardPlayerProps = {
   pool: StudyMcq[];
@@ -39,6 +42,7 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
+  const tv = isTV();
 
   const [deck, setDeck] = useState(() => startFlashDeck(pool));
   const [selected, setSelected] = useState<number | null>(null);
@@ -88,9 +92,35 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
     setCardKey((k) => k + 1);
   }, [canSkip, current, remaining]);
 
+  // Desktop web: A-D / 1-4 pick an answer; Enter or the forward arrow goes to the
+  // next card (forward arrow skips while unanswered). Focused buttons keep Enter.
+  useWebScreenKeyHandler((event) => {
+    if (!current) return undefined;
+    const key = event.key;
+    const letterIndex = "abcd".indexOf(key.toLowerCase());
+    const digitIndex = "1234".indexOf(key);
+    const optionIndex = key.length === 1 ? Math.max(letterIndex, digitIndex) : -1;
+    if (optionIndex >= 0) {
+      if (answered || optionIndex >= current.options.length) return undefined;
+      selectOption(optionIndex);
+      return true;
+    }
+    const forwardArrow = isRTL() ? "ArrowLeft" : "ArrowRight";
+    if (key === forwardArrow) {
+      if (answered) goNext();
+      else skipCard();
+      return true;
+    }
+    if (key === "Enter" && answered && !isWebInteractiveTarget(event.target)) {
+      goNext();
+      return true;
+    }
+    return undefined;
+  }, !tv);
+
   if (!current) {
     return (
-      <View style={styles.stack}>
+      <View style={[styles.stack, !tv && styles.stackCentered]}>
         {intro}
         <Card padding="three">
           <ThemedText type="small" themeColor="mutedForeground">
@@ -103,7 +133,8 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
   }
 
   return (
-    <View style={styles.stack}>
+    // Wide web / tablets: one centered card column (TV keeps the full width).
+    <View style={[styles.stack, !tv && styles.stackCentered]}>
       {intro}
 
       <View style={styles.sessionRow}>
@@ -209,7 +240,14 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
                 accessibilityState={{ selected: isSelected, disabled: answered }}
                 accessibilityLabel={`${letter}. ${option}`}
                 onPress={() => selectOption(optionIndex)}
-                style={[styles.option, { backgroundColor: background, borderColor }]}
+                // TV: each new card remounts (keyed), so the first option re-takes
+                // D-pad focus instead of focus falling back to the screen chrome.
+                {...(tv && optionIndex === 0 && !answered ? { hasTVPreferredFocus: true } : {})}
+                style={[
+                  styles.option,
+                  tv && styles.optionTv,
+                  { backgroundColor: background, borderColor },
+                ]}
               >
                 <View style={[styles.letterBadge, { backgroundColor: letterBg }]}>
                   <ThemedText type="caption" style={{ color: letterFg }}>
@@ -288,6 +326,9 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
               fullWidth
               trailingIcon={chevronForward}
               onPress={goNext}
+              // TV: answering disables the options (they drop out of the focus
+              // engine) — hand focus straight to Next so Select keeps going.
+              preferredFocus
               style={styles.nextButton}
             />
           ) : (
@@ -314,6 +355,11 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
 const styles = StyleSheet.create({
   stack: {
     gap: Spacing.three,
+  },
+  stackCentered: {
+    width: "100%",
+    maxWidth: 720,
+    alignSelf: "center",
   },
   sessionRow: {
     flexDirection: "row",
@@ -349,6 +395,10 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     marginBottom: Spacing.two,
     minHeight: 52,
+  },
+  optionTv: {
+    minHeight: TvLayout.minFocusTarget,
+    alignItems: "center",
   },
   letterBadge: {
     width: 28,

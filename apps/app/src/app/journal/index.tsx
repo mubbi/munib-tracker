@@ -19,10 +19,13 @@ import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
@@ -30,7 +33,9 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { averageRating, groupByDate, KHUSHU_MAX, KHUSHU_MIN, type KhushuEntry } from "@/lib/khushu";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import type { SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
 import { useEnsureKhushuLoaded, useKhushuActions, useKhushuEntries } from "@/stores/khushu-store";
@@ -88,6 +93,7 @@ function StarRating({
   compact?: boolean;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const gap = compact ? Spacing.half : Spacing.one;
 
   return (
@@ -109,6 +115,8 @@ function StarRating({
               scaleTo={0.85}
               haptic="selection"
               hitSlop={8}
+              // TV: chip-sized square so the focus ring frames the star.
+              style={tv ? styles.starTv : undefined}
             >
               <SymbolView name={icon} size={size} tintColor={color} />
             </PressableScale>
@@ -131,6 +139,7 @@ function sortedGroups(entries: KhushuEntry[]) {
 }
 
 export default function JournalScreen() {
+  const tv = isTV();
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -383,7 +392,7 @@ export default function JournalScreen() {
                     onPress={() => router.push("/salah-guide/khushu")}
                     haptic="light"
                     hitSlop={6}
-                    style={styles.khushuLearnMore}
+                    style={[styles.khushuLearnMore, tv ? styles.khushuLearnMoreTv : null]}
                   >
                     <SymbolView
                       name={{ ios: "info.circle", android: "info", web: "info" }}
@@ -428,9 +437,15 @@ export default function JournalScreen() {
               onActionPress={openNewForm}
             />
 
-            <View style={styles.groupList}>
+            {/* Wide web / tablets: day cards in a 2–3 column grid. TV stays one column. */}
+            <ResponsiveGrid
+              columns={tv ? 1 : undefined}
+              maxColumns={3}
+              gap={Spacing.three}
+              style={styles.groupList}
+            >
               {groups.map((group) => (
-                <Card key={group.date} padding="three">
+                <Card key={group.date} padding="three" style={styles.groupCard}>
                   <ThemedText type="smallBold" style={styles.groupDate}>
                     {formatDate(group.date, "long")}
                   </ThemedText>
@@ -494,7 +509,7 @@ export default function JournalScreen() {
                   </View>
                 </Card>
               ))}
-            </View>
+            </ResponsiveGrid>
           </View>
         </Stagger>
       )}
@@ -515,7 +530,12 @@ export default function JournalScreen() {
         <View style={styles.prayerChips}>
           {pickerPrayers.map((id) => {
             const active = draft.prayerId === id;
-            const contentColor = active ? colors.accentForeground : colors.foreground;
+            // TV: selected = soft accent fill + hairline; solid accent is the focus ring.
+            const contentColor = active
+              ? tv
+                ? colors.accentText
+                : colors.accentForeground
+              : colors.foreground;
             return (
               <PressableScale
                 key={id}
@@ -526,10 +546,16 @@ export default function JournalScreen() {
                 haptic="selection"
                 style={[
                   styles.chip,
-                  {
-                    backgroundColor: active ? colors.accent : colors.muted,
-                    borderColor: active ? colors.accent : tokens.hairline,
-                  },
+                  tv ? styles.chipTv : null,
+                  tv
+                    ? {
+                        backgroundColor: active ? tokens.accentSoft : colors.muted,
+                        borderColor: active ? tokens.accentBorder : tokens.hairline,
+                      }
+                    : {
+                        backgroundColor: active ? colors.accent : colors.muted,
+                        borderColor: active ? colors.accent : tokens.hairline,
+                      },
                 ]}
               >
                 <AppIcon icon={PRAYER_ICONS[id]} size={15} tintColor={contentColor} />
@@ -565,9 +591,9 @@ export default function JournalScreen() {
           style={[
             styles.noteField,
             {
-              backgroundColor: colors.muted,
-              borderWidth: stt.listening ? 1.5 : 0,
-              borderColor: stt.listening ? colors.accent : "transparent",
+              backgroundColor: colors.input,
+              borderWidth: stt.listening ? 1.5 : 1,
+              borderColor: stt.listening ? colors.accent : colors.inputBorder,
             },
           ]}
         >
@@ -583,13 +609,15 @@ export default function JournalScreen() {
             multiline
             style={[
               styles.noteInput,
+              tv ? styles.noteInputTv : null,
               {
                 color: colors.foreground,
-                paddingEnd: stt.available ? Spacing.three + 44 : Spacing.three,
+                paddingEnd: stt.available && !tv ? Spacing.three + 44 : Spacing.three,
               },
             ]}
           />
-          {stt.available ? (
+          {/* No microphone dictation on TV remotes (phone-only capability). */}
+          {stt.available && !tv ? (
             <View style={styles.noteMic}>
               <VoiceInputButton
                 size="sm"
@@ -657,11 +685,31 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     gap: Spacing.half + 2,
   },
+  khushuLearnMoreTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
+  },
+  starTv: {
+    minWidth: TvLayout.chipMinHeight,
+    minHeight: TvLayout.chipMinHeight,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: Radius.md,
+  },
+  chipTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.four,
+  },
+  noteInputTv: {
+    fontSize: tvDp(TvLayout.bodyFontSize),
+  },
   summaryValueRow: { flexDirection: "row", alignItems: "baseline", gap: Spacing.one },
   summaryNumber: { lineHeight: 34 },
   levelHint: { marginTop: Spacing.half },
   listSection: { gap: Spacing.two },
-  groupList: { gap: Spacing.three, marginTop: Spacing.two },
+  groupList: { marginTop: Spacing.two },
+  groupCard: { flexGrow: 1 },
   groupDate: { marginBottom: Spacing.two },
   entryList: { gap: Spacing.two },
   entryRow: {
@@ -736,3 +784,6 @@ const styles = StyleSheet.create({
   },
   formActionButton: { flex: 1 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/journal");

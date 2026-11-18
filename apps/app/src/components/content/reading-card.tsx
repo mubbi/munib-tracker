@@ -109,7 +109,8 @@ export function ReadingCard({
   const ttsArabic = item.arabic.trim();
   const ttsTransliteration = item.transliteration?.trim() ?? "";
   const ttsTranslation = displayTranslation.trim();
-  const showTts = ttsEnabled && Boolean(ttsArabic || ttsTransliteration || ttsTranslation);
+  // TV: no speech synthesis (expo-speech is stubbed) — never offer TTS there.
+  const showTts = !tv && ttsEnabled && Boolean(ttsArabic || ttsTransliteration || ttsTranslation);
 
   const playAudio = () => {
     if (!item.audioUri) return;
@@ -157,7 +158,9 @@ export function ReadingCard({
       systemIcon: "play.circle.fill",
     });
   }
-  menuActions.push({ id: "share", title: t("reading.share"), systemIcon: "square.and.arrow.up" });
+  if (!tv) {
+    menuActions.push({ id: "share", title: t("reading.share"), systemIcon: "square.and.arrow.up" });
+  }
 
   const onMenuAction = (id: string) => {
     if (id === "favorite") onToggleFavorite?.();
@@ -217,20 +220,23 @@ export function ReadingCard({
               onPress={onToggleFavorite}
             />
           ) : null}
-          <LabeledIconButton
-            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-            label={
-              isGesturePending(shareKey)
-                ? tTv(t, "share.tapToShare", "share.selectToShare")
-                : t("common.share")
-            }
-            iconSize={tv ? 20 : 16}
-            tintColor={colors.mutedForeground}
-            accessibilityLabel={t("reading.share")}
-            loading={isSharing(shareKey)}
-            loadingLabel={t("share.preparing")}
-            onPress={onShare}
-          />
+          {/* No system share sheet on TV (phone-only capability). */}
+          {!tv ? (
+            <LabeledIconButton
+              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+              label={
+                isGesturePending(shareKey)
+                  ? tTv(t, "share.tapToShare", "share.selectToShare")
+                  : t("common.share")
+              }
+              iconSize={16}
+              tintColor={colors.mutedForeground}
+              accessibilityLabel={t("reading.share")}
+              loading={isSharing(shareKey)}
+              loadingLabel={t("share.preparing")}
+              onPress={onShare}
+            />
+          ) : null}
           {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
         </View>
       </View>

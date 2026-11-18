@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["MunibTajweedformerModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.munibtajweedformer.MunibTajweedformerModule"]
+  }
+}

@@ -1,10 +1,16 @@
 import { type Href, useRouter } from "expo-router";
 import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { type ScrollView, StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import {
+  LearnGrid,
+  LearnSplitLayout,
+  useLearnWideLayout,
+} from "@/components/learn-guide/learn-wide-layout";
 import { QuranGlyphPlayButton } from "@/components/quran-guide/ayah-play-button";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -29,6 +35,7 @@ import {
   isGlyphPronunciationTrack,
   pronunciationGlyphTracks,
 } from "@/lib/quran-guide-audio";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 
 const SOURCE_HREF = "/learn-quran/pronunciation";
@@ -36,6 +43,7 @@ const ACTIVE_SCROLL_OFFSET = 96;
 
 export default function LearnQuranPronunciationScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const { sizes } = useReadingTypography("learn_quran");
@@ -65,7 +73,7 @@ export default function LearnQuranPronunciationScreen() {
     return null;
   }, [audio.current?.id, glyphQueue, glyphsActive, pairs]);
 
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const { register, onScroll } = useScrollToActive(
     scrollRef,
     glyphsActive ? activePairId : null,
@@ -93,101 +101,107 @@ export default function LearnQuranPronunciationScreen() {
       title={t("learnQuran.pronunciationTitle")}
       subtitle={t("learnQuran.pronunciationSubtitle")}
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
+      maxContentWidth={maxContentWidth}
       scrollRef={scrollRef}
       onScroll={onScroll}
     >
       <Seo path="/learn-quran/pronunciation" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="info">{t("learnQuran.pronunciationIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<QuranGuideTopicAside currentId="pronunciation" />}>
+          <Stagger>
+            <JannahCallout tone="info">{t("learnQuran.pronunciationIntro")}</JannahCallout>
 
-          <LearnReadingChrome surface="learn_quran">
-            {glyphQueue.length > 0 ? (
-              <Button
-                label={glyphsActive && audio.isPlaying ? t("common.pause") : t("names.playAll")}
-                variant="secondary"
-                fullWidth
-                icon={glyphsActive && audio.isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
-                onPress={onPlayAll}
-              />
-            ) : null}
+            <LearnReadingChrome surface="learn_quran">
+              {glyphQueue.length > 0 ? (
+                <Button
+                  label={glyphsActive && audio.isPlaying ? t("common.pause") : t("names.playAll")}
+                  variant="secondary"
+                  fullWidth
+                  icon={glyphsActive && audio.isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
+                  onPress={onPlayAll}
+                  preferredFocus
+                />
+              ) : null}
 
-            {pairs.map((pair) => {
-              const cardActive = activePairId === pair.id;
-              return (
-                <View key={pair.id} ref={register(pair.id)}>
-                  <Card
-                    padding="three"
-                    style={[
-                      styles.card,
-                      cardActive ? { borderColor: colors.accent, borderWidth: 2 } : null,
-                    ]}
-                  >
-                    <View style={styles.lettersRow}>
-                      {pair.letters.map((letter) => {
-                        const letterActive = cardActive && activeGlyph === letter;
-                        return (
-                          <View key={letter} style={styles.letterCell}>
-                            <ThemedText
-                              type="arabic"
-                              style={[
-                                styles.letter,
-                                {
-                                  fontSize: letterSize,
-                                  lineHeight: letterSize * 1.4,
-                                  color: letterActive ? colors.accent : colors.foreground,
-                                },
-                              ]}
-                            >
-                              {letter}
-                            </ThemedText>
-                            <QuranGlyphPlayButton
-                              glyph={letter}
-                              title={letter}
-                              sourceHref={SOURCE_HREF}
-                            />
-                          </View>
-                        );
-                      })}
-                    </View>
-                    <SectionHeader
-                      title={pair.title}
-                      icon={{
-                        ios: "mouth.fill",
-                        android: "record_voice_over",
-                        web: "record_voice_over",
-                      }}
-                    />
-                    <ThemedText
-                      type="small"
-                      themeColor="mutedForeground"
-                      style={{ fontSize: tipSize, lineHeight: tipSize * 1.45 }}
-                    >
-                      {pair.tip}
-                    </ThemedText>
-                    <View style={styles.examples}>
-                      {pair.examples.map((ex) => (
-                        <ThemedText
-                          key={ex}
-                          type="small"
-                          style={{
-                            fontSize: exampleSize,
-                            lineHeight: exampleSize * 1.45,
-                            textAlign: "right",
+              <LearnGrid maxColumns={2} gap={Spacing.four} passthrough>
+                {pairs.map((pair) => {
+                  const cardActive = activePairId === pair.id;
+                  return (
+                    <View key={pair.id} ref={register(pair.id)}>
+                      <Card
+                        padding="three"
+                        style={[
+                          styles.card,
+                          cardActive ? { borderColor: colors.accent, borderWidth: 2 } : null,
+                        ]}
+                      >
+                        <View style={styles.lettersRow}>
+                          {pair.letters.map((letter) => {
+                            const letterActive = cardActive && activeGlyph === letter;
+                            return (
+                              <View key={letter} style={styles.letterCell}>
+                                <ThemedText
+                                  type="arabic"
+                                  style={[
+                                    styles.letter,
+                                    {
+                                      fontSize: letterSize,
+                                      lineHeight: letterSize * 1.4,
+                                      color: letterActive ? colors.accent : colors.foreground,
+                                    },
+                                  ]}
+                                >
+                                  {letter}
+                                </ThemedText>
+                                <QuranGlyphPlayButton
+                                  glyph={letter}
+                                  title={letter}
+                                  sourceHref={SOURCE_HREF}
+                                />
+                              </View>
+                            );
+                          })}
+                        </View>
+                        <SectionHeader
+                          title={pair.title}
+                          icon={{
+                            ios: "mouth.fill",
+                            android: "record_voice_over",
+                            web: "record_voice_over",
                           }}
+                        />
+                        <ThemedText
+                          type="small"
+                          themeColor="mutedForeground"
+                          style={{ fontSize: tipSize, lineHeight: tipSize * 1.45 }}
                         >
-                          {ex}
+                          {pair.tip}
                         </ThemedText>
-                      ))}
+                        <View style={styles.examples}>
+                          {pair.examples.map((ex) => (
+                            <ThemedText
+                              key={ex}
+                              type="small"
+                              style={{
+                                fontSize: exampleSize,
+                                lineHeight: exampleSize * 1.45,
+                                textAlign: "right",
+                              }}
+                            >
+                              {ex}
+                            </ThemedText>
+                          ))}
+                        </View>
+                      </Card>
                     </View>
-                  </Card>
-                </View>
-              );
-            })}
-          </LearnReadingChrome>
+                  );
+                })}
+              </LearnGrid>
+            </LearnReadingChrome>
 
-          <JannahDisclaimer textKey="learnQuran.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );
@@ -200,3 +214,6 @@ const styles = StyleSheet.create({
   letter: { textAlign: "center" },
   examples: { gap: Spacing.one, marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/pronunciation");

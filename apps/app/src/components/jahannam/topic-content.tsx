@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -84,9 +85,11 @@ export function JahannamTopicContent({ topic }: { topic: JahannamTopic }) {
       />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );

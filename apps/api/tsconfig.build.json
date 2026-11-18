@@ -5,8 +5,9 @@
     "dist",
     "test",
     "**/*.spec.ts",
+    "src/test-support",
     "**/*.e2e-spec.ts",
-    "vitest.config.ts",
-    "vitest.config.e2e.ts"
+    "vitest.config.mts",
+    "vitest.config.e2e.mts"
   ]
 }

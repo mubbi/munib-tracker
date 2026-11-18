@@ -1,3 +1,4 @@
+import type { AchievementStats } from "../achievements/types";
 import type { PrayerLog } from "../types/index";
 
 /**
@@ -18,6 +19,19 @@ export function makePrayerLog(
     status,
     updatedAt: `${date}T00:00:00.000Z`,
     source: "manual",
+    ...overrides,
+  };
+}
+
+/** Builds zeroed {@link AchievementStats} (no qaza/roza debt tracked) with optional overrides. */
+export function makeAchievementStats(overrides: Partial<AchievementStats> = {}): AchievementStats {
+  return {
+    streak: 0,
+    prayersCompleted: 0,
+    zikrCompleted: 0,
+    perfectDays: 0,
+    qazaDebt: null,
+    rozaDebt: null,
     ...overrides,
   };
 }

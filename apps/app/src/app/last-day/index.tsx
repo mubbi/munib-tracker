@@ -3,6 +3,12 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
+  LearnColumnsGrid,
+  LearnTwoPane,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
+import {
   JannahCallout,
   JannahDisclaimer,
   JannahNavRow,
@@ -19,6 +25,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import {
   ensureLastDayContent,
   getLastDayLessonCount,
@@ -27,6 +34,7 @@ import {
 } from "@/lib/last-day";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureLastDayProgressLoaded,
   useLastDayCompletedCount,
@@ -64,6 +72,10 @@ export default function LastDayScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const wide = useLearnHubLayout();
+  // Columns inside cards: main column (card padding × 2 subtracted); asides stack.
+  const navCols = learnColumnsFor(wide.mainWidth - Spacing.three * 2, { minCell: 280, max: 2 });
+  const asideCols = wide.twoPane ? 1 : navCols;
   useEnsureLastDayProgressLoaded();
   const { version: contentVersion, ready: contentReady } = useEnsureContent(
     ensureLastDayContent,
@@ -125,173 +137,220 @@ export default function LastDayScreen() {
     [router, t, colors.accent, tokens],
   );
 
+  const intro = <JannahCallout tone="info">{t("lastDay.intro")}</JannahCallout>;
+
+  const quickLinksCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("lastDay.quickLinksTitle")}
+        icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+      />
+      <JannahQuickLinkGrid
+        items={quickLinks}
+        columns={!wide.twoPane && wide.contentWidth >= 720 ? 4 : 2}
+      />
+    </Card>
+  );
+
+  const timelineRow = (
+    <JannahNavRow
+      icon={{ ios: "arrow.down.circle.fill", android: "south", web: "south" }}
+      title={t("lastDay.timelineCardTitle")}
+      subtitle={tTv(t, "lastDay.timelineCardHint", "lastDay.timelineCardHintTv")}
+      tint={colors.accent}
+      onPress={() => router.push("/last-day/timeline" as Href)}
+    />
+  );
+
+  const progressRow = (
+    <JannahNavRow
+      icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+      title={t("lastDay.progressCardTitle")}
+      subtitle={t("lastDay.progressCardHint", {
+        completed: completedCount,
+        total: lessonTotal,
+      })}
+      badge={`${completedCount}/${lessonTotal}`}
+      tint={colors.accent}
+      onPress={() => router.push("/last-day/progress" as Href)}
+    />
+  );
+
+  const sectionCards = SECTION_ORDER.map((section) => {
+    const topics = TOPICS_BY_SECTION[section];
+    if (!topics?.length) return null;
+    return (
+      <Card key={section} padding="three">
+        <SectionHeader
+          title={t(`lastDay.section.${section}`)}
+          icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+          {t(`lastDay.section.${section}Hint`)}
+        </ThemedText>
+        <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
+          {topics.map((topic) => (
+            <JannahNavRow
+              key={topic.id}
+              icon={
+                TOPIC_ICONS[topic.id] ?? {
+                  ios: "text.book.closed",
+                  android: "article",
+                  web: "article",
+                }
+              }
+              title={topic.title}
+              subtitle={topic.summary}
+              badge={topic.importance ? t(`lastDay.importance.${topic.importance}`) : undefined}
+              onPress={() =>
+                router.push({
+                  pathname: "/last-day/[topic]",
+                  params: { topic: topic.id },
+                })
+              }
+            />
+          ))}
+        </LearnColumnsGrid>
+      </Card>
+    );
+  });
+
+  const exploreCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("lastDay.exploreTitle")}
+        icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+      />
+      <LearnColumnsGrid columns={asideCols} style={styles.gridTop}>
+        <JannahNavRow
+          icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+          title={t("lastDay.versesTitle")}
+          subtitle={t("lastDay.versesHint")}
+          onPress={() => router.push("/last-day/verses" as Href)}
+        />
+        <JannahNavRow
+          icon={{
+            ios: "text.book.closed.fill",
+            android: "auto_stories",
+            web: "auto_stories",
+          }}
+          title={t("lastDay.hadithTitle")}
+          subtitle={t("lastDay.hadithHint")}
+          onPress={() => router.push("/last-day/hadith" as Href)}
+        />
+        <JannahNavRow
+          icon={{ ios: "questionmark.circle.fill", android: "quiz", web: "quiz" }}
+          title={t("lastDay.quizTitle")}
+          subtitle={t("lastDay.quizHint")}
+          onPress={() => router.push("/last-day/quiz" as Href)}
+        />
+        <JannahNavRow
+          icon={{
+            ios: "books.vertical.fill",
+            android: "library_books",
+            web: "library_books",
+          }}
+          title={t("lastDay.referencesTitle")}
+          subtitle={t("lastDay.referencesHint")}
+          onPress={() => router.push("/last-day/references" as Href)}
+        />
+      </LearnColumnsGrid>
+    </Card>
+  );
+
+  const relatedCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("lastDay.relatedTitle")}
+        icon={{ ios: "link", android: "link", web: "link" }}
+      />
+      <LearnColumnsGrid columns={asideCols} style={styles.gridTop}>
+        <JannahNavRow
+          icon={{ ios: "leaf.fill", android: "park", web: "park" }}
+          title={t("actions.jannah")}
+          subtitle={t("lastDay.jannahPointer")}
+          onPress={() => router.push("/jannah")}
+        />
+        <JannahNavRow
+          icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+          title={t("actions.aqeedah")}
+          subtitle={t("lastDay.aqeedahPointer")}
+          onPress={() => router.push("/aqeedah" as Href)}
+        />
+        <JannahNavRow
+          icon={{ ios: "figure.stand", android: "self_improvement", web: "self_improvement" }}
+          title={t("actions.salahGuide")}
+          subtitle={t("lastDay.salahPointer")}
+          onPress={() => router.push("/salah-guide")}
+        />
+      </LearnColumnsGrid>
+    </Card>
+  );
+
+  const phasePill = (
+    <View style={styles.pillRow}>
+      <Pill
+        label={t("lastDay.phaseV1")}
+        compact
+        color={colors.mutedForeground}
+        background={colors.muted}
+      />
+    </View>
+  );
+
+  const disclaimer = <JannahDisclaimer textKey="lastDay.disclaimer" />;
+
   return (
     <ScreenLayout
       eyebrow={t("lastDay.eyebrow")}
       title={t("lastDay.title")}
       subtitle={t("lastDay.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="info">{t("lastDay.intro")}</JannahCallout>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("lastDay.quickLinksTitle")}
-              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+        {wide.twoPane ? (
+          <Stagger>
+            {intro}
+            <LearnTwoPane
+              main={sectionCards}
+              aside={
+                <>
+                  {quickLinksCard}
+                  {timelineRow}
+                  {progressRow}
+                  {exploreCard}
+                  {relatedCard}
+                </>
+              }
             />
-            <JannahQuickLinkGrid items={quickLinks} />
-          </Card>
-
-          <JannahNavRow
-            icon={{ ios: "arrow.down.circle.fill", android: "south", web: "south" }}
-            title={t("lastDay.timelineCardTitle")}
-            subtitle={t("lastDay.timelineCardHint")}
-            tint={colors.accent}
-            onPress={() => router.push("/last-day/timeline" as Href)}
-          />
-
-          <JannahNavRow
-            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-            title={t("lastDay.progressCardTitle")}
-            subtitle={t("lastDay.progressCardHint", {
-              completed: completedCount,
-              total: lessonTotal,
-            })}
-            badge={`${completedCount}/${lessonTotal}`}
-            tint={colors.accent}
-            onPress={() => router.push("/last-day/progress" as Href)}
-          />
-
-          {SECTION_ORDER.map((section) => {
-            const topics = TOPICS_BY_SECTION[section];
-            if (!topics?.length) return null;
-            return (
-              <Card key={section} padding="three">
-                <SectionHeader
-                  title={t(`lastDay.section.${section}`)}
-                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                />
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-                  {t(`lastDay.section.${section}Hint`)}
-                </ThemedText>
-                <View style={styles.rows}>
-                  {topics.map((topic) => (
-                    <JannahNavRow
-                      key={topic.id}
-                      icon={
-                        TOPIC_ICONS[topic.id] ?? {
-                          ios: "text.book.closed",
-                          android: "article",
-                          web: "article",
-                        }
-                      }
-                      title={topic.title}
-                      subtitle={topic.summary}
-                      badge={
-                        topic.importance ? t(`lastDay.importance.${topic.importance}`) : undefined
-                      }
-                      onPress={() =>
-                        router.push({
-                          pathname: "/last-day/[topic]",
-                          params: { topic: topic.id },
-                        })
-                      }
-                    />
-                  ))}
-                </View>
-              </Card>
-            );
-          })}
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("lastDay.exploreTitle")}
-              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-            />
-            <View style={styles.rows}>
-              <JannahNavRow
-                icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-                title={t("lastDay.versesTitle")}
-                subtitle={t("lastDay.versesHint")}
-                onPress={() => router.push("/last-day/verses" as Href)}
-              />
-              <JannahNavRow
-                icon={{
-                  ios: "text.book.closed.fill",
-                  android: "auto_stories",
-                  web: "auto_stories",
-                }}
-                title={t("lastDay.hadithTitle")}
-                subtitle={t("lastDay.hadithHint")}
-                onPress={() => router.push("/last-day/hadith" as Href)}
-              />
-              <JannahNavRow
-                icon={{ ios: "questionmark.circle.fill", android: "quiz", web: "quiz" }}
-                title={t("lastDay.quizTitle")}
-                subtitle={t("lastDay.quizHint")}
-                onPress={() => router.push("/last-day/quiz" as Href)}
-              />
-              <JannahNavRow
-                icon={{
-                  ios: "books.vertical.fill",
-                  android: "library_books",
-                  web: "library_books",
-                }}
-                title={t("lastDay.referencesTitle")}
-                subtitle={t("lastDay.referencesHint")}
-                onPress={() => router.push("/last-day/references" as Href)}
-              />
-            </View>
-          </Card>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("lastDay.relatedTitle")}
-              icon={{ ios: "link", android: "link", web: "link" }}
-            />
-            <View style={styles.rows}>
-              <JannahNavRow
-                icon={{ ios: "leaf.fill", android: "park", web: "park" }}
-                title={t("actions.jannah")}
-                subtitle={t("lastDay.jannahPointer")}
-                onPress={() => router.push("/jannah")}
-              />
-              <JannahNavRow
-                icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-                title={t("actions.aqeedah")}
-                subtitle={t("lastDay.aqeedahPointer")}
-                onPress={() => router.push("/aqeedah" as Href)}
-              />
-              <JannahNavRow
-                icon={{ ios: "figure.stand", android: "self_improvement", web: "self_improvement" }}
-                title={t("actions.salahGuide")}
-                subtitle={t("lastDay.salahPointer")}
-                onPress={() => router.push("/salah-guide")}
-              />
-            </View>
-          </Card>
-
-          <View style={styles.pillRow}>
-            <Pill
-              label={t("lastDay.phaseV1")}
-              compact
-              color={colors.mutedForeground}
-              background={colors.muted}
-            />
-          </View>
-
-          <JannahDisclaimer textKey="lastDay.disclaimer" />
-        </Stagger>
+            {phasePill}
+            {disclaimer}
+          </Stagger>
+        ) : (
+          <Stagger>
+            {intro}
+            {quickLinksCard}
+            {timelineRow}
+            {progressRow}
+            {sectionCards}
+            {exploreCard}
+            {relatedCard}
+            {phasePill}
+            {disclaimer}
+          </Stagger>
+        )}
       </LearnContentGate>
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  gridTop: { marginTop: Spacing.three },
   sectionHint: { marginTop: Spacing.one, lineHeight: 20 },
   pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/last-day");

@@ -14,20 +14,27 @@ import {
   type TabTriggerSlotProps,
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type Ref, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Pressable, StyleSheet, View, type ViewStyle } from "react-native";
+import {
+  findNodeHandle,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View,
+  type ViewInstance,
+  type ViewStyle,
+} from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { SIDE_RAIL_WIDTH } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { isTV } from "@/lib/platform/is-tv";
-import { registerTvRailBackHandler } from "@/lib/tv/tv-rail-back";
+import { registerTvRailBackHandler, setTvRailExpanded } from "@/lib/tv/tv-rail-back";
 import { ThemedText } from "./themed-text";
 
 type TabConfig = {
@@ -67,7 +74,13 @@ const tabs: TabConfig[] = [
 const RAIL_COLLAPSE_MS = 160;
 const RAIL_BLUR_COLLAPSE_MS = 180;
 
-type WideTabButtonProps = TabTriggerSlotProps & {
+/**
+ * expo-router types the slot ref as `RefAttributes<View>` (a component, not an
+ * instance), which React Native 0.88's strict API rejects. The trigger passes a
+ * host-view ref at runtime, so it is typed as the instance here.
+ */
+type WideTabButtonProps = Omit<TabTriggerSlotProps, "ref"> & {
+  ref?: Ref<ViewInstance>;
   label: string;
   icon: TabConfig["icon"];
   expanded: boolean;
@@ -75,7 +88,7 @@ type WideTabButtonProps = TabTriggerSlotProps & {
   /** When true and this tab is selected, request TV focus after Back-to-rail. */
   preferRailFocus?: boolean;
   /** TV: D-pad right leaves the rail into the main content guide. */
-  nextFocusRightTarget?: View | null;
+  nextFocusRightTarget?: ViewInstance | null;
 };
 
 function WideTabButton({
@@ -87,6 +100,7 @@ function WideTabButton({
   onRailFocusChange,
   preferRailFocus,
   nextFocusRightTarget,
+  ref,
   ...props
 }: WideTabButtonProps) {
   const { colors, tokens } = useThemeTokens();
@@ -101,12 +115,16 @@ function WideTabButton({
   return (
     <Pressable
       {...props}
+      ref={ref}
       accessibilityRole="tab"
       accessibilityState={{ selected: isFocused }}
       accessibilityLabel={label}
       onPress={handlePress}
       {...(tv && preferRailFocus && isFocused ? { hasTVPreferredFocus: true } : {})}
-      {...(tv && nextFocusRightTarget != null ? { nextFocusRight: nextFocusRightTarget } : {})}
+      {...(tv && nextFocusRightTarget != null
+        ? // Typed as a node tag; react-native-tvos resolves instances the same way.
+          { nextFocusRight: findNodeHandle(nextFocusRightTarget) ?? undefined }
+        : {})}
       onFocus={(event) => {
         onRailFocusChange(true);
         props.onFocus?.(event);
@@ -176,7 +194,7 @@ type SideRailProps = TabListProps & {
 };
 
 function SideRail({ expanded, style, children, ...props }: SideRailProps) {
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const tv = isTV();
@@ -242,27 +260,33 @@ function SideRail({ expanded, style, children, ...props }: SideRailProps) {
   const list = <View style={[styles.railList, tv && styles.railListTv]}>{children}</View>;
 
   if (tv) {
+    // Compose-for-TV "modal navigation drawer": the rail always reserves only its
+    // collapsed width in layout; the expanded drawer overlays content. Animating
+    // the layout width instead reflowed the whole tab pane every frame — visible
+    // jank on Fire TV sticks / low-end Android TV.
     return (
-      <Animated.View
-        {...props}
-        style={[
-          styles.railContainer,
-          animatedWidth,
-          {
-            paddingTop: Math.max(insets.top, Spacing.five),
-            paddingBottom: Math.max(insets.bottom, Spacing.five),
-            borderEndColor: tokens.hairline,
-            paddingHorizontal: expanded ? Spacing.three : Spacing.two,
-          },
-          style,
-        ]}
-      >
-        {wash}
-        <TvFocusGuide style={styles.railFocusGuide} autoFocus>
-          {brand}
-          {list}
-        </TvFocusGuide>
-      </Animated.View>
+      <View {...props} style={[styles.railFootprint, style]}>
+        <Animated.View
+          style={[
+            styles.railContainer,
+            styles.railOverlay,
+            animatedWidth,
+            {
+              paddingTop: Math.max(insets.top, TvLayout.overscanY),
+              paddingBottom: Math.max(insets.bottom, TvLayout.overscanY),
+              borderEndColor: tokens.hairline,
+              paddingHorizontal: expanded ? Spacing.three : Spacing.two,
+              backgroundColor: colors.background,
+            },
+          ]}
+        >
+          {wash}
+          <TvFocusGuide style={styles.railFocusGuide} autoFocus>
+            {brand}
+            {list}
+          </TvFocusGuide>
+        </Animated.View>
+      </View>
     );
   }
 
@@ -288,14 +312,16 @@ function SideRail({ expanded, style, children, ...props }: SideRailProps) {
 
 /** Side-rail tab shell for wide windows (tablet / desktop / TV). */
 export function WideAppTabs() {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const tv = isTV();
-  const [railExpanded, setRailExpanded] = useState(true);
+  // TV starts collapsed: initial focus lands in content (Continue card / hero),
+  // and the first Back press reveals the rail (Leanback pattern).
+  const [railExpanded, setRailExpanded] = useState(!tv);
   const [preferRailFocus, setPreferRailFocus] = useState(false);
   const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const contentGuideRef = useRef<View>(null);
-  const [contentFocusTarget, setContentFocusTarget] = useState<View | null>(null);
+  const contentGuideRef = useRef<ViewInstance>(null);
+  const [contentFocusTarget, setContentFocusTarget] = useState<ViewInstance | null>(null);
 
   const onRailFocusChange = useCallback(
     (focused: boolean) => {
@@ -324,7 +350,19 @@ export function WideAppTabs() {
     };
   }, []);
 
-  // Expose rail expand to the root TV back ladder (stack → rail → exit).
+  // Publish rail state so the TV back ladder knows when Back should reach the system.
+  useEffect(() => {
+    if (tv) setTvRailExpanded(railExpanded);
+  }, [tv, railExpanded]);
+
+  // Scrim over content while the drawer is open (opacity only — no layout work).
+  const scrim = useSharedValue(0);
+  useEffect(() => {
+    scrim.value = withTiming(tv && railExpanded ? 1 : 0, { duration: RAIL_COLLAPSE_MS });
+  }, [tv, railExpanded, scrim]);
+  const scrimStyle = useAnimatedStyle(() => ({ opacity: scrim.value }));
+
+  // Expose rail expand to the root TV back ladder (stack → rail → system Home).
   useEffect(() => {
     if (!tv) {
       registerTvRailBackHandler(null);
@@ -363,12 +401,26 @@ export function WideAppTabs() {
         ref={contentGuideRef}
         style={styles.wideSlot}
         autoFocus
-        trapFocusLeft
+        // No trapFocusLeft: D-pad toward the rail from the leading content edge
+        // opens the nav drawer (Android TV / Fire TV navigation guidance) instead
+        // of being a dead end.
         onLayout={() => {
           if (tv) setContentFocusTarget(contentGuideRef.current);
         }}
       >
         <TabSlot style={styles.wideSlotFill} />
+        {tv ? (
+          <Animated.View
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                pointerEvents: "none",
+                backgroundColor: withAlpha(colors.background, tokens.isDark ? 0.6 : 0.5),
+              },
+              scrimStyle,
+            ]}
+          />
+        ) : null}
       </TvFocusGuide>
     </Tabs>
   );
@@ -396,6 +448,21 @@ const styles = StyleSheet.create({
   },
   railFocusGuide: {
     flex: 1,
+  },
+  /** Layout footprint of the TV rail — always the collapsed width. */
+  railFootprint: {
+    width: TvLayout.sideRailWidthCollapsed,
+    height: "100%",
+    zIndex: 20,
+    overflow: "visible",
+  },
+  /** Expanded TV drawer floats over the content pane. */
+  railOverlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    start: 0,
+    zIndex: 20,
   },
   brandRow: {
     flexDirection: "row",

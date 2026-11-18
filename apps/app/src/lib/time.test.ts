@@ -2,15 +2,20 @@ import { describe, expect, it } from "@jest/globals";
 
 import {
   dayKeyInTimeZone,
+  formatDisplayDate,
   formatDisplayDateTime,
   formatDisplayHhMm,
   formatDisplayTime,
   formatHhMm,
   formatStoredTime,
   from12HourParts,
+  getZonedParts,
+  nextWallClockInTimeZone,
   parseHhMm,
   prayerDayAnchor,
   to12HourParts,
+  usesHour12,
+  wallClockInTimeZoneToDate,
 } from "./time";
 
 describe("formatHhMm", () => {
@@ -93,5 +98,95 @@ describe("12-hour conversions", () => {
 describe("parseHhMm", () => {
   it("falls back when value is missing", () => {
     expect(parseHhMm(undefined, { hour: 8, minute: 15 })).toEqual({ hour: 8, minute: 15 });
+  });
+});
+
+describe("parseHhMm inputs", () => {
+  it.each([
+    ["06:45", undefined, { hour: 6, minute: 45 }],
+    [undefined, undefined, { hour: 8, minute: 0 }],
+    ["xx:yy", { hour: 5, minute: 30 }, { hour: 5, minute: 30 }],
+    ["07", undefined, { hour: 7, minute: 0 }],
+  ])("%p (fallback %p) → %p", (value, fallback, expected) => {
+    expect(parseHhMm(value, fallback)).toEqual(expected);
+  });
+});
+
+describe("usesHour12", () => {
+  it.each([
+    ["12", true],
+    ["24", false],
+  ] as const)("%s-hour → %p", (format, expected) => {
+    expect(usesHour12(format)).toBe(expected);
+  });
+});
+
+describe("getZonedParts", () => {
+  const instant = new Date("2026-07-04T19:57:00.000Z");
+
+  it("reads wall-clock parts in an IANA timezone", () => {
+    expect(getZonedParts(instant, "Asia/Karachi")).toEqual({
+      year: 2026,
+      month: 7,
+      day: 5,
+      hour: 0,
+      minute: 57,
+    });
+  });
+
+  it("uses the device clock without a timezone", () => {
+    const local = new Date(2026, 0, 2, 3, 4);
+    expect(getZonedParts(local)).toEqual({ year: 2026, month: 1, day: 2, hour: 3, minute: 4 });
+  });
+});
+
+describe("wallClockInTimeZoneToDate", () => {
+  it("resolves a wall-clock time in a timezone to the absolute instant", () => {
+    expect(wallClockInTimeZoneToDate(2026, 7, 4, 15, 30, "America/New_York").toISOString()).toBe(
+      "2026-07-04T19:30:00.000Z",
+    );
+  });
+
+  it("uses the device timezone when none is given", () => {
+    expect(wallClockInTimeZoneToDate(2026, 7, 4, 15, 30)).toEqual(new Date(2026, 6, 4, 15, 30));
+  });
+});
+
+describe("nextWallClockInTimeZone", () => {
+  const now = new Date("2026-07-04T12:00:00.000Z"); // 08:00 in New York
+
+  it("returns today's time when it is still ahead", () => {
+    expect(nextWallClockInTimeZone(9, 0, "America/New_York", now).toISOString()).toBe(
+      "2026-07-04T13:00:00.000Z",
+    );
+  });
+
+  it("rolls over to tomorrow once the time has passed", () => {
+    expect(nextWallClockInTimeZone(7, 0, "America/New_York", now).toISOString()).toBe(
+      "2026-07-05T11:00:00.000Z",
+    );
+  });
+
+  it("defaults to the current time", () => {
+    expect(nextWallClockInTimeZone(0, 0).getTime()).toBeGreaterThan(Date.now());
+  });
+});
+
+describe("formatter defaults", () => {
+  const date = new Date(2026, 6, 4, 15, 5);
+
+  it("formats a display date in English by default", () => {
+    expect(formatDisplayDate(date)).toBe("Jul 4, 2026");
+  });
+
+  it("uses a 24-hour clock by default", () => {
+    expect(formatDisplayTime(date)).toBe("15:05");
+    expect(formatDisplayHhMm(15, 5)).toBe("15:05");
+    expect(formatStoredTime("15:05")).toBe("15:05");
+    expect(formatStoredTime(undefined)).toBe("08:00");
+  });
+
+  it("combines an English Gregorian date with a 24-hour time by default", () => {
+    expect(formatDisplayDateTime(date)).toBe("Jul 4, 2026, 15:05");
   });
 });

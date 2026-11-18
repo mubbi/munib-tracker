@@ -4,11 +4,14 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { getTtsVoices, type TtsVoice } from "@/lib/tts";
 
 export type PlaybackSettingsSheetProps = {
@@ -46,9 +49,12 @@ export function PlaybackSettingsSheet({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [voices, setVoices] = useState<TtsVoice[]>([]);
+  // TV builds have no speech synthesis (expo-speech is stubbed) — hide the
+  // translation-audio + voice sections instead of offering a dead option.
+  const ttsSupported = !isTV();
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || !ttsSupported) return;
     let cancelled = false;
     void getTtsVoices(ttsLang).then((list) => {
       if (!cancelled) setVoices(list);
@@ -56,7 +62,7 @@ export function PlaybackSettingsSheet({
     return () => {
       cancelled = true;
     };
-  }, [visible, ttsLang]);
+  }, [visible, ttsLang, ttsSupported]);
 
   const repeatOptions = useMemo(
     () =>
@@ -119,21 +125,26 @@ export function PlaybackSettingsSheet({
         ) : null}
       </View>
 
-      <View style={styles.section}>
-        <ThemedText type="caption" style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-          {t("quran.playback.translationAudio")}
-        </ThemedText>
-        <SegmentedControl
-          options={translationOptions}
-          value={translationAudio}
-          onChange={onTranslationAudioChange}
-        />
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("quran.playback.translationAudioHint")}
-        </ThemedText>
-      </View>
+      {ttsSupported ? (
+        <View style={styles.section}>
+          <ThemedText
+            type="caption"
+            style={[styles.sectionLabel, { color: colors.mutedForeground }]}
+          >
+            {t("quran.playback.translationAudio")}
+          </ThemedText>
+          <SegmentedControl
+            options={translationOptions}
+            value={translationAudio}
+            onChange={onTranslationAudioChange}
+          />
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("quran.playback.translationAudioHint")}
+          </ThemedText>
+        </View>
+      ) : null}
 
-      {translationAudio === "after" ? (
+      {ttsSupported && translationAudio === "after" ? (
         <View style={styles.section}>
           <ThemedText
             type="caption"
@@ -207,7 +218,43 @@ function RangeField({
   max: number;
   onChange: (value: number) => void;
 }) {
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  // TV: -/+ stepper instead of a number-pad field (no typing on the remote).
+  if (isTV()) {
+    return (
+      <View style={styles.rangeField}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {label}
+        </ThemedText>
+        <View style={styles.rangeStepperTv}>
+          <IconButton
+            name={{ ios: "minus", android: "remove", web: "remove" }}
+            size={18}
+            tintColor={colors.foreground}
+            background={colors.muted}
+            accessibilityLabel={t("common.decrease", { label })}
+            disabled={value <= 1}
+            onPress={() => onChange(Math.max(1, value - 1))}
+            hitTarget={TvLayout.minFocusTargetDp}
+          />
+          <ThemedText type="smallBold" style={styles.rangeValueTv}>
+            {value}
+          </ThemedText>
+          <IconButton
+            name={{ ios: "plus", android: "add", web: "add" }}
+            size={18}
+            tintColor={colors.foreground}
+            background={colors.muted}
+            accessibilityLabel={t("common.increase", { label })}
+            disabled={value >= max}
+            onPress={() => onChange(Math.min(max, value + 1))}
+            hitTarget={TvLayout.minFocusTargetDp}
+          />
+        </View>
+      </View>
+    );
+  }
   return (
     <View style={styles.rangeField}>
       <ThemedText type="caption" themeColor="mutedForeground">
@@ -222,14 +269,7 @@ function RangeField({
           if (!Number.isFinite(parsed)) return;
           onChange(Math.max(1, Math.min(max, parsed)));
         }}
-        style={[
-          styles.rangeInput,
-          {
-            color: colors.foreground,
-            backgroundColor: colors.muted,
-            borderColor: tokens.hairline,
-          },
-        ]}
+        style={[styles.rangeInput, tokens.inputSurface, { color: colors.foreground }]}
       />
     </View>
   );
@@ -259,6 +299,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     fontSize: 16,
+  },
+  rangeStepperTv: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  rangeValueTv: {
+    minWidth: 48,
+    textAlign: "center",
+    fontSize: TvLayout.bodyFontSize,
+    fontVariant: ["tabular-nums"],
   },
   voiceList: {
     gap: Spacing.two,

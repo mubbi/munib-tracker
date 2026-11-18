@@ -2,8 +2,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
+import { DEFAULT_LOCATION } from "@/lib/location";
+import { DEFAULT_COMPANION_PREFS } from "@/lib/quran-companion/prefs";
+import { fastingStore } from "@/stores/fasting-store";
+import { khatmStore } from "@/stores/khatm-store";
+import { locationStore } from "@/stores/location-store";
+import { trackerStore } from "@/stores/tracker-store";
+import { buildStoredLocation } from "@/test-support/fixtures/location";
 
-import { applyRemoteBlob, buildBlobRecords, isBlobEntity } from "./blob-sync";
+import { applyRemoteBlob, buildBlobRecords, isBlobEntity, reloadBlobStores } from "./blob-sync";
 
 const FASTING = "fasting";
 /** Pure last-write-wins blob (not in the union-merge set). */
@@ -116,7 +123,9 @@ describe("buildBlobRecords", () => {
     });
     const record = (await buildBlobRecords(T1)).find((r) => r.entity === "location");
     expect(record).toBeDefined();
-    expect((record?.data as { value: { method: string } }).value.method).toBe("Egyptian");
+    expect((record?.data as { value: { method: string } } | undefined)?.value.method).toBe(
+      "Egyptian",
+    );
   });
 });
 
@@ -181,5 +190,225 @@ describe("applyRemoteBlob (union-merge)", () => {
       remote: "missed",
       local: "fasted",
     });
+  });
+});
+
+describe("Qur'an practice blobs (§10, D7)", () => {
+  const sessionsKey = DB_KEYS.quranPracticeSessions;
+  const memoKey = DB_KEYS.quranMemorization;
+
+  it("registers the three practice entities", () => {
+    expect(isBlobEntity("quran_companion_prefs")).toBe(true);
+    expect(isBlobEntity("quran_practice_sessions")).toBe(true);
+    expect(isBlobEntity("quran_memorization")).toBe(true);
+  });
+
+  it("never pushes pristine default practice prefs from a fresh device", async () => {
+    await writeJSON(DB_KEYS.quranCompanionPrefs, {
+      ...DEFAULT_COMPANION_PREFS,
+      showTranslation: false,
+      readingTogglesSeeded: true,
+    });
+    const records = await buildBlobRecords(T1);
+    expect(records.find((r) => r.entity === "quran_companion_prefs")).toBeUndefined();
+  });
+
+  it("pushes prefs once the person changes a practice setting", async () => {
+    await writeJSON(DB_KEYS.quranCompanionPrefs, {
+      ...DEFAULT_COMPANION_PREFS,
+      dailyRevisionLimit: 20,
+    });
+    const records = await buildBlobRecords(T1);
+    expect(records.find((r) => r.entity === "quran_companion_prefs")).toBeDefined();
+  });
+
+  it("converges memorization on the later record, even when local is newer by watermark", async () => {
+    await writeJSON(memoKey, {
+      schemaVersion: 1,
+      records: { "1:1": { s: "p", k: 1, i: 1, n: "2026-07-02", a: 100, l: 0, u: 100 } },
+    });
+    await buildBlobRecords(T3);
+    const applied = await applyRemoteBlob(
+      "quran_memorization",
+      {
+        value: {
+          schemaVersion: 1,
+          records: {
+            "1:1": { s: "p", k: 2, i: 3, n: "2026-07-05", a: 200, l: 0, u: 200 },
+            "2:255": { s: "l", k: 0, i: 0, n: "2026-07-02", a: 150, l: 0, u: 150 },
+          },
+        },
+      },
+      T1,
+    );
+    expect(applied).toBe(true);
+    const stored = await readJSON<{ records: Record<string, { i: number }> }>(memoKey, {
+      records: {},
+    });
+    expect(stored.records["1:1"].i).toBe(3);
+    expect(Object.keys(stored.records).sort()).toEqual(["1:1", "2:255"]);
+  });
+
+  it("a remote history clear removes local sessions that ended before it", async () => {
+    await writeJSON(sessionsKey, {
+      schemaVersion: 1,
+      items: [{ id: "old", endedAt: "2026-07-01T10:00:00.000Z" }],
+    });
+    await applyRemoteBlob(
+      "quran_practice_sessions",
+      { value: { schemaVersion: 1, clearedAt: "2026-07-01T12:00:00.000Z", items: [] } },
+      T2,
+    );
+    const stored = await readJSON<{ items: unknown[]; clearedAt?: string }>(sessionsKey, {
+      items: [],
+    });
+    expect(stored.items).toEqual([]);
+    expect(stored.clearedAt).toBe("2026-07-01T12:00:00.000Z");
+  });
+
+  it("pushes the merged value back when it differs from the server's", async () => {
+    await writeJSON(sessionsKey, {
+      schemaVersion: 1,
+      items: [{ id: "local", endedAt: "2026-07-02T10:00:00.000Z" }],
+    });
+    await applyRemoteBlob(
+      "quran_practice_sessions",
+      {
+        value: { schemaVersion: 1, items: [{ id: "remote", endedAt: "2026-07-01T10:00:00.000Z" }] },
+      },
+      T2,
+    );
+    const records = await buildBlobRecords(T3);
+    const pushed = records.find((r) => r.entity === "quran_practice_sessions");
+    expect(pushed?.updatedAt).toBe(T3);
+    expect(
+      (pushed?.data as { value: { items: { id: string }[] } } | undefined)?.value.items.map(
+        (i) => i.id,
+      ),
+    ).toEqual(["local", "remote"]);
+  });
+});
+
+describe("applyRemoteBlob edge cases", () => {
+  it("ignores an entity that is not blob-synced", async () => {
+    await expect(applyRemoteBlob("prayer_logs", { value: {} }, T1)).resolves.toBe(false);
+  });
+
+  it("treats a record without a value as an empty blob", async () => {
+    await writeJSON(DB_KEYS.khatm, { plan: null, ayahsRead: 3 });
+    await applyRemoteBlob(KHATM, {}, T1);
+    expect(await readJSON(DB_KEYS.khatm, "missing")).toBeNull();
+  });
+
+  it("union-merges array blobs without duplicates", async () => {
+    await writeJSON(DB_KEYS.toursSeen, ["home", "qibla"]);
+    await applyRemoteBlob("tours_seen", { value: ["qibla", "zikr"] }, T1);
+    expect(await readJSON(DB_KEYS.toursSeen, [])).toEqual(["home", "qibla", "zikr"]);
+  });
+
+  it("de-duplicates object entries in array blobs by content", async () => {
+    await writeJSON(DB_KEYS.toursSeen, [{ id: "a" }]);
+    await applyRemoteBlob("tours_seen", { value: [{ id: "a" }, { id: "b" }] }, T1);
+    expect(await readJSON(DB_KEYS.toursSeen, [])).toEqual([{ id: "a" }, { id: "b" }]);
+  });
+
+  it("keeps local content when the remote union blob is empty", async () => {
+    await writeJSON(DB_KEYS.fasting, { "2026-03-01": "fasted" });
+    await applyRemoteBlob(FASTING, { value: {} }, T1);
+    expect(await readJSON(DB_KEYS.fasting, {})).toEqual({ "2026-03-01": "fasted" });
+  });
+
+  it("takes the remote value when union shapes disagree", async () => {
+    await writeJSON(DB_KEYS.toursSeen, ["home"]);
+    await applyRemoteBlob("tours_seen", { value: { legacy: true } }, T1);
+    expect(await readJSON(DB_KEYS.toursSeen, null)).toEqual({ legacy: true });
+  });
+});
+
+describe("buildBlobRecords pristine guards", () => {
+  const entityRecord = (records: Awaited<ReturnType<typeof buildBlobRecords>>, entity: string) =>
+    records.find((r) => r.entity === entity);
+
+  it("skips default reading-text visibility and emits it once something is hidden", async () => {
+    await writeJSON(DB_KEYS.readingTextVisibility, {
+      showTransliteration: true,
+      showTranslation: true,
+    });
+    expect(entityRecord(await buildBlobRecords(T1), "reading_text_visibility")).toBeUndefined();
+
+    await writeJSON(DB_KEYS.readingTextVisibility, { showTranslation: false });
+    expect(entityRecord(await buildBlobRecords(T2), "reading_text_visibility")).toBeDefined();
+  });
+
+  it("emits a default-sourced location that carries per-salah adjustments", async () => {
+    await writeJSON(DB_KEYS.location, { ...DEFAULT_LOCATION, prayerAdjustments: { fajr: 2 } });
+    expect(entityRecord(await buildBlobRecords(T1), "location")).toBeDefined();
+  });
+
+  it("skips a default location with an empty adjustments map", async () => {
+    await writeJSON(DB_KEYS.location, { ...DEFAULT_LOCATION, prayerAdjustments: {} });
+    expect(entityRecord(await buildBlobRecords(T1), "location")).toBeUndefined();
+  });
+});
+
+describe("reloadBlobStores", () => {
+  const originals = {
+    fasting: fastingStore.getState(),
+    khatm: khatmStore.getState(),
+    tracker: trackerStore.getState(),
+    location: locationStore.getState(),
+  };
+
+  afterEach(() => {
+    fastingStore.setState(originals.fasting);
+    khatmStore.setState(originals.khatm);
+    trackerStore.setState(originals.tracker);
+    locationStore.setState(originals.location);
+  });
+
+  it("reloads each loaded store once and skips stores never loaded", async () => {
+    const fastingLoad = jest.fn(async () => {});
+    const khatmLoad = jest.fn(async () => {});
+    fastingStore.setState({ isReady: true, load: fastingLoad });
+    khatmStore.setState({ isReady: false, load: khatmLoad });
+
+    await reloadBlobStores(["fasting", "fasting", "khatm", "not_a_blob"]);
+
+    expect(fastingLoad).toHaveBeenCalledTimes(1);
+    expect(khatmLoad).not.toHaveBeenCalled();
+  });
+
+  it("refreshes the tracker only when it is loaded", async () => {
+    const refresh = jest.fn(async () => {});
+    trackerStore.setState({ isReady: false, refresh });
+    await reloadBlobStores(["qaza_schedule"]);
+    expect(refresh).not.toHaveBeenCalled();
+
+    trackerStore.setState({ isReady: true });
+    await reloadBlobStores(["qaza_daily_progress"]);
+    expect(refresh).toHaveBeenCalledTimes(1);
+  });
+
+  it("applies a synced location from disk without a GPS refresh", async () => {
+    locationStore.setState({ isReady: true, location: DEFAULT_LOCATION, status: "loading" });
+    await writeJSON(DB_KEYS.location, buildStoredLocation({ city: "Synced" }));
+
+    await reloadBlobStores(["location"]);
+
+    expect(locationStore.getState()).toMatchObject({
+      status: "ready",
+      location: { city: "Synced" },
+    });
+  });
+
+  it("leaves the location alone when nothing is stored or the store is not loaded", async () => {
+    locationStore.setState({ isReady: true, location: DEFAULT_LOCATION, status: "loading" });
+    await reloadBlobStores(["location"]);
+    expect(locationStore.getState().status).toBe("loading");
+
+    locationStore.setState({ isReady: false });
+    await writeJSON(DB_KEYS.location, buildStoredLocation({ city: "Synced" }));
+    await reloadBlobStores(["location"]);
+    expect(locationStore.getState().location).toBe(DEFAULT_LOCATION);
   });
 });

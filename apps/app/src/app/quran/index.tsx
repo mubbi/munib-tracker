@@ -1,9 +1,15 @@
 import type { QuranReaderLayout, Surah } from "@munib-tracker/shared/types";
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
+import {
+  type LayoutChangeEvent,
+  type ListRenderItem,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -22,16 +28,22 @@ import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { getPageForAyah, getSurahByNumber, getSurahMeta } from "@/lib/quran-meta";
 import { useChevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { useEnsureHifzLoaded } from "@/stores/hifz-store";
+import { useEnsureCompanionPrefsLoaded } from "@/stores/quran-companion-prefs-store";
+import { useDueQueue, useEnsureMemorizationLoaded } from "@/stores/quran-memorization-store";
 import {
   useLastRead,
   useQuranActions,
@@ -41,6 +53,11 @@ import {
 
 /** Extra width for list–detail so the surah list and preview pane can sit side by side. */
 const LIST_DETAIL_MAX_WIDTH = 1280;
+/** Desktop (≥1600): match the global wide content column. */
+const LIST_DETAIL_MAX_WIDTH_XL = 1320;
+/** Surah list column width at which rows pair up into a two-column grid (web / tablet). */
+const SURAH_GRID_MIN_WIDTH = 640;
+const SURAH_GRID_GAP = Spacing.two;
 
 const LAYOUT_OPTIONS: Array<{
   id: QuranReaderLayout;
@@ -120,7 +137,7 @@ const SurahRow = memo(function SurahRow({
       onPress={() => onPress(surah.number)}
       style={[
         styles.row,
-        tv && styles.rowTv,
+        tv ? styles.rowTv : styles.rowCompact,
         {
           // Selection uses soft fill + hairline — accent border is reserved for
           // the D-pad focus ring from PressableScale (avoids dual green highlights).
@@ -140,7 +157,9 @@ const SurahRow = memo(function SurahRow({
           {surah.nameTransliteration}
         </ThemedText>
         <ThemedText type={tv ? "small" : "caption"} themeColor="mutedForeground" numberOfLines={1}>
-          {surah.nameEnglish} · {t("quran.ayahCount", { count: surah.ayahCount })}
+          {tv
+            ? `${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`
+            : surah.nameEnglish}
         </ThemedText>
         {showContinuePill && isContinue ? (
           <View style={styles.rowContinue}>
@@ -153,15 +172,27 @@ const SurahRow = memo(function SurahRow({
           </View>
         ) : null}
       </View>
-      <View style={[styles.rowMeta, tv && styles.rowMetaTv]}>
+      <View style={[styles.rowMeta, tv ? styles.rowMetaTv : styles.rowMetaCompact]}>
         <ThemedText type="arabic" style={[styles.rowArabic, tv && styles.rowArabicTv]}>
           {surah.nameArabic}
         </ThemedText>
-        <Pill
-          label={makki ? t("quran.makki") : t("quran.madani")}
-          color={revelation.text}
-          background={revelation.soft}
-        />
+        {tv ? (
+          <Pill
+            label={makki ? t("quran.makki") : t("quran.madani")}
+            color={revelation.text}
+            background={revelation.soft}
+          />
+        ) : (
+          // Phone / web: ayah count + revelation as one quiet caption under the
+          // Arabic name — two balanced columns instead of a pill on every row.
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {t("quran.ayahCount", { count: surah.ayahCount })}
+            {" · "}
+            <ThemedText type="caption" style={{ color: revelation.text }}>
+              {makki ? t("quran.makki") : t("quran.madani")}
+            </ThemedText>
+          </ThemedText>
+        )}
       </View>
       {!tv ? (
         <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
@@ -169,6 +200,21 @@ const SurahRow = memo(function SurahRow({
     </PressableScale>
   );
 });
+
+/**
+ * Search field + filter chips wrapper. TV keeps a card so the pair reads as one
+ * focus group; on touch / pointer the field sits straight on the page — a card
+ * around a single input is chrome that pushes the surah list down.
+ */
+function SearchShell({ children }: { children: ReactNode }) {
+  return isTV() ? (
+    <Card padding="three" style={styles.searchCard}>
+      {children}
+    </Card>
+  ) : (
+    <View style={styles.searchPlain}>{children}</View>
+  );
+}
 
 function RevelationFilterChip({
   label,
@@ -201,7 +247,8 @@ function RevelationFilterChip({
               }
             : { backgroundColor: colors.accent, borderColor: colors.accent }
           : {
-              backgroundColor: colors.background,
+              // TV chips sit inside the search card; elsewhere directly on the page.
+              backgroundColor: tv ? colors.background : colors.card,
               borderColor: withAlpha(colors.border, tokens.isDark ? 0.55 : 0.85),
             },
       ]}
@@ -227,14 +274,12 @@ function ReaderLayoutActions({
   preferredLayout,
   onSelect,
   heading,
-  direction = "row",
   preferredFocus,
   onPreferredFocusConsumed,
 }: {
   preferredLayout: QuranReaderLayout;
   onSelect: (layout: QuranReaderLayout) => void;
   heading?: string;
-  direction?: "row" | "stack";
   /** TV: land D-pad focus on the preferred layout after selecting a surah. */
   preferredFocus?: boolean;
   onPreferredFocusConsumed?: () => void;
@@ -242,12 +287,14 @@ function ReaderLayoutActions({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
-  const stacked = direction === "stack" || tv;
+  // TV stacks full-width rows for D-pad travel; touch / pointer gets a 3-up row.
+  const stacked = tv;
 
   return (
     <TvFocusGuide
+      // Vertical stack on TV: trap Up only — Down must reach bookmarks/shortcuts
+      // below in the detail pane (Left still returns to the surah list).
       trapFocusUp={tv}
-      trapFocusDown={tv}
       style={tv ? styles.layoutActionsTv : undefined}
     >
       <View style={[styles.layoutActions, tv && { gap: Spacing.three }]}>
@@ -306,7 +353,7 @@ function ReaderLayoutActions({
                 <View style={stacked ? styles.layoutChipContentStack : styles.layoutChipContentRow}>
                   <SymbolView
                     name={option.icon}
-                    size={tv ? 22 : stacked ? 16 : 15}
+                    size={tv ? 22 : 18}
                     tintColor={
                       active
                         ? tv
@@ -504,12 +551,16 @@ function SurahDetailPane({
 
   return (
     <Card padding="four" style={[styles.detailCard, tv && styles.detailCardTv]}>
-      <View style={[styles.detailHeader, tv && styles.detailHeaderTv]}>
+      <View style={styles.detailHeader}>
         <View style={styles.detailCopy}>
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("quran.surahNumber", { number: surah.number })}
           </ThemedText>
-          <ThemedText type="title" numberOfLines={2} style={tv ? styles.detailTitleTv : undefined}>
+          <ThemedText
+            type={tv ? "title" : "subtitle"}
+            numberOfLines={2}
+            style={tv ? styles.detailTitleTv : undefined}
+          >
             {surah.nameTransliteration}
           </ThemedText>
           <ThemedText type="small" themeColor="mutedForeground" numberOfLines={1}>
@@ -542,7 +593,6 @@ function SurahDetailPane({
         preferredLayout={preferredLayout}
         onSelect={onSelectLayout}
         heading={isContinue ? t("quran.continueReading") : t("quran.openReader")}
-        direction="stack"
         preferredFocus={preferredFocus}
         onPreferredFocusConsumed={onPreferredFocusConsumed}
       />
@@ -555,9 +605,19 @@ export default function QuranHomeScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
-  const { isListDetail } = useLargeScreenLayout();
+  const { isListDetail, width: windowWidth } = useLargeScreenLayout();
   const tv = isTV();
   const [query, setQuery] = useState("");
+  // Measured width of the surah list column — drives the 1 → 2 column grid on
+  // tablets / desktop web. TV keeps its single focus column.
+  const [listWidth, setListWidth] = useState(0);
+  const surahColumns = !tv && listWidth >= SURAH_GRID_MIN_WIDTH ? 2 : 1;
+  const surahCellWidth =
+    surahColumns > 1 ? (listWidth - SURAH_GRID_GAP * (surahColumns - 1)) / surahColumns : undefined;
+  const onListLayout = useCallback((event: LayoutChangeEvent) => {
+    const next = Math.round(event.nativeEvent.layout.width);
+    setListWidth((prev) => (prev === next ? prev : next));
+  }, []);
   const [revelationFilter, setRevelationFilter] = useState<SurahRevelationFilter>("all");
   const [selectedSurahNumber, setSelectedSurahNumber] = useState<number | null>(null);
   /** TV: after selecting a surah, land focus on the detail layout actions. */
@@ -567,6 +627,12 @@ export default function QuranHomeScreen() {
   const quranBookmarks = useQuranBookmarks();
   const { updatePrefs } = useQuranActions();
   const preferredLayout = quranPrefs.readerLayout ?? "ayah";
+  // Qur'an practice: the due count is always on here (never a setting).
+  const practiceAvailable = isPracticeAvailable();
+  useEnsureHifzLoaded();
+  useEnsureCompanionPrefsLoaded();
+  useEnsureMemorizationLoaded();
+  const dueCount = useDueQueue().length;
 
   const filtered = useMemo(
     () => searchSurahList(query, { revelation: revelationFilter }),
@@ -579,7 +645,9 @@ export default function QuranHomeScreen() {
     () => [
       {
         id: "search",
-        label: t("quran.search"),
+        // Ayah full-text search — named for its scope so it isn't confused with
+        // the surah filter field just below it.
+        label: t("quran.searchAyahs"),
         icon: { ios: "magnifyingglass", android: "search", web: "search" },
         tint: tokens.status.info.color,
         onPress: () => router.push("/quran/search"),
@@ -619,8 +687,39 @@ export default function QuranHomeScreen() {
         tint: tokens.status.danger.color,
         onPress: () => router.push("/quran/hifz"),
       },
+      ...(practiceAvailable
+        ? [
+            {
+              id: "practice",
+              label:
+                dueCount > 0
+                  ? t("quranCompanion.entry.toRevise", { count: dueCount })
+                  : t("quranCompanion.entry.practise"),
+              icon: { ios: "mic.fill", android: "mic", web: "mic" },
+              tint: colors.accent,
+              onPress: () =>
+                router.push((dueCount > 0 ? "/quran/revision" : "/quran/practice") as Href),
+            } satisfies QuickActionItem,
+          ]
+        : []),
     ],
-    [t, router, colors.accent, tokens],
+    [t, router, colors.accent, tokens, practiceAvailable, dueCount],
+  );
+
+  // Phone / web: bookmarks is one more destination, so it joins the shortcut
+  // tiles instead of spending a whole card on a single link. TV keeps the card.
+  const touchShortcuts = useMemo<QuickActionItem[]>(
+    () => [
+      ...shortcuts,
+      {
+        id: "bookmarks",
+        label: t("quran.bookmarks"),
+        icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
+        tint: tokens.status.warning.color,
+        onPress: () => router.push("/quran/bookmarks"),
+      },
+    ],
+    [shortcuts, t, tokens, router],
   );
 
   const revelationFilterLabel = useCallback(
@@ -712,16 +811,20 @@ export default function QuranHomeScreen() {
   const clearMoveFocusToDetail = useCallback(() => setMoveFocusToDetail(false), []);
 
   const renderItem = useCallback<ListRenderItem<Surah>>(
-    ({ item }) => (
-      <SurahRow
-        surah={item}
-        isContinue={item.number === continueSurah}
-        isSelected={isListDetail && item.number === selectedSurahNumber}
-        showContinuePill={!tv || !isListDetail}
-        onPress={openSurah}
-      />
-    ),
-    [continueSurah, isListDetail, openSurah, selectedSurahNumber, tv],
+    ({ item }) => {
+      const row = (
+        <SurahRow
+          surah={item}
+          isContinue={item.number === continueSurah}
+          isSelected={isListDetail && item.number === selectedSurahNumber}
+          showContinuePill={!tv || !isListDetail}
+          onPress={openSurah}
+        />
+      );
+      // Grid cells get an exact width so a lone last cell keeps the column size.
+      return surahCellWidth != null ? <View style={{ width: surahCellWidth }}>{row}</View> : row;
+    },
+    [continueSurah, isListDetail, openSurah, selectedSurahNumber, surahCellWidth, tv],
   );
 
   const bookmarksCard = (
@@ -735,20 +838,28 @@ export default function QuranHomeScreen() {
     />
   );
 
-  const bookmarksAndShortcuts = (
+  const bookmarksAndShortcuts = !tv ? (
+    isListDetail ? (
+      <Card padding="three">
+        <QuickActionGrid items={touchShortcuts} columns={4} />
+      </Card>
+    ) : (
+      // Phone: one swipeable row, no card — keeps the surah list above the fold.
+      <QuickActionGrid items={touchShortcuts} singleRow overflow="scroll" />
+    )
+  ) : (
     <View style={styles.chromeStack}>
       {bookmarksCard}
-      {/* TV list–detail: skip the dense shortcut grid — Juz/Pages live on Library;
-          remote users open readers from the detail pane instead. */}
-      {!tv || !isListDetail ? (
-        <Card padding="three">
-          <QuickActionGrid
-            items={shortcuts}
-            singleRow={!isListDetail}
-            columns={isListDetail ? 3 : undefined}
-          />
-        </Card>
-      ) : null}
+      {/* Search / Pages / Juz / Khatm / Hifz have no other TV entry point — keep
+          the grid in the detail pane (below the layout actions) so they stay
+          reachable by D-pad. */}
+      <Card padding="three">
+        <QuickActionGrid
+          items={shortcuts}
+          singleRow={!isListDetail}
+          columns={isListDetail ? 3 : undefined}
+        />
+      </Card>
     </View>
   );
 
@@ -761,9 +872,10 @@ export default function QuranHomeScreen() {
   // On list–detail, bookmarks + shortcuts move to the secondary pane so the
   // primary column can show continue + search + surahs without burying the list.
   const listHeader = (
-    <View style={[styles.header, tv && styles.headerTv]}>
+    <View style={[styles.header, tv ? styles.headerTv : styles.headerTouch]}>
       <Stagger>
-        {!isListDetail ? bookmarksAndShortcuts : null}
+        {/* TV keeps shortcuts first (its focus order); touch leads with resume. */}
+        {!isListDetail && tv ? bookmarksAndShortcuts : null}
 
         {lastRead ? (
           <ContinueReadingCard
@@ -780,14 +892,10 @@ export default function QuranHomeScreen() {
           />
         ) : null}
 
-        <Card padding="three" style={styles.searchCard}>
-          <View
-            style={[
-              styles.searchField,
-              tv && styles.searchFieldTv,
-              { backgroundColor: colors.muted, borderColor: colors.border },
-            ]}
-          >
+        {!isListDetail && !tv ? bookmarksAndShortcuts : null}
+
+        <SearchShell>
+          <View style={[styles.searchField, tv && styles.searchFieldTv, tokens.inputSurface]}>
             <SymbolView
               name={{ ios: "magnifyingglass", android: "search", web: "search" }}
               size={tv ? 20 : 18}
@@ -796,7 +904,7 @@ export default function QuranHomeScreen() {
             <TextInput
               value={query}
               onChangeText={setQuery}
-              placeholder={tv ? t("quran.search") : t("quran.searchSurah")}
+              placeholder={tv ? t("quran.findSurah") : t("quran.searchSurah")}
               placeholderTextColor={colors.mutedForeground}
               accessibilityLabel={t("quran.searchSurah")}
               style={[styles.searchInput, tv && styles.searchInputTv, { color: colors.foreground }]}
@@ -808,13 +916,15 @@ export default function QuranHomeScreen() {
                 onPress={() => setQuery("")}
                 size={18}
                 tintColor={colors.mutedForeground}
-                hitTarget={tv ? TvLayout.minFocusTarget : 36}
+                hitTarget={tv ? TvLayout.minFocusTargetDp : 36}
                 haptic="light"
               />
             ) : null}
           </View>
 
-          <TvFocusGuide trapFocusUp trapFocusDown>
+          {/* Horizontal chips: trap sideways only — an Up/Down trap left the
+              surah list unreachable from the filters on TV. */}
+          <TvFocusGuide trapFocusLeft trapFocusRight>
             <TvScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -831,7 +941,7 @@ export default function QuranHomeScreen() {
               ))}
             </TvScrollView>
           </TvFocusGuide>
-        </Card>
+        </SearchShell>
 
         <SectionHeader
           title={t("quran.surahList")}
@@ -874,7 +984,15 @@ export default function QuranHomeScreen() {
         title={t("quran.title")}
         subtitle={t("quran.subtitle")}
         onBack={() => goBackOrReplace(router, "/")}
-        maxContentWidth={tv ? undefined : isListDetail ? LIST_DETAIL_MAX_WIDTH : undefined}
+        maxContentWidth={
+          tv
+            ? undefined
+            : isListDetail
+              ? windowWidth >= 1600
+                ? LIST_DETAIL_MAX_WIDTH_XL
+                : LIST_DETAIL_MAX_WIDTH
+              : undefined
+        }
         contentStyle={tv ? styles.tvScreenContent : undefined}
       >
         <View
@@ -888,6 +1006,11 @@ export default function QuranHomeScreen() {
             Focus handoff uses hasTVPreferredFocus on layout actions.
           */}
           <TvFlatList
+            // numColumns can't change on the fly — remount when the grid reflows.
+            key={`surah-cols-${surahColumns}`}
+            numColumns={surahColumns}
+            columnWrapperStyle={surahColumns > 1 ? styles.surahGridRow : undefined}
+            onLayout={onListLayout}
             data={filtered}
             keyExtractor={keyExtractor}
             renderItem={renderItem}
@@ -896,7 +1019,7 @@ export default function QuranHomeScreen() {
             ListEmptyComponent={
               <EmptyState
                 icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-                title={t("quran.noResults")}
+                title={t("quran.noSurahResults")}
               />
             }
             style={
@@ -963,8 +1086,11 @@ const styles = StyleSheet.create({
   /** ScreenLayout centers children by default — stretch so list–detail can fill TV. */
   tvScreenContent: { alignItems: "stretch" },
   listContent: { gap: Spacing.two },
+  surahGridRow: { gap: SURAH_GRID_GAP },
   header: { gap: Spacing.four },
   headerTv: { gap: Spacing.five },
+  headerTouch: { gap: Spacing.three, paddingBottom: Spacing.one },
+  searchPlain: { width: "100%" },
   chromeStack: { gap: Spacing.four, width: "100%" },
   searchCard: { gap: 0 },
   continueCard: { gap: 0, overflow: "hidden" },
@@ -1035,7 +1161,7 @@ const styles = StyleSheet.create({
   },
   layoutRow: {
     flexDirection: "row",
-    gap: Spacing.one + 2,
+    gap: Spacing.two,
   },
   layoutStack: {
     gap: Spacing.one + 2,
@@ -1043,7 +1169,8 @@ const styles = StyleSheet.create({
   layoutChipRow: {
     flex: 1,
     minWidth: 0,
-    minHeight: 36,
+    // Icon-over-label tile: comfortably above the 44pt touch minimum.
+    minHeight: 52,
     paddingVertical: Spacing.one + 2,
     paddingHorizontal: Spacing.one + 2,
     borderRadius: Radius.sm,
@@ -1105,7 +1232,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   searchInputTv: {
-    fontSize: TvLayout.bodyFontSize,
+    // TextInput bypasses ThemedText's tvOS density scaling — apply it here.
+    fontSize: tvDp(TvLayout.bodyFontSize),
     paddingVertical: Spacing.three,
     minWidth: 0,
     flexGrow: 1,
@@ -1117,6 +1245,8 @@ const styles = StyleSheet.create({
   filterRowTv: {
     gap: Spacing.three,
     paddingVertical: Spacing.one,
+    // Don't stretch chips to the scroller's height (rendered as tall ovals on tvOS).
+    alignItems: "center",
   },
   filterChip: {
     paddingHorizontal: Spacing.three,
@@ -1128,7 +1258,9 @@ const styles = StyleSheet.create({
   filterChipTv: {
     minHeight: TvLayout.chipMinHeight,
     paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
+    // minHeight already gives the focus target; extra padding made chips taller
+    // than wide, so the pill radius turned short labels ("All") into ovals.
+    paddingVertical: Spacing.one,
     justifyContent: "center",
   },
   row: {
@@ -1145,11 +1277,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     gap: Spacing.four,
   },
+  rowCompact: {
+    minHeight: 60,
+    paddingVertical: Spacing.two + 2,
+  },
   rowBody: { flex: 1, gap: 2, minWidth: 0 },
   rowName: { flexShrink: 1, minWidth: 0 },
   rowNameTv: { fontSize: TvLayout.bodyFontSize + 2 },
   rowContinue: { flexDirection: "row", marginTop: 2 },
   rowMeta: { alignItems: "flex-end", gap: Spacing.one, maxWidth: "34%" },
+  rowMetaCompact: { maxWidth: "55%", gap: 0 },
   rowMetaTv: { maxWidth: "38%", gap: Spacing.two },
   rowArabic: { fontSize: 20, writingDirection: "rtl" },
   rowArabicTv: { fontSize: 26 },
@@ -1210,9 +1347,6 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   detailHeader: {
-    gap: Spacing.two,
-  },
-  detailHeaderTv: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
@@ -1227,15 +1361,13 @@ const styles = StyleSheet.create({
     fontSize: TvLayout.titleFontSize,
   },
   detailArabic: {
-    fontSize: 28,
+    fontSize: 30,
     writingDirection: "rtl",
-    marginTop: Spacing.one,
+    flexShrink: 0,
+    textAlign: "right",
   },
   detailArabicTv: {
     fontSize: 40,
-    marginTop: 0,
-    flexShrink: 0,
-    textAlign: "right",
   },
   detailMeta: {
     flexDirection: "row",
@@ -1244,3 +1376,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran");

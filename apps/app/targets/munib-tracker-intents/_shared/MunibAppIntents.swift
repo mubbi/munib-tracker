@@ -49,9 +49,9 @@ enum SalahOption: String, AppEnum {
   case maghrib
   case isha
 
-  static var typeDisplayRepresentation: TypeDisplayRepresentation = "Salah"
+  static let typeDisplayRepresentation: TypeDisplayRepresentation = "Salah"
 
-  static var caseDisplayRepresentations: [SalahOption: DisplayRepresentation] = [
+  static let caseDisplayRepresentations: [SalahOption: DisplayRepresentation] = [
     .fajr: "Fajr",
     .dhuhr: "Dhuhr",
     .asr: "Asr",
@@ -73,12 +73,12 @@ enum SalahOption: String, AppEnum {
 // MARK: - Background mark intents (app + extension)
 
 struct MarkCurrentSalahIntent: AppIntent {
-  static var title: LocalizedStringResource = "Mark my Salah"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Mark my Salah"
+  static let description = IntentDescription(
     "Mark the current obligatory Salah as completed.",
     categoryName: "Tracking"
   )
-  static var openAppWhenRun: Bool = false
+  static let openAppWhenRun: Bool = false
 
   func perform() async throws -> some IntentResult & ProvidesDialog {
     enqueue([
@@ -94,12 +94,12 @@ struct MarkCurrentSalahIntent: AppIntent {
 /// App Intents guidance ("use parameters to configure a single intent for
 /// different data" instead of near-identical intents).
 struct MarkSalahIntent: AppIntent {
-  static var title: LocalizedStringResource = "Mark a Salah"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Mark a Salah"
+  static let description = IntentDescription(
     "Mark a specific obligatory Salah as completed for today.",
     categoryName: "Tracking"
   )
-  static var openAppWhenRun: Bool = false
+  static let openAppWhenRun: Bool = false
 
   @Parameter(title: "Salah")
   var prayer: SalahOption
@@ -134,12 +134,12 @@ private func enqueueOpenRoute(_ href: String) {
 }
 
 struct OpenChecklistIntent: AppIntent {
-  static var title: LocalizedStringResource = "Open checklist"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Open checklist"
+  static let description = IntentDescription(
     "Open today's Salah checklist.",
     categoryName: "Navigation"
   )
-  static var openAppWhenRun: Bool = true
+  static let openAppWhenRun: Bool = true
 
   func perform() async throws -> some IntentResult {
     enqueueOpenRoute("/tracker")
@@ -148,12 +148,12 @@ struct OpenChecklistIntent: AppIntent {
 }
 
 struct OpenQiblaIntent: AppIntent {
-  static var title: LocalizedStringResource = "Open Qibla"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Open Qibla"
+  static let description = IntentDescription(
     "Open the Qibla compass.",
     categoryName: "Navigation"
   )
-  static var openAppWhenRun: Bool = true
+  static let openAppWhenRun: Bool = true
 
   func perform() async throws -> some IntentResult {
     enqueueOpenRoute("/qibla")
@@ -162,12 +162,12 @@ struct OpenQiblaIntent: AppIntent {
 }
 
 struct OpenTasbeehIntent: AppIntent {
-  static var title: LocalizedStringResource = "Open Tasbeeh"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Open Tasbeeh"
+  static let description = IntentDescription(
     "Open the Tasbeeh counter.",
     categoryName: "Navigation"
   )
-  static var openAppWhenRun: Bool = true
+  static let openAppWhenRun: Bool = true
 
   func perform() async throws -> some IntentResult {
     enqueueOpenRoute("/tasbeeh/free")
@@ -176,12 +176,12 @@ struct OpenTasbeehIntent: AppIntent {
 }
 
 struct OpenRamadanIntent: AppIntent {
-  static var title: LocalizedStringResource = "Open Ramadan"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Open Ramadan"
+  static let description = IntentDescription(
     "Open Ramadan suhoor and iftar times.",
     categoryName: "Navigation"
   )
-  static var openAppWhenRun: Bool = true
+  static let openAppWhenRun: Bool = true
 
   func perform() async throws -> some IntentResult {
     enqueueOpenRoute("/ramadan")
@@ -190,12 +190,12 @@ struct OpenRamadanIntent: AppIntent {
 }
 
 struct OpenKhatmIntent: AppIntent {
-  static var title: LocalizedStringResource = "Open Khatm plan"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Open Khatm plan"
+  static let description = IntentDescription(
     "Open the Qur'an Khatm reading plan.",
     categoryName: "Navigation"
   )
-  static var openAppWhenRun: Bool = true
+  static let openAppWhenRun: Bool = true
 
   func perform() async throws -> some IntentResult {
     enqueueOpenRoute("/quran/khatm")
@@ -204,12 +204,12 @@ struct OpenKhatmIntent: AppIntent {
 }
 
 struct OpenQazaIntent: AppIntent {
-  static var title: LocalizedStringResource = "Open Qaza"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Open Qaza"
+  static let description = IntentDescription(
     "Open the Qaza make-up tracker.",
     categoryName: "Navigation"
   )
-  static var openAppWhenRun: Bool = true
+  static let openAppWhenRun: Bool = true
 
   func perform() async throws -> some IntentResult {
     enqueueOpenRoute("/qaza")
@@ -218,12 +218,12 @@ struct OpenQazaIntent: AppIntent {
 }
 
 struct OpenQuranIntent: AppIntent {
-  static var title: LocalizedStringResource = "Open Qur'an"
-  static var description = IntentDescription(
+  static let title: LocalizedStringResource = "Open Qur'an"
+  static let description = IntentDescription(
     "Open the Qur'an reader.",
     categoryName: "Navigation"
   )
-  static var openAppWhenRun: Bool = true
+  static let openAppWhenRun: Bool = true
 
   func perform() async throws -> some IntentResult {
     enqueueOpenRoute("/quran")
@@ -234,7 +234,7 @@ struct OpenQuranIntent: AppIntent {
 // MARK: - App Shortcuts (app only — Apple limit: 10 per app)
 
 struct MunibShortcuts: AppShortcutsProvider {
-  static var shortcutTileColor: ShortcutTileColor = .teal
+  static let shortcutTileColor: ShortcutTileColor = .teal
 
   @AppShortcutsBuilder
   static var appShortcuts: [AppShortcut] {

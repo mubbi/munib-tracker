@@ -74,8 +74,21 @@ export async function syncAppQuickActions(t: TFunction): Promise<void> {
 
     await QuickActions.setItems(items);
   } catch (error) {
-    // Native `setItems` can reject on Android (Record conversion / no Activity).
+    // Native `setItems` can still reject (no Activity, OEM ShortcutManager).
     // Swallow so Sentry's GlobalErrorBoundary does not replace the whole app.
-    captureAppException(error, { tags: { area: "quick-actions", phase: "setItems" } });
+    // Skip the known Android Record-cast NPE from store binaries that predate
+    // the expo-quick-actions patch (setItems now takes List<ReadableMap>).
+    if (!isLegacyAndroidQuickActionCastError(error)) {
+      captureAppException(error, { tags: { area: "quick-actions", phase: "setItems" } });
+    }
   }
+}
+
+/** Production 1.3.0 / unpatched expo-quick-actions Record conversion failure. */
+export function isLegacyAndroidQuickActionCastError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return (
+    message.includes("ExpoQuickActions.setItems") &&
+    (message.includes("ActionObject") || message.includes("ReadableNativeMap"))
+  );
 }

@@ -6,15 +6,15 @@ Reference for **24 app locales** (`en` + 23 translations): architecture, workflo
 
 ## Status summary
 
-| Phase | Locales | UI catalog | Learn overlays | Scripture | Status |
-|-------|---------|------------|----------------|-----------|--------|
-| 1 | `en`, `ar`, `ur` | Human-reviewed | Complete (24 modules) | Full | **Shipped** |
-| 2 | `id`, `tr`, `bn`, `ms`, `fa` | Key parity + polish | 24 modules each | `bn`/`id`/`ms` partial+ | **Shipped** |
-| 3 | `fr`, `ha`, `sw`, `ru`, `az`, `ps` | Key parity + polish | Native overlays | `fr`/`ru` hadith remote | **Shipped** |
-| 4 | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Key parity + polish | Native overlays | English fallback | **Shipped** |
-| 5 | `hi` | Key parity + polish | Native overlays | Qur'an OSS; dua/hadith EN fallback | **Shipped** |
+| Phase | Locales                                              | UI catalog          | Learn overlays        | Scripture                          | Status      |
+| ----- | ---------------------------------------------------- | ------------------- | --------------------- | ---------------------------------- | ----------- |
+| 1     | `en`, `ar`, `ur`                                     | Human-reviewed      | Complete (24 modules) | Full                               | **Shipped** |
+| 2     | `id`, `tr`, `bn`, `ms`, `fa`                         | Key parity + polish | 24 modules each       | `bn`/`id`/`ms` partial+            | **Shipped** |
+| 3     | `fr`, `ha`, `sw`, `ru`, `az`, `ps`                   | Key parity + polish | Native overlays       | `fr`/`ru` hadith remote            | **Shipped** |
+| 4     | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Key parity + polish | Native overlays       | English fallback                   | **Shipped** |
+| 5     | `hi`                                                 | Key parity + polish | Native overlays       | Qur'an OSS; dua/hadith EN fallback | **Shipped** |
 
-**CI:** App i18n Jest suite (`pnpm --filter app test -- i18n`) · Shared overlay coverage ≥90% · SEO **22×132** routes (non-`en` locale packs × `seo-routes.data.json`) · ICU plural audit for `ar`/`ru`/`bn` · curated UI polish in `ui-polish-patches.json` (**23** locales, ~2,170 unique keys / ~20k locale→string patches).
+**CI:** App i18n Jest suite (`pnpm --filter app test -- i18n`) · Shared overlay coverage ≥90% · SEO **23×133** routes (non-`en` locale packs × `seo-routes.data.json`) · ICU plural audit for `ar`/`ru`/`bn` · curated UI polish in `ui-polish-patches.json` (**23** locales, ~2,220 unique keys / ~21k locale→string patches).
 
 **RTL:** `ar`, `ur`, `fa`, `ps`, `ku` — `apps/app/src/lib/i18n/rtl-locale.ts`.
 
@@ -24,15 +24,15 @@ Reference for **24 app locales** (`en` + 23 translations): architecture, workflo
 
 ## Architecture
 
-| Layer | Location | Runtime API |
-|-------|----------|-------------|
-| **Locale registry** | `packages/shared/src/i18n/locale-registry.ts` | `LOCALE_REGISTRY`, `getLocaleDefinition()` |
-| **UI catalogs** | `apps/app/src/i18n/{locale}.json` | `t("namespace.key")` via `react-i18next` |
-| **Learn overlays** | `packages/shared/src/content/i18n/*.{locale}.ts` | `localizeLearnContent()` in `packages/shared/src/content/i18n/localize.ts` |
-| **Scripture resolver** | `apps/app/src/lib/translation-locale.ts` | `resolveTranslationField()`, `resolveHadithTranslation()`, `resolveQuranEditionId()` |
-| **Hadith edition map** | `packages/shared/src/i18n/hadith-editions.ts` | fawazahmed0 prefixes per locale |
-| **Web SEO / hreflang** | `apps/app/src/lib/locale-path.ts`, `src/config/seo.ts`, `scripts/inject-seo-head.mjs` | Locale-prefixed URLs (`/ar/…`, `/ur/…`; `en` unprefixed) |
-| **Build pipeline** | `apps/app/scripts/build-data/` | `pnpm --filter app build:data` |
+| Layer                  | Location                                                                              | Runtime API                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Locale registry**    | `packages/shared/src/i18n/locale-registry.ts`                                         | `LOCALE_REGISTRY`, `getLocaleDefinition()`                                           |
+| **UI catalogs**        | `apps/app/src/i18n/{locale}.json`                                                     | `t("namespace.key")` via `react-i18next`                                             |
+| **Learn overlays**     | `packages/shared/src/content/i18n/*.{locale}.ts`                                      | `localizeLearnContent()` in `packages/shared/src/content/i18n/localize.ts`           |
+| **Scripture resolver** | `apps/app/src/lib/translation-locale.ts`                                              | `resolveTranslationField()`, `resolveHadithTranslation()`, `resolveQuranEditionId()` |
+| **Hadith edition map** | `packages/shared/src/i18n/hadith-editions.ts`                                         | fawazahmed0 prefixes per locale                                                      |
+| **Web SEO / hreflang** | `apps/app/src/lib/locale-path.ts`, `src/config/seo.ts`, `scripts/inject-seo-head.mjs` | Locale-prefixed URLs (`/ar/…`, `/ur/…`; `en` unprefixed)                             |
+| **Build pipeline**     | `apps/app/scripts/build-data/`                                                        | `pnpm --filter app build:data`                                                       |
 
 **Learn overlay modules (24):** `aqeedah`, `battles`, `eid-guide`, `fidyah-guide`, `friday-guide`, `hajj`, `islamic-finance`, `islamic-history`, `jahannam`, `janazah-guide`, `jannah`, `last-day`, `laylat-al-qadr`, `learn-dua`, `new-muslim`, `prophets`, `prophets-genealogy`, `quran-guide`, `ruqyah`, `sahaba`, `salah-guide`, `seerah`, `taharah`, `white-days-guide`.
 
@@ -65,6 +65,8 @@ node apps/app/scripts/i18n/merge-missing-keys.mjs
 node apps/app/scripts/i18n/apply-ui-polish.mjs [locale...]
 ```
 
+**Per-feature patch files:** new features usually ship a `apps/app/scripts/i18n/<feature>-i18n.json` (`{ locale: { "dot.path.key": "value" } }`, e.g. `quran-practice-summary-i18n.json`). `apply-patch-i18n.mjs [locale...]` merges every `*-i18n.json` into the catalogs.
+
 ### 4. Verify
 
 ```bash
@@ -85,11 +87,11 @@ Intentional English-identical values: brands, store names, Arabic brand dua, Isl
 
 English uses `_one` / `_other`. Locales with richer CLDR categories need extra suffixes:
 
-| Locale | Extra suffixes (when probed) |
-|--------|----------------------------|
-| `ar` | `_zero`, `_two`, `_few`, `_many` |
-| `ru` | `_few`, `_many` |
-| `bn` | `_one`, `_other` (audit ensures coverage) |
+| Locale | Extra suffixes (when probed)              |
+| ------ | ----------------------------------------- |
+| `ar`   | `_zero`, `_two`, `_few`, `_many`          |
+| `ru`   | `_few`, `_many`                           |
+| `bn`   | `_one`, `_other` (audit ensures coverage) |
 
 Enforced by `apps/app/src/i18n/plural-audit.test.ts`.
 
@@ -97,13 +99,13 @@ Enforced by `apps/app/src/i18n/plural-audit.test.ts`.
 
 ## Fixing bad auto-translations
 
-| Script | When to use |
-|--------|-------------|
-| `sanitize-corrupted-catalog.mjs <loc>` | Values contain `MYMEMORY WARNING` |
-| `fix-runglish-catalog.mjs <loc>` | Mixed-script / Runglish — uses `catalog-overrides/{loc}.json` |
-| `fix-placeholders.mjs` | Broken `{{interpolation}}` |
+| Script                                 | When to use                                                   |
+| -------------------------------------- | ------------------------------------------------------------- |
+| `sanitize-corrupted-catalog.mjs <loc>` | Values contain `MYMEMORY WARNING`                             |
+| `fix-runglish-catalog.mjs <loc>`       | Mixed-script / Runglish — uses `catalog-overrides/{loc}.json` |
+| `fix-placeholders.mjs`                 | Broken `{{interpolation}}`                                    |
 
-**Do not** hand-translate Qur'an, hadith, or dua *body text* in JSON catalogs — only UI chrome.
+**Do not** hand-translate Qur'an, hadith, or dua _body text_ in JSON catalogs — only UI chrome.
 
 ---
 
@@ -113,12 +115,12 @@ Enforced by `apps/app/src/i18n/plural-audit.test.ts`.
 pnpm --filter app build:data
 ```
 
-| Content | Bundled / remote | Source |
-|---------|------------------|--------|
-| **Qur'an** | All 24 locales | `quran-edition-defs.json` → fawazahmed0 |
-| **Dua/zikr** | `bn`, `id`, Qur'anic backfill for 20 locales | `build-adhkar.mjs` |
-| **Hadith (remote)** | `ur`, `id`, `tr`, `bn`, `fr`, `ru` | `hadith-remote.ts` |
-| **99 Names** | `id`, `ms`, `fr`, `ur`, `bn` | Multiple OSS APIs — see [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |
+| Content             | Bundled / remote                             | Source                                                                           |
+| ------------------- | -------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Qur'an**          | All 24 locales                               | `quran-edition-defs.json` → fawazahmed0                                          |
+| **Dua/zikr**        | `bn`, `id`, Qur'anic backfill for 20 locales | `build-adhkar.mjs`                                                               |
+| **Hadith (remote)** | `ur`, `id`, `tr`, `bn`, `fr`, `ru`           | `hadith-remote.ts`                                                               |
+| **99 Names**        | `id`, `ms`, `fr`, `ur`, `bn`                 | Multiple OSS APIs — see [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |
 
 Hisnul meanings for `ur`, `tr`, `fr`, and similar locales fall back to English when no OSS translation is wired.
 
@@ -139,12 +141,13 @@ Literary QA is manual; coverage test only checks string presence vs English.
 
 ## Web SEO & hreflang
 
-| Piece | Path |
-|-------|------|
-| Route metadata (English) | `apps/app/src/config/seo-routes.data.json` |
-| Per-locale SEO copy | `apps/app/scripts/i18n/seo-translations/{locale}.mjs` |
-| Generated locale JSON | `apps/app/src/config/seo-routes-locale/*.json` |
-| hreflang + canonical | `apps/app/src/components/seo/seo.tsx` |
+| Piece                                                 | Path                                                                                                              |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Route metadata (English)                              | `apps/app/src/config/seo-routes.data.json`                                                                        |
+| Static `<head>` per route (SDK 58 `generateMetadata`) | `apps/app/src/lib/seo/route-metadata.ts` — every route file exports `generateMetadata = routeMetadata("<route>")` |
+| Per-locale SEO copy                                   | `apps/app/scripts/i18n/seo-translations/{locale}.mjs`                                                             |
+| Generated locale JSON                                 | `apps/app/src/config/seo-routes-locale/*.json`                                                                    |
+| hreflang + canonical                                  | `apps/app/src/components/seo/seo.tsx`                                                                             |
 
 ```bash
 node apps/app/scripts/i18n/generate-seo-locale-files.mjs
@@ -168,17 +171,19 @@ node apps/app/scripts/i18n/apply-seo-translations.mjs all
 
 ## Maintenance scripts (`apps/app/scripts/i18n/`)
 
-| Script | Purpose |
-|--------|---------|
-| `merge-missing-keys.mjs` | Sync new `en.json` keys → all locales |
-| `fix-placeholders.mjs` | Repair corrupted `{{…}}` tokens |
-| `sanitize-corrupted-catalog.mjs` | Strip MyMemory rate-limit strings |
-| `fix-runglish-catalog.mjs` | Repair garbled auto-translate |
-| `apply-ui-polish.mjs` | Apply `ui-polish-patches.json` |
-| `audit-en-identical.mjs` | Count English-identical values per locale |
-| `generate-flags.mjs` | Scaffold missing flag assets |
-| `generate-seo-locale-files.mjs` | Scaffold SEO locale JSON |
-| `apply-seo-translations.mjs` | Merge SEO marketing copy |
+| Script                                  | Purpose                                          |
+| --------------------------------------- | ------------------------------------------------ |
+| `merge-missing-keys.mjs`                | Sync new `en.json` keys → all locales            |
+| `fix-placeholders.mjs`                  | Repair corrupted `{{…}}` tokens                  |
+| `sanitize-corrupted-catalog.mjs`        | Strip MyMemory rate-limit strings                |
+| `fix-runglish-catalog.mjs`              | Repair garbled auto-translate                    |
+| `apply-ui-polish.mjs`                   | Apply `ui-polish-patches.json`                   |
+| `apply-patch-i18n.mjs`                  | Apply every per-feature `*-i18n.json` patch file |
+| `apply-delete-account-translations.mjs` | Apply `delete-account-profile-translations.json` |
+| `audit-en-identical.mjs`                | Count English-identical values per locale        |
+| `generate-flags.mjs`                    | Scaffold missing flag assets                     |
+| `generate-seo-locale-files.mjs`         | Scaffold SEO locale JSON                         |
+| `apply-seo-translations.mjs`            | Merge SEO marketing copy                         |
 
 ---
 

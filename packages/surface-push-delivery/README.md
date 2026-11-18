@@ -4,6 +4,12 @@ Framework-agnostic Expo Push + Web Push (VAPID) senders and atomic job
 claim/deliver for Android Live Update corrections and PWA Salah phase
 notifications.
 
+Exports `createExpoPushSender`, `createWebPushSender` (high urgency, TTL capped
+at the phase `staleAt`), `deliverSurfaceJob` / `dispatchDueSurfaceJobs`, and
+shared constants (`RETENTION_MS`, `MIN_PUSH_TTL_SECONDS`, …). Dead targets
+(Expo `DeviceNotRegistered`, Web Push 404/410) invalidate the registration;
+stale web jobs are cancelled rather than shown late.
+
 Used by Nest (`apps/api/src/surface-push`). ActivityKit APNs stays in
 `@munib-tracker/live-activity-delivery`.
 

@@ -86,6 +86,9 @@ function findFileAsyncStorageDir(containerPath, bundleId) {
     path.join(containerPath, "Library", "Application Support", bundleId, "RNCAsyncLocalStorage_V1"),
     path.join(containerPath, "Documents", "RCTAsyncLocalStorage_V1"),
     path.join(containerPath, "Documents", "RNCAsyncLocalStorage_V1"),
+    // tvOS: legacy AsyncStorage uses NSCachesDirectory (no Application Support).
+    path.join(containerPath, "Library", "Caches", "RCTAsyncLocalStorage_V1"),
+    path.join(containerPath, "Library", "Caches", "RNCAsyncLocalStorage_V1"),
   ];
   for (const candidate of candidates) {
     if (fs.existsSync(candidate) && fs.statSync(candidate).isDirectory()) return candidate;

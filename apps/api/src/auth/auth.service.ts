@@ -335,11 +335,8 @@ export class AuthService {
       throw new HttpException("Too many delete account requests", HttpStatus.TOO_MANY_REQUESTS);
     }
 
+    // getSessionByAccessToken already rejects closed (tombstoned) accounts.
     const { user } = await this.getSessionByAccessToken(accessToken);
-    if (isTombstoneValue(user.email)) {
-      throw new BadRequestException("Account already closed");
-    }
-
     const userId = user.id;
 
     const reportIds = (

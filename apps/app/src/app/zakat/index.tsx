@@ -4,6 +4,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type NativeScrollEvent, type NativeSyntheticEvent, StyleSheet, View } from "react-native";
 import {
+  LearnColumnsGrid,
+  LearnTwoPane,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
+import {
   JannahCallout,
   JannahDisclaimer,
   JannahNavRow,
@@ -27,6 +33,8 @@ import { useZakatCalculator } from "@/hooks/use-zakat-calculator";
 import { tTv } from "@/lib/i18n/t-tv";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 /** Fallback bar chrome height before onLayout (excludes safe-area already in ScreenLayout). */
 const SUMMARY_BAR_FALLBACK = 72;
@@ -39,6 +47,15 @@ export default function ZakatScreen() {
   const { colors, tokens } = useThemeTokens();
   const calculator = useZakatCalculator();
   const contentBottomInset = useContentBottomInset();
+  const wide = useLearnHubLayout();
+  // Desktop: the live result + reset move into a sticky aside (no docked bar),
+  // and simple field groups lay out in two columns.
+  const docked = !wide.twoPane;
+  const formColumns = learnColumnsFor(wide.mainWidth - Spacing.three * 2, {
+    minCell: 260,
+    max: 2,
+  });
+  const navCols = learnColumnsFor(wide.mainWidth - Spacing.three * 2, { minCell: 280, max: 2 });
   const [guideSections, setGuideSections] = useState<ZakatGuideSectionKey[]>([]);
   const [summaryBarHeight, setSummaryBarHeight] = useState(SUMMARY_BAR_FALLBACK);
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -99,6 +116,95 @@ export default function ZakatScreen() {
     [router, t, colors.accent, tokens],
   );
 
+  const resultHero = (
+    <ZakatResultHero
+      result={calculator.result}
+      money={calculator.money}
+      hasInput={calculator.hasInput}
+      effectiveNisab={calculator.effectiveNisab}
+      goldNisab={calculator.goldNisab}
+      silverNisab={calculator.silverNisab}
+      suggestedNisab={calculator.suggestedNisab}
+      currencyCode={calculator.currencyCode}
+      onReset={docked ? undefined : calculator.resetForm}
+    />
+  );
+
+  const calculatorForm = (
+    <ZakatCalculator
+      {...calculator}
+      currencyPickerOpen={currencyPickerOpen}
+      onCurrencyPickerOpenChange={setCurrencyPickerOpen}
+      numberFormatPickerOpen={numberFormatPickerOpen}
+      onNumberFormatPickerOpenChange={setNumberFormatPickerOpen}
+      formColumns={formColumns}
+    />
+  );
+
+  const quickLinksCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("zakat.quickLinksTitle")}
+        icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+      />
+      <JannahQuickLinkGrid items={quickLinks} columns={wide.mainWidth >= 720 ? 4 : 2} />
+    </Card>
+  );
+
+  const relatedCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("zakat.relatedTitle")}
+        icon={{
+          ios: "hands.and.sparkles.fill",
+          android: "volunteer_activism",
+          web: "volunteer_activism",
+        }}
+      />
+      <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
+        <JannahNavRow
+          icon={{
+            ios: "hands.and.sparkles.fill",
+            android: "volunteer_activism",
+            web: "volunteer_activism",
+          }}
+          title={t("zakat.linkSadaqah")}
+          subtitle={t("zakat.linkSadaqahHint")}
+          onPress={() => router.push("/sadaqah")}
+        />
+        <JannahNavRow
+          icon={{ ios: "fork.knife", android: "restaurant", web: "restaurant" }}
+          title={t("zakat.linkFidyah")}
+          subtitle={t("zakat.linkFidyahHint")}
+          onPress={() => router.push("/fidyah")}
+        />
+      </LearnColumnsGrid>
+    </Card>
+  );
+
+  const learnCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("zakat.learnTitle")}
+        icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.learnHint}>
+        {tTv(t, "zakat.learnHint", "zakat.learnHintTv")}
+      </ThemedText>
+      <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
+        {guideSections.map((topicId) => (
+          <JannahNavRow
+            key={topicId}
+            icon={ZAKAT_TOPIC_ICONS[topicId]}
+            title={t(`zakat.guide.${topicId}.title`)}
+            subtitle={t(`zakat.guide.${topicId}.summary`)}
+            onPress={() => router.push({ pathname: "/zakat/[topic]", params: { topic: topicId } })}
+          />
+        ))}
+      </LearnColumnsGrid>
+    </Card>
+  );
+
   return (
     <View style={styles.root}>
       <ScreenLayout
@@ -106,122 +212,75 @@ export default function ZakatScreen() {
         title={t("zakat.title")}
         subtitle={t("zakat.subtitle")}
         onBack={() => goBackOrReplace(router, "/")}
-        contentStyle={{ paddingBottom: summaryClearance }}
+        contentStyle={docked ? { paddingBottom: summaryClearance } : undefined}
+        maxContentWidth={wide.maxContentWidth}
         onScroll={onScroll}
+        // TV: skip the scroll-revealed glass toolbar — it duplicates the
+        // calculator's currency / format / live-price controls and its focus
+        // guide would trap the D-pad once entered.
         headerAccessory={
-          <ZakatFiltersToolbar
-            visible={filtersVisible}
-            currencyCode={calculator.currencyCode}
-            currency={calculator.currency}
-            numberFormat={calculator.numberFormat}
-            money={calculator.money}
-            market={calculator.market}
-            pricesManual={calculator.pricesManual}
-            applyLivePrices={calculator.applyLivePrices}
-            effectiveNisab={calculator.effectiveNisab}
-            result={calculator.result}
-            hasInput={calculator.hasInput}
-            onOpenCurrency={() => setCurrencyPickerOpen(true)}
-            onOpenNumberFormat={() => setNumberFormatPickerOpen(true)}
-          />
+          isTV() ? undefined : (
+            <ZakatFiltersToolbar
+              visible={filtersVisible}
+              currencyCode={calculator.currencyCode}
+              currency={calculator.currency}
+              numberFormat={calculator.numberFormat}
+              money={calculator.money}
+              market={calculator.market}
+              pricesManual={calculator.pricesManual}
+              applyLivePrices={calculator.applyLivePrices}
+              effectiveNisab={calculator.effectiveNisab}
+              result={calculator.result}
+              hasInput={calculator.hasInput}
+              onOpenCurrency={() => setCurrencyPickerOpen(true)}
+              onOpenNumberFormat={() => setNumberFormatPickerOpen(true)}
+            />
+          )
         }
       >
         <Seo path="/zakat" />
-        <Stagger>
-          <JannahCallout tone="info">{t("zakat.intro")}</JannahCallout>
-
-          <ZakatResultHero
-            result={calculator.result}
-            money={calculator.money}
-            hasInput={calculator.hasInput}
-            effectiveNisab={calculator.effectiveNisab}
-            goldNisab={calculator.goldNisab}
-            silverNisab={calculator.silverNisab}
-            suggestedNisab={calculator.suggestedNisab}
-            currencyCode={calculator.currencyCode}
-          />
-
-          <ZakatCalculator
-            {...calculator}
-            currencyPickerOpen={currencyPickerOpen}
-            onCurrencyPickerOpenChange={setCurrencyPickerOpen}
-            numberFormatPickerOpen={numberFormatPickerOpen}
-            onNumberFormatPickerOpenChange={setNumberFormatPickerOpen}
-          />
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("zakat.quickLinksTitle")}
-              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+        {wide.twoPane ? (
+          <Stagger>
+            <JannahCallout tone="info">{t("zakat.intro")}</JannahCallout>
+            <LearnTwoPane
+              main={
+                <>
+                  {calculatorForm}
+                  {learnCard}
+                  {quickLinksCard}
+                  {relatedCard}
+                </>
+              }
+              // Only the live result lives in the aside so it stays short
+              // enough to remain pinned while the long form scrolls.
+              aside={resultHero}
             />
-            <JannahQuickLinkGrid items={quickLinks} />
-          </Card>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("zakat.relatedTitle")}
-              icon={{
-                ios: "hands.and.sparkles.fill",
-                android: "volunteer_activism",
-                web: "volunteer_activism",
-              }}
-            />
-            <View style={styles.rows}>
-              <JannahNavRow
-                icon={{
-                  ios: "hands.and.sparkles.fill",
-                  android: "volunteer_activism",
-                  web: "volunteer_activism",
-                }}
-                title={t("zakat.linkSadaqah")}
-                subtitle={t("zakat.linkSadaqahHint")}
-                onPress={() => router.push("/sadaqah")}
-              />
-              <JannahNavRow
-                icon={{ ios: "fork.knife", android: "restaurant", web: "restaurant" }}
-                title={t("zakat.linkFidyah")}
-                subtitle={t("zakat.linkFidyahHint")}
-                onPress={() => router.push("/fidyah")}
-              />
-            </View>
-          </Card>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("zakat.learnTitle")}
-              icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.learnHint}>
-              {tTv(t, "zakat.learnHint", "zakat.learnHintTv")}
-            </ThemedText>
-            <View style={styles.rows}>
-              {guideSections.map((topicId) => (
-                <JannahNavRow
-                  key={topicId}
-                  icon={ZAKAT_TOPIC_ICONS[topicId]}
-                  title={t(`zakat.guide.${topicId}.title`)}
-                  subtitle={t(`zakat.guide.${topicId}.summary`)}
-                  onPress={() =>
-                    router.push({ pathname: "/zakat/[topic]", params: { topic: topicId } })
-                  }
-                />
-              ))}
-            </View>
-          </Card>
-
-          <JannahDisclaimer textKey="zakat.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="zakat.disclaimer" />
+          </Stagger>
+        ) : (
+          <Stagger>
+            <JannahCallout tone="info">{t("zakat.intro")}</JannahCallout>
+            {resultHero}
+            {calculatorForm}
+            {quickLinksCard}
+            {relatedCard}
+            {learnCard}
+            <JannahDisclaimer textKey="zakat.disclaimer" />
+          </Stagger>
+        )}
       </ScreenLayout>
 
-      <ZakatSummaryBar
-        result={calculator.result}
-        money={calculator.money}
-        hasInput={calculator.hasInput}
-        effectiveNisab={calculator.effectiveNisab}
-        currencyCode={calculator.currencyCode}
-        resetForm={calculator.resetForm}
-        onHeightChange={setSummaryBarHeight}
-      />
+      {docked ? (
+        <ZakatSummaryBar
+          result={calculator.result}
+          money={calculator.money}
+          hasInput={calculator.hasInput}
+          effectiveNisab={calculator.effectiveNisab}
+          currencyCode={calculator.currencyCode}
+          resetForm={calculator.resetForm}
+          onHeightChange={setSummaryBarHeight}
+        />
+      ) : null}
     </View>
   );
 }
@@ -229,5 +288,8 @@ export default function ZakatScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1 },
   learnHint: { marginTop: Spacing.one, lineHeight: 20 },
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  gridTop: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/zakat");

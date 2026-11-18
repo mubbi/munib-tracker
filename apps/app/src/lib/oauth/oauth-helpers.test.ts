@@ -1,5 +1,3 @@
-import { Platform } from "react-native";
-
 import {
   buildGoogleNativeRedirectUri,
   googleClientIdToReversedScheme,
@@ -9,6 +7,7 @@ import {
 } from "@/lib/auth/oauth-config";
 import { OAUTH_RESUME_FALLBACK_HREF, sanitizeOAuthReturnTo } from "@/lib/oauth/oauth-return-to";
 import { parseAppleOAuthReturnUrl, parseOAuthReturnUrl } from "@/lib/oauth/parse-oauth-return-url";
+import { usePlatformSwitch } from "@/test-support/platform";
 
 describe("googleClientIdToReversedScheme", () => {
   it("reverses a standard Google client id", () => {
@@ -65,7 +64,7 @@ describe("sanitizeOAuthReturnTo", () => {
 });
 
 describe("OAuth provider visibility config", () => {
-  const originalOS = Platform.OS;
+  const onPlatform = usePlatformSwitch();
   const envKeys = [
     "EXPO_PUBLIC_GOOGLE_CLIENT_ID",
     "EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB",
@@ -83,7 +82,6 @@ describe("OAuth provider visibility config", () => {
   });
 
   afterEach(() => {
-    Platform.OS = originalOS;
     for (const key of envKeys) {
       const value = savedEnv[key];
       if (value === undefined) delete process.env[key];
@@ -97,15 +95,15 @@ describe("OAuth provider visibility config", () => {
     process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS = "ios.apps.googleusercontent.com";
     process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_ANDROID = "android.apps.googleusercontent.com";
 
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     expect(resolveGoogleClientId()).toBe("web.apps.googleusercontent.com");
     expect(isGoogleConfigured()).toBe(true);
 
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     expect(resolveGoogleClientId()).toBe("ios.apps.googleusercontent.com");
     expect(isGoogleConfigured()).toBe(true);
 
-    Platform.OS = "android";
+    onPlatform({ OS: "android" });
     expect(resolveGoogleClientId()).toBe("android.apps.googleusercontent.com");
     expect(isGoogleConfigured()).toBe(true);
   });
@@ -114,19 +112,19 @@ describe("OAuth provider visibility config", () => {
     process.env.EXPO_PUBLIC_APPLE_SERVICES_ID = "com.munibtracker.web";
 
     for (const os of ["web", "android", "ios"] as const) {
-      Platform.OS = os;
+      onPlatform({ OS: os });
       expect(isAppleConfigured(false)).toBe(true);
     }
   });
 
   it("hides Apple on web/Android without Services ID, allows native iOS", () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     expect(isAppleConfigured(false)).toBe(false);
 
-    Platform.OS = "android";
+    onPlatform({ OS: "android" });
     expect(isAppleConfigured(false)).toBe(false);
 
-    Platform.OS = "ios";
+    onPlatform({ OS: "ios" });
     expect(isAppleConfigured(false)).toBe(false);
     expect(isAppleConfigured(true)).toBe(true);
   });

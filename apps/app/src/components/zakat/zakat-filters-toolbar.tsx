@@ -98,7 +98,8 @@ export function ZakatFiltersToolbar({
         ]}
       />
 
-      <TvFocusGuide trapFocusUp trapFocusDown>
+      {/* Horizontal chip row: keep Left/Right inside, let Up/Down leave; remember the last chip. */}
+      <TvFocusGuide autoFocus trapFocusLeft trapFocusRight>
         <TvScrollView
           ref={scrollRef}
           horizontal

@@ -29,7 +29,8 @@
       "encouragementPerfect": "ښکلی بیاکتنه — ممکن الله تاسو ګټور پوهه کې زیات کړي.",
       "encouragementStrong": "قوي پوهه. د مضبوطولو لپاره پاتې شوي بیا وګورئ.",
       "encouragementSteady": "ښه پرمختګ. پاتې شوي د راتلونکي زده کړې موخې وګڼئ.",
-      "encouragementKeepGoing": "هره تېروتنه یوه درس ده. یادښتونه وګورئ، بیا هڅه وکړئ."
+      "encouragementKeepGoing": "هره تېروتنه یوه درس ده. یادښتونه وګورئ، بیا هڅه وکړئ.",
+      "keyboardHint": "د ځواب لپاره 1–4 او د دوام لپاره Enter کېکاږئ."
     },
     "skip": "تېرول",
     "apply": "پلي کول",
@@ -86,7 +87,10 @@
     "selectToContinue": "د دوام لپاره وټاکئ وکاږئ",
     "selectToOpen": "د پرانیستلو لپاره وټاکئ",
     "selectToSave": "د خوندي کولو لپاره وټاکئ",
-    "selectDay": "د کتنې لپاره یوه ورځ وټاکئ"
+    "selectDay": "د کتنې لپاره یوه ورځ وټاکئ",
+    "newBadge": "نوی",
+    "decreaseByTv": "{{label}} په {{step}} کم کړئ",
+    "increaseByTv": "{{label}} په {{step}} زیات کړئ"
   },
   "search": {
     "placeholder": "قرآن، حدیث، دعا، زده کړئ… ولټوئ",
@@ -187,7 +191,8 @@
     "sadaqah": "Sadaqah اهداف",
     "whiteDays": "د سپینو ورځو روژه",
     "goodCharacter": "ښه اخلاق",
-    "heavyOnTheScale": "په تله کې درنې کړنې"
+    "heavyOnTheScale": "په تله کې درنې کړنې",
+    "quranPractice": "د قرآن تمرین"
   },
   "quickActions": {
     "checklistSubtitle": "نننی نمازونه ثبت کړئ",
@@ -477,7 +482,7 @@
       "audio": "غږ"
     },
     "continueAction": {
-      "quran": "لوستلو ته دوام ورکړئ",
+      "quran": "لوستل ته دوام ورکړئ",
       "hadith": "بېرته حدیث ته وگرځه",
       "dua": "خلاص کړئ du",
       "zikr": "خلاص کړئ dhkr",
@@ -713,7 +718,9 @@
           "hint": "د سپینو ورځو وروستۍ ورځ"
         }
       }
-    }
+    },
+    "cardTipTv": "د تازه کولو لپاره لمونځ وټاکئ · د ذکر لپاره اذکار · د تفصیل لپاره معلومات",
+    "tapToMarkTv": "د نښه کولو لپاره وټاکئ"
   },
   "update": {
     "title": "تازه کول شتون لري",
@@ -887,7 +894,8 @@
     "heroSignedIn": "بیا ښه راغلاست — ستاسو حساب تړلی دی. لمونځ، قضا او ذکر کولی شي په وسیلو کې همغږي شي.",
     "continueSignedIn": "ادامه",
     "or": "یا",
-    "guestHint": "تاسو کولی شئ هر وخت له پروفایل څخه حساب ونښلوئ."
+    "guestHint": "تاسو کولی شئ هر وخت له پروفایل څخه حساب ونښلوئ.",
+    "guestHintTv": "له تلیفون څخه د ننوتلو لپاره QR کوډ سکن کړئ. یا د مېلمه په توګه دوام ورکړئ — په تلیفون کې له پروفایل څخه هر وخت حساب وصل کړئ."
   },
   "onboarding": {
     "begin": "Begin",
@@ -944,7 +952,8 @@
     "locationHighlight1Tv": "ستاسو د ښار لپاره دقیق د لمونځ وختونه",
     "locationHighlight2Tv": "له ستاسو ځای څخه د قبلې لوری",
     "locationHighlight3Tv": "یادونې په تلیفون کې غوره کار کوي",
-    "locationHighlight4Tv": "په ترتیباتو کې هر وخت ښار بدل کړئ"
+    "locationHighlight4Tv": "په ترتیباتو کې هر وخت ښار بدل کړئ",
+    "ctaBodyTv": "د مېلمه په توګه پیل وکړئ، یا په تلیفون د QR کوډ په سکن کولو سره ننوځئ. په دې تلویزیون کې هر څه بې انټرنېټه کار کوي."
   },
   "appearance": {
     "eyebrow": "تنظیمات",
@@ -1199,7 +1208,9 @@
       "a11yStart": "په لاک سکرین کې د راتلونکي لمونځ تعقیب پیل کړئ",
       "a11yStop": "د لمونځ ژوندي تازه معلوماتو تعقیب ودروئ"
     },
-    "tvUnavailableBody": "ځايي یادونې او Live Activities په ټلوېزیون کې شتون نه لري. د خبرتیاوو غوره‌توبونه په خپل ټیلیفون کې اداره کړئ."
+    "tvUnavailableBody": "ځايي یادونې او Live Activities په ټلوېزیون کې شتون نه لري. د خبرتیاوو غوره‌توبونه په خپل ټیلیفون کې اداره کړئ.",
+    "preciseAdhan": "د اذان دقیق وخت",
+    "preciseAdhanHint": "اذان خپل دقیق وخت کې غږېږي، حتی د بیټرۍ سپما په حالت کې هم. اندروید تر هغه چې غږ شي د حالت په پټه کې د الارم نښه ښيي."
   },
   "fonts": {
     "eyebrow": "تنظیمات",
@@ -1403,18 +1414,18 @@
     "favEmptyDescTv": "په هر نوم کې ستوری وټاکئ ترڅو دلته خوندي شي."
   },
   "quran": {
-    "eyebrow": "نوبل قرآن",
+    "eyebrow": "قرآن کریم",
     "title": "قرآن",
-    "subtitle": "ولولئ، واورئ او انعکاس وکړئ",
-    "searchSurah": "د نوم، معنی، یا شمیرې په واسطه لټون وکړئ",
+    "subtitle": "ولولئ، واورئ او فکر وکړئ",
+    "searchSurah": "د نوم، مانا یا شمېرې له مخې لټون",
     "filterAll": "ټول",
-    "continueReading": "لوستلو ته دوام ورکړئ",
-    "continueAt": "سوره {{surah}} · آیت {{ayah}}",
-    "makki": "Mkki",
-    "madani": "Mdni",
-    "ayahCount": "{{count}} ayahs",
-    "surahList": "Surhs",
-    "surahCount": "{{shown}} د {{total}}",
+    "continueReading": "لوستل ته دوام ورکړئ",
+    "continueAt": "سورت {{surah}} · آیت {{ayah}}",
+    "makki": "مکي",
+    "madani": "مدني",
+    "ayahCount": "{{count}} آیتونه",
+    "surahList": "سورتونه",
+    "surahCount": "{{shown}} له {{total}}",
     "reciter": "قاري",
     "translation": "ژباړه",
     "showTransliteration": "ژباړې ښکاره کړئ",
@@ -1426,23 +1437,23 @@
     "playPage": "Ply pge",
     "playAyah": "Ply yh {{n}}",
     "bookmark": "Bookmrk",
-    "bookmarks": "نښلنې",
-    "viewBookmarks": "View نښلنې",
+    "bookmarks": "نښې",
+    "viewBookmarks": "نښې وګورئ",
     "bookmarksTitle": "نښلنې",
     "bookmarksSubtitle": "ستاسو خوندي شوي آیاتونه",
     "bookmarkEmptyTitle": "No نښلنې yet",
     "bookmarkEmptyDesc": "دلته د خوندي کولو لپاره په هر آیت کې د بک مارک آیکون ټایپ کړئ.",
     "removeBookmark": "لرې کول bookmrk",
-    "juz": "جز",
-    "learn": "زده کړئ",
+    "juz": "پاره",
+    "learn": "زده کړه",
     "juzSubtitle": "Red  Qur'n په its 30 prts",
     "juzN": "جز {{n}}",
     "browseByJuz": "په جزو کې لټون",
     "search": "لټون",
-    "searchTitle": "د قرآن لټون",
-    "searchSubtitle": "آیاتونه د ژباړې یا ژباړې له لارې ومومئ",
-    "searchPlaceholder": "په ژباړه کې د کلمو لټون…",
-    "searchHint": "بنډل شوي ژباړه او ژباړې آفلاین لټون کوي.",
+    "searchTitle": "په قرآن کې لټون",
+    "searchSubtitle": "آیتونه د عربي، انګلیسي، تلفظي لیکنې یا حوالې له مخې ومومئ",
+    "searchPlaceholder": "د ژباړې، تلفظي لیکنې یا 2:255 لټون…",
+    "searchHint": "په عربي، انګلیسي ژباړه او تلفظي لیکنه کې آفلاین نږدې لټون — د آیتونو نومونه او حوالې پکې شاملې دي.",
     "noResults": "هیڅ آیت ستاسو د لټون سره سمون نه خوري.",
     "resultsCount": "{{count}} پایلې",
     "ayahRef": "{{surah}}:{{ayah}}",
@@ -1461,7 +1472,7 @@
     "bookmarkAdd": "Bookmrk verse",
     "bookmarkRemove": "لرې کول bookmrk",
     "loadingTranslation": "ژباړه لوډیږي…",
-    "searching": "Searching…",
+    "searching": "لټون روان دی…",
     "secondTranslation": "دوهمه ژباړه",
     "secondTranslationNone": "None",
     "selectTranslator": "ژباړن وټاکئ — {{language}}",
@@ -1472,7 +1483,7 @@
     "backToLanguages": "ټولې ژبې",
     "searchTranslationLanguages": "ژبې ولټوئ…",
     "searchTranslators": "ژباړن ولټوئ…",
-    "pages": "Pges",
+    "pages": "پاڼې",
     "pagesSubtitle": "Browse  Mdni mushf by pge",
     "pageN": "Pge {{n}}",
     "pageOf": "Pge {{page}} د {{total}}",
@@ -1480,9 +1491,9 @@
     "pagePickerTitle": "Jump ته pge",
     "pagePickerSearch": "پاڼه یا سورت لټون…",
     "readerLayout": "د لوستونکي ترتیب",
-    "layoutAyah": "yh study",
-    "layoutPage": "Pge view",
-    "layoutMushaf": "Mushf",
+    "layoutAyah": "د آیتونو مطالعه",
+    "layoutPage": "د پاڼې بڼه",
+    "layoutMushaf": "مصحف",
     "mushafOnlyHint": "یوازې عربي",
     "loadingMushafFont": "په بارولو…",
     "pageReaderTitle": "Qur'n pge {{page}} د {{total}}",
@@ -1490,7 +1501,7 @@
     "prevPage": "Previous pge",
     "nextPage": "Next pge",
     "openPageView": "خلاص کړئ pge view",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
+    "continueAtPage": "پاڼه {{page}} · {{surah}}:{{ayah}}",
     "enterFullscreen": "بشپړ سکرین ته ننوځه",
     "exitFullscreen": "بشپړ سکرین بند کړه",
     "showWordByWord": "Show word by word",
@@ -1609,18 +1620,25 @@
       "dictate": "آیت ووایاست",
       "stopDictate": "اورېدل بند کړئ",
       "bestMatch": "غوره سمون",
-      "otherMatches": "نور سمونونه"
+      "otherMatches": "نور سمونونه",
+      "tvUnavailableBody": "د آیت پېژندنې لپاره مایکروفون ته اړتیا ده، چې تلویزیون یې نه لري. پر ځای یې قرآن د کلمو له مخې ولټوئ، یا اپلیکیشن په خپل تلیفون وکاروئ."
     },
-    "searchPlaceholderArabic": "عربي متن یا لکه ٢:٢٥٥ حواله ولټوئ…",
+    "searchPlaceholderArabic": "عربي متن یا د ٢:٢٥٥ په څېر حواله ولټوئ…",
     "goToPagePlaceholder": "Page 1–{{max}}",
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
-    "surahNumber": "سوره {{number}}",
-    "selectSurah": "یوه سوره وټاکئ",
-    "openReader": "لوستونکی پرانیسئ",
-    "bookmarkEmptyDescTv": "په هر آیت کې د بکمارک نښه وټاکئ ترڅو دلته خوندي شي."
+    "surahNumber": "سورت {{number}}",
+    "selectSurah": "یو سورت وټاکئ",
+    "openReader": "لوستونکی پرانیزئ",
+    "bookmarkEmptyDescTv": "په هر آیت کې د بکمارک نښه وټاکئ ترڅو دلته خوندي شي.",
+    "goToAyahPlaceholder": "آیت 1–{{max}}",
+    "goToAyahA11y": "د آیت شمېرې ته ورشئ",
+    "goToAyahInvalid": "د 1 او {{max}} ترمنځ د آیت شمېره ولیکئ",
+    "searchAyahs": "د آیتونو لټون",
+    "findSurah": "سورت ومومئ",
+    "noSurahResults": "هیڅ سورت ستاسو د لټون سره سمون نه خوري."
   },
   "hadith": {
     "eyebrow": "نبوي سنت",
@@ -1863,7 +1881,8 @@
     "history": "History",
     "rowDone": "{{completed}} Qaza ترسره شوي",
     "rowDoneWithDaily": "{{completed}} Qaza ترسره · نن {{done}}/{{target}}",
-    "hintTv": "د قضا لمونځ د ثبت لپاره نښه وټاکئ. په تعقیبونکي کې د لمونځ له لاسه ورکول په اوتومات ډول په دې شمېرو کې زیاتیږي."
+    "hintTv": "د قضا لمونځ د ثبت لپاره نښه وټاکئ. په تعقیبونکي کې د لمونځ له لاسه ورکول په اوتومات ډول په دې شمېرو کې زیاتیږي.",
+    "editCountHintTv": "د − او + په مرسته وټاکئ چې د دې لمانځه څومره قضا لا پاتې ده."
   },
   "qazaCalc": {
     "eyebrow": "Qz",
@@ -1895,7 +1914,8 @@
       "pubertyAfterAge": "د بلوغ عمر ستاسو له اوسني عمر وروسته کېدای نشي.",
       "yearsPrayedExceed": "د لمانځه کلونه ({{entered}}) د بلوغ راهیسې کلونه ({{obligatedYears}}) نه شي زیاتولی.",
       "exemptExceedsYear": "معاف ورځې ({{entered}}) ستاسو غوره شوی کال اوږدوالی ({{maxDays}}) نه شي زیاتولی."
-    }
+    },
+    "enterAgePromptTv": "د اټکل لیدو لپاره پورته خپل اوسنی عمر وټاکئ."
   },
   "qazaPlan": {
     "eyebrow": "Qz",
@@ -1992,7 +2012,8 @@
     "confirmAddEstimateMsg": "پاتې ته {{count}} روژه اضافه کړئ (نوی ټول: {{total}})؟",
     "confirmResetTitle": "بیا تنظیم counter?",
     "confirmResetMsg": "د روژو ټولې شمېرې پاکې کړئ ({{remaining}} پاتې، {{completed}} بشپړې)؟ دا نه شي بېرته راګرځېدای.",
-    "adjustHintTv": "شمېره وټاکئ یا د سمولو لپاره −/+ وکاروئ"
+    "adjustHintTv": "شمېره وټاکئ یا د سمولو لپاره −/+ وکاروئ",
+    "editCountHintTv": "د − او + په مرسته وټاکئ چې څومره قضا روژې لا پاتې دي."
   },
   "calendar": {
     "eyebrow": "History",
@@ -2113,7 +2134,8 @@
     "confirmStartAgainTitle": "بیا پیل کړئ؟",
     "confirmStartAgainMessage": "ستاسو بشپړ شوی شمیر به پاک شي نو تاسو کولی شئ یو نوی پړاو پیل کړئ.",
     "dockLabel": "شمېر",
-    "tapToCountTv": "د شمېرلو لپاره وټاکئ وکاږئ"
+    "tapToCountTv": "د شمېرلو لپاره وټاکئ وکاږئ",
+    "tapToCountKeyboard": "د شمېرلو لپاره په دایره کلیک وکړئ یا Space کېکاږئ"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} یوازې {{min}} دقیقې لرې دی",
@@ -2188,7 +2210,9 @@
     "defaultLabel": "مکه، سعودي عربستان",
     "defaultTimesHint": "د لمانځه وختونه اوس مکه کاروي. د دقیقو وختونو لپاره خپل ښار وټاکئ. د لمانځه او اذان یادونې تر هغه بندې پاتې کېږي.",
     "setLocation": "ځای وټاکئ",
-    "searchAutoFocusOff": "ښار ولټوئ"
+    "searchAutoFocusOff": "ښار ولټوئ",
+    "subtitleTv": "د لمانځه وختونه د دې ځای لپاره محاسبه کېږي. خپل ښار د ریموټ په مرسته ولټوئ.",
+    "hintTv": "د لټون ځای وټاکئ، بیا د خپل ښار لږ تر لږه دوه توري ولیکئ."
   },
   "moon": {
     "aria": "د سپوږمۍ مرحله: {{phase}}",
@@ -2215,7 +2239,7 @@
       "fullTitle": "نن شپه پوره سپوږمۍ",
       "fullBody": "سپوږمۍ په بشپړه توګه د {{month}} منځ ته نږدې روښانه ده - د سپینو ورځو شپې، کله چې روژه په ځانګړې توګه سپارښتنه کیږي.",
       "generalTitle": "د سپوږمۍ کیلنڈر",
-      "generalBody": "اسلامي (هجري) کلیزه سپوږمۍ تعقیبوي: هره میاشت 29 یا 30 ورځې ده، چې د نوې میاشتې په لیدلو سره پیل کیږي.",
+      "generalBody": "اسلامي (هجري) تقویم سپوږمۍ تعقیبوي: هره میاشت ۲۹ یا ۳۰ ورځې ده، چې د لیدل شوي هلال (hilāl) سره پیل کیږي. دلته نیټې ستاسو په ځای کې د هلال د لیدلو له مخې محاسبه شوي او ممکن د ځایي واک له اعلان څخه یوه ورځ توپیر ولري.",
       "monthTurnTitle": "هلال ولټوئ",
       "monthTurnBody": "د Maghrib وروسته د {{month}} hilāl ولټوئ. اسلامي میاشتې د لیدل شوي هلال سره پیل کیږي؛ د ستاسو ځایي واک اعلان ممکن له دې محاسبې سره یوه ورځ توپیر ولري.",
       "whiteDaysCta": "سپینې ورځې وګورئ"
@@ -2552,7 +2576,8 @@
     "authenticityTitle": "د منځپانګې باوري والی",
     "authenticityBody": "اذکار او دعاګانې له مشهورو ټولګيو څخه اخیستل شوي او د پراخه خپرونو ترجمې سره نږدې ساتل شوي. د هرې ځانګړې حکم یا شمېرې پر بنسټ د باور لپاره له باوري عالم یا سرچینې څخه تایید وکړئ.",
     "privacyPolicy": "د محرمیت پالیسي",
-    "termsOfService": "د خدمت شرطونه"
+    "termsOfService": "د خدمت شرطونه",
+    "scanOnPhoneTv": "د دې پاڼې پرانیستلو لپاره یې په خپل تلیفون سکن کړئ."
   },
   "player": {
     "nowPlaying": "اوس لوبه کوي",
@@ -2585,7 +2610,9 @@
     "loading": "په بارولو…",
     "streamingOnlyNote": "یوازې جریان کول - آډیو په دې وسیله نه خوندي کیږي",
     "ttsVoice": "غږ",
-    "ttsVoiceHint": "د متن-په-غږ غږ وټاکئ"
+    "ttsVoiceHint": "د متن-په-غږ غږ وټاکئ",
+    "seekBack": "{{seconds}} ثانیې شاته",
+    "seekForward": "{{seconds}} ثانیې مخکې"
   },
   "errors": {
     "title": "یو څه سم نه شو",
@@ -2680,7 +2707,7 @@
   },
   "khatm": {
     "eyebrow": "نوبل قرآن",
-    "short": "Khtm",
+    "short": "ختم",
     "title": "Khtm pln",
     "subtitle": "قرآن په ثابت سرعت ختم کړئ",
     "startTitle": "Strt  pln",
@@ -2813,7 +2840,7 @@
     "confirmReviewBody": "{{ref}} will be flgged لپاره review.",
     "confirmMemorizedBody": "{{ref}} به د حافظې په توګه په نښه شي.",
     "confirmClearBody": "{{ref}} به ستاسو د Hifz ټریکر څخه لیرې شي.",
-    "emptyDescTv": "په لوستونکي کې په هر آیت کې حفظ وټاکئ ترڅو یې د حفظ په توګه نښه کړئ."
+    "emptyDescTv": "په لوستونکي کې یو آیت وټاکئ، بیا حفظ غوره کړئ ترڅو یې د حفظ په توګه نښه کړئ."
   },
   "travel": {
     "eyebrow": "زده کړئ",
@@ -3303,7 +3330,8 @@
       "reflectionHint": "خشوع او دعا انعکاس",
       "learning": "د زده کړې پرمختګ",
       "learningHint": "په دې ماډل کې بشپړ شوي موضوعات",
-      "characterHintTv": "کله چې نن خپل چلند وکتئ وټاکئ"
+      "characterHintTv": "کله چې نن خپل چلند وکتئ وټاکئ",
+      "repentanceHintTv": "توبه نوې کړئ — کله چې نن مو توبه وکړه، وټاکئ"
     },
     "progressTitle": "د زده کړې پرمختګ",
     "progressSubtitle": "مطالعه تعقیب کړئ - نه د الله سره روحاني درجه",
@@ -3347,7 +3375,8 @@
         "best-beloved": "غوره / تر ټولو محبوب",
         "equal-reward": "لوی ورته اجر"
       }
-    }
+    },
+    "timelineCardHintTv": "اصلي برخه — د بشپړ درس لپاره هر پړاو وټاکئ"
   },
   "taharah": {
     "eyebrow": "زده کړئ",
@@ -3523,7 +3552,8 @@
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "tapHintTv": "د سرچینه‌يي یادښت د لوستلو لپاره په نقشه کې نوم وټاکئ."
+      "tapHintTv": "د سرچینه‌يي یادښت د لوستلو لپاره په نقشه کې نوم وټاکئ.",
+      "listHintTv": "د سرچینه‌يي یادښت لوستلو لپاره له لېست څخه یو نوم وټاکئ."
     }
   },
   "aqeedah": {
@@ -3823,7 +3853,7 @@
     "today": "نن",
     "inDays": "په {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "نیټې محاسبه شوي اټکلونه دي - ریښتینې ورځ د ځایی سپوږمۍ لید پورې اړه لري.",
+    "disclaimer": "نیټې ستاسو په ځای کې د هلال لیدلو (یا په هغو سیمو کې چې رسمي تقویم یې کاروي د Umm al-Qura تقویم) تعقیبوي او ممکن د ځایي واک له اعلان څخه یوه ورځ توپیر ولري.",
     "names": {
       "newYear": "نوی اسلامي کال",
       "ashura": "د عاشورا ورځ",
@@ -4273,7 +4303,7 @@
     "newTitle": "New dhkr",
     "delete": "ړنګول",
     "emptyTitle": "تراوسه هیڅ دودیز اډکار نشته",
-    "emptyDesc": "خپل ذکر د دې عربي متن، ژباړې او معنی سره اضافه کړئ.",
+    "emptyDesc": "خپل ذکر اضافه کړئ — یوازې سرلیک کافی دی؛ عربي، ژباړه او معنی اختیاري دي.",
     "field": {
       "title": "سرلیک",
       "arabic": "عربي متن (اختیاري)",
@@ -4302,7 +4332,7 @@
       "label": "ضمیمې (اختیاري)",
       "add": "فایل اضافه کړئ",
       "remove": "ضمیمه لرې کړئ",
-      "hint": "تر 5 فایلونو پورې (JPEG، PNG، WebP، یا PDF)، هر یو 1 MB. د لرې کولو لپاره تمبنیل اوږد فشار ورکړئ.",
+      "hint": "تر ۵ فایلونو پورې (JPEG، PNG، WebP یا PDF)، هر یو ۱ MB. د لرې کولو لپاره په تمبنیل باندې × ټایپ کړئ.",
       "signInRequired": "خپل اډکار ته د شخصي فایلونو ضمیمه کولو لپاره لاسلیک وکړئ.",
       "permissionDenied": "د فایلونو ضمیمه کولو لپاره اجازې ته اړتیا ده.",
       "permissionTitle": "د لاسرسي اجازه ورکړئ",
@@ -4332,7 +4362,8 @@
       "loadingPdf": "PDF بارېږي…",
       "pdfHint": "سکرول · پنچ یا +/− د زوم لپاره · دوه ځله ټایپ د بیا تنظیم لپاره · د شریکولو لپاره PDF خلاص کړئ",
       "pdfPreviewTitle": "د PDF مخکتنه",
-      "tvUnavailable": "ضمیمې تلیفون یا ټابلیټ ته اړتیا لري. هلته عکسونه یا PDF اضافه کړئ."
+      "tvUnavailable": "ضمیمې تلیفون یا ټابلیټ ته اړتیا لري. هلته عکسونه یا PDF اضافه کړئ.",
+      "pdfTvUnavailable": "PDF په تلویزیون کې نه شي لیدل کېدای. دا ضمیمه په خپل تلیفون یا ټابلیټ کې پرانیزئ."
     },
     "stt": {
       "dictate": "د مایکروفون سره لیکل",
@@ -4362,13 +4393,20 @@
     "markTonight": "نن شپه مې د تهجد لمونځ وکړ",
     "markedTonight": "ماشاءالله نن شپه دعا وکړه",
     "lastNights": "وروستۍ {{count}} شپې",
-    "lastNightsHint": "هر ټکی یوه شپه ده، د کیلنڈر نیټې لخوا لیبل شوی (په چپ اړخ کې خورا وروستي).",
     "virtueTitle": "د شپې د لمانځه فضیلت",
     "virtueBody": "له فرض لمانځه وروسته غوره لمونځ د شپې لمونځ دی.",
     "virtueRef": "Shih Muslim 1163",
     "streakRow": "د تهجد سلسله",
     "calculatorCta": "د شپې وروستي دریم برخې محاسبه",
-    "calculatorHint": "د مغرب او فجر څخه د نیمې شپې او د تہجد غوره وخت ومومئ"
+    "calculatorHint": "د مغرب او فجر څخه د نیمې شپې او د تہجد غوره وخت ومومئ",
+    "tonightTitle": "نن شپه",
+    "bestLabel": "غوره لړۍ",
+    "totalLabel": "ټولې شپې",
+    "startTonight": "ستاسو لړۍ له نن شپې پیلېږي.",
+    "calendarHint": "د ثبتولو یا پاکولو لپاره پر تېرې شپې ټک وکړئ.",
+    "calendarHintTv": "د ثبتولو یا پاکولو لپاره تېره شپه وټاکئ.",
+    "legendPrayed": "ادا شوه",
+    "inWindow": "اوس غوره وخت"
   },
   "seasonalTheme": {
     "dateDisclaimer": "نیټې محاسبه شوي اټکلونه دي - د ځایی سپوږمۍ لید ممکن توپیر ولري.",
@@ -4624,8 +4662,10 @@
       "buildsTitle": "اخلاق جوړوي",
       "buildsHint": "یو وخت یو صفت تمرین کړئ — رښتیا، صبر، رحم او عدل.",
       "destroysTitle": "هغه څه چې اخلاق خرابوي",
-      "destroysHint": "عادتونه چې نصوص ترې خبرداری کوي — د اړوند درس لپاره ټایپ کړئ."
-    }
+      "destroysHint": "عادتونه چې نصوص ترې خبرداری کوي — د اړوند درس لپاره ټایپ کړئ.",
+      "destroysHintTv": "هغه عادتونه چې نصوصو ترې خبرداری ورکړی — د اړوند درس لپاره یوه خانه وټاکئ."
+    },
+    "pathsHintTv": "هغه عملونه چې د الله په اجازه درجه لوړوي — د شواهدو او اپلیکیشن لینکونو لپاره هره لاره وټاکئ."
   },
   "jahannam": {
     "eyebrow": "زده کړئ",
@@ -4840,7 +4880,7 @@
     "sourceLabel": "ستاسو source (اختیاري)",
     "sourcePlaceholder": "کتاب، عالم، URL، یا حواله ستاسو د سمون ملاتړ کوي.",
     "proofLabel": "د ثبوت سکرین شاټونه (اختیاري)",
-    "proofHint": "تر 3 عکسونو پورې. د لرې کولو لپاره تمبنیل اوږد فشار ورکړئ.",
+    "proofHint": "تر ۳ عکسونو پورې. د لرې کولو لپاره په تمبنیل باندې × ټایپ کړئ.",
     "addProof": "عکس اضافه کړئ",
     "removeProof": "لرې کول screenshot",
     "submit": "راپور وړاندې کړئ",
@@ -5117,7 +5157,7 @@
     "eyebrow": "جنتري",
     "title": "د نیټې بدلونکی",
     "subtitle": "د هجري او ګریګورین تقویمونو ترمینځ بدل کړئ",
-    "intro": "په هر کیلنڈر کې یوه نیټه دننه کړئ ترڅو په بل کې د هغې مساوي وګورئ، د کویټ الګوریتم جدول په کارولو سره آفلاین حساب شوی.",
+    "intro": "په هر یوه تقویم کې نیټه دننه کړئ ترڅو په بل کې یې مساوي وګورئ، چې آفلاین ستاسو په ځای کې د هلال لیدلو له مخې محاسبه کیږي.",
     "toHijri": "ګریګوریان → هجری",
     "toGregorian": "هجري → ګریګوریان",
     "gregorianDateLabel": "ګریګوریان نیټه",
@@ -5127,7 +5167,7 @@
     "year": "کال",
     "useToday": "نن ورځ وکاروئ",
     "invalidDate": "د اعتبار وړ نیټه دننه کړئ",
-    "disclaimer": "دا د ریاضي اټکل (جدول \"کویت الګوریتم\") دی او د ځایی سپوږمۍ لیدو اعلانونو څخه د یوې ورځې توپیر کولی شي - تل د مذهبي نیټو لپاره خپل ځایي جومات یا واک تعقیب کړئ.",
+    "disclaimer": "نیټې ستاسو په ځای کې د هلال (hilāl) لیدلو له مخې محاسبه شوي او ممکن د رسمي سپوږمۍ-لیدو اعلانونو څخه یوه ورځ توپیر ولري — تل د مذهبي نیټو لپاره خپل ځایي مسجد یا واک تعقیب کړئ.",
     "directionTitle": "د تبادلې لوري",
     "resultFrom": "له {{date}} څخه",
     "quickLinksTitle": "اړوند",
@@ -5212,7 +5252,8 @@
     "editHint": "په وخت بدلولو سره پایلې تازه کیږي.",
     "nightLengthLabel": "د شپې اوږدوالی",
     "willStartIn": "په {{time}} کې پیل کیږي",
-    "timeRemaining": "{{time}} پاتې"
+    "timeRemaining": "{{time}} پاتې",
+    "autoDetectHintTv": "{{location}} · د سمولو لپاره وخت وټاکئ"
   },
   "friday": {
     "eyebrow": "زده کړه",
@@ -5265,7 +5306,7 @@
     "eyebrow": "زده کړه",
     "title": "Janazah لارښود",
     "subtitle": "د جنازې لمونځ، غسل، دفن، او مستند دعاګانې",
-    "intro": "د جنازې د اجتماعي فرض په توګه عملي کتنه — پرته له رکوع او سجدې څلور تکبیرونه، د نارینه، ښځو او ماشومانو لپاره د حصن المسلم دعاګانې، او د مینځلو، ښخولو، شهیدانو او مصیبت ځپلو لارښود.",
+    "intro": "د Janazah د اجتماعي فرض په توګه عملي کتنه - د رکوع او سجده پرته څلور تکبیرونه او د مړو لپاره د Hisnul Muslim دعا څنګه کول.",
     "section": {
       "obligation": "مکلفیت",
       "prepare": "تیاری",
@@ -5350,5 +5391,400 @@
     "notFound": "موضوع ونه موندل شوه",
     "disclaimer": "دا ښوونیزه کتنه ده — فتوا نه ده. کره نېټې د سپوږمۍ په لیدلو پورې تړلې دي؛ خپل ځايي جومات یا وړ عالم تعقیب کړئ.",
     "continueInApp": "په Munib کې دوام ورکړئ"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "تمرین",
+      "practiseAyah": "د {{n}} آیت تمرین",
+      "practisePlan": "د دې سورت تمرین",
+      "toRevise_other": "{{count}} د تکرار لپاره",
+      "toRevise_one": "{{count}} د تکرار لپاره"
+    },
+    "mode": {
+      "follow": "تعقیب",
+      "check": "کتنه",
+      "hideWords": "کلمې پټې کړئ",
+      "hideAyahs": "آیتونه پټ کړئ"
+    },
+    "range": {
+      "ayah": "دا آیت",
+      "next5": "راتلونکي ۵",
+      "surah": "دا سورت",
+      "page": "دا پاڼه",
+      "custom": "خپل خوښ",
+      "fromAyah": "له آیت",
+      "toAyah": "تر آیت",
+      "increase": "{{label}} زیات کړئ",
+      "decrease": "{{label}} کم کړئ"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "تمرین",
+      "subtitle": "تلاوت وکړئ، پټ او ښکاره کړئ، او هغه څه تکرار کړئ چې حفظوئ یې",
+      "continue": "دوام",
+      "start": "پیل",
+      "listen": "اورېدل",
+      "manage": "اداره",
+      "rangeTitle": "اندازه",
+      "modeTitle": "حالت",
+      "startRevision": "تکرار پیل کړئ",
+      "openQueue": "د تکرار لېست وګورئ",
+      "captionReady": "اورېدونکی په همدې وسیله پاتې کېږي.",
+      "captionMissing": "اورېدونکی ښکته کړئ چې ستاسو غږ تعقیب کړي. اورېدل بیا هم کېدای شي.",
+      "captionOffline": "د اورېدونکي ښکته کولو لپاره اړیکه پکار ده. اورېدل لا هم کار کوي.",
+      "captionFailed": "اورېدونکی پیل نه شو. اورېدل بیا هم کېدای شي.",
+      "captionWebUnsupported": "دا براوزر اورېدونکی نه شي چلولی.",
+      "captionUnsupported": "اورېدونکی په دې وسیله کې نشته. اورېدل لا هم کار کوي.",
+      "captionManualMode": "له اورېدونکي پرته دا حالت متن ښيي چې تاسو يې پخپله ښکاره کړئ، او کلمې نه نښه کوي.",
+      "downloadListener": "اورېدونکی ښکته کړئ ({{size}} مېګابایټه)",
+      "reviseTitle_other": "{{count}} آیتونه د تکرار لپاره",
+      "reviseTitle_one": "{{count}} آیت د تکرار لپاره",
+      "reviseRemaining_other": "{{count}} نور په نورو ورځو",
+      "reviseRemaining_one": "{{count}} نور په بله ورځ",
+      "passageLabel": "ستاسو برخه",
+      "change": "بدلول",
+      "startPassage": "{{passage}} پیل کړئ",
+      "ayahCount_one": "{{count}} آیت",
+      "ayahCount_other": "{{count}} آیتونه",
+      "recentTitle": "وروستي",
+      "recentHint": "دا برخه په همغه حالت کې بیا پیلوي"
+    },
+    "session": {
+      "loading": "آیت راپورته کېږي…",
+      "preparing": "اورېدونکی چمتو کېږي…",
+      "ayahOf": "آیت {{n}} له {{total}}",
+      "revisionEyebrow": "تکرار",
+      "coach": "آیت ولولئ، بیا مایکروفون کېکاږئ او تلاوت وکړئ.",
+      "retry": "بیا هڅه",
+      "settled": "اورېدونکي دا آیت تعقیب کړ.",
+      "someNotSure": "اورېدونکی د ځینو کلمو په اړه ډاډه نه و. بیا تلاوت کولی شئ یا مخکې لاړ شئ.",
+      "listeningStopped": "اورېدل ودرېدل. کلمې ښکاره کولی او دوام ورکولی شئ.",
+      "listenerDidNotStart": "اورېدونکی پیل نه شو. بیا هم اورېدلی او کلمې ښکاره کولی شئ.",
+      "listenOnly": "د آیت اورېدو لپاره غږول کېکاږئ. د غږ تعقیب لپاره اورېدونکی له تنظیماتو ښکته کړئ.",
+      "listenOnlyHide": "چې چمتو شوئ کلمې ښکاره کړئ. اورېدونکی په دې وسیله کې نشته، نو کلمې نه نښه کېږي.",
+      "micOff": "د Munib Tracker لپاره مایکروفون بند دی. بیا هم اورېدلی شئ.",
+      "openSettings": "تنظیمات پرانیزئ",
+      "previous": "مخکینی",
+      "next": "بل",
+      "tryAgainLine_other": "{{count}} کلمې بیا ولولئ",
+      "tryAgainLine_one": "{{count}} کلمه بیا ولولئ",
+      "changePassage": "بدلول",
+      "chipDone": "بشپړ",
+      "chipRetry": "د بیا لوستلو کلمې",
+      "chipCurrent": "اوسنی",
+      "chipTodo": "لا نه",
+      "chipLabel": "آیت {{n}}، {{state}}",
+      "listeningHint": "اورېدل کېږي… آیت ولولئ. د وروستي کلمې وروسته پخپله پای ته رسېږي، یا درول کېکاږئ."
+    },
+    "dock": {
+      "hear": "اورېدل",
+      "stopHearing": "تلاوت ودروئ",
+      "listen": "اورېدل",
+      "start": "پیل",
+      "listening": "اوري",
+      "micStartHint": "د دې آیت ستاسو تلاوت اورېدل پیلوي",
+      "micStopHint": "دا آیت پای ته رسوي",
+      "reveal": "ښکاره کول",
+      "revealHint": "بله پټه کلمه ښکاره کوي. د پاتې آیت لپاره اوږد کېکاږئ.",
+      "end": "پای",
+      "revealAll": "ټول ښکاره کړئ",
+      "revealAllConfirmTitle": "ټول آیت ښکاره شي؟",
+      "revealAllConfirmMessage": "د دې آیت ټول پټ کلمات به ښکاره شي.",
+      "endConfirmTitle": "دا ناسته پای ته ورسوئ؟",
+      "endConfirmMessage": "تر اوسه د خپل تمرین لنډیز به ووینئ.",
+      "endConfirm": "ناسته پای ته ورسوئ"
+    },
+    "word": {
+      "matched": "برابر",
+      "corrected": "په دویمه هڅه برابر",
+      "notSure": "ډاډه نه",
+      "tryAgain": "بیا یې ولولئ",
+      "notYet": "لا نه",
+      "hidden": "پټه کلمه {{n}}",
+      "tapToHear": "دا کلمه غږوي"
+    },
+    "summary": {
+      "subtitle": "ناسته پای ته ورسېده",
+      "tryAyahAgain": "دا آیت بیا ولولئ",
+      "nextAyah": "بل آیت",
+      "nextRevision": "بل تکرار",
+      "done": "بشپړ",
+      "hearAyah": "دا آیت واورئ",
+      "markMemorized": "د حفظ شوي نښه",
+      "listened": "تاسو دا برخه واورېده. اورېدونکی ښکته کړئ چې ستاسو غږ تعقیب کړي.",
+      "headListened": "تاسو دا برخه واورېده",
+      "practiseAgain": "بیا تمرین وکړئ",
+      "weakAyahsTitle": "د بیا تمرین لپاره آیتونه",
+      "ayahChip": "آیت {{ayah}}",
+      "practiseAyah": "د {{ayah}} آیت بیا تمرین وکړئ"
+    },
+    "revision": {
+      "title": "تکرار",
+      "subtitle": "د نن ورځې آیتونه، زاړه لومړی",
+      "emptyTitle": "نن د تکرار لپاره څه نشته",
+      "emptyDesc": "هغه آیتونه چې په کتنې یا پټولو حالت کې یې تمرینوئ، په خپل وخت دلته راګرځي.",
+      "dueToday": "د نن ورځې",
+      "markedMemorized": "د حفظ شوي نښه لري",
+      "notNow": "اوس نه",
+      "setStatus": "حالت وټاکئ",
+      "skip": "تېرول",
+      "practiseRow": "د {{surah}} {{ayah}} تمرین",
+      "sittingProgress": "{{n}} له {{total}}",
+      "hifzRowSub": "هغه آیتونه چې حفظوئ یې تمرین او تکرار کړئ",
+      "status": {
+        "learning": "زده کېږي",
+        "practising": "تمرین کېږي",
+        "needsRevision": "تکرار ته اړتیا"
+      },
+      "overdue_other": "{{count}} ورځې ځنډ",
+      "overdue_one": "{{count}} ورځ ځنډ"
+    },
+    "settings": {
+      "title": "د قرآن تمرین",
+      "rowSubtitle": "اورېدونکی، لارښوونه او تکرار",
+      "valueReady": "چمتو",
+      "valueNotDownloaded": "نه دی ښکته شوی",
+      "valueDownloading": "ښکته کېږي {{percent}}٪",
+      "valueRetry": "بیا هڅې ته اړتیا",
+      "practiceTitle": "تمرین",
+      "defaultMode": "ډیفالټ حالت",
+      "feedbackTiming": "د بیا لوستلو کلمې کله وښودل شي",
+      "timing": {
+        "ayah": "له هر آیت وروسته",
+        "live": "د تلاوت پر مهال",
+        "end": "په پای کې"
+      },
+      "showTranslation": "ژباړه وښیه",
+      "showTransliteration": "لاتیني تلفظ وښیه",
+      "showTajweed": "د تجوید رنګونه",
+      "showTajweedSub": "رنګونه کېدای شي د تمرین نښې لیدل ستونزمن کړي.",
+      "hearBeforeRecite": "له تلاوت مخکې اورېدل",
+      "hear": {
+        "off": "بند",
+        "once": "یو ځل",
+        "every": "هر آیت"
+      },
+      "autoAdvance": "په خپله مخکې تلل",
+      "autoAdvanceSub": "کله چې دا آیت بشپړ شي بل ته لاړ شئ.",
+      "keepAwake": "پرده روښانه وساتئ",
+      "startFromTitle": "پیل له",
+      "startFrom": {
+        "lastPractice": "وروستی تمرین",
+        "lastRead": "چېرته چې لوستل مې",
+        "ask": "له ما وپوښته"
+      },
+      "revisionTitle": "تکرار",
+      "dailyLimit": "ورځني آیتونه",
+      "includeHifz": "د حفظ تکرار شامل کړئ",
+      "includeHifzSub": "هغه آیتونه چې د تکرار لپاره مو نښه کړي شامل دي.",
+      "reminder": "د تکرار یادونه",
+      "reminderSub": "په همدې وسیله یادونه کله چې د آیتونو وخت راشي.",
+      "reminderMasterOff": "یادونې په خبرتیاوو کې بندې دي.",
+      "openNotifications": "د خبرتیاوو تنظیمات پرانیزئ",
+      "sessionTitle": "د تمرین پر مهال",
+      "displayTitle": "پر پرده",
+      "timingHelp": {
+        "ayah": "د بیا لوستلو کلمې د هر آیت په پای کې ښکاري — هېڅکله د لوستلو پر مهال نه.",
+        "live": "نښې هغه مهال ښکاري چې اورېدونکی ډاډه شي، د لوستلو پر مهال.",
+        "end": "یوازې اوسنۍ کلمه کرښه کېږي. پایلې په پای کې ښکاري."
+      },
+      "hearHelp": {
+        "off": "قاري یوازې هغه وخت لولي چې اورېدل کېکاږئ.",
+        "once": "مخکې له پیل قاري لومړی آیت لولي.",
+        "every": "مخکې له دې چې تاسې یې ولولئ، قاري هر آیت لولي."
+      },
+      "startHelp": {
+        "lastPractice": "له هغه ځایه دوام ورکړئ چې وروستی تمرین مو پای ته رسېدلی و.",
+        "lastRead": "له هغه آیت څخه پیل وکړئ چې په قرآن کې مو لوسته.",
+        "ask": "هر ځل برخه پخپله وټاکئ."
+      },
+      "dailyLimitHelp_one": "ورځ کې تر {{count}} آیت پورې؛ پاتې نور راتلونکو ورځو ته پاتې کېږي.",
+      "dailyLimitHelp_other": "ورځ کې تر {{count}} آیتونو پورې؛ پاتې نور راتلونکو ورځو ته پاتې کېږي."
+    },
+    "listener": {
+      "title": "په وسیله کې اورېدونکی",
+      "notOnDevice": "په دې وسیله کې نشته",
+      "aboutSize": "شاوخوا {{size}} مېګابایټه",
+      "download": "ښکته کول",
+      "staysOnDevice": "په همدې وسیله پاتې کېږي. لوستل له دې پرته هم کار کوي.",
+      "downloadingBytes": "{{done}} له {{total}}",
+      "downloadingLine": "اورېدونکی {{done}} له {{total}} ({{percent}}٪)",
+      "cancel": "لغوه",
+      "verifying": "فایل کتل کېږي",
+      "ready": "چمتو",
+      "version": "نسخه {{version}}",
+      "delete": "ړنګول",
+      "deleteTitle": "اورېدونکی ړنګ شي؟",
+      "deleteBody": "تمرین به لا هم تلاوتونه غږوي. د غږ تعقیب بیا ښکته کولو ته اړتیا لري.",
+      "confirmRemove": "لرې کول",
+      "needsRetry": "بیا هڅې ته اړتیا",
+      "tryAgain": "بیا هڅه وکړئ",
+      "updateAvailable": "تازه نسخه چمتو ده",
+      "updateSize": "شاوخوا {{size}} مېګابایټه. اوسنی اورېدونکی به کار کوي.",
+      "updateTitle": "اورېدونکی بدل شي؟",
+      "downloadUpdate": "تازه نسخه ښکته کړئ",
+      "wifiOnly": "یوازې په Wi-Fi ښکته کول",
+      "cellularTitle": "ګرځنده ډېټا وکاروئ؟",
+      "cellularBody": "اورېدونکی شاوخوا {{size}} مېګابایټه دی او په همدې وسیله پاتې کېږي.",
+      "useMobileData": "ګرځنده ډېټا وکاروئ",
+      "advanced": "پرمختللی",
+      "recommended": "وړاندیز شوی اورېدونکی",
+      "alternate": "بدیل اورېدونکی",
+      "recommendedSize": "وړاندیز شوی، شاوخوا {{size}} مېګابایټه",
+      "alternateSize": "بدیل، شاوخوا {{size}} مېګابایټه",
+      "alternateCaption": "بدیل یوازې هغه وخت وکاروئ چې وړاندیز شوی ونه چلېږي. کېدای شي د بیا لوستلو کلمې نښه نه کړي.",
+      "switchTitle": "اورېدونکی بدل شي؟",
+      "engineCaption": "{{engine}} کارول کېږي.",
+      "unsupported": "اورېدونکی په دې وسیله کې نشته.",
+      "webUnsupported": "دا براوزر اورېدونکی نه شي چلولی.",
+      "knownLimits": "په ارامه ځای، له یو غږ سره او په عادي سرعت کې ښه کار کوي. د ماشومانو له غږ سره کېدای شي لږ دقیق وي.",
+      "detailsLine": "پر دې وسیله {{size}} MB · {{engine}}"
+    },
+    "privacy": {
+      "title": "محرمیت او سرچینې",
+      "onDevice": "ستاسو غږ په همدې وسیله پروسس کېږي. نه پورته کېږي او نه ساتل کېږي.",
+      "microphone": "مایکروفون",
+      "micAllowed": "اجازه شته",
+      "micBlocked": "بند",
+      "micNotAsked": "لا نه دی پوښتل شوی",
+      "deleteHistory": "د تمرین تاریخچه ړنګه کړئ",
+      "deleteHistoryTitle": "د تمرین تاریخچه ړنګه شي؟",
+      "deleteHistoryBody": "د ناستو لنډیزونه ړنګېږي. د حفظ نښې، د تکرار مهالوېش او اورېدونکی پاتې کېږي.",
+      "practiceAid": "اورېدونکی د تمرین مرستندوی دی. د استاد ځای نه نیسي.",
+      "sources": "د اورېدونکي فایل له {{host}} څخه ښکته کېږي. د Tilawa پروژې، Tanzil متن او Quran.com د کلمو ډېټا سره جوړ شوی.",
+      "licence": "وړاندیز شوی اورېدونکی د NPL-1.2 جواز لاندې دی: وړیا، هېڅکله نه پلورل کېږي او اعلانونه نه لري."
+    },
+    "offlineRow": {
+      "title": "د قرآن اورېدونکی",
+      "subtitle": "د قرآن په تمرین کې اداره کېږي. «ټول پاکول» یې ساتي."
+    },
+    "reminder": {
+      "title": "د قرآن تکرار",
+      "body_other": "نن {{count}} آیتونه د تکرار لپاره",
+      "body_one": "نن {{count}} آیت د تکرار لپاره"
+    },
+    "error": {
+      "noConnection": "اړیکه نشته",
+      "notEnoughSpace": "کافي ځای نشته",
+      "checksum": "فایل برابر نه و",
+      "downloadFailed": "ښکته کول بشپړ نه شول",
+      "downloadCancelled": "ښکته کول لغوه شول",
+      "modelMissing": "د اورېدونکي فایل نشته",
+      "didNotStart": "پیل نه شو",
+      "outOfMemory": "د دې وسیلې حافظه بس نه شوه. بیا هم اورېدلی شئ.",
+      "unsupported": "په دې وسیله کې نشته",
+      "micDenied": "مایکروفون بند دی",
+      "micUnavailable": "مایکروفون نشته",
+      "captureFailed": "مایکروفون پیل نه شو",
+      "interrupted": "اورېدل پرې شول",
+      "listeningStopped": "اورېدل ودرېدل",
+      "unknown": "یوه ستونزه پېښه شوه"
+    },
+    "pronunciation": {
+      "title": "د تلفظ اورېدونکی",
+      "explainer": "د تجوید درسونو لپاره اختیاري دویم اورېدونکی. هر ځل یو غږ له بېلګې سره پرتله کوي او هېڅکله نمره نه ورکوي.",
+      "notSetUp": "نه دی جوړ شوی",
+      "notOnDevice": "په دې وسیله کې نشته",
+      "ready": "چمتو (نسخه {{version}})",
+      "setUp": "جوړول",
+      "downloading": "د تلفظ اورېدونکی ښکته کېږي…",
+      "consentTitle": "له جوړولو مخکې",
+      "consentDownload": "دا له Quran Lab څخه شاوخوا ۵۷ مېګابایټه دویم اورېدونکی ښکته کوي.",
+      "consentActivation": "اپ یو ځل د فعالولو او بیا د تازه نسخو د کتلو لپاره له Quran Lab سره اړیکه نیسي.",
+      "consentOnDevice": "ستاسو تلاوت په همدې وسیله پروسس کېږي.",
+      "consentRemotePause": "Quran Lab کولی شي دا اورېدونکی د ټولو کاروونکو لپاره ودروي. درسونه به بیا هم کار کوي.",
+      "agree": "موافق یم او ښکته یې کړه",
+      "notNow": "اوس نه",
+      "deleteTitle": "د تلفظ اورېدونکی ړنګ شي؟",
+      "deleteBody": "د تجوید درسونه به کار کوي. د یو غږ تمرین بیا ښکته کولو ته اړتیا لري.",
+      "sharingSwitch": "خپل تلاوتونه له Quran Lab سره شریک کړئ",
+      "sharingSub": "یوازې که مو د Quran Lab په پاڼه موافقه کړې وي. بندول پورته کول دروي او نه لېږل شوې کتار ړنګوي.",
+      "deleteShared": "هغه څه ړنګ کړئ چې ما شریک کړل",
+      "deleteSharedTitle": "هغه څه ړنګ شي چې تاسو شریک کړل؟",
+      "deleteSharedBody": "هر ثبت چې تاسو له دې اپ څخه شریک کړی د Quran Lab له سرورونو ړنګېږي، او شریکول بندېږي.",
+      "deletedShared": "ستاسو شریک شوي ثبتونه ړنګ شول",
+      "sharingFailed": "ونه شو. مهرباني وکړئ بیا هڅه وکړئ.",
+      "recoveryCode": "د بیا راګرځولو کوډ: {{code}}",
+      "sourcesLine": "‏TajweedFormer د Quran Lab لخوا، د NPL-1.2 جواز لاندې.",
+      "practiseSound": "د دې غږ تمرین",
+      "drillTitle": "د دې غږ تمرین",
+      "drillIntro": "بېلګه واورئ، بیا «تلاوت» کېکاږئ او په همدې ډول یې ووایاست.",
+      "needsSetup": "د دې غږ د تمرین لپاره د تلفظ اورېدونکی جوړ کړئ.",
+      "needsConnectionOnce": "جوړول یو ځل اړیکې ته اړتیا لري.",
+      "notAvailableForSound": "د دې غږ لپاره لارښوونه لا نشته. بېلګه واورئ او بیا هڅه وکړئ.",
+      "recite": "تلاوت",
+      "stop": "درول",
+      "listening": "اوري…",
+      "verdictMatched": "دا له بېلګې سره برابر و.",
+      "verdictTryAgain": "بیا واورئ او یو ځل بیا هڅه وکړئ.",
+      "verdictNotSure": "اورېدونکی ډاډه نه و.",
+      "error": {
+        "noConnection": "جوړول یو ځل اړیکې ته اړتیا لري.",
+        "paused": "Quran Lab دا اورېدونکی درولی دی. درسونه به کار کوي.",
+        "noSpace": "کافي ځای نشته",
+        "notYet": "دا اورېدونکی لا نشته. مهرباني وکړئ وروسته هڅه وکړئ.",
+        "micDenied": "د Munib Tracker لپاره مایکروفون بند دی.",
+        "unsupported": "په دې وسیله کې نشته",
+        "generic": "ونه شو. مهرباني وکړئ بیا هڅه وکړئ."
+      }
+    },
+    "modeHelp": {
+      "follow": "د متن په وړاندې یې ولولئ. اورېدونکی کلمه په کلمه درسره ځي.",
+      "check": "د ښکاره متن سره یې ولولئ. د هر آیت وروسته به هغه کلمې ووینئ چې بیا ولوستل شي.",
+      "hideWords": "له لومړۍ وروسته کلمې پټېږي. له یاده یې ولولئ؛ اورېدل شوې کلمې پخپله ښکاره کېږي.",
+      "hideAyahs": "ټول آیت تر هغه پټ پاتې کېږي چې پای ته یې ورسوئ یا «ښکاره کول» کېکاږئ. د تکرار لپاره غوره."
+    },
+    "listenerStatus": {
+      "ready": "اورېدونکی چمتو دی",
+      "readySub": "ستاسو غږ په همدې وسیله پروسس کېږي او هېڅکله نه پورته کېږي.",
+      "downloading": "اورېدونکی ښکته کېږي · {{percent}}٪",
+      "failed": "ښکته کول بشپړ نه شول",
+      "missing": "ستاسو غږ تعقیب کړي",
+      "missingSub": "د وسیلې اورېدونکی ښکته کړئ ({{size}} MB). له هغه پرته هم اورېدلی او ښکاره کولی شئ.",
+      "offlineSub": "د اورېدونکي د ښکته کولو لپاره یو ځل وصل شئ. اورېدل بې انټرنېټه هم کار کوي.",
+      "stillListen": "تاسو لا هم اورېدلی او کلمې ښکاره کولی شئ."
+    },
+    "picker": {
+      "title": "وټاکئ چې څه تمرین کوئ",
+      "searchSurah": "سورت د نوم یا شمېرې له مخې ولټوئ",
+      "changeSurah": "سورت بدلول",
+      "fromAyah": "له آیت څخه پیل",
+      "toAyah": "په آیت پای",
+      "toEnd": "تر پایه",
+      "ayahN": "آیت {{n}}",
+      "confirm": "د {{passage}} تمرین",
+      "ayahCount_one": "{{count}} آیت",
+      "ayahCount_other": "{{count}} آیتونه"
+    },
+    "result": {
+      "headAllMatched": "هره کلمه برابره وه",
+      "headTryAgain_one": "{{count}} کلمه بیا ولولئ",
+      "headTryAgain_other": "{{count}} کلمې بیا ولولئ",
+      "headMissed_one": "{{count}} کلمې ته ونه رسېدل",
+      "headMissed_other": "{{count}} کلمو ته ونه رسېدل",
+      "headNotSure_one": "اورېدونکی د {{count}} کلمې په اړه ډاډه نه و",
+      "headNotSure_other": "اورېدونکی د {{count}} کلمو په اړه ډاډه نه و",
+      "heardOf": "له {{total}} کلمو {{heard}} واورېدل شوې",
+      "matched": "برابر",
+      "tryAgain": "بیا یې ولولئ",
+      "notSure": "ډاډه نه",
+      "missed": "پاتې شوې",
+      "groupTryAgain": "دا بیا ولولئ",
+      "groupMissed": "ورته ونه رسېدل",
+      "groupNotSure": "ډاډه نه",
+      "nextAyah": "بل آیت",
+      "reciteAgain": "بیا ولولئ",
+      "moveOn": "بل آیت ته لاړ شئ",
+      "finish": "پای او لنډیز وګورئ",
+      "headNothingHeard": "اورېدونکي هېڅ کلمه وانه وروله",
+      "nothingHeardTip": "لږ لوړ غږ سره، مایکروفون ته نږدې ولولئ او له لومړۍ کلمې پیل وکړئ."
+    },
+    "view": {
+      "title": "بڼه",
+      "mushafCoarse": "په مصحف کې د کلمو نښو ته د کلمو لړلیک اړین دی. د ښکته کولو لپاره یو ځل وصل شئ — آیتونه بیا هم ښکاري."
+    }
   }
 }

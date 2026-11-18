@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -13,6 +13,8 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useCustomTasbeeh,
   useCustomTasbeehActions,
@@ -28,6 +30,9 @@ export default function CustomTasbeehScreen() {
   const { update, remove, setCount } = useCustomTasbeehActions();
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const { width: windowWidth } = useWindowDimensions();
+  // Wide web / tablets: note + manage actions beside the counter (TV keeps one column).
+  const wide = !isTV() && windowWidth >= 1024;
 
   const goBack = () => goBackOrReplace(router, "/tasbeeh/free");
 
@@ -57,6 +62,46 @@ export default function CustomTasbeehScreen() {
     void setCount(item.id, next);
   };
 
+  const description = item.description ? (
+    <Card variant="muted" padding="four" style={styles.reading}>
+      <ThemedText type="small" themeColor="mutedForeground">
+        {item.description}
+      </ThemedText>
+    </Card>
+  ) : null;
+
+  const counterCard = (
+    <Card variant="plain" padding="five" style={styles.card}>
+      <TasbeehCounter
+        count={count}
+        target={target}
+        onIncrement={() => persist(target > 0 ? Math.min(count + 1, target) : count + 1)}
+        onDecrement={() => persist(count - 1)}
+        onReset={() => persist(0)}
+        keyboardShortcuts={!editOpen && !deleteOpen}
+      />
+    </Card>
+  );
+
+  const manage = (
+    <View style={styles.manage}>
+      <Button
+        label={t("common.edit")}
+        variant="secondary"
+        icon={{ ios: "pencil", android: "edit", web: "edit" }}
+        onPress={() => setEditOpen(true)}
+        style={styles.manageButton}
+      />
+      <Button
+        label={t("common.delete")}
+        variant="ghost"
+        icon={{ ios: "trash", android: "delete", web: "delete" }}
+        onPress={() => setDeleteOpen(true)}
+        style={styles.manageButton}
+      />
+    </View>
+  );
+
   return (
     <ScreenLayout eyebrow={t("tasbeeh.eyebrow")} title={item.title} onBack={goBack} scrollable>
       <Seo
@@ -64,40 +109,21 @@ export default function CustomTasbeehScreen() {
         description={t("seo.tasbeehCustom.description")}
         index={false}
       />
-      {item.description ? (
-        <Card variant="muted" padding="four" style={styles.reading}>
-          <ThemedText type="small" themeColor="mutedForeground">
-            {item.description}
-          </ThemedText>
-        </Card>
-      ) : null}
-
-      <Card variant="plain" padding="five" style={styles.card}>
-        <TasbeehCounter
-          count={count}
-          target={target}
-          onIncrement={() => persist(target > 0 ? Math.min(count + 1, target) : count + 1)}
-          onDecrement={() => persist(count - 1)}
-          onReset={() => persist(0)}
-        />
-      </Card>
-
-      <View style={styles.manage}>
-        <Button
-          label={t("common.edit")}
-          variant="secondary"
-          icon={{ ios: "pencil", android: "edit", web: "edit" }}
-          onPress={() => setEditOpen(true)}
-          style={styles.manageButton}
-        />
-        <Button
-          label={t("common.delete")}
-          variant="ghost"
-          icon={{ ios: "trash", android: "delete", web: "delete" }}
-          onPress={() => setDeleteOpen(true)}
-          style={styles.manageButton}
-        />
-      </View>
+      {wide ? (
+        <View style={styles.wideRow}>
+          <View style={styles.wideSide}>
+            {description}
+            {manage}
+          </View>
+          <View style={styles.wideCounter}>{counterCard}</View>
+        </View>
+      ) : (
+        <>
+          {description}
+          {counterCard}
+          {manage}
+        </>
+      )}
 
       <CustomTasbeehFormModal
         visible={editOpen}
@@ -128,6 +154,9 @@ export default function CustomTasbeehScreen() {
 }
 
 const styles = StyleSheet.create({
+  wideRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  wideSide: { flex: 1, minWidth: 0 },
+  wideCounter: { width: 440, flexShrink: 0 },
   reading: {
     marginBottom: Spacing.two,
   },
@@ -144,3 +173,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tasbeeh/custom/[id]");

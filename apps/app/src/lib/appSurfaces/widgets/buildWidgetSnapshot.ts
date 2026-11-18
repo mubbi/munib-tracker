@@ -3,6 +3,7 @@ import { FRIDAY_CHECKLIST } from "@munib-tracker/shared/content/friday-checklist
 import type { AppLocale } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { Coordinates, Qibla } from "adhan";
+import type { TFunction } from "i18next";
 
 import { buildAppUrl } from "@/lib/app-links";
 import { WIDGET_MAX_SCHEDULE_ROWS } from "@/lib/appSurfaces/widgets/constants";
@@ -71,7 +72,7 @@ export type BuildWidgetSnapshotInput = {
   /** Jumu'ah checklist item ids completed today (`friday-checklist-store`). */
   fridayChecklistDone: Record<string, boolean>;
   now?: Date;
-  t: (key: string, fallback: string, options?: Record<string, unknown>) => string;
+  t: TFunction;
 };
 
 const HADITH_MEANING_MAX = 160;

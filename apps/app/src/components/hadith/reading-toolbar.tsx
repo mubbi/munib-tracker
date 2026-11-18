@@ -146,7 +146,8 @@ export function HadithReadingToolbar({
         ]}
       />
       <View style={styles.row}>
-        {showBackToTop && onBackToTop ? (
+        {/* TV: scrolling to top would strand D-pad focus on an off-screen card. */}
+        {showBackToTop && onBackToTop && !isTV() ? (
           <PressableScale
             haptic="light"
             accessibilityRole="button"
@@ -161,7 +162,8 @@ export function HadithReadingToolbar({
             />
           </PressableScale>
         ) : null}
-        <TvFocusGuide trapFocusUp trapFocusDown>
+        {/* Horizontal chip row: keep Left/Right inside, let Up/Down leave; remember the last chip. */}
+        <TvFocusGuide autoFocus trapFocusLeft trapFocusRight>
           <TvScrollView
             ref={scrollRef}
             horizontal
@@ -293,7 +295,8 @@ function ToggleChip({
         tv && styles.chipTv,
         {
           backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-          borderColor: enabled ? colors.accent : "transparent",
+          // TV: hairline (not accent) on enabled chips so the focus ring stays distinct.
+          borderColor: enabled ? (tv ? tokens.hairline : colors.accent) : "transparent",
         },
       ]}
     >

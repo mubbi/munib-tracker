@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ import { createId, PrayerRepository, QazaRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -25,6 +27,7 @@ import { trackerStore } from "@/stores/tracker-store";
 const MAX_ERRORS_SHOWN = 8;
 
 export default function ImportScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -38,6 +41,7 @@ export default function ImportScreen() {
   if (isTV()) {
     return (
       <ScreenLayout
+        maxContentWidth={formMaxWidth}
         eyebrow={t("settings.title")}
         title={t("import.title")}
         onBack={() => goBackOrReplace(router, "/settings")}
@@ -92,6 +96,7 @@ export default function ImportScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.title")}
       title={t("import.title")}
       subtitle={t("import.subtitle")}
@@ -116,14 +121,7 @@ export default function ImportScreen() {
             multiline
             autoCapitalize="none"
             autoCorrect={false}
-            style={[
-              styles.input,
-              {
-                backgroundColor: colors.muted,
-                color: colors.foreground,
-                borderColor: colors.border,
-              },
-            ]}
+            style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
           />
           <Button
             label={t("import.preview")}
@@ -248,3 +246,6 @@ const styles = StyleSheet.create({
   qazaToggle: { marginTop: Spacing.three },
   disclaimer: { marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/import");

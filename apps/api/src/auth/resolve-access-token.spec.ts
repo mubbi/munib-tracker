@@ -1,39 +1,35 @@
 import { UnauthorizedException } from "@nestjs/common";
-import type { Request } from "express";
 import { describe, expect, it } from "vitest";
+import { buildRequest, TEST_ACCESS_TOKEN, TEST_BEARER } from "../test-support/http";
 import { ACCESS_TOKEN_COOKIE, sealAuthCookieValue } from "./auth-cookies";
 import { resolveAccessToken } from "./resolve-access-token";
 
-function mockReq(cookies?: Record<string, string>): Request {
-  return { cookies: cookies ?? {} } as Request;
+function requestWithAccessCookie(value: string) {
+  return buildRequest({ cookies: { [ACCESS_TOKEN_COOKIE]: value } });
 }
 
 describe("resolveAccessToken", () => {
   it("prefers a real Bearer token", () => {
-    expect(resolveAccessToken(mockReq(), "Bearer real-jwt")).toBe("real-jwt");
+    const req = requestWithAccessCookie(sealAuthCookieValue("cookie-jwt"));
+    expect(resolveAccessToken(req, TEST_BEARER)).toBe(TEST_ACCESS_TOKEN);
   });
 
-  it("reads the access cookie when Authorization is missing", () => {
-    expect(
-      resolveAccessToken(mockReq({ [ACCESS_TOKEN_COOKIE]: sealAuthCookieValue("cookie-jwt") })),
-    ).toBe("cookie-jwt");
-  });
-
-  it("ignores the web session marker Bearer cookie and falls back to the HttpOnly cookie", () => {
-    expect(
-      resolveAccessToken(
-        mockReq({ [ACCESS_TOKEN_COOKIE]: sealAuthCookieValue("cookie-jwt") }),
-        "Bearer cookie",
-      ),
-    ).toBe("cookie-jwt");
+  it.each([
+    ["Authorization is missing", undefined],
+    ["the Bearer value is the web session marker", "Bearer cookie"],
+    ["the Bearer value is blank", "Bearer   "],
+    ["the scheme is not Bearer", "Basic abc"],
+  ])("reads the sealed access cookie when %s", (_label, authorization) => {
+    const req = requestWithAccessCookie(sealAuthCookieValue("cookie-jwt"));
+    expect(resolveAccessToken(req, authorization)).toBe("cookie-jwt");
   });
 
   it("throws when neither Bearer nor cookie is present", () => {
-    expect(() => resolveAccessToken(mockReq())).toThrow(UnauthorizedException);
+    expect(() => resolveAccessToken(buildRequest())).toThrow(UnauthorizedException);
   });
 
   it("throws when the access cookie is cleartext or malformed", () => {
-    expect(() => resolveAccessToken(mockReq({ [ACCESS_TOKEN_COOKIE]: "cleartext-jwt" }))).toThrow(
+    expect(() => resolveAccessToken(requestWithAccessCookie("cleartext-jwt"))).toThrow(
       UnauthorizedException,
     );
   });

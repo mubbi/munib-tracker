@@ -4,7 +4,13 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
-import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+  useLearnTileStyle,
+} from "@/components/jannah/hub-layout";
+import { JannahActionRow, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -12,7 +18,6 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
@@ -26,6 +31,7 @@ import {
 } from "@/lib/battles";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function BattlesVersesScreen() {
   const router = useRouter();
@@ -34,6 +40,10 @@ export default function BattlesVersesScreen() {
   const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const { sizes } = useReadingTypography();
   const verses = getBattlesVerses();
+  const tileStyle = useLearnTileStyle();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: verse cards flow into 2–3 columns per battle.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 3 });
 
   const grouped = useMemo(() => {
     const map = new Map<string, typeof verses>();
@@ -53,6 +63,7 @@ export default function BattlesVersesScreen() {
       title={t("battles.versesTitle")}
       subtitle={t("battles.versesSubtitle")}
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/battles/verses" />
       <LearnContentGate ready={contentReady}>
@@ -72,11 +83,15 @@ export default function BattlesVersesScreen() {
                     title={title}
                     icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
                   />
-                  <View style={styles.list}>
+                  <LearnColumnsGrid
+                    columns={columns}
+                    gap={Spacing.three}
+                    stackGap={0}
+                    style={styles.list}
+                  >
                     {items.map((verse, index) => (
-                      <PressableScale
+                      <JannahActionRow
                         key={verse.id}
-                        haptic="light"
                         accessibilityRole="link"
                         onPress={() =>
                           router.push({
@@ -86,11 +101,16 @@ export default function BattlesVersesScreen() {
                         }
                         style={[
                           styles.row,
-                          index > 0 && {
-                            borderTopColor: tokens.hairline,
-                            borderTopWidth: StyleSheet.hairlineWidth,
-                          },
+                          columns > 1
+                            ? tileStyle
+                            : index > 0 && {
+                                borderTopColor: tokens.hairline,
+                                borderTopWidth: StyleSheet.hairlineWidth,
+                              },
                         ]}
+                        actions={
+                          <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
+                        }
                       >
                         <IconWell
                           icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -113,10 +133,9 @@ export default function BattlesVersesScreen() {
                             {verse.context}
                           </ThemedText>
                         </View>
-                        <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
-                      </PressableScale>
+                      </JannahActionRow>
                     ))}
-                  </View>
+                  </LearnColumnsGrid>
                 </Card>
               );
             })}
@@ -139,3 +158,6 @@ const styles = StyleSheet.create({
   },
   copy: { flex: 1, gap: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles/verses");

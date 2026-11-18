@@ -48,18 +48,46 @@ export interface SurfaceJobStore {
   cancelPendingForRegistration(registrationId: number, reason: string): Promise<string[]>;
   recoverExpiredLeases(leaseMs: number, now?: Date): Promise<void>;
   listDuePendingJobIds(limit: number, now?: Date): Promise<string[]>;
+  /**
+   * True when a later phase for the same registration is already due or
+   * delivered — a retried older job would replace the newer notification
+   * (same tag / ongoing id) with stale content.
+   */
+  hasNewerDueJob(
+    job: Pick<SurfaceJobRecord, "id" | "registrationId" | "executeAt">,
+    now: Date,
+  ): Promise<boolean>;
   deleteOldJobs(cutoff: Date): Promise<number>;
+  /** Mark active registrations past `expiresAt` as expired; return their ids for cancel. */
+  expireRegistrations(now: Date): Promise<number[]>;
+  /** Delete non-active registrations (and cascaded jobs) last touched before `cutoff`. */
+  deleteOldInactiveRegistrations(cutoff: Date): Promise<number>;
 }
+
+export type SurfaceSendOptions = {
+  /** Provider-side TTL; past this the phase is stale and must not be shown. */
+  ttlSeconds?: number;
+};
 
 export type SurfaceSender = {
   channel: SurfaceChannel;
-  send(target: string, payloadJson: string): Promise<SurfaceSendResult>;
+  send(
+    target: string,
+    payloadJson: string,
+    options?: SurfaceSendOptions,
+  ): Promise<SurfaceSendResult>;
 };
 
 export class SurfaceDeliveryError extends Error {
   constructor(
     message: string,
-    readonly code: "NOT_CONFIGURED" | "TOO_EARLY" | "NOT_FOUND" | "TRANSIENT" | "INVALID_TARGET",
+    readonly code:
+      | "NOT_CONFIGURED"
+      | "TOO_EARLY"
+      | "IN_FLIGHT"
+      | "NOT_FOUND"
+      | "TRANSIENT"
+      | "INVALID_TARGET",
     readonly retryable = false,
   ) {
     super(message);

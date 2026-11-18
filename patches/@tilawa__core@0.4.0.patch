@@ -1,0 +1,35 @@
+diff --git a/dist/recitation/session.js b/dist/recitation/session.js
+index 3d7030cac860a410c42f7a14ba5042fa160bb0f6..ca39b42d07614114ae4a4c46148c817296187f36 100644
+--- a/dist/recitation/session.js
++++ b/dist/recitation/session.js
+@@ -24,7 +24,7 @@ import { BLANK_ID, TOKENS } from "./tokens.js";
+ import { costTable } from "./phonemeCost.js";
+ import { normalizedDistance } from "./alignment.js";
+ import { ZipformerRunner, } from "./zipformerRunner.js";
+-import DEFAULT_IO from "./zipformer-io.json" with { type: "json" };
++import DEFAULT_IO from "./zipformer-io.json";
+ import { CorrectionController } from "./correction.js";
+ import { FramePosteriors } from "./posteriors.js";
+ import { A0W_SLIP_HEAD, EncoderFrames, slipThreshold } from "./slipHead.js";
+@@ -80,7 +80,7 @@ const STRUCTURAL_BLOCK_SECONDS = 120;
+ const STRUCTURAL_ERROR_KINDS = new Set(["possible_omission", "possible_substitution", "possible_vowel",
+     "possible_skipped_ayah", "unclear_ayah"]);
+ async function loadStructuralIndex() {
+-    const mod = await import("./structural-index.json", { with: { type: "json" } });
++    const mod = await import("./structural-index.json");
+     return mod.default;
+ }
+ export class ZipformerSession {
+diff --git a/dist/recitation/slipHead.js b/dist/recitation/slipHead.js
+index 6a62d0367506ddbba591c81b2c3977f8e95d05fa..86156e4eac913f02b6209aa11d7ddcf585782d3d 100644
+--- a/dist/recitation/slipHead.js
++++ b/dist/recitation/slipHead.js
+@@ -6,7 +6,7 @@
+  * the kind still comes from the aligner. Weights are the a0w refit
+  * (`slip-weights.json`). No encoder frames → the session never reads this.
+  */
+-import BUNDLED from "./slip-weights.json" with { type: "json" };
++import BUNDLED from "./slip-weights.json";
+ export const ENCODER_DIM = 512;
+ /** Frames added on each side of a tracker word span. Matches the probe. */
+ export const SLIP_PAD = 1;

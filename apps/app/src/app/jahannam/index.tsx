@@ -3,6 +3,12 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
+  LearnColumnsGrid,
+  LearnTwoPane,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
+import {
   JannahCallout,
   JannahDisclaimer,
   JannahDuaBlock,
@@ -31,11 +37,16 @@ import {
 } from "@/lib/jahannam";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function JahannamScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const wide = useLearnHubLayout();
+  // Columns inside cards of the main column (card padding × 2 subtracted).
+  const navCols = learnColumnsFor(wide.mainWidth - Spacing.three * 2, { minCell: 280, max: 2 });
+  const tileCols = learnColumnsFor(wide.mainWidth - Spacing.three * 2, { minCell: 220, max: 3 });
   const { version: contentVersion, ready: contentReady } = useEnsureContent(
     ensureJahannamContent,
     isJahannamContentReady,
@@ -143,173 +154,221 @@ export default function JahannamScreen() {
     [router, t],
   );
 
+  const intro = <JannahCallout tone="warning">{t("jahannam.intro")}</JannahCallout>;
+
+  const quizRow = (
+    <LearnQuizNavRow
+      quizPath={"/jahannam/quiz" as Href}
+      titleKey="common.learnQuiz.title"
+      subtitleKey="common.learnQuiz.hint"
+    />
+  );
+
+  const quickLinksCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("jahannam.quickLinksTitle")}
+        icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+      />
+      <JannahQuickLinkGrid
+        items={quickLinks}
+        columns={!wide.twoPane && wide.contentWidth >= 720 ? 4 : 2}
+      />
+    </Card>
+  );
+
+  const jannahPairRow = (
+    <JannahNavRow
+      icon={{ ios: "leaf.fill", android: "park", web: "park" }}
+      title={t("jahannam.jannahPairTitle")}
+      subtitle={t("jahannam.jannahPairHint")}
+      tint={tokens.status.success.color}
+      onPress={() => router.push("/jannah" as Href)}
+    />
+  );
+
+  const sectionCards = SECTION_ORDER.map((section) => {
+    if (section === "major-sins") return null;
+    const topics = TOPICS_BY_SECTION[section];
+    if (!topics?.length) return null;
+    return (
+      <Card key={section} padding="three">
+        <SectionHeader
+          title={t(`jahannam.section.${section}`)}
+          icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+          {t(`jahannam.section.${section}Hint`)}
+        </ThemedText>
+        <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
+          {topics.map((topic) => (
+            <JannahNavRow
+              key={topic.id}
+              icon={
+                topic.id === "destructive-sins"
+                  ? {
+                      ios: "shield.lefthalf.filled",
+                      android: "shield",
+                      web: "shield",
+                    }
+                  : topic.id === "major-sins"
+                    ? {
+                        ios: "exclamationmark.triangle.fill",
+                        android: "warning",
+                        web: "warning",
+                      }
+                    : {
+                        ios: "text.book.closed",
+                        android: "article",
+                        web: "article",
+                      }
+              }
+              title={topic.title}
+              subtitle={topic.summary}
+              badge={topic.importance ? t(`jahannam.importance.${topic.importance}`) : undefined}
+              onPress={() =>
+                router.push({
+                  pathname: "/jahannam/[topic]",
+                  params: { topic: topic.id },
+                })
+              }
+            />
+          ))}
+        </LearnColumnsGrid>
+      </Card>
+    );
+  });
+
+  const majorSinsCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("jahannam.majorSinsTitle")}
+        icon={{ ios: "exclamationmark.triangle.fill", android: "warning", web: "warning" }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+        {t("jahannam.majorSinsHint")}
+      </ThemedText>
+      <View style={styles.sinGrid}>
+        {majorSins.map((topic) => (
+          <PressableScale
+            key={topic.id}
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={`${topic.title}. ${topic.summary}`}
+            onPress={() =>
+              router.push({
+                pathname: "/jahannam/[topic]",
+                params: { topic: topic.id },
+              })
+            }
+            style={[
+              styles.sinTile,
+              tileCols >= 3 ? styles.sinTileThird : null,
+              { backgroundColor: colors.muted },
+            ]}
+          >
+            <ThemedText type="smallBold" numberOfLines={2}>
+              {topic.title}
+            </ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={3}>
+              {topic.summary}
+            </ThemedText>
+            {topic.importance ? (
+              <Pill
+                label={t(`jahannam.importance.${topic.importance}`)}
+                compact
+                color={colors.mutedForeground}
+                background={colors.card}
+              />
+            ) : null}
+          </PressableScale>
+        ))}
+      </View>
+    </Card>
+  );
+
+  const exploreCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("jahannam.exploreTitle")}
+        icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+      />
+      <LearnColumnsGrid columns={wide.twoPane ? 1 : navCols} style={styles.gridTop}>
+        {exploreLinks.map((link) => (
+          <JannahNavRow
+            key={link.id}
+            icon={link.icon}
+            title={link.title}
+            subtitle={link.subtitle}
+            onPress={link.onPress}
+          />
+        ))}
+      </LearnColumnsGrid>
+    </Card>
+  );
+
+  const refugeDuaBlock = refugeDua ? (
+    <JannahDuaBlock
+      title={t("jahannam.refugeDuaTitle")}
+      arabic={refugeDua.arabic}
+      transliteration={refugeDua.transliteration}
+      translation={refugeDua.translation}
+      reference={refugeDua.reference}
+    />
+  ) : null;
+
   return (
     <ScreenLayout
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.title")}
       subtitle={t("jahannam.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="warning">{t("jahannam.intro")}</JannahCallout>
-
-          <LearnQuizNavRow
-            quizPath={"/jahannam/quiz" as Href}
-            titleKey="common.learnQuiz.title"
-            subtitleKey="common.learnQuiz.hint"
-          />
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("jahannam.quickLinksTitle")}
-              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+        {wide.twoPane ? (
+          <Stagger>
+            {intro}
+            <LearnTwoPane
+              main={
+                <>
+                  {sectionCards}
+                  {majorSinsCard}
+                </>
+              }
+              aside={
+                <>
+                  {quizRow}
+                  {quickLinksCard}
+                  {jannahPairRow}
+                  {exploreCard}
+                  {refugeDuaBlock}
+                </>
+              }
             />
-            <JannahQuickLinkGrid items={quickLinks} />
-          </Card>
-
-          <JannahNavRow
-            icon={{ ios: "leaf.fill", android: "park", web: "park" }}
-            title={t("jahannam.jannahPairTitle")}
-            subtitle={t("jahannam.jannahPairHint")}
-            tint={tokens.status.success.color}
-            onPress={() => router.push("/jannah" as Href)}
-          />
-
-          {SECTION_ORDER.map((section) => {
-            if (section === "major-sins") return null;
-            const topics = TOPICS_BY_SECTION[section];
-            if (!topics?.length) return null;
-            return (
-              <Card key={section} padding="three">
-                <SectionHeader
-                  title={t(`jahannam.section.${section}`)}
-                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                />
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-                  {t(`jahannam.section.${section}Hint`)}
-                </ThemedText>
-                <View style={styles.rows}>
-                  {topics.map((topic) => (
-                    <JannahNavRow
-                      key={topic.id}
-                      icon={
-                        topic.id === "destructive-sins"
-                          ? {
-                              ios: "shield.lefthalf.filled",
-                              android: "shield",
-                              web: "shield",
-                            }
-                          : topic.id === "major-sins"
-                            ? {
-                                ios: "exclamationmark.triangle.fill",
-                                android: "warning",
-                                web: "warning",
-                              }
-                            : {
-                                ios: "text.book.closed",
-                                android: "article",
-                                web: "article",
-                              }
-                      }
-                      title={topic.title}
-                      subtitle={topic.summary}
-                      badge={
-                        topic.importance ? t(`jahannam.importance.${topic.importance}`) : undefined
-                      }
-                      onPress={() =>
-                        router.push({
-                          pathname: "/jahannam/[topic]",
-                          params: { topic: topic.id },
-                        })
-                      }
-                    />
-                  ))}
-                </View>
-              </Card>
-            );
-          })}
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("jahannam.majorSinsTitle")}
-              icon={{ ios: "exclamationmark.triangle.fill", android: "warning", web: "warning" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-              {t("jahannam.majorSinsHint")}
-            </ThemedText>
-            <View style={styles.sinGrid}>
-              {majorSins.map((topic) => (
-                <PressableScale
-                  key={topic.id}
-                  haptic="light"
-                  accessibilityRole="button"
-                  accessibilityLabel={`${topic.title}. ${topic.summary}`}
-                  onPress={() =>
-                    router.push({
-                      pathname: "/jahannam/[topic]",
-                      params: { topic: topic.id },
-                    })
-                  }
-                  style={[styles.sinTile, { backgroundColor: colors.muted }]}
-                >
-                  <ThemedText type="smallBold" numberOfLines={2}>
-                    {topic.title}
-                  </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={3}>
-                    {topic.summary}
-                  </ThemedText>
-                  {topic.importance ? (
-                    <Pill
-                      label={t(`jahannam.importance.${topic.importance}`)}
-                      compact
-                      color={colors.mutedForeground}
-                      background={colors.card}
-                    />
-                  ) : null}
-                </PressableScale>
-              ))}
-            </View>
-          </Card>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("jahannam.exploreTitle")}
-              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-            />
-            <View style={styles.rows}>
-              {exploreLinks.map((link) => (
-                <JannahNavRow
-                  key={link.id}
-                  icon={link.icon}
-                  title={link.title}
-                  subtitle={link.subtitle}
-                  onPress={link.onPress}
-                />
-              ))}
-            </View>
-          </Card>
-
-          {refugeDua ? (
-            <JannahDuaBlock
-              title={t("jahannam.refugeDuaTitle")}
-              arabic={refugeDua.arabic}
-              transliteration={refugeDua.transliteration}
-              translation={refugeDua.translation}
-              reference={refugeDua.reference}
-            />
-          ) : null}
-
-          <JannahDisclaimer textKey="jahannam.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="jahannam.disclaimer" />
+          </Stagger>
+        ) : (
+          <Stagger>
+            {intro}
+            {quizRow}
+            {quickLinksCard}
+            {jannahPairRow}
+            {sectionCards}
+            {majorSinsCard}
+            {exploreCard}
+            {refugeDuaBlock}
+            <JannahDisclaimer textKey="jahannam.disclaimer" />
+          </Stagger>
+        )}
       </LearnContentGate>
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  gridTop: { marginTop: Spacing.three },
   sectionHint: { marginTop: Spacing.one, lineHeight: 20 },
   sinGrid: {
     flexDirection: "row",
@@ -326,4 +385,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     gap: Spacing.one + 2,
   },
+  sinTileThird: { width: "31%" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam");

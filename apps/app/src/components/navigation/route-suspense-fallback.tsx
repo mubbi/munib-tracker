@@ -1,11 +1,12 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { ActivityIndicator, I18nManager, StyleSheet, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Fonts, MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import i18n from "@/i18n";
+import { isTV } from "@/lib/platform/is-tv";
 import { useResolvedThemeScheme } from "@/lib/resolved-theme-scheme";
 
 export type SuspenseFallbackProps = {
@@ -39,11 +40,12 @@ const HEADER_BAND = 60;
 export function SuspenseFallback({ route }: SuspenseFallbackProps) {
   const scheme = useResolvedThemeScheme();
   const palette = scheme === "dark" ? darkPalette : lightPalette;
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const router = useRouter();
   const title = i18n.t("common.loadingRoute");
   const hint = i18n.t("common.loadingRouteHint");
-  const showBack = offersBack(route) && router.canDismiss();
+  // TV: the remote's Back / Menu is the only back affordance.
+  const showBack = !isTV() && offersBack(route) && router.canDismiss();
 
   return (
     <View
@@ -122,20 +124,20 @@ function backChevron(): SymbolViewProps["name"] {
 
 /** Mirrors `resolveTheme` light base + `computeThemeTokens` soft/hairline. */
 const lightPalette = {
-  card: "#FFFCF7",
+  card: "#FFFDF9",
   foreground: "#152921",
-  mutedForeground: "#5C7268",
-  hairline: withAlpha("#152921", 0.08),
+  mutedForeground: "#4A6157",
+  hairline: withAlpha("#152921", 0.12),
   accent: ACCENT_LIGHT,
   accentSoft: withAlpha(ACCENT_LIGHT, 0.18),
 };
 
 /** Mirrors `resolveTheme` dark base + `computeThemeTokens` soft/hairline. */
 const darkPalette = {
-  card: "#1C322C",
-  foreground: "#E8DCC8",
-  mutedForeground: "#8BA89A",
-  hairline: withAlpha("#E8DCC8", 0.1),
+  card: "#1E3830",
+  foreground: "#EEE4D2",
+  mutedForeground: "#A2BDB0",
+  hairline: withAlpha("#EEE4D2", 0.14),
   accent: ACCENT_DARK,
   accentSoft: withAlpha(ACCENT_DARK, 0.24),
 };
@@ -152,8 +154,8 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.three,
   },
   backBtn: {
-    width: 44,
-    height: 44,
+    width: tvDp(44),
+    height: tvDp(44),
     borderRadius: Radius.md,
     alignItems: "center",
     justifyContent: "center",
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
   },
   status: {
     width: "100%",
-    maxWidth: Math.min(MaxContentWidth, 420),
+    maxWidth: tvDp(Math.min(MaxContentWidth, 420)),
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
@@ -180,8 +182,8 @@ const styles = StyleSheet.create({
     ...Shadows.sm,
   },
   well: {
-    width: 44,
-    height: 44,
+    width: tvDp(44),
+    height: tvDp(44),
     borderRadius: Radius.md,
     alignItems: "center",
     justifyContent: "center",
@@ -193,13 +195,13 @@ const styles = StyleSheet.create({
   },
   // Mirrors ThemedText `smallBold` / `caption`.
   title: {
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: tvDp(14),
+    lineHeight: tvDp(22),
     fontWeight: "700",
   },
   hint: {
-    fontSize: 12,
-    lineHeight: 18,
+    fontSize: tvDp(12),
+    lineHeight: tvDp(18),
     fontWeight: "600",
   },
 });

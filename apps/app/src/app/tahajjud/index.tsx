@@ -7,28 +7,58 @@ import {
   prayerCompletionDates,
 } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { NightTimeline } from "@/components/night-timeline";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Pill } from "@/components/ui/pill";
+import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { PrayerRepository } from "@/db/repositories/prayer-repository";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
+import { useNow } from "@/hooks/use-now";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { formatCalendarDateFromIso, formatCompactGridDateFromIso } from "@/lib/calendar-format";
+import { useTimeFormat } from "@/hooks/use-time-format";
+import { localizedWeekdayInitials } from "@/lib/calendar";
+import { formatCalendarDateFromIso } from "@/lib/calendar-format";
+import { gregorianToHijri } from "@/lib/hijri";
+import { tTv } from "@/lib/i18n/t-tv";
+import { localeToBcp47 } from "@/lib/locale-bcp47";
+import { locationCalcExtras } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import {
+  computeNightDividers,
+  detectNightPrayerBounds,
+  formatDuration,
+  formatPrayerTime,
+} from "@/lib/prayer-times";
 import { chevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
-import { usePrayerStatus, useTrackerActions } from "@/stores/tracker-store";
+import { trackerStore, usePrayerStatus, useTrackerActions } from "@/stores/tracker-store";
 
-const GRID_NIGHTS = 14;
+/** Full weeks shown in the history calendar (the last row ends on today's week). */
+const CALENDAR_WEEKS = 4;
+
+type NightCell =
+  | { kind: "night"; date: string; done: boolean; isToday: boolean; day: string }
+  | { kind: "future"; key: string };
+
+const MOON_ICON: SymbolViewProps["name"] = {
+  ios: "moon.stars.fill",
+  android: "nights_stay",
+  web: "nights_stay",
+};
 
 export default function TahajjudScreen() {
   const router = useRouter();
@@ -39,6 +69,13 @@ export default function TahajjudScreen() {
   const today = getLocalDateString();
   const defaultCalendar = useDefaultCalendar();
   const locale = usePreferences().locale as AppLocale;
+  const timeFormat = useTimeFormat();
+  const location = useLocation();
+  const now = useNow();
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  /** Desktop / wide web: history calendar + virtue as main column, tonight + stats aside. */
+  const twoPane = !tv && width >= 1024;
 
   const [logs, setLogs] = useState<PrayerLog[]>([]);
 
@@ -54,31 +91,361 @@ export default function TahajjudScreen() {
   const currentStreak = useMemo(() => computePrayerStreak(logs, "tahajjud", today), [logs, today]);
   const longest = useMemo(() => longestPrayerStreak(logs, "tahajjud"), [logs]);
   const totalNights = completed.size;
-
-  // Most-recent-first strip of the last two weeks.
-  const nights = useMemo(() => {
-    const cells: { date: string; done: boolean; isToday: boolean }[] = [];
-    for (let i = 0; i < GRID_NIGHTS; i += 1) {
-      const date = addDays(today, -i);
-      cells.push({ date, done: completed.has(date), isToday: i === 0 });
-    }
-    return cells;
-  }, [completed, today]);
-
   const prayedToday = todayStatus === "completed";
+
+  // ── Tonight: Maghrib → Fajr for the night that contains (or follows) now ──
+  const night = useMemo(() => {
+    const bounds = detectNightPrayerBounds(
+      { latitude: location.latitude, longitude: location.longitude },
+      now,
+      location.method,
+      location.madhab,
+      locationCalcExtras(location),
+      location.timeZone,
+    );
+    if (bounds.fajrAt.getTime() <= bounds.maghribAt.getTime()) return undefined;
+    return { ...computeNightDividers(bounds.maghribAt, bounds.fajrAt), ...bounds };
+  }, [location, now]);
+
+  const inLastThird =
+    night != null &&
+    now.getTime() >= night.lastThird.getTime() &&
+    now.getTime() < night.fajrAt.getTime();
+
+  const countdown = useMemo(() => {
+    if (!night) return undefined;
+    const nowMs = now.getTime();
+    if (nowMs < night.lastThird.getTime()) {
+      const minutes = Math.round((night.lastThird.getTime() - nowMs) / 60_000);
+      return t("lastThirdNight.willStartIn", { time: formatDuration(minutes) });
+    }
+    if (nowMs < night.fajrAt.getTime()) {
+      const minutes = Math.round((night.fajrAt.getTime() - nowMs) / 60_000);
+      return t("lastThirdNight.timeRemaining", { time: formatDuration(minutes) });
+    }
+    return undefined;
+  }, [night, now, t]);
+
+  const formatTime = (date: Date) => formatPrayerTime(date, timeFormat, location.timeZone);
+
+  // ── History: Sunday-first weeks, oldest → newest, ending on today's week ──
+  const weekdays = useMemo(() => localizedWeekdayInitials(locale), [locale]);
+  const numberFormat = useMemo(() => {
+    try {
+      return new Intl.NumberFormat(localeToBcp47(locale));
+    } catch {
+      return undefined;
+    }
+  }, [locale]);
+
+  const { weeks, firstDate, pastNights, donePast } = useMemo(() => {
+    const todayWeekday = new Date(`${today}T00:00:00`).getDay();
+    const start = addDays(today, -(todayWeekday + 7 * (CALENDAR_WEEKS - 1)));
+    const rows: NightCell[][] = [];
+    let past = 0;
+    let done = 0;
+    for (let w = 0; w < CALENDAR_WEEKS; w += 1) {
+      const row: NightCell[] = [];
+      for (let d = 0; d < 7; d += 1) {
+        const date = addDays(start, w * 7 + d);
+        if (date > today) {
+          row.push({ kind: "future", key: date });
+          continue;
+        }
+        const dayOfMonth =
+          defaultCalendar === "hijri"
+            ? gregorianToHijri(new Date(`${date}T00:00:00`)).day
+            : Number(date.slice(8, 10));
+        const isDone = completed.has(date);
+        past += 1;
+        if (isDone) done += 1;
+        row.push({
+          kind: "night",
+          date,
+          done: isDone,
+          isToday: date === today,
+          day: numberFormat ? numberFormat.format(dayOfMonth) : String(dayOfMonth),
+        });
+      }
+      rows.push(row);
+    }
+    return { weeks: rows, firstDate: start, pastNights: past, donePast: done };
+  }, [completed, defaultCalendar, numberFormat, today]);
 
   const toggleTonight = async () => {
     await setPrayerStatus("tahajjud", prayedToday ? "pending" : "completed");
     await reload();
   };
 
-  const nightLabel = (date: string) => formatCompactGridDateFromIso(date, defaultCalendar, locale);
+  const toggleNight = async (date: string, done: boolean) => {
+    if (date === today) {
+      await toggleTonight();
+      return;
+    }
+    await trackerStore
+      .getState()
+      .setPrayerStatusOnDate(date, "tahajjud", done ? "pending" : "completed");
+    await reload();
+  };
 
-  const nightAccessibilityLabel = (date: string) =>
-    formatCalendarDateFromIso(date, defaultCalendar, locale);
+  const formatCount = (value: number) =>
+    numberFormat ? numberFormat.format(value) : String(value);
+  const info = tokens.status.info;
+  const success = tokens.status.success;
+
+  const tonightCard = (
+    <Card
+      padding="four"
+      style={{
+        backgroundColor: info.soft,
+        borderColor: withAlpha(info.color, tokens.isDark ? 0.45 : 0.28),
+        borderWidth: StyleSheet.hairlineWidth,
+      }}
+    >
+      <View style={styles.tonightHeader}>
+        <IconWell icon={MOON_ICON} tint={info.color} background={withAlpha(info.color, 0.16)} />
+        <View style={styles.flexCopy}>
+          <ThemedText type="smallBold" style={{ color: info.text }}>
+            {t("tahajjud.tonightTitle")}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("lastThirdNight.lastThirdLabel")}
+          </ThemedText>
+        </View>
+        {inLastThird ? (
+          <View style={[styles.liveBadge, { backgroundColor: success.soft }]}>
+            <View style={[styles.liveDot, { backgroundColor: success.color }]} />
+            <ThemedText type="caption" style={{ color: success.text }}>
+              {t("tahajjud.inWindow")}
+            </ThemedText>
+          </View>
+        ) : null}
+      </View>
+
+      {night ? (
+        <>
+          <View style={styles.tonightTime}>
+            <ThemedText type="display" style={{ color: info.text }}>
+              {formatTime(night.lastThird)}
+            </ThemedText>
+            {countdown ? (
+              <ThemedText type="small" themeColor="mutedForeground">
+                {countdown}
+              </ThemedText>
+            ) : null}
+          </View>
+          <View style={styles.timeline}>
+            <NightTimeline
+              compact
+              maghribAt={night.maghribAt}
+              midNight={night.midNight}
+              lastThird={night.lastThird}
+              fajrAt={night.fajrAt}
+              now={now}
+              format={formatTime}
+            />
+          </View>
+        </>
+      ) : (
+        <ThemedText type="small" themeColor="mutedForeground" style={styles.tonightTime}>
+          {t("lastThirdNight.invalidTimes")}
+        </ThemedText>
+      )}
+
+      <Button
+        label={prayedToday ? t("tahajjud.markedTonight") : t("tahajjud.markTonight")}
+        variant={prayedToday ? "secondary" : "primary"}
+        icon={
+          prayedToday
+            ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
+            : { ios: "moon.fill", android: "bedtime", web: "bedtime" }
+        }
+        fullWidth
+        preferredFocus
+        onPress={() => void toggleTonight()}
+        style={styles.markButton}
+      />
+
+      <PressableScale
+        onPress={() => router.push("/last-third-night")}
+        accessibilityRole="button"
+        accessibilityLabel={t("tahajjud.calculatorCta")}
+        accessibilityHint={t("tahajjud.calculatorHint")}
+        style={[styles.calculatorLink, tv && styles.calculatorLinkTv]}
+      >
+        <SymbolView
+          name={{ ios: "clock", android: "schedule", web: "schedule" }}
+          size={14}
+          tintColor={info.text}
+        />
+        <ThemedText type="caption" style={[styles.flexCopy, { color: info.text }]}>
+          {t("tahajjud.calculatorCta")}
+        </ThemedText>
+        <SymbolView name={chevronForward()} size={12} tintColor={info.text} />
+      </PressableScale>
+    </Card>
+  );
+
+  const stats = [
+    { key: "streak", value: currentStreak, label: t("tahajjud.streakCaption"), color: info.text },
+    { key: "best", value: longest, label: t("tahajjud.bestLabel"), color: success.text },
+    { key: "total", value: totalNights, label: t("tahajjud.totalLabel"), color: colors.foreground },
+  ];
+
+  const statsCard = (
+    <Card padding="three">
+      <View style={styles.statsRow}>
+        {stats.map((stat, index) => (
+          <View key={stat.key} style={styles.statsCellWrap}>
+            {index > 0 ? (
+              <View style={[styles.statsDivider, { backgroundColor: tokens.hairline }]} />
+            ) : null}
+            <View style={styles.statsCell}>
+              <ThemedText type="header" style={{ color: stat.color }}>
+                {formatCount(stat.value)}
+              </ThemedText>
+              <ThemedText
+                type="caption"
+                themeColor="mutedForeground"
+                numberOfLines={2}
+                style={styles.centerText}
+              >
+                {stat.label}
+              </ThemedText>
+            </View>
+          </View>
+        ))}
+      </View>
+      {currentStreak === 0 && !prayedToday ? (
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          style={[styles.centerText, styles.statsNudge]}
+        >
+          {t("tahajjud.startTonight")}
+        </ThemedText>
+      ) : null}
+    </Card>
+  );
+
+  const calendarCard = (
+    <Card padding="three">
+      <View style={styles.calendarHeader}>
+        <View style={styles.flexCopy}>
+          <ThemedText type="smallBold">
+            {t("tahajjud.lastNights", { count: pastNights })}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {`${formatCalendarDateFromIso(firstDate, defaultCalendar, locale)} – ${formatCalendarDateFromIso(today, defaultCalendar, locale)}`}
+          </ThemedText>
+        </View>
+        <View style={[styles.ratioPill, { backgroundColor: success.soft }]}>
+          <ThemedText type="smallBold" style={{ color: success.text }}>
+            {`${formatCount(donePast)}/${formatCount(pastNights)}`}
+          </ThemedText>
+        </View>
+      </View>
+
+      <View style={[styles.calendar, twoPane && styles.calendarWide]}>
+        <View style={styles.weekRow}>
+          {weekdays.map((weekday) => (
+            <View key={weekday.key} style={styles.weekdayCell}>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {weekday.label}
+              </ThemedText>
+            </View>
+          ))}
+        </View>
+        {weeks.map((week, weekIndex) => (
+          <View key={`week-${weekIndex.toString()}`} style={styles.weekRow}>
+            {week.map((cell) => {
+              if (cell.kind === "future") {
+                return <View key={cell.key} style={styles.dayCell} />;
+              }
+              const dateLabel = formatCalendarDateFromIso(cell.date, defaultCalendar, locale);
+              return (
+                <View key={cell.date} style={styles.dayCell}>
+                  <PressableScale
+                    haptic="light"
+                    scaleTo={0.9}
+                    accessibilityRole="checkbox"
+                    accessibilityLabel={dateLabel}
+                    accessibilityState={{ checked: cell.done }}
+                    onPress={() => void toggleNight(cell.date, cell.done)}
+                    rippleBorderless
+                    style={[
+                      styles.dayDot,
+                      tv && styles.dayDotTv,
+                      {
+                        backgroundColor: cell.done ? success.color : colors.muted,
+                        borderColor: cell.isToday ? colors.accent : "transparent",
+                      },
+                    ]}
+                  >
+                    <ThemedText
+                      type="smallBold"
+                      style={{ color: cell.done ? colors.accentText : colors.mutedForeground }}
+                    >
+                      {cell.day}
+                    </ThemedText>
+                  </PressableScale>
+                </View>
+              );
+            })}
+          </View>
+        ))}
+      </View>
+
+      <View style={[styles.calendarFooter, { borderTopColor: tokens.hairline }]}>
+        <View style={styles.legend}>
+          <View style={styles.legendItem}>
+            <View style={[styles.legendSwatch, { backgroundColor: success.color }]} />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("tahajjud.legendPrayed")}
+            </ThemedText>
+          </View>
+          <View style={styles.legendItem}>
+            <View
+              style={[
+                styles.legendSwatch,
+                styles.legendToday,
+                { borderColor: colors.accent, backgroundColor: colors.muted },
+              ]}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("common.today")}
+            </ThemedText>
+          </View>
+        </View>
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.calendarHint}>
+          {tTv(t, "tahajjud.calendarHint", "tahajjud.calendarHintTv")}
+        </ThemedText>
+      </View>
+    </Card>
+  );
+
+  const virtueCard = (
+    <Card padding="three" style={[styles.virtue, { borderStartColor: info.color }]}>
+      <View style={styles.hadithHeader}>
+        <SymbolView
+          name={{ ios: "quote.opening", android: "format_quote", web: "format_quote" }}
+          size={16}
+          tintColor={info.color}
+        />
+        <ThemedText type="smallBold">{t("tahajjud.virtueTitle")}</ThemedText>
+      </View>
+      <ThemedText type="default" themeColor="foreground" style={styles.hadithBody}>
+        {t("tahajjud.virtueBody")}
+      </ThemedText>
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {t("tahajjud.virtueRef")}
+      </ThemedText>
+    </Card>
+  );
 
   return (
     <ScreenLayout
+      maxContentWidth={twoPane ? 1200 : undefined}
       eyebrow={t("tahajjud.eyebrow")}
       title={t("tahajjud.title")}
       subtitle={t("tahajjud.subtitle")}
@@ -86,202 +453,110 @@ export default function TahajjudScreen() {
     >
       <Seo path="/tahajjud" />
 
-      <View style={styles.stack}>
-        <Card
-          padding="four"
-          style={{
-            backgroundColor: tokens.status.info.soft,
-            borderColor: withAlpha(tokens.status.info.color, tokens.isDark ? 0.45 : 0.28),
-            borderWidth: StyleSheet.hairlineWidth,
-          }}
-        >
-          <View style={styles.heroRow}>
-            <View
-              style={[
-                styles.heroIcon,
-                { backgroundColor: withAlpha(tokens.status.info.color, 0.16) },
-              ]}
-            >
-              <SymbolView
-                name={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
-                size={22}
-                tintColor={tokens.status.info.color}
-              />
-            </View>
-            <View style={styles.heroCopy}>
-              <ThemedText type="display" style={{ color: tokens.status.info.text }}>
-                {t("tahajjud.streakValue", { count: currentStreak })}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("tahajjud.streakCaption")}
-              </ThemedText>
-            </View>
+      {twoPane ? (
+        <View style={styles.split}>
+          <View style={styles.primary}>
+            <Stagger>
+              {calendarCard}
+              {virtueCard}
+            </Stagger>
           </View>
-
-          <View style={styles.pills}>
-            <Pill
-              label={t("tahajjud.bestStreak", { count: longest })}
-              color={tokens.status.success.color}
-              background={tokens.status.success.soft}
-            />
-            <Pill
-              label={t("tahajjud.totalNights", { count: totalNights })}
-              color={colors.accent}
-              background={tokens.accentSoft}
-            />
+          <View style={styles.aside}>
+            <Stagger>
+              {tonightCard}
+              {statsCard}
+            </Stagger>
           </View>
-
-          <Button
-            label={prayedToday ? t("tahajjud.markedTonight") : t("tahajjud.markTonight")}
-            variant={prayedToday ? "secondary" : "primary"}
-            icon={
-              prayedToday
-                ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-                : { ios: "moon.fill", android: "bedtime", web: "bedtime" }
-            }
-            fullWidth
-            onPress={() => void toggleTonight()}
-            style={styles.markButton}
-          />
-        </Card>
-
-        <Card padding="three">
-          <ThemedText type="smallBold">
-            {t("tahajjud.lastNights", { count: GRID_NIGHTS })}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.gridHint}>
-            {t("tahajjud.lastNightsHint")}
-          </ThemedText>
-          <View style={styles.grid}>
-            {nights.map((cell) => (
-              <View
-                key={cell.date}
-                style={styles.cell}
-                accessibilityLabel={nightAccessibilityLabel(cell.date)}
-              >
-                <View
-                  style={[
-                    styles.dot,
-                    {
-                      backgroundColor: cell.done ? tokens.status.success.color : colors.muted,
-                      borderColor: cell.isToday ? colors.accent : "transparent",
-                      borderWidth: cell.isToday ? 2 : 0,
-                    },
-                  ]}
-                >
-                  {cell.done ? (
-                    <SymbolView
-                      name={{ ios: "checkmark", android: "check", web: "check" }}
-                      size={12}
-                      tintColor={colors.accentText}
-                    />
-                  ) : null}
-                </View>
-                <ThemedText
-                  type="caption"
-                  themeColor="mutedForeground"
-                  style={styles.cellLabel}
-                  numberOfLines={1}
-                >
-                  {nightLabel(cell.date)}
-                </ThemedText>
-              </View>
-            ))}
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <View style={styles.hadithHeader}>
-            <SymbolView
-              name={{ ios: "quote.opening", android: "format_quote", web: "format_quote" }}
-              size={16}
-              tintColor={colors.mutedForeground}
-            />
-            <ThemedText type="smallBold">{t("tahajjud.virtueTitle")}</ThemedText>
-          </View>
-          <ThemedText type="small" themeColor="foreground" style={styles.hadithBody}>
-            {t("tahajjud.virtueBody")}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("tahajjud.virtueRef")}
-          </ThemedText>
-        </Card>
-
-        <Card padding="three">
-          <PressableScale
-            onPress={() => router.push("/last-third-night")}
-            accessibilityRole="button"
-            accessibilityLabel={t("tahajjud.calculatorCta")}
-            accessibilityHint={t("tahajjud.calculatorHint")}
-          >
-            <View style={styles.calculatorRow}>
-              <View
-                style={[
-                  styles.calculatorIcon,
-                  { backgroundColor: withAlpha(tokens.status.info.color, 0.16) },
-                ]}
-              >
-                <SymbolView
-                  name={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
-                  size={20}
-                  tintColor={tokens.status.info.color}
-                />
-              </View>
-              <View style={styles.calculatorCopy}>
-                <ThemedText type="smallBold">{t("tahajjud.calculatorCta")}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("tahajjud.calculatorHint")}
-                </ThemedText>
-              </View>
-              <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
-            </View>
-          </PressableScale>
-        </Card>
-      </View>
+        </View>
+      ) : (
+        <Stagger>
+          {tonightCard}
+          {statsCard}
+          {calendarCard}
+          {virtueCard}
+        </Stagger>
+      )}
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  stack: { gap: Spacing.three },
-  heroRow: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  heroIcon: {
-    width: 48,
-    height: 48,
+  split: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  primary: { flex: 1, minWidth: 0 },
+  aside: { width: 380, maxWidth: "40%" },
+  flexCopy: { flex: 1, minWidth: 0 },
+  centerText: { textAlign: "center" },
+
+  tonightHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
+  liveBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: 2,
+    borderRadius: Radius.pill,
+  },
+  liveDot: { width: 6, height: 6, borderRadius: Radius.pill },
+  tonightTime: { marginTop: Spacing.three, gap: 2 },
+  timeline: { marginTop: Spacing.three },
+  markButton: { marginTop: Spacing.four },
+  calculatorLink: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.two,
+    marginTop: Spacing.two,
+    paddingVertical: Spacing.two,
     borderRadius: Radius.md,
-    borderCurve: "continuous",
+  },
+  calculatorLinkTv: { minHeight: TvLayout.minFocusTarget },
+
+  statsRow: { flexDirection: "row", alignItems: "stretch" },
+  statsCellWrap: { flex: 1, flexDirection: "row" },
+  statsDivider: { width: StyleSheet.hairlineWidth, marginVertical: Spacing.one },
+  statsCell: { flex: 1, alignItems: "center", gap: 2, paddingHorizontal: Spacing.one },
+  statsNudge: { marginTop: Spacing.three },
+
+  calendarHeader: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.two },
+  ratioPill: {
+    paddingHorizontal: Spacing.two,
+    paddingVertical: 2,
+    borderRadius: Radius.pill,
+  },
+  calendar: { marginTop: Spacing.three, gap: Spacing.two },
+  /** Desktop: keep cells square-ish instead of stretching across a 800px column. */
+  calendarWide: { maxWidth: 520, alignSelf: "center", width: "100%" },
+  weekRow: { flexDirection: "row" },
+  weekdayCell: { flex: 1, alignItems: "center" },
+  dayCell: { flex: 1, alignItems: "center", justifyContent: "center", minWidth: 0 },
+  dayDot: {
+    width: 38,
+    height: 38,
+    borderRadius: Radius.pill,
+    borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
   },
-  heroCopy: { flex: 1, gap: 2 },
-  pills: { flexDirection: "row", gap: Spacing.two, marginTop: Spacing.three },
-  markButton: { marginTop: Spacing.three },
-  gridHint: { marginTop: Spacing.one },
-  grid: {
+  dayDotTv: { width: TvLayout.minFocusTarget, height: TvLayout.minFocusTarget },
+  calendarFooter: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: Spacing.two,
-    marginTop: Spacing.three,
-  },
-  cell: { alignItems: "center", gap: Spacing.one, minWidth: 36, flex: 1 },
-  cellLabel: { fontSize: 10, textAlign: "center" },
-  dot: {
-    width: 28,
-    height: 28,
-    borderRadius: Radius.pill,
     alignItems: "center",
-    justifyContent: "center",
+    gap: Spacing.three,
+    marginTop: Spacing.three,
+    paddingTop: Spacing.three,
+    borderTopWidth: StyleSheet.hairlineWidth,
   },
+  legend: { flexDirection: "row", gap: Spacing.three },
+  calendarHint: { flexGrow: 1, flexBasis: 180, minWidth: 0 },
+  legendItem: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
+  legendSwatch: { width: 10, height: 10, borderRadius: Radius.pill },
+  legendToday: { borderWidth: 2 },
+
+  virtue: { borderStartWidth: 3 },
   hadithHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   hadithBody: { marginTop: Spacing.two, marginBottom: Spacing.one },
-  calculatorRow: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  calculatorIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  calculatorCopy: { flex: 1, gap: 2 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tahajjud");

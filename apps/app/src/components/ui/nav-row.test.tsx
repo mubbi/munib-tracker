@@ -1,32 +1,59 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 
 import { NavRow } from "@/components/ui/nav-row";
-import { MunibThemeProvider } from "@/providers/theme-provider";
+import { usePlatform } from "@/test-support/platform";
+import { renderWithTheme } from "@/test-support/render";
 
 const ICON = { ios: "book.fill", android: "menu_book", web: "menu_book" } as const;
 
-describe("NavRow", () => {
-  it("announces a string badge and completed state", () => {
-    const onPress = jest.fn();
-    render(
-      <MunibThemeProvider>
-        <NavRow icon={ICON} label="Morning Adhkar" badge="Done" completed onPress={onPress} />
-      </MunibThemeProvider>,
-    );
+type Props = Parameters<typeof NavRow>[0];
 
-    fireEvent.press(screen.getByLabelText("Morning Adhkar, Done"));
-    expect(onPress).toHaveBeenCalled();
-    expect(screen.getByText("Done")).toBeTruthy();
+const renderRow = (props: Partial<Props> = {}) =>
+  renderWithTheme(<NavRow icon={ICON} label="Morning Adhkar" onPress={jest.fn()} {...props} />);
+
+describe("NavRow", () => {
+  it.each([
+    [{ badge: "Done", completed: true }, "Morning Adhkar, Done", "Done"],
+    [{ count: 14 }, "Morning Adhkar, 14", "14"],
+    [{ badge: "3/14", count: 9 }, "Morning Adhkar, 3/14", "3/14"],
+  ])("with %o is announced as %s and shows %s", async (props, label, trailing) => {
+    await renderRow(props);
+
+    expect(screen.getByLabelText(label)).toBeTruthy();
+    expect(screen.getByText(trailing)).toBeTruthy();
   });
 
-  it("falls back to a numeric count when no badge is passed", () => {
-    render(
-      <MunibThemeProvider>
-        <NavRow icon={ICON} label="Evening Adhkar" count={14} onPress={jest.fn()} />
-      </MunibThemeProvider>,
-    );
+  it("navigates on press", async () => {
+    const onPress = jest.fn();
+    await renderRow({ onPress });
 
-    expect(screen.getByLabelText("Evening Adhkar, 14")).toBeTruthy();
-    expect(screen.getByText("14")).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button"));
+
+    expect(onPress).toHaveBeenCalled();
+  });
+
+  it("announces the New badge", async () => {
+    await renderRow({ isNew: true, newLabel: "New" });
+
+    expect(screen.getByLabelText("Morning Adhkar, New")).toBeTruthy();
+  });
+
+  it("has no trailing badge by default", async () => {
+    await renderRow();
+
+    expect(screen.getByLabelText("Morning Adhkar")).toBeTruthy();
+  });
+});
+
+describe("NavRow on TV", () => {
+  usePlatform({ isTV: true });
+
+  it.each([
+    [true, true],
+    [false, undefined],
+  ])("preferredFocus=%s sets hasTVPreferredFocus=%s", async (preferredFocus, expected) => {
+    await renderRow({ preferredFocus });
+
+    expect(screen.getByRole("button").props.hasTVPreferredFocus).toBe(expected);
   });
 });

@@ -2,6 +2,7 @@ import { APP_NAME } from "@munib-tracker/shared/constants";
 import { Check } from "lucide-react";
 import type { Metadata } from "next";
 import { AchievementsSection } from "@/components/achievements-section";
+import { AiPracticeBanner } from "@/components/ai-practice-highlight";
 import { PageAtmosphere, PageMasthead } from "@/components/content-page";
 import { CtaBand } from "@/components/cta-band";
 import { FeaturePillars } from "@/components/feature-pillars";
@@ -13,7 +14,7 @@ import { SITE_PATHS } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Features",
-  description: `Explore every feature in ${APP_NAME} — salah tracking, qaza, 270 duas, 54 adhkar, Qur'an (25 translations, 123 tafsir), hadith, 350+ learn topics, widgets, and more.`,
+  description: `Explore every feature in ${APP_NAME} — salah tracking, qaza, 270 duas, 54 adhkar, Qur'an (25 translations, 123 tafsir), AI Qur'an practice, hadith, 350+ learn topics, widgets, and more.`,
 };
 
 type FeatureDetail = {
@@ -153,6 +154,17 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
         ],
       },
       {
+        title: "Qur'an practice with AI",
+        items: [
+          "An on-device AI listener follows your recitation word by word, with gentle try-again marks and no scores",
+          "Follow, Check, Hide words, and Hide ayahs modes; tap any word to hear it",
+          "Practise one ayah, the next five, a mushaf page, a whole surah, or a custom range; change the passage any time",
+          "Revision queue spaced over 1, 3, 7, 14, and 30 days, with an optional reminder",
+          "Audio is processed on your device and never recorded, stored, or uploaded; works offline after a one-time download",
+          "Optional pronunciation drills in selected tajweed lessons",
+        ],
+      },
+      {
         title: "Hadith",
         items: [
           "Offline: Nawawi's 40 and Riyad as-Salihin, plus a daily hadith",
@@ -260,6 +272,10 @@ export default function FeaturesPage() {
             </>
           }
         />
+        {/* New AI feature — spotlighted before the catalogue */}
+        <div className="mb-4 md:mb-8">
+          <AiPracticeBanner placement="features" />
+        </div>
       </div>
 
       {/* Chapter 1 — pillars at a glance */}

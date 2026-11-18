@@ -2,10 +2,10 @@ import { QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
 import { getTafsirEdition } from "@munib-tracker/shared/i18n";
 import type { QuranReaderLayout } from "@munib-tracker/shared/types";
 import { useQueries } from "@tanstack/react-query";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { fetchRemoteEditionSurah, hasEditionAyahs, isRemoteEdition } from "@/api/quran-remote";
 import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
@@ -21,12 +21,17 @@ import { TafsirPickerSheet } from "@/components/quran/tafsir-picker-sheet";
 import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { IconButton } from "@/components/ui/icon-button";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTvKeyDown, type TvHwEvent } from "@/hooks/use-tv-event-handler";
+import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import {
   ensureMushafPageFonts,
   isMushafPageFontReady,
@@ -48,8 +53,11 @@ import {
   pageToStartAyah,
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
+import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { resolvePreferredTafsirId } from "@/lib/quran-tafsir-options";
 import { resolveReadingFontSizes } from "@/lib/reading-typography";
+import { mushafPageBackward, mushafPageForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
@@ -67,6 +75,18 @@ const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
 const LAST_READ_FLUSH_MS = 600;
 /** Pager siblings kept mounted around the visible page (current ± this window). */
 const PAGE_MOUNT_WINDOW = 1;
+/** Wide windows: centre the leaf at a print-like measure instead of stretching it. */
+const WIDE_PAGE_MIN_WIDTH = 768;
+const MUSHAF_PAGE_MAX_WIDTH = 680;
+const TRANSLATION_PAGE_MAX_WIDTH = 820;
+/** Desktop: large page-turn buttons beside the centred leaf. */
+const SIDE_TURN_MIN_WIDTH = 1200;
+/**
+ * Two facing mushaf pages, like an open printed mushaf: landscape windows at least
+ * this wide (an unfolded iPhone Duo, landscape tablets, desktop web). The odd page
+ * is on the physical right — the mushaf binding, independent of UI language.
+ */
+const SPREAD_MIN_WIDTH = 900;
 
 function pageNeedsBasmala(page: number): boolean {
   return getPageLayout(page).lines.some((line) => line.type === "basmala");
@@ -104,7 +124,8 @@ export default function QuranPageReaderScreen() {
   const focusAyah = params.ayah ? Number(params.ayah) : undefined;
 
   const contentBottomInset = useContentBottomInset();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const prefs = useQuranPrefs();
   const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
   const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
@@ -130,8 +151,55 @@ export default function QuranPageReaderScreen() {
   // NSATSTypesetter is not asked to layout three justified Arabic pages on the
   // same main-thread pass (iOS AppHang). Expand to ±1 after the first frame.
   const [pageMountWindow, setPageMountWindow] = useState(0);
+  const tv = isTV();
+  /**
+   * TV: page whose first (or deep-linked) item should take D-pad focus. Set on
+   * mount and after a D-pad page turn — the focused line unmounts with the old
+   * page, so focus must be re-homed on the new one.
+   */
+  const [tvFocus, setTvFocus] = useState<{
+    page: number;
+    target: { surah: number; ayah: number } | "first";
+  } | null>(() =>
+    tv
+      ? {
+          page: initialPage,
+          target:
+            focusSurah != null && focusAyah != null
+              ? { surah: focusSurah, ayah: focusAyah }
+              : "first",
+        }
+      : null,
+  );
+  /** TV: true while D-pad focus is on a line / ayah block inside the page body. */
+  const pageBodyFocusedRef = useRef(false);
+  const onPageItemFocus = useCallback(() => {
+    pageBodyFocusedRef.current = true;
+  }, []);
+  const onPageItemBlur = useCallback(() => {
+    pageBodyFocusedRef.current = false;
+  }, []);
 
   const layout = prefs.readerLayout === "mushaf" ? "mushaf" : "page";
+  // Folding / unfolding (iPhone Duo) resizes the window in place: the pager is keyed
+  // on this so it remounts on the right page/spread without losing `currentPage`.
+  const spread =
+    layout === "mushaf" && !tv && windowWidth >= SPREAD_MIN_WIDTH && windowWidth > windowHeight;
+  const pagesPerItem = spread ? 2 : 1;
+  const pagerItemCount = Math.ceil(getPageCount() / pagesPerItem);
+  const pagerIndexForPage = (page: number) => Math.floor((page - 1) / pagesPerItem);
+  /** First (right-hand) page of the spread holding `page`, or `page` itself. */
+  const spreadStart = (page: number) => pagerIndexForPage(page) * pagesPerItem + 1;
+  // Tablet / desktop (never TV — its pager owns the full overscan-safe width).
+  const widePage = !tv && windowWidth >= WIDE_PAGE_MIN_WIDTH;
+  const showSideTurns = !tv && windowWidth >= SIDE_TURN_MIN_WIDTH;
+  const pageColumnStyle = widePage
+    ? {
+        width: "100%" as const,
+        maxWidth: layout === "mushaf" ? MUSHAF_PAGE_MAX_WIDTH : TRANSLATION_PAGE_MAX_WIDTH,
+        alignSelf: "center" as const,
+      }
+    : null;
   const pageStart = pageToStartAyah(currentPage);
   const pageAyahs = useMemo(() => getAyahsOnPage(currentPage), [currentPage]);
   const mushafLayout = useMemo(() => getPageLayout(currentPage), [currentPage]);
@@ -320,14 +388,30 @@ export default function QuranPageReaderScreen() {
     };
   }, []);
 
-  const onPageSelected = useCallback((index: number) => {
-    setPageMountWindow(PAGE_MOUNT_WINDOW);
-    setCurrentPage(index + 1);
-  }, []);
+  const onPageSelected = useCallback(
+    (index: number) => {
+      setPageMountWindow(PAGE_MOUNT_WINDOW);
+      setCurrentPage(index * pagesPerItem + 1);
+    },
+    [pagesPerItem],
+  );
 
-  const jumpToPage = useCallback((page: number) => {
-    pagerRef.current?.setPage(page - 1);
-  }, []);
+  const jumpToPage = useCallback(
+    (page: number) => {
+      pagerRef.current?.setPage(Math.floor((page - 1) / pagesPerItem));
+    },
+    [pagesPerItem],
+  );
+
+  // Spread: the facing (left) page needs its QCF glyph font as well.
+  useEffect(() => {
+    if (!spread) return;
+    const facing = Math.floor((currentPage - 1) / 2) * 2 + 2;
+    if (facing > getPageCount()) return;
+    const needsBsml = pageNeedsBasmala(facing);
+    if (isMushafPageFontReady(facing, needsBsml)) return;
+    void ensureMushafPageFonts(facing, needsBsml).catch(() => undefined);
+  }, [currentPage, spread]);
 
   const navigateToPage = useCallback(
     async (page: number) => {
@@ -370,6 +454,83 @@ export default function QuranPageReaderScreen() {
       }
     },
     [jumpToPage, layout],
+  );
+
+  // TV: D-pad Left/Right turns pages while focus is in the page body (the
+  // body is a vertical stack, so there is no horizontal focus move to steal).
+  // A mushaf is bound right-to-left: Left = next page, Right = previous —
+  // matching the footer, which puts "Next" on the left in every UI direction.
+  const turnPageRef = useRef<(delta: 1 | -1) => void>(() => {});
+  turnPageRef.current = (delta) => {
+    const target = currentPage + delta;
+    if (target < 1 || target > getPageCount()) return;
+    setTvFocus({ page: target, target: "first" });
+    void navigateToPage(target);
+  };
+  useEffect(() => {
+    if (!tv) return;
+    // Listener only — never toggle the Menu key here (TvRemoteBridge owns Back).
+    const RN = require("react-native") as {
+      TVEventHandler?: {
+        addListener: (listener: (event: TvHwEvent) => void) => { remove: () => void } | undefined;
+      };
+    };
+    const subscription = RN.TVEventHandler?.addListener?.((event) => {
+      if (!pageBodyFocusedRef.current || !isTvKeyDown(event)) return;
+      if (event.eventType === "left") turnPageRef.current(1);
+      else if (event.eventType === "right") turnPageRef.current(-1);
+    });
+    return () => subscription?.remove();
+  }, [tv]);
+
+  /** Pause/resume page audio, or start this page. */
+  const playPausePage = () => {
+    if (audio.current && audio.sourceHref?.startsWith("/quran/")) {
+      audio.toggle();
+      return;
+    }
+    playFromPage();
+  };
+  const playPausePageRef = useRef(playPausePage);
+  playPausePageRef.current = playPausePage;
+
+  // Web keyboard — mushaf binding like the TV remote and the footer: ← next
+  // page, → previous page; Space play/pause. Off while typing, while a sheet is
+  // open, or when this route is not focused (stack screens stay mounted on web).
+  const [screenFocused, setScreenFocused] = useState(true);
+  useFocusEffect(
+    useCallback(() => {
+      setScreenFocused(true);
+      return () => setScreenFocused(false);
+    }, []),
+  );
+  const anySheetOpen =
+    pagePickerOpen ||
+    layoutPickerOpen ||
+    reciterPickerOpen ||
+    translationPickerOpen ||
+    secondaryPickerOpen ||
+    tafsirPickerOpen ||
+    actionAyah != null;
+  useWebScreenKeyHandler(
+    (event) => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        if (event.shiftKey) return undefined;
+        if ((event.target as HTMLElement | null)?.getAttribute?.("role") === "slider") {
+          return undefined;
+        }
+        const target = currentPage + (event.key === "ArrowLeft" ? 1 : -1);
+        if (target >= 1 && target <= getPageCount()) void navigateToPage(target);
+        return true;
+      }
+      if (event.key === " ") {
+        if (isWebInteractiveTarget(event.target)) return undefined;
+        playPausePageRef.current();
+        return true;
+      }
+      return undefined;
+    },
+    Platform.OS === "web" && !tv && screenFocused && !anySheetOpen,
   );
 
   const openAyahReader = useCallback(() => {
@@ -511,8 +672,73 @@ export default function QuranPageReaderScreen() {
     const href = audio.sourceHref;
     if (!href?.startsWith("/quran/page/") || !playingAyah) return;
     const page = getPageForAyah(playingAyah.surah, playingAyah.ayah);
-    if (page !== currentPage) void navigateToPage(page);
-  }, [audio.sourceHref, currentPage, navigateToPage, playingAyah]);
+    if (page === currentPage) return;
+    // TV: the focused line unmounts with the old page — re-home focus on the
+    // playing ayah only if the reader was in the page body.
+    if (tv && pageBodyFocusedRef.current) setTvFocus({ page, target: playingAyah });
+    void navigateToPage(page);
+  }, [audio.sourceHref, currentPage, navigateToPage, playingAyah, tv]);
+
+  // Page turns move a whole spread when two pages face each other.
+  const nextPage = spreadStart(currentPage) + pagesPerItem;
+  const prevPage = spreadStart(currentPage) - pagesPerItem;
+  const canTurnForward = nextPage <= getPageCount();
+  const canTurnBack = prevPage >= 1;
+
+  /** One mushaf / translation page (a spread renders two side by side). */
+  const renderReaderPage = (page: number) => {
+    const ayahs = page === currentPage ? pageAyahs : getAyahsOnPage(page);
+    const mushaf = page === currentPage ? mushafLayout : getPageLayout(page);
+    const pageHighlight = resolvePageHighlight(ayahs);
+    // Fixed per page (not the live audio highlight) so playback never
+    // drags focus out of the toolbar / footer.
+    const tvFocusTarget = tvFocus && page === tvFocus.page ? tvFocus.target : undefined;
+    return (
+      <TvScrollView
+        key={page}
+        style={styles.pageScroll}
+        contentContainerStyle={[
+          styles.pageContent,
+          pageColumnStyle,
+          { paddingBottom: contentBottomInset },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
+        {layout === "mushaf" ? (
+          <MushafLineRenderer
+            layout={mushaf}
+            page={page}
+            arabicSize={readingSizes.arabic}
+            highlightAyah={pageHighlight}
+            onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
+            tvFocusTarget={tvFocusTarget}
+            onItemFocus={tv ? onPageItemFocus : undefined}
+            onItemBlur={tv ? onPageItemBlur : undefined}
+          />
+        ) : (
+          <PageLayoutRenderer
+            ayahs={ayahs}
+            page={page}
+            arabicSize={readingSizes.arabic}
+            transliterationSize={readingSizes.transliteration}
+            translationSize={readingSizes.translation}
+            transliteration={transliteration}
+            translation={translationText}
+            secondTranslation={secondTranslationText}
+            showTransliteration={prefs.showTransliteration}
+            showTranslation={prefs.showTranslation && !translationLoading}
+            translationDir={translationDir}
+            secondTranslationDir={secondaryDir}
+            highlightAyah={pageHighlight}
+            onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
+            tvFocusTarget={tvFocusTarget}
+            onItemFocus={tv ? onPageItemFocus : undefined}
+            onItemBlur={tv ? onPageItemBlur : undefined}
+          />
+        )}
+      </TvScrollView>
+    );
+  };
 
   return (
     <>
@@ -558,71 +784,81 @@ export default function QuranPageReaderScreen() {
             onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
           />
 
-          <PagerView
-            ref={pagerRef}
-            style={styles.pager}
-            initialPage={initialPage - 1}
-            offscreenPageLimit={1}
-            onPageSelected={(e) => onPageSelected(e.nativeEvent.position)}
-          >
-            {Array.from({ length: getPageCount() }, (_, index) => {
-              const page = index + 1;
-              const mounted = Math.abs(page - currentPage) <= pageMountWindow;
-              if (!mounted) {
-                return <View key={page} style={styles.pagePlaceholder} />;
-              }
+          <TvPageTurnTrap>
+            <PagerView
+              key={spread ? "spread" : "single"}
+              ref={pagerRef}
+              style={styles.pager}
+              initialPage={pagerIndexForPage(currentPage)}
+              offscreenPageLimit={1}
+              onPageSelected={(e) => onPageSelected(e.nativeEvent.position)}
+            >
+              {Array.from({ length: pagerItemCount }, (_, index) => {
+                const firstPage = index * pagesPerItem + 1;
+                const mounted =
+                  Math.abs(firstPage - spreadStart(currentPage)) <= pageMountWindow * pagesPerItem;
+                if (!mounted) {
+                  return <View key={firstPage} style={styles.pagePlaceholder} />;
+                }
+                if (!spread) return renderReaderPage(firstPage);
+                const facing = firstPage + 1;
+                return (
+                  // Physical right-to-left regardless of UI direction: odd page right.
+                  <View key={`spread-${firstPage}`} style={styles.spread}>
+                    {renderReaderPage(firstPage)}
+                    {facing <= getPageCount() ? (
+                      renderReaderPage(facing)
+                    ) : (
+                      <View style={styles.pagePlaceholder} />
+                    )}
+                  </View>
+                );
+              })}
+            </PagerView>
+          </TvPageTurnTrap>
 
-              const ayahs = page === currentPage ? pageAyahs : getAyahsOnPage(page);
-              const mushaf = page === currentPage ? mushafLayout : getPageLayout(page);
-              const pageHighlight = resolvePageHighlight(ayahs);
-              return (
-                <TvScrollView
-                  key={page}
-                  style={styles.pageScroll}
-                  contentContainerStyle={[
-                    styles.pageContent,
-                    { paddingBottom: contentBottomInset },
-                  ]}
-                  showsVerticalScrollIndicator={false}
-                >
-                  {layout === "mushaf" ? (
-                    <MushafLineRenderer
-                      layout={mushaf}
-                      page={page}
-                      arabicSize={readingSizes.arabic}
-                      highlightAyah={pageHighlight}
-                      onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
-                    />
-                  ) : (
-                    <PageLayoutRenderer
-                      ayahs={ayahs}
-                      page={page}
-                      arabicSize={readingSizes.arabic}
-                      transliterationSize={readingSizes.transliteration}
-                      translationSize={readingSizes.translation}
-                      transliteration={transliteration}
-                      translation={translationText}
-                      secondTranslation={secondTranslationText}
-                      showTransliteration={prefs.showTransliteration}
-                      showTranslation={prefs.showTranslation && !translationLoading}
-                      translationDir={translationDir}
-                      secondTranslationDir={secondaryDir}
-                      highlightAyah={pageHighlight}
-                      onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
-                    />
-                  )}
-                </TvScrollView>
-              );
-            })}
-          </PagerView>
+          {showSideTurns ? (
+            <>
+              {/* Mushaf binding: "next" is always on the physical left (same as
+                  the footer + TV remote), so these are deliberately physical. */}
+              <View style={[styles.sideTurn, styles.sideTurnLeft, { pointerEvents: "box-none" }]}>
+                <IconButton
+                  name={mushafPageForward()}
+                  accessibilityLabel={t("quran.nextPage")}
+                  onPress={() => void navigateToPage(nextPage)}
+                  disabled={!canTurnForward}
+                  glass
+                  hitTarget={48}
+                  size={22}
+                  wellRadius={24}
+                  tintColor={colors.accentText}
+                  background={tokens.accentSoft}
+                />
+              </View>
+              <View style={[styles.sideTurn, styles.sideTurnRight, { pointerEvents: "box-none" }]}>
+                <IconButton
+                  name={mushafPageBackward()}
+                  accessibilityLabel={t("quran.prevPage")}
+                  onPress={() => void navigateToPage(prevPage)}
+                  disabled={!canTurnBack}
+                  glass
+                  hitTarget={48}
+                  size={22}
+                  wellRadius={24}
+                  tintColor={colors.accentText}
+                  background={tokens.accentSoft}
+                />
+              </View>
+            </>
+          ) : null}
 
           <PageReaderFooter
             currentPage={currentPage}
             totalPages={getPageCount()}
-            canGoPrev={currentPage > 1}
-            canGoNext={currentPage < getPageCount()}
-            onPrev={() => void navigateToPage(currentPage - 1)}
-            onNext={() => void navigateToPage(currentPage + 1)}
+            canGoPrev={canTurnBack}
+            canGoNext={canTurnForward}
+            onPrev={() => void navigateToPage(prevPage)}
+            onNext={() => void navigateToPage(nextPage)}
             onPlay={playFromPage}
             onOpenPage={() => setPagePickerOpen(true)}
           />
@@ -707,6 +943,24 @@ export default function QuranPageReaderScreen() {
         translationSize={readingSizes.translation}
         isBookmarked={actionBookmarked}
         isPlaying={actionPlaying}
+        onPractise={
+          isPracticeAvailable()
+            ? () => {
+                if (!actionAyah) return;
+                const target = actionAyah;
+                setActionAyah(null);
+                router.push({
+                  pathname: "/quran/practice/session",
+                  params: {
+                    surah: String(target.surah),
+                    from: String(target.ayah),
+                    to: String(target.ayah),
+                    source: "reader",
+                  },
+                });
+              }
+            : undefined
+        }
         onClose={() => setActionAyah(null)}
         onPlay={() => {
           if (!actionAyah) return;
@@ -751,6 +1005,20 @@ export default function QuranPageReaderScreen() {
   );
 }
 
+/**
+ * TV: D-pad Left/Right inside the page turn pages (see the TVEventHandler in
+ * the screen) — trap them so focus never also jumps to the footer / toolbar.
+ * Phone / web: no wrapper, so the pager hierarchy is unchanged.
+ */
+function TvPageTurnTrap({ children }: { children: ReactNode }) {
+  if (!isTV()) return <>{children}</>;
+  return (
+    <TvFocusGuide trapFocusLeft trapFocusRight style={styles.pager}>
+      {children}
+    </TvFocusGuide>
+  );
+}
+
 const styles = StyleSheet.create({
   readerBody: { flex: 1, position: "relative" },
   loadingShield: {
@@ -759,6 +1027,26 @@ const styles = StyleSheet.create({
   },
   pager: { flex: 1, minHeight: 0 },
   pagePlaceholder: { flex: 1 },
+  // Two facing pages: odd (first) page on the physical right in every UI language.
+  // RN Web rejects the Yoga `direction` prop; it maps `writingDirection` to CSS `direction`.
+  spread: {
+    flex: 1,
+    flexDirection: "row-reverse",
+    ...Platform.select({
+      web: { writingDirection: "ltr" } as const,
+      default: { direction: "ltr" } as const,
+    }),
+  },
   pageScroll: { flex: 1 },
   pageContent: { padding: Spacing.three, flexGrow: 1 },
+  sideTurn: {
+    position: "absolute",
+    top: "45%",
+    zIndex: 5,
+  },
+  sideTurnLeft: { left: Spacing.two },
+  sideTurnRight: { right: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/page/[page]");

@@ -10,6 +10,7 @@ import {
   computeLockoutAfterFailure,
   LOCKOUT_ATTEMPTS_THRESHOLD,
 } from "@/features/pin-lock/lib/pin-lockout";
+import { setPlatform } from "@/test-support/platform";
 
 describe("pinLockout", () => {
   it("returns null before threshold", () => {
@@ -34,6 +35,14 @@ describe("pinLockAppState", () => {
     expect(shouldRecordBackgroundTransition("background")).toBe(true);
     expect(shouldRecordBackgroundTransition("inactive")).toBe(false);
     expect(shouldRecordBackgroundTransition("active")).toBe(false);
+  });
+
+  it.each([
+    ["not backgrounded", { wasBackgrounded: false, backgroundedAt: 1000 }, false],
+    ["missing a background timestamp", { wasBackgrounded: true, backgroundedAt: null }, false],
+    ["backgrounded long enough ago", { wasBackgrounded: true, backgroundedAt: 0 }, true],
+  ])("decides the foreground lock when %s", (_case, state, expected) => {
+    expect(shouldLockOnForeground({ ...state, lockTimeoutMs: 60_000, now: 60_000 })).toBe(expected);
   });
 
   it("locks immediately when timeout is zero", () => {
@@ -77,8 +86,19 @@ describe("pinCrypto normalizePin", () => {
 });
 
 describe("biometricUnlockLabel", () => {
-  it("prefers Face ID label", () => {
-    expect(resolveBiometricUnlockLabelKey([2])).toBe("pinLock.unlockWithFaceId");
+  let restorePlatform: () => void = () => {};
+  afterEach(() => restorePlatform());
+
+  it.each([
+    ["Face ID when facial recognition is enrolled", "ios", [2], "pinLock.unlockWithFaceId"],
+    ["Face ID over fingerprint", "ios", [1, 2], "pinLock.unlockWithFaceId"],
+    ["Touch ID for fingerprint on iOS", "ios", [1], "pinLock.unlockWithTouchId"],
+    ["Fingerprint on Android", "android", [1], "pinLock.unlockWithFingerprint"],
+    ["the generic label with nothing enrolled", "ios", [], "pinLock.unlockWithBiometrics"],
+    ["the generic label for iris only", "ios", [3], "pinLock.unlockWithBiometrics"],
+  ] as const)("resolves %s", (_case, os, types, expected) => {
+    restorePlatform = setPlatform({ OS: os });
+    expect(resolveBiometricUnlockLabelKey(types)).toBe(expected);
   });
 });
 

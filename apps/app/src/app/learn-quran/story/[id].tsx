@@ -8,6 +8,8 @@ import {
   JannahTakeaway,
 } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +19,7 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -26,6 +29,7 @@ import {
   getQuranGuideStory,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export function generateStaticParams(): Array<{ id: string }> {
@@ -34,6 +38,7 @@ export function generateStaticParams(): Array<{ id: string }> {
 
 export default function LearnQuranStoryDetailScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { ready: contentReady } = useEnsureContent(
@@ -59,6 +64,7 @@ export default function LearnQuranStoryDetailScreen() {
       title={story?.title ?? t("learnQuran.storiesTitle")}
       subtitle={story?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/learn-quran/stories" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -90,45 +96,49 @@ export default function LearnQuranStoryDetailScreen() {
           onAction={() => router.replace("/learn-quran/stories" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="learn_quran">
-            {story.location ? (
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("learnQuran.storyLocation", { location: story.location })}
-              </ThemedText>
-            ) : null}
-            <JannahTakeaway text={story.summary} />
-            <JannahBody paragraphs={story.body} />
-            <Card padding="three">
-              <SectionHeader
-                title={t("learnQuran.lessonsTitle")}
-                icon={{ ios: "lightbulb.fill", android: "lightbulb", web: "lightbulb" }}
-              />
-              <View style={styles.lessons}>
-                {story.lessons.map((lesson) => (
-                  <ThemedText key={lesson} type="small" themeColor="mutedForeground">
-                    • {lesson}
-                  </ThemedText>
-                ))}
-              </View>
-            </Card>
-            {story.quran?.length ? <JannahQuranEvidence refs={story.quran} /> : null}
-            {story.appLinks?.length ? (
-              <View style={styles.links}>
-                {story.appLinks.map((link) => (
-                  <Button
-                    key={link.route}
-                    label={link.label}
-                    variant="secondary"
-                    fullWidth
-                    onPress={() => router.push(link.route as never)}
+        <LearnSplitLayout aside={<QuranGuideTopicAside currentId="stories" />}>
+          <Stagger>
+            <LearnReadingChrome surface="learn_quran">
+              {story.location ? (
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("learnQuran.storyLocation", { location: story.location })}
+                </ThemedText>
+              ) : null}
+              <JannahTakeaway text={story.summary} />
+              <JannahBody paragraphs={story.body} />
+              <TvReadableBlock>
+                <Card padding="three">
+                  <SectionHeader
+                    title={t("learnQuran.lessonsTitle")}
+                    icon={{ ios: "lightbulb.fill", android: "lightbulb", web: "lightbulb" }}
                   />
-                ))}
-              </View>
-            ) : null}
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="learnQuran.disclaimer" />
-        </Stagger>
+                  <View style={styles.lessons}>
+                    {story.lessons.map((lesson) => (
+                      <ThemedText key={lesson} type="small" themeColor="mutedForeground">
+                        • {lesson}
+                      </ThemedText>
+                    ))}
+                  </View>
+                </Card>
+              </TvReadableBlock>
+              {story.quran?.length ? <JannahQuranEvidence refs={story.quran} /> : null}
+              {story.appLinks?.length ? (
+                <View style={styles.links}>
+                  {story.appLinks.map((link) => (
+                    <Button
+                      key={link.route}
+                      label={link.label}
+                      variant="secondary"
+                      fullWidth
+                      onPress={() => router.push(link.route as never)}
+                    />
+                  ))}
+                </View>
+              ) : null}
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
@@ -138,3 +148,6 @@ const styles = StyleSheet.create({
   lessons: { gap: Spacing.two, marginTop: Spacing.three },
   links: { gap: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/story/[id]");

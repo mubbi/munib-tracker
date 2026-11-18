@@ -7,6 +7,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { getTtsVoices, type TtsVoice } from "@/lib/tts";
 
 export type TtsVoiceSheetProps = {
@@ -63,6 +64,9 @@ export function TtsVoiceSheet({
     };
   }, [visible, lang]);
 
+  const tv = isTV();
+  const selectedBorder = tv ? tokens.accentBorder : colors.accent;
+
   const pick = (voiceId: string | undefined) => {
     onSelectVoice(voiceId);
     onClose();
@@ -89,12 +93,14 @@ export function TtsVoiceSheet({
             haptic="selection"
             accessibilityRole="radio"
             accessibilityState={{ selected: !selectedVoiceId }}
+            {...(tv && !selectedVoiceId ? { hasTVPreferredFocus: true } : {})}
             onPress={() => pick(undefined)}
             style={[
               styles.voiceRow,
               {
                 backgroundColor: !selectedVoiceId ? tokens.accentSoft : colors.muted,
-                borderColor: !selectedVoiceId ? colors.accent : "transparent",
+                // TV: selected = soft fill + hairline; the accent ring is D-pad focus.
+                borderColor: !selectedVoiceId ? selectedBorder : "transparent",
               },
             ]}
           >
@@ -111,12 +117,13 @@ export function TtsVoiceSheet({
                 haptic="selection"
                 accessibilityRole="radio"
                 accessibilityState={{ selected }}
+                {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
                 onPress={() => pick(voice.identifier)}
                 style={[
                   styles.voiceRow,
                   {
                     backgroundColor: selected ? tokens.accentSoft : colors.muted,
-                    borderColor: selected ? colors.accent : "transparent",
+                    borderColor: selected ? selectedBorder : "transparent",
                   },
                 ]}
               >

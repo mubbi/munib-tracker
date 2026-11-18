@@ -6,8 +6,10 @@ import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import type { PrayerInfoId } from "@/lib/prayer-info";
 
 const PrayerInfoSheet = lazy(() =>
@@ -38,6 +40,7 @@ export function PrayerInfoButton({
   const [open, setOpen] = useState(false);
   const prayerName = t(`prayers.${prayerId}`);
   const color = tintColor ?? (underlined ? colors.accent : colors.mutedForeground);
+  const tv = isTV();
 
   return (
     <>
@@ -50,11 +53,12 @@ export function PrayerInfoButton({
           haptic="light"
           // Expand the tap area without inflating row height (dense schedule/tracker cards).
           hitSlop={{ top: 12, bottom: 12, left: 8, right: 8 }}
-          style={styles.learnMore}
+          // TV: a real chip-sized focus target instead of a bare caption link.
+          style={[styles.learnMore, tv ? styles.learnMoreTv : null]}
         >
           <SymbolView
             name={{ ios: "info.circle", android: "info", web: "info" }}
-            size={13}
+            size={tv ? 18 : 13}
             tintColor={color}
           />
           <ThemedText
@@ -91,6 +95,12 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     gap: Spacing.half + 2,
     paddingVertical: 0,
+  },
+  learnMoreTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.two,
+    gap: Spacing.one,
+    borderRadius: Radius.md,
   },
   learnMoreUnderlined: {
     textDecorationLine: "underline",

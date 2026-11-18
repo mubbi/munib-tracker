@@ -2,11 +2,11 @@ import { Children, forwardRef, useCallback, useImperativeHandle, useRef, useStat
 import { type LayoutChangeEvent, StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 
 import { Durations } from "@/constants/motion";
 import type { PagerViewHandle, PagerViewProps } from "./pager-view-types";
@@ -62,7 +62,7 @@ const PagerView = forwardRef<PagerViewHandle, PagerViewProps>(
           1,
           { duration: Durations.base, easing: SLIDE_EASING },
           (finished) => {
-            if (finished) runOnJS(finishTransition)(clamped);
+            if (finished) scheduleOnRN(finishTransition, clamped);
           },
         );
       },

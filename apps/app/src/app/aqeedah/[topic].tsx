@@ -1,8 +1,10 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { AqeedahTopicAside } from "@/components/aqeedah/aqeedah-aside";
 import { AqeedahTopicContent } from "@/components/aqeedah/topic-content";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +19,7 @@ import {
   isAqeedahContentReady,
 } from "@/lib/aqeedah";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureAqeedahProgressLoaded } from "@/stores/aqeedah-progress-store";
 
@@ -32,6 +35,7 @@ export default function AqeedahTopicScreen() {
   const topic = getAqeedahTopic(topicId);
   const reportRef = useGuideContentReportRef("aqeedah", topic, "/aqeedah");
   useEnsureAqeedahProgressLoaded();
+  const { maxContentWidth } = useLearnWideLayout();
 
   const detailPath = topic ? `/aqeedah/${topic.id}` : "/aqeedah";
   const crumbs = topic
@@ -48,6 +52,7 @@ export default function AqeedahTopicScreen() {
       title={topic?.title ?? t("aqeedah.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/aqeedah" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -79,13 +84,18 @@ export default function AqeedahTopicScreen() {
           onAction={() => router.replace("/aqeedah" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="aqeedah">
-            <AqeedahTopicContent topic={topic} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="aqeedah.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout aside={<AqeedahTopicAside currentId={topic.id} />}>
+          <Stagger>
+            <LearnReadingChrome surface="aqeedah">
+              <AqeedahTopicContent topic={topic} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="aqeedah.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/aqeedah/[topic]");

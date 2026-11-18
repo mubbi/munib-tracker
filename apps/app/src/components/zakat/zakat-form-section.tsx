@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { LearnColumnsGrid } from "@/components/jannah/hub-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -20,6 +21,8 @@ type ZakatFormSectionProps = {
   children: ReactNode;
   /** Optional footer below fields (due summaries, etc.). */
   footer?: ReactNode;
+  /** Desktop: lay simple fields out in N columns (default 1 — phone/TV stack). */
+  columns?: number;
 };
 
 /**
@@ -34,6 +37,7 @@ export function ZakatFormSection({
   onLearnMore,
   children,
   footer,
+  columns = 1,
 }: ZakatFormSectionProps) {
   const { t } = useTranslation();
   const infoIcon: SymbolViewProps["name"] = {
@@ -57,7 +61,13 @@ export function ZakatFormSection({
           {hint}
         </ThemedText>
       ) : null}
-      <View style={styles.body}>{children}</View>
+      {columns > 1 ? (
+        <LearnColumnsGrid columns={columns} gap={Spacing.three} style={styles.gridBody}>
+          {children}
+        </LearnColumnsGrid>
+      ) : (
+        <View style={styles.body}>{children}</View>
+      )}
       {footer ? <View style={styles.footer}>{footer}</View> : null}
     </Card>
   );
@@ -66,5 +76,6 @@ export function ZakatFormSection({
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.two, lineHeight: 20 },
   body: { marginTop: Spacing.three, gap: Spacing.three },
+  gridBody: { marginTop: Spacing.three },
   footer: { marginTop: Spacing.three },
 });

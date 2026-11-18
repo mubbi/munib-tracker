@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/react-native";
-import Constants from "expo-constants";
+import Constants, { ExecutionEnvironment } from "expo-constants";
 
 const DEFAULT_SENTRY_DSN =
   "https://44c8e1f4e369865f4f92b56af570369f@o4511706220265472.ingest.us.sentry.io/4511706225180672";
@@ -8,7 +8,7 @@ const sentryDsn = (process.env.EXPO_PUBLIC_SENTRY_DSN ?? DEFAULT_SENTRY_DSN).tri
 
 /** True when running inside the Expo Go client (not a dev client or store build). */
 function isExpoGoClient(): boolean {
-  return Constants.appOwnership === "expo";
+  return Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
 }
 
 let initialized = false;

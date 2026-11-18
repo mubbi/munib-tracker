@@ -8,6 +8,7 @@ import {
   readJSON,
   removeKeyTree,
   storageShardKey,
+  withKeyLock,
   writeJSONIfSafe,
 } from "./store";
 
@@ -183,5 +184,22 @@ describe("sharded cache storage", () => {
     } finally {
       globalThis.TextEncoder = Original;
     }
+  });
+});
+
+describe("withKeyLock", () => {
+  it("runs tasks for one key in order and keeps going after a failure", async () => {
+    const order: string[] = [];
+    const failing = withKeyLock("k", async () => {
+      order.push("first");
+      throw new Error("boom");
+    });
+    const next = withKeyLock("k", async () => {
+      order.push("second");
+      return 2;
+    });
+    await expect(failing).rejects.toThrow("boom");
+    await expect(next).resolves.toBe(2);
+    expect(order).toEqual(["first", "second"]);
   });
 });

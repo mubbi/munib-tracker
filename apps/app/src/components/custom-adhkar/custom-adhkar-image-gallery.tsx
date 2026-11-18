@@ -2,7 +2,13 @@ import { Image } from "expo-image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, StyleSheet, useWindowDimensions, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import {
+  GestureDetector,
+  usePanGesture,
+  usePinchGesture,
+  useSimultaneousGestures,
+  useTapGesture,
+} from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { apiAuthHeaders } from "@/api/auth-options";
 import { AttachmentMediaLoader, AttachmentThumb } from "@/components/attachments/attachment-thumb";
@@ -12,10 +18,15 @@ import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { isPdfMime } from "@/lib/attachments/attachment-mime";
+import { useAuthedMediaUri } from "@/lib/attachments/authed-media";
 import { openAttachmentExternally } from "@/lib/attachments/open-attachment-externally";
-import { useChevronBack, useChevronForward } from "@/lib/rtl";
+import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
+import { isRTL, useChevronBack, useChevronForward } from "@/lib/rtl";
 import { userMediaContentUrl } from "@/lib/user-media-api";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -74,6 +85,7 @@ function ZoomableImage({
   height: number;
 }) {
   const [ready, setReady] = useState(false);
+  const media = useAuthedMediaUri(uri, headers);
   const scale = useSharedValue(1);
   const savedScale = useSharedValue(1);
   const translateX = useSharedValue(0);
@@ -82,8 +94,8 @@ function ZoomableImage({
   const savedTranslateY = useSharedValue(0);
 
   useEffect(() => {
-    setReady(false);
-  }, []);
+    if (media.failed) setReady(true);
+  }, [media.failed]);
 
   const clampTranslation = (nextScale: number, x: number, y: number) => {
     "worklet";
@@ -95,15 +107,16 @@ function ZoomableImage({
     };
   };
 
-  const pinch = Gesture.Pinch()
-    .onUpdate((event) => {
+  // Gesture Handler 3 hook API (the v2 `Gesture.*` builders are legacy).
+  const pinch = usePinchGesture({
+    onUpdate: (event) => {
       const next = Math.min(Math.max(savedScale.value * event.scale, MIN_SCALE), MAX_SCALE);
       scale.value = next;
       const clamped = clampTranslation(next, translateX.value, translateY.value);
       translateX.value = clamped.x;
       translateY.value = clamped.y;
-    })
-    .onEnd(() => {
+    },
+    onDeactivate: () => {
       savedScale.value = scale.value;
       if (scale.value <= 1.01) {
         scale.value = withTiming(1);
@@ -113,11 +126,12 @@ function ZoomableImage({
         savedTranslateX.value = 0;
         savedTranslateY.value = 0;
       }
-    });
+    },
+  });
 
-  const pan = Gesture.Pan()
-    .averageTouches(true)
-    .onUpdate((event) => {
+  const pan = usePanGesture({
+    averageTouches: true,
+    onUpdate: (event) => {
       if (savedScale.value <= 1.01) return;
       const clamped = clampTranslation(
         savedScale.value,
@@ -126,15 +140,16 @@ function ZoomableImage({
       );
       translateX.value = clamped.x;
       translateY.value = clamped.y;
-    })
-    .onEnd(() => {
+    },
+    onDeactivate: () => {
       savedTranslateX.value = translateX.value;
       savedTranslateY.value = translateY.value;
-    });
+    },
+  });
 
-  const doubleTap = Gesture.Tap()
-    .numberOfTaps(2)
-    .onEnd(() => {
+  const doubleTap = useTapGesture({
+    numberOfTaps: 2,
+    onActivate: () => {
       if (savedScale.value > 1.01) {
         scale.value = withTiming(1);
         savedScale.value = 1;
@@ -146,9 +161,10 @@ function ZoomableImage({
       }
       scale.value = withTiming(2.5);
       savedScale.value = 2.5;
-    });
+    },
+  });
 
-  const composed = Gesture.Simultaneous(pinch, pan, doubleTap);
+  const composed = useSimultaneousGestures(pinch, pan, doubleTap);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -163,15 +179,17 @@ function ZoomableImage({
       {!ready ? <AttachmentMediaLoader onDark style={StyleSheet.absoluteFill} /> : null}
       <GestureDetector gesture={composed}>
         <Animated.View style={[{ width, height, opacity: ready ? 1 : 0 }, animatedStyle]}>
-          <Image
-            source={{ uri, headers }}
-            style={{ width, height }}
-            contentFit="contain"
-            transition={180}
-            onLoad={() => setReady(true)}
-            onError={() => setReady(true)}
-            accessibilityIgnoresInvertColors
-          />
+          {media.uri === null ? null : (
+            <Image
+              source={{ uri: media.uri }}
+              style={{ width, height }}
+              contentFit="contain"
+              transition={{ duration: 180, skipOnCacheHit: "all" }}
+              onLoad={() => setReady(true)}
+              onError={() => setReady(true)}
+              accessibilityIgnoresInvertColors
+            />
+          )}
         </Animated.View>
       </GestureDetector>
     </View>
@@ -193,6 +211,7 @@ export function CustomAdhkarImageGallery({
   const chevronForward = useChevronForward();
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+  const tv = isTV();
 
   const resolved = useMemo(
     () => resolveViewerItems(images, session?.accessToken),
@@ -215,6 +234,18 @@ export function CustomAdhkarImageGallery({
     );
   }, [resolved.length]);
 
+  // Desktop web: Left/Right arrows page through the open viewer (mirrored in RTL).
+  useWebScreenKeyHandler(
+    (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return undefined;
+      const forward = (event.key === "ArrowRight") !== isRTL();
+      if (forward) showNext();
+      else showPrev();
+      return true;
+    },
+    viewerIndex !== null && resolved.length > 1,
+  );
+
   const openPdfExternally = useCallback(
     async (item: ViewerItem) => {
       try {
@@ -235,7 +266,8 @@ export function CustomAdhkarImageGallery({
   if (resolved.length === 0) return null;
 
   const active = viewerIndex !== null ? resolved[viewerIndex] : null;
-  const thumbSize = compact ? 72 : 96;
+  // TV: larger 10-foot thumbs; tvDp keeps tvOS (1920pt) the same physical size.
+  const thumbSize = tv ? tvDp(compact ? 96 : 120) : compact ? 72 : 96;
   const activeIsPdf = active ? isPdfMime(active.mimeType) : false;
   const stageHeight = Math.max(240, windowHeight - (activeIsPdf ? 180 : 140));
 
@@ -297,7 +329,17 @@ export function CustomAdhkarImageGallery({
 
           {active ? (
             <View style={[styles.viewerStage, { height: stageHeight }]}>
-              {activeIsPdf ? (
+              {activeIsPdf && tv ? (
+                // TV: no WebView (pdf.js) and no external opener — explain instead
+                // of rendering the empty WebView stub.
+                <ThemedText type="small" style={[styles.viewerCounter, styles.viewerTvNote]}>
+                  {tTv(
+                    t,
+                    "customAdhkar.attachments.tvUnavailable",
+                    "customAdhkar.attachments.pdfTvUnavailable",
+                  )}
+                </ThemedText>
+              ) : activeIsPdf ? (
                 <PdfPreview
                   key={active.key}
                   uri={active.uri}
@@ -318,11 +360,14 @@ export function CustomAdhkarImageGallery({
             </View>
           ) : null}
 
-          <ThemedText type="caption" style={styles.viewerHint}>
-            {activeIsPdf
-              ? t("customAdhkar.attachments.pdfHint")
-              : t("customAdhkar.attachments.zoomHint")}
-          </ThemedText>
+          {/* TV: pinch / pan / double-tap and PDF zoom don't exist on a remote. */}
+          {tv ? null : (
+            <ThemedText type="caption" style={styles.viewerHint}>
+              {activeIsPdf
+                ? t("customAdhkar.attachments.pdfHint")
+                : t("customAdhkar.attachments.zoomHint")}
+            </ThemedText>
+          )}
 
           {resolved.length > 1 ? (
             <View style={styles.viewerNav}>
@@ -345,7 +390,7 @@ export function CustomAdhkarImageGallery({
             </View>
           ) : null}
 
-          {active && activeIsPdf ? (
+          {active && activeIsPdf && !tv ? (
             <View style={styles.pdfActions}>
               <Button
                 label={t("customAdhkar.attachments.openPdf")}
@@ -390,6 +435,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: Spacing.two,
+  },
+  viewerTvNote: {
+    textAlign: "center",
+    paddingHorizontal: Spacing.five,
   },
   viewerHint: {
     color: "rgba(255,255,255,0.72)",

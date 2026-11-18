@@ -24,34 +24,89 @@ function withWearOs(config) {
         path.join(wearDir, "build.gradle"),
         `plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+}
+
+// AGP 9 compiles Kotlin itself ("built-in Kotlin"). The Expo SDK 58 template opts out with
+// android.builtInKotlin=false until AGP 10; only then is the Kotlin Gradle plugin applied here.
+if ((findProperty('android.builtInKotlin') ?: 'true').toString() == 'false') {
+    apply plugin: 'org.jetbrains.kotlin.android'
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
+    }
+}
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+def safeExtGet = { String prop, fallback ->
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
 android {
-    namespace 'expo.modules.munibwear'
-    compileSdk 36
+    // Unique namespace: modules/munib-wear (the phone-side listener) owns expo.modules.munibwear.
+    namespace 'app.munibtracker.wear'
+    compileSdk safeExtGet('compileSdkVersion', 37)
 
     defaultConfig {
-        applicationId "app.munibtracker.wear"
+        // The Wearable Data Layer only connects apps that share the phone app's application ID
+        // and signing key. Play ships this as the Wear OS form factor of app.munibtracker.
+        applicationId "app.munibtracker"
         minSdk 30
-        targetSdk 36
-        versionCode 1
-        versionName "1.0"
+        targetSdk safeExtGet('targetSdkVersion', 36)
+        // apps/app/.env is the single source of truth (release scripts export it).
+        versionCode Integer.parseInt(System.getenv("EXPO_WEAR_VERSION_CODE") ?: "1")
+        versionName System.getenv("EXPO_ANDROID_APP_VERSION") ?: "1.0.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    signingConfigs {
+        debug {
+            // Same debug keystore as :app so debug builds can talk over the Data Layer.
+            storeFile rootProject.file('app/debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile rootProject.file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            } else if (gradle.startParameter.taskNames.any { it.toLowerCase().contains("release") }) {
+                throw new GradleException("[withWearOs] android/keystore.properties missing — refusing to sign a Wear release with the debug key.")
+            }
         }
     }
 }
 
 dependencies {
-    implementation 'androidx.wear.tiles:tiles:1.4.0'
-    implementation 'androidx.wear.protolayout:protolayout:1.2.1'
-    implementation 'androidx.wear.protolayout:protolayout-material:1.2.1'
-    implementation 'com.google.android.gms:play-services-wearable:18.2.0'
-    implementation 'com.google.guava:guava:33.3.1-android'
+    implementation 'androidx.wear.tiles:tiles:1.6.2'
+    implementation 'androidx.wear.protolayout:protolayout:1.4.2'
+    implementation 'androidx.wear.protolayout:protolayout-material:1.4.2'
+    implementation 'com.google.android.gms:play-services-wearable:20.0.1'
+    implementation 'com.google.guava:guava:33.8.0-android'
 }
 `,
       );
@@ -63,7 +118,7 @@ dependencies {
   <uses-feature android:name="android.hardware.type.watch" />
   <application android:label="Munib Tracker">
     <service
-      android:name=".MunibWearTileService"
+      android:name="expo.modules.munibwear.MunibWearTileService"
       android:exported="true"
       android:label="Munib Tracker"
       android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
@@ -75,7 +130,7 @@ dependencies {
         android:resource="@drawable/tile_preview" />
     </service>
     <service
-      android:name=".MunibWearTasbeehTileService"
+      android:name="expo.modules.munibwear.MunibWearTasbeehTileService"
       android:exported="true"
       android:label="Tasbeeh"
       android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">

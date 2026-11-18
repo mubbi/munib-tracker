@@ -51,12 +51,32 @@ export default function PrivacyPage() {
         </p>
       </ContentSection>
 
+      <ContentSection heading="Microphone & Qur&apos;an practice">
+        <p className="text-muted">
+          The app uses the microphone only when you tap it: to dictate custom adhkar, and in
+          Qur&apos;an practice to follow your recitation. Recitation audio is processed on your
+          device. It is not recorded, stored, or uploaded, and practice keeps only counts (for
+          example how many words matched) and ayah numbers — never audio or a transcript.
+        </p>
+        <p className="mt-3 text-muted">
+          The practice listener is an optional download (about 70 MB). The iOS and Android apps
+          fetch it from the Tilawa project&apos;s release host on GitHub; the web app serves an
+          unmodified copy of the same files from its own site. The optional pronunciation listener
+          is downloaded from Quran Lab and contacts Quran Lab once to activate; the app turns Quran
+          Lab&apos;s usage statistics off and never asks you to share recordings. On the web, Quran
+          Lab&apos;s own sheet may offer to share recitations to improve its free models — sharing
+          happens only if you agree there, and you can turn it off and delete what you shared from
+          Settings → Qur&apos;an practice. The listeners are practice aids, not a ruling on your
+          recitation.
+        </p>
+      </ContentSection>
+
       <ContentSection heading="Notifications">
         <p className="text-muted">
-          Prayer, adhkar, qaza, daily content, Friday, and achievement reminders are scheduled
-          locally on your device when you enable them. Notification content is generated from your
-          preferences and local data. You can disable any category or revoke system permission at
-          any time.
+          Prayer, adhkar, qaza, daily content, Friday, Qur&apos;an revision, and achievement
+          reminders are scheduled locally on your device when you enable them. Notification content
+          is generated from your preferences and local data. You can disable any category or revoke
+          system permission at any time.
         </p>
       </ContentSection>
 

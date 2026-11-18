@@ -8,10 +8,12 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildWeekContainingDate, localizedWeekdayInitials } from "@/lib/calendar";
 import { formatCalendarDate } from "@/lib/calendar-format";
 import { gregorianToHijri } from "@/lib/hijri";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { useLocation } from "@/stores/location-store";
 
@@ -121,18 +123,37 @@ export function CalendarWeekStrip({
                 accessibilityState={{ selected: isSelected, disabled: day.isFuture }}
                 disabled={day.isFuture}
                 onPress={() => onSelectDate(day.date)}
-                style={[
-                  styles.dayCircle,
-                  { backgroundColor: fill },
-                  day.isToday && { borderColor: colors.accent, borderWidth: 2 },
-                  isSelected && {
-                    backgroundColor: isSelected
-                      ? withAlpha(colors.accent, fill === "transparent" ? 0.18 : 0.35)
-                      : fill,
-                    borderColor: colors.accent,
-                    borderWidth: 2,
-                  },
-                ]}
+                style={
+                  isTV()
+                    ? [
+                        // TV: today = foreground edge, selected = soft accent fill +
+                        // hairline; the solid accent ring is reserved for D-pad focus.
+                        styles.dayCircle,
+                        styles.dayCircleTv,
+                        { backgroundColor: fill },
+                        day.isToday && { borderColor: colors.foreground, borderWidth: 2 },
+                        isSelected && {
+                          backgroundColor: withAlpha(
+                            colors.accent,
+                            fill === "transparent" ? 0.18 : 0.35,
+                          ),
+                          borderColor: day.isToday ? colors.foreground : tokens.accentBorder,
+                          borderWidth: day.isToday ? 2 : StyleSheet.hairlineWidth,
+                        },
+                      ]
+                    : [
+                        styles.dayCircle,
+                        { backgroundColor: fill },
+                        day.isToday && { borderColor: colors.accent, borderWidth: 2 },
+                        isSelected && {
+                          backgroundColor: isSelected
+                            ? withAlpha(colors.accent, fill === "transparent" ? 0.18 : 0.35)
+                            : fill,
+                          borderColor: colors.accent,
+                          borderWidth: 2,
+                        },
+                      ]
+                }
               >
                 <ThemedText
                   type="small"
@@ -173,7 +194,11 @@ function NavButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={onPress}
-      style={[styles.navButton, { backgroundColor: tokens.accentSoft }]}
+      style={[
+        styles.navButton,
+        isTV() ? styles.navButtonTv : null,
+        { backgroundColor: tokens.accentSoft },
+      ]}
     >
       <SymbolView name={icon} size={18} tintColor={colors.accent} />
     </PressableScale>
@@ -200,6 +225,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  navButtonTv: {
+    width: TvLayout.chipMinHeight,
+    height: TvLayout.chipMinHeight,
+  },
   weekRow: {
     flexDirection: "row",
   },
@@ -215,6 +244,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  dayCircleTv: {
+    width: TvLayout.minFocusTarget,
+    height: TvLayout.minFocusTarget,
+    borderRadius: TvLayout.minFocusTarget / 2,
   },
   dot: {
     width: 4,

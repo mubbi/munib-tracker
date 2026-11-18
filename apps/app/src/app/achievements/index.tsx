@@ -12,7 +12,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -21,7 +21,9 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -29,6 +31,8 @@ import { milestoneDescription, milestoneTitle } from "@/lib/achievements-i18n";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatAchievementShare } from "@/lib/share";
 
 const OBLIGATORY = new Set<string>(OBLIGATORY_PRAYERS);
@@ -64,81 +68,112 @@ function MilestoneCard({
       ? t("achievements.devotion")
       : t(TRACK_LABEL_KEYS[milestone.trackId] ?? milestone.trackId);
 
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  // Wide web / tablets (never TV): denser tile rows instead of two per row.
+  const wideBasis = tv
+    ? null
+    : unlocked
+      ? width >= 1600
+        ? styles.basisSixth
+        : width >= 1024
+          ? styles.basisQuarter
+          : null
+      : width >= 1600
+        ? styles.basisQuarter
+        : width >= 1024
+          ? styles.basisThird
+          : null;
+
   if (unlocked) {
     return (
-      <Card key={milestone.id} padding="three" style={styles.unlockedCard}>
-        <View style={styles.unlockedHeader}>
-          <View style={[styles.badgeSmall, { backgroundColor: tokens.status.warning.soft }]}>
-            <SymbolView
-              name={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
-              size={16}
-              tintColor={tokens.status.warning.color}
-            />
-          </View>
-          {onShare ? (
-            <PressableScale
-              onPress={shareLoading ? undefined : () => onShare(milestone)}
-              haptic="light"
-              hitSlop={8}
-              scaleTo={0.9}
-              accessibilityRole="button"
-              accessibilityLabel={
-                shareLoading
-                  ? t("share.preparing")
-                  : gesturePending
-                    ? tTv(t, "share.tapToShare", "share.selectToShare")
-                    : t("achievements.share")
-              }
-              style={[
-                styles.shareButton,
-                {
-                  backgroundColor: gesturePending ? tokens.accentSoft : colors.muted,
-                  opacity: shareLoading ? 0.5 : 1,
-                },
-              ]}
-            >
+      <Card
+        key={milestone.id}
+        padding="three"
+        style={[styles.unlockedCard, tv ? styles.unlockedCardTv : null, wideBasis]}
+      >
+        {/* TV: read-only tile is a D-pad stop (share is phone-only, so nothing else
+          is focusable here and the remote could not scroll to later rows). */}
+        <TvReadableBlock style={styles.unlockedBody}>
+          <View style={styles.unlockedHeader}>
+            <View style={[styles.badgeSmall, { backgroundColor: tokens.status.warning.soft }]}>
               <SymbolView
-                name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                size={14}
-                tintColor={colors.accent}
+                name={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
+                size={16}
+                tintColor={tokens.status.warning.color}
               />
-            </PressableScale>
-          ) : null}
-        </View>
-        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-          {trackLabel} · {t("achievements.level", { level: milestone.level })}
-        </ThemedText>
-        <ThemedText type="smallBold" numberOfLines={1}>
-          {milestoneTitle(milestone)}
-        </ThemedText>
+            </View>
+            {onShare && !tv ? (
+              <PressableScale
+                onPress={shareLoading ? undefined : () => onShare(milestone)}
+                haptic="light"
+                hitSlop={8}
+                scaleTo={0.9}
+                accessibilityRole="button"
+                accessibilityLabel={
+                  shareLoading
+                    ? t("share.preparing")
+                    : gesturePending
+                      ? tTv(t, "share.tapToShare", "share.selectToShare")
+                      : t("achievements.share")
+                }
+                style={[
+                  styles.shareButton,
+                  {
+                    backgroundColor: gesturePending ? tokens.accentSoft : colors.muted,
+                    opacity: shareLoading ? 0.5 : 1,
+                  },
+                ]}
+              >
+                <SymbolView
+                  name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                  size={14}
+                  tintColor={colors.accent}
+                />
+              </PressableScale>
+            ) : null}
+          </View>
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {trackLabel} · {t("achievements.level", { level: milestone.level })}
+          </ThemedText>
+          <ThemedText type="smallBold" numberOfLines={1}>
+            {milestoneTitle(milestone)}
+          </ThemedText>
+        </TvReadableBlock>
       </Card>
     );
   }
 
   return (
-    <Card key={milestone.id} padding="three" style={styles.card}>
-      <View style={[styles.badge, { backgroundColor: colors.muted }]}>
-        <SymbolView
-          name={{ ios: "target", android: "track_changes", web: "track_changes" }}
-          size={22}
-          tintColor={colors.accent}
-        />
-      </View>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {trackLabel}
-        {" · "}
-        {t("achievements.level", { level: milestone.level })}
-      </ThemedText>
-      <ThemedText type="smallBold">{milestoneTitle(milestone)}</ThemedText>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {milestoneDescription(milestone)}
-      </ThemedText>
-      <View style={styles.progress}>
-        <ProgressBar value={milestone.progress} />
+    <Card
+      key={milestone.id}
+      padding="three"
+      style={[styles.card, tv ? styles.cardTv : null, wideBasis]}
+    >
+      <TvReadableBlock style={styles.cardBody}>
+        <View style={[styles.badge, { backgroundColor: colors.muted }]}>
+          <SymbolView
+            name={{ ios: "target", android: "track_changes", web: "track_changes" }}
+            size={22}
+            tintColor={colors.accent}
+          />
+        </View>
         <ThemedText type="caption" themeColor="mutedForeground">
-          {milestone.value}/{milestone.threshold}
+          {trackLabel}
+          {" · "}
+          {t("achievements.level", { level: milestone.level })}
         </ThemedText>
-      </View>
+        <ThemedText type="smallBold">{milestoneTitle(milestone)}</ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {milestoneDescription(milestone)}
+        </ThemedText>
+        <View style={styles.progress}>
+          <ProgressBar value={milestone.progress} />
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {milestone.value}/{milestone.threshold}
+          </ThemedText>
+        </View>
+      </TvReadableBlock>
     </Card>
   );
 }
@@ -220,6 +255,7 @@ export default function AchievementsScreen() {
 
   const devotion = state?.devotion;
   const milestoneCount = unlocked.length;
+  const tv = isTV();
 
   return (
     <ScreenLayout
@@ -241,73 +277,79 @@ export default function AchievementsScreen() {
         <View style={styles.stack}>
           {devotion ? (
             <Card padding="four" style={styles.hero}>
-              <View style={styles.heroRow}>
-                <View
-                  style={[styles.devotionBadge, { backgroundColor: tokens.status.warning.soft }]}
-                >
-                  <ThemedText
-                    type="caption"
-                    style={[styles.devotionBadgeLabel, { color: tokens.status.warning.text }]}
+              <TvReadableBlock style={styles.heroBody} preferredFocus={tv}>
+                <View style={styles.heroRow}>
+                  <View
+                    style={[
+                      styles.devotionBadge,
+                      tv ? { width: tvDp(64), height: tvDp(64) } : null,
+                      { backgroundColor: tokens.status.warning.soft },
+                    ]}
                   >
-                    {t("achievements.levelShort")}
-                  </ThemedText>
-                  <ThemedText
-                    type="header"
-                    style={[styles.devotionBadgeLevel, { color: tokens.status.warning.color }]}
-                  >
-                    {devotion.level}
-                  </ThemedText>
-                </View>
-                <View style={styles.heroCopy}>
-                  <View style={styles.heroTitleRow}>
-                    <SymbolView
-                      name={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
-                      size={16}
-                      tintColor={tokens.status.warning.color}
-                    />
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("achievements.devotion")}
+                    <ThemedText
+                      type="caption"
+                      style={[styles.devotionBadgeLabel, { color: tokens.status.warning.text }]}
+                    >
+                      {t("achievements.levelShort")}
+                    </ThemedText>
+                    <ThemedText
+                      type="header"
+                      style={[styles.devotionBadgeLevel, { color: tokens.status.warning.color }]}
+                    >
+                      {devotion.level}
                     </ThemedText>
                   </View>
-                  <ThemedText type="subtitle">
-                    {t("achievements.devotionLevel", { level: devotion.level })}
-                  </ThemedText>
-                  <View style={styles.heroPills}>
-                    <Pill
-                      icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-                      label={t("achievements.noorPill", { noor: devotion.noor })}
-                      color={tokens.status.warning.text}
-                      background={tokens.status.warning.soft}
-                    />
-                    <Pill
-                      icon={{
-                        ios: "rosette",
-                        android: "workspace_premium",
-                        web: "workspace_premium",
-                      }}
-                      label={t("achievements.milestonePill", { count: milestoneCount })}
-                      color={colors.mutedForeground}
-                      background={colors.muted}
-                    />
+                  <View style={styles.heroCopy}>
+                    <View style={styles.heroTitleRow}>
+                      <SymbolView
+                        name={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
+                        size={16}
+                        tintColor={tokens.status.warning.color}
+                      />
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("achievements.devotion")}
+                      </ThemedText>
+                    </View>
+                    <ThemedText type="subtitle">
+                      {t("achievements.devotionLevel", { level: devotion.level })}
+                    </ThemedText>
+                    <View style={styles.heroPills}>
+                      <Pill
+                        icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+                        label={t("achievements.noorPill", { noor: devotion.noor })}
+                        color={tokens.status.warning.text}
+                        background={tokens.status.warning.soft}
+                      />
+                      <Pill
+                        icon={{
+                          ios: "rosette",
+                          android: "workspace_premium",
+                          web: "workspace_premium",
+                        }}
+                        label={t("achievements.milestonePill", { count: milestoneCount })}
+                        color={colors.mutedForeground}
+                        background={colors.muted}
+                      />
+                    </View>
                   </View>
                 </View>
-              </View>
-              <View style={styles.heroProgress}>
-                <ProgressBar
-                  value={devotion.progress}
-                  height={6}
-                  color={tokens.status.warning.color}
-                />
+                <View style={styles.heroProgress}>
+                  <ProgressBar
+                    value={devotion.progress}
+                    height={6}
+                    color={tokens.status.warning.color}
+                  />
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("achievements.devotionNoor", {
+                      current: devotion.noor - devotion.noorForCurrentLevel,
+                      next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
+                    })}
+                  </ThemedText>
+                </View>
                 <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("achievements.devotionNoor", {
-                    current: devotion.noor - devotion.noorForCurrentLevel,
-                    next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
-                  })}
+                  {t("achievements.devotionHint")}
                 </ThemedText>
-              </View>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("achievements.devotionHint")}
-              </ThemedText>
+              </TvReadableBlock>
             </Card>
           ) : null}
 
@@ -354,6 +396,9 @@ const styles = StyleSheet.create({
     gap: Spacing.four,
   },
   hero: {
+    gap: Spacing.three,
+  },
+  heroBody: {
     gap: Spacing.three,
   },
   heroRow: {
@@ -412,6 +457,30 @@ const styles = StyleSheet.create({
     flexBasis: "47%",
     gap: Spacing.one,
   },
+  cardBody: {
+    gap: Spacing.one,
+  },
+  unlockedBody: {
+    gap: Spacing.half,
+  },
+  /** Wide screens (window width): 3 / 4 / 6 tiles per row. */
+  basisThird: {
+    flexBasis: "30%",
+  },
+  basisQuarter: {
+    flexBasis: "22%",
+  },
+  basisSixth: {
+    flexBasis: "15%",
+  },
+  /** TV: three goal tiles per row across the landscape pane. */
+  cardTv: {
+    flexBasis: "30%",
+  },
+  /** TV: four compact milestone tiles per row. */
+  unlockedCardTv: {
+    flexBasis: "22%",
+  },
   unlockedCard: {
     flexGrow: 1,
     flexBasis: "47%",
@@ -453,3 +522,6 @@ const styles = StyleSheet.create({
     marginTop: Spacing.one,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/achievements");

@@ -1,18 +1,15 @@
 import { UnauthorizedException } from "@nestjs/common";
-import type { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
-import { beforeEach, describe, expect, it } from "vitest";
-import type { EnvironmentVariables } from "../config/env.schema";
+import { describe, expect, it, vi } from "vitest";
+import { buildConfig } from "../test-support/oauth";
 import { TokenService } from "./token.service";
 
 const SECRET = "test-secret-value";
 
-function makeTokenService(): TokenService {
+function setup(ttl: string | undefined = "15m") {
   const jwtService = new JwtService({ secret: SECRET });
-  const configService = {
-    get: (key: string) => (key === "JWT_ACCESS_TTL" ? "15m" : undefined),
-  } as unknown as ConfigService<EnvironmentVariables, true>;
-  return new TokenService(jwtService, configService);
+  const service = new TokenService(jwtService, buildConfig({ JWT_ACCESS_TTL: ttl }));
+  return { service, jwtService };
 }
 
 /** Encodes a JWT segment as base64url without padding. */
@@ -21,40 +18,55 @@ function b64url(value: object): string {
 }
 
 describe("TokenService", () => {
-  let tokenService: TokenService;
-
-  beforeEach(() => {
-    tokenService = makeTokenService();
-  });
-
   it("round-trips a signed HS256 access token", () => {
-    const { token, expiresIn } = tokenService.signAccessToken("user-1", "session-1");
-    expect(expiresIn).toBeGreaterThan(0);
-    const claims = tokenService.verifyAccessToken(token);
-    expect(claims).toEqual({ sub: "user-1", sid: "session-1" });
+    const { service } = setup();
+    const { token } = service.signAccessToken("user-1", "session-1");
+    expect(service.verifyAccessToken(token)).toEqual({ sub: "user-1", sid: "session-1" });
   });
 
-  it("rejects an unsigned `alg: none` token", () => {
+  it.each([
+    ["15m", 900],
+    ["2h", 7200],
+  ])("reports the TTL for %s from the signed exp/iat claims", (ttl, seconds) => {
+    const { service } = setup(ttl);
+    expect(service.signAccessToken("u", "s").expiresIn).toBe(seconds);
+  });
+
+  it.each([
+    ["15m", 900],
+    ["2h", 7200],
+    ["1d", 86_400],
+    ["45", 45],
+    [" 30s ", 30],
+    ["soon", 900],
+    [undefined, 900],
+  ])("parses TTL %j as %is when the token has no exp/iat", (ttl, seconds) => {
+    const { service, jwtService } = setup(ttl);
+    vi.spyOn(jwtService, "sign").mockReturnValue("opaque");
+    vi.spyOn(jwtService, "decode").mockReturnValue(null);
+    expect(service.signAccessToken("u", "s")).toEqual({ token: "opaque", expiresIn: seconds });
+  });
+
+  it.each([
     // The classic JWT bypass: strip the signature and claim `alg: none`.
-    const header = b64url({ alg: "none", typ: "JWT" });
-    const payload = b64url({ sub: "attacker", sid: "forged" });
-    const forged = `${header}.${payload}.`;
-
-    expect(() => tokenService.verifyAccessToken(forged)).toThrow(UnauthorizedException);
-  });
-
-  it("rejects a token whose header advertises a non-HS256 algorithm", () => {
-    const header = b64url({ alg: "HS512", typ: "JWT" });
-    const payload = b64url({ sub: "attacker", sid: "forged" });
-    const forged = `${header}.${payload}.deadbeef`;
-
-    expect(() => tokenService.verifyAccessToken(forged)).toThrow(UnauthorizedException);
-  });
-
-  it("rejects a token signed with a different secret", () => {
-    const otherSigner = new JwtService({ secret: "a-different-secret" });
-    const foreign = otherSigner.sign({ sub: "user-1", sid: "session-1" }, { algorithm: "HS256" });
-
-    expect(() => tokenService.verifyAccessToken(foreign)).toThrow(UnauthorizedException);
+    [
+      "an unsigned alg:none token",
+      `${b64url({ alg: "none", typ: "JWT" })}.${b64url({ sub: "a", sid: "f" })}.`,
+    ],
+    [
+      "a non-HS256 header",
+      `${b64url({ alg: "HS512", typ: "JWT" })}.${b64url({ sub: "a", sid: "f" })}.deadbeef`,
+    ],
+    [
+      "a different secret",
+      new JwtService({ secret: "other" }).sign({ sub: "u", sid: "s" }, { algorithm: "HS256" }),
+    ],
+    [
+      "a missing session claim",
+      new JwtService({ secret: SECRET }).sign({ sub: "u" }, { algorithm: "HS256" }),
+    ],
+  ])("rejects %s", (_label, token) => {
+    const { service } = setup();
+    expect(() => service.verifyAccessToken(token)).toThrow(UnauthorizedException);
   });
 });

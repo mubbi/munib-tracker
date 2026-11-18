@@ -7,23 +7,46 @@
  * platform filter then links them and the native build fails.
  *
  * Complements `react-native.config.js` (RN community CLI / use_native_modules).
+ *
+ * Android: the same list is written to `expoAutolinking.exclude` in
+ * `android/settings.gradle`, so local Expo modules (munib-tajweedformer, munib-wear,
+ * munib-external-commands) never link into the Leanback build.
+ *
+ * Both lists come from plugins/tvExcludedPackages.cjs.
  */
-const { createRunOncePlugin, withDangerousMod } = require("@expo/config-plugins");
+const {
+  createRunOncePlugin,
+  withDangerousMod,
+  withSettingsGradle,
+} = require("@expo/config-plugins");
+const {
+  TV_EXCLUDED_PACKAGES: TV_EXPO_MODULE_EXCLUDES,
+  isTvEnv,
+} = require("./tvExcludedPackages.cjs");
 
-/** Must stay aligned with `react-native.config.js` → TV_EXCLUDED. */
-const TV_EXPO_MODULE_EXCLUDES = [
-  "expo-quick-actions",
-  "expo-speech-recognition",
-  "react-native-android-widget",
-];
-
-function isTvEnv() {
-  const v = process.env.EXPO_TV?.trim();
-  return v === "1" || v === "true" || v === "True";
+function withTvAndroidExpoModuleExcludes(config) {
+  return withSettingsGradle(config, (cfg) => {
+    const marker = "expoAutolinking.exclude =";
+    if (cfg.modResults.contents.includes(marker)) return cfg;
+    const list = TV_EXPO_MODULE_EXCLUDES.map((name) => `'${name}'`).join(", ");
+    if (!cfg.modResults.contents.includes("expoAutolinking.useExpoModules()")) {
+      throw new Error(
+        "withTvExpoModuleExcludes: settings.gradle has no expoAutolinking.useExpoModules()",
+      );
+    }
+    cfg.modResults.contents = cfg.modResults.contents.replace(
+      "expoAutolinking.useExpoModules()",
+      `${marker} [${list}]
+expoAutolinking.useExpoModules()`,
+    );
+    return cfg;
+  });
 }
 
 function withTvExpoModuleExcludes(config) {
   if (!isTvEnv()) return config;
+
+  config = withTvAndroidExpoModuleExcludes(config);
 
   return withDangerousMod(config, [
     "ios",

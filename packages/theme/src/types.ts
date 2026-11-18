@@ -27,6 +27,12 @@ export interface ThemeColors {
   border: string;
   card: string;
   cardForeground: string;
+  /** Subtle 1px outline that separates a card from the page background. */
+  cardBorder: string;
+  /** Fill for text inputs / search fields. Always pair with `inputBorder`. */
+  input: string;
+  /** Input outline — ≥3:1 against card and background (WCAG 1.4.11 non-text contrast). */
+  inputBorder: string;
 }
 
 export interface ThemeSettings {

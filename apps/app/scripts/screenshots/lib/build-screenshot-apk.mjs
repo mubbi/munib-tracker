@@ -5,7 +5,13 @@ import { log, run, runCapture, warn } from "./shell.mjs";
 
 const ANDROID_DIR = path.join(APP_ROOT, "android");
 const APP_BUILD_GRADLE = path.join(ANDROID_DIR, "app", "build.gradle");
-const GRADLEW = process.platform === "win32" ? "gradlew.bat" : "./gradlew";
+// Absolute path: cmd.exe skips the current directory when
+// NoDefaultCurrentDirectoryInExePath is set (hardened shells/CI), so a bare
+// `gradlew.bat` is "not recognized". Quoted because Windows spawns via the shell.
+const GRADLEW =
+  process.platform === "win32"
+    ? `"${path.join(ANDROID_DIR, "gradlew.bat")}"`
+    : path.join(ANDROID_DIR, "gradlew");
 const RELEASE_APK = path.join(
   ANDROID_DIR,
   "app",
@@ -62,6 +68,11 @@ function withDebuggableReleaseBuildGradle(fn) {
         `${block}\n            ${marker}\n            debuggable true\n            minifyEnabled false\n`,
     );
   }
+  // AGP rejects shrinkResources without minify, so turn resource shrinking off too.
+  patched = patched.replace(
+    /(buildTypes\s*\{[\s\S]*?release\s*\{[\s\S]*?)shrinkResources\s+[^\n]+/,
+    "$1shrinkResources false // munib-screenshot-apk",
+  );
   if (patched === original || !patched.includes(marker)) {
     throw new Error("Could not patch android/app/build.gradle release block for screenshot APK.");
   }

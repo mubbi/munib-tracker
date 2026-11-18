@@ -78,4 +78,82 @@ describe("parsePrayerImport", () => {
     const result = parsePrayerImport("2026-07-01, Fajr , COMPLETED", TODAY);
     expect(result.rows).toEqual([{ date: "2026-07-01", prayerId: "fajr", status: "completed" }]);
   });
+
+  it("accepts a single JSON object", () => {
+    const result = parsePrayerImport(
+      JSON.stringify({ date: "2026-07-01", prayerId: "witr", status: "qaza" }),
+      TODAY,
+    );
+
+    expect(result.rows).toEqual([{ date: "2026-07-01", prayerId: "witr", status: "qaza" }]);
+  });
+
+  it("reports null rows and non-string fields as invalid dates", () => {
+    const result = parsePrayerImport(
+      JSON.stringify([null, { date: 20260701, prayerId: 1, status: true }]),
+      TODAY,
+    );
+
+    expect(result.rows).toEqual([]);
+    expect(result.dateRange).toBeNull();
+    expect(result.errors).toEqual([
+      { row: 1, message: 'Invalid date ""', raw: ",," },
+      { row: 2, message: 'Invalid date ""', raw: ",," },
+    ]);
+  });
+
+  it.each(["2026-00-10", "2026-13-10", "2026-02-00", "2026-02-32", "2026-02-30", "2026-7-1"])(
+    "rejects impossible calendar date %s",
+    (date) => {
+      expect(parsePrayerImport(`${date},fajr,completed`, TODAY).errors[0]?.message).toBe(
+        `Invalid date "${date}"`,
+      );
+    },
+  );
+
+  it("rejects pending status", () => {
+    expect(parsePrayerImport("2026-07-01,fajr,pending", TODAY).errors).toEqual([
+      { row: 1, message: 'Unknown status "pending"', raw: "2026-07-01,fajr,pending" },
+    ]);
+  });
+
+  it("handles short CSV lines, CRLF, blank lines and a header naming prayer in column two", () => {
+    const text = "Date,Prayer\r\n\r\n2026-07-01,fajr\n2026-07-02\n2026-07-03,asr,delayed";
+
+    const result = parsePrayerImport(text, TODAY);
+
+    expect(result.rows).toEqual([{ date: "2026-07-03", prayerId: "asr", status: "delayed" }]);
+    expect(result.errors.map((error) => error.row)).toEqual([1, 2]);
+  });
+
+  it.each([
+    ["a header-like line after data", "2026-07-01,fajr,completed\ndate,prayer,status", 2],
+    ["a first line without a prayer column", "date,x,y\n2026-07-01,fajr,completed", 1],
+  ])("treats %s as a data row", (_label, text, row) => {
+    const result = parsePrayerImport(text, TODAY);
+
+    expect(result.rows).toHaveLength(1);
+    expect(result.errors).toEqual([
+      expect.objectContaining({ row, message: 'Invalid date "date"' }),
+    ]);
+  });
+
+  it("sorts rows by date then prayer id", () => {
+    const result = parsePrayerImport(
+      "2026-07-02,isha,completed\n2026-07-01,maghrib,completed\n2026-07-01,asr,completed",
+      TODAY,
+    );
+
+    expect(result.rows.map((row) => `${row.date}:${row.prayerId}`)).toEqual([
+      "2026-07-01:asr",
+      "2026-07-01:maghrib",
+      "2026-07-02:isha",
+    ]);
+  });
+
+  it("defaults today to the current UTC day", () => {
+    expect(parsePrayerImport("2999-01-01,fajr,completed").errors[0]?.message).toBe(
+      'Future date "2999-01-01" is not allowed',
+    );
+  });
 });

@@ -35,6 +35,8 @@ const PLATFORM_ENV_KEYS = {
   web: "EXPO_PUBLIC_APP_VERSION",
   tvos: "EXPO_TVOS_APP_VERSION",
   "android-tv": "EXPO_ANDROID_TV_APP_VERSION",
+  // The Wear OS app ships under the phone listing, so it shares the phone marketing version.
+  wear: "EXPO_ANDROID_APP_VERSION",
 };
 
 const IOS_BUILD_NUMBER_ENV_KEYS = {
@@ -45,7 +47,35 @@ const IOS_BUILD_NUMBER_ENV_KEYS = {
 const ANDROID_VERSION_CODE_ENV_KEYS = {
   android: "EXPO_ANDROID_VERSION_CODE",
   "android-tv": "EXPO_ANDROID_TV_VERSION_CODE",
+  wear: "EXPO_WEAR_VERSION_CODE",
 };
+
+/**
+ * `.env` is the single source of truth for version codes / build numbers (EAS uses
+ * appVersionSource "local"). Release builds must never fall back to "1": Play and App Store
+ * Connect reject a reused or lower code. Strict when a release script opts in
+ * (MUNIB_REQUIRE_VERSION_CODES=1) or on an EAS production build.
+ */
+function isStrictVersionMode() {
+  if (process.env.MUNIB_REQUIRE_VERSION_CODES === "1") return true;
+  const profile = process.env.EAS_BUILD_PROFILE?.trim() || "";
+  return process.env.EAS_BUILD === "true" && profile.startsWith("production");
+}
+
+function readBuildIntegerEnv(envKey) {
+  const raw = process.env[envKey]?.trim();
+  if (!raw) {
+    if (isStrictVersionMode()) {
+      console.error(
+        `Missing ${envKey}. Release builds require an explicit version code / build number in ` +
+          "apps/app/.env (or the EAS environment for EAS builds). See docs/RELEASES.md.",
+      );
+      process.exit(1);
+    }
+    return "1";
+  }
+  return raw;
+}
 
 /** EXPO_PUBLIC_APP_VERSION as loaded from .env (before native prebuild/release overwrites it). */
 let webVersionFromDotEnv = null;
@@ -99,14 +129,21 @@ function resolvePlatformVersion(platform, appRoot = DEFAULT_APP_ROOT) {
  * Resolve marketing semver, bake EXPO_PUBLIC_APP_VERSION for Metro, return native metadata.
  * Used by iOS/Android/TV prebuild and release scripts.
  *
- * @param {"ios" | "android" | "tvos" | "android-tv"} platform
+ * @param {"ios" | "android" | "tvos" | "android-tv" | "wear"} platform
  * @param {string} [appRoot]
+ * @param {{ requireVersionCodes?: boolean }} [options] release builds pass `true`, so a
+ *   missing version code / build number fails instead of falling back to 1.
  */
-function preparePlatformRelease(platform, appRoot = DEFAULT_APP_ROOT) {
-  const allowed = new Set(["ios", "android", "tvos", "android-tv"]);
+function preparePlatformRelease(
+  platform,
+  appRoot = DEFAULT_APP_ROOT,
+  { requireVersionCodes = false } = {},
+) {
+  if (requireVersionCodes) process.env.MUNIB_REQUIRE_VERSION_CODES = "1";
+  const allowed = new Set(["ios", "android", "tvos", "android-tv", "wear"]);
   if (!allowed.has(platform)) {
     console.error(
-      `preparePlatformRelease supports ios/android/tvos/android-tv only, got: ${platform}`,
+      `preparePlatformRelease supports ios/android/tvos/android-tv/wear only, got: ${platform}`,
     );
     process.exit(1);
   }
@@ -142,11 +179,11 @@ function resolveIosBuildNumber(platform = "ios") {
 }
 
 /**
- * @param {"android" | "android-tv"} [platform]
+ * @param {"android" | "android-tv" | "wear"} [platform]
  */
 function resolveAndroidVersionCode(platform = "android") {
   const envKey = ANDROID_VERSION_CODE_ENV_KEYS[platform] || ANDROID_VERSION_CODE_ENV_KEYS.android;
-  const raw = process.env[envKey]?.trim() || "1";
+  const raw = readBuildIntegerEnv(envKey);
   const code = Number.parseInt(raw, 10);
   if (!Number.isFinite(code) || code < 1) {
     console.error(`Invalid ${envKey}: ${raw}`);
@@ -181,6 +218,7 @@ function getVersionEnvSummary(appRoot = DEFAULT_APP_ROOT, { activePlatform } = {
     androidVersionCode: formatVersionCodeSummary("EXPO_ANDROID_VERSION_CODE"),
     tvosBuildNumber: process.env.EXPO_TVOS_APP_BUILD_NUMBER?.trim() || "1",
     androidTvVersionCode: formatVersionCodeSummary("EXPO_ANDROID_TV_VERSION_CODE"),
+    wearVersionCode: formatVersionCodeSummary("EXPO_WEAR_VERSION_CODE"),
     bundleVersion,
     activePlatform: activePlatform || null,
     bundleOverridden: Boolean(
@@ -206,5 +244,6 @@ module.exports = {
   preparePlatformRelease,
   resolveIosBuildNumber,
   resolveAndroidVersionCode,
+  isStrictVersionMode,
   getVersionEnvSummary,
 };

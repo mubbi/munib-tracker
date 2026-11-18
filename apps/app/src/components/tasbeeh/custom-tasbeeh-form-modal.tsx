@@ -8,7 +8,9 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Shadows, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import type { CustomTasbeehInput } from "@/stores/custom-tasbeeh-store";
 
 const MAX_TITLE = 60;
@@ -109,14 +111,7 @@ export function CustomTasbeehFormModal({
             placeholder={t("tasbeeh.customTitlePlaceholder")}
             placeholderTextColor={colors.mutedForeground}
             accessibilityLabel={t("tasbeeh.customTitleLabel")}
-            style={[
-              styles.input,
-              {
-                color: colors.foreground,
-                backgroundColor: colors.muted,
-                borderColor: colors.border,
-              },
-            ]}
+            style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
           />
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.counter}>
             {title.length}/{MAX_TITLE}
@@ -134,11 +129,8 @@ export function CustomTasbeehFormModal({
             style={[
               styles.input,
               styles.textArea,
-              {
-                color: colors.foreground,
-                backgroundColor: colors.muted,
-                borderColor: colors.border,
-              },
+              tokens.inputSurface,
+              { color: colors.foreground },
             ]}
           />
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.counter}>
@@ -162,6 +154,7 @@ export function CustomTasbeehFormModal({
                   onPress={() => setPreset(option.id)}
                   style={[
                     styles.presetSegment,
+                    isTV() && styles.presetSegmentTv,
                     active && { backgroundColor: tokens.segmentThumb, ...Shadows.sm },
                   ]}
                 >
@@ -189,11 +182,8 @@ export function CustomTasbeehFormModal({
               style={[
                 styles.input,
                 styles.customTargetInput,
-                {
-                  color: colors.foreground,
-                  backgroundColor: colors.muted,
-                  borderColor: colors.border,
-                },
+                tokens.inputSurface,
+                { color: colors.foreground },
               ]}
             />
           ) : null}
@@ -261,6 +251,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     minHeight: 40,
+  },
+  presetSegmentTv: {
+    minHeight: TvLayout.chipMinHeight,
   },
   customTargetInput: {
     marginTop: Spacing.one,

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildLocalizedAndroidPlayStoreUrl,
   buildLocalizedIosAppStoreUrl,
+  buildMarketingSiteUrl,
   OFFICIAL_ANDROID_PACKAGE,
   OFFICIAL_ANDROID_PLAY_STORE_URL,
   OFFICIAL_IOS_APP_STORE_ID,
@@ -26,5 +27,11 @@ describe("store listing URLs", () => {
     expect(buildLocalizedIosAppStoreUrl("ur")).toBe("https://apps.apple.com/pk/app/id6787222180");
     expect(buildLocalizedAndroidPlayStoreUrl("ar")).toContain("hl=ar");
     expect(buildLocalizedAndroidPlayStoreUrl("ur")).toContain("hl=ur");
+  });
+});
+
+describe("buildMarketingSiteUrl", () => {
+  it.each([undefined, "ar"])("returns the official site origin for locale %j", (locale) => {
+    expect(buildMarketingSiteUrl(locale)).toBe("https://munibtracker.app");
   });
 });

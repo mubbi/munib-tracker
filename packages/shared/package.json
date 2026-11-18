@@ -9,7 +9,6 @@
     "./types/content-report": "./src/types/content-report.ts",
     "./types/fidyah": "./src/types/fidyah.ts",
     "./types/oss-content-download-failure": "./src/types/oss-content-download-failure.ts",
-
     "./constants": "./src/constants/index.ts",
     "./constants/quran": "./src/constants/quran.ts",
     "./constants/branding": "./src/constants/branding.ts",
@@ -37,10 +36,12 @@
   },
   "devDependencies": {
     "@munib-tracker/typescript-config": "workspace:*",
-    "@types/node": "^20",
-    "@vitest/coverage-v8": "^4.1.11",
-    "tsx": "^4.20.3",
-    "typescript": "^6.0.0",
-    "vitest": "^4.1.11"
+    "@munib-tracker/vitest-config": "workspace:*",
+    "@types/node": "^24",
+    "@vitest/coverage-v8": "^5.1.0",
+    "tsx": "^4.23.15",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "vitest": "^5.1.0",
+    "@typescript/native": "npm:typescript@^7.0.2"
   }
 }

@@ -21,6 +21,7 @@ import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { RtlLayoutBootstrap } from "@/components/rtl-layout-bootstrap";
 import { TvRemoteBridge } from "@/components/tv/tv-remote-bridge";
+import { WebKeyboardShortcuts } from "@/components/web/web-keyboard-shortcuts";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { PinLockGate, PinLockProvider } from "@/features/pin-lock";
 import { ReviewDeepLinkBridge } from "@/features/reviews/components/ReviewDeepLinkBridge";
@@ -190,6 +191,7 @@ function RootLayout() {
                                             overlays={
                                               <>
                                                 <WebNavigationFocusManager />
+                                                <WebKeyboardShortcuts />
                                                 <LocalePathBootstrap />
                                                 <RtlLayoutBootstrap />
                                                 <WebPwaBootstrap />

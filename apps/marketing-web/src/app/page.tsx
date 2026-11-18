@@ -1,4 +1,5 @@
 import { AchievementsSection } from "@/components/achievements-section";
+import { AiPracticeHighlight } from "@/components/ai-practice-highlight";
 import { Benefits } from "@/components/benefits";
 import { CtaBand } from "@/components/cta-band";
 import { FaqPreview } from "@/components/faq-preview";
@@ -15,6 +16,7 @@ export default function Home() {
     <>
       <Hero />
       <StatsSection />
+      <AiPracticeHighlight />
       <Benefits />
       <FeatureBento />
       <LearnHighlight />

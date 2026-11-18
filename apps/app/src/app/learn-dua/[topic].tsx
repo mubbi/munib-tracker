@@ -2,7 +2,9 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnDuaTopicAside } from "@/components/learn-dua/learn-dua-aside";
 import { LearnDuaTopicContent } from "@/components/learn-dua/topic-content";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +19,7 @@ import {
   isLearnDuaContentReady,
 } from "@/lib/learn-dua";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLearnDuaProgressLoaded } from "@/stores/learn-dua-progress-store";
 
@@ -32,6 +35,7 @@ export default function LearnDuaTopicScreen() {
   const topic = getLearnDuaTopic(topicId);
   const reportRef = useGuideContentReportRef("learn_dua", topic, "/learn-dua");
   useEnsureLearnDuaProgressLoaded();
+  const { maxContentWidth } = useLearnWideLayout();
 
   const detailPath = topic ? `/learn-dua/${topic.id}` : "/learn-dua";
   const crumbs = topic
@@ -49,6 +53,7 @@ export default function LearnDuaTopicScreen() {
       title={topic?.title ?? t("learnDua.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/learn-dua" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -80,13 +85,18 @@ export default function LearnDuaTopicScreen() {
           onAction={() => router.replace("/learn-dua" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="learn_dua">
-            <LearnDuaTopicContent topic={topic} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="learnDua.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout aside={<LearnDuaTopicAside currentId={topic.id} />}>
+          <Stagger>
+            <LearnReadingChrome surface="learn_dua">
+              <LearnDuaTopicContent topic={topic} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="learnDua.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-dua/[topic]");

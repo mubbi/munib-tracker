@@ -18,7 +18,7 @@ import {
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { BarChart, type BarDatum } from "@/components/charts/bar-chart";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -34,9 +34,12 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import {
   HadithRepository,
   PrayerRepository,
@@ -47,7 +50,9 @@ import {
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import {
   useAchievementStats,
@@ -110,6 +115,12 @@ export default function StatisticsScreen() {
   const streak = useStreak();
   const devotion = useDevotionProgress();
   const achievementStats = useAchievementStats();
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  // Wide web / tablets (never TV): overview cards side by side, metric groups
+  // and detail breakdowns in grids instead of one long column.
+  const wide = !tv && width >= 1024;
+  const groupColumns = wide ? (width >= 1200 ? 3 : 2) : 1;
   const [period, setPeriod] = useState<Period>("week");
   const [logs, setLogs] = useState<PrayerLog[]>([]);
   const [zikr, setZikr] = useState<ZikrProgress[]>([]);
@@ -305,47 +316,55 @@ export default function StatisticsScreen() {
       <Seo path="/statistics" />
       <Stagger>
         <View style={styles.stack}>
-          <Card padding="four" style={styles.journeyCard}>
-            <View style={styles.heroRow}>
-              <View style={[styles.devotionBadge, { backgroundColor: tokens.status.warning.soft }]}>
-                <ThemedText type="title" style={{ color: tokens.status.warning.color }}>
-                  {devotion.level}
-                </ThemedText>
+          <ResponsiveGrid columns={wide ? 2 : 1} gap={Spacing.four}>
+            <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+              <View style={styles.heroRow}>
+                <View
+                  style={[
+                    styles.devotionBadge,
+                    tv ? { width: tvDp(64), height: tvDp(64) } : null,
+                    { backgroundColor: tokens.status.warning.soft },
+                  ]}
+                >
+                  <ThemedText type="title" style={{ color: tokens.status.warning.color }}>
+                    {devotion.level}
+                  </ThemedText>
+                </View>
+                <View style={styles.heroCopy}>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("achievements.devotion")}
+                  </ThemedText>
+                  <ThemedText type="subtitle">
+                    {t("achievements.devotionLevel", { level: devotion.level })}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("achievements.devotionNoor", {
+                      current: devotion.noor - devotion.noorForCurrentLevel,
+                      next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
+                    })}
+                  </ThemedText>
+                </View>
               </View>
-              <View style={styles.heroCopy}>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("achievements.devotion")}
-                </ThemedText>
-                <ThemedText type="subtitle">
-                  {t("achievements.devotionLevel", { level: devotion.level })}
-                </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("achievements.devotionNoor", {
-                    current: devotion.noor - devotion.noorForCurrentLevel,
-                    next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
-                  })}
-                </ThemedText>
+              <ProgressBar value={devotion.progress} color={tokens.status.warning.color} />
+              <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                <MetricGrid metrics={lifetimeMetrics} columns={2} />
               </View>
-            </View>
-            <ProgressBar value={devotion.progress} color={tokens.status.warning.color} />
-            <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-              <MetricGrid metrics={lifetimeMetrics} columns={2} />
-            </View>
-            <LinkRow
-              label={t("statistics.viewAchievements")}
-              onPress={() => router.push("/achievements")}
-            />
-          </Card>
+              <LinkRow
+                label={t("statistics.viewAchievements")}
+                onPress={() => router.push("/achievements")}
+              />
+            </Card>
 
-          <Card padding="three" style={styles.sectionCard}>
-            <ThemedText type="subtitle">{t("statistics.today")}</ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("statistics.todayHint")}
-            </ThemedText>
-            <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-              <MetricGrid metrics={todayMetrics} columns={3} />
-            </View>
-          </Card>
+            <Card padding="three" style={[styles.sectionCard, wide ? styles.fill : null]}>
+              <ThemedText type="subtitle">{t("statistics.today")}</ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("statistics.todayHint")}
+              </ThemedText>
+              <TvReadableBlock style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                <MetricGrid metrics={todayMetrics} columns={3} />
+              </TvReadableBlock>
+            </Card>
+          </ResponsiveGrid>
 
           <Card padding="three" style={styles.trendsCard}>
             <View style={styles.trendsHeader}>
@@ -385,7 +404,7 @@ export default function StatisticsScreen() {
 
             <CardDivider />
 
-            <View style={styles.trendGroups}>
+            <ResponsiveGrid columns={groupColumns} gap={Spacing.three}>
               <StatsGroup
                 title={t("statistics.prayer")}
                 columns={2}
@@ -485,7 +504,7 @@ export default function StatisticsScreen() {
                   },
                 ]}
               />
-            </View>
+            </ResponsiveGrid>
           </Card>
 
           {hasDetails ? (
@@ -495,111 +514,117 @@ export default function StatisticsScreen() {
                 {t("statistics.detailsHint")}
               </ThemedText>
 
-              {perPrayerQaza.length > 0 ? (
-                <View style={styles.detailBlock}>
-                  <ThemedText
-                    type="smallBold"
-                    themeColor="mutedForeground"
-                    style={styles.detailLabel}
-                  >
-                    {t("statistics.perPrayer")}
-                  </ThemedText>
-                  <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
-                    {perPrayerQaza.map((counter, index) => (
-                      <View key={counter.prayerId}>
-                        {index > 0 ? (
-                          <View
-                            style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
-                          />
-                        ) : null}
-                        <View style={styles.qazaRow}>
-                          <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
-                          <View style={styles.qazaCopy}>
-                            <ThemedText type="small">{t(`prayers.${counter.prayerId}`)}</ThemedText>
-                            <ThemedText type="caption" themeColor="mutedForeground">
-                              {t("qaza.rowMeta", {
-                                remaining: counter.remaining,
-                                completed: counter.completed,
-                              })}
-                            </ThemedText>
+              <ResponsiveGrid columns={groupColumns} gap={wide ? Spacing.three : Spacing.two}>
+                {perPrayerQaza.length > 0 ? (
+                  <View style={styles.detailBlock}>
+                    <ThemedText
+                      type="smallBold"
+                      themeColor="mutedForeground"
+                      style={styles.detailLabel}
+                    >
+                      {t("statistics.perPrayer")}
+                    </ThemedText>
+                    <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
+                      {perPrayerQaza.map((counter, index) => (
+                        <TvReadableBlock key={counter.prayerId}>
+                          {index > 0 ? (
+                            <View
+                              style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                            />
+                          ) : null}
+                          <View style={styles.qazaRow}>
+                            <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
+                            <View style={styles.qazaCopy}>
+                              <ThemedText type="small">
+                                {t(`prayers.${counter.prayerId}`)}
+                              </ThemedText>
+                              <ThemedText type="caption" themeColor="mutedForeground">
+                                {t("qaza.rowMeta", {
+                                  remaining: counter.remaining,
+                                  completed: counter.completed,
+                                })}
+                              </ThemedText>
+                            </View>
                           </View>
-                        </View>
-                      </View>
-                    ))}
+                        </TvReadableBlock>
+                      ))}
+                    </View>
                   </View>
-                </View>
-              ) : null}
+                ) : null}
 
-              {zikrByCategory.length > 0 ? (
-                <View style={styles.detailBlock}>
-                  <ThemedText
-                    type="smallBold"
-                    themeColor="mutedForeground"
-                    style={styles.detailLabel}
-                  >
-                    {t("statistics.zikrBreakdown")}
-                  </ThemedText>
-                  <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
-                    {zikrByCategory.map(([categoryId, count], index) => (
-                      <View key={categoryId}>
-                        {index > 0 ? (
-                          <View
-                            style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                {zikrByCategory.length > 0 ? (
+                  <View style={styles.detailBlock}>
+                    <ThemedText
+                      type="smallBold"
+                      themeColor="mutedForeground"
+                      style={styles.detailLabel}
+                    >
+                      {t("statistics.zikrBreakdown")}
+                    </ThemedText>
+                    <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
+                      {zikrByCategory.map(([categoryId, count], index) => (
+                        <TvReadableBlock key={categoryId}>
+                          {index > 0 ? (
+                            <View
+                              style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                            />
+                          ) : null}
+                          <StatLine
+                            label={t(`zikrCat.${categoryId}`)}
+                            value={formatCount(count)}
+                            color={tokens.status.warning.color}
+                            bar={count / maxZikrCategoryCount}
                           />
-                        ) : null}
-                        <StatLine
-                          label={t(`zikrCat.${categoryId}`)}
-                          value={formatCount(count)}
-                          color={tokens.status.warning.color}
-                          bar={count / maxZikrCategoryCount}
-                        />
-                      </View>
-                    ))}
+                        </TvReadableBlock>
+                      ))}
+                    </View>
                   </View>
-                </View>
-              ) : null}
+                ) : null}
 
-              {hasReadingData ? (
-                <View style={styles.detailBlock}>
-                  <ThemedText
-                    type="smallBold"
-                    themeColor="mutedForeground"
-                    style={styles.detailLabel}
-                  >
-                    {t("statistics.reading")}
-                  </ThemedText>
-                  <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-                    <MetricGrid
-                      columns={2}
-                      metrics={[
-                        {
-                          value: `${quranSurahsStarted}/${QURAN_SURAH_COUNT}`,
-                          label: t("statistics.quranSurahs"),
-                          color: colors.accent,
-                        },
-                        {
-                          value: quranBookmarks,
-                          label: t("statistics.quranBookmarks"),
-                          color: tokens.status.info.color,
-                        },
-                        {
-                          value: hadithBookmarks,
-                          label: t("statistics.hadithBookmarks"),
-                          color: tokens.status.warning.color,
-                        },
-                        {
-                          value:
-                            quranSurahsStarted > 0
-                              ? `${Math.round((quranSurahsStarted / QURAN_SURAH_COUNT) * 100)}%`
-                              : "0%",
-                          label: t("statistics.quranProgress"),
-                          color: tokens.status.success.color,
-                        },
-                      ]}
-                    />
+                {hasReadingData ? (
+                  <View style={styles.detailBlock}>
+                    <ThemedText
+                      type="smallBold"
+                      themeColor="mutedForeground"
+                      style={styles.detailLabel}
+                    >
+                      {t("statistics.reading")}
+                    </ThemedText>
+                    <TvReadableBlock
+                      style={[styles.metricShell, { backgroundColor: colors.muted }]}
+                    >
+                      <MetricGrid
+                        columns={2}
+                        metrics={[
+                          {
+                            value: `${quranSurahsStarted}/${QURAN_SURAH_COUNT}`,
+                            label: t("statistics.quranSurahs"),
+                            color: colors.accent,
+                          },
+                          {
+                            value: quranBookmarks,
+                            label: t("statistics.quranBookmarks"),
+                            color: tokens.status.info.color,
+                          },
+                          {
+                            value: hadithBookmarks,
+                            label: t("statistics.hadithBookmarks"),
+                            color: tokens.status.warning.color,
+                          },
+                          {
+                            value:
+                              quranSurahsStarted > 0
+                                ? `${Math.round((quranSurahsStarted / QURAN_SURAH_COUNT) * 100)}%`
+                                : "0%",
+                            label: t("statistics.quranProgress"),
+                            color: tokens.status.success.color,
+                          },
+                        ]}
+                      />
+                    </TvReadableBlock>
                   </View>
-                </View>
-              ) : null}
+                ) : null}
+              </ResponsiveGrid>
             </Card>
           ) : null}
         </View>
@@ -662,8 +687,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
     marginTop: 2,
   },
-  trendGroups: {
-    gap: Spacing.three,
+  /** Wide grid cell: stretch the card to the row height. */
+  fill: {
+    flexGrow: 1,
   },
   detailBlock: {
     gap: Spacing.two,
@@ -694,3 +720,6 @@ const styles = StyleSheet.create({
     gap: 2,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/statistics");

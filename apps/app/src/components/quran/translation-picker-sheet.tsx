@@ -242,7 +242,7 @@ export function TranslationPickerSheet({
           </PressableScale>
         ) : null}
         <ThemedText type="subtitle">{headerTitle}</ThemedText>
-        <View style={[styles.searchRow, { backgroundColor: colors.muted }]}>
+        <View style={[styles.searchRow, tokens.inputSurface]}>
           <SymbolView
             name={{ ios: "magnifyingglass", android: "search", web: "search" }}
             size={16}
@@ -313,7 +313,7 @@ export function TranslationPickerSheet({
                   <View style={styles.checkSpacer} />
                 )}
               </PressableScale>
-            ) : null
+            ) : undefined
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           ListEmptyComponent={

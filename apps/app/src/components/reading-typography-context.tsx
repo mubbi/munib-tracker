@@ -111,10 +111,11 @@ function LearnListenButton() {
   const { colors, tokens } = useThemeTokens();
   const tts = useLearnTts();
   const [voiceSheetOpen, setVoiceSheetOpen] = useState(false);
-  const tv = isTV();
-  if (!tts?.hasText) return null;
+  // TV: no device speech synthesis (expo-speech is stubbed) — the voice sheet
+  // would open empty with nothing focusable, so hide the Listen control.
+  if (isTV() || !tts?.hasText) return null;
 
-  const hit = tv ? TvLayout.minFocusTarget : 36;
+  const hit = 36;
 
   return (
     <>
@@ -124,7 +125,7 @@ function LearnListenButton() {
             ? { ios: "stop.fill", android: "stop", web: "stop" }
             : { ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }
         }
-        size={tv ? 22 : 18}
+        size={18}
         tintColor={tts.speaking ? colors.accent : colors.mutedForeground}
         accessibilityLabel={tts.speaking ? t("reading.listenStop") : t("reading.listen")}
         accessibilityHint={t("reading.listenHint")}

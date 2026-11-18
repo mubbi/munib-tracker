@@ -1,11 +1,32 @@
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import { addDays, getLocalDateString } from "@munib-tracker/shared/utils";
+import { act, renderHook } from "@testing-library/react-native";
 
 import { PrayerRepository, PreferencesRepository, QazaRepository } from "@/db";
 import { loadTrackerStore, resetTrackerStore } from "@/test-support/store";
 
 import { preferencesStore } from "./preferences-store";
-import { trackerStore } from "./tracker-store";
+import {
+  trackerStore,
+  useAchievementStats,
+  useDailySummary,
+  useDayExcused,
+  useDevotionProgress,
+  usePrayerJama,
+  usePrayerJamaMap,
+  usePrayerStatus,
+  useQazaCounters,
+  useQazaDailyProgress,
+  useQazaSchedule,
+  useQazaSummary,
+  useRoza,
+  useStreak,
+  useTodayPrayers,
+  useTrackerActions,
+  useTrackerReady,
+  useZikrCount,
+  useZikrCounts,
+} from "./tracker-store";
 
 beforeEach(resetTrackerStore);
 
@@ -209,5 +230,181 @@ describe("trackerStore", () => {
     await preferencesStore.getState().load();
     await trackerStore.getState().setDayExcused("hayd");
     expect(preferencesStore.getState().prefs.activeExcusedReason).toBe("hayd");
+  });
+});
+
+describe("trackerStore notes, jama and past days", () => {
+  const state = () => trackerStore.getState();
+  const yesterday = () => addDays(getLocalDateString(), -1);
+
+  it("setPrayerNotes stores today's note", async () => {
+    await state().setPrayerNotes("asr", "at the masjid");
+    expect(state().prayerNotes.asr).toBe("at the masjid");
+    expect((await PrayerRepository.getLog("asr", getLocalDateString()))?.notes).toBe(
+      "at the masjid",
+    );
+  });
+
+  it("setPrayerJama flags congregation for today", async () => {
+    await state().setPrayerJama("maghrib", true);
+    expect(state().prayerJama.maghrib).toBe(true);
+  });
+
+  it.each([
+    ["status", () => state().setPrayerStatusOnDate(yesterday(), "isha", "completed")],
+    ["notes", () => state().setPrayerNotesOnDate(yesterday(), "isha", "late")],
+    ["jama", () => state().setPrayerJamaOnDate(yesterday(), "isha", true)],
+  ])("editing a past day's %s leaves today's view alone", async (_label, edit) => {
+    await edit();
+    expect(state().prayerStatus.isha).toBeUndefined();
+    expect(state().prayerNotes.isha).toBeUndefined();
+    expect(state().prayerJama.isha).toBeUndefined();
+    expect(await PrayerRepository.getLog("isha", yesterday())).toBeDefined();
+  });
+
+  it("setZikrCountOnDate for a past day only touches storage", async () => {
+    await state().setZikrCountOnDate(yesterday(), "z1", 5, 10);
+    expect(state().zikrCounts.z1).toBeUndefined();
+  });
+
+  it("setZikrCount clamps today's optimistic count at zero", async () => {
+    await state().setZikrCount("z1", -4, 10);
+    expect(state().zikrCounts.z1).toBe(0);
+  });
+
+  it("clearing today's excuse ends the active period", async () => {
+    await state().setDayExcused("travel");
+    await state().setDayExcused(null);
+    expect(state().excusedReason).toBeNull();
+    expect((await PreferencesRepository.get()).activeExcusedReason).toBeNull();
+  });
+});
+
+describe("trackerStore qaza and roza", () => {
+  const state = () => trackerStore.getState();
+  const counter = (id: string) => state().qazaCounters.find((c) => c.prayerId === id);
+
+  it("performQaza with nothing remaining changes nothing", async () => {
+    await state().performQaza("fajr");
+    expect(counter("fajr")).toMatchObject({ remaining: 0, completed: 0 });
+  });
+
+  it("undoQaza moves a completed qaza back to remaining", async () => {
+    await state().adjustQaza("asr", 2, 0);
+    await state().performQaza("asr", 5);
+    await state().undoQaza("asr");
+    expect(counter("asr")).toMatchObject({ remaining: 1, completed: 1 });
+  });
+
+  it("resetQazaCounter zeroes one prayer", async () => {
+    await state().adjustQaza("asr", 3, 1);
+    await state().adjustQaza("isha", 2, 0);
+    await state().resetQazaCounter("asr");
+    expect(counter("asr")).toMatchObject({ remaining: 0, completed: 0 });
+    expect(counter("isha")?.remaining).toBe(2);
+  });
+
+  it("resetAllQazaCounters zeroes every prayer", async () => {
+    await state().adjustQaza("asr", 3, 1);
+    await state().resetAllQazaCounters();
+    expect(state().qazaCounters.every((c) => c.remaining === 0 && c.completed === 0)).toBe(true);
+  });
+
+  it("setQazaSchedule stores daily targets", async () => {
+    await state().setQazaSchedule({ targets: { fajr: 2 } });
+    expect(state().qazaSchedule.targets).toEqual({ fajr: 2 });
+  });
+
+  it("setRoza, performRoza and resetRoza drive the fasting debt", async () => {
+    await state().setRoza({ remaining: 3, completed: 0 });
+    await state().performRoza();
+    expect(state().roza).toMatchObject({ remaining: 2, completed: 1 });
+    await state().resetRoza();
+    expect(state().roza).toMatchObject({ remaining: 0, completed: 0 });
+  });
+
+  it("refresh recomputes from storage", async () => {
+    await QazaRepository.setCounter("dhuhr", 4, 0);
+    await state().refresh();
+    expect(counter("dhuhr")?.remaining).toBe(4);
+  });
+});
+
+describe("tracker hooks", () => {
+  function setup() {
+    return renderHook(() => ({
+      ready: useTrackerReady(),
+      summary: useDailySummary(),
+      streak: useStreak(),
+      stats: useAchievementStats(),
+      devotion: useDevotionProgress(),
+      today: useTodayPrayers(),
+      fajr: usePrayerStatus("fajr"),
+      qaza: useQazaCounters(),
+      schedule: useQazaSchedule(),
+      daily: useQazaDailyProgress(),
+      qazaSummary: useQazaSummary(),
+      roza: useRoza(),
+      zikr: useZikrCount("z1"),
+      zikrCounts: useZikrCounts(),
+      jama: usePrayerJama("fajr"),
+      jamaMap: usePrayerJamaMap(),
+      excused: useDayExcused(),
+      actions: useTrackerActions(),
+    }));
+  }
+
+  it("expose defaults for an empty day", async () => {
+    const { result } = await setup();
+    expect(result.current).toMatchObject({
+      ready: true,
+      fajr: "pending",
+      zikr: 0,
+      jama: false,
+      excused: null,
+      qazaSummary: { remaining: 0, completed: 0 },
+    });
+  });
+
+  it("reflect every action", async () => {
+    const { result } = await setup();
+    const { actions } = result.current;
+    await act(async () => {
+      await actions.load();
+      await actions.refresh();
+      await actions.setPrayerStatus("fajr", "completed");
+      await actions.setPrayerNotes("fajr", "n");
+      await actions.setPrayerJama("fajr", true);
+      await actions.setZikrCount("z1", 2, 10);
+      await actions.incrementZikr("z1", 10);
+      await actions.adjustQaza("asr", 5, 0);
+      await actions.setQazaCounters({ isha: { remaining: 2, completed: 1 } });
+      await actions.performQaza("asr");
+      await actions.undoQaza("asr");
+      await actions.performQaza("asr", 2);
+      await actions.setQazaSchedule({ targets: { asr: 1 } });
+      await actions.resetQazaCounter("isha");
+      await actions.setRoza({ remaining: 2, completed: 0 });
+      await actions.performRoza(1);
+      await actions.setDayExcused(null);
+    });
+    expect(result.current).toMatchObject({
+      fajr: "completed",
+      today: { status: { fajr: "completed" }, notes: { fajr: "n" } },
+      jama: true,
+      jamaMap: { fajr: true },
+      zikr: 3,
+      zikrCounts: { z1: 3 },
+      qazaSummary: { remaining: 3, completed: 2 },
+      roza: { remaining: 1, completed: 1 },
+      schedule: { targets: { asr: 1 } },
+      streak: 1,
+    });
+
+    await act(async () => {
+      await actions.resetAllQazaCounters();
+      await actions.resetRoza();
+    });
+    expect(result.current.qazaSummary).toEqual({ remaining: 0, completed: 0 });
   });
 });

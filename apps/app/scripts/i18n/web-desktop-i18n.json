@@ -1,0 +1,170 @@
+{
+  "en": {
+    "tasbeehUi.tapToCountKeyboard": "Click the circle or press Space to count",
+    "quran.goToAyahPlaceholder": "Ayah 1–{{max}}",
+    "quran.goToAyahA11y": "Go to ayah number",
+    "quran.goToAyahInvalid": "Enter an ayah between 1 and {{max}}",
+    "common.quiz.keyboardHint": "Press 1–4 to answer, Enter to continue."
+  },
+  "ar": {
+    "tasbeehUi.tapToCountKeyboard": "انقر على الدائرة أو اضغط مفتاح المسافة للعدّ",
+    "quran.goToAyahPlaceholder": "الآية 1–{{max}}",
+    "quran.goToAyahA11y": "الانتقال إلى رقم الآية",
+    "quran.goToAyahInvalid": "أدخل رقم آية بين 1 و{{max}}",
+    "common.quiz.keyboardHint": "اضغط 1–4 للإجابة، ومفتاح الإدخال للمتابعة."
+  },
+  "ur": {
+    "tasbeehUi.tapToCountKeyboard": "گننے کے لیے دائرے پر کلک کریں یا اسپیس دبائیں",
+    "quran.goToAyahPlaceholder": "آیت 1–{{max}}",
+    "quran.goToAyahA11y": "آیت نمبر پر جائیں",
+    "quran.goToAyahInvalid": "1 سے {{max}} کے درمیان آیت نمبر درج کریں",
+    "common.quiz.keyboardHint": "جواب کے لیے 1–4 دبائیں، آگے بڑھنے کے لیے انٹر دبائیں۔"
+  },
+  "fa": {
+    "tasbeehUi.tapToCountKeyboard": "برای شمارش روی دایره کلیک کنید یا Space را بزنید",
+    "quran.goToAyahPlaceholder": "آیه 1–{{max}}",
+    "quran.goToAyahA11y": "رفتن به شمارهٔ آیه",
+    "quran.goToAyahInvalid": "شمارهٔ آیه‌ای بین 1 و {{max}} وارد کنید",
+    "common.quiz.keyboardHint": "برای پاسخ 1–4 و برای ادامه Enter را بزنید."
+  },
+  "ps": {
+    "tasbeehUi.tapToCountKeyboard": "د شمېرلو لپاره په دایره کلیک وکړئ یا Space کېکاږئ",
+    "quran.goToAyahPlaceholder": "آیت 1–{{max}}",
+    "quran.goToAyahA11y": "د آیت شمېرې ته ورشئ",
+    "quran.goToAyahInvalid": "د 1 او {{max}} ترمنځ د آیت شمېره ولیکئ",
+    "common.quiz.keyboardHint": "د ځواب لپاره 1–4 او د دوام لپاره Enter کېکاږئ."
+  },
+  "ku": {
+    "tasbeehUi.tapToCountKeyboard": "بۆ ژماردن کلیک لە بازنەکە بکە یان Space دابگرە",
+    "quran.goToAyahPlaceholder": "ئایەت 1–{{max}}",
+    "quran.goToAyahA11y": "بڕۆ بۆ ژمارەی ئایەت",
+    "quran.goToAyahInvalid": "ژمارەی ئایەتێک لە نێوان 1 و {{max}} بنووسە",
+    "common.quiz.keyboardHint": "بۆ وەڵامدانەوە 1–4 و بۆ بەردەوامبوون Enter دابگرە."
+  },
+  "tr": {
+    "tasbeehUi.tapToCountKeyboard": "Saymak için daireye tıklayın veya Boşluk tuşuna basın",
+    "quran.goToAyahPlaceholder": "Ayet 1–{{max}}",
+    "quran.goToAyahA11y": "Ayet numarasına git",
+    "quran.goToAyahInvalid": "1 ile {{max}} arasında bir ayet girin",
+    "common.quiz.keyboardHint": "Cevaplamak için 1–4, devam etmek için Enter'a basın."
+  },
+  "az": {
+    "tasbeehUi.tapToCountKeyboard": "Saymaq üçün dairəyə klikləyin və ya Boşluq düyməsini basın",
+    "quran.goToAyahPlaceholder": "Ayə 1–{{max}}",
+    "quran.goToAyahA11y": "Ayə nömrəsinə keç",
+    "quran.goToAyahInvalid": "1 ilə {{max}} arasında ayə daxil edin",
+    "common.quiz.keyboardHint": "Cavab üçün 1–4, davam etmək üçün Enter basın."
+  },
+  "uz": {
+    "tasbeehUi.tapToCountKeyboard": "Sanash uchun doirani bosing yoki Probel tugmasini bosing",
+    "quran.goToAyahPlaceholder": "Oyat 1–{{max}}",
+    "quran.goToAyahA11y": "Oyat raqamiga o‘tish",
+    "quran.goToAyahInvalid": "1 dan {{max}} gacha oyat raqamini kiriting",
+    "common.quiz.keyboardHint": "Javob berish uchun 1–4, davom etish uchun Enter tugmasini bosing."
+  },
+  "kk": {
+    "tasbeehUi.tapToCountKeyboard": "Санау үшін шеңберді басыңыз немесе Бос орын пернесін басыңыз",
+    "quran.goToAyahPlaceholder": "Аят 1–{{max}}",
+    "quran.goToAyahA11y": "Аят нөміріне өту",
+    "quran.goToAyahInvalid": "1 мен {{max}} аралығындағы аятты енгізіңіз",
+    "common.quiz.keyboardHint": "Жауап беру үшін 1–4, жалғастыру үшін Enter басыңыз."
+  },
+  "ky": {
+    "tasbeehUi.tapToCountKeyboard": "Саноо үчүн тегеректи басыңыз же Боштук баскычын басыңыз",
+    "quran.goToAyahPlaceholder": "Аят 1–{{max}}",
+    "quran.goToAyahA11y": "Аят номерине өтүү",
+    "quran.goToAyahInvalid": "1 менен {{max}} ортосундагы аятты киргизиңиз",
+    "common.quiz.keyboardHint": "Жооп берүү үчүн 1–4, улантуу үчүн Enter басыңыз."
+  },
+  "tg": {
+    "tasbeehUi.tapToCountKeyboard": "Барои шумориш доираро клик кунед ё Фосиларо пахш кунед",
+    "quran.goToAyahPlaceholder": "Оят 1–{{max}}",
+    "quran.goToAyahA11y": "Гузариш ба рақами оят",
+    "quran.goToAyahInvalid": "Рақами оятро аз 1 то {{max}} ворид кунед",
+    "common.quiz.keyboardHint": "Барои ҷавоб 1–4, барои идома Enter-ро пахш кунед."
+  },
+  "tk": {
+    "tasbeehUi.tapToCountKeyboard": "Sanamak üçin tegelege basyň ýa-da Boşluk düwmesine basyň",
+    "quran.goToAyahPlaceholder": "Aýat 1–{{max}}",
+    "quran.goToAyahA11y": "Aýat belgisine geç",
+    "quran.goToAyahInvalid": "1 bilen {{max}} aralygynda aýat giriziň",
+    "common.quiz.keyboardHint": "Jogap bermek üçin 1–4, dowam etmek üçin Enter basyň."
+  },
+  "ru": {
+    "tasbeehUi.tapToCountKeyboard": "Нажмите на круг или клавишу «Пробел», чтобы считать",
+    "quran.goToAyahPlaceholder": "Аят 1–{{max}}",
+    "quran.goToAyahA11y": "Перейти к номеру аята",
+    "quran.goToAyahInvalid": "Введите аят от 1 до {{max}}",
+    "common.quiz.keyboardHint": "Нажмите 1–4, чтобы ответить, Enter — чтобы продолжить."
+  },
+  "bs": {
+    "tasbeehUi.tapToCountKeyboard": "Kliknite krug ili pritisnite Razmak za brojanje",
+    "quran.goToAyahPlaceholder": "Ajet 1–{{max}}",
+    "quran.goToAyahA11y": "Idi na broj ajeta",
+    "quran.goToAyahInvalid": "Unesite ajet između 1 i {{max}}",
+    "common.quiz.keyboardHint": "Pritisnite 1–4 za odgovor, Enter za nastavak."
+  },
+  "sq": {
+    "tasbeehUi.tapToCountKeyboard": "Klikoni rrethin ose shtypni Hapësirën për të numëruar",
+    "quran.goToAyahPlaceholder": "Ajeti 1–{{max}}",
+    "quran.goToAyahA11y": "Shko te numri i ajetit",
+    "quran.goToAyahInvalid": "Shkruani një ajet nga 1 deri në {{max}}",
+    "common.quiz.keyboardHint": "Shtypni 1–4 për t’u përgjigjur, Enter për të vazhduar."
+  },
+  "fr": {
+    "tasbeehUi.tapToCountKeyboard": "Cliquez sur le cercle ou appuyez sur Espace pour compter",
+    "quran.goToAyahPlaceholder": "Ayah 1–{{max}}",
+    "quran.goToAyahA11y": "Aller au numéro d'ayah",
+    "quran.goToAyahInvalid": "Saisissez un ayah entre 1 et {{max}}",
+    "common.quiz.keyboardHint": "Appuyez sur 1–4 pour répondre, Entrée pour continuer."
+  },
+  "id": {
+    "tasbeehUi.tapToCountKeyboard": "Klik lingkaran atau tekan Spasi untuk menghitung",
+    "quran.goToAyahPlaceholder": "Ayat 1–{{max}}",
+    "quran.goToAyahA11y": "Buka nomor ayat",
+    "quran.goToAyahInvalid": "Masukkan ayat antara 1 dan {{max}}",
+    "common.quiz.keyboardHint": "Tekan 1–4 untuk menjawab, Enter untuk lanjut."
+  },
+  "ms": {
+    "tasbeehUi.tapToCountKeyboard": "Klik bulatan atau tekan Space untuk mengira",
+    "quran.goToAyahPlaceholder": "Ayat 1–{{max}}",
+    "quran.goToAyahA11y": "Pergi ke nombor ayat",
+    "quran.goToAyahInvalid": "Masukkan ayat antara 1 hingga {{max}}",
+    "common.quiz.keyboardHint": "Tekan 1–4 untuk menjawab, Enter untuk teruskan."
+  },
+  "bn": {
+    "tasbeehUi.tapToCountKeyboard": "গুনতে বৃত্তে ক্লিক করুন বা স্পেস চাপুন",
+    "quran.goToAyahPlaceholder": "আয়াত 1–{{max}}",
+    "quran.goToAyahA11y": "আয়াত নম্বরে যান",
+    "quran.goToAyahInvalid": "1 থেকে {{max}}-এর মধ্যে একটি আয়াত লিখুন",
+    "common.quiz.keyboardHint": "উত্তর দিতে 1–4 চাপুন, এগোতে Enter চাপুন।"
+  },
+  "hi": {
+    "tasbeehUi.tapToCountKeyboard": "गिनने के लिए वृत्त पर क्लिक करें या स्पेस दबाएँ",
+    "quran.goToAyahPlaceholder": "आयत 1–{{max}}",
+    "quran.goToAyahA11y": "आयत नंबर पर जाएँ",
+    "quran.goToAyahInvalid": "1 से {{max}} के बीच कोई आयत दर्ज करें",
+    "common.quiz.keyboardHint": "जवाब देने के लिए 1–4 दबाएँ, आगे बढ़ने के लिए Enter दबाएँ।"
+  },
+  "ha": {
+    "tasbeehUi.tapToCountKeyboard": "Danna da'irar ko latsa Space don ƙirgawa",
+    "quran.goToAyahPlaceholder": "Aya 1–{{max}}",
+    "quran.goToAyahA11y": "Je zuwa lambar aya",
+    "quran.goToAyahInvalid": "Shigar da aya tsakanin 1 da {{max}}",
+    "common.quiz.keyboardHint": "Latsa 1–4 don amsawa, Enter don ci gaba."
+  },
+  "so": {
+    "tasbeehUi.tapToCountKeyboard": "Riix goobada ama tabo Space si aad u tiriso",
+    "quran.goToAyahPlaceholder": "Aayad 1–{{max}}",
+    "quran.goToAyahA11y": "U gudub lambarka aayadda",
+    "quran.goToAyahInvalid": "Geli aayad u dhexeysa 1 iyo {{max}}",
+    "common.quiz.keyboardHint": "Riix 1–4 si aad uga jawaabto, Enter si aad u sii wadato."
+  },
+  "sw": {
+    "tasbeehUi.tapToCountKeyboard": "Bofya duara au bonyeza Nafasi ili kuhesabu",
+    "quran.goToAyahPlaceholder": "Aya 1–{{max}}",
+    "quran.goToAyahA11y": "Nenda kwenye nambari ya aya",
+    "quran.goToAyahInvalid": "Weka aya kati ya 1 na {{max}}",
+    "common.quiz.keyboardHint": "Bonyeza 1–4 kujibu, Enter kuendelea."
+  }
+}

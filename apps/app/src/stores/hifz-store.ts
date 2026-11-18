@@ -37,6 +37,8 @@ interface HifzState {
   isReady: boolean;
   load: () => Promise<void>;
   cycle: (surah: number, ayah: number) => Promise<HifzStatus | null>;
+  /** Set an exact status (`null` clears). Used by Qur'an practice "Mark memorized". */
+  setStatus: (surah: number, ayah: number, status: HifzStatus | null) => Promise<void>;
 }
 
 export const hifzStore = createStore<HifzState>((set, get) => ({
@@ -57,6 +59,15 @@ export const hifzStore = createStore<HifzState>((set, get) => ({
     set({ statuses: next });
     await writeJSON(STORAGE_KEY, next);
     return nextStatus;
+  },
+
+  async setStatus(surah, ayah, status) {
+    const key = hifzKey(surah, ayah);
+    const next = { ...get().statuses };
+    if (status == null) delete next[key];
+    else next[key] = status;
+    set({ statuses: next });
+    await writeJSON(STORAGE_KEY, next);
   },
 }));
 
@@ -110,6 +121,8 @@ export function listHifzEntries(statuses: HifzMap): HifzEntry[] {
 const hifzActions = {
   load: () => hifzStore.getState().load(),
   cycle: (surah: number, ayah: number) => hifzStore.getState().cycle(surah, ayah),
+  setStatus: (surah: number, ayah: number, status: HifzStatus | null) =>
+    hifzStore.getState().setStatus(surah, ayah, status),
 } as const;
 
 export function useHifzActions() {

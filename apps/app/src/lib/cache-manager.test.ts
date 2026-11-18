@@ -1,7 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DB_KEYS } from "@/db/keys";
-import { clearCacheKeys, formatBytes, getCacheSummary } from "@/lib/cache-manager";
+import * as audioCache from "@/lib/audio-cache";
+import {
+  clearCacheKeys,
+  clearDownloadedAudio,
+  clearDownloadedQcfFonts,
+  formatBytes,
+  getCacheSummary,
+  getRecitationListenerBytes,
+} from "@/lib/cache-manager";
+import * as qcfFontCache from "@/lib/qcf-font-cache";
+import * as modelStore from "@/lib/quran-companion/model/model-store";
 
 beforeEach(async () => {
   await AsyncStorage.clear();
@@ -52,5 +62,36 @@ describe("cache manager", () => {
 
     await clearCacheKeys([DB_KEYS.quranStudyCache]);
     expect(await AsyncStorage.getItem(shard)).toBeNull();
+  });
+});
+
+describe("downloaded files", () => {
+  afterEach(() => jest.restoreAllMocks());
+
+  it("adds downloaded audio and mushaf font files to their groups", async () => {
+    jest.spyOn(audioCache, "getAudioCacheInfo").mockResolvedValue({ bytes: 300, count: 2 });
+    jest.spyOn(qcfFontCache, "getQcfFontCacheInfo").mockResolvedValue({ bytes: 700, count: 1 });
+    const summary = await getCacheSummary();
+    expect(summary.find((g) => g.id === "audio")).toMatchObject({ bytes: 300, count: 2 });
+    expect(summary.find((g) => g.id === "mushafFonts")).toMatchObject({ bytes: 700, count: 1 });
+  });
+
+  it.each([
+    ["audio", clearDownloadedAudio, () => jest.spyOn(audioCache, "clearAudioCache")],
+    ["mushaf fonts", clearDownloadedQcfFonts, () => jest.spyOn(qcfFontCache, "clearQcfFontCache")],
+  ])("clears downloaded %s", async (_label, clear, spy) => {
+    const clearSpy = spy().mockResolvedValue(undefined);
+    await clear();
+    expect(clearSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("reports the on-device recitation model size", async () => {
+    jest.spyOn(modelStore, "recitationModelBytesOnDisk").mockResolvedValue(4096);
+    await expect(getRecitationListenerBytes()).resolves.toBe(4096);
+  });
+
+  it("reports zero when the model size cannot be read", async () => {
+    jest.spyOn(modelStore, "recitationModelBytesOnDisk").mockRejectedValue(new Error("io"));
+    await expect(getRecitationListenerBytes()).resolves.toBe(0);
   });
 });

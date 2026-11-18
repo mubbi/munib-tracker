@@ -127,6 +127,7 @@ export function QuranReadingToolbar({
 }: ReadingToolbarProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const scrollRef = useHorizontalWheelScroll();
   const fullscreen = useReadingFullscreen({ exitOnBlur: true });
   // Stay reachable while immersive so the reader can exit fullscreen.
@@ -159,23 +160,30 @@ export function QuranReadingToolbar({
       {/* Frosted glass chrome to match the toasts and bottom sheets: a blur layer
           beneath a translucent card wash that keeps the chips legible. Real
           Liquid Glass on iOS 26, a native blur elsewhere, backdrop-filter on web. */}
-      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-        <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
-      </View>
+      {/* TV: skip the live blur (expensive on Fire TV sticks) — opaque card wash. */}
+      {!tv ? (
+        <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+          <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+        </View>
+      ) : null}
       <View
         style={[
           StyleSheet.absoluteFill,
           {
             pointerEvents: "none",
-            backgroundColor: withAlpha(
-              colors.card,
-              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
-            ),
+            backgroundColor: tv
+              ? colors.card
+              : withAlpha(
+                  colors.card,
+                  hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
+                ),
           },
         ]}
       />
       <View style={styles.row}>
-        {showBackToTop && onBackToTop ? (
+        {/* TV: back-to-top scrolls away from the focused ayah, stranding focus
+            off-screen — remote users press Up instead. */}
+        {showBackToTop && onBackToTop && !tv ? (
           <PressableScale
             haptic="light"
             accessibilityRole="button"
@@ -190,7 +198,9 @@ export function QuranReadingToolbar({
             />
           </PressableScale>
         ) : null}
-        <TvFocusGuide trapFocusUp trapFocusDown>
+        {/* Horizontal chip row: never trap Up/Down — Down must reach the reading
+            content below (a vertical trap here was a TV dead end). */}
+        <TvFocusGuide>
           <TvScrollView
             ref={scrollRef}
             horizontal
@@ -332,7 +342,7 @@ export function QuranReadingToolbar({
 }
 
 /** Value chip that opens a picker sheet (reciter / translation). */
-function SelectChip({
+export function SelectChip({
   icon,
   value,
   accessibilityLabel,
@@ -360,7 +370,11 @@ function SelectChip({
         tv && styles.chipTv,
         {
           backgroundColor: active ? tokens.accentSoft : colors.muted,
-          borderColor: active ? colors.accent : "transparent",
+          borderColor: active
+            ? tv
+              ? withAlpha(colors.accent, 0.35)
+              : colors.accent
+            : "transparent",
         },
       ]}
     >
@@ -389,7 +403,7 @@ function SelectChip({
 }
 
 /** On/off chip for a visibility preference (transliteration / translation). */
-function ToggleChip({
+export function ToggleChip({
   icon,
   label,
   enabled,
@@ -417,7 +431,11 @@ function ToggleChip({
         tv && styles.chipTv,
         {
           backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-          borderColor: enabled ? colors.accent : "transparent",
+          borderColor: enabled
+            ? tv
+              ? withAlpha(colors.accent, 0.35)
+              : colors.accent
+            : "transparent",
         },
       ]}
     >

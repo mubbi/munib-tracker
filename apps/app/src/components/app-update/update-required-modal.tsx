@@ -1,18 +1,22 @@
 import type { AppVersionMeta } from "@munib-tracker/api-client";
 import { useTranslation } from "react-i18next";
 import { Platform, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useLocalizedSiteUrls } from "@/hooks/use-localized-site-urls";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebPlatform, performAppUpdate } from "@/lib/app/app-update-actions";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import { useAppVersion } from "@/providers/app-version-provider";
+import { UPDATE_HARD_ICON, UPDATE_SOFT_ICON } from "./update-icons";
 
 type UpdateRequiredModalProps = {
   visible: boolean;
@@ -30,11 +34,12 @@ export function UpdateRequiredModal({
   const { clientVersion, dismissUpdatePrompt } = useAppVersion();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
   const isWeb = isWebPlatform();
   const { locale } = useLocalizedSiteUrls();
   const chevronForward = useChevronForward();
+  const tv = isTV();
 
   const handleUpdate = () => {
     performAppUpdate(meta, { isHard, locale });
@@ -55,10 +60,10 @@ export function UpdateRequiredModal({
   const useFullscreen = presentation === "fullscreen" || isHard;
 
   const inner = (
-    <View style={styles.content}>
+    <View style={[styles.content, tv && styles.contentTv]}>
       <View style={[styles.iconWrap, { backgroundColor: `${accentColor}18` }]}>
         <AppIcon
-          icon={isHard ? "exclamationmark.triangle.fill" : "arrow.down.circle.fill"}
+          icon={isHard ? UPDATE_HARD_ICON : UPDATE_SOFT_ICON}
           size={36}
           tintColor={accentColor}
         />
@@ -124,6 +129,8 @@ export function UpdateRequiredModal({
           label={isWeb ? t("update.webReloadButton") : t("update.updateButton")}
           onPress={handleUpdate}
           fullWidth
+          // TV: land the remote on the primary action when the prompt opens.
+          preferredFocus={tv}
           labelColor={isHard ? undefined : colors.accentForeground}
           style={isHard ? { backgroundColor: accentColor } : undefined}
         />
@@ -144,6 +151,8 @@ export function UpdateRequiredModal({
             paddingTop: insets.top,
             paddingBottom: Math.max(insets.bottom, Spacing.four),
           },
+          // Custom full-screen surface: keep content inside the TV overscan inset.
+          tv && { paddingHorizontal: TvLayout.contentPaddingX },
         ]}
         accessibilityViewIsModal
         {...webRootId}
@@ -169,7 +178,10 @@ export function UpdateRequiredModal({
         bounces={false}
         keyboardShouldPersistTaps="handled"
       >
-        {!isHard ? (
+        {/* Invisible grabber-zone close. TV: a raw Pressable has no focus feedback and
+            would be an invisible D-pad stop — the "Remind me" button and remote Back
+            already dismiss, so drop it there. */}
+        {!isHard && !tv ? (
           <Pressable
             onPress={handleDismiss}
             accessibilityRole="button"
@@ -187,6 +199,12 @@ const styles = StyleSheet.create({
   content: {
     alignItems: "center",
     gap: Spacing.three,
+  },
+  /** TV: keep the prompt a readable column instead of spanning the screen. */
+  contentTv: {
+    width: "100%",
+    maxWidth: tvDp(640),
+    alignSelf: "center",
   },
   sheetScroll: {
     paddingBottom: Spacing.two,

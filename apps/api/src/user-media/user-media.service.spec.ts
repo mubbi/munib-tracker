@@ -1,153 +1,257 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-
-const uploadMock = vi.fn();
-const getCurrentUserMock = vi.fn();
-const saveUserMediaMock = vi.fn();
-const readMock = vi.fn();
-const removeMock = vi.fn();
-
-vi.mock("../auth/auth.service", () => ({
-  AuthService: class {
-    getCurrentUser = getCurrentUserMock;
-  },
-}));
-
-import type { Repository } from "typeorm";
-import type { AuthService } from "../auth/auth.service";
-import type { AttachmentStorageService } from "../common/attachment-storage.service";
+import { BadRequestException } from "@nestjs/common";
+import { describe, expect, it, vi } from "vitest";
 import type { UserMediaEntity } from "../database/entities";
-import { UserMediaService } from "./user-media.service";
+import { buildMockAuthService } from "../test-support/auth";
+import { buildAuthUser } from "../test-support/fixtures/user";
+import { asRepository, buildMockRepository } from "../test-support/repositories";
+import {
+  buildMockAttachmentStorage,
+  buildUpload,
+  JPEG_BYTES,
+  PDF_BYTES,
+  PNG_BYTES,
+  WEBP_BYTES,
+} from "../test-support/uploads";
+import { normalizeUploadFilename, UserMediaService } from "./user-media.service";
+
+const CREATED_AT = new Date("2026-01-01T00:00:00.000Z");
+const ONE_MIB = 1024 * 1024;
+
+function buildMediaRow(overrides: Partial<UserMediaEntity> = {}): UserMediaEntity {
+  return {
+    id: "m1",
+    userId: "user-1",
+    mimeType: "image/png",
+    filename: "a.png",
+    sizeBytes: 10,
+    storagePath: "/disk/a.png",
+    createdAt: CREATED_AT,
+    ...overrides,
+  } as UserMediaEntity;
+}
+
+function setup(user = buildAuthUser()) {
+  const repo = buildMockRepository({
+    save: vi.fn(async (row: object) => ({ ...row, createdAt: CREATED_AT })),
+  });
+  const auth = buildMockAuthService(user);
+  const storage = buildMockAttachmentStorage();
+  const service = new UserMediaService(
+    asRepository<UserMediaEntity>(repo),
+    auth.asService(),
+    storage.asService(),
+  );
+  return { repo, auth, storage, service };
+}
 
 describe("UserMediaService", () => {
-  let service: UserMediaService;
-  let mediaRepository: {
-    create: ReturnType<typeof vi.fn>;
-    save: ReturnType<typeof vi.fn>;
-    findOne: ReturnType<typeof vi.fn>;
-    find: ReturnType<typeof vi.fn>;
-    delete: ReturnType<typeof vi.fn>;
-  };
-
-  beforeEach(() => {
-    uploadMock.mockReset();
-    getCurrentUserMock.mockReset();
-    saveUserMediaMock.mockReset();
-    readMock.mockReset();
-    removeMock.mockReset();
-
-    getCurrentUserMock.mockResolvedValue({
-      userId: "user-1",
-      accountType: "user",
-    });
-    saveUserMediaMock.mockResolvedValue({
-      storagePath: "cloudinary:munib-tracker/custom-adhkar/user-1/file",
+  describe("access", () => {
+    it("rejects a missing token before resolving the user", async () => {
+      const { auth, service } = setup();
+      await expect(service.getMeta("", "m1")).rejects.toThrow("Missing bearer token");
+      expect(auth.getCurrentUser).not.toHaveBeenCalled();
     });
 
-    mediaRepository = {
-      create: vi.fn((row) => row),
-      save: vi.fn(async (row) => ({
-        ...row,
-        createdAt: new Date("2026-01-01T00:00:00.000Z"),
-      })),
-      findOne: vi.fn(),
-      find: vi.fn(),
-      delete: vi.fn(),
-    };
+    it("rejects guests", async () => {
+      const { service } = setup(buildAuthUser({ accountType: "guest" }));
+      await expect(service.upload("tok", [buildUpload()])).rejects.toMatchObject({
+        response: { code: "GUEST_NOT_ALLOWED" },
+      });
+    });
 
-    service = new UserMediaService(
-      mediaRepository as unknown as Repository<UserMediaEntity>,
-      { getCurrentUser: getCurrentUserMock } as unknown as AuthService,
-      {
-        saveUserMedia: saveUserMediaMock,
-        read: readMock,
-        remove: removeMock,
-      } as unknown as AttachmentStorageService,
+    it("hides media owned by someone else", async () => {
+      const { repo, service } = setup();
+      await expect(service.getContent("tok", "missing")).rejects.toThrow("Media not found");
+      expect(repo.findOne).toHaveBeenCalledWith({ where: { id: "missing", userId: "user-1" } });
+    });
+  });
+
+  describe("upload validation", () => {
+    it.each([
+      ["no files", [], "At least one attachment is required"],
+      ["six files", Array.from({ length: 6 }, () => buildUpload()), "At most 5 attachments"],
+      ["a declared size over 1 MB", [buildUpload({ size: ONE_MIB + 1 })], "1 MB"],
+      [
+        "a buffer over 1 MB with a small declared size",
+        [buildUpload({ buffer: Buffer.alloc(ONE_MIB + 1), size: 1 })],
+        "1 MB",
+      ],
+      [
+        "unsupported bytes",
+        [buildUpload({ buffer: Buffer.from("GIF89a-not-allowed") })],
+        "Unsupported attachment type",
+      ],
+    ])("rejects %s", async (_label, files, message) => {
+      const { storage, service } = setup();
+      const error = await service.upload("tok", files).catch((e: unknown) => e);
+      expect(error).toBeInstanceOf(BadRequestException);
+      expect((error as Error).message).toContain(message);
+      expect(storage.saveUserMedia).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("upload", () => {
+    it.each([
+      ["JPEG", JPEG_BYTES, "image/jpeg", ".jpg"],
+      ["PNG", PNG_BYTES, "image/png", ".png"],
+      ["WebP", WEBP_BYTES, "image/webp", ".webp"],
+      ["PDF", PDF_BYTES, "application/pdf", ".pdf"],
+    ])(
+      "stores %s under the user with a sniffed MIME and extension",
+      async (_l, bytes, mime, ext) => {
+        const { storage, service } = setup();
+        await service.upload("tok", [buildUpload({ buffer: bytes, mimetype: "image/png" })]);
+        expect(storage.saveUserMedia).toHaveBeenCalledWith(
+          "user-1",
+          expect.stringMatching(new RegExp(`\\${ext}$`)),
+          bytes,
+          mime,
+        );
+      },
     );
+
+    it("trusts sniffed bytes over the picker MIME", async () => {
+      const { service } = setup();
+      const [item] = await service.upload("tok", [
+        buildUpload({ buffer: JPEG_BYTES, mimetype: "image/png" }),
+      ]);
+      expect(item?.mimeType).toBe("image/jpeg");
+    });
+
+    it("returns a DTO with an authenticated content path", async () => {
+      const { service } = setup();
+      const [item] = await service.upload("tok", [buildUpload({ originalname: "zikr.png" })]);
+      expect(item).toEqual({
+        id: expect.any(String),
+        mimeType: "image/png",
+        filename: "zikr.png",
+        sizeBytes: PNG_BYTES.length,
+        contentPath: `/api/v1/user-media/${item?.id}/content`,
+        createdAt: CREATED_AT.toISOString(),
+      });
+    });
+
+    it("falls back to the generated filename when none is supplied", async () => {
+      const { storage, service } = setup();
+      const [item] = await service.upload("tok", [
+        buildUpload({ originalname: undefined as unknown as string }),
+      ]);
+      expect(item?.filename).toBe(storage.saveUserMedia.mock.calls[0]?.[1]);
+    });
+
+    it("removes the stored blob when the DB write fails", async () => {
+      const { repo, storage, service } = setup();
+      repo.save.mockRejectedValueOnce(new Error("db write failed"));
+
+      await expect(service.upload("tok", [buildUpload()])).rejects.toThrow("db write failed");
+      expect(storage.remove).toHaveBeenCalledWith(
+        expect.stringMatching(/^\/disk\/user-1\//),
+        "authenticated",
+      );
+    });
   });
 
-  it("uploads images for linked users", async () => {
-    // Minimal JPEG magic bytes so content sniffing accepts the file.
-    const jpeg = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46]);
-    const items = await service.upload("token", [
-      {
-        buffer: jpeg,
-        mimetype: "image/jpeg",
-        originalname: "zikr.jpg",
-        size: jpeg.length,
-      },
-    ]);
+  describe("reads", () => {
+    it("returns metadata for owned media", async () => {
+      const { repo, service } = setup();
+      repo.findOne.mockResolvedValue(buildMediaRow());
+      await expect(service.getMeta("tok", "m1")).resolves.toMatchObject({
+        id: "m1",
+        contentPath: "/api/v1/user-media/m1/content",
+        createdAt: CREATED_AT.toISOString(),
+      });
+    });
 
-    expect(items).toHaveLength(1);
-    expect(items[0]?.mimeType).toBe("image/jpeg");
-    expect(items[0]?.contentPath).toMatch(/^\/api\/v1\/user-media\/.+\/content$/);
-    expect(saveUserMediaMock).toHaveBeenCalled();
+    it("reads content through authenticated storage", async () => {
+      const { repo, storage, service } = setup();
+      repo.findOne.mockResolvedValue(buildMediaRow());
+      storage.read.mockResolvedValue(Buffer.from("bytes"));
+
+      await expect(service.getContent("tok", "m1")).resolves.toEqual({
+        buffer: Buffer.from("bytes"),
+        mimeType: "image/png",
+        filename: "a.png",
+      });
+      expect(storage.read).toHaveBeenCalledWith("/disk/a.png", "authenticated");
+    });
   });
 
-  it("uploads PDFs for linked users", async () => {
-    const pdf = Buffer.from("%PDF-1.4 mock");
-    const items = await service.upload("token", [
-      {
-        buffer: pdf,
-        mimetype: "application/pdf",
-        originalname: "zikr.pdf",
-        size: pdf.length,
-      },
-    ]);
+  describe("remove", () => {
+    it("deletes the blob before the row", async () => {
+      const { repo, storage, service } = setup();
+      const order: string[] = [];
+      repo.findOne.mockResolvedValue(buildMediaRow());
+      storage.remove.mockImplementation(async () => order.push("blob"));
+      repo.delete.mockImplementation(async () => order.push("row"));
 
-    expect(items).toHaveLength(1);
-    expect(items[0]?.mimeType).toBe("application/pdf");
-    expect(saveUserMediaMock).toHaveBeenCalledWith(
-      "user-1",
-      expect.stringMatching(/\.pdf$/),
-      pdf,
-      "application/pdf",
-    );
+      await service.remove("tok", "m1");
+
+      expect(storage.remove).toHaveBeenCalledWith("/disk/a.png", "authenticated");
+      expect(repo.delete).toHaveBeenCalledWith({ id: "m1" });
+      expect(order).toEqual(["blob", "row"]);
+    });
   });
 
-  it("accepts files when picker MIME disagrees with sniffed bytes", async () => {
-    const jpeg = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46]);
-    const items = await service.upload("token", [
-      {
-        buffer: jpeg,
-        mimetype: "image/png",
-        originalname: "mislabelled.png",
-        size: jpeg.length,
-      },
-    ]);
+  describe("removeMany", () => {
+    it("does nothing for an empty id list", async () => {
+      const { auth, service } = setup();
+      await service.removeMany("tok", []);
+      expect(auth.getCurrentUser).not.toHaveBeenCalled();
+    });
 
-    expect(items).toHaveLength(1);
-    expect(items[0]?.mimeType).toBe("image/jpeg");
+    it("does not delete when the user owns none of the ids", async () => {
+      const { repo, service } = setup();
+      await service.removeMany("tok", ["x"]);
+      expect(repo.delete).not.toHaveBeenCalled();
+    });
+
+    it("dedupes ids in the ownership query", async () => {
+      const { repo, service } = setup();
+      await service.removeMany("tok", ["a", "b", "a"]);
+      const where = repo.find.mock.calls[0]?.[0].where;
+      expect(where.userId).toBe("user-1");
+      expect(where.id.value).toEqual(["a", "b"]);
+    });
+
+    it("deletes every owned blob and row", async () => {
+      const { repo, storage, service } = setup();
+      repo.find.mockResolvedValue([
+        buildMediaRow({ id: "a", storagePath: "p/a" }),
+        buildMediaRow({ id: "b", storagePath: "p/b" }),
+      ]);
+
+      await service.removeMany("tok", ["a", "b"]);
+
+      expect(storage.remove.mock.calls).toEqual([
+        ["p/a", "authenticated"],
+        ["p/b", "authenticated"],
+      ]);
+      expect(repo.delete.mock.calls[0]?.[0].id.value).toEqual(["a", "b"]);
+    });
+  });
+});
+
+describe("normalizeUploadFilename", () => {
+  const mojibake = Buffer.from("دعا.png", "utf8").toString("latin1");
+
+  it.each([
+    ["undefined", undefined, "fallback.png"],
+    ["empty", "", "fallback.png"],
+    ["control characters only", " \u0001\u007f ", "fallback.png"],
+    ["latin1 mojibake of UTF-8", mojibake, "دعا.png"],
+    ["latin1 that is not valid UTF-8", "café.png", "café.png"],
+    ["already non-latin1", "اذكار.pdf", "اذكار.pdf"],
+    ["percent-encoded", "my%20file.png", "my file.png"],
+    ["a stray percent", "100%zz%2", "100%zz%2"],
+    ["a broken escape", "bad%E0%A4%A.png", "bad%E0%A4%A.png"],
+    ["path separators and controls", "../etc\\pass\nwd", ".._etc_passwd"],
+  ])("handles %s", (_label, input, expected) => {
+    expect(normalizeUploadFilename(input, "fallback.png")).toBe(expected);
   });
 
-  it("rejects oversized images", async () => {
-    await expect(
-      service.upload("token", [
-        {
-          buffer: Buffer.alloc(2 * 1024 * 1024),
-          mimetype: "image/png",
-          originalname: "big.png",
-          size: 2 * 1024 * 1024,
-        },
-      ]),
-    ).rejects.toThrow("1 MB");
-  });
-
-  it("rejects guests", async () => {
-    getCurrentUserMock.mockResolvedValue({ userId: "guest-1", accountType: "guest" });
-    await expect(
-      service.upload("token", [
-        {
-          buffer: Buffer.from("x"),
-          mimetype: "image/jpeg",
-          originalname: "a.jpg",
-          size: 10,
-        },
-      ]),
-    ).rejects.toMatchObject({ response: { code: "GUEST_NOT_ALLOWED" } });
-  });
-
-  it("only returns content for the owning user", async () => {
-    mediaRepository.findOne.mockResolvedValue(null);
-    await expect(service.getContent("token", "missing")).rejects.toThrow("Media not found");
+  it("caps length by code point without splitting surrogate pairs", () => {
+    const out = normalizeUploadFilename("😀".repeat(300), "f");
+    expect(Array.from(out)).toHaveLength(255);
+    expect(out.endsWith("😀")).toBe(true);
   });
 });

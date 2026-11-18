@@ -1,38 +1,39 @@
 # Admin Console
 
-Ops console for Munib Tracker at **`admin.munibtracker.app`** (`apps/admin`, Next.js 16 App Router, port **3002**).
+Ops console for Munib Tracker at **`admin.munibtracker.app`** (`apps/admin`, Next.js 16.4 App Router, port **3002**).
 
 ## Architecture
 
-| Layer | Role |
-|-------|------|
-| **`apps/admin`** | UI + Route Handlers. Talks to Postgres via **Drizzle** (`@munib-tracker/db`). Does **not** call Nest for admin CRUD. |
-| **`packages/db`** | Drizzle schemas mirroring Munib tables (`users`, content reports, feedback, sync, media, …) plus admin / broadcast / push tables. |
-| **`apps/api`** | TypeORM owns DDL (migrations). Product APIs for the Expo app, including `/api/v1/notifications/*` for inbox + push-token registration. |
-| **`@munib-tracker/shared`** | Broadcast contracts (`admin-broadcasts.ts`), branding, `OFFICIAL_ADMIN_ORIGIN`. |
+| Layer                       | Role                                                                                                                                   |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **`apps/admin`**            | UI + Route Handlers. Talks to Postgres via **Drizzle** (`@munib-tracker/db`). Does **not** call Nest for admin CRUD.                   |
+| **`packages/db`**           | Drizzle schemas mirroring Munib tables (`users`, content reports, feedback, sync, media, …) plus admin / broadcast / push tables.      |
+| **`apps/api`**              | TypeORM owns DDL (migrations). Product APIs for the Expo app, including `/api/v1/notifications/*` for inbox + push-token registration. |
+| **`@munib-tracker/shared`** | Broadcast contracts (`admin-broadcasts.ts`), branding, `OFFICIAL_ADMIN_ORIGIN`.                                                        |
 
 Shared Postgres. Schema changes: TypeORM migration in `apps/api` first, then mirror columns in `packages/db` Drizzle schemas. On Supabase, use the Session pooler `DATABASE_URL`; RLS is forced by API migration `HardenSupabaseRls` (privileged DB role only — never the publishable anon key).
 
 ## Modules (sidebar)
 
-Defined in `apps/admin/lib/permissions.ts`:
+Defined in `apps/admin/lib/permissions.ts` (`NAV_ITEMS`, sidebar order; `#` is the stable module id):
 
-| # | Module | Path | Purpose |
-|---|--------|------|---------|
-| 1 | Dashboard | `/dashboard` | KPIs, alerts, activity |
-| 2 | Users | `/users` | Search, detail, soft-delete / restore |
-| 3 | Content reports | `/reports` | Triage Qur’an / Hadith / Names / Adhkar / Duas reports |
-| 4 | App feedback | `/feedback` | Reviews / NPS + canned replies |
-| 14 | Contact messages | `/contact-messages` | Marketing-site contact form inbox + admin notes |
-| 13 | OSS download failures | `/oss-failures` | On-demand CDN failures (Qur’an editions, hadith, QCF fonts, audio) |
-| 5 | App versions | `/versions` | Force-update / soft-update rows (`app_versions`) |
-| 6 | Notifications | `/notifications` | Compose & send in-app + push broadcasts |
-| 7 | User media | `/media` | Custom-adhkar attachments |
-| 8 | Sync & devices | `/sync` | Cloud sync health / stuck users |
-| 9 | Auth & abuse | `/auth-abuse` | Failed OAuth / rate-limit signals |
-| 10 | Platform | `/platform` | API health (`GET /api/v1/health`), TypeORM migrations, cron run log |
-| 11 | Administration | `/administration` | Admin users, roles, sessions, audit, settings |
-| 12 | Playbooks | `/playbooks` | Ops runbooks + canned reply templates |
+| #   | Module                | Path                | Purpose                                                                                                                                                                                                                                                                                           |
+| --- | --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Dashboard             | `/dashboard`        | KPIs, alerts, activity                                                                                                                                                                                                                                                                            |
+| 2   | Users                 | `/users`            | Search, detail, soft-delete / restore                                                                                                                                                                                                                                                             |
+| 3   | Content reports       | `/reports`          | Triage Qur’an / Hadith / Names / Adhkar / Duas reports                                                                                                                                                                                                                                            |
+| 4   | App feedback          | `/feedback`         | Reviews / NPS + canned replies                                                                                                                                                                                                                                                                    |
+| 14  | Contact messages      | `/contact-messages` | Marketing-site contact form inbox + admin notes                                                                                                                                                                                                                                                   |
+| 13  | OSS download failures | `/oss-failures`     | On-demand CDN failures (Qur’an editions, hadith, QCF fonts, audio)                                                                                                                                                                                                                                |
+| 5   | App versions          | `/versions`         | Force-update / soft-update rows (`app_versions`)                                                                                                                                                                                                                                                  |
+| 6   | Notifications         | `/notifications`    | Overview + cron run log (`cron_runs`); compose (`/notifications/new`) and history (`/notifications/broadcasts`) for in-app + push broadcasts                                                                                                                                                      |
+| 7   | User media            | `/media`            | Custom-adhkar attachments                                                                                                                                                                                                                                                                         |
+| 8   | Sync & devices        | `/sync`             | Cloud sync health / stuck users                                                                                                                                                                                                                                                                   |
+| 15  | Qur'an practice       | `/quran-practice`   | Aggregates from the synced practice blobs (`quran_practice_sessions`, `quran_companion_prefs`, `quran_memorization`): sessions, modes, listener use and quality, revision backlog, settings mix. Signed-in users only; counts only, no per-user rows. Roles: super_admin, ops, analytics, content |
+| 9   | Auth & abuse          | `/auth-abuse`       | Failed OAuth / rate-limit signals                                                                                                                                                                                                                                                                 |
+| 10  | Platform              | `/platform`         | API health (`GET /api/v1/health`, incl. Redis), TypeORM migration status                                                                                                                                                                                                                          |
+| 11  | Administration        | `/administration`   | Provision / enable / re-role admin users, admin sessions, audit log, Google OAuth env check                                                                                                                                                                                                       |
+| 12  | Playbooks             | `/playbooks`        | Ops runbooks + canned reply templates                                                                                                                                                                                                                                                             |
 
 Munib-only — no expense, subscription, BYOS, or ticket-catalog surfaces.
 
@@ -71,7 +72,7 @@ To exercise real Google sign-in locally: set `ADMIN_DEV_BYPASS_AUTH=0`, seed an 
 node apps/admin/scripts/seed-admin.mjs you@example.com
 ```
 
-Env reference: `apps/admin/.env.example` (`DATABASE_URL`, `ADMIN_URL`, `ADMIN_SESSION_SECRET`, `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`, `API_URL`, optional `ADMIN_DEV_BYPASS_AUTH`, VAPID + `ADMIN_CRON_SECRET`).
+Env reference: `apps/admin/.env.example` (`DATABASE_URL`, `ADMIN_URL`, `ADMIN_SESSION_SECRET`, `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`, `API_URL`, optional `ADMIN_DEV_BYPASS_AUTH`, VAPID + `ADMIN_CRON_SECRET`, optional `REDIS_URL` / `REDIS_TLS` / `REDIS_KEY_PREFIX` for the broadcast cron leader lock).
 
 ## Branding
 

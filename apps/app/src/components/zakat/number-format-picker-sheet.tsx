@@ -7,8 +7,10 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { NUMBER_FORMAT_OPTIONS, type NumberFormatStyle } from "@/lib/format-currency";
+import { isTV } from "@/lib/platform/is-tv";
 
 type NumberFormatPickerSheetProps = {
   visible: boolean;
@@ -47,12 +49,14 @@ export function NumberFormatPickerSheet({
               accessibilityRole="button"
               accessibilityState={{ selected: isSelected }}
               accessibilityLabel={`${opt.label} ${opt.example}`}
+              {...(isSelected && isTV() ? { hasTVPreferredFocus: true } : {})}
               onPress={() => {
                 onSelect(opt.id);
                 onClose();
               }}
               style={[
                 styles.row,
+                isTV() && styles.rowTv,
                 { backgroundColor: isSelected ? tokens.accentSoft : colors.muted },
               ]}
             >
@@ -107,6 +111,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
+  rowTv: { minHeight: TvLayout.minFocusTarget },
   meta: { flex: 1, gap: 2 },
   exampleRow: { flexDirection: "row", alignItems: "center", gap: 2 },
 });

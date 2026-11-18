@@ -76,6 +76,40 @@ function withIosUrlSchemes(iosConfig) {
   };
 }
 
+/**
+ * Config plugins whose native module is excluded from TV autolinking
+ * (react-native.config.js → TV_EXCLUDED) and whose only job is adding phone
+ * permissions / usage strings. Running them on a TV prebuild would inject
+ * CAMERA / RECORD_AUDIO / location permissions into the Leanback manifest.
+ */
+const TV_SKIPPED_PERMISSION_PLUGINS = new Set([
+  "expo-image-picker",
+  "expo-document-picker",
+  "expo-local-authentication",
+  "expo-location",
+  "expo-speech-recognition",
+]);
+
+/**
+ * Permissions that imply hardware TVs do not have. Google Play treats an implied
+ * feature as `required="true"`, which hides the app from most Android TV /
+ * Fire TV devices (Android TV "Declare hardware requirements for TV").
+ * Blocked with tools:node="remove" so merged library manifests cannot re-add them.
+ */
+const TV_BLOCKED_ANDROID_PERMISSIONS = [
+  "android.permission.CAMERA",
+  "android.permission.RECORD_AUDIO",
+  "android.permission.ACCESS_FINE_LOCATION",
+  "android.permission.ACCESS_COARSE_LOCATION",
+  "android.permission.ACCESS_BACKGROUND_LOCATION",
+  "android.permission.USE_BIOMETRIC",
+  "android.permission.USE_FINGERPRINT",
+  "android.permission.BLUETOOTH",
+  "android.permission.BLUETOOTH_CONNECT",
+  // Precise Adhan timing (exact alarms) is a phone-only setting.
+  "android.permission.SCHEDULE_EXACT_ALARM",
+];
+
 /** True when generating Apple TV / Android TV native projects (`EXPO_TV=1`). */
 function isTvPrebuild() {
   const v = process.env.EXPO_TV?.trim();
@@ -97,11 +131,24 @@ module.exports = ({ config }) => {
   const appleTeamId = process.env.EXPO_APPLE_TEAM_ID?.trim() || undefined;
 
   const basePlugins = Array.isArray(config.plugins) ? config.plugins : [];
-  const pluginsWithoutQuickActions = basePlugins.filter((entry) => {
-    if (typeof entry === "string") return entry !== "expo-quick-actions";
-    if (Array.isArray(entry)) return entry[0] !== "expo-quick-actions";
-    return true;
-  });
+  const pluginsWithoutQuickActions = basePlugins
+    .filter((entry) => {
+      const name = typeof entry === "string" ? entry : Array.isArray(entry) ? entry[0] : null;
+      if (name === "expo-quick-actions") return false;
+      if (tvPrebuild && name && TV_SKIPPED_PERMISSION_PLUGINS.has(name)) return false;
+      return true;
+    })
+    .map((entry) => {
+      // TV has no microphone path (Qur'an practice is hidden there): keep the
+      // recording permission out of the tvOS plist and the Leanback manifest.
+      if (tvPrebuild && Array.isArray(entry) && entry[0] === "expo-audio") {
+        return [
+          "expo-audio",
+          { ...(entry[1] ?? {}), microphonePermission: false, recordAudioAndroid: false },
+        ];
+      }
+      return entry;
+    });
 
   const baseAndroidFilters = Array.isArray(config.android?.intentFilters)
     ? config.android.intentFilters
@@ -126,6 +173,10 @@ module.exports = ({ config }) => {
         /** After react-native-android-widget so generated provider XML / receivers exist. */
         "./plugins/withAndroidLockScreenWidgets.cjs",
         "./plugins/withAndroidWidgetGallery.cjs",
+        /** Qur'an practice Phase 6: lets the minSdk-26 Quran Lab AAR merge into the minSdk-24 app; JS gates on API 26. */
+        "./modules/munib-tajweedformer/app.plugin.js",
+        /** iOS: TajweedFormer's zf_rt shim exports OrtGetApiBase — keep onnxruntime-react-native on the real runtime. */
+        "./plugins/withOnnxruntimeSymbolIsolation.cjs",
       ];
 
   const configTvPlugin = [
@@ -184,6 +235,16 @@ module.exports = ({ config }) => {
     android: {
       ...config.android,
       versionCode: androidVersionCode,
+      ...(tvPrebuild
+        ? {
+            blockedPermissions: [
+              ...new Set([
+                ...(config.android?.blockedPermissions ?? []),
+                ...TV_BLOCKED_ANDROID_PERMISSIONS,
+              ]),
+            ],
+          }
+        : {}),
       intentFilters: [...baseAndroidFilters, ...googleAndroidOAuthIntentFilter()],
     },
     plugins: [

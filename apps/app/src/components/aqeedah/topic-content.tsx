@@ -10,12 +10,14 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { LearnGrid } from "@/components/learn-guide/learn-wide-layout";
 import { useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -46,21 +48,21 @@ function AqeedahMisconceptions({ items }: { items: NonNullable<AqeedahTopic["mis
       />
       <View style={styles.misconceptions}>
         {items.map((item) => (
-          <View
-            key={item}
-            style={[styles.misconceptionRow, { backgroundColor: tokens.status.info.soft }]}
-          >
-            <ThemedText
-              type="small"
-              style={{
-                color: colors.foreground,
-                fontSize: sizes.translation,
-                lineHeight: sizes.translation * 1.45,
-              }}
-            >
-              {item}
-            </ThemedText>
-          </View>
+          // TV: each misconception is a D-pad stop so the remote can scroll it.
+          <TvReadableBlock key={item}>
+            <View style={[styles.misconceptionRow, { backgroundColor: tokens.status.info.soft }]}>
+              <ThemedText
+                type="small"
+                style={{
+                  color: colors.foreground,
+                  fontSize: sizes.translation,
+                  lineHeight: sizes.translation * 1.45,
+                }}
+              >
+                {item}
+              </ThemedText>
+            </View>
+          </TvReadableBlock>
         ))}
       </View>
     </Card>
@@ -100,15 +102,17 @@ export function AqeedahTopicContent({ topic }: { topic: AqeedahTopic }) {
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
           />
           <View style={styles.links}>
-            {topic.appLinks.map((link) => (
-              <Button
-                key={link.route}
-                label={link.label}
-                variant="secondary"
-                fullWidth
-                onPress={() => router.push(link.route as never)}
-              />
-            ))}
+            <LearnGrid maxColumns={2} gap={Spacing.two} passthrough>
+              {topic.appLinks.map((link) => (
+                <Button
+                  key={link.route}
+                  label={link.label}
+                  variant="secondary"
+                  fullWidth
+                  onPress={() => router.push(link.route as never)}
+                />
+              ))}
+            </LearnGrid>
           </View>
         </Card>
       ) : null}
@@ -122,9 +126,11 @@ export function AqeedahTopicContent({ topic }: { topic: AqeedahTopic }) {
       />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );

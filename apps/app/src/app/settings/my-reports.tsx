@@ -5,19 +5,25 @@ import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Pill } from "@/components/ui/pill";
+import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { listContentReports } from "@/lib/content-report-api";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 
 export default function MyReportsScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { session, isGuest } = useAuth();
@@ -26,6 +32,12 @@ export default function MyReportsScreen() {
   const [items, setItems] = useState<ContentReportSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const tv = isTV();
+  /**
+   * TV: read-only cards aren't focusable, so the D-pad could never scroll past the
+   * first screen. Each card becomes a focus target that opens the full report.
+   */
+  const [openReport, setOpenReport] = useState<ContentReportSummary | null>(null);
 
   const load = useCallback(async () => {
     if (!session?.accessToken || isGuest) {
@@ -50,6 +62,7 @@ export default function MyReportsScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.eyebrow")}
       title={t("contentReport.myReportsTitle")}
       subtitle={t("contentReport.myReportsSubtitle")}
@@ -82,7 +95,15 @@ export default function MyReportsScreen() {
       ) : (
         <Stagger>
           {items.map((report) => (
-            <Card key={report.id} padding="three" style={styles.card}>
+            <Card
+              key={report.id}
+              padding="three"
+              style={styles.card}
+              onPress={tv ? () => setOpenReport(report) : undefined}
+              accessibilityLabel={
+                tv ? (report.content.snapshot?.title ?? report.content.contentId) : undefined
+              }
+            >
               <View style={styles.cardHeader}>
                 <Pill
                   label={t(`contentReport.status.${report.status}`)}
@@ -127,6 +148,29 @@ export default function MyReportsScreen() {
           ))}
         </Stagger>
       )}
+
+      {tv ? (
+        <Sheet visible={openReport != null} onClose={() => setOpenReport(null)}>
+          {openReport ? (
+            <View style={styles.sheetBody}>
+              <ThemedText type="subtitle">
+                {openReport.content.snapshot?.title ?? openReport.content.contentId}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t(`contentReport.issueTypes.${openReport.issueType}`)} ·{" "}
+                {t(`contentReport.status.${openReport.status}`)}
+              </ThemedText>
+              <ThemedText type="small">{openReport.description}</ThemedText>
+              <Button
+                label={t("common.done")}
+                variant="secondary"
+                preferredFocus
+                onPress={() => setOpenReport(null)}
+              />
+            </View>
+          ) : null}
+        </Sheet>
+      ) : null}
     </ScreenLayout>
   );
 }
@@ -141,4 +185,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
   },
   description: { marginTop: Spacing.one },
+  sheetBody: { gap: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/my-reports");

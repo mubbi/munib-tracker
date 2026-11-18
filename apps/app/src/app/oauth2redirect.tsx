@@ -6,6 +6,7 @@ import { useSocialAuth } from "@/hooks/use-social-auth";
 import { APP_SCHEME, GOOGLE_OAUTH_REDIRECT_PATH } from "@/lib/auth/oauth-config";
 import { loadGoogleOAuthPendingSession } from "@/lib/oauth/oauth-pending";
 import { sanitizeOAuthReturnTo } from "@/lib/oauth/oauth-return-to";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 /**
  * Google OAuth return handler for the app custom scheme / reversed-client-id path.
@@ -58,3 +59,6 @@ export default function OAuth2RedirectRoute() {
   }
   return <Redirect href={href} />;
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/oauth2redirect");

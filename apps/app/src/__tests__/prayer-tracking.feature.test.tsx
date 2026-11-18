@@ -16,10 +16,9 @@ beforeEach(async () => {
 
 describe("Prayer tracking dashboard", () => {
   // Home + below-fold hydrate slowly under parallel Jest workers.
-  jest.setTimeout(30_000);
 
   it("reflects a completed prayer in the Prayers stat card", async () => {
-    renderWithProviders(<HomeScreen />);
+    await renderWithProviders(<HomeScreen />);
 
     await waitFor(
       () => {

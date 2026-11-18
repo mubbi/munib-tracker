@@ -9,6 +9,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { ensureHadithItem, hadithCollectionId, hadithExcerpt } from "@/lib/prayer-info";
 import { arabicReadingLayout, translationReadingStyle } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
@@ -102,18 +103,25 @@ function HadithExcerptCardContent({
         </ThemedText>
       ) : null}
 
-      <PressableScale
-        accessibilityRole="link"
-        accessibilityLabel={t("reading.openReference", { ref: hadith.reference })}
-        onPress={onOpen}
-        hitSlop={8}
-        haptic="light"
-        style={styles.referenceHit}
-      >
+      {isTV() ? (
+        // TV: one focus stop per card — the button below opens the same hadith.
         <ThemedText type="caption" style={{ color: colors.accent }}>
           {t("reading.reference", { ref: hadith.reference })}
         </ThemedText>
-      </PressableScale>
+      ) : (
+        <PressableScale
+          accessibilityRole="link"
+          accessibilityLabel={t("reading.openReference", { ref: hadith.reference })}
+          onPress={onOpen}
+          hitSlop={8}
+          haptic="light"
+          style={styles.referenceHit}
+        >
+          <ThemedText type="caption" style={{ color: colors.accent }}>
+            {t("reading.reference", { ref: hadith.reference })}
+          </ThemedText>
+        </PressableScale>
+      )}
 
       <Button
         label={t("prayerInfo.viewHadith")}

@@ -6,6 +6,7 @@ import { useSocialAuth } from "@/hooks/use-social-auth";
 import { getWebAppOrigin } from "@/lib/auth/oauth-config";
 import { loadAppleOAuthPendingSession } from "@/lib/oauth/oauth-pending";
 import { sanitizeOAuthReturnTo } from "@/lib/oauth/oauth-return-to";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 /**
  * HTTPS App Link return route for Apple OAuth (Android / iOS OAuth fallback).
@@ -57,3 +58,6 @@ export default function AppleOAuthRedirectRoute() {
   }
   return <Redirect href={href} />;
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/oauth/apple");

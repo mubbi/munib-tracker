@@ -22,15 +22,15 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { hasLiquidGlass } from "@/components/ui/glass-surface";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAnimatedKeyboardHeight } from "@/hooks/use-animated-keyboard-height";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { useBlurTarget } from "@/providers/blur-target-provider";
@@ -89,9 +89,15 @@ export function Sheet({
   const { t } = useTranslation();
   const { colors, tokens, scheme } = useThemeTokens();
   const blurTarget = useBlurTarget();
-  const insets = useSafeAreaInsets();
-  const { height: windowHeight } = useWindowDimensions();
+  const insets = useAppSafeAreaInsets();
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const tv = isTV();
+  // Large screens (tablet / desktop web): Material 3 caps bottom sheets at 640dp
+  // and centers them instead of spanning a 1,900px window.
+  const wideBottomSheet = !tv && windowWidth >= 768;
+  const wideSheetInset = wideBottomSheet
+    ? Math.max(0, (windowWidth - WIDE_BOTTOM_SHEET_MAX) / 2)
+    : 0;
   const isBottom = variant === "bottom";
   const useSheetFrost = isBottom && !solid;
   const bottomMaxHeight = windowHeight * 0.88;
@@ -259,6 +265,13 @@ export function Sheet({
       style={[
         bottomCardStyle,
         styles.bottomCardDock,
+        // Size from both insets: the base card is `width: "100%"`, which would
+        // otherwise win and push the centered card off the end edge.
+        wideBottomSheet && {
+          left: wideSheetInset,
+          right: wideSheetInset,
+          width: "auto",
+        },
         bottomCardDragStyle,
         keyboardInsetStyle,
         { pointerEvents: "auto" },
@@ -390,6 +403,8 @@ export function Sheet({
               collapsable={false}
               style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
               onPress={onClose}
+              // TV: the scrim is not a D-pad target (no focus ring; remote Back closes).
+              focusable={!isTV()}
               {...backdropA11y}
             />
             {bottomCard}
@@ -400,6 +415,8 @@ export function Sheet({
               collapsable={false}
               style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
               onPress={onClose}
+              // TV: the scrim is not a D-pad target (no focus ring; remote Back closes).
+              focusable={!isTV()}
               {...backdropA11y}
             />
             <View
@@ -413,6 +430,9 @@ export function Sheet({
     </View>
   );
 }
+
+/** Material 3 large-screen bottom sheet width cap. */
+const WIDE_BOTTOM_SHEET_MAX = 640;
 
 const styles = StyleSheet.create({
   scrimRoot: {
@@ -441,7 +461,7 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     padding: Spacing.four,
     gap: Spacing.two,
-    maxWidth: 520,
+    maxWidth: tvDp(520),
     width: "100%",
     alignSelf: "center",
     overflow: "hidden",
@@ -475,11 +495,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: Spacing.two,
     paddingBottom: Spacing.three,
-    minHeight: 44,
+    minHeight: tvDp(44),
     zIndex: 1,
   },
   handle: {
-    width: 40,
+    width: tvDp(40),
     height: 4,
     borderRadius: 2,
   },

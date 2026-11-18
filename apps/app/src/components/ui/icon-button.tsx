@@ -5,9 +5,16 @@ import { ActivityIndicator, type StyleProp, StyleSheet, View, type ViewStyle } f
 import { hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import type { HapticFeedback } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
+
+/** TV floor for icon-only D-pad targets (dp, pre-density). */
+const TV_MIN_ICON_TARGET = 56;
 
 type IconButtonProps = {
+  /** TV: request initial D-pad focus on this control. */
+  preferredFocus?: boolean;
   name: SymbolViewProps["name"];
   onPress?: () => void;
   /** Glyph size in points. The tap target stays >= `hitTarget` regardless. */
@@ -58,8 +65,11 @@ export function IconButton({
   disabled,
   loading = false,
   style,
+  preferredFocus,
 }: IconButtonProps) {
   const isDisabled = disabled || loading;
+  // 44pt is a touch target; from 3m away a D-pad target needs to be larger.
+  const target = tvDp(isTV() ? Math.max(hitTarget, TV_MIN_ICON_TARGET) : hitTarget);
   const useGlass = glass && hasLiquidGlass;
 
   const button = (
@@ -72,16 +82,17 @@ export function IconButton({
       onPress={loading ? undefined : onPress}
       haptic={haptic}
       hitSlop={8}
+      {...(preferredFocus && isTV() ? { hasTVPreferredFocus: true } : {})}
       // Always clip a bounded ripple to the well radius — even without a filled
       // background — so icon controls match rounded cards/rows on Android.
       rippleRadius={wellRadius}
       style={[
         styles.base,
         {
-          width: hitTarget,
-          height: hitTarget,
-          minWidth: hitTarget,
-          minHeight: hitTarget,
+          width: target,
+          height: target,
+          minWidth: target,
+          minHeight: target,
           opacity: disabled ? 0.4 : 1,
           borderRadius: wellRadius,
         },

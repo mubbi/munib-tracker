@@ -26,3 +26,31 @@ describe("jannah-bookmarks", () => {
     });
   });
 });
+
+describe("jannah-bookmarks edge cases", () => {
+  it.each([
+    ["Jami` at-Tirmidhi", "tirmidhi"],
+    ["Sunan Abi Dawud", null],
+    ["Sunan Abu Dawud", "abudawud"],
+    ["AbuDawud", "abudawud"],
+    ["Sunan an-Nasa'i", "nasai"],
+    ["Sunan Ibn Majah", "ibnmajah"],
+    ["Nawawi's Forty", "nawawi40"],
+    ["Riyāḍ aṣ-Ṣāliḥīn", "riyad_assalihin"],
+    ["Salihin", "riyad_assalihin"],
+    ["Muwatta Malik", null],
+  ])("matches %p → %p", (label, slug) => {
+    expect(matchHadithCollectionSlug(label)).toBe(slug);
+  });
+
+  it("finds no number in a citation without digits", () => {
+    expect(extractHadithCitationNumber("Book of Faith")).toBeNull();
+  });
+
+  it.each([
+    ["Muwatta Malik", "12"],
+    ["Sahih al-Bukhari", "no number"],
+  ])("has no bookmark target for %p / %p", (collection, citation) => {
+    expect(resolveHadithBookmarkTarget(collection, citation)).toBeNull();
+  });
+});

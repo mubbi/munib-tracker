@@ -4,7 +4,13 @@ import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/vali
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ListRenderItem, type ScrollView, StyleSheet, TextInput, View } from "react-native";
+import {
+  type ListRenderItem,
+  type ScrollViewInstance,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -12,11 +18,13 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { useResponsiveColumns } from "@/components/ui/responsive-grid";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useScrollToActiveHorizontal } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -27,6 +35,7 @@ import {
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
 import { zikrListProgress, zikrListRowProgress } from "@/lib/zikr-list-progress";
@@ -52,8 +61,11 @@ export function generateStaticParams(): Array<{ category: string }> {
 export default function ZikrCategoryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const tv = isTV();
+  // Wide web / tablets: adhkar flow into 2-3 columns (FlatList stays virtualized).
+  const autoColumns = useResponsiveColumns({ max: 3 });
+  const columns = tv ? 1 : autoColumns;
   const params = useLocalSearchParams<{
     category: string | string[];
     prayer?: string | string[];
@@ -96,7 +108,7 @@ export default function ZikrCategoryScreen() {
     if (linkedPrayer) setPrayerFilter(linkedPrayer);
   }, [linkedPrayer]);
 
-  const chipsScrollRef = useRef<ScrollView>(null);
+  const chipsScrollRef = useRef<ScrollViewInstance>(null);
   // Hold null until the chip bar mounts so deep-linked Maghrib/Witr still scroll
   // into view after the corpus finishes loading.
   const activePrayerChip = showPrayerFilter && corpusReady ? prayerFilter : null;
@@ -121,6 +133,12 @@ export default function ZikrCategoryScreen() {
     () => (searching ? zikrIndex.search(query) : items),
     [items, query, searching, zikrIndex],
   );
+  // TV: the first zikr row takes initial D-pad focus (not the search field).
+  // Pinned once so chip/search changes never yank focus back into the list.
+  const tvFirstFocusId = useRef<string | null>(null);
+  if (tv && tvFirstFocusId.current == null && !searching && filtered[0]) {
+    tvFirstFocusId.current = filtered[0].id;
+  }
 
   const listProgress = useMemo(() => {
     if (showPrayerFilter) {
@@ -159,6 +177,7 @@ export default function ZikrCategoryScreen() {
           onPress={onOpen}
           completed={completed}
           progressLabel={progressLabel}
+          preferredFocus={item.id === tvFirstFocusId.current}
         />
       );
     },
@@ -166,8 +185,15 @@ export default function ZikrCategoryScreen() {
   );
 
   const renderItem = useCallback<ListRenderItem<ZikrItem>>(
-    ({ item }) => renderZikrRow(item),
-    [renderZikrRow],
+    ({ item }) =>
+      columns > 1 ? (
+        <View style={[styles.gridCell, { width: `${100 / columns}%` as const }]}>
+          {renderZikrRow(item)}
+        </View>
+      ) : (
+        renderZikrRow(item)
+      ),
+    [columns, renderZikrRow],
   );
 
   const categoryName = t(`zikrCat.${categoryId}`);
@@ -190,7 +216,7 @@ export default function ZikrCategoryScreen() {
   const listChrome = (
     <>
       {showPrayerFilter ? (
-        <TvFocusGuide trapFocusUp trapFocusDown>
+        <TvFocusGuide autoFocus trapFocusLeft trapFocusRight>
           <TvScrollView
             ref={chipsScrollRef}
             horizontal
@@ -213,13 +239,24 @@ export default function ZikrCategoryScreen() {
                   style={[
                     styles.chip,
                     tv && styles.chipTv,
-                    { backgroundColor: active ? colors.accent : colors.muted },
+                    // TV: selected = soft fill + hairline so it never reads as the
+                    // D-pad focus ring (PressableScale draws that).
+                    tv
+                      ? {
+                          backgroundColor: active ? tokens.accentSoft : colors.muted,
+                          borderColor: active ? colors.accent : "transparent",
+                        }
+                      : { backgroundColor: active ? colors.accent : colors.muted },
                   ]}
                 >
                   <ThemedText
                     type="small"
                     style={{
-                      color: active ? colors.accentForeground : colors.foreground,
+                      color: active
+                        ? tv
+                          ? colors.accentText
+                          : colors.accentForeground
+                        : colors.foreground,
                       fontSize: tv ? TvLayout.bodyFontSize : undefined,
                     }}
                   >
@@ -261,7 +298,9 @@ export default function ZikrCategoryScreen() {
         style={[
           styles.input,
           tv && styles.inputTv,
-          { backgroundColor: colors.muted, color: colors.foreground },
+          columns > 1 && styles.inputWide,
+          tokens.inputSurface,
+          { color: colors.foreground },
         ]}
       />
     </>
@@ -324,7 +363,10 @@ export default function ZikrCategoryScreen() {
                 // Remount when the deep-linked salah tab arrives/changes — otherwise
                 // removeClippedSubviews + a late `?prayer=` update can leave a blank list
                 // until the user manually switches chips.
-                key={showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}
+                // numColumns also needs a remount when the column count changes.
+                key={`${showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}-${columns}`}
+                numColumns={columns}
+                columnWrapperStyle={columns > 1 ? styles.gridRow : undefined}
                 style={styles.flatList}
                 data={filtered}
                 extraData={zikrCounts}
@@ -337,7 +379,7 @@ export default function ZikrCategoryScreen() {
                 maxToRenderPerBatch={8}
                 windowSize={7}
                 removeClippedSubviews={false}
-                ListEmptyComponent={empty}
+                ListEmptyComponent={empty ?? undefined}
               />
             </View>
           )}
@@ -380,6 +422,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.three,
     justifyContent: "center",
+    borderWidth: StyleSheet.hairlineWidth,
   },
   input: {
     borderRadius: Radius.md,
@@ -391,8 +434,14 @@ const styles = StyleSheet.create({
   },
   inputTv: {
     minHeight: TvLayout.minFocusTarget,
-    fontSize: TvLayout.bodyFontSize,
+    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
     paddingHorizontal: Spacing.four,
   },
   separator: { height: Spacing.two },
+  inputWide: { maxWidth: 640 },
+  gridRow: { marginHorizontal: -Spacing.one },
+  gridCell: { paddingHorizontal: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/zikr/[category]");

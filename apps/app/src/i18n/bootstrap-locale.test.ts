@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { I18nManager } from "react-native";
 
@@ -9,22 +9,28 @@ import {
   RTL_LAYOUT_RETRY_KEY,
 } from "@/i18n";
 
-jest.mock("@/lib/i18n/rtl", () => {
-  const actual = jest.requireActual<typeof import("@/lib/i18n/rtl")>("@/lib/i18n/rtl");
-  return {
-    ...actual,
-    applyRtlForLocale: jest.fn(async () => true),
-    willRequireNativeReloadForLocale: jest.fn((code: string) => code === "ur"),
-  };
-});
-
-const rtl = jest.requireMock<typeof import("@/lib/i18n/rtl")>("@/lib/i18n/rtl");
+// `@/i18n` is preloaded by jest.setup.ts, so a `jest.mock("@/lib/i18n/rtl")` here
+// would never reach it — spy on the real export it calls instead.
+import * as rtl from "@/lib/i18n/rtl";
 
 describe("bootstrapAppLocale", () => {
+  let applyRtlForLocale: jest.SpiedFunction<typeof rtl.applyRtlForLocale>;
+
   beforeEach(async () => {
-    jest.clearAllMocks();
+    applyRtlForLocale = jest.spyOn(rtl, "applyRtlForLocale").mockResolvedValue(true);
     await AsyncStorage.clear();
     Object.defineProperty(I18nManager, "isRTL", { configurable: true, value: false });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("applies layout direction directly when no native reload is needed", async () => {
+    const result = await bootstrapAppLocale("en");
+
+    expect(applyRtlForLocale).toHaveBeenCalledWith("en");
+    expect(result).toBe(true);
   });
 
   it("falls back to strings when an RTL reload was already attempted", async () => {
@@ -34,7 +40,7 @@ describe("bootstrapAppLocale", () => {
     const reloaded = await bootstrapAppLocale("en");
 
     expect(reloaded).toBe(false);
-    expect(rtl.applyRtlForLocale).not.toHaveBeenCalled();
+    expect(applyRtlForLocale).not.toHaveBeenCalled();
     expect(await AsyncStorage.getItem(PENDING_APP_LOCALE_KEY)).toBeNull();
     expect(await AsyncStorage.getItem(RTL_LAYOUT_RETRY_KEY)).toBeNull();
   });
@@ -43,7 +49,7 @@ describe("bootstrapAppLocale", () => {
     const reloaded = await bootstrapAppLocale("ur");
 
     expect(reloaded).toBe(true);
-    expect(rtl.applyRtlForLocale).not.toHaveBeenCalled();
+    expect(applyRtlForLocale).not.toHaveBeenCalled();
     expect(consumePendingRtlReloadLocale()).toBe("ur");
     expect(await AsyncStorage.getItem(PENDING_APP_LOCALE_KEY)).toBe("ur");
     expect(await AsyncStorage.getItem(RTL_LAYOUT_RETRY_KEY)).toBe("ur");

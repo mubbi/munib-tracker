@@ -29,6 +29,13 @@ export interface NotificationPreferences {
    * work in Expo Go or on the web).
    */
   playAdhanOnPrayer: boolean;
+  /**
+   * Android only, opt-in (default off): schedule Adhan notifications as exact
+   * alarm-clock alarms (`AlarmManager.setAlarmClock`) so battery optimisation can't
+   * delay them. Needs the exact-alarm permission; without it Android falls back to
+   * normal scheduling. The status bar shows an alarm icon until the Adhan fires.
+   */
+  preciseAdhan?: boolean;
   /** A daily reflection nudge (verse / hadith of the day) — NF-1.24. */
   dailyContent: boolean;
   /** Friday reminder for Jumu'ah, Surah Al-Kahf, and the hour of acceptance — NF-1.25. */

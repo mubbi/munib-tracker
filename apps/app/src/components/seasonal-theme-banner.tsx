@@ -9,6 +9,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import {
   currentSeasonalTheme,
@@ -43,21 +44,9 @@ export function SeasonalThemeBanner() {
   if (!season) return null;
 
   const { visual } = season;
-
-  return (
-    <PressableScale
-      onPress={() => router.push(seasonalBannerHref(season))}
-      haptic="light"
-      scaleTo={0.98}
-      accessibilityRole="button"
-      accessibilityLabel={t(`seasonalTheme.${season.id}BannerTitle`)}
-      style={[
-        styles.banner,
-        gradientBackground(
-          `linear-gradient(135deg, ${visual.gradientTop} 0%, ${visual.gradientMid} 52%, ${visual.gradientBottom} 100%)`,
-        ),
-      ]}
-    >
+  const tv = isTV();
+  const body = (
+    <>
       <SeasonalArt id={season.id} visual={visual} />
 
       <View style={styles.content}>
@@ -79,12 +68,32 @@ export function SeasonalThemeBanner() {
           <ThemedText type="caption" style={styles.subtitle} numberOfLines={3}>
             {t(`seasonalTheme.${season.id}BannerDesc`)}
           </ThemedText>
-          <ThemedText type="caption" style={styles.disclaimer}>
+          <ThemedText type="caption" style={[styles.disclaimer, tv ? styles.disclaimerTv : null]}>
             {t("seasonalTheme.dateDisclaimer")}
           </ThemedText>
         </View>
         <SymbolView name={chevronForward} size={16} tintColor={withAlpha("#FFFFFF", 0.7)} />
       </View>
+    </>
+  );
+
+  return (
+    <PressableScale
+      onPress={() => router.push(seasonalBannerHref(season))}
+      haptic="light"
+      scaleTo={0.98}
+      accessibilityRole="button"
+      accessibilityLabel={t(`seasonalTheme.${season.id}BannerTitle`)}
+      style={[
+        styles.banner,
+        gradientBackground(
+          `linear-gradient(135deg, ${visual.gradientTop} 0%, ${visual.gradientMid} 52%, ${visual.gradientBottom} 100%)`,
+        ),
+      ]}
+    >
+      {/* TV: PressableScale un-clips its host so the focus ring can grow; clip the
+        art in an inner rounded shell instead so it never spills past the banner. */}
+      {tv ? <View style={styles.clipTv}>{body}</View> : body}
     </PressableScale>
   );
 }
@@ -97,6 +106,13 @@ const styles = StyleSheet.create({
     minHeight: 124,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: withAlpha("#FFFFFF", 0.12),
+  },
+  clipTv: {
+    flexGrow: 1,
+    minHeight: 124,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    overflow: "hidden",
   },
   content: {
     flexDirection: "row",
@@ -136,5 +152,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 14,
     marginTop: 2,
+  },
+  /** 10pt fine print is unreadable at 3m on Android TV. */
+  disclaimerTv: {
+    fontSize: 13,
+    lineHeight: 18,
   },
 });

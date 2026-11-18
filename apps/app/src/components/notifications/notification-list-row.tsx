@@ -18,6 +18,7 @@ import {
   type NotificationCategory,
   resolveNotificationVisual,
 } from "@/lib/notifications/notification-visuals";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 
 export type NotificationListItem = {
@@ -111,12 +112,15 @@ export function NotificationListRow({ item, formattedWhen, onPress }: Notificati
   const isUnread = item.inboxId != null && item.readAt == null;
   const isUpcoming = item.inboxId == null && new Date(item.at).getTime() > Date.now();
   const isPressable = onPress != null;
+  const tv = isTV();
 
   const rowStyle = [
     styles.row,
     {
       backgroundColor: isUnread ? tokens.accentSoft : isUpcoming ? palette.iconBg : colors.muted,
-      borderColor: isUnread ? colors.accent : "transparent",
+      // TV: unread = soft fill + hairline so it never reads like the D-pad focus ring.
+      borderColor: isUnread ? (tv ? tokens.accentBorder : colors.accent) : "transparent",
+      borderWidth: tv ? StyleSheet.hairlineWidth : 1,
       opacity: item.readAt ? 0.88 : 1,
     },
   ];

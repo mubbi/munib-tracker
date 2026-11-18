@@ -11,6 +11,8 @@ import { Spacing } from "@/constants/theme";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
@@ -72,7 +74,9 @@ export default function DuaFavoritesScreen() {
           onAction={() => router.replace("/dua")}
         />
       ) : (
-        <Card padding="three">
+        // Wide web / tablets: a reorderable list reads best as one capped column
+        // (move up / down keeps a linear order). TV keeps the full width.
+        <Card padding="three" style={isTV() ? undefined : styles.listCard}>
           <View style={styles.list}>
             {items.map((item, index) => (
               <FavoritesOrderRow
@@ -97,7 +101,11 @@ export default function DuaFavoritesScreen() {
 }
 
 const styles = StyleSheet.create({
+  listCard: { width: "100%", maxWidth: 760, alignSelf: "center" },
   list: {
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/dua/favorites");

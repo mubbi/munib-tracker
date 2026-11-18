@@ -25,4 +25,18 @@ describe.concurrent("resolveTheme", () => {
     const second = resolveTheme("light", "light", "forest");
     expect(first).toBe(second);
   });
+
+  it.each([null, undefined])("defaults to light when the system scheme is %s", (scheme) => {
+    expect(resolveTheme("system", scheme)).toBe(resolveTheme("light", "light"));
+  });
+
+  it("falls back to the default accent for unknown ids", () => {
+    expect(resolveTheme("light", null, "unknown" as never).accent).toBe(
+      resolveTheme("light", null).accent,
+    );
+  });
+
+  it("shares cached references between explicit and system-resolved schemes", () => {
+    expect(resolveTheme("dark", null, "teal")).toBe(resolveTheme("system", "dark", "teal"));
+  });
 });

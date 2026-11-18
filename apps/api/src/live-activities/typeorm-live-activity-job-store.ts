@@ -5,7 +5,7 @@ import type {
 } from "@munib-tracker/live-activity-delivery";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { LessThan, LessThanOrEqual, Repository } from "typeorm";
+import { In, LessThan, LessThanOrEqual, Repository } from "typeorm";
 import { LiveActivityPushJobEntity, LiveActivityPushTokenEntity } from "../database/entities";
 
 /**
@@ -100,6 +100,23 @@ export class TypeOrmLiveActivityJobStore implements LiveActivityJobStore {
     return due.map((job) => job.id);
   }
 
+  async hasNewerDueJob(
+    job: Pick<LiveActivityJobRecord, "id" | "activityTokenId" | "executeAt">,
+    now: Date,
+  ): Promise<boolean> {
+    const count = await this.jobRepository
+      .createQueryBuilder("job")
+      .where("job.activityTokenId = :activityTokenId", { activityTokenId: job.activityTokenId })
+      .andWhere("job.id != :id", { id: job.id })
+      .andWhere("job.executeAt > :executeAt", { executeAt: job.executeAt })
+      .andWhere("job.executeAt <= :now", { now })
+      .andWhere("job.status IN (:...statuses)", {
+        statuses: ["pending", "processing", "delivered"],
+      })
+      .getCount();
+    return count > 0;
+  }
+
   async expireActiveTokens(now = new Date()): Promise<number[]> {
     const expired = await this.tokenRepository.find({
       where: { status: "active", expiresAt: LessThanOrEqual(now) },
@@ -112,8 +129,10 @@ export class TypeOrmLiveActivityJobStore implements LiveActivityJobStore {
   }
 
   async deleteOldExpiredTokens(cutoff: Date): Promise<number> {
+    // Ended / invalid rows still hold an encrypted APNs token — purge them on
+    // the same retention as naturally expired activities (jobs cascade).
     const result = await this.tokenRepository.delete({
-      status: "expired",
+      status: In(["expired", "ended", "invalid"]),
       updatedAt: LessThan(cutoff),
     });
     return result.affected ?? 0;

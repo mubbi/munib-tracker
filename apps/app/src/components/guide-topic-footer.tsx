@@ -1,13 +1,16 @@
 import { usePathname } from "expo-router";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LessonCompleteButton } from "@/components/lesson-complete-button";
 import { Button } from "@/components/ui/button";
 import { absoluteUrl } from "@/config/seo";
 import { Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { tTv } from "@/lib/i18n/t-tv";
+import { isTV } from "@/lib/platform/is-tv";
 import { formatGuideShare } from "@/lib/share";
 
 type GuideTopic = {
@@ -42,6 +45,12 @@ export function GuideTopicFooter({
   const pathname = usePathname();
   const shareCard = useShareContentCard();
   const pageUrl = absoluteUrl(pathname);
+  // No system share sheet on tvOS / Android TV — hide Share there.
+  const canShare = !isTV();
+  // Tablet / desktop: Share + Mark complete side by side instead of two
+  // full-width bars stacked across the reading column.
+  const { wide } = useLearnWideLayout();
+  const cell = (node: ReactNode) => (wide ? <View style={styles.actionCell}>{node}</View> : node);
 
   const onShare = async () => {
     await shareCard.share({
@@ -68,25 +77,29 @@ export function GuideTopicFooter({
 
   return (
     <>
-      {shareCard.SnapshotHost}
-      <View style={styles.actions}>
-        <Button
-          label={
-            shareCard.isSharing(topic.id)
-              ? t("share.preparing")
-              : shareCard.isGesturePending(topic.id)
-                ? tTv(t, "share.tapToShare", "share.selectToShare")
-                : t("reading.share")
-          }
-          variant="secondary"
-          fullWidth
-          icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-          disabled={shareCard.isSharing(topic.id)}
-          onPress={onShare}
-        />
-        {showComplete && onToggleComplete ? (
-          <LessonCompleteButton ns={ns} completed={completed} onToggle={onToggleComplete} />
-        ) : null}
+      {canShare ? shareCard.SnapshotHost : null}
+      <View style={[styles.actions, wide && styles.actionsRow]}>
+        {canShare
+          ? cell(
+              <Button
+                label={
+                  shareCard.isSharing(topic.id)
+                    ? t("share.preparing")
+                    : shareCard.isGesturePending(topic.id)
+                      ? tTv(t, "share.tapToShare", "share.selectToShare")
+                      : t("reading.share")
+                }
+                variant="secondary"
+                fullWidth
+                icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                disabled={shareCard.isSharing(topic.id)}
+                onPress={onShare}
+              />,
+            )
+          : null}
+        {showComplete && onToggleComplete
+          ? cell(<LessonCompleteButton ns={ns} completed={completed} onToggle={onToggleComplete} />)
+          : null}
       </View>
     </>
   );
@@ -95,5 +108,12 @@ export function GuideTopicFooter({
 const styles = StyleSheet.create({
   actions: {
     gap: Spacing.two,
+  },
+  actionsRow: {
+    flexDirection: "row",
+  },
+  actionCell: {
+    flex: 1,
+    minWidth: 0,
   },
 });

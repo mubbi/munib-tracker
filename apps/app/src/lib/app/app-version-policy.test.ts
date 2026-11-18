@@ -1,11 +1,16 @@
 import { describe, expect, it } from "@jest/globals";
 import { needsExplicitVersionPolling } from "@/lib/app/app-version-background-check";
 import {
+  clientNeedsUpdate,
   isHardUpdateBlockingApp,
+  isPendingUpdate,
   normalizeIncomingVersionMeta,
   shouldShowSettingsUpdateBadge,
   shouldShowUpdateModal,
 } from "@/lib/app/app-version-policy";
+import { resolveAppPlatform } from "@/lib/app/resolve-app-platform";
+import { buildAppVersionMeta } from "@/test-support/fixtures/app-version";
+import { usePlatform } from "@/test-support/platform";
 
 describe("appVersionPolicy", () => {
   const softMeta = {
@@ -52,5 +57,58 @@ describe("needsExplicitVersionPolling", () => {
 
   it("skips interval poll when signed in and online", () => {
     expect(needsExplicitVersionPolling({ isLoggedIn: true, isOnline: true })).toBe(false);
+  });
+});
+
+describe("clientNeedsUpdate", () => {
+  it.each([
+    ["hard, below the minimum", "0.4.0", { updateRequired: "hard" as const }, true],
+    ["hard, at the minimum", "0.5.0", { updateRequired: "hard" as const }, false],
+    ["soft, below the soft minimum", "1.0.0", {}, true],
+    ["soft, below latest only", "1.1.5", {}, true],
+    ["soft, current", "1.2.0", {}, false],
+    ["none", "0.1.0", { updateRequired: "none" as const }, false],
+  ])("%s → %p", (_label, client, overrides, expected) => {
+    expect(clientNeedsUpdate(client, buildAppVersionMeta(overrides))).toBe(expected);
+  });
+});
+
+describe("normalizeIncomingVersionMeta / isPendingUpdate", () => {
+  it("drops metadata that requires nothing", () => {
+    expect(
+      normalizeIncomingVersionMeta(null, buildAppVersionMeta({ updateRequired: "none" }), "1.0.0"),
+    ).toBeNull();
+    expect(isPendingUpdate(null)).toBe(false);
+  });
+
+  it("keeps metadata the client still needs", () => {
+    const meta = buildAppVersionMeta();
+    expect(normalizeIncomingVersionMeta(null, meta, "1.0.0")).toBe(meta);
+    expect(isPendingUpdate(meta)).toBe(true);
+  });
+
+  it("never badges settings for a hard update", () => {
+    expect(
+      shouldShowSettingsUpdateBadge(buildAppVersionMeta({ updateRequired: "hard" }), true),
+    ).toBe(false);
+    expect(shouldShowSettingsUpdateBadge(null, true)).toBe(false);
+  });
+
+  it("always shows the modal for hard updates", () => {
+    expect(shouldShowUpdateModal(buildAppVersionMeta({ updateRequired: "hard" }), true)).toBe(true);
+  });
+});
+
+describe("resolveAppPlatform", () => {
+  it("is ios by default", () => {
+    expect(resolveAppPlatform()).toBe("ios");
+  });
+
+  describe("on web", () => {
+    usePlatform({ OS: "web" });
+
+    it("is web", () => {
+      expect(resolveAppPlatform()).toBe("web");
+    });
   });
 });

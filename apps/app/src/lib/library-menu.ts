@@ -34,6 +34,7 @@ function fromQuickAction(id: string, section: LibrarySectionId): LibraryMenuDef 
 export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   // Read first — Qur'an / hadith are primary destinations, not buried under Track.
   fromQuickAction("quran", "read"),
+  fromQuickAction("quranPractice", "read"),
   fromQuickAction("verseDetector", "read"),
   fromQuickAction("hadith", "read"),
   fromQuickAction("bookmarks", "read"),
@@ -172,6 +173,15 @@ export const LIBRARY_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>>
   duroods: ["durood", "darood", "salawat", "salawaat", "durud"],
   names: ["99 names", "asma", "asmaul husna", "asma ul husna", "names of allah"],
   quran: ["quran", "koran", "quraan", "alquran", "al quran"],
+  quranPractice: [
+    "practice",
+    "recite",
+    "recitation",
+    "revision",
+    "hifz",
+    "memorize",
+    "tajweed practice",
+  ],
   hadith: ["hadeeth", "ahadith", "hadiths"],
   verseDetector: ["verse", "ayah", "ayat", "detector", "recognize verse"],
   bookmarks: ["saved", "favorites", "favourite"],

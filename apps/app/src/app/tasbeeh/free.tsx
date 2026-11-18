@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { CustomTargetModal } from "@/components/tasbeeh/custom-target-modal";
@@ -15,8 +15,10 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { getRouteFaq } from "@/lib/seo/faq-content";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   useCustomTasbeehActions,
@@ -30,6 +32,9 @@ export default function FreeTasbeehScreen() {
   useEnsureCustomTasbeehLoaded();
   const customItems = useCustomTasbeehList();
   const { create } = useCustomTasbeehActions();
+  const { width } = useWindowDimensions();
+  // Wide web / tablets: quick counter beside "Your counters" (TV keeps one column).
+  const wide = !isTV() && width >= 1024;
 
   const [count, setCount] = useState(0);
   const [target, setTarget] = useState(33);
@@ -44,6 +49,55 @@ export default function FreeTasbeehScreen() {
     const item = await create(values);
     openCustom(item.id);
   };
+
+  const counterSection = [
+    <SectionHeader key="quick-head" title={t("tasbeeh.quickCounter")} icon={TASBEEH_ICON} />,
+    <Card key="quick-card" variant="plain" padding="five" style={styles.card}>
+      <TasbeehCounter
+        count={count}
+        target={target}
+        onIncrement={() => setCount((c) => (target > 0 ? Math.min(c + 1, target) : c + 1))}
+        onDecrement={() => setCount((c) => Math.max(0, c - 1))}
+        onReset={() => setCount(0)}
+        onSelectMode={setTarget}
+        onCustom={() => setCustomOpen(true)}
+        keyboardShortcuts={!customOpen && !createOpen}
+      />
+    </Card>,
+    <View key="quick-hint" style={styles.hint}>
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.hintText}>
+        {t("tasbeeh.freeHint")}
+      </ThemedText>
+    </View>,
+  ];
+
+  const customSection = [
+    <SectionHeader
+      key="custom-head"
+      title={t("tasbeeh.customSection")}
+      icon={{ ios: "square.stack.3d.up.fill", android: "layers", web: "layers" }}
+      actionLabel={t("tasbeeh.customCreateAction")}
+      onActionPress={() => setCreateOpen(true)}
+    />,
+    customItems.length === 0 ? (
+      <EmptyState
+        key="custom-empty"
+        icon={{ ios: "plus.circle.fill", android: "add_circle", web: "add_circle" }}
+        title={t("tasbeeh.customEmptyTitle")}
+        description={t("tasbeeh.customEmptyDesc")}
+        actionLabel={t("tasbeeh.customCreateAction")}
+        onAction={() => setCreateOpen(true)}
+      />
+    ) : (
+      <Card key="custom-list" padding="three">
+        <View style={styles.list}>
+          {customItems.map((item) => (
+            <CustomTasbeehRow key={item.id} item={item} onPress={() => openCustom(item.id)} />
+          ))}
+        </View>
+      </Card>
+    ),
+  ];
 
   return (
     <ScreenLayout
@@ -73,49 +127,13 @@ export default function FreeTasbeehScreen() {
         ]}
       />
       <Stagger>
-        <SectionHeader title={t("tasbeeh.quickCounter")} icon={TASBEEH_ICON} />
-
-        <Card variant="plain" padding="five" style={styles.card}>
-          <TasbeehCounter
-            count={count}
-            target={target}
-            onIncrement={() => setCount((c) => (target > 0 ? Math.min(c + 1, target) : c + 1))}
-            onDecrement={() => setCount((c) => Math.max(0, c - 1))}
-            onReset={() => setCount(0)}
-            onSelectMode={setTarget}
-            onCustom={() => setCustomOpen(true)}
-          />
-        </Card>
-
-        <View style={styles.hint}>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hintText}>
-            {t("tasbeeh.freeHint")}
-          </ThemedText>
-        </View>
-
-        <SectionHeader
-          title={t("tasbeeh.customSection")}
-          icon={{ ios: "square.stack.3d.up.fill", android: "layers", web: "layers" }}
-          actionLabel={t("tasbeeh.customCreateAction")}
-          onActionPress={() => setCreateOpen(true)}
-        />
-
-        {customItems.length === 0 ? (
-          <EmptyState
-            icon={{ ios: "plus.circle.fill", android: "add_circle", web: "add_circle" }}
-            title={t("tasbeeh.customEmptyTitle")}
-            description={t("tasbeeh.customEmptyDesc")}
-            actionLabel={t("tasbeeh.customCreateAction")}
-            onAction={() => setCreateOpen(true)}
-          />
+        {wide ? (
+          <View style={styles.wideRow}>
+            <View style={styles.wideCol}>{counterSection}</View>
+            <View style={styles.wideCol}>{customSection}</View>
+          </View>
         ) : (
-          <Card padding="three">
-            <View style={styles.list}>
-              {customItems.map((item) => (
-                <CustomTasbeehRow key={item.id} item={item} onPress={() => openCustom(item.id)} />
-              ))}
-            </View>
-          </Card>
+          [...counterSection, ...customSection]
         )}
       </Stagger>
 
@@ -137,6 +155,8 @@ export default function FreeTasbeehScreen() {
 }
 
 const styles = StyleSheet.create({
+  wideRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.five },
+  wideCol: { flex: 1, minWidth: 0, gap: Spacing.three },
   card: {
     alignItems: "stretch",
   },
@@ -152,3 +172,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/tasbeeh/free");

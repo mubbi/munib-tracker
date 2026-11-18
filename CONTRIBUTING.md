@@ -34,7 +34,7 @@ Look for issues labeled `good first issue` or `help wanted`.
 
 ## Development setup
 
-**Prerequisites:** Node.js ≥ 22 (CI uses Node 22), pnpm 11.26 (`corepack enable`).
+**Prerequisites:** Node.js ≥ 24.15 (`.nvmrc`; CI uses Node 24), pnpm 12.21 (`corepack enable`).
 
 ```bash
 pnpm install          # always from repo root
@@ -44,14 +44,14 @@ pnpm check:ci         # full CI profile locally
 
 ### Run individual apps
 
-| App | Command | Notes |
-|-----|---------|--------|
-| Product (Expo) | `pnpm dev:app` | Guest/offline works without API keys |
-| Marketing | `pnpm dev:marketing-web` | http://localhost:3000 |
-| Admin | `pnpm dev:admin` | http://localhost:3002 — copy `apps/admin/.env.example` → `.env.local` |
-| API | `pnpm dev:api` | Needs `apps/api/.env` from `.env.example` |
-| Apple TV / Android TV | `pnpm prebuild:app:tv` then `pnpm dev:app:tv:ios` / `tv:android` | See [`docs/TV.md`](docs/TV.md) |
-| Screenshot studio | `pnpm dev:screenshot-studio` | http://localhost:3010 — store framing ([`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)) |
+| App                   | Command                                                          | Notes                                                                                  |
+| --------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Product (Expo)        | `pnpm dev:app`                                                   | Guest/offline works without API keys                                                   |
+| Marketing             | `pnpm dev:marketing-web`                                         | http://localhost:3000                                                                  |
+| Admin                 | `pnpm dev:admin`                                                 | http://localhost:3002 — copy `apps/admin/.env.example` → `.env.local`                  |
+| API                   | `pnpm dev:api`                                                   | Needs `apps/api/.env` from `.env.example`                                              |
+| Apple TV / Android TV | `pnpm prebuild:app:tv` then `pnpm dev:app:tv:ios` / `tv:android` | See [`docs/TV.md`](docs/TV.md)                                                         |
+| Screenshot studio     | `pnpm dev:screenshot-studio`                                     | http://localhost:3010 — store framing ([`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)) |
 
 Copy env templates only — never commit real secrets:
 
@@ -87,19 +87,19 @@ git commit -m "feat(app): add white days calendar reminder"
 [optional footer(s)]
 ```
 
-| Type | Use for |
-|------|---------|
-| `feat` | New user-facing capability |
-| `fix` | Bug fix |
-| `docs` | Documentation only |
-| `style` | Formatting / lint (no behavior change) |
+| Type       | Use for                                  |
+| ---------- | ---------------------------------------- |
+| `feat`     | New user-facing capability               |
+| `fix`      | Bug fix                                  |
+| `docs`     | Documentation only                       |
+| `style`    | Formatting / lint (no behavior change)   |
 | `refactor` | Code change that is not a fix or feature |
-| `perf` | Performance improvement |
-| `test` | Tests only |
-| `build` | Build system or dependencies |
-| `ci` | CI / GitHub Actions |
-| `chore` | Maintenance that does not fit above |
-| `revert` | Revert a previous commit |
+| `perf`     | Performance improvement                  |
+| `test`     | Tests only                               |
+| `build`    | Build system or dependencies             |
+| `ci`       | CI / GitHub Actions                      |
+| `chore`    | Maintenance that does not fit above      |
+| `revert`   | Revert a previous commit                 |
 
 **Optional scopes** (monorepo): `app`, `api`, `admin`, `marketing`, `shared`, `db`, `theme`, `ci`, `deps`, `docs`, `i18n`, `release`, `tv`, `screenshots`.
 
@@ -117,11 +117,11 @@ Breaking changes: add `!` after the type/scope (`feat(api)!: …`) and/or a `BRE
 Versions are cut by [Release Please](https://github.com/googleapis/release-please-action)
 from Conventional Commits on `main`:
 
-| Commit | SemVer |
-|--------|--------|
-| `fix:` | patch |
-| `feat:` | minor |
-| type with `!` or `BREAKING CHANGE:` | major |
+| Commit                              | SemVer |
+| ----------------------------------- | ------ |
+| `fix:`                              | patch  |
+| `feat:`                             | minor  |
+| type with `!` or `BREAKING CHANGE:` | major  |
 
 Release Please attributes bumps by **files under each app path**
 (`apps/app`, `apps/api`, `apps/admin`, `apps/marketing-web`). A change only under
@@ -145,7 +145,7 @@ Full guide (tags, Release PRs, product build numbers): [`docs/RELEASES.md`](docs
 - [ ] Tests added/updated when behavior changes
 - [ ] i18n keys added for new product UI strings (Phase 1: `en` + `ar`/`ur` when touching those locales)
 - [ ] No secrets, keystores, `.p8`, `.cer`, or real `.env` files
-- [ ] PR description explains *why* and links the related issue
+- [ ] PR description explains _why_ and links the related issue
 - [ ] Attribution / license notices left intact
 - [ ] No sponsorship / funding / donation solicitations
 

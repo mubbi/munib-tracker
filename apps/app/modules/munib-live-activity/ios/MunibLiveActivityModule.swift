@@ -196,36 +196,55 @@ final class PrayerActivityController {
 }
 
 public class MunibLiveActivityModule: Module {
+  private static let observedEvents: Set<String> = ["onPushToken", "onActivityState"]
+  /// Events that currently have at least one JS listener.
+  private var listenedEvents = Set<String>()
+
+  // Expo Modules lifecycle hooks (SDK 58 replacements for the deprecated
+  // `OnStartObserving` / `OnStopObserving` DSL components). ActivityKit observers
+  // run while any of the module's events has a listener.
+  public override func didStartListening(event: String) {
+    guard Self.observedEvents.contains(event) else { return }
+    let wasIdle = listenedEvents.isEmpty
+    listenedEvents.insert(event)
+    if wasIdle { startObservingActivities() }
+  }
+
+  public override func didStopListening(event: String) {
+    guard listenedEvents.remove(event) != nil, listenedEvents.isEmpty else { return }
+    stopObservingActivities()
+  }
+
+  private func startObservingActivities() {
+    if #available(iOS 16.2, *) {
+      let controller = PrayerActivityController.shared
+      controller.onPushToken = { [weak self] activityId, pushToken, environment in
+        self?.sendEvent("onPushToken", [
+          "activityId": activityId,
+          "pushToken": pushToken,
+          "environment": environment,
+        ])
+      }
+      controller.onActivityState = { [weak self] activityId, state in
+        self?.sendEvent("onActivityState", [
+          "activityId": activityId,
+          "state": state,
+        ])
+      }
+      controller.observeExisting()
+    }
+  }
+
+  private func stopObservingActivities() {
+    if #available(iOS 16.2, *) {
+      PrayerActivityController.shared.onPushToken = nil
+      PrayerActivityController.shared.onActivityState = nil
+    }
+  }
+
   public func definition() -> ModuleDefinition {
     Name("MunibLiveActivity")
     Events("onPushToken", "onActivityState")
-
-    OnStartObserving {
-      if #available(iOS 16.2, *) {
-        let controller = PrayerActivityController.shared
-        controller.onPushToken = { [weak self] activityId, pushToken, environment in
-          self?.sendEvent("onPushToken", [
-            "activityId": activityId,
-            "pushToken": pushToken,
-            "environment": environment,
-          ])
-        }
-        controller.onActivityState = { [weak self] activityId, state in
-          self?.sendEvent("onActivityState", [
-            "activityId": activityId,
-            "state": state,
-          ])
-        }
-        controller.observeExisting()
-      }
-    }
-
-    OnStopObserving {
-      if #available(iOS 16.2, *) {
-        PrayerActivityController.shared.onPushToken = nil
-        PrayerActivityController.shared.onActivityState = nil
-      }
-    }
 
     Function("isSupported") { () -> Bool in
       if #available(iOS 16.2, *) {

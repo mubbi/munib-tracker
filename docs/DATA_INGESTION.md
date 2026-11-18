@@ -10,14 +10,13 @@
 
 ## 0. How to extend the pipeline
 
-1. **Read Expo SDK 57 docs** before runtime changes — especially `expo-audio`.
+1. **Read Expo SDK 58 docs** before runtime changes — especially `expo-audio`.
 2. **Regenerate bundled data** after script changes: `pnpm --filter app build:data`.
 3. Run gates: `pnpm --filter app check-types`, `pnpm format-and-lint:fix`, `pnpm --filter app test`.
 4. **Do not add native dependencies** for content ingestion.
 5. **Never alter Arabic text** byte-for-byte in source datasets.
 
 ### 0.1 Existing platform pieces (reuse — do not rebuild)
-
 
 - **Audio already exists.** `src/providers/audio-player-provider.tsx` exports `AudioPlayerProvider`
   (mounted in `src/app/_layout.tsx`) and `useAudioPlayerContext()` built on **`expo-audio`**. It
@@ -37,7 +36,7 @@
   maps `@/assets/* → ./assets/*`. → Put generated data at **`apps/app/assets/data/…`** and reference
   it as `@/assets/data/…`. (Not `src/assets/`.)
 - **Content types already have `audioUri?`** (`NameOfAllah`, `DuaItem`, `DurudItem`, and `ZikrItem`).
-  → You only need to **populate** it, plus add the few *new* optional fields in §6.
+  → You only need to **populate** it, plus add the few _new_ optional fields in §6.
 - **Store pattern:** `src/stores/create-store.ts` (`createStore`/`useStore`, `useSyncExternalStore`).
   Mirror `preferences-store.ts` exactly for any new store.
 - **Repo pattern:** `src/db/store.ts` (`readJSON`/`writeJSON`/`removeKey`/`KeyedCollection`),
@@ -48,8 +47,13 @@
   `ZIKR_ITEMS` directly from `@munib-tracker/shared/content`. Duas/Names screens import content
   directly (no `lib/dua.ts`/`lib/names.ts` exist). Mirror `lib/zikr.ts` for `lib/quran.ts` /
   `lib/hadith.ts`.
-- **Home surfaces features** via the `quickActions: QuickActionItem[]` array in
-  `src/app/(tabs)/index.tsx` (`router.push("/zikr")`, etc.). Add Qur'an + Hadith entries there.
+- **Home surfaces features** via the `QUICK_ACTION_META` registry in `src/lib/quick-actions.ts`
+  (rendered by `src/components/home-below-fold.tsx`; users reorder them in `settings/home`). Add new
+  feature entries there, not in `src/app/(tabs)/index.tsx` (now a thin hero shell).
+- **On-device files:** use the class-based `expo-file-system` API (`File` / `Directory` / `Paths`)
+  through `src/lib/native-file-store.ts` (`documentDirectoryUri()`, `cacheDirectoryUri()`,
+  `downloadToUri()`), which keeps legacy on-disk paths so existing caches (`audio-cache.ts`,
+  `qcf-font-cache.ts`, recitation models) are still found. Don't import `expo-file-system/legacy`.
 - **i18n:** `src/i18n/{locale}.json` for **24 locales** (see [`I18N_GUIDE.md`](./I18N_GUIDE.md)). Existing namespaces include `actions`, `zikr`, `zikrCat`,
   `dua`, `duaCat`, `duroods`, `names`, and a shared `reading` (`{ reference: "Reference: {{ref}}" }`).
   Add `actions.quran`, `actions.hadith`, and `quran`/`hadith`/`credits` namespaces in **all 23**
@@ -57,37 +61,44 @@
 - **Expo experiments ON:** `typedRoutes: true` (routes are type-checked — new `app/quran/*` &
   `app/hadith/*` files auto-generate route types on `expo start`) and `reactCompiler: true` (don't
   fight the compiler with manual memo hacks).
-- **Package manager:** **pnpm 11 workspace + Turborepo.** Commands: `pnpm --filter app <script>`.
+- **Package manager:** **pnpm 12 workspace + Turborepo.** Commands: `pnpm --filter app <script>`.
 
 ---
 
 ## 1. Delivery decisions
 
-| # | Decision | Delivery | Source (no-key) |
-|---|---|---|---|
-| D1 | **Qur'an Arabic (Uthmani/Ḥafṣ) + English transliteration + 2 public-domain translations (Pickthall, Yusuf Ali) + 1 Urdu (Jalandhry)** | **Bundled JSON assets**, lazy per-surah | `risan/quran-json` via jsDelivr CDN (build-time fetch) |
-| D2 | **Extra Qur'an translations (Saheeh International, Clear Qur'an/Khattab) + tafsir** | **Live CDN, on-demand**, cached (react-query + AsyncStorage) | Translations: `fawazahmed0/quran-api` jsDelivr. Tafsir: `spa5k/tafsir_api` (multi-lang) + fawaz Siraj |
-| D3 | **Qur'an recitation audio (Arabic, per-ayah)** | **Streamed** from CDN, optional per-surah download later | `everyayah.com` predictable URLs |
-| D4 | **Qur'an English audio-translation** | **Streamed**, per-surah | `QuranicAudio.com` (Ibrahim Walk / Saheeh Intl) |
-| D5 | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)** | **Bundled JSON**, offline | `AhmedBaset/hadith-json` (build-time; license policy §12). Includes structured `isnad[]` (NF-2.9). |
-| D5b | **Hadith — Nawawi Arabic sharh (NF-2.8)** | **Bundled sidecar** `nawawi40-sharh.json` | `osamayy/40-hadith-nawawi-db` (Unlicense); merged at load in `hadith-bundled.ts` |
-| D6 | **Hadith — full six-books browse/search** | **Live CDN, on-demand**, cached | `fawazahmed0/hadith-api` jsDelivr (no key). No sharh/isnad yet. |
-| D7 | **Duas + Adhkar → full Hisnul Muslim** | **Bundled** (`packages/shared` via `build-adhkar.mjs`) — **270** duas | `sheikhhanif/Hisnul_Muslim_Database` + related OSS |
-| D8 | **Names of Allah → complete 99** | **Bundled** (`names.ts` via `build-names.mjs`) | standard Asma-ul-Husna (from fawazahmed0 / muslimKit) |
-| D9 | **Dua/Adhkar/99-Names audio** | **Streamed** | Internet Archive (Hisnul Muslim audio, Asma-ul-Husna) |
-| D10 | **Prayer times / Qibla** | **On-device calc (unchanged)** | `adhan` (installed) + `expo-location` |
-| D11 | **Adhan call audio (for notifications)** | **Bundled baseline MP3** + remote CDN styles; expand local set | `assets/audio/adhan/` + Kiwifu/adhan-mp3 |
-| D12 | **Integrity, not encryption** | SHA-256 per data file in a manifest; **no encryption of scripture** | `expo-crypto` (installed) |
+| #   | Decision                                                                                                                    | Delivery                                                              | Source (no-key)                                                                                       |
+| --- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| D1  | **Qur'an Arabic (Uthmani/Ḥafṣ) + English transliteration + Pickthall (EN) + Jalandhry (UR); Yusuf Ali is remote-only (D2)** | **Bundled JSON assets**, lazy per-surah                               | `risan/quran-json` via jsDelivr CDN (build-time fetch)                                                |
+| D2  | **Extra Qur'an translations (Saheeh International, Clear Qur'an/Khattab) + tafsir**                                         | **Live CDN, on-demand**, cached (react-query + AsyncStorage)          | Translations: `fawazahmed0/quran-api` jsDelivr. Tafsir: `spa5k/tafsir_api` (multi-lang) + fawaz Siraj |
+| D3  | **Qur'an recitation audio (Arabic, per-ayah)**                                                                              | **Streamed** from CDN, optional per-surah download later              | `everyayah.com` predictable URLs                                                                      |
+| D4  | **Qur'an English audio-translation**                                                                                        | **Streamed**, per-surah                                               | `QuranicAudio.com` (Ibrahim Walk / Saheeh Intl)                                                       |
+| D5  | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)**                                                               | **Bundled JSON**, offline                                             | `AhmedBaset/hadith-json` (build-time; license policy §12). Includes structured `isnad[]` (NF-2.9).    |
+| D5b | **Hadith — Nawawi Arabic sharh (NF-2.8)**                                                                                   | **Bundled sidecar** `nawawi40-sharh.json`                             | `osamayy/40-hadith-nawawi-db` (Unlicense); merged at load in `hadith-bundled.ts`                      |
+| D6  | **Hadith — full six-books browse/search**                                                                                   | **Live CDN, on-demand**, cached                                       | `fawazahmed0/hadith-api` jsDelivr (no key). No sharh/isnad yet.                                       |
+| D7  | **Duas + Adhkar → full Hisnul Muslim**                                                                                      | **Bundled** (`packages/shared` via `build-adhkar.mjs`) — **270** duas | `sheikhhanif/Hisnul_Muslim_Database` + related OSS                                                    |
+| D8  | **Names of Allah → complete 99**                                                                                            | **Bundled** (`names.ts` via `build-names.mjs`)                        | standard Asma-ul-Husna (from fawazahmed0 / muslimKit)                                                 |
+| D9  | **Dua/Adhkar/99-Names audio**                                                                                               | **Streamed**                                                          | Internet Archive (Hisnul Muslim audio, Asma-ul-Husna)                                                 |
+| D10 | **Prayer times / Qibla**                                                                                                    | **On-device calc (unchanged)**                                        | `adhan` (installed) + `expo-location`                                                                 |
+| D11 | **Adhan call audio (for notifications)**                                                                                    | **Bundled baseline MP3** + remote CDN styles; expand local set        | `assets/audio/adhan/` + Kiwifu/adhan-mp3                                                              |
+| D12 | **Integrity, not encryption**                                                                                               | SHA-256 per data file in a manifest; **no encryption of scripture**   | `expo-crypto` (installed)                                                                             |
 
 **Why these specific no-key sources:** `sunnah.com` and `Quran.Foundation` require a
 manually-requested API key/registration → they would **block a one-pass automated build**. They are
 recorded in `FREE_OPEN_SOURCE_DATA.md` as the future "authoritative upgrade path", but are **out of
 scope** here. All D1–D12 sources work with **no key**.
 
+**jsDelivr → GitHub raw fallback:** runtime JSON goes through `src/lib/static-json-fetch.ts`. jsDelivr
+rejects files from repos over its package limit until warmed (403/404) and is DNS-blocked on some
+networks, so any `cdn.jsdelivr.net/gh/{owner}/{repo}@{ref}/{path}` URL is retried from
+`raw.githubusercontent.com/{owner}/{repo}/{ref}/{path}` (`staticJsonMirrorUrls()`) — Qur'an editions,
+hadith and tafsir all benefit. New jsDelivr `gh/` sources get this for free.
+
 **Runtime failure telemetry:** On-demand CDN failures (D2/D3/D4/D6/D9/D11 + QCF fonts) are reported
-from the Expo app to Sentry and `POST /api/v1/oss-content-failures`, then reviewed in admin
-[`/oss-failures`](./ADMIN.md) so broken upstream mirrors can be swapped without waiting on user
-content reports.
+from the Expo app (`src/lib/report-oss-content-download-failure.ts`) to `POST /api/v1/oss-content-failures`,
+then reviewed in admin [`/oss-failures`](./ADMIN.md) so broken upstream mirrors can be swapped without
+waiting on user content reports. Sentry only gets non-connectivity failures (offline / DNS / dropped
+connections are filtered out), grouped per provider + failure type rather than per surah/clip.
 
 ---
 
@@ -188,12 +199,19 @@ apps/app/
       meta.json                       # surah list + juz/page/hizb index
       arabic/001.json … 114.json      # { "1": "…", "2": "…" }  (Uthmani)
       translit/001.json … 114.json
-      translation/en-pickthall/001.json … 114.json
-      translation/en-yusufali/001.json … 114.json
+      translation/en-pickthall/001.json … 114.json   # bundled = `bundled: true` in quran-edition-defs.json
       translation/ur-jalandhry/001.json … 114.json
+      ayah-meta/001.json … 114.json   # page + hizb per ayah
+      pages/index.json                # 604 page start points
+      layout/madinah-15/001.json … 604.json   # mushaf line layout (build-mushaf-layout.mjs)
     hadith/
       nawawi40.json
-      riyad-as-salihin.json           # or per-book files if large
+      riyad-as-salihin.json
+      nawawi40-sharh.json             # D5b sidecar (build-hadith-sharh.mjs)
+      isnad-highlights.json           # extract-hadith-isnad.mjs
+      gaps.json
+    adhan/medina-phrase-cues.json     # adhan follow-along cues
+    names/names-complete-cues.json    # 99 Names audio cues
   assets/audio/adhan/                 # bundled adhan-call MP3(s) — small
   src/
     lib/
@@ -221,10 +239,11 @@ apps/app/
         [surah].tsx                   # ayah-by-ayah reader (ar + translit + translation + audio)
         search.tsx                    # verse search (uses D2 search or local)
         bookmarks.tsx
+        page/[page].tsx               # mushaf page view (facing pages on wide screens)
+        practice/                     # recitation practice (index / session / summary)
       hadith/
         index.tsx                     # collections list
-        [collection].tsx             # books/chapters
-        [collection]/[book].tsx       # hadith list  (or nested route per expo-router convention)
+        [collection].tsx             # in-collection list + search (createHadithSearch)
       credits.tsx                     # data sources & licenses (§11)
 packages/shared/src/
   types/
@@ -294,40 +313,48 @@ unions, `readonly`-friendly, no classes).
 export type RevelationPlace = "makkah" | "madinah";
 
 export interface Surah {
-  number: number;                 // 1..114
-  nameArabic: string;             // ٱلْفَاتِحَة
-  nameEnglish: string;            // "The Opening"
-  nameTransliteration: string;    // "Al-Fatihah"
+  number: number; // 1..114
+  nameArabic: string; // ٱلْفَاتِحَة
+  nameEnglish: string; // "The Opening"
+  nameTransliteration: string; // "Al-Fatihah"
   revelationPlace: RevelationPlace;
   ayahCount: number;
-  bismillahPre: boolean;          // false only for At-Tawbah (9)
+  bismillahPre: boolean; // false only for At-Tawbah (9)
 }
 
 export interface Ayah {
   surah: number;
-  ayah: number;                   // 1-based within surah
-  global: number;                 // 1..6236
-  arabic: string;                 // Uthmani, verbatim
-  juz: number; hizb: number; page: number; // Madinah mushaf
+  ayah: number; // 1-based within surah
+  global: number; // 1..6236
+  arabic: string; // Uthmani, verbatim
+  juz: number;
+  hizb: number;
+  page: number; // Madinah mushaf
   sajda: boolean;
 }
 
 export type QuranEditionKind = "translation" | "transliteration" | "tafsir";
 export interface QuranEdition {
-  id: string;                     // "en-pickthall", "en-saheehinternational", ...
+  id: string; // "en-pickthall", "en-saheehinternational", ...
   kind: QuranEditionKind;
-  language: string;               // "en" | "ur" | "ar"
-  name: string;                   // "Pickthall"
-  bundled: boolean;               // true = offline asset, false = fetched via D2
+  language: string; // "en" | "ur" | "ar"
+  name: string; // "Pickthall"
+  bundled: boolean; // true = offline asset, false = fetched via D2
   direction: "ltr" | "rtl";
 }
-export interface AyahText { surah: number; ayah: number; editionId: string; text: string; }
+export interface AyahText {
+  surah: number;
+  ayah: number;
+  editionId: string;
+  text: string;
+}
 
 // hadith.ts
 export interface HadithCollection {
-  id: string;                     // "nawawi40", "riyad_assalihin", "bukhari", ...
-  nameEnglish: string; nameArabic: string;
-  bundled: boolean;               // true for highlights
+  id: string; // "nawawi40", "riyad_assalihin", "bukhari", ...
+  nameEnglish: string;
+  nameArabic: string;
+  bundled: boolean; // true for highlights
   bookCount?: number;
 }
 /** One link in a transmission chain. Order ascends toward the Prophet (last = Prophet). */
@@ -338,16 +365,19 @@ export interface HadithIsnadLink {
   role?: "companion" | "narrator" | "prophet";
 }
 export interface HadithItem {
-  id: string;                     // stable: `${collection}:${number}`
+  id: string; // stable: `${collection}:${number}`
   collection: string;
-  book?: string; chapterId?: string; number: string;
-  arabic: string; english: string;
+  book?: string;
+  chapterId?: string;
+  number: string;
+  arabic: string;
+  english: string;
   narrator?: string;
-  isnad?: HadithIsnadLink[];      // NF-2.9 — structured chain; omit when unknown
-  sharhArabic?: string;           // NF-2.8 — classical Arabic explanation; never AI-translate
-  grade?: string;                 // "sahih" | "hasan" | ... (may be absent → show "ungraded")
+  isnad?: HadithIsnadLink[]; // NF-2.9 — structured chain; omit when unknown
+  sharhArabic?: string; // NF-2.8 — classical Arabic explanation; never AI-translate
+  grade?: string; // "sahih" | "hasan" | ... (may be absent → show "ungraded")
   gradedBy?: string;
-  reference: string;              // human-readable, e.g. "Sahih al-Bukhari 1"
+  reference: string; // human-readable, e.g. "Sahih al-Bukhari 1"
 }
 ```
 
@@ -391,12 +421,14 @@ Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change**
 ## 8. Qur'an feature (D1–D4)
 
 ### 8.1 Data access (`quran-meta` + `quran.ts` + generated `quran-loader.ts`)
+
 - **`src/lib/quran-meta.ts`:** `getSurahMeta()`, juz/page helpers from `meta.json` / pages index — safe for home and light search (no ayah JSON).
 - **`src/lib/quran.ts`:** `getSurahAyahs(n)`, editions, mushaf pages via the generated require-map (lazy + LRU). Prefer route-local import or `await import("@/lib/quran")` on web so the map stays out of `__common` ([`PROFILING.md`](./PROFILING.md)).
 - `getBundledEdition(editionId, surah): Record<number,string>` for translit + PD translations.
 - Selectors are synchronous for bundled data once loaded (offline, instant).
 
 ### 8.2 Remote enrichment (`src/api/quran-remote.ts` + `src/hooks/use-quran.ts`)
+
 - `use-quran.ts` exposes `useQuery` hooks (the `QueryClient` already exists via `AppApiProvider` —
   **do not add a provider**). `queryFn`s do a plain `fetch` of `QURAN_FAWAZ_CDN` for D2 editions
   (Saheeh Intl, Khattab, tafsir). Per-query options: `staleTime: Infinity` (scripture is immutable),
@@ -408,6 +440,7 @@ Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change**
   translation" state and fall back to a bundled edition.
 
 ### 8.3 Audio — reuse the existing player (`src/lib/quran-audio.ts` only)
+
 - **Do NOT create an audio hook or touch `expo-audio` directly.** Use `useAudioPlayerContext()` from
   `src/providers/audio-player-provider.tsx` (see §0.1). `audioSpeed`, auto-advance, and the global
   `MiniPlayer` are already handled.
@@ -420,6 +453,7 @@ Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change**
   (or `queue[index]`) to the rendered ayah id. Reciter dir comes from `quran-store`/prefs.
 
 ### 8.4 Screens (`src/app/quran/`)
+
 - `index.tsx`: surah list (number, Arabic name, English name, ayah count, Makki/Madani, revelation).
   Search/filter by name or number.
 - `[surah].tsx`: reader — per ayah: Arabic (large, RTL), transliteration (toggle), selected
@@ -434,6 +468,7 @@ Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change**
   router.push("/quran") }` (typedRoutes will pick up the new route). Add i18n keys (§9 + §0.1).
 
 ### 8.5 User data (`src/db/repositories/quran-repository.ts` + `stores/quran-store.ts`)
+
 - New `DB_KEYS`: `quranBookmarks`, `quranLastRead`, `quranReadingProgress`, `quranPrefs`, plus
   `quranEditionCache` (for §8.2). Register all of these in `resetDatabase()` in `src/db/index.ts`.
 - `quranPrefs`: `{ preferredTranslationIds: string[]; preferredReciterDir: string;
@@ -511,7 +546,7 @@ Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change**
 ## 12. Licensing guardrails (enforce during build)
 
 - **Bundle only license-safe text:** Arabic (Tanzil/risan, CC), transliteration (Tanzil/risan, CC),
-  Pickthall/Yusuf Ali/Jalandhry (public domain). ✅
+  Pickthall/Jalandhry (public domain, bundled); Yusuf Ali is public domain but shipped remote-only. ✅
 - **Do NOT bundle** Saheeh International or Khattab "Clear Qur'an" text — fetch at runtime (D2) and
   render verbatim with credit. (They're free-to-use but copyrighted.)
 - **`AhmedBaset/hadith-json` licensing (resolved policy):** The GitHub repo has **no

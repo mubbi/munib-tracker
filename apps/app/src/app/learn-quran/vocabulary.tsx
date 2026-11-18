@@ -4,7 +4,13 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import {
+  LearnGrid,
+  LearnSplitLayout,
+  useLearnWideLayout,
+} from "@/components/learn-guide/learn-wide-layout";
 import { QuranVocabPlayButton } from "@/components/quran-guide/ayah-play-button";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import {
   LearnProseText,
   LearnReadingChrome,
@@ -25,6 +31,7 @@ import {
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import { arabicReadingLayout } from "@/lib/reading-typography";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function VocabWord({ word }: { word: ReturnType<typeof getQuranGuideVocabulary>[number] }) {
   const { sizes } = useReadingTypography();
@@ -64,6 +71,7 @@ function VocabWord({ word }: { word: ReturnType<typeof getQuranGuideVocabulary>[
 
 export default function LearnQuranVocabularyScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   const { ready: contentReady } = useEnsureContent(
     ensureQuranGuideContent,
@@ -89,28 +97,31 @@ export default function LearnQuranVocabularyScreen() {
       title={t("learnQuran.vocabTitle")}
       subtitle={t("learnQuran.vocabSubtitle")}
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-quran/vocabulary" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="info">{t("learnQuran.vocabIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<QuranGuideTopicAside currentId="vocabulary" />}>
+          <Stagger>
+            <JannahCallout tone="info">{t("learnQuran.vocabIntro")}</JannahCallout>
 
-          <LearnReadingChrome surface="learn_quran" listenText={listenText}>
-            <Card padding="three">
-              <SectionHeader
-                title={t("learnQuran.vocabListTitle")}
-                icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
-              />
-              <View style={styles.list}>
-                {words.map((word) => (
-                  <VocabWord key={word.id} word={word} />
-                ))}
-              </View>
-            </Card>
-          </LearnReadingChrome>
+            <LearnReadingChrome surface="learn_quran" listenText={listenText}>
+              <Card padding="three">
+                <SectionHeader
+                  title={t("learnQuran.vocabListTitle")}
+                  icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
+                />
+                <LearnGrid style={styles.list} maxColumns={3} gap={Spacing.four}>
+                  {words.map((word) => (
+                    <VocabWord key={word.id} word={word} />
+                  ))}
+                </LearnGrid>
+              </Card>
+            </LearnReadingChrome>
 
-          <JannahDisclaimer textKey="learnQuran.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       </LearnContentGate>
     </ScreenLayout>
   );
@@ -128,3 +139,6 @@ const styles = StyleSheet.create({
   wordArabic: { flex: 1, minWidth: 0 },
   example: { fontStyle: "italic", marginTop: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/vocabulary");

@@ -1,18 +1,22 @@
 import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { memo, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type AccessibilityActionEvent,
   ActivityIndicator,
+  BackHandler,
   type FlatList,
   type LayoutChangeEvent,
   type ListRenderItem,
   PanResponder,
   Platform,
   Pressable,
+  type StyleProp,
   StyleSheet,
   View,
+  type ViewInstance,
+  type ViewStyle,
 } from "react-native";
 import Reanimated, {
   cancelAnimation,
@@ -22,7 +26,6 @@ import Reanimated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TtsVoiceControl } from "@/components/audio/tts-voice-control";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QuranPlaybackSettingsControl } from "@/components/quran/quran-playback-settings-control";
@@ -31,16 +34,21 @@ import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glas
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
+import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
 import { useIsTabScreen } from "@/hooks/use-tab-screen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useWebKeyHandler } from "@/hooks/use-web-key-handler";
 import { useWebTabLayout } from "@/hooks/use-web-tab-layout";
 import {
   queuePosition as computeQueuePosition,
   queueDurationForProgress,
 } from "@/lib/audio-queue-timing";
+import { PLAYER_SEEK_STEP_SECONDS } from "@/lib/audio-seek-step";
 import { supportsProgrammaticVolume } from "@/lib/audio-volume";
 import { triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
@@ -73,8 +81,11 @@ const REPLAY_ICON: SymbolViewProps["name"] = {
   web: "replay",
 };
 
-/** How far a keyboard/AT increment or decrement nudges the position, in seconds. */
-const SEEK_STEP = 10;
+/**
+ * How far the skip buttons and a keyboard/AT increment or decrement nudge the
+ * position, in seconds. Shared with the OS lock-screen skip buttons.
+ */
+const SEEK_STEP = PLAYER_SEEK_STEP_SECONDS;
 
 /** Volume slider step for keyboard/AT adjustments (0–1). */
 const VOLUME_STEP = 0.1;
@@ -260,7 +271,7 @@ function BufferingBand({ color, active }: { color: string; active: boolean }) {
 }
 
 /** Playlist row body height — fixed so FlatList getItemLayout / scroll offsets stay accurate. */
-const PLAYLIST_ROW_BODY = 88;
+const PLAYLIST_ROW_BODY = tvDp(88);
 
 /** Full row extent (body + gap) used for scroll-to-active math. */
 const PLAYLIST_ROW_HEIGHT = PLAYLIST_ROW_BODY + Spacing.two;
@@ -270,32 +281,71 @@ export function MiniPlayer() {
   const { current } = useAudioPlayerContext();
   const setMiniPlayerInset = useSetMiniPlayerInset();
   const [expanded, setExpanded] = useState(false);
+  /** TV: the expanded sheet held focus — hand it back to the bar on collapse. */
+  const [returnFocus, setReturnFocus] = useState(false);
 
   useEffect(() => {
     if (!current) setMiniPlayerInset(0);
   }, [current, setMiniPlayerInset]);
 
+  // TV: remote Back / Menu collapses the expanded player instead of popping the
+  // screen behind it. Registered on expand → runs before expo-router's listener.
+  useEffect(() => {
+    if (!isTV() || !expanded) return;
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      setReturnFocus(true);
+      setExpanded(false);
+      return true;
+    });
+    return () => sub.remove();
+  }, [expanded]);
+
   if (!current) return null;
   return expanded ? (
-    <ExpandedPlayer onCollapse={() => setExpanded(false)} />
+    <ExpandedPlayer
+      onCollapse={() => {
+        setReturnFocus(true);
+        setExpanded(false);
+      }}
+    />
   ) : (
-    <CompactPlayer onExpand={() => setExpanded(true)} />
+    <CompactPlayer onExpand={() => setExpanded(true)} focusOnMount={returnFocus} />
   );
 }
 
+/** Window width at which the compact player becomes a single desktop row. */
+const DESKTOP_BAR_MIN_WIDTH = 1024;
+/** Matches the widest ScreenLayout content column so the bar lines up with it. */
+const DESKTOP_BAR_MAX_WIDTH = 1320;
+/** Desktop: content column of the expanded (full-screen) player. */
+const EXPANDED_DESKTOP_MAX_WIDTH = 760;
+
 // ── Compact bar ──────────────────────────────────────────────────────────────
 
-function CompactPlayer({ onExpand }: { onExpand: () => void }) {
-  const insets = useSafeAreaInsets();
+function CompactPlayer({
+  onExpand,
+  focusOnMount = false,
+}: {
+  onExpand: () => void;
+  /**
+   * TV: take D-pad focus on mount — only after collapsing the expanded player.
+   * The bar never grabs focus on its own when playback starts.
+   */
+  focusOnMount?: boolean;
+}) {
+  const insets = useAppSafeAreaInsets();
   const inTabs = useIsTabScreen();
   const tabBarOffset = useTabBarOffset();
-  const { sideRailWidth } = useWebTabLayout();
+  const { sideRailWidth, width: windowWidth } = useWebTabLayout();
   const setMiniPlayerInset = useSetMiniPlayerInset();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const skipPreviousIcon = useSkipPreviousIcon();
   const skipNextIcon = useSkipNextIcon();
   const tv = isTV();
+  // Desktop / wide tablet: one horizontal bar (track · transport · close) centred
+  // in the content column instead of the stacked two-row phone layout.
+  const desktopBar = !tv && windowWidth >= DESKTOP_BAR_MIN_WIDTH;
   // Stack screens: dock flush to the screen and pad the home indicator inside the
   // bar. Tab roots: keep sitting above the tab bar (tabBarOffset includes safe area).
   const dockBottom = inTabs ? tabBarOffset : 0;
@@ -364,6 +414,32 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
     setMiniPlayerInset(event.nativeEvent.layout.height);
   };
 
+  const closeButton = (
+    <PressableScale
+      haptic="medium"
+      accessibilityRole="button"
+      accessibilityLabel={t("player.close")}
+      onPress={() => setConfirmClose(true)}
+      style={[
+        styles.compactClose,
+        tv && styles.compactCloseTv,
+        {
+          backgroundColor: tokens.status.danger.soft,
+          borderColor: withAlpha(tokens.status.danger.color, 0.4),
+        },
+      ]}
+    >
+      <SymbolView
+        name={{ ios: "xmark", android: "close", web: "close" }}
+        size={13}
+        tintColor={tokens.status.danger.text}
+      />
+      <ThemedText type="caption" style={{ color: tokens.status.danger.text, fontWeight: "700" }}>
+        {t("player.closeLabel")}
+      </ThemedText>
+    </PressableScale>
+  );
+
   return (
     <>
       <View
@@ -372,14 +448,17 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
           styles.container,
           {
             bottom: dockBottom,
-            left: sideRailWidth,
-            right: 0,
+            // Logical inset: the side rail sits on the start edge (right in RTL).
+            start: sideRailWidth,
+            end: 0,
             borderColor: colors.border,
             paddingBottom: dockSafePad,
             ...(tv
               ? {
                   paddingHorizontal: TvLayout.contentPaddingX,
                   paddingTop: Spacing.two,
+                  // Bottom overscan: keep controls off the bezel-cropped edge.
+                  paddingBottom: Math.max(dockSafePad, TvLayout.contentPaddingY),
                 }
               : null),
           },
@@ -408,14 +487,15 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
           <BufferingBand color={colors.accent} active={showBufferingBar} />
         </View>
 
-        <View style={styles.compactBody}>
-          <View style={styles.compactTopRow}>
+        <View style={[styles.compactBody, desktopBar && styles.compactBodyDesktop]}>
+          <View style={[styles.compactTopRow, desktopBar && styles.compactTopRowDesktop]}>
             <PressableScale
               haptic="light"
               accessibilityRole="button"
               accessibilityLabel={current.title}
               accessibilityHint={t("player.expand")}
               onPress={onExpand}
+              {...(tv && focusOnMount ? { hasTVPreferredFocus: true } : {})}
               style={styles.infoRow}
             >
               <View style={[styles.icon, { backgroundColor: tokens.accentSoft }]}>
@@ -447,34 +527,10 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
                 tintColor={colors.mutedForeground}
               />
             </PressableScale>
-            <PressableScale
-              haptic="medium"
-              accessibilityRole="button"
-              accessibilityLabel={t("player.close")}
-              onPress={() => setConfirmClose(true)}
-              style={[
-                styles.compactClose,
-                {
-                  backgroundColor: tokens.status.danger.soft,
-                  borderColor: withAlpha(tokens.status.danger.color, 0.4),
-                },
-              ]}
-            >
-              <SymbolView
-                name={{ ios: "xmark", android: "close", web: "close" }}
-                size={13}
-                tintColor={tokens.status.danger.text}
-              />
-              <ThemedText
-                type="caption"
-                style={{ color: tokens.status.danger.text, fontWeight: "700" }}
-              >
-                {t("player.closeLabel")}
-              </ThemedText>
-            </PressableScale>
+            {desktopBar ? null : closeButton}
           </View>
 
-          <View style={styles.compactControlsRow}>
+          <View style={[styles.compactControlsRow, desktopBar && styles.compactControlsDesktop]}>
             <IconButton
               name={LOOP_ICON[loopMode]}
               size={18}
@@ -513,7 +569,11 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
                 }
                 accessibilityState={{ busy: showSpinner }}
                 onPress={isQueueFinished ? replay : toggle}
-                style={[styles.playButton, !hasLiquidGlass && { backgroundColor: colors.accent }]}
+                style={[
+                  styles.playButton,
+                  tv && styles.playButtonTv,
+                  !hasLiquidGlass && { backgroundColor: colors.accent },
+                ]}
               >
                 {showSpinner ? (
                   <ActivityIndicator size="small" color={colors.accentForeground} />
@@ -543,7 +603,9 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
                 wellRadius={20}
               />
             ) : null}
-            {supportsProgrammaticVolume() ? (
+            {/* TV: the remote owns system volume, and the drag-only slider has
+                no D-pad path — hide it. */}
+            {supportsProgrammaticVolume() && !tv ? (
               <VolumePopover
                 volume={volume}
                 onChange={setVolume}
@@ -561,7 +623,11 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
                 accessibilityRole="button"
                 accessibilityLabel={t("player.speedValue", { value: rate })}
                 onPress={cycleRate}
-                style={[styles.compactSpeed, !hasLiquidGlass && { backgroundColor: colors.muted }]}
+                style={[
+                  styles.compactSpeed,
+                  tv && styles.compactSpeedTv,
+                  !hasLiquidGlass && { backgroundColor: colors.muted },
+                ]}
               >
                 <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "700" }}>
                   {rate}×
@@ -569,6 +635,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               </PressableScale>
             </GlassControl>
           </View>
+          {desktopBar ? closeButton : null}
         </View>
       </View>
       <ConfirmDialog
@@ -708,7 +775,7 @@ function VerticalVolumeBar({
 }) {
   const { t } = useTranslation();
   const [scrub, setScrub] = useState<number | null>(null);
-  const trackRef = useRef<View>(null);
+  const trackRef = useRef<ViewInstance>(null);
   const trackWindowRef = useRef({ y: 0, height: VERTICAL_VOLUME_HEIGHT });
 
   const measureTrack = useCallback(() => {
@@ -956,7 +1023,14 @@ function VolumePopover({
 // ── Expanded full player ─────────────────────────────────────────────────────
 
 function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
-  const insets = useSafeAreaInsets();
+  const insets = useAppSafeAreaInsets();
+  const { width: windowWidth } = useWebTabLayout();
+  // Web: Escape minimises the expanded player (before any early return).
+  useWebKeyHandler((event) => {
+    if (event.key !== "Escape") return undefined;
+    onCollapse();
+    return true;
+  }, !isTV());
   const setMiniPlayerInset = useSetMiniPlayerInset();
   const router = useRouter();
   const { t } = useTranslation();
@@ -1040,23 +1114,40 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
 
   const sheetBottomInset = Math.max(insets.bottom, Spacing.two) + Spacing.two;
   const tv = isTV();
+  // Desktop / wide tablet: keep the full-screen player in a centred column
+  // instead of spreading header buttons and the queue across the window.
+  const desktopGutter =
+    !tv && windowWidth >= DESKTOP_BAR_MIN_WIDTH
+      ? Math.max(Spacing.four, (windowWidth - EXPANDED_DESKTOP_MAX_WIDTH) / 2)
+      : null;
+  const onSeek = hasQueue ? seekToQueuePosition : seekTo;
+  // TV: the seek bar is drag-only — step ±10 s with buttons instead.
+  const seekBy = (delta: number) => {
+    if (shownDuration <= 0) return;
+    onSeek(Math.max(0, Math.min(shownDuration, livePosition + delta)));
+  };
+
+  const sheetStyle = StyleSheet.flatten([
+    styles.sheet,
+    {
+      paddingTop: insets.top + Spacing.two,
+      paddingBottom: sheetBottomInset,
+      ...(desktopGutter != null ? { paddingHorizontal: desktopGutter } : null),
+      ...(tv
+        ? {
+            paddingHorizontal: TvLayout.contentPaddingX,
+            paddingTop: TvLayout.contentPaddingY,
+            paddingBottom: TvLayout.contentPaddingY,
+          }
+        : null),
+    },
+  ]);
 
   return (
     <>
-      <View
-        style={[
-          styles.sheet,
-          {
-            paddingTop: insets.top + Spacing.two,
-            paddingBottom: sheetBottomInset,
-            ...(tv
-              ? {
-                  paddingHorizontal: TvLayout.contentPaddingX,
-                }
-              : null),
-          },
-        ]}
-      >
+      {/* TV: the expanded player is an in-tree overlay, not a Modal — trap D-pad
+          focus inside it so it can't wander to the screen underneath. */}
+      <ExpandedSheetHost style={sheetStyle}>
         {/* Frosted glass chrome to match the sheets and compact bar: real Liquid
           Glass on iOS 26, a native blur elsewhere, backdrop-filter on web. The
           wash keeps the full-screen player legible over busy content behind. */}
@@ -1082,6 +1173,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             onPress={onCollapse}
             style={[
               styles.headerButton,
+              tv && styles.headerButtonTv,
               { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
             ]}
           >
@@ -1108,6 +1200,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             onPress={() => setConfirmClose(true)}
             style={[
               styles.headerButton,
+              tv && styles.headerButtonTv,
               {
                 backgroundColor: tokens.status.danger.soft,
                 borderColor: withAlpha(tokens.status.danger.color, 0.4),
@@ -1169,7 +1262,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
         <SeekBar
           position={livePosition}
           duration={shownDuration}
-          onSeek={hasQueue ? seekToQueuePosition : seekTo}
+          onSeek={onSeek}
           trackColor={tokens.track}
           fillColor={colors.accent}
           thumbColor={colors.accent}
@@ -1183,6 +1276,29 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             -{formatTime(Math.max(0, shownDuration - livePosition), shownDuration)}
           </ThemedText>
         </View>
+        {tv ? (
+          // Media transport stays LTR in every UI direction (time runs left→right).
+          <View style={[styles.tvSeekRow, ltrControlViewProps().style]}>
+            <IconButton
+              name={{ ios: "gobackward.10", android: "replay_10", web: "replay_10" }}
+              size={22}
+              tintColor={colors.foreground}
+              background={colors.muted}
+              accessibilityLabel={t("player.seekBack", { seconds: SEEK_STEP })}
+              onPress={() => seekBy(-SEEK_STEP)}
+              hitTarget={TvLayout.minFocusTargetDp}
+            />
+            <IconButton
+              name={{ ios: "goforward.10", android: "forward_10", web: "forward_10" }}
+              size={22}
+              tintColor={colors.foreground}
+              background={colors.muted}
+              accessibilityLabel={t("player.seekForward", { seconds: SEEK_STEP })}
+              onPress={() => seekBy(SEEK_STEP)}
+              hitTarget={TvLayout.minFocusTargetDp}
+            />
+          </View>
+        ) : null}
 
         {/* Controls — mirror the mini player's cluster: loop · prev · play · next ·
           volume (inline popover) · speed. Interactive Liquid Glass wells on
@@ -1225,7 +1341,12 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
               }
               accessibilityState={{ busy: showSpinner }}
               onPress={isQueueFinished ? replay : toggle}
-              style={[styles.bigPlay, !hasLiquidGlass && { backgroundColor: colors.accent }]}
+              {...(tv ? { hasTVPreferredFocus: true } : {})}
+              style={[
+                styles.bigPlay,
+                tv && styles.bigPlayTv,
+                !hasLiquidGlass && { backgroundColor: colors.accent },
+              ]}
             >
               {showSpinner ? (
                 <ActivityIndicator size="small" color={colors.accentForeground} />
@@ -1254,7 +1375,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             glass
             wellRadius={24}
           />
-          {supportsProgrammaticVolume() ? (
+          {supportsProgrammaticVolume() && !tv ? (
             <VolumePopover
               volume={volume}
               onChange={setVolume}
@@ -1272,7 +1393,11 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
               accessibilityRole="button"
               accessibilityLabel={t("player.speedValue", { value: rate })}
               onPress={cycleRate}
-              style={[styles.speed, !hasLiquidGlass && { backgroundColor: colors.muted }]}
+              style={[
+                styles.speed,
+                tv && styles.speedTv,
+                !hasLiquidGlass && { backgroundColor: colors.muted },
+              ]}
             >
               <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                 {rate}×
@@ -1302,7 +1427,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
 
         {/* Playlist — isolated so progress-clock re-renders don't thrash FlatList */}
         {hasQueue ? <ExpandedPlaylist queue={queue} activeIndex={index} onJumpTo={jumpTo} /> : null}
-      </View>
+      </ExpandedSheetHost>
       <ConfirmDialog
         visible={confirmClose}
         title={t("player.closeConfirmTitle")}
@@ -1313,6 +1438,22 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
         onClose={() => setConfirmClose(false)}
       />
     </>
+  );
+}
+
+/** Phone/web: plain View. TV: focus guide trapping all four edges (+ focus memory). */
+function ExpandedSheetHost({
+  style,
+  children,
+}: {
+  style: StyleProp<ViewStyle>;
+  children: ReactNode;
+}) {
+  if (!isTV()) return <View style={style}>{children}</View>;
+  return (
+    <TvFocusGuide autoFocus trapFocusUp trapFocusDown trapFocusLeft trapFocusRight style={style}>
+      {children}
+    </TvFocusGuide>
   );
 }
 
@@ -1415,6 +1556,7 @@ const PlaylistRow = memo(function PlaylistRow({
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   const primary = track.playlistPrimary ?? track.subtitle ?? track.title;
   const secondary = track.playlistSecondary ?? track.preview;
   const primaryIsArabic = track.playlistPrimaryRtl === true;
@@ -1432,7 +1574,12 @@ const PlaylistRow = memo(function PlaylistRow({
         styles.plRow,
         {
           backgroundColor: active ? tokens.accentSoft : colors.muted,
-          borderColor: active ? colors.accent : "transparent",
+          // TV: the solid accent edge is reserved for the D-pad focus ring.
+          borderColor: active
+            ? tv
+              ? withAlpha(colors.accent, 0.35)
+              : colors.accent
+            : "transparent",
         },
       ]}
     >
@@ -1488,8 +1635,8 @@ const PlaylistRow = memo(function PlaylistRow({
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    left: 0,
-    right: 0,
+    start: 0,
+    end: 0,
     zIndex: 40,
     borderTopWidth: StyleSheet.hairlineWidth,
     overflow: "visible",
@@ -1506,6 +1653,51 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
+  },
+  /** Desktop: single row centred in the content column (not edge-to-edge). */
+  compactBodyDesktop: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.four,
+    width: "100%",
+    maxWidth: DESKTOP_BAR_MAX_WIDTH,
+    alignSelf: "center",
+    paddingHorizontal: Spacing.four,
+  },
+  compactTopRowDesktop: { flex: 1, minWidth: 0 },
+  compactControlsDesktop: { flexShrink: 0 },
+  compactCloseTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.three,
+  },
+  playButtonTv: {
+    width: TvLayout.chipMinHeight,
+    height: TvLayout.chipMinHeight,
+    borderRadius: TvLayout.chipMinHeight / 2,
+  },
+  compactSpeedTv: {
+    minWidth: TvLayout.chipMinHeight,
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.two,
+  },
+  headerButtonTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingHorizontal: Spacing.four,
+  },
+  bigPlayTv: {
+    width: tvDp(80),
+    height: tvDp(80),
+    borderRadius: tvDp(40),
+  },
+  speedTv: {
+    minWidth: TvLayout.minFocusTarget,
+    minHeight: TvLayout.minFocusTarget,
+  },
+  tvSeekRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: Spacing.four,
+    marginBottom: Spacing.two,
   },
   compactClose: {
     flexDirection: "row",

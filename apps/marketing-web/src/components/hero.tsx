@@ -1,8 +1,8 @@
 "use client";
 
 import { APP_TAGLINE } from "@munib-tracker/shared/constants";
-import { motion, type Variants } from "framer-motion";
-import { Award, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
+import { motion, stagger, type Variants } from "framer-motion";
+import { ArrowRight, Award, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
 import { PrayerArc } from "@/components/day-arc/prayer-arc";
@@ -13,7 +13,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const container: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+  show: { transition: { delayChildren: stagger(0.09, { startDelay: 0.05 }) } },
 };
 
 const item: Variants = {
@@ -67,10 +67,24 @@ export function Hero() {
           className="text-center lg:text-left"
         >
           <motion.div variants={item} className="flex justify-center lg:justify-start">
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] px-5 py-2.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] [text-shadow:0_1px_6px_rgba(0,0,0,0.4)]">
-              <Sparkles className="size-4 text-gold drop-shadow-[0_0_6px_rgba(240,200,120,0.8)]" />
-              Your prayers. Your path. His pleasure.
-            </span>
+            <TrackedLink
+              href="#quran-practice"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] py-1.5 pr-4 pl-1.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:border-white/35"
+              track="select_content"
+              contentType="announcement"
+              itemId="quran_practice_ai"
+              placement="hero"
+            >
+              <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-b from-[#f8e7b2] to-[#dcae5e] px-2.5 py-1 text-xs font-bold text-[#1a1408] [text-shadow:none]">
+                <Sparkles className="size-3.5" aria-hidden />
+                New
+              </span>
+              Qur&apos;an practice with AI
+              <ArrowRight
+                className="size-4 transition-transform group-hover:translate-x-0.5"
+                aria-hidden
+              />
+            </TrackedLink>
           </motion.div>
 
           <motion.h1
@@ -78,8 +92,10 @@ export function Hero() {
             id="hero-heading"
             className="hero-text-shadow mt-7 font-sans text-[3rem] font-semibold leading-[1.04] tracking-[-0.015em] text-[#f4f1ea] sm:text-6xl lg:text-[4.35rem]"
           >
-            <span className="block whitespace-nowrap">Track Your</span>
-            <span className="block whitespace-nowrap">Journey</span>
+            {/* Explicit spaces keep the accessible name ("Track Your Journey Back
+                to Allah.") intact; they collapse visually between block spans. */}
+            <span className="block whitespace-nowrap">Track Your</span>{" "}
+            <span className="block whitespace-nowrap">Journey</span>{" "}
             <span className="block whitespace-nowrap bg-gradient-to-r from-[#f8e7b2] via-[#eecd81] to-[#dcae5e] bg-clip-text text-transparent [text-shadow:none] drop-shadow-[0_2px_14px_rgba(30,20,4,0.45)]">
               Back to Allah.
             </span>

@@ -84,8 +84,12 @@ for (const platform of platforms) {
 
   if (platform === "ios") {
     if (isClean && process.platform === "darwin") {
+      // EXPO_TV=1 so react-native.config.js applies the TV autolinking excludes
+      // during pod-install codegen (otherwise RCTModuleProviders / the Fabric
+      // components provider list phone-only modules like RNCWebView).
       runStep("pod install (post-clean TV prebuild)", "pod", ["install"], {
         cwd: iosDir,
+        env: tvEnv,
         shell: false,
       });
     }

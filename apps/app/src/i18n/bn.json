@@ -29,7 +29,8 @@
       "encouragementPerfect": "সুন্দর পর্যালোচনা — আল্লাহ আপনাকে উপকারী জ্ঞান বৃদ্ধি করুন ।",
       "encouragementStrong": "দৃঢ় ধারণা। যেগুলো মিস হয়েছে সেগুলো আবার দেখে নিশ্চিত করুন।",
       "encouragementSteady": "ভালো অগ্রগতি। যেগুলো মিস হয়েছে সেগুলো পরের পড়াশোনার লক্ষ্য হিসেবে নিন।",
-      "encouragementKeepGoing": "প্রতিটি ভুল একটি শিক্ষা। নোটগুলো দেখুন, তারপর আবার চেষ্টা করুন।"
+      "encouragementKeepGoing": "প্রতিটি ভুল একটি শিক্ষা। নোটগুলো দেখুন, তারপর আবার চেষ্টা করুন।",
+      "keyboardHint": "উত্তর দিতে 1–4 চাপুন, এগোতে Enter চাপুন।"
     },
     "skip": "এড়িয়ে যান",
     "apply": "প্রয়োগ",
@@ -86,7 +87,10 @@
     "selectToContinue": "চালিয়ে যেতে সিলেক্ট চাপুন",
     "selectToOpen": "খুলতে সিলেক্ট করুন",
     "selectToSave": "সংরক্ষণ করতে সিলেক্ট করুন",
-    "selectDay": "পর্যালোচনা করতে একটি দিন নির্বাচন করুন"
+    "selectDay": "পর্যালোচনা করতে একটি দিন নির্বাচন করুন",
+    "newBadge": "নতুন",
+    "decreaseByTv": "{{label}} {{step}} কমান",
+    "increaseByTv": "{{label}} {{step}} বাড়ান"
   },
   "search": {
     "placeholder": "কুরআন, হাদিস, দোয়া, শিখুন… খুঁজুন",
@@ -187,7 +191,8 @@
     "sadaqah": "Sadaqah লক্ষ্য",
     "whiteDays": "আইয়ামে বীজের রোজা",
     "goodCharacter": "উত্তম চরিত্র",
-    "heavyOnTheScale": "মীযানে ভারী আমল"
+    "heavyOnTheScale": "মীযানে ভারী আমল",
+    "quranPractice": "কুরআন অনুশীলন"
   },
   "quickActions": {
     "checklistSubtitle": "আজকের নামাজ লগ করুন",
@@ -713,7 +718,9 @@
           "hint": "আইয়ামে বীজের শেষ দিন"
         }
       }
-    }
+    },
+    "cardTipTv": "আপডেট করতে একটি নামাজ সিলেক্ট করুন · যিকিরের জন্য আযকার · বিস্তারিতের জন্য তথ্য",
+    "tapToMarkTv": "চিহ্নিত করতে সিলেক্ট করুন"
   },
   "update": {
     "title": "আপডেট উপলব্ধ",
@@ -888,7 +895,8 @@
     "heroSignedIn": "আবার স্বাগতম — আপনার অ্যাকাউন্ট সংযুক্ত। আপনার সালাত, কাজা ও যিকির ডিভাইস জুড়ে সিঙ্ক হতে পারে।",
     "continueSignedIn": "চালিয়ে যান",
     "or": "অথবা",
-    "guestHint": "আপনি যেকোনো সময় প্রোফাইল থেকে অ্যাকাউন্ট সংযুক্ত করতে পারেন।"
+    "guestHint": "আপনি যেকোনো সময় প্রোফাইল থেকে অ্যাকাউন্ট সংযুক্ত করতে পারেন।",
+    "guestHintTv": "ফোন থেকে সাইন ইন করতে QR কোড স্ক্যান করুন। অথবা অতিথি হিসেবে চালিয়ে যান — ফোনের প্রোফাইল থেকে যেকোনো সময় অ্যাকাউন্ট সংযুক্ত করতে পারবেন।"
   },
   "onboarding": {
     "begin": "শুরু",
@@ -945,7 +953,8 @@
     "locationHighlight1Tv": "আপনার শহরের জন্য সঠিক নামাজের সময়",
     "locationHighlight2Tv": "আপনার অবস্থান থেকে কিবলার দিক",
     "locationHighlight3Tv": "অনুস্মারক ফোনে সবচেয়ে ভালো কাজ করে",
-    "locationHighlight4Tv": "সেটিংসে যেকোনো সময় শহর পরিবর্তন করুন"
+    "locationHighlight4Tv": "সেটিংসে যেকোনো সময় শহর পরিবর্তন করুন",
+    "ctaBodyTv": "অতিথি হিসেবে শুরু করুন, অথবা ফোন দিয়ে QR কোড স্ক্যান করে সাইন ইন করুন। এই টিভিতে সবকিছু অফলাইনে চলে।"
   },
   "appearance": {
     "eyebrow": "সেটিংস",
@@ -1200,7 +1209,9 @@
       "a11yStart": "লক স্ক্রিনে পরবর্তী সালাত ট্র্যাকিং শুরু করুন",
       "a11yStop": "সালাতের লাইভ আপডেট ট্র্যাকিং বন্ধ করুন"
     },
-    "tvUnavailableBody": "স্থানীয় রিমাইন্ডার ও Live Activities টিভিতে উপলভ্য নয়। আপনার ফোনে নোটিফিকেশন পছন্দগুলো পরিচালনা করুন।"
+    "tvUnavailableBody": "স্থানীয় রিমাইন্ডার ও Live Activities টিভিতে উপলভ্য নয়। আপনার ফোনে নোটিফিকেশন পছন্দগুলো পরিচালনা করুন।",
+    "preciseAdhan": "আযানের সঠিক সময়",
+    "preciseAdhanHint": "ব্যাটারি সেভার চালু থাকলেও আযান ঠিক সময়ে বাজে। আযান বাজা পর্যন্ত Android স্ট্যাটাস বারে একটি অ্যালার্ম আইকন দেখায়।"
   },
   "fonts": {
     "eyebrow": "সেটিংস",
@@ -1404,18 +1415,18 @@
     "favEmptyDescTv": "এখানে সংরক্ষণ করতে যেকোনো নামে তারকা সিলেক্ট করুন।"
   },
   "quran": {
-    "eyebrow": " Noble কুরআন",
+    "eyebrow": "আল-কুরআনুল কারিম",
     "title": "কুরআন",
-    "subtitle": "Read, listen, এবং reflect",
-    "searchSurah": "by name, meaning, or number অনুসন্ধান",
+    "subtitle": "পড়ুন, শুনুন ও চিন্তা করুন",
+    "searchSurah": "নাম, অর্থ বা নম্বর দিয়ে খুঁজুন",
     "filterAll": "সব",
     "continueReading": "পড়া চালিয়ে যান",
     "continueAt": "সূরা {{surah}} · আয়াত {{ayah}}",
-    "makki": "মক্কী",
+    "makki": "মাক্কী",
     "madani": "মাদানী",
     "ayahCount": "{{count}} আয়াত",
-    "surahList": "Surah",
-    "surahCount": "{{shown}} এর {{total}}",
+    "surahList": "সূরাসমূহ",
+    "surahCount": "{{total}}টির মধ্যে {{shown}}টি",
     "reciter": "Qari",
     "translation": "অনুবাদ",
     "showTransliteration": "transliteration দেখান",
@@ -1428,24 +1439,24 @@
     "playAyah": "চালান ayah {{n}}",
     "bookmark": "বুকমার্ক",
     "bookmarks": "বুকমার্ক",
-    "viewBookmarks": "bookmarks দেখুন",
+    "viewBookmarks": "বুকমার্ক দেখুন",
     "bookmarksTitle": "বুকমার্ক",
     "bookmarksSubtitle": "আপনার সংরক্ষিত ayahs",
     "bookmarkEmptyTitle": "এখনো bookmarks নেই",
     "bookmarkEmptyDesc": "ট্যাপ  বুকমার্ক icon এ any ayah তে সংরক্ষণ it here.",
     "removeBookmark": "bookmark সরান",
-    "juz": "জুজ",
+    "juz": "পারা",
     "learn": "শিখুন",
     "juzSubtitle": "Read  কুরআন এ its 30 parts",
     "juzN": "জুজ {{n}}",
     "browseByJuz": "Browse oleh Juz",
     "search": "অনুসন্ধান",
-    "searchTitle": "the কুরআন অনুসন্ধান",
-    "searchSubtitle": "Find ayahs by অনুবাদ অথবা লিপ্যন্তর",
-    "searchPlaceholder": "words in translation… অনুসন্ধান",
-    "searchHint": "Searches  bundled অনুবাদ এবং লিপ্যন্তর অফলাইন.",
-    "noResults": "No ayahs matched আপনার অনুসন্ধান.",
-    "resultsCount": "{{count}} hasil",
+    "searchTitle": "কুরআনে খুঁজুন",
+    "searchSubtitle": "আরবি, ইংরেজি, প্রতিবর্ণীকরণ বা রেফারেন্স দিয়ে আয়াত খুঁজুন",
+    "searchPlaceholder": "অনুবাদ, প্রতিবর্ণীকরণ বা 2:255 খুঁজুন…",
+    "searchHint": "আরবি, ইংরেজি অনুবাদ ও প্রতিবর্ণীকরণে অফলাইন আনুমানিক অনুসন্ধান — আয়াতের নাম ও রেফারেন্সসহ।",
+    "noResults": "আপনার অনুসন্ধানের সাথে কোনো আয়াত মেলেনি।",
+    "resultsCount": "{{count}}টি ফলাফল",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Surah না found",
     "notFoundDesc": "এই surah may not exist.",
@@ -1462,7 +1473,7 @@
     "bookmarkAdd": "বুকমার্ক verse",
     "bookmarkRemove": "bookmark সরান",
     "loadingTranslation": "translation… লোড হচ্ছে",
-    "searching": "Mencari… ",
+    "searching": "খোঁজা হচ্ছে…",
     "secondTranslation": "Second অনুবাদ",
     "secondTranslationNone": "Tidak ada",
     "selectTranslator": "অনুবাদক বেছে নিন — {{language}}",
@@ -1482,8 +1493,8 @@
     "pagePickerSearch": "page or surah… অনুসন্ধান",
     "readerLayout": "Tata letak ইবাদতকারী",
     "layoutAyah": "আয়াত অধ্যয়ন",
-    "layoutPage": "Page দেখুন",
-    "layoutMushaf": "মুশাফ",
+    "layoutPage": "পৃষ্ঠা ভিউ",
+    "layoutMushaf": "মুসহাফ",
     "mushafOnlyHint": "আrabic only",
     "loadingMushafFont": "লোড হচ্ছে…",
     "pageReaderTitle": "কুরআন page {{page}} এর {{total}}",
@@ -1610,7 +1621,8 @@
       "dictate": "আয়াত বলুন",
       "stopDictate": "শোনা বন্ধ করুন",
       "bestMatch": "সেরা মিল",
-      "otherMatches": "অন্যান্য মিল"
+      "otherMatches": "অন্যান্য মিল",
+      "tvUnavailableBody": "আয়াত শনাক্ত করতে মাইক্রোফোন লাগে, যা টিভিতে নেই। এর বদলে শব্দ দিয়ে কুরআনে খুঁজুন, অথবা ফোনে অ্যাপটি ব্যবহার করুন।"
     },
     "searchPlaceholderArabic": "আরবি পাঠ বা ٢:٢٥٥-এর মতো রেফারেন্স খুঁজুন…",
     "goToPagePlaceholder": "Page 1–{{max}}",
@@ -1620,8 +1632,14 @@
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
     "surahNumber": "সূরা {{number}}",
     "selectSurah": "একটি সূরা নির্বাচন করুন",
-    "openReader": "পাঠক খুলুন",
-    "bookmarkEmptyDescTv": "এখানে সংরক্ষণ করতে যেকোনো আয়াতে বুকমার্ক আইকন সিলেক্ট করুন।"
+    "openReader": "রিডার খুলুন",
+    "bookmarkEmptyDescTv": "এখানে সংরক্ষণ করতে যেকোনো আয়াতে বুকমার্ক আইকন সিলেক্ট করুন।",
+    "goToAyahPlaceholder": "আয়াত 1–{{max}}",
+    "goToAyahA11y": "আয়াত নম্বরে যান",
+    "goToAyahInvalid": "1 থেকে {{max}}-এর মধ্যে একটি আয়াত লিখুন",
+    "searchAyahs": "আয়াত অনুসন্ধান",
+    "findSurah": "সূরা খুঁজুন",
+    "noSurahResults": "আপনার অনুসন্ধানের সাথে কোনো সূরা মেলেনি।"
   },
   "hadith": {
     "eyebrow": "নববী tradition",
@@ -1864,7 +1882,8 @@
     "history": "Sejarah",
     "rowDone": "{{completed}} Qaza করা হয়েছে",
     "rowDoneWithDaily": "{{completed}} Qaza করা · আজ {{done}}/{{target}}",
-    "hintTv": "কাজা নামাজ লিপিবদ্ধ করতে টিক সিলেক্ট করুন। ট্র্যাকারে নামাজ মিস হলে এই গণনায় স্বয়ংক্রিয়ভাবে যোগ হয়।"
+    "hintTv": "কাজা নামাজ লিপিবদ্ধ করতে টিক সিলেক্ট করুন। ট্র্যাকারে নামাজ মিস হলে এই গণনায় স্বয়ংক্রিয়ভাবে যোগ হয়।",
+    "editCountHintTv": "− ও + দিয়ে ঠিক করুন এই নামাজের আর কতগুলো কাযা বাকি আছে।"
   },
   "qazaCalc": {
     "eyebrow": "কাজা",
@@ -1896,7 +1915,8 @@
       "pubertyAfterAge": "বয়ঃসন্ধির বয়স বর্তমান বয়সের পর হতে পারে না।",
       "yearsPrayedExceed": "নামাজের বছর ({{entered}}) বয়ঃসন্ধির পরের বছর ({{obligatedYears}}) ছাড়াতে পারে না।",
       "exemptExceedsYear": "অব্যাহতি দিন ({{entered}}) আপনার বেছে নেওয়া বছরের দৈর্ঘ্য ({{maxDays}}) ছাড়াতে পারে না।"
-    }
+    },
+    "enterAgePromptTv": "আনুমানিক হিসাব দেখতে উপরে আপনার বর্তমান বয়স নির্ধারণ করুন।"
   },
   "qazaPlan": {
     "eyebrow": "কাজা",
@@ -1993,7 +2013,8 @@
     "confirmAddEstimateMsg": "{{count}} fasts to remaining (new total: {{total}})? যোগ",
     "confirmResetTitle": "counter? রিসেট",
     "confirmResetMsg": "Clear সব রোজা counts ({{remaining}} অবশিষ্ট, {{completed}} completed)? এই cannot be undone.",
-    "adjustHintTv": "সমন্বয় করতে সংখ্যা সিলেক্ট করুন বা −/+ ব্যবহার করুন"
+    "adjustHintTv": "সমন্বয় করতে সংখ্যা সিলেক্ট করুন বা −/+ ব্যবহার করুন",
+    "editCountHintTv": "− ও + দিয়ে ঠিক করুন আর কতগুলো কাযা রোজা বাকি আছে।"
   },
   "calendar": {
     "eyebrow": "Sejarah",
@@ -2114,7 +2135,8 @@
     "confirmStartAgainTitle": "again? শুরু",
     "confirmStartAgainMessage": "আপনার completed গণনা will be cleared so আপনি can begin  নতুন round.",
     "dockLabel": "গণনা",
-    "tapToCountTv": "গণনা করতে সিলেক্ট চাপুন"
+    "tapToCountTv": "গণনা করতে সিলেক্ট চাপুন",
+    "tapToCountKeyboard": "গুনতে বৃত্তে ক্লিক করুন বা স্পেস চাপুন"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} হয় only {{min}} min away",
@@ -2189,7 +2211,9 @@
     "defaultLabel": "মক্কা, সৌদি আরব",
     "defaultTimesHint": "সালাতের সময় এখন মক্কা অনুসারে। আপনার শহর সেট করলে স্থানীয় সঠিক সময় পাবেন। ততক্ষণ সালাত ও আযানের রিমাইন্ডার বন্ধ থাকবে।",
     "setLocation": "অবস্থান সেট করুন",
-    "searchAutoFocusOff": "শহর অনুসন্ধান করুন"
+    "searchAutoFocusOff": "শহর অনুসন্ধান করুন",
+    "subtitleTv": "এই স্থানের জন্য নামাজের সময় হিসাব করা হয়। রিমোট দিয়ে আপনার শহর খুঁজুন।",
+    "hintTv": "সার্চ ফিল্ড সিলেক্ট করুন, তারপর আপনার শহরের নামের অন্তত দুটি অক্ষর লিখুন।"
   },
   "moon": {
     "aria": "চাঁদের পর্যায়: {{phase}}",
@@ -2558,7 +2582,8 @@
     "authenticityTitle": "বিষয়বস্তুর সত্যতা",
     "authenticityBody": "আযকার ও দোয়া সুপরিচিত সংগ্রহ থেকে নেওয়া হয়েছে এবং প্রচলিত প্রকাশনার কাছাকাছি রাখা হয়েছে। কোনো নির্দিষ্ট বিধান বা সংখ্যার ওপর নির্ভর করার আগে বিশ্বস্ত আলেম বা উৎস দিয়ে যাচাই করুন।",
     "privacyPolicy": "গোপনীয়তা নীতি",
-    "termsOfService": "সেবার শর্তাবলী"
+    "termsOfService": "সেবার শর্তাবলী",
+    "scanOnPhoneTv": "এই পেজটি খুলতে আপনার ফোন দিয়ে স্ক্যান করুন।"
   },
   "player": {
     "nowPlaying": "Sekarang Playing",
@@ -2591,7 +2616,9 @@
     "loading": "লোড হচ্ছে…",
     "streamingOnlyNote": "Streaming only — অডিও হয় not সংরক্ষিত এ এই ডিভাইস",
     "ttsVoice": "কণ্ঠস্বর",
-    "ttsVoiceHint": "একটি টেক্সট-টু-স্পিচ কণ্ঠ বেছে নিন"
+    "ttsVoiceHint": "একটি টেক্সট-টু-স্পিচ কণ্ঠ বেছে নিন",
+    "seekBack": "{{seconds}} সেকেন্ড পিছনে",
+    "seekForward": "{{seconds}} সেকেন্ড সামনে"
   },
   "errors": {
     "title": "কিছু একটা ভুল হয়েছে",
@@ -2819,7 +2846,7 @@
     "confirmReviewBody": "{{ref}} will be flagged জন্য পর্যালোচনা.",
     "confirmMemorizedBody": "{{ref}} will be চিহ্নিত as memorized.",
     "confirmClearBody": "{{ref}} will be সরানো থেকে আপনার হিফজ tracker.",
-    "emptyDescTv": "হিফজ চিহ্নিত করতে পাঠকে যেকোনো আয়াতে হিফজ সিলেক্ট করুন।"
+    "emptyDescTv": "পাঠকে একটি আয়াত সিলেক্ট করুন, তারপর হিফজ হিসেবে চিহ্নিত করতে হিফজ বেছে নিন।"
   },
   "travel": {
     "eyebrow": "শিখুন",
@@ -3309,7 +3336,8 @@
       "reflectionHint": "খুশু এবং নামাজ reflections",
       "learning": "Learning অগ্রগতি",
       "learningHint": "Topics completed এ এই module",
-      "characterHintTv": "আজকের আচরণ পর্যালোচনা করার পর সিলেক্ট করুন"
+      "characterHintTv": "আজকের আচরণ পর্যালোচনা করার পর সিলেক্ট করুন",
+      "repentanceHintTv": "তওবা নবায়ন করুন — আজ তওবা করলে সিলেক্ট করুন"
     },
     "progressTitle": "Learning অগ্রগতি",
     "progressSubtitle": "ট্র্যাক অধ্যয়ন - আল্লাহর কাছে আধ্যাত্মিক পদমর্যাদা নয়",
@@ -3353,7 +3381,8 @@
         "best-beloved": "সর্বোত্তম / সবচেয়ে প্রিয়",
         "equal-reward": "সমতুল্য মহা পুরস্কার"
       }
-    }
+    },
+    "timelineCardHintTv": "মূল অংশ — পূর্ণ পাঠের জন্য প্রতিটি ধাপ সিলেক্ট করুন"
   },
   "taharah": {
     "eyebrow": "শিখুন",
@@ -3529,7 +3558,8 @@
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "tapHintTv": "উৎসসহ নোট পড়তে মানচিত্রে একটি নাম সিলেক্ট করুন।"
+      "tapHintTv": "উৎসসহ নোট পড়তে মানচিত্রে একটি নাম সিলেক্ট করুন।",
+      "listHintTv": "উৎসসহ নোট পড়তে তালিকা থেকে একটি নাম সিলেক্ট করুন।"
     }
   },
   "aqeedah": {
@@ -4308,7 +4338,7 @@
       "label": "সংযুক্তি (ঐচ্ছিক)",
       "add": "ফাইল যোগ করুন",
       "remove": "সংযুক্তি সরান",
-      "hint": "5টি পর্যন্ত ফাইল (JPEG, PNG, WebP, অথবা PDF), প্রতিটি 1 MB। একটি থাম্বনেইল অপসারণ করতে দীর্ঘক্ষণ প্রেস করুন।",
+      "hint": "সর্বোচ্চ ৫টি ফাইল (JPEG, PNG, WebP বা PDF), প্রতিটি ১ MB। সরাতে থাম্বনেইলে × ট্যাপ করুন।",
       "signInRequired": "আপনার adhkar ব্যক্তিগত ফাইল সংযুক্ত করতে সাইন ইন করুন.",
       "permissionDenied": "ফাইল সংযুক্ত করার জন্য অনুমতি প্রয়োজন.",
       "permissionTitle": "অ্যাক্সেসের অনুমতি দিন",
@@ -4338,7 +4368,8 @@
       "loadingPdf": "PDF লোড হচ্ছে…",
       "pdfHint": "স্ক্রোল · চিমটি বা +/− দিয়ে জুম · রিসেট করতে ডাবল-ট্যাপ · শেয়ার করতে PDF খুলুন",
       "pdfPreviewTitle": "PDF প্রিভিউ",
-      "tvUnavailable": "অ্যাটাচমেন্টের জন্য ফোন বা ট্যাবলেট লাগে। সেখানে ছবি বা PDF যোগ করুন।"
+      "tvUnavailable": "অ্যাটাচমেন্টের জন্য ফোন বা ট্যাবলেট লাগে। সেখানে ছবি বা PDF যোগ করুন।",
+      "pdfTvUnavailable": "টিভিতে PDF প্রিভিউ করা যায় না। এই সংযুক্তিটি আপনার ফোন বা ট্যাবলেটে খুলুন।"
     },
     "stt": {
       "dictate": "মাইক্রোফোন দিয়ে নির্দেশ করুন",
@@ -4368,13 +4399,20 @@
     "markTonight": "I prayed তাহাজ্জুদ tonight",
     "markedTonight": "Prayed tonight — mashaআল্লাহ",
     "lastNights": "গত {{count}} রাত",
-    "lastNightsHint": "Each dot হয় one night, labeled by ক্যালেন্ডার date (most recent এ  left).",
     "virtueTitle": "Virtue এর  night নামাজ",
     "virtueBody": " best নামাজ after  ফরজ prayers হয়  night নামাজ.",
     "virtueRef": "Sahih Muslim 1163",
     "streakRow": "তাহাজ্জুদ ধারাবাহিক",
     "calculatorCta": "রাতের শেষ তৃতীয়াংশ ক্যালকুলেটর",
-    "calculatorHint": "মাগরিব ও ফজর থেকে মধ্যরাত ও সেরা তাহাজ্জুদের সময় জানুন"
+    "calculatorHint": "মাগরিব ও ফজর থেকে মধ্যরাত ও সেরা তাহাজ্জুদের সময় জানুন",
+    "tonightTitle": "আজ রাত",
+    "bestLabel": "সেরা ধারাবাহিকতা",
+    "totalLabel": "মোট রাত",
+    "startTonight": "আপনার ধারাবাহিকতা আজ রাত থেকে শুরু।",
+    "calendarHint": "আগের কোনো রাত রেকর্ড বা মুছতে ট্যাপ করুন।",
+    "calendarHintTv": "আগের কোনো রাত রেকর্ড বা মুছতে নির্বাচন করুন।",
+    "legendPrayed": "আদায় করেছি",
+    "inWindow": "এখনই সেরা সময়"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates হয় calculated estimates — local moon-sighting may differ.",
@@ -4630,8 +4668,10 @@
       "buildsTitle": "চরিত্র গড়ে",
       "buildsHint": "একবারে একটি গুণ অনুশীলন করুন — সত্য, ধৈর্য, রহম ও ন্যায়।",
       "destroysTitle": "যা চরিত্র নষ্ট করে",
-      "destroysHint": "যে অভ্যাসগুলো সম্পর্কে নস সতর্ক করে — সংশ্লিষ্ট পাঠের জন্য ট্যাপ করুন।"
-    }
+      "destroysHint": "যে অভ্যাসগুলো সম্পর্কে নস সতর্ক করে — সংশ্লিষ্ট পাঠের জন্য ট্যাপ করুন।",
+      "destroysHintTv": "যে অভ্যাস সম্পর্কে দলিলে সতর্ক করা হয়েছে — সংশ্লিষ্ট পাঠের জন্য একটি টাইল সিলেক্ট করুন।"
+    },
+    "pathsHintTv": "আল্লাহর অনুমতিতে মর্যাদা বাড়ায় এমন আমল — দলিল ও অ্যাপ লিংকের জন্য যেকোনো পথ সিলেক্ট করুন।"
   },
   "jahannam": {
     "eyebrow": "শিখুন",
@@ -5123,7 +5163,7 @@
     "eyebrow": "ক্যালেন্ডার",
     "title": "তারিখ রূপান্তরকারী",
     "subtitle": "হিজরি এবং গ্রেগরিয়ান ক্যালেন্ডারের মধ্যে রূপান্তর করুন",
-    "intro": "সারণী কুয়েতি অ্যালগরিদম ব্যবহার করে অফলাইনে গণনা করা অন্য ক্যালেন্ডারে তার সমতুল্য দেখতে উভয় ক্যালেন্ডারে একটি তারিখ লিখুন।",
+    "intro": "যেকোনো ক্যালেন্ডারে একটি তারিখ লিখুন অন্যটিতে সমতুল্য দেখতে — আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে অফলাইনে গণনা করা।",
     "toHijri": "গ্রেগরিয়ান → হিজরি",
     "toGregorian": "হিজরি → গ্রেগরিয়ান",
     "gregorianDateLabel": "গ্রেগরিয়ান তারিখ",
@@ -5133,7 +5173,7 @@
     "year": "বছর",
     "useToday": "আজই ব্যবহার করুন",
     "invalidDate": "একটি বৈধ তারিখ লিখুন",
-    "disclaimer": "এটি একটি গাণিতিক আনুমানিক (সারণী \"কুয়েতি অ্যালগরিদম\") এবং স্থানীয় চাঁদ দেখার ঘোষণা থেকে একদিনে আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষকে অনুসরণ করুন।",
+    "disclaimer": "তারিখ আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে গণনা করা হয় এবং অফিসিয়াল চাঁদ দেখার ঘোষণা থেকে এক দিন আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষ অনুসরণ করুন।",
     "directionTitle": "রূপান্তর দিক",
     "resultFrom": "{{date}} থেকে",
     "quickLinksTitle": "সম্পর্কিত",
@@ -5218,7 +5258,8 @@
     "editHint": "সময় বদলালে ফলাফল আপডেট হয়।",
     "nightLengthLabel": "রাতের দৈর্ঘ্য",
     "willStartIn": "{{time}}-এ শুরু হবে",
-    "timeRemaining": "{{time}} বাকি"
+    "timeRemaining": "{{time}} বাকি",
+    "autoDetectHintTv": "{{location}} · বদলাতে একটি সময় সিলেক্ট করুন"
   },
   "friday": {
     "eyebrow": "শিখুন",
@@ -5271,7 +5312,7 @@
     "eyebrow": "শিখুন",
     "title": "Janazah গাইড",
     "subtitle": "জানাযার নামায, গোসল, দাফন এবং সহীহ দুআ",
-    "intro": "জানাযাকে সামাজিক ফরজ হিসেবে ব্যবহারিক পর্যালোচনা — রুকু-সিজদাহ ছাড়া চার তাকবীর, পুরুষ-নারী-শিশুর জন্য হিসনুল মুসলিম দুআ, এবং গোসল, দাফন, শহীদ ও শোকসন্তপ্তদের নির্দেশনা।",
+    "intro": "একটি সাম্প্রদায়িক বাধ্যবাধকতা হিসাবে Janazah এর একটি ব্যবহারিক সংক্ষিপ্ত বিবরণ — কিভাবে রুকু বা সুজূদ ছাড়া চারটি তাকবির এবং মৃত ব্যক্তির জন্য Hisnul Muslim দুআ করতে হয়।",
     "section": {
       "obligation": "বাধ্যবাধকতা",
       "prepare": "প্রস্তুতি",
@@ -5356,5 +5397,400 @@
     "notFound": "বিষয় পাওয়া যায়নি",
     "disclaimer": "শিক্ষামূলক সারসংক্ষেপ — এটি ফতোয়া নয়। সঠিক তারিখ হিজরি মাসের উপর নির্ভর করে যা চাঁদ দেখার ভিত্তিতে ভিন্ন হয়; ধর্মীয় তারিখ ও বিধানের জন্য স্থানীয় মসজিদ বা যোগ্য আলেমের অনুসরণ করুন।",
     "continueInApp": "Munib-এ চালিয়ে যান"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "অনুশীলন",
+      "practiseAyah": "আয়াত {{n}} অনুশীলন",
+      "practisePlan": "এই সূরা অনুশীলন করুন",
+      "toRevise_one": "{{count}}টি পুনরাবৃত্তির জন্য",
+      "toRevise_other": "{{count}}টি পুনরাবৃত্তির জন্য"
+    },
+    "mode": {
+      "follow": "অনুসরণ",
+      "check": "যাচাই",
+      "hideWords": "শব্দ লুকান",
+      "hideAyahs": "আয়াত লুকান"
+    },
+    "range": {
+      "ayah": "এই আয়াত",
+      "next5": "পরের ৫টি",
+      "surah": "এই সূরা",
+      "page": "এই পৃষ্ঠা",
+      "custom": "নিজের মতো",
+      "fromAyah": "আয়াত থেকে",
+      "toAyah": "আয়াত পর্যন্ত",
+      "increase": "{{label}} বাড়ান",
+      "decrease": "{{label}} কমান"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "অনুশীলন",
+      "subtitle": "তিলাওয়াত করুন, লুকিয়ে আবার দেখান, আর যা মুখস্থ করছেন তা পুনরাবৃত্তি করুন",
+      "continue": "চালিয়ে যান",
+      "start": "শুরু করুন",
+      "listen": "শুনুন",
+      "manage": "পরিচালনা",
+      "rangeTitle": "পরিসর",
+      "modeTitle": "পদ্ধতি",
+      "startRevision": "পুনরাবৃত্তি শুরু করুন",
+      "openQueue": "পুনরাবৃত্তির তালিকা দেখুন",
+      "captionReady": "শ্রোতা এই ডিভাইসেই থাকে।",
+      "captionMissing": "আপনার কণ্ঠ অনুসরণ করতে শ্রোতা ডাউনলোড করুন। শোনা এখনো সম্ভব।",
+      "captionOffline": "শ্রোতা ডাউনলোড করতে সংযোগ লাগবে। শোনা এখনো কাজ করে।",
+      "captionFailed": "শ্রোতা চালু হয়নি। শোনা এখনো সম্ভব।",
+      "captionWebUnsupported": "এই ব্রাউজার শ্রোতা চালাতে পারে না।",
+      "captionUnsupported": "এই ডিভাইসে শ্রোতা নেই। শোনা এখনো কাজ করে।",
+      "captionManualMode": "শ্রোতা ছাড়া এই পদ্ধতি লেখা দেখায় যাতে আপনি নিজে খুলতে পারেন, আর শব্দ চিহ্নিত করে না।",
+      "downloadListener": "শ্রোতা ডাউনলোড ({{size}} MB)",
+      "reviseTitle_one": "{{count}}টি আয়াত পুনরাবৃত্তির জন্য",
+      "reviseTitle_other": "{{count}}টি আয়াত পুনরাবৃত্তির জন্য",
+      "reviseRemaining_one": "আরও {{count}}টি অন্য দিনে",
+      "reviseRemaining_other": "আরও {{count}}টি অন্য দিনগুলোতে",
+      "passageLabel": "আপনার অংশ",
+      "change": "বদলান",
+      "startPassage": "{{passage}} শুরু করুন",
+      "ayahCount_one": "{{count}}টি আয়াত",
+      "ayahCount_other": "{{count}}টি আয়াত",
+      "recentTitle": "সাম্প্রতিক",
+      "recentHint": "একই মোডে এই অংশটি আবার শুরু করে"
+    },
+    "session": {
+      "loading": "আয়াত লোড হচ্ছে…",
+      "preparing": "শ্রোতা প্রস্তুত হচ্ছে…",
+      "ayahOf": "আয়াত {{n}} / {{total}}",
+      "revisionEyebrow": "পুনরাবৃত্তি",
+      "coach": "আয়াতটি পড়ুন, তারপর মাইক্রোফোনে চাপুন ও তিলাওয়াত করুন।",
+      "retry": "আবার",
+      "settled": "শ্রোতা এই আয়াতটি অনুসরণ করেছে।",
+      "someNotSure": "শ্রোতা কিছু শব্দ নিয়ে নিশ্চিত ছিল না। আবার তিলাওয়াত করতে পারেন বা এগিয়ে যেতে পারেন।",
+      "listeningStopped": "শোনা থেমে গেছে। শব্দ খুলে চালিয়ে যেতে পারেন।",
+      "listenerDidNotStart": "শ্রোতা চালু হয়নি। তবুও শুনতে ও শব্দ খুলতে পারেন।",
+      "listenOnly": "আয়াত শুনতে প্লে চাপুন। কণ্ঠ অনুসরণের জন্য সেটিংস থেকে শ্রোতা ডাউনলোড করুন।",
+      "listenOnlyHide": "প্রস্তুত হলে শব্দ খুলুন। শ্রোতা এই ডিভাইসে নেই, তাই শব্দ চিহ্নিত হয় না।",
+      "micOff": "Munib Tracker-এর জন্য মাইক্রোফোন বন্ধ। তবুও শুনতে পারেন।",
+      "openSettings": "সেটিংস খুলুন",
+      "previous": "আগের",
+      "next": "পরের",
+      "tryAgainLine_one": "{{count}}টি শব্দ আবার পড়ুন",
+      "tryAgainLine_other": "{{count}}টি শব্দ আবার পড়ুন",
+      "changePassage": "বদলান",
+      "chipDone": "শেষ",
+      "chipRetry": "আবার পড়ার শব্দ",
+      "chipCurrent": "বর্তমান",
+      "chipTodo": "এখনো নয়",
+      "chipLabel": "আয়াত {{n}}, {{state}}",
+      "listeningHint": "শোনা হচ্ছে… আয়াতটি পড়ুন। শেষ শব্দের পর এটি নিজেই শেষ হবে, অথবা থামান চাপুন।"
+    },
+    "dock": {
+      "hear": "শুনুন",
+      "stopHearing": "তিলাওয়াত থামান",
+      "listen": "শুনুন",
+      "start": "শুরু",
+      "listening": "শুনছে",
+      "micStartHint": "এই আয়াতে আপনার তিলাওয়াত শোনা শুরু করে",
+      "micStopHint": "এই আয়াত শেষ করে",
+      "reveal": "দেখান",
+      "revealHint": "পরের লুকানো শব্দ দেখায়। বাকি আয়াতের জন্য দীর্ঘ চাপুন।",
+      "end": "শেষ",
+      "revealAll": "সব দেখান",
+      "revealAllConfirmTitle": "পুরো আয়াত দেখাবেন?",
+      "revealAllConfirmMessage": "এই আয়াতের সব লুকানো শব্দ দেখানো হবে।",
+      "endConfirmTitle": "এই অনুশীলন শেষ করবেন?",
+      "endConfirmMessage": "এ পর্যন্ত অনুশীলনের একটি সারসংক্ষেপ দেখবেন।",
+      "endConfirm": "অনুশীলন শেষ করুন"
+    },
+    "word": {
+      "matched": "মিলেছে",
+      "corrected": "দ্বিতীয় চেষ্টায় মিলেছে",
+      "notSure": "নিশ্চিত নয়",
+      "tryAgain": "আবার পড়ুন",
+      "notYet": "এখনো নয়",
+      "hidden": "লুকানো শব্দ {{n}}",
+      "tapToHear": "এই শব্দটি শোনায়"
+    },
+    "summary": {
+      "subtitle": "সেশন শেষ",
+      "tryAyahAgain": "এই আয়াত আবার পড়ুন",
+      "nextAyah": "পরের আয়াত",
+      "nextRevision": "পরের পুনরাবৃত্তি",
+      "done": "সম্পন্ন",
+      "hearAyah": "এই আয়াত শুনুন",
+      "markMemorized": "মুখস্থ হিসেবে চিহ্নিত করুন",
+      "listened": "আপনি এই অংশ শুনেছেন। কণ্ঠ অনুসরণের জন্য শ্রোতা ডাউনলোড করুন।",
+      "headListened": "আপনি এই অংশ শুনেছেন",
+      "practiseAgain": "আবার অনুশীলন করুন",
+      "weakAyahsTitle": "আবার অনুশীলনের আয়াত",
+      "ayahChip": "আয়াত {{ayah}}",
+      "practiseAyah": "আয়াত {{ayah}} আবার অনুশীলন করুন"
+    },
+    "revision": {
+      "title": "পুনরাবৃত্তি",
+      "subtitle": "আজকের আয়াত, পুরনোগুলো আগে",
+      "emptyTitle": "আজ পুনরাবৃত্তির কিছু নেই",
+      "emptyDesc": "যাচাই বা লুকানোর পদ্ধতিতে যে আয়াত অনুশীলন করেন, সময় হলে সেগুলো এখানে ফিরে আসে।",
+      "dueToday": "আজকের",
+      "markedMemorized": "মুখস্থ হিসেবে চিহ্নিত",
+      "notNow": "এখন নয়",
+      "setStatus": "অবস্থা ঠিক করুন",
+      "skip": "বাদ দিন",
+      "practiseRow": "{{surah}} {{ayah}} অনুশীলন",
+      "sittingProgress": "{{n}} / {{total}}",
+      "hifzRowSub": "যে আয়াত মুখস্থ করছেন সেগুলো অনুশীলন ও পুনরাবৃত্তি করুন",
+      "status": {
+        "learning": "শিখছি",
+        "practising": "অনুশীলন চলছে",
+        "needsRevision": "পুনরাবৃত্তি দরকার"
+      },
+      "overdue_one": "{{count}} দিন দেরি",
+      "overdue_other": "{{count}} দিন দেরি"
+    },
+    "settings": {
+      "title": "কুরআন অনুশীলন",
+      "rowSubtitle": "শ্রোতা, পরামর্শ ও পুনরাবৃত্তি",
+      "valueReady": "প্রস্তুত",
+      "valueNotDownloaded": "ডাউনলোড হয়নি",
+      "valueDownloading": "ডাউনলোড হচ্ছে {{percent}}%",
+      "valueRetry": "আবার চেষ্টা দরকার",
+      "practiceTitle": "অনুশীলন",
+      "defaultMode": "ডিফল্ট পদ্ধতি",
+      "feedbackTiming": "আবার পড়ার শব্দ কখন দেখাবে",
+      "timing": {
+        "ayah": "প্রতি আয়াতের পরে",
+        "live": "তিলাওয়াতের সময়",
+        "end": "শেষে"
+      },
+      "showTranslation": "অনুবাদ দেখান",
+      "showTransliteration": "উচ্চারণ দেখান",
+      "showTajweed": "তাজবিদের রং",
+      "showTajweedSub": "রঙের কারণে অনুশীলনের চিহ্ন দেখা কঠিন হতে পারে।",
+      "hearBeforeRecite": "তিলাওয়াতের আগে শুনুন",
+      "hear": {
+        "off": "বন্ধ",
+        "once": "একবার",
+        "every": "প্রতি আয়াত"
+      },
+      "autoAdvance": "স্বয়ংক্রিয়ভাবে এগোন",
+      "autoAdvanceSub": "এই আয়াত শেষ হলে পরের আয়াতে যান।",
+      "keepAwake": "স্ক্রিন চালু রাখুন",
+      "startFromTitle": "কোথা থেকে শুরু",
+      "startFrom": {
+        "lastPractice": "শেষ অনুশীলন",
+        "lastRead": "যেখানে পড়ছিলাম",
+        "ask": "আমাকে জিজ্ঞেস করুন"
+      },
+      "revisionTitle": "পুনরাবৃত্তি",
+      "dailyLimit": "দৈনিক আয়াত",
+      "includeHifz": "হিফজের পুনরাবৃত্তি যোগ করুন",
+      "includeHifzSub": "পুনরাবৃত্তির জন্য চিহ্নিত আয়াত যোগ হয়।",
+      "reminder": "পুনরাবৃত্তির রিমাইন্ডার",
+      "reminderSub": "আয়াত বাকি থাকলে এই ডিভাইসে রিমাইন্ডার।",
+      "reminderMasterOff": "বিজ্ঞপ্তিতে রিমাইন্ডার বন্ধ আছে।",
+      "openNotifications": "বিজ্ঞপ্তি সেটিংস খুলুন",
+      "sessionTitle": "অনুশীলনের সময়",
+      "displayTitle": "পর্দায়",
+      "timingHelp": {
+        "ayah": "আবার পড়ার শব্দগুলো প্রতিটি আয়াত শেষে দেখা যায় — পড়ার মাঝে কখনো নয়।",
+        "live": "শ্রোতা নিশ্চিত হলেই পড়ার সময় চিহ্ন দেখা যায়।",
+        "end": "শুধু বর্তমান শব্দে দাগ থাকে। ফলাফল শেষে দেখা যায়।"
+      },
+      "hearHelp": {
+        "off": "শুনুন চাপলেই কেবল কারী তিলাওয়াত করেন।",
+        "once": "শুরু করার আগে কারী প্রথম আয়াত তিলাওয়াত করেন।",
+        "every": "আপনি পড়ার আগে কারী প্রতিটি আয়াত তিলাওয়াত করেন।"
+      },
+      "startHelp": {
+        "lastPractice": "শেষ অনুশীলন যেখানে থেমেছিল সেখান থেকে শুরু করুন।",
+        "lastRead": "কুরআনে যে আয়াত পড়ছিলেন সেখান থেকে শুরু করুন।",
+        "ask": "প্রতিবার অংশটি নিজে বেছে নিন।"
+      },
+      "dailyLimitHelp_one": "দিনে সর্বোচ্চ {{count}}টি আয়াত; বাকিগুলো পরের দিনের জন্য।",
+      "dailyLimitHelp_other": "দিনে সর্বোচ্চ {{count}}টি আয়াত; বাকিগুলো পরের দিনের জন্য।"
+    },
+    "listener": {
+      "title": "ডিভাইসে শ্রোতা",
+      "notOnDevice": "এই ডিভাইসে নেই",
+      "aboutSize": "প্রায় {{size}} MB",
+      "download": "ডাউনলোড",
+      "staysOnDevice": "এই ডিভাইসেই থাকে। এটি ছাড়াও পড়া চলে।",
+      "downloadingBytes": "{{done}} / {{total}}",
+      "downloadingLine": "শ্রোতা {{done}} / {{total}} ({{percent}}%)",
+      "cancel": "বাতিল",
+      "verifying": "ফাইল যাচাই হচ্ছে",
+      "ready": "প্রস্তুত",
+      "version": "সংস্করণ {{version}}",
+      "delete": "মুছুন",
+      "deleteTitle": "শ্রোতা মুছবেন?",
+      "deleteBody": "অনুশীলনে তিলাওয়াত এখনো চলবে। কণ্ঠ অনুসরণের জন্য আবার ডাউনলোড করতে হবে।",
+      "confirmRemove": "সরান",
+      "needsRetry": "আবার চেষ্টা দরকার",
+      "tryAgain": "আবার চেষ্টা করুন",
+      "updateAvailable": "একটি আপডেট প্রস্তুত",
+      "updateSize": "প্রায় {{size}} MB। বর্তমান শ্রোতা চলতে থাকবে।",
+      "updateTitle": "শ্রোতা বদলাবেন?",
+      "downloadUpdate": "আপডেট ডাউনলোড",
+      "wifiOnly": "শুধু Wi-Fi-তে ডাউনলোড",
+      "cellularTitle": "মোবাইল ডেটা ব্যবহার করবেন?",
+      "cellularBody": "শ্রোতা প্রায় {{size}} MB এবং এই ডিভাইসেই থাকে।",
+      "useMobileData": "মোবাইল ডেটা ব্যবহার করুন",
+      "advanced": "উন্নত",
+      "recommended": "প্রস্তাবিত শ্রোতা",
+      "alternate": "বিকল্প শ্রোতা",
+      "recommendedSize": "প্রস্তাবিত, প্রায় {{size}} MB",
+      "alternateSize": "বিকল্প, প্রায় {{size}} MB",
+      "alternateCaption": "প্রস্তাবিতটি না চললে তবেই বিকল্প ব্যবহার করুন। এটি আবার পড়ার শব্দ চিহ্নিত নাও করতে পারে।",
+      "switchTitle": "শ্রোতা বদলাবেন?",
+      "engineCaption": "{{engine}} ব্যবহার হচ্ছে।",
+      "unsupported": "এই ডিভাইসে শ্রোতা নেই।",
+      "webUnsupported": "এই ব্রাউজার শ্রোতা চালাতে পারে না।",
+      "knownLimits": "শান্ত জায়গায়, এক কণ্ঠে ও স্বাভাবিক গতিতে সবচেয়ে ভালো কাজ করে। শিশুদের কণ্ঠে কম নির্ভরযোগ্য হতে পারে।",
+      "detailsLine": "এই ডিভাইসে {{size}} MB · {{engine}}"
+    },
+    "privacy": {
+      "title": "গোপনীয়তা ও উৎস",
+      "onDevice": "আপনার কণ্ঠ এই ডিভাইসেই প্রক্রিয়া হয়। আপলোড বা সংরক্ষণ হয় না।",
+      "microphone": "মাইক্রোফোন",
+      "micAllowed": "অনুমতি আছে",
+      "micBlocked": "বন্ধ",
+      "micNotAsked": "এখনো চাওয়া হয়নি",
+      "deleteHistory": "অনুশীলনের ইতিহাস মুছুন",
+      "deleteHistoryTitle": "অনুশীলনের ইতিহাস মুছবেন?",
+      "deleteHistoryBody": "সেশনের সারাংশ মুছে যাবে। হিফজের চিহ্ন, পুনরাবৃত্তির সূচি ও শ্রোতা থাকবে।",
+      "practiceAid": "শ্রোতা অনুশীলনের সহায়ক। এটি শিক্ষকের বিকল্প নয়।",
+      "sources": "শ্রোতার ফাইল {{host}} থেকে ডাউনলোড হয়। Tilawa প্রকল্প, Tanzil পাঠ ও Quran.com শব্দ-তথ্য দিয়ে তৈরি।",
+      "licence": "প্রস্তাবিত শ্রোতা NPL-1.2 লাইসেন্সে শেয়ার করা: বিনামূল্যে, কখনো বিক্রি হয় না, বিজ্ঞাপন নেই।"
+    },
+    "offlineRow": {
+      "title": "কুরআন শ্রোতা",
+      "subtitle": "কুরআন অনুশীলনে পরিচালিত। «সব মুছুন» এটি রেখে দেয়।"
+    },
+    "reminder": {
+      "title": "কুরআন পুনরাবৃত্তি",
+      "body_one": "আজ {{count}}টি আয়াত পুনরাবৃত্তির জন্য",
+      "body_other": "আজ {{count}}টি আয়াত পুনরাবৃত্তির জন্য"
+    },
+    "error": {
+      "noConnection": "সংযোগ নেই",
+      "notEnoughSpace": "যথেষ্ট জায়গা নেই",
+      "checksum": "ফাইল মেলেনি",
+      "downloadFailed": "ডাউনলোড শেষ হয়নি",
+      "downloadCancelled": "ডাউনলোড বাতিল হয়েছে",
+      "modelMissing": "শ্রোতার ফাইল নেই",
+      "didNotStart": "চালু হয়নি",
+      "outOfMemory": "এই ডিভাইসের মেমরি কম পড়েছে। তবুও শুনতে পারেন।",
+      "unsupported": "এই ডিভাইসে নেই",
+      "micDenied": "মাইক্রোফোন বন্ধ",
+      "micUnavailable": "কোনো মাইক্রোফোন নেই",
+      "captureFailed": "মাইক্রোফোন চালু হয়নি",
+      "interrupted": "শোনায় বাধা এসেছে",
+      "listeningStopped": "শোনা থেমে গেছে",
+      "unknown": "কিছু একটা সমস্যা হয়েছে"
+    },
+    "pronunciation": {
+      "title": "উচ্চারণ শ্রোতা",
+      "explainer": "তাজবিদ পাঠের জন্য ঐচ্ছিক দ্বিতীয় শ্রোতা। একবারে একটি ধ্বনি উদাহরণের সঙ্গে মেলায় এবং কখনো নম্বর দেয় না।",
+      "notSetUp": "সেট করা হয়নি",
+      "notOnDevice": "এই ডিভাইসে নেই",
+      "ready": "প্রস্তুত (সংস্করণ {{version}})",
+      "setUp": "সেট করুন",
+      "downloading": "উচ্চারণ শ্রোতা ডাউনলোড হচ্ছে…",
+      "consentTitle": "সেট করার আগে",
+      "consentDownload": "এটি Quran Lab থেকে প্রায় ৫৭ MB-এর দ্বিতীয় শ্রোতা ডাউনলোড করবে।",
+      "consentActivation": "অ্যাপটি এটি চালু করতে একবার, আর আপডেট দেখতে আবার Quran Lab-এর সঙ্গে যোগাযোগ করে।",
+      "consentOnDevice": "আপনার তিলাওয়াত এই ডিভাইসেই প্রক্রিয়া হয়।",
+      "consentRemotePause": "Quran Lab সব ব্যবহারকারীর জন্য এই শ্রোতা থামাতে পারে। তখনো পাঠগুলো চলবে।",
+      "agree": "সম্মত, ডাউনলোড করুন",
+      "notNow": "এখন নয়",
+      "deleteTitle": "উচ্চারণ শ্রোতা মুছবেন?",
+      "deleteBody": "তাজবিদ পাঠ চলবে। কোনো ধ্বনি অনুশীলনে আবার ডাউনলোড করতে হবে।",
+      "sharingSwitch": "আমার তিলাওয়াত Quran Lab-এর সঙ্গে শেয়ার করুন",
+      "sharingSub": "শুধু যদি Quran Lab-এর শিটে সম্মতি দিয়ে থাকেন। বন্ধ করলে আপলোড থামে ও না-পাঠানো সারি মুছে যায়।",
+      "deleteShared": "যা শেয়ার করেছি তা মুছুন",
+      "deleteSharedTitle": "যা শেয়ার করেছেন তা মুছবেন?",
+      "deleteSharedBody": "এই অ্যাপ থেকে শেয়ার করা প্রতিটি রেকর্ডিং Quran Lab-এর সার্ভার থেকে মুছে যাবে, আর শেয়ার বন্ধ হবে।",
+      "deletedShared": "আপনার শেয়ার করা রেকর্ডিং মুছে গেছে",
+      "sharingFailed": "এটি হয়নি। আবার চেষ্টা করুন।",
+      "recoveryCode": "পুনরুদ্ধার কোড: {{code}}",
+      "sourcesLine": "TajweedFormer, Quran Lab-এর, NPL-1.2 লাইসেন্সে শেয়ার করা।",
+      "practiseSound": "এই ধ্বনি অনুশীলন করুন",
+      "drillTitle": "এই ধ্বনি অনুশীলন করুন",
+      "drillIntro": "উদাহরণ শুনুন, তারপর «তিলাওয়াত» চাপুন ও একইভাবে বলুন।",
+      "needsSetup": "এই ধ্বনি অনুশীলনের জন্য উচ্চারণ শ্রোতা সেট করুন।",
+      "needsConnectionOnce": "সেট করতে একবার সংযোগ লাগে।",
+      "notAvailableForSound": "এই ধ্বনির পরামর্শ এখনো নেই। উদাহরণ শুনে আবার চেষ্টা করুন।",
+      "recite": "তিলাওয়াত",
+      "stop": "থামান",
+      "listening": "শুনছে…",
+      "verdictMatched": "এটি উদাহরণের সঙ্গে মিলেছে।",
+      "verdictTryAgain": "আবার শুনুন ও আরেকবার চেষ্টা করুন।",
+      "verdictNotSure": "শ্রোতা নিশ্চিত ছিল না।",
+      "error": {
+        "noConnection": "সেট করতে একবার সংযোগ লাগে।",
+        "paused": "Quran Lab এই শ্রোতা থামিয়ে দিয়েছে। পাঠগুলো চলবে।",
+        "noSpace": "যথেষ্ট জায়গা নেই",
+        "notYet": "এই শ্রোতা এখনো নেই। পরে আবার চেষ্টা করুন।",
+        "micDenied": "Munib Tracker-এর জন্য মাইক্রোফোন বন্ধ।",
+        "unsupported": "এই ডিভাইসে নেই",
+        "generic": "এটি হয়নি। আবার চেষ্টা করুন।"
+      }
+    },
+    "modeHelp": {
+      "follow": "সামনে লেখা রেখে তিলাওয়াত করুন। শ্রোতা শব্দে শব্দে সাথে চলে।",
+      "check": "লেখা দেখা অবস্থায় তিলাওয়াত করুন। প্রতিটি আয়াতের পরে আবার পড়ার শব্দগুলো দেখবেন।",
+      "hideWords": "প্রথম শব্দের পর বাকিগুলো ঢাকা থাকে। মুখস্থ থেকে পড়ুন; শোনা শব্দগুলো নিজেই দেখা যায়।",
+      "hideAyahs": "শেষ না করা বা «দেখান» চাপা পর্যন্ত পুরো আয়াত ঢাকা থাকে। পুনরাবৃত্তির জন্য সবচেয়ে ভালো।"
+    },
+    "listenerStatus": {
+      "ready": "শ্রোতা প্রস্তুত",
+      "readySub": "আপনার কণ্ঠ এই ডিভাইসেই প্রক্রিয়া হয়, কখনো আপলোড হয় না।",
+      "downloading": "শ্রোতা ডাউনলোড হচ্ছে · {{percent}}%",
+      "failed": "ডাউনলোড শেষ হয়নি",
+      "missing": "আপনার কণ্ঠ অনুসরণ করুক",
+      "missingSub": "ডিভাইসের শ্রোতা ডাউনলোড করুন ({{size}} MB)। এটি ছাড়াও শুনতে ও দেখাতে পারবেন।",
+      "offlineSub": "শ্রোতা ডাউনলোড করতে একবার সংযোগ দিন। শোনা অফলাইনেও চলে।",
+      "stillListen": "আপনি এখনো শুনতে ও শব্দগুলো দেখাতে পারবেন।"
+    },
+    "picker": {
+      "title": "কী অনুশীলন করবেন বেছে নিন",
+      "searchSurah": "নাম বা নম্বর দিয়ে সূরা খুঁজুন",
+      "changeSurah": "সূরা বদলান",
+      "fromAyah": "এই আয়াত থেকে শুরু",
+      "toAyah": "এই আয়াতে শেষ",
+      "toEnd": "শেষ পর্যন্ত",
+      "ayahN": "আয়াত {{n}}",
+      "confirm": "{{passage}} অনুশীলন করুন",
+      "ayahCount_one": "{{count}}টি আয়াত",
+      "ayahCount_other": "{{count}}টি আয়াত"
+    },
+    "result": {
+      "headAllMatched": "সব শব্দ মিলেছে",
+      "headTryAgain_one": "{{count}}টি শব্দ আবার পড়ুন",
+      "headTryAgain_other": "{{count}}টি শব্দ আবার পড়ুন",
+      "headMissed_one": "{{count}}টি শব্দে পৌঁছায়নি",
+      "headMissed_other": "{{count}}টি শব্দে পৌঁছায়নি",
+      "headNotSure_one": "শ্রোতা {{count}}টি শব্দে নিশ্চিত ছিল না",
+      "headNotSure_other": "শ্রোতা {{count}}টি শব্দে নিশ্চিত ছিল না",
+      "heardOf": "{{total}}টির মধ্যে {{heard}}টি শব্দ শোনা গেছে",
+      "matched": "মিলেছে",
+      "tryAgain": "আবার পড়ুন",
+      "notSure": "নিশ্চিত নয়",
+      "missed": "পৌঁছায়নি",
+      "groupTryAgain": "এগুলো আবার পড়ুন",
+      "groupMissed": "পৌঁছায়নি",
+      "groupNotSure": "নিশ্চিত নয়",
+      "nextAyah": "পরের আয়াত",
+      "reciteAgain": "আবার পড়ুন",
+      "moveOn": "পরের আয়াতে যান",
+      "finish": "শেষ করুন ও সারসংক্ষেপ দেখুন",
+      "headNothingHeard": "শ্রোতা কোনো শব্দ ধরতে পারেনি",
+      "nothingHeardTip": "একটু জোরে, মাইক্রোফোনের কাছে তিলাওয়াত করুন এবং প্রথম শব্দ থেকে শুরু করুন।"
+    },
+    "view": {
+      "title": "দৃশ্য",
+      "mushafCoarse": "মুসহাফে শব্দ চিহ্নের জন্য শব্দ তালিকা লাগবে। এটি ডাউনলোড করতে একবার সংযোগ করুন — আয়াতগুলো তবুও দেখা যাবে।"
+    }
   }
 }

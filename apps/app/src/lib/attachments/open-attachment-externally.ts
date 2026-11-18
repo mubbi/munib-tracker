@@ -1,7 +1,8 @@
-import { cacheDirectory, downloadAsync, makeDirectoryAsync } from "expo-file-system/legacy";
 import * as Sharing from "expo-sharing";
 import { Linking, Platform, Share } from "react-native";
 
+import { downloadAuthedFile, fetchAuthedBlob } from "@/lib/attachments/authed-media";
+import { cacheDirectoryUri, ensureDirectory } from "@/lib/native-file-store";
 import { runWhenIdle } from "@/lib/run-when-idle";
 
 function waitForIdle(): Promise<void> {
@@ -26,17 +27,14 @@ async function downloadRemoteAttachment(
   fileName: string,
   headers?: Record<string, string>,
 ): Promise<string> {
-  const baseDir = cacheDirectory;
+  const baseDir = cacheDirectoryUri();
   if (!baseDir) {
     throw new Error("No cache directory available");
   }
   const dir = `${baseDir}user-media-open/`;
-  await makeDirectoryAsync(dir, { intermediates: true });
+  ensureDirectory(dir);
   const localUri = `${dir}${Date.now()}-${sanitizeFileName(fileName)}`;
-  const result = await downloadAsync(remoteUri, localUri, {
-    headers: headers ?? {},
-  });
-  return result.uri;
+  return downloadAuthedFile(remoteUri, localUri, headers);
 }
 
 /**
@@ -58,14 +56,7 @@ export async function openAttachmentExternally(options: {
     if (typeof window === "undefined") return;
 
     if (uri.startsWith("http")) {
-      const response = await fetch(uri, {
-        headers,
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error(`Failed to open attachment (${response.status})`);
-      }
-      const blob = await response.blob();
+      const blob = await fetchAuthedBlob(uri, headers);
       const objectUrl = URL.createObjectURL(blob);
       window.open(objectUrl, "_blank", "noopener,noreferrer");
       // Keep the blob alive long enough for the new tab to load.

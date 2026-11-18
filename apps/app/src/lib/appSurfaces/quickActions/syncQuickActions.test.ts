@@ -1,5 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { Platform } from "react-native";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { ANDROID_QUICK_ACTION_LIMIT, IOS_QUICK_ACTION_LIMIT } from "@/lib/appSurfaces/config";
 
@@ -10,10 +9,6 @@ jest.mock("expo-quick-actions", () => ({
   isSupported: () => mockIsSupported(),
   setItems: (items: unknown[]) => mockSetItems(items),
   maxCount: undefined,
-}));
-
-jest.mock("@/lib/platform/is-tv", () => ({
-  isTV: () => false,
 }));
 
 jest.mock("@/lib/ramadan", () => ({
@@ -31,10 +26,13 @@ jest.mock("@/stores/location-store", () => ({
 import { QUICK_ACTION_REGISTRY } from "@/lib/appSurfaces/quickActions/registry";
 import {
   definitionToAction,
+  isLegacyAndroidQuickActionCastError,
+  resolveQuickActionHref,
   resolveQuickActionLimit,
   syncAppQuickActions,
 } from "@/lib/appSurfaces/quickActions/syncQuickActions";
 import { captureAppException } from "@/lib/sentry";
+import { usePlatformSwitch } from "@/test-support/platform";
 
 const t = ((key: string, options?: { defaultValue?: string } | string) => {
   if (typeof options === "string") return options;
@@ -91,17 +89,13 @@ describe("resolveQuickActionLimit", () => {
 });
 
 describe("syncAppQuickActions", () => {
-  const originalOS = Platform.OS;
+  const onPlatform = usePlatformSwitch();
 
   beforeEach(() => {
     jest.clearAllMocks();
     mockIsSupported.mockResolvedValue(true);
     mockSetItems.mockResolvedValue(undefined);
-    Platform.OS = "android";
-  });
-
-  afterEach(() => {
-    Platform.OS = originalOS;
+    onPlatform({ OS: "android" });
   });
 
   it("sends Android items without undefined optional keys", async () => {
@@ -127,7 +121,7 @@ describe("syncAppQuickActions", () => {
   });
 
   it("skips native work on web", async () => {
-    Platform.OS = "web";
+    onPlatform({ OS: "web" });
     await syncAppQuickActions(t);
     expect(mockIsSupported).not.toHaveBeenCalled();
     expect(mockSetItems).not.toHaveBeenCalled();
@@ -137,5 +131,54 @@ describe("syncAppQuickActions", () => {
     mockIsSupported.mockResolvedValue(false);
     await syncAppQuickActions(t);
     expect(mockSetItems).not.toHaveBeenCalled();
+  });
+
+  it("does not report the legacy Android ActionObject cast NPE to Sentry", async () => {
+    mockSetItems.mockRejectedValue(
+      new Error(
+        "Call to function 'ExpoQuickActions.setItems' has been rejected. → Caused by: Cannot cast 'class com.facebook.react.bridge.ReadableNativeMap' to 'class expo.modules.quickactions.ActionObject'",
+      ),
+    );
+    await expect(syncAppQuickActions(t)).resolves.toBeUndefined();
+    expect(captureAppException).not.toHaveBeenCalled();
+  });
+});
+
+describe("isLegacyAndroidQuickActionCastError", () => {
+  it("matches the production Sentry payload", () => {
+    expect(
+      isLegacyAndroidQuickActionCastError(
+        new Error(
+          "Call to function 'ExpoQuickActions.setItems' has been rejected. → Caused by: The 1st argument cannot be cast to type interface java.util.List<class expo.modules.quickactions.ActionObject>",
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not match unrelated setItems failures", () => {
+    expect(
+      isLegacyAndroidQuickActionCastError(
+        new Error("Call to function 'ExpoQuickActions.setItems' has been rejected."),
+      ),
+    ).toBe(false);
+  });
+});
+
+describe("resolveQuickActionHref", () => {
+  it("prefers a trimmed href param", () => {
+    expect(resolveQuickActionHref({ id: "x", title: "X", params: { href: " /qibla " } })).toBe(
+      "/qibla",
+    );
+  });
+
+  it("falls back to the registry href for the action id", () => {
+    const def = QUICK_ACTION_REGISTRY.find((d) => d.id === "tracker");
+    expect(resolveQuickActionHref({ id: "tracker", title: "T", params: { href: "  " } })).toBe(
+      def?.href,
+    );
+  });
+
+  it("returns null for unknown actions", () => {
+    expect(resolveQuickActionHref({ title: "?" })).toBeNull();
   });
 });

@@ -8,7 +8,9 @@ import {
   JannahTakeaway,
 } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { QuranAyahPlayButton } from "@/components/quran-guide/ayah-play-button";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -18,6 +20,7 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -26,9 +29,11 @@ import {
   getQuranGuideDailyLessonForDate,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LearnQuranDailyScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
   const { ready: contentReady } = useEnsureContent(
     ensureQuranGuideContent,
@@ -44,6 +49,7 @@ export default function LearnQuranDailyScreen() {
       title={t("learnQuran.dailyTitle")}
       subtitle={t("learnQuran.dailySubtitle")}
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-quran/daily" />
       {!contentReady ? (
@@ -56,60 +62,67 @@ export default function LearnQuranDailyScreen() {
           onAction={() => router.replace("/learn-quran" as Href)}
         />
       ) : (
-        <Stagger>
-          <JannahCallout tone="info">{t("learnQuran.dailyIntro")}</JannahCallout>
+        <LearnSplitLayout aside={<QuranGuideTopicAside currentId="daily-lessons" />}>
+          <Stagger>
+            <JannahCallout tone="info">{t("learnQuran.dailyIntro")}</JannahCallout>
 
-          <LearnReadingChrome surface="learn_quran">
-            <Card padding="three">
-              <View style={styles.excerptHeader}>
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.excerptLabel}>
-                  {lesson.label}
+            <LearnReadingChrome surface="learn_quran">
+              <Card padding="three">
+                <View style={styles.excerptHeader}>
+                  <ThemedText
+                    type="caption"
+                    themeColor="mutedForeground"
+                    style={styles.excerptLabel}
+                  >
+                    {lesson.label}
+                  </ThemedText>
+                  <QuranAyahPlayButton
+                    surah={lesson.surah}
+                    ayahFrom={lesson.ayahFrom}
+                    ayahTo={lesson.ayahTo}
+                    sourceHref="/learn-quran/daily"
+                  />
+                </View>
+                <ThemedText type="arabic" style={styles.arabic}>
+                  {lesson.excerpt}
                 </ThemedText>
-                <QuranAyahPlayButton
-                  surah={lesson.surah}
-                  ayahFrom={lesson.ayahFrom}
-                  ayahTo={lesson.ayahTo}
-                  sourceHref="/learn-quran/daily"
-                  compact
-                />
-              </View>
-              <ThemedText type="arabic" style={styles.arabic}>
-                {lesson.excerpt}
-              </ThemedText>
-              <ThemedText type="small" style={styles.translation}>
-                {lesson.translation}
-              </ThemedText>
-            </Card>
+                <ThemedText type="small" style={styles.translation}>
+                  {lesson.translation}
+                </ThemedText>
+              </Card>
 
-            <JannahTakeaway text={lesson.context} />
+              <JannahTakeaway text={lesson.context} />
 
-            <Card padding="three">
-              <SectionHeader
-                title={t("learnQuran.reflectionTitle")}
-                icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
+              <TvReadableBlock>
+                <Card padding="three">
+                  <SectionHeader
+                    title={t("learnQuran.reflectionTitle")}
+                    icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
+                  />
+                  <ThemedText type="small" themeColor="mutedForeground" style={styles.block}>
+                    {lesson.reflection}
+                  </ThemedText>
+                </Card>
+              </TvReadableBlock>
+
+              <JannahActionSteps steps={[lesson.action]} />
+
+              <Button
+                label={t("learnQuran.openInQuran")}
+                variant="primary"
+                fullWidth
+                onPress={() =>
+                  router.push({
+                    pathname: "/quran/[surah]",
+                    params: { surah: String(lesson.surah), ayah: String(lesson.ayahFrom) },
+                  })
+                }
               />
-              <ThemedText type="small" themeColor="mutedForeground" style={styles.block}>
-                {lesson.reflection}
-              </ThemedText>
-            </Card>
+            </LearnReadingChrome>
 
-            <JannahActionSteps steps={[lesson.action]} />
-
-            <Button
-              label={t("learnQuran.openInQuran")}
-              variant="primary"
-              fullWidth
-              onPress={() =>
-                router.push({
-                  pathname: "/quran/[surah]",
-                  params: { surah: String(lesson.surah), ayah: String(lesson.ayahFrom) },
-                })
-              }
-            />
-          </LearnReadingChrome>
-
-          <JannahDisclaimer textKey="learnQuran.disclaimer" />
-        </Stagger>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
@@ -127,3 +140,6 @@ const styles = StyleSheet.create({
   translation: { lineHeight: 24, marginTop: Spacing.two },
   block: { marginTop: Spacing.three, lineHeight: 22 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/daily");

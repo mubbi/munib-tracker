@@ -2,6 +2,8 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { QuranGuideTopicContent } from "@/components/quran-guide/topic-content";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -17,6 +19,7 @@ import {
   getQuranGuideTopics,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureQuranGuideProgressLoaded } from "@/stores/quran-guide-progress-store";
 
@@ -35,6 +38,7 @@ export default function LearnQuranTopicScreen() {
   const topic = getQuranGuideTopic(topicId);
   const reportRef = useGuideContentReportRef("learn_quran", topic, "/learn-quran");
   useEnsureQuranGuideProgressLoaded();
+  const { maxContentWidth } = useLearnWideLayout();
 
   const detailPath = topic ? `/learn-quran/${topic.id}` : "/learn-quran";
   const crumbs = topic
@@ -52,6 +56,7 @@ export default function LearnQuranTopicScreen() {
       title={topic?.title ?? t("learnQuran.title")}
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -83,13 +88,18 @@ export default function LearnQuranTopicScreen() {
           onAction={() => router.replace("/learn-quran" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="learn_quran">
-            <QuranGuideTopicContent topic={topic} />
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="learnQuran.disclaimer" contentRef={reportRef} />
-        </Stagger>
+        <LearnSplitLayout aside={<QuranGuideTopicAside currentId={topic.id} />}>
+          <Stagger>
+            <LearnReadingChrome surface="learn_quran">
+              <QuranGuideTopicContent topic={topic} />
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" contentRef={reportRef} />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/[topic]");

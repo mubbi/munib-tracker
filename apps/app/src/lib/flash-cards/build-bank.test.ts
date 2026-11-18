@@ -2,7 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 
 import {
   __resetFlashCardWarmCachesForTests,
+  ensureFlashCardContent,
+  ensureSectionQuizContent,
   getFlashCardPool,
+  getQuestionsForSection,
   toQuizPlayerQuestions,
 } from "./build-bank";
 import type { StudyMcq } from "./types";
@@ -50,5 +53,46 @@ describe("build-bank", () => {
     __resetFlashCardWarmCachesForTests();
     const after = getFlashCardPool(() => "x").length;
     expect(after).toBe(before);
+  });
+});
+
+describe("flash card length", () => {
+  it("keeps every prompt, option and explanation short", async () => {
+    await ensureFlashCardContent();
+    const pool = getFlashCardPool(() => "A short sample translation for a guide section.");
+    expect(pool.length).toBeGreaterThan(50);
+    for (const card of pool) {
+      expect(card.prompt.length).toBeLessThanOrEqual(175);
+      for (const option of card.options) expect(option.length).toBeLessThanOrEqual(100);
+      expect(card.explanation.length).toBeLessThanOrEqual(175);
+    }
+  });
+});
+
+describe("getQuestionsForSection", () => {
+  it.each(["hayd", "sick", "travel", "events"] as const)(
+    "adds i18n guide cards for %s",
+    async (section) => {
+      await ensureSectionQuizContent(section);
+      const questions = getQuestionsForSection(section);
+      expect(questions.length).toBeGreaterThan(0);
+      expect(new Set(questions.map((q) => q.id)).size).toBe(questions.length);
+    },
+  );
+
+  it("returns nothing for an unknown section", async () => {
+    await ensureSectionQuizContent("nope" as never);
+    expect(getQuestionsForSection("nope" as never)).toEqual([]);
+  });
+
+  it("maps true/false questions", () => {
+    expect(toQuizPlayerQuestions([sampleMcq("tf")])[0].type).toBe("true-false");
+    expect(
+      toQuizPlayerQuestions([{ ...sampleMcq("mc"), options: ["a", "b", "c", "d"] }])[0].type,
+    ).toBe("multiple-choice");
+  });
+
+  it("uses the app translator by default for the global pool", () => {
+    expect(getFlashCardPool().length).toBeGreaterThan(0);
   });
 });

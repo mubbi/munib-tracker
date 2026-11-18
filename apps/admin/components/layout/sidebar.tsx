@@ -4,6 +4,7 @@ import type { AdminRole } from "@munib-tracker/db/schema";
 import {
   Bell,
   BookOpen,
+  BookOpenCheck,
   CloudOff,
   Flag,
   Image,
@@ -53,6 +54,7 @@ const NAV_ICONS: Record<string, LucideIcon> = {
   "/notifications": Bell,
   "/media": Image,
   "/sync": RefreshCw,
+  "/quran-practice": BookOpenCheck,
   "/auth-abuse": ShieldX,
   "/platform": Server,
   "/administration": ShieldEllipsis,
@@ -75,7 +77,7 @@ const NAV_GROUPS: { label: string; prefixes: string[] }[] = [
   },
   {
     label: "Product",
-    prefixes: ["/versions", "/notifications", "/sync"],
+    prefixes: ["/versions", "/notifications", "/sync", "/quran-practice"],
   },
   { label: "Platform & ops", prefixes: ["/auth-abuse", "/platform", "/administration"] },
 ];

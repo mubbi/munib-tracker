@@ -33,6 +33,8 @@ type ZikrRowProps = {
   completed?: boolean;
   /** e.g. "3/5" when tracking across multiple salah slots. */
   progressLabel?: string;
+  /** TV: initial D-pad focus (first row of a list). No-op on phone/web. */
+  preferredFocus?: boolean;
 };
 
 export const ZikrRow = memo(function ZikrRow({
@@ -44,6 +46,7 @@ export const ZikrRow = memo(function ZikrRow({
   categoryLabel,
   completed,
   progressLabel,
+  preferredFocus,
 }: ZikrRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -65,13 +68,21 @@ export const ZikrRow = memo(function ZikrRow({
     // The favorite toggle is rendered as a sibling overlay rather than nested
     // inside the row's Pressable — on web, nesting a <button> inside another
     // <button> is invalid HTML and triggers a DOM-nesting warning.
-    <View style={styles.wrapper}>
+    //
+    // TV: the star sits *beside* the row (flex sibling), not over it — a D-pad
+    // focus search can't move "right" into a control inside the row's bounds.
+    <View style={[styles.wrapper, tv ? styles.wrapperTv : styles.fill]}>
       <PressableScale
         haptic="light"
         onPress={handlePress}
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel}
-        style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
+        {...(tv && preferredFocus ? { hasTVPreferredFocus: true } : {})}
+        style={[
+          styles.row,
+          tv ? styles.rowTv : styles.fill,
+          { backgroundColor: colors.muted, borderColor: tokens.hairline },
+        ]}
       >
         {index != null ? <ListIndexBadge index={index} completed={completed} /> : null}
 
@@ -125,7 +136,7 @@ export const ZikrRow = memo(function ZikrRow({
           ) : null}
         </View>
 
-        {onToggleFavorite ? <View style={styles.favoriteSlot} /> : null}
+        {onToggleFavorite && !tv ? <View style={styles.favoriteSlot} /> : null}
 
         <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
       </PressableScale>
@@ -143,7 +154,9 @@ export const ZikrRow = memo(function ZikrRow({
           accessibilityState={{ selected: isFavorite }}
           haptic="selection"
           onPress={handleToggleFavorite}
-          style={styles.favoriteButton}
+          hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
+          background={tv ? colors.muted : undefined}
+          style={tv ? undefined : styles.favoriteButton}
         />
       ) : null}
     </View>
@@ -154,6 +167,13 @@ const styles = StyleSheet.create({
   wrapper: {
     position: "relative",
   },
+  /** Equal-height cells when rows sit side by side in a multi-column grid. */
+  fill: { flexGrow: 1 },
+  wrapperTv: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -161,10 +181,13 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    borderWidth: 1,
   },
   // Horizontal padding stays put — the favorite button's absolute `end` offset
   // below is computed against it. Only height/vertical padding grow for TV.
   rowTv: {
+    flex: 1,
+    minWidth: 0,
     minHeight: TvLayout.minFocusTarget,
     paddingVertical: Spacing.four,
     borderRadius: Radius.lg,

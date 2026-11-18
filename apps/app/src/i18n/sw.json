@@ -29,7 +29,8 @@
       "encouragementPerfect": "Mapitio mazuri - Mwenyezi Mungu akuzidishie elimu yenye manufaa.",
       "encouragementStrong": "Uelewa imara. Pitia makosa yoyote ili kuyathibitisha.",
       "encouragementSteady": "Maendeleo mazuri. Tumia makosa kama malengo yako ya kujifunza yanayofuata.",
-      "encouragementKeepGoing": "Kila kosa ni somo. Pitia maelezo, kisha jaribu tena."
+      "encouragementKeepGoing": "Kila kosa ni somo. Pitia maelezo, kisha jaribu tena.",
+      "keyboardHint": "Bonyeza 1–4 kujibu, Enter kuendelea."
     },
     "skip": "Ruka",
     "apply": "Tumia",
@@ -86,7 +87,10 @@
     "selectToContinue": "Bonyeza Chagua kuendelea",
     "selectToOpen": "Chagua kufungua",
     "selectToSave": "Chagua kuhifadhi",
-    "selectDay": "Chagua siku kukagua"
+    "selectDay": "Chagua siku kukagua",
+    "newBadge": "Mpya",
+    "decreaseByTv": "Punguza {{label}} kwa {{step}}",
+    "increaseByTv": "Ongeza {{label}} kwa {{step}}"
   },
   "search": {
     "placeholder": "Tafuta Qur'an, hadith, dua, Jifunze…",
@@ -187,7 +191,8 @@
     "sadaqah": "Sadaqah mabao",
     "whiteDays": "Funga Siku Nyeupe",
     "goodCharacter": "Tabia nzuri",
-    "heavyOnTheScale": "Amali nzito katika mizani"
+    "heavyOnTheScale": "Amali nzito katika mizani",
+    "quranPractice": "Mazoezi ya Qur'ani"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -713,7 +718,9 @@
           "hint": "Ya mwisho katika Siku Nyeupe"
         }
       }
-    }
+    },
+    "cardTipTv": "Chagua swala ili kusasisha · Adhkar kwa zikr · Taarifa kwa maelezo",
+    "tapToMarkTv": "Chagua ili kuweka alama"
   },
   "update": {
     "title": "Sasisho linapatikana",
@@ -887,7 +894,8 @@
     "heroSignedIn": "Karibu tena — akaunti yako imeunganishwa. Salah, qaza na zikr zinaweza kusawazishwa kati ya vifaa.",
     "continueSignedIn": "Endelea",
     "or": "au",
-    "guestHint": "Unaweza kuunganisha akaunti wakati wowote kutoka Wasifu."
+    "guestHint": "Unaweza kuunganisha akaunti wakati wowote kutoka Wasifu.",
+    "guestHintTv": "Changanua msimbo wa QR ili kuingia kutoka kwenye simu yako. Au endelea kama mgeni — unganisha akaunti wakati wowote kutoka Wasifu kwenye simu yako."
   },
   "onboarding": {
     "begin": "Anza",
@@ -944,7 +952,8 @@
     "locationHighlight1Tv": "Nyakati sahihi za swala kwa mji wako",
     "locationHighlight2Tv": "Mwelekeo wa Qibla kutoka eneo lako",
     "locationHighlight3Tv": "Vikumbusho hufanya kazi vizuri zaidi kwenye simu",
-    "locationHighlight4Tv": "Badilisha mji wakati wowote katika Mipangilio"
+    "locationHighlight4Tv": "Badilisha mji wakati wowote katika Mipangilio",
+    "ctaBodyTv": "Anza kama mgeni, au ingia kwa kuchanganua msimbo wa QR kwa simu yako. Kila kitu kinafanya kazi nje ya mtandao kwenye TV hii."
   },
   "appearance": {
     "eyebrow": "Mipangilio",
@@ -1199,7 +1208,9 @@
       "a11yStart": "Anza kufuatilia Salah inayofuata kwenye skrini iliyofungwa",
       "a11yStop": "Acha kufuatilia sasisho za moja kwa moja za Salah"
     },
-    "tvUnavailableBody": "Vikumbusho vya ndani na Live Activities havipatikani kwenye TV. Dhibiti mapendeleo ya arifa kwenye simu yako."
+    "tvUnavailableBody": "Vikumbusho vya ndani na Live Activities havipatikani kwenye TV. Dhibiti mapendeleo ya arifa kwenye simu yako.",
+    "preciseAdhan": "Muda kamili wa adhana",
+    "preciseAdhanHint": "Adhana husikika kwa wakati kamili, hata katika hali ya kuokoa betri. Android huonyesha ikoni ya kengele kwenye upau wa hali hadi isikike."
   },
   "fonts": {
     "eyebrow": "Mipangilio",
@@ -1403,16 +1414,16 @@
     "favEmptyDescTv": "Chagua nyota kwenye jina lolote kulihifadhi hapa."
   },
   "quran": {
-    "eyebrow": " Noble Qur'ani",
+    "eyebrow": "Qur'ani Tukufu",
     "title": "Qur'ani",
-    "subtitle": "Read, listen, na reflect",
-    "searchSurah": "by name, meaning, or number Tafuta",
+    "subtitle": "Soma, sikiliza na tafakari",
+    "searchSurah": "Tafuta kwa jina, maana au namba",
     "filterAll": "Zote",
     "continueReading": "Endelea kusoma",
-    "continueAt": "سورة {{surah}} · آية {{ayah}}",
-    "makki": "مكية",
-    "madani": "مدنية",
-    "ayahCount": "Ayah {{count}}",
+    "continueAt": "Sura {{surah}} · Aya {{ayah}}",
+    "makki": "Makki",
+    "madani": "Madani",
+    "ayahCount": "Aya {{count}}",
     "surahList": "Sura",
     "surahCount": "{{shown}} kati ya {{total}}",
     "reciter": "Msomaji",
@@ -1433,17 +1444,17 @@
     "bookmarkEmptyTitle": "Bado hakuna alamisho",
     "bookmarkEmptyDesc": "Gonga aikoni ya alamisho kwenye ayah yoyote ili kuihifadhi hapa.",
     "removeBookmark": "Washadoa bookmark",
-    "juz": "الجزء",
+    "juz": "Juzuu",
     "learn": "Jifunze",
     "juzSubtitle": "Read  Qur'ani kwade its 30 parts",
     "juzN": "الجزء {{n}}",
     "browseByJuz": "Vinjari kwa Juz",
     "search": "Tafuta",
-    "searchTitle": "Tafuta the Qur'an",
-    "searchSubtitle": "Find mweziahs by çeviri au transkripsiyon",
-    "searchPlaceholder": "words in translation… Tafuta",
-    "searchHint": "Searches  bundled çeviri na transkripsiyon nje ya mtandao.",
-    "noResults": "No mweziahs matched sizin ara.",
+    "searchTitle": "Tafuta katika Qur'ani",
+    "searchSubtitle": "Tafuta aya kwa Kiarabu, Kiingereza, unukuzi au marejeo",
+    "searchPlaceholder": "Tafuta tafsiri, unukuzi au 2:255…",
+    "searchHint": "Utafutaji wa takriban bila mtandao katika Kiarabu, tafsiri ya Kiingereza na unukuzi — pamoja na majina na marejeo ya aya.",
+    "noResults": "Hakuna aya inayolingana na utafutaji wako.",
     "resultsCount": "Matokeo {{count}}",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Sura haikupatikana",
@@ -1461,7 +1472,7 @@
     "bookmarkAdd": "Yer imi narse",
     "bookmarkRemove": "Washadoa bookmark",
     "loadingTranslation": "Inapakia tafsiri...",
-    "searching": "Tafutaing…",
+    "searching": "Inatafuta…",
     "secondTranslation": "Tafsiri ya pili",
     "secondTranslationNone": "Hakuna",
     "selectTranslator": "Chagua mtafsiri — {{language}}",
@@ -1480,9 +1491,9 @@
     "pagePickerTitle": "Rukia kwenye ukurasa",
     "pagePickerSearch": "page or surah… Tafuta",
     "readerLayout": "Mpangilio wa msomaji",
-    "layoutAyah": "Utafiti wa Aya",
+    "layoutAyah": "Somo la aya",
     "layoutPage": "Mwonekano wa ukurasa",
-    "layoutMushaf": "مصحف",
+    "layoutMushaf": "Msahafu",
     "mushafOnlyHint": "Tafutapça only",
     "loadingMushafFont": "Inapakia…",
     "pageReaderTitle": "Qur'ani page {{page}}  {{total}}",
@@ -1609,9 +1620,10 @@
       "dictate": "Sema aya",
       "stopDictate": "Acha kusikiliza",
       "bestMatch": "Mechi bora",
-      "otherMatches": "Mechi nyingine"
+      "otherMatches": "Mechi nyingine",
+      "tvUnavailableBody": "Kutambua aya kunahitaji maikrofoni, ambayo TV haina. Badala yake, tafuta Qur'an kwa maneno, au tumia programu kwenye simu yako."
     },
-    "searchPlaceholderArabic": "Tafuta maandishi ya Kiarabu au rejea kama ٢:٢٥٥…",
+    "searchPlaceholderArabic": "Tafuta maandishi ya Kiarabu au marejeo kama ٢:٢٥٥…",
     "goToPagePlaceholder": "Page 1–{{max}}",
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
@@ -1620,7 +1632,13 @@
     "surahNumber": "Sura {{number}}",
     "selectSurah": "Chagua sura",
     "openReader": "Fungua kisomaji",
-    "bookmarkEmptyDescTv": "Chagua ikoni ya alamisho kwenye ayah yoyote kuihifadhi hapa."
+    "bookmarkEmptyDescTv": "Chagua ikoni ya alamisho kwenye ayah yoyote kuihifadhi hapa.",
+    "goToAyahPlaceholder": "Aya 1–{{max}}",
+    "goToAyahA11y": "Nenda kwenye nambari ya aya",
+    "goToAyahInvalid": "Weka aya kati ya 1 na {{max}}",
+    "searchAyahs": "Tafuta aya",
+    "findSurah": "Pata sura",
+    "noSurahResults": "Hakuna sura inayolingana na utafutaji wako."
   },
   "hadith": {
     "eyebrow": "Mila ya kinabii",
@@ -1863,7 +1881,8 @@
     "history": "Historia",
     "rowDone": "{{completed}} Qaza zimefanywa",
     "rowDoneWithDaily": "{{completed}} Qaza zimefanywa · leo {{done}}/{{target}}",
-    "hintTv": "Chagua alama ya tiki kurekodi swala lililorudishwa. Kukosa swala katika kifuatiliaji huongeza kiotomatiki kwenye hesabu hizi."
+    "hintTv": "Chagua alama ya tiki kurekodi swala lililorudishwa. Kukosa swala katika kifuatiliaji huongeza kiotomatiki kwenye hesabu hizi.",
+    "editCountHintTv": "Tumia − na + kuweka idadi ya swala hii ambayo bado unahitaji kulipa (qadha)."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1895,7 +1914,8 @@
       "pubertyAfterAge": "Umri wa baligh hauwezi kuwa baada ya umri wako wa sasa.",
       "yearsPrayedExceed": "Miaka ya salah ({{entered}}) haiwezi kuzidi miaka tangu baligh ({{obligatedYears}}).",
       "exemptExceedsYear": "Siku zisizohusika ({{entered}}) haziwezi kuzidi urefu wa mwaka uliochagua ({{maxDays}})."
-    }
+    },
+    "enterAgePromptTv": "Weka umri wako wa sasa hapo juu ili kuona makadirio."
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -1992,7 +2012,8 @@
     "confirmAddEstimateMsg": "Je, ungependa kuongeza mifungo {{count}} kwa zilizosalia (jumla mpya: {{total}})?",
     "confirmResetTitle": "Ungependa kuweka upya kihesabu?",
     "confirmResetMsg": "Ungependa kufuta hesabu zote za haraka ({{remaining}} zimesalia, {{completed}} zimekamilika)? Hili haliwezi kutenduliwa.",
-    "adjustHintTv": "Chagua nambari au tumia −/+ kurekebisha"
+    "adjustHintTv": "Chagua nambari au tumia −/+ kurekebisha",
+    "editCountHintTv": "Tumia − na + kuweka idadi ya funga za qadha ambazo bado unahitaji kulipa."
   },
   "calendar": {
     "eyebrow": "Historia",
@@ -2113,7 +2134,8 @@
     "confirmStartAgainTitle": "again? Anzat",
     "confirmStartAgainMessage": "Wewein completed smwezi will be cleared so siz can begin  yeni round.",
     "dockLabel": "Hesabu",
-    "tapToCountTv": "Bonyeza Chagua kuhesabu"
+    "tapToCountTv": "Bonyeza Chagua kuhesabu",
+    "tapToCountKeyboard": "Bofya duara au bonyeza Nafasi ili kuhesabu"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} is only {{min}} dak away",
@@ -2188,7 +2210,9 @@
     "defaultLabel": "Makkah, Saudia",
     "defaultTimesHint": "Nyakati za Salah kwa sasa zinatumia Makkah. Weka jiji lako kwa nyakati sahihi. Vikumbusho vya Salah na Adhan vinabaki zimwe hadi hapo.",
     "setLocation": "Weka eneo",
-    "searchAutoFocusOff": "Tafuta mji"
+    "searchAutoFocusOff": "Tafuta mji",
+    "subtitleTv": "Nyakati za swala zinahesabiwa kwa mahali hapa. Tafuta mji wako kwa rimoti.",
+    "hintTv": "Chagua sehemu ya kutafuta, kisha andika angalau herufi mbili za mji wako."
   },
   "moon": {
     "aria": "Awamu ya mwezi: {{phase}}",
@@ -2549,7 +2573,8 @@
     "authenticityTitle": "Uhalisi wa maudhui",
     "authenticityBody": "Adhkar na dua zimetolewa kutoka makusanyo maarufu na zimehifadhiwa karibu na maandiko yaliyochapishwa sana. Tafadhali thibitisha na mtaalamu au chanzo cha kuaminika kabla ya kutegemea hukumu au hesabu yoyote.",
     "privacyPolicy": "Sera ya faragha",
-    "termsOfService": "Masharti ya huduma"
+    "termsOfService": "Masharti ya huduma",
+    "scanOnPhoneTv": "Changanua kwa simu yako ili kufungua ukurasa huu."
   },
   "player": {
     "nowPlaying": "Now Chezaing",
@@ -2582,7 +2607,9 @@
     "loading": "Inapakia…",
     "streamingOnlyNote": "Streadakg only — audio is not saved on this device",
     "ttsVoice": "Sauti",
-    "ttsVoiceHint": "Chagua sauti ya maandishi-hadi-hotuba"
+    "ttsVoiceHint": "Chagua sauti ya maandishi-hadi-hotuba",
+    "seekBack": "Rudi nyuma sekunde {{seconds}}",
+    "seekForward": "Songa mbele sekunde {{seconds}}"
   },
   "errors": {
     "title": "Kuna tatizo limetokea",
@@ -2677,7 +2704,7 @@
   },
   "khatm": {
     "eyebrow": " Noble Qur'ani",
-    "short": "ختمة",
+    "short": "Khitma",
     "title": "Mpango wa Khatm",
     "subtitle": "Maliza Kurani kwa mwendo wa utulivu",
     "startTitle": "a plan Anzat",
@@ -2788,7 +2815,7 @@
     "correctTotalConfirmAction": "Sasisha jumla"
   },
   "hifz": {
-    "short": "الحفظ",
+    "short": "Hifdhi",
     "title": "Mfuatiliaji wa Hifz",
     "subtitle": "Ayahs you'na memorized au need  gözden geçir",
     "markMemorized": "Mark alikariri",
@@ -2810,7 +2837,7 @@
     "confirmReviewBody": "{{ref}} will be flagged kwa gözden geçir.",
     "confirmMemorizedBody": "{{ref}} itatiwa alama kuwa imekaririwa.",
     "confirmClearBody": "{{ref}} itaondolewa kwenye kifuatiliaji chako cha Hifz.",
-    "emptyDescTv": "Chagua Hifz kwenye ayah yoyote katika kisoma kuashiria kama imehifadhiwa."
+    "emptyDescTv": "Chagua aya katika kisoma, kisha chagua Hifz kuiashiria kama imehifadhiwa."
   },
   "travel": {
     "eyebrow": "Jifunze",
@@ -3312,7 +3339,8 @@
       "reflectionHint": "Khushu na tafakari za maombi",
       "learning": "Maendeleo ya Kujifunza",
       "learningHint": "Mada zimekamilishwa katika moduli hii",
-      "characterHintTv": "Chagua unapokagua mwenendo wako leo"
+      "characterHintTv": "Chagua unapokagua mwenendo wako leo",
+      "repentanceHintTv": "Fanya upya toba — chagua ukishatubu leo"
     },
     "progressTitle": "Maendeleo ya kujifunza",
     "progressSubtitle": "Fuatilia masomo - sio daraja la kiroho na Mwenyezi Mungu",
@@ -3356,7 +3384,8 @@
         "best-beloved": "Bora / inayopendwa zaidi",
         "equal-reward": "Thawab kubwa iliyolinganishwa"
       }
-    }
+    },
+    "timelineCardHintTv": "Sehemu kuu — chagua kila hatua kwa somo kamili"
   },
   "taharah": {
     "eyebrow": "Jifunze",
@@ -3532,7 +3561,8 @@
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "tapHintTv": "Chagua jina kwenye ramani kusoma noti yenye chanzo."
+      "tapHintTv": "Chagua jina kwenye ramani kusoma noti yenye chanzo.",
+      "listHintTv": "Chagua jina kwenye orodha ili kusoma maelezo yenye chanzo."
     }
   },
   "aqeedah": {
@@ -4391,7 +4421,7 @@
       "label": "Viambatisho (si lazima)",
       "add": "Ongeza faili",
       "remove": "Ondoa kiambatisho",
-      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
+      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), 1 MB kila moja. Gusa × kwenye kijipicha kuondoa.",
       "signInRequired": "Ingia ili kuambatisha faili za faragha kwenye adhkar yako.",
       "permissionDenied": "Ruhusa inahitajika ili kuambatisha faili.",
       "permissionTitle": "Ruhusu ufikiaji",
@@ -4421,7 +4451,8 @@
       "loadingPdf": "Inapakia PDF…",
       "pdfHint": "Sogeza · bana au tumia +/− kukuza · gusa mara mbili kuweka upya · fungua PDF kushiriki",
       "pdfPreviewTitle": "Hakiki ya PDF",
-      "tvUnavailable": "Viambatisho vinahitaji simu au kibao. Ongeza picha au PDF huko."
+      "tvUnavailable": "Viambatisho vinahitaji simu au kibao. Ongeza picha au PDF huko.",
+      "pdfTvUnavailable": "PDF haziwezi kuonyeshwa awali kwenye TV. Fungua kiambatisho hiki kwenye simu au kompyuta kibao yako."
     },
     "stt": {
       "dictate": "Amri kwa kutumia kipaza sauti",
@@ -4451,13 +4482,20 @@
     "markTonight": "I prmwezied Tahajjud tonight",
     "markedTonight": "Amesali tonight — mashaAllah",
     "lastNights": "Usiku {{count}} uliopita",
-    "lastNightsHint": "Kila nukta ni usiku mmoja, iliyo na lebo ya tarehe ya kalenda (ya hivi karibuni zaidi upande wa kushoto).",
     "virtueTitle": "Virtue   night swala",
     "virtueBody": " best swala after  farz prmweziers dir  night swala.",
     "virtueRef": "صحيح مسلم ١١٦٣",
     "streakRow": "Tahajjud seri",
     "calculatorCta": "Kikokotozo cha theluthi ya mwisho ya usiku",
-    "calculatorHint": "Pata usiku wa manane na dirisha bora la Tahajjud kutoka Maghrib na Fajr"
+    "calculatorHint": "Pata usiku wa manane na dirisha bora la Tahajjud kutoka Maghrib na Fajr",
+    "tonightTitle": "Usiku huu",
+    "bestLabel": "Mfululizo bora",
+    "totalLabel": "Jumla ya usiku",
+    "startTonight": "Mfululizo wako unaanza usiku huu.",
+    "calendarHint": "Gusa usiku uliopita ili kuurekodi au kuufuta.",
+    "calendarHintTv": "Chagua usiku uliopita ili kuurekodi au kuufuta.",
+    "legendPrayed": "Imeswaliwa",
+    "inWindow": "Wakati bora sasa"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Tarehe ni makadirio yaliyokokotolewa - maono ya ndani ya mwezi yanaweza kutofautiana.",
@@ -4713,8 +4751,10 @@
       "buildsTitle": "Hujenga tabia",
       "buildsHint": "Fanya mazoezi ya sifa moja kwa wakati — ukweli, subira, rehema na haki.",
       "destroysTitle": "Yanayoharibu tabia",
-      "destroysHint": "Desturi ambazo matini huonya — gusa kigae kwa somo husika."
-    }
+      "destroysHint": "Desturi ambazo matini huonya — gusa kigae kwa somo husika.",
+      "destroysHintTv": "Tabia ambazo maandiko yanaonya dhidi yake — chagua kigae kwa somo linalohusiana."
+    },
+    "pathsHintTv": "Matendo yanayopandisha daraja kwa idhini ya Allah — chagua njia yoyote kwa ushahidi na viungo vya programu."
   },
   "jahannam": {
     "eyebrow": "Jifunze",
@@ -5206,7 +5246,7 @@
     "eyebrow": "Kalenda",
     "title": "Kigeuzi cha tarehe",
     "subtitle": "Badilisha kati ya kalenda ya Hijri na Gregorian",
-    "intro": "Weka tarehe katika mojawapo ya kalenda ili kuona sawa katika nyingine, iliyokokotwa nje ya mtandao kwa kutumia algoriti ya Kuwaiti ya jedwali.",
+    "intro": "Weka tarehe katika kalenda yoyote ili kuona sawa yake katika nyingine, inayohesabiwa nje ya mtandao kutoka kuonekana kwa hilal mahali pako.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Tarehe ya Gregorian",
@@ -5216,7 +5256,7 @@
     "year": "Mwaka",
     "useToday": "Tumia leo",
     "invalidDate": "Weka tarehe halali",
-    "disclaimer": "Huu ni ukadiriaji wa hesabu (jedwali la \"algorithm ya Kuwaiti\") na inaweza kutofautiana kwa siku kutoka kwa matangazo ya karibu ya kuona mwezi - fuata msikiti wa eneo lako au mamlaka ya tarehe za kidini kila wakati.",
+    "disclaimer": "Tarehe zimehesabiwa kutoka kuonekana kwa hilal (hilāl) mahali pako na zinaweza kutofautiana kwa siku moja na matangazo rasmi ya kuona mwezi — daima fuata Masjid au mamlaka yako ya eneo kwa tarehe za kidini.",
     "directionTitle": "Mwelekeo wa uongofu",
     "resultFrom": "Kutoka {{date}}",
     "quickLinksTitle": "Kuhusiana",
@@ -5301,7 +5341,8 @@
     "editHint": "Matokeo husasishwa unapobadilisha muda.",
     "nightLengthLabel": "Urefu wa usiku",
     "willStartIn": "Itaanza baada ya {{time}}",
-    "timeRemaining": "{{time}} imebaki"
+    "timeRemaining": "{{time}} imebaki",
+    "autoDetectHintTv": "{{location}} · chagua wakati wa kurekebisha"
   },
   "friday": {
     "eyebrow": "Jifunze",
@@ -5354,7 +5395,7 @@
     "eyebrow": "Jifunze",
     "title": "Janazah mwongozo",
     "subtitle": "Sala ya mazishi, kuosha, kuzika, na dua za kweli",
-    "intro": "Muhtasari wa vitendo wa Janazah kama wajibu wa jamii — takbira nne bila rukuu wala sujudi, dua za Hisnul Muslim kwa wanaume, wanawake na watoto, na mwongozo wa kuosha, kuzika, mashahidi na waliofiwa.",
+    "intro": "Muhtasari wa vitendo wa Janazah kama wajibu wa jumuiya - jinsi ya kuomba takbira nne bila rukuu au sujud, na dua Hisnul Muslim kwa marehemu.",
     "section": {
       "obligation": "Wajibu",
       "prepare": "Maandalizi",
@@ -5439,5 +5480,400 @@
     "notFound": "Mada haikupatikana",
     "disclaimer": "Muhtasari wa kielimu — si fatwa. Tarehe kamili hutegemea kuonekana kwa mwezi; fuata msikiti au mwanazuoni mwenye sifa wa eneo lako.",
     "continueInApp": "Endelea katika Munib"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "Fanya mazoezi",
+      "practiseAyah": "Fanya mazoezi ya aya {{n}}",
+      "practisePlan": "Fanya mazoezi ya sura hii",
+      "toRevise_other": "{{count}} za kurudia",
+      "toRevise_one": "{{count}} ya kurudia"
+    },
+    "mode": {
+      "follow": "Fuata",
+      "check": "Kagua",
+      "hideWords": "Ficha maneno",
+      "hideAyahs": "Ficha aya"
+    },
+    "range": {
+      "ayah": "Aya hii",
+      "next5": "5 zinazofuata",
+      "surah": "Sura hii",
+      "page": "Ukurasa huu",
+      "custom": "Maalum",
+      "fromAyah": "Kutoka aya",
+      "toAyah": "Hadi aya",
+      "increase": "Ongeza {{label}}",
+      "decrease": "Punguza {{label}}"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "Mazoezi",
+      "subtitle": "Soma, ficha kisha onyesha, na rudia unachohifadhi",
+      "continue": "Endelea",
+      "start": "Anza",
+      "listen": "Sikiliza",
+      "manage": "Simamia",
+      "rangeTitle": "Kiwango",
+      "modeTitle": "Hali",
+      "startRevision": "Anza kurudia",
+      "openQueue": "Tazama orodha ya marudio",
+      "captionReady": "Msikilizaji anabaki kwenye kifaa hiki.",
+      "captionMissing": "Pakua msikilizaji ili afuate sauti yako. Bado unaweza kusikiliza.",
+      "captionOffline": "Msikilizaji anahitaji muunganisho ili kupakuliwa. Kusikiliza bado kunafanya kazi.",
+      "captionFailed": "Msikilizaji hakuanza. Bado unaweza kusikiliza.",
+      "captionWebUnsupported": "Kivinjari hiki hakiwezi kuendesha msikilizaji.",
+      "captionUnsupported": "Msikilizaji hapatikani kwenye kifaa hiki. Kusikiliza bado kunafanya kazi.",
+      "captionManualMode": "Bila msikilizaji, hali hii inaonyesha maandishi ili uyafichue mwenyewe, na haiweki alama kwenye maneno.",
+      "downloadListener": "Pakua msikilizaji ({{size}} MB)",
+      "reviseTitle_other": "Aya {{count}} za kurudia",
+      "reviseTitle_one": "Aya {{count}} ya kurudia",
+      "reviseRemaining_other": "{{count}} nyingine siku nyingine",
+      "reviseRemaining_one": "{{count}} nyingine siku nyingine",
+      "passageLabel": "Sehemu yako",
+      "change": "Badilisha",
+      "startPassage": "Anza {{passage}}",
+      "ayahCount_one": "aya {{count}}",
+      "ayahCount_other": "aya {{count}}",
+      "recentTitle": "Za karibuni",
+      "recentHint": "Huanza sehemu hii tena kwa hali ile ile"
+    },
+    "session": {
+      "loading": "Aya inapakiwa…",
+      "preparing": "Msikilizaji anaandaliwa…",
+      "ayahOf": "Aya {{n}} kati ya {{total}}",
+      "revisionEyebrow": "Marudio",
+      "coach": "Soma aya, kisha gusa maikrofoni na usome kwa sauti.",
+      "retry": "Rudia",
+      "settled": "Msikilizaji aliifuata aya hii.",
+      "someNotSure": "Msikilizaji hakuwa na uhakika na baadhi ya maneno. Unaweza kusoma tena au kuendelea.",
+      "listeningStopped": "Kusikiliza kumesimama. Unaweza kufichua maneno na kuendelea.",
+      "listenerDidNotStart": "Msikilizaji hakuanza. Bado unaweza kusikiliza na kufichua maneno.",
+      "listenOnly": "Gusa cheza ili usikie aya. Pakua msikilizaji katika Mipangilio ili afuate sauti yako.",
+      "listenOnlyHide": "Fichua maneno ukiwa tayari. Msikilizaji hayupo kwenye kifaa hiki, kwa hivyo maneno hayawekwi alama.",
+      "micOff": "Maikrofoni imezimwa kwa Munib Tracker. Bado unaweza kusikiliza.",
+      "openSettings": "Fungua mipangilio",
+      "previous": "Iliyotangulia",
+      "next": "Inayofuata",
+      "tryAgainLine_other": "Soma tena maneno {{count}}",
+      "tryAgainLine_one": "Soma tena neno {{count}}",
+      "changePassage": "Badilisha",
+      "chipDone": "imekamilika",
+      "chipRetry": "maneno ya kusoma tena",
+      "chipCurrent": "ya sasa",
+      "chipTodo": "bado",
+      "chipLabel": "Aya {{n}}, {{state}}",
+      "listeningHint": "Inasikiliza… soma aya. Itaisha yenyewe baada ya neno la mwisho, au gusa simamisha."
+    },
+    "dock": {
+      "hear": "Sikia",
+      "stopHearing": "Simamisha kisomo",
+      "listen": "Sikiliza",
+      "start": "Anza",
+      "listening": "Anasikiliza",
+      "micStartHint": "Anaanza kusikiliza usomaji wako wa aya hii",
+      "micStopHint": "Inamaliza aya hii",
+      "reveal": "Fichua",
+      "revealHint": "Inafichua neno lililofichwa linalofuata. Bonyeza kwa muda kwa sehemu iliyobaki.",
+      "end": "Maliza",
+      "revealAll": "Fichua yote",
+      "revealAllConfirmTitle": "Fichua aya nzima?",
+      "revealAllConfirmMessage": "Maneno yote yaliyofichwa katika aya hii yataonyeshwa.",
+      "endConfirmTitle": "Maliza kipindi hiki?",
+      "endConfirmMessage": "Utaona muhtasari wa ulichofanyia mazoezi hadi sasa.",
+      "endConfirm": "Maliza kipindi"
+    },
+    "word": {
+      "matched": "imelingana",
+      "corrected": "imelingana katika jaribio la pili",
+      "notSure": "hakuna uhakika",
+      "tryAgain": "soma tena",
+      "notYet": "bado",
+      "hidden": "Neno lililofichwa {{n}}",
+      "tapToHear": "Inacheza neno hili"
+    },
+    "summary": {
+      "subtitle": "Kipindi kimekamilika",
+      "tryAyahAgain": "Soma aya hii tena",
+      "nextAyah": "Aya inayofuata",
+      "nextRevision": "Marudio yanayofuata",
+      "done": "Imekamilika",
+      "hearAyah": "Sikiliza aya hii",
+      "markMemorized": "Weka alama imehifadhiwa",
+      "listened": "Umesikiliza sehemu hii. Pakua msikilizaji ili afuate sauti yako.",
+      "headListened": "Umesikiliza sehemu hii",
+      "practiseAgain": "Fanya mazoezi tena",
+      "weakAyahsTitle": "Aya za kufanyia mazoezi tena",
+      "ayahChip": "Aya {{ayah}}",
+      "practiseAyah": "Fanya mazoezi ya aya {{ayah}} tena"
+    },
+    "revision": {
+      "title": "Marudio",
+      "subtitle": "Aya za leo, za zamani kwanza",
+      "emptyTitle": "Hakuna cha kurudia leo",
+      "emptyDesc": "Aya unazozifanyia mazoezi katika hali ya Kagua au Ficha hurudi hapa wakati wake ukifika.",
+      "dueToday": "Za leo",
+      "markedMemorized": "Imewekwa alama imehifadhiwa",
+      "notNow": "Si sasa",
+      "setStatus": "Weka hali",
+      "skip": "Ruka",
+      "practiseRow": "Mazoezi ya {{surah}} {{ayah}}",
+      "sittingProgress": "{{n}} kati ya {{total}}",
+      "hifzRowSub": "Fanya mazoezi na urudie aya unazohifadhi",
+      "status": {
+        "learning": "Inajifunzwa",
+        "practising": "Inafanyiwa mazoezi",
+        "needsRevision": "Inahitaji marudio"
+      },
+      "overdue_other": "Imechelewa siku {{count}}",
+      "overdue_one": "Imechelewa siku {{count}}"
+    },
+    "settings": {
+      "title": "Mazoezi ya Qur'ani",
+      "rowSubtitle": "Msikilizaji, maoni na marudio",
+      "valueReady": "Tayari",
+      "valueNotDownloaded": "Haijapakuliwa",
+      "valueDownloading": "Inapakua {{percent}}%",
+      "valueRetry": "Inahitaji jaribio jingine",
+      "practiceTitle": "Mazoezi",
+      "defaultMode": "Hali chaguo-msingi",
+      "feedbackTiming": "Lini kuonyesha maneno ya kusoma tena",
+      "timing": {
+        "ayah": "Baada ya kila aya",
+        "live": "Ninaposoma",
+        "end": "Mwishoni"
+      },
+      "showTranslation": "Onyesha tafsiri",
+      "showTransliteration": "Onyesha matamshi",
+      "showTajweed": "Rangi za tajwidi",
+      "showTajweedSub": "Rangi zinaweza kufanya alama za mazoezi kuwa ngumu kuonekana.",
+      "hearBeforeRecite": "Sikiliza kabla ya kusoma",
+      "hear": {
+        "off": "Imezimwa",
+        "once": "Mara moja",
+        "every": "Kila aya"
+      },
+      "autoAdvance": "Endelea kiotomatiki",
+      "autoAdvanceSub": "Nenda kwenye aya inayofuata hii ikikamilika.",
+      "keepAwake": "Weka skrini ikiwaka",
+      "startFromTitle": "Anza kutoka",
+      "startFrom": {
+        "lastPractice": "Mazoezi ya mwisho",
+        "lastRead": "Nilipokuwa nikisoma",
+        "ask": "Niulize"
+      },
+      "revisionTitle": "Marudio",
+      "dailyLimit": "Aya kwa siku",
+      "includeHifz": "Jumuisha marudio ya hifdhi",
+      "includeHifzSub": "Aya ulizowekea alama ya marudio zinajumuishwa.",
+      "reminder": "Kikumbusho cha marudio",
+      "reminderSub": "Kikumbusho kwenye kifaa hiki aya zikiwa tayari kwa marudio.",
+      "reminderMasterOff": "Vikumbusho vimezimwa kwenye Arifa.",
+      "openNotifications": "Fungua mipangilio ya arifa",
+      "sessionTitle": "Wakati wa mazoezi",
+      "displayTitle": "Kwenye skrini",
+      "timingHelp": {
+        "ayah": "Maneno ya kusoma tena huonekana unapomaliza kila aya — kamwe wakati unasoma.",
+        "live": "Alama huonekana mara msikilizaji anapokuwa na uhakika, wakati unasoma.",
+        "end": "Neno la sasa pekee ndilo hupigiwa mstari. Matokeo huonekana mwishoni."
+      },
+      "hearHelp": {
+        "off": "Msomaji husoma tu unapogusa Sikia.",
+        "once": "Msomaji husoma aya ya kwanza kabla hujaanza.",
+        "every": "Msomaji husoma kila aya kabla hujaisoma."
+      },
+      "startHelp": {
+        "lastPractice": "Endelea pale mazoezi yako ya mwisho yalipoishia.",
+        "lastRead": "Anza kwenye aya uliyokuwa ukisoma katika Qur'ani.",
+        "ask": "Chagua sehemu mwenyewe kila wakati."
+      },
+      "dailyLimitHelp_one": "Hadi aya {{count}} kwa siku; zilizobaki zinasubiri siku zijazo.",
+      "dailyLimitHelp_other": "Hadi aya {{count}} kwa siku; zilizobaki zinasubiri siku zijazo."
+    },
+    "listener": {
+      "title": "Msikilizaji kwenye kifaa",
+      "notOnDevice": "Hayupo kwenye kifaa hiki",
+      "aboutSize": "Takriban {{size}} MB",
+      "download": "Pakua",
+      "staysOnDevice": "Anabaki kwenye kifaa hiki. Kusoma kunafanya kazi bila yeye.",
+      "downloadingBytes": "{{done}} kati ya {{total}}",
+      "downloadingLine": "Msikilizaji {{done}} kati ya {{total}} ({{percent}}%)",
+      "cancel": "Ghairi",
+      "verifying": "Inakagua faili",
+      "ready": "Tayari",
+      "version": "Toleo {{version}}",
+      "delete": "Futa",
+      "deleteTitle": "Futa msikilizaji?",
+      "deleteBody": "Mazoezi bado yatacheza visomo. Kufuata sauti kunahitaji kupakua tena.",
+      "confirmRemove": "Ondoa",
+      "needsRetry": "Inahitaji jaribio jingine",
+      "tryAgain": "Jaribu tena",
+      "updateAvailable": "Sasisho liko tayari",
+      "updateSize": "Takriban {{size}} MB. Msikilizaji wa sasa ataendelea kufanya kazi.",
+      "updateTitle": "Badilisha msikilizaji?",
+      "downloadUpdate": "Pakua sasisho",
+      "wifiOnly": "Pakua kwa Wi-Fi pekee",
+      "cellularTitle": "Tumia data ya simu?",
+      "cellularBody": "Msikilizaji ni takriban {{size}} MB na anabaki kwenye kifaa hiki.",
+      "useMobileData": "Tumia data ya simu",
+      "advanced": "Mahiri",
+      "recommended": "msikilizaji anayependekezwa",
+      "alternate": "msikilizaji mbadala",
+      "recommendedSize": "Anayependekezwa, takriban {{size}} MB",
+      "alternateSize": "Mbadala, takriban {{size}} MB",
+      "alternateCaption": "Tumia mbadala tu ikiwa anayependekezwa hafanyi kazi. Huenda asiweke alama kwenye maneno ya kusoma tena.",
+      "switchTitle": "Badilisha msikilizaji?",
+      "engineCaption": "Inatumia {{engine}}.",
+      "unsupported": "Msikilizaji hapatikani kwenye kifaa hiki.",
+      "webUnsupported": "Kivinjari hiki hakiwezi kuendesha msikilizaji.",
+      "knownLimits": "Hufanya kazi vizuri zaidi mahali tulivu, kwa sauti moja, na kwa kasi ya kawaida ya kusoma. Huenda asiwe sahihi sana kwa sauti za watoto.",
+      "detailsLine": "{{size}} MB kwenye kifaa hiki · {{engine}}"
+    },
+    "privacy": {
+      "title": "Faragha na vyanzo",
+      "onDevice": "Sauti yako inachakatwa kwenye kifaa hiki. Haipakiwi wala haihifadhiwi.",
+      "microphone": "Maikrofoni",
+      "micAllowed": "Imeruhusiwa",
+      "micBlocked": "Imezuiwa",
+      "micNotAsked": "Bado haijaombwa",
+      "deleteHistory": "Futa historia ya mazoezi",
+      "deleteHistoryTitle": "Futa historia ya mazoezi?",
+      "deleteHistoryBody": "Muhtasari wa vipindi unafutwa. Alama za hifdhi, ratiba ya marudio na msikilizaji vinabaki.",
+      "practiceAid": "Msikilizaji ni msaada wa mazoezi. Hachukui nafasi ya mwalimu.",
+      "sources": "Faili la msikilizaji linapakuliwa kutoka {{host}}. Limejengwa kwa mradi wa Tilawa, maandishi ya Tanzil na data ya maneno ya Quran.com.",
+      "licence": "Msikilizaji anayependekezwa anashirikiwa chini ya leseni ya NPL-1.2: bure, hauzwi kamwe, na bila matangazo."
+    },
+    "offlineRow": {
+      "title": "Msikilizaji wa Qur'ani",
+      "subtitle": "Anasimamiwa katika Mazoezi ya Qur'ani. «Futa vyote» kunambakiza."
+    },
+    "reminder": {
+      "title": "Marudio ya Qur'ani",
+      "body_other": "Aya {{count}} za kurudia leo",
+      "body_one": "Aya {{count}} ya kurudia leo"
+    },
+    "error": {
+      "noConnection": "Hakuna muunganisho",
+      "notEnoughSpace": "Nafasi haitoshi",
+      "checksum": "Faili halikulingana",
+      "downloadFailed": "Upakuaji haukukamilika",
+      "downloadCancelled": "Upakuaji umeghairiwa",
+      "modelMissing": "Faili la msikilizaji halipo",
+      "didNotStart": "Hakuanza",
+      "outOfMemory": "Kumbukumbu ya kifaa imeisha. Bado unaweza kusikiliza.",
+      "unsupported": "Haipatikani kwenye kifaa hiki",
+      "micDenied": "Maikrofoni imezimwa",
+      "micUnavailable": "Hakuna maikrofoni",
+      "captureFailed": "Maikrofoni haikuanza",
+      "interrupted": "Kusikiliza kumekatizwa",
+      "listeningStopped": "Kusikiliza kumesimama",
+      "unknown": "Kuna tatizo limetokea"
+    },
+    "pronunciation": {
+      "title": "Msikilizaji wa matamshi",
+      "explainer": "Msikilizaji wa pili wa hiari kwa masomo ya tajwidi. Hulinganisha sauti moja na mfano na hatoi alama kamwe.",
+      "notSetUp": "Hajawekwa",
+      "notOnDevice": "Hayupo kwenye kifaa hiki",
+      "ready": "Tayari (toleo {{version}})",
+      "setUp": "Weka",
+      "downloading": "Msikilizaji wa matamshi anapakuliwa…",
+      "consentTitle": "Kabla ya kuweka",
+      "consentDownload": "Hii itapakua msikilizaji wa pili wa takriban 57 MB kutoka Quran Lab.",
+      "consentActivation": "Programu huwasiliana na Quran Lab mara moja kumwamilisha, kisha kuangalia masasisho.",
+      "consentOnDevice": "Usomaji wako unachakatwa kwenye kifaa hiki.",
+      "consentRemotePause": "Quran Lab inaweza kumsimamisha msikilizaji huyu kwa watumiaji wote. Masomo yataendelea kufanya kazi.",
+      "agree": "Nakubali, pakua",
+      "notNow": "Si sasa",
+      "deleteTitle": "Futa msikilizaji wa matamshi?",
+      "deleteBody": "Masomo ya tajwidi yataendelea kufanya kazi. Mazoezi ya sauti yanahitaji kupakua tena.",
+      "sharingSwitch": "Shiriki visomo vyangu na Quran Lab",
+      "sharingSub": "Ikiwa tu ulikubali kwenye ukurasa wa Quran Lab. Kuzima kunasimamisha upakiaji na kufuta foleni ambayo haijatumwa.",
+      "deleteShared": "Futa nilichoshiriki",
+      "deleteSharedTitle": "Futa ulichoshiriki?",
+      "deleteSharedBody": "Kila rekodi uliyoshiriki kutoka programu hii inafutwa kwenye seva za Quran Lab, na kushiriki kunazimwa.",
+      "deletedShared": "Rekodi ulizoshiriki zimefutwa",
+      "sharingFailed": "Haikufaulu. Tafadhali jaribu tena.",
+      "recoveryCode": "Msimbo wa kurejesha: {{code}}",
+      "sourcesLine": "TajweedFormer kutoka Quran Lab, chini ya leseni ya NPL-1.2.",
+      "practiseSound": "Fanya mazoezi ya sauti hii",
+      "drillTitle": "Fanya mazoezi ya sauti hii",
+      "drillIntro": "Sikiliza mfano, kisha gusa Soma na uitamke vivyo hivyo.",
+      "needsSetup": "Weka msikilizaji wa matamshi ili kufanya mazoezi ya sauti hii.",
+      "needsConnectionOnce": "Kuweka kunahitaji muunganisho mara moja.",
+      "notAvailableForSound": "Maoni ya sauti hii bado hayapatikani. Sikiliza mfano kisha ujaribu tena.",
+      "recite": "Soma",
+      "stop": "Simama",
+      "listening": "Anasikiliza…",
+      "verdictMatched": "Hiyo ililingana na mfano.",
+      "verdictTryAgain": "Sikiliza tena kisha ujaribu mara nyingine.",
+      "verdictNotSure": "Msikilizaji hakuwa na uhakika.",
+      "error": {
+        "noConnection": "Kuweka kunahitaji muunganisho mara moja.",
+        "paused": "Quran Lab imemsimamisha msikilizaji huyu. Masomo yanaendelea kufanya kazi.",
+        "noSpace": "Nafasi haitoshi",
+        "notYet": "Msikilizaji huyu bado hapatikani. Tafadhali jaribu baadaye.",
+        "micDenied": "Maikrofoni imezimwa kwa Munib Tracker.",
+        "unsupported": "Haipatikani kwenye kifaa hiki",
+        "generic": "Haikufanya kazi. Tafadhali jaribu tena."
+      }
+    },
+    "modeHelp": {
+      "follow": "Soma ukiwa na maandishi mbele yako. Msikilizaji anakufuata neno kwa neno.",
+      "check": "Soma maandishi yakionekana. Baada ya kila aya utaona maneno ya kusoma tena.",
+      "hideWords": "Maneno baada ya la kwanza yamefichwa. Soma kwa kuhifadhi; maneno yaliyosikika hujifichua.",
+      "hideAyahs": "Aya nzima imefichwa hadi umalize au uguse Fichua. Bora kwa marudio."
+    },
+    "listenerStatus": {
+      "ready": "Msikilizaji yuko tayari",
+      "readySub": "Sauti yako inachakatwa kwenye kifaa hiki na haipakiwi kamwe.",
+      "downloading": "Inapakua msikilizaji · {{percent}}%",
+      "failed": "Upakuaji haukukamilika",
+      "missing": "Fuata sauti yako",
+      "missingSub": "Pakua msikilizaji wa kifaa ({{size}} MB). Bila yeye bado unaweza kusikiliza na kufichua.",
+      "offlineSub": "Unganisha mara moja ili kupakua msikilizaji. Kusikiliza hufanya kazi nje ya mtandao.",
+      "stillListen": "Bado unaweza kusikiliza na kufichua maneno."
+    },
+    "picker": {
+      "title": "Chagua unachotaka kufanyia mazoezi",
+      "searchSurah": "Tafuta sura kwa jina au namba",
+      "changeSurah": "Badilisha sura",
+      "fromAyah": "Anza kwenye aya",
+      "toAyah": "Maliza kwenye aya",
+      "toEnd": "Hadi mwisho",
+      "ayahN": "Aya {{n}}",
+      "confirm": "Fanya mazoezi ya {{passage}}",
+      "ayahCount_one": "aya {{count}}",
+      "ayahCount_other": "aya {{count}}"
+    },
+    "result": {
+      "headAllMatched": "Kila neno limelingana",
+      "headTryAgain_one": "Soma tena neno {{count}}",
+      "headTryAgain_other": "Soma tena maneno {{count}}",
+      "headMissed_one": "Neno {{count}} halikufikiwa",
+      "headMissed_other": "Maneno {{count}} hayakufikiwa",
+      "headNotSure_one": "Msikilizaji hakuwa na uhakika na neno {{count}}",
+      "headNotSure_other": "Msikilizaji hakuwa na uhakika na maneno {{count}}",
+      "heardOf": "Maneno {{heard}} kati ya {{total}} yamesikika",
+      "matched": "Imelingana",
+      "tryAgain": "Soma tena",
+      "notSure": "Hakuna uhakika",
+      "missed": "Yamerukwa",
+      "groupTryAgain": "Soma tena haya",
+      "groupMissed": "Hayakufikiwa",
+      "groupNotSure": "Hakuna uhakika",
+      "nextAyah": "Aya inayofuata",
+      "reciteAgain": "Soma tena",
+      "moveOn": "Endelea na aya inayofuata",
+      "finish": "Maliza na uone muhtasari",
+      "headNothingHeard": "Msikilizaji hakusikia neno lolote",
+      "nothingHeardTip": "Soma kwa sauti kidogo zaidi, karibu na kipaza sauti, na anza kwa neno la kwanza."
+    },
+    "view": {
+      "title": "Mwonekano",
+      "mushafCoarse": "Alama za maneno kwenye msahafu zinahitaji orodha ya maneno. Unganisha mara moja kuipakua — aya bado zinaonyeshwa."
+    }
   }
 }

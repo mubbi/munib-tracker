@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, stagger, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -31,8 +31,8 @@ export function Reveal({ children, className, delay = 0, y = 22 }: RevealProps) 
 
 const container: Variants = {
   hidden: {},
-  show: (stagger: number) => ({
-    transition: { staggerChildren: stagger, delayChildren: 0.05 },
+  show: (interval: number) => ({
+    transition: { delayChildren: stagger(interval, { startDelay: 0.05 }) },
   }),
 };
 

@@ -15,7 +15,7 @@ import {
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { QazaDailyTargets } from "@/components/qaza-daily-targets";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -26,9 +26,12 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { formatQazaDailyTime, formatQazaDuration } from "@/lib/qaza-duration";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import {
   useQazaCounters,
@@ -62,6 +65,9 @@ export default function QazaPlannerScreen() {
   const counters = useQazaCounters();
   const { setQazaSchedule } = useTrackerActions();
   const today = getLocalDateString();
+  const { width } = useWindowDimensions();
+  /** Desktop / wide web: plan editing on the start side, pace summary + guidance aside. */
+  const twoPane = !isTV() && width >= 1200;
 
   const applyPreset = (perPrayer: number) => {
     void setQazaSchedule({ targets: buildUniformQazaTargets(counters, perPrayer) });
@@ -85,8 +91,165 @@ export default function QazaPlannerScreen() {
 
   const sustainabilityStyle = sustainability ? sustainabilityPalette(sustainability, tokens) : null;
 
+  const consistencyCard = (
+    <Card
+      padding="three"
+      style={{
+        backgroundColor: tokens.accentSoft,
+        borderColor: colors.accent,
+        borderWidth: StyleSheet.hairlineWidth,
+      }}
+    >
+      <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+        {t("qazaPlan.consistencyTitle")}
+      </ThemedText>
+      <ThemedText type="small" themeColor="foreground" style={styles.hadithText}>
+        {t("qazaPlan.consistencyHadith")}
+      </ThemedText>
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {t("qazaPlan.consistencySource")}
+      </ThemedText>
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.principleText}>
+        {t("qazaPlan.consistencyPrinciple")}
+      </ThemedText>
+    </Card>
+  );
+
+  const etaCard = (
+    <Card>
+      <View style={styles.etaRow}>
+        <View style={styles.etaStat}>
+          <ThemedText type="header">{dailyTotal}</ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("qazaPlan.prayersPerDay")}
+          </ThemedText>
+        </View>
+        <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+        <View style={styles.etaStat}>
+          <ThemedText type="smallBold" style={styles.durationValue}>
+            {formatQazaDailyTime(dailyMinutes, t)}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("qazaPlan.dailyTimeLabel")}
+          </ThemedText>
+        </View>
+        <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+        <View style={styles.etaStat}>
+          <ThemedText type="smallBold" style={styles.durationValue}>
+            {eta ? formatQazaDuration(eta.days, t) : "—"}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("qazaPlan.daysToClear")}
+          </ThemedText>
+        </View>
+      </View>
+
+      {sustainability && sustainabilityStyle ? (
+        <View style={styles.sustainabilityRow}>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("qazaPlan.sustainabilityLabel")}
+          </ThemedText>
+          <Pill
+            label={t(`qazaPlan.sustainability.${sustainability}`)}
+            color={sustainabilityStyle.color}
+            background={sustainabilityStyle.soft}
+          />
+        </View>
+      ) : null}
+
+      <ThemedText type="small" themeColor="mutedForeground" style={styles.etaCaption}>
+        {eta
+          ? t("qazaPlan.etaCaption", {
+              count: summary.remaining,
+              date: formatShortDate(eta.date),
+            })
+          : t("qazaPlan.etaEmpty")}
+      </ThemedText>
+
+      {sustainability === "intensive" ? (
+        <ThemedText type="caption" style={{ color: tokens.status.danger.color }}>
+          {t("qazaPlan.intensiveWarning")}
+        </ThemedText>
+      ) : null}
+
+      {activePrayers.length > 0 ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.breakdown}>
+          {activePrayers
+            .map((prayerId) => `${t(`prayers.${prayerId}`)}: ${schedule.targets[prayerId]}`)
+            .join(" · ")}
+        </ThemedText>
+      ) : null}
+    </Card>
+  );
+
+  const attachCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("qazaPlan.attachTitle")}
+        icon={{ ios: "link", android: "link", web: "link" }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {t("qazaPlan.attachHint")}
+      </ThemedText>
+    </Card>
+  );
+
+  const fiqhCard = (
+    <Card padding="three">
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {t("qazaPlan.fiqhNote")}
+      </ThemedText>
+    </Card>
+  );
+
+  const presetsCard =
+    summary.remaining > 0 ? (
+      <Card padding="three">
+        <SectionHeader
+          title={t("qazaPlan.presetsTitle")}
+          icon={{ ios: "leaf.fill", android: "eco", web: "eco" }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.suggestHint}>
+          {t("qazaPlan.presetsHint")}
+        </ThemedText>
+        <View style={styles.presetList}>
+          {QAZA_PLAN_PRESETS.map((preset) => {
+            const presetDailyTotal = preset.perPrayer * debtPrayerCount;
+            const isSelected = selectedPreset === preset.id;
+            return (
+              <PresetRow
+                key={preset.id}
+                presetId={preset.id}
+                perPrayer={preset.perPrayer}
+                dailyTotal={presetDailyTotal}
+                recommended={preset.recommended}
+                selected={isSelected}
+                onPress={() => applyPreset(preset.perPrayer)}
+              />
+            );
+          })}
+          {selectedPreset === "custom" && dailyTotal > 0 ? (
+            <View style={[styles.presetRow, { backgroundColor: colors.muted }]}>
+              <View style={styles.presetCopy}>
+                <ThemedText type="smallBold">{t("qazaPlan.presetCustom")}</ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("qazaPlan.presetCustomHint")}
+                </ThemedText>
+              </View>
+              <Pill
+                label={t("qazaPlan.presetActive")}
+                color={colors.accent}
+                background={tokens.accentSoft}
+              />
+            </View>
+          ) : null}
+        </View>
+      </Card>
+    ) : null;
+
   return (
     <ScreenLayout
+      maxContentWidth={twoPane ? 1320 : undefined}
       eyebrow={t("qazaPlan.eyebrow")}
       title={t("qazaPlan.title")}
       subtitle={t("qazaPlan.subtitle")}
@@ -114,154 +277,26 @@ export default function QazaPlannerScreen() {
         ]}
       />
       <Stagger>
-        <Card
-          padding="three"
-          style={{
-            backgroundColor: tokens.accentSoft,
-            borderColor: colors.accent,
-            borderWidth: StyleSheet.hairlineWidth,
-          }}
-        >
-          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-            {t("qazaPlan.consistencyTitle")}
-          </ThemedText>
-          <ThemedText type="small" themeColor="foreground" style={styles.hadithText}>
-            {t("qazaPlan.consistencyHadith")}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("qazaPlan.consistencySource")}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.principleText}>
-            {t("qazaPlan.consistencyPrinciple")}
-          </ThemedText>
-        </Card>
-
-        <Card>
-          <View style={styles.etaRow}>
-            <View style={styles.etaStat}>
-              <ThemedText type="header">{dailyTotal}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("qazaPlan.prayersPerDay")}
-              </ThemedText>
+        {twoPane ? (
+          <View style={styles.split}>
+            <View style={styles.primary}>
+              {presetsCard}
+              <QazaDailyTargets />
             </View>
-            <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-            <View style={styles.etaStat}>
-              <ThemedText type="smallBold" style={styles.durationValue}>
-                {formatQazaDailyTime(dailyMinutes, t)}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("qazaPlan.dailyTimeLabel")}
-              </ThemedText>
-            </View>
-            <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-            <View style={styles.etaStat}>
-              <ThemedText type="smallBold" style={styles.durationValue}>
-                {eta ? formatQazaDuration(eta.days, t) : "—"}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("qazaPlan.daysToClear")}
-              </ThemedText>
+            <View style={styles.aside}>
+              {etaCard}
+              {consistencyCard}
+              {attachCard}
+              {fiqhCard}
             </View>
           </View>
-
-          {sustainability && sustainabilityStyle ? (
-            <View style={styles.sustainabilityRow}>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("qazaPlan.sustainabilityLabel")}
-              </ThemedText>
-              <Pill
-                label={t(`qazaPlan.sustainability.${sustainability}`)}
-                color={sustainabilityStyle.color}
-                background={sustainabilityStyle.soft}
-              />
-            </View>
-          ) : null}
-
-          <ThemedText type="small" themeColor="mutedForeground" style={styles.etaCaption}>
-            {eta
-              ? t("qazaPlan.etaCaption", {
-                  count: summary.remaining,
-                  date: formatShortDate(eta.date),
-                })
-              : t("qazaPlan.etaEmpty")}
-          </ThemedText>
-
-          {sustainability === "intensive" ? (
-            <ThemedText type="caption" style={{ color: tokens.status.danger.color }}>
-              {t("qazaPlan.intensiveWarning")}
-            </ThemedText>
-          ) : null}
-
-          {activePrayers.length > 0 ? (
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.breakdown}>
-              {activePrayers
-                .map((prayerId) => `${t(`prayers.${prayerId}`)}: ${schedule.targets[prayerId]}`)
-                .join(" · ")}
-            </ThemedText>
-          ) : null}
-        </Card>
-
-        {summary.remaining > 0 ? (
-          <Card padding="three">
-            <SectionHeader
-              title={t("qazaPlan.presetsTitle")}
-              icon={{ ios: "leaf.fill", android: "eco", web: "eco" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.suggestHint}>
-              {t("qazaPlan.presetsHint")}
-            </ThemedText>
-            <View style={styles.presetList}>
-              {QAZA_PLAN_PRESETS.map((preset) => {
-                const presetDailyTotal = preset.perPrayer * debtPrayerCount;
-                const isSelected = selectedPreset === preset.id;
-                return (
-                  <PresetRow
-                    key={preset.id}
-                    presetId={preset.id}
-                    perPrayer={preset.perPrayer}
-                    dailyTotal={presetDailyTotal}
-                    recommended={preset.recommended}
-                    selected={isSelected}
-                    onPress={() => applyPreset(preset.perPrayer)}
-                  />
-                );
-              })}
-              {selectedPreset === "custom" && dailyTotal > 0 ? (
-                <View style={[styles.presetRow, { backgroundColor: colors.muted }]}>
-                  <View style={styles.presetCopy}>
-                    <ThemedText type="smallBold">{t("qazaPlan.presetCustom")}</ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("qazaPlan.presetCustomHint")}
-                    </ThemedText>
-                  </View>
-                  <Pill
-                    label={t("qazaPlan.presetActive")}
-                    color={colors.accent}
-                    background={tokens.accentSoft}
-                  />
-                </View>
-              ) : null}
-            </View>
-          </Card>
         ) : null}
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("qazaPlan.attachTitle")}
-            icon={{ ios: "link", android: "link", web: "link" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("qazaPlan.attachHint")}
-          </ThemedText>
-        </Card>
-
-        <QazaDailyTargets />
-
-        <Card padding="three">
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("qazaPlan.fiqhNote")}
-          </ThemedText>
-        </Card>
+        {twoPane ? null : consistencyCard}
+        {twoPane ? null : etaCard}
+        {twoPane ? null : presetsCard}
+        {twoPane ? null : attachCard}
+        {twoPane ? null : <QazaDailyTargets />}
+        {twoPane ? null : fiqhCard}
       </Stagger>
     </ScreenLayout>
   );
@@ -284,6 +319,7 @@ function PresetRow({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
 
   return (
     <PressableScale
@@ -291,12 +327,16 @@ function PresetRow({
       accessibilityRole="button"
       accessibilityState={{ selected }}
       onPress={onPress}
+      // TV: land on the active preset first so Select re-confirms / D-pad compares.
+      {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.presetRow,
+        tv && styles.presetRowTv,
         {
           backgroundColor: selected ? tokens.accentSoft : colors.muted,
-          borderColor: selected ? colors.accent : "transparent",
-          borderWidth: selected ? StyleSheet.hairlineWidth * 2 : 0,
+          // TV: selected = soft fill + hairline; the accent ring is reserved for focus.
+          borderColor: selected ? (tv ? tokens.accentBorder : colors.accent) : "transparent",
+          borderWidth: selected ? StyleSheet.hairlineWidth * (tv ? 1 : 2) : 0,
         },
       ]}
     >
@@ -328,6 +368,21 @@ function PresetRow({
 }
 
 const styles = StyleSheet.create({
+  split: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  primary: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.three,
+  },
+  aside: {
+    width: 380,
+    maxWidth: "40%",
+    gap: Spacing.three,
+  },
   hadithText: {
     marginTop: Spacing.two,
     fontStyle: "italic",
@@ -382,6 +437,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
+  presetRowTv: {
+    minHeight: TvLayout.minFocusTarget,
+  },
   presetCopy: {
     flex: 1,
     gap: Spacing.one,
@@ -393,3 +451,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/qaza/planner");

@@ -1,4 +1,5 @@
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import { isSunnahPrayer } from "@munib-tracker/shared/validators";
 import type { ThemeColors } from "@munib-tracker/theme/types";
 import type { SymbolViewProps } from "expo-symbols";
 
@@ -31,6 +32,17 @@ type SymbolName = SymbolViewProps["name"];
 
 /** Selectable statuses (excludes the implicit "pending" default). */
 export const PRAYER_STATUS_ORDER: PrayerStatus[] = ["completed", "missed", "delayed", "qaza"];
+
+/**
+ * Optional Sunnah salah (Tahajjud, Ishraq, Duha, …) have no fixed obligation,
+ * so they can't be "delayed" or owed as qaza — only prayed or not.
+ */
+export const SUNNAH_PRAYER_STATUS_ORDER: PrayerStatus[] = ["completed", "missed"];
+
+/** Statuses a user can pick for the given salah. */
+export function selectablePrayerStatuses(prayerId: PrayerId): PrayerStatus[] {
+  return isSunnahPrayer(prayerId) ? SUNNAH_PRAYER_STATUS_ORDER : PRAYER_STATUS_ORDER;
+}
 
 // Labels are rendered via i18n (`t("prayerStatus.<status>")`); this map only
 // carries the icon and tone so status copy lives in a single place.

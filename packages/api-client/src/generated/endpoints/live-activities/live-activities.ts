@@ -84,9 +84,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type LiveActivitiesControllerUpsertMutationError = unknown
     export type LiveActivitiesControllerUpsertMutationVariables = {data: UpsertLiveActivityDto}
 
-    /**
- * @summary Register an ActivityKit push token and schedule phase boundary updates
- */
+    /** @summary Register an ActivityKit push token and schedule phase boundary updates */
 export const useLiveActivitiesControllerUpsert = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof liveActivitiesControllerUpsert>>, TError,LiveActivitiesControllerUpsertMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -152,9 +150,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type LiveActivitiesControllerLifecycleMutationError = unknown
     export type LiveActivitiesControllerLifecycleMutationVariables = {activityId: string;data: LiveActivityLifecycleDto}
 
-    /**
- * @summary Mark a Live Activity as ended/dismissed and cancel jobs
- */
+    /** @summary Mark a Live Activity as ended/dismissed and cancel jobs */
 export const useLiveActivitiesControllerLifecycle = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof liveActivitiesControllerLifecycle>>, TError,LiveActivitiesControllerLifecycleMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -219,9 +215,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type LiveActivitiesControllerDeliverMutationError = unknown
     export type LiveActivitiesControllerDeliverMutationVariables = {data: DispatchLiveActivityJobDto}
 
-    /**
- * @summary QStash callback: deliver one scheduled ActivityKit update
- */
+    /** @summary QStash callback: deliver one scheduled ActivityKit update */
 export const useLiveActivitiesControllerDeliver = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof liveActivitiesControllerDeliver>>, TError,LiveActivitiesControllerDeliverMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -284,9 +278,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type LiveActivitiesControllerDispatchDueMutationError = unknown
 
 
-    /**
- * @summary Cron fallback: deliver due ActivityKit jobs and clean expired tokens
- */
+    /** @summary Cron fallback: deliver due ActivityKit jobs and clean expired tokens */
 export const useLiveActivitiesControllerDispatchDue = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof liveActivitiesControllerDispatchDue>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<

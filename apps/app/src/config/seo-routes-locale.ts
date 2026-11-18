@@ -12,6 +12,7 @@ const LOCALE_LOADERS: Partial<Record<AppLocale, () => Promise<{ default: LocaleP
   fa: () => import("./seo-routes-locale/fa.json"),
   fr: () => import("./seo-routes-locale/fr.json"),
   ha: () => import("./seo-routes-locale/ha.json"),
+  hi: () => import("./seo-routes-locale/hi.json"),
   id: () => import("./seo-routes-locale/id.json"),
   kk: () => import("./seo-routes-locale/kk.json"),
   ku: () => import("./seo-routes-locale/ku.json"),

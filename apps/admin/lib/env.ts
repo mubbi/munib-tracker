@@ -11,10 +11,18 @@ const envSchema = z.object({
   ADMIN_SESSION_SECRET: z.preprocess(emptyToUndefined, z.string().min(32).optional()),
   GOOGLE_CLIENT_ID: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
   GOOGLE_CLIENT_SECRET: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
-  ADMIN_URL: z.string().url().default(OFFICIAL_ADMIN_ORIGIN),
-  API_URL: z.string().url().default("http://localhost:3001"),
+  ADMIN_URL: z.url().default(OFFICIAL_ADMIN_ORIGIN),
+  API_URL: z.url().default("http://localhost:3001"),
   VAPID_PUBLIC_KEY: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
   VAPID_PRIVATE_KEY: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  /** Web Push contact (`mailto:` or `https:`); defaults to the official support email. */
+  VAPID_SUBJECT: z.preprocess(
+    emptyToUndefined,
+    z
+      .string()
+      .regex(/^(mailto:|https:\/\/)/, "VAPID_SUBJECT must start with mailto: or https://")
+      .optional(),
+  ),
   ADMIN_CRON_SECRET: z.preprocess(emptyToUndefined, z.string().min(16).optional()),
   /** Same Redis as apps/api — optional cron leader locks for broadcast processing. */
   REDIS_URL: z.preprocess(emptyToUndefined, z.string().min(1).optional()),

@@ -3,7 +3,7 @@ import type { SymbolViewProps } from "expo-symbols";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -14,12 +14,15 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { HadithRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
 import {
   useEnsureDuroodFavoritesLoaded,
@@ -183,6 +186,10 @@ export default function BookmarksHubScreen() {
   const loaded = hadithLoaded;
   const isEmpty = loaded && total === 0;
 
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  // TV + wide web / tablets: Reading | Saved side by side.
+  const sideBySide = tv || width >= 768;
   const subtitle = !loaded
     ? t("bookmarks.subtitle")
     : total > 0
@@ -194,13 +201,14 @@ export default function BookmarksHubScreen() {
     const meta = SECTION_META[section];
 
     return (
-      <Card key={section} padding="three">
+      <Card key={section} padding="three" style={sideBySide ? styles.sectionCardSide : undefined}>
         <SectionHeader title={t(isEmpty ? meta.exploreTitleKey : meta.titleKey)} icon={meta.icon} />
         <View style={styles.list}>
-          {items.map((source) =>
+          {items.map((source, index) =>
             isEmpty ? (
               <ExploreRow
                 key={source.id}
+                preferredFocus={tv && section === "reading" && index === 0}
                 icon={source.icon}
                 label={t(source.exploreLabelKey)}
                 hint={tTv(t, source.hintKey, `${source.hintKey}Tv`)}
@@ -212,6 +220,7 @@ export default function BookmarksHubScreen() {
                 icon={source.icon}
                 label={t(source.labelKey)}
                 count={counts[source.id as keyof typeof counts] || undefined}
+                preferredFocus={tv && section === "reading" && index === 0}
                 onPress={() => router.push(source.listRoute)}
               />
             ),
@@ -248,8 +257,16 @@ export default function BookmarksHubScreen() {
           </Card>
         ) : null}
 
-        {renderSection("reading")}
-        {renderSection("saved")}
+        {/* TV + wide screens: Reading | Saved side by side to use the width. */}
+        {sideBySide ? (
+          <View style={styles.sectionsSide}>
+            {renderSection("reading")}
+            {renderSection("saved")}
+          </View>
+        ) : (
+          renderSection("reading")
+        )}
+        {sideBySide ? null : renderSection("saved")}
       </Stagger>
     </ScreenLayout>
   );
@@ -260,14 +277,17 @@ function ExploreRow({
   label,
   hint,
   onPress,
+  preferredFocus = false,
 }: {
   icon: AppIcon;
   label: string;
   hint: string;
   onPress: () => void;
+  preferredFocus?: boolean;
 }) {
   const { colors } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
+  const tv = isTV();
 
   return (
     <PressableScale
@@ -275,7 +295,12 @@ function ExploreRow({
       accessibilityRole="button"
       accessibilityLabel={`${label}. ${hint}`}
       onPress={onPress}
-      style={[styles.exploreRow, { backgroundColor: colors.muted }]}
+      {...(tv && preferredFocus ? { hasTVPreferredFocus: true } : {})}
+      style={[
+        styles.exploreRow,
+        tv ? styles.exploreRowTv : null,
+        { backgroundColor: colors.muted },
+      ]}
     >
       <IconWell icon={icon} />
       <View style={styles.exploreBody}>
@@ -311,8 +336,26 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
+  exploreRowTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.lg,
+  },
+  sectionsSide: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  sectionCardSide: {
+    flex: 1,
+    width: undefined,
+    minWidth: 0,
+  },
   exploreBody: {
     flex: 1,
     gap: 2,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/bookmarks");

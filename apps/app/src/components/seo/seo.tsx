@@ -1,9 +1,5 @@
 import { usePathname } from "expo-router";
-// The vendored Helmet is the SAME instance Expo's static renderer collects into
-// the exported <head> (via `Head.Provider`), so tags rendered here land in the
-// static HTML. We use it directly instead of `expo-router/head`'s `Head`, whose
-// `useIsFocused()` gate returns false during static export and drops all tags.
-import { Helmet } from "expo-router/vendor/react-helmet-async/lib";
+import Head from "expo-router/head";
 import { useEffect, useMemo, useState } from "react";
 import { Platform } from "react-native";
 
@@ -59,10 +55,15 @@ export type SeoProps = {
 /**
  * Per-route SEO / social / structured-data head tags.
  *
- * Renders into the document `<head>` via `expo-router/head` so every statically
- * exported page ships unique, crawlable metadata for search engines and AI
- * answer engines. Values resolve in priority order:
+ * Client-side `<head>` updates via `expo-router/head`: keeps title, canonical,
+ * Open Graph, hreflang and JSON-LD in sync after in-app navigation and locale
+ * changes. Values resolve in priority order:
  *   explicit prop → route registry (`seo-routes.ts`) → global defaults.
+ *
+ * Static HTML no longer comes from here: since Expo SDK 58 the static renderer
+ * does not collect `<Head>` tags. Exported pages get their `<head>` from each
+ * route's `generateMetadata` (src/lib/seo/route-metadata.ts) plus
+ * scripts/inject-seo-head.mjs after export.
  *
  * Site-wide invariants (charset, viewport, icons, theme-color, the Organization
  * / WebSite / SoftwareApplication graph) live in `app/+html.tsx` and are
@@ -162,7 +163,7 @@ function SeoWeb(props: SeoProps) {
   const hasDistinctLocaleUrls = new Set(localeUrls).size > 1;
 
   return (
-    <Helmet>
+    <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
@@ -224,6 +225,6 @@ function SeoWeb(props: SeoProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }}
         />
       ))}
-    </Helmet>
+    </Head>
   );
 }

@@ -8,6 +8,8 @@ import {
 } from "@/lib/in-app-notifications/storage";
 import { loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
+import { quranListenerStore } from "@/stores/quran-listener-store";
+import { wipePronunciationModels } from "@/stores/quran-pronunciation-store";
 
 jest.mock("@/lib/cache-manager", () => ({
   clearDownloadedAudio: jest.fn(async () => undefined),
@@ -17,6 +19,15 @@ jest.mock("@/lib/cache-manager", () => ({
 jest.mock("@/lib/appSurfaces/widgets/snapshotStorage", () => ({
   emptyWidgetSnapshot: () => ({ version: 1 }),
   writeWidgetSnapshot: jest.fn(async () => undefined),
+}));
+
+jest.mock("@/stores/quran-listener-store", () => {
+  const remove = jest.fn(async () => undefined);
+  return { quranListenerStore: { getState: () => ({ remove }) } };
+});
+
+jest.mock("@/stores/quran-pronunciation-store", () => ({
+  wipePronunciationModels: jest.fn(async () => undefined),
 }));
 
 jest.mock("@/stores/reload-all-stores", () => ({
@@ -54,5 +65,17 @@ describe("wipeLocalDeviceData", () => {
     expect(await readJSON(DB_KEYS.weatherCache, null)).toBeNull();
     expect(await loadRecentSearches()).toEqual([]);
     expect(await loadInAppNotifications()).toEqual([]);
+  });
+
+  it("removes the Qur'an practice listener files and manifest, not only AsyncStorage keys", async () => {
+    await writeJSON(DB_KEYS.quranRecitationModel, { engine: "tilawa-zipformer" });
+    await writeJSON(DB_KEYS.quranMemorization, { schemaVersion: 1, records: {} });
+
+    await wipeLocalDeviceData();
+
+    expect(quranListenerStore.getState().remove).toHaveBeenCalledTimes(1);
+    expect(wipePronunciationModels).toHaveBeenCalledTimes(1);
+    expect(await readJSON(DB_KEYS.quranRecitationModel, null)).toBeNull();
+    expect(await readJSON(DB_KEYS.quranMemorization, null)).toBeNull();
   });
 });

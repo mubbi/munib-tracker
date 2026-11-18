@@ -5,11 +5,12 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconWell } from "@/components/ui/icon-well";
@@ -37,6 +38,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLocation } from "@/stores/location-store";
 
 type HistoryEntry = { date: string; total: number; progress: QazaDailyProgress };
@@ -58,7 +60,7 @@ function parseHijriMonth(date: string, timeZone?: string): { year: number; month
 export default function QazaHistoryScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const chevronBackward = useChevronBackward();
   const chevronForward = useChevronForward();
   const defaultCalendar = useDefaultCalendar();
@@ -76,6 +78,9 @@ export default function QazaHistoryScreen() {
   const [pickerOpen, setPickerOpen] = useState(false);
   const tv = isTV();
   const [selected, setSelected] = useState<HistoryEntry | null>(null);
+  const { width } = useWindowDimensions();
+  /** Desktop / wide web: the selected day's breakdown sits beside the calendar. */
+  const twoPane = !tv && width >= 1024;
   const initialMonthSet = useRef(false);
 
   useFocusEffect(
@@ -144,8 +149,135 @@ export default function QazaHistoryScreen() {
     setMonth(next.getMonth());
   };
 
+  const modeControl = (
+    <SegmentedControl<CalendarMode>
+      options={[
+        { id: "gregorian", label: t("calendar.gregorian") },
+        { id: "hijri", label: t("calendar.hijri") },
+      ]}
+      value={mode}
+      onChange={setMode}
+    />
+  );
+
+  const monthCard = (
+    <Card padding="three">
+      <View style={styles.header}>
+        <NavButton
+          icon={chevronBackward}
+          label={t("calendar.prevMonth")}
+          onPress={() => shift(-1)}
+        />
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={t("calendar.pickMonthYear")}
+          onPress={() => setPickerOpen(true)}
+          style={styles.monthLabelButton}
+        >
+          <ThemedText type="subtitle">{label}</ThemedText>
+          <SymbolView
+            name={{
+              ios: "chevron.down",
+              android: "keyboard_arrow_down",
+              web: "keyboard_arrow_down",
+            }}
+            size={14}
+            tintColor={colors.mutedForeground}
+          />
+        </PressableScale>
+        <NavButton icon={chevronForward} label={t("calendar.nextMonth")} onPress={() => shift(1)} />
+      </View>
+
+      <View style={styles.weekRow}>
+        {weekdays.map((weekday) => (
+          <View key={weekday.key} style={styles.cell}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {weekday.label}
+            </ThemedText>
+          </View>
+        ))}
+      </View>
+
+      {weeks.map((week) => (
+        <View key={week[0]?.date} style={styles.weekRow}>
+          {week.map((day) => {
+            const entry = byDate.get(day.date);
+            const hasData = !!entry && day.inMonth;
+            const disabled = !day.inMonth || !hasData;
+
+            return (
+              <PressableScale
+                key={day.date}
+                haptic="light"
+                disabled={disabled}
+                accessibilityRole="button"
+                accessibilityLabel={
+                  hasData
+                    ? t("qazaHistory.dayA11y", {
+                        date: formatDate(day.date),
+                        count: entry.total,
+                      })
+                    : undefined
+                }
+                accessibilityState={
+                  twoPane ? { disabled, selected: selected?.date === day.date } : { disabled }
+                }
+                onPress={() => entry && setSelected(entry)}
+                style={styles.cell}
+              >
+                <View
+                  style={[
+                    styles.dayCell,
+                    tv ? styles.dayCellTv : null,
+                    twoPane ? styles.dayCellWide : null,
+                    hasData && {
+                      backgroundColor: withAlpha(colors.accent, 0.18),
+                    },
+                    // TV: accent ring is reserved for D-pad focus — today is neutral.
+                    day.isToday && {
+                      borderColor: tv ? colors.foreground : colors.accent,
+                      borderWidth: 2,
+                    },
+                    twoPane &&
+                      selected?.date === day.date && {
+                        borderColor: colors.foreground,
+                        borderWidth: 2,
+                      },
+                  ]}
+                >
+                  <ThemedText
+                    type="smallBold"
+                    style={{
+                      color: day.inMonth ? colors.foreground : colors.mutedForeground,
+                      opacity: day.inMonth ? 1 : 0.45,
+                    }}
+                  >
+                    {day.day}
+                  </ThemedText>
+                  {hasData ? (
+                    <ThemedText
+                      type="caption"
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.7}
+                      style={{ color: colors.accent, textAlign: "center" }}
+                    >
+                      {t("qazaHistory.count", { count: entry.total })}
+                    </ThemedText>
+                  ) : null}
+                </View>
+              </PressableScale>
+            );
+          })}
+        </View>
+      ))}
+    </Card>
+  );
+
   return (
     <ScreenLayout
+      maxContentWidth={twoPane ? 1320 : undefined}
       eyebrow={t("qaza.eyebrow")}
       title={t("qazaHistory.title")}
       subtitle={t("qazaHistory.subtitle")}
@@ -160,120 +292,31 @@ export default function QazaHistoryScreen() {
         />
       ) : (
         <Stagger>
-          <SegmentedControl<CalendarMode>
-            options={[
-              { id: "gregorian", label: t("calendar.gregorian") },
-              { id: "hijri", label: t("calendar.hijri") },
-            ]}
-            value={mode}
-            onChange={setMode}
-          />
-
-          <Card padding="three">
-            <View style={styles.header}>
-              <NavButton
-                icon={chevronBackward}
-                label={t("calendar.prevMonth")}
-                onPress={() => shift(-1)}
-              />
-              <PressableScale
-                haptic="light"
-                accessibilityRole="button"
-                accessibilityLabel={t("calendar.pickMonthYear")}
-                onPress={() => setPickerOpen(true)}
-                style={styles.monthLabelButton}
-              >
-                <ThemedText type="subtitle">{label}</ThemedText>
-                <SymbolView
-                  name={{
-                    ios: "chevron.down",
-                    android: "keyboard_arrow_down",
-                    web: "keyboard_arrow_down",
-                  }}
-                  size={14}
-                  tintColor={colors.mutedForeground}
-                />
-              </PressableScale>
-              <NavButton
-                icon={chevronForward}
-                label={t("calendar.nextMonth")}
-                onPress={() => shift(1)}
-              />
-            </View>
-
-            <View style={styles.weekRow}>
-              {weekdays.map((weekday) => (
-                <View key={weekday.key} style={styles.cell}>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {weekday.label}
-                  </ThemedText>
-                </View>
-              ))}
-            </View>
-
-            {weeks.map((week) => (
-              <View key={week[0]?.date} style={styles.weekRow}>
-                {week.map((day) => {
-                  const entry = byDate.get(day.date);
-                  const hasData = !!entry && day.inMonth;
-                  const disabled = !day.inMonth || !hasData;
-
-                  return (
-                    <PressableScale
-                      key={day.date}
-                      haptic="light"
-                      disabled={disabled}
-                      accessibilityRole="button"
-                      accessibilityLabel={
-                        hasData
-                          ? t("qazaHistory.dayA11y", {
-                              date: formatDate(day.date),
-                              count: entry.total,
-                            })
-                          : undefined
-                      }
-                      accessibilityState={{ disabled }}
-                      onPress={() => entry && setSelected(entry)}
-                      style={styles.cell}
-                    >
-                      <View
-                        style={[
-                          styles.dayCell,
-                          tv ? styles.dayCellTv : null,
-                          hasData && {
-                            backgroundColor: withAlpha(colors.accent, 0.18),
-                          },
-                          day.isToday && { borderColor: colors.accent, borderWidth: 2 },
-                        ]}
-                      >
-                        <ThemedText
-                          type="smallBold"
-                          style={{
-                            color: day.inMonth ? colors.foreground : colors.mutedForeground,
-                            opacity: day.inMonth ? 1 : 0.45,
-                          }}
-                        >
-                          {day.day}
-                        </ThemedText>
-                        {hasData ? (
-                          <ThemedText
-                            type="caption"
-                            numberOfLines={1}
-                            adjustsFontSizeToFit
-                            minimumFontScale={0.7}
-                            style={{ color: colors.accent, textAlign: "center" }}
-                          >
-                            {t("qazaHistory.count", { count: entry.total })}
-                          </ThemedText>
-                        ) : null}
-                      </View>
-                    </PressableScale>
-                  );
-                })}
+          {twoPane ? (
+            <View style={styles.split}>
+              <View style={styles.primary}>
+                {modeControl}
+                {monthCard}
               </View>
-            ))}
-          </Card>
-
+              <View style={styles.aside}>
+                <Card padding="three" style={styles.detailCard}>
+                  {selected ? (
+                    <DayDetail entry={selected} formatDate={formatDate} />
+                  ) : (
+                    <ThemedText
+                      type="caption"
+                      themeColor="mutedForeground"
+                      style={styles.legendHint}
+                    >
+                      {tTv(t, "qazaHistory.legendHint", "qazaHistory.legendHintTv")}
+                    </ThemedText>
+                  )}
+                </Card>
+              </View>
+            </View>
+          ) : null}
+          {twoPane ? null : modeControl}
+          {twoPane ? null : monthCard}
           <CalendarMonthPicker
             visible={pickerOpen}
             onClose={() => setPickerOpen(false)}
@@ -294,57 +337,91 @@ export default function QazaHistoryScreen() {
             }}
           />
 
-          <Card variant="muted" padding="three">
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
-              {tTv(t, "qazaHistory.legendHint", "qazaHistory.legendHintTv")}
-            </ThemedText>
-          </Card>
+          {twoPane ? null : (
+            <Card variant="muted" padding="three">
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
+                {tTv(t, "qazaHistory.legendHint", "qazaHistory.legendHintTv")}
+              </ThemedText>
+            </Card>
+          )}
         </Stagger>
       )}
 
-      <Sheet visible={selected != null} variant="bottom" onClose={() => setSelected(null)}>
+      <Sheet
+        visible={!twoPane && selected != null}
+        variant="bottom"
+        onClose={() => setSelected(null)}
+      >
         {selected ? (
           <>
-            <ThemedText type="subtitle">{formatDate(selected.date)}</ThemedText>
-            <Pill
-              label={t("qazaHistory.count", { count: selected.total })}
-              color={colors.accent}
-              background={tokens.accentSoft}
-            />
-            <View style={styles.prayers}>
-              {QAZA_PRAYERS.map((prayerId) => {
-                const count = selected.progress.completed[prayerId] ?? 0;
-                if (count <= 0) return null;
-                return (
-                  <View
-                    key={prayerId}
-                    style={[styles.prayerRow, { backgroundColor: colors.muted }]}
-                    accessibilityRole="text"
-                    accessibilityLabel={`${t(`prayers.${prayerId}`)}, ${t("qazaHistory.count", {
-                      count,
-                    })}`}
-                  >
-                    <IconWell
-                      icon={PRAYER_ICONS[prayerId]}
-                      well={36}
-                      size={16}
-                      tint={colors.accent}
-                      background={tokens.accentSoft}
-                    />
-                    <ThemedText type="small" style={styles.prayerName}>
-                      {t(`prayers.${prayerId}`)}
-                    </ThemedText>
-                    <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                      {count}
-                    </ThemedText>
-                  </View>
-                );
-              })}
-            </View>
+            <DayDetail entry={selected} formatDate={formatDate} />
+            {tv ? (
+              // TV: give focus a visible home in the sheet (otherwise it lands on the
+              // invisible backdrop); remote Back also closes.
+              <Button
+                label={t("common.close")}
+                variant="secondary"
+                fullWidth
+                preferredFocus
+                onPress={() => setSelected(null)}
+              />
+            ) : null}
           </>
         ) : null}
       </Sheet>
     </ScreenLayout>
+  );
+}
+
+/** Per-prayer breakdown of one day's make-ups (bottom sheet on phones, aside on desktop). */
+function DayDetail({
+  entry,
+  formatDate,
+}: {
+  entry: HistoryEntry;
+  formatDate: (iso: string) => string;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  return (
+    <>
+      <ThemedText type="subtitle">{formatDate(entry.date)}</ThemedText>
+      <Pill
+        label={t("qazaHistory.count", { count: entry.total })}
+        color={colors.accent}
+        background={tokens.accentSoft}
+      />
+      <View style={styles.prayers}>
+        {QAZA_PRAYERS.map((prayerId) => {
+          const count = entry.progress.completed[prayerId] ?? 0;
+          if (count <= 0) return null;
+          return (
+            <View
+              key={prayerId}
+              style={[styles.prayerRow, { backgroundColor: colors.muted }]}
+              accessibilityRole="text"
+              accessibilityLabel={`${t(`prayers.${prayerId}`)}, ${t("qazaHistory.count", {
+                count,
+              })}`}
+            >
+              <IconWell
+                icon={PRAYER_ICONS[prayerId]}
+                well={36}
+                size={16}
+                tint={colors.accent}
+                background={tokens.accentSoft}
+              />
+              <ThemedText type="small" style={styles.prayerName}>
+                {t(`prayers.${prayerId}`)}
+              </ThemedText>
+              <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                {count}
+              </ThemedText>
+            </View>
+          );
+        })}
+      </View>
+    </>
   );
 }
 
@@ -364,7 +441,11 @@ function NavButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={onPress}
-      style={[styles.navButton, { backgroundColor: tokens.accentSoft }]}
+      style={[
+        styles.navButton,
+        isTV() ? styles.navButtonTv : null,
+        { backgroundColor: tokens.accentSoft },
+      ]}
     >
       <SymbolView name={icon} size={18} tintColor={colors.accent} />
     </PressableScale>
@@ -372,6 +453,23 @@ function NavButton({
 }
 
 const styles = StyleSheet.create({
+  split: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  primary: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.three,
+  },
+  aside: {
+    width: 360,
+    maxWidth: "38%",
+  },
+  detailCard: {
+    gap: Spacing.two,
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -394,6 +492,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  navButtonTv: {
+    width: TvLayout.minFocusTarget,
+    height: TvLayout.minFocusTarget,
+  },
   weekRow: {
     flexDirection: "row",
   },
@@ -412,6 +514,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.one,
     paddingVertical: Spacing.one,
     gap: 2,
+  },
+  dayCellWide: {
+    minHeight: 72,
   },
   dayCellTv: {
     minHeight: TvLayout.minFocusTarget,
@@ -436,3 +541,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/qaza/history");

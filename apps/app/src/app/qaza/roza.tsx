@@ -2,12 +2,13 @@ import { computeMissedFasts } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QazaCountEditModal } from "@/components/qaza-count-edit-modal";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { TvNumberStepper } from "@/components/tv-number-stepper";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -19,6 +20,8 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import { useRoza, useTrackerActions } from "@/stores/tracker-store";
 
@@ -39,6 +42,10 @@ export default function QazaRozaScreen() {
   const [years, setYears] = useState("");
   const [pending, setPending] = useState<RozaConfirmAction | null>(null);
   const [editOpen, setEditOpen] = useState(false);
+  const tv = isTV();
+  const { width } = useWindowDimensions();
+  /** Tablet / desktop web: counter and estimator side by side. */
+  const twoPane = !tv && width >= 900;
 
   const estimate = computeMissedFasts(Number.parseInt(years, 10) || 0);
   const hasAnyCounts = roza.remaining > 0 || roza.completed > 0;
@@ -117,6 +124,156 @@ export default function QazaRozaScreen() {
 
   const formatCount = (value: number) => value.toLocaleString(locale);
 
+  const counterCard = (
+    <Card padding="three" style={styles.progressCard}>
+      <View style={styles.statsRow}>
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={t("qazaRoza.editCountA11y")}
+          onPress={() => setEditOpen(true)}
+          style={[styles.statBox, { backgroundColor: info.soft, borderColor: info.border }]}
+        >
+          <ThemedText type="display" style={[styles.statValue, { color: info.text }]}>
+            {formatCount(roza.remaining)}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("stats.remaining")}
+          </ThemedText>
+        </PressableScale>
+        <View
+          style={[styles.statBox, { backgroundColor: success.soft, borderColor: success.border }]}
+        >
+          <ThemedText type="display" style={[styles.statValue, { color: success.text }]}>
+            {formatCount(roza.completed)}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("stats.completed")}
+          </ThemedText>
+        </View>
+      </View>
+
+      {total > 0 ? (
+        <View style={styles.progressBlock}>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("home.qazaProgress", { pct: progressPct })}
+          </ThemedText>
+          <ProgressBar value={progress} height={6} color={success.color} />
+        </View>
+      ) : null}
+
+      <Button
+        label={t("qazaRoza.fastedQaza")}
+        fullWidth
+        icon={{ ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }}
+        disabled={roza.remaining === 0}
+        preferredFocus
+        onPress={() => setPending({ kind: "perform" })}
+      />
+
+      <View style={[styles.adjustSection, { backgroundColor: colors.muted }]}>
+        <ThemedText type="smallBold">{t("qazaRoza.adjustRemaining")}</ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.adjustHint}>
+          {tTv(t, "qazaRoza.adjustHint", "qazaRoza.adjustHintTv")}
+        </ThemedText>
+        <View style={styles.stepperWrap}>
+          <Stepper
+            value={roza.remaining}
+            label={t("qazaRoza.fastsRemaining")}
+            valueAccessibilityLabel={t("qazaRoza.editCountA11y")}
+            onValuePress={() => setEditOpen(true)}
+            onDecrement={() =>
+              setPending({
+                kind: "decrement",
+                nextRemaining: Math.max(0, roza.remaining - 1),
+              })
+            }
+            onIncrement={() =>
+              setPending({
+                kind: "increment",
+                nextRemaining: roza.remaining + 1,
+              })
+            }
+            size="md"
+            buttonBackground={colors.card}
+          />
+        </View>
+      </View>
+
+      <Button
+        label={t("qazaRoza.resetCounter")}
+        variant="ghost"
+        size="sm"
+        icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+        disabled={!hasAnyCounts}
+        onPress={() => setPending({ kind: "reset" })}
+        style={styles.resetCounter}
+      />
+    </Card>
+  );
+
+  const estimateCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("qazaRoza.estimateTitle")}
+        icon={{
+          ios: "plus.forwardslash.minus",
+          android: "calculate",
+          web: "calculate",
+        }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
+        {t("qazaRoza.estimateHint")}
+      </ThemedText>
+      <View style={[styles.formulaBox, { backgroundColor: colors.muted }]}>
+        {tv ? (
+          // TV: step the years with the D-pad instead of typing.
+          <View style={styles.yearsInputWrap}>
+            <TvNumberStepper
+              value={Number.parseInt(years, 10) || 0}
+              onChange={(next) => setYears(next > 0 ? String(next) : "")}
+              label={t("qazaRoza.yearsPlaceholder")}
+              max={99}
+              steps={[1, 10]}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("qazaRoza.yearsPlaceholder")}
+            </ThemedText>
+          </View>
+        ) : (
+          <View style={styles.yearsInputWrap}>
+            <TextInput
+              value={years}
+              onChangeText={(text) => setYears(text.replace(/[^0-9]/g, "").slice(0, 2))}
+              keyboardType="number-pad"
+              placeholder="0"
+              placeholderTextColor={colors.mutedForeground}
+              accessibilityLabel={t("qazaRoza.yearsPlaceholder")}
+              style={[styles.yearsInput, tokens.inputSurface, { color: colors.foreground }]}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("qazaRoza.yearsPlaceholder")}
+            </ThemedText>
+          </View>
+        )}
+        <ThemedText type="smallBold" themeColor="mutedForeground">
+          {t("qazaRoza.estimateFormula")}
+        </ThemedText>
+        <ThemedText type="header" style={{ color: info.text, fontVariant: ["tabular-nums"] }}>
+          {formatCount(estimate)}
+        </ThemedText>
+      </View>
+      <Button
+        label={t("qazaRoza.addToRemaining")}
+        variant="secondary"
+        fullWidth
+        disabled={estimate === 0}
+        onPress={() => setPending({ kind: "addEstimate", count: estimate })}
+        style={styles.applyButton}
+      />
+    </Card>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("qazaRoza.eyebrow")}
@@ -146,144 +303,14 @@ export default function QazaRozaScreen() {
         ]}
       />
       <Stagger>
-        <Card padding="three" style={styles.progressCard}>
-          <View style={styles.statsRow}>
-            <PressableScale
-              haptic="light"
-              accessibilityRole="button"
-              accessibilityLabel={t("qazaRoza.editCountA11y")}
-              onPress={() => setEditOpen(true)}
-              style={[styles.statBox, { backgroundColor: info.soft, borderColor: info.border }]}
-            >
-              <ThemedText type="display" style={[styles.statValue, { color: info.text }]}>
-                {formatCount(roza.remaining)}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("stats.remaining")}
-              </ThemedText>
-            </PressableScale>
-            <View
-              style={[
-                styles.statBox,
-                { backgroundColor: success.soft, borderColor: success.border },
-              ]}
-            >
-              <ThemedText type="display" style={[styles.statValue, { color: success.text }]}>
-                {formatCount(roza.completed)}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("stats.completed")}
-              </ThemedText>
-            </View>
+        {twoPane ? (
+          <View style={styles.split}>
+            <View style={styles.pane}>{counterCard}</View>
+            <View style={styles.pane}>{estimateCard}</View>
           </View>
-
-          {total > 0 ? (
-            <View style={styles.progressBlock}>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("home.qazaProgress", { pct: progressPct })}
-              </ThemedText>
-              <ProgressBar value={progress} height={6} color={success.color} />
-            </View>
-          ) : null}
-
-          <Button
-            label={t("qazaRoza.fastedQaza")}
-            fullWidth
-            icon={{ ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }}
-            disabled={roza.remaining === 0}
-            onPress={() => setPending({ kind: "perform" })}
-          />
-
-          <View style={[styles.adjustSection, { backgroundColor: colors.muted }]}>
-            <ThemedText type="smallBold">{t("qazaRoza.adjustRemaining")}</ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.adjustHint}>
-              {tTv(t, "qazaRoza.adjustHint", "qazaRoza.adjustHintTv")}
-            </ThemedText>
-            <View style={styles.stepperWrap}>
-              <Stepper
-                value={roza.remaining}
-                label={t("qazaRoza.fastsRemaining")}
-                valueAccessibilityLabel={t("qazaRoza.editCountA11y")}
-                onValuePress={() => setEditOpen(true)}
-                onDecrement={() =>
-                  setPending({
-                    kind: "decrement",
-                    nextRemaining: Math.max(0, roza.remaining - 1),
-                  })
-                }
-                onIncrement={() =>
-                  setPending({
-                    kind: "increment",
-                    nextRemaining: roza.remaining + 1,
-                  })
-                }
-                size="md"
-                buttonBackground={colors.card}
-              />
-            </View>
-          </View>
-
-          <Button
-            label={t("qazaRoza.resetCounter")}
-            variant="ghost"
-            size="sm"
-            icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
-            disabled={!hasAnyCounts}
-            onPress={() => setPending({ kind: "reset" })}
-            style={styles.resetCounter}
-          />
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("qazaRoza.estimateTitle")}
-            icon={{
-              ios: "plus.forwardslash.minus",
-              android: "calculate",
-              web: "calculate",
-            }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
-            {t("qazaRoza.estimateHint")}
-          </ThemedText>
-          <View style={[styles.formulaBox, { backgroundColor: colors.muted }]}>
-            <View style={styles.yearsInputWrap}>
-              <TextInput
-                value={years}
-                onChangeText={(text) => setYears(text.replace(/[^0-9]/g, "").slice(0, 2))}
-                keyboardType="number-pad"
-                placeholder="0"
-                placeholderTextColor={colors.mutedForeground}
-                accessibilityLabel={t("qazaRoza.yearsPlaceholder")}
-                style={[
-                  styles.yearsInput,
-                  {
-                    color: colors.foreground,
-                    backgroundColor: colors.card,
-                    borderColor: colors.border,
-                  },
-                ]}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("qazaRoza.yearsPlaceholder")}
-              </ThemedText>
-            </View>
-            <ThemedText type="smallBold" themeColor="mutedForeground">
-              {t("qazaRoza.estimateFormula")}
-            </ThemedText>
-            <ThemedText type="header" style={{ color: info.text, fontVariant: ["tabular-nums"] }}>
-              {formatCount(estimate)}
-            </ThemedText>
-          </View>
-          <Button
-            label={t("qazaRoza.addToRemaining")}
-            variant="secondary"
-            fullWidth
-            disabled={estimate === 0}
-            onPress={() => setPending({ kind: "addEstimate", count: estimate })}
-            style={styles.applyButton}
-          />
-        </Card>
+        ) : null}
+        {twoPane ? null : counterCard}
+        {twoPane ? null : estimateCard}
       </Stagger>
 
       <ConfirmDialog
@@ -300,7 +327,7 @@ export default function QazaRozaScreen() {
         visible={editOpen}
         initialValue={roza.remaining}
         title={t("qazaRoza.editCountTitle")}
-        hint={t("qazaRoza.editCountHint")}
+        hint={tTv(t, "qazaRoza.editCountHint", "qazaRoza.editCountHintTv")}
         placeholder={t("qazaRoza.editCountPlaceholder")}
         accessibilityLabel={t("qazaRoza.editCountA11y")}
         onSubmit={(nextRemaining) => {
@@ -315,6 +342,15 @@ export default function QazaRozaScreen() {
 }
 
 const styles = StyleSheet.create({
+  split: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.three,
+  },
+  pane: {
+    flex: 1,
+    minWidth: 0,
+  },
   progressCard: {
     gap: Spacing.three,
   },
@@ -388,3 +424,6 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/qaza/roza");

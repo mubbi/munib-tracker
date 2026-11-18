@@ -4,6 +4,7 @@ import type {
   SalahGuideQuizQuestion,
 } from "@munib-tracker/shared/types";
 
+import { condenseText, FLASH_EXPLANATION_MAX, isCompactCard } from "./mcq-helpers";
 import type { StudyMcq, StudySourceId } from "./types";
 
 type AuthoredQuiz = {
@@ -27,13 +28,16 @@ function mapAuthored(
     if (question.correctIndex == null || !question.options?.length) continue;
     if (question.options.length < 2) continue;
 
+    // Authored questions are kept only when already short; long ones are dropped.
+    if (!isCompactCard({ ...question, options: question.options })) continue;
+
     out.push({
       id: `${sourceId}:authored:${question.id}`,
       sourceId,
       prompt: question.prompt,
       options: question.options,
       correctIndex: question.correctIndex,
-      explanation: question.explanation,
+      explanation: condenseText(question.explanation, FLASH_EXPLANATION_MAX),
       categoryLabelKey:
         categoryPrefix && question.category ? `${categoryPrefix}.${question.category}` : undefined,
     });

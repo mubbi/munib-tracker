@@ -1,6 +1,7 @@
 import {
   USER_MEDIA_ALLOWED_MIME_TYPES,
   USER_MEDIA_FILE_NAME_MAX,
+  USER_MEDIA_MAX_BYTES,
   type UserMediaAllowedMimeType,
 } from "@munib-tracker/shared/constants";
 import * as DocumentPicker from "expo-document-picker";
@@ -10,9 +11,12 @@ import { Platform } from "react-native";
 import {
   assertAllowedAttachmentMime,
   assertAttachmentSizeBytes,
+  isImageMime,
   resolvePickedAttachmentMime,
   sniffAttachmentMime,
 } from "@/lib/attachments/attachment-mime";
+import { readUriAsBytes } from "@/lib/attachments/read-uri-bytes";
+import { shrinkImageForUpload } from "@/lib/attachments/shrink-image";
 import { isTV } from "@/lib/platform/is-tv";
 
 export const ATTACHMENT_PICKER_TYPES = [...USER_MEDIA_ALLOWED_MIME_TYPES] as const;
@@ -149,39 +153,30 @@ export async function pickAttachmentFromSource(
   }
 }
 
-async function readUriAsBytes(sourceUri: string): Promise<Uint8Array> {
-  if (Platform.OS === "web" && sourceUri.startsWith("data:")) {
-    const comma = sourceUri.indexOf(",");
-    if (comma < 0) throw new Error("READ_FAILED");
-    const meta = sourceUri.slice(0, comma);
-    const payload = sourceUri.slice(comma + 1);
-    if (meta.includes(";base64")) {
-      const binary = atob(payload);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-      return bytes;
-    }
-    return new TextEncoder().encode(decodeURIComponent(payload));
-  }
-  const response = await fetch(sourceUri);
-  if (!response.ok) throw new Error("READ_FAILED");
-  return new Uint8Array(await response.arrayBuffer());
+/** Refuse to buffer absurdly large picks in memory before validating them. */
+const MAX_READABLE_BYTES = 40 * 1024 * 1024;
+
+function withJpegExtension(fileName: string): string {
+  const stem = fileName.replace(/\.[^.]+$/, "") || "photo";
+  return `${stem}.jpg`;
 }
 
 /**
  * Validate picked bytes (size + magic-byte sniff) before upload. Returns the
  * authoritative mime/size so callers never trust picker metadata alone.
+ *
+ * Oversized images are downscaled on web (browsers hand over the original
+ * multi-MB photo); the returned `uri` then points at the re-encoded JPEG.
  */
 export async function validatePickedAttachment(
   attachment: PickedAttachment,
 ): Promise<PickedAttachment> {
   assertAllowedAttachmentMime(attachment.mimeType);
-  if (attachment.sizeBytes > 0) {
-    assertAttachmentSizeBytes(attachment.sizeBytes);
+  if (attachment.sizeBytes > MAX_READABLE_BYTES) {
+    throw new Error("FILE_TOO_LARGE");
   }
 
   const bytes = await readUriAsBytes(attachment.uri);
-  assertAttachmentSizeBytes(bytes.length);
 
   // Magic bytes are authoritative — picker MIME / extension can disagree
   // (octet-stream, wrong extension, JPEG reported as PNG, etc.).
@@ -189,6 +184,20 @@ export async function validatePickedAttachment(
   if (!sniffed) {
     throw new Error("UNSUPPORTED_MIME");
   }
+
+  if (bytes.length > USER_MEDIA_MAX_BYTES && isImageMime(sniffed)) {
+    const shrunk = await shrinkImageForUpload(bytes, sniffed, USER_MEDIA_MAX_BYTES);
+    if (shrunk) {
+      return {
+        uri: shrunk.uri,
+        fileName: withJpegExtension(attachment.fileName),
+        mimeType: shrunk.mimeType,
+        sizeBytes: shrunk.bytes.length,
+      };
+    }
+  }
+
+  assertAttachmentSizeBytes(bytes.length);
 
   return {
     ...attachment,

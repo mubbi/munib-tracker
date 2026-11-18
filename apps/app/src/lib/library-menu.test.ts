@@ -52,6 +52,8 @@ describe("createLibraryMenuSearch", () => {
     ["duaa", "duas"],
     ["wudu", "taharah"],
     ["jumuah", "friday"],
+    ["recite", "quranPractice"],
+    ["revision", "quranPractice"],
   ] as const)("maps %# %s → %s", (query, expectedId) => {
     const ids = index.search(query).map((entry) => entry.id);
     expect(ids).toContain(expectedId);

@@ -1,8 +1,10 @@
 import { DUROOD_ITEMS, duasByCategory, NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 
 import { getBundledCollection, getBundledCollectionData } from "@/lib/hadith";
+import { __setBundledHadithForTests, type BundledHadithCollection } from "@/lib/hadith-bundled";
 import { getSurahAyahs } from "@/lib/quran";
 import {
+  clearAyahIndex,
   createCustomAdhkarSearch,
   createDuaSearch,
   createDuroodSearch,
@@ -10,8 +12,10 @@ import {
   createHadithSearch,
   createNameSearch,
   createZikrSearch,
+  ensureAyahFuse,
   isAyahIndexReady,
   normalize,
+  preloadSearchCorpora,
   SEARCH_CATEGORY_ORDER,
   searchAll,
   searchDuaList,
@@ -23,6 +27,7 @@ import {
 } from "@/lib/search";
 import { searchLightWithGuides } from "@/lib/search-with-guides";
 import { zikrByCategory } from "@/lib/zikr";
+import { buildHadithItem } from "@/test-support/fixtures/hadith";
 
 describe("normalize", () => {
   it("strips Latin diacritics and lowercases", () => {
@@ -338,5 +343,96 @@ describe("createFuzzyIndex", () => {
     expect(index.search("aplication")[0]?.name).toBe("Application");
     expect(index.count("application")).toBe(1);
     expect(index.search("x")).toEqual([]);
+  });
+});
+
+describe("createHadithSearch limits and counts", () => {
+  const items = [
+    buildHadithItem({ id: "h:1", english: "The messenger said patience is light" }),
+    buildHadithItem({ id: "h:2", english: "The messenger forbade backbiting" }),
+    buildHadithItem({ id: "h:3", english: "Charity extinguishes sin" }),
+  ];
+  const index = createHadithSearch(items);
+
+  it("stops the substring pass at the limit", () => {
+    expect(index.search("messenger", 1).map((h) => h.id)).toEqual(["h:1"]);
+  });
+
+  it("falls back to typo-tolerant matching with a limit", () => {
+    expect(index.search("mesenger", 1)).toHaveLength(1);
+  });
+
+  it.each([
+    ["exact substrings", "messenger", 2],
+    ["a typo", "charty", 1],
+    ["a too-short query", "a", 0],
+  ])("counts matches for %s", (_label, query, expected) => {
+    expect(index.count(query)).toBe(expected);
+  });
+
+  it("returns nothing for a too-short query", () => {
+    expect(index.search("a")).toEqual([]);
+  });
+});
+
+describe("list filters with limits", () => {
+  it.each([
+    ["searchDuaList", searchDuaList],
+    ["searchZikrList", searchZikrList],
+  ])("%s caps results and ignores punctuation-only queries", (_label, search) => {
+    expect(search("morning", 1)).toHaveLength(1);
+    expect(search("!!")).toEqual([]);
+  });
+});
+
+describe("searchSurahList options", () => {
+  it("accepts a bare numeric limit", () => {
+    expect(searchSurahList("al", 2)).toHaveLength(2);
+  });
+
+  it("applies the revelation filter and limit to an exact number match", () => {
+    expect(searchSurahList("2", { revelation: "meccan" })).toEqual([]);
+    expect(searchSurahList("2", { limit: 1 }).map((s) => s.number)).toEqual([2]);
+  });
+
+  it.each(["0", "115", "999"])("treats out-of-range number %s as text", (query) => {
+    expect(searchSurahList(query).every((s) => s.number >= 1)).toBe(true);
+  });
+
+  it("returns nothing for a punctuation-only query", () => {
+    expect(searchSurahList("!!")).toEqual([]);
+  });
+});
+
+describe("hadith grade badges", () => {
+  const nawawi = getBundledCollection("nawawi40") as BundledHadithCollection;
+
+  afterEach(async () => {
+    __setBundledHadithForTests("nawawi40", nawawi);
+    await preloadSearchCorpora();
+  });
+
+  it("capitalizes the grade on hadith results", async () => {
+    __setBundledHadithForTests("nawawi40", {
+      ...nawawi,
+      items: [buildHadithItem({ english: "Zzyzx hadith about steadfastness", grade: "sahih" })],
+    });
+    await preloadSearchCorpora();
+    const hadith = searchLight("zzyzx").find((group) => group.category === "hadith");
+    expect(hadith?.results[0]?.badge).toBe("Sahih");
+  });
+});
+
+describe("ayah index lifecycle", () => {
+  afterEach(() => clearAyahIndex());
+
+  it("builds on demand and can be cleared", async () => {
+    clearAyahIndex();
+    expect(isAyahIndexReady()).toBe(false);
+    await ensureAyahFuse();
+    expect(isAyahIndexReady()).toBe(true);
+    await ensureAyahFuse();
+    clearAyahIndex();
+    expect(isAyahIndexReady()).toBe(false);
   });
 });

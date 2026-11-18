@@ -5,14 +5,18 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 const FORMATS: {
@@ -25,6 +29,7 @@ const FORMATS: {
 ];
 
 export default function TimeFormatScreen() {
+  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
@@ -32,6 +37,7 @@ export default function TimeFormatScreen() {
 
   return (
     <ScreenLayout
+      maxContentWidth={formMaxWidth}
       eyebrow={t("settings.title")}
       title={t("timeFormat.title")}
       subtitle={t("timeFormat.subtitle")}
@@ -61,6 +67,7 @@ export default function TimeFormatScreen() {
 function Choices({ value, onChange }: { value: TimeFormat; onChange: (id: TimeFormat) => void }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const tv = isTV();
 
   return (
     <View style={styles.rows}>
@@ -72,8 +79,14 @@ function Choices({ value, onChange }: { value: TimeFormat; onChange: (id: TimeFo
             haptic="selection"
             accessibilityRole="button"
             accessibilityState={{ selected }}
+            // TV: start D-pad focus on the current choice.
+            {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
             onPress={() => onChange(format.id)}
-            style={[styles.row, { backgroundColor: selected ? tokens.accentSoft : colors.muted }]}
+            style={[
+              styles.row,
+              tv && styles.rowTv,
+              { backgroundColor: selected ? tokens.accentSoft : colors.muted },
+            ]}
           >
             <View style={styles.rowBody}>
               <ThemedText type="small">{t(`timeFormat.${format.labelKey}`)}</ThemedText>
@@ -112,6 +125,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
+  },
   rowBody: {
     flex: 1,
     gap: 2,
@@ -123,3 +139,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/time-format");

@@ -1,7 +1,12 @@
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,6 +19,7 @@ import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import { getLaylatAlQadrSectionOrder, getLaylatAlQadrTopicsBySection } from "@/lib/laylat-al-qadr";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 const SECTION_ICONS: Record<string, AppIcon> = {
   virtues: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
@@ -30,6 +36,9 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 export default function LaylatAlQadrScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: topic rows flow into 2–3 columns inside each section card.
+  const navCols = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 280, max: 3 });
   const overlayVersion = getContentOverlaysReadyVersion();
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
   const topicsBySection = useMemo(
@@ -44,6 +53,7 @@ export default function LaylatAlQadrScreen() {
       title={t("laylatAlQadr.title")}
       subtitle={t("laylatAlQadr.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/laylat-al-qadr" />
       <Stagger>
@@ -70,7 +80,7 @@ export default function LaylatAlQadrScreen() {
                   }
                 }
               />
-              <View style={styles.rows}>
+              <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
                 {topics.map((topic) => (
                   <JannahNavRow
                     key={topic.id}
@@ -85,7 +95,7 @@ export default function LaylatAlQadrScreen() {
                     }
                   />
                 ))}
-              </View>
+              </LearnColumnsGrid>
             </Card>
           );
         })}
@@ -97,5 +107,8 @@ export default function LaylatAlQadrScreen() {
 }
 
 const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  gridTop: { marginTop: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/laylat-al-qadr");

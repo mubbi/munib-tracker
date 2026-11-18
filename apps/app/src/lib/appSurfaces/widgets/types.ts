@@ -194,10 +194,10 @@ const DEFAULT_THEME: WidgetThemeSnapshot = {
   followsSystem: true,
   primary: "#059669",
   background: "#F5F0E6",
-  cardBackground: "#FFFCF7",
+  cardBackground: "#FFFDF9",
   textPrimary: "#152921",
-  textSecondary: "#5C7268",
-  border: "#C9C0AE",
+  textSecondary: "#4A6157",
+  border: "#D2C7B1",
   success: "#059669",
   warning: "#D97706",
 };

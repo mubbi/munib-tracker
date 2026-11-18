@@ -44,12 +44,20 @@ export function resolveSttLang(localeOrTag: string, field: "arabic" | "other" = 
  */
 export function normalizeSttVolume(value: number): number {
   const level = (value + 2) / 12;
-  return level <= 0 ? 0 : level >= 1 ? 1 : level;
+  return level <= 0 ? 0 : Math.min(level, 1);
 }
 
-/** Whether the platform reports speech recognition as available. */
+/**
+ * Whether this platform can offer dictation at all (used to show the mic button).
+ *
+ * - Web: the browser exposes `SpeechRecognition` / `webkitSpeechRecognition`
+ *   (Chrome, Edge, Safari). Firefox has none → hidden.
+ * - Native: the OS recognizer for the device default locale. This is only a
+ *   coarse "is there a recognizer" signal — per-language support is resolved at
+ *   start time with fallbacks (see `sttLangCandidates`).
+ */
 export function isSttAvailable(): boolean {
-  if (isTV() || Platform.OS === "web") return false;
+  if (isTV()) return false;
   try {
     return ExpoSpeechRecognitionModule.isRecognitionAvailable();
   } catch {
@@ -73,8 +81,29 @@ export async function requestSttPermissions(): Promise<SttPermissionResult> {
   }
 }
 
+/**
+ * Ordered BCP-47 tags to try for a field. If the OS / browser rejects the first
+ * (`language-not-supported`, e.g. iOS has no Urdu recognizer) the hook retries
+ * the next one. Arabic fields never fall back to a non-Arabic language.
+ */
+export function sttLangCandidates(
+  localeOrTag: string,
+  field: "arabic" | "other" = "other",
+): string[] {
+  const primary = resolveSttLang(localeOrTag, field);
+  const base = primary.split("-")[0]?.toLowerCase() ?? "";
+  const out = [primary];
+  if (field === "arabic") {
+    out.push("ar");
+  } else {
+    if (base && base !== primary) out.push(base);
+    if (base !== "en") out.push("en-US");
+  }
+  return [...new Set(out)];
+}
+
 export function startStt(options: StartSttOptions): void {
-  if (isTV() || Platform.OS === "web") return;
+  if (isTV()) return;
   // Match sample INPUT-VOICE: system recognizer + optional volume metering.
   // Do not force on-device recognition — it often skips volumechange events.
   const payload: ExpoSpeechRecognitionOptions = {
@@ -82,7 +111,8 @@ export function startStt(options: StartSttOptions): void {
     interimResults: options.interimResults ?? true,
     continuous: options.continuous ?? true,
     maxAlternatives: 1,
-    ...(options.volumeMetering
+    // Web Speech API has no volume metering — the hook pulses on speech events instead.
+    ...(options.volumeMetering && Platform.OS !== "web"
       ? { volumeChangeEventOptions: { enabled: true, intervalMillis: 100 } }
       : {}),
   };
@@ -127,6 +157,7 @@ export function classifySttError(code: ExpoSpeechRecognitionErrorCode | string):
       return "noSpeech";
     case "service-not-allowed":
     case "language-not-supported":
+    case "audio-capture":
       return "unavailable";
     case "aborted":
       return "generic";

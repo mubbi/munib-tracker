@@ -33,6 +33,10 @@ import type {
   AuthSessionResponseDto,
   AuthUserResponseDto,
   DeleteAccountDto,
+  GuestSessionDto,
+  LinkAccountDto,
+  OAuthCallbackDto,
+  RefreshTokenDto,
   ResetAppDataDto,
   TvPairingClaimBodyDto,
   TvPairingCreateResponseDto,
@@ -66,13 +70,15 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
  * @summary Create or resume a guest session
  */
 export const authControllerCreateGuestSession = (
-
+    guestSessionDto: GuestSessionDto,
  options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
 ) => {
 
 
       return apiFetch<AuthSessionResponseDto>(
-      {url: `/api/v1/auth/guest`, method: 'POST', signal
+      {url: `/api/v1/auth/guest`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: guestSessionDto, signal
     },
       options);
     }
@@ -83,8 +89,8 @@ export const authControllerCreateGuestSession = (
 export const getAuthControllerCreateGuestSessionMutationKey = () => ['authControllerCreateGuestSession'] as const;
 
 export const getAuthControllerCreateGuestSessionMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateGuestSession>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateGuestSession>>, TError,void, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateGuestSession>>, TError,AuthControllerCreateGuestSessionMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateGuestSession>>, TError,AuthControllerCreateGuestSessionMutationVariables, TContext> => {
 
 const mutationKey = getAuthControllerCreateGuestSessionMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -96,10 +102,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerCreateGuestSession>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerCreateGuestSession>>, AuthControllerCreateGuestSessionMutationVariables> = (props) => {
+          const {data} = props ?? {};
 
-
-          return  authControllerCreateGuestSession(requestOptions)
+          return  authControllerCreateGuestSession(data,requestOptions)
         }
 
 
@@ -110,19 +116,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type AuthControllerCreateGuestSessionMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerCreateGuestSession>>>
-
+    export type AuthControllerCreateGuestSessionMutationBody = GuestSessionDto
     export type AuthControllerCreateGuestSessionMutationError = unknown
+    export type AuthControllerCreateGuestSessionMutationVariables = {data: GuestSessionDto}
 
-
-    /**
- * @summary Create or resume a guest session
- */
+    /** @summary Create or resume a guest session */
 export const useAuthControllerCreateGuestSession = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateGuestSession>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCreateGuestSession>>, TError,AuthControllerCreateGuestSessionMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authControllerCreateGuestSession>>,
         TError,
-        void,
+        AuthControllerCreateGuestSessionMutationVariables,
         TContext
       > => {
       return useMutation(getAuthControllerCreateGuestSessionMutationOptions(options), queryClient);
@@ -181,6 +185,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
     /**
+ * The TV displays a QR / short code. The phone opens the claim URL, signs in, and posts the code.
  * @summary Create a TV companion pairing code
  */
 export const useAuthControllerCreateTvPairing = <TError = unknown,
@@ -240,6 +245,7 @@ export type AuthControllerPollTvPairingQueryResult = NonNullable<Awaited<ReturnT
 export type AuthControllerPollTvPairingQueryError = unknown
 
 
+/** @summary Poll TV companion pairing status (TV client) */
 export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(
  code: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -250,6 +256,7 @@ export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Poll TV companion pairing status (TV client) */
 export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(
  code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -260,14 +267,12 @@ export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Poll TV companion pairing status (TV client) */
 export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(
  code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Poll TV companion pairing status (TV client)
- */
-
+/** @summary Poll TV companion pairing status (TV client) */
 export function useAuthControllerPollTvPairing<TData = Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError = unknown>(
  code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPollTvPairing>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -341,6 +346,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerClaimTvPairingMutationVariables = {data: TvPairingClaimBodyDto}
 
     /**
+ * Requires a linked (non-guest) account. Issues a fresh session for the TV to poll.
  * @summary Claim a TV pairing from a signed-in phone
  */
 export const useAuthControllerClaimTvPairing = <TError = unknown,
@@ -407,9 +413,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerCompleteGoogleMutationError = unknown
     export type AuthControllerCompleteGoogleMutationVariables = {data: AuthGoogleBodyDto}
 
-    /**
- * @summary Complete Google sign-in with a native OAuth access token
- */
+    /** @summary Complete Google sign-in with a native OAuth access token */
 export const useAuthControllerCompleteGoogle = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteGoogle>>, TError,AuthControllerCompleteGoogleMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -474,9 +478,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerCompleteGoogleOauthMutationError = unknown
     export type AuthControllerCompleteGoogleOauthMutationVariables = {data: AuthGoogleOauthBodyDto}
 
-    /**
- * @summary Complete Google sign-in via authorization-code + PKCE (web)
- */
+    /** @summary Complete Google sign-in via authorization-code + PKCE (web) */
 export const useAuthControllerCompleteGoogleOauth = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteGoogleOauth>>, TError,AuthControllerCompleteGoogleOauthMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -541,9 +543,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerCompleteAppleMutationError = unknown
     export type AuthControllerCompleteAppleMutationVariables = {data: AuthAppleBodyDto}
 
-    /**
- * @summary Complete Apple sign-in with a native identity token
- */
+    /** @summary Complete Apple sign-in with a native identity token */
 export const useAuthControllerCompleteApple = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteApple>>, TError,AuthControllerCompleteAppleMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -608,9 +608,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerCompleteAppleOauthMutationError = unknown
     export type AuthControllerCompleteAppleOauthMutationVariables = {data: AuthAppleOauthBodyDto}
 
-    /**
- * @summary Complete Apple sign-in via authorization-code + PKCE
- */
+    /** @summary Complete Apple sign-in via authorization-code + PKCE */
 export const useAuthControllerCompleteAppleOauth = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteAppleOauth>>, TError,AuthControllerCompleteAppleOauthMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -675,9 +673,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerStartAppleOauthSessionMutationError = unknown
     export type AuthControllerStartAppleOauthSessionMutationVariables = {data: AuthAppleOauthSessionBodyDto}
 
-    /**
- * @summary Store Apple web OAuth PKCE session cookie before form_post
- */
+    /** @summary Store Apple web OAuth PKCE session cookie before form_post */
 export const useAuthControllerStartAppleOauthSession = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerStartAppleOauthSession>>, TError,AuthControllerStartAppleOauthSessionMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -740,9 +736,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerAppleOauthCallbackMutationError = unknown
 
 
-    /**
- * @summary Apple form_post callback — exchanges code and redirects to returnUrl
- */
+    /** @summary Apple form_post callback — exchanges code and redirects to returnUrl */
 export const useAuthControllerAppleOauthCallback = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerAppleOauthCallback>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -758,12 +752,15 @@ export const useAuthControllerAppleOauthCallback = <TError = unknown,
  */
 export const authControllerCompleteOAuth = (
     provider: 'google' | 'apple' | 'facebook',
+    oAuthCallbackDto: OAuthCallbackDto,
  options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
 ) => {
 
 
       return apiFetch<AuthSessionResponseDto>(
-      {url: `/api/v1/auth/oauth/${provider}`, method: 'POST', signal
+      {url: `/api/v1/auth/oauth/${provider}`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: oAuthCallbackDto, signal
     },
       options);
     }
@@ -788,9 +785,9 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
       const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerCompleteOAuth>>, AuthControllerCompleteOAuthMutationVariables> = (props) => {
-          const {provider} = props ?? {};
+          const {provider,data} = props ?? {};
 
-          return  authControllerCompleteOAuth(provider,requestOptions)
+          return  authControllerCompleteOAuth(provider,data,requestOptions)
         }
 
 
@@ -801,13 +798,11 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type AuthControllerCompleteOAuthMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerCompleteOAuth>>>
-
+    export type AuthControllerCompleteOAuthMutationBody = OAuthCallbackDto
     export type AuthControllerCompleteOAuthMutationError = unknown
-    export type AuthControllerCompleteOAuthMutationVariables = {provider: 'google' | 'apple' | 'facebook'}
+    export type AuthControllerCompleteOAuthMutationVariables = {provider: 'google' | 'apple' | 'facebook';data: OAuthCallbackDto}
 
-    /**
- * @summary Complete OAuth sign-in (Facebook, or legacy Google/Apple code/idToken path)
- */
+    /** @summary Complete OAuth sign-in (Facebook, or legacy Google/Apple code/idToken path) */
 export const useAuthControllerCompleteOAuth = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteOAuth>>, TError,AuthControllerCompleteOAuthMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -822,13 +817,15 @@ export const useAuthControllerCompleteOAuth = <TError = unknown,
  * @summary Rotate the refresh token and issue a new access token
  */
 export const authControllerRefresh = (
-
+    refreshTokenDto: RefreshTokenDto,
  options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
 ) => {
 
 
       return apiFetch<WebAuthSessionResponseDto | AuthSessionResponseDto>(
-      {url: `/api/v1/auth/refresh`, method: 'POST', signal
+      {url: `/api/v1/auth/refresh`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: refreshTokenDto, signal
     },
       options);
     }
@@ -839,8 +836,8 @@ export const authControllerRefresh = (
 export const getAuthControllerRefreshMutationKey = () => ['authControllerRefresh'] as const;
 
 export const getAuthControllerRefreshMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,void, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,AuthControllerRefreshMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,AuthControllerRefreshMutationVariables, TContext> => {
 
 const mutationKey = getAuthControllerRefreshMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -852,10 +849,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerRefresh>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerRefresh>>, AuthControllerRefreshMutationVariables> = (props) => {
+          const {data} = props ?? {};
 
-
-          return  authControllerRefresh(requestOptions)
+          return  authControllerRefresh(data,requestOptions)
         }
 
 
@@ -866,19 +863,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type AuthControllerRefreshMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerRefresh>>>
-
+    export type AuthControllerRefreshMutationBody = RefreshTokenDto
     export type AuthControllerRefreshMutationError = unknown
+    export type AuthControllerRefreshMutationVariables = {data: RefreshTokenDto}
 
-
-    /**
- * @summary Rotate the refresh token and issue a new access token
- */
+    /** @summary Rotate the refresh token and issue a new access token */
 export const useAuthControllerRefresh = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,AuthControllerRefreshMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authControllerRefresh>>,
         TError,
-        void,
+        AuthControllerRefreshMutationVariables,
         TContext
       > => {
       return useMutation(getAuthControllerRefreshMutationOptions(options), queryClient);
@@ -887,13 +882,15 @@ export const useAuthControllerRefresh = <TError = unknown,
  * @summary Upgrade a guest account by linking an OAuth provider
  */
 export const authControllerLinkAccount = (
-
+    linkAccountDto: LinkAccountDto,
  options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
 ) => {
 
 
       return apiFetch<AuthSessionResponseDto>(
-      {url: `/api/v1/auth/link`, method: 'POST', signal
+      {url: `/api/v1/auth/link`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: linkAccountDto, signal
     },
       options);
     }
@@ -904,8 +901,8 @@ export const authControllerLinkAccount = (
 export const getAuthControllerLinkAccountMutationKey = () => ['authControllerLinkAccount'] as const;
 
 export const getAuthControllerLinkAccountMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerLinkAccount>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof authControllerLinkAccount>>, TError,void, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerLinkAccount>>, TError,AuthControllerLinkAccountMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerLinkAccount>>, TError,AuthControllerLinkAccountMutationVariables, TContext> => {
 
 const mutationKey = getAuthControllerLinkAccountMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -917,10 +914,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerLinkAccount>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerLinkAccount>>, AuthControllerLinkAccountMutationVariables> = (props) => {
+          const {data} = props ?? {};
 
-
-          return  authControllerLinkAccount(requestOptions)
+          return  authControllerLinkAccount(data,requestOptions)
         }
 
 
@@ -931,19 +928,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type AuthControllerLinkAccountMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerLinkAccount>>>
-
+    export type AuthControllerLinkAccountMutationBody = LinkAccountDto
     export type AuthControllerLinkAccountMutationError = unknown
+    export type AuthControllerLinkAccountMutationVariables = {data: LinkAccountDto}
 
-
-    /**
- * @summary Upgrade a guest account by linking an OAuth provider
- */
+    /** @summary Upgrade a guest account by linking an OAuth provider */
 export const useAuthControllerLinkAccount = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerLinkAccount>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerLinkAccount>>, TError,AuthControllerLinkAccountMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authControllerLinkAccount>>,
         TError,
-        void,
+        AuthControllerLinkAccountMutationVariables,
         TContext
       > => {
       return useMutation(getAuthControllerLinkAccountMutationOptions(options), queryClient);
@@ -995,6 +990,7 @@ export type AuthControllerGetCurrentUserQueryResult = NonNullable<Awaited<Return
 export type AuthControllerGetCurrentUserQueryError = unknown
 
 
+/** @summary Get the current authenticated user */
 export function useAuthControllerGetCurrentUser<TData = Awaited<ReturnType<typeof authControllerGetCurrentUser>>, TError = unknown>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerGetCurrentUser>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -1005,6 +1001,7 @@ export function useAuthControllerGetCurrentUser<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Get the current authenticated user */
 export function useAuthControllerGetCurrentUser<TData = Awaited<ReturnType<typeof authControllerGetCurrentUser>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerGetCurrentUser>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -1015,14 +1012,12 @@ export function useAuthControllerGetCurrentUser<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Get the current authenticated user */
 export function useAuthControllerGetCurrentUser<TData = Awaited<ReturnType<typeof authControllerGetCurrentUser>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerGetCurrentUser>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Get the current authenticated user
- */
-
+/** @summary Get the current authenticated user */
 export function useAuthControllerGetCurrentUser<TData = Awaited<ReturnType<typeof authControllerGetCurrentUser>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerGetCurrentUser>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -1092,9 +1087,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerLogoutMutationError = unknown
 
 
-    /**
- * @summary Revoke the current session
- */
+    /** @summary Revoke the current session */
 export const useAuthControllerLogout = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerLogout>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -1161,6 +1154,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerResetAppDataMutationVariables = {data: ResetAppDataDto}
 
     /**
+ * Clears synced app data and user media while preserving the account, OAuth identity, push tokens, and sessions. Body confirmation must be the literal "RESET".
  * @summary Reset app data without deleting the account
  */
 export const useAuthControllerResetAppData = <TError = unknown,
@@ -1229,6 +1223,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerDeleteAccountMutationVariables = {data: DeleteAccountDto}
 
     /**
+ * Irreversible closure: wipes app data, revokes sessions, clears OAuth identity, and tombstones the email. Body must include confirmation set to the literal "DELETE", a primaryReason code, and optional details (max 500 characters).
  * @summary Close account and remove user data
  */
 export const useAuthControllerDeleteAccount = <TError = unknown,

@@ -5,11 +5,13 @@ import { useTranslation } from "react-i18next";
 import {
   type FlatList,
   Keyboard,
+  type LayoutChangeEvent,
   type ListRenderItem,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   StyleSheet,
   TextInput,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -19,8 +21,11 @@ import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { responsiveColumns } from "@/components/ui/responsive-grid";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -28,6 +33,7 @@ import { isTV } from "@/lib/platform/is-tv";
 import type { PageListEntry } from "@/lib/quran";
 import { getPageCount, getPageForAyah, getPageList } from "@/lib/quran";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLastRead } from "@/stores/quran-store";
 
 const PAGE_LIST = getPageList();
@@ -38,22 +44,33 @@ const GO_CONTROL_HEIGHT = 40;
 const PAGE_ROW_ESTIMATE = 72;
 /** Show back-to-top once the list is scrolled past a couple of rows. */
 const BACK_TO_TOP_OFFSET = PAGE_ROW_ESTIMATE * 3;
+/** TV: 604 single-column rows waste the landscape width — tile them. */
+const TV_COLUMNS = 3;
+/** Tablet / desktop: up to four page tiles per row (width-based). */
+const WIDE_MAX_COLUMNS = 4;
+const GRID_GAP = Spacing.two;
+/** Keep the go-to-page field a sensible width on desktop. */
+const GO_ROW_MAX_WIDTH = 480;
 
 const PageRow = memo(function PageRow({
   entry,
   isContinue,
   isJumpTarget,
+  preferredFocus,
   onPress,
 }: {
   entry: PageListEntry;
   isContinue: boolean;
   isJumpTarget: boolean;
+  /** TV: land D-pad focus here (continue / jump target). */
+  preferredFocus?: boolean;
   onPress: (page: number) => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
   const highlighted = isContinue || isJumpTarget;
+  const tv = isTV();
 
   return (
     <PressableScale
@@ -65,8 +82,10 @@ const PageRow = memo(function PageRow({
           : t("quran.pageN", { n: entry.page })
       }
       onPress={() => onPress(entry.page)}
+      {...(preferredFocus ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.row,
+        tv && styles.rowTv,
         {
           backgroundColor: highlighted ? tokens.accentSoft : colors.muted,
           borderColor: highlighted
@@ -104,7 +123,9 @@ const PageRow = memo(function PageRow({
           {t("quran.juzN", { n: entry.juz })}
         </ThemedText>
       </View>
-      <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
+      {!tv ? (
+        <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
+      ) : null}
     </PressableScale>
   );
 });
@@ -122,6 +143,22 @@ export default function QuranPagesBrowserScreen() {
   const [goError, setGoError] = useState(false);
   const [jumpTarget, setJumpTarget] = useState<number | null>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const { width: windowWidth } = useWindowDimensions();
+  // TV keeps its fixed 3-up grid; phones stay a single list; tablet / desktop
+  // tile 2–4 pages per row by window width.
+  const columns = tv ? TV_COLUMNS : responsiveColumns(windowWidth, { max: WIDE_MAX_COLUMNS });
+  const columnsRef = useRef(columns);
+  columnsRef.current = columns;
+  // Measured list width → exact cell width so a lone last tile keeps its size.
+  const [listWidth, setListWidth] = useState(0);
+  const cellWidth =
+    !tv && columns > 1 && listWidth > 0
+      ? (listWidth - GRID_GAP * (columns - 1)) / columns
+      : undefined;
+  const onListLayout = useCallback((event: LayoutChangeEvent) => {
+    const next = Math.round(event.nativeEvent.layout.width);
+    setListWidth((prev) => (prev === next ? prev : next));
+  }, []);
 
   const continuePage = useMemo(() => {
     if (!lastRead) return null;
@@ -130,7 +167,8 @@ export default function QuranPagesBrowserScreen() {
 
   useEffect(() => {
     if (continuePage == null || didScrollToContinue.current) return;
-    const index = continuePage - 1;
+    // Grid: FlatList indices are rows of `columns` pages.
+    const index = Math.floor((continuePage - 1) / columnsRef.current);
     if (index <= 0) {
       didScrollToContinue.current = true;
       return;
@@ -166,8 +204,8 @@ export default function QuranPagesBrowserScreen() {
     setGoError(false);
     setJumpTarget(page);
     Keyboard.dismiss();
-    scrollToPageIndex(page - 1, true);
-  }, [pageQuery, scrollToPageIndex]);
+    scrollToPageIndex(Math.floor((page - 1) / columns), true);
+  }, [columns, pageQuery, scrollToPageIndex]);
 
   const onPageQueryChange = useCallback((text: string) => {
     setPageQuery(text.replace(/[^0-9]/g, "").slice(0, String(PAGE_COUNT).length));
@@ -212,21 +250,28 @@ export default function QuranPagesBrowserScreen() {
   );
 
   const renderItem = useCallback<ListRenderItem<PageListEntry>>(
-    ({ item }) => (
-      <PageRow
-        entry={item}
-        isContinue={item.page === continuePage}
-        isJumpTarget={item.page === jumpTarget}
-        onPress={openPage}
-      />
-    ),
-    [continuePage, jumpTarget, openPage],
+    ({ item }) => {
+      const row = (
+        <PageRow
+          entry={item}
+          isContinue={item.page === continuePage}
+          isJumpTarget={item.page === jumpTarget}
+          preferredFocus={
+            tv &&
+            (jumpTarget != null ? item.page === jumpTarget : item.page === (continuePage ?? 1))
+          }
+          onPress={openPage}
+        />
+      );
+      return cellWidth != null ? <View style={{ width: cellWidth }}>{row}</View> : row;
+    },
+    [cellWidth, continuePage, jumpTarget, openPage, tv],
   );
 
   const listHeader = useMemo(
     () => (
       <View style={styles.goHeader}>
-        <View style={styles.goRow}>
+        <View style={[styles.goRow, !tv && styles.goRowWide]}>
           <TextInput
             value={pageQuery}
             onChangeText={onPageQueryChange}
@@ -239,10 +284,12 @@ export default function QuranPagesBrowserScreen() {
             accessibilityHint={t("quran.goToPageHint", { max: PAGE_COUNT })}
             style={[
               styles.goInput,
+              tv && styles.goInputTv,
               {
-                backgroundColor: colors.muted,
+                backgroundColor: colors.input,
                 color: colors.foreground,
-                borderColor: goError ? tokens.status.warning.color : tokens.hairline,
+                borderColor: goError ? tokens.status.warning.color : colors.inputBorder,
+                borderWidth: 1,
               },
             ]}
           />
@@ -252,7 +299,7 @@ export default function QuranPagesBrowserScreen() {
             disabled={pageQuery.trim().length === 0}
             onPress={goToPage}
             accessibilityHint={t("quran.goToPageHint", { max: PAGE_COUNT })}
-            style={styles.goButton}
+            style={[styles.goButton, tv && styles.goButtonTv]}
           />
         </View>
         {goError ? (
@@ -262,7 +309,7 @@ export default function QuranPagesBrowserScreen() {
         ) : null}
       </View>
     ),
-    [colors, goError, goToPage, onPageQueryChange, pageQuery, t, tokens],
+    [colors, goError, goToPage, onPageQueryChange, pageQuery, t, tokens, tv],
   );
 
   return (
@@ -283,7 +330,15 @@ export default function QuranPagesBrowserScreen() {
             renderItem={renderItem}
             ListHeaderComponent={listHeader}
             extraData={`${continuePage}-${jumpTarget}`}
+            // Changing numColumns requires a remount — key on it.
+            key={tv ? "tv-grid" : `grid-${columns}`}
+            numColumns={columns}
+            columnWrapperStyle={
+              tv ? styles.gridRowTv : columns > 1 ? styles.gridRowWide : undefined
+            }
+            // Rows are a fixed height in every column count (index = row).
             getItemLayout={tv ? undefined : getItemLayout}
+            onLayout={onListLayout}
             onScrollToIndexFailed={onScrollToIndexFailed}
             onScroll={onScroll}
             scrollEventThrottle={16}
@@ -298,7 +353,9 @@ export default function QuranPagesBrowserScreen() {
             updateCellsBatchingPeriod={100}
             removeClippedSubviews={!tv}
           />
-          {showBackToTop ? (
+          {/* TV: no floating back-to-top (an overlaid focus target the D-pad
+              can't reach predictably) — Up walks the grid back to the top. */}
+          {showBackToTop && !tv ? (
             <View
               style={[styles.backToTop, { bottom: contentBottomInset, pointerEvents: "box-none" }]}
             >
@@ -373,6 +430,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  rowTv: {
+    flex: 1,
+    minWidth: 0,
+    minHeight: TvLayout.minFocusTarget + 8,
+    padding: Spacing.three,
+  },
+  gridRowTv: { gap: Spacing.three },
+  gridRowWide: { gap: GRID_GAP },
+  goRowWide: { maxWidth: GO_ROW_MAX_WIDTH, width: "100%" },
+  goInputTv: {
+    height: TvLayout.minFocusTarget,
+    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
+    lineHeight: TvLayout.bodyFontSize + 6,
+  },
+  goButtonTv: {
+    height: TvLayout.minFocusTarget,
+    minHeight: TvLayout.minFocusTarget,
+  },
   rowBody: { flex: 1, gap: 2, minWidth: 0 },
   rowTitle: {
     flexDirection: "row",
@@ -382,3 +457,6 @@ const styles = StyleSheet.create({
   },
   rowName: { flexShrink: 1, minWidth: 0 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/pages");

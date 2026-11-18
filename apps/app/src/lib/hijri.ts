@@ -430,8 +430,12 @@ export function gregorianToHijri(date: Date, timeZone?: string): HijriDate {
   const anchor = prayerDayAnchor(date, timeZone);
   const jdn = gregorianToJDN(anchor.getFullYear(), anchor.getMonth() + 1, anchor.getDate());
   if (hijriObserver) {
-    const sighted = sightingHijriFromJDN(hijriObserver, jdn);
-    if (sighted) return sighted;
+    try {
+      const sighted = sightingHijriFromJDN(hijriObserver, jdn);
+      if (sighted) return sighted;
+    } catch {
+      // Crescent math failed (Astronomy Engine). Keep showing Umm al-Qura.
+    }
   }
   if (inUmalquraJDNRange(jdn)) {
     return jdnToUmalqura(jdn);
@@ -443,7 +447,11 @@ export function gregorianToHijri(date: Date, timeZone?: string): HijriDate {
 export function hijriToGregorian(year: number, month: number, day: number): Date {
   let jdn: number | null = null;
   if (hijriObserver) {
-    jdn = sightingJDNFromHijri(hijriObserver, year, month, day);
+    try {
+      jdn = sightingJDNFromHijri(hijriObserver, year, month, day);
+    } catch {
+      jdn = null;
+    }
   }
   if (jdn === null) {
     jdn = inUmalquraYearRange(year)
@@ -457,8 +465,12 @@ export function hijriToGregorian(year: number, month: number, day: number): Date
 /** Number of days (29 or 30) in the given Hijri month. */
 export function hijriMonthLength(year: number, month: number): number {
   if (hijriObserver) {
-    const sighted = sightingMonthLength(hijriObserver, year, month);
-    if (sighted !== null) return sighted;
+    try {
+      const sighted = sightingMonthLength(hijriObserver, year, month);
+      if (sighted !== null) return sighted;
+    } catch {
+      // fall through to Umm al-Qura / tabular
+    }
   }
   if (inUmalquraYearRange(year)) {
     return umalquraMonthLength(year, month);

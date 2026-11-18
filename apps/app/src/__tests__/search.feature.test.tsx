@@ -30,8 +30,6 @@ async function waitForSearchResults() {
 }
 
 describe("Universal search screen", () => {
-  jest.setTimeout(20_000);
-
   beforeEach(() => {
     // Skip the heavy Qur'an ayah index build in component tests; surah-name
     // matches (from the un-mocked light search) still exercise the Qur'an group.
@@ -45,16 +43,16 @@ describe("Universal search screen", () => {
   });
 
   it("shows suggestions when the field is empty", async () => {
-    renderWithProviders(<SearchScreen />);
+    await renderWithProviders(<SearchScreen />);
     await waitForSearchScreen();
     expect(screen.getByText("Forgiveness")).toBeTruthy();
   });
 
   it("groups results by section as the user types", async () => {
-    renderWithProviders(<SearchScreen />);
+    await renderWithProviders(<SearchScreen />);
     await waitForSearchScreen();
     const input = screen.getByPlaceholderText(/Search Qur'an/i);
-    fireEvent.changeText(input, "rahman");
+    await fireEvent.changeText(input, "rahman");
     await waitForSearchResults();
     // A matching name row is present, labelled by its title (Ar-Rahman).
     expect(screen.getAllByLabelText(/Ar-Rahman/i).length).toBeGreaterThan(0);
@@ -63,13 +61,13 @@ describe("Universal search screen", () => {
   });
 
   it("clears the query and returns to suggestions", async () => {
-    renderWithProviders(<SearchScreen />);
+    await renderWithProviders(<SearchScreen />);
     await waitForSearchScreen();
     const input = screen.getByPlaceholderText(/Search Qur'an/i);
-    fireEvent.changeText(input, "rahman");
+    await fireEvent.changeText(input, "rahman");
     await waitForSearchResults();
 
-    fireEvent.press(screen.getByLabelText("Clear search"));
+    await fireEvent.press(screen.getByLabelText("Clear search"));
 
     await waitFor(() => {
       expect(screen.getByText("Try searching")).toBeTruthy();

@@ -3,6 +3,12 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
+  LearnColumnsGrid,
+  LearnTwoPane,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
+import {
   JannahCallout,
   JannahDisclaimer,
   JannahNavRow,
@@ -29,6 +35,7 @@ import {
 } from "@/lib/battles";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useBattlesCompletedCount,
   useEnsureBattlesProgressLoaded,
@@ -65,6 +72,10 @@ export default function BattlesScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const wide = useLearnHubLayout();
+  // Columns inside cards: main column (card padding × 2 subtracted); asides stack.
+  const navCols = learnColumnsFor(wide.mainWidth - Spacing.three * 2, { minCell: 280, max: 2 });
+  const asideCols = wide.twoPane ? 1 : navCols;
   useEnsureBattlesProgressLoaded();
   const { version: contentVersion, ready: contentReady } = useEnsureContent(
     ensureBattlesContent,
@@ -124,157 +135,204 @@ export default function BattlesScreen() {
     [router, t, colors.accent, tokens],
   );
 
+  const intro = <JannahCallout tone="info">{t("battles.intro")}</JannahCallout>;
+
+  const quizRow = (
+    <LearnQuizNavRow
+      quizPath={"/battles/quiz" as Href}
+      titleKey="common.learnQuiz.title"
+      subtitleKey="common.learnQuiz.hint"
+    />
+  );
+
+  const quickLinksCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("battles.quickLinksTitle")}
+        icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+      />
+      <JannahQuickLinkGrid
+        items={quickLinks}
+        columns={!wide.twoPane && wide.contentWidth >= 720 ? 4 : 2}
+      />
+    </Card>
+  );
+
+  const progressRow = (
+    <JannahNavRow
+      icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+      title={t("battles.progressCardTitle")}
+      subtitle={t("battles.progressCardHint", {
+        completed: completedCount,
+        total: lessonTotal,
+      })}
+      badge={`${completedCount}/${lessonTotal}`}
+      tint={colors.accent}
+      onPress={() => router.push("/battles/progress" as Href)}
+    />
+  );
+
+  const sectionCards = SECTION_ORDER.map((section) => {
+    const topics = TOPICS_BY_SECTION[section];
+    if (!topics?.length) return null;
+    return (
+      <Card key={section} padding="three">
+        <SectionHeader
+          title={t(`battles.section.${section}`)}
+          icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+          {t(`battles.section.${section}Hint`)}
+        </ThemedText>
+        <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
+          {topics.map((topic) => (
+            <JannahNavRow
+              key={topic.id}
+              icon={
+                TOPIC_ICONS[topic.id] ?? {
+                  ios: "text.book.closed",
+                  android: "article",
+                  web: "article",
+                }
+              }
+              title={topic.title}
+              subtitle={topic.summary}
+              badge={topic.importance ? t(`battles.importance.${topic.importance}`) : undefined}
+              onPress={() =>
+                router.push({
+                  pathname: "/battles/[topic]",
+                  params: { topic: topic.id },
+                })
+              }
+            />
+          ))}
+        </LearnColumnsGrid>
+      </Card>
+    );
+  });
+
+  const exploreCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("battles.exploreTitle")}
+        icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+      />
+      <LearnColumnsGrid columns={asideCols} style={styles.gridTop}>
+        <JannahNavRow
+          icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
+          title={t("battles.timelineTitle")}
+          subtitle={t("battles.timelineHint")}
+          onPress={() => router.push("/battles/timeline" as Href)}
+        />
+        <JannahNavRow
+          icon={{ ios: "person.2.fill", android: "people", web: "people" }}
+          title={t("battles.figuresTitle")}
+          subtitle={t("battles.figuresHint")}
+          onPress={() => router.push("/battles/figures" as Href)}
+        />
+        <JannahNavRow
+          icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+          title={t("battles.versesTitle")}
+          subtitle={t("battles.versesHint")}
+          onPress={() => router.push("/battles/verses" as Href)}
+        />
+        <JannahNavRow
+          icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
+          title={t("battles.glossaryTitle")}
+          subtitle={t("battles.glossaryHint")}
+          onPress={() => router.push("/battles/glossary" as Href)}
+        />
+      </LearnColumnsGrid>
+    </Card>
+  );
+
+  const relatedCard = (
+    <Card padding="three">
+      <SectionHeader
+        title={t("battles.relatedTitle")}
+        icon={{ ios: "link", android: "link", web: "link" }}
+      />
+      <LearnColumnsGrid columns={asideCols} style={styles.gridTop}>
+        <JannahNavRow
+          icon={{ ios: "book.pages.fill", android: "history_edu", web: "history_edu" }}
+          title={t("seerah.title")}
+          subtitle={t("battles.seerahPointer")}
+          onPress={() => router.push("/seerah")}
+        />
+        <JannahNavRow
+          icon={{ ios: "leaf.fill", android: "park", web: "park" }}
+          title={t("actions.jannah")}
+          subtitle={t("battles.jannahPointer")}
+          onPress={() => router.push("/jannah")}
+        />
+      </LearnColumnsGrid>
+    </Card>
+  );
+
+  const phasePill = (
+    <View style={styles.pillRow}>
+      <Pill
+        label={t("battles.phaseV1")}
+        compact
+        color={colors.mutedForeground}
+        background={colors.muted}
+      />
+    </View>
+  );
+
+  const disclaimer = <JannahDisclaimer textKey="battles.disclaimer" />;
+
   return (
     <ScreenLayout
       eyebrow={t("battles.eyebrow")}
       title={t("battles.title")}
       subtitle={t("battles.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/battles" />
       <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="info">{t("battles.intro")}</JannahCallout>
-
-          <LearnQuizNavRow
-            quizPath={"/battles/quiz" as Href}
-            titleKey="common.learnQuiz.title"
-            subtitleKey="common.learnQuiz.hint"
-          />
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("battles.quickLinksTitle")}
-              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+        {wide.twoPane ? (
+          <Stagger>
+            {intro}
+            <LearnTwoPane
+              main={sectionCards}
+              aside={
+                <>
+                  {quizRow}
+                  {quickLinksCard}
+                  {progressRow}
+                  {exploreCard}
+                  {relatedCard}
+                </>
+              }
             />
-            <JannahQuickLinkGrid items={quickLinks} />
-          </Card>
-
-          <JannahNavRow
-            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-            title={t("battles.progressCardTitle")}
-            subtitle={t("battles.progressCardHint", {
-              completed: completedCount,
-              total: lessonTotal,
-            })}
-            badge={`${completedCount}/${lessonTotal}`}
-            tint={colors.accent}
-            onPress={() => router.push("/battles/progress" as Href)}
-          />
-
-          {SECTION_ORDER.map((section) => {
-            const topics = TOPICS_BY_SECTION[section];
-            if (!topics?.length) return null;
-            return (
-              <Card key={section} padding="three">
-                <SectionHeader
-                  title={t(`battles.section.${section}`)}
-                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                />
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-                  {t(`battles.section.${section}Hint`)}
-                </ThemedText>
-                <View style={styles.rows}>
-                  {topics.map((topic) => (
-                    <JannahNavRow
-                      key={topic.id}
-                      icon={
-                        TOPIC_ICONS[topic.id] ?? {
-                          ios: "text.book.closed",
-                          android: "article",
-                          web: "article",
-                        }
-                      }
-                      title={topic.title}
-                      subtitle={topic.summary}
-                      badge={
-                        topic.importance ? t(`battles.importance.${topic.importance}`) : undefined
-                      }
-                      onPress={() =>
-                        router.push({
-                          pathname: "/battles/[topic]",
-                          params: { topic: topic.id },
-                        })
-                      }
-                    />
-                  ))}
-                </View>
-              </Card>
-            );
-          })}
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("battles.exploreTitle")}
-              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-            />
-            <View style={styles.rows}>
-              <JannahNavRow
-                icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
-                title={t("battles.timelineTitle")}
-                subtitle={t("battles.timelineHint")}
-                onPress={() => router.push("/battles/timeline" as Href)}
-              />
-              <JannahNavRow
-                icon={{ ios: "person.2.fill", android: "people", web: "people" }}
-                title={t("battles.figuresTitle")}
-                subtitle={t("battles.figuresHint")}
-                onPress={() => router.push("/battles/figures" as Href)}
-              />
-              <JannahNavRow
-                icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-                title={t("battles.versesTitle")}
-                subtitle={t("battles.versesHint")}
-                onPress={() => router.push("/battles/verses" as Href)}
-              />
-              <JannahNavRow
-                icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
-                title={t("battles.glossaryTitle")}
-                subtitle={t("battles.glossaryHint")}
-                onPress={() => router.push("/battles/glossary" as Href)}
-              />
-            </View>
-          </Card>
-
-          <Card padding="three">
-            <SectionHeader
-              title={t("battles.relatedTitle")}
-              icon={{ ios: "link", android: "link", web: "link" }}
-            />
-            <View style={styles.rows}>
-              <JannahNavRow
-                icon={{ ios: "book.pages.fill", android: "history_edu", web: "history_edu" }}
-                title={t("seerah.title")}
-                subtitle={t("battles.seerahPointer")}
-                onPress={() => router.push("/seerah")}
-              />
-              <JannahNavRow
-                icon={{ ios: "leaf.fill", android: "park", web: "park" }}
-                title={t("actions.jannah")}
-                subtitle={t("battles.jannahPointer")}
-                onPress={() => router.push("/jannah")}
-              />
-            </View>
-          </Card>
-
-          <View style={styles.pillRow}>
-            <Pill
-              label={t("battles.phaseV1")}
-              compact
-              color={colors.mutedForeground}
-              background={colors.muted}
-            />
-          </View>
-
-          <JannahDisclaimer textKey="battles.disclaimer" />
-        </Stagger>
+            {phasePill}
+            {disclaimer}
+          </Stagger>
+        ) : (
+          <Stagger>
+            {intro}
+            {quizRow}
+            {quickLinksCard}
+            {progressRow}
+            {sectionCards}
+            {exploreCard}
+            {relatedCard}
+            {phasePill}
+            {disclaimer}
+          </Stagger>
+        )}
       </LearnContentGate>
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  gridTop: { marginTop: Spacing.three },
   sectionHint: { marginTop: Spacing.one, lineHeight: 20 },
   pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles");

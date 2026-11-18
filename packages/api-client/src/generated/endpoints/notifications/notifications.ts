@@ -103,6 +103,7 @@ export type NotificationsControllerGetVapidPublicKeyQueryResult = NonNullable<Aw
 export type NotificationsControllerGetVapidPublicKeyQueryError = unknown
 
 
+/** @summary Public Web Push VAPID key (null when unset) */
 export function useNotificationsControllerGetVapidPublicKey<TData = Awaited<ReturnType<typeof notificationsControllerGetVapidPublicKey>>, TError = unknown>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerGetVapidPublicKey>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -113,6 +114,7 @@ export function useNotificationsControllerGetVapidPublicKey<TData = Awaited<Retu
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Public Web Push VAPID key (null when unset) */
 export function useNotificationsControllerGetVapidPublicKey<TData = Awaited<ReturnType<typeof notificationsControllerGetVapidPublicKey>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerGetVapidPublicKey>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -123,14 +125,12 @@ export function useNotificationsControllerGetVapidPublicKey<TData = Awaited<Retu
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Public Web Push VAPID key (null when unset) */
 export function useNotificationsControllerGetVapidPublicKey<TData = Awaited<ReturnType<typeof notificationsControllerGetVapidPublicKey>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerGetVapidPublicKey>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Public Web Push VAPID key (null when unset)
- */
-
+/** @summary Public Web Push VAPID key (null when unset) */
 export function useNotificationsControllerGetVapidPublicKey<TData = Awaited<ReturnType<typeof notificationsControllerGetVapidPublicKey>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerGetVapidPublicKey>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -202,9 +202,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type NotificationsControllerUpsertPushTokenMutationError = unknown
     export type NotificationsControllerUpsertPushTokenMutationVariables = {data: UpsertPushTokenDto}
 
-    /**
- * @summary Register or refresh a push token (guest + linked accounts)
- */
+    /** @summary Register or refresh a push token (guest + linked accounts) */
 export const useNotificationsControllerUpsertPushToken = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationsControllerUpsertPushToken>>, TError,NotificationsControllerUpsertPushTokenMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -262,6 +260,7 @@ export type NotificationsControllerListInAppQueryResult = NonNullable<Awaited<Re
 export type NotificationsControllerListInAppQueryError = unknown
 
 
+/** @summary List in-app notifications for the current user (newest first) */
 export function useNotificationsControllerListInApp<TData = Awaited<ReturnType<typeof notificationsControllerListInApp>>, TError = unknown>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerListInApp>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -272,6 +271,7 @@ export function useNotificationsControllerListInApp<TData = Awaited<ReturnType<t
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary List in-app notifications for the current user (newest first) */
 export function useNotificationsControllerListInApp<TData = Awaited<ReturnType<typeof notificationsControllerListInApp>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerListInApp>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -282,14 +282,12 @@ export function useNotificationsControllerListInApp<TData = Awaited<ReturnType<t
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary List in-app notifications for the current user (newest first) */
 export function useNotificationsControllerListInApp<TData = Awaited<ReturnType<typeof notificationsControllerListInApp>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerListInApp>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary List in-app notifications for the current user (newest first)
- */
-
+/** @summary List in-app notifications for the current user (newest first) */
 export function useNotificationsControllerListInApp<TData = Awaited<ReturnType<typeof notificationsControllerListInApp>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerListInApp>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -354,6 +352,7 @@ export type NotificationsControllerUnreadCountQueryResult = NonNullable<Awaited<
 export type NotificationsControllerUnreadCountQueryError = unknown
 
 
+/** @summary Unread in-app notification count */
 export function useNotificationsControllerUnreadCount<TData = Awaited<ReturnType<typeof notificationsControllerUnreadCount>>, TError = unknown>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerUnreadCount>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -364,6 +363,7 @@ export function useNotificationsControllerUnreadCount<TData = Awaited<ReturnType
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Unread in-app notification count */
 export function useNotificationsControllerUnreadCount<TData = Awaited<ReturnType<typeof notificationsControllerUnreadCount>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerUnreadCount>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -374,14 +374,12 @@ export function useNotificationsControllerUnreadCount<TData = Awaited<ReturnType
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Unread in-app notification count */
 export function useNotificationsControllerUnreadCount<TData = Awaited<ReturnType<typeof notificationsControllerUnreadCount>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerUnreadCount>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Unread in-app notification count
- */
-
+/** @summary Unread in-app notification count */
 export function useNotificationsControllerUnreadCount<TData = Awaited<ReturnType<typeof notificationsControllerUnreadCount>>, TError = unknown>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationsControllerUnreadCount>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -451,9 +449,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type NotificationsControllerMarkAllReadMutationError = unknown
 
 
-    /**
- * @summary Mark all in-app notifications as read
- */
+    /** @summary Mark all in-app notifications as read */
 export const useNotificationsControllerMarkAllRead = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationsControllerMarkAllRead>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -516,9 +512,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type NotificationsControllerMarkReadMutationError = unknown
     export type NotificationsControllerMarkReadMutationVariables = {id: number}
 
-    /**
- * @summary Mark a single in-app notification as read
- */
+    /** @summary Mark a single in-app notification as read */
 export const useNotificationsControllerMarkRead = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationsControllerMarkRead>>, TError,NotificationsControllerMarkReadMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -584,9 +578,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type NotificationsControllerEngageMutationError = unknown
     export type NotificationsControllerEngageMutationVariables = {id: number;data: EngageInAppNotificationDto}
 
-    /**
- * @summary Record open/click engagement (increments broadcast counters)
- */
+    /** @summary Record open/click engagement (increments broadcast counters) */
 export const useNotificationsControllerEngage = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationsControllerEngage>>, TError,NotificationsControllerEngageMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<

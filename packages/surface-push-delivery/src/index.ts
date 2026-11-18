@@ -2,6 +2,7 @@ export {
   DELIVERY_BATCH_SIZE,
   EARLY_DELIVERY_TOLERANCE_MS,
   MAX_PAYLOAD_BYTES,
+  MIN_PUSH_TTL_SECONDS,
   PROCESSING_LEASE_MS,
   RETENTION_MS,
 } from "./constants.js";
@@ -16,6 +17,7 @@ export type {
   SurfaceRegistrationRecord,
   SurfaceRegistrationStatus,
   SurfaceSender,
+  SurfaceSendOptions,
   SurfaceSendResult,
 } from "./types.js";
 export { SurfaceDeliveryError } from "./types.js";

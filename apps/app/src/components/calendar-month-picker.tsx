@@ -7,6 +7,7 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   CALENDAR_YEAR_LOOKAHEAD,
@@ -14,6 +15,7 @@ import {
   localizedMonthNames,
 } from "@/lib/calendar";
 import { hijriMonthName } from "@/lib/hijri";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 
 type CalendarMonthPickerProps = {
@@ -30,6 +32,9 @@ type CalendarMonthPickerProps = {
 };
 
 type PickerView = "months" | "years";
+
+/** Years per row — TV uses the landscape width so the 50-year list stays short. */
+const YEAR_COLUMNS = isTV() ? 6 : 4;
 
 export function CalendarMonthPicker({
   visible,
@@ -48,6 +53,16 @@ export function CalendarMonthPicker({
   const chevronForward = useChevronForward();
   const [view, setView] = useState<PickerView>("months");
   const [pickerYear, setPickerYear] = useState(year);
+  const tv = isTV();
+  /**
+   * TV: selected = soft fill + hairline (accent ring is reserved for D-pad focus)
+   * and the selected cell takes initial focus. Phone keeps the accent outline.
+   */
+  const selectedChrome = (selected: boolean) => ({
+    backgroundColor: selected ? withAlpha(colors.accent, 0.18) : colors.muted,
+    borderColor: selected ? (tv ? tokens.accentBorder : colors.accent) : "transparent",
+    borderWidth: selected ? (tv ? StyleSheet.hairlineWidth : 1.5) : 0,
+  });
 
   const { min: minYear, max: maxYear } = useMemo(
     () => ({
@@ -82,8 +97,8 @@ export function CalendarMonthPicker({
 
   const yearRows = useMemo(() => {
     const rows: number[][] = [];
-    for (let rowStart = 0; rowStart < years.length; rowStart += 4) {
-      rows.push(years.slice(rowStart, rowStart + 4));
+    for (let rowStart = 0; rowStart < years.length; rowStart += YEAR_COLUMNS) {
+      rows.push(years.slice(rowStart, rowStart + YEAR_COLUMNS));
     }
     return rows;
   }, [years]);
@@ -129,7 +144,11 @@ export function CalendarMonthPicker({
               accessibilityRole="button"
               accessibilityLabel={t("calendar.selectYear")}
               onPress={() => setView("years")}
-              style={[styles.yearButton, { backgroundColor: tokens.accentSoft }]}
+              style={[
+                styles.yearButton,
+                tv && styles.tvTarget,
+                { backgroundColor: tokens.accentSoft },
+              ]}
             >
               <ThemedText type="subtitle" numberOfLines={1}>
                 {pickerYear}
@@ -165,15 +184,9 @@ export function CalendarMonthPicker({
                       accessibilityRole="button"
                       accessibilityState={{ selected }}
                       accessibilityLabel={label}
+                      {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
                       onPress={() => handleMonthPress(index)}
-                      style={[
-                        styles.monthCell,
-                        {
-                          backgroundColor: selected ? withAlpha(colors.accent, 0.18) : colors.muted,
-                          borderColor: selected ? colors.accent : "transparent",
-                          borderWidth: selected ? 1.5 : 0,
-                        },
-                      ]}
+                      style={[styles.monthCell, tv && styles.tvTarget, selectedChrome(selected)]}
                     >
                       <ThemedText
                         type="smallBold"
@@ -202,14 +215,18 @@ export function CalendarMonthPicker({
               accessibilityRole="button"
               accessibilityLabel={t("common.back")}
               onPress={() => setView("months")}
-              style={[styles.backButton, { backgroundColor: tokens.accentSoft }]}
+              style={[
+                styles.backButton,
+                tv && styles.tvIconTarget,
+                { backgroundColor: tokens.accentSoft },
+              ]}
             >
               <SymbolView name={chevronBackward} size={16} tintColor={colors.accent} />
             </PressableScale>
             <ThemedText type="subtitle" style={styles.yearTitle}>
               {t("calendar.selectYear")}
             </ThemedText>
-            <View style={styles.backButtonSpacer} />
+            <View style={[styles.backButtonSpacer, tv && styles.tvSpacer]} />
           </View>
 
           <View style={styles.yearGrid}>
@@ -224,15 +241,9 @@ export function CalendarMonthPicker({
                       accessibilityRole="button"
                       accessibilityState={{ selected }}
                       accessibilityLabel={`${itemYear}`}
+                      {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
                       onPress={() => handleYearPress(itemYear)}
-                      style={[
-                        styles.yearCell,
-                        {
-                          backgroundColor: selected ? withAlpha(colors.accent, 0.18) : colors.muted,
-                          borderColor: selected ? colors.accent : "transparent",
-                          borderWidth: selected ? 1.5 : 0,
-                        },
-                      ]}
+                      style={[styles.yearCell, tv && styles.tvTarget, selectedChrome(selected)]}
                     >
                       <ThemedText
                         type="smallBold"
@@ -273,7 +284,11 @@ function NavIconButton({
       accessibilityLabel={label}
       accessibilityState={{ disabled }}
       onPress={onPress}
-      style={[styles.navIcon, { backgroundColor: tokens.accentSoft, opacity: disabled ? 0.35 : 1 }]}
+      style={[
+        styles.navIcon,
+        isTV() && styles.tvIconTarget,
+        { backgroundColor: tokens.accentSoft, opacity: disabled ? 0.35 : 1 },
+      ]}
     >
       <SymbolView name={icon} size={18} tintColor={colors.accent} />
     </PressableScale>
@@ -281,6 +296,16 @@ function NavIconButton({
 }
 
 const styles = StyleSheet.create({
+  tvTarget: {
+    minHeight: TvLayout.minFocusTarget,
+  },
+  tvIconTarget: {
+    width: TvLayout.minFocusTarget,
+    height: TvLayout.minFocusTarget,
+  },
+  tvSpacer: {
+    width: TvLayout.minFocusTarget,
+  },
   yearNav: {
     flexDirection: "row",
     alignItems: "center",

@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -15,10 +15,12 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   ayahsRemaining,
@@ -49,8 +51,10 @@ import {
   type ResolvedKhatmMotivation,
 } from "@/lib/khatm-motivation";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { pageToStartAyah } from "@/lib/quran";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useEnsureKhatmLoaded, useKhatm, useKhatmActions } from "@/stores/khatm-store";
 
 const PLAN_PRESETS = [
@@ -58,6 +62,25 @@ const PLAN_PRESETS = [
   { days: 60, tone: "balanced" as const },
   { days: 90, tone: "steady" as const },
 ];
+
+/** TV custom-plan stepper starting value (between the 30 / 60 day presets). */
+const TV_CUSTOM_DAYS_SEED = 45;
+
+/**
+ * Selected chip fill. Phone: solid accent. TV: soft fill + muted hairline so a
+ * selected chip never looks like the solid D-pad focus ring.
+ */
+function selectedChipStyle(
+  active: boolean,
+  tv: boolean,
+  colors: ReturnType<typeof useThemeTokens>["colors"],
+  tokens: ReturnType<typeof useThemeTokens>["tokens"],
+) {
+  if (!active) return { backgroundColor: colors.background, borderColor: colors.border };
+  if (tv)
+    return { backgroundColor: tokens.accentSoft, borderColor: withAlpha(colors.accent, 0.35) };
+  return { backgroundColor: colors.accent, borderColor: colors.accent };
+}
 
 const PACE_ICON: Record<KhatmPace, SymbolViewProps["name"]> = {
   done: { ios: "checkmark.seal.fill", android: "verified", web: "verified" },
@@ -133,7 +156,7 @@ function KhatmMotivationCard({ seed, onShuffle }: { seed: number; onShuffle: () 
           onPress={onShuffle}
           size={18}
           tintColor={tokens.status.info.color}
-          hitTarget={40}
+          hitTarget={isTV() ? TvLayout.minFocusTargetDp : 40}
           haptic="light"
         />
       </View>
@@ -162,11 +185,14 @@ function PlanPresetCard({
   days,
   tone,
   unit,
+  preferredFocus,
   onPress,
 }: {
   days: number;
   tone: "intensive" | "balanced" | "steady";
   unit: "ayah" | "page";
+  /** TV: first preset takes initial D-pad focus when no plan is running. */
+  preferredFocus?: boolean;
   onPress: () => void;
 }) {
   const { t } = useTranslation();
@@ -179,7 +205,11 @@ function PlanPresetCard({
       : t("khatm.dailyTarget", { count: target });
 
   return (
-    <PressableCard onPress={onPress} accessibilityLabel={t("khatm.dayPlan", { count: days })}>
+    <PressableCard
+      onPress={onPress}
+      accessibilityLabel={t("khatm.dayPlan", { count: days })}
+      preferredFocus={preferredFocus}
+    >
       <View style={styles.presetRow}>
         <IconWell
           icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
@@ -214,8 +244,20 @@ function CustomPlanCard({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const [daysInput, setDaysInput] = useState("");
+  const tv = isTV();
+  // TV: -/+ stepper instead of typing (seeded between the 30/60 presets).
+  const [daysInput, setDaysInput] = useState(() => (tv ? String(TV_CUSTOM_DAYS_SEED) : ""));
   const customDays = parseKhatmPlanDays(daysInput);
+  const stepDays = (direction: 1 | -1) => {
+    const current = customDays ?? TV_CUSTOM_DAYS_SEED;
+    // Fine steps for short plans, coarser beyond a month so 365 stays reachable.
+    const step = current < 30 || (direction < 0 && current <= 30) ? 1 : 5;
+    const next = Math.min(
+      KHATM_MAX_PLAN_DAYS,
+      Math.max(KHATM_MIN_PLAN_DAYS, current + direction * step),
+    );
+    setDaysInput(String(next));
+  };
   const showInvalid = daysInput.trim().length > 0 && customDays == null;
   const dailyTarget = customDays
     ? unit === "page"
@@ -249,24 +291,55 @@ function CustomPlanCard({
         />
         <View style={styles.presetCopy}>
           <ThemedText type="smallBold">{t("khatm.customPlan")}</ThemedText>
-          <TextInput
-            value={daysInput}
-            onChangeText={(text) =>
-              setDaysInput(text.replace(/[^0-9]/g, "").slice(0, String(KHATM_MAX_PLAN_DAYS).length))
-            }
-            keyboardType="number-pad"
-            placeholder={t("khatm.customDaysPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("khatm.customDaysA11y")}
-            style={[
-              styles.customInput,
-              {
-                color: colors.foreground,
-                backgroundColor: colors.muted,
-                borderColor: showInvalid ? tokens.status.warning.color : colors.border,
-              },
-            ]}
-          />
+          {tv ? (
+            <View style={styles.tvDaysRow}>
+              <IconButton
+                name={{ ios: "minus", android: "remove", web: "remove" }}
+                size={18}
+                tintColor={colors.foreground}
+                background={colors.muted}
+                accessibilityLabel={t("common.decrease", { label: t("khatm.customPlan") })}
+                onPress={() => stepDays(-1)}
+                hitTarget={TvLayout.minFocusTargetDp}
+                haptic="light"
+              />
+              <ThemedText type="smallBold" style={styles.tvDaysValue}>
+                {t("khatm.dayPlan", { count: customDays ?? TV_CUSTOM_DAYS_SEED })}
+              </ThemedText>
+              <IconButton
+                name={{ ios: "plus", android: "add", web: "add" }}
+                size={18}
+                tintColor={colors.foreground}
+                background={colors.muted}
+                accessibilityLabel={t("common.increase", { label: t("khatm.customPlan") })}
+                onPress={() => stepDays(1)}
+                hitTarget={TvLayout.minFocusTargetDp}
+                haptic="light"
+              />
+            </View>
+          ) : (
+            <TextInput
+              value={daysInput}
+              onChangeText={(text) =>
+                setDaysInput(
+                  text.replace(/[^0-9]/g, "").slice(0, String(KHATM_MAX_PLAN_DAYS).length),
+                )
+              }
+              keyboardType="number-pad"
+              placeholder={t("khatm.customDaysPlaceholder")}
+              placeholderTextColor={colors.mutedForeground}
+              accessibilityLabel={t("khatm.customDaysA11y")}
+              style={[
+                styles.customInput,
+                {
+                  color: colors.foreground,
+                  backgroundColor: colors.input,
+                  borderColor: showInvalid ? tokens.status.warning.color : colors.inputBorder,
+                  borderWidth: 1,
+                },
+              ]}
+            />
+          )}
           {customDays && dailyTargetLabel ? (
             <ThemedText type="caption" themeColor="mutedForeground">
               {dailyTargetLabel}
@@ -314,7 +387,8 @@ function LogAmountChip({
   active?: boolean;
   onPress: () => void;
 }) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
   return (
     <PressableScale
       haptic="light"
@@ -325,15 +399,20 @@ function LogAmountChip({
       scaleTo={0.95}
       style={[
         styles.logChip,
-        {
-          backgroundColor: active ? colors.accent : colors.background,
-          borderColor: active ? colors.accent : colors.border,
-        },
+        tv && styles.chipTv,
+        selectedChipStyle(Boolean(active), tv, colors, tokens),
       ]}
     >
       <ThemedText
         type="smallBold"
-        style={{ color: active ? colors.accentForeground : colors.mutedForeground }}
+        style={{
+          color: active
+            ? tv
+              ? colors.accentText
+              : colors.accentForeground
+            : colors.mutedForeground,
+          fontSize: tv ? TvLayout.bodyFontSize : undefined,
+        }}
       >
         {label}
       </ThemedText>
@@ -349,7 +428,8 @@ function UnitToggle({
   onChange: (unit: "ayah" | "page") => void;
 }) {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
 
   return (
     <View style={styles.unitToggle}>
@@ -365,15 +445,20 @@ function UnitToggle({
             onPress={() => onChange(value)}
             style={[
               styles.unitChip,
-              {
-                backgroundColor: active ? colors.accent : colors.background,
-                borderColor: active ? colors.accent : colors.border,
-              },
+              tv && styles.chipTv,
+              selectedChipStyle(active, tv, colors, tokens),
             ]}
           >
             <ThemedText
               type="smallBold"
-              style={{ color: active ? colors.accentForeground : colors.mutedForeground }}
+              style={{
+                color: active
+                  ? tv
+                    ? colors.accentText
+                    : colors.accentForeground
+                  : colors.mutedForeground,
+                fontSize: tv ? TvLayout.bodyFontSize : undefined,
+              }}
             >
               {value === "page" ? t("khatm.unitPage") : t("khatm.unitAyah")}
             </ThemedText>
@@ -591,6 +676,7 @@ function KhatmActivePlanCard({
         <Button
           label={t("khatm.continueReading")}
           onPress={onContinue}
+          preferredFocus
           icon={{ ios: "book.pages.fill", android: "menu_book", web: "menu_book" }}
           fullWidth
         />
@@ -614,7 +700,7 @@ function KhatmActivePlanCard({
               background={colors.muted}
               accessibilityLabel={lessA11y}
               onPress={() => bumpLogAmount(isPageUnit ? -1 : -10)}
-              hitTarget={44}
+              hitTarget={isTV() ? TvLayout.minFocusTargetDp : 44}
               haptic="light"
             />
             <TextInput
@@ -630,7 +716,9 @@ function KhatmActivePlanCard({
                 styles.logInput,
                 {
                   color: colors.foreground,
-                  borderColor: logInvalid ? tokens.status.warning.color : colors.border,
+                  backgroundColor: colors.input,
+                  borderColor: logInvalid ? tokens.status.warning.color : colors.inputBorder,
+                  borderWidth: 1,
                 },
               ]}
             />
@@ -641,7 +729,7 @@ function KhatmActivePlanCard({
               background={colors.muted}
               accessibilityLabel={moreA11y}
               onPress={() => bumpLogAmount(isPageUnit ? 1 : 10)}
-              hitTarget={44}
+              hitTarget={isTV() ? TvLayout.minFocusTargetDp : 44}
               haptic="light"
             />
           </View>
@@ -703,8 +791,9 @@ function KhatmActivePlanCard({
                     styles.correctInput,
                     {
                       color: colors.foreground,
-                      backgroundColor: colors.background,
-                      borderColor: totalInvalid ? tokens.status.warning.color : colors.border,
+                      backgroundColor: colors.input,
+                      borderColor: totalInvalid ? tokens.status.warning.color : colors.inputBorder,
+                      borderWidth: 1,
                     },
                   ]}
                 />
@@ -777,11 +866,13 @@ function PressableCard({
   onPress,
   accessibilityLabel,
   style,
+  preferredFocus,
 }: {
   children: ReactNode;
   onPress: () => void;
   accessibilityLabel: string;
   style?: object;
+  preferredFocus?: boolean;
 }) {
   const { colors, tokens } = useThemeTokens();
   return (
@@ -789,6 +880,7 @@ function PressableCard({
       padding="three"
       onPress={onPress}
       accessibilityLabel={accessibilityLabel}
+      preferredFocus={Boolean(preferredFocus && isTV())}
       style={[
         {
           backgroundColor: colors.card,
@@ -818,6 +910,10 @@ export default function KhatmScreen() {
   const [pendingLogAmount, setPendingLogAmount] = useState<number | null>(null);
   const [pendingTotalAmount, setPendingTotalAmount] = useState<number | null>(null);
   const [startUnit, setStartUnit] = useState<"ayah" | "page">("ayah");
+  const { width: windowWidth } = useWindowDimensions();
+  const tv = isTV();
+  // Desktop: the motivation card moves to a side column beside the plan.
+  const wideAside = !tv && windowWidth >= WIDE_ASIDE_MIN_WIDTH;
 
   const activeUnit = plan?.unit ?? storedUnit ?? "ayah";
   const pendingStartTarget =
@@ -872,6 +968,70 @@ export default function KhatmScreen() {
         : t("khatm.correctTotalConfirmMsg", { count: pendingTotalAmount })
       : undefined;
 
+  const motivation = (
+    <KhatmMotivationCard
+      seed={motivationSeed}
+      onShuffle={() => setMotivationSeed((seed) => seed + 1)}
+    />
+  );
+  const main = !plan ? (
+    <Card padding="three">
+      <SectionHeader
+        title={t("khatm.startTitle")}
+        icon={{ ios: "flag.checkered", android: "flag", web: "flag" }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+        {startUnit === "page" ? t("khatm.startHintPages") : t("khatm.startHint")}
+      </ThemedText>
+      <UnitToggle unit={startUnit} onChange={setStartUnit} />
+      <View style={styles.presetList}>
+        {/* TV: one focus column. Tablet / desktop: presets side by side. */}
+        <ResponsiveGrid gap={Spacing.two} maxColumns={3} columns={tv ? 1 : undefined}>
+          {PLAN_PRESETS.map((preset, index) => (
+            <PlanPresetCard
+              key={preset.days}
+              days={preset.days}
+              tone={preset.tone}
+              unit={startUnit}
+              preferredFocus={index === 0}
+              onPress={() => setPendingStartDays(preset.days)}
+            />
+          ))}
+        </ResponsiveGrid>
+        <CustomPlanCard unit={startUnit} onStart={setPendingStartDays} />
+      </View>
+    </Card>
+  ) : plan ? (
+    <KhatmActivePlanCard
+      plan={plan}
+      unit={activeUnit}
+      ayahsRead={ayahsRead}
+      target={target}
+      pace={pace}
+      tone={tone}
+      percent={percent}
+      progress={progress}
+      remaining={remaining}
+      expected={expected}
+      gap={gap}
+      dayNumber={dayNumber}
+      format={format}
+      onLog={setPendingLogAmount}
+      onSetTotal={setPendingTotalAmount}
+      onReset={() => setResetOpen(true)}
+      onContinue={
+        activeUnit === "page"
+          ? () =>
+              router.push(
+                continueStart
+                  ? `/quran/page/${continuePage}?surah=${continueStart.surah}&ayah=${continueStart.ayah}`
+                  : `/quran/page/${continuePage}`,
+              )
+          : undefined
+      }
+    />
+  ) : null;
+
   return (
     <ScreenLayout
       eyebrow={t("khatm.eyebrow")}
@@ -880,66 +1040,21 @@ export default function KhatmScreen() {
       onBack={() => goBackOrReplace(router, "/quran")}
     >
       <Seo path="/quran/khatm" />
-      <Stagger>
-        <KhatmMotivationCard
-          seed={motivationSeed}
-          onShuffle={() => setMotivationSeed((seed) => seed + 1)}
-        />
-
-        {!plan ? (
-          <Card padding="three">
-            <SectionHeader
-              title={t("khatm.startTitle")}
-              icon={{ ios: "flag.checkered", android: "flag", web: "flag" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {startUnit === "page" ? t("khatm.startHintPages") : t("khatm.startHint")}
-            </ThemedText>
-            <UnitToggle unit={startUnit} onChange={setStartUnit} />
-            <View style={styles.presetList}>
-              {PLAN_PRESETS.map((preset) => (
-                <PlanPresetCard
-                  key={preset.days}
-                  days={preset.days}
-                  tone={preset.tone}
-                  unit={startUnit}
-                  onPress={() => setPendingStartDays(preset.days)}
-                />
-              ))}
-              <CustomPlanCard unit={startUnit} onStart={setPendingStartDays} />
-            </View>
-          </Card>
-        ) : plan ? (
-          <KhatmActivePlanCard
-            plan={plan}
-            unit={activeUnit}
-            ayahsRead={ayahsRead}
-            target={target}
-            pace={pace}
-            tone={tone}
-            percent={percent}
-            progress={progress}
-            remaining={remaining}
-            expected={expected}
-            gap={gap}
-            dayNumber={dayNumber}
-            format={format}
-            onLog={setPendingLogAmount}
-            onSetTotal={setPendingTotalAmount}
-            onReset={() => setResetOpen(true)}
-            onContinue={
-              activeUnit === "page"
-                ? () =>
-                    router.push(
-                      continueStart
-                        ? `/quran/page/${continuePage}?surah=${continueStart.surah}&ayah=${continueStart.ayah}`
-                        : `/quran/page/${continuePage}`,
-                    )
-                : undefined
-            }
-          />
-        ) : null}
-      </Stagger>
+      {wideAside ? (
+        <View style={styles.wideRow}>
+          <View style={styles.wideMain}>
+            <Stagger>{main}</Stagger>
+          </View>
+          <View style={styles.wideAside}>
+            <Stagger>{motivation}</Stagger>
+          </View>
+        </View>
+      ) : (
+        <Stagger>
+          {motivation}
+          {main}
+        </Stagger>
+      )}
 
       <ConfirmDialog
         visible={pendingStartDays != null}
@@ -1001,7 +1116,13 @@ export default function KhatmScreen() {
   );
 }
 
+/** Window width at which the motivation card becomes a side column. */
+const WIDE_ASIDE_MIN_WIDTH = 1200;
+
 const styles = StyleSheet.create({
+  wideRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four, width: "100%" },
+  wideMain: { flex: 1, minWidth: 0 },
+  wideAside: { width: 340, flexShrink: 0 },
   hint: { marginTop: Spacing.two, marginBottom: Spacing.three },
   presetList: { gap: Spacing.two },
   unitToggle: { flexDirection: "row", gap: Spacing.two, marginBottom: Spacing.three },
@@ -1020,6 +1141,23 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
   },
   presetCopy: { flex: 1, gap: 2 },
+  chipTv: {
+    minHeight: TvLayout.chipMinHeight,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
+    justifyContent: "center",
+  },
+  tvDaysRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    marginTop: Spacing.one,
+  },
+  tvDaysValue: {
+    minWidth: 120,
+    textAlign: "center",
+    fontSize: TvLayout.bodyFontSize,
+  },
   customInput: {
     marginTop: Spacing.one,
     borderRadius: Radius.md,
@@ -1130,3 +1268,6 @@ const styles = StyleSheet.create({
   },
   motivationBody: { marginBottom: Spacing.one },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/khatm");

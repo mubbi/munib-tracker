@@ -29,7 +29,8 @@
       "encouragementPerfect": "Nirxandina bedew — xwedê di zanîna feydeyê de zêde bike.",
       "encouragementStrong": "Têgihiştina xurt. Her windahiyan ji nû ve binêre da ku wan tê de kilît bikin.",
       "encouragementSteady": "Pêşkeftina baş. Windahiyan wekî armancên xwendina paşîn bikar bîne.",
-      "encouragementKeepGoing": "Her windahî ders e. Nîşanan binêre, paşê dîsa biceribîne."
+      "encouragementKeepGoing": "Her windahî ders e. Nîşanan binêre, paşê dîsa biceribîne.",
+      "keyboardHint": "بۆ وەڵامدانەوە 1–4 و بۆ بەردەوامبوون Enter دابگرە."
     },
     "skip": "Derbas bibe",
     "apply": "Bisepîne",
@@ -86,7 +87,10 @@
     "selectToContinue": "بۆ بەردەوامبوون هەڵبژێرە دابگرە",
     "selectToOpen": "بۆ کردنەوە هەڵبژێرە",
     "selectToSave": "بۆ پاشەکەوتکردن هەڵبژێرە",
-    "selectDay": "ڕۆژێک هەڵبژێرە بۆ پێداچوونەوە"
+    "selectDay": "ڕۆژێک هەڵبژێرە بۆ پێداچوونەوە",
+    "newBadge": "نوێ",
+    "decreaseByTv": "کەمکردنەوەی {{label}} بە {{step}}",
+    "increaseByTv": "زیادکردنی {{label}} بە {{step}}"
   },
   "search": {
     "placeholder": "Li Qur'an, hadîs, dua, Fêr bibe… bigere",
@@ -187,7 +191,8 @@
     "sadaqah": "Sadaqah armanc",
     "whiteDays": "Rojiya Rojên Spî",
     "goodCharacter": "Exlaqê baş",
-    "heavyOnTheScale": "Kiryarên giran li mîzanê"
+    "heavyOnTheScale": "Kiryarên giran li mîzanê",
+    "quranPractice": "ڕاهێنانی قورئان"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -477,7 +482,7 @@
       "audio": "Deng"
     },
     "continueAction": {
-      "quran": "Xwendinê bidomînin",
+      "quran": "Xwendinê bidomîne",
       "hadith": "Vegere hedîsê",
       "dua": "Dua vekin",
       "zikr": "Adhkar vekin",
@@ -713,7 +718,9 @@
           "hint": "Dawiya Rojên Spî"
         }
       }
-    }
+    },
+    "cardTipTv": "نوێژێک هەڵبژێرە بۆ نوێکردنەوە · ئەزکار بۆ زیکر · زانیاری بۆ وردەکاری",
+    "tapToMarkTv": "هەڵبژێرە بۆ نیشانکردن"
   },
   "update": {
     "title": "Nûkirin heye",
@@ -887,7 +894,8 @@
     "heroSignedIn": "بەخێربێیتەوە — هەژمارەکەت بەستراوە. نوێژ، قەزا و زیکر دەتوانن لە نێوان ئامێرەکاندا هاوکات بکرێن.",
     "continueSignedIn": "بەردەوامبە",
     "or": "یان",
-    "guestHint": "دەتوانیت لە هەر کاتێکدا لە پرۆفایلەوە هەژمار ببەستیت."
+    "guestHint": "دەتوانیت لە هەر کاتێکدا لە پرۆفایلەوە هەژمار ببەستیت.",
+    "guestHintTv": "کۆدی QR سکان بکە بۆ چوونەژوورەوە لە مۆبایلەکەتەوە. یان وەک میوان بەردەوام بە — هەر کاتێک دەتوانیت لە پرۆفایل لە مۆبایلەکەت هەژمار ببەستیت."
   },
   "onboarding": {
     "begin": "Destpêkirin",
@@ -944,7 +952,8 @@
     "locationHighlight1Tv": "کاتی نوێژی ورد بۆ شارەکەت",
     "locationHighlight2Tv": "ئاراستەی قیبڵە لە شوێنەکەتەوە",
     "locationHighlight3Tv": "بیرخەرەوەکان باشتر لە مۆبایل کاردەکەن",
-    "locationHighlight4Tv": "هەر کاتێک شار لە ڕێکخستنەکان بگۆڕە"
+    "locationHighlight4Tv": "هەر کاتێک شار لە ڕێکخستنەکان بگۆڕە",
+    "ctaBodyTv": "وەک میوان دەست پێبکە، یان بە سکانکردنی کۆدی QR بە مۆبایلەکەت بچۆ ژوورەوە. هەموو شتێک لەم تەلەفزیۆنەدا بێ ئینتەرنێت کار دەکات."
   },
   "appearance": {
     "eyebrow": "Mîheng",
@@ -1199,7 +1208,9 @@
       "a11yStart": "بەدواداچوونی نوێژی داهاتوو لەسەر شاشەی قفڵ دەست پێ بکە",
       "a11yStop": "بەدواداچوونی نوێکارییە زیندووەکانی نوێژ بوەستێنە"
     },
-    "tvUnavailableBody": "بیرخەرەوە ناوخۆییەکان و Live Activities لە تەلەفزیۆندا بەردەست نین. هەڵبژاردەکانی ئاگاداری لە مۆبایلەکەت بەڕێوەببە."
+    "tvUnavailableBody": "بیرخەرەوە ناوخۆییەکان و Live Activities لە تەلەفزیۆندا بەردەست نین. هەڵبژاردەکانی ئاگاداری لە مۆبایلەکەت بەڕێوەببە.",
+    "preciseAdhan": "Dema rast a ezanê",
+    "preciseAdhanHint": "Ezan tam di dema xwe de tê xwendin, di moda parastina bateriyê de jî. Android heta ku dest pê bike nîşana alarmê di barika rewşê de nîşan dide."
   },
   "fonts": {
     "eyebrow": "Mîheng",
@@ -1403,18 +1414,18 @@
     "favEmptyDescTv": "ئەستێرە لەسەر هەر ناوێک هەڵبژێرە بۆ پاشەکەوتکردنی لێرە."
   },
   "quran": {
-    "eyebrow": " Noble Qur'an",
-    "title": "قورئان",
-    "subtitle": "Read, listen, û reflect",
-    "searchSurah": "Lêgerîn by name, meaning, an number",
+    "eyebrow": "Qur'ana Pîroz",
+    "title": "Qur'an",
+    "subtitle": "Bixwîne, guhdarî bike û bifikire",
+    "searchSurah": "Li gorî nav, wate an hejmarê bigere",
     "filterAll": "Hemû",
-    "continueReading": "بەردەوام بە لە خوێندنەوە",
-    "continueAt": "Sureye {{surah}} · Ayet {{ayah}}",
-    "makki": "ماکی",
-    "madani": "مادانی",
+    "continueReading": "Xwendinê bidomîne",
+    "continueAt": "Sûreya {{surah}} · Ayeta {{ayah}}",
+    "makki": "Mekkî",
+    "madani": "Medenî",
     "ayahCount": "{{count}} ayet",
-    "surahList": "Sûreyên",
-    "surahCount": "{{shown}} ya {{total}}",
+    "surahList": "Sûre",
+    "surahCount": "{{shown}} ji {{total}}",
     "reciter": "خوێنەر",
     "translation": "Werger",
     "showTransliteration": "Veguheztinê nîşan bide",
@@ -1426,24 +1437,24 @@
     "playPage": "Rûpelê lîstin",
     "playAyah": "یاری ئایە {{n}}",
     "bookmark": "ئاماژەدان",
-    "bookmarks": "Nîşan",
-    "viewBookmarks": "Nîşanan bibînin",
+    "bookmarks": "Nîşanker",
+    "viewBookmarks": "Nîşankeran bibîne",
     "bookmarksTitle": "Nîşan",
     "bookmarksSubtitle": "We saved ayahs",
     "bookmarkEmptyTitle": "Hê nîşanker tune",
     "bookmarkEmptyDesc": "Tap  bookmark icon li any ayah bo tomar bike it here.",
     "removeBookmark": "Nîşanê jêbirin",
-    "juz": "جوز",
+    "juz": "Cuz",
     "learn": "Fêr bibe",
     "juzSubtitle": "Read  Qur'an di its 30 parts",
     "juzN": "جوز {{n}}",
     "browseByJuz": "Ji hêla Juz ve bigerin",
     "search": "Lêgerîn",
-    "searchTitle": "Lêgerîn  Qur'an",
-    "searchSubtitle": "Find ayahs by translation an transliteration",
-    "searchPlaceholder": "Lêgerîn words di translation…",
-    "searchHint": "Searches  bundled translation û transliteration offline.",
-    "noResults": "No ayahs matched we lêgerîn.",
+    "searchTitle": "Di Qur'anê de bigere",
+    "searchSubtitle": "Ayetan bi erebî, îngilîzî, transliterasyon an referansê bibîne",
+    "searchPlaceholder": "Li werger, transliterasyon an 2:255 bigere…",
+    "searchHint": "Lêgerîna nêzîkî bê înternetê di erebî, wergera îngilîzî û transliterasyonê de — tevî navên ayetan û referansan.",
+    "noResults": "Tu ayet li gorî lêgerîna te nehat dîtin.",
     "resultsCount": "{{count}} encam",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Sûre nehat dîtin",
@@ -1461,7 +1472,7 @@
     "bookmarkAdd": "Pirtûka ayetê",
     "bookmarkRemove": "Nîşanê jêbirin",
     "loadingTranslation": "Tê barkirin translation…",
-    "searching": "Lêgerîn…",
+    "searching": "Tê lêgerîn…",
     "secondTranslation": "Wergera duyemîn",
     "secondTranslationNone": "Netû",
     "selectTranslator": "Wergêr hilbijêre - {{language}}",
@@ -1472,7 +1483,7 @@
     "backToLanguages": "Hemû zimanan",
     "searchTranslationLanguages": "Li zimanan bigerin…",
     "searchTranslators": "Li wergêran bigerin…",
-    "pages": "لاپەڕەکان",
+    "pages": "Rûpel",
     "pagesSubtitle": "Browse  Madani mushaf by page",
     "pageN": "Rûpel {{n}}",
     "pageOf": "Page {{page}} ya {{total}}",
@@ -1480,9 +1491,9 @@
     "pagePickerTitle": "Jump bo page",
     "pagePickerSearch": "Lêgerîn page an surah…",
     "readerLayout": "layout xwendevan",
-    "layoutAyah": "xwendina Ayah",
+    "layoutAyah": "Lêkolîna ayetan",
     "layoutPage": "Dîtina rûpelê",
-    "layoutMushaf": "موشەف",
+    "layoutMushaf": "Mushaf",
     "mushafOnlyHint": "Erebî tenê",
     "loadingMushafFont": "Tê barkirin…",
     "pageReaderTitle": "Qur'an page {{page}} ya {{total}}",
@@ -1609,18 +1620,25 @@
       "dictate": "Ayetê bêje",
       "stopDictate": "Guhdariyê rawestîne",
       "bestMatch": "Herî baş lihevok",
-      "otherMatches": "Lihevokên din"
+      "otherMatches": "Lihevokên din",
+      "tvUnavailableBody": "ناسینەوەی ئایەت پێویستی بە مایکرۆفۆنە، کە تەلەفزیۆن نییەتی. لەبری ئەوە بە وشە لە قورئاندا بگەڕێ، یان ئەپەکە لە مۆبایلەکەت بەکاربهێنە."
     },
-    "searchPlaceholderArabic": "Nivîsa erebî an referansek wekî ٢:٢٥٥ bigere…",
+    "searchPlaceholderArabic": "Li nivîsa erebî an referansek wek ٢:٢٥٥ bigere…",
     "goToPagePlaceholder": "Page 1–{{max}}",
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
-    "surahNumber": "Sûre {{number}}",
-    "selectSurah": "Sureyekê hilbijêre",
-    "openReader": "Xwînerê veke",
-    "bookmarkEmptyDescTv": "ئایکۆنی نیشانە لەسەر هەر ئایەتێک هەڵبژێرە بۆ پاشەکەوتکردنی لێرە."
+    "surahNumber": "Sûreya {{number}}",
+    "selectSurah": "Sûreyekê hilbijêre",
+    "openReader": "Xwendekarê veke",
+    "bookmarkEmptyDescTv": "ئایکۆنی نیشانە لەسەر هەر ئایەتێک هەڵبژێرە بۆ پاشەکەوتکردنی لێرە.",
+    "goToAyahPlaceholder": "ئایەت 1–{{max}}",
+    "goToAyahA11y": "بڕۆ بۆ ژمارەی ئایەت",
+    "goToAyahInvalid": "ژمارەی ئایەتێک لە نێوان 1 و {{max}} بنووسە",
+    "searchAyahs": "Li ayetan bigere",
+    "findSurah": "Sûreyekê bibîne",
+    "noSurahResults": "Tu sûre li gorî lêgerîna te nehat dîtin."
   },
   "hadith": {
     "eyebrow": "Kevneşopiya pêxemberî",
@@ -1863,7 +1881,8 @@
     "history": "Dîrok",
     "rowDone": "{{completed}} Qaza hat kirin",
     "rowDoneWithDaily": "{{completed}} Qaza hat kirin · îro {{done}}/{{target}}",
-    "hintTv": "نیشانە هەڵبژێرە بۆ تۆمارکردنی نوێژی قەزا. لەدەستدانی نوێژ لە شوێنپێهەڵگردا خۆکار دەچێتە سەر ئەم ژمارانە."
+    "hintTv": "نیشانە هەڵبژێرە بۆ تۆمارکردنی نوێژی قەزا. لەدەستدانی نوێژ لە شوێنپێهەڵگردا خۆکار دەچێتە سەر ئەم ژمارانە.",
+    "editCountHintTv": "بە − و + دیاری بکە چەند لەم نوێژە هێشتا قەزات لەسەرە."
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -1895,7 +1914,8 @@
       "pubertyAfterAge": "Temenê balixiyê nikare ji temenê niha paştir be.",
       "yearsPrayedExceed": "Salên nimêjê ({{entered}}) nikarin ji salên piştî balixiyê ({{obligatedYears}}) derbas bibin.",
       "exemptExceedsYear": "Rojên bêberpirsiyar ({{entered}}) nikarin ji dirêahiya sala ku we hilbijart ({{maxDays}}) derbas bibin."
-    }
+    },
+    "enterAgePromptTv": "تەمەنی ئێستات لە سەرەوە دابنێ بۆ بینینی خەمڵاندن."
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -1992,7 +2012,8 @@
     "confirmAddEstimateMsg": "{{count}} rojiyên mayî zêde bikin (tevahiya nû: {{total}})?",
     "confirmResetTitle": "Berhevkarê vegere?",
     "confirmResetMsg": "Hemî hejmartinên bilez werin paqij kirin ({{remaining}} mayî, {{completed}} qediya)? Ev nayê betalkirin.",
-    "adjustHintTv": "ژمارە هەڵبژێرە یان −/+ بەکاربهێنە بۆ ڕێکخستن"
+    "adjustHintTv": "ژمارە هەڵبژێرە یان −/+ بەکاربهێنە بۆ ڕێکخستن",
+    "editCountHintTv": "بە − و + دیاری بکە چەند ڕۆژووی قەزا هێشتا لەسەرتە."
   },
   "calendar": {
     "eyebrow": "Dîrok",
@@ -2113,7 +2134,8 @@
     "confirmStartAgainTitle": "Dest pê bike again?",
     "confirmStartAgainMessage": "We temam bû count will be paqij bû so hûn can begin  nû round.",
     "dockLabel": "Hejmar",
-    "tapToCountTv": "بۆ ژماردن هەڵبژێرە دابگرە"
+    "tapToCountTv": "بۆ ژماردن هەڵبژێرە دابگرە",
+    "tapToCountKeyboard": "بۆ ژماردن کلیک لە بازنەکە بکە یان Space دابگرە"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} e only {{min}} min away",
@@ -2188,7 +2210,9 @@
     "defaultLabel": "Mekke, Erebistana Siûdî",
     "defaultTimesHint": "Demên nimêjê niha Mekkê bikar tînin. Ji bo demên rast bajarê xwe diyar bike. Bîranînên nimêj û ezanê heta wê demê girtî dimînin.",
     "setLocation": "Cihê diyar bike",
-    "searchAutoFocusOff": "گەڕان بەدوای شار"
+    "searchAutoFocusOff": "گەڕان بەدوای شار",
+    "subtitleTv": "کاتەکانی نوێژ بۆ ئەم شوێنە هەژمار دەکرێن. بە ڕیمۆت شارەکەت بگەڕێ.",
+    "hintTv": "خانەی گەڕان هەڵبژێرە، پاشان لانیکەم دوو پیتی ناوی شارەکەت بنووسە."
   },
   "moon": {
     "aria": "Qonaxa heyvê: {{phase}}",
@@ -2549,7 +2573,8 @@
     "authenticityTitle": "Rastbûna naverokê",
     "authenticityBody": "Adhkar û dua ji berhevokên naskirî têne derxistin û nêzî vegotinên ku bi berfirehî hatine weşandin têne girtin. Ji kerema xwe berî ku xwe bispêrin hukmek an hejmartinek taybetî li hember zanyarek an çavkaniyek pêbawer verast bikin.",
     "privacyPolicy": "Siyaseta taybetiyê",
-    "termsOfService": "Mercên xizmetê"
+    "termsOfService": "Mercên xizmetê",
+    "scanOnPhoneTv": "بە مۆبایلەکەت سکانی بکە بۆ کردنەوەی ئەم پەڕەیە."
   },
   "player": {
     "nowPlaying": "Niha Dilîstin",
@@ -2582,7 +2607,9 @@
     "loading": "Tê barkirin…",
     "streamingOnlyNote": "Streaming only — audio e not saved li ev cîhaz",
     "ttsVoice": "Deng",
-    "ttsVoiceHint": "Dengê nivîs-bo-axaftinê hilbijêre"
+    "ttsVoiceHint": "Dengê nivîs-bo-axaftinê hilbijêre",
+    "seekBack": "{{seconds}} چرکە بۆ دواوە",
+    "seekForward": "{{seconds}} چرکە بۆ پێشەوە"
   },
   "errors": {
     "title": "Nəsə səhv getdi",
@@ -2677,7 +2704,7 @@
   },
   "khatm": {
     "eyebrow": " Noble Qur'an",
-    "short": "Xatm",
+    "short": "Xetm",
     "title": "Xatm plan",
     "subtitle": "قورئان بە خێراییەکی جێگیر تەواو بکە",
     "startTitle": "Dest pê bike  plan",
@@ -2788,7 +2815,7 @@
     "correctTotalConfirmAction": "Tevahîyê nûve bike"
   },
   "hifz": {
-    "short": "هیفز",
+    "short": "Hifz",
     "title": "شوێنپێهەڵگری هیفز",
     "subtitle": "Ayahs you've memorized an need bo review",
     "markMemorized": "Mark ezber kir",
@@ -2810,7 +2837,7 @@
     "confirmReviewBody": "{{ref}} will be flagged ji bo review.",
     "confirmMemorizedBody": "{{ref}} dê wekî jibîrkirî were nîşankirin.",
     "confirmClearBody": "{{ref}} will be removed ji we Hifz tracker.",
-    "emptyDescTv": "Hifz لەسەر هەر ئایەتێک لە خوێنەردا هەڵبژێرە بۆ نیشاندانی وەک لەبەرکراو."
+    "emptyDescTv": "ئایەتێک لە خوێنەردا هەڵبژێرە، پاشان «لەبەرکردن» هەڵبژێرە بۆ نیشاندانی وەک لەبەرکراو."
   },
   "travel": {
     "eyebrow": "Fêr bibe",
@@ -3312,7 +3339,8 @@
       "reflectionHint": "Xushu û refleksên nimêjê",
       "learning": "Pêşveçûna Fêrbûnê",
       "learningHint": "Mijarên ku di vê modulê de hatine qedandin",
-      "characterHintTv": "هەڵبژێرە کاتێک ئەمڕۆ ڕەفتارەکەت پێداچوونەوە کرد"
+      "characterHintTv": "هەڵبژێرە کاتێک ئەمڕۆ ڕەفتارەکەت پێداچوونەوە کرد",
+      "repentanceHintTv": "تەوبە نوێ بکەرەوە — کاتێک ئەمڕۆ تەوبەت کرد هەڵبژێرە"
     },
     "progressTitle": "Pêşveçûna fêrbûnê",
     "progressSubtitle": "خوێندنی ڕێڕەو — نەک پلەی ڕۆحی لای خوا",
@@ -3356,7 +3384,8 @@
         "best-beloved": "Çêtirîn / herî hezkirî",
         "equal-reward": "Xelatê mezin ên wekhev"
       }
-    }
+    },
+    "timelineCardHintTv": "بەشی سەرەکی — هەر قۆناغێک هەڵبژێرە بۆ وانەی تەواو"
   },
   "taharah": {
     "eyebrow": "Fêr bibe",
@@ -3532,7 +3561,8 @@
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "tapHintTv": "ناوێک لەسەر نەخشە هەڵبژێرە بۆ خوێندنەوەی تێبینی سەرچاوەدار."
+      "tapHintTv": "ناوێک لەسەر نەخشە هەڵبژێرە بۆ خوێندنەوەی تێبینی سەرچاوەدار.",
+      "listHintTv": "ناوێک لە لیستەکە هەڵبژێرە بۆ خوێندنەوەی تێبینی سەرچاوەدار."
     }
   },
   "aqeedah": {
@@ -4391,7 +4421,7 @@
       "label": "هاوپێچەکان (ئیختیاری)",
       "add": "زیادکردنی فایل",
       "remove": "هاوپێچەکە لاببە",
-      "hint": "تا ٥ فایل (JPEG، PNG، WebP، یان PDF)، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
+      "hint": "Heta 5 pel (JPEG, PNG, WebP an PDF), her yek 1 MB. Ji bo jêbirinê li ser thumbnailê × bitikîne.",
       "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی فایلە تایبەتەکان بە adhkar ـەکەتەوە.",
       "permissionDenied": "بۆ هاوپێچکردنی فایلەکان مۆڵەت پێویستە.",
       "permissionTitle": "ڕێگە بدە بە دەستگەیشتن",
@@ -4421,7 +4451,8 @@
       "loadingPdf": "PDF tê barkirin…",
       "pdfHint": "Bizivirîne · pinch an +/− bo mezin kirinê · du caran bitikîne bo vegerandinê · PDF veke bo parvekirinê",
       "pdfPreviewTitle": "Pêşdîtina PDF",
-      "tvUnavailable": "هاوپێچەکان پێویستیان بە مۆبایل یان تابلێت هەیە. وێنە یان PDF لەوێ زیاد بکە."
+      "tvUnavailable": "هاوپێچەکان پێویستیان بە مۆبایل یان تابلێت هەیە. وێنە یان PDF لەوێ زیاد بکە.",
+      "pdfTvUnavailable": "پێشبینینی PDF لە تەلەفزیۆن ناکرێت. ئەم هاوپێچە لە مۆبایل یان تابلێتەکەت بکەرەوە."
     },
     "stt": {
       "dictate": "بە مایکرۆفۆن دیکتە بکە",
@@ -4451,13 +4482,20 @@
     "markTonight": "Min îşev nimêja Tehecûdê kir",
     "markedTonight": "Îşev dua kirin - maşaAllah",
     "lastNights": "{{count}} şevên dawî",
-    "lastNightsHint": "Each dot e one night, labeled by calendar date (most recent li  left).",
     "virtueTitle": "Virtue ya  night salah",
     "virtueBody": " best salah after  obligatory salah e  night salah.",
     "virtueRef": "سەحیح موسلیم 1163",
     "streakRow": "Tahajjud zincîre",
     "calculatorCta": "Hesabkera sêyemîn sêyemîn ê şevê",
-    "calculatorHint": "Nîvê şevê û pencera herî baş a Tahajjudê ji Maghrib û Fajr bibîne"
+    "calculatorHint": "Nîvê şevê û pencera herî baş a Tahajjudê ji Maghrib û Fajr bibîne",
+    "tonightTitle": "Îşev",
+    "bestLabel": "Rêza herî baş",
+    "totalLabel": "Hemû şev",
+    "startTonight": "Rêza te îşev dest pê dike.",
+    "calendarHint": "Ji bo tomarkirin an jêbirinê li şeveke borî bitikîne.",
+    "calendarHintTv": "Ji bo tomarkirin an jêbirinê şeveke borî hilbijêre.",
+    "legendPrayed": "Hat kirin",
+    "inWindow": "Niha dema herî baş"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates in calculated estimates — local moon-sighting may differ.",
@@ -4713,8 +4751,10 @@
       "buildsTitle": "Xweseriyê ava dike",
       "buildsHint": "Carekê li ser yek taybetmendiyê bixebitin — rastî, sebir, rehmet û dad.",
       "destroysTitle": "Yên ku xweseriyê xera dikin",
-      "destroysHint": "Adetên ku nass jê hişyar dikin — ji bo dersa têkildar li ser kêlîkê bixin."
-    }
+      "destroysHint": "Adetên ku nass jê hişyar dikin — ji bo dersa têkildar li ser kêlîkê bixin.",
+      "destroysHintTv": "ئەو خووانەی دەقەکان لێیان ئاگاداریان کردووینەتەوە — خانەیەک هەڵبژێرە بۆ وانەیەکی پەیوەندیدار."
+    },
+    "pathsHintTv": "کردەوەگەلێک کە بە ئیزنی خودا پلە بەرز دەکەنەوە — هەر ڕێگایەک هەڵبژێرە بۆ بەڵگە و بەستەرەکانی ئەپ."
   },
   "jahannam": {
     "eyebrow": "Fêrbûn",
@@ -5206,7 +5246,7 @@
     "eyebrow": "ساڵنامە",
     "title": "گۆڕینی بەروار",
     "subtitle": "گۆڕینی نێوان ساڵنامەی هیجری و زاینی",
-    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە بە بەکارهێنانی ئەلگۆریتمەکەی کوەیتی خشتەیی لە ئۆفلاین حیسابی بۆ کراوە.",
+    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە لە ئۆفلاین لەسەر بنەمای بینینی مانگ لە شوێنەکەت حیسابی بۆ کراوە.",
     "toHijri": "گریگۆری → هیجری",
     "toGregorian": "هیجری → گریگۆری",
     "gregorianDateLabel": "بەرواری گریگۆری",
@@ -5216,7 +5256,7 @@
     "year": "ساڵ",
     "useToday": "ئەمڕۆ بەکاری بهێنە",
     "invalidDate": "بەروارێکی دروست بنووسە",
-    "disclaimer": "ئەمە نزیکبوونەوەیەکی ژمێریارییە (\"ئەلگۆریتمەکەی کوێت\"ی خشتەیی) و دەتوانێت ڕۆژێک جیاواز بێت لە ڕاگەیاندنەکانی بینینی مانگ لە ناوخۆدا — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
+    "disclaimer": "بەروارەکان لەسەر بنەمای بینینی مانگ (hilāl) لە شوێنەکەت حیساب دەکرێن و دەتوانن ڕۆژێک جیاواز بن لە ڕاگەیاندنە فەرمییەکانی بینینی مانگ — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
     "directionTitle": "ئاراستەی گۆڕانکاری",
     "resultFrom": "لە {{date}} ەوە",
     "quickLinksTitle": "پەیوەست",
@@ -5301,7 +5341,8 @@
     "editHint": "Encam dema tu demê biguherînî nû dibin.",
     "nightLengthLabel": "Dirêjiya şevê",
     "willStartIn": "Di {{time}} de dest pê dike",
-    "timeRemaining": "{{time}} maye"
+    "timeRemaining": "{{time}} maye",
+    "autoDetectHintTv": "{{location}} · کاتێک هەڵبژێرە بۆ ڕێکخستن"
   },
   "friday": {
     "eyebrow": "فێربوون",
@@ -5354,7 +5395,7 @@
     "eyebrow": "Fêrbûn",
     "title": "Janazah rêber",
     "subtitle": "Nimêja cenaze, şuştin, definkirin û duayên rastîn",
-    "intro": "Nêrînek pratîkî ya cenazeyê wekî farzekî civakî — çar tekbîrên bê ruku û sicûd, duayên Hisnul Muslim ji bo mêr, jin û zarokan, û rêberî bo şûştin, definkirin, şehîdan û xemgînan.",
+    "intro": "Nêrînek pratîkî ya Janazah wekî wacibekî komî - çawa çar tekbîran bê ruku an sucûdê, û duayên Hisnul Muslim ji bo mirî tê kirin.",
     "section": {
       "obligation": "Xwegirêdanî",
       "prepare": "Amadekarî",
@@ -5439,5 +5480,400 @@
     "notFound": "Mijar nehat dîtin",
     "disclaimer": "Nêrîna perwerdehiyê - ne fetwa. ",
     "continueInApp": "Li Munibê berdewam dikin"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "Rahênan",
+      "practiseAyah": "ڕاهێنان لەسەر ئایەتی {{n}}",
+      "practisePlan": "ڕاهێنان لەسەر ئەم سوورەتە",
+      "toRevise_other": "{{count}} بۆ دووبارەکردنەوە",
+      "toRevise_one": "{{count}} بۆ دووبارەکردنەوە"
+    },
+    "mode": {
+      "follow": "شوێنکەوتن",
+      "check": "پشکنین",
+      "hideWords": "شاردنەوەی وشەکان",
+      "hideAyahs": "شاردنەوەی ئایەتەکان"
+    },
+    "range": {
+      "ayah": "ئەم ئایەتە",
+      "next5": "٥ ی داهاتوو",
+      "surah": "ئەم سوورەتە",
+      "page": "ئەم پەڕەیە",
+      "custom": "دەستکرد",
+      "fromAyah": "لە ئایەتی",
+      "toAyah": "بۆ ئایەتی",
+      "increase": "زیادکردنی {{label}}",
+      "decrease": "کەمکردنەوەی {{label}}"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "ڕاهێنان",
+      "subtitle": "بیخوێنەوە، بیشارەوە و دەریبخە، و ئەوەی لەبەری دەکەیت دووبارە بکەرەوە",
+      "continue": "بەردەوامبە",
+      "start": "دەستپێکردن",
+      "listen": "گوێگرتن",
+      "manage": "بەڕێوەبردن",
+      "rangeTitle": "مەودا",
+      "modeTitle": "شێواز",
+      "startRevision": "دەستپێکردنی دووبارەکردنەوە",
+      "openQueue": "بینینی لیستی دووبارەکردنەوە",
+      "captionReady": "گوێگرەکە لەسەر ئەم ئامێرە دەمێنێتەوە.",
+      "captionMissing": "گوێگرەکە دابەزێنە تا شوێن دەنگت بکەوێت. هێشتا دەتوانیت گوێ بگریت.",
+      "captionOffline": "دابەزاندنی گوێگر پێویستی بە پەیوەندییە. گوێگرتن هێشتا کار دەکات.",
+      "captionFailed": "گوێگرەکە دەستی پێنەکرد. هێشتا دەتوانیت گوێ بگریت.",
+      "captionWebUnsupported": "ئەم وێبگەڕە ناتوانێت گوێگرەکە کار پێبکات.",
+      "captionUnsupported": "گوێگر لەسەر ئەم ئامێرە بەردەست نییە. گوێگرتن هێشتا کار دەکات.",
+      "captionManualMode": "بەبێ گوێگر، ئەم شێوازە دەقەکە پیشان دەدات تا خۆت دەریبخەیت و وشەکان نیشانە ناکات.",
+      "downloadListener": "دابەزاندنی گوێگر ({{size}} مێگابایت)",
+      "reviseTitle_other": "{{count}} ئایەت بۆ دووبارەکردنەوە",
+      "reviseTitle_one": "{{count}} ئایەت بۆ دووبارەکردنەوە",
+      "reviseRemaining_other": "{{count}} ی تر لە ڕۆژانی تر",
+      "reviseRemaining_one": "{{count}} ی تر لە ڕۆژێکی تر",
+      "passageLabel": "بەشەکەت",
+      "change": "گۆڕین",
+      "startPassage": "دەستپێکردنی {{passage}}",
+      "ayahCount_one": "{{count}} ئایەت",
+      "ayahCount_other": "{{count}} ئایەت",
+      "recentTitle": "دواترین",
+      "recentHint": "ئەم بەشە بە هەمان شێواز دووبارە دەست پێدەکاتەوە"
+    },
+    "session": {
+      "loading": "ئایەتەکە بار دەکرێت…",
+      "preparing": "گوێگرەکە ئامادە دەکرێت…",
+      "ayahOf": "ئایەتی {{n}} لە {{total}}",
+      "revisionEyebrow": "دووبارەکردنەوە",
+      "coach": "ئایەتەکە بخوێنەوە، پاشان مایکرۆفۆنەکە دابگرە و تیلاوەت بکە.",
+      "retry": "دووبارە",
+      "settled": "گوێگرەکە شوێن ئەم ئایەتە کەوت.",
+      "someNotSure": "گوێگرەکە دڵنیا نەبوو لە هەندێک وشە. دەتوانیت دووبارە بیخوێنیتەوە یان بەردەوام بیت.",
+      "listeningStopped": "گوێگرتن وەستا. دەتوانیت وشەکان دەربخەیت و بەردەوام بیت.",
+      "listenerDidNotStart": "گوێگرەکە دەستی پێنەکرد. هێشتا دەتوانیت گوێ بگریت و وشەکان دەربخەیت.",
+      "listenOnly": "بۆ بیستنی ئایەتەکە لێدان دابگرە. بۆ شوێنکەوتنی دەنگت، گوێگرەکە لە ڕێکخستنەکان دابەزێنە.",
+      "listenOnlyHide": "کاتێک ئامادە بوویت وشەکان دەربخە. گوێگر لەسەر ئەم ئامێرە نییە، بۆیە وشەکان نیشانە ناکرێن.",
+      "micOff": "مایکرۆفۆن بۆ Munib Tracker کوژاوەتەوە. هێشتا دەتوانیت گوێ بگریت.",
+      "openSettings": "کردنەوەی ڕێکخستنەکان",
+      "previous": "پێشوو",
+      "next": "دواتر",
+      "tryAgainLine_other": "{{count}} وشە دووبارە بخوێنەوە",
+      "tryAgainLine_one": "{{count}} وشە دووبارە بخوێنەوە",
+      "changePassage": "گۆڕین",
+      "chipDone": "تەواو",
+      "chipRetry": "وشەی دووبارەخوێندنەوە",
+      "chipCurrent": "ئێستا",
+      "chipTodo": "هێشتا نا",
+      "chipLabel": "ئایەتی {{n}}، {{state}}",
+      "listeningHint": "گوێ دەگرێت… ئایەتەکە بخوێنە. دوای وشەی کۆتایی خۆی تەواو دەبێت، یان وەستان دابگرە."
+    },
+    "dock": {
+      "hear": "بیستن",
+      "stopHearing": "وەستاندنی تیلاوەت",
+      "listen": "گوێگرتن",
+      "start": "دەستپێکردن",
+      "listening": "گوێ دەگرێت",
+      "micStartHint": "دەست دەکات بە گوێگرتن لە تیلاوەتی ئەم ئایەتە",
+      "micStopHint": "ئەم ئایەتە تەواو دەکات",
+      "reveal": "دەرخستن",
+      "revealHint": "وشەی شاراوەی دواتر دەردەخات. بۆ باقی ئایەتەکە درێژ دابگرە.",
+      "end": "کۆتایی",
+      "revealAll": "دەرخستنی هەموو",
+      "revealAllConfirmTitle": "هەموو ئایەتەکە دەربخرێت؟",
+      "revealAllConfirmMessage": "هەموو وشە شاراوەکانی ئەم ئایەتە دەردەخرێن.",
+      "endConfirmTitle": "ئەم دانیشتنە کۆتایی پێبهێنرێت؟",
+      "endConfirmMessage": "پوختەیەکی ئەوەی تا ئێستا مەشقت کردووە دەبینیت.",
+      "endConfirm": "کۆتایی دانیشتن"
+    },
+    "word": {
+      "matched": "گونجاو",
+      "corrected": "لە هەوڵی دووەمدا گونجا",
+      "notSure": "دڵنیا نییە",
+      "tryAgain": "دووبارە بیخوێنەوە",
+      "notYet": "هێشتا نا",
+      "hidden": "وشەی شاراوە {{n}}",
+      "tapToHear": "ئەم وشەیە لێدەدات"
+    },
+    "summary": {
+      "subtitle": "دانیشتنەکە تەواو بوو",
+      "tryAyahAgain": "دووبارە ئەم ئایەتە",
+      "nextAyah": "ئایەتی دواتر",
+      "nextRevision": "دووبارەکردنەوەی دواتر",
+      "done": "تەواو",
+      "hearAyah": "بیستنی ئەم ئایەتە",
+      "markMemorized": "نیشانەکردن وەک لەبەرکراو",
+      "listened": "گوێت لەم بەشە گرت. گوێگرەکە دابەزێنە تا شوێن دەنگت بکەوێت.",
+      "headListened": "گوێت لەم بەشە گرت",
+      "practiseAgain": "دووبارە ڕاهێنان بکە",
+      "weakAyahsTitle": "ئایەتەکان بۆ ڕاهێنانی دووبارە",
+      "ayahChip": "ئایەتی {{ayah}}",
+      "practiseAyah": "دووبارە ڕاهێنان لەسەر ئایەتی {{ayah}}"
+    },
+    "revision": {
+      "title": "دووبارەکردنەوە",
+      "subtitle": "ئایەتەکانی ئەمڕۆ، کۆنترەکان یەکەم",
+      "emptyTitle": "ئەمڕۆ هیچ بۆ دووبارەکردنەوە نییە",
+      "emptyDesc": "ئەو ئایەتانەی لە شێوازی پشکنین یان شاردنەوەدا ڕاهێنانیان لەسەر دەکەیت، لە کاتی خۆیدا دەگەڕێنەوە ئێرە.",
+      "dueToday": "بۆ ئەمڕۆ",
+      "markedMemorized": "نیشانەکراو وەک لەبەرکراو",
+      "notNow": "ئێستا نا",
+      "setStatus": "دیاریکردنی دۆخ",
+      "skip": "تێپەڕاندن",
+      "practiseRow": "ڕاهێنان لەسەر {{surah}} {{ayah}}",
+      "sittingProgress": "{{n}} لە {{total}}",
+      "hifzRowSub": "ڕاهێنان و دووبارەکردنەوەی ئەو ئایەتانەی لەبەری دەکەیت",
+      "status": {
+        "learning": "فێربوون",
+        "practising": "ڕاهێنان",
+        "needsRevision": "پێویستی بە دووبارەکردنەوەیە"
+      },
+      "overdue_other": "{{count}} ڕۆژ دواکەوتوو",
+      "overdue_one": "{{count}} ڕۆژ دواکەوتوو"
+    },
+    "settings": {
+      "title": "ڕاهێنانی قورئان",
+      "rowSubtitle": "گوێگر، ڕێنمایی و دووبارەکردنەوە",
+      "valueReady": "ئامادەیە",
+      "valueNotDownloaded": "دانەبەزێنراوە",
+      "valueDownloading": "دادەبەزێنرێت {{percent}}٪",
+      "valueRetry": "پێویستی بە هەوڵێکی ترە",
+      "practiceTitle": "ڕاهێنان",
+      "defaultMode": "شێوازی بنەڕەت",
+      "feedbackTiming": "کەی وشەکانی دووبارەکردنەوە پیشان بدرێن",
+      "timing": {
+        "ayah": "دوای هەر ئایەتێک",
+        "live": "لە کاتی تیلاوەتدا",
+        "end": "لە کۆتاییدا"
+      },
+      "showTranslation": "پیشاندانی وەرگێڕان",
+      "showTransliteration": "پیشاندانی خوێندنەوەی لاتینی",
+      "showTajweed": "ڕەنگەکانی تەجوید",
+      "showTajweedSub": "ڕەنگەکان لەوانەیە بینینی نیشانەکانی ڕاهێنان قورس بکەن.",
+      "hearBeforeRecite": "بیستن پێش تیلاوەت",
+      "hear": {
+        "off": "کوژاوە",
+        "once": "یەکجار",
+        "every": "هەر ئایەتێک"
+      },
+      "autoAdvance": "چوونە پێشەوەی خۆکار",
+      "autoAdvanceSub": "کاتێک ئەم ئایەتە تەواو بوو بچۆ بۆ دواتر.",
+      "keepAwake": "شاشە داگیرساو بهێڵە",
+      "startFromTitle": "دەستپێکردن لە",
+      "startFrom": {
+        "lastPractice": "دوایین ڕاهێنان",
+        "lastRead": "شوێنی خوێندنەوەم",
+        "ask": "لێم بپرسە"
+      },
+      "revisionTitle": "دووبارەکردنەوە",
+      "dailyLimit": "ئایەت لە ڕۆژێکدا",
+      "includeHifz": "دووبارەکردنەوەی حیفز بگرێتەوە",
+      "includeHifzSub": "ئەو ئایەتانەی بۆ دووبارەکردنەوە نیشانەت کردوون دەگیرێنەوە.",
+      "reminder": "بیرخەرەوەی دووبارەکردنەوە",
+      "reminderSub": "بیرخەرەوەیەک لەسەر ئەم ئامێرە کاتێک ئایەت هەبێت.",
+      "reminderMasterOff": "بیرخەرەوەکان لە ئاگادارکردنەوەکاندا کوژاونەتەوە.",
+      "openNotifications": "کردنەوەی ڕێکخستنی ئاگادارکردنەوە",
+      "sessionTitle": "لە کاتی ڕاهێناندا",
+      "displayTitle": "لەسەر شاشە",
+      "timingHelp": {
+        "ayah": "وشەکانی دووبارەخوێندنەوە دوای تەواوبوونی هەر ئایەتێک دەردەکەون — هەرگیز لە کاتی خوێندندا نا.",
+        "live": "نیشانەکان هەر کە گوێگر دڵنیا بوو، لە کاتی خوێندندا دەردەکەون.",
+        "end": "تەنها وشەی ئێستا هێڵی ژێر دەکرێت. ئەنجامەکان لە کۆتاییدا دەردەکەون."
+      },
+      "hearHelp": {
+        "off": "قورئانخوێن تەنها کاتێک دەخوێنێت کە بیستن دادەگریت.",
+        "once": "قورئانخوێن پێش دەستپێکردنت ئایەتی یەکەم دەخوێنێت.",
+        "every": "قورئانخوێن پێش خوێندنی تۆ هەر ئایەتێک دەخوێنێت."
+      },
+      "startHelp": {
+        "lastPractice": "لەو شوێنەوە بەردەوام بە کە دوایین ڕاهێنان کۆتایی هات.",
+        "lastRead": "لەو ئایەتەوە دەست پێبکە کە لە قورئاندا دەتخوێند.",
+        "ask": "هەموو جارێک خۆت بەشەکە هەڵبژێرە."
+      },
+      "dailyLimitHelp_one": "ڕۆژانە تا {{count}} ئایەت؛ ئەوانی تر بۆ ڕۆژانی داهاتوو دەمێننەوە.",
+      "dailyLimitHelp_other": "ڕۆژانە تا {{count}} ئایەت؛ ئەوانی تر بۆ ڕۆژانی داهاتوو دەمێننەوە."
+    },
+    "listener": {
+      "title": "گوێگری سەر ئامێر",
+      "notOnDevice": "لەسەر ئەم ئامێرە نییە",
+      "aboutSize": "نزیکەی {{size}} مێگابایت",
+      "download": "دابەزاندن",
+      "staysOnDevice": "لەسەر ئەم ئامێرە دەمێنێتەوە. خوێندنەوە بەبێ ئەویش کار دەکات.",
+      "downloadingBytes": "{{done}} لە {{total}}",
+      "downloadingLine": "گوێگر {{done}} لە {{total}} ({{percent}}٪)",
+      "cancel": "هەڵوەشاندنەوە",
+      "verifying": "پشکنینی پەڕگە",
+      "ready": "ئامادەیە",
+      "version": "وەشانی {{version}}",
+      "delete": "سڕینەوە",
+      "deleteTitle": "گوێگرەکە بسڕدرێتەوە؟",
+      "deleteBody": "ڕاهێنان هێشتا تیلاوەتەکان لێدەدات. شوێنکەوتنی دەنگ پێویستی بە دابەزاندنەوەیە.",
+      "confirmRemove": "لابردن",
+      "needsRetry": "پێویستی بە هەوڵێکی ترە",
+      "tryAgain": "دووبارە هەوڵ بدە",
+      "updateAvailable": "نوێکردنەوەیەک ئامادەیە",
+      "updateSize": "نزیکەی {{size}} مێگابایت. گوێگری ئێستا بەردەوام کار دەکات.",
+      "updateTitle": "گوێگرەکە بگۆڕدرێت؟",
+      "downloadUpdate": "دابەزاندنی نوێکردنەوە",
+      "wifiOnly": "تەنها بە Wi-Fi دابەزێنە",
+      "cellularTitle": "داتای مۆبایل بەکاربهێنرێت؟",
+      "cellularBody": "گوێگرەکە نزیکەی {{size}} مێگابایتە و لەسەر ئەم ئامێرە دەمێنێتەوە.",
+      "useMobileData": "بەکارهێنانی داتای مۆبایل",
+      "advanced": "پێشکەوتوو",
+      "recommended": "گوێگری پێشنیارکراو",
+      "alternate": "گوێگری جێگرەوە",
+      "recommendedSize": "پێشنیارکراو، نزیکەی {{size}} مێگابایت",
+      "alternateSize": "جێگرەوە، نزیکەی {{size}} مێگابایت",
+      "alternateCaption": "جێگرەوە تەنها بەکاربهێنە ئەگەر پێشنیارکراوەکە کار نەکات. لەوانەیە وشەکانی دووبارەکردنەوە نیشانە نەکات.",
+      "switchTitle": "گوێگر بگۆڕدرێت؟",
+      "engineCaption": "{{engine}} بەکاردێت.",
+      "unsupported": "گوێگر لەسەر ئەم ئامێرە بەردەست نییە.",
+      "webUnsupported": "ئەم وێبگەڕە ناتوانێت گوێگرەکە کار پێبکات.",
+      "knownLimits": "لە شوێنێکی ئارام، بە یەک دەنگ و خێرایی ئاسایی تیلاوەت باشترین کار دەکات. لەوانەیە بۆ دەنگی منداڵان کەمتر ورد بێت.",
+      "detailsLine": "{{size}} MB لەسەر ئەم ئامێرە · {{engine}}"
+    },
+    "privacy": {
+      "title": "تایبەتمەندی و سەرچاوەکان",
+      "onDevice": "دەنگت لەسەر ئەم ئامێرە پرۆسێس دەکرێت. بار ناکرێت و پاشەکەوت ناکرێت.",
+      "microphone": "مایکرۆفۆن",
+      "micAllowed": "ڕێگەپێدراو",
+      "micBlocked": "داخراو",
+      "micNotAsked": "هێشتا نەپرسراوە",
+      "deleteHistory": "سڕینەوەی مێژووی ڕاهێنان",
+      "deleteHistoryTitle": "مێژووی ڕاهێنان بسڕدرێتەوە؟",
+      "deleteHistoryBody": "پوختەی دانیشتنەکان دەسڕدرێنەوە. نیشانەکانی حیفز، خشتەی دووبارەکردنەوە و گوێگر دەمێننەوە.",
+      "practiceAid": "گوێگر یارمەتیدەرێکی ڕاهێنانە و جێگەی مامۆستا ناگرێتەوە.",
+      "sources": "پەڕگەی گوێگر لە {{host}} دادەبەزێنرێت. بە پرۆژەی Tilawa، دەقی Tanzil و داتای وشەکانی Quran.com دروستکراوە.",
+      "licence": "گوێگری پێشنیارکراو بە مۆڵەتی NPL-1.2 بڵاوکراوەتەوە: بێبەرامبەر، هەرگیز نافرۆشرێت و بێ ڕیکلام."
+    },
+    "offlineRow": {
+      "title": "گوێگری قورئان",
+      "subtitle": "لە ڕاهێنانی قورئاندا بەڕێوە دەبرێت. «سڕینەوەی هەموو» دەیهێڵێتەوە."
+    },
+    "reminder": {
+      "title": "دووبارەکردنەوەی قورئان",
+      "body_other": "ئەمڕۆ {{count}} ئایەت بۆ دووبارەکردنەوە",
+      "body_one": "ئەمڕۆ {{count}} ئایەت بۆ دووبارەکردنەوە"
+    },
+    "error": {
+      "noConnection": "پەیوەندی نییە",
+      "notEnoughSpace": "شوێنی پێویست نییە",
+      "checksum": "پەڕگەکە نەگونجا",
+      "downloadFailed": "دابەزاندن تەواو نەبوو",
+      "downloadCancelled": "دابەزاندن هەڵوەشێنرایەوە",
+      "modelMissing": "پەڕگەی گوێگر نییە",
+      "didNotStart": "دەستی پێنەکرد",
+      "outOfMemory": "یادگەی ئەم ئامێرە بەش نەبوو. هێشتا دەتوانیت گوێ بگریت.",
+      "unsupported": "لەسەر ئەم ئامێرە بەردەست نییە",
+      "micDenied": "مایکرۆفۆن کوژاوەتەوە",
+      "micUnavailable": "مایکرۆفۆن نییە",
+      "captureFailed": "مایکرۆفۆن دەستی پێنەکرد",
+      "interrupted": "گوێگرتن پچڕا",
+      "listeningStopped": "گوێگرتن وەستا",
+      "unknown": "کێشەیەک ڕوویدا"
+    },
+    "pronunciation": {
+      "title": "گوێگری دەربڕین",
+      "explainer": "گوێگرێکی دووەمی ئارەزوومەندانە بۆ وانەکانی تەجوید. هەر جارێک یەک دەنگ لەگەڵ نموونەکە بەراورد دەکات و هەرگیز نمرە نادات.",
+      "notSetUp": "ڕێکنەخراوە",
+      "notOnDevice": "لەسەر ئەم ئامێرە نییە",
+      "ready": "ئامادەیە (وەشانی {{version}})",
+      "setUp": "ڕێکخستن",
+      "downloading": "گوێگری دەربڕین دادەبەزێنرێت…",
+      "consentTitle": "پێش ڕێکخستن",
+      "consentDownload": "ئەمە گوێگرێکی دووەم بە نزیکەی ٥٧ مێگابایت لە Quran Lab دادەبەزێنێت.",
+      "consentActivation": "بەرنامەکە یەکجار بۆ چالاککردن و پاشان بۆ پشکنینی نوێکردنەوە پەیوەندی بە Quran Lab ەوە دەکات.",
+      "consentOnDevice": "تیلاوەتەکەت لەسەر ئەم ئامێرە پرۆسێس دەکرێت.",
+      "consentRemotePause": "Quran Lab دەتوانێت ئەم گوێگرە بۆ هەموو بەکارهێنەران ڕابگرێت. وانەکان هێشتا کار دەکەن.",
+      "agree": "ڕازیم و دایبەزێنە",
+      "notNow": "ئێستا نا",
+      "deleteTitle": "گوێگری دەربڕین بسڕدرێتەوە؟",
+      "deleteBody": "وانەکانی تەجوید کار دەکەن. ڕاهێنان لەسەر دەنگێک پێویستی بە دابەزاندنەوەیە.",
+      "sharingSwitch": "هاوبەشکردنی تیلاوەتەکانم لەگەڵ Quran Lab",
+      "sharingSub": "تەنها ئەگەر لە پەڕەی Quran Lab ڕازی بوویت. کوژاندنەوە بارکردن ڕادەگرێت و ڕیزی نەنێردراو دەسڕێتەوە.",
+      "deleteShared": "سڕینەوەی ئەوەی هاوبەشم کرد",
+      "deleteSharedTitle": "ئەوەی هاوبەشت کرد بسڕدرێتەوە؟",
+      "deleteSharedBody": "هەر تۆمارێک لەم بەرنامەیەوە هاوبەشت کردبێت لە ڕاژەکارەکانی Quran Lab دەسڕدرێتەوە و هاوبەشکردن دەکوژێتەوە.",
+      "deletedShared": "تۆمارە هاوبەشکراوەکانت سڕانەوە",
+      "sharingFailed": "سەرکەوتوو نەبوو. تکایە دووبارە هەوڵ بدە.",
+      "recoveryCode": "کۆدی گەڕاندنەوە: {{code}}",
+      "sourcesLine": "‏TajweedFormer لە Quran Lab، بە مۆڵەتی NPL-1.2.",
+      "practiseSound": "ڕاهێنان لەسەر ئەم دەنگە",
+      "drillTitle": "ڕاهێنان لەسەر ئەم دەنگە",
+      "drillIntro": "گوێ لە نموونەکە بگرە، پاشان «تیلاوەت» دابگرە و هەمان شێوە بیڵێ.",
+      "needsSetup": "بۆ ڕاهێنان لەسەر ئەم دەنگە گوێگری دەربڕین ڕێکبخە.",
+      "needsConnectionOnce": "ڕێکخستن یەکجار پێویستی بە پەیوەندییە.",
+      "notAvailableForSound": "ڕێنمایی بۆ ئەم دەنگە هێشتا بەردەست نییە. گوێ لە نموونەکە بگرە و دووبارە هەوڵ بدە.",
+      "recite": "تیلاوەت",
+      "stop": "وەستاندن",
+      "listening": "گوێ دەگرێت…",
+      "verdictMatched": "ئەوە لەگەڵ نموونەکە گونجا.",
+      "verdictTryAgain": "دووبارە گوێ بگرە و جارێکی تر هەوڵ بدە.",
+      "verdictNotSure": "گوێگرەکە دڵنیا نەبوو.",
+      "error": {
+        "noConnection": "ڕێکخستن یەکجار پێویستی بە پەیوەندییە.",
+        "paused": "Quran Lab ئەم گوێگرەی ڕاگرتووە. وانەکان کار دەکەن.",
+        "noSpace": "شوێنی پێویست نییە",
+        "notYet": "ئەم گوێگرە هێشتا بەردەست نییە. تکایە دواتر هەوڵ بدە.",
+        "micDenied": "مایکرۆفۆن بۆ Munib Tracker کوژاوەتەوە.",
+        "unsupported": "لەسەر ئەم ئامێرە بەردەست نییە",
+        "generic": "سەرکەوتوو نەبوو. تکایە دووبارە هەوڵ بدە."
+      }
+    },
+    "modeHelp": {
+      "follow": "بە دەقێکی بەردەستەوە بخوێنە. گوێگر وشە بە وشە لەگەڵت دەڕوات.",
+      "check": "بە دەقی دیارەوە بخوێنە. دوای هەر ئایەتێک ئەو وشانە دەبینیت کە دەبێ دووبارە بیانخوێنیتەوە.",
+      "hideWords": "وشەکان دوای یەکەم دادەپۆشرێن. لە بەرەوە بخوێنە؛ وشە بیستراوەکان خۆیان دەردەکەون.",
+      "hideAyahs": "هەموو ئایەتەکە دادەپۆشرێت تا تەواوی دەکەیت یان «دەرخستن» دادەگریت. باشترینە بۆ دووبارەکردنەوە."
+    },
+    "listenerStatus": {
+      "ready": "گوێگر ئامادەیە",
+      "readySub": "دەنگت لەسەر ئەم ئامێرە کار لەسەر دەکرێت و هەرگیز بار ناکرێت.",
+      "downloading": "گوێگر دادەبەزێت · {{percent}}٪",
+      "failed": "دابەزاندنەکە تەواو نەبوو",
+      "missing": "دەنگت بەدوادا بچێت",
+      "missingSub": "گوێگری سەر ئامێر داببەزێنە ({{size}} مێگابایت). بەبێ ئەویش دەتوانیت گوێ بگریت و دەریبخەیت.",
+      "offlineSub": "بۆ دابەزاندنی گوێگر یەک جار پەیوەست بە. گوێگرتن بەبێ هێڵیش کار دەکات.",
+      "stillListen": "هێشتا دەتوانیت گوێ بگریت و وشەکان دەربخەیت."
+    },
+    "picker": {
+      "title": "هەڵبژێرە چی ڕاهێنان بکەیت",
+      "searchSurah": "سوورەت بە ناو یان ژمارە بگەڕێ",
+      "changeSurah": "گۆڕینی سوورەت",
+      "fromAyah": "دەستپێکردن لە ئایەت",
+      "toAyah": "کۆتایی لە ئایەت",
+      "toEnd": "تا کۆتایی",
+      "ayahN": "ئایەتی {{n}}",
+      "confirm": "ڕاهێنان لەسەر {{passage}}",
+      "ayahCount_one": "{{count}} ئایەت",
+      "ayahCount_other": "{{count}} ئایەت"
+    },
+    "result": {
+      "headAllMatched": "هەموو وشەکان گونجاو بوون",
+      "headTryAgain_one": "{{count}} وشە دووبارە بخوێنەوە",
+      "headTryAgain_other": "{{count}} وشە دووبارە بخوێنەوە",
+      "headMissed_one": "{{count}} وشە پێی نەگەیشت",
+      "headMissed_other": "{{count}} وشە پێیان نەگەیشت",
+      "headNotSure_one": "گوێگر دڵنیا نەبوو لە {{count}} وشە",
+      "headNotSure_other": "گوێگر دڵنیا نەبوو لە {{count}} وشە",
+      "heardOf": "{{heard}} لە {{total}} وشە بیسترا",
+      "matched": "گونجاو",
+      "tryAgain": "دووبارە بیخوێنەوە",
+      "notSure": "دڵنیا نییە",
+      "missed": "پێی نەگەیشت",
+      "groupTryAgain": "ئەمانە دووبارە بخوێنەوە",
+      "groupMissed": "پێی نەگەیشت",
+      "groupNotSure": "دڵنیا نییە",
+      "nextAyah": "ئایەتی دواتر",
+      "reciteAgain": "دووبارە بخوێنەوە",
+      "moveOn": "بڕۆ بۆ ئایەتی دواتر",
+      "finish": "تەواوکردن و بینینی پوختە",
+      "headNothingHeard": "گوێگر هیچ وشەیەکی نەگرت",
+      "nothingHeardTip": "کەمێک بەرزتر و نزیک لە مایکرۆفۆن بخوێنە و لە وشەی یەکەمەوە دەست پێبکە."
+    },
+    "view": {
+      "title": "پیشاندان",
+      "mushafCoarse": "نیشانەکانی وشە لە موسحەفدا پێویستیان بە لیستی وشەکانە. جارێک پەیوەندی بکە بۆ داگرتنی — ئایەتەکان هەر پیشان دەدرێن."
+    }
   }
 }

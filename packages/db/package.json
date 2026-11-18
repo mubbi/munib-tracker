@@ -18,15 +18,17 @@
   },
   "dependencies": {
     "@munib-tracker/shared": "workspace:*",
-    "drizzle-orm": "^0.45.2",
-    "pg": "^8.16.0"
+    "drizzle-orm": "^0.45.4",
+    "pg": "^8.23.1"
   },
   "devDependencies": {
     "@munib-tracker/typescript-config": "workspace:*",
-    "@types/node": "^20",
-    "@types/pg": "^8.15.0",
-    "@vitest/coverage-v8": "^4.1.11",
-    "typescript": "^6.0.0",
-    "vitest": "^4.1.11"
+    "@munib-tracker/vitest-config": "workspace:*",
+    "@types/node": "^24",
+    "@types/pg": "^8.23.1",
+    "@vitest/coverage-v8": "^5.1.0",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "vitest": "^5.1.0",
+    "@typescript/native": "npm:typescript@^7.0.2"
   }
 }

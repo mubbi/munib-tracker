@@ -92,6 +92,7 @@ export function OptionPickerSheet({
   onClose,
 }: OptionPickerSheetProps) {
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
 
   const handleSelect = (id: string) => {
     onSelect(id);
@@ -112,7 +113,13 @@ export function OptionPickerSheet({
               accessibilityState={{ selected }}
               accessibilityLabel={option.label}
               onPress={() => handleSelect(option.id)}
-              style={[styles.row, { backgroundColor: selected ? tokens.accentSoft : colors.muted }]}
+              // TV: open on the current choice instead of the first row.
+              {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
+              style={[
+                styles.row,
+                tv && styles.rowTv,
+                { backgroundColor: selected ? tokens.accentSoft : colors.muted },
+              ]}
             >
               <View style={styles.rowBody}>
                 <ThemedText type="small">{option.label}</ThemedText>
@@ -168,6 +175,9 @@ const styles = StyleSheet.create({
   list: {
     gap: Spacing.two,
     paddingTop: Spacing.two,
+  },
+  rowTv: {
+    minHeight: TvLayout.minFocusTarget,
   },
   row: {
     flexDirection: "row",

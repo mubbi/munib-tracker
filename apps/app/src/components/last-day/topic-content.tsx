@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -47,21 +48,20 @@ function LastDayMisconceptions({ items }: { items: NonNullable<LastDayTopic["mis
       />
       <View style={styles.misconceptions}>
         {items.map((item) => (
-          <View
-            key={item}
-            style={[styles.misconceptionRow, { backgroundColor: tokens.status.info.soft }]}
-          >
-            <ThemedText
-              type="small"
-              style={{
-                color: colors.foreground,
-                fontSize: sizes.translation,
-                lineHeight: sizes.translation * 1.45,
-              }}
-            >
-              {item}
-            </ThemedText>
-          </View>
+          <TvReadableBlock key={item}>
+            <View style={[styles.misconceptionRow, { backgroundColor: tokens.status.info.soft }]}>
+              <ThemedText
+                type="small"
+                style={{
+                  color: colors.foreground,
+                  fontSize: sizes.translation,
+                  lineHeight: sizes.translation * 1.45,
+                }}
+              >
+                {item}
+              </ThemedText>
+            </View>
+          </TvReadableBlock>
         ))}
       </View>
     </Card>
@@ -127,9 +127,11 @@ export function LastDayTopicContent({ topic }: { topic: LastDayTopic }) {
       />
 
       {topic.disclaimer ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
-          {topic.disclaimer}
-        </ThemedText>
+        <TvReadableBlock>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>
+            {topic.disclaimer}
+          </ThemedText>
+        </TvReadableBlock>
       ) : null}
     </View>
   );

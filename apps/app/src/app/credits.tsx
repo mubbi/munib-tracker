@@ -2,18 +2,27 @@ import { RUNTIME_DATA_CREDITS, SERVICE_DATA_CREDITS } from "@munib-tracker/share
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import * as WebBrowser from "expo-web-browser";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import manifest from "@/assets/data/manifest.json";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { BrandQrCode } from "@/components/share/brand-qr-code";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
+import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { webPageSchema } from "@/lib/seo/structured-data";
 
 interface CreditRow {
@@ -44,6 +53,9 @@ export default function CreditsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+  /** TV has no in-app browser — show the source as a QR to open on a phone. */
+  const [qrRow, setQrRow] = useState<CreditRow | null>(null);
 
   const bundledRows: CreditRow[] = manifest.datasets.map((d) => ({
     name: d.id,
@@ -53,8 +65,12 @@ export default function CreditsScreen() {
     note: "note" in d ? (d as { note?: string }).note : undefined,
   }));
 
-  const openUrl = (url: string) => {
-    void WebBrowser.openBrowserAsync(url).catch(() => {});
+  const openRow = (row: CreditRow) => {
+    if (tv) {
+      setQrRow(row);
+      return;
+    }
+    void WebBrowser.openBrowserAsync(row.sourceUrl).catch(() => {});
   };
 
   const renderRow = (row: CreditRow) => (
@@ -63,8 +79,8 @@ export default function CreditsScreen() {
       haptic="light"
       accessibilityRole="link"
       accessibilityLabel={row.name}
-      onPress={() => openUrl(row.sourceUrl)}
-      style={[styles.row, { backgroundColor: colors.muted }]}
+      onPress={() => openRow(row)}
+      style={[styles.row, tv ? styles.rowTv : styles.rowFill, { backgroundColor: colors.muted }]}
     >
       <View style={styles.rowBody}>
         <ThemedText type="smallBold">{row.name}</ThemedText>
@@ -81,12 +97,27 @@ export default function CreditsScreen() {
         ) : null}
       </View>
       <SymbolView
-        name={{ ios: "arrow.up.right.square", android: "open_in_new", web: "open_in_new" }}
+        name={
+          tv
+            ? { ios: "qrcode", android: "qr_code_2", web: "qr_code_2" }
+            : { ios: "arrow.up.right.square", android: "open_in_new", web: "open_in_new" }
+        }
         size={16}
         tintColor={colors.mutedForeground}
       />
     </PressableScale>
   );
+
+  // TV keeps its flex-wrap two-up list; phones stay single-column and wider
+  // windows get a 2–3 column grid so the long source list isn't one tall strip.
+  const renderList = (rows: CreditRow[]) =>
+    tv ? (
+      <View style={[styles.list, styles.listTv]}>{rows.map(renderRow)}</View>
+    ) : (
+      <ResponsiveGrid maxColumns={3} gap={Spacing.two}>
+        {rows.map(renderRow)}
+      </ResponsiveGrid>
+    );
 
   return (
     <ScreenLayout
@@ -115,21 +146,42 @@ export default function CreditsScreen() {
         ]}
       />
       <Stagger>
-        <Card padding="three">
-          <View style={styles.list}>{bundledRows.map(renderRow)}</View>
-        </Card>
-        <Card padding="three">
-          <View style={styles.list}>{RUNTIME_SOURCES.map(renderRow)}</View>
-        </Card>
-        <Card padding="three">
-          <View style={styles.list}>{SERVICE_SOURCES.map(renderRow)}</View>
-        </Card>
+        <Card padding="three">{renderList(bundledRows)}</Card>
+        <Card padding="three">{renderList(RUNTIME_SOURCES)}</Card>
+        <Card padding="three">{renderList(SERVICE_SOURCES)}</Card>
         <View style={[styles.footer, { borderColor: tokens.hairline }]}>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.footerText}>
             {t("credits.openSource")}
           </ThemedText>
         </View>
       </Stagger>
+
+      {tv ? (
+        <Sheet visible={qrRow != null} onClose={() => setQrRow(null)}>
+          {qrRow ? (
+            <View style={styles.qrSheet}>
+              <ThemedText type="subtitle">{qrRow.name}</ThemedText>
+              <ThemedText type="small" themeColor="mutedForeground" style={styles.qrHint}>
+                {t("about.scanOnPhoneTv")}
+              </ThemedText>
+              <BrandQrCode
+                data={qrRow.sourceUrl}
+                size={tvDp(240)}
+                accessibilityLabel={qrRow.name}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {qrRow.sourceUrl.replace(/^https?:\/\//, "")}
+              </ThemedText>
+              <Button
+                label={t("common.done")}
+                variant="secondary"
+                preferredFocus
+                onPress={() => setQrRow(null)}
+              />
+            </View>
+          ) : null}
+        </Sheet>
+      ) : null}
     </ScreenLayout>
   );
 }
@@ -145,6 +197,13 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   rowBody: { flex: 1, gap: 2 },
+  /** Grid cells stretch per row — fill so neighbouring tiles align. */
+  rowFill: { flexGrow: 1 },
+  /** TV: two-column grid so the long source list uses the landscape width. */
+  listTv: { flexDirection: "row", flexWrap: "wrap" },
+  rowTv: { flexBasis: "48%", flexGrow: 1, minHeight: TvLayout.minFocusTarget },
+  qrSheet: { alignItems: "center", gap: Spacing.three },
+  qrHint: { textAlign: "center" },
   note: { fontStyle: "italic" },
   footer: {
     borderTopWidth: StyleSheet.hairlineWidth,
@@ -153,3 +212,6 @@ const styles = StyleSheet.create({
   },
   footerText: { textAlign: "center" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/credits");

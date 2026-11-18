@@ -9,56 +9,56 @@ are omitted — see [`TV.md`](./TV.md).
 
 ## Architecture
 
-| Layer | Path | Role |
-|-------|------|------|
-| Quick actions registry | `src/lib/appSurfaces/quickActions/` | Icon long-press shortcuts (NF-1.30) |
-| Intent registry | `src/lib/appSurfaces/intents/registry.ts` | Siri / Assistant phrase catalog (NF-2.15) |
-| Widget snapshot | `src/lib/appSurfaces/widgets/buildWidgetSnapshot.ts` | Localized schedule + status JSON |
-| Shared storage | `src/lib/appSurfaces/widgets/snapshotStorage.ts` | AsyncStorage + iOS App Group |
-| External commands | `src/lib/external-commands/` | Mark-prayed queue + JS executor |
-| Native command module | `modules/munib-external-commands/` | App Group queue, WatchConnectivity snapshot push, Wear snapshot push |
-| Wear listener | `modules/munib-wear/` | Wear OS message → command queue |
-| iOS WidgetKit | `targets/munib-tracker-widgets/` | Home + lock-screen widgets + Live Activity UI |
-| iOS App Intents | `targets/munib-tracker-intents/` | Siri background mark + navigation (NF-2.15) |
-| Apple Watch | `targets/munib-tracker-watch/` | SwiftUI schedule + mark (NF-2.14) |
-| Watch complications | `targets/munib-tracker-watch-widgets/` | WidgetKit face complications (NF-2.14) |
-| Live Activity control | `modules/munib-live-activity/` | ActivityKit start/update/end |
-| Config plugins | `plugins/homeScreenSurfaces.cjs`, `withExternalCommands.cjs`, `withWearOs.cjs` | Native project wiring |
-| Hooks | `use-app-quick-actions.ts`, `use-widget-snapshot-sync.ts`, `use-external-command-processor.ts` | Sync + drain loops |
+| Layer                  | Path                                                                                           | Role                                                                 |
+| ---------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Quick actions registry | `src/lib/appSurfaces/quickActions/`                                                            | Icon long-press shortcuts (NF-1.30)                                  |
+| Intent registry        | `src/lib/appSurfaces/intents/registry.ts`                                                      | Siri / Assistant phrase catalog (NF-2.15)                            |
+| Widget snapshot        | `src/lib/appSurfaces/widgets/buildWidgetSnapshot.ts`                                           | Localized schedule + status JSON                                     |
+| Shared storage         | `src/lib/appSurfaces/widgets/snapshotStorage.ts`                                               | AsyncStorage + iOS App Group                                         |
+| External commands      | `src/lib/external-commands/`                                                                   | Mark-prayed queue + JS executor                                      |
+| Native command module  | `modules/munib-external-commands/`                                                             | App Group queue, WatchConnectivity snapshot push, Wear snapshot push |
+| Wear listener          | `modules/munib-wear/`                                                                          | Wear OS message → command queue                                      |
+| iOS WidgetKit          | `targets/munib-tracker-widgets/`                                                               | Home + lock-screen widgets + Live Activity UI                        |
+| iOS App Intents        | `targets/munib-tracker-intents/`                                                               | Siri background mark + navigation (NF-2.15)                          |
+| Apple Watch            | `targets/munib-tracker-watch/`                                                                 | SwiftUI schedule + mark (NF-2.14)                                    |
+| Watch complications    | `targets/munib-tracker-watch-widgets/`                                                         | WidgetKit face complications (NF-2.14)                               |
+| Live Activity control  | `modules/munib-live-activity/`                                                                 | ActivityKit start/update/end                                         |
+| Config plugins         | `plugins/homeScreenSurfaces.cjs`, `withExternalCommands.cjs`, `withWearOs.cjs`                 | Native project wiring                                                |
+| Hooks                  | `use-app-quick-actions.ts`, `use-widget-snapshot-sync.ts`, `use-external-command-processor.ts` | Sync + drain loops                                                   |
 
 **App Group:** `group.app.munibtracker.widgets`
 
-| Key | Purpose |
-|-----|---------|
-| `widget_snapshot_v1` | Widget / watch read model |
+| Key                   | Purpose                                                    |
+| --------------------- | ---------------------------------------------------------- |
+| `widget_snapshot_v1`  | Widget / watch read model                                  |
 | `pending_commands_v1` | Siri / watch / wear / assistant / **widget** mark commands |
 
 ## Widgets (NF-1.18)
 
-| Widget | iOS families | Android cell | Shows |
-|--------|-------------|--------------|-------|
-| **Next Salah** | small, medium, lock-screen accessory | 4×2 | Next Salah name, time, live countdown |
-| **Schedule** | small, medium, large, lock-screen | 4×4 | Today's five obligatory times (status dots + labels) |
-| **Progress** | small, medium, lock-screen circular/rectangular | 2×2 | Fard progress (e.g. 3/5) + bar + Mark |
-| **Salah streak** | small, medium, lock-screen | 2×2 | Current obligatory streak |
-| **Qaza** | small, medium, lock-screen | 4×2 | Remaining debt + today's make-up progress |
-| **Ramadan** | small, medium, lock-screen | 4×2 | Suhoor / iftar + live countdown |
-| **Khatm** | small, medium, lock-screen | 4×2 | Reading-plan % and today's quota |
-| **Daily hadith** | small, medium, large, lock-screen | 4×2 | Today's Nawawi hadith (localized meaning) |
-| **Islamic date** | small, medium, lock-screen | 2×2 | Hijri + Gregorian |
-| **Qibla** | small, medium, lock-screen | 2×2 | Static bearing toward the Kaaba |
-| **Tasbeeh glance** | small, lock-screen accessory | 2×2 | Today's custom tasbeeh count/target (most recently updated counter) |
-| **Jumu'ah** | small, medium, lock-screen | 4×2 (default) / 2×2 (small) | Friday checklist progress on Fridays, else countdown in days |
+| Widget             | iOS families                                    | Android cell                | Shows                                                               |
+| ------------------ | ----------------------------------------------- | --------------------------- | ------------------------------------------------------------------- |
+| **Next Salah**     | small, medium, lock-screen accessory            | 4×2                         | Next Salah name, time, live countdown                               |
+| **Schedule**       | small, medium, large, lock-screen               | 4×4                         | Today's five obligatory times (status dots + labels)                |
+| **Progress**       | small, medium, lock-screen circular/rectangular | 2×2                         | Fard progress (e.g. 3/5) + bar + Mark                               |
+| **Salah streak**   | small, medium, lock-screen                      | 2×2                         | Current obligatory streak                                           |
+| **Qaza**           | small, medium, lock-screen                      | 4×2                         | Remaining debt + today's make-up progress                           |
+| **Ramadan**        | small, medium, lock-screen                      | 4×2                         | Suhoor / iftar + live countdown                                     |
+| **Khatm**          | small, medium, lock-screen                      | 4×2                         | Reading-plan % and today's quota                                    |
+| **Daily hadith**   | small, medium, large, lock-screen               | 4×2                         | Today's Nawawi hadith (localized meaning)                           |
+| **Islamic date**   | small, medium, lock-screen                      | 2×2                         | Hijri + Gregorian                                                   |
+| **Qibla**          | small, medium, lock-screen                      | 2×2                         | Static bearing toward the Kaaba                                     |
+| **Tasbeeh glance** | small, lock-screen accessory                    | 2×2                         | Today's custom tasbeeh count/target (most recently updated counter) |
+| **Jumu'ah**        | small, medium, lock-screen                      | 4×2 (default) / 2×2 (small) | Friday checklist progress on Fridays, else countdown in days        |
 
 ### Content budgets (Apple HIG / Android sizing)
 
-| Size | Budget |
-|------|--------|
-| Small / 2×2 | One hero metric + one secondary line; no footer/CTA chrome |
-| Medium / 4×2 | Hero + 1–2 supporting facts (following Salah, suhoor+iftar) |
-| Large / 4×4 | Full schedule (5 rows) or denser hadith; optional `updatedAgo` |
-| Accessory circular | Gauge + short label |
-| Accessory rectangular / inline | Line + detail only |
+| Size                           | Budget                                                         |
+| ------------------------------ | -------------------------------------------------------------- |
+| Small / 2×2                    | One hero metric + one secondary line; no footer/CTA chrome     |
+| Medium / 4×2                   | Hero + 1–2 supporting facts (following Salah, suhoor+iftar)    |
+| Large / 4×4                    | Full schedule (5 rows) or denser hadith; optional `updatedAgo` |
+| Accessory circular             | Gauge + short label                                            |
+| Accessory rectangular / inline | Line + detail only                                             |
 
 ### Snapshot & relevance
 
@@ -79,18 +79,17 @@ Snapshot fields are fully localized via the app `locale` (and hadith meaning via
 
 **Native rebuild required** after Swift / Expo plugin / preview asset changes (`pnpm prebuild:app:ios` / `prebuild:app:android`).
 
-
 ## Live Activities (NF-1.19)
 
 Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Notifications → Live Activity**.
 
-| Layer | Path |
-|-------|------|
+| Layer             | Path                                                                                                                                                              |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Shared attributes | `modules/munib-live-activity/ios/PrayerActivityAttributes.swift` **and** `targets/munib-tracker-widgets/PrayerActivityAttributes.swift` (byte-for-byte identical) |
-| Native control | `modules/munib-live-activity/ios/MunibLiveActivityModule.swift` |
-| SwiftUI UI | `targets/munib-tracker-widgets/PrayerLiveActivity.swift` |
-| JS bridge | `src/lib/live-activity/` — `syncLiveActivity()` after each widget snapshot write |
-| Preference | `UserPreferences.liveActivityEnabled` (default off) |
+| Native control    | `modules/munib-live-activity/ios/MunibLiveActivityModule.swift`                                                                                                   |
+| SwiftUI UI        | `targets/munib-tracker-widgets/PrayerLiveActivity.swift`                                                                                                          |
+| JS bridge         | `src/lib/live-activity/` — `syncLiveActivity()` after each widget snapshot write                                                                                  |
+| Preference        | `UserPreferences.liveActivityEnabled` (default off)                                                                                                               |
 
 **Flow:** snapshot refresh → `syncLiveActivity()` starts/updates/ends activity. Upcoming `staleDate` is ~2 minutes after adhan (not the countdown end) so the banner does not go stale at 00:00 before the QStash/APNs mark-Salah push; views use `Text(timerInterval:)` for ticking countdown while in the **upcoming** phase.
 
@@ -112,11 +111,11 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 ## Siri & Assistant (NF-2.15)
 
-| Intent | Behavior |
-|--------|----------|
-| Mark my Salah | Background — enqueues `mark-current-obligatory`, no UI |
-| Mark a Salah (parameterized `SalahOption` AppEnum) | Background — enqueues `mark-prayer` for Fajr/Dhuhr/Asr/Maghrib/Isha |
-| Open checklist / Qibla / Tasbeeh / Qur'an / Ramadan / Khatm / Qaza | Foreground — opens `munib-tracker://` route |
+| Intent                                                             | Behavior                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| Mark my Salah                                                      | Background — enqueues `mark-current-obligatory`, no UI              |
+| Mark a Salah (parameterized `SalahOption` AppEnum)                 | Background — enqueues `mark-prayer` for Fajr/Dhuhr/Asr/Maghrib/Isha |
+| Open checklist / Qibla / Tasbeeh / Qur'an / Ramadan / Khatm / Qaza | Foreground — opens `munib-tracker://` route                         |
 
 - iOS: `targets/munib-tracker-intents/_shared/MunibAppIntents.swift` — compiled into **both** the main app target and the `MunibTrackerIntents` App Intents extension (Apple requires the `AppShortcutsProvider` + its intents in the main app target; extension-only intents fail in Shortcuts with "internal error"). Foreground (`openAppWhenRun: true`) intents and the provider are app-only via the `MUNIB_INTENTS_EXTENSION` compile condition (`plugins/withAppIntentsExtensionDefine.cjs`); background mark intents also run in the extension so Siri doesn't launch the app.
 - Queue writes post a Darwin notification (`app.munibtracker.commands.changed`) → `MunibExternalCommandsModule` emits `onCommandsAvailable` → a running app instance drains immediately (Siri, widget button, watch marks apply without waiting for the next foreground).
@@ -127,9 +126,9 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 **Play Console (App Actions uploads):** set Privacy policy to `https://munibtracker.app/privacy`, then **Setup → Advanced settings → App Actions → accept Terms of Service**.
 
-**Force-quit limitation:** if the app process is killed, Siri/Assistant/widget/watch/Wear marks still enqueue into `pending_commands_v1`; the drain (`ExternalCommandProcessor`) only runs once the app is relaunched or foregrounded, so the visible mark (checklist tick, streak, widget refresh) is delayed until then — the queued command itself is never lost. Surfaced to users in **Settings → Siri & voice shortcuts** (`externalCommands.siriHint` / `assistantHint`).
+**Force-quit limitation:** if the app process is killed, Siri/Assistant/widget/Wear marks still enqueue into `pending_commands_v1` (Apple Watch marks wait in the system `transferUserInfo` queue and are enqueued once the phone app runs); the drain (`ExternalCommandProcessor`) only runs once the app is relaunched or foregrounded, so the visible mark (checklist tick, streak, widget refresh) is delayed until then — the queued command itself is never lost. Surfaced to users in **Settings → Siri & voice shortcuts** (`externalCommands.siriHint` / `assistantHint`).
 
-**Mark my Salah (quick action / deep link):** only completes the *current window* obligatory Salah (never cascades to the next pending). Icon quick-action cold-start is handled once per launch so remounts cannot re-open `/mark-current` and mark again. Duplicate `mark-current-obligatory` entries in one drain pass are coalesced.
+**Mark my Salah (quick action / deep link):** only completes the _current window_ obligatory Salah (never cascades to the next pending). Icon quick-action cold-start is handled once per launch so remounts cannot re-open `/mark-current` and mark again. Duplicate `mark-current-obligatory` entries in one drain pass are coalesced.
 
 ## Apple Watch (NF-2.14)
 
@@ -137,23 +136,24 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 - Target: `targets/munib-tracker-watch/` (`type: "watch"`, watchOS 10+)
 - Reads `widget_snapshot_v1` from App Group (same schema as WidgetKit)
-- Marks via App Group command queue + WatchConnectivity nudge to phone
+- Marks reach the phone over WatchConnectivity only (the watch's App Group is on the watch): `sendMessage` when the phone is reachable, falling back to queued `transferUserInfo` when it isn't (or the live send fails). The phone bridge (`MunibExternalCommandsModule`) handles both `didReceiveMessage` variants and `didReceiveUserInfo`, enqueueing into `pending_commands_v1`
 - Requires paired iPhone with Munib Tracker installed
 - Phone pushes `widget_snapshot_v1` over WatchConnectivity (`updateApplicationContext` + complication userInfo) so the face stays fresh
 - **Tasbeeh (watch-local):** `WatchTasbeehView.swift` — a NavigationLink from the root list opens a self-contained `@State` counter (33 / 99 / 100 / unlimited via segmented picker). Tap or Digital Crown rotation (`digitalCrownRotation`) increments; haptics (`WKInterfaceDevice.current().play`) on tap/target-reached/reset. **No ExternalCommand, no WatchConnectivity** — purely local to the watch, independent of the phone counter.
+
 ### Face complications (WidgetKit)
 
 - Target: `targets/munib-tracker-watch-widgets/` (`type: "watch-widget"`) — embedded into the watch app at prebuild
 - Same App Group snapshot as phone widgets / Watch app
 - Families: **circular**, **corner** (`accessoryCorner` + `widgetLabel` gauge), **inline**, **rectangular** (Smart Stack–eligible)
 - Complications:
-  | Kind | Families | Glance |
-  |------|----------|--------|
-  | Next Salah | circular, corner, inline, rectangular | Name, time, countdown / urgency gauge |
-  | Schedule | rectangular, inline | Next 2–3 obligatory times + status |
-  | Progress | circular, corner, inline, rectangular | Closed ring for fard `n/5` |
-  | Salah streak | circular, corner, inline, rectangular | Flame glyph + current streak days |
-  | Qaza | circular, corner, inline, rectangular | Remaining debt + today's make-up gauge |
+  | Kind                     | Families                              | Glance                                    |
+  | ------------------------ | ------------------------------------- | ----------------------------------------- |
+  | Next Salah               | circular, corner, inline, rectangular | Name, time, countdown / urgency gauge     |
+  | Schedule                 | rectangular, inline                   | Next 2–3 obligatory times + status        |
+  | Progress                 | circular, corner, inline, rectangular | Closed ring for fard `n/5`                |
+  | Salah streak             | circular, corner, inline, rectangular | Flame glyph + current streak days         |
+  | Qaza                     | circular, corner, inline, rectangular | Remaining debt + today's make-up gauge    |
   | Suhoor & Iftar (Ramadan) | circular, corner, inline, rectangular | Suhoor/iftar times + live countdown gauge |
 - Timeline reloads at next Salah boundary (and ~15 min pre-Adhan when the wait is longer)
 - Always-On: dimmed luminance reduces countdown / location; location uses `privacySensitive`
@@ -161,6 +161,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 - Streak/Qaza read `WidgetSnapshotPayload.streak` / `.qaza` (unaffected by location denial); Ramadan follows the same location-denied + `isRamadan` gating as the phone widget
 
 **Design notes (Apple HIG):** complications show dynamic Salah data on raise-wrist — the companion list is for marking. Prefer WidgetKit over ClockKit (`watchOS 9+`).
+
 ## Wear OS (NF-2.14)
 
 - Phone pushes snapshot via Wearable Data Layer (`pushWearSnapshot` in `munib-external-commands`)
@@ -169,6 +170,17 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 - **Tasbeeh tile** (`MunibWearTasbeehTileService`): second, independent tile — a watch-local dhikr counter stored in `SharedPreferences` (`munib_wear_tasbeeh`). Tap increments (capped at target when set); a Reset row zeroes the count. **Never talks to the phone** — no Data Layer / message client calls.
 - Phone `MunibWearListenerService` broadcasts `app.munibtracker.action.MARK_CURRENT` with `source=wear` → shared command queue + JS drain
 - Requires Google Play Services + paired watch
+- **Application ID:** the Wear app uses the phone's `app.munibtracker` (namespace `app.munibtracker.wear`) and the same signing key — the Wearable Data Layer only connects apps that share both. (Before Expo SDK 58 it generated `app.munibtracker.wear`, which could never reach the phone.) Version code: `EXPO_WEAR_VERSION_CODE` in `apps/app/.env`.
+- **Release:** `pnpm release:app:wear` (Gradle `:wear:bundleRelease`, phone prebuild) → `pnpm release:app:wear:upload` (Play `wear:internal` track). Enable the Wear OS form factor in Play Console first.
+
+## iOS scene life cycle (Expo SDK 58)
+
+Expo SDK 58 builds against the iOS 27 SDK, which requires the UIKit scene life cycle. Prebuild generates `SceneDelegate.swift` (`ExpoAppSceneDelegate`) and `UIApplicationSceneManifest`; Expo forwards URL opens, user activities (universal links, Handoff), quick actions and foreground/background events to `ExpoAppDelegate` subscribers.
+
+- **Quick actions:** `expo-quick-actions@6.0.2` only read cold-start shortcuts from `launchOptions`, which is empty under scenes. `patches/expo-quick-actions@6.0.2.patch` also records a shortcut forwarded through `performActionFor` before JS reads the `initial` constant, so cold-start shortcuts still route.
+- **Local modules** don't touch `AppDelegate`, `UIScreen.main` or `keyWindow`; external commands travel through the App Group queue + Darwin notification, so they are unaffected.
+- **Lifecycle hooks:** local Swift modules use the `didCreate` / `willDestroy` / `didStartListening(event:)` / `didStopListening(event:)` overrides (the `OnCreate` / `OnStartObserving`… DSL components are deprecated in SDK 58).
+- **QA:** cold and warm start from every widget family, the Live Activity / Dynamic Island, each App Intent, quick actions, universal links and OAuth redirects — each must arrive exactly once.
 
 ## Build requirements
 
@@ -184,26 +196,26 @@ Set `EXPO_APPLE_TEAM_ID` for iOS extensions. App Group: `group.app.munibtracker.
 
 ## Manual QA matrix
 
-| Surface | Check |
-|---------|-------|
-| Widgets | Next prayer correct; tap opens app; location-denied CTA |
-| Tasbeeh glance widget | Shows today's most recently updated counter; blank state opens `/tasbeeh/free` when nothing logged today |
-| Jumu'ah widget | Checklist progress on Friday; day countdown other days; tap opens `/friday` |
-| Live Activity | Phase UI (upcoming / Mark / after-Salah); Prepare or Mark or adhkar deep link; toggle off ends activity; closed-app phase changes via ActivityKit push when configured ([`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md)) |
-| Live Activity discovery banner | Shows once when supported + toggle off; Turn on enables + dismisses; X dismisses without enabling; never reappears after either |
-| Android ongoing / Live Update | Ambient sticky when toggle on; Track this Salah promotes ProgressStyle + chip on API 36+; multi-boundary alarms; Stop/Unpin persists dismissal; Expo surface-push correction |
-| Web Push phases | Track this Salah schedules ~48h replaceable phase notifications via VAPID + QStash ([`WEB_PUSH.md`](./WEB_PUSH.md)) |
-| Device QA (Android Live Update) | API 24–35 sticky fallback; API 36 ProgressStyle; API 36.1 chip/lock; notifications/promoted disabled; process killed; offline boundaries; Expo Push delayed; at least one Samsung OEM |
-| Device QA (Web Push) | Closed-browser Chromium / Firefox / macOS Safari / Android Chrome / installed iOS PWA 16.4+ |
-| Prayer-time notification | Mark prayed + Snooze (10 min) on fard prayer-time reminders only |
-| Icon shortcuts | Long-press opens route from killed state |
-| Siri mark | Background mark without UI; excused day dialog; pin lock defer |
-| Assistant mark | Background enqueue on Android |
-| Apple Watch | Schedule from snapshot; row tap marks on phone; face complications show next/progress |
-| Watch Tasbeeh | Tap and Digital Crown both increment; haptic on tap/target-reached/reset; mode switch resets count; no phone interaction |
-| Watch face edit | Next Salah / Schedule / Progress / Salah streak / Qaza / Suhoor & Iftar appear in complication picker for circular, corner, inline, rectangular |
-| Wear tile | Shows next prayer after phone sync; tap marks on phone |
-| Wear Tasbeeh tile | Second tile; tap increments locally; Reset row zeroes count; survives phone being unreachable |
+| Surface                         | Check                                                                                                                                                                                                                       |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Widgets                         | Next prayer correct; tap opens app; location-denied CTA                                                                                                                                                                     |
+| Tasbeeh glance widget           | Shows today's most recently updated counter; blank state opens `/tasbeeh/free` when nothing logged today                                                                                                                    |
+| Jumu'ah widget                  | Checklist progress on Friday; day countdown other days; tap opens `/friday`                                                                                                                                                 |
+| Live Activity                   | Phase UI (upcoming / Mark / after-Salah); Prepare or Mark or adhkar deep link; toggle off ends activity; closed-app phase changes via ActivityKit push when configured ([`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md)) |
+| Live Activity discovery banner  | Shows once when supported + toggle off; Turn on enables + dismisses; X dismisses without enabling; never reappears after either                                                                                             |
+| Android ongoing / Live Update   | Ambient sticky when toggle on; Track this Salah promotes ProgressStyle + chip on API 36+; multi-boundary alarms; Stop/Unpin persists dismissal; Expo surface-push correction                                                |
+| Web Push phases                 | Track this Salah schedules ~48h replaceable phase notifications via VAPID + QStash ([`WEB_PUSH.md`](./WEB_PUSH.md))                                                                                                         |
+| Device QA (Android Live Update) | API 24–35 sticky fallback; API 36 ProgressStyle; API 36.1 chip/lock; notifications/promoted disabled; process killed; offline boundaries; Expo Push delayed; at least one Samsung OEM                                       |
+| Device QA (Web Push)            | Closed-browser Chromium / Firefox / macOS Safari / Android Chrome / installed iOS PWA 16.4+                                                                                                                                 |
+| Prayer-time notification        | Mark prayed + Snooze (10 min) on fard prayer-time reminders only                                                                                                                                                            |
+| Icon shortcuts                  | Long-press opens route from killed state                                                                                                                                                                                    |
+| Siri mark                       | Background mark without UI; excused day dialog; pin lock defer                                                                                                                                                              |
+| Assistant mark                  | Background enqueue on Android                                                                                                                                                                                               |
+| Apple Watch                     | Schedule from snapshot; row tap marks on phone; face complications show next/progress                                                                                                                                       |
+| Watch Tasbeeh                   | Tap and Digital Crown both increment; haptic on tap/target-reached/reset; mode switch resets count; no phone interaction                                                                                                    |
+| Watch face edit                 | Next Salah / Schedule / Progress / Salah streak / Qaza / Suhoor & Iftar appear in complication picker for circular, corner, inline, rectangular                                                                             |
+| Wear tile                       | Shows next prayer after phone sync; tap marks on phone                                                                                                                                                                      |
+| Wear Tasbeeh tile               | Second tile; tap increments locally; Reset row zeroes count; survives phone being unreachable                                                                                                                               |
 
 ## Related
 

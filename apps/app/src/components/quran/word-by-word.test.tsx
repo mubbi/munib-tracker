@@ -1,5 +1,5 @@
 import type { QuranWord } from "@munib-tracker/shared/types";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react-native";
+import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 import type { ReactNode } from "react";
 import { Text } from "react-native";
 
@@ -8,8 +8,8 @@ import {
   useQuranPlayback,
   WordByWord,
 } from "@/components/quran/word-by-word";
-import { isTV } from "@/lib/platform/is-tv";
-import { MunibThemeProvider } from "@/providers/theme-provider";
+import { setPlatform } from "@/test-support/platform";
+import { renderWithTheme } from "@/test-support/render";
 
 const mockPlayer = {
   pause: jest.fn(),
@@ -25,12 +25,6 @@ jest.mock("expo-audio", () => ({
 jest.mock("expo-symbols", () => ({
   SymbolView: "SymbolView",
 }));
-
-jest.mock("@/lib/platform/is-tv", () => ({
-  isTV: jest.fn(() => false),
-}));
-
-const isTVMock = isTV as jest.MockedFunction<typeof isTV>;
 
 const wordsByAyah: Record<string, QuranWord[]> = {
   "1": [
@@ -54,7 +48,7 @@ function PlaybackProbe() {
   return <Text testID="playback">{`${ayah}:${isPlaying}`}</Text>;
 }
 
-function renderStudy(
+async function renderStudy(
   child: ReactNode,
   providers: {
     wordAudioEnabled?: boolean;
@@ -64,42 +58,42 @@ function renderStudy(
     wordsByAyah?: Record<string, QuranWord[]>;
   } = {},
 ) {
-  return render(
-    <MunibThemeProvider>
-      <QuranWordStudyProviders
-        wordAudioEnabled={providers.wordAudioEnabled ?? false}
-        playingAyah={providers.playingAyah ?? null}
-        audioIsPlaying={providers.audioIsPlaying}
-        activeWordIndex={providers.activeWordIndex ?? null}
-        wordsByAyah={providers.wordsByAyah}
-      >
-        {child}
-      </QuranWordStudyProviders>
-    </MunibThemeProvider>,
+  return await renderWithTheme(
+    <QuranWordStudyProviders
+      wordAudioEnabled={providers.wordAudioEnabled ?? false}
+      playingAyah={providers.playingAyah ?? null}
+      audioIsPlaying={providers.audioIsPlaying}
+      activeWordIndex={providers.activeWordIndex ?? null}
+      wordsByAyah={providers.wordsByAyah}
+    >
+      {child}
+    </QuranWordStudyProviders>,
   );
 }
 
 describe("WordByWord", () => {
   beforeEach(() => {
-    isTVMock.mockReturnValue(false);
     mockPlayer.pause.mockReset();
     mockPlayer.play.mockReset();
     mockPlayer.seekTo.mockReset();
     mockPlayer.replace.mockReset().mockResolvedValue(undefined);
   });
 
-  it("renders words from study context without a words prop", () => {
-    renderStudy(<WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />, {
-      wordsByAyah,
-    });
+  it("renders words from study context without a words prop", async () => {
+    await renderStudy(
+      <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />,
+      {
+        wordsByAyah,
+      },
+    );
 
     expect(screen.getByText("بِسْمِ")).toBeTruthy();
     expect(screen.getByText("bismi")).toBeTruthy();
     expect(screen.getByText("In the name")).toBeTruthy();
   });
 
-  it("prefers an explicit words prop over the study context map", () => {
-    renderStudy(
+  it("prefers an explicit words prop over the study context map", async () => {
+    await renderStudy(
       <WordByWord
         ayahNumber={1}
         words={[
@@ -120,16 +114,19 @@ describe("WordByWord", () => {
     expect(screen.queryByText("بِسْمِ")).toBeNull();
   });
 
-  it("renders nothing when the ayah has no words", () => {
-    renderStudy(<WordByWord ayahNumber={99} arabicSize={22} translitSize={14} glossSize={13} />, {
-      wordsByAyah,
-    });
+  it("renders nothing when the ayah has no words", async () => {
+    await renderStudy(
+      <WordByWord ayahNumber={99} arabicSize={22} translitSize={14} glossSize={13} />,
+      {
+        wordsByAyah,
+      },
+    );
 
     expect(screen.queryByText("Word by word")).toBeNull();
   });
 
-  it("omits transliteration and gloss when they are empty", () => {
-    renderStudy(
+  it("omits transliteration and gloss when they are empty", async () => {
+    await renderStudy(
       <WordByWord
         ayahNumber={1}
         words={[{ arabic: "بِسْمِ", translit: "", gloss: "" }]}
@@ -144,8 +141,8 @@ describe("WordByWord", () => {
     expect(screen.queryByText("In the name")).toBeNull();
   });
 
-  it("exposes recitation playback from context", () => {
-    renderStudy(<PlaybackProbe />, {
+  it("exposes recitation playback from context", async () => {
+    await renderStudy(<PlaybackProbe />, {
       playingAyah: 4,
       audioIsPlaying: true,
       activeWordIndex: 1,
@@ -154,19 +151,22 @@ describe("WordByWord", () => {
     expect(screen.getByTestId("playback").props.children).toBe("4:true");
   });
 
-  it("defaults playback to idle when audioIsPlaying is omitted", () => {
-    renderStudy(<PlaybackProbe />, { playingAyah: 2, activeWordIndex: 0 });
+  it("defaults playback to idle when audioIsPlaying is omitted", async () => {
+    await renderStudy(<PlaybackProbe />, { playingAyah: 2, activeWordIndex: 0 });
 
     expect(screen.getByTestId("playback").props.children).toBe("2:false");
   });
 
   it("plays a word, replays the same uri, then loads a different uri", async () => {
-    renderStudy(<WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />, {
-      wordAudioEnabled: true,
-      wordsByAyah,
-    });
+    await renderStudy(
+      <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />,
+      {
+        wordAudioEnabled: true,
+        wordsByAyah,
+      },
+    );
 
-    fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
+    await fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
     await waitFor(() => {
       expect(mockPlayer.replace).toHaveBeenCalledWith({ uri: "https://example.com/1.mp3" });
     });
@@ -174,7 +174,7 @@ describe("WordByWord", () => {
 
     mockPlayer.replace.mockClear();
     mockPlayer.play.mockClear();
-    fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
+    await fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
     await waitFor(() => {
       expect(mockPlayer.seekTo).toHaveBeenCalledWith(0);
     });
@@ -182,15 +182,15 @@ describe("WordByWord", () => {
     expect(mockPlayer.replace).not.toHaveBeenCalled();
 
     mockPlayer.play.mockClear();
-    fireEvent.press(screen.getByLabelText("اللَّهِ. allahi. of Allah"));
+    await fireEvent.press(screen.getByLabelText("اللَّهِ. allahi. of Allah"));
     await waitFor(() => {
       expect(mockPlayer.replace).toHaveBeenCalledWith({ uri: "https://example.com/2.mp3" });
     });
     expect(mockPlayer.play).toHaveBeenCalled();
   });
 
-  it("does not play a word without audio", () => {
-    renderStudy(
+  it("does not play a word without audio", async () => {
+    await renderStudy(
       <WordByWord
         ayahNumber={1}
         words={[{ arabic: "بِسْمِ", translit: "bismi", gloss: "In the name" }]}
@@ -201,17 +201,20 @@ describe("WordByWord", () => {
       { wordAudioEnabled: true },
     );
 
-    fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
+    await fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
     expect(mockPlayer.replace).not.toHaveBeenCalled();
     expect(mockPlayer.play).not.toHaveBeenCalled();
   });
 
   it("marks a tapped word even when shared word audio is disabled", async () => {
-    renderStudy(<WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />, {
-      wordsByAyah,
-    });
+    await renderStudy(
+      <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />,
+      {
+        wordsByAyah,
+      },
+    );
 
-    fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
+    await fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
     await waitFor(() => {
       expect(screen.getByText("بِسْمِ")).toBeTruthy();
     });
@@ -219,34 +222,32 @@ describe("WordByWord", () => {
   });
 
   it("clears a tap highlight once recitation starts progressing", async () => {
-    const { rerender } = renderStudy(
+    const { rerender } = await renderStudy(
       <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />,
       { wordAudioEnabled: true, playingAyah: 1, wordsByAyah },
     );
 
-    fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
+    await fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
     await waitFor(() => {
       expect(mockPlayer.replace).toHaveBeenCalled();
     });
 
-    rerender(
-      <MunibThemeProvider>
-        <QuranWordStudyProviders
-          wordAudioEnabled
-          playingAyah={1}
-          activeWordIndex={0}
-          wordsByAyah={wordsByAyah}
-        >
-          <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />
-        </QuranWordStudyProviders>
-      </MunibThemeProvider>,
+    await rerender(
+      <QuranWordStudyProviders
+        wordAudioEnabled
+        playingAyah={1}
+        activeWordIndex={0}
+        wordsByAyah={wordsByAyah}
+      >
+        <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />
+      </QuranWordStudyProviders>,
     );
 
     expect(screen.getByText("بِسْمِ")).toBeTruthy();
   });
 
-  it("pauses the shared player on unmount and ignores pause failures", () => {
-    const { unmount } = renderStudy(
+  it("pauses the shared player on unmount and ignores pause failures", async () => {
+    const { unmount } = await renderStudy(
       <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />,
       { wordAudioEnabled: true, wordsByAyah },
     );
@@ -254,36 +255,46 @@ describe("WordByWord", () => {
     mockPlayer.pause.mockImplementationOnce(() => {
       throw new Error("already released");
     });
-    expect(() => unmount()).not.toThrow();
+    await expect(unmount()).resolves.toBeUndefined();
     expect(mockPlayer.pause).toHaveBeenCalled();
   });
 
   it("resets playback state when replace fails so the next tap can retry", async () => {
     mockPlayer.replace.mockRejectedValueOnce(new Error("network"));
-    renderStudy(<WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />, {
-      wordAudioEnabled: true,
-      wordsByAyah,
-    });
+    await renderStudy(
+      <WordByWord ayahNumber={1} arabicSize={22} translitSize={14} glossSize={13} />,
+      {
+        wordAudioEnabled: true,
+        wordsByAyah,
+      },
+    );
 
-    fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
+    await fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
     await waitFor(() => {
       expect(mockPlayer.replace).toHaveBeenCalledTimes(1);
     });
 
     mockPlayer.replace.mockResolvedValue(undefined);
-    fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
+    await fireEvent.press(screen.getByLabelText("بِسْمِ. bismi. In the name"));
     await waitFor(() => {
       expect(mockPlayer.replace).toHaveBeenCalledTimes(2);
     });
   });
 
-  it("uses TV tile sizes when running on television", () => {
-    isTVMock.mockReturnValue(true);
-    renderStudy(<WordByWord ayahNumber={1} arabicSize={28} translitSize={16} glossSize={15} />, {
-      wordsByAyah,
-    });
+  it("uses TV tile sizes when running on television", async () => {
+    const restorePlatform = setPlatform({ isTV: true });
+    try {
+      await renderStudy(
+        <WordByWord ayahNumber={1} arabicSize={28} translitSize={16} glossSize={15} />,
+        {
+          wordsByAyah,
+        },
+      );
 
-    expect(screen.getByText("بِسْمِ")).toBeTruthy();
-    expect(screen.getByText("Word by word")).toBeTruthy();
+      expect(screen.getByText("بِسْمِ")).toBeTruthy();
+      expect(screen.getByText("Word by word")).toBeTruthy();
+    } finally {
+      restorePlatform();
+    }
   });
 });

@@ -5,8 +5,10 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 
 type StepperProps = {
   value: number;
@@ -38,8 +40,10 @@ export function Stepper({
 }: StepperProps) {
   const { colors } = useThemeTokens();
   const { t } = useTranslation();
-  const dim = size === "sm" ? 30 : 40;
-  const iconSize = size === "sm" ? 16 : 18;
+  const tv = isTV();
+  // TV: 56dp D-pad targets regardless of size (phone sizes are 30/40).
+  const dim = tv ? tvDp(56) : size === "sm" ? 30 : 40;
+  const iconSize = tv ? 22 : size === "sm" ? 16 : 18;
 
   return (
     <View style={styles.row}>
@@ -65,7 +69,7 @@ export function Stepper({
             triggerHaptic("light");
             onValuePress();
           }}
-          style={[styles.countPressable, { minWidth: dim - 2 }]}
+          style={[styles.countPressable, { minWidth: dim - 2 }, tv && { minHeight: dim }]}
         >
           <ThemedText type="smallBold" style={styles.count}>
             {value}

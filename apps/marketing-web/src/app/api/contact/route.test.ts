@@ -104,4 +104,45 @@ describe("POST /api/contact", () => {
     expect(res.status).toBe(429);
     expect(insertMock).not.toHaveBeenCalled();
   });
+
+  it.each([
+    ["malformed JSON", "{oops", "Invalid JSON"],
+    ["a missing name", { ...validBody, name: "   " }, "Name required"],
+    ["a malformed email", { ...validBody, email: "not-an-email" }, "Valid email required"],
+    ["a missing email", { ...validBody, email: undefined }, "Valid email required"],
+    [
+      "an over-length email",
+      { ...validBody, email: `${"a".repeat(250)}@x.io` },
+      "Valid email required",
+    ],
+    ["a missing message", { ...validBody, message: "" }, "Message required"],
+  ])("rejects %s with 400", async (_label, body, error) => {
+    const res = await POST(makeRequest(body));
+    expect(res.status).toBe(400);
+    await expect(res.json()).resolves.toEqual({ error });
+    expect(insertMock).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    [
+      "the first x-forwarded-for hop",
+      { "x-forwarded-for": "198.51.100.7, 10.0.0.1" },
+      "198.51.100.7",
+    ],
+    ["an empty x-forwarded-for hop", { "x-forwarded-for": " ,10.0.0.1" }, "unknown"],
+    ["x-real-ip", { "x-real-ip": " 192.0.2.4 " }, "192.0.2.4"],
+    ["no IP headers", {}, "unknown"],
+  ])("records the client IP from %s", async (_label, headers, ipAddress) => {
+    const res = await POST(
+      new Request("http://localhost/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...headers },
+        body: JSON.stringify(validBody),
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertMock).toHaveBeenCalledWith(
+      expect.objectContaining({ ipAddress, userAgent: null }),
+    );
+  });
 });

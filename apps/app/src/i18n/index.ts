@@ -130,7 +130,7 @@ export async function changeAppLocale(
     if (retryLocale === code) {
       // reloadAppAsync already ran once and native layout direction is still
       // wrong — proceed with strings so startup cannot brick on the splash screen.
-      await AsyncStorage.multiRemove([PENDING_APP_LOCALE_KEY, RTL_LAYOUT_RETRY_KEY]);
+      await AsyncStorage.removeMany([PENDING_APP_LOCALE_KEY, RTL_LAYOUT_RETRY_KEY]);
       await ensureI18nInit(code);
       await finishLocaleSwitch(code);
       return false;
@@ -151,7 +151,7 @@ export async function changeAppLocale(
     return applyRtlForLocale(code);
   }
 
-  await AsyncStorage.multiRemove([PENDING_APP_LOCALE_KEY, RTL_LAYOUT_RETRY_KEY]);
+  await AsyncStorage.removeMany([PENDING_APP_LOCALE_KEY, RTL_LAYOUT_RETRY_KEY]);
   await ensureI18nInit(code);
   // Apply `document.dir` before `changeLanguage` so any i18n-driven re-render
   // and `isRTL()` (which reads the saved locale) agree on direction.

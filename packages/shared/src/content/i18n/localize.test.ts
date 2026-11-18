@@ -79,3 +79,15 @@ describe("localizeContentList against real aqeedah data", () => {
     expect(localizeContentList(AQEDAH_TOPICS, undefined)).toBe(AQEDAH_TOPICS);
   });
 });
+
+describe("localizeContent passthrough", () => {
+  it.each([
+    ["a number", 42, 7],
+    ["a boolean", true, false],
+    ["an array with an object overlay", ["a"], { 0: "b" }],
+    ["an object with an array overlay", { a: "x" }, ["y"]],
+    ["an object with a string overlay", { a: "x" }, "y"],
+  ])("keeps the base for %s", (_label, base, overlay) => {
+    expect(localizeContent(base, overlay)).toEqual(base);
+  });
+});

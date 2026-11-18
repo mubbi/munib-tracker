@@ -8,13 +8,9 @@
 import type { AppVersionControllerGetVersionMetaPlatform } from './appVersionControllerGetVersionMetaPlatform';
 
 export type AppVersionControllerGetVersionMetaParams = {
-/**
- * Client semver (major.minor.patch)
- */
-version: string;
-platform?: AppVersionControllerGetVersionMetaPlatform;
-/**
- * Pass 1 or true to invalidate cached platform config
- */
-refresh?: string;
+  /** Client semver (major.minor.patch) */
+  version: string;
+  platform?: AppVersionControllerGetVersionMetaPlatform;
+  /** Pass 1 or true to invalidate cached platform config */
+  refresh?: string;
 };

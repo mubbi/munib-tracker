@@ -29,7 +29,8 @@
       "encouragementPerfect": "Sen hem özüňiň ýaly saýgaryp, özüňiň ýaly saýgaryp bilersiň.",
       "encouragementStrong": "Güýçli düşünje. Durnukly etmek üçin ýalňyşlyklary gaýtadan gözden geçiriň.",
       "encouragementSteady": "Gowy ösüş. Indiki okuw maksatlaryňyz hökmünde ýalňyşlyklary ulanyň.",
-      "encouragementKeepGoing": "Her ýalňyşlyk bir sapakdyr. Bellikleri gözden geçiriň, soňra täzeden synanyşyň."
+      "encouragementKeepGoing": "Her ýalňyşlyk bir sapakdyr. Bellikleri gözden geçiriň, soňra täzeden synanyşyň.",
+      "keyboardHint": "Jogap bermek üçin 1–4, dowam etmek üçin Enter basyň."
     },
     "skip": "Geçmek",
     "apply": "Ulgamak",
@@ -86,7 +87,10 @@
     "selectToContinue": "Dowam etmek üçin Saýla basyň",
     "selectToOpen": "Açmak üçin saýlaň",
     "selectToSave": "Ýatda saklamak üçin saýlaň",
-    "selectDay": "Gözden geçirmek üçin gün saýlaň"
+    "selectDay": "Gözden geçirmek üçin gün saýlaň",
+    "newBadge": "Täze",
+    "decreaseByTv": "{{label}} bahasyny {{step}} azalt",
+    "increaseByTv": "{{label}} bahasyny {{step}} artdyr"
   },
   "search": {
     "placeholder": "Qur'an, hadis, dua, Okuw… gözle",
@@ -187,7 +191,8 @@
     "sadaqah": "Sadaqah maksatlar",
     "whiteDays": "Ak günleriň orazy",
     "goodCharacter": "Gowy ahlak",
-    "heavyOnTheScale": "Terezide agyr amallar"
+    "heavyOnTheScale": "Terezide agyr amallar",
+    "quranPractice": "Kuran türgenleşigi"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -477,7 +482,7 @@
       "audio": "Ses"
     },
     "continueAction": {
-      "quran": "Continue reading",
+      "quran": "Okamagy dowam et",
       "hadith": "Hadise dön",
       "dua": "Duayy aç",
       "zikr": "Zikrleri aç",
@@ -713,7 +718,9 @@
           "hint": "Ak günleriň soňkusy"
         }
       }
-    }
+    },
+    "cardTipTv": "Täzelemek üçin namaz saýlaň · Zikir üçin azkar · Jikme-jiklik üçin maglumat",
+    "tapToMarkTv": "Belliklemek üçin saýlaň"
   },
   "update": {
     "title": "Täzelenme elýeterli",
@@ -887,7 +894,8 @@
     "heroSignedIn": "Hoş geldiňiz — hasabyňyz baglandy. Namaz, kaza we zikir enjamlar arasynda sinhronlanyp biler.",
     "continueSignedIn": "Dowam et",
     "or": "ýa-da",
-    "guestHint": "Hasabyňyzy islän wagtyňyz Profil bölüminden baglap bilersiňiz."
+    "guestHint": "Hasabyňyzy islän wagtyňyz Profil bölüminden baglap bilersiňiz.",
+    "guestHintTv": "Telefondan girmek üçin QR kody skanirläň. Ýa-da myhman hökmünde dowam ediň — hasaby islendik wagt telefonda Profil arkaly baglaň."
   },
   "onboarding": {
     "begin": "Başla",
@@ -944,7 +952,8 @@
     "locationHighlight1Tv": "Şäheriňiz üçin takyk namaz wagtlary",
     "locationHighlight2Tv": "Ýerleşişiňizden kybla ugry",
     "locationHighlight3Tv": "Ýatladyjylar telefonda has gowy işleýär",
-    "locationHighlight4Tv": "Şäheri islendik wagt Sazlamalarda üýtgediň"
+    "locationHighlight4Tv": "Şäheri islendik wagt Sazlamalarda üýtgediň",
+    "ctaBodyTv": "Myhman hökmünde başlaň ýa-da telefonyňyz bilen QR kody skanirläp giriň. Bu telewizorda hemme zat oflaýn işleýär."
   },
   "appearance": {
     "eyebrow": "Sazlamalar",
@@ -1199,7 +1208,9 @@
       "a11yStart": "Gulply ekranda indiki namaz yzarlamasyny başlat",
       "a11yStop": "Namaz janly täzelenmeleriniň yzarlamasyny duruz"
     },
-    "tvUnavailableBody": "Ýerli ýatlatmalar we Live Activities telewizorda elýeterli däl. Bildiriş sazlamalaryny telefonyňyzda dolandyryň."
+    "tvUnavailableBody": "Ýerli ýatlatmalar we Live Activities telewizorda elýeterli däl. Bildiriş sazlamalaryny telefonyňyzda dolandyryň.",
+    "preciseAdhan": "Azanyň takyk wagty",
+    "preciseAdhanHint": "Azan batareýany tygşytlamak tertibinde-de dal öz wagtynda okalýar. Android ol okalýança ýagdaý setirinde budilnik nyşanyny görkezýär."
   },
   "fonts": {
     "eyebrow": "Sazlamalar",
@@ -1403,18 +1414,18 @@
     "favEmptyDescTv": "Şu ýerde saklamak üçin islendik atdaky ýyldyzy saýlaň."
   },
   "quran": {
-    "eyebrow": " Noble Guran",
-    "title": "Guran",
-    "subtitle": "Read, listen, ve reflect",
-    "searchSurah": "by name, meaning, or number Gözleg",
-    "filterAll": "Tüm",
-    "continueReading": "Okamagy dowam etdiriň",
-    "continueAt": "Sure {{surah}} · Aýet {{ayah}}",
+    "eyebrow": "Mukaddes Gurhan",
+    "title": "Gurhan",
+    "subtitle": "Okaň, diňläň we oýlanyň",
+    "searchSurah": "Ady, manysy ýa-da belgisi boýunça gözle",
+    "filterAll": "Hemmesi",
+    "continueReading": "Okamagy dowam et",
+    "continueAt": "Süre {{surah}} · Aýat {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
-    "ayahCount": "{{count}} aýet",
-    "surahList": "Sureler",
-    "surahCount": "{{shown}}  {{total}}",
+    "ayahCount": "{{count}} aýat",
+    "surahList": "Süreler",
+    "surahCount": "{{shown}} / {{total}}",
     "reciter": "Okuyucu",
     "translation": "Çeviri",
     "showTransliteration": "transliteration Göster",
@@ -1426,25 +1437,25 @@
     "playPage": "Oynat page",
     "playAyah": "Oynat ayah {{n}}",
     "bookmark": "Yer imi",
-    "bookmarks": "Yer imleri",
-    "viewBookmarks": "bookmarks Görüntüle",
+    "bookmarks": "Bellikler",
+    "viewBookmarks": "Belliklere seret",
     "bookmarksTitle": "Yer imleri",
     "bookmarksSubtitle": "Sizin kaydedildi ayahs",
     "bookmarkEmptyTitle": "Henüz bookmarks yok",
     "bookmarkEmptyDesc": "Dokunun  yer imi icon  any ayah  kaydet it here.",
     "removeBookmark": "bookmark Kaldyr",
-    "juz": "Cüz",
-    "learn": "Ögren",
+    "juz": "Para",
+    "learn": "Öwren",
     "juzSubtitle": "Read  Guran içinde its 30 parts",
     "juzN": "Juz {{n}}",
     "browseByJuz": "Juz boýunça gözle",
     "search": "Gözleg",
-    "searchTitle": "the Guran Gözleg",
-    "searchSubtitle": "Find ayahs by çeviri veya transkripsiyon",
-    "searchPlaceholder": "words in translation… Gözleg",
-    "searchHint": "Searches  bundled çeviri ve transkripsiyon çevrimdyşy.",
-    "noResults": "No ayahs matched sizin ara.",
-    "resultsCount": "{{count}} sonuç",
+    "searchTitle": "Gurhanda gözle",
+    "searchSubtitle": "Aýatlary arapça, iňlisçe, transliterasiýa ýa-da salgylanma boýunça tapyň",
+    "searchPlaceholder": "Terjime, transliterasiýa ýa-da 2:255 gözle…",
+    "searchHint": "Arapça, iňlisçe terjime we transliterasiýa boýunça oflaýn çeýe gözleg — aýat atlary we salgylanmalar bilen.",
+    "noResults": "Gözlegiňize laýyk aýat tapylmady.",
+    "resultsCount": "{{count}} netije",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Surah däl found",
     "notFoundDesc": "Bu surah may not exist.",
@@ -1461,7 +1472,7 @@
     "bookmarkAdd": "Yer imi verse",
     "bookmarkRemove": "bookmark Kaldyr",
     "loadingTranslation": "translation… yükleniyor",
-    "searching": "Gözlegnyyor…",
+    "searching": "Gözlenýär…",
     "secondTranslation": "Second çeviri",
     "secondTranslationNone": "Ýok",
     "selectTranslator": "Terjimeçini saýlaň — {{language}}",
@@ -1472,7 +1483,7 @@
     "backToLanguages": "Ähli diller",
     "searchTranslationLanguages": "Dilleri gözle…",
     "searchTranslators": "Terjimeçileri gözle…",
-    "pages": "Sayfalar",
+    "pages": "Sahypalar",
     "pagesSubtitle": "Browse  Madani mushaf by page",
     "pageN": "Sahypa {{n}}",
     "pageOf": "Sayfa {{page}} / {{total}}",
@@ -1480,7 +1491,7 @@
     "pagePickerTitle": "Jump  page",
     "pagePickerSearch": "page or surah… Gözleg",
     "readerLayout": "Okuyucu düzeni",
-    "layoutAyah": "Ayet çalyşmasy",
+    "layoutAyah": "Aýat öwrenmek",
     "layoutPage": "Sahypa görnüşi",
     "layoutMushaf": "Mushaf",
     "mushafOnlyHint": "Gözlegpça only",
@@ -1609,18 +1620,25 @@
       "dictate": "Aýaty aýd",
       "stopDictate": "Diňlemegi bes et",
       "bestMatch": "Iň gowy gabat gelme",
-      "otherMatches": "Beýleki gabat gelmeler"
+      "otherMatches": "Beýleki gabat gelmeler",
+      "tvUnavailableBody": "Aýaty tanamak üçin mikrofon gerek, telewizorda bolsa ol ýok. Onuň deregine Gurhanda sözler boýunça gözläň ýa-da programmany telefonyňyzda ulanyň."
     },
-    "searchPlaceholderArabic": "Arapça tekst ýa-da ٢:٢٥٥ ýaly salgylanma gözläň…",
+    "searchPlaceholderArabic": "Arap tekstini ýa-da ٢:٢٥٥ ýaly salgylanmany gözle…",
     "goToPagePlaceholder": "Page 1–{{max}}",
     "goToPageA11y": "Go to page number",
     "goToPageAction": "Go",
     "goToPageHint": "Enter a page from 1 to {{max}}",
     "goToPageInvalid": "Enter a page between 1 and {{max}}",
-    "surahNumber": "Sure {{number}}",
-    "selectSurah": "Sure saýlaň",
-    "openReader": "Okadyjyny aç",
-    "bookmarkEmptyDescTv": "Şu ýerde saklamak üçin islendik aýatdaky bellik belgisini saýlaň."
+    "surahNumber": "Süre {{number}}",
+    "selectSurah": "Süre saýlaň",
+    "openReader": "Okaýjyny aç",
+    "bookmarkEmptyDescTv": "Şu ýerde saklamak üçin islendik aýatdaky bellik belgisini saýlaň.",
+    "goToAyahPlaceholder": "Aýat 1–{{max}}",
+    "goToAyahA11y": "Aýat belgisine geç",
+    "goToAyahInvalid": "1 bilen {{max}} aralygynda aýat giriziň",
+    "searchAyahs": "Aýat gözle",
+    "findSurah": "Süre tap",
+    "noSurahResults": "Gözlegiňize laýyk süre tapylmady."
   },
   "hadith": {
     "eyebrow": "Peygamber gelenegi",
@@ -1863,7 +1881,8 @@
     "history": "Geçmiş",
     "rowDone": "{{completed}} Qaza ýerine ýetirildi",
     "rowDoneWithDaily": "{{completed}} Qaza ýerine ýetirildi · şu gün {{done}}/{{target}}",
-    "hintTv": "Kaza edilen namazy ýazmak üçin belligi saýlaň. Yzarlaýjyda sypdyrylan namaz awtomatiki şu sanlara goşulýar."
+    "hintTv": "Kaza edilen namazy ýazmak üçin belligi saýlaň. Yzarlaýjyda sypdyrylan namaz awtomatiki şu sanlara goşulýar.",
+    "editCountHintTv": "Bu namazdan ýene näçesini kaza etmelidigiňizi − we + bilen belläň."
   },
   "qazaCalc": {
     "eyebrow": "Gaza",
@@ -1895,7 +1914,8 @@
       "pubertyAfterAge": "Balagat ýaşy häzirki ýaşyňyzdan soň bolup bilmez.",
       "yearsPrayedExceed": "Namaz ýyllary ({{entered}}) balagatdan bäri ýyllary ({{obligatedYears}}) aşup bilmez.",
       "exemptExceedsYear": "Mugt günler ({{entered}}) saýlan ýylyňyzyň uzynlygyny ({{maxDays}}) aşup bilmez."
-    }
+    },
+    "enterAgePromptTv": "Çaklamany görmek üçin ýokarda häzirki ýaşyňyzy belläň."
   },
   "qazaPlan": {
     "eyebrow": "Gaza",
@@ -1992,7 +2012,8 @@
     "confirmAddEstimateMsg": "{{count}} fasts to remaining (new total: {{total}})? Ekle",
     "confirmResetTitle": "counter? Syfyrla",
     "confirmResetMsg": "Clear tüm oruç counts ({{remaining}} kalan, {{completed}} completed)? Bu cannot be undone.",
-    "adjustHintTv": "Düzediş üçin sany saýlaň ýa-da −/+ ulanyň"
+    "adjustHintTv": "Düzediş üçin sany saýlaň ýa-da −/+ ulanyň",
+    "editCountHintTv": "Ýene näçe kaza orazaňyzyň galandygyny − we + bilen belläň."
   },
   "calendar": {
     "eyebrow": "Geçmiş",
@@ -2113,7 +2134,8 @@
     "confirmStartAgainTitle": "again? Başlat",
     "confirmStartAgainMessage": "Sizin completed say will be cleared so siz can begin  yeni round.",
     "dockLabel": "Sanamak",
-    "tapToCountTv": "Sanamak üçin Saýla basyň"
+    "tapToCountTv": "Sanamak üçin Saýla basyň",
+    "tapToCountKeyboard": "Sanamak üçin tegelege basyň ýa-da Boşluk düwmesine basyň"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} dir only {{min}} min away",
@@ -2188,7 +2210,9 @@
     "defaultLabel": "Mekke, Saud Arabystany",
     "defaultTimesHint": "Namaz wagtlary häzir Mekkä görä. Takyk wagtlar üçin şäheriňizi belläň. Namaz we ezan ýatladyjylary şol wagtça öçürilen galýar.",
     "setLocation": "Ýerleşişi belläň",
-    "searchAutoFocusOff": "Şäher gözläň"
+    "searchAutoFocusOff": "Şäher gözläň",
+    "subtitleTv": "Namaz wagtlary şu ýer üçin hasaplanýar. Şäheriňizi pult bilen gözläň.",
+    "hintTv": "Gözleg meýdançasyny saýlaň, soňra şäheriňiziň azyndan iki harpyny ýazyň."
   },
   "moon": {
     "aria": "Ay evresi: {{phase}}",
@@ -2549,7 +2573,8 @@
     "authenticityTitle": "Yçerik güvenilirligi",
     "authenticityBody": "Zikrler ve dualar tanynmyş koleksiyonlardan alynmyş ve yaygyn olarak yayymlanan metinlere yakyn tutulmuştur. Belirli bir hüküm veya sayyya güvenmeden önce güvenilir bir alim veya kaynakla dogrulayyn.",
     "privacyPolicy": "Gizlilik politikasy",
-    "termsOfService": "Hizmet şartlary"
+    "termsOfService": "Hizmet şartlary",
+    "scanOnPhoneTv": "Bu sahypany açmak üçin telefonyňyz bilen skanirläň."
   },
   "player": {
     "nowPlaying": "Häzir oýnaýar",
@@ -2582,7 +2607,9 @@
     "loading": "Yükleniyor…",
     "streamingOnlyNote": "Streaming only — ses dir not kaydedildi  bu cihaz",
     "ttsVoice": "Ses",
-    "ttsVoiceHint": "Tekstden-sese sesini saýlaň"
+    "ttsVoiceHint": "Tekstden-sese sesini saýlaň",
+    "seekBack": "{{seconds}} sekunt yza",
+    "seekForward": "{{seconds}} sekunt öňe"
   },
   "errors": {
     "title": "Bir zatler nädogry boldy",
@@ -2677,7 +2704,7 @@
   },
   "khatm": {
     "eyebrow": " Noble Guran",
-    "short": "Hatim",
+    "short": "Hatym",
     "title": "Hatim plan",
     "subtitle": "Gurhany yzygiderli dowam etdiriň",
     "startTitle": "a plan Başlat",
@@ -2788,7 +2815,7 @@
     "correctTotalConfirmAction": "Jemi täzele"
   },
   "hifz": {
-    "short": "Hifz",
+    "short": "Ýatlamak",
     "title": "Hifz Yzarlaýjy",
     "subtitle": "Ayahs you've memorized veya need  gözden geçir",
     "markMemorized": "memorized Yşaretle",
@@ -2810,7 +2837,7 @@
     "confirmReviewBody": "{{ref}} will be flagged için gözden geçir.",
     "confirmMemorizedBody": "{{ref}} will be işaretlendi as memorized.",
     "confirmClearBody": "{{ref}} will be removed from your Hifz tracker.",
-    "emptyDescTv": "Ýatlanan diýip bellemek üçin okalgyçdaky islendik aýatda Hifz-i saýlaň."
+    "emptyDescTv": "Okalgyçda bir aýat saýlaň, soňra ony ýatlanan diýip bellemek üçin Hifz-i saýlaň."
   },
   "travel": {
     "eyebrow": "Ögren",
@@ -3300,7 +3327,8 @@
       "reflectionHint": "Huşu ve namaz reflections",
       "learning": "Learning Ilerleme",
       "learningHint": "Topics completed içinde bu module",
-      "characterHintTv": "Şu gün özüňiziň ahlakyny gözden geçireniňizde saýlaň"
+      "characterHintTv": "Şu gün özüňiziň ahlakyny gözden geçireniňizde saýlaň",
+      "repentanceHintTv": "Tobaňyzy täzeläň — şu gün toba edeniňizde saýlaň"
     },
     "progressTitle": "Learning ilerleme",
     "progressSubtitle": "Okuwy yzarla - Allah bilen ruhy dereje däl",
@@ -3344,7 +3372,8 @@
         "best-beloved": "Iň gowy / iň söýgüli",
         "equal-reward": "Deňeşdirilen uly sawap"
       }
-    }
+    },
+    "timelineCardHintTv": "Esasy bölüm — doly sapak üçin her tapgyry saýlaň"
   },
   "taharah": {
     "eyebrow": "Ögren",
@@ -3520,7 +3549,8 @@
       "tapHint": "Tap a name on the map to read the sourced note.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
-      "tapHintTv": "Çeşmeli bellik okamak üçin kartadaky ady saýlaň."
+      "tapHintTv": "Çeşmeli bellik okamak üçin kartadaky ady saýlaň.",
+      "listHintTv": "Çeşmeli belligi okamak üçin sanawdan bir at saýlaň."
     }
   },
   "aqeedah": {
@@ -4299,7 +4329,7 @@
       "label": "Goşundylar (islege görä)",
       "add": "Faýl goşuň",
       "remove": "Goşundyny aýyryň",
-      "hint": "5-e çenli faýl (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçijik suraty basyň.",
+      "hint": "5 faýla çenli (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçi suratdaky ×-e basyň.",
       "signInRequired": "Adhkar-a şahsy faýllary birikdirmek üçin giriň.",
       "permissionDenied": "Faýllary birikdirmek üçin rugsat gerek.",
       "permissionTitle": "Girmäge rugsat beriň",
@@ -4329,7 +4359,8 @@
       "loadingPdf": "PDF ýüklenýär…",
       "pdfHint": "Aýyrmak · gysyp ýa-da +/− bilen ulaltmak · iki basyp täzeden · Paýlaşmak üçin PDF aç",
       "pdfPreviewTitle": "PDF syny",
-      "tvUnavailable": "Goşundylar telefon ýa-da planşet talap edýär. Surat ýa-da PDF-leri şol ýerde goşuň."
+      "tvUnavailable": "Goşundylar telefon ýa-da planşet talap edýär. Surat ýa-da PDF-leri şol ýerde goşuň.",
+      "pdfTvUnavailable": "PDF faýllaryny telewizorda öňünden görüp bolmaýar. Bu goşundyny telefonyňyzda ýa-da planşetiňizde açyň."
     },
     "stt": {
       "dictate": "Mikrofon bilen ýazyň",
@@ -4359,13 +4390,20 @@
     "markTonight": "I prayed Teheccüd tonight",
     "markedTonight": "Prayed tonight — mashaAllah",
     "lastNights": "Soňky {{count}} gije",
-    "lastNightsHint": "Each dot dir one night, labeled by takvim date (most recent   left).",
     "virtueTitle": "Virtue   night namaz",
     "virtueBody": " best namaz after  farz prayers dir  night namaz.",
     "virtueRef": "Sahih Muslim 1163",
     "streakRow": "Teheccüd seri",
     "calculatorCta": "Gijäniň soňky üçden bir kalkulýatory",
-    "calculatorHint": "Maghrib we Fajr-dan gijäniň ortasy we iň gowy Tahajjud wagtyny tapyň"
+    "calculatorHint": "Maghrib we Fajr-dan gijäniň ortasy we iň gowy Tahajjud wagtyny tapyň",
+    "tonightTitle": "Şu gije",
+    "bestLabel": "Iň gowy yzygiderlilik",
+    "totalLabel": "Jemi gije",
+    "startTonight": "Yzygiderliligiňiz şu gijeden başlaýar.",
+    "calendarHint": "Bellemek ýa-da arassalamak üçin geçen gijä basyň.",
+    "calendarHintTv": "Bellemek ýa-da arassalamak üçin geçen gijäni saýlaň.",
+    "legendPrayed": "Okaldy",
+    "inWindow": "Häzir iň gowy wagt"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates dir calculated estimates — local moon-sighting may differ.",
@@ -4621,8 +4659,10 @@
       "buildsTitle": "Ahlagy gurýar",
       "buildsHint": "Bir gezek bir häsiýeti türgenleşdiriň — hakykat, sabyr, rehim we adalat.",
       "destroysTitle": "Ahlagy bozanlar",
-      "destroysHint": "Tekstleriň duýdurýan endikleri — baglanyşykly sapak üçin plitkä basyň."
-    }
+      "destroysHint": "Tekstleriň duýdurýan endikleri — baglanyşykly sapak üçin plitkä basyň.",
+      "destroysHintTv": "Tekstleriň duýduran endikleri — degişli sapak üçin bir öýjük saýlaň."
+    },
+    "pathsHintTv": "Allanyň rugsady bilen derejäni ýokarlandyrýan amallar — deliller we programma baglanyşyklary üçin islendik ýoly saýlaň."
   },
   "jahannam": {
     "eyebrow": "Ögren",
@@ -5114,7 +5154,7 @@
     "eyebrow": "Senenama",
     "title": "Sene öwrüji",
     "subtitle": "Hijri we Gregorian kalendarlarynyň arasynda öwüriň",
-    "intro": "Kuweýt tablisasynyň algoritmini ulanyp, oflayn hasaplanan beýleki birine meňzeşini görmek üçin iki senenama senesini giriziň.",
+    "intro": "Islendik senenama bir sene giriziň, beýlekisindeki deňeşini görmek üçin — oflaýn ýerleşýän ýeriňizdäki aýyň görünmeginden hasaplanýar.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Gregorian senesi",
@@ -5124,7 +5164,7 @@
     "year": ".Yl",
     "useToday": "Şu gün ulanyň",
     "invalidDate": "Dogry senäni giriziň",
-    "disclaimer": "Bu arifmetiki ýakynlaşma (tablisa \"Kuweýt algoritmi\") we ýerli Aý görýän bildirişlerinden bir gün tapawutlanyp biler - dini seneler üçin hemişe ýerli metjidiňize ýa-da ygtyýaryňyza eýeriň.",
+    "disclaimer": "Seneler ýerleşýän ýeriňizdäki ýarymaýyň (hilāl) görünmeginden hasaplanýar we resmi aý gözegçiligi bildirişlerinden bir gün tapawutlanyp biler — dini seneler üçin hemişe ýerli masjid ýa-da häkimiýeti eýeriň.",
     "directionTitle": "Öwürmek ugry",
     "resultFrom": "{{date}}-den",
     "quickLinksTitle": "Baglanyşykly",
@@ -5209,7 +5249,8 @@
     "editHint": "Wagty üýtgedeniňizde netijeler täzelenýär.",
     "nightLengthLabel": "Gijäniň dowamlylygy",
     "willStartIn": "{{time}} soň başlar",
-    "timeRemaining": "{{time}} galdy"
+    "timeRemaining": "{{time}} galdy",
+    "autoDetectHintTv": "{{location}} · sazlamak üçin wagt saýlaň"
   },
   "friday": {
     "eyebrow": "Öwren",
@@ -5262,7 +5303,7 @@
     "eyebrow": "Öwreniň",
     "title": "Janazah gollanma",
     "subtitle": "Jynaza namazy, ýuwmak, jaýlamak we hakyky dua",
-    "intro": "Jemgyýetçilik borjy hökmünde Janazah barada amaly syn — ruku we seždesiz dört tekbir, erkekler, aýallar we çagalar üçin Hisnul Muslim dualary, şeýle hem ýuwmak, jaýlamak, şehitler we ýas tutýanlar boýunça görkezme.",
+    "intro": "Jemgyýetçilik borjy hökmünde Janazah barada amaly syn - dört takbirini ruku ýa-da sujudsyz nädip doga etmeli we merhum üçin Hisnul Muslim duasy.",
     "section": {
       "obligation": "Borç",
       "prepare": "Taýýarlyk",
@@ -5347,5 +5388,400 @@
     "notFound": "Mowzuk tapylmady",
     "disclaimer": "Bilim beriji syn — fetwa däl. Takyk seneler Aýy görmäge görä üýtgeýän hijri aýyna baglydyr; dini seneler we hökümler üçin ýerli metjidiňizi ýa-da ygtybarly alymy eýeriň.",
     "continueInApp": "Munib-de dowam et"
+  },
+  "quranCompanion": {
+    "entry": {
+      "practise": "Türgenleşik",
+      "practiseAyah": "{{n}}-nji aýaty türgenleş",
+      "practisePlan": "Bu süräni türgenleş",
+      "toRevise_other": "{{count}} gaýtalamaly",
+      "toRevise_one": "{{count}} gaýtalamaly"
+    },
+    "mode": {
+      "follow": "Yzarlamak",
+      "check": "Barlamak",
+      "hideWords": "Sözleri gizle",
+      "hideAyahs": "Aýatlary gizle"
+    },
+    "range": {
+      "ayah": "Bu aýat",
+      "next5": "Indiki 5",
+      "surah": "Bu süre",
+      "page": "Bu sahypa",
+      "custom": "Öz saýlawyňyz",
+      "fromAyah": "Aýatdan",
+      "toAyah": "Aýata çenli",
+      "increase": "{{label}} artdyr",
+      "decrease": "{{label}} azalt"
+    },
+    "passage": {
+      "single": "{{surah}} {{ayah}}",
+      "range": "{{surah}} {{from}}–{{to}}"
+    },
+    "hub": {
+      "title": "Türgenleşik",
+      "subtitle": "Okaň, gizläp açyň we ýatlaýan zadyňyzy gaýtalaň",
+      "continue": "Dowam et",
+      "start": "Başla",
+      "listen": "Diňle",
+      "manage": "Dolandyr",
+      "rangeTitle": "Aralyk",
+      "modeTitle": "Tertip",
+      "startRevision": "Gaýtalamaga başla",
+      "openQueue": "Gaýtalama sanawyny gör",
+      "captionReady": "Diňleýji şu enjamda galýar.",
+      "captionMissing": "Sesiňizi yzarlamagy üçin diňleýjini ýükläň. Ýöne diňläp bilersiňiz.",
+      "captionOffline": "Diňleýjini ýüklemek üçin baglanyşyk gerek. Diňlemek henizem işleýär.",
+      "captionFailed": "Diňleýji başlamady. Ýöne diňläp bilersiňiz.",
+      "captionWebUnsupported": "Bu brauzer diňleýjini işledip bilmeýär.",
+      "captionUnsupported": "Bu enjamda diňleýji ýok. Diňlemek henizem işleýär.",
+      "captionManualMode": "Diňleýjisiz bu tertip teksti özüňiz açar ýaly görkezýär we sözleri bellemeýär.",
+      "downloadListener": "Diňleýjini ýükle ({{size}} MB)",
+      "reviseTitle_other": "Gaýtalamaly {{count}} aýat",
+      "reviseTitle_one": "Gaýtalamaly {{count}} aýat",
+      "reviseRemaining_other": "Ýene {{count}} başga günlerde",
+      "reviseRemaining_one": "Ýene {{count}} başga günde",
+      "passageLabel": "Siziň bölegiňiz",
+      "change": "Üýtget",
+      "startPassage": "{{passage}} başla",
+      "ayahCount_one": "{{count}} aýat",
+      "ayahCount_other": "{{count}} aýat",
+      "recentTitle": "Soňky",
+      "recentHint": "Bu bölegi şol tertipde täzeden başlaýar"
+    },
+    "session": {
+      "loading": "Aýat ýüklenýär…",
+      "preparing": "Diňleýji taýýarlanýar…",
+      "ayahOf": "{{total}} aýatdan {{n}}",
+      "revisionEyebrow": "Gaýtalama",
+      "coach": "Aýaty okaň, soňra mikrofona basyp, tilawat ediň.",
+      "retry": "Gaýtala",
+      "settled": "Diňleýji bu aýaty yzarlady.",
+      "someNotSure": "Diňleýji käbir sözlerden ynamly bolmady. Gaýtadan okap ýa-da dowam edip bilersiňiz.",
+      "listeningStopped": "Diňlemek togtady. Sözleri açyp dowam edip bilersiňiz.",
+      "listenerDidNotStart": "Diňleýji başlamady. Ýöne diňläp, sözleri açyp bilersiňiz.",
+      "listenOnly": "Aýaty eşitmek üçin oýnatmaga basyň. Sesiňizi yzarlamagy üçin diňleýjini Sazlamalardan ýükläň.",
+      "listenOnlyHide": "Taýýar bolanyňyzda sözleri açyň. Diňleýji bu enjamda ýok, şonuň üçin sözler bellenmeýär.",
+      "micOff": "Munib Tracker üçin mikrofon öçük. Ýöne diňläp bilersiňiz.",
+      "openSettings": "Sazlamalary aç",
+      "previous": "Öňki",
+      "next": "Indiki",
+      "tryAgainLine_other": "{{count}} sözi gaýtadan okaň",
+      "tryAgainLine_one": "{{count}} sözi gaýtadan okaň",
+      "changePassage": "Üýtget",
+      "chipDone": "taýýar",
+      "chipRetry": "gaýtadan okaljak sözler",
+      "chipCurrent": "häzirki",
+      "chipTodo": "entek däl",
+      "chipLabel": "{{n}}-nji aýat, {{state}}",
+      "listeningHint": "Diňlenýär… aýaty okaň. Soňky sözden soň özi gutarýar ýa-da duruzmagy basyň."
+    },
+    "dock": {
+      "hear": "Diňle",
+      "stopHearing": "Tilawaty duruz",
+      "listen": "Diňle",
+      "start": "Başla",
+      "listening": "Diňleýär",
+      "micStartHint": "Bu aýaty okaýşyňyzy diňläp başlaýar",
+      "micStopHint": "Bu aýaty tamamlaýar",
+      "reveal": "Aç",
+      "revealHint": "Indiki gizlin sözi açýar. Aýatyň galany üçin uzak basyň.",
+      "end": "Tamamla",
+      "revealAll": "Hemmesini aç",
+      "revealAllConfirmTitle": "Aýatyň hemmesi görkezilsinmi?",
+      "revealAllConfirmMessage": "Bu aýatdaky ähli gizlin sözler görkeziler.",
+      "endConfirmTitle": "Bu türgenleşik tamamlansynmy?",
+      "endConfirmMessage": "Häzire çenli türgenleşen zatlaryňyzyň jemini görersiňiz.",
+      "endConfirm": "Türgenleşigi tamamla"
+    },
+    "word": {
+      "matched": "gabat geldi",
+      "corrected": "ikinji synanyşykda gabat geldi",
+      "notSure": "ynamly däl",
+      "tryAgain": "gaýtadan oka",
+      "notYet": "entek däl",
+      "hidden": "Gizlin söz {{n}}",
+      "tapToHear": "Bu sözi oýnadýar"
+    },
+    "summary": {
+      "subtitle": "Sapak tamamlandy",
+      "tryAyahAgain": "Bu aýaty gaýtadan oka",
+      "nextAyah": "Indiki aýat",
+      "nextRevision": "Indiki gaýtalama",
+      "done": "Taýýar",
+      "hearAyah": "Bu aýaty diňle",
+      "markMemorized": "Ýatlanan diýip belle",
+      "listened": "Bu bölegi diňlediňiz. Sesiňizi yzarlamagy üçin diňleýjini ýükläň.",
+      "headListened": "Bu bölegi diňlediňiz",
+      "practiseAgain": "Gaýtadan türgenleş",
+      "weakAyahsTitle": "Gaýtadan türgenleşmek üçin aýatlar",
+      "ayahChip": "{{ayah}}-nji aýat",
+      "practiseAyah": "{{ayah}}-nji aýaty gaýtadan türgenleş"
+    },
+    "revision": {
+      "title": "Gaýtalama",
+      "subtitle": "Şu günki aýatlar, iň köneleri ilki",
+      "emptyTitle": "Şu gün gaýtalamaly zat ýok",
+      "emptyDesc": "Barlamak ýa-da gizlemek tertibinde türgenleşýän aýatlaryňyz wagty gelende şu ýere gaýdyp gelýär.",
+      "dueToday": "Şu güne",
+      "markedMemorized": "Ýatlanan diýip bellenen",
+      "notNow": "Häzir däl",
+      "setStatus": "Ýagdaýy bellemek",
+      "skip": "Geç",
+      "practiseRow": "{{surah}} {{ayah}} türgenleş",
+      "sittingProgress": "{{total}} aýatdan {{n}}",
+      "hifzRowSub": "Ýatlaýan aýatlaryňyzy türgenleşiň we gaýtalaň",
+      "status": {
+        "learning": "Öwrenilýär",
+        "practising": "Türgenleşilýär",
+        "needsRevision": "Gaýtalamak gerek"
+      },
+      "overdue_other": "{{count}} gün gijä galdy",
+      "overdue_one": "{{count}} gün gijä galdy"
+    },
+    "settings": {
+      "title": "Gurhan türgenleşigi",
+      "rowSubtitle": "Diňleýji, teswir we gaýtalama",
+      "valueReady": "Taýýar",
+      "valueNotDownloaded": "Ýüklenmedi",
+      "valueDownloading": "Ýüklenýär {{percent}}%",
+      "valueRetry": "Gaýtadan synanyşmak gerek",
+      "practiceTitle": "Türgenleşik",
+      "defaultMode": "Esasy tertip",
+      "feedbackTiming": "Gaýtadan okalmaly sözler haçan görkezilsin",
+      "timing": {
+        "ayah": "Her aýatdan soň",
+        "live": "Okaýan wagtym",
+        "end": "Ahyrynda"
+      },
+      "showTranslation": "Terjimäni görkez",
+      "showTransliteration": "Transliterasiýany görkez",
+      "showTajweed": "Täjwid reňkleri",
+      "showTajweedSub": "Reňkler türgenleşik belliklerini görmegi kynlaşdyryp biler.",
+      "hearBeforeRecite": "Okamazdan öň diňle",
+      "hear": {
+        "off": "Öçük",
+        "once": "Bir gezek",
+        "every": "Her aýat"
+      },
+      "autoAdvance": "Awtomatik geç",
+      "autoAdvanceSub": "Bu aýat tamamlananda indikisine geç.",
+      "keepAwake": "Ekrany ýakyk sakla",
+      "startFromTitle": "Nireden başlamaly",
+      "startFrom": {
+        "lastPractice": "Soňky türgenleşik",
+        "lastRead": "Okaýan ýerim",
+        "ask": "Menden sora"
+      },
+      "revisionTitle": "Gaýtalama",
+      "dailyLimit": "Günde aýat",
+      "includeHifz": "Hyfz gaýtalamasyny goş",
+      "includeHifzSub": "Gaýtalamak üçin belläniňiz aýatlar goşulýar.",
+      "reminder": "Gaýtalama ýatlatmasy",
+      "reminderSub": "Aýatlaryň wagty gelende şu enjamda ýatlatma.",
+      "reminderMasterOff": "Bildirişlerde ýatlatmalar öçük.",
+      "openNotifications": "Bildiriş sazlamalaryny aç",
+      "sessionTitle": "Türgenleşik wagtynda",
+      "displayTitle": "Ekranda",
+      "timingHelp": {
+        "ayah": "Gaýtadan okaljak sözler her aýat gutaranda görünýär — okaýan wagtyňyz hiç haçan.",
+        "live": "Diňleýji ynamly bolan badyna, okaýan wagtyňyz bellikler görünýär.",
+        "end": "Diňe häzirki sözüň aşagy çyzylýar. Netijeler ahyrynda görünýär."
+      },
+      "hearHelp": {
+        "off": "Kary diňe Diňle basylanda okaýar.",
+        "once": "Başlamazdan öň kary birinji aýaty okaýar.",
+        "every": "Siz okamazdan öň kary her aýaty okaýar."
+      },
+      "startHelp": {
+        "lastPractice": "Soňky türgenleşigiň gutaran ýerinden dowam ediň.",
+        "lastRead": "Kuranda okaýan aýatyňyzdan başlaň.",
+        "ask": "Bölegi her gezek özüňiz saýlaň."
+      },
+      "dailyLimitHelp_one": "Günde {{count}} aýata çenli; galanlary indiki günlere galýar.",
+      "dailyLimitHelp_other": "Günde {{count}} aýata çenli; galanlary indiki günlere galýar."
+    },
+    "listener": {
+      "title": "Enjamdaky diňleýji",
+      "notOnDevice": "Bu enjamda ýok",
+      "aboutSize": "Takmynan {{size}} MB",
+      "download": "Ýükle",
+      "staysOnDevice": "Şu enjamda galýar. Okamak onsuz hem işleýär.",
+      "downloadingBytes": "{{total}} içinden {{done}}",
+      "downloadingLine": "Diňleýji {{total}} içinden {{done}} ({{percent}}%)",
+      "cancel": "Ýatyr",
+      "verifying": "Faýl barlanýar",
+      "ready": "Taýýar",
+      "version": "Wersiýa {{version}}",
+      "delete": "Poz",
+      "deleteTitle": "Diňleýji pozulsynmy?",
+      "deleteBody": "Türgenleşik tilawatlary oýnatmagy dowam edýär. Sesi yzarlamak üçin gaýtadan ýüklemek gerek.",
+      "confirmRemove": "Aýyr",
+      "needsRetry": "Gaýtadan synanyşmak gerek",
+      "tryAgain": "Gaýtadan synanyş",
+      "updateAvailable": "Täzelenme taýýar",
+      "updateSize": "Takmynan {{size}} MB. Häzirki diňleýji işlemegini dowam edýär.",
+      "updateTitle": "Diňleýji çalşylsynmy?",
+      "downloadUpdate": "Täzelenmäni ýükle",
+      "wifiOnly": "Diňe Wi-Fi arkaly ýükle",
+      "cellularTitle": "Mobil maglumat ulanylsynmy?",
+      "cellularBody": "Diňleýji takmynan {{size}} MB we şu enjamda galýar.",
+      "useMobileData": "Mobil maglumaty ulan",
+      "advanced": "Goşmaça",
+      "recommended": "maslahat berlen diňleýji",
+      "alternate": "alternatiw diňleýji",
+      "recommendedSize": "Maslahat berlen, takmynan {{size}} MB",
+      "alternateSize": "Alternatiw, takmynan {{size}} MB",
+      "alternateCaption": "Alternatiwi diňe maslahat berlen işlemese ulanyň. Ol gaýtadan okalmaly sözleri bellemezligi mümkin.",
+      "switchTitle": "Diňleýji çalşylsynmy?",
+      "engineCaption": "{{engine}} ulanylýar.",
+      "unsupported": "Bu enjamda diňleýji ýok.",
+      "webUnsupported": "Bu brauzer diňleýjini işledip bilmeýär.",
+      "knownLimits": "Ümsüm ýerde, bir ses bilen we adaty okaýyş tizliginde iň gowy işleýär. Çagalaryň sesinde has az takyk bolup biler.",
+      "detailsLine": "Bu enjamda {{size}} MB · {{engine}}"
+    },
+    "privacy": {
+      "title": "Gizlinlik we çeşmeler",
+      "onDevice": "Sesiňiz şu enjamda işlenýär. Ýüklenmeýär we saklanmaýar.",
+      "microphone": "Mikrofon",
+      "micAllowed": "Rugsat berlen",
+      "micBlocked": "Petiklenen",
+      "micNotAsked": "Entek soralmady",
+      "deleteHistory": "Türgenleşik taryhyny poz",
+      "deleteHistoryTitle": "Türgenleşik taryhy pozulsynmy?",
+      "deleteHistoryBody": "Sapak jemleri pozulýar. Hyfz bellikleri, gaýtalama tertibi we diňleýji galýar.",
+      "practiceAid": "Diňleýji türgenleşige kömekçi. Ol mugallymyň ornuny tutmaýar.",
+      "sources": "Diňleýji faýly {{host}} salgysyndan ýüklenýär. Tilawa taslamasy, Tanzil teksti we Quran.com söz maglumatlary bilen taýýarlandy.",
+      "licence": "Maslahat berlen diňleýji NPL-1.2 ygtyýarnamasy bilen paýlaşylýar: mugt, hiç haçan satylmaýar we mahabatsyz."
+    },
+    "offlineRow": {
+      "title": "Gurhan diňleýjisi",
+      "subtitle": "Gurhan türgenleşiginde dolandyrylýar. «Hemmesini arassala» ony saklaýar."
+    },
+    "reminder": {
+      "title": "Gurhany gaýtalama",
+      "body_other": "Şu gün gaýtalamaly {{count}} aýat",
+      "body_one": "Şu gün gaýtalamaly {{count}} aýat"
+    },
+    "error": {
+      "noConnection": "Baglanyşyk ýok",
+      "notEnoughSpace": "Ýer ýeterlik däl",
+      "checksum": "Faýl gabat gelmedi",
+      "downloadFailed": "Ýükleme tamamlanmady",
+      "downloadCancelled": "Ýükleme ýatyryldy",
+      "modelMissing": "Diňleýji faýly ýok",
+      "didNotStart": "Başlamady",
+      "outOfMemory": "Enjamyň ýady ýetmedi. Ýöne diňläp bilersiňiz.",
+      "unsupported": "Bu enjamda ýok",
+      "micDenied": "Mikrofon öçük",
+      "micUnavailable": "Mikrofon ýok",
+      "captureFailed": "Mikrofon başlamady",
+      "interrupted": "Diňlemek kesildi",
+      "listeningStopped": "Diňlemek togtady",
+      "unknown": "Bir mesele ýüze çykdy"
+    },
+    "pronunciation": {
+      "title": "Aýdylyş diňleýjisi",
+      "explainer": "Täjwid sapaklary üçin goşmaça ikinji diňleýji. Her gezek bir sesi nusga bilen deňeşdirýär we hiç haçan baha goýmaýar.",
+      "notSetUp": "Sazlanmadyk",
+      "notOnDevice": "Bu enjamda ýok",
+      "ready": "Taýýar (wersiýa {{version}})",
+      "setUp": "Sazla",
+      "downloading": "Aýdylyş diňleýjisi ýüklenýär…",
+      "consentTitle": "Sazlamazdan öň",
+      "consentDownload": "Bu Quran Lab-dan takmynan 57 MB ikinji diňleýjini ýükleýär.",
+      "consentActivation": "Programma ony işjeňleşdirmek üçin bir gezek, soňra täzelenmeleri barlamak üçin Quran Lab bilen habarlaşýar.",
+      "consentOnDevice": "Tilawatyňyz şu enjamda işlenýär.",
+      "consentRemotePause": "Quran Lab bu diňleýjini ähli ulanyjylar üçin saklap biler. Sapaklar işlemegini dowam edýär.",
+      "agree": "Razy, ýükle",
+      "notNow": "Häzir däl",
+      "deleteTitle": "Aýdylyş diňleýjisi pozulsynmy?",
+      "deleteBody": "Täjwid sapaklary işlemegini dowam edýär. Sesi türgenleşmek üçin gaýtadan ýüklemek gerek.",
+      "sharingSwitch": "Tilawatlarymy Quran Lab bilen paýlaş",
+      "sharingSub": "Diňe Quran Lab sahypasynda razy bolan bolsaňyz. Öçürmek ýüklemäni togtadýar we iberilmedik nobaty pozýar.",
+      "deleteShared": "Paýlaşanlarymy poz",
+      "deleteSharedTitle": "Paýlaşanlaryňyz pozulsynmy?",
+      "deleteSharedBody": "Bu programmadan paýlaşan her ýazgyňyz Quran Lab serwerlerinden pozulýar we paýlaşmak öçürilýär.",
+      "deletedShared": "Paýlaşylan ýazgylaryňyz pozuldy",
+      "sharingFailed": "Başartmady. Gaýtadan synanyşyň.",
+      "recoveryCode": "Dikeltme kody: {{code}}",
+      "sourcesLine": "TajweedFormer, Quran Lab tarapyndan, NPL-1.2 ygtyýarnamasy bilen.",
+      "practiseSound": "Bu sesi türgenleş",
+      "drillTitle": "Bu sesi türgenleş",
+      "drillIntro": "Nusgany diňläň, soňra «Oka» basyň we edil şonuň ýaly aýdyň.",
+      "needsSetup": "Bu sesi türgenleşmek üçin aýdylyş diňleýjisini sazlaň.",
+      "needsConnectionOnce": "Sazlamak üçin bir gezek baglanyşyk gerek.",
+      "notAvailableForSound": "Bu ses üçin teswir entek ýok. Nusgany diňläp, gaýtadan synanyşyň.",
+      "recite": "Oka",
+      "stop": "Duruz",
+      "listening": "Diňleýär…",
+      "verdictMatched": "Bu nusga gabat geldi.",
+      "verdictTryAgain": "Gaýtadan diňläň we ýene bir gezek synanyşyň.",
+      "verdictNotSure": "Diňleýji ynamly bolmady.",
+      "error": {
+        "noConnection": "Sazlamak üçin bir gezek baglanyşyk gerek.",
+        "paused": "Quran Lab bu diňleýjini saklady. Sapaklar işlemegini dowam edýär.",
+        "noSpace": "Ýer ýeterlik däl",
+        "notYet": "Bu diňleýji entek elýeterli däl. Soňrak synanyşyň.",
+        "micDenied": "Munib Tracker üçin mikrofon öçük.",
+        "unsupported": "Bu enjamda ýok",
+        "generic": "Başartmady. Gaýtadan synanyşyň."
+      }
+    },
+    "modeHelp": {
+      "follow": "Tekst öňüňizde durka okaň. Diňleýji sözme-söz yzarlaýar.",
+      "check": "Tekst görnüp durka okaň. Her aýatdan soň gaýtadan okaljak sözleri görersiňiz.",
+      "hideWords": "Birinjiden soňky sözler ýapylýar. Ýatdan okaň; eşidilen sözler özi açylýar.",
+      "hideAyahs": "Tamamlaýançaňyz ýa-da «Aç» basýançaňyz bütin aýat ýapyk durýar. Gaýtalama üçin iň gowusy."
+    },
+    "listenerStatus": {
+      "ready": "Diňleýji taýýar",
+      "readySub": "Sesiňiz şu enjamda işlenýär we hiç haçan ugradylmaýar.",
+      "downloading": "Diňleýji ýüklenýär · {{percent}}%",
+      "failed": "Ýükleme tamamlanmady",
+      "missing": "Sesiňizi yzarlasyn",
+      "missingSub": "Enjamdaky diňleýjini ýükläň ({{size}} MB). Onsuz hem diňläp, açyp bilersiňiz.",
+      "offlineSub": "Diňleýjini ýüklemek üçin bir gezek birigiň. Diňlemek internetsiz hem işleýär.",
+      "stillListen": "Ýene-de diňläp, sözleri açyp bilersiňiz."
+    },
+    "picker": {
+      "title": "Nämäni türgenleşjekdigiňizi saýlaň",
+      "searchSurah": "Süräni ady ýa-da belgisi boýunça gözläň",
+      "changeSurah": "Süräni üýtget",
+      "fromAyah": "Şu aýatdan başla",
+      "toAyah": "Şu aýatda gutar",
+      "toEnd": "Ahyryna çenli",
+      "ayahN": "{{n}}-nji aýat",
+      "confirm": "{{passage}} türgenleş",
+      "ayahCount_one": "{{count}} aýat",
+      "ayahCount_other": "{{count}} aýat"
+    },
+    "result": {
+      "headAllMatched": "Ähli sözler gabat geldi",
+      "headTryAgain_one": "{{count}} sözi gaýtadan okaň",
+      "headTryAgain_other": "{{count}} sözi gaýtadan okaň",
+      "headMissed_one": "{{count}} söze ýetilmedi",
+      "headMissed_other": "{{count}} söze ýetilmedi",
+      "headNotSure_one": "Diňleýji {{count}} sözden ynamly däldi",
+      "headNotSure_other": "Diňleýji {{count}} sözden ynamly däldi",
+      "heardOf": "{{total}} sözden {{heard}} eşidildi",
+      "matched": "Gabat geldi",
+      "tryAgain": "Gaýtadan oka",
+      "notSure": "Ynamly däl",
+      "missed": "Ýetilmedi",
+      "groupTryAgain": "Bulary gaýtadan okaň",
+      "groupMissed": "Ýetilmedi",
+      "groupNotSure": "Ynamly däl",
+      "nextAyah": "Indiki aýat",
+      "reciteAgain": "Gaýtadan oka",
+      "moveOn": "Indiki aýata geç",
+      "finish": "Tamamla we jemlemä seret",
+      "headNothingHeard": "Diňleýji hiç bir söz eşitmedi",
+      "nothingHeardTip": "Biraz gaty sesde, mikrofona ýakyn okaň we ilkinji sözden başlaň."
+    },
+    "view": {
+      "title": "Görnüş",
+      "mushafCoarse": "Musdakdaky söz bellikleri üçin sözler sanawy gerek. Ony ýüklemek üçin bir gezek birigiň — aýatlar ýene görkezilýär."
+    }
   }
 }

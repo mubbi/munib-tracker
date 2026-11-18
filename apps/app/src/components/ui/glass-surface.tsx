@@ -7,11 +7,13 @@ import {
   type StyleProp,
   StyleSheet,
   View,
+  type ViewInstance,
   type ViewStyle,
 } from "react-native";
 
 import { withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
 import { useBlurTarget } from "@/providers/blur-target-provider";
 
 /**
@@ -46,7 +48,7 @@ type GlassSurfaceProps = {
    * target, never a descendant — blurring an ancestor that contains the BlurView
    * overflows the RenderThread view tree.
    */
-  blurTargetRef?: RefObject<View | null>;
+  blurTargetRef?: RefObject<ViewInstance | null>;
   /** Fired with the rendered size — used to inset content beneath floating chrome. */
   onLayout?: (event: LayoutChangeEvent) => void;
 };
@@ -83,6 +85,18 @@ export function GlassSurface({
   const resolvedWashOpacity = washOpacity ?? defaultWashOpacity;
   const wash =
     resolvedWashOpacity > 0 ? withAlpha(colors.background, resolvedWashOpacity) : undefined;
+
+  // TV: no live blur / Liquid Glass — per-frame blur is a real cost on Fire TV
+  // sticks / Android TV. Fully opaque: D-pad focus scrolls lists (e.g. Tracker)
+  // beneath the floating header, and any translucency lets that text bleed
+  // through the title from couch distance.
+  if (isTV()) {
+    return (
+      <View style={[style, { backgroundColor: colors.background }]} onLayout={onLayout}>
+        {children}
+      </View>
+    );
+  }
 
   if (hasLiquidGlass) {
     return (

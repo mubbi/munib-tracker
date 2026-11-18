@@ -1,24 +1,14 @@
-import { render } from "@testing-library/react-native";
-
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
-import { MunibThemeProvider } from "@/providers/theme-provider";
+import { renderWithTheme } from "@/test-support/render";
 
 describe("ListIndexBadge", () => {
-  it("renders the ordinal for an open item", () => {
-    const { toJSON } = render(
-      <MunibThemeProvider>
-        <ListIndexBadge index={4} />
-      </MunibThemeProvider>,
-    );
+  it("renders the ordinal for an open item", async () => {
+    const { toJSON } = await renderWithTheme(<ListIndexBadge index={4} />);
     expect(JSON.stringify(toJSON())).toContain("4");
   });
 
-  it("renders the ordinal when today's target is already met", () => {
-    const { toJSON } = render(
-      <MunibThemeProvider>
-        <ListIndexBadge index={4} completed />
-      </MunibThemeProvider>,
-    );
+  it("renders the ordinal when today's target is already met", async () => {
+    const { toJSON } = await renderWithTheme(<ListIndexBadge index={4} completed />);
     expect(JSON.stringify(toJSON())).toContain("4");
   });
 });

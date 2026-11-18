@@ -112,9 +112,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type ContentReportsControllerCreateMutationError = unknown
     export type ContentReportsControllerCreateMutationVariables = {data: ContentReportsControllerCreateBody}
 
-    /**
- * @summary Submit a content issue report with optional proof attachments
- */
+    /** @summary Submit a content issue report with optional proof attachments */
 export const useContentReportsControllerCreate = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof contentReportsControllerCreate>>, TError,ContentReportsControllerCreateMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -173,6 +171,7 @@ export type ContentReportsControllerListQueryResult = NonNullable<Awaited<Return
 export type ContentReportsControllerListQueryError = unknown
 
 
+/** @summary List the current user's content reports */
 export function useContentReportsControllerList<TData = Awaited<ReturnType<typeof contentReportsControllerList>>, TError = unknown>(
  params: undefined |  ContentReportsControllerListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof contentReportsControllerList>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -183,6 +182,7 @@ export function useContentReportsControllerList<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary List the current user's content reports */
 export function useContentReportsControllerList<TData = Awaited<ReturnType<typeof contentReportsControllerList>>, TError = unknown>(
  params?: ContentReportsControllerListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof contentReportsControllerList>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -193,14 +193,12 @@ export function useContentReportsControllerList<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary List the current user's content reports */
 export function useContentReportsControllerList<TData = Awaited<ReturnType<typeof contentReportsControllerList>>, TError = unknown>(
  params?: ContentReportsControllerListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof contentReportsControllerList>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary List the current user's content reports
- */
-
+/** @summary List the current user's content reports */
 export function useContentReportsControllerList<TData = Awaited<ReturnType<typeof contentReportsControllerList>>, TError = unknown>(
  params?: ContentReportsControllerListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof contentReportsControllerList>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
@@ -265,6 +263,7 @@ export type ContentReportsControllerGetByIdQueryResult = NonNullable<Awaited<Ret
 export type ContentReportsControllerGetByIdQueryError = unknown
 
 
+/** @summary Get a single content report owned by the current user */
 export function useContentReportsControllerGetById<TData = Awaited<ReturnType<typeof contentReportsControllerGetById>>, TError = unknown>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof contentReportsControllerGetById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -275,6 +274,7 @@ export function useContentReportsControllerGetById<TData = Awaited<ReturnType<ty
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Get a single content report owned by the current user */
 export function useContentReportsControllerGetById<TData = Awaited<ReturnType<typeof contentReportsControllerGetById>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof contentReportsControllerGetById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -285,14 +285,12 @@ export function useContentReportsControllerGetById<TData = Awaited<ReturnType<ty
       >, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Get a single content report owned by the current user */
 export function useContentReportsControllerGetById<TData = Awaited<ReturnType<typeof contentReportsControllerGetById>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof contentReportsControllerGetById>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Get a single content report owned by the current user
- */
-
+/** @summary Get a single content report owned by the current user */
 export function useContentReportsControllerGetById<TData = Awaited<ReturnType<typeof contentReportsControllerGetById>>, TError = unknown>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof contentReportsControllerGetById>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient

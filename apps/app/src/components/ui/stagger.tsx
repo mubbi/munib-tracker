@@ -15,12 +15,12 @@ import { AppState, type AppStateStatus, StyleSheet, View } from "react-native";
 import Animated, {
   cancelAnimation,
   Easing,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
   withTiming,
 } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 
 import { useLearnBodyReady } from "@/components/learn-content-loading";
 import { Durations, Stagger as StaggerTokens } from "@/constants/motion";
@@ -280,7 +280,7 @@ function StaggerItem({
     progress.value = withDelay(
       entranceDelay,
       withTiming(1, { duration: Durations.slow, easing: Easing.out(Easing.cubic) }, (finished) => {
-        if (finished) runOnJS(setRevealed)(true);
+        if (finished) scheduleOnRN(setRevealed, true);
       }),
     );
 

@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -9,12 +9,16 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { getJuzList, juzForAyah } from "@/lib/quran";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLastRead } from "@/stores/quran-store";
 
 const JUZ_LIST = getJuzList();
@@ -30,6 +34,7 @@ export default function JuzBrowserScreen() {
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
   const lastRead = useLastRead();
+  const tv = isTV();
 
   const continueJuz = useMemo(() => {
     if (!lastRead) return null;
@@ -52,9 +57,12 @@ export default function JuzBrowserScreen() {
       <Seo path="/quran/juz" />
       <Stagger>
         <Card padding="two">
-          <View style={styles.list}>
+          {/* TV: two-column grid so the 30 juz fit the landscape screen.
+              Tablet / desktop: width-based 2–3 column grid. */}
+          <JuzGridHost tv={tv}>
             {JUZ_LIST.map((entry) => {
               const isContinue = entry.juz === continueJuz;
+              const landFocus = tv && entry.juz === (continueJuz ?? 1);
               return (
                 <PressableScale
                   key={entry.juz}
@@ -66,8 +74,10 @@ export default function JuzBrowserScreen() {
                       : t("quran.juzN", { n: entry.juz })
                   }
                   onPress={() => openJuz(entry.surah, entry.ayah)}
+                  {...(landFocus ? { hasTVPreferredFocus: true } : {})}
                   style={[
                     styles.row,
+                    tv && styles.rowTv,
                     {
                       backgroundColor: isContinue ? tokens.accentSoft : colors.muted,
                       borderColor: isContinue
@@ -107,23 +117,40 @@ export default function JuzBrowserScreen() {
                   <ThemedText type="arabic" style={styles.rowArabic} numberOfLines={1}>
                     {entry.surahNameArabic}
                   </ThemedText>
-                  <SymbolView
-                    name={chevronForwardIcon}
-                    size={14}
-                    tintColor={colors.mutedForeground}
-                  />
+                  {!tv ? (
+                    <SymbolView
+                      name={chevronForwardIcon}
+                      size={14}
+                      tintColor={colors.mutedForeground}
+                    />
+                  ) : null}
                 </PressableScale>
               );
             })}
-          </View>
+          </JuzGridHost>
         </Card>
       </Stagger>
     </ScreenLayout>
   );
 }
 
+/** TV keeps its fixed two-up wrap; everywhere else uses the shared responsive grid. */
+function JuzGridHost({ tv, children }: { tv: boolean; children: ReactNode }) {
+  if (tv) return <View style={[styles.list, styles.listTv]}>{children}</View>;
+  return (
+    <ResponsiveGrid gap={Spacing.two} maxColumns={3}>
+      {children}
+    </ResponsiveGrid>
+  );
+}
+
 const styles = StyleSheet.create({
   list: { gap: Spacing.two },
+  listTv: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.three },
+  rowTv: {
+    width: "48.5%",
+    minHeight: TvLayout.minFocusTarget + 8,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -151,3 +178,6 @@ const styles = StyleSheet.create({
   rowName: { flexShrink: 1, minWidth: 0 },
   rowArabic: { fontSize: 18, writingDirection: "rtl" },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/quran/juz");

@@ -175,14 +175,24 @@ const WordCard = memo(function WordCard({
     onPlay(index, word.audioUrl);
   }, [index, onPlay, word.audioUrl]);
 
+  // TV: the surrounding ayah card is the single D-pad target (Select opens the
+  // ayah sheet), so word tiles render as non-focusable display + follow-along
+  // highlight. A raw Pressable here would be an invisible nested focus stop.
+  const Host = tv ? View : Pressable;
+  const hostProps = tv
+    ? { accessibilityLabel: `${word.arabic}. ${word.translit}. ${word.gloss}` }
+    : {
+        accessibilityRole: "button" as const,
+        accessibilityLabel: `${word.arabic}. ${word.translit}. ${word.gloss}`,
+        accessibilityHint: word.audioUrl ? theme.playHint : theme.noAudioHint,
+        disabled: !word.audioUrl,
+        onPress: handlePress,
+      };
+
   return (
     <View style={[styles.wordCardShell, tv && styles.wordCardShellTv]}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${word.arabic}. ${word.translit}. ${word.gloss}`}
-        accessibilityHint={word.audioUrl ? theme.playHint : theme.noAudioHint}
-        disabled={!word.audioUrl}
-        onPress={handlePress}
+      <Host
+        {...hostProps}
         style={[
           styles.wordCard,
           tv && styles.wordCardTv,
@@ -216,15 +226,14 @@ const WordCard = memo(function WordCard({
             {word.gloss}
           </Text>
         ) : null}
-        {word.audioUrl ? (
+        {word.audioUrl && !tv ? (
           <View
             accessibilityElementsHidden
             importantForAccessibility="no-hide-descendants"
-            pointerEvents="none"
             style={[
               styles.playIconWell,
               tv && styles.playIconWellTv,
-              { backgroundColor: theme.accentSoft },
+              { backgroundColor: theme.accentSoft, pointerEvents: "none" },
             ]}
           >
             <Text style={[styles.playGlyph, tv && styles.playGlyphTv, { color: theme.accent }]}>
@@ -232,7 +241,7 @@ const WordCard = memo(function WordCard({
             </Text>
           </View>
         ) : null}
-      </Pressable>
+      </Host>
     </View>
   );
 });

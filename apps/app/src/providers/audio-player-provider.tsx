@@ -42,9 +42,11 @@ import {
   queueDurationForProgress,
   queueStartBoundary,
 } from "@/lib/audio-queue-timing";
+import { PLAYBACK_AUDIO_MODE } from "@/lib/audio-session-mode";
 import { applyVolume } from "@/lib/audio-volume";
 import { buildAudioActivity } from "@/lib/continue-activity";
 import { triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 import { nextIndexForRepeatPlan } from "@/lib/quran-repeat";
 import {
   canPauseTts,
@@ -107,6 +109,9 @@ const STUCK_LOAD_RETRY_LIMIT = 2;
 
 /** Delay before treating a still-unloaded track as stuck and reloading. */
 const STUCK_LOAD_RETRY_MS = 8000;
+
+/** Android: how long a loaded source may sit idle (focus refused) before the UI shows paused. */
+const FOCUS_REFUSED_RECONCILE_MS = 1500;
 
 /** Cycle order: off → repeat all → repeat once → off. */
 const LOOP_CYCLE: LoopMode[] = ["off", "all", "one"];
@@ -478,11 +483,8 @@ function AudioPlayerProviderLive({
   // first playback via ensureAndroidMediaNotificationPermission.
   useEffect(() => {
     if (Platform.OS === "web") return;
-    setAudioModeAsync({
-      playsInSilentMode: true,
-      shouldPlayInBackground: true,
-      interruptionMode: "doNotMix",
-    }).catch(() => {
+    // Shared with Qur'an practice, which restores exactly this after a take.
+    setAudioModeAsync(PLAYBACK_AUDIO_MODE).catch(() => {
       // Non-fatal: playback still works, just without the preferred session mode.
     });
   }, []);
@@ -1291,6 +1293,44 @@ function AudioPlayerProviderLive({
     return () => clearTimeout(timer);
   }, [current, ttsTrackActive, userPaused, isLoaded, isTransitioning, queueFinished]);
 
+  // expo-audio 58 on Android refuses to start playback when audio focus is
+  // denied (an ongoing call, another app holding exclusive focus). The refused
+  // `play()` usually lands inside a seamless hand-off, whose status events are
+  // ignored, so nothing would flip the UI to paused and a queue session would
+  // keep showing "playing" in silence. Reconcile: a loaded, idle, non-buffering
+  // source that should be playing is shown as paused (tap play to retry).
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+    if (!current || ttsTrackActive || userPaused || queueFinished || isSpeakingTranslation) return;
+    if (isTransitioning || !isLoaded || status.playing || status.isBuffering) return;
+    if (status.didJustFinish) return;
+    const trackId = current.id;
+    const timer = setTimeout(() => {
+      if (transitionRef.current || userPausedRef.current) return;
+      if (queueRef.current[indexRef.current]?.id !== trackId) return;
+      const active = playersRef.current[activeSlotRef.current];
+      try {
+        if (!active.isLoaded || active.playing || active.isBuffering) return;
+      } catch {
+        return;
+      }
+      userPausedRef.current = true;
+      setUserPaused(true);
+    }, FOCUS_REFUSED_RECONCILE_MS);
+    return () => clearTimeout(timer);
+  }, [
+    current,
+    ttsTrackActive,
+    userPaused,
+    queueFinished,
+    isSpeakingTranslation,
+    isTransitioning,
+    isLoaded,
+    status.playing,
+    status.isBuffering,
+    status.didJustFinish,
+  ]);
+
   // Replace estimates with the loaded duration for the active track.
   useEffect(() => {
     if (!current || ttsTrackActive || !isLoaded || isTransitioning) return;
@@ -1430,6 +1470,10 @@ function AudioPlayerProviderLive({
         return;
       }
 
+      // Not staged: load it fresh — but still move the queue cursor, or the UI
+      // keeps showing the finished track and the next finish replays this one.
+      setIndex(nextIdx);
+      anchorQueueTimeline(nextIdx);
       beginTransition();
       playIndex(q, nextIdx, true);
     };
@@ -1455,7 +1499,10 @@ function AudioPlayerProviderLive({
     finishHandlingRef.current = true;
     const nextIdx = resolveNextIndex();
     const tts = finishingTrack?.tts;
+    // TV has no device TTS (expo-speech is stubbed) — a phone-synced "after"
+    // preference must not stall the queue waiting for speech that never ends.
     const shouldSpeak =
+      !isTV() &&
       translationAudioRef.current === "after" &&
       isQuranAyahTrack(finishingTrack) &&
       Boolean(tts?.text?.trim());
@@ -1590,8 +1637,7 @@ function AudioPlayerProviderLive({
     }
   } else {
     stableQueuePositionRef.current = computedQueuePosition;
-    stableQueueDurationRef.current =
-      computedQueueDurationForProgress > 0 ? computedQueueDurationForProgress : 0;
+    stableQueueDurationRef.current = Math.max(computedQueueDurationForProgress, 0);
   }
 
   const smoothQueueDuration =

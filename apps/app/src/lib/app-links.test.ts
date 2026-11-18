@@ -115,4 +115,119 @@ describe("DEEP_LINK_PATHS catalog", () => {
       ]),
     );
   });
+
+  it("includes the five Qur'an practice routes", () => {
+    expect(DEEP_LINK_PATHS).toEqual(
+      expect.arrayContaining([
+        "/quran/practice",
+        "/quran/practice/session",
+        "/quran/practice/summary",
+        "/quran/revision",
+        "/settings/quran-practice",
+      ]),
+    );
+  });
+});
+
+describe("Qur'an practice links", () => {
+  it("builds a practice session link with its passage", () => {
+    expect(appLink.quranPracticeSession(1, 2, 4).path).toBe(
+      "/quran/practice/session?surah=1&from=2&to=4",
+    );
+    expect(appLink.quranRevision().path).toBe("/quran/revision");
+  });
+});
+
+describe("every static appLink builder", () => {
+  const PARAMETERISED = new Set([
+    "tvPair",
+    "quranPracticeSession",
+    "quranSurah",
+    "quranPage",
+    "hadithCollection",
+    "duaCategory",
+    "duaDetail",
+    "zikrCategory",
+    "zikrDetail",
+    "tasbeehZikr",
+    "tasbeehDurood",
+    "tasbeehCustom",
+    "calendarDate",
+    "tour",
+    "openReview",
+  ]);
+  const staticBuilders = Object.entries(appLink).filter(([name]) => !PARAMETERISED.has(name));
+
+  it.each(staticBuilders)("%s resolves to a catalogued deep-link path", (_name, build) => {
+    const urls = (build as () => ReturnType<typeof resolveAppLink>)();
+    expect(DEEP_LINK_PATHS).toContain(urls.path);
+    expect(urls).toEqual(resolveAppLink(urls.path));
+  });
+});
+
+describe("parameterised appLink builders", () => {
+  it("tvPair encodes an optional pairing code", () => {
+    expect(appLink.tvPair().path).toBe("/tv-pair");
+    expect(appLink.tvPair("AB 12").path).toBe("/tv-pair?code=AB%2012");
+  });
+
+  it("quranPracticeSession defaults `to` and carries the mode", () => {
+    expect(appLink.quranPracticeSession(2, 5).path).toBe(
+      "/quran/practice/session?surah=2&from=5&to=5",
+    );
+    expect(appLink.quranPracticeSession(2, 5, 7, "hifz").path).toBe(
+      "/quran/practice/session?surah=2&from=5&to=7&mode=hifz",
+    );
+  });
+
+  it("hadithCollection drops an empty search seed", () => {
+    expect(appLink.hadithCollection("muslim", { q: "" }).path).toBe("/hadith/muslim");
+  });
+
+  it("builds tasbeeh, dua and zikr detail paths", () => {
+    expect(appLink.duaCategory("travel").path).toBe("/dua/travel");
+    expect(appLink.tasbeehZikr("z1").path).toBe("/tasbeeh/z1");
+    expect(appLink.tasbeehDurood("d1").path).toBe("/tasbeeh/durood/d1");
+    expect(appLink.tasbeehCustom("c1").path).toBe("/tasbeeh/custom/c1");
+    expect(appLink.zikrDetail("not-a-quran-zikr").path).toBe("/zikr/detail/not-a-quran-zikr");
+  });
+
+  it("tour adds the tour id only when given", () => {
+    expect(appLink.tour().path).toBe("/tour");
+    expect(appLink.tour("home").path).toBe("/tour?tour=home");
+  });
+
+  it("formatAppLink defaults to the custom scheme", () => {
+    expect(formatAppLink("/qibla")).toBe(`${APP_SCHEME}://qibla`);
+  });
+
+  it("normalizeAppPath keeps extra `?` inside the query and collapses bare slashes", () => {
+    expect(normalizeAppPath("  /a?b=1?c=2 ")).toBe("/a?b=1?c=2");
+    expect(normalizeAppPath("///")).toBe("/");
+  });
+});
+
+describe("APP_HTTPS_ORIGIN", () => {
+  const original = process.env.EXPO_PUBLIC_APP_URL;
+  afterEach(() => {
+    if (original === undefined) delete process.env.EXPO_PUBLIC_APP_URL;
+    else process.env.EXPO_PUBLIC_APP_URL = original;
+  });
+
+  it("reads EXPO_PUBLIC_APP_URL and trims trailing slashes", () => {
+    process.env.EXPO_PUBLIC_APP_URL = "https://staging.example.test///";
+    jest.isolateModules(() => {
+      const mod = require("@/lib/app-links") as typeof import("@/lib/app-links");
+      expect(mod.APP_HTTPS_ORIGIN).toBe("https://staging.example.test");
+      expect(mod.buildHttpsAppUrl("/")).toBe("https://staging.example.test/");
+    });
+  });
+
+  it("falls back to the production origin", () => {
+    delete process.env.EXPO_PUBLIC_APP_URL;
+    jest.isolateModules(() => {
+      const mod = require("@/lib/app-links") as typeof import("@/lib/app-links");
+      expect(mod.APP_HTTPS_ORIGIN).toBe("https://my.munibtracker.app");
+    });
+  });
 });

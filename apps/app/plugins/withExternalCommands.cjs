@@ -272,19 +272,8 @@ function withExternalCommandsAndroid(config) {
 `,
       );
 
-      const buildGradle = path.join(platformRoot, "app/build.gradle");
-      if (fs.existsSync(buildGradle)) {
-        let contents = fs.readFileSync(buildGradle, "utf8");
-        if (!contents.includes("play-services-wearable")) {
-          contents = contents.replace(
-            /dependencies\s*\{/,
-            `dependencies {
-    implementation "com.google.android.gms:play-services-wearable:18.2.0"`,
-          );
-          fs.writeFileSync(buildGradle, contents);
-        }
-      }
-
+      // play-services-wearable comes from modules/munib-external-commands and
+      // modules/munib-wear (their own Gradle dependencies); :app needs no direct copy.
       return config;
     },
   ]);

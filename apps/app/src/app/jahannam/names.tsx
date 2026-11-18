@@ -4,6 +4,12 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+  useLearnTileStyle,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
@@ -13,62 +19,82 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJahannamContent, getJahannamNames, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
-function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean }) {
+function NameRow({
+  entry,
+  isLast,
+  tiled,
+}: {
+  entry: JahannamNameEntry;
+  isLast: boolean;
+  /** Wide grid cell: card chrome instead of a hairline separator. */
+  tiled: boolean;
+}) {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
+  const tileStyle = useLearnTileStyle();
 
   return (
     <View
       style={[
         styles.row,
-        !isLast && {
-          borderBottomColor: tokens.hairline,
-          borderBottomWidth: StyleSheet.hairlineWidth,
-        },
+        tiled
+          ? tileStyle
+          : !isLast && {
+              borderBottomColor: tokens.hairline,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            },
       ]}
     >
-      <View style={styles.head}>
-        <IconWell
-          icon={{
-            ios: "flame.fill",
-            android: "local_fire_department",
-            web: "local_fire_department",
-          }}
-          tint={tokens.status.warning.color}
-          well={44}
-          size={20}
-        />
-        <View style={styles.copy}>
-          <LearnProseText proseRole="title">
-            {entry.name} ({entry.transliteration})
-          </LearnProseText>
-          <LearnProseText proseRole="caption" themeColor="mutedForeground">
-            {entry.meaning}
-          </LearnProseText>
+      <TvReadableBlock>
+        <View style={styles.head}>
+          <IconWell
+            icon={{
+              ios: "flame.fill",
+              android: "local_fire_department",
+              web: "local_fire_department",
+            }}
+            tint={tokens.status.warning.color}
+            well={44}
+            size={20}
+          />
+          <View style={styles.copy}>
+            <LearnProseText proseRole="title">
+              {entry.name} ({entry.transliteration})
+            </LearnProseText>
+            <LearnProseText proseRole="caption" themeColor="mutedForeground">
+              {entry.meaning}
+            </LearnProseText>
+          </View>
         </View>
-      </View>
+      </TvReadableBlock>
       <View style={[styles.quote, { backgroundColor: tokens.accentSoft }]}>
         <View style={styles.quoteMeta}>
           <ReferenceLine reference={entry.quran.label} />
           <QuranAyahBookmarkButton surah={entry.quran.surah} ayah={entry.quran.ayahFrom} />
         </View>
-        <LearnProseText themeColor="mutedForeground">{entry.quran.excerpt}</LearnProseText>
+        <TvReadableBlock>
+          <LearnProseText themeColor="mutedForeground">{entry.quran.excerpt}</LearnProseText>
+        </TvReadableBlock>
       </View>
-      <LearnProseText>{entry.context}</LearnProseText>
-      <LearnProseText proseRole="caption" themeColor="mutedForeground" style={styles.tafsir}>
-        {t("jahannam.tafsirNote")}: {entry.tafsirNote}
-      </LearnProseText>
-      {entry.scholarlyNote ? (
-        <LearnProseText proseRole="caption" themeColor="mutedForeground">
-          {entry.scholarlyNote}
+      <TvReadableBlock style={styles.notesTv}>
+        <LearnProseText>{entry.context}</LearnProseText>
+        <LearnProseText proseRole="caption" themeColor="mutedForeground" style={styles.tafsir}>
+          {t("jahannam.tafsirNote")}: {entry.tafsirNote}
         </LearnProseText>
-      ) : null}
+        {entry.scholarlyNote ? (
+          <LearnProseText proseRole="caption" themeColor="mutedForeground">
+            {entry.scholarlyNote}
+          </LearnProseText>
+        ) : null}
+      </TvReadableBlock>
     </View>
   );
 }
@@ -78,6 +104,8 @@ export default function JahannamNamesScreen() {
   const { t } = useTranslation();
   const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const names = getJahannamNames();
+  const wide = useLearnHubLayout();
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 360, max: 3 });
 
   return (
     <ScreenLayout
@@ -85,6 +113,7 @@ export default function JahannamNamesScreen() {
       title={t("jahannam.namesTitle")}
       subtitle={t("jahannam.namesSubtitle")}
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/names" />
       <LearnContentGate ready={contentReady}>
@@ -100,11 +129,21 @@ export default function JahannamNamesScreen() {
                   web: "local_fire_department",
                 }}
               />
-              <View style={styles.list}>
+              <LearnColumnsGrid
+                columns={columns}
+                gap={Spacing.three}
+                stackGap={0}
+                style={styles.list}
+              >
                 {names.map((entry, index) => (
-                  <NameRow key={entry.id} entry={entry} isLast={index === names.length - 1} />
+                  <NameRow
+                    key={entry.id}
+                    entry={entry}
+                    isLast={index === names.length - 1}
+                    tiled={columns > 1}
+                  />
                 ))}
-              </View>
+              </LearnColumnsGrid>
             </Card>
           </LearnReadingChrome>
           <JannahDisclaimer textKey="jahannam.disclaimer" />
@@ -132,4 +171,8 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   tafsir: { fontStyle: "italic" },
+  notesTv: { gap: Spacing.three },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/jahannam/names");

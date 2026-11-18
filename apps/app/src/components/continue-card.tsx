@@ -173,7 +173,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
           onPress={onDismiss}
           size={16}
           tintColor={colors.mutedForeground}
-          hitTarget={tv ? TvLayout.minFocusTarget : 36}
+          hitTarget={tv ? TvLayout.minFocusTargetDp : 36}
           haptic="light"
         />
       </View>

@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import {
   sniffUserMediaMime,
+  USER_MEDIA_FILE_NAME_MAX,
   USER_MEDIA_MAX_BYTES,
   USER_MEDIA_MAX_PER_ENTITY,
 } from "@munib-tracker/shared/constants/user-media";
@@ -54,17 +55,23 @@ export class UserMediaService {
         mimeType,
       );
 
-      const row = await this.mediaRepository.save(
-        this.mediaRepository.create({
-          id: mediaId,
-          userId: user.userId,
-          mimeType,
-          filename: file.originalname || filename,
-          sizeBytes: file.buffer.length,
-          storagePath,
-        }),
-      );
-      saved.push(this.toDto(row));
+      try {
+        const row = await this.mediaRepository.save(
+          this.mediaRepository.create({
+            id: mediaId,
+            userId: user.userId,
+            mimeType,
+            filename: normalizeUploadFilename(file.originalname, filename),
+            sizeBytes: file.buffer.length,
+            storagePath,
+          }),
+        );
+        saved.push(this.toDto(row));
+      } catch (error) {
+        // Never leave an unreferenced blob behind when the row cannot be written.
+        await this.attachmentStorage.remove(storagePath, "authenticated");
+        throw error;
+      }
     }
 
     return saved;
@@ -168,6 +175,45 @@ export class UserMediaService {
   private apiPrefix(): string {
     return "/api/v1";
   }
+}
+
+/**
+ * Clean the client-supplied multipart filename for storage / display.
+ *
+ * - Multer (busboy) decodes header parameters as latin1, so UTF-8 names
+ *   (Arabic, Urdu, …) arrive as mojibake — re-decode when the bytes are valid UTF-8.
+ * - Expo's native `fetch` percent-encodes the filename parameter.
+ * - Strip path separators / control characters and cap to the column width.
+ */
+export function normalizeUploadFilename(
+  originalname: string | undefined,
+  fallback: string,
+): string {
+  let name = originalname ?? "";
+
+  const isLatin1 = [...name].every((char) => (char.codePointAt(0) ?? 0) <= 0xff);
+  if (name && isLatin1) {
+    const decoded = Buffer.from(name, "latin1").toString("utf8");
+    if (!decoded.includes(String.fromCodePoint(0xfffd))) name = decoded;
+  }
+
+  if (/%[0-9a-f]{2}/i.test(name)) {
+    try {
+      name = decodeURIComponent(name);
+    } catch {
+      // Not percent-encoded after all — keep the literal name.
+    }
+  }
+
+  name = name
+    // biome-ignore lint/suspicious/noControlCharactersInRegex: stripping control characters is the point
+    .replace(/[\u0000-\u001f\u007f-\u009f]/g, "")
+    .replace(/[/\\]/g, "_")
+    .trim();
+
+  if (!name) return fallback;
+  // Slice by code point so a surrogate pair is never split (Postgres counts characters).
+  return Array.from(name).slice(0, USER_MEDIA_FILE_NAME_MAX).join("");
 }
 
 function extensionForMime(mime: string): string {

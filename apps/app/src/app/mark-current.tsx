@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
-
 import { nativeEnqueueCommand } from "@/lib/external-commands/native-bridge";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 /**
  * App Actions / launcher shortcut / icon quick-action deep link:
@@ -27,3 +27,6 @@ export default function MarkCurrentDeepLinkScreen() {
 
   return null;
 }
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/mark-current");

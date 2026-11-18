@@ -162,7 +162,7 @@ export async function connectRedisIfConfigured(): Promise<void> {
       if (c) {
         try {
           c.removeAllListeners();
-          await c.disconnect().catch(() => undefined);
+          c.destroy();
         } catch {
           // Ignore cleanup errors after a failed connect.
         }

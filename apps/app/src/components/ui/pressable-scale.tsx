@@ -8,12 +8,13 @@ import {
   type StyleProp,
   StyleSheet,
   View,
+  type ViewInstance,
   type ViewStyle,
 } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
 import { Springs } from "@/constants/motion";
-import { Radius } from "@/constants/theme";
+import { Radius, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -122,6 +123,9 @@ function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
 
   const hostStyle: Record<string, ViewStyle[keyof ViewStyle]> = {};
   const innerStyle: Record<string, ViewStyle[keyof ViewStyle]> = {};
+  // A uniform border eats into the host's content box; the inner must match that
+  // box, or it overflows bottom/end and centred content (icons) sits off-centre.
+  const borderInset = typeof flatStyle.borderWidth === "number" ? flatStyle.borderWidth * 2 : 0;
   for (const [key, value] of Object.entries(flatStyle) as [
     keyof ViewStyle,
     ViewStyle[keyof ViewStyle],
@@ -139,7 +143,7 @@ function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
       // absolute badges resolve against the well. Percentage widths stay host-only
       // so flex grids are not double-shrunk.
       if ((key === "width" || key === "height") && typeof value === "number") {
-        innerStyle[key] = value;
+        innerStyle[key] = Math.max(0, value - borderInset);
       }
     }
   }
@@ -198,6 +202,11 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
   children?: ReactNode;
   /** Target scale while pressed. Lower = more pronounced. */
   scaleTo?: number;
+  /**
+   * TV: scale while D-pad focused (default 1.04). Pass `1` for reading blocks /
+   * wide prose so text does not shift under the focus ring.
+   */
+  tvFocusScale?: number;
   /** Fade slightly on press in addition to scaling. */
   dimOnPress?: boolean;
   /** Haptic fired on press-in. Pass `false` (default) for silent surfaces. */
@@ -234,10 +243,11 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
  * drawn as background/foreground — so we wrap bounded ripples in a rounded
  * clip View (borderRadius + overflow hidden) that clips the whole Pressable.
  */
-export const PressableScale = forwardRef<View, PressableScaleProps>(function PressableScale(
+export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(function PressableScale(
   {
     children,
     scaleTo = 0.96,
+    tvFocusScale = TV_FOCUS_SCALE,
     dimOnPress = false,
     haptic = false,
     ripple = true,
@@ -311,7 +321,7 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     const nextScale = pressed.value
       ? scaleTo
       : tv && !reducedMotion && focused.value
-        ? TV_FOCUS_SCALE
+        ? tvFocusScale
         : 1;
     return {
       transform: [{ scale: withSpring(nextScale, Springs.press) }],
@@ -368,6 +378,8 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     : tvHostStyle;
 
   const restingBorderWidth = typeof flatStyle?.borderWidth === "number" ? flatStyle.borderWidth : 0;
+  const hasPaintedBackground =
+    hostStyle.backgroundColor != null && hostStyle.backgroundColor !== "transparent";
 
   const pressable = (
     <Pressable
@@ -401,7 +413,20 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
                 zIndex: 1,
               }
             : null;
-        return StyleSheet.flatten([pressableStyle, focusRing]);
+        // Desktop web: pointer cursor + a subtle hover tint so cards/rows read
+        // as interactive under a mouse (touch platforms never report hovered).
+        const hovered = Boolean((state as { hovered?: boolean }).hovered);
+        const webPointer: ViewStyle | null =
+          Platform.OS === "web" && !disabled && (onPress || rest.onLongPress)
+            ? ({ cursor: "pointer" } as ViewStyle)
+            : null;
+        const webHover: ViewStyle | null =
+          Platform.OS === "web" && hovered && !disabled && onPress
+            ? hasPaintedBackground
+              ? ({ filter: tokens.isDark ? "brightness(1.1)" : "brightness(0.97)" } as ViewStyle)
+              : { backgroundColor: withAlpha(colors.foreground, tokens.isDark ? 0.06 : 0.04) }
+            : null;
+        return StyleSheet.flatten([pressableStyle, webPointer, webHover, focusRing]);
       }}
       {...rest}
     >

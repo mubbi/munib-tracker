@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -12,11 +13,14 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureBattlesContent, getBattlesTimeline, isBattlesContentReady } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function BattlesTimelineScreen() {
   const router = useRouter();
@@ -25,6 +29,9 @@ export default function BattlesTimelineScreen() {
   const chevronForwardIcon = useChevronForward();
   const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const events = getBattlesTimeline();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: steps alternate either side of a centred rail.
+  const zigzag = wide.contentWidth >= 760;
 
   return (
     <ScreenLayout
@@ -32,23 +39,20 @@ export default function BattlesTimelineScreen() {
       title={t("battles.timelineTitle")}
       subtitle={t("battles.timelineSubtitle")}
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/battles/timeline" />
       <LearnContentGate ready={contentReady}>
         <Stagger>
           <JannahCallout tone="info">{t("battles.timelineIntro")}</JannahCallout>
 
-          {events.map((event, index) => (
-            <View key={event.id} style={styles.row}>
-              <View style={styles.railColumn}>
-                <View style={[styles.dot, { backgroundColor: colors.accent }]} />
-                {index < events.length - 1 ? (
-                  <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
-                ) : null}
-              </View>
+          {events.map((event, index) => {
+            const card = (
               <PressableScale
                 haptic="light"
-                disabled={!event.topicId}
+                // TV: keep link-less events focusable so the D-pad can step
+                // through (and scroll) the whole timeline.
+                disabled={!event.topicId && !isTV()}
                 accessibilityRole={event.topicId ? "button" : "text"}
                 onPress={
                   event.topicId
@@ -106,8 +110,32 @@ export default function BattlesTimelineScreen() {
                   ) : null}
                 </Card>
               </PressableScale>
-            </View>
-          ))}
+            );
+            const rail = (
+              <View style={styles.railColumn}>
+                <View style={[styles.dot, { backgroundColor: colors.accent }]} />
+                {index < events.length - 1 ? (
+                  <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
+                ) : null}
+              </View>
+            );
+            if (!zigzag) {
+              return (
+                <View key={event.id} style={styles.row}>
+                  {rail}
+                  {card}
+                </View>
+              );
+            }
+            const startSide = index % 2 === 0;
+            return (
+              <View key={event.id} style={styles.row}>
+                <View style={styles.side}>{startSide ? card : null}</View>
+                {rail}
+                <View style={styles.side}>{startSide ? null : card}</View>
+              </View>
+            );
+          })}
 
           <JannahDisclaimer textKey="battles.disclaimer" />
         </Stagger>
@@ -118,9 +146,10 @@ export default function BattlesTimelineScreen() {
 
 const styles = StyleSheet.create({
   row: { flexDirection: "row", gap: Spacing.three },
-  railColumn: { alignItems: "center", width: 16, paddingTop: Spacing.three },
-  dot: { width: 12, height: 12, borderRadius: Radius.pill },
-  rail: { width: 2, flex: 1, marginTop: Spacing.one },
+  side: { flex: 1, minWidth: 0 },
+  railColumn: { alignItems: "center", width: tvDp(16), paddingTop: Spacing.three },
+  dot: { width: tvDp(12), height: tvDp(12), borderRadius: Radius.pill },
+  rail: { width: tvDp(2), flex: 1, marginTop: Spacing.one },
   cardPressable: {
     flex: 1,
     marginBottom: Spacing.three,
@@ -139,3 +168,6 @@ const styles = StyleSheet.create({
   title: { marginBottom: Spacing.one },
   linkRow: { flexDirection: "row", alignItems: "center", gap: Spacing.one, marginTop: Spacing.two },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/battles/timeline");

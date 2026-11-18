@@ -86,8 +86,18 @@ export async function deliverLiveActivityJob(input: DeliverLiveActivityJobInput)
     return;
   }
 
-  job.attempts += 1;
   try {
+    // A retried / late job must not overwrite a newer phase that is already
+    // due or on screen — APNs `timestamp` is send time, so ActivityKit would
+    // happily accept the stale content-state.
+    if (await store.hasNewerDueJob(job, now)) {
+      job.status = "cancelled";
+      job.lastError = "Superseded by a newer due phase";
+      await store.saveJob(job);
+      return;
+    }
+
+    job.attempts += 1;
     const result = await apns.sendUpdate({
       token: decryptActivityKitToken(activity.tokenCiphertext, encryptionKey),
       environment: activity.apnsEnvironment,

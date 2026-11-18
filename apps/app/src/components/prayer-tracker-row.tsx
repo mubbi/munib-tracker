@@ -11,6 +11,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
 import {
   PRAYER_ICONS,
@@ -52,6 +53,8 @@ type PrayerTrackerRowProps = {
   /** After-salah adhkar completion for this fard prayer today. */
   afterSalahProgress?: { completed: number; total: number };
   onPressAfterSalah?: () => void;
+  /** TV: request initial D-pad focus on this row's primary (mark) target. */
+  preferredFocus?: boolean;
 };
 
 function AdhkarProgressSegments({
@@ -133,6 +136,7 @@ export function PrayerTrackerRow({
   onPress,
   afterSalahProgress,
   onPressAfterSalah,
+  preferredFocus = false,
 }: PrayerTrackerRowProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -165,6 +169,7 @@ export function PrayerTrackerRow({
     : withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.14);
   const adhkarBorder = adhkarDone ? tokens.status.success.border : tokens.accentBorder;
   const tv = isTV();
+  const markHint = tTv(t, "tracker.tapToMark", "tracker.tapToMarkTv");
 
   const adhkarContent = (
     <View
@@ -210,7 +215,7 @@ export function PrayerTrackerRow({
           backgroundColor: colors.muted,
           borderColor: colors.border,
         },
-        tv ? { minHeight: TvLayout.minFocusTarget } : null,
+        tv ? styles.containerTv : null,
       ]}
     >
       <PressableScale
@@ -218,8 +223,11 @@ export function PrayerTrackerRow({
         onPress={onPress}
         accessibilityRole="button"
         accessibilityLabel={rowA11y}
-        accessibilityHint={t("tracker.tapToMark")}
-        style={styles.primaryPress}
+        accessibilityHint={markHint}
+        {...(tv && preferredFocus ? { hasTVPreferredFocus: true } : {})}
+        // TV: the mark target is the big Select surface — pad it so the focus
+        // ring frames the whole row header, not just the glyphs.
+        style={[styles.primaryPress, tv ? styles.primaryPressTv : null]}
       >
         <View style={styles.topRow}>
           <IconWell
@@ -239,7 +247,7 @@ export function PrayerTrackerRow({
               numberOfLines={1}
               style={[styles.tapHint, { color: colors.accent }]}
             >
-              {t("tracker.tapToMark")}
+              {markHint}
             </ThemedText>
             {hasNotes || showJama ? (
               <View style={styles.metaLine}>
@@ -290,7 +298,7 @@ export function PrayerTrackerRow({
               completed: adhkarCompleted,
               total: adhkarTotal,
             })}
-            style={styles.adhkarWrap}
+            style={[styles.adhkarWrap, tv ? styles.adhkarWrapTv : null]}
           >
             {adhkarContent}
           </PressableScale>
@@ -331,8 +339,19 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     gap: Spacing.two + 2,
   },
+  containerTv: {
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.two,
+  },
   primaryPress: {
     alignSelf: "stretch",
+  },
+  primaryPressTv: {
+    minHeight: TvLayout.minFocusTarget,
+    justifyContent: "center",
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
   },
   topRow: {
     flexDirection: "row",
@@ -383,6 +402,10 @@ const styles = StyleSheet.create({
   },
   adhkarWrap: {
     alignSelf: "stretch",
+  },
+  /** TV: ring follows the pill shape of the adhkar button. */
+  adhkarWrapTv: {
+    borderRadius: Radius.pill,
   },
   adhkarButton: {
     flexDirection: "row",

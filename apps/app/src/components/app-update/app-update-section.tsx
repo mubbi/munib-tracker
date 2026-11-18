@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
@@ -10,7 +10,12 @@ import { Spacing } from "@/constants/theme";
 import { useLocalizedSiteUrls } from "@/hooks/use-localized-site-urls";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebPlatform, performAppUpdate } from "@/lib/app/app-update-actions";
+import { isTV } from "@/lib/platform/is-tv";
 import { useAppVersion } from "@/providers/app-version-provider";
+import { UPDATE_HARD_ICON, UPDATE_SOFT_ICON } from "./update-icons";
+
+/** Window width at which the update actions sit side by side. */
+const WIDE_MIN_WIDTH = 768;
 
 export function AppUpdateSection() {
   const { t } = useTranslation();
@@ -18,6 +23,10 @@ export function AppUpdateSection() {
   const { versionMeta, clientVersion, hasPendingUpdate, updatePromptDismissed, openUpdatePrompt } =
     useAppVersion();
   const { locale } = useLocalizedSiteUrls();
+  const { width } = useWindowDimensions();
+  // Wide web / tablets: buttons side by side in a compact row instead of two
+  // full-width bars stretched across the settings column.
+  const wide = !isTV() && width >= WIDE_MIN_WIDTH;
 
   if (!hasPendingUpdate || !versionMeta) return null;
   if (versionMeta.updateRequired === "soft" && !updatePromptDismissed) return null;
@@ -43,7 +52,7 @@ export function AppUpdateSection() {
       <View style={styles.row}>
         <View style={[styles.iconWrap, { backgroundColor: `${accent}18` }]}>
           <AppIcon
-            icon={isHard ? "exclamationmark.triangle.fill" : "arrow.down.circle.fill"}
+            icon={isHard ? UPDATE_HARD_ICON : UPDATE_SOFT_ICON}
             size={22}
             tintColor={accent}
           />
@@ -55,11 +64,12 @@ export function AppUpdateSection() {
           </ThemedText>
         </View>
       </View>
-      <View style={styles.actions}>
+      <View style={[styles.actions, wide && styles.actionsWide]}>
         <Button
           label={isWeb ? t("update.webReloadButton") : t("settings.updateNow")}
           onPress={() => performAppUpdate(versionMeta, { isHard, locale })}
           fullWidth
+          style={wide ? styles.actionWide : undefined}
         />
         {!isHard ? (
           <Button
@@ -67,6 +77,7 @@ export function AppUpdateSection() {
             onPress={openUpdatePrompt}
             variant="secondary"
             fullWidth
+            style={wide ? styles.actionWide : undefined}
           />
         ) : null}
       </View>
@@ -101,6 +112,13 @@ const styles = StyleSheet.create({
   },
   actions: {
     gap: Spacing.two,
+  },
+  actionsWide: {
+    flexDirection: "row",
+    maxWidth: 560,
+  },
+  actionWide: {
+    flex: 1,
   },
   webHint: {
     textAlign: "center",

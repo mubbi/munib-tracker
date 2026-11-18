@@ -4,28 +4,40 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahBody, JannahDisclaimer, JannahTakeaway } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import {
   QuranExamplePlayButton,
   QuranGuideClipPlayButton,
 } from "@/components/quran-guide/ayah-play-button";
+import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
+import { isTV } from "@/lib/platform/is-tv";
+import { isPracticeAvailable } from "@/lib/quran-companion/availability";
+import { LESSON_DRILL_HEAD } from "@/lib/quran-companion/pronunciation/judge";
 import {
   ensureQuranGuideContent,
   getQuranGuideTajweedLesson,
   getQuranGuideTajweedLessons,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
+import {
+  useEnsurePronunciationLoaded,
+  usePronunciationState,
+} from "@/stores/quran-pronunciation-store";
 
 export function generateStaticParams(): Array<{ id: string }> {
   return getQuranGuideTajweedLessons().map((item) => ({ id: item.id }));
@@ -38,6 +50,7 @@ function paramId(raw: string | string[] | undefined): string | undefined {
 
 export default function LearnQuranTajweedDetailScreen() {
   const router = useRouter();
+  const { maxContentWidth } = useLearnWideLayout();
   const { t, i18n } = useTranslation();
   const { id: idParam } = useLocalSearchParams<{ id: string }>();
   const id = paramId(idParam);
@@ -51,6 +64,18 @@ export default function LearnQuranTajweedDetailScreen() {
     () => (contentReady ? getQuranGuideTajweedLesson(id) : undefined),
     [id, i18n.language, contentReady],
   );
+
+  // Phase 6: a pronunciation drill only for sounds the loaded calibration validates.
+  // Before the listener is set up the heads are unknown, so the button shows and the
+  // drill screen explains; once known, unreliable sounds get no button.
+  useEnsurePronunciationLoaded();
+  const pronunciation = usePronunciationState();
+  const drillHead = lesson ? LESSON_DRILL_HEAD[lesson.id] : undefined;
+  const showDrill =
+    !!drillHead &&
+    isPracticeAvailable() &&
+    pronunciation.status !== "unavailable" &&
+    (pronunciation.cached == null || pronunciation.cached.reliable.includes(drillHead));
 
   const detailPath = lesson ? `/learn-quran/tajweed/${lesson.id}` : "/learn-quran/tajweed";
   const crumbs = lesson
@@ -69,6 +94,7 @@ export default function LearnQuranTajweedDetailScreen() {
       title={lesson?.title ?? t("learnQuran.tajweedTitle")}
       subtitle={lesson?.summary ?? ""}
       onBack={() => goBackOrReplace(router, "/learn-quran/tajweed" as Href)}
+      maxContentWidth={maxContentWidth}
     >
       <Seo
         path={detailPath}
@@ -100,58 +126,86 @@ export default function LearnQuranTajweedDetailScreen() {
           onAction={() => router.replace("/learn-quran/tajweed" as Href)}
         />
       ) : (
-        <Stagger>
-          <LearnReadingChrome surface="learn_quran">
-            <JannahTakeaway text={lesson.summary} />
-            <JannahBody paragraphs={lesson.explanation} />
-            <Card padding="three">
-              <SectionHeader
-                title={t("learnQuran.examplesTitle")}
-                icon={{ ios: "textformat.abc", android: "abc", web: "abc" }}
-              />
-              <View style={styles.examples}>
-                {lesson.examples.map((ex) => (
-                  <View key={ex} style={styles.exampleRow}>
-                    <ThemedText type="arabic" style={styles.exampleArabic}>
-                      {ex}
-                    </ThemedText>
-                    <QuranExamplePlayButton
-                      example={ex}
-                      sourceHref={`/learn-quran/tajweed/${lesson.id}`}
-                    />
-                  </View>
-                ))}
-              </View>
-            </Card>
-            {lesson.practice ? (
+        <LearnSplitLayout aside={<QuranGuideTopicAside currentId="tajweed" />}>
+          <Stagger>
+            <LearnReadingChrome surface="learn_quran">
+              <JannahTakeaway text={lesson.summary} />
+              <JannahBody paragraphs={lesson.explanation} />
               <Card padding="three">
                 <SectionHeader
-                  title={t("learnQuran.practiceTitle")}
-                  icon={{ ios: "figure.walk", android: "directions_walk", web: "directions_walk" }}
+                  title={t("learnQuran.examplesTitle")}
+                  icon={{ ios: "textformat.abc", android: "abc", web: "abc" }}
                 />
-                <View style={styles.practiceHeader}>
-                  <ThemedText type="small" themeColor="mutedForeground" style={styles.practiceText}>
-                    {lesson.practice}
-                  </ThemedText>
-                  {lesson.practiceAudio ? (
-                    <QuranGuideClipPlayButton
-                      audio={lesson.practiceAudio}
-                      sourceHref={`/learn-quran/tajweed/${lesson.id}`}
-                      compact
-                    />
-                  ) : null}
+                <View style={styles.examples}>
+                  {lesson.examples.map((ex) => (
+                    <View key={ex} style={styles.exampleRow}>
+                      <ThemedText type="arabic" style={styles.exampleArabic}>
+                        {ex}
+                      </ThemedText>
+                      <QuranExamplePlayButton
+                        example={ex}
+                        sourceHref={`/learn-quran/tajweed/${lesson.id}`}
+                      />
+                    </View>
+                  ))}
                 </View>
               </Card>
-            ) : null}
-          </LearnReadingChrome>
-          <JannahDisclaimer textKey="learnQuran.disclaimer" />
-        </Stagger>
+              {lesson.practice ? (
+                <Card padding="three">
+                  <SectionHeader
+                    title={t("learnQuran.practiceTitle")}
+                    icon={{
+                      ios: "figure.walk",
+                      android: "directions_walk",
+                      web: "directions_walk",
+                    }}
+                  />
+                  <View style={styles.practiceHeader}>
+                    {/* TV: practice prose is a D-pad stop (no wrapper on phone/web). */}
+                    <TvReadableBlock style={styles.practiceText}>
+                      <ThemedText
+                        type="small"
+                        themeColor="mutedForeground"
+                        style={isTV() ? undefined : styles.practiceText}
+                      >
+                        {lesson.practice}
+                      </ThemedText>
+                    </TvReadableBlock>
+                    {lesson.practiceAudio ? (
+                      <QuranGuideClipPlayButton
+                        audio={lesson.practiceAudio}
+                        sourceHref={`/learn-quran/tajweed/${lesson.id}`}
+                      />
+                    ) : null}
+                  </View>
+                  {showDrill ? (
+                    <Button
+                      label={t("quranCompanion.pronunciation.practiseSound")}
+                      variant="secondary"
+                      size="sm"
+                      icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
+                      onPress={() =>
+                        router.push({
+                          pathname: "/learn-quran/tajweed/drill/[id]",
+                          params: { id: lesson.id },
+                        })
+                      }
+                      style={styles.drillButton}
+                    />
+                  ) : null}
+                </Card>
+              ) : null}
+            </LearnReadingChrome>
+            <JannahDisclaimer textKey="learnQuran.disclaimer" />
+          </Stagger>
+        </LearnSplitLayout>
       )}
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  drillButton: { marginTop: Spacing.three, alignSelf: "flex-start" },
   examples: { gap: Spacing.two, marginTop: Spacing.three },
   exampleRow: {
     flexDirection: "row",
@@ -168,3 +222,6 @@ const styles = StyleSheet.create({
   },
   practiceText: { flex: 1 },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/learn-quran/tajweed/[id]");

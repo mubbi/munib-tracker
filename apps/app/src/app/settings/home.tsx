@@ -12,6 +12,8 @@ import { IconButton } from "@/components/ui/icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
+import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -22,6 +24,7 @@ import {
   resolveQuickActionTint,
   TV_HIDDEN_QUICK_ACTION_IDS,
 } from "@/lib/quick-actions";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 /** Home modules the user can hide (NF-1.21). */
@@ -69,6 +72,19 @@ function CustomizeList({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const hiddenItems = allIds.filter((id) => !order.includes(id));
+  const tv = isTV();
+  /**
+   * TV: never disable the focused Up/Down control at the list edge — a disabled
+   * Pressable drops D-pad focus and the engine jumps elsewhere. Dim it instead;
+   * `onMove` already ignores out-of-range moves.
+   */
+  const edgeProps = (atEdge: boolean) =>
+    tv
+      ? {
+          accessibilityState: { disabled: atEdge },
+          style: atEdge ? styles.edgeDimmedTv : undefined,
+        }
+      : { disabled: atEdge };
 
   return (
     <>
@@ -76,7 +92,10 @@ function CustomizeList({
         {order.map((id, index) => {
           const iconMeta = iconFor(id);
           return (
-            <View key={id} style={[styles.row, { backgroundColor: colors.muted }]}>
+            <View
+              key={id}
+              style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
+            >
               {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
               <ThemedText type="small" style={styles.rowLabel} numberOfLines={1}>
                 {labelFor(id)}
@@ -90,7 +109,7 @@ function CustomizeList({
                 size={18}
                 tintColor={colors.foreground}
                 accessibilityLabel={t("zikr.moveUp")}
-                disabled={index === 0}
+                {...edgeProps(index === 0)}
                 onPress={() => onMove(index, -1)}
               />
               <IconButton
@@ -102,7 +121,7 @@ function CustomizeList({
                 size={18}
                 tintColor={colors.foreground}
                 accessibilityLabel={t("zikr.moveDown")}
-                disabled={index === order.length - 1}
+                {...edgeProps(index === order.length - 1)}
                 onPress={() => onMove(index, 1)}
               />
               <IconButton
@@ -130,7 +149,10 @@ function CustomizeList({
             {hiddenItems.map((id) => {
               const iconMeta = iconFor(id);
               return (
-                <View key={id} style={[styles.row, { backgroundColor: colors.muted }]}>
+                <View
+                  key={id}
+                  style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
+                >
                   {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
                   <ThemedText
                     type="small"
@@ -163,6 +185,9 @@ export default function HomeCustomizeScreen() {
   const { colors, tokens } = useThemeTokens();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
+  const tv = isTV();
+  const { isListDetail } = useLargeScreenLayout();
+  const twoColumn = tv || isListDetail;
 
   const allActionIds = useMemo(
     () =>
@@ -208,6 +233,45 @@ export default function HomeCustomizeScreen() {
     return { icon: meta.icon, tint: resolveQuickActionTint(meta.tone, { colors, tokens }) };
   };
 
+  const modulesCard = (
+    <Card padding="three" style={twoColumn ? styles.tvColumn : undefined}>
+      <SectionHeader
+        title={t("homeCustomize.modulesTitle")}
+        icon={{ ios: "square.grid.2x2.fill", android: "dashboard", web: "dashboard" }}
+      />
+      <View style={styles.rows}>
+        {HOME_MODULES.map((id) => (
+          <ToggleRow
+            key={id}
+            title={t(`homeCustomize.module.${id}`)}
+            value={!hidden.has(id)}
+            onValueChange={(visible) => toggleModule(id, visible)}
+          />
+        ))}
+      </View>
+    </Card>
+  );
+
+  const actionsCard = (
+    <Card padding="three" style={twoColumn ? styles.tvColumn : undefined}>
+      <SectionHeader
+        title={t("homeCustomize.actionsTitle")}
+        icon={{ ios: "square.grid.3x3.fill", android: "apps", web: "apps" }}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+        {t("homeCustomize.actionsHint")}
+      </ThemedText>
+      <CustomizeList
+        order={actionOrder}
+        allIds={allActionIds}
+        labelFor={labelForAction}
+        iconFor={iconForAction}
+        onMove={moveAction}
+        onToggle={toggleAction}
+      />
+    </Card>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("settings.title")}
@@ -216,42 +280,19 @@ export default function HomeCustomizeScreen() {
       onBack={() => goBackOrReplace(router, "/settings")}
     >
       <Seo path="/settings/home" />
-      <Stagger>
-        <Card padding="three">
-          <SectionHeader
-            title={t("homeCustomize.modulesTitle")}
-            icon={{ ios: "square.grid.2x2.fill", android: "dashboard", web: "dashboard" }}
-          />
-          <View style={styles.rows}>
-            {HOME_MODULES.map((id) => (
-              <ToggleRow
-                key={id}
-                title={t(`homeCustomize.module.${id}`)}
-                value={!hidden.has(id)}
-                onValueChange={(visible) => toggleModule(id, visible)}
-              />
-            ))}
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("homeCustomize.actionsTitle")}
-            icon={{ ios: "square.grid.3x3.fill", android: "apps", web: "apps" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("homeCustomize.actionsHint")}
-          </ThemedText>
-          <CustomizeList
-            order={actionOrder}
-            allIds={allActionIds}
-            labelFor={labelForAction}
-            iconFor={iconForAction}
-            onMove={moveAction}
-            onToggle={toggleAction}
-          />
-        </Card>
-      </Stagger>
+      {twoColumn ? (
+        // TV: modules beside quick actions so the landscape width is used.
+        // Wide web / tablets reuse the same two columns.
+        <View style={styles.tvColumns}>
+          {modulesCard}
+          {actionsCard}
+        </View>
+      ) : (
+        <Stagger>
+          {modulesCard}
+          {actionsCard}
+        </Stagger>
+      )}
     </ScreenLayout>
   );
 }
@@ -270,6 +311,10 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   rowLabel: { flex: 1 },
+  rowTv: { minHeight: TvLayout.minFocusTarget, gap: Spacing.two },
+  edgeDimmedTv: { opacity: 0.35 },
+  tvColumns: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
+  tvColumn: { flex: 1, minWidth: 0 },
   iconWell: {
     width: 32,
     height: 32,
@@ -280,3 +325,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/settings/home");

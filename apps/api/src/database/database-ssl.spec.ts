@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hostRequiresDatabaseSsl, resolveDatabaseSsl } from "./database-ssl";
+import { hostRequiresDatabaseSsl, isSupabaseHost, resolveDatabaseSsl } from "./database-ssl";
 
 describe("hostRequiresDatabaseSsl", () => {
   it("detects Supabase / Neon / AWS RDS-style hosts", () => {
@@ -61,5 +61,24 @@ describe("resolveDatabaseSsl", () => {
     expect(resolveDatabaseSsl({ enabled: true, rejectUnauthorized: true, ca: "   " })).toEqual({
       rejectUnauthorized: true,
     });
+  });
+});
+
+describe("isSupabaseHost", () => {
+  it.each([
+    [undefined, false],
+    [null, false],
+    ["", false],
+    ["DB.ABC.SUPABASE.CO", true],
+    ["pooler.supabase.com", true],
+    ["evilsupabase.co", false],
+  ])("%j → %s", (host, expected) => {
+    expect(isSupabaseHost(host)).toBe(expected);
+  });
+});
+
+describe("hostRequiresDatabaseSsl (empty input)", () => {
+  it.each([undefined, null, ""])("%j does not require SSL", (host) => {
+    expect(hostRequiresDatabaseSsl(host)).toBe(false);
   });
 });

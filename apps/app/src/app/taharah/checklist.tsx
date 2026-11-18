@@ -1,6 +1,11 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import {
+  LearnColumnsGrid,
+  learnColumnsFor,
+  useLearnHubLayout,
+} from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
@@ -9,10 +14,12 @@ import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
 import { ensureTaharahContent, getTaharahChecklist, isTaharahContentReady } from "@/lib/taharah";
 
 export default function TaharahChecklistScreen() {
@@ -21,6 +28,9 @@ export default function TaharahChecklistScreen() {
   const { tokens } = useThemeTokens();
   const { ready: contentReady } = useEnsureContent(ensureTaharahContent, isTaharahContentReady);
   const items = getTaharahChecklist();
+  const wide = useLearnHubLayout();
+  // Wide web / tablets: checklist steps flow into 2–3 columns.
+  const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 300, max: 3 });
 
   return (
     <ScreenLayout
@@ -28,6 +38,7 @@ export default function TaharahChecklistScreen() {
       title={t("taharah.checklistTitle")}
       subtitle={t("taharah.checklistSubtitle")}
       onBack={() => goBackOrReplace(router, "/taharah" as Href)}
+      maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/taharah/checklist" />
       <LearnContentGate ready={contentReady}>
@@ -40,14 +51,16 @@ export default function TaharahChecklistScreen() {
                 title={t("taharah.checklistListTitle")}
                 icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
               />
-              <View style={styles.list}>
+              <LearnColumnsGrid columns={columns} gap={Spacing.two} style={styles.list}>
                 {items.map((item, index) => (
-                  <View key={item.id} style={[styles.row, { backgroundColor: tokens.accentSoft }]}>
-                    <LearnProseText proseRole="title">{`${index + 1}. ${item.title}`}</LearnProseText>
-                    <LearnProseText themeColor="mutedForeground">{item.hint}</LearnProseText>
-                  </View>
+                  <TvReadableBlock key={item.id}>
+                    <View style={[styles.row, { backgroundColor: tokens.accentSoft }]}>
+                      <LearnProseText proseRole="title">{`${index + 1}. ${item.title}`}</LearnProseText>
+                      <LearnProseText themeColor="mutedForeground">{item.hint}</LearnProseText>
+                    </View>
+                  </TvReadableBlock>
                 ))}
-              </View>
+              </LearnColumnsGrid>
             </Card>
           </LearnReadingChrome>
 
@@ -59,7 +72,7 @@ export default function TaharahChecklistScreen() {
 }
 
 const styles = StyleSheet.create({
-  list: { gap: Spacing.two, marginTop: Spacing.three },
+  list: { marginTop: Spacing.three },
   row: {
     gap: Spacing.one,
     padding: Spacing.three,
@@ -67,3 +80,6 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
 });
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/taharah/checklist");

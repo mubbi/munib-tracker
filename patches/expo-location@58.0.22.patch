@@ -1,0 +1,81 @@
+diff --git a/android/src/main/java/expo/modules/location/LocationModule.kt b/android/src/main/java/expo/modules/location/LocationModule.kt
+index 8088ec6c731a4f07efbbe9724d19211e8c4b2ff6..981ea1eda96efcc999e6de47e933392502aeb3a5 100644
+--- a/android/src/main/java/expo/modules/location/LocationModule.kt
++++ b/android/src/main/java/expo/modules/location/LocationModule.kt
+@@ -259,7 +259,10 @@ class LocationModule : Module(), SensorEventListener, ActivityEventListener {
+     }
+ 
+     AsyncFunction("removeWatchAsync") { watchId: Int ->
+-      // Motion activity does not require location permissions - check it first.
++      // Teardown must never require location permission. watchDeviceHeading can
++      // start without ACCESS_*_LOCATION, and users may revoke GPS while a
++      // position watch is still registered — rejecting here surfaces as an
++      // unhandled JS promise rejection from LocationSubscription.remove().
+       if (mMotionActivityWatchIds.contains(watchId)) {
+         mMotionActivityWatchIds.remove(watchId)
+         if (mMotionActivityWatchIds.isEmpty()) {
+@@ -268,10 +271,6 @@ class LocationModule : Module(), SensorEventListener, ActivityEventListener {
+         return@AsyncFunction
+       }
+ 
+-      if (isMissingForegroundPermissions()) {
+-        throw LocationUnauthorizedException()
+-      }
+-
+       // Check if we want to stop watching location or compass
+       if (watchId == mHeadingId) {
+         destroyHeadingWatch()
+diff --git a/build/LocationSubscribers.js b/build/LocationSubscribers.js
+index 1255cae9eed1f90aec949d9cd9b6177062e222e9..677ef001830f94039ee68d7a38d784e2629873ac 100644
+--- a/build/LocationSubscribers.js
++++ b/build/LocationSubscribers.js
+@@ -42,7 +42,10 @@ class Subscriber {
+             return;
+         }
+         delete this.callbacks[id];
+-        ExpoLocation.removeWatchAsync(id);
++        void Promise.resolve(ExpoLocation.removeWatchAsync(id)).catch(() => {
++            // Native remove can reject (e.g. Android auth gate on older builds).
++            // Cleanup is best-effort — never leave an unhandled rejection.
++        });
+         if (Object.keys(this.callbacks).length === 0 && this.eventSubscription) {
+             this.eventSubscription.remove();
+             this.eventSubscription = null;
+@@ -67,7 +70,9 @@ class Subscriber {
+         if (callback) {
+             callback(event[this.eventDataField]);
+         } else {
+-            ExpoLocation.removeWatchAsync(watchId);
++            void Promise.resolve(ExpoLocation.removeWatchAsync(watchId)).catch(() => {
++                // Best-effort native teardown for orphaned watches.
++            });
+         }
+     }
+ }
+diff --git a/src/LocationSubscribers.ts b/src/LocationSubscribers.ts
+index 655ffd33e4ed92ee338de74fe1c5823f62120713..1818146515a1742e970e96555185187ad9db3324 100644
+--- a/src/LocationSubscribers.ts
++++ b/src/LocationSubscribers.ts
+@@ -75,7 +75,10 @@ class Subscriber<
+     }
+ 
+     delete this.callbacks[id];
+-    ExpoLocation.removeWatchAsync(id);
++    void Promise.resolve(ExpoLocation.removeWatchAsync(id)).catch(() => {
++      // Native remove can reject (e.g. Android auth gate on older builds).
++      // Cleanup is best-effort — never leave an unhandled rejection.
++    });
+ 
+     if (Object.keys(this.callbacks).length === 0 && this.eventSubscription) {
+       this.eventSubscription.remove();
+@@ -107,7 +110,9 @@ class Subscriber<
+     if (callback) {
+       callback(event[this.eventDataField]);
+     } else {
+-      ExpoLocation.removeWatchAsync(watchId);
++      void Promise.resolve(ExpoLocation.removeWatchAsync(watchId)).catch(() => {
++        // Best-effort native teardown for orphaned watches.
++      });
+     }
+   }
+ }

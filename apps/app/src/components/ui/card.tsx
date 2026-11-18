@@ -1,11 +1,5 @@
 import type { ReactNode } from "react";
-import {
-  type AccessibilityState,
-  type StyleProp,
-  StyleSheet,
-  View,
-  type ViewStyle,
-} from "react-native";
+import { type AccessibilityState, type StyleProp, View, type ViewStyle } from "react-native";
 
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Shadows, Spacing } from "@/constants/theme";
@@ -57,10 +51,12 @@ export function Card({
         : variant === "plain"
           ? { backgroundColor: colors.card }
           : {
+              // A full 1px outline (not hairlineWidth) — on cream and deep-green
+              // pages the fill step alone is too subtle to read as a card.
               backgroundColor: colors.card,
-              borderWidth: StyleSheet.hairlineWidth,
-              borderColor: tokens.hairline,
-              ...Shadows.sm,
+              borderWidth: 1,
+              borderColor: colors.cardBorder,
+              ...(tokens.isDark ? Shadows.md : Shadows.sm),
             };
 
   if (onPress) {

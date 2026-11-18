@@ -2,24 +2,42 @@ import { accentColors, defaultAccentColorId } from "./accents";
 import { accentOnSurface, bestForeground } from "./color";
 import type { AccentColorId, ColorMode, ThemeColors } from "./types";
 
+/**
+ * Surface ladder (WCAG ratios measured against the neighbouring surface):
+ *
+ *   background → card (elevated, ~1.2:1 + 1px `cardBorder`)
+ *              → muted (chips, wells, list rows, segmented tracks; ~1.25:1 on card)
+ *              → input (form fields; always paired with a ≥3:1 `inputBorder`, WCAG 1.4.11)
+ *
+ * `mutedForeground` clears AA (≥4.5:1) on background, card AND muted, so
+ * secondary text stays legible wherever it lands. Page backgrounds are pinned
+ * to the splash / PWA / widget colours (`app.json`, `cold-start.ts`) — change
+ * those together or not at all.
+ */
 const lightBase = {
   background: "#F5F0E6",
   foreground: "#152921",
-  muted: "#E8E2D4",
-  mutedForeground: "#5C7268",
-  border: "#C9C0AE",
-  card: "#FFFCF7",
+  muted: "#EAE3D4",
+  mutedForeground: "#4A6157",
+  border: "#D2C7B1",
+  card: "#FFFDF9",
   cardForeground: "#152921",
+  cardBorder: "#E3D9C6",
+  input: "#FFFFFF",
+  inputBorder: "#8C826E",
 };
 
 const darkBase = {
   background: "#152921",
-  foreground: "#E8DCC8",
-  muted: "#1E3530",
-  mutedForeground: "#8BA89A",
-  border: "#2A453C",
-  card: "#1C322C",
-  cardForeground: "#E8DCC8",
+  foreground: "#EEE4D2",
+  muted: "#2B463D",
+  mutedForeground: "#A2BDB0",
+  border: "#3D5F53",
+  card: "#1E3830",
+  cardForeground: "#EEE4D2",
+  cardBorder: "#30504A",
+  input: "#2B463D",
+  inputBorder: "#60857A",
 };
 
 function buildTheme(resolvedScheme: "light" | "dark", accentColorId: AccentColorId): ThemeColors {
