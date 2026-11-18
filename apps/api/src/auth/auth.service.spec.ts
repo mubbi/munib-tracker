@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { UnauthorizedException } from "@nestjs/common";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import type { ObjectLiteral, Repository } from "typeorm";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -635,6 +636,18 @@ describe("AuthService", () => {
       });
       expect(closure.primaryReason).toBe(AccountClosureReason.NotUsing);
       expect(closure.details).toBe(stored);
+    });
+
+    it("rejects closing an account that is already closed", async () => {
+      const { service, repo, signIn } = await setup();
+      const session = await signIn();
+      await repo(UserEntity).update(
+        { id: session.userId },
+        { email: buildTombstoneEmail(null, session.userId) },
+      );
+      await expect(service.deleteAccount(session.accessToken, DELETE_BODY)).rejects.toThrow(
+        new UnauthorizedException("Account closed"),
+      );
     });
 
     it("lets the same identity sign up again as a brand-new account", async () => {
