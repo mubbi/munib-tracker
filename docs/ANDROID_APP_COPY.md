@@ -22,7 +22,7 @@
 
 Free offline companion for salah, Qur'an, zikr, qaza, prayer times, and worship.
 
-*79/80*
+_79/80_
 
 ---
 
@@ -30,7 +30,7 @@ Free offline companion for salah, Qur'an, zikr, qaza, prayer times, and worship.
 
 رفيق مجاني للصلاة والقرآن والذكر والقضاء وأوقات الصلاة — يعمل بدون إنترنت.
 
-*72/80*
+_72/80_
 
 ---
 
@@ -38,7 +38,7 @@ Free offline companion for salah, Qur'an, zikr, qaza, prayer times, and worship.
 
 نماز، قرآن، ذکر اور قضا کے لیے مفت آف لائن ساتھی — اوقاتِ نماز اور قبلہ سمت۔
 
-*79/80*
+_79/80_
 
 ---
 
@@ -46,7 +46,7 @@ Free offline companion for salah, Qur'an, zikr, qaza, prayer times, and worship.
 
 Teman ibadah offline gratis: salat, Al-Qur'an, dzikir, qadha, waktu salat & kiblat.
 
-*80/80*
+_80/80_
 
 ---
 
@@ -54,7 +54,7 @@ Teman ibadah offline gratis: salat, Al-Qur'an, dzikir, qadha, waktu salat & kibl
 
 Ücretsiz çevrimdışı ibadet arkadaşı: namaz, Kur'an, zikir, kaza, vakitler ve kıble.
 
-*80/80*
+_80/80_
 
 ---
 
@@ -62,7 +62,7 @@ Teman ibadah offline gratis: salat, Al-Qur'an, dzikir, qadha, waktu salat & kibl
 
 Compagnon gratuit hors ligne : prière, Coran, dhikr, qada, horaires et qibla.
 
-*76/80*
+_76/80_
 
 ---
 
@@ -70,7 +70,7 @@ Compagnon gratuit hors ligne : prière, Coran, dhikr, qada, horaires et qibla.
 
 Бесплатный офлайн-компаньон: намаз, Коран, зикр, када, намаз-вакты и кибла.
 
-*76/80*
+_76/80_
 
 ---
 
@@ -78,7 +78,7 @@ Compagnon gratuit hors ligne : prière, Coran, dhikr, qada, horaires et qibla.
 
 বিনামূল্যে অফলাইন সঙ্গী: সালাত, কুরআন, যিকর, কাজা, নামাজের সময় ও কিবলা।
 
-*80/80*
+_80/80_
 
 ---
 
@@ -86,7 +86,7 @@ Compagnon gratuit hors ligne : prière, Coran, dhikr, qada, horaires et qibla.
 
 Rakan ibadah luar talian percuma: solat, Quran, zikir, qada, waktu solat & kiblat.
 
-*80/80*
+_80/80_
 
 ---
 
@@ -94,7 +94,7 @@ Rakan ibadah luar talian percuma: solat, Quran, zikir, qada, waktu solat & kibla
 
 همراه رایگان آفلاین: نماز، قرآن، ذکر، قضا، اوقات شرعی و قبله.
 
-*58/80*
+_58/80_
 
 ---
 
@@ -102,7 +102,7 @@ Rakan ibadah luar talian percuma: solat, Quran, zikir, qada, waktu solat & kibla
 
 Kostenloser Offline-Begleiter für Salah, Qur'an, Dhikr, Qaza, Gebetszeiten & Qibla.
 
-*80/80*
+_80/80_
 
 ---
 
@@ -110,7 +110,7 @@ Kostenloser Offline-Begleiter für Salah, Qur'an, Dhikr, Qaza, Gebetszeiten & Qi
 
 Compañero gratuito sin conexión: salat, Corán, dhikr, qadha, horarios y qibla.
 
-*78/80*
+_78/80_
 
 ---
 
@@ -118,7 +118,7 @@ Compañero gratuito sin conexión: salat, Corán, dhikr, qadha, horarios y qibla
 
 मुफ़्त ऑफ़लाइन साथी: नमाज़, क़ुरआन, ज़िक्र, क़ज़ा, नमाज़ के समय और क़िबला।
 
-*80/80*
+_80/80_
 
 ---
 
@@ -126,7 +126,7 @@ Compañero gratuito sin conexión: salat, Corán, dhikr, qadha, horarios y qibla
 
 Companheiro gratuito offline: salat, Alcorão, dhikr, qadha, horários e qibla.
 
-*76/80*
+_76/80_
 
 ---
 
@@ -134,7 +134,7 @@ Companheiro gratuito offline: salat, Alcorão, dhikr, qadha, horários e qibla.
 
 無料のオフライン礼拝コンパニオン。礼拝・クルアーン・ズィクル・カダー・礼拝時間・キブラ。
 
-*48/80*
+_48/80_
 
 ---
 
@@ -142,7 +142,7 @@ Companheiro gratuito offline: salat, Alcorão, dhikr, qadha, horários e qibla.
 
 Bạn đồng hành miễn phí ngoại tuyến: cầu nguyện, Qur'an, dhikr, qadha, giờ & hướng.
 
-*80/80*
+_80/80_
 
 ---
 
@@ -150,7 +150,7 @@ Bạn đồng hành miễn phí ngoại tuyến: cầu nguyện, Qur'an, dhikr, 
 
 免费离线礼拜伴侣：礼拜追踪、古兰经、记念、还补、礼拜时间与朝向。
 
-*32/80*
+_32/80_
 
 ---
 
@@ -158,7 +158,7 @@ Bạn đồng hành miễn phí ngoại tuyến: cầu nguyện, Qur'an, dhikr, 
 
 Abokin ibada offline kyauta: sallah, Alkur'ani, zikiri, kaza, lokutan sallah & qibla.
 
-*80/80*
+_80/80_
 
 ---
 
@@ -166,7 +166,7 @@ Abokin ibada offline kyauta: sallah, Alkur'ani, zikiri, kaza, lokutan sallah & q
 
 Rafiki wa ibada nje ya mtandao: swala, Qur'an, dhikr, qadha, nyakati za swala & qibla.
 
-*80/80*
+_80/80_
 
 ---
 
@@ -174,7 +174,7 @@ Rafiki wa ibada nje ya mtandao: swala, Qur'an, dhikr, qadha, nyakati za swala & 
 
 Oflayn ibadət yoldaşı: namaz, Qur'an, zikr, qəza, namaz vaxtları və qiblə — pulsuz.
 
-*78/80*
+_78/80_
 
 ---
 
@@ -182,7 +182,7 @@ Oflayn ibadət yoldaşı: namaz, Qur'an, zikr, qəza, namaz vaxtları və qiblə
 
 آفلاین ملګری: لمونځ، قرآن، ذکر، قضا، د لمونځ وختونه او قبله — وړیا، پرته له اعلاناتو.
 
-*80/80*
+_80/80_
 
 ---
 
@@ -190,7 +190,7 @@ Oflayn ibadət yoldaşı: namaz, Qur'an, zikr, qəza, namaz vaxtları və qiblə
 
 Saaxiib offline oo bilaash ah: salaadda, Qur'aanka, xuska, qadha, waqtiyada & qibla.
 
-*78/80*
+_78/80_
 
 ---
 
@@ -198,7 +198,7 @@ Saaxiib offline oo bilaash ah: salaadda, Qur'aanka, xuska, qadha, waqtiyada & qi
 
 Oflayn ibodat hamrohi: namoz, Qur'on, zikr, qazo, namoz vaqtlari va qibla — bepul.
 
-*76/80*
+_76/80_
 
 ---
 
@@ -206,7 +206,7 @@ Oflayn ibodat hamrohi: namoz, Qur'on, zikr, qazo, namoz vaqtlari va qibla — be
 
 Офлайн серіктес: намаз, Құран, зікір, қаза, намаз уақыттары мен қибла — тегін.
 
-*72/80*
+_72/80_
 
 ---
 
@@ -214,7 +214,7 @@ Oflayn ibodat hamrohi: namoz, Qur'on, zikr, qazo, namoz vaqtlari va qibla — be
 
 هاوڕێی ئۆفلاین: نوێژ، قورئان، زیکر، قەزا، کاتەکانی نوێژ و قیبلە — بەخۆڕایی.
 
-*72/80*
+_72/80_
 
 ---
 
@@ -222,7 +222,7 @@ Oflayn ibodat hamrohi: namoz, Qur'on, zikr, qazo, namoz vaqtlari va qibla — be
 
 Offline pratilac: namaz, Kur'an, zikr, kaza, vremena namaza i kibla — besplatno.
 
-*72/80*
+_72/80_
 
 ---
 
@@ -230,7 +230,7 @@ Offline pratilac: namaz, Kur'an, zikr, kaza, vremena namaza i kibla — besplatn
 
 Shoqërues offline: namazi, Kurani, dhikri, kaza, koha e namazit dhe kibla — falas.
 
-*76/80*
+_76/80_
 
 ---
 
@@ -238,7 +238,7 @@ Shoqërues offline: namazi, Kurani, dhikri, kaza, koha e namazit dhe kibla — f
 
 Офлайн шерик: намаз, Коран, зикр, каза, намаз убактысы жана кибла — акысыз.
 
-*68/80*
+_68/80_
 
 ---
 
@@ -246,7 +246,7 @@ Shoqërues offline: namazi, Kurani, dhikri, kaza, koha e namazit dhe kibla — f
 
 Ҳамроҳи офлайн: намоз, Қуръон, зикр, қазо, вақти намоз ва қибла — ройгон.
 
-*62/80*
+_62/80_
 
 ---
 
@@ -254,7 +254,7 @@ Shoqërues offline: namazi, Kurani, dhikri, kaza, koha e namazit dhe kibla — f
 
 Awtonom ýoldaş: namaz, Kuran, zikr, kaza, namaz wagty we kibla — mugt, reklamasyz.
 
-*72/80*
+_72/80_
 
 ---
 
