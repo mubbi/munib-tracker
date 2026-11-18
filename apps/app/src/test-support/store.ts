@@ -19,3 +19,24 @@ export async function resetTrackerStore(): Promise<void> {
   await AsyncStorage.clear();
   await loadTrackerStore();
 }
+
+/** Snapshot of the tracker store (data + real actions) before any test touched it. */
+const pristineTrackerState = trackerStore.getState();
+
+/**
+ * Merges `partial` into the tracker store inside `act` — seed data
+ * (`qazaCounters`, `prayerStatus` …) or stub actions with `jest.fn()`
+ * (components reach actions through `getState()`). Pair with `restoreTrackerStore`.
+ */
+export async function seedTrackerStore(
+  partial: Partial<ReturnType<typeof trackerStore.getState>>,
+): Promise<void> {
+  await act(async () => {
+    trackerStore.setState(partial);
+  });
+}
+
+/** Puts back the pristine tracker state and real actions. Use in `afterEach`. */
+export function restoreTrackerStore(): void {
+  trackerStore.setState(pristineTrackerState, true);
+}
