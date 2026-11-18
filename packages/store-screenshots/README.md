@@ -28,16 +28,22 @@ Native Maestro scripts map app scenes → these filenames via `STUDIO_ALIASES` i
 
 ## Export sizes (`EXPORT_SIZES`)
 
-| Device kind               | Resolutions                                        |
-| ------------------------- | -------------------------------------------------- |
-| `iphone`                  | 1320×2868 (6.9"), 1242×2688 (6.5")                 |
-| `ipad`                    | 2064×2752 (13")                                    |
-| `android`                 | 1080×1920                                          |
-| `android-7`               | 1200×1920 portrait; 1920×1200 landscape            |
-| `android-10`              | 1600×2560 portrait; 2560×1600 landscape            |
-| `feature-graphic`         | 1024×500                                           |
-| `watch`                   | 422×514 (Ultra 3; Apple scales to smaller watches) |
-| `apple-tv` / `android-tv` | 1920×1080 (living-room store screenshots)          |
+| Device kind                      | Resolutions                                          |
+| -------------------------------- | ---------------------------------------------------- |
+| `iphone`                         | 1320×2868 (6.9"), 1242×2688 (6.5"), 1206×2622 (6.3") |
+| `iphone-duo`                     | 2007×2853, 1398×2034; landscape 2853×2007, 2034×1398 |
+| `ipad`                           | 2064×2752 (13")                                      |
+| `apple-watch`                    | 422×514 (Ultra 4 / 3), 410×502 (Ultra 2 / Ultra)     |
+| `apple-tv`                       | 3840×2160, 1920×1080                                 |
+| `ios-header` / `ios-header-wide` | 5244×2950 / 3840×1646 (product page header)          |
+| `ios-search` / `ios-search-3x2`  | 5244×2950 / 3840×2560, 1920×1280 (search results)    |
+| `android`                        | 1080×1920                                            |
+| `android-7`                      | 1200×1920 portrait; 1920×1200 landscape              |
+| `android-10`                     | 1600×2560 portrait; 2560×1600 landscape              |
+| `wear-os`                        | 1024×1024 (Play: 1:1, 384–3840 px per side)          |
+| `android-tv`                     | 1920×1080                                            |
+| `tv-banner`                      | 1280×720                                             |
+| `feature-graphic`                | 1024×500                                             |
 
 ### Apple Watch
 
