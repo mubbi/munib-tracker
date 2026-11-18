@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@munib-tracker/typescript-config": "workspace:*",
+    "@munib-tracker/vitest-config": "workspace:*",
     "@nestjs/cli": "^12.0.13",
     "@nestjs/schematics": "^12.0.13",
     "@nestjs/testing": "^12.5.0",

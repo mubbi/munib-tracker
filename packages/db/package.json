@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@munib-tracker/typescript-config": "workspace:*",
+    "@munib-tracker/vitest-config": "workspace:*",
     "@types/node": "^24",
     "@types/pg": "^8.23.1",
     "@vitest/coverage-v8": "^5.1.0",

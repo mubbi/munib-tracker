@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./ci": "./src/ci.ts",
     "./setup": "./src/setup.ts"
   },
   "scripts": {

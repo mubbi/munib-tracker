@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@munib-tracker/typescript-config": "workspace:*",
+    "@munib-tracker/vitest-config": "workspace:*",
     "@types/node": "^24",
     "@vitest/coverage-v8": "^5.1.0",
     "typescript": "npm:@typescript/typescript6@^6.0.2",

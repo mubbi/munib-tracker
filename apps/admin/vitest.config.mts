@@ -1,4 +1,5 @@
 import path from "node:path";
+import { ciReporting } from "@munib-tracker/vitest-config/ci";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -8,6 +9,7 @@ export default defineConfig({
     },
   },
   test: {
+    ...ciReporting,
     globals: true,
     environment: "node",
     include: ["lib/**/*.test.ts", "lib/**/*.spec.ts"],

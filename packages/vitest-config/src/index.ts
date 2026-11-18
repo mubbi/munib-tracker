@@ -1,8 +1,10 @@
+import { ciReporting } from "@munib-tracker/vitest-config/ci";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
 
 export const baseConfig = defineConfig({
   test: {
+    ...ciReporting,
     globals: true,
     environment: "node",
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
@@ -19,6 +21,7 @@ export const baseConfig = defineConfig({
 export const reactConfig = defineConfig({
   plugins: [react()],
   test: {
+    ...ciReporting,
     globals: true,
     environment: "jsdom",
     include: ["**/*.{test,spec,feature.test}.{ts,tsx}"],

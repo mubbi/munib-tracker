@@ -427,6 +427,9 @@ importers:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@munib-tracker/vitest-config':
+        specifier: workspace:*
+        version: link:../../packages/vitest-config
       '@nestjs/cli':
         specifier: ^12.0.13
         version: 12.0.13(@rspack/core@2.3.3(@swc/helpers@0.5.23))(@swc/core@1.16.22(@swc/helpers@0.5.23))(@types/node@24.19.2)(fork-ts-checker-webpack-plugin@9.1.0(@typescript/typescript6@6.0.2)(webpack@5.106.2(@swc/core@1.16.22(@swc/helpers@0.5.23))(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.23)))(tsconfig-paths-webpack-plugin@4.2.0)(webpack-node-externals@3.0.0)(webpack@5.106.2(@swc/core@1.16.22(@swc/helpers@0.5.23))(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.23))
@@ -916,6 +919,9 @@ importers:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@munib-tracker/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@types/node':
         specifier: ^24
         version: 24.19.2
@@ -940,6 +946,9 @@ importers:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@munib-tracker/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@types/node':
         specifier: ^24
         version: 24.19.2
@@ -961,6 +970,9 @@ importers:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@munib-tracker/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@types/node':
         specifier: ^24
         version: 24.19.2
@@ -1001,6 +1013,9 @@ importers:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@munib-tracker/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@types/node':
         specifier: ^24
         version: 24.19.2
@@ -1025,6 +1040,9 @@ importers:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@munib-tracker/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@typescript/native':
         specifier: npm:typescript@^7.0.2
         version: typescript@7.0.2
