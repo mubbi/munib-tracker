@@ -33,7 +33,11 @@ const {
 } = require("./lib/sync-android-versions.cjs");
 const { ensurePlayUploadCertSha1 } = require("./lib/android-upload-cert.cjs");
 const { ensureAndroidReleaseSigning } = require("../plugins/withAndroidReleaseSigning.cjs");
-const { assertAndroidProjectMode, enableExpoTvEnv } = require("./lib/tv-native-project.cjs");
+const {
+  assertAndroidProjectMode,
+  assertAndroidTvLeanbackRequired,
+  enableExpoTvEnv,
+} = require("./lib/tv-native-project.cjs");
 
 const projectRoot = path.resolve(__dirname, "..");
 const androidDir = path.join(projectRoot, "android");
@@ -101,6 +105,7 @@ function ensureKeystoreProperties() {
 }
 
 assertAndroidProjectMode(projectRoot, { expectTv: isTv });
+if (isTv) assertAndroidTvLeanbackRequired(projectRoot);
 ensureKeystoreProperties();
 ensurePlayUploadCertSha1(projectRoot);
 ensureAndroidReleaseSigning(projectRoot);

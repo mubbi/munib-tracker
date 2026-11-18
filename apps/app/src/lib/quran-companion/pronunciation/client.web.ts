@@ -1,3 +1,5 @@
+import sdkPackage from "@quran-lab/tajweedformer/package.json";
+
 import type { HeadValues } from "./judge";
 import {
   type PronunciationClient,
@@ -8,8 +10,14 @@ import {
 } from "./types";
 
 /**
- * Web: `@quran-lab/tajweedformer` (WebAssembly in a module Worker). Loaded with
- * a dynamic import so it only reaches the drill route's chunk. Analytics off.
+ * Web: `@quran-lab/tajweedformer` (WebAssembly in a module Worker). Analytics off.
+ *
+ * The SDK is NOT bundled by Metro. It finds its Worker and wasm with
+ * `new URL(..., import.meta.url)`, which Metro does not rewrite, so a bundled copy
+ * requests `/_expo/static/js/web/tajweedformer.wasm` and 404s. Instead
+ * `scripts/copy-tajweedformer-web.mjs` self-hosts the package's `web/` + `dist/`
+ * under {@link SDK_ENTRY}'s folder (before `web` / `build:web`), and the browser
+ * imports it natively, so `import.meta.url` points at the real files.
  *
  * Note: on the web the SDK shows its own `<quranlab-consent>` sharing sheet after
  * a finished take when Quran Lab's signed config offers sharing for this app —
@@ -21,6 +29,18 @@ type WebSdk = typeof import("@quran-lab/tajweedformer");
 type WebClient = Awaited<ReturnType<WebSdk["TajweedClient"]["create"]>>;
 type WebModel = Awaited<ReturnType<WebClient["model"]>>;
 type WebSession = Awaited<ReturnType<WebModel["listen"]>>;
+
+/** Same-origin, versioned entry written by `scripts/copy-tajweedformer-web.mjs`. */
+export const SDK_ENTRY = `/tajweedformer/${sdkPackage.version}/web/index.js`;
+
+/**
+ * A native `import()` Metro cannot see (it rejects or bundles any `import()` it
+ * parses). The web app sends no CSP, so `Function` is allowed.
+ */
+function importSdk(url: string): Promise<WebSdk> {
+  const nativeImport = new Function("url", "return import(url)") as (u: string) => Promise<WebSdk>;
+  return nativeImport(url);
+}
 
 export function createPronunciationClient(): PronunciationClient {
   const key = quranLabKeyFor("web");
@@ -39,7 +59,7 @@ export function createPronunciationClient(): PronunciationClient {
     if (!available || !key) throw new QuranLabError(key ? "runtime_unsupported" : "not_configured");
     if (client) return client;
     try {
-      const sdk = await import("@quran-lab/tajweedformer");
+      const sdk = await importSdk(SDK_ENTRY);
       client = await sdk.TajweedClient.create({ key, analytics: "off" });
       return client;
     } catch (error) {
