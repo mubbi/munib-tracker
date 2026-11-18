@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
+import type { ReviewDeferRoute } from "@/features/reviews/lib/reviewPromptBridge";
 import {
   clearPendingReviewTrigger,
   emitReviewTrigger,
@@ -8,65 +8,76 @@ import {
   registerReviewTriggerFlush,
 } from "@/features/reviews/lib/reviewTriggerBus";
 
+const { perfect_day, weekly_report, streak_milestone, qaza_cleared, manual } =
+  APP_FEEDBACK_TRIGGER_IDS;
+
+/** Registers a flush spy and emits the given triggers in order. */
+function setup(...emits: [Parameters<typeof emitReviewTrigger>[0], ReviewDeferRoute?][]) {
+  const flush = jest.fn();
+  registerReviewTriggerFlush(flush);
+  for (const [triggerId, deferRoute] of emits) {
+    emitReviewTrigger(triggerId, deferRoute ? { deferRoute } : undefined);
+  }
+  return flush;
+}
+
 describe("reviewTriggerBus", () => {
   beforeEach(() => {
     clearPendingReviewTrigger();
     registerReviewTriggerFlush(null);
   });
 
-  it("keeps higher-priority trigger when multiple emit", () => {
-    const flush = jest.fn();
-    registerReviewTriggerFlush(flush);
-
-    emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
-    emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.perfect_day);
-
+  it("keeps the higher-priority trigger when several emit", () => {
+    const flush = setup([weekly_report], [perfect_day]);
     flushReviewTriggerImmediate();
-    expect(flush).toHaveBeenCalledTimes(1);
-    expect(flush).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.perfect_day);
+    expect(flush.mock.calls).toEqual([[perfect_day]]);
   });
 
-  it("flushes only when route matches deferral", () => {
-    const flush = jest.fn();
-    registerReviewTriggerFlush(flush);
+  it("keeps the pending trigger when a lower-priority one arrives", () => {
+    const flush = setup([perfect_day], [qaza_cleared, "tracker"]);
+    flushReviewTriggerForRoute("home");
+    expect(flush).toHaveBeenCalledWith(perfect_day);
+  });
 
-    emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.weekly_report, {
-      deferRoute: "home",
-    });
+  it("lets a manual trigger replace a deferred automatic one", () => {
+    const flush = setup([perfect_day, "tracker"], [manual, "none"]);
+    flushReviewTriggerImmediate();
+    expect(flush.mock.calls).toEqual([[manual]]);
+  });
 
+  it("does not flush a deferred trigger on another route", () => {
+    const flush = setup([weekly_report, "home"]);
     flushReviewTriggerForRoute("tracker");
     expect(flush).not.toHaveBeenCalled();
+  });
 
+  it("flushes a deferred trigger on its route", () => {
+    const flush = setup([weekly_report, "home"]);
     flushReviewTriggerForRoute("home");
-    expect(flush).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
+    expect(flush).toHaveBeenCalledWith(weekly_report);
   });
 
-  it("manual trigger replaces a deferred automatic trigger", () => {
-    const flush = jest.fn();
-    registerReviewTriggerFlush(flush);
-
-    emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.perfect_day, {
-      deferRoute: "tracker",
-    });
-    emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.manual, { deferRoute: "none" });
-
-    flushReviewTriggerImmediate();
-    expect(flush).toHaveBeenCalledTimes(1);
-    expect(flush).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.manual);
-  });
-
-  it("flushReviewTriggerImmediate skips deferred triggers", () => {
-    const flush = jest.fn();
-    registerReviewTriggerFlush(flush);
-
-    emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.streak_milestone, {
-      deferRoute: "home",
-    });
-
+  it("does not flush a deferred trigger immediately", () => {
+    const flush = setup([streak_milestone, "home"]);
     flushReviewTriggerImmediate();
     expect(flush).not.toHaveBeenCalled();
+  });
 
-    flushReviewTriggerForRoute("home");
-    expect(flush).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.streak_milestone);
+  it.each([
+    ["for a route", () => flushReviewTriggerForRoute("home")],
+    ["immediately", () => flushReviewTriggerImmediate()],
+  ])("does nothing %s without a pending trigger", (_label, flushNow) => {
+    const flush = setup();
+    flushNow();
+    expect(flush).not.toHaveBeenCalled();
+  });
+
+  it("keeps the trigger pending until a flush handler registers", () => {
+    emitReviewTrigger(manual);
+    flushReviewTriggerForRoute("none");
+    flushReviewTriggerImmediate();
+    const flush = setup();
+    flushReviewTriggerImmediate();
+    expect(flush).toHaveBeenCalledWith(manual);
   });
 });

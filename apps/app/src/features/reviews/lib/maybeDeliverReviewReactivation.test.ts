@@ -1,69 +1,45 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import {
+  reviewReactivationDedupeKey,
+  reviewReactivationWindowKey,
+} from "@munib-tracker/shared/reviews";
+import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
 
-const mockScheduleNotificationAsync = jest.fn<() => Promise<string>>().mockResolvedValue("id");
-let mockReviewReactivationEnabled = true;
+const mockScheduleNotificationAsync = jest.fn(async (..._args: unknown[]) => "id");
+const mockWriteDedupe = jest.fn(async (_value: string) => undefined);
+const mockEnv = {
+  localSupported: true,
+  reactivationEnabled: true,
+  gateAllowed: true,
+  priorDedupe: null as string | null,
+};
 
 jest.mock("expo-notifications", () => ({
   scheduleNotificationAsync: (...args: unknown[]) => mockScheduleNotificationAsync(...args),
 }));
 
-jest.mock("react-native", () => ({
-  Platform: { OS: "ios" },
+jest.mock("@/lib/notifications/platform", () => ({
+  isLocalNotificationSupported: () => mockEnv.localSupported,
 }));
 
 jest.mock("@/features/reviews/lib/reviewGating", () => ({
-  canSendReviewReactivationPush: jest.fn(() => ({ allowed: true })),
-}));
-
-jest.mock("@/features/reviews/lib/reviewEngagementBridge", () => ({
-  getReviewPromptRuntime: jest.fn(() => ({
-    isSyncing: false,
-    prayersLogged: 5,
-    currentStreak: 3,
-    achievementsUnlocked: 1,
-    hasCompletedOnboarding: true,
-  })),
+  canSendReviewReactivationPush: () => ({ allowed: mockEnv.gateAllowed }),
 }));
 
 jest.mock("@/features/reviews/lib/reviewStorage", () => ({
-  readReviewGating: jest.fn(async () => ({
-    firstOpenAt: new Date().toISOString(),
-    sessionCount: 5,
-    meaningfulInteractionCount: 6,
-    lastSessionValueAt: new Date().toISOString(),
-    lastPromptedAt: null,
-    lastDismissedAt: null,
-    lastStoreReviewRequestAt: null,
-    lastFeedbackSentAt: null,
-    lastErrorAt: null,
-    lastForegroundAt: null,
-    currentSessionStartedAt: new Date().toISOString(),
-    sessionPromptShown: false,
-    sessionErrorAt: null,
-    lastTriggerCoalesceAt: null,
-    promptCountLifetime: 0,
-    dismissStreak: 0,
-  })),
-  readReviewReactivationDedupe: jest.fn(async () => null),
-  writeReviewReactivationDedupe: jest.fn(async () => undefined),
+  readReviewGating: async () =>
+    jest.requireActual("@/features/reviews/lib/reviewStorage").EMPTY_REVIEW_GATING,
+  readReviewReactivationDedupe: async () => mockEnv.priorDedupe,
+  writeReviewReactivationDedupe: (value: string) => mockWriteDedupe(value),
 }));
 
 jest.mock("@/auth/session-store", () => ({
-  SessionStore: {
-    getDeviceId: jest.fn(async () => "device-1"),
-  },
+  SessionStore: { getDeviceId: async () => "device-1" },
 }));
 
 jest.mock("@/stores/preferences-store", () => ({
   preferencesStore: {
     getState: () => ({
-      prefs: {
-        notificationPrefs: {
-          get reviewReactivationEnabled() {
-            return mockReviewReactivationEnabled;
-          },
-        },
-      },
+      prefs: { notificationPrefs: { reviewReactivationEnabled: mockEnv.reactivationEnabled } },
     }),
   },
 }));
@@ -73,25 +49,58 @@ jest.mock("@/i18n", () => ({
   default: { t: (key: string) => key },
 }));
 
-import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
+const currentDedupeKey = () =>
+  reviewReactivationDedupeKey("device-1", reviewReactivationWindowKey());
+
+function setup(overrides: Partial<typeof mockEnv> = {}) {
+  Object.assign(mockEnv, overrides);
+  return maybeDeliverReviewReactivation("achievement_unlock");
+}
 
 describe("maybeDeliverReviewReactivation", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    mockReviewReactivationEnabled = true;
+    mockScheduleNotificationAsync.mockClear();
+    mockWriteDedupe.mockClear();
+    Object.assign(mockEnv, {
+      localSupported: true,
+      reactivationEnabled: true,
+      gateAllowed: true,
+      priorDedupe: null,
+    });
   });
 
-  it("skips when preference disabled", async () => {
-    mockReviewReactivationEnabled = false;
-
-    const sent = await maybeDeliverReviewReactivation("perfect_day");
-    expect(sent).toBe(false);
+  it.each([
+    ["local notifications are unsupported", { localSupported: false }],
+    ["the preference is disabled", { reactivationEnabled: false }],
+    ["gating disallows the push", { gateAllowed: false }],
+  ])("skips when %s", async (_label, overrides) => {
+    await expect(setup(overrides)).resolves.toBe(false);
     expect(mockScheduleNotificationAsync).not.toHaveBeenCalled();
   });
 
-  it("schedules a local notification when allowed", async () => {
-    const sent = await maybeDeliverReviewReactivation("achievement_unlock");
-    expect(sent).toBe(true);
-    expect(mockScheduleNotificationAsync).toHaveBeenCalledTimes(1);
+  it("skips when this window was already delivered", async () => {
+    await expect(setup({ priorDedupe: currentDedupeKey() })).resolves.toBe(false);
+    expect(mockScheduleNotificationAsync).not.toHaveBeenCalled();
+  });
+
+  it("schedules a review notification carrying the trigger id", async () => {
+    await expect(setup()).resolves.toBe(true);
+    expect(mockScheduleNotificationAsync).toHaveBeenCalledWith({
+      content: {
+        title: "localNotifications.reviewReactivationTitle",
+        body: "localNotifications.reviewReactivationBody",
+        data: {
+          type: "review_reactivation",
+          action: "open_review_funnel",
+          triggerId: "achievement_unlock",
+        },
+      },
+      trigger: null,
+    });
+  });
+
+  it("records the dedupe key after delivering", async () => {
+    await setup();
+    expect(mockWriteDedupe).toHaveBeenCalledWith(currentDedupeKey());
   });
 });
