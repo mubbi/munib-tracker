@@ -77,6 +77,26 @@ function assertAndroidProjectMode(projectRoot, { expectTv }) {
 }
 
 /**
+ * Play's Android TV track rejects bundles unless the manifest declares
+ * `<uses-feature android:name="android.software.leanback" android:required="true"/>`
+ * (config-tv `androidTVRequired: true` in app.config.js).
+ * @param {string} projectRoot
+ */
+function assertAndroidTvLeanbackRequired(projectRoot) {
+  const manifest = path.join(projectRoot, "android", "app", "src", "main", "AndroidManifest.xml");
+  const xml = fs.existsSync(manifest) ? fs.readFileSync(manifest, "utf8") : "";
+  const leanbackFeature = xml.match(/<uses-feature\b[^>]*android\.software\.leanback[^>]*>/);
+  if (!leanbackFeature || !/android:required\s*=\s*"true"/.test(leanbackFeature[0])) {
+    console.error(
+      '\nAndroidManifest.xml must declare android.software.leanback with android:required="true"\n' +
+        "for the Play Android TV track. Regenerate the TV project:\n" +
+        "  pnpm prebuild:app:tv:android\n",
+    );
+    process.exit(1);
+  }
+}
+
+/**
  * @param {string} projectRoot
  * @param {{ expectTv: boolean }} opts
  */
@@ -118,6 +138,7 @@ module.exports = {
   isAndroidTvProject,
   isIosTvProject,
   assertAndroidProjectMode,
+  assertAndroidTvLeanbackRequired,
   assertIosProjectMode,
   enableExpoTvEnv,
 };

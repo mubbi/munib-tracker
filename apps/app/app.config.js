@@ -182,6 +182,11 @@ module.exports = ({ config }) => {
   const configTvPlugin = [
     "@react-native-tvos/config-tv",
     {
+      /**
+       * `<uses-feature android.software.leanback required="true">` — Play's Android TV
+       * track rejects bundles that don't require Leanback. Phone ships a separate AAB.
+       */
+      androidTVRequired: true,
       androidTVBanner: "./assets/images/tv/android-banner.png",
       androidTVIcon: "./assets/images/tv/android-icon.png",
       appleTVImages: {
