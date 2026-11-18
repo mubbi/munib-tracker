@@ -1,6 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { accentColorIds } from "./accents";
-import { accentOnSurface, bestForeground, contrastRatio, ensureContrastAgainst } from "./color";
+import {
+  accentOnSurface,
+  bestForeground,
+  contrastRatio,
+  ensureContrastAgainst,
+  hexToRgb,
+  isValidHex,
+  normalizeHex,
+  relativeLuminance,
+  rgbToHex,
+} from "./color";
 import { resolveTheme } from "./resolve-theme";
 
 const AA = 4.5;
@@ -77,5 +87,78 @@ describe.concurrent("bestForeground", () => {
   });
   it("picks paper on a deep slate", () => {
     expect(bestForeground("#475569")).toBe("#FFFFFF");
+  });
+});
+
+describe("hexToRgb", () => {
+  it.each([
+    [" #0f8 ", { r: 0, g: 255, b: 136 }],
+    ["#AbCdEf", { r: 171, g: 205, b: 239 }],
+    ["#12345", null],
+    ["zzzzzz", null],
+  ])("%j -> %j", (hex, expected) => {
+    expect(hexToRgb(hex)).toEqual(expected);
+  });
+});
+
+describe("isValidHex", () => {
+  it.each([
+    ["#abc", true],
+    ["#ggg", false],
+  ])("%j -> %s", (hex, expected) => {
+    expect(isValidHex(hex)).toBe(expected);
+  });
+});
+
+describe("normalizeHex", () => {
+  it.each([
+    ["#AbC", "#aabbcc"],
+    ["nope", null],
+  ])("%j -> %j", (hex, expected) => {
+    expect(normalizeHex(hex)).toBe(expected);
+  });
+});
+
+describe("rgbToHex", () => {
+  it("clamps and rounds channels", () => {
+    expect(rgbToHex(-10, 300, 127.6)).toBe("#00ff80");
+  });
+});
+
+describe("relativeLuminance", () => {
+  it.each([
+    ["bogus", 0],
+    ["#000000", 0],
+    ["#ffffff", 1],
+  ])("%j -> %f", (hex, expected) => {
+    expect(relativeLuminance(hex)).toBeCloseTo(expected);
+  });
+});
+
+describe("accentOnSurface fallbacks", () => {
+  it.each([
+    ["an already-passing colour", "#000000", "#ffffff", 4.5, "#000000"],
+    ["an invalid colour (treated as black) on a dark surface", "bogus", "#000000", 4.5, "#FFFFFF"],
+    ["an unreachable target on a light surface", "#777777", "#ffffff", 22, "#152921"],
+    ["an unreachable target on a dark surface", "#777777", "#000000", 22, "#FFFFFF"],
+  ])("handles %s", (_label, color, surface, target, expected) => {
+    expect(accentOnSurface(color, surface, target)).toBe(expected);
+  });
+});
+
+describe("ensureContrastAgainst fallbacks", () => {
+  it.each([
+    ["returns invalid input unchanged", "not-a-colour", LIGHT_BG, 3, "not-a-colour"],
+    ["falls back to slate on light backgrounds", "#808080", "#ffffff", 22, "#475569"],
+    ["falls back to light slate on dark backgrounds", "#808080", "#000000", 22, "#CBD5E1"],
+  ])("%s", (_label, accent, background, minRatio, expected) => {
+    expect(ensureContrastAgainst(accent, background, minRatio)).toBe(expected);
+  });
+
+  it("lightens dark accents on dark backgrounds until they pass", () => {
+    const out = ensureContrastAgainst("#101010", DARK_BG);
+
+    expect(out).not.toBe("#101010");
+    expect(contrastRatio(out, DARK_BG)).toBeGreaterThanOrEqual(UI);
   });
 });
