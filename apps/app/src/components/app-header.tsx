@@ -19,7 +19,7 @@ import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { isTV } from "@/lib/platform/is-tv";
-import { useChevronBack, useIsRTL } from "@/lib/rtl";
+import { horizontalSafeAreaInsets, useChevronBack, useIsRTL } from "@/lib/rtl";
 import { ThemedText } from "./themed-text";
 
 type AppHeaderProps = {
@@ -61,6 +61,11 @@ export function AppHeader({
   // navigation guidance: no on-screen back button). A focusable chevron at the
   // top also steals D-pad Up from the first content row.
   const showBack = Boolean(onBack) && !tv;
+  // ScreenLayout floats this header absolutely across its full width, so it does not
+  // inherit the screen's side safe-area padding — inset the content here so it clears
+  // iOS 27's vertical system rail (iPhone Duo) and landscape notches. Background stays
+  // full-bleed. Physical → logical so RTL titles / back button land on the inset side.
+  const safeX = horizontalSafeAreaInsets(insets);
 
   const withNavigationBlur = (handler?: () => void) => () => {
     if (Platform.OS === "web") blurActiveElement();
@@ -77,6 +82,10 @@ export function AppHeader({
         {
           paddingTop: insets.top + Spacing.two,
           borderBottomColor: tokens.hairline,
+        },
+        !tv && {
+          paddingStart: Spacing.four + safeX.start,
+          paddingEnd: Spacing.four + safeX.end,
         },
         // Overscan-safe title on TV, aligned with ScreenLayout's content inset.
         tv && {
