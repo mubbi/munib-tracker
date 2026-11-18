@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { LanguagePickerSheet, LanguageSelectRow } from "@/components/language-picker-sheet";
 import { APP_LOCALES } from "@/lib/locale-display";
+import { defined } from "@/test-support/assert";
 import { resetMockWindowSize, setMockWindowSize } from "@/test-support/mocks/use-window-dimensions";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
@@ -15,8 +16,14 @@ jest.mock(
 type Props = Parameters<typeof LanguagePickerSheet>[0];
 
 const TOTAL = APP_LOCALES.length;
-const ENGLISH = APP_LOCALES.find((entry) => entry.code === "en")!;
-const ARABIC = APP_LOCALES.find((entry) => entry.code === "ar")!;
+const ENGLISH = defined(
+  APP_LOCALES.find((entry) => entry.code === "en"),
+  "the en locale",
+);
+const ARABIC = defined(
+  APP_LOCALES.find((entry) => entry.code === "ar"),
+  "the ar locale",
+);
 
 const renderSheet = async (props: Partial<Props> = {}) => {
   const handlers = { onSelect: jest.fn(), onClose: jest.fn() };
@@ -33,7 +40,7 @@ const search = (query: string) =>
 const row = (name: string) => {
   let node = screen.getByText(name).parent;
   while (node && node.props.accessibilityRole !== "button") node = node.parent;
-  return node!;
+  return defined(node, `the "${name}" row`);
 };
 
 afterEach(resetMockWindowSize);

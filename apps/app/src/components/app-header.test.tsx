@@ -3,6 +3,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { AppHeader } from "@/components/app-header";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -37,7 +38,7 @@ describe("AppHeader", () => {
     const onBack = jest.fn();
     await renderHeader({ onBack });
 
-    await fireEvent.press(back()!);
+    await fireEvent.press(screen.getByLabelText("Go back"));
 
     expect(onBack).toHaveBeenCalled();
     expect(blurActiveElement).not.toHaveBeenCalled();
@@ -56,9 +57,7 @@ describe("AppHeader", () => {
   it("caps the row to the content column", async () => {
     await renderHeader({ contentMaxWidth: 900 });
 
-    expect(flattenStyle(screen.getByText("Tracker").parent!.parent!.props.style).maxWidth).toBe(
-      900,
-    );
+    expect(flattenStyle(parentOf(screen.getByText("Tracker"), 2).props.style).maxWidth).toBe(900);
   });
 });
 
@@ -69,7 +68,7 @@ describe("AppHeader on web", () => {
     const onBack = jest.fn();
     await renderHeader({ onBack });
 
-    await fireEvent.press(back()!);
+    await fireEvent.press(screen.getByLabelText("Go back"));
 
     expect(blurActiveElement).toHaveBeenCalled();
     expect(onBack).toHaveBeenCalled();

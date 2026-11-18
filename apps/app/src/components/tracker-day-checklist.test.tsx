@@ -10,8 +10,10 @@ import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { FRIDAY_CHECKLIST_FOCUS, isFridayDateString } from "@/lib/friday";
 import { isWhiteDayDateString, WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
+import { defined } from "@/test-support/assert";
 import { firstDateWhere } from "@/test-support/dates";
 import { buildPrayerTimes } from "@/test-support/fixtures/prayer";
+import { lastProps } from "@/test-support/mock-calls";
 import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
@@ -76,8 +78,11 @@ const renderChecklist = async (props: Partial<TrackerDayChecklistProps> = {}) =>
 };
 
 const rowProps = (prayerId: string) =>
-  jest.mocked(PrayerTrackerRow).mock.calls.findLast(([props]) => props.prayerId === prayerId)![0];
-const highlightActive = () => mockHighlight.mock.lastCall![0].active;
+  defined(
+    jest.mocked(PrayerTrackerRow).mock.calls.findLast(([props]) => props.prayerId === prayerId),
+    `a ${prayerId} row render`,
+  )[0];
+const highlightActive = () => lastProps(mockHighlight).active;
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -163,14 +168,14 @@ describe("TrackerDayChecklist", () => {
   it("lets the tracker store own excused days by default", async () => {
     await renderChecklist();
 
-    expect(jest.mocked(ExcusedDayPicker).mock.lastCall![0]).toEqual({});
+    expect(lastProps(ExcusedDayPicker)).toEqual({});
   });
 
   it("hands excused state to the picker when the caller owns it", async () => {
     const onExcusedChange = jest.fn();
     await renderChecklist({ excusedReason: "travel", onExcusedChange });
 
-    expect(jest.mocked(ExcusedDayPicker).mock.lastCall![0]).toEqual({
+    expect(lastProps(ExcusedDayPicker)).toEqual({
       excusedReason: "travel",
       onExcusedChange,
     });

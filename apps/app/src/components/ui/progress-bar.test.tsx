@@ -8,7 +8,7 @@ jest.mock("@/lib/chart-rtl", () => ({
   progressSweepRtl: jest.fn(() => false),
 }));
 
-const bar = () => queryHostsByRole("progressbar")[0]!;
+const bar = () => queryHostsByRole("progressbar")[0];
 
 describe("ProgressBar", () => {
   it("defaults to an 8pt accent bar", async () => {

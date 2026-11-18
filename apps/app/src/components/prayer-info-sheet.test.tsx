@@ -57,7 +57,7 @@ describe("PrayerInfoSheet", () => {
     const onClose = await renderSheet();
     await screen.findByText("Ref riyad_assalihin:368");
 
-    await fireEvent.press(screen.getAllByText("View full hadith")[0]!);
+    await fireEvent.press(screen.getAllByText("View full hadith")[0]);
 
     expect(onClose).toHaveBeenCalled();
     expect(mockRouter.push).toHaveBeenCalledWith({

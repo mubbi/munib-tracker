@@ -58,10 +58,10 @@ describe("WhiteDaysTrackerSection", () => {
   it("toggles a fast for the whole Hijri month", async () => {
     await renderSection();
 
-    await fireEvent.press(checkboxes()[1]!);
+    await fireEvent.press(checkboxes()[1]);
     expect(await screen.findByText(progress(1))).toBeTruthy();
 
-    await fireEvent.press(checkboxes()[1]!);
+    await fireEvent.press(checkboxes()[1]);
     expect(await screen.findByText(progress(0))).toBeTruthy();
   });
 

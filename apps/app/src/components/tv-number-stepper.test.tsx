@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { TvNumberStepper } from "@/components/tv-number-stepper";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 
 type Props = Parameters<typeof TvNumberStepper>[0];
@@ -12,7 +13,7 @@ const renderStepper = async (props: Partial<Props> = {}) => {
   return onChange;
 };
 
-const step = (label: string) => screen.getByText(label).parent!.parent!;
+const step = (label: string) => parentOf(screen.getByText(label), 2);
 
 describe("TvNumberStepper", () => {
   it("shows the value between mirrored step buttons", async () => {

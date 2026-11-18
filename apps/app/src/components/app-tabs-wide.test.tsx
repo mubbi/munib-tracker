@@ -10,6 +10,7 @@ import {
   setMockActiveTab,
 } from "@/test-support/mocks/expo-router-ui";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -150,7 +151,7 @@ describe("WideAppTabs on TV", () => {
   it("points D-pad right at the content pane once it lays out", async () => {
     await renderTabs();
 
-    await fireEvent(screen.getByTestId("tab-slot").parent!, "layout", {
+    await fireEvent(parentOf(screen.getByTestId("tab-slot")), "layout", {
       nativeEvent: { layout: { width: 800, height: 600 } },
     });
 

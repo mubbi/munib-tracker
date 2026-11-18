@@ -5,6 +5,7 @@ import * as Reanimated from "react-native-reanimated";
 import { MoonPhaseSheet } from "@/components/moon-phase-sheet";
 import { type PrayerTime, PrayerTimesHero } from "@/components/prayer-times-hero";
 import { skyPalette } from "@/lib/sky";
+import { lastProps } from "@/test-support/mock-calls";
 import { setMockLiquidGlass } from "@/test-support/mocks/glass-surface";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
@@ -110,9 +111,9 @@ describe("PrayerTimesHero", () => {
     await renderHero();
 
     await fireEvent.press(screen.getByLabelText(/Monday 6 July\. 21 Muharram 1448/));
-    expect(jest.mocked(MoonPhaseSheet).mock.lastCall![0].visible).toBe(true);
+    expect(lastProps(MoonPhaseSheet).visible).toBe(true);
 
-    const { onClose } = jest.mocked(MoonPhaseSheet).mock.lastCall![0];
+    const { onClose } = lastProps(MoonPhaseSheet);
     jest.mocked(MoonPhaseSheet).mockClear();
     await act(async () => onClose());
     expect(MoonPhaseSheet).not.toHaveBeenCalled();
@@ -178,7 +179,7 @@ describe("PrayerTimesHero dashboard card", () => {
     jest.replaceProperty(I18nManager, "doLeftAndRightSwapInRTL", true);
     await renderHero({ variant: "card", celestial: { body: "sun", x: 20, y: 40 } });
 
-    expect(flattenStyle(celestialDiscs()[0]!.props.style).left).toBe("80%");
+    expect(flattenStyle(celestialDiscs()[0].props.style).left).toBe("80%");
   });
 
   it("hides the disc and stars under heavy cloud", async () => {

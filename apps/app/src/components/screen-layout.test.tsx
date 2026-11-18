@@ -5,10 +5,11 @@ import { AppHeader } from "@/components/app-header";
 import { ScreenLayout } from "@/components/screen-layout";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
+import { lastProps } from "@/test-support/mock-calls";
 import { resetExpoRouterMock, setMockPathname } from "@/test-support/mocks/expo-router";
 import { resetMockWindowSize, setMockWindowSize } from "@/test-support/mocks/use-window-dimensions";
 import { usePlatform } from "@/test-support/platform";
-import { queryHostsByRole, queryHostsByType } from "@/test-support/queries";
+import { parentOf, queryHostsByRole, queryHostsByType } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -40,7 +41,7 @@ const renderLayout = (props: Partial<Props> = {}) =>
     </ScreenLayout>,
   );
 
-const scrollView = () => queryHostsByType("RCTScrollView")[0]!;
+const scrollView = () => queryHostsByType("RCTScrollView")[0];
 const progressBar = () => queryHostsByRole("progressbar");
 const scrollEvent = (offset: number, content: number, viewport = 800) => ({
   nativeEvent: {
@@ -49,7 +50,7 @@ const scrollEvent = (offset: number, content: number, viewport = 800) => ({
     layoutMeasurement: { height: viewport },
   },
 });
-const columnWidth = () => flattenStyle(screen.getByText("Body").parent!.props.style).maxWidth;
+const columnWidth = () => flattenStyle(parentOf(screen.getByText("Body")).props.style).maxWidth;
 
 beforeEach(() => {
   resetExpoRouterMock();
@@ -66,7 +67,7 @@ describe("ScreenLayout", () => {
 
     expect(screen.getByText("Body")).toBeTruthy();
     expect(scrollView()).toBeDefined();
-    expect(jest.mocked(AppHeader).mock.lastCall![0]).toMatchObject({
+    expect(lastProps(AppHeader)).toMatchObject({
       title: "Duas",
       subtitle: "Morning",
       eyebrow: "Daily",
@@ -91,7 +92,7 @@ describe("ScreenLayout", () => {
   it("measures the header for the content inset", async () => {
     await renderLayout({ headerAccessory: <Text>Toolbar</Text> });
 
-    await fireEvent(screen.getByText("Toolbar").parent!, "layout", {
+    await fireEvent(parentOf(screen.getByText("Toolbar")), "layout", {
       nativeEvent: { layout: { height: 90 } },
     });
 
@@ -141,7 +142,7 @@ describe("ScreenLayout reading progress", () => {
   });
 
   it("appears once a learn page scrolls", async () => {
-    setMockPathname(LEARN_SECTION_ROUTES[0]!);
+    setMockPathname(LEARN_SECTION_ROUTES[0]);
     await renderLayout();
 
     await fireEvent.scroll(scrollView(), scrollEvent(100, 3000));
@@ -186,7 +187,7 @@ describe("ScreenLayout on Android", () => {
       await renderLayout({ scrollable });
 
       expect(screen.getByTestId("blur-target-view")).toBeTruthy();
-      expect(jest.mocked(AppHeader).mock.lastCall![0].blurTargetRef).toBeDefined();
+      expect(lastProps(AppHeader).blurTargetRef).toBeDefined();
     },
   );
 });
@@ -205,7 +206,7 @@ describe("ScreenLayout on TV", () => {
   usePlatform({ isTV: true });
 
   it("fills the pane and narrows learn prose", async () => {
-    setMockPathname(LEARN_SECTION_ROUTES[0]!);
+    setMockPathname(LEARN_SECTION_ROUTES[0]);
     await renderLayout();
 
     expect(columnWidth()).toBeGreaterThan(0);

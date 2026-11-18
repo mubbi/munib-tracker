@@ -21,8 +21,7 @@ const renderMoon = (
   );
 };
 
-const disc = () =>
-  screen.container.queryAll((node) => node.props.accessibilityRole === "image")[0]!;
+const disc = () => screen.container.queryAll((node) => node.props.accessibilityRole === "image")[0];
 const half = () => flattenStyle((disc().children[0] as { props: { style: unknown } }).props.style);
 const terminator = () =>
   flattenStyle((disc().children[1] as { props: { style: unknown } }).props.style);

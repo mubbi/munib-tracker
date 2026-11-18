@@ -11,11 +11,13 @@ import { currentSeasonalTheme } from "@/lib/seasonal-themes";
 import { isWhiteDay } from "@/lib/white-days";
 import { continueStore } from "@/stores/continue-store";
 import { locationStore } from "@/stores/location-store";
+import { defined } from "@/test-support/assert";
 import { buildContinueActivity } from "@/test-support/fixtures/continue";
 import { buildKhatmPlan } from "@/test-support/fixtures/khatm";
 import { buildStoredLocation } from "@/test-support/fixtures/location";
 import { buildQazaCounter } from "@/test-support/fixtures/qaza";
 import { seedKhatm } from "@/test-support/khatm-store";
+import { lastProps } from "@/test-support/mock-calls";
 import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { resetMockWindowSize, setMockWindowSize } from "@/test-support/mocks/use-window-dimensions";
 import { usePlatform } from "@/test-support/platform";
@@ -129,7 +131,7 @@ const summary = (overrides: Record<string, number> = {}) =>
 
 const renderFold = (props: Partial<HomeBelowFoldProps> = {}) =>
   renderWithTheme(<HomeBelowFold {...PROPS} {...props} />);
-const scheduleProps = () => jest.mocked(PrayerScheduleCard).mock.lastCall![0];
+const scheduleProps = () => lastProps(PrayerScheduleCard);
 
 beforeEach(async () => {
   jest.clearAllMocks();
@@ -281,7 +283,7 @@ describe("HomeBelowFold cards", () => {
   it("shares today's schedule", async () => {
     await renderFold();
 
-    await scheduleProps().onShare!();
+    await defined(scheduleProps().onShare, "onShare")();
 
     expect(share).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -294,7 +296,7 @@ describe("HomeBelowFold cards", () => {
   it("shares without a location label", async () => {
     await renderFold({ scheduleLocationLabel: "" });
 
-    await scheduleProps().onShare!();
+    await defined(scheduleProps().onShare, "onShare")();
 
     expect(share).toHaveBeenCalledWith(expect.objectContaining({ contentLabel: "Monday 6 July" }));
   });

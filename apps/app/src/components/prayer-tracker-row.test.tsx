@@ -29,7 +29,7 @@ describe("PrayerTrackerRow", () => {
     await renderRow({ status });
 
     expect(screen.getByRole("button", { name: label })).toBeTruthy();
-    expect(screen.getByText(label.split(", ")[1]!)).toBeTruthy();
+    expect(screen.getByText(label.split(", ")[1])).toBeTruthy();
   });
 
   it("opens the status sheet from the row", async () => {

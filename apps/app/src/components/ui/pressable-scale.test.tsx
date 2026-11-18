@@ -5,6 +5,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { triggerHaptic } from "@/lib/haptics";
 import { pressableProps as pressablePropsOf } from "@/test-support/fiber";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { captureAnimatedStyles } from "@/test-support/reanimated";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
@@ -50,7 +51,7 @@ const clipWrapper = () => {
     : null;
 };
 
-const innerStyle = () => flattenStyle(screen.getByText("Child").parent!.props.style);
+const innerStyle = () => flattenStyle(parentOf(screen.getByText("Child")).props.style);
 
 afterEach(() => jest.mocked(triggerHaptic).mockClear());
 

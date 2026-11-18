@@ -60,7 +60,7 @@ describe("CalendarWeekStrip", () => {
   it("selects a tapped day", async () => {
     const onSelectDate = await renderStrip();
 
-    await fireEvent.press(dayButtons()[0]!);
+    await fireEvent.press(dayButtons()[0]);
 
     expect(onSelectDate).toHaveBeenCalledWith("2020-03-01");
   });

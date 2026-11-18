@@ -12,8 +12,8 @@ describe("SkyGradientLayer (web)", () => {
     await render(<SkyGradientLayer gradient={GRADIENT} webMotionClass="drift" />);
 
     expect(shells().map((node) => node.props.className)).toEqual([undefined, "drift"]);
-    expect(shells()[0]!.props.style).toMatchObject({ position: "absolute", overflow: "hidden" });
-    expect(shells()[1]!.props.style).toMatchObject({
+    expect(shells()[0].props.style).toMatchObject({ position: "absolute", overflow: "hidden" });
+    expect(shells()[1].props.style).toMatchObject({
       width: "140%",
       left: expect.stringMatching(/^-19\.9+\d*%$|^-20%$/),
     });

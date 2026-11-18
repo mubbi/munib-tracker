@@ -1,6 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -55,7 +56,7 @@ describe("ConfirmDialog", () => {
   it("paints the confirm button red when destructive", async () => {
     await renderDialog({ destructive: true });
 
-    const confirm = screen.getByText("Confirm").parent!.parent!.parent!;
+    const confirm = parentOf(screen.getByText("Confirm"), 3);
     expect(flattenStyle(confirm.props.style).backgroundColor).toMatch(/^#/);
   });
 });

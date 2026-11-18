@@ -1,6 +1,7 @@
 import { screen } from "@testing-library/react-native";
 
 import { NotificationBadge } from "@/components/ui/notification-badge";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -26,6 +27,6 @@ describe("NotificationBadge", () => {
   it("rings the badge with a custom border colour", async () => {
     await renderBadge(1, "#abcdef");
 
-    expect(flattenStyle(screen.getByText("1").parent!.props.style).borderColor).toBe("#abcdef");
+    expect(flattenStyle(parentOf(screen.getByText("1")).props.style).borderColor).toBe("#abcdef");
   });
 });

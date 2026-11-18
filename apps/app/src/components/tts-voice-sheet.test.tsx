@@ -74,7 +74,7 @@ describe("TtsVoiceSheet", () => {
     const { onSelectVoice } = await renderSheet({ selectedVoiceId: "ar-1" });
     await screen.findByText("Maged");
 
-    await fireEvent.press(radios()[0]!);
+    await fireEvent.press(radios()[0]);
 
     expect(onSelectVoice).toHaveBeenCalledWith(undefined);
   });
@@ -125,6 +125,6 @@ describe("TtsVoiceSheet on TV", () => {
     await renderSheet({ selectedVoiceId });
     await screen.findByText("Maged");
 
-    expect(radios()[index]!.props.hasTVPreferredFocus).toBe(true);
+    expect(radios()[index].props.hasTVPreferredFocus).toBe(true);
   });
 });

@@ -4,6 +4,7 @@ import { Text } from "react-native";
 import { GlassControl, GlassSurface, OverlayGlassFill } from "@/components/ui/glass-surface";
 import { setMockBlurTarget } from "@/test-support/mocks/blur-target-provider";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -88,7 +89,7 @@ describe("GlassSurface on TV", () => {
     await renderSurface();
 
     expect(screen.queryByTestId("blur-view")).toBeNull();
-    expect(flattenStyle(screen.getByText("Chrome").parent!.props.style).backgroundColor).toEqual(
+    expect(flattenStyle(parentOf(screen.getByText("Chrome")).props.style).backgroundColor).toEqual(
       expect.any(String),
     );
   });

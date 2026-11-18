@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { QazaCountEditModal } from "@/components/qaza-count-edit-modal";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
@@ -111,7 +112,7 @@ describe("QazaCountEditModal on TV", () => {
   it("swaps the keyboard for a D-pad stepper", async () => {
     const { onSubmit } = await renderModal({ prayerLabel: undefined });
 
-    await fireEvent.press(screen.getByText("+100").parent!.parent!);
+    await fireEvent.press(parentOf(screen.getByText("+100"), 2));
     await save();
 
     expect(onSubmit).toHaveBeenCalledWith(112);

@@ -26,8 +26,7 @@ const THURSDAY = firstDateWhere((d) => !isFridayDateString(d));
 const initialLocation = locationStore.getState().location;
 
 const at = (date: string, hour: number) => {
-  const [y, m, d] = date.split("-").map(Number);
-  jest.mocked(useNow).mockReturnValue(new Date(y!, m! - 1, d!, hour, 0));
+  jest.mocked(useNow).mockReturnValue(new Date(`${date}T${String(hour).padStart(2, "0")}:00`));
 };
 const useFallbackLocation = () =>
   locationStore.setState({ location: buildStoredLocation({ source: "default" }) });

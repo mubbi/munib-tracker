@@ -4,6 +4,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { FridayTrackerSection } from "@/components/friday-tracker-section";
 import { isFridayDateString } from "@/lib/friday";
 import { fridayChecklistStore } from "@/stores/friday-checklist-store";
+import { defined } from "@/test-support/assert";
 import { firstDateWhere } from "@/test-support/dates";
 import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
@@ -41,27 +42,30 @@ describe("FridayTrackerSection", () => {
   it("checks off a practice for that Friday", async () => {
     await renderSection();
 
-    await fireEvent.press(checkboxes()[0]!);
+    await fireEvent.press(checkboxes()[0]);
 
     expect(await screen.findByText(new RegExp(`1 of ${TOTAL}`))).toBeTruthy();
-    expect(checkboxes()[0]!.props.accessibilityState.checked).toBe(true);
+    expect(checkboxes()[0].props.accessibilityState.checked).toBe(true);
   });
 
   it("opens a practice's related content", async () => {
     await renderSection();
 
-    await fireEvent.press(screen.getAllByLabelText("Open related content")[0]!);
+    await fireEvent.press(screen.getAllByLabelText("Open related content")[0]);
 
     expect(mockRouter.push).toHaveBeenCalledWith(
-      FRIDAY_CHECKLIST.find((item) => item.route)!.route,
+      defined(
+        FRIDAY_CHECKLIST.find((item) => item.route),
+        "a Friday item with a route",
+      ).route,
     );
   });
 
   it("unchecks a completed practice", async () => {
     await renderSection();
-    await fireEvent.press(checkboxes()[0]!);
+    await fireEvent.press(checkboxes()[0]);
 
-    await fireEvent.press(checkboxes()[0]!);
+    await fireEvent.press(checkboxes()[0]);
 
     expect(await screen.findByText(new RegExp(`0 of ${TOTAL}`))).toBeTruthy();
   });

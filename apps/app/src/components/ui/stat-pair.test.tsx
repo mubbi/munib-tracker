@@ -1,6 +1,7 @@
 import { screen } from "@testing-library/react-native";
 
 import { StatPair } from "@/components/ui/stat-pair";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -15,7 +16,7 @@ const renderStatPair = (props: Partial<Props> = {}) =>
     />,
   );
 
-const row = () => screen.getByText("Remaining").parent!.parent!;
+const row = () => parentOf(screen.getByText("Remaining"), 2);
 
 describe("StatPair", () => {
   it("renders both stats side by side", async () => {
