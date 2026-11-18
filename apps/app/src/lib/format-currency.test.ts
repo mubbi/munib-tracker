@@ -103,6 +103,14 @@ describe("formatNumberForInput", () => {
   it("formats positive values with grouping", () => {
     expect(formatNumberForInput(1234.5)).toBe("1,234.5");
   });
+
+  // Regression: with no fraction digits, trailing zeros of whole numbers were stripped ("50" → "5").
+  it.each([
+    [50, "50"],
+    [1000, "1,000"],
+  ])("keeps whole-number zeros for %p with maxFractionDigits=0", (value, expected) => {
+    expect(formatNumberForInput(value, 0)).toBe(expected);
+  });
 });
 
 describe("reformatNumberString", () => {
@@ -112,6 +120,10 @@ describe("reformatNumberString", () => {
 
   it("returns empty for blank input", () => {
     expect(reformatNumberString("   ", "comma_dot", "dot_comma")).toBe("");
+  });
+
+  it("keeps whole-number zeros when no fraction digits are allowed (regression)", () => {
+    expect(reformatNumberString("40", "comma_dot", "dot_comma", 0)).toBe("40");
   });
 });
 
