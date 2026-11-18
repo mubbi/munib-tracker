@@ -4,6 +4,7 @@ Automated **native** Android/iOS/watchOS/TV screenshots for Munib Tracker.
 
 - **Phone/tablet:** Maestro drives Android/iOS emulators across tabs, library routes, settings, modals, every Expo AppLocale × light/dark.
 - **Apple Watch:** separate `simctl` pipeline (Maestro does not support watchOS) — seeds App Group snapshot, captures Ultra 3 (422×514).
+- **iPhone Duo:** `capture-duo.mjs` (`simctl`, not Maestro — Maestro only reads the inner display). One run per posture set in Xcode DeviceHub; the store slot comes from the captured size. See [`docs/STORE_ASSETS.md`](../../../../docs/STORE_ASSETS.md#iphone-duo).
 - **Apple TV / Android TV:** prepared deep-link + `simctl`/`adb screencap` pipeline — **validate-only unless `RUN_CAPTURE=1`**. Not Maestro; not CI.
 
 Part of the store-assets pipeline — see [`docs/STORE_ASSETS.md`](../../../../docs/STORE_ASSETS.md).
@@ -45,6 +46,7 @@ pnpm screenshots:validate
 pnpm screenshots:android
 pnpm screenshots:ios     # macOS only
 pnpm screenshots:watch   # macOS only — Ultra 3 App Store set
+DUO_SCREEN=inner pnpm screenshots:duo   # macOS only — iPhone Duo (unfolded; `outer` when folded)
 
 # TV — validate only by default (no PNGs)
 pnpm screenshots:tvos

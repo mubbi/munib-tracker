@@ -21,27 +21,28 @@ const TV_NAMES = spec.tv.slideScenes;
 
 // Multi-screen decks: exports/<platform>/<device>/<WxH>/<locale>/NN-layout.png
 //   → store-assets/<dest>/<locale>/<scene>.png (scene from `names`, else original filename).
-// Watch / TV land in their own folders so they never overwrite the native
-// captures in watch-ultra-3/, apple-tv-1080p/ and android-tv-1080p/.
+// Watch / TV / iPhone Duo land in their own folders so they never overwrite the
+// native captures in watch-ultra-3/, apple-tv-1080p/, android-tv-1080p/ and
+// iphone-duo/ (`pnpm screenshots:duo`).
 const PHONE_TARGETS = [
   { src: ["ios", "iphone", "1320x2868"], dest: ["ios", "screenshots", "6.9-inch"] },
   { src: ["ios", "iphone", "1242x2688"], dest: ["ios", "screenshots", "6.5-inch"] },
   { src: ["ios", "iphone", "1206x2622"], dest: ["ios", "screenshots", "6.3-inch"] },
   {
     src: ["ios", "iphone-duo", "2007x2853"],
-    dest: ["ios", "screenshots", "iphone-duo", "portrait"],
+    dest: ["ios", "screenshots", "iphone-duo-studio", "portrait"],
   },
   {
     src: ["ios", "iphone-duo", "1398x2034"],
-    dest: ["ios", "screenshots", "iphone-duo", "portrait-compact"],
+    dest: ["ios", "screenshots", "iphone-duo-studio", "portrait-compact"],
   },
   {
     src: ["ios", "iphone-duo", "2853x2007"],
-    dest: ["ios", "screenshots", "iphone-duo", "landscape"],
+    dest: ["ios", "screenshots", "iphone-duo-studio", "landscape"],
   },
   {
     src: ["ios", "iphone-duo", "2034x1398"],
-    dest: ["ios", "screenshots", "iphone-duo", "landscape-compact"],
+    dest: ["ios", "screenshots", "iphone-duo-studio", "landscape-compact"],
   },
   { src: ["ios", "ipad", "2064x2752"], dest: ["ios", "screenshots", "13-inch"] },
   {
