@@ -58,8 +58,9 @@ android {
         applicationId "app.munibtracker"
         minSdk 30
         targetSdk safeExtGet('targetSdkVersion', 36)
-        // apps/app/.env is the single source of truth (release scripts export it).
-        versionCode Integer.parseInt(System.getenv("EXPO_WEAR_VERSION_CODE") ?: "1")
+        // apps/app/.env is the single source of truth (release scripts export it). Phone, TV
+        // and Wear share one Play package, so they share one versionCode counter.
+        versionCode Integer.parseInt(System.getenv("EXPO_ANDROID_VERSION_CODE") ?: "1")
         versionName System.getenv("EXPO_ANDROID_APP_VERSION") ?: "1.0.0"
     }
 

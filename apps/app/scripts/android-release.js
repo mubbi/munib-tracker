@@ -118,7 +118,7 @@ const { marketingVersion, versionCode, versionEnvKey, buildEnvKey } = preparePla
 );
 logReleaseVersionSummary(projectRoot, { activePlatform: androidPlatform });
 if (isWear) {
-  // wear/build.gradle reads EXPO_WEAR_VERSION_CODE / EXPO_ANDROID_APP_VERSION from the
+  // wear/build.gradle reads EXPO_ANDROID_VERSION_CODE / EXPO_ANDROID_APP_VERSION from the
   // environment at configure time, so there is nothing to rewrite on disk.
   console.log(`Wear OS ${marketingVersion} (${versionCode})\n`);
 } else {

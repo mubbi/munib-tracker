@@ -42,12 +42,12 @@ function loadAppEnv(projectRoot) {
 }
 
 /**
- * @param {{ tv?: boolean }} [opts] When `tv: true`, require Apple TV / Android TV build numbers.
+ * @param {{ tv?: boolean }} [opts] When `tv: true`, require the Apple TV build number instead of
+ *   the iPhone one. Android phone / TV / Wear always share EXPO_ANDROID_VERSION_CODE.
  */
 function assertVersionEnv({ tv = false } = {}) {
-  const required = tv
-    ? ["EXPO_TVOS_APP_BUILD_NUMBER", "EXPO_ANDROID_TV_VERSION_CODE"]
-    : ["EXPO_IOS_APP_BUILD_NUMBER", "EXPO_ANDROID_VERSION_CODE"];
+  const iosBuildKey = tv ? "EXPO_TVOS_APP_BUILD_NUMBER" : "EXPO_IOS_APP_BUILD_NUMBER";
+  const required = [iosBuildKey, "EXPO_ANDROID_VERSION_CODE"];
   const missing = required.filter((key) => !process.env[key]?.trim());
   if (missing.length > 0) {
     console.error(
@@ -57,27 +57,14 @@ function assertVersionEnv({ tv = false } = {}) {
     process.exit(1);
   }
 
-  if (tv) {
-    const androidTvVersionCode = Number.parseInt(process.env.EXPO_ANDROID_TV_VERSION_CODE, 10);
-    if (!Number.isFinite(androidTvVersionCode) || androidTvVersionCode < 1) {
-      console.error("EXPO_ANDROID_TV_VERSION_CODE must be a positive integer.");
-      process.exit(1);
-    }
-    if (!/^\d+$/.test(process.env.EXPO_TVOS_APP_BUILD_NUMBER)) {
-      console.error("EXPO_TVOS_APP_BUILD_NUMBER must be a positive integer string.");
-      process.exit(1);
-    }
-    return;
-  }
-
   const androidVersionCode = Number.parseInt(process.env.EXPO_ANDROID_VERSION_CODE, 10);
   if (!Number.isFinite(androidVersionCode) || androidVersionCode < 1) {
     console.error("EXPO_ANDROID_VERSION_CODE must be a positive integer.");
     process.exit(1);
   }
 
-  if (!/^\d+$/.test(process.env.EXPO_IOS_APP_BUILD_NUMBER)) {
-    console.error("EXPO_IOS_APP_BUILD_NUMBER must be a positive integer string.");
+  if (!/^\d+$/.test(process.env[iosBuildKey])) {
+    console.error(`${iosBuildKey} must be a positive integer string.`);
     process.exit(1);
   }
 }
@@ -89,11 +76,10 @@ function logReleaseVersionSummary(projectRoot, { activePlatform } = {}) {
   console.log(`  EXPO_IOS_APP_VERSION          → ${v.iosMarketing}`);
   console.log(`  EXPO_IOS_APP_BUILD_NUMBER     → ${v.iosBuildNumber}`);
   console.log(`  EXPO_ANDROID_APP_VERSION      → ${v.androidMarketing}`);
-  console.log(`  EXPO_ANDROID_VERSION_CODE     → ${v.androidVersionCode}`);
+  console.log(`  EXPO_ANDROID_VERSION_CODE     → ${v.androidVersionCode} (phone / TV / Wear)`);
   console.log(`  EXPO_TVOS_APP_VERSION         → ${v.tvosMarketing}`);
   console.log(`  EXPO_TVOS_APP_BUILD_NUMBER    → ${v.tvosBuildNumber}`);
   console.log(`  EXPO_ANDROID_TV_APP_VERSION   → ${v.androidTvMarketing}`);
-  console.log(`  EXPO_ANDROID_TV_VERSION_CODE  → ${v.androidTvVersionCode}`);
   console.log(`  EXPO_PUBLIC_APP_VERSION       → ${v.webMarketing} (web .env)`);
   if (v.bundleVersion) {
     const bakeNote = v.bundleOverridden

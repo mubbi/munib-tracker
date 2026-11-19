@@ -170,7 +170,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 - **Tasbeeh tile** (`MunibWearTasbeehTileService`): second, independent tile — a watch-local dhikr counter stored in `SharedPreferences` (`munib_wear_tasbeeh`). Tap increments (capped at target when set); a Reset row zeroes the count. **Never talks to the phone** — no Data Layer / message client calls.
 - Phone `MunibWearListenerService` broadcasts `app.munibtracker.action.MARK_CURRENT` with `source=wear` → shared command queue + JS drain
 - Requires Google Play Services + paired watch
-- **Application ID:** the Wear app uses the phone's `app.munibtracker` (namespace `app.munibtracker.wear`) and the same signing key — the Wearable Data Layer only connects apps that share both. (Before Expo SDK 58 it generated `app.munibtracker.wear`, which could never reach the phone.) Version code: `EXPO_WEAR_VERSION_CODE` in `apps/app/.env`.
+- **Application ID:** the Wear app uses the phone's `app.munibtracker` (namespace `app.munibtracker.wear`) and the same signing key — the Wearable Data Layer only connects apps that share both. (Before Expo SDK 58 it generated `app.munibtracker.wear`, which could never reach the phone.) Version code: the shared `EXPO_ANDROID_VERSION_CODE` in `apps/app/.env` (one counter for phone, TV and Wear — bump it before every Play upload).
 - **Release:** `pnpm release:app:wear` (Gradle `:wear:bundleRelease`, phone prebuild) → `pnpm release:app:wear:upload` (Play `wear:internal` track). Enable the Wear OS form factor in Play Console first.
 
 ## iOS scene life cycle (Expo SDK 58)
