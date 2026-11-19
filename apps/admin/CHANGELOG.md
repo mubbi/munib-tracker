@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/mubbi/munib-tracker/compare/admin-v1.2.0...admin-v1.2.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* admin broadcast bug ([db34a6b](https://github.com/mubbi/munib-tracker/commit/db34a6b3fba03be0387c0bbabfae9d54e5a9a0cb))
+
 ## [1.2.0](https://github.com/mubbi/munib-tracker/compare/admin-v1.1.0...admin-v1.2.0) (2026-11-18)
 
 
