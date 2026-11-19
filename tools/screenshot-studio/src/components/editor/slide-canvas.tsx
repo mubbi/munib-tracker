@@ -26,7 +26,7 @@ import {
 } from "@/lib/constants";
 import { toTextElementId } from "@/lib/elements";
 import { img } from "@/lib/image-cache";
-import { pickText, resolveScreenshot } from "@/lib/locale";
+import { pickText, resolveScreenshot, textDir } from "@/lib/locale";
 import type {
   BuiltInElementId,
   Device,
@@ -215,8 +215,10 @@ function EditableText({
   multiline = false,
   placeholder,
   onFocus,
+  dir,
 }: {
   value: string;
+  dir?: "rtl" | "ltr";
   editable?: boolean;
   onChange?: (v: string) => void;
   style?: React.CSSProperties;
@@ -244,6 +246,7 @@ function EditableText({
   return (
     <div
       ref={ref}
+      dir={dir}
       contentEditable={editable}
       suppressContentEditableWarning
       data-placeholder={placeholder}
@@ -317,6 +320,7 @@ function Caption({
     <div style={{ textAlign: align, position: "relative", width: "100%" }}>
       <EditableText
         value={pickText(slide.label, locale)}
+        dir={textDir(slide.label, locale)}
         editable={editable}
         onChange={edit?.onLabelChange}
         onFocus={onFocus}
@@ -333,6 +337,7 @@ function Caption({
       />
       <EditableText
         value={pickText(slide.headline, locale)}
+        dir={textDir(slide.headline, locale)}
         editable={editable}
         multiline
         onChange={edit?.onHeadlineChange}
@@ -1056,6 +1061,7 @@ function FeatureGraphicCanvas({
           </div>
           <EditableText
             value={pickText(slide.headline, locale)}
+            dir={textDir(slide.headline, locale)}
             editable={editable}
             multiline
             onChange={edit?.onHeadlineChange}
@@ -1257,6 +1263,7 @@ function SlideElements({
         >
           <EditableText
             value={pickText(textElement.text, locale)}
+            dir={textDir(textElement.text, locale)}
             editable={editable}
             multiline
             onChange={(value) => edit?.onTextElementTextChange?.(textElement.id, value)}
