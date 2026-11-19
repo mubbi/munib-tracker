@@ -5,6 +5,7 @@
 | [`ARTICLE.md`](./ARTICLE.md)               | Medium-style product story (features, platforms, open release)        |
 | [`HACKATHON.md`](./HACKATHON.md)           | Devpost-style project story (inspiration through what's next)         |
 | [`BACKLOG.md`](./BACKLOG.md)               | Open work (product, perf, devices, content)                           |
+| [`NEW_FEATURES_TODO_PLAN.md`](./NEW_FEATURES_TODO_PLAN.md) | NF-3.x plan: madhhab setting, rawatib, fasting, social, mirath, focus lock… |
 | [`FEATURES.md`](./FEATURES.md)             | Shipped product features (NF-* catalog)                               |
 | [`OPEN_SOURCE.md`](./OPEN_SOURCE.md)       | Source-available release checklist (PolyForm NC)                      |
 | [`RELEASES.md`](./RELEASES.md)             | Semver / Release Please (per-app tags, changelogs, build numbers)     |

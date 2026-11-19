@@ -68,8 +68,10 @@ async function fetchAudienceUserRows(
     options.dedupeKeyPrefix,
   );
 
-  // UUID text cursor: empty string = start; `id > cursor` lexicographic order.
-  const cursor = afterUserId || "";
+  // Keyset cursor over the uuid PK: empty string = start of the audience. `users.id` is a
+  // Postgres `uuid`, so comparing it to '' throws "invalid input syntax for type uuid" —
+  // only add the `id > cursor` predicate once a real cursor exists.
+  const cursor = afterUserId?.trim() ?? "";
 
   const rows = await db
     .select({
@@ -77,7 +79,7 @@ async function fetchAudienceUserRows(
       timezone: timezoneExpr,
     })
     .from(usersTable)
-    .where(and(where, gt(usersTable.id, cursor)))
+    .where(cursor ? and(where, gt(usersTable.id, cursor)) : where)
     .orderBy(asc(usersTable.id))
     .limit(limit);
 
