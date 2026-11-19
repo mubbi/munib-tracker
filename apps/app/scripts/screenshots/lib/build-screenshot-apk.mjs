@@ -1,7 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import nativeScriptUtils from "../../lib/native-script-utils.cjs";
 import { APP_ROOT } from "./config.mjs";
 import { log, run, runCapture, warn } from "./shell.mjs";
+
+const { withAndroidNativeBuildEnv, withReleaseJsBundleEnv } = nativeScriptUtils;
 
 const ANDROID_DIR = path.join(APP_ROOT, "android");
 const APP_BUILD_GRADLE = path.join(ANDROID_DIR, "app", "build.gradle");
@@ -86,10 +89,7 @@ function withDebuggableReleaseBuildGradle(fn) {
 }
 
 function resolveGradleEnv() {
-  const env = { ...process.env };
-  if (process.platform === "win32") {
-    env.CMAKE_BUILD_PARALLEL_LEVEL = env.CMAKE_BUILD_PARALLEL_LEVEL ?? "1";
-  }
+  const env = withReleaseJsBundleEnv(withAndroidNativeBuildEnv({ ...process.env }));
   // Screenshot APKs are local-only — never block on Sentry source-map upload.
   env.SENTRY_DISABLE_AUTO_UPLOAD = "true";
   env.SENTRY_ALLOW_FAILURE = "true";

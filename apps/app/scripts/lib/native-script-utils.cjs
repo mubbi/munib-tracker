@@ -9,18 +9,58 @@ const { isAndroidTvAdbDevice } = require("./android-form-factor.cjs");
 
 const DEFAULT_APP_ROOT = path.join(__dirname, "../..");
 
+const GIB = 1024 ** 3;
+
+/**
+ * Parallel Gradle workers, sized to the machine: half the logical CPUs, but at most one
+ * worker per ~5 GB of RAM (each worker can drive native compiles + Kotlin/R8 work).
+ * Override with ANDROID_GRADLE_WORKERS.
+ */
+function resolveGradleWorkers() {
+  const override = Number.parseInt(process.env.ANDROID_GRADLE_WORKERS ?? "", 10);
+  if (override > 0) return override;
+  const byCpu = Math.floor(os.cpus().length / 2);
+  const byRam = Math.floor(os.totalmem() / GIB / 5);
+  return Math.max(2, Math.min(byCpu, byRam));
+}
+
+/**
+ * Concurrent clang jobs per CMake/Ninja build. Each Gradle worker can run one native build,
+ * so total clang processes ≈ workers × this. Unbounded Ninja (cores + 2 per build) crashed
+ * NDK clang with OOM on Windows; 2 keeps a 6-worker build around 12 compilers.
+ * Override with CMAKE_BUILD_PARALLEL_LEVEL.
+ */
+const WINDOWS_CMAKE_PARALLEL_LEVEL = "2";
+
+/**
+ * Windows Gradle tuning (https://developer.android.com/build/optimize-your-build):
+ * 6 GB heap + ParallelGC + explicit metaspace/heap-dump flags (Gradle #19750),
+ * parallel project execution, workers sized to the machine.
+ */
 const WINDOWS_GRADLE_PROPERTIES = {
-  // lintVitalAnalyzeRelease across many RN modules needs far more metaspace than native compile.
-  "org.gradle.jvmargs": "-Xmx3072m -XX:MaxMetaspaceSize=768m -Dfile.encoding=UTF-8",
-  "org.gradle.parallel": "false",
-  "org.gradle.workers.max": "2",
+  "org.gradle.jvmargs":
+    "-Xmx6g -XX:MaxMetaspaceSize=1g -XX:+HeapDumpOnOutOfMemoryError -XX:+UseParallelGC -Dfile.encoding=UTF-8",
+  "org.gradle.parallel": "true",
+  "org.gradle.workers.max": String(resolveGradleWorkers()),
 };
 
-/** Applied on every release/prebuild — lint quiet + R8 resource pipeline (AGP 8.12). */
+/**
+ * Applied on every Android prebuild/release, all platforms.
+ * The Gradle build cache lives in GRADLE_USER_HOME, so task outputs survive a clean
+ * prebuild (phone ↔ TV switches) and repeated release builds.
+ */
+const ANDROID_COMMON_GRADLE_PROPERTIES = {
+  "org.gradle.caching": "true",
+};
+
+/** Applied on every release — lint quiet + R8 resource pipeline (AGP 8.12). */
 const ANDROID_RELEASE_GRADLE_PROPERTIES = {
+  ...ANDROID_COMMON_GRADLE_PROPERTIES,
   "android.lint.checkReleaseBuilds": "false",
   // Play vitals / DEX optimization — pairs with enableMinifyInReleaseBuilds.
   "android.r8.optimizedResourceShrinking": "true",
+  // optimize-your-build: PNG crunching is a release-only cost with little size gain.
+  "android.enablePngCrunchInReleaseBuilds": "false",
 };
 
 /**
@@ -248,19 +288,21 @@ function syncAndroidKeystoreProperties(appRoot = DEFAULT_APP_ROOT) {
 }
 
 /**
- * Gradle daemon + parallel workers can OOM on Windows when many native C++ modules
- * compile alongside Kotlin/Java tasks. Lower heap/worker limits and stop stale daemons.
+ * Post-prebuild Gradle settings: build cache everywhere; on Windows also heap/worker
+ * sizing, local.properties, and a daemon restart so new JVM args apply.
  *
  * @param {string} [appRoot]
  */
 function prepareWindowsAndroidBuild(appRoot = DEFAULT_APP_ROOT) {
   syncAndroidKeystoreProperties(appRoot);
 
+  const gradlePropsPath = path.join(appRoot, "android", "gradle.properties");
+  mergeGradlePropertiesFile(gradlePropsPath, ANDROID_COMMON_GRADLE_PROPERTIES);
+
   if (process.platform !== "win32") {
     return;
   }
 
-  const gradlePropsPath = path.join(appRoot, "android", "gradle.properties");
   mergeGradlePropertiesFile(gradlePropsPath, WINDOWS_GRADLE_PROPERTIES);
   writeWindowsLocalProperties(appRoot);
   stopGradleDaemon(appRoot);
@@ -282,8 +324,11 @@ function prepareAndroidReleaseBuild(appRoot = DEFAULT_APP_ROOT) {
   if (process.platform === "win32") writeWindowsLocalProperties(appRoot);
   stopGradleDaemon(appRoot);
   console.log(
-    "Gradle release settings applied (release lint off" +
-      (process.platform === "win32" ? ", 3G heap / 768M metaspace" : "") +
+    "Gradle release settings applied (release lint off, build cache on" +
+      (process.platform === "win32"
+        ? `, 6G heap, ${WINDOWS_GRADLE_PROPERTIES["org.gradle.workers.max"]} workers, ` +
+          `CMake -j${process.env.CMAKE_BUILD_PARALLEL_LEVEL ?? WINDOWS_CMAKE_PARALLEL_LEVEL}`
+        : "") +
       ").\n",
   );
 }
@@ -437,13 +482,39 @@ function withAndroidNativeBuildEnv(env = process.env) {
 
   return {
     ...env,
-    CMAKE_BUILD_PARALLEL_LEVEL: env.CMAKE_BUILD_PARALLEL_LEVEL ?? "1",
+    CMAKE_BUILD_PARALLEL_LEVEL: env.CMAKE_BUILD_PARALLEL_LEVEL ?? WINDOWS_CMAKE_PARALLEL_LEVEL,
+  };
+}
+
+/**
+ * Metro settings for the release JS bundle (`createBundleReleaseJsAndAssets` runs
+ * `expo export:embed` inside Gradle and inherits this env).
+ *
+ * metro.config.js defaults Windows to 2 transform workers + an in-memory cache to avoid
+ * EMFILE in the dev server's async-route HMR. A one-shot release bundle has no HMR, so
+ * use more workers and the on-disk transform cache (os.tmpdir(), reused across releases).
+ * Explicit METRO_MAX_WORKERS / METRO_DISK_CACHE in the environment still win.
+ *
+ * @param {NodeJS.ProcessEnv} [env]
+ * @returns {NodeJS.ProcessEnv}
+ */
+function withReleaseJsBundleEnv(env = process.env) {
+  if (process.platform !== "win32") {
+    return env;
+  }
+
+  return {
+    ...env,
+    METRO_MAX_WORKERS: env.METRO_MAX_WORKERS ?? String(resolveGradleWorkers()),
+    METRO_DISK_CACHE: env.METRO_DISK_CACHE ?? "1",
   };
 }
 
 module.exports = {
   DEFAULT_APP_ROOT,
   WINDOWS_GRADLE_PROPERTIES,
+  WINDOWS_CMAKE_PARALLEL_LEVEL,
+  ANDROID_COMMON_GRADLE_PROPERTIES,
   ANDROID_RELEASE_GRADLE_PROPERTIES,
   mergeGradlePropertiesFile,
   runStep,
@@ -455,4 +526,5 @@ module.exports = {
   listAdbDevices,
   ensureAndroidDeviceReady,
   withAndroidNativeBuildEnv,
+  withReleaseJsBundleEnv,
 };
