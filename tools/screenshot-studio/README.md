@@ -102,7 +102,7 @@ Every size of a device shares its canvas aspect ratio — store slots whose acce
 
 **Layouts for the newer surfaces:** watch / Wear OS decks default to **Full-bleed screenshot** (raw app UI, no frame or caption — what both stores expect). TV decks mix framed marketing slides with full-bleed. Header / search-results decks default to **Split (landscape)** and can also use **Brand banner**; the Android TV banner is brand-banner only (icon + name + tagline).
 
-**Watch / TV inputs:** `pnpm sync:screenshot-captures` also copies native `watch-ultra-3/`, `apple-tv-1080p/` and `android-tv-1080p/` PNGs into `public/screenshots/app/<apple-watch|apple-tv|android-tv>/<locale>/` when they exist (missing TV locales fall back to `en`). Wear OS has no native capture yet — drop screenshots into the Wear OS deck via the picker.
+**Watch / TV inputs:** `pnpm sync:screenshot-captures` also copies native `watch-ultra-3/`, `apple-tv-1080p/` and `android-tv-1080p/` PNGs into `public/screenshots/app/<apple-watch|apple-tv|android-tv>/<locale>/` when they exist (missing TV locales fall back to `en`). Wear OS tile captures (454×454, from the Wear emulator — see `docs/STORE_ASSETS.md`) live in `apps/app/store-assets/captures-native/wear-os/en/` and sync into the Wear OS deck.
 
 Headless export of a subset: `EXPORT_DEVICES=apple-watch,apple-tv pnpm export:screenshot-studio`.
 

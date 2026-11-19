@@ -110,6 +110,15 @@ The slot comes from the captured size, so a mismatched posture fails instead of 
 
 **Check the first shot of each locale.** The outer screen's camera cutout sometimes renders as a solid black dot in the frame right after launch (seen on `01-home` only). Look at the corner by the system rail, and re-run that one scene if it is there — e.g. `LOCALES=ar SCENES=home DUO_SCREEN=outer SKIP_BUILD=1 pnpm screenshots:duo`.
 
+### Wear OS tiles (manual)
+
+Not scripted. Needs the **phone** prebuild (the `:wear` module only exists there) and the `Wear_OS_Large_Round_API_34` AVD (454×454).
+
+1. `cd apps/app/android && ./gradlew :wear:assembleDebug`, then `adb install -r wear/build/outputs/apk/debug/wear-debug.apk`.
+2. Add both tiles: `adb shell am broadcast -a com.google.android.wearable.app.DEBUG_SURFACE --es operation add-tile --ecn component app.munibtracker/expo.modules.munibwear.<MunibWearTileService|MunibWearTasbeehTileService>`.
+3. From the watch face, swipe right→left (`adb shell input swipe 420 227 40 227`) to reach each tile; tap the Tasbeeh count a few times so it is not `0 / 33`.
+4. `adb exec-out screencap -p` → `captures-native/wear-os/en/01-salah-tile.png` / `02-tasbeeh-tile.png`, then `pnpm sync:screenshot-captures` and export the **Wear OS** deck.
+
 ### Studio alias mapping
 
 After each capture run (light **and** dark) for a **studio locale** (`packages/store-screenshots/spec.json` → `locales`, currently en/ar/ur), key scenes are copied into `store-assets/captures/<platform>/<locale>/<theme>/` for the marketing editor (`lib/config.mjs` → `STUDIO_ALIASES`). `sync:screenshot-captures` loads the `STUDIO_THEME` folder (default `light`, from `spec.json` → `studioTheme`; override with `STUDIO_THEME=dark`):
@@ -166,7 +175,7 @@ Full detail: [`apps/app/store-assets/README.md`](../apps/app/store-assets/README
 
 What is in `store-assets/` today and what still needs capturing before the next submission. Update this table whenever a set is refreshed.
 
-_Last reviewed: 2026-11-19 (simulators on iOS / tvOS / watchOS 27.2)._
+_Last reviewed: 2026-11-19 (simulators on iOS / tvOS / watchOS 27.2; Android 15 phone + Wear OS 4 emulators)._
 
 **App Store**
 
@@ -185,21 +194,23 @@ _Last reviewed: 2026-11-19 (simulators on iOS / tvOS / watchOS 27.2)._
 
 **Google Play**
 
-| Slot                     | Size(s)                                      | Source                                        | Status                                                                         |
-| ------------------------ | -------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------ |
-| Phone                    | 1080×1920                                    | Studio ← `captures/android`                   | ⏳ Aug 2026 set predates the home redesign — refresh via `screenshots:android` |
-| 7" / 10" tablet          | 1200×1920 · 1600×2560 (portrait + landscape) | Studio ← `captures/android`                   | ⏳ Same refresh                                                                |
-| Feature graphic          | 1024×500                                     | Studio                                        | ⏳ Aug 2026 — re-export with the phone refresh                                 |
-| Wear OS                  | round                                        | Studio ← `captures-native/wear-os`            | ❌ Missing store set (2 raw captures only) — required to publish the Wear app  |
-| Android TV 1080p         | 1920×1080                                    | Native `RUN_CAPTURE=1 screenshots:android-tv` | ✅ In git                                                                      |
-| Android TV (studio deck) | 1920×1080                                    | Studio                                        | ⏳ Not exported — optional                                                     |
-| Android TV banner        | 1280×720                                     | Studio                                        | ❌ Missing (`android/tv-banner/`) — required for the Android TV listing        |
+| Slot                     | Size(s)                                      | Source                                        | Status                                                                      |
+| ------------------------ | -------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------- |
+| Phone                    | 1080×1920                                    | Studio ← `captures/android`                   | ✅ 2026-11-19 — Phone_API_35 (Android 15) captures, en/ar/ur, reviewed      |
+| 7" / 10" tablet          | 1200×1920 · 1600×2560 (portrait + landscape) | Studio ← `captures/android` (phone)           | ✅ 2026-11-19 — phone captures in a tablet frame (no native tablet capture) |
+| Feature graphic          | 1024×500                                     | Studio                                        | ✅ 2026-11-19                                                               |
+| Wear OS                  | 1024×1024 (1:1)                              | Studio ← `captures-native/wear-os`            | ✅ 2026-11-19 — Next Salah + Tasbeeh tiles, English UI in every locale      |
+| Android TV 1080p         | 1920×1080                                    | Native `RUN_CAPTURE=1 screenshots:android-tv` | ✅ In git                                                                   |
+| Android TV (studio deck) | 1920×1080                                    | Studio                                        | ✅ 2026-11-19 — ar/ur headlines over English TV captures                    |
+| Android TV banner        | 1280×720                                     | Studio                                        | ✅ 2026-11-19 (`android/tv-banner/`)                                        |
 
 **Known capture caveats** (all devices):
 
 - **Captures span midnight:** the hero clock and Hijri date are live, so a long run can show different dates per locale (the 2026-11-19 iPhone set: en/ar 18 Nov, ur 19 Nov).
 - **Qibla** shows "No compass sensor detected" and **0 km** — simulators have no magnetometer and the demo location is Makkah itself. Consider a demo city elsewhere for marketing shots.
 - **App clock / hero** follow the host's real time (only the status bar is overridden) — night captures get the night hero. Capture in daylight for the day-time look.
+- **Android status bar:** `capture-android.mjs` puts SystemUI in demo mode (9:41, full battery, wifi only — the emulator keeps a "3G" label on mobile, so it is hidden) and turns heads-up notifications off for the run, so in-app reminders ("Achievement unlocked") do not cover a shot.
+- **Wear OS Next Salah tile** reads the phone's snapshot over the Wearable Data Layer; an unpaired emulator shows the fallback (**Munib Tracker / Mark Salah**). Pair a phone emulator to capture the next-prayer state.
 - **iPhone Duo status bar:** glyph colour in the Duo's vertical bar does not follow each screen's `StatusBar` style (dark clock on the night home hero in light theme — `iphone-duo/portrait/*/01-home`). iPhone 17 Pro on iOS 27.2 is fine. Open app issue — see [`BACKLOG.md`](./BACKLOG.md).
 
 ## Apple TV / Android TV assets
