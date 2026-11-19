@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/mubbi/munib-tracker/compare/marketing-web-v1.1.0...marketing-web-v1.2.0) (2026-11-18)
+
+
+### Features
+
+* **marketing:** showcase AI Qur'an practice ([1c5d47e](https://github.com/mubbi/munib-tracker/commit/1c5d47e7280d0f71f20b7d832f35122799e3fa12))
+
 ## [1.1.0](https://github.com/mubbi/munib-tracker/compare/marketing-web-v1.0.1...marketing-web-v1.1.0) (2026-09-11)
 
 
