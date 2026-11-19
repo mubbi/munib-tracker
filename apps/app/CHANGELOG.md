@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.4.0](https://github.com/mubbi/munib-tracker/compare/app-v1.3.1...app-v1.4.0) (2026-11-19)
+
+
+### Features
+
+* **screenshots:** capture native iPhone Duo store screenshots ([d936cee](https://github.com/mubbi/munib-tracker/commit/d936ceea8aa720cdae2f58eaf857c8e88f968fc0))
+* **screenshots:** clean Android status bar and AsyncStorage v3 seeding ([a2b7349](https://github.com/mubbi/munib-tracker/commit/a2b73494f0ef3839c6768076a08fa80ac149883c))
+* **screenshots:** design and export the new store slots in screenshot studio ([c2e1135](https://github.com/mubbi/munib-tracker/commit/c2e1135b523636c662c322d2dac20ca8fd313d7b))
+
+
+### Bug Fixes
+
+* **app:** keep the RTL header clear of the iOS 27 side rail ([a3d4852](https://github.com/mubbi/munib-tracker/commit/a3d4852c894afffb9b8c13765692e539f608bc71))
+* **app:** make Wear OS tile text readable on black background ([ec6c849](https://github.com/mubbi/munib-tracker/commit/ec6c84927a4866b2b5ad7287b44ccde8193d9326))
+* **app:** run the deferred RTL reload after preferences hydrate ([376fd8c](https://github.com/mubbi/munib-tracker/commit/376fd8c0e474fd82ca6ec3a1b58110e39737e14f))
+* gradle build time ([82284e8](https://github.com/mubbi/munib-tracker/commit/82284e851305d1c99c96aaf2f7af84c5305f85bb))
+* play console warning for optional features ([b70c2e5](https://github.com/mubbi/munib-tracker/commit/b70c2e5f5fb50e3270ae09e7e08854b9ff7fa7d9))
+
 ## [1.3.1](https://github.com/mubbi/munib-tracker/compare/app-v1.3.0...app-v1.3.1) (2026-11-18)
 
 
