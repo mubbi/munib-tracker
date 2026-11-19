@@ -5,9 +5,17 @@ import { WORK_DIR } from "./config.mjs";
 import { buildDemoStoragePairs } from "./demo-data.mjs";
 import { commandExists, runCapture, sleep } from "./shell.mjs";
 
-/** Legacy AsyncStorage (useNextStorage=false) — not Room `AsyncStorage.db`. */
-const DB_RELATIVE = "databases/RKStorage";
-const TABLE = "catalystLocalStorage";
+/**
+ * On-device AsyncStorage layouts, newest first. The app writes whichever its
+ * installed `@react-native-async-storage/async-storage` major uses:
+ *   - v3: Room DB `databases/AsyncStorage`, table `Storage` (rows mostly live in
+ *     the WAL until checkpoint — so the WAL must be pulled too).
+ *   - v1/v2 legacy: `databases/RKStorage`, table `catalystLocalStorage`.
+ */
+const STORAGE_LAYOUTS = [
+  { db: "databases/AsyncStorage", table: "Storage" },
+  { db: "databases/RKStorage", table: "catalystLocalStorage" },
+];
 
 function sqlEscape(value) {
   return value.replace(/'/g, "''");
@@ -50,28 +58,51 @@ function runSqlite(sqlite3, dbPath, sql) {
   return result.stdout ?? "";
 }
 
-function pullDb(adb, packageId, localPath) {
-  const result = spawnSync(adb, ["exec-out", "run-as", packageId, "cat", DB_RELATIVE], {
+function pullFile(adb, packageId, relative) {
+  const result = spawnSync(adb, ["exec-out", "run-as", packageId, "cat", relative], {
     encoding: "buffer",
     maxBuffer: 32 * 1024 * 1024,
   });
-  if (result.status !== 0) {
-    const err = result.stderr?.toString() || result.stdout?.toString() || `exit ${result.status}`;
-    throw new Error(`Failed to pull ${DB_RELATIVE}: ${err}`);
-  }
   const buf = result.stdout;
-  if (!buf || buf.length < 100 || buf.slice(0, 15).toString("utf8").startsWith("cat:")) {
-    throw new Error(`Pulled ${DB_RELATIVE} looks empty or missing (${buf?.length ?? 0} bytes)`);
+  if (
+    result.status !== 0 ||
+    !buf ||
+    buf.length < 100 ||
+    buf.slice(0, 15).toString("utf8").startsWith("cat:") ||
+    buf.slice(0, 7).toString("utf8").startsWith("run-as:")
+  ) {
+    return null;
+  }
+  return buf;
+}
+
+/**
+ * Pull the DB (+ WAL when present) and fold the WAL into a single host file.
+ * Room keeps freshly created tables in the WAL, so the main file alone is empty.
+ */
+function pullDb(adb, packageId, layout, localPath) {
+  const main = pullFile(adb, packageId, layout.db);
+  if (!main) {
+    throw new Error(`Pulled ${layout.db} looks empty or missing`);
   }
   fs.mkdirSync(path.dirname(localPath), { recursive: true });
-  fs.writeFileSync(localPath, buf);
+  for (const suffix of ["-wal", "-shm", "-journal"]) {
+    try {
+      fs.unlinkSync(`${localPath}${suffix}`);
+    } catch {
+      /* ignore */
+    }
+  }
+  fs.writeFileSync(localPath, main);
+  const wal = pullFile(adb, packageId, `${layout.db}-wal`);
+  if (wal) fs.writeFileSync(`${localPath}-wal`, wal);
 }
 
 /**
  * Push a binary file into the app sandbox via base64.
  * Direct `adb shell` binary pipes corrupt data; on-device sqlite3 is often missing (API 34+).
  */
-function pushDbViaBase64(adb, packageId, localDbPath) {
+function pushDbViaBase64(adb, packageId, layout, localDbPath) {
   const b64Path = `${localDbPath}.b64`;
   const raw = fs.readFileSync(localDbPath);
   fs.writeFileSync(b64Path, raw.toString("base64"), "utf8");
@@ -85,7 +116,7 @@ function pushDbViaBase64(adb, packageId, localDbPath) {
   runCapture(adb, ["shell", `run-as ${packageId} mkdir -p databases`]);
   const decode = runCapture(adb, [
     "shell",
-    `cat ${remoteB64} | run-as ${packageId} sh -c 'base64 -d > ${DB_RELATIVE}'`,
+    `cat ${remoteB64} | run-as ${packageId} sh -c 'base64 -d > ${layout.db}'`,
   ]);
   runCapture(adb, ["shell", `rm -f ${remoteB64}`]);
   try {
@@ -94,11 +125,14 @@ function pushDbViaBase64(adb, packageId, localDbPath) {
     /* ignore */
   }
   if (!decode.ok) {
-    throw new Error(`Failed to write ${DB_RELATIVE}: ${decode.stderr || decode.stdout}`);
+    throw new Error(`Failed to write ${layout.db}: ${decode.stderr || decode.stdout}`);
   }
 }
 
-/** Launch once so Android creates a native-compatible RKStorage, then stop. */
+/**
+ * Launch once so the app creates its native AsyncStorage DB, then stop.
+ * Returns the detected layout (see STORAGE_LAYOUTS).
+ */
 function warmNativeAsyncStorage(adb, packageId) {
   runCapture(adb, ["shell", "am", "force-stop", packageId]);
   runCapture(adb, [
@@ -116,29 +150,29 @@ function warmNativeAsyncStorage(adb, packageId) {
   const deadline = Date.now() + 45_000;
   while (Date.now() < deadline) {
     sleep(1_500);
-    const check = runCapture(adb, [
-      "shell",
-      `run-as ${packageId} sh -c 'test -s ${DB_RELATIVE} && echo OK'`,
-    ]);
-    if (check.ok && check.stdout.includes("OK")) {
+    const layout = STORAGE_LAYOUTS.find((candidate) => {
+      const check = runCapture(adb, [
+        "shell",
+        `run-as ${packageId} sh -c 'test -s ${candidate.db} && echo OK'`,
+      ]);
+      return check.ok && check.stdout.includes("OK");
+    });
+    if (layout) {
+      // Let the first writes land before stopping; the WAL is pulled with the DB.
+      sleep(2_000);
       runCapture(adb, ["shell", "am", "force-stop", packageId]);
       sleep(500);
-      // Checkpoint any WAL into the main DB file before we pull.
-      runCapture(adb, [
-        "shell",
-        `run-as ${packageId} sh -c 'rm -f ${DB_RELATIVE}-wal ${DB_RELATIVE}-shm'`,
-      ]);
-      return;
+      return layout;
     }
   }
   runCapture(adb, ["shell", "am", "force-stop", packageId]);
   throw new Error(
-    "Timed out waiting for native RKStorage after warm launch. Is the screenshot APK installed?",
+    `Timed out waiting for native AsyncStorage (${STORAGE_LAYOUTS.map((l) => l.db).join(" / ")}) after warm launch. Is the screenshot APK installed?`,
   );
 }
 
 /**
- * Inject demo AsyncStorage by merging into the app-created RKStorage.
+ * Inject demo AsyncStorage by merging into the app-created native DB.
  * Host-built DBs are often rejected/recreated by Android SQLite on first open.
  * Requires a debuggable build (run-as).
  */
@@ -157,35 +191,37 @@ export function injectDemoStorageAndroid({ adb, packageId, locale, theme, clearF
     runCapture(adb, ["shell", "pm", "grant", packageId, permission]);
   }
 
-  warmNativeAsyncStorage(adb, packageId);
+  const layout = warmNativeAsyncStorage(adb, packageId);
 
   fs.mkdirSync(WORK_DIR, { recursive: true });
-  const dbPath = path.join(WORK_DIR, `RKStorage-${process.pid}.db`);
+  const dbPath = path.join(WORK_DIR, `AsyncStorage-${process.pid}.db`);
   const sqlite3 = resolveSqlite3();
   const pairs = buildDemoStoragePairs({ locale, theme });
 
   try {
-    pullDb(adb, packageId, dbPath);
-    // Ensure DELETE journal so a single file round-trips cleanly.
-    runSqlite(sqlite3, dbPath, "PRAGMA journal_mode=DELETE;");
+    pullDb(adb, packageId, layout, dbPath);
+    // Fold the WAL in and switch to DELETE journal so a single file round-trips cleanly.
+    runSqlite(sqlite3, dbPath, "PRAGMA wal_checkpoint(TRUNCATE);\nPRAGMA journal_mode=DELETE;");
     const inserts = pairs
       .map(
         ([key, json]) =>
-          `INSERT OR REPLACE INTO ${TABLE} (key, value) VALUES ('${sqlEscape(key)}', '${sqlEscape(json)}');`,
+          `INSERT OR REPLACE INTO ${layout.table} (key, value) VALUES ('${sqlEscape(key)}', '${sqlEscape(json)}');`,
       )
       .join("\n");
     runSqlite(sqlite3, dbPath, inserts);
 
     runCapture(adb, [
       "shell",
-      `run-as ${packageId} sh -c 'rm -f ${DB_RELATIVE}-journal ${DB_RELATIVE}-wal ${DB_RELATIVE}-shm'`,
+      `run-as ${packageId} sh -c 'rm -f ${layout.db}-journal ${layout.db}-wal ${layout.db}-shm'`,
     ]);
-    pushDbViaBase64(adb, packageId, dbPath);
+    pushDbViaBase64(adb, packageId, layout, dbPath);
   } finally {
-    try {
-      fs.unlinkSync(dbPath);
-    } catch {
-      /* ignore */
+    for (const suffix of ["", "-wal", "-shm", "-journal"]) {
+      try {
+        fs.unlinkSync(`${dbPath}${suffix}`);
+      } catch {
+        /* ignore */
+      }
     }
   }
 }
