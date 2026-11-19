@@ -12,6 +12,8 @@
  *   pnpm android:bundle:release:tv   # Android TV / Fire TV Leanback AAB
  *   pnpm android:apk:release:tv      # Leanback APK (Amazon / sideload)
  *   pnpm android:bundle:release:wear # Wear OS AAB (Play Wear OS track; phone prebuild)
+ *
+ * Append `--profile` (e.g. `pnpm android:bundle:release --profile`) for a Gradle timing report.
  */
 const fs = require("node:fs");
 const path = require("node:path");
@@ -24,6 +26,7 @@ const {
 } = require("./lib/release-app-env.cjs");
 const {
   withAndroidNativeBuildEnv,
+  withReleaseJsBundleEnv,
   prepareAndroidReleaseBuild,
 } = require("./lib/native-script-utils.cjs");
 const { preparePlatformRelease } = require("./lib/platform-versions.cjs");
@@ -118,7 +121,7 @@ const { marketingVersion, versionCode, versionEnvKey, buildEnvKey } = preparePla
 );
 logReleaseVersionSummary(projectRoot, { activePlatform: androidPlatform });
 if (isWear) {
-  // wear/build.gradle reads EXPO_WEAR_VERSION_CODE / EXPO_ANDROID_APP_VERSION from the
+  // wear/build.gradle reads EXPO_ANDROID_VERSION_CODE / EXPO_ANDROID_APP_VERSION from the
   // environment at configure time, so there is nothing to rewrite on disk.
   console.log(`Wear OS ${marketingVersion} (${versionCode})\n`);
 } else {
@@ -128,7 +131,7 @@ if (isWear) {
 
 prepareAndroidReleaseBuild(projectRoot);
 
-const env = withAndroidNativeBuildEnv(buildNativeReleaseProcessEnv());
+const env = withReleaseJsBundleEnv(withAndroidNativeBuildEnv(buildNativeReleaseProcessEnv()));
 if (isTv) {
   env.EXPO_TV = "1";
   console.log("Android TV / Leanback release (EXPO_TV=1)…\n");
@@ -136,7 +139,11 @@ if (isTv) {
 
 console.log(`Gradle :${gradleModule}:${task} (NODE_ENV=production)…\n`);
 
-const result = spawnSync(gradlew, [`:${gradleModule}:${task}`], {
+// `--profile` → Gradle HTML timing report in android/build/reports/profile/ (local only).
+const gradleArgs = [`:${gradleModule}:${task}`];
+if (process.argv.includes("--profile")) gradleArgs.push("--profile");
+
+const result = spawnSync(gradlew, gradleArgs, {
   cwd: androidDir,
   stdio: "inherit",
   shell: process.platform === "win32",

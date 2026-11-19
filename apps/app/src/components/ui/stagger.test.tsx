@@ -8,6 +8,7 @@ import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 import { completeAllStaggerEntrances } from "@/lib/stagger-entrances";
 import { captureAppStateListener } from "@/test-support/app-state";
 import { resetExpoRouterMock, setMockPathname } from "@/test-support/mocks/expo-router";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -33,7 +34,7 @@ const renderStagger = (props: Props = {}, labels?: string[]) => render(stagger(p
 
 /** A revealed item renders its child directly in the full-width slot (no Animated wrapper). */
 const isRevealed = (label: string) =>
-  flattenStyle(screen.getByText(label).parent!.props.style).width === "100%";
+  flattenStyle(parentOf(screen.getByText(label)).props.style).width === "100%";
 
 const advance = (ms: number) => act(async () => jest.advanceTimersByTime(ms));
 

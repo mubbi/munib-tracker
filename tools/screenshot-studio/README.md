@@ -29,7 +29,7 @@ pnpm sync:screenshot-captures            # copies captures (STUDIO_THEME, defaul
 pnpm dev:screenshot-studio               # editor on http://localhost:3010
 ```
 
-In the editor pick a device (**iPhone → iPad → Android Phone → Android 7"/10" tablets → Feature Graphic**) and click **Export bundle** for each (or, with the editor running, `pnpm export:screenshot-studio` exports every deck headlessly via Playwright). PNGs stream to `exports/` via the dev-only `/api/export` route. Then:
+In the editor pick a device (**iOS:** iPhone · iPhone Duo · iPad · Apple Watch Ultra · Apple TV · Product Page Header (16:9 / wide) · Search Results (16:9 / 3:2); **Android:** Phone · 7"/10" tablets · Wear OS · Android TV · Android TV Banner · Feature Graphic) and click **Export bundle** for each (or, with the editor running, `pnpm export:screenshot-studio` exports every deck headlessly via Playwright). PNGs stream to `exports/` via the dev-only `/api/export` route. Then:
 
 ```bash
 pnpm distribute:screenshot-exports       # copies into apps/app/store-assets per store layout
@@ -79,20 +79,37 @@ Full native matrix (all screens × locales × themes): `apps/app/store-assets/ca
 
 Defined in `src/lib/constants.ts` (kept in step with `packages/store-screenshots/src/index.ts`):
 
-| Device               | Size(s)               |
-| -------------------- | --------------------- |
-| iPhone 6.9"          | 1320×2868             |
-| iPhone 6.5"          | 1242×2688             |
-| iPad 13"             | 2064×2752             |
-| Android phone        | 1080×1920             |
-| Android 7" tablet    | 1200×1920 / 1920×1200 |
-| Android 10" tablet   | 1600×2560 / 2560×1600 |
-| Play feature graphic | 1024×500              |
+| Device                       | Size(s)                                                 |
+| ---------------------------- | ------------------------------------------------------- |
+| iPhone 6.9"                  | 1320×2868                                               |
+| iPhone 6.5"                  | 1242×2688                                               |
+| iPhone 6.3" (medium display) | 1206×2622                                               |
+| iPhone Duo                   | 2007×2853, 1398×2034 / landscape 2853×2007, 2034×1398   |
+| iPad 13"                     | 2064×2752                                               |
+| Apple Watch Ultra 4          | 422×514, 410×502                                        |
+| Apple TV                     | 3840×2160, 1920×1080                                    |
+| Product page header          | 5244×2950 (16:9 deck) · 3840×1646 (wide deck)           |
+| Search results asset         | 5244×2950 (16:9 deck) · 3840×2560, 1920×1280 (3:2 deck) |
+| Android phone                | 1080×1920                                               |
+| Android 7" tablet            | 1200×1920 / 1920×1200                                   |
+| Android 10" tablet           | 1600×2560 / 2560×1600                                   |
+| Wear OS                      | 1024×1024 (1:1)                                         |
+| Android TV                   | 1920×1080                                               |
+| Android TV banner            | 1280×720                                                |
+| Play feature graphic         | 1024×500                                                |
+
+Every size of a device shares its canvas aspect ratio — store slots whose accepted sizes differ in aspect (header 16:9 vs wide, search results 16:9 vs 3:2) are separate decks. Sizes within ~1% are scaled; larger drift (iPhone Duo compact) is centre-cropped, never stretched.
+
+**Layouts for the newer surfaces:** watch / Wear OS decks default to **Full-bleed screenshot** (raw app UI, no frame or caption — what both stores expect). TV decks mix framed marketing slides with full-bleed. Header / search-results decks default to **Split (landscape)** and can also use **Brand banner**; the Android TV banner is brand-banner only (icon + name + tagline).
+
+**Watch / TV inputs:** `pnpm sync:screenshot-captures` also copies native `watch-ultra-3/`, `apple-tv-1080p/` and `android-tv-1080p/` PNGs into `public/screenshots/app/<apple-watch|apple-tv|android-tv>/<locale>/` when they exist (missing TV locales fall back to `en`). Wear OS tile captures (454×454, from the Wear emulator — see `docs/STORE_ASSETS.md`) live in `apps/app/store-assets/captures-native/wear-os/en/` and sync into the Wear OS deck.
+
+Headless export of a subset: `EXPORT_DEVICES=apple-watch,apple-tv pnpm export:screenshot-studio`.
 
 ## What's inside
 
 - **Connected canvas editor** — drag elements across screen boundaries; export as split crops in Connected mode.
-- **Device frames** — iPhone (PNG mockup), iPad, Android phone/tablet, feature graphic.
+- **Device frames** — iPhone (PNG mockup), iPhone Duo (foldable), iPad, Android phone/tablet, Apple Watch, round Wear OS watch, TV, plus brand banner and frameless full-bleed.
 - **Auto-save** — persisted to **`app-store-screenshots.json`** (git-tracked) + `localStorage` cache.
 - **Multi-device decks** — iOS and Android slide decks side by side.
 - **Bulk export** — all required resolutions via `html-to-image`.

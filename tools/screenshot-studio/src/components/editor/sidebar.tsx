@@ -16,6 +16,7 @@ import {
 } from "@dnd-kit/sortable";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { defaultLayoutFor } from "@/lib/constants";
 import { newSlide } from "@/lib/defaults";
 import type { Device, Orientation, Slide, Theme } from "@/lib/types";
 import { SlideThumb } from "./slide-thumb";
@@ -119,9 +120,7 @@ export function Sidebar({
           type="button"
           className="w-full"
           variant="default"
-          onClick={() =>
-            onAdd(newSlide(device === "feature-graphic" ? "feature-graphic" : "device-bottom"))
-          }
+          onClick={() => onAdd(newSlide(defaultLayoutFor(device)))}
           disabled={disabled}
         >
           <Plus className="h-4 w-4" /> Add screen

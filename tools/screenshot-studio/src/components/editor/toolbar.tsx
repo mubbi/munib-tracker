@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DEVICE_LABEL, supportsLandscape } from "@/lib/constants";
+import { DEVICE_LABEL, DEVICES_BY_PLATFORM, supportsLandscape } from "@/lib/constants";
 import { detectPlatform } from "@/lib/defaults";
 import type { Device, Orientation } from "@/lib/types";
 
@@ -118,23 +118,15 @@ export function Toolbar(props: Props) {
         onValueChange={(v) => props.setDevice(v as Device)}
         disabled={props.busy}
       >
-        <SelectTrigger className="h-8 w-44 text-xs">
+        <SelectTrigger className="h-8 w-56 text-xs" aria-label="Device">
           <SelectValue placeholder="Device">{deviceLabel}</SelectValue>
         </SelectTrigger>
         <SelectContent>
-          {platform === "ios" ? (
-            <>
-              <SelectItem value="iphone">{DEVICE_LABEL.iphone}</SelectItem>
-              <SelectItem value="ipad">{DEVICE_LABEL.ipad}</SelectItem>
-            </>
-          ) : (
-            <>
-              <SelectItem value="android">{DEVICE_LABEL.android}</SelectItem>
-              <SelectItem value="android-7">{DEVICE_LABEL["android-7"]}</SelectItem>
-              <SelectItem value="android-10">{DEVICE_LABEL["android-10"]}</SelectItem>
-              <SelectItem value="feature-graphic">{DEVICE_LABEL["feature-graphic"]}</SelectItem>
-            </>
-          )}
+          {DEVICES_BY_PLATFORM[platform].map((d) => (
+            <SelectItem key={d} value={d}>
+              {DEVICE_LABEL[d]}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 
@@ -144,7 +136,7 @@ export function Toolbar(props: Props) {
           onValueChange={(v) => props.setOrientation(v as Orientation)}
           disabled={props.busy}
         >
-          <SelectTrigger className="h-8 w-32 text-xs">
+          <SelectTrigger className="h-8 w-32 text-xs" aria-label="Orientation">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

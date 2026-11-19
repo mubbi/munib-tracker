@@ -11,14 +11,15 @@
  *
  * Build integers (NOT managed by Release Please — bump manually or via EAS autoIncrement):
  *   EXPO_IOS_APP_BUILD_NUMBER       – iPhone CFBundleVersion (integer string)
- *   EXPO_ANDROID_VERSION_CODE       – phone Android versionCode (integer)
+ *   EXPO_ANDROID_VERSION_CODE       – Android versionCode (integer) for phone, Android TV
+ *                                     AND Wear OS — one shared counter
  *   EXPO_TVOS_APP_BUILD_NUMBER      – Apple TV CFBundleVersion (integer string)
- *   EXPO_ANDROID_TV_VERSION_CODE    – Android TV versionCode (integer)
  *
  * Marketing semver falls back to app.json expo.version when a platform env key is unset.
  *
- * Note: phone + Android TV share package app.munibtracker on Play — versionCodes must stay
- * unique and monotonically increasing across both form factors.
+ * Note: phone, Android TV and Wear OS share package app.munibtracker on Play — every uploaded
+ * versionCode must be unique and increasing across all form factors, so they use a single
+ * counter. Bump EXPO_ANDROID_VERSION_CODE before EVERY Play upload (phone, TV or Wear).
  */
 const path = require("node:path");
 
@@ -44,10 +45,13 @@ const IOS_BUILD_NUMBER_ENV_KEYS = {
   tvos: "EXPO_TVOS_APP_BUILD_NUMBER",
 };
 
+/** One Play package (app.munibtracker) → one versionCode counter for every form factor. */
+const ANDROID_VERSION_CODE_ENV_KEY = "EXPO_ANDROID_VERSION_CODE";
+
 const ANDROID_VERSION_CODE_ENV_KEYS = {
-  android: "EXPO_ANDROID_VERSION_CODE",
-  "android-tv": "EXPO_ANDROID_TV_VERSION_CODE",
-  wear: "EXPO_WEAR_VERSION_CODE",
+  android: ANDROID_VERSION_CODE_ENV_KEY,
+  "android-tv": ANDROID_VERSION_CODE_ENV_KEY,
+  wear: ANDROID_VERSION_CODE_ENV_KEY,
 };
 
 /**
@@ -215,10 +219,8 @@ function getVersionEnvSummary(appRoot = DEFAULT_APP_ROOT, { activePlatform } = {
     androidTvMarketing: readEnvOrFallback("EXPO_ANDROID_TV_APP_VERSION", fallback),
     webMarketing: webFromDotEnv,
     iosBuildNumber: process.env.EXPO_IOS_APP_BUILD_NUMBER?.trim() || "1",
-    androidVersionCode: formatVersionCodeSummary("EXPO_ANDROID_VERSION_CODE"),
+    androidVersionCode: formatVersionCodeSummary(ANDROID_VERSION_CODE_ENV_KEY),
     tvosBuildNumber: process.env.EXPO_TVOS_APP_BUILD_NUMBER?.trim() || "1",
-    androidTvVersionCode: formatVersionCodeSummary("EXPO_ANDROID_TV_VERSION_CODE"),
-    wearVersionCode: formatVersionCodeSummary("EXPO_WEAR_VERSION_CODE"),
     bundleVersion,
     activePlatform: activePlatform || null,
     bundleOverridden: Boolean(
@@ -236,6 +238,7 @@ module.exports = {
   SEMVER_RE,
   PLATFORM_ENV_KEYS,
   IOS_BUILD_NUMBER_ENV_KEYS,
+  ANDROID_VERSION_CODE_ENV_KEY,
   ANDROID_VERSION_CODE_ENV_KEYS,
   captureWebVersionFromDotEnv,
   readAppJsonVersion,

@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
 import { Card } from "@/components/ui/card";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -14,7 +15,7 @@ const renderCard = (props: Partial<Props> = {}) =>
     </Card>,
   );
 
-const cardStyle = () => flattenStyle(screen.getByText("Body").parent!.props.style);
+const cardStyle = () => flattenStyle(parentOf(screen.getByText("Body")).props.style);
 
 describe("Card", () => {
   it.each([

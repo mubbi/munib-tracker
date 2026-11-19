@@ -3,6 +3,7 @@ import { Text } from "react-native";
 import * as Reanimated from "react-native-reanimated";
 
 import { FocusHighlight } from "@/components/ui/focus-highlight";
+import { parentOf } from "@/test-support/queries";
 import { captureAnimatedStyles } from "@/test-support/reanimated";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
@@ -15,7 +16,8 @@ const highlight = (props: Props) => (
   </FocusHighlight>
 );
 
-const ring = () => screen.getByText("Target").parent!.children[1] as { props: { style: unknown } };
+const ring = () =>
+  parentOf(screen.getByText("Target")).children[1] as { props: { style: unknown } };
 
 describe("FocusHighlight", () => {
   let withDelay: jest.SpyInstance;
@@ -42,7 +44,7 @@ describe("FocusHighlight", () => {
     await renderWithTheme(highlight({ active: false, borderRadius: 4 }));
 
     expect(withDelay).not.toHaveBeenCalled();
-    expect(flattenStyle(screen.getByText("Target").parent!.props.style).borderRadius).toBe(4);
+    expect(flattenStyle(parentOf(screen.getByText("Target")).props.style).borderRadius).toBe(4);
   });
 
   it("pulses again each time it becomes active", async () => {

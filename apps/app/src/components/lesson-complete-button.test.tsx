@@ -34,7 +34,7 @@ describe("LessonCompleteButton", () => {
 
   it("dismisses the confirmation without toggling", async () => {
     const onToggle = await renderButton(false);
-    await fireEvent.press(screen.getAllByRole("button")[0]!);
+    await fireEvent.press(screen.getAllByRole("button")[0]);
 
     await fireEvent.press(screen.getByText("Cancel"));
 

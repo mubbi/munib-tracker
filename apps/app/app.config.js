@@ -259,6 +259,8 @@ module.exports = ({ config }) => {
       ...tvExpoModuleExcludesPlugin,
       ...tvNilSafeFabricPlugin,
       ...phoneOnlyPlugins,
+      /** Implied hardware (wifi, camera, mic, location) → required="false" so Play doesn't filter devices. */
+      "./plugins/withAndroidOptionalHardware.cjs",
       [
         "@sentry/react-native/expo",
         {

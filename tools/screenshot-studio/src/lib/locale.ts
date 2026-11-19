@@ -19,6 +19,18 @@ export function pickText(field: LocalizedText | undefined, locale: string): stri
   return "";
 }
 
+// Script-direction locales (mirrors the app's RTL_LOCALES).
+const RTL_LOCALES = new Set(["ar", "ur", "fa", "ps", "ku", "he"]);
+
+// Text direction for what `pickText` renders. RTL only when the locale is RTL
+// *and* has its own copy — an English fallback stays LTR. Without an explicit
+// `dir`, Arabic/Urdu lines with digits, Latin words or trailing punctuation are
+// laid out LTR ("24" and the full stop land on the wrong end).
+export function textDir(field: LocalizedText | undefined, locale: string): "rtl" | "ltr" {
+  const base = locale.split("-")[0] ?? locale;
+  return RTL_LOCALES.has(base) && field?.[locale]?.length ? "rtl" : "ltr";
+}
+
 // Replace `{locale}` placeholders in a screenshot path. Data URLs and empty
 // strings pass through unchanged.
 export function resolveScreenshot(path: string | undefined, locale: string): string {

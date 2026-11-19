@@ -8,6 +8,7 @@ import { Spacing } from "@/constants/theme";
 import { captureAnimationFrames } from "@/test-support/animation-frames";
 import { resetMockWindowSize, setMockWindowSize } from "@/test-support/mocks/use-window-dimensions";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -73,7 +74,7 @@ describe("TrackerProgressRings", () => {
   it("fits every group on one row once the measured row is wide", async () => {
     await renderRings(buildItems(4));
 
-    await fireEvent(screen.getByLabelText("Group 0, 0 of 6").parent!, "layout", {
+    await fireEvent(parentOf(screen.getByLabelText("Group 0, 0 of 6")), "layout", {
       nativeEvent: { layout: { width: 700 } },
     });
 
@@ -83,7 +84,7 @@ describe("TrackerProgressRings", () => {
   it("ignores sub-pixel layout jitter", async () => {
     await renderRings(buildItems(2));
 
-    await fireEvent(screen.getByLabelText("Group 0, 0 of 6").parent!, "layout", {
+    await fireEvent(parentOf(screen.getByLabelText("Group 0, 0 of 6")), "layout", {
       nativeEvent: { layout: { width: ROW + 0.2 } },
     });
 

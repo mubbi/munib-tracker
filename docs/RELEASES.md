@@ -97,10 +97,9 @@ still reformats `app.json` with Biome on pending app Release PRs after each run.
 
 | Owned by Release Please                                                     | Owned by you, in `apps/app/.env`                           |
 | --------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `package.json` / `app.json` `expo.version`                                  | `EXPO_ANDROID_VERSION_CODE` (phone)                        |
-| `EXPO_*_APP_VERSION` / `EXPO_PUBLIC_APP_VERSION` defaults in `.env.example` | `EXPO_ANDROID_TV_VERSION_CODE` (Android TV)                |
-| `apps/app/CHANGELOG.md`                                                     | `EXPO_WEAR_VERSION_CODE` (Wear OS)                         |
-|                                                                             | `EXPO_IOS_APP_BUILD_NUMBER` / `EXPO_TVOS_APP_BUILD_NUMBER` |
+| `package.json` / `app.json` `expo.version`                                  | `EXPO_ANDROID_VERSION_CODE` (phone + Android TV + Wear OS) |
+| `EXPO_*_APP_VERSION` / `EXPO_PUBLIC_APP_VERSION` defaults in `.env.example` | `EXPO_IOS_APP_BUILD_NUMBER` / `EXPO_TVOS_APP_BUILD_NUMBER` |
+| `apps/app/CHANGELOG.md`                                                     |                                                            |
 
 ### Build integers: `.env` is the single source of truth
 
@@ -108,7 +107,9 @@ still reformats `app.json` with Biome on pending app Release PRs after each run.
   builds use exactly the codes `app.config.js` reads from the environment.
 - Phone, Android TV, and Wear OS share Play package `app.munibtracker`: every
   version code must be unique and higher than any code already uploaded, across
-  all three form factors. See [`TV.md`](./TV.md).
+  all three form factors. So they all read **one** counter,
+  `EXPO_ANDROID_VERSION_CODE` — bump it before each Play upload (e.g. phone 30 →
+  TV 31 → Wear 32). See [`TV.md`](./TV.md).
 - **Bump before every store upload.** Set the code above the highest one in Play
   Console / App Store Connect. (Before SDK 58, EAS kept its own remote counter, so
   check the stores the first time.)

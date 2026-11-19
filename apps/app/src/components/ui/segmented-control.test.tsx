@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -15,7 +16,7 @@ const OPTIONS: { id: Period; label: string }[] = [
 const renderControl = (value: Period, onChange = jest.fn()) =>
   renderWithTheme(<SegmentedControl options={OPTIONS} value={value} onChange={onChange} />);
 
-const track = () => screen.getByText("Day").parent!.parent!.parent!;
+const track = () => parentOf(screen.getByText("Day"), 3);
 
 describe("SegmentedControl", () => {
   it("marks the selected segment", async () => {

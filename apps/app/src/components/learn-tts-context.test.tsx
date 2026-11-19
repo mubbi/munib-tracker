@@ -10,6 +10,7 @@ import {
 import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { isTtsAvailable, resolveTtsVoice } from "@/lib/tts";
 import type { AudioTrack } from "@/providers/audio-player-provider";
+import { defined } from "@/test-support/assert";
 import {
   mockAudioPlayer as mockAudio,
   resetAudioPlayerMock,
@@ -45,7 +46,7 @@ const renderLearnTts = (initial: Texts = {}, listenText?: string | null) =>
     ({ first, second }: Texts) => {
       useRegisterLearnListenText(first);
       useRegisterLearnListenText(second);
-      return useLearnTts()!;
+      return defined(useLearnTts(), "LearnTts context");
     },
     {
       initialProps: initial,
@@ -241,7 +242,7 @@ describe("LearnTtsProvider playback state", () => {
     const hook = await renderLearnTts({ first: "Intro" });
     await act(async () => hook.result.current.startWithVoice("v"));
     await waitFor(() => expect(mockAudio.play).toHaveBeenCalled());
-    mockAudio.current = (mockAudio.play.mock.calls[0]![0] as AudioTrack[])[0]! as never;
+    mockAudio.current = (mockAudio.play.mock.calls[0][0] as AudioTrack[])[0] as never;
     await hook.rerender({ first: "Intro" });
     return hook;
   };

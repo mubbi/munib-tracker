@@ -4,7 +4,7 @@ import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-act
 import { NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { resetMockWindowSize, setMockWindowSize } from "@/test-support/mocks/use-window-dimensions";
 import { usePlatform } from "@/test-support/platform";
-import { queryHostsByType } from "@/test-support/queries";
+import { parentOf, queryHostsByType } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -79,7 +79,7 @@ describe("QuickActionGrid", () => {
     setMockWindowSize(width);
     await renderGrid(2);
 
-    const slot = screen.getByLabelText("Item 1").parent!;
+    const slot = parentOf(screen.getByLabelText("Item 1"));
     expect(flattenStyle(slot.props.style).width).toBe(`${100 / columns}%`);
   });
 });

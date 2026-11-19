@@ -2,6 +2,7 @@ import { act, fireEvent, screen } from "@testing-library/react-native";
 
 import { PrayerInfoButton } from "@/components/prayer-info-button";
 import { PrayerInfoSheet } from "@/components/prayer-info-sheet";
+import { lastProps } from "@/test-support/mock-calls";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
@@ -60,7 +61,7 @@ describe("PrayerInfoButton", () => {
     await fireEvent.press(button());
     await screen.findByText("sheet:fajr");
 
-    await act(async () => jest.mocked(PrayerInfoSheet).mock.lastCall![0].onClose());
+    await act(async () => lastProps(PrayerInfoSheet).onClose());
 
     expect(screen.queryByText("sheet:fajr")).toBeNull();
   });

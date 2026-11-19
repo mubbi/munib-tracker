@@ -58,8 +58,9 @@ android {
         applicationId "app.munibtracker"
         minSdk 30
         targetSdk safeExtGet('targetSdkVersion', 36)
-        // apps/app/.env is the single source of truth (release scripts export it).
-        versionCode Integer.parseInt(System.getenv("EXPO_WEAR_VERSION_CODE") ?: "1")
+        // apps/app/.env is the single source of truth (release scripts export it). Phone, TV
+        // and Wear share one Play package, so they share one versionCode counter.
+        versionCode Integer.parseInt(System.getenv("EXPO_ANDROID_VERSION_CODE") ?: "1")
         versionName System.getenv("EXPO_ANDROID_APP_VERSION") ?: "1.0.0"
     }
 
@@ -91,7 +92,11 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            minifyEnabled false
+            // R8 shrinks Guava / Play Services out of the watch APK, and AGP embeds the
+            // mapping file in the AAB so Play can deobfuscate crashes and ANRs.
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             if (keystorePropertiesFile.exists()) {
                 signingConfig signingConfigs.release
             } else if (gradle.startParameter.taskNames.any { it.toLowerCase().contains("release") }) {
@@ -108,6 +113,17 @@ dependencies {
     implementation 'com.google.android.gms:play-services-wearable:20.0.1'
     implementation 'com.google.guava:guava:33.8.0-android'
 }
+`,
+      );
+
+      fs.writeFileSync(
+        path.join(wearDir, "proguard-rules.pro"),
+        `# Wear OS tiles (R8). Tile services are kept through the manifest; libraries ship
+# their own consumer rules. Guava references compile-only annotation jars.
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn com.google.j2objc.annotations.**
+-dontwarn javax.annotation.**
+-dontwarn org.checkerframework.**
 `,
       );
 
@@ -172,10 +188,12 @@ dependencies {
 
 import android.content.Context
 import androidx.wear.protolayout.ActionBuilders
+import androidx.wear.protolayout.ColorBuilders.argb
 import androidx.wear.protolayout.LayoutElementBuilders
 import androidx.wear.protolayout.ModifiersBuilders
 import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.protolayout.material.Text
+import androidx.wear.protolayout.material.Typography
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TileService
@@ -188,6 +206,11 @@ import org.json.JSONObject
 
 private const val SNAPSHOT_PATH = "/munib/widget_snapshot"
 private const val CLICK_MARK_CURRENT = "mark_current"
+
+// Explicit colours: material Text defaults to onPrimary (#303133), which is
+// near-invisible on the tile's black background. Matches the dark widget palette.
+private val TILE_TEXT = argb(0xFFEEE4D2.toInt())
+private val TILE_SECONDARY = argb(0xFFA2BDB0.toInt())
 
 class MunibWearTileService : TileService() {
   override fun onTileRequest(requestParams: RequestBuilders.TileRequest): ListenableFuture<TileBuilders.Tile> {
@@ -213,8 +236,20 @@ class MunibWearTileService : TileService() {
           .setClickable(clickable)
           .build()
       )
-      .addContent(Text.Builder(applicationContext, line1).build())
-      .addContent(Text.Builder(applicationContext, line2).build())
+      .addContent(
+        Text.Builder(applicationContext, line1)
+          .setTypography(Typography.TYPOGRAPHY_TITLE2)
+          .setColor(TILE_SECONDARY)
+          .setMaxLines(2)
+          .build()
+      )
+      .addContent(
+        Text.Builder(applicationContext, line2)
+          .setTypography(Typography.TYPOGRAPHY_DISPLAY2)
+          .setColor(TILE_TEXT)
+          .setMaxLines(2)
+          .build()
+      )
       .build()
 
     val layout = LayoutElementBuilders.Layout.Builder()
@@ -274,10 +309,13 @@ class MunibWearTileService : TileService() {
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.wear.protolayout.ActionBuilders
+import androidx.wear.protolayout.ColorBuilders.argb
+import androidx.wear.protolayout.DimensionBuilders.dp
 import androidx.wear.protolayout.LayoutElementBuilders
 import androidx.wear.protolayout.ModifiersBuilders
 import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.protolayout.material.Text
+import androidx.wear.protolayout.material.Typography
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TileService
@@ -299,6 +337,9 @@ private const val KEY_COUNT = "count"
 private const val KEY_TARGET = "target"
 private const val CLICK_INCREMENT = "tasbeeh_increment"
 private const val CLICK_RESET = "tasbeeh_reset"
+// See MunibWearTileService: material Text's default colour is unreadable on black.
+private val TASBEEH_TEXT = argb(0xFFEEE4D2.toInt())
+private val TASBEEH_SECONDARY = argb(0xFFA2BDB0.toInt())
 private val TARGET_CLICK_IDS = mapOf(
   "tasbeeh_target_33" to 33,
   "tasbeeh_target_99" to 99,
@@ -350,8 +391,18 @@ class MunibWearTasbeehTileService : TileService() {
           .setClickable(incrementClickable)
           .build()
       )
-      .addContent(Text.Builder(applicationContext, tasbeehLabel).build())
-      .addContent(Text.Builder(applicationContext, countLabel).build())
+      .addContent(
+        Text.Builder(applicationContext, tasbeehLabel)
+          .setTypography(Typography.TYPOGRAPHY_TITLE2)
+          .setColor(TASBEEH_SECONDARY)
+          .build()
+      )
+      .addContent(
+        Text.Builder(applicationContext, countLabel)
+          .setTypography(Typography.TYPOGRAPHY_DISPLAY2)
+          .setColor(TASBEEH_TEXT)
+          .build()
+      )
       .build()
 
     val resetArea = LayoutElementBuilders.Column.Builder()
@@ -360,11 +411,17 @@ class MunibWearTasbeehTileService : TileService() {
           .setClickable(resetClickable)
           .build()
       )
-      .addContent(Text.Builder(applicationContext, resetLabel).build())
+      .addContent(
+        Text.Builder(applicationContext, resetLabel)
+          .setTypography(Typography.TYPOGRAPHY_BUTTON)
+          .setColor(TASBEEH_SECONDARY)
+          .build()
+      )
       .build()
 
     val column = LayoutElementBuilders.Column.Builder()
       .addContent(incrementArea)
+      .addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(8f)).build())
       .addContent(resetArea)
       .build()
 

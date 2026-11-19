@@ -33,6 +33,7 @@ function main() {
   for (const rel of [
     "capture-android.mjs",
     "capture-ios.mjs",
+    "capture-duo.mjs",
     "capture-watch.mjs",
     "capture-tvos.mjs",
     "capture-android-tv.mjs",

@@ -58,7 +58,7 @@ describe("AppTabs", () => {
   it("lets iOS adopt the system bar material", async () => {
     await renderWithTheme(<AppTabs />);
 
-    expect(nativeTabs()!.props.backgroundColor).toBeUndefined();
+    expect(screen.getByTestId("native-tabs").props.backgroundColor).toBeUndefined();
   });
 
   it("uses the side rail on wide iPads", async () => {
@@ -84,6 +84,6 @@ describe("AppTabs", () => {
     restorePlatform = setPlatform({ OS: "android" });
     await renderWithTheme(<AppTabs />);
 
-    expect(nativeTabs()!.props.backgroundColor).toEqual(expect.any(String));
+    expect(screen.getByTestId("native-tabs").props.backgroundColor).toEqual(expect.any(String));
   });
 });

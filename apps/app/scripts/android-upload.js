@@ -19,6 +19,7 @@ const path = require("node:path");
 const { google } = require("googleapis");
 const { loadAppEnv, assertVersionEnv } = require("./lib/release-app-env.cjs");
 const {
+  ANDROID_VERSION_CODE_ENV_KEY,
   resolvePlatformVersion,
   resolveAndroidVersionCode,
 } = require("./lib/platform-versions.cjs");
@@ -109,7 +110,7 @@ async function main() {
     console.error(
       "\nMissing apps/app/.env — need Android version env vars.\n" +
         (isTv
-          ? "  EXPO_ANDROID_TV_APP_VERSION / EXPO_ANDROID_TV_VERSION_CODE\n"
+          ? "  EXPO_ANDROID_TV_APP_VERSION / EXPO_ANDROID_VERSION_CODE\n"
           : "  EXPO_ANDROID_APP_VERSION / EXPO_ANDROID_VERSION_CODE\n") +
         "  Copy apps/app/.env.example → apps/app/.env\n",
     );
@@ -121,11 +122,7 @@ async function main() {
   const versionName = resolvePlatformVersion(androidPlatform, projectRoot);
   process.env.MUNIB_REQUIRE_VERSION_CODES = "1";
   const expectedVersionCode = resolveAndroidVersionCode(androidPlatform);
-  const versionCodeEnvKey = isTv
-    ? "EXPO_ANDROID_TV_VERSION_CODE"
-    : isWear
-      ? "EXPO_WEAR_VERSION_CODE"
-      : "EXPO_ANDROID_VERSION_CODE";
+  const versionCodeEnvKey = ANDROID_VERSION_CODE_ENV_KEY;
   const releaseName = `${versionName} (${expectedVersionCode})${isTv ? " TV" : isWear ? " Wear OS" : ""}`;
   const releaseNotes = buildReleaseNotes(versionName);
 

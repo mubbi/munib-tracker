@@ -56,6 +56,67 @@ for (const platform of PLATFORMS) {
 }
 const expected = PLATFORMS.length * LOCALES.length * FILES.length;
 console.log(`Copied ${copied}/${expected} ${STUDIO_THEME} captures into ${destRoot}`);
+
+// ---------- Watch / TV surfaces (optional) ----------
+// Native `pnpm screenshots:watch|tvos|android-tv` write store-ready PNGs; the
+// studio decks for those surfaces read them from public/screenshots/app/<surface>/.
+// Missing locales fall back to the English capture so localized captions still
+// render over a real screen (TV capture defaults to LOCALES=en).
+const storeRoot = path.join(repoRoot, spec.storeAssetsRoot);
+const WEAR_SCENES = ["01-salah-tile", "02-tasbeeh-tile"];
+const SURFACES = [
+  {
+    surface: "apple-watch",
+    src: path.join(storeRoot, "ios", "screenshots", spec.watch.preferredSize.label),
+    scenes: Object.values(spec.watch.slideScenes),
+    locales: ["en"],
+  },
+  {
+    surface: "apple-tv",
+    src: path.join(storeRoot, "ios", "screenshots", "apple-tv-1080p"),
+    scenes: Object.values(spec.tv.slideScenes),
+    locales: LOCALES,
+  },
+  {
+    surface: "android-tv",
+    src: path.join(storeRoot, "android", "screenshots", "android-tv-1080p"),
+    scenes: Object.values(spec.tv.slideScenes),
+    locales: LOCALES,
+  },
+  {
+    // Raw 454×454 tile captures from the Wear OS emulator (English-only today).
+    surface: "wear-os",
+    src: path.join(storeRoot, "captures-native", "wear-os"),
+    scenes: WEAR_SCENES,
+    locales: ["en"],
+  },
+];
+
+for (const { surface, src, scenes, locales } of SURFACES) {
+  let surfaceCopied = 0;
+  let fallbacks = 0;
+  for (const locale of locales) {
+    for (const scene of scenes) {
+      const own = path.join(src, locale, `${scene}.png`);
+      const en = path.join(src, "en", `${scene}.png`);
+      const from = fs.existsSync(own) ? own : fs.existsSync(en) ? en : null;
+      if (!from) continue;
+      if (from === en && locale !== "en") fallbacks += 1;
+      const dest = path.join(destRoot, surface, locale);
+      fs.mkdirSync(dest, { recursive: true });
+      fs.copyFileSync(from, path.join(dest, `${scene}.png`));
+      surfaceCopied += 1;
+    }
+  }
+  const total = locales.length * scenes.length;
+  if (surfaceCopied === 0) {
+    console.log(`${surface}: no native captures under ${src} (optional — skipped)`);
+  } else {
+    console.log(
+      `${surface}: copied ${surfaceCopied}/${total}${fallbacks ? ` (${fallbacks} via en fallback)` : ""}`,
+    );
+  }
+}
 if (missing.length) {
   console.log(
     `Missing (${missing.length}): ${missing.slice(0, 12).join(", ")}${missing.length > 12 ? "…" : ""}`,

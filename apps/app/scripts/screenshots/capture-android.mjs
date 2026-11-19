@@ -22,6 +22,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { enterCleanStatusBar, exitCleanStatusBar } from "./lib/android-status-bar.mjs";
 import { buildAndInstallScreenshotApk, launchScreenshotApp } from "./lib/build-screenshot-apk.mjs";
 import { APP_ID, APP_ROOT, LOCALES, localeBootExtraMs, TIMING, WORK_DIR } from "./lib/config.mjs";
 import {
@@ -88,45 +89,50 @@ async function main() {
   let captured = 0;
   let failed = 0;
 
-  for (const locale of locales) {
-    for (const theme of themes) {
-      log(`\n── ${locale} / ${theme} ──`);
-      const sessionDir = path.join(WORK_DIR, "android", locale, theme);
+  enterCleanStatusBar(adb);
+  try {
+    for (const locale of locales) {
+      for (const theme of themes) {
+        log(`\n── ${locale} / ${theme} ──`);
+        const sessionDir = path.join(WORK_DIR, "android", locale, theme);
 
-      log("Seeding demo AsyncStorage…");
-      injectDemoStorageAndroid({ adb, packageId, locale, theme, clearFirst: true });
+        log("Seeding demo AsyncStorage…");
+        injectDemoStorageAndroid({ adb, packageId, locale, theme, clearFirst: true });
 
-      log("Launching screenshot APK (MainActivity, no Metro)…");
-      launchScreenshotApp({ adb, packageId });
-      sleep(TIMING.appBootMs + localeBootExtraMs(locale));
+        log("Launching screenshot APK (MainActivity, no Metro)…");
+        launchScreenshotApp({ adb, packageId });
+        sleep(TIMING.appBootMs + localeBootExtraMs(locale));
 
-      if (useMaestro) {
-        const outDir = path.join(
-          APP_ROOT,
-          "store-assets",
-          "captures-native",
-          "android",
-          locale,
-          theme,
-        );
-        const result = runMaestroSceneBatches({
-          platform: "android",
-          locale,
-          theme,
-          scenes,
-          outDir,
-          sessionDir,
-          deviceId: serial,
-        });
-        captured += result.captured;
-        failed += result.failedBatches;
-      } else {
-        warn("Skipping automated navigation — install Maestro to capture all scenes.");
+        if (useMaestro) {
+          const outDir = path.join(
+            APP_ROOT,
+            "store-assets",
+            "captures-native",
+            "android",
+            locale,
+            theme,
+          );
+          const result = runMaestroSceneBatches({
+            platform: "android",
+            locale,
+            theme,
+            scenes,
+            outDir,
+            sessionDir,
+            deviceId: serial,
+          });
+          captured += result.captured;
+          failed += result.failedBatches;
+        } else {
+          warn("Skipping automated navigation — install Maestro to capture all scenes.");
+        }
+
+        const aliases = syncStudioAliases("android", locale, theme);
+        if (aliases.length) log(`Synced ${aliases.length} screenshot-studio alias(es).`);
       }
-
-      const aliases = syncStudioAliases("android", locale, theme);
-      if (aliases.length) log(`Synced ${aliases.length} screenshot-studio alias(es).`);
     }
+  } finally {
+    exitCleanStatusBar(adb);
   }
 
   log(

@@ -15,6 +15,7 @@ import {
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { DEFAULT_ARABIC_SIZE, DEFAULT_TRANSLATION_SIZE } from "@/lib/reading-typography";
 import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
+import { lastProps } from "@/test-support/mock-calls";
 import { usePlatform } from "@/test-support/platform";
 import { setPreferences } from "@/test-support/preferences";
 import { renderWithTheme } from "@/test-support/render";
@@ -151,7 +152,7 @@ describe("ReadingTypographyBar", () => {
     await renderWithTheme(<ReadingTypographyBar surface="hadith" />);
 
     await fireEvent.press(screen.getByLabelText("Listen to article"));
-    const sheet = jest.mocked(TtsVoiceSheet).mock.lastCall![0];
+    const sheet = lastProps(TtsVoiceSheet);
     sheet.onSelectVoice("v2");
 
     expect(sheet).toMatchObject({ visible: true, lang: "en-US", selectedVoiceId: "v1" });
@@ -163,9 +164,9 @@ describe("ReadingTypographyBar", () => {
     await renderWithTheme(<ReadingTypographyBar surface="hadith" />);
     await fireEvent.press(screen.getByLabelText("Listen to article"));
 
-    await act(async () => jest.mocked(TtsVoiceSheet).mock.lastCall![0].onClose());
+    await act(async () => lastProps(TtsVoiceSheet).onClose());
 
-    expect(jest.mocked(TtsVoiceSheet).mock.lastCall![0].visible).toBe(false);
+    expect(lastProps(TtsVoiceSheet).visible).toBe(false);
   });
 
   it("stops speech while speaking", async () => {

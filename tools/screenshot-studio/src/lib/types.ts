@@ -1,4 +1,22 @@
-export type Device = "iphone" | "ipad" | "android" | "android-7" | "android-10" | "feature-graphic";
+export type Device =
+  // App Store
+  | "iphone"
+  | "iphone-duo" // foldable — portrait + landscape
+  | "ipad"
+  | "apple-watch"
+  | "apple-tv"
+  | "ios-header" // product page header 16:9
+  | "ios-header-wide" // product page header ~21:9
+  | "ios-search" // search results asset 16:9
+  | "ios-search-3x2" // search results asset 3:2
+  // Google Play
+  | "android"
+  | "android-7"
+  | "android-10"
+  | "wear-os"
+  | "android-tv"
+  | "tv-banner"
+  | "feature-graphic";
 
 export type Orientation = "portrait" | "landscape";
 
@@ -12,7 +30,8 @@ export type SlideLayout =
   | "two-devices" // back + front phones, headline above
   | "no-device" // big headline + decorative blob, no device
   | "split-landscape" // landscape tablets only: caption left + device right
-  | "feature-graphic"; // 1024×500 banner with icon + name + tagline
+  | "full-bleed" // raw screenshot fills the canvas (watch / Wear OS / TV store shots)
+  | "feature-graphic"; // brand banner: icon + name + tagline (feature graphic, TV banner)
 
 // Per-element rect in canvas pixel space. Optional rotation in degrees and zIndex.
 export type ElementTransform = {

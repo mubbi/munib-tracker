@@ -27,7 +27,7 @@ describe("AnimatedSplashOverlay (native)", () => {
 
     const host = screen.container.queryAll(
       (node) => node.props.importantForAccessibility != null,
-    )[0]!;
+    )[0];
     expect(images()).toHaveLength(0);
     expect(host.props.importantForAccessibility).toBe("no-hide-descendants");
     expect(flattenStyle(host.props.style)).toMatchObject({

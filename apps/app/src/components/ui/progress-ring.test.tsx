@@ -16,7 +16,7 @@ const renderRing = async (props: Props) => {
   };
 };
 
-const ring = () => queryHostsByRole("progressbar")[0]!;
+const ring = () => queryHostsByRole("progressbar")[0];
 
 describe("ProgressRing", () => {
   let animation: ReturnType<typeof captureAnimationFrames>;

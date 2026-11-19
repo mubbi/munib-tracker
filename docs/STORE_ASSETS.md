@@ -38,6 +38,7 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
 | Validate capture scripts (CI-safe)                                  | `pnpm screenshots:validate`                                           | —                                                                        |
 | Native full matrix                                                  | `pnpm screenshots:android` / `pnpm screenshots:ios`                   | `captures-native/`                                                       |
 | Apple Watch (Ultra 3)                                               | `pnpm screenshots:watch`                                              | `captures-native/watch/` + `ios/screenshots/watch-ultra-3/`              |
+| iPhone Duo (native, one run per posture)                            | `DUO_SCREEN=inner\|outer pnpm screenshots:duo`                        | `captures-native/ios-duo/` + `ios/screenshots/iphone-duo/<slot>/`        |
 | Apple TV / Android TV (validate)                                    | `pnpm screenshots:tvos` / `screenshots:android-tv` / `screenshots:tv` | No PNGs unless `RUN_CAPTURE=1` → `apple-tv-1080p/` / `android-tv-1080p/` |
 | Seed studio decks + copy                                            | `pnpm seed:screenshot-studio`                                         | `tools/screenshot-studio/app-store-screenshots.json`                     |
 | Sync Munib logo/icon into studio                                    | `pnpm sync:screenshot-brand-assets`                                   | `tools/screenshot-studio/public/app-icon.png`                            |
@@ -56,6 +57,7 @@ Automates **all product screens** on real emulators/simulators using [Maestro](h
 - **Demo data:** AsyncStorage pre-seed skips onboarding and fills prayer logs, qaza debt, bookmarks, achievements, Makkah location, etc.
 - **Platforms:** Android + iOS share the same Maestro batching (`lib/run-maestro-batches.mjs`); iOS requires macOS.
 - **Apple Watch:** `pnpm screenshots:watch` — not Maestro. Seeds `widget_snapshot_v1` into the watch App Group, captures Ultra 3 (422×514). Apple scales that set to smaller watches; upload one size consistently across localizations.
+- **iPhone Duo:** `pnpm screenshots:duo` — not Maestro (its screenshot only reads the inner display, and nothing scripts the hinge). See [iPhone Duo](#iphone-duo) below.
 - **Apple TV / Android TV:** `pnpm screenshots:tvos` / `screenshots:android-tv` — **validate-only by default**. Set `RUN_CAPTURE=1` when submitting TV store SKUs (`EXPO_TV=1` build + TV sim/emulator). Not Maestro; not CI.
 
 ### Home-screen widgets (store / picker)
@@ -83,6 +85,39 @@ RUN_CAPTURE=1 LOCALES=en THEMES=dark pnpm screenshots:tvos   # opt-in PNG write
 **Prerequisites:** dev build on device, Maestro CLI (phone only), Android AVD or Xcode Simulator (iOS/macOS), `adb` / `xcrun simctl`. Watch needs a paired iPhone + Ultra 3 simulator. TV needs `EXPO_TV=1` Leanback/tvOS build + Apple TV sim or Android TV AVD.
 
 Full detail: [`apps/app/scripts/screenshots/README.md`](../apps/app/scripts/screenshots/README.md).
+
+### iPhone Duo
+
+App Store Connect has four iPhone Duo slots — one per display × orientation. All four are **native simulator captures** (`capture-duo.mjs`); the studio's iPhone Duo deck only crams phone captures into a foldable frame and distributes to `iphone-duo-studio/` so it never overwrites them.
+
+| Posture (set in DeviceHub) | `DUO_SCREEN` | Captured size | Store folder                    |
+| -------------------------- | ------------ | ------------- | ------------------------------- |
+| Unfolded, portrait         | `inner`      | 2007×2853     | `iphone-duo/portrait/`          |
+| Unfolded, landscape        | `inner`      | 2853×2007     | `iphone-duo/landscape/`         |
+| Folded, portrait           | `outer`      | 1398×2034     | `iphone-duo/portrait-compact/`  |
+| Folded, landscape          | `outer`      | 2034×1398     | `iphone-duo/landscape-compact/` |
+
+1. **Runtime:** the Duo needs Xcode 27.1+ and its own iOS build (`iPhone19,4`; `xcrun simctl runtime list` shows it beside the generic iOS 27.x build). `xcodebuild -downloadPlatform iOS` installs the generic build first — if Device Hub still hides the Duo, download the Duo build by its version (`-buildVersion <build>`), then `xcrun simctl create "iPhone Duo" com.apple.CoreSimulator.SimDeviceType.iPhone-Duo com.apple.CoreSimulator.SimRuntime.iOS-27-2-iPhone19-4`.
+2. **Posture:** neither `simctl` nor Maestro can fold or rotate the Duo — set it in Xcode's **DeviceHub** before each run.
+3. **Run** once per posture (the first run builds + installs the Release app; add `SKIP_BUILD=1` after):
+
+```bash
+DUO_SCREEN=inner pnpm screenshots:duo                 # unfolded (portrait, then landscape)
+DUO_SCREEN=outer SKIP_BUILD=1 pnpm screenshots:duo    # folded (portrait, then landscape)
+```
+
+The slot comes from the captured size, so a mismatched posture fails instead of filing shots in the wrong folder. Slides follow the iPhone deck (`01-home` … `07-more`); the status bar is overridden to 9:41 / full battery (the app's own clock and hero still follow the real time — capture in daylight for a day-time hero).
+
+**Check the first shot of each locale.** The outer screen's camera cutout sometimes renders as a solid black dot in the frame right after launch (seen on `01-home` only). Look at the corner by the system rail, and re-run that one scene if it is there — e.g. `LOCALES=ar SCENES=home DUO_SCREEN=outer SKIP_BUILD=1 pnpm screenshots:duo`.
+
+### Wear OS tiles (manual)
+
+Not scripted. Needs the **phone** prebuild (the `:wear` module only exists there) and the `Wear_OS_Large_Round_API_34` AVD (454×454).
+
+1. `cd apps/app/android && ./gradlew :wear:assembleDebug`, then `adb install -r wear/build/outputs/apk/debug/wear-debug.apk`.
+2. Add both tiles: `adb shell am broadcast -a com.google.android.wearable.app.DEBUG_SURFACE --es operation add-tile --ecn component app.munibtracker/expo.modules.munibwear.<MunibWearTileService|MunibWearTasbeehTileService>`.
+3. From the watch face, swipe right→left (`adb shell input swipe 420 227 40 227`) to reach each tile; tap the Tasbeeh count a few times so it is not `0 / 33`.
+4. `adb exec-out screencap -p` → `captures-native/wear-os/en/01-salah-tile.png` / `02-tasbeeh-tile.png`, then `pnpm sync:screenshot-captures` and export the **Wear OS** deck.
 
 ### Studio alias mapping
 
@@ -122,17 +157,61 @@ Full detail: [`tools/screenshot-studio/README.md`](../tools/screenshot-studio/RE
 
 ## Output layout (`apps/app/store-assets/`)
 
-| Path                                        | Purpose                                                                                                 |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `captures-native/`                          | Full native matrix (platform × locale × theme × scene) + `watch/en/`                                    |
-| `captures/<android\|ios>/<locale>/<theme>/` | Studio input images per platform × locale × theme                                                       |
-| `ios/screenshots/`                          | App Store PNGs (`6.9-inch/`, `6.5-inch/`, `13-inch/` iPad, `watch-ultra-3/`, `apple-tv-1080p/`)         |
-| `android/screenshots/`                      | Play Store PNGs (`phone/`, `tablet-7-inch/`, `tablet-10-inch/` portrait/landscape, `android-tv-1080p/`) |
-| `android/feature-graphic/`                  | Play feature graphic 1024×500 (`<locale>.png`)                                                          |
+| Path                                        | Purpose                                                                                                                                                                                                              |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `captures-native/`                          | Full native matrix (platform × locale × theme × scene) + `watch/en/`                                                                                                                                                 |
+| `captures/<android\|ios>/<locale>/<theme>/` | Studio input images per platform × locale × theme                                                                                                                                                                    |
+| `ios/screenshots/`                          | App Store PNGs (`6.9-inch/`, `6.5-inch/`, `6.3-inch/`, `iphone-duo/` native + `iphone-duo-studio/`, `13-inch/` iPad, `watch-ultra-3/` native + `apple-watch/` studio, `apple-tv-1080p/` native + `apple-tv/` studio) |
+| `ios/product-page/`                         | Product page creative assets: `header/<WxH>/<locale>.png`, `search-results/<WxH>/<locale>.png`                                                                                                                       |
+| `android/screenshots/`                      | Play Store PNGs (`phone/`, `tablet-7-inch/`, `tablet-10-inch/` portrait/landscape, `wear-os/`, `android-tv-1080p/` native + `android-tv/` studio)                                                                    |
+| `android/feature-graphic/`                  | Play feature graphic 1024×500 (`<locale>.png`)                                                                                                                                                                       |
+| `android/tv-banner/`                        | Play Android TV banner 1280×720 (`<locale>.png`)                                                                                                                                                                     |
 
 Marketing slide order (`spec.json` → `slideScenes`): `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-qibla`, `06-names`, `07-more`.
 
 Full detail: [`apps/app/store-assets/README.md`](../apps/app/store-assets/README.md).
+
+## Store screenshot status
+
+What is in `store-assets/` today and what still needs capturing before the next submission. Update this table whenever a set is refreshed.
+
+_Last reviewed: 2026-11-19 (simulators on iOS / tvOS / watchOS 27.2; Android 15 phone + Wear OS 4 emulators)._
+
+**App Store**
+
+| Slot                                 | Size(s)                                       | Source                                  | Status                                                                                  |
+| ------------------------------------ | --------------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------------- |
+| iPhone 6.9"                          | 1320×2868                                     | Studio ← `captures/ios`                 | ✅ 2026-11-19 — iPhone 17 Pro, iOS 27.2 captures                                        |
+| iPhone 6.5"                          | 1242×2688                                     | Studio ← `captures/ios`                 | ✅ 2026-11-19                                                                           |
+| iPhone 6.3"                          | 1206×2622                                     | Studio ← `captures/ios`                 | ✅ 2026-11-19 — first export                                                            |
+| iPhone Duo (4 slots)                 | 2007×2853 · 2853×2007 · 1398×2034 · 2034×1398 | Native `screenshots:duo`                | ✅ 2026-11-19 — all 4 slots × en/ar/ur, reviewed                                        |
+| iPad 13"                             | 2064×2752                                     | Studio ← `captures/ios` (phone)         | ✅ 2026-11-19 — phone captures in an iPad frame (no native iPad capture yet)            |
+| Apple Watch Ultra 3                  | 422×514                                       | Native `screenshots:watch`              | ✅ 2026-11-18                                                                           |
+| Apple Watch (studio deck)            | 422×514 · 410×502                             | Studio                                  | ✅ 2026-11-19 — full-bleed, English UI in every locale (watch strings are English-only) |
+| Apple TV 1080p                       | 1920×1080                                     | Native `RUN_CAPTURE=1 screenshots:tvos` | ✅ 2026-11-18                                                                           |
+| Apple TV (studio deck)               | 3840×2160 · 1920×1080                         | Studio                                  | ✅ 2026-11-19 — ar/ur headlines over English TV captures (TV capture is en-only)        |
+| Product page header / search results | 5244×2950 · 3840×1646 · 3840×2560 · 1920×1280 | Studio ← `captures/ios`                 | ✅ 2026-11-19                                                                           |
+
+**Google Play**
+
+| Slot                     | Size(s)                                      | Source                                        | Status                                                                      |
+| ------------------------ | -------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------- |
+| Phone                    | 1080×1920                                    | Studio ← `captures/android`                   | ✅ 2026-11-19 — Phone_API_35 (Android 15) captures, en/ar/ur, reviewed      |
+| 7" / 10" tablet          | 1200×1920 · 1600×2560 (portrait + landscape) | Studio ← `captures/android` (phone)           | ✅ 2026-11-19 — phone captures in a tablet frame (no native tablet capture) |
+| Feature graphic          | 1024×500                                     | Studio                                        | ✅ 2026-11-19                                                               |
+| Wear OS                  | 1024×1024 (1:1)                              | Studio ← `captures-native/wear-os`            | ✅ 2026-11-19 — Next Salah + Tasbeeh tiles, English UI in every locale      |
+| Android TV 1080p         | 1920×1080                                    | Native `RUN_CAPTURE=1 screenshots:android-tv` | ✅ In git                                                                   |
+| Android TV (studio deck) | 1920×1080                                    | Studio                                        | ✅ 2026-11-19 — ar/ur headlines over English TV captures                    |
+| Android TV banner        | 1280×720                                     | Studio                                        | ✅ 2026-11-19 (`android/tv-banner/`)                                        |
+
+**Known capture caveats** (all devices):
+
+- **Captures span midnight:** the hero clock and Hijri date are live, so a long run can show different dates per locale (the 2026-11-19 iPhone set: en/ar 18 Nov, ur 19 Nov).
+- **Qibla** shows "No compass sensor detected" and **0 km** — simulators have no magnetometer and the demo location is Makkah itself. Consider a demo city elsewhere for marketing shots.
+- **App clock / hero** follow the host's real time (only the status bar is overridden) — night captures get the night hero. Capture in daylight for the day-time look.
+- **Android status bar:** `capture-android.mjs` puts SystemUI in demo mode (9:41, full battery, wifi only — the emulator keeps a "3G" label on mobile, so it is hidden) and turns heads-up notifications off for the run, so in-app reminders ("Achievement unlocked") do not cover a shot.
+- **Wear OS Next Salah tile** reads the phone's snapshot over the Wearable Data Layer; an unpaired emulator shows the fallback (**Munib Tracker / Mark Salah**). Pair a phone emulator to capture the next-prayer state.
+- **iPhone Duo status bar:** glyph colour in the Duo's vertical bar does not follow each screen's `StatusBar` style (dark clock on the night home hero in light theme — `iphone-duo/portrait/*/01-home`). iPhone 17 Pro on iOS 27.2 is fine. Open app issue — see [`BACKLOG.md`](./BACKLOG.md).
 
 ## Apple TV / Android TV assets
 

@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { SeasonalThemeBanner } from "@/components/seasonal-theme-banner";
 import { currentSeasonalTheme, SEASONAL_THEMES, seasonalBannerHref } from "@/lib/seasonal-themes";
+import { defined } from "@/test-support/assert";
 import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
@@ -12,7 +13,10 @@ jest.mock("@/lib/seasonal-themes", () => ({
   currentSeasonalTheme: jest.fn(() => null),
 }));
 
-const RAMADAN = SEASONAL_THEMES.find((season) => season.id === "ramadan")!;
+const RAMADAN = defined(
+  SEASONAL_THEMES.find((season) => season.id === "ramadan"),
+  "the Ramadan theme",
+);
 
 const inSeason = () => jest.mocked(currentSeasonalTheme).mockReturnValue(RAMADAN);
 

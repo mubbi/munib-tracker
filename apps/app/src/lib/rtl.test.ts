@@ -9,6 +9,7 @@ import {
   chevronBackward,
   containsArabicScript,
   filterValueTextStyle,
+  horizontalSafeAreaInsets,
   horizontalSafeAreaPadding,
   isRTL,
   ltrControlStyle,
@@ -239,5 +240,19 @@ describe("horizontalSafeAreaPadding", () => {
       paddingStart: 2,
       paddingEnd: 1,
     });
+  });
+});
+
+describe("horizontalSafeAreaInsets", () => {
+  it.each([
+    [false, { start: 0, end: 24 }],
+    [true, { start: 24, end: 0 }],
+  ])("rtl=%p puts a right-edge rail on the logical side it lands on", (rtl, expected) => {
+    expect(horizontalSafeAreaInsets({ left: 0, right: 24 }, rtl)).toEqual(expected);
+  });
+
+  it("defaults to the native layout direction", () => {
+    setup({ nativeRtl: true });
+    expect(horizontalSafeAreaInsets({ left: 1, right: 2 })).toEqual({ start: 2, end: 1 });
   });
 });

@@ -306,6 +306,237 @@ export function IPad({ src, alt = "", style, hideEmpty }: FrameProps) {
   );
 }
 
+// Screen content shared by the newer frames (cover-fit, top-anchored).
+function ScreenImage({
+  resolved,
+  alt,
+  hideEmpty,
+  position = "top",
+}: {
+  resolved: string;
+  alt: string;
+  hideEmpty?: boolean;
+  position?: "top" | "center";
+}) {
+  if (resolved) {
+    return (
+      <img
+        src={resolved}
+        alt={alt}
+        style={{
+          display: "block",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: position,
+        }}
+        draggable={false}
+      />
+    );
+  }
+  return hideEmpty ? null : <EmptySlot />;
+}
+
+const BEZEL_BG = "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)";
+
+// iPhone Duo (foldable, unfolded). Portrait shows a vertical hinge crease.
+function Foldable({
+  src,
+  alt = "",
+  style,
+  hideEmpty,
+  landscape,
+}: FrameProps & { landscape: boolean }) {
+  const resolved = img(src);
+  return (
+    <div style={{ position: "relative", aspectRatio: landscape ? "25 / 18" : "18 / 25", ...style }}>
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: landscape ? "4.6% / 6.4%" : "6.4% / 4.6%",
+          background: BEZEL_BG,
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.1), 0 10px 48px rgba(0,0,0,0.55)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            left: landscape ? "2.6%" : "3.6%",
+            top: landscape ? "3.6%" : "2.6%",
+            width: landscape ? "94.8%" : "92.8%",
+            height: landscape ? "92.8%" : "94.8%",
+            borderRadius: landscape ? "3% / 4.2%" : "4.2% / 3%",
+            overflow: "hidden",
+            background: "#000",
+          }}
+        >
+          <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} />
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              ...(landscape
+                ? { left: 0, right: 0, top: "50%", height: "1.2%", transform: "translateY(-50%)" }
+                : { top: 0, bottom: 0, left: "50%", width: "1.2%", transform: "translateX(-50%)" }),
+              background: landscape
+                ? "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 50%, rgba(0,0,0,0) 100%)"
+                : "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 50%, rgba(0,0,0,0) 100%)",
+              pointerEvents: "none",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function FoldableP(props: FrameProps) {
+  return <Foldable {...props} landscape={false} />;
+}
+
+export function FoldableL(props: FrameProps) {
+  return <Foldable {...props} landscape />;
+}
+
+// Apple Watch Ultra — rounded titanium case with the digital crown on the right.
+export function AppleWatch({ src, alt = "", style, hideEmpty }: FrameProps) {
+  const resolved = img(src);
+  return (
+    <div style={{ position: "relative", aspectRatio: "41 / 50", ...style }}>
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          right: "-3.5%",
+          top: "28%",
+          width: "5%",
+          height: "18%",
+          borderRadius: "30%",
+          background: "linear-gradient(90deg, #6b6b70 0%, #3a3a3e 100%)",
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          borderRadius: "24% / 20%",
+          background: "linear-gradient(160deg, #8e8e93 0%, #48484c 45%, #2c2c2e 100%)",
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.18), 0 10px 40px rgba(0,0,0,0.5)",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            left: "7%",
+            top: "6%",
+            width: "86%",
+            height: "88%",
+            borderRadius: "19% / 16%",
+            overflow: "hidden",
+            background: "#000",
+          }}
+        >
+          <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Wear OS — round case with a circular display.
+export function WearWatch({ src, alt = "", style, hideEmpty }: FrameProps) {
+  const resolved = img(src);
+  return (
+    <div style={{ position: "relative", aspectRatio: "1 / 1", ...style }}>
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          right: "-3%",
+          top: "42%",
+          width: "5%",
+          height: "16%",
+          borderRadius: "30%",
+          background: "linear-gradient(90deg, #5a5a5f 0%, #2e2e32 100%)",
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          borderRadius: "50%",
+          background: "linear-gradient(160deg, #3a3a3e 0%, #18181b 100%)",
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.14), 0 10px 40px rgba(0,0,0,0.5)",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: "7%",
+            borderRadius: "50%",
+            overflow: "hidden",
+            background: "#000",
+          }}
+        >
+          <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} position="center" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Apple TV / Android TV — thin-bezel 16:9 panel.
+export function TvFrame({ src, alt = "", style, hideEmpty }: FrameProps) {
+  const resolved = img(src);
+  return (
+    <div style={{ position: "relative", aspectRatio: "1.75 / 1", ...style }}>
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "1.2% / 2.1%",
+          background: "linear-gradient(180deg, #232326 0%, #111113 100%)",
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 16px 60px rgba(0,0,0,0.55)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            left: "1.1%",
+            top: "1.9%",
+            width: "97.8%",
+            height: "96.2%",
+            borderRadius: "0.4% / 0.7%",
+            overflow: "hidden",
+            background: "#000",
+          }}
+        >
+          <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} position="center" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// No frame — the raw screenshot fills its rect (full-bleed layout).
+export function Bare({ src, alt = "", style, hideEmpty }: FrameProps) {
+  const resolved = img(src);
+  return (
+    <div style={{ position: "relative", overflow: "hidden", background: "#000", ...style }}>
+      <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} position="center" />
+    </div>
+  );
+}
+
 function EmptySlot() {
   return (
     <div

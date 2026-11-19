@@ -4,8 +4,10 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { preferencesStore } from "@/stores/preferences-store";
+import { lastProps } from "@/test-support/mock-calls";
 import { usePlatform } from "@/test-support/platform";
 import { setPreferences } from "@/test-support/preferences";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -67,7 +69,7 @@ describe("ReadingFontControls", () => {
 
     await fireEvent.press(screen.getByLabelText("Increase text size"));
 
-    expect(update.mock.lastCall![0].fontPrefs?.readingOverrides?.hadith).toEqual({
+    expect(lastProps(update).fontPrefs?.readingOverrides?.hadith).toEqual({
       arabicDelta: 4,
       textDelta: 4,
     });
@@ -100,7 +102,7 @@ describe("ReadingFontControls on TV", () => {
   ])("fullWidth=%s aligns the pill to %s", async (fullWidth, alignSelf) => {
     await renderControls(fullWidth);
 
-    const pill = screen.getByLabelText("Increase text size").parent!;
+    const pill = parentOf(screen.getByLabelText("Increase text size"));
     expect(flattenStyle(pill.props.style).alignSelf).toBe(alignSelf);
   });
 });

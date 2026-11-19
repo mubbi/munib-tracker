@@ -4,17 +4,29 @@ import * as React from "react";
 import { Rnd } from "react-rnd";
 import {
   CANVAS,
+  FOLD_L_RATIO,
+  FOLD_P_RATIO,
+  foldLW,
+  foldPW,
   IPAD_RATIO,
   ipadW,
   MK_RATIO,
   phoneW,
   phoneWSmall,
+  rendersBrandBanner,
+  supportsLandscape,
+  TV_RATIO,
   tabletLW,
   tabletPW,
+  tvW,
+  WATCH_RATIO,
+  WEAR_RATIO,
+  watchW,
+  wearW,
 } from "@/lib/constants";
 import { toTextElementId } from "@/lib/elements";
 import { img } from "@/lib/image-cache";
-import { pickText, resolveScreenshot } from "@/lib/locale";
+import { pickText, resolveScreenshot, textDir } from "@/lib/locale";
 import type {
   BuiltInElementId,
   Device,
@@ -26,7 +38,19 @@ import type {
   TextElement,
   Theme,
 } from "@/lib/types";
-import { AndroidPhone, AndroidTabletL, AndroidTabletP, IPad, Phone } from "./device-frames";
+import {
+  AndroidPhone,
+  AndroidTabletL,
+  AndroidTabletP,
+  AppleWatch,
+  Bare,
+  FoldableL,
+  FoldableP,
+  IPad,
+  Phone,
+  TvFrame,
+  WearWatch,
+} from "./device-frames";
 
 type FrameComp = React.ComponentType<{
   src: string;
@@ -37,7 +61,7 @@ type FrameComp = React.ComponentType<{
 
 export function getCanvas(device: Device, orientation: Orientation) {
   const c = CANVAS[device];
-  if ((device === "android-7" || device === "android-10") && orientation === "landscape") {
+  if (orientation === "landscape" && supportsLandscape(device)) {
     const { wL, hL } = c;
     if (wL != null && hL != null) return { cW: wL, cH: hL };
   }
@@ -48,7 +72,14 @@ export function getCanvas(device: Device, orientation: Orientation) {
 function getFrameAspect(device: Device, orientation: Orientation) {
   switch (device) {
     case "iphone":
+    // Product page header / search results showcase the iPhone frame.
+    case "ios-header":
+    case "ios-header-wide":
+    case "ios-search":
+    case "ios-search-3x2":
       return MK_RATIO;
+    case "iphone-duo":
+      return orientation === "landscape" ? FOLD_L_RATIO : FOLD_P_RATIO;
     case "android":
       return 9 / 19.5;
     case "ipad":
@@ -56,6 +87,13 @@ function getFrameAspect(device: Device, orientation: Orientation) {
     case "android-7":
     case "android-10":
       return orientation === "landscape" ? 8 / 5 : 5 / 8;
+    case "apple-watch":
+      return WATCH_RATIO;
+    case "wear-os":
+      return WEAR_RATIO;
+    case "apple-tv":
+    case "android-tv":
+      return TV_RATIO;
     default:
       return 1;
   }
@@ -90,6 +128,18 @@ export function getFrameForDevice(
         widthFn: tabletPW,
         smallWidthFn: (cW, cH) => tabletPW(cW, cH, 0.62),
       };
+    case "iphone-duo":
+      if (orientation === "landscape") {
+        return { Comp: FoldableL, widthFn: foldLW, smallWidthFn: (cW, cH) => foldLW(cW, cH, 0.5) };
+      }
+      return { Comp: FoldableP, widthFn: foldPW, smallWidthFn: (cW, cH) => foldPW(cW, cH, 0.62) };
+    case "apple-watch":
+      return { Comp: AppleWatch, widthFn: watchW, smallWidthFn: (cW, cH) => watchW(cW, cH, 0.55) };
+    case "wear-os":
+      return { Comp: WearWatch, widthFn: wearW, smallWidthFn: (cW, cH) => wearW(cW, cH, 0.55) };
+    case "apple-tv":
+    case "android-tv":
+      return { Comp: TvFrame, widthFn: tvW, smallWidthFn: (cW, cH) => tvW(cW, cH, 0.6) };
     default:
       return { Comp: Phone, widthFn: phoneW, smallWidthFn: phoneWSmall };
   }
@@ -165,8 +215,10 @@ function EditableText({
   multiline = false,
   placeholder,
   onFocus,
+  dir,
 }: {
   value: string;
+  dir?: "rtl" | "ltr";
   editable?: boolean;
   onChange?: (v: string) => void;
   style?: React.CSSProperties;
@@ -194,6 +246,7 @@ function EditableText({
   return (
     <div
       ref={ref}
+      dir={dir}
       contentEditable={editable}
       suppressContentEditableWarning
       data-placeholder={placeholder}
@@ -267,6 +320,7 @@ function Caption({
     <div style={{ textAlign: align, position: "relative", width: "100%" }}>
       <EditableText
         value={pickText(slide.label, locale)}
+        dir={textDir(slide.label, locale)}
         editable={editable}
         onChange={edit?.onLabelChange}
         onFocus={onFocus}
@@ -283,6 +337,7 @@ function Caption({
       />
       <EditableText
         value={pickText(slide.headline, locale)}
+        dir={textDir(slide.headline, locale)}
         editable={editable}
         multiline
         onChange={edit?.onHeadlineChange}
@@ -507,6 +562,27 @@ function getDefaultRects(
         },
       };
     case "split-landscape": {
+      if (frameAspect < 1 && cW / cH > 1.3) {
+        // Portrait frame (iPhone) on a wide banner canvas — product page header /
+        // search results: size off the height and centre it in the right half.
+        const height = Math.min(cH * 0.86, (cW * 0.42) / frameAspect);
+        const width = height * frameAspect;
+        return {
+          caption: {
+            x: cW * 0.06,
+            y: cH * 0.22,
+            width: cW * 0.4,
+            height: cH * 0.56,
+            align: "left",
+          },
+          device: {
+            x: cW * 0.5 + (cW * 0.5 - width) / 2,
+            y: (cH - height) / 2,
+            width,
+            height,
+          },
+        };
+      }
       const device = fitDevice(deviceW, frameAspect, cH * 0.9);
       return {
         caption: {
@@ -524,6 +600,8 @@ function getDefaultRects(
         },
       };
     }
+    case "full-bleed":
+      return { device: { x: 0, y: 0, width: cW, height: cH } };
     default:
       return {};
   }
@@ -549,8 +627,11 @@ function rectFor(
 
 function getSlideGeometry(slide: Slide, device: Device, orientation: Orientation) {
   const { cW, cH } = getCanvas(device, orientation);
-  const { Comp: Frame, widthFn, smallWidthFn } = getFrameForDevice(device, orientation);
-  const frameAspect = getFrameAspect(device, orientation);
+  const fullBleed = slide.layout === "full-bleed";
+  const deviceFrame = getFrameForDevice(device, orientation);
+  const { widthFn, smallWidthFn } = deviceFrame;
+  const Frame: FrameComp = fullBleed ? Bare : deviceFrame.Comp;
+  const frameAspect = fullBleed ? cW / cH : getFrameAspect(device, orientation);
   const fwFrac = widthFn(cW, cH);
   const fwSmallFrac = smallWidthFn(cW, cH);
   const defaults = getDefaultRects(slide.layout, cW, cH, frameAspect, fwFrac, fwSmallFrac);
@@ -606,11 +687,12 @@ export function SlideCanvas({
 }: Props) {
   const { cW, cH } = getCanvas(device, orientation);
 
-  if (slide.layout === "feature-graphic" || device === "feature-graphic") {
+  if (rendersBrandBanner(device, slide.layout)) {
     return (
       <FeatureGraphicCanvas
         slide={slide}
         cW={cW}
+        cH={cH}
         theme={theme}
         locale={locale}
         appName={appName}
@@ -692,7 +774,7 @@ export function DeckCanvas({
       {slides.map((slide, index) => {
         const screenX = index * cW;
         const active = activeSlideId === slide.id;
-        if (slide.layout === "feature-graphic" || device === "feature-graphic") {
+        if (rendersBrandBanner(device, slide.layout)) {
           return (
             <div
               key={`${slide.id}-feature`}
@@ -713,6 +795,7 @@ export function DeckCanvas({
               <FeatureGraphicCanvas
                 slide={slide}
                 cW={cW}
+                cH={cH}
                 theme={theme}
                 locale={locale}
                 appName={appName}
@@ -750,7 +833,7 @@ export function DeckCanvas({
       })}
 
       {slides.map((slide, index) => {
-        if (slide.layout === "feature-graphic" || device === "feature-graphic") return null;
+        if (rendersBrandBanner(device, slide.layout)) return null;
         const selectedElementId =
           selectedElement?.slideId === slide.id ? selectedElement.elementId : null;
         const perSlideEdit: EditHandlers | undefined = editable
@@ -903,6 +986,7 @@ function ScreenGuide({
 function FeatureGraphicCanvas({
   slide,
   cW,
+  cH,
   theme,
   locale,
   appName,
@@ -912,6 +996,7 @@ function FeatureGraphicCanvas({
 }: {
   slide: Slide;
   cW: number;
+  cH: number;
   theme: Theme;
   locale: string;
   appName?: string;
@@ -919,6 +1004,9 @@ function FeatureGraphicCanvas({
   editable?: boolean;
   edit?: EditHandlers;
 }) {
+  // Sized for the 1024×500 feature graphic (~2.05:1); wider canvases (e.g. the
+  // ~2.33:1 product page header) scale off height so the lockup never overflows.
+  const u = Math.min(cW, cH * 2.048);
   return (
     <div
       style={{
@@ -929,20 +1017,20 @@ function FeatureGraphicCanvas({
         background: `linear-gradient(135deg, ${theme.bgAlt} 0%, ${shade(theme.bgAlt, -10)} 50%, ${theme.accent} 200%)`,
         display: "flex",
         alignItems: "center",
-        padding: `0 ${cW * 0.06}px`,
+        padding: `0 ${u * 0.06}px`,
         color: theme.fgAlt,
       }}
     >
-      <Blob cW={cW} color={theme.accent} x={70} y={20} size={50} opacity={0.45} />
-      <div style={{ display: "flex", alignItems: "center", gap: cW * 0.03, zIndex: 2 }}>
+      <Blob cW={u} color={theme.accent} x={70} y={20} size={50} opacity={0.45} />
+      <div style={{ display: "flex", alignItems: "center", gap: u * 0.03, zIndex: 2 }}>
         {appIcon && img(appIcon) ? (
           <img
             src={img(appIcon)}
             alt=""
             style={{
-              width: cW * 0.13,
-              height: cW * 0.13,
-              borderRadius: cW * 0.022,
+              width: u * 0.13,
+              height: u * 0.13,
+              borderRadius: u * 0.022,
               boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
             }}
             draggable={false}
@@ -951,16 +1039,16 @@ function FeatureGraphicCanvas({
           <div
             aria-hidden
             style={{
-              width: cW * 0.13,
-              height: cW * 0.13,
-              borderRadius: cW * 0.022,
+              width: u * 0.13,
+              height: u * 0.13,
+              borderRadius: u * 0.022,
               background: `linear-gradient(135deg, ${theme.accent}55, ${theme.accent})`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               color: theme.fgAlt,
               fontWeight: 800,
-              fontSize: cW * 0.07,
+              fontSize: u * 0.07,
               boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
             }}
           >
@@ -968,18 +1056,19 @@ function FeatureGraphicCanvas({
           </div>
         )}
         <div>
-          <div style={{ fontSize: cW * 0.06, fontWeight: 800, lineHeight: 1.05 }}>
+          <div style={{ fontSize: u * 0.06, fontWeight: 800, lineHeight: 1.05 }}>
             {appName || "App"}
           </div>
           <EditableText
             value={pickText(slide.headline, locale)}
+            dir={textDir(slide.headline, locale)}
             editable={editable}
             multiline
             onChange={edit?.onHeadlineChange}
             style={{
-              fontSize: cW * 0.028,
+              fontSize: u * 0.028,
               color: "rgba(255,255,255,0.85)",
-              marginTop: cW * 0.012,
+              marginTop: u * 0.012,
               lineHeight: 1.25,
             }}
           />
@@ -1174,6 +1263,7 @@ function SlideElements({
         >
           <EditableText
             value={pickText(textElement.text, locale)}
+            dir={textDir(textElement.text, locale)}
             editable={editable}
             multiline
             onChange={(value) => edit?.onTextElementTextChange?.(textElement.id, value)}

@@ -7,6 +7,7 @@ import {
   useResponsiveColumns,
 } from "@/components/ui/responsive-grid";
 import { resetMockWindowSize, setMockWindowSize } from "@/test-support/mocks/use-window-dimensions";
+import { parentOf } from "@/test-support/queries";
 import { flattenStyle } from "@/test-support/style";
 
 jest.mock(
@@ -52,12 +53,12 @@ describe("ResponsiveGrid", () => {
   it("stacks children in a single column on phones", async () => {
     await renderGrid({ gap: 4 });
 
-    expect(screen.getByText("A").parent!.props.style).toEqual([{ gap: 4 }, undefined]);
+    expect(parentOf(screen.getByText("A")).props.style).toEqual([{ gap: 4 }, undefined]);
   });
 
   it("wraps children in equal percentage cells for multi-column grids", async () => {
     await renderGrid({ columns: 3, style: { padding: 1 } });
 
-    expect(flattenStyle(screen.getByText("B").parent!.props.style).width).toBe(`${100 / 3}%`);
+    expect(flattenStyle(parentOf(screen.getByText("B")).props.style).width).toBe(`${100 / 3}%`);
   });
 });

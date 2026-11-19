@@ -1,12 +1,18 @@
 import { fireEvent, screen } from "@testing-library/react-native";
+import { I18nManager } from "react-native";
 
 import { AppHeader } from "@/components/app-header";
+import { Spacing } from "@/constants/theme";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
 jest.mock("@/lib/blur-active-element", () => ({ blurActiveElement: jest.fn() }));
+
+const mockInsets = { top: 0, right: 0, bottom: 0, left: 0 };
+jest.mock("@/hooks/use-app-safe-area-insets", () => ({ useAppSafeAreaInsets: () => mockInsets }));
 
 type Props = Parameters<typeof AppHeader>[0];
 const renderHeader = (props: Partial<Props> = {}) =>
@@ -37,7 +43,7 @@ describe("AppHeader", () => {
     const onBack = jest.fn();
     await renderHeader({ onBack });
 
-    await fireEvent.press(back()!);
+    await fireEvent.press(screen.getByLabelText("Go back"));
 
     expect(onBack).toHaveBeenCalled();
     expect(blurActiveElement).not.toHaveBeenCalled();
@@ -56,9 +62,37 @@ describe("AppHeader", () => {
   it("caps the row to the content column", async () => {
     await renderHeader({ contentMaxWidth: 900 });
 
-    expect(flattenStyle(screen.getByText("Tracker").parent!.parent!.props.style).maxWidth).toBe(
-      900,
-    );
+    expect(flattenStyle(parentOf(screen.getByText("Tracker"), 2).props.style).maxWidth).toBe(900);
+  });
+});
+
+describe("AppHeader beside the iOS 27 vertical system rail (iPhone Duo)", () => {
+  const RAIL = 40;
+  /** Padding of the header bar (title → text block → row → bar). */
+  const barPadding = () => {
+    const style = flattenStyle(parentOf(screen.getByText("Tracker"), 3).props.style);
+    return { start: style.paddingStart, end: style.paddingEnd };
+  };
+
+  beforeEach(() => {
+    mockInsets.right = RAIL;
+  });
+  afterEach(() => {
+    mockInsets.right = 0;
+    jest.restoreAllMocks();
+  });
+
+  it("keeps LTR content clear of a right-edge rail", async () => {
+    await renderHeader({ onBack: jest.fn() });
+
+    expect(barPadding()).toEqual({ start: Spacing.four, end: Spacing.four + RAIL });
+  });
+
+  it("moves the RTL title and back button off the rail", async () => {
+    jest.replaceProperty(I18nManager, "isRTL", true);
+    await renderHeader({ onBack: jest.fn() });
+
+    expect(barPadding()).toEqual({ start: Spacing.four + RAIL, end: Spacing.four });
   });
 });
 
@@ -69,7 +103,7 @@ describe("AppHeader on web", () => {
     const onBack = jest.fn();
     await renderHeader({ onBack });
 
-    await fireEvent.press(back()!);
+    await fireEvent.press(screen.getByLabelText("Go back"));
 
     expect(blurActiveElement).toHaveBeenCalled();
     expect(onBack).toHaveBeenCalled();

@@ -311,7 +311,20 @@ export function horizontalSafeAreaPadding(
   insets: { left: number; right: number },
   rtl: boolean = I18nManager.isRTL,
 ): Pick<ViewStyle, "paddingStart" | "paddingEnd"> {
+  const { start, end } = horizontalSafeAreaInsets(insets, rtl);
+  return { paddingStart: start, paddingEnd: end };
+}
+
+/**
+ * Numeric form of {@link horizontalSafeAreaPadding}, for views that add the inset
+ * to their own padding — e.g. absolutely positioned chrome that spans the parent's
+ * padding box and so does not inherit the parent's safe-area padding.
+ */
+export function horizontalSafeAreaInsets(
+  insets: { left: number; right: number },
+  rtl: boolean = I18nManager.isRTL,
+): { start: number; end: number } {
   return rtl
-    ? { paddingStart: insets.right, paddingEnd: insets.left }
-    : { paddingStart: insets.left, paddingEnd: insets.right };
+    ? { start: insets.right, end: insets.left }
+    : { start: insets.left, end: insets.right };
 }

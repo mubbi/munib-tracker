@@ -38,23 +38,23 @@ App Privacy answers: Audio data — **not collected**. No change to tracking.
 
 ## 1. English (en-US)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Salah, Qur'an & worship
 
-*22/30*
+_22/30_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Track your journey back to Allah — offline and private. Log salah, clear qaza, read Qur'an, and remember Allah every day. No account required.
 
-*~140/170 chars*
+_~140/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker is a calm, offline-first companion for salah, zikr, qaza, Qur'an, hadith, and daily worship — built to help you walk back to Allah one day at a time.
 
@@ -97,6 +97,7 @@ English, Arabic, Urdu, Indonesian, Turkish, Bengali, Malay, Persian, French, Hau
 Local-first storage with optional encrypted cloud sync (Google, Apple, or Facebook sign-in). Export and import local backups. Delete account and data anytime.
 
 ---
+
 Start logging salah in under a minute. Everything works offline. Sign in only when you want sync across devices.
 
 Questions? https://munibtracker.app/contact
@@ -104,11 +105,11 @@ Website: https://munibtracker.app
 Privacy: https://munibtracker.app/privacy
 Terms: https://munibtracker.app/terms
 
-*~2,750/4,000 chars*
+_~2,750/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker is here — your offline companion for the journey back to Allah.
 
@@ -120,17 +121,17 @@ Home-screen widgets, Live Activities, watch companions, and Siri shortcuts on na
 
 We would love your feedback: https://munibtracker.app/contact
 
-*~580/4,000 chars*
+_~580/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max, comma-separated, no spaces after commas)*
+### Field 4 — Keywords _(100 chars max, comma-separated, no spaces after commas)_
 
 ```
 salah,quran,hadith,dhikr,qaza,qibla,prayer times,muslim,islam,adhkar,dua,ramadan,offline,tracker
 ```
 
-*~96/100 chars*
+_~96/100 chars_
 
 ---
 
@@ -143,29 +144,30 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 2. Arabic (ar-SA)
 
 > **RTL language.** Paste into App Store Connect — text renders right-to-left correctly.
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 الصلاة والقرآن والعبادة
 
-*~22 Unicode code points / 30 chars*
+_~22 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 تتبّع رحلتك إلى الله — بدون إنترنت وبدون إعلانات. سجّل صلاتك، وأكمل قضاءك، واقرأ القرآن، واذكر الله كل يوم. لا حاجة لحساب.
 
-*~130 Unicode code points / 170 chars*
+_~130 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker رفيق هادئ يعمل بدون إنترنت للصلاة والذكر والقضاء والقرآن والحديث والعبادة اليومية — لمساعدتك على العودة إلى الله يومًا بعد يوم.
 
@@ -208,6 +210,7 @@ Munib Tracker رفيق هادئ يعمل بدون إنترنت للصلاة وا
 تخزين محلي مع مزامنة سحابية اختيارية (Google أو Apple). نسخ احتياطي محلي. احذف حسابك وبياناتك في أي وقت.
 
 ---
+
 ابدأ تسجيل صلاتك في أقل من دقيقة. كل شيء يعمل بدون إنترنت. سجّل الدخول فقط عند الحاجة للمزامنة.
 
 للاستفسار: https://munibtracker.app/contact
@@ -215,11 +218,11 @@ Munib Tracker رفيق هادئ يعمل بدون إنترنت للصلاة وا
 الخصوصية: https://munibtracker.app/privacy
 الشروط: https://munibtracker.app/terms
 
-*~2,200 Unicode code points / 4,000 chars*
+_~2,200 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker هنا — رفيقك بدون إنترنت في رحلتك إلى الله.
 
@@ -231,17 +234,17 @@ Munib Tracker هنا — رفيقك بدون إنترنت في رحلتك إلى
 
 ملاحظاتكم تهمّنا: https://munibtracker.app/contact
 
-*~550 Unicode code points / 4,000 chars*
+_~550 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 صلاة,قرآن,حديث,ذكر,قضاء,قبلة,أوقات الصلاة,مسلم,إسلام,أذكار,دعاء,رمضان,أوفلاين,تتبع
 ```
 
-*~70 Unicode code points / 100 chars*
+_~70 Unicode code points / 100 chars_
 
 ---
 
@@ -254,29 +257,30 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 3. Urdu (ur-PK)
 
 > **RTL language.** Paste into App Store Connect — text renders right-to-left correctly.
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 نماز، قرآن اور عبادت
 
-*~20 Unicode code points / 30 chars*
+_~20 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 اللہ کی طرف واپسی کا سفر — آف لائن اور بغیر اشتہار۔ نماز درج کریں، قضا پورا کریں، قرآن پڑھیں، اور ہر روز اللہ کو یاد کریں۔ اکاؤنٹ نہیں چاہیے۔
 
-*~145 Unicode code points / 170 chars*
+_~145 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker نماز، ذکر، قضا، قرآن، حدیث اور روزانہ عبادت کے لیے ایک پرسکون، آف لائن ساتھی ہے — تاکہ آپ اللہ کی طرف ایک دن میں ایک قدم بڑھائیں۔
 
@@ -319,6 +323,7 @@ iPhone، iPad، Apple Watch اور ویب پر — جہاں بھی عبادت ک
 لوکل اسٹوریج، اختیاری کلاؤڈ سنک (Google یا Apple)۔ بیک اپ۔ اکاؤنٹ حذف کریں۔
 
 ---
+
 ایک منٹ میں پہلی نماز درج کریں۔ سب آف لائن۔ سنک صرف ضرورت پر۔
 
 سوالات؟ https://munibtracker.app/contact
@@ -326,11 +331,11 @@ iPhone، iPad، Apple Watch اور ویب پر — جہاں بھی عبادت ک
 پرائیویسی: https://munibtracker.app/privacy
 شرائط: https://munibtracker.app/terms
 
-*~2,100 Unicode code points / 4,000 chars*
+_~2,100 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker آ گیا — اللہ کی طرف واپسی کا آف لائن ساتھی۔
 
@@ -342,17 +347,17 @@ Munib Tracker آ گیا — اللہ کی طرف واپسی کا آف لائن �
 
 فیڈبیک: https://munibtracker.app/contact
 
-*~480 Unicode code points / 4,000 chars*
+_~480 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 نماز,قرآن,حدیث,ذکر,قضا,قبلہ,اوقات,مسلم,اسلام,اذکار,دعا,رمضان,آف لائن,ٹریکر
 ```
 
-*~68 Unicode code points / 100 chars*
+_~68 Unicode code points / 100 chars_
 
 ---
 
@@ -365,27 +370,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 4. Indonesian (id-ID)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Salat, Al-Qur'an & ibadah
 
-*25/30 chars*
+_25/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Temani perjalanan kembali kepada Allah — offline dan tanpa iklan. Catat salat, qadha, baca Al-Qur'an, dan berdzikir setiap hari. Tanpa akun.
 
-*~145/170 chars*
+_~145/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker adalah teman ibadah yang tenang dan offline-first untuk salat, dzikir, qadha, Al-Qur'an, hadits, dan ibadah harian — membantu Anda melangkah kembali kepada Allah setiap hari.
 
@@ -425,6 +431,7 @@ Di iPhone, iPad, Apple Watch, dan web. Widget, Live Activity, dan pintasan Siri.
 Penyimpanan lokal, sinkronisasi cloud opsional (Google/Apple). Cadangan lokal. Hapus akun kapan saja.
 
 ---
+
 Catat salat pertama dalam satu menit. Semua offline. Masuk hanya saat butuh sinkronisasi.
 
 Pertanyaan? https://munibtracker.app/contact
@@ -432,11 +439,11 @@ Website: https://munibtracker.app
 Privasi: https://munibtracker.app/privacy
 Syarat: https://munibtracker.app/terms
 
-*~2,600/4,000 chars*
+_~2,600/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker hadir — teman offline untuk perjalanan kembali kepada Allah.
 
@@ -446,17 +453,17 @@ Widget, Live Activity, jam tangan, Siri. 24 bahasa. Tanpa iklan. Tanpa akun.
 
 Masukan? https://munibtracker.app/contact
 
-*~420/4,000 chars*
+_~420/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 salat,quran,hadits,dzikir,qadha,kiblat,waktu salat,muslim,islam,doa,ramadan,offline,pelacak
 ```
 
-*~92/100 chars*
+_~92/100 chars_
 
 ---
 
@@ -469,27 +476,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 5. Turkish (tr-TR)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Namaz, Kur'an & ibadet
 
-*22/30 chars*
+_22/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Allah'a dönüş yolculuğunuz — çevrimdışı ve reklamsız. Namaz kaydedin, kaza edin, Kur'an okuyun, her gün zikredin. Hesap gerekmez.
 
-*~138/170 chars*
+_~138/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker; namaz, zikir, kaza, Kur'an, hadis ve günlük ibadet için sakin, çevrimdışı öncelikli bir yol arkadaşıdır — Allah'a her gün bir adım daha yaklaşmanız için.
 
@@ -529,6 +537,7 @@ iPhone, iPad, Apple Watch ve web. Widget, Live Activity ve Siri kısayolları. P
 Yerel depolama, isteğe bağlı bulut senkronizasyonu. Yerel yedek. Hesabı silin.
 
 ---
+
 İlk namazınızı bir dakikadan kısa sürede kaydedin. Her şey çevrimdışı çalışır.
 
 Sorular? https://munibtracker.app/contact
@@ -536,11 +545,11 @@ Web: https://munibtracker.app
 Gizlilik: https://munibtracker.app/privacy
 Koşullar: https://munibtracker.app/terms
 
-*~2,500/4,000 chars*
+_~2,500/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker burada — Allah'a dönüş yolculuğunuz için çevrimdışı yol arkadaşınız.
 
@@ -550,17 +559,17 @@ Widget, Live Activity, saat, Siri. 24 dil. Reklam yok. Hesap gerekmez.
 
 Geri bildirim: https://munibtracker.app/contact
 
-*~380/4,000 chars*
+_~380/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 namaz,kuran,hadis,zikir,kaza,kıble,namaz vakti,müslüman,islam,dua,ramazan,çevrimdışı,takip
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -573,27 +582,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 6. French (fr-FR)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Salat, Coran & adoration
 
-*24/30 chars*
+_24/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Suivez votre retour vers Allah — hors ligne et sans publicité. Enregistrez la salat, le qada, lisez le Coran et faites dhikr chaque jour. Sans compte.
 
-*~148/170 chars*
+_~148/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker est un compagnon calme et hors ligne pour la salat, le dhikr, le qada, le Coran, les hadiths et l'adoration quotidienne — pour avancer vers Allah jour après jour.
 
@@ -627,6 +637,7 @@ Graphiques, succès, rappels optionnels. **24 langues.** Widgets, Live Activitie
 Stockage local, sync cloud optionnelle (Google/Apple), sauvegarde locale.
 
 ---
+
 Ajoutez votre première salat en moins d'une minute. Tout fonctionne hors ligne.
 
 Questions ? https://munibtracker.app/contact
@@ -634,11 +645,11 @@ Site : https://munibtracker.app
 Confidentialité : https://munibtracker.app/privacy
 Conditions : https://munibtracker.app/terms
 
-*~2,200/4,000 chars*
+_~2,200/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker est là — votre compagnon hors ligne pour le retour vers Allah.
 
@@ -648,17 +659,17 @@ Widgets, Live Activities, montre, Siri. 24 langues. Sans pub. Sans compte.
 
 Retours : https://munibtracker.app/contact
 
-*~350/4,000 chars*
+_~350/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 salat,coran,hadith,dhikr,qada,qibla,prière,musulman,islam,dua,ramadan,hors ligne,suivi
 ```
 
-*~85/100 chars*
+_~85/100 chars_
 
 ---
 
@@ -671,27 +682,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 7. Russian (ru-RU)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Намаз, Коран и поклонение
 
-*24/30 chars*
+_24/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Путь обратно к Аллаху — офлайн и без рекламы. Записывайте намаз, када, читайте Коран и поминайте Аллаха каждый день. Без аккаунта.
 
-*~145/170 chars*
+_~145/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker — спокойный офлайн-компаньон для намаза, зикра, кады, Корана, хадисов и ежедневного поклонения — шаг за шагом к Аллаху.
 
@@ -725,6 +737,7 @@ Munib Tracker — спокойный офлайн-компаньон для на
 Локальное хранение, облачная синхронизация по желанию, локальный бэкап.
 
 ---
+
 Первый намаз — меньше минуты. Всё работает офлайн.
 
 Вопросы: https://munibtracker.app/contact
@@ -732,11 +745,11 @@ Munib Tracker — спокойный офлайн-компаньон для на
 Конфиденциальность: https://munibtracker.app/privacy
 Условия: https://munibtracker.app/terms
 
-*~2,200/4,000 chars*
+_~2,200/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker уже здесь — офлайн-компаньон на пути к Аллаху.
 
@@ -746,17 +759,17 @@ Munib Tracker уже здесь — офлайн-компаньон на пут�
 
 Отзывы: https://munibtracker.app/contact
 
-*~340/4,000 chars*
+_~340/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 намаз,коран,хадис,зикр,када,кибла,время намаза,мусульманин,ислам,дуа,рамадан,офлайн,трекер
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -769,27 +782,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 8. Bengali (bn-BD)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 সালাত, কুরআন ও ইবাদত
 
-*~20 Unicode code points / 30 chars*
+_~20 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 আল্লাহর দিকে ফিরে যাওয়ার যাত্রা — অফলাইন ও বিজ্ঞাপনবিহীন। সালাত, কাজা, কুরআন পড়ুন, প্রতিদিন যিকর করুন। অ্যাকাউন্ট লাগে না।
 
-*~155 Unicode code points / 170 chars*
+_~155 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker সালাত, যিকর, কাজা, কুরআন, হাদিস ও দৈনিক ইবাদতের জন্য একটি শান্ত, অফলাইন-প্রথম সঙ্গী — প্রতিদিন আল্লাহর দিকে এক ধাপ।
 
@@ -823,6 +837,7 @@ Munib Tracker সালাত, যিকর, কাজা, কুরআন, হ�
 লোকাল স্টোরেজ, ঐচ্ছিক ক্লাউড সিঙ্ক, ব্যাকআপ।
 
 ---
+
 এক মিনিটের কমে প্রথম সালাত যোগ করুন। সব অফলাইনে কাজ করে।
 
 প্রশ্ন? https://munibtracker.app/contact
@@ -830,11 +845,11 @@ Munib Tracker সালাত, যিকর, কাজা, কুরআন, হ�
 গোপনীয়তা: https://munibtracker.app/privacy
 শর্তাবলী: https://munibtracker.app/terms
 
-*~2,000 Unicode code points / 4,000 chars*
+_~2,000 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker এসেছে — আল্লাহর দিকে ফেরার অফলাইন সঙ্গী।
 
@@ -844,17 +859,17 @@ Munib Tracker এসেছে — আল্লাহর দিকে ফের�
 
 মতামত: https://munibtracker.app/contact
 
-*~380 Unicode code points / 4,000 chars*
+_~380 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 সালাত,কুরআন,হাদিস,যিকর,কাজা,কিবলা,নামাজ,মুসলিম,ইসলাম,দোয়া,রমজান,অফলাইন,ট্র্যাকার
 ```
 
-*~75 Unicode code points / 100 chars*
+_~75 Unicode code points / 100 chars_
 
 ---
 
@@ -867,27 +882,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 9. Malay (ms-MY)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Solat, Quran & ibadah
 
-*21/30 chars*
+_21/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Perjalanan kembali kepada Allah — luar talian dan tanpa iklan. Catat solat, qada, baca Quran, berzikir setiap hari. Tanpa akaun.
 
-*~132/170 chars*
+_~132/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker ialah teman ibadah yang tenang dan luar talian untuk solat, zikir, qada, Quran, hadis dan ibadah harian.
 
@@ -915,6 +931,7 @@ Waktu tepat, kalendar Hijrah, kompas kiblat.
 Carta, pencapaian, peringatan. **24 bahasa.** Widget, Live Activity, jam tangan, Siri.
 
 ---
+
 Catat solat pertama dalam satu minit. Semua luar talian.
 
 Soalan? https://munibtracker.app/contact
@@ -922,11 +939,11 @@ Laman web: https://munibtracker.app
 Privasi: https://munibtracker.app/privacy
 Terma: https://munibtracker.app/terms
 
-*~1,800/4,000 chars*
+_~1,800/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker tiba — teman luar talian untuk perjalanan kembali kepada Allah.
 
@@ -936,17 +953,17 @@ Widget, Live Activity, jam tangan, Siri. 24 bahasa. Tanpa iklan. Tanpa akaun.
 
 Maklum balas: https://munibtracker.app/contact
 
-*~320/4,000 chars*
+_~320/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 solat,quran,hadis,zikir,qada,kiblat,waktu solat,muslim,islam,doa,ramadan,luar talian,penjejak
 ```
 
-*~93/100 chars*
+_~93/100 chars_
 
 ---
 
@@ -959,27 +976,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 10. Persian (fa-IR)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 نماز، قرآن و عبادت
 
-*~18 Unicode code points / 30 chars*
+_~18 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 سفر بازگشت به الله — آفلاین و بدون تبلیغ. نماز، قضا، قرآن و ذکر روزانه. بدون حساب.
 
-*~95 Unicode code points / 170 chars*
+_~95 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker همراه آرام و آفلاین برای نماز، ذکر، قضا، قرآن، حدیث و عبادت روزانه — گام‌به‌گام به سوی الله.
 
@@ -1009,6 +1027,7 @@ Munib Tracker همراه آرام و آفلاین برای نماز، ذکر، �
 ذخیره محلی، همگام‌سازی اختیاری، پشتیبان محلی.
 
 ---
+
 اولین نماز در کمتر از یک دقیقه. همه آفلاین.
 
 سوالات: https://munibtracker.app/contact
@@ -1016,11 +1035,11 @@ Munib Tracker همراه آرام و آفلاین برای نماز، ذکر، �
 حریم خصوصی: https://munibtracker.app/privacy
 شرایط: https://munibtracker.app/terms
 
-*~1,500 Unicode code points / 4,000 chars*
+_~1,500 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker اینجاست — همراه آفلاین سفر بازگشت به الله.
 
@@ -1030,17 +1049,17 @@ Munib Tracker اینجاست — همراه آفلاین سفر بازگشت ب�
 
 بازخورد: https://munibtracker.app/contact
 
-*~280 Unicode code points / 4,000 chars*
+_~280 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 نماز,قرآن,حدیث,ذکر,قضا,قبله,اوقات,مسلمان,اسلام,دعا,رمضان,آفلاین,ردیاب
 ```
 
-*~65 Unicode code points / 100 chars*
+_~65 Unicode code points / 100 chars_
 
 ---
 
@@ -1053,6 +1072,7 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## Optional ASO-only locales
@@ -1063,23 +1083,23 @@ The following sections (11–17) target store markets where Munib does **not** s
 
 ## 11. German (de-DE)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Salah, Qur'an & Anbetung
 
-*24/30 chars*
+_24/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Dein Weg zurück zu Allah — offline und werbefrei. Salah protokollieren, Qaza nachholen, Qur'an lesen, täglich Dhikr. Kein Konto nötig.
 
-*~145/170 chars*
+_~145/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker ist ein ruhiger Offline-Begleiter für Salah, Dhikr, Qaza, Qur'an, Hadith und tägliche Anbetung — Schritt für Schritt zurück zu Allah.
 
@@ -1107,6 +1127,7 @@ Genaue Zeiten, Hijri-Kalender, Qibla-Kompass.
 Diagramme, Erfolge, Erinnerungen. **24 Sprachen.** Widgets, Live Activities, Uhr, Siri.
 
 ---
+
 Erstes Gebet in unter einer Minute. Alles offline.
 
 Fragen? https://munibtracker.app/contact
@@ -1114,11 +1135,11 @@ Website: https://munibtracker.app
 Datenschutz: https://munibtracker.app/privacy
 Nutzungsbedingungen: https://munibtracker.app/terms
 
-*~1,700/4,000 chars*
+_~1,700/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker ist da — dein Offline-Begleiter auf dem Weg zurück zu Allah.
 
@@ -1128,17 +1149,17 @@ Widgets, Live Activities, Uhr, Siri. 24 Sprachen. Keine Werbung. Kein Konto.
 
 Feedback: https://munibtracker.app/contact
 
-*~300/4,000 chars*
+_~300/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 salah,quran,hadith,dhikr,qaza,qibla,gebetszeiten,muslim,islam,dua,ramadan,offline,tracker
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -1151,27 +1172,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 12. Spanish (es-ES / es-MX)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Salat, Corán y adoración
 
-*24/30 chars*
+_24/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Tu camino de vuelta a Alá — sin conexión y sin anuncios. Registra salat, qadha, lee el Corán y haz dhikr cada día. Sin cuenta.
 
-*~130/170 chars*
+_~130/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker es un compañero tranquilo y sin conexión para salat, dhikr, qadha, Corán, hadices y adoración diaria — un paso cada día hacia Alá.
 
@@ -1201,6 +1223,7 @@ Horarios precisos, calendario hijri, brújula qibla.
 Almacenamiento local, sincronización opcional, copia de seguridad.
 
 ---
+
 Tu primera salat en menos de un minuto. Todo offline.
 
 ¿Preguntas? https://munibtracker.app/contact
@@ -1208,11 +1231,11 @@ Web: https://munibtracker.app
 Privacidad: https://munibtracker.app/privacy
 Términos: https://munibtracker.app/terms
 
-*~1,600/4,000 chars*
+_~1,600/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker ya está aquí — tu compañero offline en el camino de vuelta a Alá.
 
@@ -1222,17 +1245,17 @@ Widgets, Live Activities, reloj, Siri. 24 idiomas. Sin anuncios. Sin cuenta.
 
 Comentarios: https://munibtracker.app/contact
 
-*~290/4,000 chars*
+_~290/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 salat,corán,hadiz,dhikr,qadha,qibla,oración,musulmán,islam,dua,ramadán,offline,rastreador
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -1245,27 +1268,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 13. Hindi (hi-IN)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 सलाह, क़ुरआन और इबादत
 
-*~24 Unicode code points / 30 chars*
+_~24 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 अल्लाह की ओर वापसी का सफ़र — ऑफ़लाइन और बिना विज्ञापन। नमाज़, क़ज़ा, क़ुरआन और ज़िक्र। अकाउंट नहीं चाहिए।
 
-*~130 Unicode code points / 170 chars*
+_~130 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker सलाह, ज़िक्र, क़ज़ा, क़ुरआन, हदीस और रोज़ाना इबादत के लिए एक शांत, ऑफ़लाइन साथी है।
 
@@ -1295,6 +1319,7 @@ Munib Tracker सलाह, ज़िक्र, क़ज़ा, क़ुरआ
 लोकल स्टोरेज, वैकल्पिक क्लाउड सिंक।
 
 ---
+
 पहली नमाज़ एक मिनट से कम में। सब ऑफ़लाइन।
 
 सवाल? https://munibtracker.app/contact
@@ -1302,11 +1327,11 @@ Munib Tracker सलाह, ज़िक्र, क़ज़ा, क़ुरआ
 प्राइवेसी: https://munibtracker.app/privacy
 नियम: https://munibtracker.app/terms
 
-*~1,500 Unicode code points / 4,000 chars*
+_~1,500 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker आ गया — अल्लाह की ओर वापसी का ऑफ़लाइन साथी।
 
@@ -1316,17 +1341,17 @@ Munib Tracker आ गया — अल्लाह की ओर वापसी
 
 प्रतिक्रिया: https://munibtracker.app/contact
 
-*~280 Unicode code points / 4,000 chars*
+_~280 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 नमाज,कुरान,हदीस,जिक्र,कजा,किबला,नमाज़ समय,मुस्लिम,इस्लाम,दुआ,रमजान,ऑफलाइन,ट्रैकर
 ```
 
-*~75 Unicode code points / 100 chars*
+_~75 Unicode code points / 100 chars_
 
 ---
 
@@ -1339,27 +1364,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 14. Portuguese — Brazil (pt-BR)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Salat, Alcorão & adoração
 
-*25/30 chars*
+_25/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Sua jornada de volta a Allah — offline e sem anúncios. Registre salat, qadha, leia o Alcorão e faça dhikr todo dia. Sem conta.
 
-*~132/170 chars*
+_~132/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker é um companheiro calmo e offline para salat, dhikr, qadha, Alcorão, hadith e adoração diária — um passo por dia em direção a Allah.
 
@@ -1389,6 +1415,7 @@ Horários precisos, calendário hijri, bússola qibla.
 Armazenamento local, sincronização opcional.
 
 ---
+
 Primeira salat em menos de um minuto. Tudo offline.
 
 Dúvidas? https://munibtracker.app/contact
@@ -1396,11 +1423,11 @@ Site: https://munibtracker.app
 Privacidade: https://munibtracker.app/privacy
 Termos: https://munibtracker.app/terms
 
-*~1,500/4,000 chars*
+_~1,500/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker chegou — seu companheiro offline na jornada de volta a Allah.
 
@@ -1410,17 +1437,17 @@ Widgets, Live Activities, relógio, Siri. 24 idiomas. Sem anúncios. Sem conta.
 
 Feedback: https://munibtracker.app/contact
 
-*~280/4,000 chars*
+_~280/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 salat,alcorão,hadith,dhikr,qadha,qibla,oração,muslim,islam,dua,ramadã,offline,rastreador
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -1433,27 +1460,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 15. Japanese (ja-JP)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 礼拝・クルアーン・功修
 
-*10 Unicode code points / 30 chars*
+_10 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 アッラーへの帰還の旅 — オフライン、広告なし。礼拝記録、カダー、クルアーン、毎日のズィクル。アカウント不要。
 
-*~55 Unicode code points / 170 chars*
+_~55 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Trackerは、礼拝（サラート）、ズィクル、カダー、クルアーン、ハディース、日々の功修のためのオフラインコンパニオンアプリです。
 
@@ -1483,6 +1511,7 @@ Munib Trackerは、礼拝（サラート）、ズィクル、カダー、クル�
 ローカル保存、任意のクラウド同期。
 
 ---
+
 1分以内に最初の礼拝を記録。すべてオフライン。
 
 質問: https://munibtracker.app/contact
@@ -1490,11 +1519,11 @@ Munib Trackerは、礼拝（サラート）、ズィクル、カダー、クル�
 プライバシー: https://munibtracker.app/privacy
 利用規約: https://munibtracker.app/terms
 
-*~900 Unicode code points / 4,000 chars*
+_~900 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker登場 — アッラーへの帰還のオフラインコンパニオン。
 
@@ -1504,17 +1533,17 @@ Munib Tracker登場 — アッラーへの帰還のオフラインコンパニ�
 
 フィードバック: https://munibtracker.app/contact
 
-*~250 Unicode code points / 4,000 chars*
+_~250 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 礼拝,クルアーン,ハディース,ズィクル,カダー,キブラ,礼拝時間,ムスリム,イスラム,ドゥア,ラマダン,オフライン
 ```
 
-*~55 Unicode code points / 100 chars*
+_~55 Unicode code points / 100 chars_
 
 ---
 
@@ -1527,27 +1556,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 16. Vietnamese (vi-VN)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Cầu nguyện, Qur'an & thờ
 
-*24/30 chars*
+_24/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Hành trình trở về Allah — ngoại tuyến và không quảng cáo. Ghi salat, qadha, đọc Qur'an, dhikr mỗi ngày. Không cần tài khoản.
 
-*~135/170 chars*
+_~135/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker là người bạn đồng hành yên tĩnh, ưu tiên ngoại tuyến cho salat, dhikr, qadha, Qur'an, hadith và thờ phượng hàng ngày.
 
@@ -1577,6 +1607,7 @@ Giờ chính xác, lịch Hijri, la bàn qibla.
 Lưu cục bộ, đồng bộ tùy chọn.
 
 ---
+
 Salat đầu tiên trong chưa đầy một phút. Tất cả ngoại tuyến.
 
 Câu hỏi? https://munibtracker.app/contact
@@ -1584,11 +1615,11 @@ Trang web: https://munibtracker.app
 Quyền riêng tư: https://munibtracker.app/privacy
 Điều khoản: https://munibtracker.app/terms
 
-*~1,400/4,000 chars*
+_~1,400/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker đã ra mắt — bạn đồng hành ngoại tuyến trên hành trình về Allah.
 
@@ -1598,17 +1629,17 @@ Widget, Live Activity, đồng hồ, Siri. 24 ngôn ngữ. Không quảng cáo. 
 
 Phản hồi: https://munibtracker.app/contact
 
-*~270/4,000 chars*
+_~270/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 salat,quran,hadith,dhikr,qadha,qibla,giờ cầu nguyện,muslim,islam,dua,ramadan,ngoại tuyến,theo dõi
 ```
 
-*~95/100 chars*
+_~95/100 chars_
 
 ---
 
@@ -1621,27 +1652,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 17. Chinese — Simplified (zh-CN)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 礼拜、古兰经与功修
 
-*8 Unicode code points / 30 chars*
+_8 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 回归真主的旅程 — 离线、无广告。记录礼拜、还补、阅读古兰经、每日记念。无需账号。
 
-*~40 Unicode code points / 170 chars*
+_~40 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker 是一款安静的离线优先应用，帮助您记录礼拜（Salah）、记念（Dhikr）、还补（Qaza）、阅读古兰经与圣训，日复一日走向真主。
 
@@ -1671,6 +1703,7 @@ Munib Tracker 是一款安静的离线优先应用，帮助您记录礼拜（Sal
 本地存储，可选云同步。
 
 ---
+
 一分钟内记录第一次礼拜。全部离线可用。
 
 问题？https://munibtracker.app/contact
@@ -1678,11 +1711,11 @@ Munib Tracker 是一款安静的离线优先应用，帮助您记录礼拜（Sal
 隐私：https://munibtracker.app/privacy
 条款：https://munibtracker.app/terms
 
-*~700 Unicode code points / 4,000 chars*
+_~700 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker 正式上线 — 回归真主的离线伴侣。
 
@@ -1692,17 +1725,17 @@ Munib Tracker 正式上线 — 回归真主的离线伴侣。
 
 反馈：https://munibtracker.app/contact
 
-*~200 Unicode code points / 4,000 chars*
+_~200 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 礼拜,古兰经,圣训,记念,还补,朝向,礼拜时间,穆斯林,伊斯兰,祈祷,斋月,离线,追踪
 ```
 
-*~40 Unicode code points / 100 chars*
+_~40 Unicode code points / 100 chars_
 
 ---
 
@@ -1715,27 +1748,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 18. Hausa (ha-NG)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Sallah, Alkur'ani & ibada
 
-*24/30 chars*
+_24/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Tafiya komawa ga Allah — offline, ba tada talla. Rubuta sallah, kaza, karanta Alkur'ani, da zikiri kowace rana. Ba buƙatar asusu.
 
-*~145/170 chars*
+_~145/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker abokin ibada ne mai natsuwa da offline don sallah, zikiri, kaza, Alkur'ani, hadisi, da ibadar yau da kullum — mataki-mataki komawa ga Allah.
 
@@ -1765,6 +1799,7 @@ Lokuta daidai, kalandar Hijira, kamfas qibla.
 Ajiya ta gida, daidaitawa ta cloud (Google/Apple), backup.
 
 ---
+
 Fara rubuta sallah cikin minti ɗaya. Komai yana aiki offline.
 
 Tambayoyi? https://munibtracker.app/contact
@@ -1772,11 +1807,11 @@ Shafin yanar gizo: https://munibtracker.app
 Sirri: https://munibtracker.app/privacy
 Sharuɗɗi: https://munibtracker.app/terms
 
-*~1,600/4,000 chars*
+_~1,600/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker ya iso — abokin offline don komawa ga Allah.
 
@@ -1786,17 +1821,17 @@ Widgets, Live Activities, agogo, Siri. Harsuna 24. Babu talla. Babu asusu.
 
 Ra'ayoyi: https://munibtracker.app/contact
 
-*~280/4,000 chars*
+_~280/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 sallah,alkurani,hadisi,zikiri,kaza,qibla,lokutan sallah,musulmi,islam,dua,ramadan,offline
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -1809,27 +1844,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 19. Swahili (sw-TZ)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Swala, Qur'an & ibada
 
-*21/30 chars*
+_21/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Safari ya kurudi kwa Allah — nje ya mtandao na bila matangazo. Rekodi swala, qadha, soma Qur'an, na dhikr kila siku. Hakuna akaunti inahitajika.
 
-*~148/170 chars*
+_~148/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker ni rafiki wa utulivu wa ibada nje ya mtandao kwa swala, dhikr, qadha, Qur'an, hadithi, na ibada ya kila siku — hatua kwa hatua kurudi kwa Allah.
 
@@ -1859,6 +1895,7 @@ Nyakati sahihi, kalenda ya Hijria, dira ya qibla.
 Hifadhi ya ndani, usawazishaji wa hiari.
 
 ---
+
 Swala yako ya kwanza chini ya dakika moja. Yote nje ya mtandao.
 
 Maswali? https://munibtracker.app/contact
@@ -1866,11 +1903,11 @@ Tovuti: https://munibtracker.app
 Faragha: https://munibtracker.app/privacy
 Masharti: https://munibtracker.app/terms
 
-*~1,500/4,000 chars*
+_~1,500/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker imefika — rafiki wa nje ya mtandao kwa safari ya kurudi kwa Allah.
 
@@ -1880,17 +1917,17 @@ Widgets, Live Activities, saa, Siri. Lugha 24. Hakuna matangazo. Hakuna akaunti.
 
 Maoni: https://munibtracker.app/contact
 
-*~270/4,000 chars*
+_~270/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 swala,quran,hadithi,dhikr,qadha,qibla,nyakati za swala,muislamu,islam,dua,ramadhani,offline
 ```
 
-*~90/100 chars*
+_~90/100 chars_
 
 ---
 
@@ -1903,27 +1940,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 20. Azerbaijani (az-AZ)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Namaz, Qur'an və ibadət
 
-*23/30 chars*
+_23/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Allaha qayıdış yolculuğunuz — oflayn və reklamsız. Namaz qeyd edin, qəza edin, Qur'an oxuyun, hər gün zikr edin. Hesab lazım deyil.
 
-*~138/170 chars*
+_~138/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker namaz, zikr, qəza, Qur'an, hədis və gündəlik ibadət üçün sakit, oflayn yol yoldaşıdır — Allaha hər gün bir addım.
 
@@ -1953,6 +1991,7 @@ Dəqiq vaxtlar, Hicri təqvim, qiblə kompası.
 Yerli saxlama, istəyə bağlı bulud sinxronizasiyası.
 
 ---
+
 İlk namazınızı bir dəqiqədən az vaxtda əlavə edin.
 
 Suallar? https://munibtracker.app/contact
@@ -1960,11 +1999,11 @@ Sayt: https://munibtracker.app
 Məxfilik: https://munibtracker.app/privacy
 Şərtlər: https://munibtracker.app/terms
 
-*~1,400/4,000 chars*
+_~1,400/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker buradadır — Allaha qayıdış üçün oflayn yol yoldaşınız.
 
@@ -1974,17 +2013,17 @@ Vidcetlər, Live Activity, saat, Siri. 24 dil. Reklam yoxdur. Hesab lazım deyil
 
 Rəy: https://munibtracker.app/contact
 
-*~260/4,000 chars*
+_~260/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 namaz,quran,hədis,zikr,qəza,qiblə,namaz vaxtı,müsəlman,islam,dua,ramazan,oflayn,izləyici
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -1997,29 +2036,30 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 21. Pashto (ps-AF)
 
 > **RTL language.** Paste into App Store Connect — text renders right-to-left correctly.
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 لمونځ، قرآن او عبادت
 
-*~18 Unicode code points / 30 chars*
+_~18 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 الله ته د راستنیدو سفر — آفلاین او پرته له اعلاناتو. لمونځ ثبت کړئ، قضا، قرآن ولولئ، هره ورځ ذکر. حساب ته اړتیا نشته.
 
-*~120 Unicode code points / 170 chars*
+_~120 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker د لمونځ، ذکر، قضا، قرآن، حدیث او ورځنۍ عبادت لپاره یو آرام آفلاین ملګری دی — هره ورځ یو ګام الله ته.
 
@@ -2049,6 +2089,7 @@ Munib Tracker د لمونځ، ذکر، قضا، قرآن، حدیث او ورځ�
 محلي ذخیره، اختیاري کلاوډ همغږي.
 
 ---
+
 لومړی لمونځ په یوې دقیقې کې. ټول آفلاین.
 
 پوښتنې: https://munibtracker.app/contact
@@ -2056,11 +2097,11 @@ Munib Tracker د لمونځ، ذکر، قضا، قرآن، حدیث او ورځ�
 محرمیت: https://munibtracker.app/privacy
 شرایط: https://munibtracker.app/terms
 
-*~1,300 Unicode code points / 4,000 chars*
+_~1,300 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker راغی — د الله ته د راستنیدو آفلاین ملګری.
 
@@ -2070,17 +2111,17 @@ Munib Tracker راغی — د الله ته د راستنیدو آفلاین م�
 
 نظر: https://munibtracker.app/contact
 
-*~250 Unicode code points / 4,000 chars*
+_~250 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 لمونځ,قرآن,حدیث,ذکر,قضا,قبله,د لمونځ وخت,مسلمان,اسلام,دعا,روژه,آفلاین
 ```
 
-*~60 Unicode code points / 100 chars*
+_~60 Unicode code points / 100 chars_
 
 ---
 
@@ -2093,27 +2134,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 22. Somali (so-SO)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Salaadda, Qur'aanka & cibaado
 
-*28/30 chars*
+_28/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Safarkaaga dib ugu noqoshada Allah — offline iyo xayeysiis la'aan. Diiwaangeli salaadda, qadha, akhri Qur'aanka, xus Allah maalin kasta. Akoon looma baahna.
 
-*~155/170 chars*
+_~155/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker waa saaxiib xasilloon oo offline ah oo loogu talagalay salaadda, xuska, qadha, Qur'aanka, xadiiska, iyo cibaadada maalinlaha ah — talaabo talaabo dib ugu noqoshada Allah.
 
@@ -2143,6 +2185,7 @@ Waqtiyo sax ah, taariikhda Hijriga, buskudka qibla.
 Kaydinta gudaha, isku-dubarid cloud ikhtiyaari ah.
 
 ---
+
 Salaaddaada ugu horreysa daqiiqad ka yar. Wax walba offline.
 
 Su'aalo? https://munibtracker.app/contact
@@ -2150,11 +2193,11 @@ Website: https://munibtracker.app
 Asturnaanta: https://munibtracker.app/privacy
 Shuruudaha: https://munibtracker.app/terms
 
-*~1,500/4,000 chars*
+_~1,500/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker waa yimid — saaxiibkaaga offline ee safarka dib ugu noqoshada Allah.
 
@@ -2164,17 +2207,17 @@ Widgets, Live Activities, saacad, Siri. 24 luqadood. Xayeysiis la'aan. Akoon la'
 
 Jawaab celin: https://munibtracker.app/contact
 
-*~280/4,000 chars*
+_~280/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 salaad,quraan,xadiis,xus,qadha,qibla,waqtiga salaadda,muslim,islam,dua,ramadaan,offline
 ```
 
-*~86/100 chars*
+_~86/100 chars_
 
 ---
 
@@ -2187,27 +2230,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 23. Uzbek (uz-UZ)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Namoz, Qur'on va ibodat
 
-*22/30 chars*
+_22/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Allohga qaytish yo'lingiz — oflayn va reklamasiz. Namoz yozing, qazo qiling, Qur'on o'qing, har kuni zikr qiling. Hisob kerak emas.
 
-*~135/170 chars*
+_~135/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker namoz, zikr, qazo, Qur'on, hadis va kundalik ibodat uchun tinch, oflayn hamroh — har kuni Allohga bir qadam.
 
@@ -2237,6 +2281,7 @@ Aniq vaqtlar, Hijriy taqvim, qibla kompasi.
 Mahalliy saqlash, ixtiyoriy bulut sinxronizatsiyasi.
 
 ---
+
 Birinchi namozingizni bir daqiqadan kam vaqtda qo'shing.
 
 Savollar? https://munibtracker.app/contact
@@ -2244,11 +2289,11 @@ Sayt: https://munibtracker.app
 Maxfiylik: https://munibtracker.app/privacy
 Shartlar: https://munibtracker.app/terms
 
-*~1,400/4,000 chars*
+_~1,400/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker keldi — Allohga qaytish uchun oflayn hamrohingiz.
 
@@ -2258,17 +2303,17 @@ Vidjetlar, Live Activity, soat, Siri. 24 til. Reklama yo'q. Hisob kerak emas.
 
 Fikr-mulohaza: https://munibtracker.app/contact
 
-*~260/4,000 chars*
+_~260/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 namoz,quron,hadis,zikr,qazo,qibla,namoz vaqti,musulmon,islam,duo,ramazon,oflayn,kuzatuvchi
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -2281,27 +2326,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 24. Kazakh (kk-KZ)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Намаз, Құран және ғибадат
 
-*~24 Unicode code points / 30 chars*
+_~24 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Аллаға оралу жолыңыз — офлайн және жарнамасыз. Намаз жазып, қаза оқып, Құран оқып, күн сайын зікір айтыңыз. Тіркелгі қажет емес.
 
-*~130 Unicode code points / 170 chars*
+_~130 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker — намаз, зікір, қаза, Құран, хадис және күнделікті ғибадат үшін тыныш, офлайн серіктес. Күн сайын Аллаға бір қадам.
 
@@ -2331,6 +2377,7 @@ Munib Tracker — намаз, зікір, қаза, Құран, хадис жә�
 Жергілікті сақтау, міндетті емес бұлт синхрондау.
 
 ---
+
 Алғашқы намазыңызды бір минуттан аз уақытта қосыңыз.
 
 Сұрақтар? https://munibtracker.app/contact
@@ -2338,11 +2385,11 @@ Munib Tracker — намаз, зікір, қаза, Құран, хадис жә�
 Құпиялылық: https://munibtracker.app/privacy
 Шарттар: https://munibtracker.app/terms
 
-*~1,300 Unicode code points / 4,000 chars*
+_~1,300 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker келді — Аллаға оралу үшін офлайн серіктесіңіз.
 
@@ -2352,17 +2399,17 @@ Munib Tracker келді — Аллаға оралу үшін офлайн се�
 
 Пікір: https://munibtracker.app/contact
 
-*~250 Unicode code points / 4,000 chars*
+_~250 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 намаз,құран,хадис,зікір,қаза,қибла,намаз уақыты,мұсылман,ислам,дуа,ораза,офлайн
 ```
 
-*~75 Unicode code points / 100 chars*
+_~75 Unicode code points / 100 chars_
 
 ---
 
@@ -2375,29 +2422,30 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 25. Kurdish — Sorani (ku)
 
 > **RTL language.** Paste into App Store Connect — text renders right-to-left correctly.
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 نوێژ، قورئان و عیبادەت
 
-*~20 Unicode code points / 30 chars*
+_~20 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 گەڕانەوە بۆ خوای گەورە — ئۆفلاین و بێ ڕیکلام. نوێژ تۆمار بکە، قەزا، قورئان بخوێنە، هەموو ڕۆژێک زیکر. پێویستی بە هەژمار نییە.
 
-*~130 Unicode code points / 170 chars*
+_~130 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker هاوڕێیەکی ئارام و ئۆفلاینە بۆ نوێژ، زیکر، قەزا، قورئان، حەدیس و عیبادەتی ڕۆژانە — هەنگاو بە هەنگاو گەڕانەوە بۆ خوای گەورە.
 
@@ -2427,6 +2475,7 @@ Munib Tracker هاوڕێیەکی ئارام و ئۆفلاینە بۆ نوێژ، 
 پاشەکەوتکردنی ناوخۆیی، هاوکاتکردنی هەوری ئارەزوومەندانە.
 
 ---
+
 یەکەم نوێژت لە کەمتر لە خولەکێکدا زیاد بکە.
 
 پرسیارەکان? https://munibtracker.app/contact
@@ -2434,11 +2483,11 @@ Munib Tracker هاوڕێیەکی ئارام و ئۆفلاینە بۆ نوێژ، 
 تایبەتمەندی: https://munibtracker.app/privacy
 مەرجەکان: https://munibtracker.app/terms
 
-*~1,200 Unicode code points / 4,000 chars*
+_~1,200 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker گەیشت — هاوڕێی ئۆفلاینت بۆ گەڕانەوە بۆ خوای گەورە.
 
@@ -2448,17 +2497,17 @@ Munib Tracker گەیشت — هاوڕێی ئۆفلاینت بۆ گەڕانەوە
 
 ڕای تۆ: https://munibtracker.app/contact
 
-*~240 Unicode code points / 4,000 chars*
+_~240 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 نوێژ,قورئان,حەدیس,زیکر,قەزا,قیبلە,کاتی نوێژ,موسڵمان,ئیسلام,دعا,ڕەمەزان,ئۆفلاین
 ```
 
-*~65 Unicode code points / 100 chars*
+_~65 Unicode code points / 100 chars_
 
 ---
 
@@ -2471,27 +2520,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 26. Bosnian (bs-BA)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Namaz, Kur'an i ibadet
 
-*22/30 chars*
+_22/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Vaše putovanje nazad Allahu — offline i bez reklama. Zabilježite namaz, kazu, čitajte Kur'an, zikir svaki dan. Nije potreban račun.
 
-*~140/170 chars*
+_~140/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker je miran offline pratilac za namaz, zikr, kazu, Kur'an, hadis i svakodnevnu ibadetu — korak po korak nazad Allahu.
 
@@ -2521,6 +2571,7 @@ Tačna vremena, hijrijski kalendar, kompas kible.
 Lokalna pohrana, opcionalna cloud sinhronizacija.
 
 ---
+
 Prvi namaz za manje od minute. Sve offline.
 
 Pitanja? https://munibtracker.app/contact
@@ -2528,11 +2579,11 @@ Web: https://munibtracker.app
 Privatnost: https://munibtracker.app/privacy
 Uslovi: https://munibtracker.app/terms
 
-*~1,400/4,000 chars*
+_~1,400/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker je stigao — vaš offline pratilac na putu nazad Allahu.
 
@@ -2542,17 +2593,17 @@ Widgeti, Live Activity, sat, Siri. 24 jezika. Bez reklama. Bez računa.
 
 Povratne informacije: https://munibtracker.app/contact
 
-*~260/4,000 chars*
+_~260/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 namaz,kuran,hadis,zikr,kaza,kibla,vrijeme namaza,musliman,islam,dua,ramazan,offline,pratilac
 ```
 
-*~90/100 chars*
+_~90/100 chars_
 
 ---
 
@@ -2565,27 +2616,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 27. Albanian (sq-AL)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Namazi, Kurani & adhurimi
 
-*25/30 chars*
+_25/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Udhëtimi juaj përsëri te Allahu — offline dhe pa reklama. Regjistroni namazin, kazën, lexoni Kuranin, dhikr çdo ditë. Nuk kërkohet llogari.
 
-*~145/170 chars*
+_~145/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker është një shoqërues i qetë offline për namaz, dhikr, kazë, Kuran, hadith dhe adhurim ditor — hap pas hapi përsëri te Allahu.
 
@@ -2615,6 +2667,7 @@ Kohë të sakta, kalendar hijri, busulla kible.
 Ruajtje lokale, sinkronizim cloud opsional.
 
 ---
+
 Namazi i parë në më pak se një minutë. Gjithçka offline.
 
 Pyetje? https://munibtracker.app/contact
@@ -2622,11 +2675,11 @@ Faqja: https://munibtracker.app
 Privatësia: https://munibtracker.app/privacy
 Kushtet: https://munibtracker.app/terms
 
-*~1,400/4,000 chars*
+_~1,400/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker është këtu — shoqëruesi juaj offline në rrugën përsëri te Allahu.
 
@@ -2636,17 +2689,17 @@ Widget-e, Live Activity, orë, Siri. 24 gjuhë. Pa reklama. Pa llogari.
 
 Komente: https://munibtracker.app/contact
 
-*~260/4,000 chars*
+_~260/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 namaz,kuran,hadith,dhikr,kaze,kibla,koha e namazit,myftari,islam,dua,ramazani,offline,gjurmues
 ```
 
-*~90/100 chars*
+_~90/100 chars_
 
 ---
 
@@ -2659,27 +2712,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 28. Kyrgyz (ky-KG)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Намаз, Коран жана ибадат
 
-*~22 Unicode code points / 30 chars*
+_~22 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Аллага кайтуу жолуңуз — офлайн жана жарнамасыз. Намаз жазып, каза окуп, Коран окуп, күн сайын зикир кылыңыз. Аккаунт керек эмес.
 
-*~125 Unicode code points / 170 chars*
+_~125 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker — намаз, зикр, каза, Коран, хадис жана күнүмдүк ибадат үчүн тынч, офлайн шерик. Күн сайын Аллага бир кадам.
 
@@ -2709,6 +2763,7 @@ Munib Tracker — намаз, зикр, каза, Коран, хадис жан�
 Жергиликтүү сактоо, каалаган булут синхрону.
 
 ---
+
 Биринчи намазыңызды бир мүнөттөн аз убакытта кошуңуз.
 
 Суроолор? https://munibtracker.app/contact
@@ -2716,11 +2771,11 @@ Munib Tracker — намаз, зикр, каза, Коран, хадис жан�
 Купуялык: https://munibtracker.app/privacy
 Шарттар: https://munibtracker.app/terms
 
-*~1,250 Unicode code points / 4,000 chars*
+_~1,250 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker келди — Аллага кайтуу үчүн офлайн шеригиңиз.
 
@@ -2730,17 +2785,17 @@ Munib Tracker келди — Аллага кайтуу үчүн офлайн ш�
 
 Пикир: https://munibtracker.app/contact
 
-*~240 Unicode code points / 4,000 chars*
+_~240 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 намаз,коран,хадис,зикр,каза,кибла,намаз убактысы,мусулман,ислам,дуа,орозо,офлайн
 ```
 
-*~72 Unicode code points / 100 chars*
+_~72 Unicode code points / 100 chars_
 
 ---
 
@@ -2753,27 +2808,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 29. Tajik (tg-TJ)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Намоз, Қуръон ва ибодат
 
-*~20 Unicode code points / 30 chars*
+_~20 Unicode code points / 30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Сафари бозгашт ба Аллоҳ — офлайн ва бе реклама. Намоз сабт кунед, қазо, Қуръон хонед, ҳар рӯз зикр кунед. Ҳисоб лозим нест.
 
-*~125 Unicode code points / 170 chars*
+_~125 Unicode code points / 170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker — ҳамроҳи ороми офлайн барои намоз, зикр, қазо, Қуръон, ҳадис ва ибодати ҳаррӯза — қадам ба қадам ба сӯи Аллоҳ.
 
@@ -2803,6 +2859,7 @@ Munib Tracker — ҳамроҳи ороми офлайн барои намоз, 
 Нигоҳдории маҳаллӣ, ҳамоҳангсозии абрӣ ихтиёрӣ.
 
 ---
+
 Намози аввалро дар камтар аз як дақиқа илова кунед.
 
 Саволҳо? https://munibtracker.app/contact
@@ -2810,11 +2867,11 @@ Munib Tracker — ҳамроҳи ороми офлайн барои намоз, 
 Махфият: https://munibtracker.app/privacy
 Шартҳо: https://munibtracker.app/terms
 
-*~1,250 Unicode code points / 4,000 chars*
+_~1,250 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker омад — ҳамроҳи офлайни бозгашт ба Аллоҳ.
 
@@ -2824,17 +2881,17 @@ Munib Tracker омад — ҳамроҳи офлайни бозгашт ба А�
 
 Фикрҳо: https://munibtracker.app/contact
 
-*~230 Unicode code points / 4,000 chars*
+_~230 Unicode code points / 4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 намоз,қуръон,ҳадис,зикр,қазо,қибла,вақти намоз,мусулмон,ислом,дуо,рамазон,офлайн
 ```
 
-*~70 Unicode code points / 100 chars*
+_~70 Unicode code points / 100 chars_
 
 ---
 
@@ -2847,27 +2904,28 @@ https://munibtracker.app/contact
 https://munibtracker.app
 
 ---
+
 ---
 
 ## 30. Turkmen (tk-TM)
 
-### App Subtitle *(30 chars max)*
+### App Subtitle _(30 chars max)_
 
 Namaz, Kuran we ybadat
 
-*22/30 chars*
+_22/30 chars_
 
 ---
 
-### Field 1 — Promotional Text *(170 chars max)*
+### Field 1 — Promotional Text _(170 chars max)_
 
 Allaha gaýdyp gelýän ýoluňyz — awtonom we reklamasyz. Namaz ýazgy et, kaza, Kuran oka, her gün zikr et. Hasap gerek däl.
 
-*~125/170 chars*
+_~125/170 chars_
 
 ---
 
-### Field 2 — Description *(4,000 chars max)*
+### Field 2 — Description _(4,000 chars max)_
 
 Munib Tracker — namaz, zikr, kaza, Kuran, hadys we gündelik ybadat üçin ýuwaş, awtonom ýoldaş. Her gün Allaha bir ädim.
 
@@ -2897,6 +2955,7 @@ Takyk wagtlar, Hijri senenamasy, kibla kompasy.
 Ýerli saklamak, islege bagly bulut sinhronizasiýasy.
 
 ---
+
 Ilkinji namazyňyzy bir minutdan az wagtda goşuň.
 
 Soraglar? https://munibtracker.app/contact
@@ -2904,11 +2963,11 @@ Sahypa: https://munibtracker.app
 Gizlinlik: https://munibtracker.app/privacy
 Şertler: https://munibtracker.app/terms
 
-*~1,300/4,000 chars*
+_~1,300/4,000 chars_
 
 ---
 
-### Field 3 — What's New *(4,000 chars max)*
+### Field 3 — What's New _(4,000 chars max)_
 
 Munib Tracker geldi — Allaha gaýdyp gelmek üçin awtonom ýoldaşyňyz.
 
@@ -2918,17 +2977,17 @@ Widjetler, Live Activity, sagat, Siri. 24 dil. Reklamasyz. Hasapsyz.
 
 Pikir: https://munibtracker.app/contact
 
-*~250/4,000 chars*
+_~250/4,000 chars_
 
 ---
 
-### Field 4 — Keywords *(100 chars max)*
+### Field 4 — Keywords _(100 chars max)_
 
 ```
 namaz,kuran,hadys,zikr,kaza,kibla,namaz wagty,musulman,islam,dua,ramazan,awtonom,yzarlaýjy
 ```
 
-*~88/100 chars*
+_~88/100 chars_
 
 ---
 
@@ -2947,42 +3006,42 @@ https://munibtracker.app
 ### App-shipped locales (23)
 
 | Locale | App code | Subtitle | Promo | Description | What's New | Keywords |
-|--------|----------|----------|-------|-------------|------------|----------|
-| en-US | `en` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ar-SA | `ar` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ur-PK | `ur` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| id-ID | `id` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| tr-TR | `tr` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| bn-BD | `bn` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ms-MY | `ms` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| fa-IR | `fa` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| fr-FR | `fr` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ha-NG | `ha` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| sw-TZ | `sw` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ru-RU | `ru` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| az-AZ | `az` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ps-AF | `ps` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| so-SO | `so` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| uz-UZ | `uz` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| kk-KZ | `kk` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ku | `ku` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| bs-BA | `bs` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| sq-AL | `sq` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ky-KG | `ky` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| tg-TJ | `tg` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| tk-TM | `tk` | ✅ | ✅ | ✅ | ✅ | ✅ |
+| ------ | -------- | -------- | ----- | ----------- | ---------- | -------- |
+| en-US  | `en`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ar-SA  | `ar`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ur-PK  | `ur`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| id-ID  | `id`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| tr-TR  | `tr`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| bn-BD  | `bn`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ms-MY  | `ms`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| fa-IR  | `fa`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| fr-FR  | `fr`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ha-NG  | `ha`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| sw-TZ  | `sw`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ru-RU  | `ru`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| az-AZ  | `az`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ps-AF  | `ps`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| so-SO  | `so`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| uz-UZ  | `uz`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| kk-KZ  | `kk`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ku     | `ku`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| bs-BA  | `bs`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| sq-AL  | `sq`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ky-KG  | `ky`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| tg-TJ  | `tg`     | ✅       | ✅    | ✅          | ✅         | ✅       |
+| tk-TM  | `tk`     | ✅       | ✅    | ✅          | ✅         | ✅       |
 
 ### Optional ASO-only locales (7)
 
 | Locale | In-app UI | Subtitle | Promo | Description | What's New | Keywords |
-|--------|-----------|----------|-------|-------------|------------|----------|
-| de-DE | English | ✅ | ✅ | ✅ | ✅ | ✅ |
-| es-ES | English | ✅ | ✅ | ✅ | ✅ | ✅ |
-| hi-IN | English | ✅ | ✅ | ✅ | ✅ | ✅ |
-| pt-BR | English | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ja-JP | English | ✅ | ✅ | ✅ | ✅ | ✅ |
-| vi-VN | English | ✅ | ✅ | ✅ | ✅ | ✅ |
-| zh-CN | English | ✅ | ✅ | ✅ | ✅ | ✅ |
+| ------ | --------- | -------- | ----- | ----------- | ---------- | -------- |
+| de-DE  | English   | ✅       | ✅    | ✅          | ✅         | ✅       |
+| es-ES  | English   | ✅       | ✅    | ✅          | ✅         | ✅       |
+| hi-IN  | English   | ✅       | ✅    | ✅          | ✅         | ✅       |
+| pt-BR  | English   | ✅       | ✅    | ✅          | ✅         | ✅       |
+| ja-JP  | English   | ✅       | ✅    | ✅          | ✅         | ✅       |
+| vi-VN  | English   | ✅       | ✅    | ✅          | ✅         | ✅       |
+| zh-CN  | English   | ✅       | ✅    | ✅          | ✅         | ✅       |
 
 > **cp** = Unicode code points (used for non-Latin scripts). Apple's App Store counts by Unicode code points.
 >

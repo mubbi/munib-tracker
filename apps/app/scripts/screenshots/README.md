@@ -4,6 +4,7 @@ Automated **native** Android/iOS/watchOS/TV screenshots for Munib Tracker.
 
 - **Phone/tablet:** Maestro drives Android/iOS emulators across tabs, library routes, settings, modals, every Expo AppLocale × light/dark.
 - **Apple Watch:** separate `simctl` pipeline (Maestro does not support watchOS) — seeds App Group snapshot, captures Ultra 3 (422×514).
+- **iPhone Duo:** `capture-duo.mjs` (`simctl`, not Maestro — Maestro only reads the inner display). One run per posture set in Xcode DeviceHub; the store slot comes from the captured size. See [`docs/STORE_ASSETS.md`](../../../../docs/STORE_ASSETS.md#iphone-duo).
 - **Apple TV / Android TV:** prepared deep-link + `simctl`/`adb screencap` pipeline — **validate-only unless `RUN_CAPTURE=1`**. Not Maestro; not CI.
 
 Part of the store-assets pipeline — see [`docs/STORE_ASSETS.md`](../../../../docs/STORE_ASSETS.md).
@@ -15,7 +16,7 @@ Part of the store-assets pipeline — see [`docs/STORE_ASSETS.md`](../../../../d
 | App build            | `screenshots:android` APK                 | `screenshots:ios` Release sim | `screenshots:watch` builds phone+watch via `expo run:ios` | `EXPO_TV=1` Leanback / tvOS (`prebuild:app:tv*`)                                       |
 | Emulator / Simulator | Android SDK + AVD                         | Xcode iOS Simulator           | Xcode watchOS Simulator (Ultra 3) + paired iPhone         | Apple TV sim / Android TV AVD                                                          |
 | Automation           | [Maestro CLI](https://maestro.mobile.dev) | Maestro CLI                   | `xcrun simctl` + App Group seed (no Maestro)              | Deep link + `simctl` / `adb screencap` (opt-in `RUN_CAPTURE=1`)                        |
-| Storage seed         | `sqlite3` + `adb` → RKStorage             | `sqlite3` + `simctl`          | App Group `widget_snapshot_v1` plist                      | Not automated — seed manually (`inject-storage-ios` also checks tvOS `Library/Caches`) |
+| Storage seed         | `sqlite3` + `adb` → AsyncStorage DB       | `sqlite3` + `simctl`          | App Group `widget_snapshot_v1` plist                      | Not automated — seed manually (`inject-storage-ios` also checks tvOS `Library/Caches`) |
 
 > **Android note:** Do **not** rely on Expo Dev Client + Metro for captures. The capture script builds/installs a self-contained APK so the app launches without a bundler.
 >
@@ -45,6 +46,7 @@ pnpm screenshots:validate
 pnpm screenshots:android
 pnpm screenshots:ios     # macOS only
 pnpm screenshots:watch   # macOS only — Ultra 3 App Store set
+DUO_SCREEN=inner pnpm screenshots:duo   # macOS only — iPhone Duo (unfolded; `outer` when folded)
 
 # TV — validate only by default (no PNGs)
 pnpm screenshots:tvos
@@ -111,7 +113,7 @@ Then run `pnpm sync:screenshot-captures` from the repo root.
 ## How it works
 
 1. **Demo data** — `lib/demo-data.mjs` seeds AsyncStorage with real repository/store shapes per locale/theme.
-2. **Storage injection** — Android: warm-launch → host `sqlite3` merge → base64 push; iOS: host `sqlite3` on simulator container (`inject-storage-ios.mjs` probes `Application Support`, `Documents` and — for tvOS legacy AsyncStorage — `Library/Caches`).
+2. **Storage injection** — Android: warm-launch → pull the AsyncStorage DB (v3 Room `databases/AsyncStorage` + WAL, or legacy `RKStorage`) → host `sqlite3` merge → base64 push; iOS: host `sqlite3` on simulator container (`inject-storage-ios.mjs` probes `Application Support`, `Documents` and — for tvOS legacy AsyncStorage — `Library/Caches`).
 3. **Navigation** — Maestro deep-links (tabs + routes), optional ready markers, `waitForAnimationToEnd`, `takeScreenshot`. Batched via `lib/run-maestro-batches.mjs` so one failure does not abort the matrix.
 4. **Scenes** — `lib/scenes.mjs` lists **53** screens across tabs, track, read, supplicate, learn, more, and settings.
 5. **Watch** — `lib/watch-scenes.mjs` builds `widget_snapshot_v1` JSON → writes App Group plist on the watch simulator → `simctl screenshot` → `sips` resize to 422×514 → copies into `ios/screenshots/watch-ultra-3/`.

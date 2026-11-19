@@ -7,6 +7,7 @@ import { TrackerDayChecklist } from "@/components/tracker-day-checklist";
 import { PrayerRepository, ZikrRepository } from "@/db";
 import { trackerStore } from "@/stores/tracker-store";
 import { buildPrayerLog } from "@/test-support/fixtures/prayer";
+import { lastProps } from "@/test-support/mock-calls";
 import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
@@ -56,8 +57,8 @@ const PAST = "2020-03-04";
 const FUTURE = "2999-01-01";
 const actions = trackerStore.getState();
 
-const checklistProps = () => jest.mocked(TrackerDayChecklist).mock.lastCall![0];
-const sheetProps = () => jest.mocked(PrayerStatusSheet).mock.lastCall![0];
+const checklistProps = () => lastProps(TrackerDayChecklist);
+const sheetProps = () => lastProps(PrayerStatusSheet);
 
 beforeEach(() => {
   jest.clearAllMocks();

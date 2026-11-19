@@ -120,17 +120,27 @@ const SHOT = (platform, name) => `/screenshots/app/${platform}/{locale}/${name}.
 /** Map studio device tabs → native capture platform folder. */
 const DEVICE_CAPTURE_PLATFORM = {
   iphone: "ios",
+  "iphone-duo": "ios",
   ipad: "ios",
+  "ios-header": "ios",
+  "ios-header-wide": "ios",
+  "ios-search": "ios",
+  "ios-search-3x2": "ios",
   android: "android",
   "android-7": "android",
   "android-10": "android",
   "feature-graphic": "android",
 };
 
+// Watch / TV decks read native store captures synced by sync-app-screenshots.mjs
+// into public/screenshots/app/<apple-watch|apple-tv|android-tv>/<locale>/<scene>.png.
+const SURFACE_SHOT = (surface, locale, scene) =>
+  `/screenshots/app/${surface}/${locale}/${scene}.png`;
+
 const HERO_BADGE = {
   iphone: { x: 132, y: 520, width: 1056, height: 100, fontSize: 38 },
   android: { x: 90, y: 320, width: 900, height: 68, fontSize: 27 },
-  ipad: { x: 232, y: 680, width: 1600, height: 100, fontSize: 46 },
+  ipad: { x: 232, y: 590, width: 1600, height: 100, fontSize: 46 },
 };
 
 function phoneDeck(device) {
@@ -215,6 +225,72 @@ function phoneDeck(device) {
   ];
 }
 
+/** Apple Watch — raw app UI, one full-bleed slide per watch scene (watch UI is English-only). */
+function watchDeck() {
+  return Object.values(spec.watch.slideScenes).map((scene) => ({
+    id: `mt-apple-watch-${scene}`,
+    layout: "full-bleed",
+    label: {},
+    headline: {},
+    screenshot: SURFACE_SHOT("apple-watch", "en", scene),
+  }));
+}
+
+/** Wear OS — Play wants app UI only (1:1, no frame/text): raw tile captures, full-bleed. */
+function wearDeck() {
+  return ["01-salah-tile", "02-tasbeeh-tile"].map((scene) => ({
+    id: `mt-wear-os-${scene}`,
+    layout: "full-bleed",
+    label: {},
+    headline: {},
+    screenshot: SURFACE_SHOT("wear-os", "en", scene),
+  }));
+}
+
+/** Apple TV / Android TV — framed marketing for the first scenes, raw full-bleed for the rest. */
+function tvDeck(device) {
+  const scenes = Object.values(spec.tv.slideScenes);
+  const framed = [
+    { layout: "hero", copy: COPY.hero },
+    { layout: "device-bottom", copy: COPY.salah },
+    { layout: "device-top", copy: COPY.library, inverted: true },
+  ];
+  return scenes.map((scene, i) => {
+    const shot = SURFACE_SHOT(device, "{locale}", scene);
+    const f = framed[i];
+    if (!f) {
+      return {
+        id: `mt-${device}-${scene}`,
+        layout: "full-bleed",
+        label: {},
+        headline: {},
+        screenshot: shot,
+      };
+    }
+    return {
+      id: `mt-${device}-${scene}`,
+      layout: f.layout,
+      label: f.copy.label,
+      headline: f.copy.headline,
+      screenshot: shot,
+      ...(f.inverted ? { inverted: true } : {}),
+    };
+  });
+}
+
+/** App Store product page header / search results — one asset per locale. */
+function bannerDeck(device) {
+  return [
+    {
+      id: `mt-${device}-01`,
+      layout: "split-landscape",
+      label: COPY.hero.label,
+      headline: COPY.hero.headline,
+      screenshot: SHOT("ios", "home"),
+    },
+  ];
+}
+
 const state = {
   schemaVersion: 2,
   appName: "Munib Tracker",
@@ -231,6 +307,24 @@ const state = {
     ipad: phoneDeck("ipad"),
     "android-7": phoneDeck("android-7"),
     "android-10": phoneDeck("android-10"),
+    "iphone-duo": phoneDeck("iphone-duo"),
+    "apple-watch": watchDeck(),
+    "apple-tv": tvDeck("apple-tv"),
+    "ios-header": bannerDeck("ios-header"),
+    "ios-header-wide": bannerDeck("ios-header-wide"),
+    "ios-search": bannerDeck("ios-search"),
+    "ios-search-3x2": bannerDeck("ios-search-3x2"),
+    "wear-os": wearDeck(),
+    "android-tv": tvDeck("android-tv"),
+    "tv-banner": [
+      {
+        id: "mt-tv-banner-01",
+        layout: "feature-graphic",
+        label: {},
+        headline: COPY.hero.badge,
+        screenshot: "",
+      },
+    ],
     "feature-graphic": [
       {
         id: "mt-feature-graphic-01",
