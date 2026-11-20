@@ -7,9 +7,14 @@
       "version": 7,
       "files": [
         {
+          "path": "assets/data/hadith/zikr-sources.json",
+          "sha256": "772c7c5f2bfb93727313b9f1b043e398d0e1d79b6cd5416b15e266feca6bce17",
+          "bytes": 725436
+        },
+        {
           "path": "../../packages/shared/src/content/duas.ts",
-          "sha256": "2cca7ccf20396030263495e25cf608d44c0f64da2bc96ddf7e4fc1e02ebccc4a",
-          "bytes": 313148
+          "sha256": "cf397c95353eb9507ac475c81902c9f0c96d4660d8aa67633f9eae3f2cd2f68f",
+          "bytes": 325161
         },
         {
           "path": "../../packages/shared/src/content/duroods.ts",
@@ -18,12 +23,12 @@
         },
         {
           "path": "../../packages/shared/src/content/zikr.ts",
-          "sha256": "0faf3e3a67b4645667d49a3b9f700f5edc7eeedd3a07e4c64fbbbae3f825698e",
-          "bytes": 128129
+          "sha256": "fe3874a7abfa43396b5c73ead78d023a09b150bf225f4355df1e020422af147e",
+          "bytes": 142299
         }
       ],
       "license": "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
-      "attribution": "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Bengali Hisnul translations from ThelightHub/dua-api (MIT, https://dua-api.hisnul.workers.dev). Indonesian subset from fitrahive/dua-dhikr. Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
+      "attribution": "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Bengali Hisnul translations from ThelightHub/dua-api (MIT, https://dua-api.hisnul.workers.dev). Indonesian subset from fitrahive/dua-dhikr. Source hadith for adhkar from fawazahmed0/hadith-api (verbatim, multi-language). Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
       "sourceUrl": "https://github.com/ThelightHub/dua-api"
     },
     {

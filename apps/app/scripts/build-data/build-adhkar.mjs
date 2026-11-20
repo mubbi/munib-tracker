@@ -8,8 +8,16 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { ZIKR_HADITH_SOURCES, ZIKR_TARGET_COUNTS } from "./adhkar-hadith-sources.mjs";
 import { fetchJSON, fetchText } from "./fetch.mjs";
-import { APP_ROOT, datasetEntry, SHARED_CONTENT_DIR, writeFileStable } from "./manifest.mjs";
+import {
+  APP_ROOT,
+  ASSETS_DATA_DIR,
+  datasetEntry,
+  SHARED_CONTENT_DIR,
+  writeCompactJSON,
+  writeFileStable,
+} from "./manifest.mjs";
 
 // Per-item adhkar recitation audio (D9), matched against the Hisnul Muslim
 // database by normalized Arabic and streamed via jsDelivr, pinned to a commit.
@@ -806,8 +814,9 @@ const ZIKR_ITEMS = [
     arabic: "أَسْتَغْفِرُ اللَّهَ",
     transliteration: "Astaghfirullah",
     translation: "I seek the forgiveness of Allah.",
-    virtues: "The Prophet ﷺ would seek forgiveness more than seventy times a day.",
-    reference: "Bukhari",
+    virtues:
+      'The Prophet ﷺ said: "I seek Allah\'s forgiveness a hundred times a day." (Muslim 2702)',
+    reference: "Muslim 2702 · Bukhari 6307",
     targetCount: 100,
   },
   {
@@ -846,6 +855,18 @@ const ZIKR_ITEMS = [
   },
 
   // ── After Prayer ─────────────────────────────────────────
+  {
+    id: "after_prayer-istighfar-three",
+    categoryId: "after_prayer",
+    title: "Astaghfirullah (on finishing the salah)",
+    arabic: "أَسْتَغْفِرُ اللَّهَ",
+    transliteration: "Astaghfirullah",
+    translation: "I seek the forgiveness of Allah.",
+    virtues:
+      "Thawban reported that when the Prophet ﷺ finished his salah he would seek forgiveness three times, then say: 'Allahumma antas-salam wa minkas-salam…' (Muslim 591).",
+    reference: "Muslim 591",
+    targetCount: 3,
+  },
   {
     id: "after_prayer-tasbih",
     categoryId: "after_prayer",
@@ -906,7 +927,7 @@ const ZIKR_ITEMS = [
       "There is no god but Allah, alone, without partner. His is the dominion and His is the praise. He gives life and causes death, and He is over all things capable.",
     virtues:
       "Whoever says it ten times after Maghrib and after Fajr: Allah records for him ten good deeds, erases ten sins, raises him ten degrees, and it is a protection for him that day from every disliked thing and a guard from Shaytan.",
-    reference: "Tirmidhi 3474",
+    reference: "Tirmidhi 3534 · Tirmidhi 3474",
     targetCount: 10,
     prayers: ["fajr", "maghrib"],
   },
@@ -939,7 +960,7 @@ const ZIKR_ITEMS = [
   {
     id: "after_prayer-nur",
     categoryId: "after_prayer",
-    title: "Supplication for Light (after Fajr)",
+    title: "Supplication for Light (on the way to Fajr)",
     arabic:
       "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا، وَفِي لِسَانِي نُورًا، وَفِي سَمْعِي نُورًا، وَفِي بَصَرِي نُورًا، وَمِنْ فَوْقِي نُورًا، وَمِنْ تَحْتِي نُورًا، وَعَنْ يَمِينِي نُورًا، وَعَنْ شِمَالِي نُورًا، وَمِنْ أَمَامِي نُورًا، وَمِنْ خَلْفِي نُورًا، وَاجْعَلْ فِي نَفْسِي نُورًا، وَأَعْظِمْ لِي نُورًا",
     transliteration:
@@ -947,8 +968,8 @@ const ZIKR_ITEMS = [
     translation:
       "O Allah, place light in my heart, light in my tongue, light in my hearing, light in my sight, light above me, light below me, light on my right, light on my left, light before me, light behind me; place light in my soul, and make light abundant for me.",
     virtues:
-      "A supplication of the Prophet ﷺ, reported among the adhkar said after the Fajr prayer.",
-    reference: "Muslim 763",
+      "The Prophet ﷺ said this as he went out to the Fajr salah after the adhan (Muslim 763; Bukhari 6316). Kept with the Fajr adhkar so it is not forgotten.",
+    reference: "Muslim 763 · Bukhari 6316",
     targetCount: 1,
     prayers: ["fajr"],
   },
@@ -962,8 +983,8 @@ const ZIKR_ITEMS = [
     translation:
       "Glory is to You, O Allah, and praise; I bear witness that there is no god but You; I seek Your forgiveness and repent to You.",
     virtues:
-      "'A'ishah reported that the Prophet ﷺ would say this at the end of a sitting. Whoever says it, what occurred in that gathering is forgiven for him.",
-    reference: "Tirmidhi 3433 & An-Nasa'i",
+      "Abu Hurayrah reported that the Prophet ﷺ said: whoever sits in a gathering with much idle talk and says this before rising, what occurred in that gathering is forgiven for him (Tirmidhi 3433). 'A'ishah reported that he ﷺ would say it after a sitting or a salah (An-Nasa'i 1344).",
+    reference: "Tirmidhi 3433 · An-Nasa'i 1344",
     targetCount: 1,
   },
   {
@@ -974,8 +995,8 @@ const ZIKR_ITEMS = [
     transliteration: "Subhanal-Malikil-Quddus",
     translation: "Glory be to the King, the Most Holy.",
     virtues:
-      "After the salam of the Witr prayer the Prophet ﷺ would say it three times, raising and prolonging his voice on the third, adding: 'Rabbil-mala'ikati war-ruh' (Lord of the angels and the Spirit). Witr is prayed after the Isha prayer.",
-    reference: "An-Nasa'i 1699",
+      "After the salam of Witr the Prophet ﷺ would say it three times, prolonging the third and raising his voice with it (An-Nasa'i 1699, 1732). Witr is prayed after Isha.",
+    reference: "An-Nasa'i 1699 · An-Nasa'i 1732",
     targetCount: 3,
     prayers: ["witr"],
   },
@@ -1018,9 +1039,9 @@ const ZIKR_ITEMS = [
     translation:
       "I am pleased with Allah as my Lord, with Islam as my religion, and with Muhammad ﷺ as my Prophet.",
     virtues:
-      "Whoever says it three times, it is a right upon Allah to please him on Judgement Day.",
-    reference: "Abu Dawud & Tirmidhi",
-    targetCount: 3,
+      "Whoever says this, Paradise becomes due for him (Abu Dawud 1529, sahih). The narrations that tie it to the morning and evening are weak, so it is optional here.",
+    reference: "Abu Dawud 1529 · Abu Dawud 5072 · Tirmidhi 3389",
+    targetCount: 1,
   },
 
   // ── Evening ──────────────────────────────────────────────
@@ -1195,7 +1216,7 @@ const ZIKR_ITEMS = [
     translation: "",
     virtues:
       "The Prophet ﷺ would not sleep until he had recited Surat as-Sajdah and Surat al-Mulk.",
-    reference: "Quran 32 · Tirmidhi 2892 · Hisn al-Muslim",
+    reference: "Quran 32 · Tirmidhi 3404 · Hisn al-Muslim",
     targetCount: 1,
   },
   {
@@ -1881,6 +1902,9 @@ function renderZikr(items, audioById) {
     "reference",
     "variants",
     "targetCount",
+    "prayerTargets",
+    "optional",
+    "optionalPrayers",
     "prayers",
     "chapter",
     "orderInChapter",
@@ -1892,7 +1916,7 @@ function renderZikr(items, audioById) {
   return `import type { ZikrItem } from "../types/index";
 
 /** Bump when the bundled zikr content changes so clients can re-seed. */
-export const ZIKR_CONTENT_VERSION = 7;
+export const ZIKR_CONTENT_VERSION = 9;
 
 /**
  * Curated adhkar for every part of the day. Generated by
@@ -2036,14 +2060,403 @@ function assertContent(zikr, dua, durood) {
   }
 }
 
+// ── Zikr counts, citations + source hadith (fawazahmed0/hadith-api) ──────────
+// The zikr → hadith mapping and repetition counts are curated and verified in
+// adhkar-hadith-sources.mjs; the hadith text itself is fetched verbatim here.
+
+const HADITH_API_BASES = [
+  "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions",
+  "https://raw.githubusercontent.com/fawazahmed0/hadith-api/1/editions",
+];
+/** App locale → fawazahmed0 edition prefix (mirrors shared/i18n/hadith-editions.ts). */
+const HADITH_TRANSLATION_EDITIONS = {
+  ur: "urd",
+  id: "ind",
+  tr: "tur",
+  bn: "ben",
+  fr: "fra",
+  ru: "rus",
+};
+
+/** Citation number corrections verified against the source editions. */
+const REFERENCE_FIXES = [
+  // Al-mu'awwidhat after every salah is an-Nasa'i 1336 (1337 is "Allahumma anta as-salam").
+  {
+    ids: ["after_prayer-al-ikhlas", "after_prayer-al-falaq", "after_prayer-an-nas"],
+    from: "an-Nasa'i No. 1337",
+    to: "an-Nasa'i No. 1336",
+  },
+];
+
+/** Harakat corrections verified against the source hadith (Muslim 2726: عَدَدَ خَلْقِهِ). */
+const ARABIC_FIXES = [{ id: "morning-read-tasbih", from: "خَلْقَهِ", to: "خَلْقِهِ" }];
+
+/**
+ * Adhkar removed from the tracked sets: exact duplicates of another item, or not
+ * specific to the set they were filed under (locked 2026-11-20).
+ */
+const REMOVED_ZIKR_IDS = new Set([
+  // Same dhikr + hadith as morning-protection ("Bismillahilladhi la yadurru").
+  "morning-asking-for-protection-from-all-harms",
+  // "In a day", not a morning dhikr; duplicates anytime-istighfar.
+  "morning-istighfar-100x-a-day",
+]);
+
+/**
+ * Adhkar whose only six-book narrations are weak (da'if): shown with a note,
+ * never required for a set to count as done. `true` = everywhere; an array =
+ * only after those salah (the after-Maghrib tahlil ×10 is hasan sahih).
+ */
+const OPTIONAL_ZIKR = {
+  "after_prayer-ajirni-min-an-nar": true,
+  "after_prayer-tahlil-ten": ["fajr"],
+  "morning-radeetu": true,
+};
+
+/**
+ * Per-salah repetition: al-mu'awwidhat once after every salah (Abu Dawud 1523),
+ * three times after Fajr and Maghrib (morning/evening ×3, Tirmidhi 3575).
+ */
+const QULS_PRAYER_TARGETS = { fajr: 3, maghrib: 3 };
+const PRAYER_TARGETS = {
+  "after_prayer-al-ikhlas": QULS_PRAYER_TARGETS,
+  "after_prayer-al-falaq": QULS_PRAYER_TARGETS,
+  "after_prayer-an-nas": QULS_PRAYER_TARGETS,
+};
+
+const QULS_VIRTUE =
+  "Recite al-Mu'awwidhat after every salah (Abu Dawud 1523). The Prophet ﷺ said that reciting Qul huwa Allahu ahad and the Mu'awwidhatayn three times in the morning and evening suffices against everything (Tirmidhi 3575) — so they are repeated three times after Fajr and Maghrib.";
+
+/**
+ * Virtue lines that were missing, were editorial commentary, or quoted a
+ * different hadith. Each paraphrases the verified source (see
+ * adhkar-hadith-sources.mjs); the full hadith text is shown alongside.
+ */
+const VIRTUE_FIXES = {
+  "after_prayer-tasbih":
+    "Part of the tasbeeh after every salah — 33 each of SubhanAllah, Alhamdulillah and Allahu Akbar, completed to a hundred with the tahlil; sins are forgiven though they be like the foam of the sea (Muslim 597).",
+  "after_prayer-tahmid":
+    "Part of the tasbeeh after every salah — 33 each of SubhanAllah, Alhamdulillah and Allahu Akbar, completed to a hundred with the tahlil (Muslim 597).",
+  "after_prayer-allah-the-preventer-and-the-giver-of-all-things":
+    "Al-Mughirah wrote that the Prophet ﷺ would say this after every obligatory salah (Bukhari 844; Muslim 593).",
+  "after_prayer-al-ikhlas": QULS_VIRTUE,
+  "after_prayer-al-falaq": QULS_VIRTUE,
+  "after_prayer-an-nas": QULS_VIRTUE,
+  "after_prayer-supplication-for-beneficial-knowledge-good-provi":
+    "Umm Salamah reported that the Prophet ﷺ would say this after giving the salam of the Fajr salah (Ibn Majah 925).",
+  "after_azan-repeat":
+    "Whoever repeats the adhan after the mu'adhdhin sincerely from his heart will enter Paradise (Muslim 385).",
+  "before_prayer-salawat":
+    "Whoever sends one salah upon the Prophet ﷺ, Allah sends ten upon him (Muslim 408).",
+  "morning-tasbih-hundred":
+    "Whoever says it a hundred times in the morning and in the evening, none will come on the Day of Judgement with better than it, except one who said the same or more (Muslim 2692).",
+  "evening-tasbih-hundred":
+    "Whoever says it a hundred times in the morning and in the evening, none will come on the Day of Judgement with better than it, except one who said the same or more (Muslim 2692).",
+  "morning-protection":
+    "Whoever says it three times in the morning, nothing will suddenly harm him until evening (Abu Dawud 5088; Tirmidhi 3388).",
+  "evening-protection":
+    "Whoever says it three times in the evening, nothing will suddenly harm him until morning (Abu Dawud 5088; Tirmidhi 3388).",
+  "morning-upon-entering-the-morning-by-asking-for-protecti":
+    "The Prophet ﷺ would say this in the morning, and in the evening with 'amsayna' (Muslim 2723).",
+  "evening-amsayna":
+    "The Prophet ﷺ would say this in the evening, and in the morning with 'asbahna' (Muslim 2723).",
+  "morning-upon-entering-the-morning-with-the-grace-of-alla":
+    "The Prophet ﷺ taught his Companions to say this on entering the morning and the evening (Abu Dawud 5068; Tirmidhi 3391).",
+  "evening-entering-the-evening-by-seeking-allah-s-mercy":
+    "The Prophet ﷺ taught his Companions to say this on entering the evening and the morning (Ibn Majah 3868; Abu Dawud 5068).",
+  "morning-sayyid-al-istighfar":
+    "The best way of seeking forgiveness. Whoever says it during the day with firm faith and dies before evening is of the people of Paradise; and whoever says it at night with firm faith and dies before morning is of the people of Paradise (Bukhari 6306).",
+  "morning-dua-for-protection-and-good-health":
+    "Abu Bakrah heard the Prophet ﷺ supplicate with these words three times every morning and evening, and followed his Sunnah in it (Abu Dawud 5090).",
+  "morning-dua-for-salvation-in-the-world-and-hereafter":
+    "The Messenger of Allah ﷺ never left these supplications in the morning and the evening (Abu Dawud 5074; Ibn Majah 3871).",
+  "morning-dua-for-protection-from-shaytan-whispers":
+    "The Prophet ﷺ told Abu Bakr to say this in the morning, in the evening, and when lying down to sleep (Abu Dawud 5067; Tirmidhi 3392).",
+  "morning-asking-allah-for-guidance":
+    "The Prophet ﷺ told Fatimah to say this in the morning and the evening (an-Nasa'i, 'Amal al-Yawm wal-Laylah 575 — outside the six books).",
+  "morning-entering-the-morning-upon-the-natural-religion-o":
+    "The Prophet ﷺ would say this on entering the morning, and in the evening with 'amsayna' (Musnad Ahmad; ad-Darimi — outside the six books).",
+  "evening-entering-the-evening-on-the-natural-disposition-":
+    "The Prophet ﷺ would say this on entering the evening, and in the morning with 'asbahna' (Musnad Ahmad; ad-Darimi — outside the six books).",
+  "morning-read-tasbih":
+    "Juwayriyah reported that the Prophet ﷺ said: these four phrases, said three times, outweigh everything you have said since the morning (Muslim 2726).",
+};
+
+/** Title fixes (titles name the zikr; counts live in `targetCount`). */
+const TITLE_FIXES = {
+  "morning-read-tasbih": "SubhanAllahi wa bihamdihi, 'adada khalqihi",
+};
+
+/**
+ * Morning adhkar the hadith prescribe for the evening too (same wording). Cloned
+ * into the evening set with their sources so the evening set is complete.
+ */
+const MORNING_AND_EVENING = [
+  ["morning-sayyid-al-istighfar", "evening-sayyid-al-istighfar"],
+  ["morning-dua-for-protection-and-good-health", "evening-dua-for-protection-and-good-health"],
+  [
+    "morning-dua-for-salvation-in-the-world-and-hereafter",
+    "evening-dua-for-salvation-in-the-world-and-hereafter",
+  ],
+  [
+    "morning-dua-for-protection-from-shaytan-whispers",
+    "evening-dua-for-protection-from-shaytan-whispers",
+  ],
+];
+const MORNING_AND_EVENING_VIRTUES = {
+  "evening-sayyid-al-istighfar": VIRTUE_FIXES["morning-sayyid-al-istighfar"],
+  "evening-dua-for-protection-and-good-health":
+    VIRTUE_FIXES["morning-dua-for-protection-and-good-health"],
+  "evening-dua-for-salvation-in-the-world-and-hereafter":
+    VIRTUE_FIXES["morning-dua-for-salvation-in-the-world-and-hereafter"],
+  "evening-dua-for-protection-from-shaytan-whispers":
+    VIRTUE_FIXES["morning-dua-for-protection-from-shaytan-whispers"],
+};
+
+/** Source-hadith ids for cloned evening items (same narrations as the morning one). */
+const SOURCE_ALIASES = Object.fromEntries(MORNING_AND_EVENING.map(([from, to]) => [to, from]));
+
+/**
+ * Recitation order inside a session, following Hisn al-Muslim: openings and
+ * istighfar first, the long ×100 tasbeeh last. Unlisted items keep their
+ * relative order after the listed ones.
+ */
+const SESSION_ORDER = {
+  after_prayer: [
+    "after_prayer-istighfar-three",
+    "after_prayer-allah-the-giver-of-peace",
+    "after_prayer-allah-the-preventer-and-the-giver-of-all-things",
+    "after_prayer-allah-the-possessor-of-all-and-the-only-one-wort",
+    "after_prayer-tasbih",
+    "after_prayer-tahmid",
+    "after_prayer-takbir",
+    "after_prayer-tahlil-hundred",
+    "after_prayer-ayat-al-kursi",
+    "after_prayer-al-ikhlas",
+    "after_prayer-al-falaq",
+    "after_prayer-an-nas",
+    "after_prayer-tahlil-ten",
+    "after_prayer-ajirni-min-an-nar",
+    "after_prayer-supplication-for-beneficial-knowledge-good-provi",
+    "after_prayer-muadh-dhikr-shukr",
+    "after_prayer-nur",
+    "after_prayer-kaffarat-al-majlis",
+    "after_prayer-malik-quddus",
+  ],
+  morning: [
+    "morning-upon-entering-the-morning-by-asking-for-protecti",
+    "morning-upon-entering-the-morning-with-the-grace-of-alla",
+    "morning-sayyid-al-istighfar",
+    "morning-dua-for-protection-and-good-health",
+    "morning-dua-for-salvation-in-the-world-and-hereafter",
+    "morning-dua-for-protection-from-shaytan-whispers",
+    "morning-protection",
+    "morning-asking-allah-for-guidance",
+    "morning-entering-the-morning-upon-the-natural-religion-o",
+    "morning-radeetu",
+    "morning-read-tasbih",
+    "morning-tasbih-hundred",
+  ],
+  evening: [
+    "evening-amsayna",
+    "evening-entering-the-evening-by-seeking-allah-s-mercy",
+    "evening-sayyid-al-istighfar",
+    "evening-dua-for-protection-and-good-health",
+    "evening-dua-for-salvation-in-the-world-and-hereafter",
+    "evening-dua-for-protection-from-shaytan-whispers",
+    "evening-protection",
+    "evening-refuge",
+    "evening-entering-the-evening-on-the-natural-disposition-",
+    "evening-tasbih-hundred",
+  ],
+};
+
+/** Strip "(x33)" / "(x10 after Fajr & Maghrib)" count hints from titles. */
+function stripTitleCount(title) {
+  return title
+    .replace(/\s*\(x\d+\)/gi, "")
+    .replace(/\(x\d+\s+/gi, "(")
+    .trim();
+}
+
+/** Clone morning-and-evening adhkar into the evening set. */
+function addEveningCounterparts(items) {
+  for (const [fromId, toId] of MORNING_AND_EVENING) {
+    if (items.some((it) => it.id === toId)) continue;
+    const source = items.find((it) => it.id === fromId);
+    if (!source) throw new Error(`[adhkar] missing ${fromId} for evening counterpart`);
+    items.push({ ...source, id: toId, categoryId: "evening" });
+  }
+}
+
+/** Reorder each category by SESSION_ORDER; categories keep their slots in the corpus. */
+function applySessionOrder(items) {
+  const rank = new Map();
+  for (const ids of Object.values(SESSION_ORDER)) {
+    ids.forEach((id, i) => {
+      rank.set(id, i);
+    });
+  }
+  const byCategory = new Map();
+  items.forEach((item, index) => {
+    if (!byCategory.has(item.categoryId)) byCategory.set(item.categoryId, []);
+    byCategory.get(item.categoryId).push({ item, index });
+  });
+  for (const list of byCategory.values()) {
+    list.sort((a, b) => {
+      const ra = rank.get(a.item.id) ?? Number.MAX_SAFE_INTEGER;
+      const rb = rank.get(b.item.id) ?? Number.MAX_SAFE_INTEGER;
+      return ra - rb || a.index - b.index;
+    });
+  }
+  const cursors = new Map();
+  return items.map((item) => {
+    const n = cursors.get(item.categoryId) ?? 0;
+    cursors.set(item.categoryId, n + 1);
+    return byCategory.get(item.categoryId)[n].item;
+  });
+}
+
+/** Dataset "notes" that only restate the count ("Recite 3x") are not virtues. */
+function isCountOnlyNote(text) {
+  return /^(read|recite|say)\s+\d+\s*x(\s+a\s+day)?\.?$/i.test((text ?? "").trim());
+}
+
+/**
+ * Apply verified counts (every category — a zikr with no number in its hadith is
+ * one recitation), citation / virtue / title fixes, optional + per-salah counts,
+ * evening counterparts, and the session order. Returns the corrected list.
+ */
+function applyZikrCorrections(input) {
+  const items = input.filter((item) => !REMOVED_ZIKR_IDS.has(item.id));
+  addEveningCounterparts(items);
+  for (const item of items) {
+    const verified = ZIKR_TARGET_COUNTS[item.id] ?? ZIKR_TARGET_COUNTS[SOURCE_ALIASES[item.id]];
+    if (verified) item.targetCount = verified;
+    if (!item.targetCount || item.targetCount < 1) item.targetCount = 1;
+    if (isCountOnlyNote(item.virtues)) delete item.virtues;
+    const virtue = VIRTUE_FIXES[item.id] ?? MORNING_AND_EVENING_VIRTUES[item.id];
+    if (virtue) item.virtues = virtue;
+    item.title = TITLE_FIXES[item.id] ?? stripTitleCount(item.title);
+    const optional = OPTIONAL_ZIKR[item.id];
+    if (optional === true) item.optional = true;
+    else if (Array.isArray(optional)) item.optionalPrayers = optional;
+    if (PRAYER_TARGETS[item.id]) item.prayerTargets = PRAYER_TARGETS[item.id];
+  }
+  for (const fix of REFERENCE_FIXES) {
+    for (const id of fix.ids) {
+      const item = items.find((it) => it.id === id);
+      if (item?.reference?.includes(fix.from)) {
+        item.reference = item.reference.replace(fix.from, fix.to);
+      }
+    }
+  }
+  for (const fix of ARABIC_FIXES) {
+    const item = items.find((it) => it.id === fix.id);
+    if (item?.arabic.includes(fix.from)) item.arabic = item.arabic.replace(fix.from, fix.to);
+  }
+  return applySessionOrder(items);
+}
+
+/** Marker matching: normalizeArabic + alif maqsura → ya (editions differ). */
+function normalizeHadithArabic(text) {
+  return normalizeArabic((text ?? "").replace(/ى/g, "ي"));
+}
+
+function cleanHadithText(text) {
+  return (text ?? "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * One record from an edition. Decimal numbers (e.g. Tirmidhi 3604.02) live in
+ * the integer file. jsDelivr rate-limits bursts, so calls run sequentially and
+ * fall back to raw.githubusercontent.
+ */
+async function fetchHadithRecord(edition, hadithNumber) {
+  const file = Math.floor(hadithNumber);
+  let lastErr;
+  for (const base of HADITH_API_BASES) {
+    try {
+      const data = await fetchJSON(`${base}/${edition}/${file}.json`);
+      return (data.hadiths ?? []).find((h) => Number(h.hadithnumber) === hadithNumber);
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  throw lastErr ?? new Error(`no edition ${edition}/${file}`);
+}
+
+/** zikrId → { sources: [...] } with verbatim Arabic + English + dataset translations. */
+async function buildZikrHadith(items) {
+  const out = {};
+  let fetched = 0;
+  for (const item of items) {
+    const refs = ZIKR_HADITH_SOURCES[item.id] ?? ZIKR_HADITH_SOURCES[SOURCE_ALIASES[item.id]];
+    if (!refs) throw new Error(`[adhkar] ${item.id} has no entry in adhkar-hadith-sources.mjs`);
+    if (refs.length === 0) {
+      out[item.id] = { sources: [], outsideSixBooks: true };
+      continue;
+    }
+    const sources = [];
+    for (const ref of refs) {
+      const ara = await fetchHadithRecord(`ara-${ref.collection}`, ref.hadithNumber);
+      const eng = await fetchHadithRecord(`eng-${ref.collection}`, ref.hadithNumber);
+      const arabic = cleanHadithText(ara?.text);
+      const english = cleanHadithText(eng?.text);
+      if (!arabic || !english) {
+        throw new Error(`[adhkar] ${item.id}: ${ref.collection} ${ref.hadithNumber} missing text`);
+      }
+      if (!normalizeHadithArabic(arabic).includes(normalizeHadithArabic(ref.marker))) {
+        throw new Error(`[adhkar] ${item.id}: marker not found in ${ref.ref} — mapping drifted`);
+      }
+      const translations = {};
+      for (const [locale, prefix] of Object.entries(HADITH_TRANSLATION_EDITIONS)) {
+        try {
+          const rec = await fetchHadithRecord(`${prefix}-${ref.collection}`, ref.hadithNumber);
+          const text = cleanHadithText(rec?.text);
+          if (text) translations[locale] = text;
+        } catch {
+          // Not every collection has every translation edition — English fallback.
+        }
+      }
+      fetched++;
+      sources.push({
+        collection: ref.collection,
+        hadithNumber: ref.hadithNumber,
+        reference: ref.ref,
+        ...(ref.grade ? { grade: ref.grade } : {}),
+        arabic,
+        english: sanitizeEnglishDisplay(english),
+        ...(Object.keys(translations).length ? { translations } : {}),
+      });
+    }
+    out[item.id] = { sources };
+  }
+  console.log(`  [adhkar] source hadith: ${fetched} narrations for ${items.length} adhkar`);
+  return out;
+}
+
+/** Stable key order so re-runs produce byte-identical JSON. */
+function sortedZikrHadith(map) {
+  return Object.fromEntries(
+    Object.keys(map)
+      .sort()
+      .map((id) => [id, map[id]]),
+  );
+}
+
 export async function buildAdhkar() {
   // Complete before-sleep Qur'an remembrances from the bundled mushaf before
   // anything else so dedup + assertions see the full text.
   fillBeforeSleepQuran(ZIKR_ITEMS);
   // Zikr: merge the open dua/dhikr dataset onto the curated base (dedup by Arabic).
   const dataset = await fetchDuaDhikrDataset();
-  const zikrItems = mergeUnique(ZIKR_ITEMS, dataset.zikr);
-  tagAfterPrayerPrayers(zikrItems);
+  const merged = mergeUnique(ZIKR_ITEMS, dataset.zikr);
+  tagAfterPrayerPrayers(merged);
+  const zikrItems = applyZikrCorrections(merged);
   // Duas: the full Hisnul Muslim corpus merged onto the curated base, with clean
   // transliteration layered from the curated + dataset sources where it exists.
   const hisnDuas = await fetchHisnDuas();
@@ -2076,11 +2489,17 @@ export async function buildAdhkar() {
     }
   }
 
+  const zikrHadith = await buildZikrHadith(zikrItems);
+
   const zikrPath = join(SHARED_CONTENT_DIR, "zikr.ts");
+  // Verbatim multi-language hadith text lives with the other bundled hadith
+  // (assets/data/hadith), loaded lazily by the app as its own chunk.
+  const zikrHadithPath = join(ASSETS_DATA_DIR, "hadith", "zikr-sources.json");
   const duasPath = join(SHARED_CONTENT_DIR, "duas.ts");
   const duroodsPath = join(SHARED_CONTENT_DIR, "duroods.ts");
 
   await writeFileStable(zikrPath, renderZikr(zikrItems, audioById));
+  await writeCompactJSON(zikrHadithPath, sortedZikrHadith(zikrHadith));
   await writeFileStable(duasPath, renderDuas(duaItems, audioById));
   await writeFileStable(duroodsPath, renderDuroods(duroodItems, audioById));
   const duasWithTranslit = withAudio(duaItems, audioById).filter((d) =>
@@ -2096,9 +2515,9 @@ export async function buildAdhkar() {
       id: "adhkar",
       kind: "content",
       version: 7,
-      absFiles: [zikrPath, duasPath, duroodsPath],
+      absFiles: [zikrPath, zikrHadithPath, duasPath, duroodsPath],
       license: "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
-      attribution: `Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (${HISN_AUDIO_REPO}); adhkar & transliteration from ${DUADHIKR_REPO} (Arabic, transliteration, translation). Bengali Hisnul translations from ${THELIGHTHUB_REPO} (MIT, ${THELIGHTHUB_DUA_API}). Indonesian subset from fitrahive/dua-dhikr. Audio streamed from ${HISN_AUDIO_REPO}.`,
+      attribution: `Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (${HISN_AUDIO_REPO}); adhkar & transliteration from ${DUADHIKR_REPO} (Arabic, transliteration, translation). Bengali Hisnul translations from ${THELIGHTHUB_REPO} (MIT, ${THELIGHTHUB_DUA_API}). Indonesian subset from fitrahive/dua-dhikr. Source hadith for adhkar from fawazahmed0/hadith-api (verbatim, multi-language). Audio streamed from ${HISN_AUDIO_REPO}.`,
       sourceUrl: `https://github.com/${THELIGHTHUB_REPO}`,
     }),
   ];
