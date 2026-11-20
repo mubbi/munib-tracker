@@ -2085,7 +2085,11 @@
     "quranSurahs": "Surhs strted",
     "quranBookmarks": "Qur' закладки",
     "hadithBookmarks": "Нишонаҳои ҳадис",
-    "quranProgress": "Qur' progress"
+    "quranProgress": "Qur' progress",
+    "todayAdhkarSets": "Маҷмӯаҳои зикр",
+    "adhkarBySet": "Зикрҳо аз рӯи намоз ва вақт",
+    "adhkarBySetHint": "Рӯзҳои ин давра, ки ҳар зикри зарурии маҷмӯа сабт шуд.",
+    "adhkarDays": "{{done}}/{{days}} рӯз"
   },
   "prayerStatus": {
     "pending": "ожидает",
@@ -5844,6 +5848,7 @@
     "sessionEyebrow": "Ҷаласаи роҳнамо",
     "outline": "Ин маҷмӯа · {{total}}",
     "padOnce": "Пас аз хондан пахш кунед",
-    "padCount": "Барои ҳисоб пахш кунед"
+    "padCount": "Барои ҳисоб пахш кунед",
+    "loggingPreviousDay": "Барои {{date}} сабт мешавад — шаб то бомдод идома дорад."
   }
 }

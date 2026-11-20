@@ -2085,7 +2085,11 @@
     "quranSurahs": "Сүрелер башталды",
     "quranBookmarks": "Куран bookmarks",
     "hadithBookmarks": "Хадис bookmarks",
-    "quranProgress": "Куран прогресс"
+    "quranProgress": "Куран прогресс",
+    "todayAdhkarSets": "Зикир топтомдору",
+    "adhkarBySet": "Намаз жана убакыт боюнча зикирлер",
+    "adhkarBySetHint": "Ушул мезгилде топтомдун ар бир зарыл зикири жазылган күндөр.",
+    "adhkarDays": "{{done}}/{{days}} күн"
   },
   "prayerStatus": {
     "pending": "Күтүүдө",
@@ -5933,6 +5937,7 @@
     "sessionEyebrow": "Багытталган сессия",
     "outline": "Бул топтом · {{total}}",
     "padOnce": "Окугандан кийин басыңыз",
-    "padCount": "Саноо үчүн басыңыз"
+    "padCount": "Саноо үчүн басыңыз",
+    "loggingPreviousDay": "{{date}} үчүн жазылууда — түн багымдатка чейин созулат."
   }
 }

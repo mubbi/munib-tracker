@@ -2105,7 +2105,11 @@
     "quranSurahs": "सूरहें शुरू हुईं",
     "quranBookmarks": "Qur'an बुकमार्क",
     "hadithBookmarks": "हदीस बुकमार्क",
-    "quranProgress": "Qur'an प्रगति"
+    "quranProgress": "Qur'an प्रगति",
+    "todayAdhkarSets": "अज़कार के सेट",
+    "adhkarBySet": "नमाज़ और समय के अनुसार अज़कार",
+    "adhkarBySetHint": "इस अवधि के वे दिन जब सेट का हर ज़रूरी ज़िक्र दर्ज हुआ।",
+    "adhkarDays": "{{done}}/{{days}} दिन"
   },
   "prayerStatus": {
     "pending": "लंबित",
@@ -5836,6 +5840,7 @@
     "sessionEyebrow": "निर्देशित सत्र",
     "outline": "यह सेट · {{total}}",
     "padOnce": "पढ़ने के बाद टैप करें",
-    "padCount": "गिनने के लिए टैप करें"
+    "padCount": "गिनने के लिए टैप करें",
+    "loggingPreviousDay": "{{date}} के लिए दर्ज हो रहा है — रात फ़ज्र तक रहती है।"
   }
 }

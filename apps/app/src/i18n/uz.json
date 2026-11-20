@@ -2085,7 +2085,11 @@
     "quranSurahs": "Surhs strted",
     "quranBookmarks": "Qur'n xtcho'plr",
     "hadithBookmarks": "Hadis xatcho‘plari",
-    "quranProgress": "Qur'n jryd"
+    "quranProgress": "Qur'n jryd",
+    "todayAdhkarSets": "Zikr to'plamlari",
+    "adhkarBySet": "Namoz va vaqt bo'yicha zikrlar",
+    "adhkarBySetHint": "Bu davrda to'plamning har bir zarur zikri qayd etilgan kunlar.",
+    "adhkarDays": "{{done}}/{{days}} kun"
   },
   "prayerStatus": {
     "pending": "Kutilmoqda",
@@ -5841,6 +5845,7 @@
     "sessionEyebrow": "Yo'naltirilgan seans",
     "outline": "Bu to'plam · {{total}}",
     "padOnce": "O'qigach bosing",
-    "padCount": "Sanash uchun bosing"
+    "padCount": "Sanash uchun bosing",
+    "loggingPreviousDay": "{{date}} uchun qayd etilmoqda — tun bomdodgacha davom etadi."
   }
 }

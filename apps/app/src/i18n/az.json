@@ -2085,7 +2085,11 @@
     "quranSurahs": "Surhs strted",
     "quranBookmarks": "Qur'n əlfəciçindələr",
     "hadithBookmarks": "Hədis əlfəcinləri",
-    "quranProgress": "Qur'n irəliləyiş"
+    "quranProgress": "Qur'n irəliləyiş",
+    "todayAdhkarSets": "Zikr dəstləri",
+    "adhkarBySet": "Namaz və vaxta görə zikrlər",
+    "adhkarBySetHint": "Bu dövrdə dəstin hər tələb olunan zikrinin qeyd edildiyi günlər.",
+    "adhkarDays": "{{done}}/{{days}} gün"
   },
   "prayerStatus": {
     "pending": "Gözləyir",
@@ -5841,6 +5845,7 @@
     "sessionEyebrow": "Bələdçili sessiya",
     "outline": "Bu dəst · {{total}}",
     "padOnce": "Oxuyandan sonra toxunun",
-    "padCount": "Saymaq üçün toxunun"
+    "padCount": "Saymaq üçün toxunun",
+    "loggingPreviousDay": "{{date}} üçün qeyd olunur — gecə sübhə qədər davam edir."
   }
 }

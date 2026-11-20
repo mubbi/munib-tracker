@@ -2085,7 +2085,11 @@
     "quranSurahs": "Başlanan sureler",
     "quranBookmarks": "Kur'an yer imleri",
     "hadithBookmarks": "Hadis yer imleri",
-    "quranProgress": "Kur'an ilerleme"
+    "quranProgress": "Kur'an ilerleme",
+    "todayAdhkarSets": "Zikir setleri",
+    "adhkarBySet": "Namaza ve vakte göre zikirler",
+    "adhkarBySetHint": "Bu dönemde setin her gerekli zikrinin kaydedildiği günler.",
+    "adhkarDays": "{{done}}/{{days}} gün"
   },
   "prayerStatus": {
     "pending": "Bekliyor",
@@ -5841,6 +5845,7 @@
     "sessionEyebrow": "Rehberli oturum",
     "outline": "Bu set · {{total}}",
     "padOnce": "Okuyunca dokunun",
-    "padCount": "Saymak için dokunun"
+    "padCount": "Saymak için dokunun",
+    "loggingPreviousDay": "{{date}} için kaydediliyor — gece sabah namazına kadar sürer."
   }
 }

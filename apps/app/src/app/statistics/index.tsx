@@ -48,7 +48,14 @@ import {
   ZikrRepository,
 } from "@/db";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
+import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  adhkarSetHistory,
+  adhkarSetKey,
+  adhkarSetsForDay,
+  zikrCountsByDate,
+} from "@/lib/adhkar-history";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
@@ -116,6 +123,7 @@ export default function StatisticsScreen() {
   const devotion = useDevotionProgress();
   const achievementStats = useAchievementStats();
   const tv = isTV();
+  const { date: adhkarDate } = useAdhkarClock();
   const { width } = useWindowDimensions();
   // Wide web / tablets (never TV): overview cards side by side, metric groups
   // and detail breakdowns in grids instead of one long column.
@@ -130,7 +138,9 @@ export default function StatisticsScreen() {
   const [quranSurahsStarted, setQuranSurahsStarted] = useState(0);
   const [quranBookmarks, setQuranBookmarks] = useState(0);
   const [hadithBookmarks, setHadithBookmarks] = useState(0);
-  const [, setCorpusReady] = useState(false);
+  // The corpus maps stored zikr ids to their category / set — memos below must
+  // recompute once it lands, or a cold open files everything under "anytime".
+  const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
     void ensureZikrCorpus().then(() => setCorpusReady(true));
   }, []);
@@ -231,6 +241,7 @@ export default function StatisticsScreen() {
     [zikr, from, today],
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute once the corpus loads
   const zikrByCategory = useMemo(() => {
     const map = new Map<ZikrCategoryId, number>();
     for (const entry of zikr) {
@@ -239,7 +250,20 @@ export default function StatisticsScreen() {
       map.set(category, (map.get(category) ?? 0) + 1);
     }
     return [...map.entries()].sort((a, b) => b[1] - a[1]);
-  }, [zikr, from, today]);
+  }, [zikr, from, today, corpusReady]);
+
+  // Per set, per salah: on how many days of the period every required zikr was
+  // logged (records are per date and per salah, so salah never mix).
+  const adhkarHistory = useMemo(
+    () => (corpusReady ? adhkarSetHistory(zikr, from, today) : []),
+    [corpusReady, zikr, from, today],
+  );
+  // Today's sets on the adhkar day (Fajr → Fajr), the day sessions log under.
+  const todaySets = useMemo(() => {
+    if (!corpusReady) return null;
+    const sets = adhkarSetsForDay(zikrCountsByDate(zikr).get(adhkarDate) ?? {});
+    return { done: sets.filter((set) => set.done).length, total: sets.length };
+  }, [corpusReady, zikr, adhkarDate]);
 
   const qazaRemaining = counters.reduce((sum, c) => sum + c.remaining, 0);
   const qazaCompleted = counters.reduce((sum, c) => sum + c.completed, 0);
@@ -258,7 +282,9 @@ export default function StatisticsScreen() {
 
   const perPrayerQaza = counters.filter((c) => c.remaining > 0 || c.completed > 0);
   const hasReadingData = quranSurahsStarted > 0 || quranBookmarks > 0 || hadithBookmarks > 0;
-  const hasDetails = perPrayerQaza.length > 0 || zikrByCategory.length > 0 || hasReadingData;
+  const hasAdhkarHistory = adhkarHistory.some((row) => row.doneDays > 0 || row.partialDays > 0);
+  const hasDetails =
+    perPrayerQaza.length > 0 || zikrByCategory.length > 0 || hasAdhkarHistory || hasReadingData;
   const maxZikrCategoryCount = zikrByCategory[0]?.[1] ?? 1;
   const qazaTodayValue =
     summary.qazaTargetToday > 0
@@ -295,8 +321,8 @@ export default function StatisticsScreen() {
       color: tokens.status.success.color,
     },
     {
-      value: `${summary.zikrCompleted}/${summary.zikrTotal}`,
-      label: t("statistics.todayZikr"),
+      value: todaySets ? `${todaySets.done}/${todaySets.total}` : "—",
+      label: t("statistics.todayAdhkarSets"),
       color: tokens.status.danger.color,
     },
     {
@@ -546,6 +572,47 @@ export default function StatisticsScreen() {
                               </ThemedText>
                             </View>
                           </View>
+                        </TvReadableBlock>
+                      ))}
+                    </View>
+                  </View>
+                ) : null}
+
+                {hasAdhkarHistory ? (
+                  <View style={styles.detailBlock}>
+                    <ThemedText
+                      type="smallBold"
+                      themeColor="mutedForeground"
+                      style={styles.detailLabel}
+                    >
+                      {t("statistics.adhkarBySet")}
+                    </ThemedText>
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("statistics.adhkarBySetHint")}
+                    </ThemedText>
+                    <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
+                      {adhkarHistory.map((row, index) => (
+                        <TvReadableBlock key={adhkarSetKey(row.scope)}>
+                          {index > 0 ? (
+                            <View
+                              style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                            />
+                          ) : null}
+                          <StatLine
+                            label={
+                              row.scope.prayer
+                                ? t("zikrSession.afterPrayerEyebrow", {
+                                    prayer: t(`prayers.${row.scope.prayer}`),
+                                  })
+                                : t(`zikrCat.${row.scope.categoryId}`)
+                            }
+                            value={t("statistics.adhkarDays", {
+                              done: formatCount(row.doneDays),
+                              days: formatCount(row.days),
+                            })}
+                            color={tokens.status.success.color}
+                            bar={row.days > 0 ? row.doneDays / row.days : 0}
+                          />
                         </TvReadableBlock>
                       ))}
                     </View>

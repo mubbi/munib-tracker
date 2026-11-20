@@ -2105,7 +2105,11 @@
     "quranSurahs": "Surahs started",
     "quranBookmarks": "Qur'an bookmarks",
     "hadithBookmarks": "Hadith bookmarks",
-    "quranProgress": "Qur'an progress"
+    "quranProgress": "Qur'an progress",
+    "todayAdhkarSets": "Adhkar sets",
+    "adhkarBySet": "Adhkar by salah & time of day",
+    "adhkarBySetHint": "Days in this period on which every required zikr of the set was logged.",
+    "adhkarDays": "{{done}}/{{days}} days"
   },
   "prayerStatus": {
     "pending": "Pending",
@@ -5836,6 +5840,7 @@
     "sessionEyebrow": "Guided session",
     "outline": "This set · {{total}}",
     "padOnce": "Tap after reciting",
-    "padCount": "Tap to count"
+    "padCount": "Tap to count",
+    "loggingPreviousDay": "Logging for {{date}} — the night lasts until Fajr."
   }
 }

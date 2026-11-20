@@ -2093,7 +2093,11 @@
     "quranSurahs": "سور بدأتها",
     "quranBookmarks": "إشارات مرجعية للقرآن",
     "hadithBookmarks": "إشارات مرجعية للحديث",
-    "quranProgress": "تقدّم القرآن"
+    "quranProgress": "تقدّم القرآن",
+    "todayAdhkarSets": "مجموعات الأذكار",
+    "adhkarBySet": "الأذكار حسب الصلاة والوقت",
+    "adhkarBySetHint": "عدد الأيام في هذه الفترة التي سُجّل فيها كل ذكر مطلوب من المجموعة.",
+    "adhkarDays": "{{done}}/{{days}} يوم"
   },
   "prayerStatus": {
     "pending": "معلّقة",
@@ -5982,6 +5986,7 @@
     "sessionEyebrow": "جلسة موجَّهة",
     "outline": "هذه المجموعة · {{total}}",
     "padOnce": "اضغط بعد القراءة",
-    "padCount": "اضغط للعدّ"
+    "padCount": "اضغط للعدّ",
+    "loggingPreviousDay": "يُسجَّل ليوم {{date}} — الليلة تمتد حتى الفجر."
   }
 }

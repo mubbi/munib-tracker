@@ -2114,7 +2114,11 @@
     "quranSurahs": "Surhs strted",
     "quranBookmarks": "Qur' закладки",
     "hadithBookmarks": "Закладки хадисов",
-    "quranProgress": "Qur' progress"
+    "quranProgress": "Qur' progress",
+    "todayAdhkarSets": "Наборы азкаров",
+    "adhkarBySet": "Азкары по намазам и времени",
+    "adhkarBySetHint": "Дни периода, когда был записан каждый обязательный зикр набора.",
+    "adhkarDays": "{{done}}/{{days}} дн."
   },
   "prayerStatus": {
     "pending": "Ожидает",
@@ -5913,6 +5917,7 @@
     "sessionEyebrow": "Сессия с подсказками",
     "outline": "В наборе · {{total}}",
     "padOnce": "Нажмите, прочитав",
-    "padCount": "Нажмите для счёта"
+    "padCount": "Нажмите для счёта",
+    "loggingPreviousDay": "Запись за {{date}} — ночь длится до фаджра."
   }
 }

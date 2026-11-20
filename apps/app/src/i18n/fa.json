@@ -2085,7 +2085,11 @@
     "quranSurahs": "شروع شدہ سورتیں",
     "quranBookmarks": "قرآن yer imleri",
     "hadithBookmarks": "حدیث yer imleri",
-    "quranProgress": "پیشرفت قرآن"
+    "quranProgress": "پیشرفت قرآن",
+    "todayAdhkarSets": "مجموعه‌های ذکر",
+    "adhkarBySet": "اذکار بر اساس نماز و زمان",
+    "adhkarBySetHint": "روزهایی از این دوره که همهٔ اذکار لازم مجموعه ثبت شد.",
+    "adhkarDays": "{{done}}/{{days}} روز"
   },
   "prayerStatus": {
     "pending": "در انتظار",
@@ -5933,6 +5937,7 @@
     "sessionEyebrow": "جلسهٔ راهنما",
     "outline": "این مجموعه · {{total}}",
     "padOnce": "پس از خواندن بزنید",
-    "padCount": "برای شمارش بزنید"
+    "padCount": "برای شمارش بزنید",
+    "loggingPreviousDay": "برای {{date}} ثبت می‌شود — شب تا فجر ادامه دارد."
   }
 }

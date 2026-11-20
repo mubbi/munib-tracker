@@ -2085,7 +2085,11 @@
     "quranSurahs": "Surhs strted",
     "quranBookmarks": "Qur'n نښلنې",
     "hadithBookmarks": "د حدیث کتابونه",
-    "quranProgress": "Qur'n پرمختګ"
+    "quranProgress": "Qur'n پرمختګ",
+    "todayAdhkarSets": "د اذکارو ټولګې",
+    "adhkarBySet": "د لمانځه او وخت له مخې اذکار",
+    "adhkarBySetHint": "د دې مودې هغه ورځې چې د ټولګې هر اړین ذکر ثبت شو.",
+    "adhkarDays": "{{done}}/{{days}} ورځې"
   },
   "prayerStatus": {
     "pending": "پاتې",
@@ -5844,6 +5848,7 @@
     "sessionEyebrow": "لارښوونکې ناسته",
     "outline": "دا ټولګه · {{total}}",
     "padOnce": "له لوستو وروسته ټک کړئ",
-    "padCount": "د شمېرلو لپاره ټک کړئ"
+    "padCount": "د شمېرلو لپاره ټک کړئ",
+    "loggingPreviousDay": "د {{date}} لپاره ثبتېږي — شپه تر سهار پورې دوام کوي."
   }
 }

@@ -2085,7 +2085,11 @@
     "quranSurahs": "Başlanan sureler",
     "quranBookmarks": "Guran yer imleri",
     "hadithBookmarks": "Hadis yer imleri",
-    "quranProgress": "Guran ilerleme"
+    "quranProgress": "Guran ilerleme",
+    "todayAdhkarSets": "Zikir toplumlary",
+    "adhkarBySet": "Namaz we wagt boýunça zikirler",
+    "adhkarBySetHint": "Bu döwürde toplumyň her zerur zikri ýazylan günler.",
+    "adhkarDays": "{{done}}/{{days}} gün"
   },
   "prayerStatus": {
     "pending": "Bekliyor",
@@ -5841,6 +5845,7 @@
     "sessionEyebrow": "Ugrukdyryjy sessiýa",
     "outline": "Bu toplum · {{total}}",
     "padOnce": "Okanyňyzdan soň basyň",
-    "padCount": "Sanamak üçin basyň"
+    "padCount": "Sanamak üçin basyň",
+    "loggingPreviousDay": "{{date}} üçin ýazylýar — gije ertir namazyna çenli dowam edýär."
   }
 }

@@ -2041,7 +2041,11 @@
     "quranSurahs": "شروع شدہ سورتیں",
     "quranBookmarks": "قرآن بک مارکس",
     "hadithBookmarks": "حدیث بک مارکس",
-    "quranProgress": "قرآن کی پیش رفت"
+    "quranProgress": "قرآن کی پیش رفت",
+    "todayAdhkarSets": "اذکار کے مجموعے",
+    "adhkarBySet": "نماز اور وقت کے لحاظ سے اذکار",
+    "adhkarBySetHint": "اس مدت کے وہ دن جن میں مجموعے کا ہر ضروری ذکر درج ہوا۔",
+    "adhkarDays": "{{done}}/{{days}} دن"
   },
   "prayerStatus": {
     "pending": "باقی",
@@ -5837,6 +5841,7 @@
     "sessionEyebrow": "رہنما نشست",
     "outline": "یہ مجموعہ · {{total}}",
     "padOnce": "پڑھ کر ٹیپ کریں",
-    "padCount": "گننے کے لیے ٹیپ کریں"
+    "padCount": "گننے کے لیے ٹیپ کریں",
+    "loggingPreviousDay": "{{date}} کے لیے درج ہو رہا ہے — رات فجر تک رہتی ہے۔"
   }
 }

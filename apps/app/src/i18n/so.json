@@ -2085,7 +2085,11 @@
     "quranSurahs": "Surhs strted",
     "quranBookmarks": "Qur'n clmdh",
     "hadithBookmarks": "Calaamadaha xadiiska",
-    "quranProgress": "Qur'n hmumr"
+    "quranProgress": "Qur'n hmumr",
+    "todayAdhkarSets": "Kooxaha adkaarta",
+    "adhkarBySet": "Adkaarta salaadda iyo waqtiga",
+    "adhkarBySetHint": "Maalmaha muddadan ee la diiwaangeliyay dikri kasta oo looga baahan yahay kooxda.",
+    "adhkarDays": "{{done}}/{{days}} maalmood"
   },
   "prayerStatus": {
     "pending": "Sugitaan",
@@ -5841,6 +5845,7 @@
     "sessionEyebrow": "Fadhi la hagayo",
     "outline": "Kooxdan · {{total}}",
     "padOnce": "Taabo kadib akhrinta",
-    "padCount": "Taabo si aad u tiriso"
+    "padCount": "Taabo si aad u tiriso",
+    "loggingPreviousDay": "Waxaa loo diiwaangelinayaa {{date}} — habeenku wuxuu socdaa ilaa Subax."
   }
 }

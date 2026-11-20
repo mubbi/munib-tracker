@@ -1,0 +1,170 @@
+{
+  "en": {
+    "statistics.todayAdhkarSets": "Adhkar sets",
+    "statistics.adhkarBySet": "Adhkar by salah & time of day",
+    "statistics.adhkarBySetHint": "Days in this period on which every required zikr of the set was logged.",
+    "statistics.adhkarDays": "{{done}}/{{days}} days",
+    "zikrSession.loggingPreviousDay": "Logging for {{date}} — the night lasts until Fajr."
+  },
+  "ar": {
+    "statistics.todayAdhkarSets": "مجموعات الأذكار",
+    "statistics.adhkarBySet": "الأذكار حسب الصلاة والوقت",
+    "statistics.adhkarBySetHint": "عدد الأيام في هذه الفترة التي سُجّل فيها كل ذكر مطلوب من المجموعة.",
+    "statistics.adhkarDays": "{{done}}/{{days}} يوم",
+    "zikrSession.loggingPreviousDay": "يُسجَّل ليوم {{date}} — الليلة تمتد حتى الفجر."
+  },
+  "ur": {
+    "statistics.todayAdhkarSets": "اذکار کے مجموعے",
+    "statistics.adhkarBySet": "نماز اور وقت کے لحاظ سے اذکار",
+    "statistics.adhkarBySetHint": "اس مدت کے وہ دن جن میں مجموعے کا ہر ضروری ذکر درج ہوا۔",
+    "statistics.adhkarDays": "{{done}}/{{days}} دن",
+    "zikrSession.loggingPreviousDay": "{{date}} کے لیے درج ہو رہا ہے — رات فجر تک رہتی ہے۔"
+  },
+  "id": {
+    "statistics.todayAdhkarSets": "Set zikir",
+    "statistics.adhkarBySet": "Zikir per salat & waktu",
+    "statistics.adhkarBySetHint": "Hari dalam periode ini saat setiap zikir wajib dari set tercatat.",
+    "statistics.adhkarDays": "{{done}}/{{days}} hari",
+    "zikrSession.loggingPreviousDay": "Dicatat untuk {{date}} — malam berlangsung hingga Subuh."
+  },
+  "tr": {
+    "statistics.todayAdhkarSets": "Zikir setleri",
+    "statistics.adhkarBySet": "Namaza ve vakte göre zikirler",
+    "statistics.adhkarBySetHint": "Bu dönemde setin her gerekli zikrinin kaydedildiği günler.",
+    "statistics.adhkarDays": "{{done}}/{{days}} gün",
+    "zikrSession.loggingPreviousDay": "{{date}} için kaydediliyor — gece sabah namazına kadar sürer."
+  },
+  "bn": {
+    "statistics.todayAdhkarSets": "জিকিরের সেট",
+    "statistics.adhkarBySet": "সালাত ও সময় অনুযায়ী জিকির",
+    "statistics.adhkarBySetHint": "এই সময়ের যেসব দিনে সেটের প্রতিটি আবশ্যক জিকির লেখা হয়েছে।",
+    "statistics.adhkarDays": "{{done}}/{{days}} দিন",
+    "zikrSession.loggingPreviousDay": "{{date}}-এর জন্য লেখা হচ্ছে — রাত ফজর পর্যন্ত থাকে।"
+  },
+  "ms": {
+    "statistics.todayAdhkarSets": "Set zikir",
+    "statistics.adhkarBySet": "Zikir mengikut solat & waktu",
+    "statistics.adhkarBySetHint": "Hari dalam tempoh ini apabila setiap zikir wajib dalam set direkodkan.",
+    "statistics.adhkarDays": "{{done}}/{{days}} hari",
+    "zikrSession.loggingPreviousDay": "Direkodkan untuk {{date}} — malam berlanjutan hingga Subuh."
+  },
+  "fa": {
+    "statistics.todayAdhkarSets": "مجموعه‌های ذکر",
+    "statistics.adhkarBySet": "اذکار بر اساس نماز و زمان",
+    "statistics.adhkarBySetHint": "روزهایی از این دوره که همهٔ اذکار لازم مجموعه ثبت شد.",
+    "statistics.adhkarDays": "{{done}}/{{days}} روز",
+    "zikrSession.loggingPreviousDay": "برای {{date}} ثبت می‌شود — شب تا فجر ادامه دارد."
+  },
+  "fr": {
+    "statistics.todayAdhkarSets": "Séries d'adhkar",
+    "statistics.adhkarBySet": "Adhkar par salah et moment",
+    "statistics.adhkarBySetHint": "Jours de la période où chaque zikr requis de la série a été enregistré.",
+    "statistics.adhkarDays": "{{done}}/{{days}} jours",
+    "zikrSession.loggingPreviousDay": "Enregistré pour {{date}} — la nuit dure jusqu'à Fajr."
+  },
+  "ha": {
+    "statistics.todayAdhkarSets": "Rukunan zikiri",
+    "statistics.adhkarBySet": "Zikirai bisa sallah da lokaci",
+    "statistics.adhkarBySetHint": "Kwanakin wannan lokaci da aka rubuta kowane zikiri da ake buƙata na rukunin.",
+    "statistics.adhkarDays": "Kwana {{done}}/{{days}}",
+    "zikrSession.loggingPreviousDay": "Ana rubutawa don {{date}} — dare yana ci gaba har zuwa Asuba."
+  },
+  "sw": {
+    "statistics.todayAdhkarSets": "Seti za adhkar",
+    "statistics.adhkarBySet": "Adhkar kwa swala na wakati",
+    "statistics.adhkarBySetHint": "Siku katika kipindi hiki ambazo kila dhikri inayohitajika ya seti ilirekodiwa.",
+    "statistics.adhkarDays": "Siku {{done}}/{{days}}",
+    "zikrSession.loggingPreviousDay": "Inarekodiwa kwa {{date}} — usiku unaendelea hadi Alfajiri."
+  },
+  "ru": {
+    "statistics.todayAdhkarSets": "Наборы азкаров",
+    "statistics.adhkarBySet": "Азкары по намазам и времени",
+    "statistics.adhkarBySetHint": "Дни периода, когда был записан каждый обязательный зикр набора.",
+    "statistics.adhkarDays": "{{done}}/{{days}} дн.",
+    "zikrSession.loggingPreviousDay": "Запись за {{date}} — ночь длится до фаджра."
+  },
+  "az": {
+    "statistics.todayAdhkarSets": "Zikr dəstləri",
+    "statistics.adhkarBySet": "Namaz və vaxta görə zikrlər",
+    "statistics.adhkarBySetHint": "Bu dövrdə dəstin hər tələb olunan zikrinin qeyd edildiyi günlər.",
+    "statistics.adhkarDays": "{{done}}/{{days}} gün",
+    "zikrSession.loggingPreviousDay": "{{date}} üçün qeyd olunur — gecə sübhə qədər davam edir."
+  },
+  "ps": {
+    "statistics.todayAdhkarSets": "د اذکارو ټولګې",
+    "statistics.adhkarBySet": "د لمانځه او وخت له مخې اذکار",
+    "statistics.adhkarBySetHint": "د دې مودې هغه ورځې چې د ټولګې هر اړین ذکر ثبت شو.",
+    "statistics.adhkarDays": "{{done}}/{{days}} ورځې",
+    "zikrSession.loggingPreviousDay": "د {{date}} لپاره ثبتېږي — شپه تر سهار پورې دوام کوي."
+  },
+  "so": {
+    "statistics.todayAdhkarSets": "Kooxaha adkaarta",
+    "statistics.adhkarBySet": "Adkaarta salaadda iyo waqtiga",
+    "statistics.adhkarBySetHint": "Maalmaha muddadan ee la diiwaangeliyay dikri kasta oo looga baahan yahay kooxda.",
+    "statistics.adhkarDays": "{{done}}/{{days}} maalmood",
+    "zikrSession.loggingPreviousDay": "Waxaa loo diiwaangelinayaa {{date}} — habeenku wuxuu socdaa ilaa Subax."
+  },
+  "uz": {
+    "statistics.todayAdhkarSets": "Zikr to'plamlari",
+    "statistics.adhkarBySet": "Namoz va vaqt bo'yicha zikrlar",
+    "statistics.adhkarBySetHint": "Bu davrda to'plamning har bir zarur zikri qayd etilgan kunlar.",
+    "statistics.adhkarDays": "{{done}}/{{days}} kun",
+    "zikrSession.loggingPreviousDay": "{{date}} uchun qayd etilmoqda — tun bomdodgacha davom etadi."
+  },
+  "kk": {
+    "statistics.todayAdhkarSets": "Зікір жиындары",
+    "statistics.adhkarBySet": "Намаз бен уақыт бойынша зікірлер",
+    "statistics.adhkarBySetHint": "Осы кезеңде жиынның әр қажетті зікірі жазылған күндер.",
+    "statistics.adhkarDays": "{{done}}/{{days}} күн",
+    "zikrSession.loggingPreviousDay": "{{date}} үшін жазылуда — түн таң намазына дейін созылады."
+  },
+  "ku": {
+    "statistics.todayAdhkarSets": "Komên zikrê",
+    "statistics.adhkarBySet": "Zikr li gorî nimêj û demê",
+    "statistics.adhkarBySetHint": "Rojên vê heyamê ku her zikrê pêwîst ê komê hate tomarkirin.",
+    "statistics.adhkarDays": "{{done}}/{{days}} roj",
+    "zikrSession.loggingPreviousDay": "Ji bo {{date}} tê tomarkirin — şev heta sibehê didome."
+  },
+  "bs": {
+    "statistics.todayAdhkarSets": "Setovi zikra",
+    "statistics.adhkarBySet": "Zikr po namazu i dobu dana",
+    "statistics.adhkarBySetHint": "Dani u ovom periodu kada je zabilježen svaki obavezni zikr seta.",
+    "statistics.adhkarDays": "{{done}}/{{days}} dana",
+    "zikrSession.loggingPreviousDay": "Bilježi se za {{date}} — noć traje do sabaha."
+  },
+  "sq": {
+    "statistics.todayAdhkarSets": "Grupet e dhikrit",
+    "statistics.adhkarBySet": "Dhikri sipas namazit dhe kohës",
+    "statistics.adhkarBySetHint": "Ditët e kësaj periudhe kur u regjistrua çdo dhikër i kërkuar i grupit.",
+    "statistics.adhkarDays": "{{done}}/{{days}} ditë",
+    "zikrSession.loggingPreviousDay": "Regjistrohet për {{date}} — nata zgjat deri në sabah."
+  },
+  "ky": {
+    "statistics.todayAdhkarSets": "Зикир топтомдору",
+    "statistics.adhkarBySet": "Намаз жана убакыт боюнча зикирлер",
+    "statistics.adhkarBySetHint": "Ушул мезгилде топтомдун ар бир зарыл зикири жазылган күндөр.",
+    "statistics.adhkarDays": "{{done}}/{{days}} күн",
+    "zikrSession.loggingPreviousDay": "{{date}} үчүн жазылууда — түн багымдатка чейин созулат."
+  },
+  "tg": {
+    "statistics.todayAdhkarSets": "Маҷмӯаҳои зикр",
+    "statistics.adhkarBySet": "Зикрҳо аз рӯи намоз ва вақт",
+    "statistics.adhkarBySetHint": "Рӯзҳои ин давра, ки ҳар зикри зарурии маҷмӯа сабт шуд.",
+    "statistics.adhkarDays": "{{done}}/{{days}} рӯз",
+    "zikrSession.loggingPreviousDay": "Барои {{date}} сабт мешавад — шаб то бомдод идома дорад."
+  },
+  "tk": {
+    "statistics.todayAdhkarSets": "Zikir toplumlary",
+    "statistics.adhkarBySet": "Namaz we wagt boýunça zikirler",
+    "statistics.adhkarBySetHint": "Bu döwürde toplumyň her zerur zikri ýazylan günler.",
+    "statistics.adhkarDays": "{{done}}/{{days}} gün",
+    "zikrSession.loggingPreviousDay": "{{date}} üçin ýazylýar — gije ertir namazyna çenli dowam edýär."
+  },
+  "hi": {
+    "statistics.todayAdhkarSets": "अज़कार के सेट",
+    "statistics.adhkarBySet": "नमाज़ और समय के अनुसार अज़कार",
+    "statistics.adhkarBySetHint": "इस अवधि के वे दिन जब सेट का हर ज़रूरी ज़िक्र दर्ज हुआ।",
+    "statistics.adhkarDays": "{{done}}/{{days}} दिन",
+    "zikrSession.loggingPreviousDay": "{{date}} के लिए दर्ज हो रहा है — रात फ़ज्र तक रहती है।"
+  }
+}

@@ -2085,7 +2085,11 @@
     "quranSurahs": "Surah dimulai",
     "quranBookmarks": "Al-Al-Al-Quran markah",
     "hadithBookmarks": "Hadis markah",
-    "quranProgress": "Al-Al-Al-Quran kemajuan"
+    "quranProgress": "Al-Al-Al-Quran kemajuan",
+    "todayAdhkarSets": "Set zikir",
+    "adhkarBySet": "Zikir mengikut solat & waktu",
+    "adhkarBySetHint": "Hari dalam tempoh ini apabila setiap zikir wajib dalam set direkodkan.",
+    "adhkarDays": "{{done}}/{{days}} hari"
   },
   "prayerStatus": {
     "pending": "Menunggu",
@@ -5933,6 +5937,7 @@
     "sessionEyebrow": "Sesi berpandu",
     "outline": "Set ini · {{total}}",
     "padOnce": "Ketik selepas membaca",
-    "padCount": "Ketik untuk mengira"
+    "padCount": "Ketik untuk mengira",
+    "loggingPreviousDay": "Direkodkan untuk {{date}} — malam berlanjutan hingga Subuh."
   }
 }

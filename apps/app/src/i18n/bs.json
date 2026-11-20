@@ -2085,7 +2085,11 @@
     "quranSurahs": "Başlanan sureler",
     "quranBookmarks": "Kur'an bookmarks",
     "hadithBookmarks": "Hadis bookmarks",
-    "quranProgress": "Kur'an napredak"
+    "quranProgress": "Kur'an napredak",
+    "todayAdhkarSets": "Setovi zikra",
+    "adhkarBySet": "Zikr po namazu i dobu dana",
+    "adhkarBySetHint": "Dani u ovom periodu kada je zabilježen svaki obavezni zikr seta.",
+    "adhkarDays": "{{done}}/{{days}} dana"
   },
   "prayerStatus": {
     "pending": "Na čekanju",
@@ -5945,6 +5949,7 @@
     "sessionEyebrow": "Vođena sesija",
     "outline": "Ovaj set · {{total}}",
     "padOnce": "Dodirnite nakon učenja",
-    "padCount": "Dodirnite za brojanje"
+    "padCount": "Dodirnite za brojanje",
+    "loggingPreviousDay": "Bilježi se za {{date}} — noć traje do sabaha."
   }
 }

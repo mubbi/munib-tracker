@@ -2085,7 +2085,11 @@
     "quranSurahs": "Surhs strted",
     "quranBookmarks": "Kurani bookmarks",
     "hadithBookmarks": "Faqeshënuesit e Hadithit",
-    "quranProgress": "Kurani progresi"
+    "quranProgress": "Kurani progresi",
+    "todayAdhkarSets": "Grupet e dhikrit",
+    "adhkarBySet": "Dhikri sipas namazit dhe kohës",
+    "adhkarBySetHint": "Ditët e kësaj periudhe kur u regjistrua çdo dhikër i kërkuar i grupit.",
+    "adhkarDays": "{{done}}/{{days}} ditë"
   },
   "prayerStatus": {
     "pending": "Në pritje",
@@ -5933,6 +5937,7 @@
     "sessionEyebrow": "Seancë e udhëzuar",
     "outline": "Ky grup · {{total}}",
     "padOnce": "Prekni pas recitimit",
-    "padCount": "Prekni për të numëruar"
+    "padCount": "Prekni për të numëruar",
+    "loggingPreviousDay": "Regjistrohet për {{date}} — nata zgjat deri në sabah."
   }
 }

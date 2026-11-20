@@ -2085,7 +2085,11 @@
     "quranSurahs": "Sura zilianza",
     "quranBookmarks": "Qur'ani yer imleri",
     "hadithBookmarks": "Hadithi yer imleri",
-    "quranProgress": "Qur'ani narleme"
+    "quranProgress": "Qur'ani narleme",
+    "todayAdhkarSets": "Seti za adhkar",
+    "adhkarBySet": "Adhkar kwa swala na wakati",
+    "adhkarBySetHint": "Siku katika kipindi hiki ambazo kila dhikri inayohitajika ya seti ilirekodiwa.",
+    "adhkarDays": "Siku {{done}}/{{days}}"
   },
   "prayerStatus": {
     "pending": "Inasubiri",
@@ -5933,6 +5937,7 @@
     "sessionEyebrow": "Kikao kinachoongozwa",
     "outline": "Seti hii · {{total}}",
     "padOnce": "Gusa baada ya kusoma",
-    "padCount": "Gusa kuhesabu"
+    "padCount": "Gusa kuhesabu",
+    "loggingPreviousDay": "Inarekodiwa kwa {{date}} — usiku unaendelea hadi Alfajiri."
   }
 }

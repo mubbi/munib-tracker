@@ -2085,7 +2085,11 @@
     "quranSurahs": "surori sun fara",
     "quranBookmarks": "Alkur'ani yer imleri",
     "hadithBookmarks": "Hadisi yer imleri",
-    "quranProgress": "Alkur'ani tare darleme"
+    "quranProgress": "Alkur'ani tare darleme",
+    "todayAdhkarSets": "Rukunan zikiri",
+    "adhkarBySet": "Zikirai bisa sallah da lokaci",
+    "adhkarBySetHint": "Kwanakin wannan lokaci da aka rubuta kowane zikiri da ake buƙata na rukunin.",
+    "adhkarDays": "Kwana {{done}}/{{days}}"
   },
   "prayerStatus": {
     "pending": "Ana jira",
@@ -5841,6 +5845,7 @@
     "sessionEyebrow": "Zama mai jagora",
     "outline": "Wannan rukuni · {{total}}",
     "padOnce": "Taɓa bayan karantawa",
-    "padCount": "Taɓa don ƙidaya"
+    "padCount": "Taɓa don ƙidaya",
+    "loggingPreviousDay": "Ana rubutawa don {{date}} — dare yana ci gaba har zuwa Asuba."
   }
 }

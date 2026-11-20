@@ -2085,7 +2085,11 @@
     "quranSurahs": "Surhs strted",
     "quranBookmarks": "Coran yer imleri",
     "hadithBookmarks": "Hadith yer imleri",
-    "quranProgress": "Coran aetcrleme"
+    "quranProgress": "Coran aetcrleme",
+    "todayAdhkarSets": "Séries d'adhkar",
+    "adhkarBySet": "Adhkar par salah et moment",
+    "adhkarBySetHint": "Jours de la période où chaque zikr requis de la série a été enregistré.",
+    "adhkarDays": "{{done}}/{{days}} jours"
   },
   "prayerStatus": {
     "pending": "En attente",
@@ -5937,6 +5941,7 @@
     "sessionEyebrow": "Séance guidée",
     "outline": "Cet ensemble · {{total}}",
     "padOnce": "Touchez après récitation",
-    "padCount": "Touchez pour compter"
+    "padCount": "Touchez pour compter",
+    "loggingPreviousDay": "Enregistré pour {{date}} — la nuit dure jusqu'à Fajr."
   }
 }

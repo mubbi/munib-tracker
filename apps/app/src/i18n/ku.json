@@ -2085,7 +2085,11 @@
     "quranSurahs": "Sûre dest pê kirin",
     "quranBookmarks": "nîşaneyên Qur'anê",
     "hadithBookmarks": "Hadîs bookmarks",
-    "quranProgress": "Pêşketina Qur'anê"
+    "quranProgress": "Pêşketina Qur'anê",
+    "todayAdhkarSets": "Komên zikrê",
+    "adhkarBySet": "Zikr li gorî nimêj û demê",
+    "adhkarBySetHint": "Rojên vê heyamê ku her zikrê pêwîst ê komê hate tomarkirin.",
+    "adhkarDays": "{{done}}/{{days}} roj"
   },
   "prayerStatus": {
     "pending": "Nexelas",
@@ -5933,6 +5937,7 @@
     "sessionEyebrow": "Danişîna rêberî",
     "outline": "Ev kom · {{total}}",
     "padOnce": "Piştî xwendinê bitikîne",
-    "padCount": "Ji bo hejmartinê bitikîne"
+    "padCount": "Ji bo hejmartinê bitikîne",
+    "loggingPreviousDay": "Ji bo {{date}} tê tomarkirin — şev heta sibehê didome."
   }
 }
