@@ -4,10 +4,10 @@ import {
   afterSalahItemProgress,
   afterSalahProgressForPrayer,
   getZikrCountFromMap,
-  isZikrItemDone,
   totalAfterSalahProgress,
 } from "@/lib/after-salah-adhkar-progress";
 import { zikrByCategory } from "@/lib/zikr";
+import { isZikrOptional, zikrTarget } from "@/lib/zikr-count-key";
 
 export type ZikrListRowProgress = {
   completed: boolean;
@@ -15,9 +15,10 @@ export type ZikrListRowProgress = {
   progressLabel?: string;
 };
 
-function countProgressLabel(count: number, targetCount?: number): string | undefined {
-  if (!targetCount) return undefined;
-  return `${Math.min(count, targetCount)}/${targetCount}`;
+function countProgressLabel(count: number, target: number): string | undefined {
+  // Single recitations read as "Mark as done" — a "0/1" pill adds nothing.
+  if (target <= 1) return undefined;
+  return `${Math.min(count, target)}/${target}`;
 }
 
 /**
@@ -38,32 +39,38 @@ export function zikrListRowProgress(
       };
     }
     const count = getZikrCountFromMap(counts, item.id, prayerFilter);
-    const completed = isZikrItemDone(count, item.targetCount);
+    const target = zikrTarget(item, prayerFilter);
+    const completed = count >= target;
     return {
       completed,
-      progressLabel: completed ? undefined : countProgressLabel(count, item.targetCount),
+      progressLabel: completed ? undefined : countProgressLabel(count, target),
     };
   }
 
   const count = getZikrCountFromMap(counts, item.id);
-  const completed = isZikrItemDone(count, item.targetCount);
+  const target = zikrTarget(item);
+  const completed = count >= target;
   return {
     completed,
-    progressLabel: completed ? undefined : countProgressLabel(count, item.targetCount),
+    progressLabel: completed ? undefined : countProgressLabel(count, target),
   };
 }
 
-/** How many items in a list are done today (for category headers). */
+/** How many required items in a list are done today (optional weak-chain adhkar excluded). */
 export function zikrListProgress(
   items: ZikrItem[],
   counts: Record<string, number>,
   prayerFilter: AfterSalahPrayer | "all" = "all",
 ): { completed: number; total: number } {
+  const prayer = prayerFilter === "all" ? undefined : prayerFilter;
   let completed = 0;
+  let total = 0;
   for (const item of items) {
+    if (isZikrOptional(item, prayer)) continue;
+    total += 1;
     if (zikrListRowProgress(item, counts, prayerFilter).completed) completed += 1;
   }
-  return { completed, total: items.length };
+  return { completed, total };
 }
 
 /** Today's remaining/done totals for a whole zikr category (home + tracker rows). */

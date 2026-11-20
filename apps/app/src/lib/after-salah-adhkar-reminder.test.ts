@@ -28,11 +28,11 @@ describe("afterSalahAdhkarRoute", () => {
     expect(AFTER_SALAH_ADHKAR_ROUTE).toEqual(afterSalahAdhkarRoute());
   });
 
-  it("includes the prayer param when opened from a specific salah", () => {
+  it("opens the guided session for a specific salah", () => {
     expect(afterSalahAdhkarRoute("fajr")).toEqual({
-      pathname: "/zikr/[category]",
+      pathname: "/zikr/session/[category]",
       params: { category: "after_prayer", prayer: "fajr" },
     });
-    expect(afterSalahAdhkarHref("fajr")).toBe("/zikr/after_prayer?prayer=fajr");
+    expect(afterSalahAdhkarHref("fajr")).toBe("/zikr/session/after_prayer?prayer=fajr");
   });
 });

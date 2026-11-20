@@ -66,6 +66,38 @@ export const ZikrRepository = {
     return result;
   },
 
+  /** Writes several counts for one day in a single storage mutation ("Mark all done"). */
+  async setCounts(
+    date: string,
+    entries: ReadonlyArray<{
+      zikrId: string;
+      count: number;
+      target: number;
+      prayerId?: AfterSalahPrayer;
+    }>,
+  ): Promise<ZikrProgress[]> {
+    const results: ZikrProgress[] = [];
+    if (entries.length === 0) return results;
+    const updatedAt = new Date().toISOString();
+    await collection.mutate((map) => {
+      for (const { zikrId, count, target, prayerId } of entries) {
+        const key = zikrProgressKey(zikrId, date, prayerId);
+        const existing = map[key];
+        const safeCount = Math.max(0, count);
+        const entry: ZikrProgress = {
+          ...(existing ?? build(zikrId, date, 0, target, prayerId)),
+          count: safeCount,
+          target,
+          completed: target > 0 && safeCount >= target,
+          updatedAt,
+        };
+        map[key] = entry;
+        results.push(entry);
+      }
+    });
+    return results;
+  },
+
   async increment(
     zikrId: string,
     date: string,

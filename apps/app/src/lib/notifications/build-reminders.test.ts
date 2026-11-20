@@ -100,8 +100,8 @@ describe("buildReminders", () => {
     expect(routeFor("prayer:")).toBe("/tracker");
     expect(routeFor("afterAzan:")).toBe("/zikr/after_azan");
     expect(routeFor("beforePrayer:")).toBe("/zikr/before_prayer");
-    expect(routeFor("afterPrayer:fajr:")).toBe("/zikr/after_prayer?prayer=fajr");
-    expect(routeFor("afterPrayer:dhuhr:")).toBe("/zikr/after_prayer?prayer=dhuhr");
+    expect(routeFor("afterPrayer:fajr:")).toBe("/zikr/session/after_prayer?prayer=fajr");
+    expect(routeFor("afterPrayer:dhuhr:")).toBe("/zikr/session/after_prayer?prayer=dhuhr");
   });
 
   it("carries the reminder route through to summary rows", () => {

@@ -39,12 +39,26 @@ describe("zikrListRowProgress", () => {
   });
 
   it("shows 0/target before any recitations so remaining is visible in the list", () => {
-    const zikr = item({ id: "evening-ayat-al-kursi", categoryId: "evening", targetCount: 1 });
+    const zikr = item({ id: "evening-protection", categoryId: "evening", targetCount: 3 });
 
     expect(zikrListRowProgress(zikr, {})).toEqual({
       completed: false,
-      progressLabel: "0/1",
+      progressLabel: "0/3",
     });
+  });
+
+  it("omits a 0/1 label for single recitations (the row shows ×1 instead)", () => {
+    const zikr = item({ id: "evening-ayat-al-kursi", categoryId: "evening", targetCount: 1 });
+
+    expect(zikrListRowProgress(zikr, {}).progressLabel).toBeUndefined();
+    expect(zikrListRowProgress(zikr, { "evening-ayat-al-kursi": 1 }).completed).toBe(true);
+  });
+
+  it("treats a missing target as one recitation, never a tasbeeh default", () => {
+    const zikr = item({ id: "morning-sayyid", categoryId: "morning", targetCount: undefined });
+
+    expect(zikrListRowProgress(zikr, {}).completed).toBe(false);
+    expect(zikrListRowProgress(zikr, { "morning-sayyid": 1 }).completed).toBe(true);
   });
 
   it("tracks after-salah slots across all prayers on the All filter", () => {

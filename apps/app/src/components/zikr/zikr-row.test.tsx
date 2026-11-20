@@ -29,14 +29,15 @@ describe("ZikrRow", () => {
 
   it("shows the target count and category without progress", async () => {
     await renderRow({ categoryLabel: "Morning" });
-    expect(screen.getByLabelText("Bismillah")).toBeTruthy();
+    expect(screen.getByLabelText("Bismillah, Repeat ×3")).toBeTruthy();
     expect(screen.getByText("×3")).toBeTruthy();
     expect(screen.getByText("Morning")).toBeTruthy();
   });
 
-  it("omits badges when there is nothing to show", async () => {
+  it("treats a missing target as a single recitation", async () => {
     await renderRow({ item: buildZikrItem({ targetCount: 0, transliteration: "" }) });
     expect(screen.queryByText("×3")).toBeNull();
+    expect(screen.getByText("Once")).toBeTruthy();
   });
 
   it.each([

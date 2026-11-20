@@ -12,13 +12,15 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
+import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useTasbeehCounterDock } from "@/hooks/use-tasbeeh-counter-dock";
+import { resolveAfterSalahPrayer } from "@/lib/adhkar-session";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
-import { zikrCountKey } from "@/lib/zikr-count-key";
+import { zikrCountKey, zikrTarget } from "@/lib/zikr-count-key";
 import { usePreferences } from "@/stores/preferences-store";
 import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 import { trackerStore } from "@/stores/tracker-store";
@@ -73,11 +75,18 @@ export default function ZikrTasbeehScreen() {
   }, []);
 
   const item = corpusReady && zikrId ? getZikrById(zikrId) : undefined;
+  const { currentAfterSalah } = useAdhkarClock();
+  // After-salah counts are per salah; without one, use the current salah.
   const afterSalahPrayer =
-    item?.categoryId === "after_prayer" && prayerParam && isAfterSalahPrayer(prayerParam)
-      ? prayerParam
+    item?.categoryId === "after_prayer"
+      ? resolveAfterSalahPrayer(
+          item,
+          prayerParam && isAfterSalahPrayer(prayerParam) ? prayerParam : undefined,
+          currentAfterSalah,
+        )
       : undefined;
-  const target = item?.targetCount && item.targetCount > 0 ? item.targetCount : 33;
+  // The zikr's own repetition count — never a generic 33 (a single recitation is 1).
+  const target = item ? zikrTarget(item, afterSalahPrayer) : 1;
 
   // Seed from today's stored progress once the corpus (and thus the item) is ready.
   const [count, setCount] = useState(0);

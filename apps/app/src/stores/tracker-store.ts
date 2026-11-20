@@ -74,6 +74,13 @@ export type SetPrayerStatusOptions = {
   addToQaza?: boolean;
 };
 
+export type ZikrCountWrite = {
+  zikrId: string;
+  count: number;
+  target: number;
+  prayerId?: AfterSalahPrayer;
+};
+
 export type ZikrProgressOptions = {
   /** Scope after-salah adhkar to one prayer (fard or Witr) for the day. */
   prayerId?: AfterSalahPrayer;
@@ -131,6 +138,8 @@ export interface TrackerState {
     target: number,
     options?: ZikrProgressOptions,
   ) => Promise<void>;
+  /** Log many zikr counts for today at once (e.g. "Mark all as done"). */
+  setZikrCounts: (entries: ReadonlyArray<ZikrCountWrite>) => Promise<void>;
   incrementZikr: (
     zikrId: string,
     target: number,
@@ -451,6 +460,20 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       });
     },
 
+    setZikrCounts(entries) {
+      return enqueue(async () => {
+        if (entries.length === 0) return;
+        const { date, zikrCounts } = get();
+        const next = { ...zikrCounts };
+        for (const entry of entries) {
+          next[zikrCountKey(entry.zikrId, entry.prayerId)] = Math.max(0, entry.count);
+        }
+        set({ zikrCounts: next });
+        await ZikrRepository.setCounts(date, entries);
+        await refreshUnlocked();
+      });
+    },
+
     incrementZikr(zikrId, target, by = 1, options) {
       return enqueue(async () => {
         const { date, zikrCounts } = get();
@@ -664,6 +687,8 @@ const trackerActions = {
     trackerStore.getState().setDayExcused(...args),
   setZikrCount: (...args: Parameters<TrackerState["setZikrCount"]>) =>
     trackerStore.getState().setZikrCount(...args),
+  setZikrCounts: (...args: Parameters<TrackerState["setZikrCounts"]>) =>
+    trackerStore.getState().setZikrCounts(...args),
   incrementZikr: (...args: Parameters<TrackerState["incrementZikr"]>) =>
     trackerStore.getState().incrementZikr(...args),
   adjustQaza: (...args: Parameters<TrackerState["adjustQaza"]>) =>

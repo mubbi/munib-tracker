@@ -13,6 +13,7 @@ import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
+import { zikrTarget } from "@/lib/zikr-count-key";
 
 const CHEVRON_SIZE = 14;
 const FAVORITE_SIZE = 18;
@@ -35,6 +36,10 @@ type ZikrRowProps = {
   progressLabel?: string;
   /** TV: initial D-pad focus (first row of a list). No-op on phone/web. */
   preferredFocus?: boolean;
+  /** Repetitions in this context (e.g. the Quls ×3 after Fajr); defaults to the item's own. */
+  target?: number;
+  /** Weak-chain zikr — shown with an "Optional" badge, never required. */
+  optional?: boolean;
 };
 
 export const ZikrRow = memo(function ZikrRow({
@@ -47,6 +52,8 @@ export const ZikrRow = memo(function ZikrRow({
   completed,
   progressLabel,
   preferredFocus,
+  target: targetOverride,
+  optional,
 }: ZikrRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -59,8 +66,15 @@ export const ZikrRow = memo(function ZikrRow({
     [item.id, onToggleFavorite],
   );
 
-  const statusLabel = completed ? (progressLabel ?? t("zikr.done")) : progressLabel;
-  const accessibilityLabel = [index != null ? `${index}. ${item.title}` : item.title, statusLabel]
+  const target = targetOverride ?? zikrTarget(item);
+  const statusLabel = completed
+    ? (progressLabel ?? t("zikr.done"))
+    : (progressLabel ?? t("zikrSession.timesLabel", { times: target }));
+  const accessibilityLabel = [
+    index != null ? `${index}. ${item.title}` : item.title,
+    statusLabel,
+    optional ? t("zikrSession.optional") : undefined,
+  ]
     .filter(Boolean)
     .join(", ");
 
@@ -94,7 +108,7 @@ export const ZikrRow = memo(function ZikrRow({
             </ThemedText>
           ) : null}
 
-          {completed || progressLabel || item.targetCount || categoryLabel ? (
+          {completed || progressLabel || target || categoryLabel ? (
             <View style={styles.badges}>
               {completed ? (
                 <Pill
@@ -113,12 +127,22 @@ export const ZikrRow = memo(function ZikrRow({
                   background={tokens.accentSoft}
                   style={styles.badge}
                 />
-              ) : item.targetCount ? (
+              ) : target ? (
                 <Pill
                   compact
-                  label={`×${item.targetCount}`}
+                  label={target > 1 ? `×${target}` : t("zikrSession.once")}
                   color={colors.accent}
                   background={tokens.accentSoft}
+                  style={styles.badge}
+                />
+              ) : null}
+
+              {optional && !completed ? (
+                <Pill
+                  compact
+                  label={t("zikrSession.optional")}
+                  color={tokens.status.warning.color}
+                  background={tokens.status.warning.soft}
                   style={styles.badge}
                 />
               ) : null}
