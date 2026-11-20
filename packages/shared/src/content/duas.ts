@@ -870,7 +870,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ اللَّهُمَّ اغْفِرْلِي",
     translation: "How perfect You are O Allah, our Lord and I praise You. O Allah, forgive me.",
     translations: {
-      bn: "হে আল্লাহ! আমাদের রব্ব! আপনার পবিত্রতা ও মহিমা ঘোষণা করছি আপনার প্রশংসাসহ। হে আল্লাহ! আপনি আমাকে মাফ করে দিন।",
+      bn: "হে আল্লাহ! আমাদের রব্ব! আপনার প্রশংসাসহ আপনার পবিত্রতা ও মহিমা ঘোষণা করছি। হে আল্লাহ! আপনি আমাকে মাফ করে দিন।",
     },
     reference: "Al-Bukhârî [794](1/99) and Muslim [484](1/350).",
     audioUri:
@@ -913,7 +913,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "How perfect He is, The Possessor of total power, sovereignty, magnificence and grandeur.",
     translations: {
-      bn: "পবিত্রতা ও মহিমা ঘোষণা করছি সেই সত্তার, যিনি প্রবল প্রতাপ, বিশাল সাম্রাজ্য, বিরাট গৌরব-গরিমা এবং অতুলনীয় মহত্ত্বের অধিকারী",
+      bn: "পবিত্রতা ও মহিমা ঘোষণা করছি সেই সত্তার, যিনি প্রবল প্রতাপ, বিশাল সাম্রাজ্য, বিরাট গৌরব-গরিমা এবং অতুলনীয় মহত্ত্বের অধিকারী।",
     },
     reference: "Abû Dâwud [873](1/230), An-Nisâ'i (2/191) and Aĥmad (6/24).",
     audioUri:
