@@ -35,6 +35,12 @@ import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reason
 import "@/lib/auth/auth-session-bootstrap";
 import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
 import { flushPendingOssContentFailures } from "@/lib/report-oss-content-download-failure";
+import {
+  hasUnsyncedTrackingChanges,
+  markTrackingSynced,
+  onTrackingChanged,
+  trackingChangeVersion,
+} from "@/lib/sync/tracking-changes";
 import { runSync } from "@/sync/sync-engine";
 
 export type OAuthPayload = {
@@ -58,6 +64,13 @@ export type OAuthPayload = {
 export type ManualSyncOutcome = "ok" | "error" | "skipped";
 
 const FOREGROUND_SYNC_MIN_INTERVAL_MS = 5 * 60 * 1000;
+/**
+ * Quiet period after a tracking edit (zikr counts …) before pushing it — long
+ * enough that a run of tasbeeh taps becomes a single sync.
+ */
+const TRACKING_SYNC_DEBOUNCE_MS = 4000;
+/** Give up re-queuing after this many back-to-back "another sync is running" skips. */
+const TRACKING_SYNC_MAX_SKIPS = 5;
 
 interface AuthContextValue {
   session: StoredSession | null;
@@ -223,7 +236,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // before every sync (especially on web tab focus).
       const current = await SessionStore.get();
       if (!current || current.accountType === "guest") return "skipped";
+      // Edits made after this point may be missed by this push — only the ones
+      // already recorded are covered when it succeeds.
+      const trackingUpTo = trackingChangeVersion();
       await runSync(current);
+      markTrackingSynced(trackingUpTo);
       lastSuccessfulSyncAt.current = Date.now();
       return "ok";
     } catch {
@@ -486,6 +503,53 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!session?.accessToken) return;
     flushPendingOssContentFailures();
   }, [session?.accessToken]);
+
+  // Push local tracking edits (zikr counts …) for signed-in users shortly after
+  // they happen, and flush before the app is backgrounded/closed, so another
+  // device sees them without waiting for a later foreground sync.
+  const isUserSession = session?.accountType === "user";
+  useEffect(() => {
+    if (!isUserSession) return;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    let disposed = false;
+    let skips = 0;
+
+    const flush = async () => {
+      if (timer) clearTimeout(timer);
+      timer = null;
+      if (disposed || !hasUnsyncedTrackingChanges()) return;
+      const outcome = await syncNow();
+      if (disposed) return;
+      if (outcome === "skipped") {
+        // Another sync was mid-flight (it may have read before this edit) — retry.
+        skips += 1;
+        if (skips <= TRACKING_SYNC_MAX_SKIPS) schedule();
+        return;
+      }
+      skips = 0;
+      // "error" (offline / 5xx) is retried by the reconnect + foreground syncs.
+      if (outcome === "ok" && hasUnsyncedTrackingChanges()) schedule();
+    };
+
+    function schedule() {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => void flush(), TRACKING_SYNC_DEBOUNCE_MS);
+    }
+
+    const unsubscribe = onTrackingChanged(schedule);
+    const appState = AppState.addEventListener("change", (status: AppStateStatus) => {
+      if (status === "background" || status === "inactive") void flush();
+    });
+    // Edits recorded while this effect was not listening (e.g. right after sign-in).
+    if (hasUnsyncedTrackingChanges()) schedule();
+
+    return () => {
+      disposed = true;
+      if (timer) clearTimeout(timer);
+      unsubscribe();
+      appState.remove();
+    };
+  }, [isUserSession, syncNow]);
 
   // Sync when returning to the foreground.
   useEffect(() => {

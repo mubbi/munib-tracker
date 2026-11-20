@@ -37,6 +37,7 @@ import {
 import { persistAchievementSync } from "@/lib/achievements-persistence";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { markPreferencesDirty } from "@/lib/sync/preferences-cloud-sync";
+import { markTrackingChanged } from "@/lib/sync/tracking-changes";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 
 import { createStore, useStore } from "./create-store";
@@ -456,6 +457,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
           set({ zikrCounts: { ...get().zikrCounts, [key]: Math.max(0, count) } });
         }
         await ZikrRepository.setCount(zikrId, date, count, target, options?.prayerId);
+        markTrackingChanged();
         await refreshUnlocked();
       });
     },
@@ -470,6 +472,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
         }
         set({ zikrCounts: next });
         await ZikrRepository.setCounts(date, entries);
+        markTrackingChanged();
         await refreshUnlocked();
       });
     },
@@ -481,6 +484,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
         const next = Math.max(0, (zikrCounts[key] ?? 0) + by);
         set({ zikrCounts: { ...zikrCounts, [key]: next } });
         await ZikrRepository.increment(zikrId, date, target, by, options?.prayerId);
+        markTrackingChanged();
         await refreshUnlocked();
       });
     },

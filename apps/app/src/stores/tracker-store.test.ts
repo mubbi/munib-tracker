@@ -3,6 +3,7 @@ import { addDays, getLocalDateString } from "@munib-tracker/shared/utils";
 import { act, renderHook } from "@testing-library/react-native";
 
 import { PrayerRepository, PreferencesRepository, QazaRepository } from "@/db";
+import { onTrackingChanged } from "@/lib/sync/tracking-changes";
 import { loadTrackerStore, resetTrackerStore } from "@/test-support/store";
 
 import { preferencesStore } from "./preferences-store";
@@ -270,6 +271,28 @@ describe("trackerStore notes, jama and past days", () => {
   it("setZikrCount clamps today's optimistic count at zero", async () => {
     await state().setZikrCount("z1", -4, 10);
     expect(state().zikrCounts.z1).toBe(0);
+  });
+
+  it("signals cloud sync after every persisted zikr write (per salah included)", async () => {
+    const listener = jest.fn();
+    const unsubscribe = onTrackingChanged(listener);
+    try {
+      await state().setZikrCount("after_prayer-tasbih", 5, 33, { prayerId: "fajr" });
+      await state().incrementZikr("morning-protection", 3);
+      await state().setZikrCounts([
+        { zikrId: "after_prayer-tasbih", count: 33, target: 33, prayerId: "asr" },
+        { zikrId: "after_prayer-tahmid", count: 33, target: 33, prayerId: "asr" },
+      ]);
+    } finally {
+      unsubscribe();
+    }
+    expect(listener).toHaveBeenCalledTimes(3);
+    expect(state().zikrCounts).toMatchObject({
+      "after_prayer-tasbih::fajr": 5,
+      "after_prayer-tasbih::asr": 33,
+      "after_prayer-tahmid::asr": 33,
+      "morning-protection": 1,
+    });
   });
 
   it("clearing today's excuse ends the active period", async () => {

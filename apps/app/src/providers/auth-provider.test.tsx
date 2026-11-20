@@ -3,6 +3,7 @@ import { act, render, renderHook, waitFor } from "@testing-library/react-native"
 import type { ReactNode } from "react";
 
 import type { StoredSession } from "@/auth/session-store";
+import { __resetTrackingChangesForTests, markTrackingChanged } from "@/lib/sync/tracking-changes";
 import { AuthProvider, useAuth } from "@/providers/auth-provider";
 import { captureAppStateListener } from "@/test-support/app-state";
 import {
@@ -164,6 +165,7 @@ beforeEach(() => {
   jest.clearAllMocks();
   Object.assign(mockState, { session: null, refresher: null, online: true, reloading: false });
   appState = captureAppStateListener();
+  __resetTrackingChangesForTests();
   api.requestGuestSession.mockResolvedValue(guestDto("access-guest"));
   api.getCurrentUser.mockResolvedValue(profile);
   api.refreshSession.mockImplementation(async (token: string) =>
@@ -479,6 +481,61 @@ describe("background sync triggers", () => {
     await rerender({});
     await flush();
     expect(runSync).toHaveBeenCalledWith(user);
+  });
+});
+
+describe("tracking change sync (zikr counts …)", () => {
+  /** Records a local tracking edit, as the tracker store does after a zikr write. */
+  async function recordZikr() {
+    await act(async () => markTrackingChanged());
+  }
+
+  it("pushes a recorded change after a short quiet period for a signed-in user", async () => {
+    await setup({ stored: user });
+    expect(runSync).toHaveBeenCalledTimes(1); // boot sync
+    jest.useFakeTimers();
+    try {
+      await recordZikr();
+      await recordZikr(); // a burst of taps …
+      await act(async () => {
+        jest.advanceTimersByTime(3_000);
+      });
+      expect(runSync).toHaveBeenCalledTimes(1); // … still debouncing
+      await act(async () => {
+        jest.advanceTimersByTime(1_500);
+      });
+    } finally {
+      jest.useRealTimers();
+    }
+    await flush();
+    expect(runSync).toHaveBeenCalledTimes(2); // … becomes one sync
+    expect(runSync).toHaveBeenLastCalledWith(user);
+  });
+
+  it("flushes unsynced changes when the app goes to the background", async () => {
+    await setup({ stored: user });
+    await recordZikr();
+    await act(async () => appState.emit("background"));
+    await flush();
+    expect(runSync).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not sync again on background when a sync already covered the change", async () => {
+    const { result } = await setup({ stored: user });
+    await recordZikr();
+    await perform(() => result.current.syncNow());
+    expect(runSync).toHaveBeenCalledTimes(2);
+    await act(async () => appState.emit("background"));
+    await flush();
+    expect(runSync).toHaveBeenCalledTimes(2);
+  });
+
+  it("never pushes tracking changes for guests", async () => {
+    await setup({ stored: guest });
+    await recordZikr();
+    await act(async () => appState.emit("background"));
+    await flush();
+    expect(runSync).not.toHaveBeenCalled();
   });
 });
 

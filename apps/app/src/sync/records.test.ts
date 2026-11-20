@@ -163,3 +163,49 @@ describe("buildSyncRecords blob fallbacks", () => {
     expect(records.find((r) => r.entity === "quran_bookmarks")?.updatedAt).toBe(NOW);
   });
 });
+
+describe("buildSyncRecords — per-salah adhkar", () => {
+  it("keeps each salah's count of the same zikr as its own record", () => {
+    const records = buildSyncRecords({
+      nowIso: "2026-11-21T12:00:00.000Z",
+      prayerLogs: [],
+      zikrProgress: [
+        {
+          id: "a",
+          zikrId: "after_prayer-tasbih",
+          date: "2026-11-21",
+          count: 33,
+          target: 33,
+          completed: true,
+          prayerId: "fajr",
+          updatedAt: "2026-11-21T05:40:00.000Z",
+        },
+        {
+          id: "b",
+          zikrId: "after_prayer-tasbih",
+          date: "2026-11-21",
+          count: 12,
+          target: 33,
+          completed: false,
+          prayerId: "dhuhr",
+          updatedAt: "2026-11-21T12:31:00.000Z",
+        },
+      ],
+      qazaCounters: [],
+      roza: { remaining: 0, completed: 0 },
+      preferences: { ...prefs, updatedAt: undefined },
+      tombstones: [],
+      ...blobFields,
+    }).filter((r) => r.entity === "zikr_progress");
+
+    expect(records.map((r) => r.id)).toEqual([
+      "after_prayer-tasbih::2026-11-21::fajr",
+      "after_prayer-tasbih::2026-11-21::dhuhr",
+    ]);
+    expect(records.map((r) => (r.data as { prayerId?: string }).prayerId)).toEqual([
+      "fajr",
+      "dhuhr",
+    ]);
+    expect(records[1].updatedAt).toBe("2026-11-21T12:31:00.000Z");
+  });
+});
