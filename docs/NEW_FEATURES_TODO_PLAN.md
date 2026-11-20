@@ -3,7 +3,7 @@
 Status: **planned, not started** · Created 2026-11-19 · Owner: product
 Shipped catalog: [`FEATURES.md`](./FEATURES.md) · Open work: [`BACKLOG.md`](./BACKLOG.md)
 
-This plan covers 18 features plus the shared foundations they need. Each feature section gives:
+This plan covers 20 features plus the shared foundations they need. Each feature section gives:
 goal, Islamic basis, scope, data model, storage/sync, core logic and conditions, UI/routes,
 notifications, data sources, tests, acceptance criteria and open risks.
 
@@ -18,11 +18,11 @@ When a feature ships, move its row into `FEATURES.md` (same NF id) and delete it
 3. [Phasing & sequencing](#3-phasing--sequencing)
 4. [Foundations (NF-3.0)](#4-foundations-nf-30) — incl. **NF-3.0a "My madhhab" setting + retrofit**
 5. [Phase 1 — Daily practice](#5-phase-1--daily-practice)
-   - NF-3.1 Sunnah Rawatib · NF-3.2 Voluntary fasting · NF-3.3 Dhul-Hijjah mode · NF-3.5 Daily Sunnah habits
+   - NF-3.1 Sunnah Rawatib · NF-3.2 Voluntary fasting · NF-3.3 Dhul-Hijjah mode · NF-3.5 Daily Sunnah habits · NF-3.19 Tasbeeh counter designs
 6. [Phase 2 — Private self-accountability](#6-phase-2--private-self-accountability)
    - NF-3.6 Muhasabah · NF-3.7 Silat al-rahim · NF-3.8 Debts record · NF-3.9 Wasiyyah · NF-3.14 Weekly gentle coach
 7. [Phase 3 — Fiqh tools & Qur'an](#7-phase-3--fiqh-tools--quran)
-   - NF-3.10 Mirath · NF-3.15 Tajweed coaching · NF-3.4 Umrah mode
+   - NF-3.10 Mirath · NF-3.15 Tajweed coaching · NF-3.20 Hands-free tasbeeh (voice) · NF-3.4 Umrah mode
 8. [Phase 4 — Device & place](#8-phase-4--device--place)
    - NF-3.13 Salah focus lock · NF-3.11 Masjid finder · NF-3.12 Timetable OCR
 9. [Phase 5 — Social (circles)](#9-phase-5--social-circles)
@@ -42,13 +42,14 @@ Decided with the product owner on 2026-11-19. Don't change any of these without 
 | --- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | D1  | Social backend             | Build a **`circles` module in `apps/api`** (Postgres + TypeORM migrations, Drizzle mirror in `packages/db`). Family, partner and group khatm ship in the **final phase**, after the single-user features.                                                      |
 | D2  | Sensitive data             | Muhasabah, wasiyyah and the debts record are **stored on the device by default**. Cloud sync is **opt-in and end-to-end encrypted**: the server stores ciphertext only. Silat al-rahim relatives (third-party names and phone numbers) also go in the vault (extension of D2, see §4.2). |
-| D3  | AI approach                | **On-device only, permanently.** The weekly coach is a deterministic rules engine with i18n templates. Timetable OCR uses on-device text recognition plus a rule-based parser. No cloud LLM calls, no server-side inference, ever, for these features.          |
+| D3  | AI approach                | **On-device only, permanently.** The weekly coach is a deterministic rules engine with i18n templates. Timetable OCR uses on-device text recognition plus a rule-based parser. Hands-free tasbeeh (NF-3.20) runs the pinned FastConformer ONNX model on the device; it never uses OS or cloud speech recognition, and audio never leaves the device. No cloud LLM calls, no server-side inference, ever, for these features.          |
 | D4  | Focus lock                 | **Hard block from v1.** iOS uses FamilyControls / ManagedSettings / DeviceActivity, which needs Apple's distribution entitlement. Android uses UsageStats, an overlay and a foreground service, which needs Play policy declarations. Start both approval processes in Phase 0 because of the lead time. |
 | D5  | Masjid data                | **Publicly available data only.** Locations, details and any times come from **OpenStreetMap (Overpass)**, through a read-only proxy and cache in `apps/api`. Other public timetable sources are added only after a licence review. **No user submissions, no voting, no admin moderation, no masjid-admin claims.** When a field has no public data, it **isn't shown**. Users may keep **private** iqamah times for their own home masjid (manual or on-device OCR), and these are never shared. |
 | D6  | Mirath scope               | **All four schools in v1**, one engine with per-school parameters for the disputed cases. Release is **gated on scholar sign-off** of the fixture suite.                                                                                                      |
 | D7  | Kids                       | **Parent-managed child profile**: no email, nickname and birth year only, child device linked by QR. Kids mode applies below 13. The parent sees **fard salah status only**.                                                                                     |
 | D8  | Rawatib default            | **Follows the global madhhab and can be edited.** Hanafi → 12; Shafi'i / Hanbali / Maliki → 10 mu'akkadah. The user can switch between 10 and 12 and enable optional ghayr mu'akkadah extras.                                                               |
 | D9  | Global madhhab (NF-3.0a)   | One **"My madhhab"** setting (Hanafi / Shafi'i / Maliki / Hanbali / **Show all views**) that every guide and calculator reads, **including retrofitting shipped features**: Witr, hayd/istihada/nifas, qasr/jam', zakat nisab, Fajr/Isha preferred times, fidyah, Eid/Jumu'ah, janazah, tawaf (§4.1.4). Differences are labelled, never hidden. It is independent of the Asr `MadhabKey`, but picking a school offers to match the two. |
+| D10 | Tasbeeh design default (NF-3.19) | The **current circular donut (Ring) with the count inside stays the default** for every user, and is used when no design has been chosen. Sliding beads and the other designs are opt-in from the counter's style sheet or from Settings. |
 
 Planning decisions taken here (reversible; flag them in review if you disagree):
 
@@ -81,9 +82,9 @@ Planning decisions taken here (reversible; flag them in review if you disagree):
 | Phase | Features                                                                    | Why this order                                                         | Est. size |
 | ----- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------- |
 | 0     | NF-3.0 foundations: **NF-3.0a madhhab setting + retrofit of shipped features (§4.1.4)**, vault, **entitlement / Play filings** | Everything else depends on these. The retrofit fixes today's silent single-school defaults (zakat nisab, Witr qaza, hayd). The Apple and Play reviews take weeks. | L         |
-| 1     | 3.1 Rawatib · 3.2 Voluntary fasting · 3.5 Sunnah habits · 3.3 Dhul-Hijjah mode | Local-only, used every day, extends existing patterns. **Dhul-Hijjah 1448 starts around May 2027** (verify with `hijri.ts`). | M         |
+| 1     | 3.1 Rawatib · 3.2 Voluntary fasting · 3.5 Sunnah habits · 3.3 Dhul-Hijjah mode · 3.19 Tasbeeh designs | Local-only, used every day, extends existing patterns. **Dhul-Hijjah 1448 starts around May 2027** (verify with `hijri.ts`). 3.19 has no dependencies, so it can be built in parallel with the others or at any time. | M         |
 | 2     | 3.6 Muhasabah · 3.7 Silat al-rahim · 3.8 Debts · 3.9 Wasiyyah · 3.14 Coach  | Needs the vault (D2). The coach consumes Phase 1 data.                 | L         |
-| 3     | 3.10 Mirath · 3.15 Tajweed coaching · 3.4 Umrah mode                        | Heavy fiqh/test work. The wasiyyah links into mirath.                  | L         |
+| 3     | 3.10 Mirath · 3.15 Tajweed coaching · 3.20 Hands-free tasbeeh · 3.4 Umrah mode | Heavy fiqh/test work. The wasiyyah links into mirath. 3.20 shares the on-device speech stack with Qur'an practice and needs the 3.19 counter shell; spikes S1 and S2 can start at any time. | L         |
 | 4     | 3.13 Focus lock · 3.11 Masjid finder · 3.12 Timetable OCR                   | Native modules plus a read-only OSM proxy in the API (no admin work). The entitlements should be approved by now. | XL        |
 | 5     | 3.16 Family & kids · 3.17 Partner · 3.18 Group khatm                        | D1: social goes last. Needs the `circles` backend.                     | XL        |
 
@@ -96,6 +97,7 @@ debts ────────→ wasiyyah ─→ mirath (estate deductions)
 masjid finder → timetable OCR (private home-masjid times), focus lock (iqamah window), rawatib (tahiyyat al-masjid hint)
 circles API ──→ family/kids, partner, group khatm
 all trackers ─→ weekly coach
+tasbeeh shell (3.19) + Qur'an practice speech stack (shipped) ─→ hands-free tasbeeh (3.20)
 ```
 
 ---
@@ -770,6 +772,185 @@ export interface SunnahHabitsState {
 
 **Notifications:** optional single evening nudge (`notificationPrefs.habits`, default off). Before-sleep habits fold into the existing `beforeSleep` reminder text, with no extra slot.
 
+### NF-3.19 Tasbeeh counter designs (themes, sliding beads, sound & haptics)
+
+**Goal.** Let users choose how the tasbeeh counter looks, sounds and feels. Today's circular donut with the count inside stays the **default** (D10). Add a traditional **sliding-bead misbaha** with its own shapes, materials and colours, and a few more designs. Each design is a different way of showing the same counter, so counting stays exactly as accurate as it is today.
+
+**Related:** NF-3.20 (hands-free voice counting) sends recognised phrases through the same face `onCount` path, so every design here also responds to voice.
+
+**Where it applies.** Every screen that renders `TasbeehCounter`: `tasbeeh/[zikrId].tsx`, `tasbeeh/free.tsx`, `tasbeeh/custom/[id].tsx` and `tasbeeh/durood/[id].tsx`. The sticky dock (`TasbeehCounterBar`), widgets, Watch/Wear and Live Activities keep the compact ring in v1.
+
+**Islamic basis and guardrails.**
+
+- **Fingers are the Sunnah way to count.** The Prophet ﷺ said to count on the fingertips, "for they will be asked and made to speak" (Abu Dawud 1501; Tirmidhi 3583, graded hasan; verify the numbering). Most scholars allow beads, pebbles and date pits. The reports about pebbles and date pits are graded differently by different scholars (Tirmidhi 3568 / Abu Dawud 1500; verify). Several scholars hold that counting on the fingers is better.
+- **A design only changes how the count is shown.** No copy ever says or suggests that one design brings more reward. The finger design links to the hadith above. Nothing in any design ties an amount of reward to a count (see the rejected ideas below).
+- **No music.** Sounds are short, natural, percussive clicks: wood, stone, resin, glass, or a mechanical clicker. No melodic chimes and **no bells** (Muslim 2114; verify). The completion cue is a soft "strand settles" clack, not a jingle.
+- **No living beings.** Imagery is geometric, natural materials, or the sky. No mascots, animals or faces.
+- **Calm, not game-like.** No points, XP, coins or unlockable "rare beads", and no paywall on worship visuals (see §13). This follows the existing "calm confidence" motion tokens (`constants/motion.ts`).
+
+**Research summary (2026-11-20).**
+
+- Most tasbih apps on the stores show a ring or a plain tap counter. Sliding-bead counters are rare and usually sold as paid upgrades. Examples: [Tasbih: Dhikr Counter by Ekin](https://mwm.ai/apps/tasbih-zikr-counter-pro/6790427707) (bead slides along a string; 33 or 99 beads; Amber, Kuka Wood, Pearl and Turquoise themes), [Tasbih Counter – Daily Dhikr](https://apps.apple.com/us/app/tasbih-counter-daily-dhikr/id6757278052) (a swipeable wooden-bead Pro view next to a circular counter), [BeadsCounter](https://apps.apple.com/us/app/beadscounter/id6757827993) (ruby, sapphire and jade bead materials at $1.99 each) and [Misbaha – Tasbih Counter](https://apps.apple.com/us/app/id6757333557) (tassels and bead materials behind a paid upgrade). Offering beads, materials and sound **free and well made** is a clear way to stand out.
+- **How a real misbaha is built.** Common strands have 33 or 99 beads. A 33-bead strand has spacer beads (*fasil* / *shahid*) after the 11th and 22nd beads; a 99-bead strand has them after the 33rd and 66th. One end has a larger leader bead (*imam*, also *yad* or *mihrab*), usually with a tassel. Common materials are olive wood, kuka wood, sandalwood, ebony, camel bone, amber (honey and cherry), pearl and mother-of-pearl, turquoise, onyx, lapis, jade, agate and glass. Common shapes are round, olive (barrel), faceted, cylinder, and flat rondelle. Sources: [Wikipedia: Misbaha](https://en.wikipedia.org/wiki/Misbaha), [Tespih](https://www.wikiwand.com/en/articles/Tespih), [misbaha encyclopedia](https://skyjems.ca/pages/encyclopedia-misbaha).
+
+**Design catalog** (`lib/tasbeeh/designs.ts` registry). Priority: P1 = v1, P2 = v1.1, P3 = v2.
+
+| id         | Design                       | What it is                                                                                                                                                                                                                                                                                                           | Prio |
+| ---------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| `ring`     | **Ring** (default)           | Today's `ArcProgressRing` donut with the count inside, moved unchanged into a "face" component.                                                                                                                                                                                                                      | P1   |
+| `misbaha`  | **Sliding beads**            | A traditional strand. Each count slides one bead along the thread into the counted group. Spacer beads, the imam bead and the tassel are all drawn. Shape, material, spacers, tassel, thread, strand size and layout can all be customised (below).                                                                | P1   |
+| `clicker`  | **Digital clicker**          | Looks like the handheld or ring zikr counter: a seven-segment LCD (green, amber or monochrome backlight) and one big round button with a mechanical click.                                                                                                                                                          | P2   |
+| `minimal`  | **Focus / Night**            | Very large numerals on true black (OLED), dimmed. The whole screen is the tap target and there is no animation. Built for qiyam and for counting after salah without looking: distinct haptic pulses at 33, 66, 99 and the target.                                                                                  | P2   |
+| `fingers`  | **Finger counting**          | A visual aid for the Sunnah method. A line-art hand (react-native-svg, no skin tones) lights up the next fingertip or finger joint on each tap, and a lap counter shows completed rounds. Two layouts: fingertips (10, both hands) and joints (right hand). The copy says the user's own finger method is fine. Needs scholar review of the depiction and copy. | P3   |
+| `geometric`| **Geometric rosette**        | An Islamic 8- or 12-point star pattern (girih) that fills one segment per count. A 33-segment rosette; for 99 it completes three times; for ∞ it loops.                                                                                                                                                          | P3   |
+| `stars`    | **Night sky**                | Each count lights one star in a simple constellation that completes at the target. Reuses the sky and moon palette from the home hero.                                                                                                                                                                             | P3   |
+| `pebbles`  | **Date pits / pebbles**      | Each tap moves one pit or pebble from one dish to another. Only ships with a note on its evidence and on the differing gradings, and needs scholar sign-off (§13).                                                                                                                                                  | P3?  |
+
+**Considered and rejected:** a "palm garden" that plants a tree per count, because it applies the reward of one specific dhikr (Tirmidhi 3464) to all dhikr. Also rejected: coins, XP and level-ups; animal or character mascots; melodic or bell sounds; a 3D physics strand (it would need Skia or GL, both new native dependencies, and UI work must not add native dependencies); and ibadah leaderboards (§2.4).
+
+**Misbaha customisation.** The user first picks a **preset**, then can fine-tune it:
+
+| Option                   | Values (v1)                                                                                                                                                                                                        |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Preset                   | Amber classic · Kuka wood · Olive wood · Sandalwood · Pearl · Turquoise · Onyx night · Theme accent (matte, from `useTheme()` accent)                                                                             |
+| Bead shape               | Round · Olive (barrel) · Faceted · Cylinder (kuka cut) · Rondelle                                                                                                                                                  |
+| Material / finish        | Wood (olive, kuka, sandal, ebony) · Amber (honey, cherry; translucent) · Pearl / mother-of-pearl (sheen) · Stone (turquoise, onyx, lapis, jade, agate) · Glass (translucent) · Theme accent (matte)            |
+| Spacers (*fasil*)        | Same as beads · Silver · Gold · Contrasting material · Off                                                                                                                                                         |
+| Imam bead + tassel       | Silk tassel (colour picker from a curated list) · Metal chain tassel · Imam bead without tassel                                                                                                                    |
+| Thread                   | Colour (curated) · Hidden                                                                                                                                                                                          |
+| Strand                   | **Auto** (follows target: 33 → 33 beads; 99 → 99 beads; 100 → 99 beads, with the imam bead as the 100th; custom or ∞ → a 33-bead loop with a lap counter) · Always 33 · Always 99                              |
+| Layout                   | Hanging arc (vertical, default on phones) · Horizontal (default on TV, tabletop posture and landscape) · Full loop (a circle of beads around the count)                                                          |
+| Background               | Theme surface (default) · Soft velvet tint (a gradient from theme tokens)                                                                                                                                          |
+
+Materials are **procedural**, not image assets. Each one is a `{ base, highlight, shadow, translucency, sheen, grain? }` recipe in `lib/tasbeeh/materials.ts`. Spheres are shaded with `gradientBackground()` radial gradients from `lib/gradient.ts`, which works on web too. Facets, olive shapes, the tassel and the thread are drawn with react-native-svg, which is already installed. If wood grain needs an image, it is one tiling PNG of 30 KB or less. All colours used for UI chrome come from theme tokens. Bead colours are material data, so they are exempt from the "no hardcoded colours" rule; they live in `materials.ts` and are listed in the PR.
+
+**Interaction (misbaha).**
+
+- **Tap** anywhere on the stage: the next bead slides down the thread and settles against the counted group with a spring (`Springs.gentle` and a short settle).
+- **Drag:** the user pulls the next bead along the thread (react-native-gesture-handler Pan, already installed). The count happens **only** when the bead passes a detent at 60% of the bead pitch. If the user lets go before the detent, the bead springs back and nothing is counted. **One gesture counts at most one bead**, so a fast flick still counts as 1. Dragging the other way **never subtracts**; undo stays behind the existing confirmed Undo control. Both rules protect the accuracy of the count.
+- **Spacer bead:** when it passes, a heavier haptic and a lower-pitched sound mark the 11/22 or 33/66 boundary.
+- **Reaching the target:** the imam bead arrives, the tassel sways (unless reduced motion is on), a `success` haptic plays, and the existing `CompletionBanner` shows. The `PartyPopper` burst stays on Ring. Calmer designs show a short glow instead.
+- **Rendering:** a virtualised strand. At most about 20 beads are drawn at once, and positions come from one Reanimated `progress` shared value through worklet math in `bead-layout.ts`. Target: 60 fps on the `Phone_API_35` emulator release build with a 99-bead strand.
+- **Reduced motion:** beads step from one position to the next with no slide, sway or settle.
+- **RTL:** the vertical layout doesn't change. The horizontal layout flows right to left (`lib/rtl.ts` and `chart-rtl.ts` helpers).
+
+**Sound.**
+
+- **Packs, one per material family:** wood clack (soft and hard), resin/amber tick, stone clink, glass clink, pearl tick, mechanical clicker, soft LCD beep. Each pack has three sounds: `bead`, `spacer` (lower pitch) and `complete` (the strand settling).
+- **Sourcing:** record the sounds ourselves or use **CC0** sources (the Freesound CC0 filter, Kenney UI audio). List the credits in `NOTICE` and on the About credits screen. Each file is mono AAC/m4a under 20 KB and stored in `apps/app/assets/audio/tasbeeh/`.
+- **Engine** (`lib/tasbeeh/sound.ts`, using `expo-audio`, which is already installed):
+  - Preload a round-robin pool of 3–4 `createAudioPlayer` instances per sound; each play is `seekTo(0)` then `play()`.
+  - Set `playsInSilentMode: false` so the iOS silent switch is respected, and `interruptionMode: "mixWithOthers"` so a tick **never pauses Qur'an or adhan audio** that is already playing.
+  - Release the players on unmount.
+  - Skip the sound, but still count, when taps come less than 40 ms apart.
+  - On web, unlock audio on the first gesture.
+- **Defaults:** sound is **off** on phones, because people usually count in the masjid or after salah. There is a volume slider and a "Test" button. TV has no haptics, so the TV default is open (§13).
+
+**Haptics.**
+
+- **Semantic mapping** (pure function `feedbackFor(design, event)`):
+  - `bead` → `light` (or `selection`)
+  - `spacer` → `medium`
+  - lap / 33-milestone → `medium` ×2
+  - `complete` → `success`
+- **Tasbeeh haptics setting:** Off / Subtle / Rich. It is still gated by the global `hapticsEnabled` and still goes only through `triggerHaptic()` (`lib/haptics.ts`). **Rich** adds Android tick or detent primitives if `expo-haptics` 58 exposes them (check whether `performAndroidHapticsAsync` exists); otherwise it falls back to `selection`. Add any new types to the `HapticFeedback` union; never import `expo-haptics` directly.
+
+**Architecture.**
+
+- **Split the 925-line `components/tasbeeh/tasbeeh-counter.tsx`** into two parts:
+  - A **shell**, which keeps everything that isn't visual: mode bar, controls, confirm dialogs, completion, the target limit, web Space/Enter, TV focus, hinge tabletop, and haptic and sound dispatch.
+  - **Faces** in `components/tasbeeh/faces/{ring,misbaha,clicker,minimal,…}-face.tsx`, which are only visual.
+
+  The shared face contract:
+
+  ```ts
+  export type TasbeehDesignId = "ring" | "misbaha" | "clicker" | "minimal" | "fingers" | "geometric" | "stars" | "pebbles";
+
+  export interface TasbeehFaceProps {
+    count: number;            // displayCount (already clamped to target)
+    target: number;           // 0 = ∞
+    complete: boolean;
+    size: number;             // stage box from the shell (TV / tabletop aware)
+    tv: boolean;
+    reduceMotion: boolean;
+    appearance: TasbeehAppearance;
+    /** Face asks to count; the shell enforces the limit, haptics, sound and onIncrement. */
+    onCount: (event: "bead" | "spacer") => void;
+  }
+  ```
+
+- **Lazy loading:** faces other than Ring load lazily with a dynamic `import()`, so the bead and SVG code stays out of the web `__common` chunk ([`PROFILING.md`](./PROFILING.md)).
+- **Pure modules with unit tests:** `lib/tasbeeh/bead-layout.ts` (strand path, bead positions for a given progress, spacer and imam indices, virtual window, ∞ loop, RTL horizontal), `lib/tasbeeh/materials.ts` and `lib/tasbeeh/feedback.ts`.
+- **Preference.** Add an optional field to `UserPreferences`. It syncs through the existing `preferences` entity, so no API or DTO change is needed, and older clients ignore it. `undefined` means the Ring default, so no migration is needed.
+
+  ```ts
+  // packages/shared/src/types/tasbeeh-appearance.ts
+  export interface TasbeehAppearance {
+    design: TasbeehDesignId;                     // default "ring"
+    misbaha?: {
+      preset: string;
+      shape: "round" | "olive" | "faceted" | "cylinder" | "rondelle";
+      material: string;                          // key into MATERIALS
+      spacer: "same" | "silver" | "gold" | "contrast" | "off";
+      tassel: { style: "silk" | "chain" | "none"; color?: string };
+      thread: { color?: string; hidden?: boolean };
+      strand: "auto" | 33 | 99;
+      layout: "arc" | "horizontal" | "loop";
+    };
+    clicker?: { backlight: "green" | "amber" | "mono" };
+    sound: { enabled: boolean; pack: string; volume: number }; // enabled=false default
+    haptics: "off" | "subtle" | "rich";          // default "subtle"
+  }
+  ```
+
+- **Per-counter override (v2):** an optional `design?: TasbeehDesignId` on custom tasbeeh entries, so "Istighfar 100" can use beads while the free counter stays on Ring.
+
+**UI.**
+
+- **Palette button:** a palette `IconButton` in the counter's `ControlBar` opens a `Sheet` called "Counter style" with these parts:
+  1. A carousel of design cards, each a **live mini preview** the user can tap to try.
+  2. For the misbaha: a presets row, then chips for shape, material, spacers, tassel, thread, strand and layout.
+  3. A sound section (toggle, pack, volume, Test).
+  4. A haptics section (Off / Subtle / Rich).
+
+  Changes apply at once, with no Save button.
+- **Settings:** a new `settings/tasbeeh.tsx` screen ("Tasbeeh counter") with the same controls through a shared `TasbeehAppearanceEditor` component. Also register the counter styles in search (`search-guides`), add a feature tour step and a "new" badge in `lib/new-features.ts`.
+- **Accessibility:** every face exposes the same accessible element: `accessibilityRole="button"`, a label with the count and target, `accessibilityValue {min, max, now}` and an increment action. Screen-reader users never need the drag gesture.
+- **TV:** Ring, Misbaha (horizontal layout), Clicker and Minimal are offered on TV. Select counts, using the existing focus model. Fingers, Geometric and Stars are phone and web only until TV QA is done.
+- **Web:** Space and Enter keep working through the shell. Hover previews show in the style sheet.
+
+**Storage:** the `preferences` entity (synced) handles everything. There is no new `DB_KEYS` entry, and the per-counter override in v2 lives on the existing `custom_tasbeeh` entity.
+
+**Notifications:** none.
+
+**Delivery slices:**
+
+1. **v1:** shell/face refactor (Ring stays pixel-identical) · Misbaha with arc layout, the 33/99/auto strand, 5 shapes, about 10 materials and 8 presets, spacers, tassel · sound packs for wood, amber, stone and glass · haptic levels · style sheet and Settings screen.
+2. **v1.1:** Clicker · Focus/Night · Misbaha horizontal and loop layouts (TV, tabletop, landscape) · pearl and clicker sound packs.
+3. **v2:** Fingers · Geometric · Stars · per-counter design · Pebbles (only if §13 is resolved).
+
+**Tests:**
+
+- Unit tests for `bead-layout`, `materials` (each recipe has the required stops, and all contrast is computed against theme surfaces) and `feedback` (the event → haptic/sound table).
+- Shell tests for each face: one tap counts exactly once; the limit holds at the target; a drag past the detent counts 1; a drag released short counts 0; a reverse drag counts 0; reduced motion produces no animation calls.
+- The existing `tasbeeh-counter.test.tsx` passes unchanged under the default (Ring) design, which is the regression lock.
+- Preference default and round-trip tests.
+- An i18n guard covering all 24 locales.
+
+**Acceptance criteria:**
+
+- Existing users see **no change** until they pick a new design (Ring default, D10).
+- **Count accuracy:** 1,000 scripted rapid taps give 1,000 counts in every face, with no counts dropped or doubled. A drag gesture never counts more than once and never subtracts.
+- Sound plays within 50 ms of the tap on mid-range devices. It never pauses Qur'an or adhan playback, and it respects the iOS silent switch.
+- A 99-bead misbaha runs at 60 fps in the Android release build. Web, TV, RTL (ar/ur) and reduced motion are all checked.
+- **No new native dependencies:** only `expo-audio`, `expo-haptics`, Reanimated, RNGH and react-native-svg, which are all already installed.
+
+**Risks:**
+
+- Audio latency on Android and web. Mitigation: the player pool, and skipping the sound but never the count.
+- Bead rendering cost on low-end Android. Mitigation: the virtual window, and a "simple beads" fallback with flat shading.
+- The scope grows into a store of "skins". Mitigation: the catalog above is the cap until v2 is reviewed.
+
 ---
 
 ## 6. Phase 2 — Private self-accountability
@@ -1236,6 +1417,167 @@ export type HeirType =
 - Track this in `BACKLOG.md` as "Quran Lab: per-ayah alignment".
 
 **Phase C (blocked):** madd duration and makharij feedback, once the SDK exposes validated heads.
+
+### NF-3.20 Hands-free tasbeeh (voice counting, on-device)
+
+**Goal.** The user says the zikr out loud and the counter counts it, with no tapping. Every phrase that is recognised goes through the same `onCount` path as a tap, so the NF-3.19 designs (a bead slides, the ring fills) and haptics all respond. All recognition runs **on the device**, using the speech stack that Qur'an practice already ships (D3).
+
+**What the codebase already gives us (verified 2026-11-20):**
+
+| Piece                                                                                     | Reuse                                                                                                                                                                                                                                                                                                  |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `lib/quran-companion/audio/capture.{native,web}.ts` (`RecitationCapture`)                 | Microphone capture as **16 kHz mono float32**: `expo-audio` `useAudioStream` on native, `getUserMedia` on web. Includes the resampler, permission handling and interruption events. Nothing is written to disk. **Reuse as-is.**                                                                     |
+| `lib/quran-companion/audio/audio-mode.ts`, `resample.ts` (`createChunker`)                | Audio session setup and chunk queueing with a drop cap. **Reuse.**                                                                                                                                                                                                                                     |
+| `lib/quran-companion/model/*` + `constants/recitation-models.{ts,json}`                   | Pinned (sha256 + md5) download, storage and verification of the listener model, plus the download job and the Settings → Offline data management. **Reuse the same files.** A user who already downloaded the model for Qur'an practice downloads nothing new.                                    |
+| FastConformer ONNX (`fastconformer_full_mixed.onnx`, 88 MB, NVIDIA **CC-BY-4.0**) + `vocab.json` | `tilawa-adapter.ts` already runs this model with our own runner and receives the raw **CTC `logprobs` [timeSteps × vocabSize]**. That gives a phrase spotter direct access to the model's output, without the Qur'an-only recognition session.                                                    |
+| `onnxruntime-react-native` 1.24.3 / `onnxruntime-web` 1.31.1 (`/ort/` UMD)                | Inference runtime on all platforms. **No new native dependency.**                                                                                                                                                                                                                                      |
+| `lib/quran-companion/availability.ts`, `error-codes.ts`                                   | The TV gate (TV has no microphone path) and Sentry reporting that uses error codes only.                                                                                                                                                                                                               |
+| `expo-keep-awake` (installed)                                                             | Keeps the screen on while listening.                                                                                                                                                                                                                                                                   |
+
+**What we can't reuse, and why:**
+
+- **The `@tilawa/core` recognition sessions** (`createZipformerSession`, `createRecognitionSession`) are built to match the **Qur'an corpus** (`zipformer_quran.json`, `quran_ctc_tokens.json`). Most adhkar phrases are not ayahs, so these sessions can't count them. We use the **model**, not the session.
+- **Quran Lab TajweedFormer** (`modules/munib-tajweedformer`) needs an API key, works one take at a time, and outputs tajweed heads (qalqalah, ghunna and so on). It does not recognise words, so it doesn't fit this task.
+- **OS speech recognition** (`expo-speech-recognition`, already used for dictation in `lib/stt.ts`) is rejected for this feature for three reasons. On web and on many Android devices it sends audio to a cloud service, which breaks D3. It drops or merges fast repeated phrases. Its `ar-SA` model isn't tuned for dhikr pronunciation.
+
+**Islamic basis and guardrails.**
+
+- Zikr is valid whether it is said quietly or aloud, and quiet zikr is praised (Qur'an 7:205; verify). The feature **never** encourages raising the voice. It is tuned to work with a **low speaking voice**, and the copy says that silent zikr and tap counting are just as good.
+- **Accuracy is the top priority:** a count should never go up for something the user did not say. When the spotter is unsure, it **doesn't count**, and the user can always tap. Over-counting is treated as a bug that blocks release; a few missed counts are acceptable (see the targets below).
+- No transcripts, audio, scores or "pronunciation grades" are stored or shown. This is a counter, not an assessment.
+- Allowed during excused periods (zikr is allowed in hayd). There is no gating by excused status.
+
+**Scope (v1):**
+
+- **iOS and Android phones and tablets.** Web comes in v1.1, after hosting is resolved (§13). TV is hidden through `isPracticeAvailable()`.
+- **Each counter listens for a single phrase.** `tasbeeh/[zikrId]` listens for that zikr's phrase. `tasbeeh/free` and `tasbeeh/custom/[id]` ask the user to choose a phrase from the catalog. A custom counter with no catalog phrase does not offer voice counting in v1.
+- **v1 phrase catalog** (`lib/tasbeeh-voice/phrases.ts`). Each phrase points to an existing **adhkar dataset id**; the Arabic text is never hand-typed (§2.1). Each phrase also lists accepted variants:
+
+  | key                 | Phrase (from dataset)                                   | Variants accepted                                        |
+  | ------------------- | ------------------------------------------------------- | -------------------------------------------------------- |
+  | `subhanallah`       | SubhanAllah                                             | —                                                        |
+  | `alhamdulillah`     | Alhamdulillah                                           | —                                                        |
+  | `allahu_akbar`      | Allahu Akbar                                            | —                                                        |
+  | `tahlil`            | La ilaha illallah                                       | —                                                        |
+  | `istighfar`         | Astaghfirullah                                          | + "al-'Azim", + "wa atubu ilayh"                         |
+  | `subhanallah_wb`    | SubhanAllahi wa bihamdihi                               | + "SubhanAllahil-'Azim"                                  |
+  | `hawqala`           | La hawla wa la quwwata illa billah                      | —                                                        |
+  | `salawat_short`     | Allahumma salli 'ala Muhammad                           | + "wa 'ala ali Muhammad"                                 |
+
+- **v2:** the long tahlil ("…wahdahu la sharika lah…"), longer duroods, post-salah sequence mode (33 / 33 / 33–34, moving to the next phrase automatically), and an optional pause-based mode for custom phrases (below).
+
+**Detection pipeline** (`lib/tasbeeh-voice/`; all pure logic with unit tests except the runner):
+
+```
+RecitationCapture (16 kHz) → chunker → VAD (speech segments) → FastConformer runner (ORT, CTC logprobs)
+   → phrase spotter (CTC keyword scoring per phrase token sequence) → hit de-dupe (absolute frame time)
+   → confidence gate → onCount("bead") → face + haptics
+```
+
+1. **VAD (`vad.ts`).** An energy detector with an adaptive noise floor, a hangover of about 300 ms and a minimum segment length. Silence never reaches the model, which saves battery. During long continuous speech (fast repeated zikr), segments are split into windows of about 3 s with a 1 s overlap.
+2. **Runner (`engine/ctc-runner.ts`).** Pull the FastConformer `runner.run()` code out of `tilawa-adapter.ts` into a shared `createFastConformerRunner(ort, session)`, so Qur'an practice and voice tasbeeh use the same code. The ORT session is created lazily and released when listening stops.
+3. **Phrase tokens (`phrase-tokens.json`, generated).** A build script, `scripts/build-tasbeeh-voice-tokens.mjs`, tokenises each catalog phrase and its variants (Arabic text taken from the dataset) against the **pinned** `vocab.json`. It writes the token sequences together with the model `version`. A unit test fails if the version doesn't equal `RECITATION_MODELS["tilawa-fastconformer"].version`, so any model change forces the tokens to be regenerated. The generated file is never edited by hand.
+4. **Spotter (`ctc-keyword-spotter.ts`).** For the expected phrase, run a streaming CTC keyword search: token passing that allows any audio before and after, so it can find **back-to-back repeats** with no pause. Each hit has a start frame, an end frame and a score, which is the phrase log-likelihood normalised against the best free path (a likelihood ratio). Spike S1 compares this against "greedy decode + fuzzy match with `normalize()`" and keeps whichever meets the targets.
+5. **De-dupe (`hit-dedupe.ts`).** Hits are merged by absolute time across overlapping windows. Hits closer together than the phrase's minimum length (measured per phrase, for example about 350 ms for SubhanAllah) are merged into one, so overlapping windows can never count the same phrase twice.
+6. **Confidence gate.** Two settings: *Strict* (default) and *Balanced*. An optional **personal calibration** ("Say SubhanAllah 5 times") stores a per-phrase threshold offset on this device only (not synced). It helps with accents, children's voices and quiet speech.
+
+**Session controller (`session.ts`) and hook (`hooks/use-voice-tasbeeh.ts`):**
+
+- **Only one owner of the microphone.** Voice counting can't start while Qur'an practice, Quran Lab drills or dictation are using the microphone, and starting it stops theirs.
+- **The app's audio player is paused** when listening starts, because recitation playing through the speaker would cause false counts. NF-3.19 counter sounds are muted while listening; haptics stay on.
+- **Stops automatically:**
+  - when the target is reached (success haptic, mic off)
+  - after a stretch of silence (default 60 s, with a "Paused listening" toast)
+  - when the app goes to the background (`AppState`). There is **no background microphone**; this is out of scope for privacy and store-review reasons.
+  - when audio is interrupted (a call or Siri)
+  - when the user leaves the screen
+- **Screen-reader conflict:** while listening, VoiceOver and TalkBack count announcements are limited to milestones and **the spotter ignores audio during an announcement**. Otherwise the phone's own speech could be counted.
+- Taps still work while listening, and Undo is still confirmed. All counts go through the same shell limit, so voice can never go past the target.
+
+**UI** (part of the NF-3.19 shell):
+
+- **Hands-free toggle.** A mic `IconButton` in the counter's `ControlBar`. It only appears when `isVoiceTasbeehAvailable()` is true and the counter's phrase is in the catalog.
+- **First use:** an explainer sheet covering:
+  - how it works and that everything stays on the device
+  - model size (about 103 MB, **shared with Qur'an practice**) and a Wi-Fi recommendation
+  - that a low voice is enough, and that tapping is just as good
+  - then the microphone permission request
+
+  The sheet reuses the download job and progress UI from Qur'an practice.
+- **While listening:**
+  - a pulsing mic chip and a small level meter
+  - the phrase being listened for, in Arabic from the dataset with its translation
+  - a soft "✓" flash on each counted phrase
+  - keep-awake on
+  - a suggestion to switch to the NF-3.19 Focus/Night design
+- **Stuck hint:** if the VAD hears speech but nothing has been counted for 10 s, show "Say the phrase clearly, or tap to count". Never "you said it wrong".
+- **Settings → Tasbeeh counter → Hands-free counting:** sensitivity (Strict / Balanced), auto-stop after silence (30 / 60 / 120 s), calibration, and a link to model storage (Settings → Offline data).
+- i18n in all 24 locales, accessibility labels, and RTL checked.
+
+**Preferences and storage:**
+
+```ts
+// UserPreferences (synced through the existing `preferences` entity; optional, so old clients are fine)
+tasbeehVoice?: { sensitivity: "strict" | "balanced"; silenceStopSec: 30 | 60 | 120 };
+
+// device-local (not synced, not backed up), like DB_KEYS.quranRecitationModel
+DB_KEYS.tasbeehVoiceCalibration → Record<PhraseKey, { thresholdOffset: number; at: string }>
+```
+
+The model files and manifest stay in the existing Qur'an practice store. There is no new sync entity.
+
+**Availability (`lib/tasbeeh-voice/availability.ts`):**
+
+- `isPracticeAvailable()` (not TV), **and**
+- microphone capture is available, **and**
+- the FastConformer engine is pinned for the platform (native in v1; web once `webHosted` is turned on), **and**
+- the phrase is in the catalog.
+
+If the user has only the **Zipformer** model installed, offer the FastConformer download. Spike S1 also checks whether the Zipformer ONNX output is CTC; if it is, Zipformer is supported too (it is already web-hosted, NPL-1.2, and must stay free).
+
+**Spikes before building:**
+
+- **S1 – engine and spotter.**
+  - On 3 real devices (low-end Android, mid-range Android, an iPhone that is a few years old), measure FastConformer real-time factor and memory on windows of about 3 s.
+  - Confirm the CTC frame rate and that the vocab covers the dhikr tokens.
+  - Compare the two spotter approaches on the fixture set.
+  - Check whether Zipformer outputs CTC.
+- **S2 – fixtures.**
+  - Build a **consented** recording set: at least 30 speakers; male, female and children (with a parent's consent); Arabic, South Asian, Turkish, Indonesian, African and Western accents; normal and fast pace; quiet room, masjid echo, car and fan noise; whispered and low voice.
+  - Include **negatives**: Qur'an recitation, conversation, a TV in the background, and the other catalog phrases (SubhanAllah must not count as Alhamdulillah).
+  - Recordings live in a private bucket, not the public repo (`docs/OPEN_SOURCE.md`). The test suite uses feature tensors or short clips that are licensed for the repo.
+  - Keep results in a proof log, like the one for Qur'an practice.
+
+**Acceptance criteria (release gate):**
+
+- **Over-count rate ≤ 0.5%** (no more than one false count per 200 phrases), counting negatives and cross-phrase confusions, on the whole fixture set at the Strict setting.
+- **Missed count rate ≤ 5%** at normal pace and ≤ 10% at fast pace, in quiet and moderate noise.
+- **Latency:** p90 of 1.2 s or less from the end of a phrase to the count on a mid-range device. Real-time factor of 0.5 or less on the low-end device.
+- **Battery:** 10 minutes of continuous listening uses no more than about 4% on the mid-range device. The VAD has to keep the model idle during silence.
+- Overlapping windows never produce a double count (unit-tested with synthetic hits).
+- The count never goes past the target. The app's audio is paused, and counter sounds are muted, while listening.
+- No audio, transcript or phrase text appears in Sentry, logs or sync. Error codes only.
+- Scholar sign-off on the copy, the catalog and the "quiet zikr is fine" framing.
+
+**Tests:**
+
+- Unit tests for `vad`, `ctc-keyword-spotter` (synthetic logprob matrices: single hit, back-to-back repeats, the wrong phrase, silence), `hit-dedupe`, the token-file version lock, `availability` and the session state machine (start, hit, target reached and auto-stop, silence, background, interruption).
+- Hook tests with mocked capture and runner. These run the face's `onCount` exactly once per hit.
+- Fixture regression is a local or manual script (`pnpm --filter app tasbeeh-voice:eval`) that writes the proof log. It is **not** a CI job (upgrade policy: no new CI jobs).
+
+**Store and privacy:**
+
+- Reuse the existing microphone usage strings, extending `NSMicrophoneUsageDescription` and the Android rationale to mention tasbeeh counting.
+- The Play Data safety form still says audio is "not collected" (it never leaves the device). Add a line to the privacy policy.
+- Show FastConformer CC-BY-4.0 attribution in About → Credits; it is already required for Qur'an practice.
+
+**Risks:**
+
+- The model was trained on Qur'an recitation, so it may be biased toward Qur'anic word forms. Mitigation: CTC keyword scoring is limited to the expected phrase, plus calibration. If S1 fails, fall back to v2's pause-based mode and label it clearly.
+- Fast, slurred dhikr ("subhanallah-subhanallah…") may be under-counted. This is acceptable because the user taps any missed counts, and it is stated in the explainer.
+- Web hosting the 88 MB file needs a check against Vercel's static file limits (§13).
+
+**Optional v2 mode – "Pause count (basic)":** every separate spoken burst found by the VAD counts once. There is no model and no download, and it works for any custom phrase. It is shown only as an opt-in labelled "Counts each pause — less accurate", is off by default, and is never used for catalog phrases.
 
 ---
 
@@ -1789,6 +2131,8 @@ Every ref must be verified against the bundled corpus (or a cited printed editio
 | Focus lock                  | Qur'an 62:9, 23:1–2, 107:4–5                                                      |
 | Family                      | Abu Dawud 495; Qur'an 66:6, 20:132                                                |
 | Partner (dua in absence)    | Muslim 2733                                                                       |
+| Tasbeeh designs             | Abu Dawud 1501; Tirmidhi 3583 (count on the fingertips); Tirmidhi 3568 / Abu Dawud 1500 (pebbles and date pits; gradings differ); Tirmidhi 3464 (cited only to explain the rejected "palm garden" idea); Muslim 2114 (bells). Check every number against the bundled corpus. |
+| Hands-free tasbeeh          | Qur'an 7:205 (quiet zikr); phrase evidence comes from each catalog phrase's adhkar dataset entry |
 
 ---
 
@@ -1802,3 +2146,13 @@ These can be settled during implementation; the defaults above apply until then.
 4. **Focus lock fallback:** if Apple denies the entitlement, do we ship the soft prompt on iOS (default yes) or hold the feature?
 5. **Extra public timetable sources:** which sources (if any) publish iqamah times under terms that allow redistribution? Examples to evaluate include aggregator platforms and masjids' own public website feeds. Each needs a licence review before an adapter is written; until then only OSM data is shown.
 6. **Kids content:** which existing datasets are suitable for under-7s, and is there an OSS kids' audio source?
+7. **Tasbeeh designs (NF-3.19):**
+   - Are all designs and materials free? The plan's default is **yes**, with no paywall on worship visuals.
+   - Should sound default to on for TV, where there are no haptics?
+   - Does the scholar panel approve the finger-counting depiction and its copy?
+   - Should the date pits / pebbles design ship at all, given that the reports behind it are graded differently?
+   - Do we record the sound packs ourselves or use CC0 sounds?
+8. **Hands-free tasbeeh (NF-3.20):**
+   - **Web:** do we serve FastConformer (88 MB, CC-BY-4.0, which allows redistribution with attribution) from our origin, like Zipformer? Check Vercel's static asset size limits first, or use a CDN bucket. Alternatively, ship web only if S1 shows that Zipformer's output is CTC.
+   - **Fixtures:** who records the consented set, and where does the private bucket live?
+   - Is a 0.5% over-count rate strict enough, or does the scholar panel want "Strict" to be the only setting?
