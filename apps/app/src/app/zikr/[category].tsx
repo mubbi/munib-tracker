@@ -22,6 +22,7 @@ import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   type AdhkarScope,
@@ -42,7 +43,6 @@ import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
-import { useTrackerActions, useZikrCounts } from "@/stores/tracker-store";
 
 /** Expo Router may pass dynamic segments as `string | string[]` on deep links. */
 function paramValue(value: string | string[] | undefined): string | undefined {
@@ -69,9 +69,10 @@ export default function ZikrCategoryScreen() {
   }>();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
-  const zikrCounts = useZikrCounts();
-  const { setZikrCounts } = useTrackerActions();
   const clock = useAdhkarClock();
+  // Counts for the adhkar day (Fajr → Fajr), the same day the session logs to.
+  const day = useAdhkarDayCounts(clock.date);
+  const zikrCounts = day.counts;
   const [confirmAll, setConfirmAll] = useState(false);
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
@@ -414,7 +415,7 @@ export default function ZikrCategoryScreen() {
         message={t("zikrSession.confirmAllMessage", { set: setName })}
         confirmLabel={t("zikrSession.markAll")}
         onConfirm={() => {
-          void setZikrCounts(completeAllEntries(items, scope));
+          void day.setCounts(completeAllEntries(items, scope));
           trackReviewInteraction("mark_zikr");
         }}
         onClose={() => setConfirmAll(false)}

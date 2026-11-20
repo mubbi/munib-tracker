@@ -23,6 +23,7 @@ import { ZikrHadithContext } from "@/components/zikr/zikr-hadith-context";
 import { Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
@@ -37,11 +38,10 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
-import { isZikrItemDone, zikrTarget } from "@/lib/zikr-count-key";
+import { getZikrCountFromMap, isZikrItemDone, zikrTarget } from "@/lib/zikr-count-key";
 import { zikrQuranHref, zikrQuranRanges } from "@/lib/zikr-quran";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
-import { useTrackerActions, useZikrCount } from "@/stores/tracker-store";
 
 /** Pre-render a static HTML page for every bundled zikr at web export time. */
 export async function generateStaticParams(): Promise<Array<{ id: string }>> {
@@ -83,9 +83,9 @@ export default function ZikrDetailScreen() {
   }, [quranHref]);
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
-  const { setZikrCount } = useTrackerActions();
   const item = !quranHref && corpusReady && zikrId ? getZikrById(zikrId) : undefined;
-  const { currentAfterSalah } = useAdhkarClock();
+  const { currentAfterSalah, date: adhkarDate } = useAdhkarClock();
+  const day = useAdhkarDayCounts(adhkarDate);
   // After-salah counts always belong to one salah — opened without one (search,
   // favorites, continue), log against the current salah rather than a stray key.
   const afterSalahPrayer =
@@ -96,7 +96,7 @@ export default function ZikrDetailScreen() {
           currentAfterSalah,
         )
       : undefined;
-  const count = useZikrCount(item?.id ?? "", afterSalahPrayer);
+  const count = item ? getZikrCountFromMap(day.counts, item.id, afterSalahPrayer) : 0;
   const shareCard = useShareContentCard();
 
   useEffect(() => {
@@ -134,7 +134,6 @@ export default function ZikrDetailScreen() {
   // Single-recitation adhkar don't need the counter — mark complete on this screen.
   const isSingleRecitation = target === 1;
   const isDone = isZikrItemDone(count, target);
-  const prayerOption = afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined;
 
   const onShare = async () => {
     await shareCard.share({
@@ -205,7 +204,7 @@ export default function ZikrDetailScreen() {
           }
           onPress={() => {
             const next = isDone ? 0 : 1;
-            void setZikrCount(item.id, next, target, prayerOption);
+            void day.setCount(item.id, next, target, afterSalahPrayer);
             if (!isDone) trackReviewInteraction("mark_zikr");
           }}
         />
@@ -228,7 +227,7 @@ export default function ZikrDetailScreen() {
             fullWidth
             accessibilityHint={isDone ? undefined : t("zikrSession.markCompleteHint")}
             onPress={() => {
-              void setZikrCount(item.id, isDone ? 0 : target, target, prayerOption);
+              void day.setCount(item.id, isDone ? 0 : target, target, afterSalahPrayer);
               if (!isDone) trackReviewInteraction("mark_zikr");
             }}
           />

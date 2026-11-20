@@ -5,6 +5,7 @@ import type {
   ZikrCategoryId,
   ZikrItem,
 } from "@munib-tracker/shared/types";
+import { addDays } from "@munib-tracker/shared/utils";
 import { afterSalahItemsForPrayer } from "@/lib/after-salah-adhkar-progress";
 import type { PrayerSlotId } from "@/lib/prayer-times";
 import { zikrByCategory } from "@/lib/zikr";
@@ -279,4 +280,16 @@ export function afterSalahScopeStates(
     out[prayer] = adhkarScopeState({ categoryId: "after_prayer", prayer }, counts, now, times);
   }
   return out;
+}
+
+/**
+ * The "adhkar day" a recitation belongs to. Night worship runs Fajr → Fajr, so
+ * between midnight and Fajr adhkar (last night's Isha / Witr / before-sleep)
+ * still belong to the previous date — otherwise logging Isha adhkar at 00:30
+ * would mark *today's* Isha done before it happened and leave last night's
+ * missed in the calendar and stats.
+ */
+export function adhkarDayFor(now: Date, todayFajr: Date | undefined, today: string): string {
+  if (todayFajr && now.getTime() < todayFajr.getTime()) return addDays(today, -1);
+  return today;
 }

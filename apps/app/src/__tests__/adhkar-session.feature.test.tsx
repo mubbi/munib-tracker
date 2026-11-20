@@ -2,6 +2,7 @@ import type { ZikrItem } from "@munib-tracker/shared/types";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import AdhkarSessionScreen from "@/app/zikr/session/[category]";
+import { ZikrRepository } from "@/db";
 import { loadZikrItemsSyncForTests } from "@/lib/search-corpora-test-loader";
 import { __setZikrItemsForTests } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
@@ -13,6 +14,24 @@ import { resetTrackerStore } from "@/test-support/store";
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/components/reading-typography-context", () => ({ ReadingTypographyBar: () => null }));
+
+/**
+ * Pinned adhkar clock: the session logs under the adhkar day (Fajr → Fajr), so a
+ * real clock would make these tests depend on whether they run before Fajr.
+ * `mockClock.date` null ⇒ the tracker's own day (daytime).
+ */
+const mockClock: { date: string | null } = { date: null };
+jest.mock("@/hooks/use-adhkar-clock", () => ({
+  useAdhkarClock: () => {
+    const { trackerStore: store } = jest.requireActual("@/stores/tracker-store");
+    return {
+      now: new Date(),
+      date: mockClock.date ?? store.getState().date,
+      times: null,
+      currentAfterSalah: "isha",
+    };
+  },
+}));
 
 function item(overrides: Partial<ZikrItem> & Pick<ZikrItem, "id" | "categoryId">): ZikrItem {
   return {
@@ -39,6 +58,7 @@ afterAll(() => {
 });
 
 beforeEach(async () => {
+  mockClock.date = null;
   __setZikrItemsForTests(ITEMS);
   resetExpoRouterMock();
   await resetTrackerStore();
@@ -109,5 +129,26 @@ describe("Guided adhkar session", () => {
       expect(counts()).toMatchObject({ "m-once": 1, "m-thrice": 3, "m-last": 1 }),
     );
     expect(await screen.findByText("MashaAllah — all done")).toBeTruthy();
+  });
+
+  it("logs last night's Isha adhkar under last night's date after midnight", async () => {
+    const today = trackerStore.getState().date;
+    const [y, m, d] = today.split("-").map(Number);
+    const prev = new Date(y, m - 1, d - 1);
+    const yesterday = `${prev.getFullYear()}-${`${prev.getMonth() + 1}`.padStart(2, "0")}-${`${prev.getDate()}`.padStart(2, "0")}`;
+    mockClock.date = yesterday; // e.g. 00:30, before today's Fajr
+
+    setMockSearchParams({ category: "after_prayer", prayer: "isha" });
+    await renderWithProviders(<AdhkarSessionScreen />);
+    expect(await screen.findByText("SubhanAllah")).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText("Count"));
+    await waitFor(async () => {
+      const entry = await ZikrRepository.getProgress("a-tasbih", yesterday, "isha");
+      expect(entry?.count).toBe(1);
+    });
+    // Today's Isha has not happened yet — nothing logged against it.
+    expect(await ZikrRepository.getProgress("a-tasbih", today, "isha")).toBeUndefined();
+    expect(counts()[zikrCountKey("a-tasbih", "isha")]).toBeUndefined();
   });
 });

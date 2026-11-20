@@ -1,5 +1,6 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import type { AfterSalahPrayer, ZikrCategoryId } from "@munib-tracker/shared/types";
+import { parseLocalDateString } from "@munib-tracker/shared/utils";
 import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -33,6 +34,7 @@ import { Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
@@ -57,7 +59,6 @@ import { ensureZikrCorpus } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { zikrQuranHref } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
-import { trackerStore, useTrackerActions, useZikrCounts } from "@/stores/tracker-store";
 
 /** Pause after a zikr reaches its target before moving on (lets the haptic land). */
 const ADVANCE_DELAY_MS = 650;
@@ -89,7 +90,7 @@ export function generateStaticParams(): Array<{ category: string }> {
  */
 export default function AdhkarSessionScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
   const { width } = useWindowDimensions();
@@ -100,8 +101,12 @@ export default function AdhkarSessionScreen() {
     start?: string | string[];
   }>();
   const clock = useAdhkarClock();
-  const counts = useZikrCounts();
-  const { setZikrCount, setZikrCounts } = useTrackerActions();
+  // Logged under the adhkar day (Fajr → Fajr): last night's Isha after midnight
+  // still lands on last night's date, so calendar and stats stay correct.
+  const day = useAdhkarDayCounts(clock.date);
+  const counts = day.counts;
+  const countsRef = useRef(counts);
+  countsRef.current = counts;
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
   const contentBottomInset = useContentBottomInset();
@@ -153,9 +158,7 @@ export default function AdhkarSessionScreen() {
     const linked =
       seededFor.current === null && startId ? items.findIndex((i) => i.id === startId) : -1;
     seededFor.current = scopeKey;
-    setIndex(
-      linked >= 0 ? linked : firstPendingIndex(items, trackerStore.getState().zikrCounts, scope),
-    );
+    setIndex(linked >= 0 ? linked : firstPendingIndex(items, countsRef.current, scope));
     setCelebrate(false);
   }, [items, scope, scopeKey, startId]);
 
@@ -248,7 +251,9 @@ export default function AdhkarSessionScreen() {
         advanceTimer.current = null;
         setAdvancing(false);
         // Read fresh counts — the write that triggered this has landed by now.
-        const latest = trackerStore.getState().zikrCounts;
+        // The tapped zikr's count may not have round-tripped through storage yet.
+        const live = liveCount.current;
+        const latest = live ? { ...countsRef.current, [live.key]: live.value } : countsRef.current;
         const next = nextPendingIndex(items, latest, scope, fromIndex);
         if (next < 0) {
           setCelebrate(true);
@@ -267,9 +272,9 @@ export default function AdhkarSessionScreen() {
       if (!item) return;
       const safe = Math.max(0, Math.min(next, target));
       liveCount.current = { key: itemKey, value: safe };
-      void setZikrCount(item.id, safe, target, prayerId ? { prayerId } : undefined);
+      void day.setCount(item.id, safe, target, prayerId);
     },
-    [item, itemKey, prayerId, setZikrCount, target],
+    [day.setCount, item, itemKey, prayerId, target],
   );
 
   const onTap = useCallback(() => {
@@ -295,7 +300,7 @@ export default function AdhkarSessionScreen() {
   const [confirm, setConfirm] = useState<"reset" | "all" | null>(null);
 
   const markAll = () => {
-    void setZikrCounts(completeAllEntries(items, scope));
+    void day.setCounts(completeAllEntries(items, scope));
     trackReviewInteraction("mark_zikr");
     if (advanceTimer.current) clearTimeout(advanceTimer.current);
     setAdvancing(false);
@@ -410,6 +415,17 @@ export default function AdhkarSessionScreen() {
           </PressableScale>
         ) : null}
       </View>
+      {!day.isToday ? (
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("zikrSession.loggingPreviousDay", {
+            date: parseLocalDateString(day.date).toLocaleDateString(i18n.language, {
+              weekday: "long",
+              day: "numeric",
+              month: "short",
+            }),
+          })}
+        </ThemedText>
+      ) : null}
       {wide ? (
         <ProgressBar
           value={state.total > 0 ? state.completed / state.total : 0}

@@ -1,5 +1,6 @@
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import {
+  adhkarDayFor,
   adhkarScopeState,
   adhkarSetStatus,
   adhkarWindow,
@@ -224,5 +225,20 @@ describe("locked content rules", () => {
     // Auto-advance never lands on optional items, and Mark all leaves them alone.
     expect(nextPendingIndex(sessionItems(fajr), doneFajr, fajr, 0)).toBe(-1);
     expect(completeAllEntries(sessionItems(fajr), fajr).map((e) => e.zikrId)).toEqual(["a-ikhlas"]);
+  });
+});
+
+describe("adhkar day (Fajr → Fajr)", () => {
+  const fajr = new Date(2026, 10, 21, 5, 10);
+  it("keeps adhkar recited before Fajr on the previous night", () => {
+    expect(adhkarDayFor(new Date(2026, 10, 21, 0, 30), fajr, "2026-11-21")).toBe("2026-11-20");
+    expect(adhkarDayFor(new Date(2026, 10, 21, 5, 9), fajr, "2026-11-21")).toBe("2026-11-20");
+  });
+  it("switches to the new day at Fajr", () => {
+    expect(adhkarDayFor(new Date(2026, 10, 21, 5, 10), fajr, "2026-11-21")).toBe("2026-11-21");
+    expect(adhkarDayFor(new Date(2026, 10, 21, 23, 50), fajr, "2026-11-21")).toBe("2026-11-21");
+  });
+  it("falls back to the calendar day when prayer times are unavailable", () => {
+    expect(adhkarDayFor(new Date(2026, 10, 21, 0, 30), undefined, "2026-11-21")).toBe("2026-11-21");
   });
 });

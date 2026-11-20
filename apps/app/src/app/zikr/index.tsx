@@ -17,6 +17,8 @@ import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -27,7 +29,6 @@ import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { zikrCategoryBadge, zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
-import { useZikrCounts } from "@/stores/tracker-store";
 
 export default function ZikrHomeScreen() {
   const router = useRouter();
@@ -38,7 +39,9 @@ export default function ZikrHomeScreen() {
   // Wide web / tablets: search beside saved + My adhkar, categories in a grid.
   const wide = !tv && width >= 768;
   const favoriteIds = useFavoriteZikrIds();
-  const zikrCounts = useZikrCounts();
+  // Badges follow the adhkar day (Fajr → Fajr), like the sessions that log them.
+  const { date: adhkarDate } = useAdhkarClock();
+  const zikrCounts = useAdhkarDayCounts(adhkarDate).counts;
   const [zikrReady, setZikrReady] = useState(false);
   const [zikrItems, setZikrItems] = useState<ZikrItem[]>([]);
   const categories = zikrReady ? zikrCategories() : [];

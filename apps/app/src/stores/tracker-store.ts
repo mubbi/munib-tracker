@@ -141,6 +141,8 @@ export interface TrackerState {
   ) => Promise<void>;
   /** Log many zikr counts for today at once (e.g. "Mark all as done"). */
   setZikrCounts: (entries: ReadonlyArray<ZikrCountWrite>) => Promise<void>;
+  /** Batch write for any date (e.g. last night's Isha adhkar logged after midnight). */
+  setZikrCountsOnDate: (date: string, entries: ReadonlyArray<ZikrCountWrite>) => Promise<void>;
   incrementZikr: (
     zikrId: string,
     target: number,
@@ -463,14 +465,19 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     },
 
     setZikrCounts(entries) {
+      return get().setZikrCountsOnDate(get().date, entries);
+    },
+
+    setZikrCountsOnDate(date, entries) {
       return enqueue(async () => {
         if (entries.length === 0) return;
-        const { date, zikrCounts } = get();
-        const next = { ...zikrCounts };
-        for (const entry of entries) {
-          next[zikrCountKey(entry.zikrId, entry.prayerId)] = Math.max(0, entry.count);
+        if (date === get().date) {
+          const next = { ...get().zikrCounts };
+          for (const entry of entries) {
+            next[zikrCountKey(entry.zikrId, entry.prayerId)] = Math.max(0, entry.count);
+          }
+          set({ zikrCounts: next });
         }
-        set({ zikrCounts: next });
         await ZikrRepository.setCounts(date, entries);
         markTrackingChanged();
         await refreshUnlocked();
@@ -594,6 +601,11 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
 });
 
 /** Selector hooks. */
+/** The tracker's current calendar day (YYYY-MM-DD). */
+export function useTrackerDate(): string {
+  return useStore(trackerStore, (s) => s.date);
+}
+
 export function useTrackerReady(): boolean {
   return useStore(trackerStore, (s) => s.isReady);
 }
@@ -693,6 +705,8 @@ const trackerActions = {
     trackerStore.getState().setZikrCount(...args),
   setZikrCounts: (...args: Parameters<TrackerState["setZikrCounts"]>) =>
     trackerStore.getState().setZikrCounts(...args),
+  setZikrCountsOnDate: (...args: Parameters<TrackerState["setZikrCountsOnDate"]>) =>
+    trackerStore.getState().setZikrCountsOnDate(...args),
   incrementZikr: (...args: Parameters<TrackerState["incrementZikr"]>) =>
     trackerStore.getState().incrementZikr(...args),
   adjustQaza: (...args: Parameters<TrackerState["adjustQaza"]>) =>

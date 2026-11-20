@@ -1,6 +1,6 @@
 import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +13,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useTasbeehCounterDock } from "@/hooks/use-tasbeeh-counter-dock";
 import { resolveAfterSalahPrayer } from "@/lib/adhkar-session";
@@ -23,7 +24,6 @@ import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrCountKey, zikrTarget } from "@/lib/zikr-count-key";
 import { usePreferences } from "@/stores/preferences-store";
 import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
-import { trackerStore } from "@/stores/tracker-store";
 
 /** Fallback dock height before onLayout (excludes safe-area already in ScreenLayout). */
 const DOCK_BAR_FALLBACK = 72;
@@ -75,7 +75,8 @@ export default function ZikrTasbeehScreen() {
   }, []);
 
   const item = corpusReady && zikrId ? getZikrById(zikrId) : undefined;
-  const { currentAfterSalah } = useAdhkarClock();
+  const { currentAfterSalah, date: adhkarDate } = useAdhkarClock();
+  const day = useAdhkarDayCounts(adhkarDate);
   // After-salah counts are per salah; without one, use the current salah.
   const afterSalahPrayer =
     item?.categoryId === "after_prayer"
@@ -88,30 +89,21 @@ export default function ZikrTasbeehScreen() {
   // The zikr's own repetition count — never a generic 33 (a single recitation is 1).
   const target = item ? zikrTarget(item, afterSalahPrayer) : 1;
 
-  // Seed from today's stored progress once the corpus (and thus the item) is ready.
+  // Seed once per zikr from the adhkar day's stored progress (Fajr → Fajr, so
+  // last night's Isha after midnight continues last night's count).
   const [count, setCount] = useState(0);
+  const seededKey = useRef<string | null>(null);
+  const { counts: dayCounts, ready: dayReady, setCount: writeCount } = day;
   useEffect(() => {
-    if (!item) return;
-    const key = zikrCountKey(item.id, afterSalahPrayer);
-    const stored = trackerStore.getState().zikrCounts[key] ?? 0;
+    if (!item || !dayReady) return;
+    const key = `${day.date}|${zikrCountKey(item.id, afterSalahPrayer)}`;
+    if (seededKey.current === key) return;
+    seededKey.current = key;
+    const stored = dayCounts[zikrCountKey(item.id, afterSalahPrayer)] ?? 0;
     setCount(Math.max(0, Math.min(stored, target)));
-  }, [afterSalahPrayer, item, target]);
-
-  useEffect(() => {
-    if (!item) return;
-    const key = zikrCountKey(item.id, afterSalahPrayer);
-    const stored = trackerStore.getState().zikrCounts[key] ?? 0;
-    if (stored > target) {
-      void trackerStore
-        .getState()
-        .setZikrCount(
-          item.id,
-          target,
-          target,
-          afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
-        );
-    }
-  }, [afterSalahPrayer, item, target]);
+    // Older builds could store more than the target — clamp the record.
+    if (stored > target) void writeCount(item.id, target, target, afterSalahPrayer);
+  }, [afterSalahPrayer, day.date, dayCounts, dayReady, item, target, writeCount]);
 
   if (!corpusReady) {
     return null;
@@ -138,14 +130,7 @@ export default function ZikrTasbeehScreen() {
     const safe = Math.max(0, target > 0 ? Math.min(next, target) : next);
     const reachedTarget = target > 0 && safe >= target && count < target;
     setCount(safe);
-    void trackerStore
-      .getState()
-      .setZikrCount(
-        item.id,
-        safe,
-        target,
-        afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
-      );
+    void writeCount(item.id, safe, target, afterSalahPrayer);
     if (reachedTarget) {
       trackReviewInteraction("mark_zikr");
     }
