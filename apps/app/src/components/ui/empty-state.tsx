@@ -55,13 +55,16 @@ export function EmptyState({ icon, title, description, actionLabel, onAction }: 
         ) : null}
       </View>
       {actionLabel && onAction ? (
-        <Button label={actionLabel} variant="secondary" onPress={onAction} />
+        // Button pins itself to flex-start unless fullWidth — centre it under the
+        // centred copy (it sat flush-left in every empty state).
+        <Button label={actionLabel} variant="secondary" onPress={onAction} style={styles.action} />
       ) : null}
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
+  action: { alignSelf: "center" },
   root: {
     alignItems: "center",
     gap: Spacing.three,

@@ -109,6 +109,20 @@ export const StatusPalette = {
 export type StatusKey = keyof typeof StatusPalette;
 
 /**
+ * Calm browse-section hues (dua groups, …) that sit beside the brand green and
+ * mushaf gold. Fills, icon wells and icons only — run text through
+ * `accentOnSurface` first. The fourth group hue is the user's accent.
+ */
+export const CategoryHues = {
+  dawn: "#C9923A",
+  sky: "#4C8FD9",
+  rose: "#C46A7A",
+} as const;
+
+/** Browse-section hue keys (`accent` follows the user's chosen accent). */
+export type CategoryHueKey = "accent" | keyof typeof CategoryHues;
+
+/**
  * Layered elevation presets using the cross-platform `boxShadow` shorthand
  * ("offsetX offsetY blur color"). Black is used (not a themed color) with low
  * opacity so it reads on both cream and deep-green surfaces.
