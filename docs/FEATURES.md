@@ -125,7 +125,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 
 ## Marketing source of truth
 
-Product pillars for landing copy: `packages/shared/src/constants/features.ts` (`APP_FEATURE_PILLARS`, `APP_HOME_FEATURES`).
+Marketing site feature pages, comparisons and guides: `apps/marketing-web/src/content/` (see `apps/marketing-web/AGENTS.md`). Shared counts and pillars: `packages/shared/src/constants/features.ts`. When a feature ships or changes, update its page in `content/features/` and the Munib values in `content/compare/shared.ts`.
 
 ---
 

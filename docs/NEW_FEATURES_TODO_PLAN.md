@@ -1,9 +1,9 @@
 # New features — TODO plan (NF-3.x)
 
-Status: **planned, not started** · Created 2026-11-19 · Owner: product
+Status: **planned, not started** · Created 2026-11-19 · Updated 2026-11-23 (NF-3.21–3.24, NF-3.0b settings control panel, decisions D11–D28 locked) · Owner: product
 Shipped catalog: [`FEATURES.md`](./FEATURES.md) · Open work: [`BACKLOG.md`](./BACKLOG.md)
 
-This plan covers 20 features plus the shared foundations they need. Each feature section gives:
+This plan covers 24 features plus the shared foundations they need. Each feature section gives:
 goal, Islamic basis, scope, data model, storage/sync, core logic and conditions, UI/routes,
 notifications, data sources, tests, acceptance criteria and open risks.
 
@@ -16,13 +16,13 @@ When a feature ships, move its row into `FEATURES.md` (same NF id) and delete it
 1. [Locked decisions](#1-locked-decisions)
 2. [Non-negotiable rules (all features)](#2-non-negotiable-rules-all-features)
 3. [Phasing & sequencing](#3-phasing--sequencing)
-4. [Foundations (NF-3.0)](#4-foundations-nf-30) — incl. **NF-3.0a "My madhhab" setting + retrofit**
+4. [Foundations (NF-3.0)](#4-foundations-nf-30) — incl. **NF-3.0a "My madhhab" setting + retrofit** and **NF-3.0b Settings control panel** (§4.5)
 5. [Phase 1 — Daily practice](#5-phase-1--daily-practice)
    - NF-3.1 Sunnah Rawatib · NF-3.2 Voluntary fasting · NF-3.3 Dhul-Hijjah mode · NF-3.5 Daily Sunnah habits · NF-3.19 Tasbeeh counter designs
 6. [Phase 2 — Private self-accountability](#6-phase-2--private-self-accountability)
    - NF-3.6 Muhasabah · NF-3.7 Silat al-rahim · NF-3.8 Debts record · NF-3.9 Wasiyyah · NF-3.14 Weekly gentle coach
-7. [Phase 3 — Fiqh tools & Qur'an](#7-phase-3--fiqh-tools--quran)
-   - NF-3.10 Mirath · NF-3.15 Tajweed coaching · NF-3.20 Hands-free tasbeeh (voice) · NF-3.4 Umrah mode
+7. [Phase 3 — Fiqh tools, Qur'an & hadith](#7-phase-3--fiqh-tools-quran--hadith)
+   - NF-3.10 Mirath · NF-3.15 Tajweed coaching · NF-3.20 Hands-free tasbeeh (voice) · NF-3.4 Umrah mode · NF-3.21 Ayah notes & annotations · NF-3.22 Arabic root-word search · NF-3.23 Hadith audio · NF-3.24 Qur'an pronunciation assessment
 8. [Phase 4 — Device & place](#8-phase-4--device--place)
    - NF-3.13 Salah focus lock · NF-3.11 Masjid finder · NF-3.12 Timetable OCR
 9. [Phase 5 — Social (circles)](#9-phase-5--social-circles)
@@ -30,7 +30,7 @@ When a feature ships, move its row into `FEATURES.md` (same NF id) and delete it
 10. [Cross-cutting checklist (per feature)](#10-cross-cutting-checklist-per-feature)
 11. [Notification budget](#11-notification-budget)
 12. [Evidence register](#12-evidence-register)
-13. [Open questions (not blocking)](#13-open-questions-not-blocking)
+13. [Open items (all decisions locked)](#13-open-items-all-decisions-locked)
 
 ---
 
@@ -38,24 +38,49 @@ When a feature ships, move its row into `FEATURES.md` (same NF id) and delete it
 
 Decided with the product owner on 2026-11-19. Don't change any of these without updating this table.
 
-| #   | Topic                      | Decision                                                                                                                                                                                                                                                         |
-| --- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| D1  | Social backend             | Build a **`circles` module in `apps/api`** (Postgres + TypeORM migrations, Drizzle mirror in `packages/db`). Family, partner and group khatm ship in the **final phase**, after the single-user features.                                                      |
-| D2  | Sensitive data             | Muhasabah, wasiyyah and the debts record are **stored on the device by default**. Cloud sync is **opt-in and end-to-end encrypted**: the server stores ciphertext only. Silat al-rahim relatives (third-party names and phone numbers) also go in the vault (extension of D2, see §4.2). |
-| D3  | AI approach                | **On-device only, permanently.** The weekly coach is a deterministic rules engine with i18n templates. Timetable OCR uses on-device text recognition plus a rule-based parser. Hands-free tasbeeh (NF-3.20) runs the pinned FastConformer ONNX model on the device; it never uses OS or cloud speech recognition, and audio never leaves the device. No cloud LLM calls, no server-side inference, ever, for these features.          |
-| D4  | Focus lock                 | **Hard block from v1.** iOS uses FamilyControls / ManagedSettings / DeviceActivity, which needs Apple's distribution entitlement. Android uses UsageStats, an overlay and a foreground service, which needs Play policy declarations. Start both approval processes in Phase 0 because of the lead time. |
-| D5  | Masjid data                | **Publicly available data only.** Locations, details and any times come from **OpenStreetMap (Overpass)**, through a read-only proxy and cache in `apps/api`. Other public timetable sources are added only after a licence review. **No user submissions, no voting, no admin moderation, no masjid-admin claims.** When a field has no public data, it **isn't shown**. Users may keep **private** iqamah times for their own home masjid (manual or on-device OCR), and these are never shared. |
-| D6  | Mirath scope               | **All four schools in v1**, one engine with per-school parameters for the disputed cases. Release is **gated on scholar sign-off** of the fixture suite.                                                                                                      |
-| D7  | Kids                       | **Parent-managed child profile**: no email, nickname and birth year only, child device linked by QR. Kids mode applies below 13. The parent sees **fard salah status only**.                                                                                     |
-| D8  | Rawatib default            | **Follows the global madhhab and can be edited.** Hanafi → 12; Shafi'i / Hanbali / Maliki → 10 mu'akkadah. The user can switch between 10 and 12 and enable optional ghayr mu'akkadah extras.                                                               |
-| D9  | Global madhhab (NF-3.0a)   | One **"My madhhab"** setting (Hanafi / Shafi'i / Maliki / Hanbali / **Show all views**) that every guide and calculator reads, **including retrofitting shipped features**: Witr, hayd/istihada/nifas, qasr/jam', zakat nisab, Fajr/Isha preferred times, fidyah, Eid/Jumu'ah, janazah, tawaf (§4.1.4). Differences are labelled, never hidden. It is independent of the Asr `MadhabKey`, but picking a school offers to match the two. |
-| D10 | Tasbeeh design default (NF-3.19) | The **current circular donut (Ring) with the count inside stays the default** for every user, and is used when no design has been chosen. Sliding beads and the other designs are opt-in from the counter's style sheet or from Settings. |
+| #   | Topic                            | Decision                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| --- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D1  | Social backend                   | Build a **`circles` module in `apps/api`** (Postgres + TypeORM migrations, Drizzle mirror in `packages/db`). Family, partner and group khatm ship in the **final phase**, after the single-user features.                                                                                                                                                                                                                                                                                          |
+| D2  | Sensitive data                   | Muhasabah, wasiyyah and the debts record are **stored on the device by default**. Cloud sync is **opt-in and end-to-end encrypted**: the server stores ciphertext only. Silat al-rahim relatives (third-party names and phone numbers) also go in the vault (extension of D2, see §4.2).                                                                                                                                                                                                           |
+| D3  | AI approach                      | **On-device only, permanently.** The weekly coach is a deterministic rules engine with i18n templates. Timetable OCR uses on-device text recognition plus a rule-based parser. Hands-free tasbeeh (NF-3.20) and Qur'an pronunciation assessment (NF-3.24) run the pinned FastConformer ONNX model on the device; they never use OS or cloud speech recognition, and audio never leaves the device. No cloud LLM calls, no server-side inference, ever, for these features.                         |
+| D4  | Focus lock                       | **Hard block from v1.** iOS uses FamilyControls / ManagedSettings / DeviceActivity, which needs Apple's distribution entitlement. Android uses UsageStats, an overlay and a foreground service, which needs Play policy declarations. Start both approval processes in Phase 0 because of the lead time.                                                                                                                                                                                           |
+| D5  | Masjid data                      | **Publicly available data only.** Locations, details and any times come from **OpenStreetMap (Overpass)**, through a read-only proxy and cache in `apps/api`. Other public timetable sources are added only after a licence review. **No user submissions, no voting, no admin moderation, no masjid-admin claims.** When a field has no public data, it **isn't shown**. Users may keep **private** iqamah times for their own home masjid (manual or on-device OCR), and these are never shared. |
+| D6  | Mirath scope                     | **All four schools in v1**, one engine with per-school parameters for the disputed cases. Release is **gated on scholar sign-off** of the fixture suite.                                                                                                                                                                                                                                                                                                                                           |
+| D7  | Kids                             | **Parent-managed child profile**: no email, nickname and birth year only, child device linked by QR. Kids mode applies below 13. The parent sees **fard salah status only**.                                                                                                                                                                                                                                                                                                                       |
+| D8  | Rawatib default                  | **Follows the global madhhab and can be edited.** Hanafi → 12; Shafi'i / Hanbali / Maliki → 10 mu'akkadah. The user can switch between 10 and 12 and enable optional ghayr mu'akkadah extras.                                                                                                                                                                                                                                                                                                      |
+| D9  | Global madhhab (NF-3.0a)         | One **"My madhhab"** setting (Hanafi / Shafi'i / Maliki / Hanbali / **Show all views**) that every guide and calculator reads, **including retrofitting shipped features**: Witr, hayd/istihada/nifas, qasr/jam', zakat nisab, Fajr/Isha preferred times, fidyah, Eid/Jumu'ah, janazah, tawaf (§4.1.4). Differences are labelled, never hidden. It is independent of the Asr `MadhabKey`, but picking a school offers to match the two.                                                            |
+| D10 | Tasbeeh design default (NF-3.19) | The **current circular donut (Ring) with the count inside stays the default** for every user, and is used when no design has been chosen. Sliding beads and the other designs are opt-in from the counter's style sheet or from Settings.                                                                                                                                                                                                                                                          |
 
-Planning decisions taken here (reversible; flag them in review if you disagree):
+Decided with the product owner on 2026-11-23:
+
+| #   | Topic                           | Decision                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| --- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D11 | Religious-content review        | **AI review with proofs and references replaces a named scholar panel.** Every ruling, copy line, fixture and evidence ref gets a **proof-log entry** (`docs/proofs/<feature>.md`) recording: the claim; its primary sources (Qur'an/hadith refs checked against the bundled corpus by `content-verification.ts`, or classical works cited by title, edition and page); the grading where relevant; the views of each school where they differ; and the review date. A claim without a verifiable source is **removed or shown as "scholars differ"**, never asserted. **Wherever this plan says "scholar sign-off", "scholar panel", "scholar to confirm", "scholar-reviewed" or "scholar-verified", read it as this review.** Mirath fixtures record `verifiedBy: "ai-review"` plus `sources`. The user-facing "consult a qualified scholar" disclaimers stay.                                                                                                      |
+| D12 | Licences                        | **A source whose licence is unclear is not used**: no bundling and no runtime fetch. The feature ships without that tier until a source passes review. This applies to morphology data (NF-3.22), hadith recordings (NF-3.23), iqamah timetables (NF-3.11), kids content (NF-3.16) and sound packs.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| D13 | Settings panel (NF-3.0b)        | **Build a "Reorder library" editor** (`libraryMenuOrder` is implemented, not deleted). **Bundle one native notification sound per adhan style.** **Merge the four translation/transliteration visibility stores into one app-wide setting.** **"Reset app data" lives only in Data & storage** (removed from Profile, which keeps Delete account).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| D14 | Hijri date adjustment           | **Added**, with a global offset plus per-month corrections that always keep months at 29 or 30 days. Applied once, inside `lib/hijri.ts`, so every surface agrees (§4.5.11).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| D15 | Ayah notes (NF-3.21)            | **Normal sync** (not the vault). **Word-level highlights ship in mushaf page mode in v1**, after a glyph-box spike.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| D16 | Tasbeeh (NF-3.19, 3.20)         | **All designs free.** **TV sound defaults on**; phones stay off. **CC0 sound packs**, credited. **The pebbles / date-pits design ships, with a grading note.** Hands-free counting keeps **Strict (default) + Balanced**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| D17 | Focus lock iOS fallback         | If Apple denies the entitlement, **ship the soft prompt on iOS** (hard block off via `focusLockHardIos`); Android keeps the hard block.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| D18 | Speech model on web             | **No self-hosting and no CDN of our own.** On web, FastConformer comes from the public, CC-BY-4.0 Hugging Face mirror **`acibZ/tilawa-quran-onnx`, pinned to commit `0cd79471524bc9cfa1c9296055242a935a1873e4`**: `https://huggingface.co/acibZ/tilawa-quran-onnx/resolve/0cd7947…/<file>`. Checked 2026-11-23: all five files (`fastconformer_full_mixed.onnx` 88,307,366 B, `vocab.json`, `quran_ctc_tokens.json`, `quran.json`, `export_metadata.json`) match the sha256 values already pinned in `constants/recitation-models.json`, and the CDN sends `Access-Control-Allow-Origin: *`. The GitHub release URLs stay the native source; they can't serve the browser because neither `github.com` nor `release-assets.githubusercontent.com` sends a CORS header. Set `webHosted: true` with the HF URLs as web sources. The existing hash check rejects anything that changes. Credit both the mirror and the original (yazinsai/tilawa, NVIDIA FastConformer). |
+| D19 | Hadith audio (NF-3.23)          | **Licence-cleared human recordings only; no device voice in any language.** If no recording source passes D12, **hadith audio doesn't ship**. This replaces the earlier "v1 = translation read-aloud" decision.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| D20 | Pronunciation (NF-3.24)         | **Full Clear / Listen again / Not sure per word, gated**: if spike S3 misses the gate, v1 automatically falls back to "skipped or unclear words". Flagged words **feed NF-3.15 coaching automatically**, with an opt-out setting.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| D21 | Timeline                        | The owner plans to implement the whole plan in one push (2–3 days), so the phase order stays and **no early-launch exception** is needed for group khatm.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| D22 | Root-word source (NF-3.22)      | The **unmodified Quranic Arabic Corpus morphology v0.4**, fetched cache-first from a pinned public GitHub copy (no self-hosting), checked against sha256 `910b721a…532d` after LF normalisation. The **root index is built on the device**, and the full QAC notice plus a link to corpus.quran.com appear in Credits. Its own terms allow use in any application with that credit. Details in NF-3.22.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| D23 | Speech testing                  | **No new human recordings and no storage of our own.** The test sets for S1–S4 are built at eval time from audio the app already streams: adhkar/dua recordings (`lib/audio-tracks.ts`), several Qur'an reciters (everyayah) and word-by-word audio (audio.qurancdn.com). The eval adds noise, speed and reverb variants and spliced errors (swapped or dropped words, confusable-letter word swaps). **Zipformer, FastConformer and Quran Lab cross-check each other.** Audio is cached locally (gitignored) and never committed. Release gates are reported as **"measured on reference + synthetic audio"**, and copy never claims accuracy on real learners' voices.                                                                                                                                                                                                                                                                                              |
+| D24 | Spike failures                  | If a spike fails (S1–S4, N1), **the feature's documented fallback ships** without asking again: pause-count mode (3.20), "skipped or unclear words" (3.24), an ayah tint on that page (N1). The result goes in the proof log.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| D25 | External filings, Quran Lab SDK | **File the Apple Family Controls entitlement and the Play declarations now** (D17 covers a refusal). **NF-3.15 Phase B no longer waits for the SDK**: it uses NF-3.24's own forced alignment for per-word windows and per-word coaching. Head-level judging inside an ayah stays out of scope until the SDK supports it (see NF-3.15).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| D26 | Iqamah sources (NF-3.11)        | **OpenStreetMap plus any public feed that passes D12.** Research feeds during the build; each adapter needs a recorded licence review. With no cleared feed, only OSM and the user's private times are shown.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| D27 | Kids content (NF-3.16)          | A **curated subset of the bundled datasets** (short duas, daily adhkar, 99 Names, short surahs) chosen under D11, using existing audio only. **No new kids-specific sources.**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| D28 | Tasbeeh sound sources           | **Kenney** CC0 packs plus individual **Freesound** clips filtered to CC0; each file's licence is recorded (D12).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+
+Planning decisions confirmed and locked on 2026-11-23:
 
 - **Masjid finder v1 is list-first.** "Open in Maps" uses the OS deep link. The in-app map (MapLibre plus OpenFreeMap tiles) is v2, so a new map SDK isn't needed at launch.
 - **Group khatm unit**: 30 juz by default; 60 hizb or 114 surahs are optional.
 - **Rawatib are stored as new `PrayerId`s** reusing `PrayerLog` (§5.1), rather than as a new entity.
+- **Ayah notes (NF-3.21) use a normal sync entity, not the vault** (D15).
+- **Hadith audio (NF-3.23) is human recordings only** (D19, which replaces the earlier "translation read-aloud" choice).
 
 ---
 
@@ -63,7 +88,7 @@ Planning decisions taken here (reversible; flag them in review if you disagree):
 
 1. **No AI-written or hand-typed scripture.** Qur'an and hadith text is always rendered from the bundled or remote corpus **by reference** (`surah:ayah`, `collection:number`). New guide copy follows the existing `packages/shared/src/content/*-guide.ts` pattern, with explicit refs checked by `content-verification.ts`. See the root `AGENTS.md`, "Content & data".
 2. **Madhhab-aware, not madhhab-imposing.** Every ruling that differs between the schools reads `useMadhhab()` (§4.1). When `madhhab === null`, show all views side by side.
-3. **Scholar review gate.** Each feature has a "Scholar sign-off" checkbox in §10 and does not ship without it. Mirath also needs fixture sign-off (D6).
+3. **Proof-backed review gate (D11).** Each feature has a "Proof-backed review" checkbox in §10 and does not ship without a complete proof log. Mirath also needs every fixture reviewed with sources (D6).
 4. **Privacy by default.**
    - Worship stats are private.
    - No leaderboards for ibadah.
@@ -79,18 +104,19 @@ Planning decisions taken here (reversible; flag them in review if you disagree):
 
 ## 3. Phasing & sequencing
 
-| Phase | Features                                                                    | Why this order                                                         | Est. size |
-| ----- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------- |
-| 0     | NF-3.0 foundations: **NF-3.0a madhhab setting + retrofit of shipped features (§4.1.4)**, vault, **entitlement / Play filings** | Everything else depends on these. The retrofit fixes today's silent single-school defaults (zakat nisab, Witr qaza, hayd). The Apple and Play reviews take weeks. | L         |
-| 1     | 3.1 Rawatib · 3.2 Voluntary fasting · 3.5 Sunnah habits · 3.3 Dhul-Hijjah mode · 3.19 Tasbeeh designs | Local-only, used every day, extends existing patterns. **Dhul-Hijjah 1448 starts around May 2027** (verify with `hijri.ts`). 3.19 has no dependencies, so it can be built in parallel with the others or at any time. | M         |
-| 2     | 3.6 Muhasabah · 3.7 Silat al-rahim · 3.8 Debts · 3.9 Wasiyyah · 3.14 Coach  | Needs the vault (D2). The coach consumes Phase 1 data.                 | L         |
-| 3     | 3.10 Mirath · 3.15 Tajweed coaching · 3.20 Hands-free tasbeeh · 3.4 Umrah mode | Heavy fiqh/test work. The wasiyyah links into mirath. 3.20 shares the on-device speech stack with Qur'an practice and needs the 3.19 counter shell; spikes S1 and S2 can start at any time. | L         |
-| 4     | 3.13 Focus lock · 3.11 Masjid finder · 3.12 Timetable OCR                   | Native modules plus a read-only OSM proxy in the API (no admin work). The entitlements should be approved by now. | XL        |
-| 5     | 3.16 Family & kids · 3.17 Partner · 3.18 Group khatm                        | D1: social goes last. Needs the `circles` backend.                     | XL        |
+| Phase | Features                                                                                                                                                                     | Why this order                                                                                                                                                                                                                                                                                                                                                                                                                               | Est. size |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| 0     | NF-3.0 foundations: **NF-3.0a madhhab setting + retrofit of shipped features (§4.1.4)**, **NF-3.0b settings control panel (§4.5)**, vault, **entitlement / Play filings**    | Everything else depends on these. The retrofit fixes today's silent single-school defaults (zakat nisab, Witr qaza, hayd). The settings registry has to exist before features start adding settings, and it fixes the audit bugs B1–B7. The Apple and Play reviews take weeks.                                                                                                                                                               | L         |
+| 1     | 3.1 Rawatib · 3.2 Voluntary fasting · 3.5 Sunnah habits · 3.3 Dhul-Hijjah mode · 3.19 Tasbeeh designs                                                                        | Local-only, used every day, extends existing patterns. **Dhul-Hijjah 1448 starts around May 2027** (verify with `hijri.ts`). 3.19 has no dependencies, so it can be built in parallel with the others or at any time.                                                                                                                                                                                                                        | M         |
+| 2     | 3.6 Muhasabah · 3.7 Silat al-rahim · 3.8 Debts · 3.9 Wasiyyah · 3.14 Coach                                                                                                   | Needs the vault (D2). The coach consumes Phase 1 data.                                                                                                                                                                                                                                                                                                                                                                                       | L         |
+| 3     | 3.10 Mirath · 3.15 Tajweed coaching · 3.20 Hands-free tasbeeh · 3.4 Umrah mode · 3.21 Ayah notes · 3.22 Root-word search · 3.23 Hadith audio · 3.24 Pronunciation assessment | Heavy fiqh/test work. The wasiyyah links into mirath. 3.20 and 3.24 share the on-device speech stack with Qur'an practice (build 3.20's shared FastConformer runner first); 3.20 also needs the 3.19 counter shell. Spikes S1–S4 can start at any time. 3.21 has no dependencies and can be built at any time. 3.22's source is already cleared (D22). 3.23 depends on finding licence-cleared recordings (D19), so start that search early. | XL        |
+| 4     | 3.13 Focus lock · 3.11 Masjid finder · 3.12 Timetable OCR                                                                                                                    | Native modules plus a read-only OSM proxy in the API (no admin work). The entitlements should be approved by now.                                                                                                                                                                                                                                                                                                                            | XL        |
+| 5     | 3.16 Family & kids · 3.17 Partner · 3.18 Group khatm                                                                                                                         | D1: social goes last. Needs the `circles` backend.                                                                                                                                                                                                                                                                                                                                                                                           | XL        |
 
 Dependency graph (→ = "needed by"):
 
 ```
+settings registry (3.0b) ─→ every feature that adds a setting (registers it in lib/settings)
 madhhab pref ─→ rawatib, dhul-hijjah, voluntary fasting, mirath, umrah
 vault ────────→ muhasabah, silat al-rahim, debts, wasiyyah
 debts ────────→ wasiyyah ─→ mirath (estate deductions)
@@ -98,6 +124,9 @@ masjid finder → timetable OCR (private home-masjid times), focus lock (iqamah 
 circles API ──→ family/kids, partner, group khatm
 all trackers ─→ weekly coach
 tasbeeh shell (3.19) + Qur'an practice speech stack (shipped) ─→ hands-free tasbeeh (3.20)
+shared FastConformer runner (built in 3.20) ─→ pronunciation assessment (3.24) ─→ tajweed coaching (3.15, flagged words as examples)
+morphology dataset licence review ─→ root-word search (3.22)
+recording licence review ─→ hadith audio Tier 2 (3.23)
 ```
 
 ---
@@ -134,7 +163,14 @@ export type MadhhabId = "hanafi" | "shafii" | "maliki" | "hanbali";
 
 /** Fiqh areas a user may set independently (advanced; talfiq caution shown). */
 export type FiqhDomain =
-  | "salah" | "taharah" | "fasting" | "zakat" | "travel" | "hajj" | "udhiyah" | "inheritance";
+  | "salah"
+  | "taharah"
+  | "fasting"
+  | "zakat"
+  | "travel"
+  | "hajj"
+  | "udhiyah"
+  | "inheritance";
 
 interface UserPreferences {
   // …existing
@@ -183,10 +219,13 @@ apps/app/src/components/fiqh/
 
 ```ts
 export interface FiqhDifference {
-  id: string;                          // "witr.status", "hayd.max", "qasr.distance", …
+  id: string; // "witr.status", "hayd.max", "qasr.distance", …
   domain: FiqhDomain;
   titleKey: string;
-  positions: Record<MadhhabId, { summaryKey: string; value?: string | number; refs?: ContentRef[] }>;
+  positions: Record<
+    MadhhabId,
+    { summaryKey: string; value?: string | number; refs?: ContentRef[] }
+  >;
   /** Optional label when 3+ schools agree. */
   majority?: MadhhabId[];
   /** Where the difference is shown (guide section ids / routes) — used by a coverage test. */
@@ -205,105 +244,126 @@ export interface FiqhDifference {
 
 All values **must be scholar-confirmed before merge**. Where a school has multiple relied-upon views, record the relied-upon one (mu'tamad) and list the others in the difference catalog.
 
-| Area | Rule | Hanafi | Shafi'i | Maliki | Hanbali |
-| --- | --- | --- | --- | --- | --- |
-| **Salah times** | Asr start (existing `MadhabKey`) | Shadow 2× (+ zawal shadow) | Shadow 1× | Shadow 1× | Shadow 1× |
-| | Fajr preferred time | Isfar (when light spreads, leaving time to repeat) | Taghlis (early, in darkness) | Taghlis | Taghlis |
-| | Isha start (info only; calc angle unchanged) | White twilight (Abu Hanifa); red per the Sahibayn (many Hanafi fatwas) | Red twilight | Red twilight | Red twilight |
-| | Isha preferred time | Delay to ⅓ of the night | Early (one view prefers delay) | Early (esp. for congregations) | Delay to ⅓ if not hard on others |
-| | Asr preferred / disliked | Delay is preferred, but not until the sun yellows | Early | Early | Early |
-| **Witr** | Status | **Wajib** | Sunnah mu'akkadah | Sunnah mu'akkadah | Sunnah mu'akkadah |
-| | Form | 3 rak'at, one salam, qunut before ruku' all year | Min 1, commonly 2+1, max 11; qunut in the 2nd half of Ramadan | 1 rak'ah after a 2-rak'ah shaf' | Min 1, commonly 2+1, max 11; qunut all year, after ruku' |
-| | Make-up (qaza) | Required | Recommended | Recommended | Recommended |
-| **Salah method** (guide notes) | Raising the hands | Opening takbir only | Opening, ruku', rising, standing for the 3rd | Opening (the well-known view) | Opening, ruku', rising |
-| | Fatiha behind the imam | Not recited | Obligatory in every prayer | Recited in silent prayers only | Recited in silent prayers only |
-| | Qunut in Fajr | No | Yes (standing, after ruku') | Yes (quietly, before ruku') | No (only nazilah) |
-| **Hayd / nifas** | Hayd minimum | 3 days | 1 day + night (24 h) | No minimum (for worship) | 1 day + night |
-| | Hayd maximum | 10 days | 15 days | 15 days (habit + 3 days istizhar for a habitual woman, up to 15) | 15 days |
-| | Minimum purity between two periods | 15 days | 15 days | 15 days | 13 days |
-| | Nifas maximum | 40 days | 60 days | 60 days | 40 days |
-| | Bleeding beyond the maximum | Istihada: pray, wudu per prayer time | Istihada (distinguish by habit/colour) | Istihada | Istihada (by habit/colour) |
-| **Travel** | Qasr distance (approx.; conversions differ) | ≈ 77–78 km (48 mi) | ≈ 81–89 km (4 burud) | ≈ 81–89 km | ≈ 81–89 km |
-| | Qasr status | **Wajib** (praying 4 is sinful/makruh tahriman) | Concession (qasr is better) | Sunnah mu'akkadah | Concession (qasr is better) |
-| | Becomes resident by intending to stay | ≥ 15 days | ≥ 4 full days (excluding the arrival and departure days) | ≥ 4 full days (≈ 20 prayers) | > 4 days (more than 20 prayers) |
-| | Combining prayers (jam') while travelling | **Not allowed** (except Arafah/Muzdalifah in Hajj) | Allowed (taqdim/ta'khir) | Allowed with conditions (while on the move) | Allowed |
-| | Combining for rain | No | Yes (Dhuhr+Asr, Maghrib+Isha, in congregation) | Maghrib+Isha | Maghrib+Isha |
-| | Rawatib while travelling | Optional (except the Fajr sunnah; recommended when settled) | Optional | Optional | Left except Fajr sunnah and Witr |
-| **Zakat** | Nisab for cash/trade goods | **Lower** of gold/silver (favours the poor) | Gold or silver (classical: per metal; for currency, contemporary views differ) | Gold or silver; gold and silver combined | Gold or silver (one view: lower) |
-| | Combine gold + silver to reach nisab | Yes (by value) | No | Yes (by proportion) | Two views (the relied-upon one: yes) |
-| | Women's personal-use jewellery | **Zakatable** | Not zakatable (if permissible and in normal use) | Not zakatable | Not zakatable |
-| **Fasting** | Eating forgetfully | Fast valid | Fast valid | Make up (obligatory fast) | Fast valid |
-| | Kaffarah trigger | Intercourse **or** deliberate eating/drinking | Intercourse only | Intercourse or deliberate eating/drinking | Intercourse only |
-| | Fidyah measure | ½ sa' wheat or 1 sa' dates/barley; **cash value allowed** | 1 mudd of staple food per day; food only | 1 mudd; food | 1 mudd of wheat or ½ sa' of other food; food |
-| | Sadaqat al-fitr | ½ sa' wheat / 1 sa' other; **cash allowed** | 1 sa' of staple food | 1 sa' of staple food | 1 sa' of staple food |
-| | Tarawih (info) | 20 | 20 | 20 (36 as the old Madinah practice) | 20 |
-| **Jumu'ah / Eid** | Minimum congregation for Jumu'ah | 3 + imam | 40 | 12 + imam | 40 |
-| | Eid prayer status | Wajib | Sunnah mu'akkadah | Sunnah mu'akkadah | Fard kifayah |
-| | Extra Eid takbirs | 3 + 3 | 7 + 5 | 6 + 5 (7 counting the opening) | 6 + 5 (7 counting the opening) |
-| **Janazah** | Fatiha in the janazah prayer | Not recited (praise instead) | Obligatory | Not recited | Obligatory |
-| **Hajj / Umrah** | Wudu for tawaf | Wajib (valid without it, with a penalty) | Condition of validity | Condition | Condition |
-| **New features** | Rawatib preset (NF-3.1) | 12 | 10 | 10 | 10 |
-| | Takbir al-Tashriq (NF-3.3) | Fajr 9 → Asr 13, wajib, 2 opening takbirs | Fajr 9 → Asr 13, sunnah, 3 | Dhuhr 10 → Fajr 13, 3 | Fajr 9 → Asr 13, 2 |
-| | Udhiyah (NF-3.3) | Wajib on one with nisab; ends 12th | Sunnah mu'akkadah; ends 13th | Sunnah mu'akkadah; ends 12th | Sunnah mu'akkadah; ends 12th |
-| | Hair/nails in the ten (NF-3.3) | Mustahabb to refrain | Makruh | Makruh | Haram |
-| | Shafi'i: fasting after mid-Sha'ban (NF-3.2) | — | Disliked unless habitual or qaza | — | — |
-| | Mirath disputed cases (NF-3.10) | See §7 NF-3.10 | | | |
+| Area                           | Rule                                         | Hanafi                                                                 | Shafi'i                                                                        | Maliki                                                           | Hanbali                                                  |
+| ------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------- | -------------------------------------------------------- |
+| **Salah times**                | Asr start (existing `MadhabKey`)             | Shadow 2× (+ zawal shadow)                                             | Shadow 1×                                                                      | Shadow 1×                                                        | Shadow 1×                                                |
+|                                | Fajr preferred time                          | Isfar (when light spreads, leaving time to repeat)                     | Taghlis (early, in darkness)                                                   | Taghlis                                                          | Taghlis                                                  |
+|                                | Isha start (info only; calc angle unchanged) | White twilight (Abu Hanifa); red per the Sahibayn (many Hanafi fatwas) | Red twilight                                                                   | Red twilight                                                     | Red twilight                                             |
+|                                | Isha preferred time                          | Delay to ⅓ of the night                                                | Early (one view prefers delay)                                                 | Early (esp. for congregations)                                   | Delay to ⅓ if not hard on others                         |
+|                                | Asr preferred / disliked                     | Delay is preferred, but not until the sun yellows                      | Early                                                                          | Early                                                            | Early                                                    |
+| **Witr**                       | Status                                       | **Wajib**                                                              | Sunnah mu'akkadah                                                              | Sunnah mu'akkadah                                                | Sunnah mu'akkadah                                        |
+|                                | Form                                         | 3 rak'at, one salam, qunut before ruku' all year                       | Min 1, commonly 2+1, max 11; qunut in the 2nd half of Ramadan                  | 1 rak'ah after a 2-rak'ah shaf'                                  | Min 1, commonly 2+1, max 11; qunut all year, after ruku' |
+|                                | Make-up (qaza)                               | Required                                                               | Recommended                                                                    | Recommended                                                      | Recommended                                              |
+| **Salah method** (guide notes) | Raising the hands                            | Opening takbir only                                                    | Opening, ruku', rising, standing for the 3rd                                   | Opening (the well-known view)                                    | Opening, ruku', rising                                   |
+|                                | Fatiha behind the imam                       | Not recited                                                            | Obligatory in every prayer                                                     | Recited in silent prayers only                                   | Recited in silent prayers only                           |
+|                                | Qunut in Fajr                                | No                                                                     | Yes (standing, after ruku')                                                    | Yes (quietly, before ruku')                                      | No (only nazilah)                                        |
+| **Hayd / nifas**               | Hayd minimum                                 | 3 days                                                                 | 1 day + night (24 h)                                                           | No minimum (for worship)                                         | 1 day + night                                            |
+|                                | Hayd maximum                                 | 10 days                                                                | 15 days                                                                        | 15 days (habit + 3 days istizhar for a habitual woman, up to 15) | 15 days                                                  |
+|                                | Minimum purity between two periods           | 15 days                                                                | 15 days                                                                        | 15 days                                                          | 13 days                                                  |
+|                                | Nifas maximum                                | 40 days                                                                | 60 days                                                                        | 60 days                                                          | 40 days                                                  |
+|                                | Bleeding beyond the maximum                  | Istihada: pray, wudu per prayer time                                   | Istihada (distinguish by habit/colour)                                         | Istihada                                                         | Istihada (by habit/colour)                               |
+| **Travel**                     | Qasr distance (approx.; conversions differ)  | ≈ 77–78 km (48 mi)                                                     | ≈ 81–89 km (4 burud)                                                           | ≈ 81–89 km                                                       | ≈ 81–89 km                                               |
+|                                | Qasr status                                  | **Wajib** (praying 4 is sinful/makruh tahriman)                        | Concession (qasr is better)                                                    | Sunnah mu'akkadah                                                | Concession (qasr is better)                              |
+|                                | Becomes resident by intending to stay        | ≥ 15 days                                                              | ≥ 4 full days (excluding the arrival and departure days)                       | ≥ 4 full days (≈ 20 prayers)                                     | > 4 days (more than 20 prayers)                          |
+|                                | Combining prayers (jam') while travelling    | **Not allowed** (except Arafah/Muzdalifah in Hajj)                     | Allowed (taqdim/ta'khir)                                                       | Allowed with conditions (while on the move)                      | Allowed                                                  |
+|                                | Combining for rain                           | No                                                                     | Yes (Dhuhr+Asr, Maghrib+Isha, in congregation)                                 | Maghrib+Isha                                                     | Maghrib+Isha                                             |
+|                                | Rawatib while travelling                     | Optional (except the Fajr sunnah; recommended when settled)            | Optional                                                                       | Optional                                                         | Left except Fajr sunnah and Witr                         |
+| **Zakat**                      | Nisab for cash/trade goods                   | **Lower** of gold/silver (favours the poor)                            | Gold or silver (classical: per metal; for currency, contemporary views differ) | Gold or silver; gold and silver combined                         | Gold or silver (one view: lower)                         |
+|                                | Combine gold + silver to reach nisab         | Yes (by value)                                                         | No                                                                             | Yes (by proportion)                                              | Two views (the relied-upon one: yes)                     |
+|                                | Women's personal-use jewellery               | **Zakatable**                                                          | Not zakatable (if permissible and in normal use)                               | Not zakatable                                                    | Not zakatable                                            |
+| **Fasting**                    | Eating forgetfully                           | Fast valid                                                             | Fast valid                                                                     | Make up (obligatory fast)                                        | Fast valid                                               |
+|                                | Kaffarah trigger                             | Intercourse **or** deliberate eating/drinking                          | Intercourse only                                                               | Intercourse or deliberate eating/drinking                        | Intercourse only                                         |
+|                                | Fidyah measure                               | ½ sa' wheat or 1 sa' dates/barley; **cash value allowed**              | 1 mudd of staple food per day; food only                                       | 1 mudd; food                                                     | 1 mudd of wheat or ½ sa' of other food; food             |
+|                                | Sadaqat al-fitr                              | ½ sa' wheat / 1 sa' other; **cash allowed**                            | 1 sa' of staple food                                                           | 1 sa' of staple food                                             | 1 sa' of staple food                                     |
+|                                | Tarawih (info)                               | 20                                                                     | 20                                                                             | 20 (36 as the old Madinah practice)                              | 20                                                       |
+| **Jumu'ah / Eid**              | Minimum congregation for Jumu'ah             | 3 + imam                                                               | 40                                                                             | 12 + imam                                                        | 40                                                       |
+|                                | Eid prayer status                            | Wajib                                                                  | Sunnah mu'akkadah                                                              | Sunnah mu'akkadah                                                | Fard kifayah                                             |
+|                                | Extra Eid takbirs                            | 3 + 3                                                                  | 7 + 5                                                                          | 6 + 5 (7 counting the opening)                                   | 6 + 5 (7 counting the opening)                           |
+| **Janazah**                    | Fatiha in the janazah prayer                 | Not recited (praise instead)                                           | Obligatory                                                                     | Not recited                                                      | Obligatory                                               |
+| **Hajj / Umrah**               | Wudu for tawaf                               | Wajib (valid without it, with a penalty)                               | Condition of validity                                                          | Condition                                                        | Condition                                                |
+| **New features**               | Rawatib preset (NF-3.1)                      | 12                                                                     | 10                                                                             | 10                                                               | 10                                                       |
+|                                | Takbir al-Tashriq (NF-3.3)                   | Fajr 9 → Asr 13, wajib, 2 opening takbirs                              | Fajr 9 → Asr 13, sunnah, 3                                                     | Dhuhr 10 → Fajr 13, 3                                            | Fajr 9 → Asr 13, 2                                       |
+|                                | Udhiyah (NF-3.3)                             | Wajib on one with nisab; ends 12th                                     | Sunnah mu'akkadah; ends 13th                                                   | Sunnah mu'akkadah; ends 12th                                     | Sunnah mu'akkadah; ends 12th                             |
+|                                | Hair/nails in the ten (NF-3.3)               | Mustahabb to refrain                                                   | Makruh                                                                         | Makruh                                                           | Haram                                                    |
+|                                | Shafi'i: fasting after mid-Sha'ban (NF-3.2)  | —                                                                      | Disliked unless habitual or qaza                                               | —                                                                | —                                                        |
+|                                | Mirath disputed cases (NF-3.10)              | See §7 NF-3.10                                                         |                                                                                |                                                                  |                                                          |
 
 **Typed rules** consumed by code (excerpt):
 
 ```ts
 export interface MadhhabRules {
-  asrDefault: MadhabKey;                                        // "hanafi" | "shafi"
+  asrDefault: MadhabKey; // "hanafi" | "shafi"
   fajrPreferred: "isfar" | "taghlis";
   ishaPreferred: "delay_third" | "early";
   witr: { status: "wajib" | "sunnah_muakkadah"; qazaDefault: boolean; form: WitrForm };
   hayd: { minHours: number | 0; maxDays: number; minPurityDays: number; nifasMaxDays: number };
   travel: {
-    qasrDistanceKm: number; qasrStatus: "wajib" | "concession" | "sunnah";
-    residencyDays: number; residencyRule: "gte" | "gt";
-    jamTravel: boolean; jamRain: "none" | "maghrib_isha" | "both";
+    qasrDistanceKm: number;
+    qasrStatus: "wajib" | "concession" | "sunnah";
+    residencyDays: number;
+    residencyRule: "gte" | "gt";
+    jamTravel: boolean;
+    jamRain: "none" | "maghrib_isha" | "both";
     rawatib: "optional_except_fajr" | "optional" | "left_except_fajr_witr";
   };
-  zakat: { nisabBasis: NisabBasis; combineGoldSilver: boolean; personalJewelleryZakatable: boolean };
-  fasting: { forgetfulEatingBreaks: boolean; kaffarahTriggers: Array<"intercourse" | "deliberate_eating">;
-             fidyahMeasure: "half_sa_wheat" | "mudd"; fidyahCashAllowed: boolean; fitrCashAllowed: boolean };
+  zakat: {
+    nisabBasis: NisabBasis;
+    combineGoldSilver: boolean;
+    personalJewelleryZakatable: boolean;
+  };
+  fasting: {
+    forgetfulEatingBreaks: boolean;
+    kaffarahTriggers: Array<"intercourse" | "deliberate_eating">;
+    fidyahMeasure: "half_sa_wheat" | "mudd";
+    fidyahCashAllowed: boolean;
+    fitrCashAllowed: boolean;
+  };
   rawatib: { defaultPreset: 10 | 12; dhuhrBefore: 2 | 4 };
-  takbirTashriq: { start: TashriqSlot; end: TashriqSlot; status: "wajib" | "sunnah"; openingTakbirs: 2 | 3 };
+  takbirTashriq: {
+    start: TashriqSlot;
+    end: TashriqSlot;
+    status: "wajib" | "sunnah";
+    openingTakbirs: 2 | 3;
+  };
   udhiyah: { status: "wajib_for_capable" | "sunnah_muakkadah"; lastDayHijri: 12 | 13 };
   hairNailsDuringTen: "haram" | "makruh" | "mustahabb_to_refrain";
   eid: { status: "wajib" | "sunnah_muakkadah" | "fard_kifayah"; extraTakbirs: [number, number] };
-  mirath: MirathSchoolParams;                                   // §7 NF-3.10
+  mirath: MirathSchoolParams; // §7 NF-3.10
 }
 export type NisabBasis = "lower" | "gold" | "silver";
 export type TashriqSlot = { hijriDay: 9 | 10 | 13; prayer: "fajr" | "dhuhr" | "asr" };
-export const MADHHAB_RULES: Record<MadhhabId, MadhhabRules> = { /* filled + scholar-reviewed */ };
+export const MADHHAB_RULES: Record<MadhhabId, MadhhabRules> = {
+  /* filled + scholar-reviewed */
+};
 
 /** Resolves the domain school, then applies `fiqhCustom` numeric overrides. `null` ⇒ caller shows all views. */
-export function rulesFor(prefs: Pick<UserPreferences, "madhhab" | "madhhabOverrides" | "fiqhCustom">,
-                         domain: FiqhDomain): MadhhabRules | null;
+export function rulesFor(
+  prefs: Pick<UserPreferences, "madhhab" | "madhhabOverrides" | "fiqhCustom">,
+  domain: FiqhDomain,
+): MadhhabRules | null;
 ```
 
 #### 4.1.4 Apply to existing features (retrofit; Phase 0 deliverable)
 
-| Shipped feature | Files | Change |
-| --- | --- | --- |
-| Prayer times / location (NF-0.1, 0.2) | `lib/prayer-times.ts`, `app/location`, `stores/location-store.ts` | Offer the matching Asr `MadhabKey` on madhhab pick; show a neutral mismatch hint. No automatic change. |
-| Preferred-time hints | `lib/salah-phase/*`, `lib/prayer-ui.ts`, home hero, tracker | New "preferred window" sub-band per prayer: Fajr isfar vs taghlis, Isha delay to ⅓ of the night vs early, Asr "before the sun yellows". In all-views mode, show a neutral "earliest / preferred" note with a `MadhhabNote`. Optional "remind at preferred time" offset suggestion in `/settings/reminder-offsets`. |
-| Witr tracking + qaza (NF-1.2, tracker) | `(tabs)/tracker.tsx`, `QAZA_PRAYERS`, `lib/prayer-qaza-debt.ts` | Witr row label "Wajib" (Hanafi) or "Sunnah mu'akkadah". **Witr qaza accrual is on by default only for Hanafi**; others can opt in. The form shown in the Witr info sheet follows the school. |
-| Hayd / excused (NF-1.2) | `activeExcusedReason`, `excused-guide.ts`, `ExcusedDayPicker`, calendar | **Add `"nifas"` to `ExcusedReason`.** Day counter during an active period ("Day 6 of a maximum of 10 (Hanafi)"). Prompts, **never automatic edits**: (a) beyond `maxDays` → "Bleeding after day N is istihada in your school — resume prayer with wudu for each prayer time" with a Resume button; (b) a Hanafi period that ended before 3 days → "May not count as hayd in your school; consider making up these prayers" with an "Add N to qaza" action; (c) a new period starting before `minPurityDays` → an info note. Hayd days during Ramadan → offer to add those days to roza qaza (check the current behaviour first). All copy is private and never appears in notifications. |
-| Travel guide (NF-1.3) | `/travel`, `travel-guide.ts` | New **qasr calculator**: inputs are trip distance (km/mi) and intended stay (days). Outputs: traveller yes/no, shorten 4→2 (labelled wajib or concession), when you become resident, whether jam' is available (hidden for Hanafi except Hajj), and rawatib guidance (feeds NF-3.1). Turning on travel excused mode asks the same two questions. |
-| Combining (jam') | `PrayerLog` | Add an optional `combinedWith?: ObligatoryPrayer` (taqdim/ta'khir) flag. It is only offered when `rules.travel.jamTravel` or rain combining applies, and is shown in history. Separate from `isJama` (congregation). |
-| Zakat (NF-2.2) | `lib/zakat.ts` (`lowerNisab`), `/zakat`, zakat draft | Replace the fixed `lowerNisab()` with `nisabFor(basis, goldNisab, silverNisab)`. The default basis comes from rules, with a user override in the calculator (saved to `fiqhCustom.nisabBasis`). Add a **personal jewellery** input that is included or excluded per `personalJewelleryZakatable`, with a note. Combine gold and silver per `combineGoldSilver`. The result card shows a `MadhhabBadge`, and the all-views mode shows a row per basis. |
-| Fidyah / kaffarah (NF-2.5) | `lib/fidyah.ts`, `fidyah-guide.ts`, `/fidyah` | Measure per school (mudd vs ½ sa'), "cash value allowed" vs "food only" in the result, and kaffarah triggers in the kaffarah helper. |
-| Ramadan mode (NF-1.1) | `/ramadan`, `lib/ramadan.ts` | "I ate forgetfully" helper (valid fast vs make-up). Kaffarah trigger note. Sadaqat al-fitr amount per school, with a cash/food label. Tarawih info note. |
-| Salah guide (NF-1.33) | `salah-guide.ts` | Attach `MadhhabNote`s: raising the hands, Fatiha behind the imam, Fajr qunut, Witr form, preferred times. The prose stays; structured notes are added. |
-| Taharah guide | `taharah.ts` | Attach structured differences to the paragraphs that already name schools (tartib/muwalat, intention, dalk, wudu nullifiers). |
-| Friday guide (NF-2.35) | `friday-guide.ts` | Jumu'ah minimum congregation, sunnah before/after Jumu'ah per school. |
-| Eid guide (NF-2.30) | `eid-guide.ts` | Status and extra takbirs per school. |
-| Janazah guide (NF-2.6) | `janazah-guide.ts` | Fatiha in the janazah prayer. |
-| Hajj / Umrah (NF-2.3, NF-3.4) | `hajj-guide.ts`, umrah mode | Wudu for tawaf. Udhiyah/hajj-related notes. |
-| Flash cards / quizzes | `lib/flash-cards`, `*-quiz.ts` | Questions whose answer depends on the school are tagged with a `differenceId`. In all-views mode they are skipped, or the answer shows every school. |
-| Search | `search-guides`, `lib/search.ts` | Index the difference catalog so a search like "witr wajib" or "qasr distance" finds the comparison card. |
+| Shipped feature                        | Files                                                                   | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| -------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Prayer times / location (NF-0.1, 0.2)  | `lib/prayer-times.ts`, `app/location`, `stores/location-store.ts`       | Offer the matching Asr `MadhabKey` on madhhab pick; show a neutral mismatch hint. No automatic change.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Preferred-time hints                   | `lib/salah-phase/*`, `lib/prayer-ui.ts`, home hero, tracker             | New "preferred window" sub-band per prayer: Fajr isfar vs taghlis, Isha delay to ⅓ of the night vs early, Asr "before the sun yellows". In all-views mode, show a neutral "earliest / preferred" note with a `MadhhabNote`. Optional "remind at preferred time" offset suggestion in `/settings/reminder-offsets`.                                                                                                                                                                                                                                                                                                                                                                       |
+| Witr tracking + qaza (NF-1.2, tracker) | `(tabs)/tracker.tsx`, `QAZA_PRAYERS`, `lib/prayer-qaza-debt.ts`         | Witr row label "Wajib" (Hanafi) or "Sunnah mu'akkadah". **Witr qaza accrual is on by default only for Hanafi**; others can opt in. The form shown in the Witr info sheet follows the school.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Hayd / excused (NF-1.2)                | `activeExcusedReason`, `excused-guide.ts`, `ExcusedDayPicker`, calendar | **Add `"nifas"` to `ExcusedReason`.** Day counter during an active period ("Day 6 of a maximum of 10 (Hanafi)"). Prompts, **never automatic edits**: (a) beyond `maxDays` → "Bleeding after day N is istihada in your school — resume prayer with wudu for each prayer time" with a Resume button; (b) a Hanafi period that ended before 3 days → "May not count as hayd in your school; consider making up these prayers" with an "Add N to qaza" action; (c) a new period starting before `minPurityDays` → an info note. Hayd days during Ramadan → offer to add those days to roza qaza (check the current behaviour first). All copy is private and never appears in notifications. |
+| Travel guide (NF-1.3)                  | `/travel`, `travel-guide.ts`                                            | New **qasr calculator**: inputs are trip distance (km/mi) and intended stay (days). Outputs: traveller yes/no, shorten 4→2 (labelled wajib or concession), when you become resident, whether jam' is available (hidden for Hanafi except Hajj), and rawatib guidance (feeds NF-3.1). Turning on travel excused mode asks the same two questions.                                                                                                                                                                                                                                                                                                                                         |
+| Combining (jam')                       | `PrayerLog`                                                             | Add an optional `combinedWith?: ObligatoryPrayer` (taqdim/ta'khir) flag. It is only offered when `rules.travel.jamTravel` or rain combining applies, and is shown in history. Separate from `isJama` (congregation).                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Zakat (NF-2.2)                         | `lib/zakat.ts` (`lowerNisab`), `/zakat`, zakat draft                    | Replace the fixed `lowerNisab()` with `nisabFor(basis, goldNisab, silverNisab)`. The default basis comes from rules, with a user override in the calculator (saved to `fiqhCustom.nisabBasis`). Add a **personal jewellery** input that is included or excluded per `personalJewelleryZakatable`, with a note. Combine gold and silver per `combineGoldSilver`. The result card shows a `MadhhabBadge`, and the all-views mode shows a row per basis.                                                                                                                                                                                                                                    |
+| Fidyah / kaffarah (NF-2.5)             | `lib/fidyah.ts`, `fidyah-guide.ts`, `/fidyah`                           | Measure per school (mudd vs ½ sa'), "cash value allowed" vs "food only" in the result, and kaffarah triggers in the kaffarah helper.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Ramadan mode (NF-1.1)                  | `/ramadan`, `lib/ramadan.ts`                                            | "I ate forgetfully" helper (valid fast vs make-up). Kaffarah trigger note. Sadaqat al-fitr amount per school, with a cash/food label. Tarawih info note.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Salah guide (NF-1.33)                  | `salah-guide.ts`                                                        | Attach `MadhhabNote`s: raising the hands, Fatiha behind the imam, Fajr qunut, Witr form, preferred times. The prose stays; structured notes are added.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Taharah guide                          | `taharah.ts`                                                            | Attach structured differences to the paragraphs that already name schools (tartib/muwalat, intention, dalk, wudu nullifiers).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Friday guide (NF-2.35)                 | `friday-guide.ts`                                                       | Jumu'ah minimum congregation, sunnah before/after Jumu'ah per school.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Eid guide (NF-2.30)                    | `eid-guide.ts`                                                          | Status and extra takbirs per school.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Janazah guide (NF-2.6)                 | `janazah-guide.ts`                                                      | Fatiha in the janazah prayer.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Hajj / Umrah (NF-2.3, NF-3.4)          | `hajj-guide.ts`, umrah mode                                             | Wudu for tawaf. Udhiyah/hajj-related notes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Flash cards / quizzes                  | `lib/flash-cards`, `*-quiz.ts`                                          | Questions whose answer depends on the school are tagged with a `differenceId`. In all-views mode they are skipped, or the answer shows every school.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Search                                 | `search-guides`, `lib/search.ts`                                        | Index the difference catalog so a search like "witr wajib" or "qasr distance" finds the comparison card.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 #### 4.1.5 Settings UI — "Fiqh & madhhab"
 
@@ -372,9 +432,9 @@ export function rulesFor(prefs: Pick<UserPreferences, "madhhab" | "madhhabOverri
 - Add server-side validation that the value matches the `VaultEnvelope` shape and is ≤ 256 KB.
 - Never log values.
 
-**Backup** (`lib/backup.ts`): export the ciphertext. Importing it needs the DEK on the device, or the passphrase.
+**Backup:** classify each `DB_KEYS.vault/<docId>` as `userData`, so the ciphertext is in `BACKUP_KEYS` automatically. Importing it needs the DEK on the device, or the passphrase.
 
-**Wipe** (`lib/wipe-local-data.ts`): delete the vault keys and the DEK.
+**Wipe:** reset clears the ciphertext keys through `RESET_KEYS`. `lib/wipe-local-data.ts` must also delete the **DEK from SecureStore / IndexedDB**, which lives outside `DB_KEYS`.
 
 **Tests:**
 
@@ -385,24 +445,401 @@ export function rulesFor(prefs: Pick<UserPreferences, "madhhab" | "madhhabOverri
 
 ### 4.3 Store/approval filings (start in Phase 0)
 
-| Filing                                                                                        | Needed by | Lead time    |
-| --------------------------------------------------------------------------------------------- | --------- | ------------ |
+| Filing                                                                                                 | Needed by | Lead time              |
+| ------------------------------------------------------------------------------------------------------ | --------- | ---------------------- |
 | Apple **Family Controls (Distribution)** entitlement request, for the app and each extension bundle id | NF-3.13   | Weeks; can be rejected |
-| Play Console **foreground service `specialUse`** declaration + video                          | NF-3.13   | Days–weeks   |
-| Play Console **`PACKAGE_USAGE_STATS`** / overlay justification in Data safety                  | NF-3.13   | With review  |
-| Privacy policy update: vault, kids profiles, OCR (on-device), masjid lookups (geohash cell only)              | 3.6–3.18  | Internal     |
-| Legal review: kids data (COPPA / GDPR Art. 8 / UK AADC), wasiyyah disclaimer                  | 3.9, 3.16 | Internal     |
+| Play Console **foreground service `specialUse`** declaration + video                                   | NF-3.13   | Days–weeks             |
+| Play Console **`PACKAGE_USAGE_STATS`** / overlay justification in Data safety                          | NF-3.13   | With review            |
+| Privacy policy update: vault, kids profiles, OCR (on-device), masjid lookups (geohash cell only)       | 3.6–3.18  | Internal               |
+| Legal review: kids data (COPPA / GDPR Art. 8 / UK AADC), wasiyyah disclaimer                           | 3.9, 3.16 | Internal               |
 
 ### 4.4 Shared plumbing per new local entity
 
 Repeat this for every new store. It mirrors the existing `white_days_checklist` path.
 
-1. Add a `DB_KEYS.<name>` entry in `apps/app/src/db/keys.ts`.
+1. Add a `DB_KEYS.<name>` entry in `apps/app/src/db/keys.ts` **and classify it in `KEY_PERSISTENCE`** (same file):
+   - `userData`: personal data, backed up and wiped on reset
+   - `watermark`: its blob's LWW timestamp
+   - `cache`: rebuildable, never backed up
+   - `deviceLocal`: device-specific, never backed up
+   - `schema`
+
+   The map is a `Record<keyof typeof DB_KEYS, …>`, so a missing key **fails to compile**. `RESET_KEYS` and `BACKUP_KEYS` are derived from it, so backup and reset need no hand edits (verified 2026-11-23; `duaRecents` is the latest `deviceLocal` example).
 2. Create the store with `createStore` in `apps/app/src/stores/<name>-store.ts`, plus `useEnsure<Name>Loaded`.
 3. Add a `BLOB_ENTITIES` entry in `apps/app/src/sync/blob-sync.ts`. Add it to `UNION_MERGE_ENTITIES` if the value is a plain map, otherwise provide a custom `merge`.
 4. Add the entity to `SYNC_ENTITIES` in `apps/api/src/sync/dto/sync.dto.ts`. Regenerate the client with `pnpm generate:api`.
-5. Include it in `lib/backup.ts` export/import and in `lib/wipe-local-data.ts`.
+5. Only state kept **outside** `DB_KEYS` needs manual handling in `lib/backup.ts` and `lib/wipe-local-data.ts`: SecureStore keys (vault DEK, PIN), files (audio cache, models) and AsyncStorage mirrors such as the theme (B6).
 6. Add it to `reload-all-stores.ts` so the `data_reset` path clears it.
+
+### 4.5 NF-3.0b Settings control panel (redesign + settings registry)
+
+**Goal.** Settings becomes the **one control panel for the whole app**. Every persisted, user-facing option can be found there: grouped by task, searchable, showing its current value, and resettable. Controls inside feature screens (reader toolbars, the mini-player, calculators) stay as **shortcuts**. They write the same value through the same code path, so the two places can never disagree.
+
+**Why now (Phase 0):** the NF-3.x features add about 15 new settings, including madhhab, rawatib, fasting, tasbeeh designs, hands-free counting, vault lock, focus lock, home masjid and iqamah, coach, circles and hadith audio. Without one structure, each feature would invent its own settings screen and the current sprawl would double.
+
+#### 4.5.1 Audit of today's settings (verified 2026-11-23)
+
+**Shape of the hub** (`app/(tabs)/settings.tsx`):
+
+- There are no section headings: an Account card, then one card of **16 mixed rows** with 4 inline toggles between links, then a card of 8 unrelated rows (reports, import, backup, Qur'an practice, offline data, tour, about, credits).
+- 19 sub-screens under `app/settings/`, plus `/profile`, `/location` and `/notifications` (the inbox).
+- There's **no search** in Settings, and the universal `/search` doesn't index settings.
+
+**Persisted options with no entry in Settings at all:**
+
+| Area                                  | Options (store → field)                                                                                                                                                                                                                                | Edited only in                                                                                                      |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| Location & calculation                | `location` (GPS/manual), `location.method`, `location.madhab`                                                                                                                                                                                          | `/location`, which **the hub doesn't link to**                                                                      |
+| Qur'an reader                         | `quranPrefs.readerLayout`, `preferredReciterDir`, `preferredTranslationIds`, `secondaryTranslationId`, `preferredTafsirId`, `showTranslation`, `showTransliteration`, `showWordByWord`, `showTajweed`, `repeatMode`, `repeatRange`, `translationAudio` | reader filter card and toolbar (`quran/[surah].tsx`, `quran/page/[page].tsx`), `PlaybackSettingsSheet`, mini-player |
+| Device voice (TTS)                    | `quranPrefs.ttsVoiceByLang` (stored under the Qur'an prefs but used by every Listen button)                                                                                                                                                            | 5 sites: playback sheet, mini-player, `reading-tts-button`, `learn-tts-context`, `tts-voice-control`                |
+| Audio player                          | `prefs.audioSpeed`, `prefs.audioVolume`                                                                                                                                                                                                                | mini-player only                                                                                                    |
+| Text size per screen                  | `prefs.fontPrefs.readingOverrides.*` (13 reading surfaces)                                                                                                                                                                                             | A−/A+ on every reader (`reading-font-controls.tsx`); no overview, no "reset all"                                    |
+| Hadith display                        | `hadithPrefs.showArabic/showTranslation/showNarrator/showGrade/showIsnad/showSharh`                                                                                                                                                                    | `hadith/[collection].tsx` (filter card and toolbar)                                                                 |
+| Dua / zikr / durood / tasbeeh display | `readingTextVisibility.showTranslation/showTransliteration`                                                                                                                                                                                            | `scripture-reading-filters.tsx`, `reading-typography-context.tsx`                                                   |
+| Qur'an practice                       | `companion.practiceView`, `companion.rangePreset`                                                                                                                                                                                                      | practice hub and toolbar                                                                                            |
+| Money                                 | currency and number format, chosen **separately** in zakat, fidyah and sadaqah                                                                                                                                                                         | each calculator                                                                                                     |
+| Onboarding                            | `hasCompletedOnboarding`                                                                                                                                                                                                                               | no way to run setup again                                                                                           |
+| Device history                        | `DB_KEYS.duaRecents` (new in the working tree on 2026-11-23, `deviceLocal`), search history (`lib/search-history.ts`)                                                                                                                                  | nowhere; there's no way to clear either                                                                             |
+| Tours                                 | `toursSeen`; `toursStore.reset()` exists but nothing calls it                                                                                                                                                                                          | —                                                                                                                   |
+
+**Duplicates and wrong placement:**
+
+- The notification master switch is written from 4 places (Settings, the inbox "Enable" button, `permission-banner.tsx`, onboarding), each with its own permission and reschedule handling.
+- Two different screens are titled "Notifications": the inbox and the settings screen.
+- Prayer tuning is linked from the hub and from `/location`, and its Back always goes to `/location`.
+- **Bedtime** sits on the hub, but it only drives the `beforeSleep` reminder, which is inside Notifications. **Reminder timing** is hidden inside the Adhan card. **Revision reminder** is in Qur'an practice, not Notifications.
+- The three "Save … locally" toggles are on the hub, but storage management is on the separate Offline data screen. "Reset app data" is in Profile.
+- Time format, default calendar and weather are each a **full screen for one or two choices**.
+- Practice `defaultMode`, `autoAdvance`, `showTranslation`, `showTransliteration` and `showTajweedColors` can be changed both in Settings and in the session toolbar. That's fine as a shortcut, but today it's two separate implementations.
+- Translation and transliteration visibility lives in **4 independent stores**: Qur'an reader, practice, hadith, and dua/zikr. **D13 merges them into one app-wide setting (§4.5.4).**
+
+**Bugs found while auditing:**
+
+| #   | Bug                                                                                                                                                                                                                                                                                | Fix in this work                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| B1  | The **"Save Qur'an translations locally" toggle does nothing**. No code reads `cacheQuranEditionsLocally`; `api/quran-remote.ts`, `quran-tafsir.ts`, `quran-tajweed.ts` and `quran-words.ts` always persist. `cacheHadithLocally` works (`api/hadith-remote.ts:225`).              | Read the flag in all four like `hadith-remote.ts` does, with a test for each.                                                                                                                                                                                                                                                                                                                                                                  |
+| B2  | The **adhan style choice never reaches native notifications**. `build-reminders.ts:110` always uses `adhan.mp3`; `adhanStyleId` only affects the preview and the web bridge.                                                                                                       | Register one notification sound per style (the `sounds` array in `app.json`, plus an Android channel per sound), all ≤ 30 s for iOS (D13). Each style's notification clip is cut from that style's existing source audio and credited like it. Android channels can't change sound after creation, so a style change recreates the channel (`adhan-<styleId>`) and reschedules. A test asserts every `ADHAN_STYLES` id has a registered sound. |
+| B3  | The **`sunrise` masjid offset** is allowed by the type but has no control (`prayer-tuning.tsx` lists only the obligatory prayers). Sunrise drives the end of Fajr, Ishraq and Duha.                                                                                                | Add a Sunrise stepper.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| B4  | **Device-specific values sync to every device**: `hapticsEnabled`, the three cache toggles, `audioVolume`, `preciseAdhan` (an Android permission state), `liveActivityEnabled`, `avatarUri` (a local gallery path) and `ttsVoiceByLang` (voice ids differ per device).             | Move them to device preferences (§4.5.4).                                                                                                                                                                                                                                                                                                                                                                                                      |
+| B5  | Dead fields: `UserPreferences.libraryMenuOrder`, `fontPrefs.global`, `.titles`, `.transliteration`, `.translation.family`, `.color`, `QuranPrefs.script`. They are stored but never read. The Fonts screen's "Translation & transliteration" row only writes the translation size. | Remove the `fontPrefs` and `script` fields (keep reading tolerant of old blobs), following the upgrade policy of removing deprecated code. Transliteration keeps following translation size − 1, and the label says so. **`libraryMenuOrder` is implemented instead (D13):** a "Library order" editor under Appearance & home, and the Library tab reads it (§4.5.4).                                                                          |
+| B6  | The theme mirror in AsyncStorage (`@munib-tracker/color-mode`, `accent`, `custom-accent`) isn't cleared by `lib/wipe-local-data.ts`.                                                                                                                                               | Clear it on wipe.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| B7  | The deep-link allowlist (`lib/app-links.ts`) is missing `time-format`, `default-calendar`, `bedtime`, `weather`, `import` and `my-reports`.                                                                                                                                        | Generate the allowlist from the registry.                                                                                                                                                                                                                                                                                                                                                                                                      |
+
+**UI inconsistency:**
+
+- Single-choice controls are built 6+ ways: three copies of a custom `Choices` radio list, radio cards, `SegmentedControl`, `PracticePills`, a 3-button group, and a sheet.
+- Steppers are built 3 different ways.
+- Several rows are hand-rolled instead of using `SettingsRow`. `SettingsRow` always draws a chevron, even for actions such as the adhan preview.
+- Some hub rows show the current value and others don't.
+- Back fallbacks are mixed: `"/"`, `"/settings"`, `/location`, `/settings/notifications`.
+- Four separate 1024 px "two-column" constants exist, and only about half the screens use `useSettingsFormMaxWidth`.
+- Gating is uneven: some routes show a TV or web EmptyState while the hub hides the row; bedtime has no TV guard.
+
+#### 4.5.2 Design principles
+
+1. **Each setting is declared once** in a registry. The hub, group screens, search, deep links, reset, TV and web filtering and the coverage test all read that one declaration.
+2. **In-context controls are shortcuts, not separate copies.** They call `useSetting(id)` and get the same value, setter, validation and side effects, such as `rescheduleAll`.
+3. **Groups follow what the user is trying to do**, ordered by how often it's done. Every group can be reached in **one tap** and every setting in **two taps**, or straight away from search.
+4. **Every row shows its current value.** Toggles, short choices and steppers sit inline; only rich editors such as the accent picker, quick-action order or practice listener get their own screen.
+5. **Hide what can't work on this device** instead of opening empty states. Settings that only apply to this device carry a small **"This device"** badge.
+6. **Changing a setting never surprises the user.** A setting that affects reminders reschedules them. A destructive action confirms first. "Reset settings" (keeps data) is a different action from "Reset app data" (wipes data).
+
+#### 4.5.3 New information architecture
+
+Hub (`app/(tabs)/settings.tsx`), top to bottom:
+
+1. **Search bar**, for settings only (§4.5.6).
+2. **Account card:** name, avatar, sign-in or sync status (last synced, "Sync now"). → `/profile`.
+3. **"Finish setting up" card** that only appears while something important is unset, with one line per item and each item deep-linking to it:
+   - location still the Makkah default
+   - notifications off
+   - madhhab undecided (NF-3.0a)
+   - language not yet confirmed
+   - calculation method never reviewed
+
+   It can be dismissed, and it is the same checklist that onboarding uses.
+4. **Groups** in five clusters. Each group row shows an icon, a title and a one-line summary of its current values (for example "Muslim World League · Hanafi Asr · Lahore").
+
+| Cluster                 | Group (route)                                           | Contents: existing today, plus _planned NF-3.x_                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ----------------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Daily worship**       | **Prayer times & location** `/settings/prayer-times`    | Location (current place, use GPS, search; moved from `/location`, which stays as an alias); calculation method; Asr method; high-latitude rule; masjid offsets (now including Sunrise, B3). _Home masjid and private iqamah times (3.11); timetable OCR import (3.12)._                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+|                         | **Fiqh & madhhab** `/settings/fiqh`                     | _My madhhab, advanced overrides, custom values, "where this applies" (NF-3.0a §4.1.5); rawatib 10/12 and extras (3.1); voluntary fasting defaults (3.2)._ The Asr-method offer links here from Prayer times.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|                         | **Reminders & notifications** `/settings/notifications` | Permission status and master switch; then sections: **Salah & adhan** (per-prayer alerts, adhan style and preview, play adhan, precise adhan, **reminder timing per prayer, promoted from inside the Adhan card**, Live Activity); **Zikr** (morning, evening, before sleep **with Bedtime moved here**, before and after prayer); **Qur'an** (revision reminder, the same field as Qur'an practice, now shown here too; _khatm_); **Qaza**; **Content** (daily content, Friday, white days, achievements); **App feedback**; "Upcoming reminders" preview. _Fasting, takbir, habits, muhasabah, family ties, debts, iqamah, coach, focus lock entry (3.2–3.14)._ Screen title becomes **"Reminders & notifications"** so it no longer clashes with the inbox. |
+| **Reading & listening** | **Qur'an** `/settings/quran`                            | **Reading:** layout (ayah, page, mushaf), primary and second translation, tafsir, word-by-word, tajweed colours (translation and transliteration visibility are app-wide, under Text & fonts). **Recitation:** reciter, translation audio, default repeat. **Practice** → `/settings/quran-practice` (kept, regrouped, and now also showing `practiceView` and `rangePreset`). **Pronunciation (Quran Lab)** card. _Ayah notes export (3.21), tajweed coaching (3.15), pronunciation assessment sensitivity and calibration (3.24)._                                                                                                                                                                                                                           |
+|                         | **Hadith, duas & adhkar** `/settings/content`           | **Hadith:** show Arabic, narrator, grade, isnad, sharh (translation is the app-wide setting). _Hadith audio: preferred recording language, auto-play next (3.23, recordings only). Tasbeeh counter: design, sound, haptics (3.19); hands-free counting (3.20)._                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|                         | **Text & fonts** `/settings/fonts`                      | **Show translation** and **show transliteration**: one app-wide pair for the Qur'an, practice, hadith, duas, adhkar, duroods and tasbeeh (D13); every reader's toolbar chip is a shortcut to it. Arabic typeface; Arabic and translation size; **new "Per-screen text sizes"** list of all 13 `readingOverrides` surfaces, each with its value and a reset, plus **"Reset all to default"**; preview.                                                                                                                                                                                                                                                                                                                                                          |
+|                         | **Audio & voice** `/settings/audio`                     | Default playback speed; volume (_This device_); **device voice per language** (`ttsVoiceByLang`, moved to device prefs, B4) with a "Test voice" button; save audio for offline (_This device_).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Personalise**         | **Appearance & home** `/settings/appearance`            | Theme; accent and custom colour; home cards; quick actions order; **library order** (new, D13); weather effects.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|                         | **Language & region** `/settings/language`              | App language; translation language; **time format**, **default calendar** and **temperature unit** as inline segmented rows (their full screens become redirects); **Hijri date adjustment** (new, D14, §4.5.11); **new default currency and number format**, which seed zakat, fidyah and sadaqah (each calculator can still override).                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|                         | **Accessibility & feedback** `/settings/accessibility`  | Haptics (_This device_); shortcut to text sizes; an information row explaining that motion and contrast follow the OS setting; screen-reader tips. _Tasbeeh announcement frequency (3.20)._                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Privacy & data**      | **Privacy & security** `/settings/privacy`              | App lock (PIN, change PIN, lock timeout, **new biometric unlock toggle**, which is automatic today); microphone permission status; Quran Lab sharing (link); **clear recent duas and searches** (device history, _This device_); my content reports. _Lock private journals and vault passphrase or recovery code (§4.2); kids profile controls (3.16)._                                                                                                                                                                                                                                                                                                                                                                                                       |
+|                         | **Data & storage** `/settings/data`                     | Cloud sync status and "Sync now"; **Offline data** (cache sizes **plus the three "save locally" toggles moved in from the hub**, B1 fixed); Qur'an listener models; backup and restore; import prayer history; **Reset settings to defaults** (keeps data); **Reset app data** (moved here from Profile and removed there, D13). Delete account stays in Account.                                                                                                                                                                                                                                                                                                                                                                                              |
+|                         | **Devices & integrations** `/settings/devices`          | Siri / Google Assistant shortcuts; Live Activities (link to its toggle); widgets, Watch and Wear information; TV pairing; _focus lock (3.13)_; web only: get the native app, install as PWA.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Help**                | **Help & about** `/settings/about`                      | Take the app tour; **reset tour hints** (wires `toursStore.reset()`); **run setup again** (onboarding, without losing data); rate the app; about; credits & data sources; privacy policy; terms.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+
+**Wide screens and TV:**
+
+- On wide web and tablets (the existing list-detail tier), the hub becomes **master–detail**: groups on the left, the selected group on the right, and search across both. This removes the four separate two-column breakpoints.
+- On TV the hub shows only groups that have something TV-relevant: prayer times, Qur'an, content, fonts, appearance, language, data (backup is hidden), devices (pairing) and about. Every control is D-pad operable, and no route a TV user can reach shows an empty state.
+
+#### 4.5.4 Settings registry and data model
+
+**Module** `apps/app/src/lib/settings/`:
+
+```ts
+// registry.ts
+export type SettingsGroupId =
+  | "prayer-times"
+  | "fiqh"
+  | "notifications"
+  | "quran"
+  | "content"
+  | "fonts"
+  | "audio"
+  | "appearance"
+  | "language"
+  | "accessibility"
+  | "privacy"
+  | "data"
+  | "devices"
+  | "about";
+
+export type SettingScope = "account" | "device"; // account = synced; device = DB_KEYS.devicePreferences, never synced
+
+export type SettingControl<V> =
+  | { kind: "toggle" }
+  | {
+      kind: "choice";
+      options: ReadonlyArray<{ value: V; labelKey: string; descriptionKey?: string }>;
+      presentation: "segmented" | "list" | "sheet";
+    }
+  | {
+      kind: "stepper";
+      min: number;
+      max: number;
+      step: number;
+      format: (v: number, t: TFunction) => string;
+    }
+  | { kind: "time" } // HH:mm, respects timeFormat
+  | { kind: "link"; href: Href } // rich editor on its own screen
+  | { kind: "action"; run: () => Promise<void>; destructive?: boolean; confirmKey?: string }
+  | { kind: "custom"; Component: React.ComponentType<{ settingId: SettingId }> }; // accent picker, quick actions
+
+export interface SettingDef<V = unknown> {
+  id: SettingId; // stable, e.g. "quran.reader.layout"; used for search, deep links, focus
+  group: SettingsGroupId;
+  section: string; // i18n key of the section header inside the group
+  titleKey: string;
+  subtitleKey?: string;
+  keywordsKey?: string; // per-locale synonyms for search ("adhan, azan, athan")
+  scope: SettingScope;
+  control: SettingControl<V>;
+  read: (s: SettingsSnapshot) => V; // pure selector over all pref stores
+  write: (v: V) => Promise<void>; // the ONLY write path; wraps the store action
+  defaultValue: V | ((s: SettingsSnapshot) => V);
+  available?: (ctx: PlatformCtx) => boolean; // isTV, Platform.OS, isPracticeAvailable(), feature flags
+  enabledWhen?: (s: SettingsSnapshot) => boolean; // e.g. adhan toggles need master + prayer on
+  summary?: (v: V, t: TFunction) => string; // value shown on the row and in the group summary
+  sideEffects?: Array<"reschedule-reminders" | "reload-locale" | "refresh-prayer-times">;
+  shortcuts?: string[]; // routes with an in-context control (documentation + tests)
+}
+```
+
+- `groups.ts`: group order, cluster, icon, title and the `summary` builder for each group row.
+- `use-setting.ts`: `useSetting(id)` → `{ value, setValue, def, enabled }`. It subscribes with a selector, so a row re-renders only when its own value changes. **Every in-context control migrates to it**: reader toolbars, `PlaybackSettingsSheet`, the mini-player, `ReadingFontControls`, hadith and scripture filters, the practice toolbar, calculators' currency (through the default), the permission banner and the inbox "Enable" button.
+- `actions.ts`: shared actions such as `enableNotifications()` (asks permission, sets master, registers the push token, reschedules), which all four current entry points will call.
+
+**Device preferences (B4):**
+
+- New `DB_KEYS.devicePreferences`, classified **`deviceLocal`** in `KEY_PERSISTENCE`: never synced, never backed up (device-specific, matching the existing class), wiped on reset. The other new keys follow the same rule:
+  - `quranRootIndex` (NF-3.22) → `cache`
+  - `tasbeehVoiceCalibration` and `quranPronunciationCalibration` → `deviceLocal`
+  - `quranNotes` (NF-3.21) and the `hijriAdjustment`-bearing preferences → `userData`
+
+  The fields:
+
+  ```ts
+  interface DevicePreferences {
+    hapticsEnabled: boolean;
+    cacheAudioLocally: boolean;
+    cacheQuranEditionsLocally: boolean;
+    cacheHadithLocally: boolean;
+    audioVolume: number;
+    preciseAdhan?: boolean;
+    liveActivityEnabled?: boolean;
+    avatarUri?: string;
+    ttsVoiceByLang: Record<string, string>;
+  }
+  ```
+- **Migration:** on first load, copy each field from `UserPreferences` or `QuranPrefs` when the device value is unset. Readers use the device value first, then the legacy one. The legacy fields are removed from the types one release later.
+
+**New account preferences** (`UserPreferences`, optional, so old clients are fine; update the API preferences DTO and run `pnpm generate:api`):
+
+- `defaultCurrency?: string` and `defaultNumberFormat?: NumberFormatId`. These seed the zakat, fidyah and sadaqah drafts the first time they open; each calculator keeps its own override.
+- `audioSpeed` stays an account preference.
+- **`readingDisplay: { showTranslation: boolean; showTransliteration: boolean }`** (D13). It replaces `quranPrefs.showTranslation/showTransliteration`, `companion.showTranslation/showTransliteration` (and `readingTogglesSeeded`), `hadithPrefs.showTranslation`, and the whole `readingTextVisibility` store.
+  - Migration: seed from `quranPrefs` (the most used surface), then fall back to `readingTextVisibility`.
+  - Old fields are read once and no longer written. The `reading_text_visibility` sync entity stops being written; the server keeps accepting it for one release, then it is removed from `SYNC_ENTITIES` with `pnpm generate:api`.
+- **`libraryMenuOrder`** (D13): the Library tab (`(tabs)/library.tsx` + `lib/library-menu.ts`) renders sections in this order. Unknown ids are dropped, and sections added in later releases are appended in their default position. The editor reuses the quick-actions list editor, generalised as `OrderedListEditor` (up/down, D-pad on TV, a drag handle on wide screens). It is reset with the Appearance & home section reset.
+- **`hijriAdjustment`** (D14), see §4.5.11.
+
+**Coverage test** (`registry.coverage.test.ts`): this is what keeps "all settings in one place" true over time.
+
+- It enumerates every key of `DEFAULT_USER_PREFERENCES` (including `notificationPrefs.*`, `weatherPrefs.*` and `fontPrefs.*`), the `QuranPrefs`, `HadithPrefs`, `CompanionPrefs`, `readingTextVisibility` and `DevicePreferences` defaults, and the settings fields of `StoredLocation`.
+- Each key must either be registered or appear in `INTERNAL_FIELDS`, which lists the non-settings fields (`updatedAt`, `salahTrackingSession`, `coachDismissed`, `lastPassage`, `schemaVersion` and so on), each with a one-line reason.
+- **Adding a preference without giving it a place in Settings fails CI.**
+
+**Single-write test:** a source-scan unit test fails if `usePreferencesActions().update`, `useQuranActions().updatePrefs`, `useHadithActions().updatePrefs`, `useCompanionPrefsActions().update`, `readingTextVisibilityStore` setters or `useLocationActions` setters are called from `app/**` or `components/**`. They may only be called from `lib/settings/**`, or from an allowlist of data writers such as favourites, `activeExcusedReason` and onboarding completion.
+
+#### 4.5.5 Shared UI primitives (`components/settings/`)
+
+| Primitive                                                                                                                               | Replaces                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `SettingsScreen` (ScreenLayout + form max width + Back to the parent group + availability gate + master–detail awareness)               | the per-screen width, back and empty-state code                                          |
+| `SettingsSection` (header, optional footer note, `SettingsRowGroup`)                                                                    | ad-hoc Card + SectionHeader stacks                                                       |
+| `SettingRow` (renders any `SettingDef` by `control.kind`: toggle, segmented, choice list or sheet, stepper, time, link, action, custom) | `SettingsRow`/`ToggleRow` used by hand                                                   |
+| `ChoiceList`, `SegmentedRow`, `StepperRow`, `TimeRow`                                                                                   | the 3 copied `Choices` lists, radio cards, the 3-button group, and the 3 custom steppers |
+| `ActionRow` (no chevron), `DangerRow` (with confirm)                                                                                    | adhan preview row, hand-rolled app-lock and profile danger rows                          |
+| `ThisDeviceBadge`, `ResetSectionButton`                                                                                                 | —                                                                                        |
+
+- **Reuse the new shared primitives** (added in the working tree on 2026-11-23):
+  - `components/ui/search-field.tsx` (`SearchField`) for the settings search bar
+  - `components/ui/browse-tile.tsx` (`BrowseTile`) with `use-category-hue.ts` and the `CategoryHues` tokens in `constants/theme.ts` (dawn, sky, rose, plus the user's accent) for the five cluster tiles on wide screens and TV, so Settings matches the redesigned Duas and Zikr hubs
+- One breakpoint source: `settings-layout.ts` replaces `SETTINGS_TWO_COLUMN_MIN_WIDTH`, `SETTINGS_COLUMNS_MIN_WIDTH`, `APPEARANCE_TWO_COLUMN_MIN_WIDTH` and `PROFILE_TWO_COLUMN_MIN_WIDTH`.
+- Every primitive uses `useTheme()`, works with the RTL chevron, supports TV focus, respects reduced motion and has accessibility labels that read out the current value ("Time format, 24-hour").
+
+#### 4.5.6 Settings search and deep links
+
+- **Index:** `createFuzzyIndex` from `lib/search.ts` over each available setting's title, subtitle, section, group and `keywordsKey`. It searches the current locale **plus English**, so "azan" finds the adhan settings in every language. Follow `.agents/skills/fuse-js/SKILL.md`.
+- **Results** show the setting, its group path ("Reminders & notifications › Salah & adhan") and the current value. Toggles can be switched straight from the result.
+- **Universal `/search`** gets a "Settings" group from the same index.
+- **Deep links:** `/settings/<group>?focus=<settingId>` scrolls to the row and pulses a highlight (reuse `useScrollToActive`). The app-links allowlist and the `appLink.setting(id)` builders are generated from the registry (fixes B7).
+- **Old routes keep working:** `/settings/time-format`, `/settings/default-calendar`, `/settings/weather`, `/settings/bedtime`, `/settings/reminder-offsets`, `/settings/prayer-tuning` and `/location` redirect to the right group with `focus`.
+- **Shortcuts back to Settings:** each in-context options sheet (reader, hadith, mini-player, practice toolbar) gets a "More in Settings" link to its group.
+
+#### 4.5.7 Reset behaviour
+
+- **Per section:** "Reset to defaults", using each setting's `defaultValue`.
+- **Global:** Data & storage → "Reset settings to defaults". It resets every registered setting and nothing else; logs, bookmarks, notes and progress are kept. A confirm dialog lists what changes.
+- **Text sizes:** "Reset all text sizes" clears every `readingOverrides` surface.
+- **Tours:** "Reset tour hints" calls `toursStore.reset()`. "Run setup again" re-opens onboarding with the current values pre-filled.
+
+#### 4.5.8 How planned features register
+
+Every NF-3.x feature adds its settings to the registry in its own PR (§10 checklist). Where a feature section above names a settings path, **the group in this table is the one to use**:
+
+| Feature                                                                              | Group › section                                                                                                   |
+| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| NF-3.0a My madhhab                                                                   | Fiqh & madhhab                                                                                                    |
+| §4.2 Vault lock, passphrase and recovery code                                        | Privacy & security › Private journals                                                                             |
+| NF-3.1 Rawatib · NF-3.2 Voluntary fasting · NF-3.3 Dhul-Hijjah                       | Fiqh & madhhab (defaults) + Reminders & notifications (alerts)                                                    |
+| NF-3.5 Habits · NF-3.6 Muhasabah · NF-3.7 Family ties · NF-3.8 Debts · NF-3.14 Coach | Reminders & notifications › Personal (the data screens stay in their features)                                    |
+| NF-3.19 Tasbeeh designs · NF-3.20 Hands-free                                         | Hadith, duas & adhkar › Tasbeeh counter (the planned `settings/tasbeeh.tsx` becomes this section's detail screen) |
+| NF-3.11 Home masjid & iqamah · NF-3.12 Timetable OCR                                 | Prayer times & location › Home masjid                                                                             |
+| NF-3.13 Focus lock                                                                   | Devices & integrations › Salah focus (its alerts appear under Reminders)                                          |
+| NF-3.15 · NF-3.24 Tajweed coaching & pronunciation                                   | Qur'an › Practice                                                                                                 |
+| NF-3.21 Ayah notes                                                                   | Qur'an › Notes (export, show note markers)                                                                        |
+| NF-3.23 Hadith audio                                                                 | Hadith, duas & adhkar › Hadith audio (recordings only, D19)                                                       |
+| NF-3.16–3.18 Circles, kids, partner, group khatm                                     | a new **Family & circles** group in the Personalise cluster, added in Phase 5                                     |
+
+#### 4.5.9 Delivery steps (each step ships on its own, behind no flag)
+
+1. **Registry and primitives:** `lib/settings/*`, the new `components/settings/*` primitives, and the coverage test with today's fields (initially all registered, or listed in `INTERNAL_FIELDS`).
+2. **New hub and group screens:** move existing screens into groups, add redirects for old routes, add search, deep links and focus. Bedtime, reminder timing, location, offline toggles and reset app data move to their new homes.
+3. **Shortcuts on `useSetting`:** reader, hadith, scripture filters, mini-player, playback sheet, practice toolbar, font controls, notification entry points. Enable the single-write test.
+4. **Fixes and data:** B1–B7, device preferences with migration, the merged `readingDisplay` setting, the library order editor, the Hijri adjustment (§4.5.11), default currency, biometric toggle, sunrise offset, tour reset, run setup again.
+5. **i18n and QA:** all 24 locales including search keywords, RTL, TV (Apple TV and Android TV), web master–detail, and screen-reader pass.
+
+#### 4.5.10 Tests and acceptance
+
+**Tests:**
+
+- registry unit tests: every def's `read`/`write` round-trips through its store, `available` per platform, `enabledWhen`, `summary`
+- the coverage and single-write tests (§4.5.4)
+- `use-setting` re-renders only on its own value; side effects fire (reschedule on reminder settings, locale reload)
+- device-prefs migration (legacy → device, and never synced: assert it isn't in `sync/records.ts` output)
+- search: title, synonym, English fallback in a non-English locale, toggling from a result
+- redirects for every old route; the deep-link allowlist equals the registry routes
+- B1 (Qur'an cache flag honoured in all four APIs), B2 (reminder sound per style), B6 (wipe clears the theme mirror)
+- screen tests for the hub, a group screen, master–detail, and TV focus order
+
+**Acceptance criteria:**
+
+- Every user-facing persisted option is in Settings, **at most 2 taps from the hub**, and findable by search in every locale.
+- No setting has two different write paths; in-context controls and Settings always show the same value.
+- No reachable settings route shows an empty state on TV or web.
+- Old routes and deep links still open the right place.
+- Reminders reschedule after every reminder-affecting change; there are no regressions in the reminder budget (§11).
+- Device-only settings never sync. "Reset settings" never deletes user data.
+- 24 locales, RTL, dark and light, reduced motion, screen-reader labels with values.
+
+**Risks:**
+
+- **Users can't find moved items.** Mitigation: redirects, a one-time "Settings has a new layout, search for anything" tip on the hub, and search.
+- **A big diff across many screens.** Mitigation: the five independent steps above, each with its own tests.
+- **Per-row subscriptions on long screens.** Mitigation: selector-based `useSetting`, and memoised rows (as `ToggleRow` is today).
+
+#### 4.5.11 Hijri date adjustment (D14)
+
+**Problem.** Dates come from `lib/hijri.ts`, the single source of truth (Ramadan, calendar, converter, Islamic events, white days, seasonal themes, tahajjud, qaza history, the moon sheet, widgets through `buildWidgetSnapshot.ts`). `hijriObserverFor()` in `hijri-authority.ts` picks the method: Umm al-Qura for Saudi Arabia and the regions that follow it, Yallop crescent visibility at the stored location everywhere else (`hijri-sighting.ts`), and the tabular calendar outside the table range. A user's local committee or masjid can still announce a month a day earlier or later than any prediction. Today there's no way to correct this.
+
+**Why not a simple "+N days".** Shifting every date by N days keeps month lengths, but it is wrong whenever only one month differs locally, which is the usual case. Adding days to a single month by hand would also create invalid 28- or 31-day months. An Islamic month is **always 29 or 30 days**. The design keeps that invariant by construction.
+
+**Model** (`UserPreferences.hijriAdjustment`, synced, optional):
+
+```ts
+interface HijriAdjustment {
+  /** Whole-calendar shift in days, −2…+2. +1 = "my months start one day later than predicted". Default 0. */
+  offsetDays: -2 | -1 | 0 | 1 | 2;
+  /** Per-month announced starts: key "1448-09" → Gregorian ISO date of day 1 in the user's area. */
+  monthStarts?: Record<`${number}-${string}`, string>;
+  /** Method fingerprint when the corrections were made (observer/Umm al-Qura + rounded lat/lon); used to warn after a move. */
+  basis?: string;
+  updatedAt: string;
+}
+```
+
+**Algorithm** (`lib/hijri-adjustment.ts`, pure, wrapping the existing `gregorianToHijri`, `hijriToGregorian` and `hijriMonthLength` inside `hijri.ts`, so no consumer changes):
+
+1. **Base start of a month**, `B(y, m)` = the JDN of day 1 from the current method (sighting, Umm al-Qura or tabular), exactly as today.
+2. **Global offset:** `S₀(y, m) = B(y, m) + offsetDays`. A uniform shift keeps every base month length, so lengths stay 29 or 30.
+3. **Per-month corrections, applied in order through time** from the earliest corrected month:
+   - A corrected month uses its announced start `A`, which is accepted only if `|A − S₀(y, m)| ≤ 2`.
+   - For every month, the effective start is clamped against the previous effective start `P`: `S(y, m) = clamp(S₀(y, m) or A, P + 29, P + 30)`. Each month is therefore 29 or 30 days (the classical rule that a month can't exceed 30 days and the crescent can't be sought before the 29th).
+   - When a correction or clamp leaves a month `e` days off `S₀`, later months drift back toward `S₀`. The gap closes by one day each time the base month has the "opposite" length (a 30-day base month when the start is late, a 29-day one when it is early), and is unchanged otherwise. It always converges, usually within 2–4 months, and the UI shows the affected months.
+4. **Conversions** use the effective starts:
+   - `gregorianToHijri(jdn)` finds the month whose `[S(y, m), S(next))` range holds `jdn`.
+   - `hijriToGregorian(y, m, d) = S(y, m) + d − 1`, with `d` limited to the effective month length.
+   - `hijriMonthLength(y, m) = S(next) − S(y, m)`.
+5. **The prayer-day anchor is unchanged** (`prayerDayAnchor`, the existing Maghrib/day boundary). The adjustment changes which month a civil day belongs to, not when the day starts.
+6. **Performance:** the effective starts are computed lazily for a window around the requested date and memoised. The cache is cleared when the adjustment, observer or location changes, next to `resetSightingCacheForTests`.
+
+**UI** (Settings › Language & region › Hijri date):
+
+- "Hijri date adjustment": a −2…+2 stepper with a live preview line ("Today: 21 Jumada al-Ula 1448").
+- "**This month started on…**": opens a sheet with the predicted day 1 and the 2 days either side (only valid choices are offered), a note on where the prediction comes from ("Umm al-Qura" or "Crescent visibility at Lahore"), and "Clear this month's correction".
+- The list of corrections made, each one removable.
+- The Ramadan screen and the calendar month header get a small "Adjust" link to the same sheet, so the user can correct it at the moment of an announcement.
+- **Moving location** (when `basis` no longer matches): a one-time card says "Your Hijri corrections were made for <old place>. Keep or clear?" They are never cleared silently.
+
+**Side effects:**
+
+- `sideEffects: ["reschedule-reminders"]`: white days, Ramadan, Friday and seasonal reminders reschedule.
+- Widgets and live surfaces refresh their snapshot.
+- Fasting and other day logs are stored by Gregorian date, so nothing is rewritten; only Hijri labels and Hijri-derived schedules move.
+
+**Copy (D11 proof log):**
+
+- The basis is that months begin with the sighting of the crescent and are completed to 30 days when it isn't seen (Bukhari 1909; Muslim 1081; verify the numbers against the corpus).
+- The copy stays neutral between global and local sighting ("Follow the announcement your community follows"), and never says one method is the correct one.
+
+**Verification** (unit tests, `hijri-adjustment.test.ts`):
+
+- **Zero adjustment is identical to today**: for every day from 1300 to 1600 AH, under all three methods (Umm al-Qura, the sighting observer at fixture coordinates, tabular), the output equals the current `hijri.ts` output.
+- **Invariant sweep:** random property tests (seeded) over offsets and up to 24 random corrections: every month is 29 or 30 days, `g→h→g` and `h→g→h` round-trip exactly, days are contiguous with no gaps or overlaps, and `offsetDays` alone shifts every date uniformly.
+- **Clamp behaviour:** a correction that would make the previous month 28 or 31 days is never offered. Correcting a 29-day-predicted month one day late makes the previous month 30 days long. For any `|e| ≤ 2`, later months converge back to `S₀`, which the test asserts over the whole 1300–1600 AH table (expected within 8 months).
+- **Real-world fixture:** Ramadan 1445 started on 11 March 2024 in Saudi Arabia (Umm al-Qura) and on 12 March 2024 in Pakistan (Ruet-e-Hilal). With an Umm al-Qura base and a 1445-09 correction to 2024-03-12, 12 March is 1 Ramadan and Sha'ban 1445 becomes one day longer than its Umm al-Qura length (the test reads that length from the table rather than hard-coding it; if the table already has Sha'ban at 30 days, the test asserts the correction is refused, and the sheet offers correcting Sha'ban first). Record the announcements behind this in the proof log, and add more announced months there as they are verified.
+- Consumers: Ramadan, white days (13–15 follow the correction), Islamic events and the widget snapshot with a correction applied.
 
 ---
 
@@ -470,11 +907,11 @@ rawatib?: {
 - Valid statuses are only `completed` and `pending`. `missed` is not offered; "not prayed" is just the absence of a log.
 - **Visibility windows** (computed from today's `prayer-times.ts` times):
 
-  | Row | Visible from | Until | Notes |
-  | --- | --- | --- | --- |
-  | `fajr_before` | Fajr begins | Dhuhr begins | After sunrise it is logged with `late: true`. Making it up after sunrise is valid per Tirmidhi 423. Schools differ on whether it is made up independently of the fard; when `madhhab === "hanafi"`, show the note. |
-  | `*_before` | Its fard's time begins | The next fard's time begins | |
-  | `*_after` | The parent fard is marked completed | The next fard's time begins | Can be logged before the fard is marked, with a soft hint. |
+  | Row           | Visible from                        | Until                       | Notes                                                                                                                                                                                                              |
+  | ------------- | ----------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+  | `fajr_before` | Fajr begins                         | Dhuhr begins                | After sunrise it is logged with `late: true`. Making it up after sunrise is valid per Tirmidhi 423. Schools differ on whether it is made up independently of the fard; when `madhhab === "hanafi"`, show the note. |
+  | `*_before`    | Its fard's time begins              | The next fard's time begins |                                                                                                                                                                                                                    |
+  | `*_after`     | The parent fard is marked completed | The next fard's time begins | Can be logged before the fard is marked, with a soft hint.                                                                                                                                                         |
 
 - **Preset 12:** `dhuhr_before.rakahs` defaults to 4. **Preset 10:** it defaults to 2. The user can change either per log.
 - **Excused periods:**
@@ -482,7 +919,7 @@ rawatib?: {
   - `sick` keeps them visible, with nothing expected.
   - `travel`: when `rules.travelRawatib === "optional_except_fajr"`, show only `fajr_before` (plus Witr, which already exists). The rest are collapsed under "Optional while travelling".
 - **Sync:** reuses the existing `prayer_logs` record sync with no new entity. The API `prayerId` validator (`packages/shared/src/validators` and the API DTO) must accept the new ids. Run `pnpm generate:api`.
-- **Statistics:** a new "Rawatib" section in `/statistics`:
+- **Statistics:** `/statistics` was redesigned in the working tree on 2026-11-23 (`lib/statistics.ts`, `components/statistics/salah-rate-list.tsx`, `status-distribution.tsx`, `today-salah-strip.tsx`). Rawatib extend those pieces instead of adding a parallel screen. `indexPrayerDays`, `summarizePeriod` and `salahBreakdown` must keep **fard rates rawatib-free** (regression test). The new section reuses `SalahRateList` for per-rawatib rates. A new "Rawatib" section in `/statistics`:
   - days with all of today's preset complete
   - the 30-day consistency grid
   - the count toward "12 a day" (no house metaphor in numbers; just the hadith card)
@@ -502,7 +939,7 @@ rawatib?: {
 - window computation for each row across DST and high-latitude rule cases
 - excused filtering
 - preset defaults per madhhab
-- qaza and streak functions ignore the rawatib ids (regression test)
+- qaza, `computeStreak` and `longestStreak` (the achievements `bestStreak`) ignore the rawatib ids (regression test)
 - validator accepts the new ids
 
 **Acceptance:**
@@ -544,8 +981,18 @@ rawatib?: {
 ```ts
 // packages/shared/src/types/fasting.ts (new)
 export type VoluntaryFastKind =
-  | "monday" | "thursday" | "white_day" | "shawwal_six" | "arafah" | "tasua" | "ashura"
-  | "muharram" | "shaban" | "dhul_hijjah_nine" | "dawud" | "other";
+  | "monday"
+  | "thursday"
+  | "white_day"
+  | "shawwal_six"
+  | "arafah"
+  | "tasua"
+  | "ashura"
+  | "muharram"
+  | "shaban"
+  | "dhul_hijjah_nine"
+  | "dawud"
+  | "other";
 export type FastDayRuling = "recommended" | "permitted" | "disliked" | "prohibited";
 
 export interface VoluntaryFastEntry {
@@ -558,11 +1005,11 @@ export interface VoluntaryFastEntry {
 export type VoluntaryFastingMap = Record<string /* YYYY-MM-DD */, VoluntaryFastEntry>;
 
 export interface VoluntaryFastingPrefs {
-  enabledKinds: VoluntaryFastKind[];   // default ["monday","thursday","white_day","shawwal_six","arafah","tasua","ashura"]
+  enabledKinds: VoluntaryFastKind[]; // default ["monday","thursday","white_day","shawwal_six","arafah","tasua","ashura"]
   dawudMode?: { startDate: string } | null;
-  intentReminderTime: string;          // "21:00" default; or "isha+60"
-  suhoorAlarm: boolean;                // default false
-  isPilgrimThisYear?: boolean;         // suppress Arafah recommendation
+  intentReminderTime: string; // "21:00" default; or "isha+60"
+  suhoorAlarm: boolean; // default false
+  isPilgrimThisYear?: boolean; // suppress Arafah recommendation
 }
 ```
 
@@ -668,9 +1115,11 @@ Rules, applied in order (first match on `ruling` wins; `kinds` accumulate):
      - qiyam
 2. **Takbir al-Tashriq counter.**
    - Compute the slot list from `rules.takbirTashriq`:
+
      ```ts
      function tashriqSlots(rules, hijriYear): Array<{ date: string; prayer: ObligatoryPrayer }>
      ```
+
      The Hanafi/Shafi'i/Hanbali window (Fajr 9 → Asr 13) gives 23 slots. Maliki (Dhuhr 10 → Fajr 13) gives 15.
    - In the tracker, after a fard in a slot is marked `completed`, show an inline chip "Takbir said ✓" with the wording card.
    - The wording comes from the bundled adhkar dataset, with 2 or 3 opening takbirs per `openingTakbirs`.
@@ -697,8 +1146,13 @@ Rules, applied in order (first match on `ruling` wins; `kinds` accumulate):
 interface DhulHijjahState {
   hijriYear: number;
   intendsUdhiyah?: { since: string /* ISO */ } | null;
-  udhiyah?: { animal: "sheep" | "goat" | "cow_share" | "camel_share" | "cow" | "camel"; shares?: number;
-              via: "self" | "agency"; onBehalfOf?: string[]; status: "planned" | "arranged" | "slaughtered" | "distributed" };
+  udhiyah?: {
+    animal: "sheep" | "goat" | "cow_share" | "camel_share" | "cow" | "camel";
+    shares?: number;
+    via: "self" | "agency";
+    onBehalfOf?: string[];
+    status: "planned" | "arranged" | "slaughtered" | "distributed";
+  };
   dailyChecks: Record<string /* `${itemId}::${date}` */, true>;
   tashriq: Record<string /* `${date}::${prayer}` */, true>;
 }
@@ -725,32 +1179,32 @@ interface DhulHijjahState {
 
 **Catalog** (`packages/shared/src/content/sunnah-habits.ts`). Refs are rendered from the corpus, and each must pass `content-verification.ts`:
 
-| id                   | Habit                                   | Type         | Ref (verify)               | Links to                     |
-| -------------------- | --------------------------------------- | ------------ | -------------------------- | ---------------------------- |
-| `miswak`             | Use miswak (esp. before salah)          | binary       | Bukhari 887                | —                            |
-| `wudu_before_sleep`  | Wudu before sleeping                    | binary       | Bukhari 247                | before-sleep adhkar          |
-| `sleep_right_side`   | Sleep on the right side + dua           | binary       | Bukhari 247                | before-sleep adhkar          |
-| `ayat_kursi_sleep`   | Ayat al-Kursi before sleep              | binary       | Bukhari 2311               | Qur'an 2:255                 |
-| `mulk_nightly`       | Surah al-Mulk nightly                   | binary       | Tirmidhi 2891              | Qur'an 67                    |
-| `istighfar_100`      | Istighfar 100×                          | count (100)  | Muslim 2702                | tasbeeh                      |
-| `salawat`            | Salawat on the Prophet ﷺ                | count (user) | (durood dataset)           | `/duroods`                   |
-| `salam_home`         | Salam on entering home                  | binary       | Qur'an 24:61               | dua dataset                  |
-| `spread_salam`       | Initiate salam                          | binary       | Muslim 54                  | —                            |
-| `eat_right_bismillah`| Eat with right hand, say Bismillah      | binary       | Bukhari 5376               | dua dataset                  |
-| `smile`              | Smile at a brother/sister (sadaqah)     | binary       | Tirmidhi 1956              | —                            |
-| `daily_sadaqah`      | Give something, even small              | binary       | Bukhari 1442               | `/sadaqah`                   |
-| `morning_adhkar`     | Morning adhkar                          | linked       | (adhkar dataset)           | auto-checked from zikr progress |
-| `evening_adhkar`     | Evening adhkar                          | linked       | (adhkar dataset)           | auto-checked from zikr progress |
-| `custom`             | User-defined (title only, no evidence)  | binary/count | —                          | —                            |
+| id                    | Habit                                  | Type         | Ref (verify)     | Links to                        |
+| --------------------- | -------------------------------------- | ------------ | ---------------- | ------------------------------- |
+| `miswak`              | Use miswak (esp. before salah)         | binary       | Bukhari 887      | —                               |
+| `wudu_before_sleep`   | Wudu before sleeping                   | binary       | Bukhari 247      | before-sleep adhkar             |
+| `sleep_right_side`    | Sleep on the right side + dua          | binary       | Bukhari 247      | before-sleep adhkar             |
+| `ayat_kursi_sleep`    | Ayat al-Kursi before sleep             | binary       | Bukhari 2311     | Qur'an 2:255                    |
+| `mulk_nightly`        | Surah al-Mulk nightly                  | binary       | Tirmidhi 2891    | Qur'an 67                       |
+| `istighfar_100`       | Istighfar 100×                         | count (100)  | Muslim 2702      | tasbeeh                         |
+| `salawat`             | Salawat on the Prophet ﷺ               | count (user) | (durood dataset) | `/duroods`                      |
+| `salam_home`          | Salam on entering home                 | binary       | Qur'an 24:61     | dua dataset                     |
+| `spread_salam`        | Initiate salam                         | binary       | Muslim 54        | —                               |
+| `eat_right_bismillah` | Eat with right hand, say Bismillah     | binary       | Bukhari 5376     | dua dataset                     |
+| `smile`               | Smile at a brother/sister (sadaqah)    | binary       | Tirmidhi 1956    | —                               |
+| `daily_sadaqah`       | Give something, even small             | binary       | Bukhari 1442     | `/sadaqah`                      |
+| `morning_adhkar`      | Morning adhkar                         | linked       | (adhkar dataset) | auto-checked from zikr progress |
+| `evening_adhkar`      | Evening adhkar                         | linked       | (adhkar dataset) | auto-checked from zikr progress |
+| `custom`              | User-defined (title only, no evidence) | binary/count | —                | —                               |
 
 **Data model:**
 
 ```ts
 export interface SunnahHabitsState {
-  selected: string[];                         // ordered habit ids (max 12 to keep it small)
+  selected: string[]; // ordered habit ids (max 12 to keep it small)
   custom: Array<{ id: string; title: string; target?: number }>;
   checks: Record<string /* `${habitId}::${date}` */, number /* 1 for binary, n for count */>;
-  spotlightSeen: Record<string, string>;      // habitId → last date shown
+  spotlightSeen: Record<string, string>; // habitId → last date shown
 }
 ```
 
@@ -786,41 +1240,41 @@ export interface SunnahHabitsState {
 - **A design only changes how the count is shown.** No copy ever says or suggests that one design brings more reward. The finger design links to the hadith above. Nothing in any design ties an amount of reward to a count (see the rejected ideas below).
 - **No music.** Sounds are short, natural, percussive clicks: wood, stone, resin, glass, or a mechanical clicker. No melodic chimes and **no bells** (Muslim 2114; verify). The completion cue is a soft "strand settles" clack, not a jingle.
 - **No living beings.** Imagery is geometric, natural materials, or the sky. No mascots, animals or faces.
-- **Calm, not game-like.** No points, XP, coins or unlockable "rare beads", and no paywall on worship visuals (see §13). This follows the existing "calm confidence" motion tokens (`constants/motion.ts`).
+- **Calm, not game-like.** No points, XP, coins or unlockable "rare beads", and no paywall on worship visuals: every design and material is free (D16). This follows the existing "calm confidence" motion tokens (`constants/motion.ts`).
 
 **Research summary (2026-11-20).**
 
 - Most tasbih apps on the stores show a ring or a plain tap counter. Sliding-bead counters are rare and usually sold as paid upgrades. Examples: [Tasbih: Dhikr Counter by Ekin](https://mwm.ai/apps/tasbih-zikr-counter-pro/6790427707) (bead slides along a string; 33 or 99 beads; Amber, Kuka Wood, Pearl and Turquoise themes), [Tasbih Counter – Daily Dhikr](https://apps.apple.com/us/app/tasbih-counter-daily-dhikr/id6757278052) (a swipeable wooden-bead Pro view next to a circular counter), [BeadsCounter](https://apps.apple.com/us/app/beadscounter/id6757827993) (ruby, sapphire and jade bead materials at $1.99 each) and [Misbaha – Tasbih Counter](https://apps.apple.com/us/app/id6757333557) (tassels and bead materials behind a paid upgrade). Offering beads, materials and sound **free and well made** is a clear way to stand out.
-- **How a real misbaha is built.** Common strands have 33 or 99 beads. A 33-bead strand has spacer beads (*fasil* / *shahid*) after the 11th and 22nd beads; a 99-bead strand has them after the 33rd and 66th. One end has a larger leader bead (*imam*, also *yad* or *mihrab*), usually with a tassel. Common materials are olive wood, kuka wood, sandalwood, ebony, camel bone, amber (honey and cherry), pearl and mother-of-pearl, turquoise, onyx, lapis, jade, agate and glass. Common shapes are round, olive (barrel), faceted, cylinder, and flat rondelle. Sources: [Wikipedia: Misbaha](https://en.wikipedia.org/wiki/Misbaha), [Tespih](https://www.wikiwand.com/en/articles/Tespih), [misbaha encyclopedia](https://skyjems.ca/pages/encyclopedia-misbaha).
+- **How a real misbaha is built.** Common strands have 33 or 99 beads. A 33-bead strand has spacer beads (_fasil_ / _shahid_) after the 11th and 22nd beads; a 99-bead strand has them after the 33rd and 66th. One end has a larger leader bead (_imam_, also _yad_ or _mihrab_), usually with a tassel. Common materials are olive wood, kuka wood, sandalwood, ebony, camel bone, amber (honey and cherry), pearl and mother-of-pearl, turquoise, onyx, lapis, jade, agate and glass. Common shapes are round, olive (barrel), faceted, cylinder, and flat rondelle. Sources: [Wikipedia: Misbaha](https://en.wikipedia.org/wiki/Misbaha), [Tespih](https://www.wikiwand.com/en/articles/Tespih), [misbaha encyclopedia](https://skyjems.ca/pages/encyclopedia-misbaha).
 
 **Design catalog** (`lib/tasbeeh/designs.ts` registry). Priority: P1 = v1, P2 = v1.1, P3 = v2.
 
-| id         | Design                       | What it is                                                                                                                                                                                                                                                                                                           | Prio |
-| ---------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| `ring`     | **Ring** (default)           | Today's `ArcProgressRing` donut with the count inside, moved unchanged into a "face" component.                                                                                                                                                                                                                      | P1   |
-| `misbaha`  | **Sliding beads**            | A traditional strand. Each count slides one bead along the thread into the counted group. Spacer beads, the imam bead and the tassel are all drawn. Shape, material, spacers, tassel, thread, strand size and layout can all be customised (below).                                                                | P1   |
-| `clicker`  | **Digital clicker**          | Looks like the handheld or ring zikr counter: a seven-segment LCD (green, amber or monochrome backlight) and one big round button with a mechanical click.                                                                                                                                                          | P2   |
-| `minimal`  | **Focus / Night**            | Very large numerals on true black (OLED), dimmed. The whole screen is the tap target and there is no animation. Built for qiyam and for counting after salah without looking: distinct haptic pulses at 33, 66, 99 and the target.                                                                                  | P2   |
-| `fingers`  | **Finger counting**          | A visual aid for the Sunnah method. A line-art hand (react-native-svg, no skin tones) lights up the next fingertip or finger joint on each tap, and a lap counter shows completed rounds. Two layouts: fingertips (10, both hands) and joints (right hand). The copy says the user's own finger method is fine. Needs scholar review of the depiction and copy. | P3   |
-| `geometric`| **Geometric rosette**        | An Islamic 8- or 12-point star pattern (girih) that fills one segment per count. A 33-segment rosette; for 99 it completes three times; for ∞ it loops.                                                                                                                                                          | P3   |
-| `stars`    | **Night sky**                | Each count lights one star in a simple constellation that completes at the target. Reuses the sky and moon palette from the home hero.                                                                                                                                                                             | P3   |
-| `pebbles`  | **Date pits / pebbles**      | Each tap moves one pit or pebble from one dish to another. Only ships with a note on its evidence and on the differing gradings, and needs scholar sign-off (§13).                                                                                                                                                  | P3?  |
+| id          | Design                  | What it is                                                                                                                                                                                                                                                                                                                                                      | Prio |
+| ----------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| `ring`      | **Ring** (default)      | Today's `ArcProgressRing` donut with the count inside, moved unchanged into a "face" component.                                                                                                                                                                                                                                                                 | P1   |
+| `misbaha`   | **Sliding beads**       | A traditional strand. Each count slides one bead along the thread into the counted group. Spacer beads, the imam bead and the tassel are all drawn. Shape, material, spacers, tassel, thread, strand size and layout can all be customised (below).                                                                                                             | P1   |
+| `clicker`   | **Digital clicker**     | Looks like the handheld or ring zikr counter: a seven-segment LCD (green, amber or monochrome backlight) and one big round button with a mechanical click.                                                                                                                                                                                                      | P2   |
+| `minimal`   | **Focus / Night**       | Very large numerals on true black (OLED), dimmed. The whole screen is the tap target and there is no animation. Built for qiyam and for counting after salah without looking: distinct haptic pulses at 33, 66, 99 and the target.                                                                                                                              | P2   |
+| `fingers`   | **Finger counting**     | A visual aid for the Sunnah method. A line-art hand (react-native-svg, no skin tones) lights up the next fingertip or finger joint on each tap, and a lap counter shows completed rounds. Two layouts: fingertips (10, both hands) and joints (right hand). The copy says the user's own finger method is fine. Needs scholar review of the depiction and copy. | P3   |
+| `geometric` | **Geometric rosette**   | An Islamic 8- or 12-point star pattern (girih) that fills one segment per count. A 33-segment rosette; for 99 it completes three times; for ∞ it loops.                                                                                                                                                                                                         | P3   |
+| `stars`     | **Night sky**           | Each count lights one star in a simple constellation that completes at the target. Reuses the sky and moon palette from the home hero.                                                                                                                                                                                                                          | P3   |
+| `pebbles`   | **Date pits / pebbles** | Each tap moves one pit or pebble from one dish to another. **Ships (D16)** with an always-visible "About this design" note on its evidence and the differing gradings, backed by the D11 proof log.                                                                                                                                                             | v2   |
 
 **Considered and rejected:** a "palm garden" that plants a tree per count, because it applies the reward of one specific dhikr (Tirmidhi 3464) to all dhikr. Also rejected: coins, XP and level-ups; animal or character mascots; melodic or bell sounds; a 3D physics strand (it would need Skia or GL, both new native dependencies, and UI work must not add native dependencies); and ibadah leaderboards (§2.4).
 
 **Misbaha customisation.** The user first picks a **preset**, then can fine-tune it:
 
-| Option                   | Values (v1)                                                                                                                                                                                                        |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Preset                   | Amber classic · Kuka wood · Olive wood · Sandalwood · Pearl · Turquoise · Onyx night · Theme accent (matte, from `useTheme()` accent)                                                                             |
-| Bead shape               | Round · Olive (barrel) · Faceted · Cylinder (kuka cut) · Rondelle                                                                                                                                                  |
-| Material / finish        | Wood (olive, kuka, sandal, ebony) · Amber (honey, cherry; translucent) · Pearl / mother-of-pearl (sheen) · Stone (turquoise, onyx, lapis, jade, agate) · Glass (translucent) · Theme accent (matte)            |
-| Spacers (*fasil*)        | Same as beads · Silver · Gold · Contrasting material · Off                                                                                                                                                         |
-| Imam bead + tassel       | Silk tassel (colour picker from a curated list) · Metal chain tassel · Imam bead without tassel                                                                                                                    |
-| Thread                   | Colour (curated) · Hidden                                                                                                                                                                                          |
-| Strand                   | **Auto** (follows target: 33 → 33 beads; 99 → 99 beads; 100 → 99 beads, with the imam bead as the 100th; custom or ∞ → a 33-bead loop with a lap counter) · Always 33 · Always 99                              |
-| Layout                   | Hanging arc (vertical, default on phones) · Horizontal (default on TV, tabletop posture and landscape) · Full loop (a circle of beads around the count)                                                          |
-| Background               | Theme surface (default) · Soft velvet tint (a gradient from theme tokens)                                                                                                                                          |
+| Option             | Values (v1)                                                                                                                                                                                         |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Preset             | Amber classic · Kuka wood · Olive wood · Sandalwood · Pearl · Turquoise · Onyx night · Theme accent (matte, from `useTheme()` accent)                                                               |
+| Bead shape         | Round · Olive (barrel) · Faceted · Cylinder (kuka cut) · Rondelle                                                                                                                                   |
+| Material / finish  | Wood (olive, kuka, sandal, ebony) · Amber (honey, cherry; translucent) · Pearl / mother-of-pearl (sheen) · Stone (turquoise, onyx, lapis, jade, agate) · Glass (translucent) · Theme accent (matte) |
+| Spacers (_fasil_)  | Same as beads · Silver · Gold · Contrasting material · Off                                                                                                                                          |
+| Imam bead + tassel | Silk tassel (colour picker from a curated list) · Metal chain tassel · Imam bead without tassel                                                                                                     |
+| Thread             | Colour (curated) · Hidden                                                                                                                                                                           |
+| Strand             | **Auto** (follows target: 33 → 33 beads; 99 → 99 beads; 100 → 99 beads, with the imam bead as the 100th; custom or ∞ → a 33-bead loop with a lap counter) · Always 33 · Always 99                   |
+| Layout             | Hanging arc (vertical, default on phones) · Horizontal (default on TV, tabletop posture and landscape) · Full loop (a circle of beads around the count)                                             |
+| Background         | Theme surface (default) · Soft velvet tint (a gradient from theme tokens)                                                                                                                           |
 
 Materials are **procedural**, not image assets. Each one is a `{ base, highlight, shadow, translucency, sheen, grain? }` recipe in `lib/tasbeeh/materials.ts`. Spheres are shaded with `gradientBackground()` radial gradients from `lib/gradient.ts`, which works on web too. Facets, olive shapes, the tassel and the thread are drawn with react-native-svg, which is already installed. If wood grain needs an image, it is one tiling PNG of 30 KB or less. All colours used for UI chrome come from theme tokens. Bead colours are material data, so they are exempt from the "no hardcoded colours" rule; they live in `materials.ts` and are listed in the PR.
 
@@ -837,14 +1291,14 @@ Materials are **procedural**, not image assets. Each one is a `{ base, highlight
 **Sound.**
 
 - **Packs, one per material family:** wood clack (soft and hard), resin/amber tick, stone clink, glass clink, pearl tick, mechanical clicker, soft LCD beep. Each pack has three sounds: `bead`, `spacer` (lower pitch) and `complete` (the strand settling).
-- **Sourcing:** record the sounds ourselves or use **CC0** sources (the Freesound CC0 filter, Kenney UI audio). List the credits in `NOTICE` and on the About credits screen. Each file is mono AAC/m4a under 20 KB and stored in `apps/app/assets/audio/tasbeeh/`.
+- **Sourcing (D16):** **CC0** sources only (the Freesound CC0 filter, Kenney UI audio); each file's CC0 status is recorded under D12. List the credits in `NOTICE` and on the About credits screen. Each file is mono AAC/m4a under 20 KB and stored in `apps/app/assets/audio/tasbeeh/`.
 - **Engine** (`lib/tasbeeh/sound.ts`, using `expo-audio`, which is already installed):
   - Preload a round-robin pool of 3–4 `createAudioPlayer` instances per sound; each play is `seekTo(0)` then `play()`.
   - Set `playsInSilentMode: false` so the iOS silent switch is respected, and `interruptionMode: "mixWithOthers"` so a tick **never pauses Qur'an or adhan audio** that is already playing.
   - Release the players on unmount.
   - Skip the sound, but still count, when taps come less than 40 ms apart.
   - On web, unlock audio on the first gesture.
-- **Defaults:** sound is **off** on phones, because people usually count in the masjid or after salah. There is a volume slider and a "Test" button. TV has no haptics, so the TV default is open (§13).
+- **Defaults:** sound is **off** on phones, because people usually count in the masjid or after salah. There is a volume slider and a "Test" button. TV has no haptics, so sound is **on by default on TV** (D16).
 
 **Haptics.**
 
@@ -927,7 +1381,7 @@ Materials are **procedural**, not image assets. Each one is a `{ base, highlight
 
 1. **v1:** shell/face refactor (Ring stays pixel-identical) · Misbaha with arc layout, the 33/99/auto strand, 5 shapes, about 10 materials and 8 presets, spacers, tassel · sound packs for wood, amber, stone and glass · haptic levels · style sheet and Settings screen.
 2. **v1.1:** Clicker · Focus/Night · Misbaha horizontal and loop layouts (TV, tabletop, landscape) · pearl and clicker sound packs.
-3. **v2:** Fingers · Geometric · Stars · per-counter design · Pebbles (only if §13 is resolved).
+3. **v2:** Fingers · Geometric · Stars · per-counter design · Pebbles (with its grading note, D16).
 
 **Tests:**
 
@@ -989,17 +1443,21 @@ export interface MuhasabahEntry {
   date: string;
   answers: Record<string /* promptId */, "yes" | "partly" | "no">;
   gratitude?: string;
-  repentNote?: string;        // optional; may be omitted by preference
+  repentNote?: string; // optional; may be omitted by preference
   readIstighfar: boolean;
   intention?: string;
   durationMs: number;
   updatedAt: string;
 }
 export interface MuhasabahDoc {
-  prompts: string[];          // selected prompt ids incl. custom:<id>
+  prompts: string[]; // selected prompt ids incl. custom:<id>
   customPrompts: Array<{ id: string; text: string }>;
   entries: Record<string, MuhasabahEntry>;
-  prefs: { time: "bedtime" | "isha+90" | string; saveRepentText: boolean; retentionDays: 0 | 30 | 90 | 365 }; // 0 = forever
+  prefs: {
+    time: "bedtime" | "isha+90" | string;
+    saveRepentText: boolean;
+    retentionDays: 0 | 30 | 90 | 365;
+  }; // 0 = forever
 }
 ```
 
@@ -1037,19 +1495,36 @@ export interface MuhasabahDoc {
 
 ```ts
 export type Kinship =
-  | "mother" | "father" | "grandparent" | "child" | "sibling" | "spouse_parent"
-  | "aunt_paternal" | "aunt_maternal" | "uncle_paternal" | "uncle_maternal"
-  | "cousin" | "niece_nephew" | "other";
+  | "mother"
+  | "father"
+  | "grandparent"
+  | "child"
+  | "sibling"
+  | "spouse_parent"
+  | "aunt_paternal"
+  | "aunt_maternal"
+  | "uncle_paternal"
+  | "uncle_maternal"
+  | "cousin"
+  | "niece_nephew"
+  | "other";
 export interface Relative {
-  id: string; name: string; kinship: Kinship;
-  phone?: string;                        // optional; manual entry (no contacts import in v1)
-  cadenceDays: number;                   // defaults by kinship: parents 2, grandparents 7, siblings 7, aunts/uncles 30, cousins 60, other 90
+  id: string;
+  name: string;
+  kinship: Kinship;
+  phone?: string; // optional; manual entry (no contacts import in v1)
+  cadenceDays: number; // defaults by kinship: parents 2, grandparents 7, siblings 7, aunts/uncles 30, cousins 60, other 90
   lastContact?: { date: string; kind: "call" | "visit" | "message" | "gift" | "dua" };
   notes?: string;
   paused?: boolean;
-  createdAt: string; updatedAt: string; deletedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string;
 }
-export interface RelativesDoc { relatives: Relative[]; log: Array<{ relativeId: string; date: string; kind: string }> }
+export interface RelativesDoc {
+  relatives: Relative[];
+  log: Array<{ relativeId: string; date: string; kind: string }>;
+}
 ```
 
 **Logic:**
@@ -1098,14 +1573,18 @@ export interface DebtRecord {
   id: string;
   direction: "i_owe" | "owed_to_me" | "trust_held" | "trust_given";
   counterparty: string;
-  amount?: number; currency?: string;      // currency via lib/format-currency.ts
-  item?: string;                           // for trusts / non-cash
-  createdOn: string; dueOn?: string;
-  witnesses?: string[];                    // names only
-  documentUri?: string;                    // optional photo via existing /user-media (encrypted-at-rest local only in v1)
+  amount?: number;
+  currency?: string; // currency via lib/format-currency.ts
+  item?: string; // for trusts / non-cash
+  createdOn: string;
+  dueOn?: string;
+  witnesses?: string[]; // names only
+  documentUri?: string; // optional photo via existing /user-media (encrypted-at-rest local only in v1)
   payments: Array<{ id: string; date: string; amount: number; note?: string }>;
   status: "open" | "settled" | "forgiven";
-  notes?: string; updatedAt: string; deletedAt?: string;
+  notes?: string;
+  updatedAt: string;
+  deletedAt?: string;
 }
 ```
 
@@ -1191,6 +1670,17 @@ interface WasiyyahDoc {
 - `bedtime` pref
 - excused periods
 
+**Reuse the statistics engine** (`apps/app/src/lib/statistics.ts`, new in the working tree on 2026-11-23). Don't recompute what it already provides:
+
+- `indexPrayerDays`, `dailyPoints` and `summarizePeriod` for weekly completion
+- `salahBreakdown` and `salahExtremes` for the weakest and strongest salah (for example `fajr_gap`)
+- `strongestWeekday`
+- `projectQazaFinish` for qaza pace
+- `summarizeQuranReading` (`quran_streak`)
+- `longestStreak` / `bestStreak` from `packages/shared/src/utils/streak.ts` for "personal best" celebrations; a broken streak never takes back what was earned
+
+The rule engine stays pure in `packages/shared`. A builder in the app, `apps/app/src/lib/coach/context.ts`, maps those outputs into a `CoachContext`, so shared never imports app code.
+
 **Engine** (`packages/shared/src/utils/coach/`):
 
 ```ts
@@ -1199,9 +1689,9 @@ export interface CoachRule {
   kind: "celebrate" | "suggest" | "plan";
   /** Returns evidence numbers or null if not applicable. Pure. */
   evaluate(ctx: CoachContext): CoachEvidence | null;
-  priority: number;          // higher first
-  cooldownWeeks: number;     // don't repeat within N weeks
-  copyKey: string;           // i18n key with {params}
+  priority: number; // higher first
+  cooldownWeeks: number; // don't repeat within N weeks
+  copyKey: string; // i18n key with {params}
   action?: { route: string; labelKey: string };
 }
 export function buildCoachReport(ctx: CoachContext, history: CoachHistory): CoachInsight[]; // ≤ 3, ≥ 1 celebrate
@@ -1209,21 +1699,21 @@ export function buildCoachReport(ctx: CoachContext, history: CoachHistory): Coac
 
 Initial rule set (each with unit tests using fixture weeks from `test-support`):
 
-| id                     | Fires when                                                                                     | Suggestion / action                                       |
-| ---------------------- | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `fajr_gap`             | Fajr completion ≥ 30 pp below the mean of the other fard over 2+ weeks                         | Earlier bedtime / before-sleep adhkar → `/settings/reminder-offsets` |
-| `delayed_pattern`      | ≥ 3 `delayed` for the same prayer in 7 days                                                    | Suggest reminder offset for that prayer                   |
-| `weekday_dip`          | One weekday's fard rate ≤ mean − 25 pp for 3 weeks                                             | "Plan for <weekday>"                                      |
-| `improvement`          | Any tracked metric +15 pp vs the 4-week baseline                                               | Celebrate ("Alhamdulillah — keep it small and steady")    |
-| `qaza_pace`            | Qaza debt > 0                                                                                  | Projected finish date at current pace; offer +1/day plan  |
-| `jama_rate`            | Men only if gender known? → **No gender inference.** Fires when user has a home masjid set & jama' rate < 20% | Suggest one masjid prayer this week               |
-| `khushu_low_prayer`    | Avg khushu rating for one prayer ≤ 2/5 over 5+ entries                                         | Link to salah guide meaning of recitations                |
-| `quran_streak`         | Reading days ≥ 5/7                                                                             | Celebrate; offer khatm plan if none                       |
-| `khatm_behind`         | Khatm plan behind by > 2 days                                                                  | Offer re-plan (`lib/khatm.ts`)                            |
-| `rawatib_start`        | Fard ≥ 90% and rawatib ≈ 0                                                                     | Suggest Fajr sunnah first (Muslim 725)                    |
-| `habit_consistent`     | Any habit 7/7                                                                                  | Celebrate                                                 |
-| `family_ties_due`      | ≥ 1 parent overdue                                                                             | Link to `/family-ties`                                    |
-| `excused_week`         | Excused ≥ 4 days                                                                               | **Only** "Rest and return — your streak is safe". Suppress every suggestion. |
+| id                  | Fires when                                                                                                    | Suggestion / action                                                          |
+| ------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `fajr_gap`          | Fajr completion ≥ 30 pp below the mean of the other fard over 2+ weeks                                        | Earlier bedtime / before-sleep adhkar → `/settings/reminder-offsets`         |
+| `delayed_pattern`   | ≥ 3 `delayed` for the same prayer in 7 days                                                                   | Suggest reminder offset for that prayer                                      |
+| `weekday_dip`       | One weekday's fard rate ≤ mean − 25 pp for 3 weeks                                                            | "Plan for <weekday>"                                                         |
+| `improvement`       | Any tracked metric +15 pp vs the 4-week baseline                                                              | Celebrate ("Alhamdulillah — keep it small and steady")                       |
+| `qaza_pace`         | Qaza debt > 0                                                                                                 | Projected finish date at current pace; offer +1/day plan                     |
+| `jama_rate`         | Men only if gender known? → **No gender inference.** Fires when user has a home masjid set & jama' rate < 20% | Suggest one masjid prayer this week                                          |
+| `khushu_low_prayer` | Avg khushu rating for one prayer ≤ 2/5 over 5+ entries                                                        | Link to salah guide meaning of recitations                                   |
+| `quran_streak`      | Reading days ≥ 5/7                                                                                            | Celebrate; offer khatm plan if none                                          |
+| `khatm_behind`      | Khatm plan behind by > 2 days                                                                                 | Offer re-plan (`lib/khatm.ts`)                                               |
+| `rawatib_start`     | Fard ≥ 90% and rawatib ≈ 0                                                                                    | Suggest Fajr sunnah first (Muslim 725)                                       |
+| `habit_consistent`  | Any habit 7/7                                                                                                 | Celebrate                                                                    |
+| `family_ties_due`   | ≥ 1 parent overdue                                                                                            | Link to `/family-ties`                                                       |
+| `excused_week`      | Excused ≥ 4 days                                                                                              | **Only** "Rest and return — your streak is safe". Suppress every suggestion. |
 
 **Tone rules (enforced by tests on the copy keys):**
 
@@ -1246,7 +1736,7 @@ Initial rule set (each with unit tests using fixture weeks from `test-support`):
 
 ---
 
-## 7. Phase 3 — Fiqh tools & Qur'an
+## 7. Phase 3 — Fiqh tools, Qur'an & hadith
 
 ### NF-3.10 Mirath (inheritance) calculator — all four schools (D6)
 
@@ -1271,12 +1761,29 @@ export interface MirathInput {
   heirs: Partial<Record<HeirType, number>>; // counts; only living, Muslim, not the killer (UI asks)
 }
 export type HeirType =
-  | "husband" | "wife" | "son" | "daughter" | "sons_son" | "sons_daughter"
-  | "father" | "mother" | "paternal_grandfather" | "paternal_grandmother" | "maternal_grandmother"
-  | "full_brother" | "full_sister" | "paternal_brother" | "paternal_sister"
-  | "maternal_brother" | "maternal_sister"
-  | "full_brothers_son" | "paternal_brothers_son"
-  | "full_paternal_uncle" | "paternal_paternal_uncle" | "full_uncles_son" | "paternal_uncles_son";
+  | "husband"
+  | "wife"
+  | "son"
+  | "daughter"
+  | "sons_son"
+  | "sons_daughter"
+  | "father"
+  | "mother"
+  | "paternal_grandfather"
+  | "paternal_grandmother"
+  | "maternal_grandmother"
+  | "full_brother"
+  | "full_sister"
+  | "paternal_brother"
+  | "paternal_sister"
+  | "maternal_brother"
+  | "maternal_sister"
+  | "full_brothers_son"
+  | "paternal_brothers_son"
+  | "full_paternal_uncle"
+  | "paternal_paternal_uncle"
+  | "full_uncles_son"
+  | "paternal_uncles_son";
 ```
 
 **v1 scope:**
@@ -1291,6 +1798,7 @@ export type HeirType =
    - not both husband and wife
    - impediments are confirmed by UI questions (difference of religion, homicide), and excluded heirs are removed
 2. **Net estate:**
+
    ```
    net = gross − funeral − debts
    bequest = min(bequests, net / 3)   // note if capped
@@ -1323,20 +1831,20 @@ export type HeirType =
 
 **Core share table** (encode as data; tests cover each row; scholar-verified):
 
-| Heir             | Share                                                                                                     | Excluded by (all schools unless noted)                                  |
-| ---------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Husband          | 1/2; 1/4 with a descendant heir (child / son's child)                                                     | —                                                                       |
-| Wife / wives     | 1/4; 1/8 with a descendant heir; shared equally                                                           | —                                                                       |
-| Father           | 1/6 with male descendant; 1/6 + residue with only female descendants; residue with no descendant         | —                                                                       |
-| Mother           | 1/6 with descendant or ≥ 2 siblings (any type); else 1/3; 'Umariyyatayn 1/3 of remainder               | —                                                                       |
-| Daughter(s)      | 1/2 one; 2/3 two+; residuary 2:1 with son(s)                                                              | —                                                                       |
-| Son's daughter(s)| 1/2 / 2/3 when no daughter; 1/6 with exactly one daughter; residuary with son's son                      | Son; 2+ daughters (unless a son's son makes her residuary)             |
-| Paternal grandfather | As father when father absent (see grandfather-with-siblings)                                         | Father                                                                  |
-| Grandmother(s)   | 1/6 (shared if two)                                                                                       | Mother (both); father excludes paternal GM except `hanbali`            |
-| Full sister(s)   | 1/2 / 2/3; residuary with full brother 2:1; residuary with daughters                                      | Son, son's son, father; grandfather (`hanafi`)                         |
-| Paternal sister(s)| 1/2 / 2/3; 1/6 with exactly one full sister; residuary with paternal brother                             | Above + full brother, 2+ full sisters (unless paternal brother), full sister as residuary-with-daughters |
-| Maternal sibling(s) | 1/6 one; 1/3 two+ shared equally (male = female)                                                       | Any descendant heir; father; grandfather                               |
-| Residuary males  | Remainder by class/degree/strength                                                                        | Nearer residuary                                                        |
+| Heir                 | Share                                                                                            | Excluded by (all schools unless noted)                                                                   |
+| -------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| Husband              | 1/2; 1/4 with a descendant heir (child / son's child)                                            | —                                                                                                        |
+| Wife / wives         | 1/4; 1/8 with a descendant heir; shared equally                                                  | —                                                                                                        |
+| Father               | 1/6 with male descendant; 1/6 + residue with only female descendants; residue with no descendant | —                                                                                                        |
+| Mother               | 1/6 with descendant or ≥ 2 siblings (any type); else 1/3; 'Umariyyatayn 1/3 of remainder         | —                                                                                                        |
+| Daughter(s)          | 1/2 one; 2/3 two+; residuary 2:1 with son(s)                                                     | —                                                                                                        |
+| Son's daughter(s)    | 1/2 / 2/3 when no daughter; 1/6 with exactly one daughter; residuary with son's son              | Son; 2+ daughters (unless a son's son makes her residuary)                                               |
+| Paternal grandfather | As father when father absent (see grandfather-with-siblings)                                     | Father                                                                                                   |
+| Grandmother(s)       | 1/6 (shared if two)                                                                              | Mother (both); father excludes paternal GM except `hanbali`                                              |
+| Full sister(s)       | 1/2 / 2/3; residuary with full brother 2:1; residuary with daughters                             | Son, son's son, father; grandfather (`hanafi`)                                                           |
+| Paternal sister(s)   | 1/2 / 2/3; 1/6 with exactly one full sister; residuary with paternal brother                     | Above + full brother, 2+ full sisters (unless paternal brother), full sister as residuary-with-daughters |
+| Maternal sibling(s)  | 1/6 one; 1/3 two+ shared equally (male = female)                                                 | Any descendant heir; father; grandfather                                                                 |
+| Residuary males      | Remainder by class/degree/strength                                                               | Nearer residuary                                                                                         |
 
 **UI:**
 
@@ -1406,17 +1914,18 @@ export type HeirType =
    - **Never** "you made a qalqalah mistake", because the weak ayahs come from word mismatches, not tajweed judgement. Unit-test that this copy key is used.
 9. **Privacy:** no audio leaves the device. Respect the Quran Lab `SharingState` toggle as-is.
 
-**Phase B (blocked on the SDK, tracked as an open dependency):**
+**Phase B (unblocked by D25; uses our own alignment, not the SDK):**
 
-- In-ayah coaching needs either `model.reference` populated or an SDK API that accepts external audio or alignment.
-- With that, the design would be:
-  - word time windows (from tajweed segment positions)
-  - head evaluation inside each window
-  - per-word "listen again" hints
-- Same three-line verdict, no scores.
-- Track this in `BACKLOG.md` as "Quran Lab: per-ayah alignment".
+- **Word windows:** NF-3.24's CTC forced aligner (`lib/quran-pronunciation/ctc-align.ts`) gives a time window for every word of the ayah the user recited.
+- **Per-word coaching:** inside a tajweed rule's span (from `parseTajweedMarkup`), a word that NF-3.24 marks "Listen again" becomes a coaching card for that rule ("This word has ghunnah, listen to the reciter and try it again"). The card uses the reciter's word audio and the user's own take, held in memory only.
+- **This is not a tajweed judgement.** The card says the word wasn't clear and names the rule it contains, never "you broke the rule". The same three-line verdict, no scores.
+- **Head-level judging inside an ayah** (qalqalah, ghunna or gemination firing correctly within the recited ayah) still needs the Quran Lab SDK to accept external audio or alignment. That stays out of scope until it does; track it in `BACKLOG.md` as "Quran Lab: per-ayah alignment".
+- If spike S4 (alignment accuracy) fails, Phase B falls back to Phase A cards (D24).
 
-**Phase C (blocked):** madd duration and makharij feedback, once the SDK exposes validated heads.
+**Phase C:**
+
+- **Madd duration:** measured from the aligned frame spans of long vowels, compared with the same span in reference recitations (D23 eval). It ships only if the eval shows it separates 2/4/6-count madd reliably; otherwise it stays out (D24).
+- **Makharij feedback:** stays out of scope until a validated head exists.
 
 ### NF-3.20 Hands-free tasbeeh (voice counting, on-device)
 
@@ -1424,15 +1933,15 @@ export type HeirType =
 
 **What the codebase already gives us (verified 2026-11-20):**
 
-| Piece                                                                                     | Reuse                                                                                                                                                                                                                                                                                                  |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `lib/quran-companion/audio/capture.{native,web}.ts` (`RecitationCapture`)                 | Microphone capture as **16 kHz mono float32**: `expo-audio` `useAudioStream` on native, `getUserMedia` on web. Includes the resampler, permission handling and interruption events. Nothing is written to disk. **Reuse as-is.**                                                                     |
-| `lib/quran-companion/audio/audio-mode.ts`, `resample.ts` (`createChunker`)                | Audio session setup and chunk queueing with a drop cap. **Reuse.**                                                                                                                                                                                                                                     |
-| `lib/quran-companion/model/*` + `constants/recitation-models.{ts,json}`                   | Pinned (sha256 + md5) download, storage and verification of the listener model, plus the download job and the Settings → Offline data management. **Reuse the same files.** A user who already downloaded the model for Qur'an practice downloads nothing new.                                    |
-| FastConformer ONNX (`fastconformer_full_mixed.onnx`, 88 MB, NVIDIA **CC-BY-4.0**) + `vocab.json` | `tilawa-adapter.ts` already runs this model with our own runner and receives the raw **CTC `logprobs` [timeSteps × vocabSize]**. That gives a phrase spotter direct access to the model's output, without the Qur'an-only recognition session.                                                    |
-| `onnxruntime-react-native` 1.24.3 / `onnxruntime-web` 1.31.1 (`/ort/` UMD)                | Inference runtime on all platforms. **No new native dependency.**                                                                                                                                                                                                                                      |
-| `lib/quran-companion/availability.ts`, `error-codes.ts`                                   | The TV gate (TV has no microphone path) and Sentry reporting that uses error codes only.                                                                                                                                                                                                               |
-| `expo-keep-awake` (installed)                                                             | Keeps the screen on while listening.                                                                                                                                                                                                                                                                   |
+| Piece                                                                                            | Reuse                                                                                                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lib/quran-companion/audio/capture.{native,web}.ts` (`RecitationCapture`)                        | Microphone capture as **16 kHz mono float32**: `expo-audio` `useAudioStream` on native, `getUserMedia` on web. Includes the resampler, permission handling and interruption events. Nothing is written to disk. **Reuse as-is.**                               |
+| `lib/quran-companion/audio/audio-mode.ts`, `resample.ts` (`createChunker`)                       | Audio session setup and chunk queueing with a drop cap. **Reuse.**                                                                                                                                                                                             |
+| `lib/quran-companion/model/*` + `constants/recitation-models.{ts,json}`                          | Pinned (sha256 + md5) download, storage and verification of the listener model, plus the download job and the Settings → Offline data management. **Reuse the same files.** A user who already downloaded the model for Qur'an practice downloads nothing new. |
+| FastConformer ONNX (`fastconformer_full_mixed.onnx`, 88 MB, NVIDIA **CC-BY-4.0**) + `vocab.json` | `tilawa-adapter.ts` already runs this model with our own runner and receives the raw **CTC `logprobs` [timeSteps × vocabSize]**. That gives a phrase spotter direct access to the model's output, without the Qur'an-only recognition session.                 |
+| `onnxruntime-react-native` 1.24.3 / `onnxruntime-web` 1.31.1 (`/ort/` UMD)                       | Inference runtime on all platforms. **No new native dependency.**                                                                                                                                                                                              |
+| `lib/quran-companion/availability.ts`, `error-codes.ts`                                          | The TV gate (TV has no microphone path) and Sentry reporting that uses error codes only.                                                                                                                                                                       |
+| `expo-keep-awake` (installed)                                                                    | Keeps the screen on while listening.                                                                                                                                                                                                                           |
 
 **What we can't reuse, and why:**
 
@@ -1449,20 +1958,20 @@ export type HeirType =
 
 **Scope (v1):**
 
-- **iOS and Android phones and tablets.** Web comes in v1.1, after hosting is resolved (§13). TV is hidden through `isPracticeAvailable()`.
+- **iOS and Android phones and tablets.** Web comes in v1.1, with the model served from a CDN bucket (D18). TV is hidden through `isPracticeAvailable()`.
 - **Each counter listens for a single phrase.** `tasbeeh/[zikrId]` listens for that zikr's phrase. `tasbeeh/free` and `tasbeeh/custom/[id]` ask the user to choose a phrase from the catalog. A custom counter with no catalog phrase does not offer voice counting in v1.
 - **v1 phrase catalog** (`lib/tasbeeh-voice/phrases.ts`). Each phrase points to an existing **adhkar dataset id**; the Arabic text is never hand-typed (§2.1). Each phrase also lists accepted variants:
 
-  | key                 | Phrase (from dataset)                                   | Variants accepted                                        |
-  | ------------------- | ------------------------------------------------------- | -------------------------------------------------------- |
-  | `subhanallah`       | SubhanAllah                                             | —                                                        |
-  | `alhamdulillah`     | Alhamdulillah                                           | —                                                        |
-  | `allahu_akbar`      | Allahu Akbar                                            | —                                                        |
-  | `tahlil`            | La ilaha illallah                                       | —                                                        |
-  | `istighfar`         | Astaghfirullah                                          | + "al-'Azim", + "wa atubu ilayh"                         |
-  | `subhanallah_wb`    | SubhanAllahi wa bihamdihi                               | + "SubhanAllahil-'Azim"                                  |
-  | `hawqala`           | La hawla wa la quwwata illa billah                      | —                                                        |
-  | `salawat_short`     | Allahumma salli 'ala Muhammad                           | + "wa 'ala ali Muhammad"                                 |
+  | key              | Phrase (from dataset)              | Variants accepted                |
+  | ---------------- | ---------------------------------- | -------------------------------- |
+  | `subhanallah`    | SubhanAllah                        | —                                |
+  | `alhamdulillah`  | Alhamdulillah                      | —                                |
+  | `allahu_akbar`   | Allahu Akbar                       | —                                |
+  | `tahlil`         | La ilaha illallah                  | —                                |
+  | `istighfar`      | Astaghfirullah                     | + "al-'Azim", + "wa atubu ilayh" |
+  | `subhanallah_wb` | SubhanAllahi wa bihamdihi          | + "SubhanAllahil-'Azim"          |
+  | `hawqala`        | La hawla wa la quwwata illa billah | —                                |
+  | `salawat_short`  | Allahumma salli 'ala Muhammad      | + "wa 'ala ali Muhammad"         |
 
 - **v2:** the long tahlil ("…wahdahu la sharika lah…"), longer duroods, post-salah sequence mode (33 / 33 / 33–34, moving to the next phrase automatically), and an optional pause-based mode for custom phrases (below).
 
@@ -1479,7 +1988,7 @@ RecitationCapture (16 kHz) → chunker → VAD (speech segments) → FastConform
 3. **Phrase tokens (`phrase-tokens.json`, generated).** A build script, `scripts/build-tasbeeh-voice-tokens.mjs`, tokenises each catalog phrase and its variants (Arabic text taken from the dataset) against the **pinned** `vocab.json`. It writes the token sequences together with the model `version`. A unit test fails if the version doesn't equal `RECITATION_MODELS["tilawa-fastconformer"].version`, so any model change forces the tokens to be regenerated. The generated file is never edited by hand.
 4. **Spotter (`ctc-keyword-spotter.ts`).** For the expected phrase, run a streaming CTC keyword search: token passing that allows any audio before and after, so it can find **back-to-back repeats** with no pause. Each hit has a start frame, an end frame and a score, which is the phrase log-likelihood normalised against the best free path (a likelihood ratio). Spike S1 compares this against "greedy decode + fuzzy match with `normalize()`" and keeps whichever meets the targets.
 5. **De-dupe (`hit-dedupe.ts`).** Hits are merged by absolute time across overlapping windows. Hits closer together than the phrase's minimum length (measured per phrase, for example about 350 ms for SubhanAllah) are merged into one, so overlapping windows can never count the same phrase twice.
-6. **Confidence gate.** Two settings: *Strict* (default) and *Balanced*. An optional **personal calibration** ("Say SubhanAllah 5 times") stores a per-phrase threshold offset on this device only (not synced). It helps with accents, children's voices and quiet speech.
+6. **Confidence gate.** Two settings: _Strict_ (default) and _Balanced_. An optional **personal calibration** ("Say SubhanAllah 5 times") stores a per-phrase threshold offset on this device only (not synced). It helps with accents, children's voices and quiet speech.
 
 **Session controller (`session.ts`) and hook (`hooks/use-voice-tasbeeh.ts`):**
 
@@ -1530,7 +2039,7 @@ The model files and manifest stay in the existing Qur'an practice store. There i
 
 - `isPracticeAvailable()` (not TV), **and**
 - microphone capture is available, **and**
-- the FastConformer engine is pinned for the platform (native in v1; web once `webHosted` is turned on), **and**
+- the FastConformer engine is pinned for the platform (native in v1; web once `webHosted` is turned on for the CDN-bucket copy, D18), **and**
 - the phrase is in the catalog.
 
 If the user has only the **Zipformer** model installed, offer the FastConformer download. Spike S1 also checks whether the Zipformer ONNX output is CTC; if it is, Zipformer is supported too (it is already web-hosted, NPL-1.2, and must stay free).
@@ -1543,10 +2052,12 @@ If the user has only the **Zipformer** model installed, offer the FastConformer 
   - Compare the two spotter approaches on the fixture set.
   - Check whether Zipformer outputs CTC.
 - **S2 – fixtures.**
-  - Build a **consented** recording set: at least 30 speakers; male, female and children (with a parent's consent); Arabic, South Asian, Turkish, Indonesian, African and Western accents; normal and fast pace; quiet room, masjid echo, car and fan noise; whispered and low voice.
-  - Include **negatives**: Qur'an recitation, conversation, a TV in the background, and the other catalog phrases (SubhanAllah must not count as Alhamdulillah).
-  - Recordings live in a private bucket, not the public repo (`docs/OPEN_SOURCE.md`). The test suite uses feature tensors or short clips that are licensed for the repo.
-  - Keep results in a proof log, like the one for Qur'an practice.
+  - **Built from audio the app already streams (D23); no new recordings and no storage of our own.** `pnpm --filter app tasbeeh-voice:eval` downloads, at eval time, the adhkar and dua recordings for each catalog phrase (`lib/audio-tracks.ts` sources), caches them in a gitignored folder, and never commits them.
+  - **Variety by augmentation:** speed 0.8–1.4×, pitch ±3 semitones, low-volume and whisper-like filtering, and room reverb plus car, fan and crowd noise. Back-to-back repeats are spliced to test fast counting.
+  - **Negatives:** Qur'an recitation from several reciters (everyayah) and word-by-word audio, the other catalog phrases (SubhanAllah must not count as Alhamdulillah), and silence and noise beds.
+  - **Cross-check:** a count is labelled correct only when the Zipformer and FastConformer transcripts of the same clip agree with the expected phrase. Clips where they disagree are excluded and listed in the proof log.
+  - The unit suite uses only synthetic logprob matrices; no audio is committed.
+  - Results go in a proof log, like the one for Qur'an practice. Gates are reported as "measured on reference + synthetic audio".
 
 **Acceptance criteria (release gate):**
 
@@ -1575,7 +2086,7 @@ If the user has only the **Zipformer** model installed, offer the FastConformer 
 
 - The model was trained on Qur'an recitation, so it may be biased toward Qur'anic word forms. Mitigation: CTC keyword scoring is limited to the expected phrase, plus calibration. If S1 fails, fall back to v2's pause-based mode and label it clearly.
 - Fast, slurred dhikr ("subhanallah-subhanallah…") may be under-counted. This is acceptable because the user taps any missed counts, and it is stated in the explainer.
-- Web hosting the 88 MB file needs a check against Vercel's static file limits (§13).
+- Web hosting the 88 MB file: served from a CDN bucket (D18), so Vercel's static file limits don't apply.
 
 **Optional v2 mode – "Pause count (basic)":** every separate spoken burst found by the VAD counts once. There is no model and no download, and it works for any custom phrase. It is shown only as an opt-in labelled "Counts each pause — less accurate", is off by default, and is never used for catalog phrases.
 
@@ -1629,6 +2140,352 @@ interface UmrahSession {
 
 ---
 
+### NF-3.21 Ayah personal notes & annotations
+
+**Goal.** Let the user write their own reflections (tadabbur) on any ayah or ayah range, highlight ayahs or words in a colour, tag them, and find them again from the reader, the Bookmarks hub and search. Notes are the user's own words. They are never presented as tafsir.
+
+**Islamic basis:**
+
+- Qur'an 38:29 ("…that they might reflect upon its verses") and 47:24, as the reason to reflect and write.
+- Copy rule: a note is always labelled **"My note"**. It is never shown inside, or styled like, the tafsir panel, so a personal reflection can't be mistaken for scholarship.
+
+**What exists today (verified 2026-11-23):**
+
+- `QuranBookmark` (`db/repositories/quran-repository.ts`) is only `{ id, surah, ayah, createdAt }`. It syncs as the single-record entity `quran_bookmarks` (`sync/records.ts`). There is no note or highlight field anywhere.
+- The ayah action sheet (`components/quran/ayah-action-sheet.tsx`) already has play, bookmark, tafsir, practise and share actions as `LabeledIconButton`s. Notes slot in next to them.
+- `splitAyahWords()` in `lib/quran-companion/align-words.ts` tokenises the bundled Uthmani text offline. Word highlights reuse it.
+
+**Data model** (`packages/shared/src/types/quran-notes.ts`):
+
+```ts
+export type AnnotationColorId = "gold" | "green" | "blue" | "rose" | "violet";
+
+export interface AyahNote {
+  id: string; // uuid
+  surah: number;
+  ayah: number;
+  endAyah?: number; // inclusive range within the same surah
+  body: string; // plain text, ≤ 5,000 chars; may be "" for a highlight-only annotation
+  tags: string[]; // user tags, trimmed + lower-cased, ≤ 10 per note
+  color?: AnnotationColorId; // highlight; resolved through theme tokens, never a raw hex
+  words?: { start: number; end: number }; // optional word span (indexes into splitAyahWords of `ayah`)
+  textHash?: string; // hash of the bundled ayah text when `words` was set
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string; // tombstone
+}
+```
+
+- **Colours** build on the existing `CategoryHues` in `constants/theme.ts`: gold → `dawn`, blue → `sky`, rose → `rose`. Add `green` and `violet` there too, so the app has **one** palette of soft hues rather than two. Annotation tints are low-alpha fills of those hues, with dark-mode variants and a contrast test against `background` and the Arabic text colour. They never follow the user's accent, so a note's colour doesn't change when the theme does.
+- **Word spans and content updates:** if `build:data` ever changes the bundled text of an ayah, `textHash` no longer matches. The note then falls back to a whole-ayah highlight and keeps working. Nothing is silently attached to the wrong words.
+
+**Storage and sync** (follows §4.4):
+
+- `DB_KEYS.quranNotes`, `stores/quran-notes-store.ts` (+ `useEnsureQuranNotesLoaded`). Memoised selectors: `notesByAyah`, `notesByTag`, `allTags`.
+- Blob entity **`quran_notes`**: `Record<id, AyahNote>` with a **custom merge** (per-note LWW on `updatedAt`, tombstones win over older edits). Tombstones are garbage-collected after 90 days.
+- Server: add `quran_notes` to `SYNC_ENTITIES`, with a payload cap of about 1 MB (roughly 2,000 notes). `pnpm generate:api`.
+- Backup, wipe and `reload-all-stores.ts` as usual.
+- **Locked (D15):** notes use the normal sync entity, **not** the vault (§4.2). They are reflections, not the sensitive records D2 covers.
+
+**UI and routes:**
+
+- **Ayah action sheet:** new "Note" and "Highlight" actions. "Highlight" opens a 5-swatch row and a "Clear" option. "Note" opens `components/quran/ayah-note-sheet.tsx`:
+  - multiline input with `writingDirection` set automatically from the text (Urdu, Arabic and English notes all render correctly)
+  - tag chips with autocomplete from `allTags`
+  - colour swatches
+  - an optional range end ("to ayah …")
+  - optional dictation through the existing `lib/stt.ts`, with its existing disclosure
+- **Reader:**
+  - `ayah-reader.tsx`: a background tint for highlighted ayahs or word spans, and a small note glyph by the ayah number. Tapping the glyph opens the note.
+  - Mushaf page mode (`page-layout-renderer.tsx`, `mushaf-line-renderer.tsx`): **word spans ship in v1 too (D15)**. They need spike **N1** first: find out whether the page-font line renderer can expose a box per word (for example, by rendering each word as its own text run and measuring it with `onLayout`), and confirm highlights stay aligned across font sizes, RTL, page zoom and TV scaling. If a page's font has no per-word runs, that page falls back to an ayah tint, and a test covers the fallback.
+  - Wide web tier: a notes side panel next to the reader (uses the existing web large-screen width tiers).
+- **`/quran/notes`:** all notes grouped by surah, filters by tag and colour, and a search bar using `createFuzzyIndex` from `lib/search.ts` over `body` and `tags` (follow `.agents/skills/fuse-js/SKILL.md`; no `new Fuse()` in the screen).
+- **Bookmarks hub** (`app/bookmarks/index.tsx`): a "My notes" section with the 5 latest notes.
+- **Universal search** (`app/search.tsx`): a "My notes" group, searched locally only. Notes never leave the device through search.
+- **Export:** "Export notes" (one surah or all) as Markdown or plain text through the share sheet. Each note is headed by its ref (`2:255`). The ayah text is optional; when included it is rendered from the bundled corpus with the edition credit, never re-typed.
+- **TV:** read-only. Highlights and notes are shown; editing is hidden, because text entry with a remote is poor.
+
+**Notifications:** none.
+
+**Tests:**
+
+- merge: diverged edits on two devices, a tombstone against an older edit, a tombstone against a newer edit, tombstone GC
+- selectors and tag normalisation
+- the `textHash` fallback when the ayah text changes
+- export formatting (ref headers, RTL bodies, edition credit)
+- sheet and reader component tests: highlight tint, note glyph, TV read-only
+
+**Acceptance criteria:**
+
+- Saving a note works offline and appears immediately in the reader, `/quran/notes` and the Bookmarks hub.
+- A note edited or deleted on one device shows the same state on a second device after sync.
+- Note text never appears in Sentry, logs, notifications or analytics.
+- i18n in all 24 locales; RTL checked; highlight colours pass the contrast test in both themes.
+
+**Risks:**
+
+- Large note sets on web localStorage (quota). Mitigation: the 1 MB cap, and a warning at 80% of it.
+- Users pasting ayah text into a note: allowed (it's their own text), but the export only adds ayah text from the corpus.
+
+---
+
+### NF-3.22 Arabic root-word search
+
+**Goal.** Search the Qur'an by Arabic root (for example ر ح م) and see every occurrence grouped by the words derived from it, with counts. From any word in word-by-word view, the user can open "all words from this root".
+
+**Islamic basis and guardrails:**
+
+- This is a linguistic study tool. Copy says: "Words that share a root are related in form; their meaning in each ayah depends on context. See the tafsir." It never implies that a root decides a ruling or an interpretation.
+- **Roots come from a published morphology dataset, never from our own stemming.** The app looks a word up in the dataset; it doesn't guess a root with an algorithm (§2.1, "Content & data" in `AGENTS.md`). A word the dataset marks as rootless (particles, some proper nouns) is shown as such.
+
+**What exists today:**
+
+- Text search: `searchQuranAyahs()` in `lib/search.ts` (Fuse over `normalize()`-ed ayahs) and `/quran/search`.
+- Word-by-word: `api/quran-words.ts` (cache-first from api.quran.com v4: `arabic`, `translit`, `gloss`, word audio). No root or lemma field is stored today.
+- Word alignment between tokenisations: `lib/quran-companion/align-words.ts` (6,230 of 6,236 ayahs match the bundled word split; the known joins and splits are handled there).
+
+**Data source (locked, D22; checked 2026-11-23):**
+
+- **Dataset:** the original **Quranic Arabic Corpus morphology v0.4** (Kais Dukes, 2011), used **unmodified**.
+- **What its own header says:** GNU GPL; "Permission is granted to copy and distribute verbatim copies of this file, but CHANGING IT IS NOT ALLOWED"; "This annotation can be used in any website or application, provided its source (the Quranic Arabic Corpus) is clearly indicated, and a link is made to http://corpus.quran.com"; and the notice "shall be reproduced appropriately in all works derived from" the file. The file also carries the Tanzil Uthmani 1.0.2 notice (CC BY-ND 3.0).
+- **Ruled out:**
+  - api.quran.com v4 returns no root, lemma or stem fields. I tested `word_fields=root,lemma,stem` on 1:2 and none came back.
+  - The `mustafa0x/quran-morphology` fork is a _modified_ copy with no licence of its own, so it can't be used under D12.
+- **Where it comes from (no self-hosting):**
+  - Two independent public GitHub copies are **byte-identical after line-ending normalisation**: sha256 `910b721a8f04f4334ac5d4c62b19e858f5d720c525bb975f2e750ea2c6bb532d`, 6,181,227 bytes with LF endings. Both keep the full copyright block. GitHub's media host serves them with `Access-Control-Allow-Origin: *`.
+  - Pinned URL: `https://media.githubusercontent.com/media/AhmedSaadi0/quran-words/a6d4217a9e1422978c367eadc833ff4883db77fb/data/quranic-corpus-morphology-0.4.txt`.
+  - Fallback mirror: `ezAldinWaez/quran-etl@6539e2de6c`, a CRLF copy that gives the same hash after `\r` is stripped.
+  - The app checks the hash of the LF-normalised file and rejects anything else.
+  - Before release, compare once against the official download at corpus.quran.com/download and record the result in the proof log.
+- **Credits:** "Quranic Arabic Corpus (morphology v0.4), © Kais Dukes, GNU GPL — corpus.quran.com" with a link, plus the full notice text in About → Credits, as the terms require. Add a `manifest.json` entry of type "remote, fetched on demand".
+
+**On-device index** (D22: the file is never changed or bundled; the index is built from it on the device):
+
+1. **Fetch** (`api/quran-morphology.ts`): cache-first, like `quran-remote.ts`, and only when the user first opens root search or a root chip. The sheet shows "Download word-root data (6 MB)" and follows `wifiOnlyDownload`. The raw file is kept unmodified in the content cache and appears in Settings › Data & storage › Offline data.
+2. **Verify** the LF-normalised sha256. On a mismatch, delete the file and report error code `morphology-hash`.
+3. **Parse** (`lib/quran-morphology/parse.ts`, pure): rows `(s:a:w:seg)  FORM  TAG  FEATURES`; take `ROOT:` and `LEM:` from the stem segment of each word (49,968 `ROOT:` tags in v0.4); convert Buckwalter to Arabic with a tested mapping table. It runs off the UI thread in chunks (`InteractionManager` on native, a web worker on web).
+4. **Build** the index:
+   - root → lemma → `[surah, ayah, word]`, packed and delta-encoded
+   - `form → root` for whole-word lookups
+   - per-root counts
+
+   The index is persisted as a derived cache (`DB_KEYS.quranRootIndex`, device-local, rebuildable, never synced) tagged with the source hash. It's rebuilt only if that hash changes.
+5. **Align** QAC word locations to the bundled word split (`splitAyahWords`, `align-words.ts`). QAC numbers words over Tanzil Uthmani 1.0.2, so the join/split table from `align-words.ts` is reused. A dev script, `pnpm --filter app morphology:verify`, runs the full alignment against the bundled text, must report 0 unexplained mismatches, and writes a proof log. A word that can't be aligned is shown at ayah level, never attached to the wrong word.
+
+**Engine** (`apps/app/src/lib/quran-roots.ts`, pure, unit-tested):
+
+- `parseRootQuery(input)`: accepts `ر ح م`, `رحم`, `ر-ح-م`, and Buckwalter or Latin (`rHm`, `r-h-m`). Latin input is ambiguous (h → ه or ح), so it returns several candidate roots. Hamza forms (أ إ آ ؤ ئ ء) and alif maqsura are folded to the dataset's convention.
+- `lookupRoots(query)`: exact root match first. Otherwise, a whole word ("الرحمن") is looked up in the `form → root` index. If nothing matches, it returns no root and the UI offers normal text search instead.
+- `getRootOccurrences(root)`: occurrences grouped by lemma, plus a per-surah distribution.
+- "Did you mean" over the root list uses `createFuzzyIndex` (Fuse), as required for all search bars. The root match itself is exact.
+
+**UI and routes:**
+
+- `/quran/search` gets a **Text | Root** toggle. Arabic input of 2 to 4 letters that matches a root also adds a "Root" group to the top of the universal `/search`.
+- **`/quran/roots/[root]`:**
+  - the root letters, large, with the total count
+  - lemma list with counts; the gloss shown for a lemma is taken from the word-by-word gloss of a real occurrence and labelled as such
+  - occurrence list: ayah snippet with the matching word highlighted (from the alignment), tapping deep-links to `/quran/[surah]?ayah=`
+  - a per-surah distribution bar chart (`chart-rtl.ts`)
+- **Word-by-word:** a "Root: ر ح م →" chip on each word that has a root.
+- **Letter picker sheet:** a 28-letter grid for users without an Arabic keyboard. It also serves TV (D-pad friendly).
+- Root letters and Arabic words are never translated; UI strings in all 24 locales.
+
+**Storage:** no user data. The raw file and the derived index are device-local caches (rebuildable, never synced, cleared from Offline data). Root queries may add an entry to the existing recent-searches list (`lib/search-history.ts`).
+
+**Notifications:** none.
+
+**Tests:**
+
+- `parseRootQuery` (Arabic with and without separators, Buckwalter, ambiguous Latin, hamza folding)
+- packed occurrence codec round-trip
+- parser on a committed slice of the file (Al-Fatiha + Al-Baqarah 1–5, kept verbatim with its full copyright block): Buckwalter→Arabic, root and lemma extraction, rootless particles
+- hash verification (LF and CRLF copies both pass, a changed byte fails), and index rebuilt only on a hash change
+- alignment on the known join/split ayahs from `align-words.test.ts`
+- screen tests for the toggle, the root page, the word chip and the first-use download sheet
+- a bundle check that no morphology data is in the first-load chunk
+
+**Acceptance criteria:**
+
+- The file in use is byte-identical (after LF normalisation) to the pinned hash and is never modified. The Credits screen shows the full notice and the link.
+- After the one-time download, a root lookup returns in under 50 ms, fully offline. The index build finishes in under 5 s on a mid-range phone without blocking the UI.
+- `morphology:verify` reports 0 unexplained mismatches, and every occurrence deep-links to the right word in the reader.
+
+**Risks:**
+
+- **Third-party mirror disappears.** Mitigation: the commit is pinned, there's a second verified mirror, and the cached copy keeps working. If both mirrors vanish, root search shows "unavailable" for new installs (no self-hosting, by decision).
+- Tokenisation differences between the dataset and the bundled text. Mitigation: `morphology:verify` and ayah-level fallback, never a silent shift.
+- Latin transliteration ambiguity. Mitigation: show the candidate roots side by side.
+
+---
+
+### NF-3.23 Hadith audio
+
+**Goal.** Listen to hadith through the shared mini-player (a single hadith, or a whole chapter or collection from a chosen point), with offline replay, without ever putting an inaccurate voice on the words of the Prophet ﷺ.
+
+**Islamic basis and guardrails:**
+
+- Bukhari 3461 ("Convey from me, even if it is one ayah") for the value of spreading hadith. Bukhari 110 (the warning against lying about the Prophet ﷺ) is the reason **accuracy gates every audio tier**. Verify both against the corpus.
+- The hadith's reference and grade stay visible on screen while it plays, and the now-playing title is the reference (`Sahih al-Bukhari 1`).
+- Audio is only ever attached **by reference** (`collection:number`). It is never matched to a hadith by fuzzy text comparison.
+
+**What exists today (verified 2026-11-23):**
+
+- `HadithItem.audioUri` exists in `packages/shared/src/types/hadith.ts`, but the bundled and remote hadith data almost never populate it.
+- The audio cache: every remote track goes through `resolveCachedAudioUri()` (native `documentDirectory/munib-audio/`, web service worker bucket `munib-audio-v1`) and is cleared from Settings → Offline data.
+- On-device TTS exists (`lib/tts.ts`), but **hadith audio doesn't use it** (D19).
+
+**Scope (locked, D19): human recordings only.**
+
+- **No device voice, in any language.** Hadith audio means licence-cleared human recordings only, in Arabic or in a translation.
+- **If no recording source passes D12, the feature doesn't ship.** No play buttons appear, and nothing falls back to text-to-speech. A unit test asserts that `buildHadithTracks` never returns a TTS track.
+- **Sources:** only recordings that are public **and** licensed for redistribution, each with a licence review in the proof log (D12). There is no self-hosting, so files stream from the licensed source's own public URL (or a public mirror with CORS), cache-first.
+  - First targets: the bundled highlight sets (40 Nawawi, Riyad as-Salihin), because they are small and well known.
+  - Candidates to evaluate: public-domain or CC recordings on archive.org, and publisher or masjid recordings under an explicit CC licence.
+- **Builder** `scripts/build-data/build-hadith-audio.mjs`:
+  - maps each licensed file to `collection:number`, measures duration
+  - writes `assets/data/hadith/audio-index.json` (`collection → number → { url, durationSec, reciterId, lang }`) plus a manifest entry for Credits
+  - fails the build if any entry doesn't resolve to an existing hadith
+- Recordings play through the audio cache. Add each audio host to the service worker allowlist.
+
+**Engine** (`apps/app/src/lib/hadith-audio.ts`, pure):
+
+- `buildHadithTracks(items, { locale })`: one `AudioTrack` per hadith that has a recording, preferring the user's language, then Arabic. A hadith with no recording has no play button.
+- `buildCollectionQueue(collection, fromNumber)`: continuous play over the recorded hadith only; remote collections are fetched cache-first through `api/hadith-remote.ts`.
+
+**UI** (only when at least one recording source has passed review):
+
+- Play button on recorded hadith in `hadith/[collection].tsx`, `hadith/daily.tsx` and the Bookmarks hub; "Play from here" in the collection header, and a "Has audio" filter.
+- A source badge on the card and in the mini-player: "Recording: <reciter>".
+- **Settings › Hadith, duas & adhkar › Hadith audio:** preferred recording language and "auto-play next".
+- **TV:** playback is allowed.
+
+**Storage and sync:** prefs only, as an optional `hadithAudio?: { preferLang?: string; autoNext: boolean }` in `UserPreferences`. There is no new entity.
+
+**Notifications:** none.
+
+**Tests:**
+
+- `buildHadithTracks` (recording chosen by language, no recording → no track, **never a TTS track**)
+- builder validation for `audio-index.json` (every entry resolves, duration present, licence recorded)
+- the service worker allowlist includes each recording host
+- component tests: the source badge, "Play from here", grade visible while playing, the feature hidden when the index is empty
+
+**Acceptance criteria:**
+
+- Play, pause, next and previous work across a collection in the mini-player, and on the lock screen on native.
+- Cached recordings replay offline.
+- No hadith text is typed, no audio is attached by text matching, and no synthetic voice is used.
+- Credits list every recording source, with the licence review in the proof log (D11, D12).
+
+**Risks:**
+
+- **No licence-cleared recordings are found:** the feature doesn't ship (D19). That's an accepted outcome, not a blocker for the rest of the plan.
+- A source URL disappears: cached files keep playing, and the next `build:data` drops the dead entries.
+
+---
+
+### NF-3.24 Qur'an pronunciation assessment
+
+**Goal.** After the user recites an ayah they are reading, show, word by word, which words came through clearly and which are worth listening to again, with the reciter's audio for that word one tap away. It works on the device (D3), with no numeric score, and it never claims to replace learning with a teacher.
+
+**How this differs from what exists:**
+
+| Existing feature                            | What it checks                                                                                                                        |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Qur'an practice (`lib/quran-companion/*`)   | **Memorisation**: whether the right words came in the right order.                                                                    |
+| Quran Lab drills (`pronunciation/judge.ts`) | One tajweed head (qalqalah, ghunna, gemination) on one drill word. The SDK can't align a take to an ayah (`model.reference` is null). |
+| NF-3.15 Phase B                             | In-ayah tajweed coaching, **blocked on the Quran Lab SDK**.                                                                           |
+| **NF-3.24 (this)**                          | **Pronunciation clarity of each word** against the known ayah text, using our own pinned FastConformer CTC model. No SDK dependency.  |
+
+**Islamic basis and copy:**
+
+- Qur'an 73:4 (recite with measured recitation, tartil).
+- Bukhari 4937 / Muslim 798: the one who recites with difficulty has a double reward. This sets the tone for every result screen.
+- Bukhari 5027 ("The best of you are those who learn the Qur'an and teach it"): a line on every result screen recommends checking recitation with a qualified teacher.
+- Copy rules (the same as Quran Lab): each word gets one of three states, **Clear / Listen again / Not sure**. There is no score, percentage or grade, and the app never says a recitation is "correct", "valid" or "wrong". "Listen again" is amber, never red. When confidence is low the state is "Not sure".
+
+**Pipeline** (`apps/app/src/lib/quran-pronunciation/`; all pure logic with unit tests except the runner):
+
+```
+RecitationCapture (16 kHz) → chunker → FastConformer runner (shared createFastConformerRunner, see NF-3.20) → CTC logprobs
+   → expected token sequence for the ayah → CTC forced alignment (Viterbi with blanks) → per-token frame spans
+   → per-token goodness of pronunciation (GOP) → group tokens to words (align-words) → calibrated verdict per word → UI
+```
+
+1. **Expected tokens (`ayah-tokens.ts`).** Spike S4 checks whether `quran_ctc_tokens.json`, which ships with `@tilawa/core`, matches the pinned FastConformer `vocab.json`. If it does, reuse it. If not, a build script tokenises the bundled Uthmani text against the pinned vocab, locked to the model `version` with the same test as NF-3.20's phrase tokens. The file is generated, never edited by hand.
+2. **Forced aligner (`ctc-align.ts`).** Viterbi over the expected tokens with optional blanks and leading or trailing silence. Output: frame spans per token and the alignment cost.
+3. **GOP (`gop.ts`).** For each token: the mean log posterior of the expected token over its frames, minus the mean log posterior of the best competing token over the same frames, normalised by duration.
+4. **Word grouping.** Tokens map to engine words, and engine words map to study words through `align-words.ts`, including the 6 known joins and splits.
+5. **Verdict (`verdict.ts`).** Per word: Clear if every token is above the calibrated threshold; Listen again if one token is clearly below it; Not sure otherwise, and also for very short tokens and when the alignment cost suggests the user read a different passage. If the whole take doesn't fit the ayah, the result is "Couldn't follow this ayah, try again" with no per-word marks.
+6. **Calibration.** Thresholds per token class live in a pinned `pronunciation-calibration.json` produced by the eval script (S3). An optional device-local offset ("Read this ayah once to calibrate") helps with accents and children's voices. It isn't synced.
+
+**Out of scope in v1:**
+
+- Naming a letter as mispronounced, or suggesting a confusable letter (ح/ه, ع/ء, ص/س, ض/د, ط/ت, ق/ك, ذ/ز, ث/س, ظ/ز). This is v2, and only for the pairs the eval proves reliable.
+- Madd length, ghunna and other tajweed rules (NF-3.15 covers the heads Quran Lab validates).
+- Free recitation from memory. This mode assumes the user reads the ayah shown on screen; memorisation stays in Qur'an practice.
+
+**UI and routes:**
+
+- A **"Check pronunciation"** mode in Qur'an practice (`/quran/practice/session?mode=pronunciation`), and a "Check my recitation" action on the ayah action sheet for a single ayah.
+- **Results** reuse `practice-word-row.tsx` and `practice-ayah-result.tsx` with the three new states. Tapping a word:
+  - plays the reciter's word audio (`api/quran-words.ts`, audio.qurancdn.com), or the matching slice of the ayah recitation through `quran-word-timing.ts`
+  - optionally plays the user's own take for that word, kept **in memory for the session only** and discarded when the screen closes
+- A summary card, "Words to listen to again", feeds the NF-3.15 coaching plan **automatically** (D20): flagged words become its example words. The setting `companion.feedCoachingFromAssessment` (default on) turns it off, and lives in Settings › Qur'an › Practice.
+- TV: hidden through `isPracticeAvailable()`.
+
+**Storage and sync:**
+
+- `PracticeSession` gains an optional `pronunciation?: { words: Array<{ surah; ayah; word; state }> }` inside the existing `quran_practice_sessions` entity. Old clients ignore it. There is no new entity, and no audio, GOP values or transcripts are stored or synced.
+- Device-local: `DB_KEYS.quranPronunciationCalibration` (not synced, not backed up), like `DB_KEYS.tasbeehVoiceCalibration`.
+
+**Availability:** the same gates as NF-3.20 (`isPracticeAvailable()`, microphone capture, FastConformer pinned for the platform). Native in v1, web once the FastConformer CDN-bucket copy is live (D18). Only one owner of the microphone at a time, and the app's audio player is paused while recording.
+
+**Spikes before building:**
+
+- **S3 – GOP validity.** The main risk is that a model trained on Qur'an recitation "hears" the expected text even when it was mispronounced, so GOP misses real errors. The fixture set follows D23 (no new recordings):
+  - **Correct:** published recitations by several reciters (everyayah) with Quran.com word timings as ground truth. They are correct by construction.
+  - **Errors, spliced from real audio:**
+    - **substituted word:** replace a word with another reciter's recording of a confusable word, using word-by-word audio (for example a word with ح swapped for a near-identical word with ه, where both exist in the corpus)
+    - **dropped word:** cut one word's span
+    - **skipped ayah segment:** remove a span of several words
+  - **Variety:** the same augmentation as NF-3.20's S2.
+  - **Cross-check:** Zipformer recognition and the Quran Lab heads (where validated) must agree with each clip's label, or the clip is excluded and logged.
+  - Audio is cached locally (gitignored) and never committed.
+
+  Measure false "Listen again" on correct words and detection of the spliced errors. If GOP can't separate them, ship only "skipped or unclear words" (D24). Every gate is reported as "measured on reference + synthetic audio"; the app never claims this accuracy for real learners.
+- **S4 – tokens and alignment.** Token compatibility (step 1), and word-boundary accuracy of the forced aligner against Quran.com word timings on reciter audio.
+
+**Acceptance criteria (release gate):**
+
+- **False "Listen again" on reference-recitation words ≤ 2%** (D23) at the default setting. This is the error that matters most: telling someone a correct word is wrong.
+- Detection of spliced word errors ≥ 60% (D23). Below that, the feature is limited to skipped or unclear words.
+- Word-boundary error p90 ≤ 80 ms against Quran.com timings on reciter audio.
+- Verdict within 1.5 s after the user finishes an ayah of up to 30 s on a mid-range device.
+- No score, percentage or "correct" wording anywhere (unit-tested copy keys). The teacher recommendation is always visible.
+- No audio, GOP values or text in Sentry, logs or sync. Error codes only.
+- D11 proof-backed review of the copy. Fixture annotations are checked against reference recitations (reciter audio + Quran.com word timings) and tajweed sources cited in the proof log. If S3 misses the gate, v1 ships only "skipped or unclear words" automatically (D20).
+
+**Tests:**
+
+- `ctc-align` with synthetic logprob matrices: a perfect path, a substituted token, a skipped word, silence padding, a different passage
+- `gop` and `verdict` thresholds, including "Not sure" for short tokens
+- token-file version lock against `RECITATION_MODELS`
+- word grouping on the join/split ayahs from `align-words.test.ts`
+- the session reducer and the hook with a mocked capture and runner
+- Fixture regression is a local script (`pnpm --filter app quran-pronunciation:eval`) that writes a proof log and the calibration file. It is **not** a CI job.
+
+**Store and privacy:** same as NF-3.20: microphone strings extended to mention pronunciation checks, Data safety still says audio is "not collected", and FastConformer CC-BY-4.0 attribution in Credits.
+
+**Risks:**
+
+- GOP validity (S3), as above.
+- Accent bias: calibration offsets and the "Not sure" default reduce false flags.
+- People may treat the result as an ijazah-like judgement. Mitigation: no scores, the three-state copy and the constant teacher line.
+
+---
+
 ## 8. Phase 4 — Device & place
 
 ### NF-3.13 Salah focus lock — hard block from v1 (D4)
@@ -1646,14 +2503,14 @@ interface UmrahSession {
 ```ts
 interface FocusLockPrefs {
   enabled: boolean;
-  prayers: Array<ObligatoryPrayer | "jumuah">;              // default all 5 + jumuah
+  prayers: Array<ObligatoryPrayer | "jumuah">; // default all 5 + jumuah
   start: { anchor: "adhan" | "iqamah"; offsetMin: number }; // iqamah only offered when the home masjid has iqamah times (private or public, NF-3.11); else adhan. default adhan+0
-  durationMin: number;                                      // default 20, range 5–60
+  durationMin: number; // default 20, range 5–60
   unlockMode: "gentle" | "firm" | "strict";
   // gentle: "I'll pray now" unlock after a 10 s hold; firm: unlock only when the prayer is marked completed in-app;
   // strict: fixed until window end (marking prayed ends it early)
-  emergencyUnlocksPerDay: number;                           // default 2, 0 allowed only in strict
-  pauseWhileExcused: boolean;                               // default true (hayd/sick/travel)
+  emergencyUnlocksPerDay: number; // default 2, 0 allowed only in strict
+  pauseWhileExcused: boolean; // default true (hayd/sick/travel)
   schedule: { weekdaysOnly?: boolean; quietDates?: string[] };
 }
 ```
@@ -1735,7 +2592,7 @@ status(): Promise<{ active: boolean; windowId?: string; emergencyLeft: number }>
 
 **Risks:**
 
-- Apple may deny the distribution entitlement. Fallback: ship the soft prompt with the hard block disabled on iOS (feature-flag `focusLockHardIos`).
+- Apple may deny the distribution entitlement. Fallback (locked, D17): ship the soft prompt with the hard block disabled on iOS (feature-flag `focusLockHardIos`).
 - Play may reject `specialUse`. Fallback: an overlay triggered from the exact alarm only, without a service, with lower reliability.
 
 ---
@@ -1776,17 +2633,17 @@ status(): Promise<{ active: boolean; windowId?: string; emergencyLeft: number }>
 
    - **Tags used, each shown only if present:**
 
-     | Tags | Shown as |
-     | --- | --- |
-     | `name`, `name:<locale>` | Localised name; the app locale is preferred |
-     | `addr:*` | Address |
-     | `website` / `contact:website` | Website link |
-     | `phone` / `contact:phone` | Phone link |
-     | `wheelchair` | Wheelchair badge |
-     | `toilets`, `toilets:wheelchair` | Facility badges |
-     | `denomination` | Info line |
-     | `service_times` | Parsed with an `opening_hours`-syntax parser (see below) |
-     | `opening_hours` | Open/closed hint only |
+     | Tags                            | Shown as                                                 |
+     | ------------------------------- | -------------------------------------------------------- |
+     | `name`, `name:<locale>`         | Localised name; the app locale is preferred              |
+     | `addr:*`                        | Address                                                  |
+     | `website` / `contact:website`   | Website link                                             |
+     | `phone` / `contact:phone`       | Phone link                                               |
+     | `wheelchair`                    | Wheelchair badge                                         |
+     | `toilets`, `toilets:wheelchair` | Facility badges                                          |
+     | `denomination`                  | Info line                                                |
+     | `service_times`                 | Parsed with an `opening_hours`-syntax parser (see below) |
+     | `opening_hours`                 | Open/closed hint only                                    |
 
    - **`service_times` → Jumu'ah:**
      - Friday entries (`Fr HH:MM`) between 11:00 and 15:30 local are shown as "Jumu'ah (from OpenStreetMap)".
@@ -1825,9 +2682,12 @@ status(): Promise<{ active: boolean; windowId?: string; emergencyLeft: number }>
 
 ```ts
 type MasjidSummary = {
-  osmType: "node" | "way" | "relation"; osmId: string;
-  name?: string; lat: number; lon: number;
-  jumuah?: string[];                         // only when parsed from public data
+  osmType: "node" | "way" | "relation";
+  osmId: string;
+  name?: string;
+  lat: number;
+  lon: number;
+  jumuah?: string[]; // only when parsed from public data
   badges?: Array<"wheelchair" | "toilets" | "toilets_wheelchair">;
 };
 type IqamahTimetable = {
@@ -1902,15 +2762,15 @@ type IqamahTimetable = {
    - Detect **daily** (one row of 5–6 times) vs **monthly** (≥ 20 rows with a day-number column 1–31).
 4. **Headers:** a multilingual synonym table. It is a data file, extendable without code:
 
-   | Prayer | Synonyms |
-   | --- | --- |
-   | fajr | Fajr, Fajar, Subh, Sobh, فجر, صبح |
-   | sunrise | Sunrise, Shuruq, Ishraq, شروق |
-   | dhuhr | Dhuhr, Zuhr, Zohar, Duhr, ظهر |
-   | asr | Asr, عصر |
-   | maghrib | Maghrib, مغرب |
-   | isha | Isha, Esha, عشاء |
-   | jumuah | Jumu'ah, Jummah, جمعة |
+   | Prayer  | Synonyms                          |
+   | ------- | --------------------------------- |
+   | fajr    | Fajr, Fajar, Subh, Sobh, فجر, صبح |
+   | sunrise | Sunrise, Shuruq, Ishraq, شروق     |
+   | dhuhr   | Dhuhr, Zuhr, Zohar, Duhr, ظهر     |
+   | asr     | Asr, عصر                          |
+   | maghrib | Maghrib, مغرب                     |
+   | isha    | Isha, Esha, عشاء                  |
+   | jumuah  | Jumu'ah, Jummah, جمعة             |
 
    The begins/iqamah qualifiers are "Begins / Start / Adhan / أذان" vs "Iqamah / Jamaat / Jama'ah / إقامة".
 5. **12-hour disambiguation by prayer order:**
@@ -2081,6 +2941,7 @@ Copy this checklist into each feature's PR description.
 - [ ] Store plus the `DB_KEYS`, `BLOB_ENTITIES`, `SYNC_ENTITIES`, backup, wipe and reload plumbing (§4.4) or vault doc (§4.2)
 - [ ] `pnpm generate:api` if any API/DTO changed; OpenAPI drift passes in `pnpm check:ci`
 - [ ] Routes with `ScreenLayout`, `Seo` + `routeMetadata`, back navigation via `goBackOrReplace`
+- [ ] Every new preference registered in `lib/settings/registry.ts` under the group from §4.5.8, with search keywords, `available`, `defaultValue` and `scope` (account or device); in-context controls use `useSetting(id)`; the coverage and single-write tests pass
 - [ ] Library menu entry (`lib/library-menu.ts`), home module id (`hiddenHomeModules`), search registration (`search-guides`), feature tour (`lib/feature-tours.ts`), "new features" badge (`lib/new-features.ts`)
 - [ ] i18n keys in all 24 locales; RTL check (`lib/rtl.ts`, `chart-rtl.ts`)
 - [ ] `useTheme()` everywhere; reduced motion respected; accessibility labels
@@ -2089,9 +2950,10 @@ Copy this checklist into each feature's PR description.
 - [ ] Excused-period behaviour implemented and tested
 - [ ] Madhhab behaviour via `useMadhhab()` / `rulesFor(prefs, domain)`, including `null` = all views; new differences added to `FIQH_DIFFERENCES` with `usedIn` (coverage test passes)
 - [ ] Evidence refs verified by `content-verification.ts`; no typed scripture
-- [ ] **Scholar sign-off** (name + date recorded in the PR)
+- [ ] **Proof-backed review (D11):** `docs/proofs/<feature>.md` complete, linked from the PR, with every claim sourced
 - [ ] Privacy review (lock-screen text, Sentry tags, data minimisation)
 - [ ] `FEATURES.md` row added on ship; section removed from this file
+- [ ] Marketing kept honest: the feature's entry in `apps/marketing-web/src/content/munib-features.ts` (`PLANNED_FEATURES`) and `content/compare/shared.ts` matches this plan's locked scope; on ship, flip it to `shipped` and add a `content/features/<slug>.ts` page plus its `content/routes.ts` entry (see `apps/marketing-web/AGENTS.md`, "Content architecture")
 
 ---
 
@@ -2099,13 +2961,13 @@ Copy this checklist into each feature's PR description.
 
 `MAX_PENDING_REMINDERS = 60` over `SCHEDULE_DAYS_AHEAD = 2` (`lib/notifications/build-reminders.ts`). Extend `trimRemindersToBudget` to drop by priority, lowest first:
 
-| Priority | Kinds                                                                                  |
-| -------- | -------------------------------------------------------------------------------------- |
-| 1 (keep) | Prayer, adhan, existing qaza                                                           |
-| 2        | Iqamah (home masjid), focus lock confirm (if any JS-side), suhoor (intended fasts)     |
-| 3        | Fast intent (night before), Dhul-Hijjah / Arafah / Ashura seasonal                     |
-| 4        | Debts due, wasiyyah review                                                             |
-| 5        | Family ties digest, muhasabah, habits, coach, rawatib nudge                            |
+| Priority | Kinds                                                                              |
+| -------- | ---------------------------------------------------------------------------------- |
+| 1 (keep) | Prayer, adhan, existing qaza                                                       |
+| 2        | Iqamah (home masjid), focus lock confirm (if any JS-side), suhoor (intended fasts) |
+| 3        | Fast intent (night before), Dhul-Hijjah / Arafah / Ashura seasonal                 |
+| 4        | Debts due, wasiyyah review                                                         |
+| 5        | Family ties digest, muhasabah, habits, coach, rawatib nudge                        |
 
 Focus lock timing lives in the **native** schedulers (DeviceActivity / AlarmManager) and does not count against this budget.
 
@@ -2115,44 +2977,44 @@ Focus lock timing lives in the **native** schedulers (DeviceActivity / AlarmMana
 
 Every ref must be verified against the bundled corpus (or a cited printed edition) and recorded in `content-verification.ts` before the feature ships. Numbering follows the Sunnah.com / Dar-us-Salam conventions used by the existing datasets.
 
-| Topic                       | Refs                                                                              |
-| --------------------------- | --------------------------------------------------------------------------------- |
-| Rawatib                     | Muslim 728, 725; Tirmidhi 415, 423; Bukhari 1180, 1182, 1183, 624; Abu Dawud 1271 |
-| Voluntary fasting           | Tirmidhi 747; Muslim 1162, 1164, 1134, 1163, 1141, 1137, 1144; Bukhari 1969, 969, 1976, 1985, 1990, 1914; Abu Dawud 2437 |
-| Dhul-Hijjah                 | Bukhari 969; Ahmad 5446; Muslim 1977; Tirmidhi 3585                               |
-| Umrah                       | Abu Dawud 1892; existing hajj/umrah guide refs                                    |
-| Sunnah habits               | Bukhari 887, 247, 2311, 5376, 1442, 6464; Tirmidhi 2891, 1956; Muslim 2702, 54; Qur'an 24:61 |
-| Muhasabah                   | Qur'an 59:18; Umar's athar (Tirmidhi, under 2459); Bukhari 6306                   |
-| Silat al-rahim              | Qur'an 4:1, 47:22–23; Bukhari 5986, 5984, 5971                                    |
-| Debts                       | Qur'an 2:280, 2:282; Tirmidhi 1078; Muslim 1886; Bukhari 2387                     |
-| Wasiyyah                    | Qur'an 2:180, 5:106; Bukhari 2738, 2742; Abu Dawud 2870; Tirmidhi 2120            |
-| Mirath                      | Qur'an 4:11, 4:12, 4:176; Bukhari 6764; Tirmidhi 2109                             |
-| Masjid                      | Bukhari 645, 444; Muslim 666                                                      |
-| Focus lock                  | Qur'an 62:9, 23:1–2, 107:4–5                                                      |
-| Family                      | Abu Dawud 495; Qur'an 66:6, 20:132                                                |
-| Partner (dua in absence)    | Muslim 2733                                                                       |
-| Tasbeeh designs             | Abu Dawud 1501; Tirmidhi 3583 (count on the fingertips); Tirmidhi 3568 / Abu Dawud 1500 (pebbles and date pits; gradings differ); Tirmidhi 3464 (cited only to explain the rejected "palm garden" idea); Muslim 2114 (bells). Check every number against the bundled corpus. |
-| Hands-free tasbeeh          | Qur'an 7:205 (quiet zikr); phrase evidence comes from each catalog phrase's adhkar dataset entry |
+| Topic                    | Refs                                                                                                                                                                                                                                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rawatib                  | Muslim 728, 725; Tirmidhi 415, 423; Bukhari 1180, 1182, 1183, 624; Abu Dawud 1271                                                                                                                                                                                            |
+| Voluntary fasting        | Tirmidhi 747; Muslim 1162, 1164, 1134, 1163, 1141, 1137, 1144; Bukhari 1969, 969, 1976, 1985, 1990, 1914; Abu Dawud 2437                                                                                                                                                     |
+| Dhul-Hijjah              | Bukhari 969; Ahmad 5446; Muslim 1977; Tirmidhi 3585                                                                                                                                                                                                                          |
+| Umrah                    | Abu Dawud 1892; existing hajj/umrah guide refs                                                                                                                                                                                                                               |
+| Sunnah habits            | Bukhari 887, 247, 2311, 5376, 1442, 6464; Tirmidhi 2891, 1956; Muslim 2702, 54; Qur'an 24:61                                                                                                                                                                                 |
+| Muhasabah                | Qur'an 59:18; Umar's athar (Tirmidhi, under 2459); Bukhari 6306                                                                                                                                                                                                              |
+| Silat al-rahim           | Qur'an 4:1, 47:22–23; Bukhari 5986, 5984, 5971                                                                                                                                                                                                                               |
+| Debts                    | Qur'an 2:280, 2:282; Tirmidhi 1078; Muslim 1886; Bukhari 2387                                                                                                                                                                                                                |
+| Wasiyyah                 | Qur'an 2:180, 5:106; Bukhari 2738, 2742; Abu Dawud 2870; Tirmidhi 2120                                                                                                                                                                                                       |
+| Mirath                   | Qur'an 4:11, 4:12, 4:176; Bukhari 6764; Tirmidhi 2109                                                                                                                                                                                                                        |
+| Masjid                   | Bukhari 645, 444; Muslim 666                                                                                                                                                                                                                                                 |
+| Focus lock               | Qur'an 62:9, 23:1–2, 107:4–5                                                                                                                                                                                                                                                 |
+| Family                   | Abu Dawud 495; Qur'an 66:6, 20:132                                                                                                                                                                                                                                           |
+| Partner (dua in absence) | Muslim 2733                                                                                                                                                                                                                                                                  |
+| Tasbeeh designs          | Abu Dawud 1501; Tirmidhi 3583 (count on the fingertips); Tirmidhi 3568 / Abu Dawud 1500 (pebbles and date pits; gradings differ); Tirmidhi 3464 (cited only to explain the rejected "palm garden" idea); Muslim 2114 (bells). Check every number against the bundled corpus. |
+| Hands-free tasbeeh       | Qur'an 7:205 (quiet zikr); phrase evidence comes from each catalog phrase's adhkar dataset entry                                                                                                                                                                             |
+| Ayah notes               | Qur'an 38:29, 47:24 (reflecting on the ayahs)                                                                                                                                                                                                                                |
+| Root-word search         | None needed (linguistic tool); the morphology dataset is cited in Credits                                                                                                                                                                                                    |
+| Hadith audio             | Bukhari 3461 (convey from me); Bukhari 110 (warning against lying about the Prophet ﷺ)                                                                                                                                                                                       |
+| Pronunciation assessment | Qur'an 73:4; Bukhari 4937 / Muslim 798 (double reward for the one who struggles); Bukhari 5027                                                                                                                                                                               |
 
 ---
 
-## 13. Open questions (not blocking)
+## 13. Open items (all decisions locked)
 
-These can be settled during implementation; the defaults above apply until then.
+There are no open questions. D1–D28 (§1) settle every product, policy, sourcing and testing choice. What remains is **execution**, and each task already has a locked fallback.
 
-1. **Scholar panel:** who signs off on each feature? (Name the people and record them in the PRs.)
-2. **Mirath fixtures:** which printed editions are canonical per school? (The default proposal is above.)
-3. **Group khatm timing:** D1 puts social last, but Ramadan 1448 (~Feb 2027) is the best launch moment for group khatm. Revisit if Phase 4 slips.
-4. **Focus lock fallback:** if Apple denies the entitlement, do we ship the soft prompt on iOS (default yes) or hold the feature?
-5. **Extra public timetable sources:** which sources (if any) publish iqamah times under terms that allow redistribution? Examples to evaluate include aggregator platforms and masjids' own public website feeds. Each needs a licence review before an adapter is written; until then only OSM data is shown.
-6. **Kids content:** which existing datasets are suitable for under-7s, and is there an OSS kids' audio source?
-7. **Tasbeeh designs (NF-3.19):**
-   - Are all designs and materials free? The plan's default is **yes**, with no paywall on worship visuals.
-   - Should sound default to on for TV, where there are no haptics?
-   - Does the scholar panel approve the finger-counting depiction and its copy?
-   - Should the date pits / pebbles design ship at all, given that the reports behind it are graded differently?
-   - Do we record the sound packs ourselves or use CC0 sounds?
-8. **Hands-free tasbeeh (NF-3.20):**
-   - **Web:** do we serve FastConformer (88 MB, CC-BY-4.0, which allows redistribution with attribution) from our origin, like Zipformer? Check Vercel's static asset size limits first, or use a CDN bucket. Alternatively, ship web only if S1 shows that Zipformer's output is CTC.
-   - **Fixtures:** who records the consented set, and where does the private bucket live?
-   - Is a 0.5% over-count rate strict enough, or does the scholar panel want "Strict" to be the only setting?
+| #   | Task                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Governed by | If it finds nothing / fails             |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------- |
+| 1   | Search for licence-cleared hadith recordings (start with 40 Nawawi, Riyad as-Salihin)                                                                                                                                                                                                                                                                                                                                                                                                                                       | D12, D19    | Hadith audio doesn't ship               |
+| 2   | Research public iqamah feeds and review each licence                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | D12, D26    | OSM data and private times only         |
+| 3   | Pick the specific Kenney / Freesound CC0 files                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | D16, D28    | Kenney only                             |
+| 4   | Compare the pinned QAC copy once with the official corpus.quran.com download                                                                                                                                                                                                                                                                                                                                                                                                                                                | D22         | Use the second verified mirror          |
+| 5   | Run spikes S1–S4 and N1 with the D23 eval sets                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | D23, D24    | The documented fallback ships           |
+| 6   | File the Apple Family Controls entitlement and the Play declarations (§4.3)                                                                                                                                                                                                                                                                                                                                                                                                                                                 | D17, D25    | Soft prompt on iOS                      |
+| 7   | Write each feature's proof log (`docs/proofs/<feature>.md`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | D11         | The feature doesn't ship until complete |
+| 8   | **Correct marketing copy that conflicts with locked scope** (found 2026-11-23): `munib-features.ts` describes NF-3.23 as "Listen to hadith translations, with offline replay", but D19 means recordings only, possibly never shipping. `compare/islam360.ts` also lists hadith audio as planned. Reword to "Hadith recitations (human recordings, where licensed)", or remove until a source passes D12. Also check that the NF-3.0b entry, currently "Hijri date adjustment", reads as part of the settings control panel. | D19, §10    | Remove the planned entry                |
+
+Earlier questions and where they were settled: reviewers (D11); licences (D12); settings panel (D13, D14); ayah notes (D15); tasbeeh (D16, D28); focus lock (D17, D25); web speech model (D18); hadith audio (D19); pronunciation (D20); timeline (D21); root data (D22); speech fixtures (D23); spike failures (D24); Quran Lab SDK (D25); iqamah sources (D26); kids content (D27); mirath reference texts (D11).
