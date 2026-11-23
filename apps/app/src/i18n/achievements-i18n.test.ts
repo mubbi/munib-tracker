@@ -28,6 +28,7 @@ describe("achievements i18n keys", () => {
   it("every progression-track milestone resolves to a real en.json string", () => {
     const stats = {
       streak: 400,
+      bestStreak: 400,
       prayersCompleted: 4000,
       zikrCompleted: 1200,
       perfectDays: 400,
