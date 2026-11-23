@@ -62,6 +62,31 @@ export function computeStreak(
   return streak;
 }
 
+/**
+ * Longest consecutive-day salah streak ever kept, using the same rules as
+ * {@link computeStreak}: a day counts when a salah was completed or a qaza
+ * performed, and excused days (hayd / illness / travel) are transparent — they
+ * neither count nor break the run. Never lower than the current streak, so it
+ * is the stable "personal best" that milestones and Noor build on.
+ */
+export function longestStreak(logs: PrayerLog[], obligatoryOnly = true): number {
+  const active = activeDates(logs, obligatoryOnly);
+  if (active.size === 0) return 0;
+  const excused = excusedDates(logs);
+  const days = [...new Set([...active, ...excused])].sort();
+
+  let longest = 0;
+  let run = 0;
+  let previous: string | null = null;
+  for (const date of days) {
+    if (previous === null || addDays(previous, 1) !== date) run = 0;
+    if (active.has(date)) run += 1;
+    longest = Math.max(longest, run);
+    previous = date;
+  }
+  return longest;
+}
+
 /** The set of dates a single prayer was marked completed (NF-2.13). */
 export function prayerCompletionDates(logs: PrayerLog[], prayerId: PrayerId): Set<string> {
   const dates = new Set<string>();

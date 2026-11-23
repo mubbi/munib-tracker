@@ -67,7 +67,8 @@ export const PROGRESSION_TRACKS: ProgressionTrackConfig[] = [
   {
     id: "streak",
     labelKey: "achievements.tracks.streak",
-    metric: "streak",
+    // Best streak, not the current one: a milestone once reached stays earned.
+    metric: "bestStreak",
     thresholds: [1, 3, 7, 14, 21, 30, 45, 60, 90, 120, 180, 365],
     incrementAfter: 30,
     titlesCount: 12,

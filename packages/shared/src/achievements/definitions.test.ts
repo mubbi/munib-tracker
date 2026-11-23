@@ -9,6 +9,7 @@ import {
 import {
   type AchievementStats,
   computeDevotionNoor,
+  computeNoorBreakdown,
   evaluateProgression,
   getMilestoneById,
   newlyUnlocked,
@@ -127,6 +128,38 @@ describe.concurrent("devotion noor", () => {
     expect(withoutDebt).toBe(0);
   });
 
+  it("earns streak noor from the best streak, so a broken streak keeps its noor", () => {
+    const running = computeDevotionNoor({ ...base, streak: 30, bestStreak: 30 });
+    const broken = computeDevotionNoor({ ...base, streak: 0, bestStreak: 30 });
+    expect(broken).toBe(running);
+    expect(broken).toBe(30 * 3);
+  });
+
+  it("breaks noor down by source, largest first, omitting empty sources", () => {
+    const breakdown = computeNoorBreakdown({
+      ...base,
+      prayersCompleted: 20,
+      zikrCompleted: 4,
+      perfectDays: 1,
+      bestStreak: 2,
+    });
+    expect(breakdown).toEqual([
+      { source: "salah", count: 20, noor: 200 },
+      { source: "perfectDay", count: 1, noor: 50 },
+      { source: "zikr", count: 4, noor: 20 },
+      { source: "streakDay", count: 2, noor: 6 },
+    ]);
+    expect(breakdown.reduce((sum, e) => sum + e.noor, 0)).toBe(
+      computeDevotionNoor({
+        ...base,
+        prayersCompleted: 20,
+        zikrCompleted: 4,
+        perfectDays: 1,
+        bestStreak: 2,
+      }),
+    );
+  });
+
   it("uses an ever-increasing noor curve", () => {
     expect(totalNoorForDevotionLevel(2)).toBeGreaterThan(totalNoorForDevotionLevel(1));
   });
@@ -140,6 +173,13 @@ describe.concurrent("syncAchievementIds", () => {
     const pruned = syncAchievementIds({ ...base, prayersCompleted: 2, streak: 3 }, earned.synced);
     expect(pruned.synced).toEqual(["salah:1", "streak:1", "streak:2"]);
     expect(pruned.newlyUnlocked).toEqual([]);
+  });
+
+  it("keeps streak milestones after the streak breaks (they follow the best streak)", () => {
+    const earned = syncAchievementIds({ ...base, streak: 7, bestStreak: 7 }, []);
+    const afterBreak = syncAchievementIds({ ...base, streak: 0, bestStreak: 7 }, earned.synced);
+    expect(afterBreak.synced).toEqual(earned.synced);
+    expect(afterBreak.synced).toContain("streak:3");
   });
 
   it("drops cleared debt milestones when debt tracking is removed", () => {

@@ -33,5 +33,6 @@ export function makeAchievementStats(overrides: Partial<AchievementStats> = {}):
     qazaDebt: null,
     rozaDebt: null,
     ...overrides,
+    bestStreak: Math.max(overrides.bestStreak ?? 0, overrides.streak ?? 0),
   };
 }

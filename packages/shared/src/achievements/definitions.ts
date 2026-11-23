@@ -40,18 +40,52 @@ export function totalNoorForDevotionLevel(level: number): number {
   return (100 * level * (level + 1)) / 2;
 }
 
-export function computeDevotionNoor(stats: AchievementStats): number {
-  const qazaNoor = stats.qazaDebt ? stats.qazaDebt.completed * 15 : 0;
-  const rozaNoor = stats.rozaDebt ? stats.rozaDebt.completed * 15 : 0;
+/** Best streak, never below the current one (guards stats built without it). */
+function bestStreakOf(stats: AchievementStats): number {
+  return Math.max(stats.bestStreak ?? 0, stats.streak);
+}
 
-  return (
-    stats.prayersCompleted * 10 +
-    qazaNoor +
-    rozaNoor +
-    stats.zikrCompleted * 5 +
-    stats.perfectDays * 50 +
-    stats.streak * 3
-  );
+/** Noor per unit of each source — shown as the Noor breakdown on achievements. */
+export const NOOR_WEIGHTS = {
+  salah: 10,
+  qaza: 15,
+  roza: 15,
+  zikr: 5,
+  perfectDay: 50,
+  streakDay: 3,
+} as const;
+
+export type NoorSource = keyof typeof NOOR_WEIGHTS;
+
+export interface NoorBreakdownEntry {
+  source: NoorSource;
+  /** How many units were earned (salah prayed, zikr completed, …). */
+  count: number;
+  noor: number;
+}
+
+/** Where a user's Noor came from, largest first (sources with no Noor omitted). */
+export function computeNoorBreakdown(stats: AchievementStats): NoorBreakdownEntry[] {
+  const counts: Record<NoorSource, number> = {
+    salah: stats.prayersCompleted,
+    qaza: stats.qazaDebt?.completed ?? 0,
+    roza: stats.rozaDebt?.completed ?? 0,
+    zikr: stats.zikrCompleted,
+    perfectDay: stats.perfectDays,
+    streakDay: bestStreakOf(stats),
+  };
+  return (Object.keys(NOOR_WEIGHTS) as NoorSource[])
+    .map((source) => ({
+      source,
+      count: counts[source],
+      noor: counts[source] * NOOR_WEIGHTS[source],
+    }))
+    .filter((entry) => entry.noor > 0)
+    .sort((a, b) => b.noor - a.noor);
+}
+
+export function computeDevotionNoor(stats: AchievementStats): number {
+  return computeNoorBreakdown(stats).reduce((sum, entry) => sum + entry.noor, 0);
 }
 
 export function computeDevotionProgress(stats: AchievementStats): DevotionProgress {
@@ -76,6 +110,8 @@ function valueFor(stats: AchievementStats, metric: AchievementMetric): number {
   switch (metric) {
     case "streak":
       return stats.streak;
+    case "bestStreak":
+      return bestStreakOf(stats);
     case "prayersCompleted":
       return stats.prayersCompleted;
     case "zikrCompleted":
@@ -279,6 +315,7 @@ export function getMilestoneById(
 function emptyStats(): AchievementStats {
   return {
     streak: 0,
+    bestStreak: 0,
     prayersCompleted: 0,
     zikrCompleted: 0,
     perfectDays: 0,

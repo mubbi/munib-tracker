@@ -5,6 +5,7 @@ import {
   computePrayerStreak,
   computeStreak,
   longestPrayerStreak,
+  longestStreak,
 } from "./streak";
 
 describe.concurrent("computeStreak", () => {
@@ -159,5 +160,52 @@ describe.concurrent("buildDailySummary", () => {
     expect(summary.zikrTotal).toBe(2);
     expect(summary.qazaRemaining).toBe(15);
     expect(summary.streakDays).toBe(4);
+  });
+});
+
+describe.concurrent("longestStreak", () => {
+  it("is 0 with no completed salah", () => {
+    expect(longestStreak([])).toBe(0);
+    expect(longestStreak([log("2026-07-01", "fajr", "missed")])).toBe(0);
+  });
+
+  it("finds the longest past run even after the current streak broke", () => {
+    const logs = [
+      log("2026-06-01", "fajr", "completed"),
+      log("2026-06-02", "fajr", "completed"),
+      log("2026-06-03", "fajr", "qaza"),
+      log("2026-06-04", "fajr", "missed"),
+      log("2026-06-10", "fajr", "completed"),
+    ];
+    expect(longestStreak(logs)).toBe(3);
+    expect(computeStreak(logs, true, "2026-06-20")).toBe(0);
+  });
+
+  it("passes through excused days without counting them", () => {
+    const logs = [
+      log("2026-06-01", "fajr", "completed"),
+      log("2026-06-02", "fajr", "pending", { isExcused: true, excusedReason: "sick" }),
+      log("2026-06-03", "fajr", "completed"),
+    ];
+    expect(longestStreak(logs)).toBe(2);
+  });
+
+  it("ignores sunnah-only days for the fard streak", () => {
+    const logs = [
+      log("2026-06-01", "fajr", "completed"),
+      log("2026-06-02", "tahajjud", "completed"),
+      log("2026-06-03", "fajr", "completed"),
+    ];
+    expect(longestStreak(logs)).toBe(1);
+    expect(longestStreak(logs, false)).toBe(3);
+  });
+
+  it("is never below the current streak", () => {
+    const logs = [
+      log("2026-07-01", "fajr", "completed"),
+      log("2026-07-02", "fajr", "completed"),
+      log("2026-07-03", "fajr", "completed"),
+    ];
+    expect(longestStreak(logs)).toBeGreaterThanOrEqual(computeStreak(logs, true, "2026-07-03"));
   });
 });

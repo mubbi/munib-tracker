@@ -10,7 +10,13 @@ export type DebtTrackId = "qaza" | "roza";
 export type MilestoneTrackId = ProgressionTrackId | DebtTrackId | "devotion";
 
 export interface AchievementStats {
+  /** Current salah streak (days, ending today). */
   streak: number;
+  /**
+   * Longest salah streak ever kept. Streak milestones and the streak share of
+   * Noor use this, so a broken streak never takes back what was earned.
+   */
+  bestStreak: number;
   prayersCompleted: number;
   zikrCompleted: number;
   perfectDays: number;
@@ -47,4 +53,9 @@ export interface ProgressionState {
   stats: AchievementStats;
 }
 
-export type AchievementMetric = "streak" | "prayersCompleted" | "zikrCompleted" | "perfectDays";
+export type AchievementMetric =
+  | "streak"
+  | "bestStreak"
+  | "prayersCompleted"
+  | "zikrCompleted"
+  | "perfectDays";
