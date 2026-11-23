@@ -48,7 +48,7 @@ export function Footer() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 pt-16 md:px-8 md:pt-20">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_3fr]">
           <div>
             <Link
               href={SITE_PATHS.home}
@@ -64,8 +64,8 @@ export function Footer() {
               <span className="font-display text-xl font-semibold">{APP_NAME}</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/65">
-              {APP_TAGLINE} A free, offline-first companion for salah, dhikr, qadha, and learning
-              your deen.
+              {APP_TAGLINE} A free, offline-first companion for Salah, Zikr, Qaza, the Qur&apos;an
+              and learning your deen. No ads, no account needed.
             </p>
             <div className="mt-6">
               <a
@@ -100,7 +100,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 xl:grid-cols-5">
             {FOOTER_GROUPS.map((group) => (
               <div key={group.heading}>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#ecca7d]">
@@ -129,7 +129,7 @@ export function Footer() {
                       )}
                     </li>
                   ))}
-                  {group.heading === "Legal" && showCookiePreferences ? (
+                  {group.heading === "Company" && showCookiePreferences ? (
                     <li>
                       <button
                         type="button"

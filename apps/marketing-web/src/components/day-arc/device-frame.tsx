@@ -15,11 +15,20 @@ export function DeviceFrame({
   alt,
   className,
   tilted = false,
+  priority = true,
+  width = 1206,
+  height = 2622,
+  sizes = "(min-width: 1024px) 300px, 260px",
 }: {
   src: string;
   alt: string;
   className?: string;
   tilted?: boolean;
+  /** Only the above-the-fold hero device should be `priority`. */
+  priority?: boolean;
+  width?: number;
+  height?: number;
+  sizes?: string;
 }) {
   return (
     <div
@@ -65,9 +74,10 @@ export function DeviceFrame({
             <Image
               src={src}
               alt={alt}
-              width={1206}
-              height={2622}
-              priority
+              width={width}
+              height={height}
+              priority={priority}
+              sizes={sizes}
               className="block h-auto w-full"
             />
             <div

@@ -26,12 +26,15 @@ import { Section } from "@/components/section";
 import { TrackedButton } from "@/components/tracked-button";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
+import { pageMetadata } from "@/lib/seo";
 import { SITE_PATHS } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Learn",
-  description: `The ${APP_NAME} learning library — 350+ cited topics on aqeedah, prophets, seerah, the Hereafter, Qur'an study, sahaba, learn dua, and fiqh guides.`,
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/learn",
+  title: "Islamic Learning Library — Aqeedah, Seerah, Fiqh & Qur'an Study",
+  description:
+    "Inside the app's learning library: cited lessons on aqeedah, the prophets, the seerah, the Hereafter, Qur'an study, and practical fiqh guides with checklists.",
+});
 
 type Area = { icon: LucideIcon; title: string; meta: string; description: string };
 
@@ -252,6 +255,7 @@ export default function LearnPage() {
 
       <div className="relative mx-auto w-full max-w-6xl px-6 pt-8 md:px-8 md:pt-12">
         <PageMasthead
+          path="/learn"
           eyebrow="Learn"
           title="Learn your deen, deeply"
           intro={`${APP_NAME} is more than a tracker. It's a structured path reviewed for authenticity — creed, history, the Qur'an, and fiqh with progress, quizzes, and citations on every lesson.`}

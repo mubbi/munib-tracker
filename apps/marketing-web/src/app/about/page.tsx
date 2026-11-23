@@ -1,36 +1,41 @@
-import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { TrackedLink } from "@/components/tracked-link";
-import { SITE_PATHS } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
+import { GITHUB_REPO_URL, SITE_PATHS } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: `Who builds ${APP_NAME}, and our commitment to authentic worship content.`,
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/about",
+  title: "About Munib Tracker — Our Mission and Who Builds It",
+  description:
+    "Munib Tracker is a free, ad-free Islamic app for Salah, Qaza, Zikr and the Qur'an. Learn why it exists, who builds it, and how we keep content authentic.",
+});
 
 export default function AboutPage() {
   return (
     <ContentPage
+      path="/about"
       eyebrow="About"
       title={`About ${APP_NAME}`}
-      intro={`${APP_NAME} is a free, offline-first companion to help you ${APP_TAGLINE.toLowerCase()}`}
+      intro={`${APP_NAME} is a free, offline-first companion to help you track your journey back to Allah.`}
     >
       <ContentSection heading="Our mission">
         <p className="text-muted">
           We believe worship tracking should feel calm and trustworthy — not gamified or
-          guilt-driven. {APP_NAME} exists to help you {APP_TAGLINE.toLowerCase()} with an honest
-          record of your salah, adhkar, and qaza obligations, with gentle reminders and rich Islamic
-          content, all without requiring an account.
+          guilt-driven. {APP_NAME} exists to help you track your journey back to Allah, with an
+          honest record of your Salah, adhkar and Qaza, gentle reminders, and rich Islamic content,
+          all without requiring an account for personal use.
         </p>
       </ContentSection>
 
       <ContentSection heading="Who it's for">
         <p className="text-muted">
-          Whether you are rebuilding a consistent prayer habit, working through missed prayers and
-          fasts, or simply keeping your daily adhkar, {APP_NAME} is designed to be a quiet,
-          judgement-free record that stays entirely on your device until you choose to sign in.
+          Whether you are rebuilding a consistent Salah habit, working through missed prayers and
+          fasts, learning the Qur&apos;an, or teaching your children to pray, {APP_NAME} is designed
+          to be a quiet, judgement-free companion. Your personal record stays on your device unless
+          you choose to sync it or share a small signal with your family or a partner.
         </p>
       </ContentSection>
 
@@ -49,23 +54,24 @@ export default function AboutPage() {
           <Link href={SITE_PATHS.features} className="font-medium text-brand hover:underline">
             Features
           </Link>{" "}
-          page — salah tracking and qaza planning, 270 duas and 54 adhkar with a custom tasbeeh
-          builder, offline Qur&apos;an (surah, juz, 604-page mushaf, word-by-word, tajweed) and
-          hadith, qibla, Hijri events, universal search, statistics, gentle Noor encouragement,
-          widgets and watch companions, optional cloud sync, local backup, and app lock. Beyond
-          tracking, {APP_NAME} is a place to learn: 350+ cited topics on aqeedah, the prophets,
-          seerah, sahaba, the Hereafter, learn dua, and seasonal guides; a guided path to read and
-          understand the Qur&apos;an; and practical worship guides for salah, taharah, zakat,
-          Friday, and a Hajj & Umrah learn guide with separate rite checklists — every lesson
-          referenced to Qur&apos;an and authenticated hadith. The interface ships in 24 languages.
+          page: Salah tracking with Rawatib, Qaza planning, a Salah focus lock, a Masjid finder, 279
+          duas and 60 adhkar with a custom adhkar builder, offline Qur&apos;an (surah, juz, 604-page
+          mushaf, word-by-word, tajweed, notes and root-word search) with on-device recitation
+          practice, a hadith library, Qibla, Hijri events, statistics and gentle Noor encouragement,
+          family and kids mode, group khatm, an inheritance calculator and will builder, widgets and
+          watch companions, optional sync, local backup, and app lock. Beyond tracking, {APP_NAME}{" "}
+          is a place to learn: 350+ cited topics on aqeedah, the prophets, the seerah, the sahaba,
+          the Hereafter and dua; a guided path to read and understand the Qur&apos;an; and practical
+          worship guides for Salah, taharah, zakat, Friday, Janazah, and Hajj & Umrah, every lesson
+          referenced to the Qur&apos;an and authentic hadith. The interface ships in 24 languages.
         </p>
       </ContentSection>
 
       <ContentSection heading="Open source">
         <p className="text-muted">
-          {APP_NAME} is developed in the open. The source code is on{" "}
+          {APP_NAME} is source-available: the code is on{" "}
           <a
-            href="https://github.com/mubbi/munib-tracker"
+            href={GITHUB_REPO_URL}
             className="font-medium text-brand hover:underline"
             rel="noopener noreferrer"
             target="_blank"

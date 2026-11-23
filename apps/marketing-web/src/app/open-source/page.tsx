@@ -16,16 +16,19 @@ import {
   PROJECT_LICENSE_URL,
   PROJECT_REQUIRED_NOTICE,
 } from "@/lib/open-source";
+import { pageMetadata } from "@/lib/seo";
 import { GITHUB_REPO_URL, SITE_PATHS } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Open source",
+export const metadata: Metadata = pageMetadata({
+  path: "/open-source",
+  title: "Open Source — Munib Tracker on GitHub",
   description: `${APP_NAME} is source-available on GitHub for personal and educational use under the ${PROJECT_LICENSE_NAME}.`,
-};
+});
 
 export default function OpenSourcePage() {
   return (
     <ContentPage
+      path="/open-source"
       wide
       eyebrow="Open source"
       title={`Built in the open for the ummah`}

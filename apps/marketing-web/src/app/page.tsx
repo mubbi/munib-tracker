@@ -1,29 +1,42 @@
-import { AchievementsSection } from "@/components/achievements-section";
+import type { Metadata } from "next";
 import { AiPracticeHighlight } from "@/components/ai-practice-highlight";
-import { Benefits } from "@/components/benefits";
 import { CtaBand } from "@/components/cta-band";
 import { FaqPreview } from "@/components/faq-preview";
-import { FeatureBento } from "@/components/feature-bento";
-import { FeaturePillars } from "@/components/feature-pillars";
 import { Hero } from "@/components/hero";
+import {
+  AudienceTeaser,
+  CompareAndGuides,
+  FeatureHub,
+  HowItWorksTeaser,
+  PrivacyBand,
+} from "@/components/home/home-sections";
+import { ProductTour } from "@/components/home/product-tour";
+import { SoftwareJsonLd } from "@/components/json-ld";
 import { LearnHighlight } from "@/components/learn-highlight";
-import { OpenSourceBand } from "@/components/open-source-band";
 import { StatsSection } from "@/components/stats-section";
-import { TestimonialsSection } from "@/components/testimonials-section";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  path: "/",
+  title: "Munib Tracker: Salah Tracker, Qaza, Zikr & Qur'an Practice App",
+  description:
+    "A free Islamic app with no ads: track your five daily Salah, make up Qaza, keep daily Zikr, and read, learn and practise the Qur'an with on-device AI.",
+});
 
 export default function Home() {
   return (
     <>
+      <SoftwareJsonLd />
       <Hero />
       <StatsSection />
+      <ProductTour />
+      <FeatureHub />
       <AiPracticeHighlight />
-      <Benefits />
-      <FeatureBento />
+      <HowItWorksTeaser />
+      <PrivacyBand />
+      <AudienceTeaser />
       <LearnHighlight />
-      <FeaturePillars limit={6} />
-      <TestimonialsSection />
-      <AchievementsSection />
-      <OpenSourceBand />
+      <CompareAndGuides />
       <FaqPreview />
       <CtaBand />
     </>

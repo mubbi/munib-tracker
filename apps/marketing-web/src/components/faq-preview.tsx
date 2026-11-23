@@ -1,4 +1,4 @@
-import { AccordionFaq } from "@/components/accordion-faq";
+import { FaqList } from "@/components/content/primitives";
 import { Section } from "@/components/section";
 import { TrackedLink } from "@/components/tracked-link";
 import { FAQ_ITEMS } from "@/lib/faq";
@@ -12,7 +12,7 @@ export function FaqPreview() {
       description="Privacy, offline use, platforms, and religious content — answered clearly."
     >
       <div className="mx-auto max-w-3xl">
-        <AccordionFaq items={FAQ_ITEMS.slice(0, 4)} />
+        <FaqList items={FAQ_ITEMS.slice(0, 5)} />
       </div>
       <p className="mt-10 text-center">
         <TrackedLink

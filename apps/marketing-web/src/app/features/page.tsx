@@ -1,21 +1,29 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
-import { Check } from "lucide-react";
+import { Check, Clock } from "lucide-react";
 import type { Metadata } from "next";
-import { AchievementsSection } from "@/components/achievements-section";
-import { AiPracticeBanner } from "@/components/ai-practice-highlight";
-import { PageAtmosphere, PageMasthead } from "@/components/content-page";
-import { CtaBand } from "@/components/cta-band";
-import { FeaturePillars } from "@/components/feature-pillars";
-import { Section } from "@/components/section";
-import { TrackedButton } from "@/components/tracked-button";
-import { SpotlightCard } from "@/components/ui/interactive";
-import { Stagger, StaggerItem } from "@/components/ui/motion";
-import { SITE_PATHS } from "@/lib/site";
+import { DownloadCta } from "@/components/content/download-cta";
+import { FeatureIcon } from "@/components/content/feature-icon";
+import { PageHero } from "@/components/content/page-hero";
+import { JsonLdScript, LinkCard, PageSection } from "@/components/content/primitives";
+import { StoreBadges } from "@/components/store-badges";
+import { FEATURE_GROUPS, FEATURE_PAGES, featureHref } from "@/content/features";
+import { PLANNED_FEATURES } from "@/content/munib-features";
+import { pageMetadata } from "@/lib/seo";
+import {
+  graph,
+  itemListSchema,
+  softwareApplicationSchema,
+  webPageSchema,
+} from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "Features",
-  description: `Explore every feature in ${APP_NAME} — salah tracking, qaza, 270 duas, 54 adhkar, Qur'an (25 translations, 123 tafsir), AI Qur'an practice, hadith, 350+ learn topics, widgets, and more.`,
-};
+const PATH = "/features";
+const DESCRIPTION = `Every feature in ${APP_NAME}: Salah and Qaza tracking, zikr and tasbeeh, the Qur'an with AI recitation practice, learning, Salah times, widgets and watch apps.`;
+
+export const metadata: Metadata = pageMetadata({
+  path: PATH,
+  title: "Features — Salah, Qaza, Zikr, Qur'an & AI Recitation Practice",
+  description: DESCRIPTION,
+});
 
 type FeatureDetail = {
   title: string;
@@ -34,14 +42,14 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
     eyebrow: "Daily worship",
     title: "Track salah, qaza, and remembrance",
     description:
-      "An honest daily record — five statuses, sunnah, make-up planning, and a calm place for duas and adhkar.",
+      "An honest daily record: four statuses, Sunnah, make-up planning, and a calm place for duas and adhkar.",
     sections: [
       {
         title: "Home screen",
         items: [
-          "Prayer times hero with time-of-day sky, mosque silhouette, moon phase, and optional weather",
+          "Prayer times hero with time-of-day sky, Masjid silhouette, moon phase, and optional weather",
           "Hijri date, live clock, and countdown to the next prayer",
-          "43 quick actions you can reorder and toggle — tracker, Qur'an, learn paths, and more",
+          "55 quick actions you can reorder and toggle — tracker, Qur'an, learn paths, and more",
           "Five toggleable home modules: continue reading, knowledge card, quick actions, qaza, and today's schedule",
           "Today's goal combining salah, zikr, and qaza with segmented progress",
           "Devotion block with your Noor level, nine seasonal Hijri banners, and feature tours",
@@ -50,8 +58,10 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
       {
         title: "Tracker",
         items: [
-          "Five fard prayers (Fajr through Isha) with five statuses each, plus Witr tracked separately",
-          "Sunnah prayers: Tahajjud, Ishraq, Duha, Tahiyyatul Masjid, Hajat & Istikhara",
+          "Five fard prayers (Fajr through Isha) with four statuses each (completed, delayed, missed, Qaza), plus Witr tracked separately",
+          "Sunnah prayers: Tahajjud, Ishraq, Duha, Tahiyyat al-Masjid, Hajat & Istikhara",
+          "Rawatib tracker for the confirmed Sunnah, 12 or 10 rakahs by madhhab",
+          "Salah focus lock that blocks the apps you choose until you pray",
           "Jama'ah (congregation) toggle and private per-prayer notes",
           "Progress ring, streak display, and confetti on a perfect day",
           "Excused-day picker for travel, illness, or hayd, plus haptic celebrations",
@@ -64,18 +74,32 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Per-prayer counters that auto-sync from missed tracker entries",
           "Lifetime calculator to estimate a backlog, with a scholar disclaimer",
           "Daily-pace planner with an ETA to clear your qaza",
-          "Missed-fast (roza) tracking and a history log of what you've completed",
-          "Bulk prayer import from CSV or text, with optional qaza increment",
+          "Missed-fast tracking and a history log of what you've completed",
+          "Import Salah history from CSV or JSON, with misses optionally added to Qaza",
+          "Voluntary fasting planner with warnings on prohibited days",
+        ],
+      },
+      {
+        title: "Reflection & family",
+        items: [
+          "Nightly muhasabah: a private one-minute review ending in istighfar and gratitude",
+          "Weekly gentle coach with kind suggestions, computed on your device",
+          "Family ties reminders that keep you in touch with relatives, parents first",
+          "Family and kids mode with parent-managed child profiles and rewards",
+          'Accountability partner: share only a daily "done", never the details',
         ],
       },
       {
         title: "Duas, adhkar, duroods & 99 Names",
         items: [
-          "270 duas across 16 categories, sourced from Hisnul Muslim",
-          "54 adhkar in seven categories (morning, evening, after-salah, before sleep, and more)",
+          "279 duas across 16 categories, sourced from Hisnul Muslim",
+          "60 adhkar in seven categories (morning, evening, after-salah, before sleep, and more)",
           "Custom adhkar builder — add your own with Arabic, transliteration, translation, and speech-to-text",
           "Nine salawat/duroods and the 99 Names of Allah with meanings and audio",
           "Favorites, per-category search, and a tactile tasbeeh with custom targets",
+          "Tasbeeh designs (ring, sliding beads and more) with optional sound and haptics",
+          "Hands-free tasbeeh that counts the zikr you say aloud, on your device",
+          "A daily Sunnah habits checklist with the evidence for each habit",
         ],
       },
     ],
@@ -94,6 +118,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Seerah timeline of 30 key events in the life of the Prophet ﷺ",
           "21 major battles — lessons, key figures, verses, and a glossary",
           "Per-topic progress and Qur'an + graded-hadith citations throughout",
+          "Flash cards that review the Qur'an, hadith, the Names of Allah and every guide",
         ],
       },
       {
@@ -122,6 +147,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "28 Arabic letter cards, pronunciation drills, and the core tajweed rules",
           "Memorization plans, 13 themes, prophet stories, and vocabulary by root",
           "Daily tadabbur reflections and apply-it challenges, linked to the mushaf reader",
+          "Tajweed error coaching built from your recitation practice",
         ],
       },
       {
@@ -133,6 +159,11 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Friday / Jumu'ah learn hub with checklist and Today's Goal reminder",
           "Hajj & Umrah learn guide with separate rite checklists, plus travel, illness, and hayd rulings",
           "Ramadan fasting tracker with suhoor/iftar countdown and a tahajjud log",
+          "Dhul-Hijjah mode with a daily deeds checklist and a Takbir al-Tashriq counter",
+          "Umrah mode: miqat alerts and tawaf and sa'i counters, step by step",
+          "Inheritance (mirath) calculator for all four schools, with every share explained",
+          "Islamic will (wasiyyah) builder within the one-third limit, plus a debts and trusts record",
+          "Sadaqah goals with a simple giving log, kept separate from zakat",
         ],
       },
     ],
@@ -151,6 +182,9 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Word-by-word reader, tajweed coloring, and 123 tafsir editions fetched on demand",
           "Eight reciters with per-ayah and surah audio; ayah / page / mushaf layouts",
           "Ayah bookmarks, khatm and hifz tracking, Arabic font picker, and offline search",
+          "Your own ayah notes, highlights and tags, plus Arabic root-word search",
+          "Group khatm with family or friends, split by juz, hizb or surah",
+          "Verse Detector: find the surah and ayah from spoken or typed Arabic or English",
         ],
       },
       {
@@ -160,6 +194,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Follow, Check, Hide words, and Hide ayahs modes; tap any word to hear it",
           "Practise one ayah, the next five, a mushaf page, a whole surah, or a custom range; change the passage any time",
           "Revision queue spaced over 1, 3, 7, 14, and 30 days, with an optional reminder",
+          "Word-by-word pronunciation check: clear, or worth listening to again",
           "Audio is processed on your device and never recorded, stored, or uploaded; works offline after a one-time download",
           "Optional pronunciation drills in selected tajweed lessons",
         ],
@@ -170,6 +205,8 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Offline: Nawawi's 40 and Riyad as-Salihin, plus a daily hadith",
           "On demand: Bukhari, Muslim, Abu Dawud, Tirmidhi, Nasa'i, Ibn Majah",
           "Search, grades, narrators, bookmarks, and pagination",
+          "Hadith audio: translations read aloud, one hadith or a whole chapter",
+          "Hadith explanation (sharh) and full chains of narration (isnad)",
         ],
       },
       {
@@ -178,6 +215,8 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Prayer times from GPS or city search, with 13 calculation methods and Asr madhab",
           "Per-prayer minute offsets, high-latitude rules, reminder offsets, and 12/24-hour formatting",
           "Qibla compass with alignment haptic on native; Hijri ↔ Gregorian date converter",
+          "Masjid finder from OpenStreetMap, with your home masjid's iqamah times typed in or scanned",
+          "Hijri date adjustment and one madhhab setting that every guide follows",
           "Hijri and Gregorian calendar with Islamic events and moon phase",
         ],
       },
@@ -217,6 +256,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Customize home modules, quick actions, and library menu order",
           "Local backup export/import, offline download manager, and bulk prayer import",
           "Optional PIN / biometric app lock; full guest mode; Google, Apple, or Facebook sync when you want it",
+          "End-to-end encrypted sync for private records such as your will, debts and muhasabah",
         ],
       },
     ],
@@ -225,92 +265,118 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
 
 function DetailCard({ section }: { section: FeatureDetail }) {
   return (
-    <SpotlightCard className="h-full p-6 md:p-7">
-      <h3 className="font-display text-lg font-semibold text-white">{section.title}</h3>
+    <div className="h-full rounded-2xl border border-white/10 bg-[#0c2131]/45 p-6 md:p-7">
+      <h4 className="font-display text-lg font-semibold text-white">{section.title}</h4>
       <ul className="mt-4 flex flex-col gap-2.5">
         {section.items.map((item) => (
-          <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-white/60">
-            <Check className="mt-0.5 size-4 shrink-0 text-brand" />
+          <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-white/68">
+            <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-brand" />
             {item}
           </li>
         ))}
       </ul>
-    </SpotlightCard>
+    </div>
   );
 }
 
 export default function FeaturesPage() {
   return (
-    <div className="relative flex flex-1 flex-col">
-      <PageAtmosphere />
+    <>
+      <JsonLdScript
+        data={graph(
+          webPageSchema({ path: PATH, name: `${APP_NAME} features`, description: DESCRIPTION }),
+          softwareApplicationSchema(FEATURE_PAGES.map((f) => f.navLabel)),
+          itemListSchema(
+            FEATURE_PAGES.map((f) => ({ name: f.navLabel, href: featureHref(f.slug) })),
+          ),
+        )}
+      />
+      <PageHero
+        crumbs={[{ name: "Features", href: PATH }]}
+        eyebrow="Features"
+        title={`Everything ${APP_NAME} can do`}
+        intro={
+          <p>
+            Track your Salah, make up what you missed, remember Allah through the day, and read,
+            learn and practise the Qur&apos;an. Free, offline-first, and with no ads.
+          </p>
+        }
+        actions={<StoreBadges placement="features" />}
+        screenshot={{ key: "home", caption: "The Munib Tracker home screen." }}
+      />
 
-      {/* Page hero — one job: brand the page and offer two clear next steps */}
-      <div className="relative mx-auto w-full max-w-6xl px-6 pt-8 md:px-8 md:pt-14">
-        <PageMasthead
-          eyebrow="Features"
-          title={`Everything ${APP_NAME} can do`}
-          intro="Every screen is designed for calm confidence on your journey — offline-first, judgement-free, and entirely in your control."
-          actions={
-            <>
-              <TrackedButton
-                href={SITE_PATHS.download}
-                size="lg"
-                cta="get_app"
-                placement="features"
-              >
-                Get the app
-              </TrackedButton>
-              <TrackedButton
-                href={SITE_PATHS.learn}
-                variant="outline"
-                size="lg"
-                cta="explore_library"
-                placement="features"
-              >
-                Explore the library
-              </TrackedButton>
-            </>
-          }
-        />
-        {/* New AI feature — spotlighted before the catalogue */}
-        <div className="mb-4 md:mb-8">
-          <AiPracticeBanner placement="features" />
-        </div>
-      </div>
-
-      {/* Chapter 1 — pillars at a glance */}
-      <FeaturePillars align="left" eyebrow="At a glance" />
-
-      {/* Chapter 2+ — thematic deep dives */}
-      {FEATURE_CHAPTERS.map((chapter, index) => (
-        <Section
-          key={chapter.eyebrow}
-          align="left"
-          variant={index % 2 === 0 ? "muted" : "default"}
-          eyebrow={chapter.eyebrow}
-          title={chapter.title}
-          description={chapter.description}
-        >
-          <Stagger
-            className={
-              chapter.sections.length >= 4
-                ? "grid gap-4 sm:grid-cols-2 xl:grid-cols-2"
-                : "grid gap-4 md:grid-cols-2 lg:grid-cols-3"
-            }
-          >
-            {chapter.sections.map((section) => (
-              <StaggerItem key={section.title} className="min-h-full">
-                <DetailCard section={section} />
-              </StaggerItem>
+      {FEATURE_GROUPS.map((group, i) => (
+        <PageSection key={group.id} tone={i % 2 ? "band" : "default"} title={group.title}>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURE_PAGES.filter((f) => f.group === group.id).map((f) => (
+              <LinkCard
+                key={f.slug}
+                href={featureHref(f.slug)}
+                title={f.navLabel}
+                description={f.description}
+                icon={<FeatureIcon icon={f.icon} />}
+              />
             ))}
-          </Stagger>
-        </Section>
+          </div>
+        </PageSection>
       ))}
 
-      <AchievementsSection align="left" />
+      <PageSection
+        id="complete-list"
+        eyebrow="The complete list"
+        title="Every feature, in detail"
+        intro="For the full picture, here is everything in the app, grouped the way it appears in the app's Library."
+      >
+        <div className="flex flex-col gap-14">
+          {FEATURE_CHAPTERS.map((chapter) => (
+            <div key={chapter.eyebrow}>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                {chapter.eyebrow}
+              </p>
+              <h3 className="mt-2 font-display text-2xl font-bold text-white">{chapter.title}</h3>
+              <p className="mt-2 max-w-2xl text-white/65">{chapter.description}</p>
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                {chapter.sections.map((section) => (
+                  <DetailCard key={section.title} section={section} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </PageSection>
 
-      {/* Closing download band owns store badges — keeps the hero uncluttered */}
-      <CtaBand />
-    </div>
+      {PLANNED_FEATURES.length ? (
+        <PageSection
+          id="roadmap"
+          tone="band"
+          eyebrow="Coming soon"
+          title="On the roadmap"
+          intro="Features we're building next. They aren't in the app yet; each one moves into the list above when it ships."
+        >
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {PLANNED_FEATURES.map((f) => (
+              <li
+                key={f.name}
+                className="flex gap-3 rounded-2xl border border-white/10 bg-[#0c2131] p-4"
+              >
+                <Clock aria-hidden className="mt-0.5 size-4 shrink-0 text-sky-300" />
+                <span>
+                  <span className="block text-[15px] font-semibold text-white">{f.name}</span>
+                  <span className="mt-0.5 block text-[13px] leading-snug text-white/65">
+                    {f.detail}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </PageSection>
+      ) : null}
+
+      <DownloadCta
+        title="Try every feature, free"
+        text="No subscription, no ads and no account needed. Download Munib Tracker and start with today's Salah."
+        placement="features"
+      />
+    </>
   );
 }

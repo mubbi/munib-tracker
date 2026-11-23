@@ -1,4 +1,4 @@
-import { APP_NAME, APP_TAGLINE, OFFICIAL_IOS_APP_STORE_ID } from "@munib-tracker/shared/constants";
+import { APP_NAME, OFFICIAL_IOS_APP_STORE_ID } from "@munib-tracker/shared/constants";
 import type { Metadata, Viewport } from "next";
 import { Amiri_Quran, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@/components/analytics";
@@ -33,43 +33,29 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+const DEFAULT_DESCRIPTION =
+  "Munib Tracker is a free Islamic app with no ads: track your Salah, make up Qaza, keep daily Zikr, and read, learn and practise the Qur'an with on-device AI.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${APP_NAME} — ${APP_TAGLINE}`,
+    default: `${APP_NAME}: Salah Tracker, Zikr & Qur'an App`,
     template: `%s | ${APP_NAME}`,
   },
-  description: APP_TAGLINE,
-  keywords: [
-    "Muslim prayer tracker",
-    "Islamic habit app",
-    "salah tracker",
-    "dhikr counter",
-    "qadha planner",
-    "Quran offline",
-    "hadith app",
-    "Islamic learning app",
-    "learn to pray salah",
-    "tajweed and Quran study",
-    "seerah and prophets",
-    "zakat calculator",
-    "hajj guide",
-  ],
-  alternates: { canonical: SITE_URL },
+  description: DEFAULT_DESCRIPTION,
+  applicationName: APP_NAME,
   openGraph: {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
     siteName: APP_NAME,
     title: APP_NAME,
-    description: APP_TAGLINE,
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: APP_NAME }],
+    description: DEFAULT_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
     title: APP_NAME,
-    description: APP_TAGLINE,
-    images: ["/opengraph-image"],
+    description: DEFAULT_DESCRIPTION,
   },
   manifest: "/manifest.webmanifest",
   icons: {

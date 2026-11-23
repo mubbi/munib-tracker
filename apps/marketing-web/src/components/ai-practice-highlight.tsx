@@ -17,7 +17,7 @@ import { buttonClass } from "@/components/ui/button";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import type { CtaPlacement } from "@/lib/analytics";
 import { PRACTICE_DEMO_AYAH } from "@/lib/practice-demo-ayah";
-import { PRODUCT_APP_URL, SITE_PATHS } from "@/lib/site";
+import { PRODUCT_APP_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /**
@@ -206,20 +206,20 @@ function PracticeCtas({ className, placement }: { className?: string; placement:
         Try Qur&apos;an practice
       </TrackedLink>
       <TrackedLink
-        href={SITE_PATHS.download}
+        href="/features/quran-practice"
         className={buttonClass("outline", "md")}
         track="cta"
-        cta="get_app"
+        cta="explore_features"
         placement={placement}
       >
-        Get the app
+        How Qur&apos;an practice works
       </TrackedLink>
     </div>
   );
 }
 
 /** A static, illustrative mock of a practice session (not a screenshot). */
-function PracticePreview() {
+export function PracticePreview() {
   return (
     <figure
       className="relative mx-auto w-full max-w-sm rounded-[1.75rem] border border-border/70 bg-background/80 p-5 shadow-[var(--shadow-card)] backdrop-blur"
@@ -272,7 +272,7 @@ function PracticePreview() {
       </div>
 
       <figcaption className="mt-5 text-center text-xs text-muted">
-        Audio stays on your device
+        Illustration, not a screenshot · Audio stays on your device
       </figcaption>
     </figure>
   );

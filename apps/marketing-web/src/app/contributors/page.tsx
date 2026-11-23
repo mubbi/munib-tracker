@@ -12,12 +12,15 @@ import {
   getGitHubContributorsGraphUrl,
   getGitHubRepoUrl,
 } from "@/lib/github-contributors";
+import { pageMetadata } from "@/lib/seo";
 import { SITE_PATHS } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contributors",
-  description: `People who build and improve ${APP_NAME} — join us on GitHub.`,
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/contributors",
+  title: "Contributors — The People Building Munib Tracker",
+  description:
+    "Meet the people who build and improve Munib Tracker on GitHub, and see how you can help with code, translations, documentation or content corrections.",
+});
 
 function ContributorGrid({ contributors }: { contributors: GitHubContributor[] }) {
   return (
@@ -99,6 +102,7 @@ async function GitHubContributorsSection() {
 export default function ContributorsPage() {
   return (
     <ContentPage
+      path="/contributors"
       wide
       eyebrow="Community"
       title="Contributors"

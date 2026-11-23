@@ -9,7 +9,13 @@ export type DownloadPlacement =
   | "header"
   | "footer"
   | "learn"
-  | "not_found";
+  | "not_found"
+  | "feature_page"
+  | "audience_page"
+  | "compare_page"
+  | "article"
+  | "hub_page"
+  | "home_privacy";
 
 export type CtaName =
   | "get_app"
@@ -17,7 +23,10 @@ export type CtaName =
   | "explore_library"
   | "try_quran_practice"
   | "view_all_faq"
-  | "return_home";
+  | "return_home"
+  | "how_it_works"
+  | "compare_apps"
+  | "read_guides";
 
 export type CtaPlacement =
   | DownloadPlacement

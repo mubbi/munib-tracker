@@ -2,10 +2,11 @@
 
 import { APP_TAGLINE } from "@munib-tracker/shared/constants";
 import { motion, stagger, type Variants } from "framer-motion";
-import { ArrowRight, Award, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
+import { ArrowRight, Ban, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
 import { PrayerArc } from "@/components/day-arc/prayer-arc";
+import { StoreBadges } from "@/components/store-badges";
 import { TrackedLink } from "@/components/tracked-link";
 import { SITE_PATHS } from "@/lib/site";
 
@@ -24,9 +25,9 @@ const item: Variants = {
 };
 
 const TRUST = [
-  { icon: WifiOff, top: "Works offline", bottom: "Salah to Qur'an", color: "#8fd9ae" },
-  { icon: Lock, top: "Privacy First", bottom: "Always", color: "#e9c675" },
-  { icon: Award, top: "Made for", bottom: "Every Believer", color: "#9ad4a9" },
+  { icon: Ban, top: "No ads", bottom: "Ever", color: "#8fd9ae" },
+  { icon: Lock, top: "No account", bottom: "Needed", color: "#e9c675" },
+  { icon: WifiOff, top: "Works", bottom: "Offline", color: "#9ad4a9" },
 ];
 
 /** Day Arc hero — fully coded: gradient sky, stars, crescent, mosque skyline,
@@ -68,7 +69,7 @@ export function Hero() {
         >
           <motion.div variants={item} className="flex justify-center lg:justify-start">
             <TrackedLink
-              href="#quran-practice"
+              href="/features/quran-practice"
               className="group inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] py-1.5 pr-4 pl-1.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:border-white/35"
               track="select_content"
               contentType="announcement"
@@ -105,12 +106,8 @@ export function Hero() {
             variants={item}
             className="hero-text-shadow-soft mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/85 lg:mx-0"
           >
-            <span className="lg:block lg:whitespace-nowrap">
-              Build consistency, strengthen your faith,
-            </span>{" "}
-            <span className="lg:block lg:whitespace-nowrap">
-              and become the best version of yourself&mdash;one prayer at a time.
-            </span>
+            Log your Salah, make up missed prayers, keep your daily Zikr, and read and practise the
+            Qur&apos;an. Free, private and without ads.
           </motion.p>
 
           <motion.div
@@ -119,7 +116,7 @@ export function Hero() {
           >
             <TrackedLink
               href={SITE_PATHS.download}
-              className="group inline-flex h-[3.75rem] items-center justify-center gap-3 rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] px-10 text-[17px] font-semibold text-white shadow-[0_22px_44px_-14px_rgba(4,34,24,0.7),0_6px_16px_-6px_rgba(4,34,24,0.5),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all duration-200 [text-shadow:0_1px_4px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98]"
+              className="group hidden h-[3.75rem] items-center justify-center gap-3 rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] px-10 text-[17px] font-semibold text-white shadow-[0_22px_44px_-14px_rgba(4,34,24,0.7),0_6px_16px_-6px_rgba(4,34,24,0.5),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all duration-200 [text-shadow:0_1px_4px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98] sm:inline-flex"
               track="cta"
               cta="get_app"
               placement="hero"
@@ -142,9 +139,13 @@ export function Hero() {
             </TrackedLink>
           </motion.div>
 
+          <motion.div variants={item} className="mt-6 flex justify-center lg:justify-start">
+            <StoreBadges placement="hero" className="justify-center lg:justify-start" />
+          </motion.div>
+
           <motion.ul
             variants={item}
-            className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 lg:justify-start"
+            className="mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 lg:justify-start"
           >
             {TRUST.map(({ icon: Icon, top, bottom, color }, i) => (
               <li key={bottom} className="inline-flex items-center gap-2.5">

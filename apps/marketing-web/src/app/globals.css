@@ -106,6 +106,9 @@
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
 html {
+  /* The body is transparent over the fixed Day Arc sky; give the root the
+   * same deep night colour so overscroll and contrast checkers see it. */
+  background-color: #07141f;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }

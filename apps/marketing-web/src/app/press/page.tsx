@@ -1,16 +1,24 @@
-import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import {
+  APP_NAME,
+  APP_TAGLINE,
+  OFFICIAL_ANDROID_PLAY_STORE_URL,
+  OFFICIAL_IOS_APP_STORE_URL,
+} from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { TrackedLink } from "@/components/tracked-link";
 import { OPEN_SOURCE_SUMMARY, PROJECT_LICENSE_NAME } from "@/lib/open-source";
-import { GITHUB_REPO_URL, SITE_PATHS, SITE_URL } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
+import { GITHUB_REPO_URL, PRODUCT_APP_URL, SITE_PATHS, SITE_URL } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Press kit",
-  description: `Logos, brand colors, and media resources for ${APP_NAME}.`,
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/press",
+  title: "Press Kit — Logos, Brand Colours & Media Resources",
+  description:
+    "Download Munib Tracker logos and brand colours, read a short description of the app, and find contact details for articles and reviews about it.",
+});
 
 const BRAND_COLORS = [
   { name: "Hero green (from)", hex: "#12463A" },
@@ -25,6 +33,7 @@ const BRAND_COLORS = [
 export default function PressPage() {
   return (
     <ContentPage
+      path="/press"
       wide
       eyebrow="Press"
       title="Press kit"
@@ -34,17 +43,16 @@ export default function PressPage() {
         <p className="text-muted">
           <strong>{APP_NAME}</strong> — {APP_TAGLINE} Available on iOS, Android, and web. Free for
           personal and educational use with no ads. The project is source-available on GitHub under
-          the {PROJECT_LICENSE_NAME} (non-commercial; attribution required). Features include salah
-          tracking, qaza calculator and planner, adhkar and tasbeeh, offline Qur&apos;an (surah,
-          juz, 604-page mushaf) and hadith, qibla, Hijri events, widgets and watch companions, 23
-          languages, and optional cloud sync — plus a full learning library (aqeedah, prophets,
-          seerah, the Hereafter, and Qur&apos;an study) and step-by-step worship guides for salah,
-          wudu, zakat, and hajj.
+          the {PROJECT_LICENSE_NAME} (non-commercial; attribution required). Features include Salah
+          tracking with a focus lock, a Qaza calculator and planner, adhkar and tasbeeh, the offline
+          Qur&apos;an with on-device recitation practice, a hadith library, a Masjid finder, family
+          and kids mode, group khatm, widgets and watch companions, 24 languages, and optional sync,
+          plus a learning library and step-by-step worship guides.
         </p>
         <p className="mt-4 text-sm text-muted">{OPEN_SOURCE_SUMMARY}</p>
       </ContentSection>
 
-      <ContentSection heading="Brand colors">
+      <ContentSection heading="App brand colours">
         <ul className="grid gap-3 sm:grid-cols-2">
           {BRAND_COLORS.map((color) => (
             <li
@@ -67,8 +75,8 @@ export default function PressPage() {
 
       <ContentSection heading="Typography">
         <ul className="list-inside list-disc text-sm text-muted">
-          <li>Display & UI: Spline Sans</li>
-          <li>Headlines: Lora (serif accent)</li>
+          <li>App display & UI: Spline Sans · App headlines: Lora (serif accent)</li>
+          <li>Website: Plus Jakarta Sans (headings) and Inter (body)</li>
           <li>
             Arabic content in-app: Amiri, Scheherazade New, Noto Naskh Arabic, QPC Hafs
             (user-selectable)
@@ -117,10 +125,14 @@ export default function PressPage() {
 
       <ContentSection heading="Screenshots">
         <p className="text-muted">
-          High-resolution screenshots are available on request. Email us via the{" "}
-          <a href="/contact" className="font-medium text-brand hover:underline">
+          Screenshots of the app appear on each{" "}
+          <Link href={SITE_PATHS.features} className="font-medium text-brand hover:underline">
+            feature page
+          </Link>
+          . For full-resolution files, use the{" "}
+          <Link href={SITE_PATHS.contact} className="font-medium text-brand hover:underline">
             contact form
-          </a>{" "}
+          </Link>{" "}
           with your publication name and deadline.
         </p>
       </ContentSection>
@@ -148,17 +160,45 @@ export default function PressPage() {
               {GITHUB_REPO_URL}
             </a>
           </li>
-          <li>App: App Store and Google Play · Web app available now</li>
+          <li>
+            App:{" "}
+            <a
+              href={OFFICIAL_IOS_APP_STORE_URL}
+              className="font-medium text-brand hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              App Store
+            </a>{" "}
+            ·{" "}
+            <a
+              href={OFFICIAL_ANDROID_PLAY_STORE_URL}
+              className="font-medium text-brand hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Google Play
+            </a>{" "}
+            ·{" "}
+            <a
+              href={PRODUCT_APP_URL}
+              className="font-medium text-brand hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Web app
+            </a>
+          </li>
         </ul>
       </ContentSection>
 
       <ContentSection heading="Press contact">
         <p className="text-muted">
           For interviews, review units, or partnership inquiries, use our{" "}
-          <a href="/contact" className="font-medium text-brand hover:underline">
-            contact page
-          </a>{" "}
-          with &ldquo;Press&rdquo; in the subject line.
+          <Link href={SITE_PATHS.contact} className="font-medium text-brand hover:underline">
+            contact form
+          </Link>{" "}
+          and mention that your message is a press enquiry.
         </p>
       </ContentSection>
     </ContentPage>

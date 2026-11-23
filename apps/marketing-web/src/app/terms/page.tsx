@@ -2,18 +2,22 @@ import { APP_AUTHOR, APP_NAME } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentPage, ContentSection } from "@/components/content-page";
+import { pageMetadata } from "@/lib/seo";
 import { SITE_PATHS } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/terms",
   title: "Terms of Service",
-  description: `The terms under which you may use ${APP_NAME}.`,
-};
+  description:
+    "The terms for using the Munib Tracker app and website, including the non-commercial licence, the religious content disclaimer and your responsibilities.",
+});
 
 const EFFECTIVE_DATE = "10 July 2026";
 
 export default function TermsPage() {
   return (
     <ContentPage
+      path="/terms"
       eyebrow="Legal"
       title="Terms of Service"
       intro={`By using ${APP_NAME}, you agree to these terms.`}
@@ -23,7 +27,7 @@ export default function TermsPage() {
       <ContentSection heading="The service">
         <p className="text-muted">
           {APP_NAME} is a free worship companion for personal and educational use on iOS, Android,
-          and web. It is provided by {APP_AUTHOR}. Features include salah and qaza tracking, dhikr,
+          and web. It is provided by {APP_AUTHOR}. Features include Salah and Qaza tracking, Zikr,
           Qur&apos;an and hadith libraries, learning content, prayer times, reminders, optional
           cloud sync, and related tools described on our{" "}
           <Link href={SITE_PATHS.features} className="font-medium text-brand hover:underline">
@@ -48,10 +52,11 @@ export default function TermsPage() {
 
       <ContentSection heading="Accounts">
         <p className="text-muted">
-          Guest mode requires no account. If you sign in with Google or Apple, you are responsible
-          for keeping access to that provider account secure. You must not impersonate others or
-          attempt to access another user&apos;s synced data. We may suspend or terminate accounts
-          that abuse the service, attempt unauthorized access, or submit malicious content reports.
+          Guest mode requires no account. If you sign in with Google, Apple or Facebook, you are
+          responsible for keeping access to that provider account secure. You must not impersonate
+          others or attempt to access another user&apos;s synced data. We may suspend or terminate
+          accounts that abuse the service, attempt unauthorized access, or submit malicious content
+          reports.
         </p>
       </ContentSection>
 

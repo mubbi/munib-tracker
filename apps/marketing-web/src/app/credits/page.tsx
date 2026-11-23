@@ -8,16 +8,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { CreditList } from "@/components/credit-list";
+import { pageMetadata } from "@/lib/seo";
 import { SITE_PATHS } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Credits",
-  description: `Open data sources and attributions for ${APP_NAME}.`,
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/credits",
+  title: "Content Sources & Credits — Qur'an, Hadith and Adhkar Data",
+  description:
+    "The open datasets behind Munib Tracker's Qur'an text, translations, tafsir, hadith, adhkar, duas and audio, with the licence and attribution for each.",
+});
 
 export default function CreditsPage() {
   return (
     <ContentPage
+      path="/credits"
       wide
       eyebrow="Credits"
       title="Open data & attributions"

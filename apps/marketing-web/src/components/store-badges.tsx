@@ -32,14 +32,14 @@ export function StoreBadges({
         href={OFFICIAL_IOS_APP_STORE_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Download Munib Tracker on the App Store"
+        aria-label="Download on the App Store: Munib Tracker for iPhone and iPad"
         className={badge}
         data-analytics-event="download_ios_click"
         onClick={() => trackDownloadClick("ios", placement)}
       >
         <AppleLogo className="size-7 shrink-0" />
         <span className="flex flex-col items-start leading-none">
-          <span className="text-[10px] font-medium text-white/70">Download on the</span>
+          <span className="text-[10px] font-medium text-white/70">Download on the</span>{" "}
           <span className="mt-1 text-[17px] font-semibold leading-none tracking-tight">
             App Store
           </span>
@@ -50,7 +50,7 @@ export function StoreBadges({
         href={OFFICIAL_ANDROID_PLAY_STORE_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Get Munib Tracker on Google Play"
+        aria-label="Get it on Google Play: Munib Tracker for Android"
         className={badge}
         data-analytics-event="download_android_click"
         onClick={() => trackDownloadClick("android", placement)}
@@ -59,7 +59,7 @@ export function StoreBadges({
         <span className="flex flex-col items-start leading-none">
           <span className="text-[9px] font-medium uppercase tracking-wide text-white/70">
             Get it on
-          </span>
+          </span>{" "}
           <span className="mt-1 text-[17px] font-semibold leading-none tracking-tight">
             Google Play
           </span>
@@ -70,7 +70,7 @@ export function StoreBadges({
         href={PRODUCT_APP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Try Munib Tracker in your browser"
+        aria-label="Try web app: Munib Tracker in your browser"
         className="inline-flex h-[52px] items-center gap-2 rounded-xl border border-border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:border-brand/50 hover:bg-muted-surface/50"
         data-analytics-event="web_demo_launch"
         onClick={() => trackWebDemoLaunch(placement)}

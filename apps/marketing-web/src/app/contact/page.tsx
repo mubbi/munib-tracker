@@ -2,15 +2,19 @@ import { APP_NAME } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { ContentPage, ContentSection } from "@/components/content-page";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: `Get in touch with the ${APP_NAME} team for support, feedback, or content corrections.`,
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/contact",
+  title: "Contact Us — Support, Feedback & Content Corrections",
+  description:
+    "Get help with Munib Tracker, share feedback or feature ideas, or report an error in the Qur'an, hadith or adhkar content. We read every message.",
+});
 
 export default function ContactPage() {
   return (
     <ContentPage
+      path="/contact"
       wide
       eyebrow="Contact"
       title="We would love to hear from you"
