@@ -239,6 +239,7 @@ function EditableText({
 
   const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
     if (!onChange) return;
+    // biome-ignore lint/performance/useDomNodeTextContent: contentEditable line breaks (<br>/<div>) only survive via innerText; textContent would collapse multiline copy.
     const text = (e.currentTarget.innerText || "").replace(/\u00a0/g, " ");
     onChange(multiline ? text : text.replace(/\n/g, ""));
   };
