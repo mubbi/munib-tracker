@@ -1,13 +1,15 @@
+import type { DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
 import {
   SCRIPTURE_LIST_DETAIL_MAX_WIDTH,
   ScriptureReadingFilters,
   scriptureListDetailStyles,
 } from "@/components/content/scripture-reading-filters";
+import { DuaDetailPager } from "@/components/dua/dua-detail-pager";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Button } from "@/components/ui/button";
@@ -22,6 +24,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
+import { duaNeighbors, formatDuaHeading } from "@/lib/dua-browse";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -33,6 +36,7 @@ import {
   useEnsureDuaFavoritesLoaded,
   useIsFavoriteDua,
 } from "@/stores/dua-favorites-store";
+import { recordDuaRecent } from "@/stores/dua-recents-store";
 
 /** Pre-render a static HTML page for every bundled dua at web export time. */
 export async function generateStaticParams(): Promise<Array<{ id: string }>> {
@@ -60,10 +64,23 @@ export default function DuaDetailScreen() {
   const isFavorite = useIsFavoriteDua(item?.id ?? "");
   const { toggle } = useDuaFavoritesActions();
   const shareCard = useShareContentCard();
+  const scrollRef = useRef<ScrollViewInstance>(null);
+  const neighbors = useMemo(() => (item ? duaNeighbors(items, item.id) : null), [item, items]);
 
   useEffect(() => {
-    if (item) recordContinueActivity(buildDuaActivity(item));
+    if (!item) return;
+    recordContinueActivity(buildDuaActivity(item));
+    void recordDuaRecent(item.id);
+    // Paging replaces the route in place — start the next dua at the top.
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
   }, [item]);
+
+  // Replace (not push) so Back still returns to the list after paging through a set.
+  const openNeighbor = useCallback(
+    (target: DuaItem) =>
+      router.replace({ pathname: "/dua/detail/[id]", params: { id: target.id } }),
+    [router],
+  );
 
   if (!item && items.length > 0) {
     return (
@@ -95,7 +112,9 @@ export default function DuaDetailScreen() {
     });
   };
 
-  const duaTitle = item.title;
+  const duaTitle = formatDuaHeading(item.title);
+  const categoryLabel = t(`duaCat.${item.categoryId}`);
+  const categoryHref = `/dua/${item.categoryId}` as const;
   const duaDescription = `${item.translation}${item.reference ? ` — ${item.reference}` : ""}`.slice(
     0,
     155,
@@ -103,6 +122,7 @@ export default function DuaDetailScreen() {
   const duaBreadcrumbs = [
     { name: t("tabs.home"), path: "/" },
     { name: t("dua.title"), path: "/dua" },
+    { name: categoryLabel, path: categoryHref },
     { name: duaTitle, path: `/dua/detail/${item.id}` },
   ];
   const locale = i18n.language?.split("-")[0] ?? "en";
@@ -145,14 +165,26 @@ export default function DuaDetailScreen() {
           onPress={onShare}
         />
       )}
+      {neighbors ? (
+        <DuaDetailPager neighbors={neighbors} categoryLabel={categoryLabel} onOpen={openNeighbor} />
+      ) : null}
     </Stagger>
   );
 
   return (
     <ScreenLayout
-      eyebrow={t("dua.detailEyebrow")}
-      title={item.title}
-      onBack={() => goBackOrReplace(router, "/")}
+      eyebrow={categoryLabel}
+      title={duaTitle}
+      subtitle={
+        neighbors?.occasion
+          ? t("dua.positionInOccasion", {
+              current: neighbors.occasion.position,
+              total: neighbors.occasion.total,
+            })
+          : undefined
+      }
+      onBack={() => goBackOrReplace(router, categoryHref)}
+      scrollRef={scrollRef}
       maxContentWidth={showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
     >
       {shareCard.SnapshotHost}

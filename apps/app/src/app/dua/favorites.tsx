@@ -9,19 +9,23 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { FavoritesOrderRow } from "@/components/ui/favorites-order-row";
 import { Spacing } from "@/constants/theme";
 import { loadDuaItems } from "@/lib/content-loaders";
+import { formatDuaHeading } from "@/lib/dua-browse";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { resolveTranslationField } from "@/lib/translation-locale";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
   useFavoriteDuaIds,
 } from "@/stores/dua-favorites-store";
+import { usePreferences } from "@/stores/preferences-store";
 
 export default function DuaFavoritesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const prefs = usePreferences();
   useEnsureDuaFavoritesLoaded();
   const order = useFavoriteDuaIds();
   const { setOrder, toggle } = useDuaFavoritesActions();
@@ -83,8 +87,8 @@ export default function DuaFavoritesScreen() {
                 key={item.id}
                 index={index}
                 total={items.length}
-                title={item.title}
-                subtitle={item.transliteration ?? item.translation}
+                title={formatDuaHeading(item.title)}
+                subtitle={item.transliteration ?? resolveTranslationField(item, prefs)}
                 onPress={() =>
                   router.push({ pathname: "/dua/detail/[id]", params: { id: item.id } })
                 }

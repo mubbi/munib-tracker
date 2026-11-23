@@ -4,6 +4,7 @@ import { continueStore } from "./continue-store";
 import { customAdhkarStore } from "./custom-adhkar-store";
 import { customTasbeehStore } from "./custom-tasbeeh-store";
 import { duaFavoritesStore } from "./dua-favorites-store";
+import { duaRecentsStore } from "./dua-recents-store";
 import { duroodFavoritesStore } from "./durood-favorites-store";
 import { fastingStore } from "./fasting-store";
 import { fridayChecklistStore } from "./friday-checklist-store";
@@ -51,6 +52,7 @@ export async function reloadAllStores(): Promise<void> {
     hadithStore.getState().load(),
     continueStore.getState().load(),
     duaFavoritesStore.getState().load(),
+    duaRecentsStore.getState().load(),
     duroodFavoritesStore.getState().load(),
     nameFavoritesStore.getState().load(),
     customTasbeehStore.getState().load(),

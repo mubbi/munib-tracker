@@ -119,6 +119,10 @@ export const DB_KEYS = {
   // "New" badges: when this device first showed each new feature (starts its
   // 15-day window) and whether it was added to a customised home grid.
   newFeaturesSeen: `${PREFIX}/new_features_seen`,
+  // Recently opened dua ids (most recent first, capped) — device history for the
+  // Duas hub, not synced or backed up.
+  duaRecents: `${PREFIX}/dua_recents`,
+  duaRecentsUpdatedAt: `${PREFIX}/dua_recents_updated_at`,
 } as const;
 
 /**
@@ -210,6 +214,8 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   quranRecitationModel: "deviceLocal",
   quranPronunciationModel: "deviceLocal",
   newFeaturesSeen: "deviceLocal",
+  duaRecents: "deviceLocal",
+  duaRecentsUpdatedAt: "deviceLocal",
 };
 
 function keysMatching(classes: readonly KeyPersistence[]): string[] {

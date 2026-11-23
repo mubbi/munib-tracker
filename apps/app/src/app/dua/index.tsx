@@ -1,96 +1,76 @@
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import type { SymbolViewProps } from "expo-symbols";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { DuaListRow } from "@/components/dua/dua-list-row";
+import { DuaMomentCard, DuaOfTheDayCard } from "@/components/dua/dua-spotlight";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
+import { BrowseTile } from "@/components/ui/browse-tile";
 import { EmptyState } from "@/components/ui/empty-state";
-import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { NavRow } from "@/components/ui/nav-row";
-import { Pill } from "@/components/ui/pill";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
-import { SavedNavCard } from "@/components/ui/saved-nav-card";
+import { SearchField } from "@/components/ui/search-field";
+import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { Spacing } from "@/constants/theme";
+import { useNow } from "@/hooks/use-now";
 import { loadDuaItems } from "@/lib/content-loaders";
+import {
+  DUA_CATEGORY_GROUPS,
+  DUA_CATEGORY_ICONS,
+  DUA_CATEGORY_IDS,
+  type DuaCategoryGroup,
+  duaCategoryGroup,
+  duaMomentFor,
+  duaOfTheDay,
+} from "@/lib/dua-browse";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { createDuaSearch } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { resolveTranslationField } from "@/lib/translation-locale";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
+import {
+  clearDuaRecents,
+  useEnsureDuaRecentsLoaded,
+  useRecentDuaIds,
+} from "@/stores/dua-recents-store";
+import { usePreferences } from "@/stores/preferences-store";
 
-const CATEGORY_ICONS: Record<DuaCategoryId, SymbolViewProps["name"]> = {
-  morning_evening: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
-  sleep: { ios: "moon.zzz.fill", android: "bedtime", web: "bedtime" },
-  prayer: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
-  forgiveness: {
-    ios: "hands.sparkles.fill",
-    android: "volunteer_activism",
-    web: "volunteer_activism",
-  },
-  distress: { ios: "exclamationmark.bubble.fill", android: "mood_bad", web: "mood_bad" },
-  protection: { ios: "shield.fill", android: "shield", web: "shield" },
-  quranic: { ios: "book.fill", android: "menu_book", web: "menu_book" },
-  food: { ios: "fork.knife", android: "restaurant", web: "restaurant" },
-  home: { ios: "house.fill", android: "home", web: "home" },
-  travel: { ios: "airplane", android: "flight", web: "flight" },
-  family: {
-    ios: "figure.2.and.child.holdinghands",
-    android: "family_restroom",
-    web: "family_restroom",
-  },
-  illness: { ios: "cross.case.fill", android: "medical_services", web: "medical_services" },
-  weather: { ios: "cloud.sun.fill", android: "cloud", web: "cloud" },
-  hajj: { ios: "building.columns.fill", android: "account_balance", web: "account_balance" },
-  purification: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
-  social: { ios: "person.2.fill", android: "groups", web: "groups" },
-};
-
-const CATEGORIES: DuaCategoryId[] = [
-  "morning_evening",
-  "sleep",
-  "prayer",
-  "forgiveness",
-  "distress",
-  "protection",
-  "quranic",
-  "food",
-  "home",
-  "travel",
-  "family",
-  "illness",
-  "weather",
-  "hajj",
-  "purification",
-  "social",
-];
+/** Recently read rows shown on the hub (the store keeps a few more). */
+const HUB_RECENTS = 4;
 
 export default function DuaHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   const tv = isTV();
   const { width } = useWindowDimensions();
-  // Wide web / tablets: search + saved side by side above a multi-column grid.
+  // Wide web / tablets: spotlight + shortcuts side by side, denser tile grid.
   const wide = !tv && width >= 768;
+  const tileColumns = tv ? 3 : width >= 1200 ? 4 : wide ? 3 : 2;
+  const prefs = usePreferences();
+  const now = useNow();
   useEnsureDuaFavoritesLoaded();
+  useEnsureDuaRecentsLoaded();
   const favoriteCount = useFavoriteDuaIds().length;
+  const recentIds = useRecentDuaIds();
   const [query, setQuery] = useState("");
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
   const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
+    let active = true;
     void loadDuaItems().then((items) => {
+      if (!active) return;
       setDuaItems(items);
       setCorpusReady(true);
     });
+    return () => {
+      active = false;
+    };
   }, []);
   const searching = query.trim().length > 0;
 
@@ -100,42 +80,116 @@ export default function DuaHomeScreen() {
     [query, searchIndex, searching],
   );
 
-  const indexById = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const categoryId of CATEGORIES) {
-      duaItems
-        .filter((item) => item.categoryId === categoryId)
-        .forEach((item, position) => {
-          map.set(item.id, position + 1);
-        });
+  const countByCategory = useMemo(() => {
+    const counts = new Map<DuaCategoryId, number>();
+    for (const item of duaItems) {
+      counts.set(item.categoryId, (counts.get(item.categoryId) ?? 0) + 1);
     }
-    return map;
+    return counts;
   }, [duaItems]);
 
+  const byId = useMemo(() => new Map(duaItems.map((item) => [item.id, item])), [duaItems]);
+  const recents = useMemo(
+    () =>
+      recentIds
+        .map((id) => byId.get(id))
+        .filter((item): item is DuaItem => item != null)
+        .slice(0, HUB_RECENTS),
+    [byId, recentIds],
+  );
+
+  // Re-pick only when the local day changes, not on every minute tick.
+  const dayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const todaysDua = useMemo(() => duaOfTheDay(duaItems, new Date(dayStart)), [duaItems, dayStart]);
+  const moment = duaMomentFor(now);
+  const momentHue = useCategoryHue(duaCategoryGroup(moment.categoryId).hue);
+
+  const translationOf = useCallback(
+    (item: DuaItem) => resolveTranslationField(item, prefs),
+    [prefs],
+  );
+  const openDua = useCallback(
+    (id: string) => router.push({ pathname: "/dua/detail/[id]", params: { id } }),
+    [router],
+  );
+  const openCategory = useCallback(
+    (categoryId: DuaCategoryId) =>
+      router.push({ pathname: "/dua/[category]", params: { category: categoryId } }),
+    [router],
+  );
+
+  const countLabel = (categoryId: DuaCategoryId) => {
+    const count = countByCategory.get(categoryId);
+    return count != null ? t("dua.supplicationsCount", { count }) : undefined;
+  };
+
+  // A single row, not a titled card — the card repeated "Saved duas" twice and
+  // cost ~160px above the fold for one link.
   const savedCard = (
-    <SavedNavCard
+    <NavRow
       key="saved"
-      title={t("dua.favorites")}
-      viewLabel={t("dua.viewFavorites")}
+      icon={{ ios: "star.fill", android: "star", web: "star" }}
+      label={t("dua.favorites")}
       count={favoriteCount > 0 ? favoriteCount : undefined}
-      headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
-      rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
       onPress={() => router.push("/dua/favorites")}
     />
   );
 
-  const searchCard = (
-    <Card key="search" padding="three" style={wide ? styles.fill : undefined}>
-      <TextInput
-        value={query}
-        onChangeText={setQuery}
-        placeholder={t("dua.searchPlaceholder")}
-        placeholderTextColor={colors.mutedForeground}
-        accessibilityLabel={t("dua.searchPlaceholder")}
-        style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
-      />
-    </Card>
+  const momentCard = (
+    <DuaMomentCard
+      key="moment"
+      icon={moment.icon}
+      eyebrow={t("dua.suggestedNow")}
+      title={t(`dua.moment.${moment.moment}`)}
+      subtitle={t(`duaCat.${moment.categoryId}`)}
+      hue={momentHue}
+      onPress={() => openCategory(moment.categoryId)}
+    />
   );
+
+  const spotlight = todaysDua ? (
+    <DuaOfTheDayCard
+      key="today"
+      item={todaysDua}
+      translation={translationOf(todaysDua)}
+      onPress={() => openDua(todaysDua.id)}
+      preferredFocus
+    />
+  ) : null;
+
+  const recentsBlock =
+    recents.length > 0 ? (
+      <View key="recents" style={styles.section}>
+        <SectionHeader
+          title={t("dua.recent")}
+          icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
+          actionLabel={t("dua.clearRecent")}
+          actionAccessibilityLabel={t("dua.clearRecentA11y")}
+          onActionPress={() => void clearDuaRecents()}
+        />
+        <ResponsiveGrid columns={tv ? 1 : undefined} maxColumns={2} gap={Spacing.two}>
+          {recents.map((item) => (
+            <DuaListRow
+              key={item.id}
+              item={item}
+              translation={translationOf(item)}
+              meta={t(`duaCat.${item.categoryId}`)}
+              onOpen={openDua}
+            />
+          ))}
+        </ResponsiveGrid>
+      </View>
+    ) : null;
+
+  const browse = DUA_CATEGORY_GROUPS.map((group) => (
+    <CategoryGroupSection
+      key={group.id}
+      group={group}
+      columns={tileColumns}
+      countLabel={countLabel}
+      onOpen={openCategory}
+    />
+  ));
 
   return (
     <ScreenLayout
@@ -158,7 +212,7 @@ export default function DuaHomeScreen() {
             name: "Duas & Supplications",
             description:
               "Authentic duas and supplications from the Qur'an and Sunnah — morning & evening, prayer, protection, travel, forgiveness, and more.",
-            items: CATEGORIES.map((category) => ({
+            items: DUA_CATEGORY_IDS.map((category) => ({
               name: t(`duaCat.${category}`),
               path: `/dua/${category}`,
             })),
@@ -170,134 +224,107 @@ export default function DuaHomeScreen() {
         ]}
       />
       <Stagger>
-        {wide ? (
-          <View style={styles.topRowWide}>
-            <View style={styles.searchColWide}>{searchCard}</View>
-            <View style={styles.savedColWide}>{savedCard}</View>
-          </View>
-        ) : (
-          [savedCard, searchCard]
-        )}
+        <SearchField
+          key="search"
+          value={query}
+          onChangeText={setQuery}
+          placeholder={t("dua.searchPlaceholder")}
+        />
 
         {searching ? (
           !corpusReady ? null : results.length === 0 ? (
             <EmptyState
+              key="empty"
               icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
               title={t("dua.noResults")}
               description={t("search.noResultsDesc")}
             />
           ) : (
-            <Card padding="three">
-              <ResponsiveGrid columns={tv ? 1 : undefined} maxColumns={2} gap={Spacing.two}>
-                {results.map((item) => (
-                  <DuaSearchRow
-                    key={item.id}
-                    item={item}
-                    index={indexById.get(item.id)}
-                    categoryLabel={t(`duaCat.${item.categoryId}`)}
-                    onPress={() =>
-                      router.push({ pathname: "/dua/detail/[id]", params: { id: item.id } })
-                    }
-                  />
-                ))}
-              </ResponsiveGrid>
-            </Card>
-          )
-        ) : null}
-
-        {!searching ? (
-          <Card padding="three">
-            {/* TV: two-column grid (D-pad left/right between columns). Wide web /
-                tablets: 2-4 columns by width. Phones: one column. */}
-            <ResponsiveGrid columns={tv ? 2 : undefined} gap={Spacing.two}>
-              {CATEGORIES.map((categoryId) => (
-                <NavRow
-                  key={categoryId}
-                  icon={CATEGORY_ICONS[categoryId]}
-                  label={t(`duaCat.${categoryId}`)}
-                  count={duaItems.filter((item) => item.categoryId === categoryId).length}
-                  onPress={() =>
-                    router.push({
-                      pathname: "/dua/[category]",
-                      params: { category: categoryId },
-                    })
-                  }
+            <ResponsiveGrid
+              key="results"
+              columns={tv ? 1 : undefined}
+              maxColumns={2}
+              gap={Spacing.two}
+            >
+              {results.map((item) => (
+                <DuaListRow
+                  key={item.id}
+                  item={item}
+                  translation={translationOf(item)}
+                  meta={t(`duaCat.${item.categoryId}`)}
+                  onOpen={openDua}
                 />
               ))}
             </ResponsiveGrid>
-          </Card>
+          )
         ) : null}
+
+        {!searching
+          ? [
+              wide ? (
+                <View key="spotlight" style={styles.spotlightWide}>
+                  <View style={styles.spotlightMain}>{spotlight}</View>
+                  <View style={styles.spotlightSide}>
+                    {momentCard}
+                    {savedCard}
+                  </View>
+                </View>
+              ) : (
+                <View key="spotlight" style={styles.stack}>
+                  {spotlight}
+                  {momentCard}
+                  {savedCard}
+                </View>
+              ),
+              recentsBlock,
+              ...browse,
+            ]
+          : null}
       </Stagger>
     </ScreenLayout>
   );
 }
 
-function DuaSearchRow({
-  item,
-  index,
-  categoryLabel,
-  onPress,
+function CategoryGroupSection({
+  group,
+  columns,
+  countLabel,
+  onOpen,
 }: {
-  item: DuaItem;
-  index?: number;
-  categoryLabel: string;
-  onPress: () => void;
+  group: DuaCategoryGroup;
+  columns: number;
+  countLabel: (id: DuaCategoryId) => string | undefined;
+  onOpen: (id: DuaCategoryId) => void;
 }) {
-  const { colors } = useThemeTokens();
-  const tv = isTV();
-
+  const { t } = useTranslation();
+  const hue = useCategoryHue(group.hue);
   return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
-      onPress={onPress}
-      style={[
-        styles.resultRow,
-        tv && styles.resultRowTv,
-        { flexGrow: 1, backgroundColor: colors.muted },
-      ]}
-    >
-      {index != null ? <ListIndexBadge index={index} /> : null}
-      <View style={styles.resultBody}>
-        <ThemedText type="small" numberOfLines={2}>
-          {item.title}
-        </ThemedText>
-        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-          {item.transliteration ?? item.translation}
-        </ThemedText>
-      </View>
-      <Pill compact label={categoryLabel} color={colors.mutedForeground} background={colors.card} />
-    </PressableScale>
+    <View style={styles.section}>
+      <SectionHeader title={t(`dua.group.${group.id}`)} icon={group.icon} />
+      {/* Tiles sit straight on the page — wrapping them in a Card nested three
+          surfaces deep (page → card → tile) and read as clutter on phones. */}
+      <ResponsiveGrid columns={columns} gap={Spacing.two}>
+        {group.categories.map((categoryId) => (
+          <BrowseTile
+            key={categoryId}
+            icon={DUA_CATEGORY_ICONS[categoryId]}
+            label={t(`duaCat.${categoryId}`)}
+            countLabel={countLabel(categoryId)}
+            hue={hue}
+            onPress={() => onOpen(categoryId)}
+          />
+        ))}
+      </ResponsiveGrid>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    fontSize: 15,
-  },
-  topRowWide: { flexDirection: "row", alignItems: "stretch", gap: Spacing.three },
-  searchColWide: { flex: 3, minWidth: 0 },
-  savedColWide: { flex: 2, minWidth: 0 },
-  fill: { flexGrow: 1, justifyContent: "center" },
-  resultRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  resultRowTv: {
-    minHeight: TvLayout.minFocusTarget,
-    padding: Spacing.four,
-    borderRadius: Radius.lg,
-  },
-  resultBody: { flex: 1, gap: 2 },
+  section: { gap: Spacing.two },
+  stack: { gap: Spacing.three },
+  spotlightWide: { flexDirection: "row", alignItems: "stretch", gap: Spacing.three },
+  spotlightMain: { flex: 3, minWidth: 0 },
+  spotlightSide: { flex: 2, minWidth: 0, gap: Spacing.three },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
