@@ -61,7 +61,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Morning, evening, and situational adhkar with favorites, daily progress, and a tactile tasbeeh counter.",
     highlights: [
-      "54 adhkar across seven categories plus favorites you can reorder",
+      "60 adhkar across seven categories plus favorites you can reorder",
       "Custom adhkar builder with speech-to-text and a free tasbeeh counter",
       "Zikr-linked counters that save to your daily goal",
       "Bedtime-aware before-sleep reminders",
@@ -76,7 +76,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Full mushaf: surah, juz, 604-page view, word-by-word, and tajweed coloring",
       "25 translation editions (two bundled), 123 tafsir editions on demand, eight reciters",
       "Bundled Nawawi 40 & Riyad as-Salihin; six major collections on demand",
-      "270 duas, 54 adhkar, nine duroods, 99 Names, and universal fuzzy search",
+      "279 duas, 60 adhkar, nine duroods, 99 Names, and universal fuzzy search",
     ],
   },
   {

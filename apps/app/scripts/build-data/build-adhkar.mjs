@@ -227,30 +227,38 @@ async function fetchHisnDuas() {
   try {
     const rows = parseCSV(await fetchText(HISN_CSV)).slice(1); // skip header
     // Columns: id,group_id,ar_dua,en_translation,en_reference,bn_translation,subtitle,audio
-    return rows
-      .filter((r) => r.length >= 8 && hasArabic(r[2]) && r[3]?.trim())
-      .map((r) => ({
-        hisnId: r[0],
-        groupId: Number.parseInt(r[1], 10),
-        arabic: cleanHisnArabic(r[2]),
-        // Strip the source's `--(1)--` footnote markers from the translation.
-        translation: r[3]
-          .replace(HISN_FOOTNOTE, " ")
-          .replace(/[ \t]+/g, " ")
-          .trim(),
-        translations: r[5]?.trim()
-          ? {
-              bn: r[5]
-                .replace(HISN_FOOTNOTE, " ")
-                .replace(/[ \t]+/g, " ")
-                .trim(),
-            }
-          : undefined,
-        reference: (r[4] ?? "").trim(),
-        title: (r[6] ?? "").trim(),
-        audioFile: (r[7] ?? "").trim(),
-      }))
-      .filter((d) => hasArabic(d.arabic) && !/…|\.\.\./.test(d.arabic));
+    return (
+      rows
+        .filter((r) => r.length >= 8 && hasArabic(r[2]) && r[3]?.trim())
+        .map((r) => ({
+          hisnId: r[0],
+          groupId: Number.parseInt(r[1], 10),
+          arabic: cleanHisnArabic(r[2]),
+          // Strip the source's `--(1)--` footnote markers from the translation.
+          translation: r[3]
+            .replace(HISN_FOOTNOTE, " ")
+            .replace(/[ \t]+/g, " ")
+            .trim(),
+          translations: r[5]?.trim()
+            ? {
+                bn: r[5]
+                  .replace(HISN_FOOTNOTE, " ")
+                  .replace(/[ \t]+/g, " ")
+                  .trim(),
+              }
+            : undefined,
+          reference: (r[4] ?? "").trim(),
+          title: (r[6] ?? "").trim(),
+          audioFile: (r[7] ?? "").trim(),
+        }))
+        // Abbreviated Qur'an recitations are kept only when the full passage is
+        // restored from the mushaf (HISN_QURAN_RECITATIONS); other snippets drop.
+        .filter(
+          (d) =>
+            HISN_QURAN_RECITATIONS[d.hisnId] != null ||
+            (hasArabic(d.arabic) && !/…|\.\.\./.test(d.arabic)),
+        )
+    );
   } catch (err) {
     console.warn(`  [adhkar] Hisnul Muslim corpus unavailable (${err.message})`);
     return [];
@@ -286,25 +294,35 @@ function findTranslit(arabic, lookup) {
 /**
  * Merge the full Hisnul Muslim corpus onto the curated base: keep every curated
  * item (preserving ids/titles/transliteration/favorites), then append each
- * Hisnul dua whose Arabic isn't already present, categorized by its chapter.
+ * Hisnul dua whose Arabic isn't already present *in the same category*,
+ * categorized by its chapter.
+ *
+ * Dedup is per category on purpose: the same words in another chapter are a
+ * separate occasion (بسم الله before eating vs. before wudu vs. when transport
+ * stumbles; the three Quls after salah vs. morning vs. before sleep). A global
+ * dedup silently dropped those occasions — and Sujud #2/#3/#5.
  */
 function buildDuaCorpus(hisnDuas, translitLookup) {
   const seenArabic = new Set();
   const seenIds = new Set();
   const merged = [];
+  const arabicKey = (categoryId, arabic) => {
+    const n = normalizeArabic(arabic);
+    return n ? `${categoryId}|${n}` : "";
+  };
 
   for (const item of DUA_ITEMS) {
     const categoryId = BASE_CATEGORY_OVERRIDE[item.id] ?? item.categoryId;
     merged.push({ ...item, categoryId });
-    const n = normalizeArabic(item.arabic);
-    if (n) seenArabic.add(n);
+    const key = arabicKey(categoryId, item.arabic);
+    if (key) seenArabic.add(key);
     seenIds.add(item.id);
   }
 
   for (const h of hisnDuas) {
-    const n = normalizeArabic(h.arabic);
-    if (!n || seenArabic.has(n)) continue;
-    seenArabic.add(n);
+    const key = arabicKey(HISN_CATEGORY_BY_GROUP[h.groupId] ?? "social", h.arabic);
+    if (!key || seenArabic.has(key)) continue;
+    seenArabic.add(key);
     let id = `hisn-${h.hisnId}`;
     let k = 2;
     while (seenIds.has(id)) id = `hisn-${h.hisnId}-${k++}`;
@@ -603,6 +621,54 @@ function fillBeforeSleepQuran(items) {
   fillItemFromMushaf(byId("before_sleep-ikhlas"), [{ surah: 112 }, { surah: 113 }, { surah: 114 }]);
   fillItemFromMushaf(byId("before_sleep-sajdah"), [{ surah: 32 }]);
   fillItemFromMushaf(byId("before_sleep-mulk"), [{ surah: 67 }]);
+}
+
+/**
+ * Hisnul Muslim rows (by CSV id) that only *point at* Qur'an recitations — the
+ * source prints the opening words plus "…" or a bare instruction ("Recite Surah
+ * Al-'Imran 3:190-200"), and its English column is the instruction or merit,
+ * not the meaning. Each maps to the exact mushaf span the narration names.
+ */
+const HISN_QURAN_RECITATIONS = {
+  // Upon waking: Al-'Imran 3:190-200, the span Hisnul Muslim cites.
+  4: [{ surah: 3, from: 190, to: 200 }],
+  // After the taslim: Al-Ikhlas, Al-Falaq, An-Nas.
+  70: [{ surah: 112 }, { surah: 113 }, { surah: 114 }],
+  // After the taslim: Ayat al-Kursi.
+  71: [{ surah: 2, from: 255, to: 255 }],
+  // Morning & evening: Ayat al-Kursi.
+  75: [{ surah: 2, from: 255, to: 255 }],
+  // Morning & evening: the three Quls (three times).
+  76: [{ surah: 112 }, { surah: 113 }, { surah: 114 }],
+  // Before sleeping: the three Quls (blown into the palms).
+  99: [{ surah: 112 }, { surah: 113 }, { surah: 114 }],
+  // Before sleeping: Ayat al-Kursi.
+  100: [{ surah: 2, from: 255, to: 255 }],
+  // Before sleeping: the last two verses of Al-Baqarah.
+  101: [{ surah: 2, from: 285, to: 286 }],
+  // Before sleeping: As-Sajdah and Al-Mulk.
+  110: [{ surah: 32 }, { surah: 67 }],
+  // Protection from the Dajjal: the first ten verses of Al-Kahf.
+  199: [{ surah: 18, from: 1, to: 10 }],
+};
+
+/**
+ * Restore the full recitation for every HISN_QURAN_RECITATIONS dua from the
+ * bundled mushaf (Arabic, transliteration, translations). The source's English
+ * instruction / merit moves to `virtues`; its locale texts translated that
+ * instruction, so they are cleared before the mushaf editions are layered on.
+ * Runs after the translation merges, which key off the abbreviated Arabic.
+ */
+function fillHisnQuranRecitations(items) {
+  for (const [hisnId, spans] of Object.entries(HISN_QURAN_RECITATIONS)) {
+    const item = items.find((d) => d.id === `hisn-${hisnId}`);
+    if (!item) throw new Error(`[adhkar] Hisnul recitation hisn-${hisnId} missing from the corpus`);
+    const instruction = item.translation?.trim();
+    if (instruction) item.virtues = instruction;
+    delete item.translations;
+    delete item.transliteration;
+    fillItemFromMushaf(item, spans);
+  }
 }
 
 // Which after-fard prayers an after-salah dhikr is specific to (by a distinctive
@@ -1955,7 +2021,7 @@ function renderDuas(items, audioById) {
     .join("\n");
   return `import type { DuaCategoryId, DuaItem } from "../types/index";
 
-export const DUA_CONTENT_VERSION = 6;
+export const DUA_CONTENT_VERSION = 7;
 
 export const DUA_CATEGORY_LABELS: Record<DuaCategoryId, string> = {
 ${labels}
@@ -2012,6 +2078,44 @@ export function getDurudById(id: string): DurudItem | undefined {
 `;
 }
 
+/**
+ * Consonantal skeleton for cross-script matching: the bundled mushaf is Uthmani
+ * (ٱلسَّمَٰوَٰتِ) while Hisnul is simple script (السماوات), so alifs and the
+ * long vowels are dropped and letter variants unified before comparing.
+ */
+function arabicSkeleton(text) {
+  return normalizeArabic(text).replace(/ى/g, "ي").replace(/[ؤئ]/g, "ء").replace(/[اوي]/g, "");
+}
+
+/**
+ * Guard against shipping the opening words of a Qur'an passage as if it were
+ * the whole recitation (the Hisnul "Ayat al-Kursi" bug): any item whose text is
+ * a strict prefix of a verse — and long enough to be a quotation rather than a
+ * stock phrase like سبحان الله — must be filled from the mushaf instead.
+ */
+function assertNoTruncatedQuran(items) {
+  const verses = [];
+  for (let surah = 1; surah <= 114; surah++) {
+    const obj = loadQuranSurahObj("arabic", surah);
+    if (!obj) continue;
+    for (const [ayah, text] of Object.entries(obj)) {
+      verses.push({ ref: `${surah}:${ayah}`, k: arabicSkeleton(text) });
+    }
+  }
+  const MIN_QUOTE = 16; // skeleton letters ≈ four or five words
+  for (const item of items) {
+    const k = arabicSkeleton(item.arabic ?? "");
+    if (k.length < MIN_QUOTE) continue;
+    // Any missing tail counts — even one word (e.g. 57:3 without "'alim").
+    const cut = verses.find((v) => v.k.length > k.length && v.k.startsWith(k));
+    if (cut) {
+      throw new Error(
+        `[adhkar] ${item.id} quotes only the start of Qur'an ${cut.ref} — fill the full passage from the mushaf`,
+      );
+    }
+  }
+}
+
 function assertContent(zikr, dua, durood) {
   const all = [...zikr, ...dua, ...durood];
   const ids = new Set(all.map((i) => i.id));
@@ -2030,6 +2134,7 @@ function assertContent(zikr, dua, durood) {
       );
     }
   }
+  assertNoTruncatedQuran(all);
   for (const item of [...zikr, ...dua]) {
     if (!item.reference?.trim()) {
       throw new Error(`[adhkar] item ${item.id} is missing a reference`);
@@ -2474,6 +2579,7 @@ export async function buildAdhkar() {
     mergeTranslationMaps(list, { bn: bnMap, id: idMap });
     applyQuranLocaleTranslations(list);
   }
+  fillHisnQuranRecitations(duaItems);
 
   assertContent(zikrItems, duaItems, duroodItems);
 
