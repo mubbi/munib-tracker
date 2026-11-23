@@ -326,6 +326,8 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       shipped("No ads, no subscriptions", "Free for personal use"),
       shipped("No account needed", "Optional Google, Apple or Facebook sign-in to sync"),
       shipped("Backup and restore", "A file you keep, plus an offline download manager"),
+      shipped("Sync conflict review", "Choose which version to keep when two devices disagree"),
+      shipped("Notification inbox", "Announcements and reminders in one place in the app"),
       shipped("App lock", "PIN or biometrics"),
       shipped(
         "24 languages",

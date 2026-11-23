@@ -14,7 +14,7 @@ const DESCRIPTION =
 
 export const metadata: Metadata = pageMetadata({
   path: PATH,
-  title: "Who It's For — New Muslims, Qur'an Learners & Families",
+  title: "Who It's For — Returning to Salah, New Muslims, Qur'an Learners & Families",
   description: DESCRIPTION,
 });
 

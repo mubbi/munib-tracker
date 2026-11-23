@@ -126,7 +126,7 @@ export default function PrivacyPage() {
 
       <ContentSection heading="Notifications">
         <p className="text-muted">
-          Prayer, adhkar, qaza, fasting, family-ties, muhasabah, daily content, Friday, Qur&apos;an
+          Prayer, adhkar, Qaza, fasting, family-ties, muhasabah, daily content, Friday, Qur&apos;an
           revision, and achievement reminders are scheduled locally on your device when you enable
           them. If you allow notifications, the app registers a push token with our server so we can
           send service announcements, Live Activity updates on iOS, and web push reminders; you can
@@ -140,7 +140,7 @@ export default function PrivacyPage() {
           If you sign in with Google, Apple or Facebook, we store the minimum needed to sync across
           devices: an account identifier, email and display name from the provider (when provided),
           and the worship and learning records you choose to sync (for example prayer logs, zikr
-          progress, qaza, preferences, favorites, bookmarks, khatm/hifz, custom adhkar, journal
+          progress, Qaza, preferences, favorites, bookmarks, khatm/hifz, custom adhkar, journal
           entries, and learning progress). Sync uses last-write-wins conflict handling. We do not
           sell your data or use it for advertising.
         </p>

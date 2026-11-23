@@ -6,6 +6,7 @@ import { FeatureIcon } from "@/components/content/feature-icon";
 import { PageHero } from "@/components/content/page-hero";
 import {
   FaqList,
+  frameWidthClass,
   JsonLdScript,
   LinkCard,
   PageSection,
@@ -124,8 +125,8 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
               key={b.title}
               className="flex gap-4 rounded-2xl border border-white/10 bg-[#0c2131]/45 p-6"
             >
-              <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand/12 text-brand ring-1 ring-brand/20">
-                <FeatureIcon icon={feature.icon} />
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-brand/12 text-brand ring-1 ring-brand/20">
+                <Check aria-hidden className="size-4" />
               </span>
               <div>
                 <h3 className="font-display text-[17px] font-semibold text-white">{b.title}</h3>
@@ -142,11 +143,7 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
         <PageSection id="screenshots" eyebrow="In the app" title="See it in Munib Tracker">
           <div className="flex flex-wrap items-start justify-center gap-10">
             {moreShots.map((slot) => (
-              <Screenshot
-                key={slot.key}
-                slot={slot}
-                className={slot.key === "tv-home" ? "w-full max-w-xl" : "w-[200px] sm:w-[220px]"}
-              />
+              <Screenshot key={slot.key} slot={slot} className={frameWidthClass(slot.key)} />
             ))}
           </div>
         </PageSection>

@@ -1,6 +1,5 @@
 "use client";
 
-import { APP_TAGLINE } from "@munib-tracker/shared/constants";
 import { motion, stagger, type Variants } from "framer-motion";
 import { ArrowRight, Ban, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
@@ -88,8 +87,8 @@ export function Hero() {
             </TrackedLink>
           </motion.div>
 
-          <motion.h1
-            variants={item}
+          {/* Not animated: the H1 is the LCP element and must paint immediately. */}
+          <h1
             id="hero-heading"
             className="hero-text-shadow mt-7 font-sans text-[3rem] font-semibold leading-[1.04] tracking-[-0.015em] text-[#f4f1ea] sm:text-6xl lg:text-[4.35rem]"
           >
@@ -100,7 +99,7 @@ export function Hero() {
             <span className="block whitespace-nowrap bg-gradient-to-r from-[#f8e7b2] via-[#eecd81] to-[#dcae5e] bg-clip-text text-transparent [text-shadow:none] drop-shadow-[0_2px_14px_rgba(30,20,4,0.45)]">
               Back to Allah.
             </span>
-          </motion.h1>
+          </h1>
 
           <motion.p
             variants={item}
@@ -208,8 +207,6 @@ export function Hero() {
         <title>Crescent moon</title>
         <path d="M68 54a30 30 0 11-26-32 24 24 0 1026 32z" fill="#f2cd7e" />
       </svg>
-
-      <p className="sr-only">{APP_TAGLINE}</p>
     </section>
   );
 }

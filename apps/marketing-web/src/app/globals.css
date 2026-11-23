@@ -4,9 +4,6 @@
 @source "../components/**/*.{ts,tsx}";
 @source "../../../../packages/theme/src/**/*.{ts,tsx}";
 
-/* Class-based dark mode (a togglable `.dark`, not just prefers-color-scheme) */
-@custom-variant dark (&:where(.dark, .dark *));
-
 /*
  * Munib Tracker — premium marketing design system.
  *
@@ -83,21 +80,6 @@
   --animate-shimmer: shimmer 2.4s linear infinite;
   --animate-aurora: aurora 16s ease-in-out infinite alternate;
   --animate-spin-slow: spin 26s linear infinite;
-}
-
-.dark {
-  --color-background: #060a09;
-  --color-surface: #0c1412;
-  --color-card: #101917;
-  --color-card-foreground: #eaf2ee;
-  --color-foreground: #eaf2ee;
-  --color-muted: #93a79d;
-  --color-muted-surface: #131e1a;
-  --color-border: #1d2723;
-  --color-brand: #34d399;
-  --color-brand-strong: #10b981;
-  --color-brand-soft: #0c2b22;
-  color-scheme: dark;
 }
 
 :root {

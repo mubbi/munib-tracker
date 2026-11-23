@@ -1,7 +1,7 @@
 import { ChevronRight, Plus } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { AppleWatchFrame, RoundWatchFrame, TvFrame } from "@/components/content/device-frames";
 import { RichText } from "@/components/content/rich-text";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
 import type { FaqItem, ScreenshotSlot } from "@/content/types";
@@ -51,6 +51,14 @@ export function Breadcrumbs({ items, className }: { items: readonly Crumb[]; cla
   );
 }
 
+/** Width class that suits each frame when a caller doesn't size it. */
+export function frameWidthClass(key: ScreenshotSlot["key"]): string {
+  const frame = getScreenshot(key).frame;
+  if (frame === "tv") return "w-full max-w-xl";
+  if (frame === "phone") return "w-[200px] sm:w-[220px]";
+  return "w-[170px] sm:w-[190px]";
+}
+
 /** A real screenshot inside the right device frame, with an optional caption. */
 export function Screenshot({
   slot,
@@ -76,39 +84,23 @@ export function Screenshot({
         className="w-full"
       />
     );
-  } else if (shot.frame === "tv") {
-    device = (
-      <div className="rounded-2xl border border-white/15 bg-black p-2 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.9)]">
-        <Image
-          src={shot.src}
-          alt={shot.alt}
-          width={shot.width}
-          height={shot.height}
-          priority={priority}
-          sizes="(min-width: 1024px) 640px, 92vw"
-          className="h-auto w-full rounded-xl"
-        />
-      </div>
-    );
   } else {
-    device = (
-      <div
-        className={cn(
-          "mx-auto overflow-hidden border-[6px] border-[#2a2f36] bg-black shadow-[0_30px_80px_-24px_rgba(0,0,0,0.9)]",
-          shot.frame === "round" ? "rounded-full" : "rounded-[2.4rem]",
-        )}
-      >
-        <Image
-          src={shot.src}
-          alt={shot.alt}
-          width={shot.width}
-          height={shot.height}
-          priority={priority}
-          sizes="220px"
-          className="h-auto w-full"
-        />
-      </div>
-    );
+    const props = {
+      src: shot.src,
+      alt: shot.alt,
+      width: shot.width,
+      height: shot.height,
+      priority,
+      className: "w-full",
+    };
+    device =
+      shot.frame === "tv" ? (
+        <TvFrame {...props} />
+      ) : shot.frame === "round" ? (
+        <RoundWatchFrame {...props} />
+      ) : (
+        <AppleWatchFrame {...props} />
+      );
   }
   return (
     <figure className={cn("flex flex-col items-center", className)}>

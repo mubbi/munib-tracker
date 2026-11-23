@@ -5,11 +5,11 @@ import { StoreBadges } from "@/components/store-badges";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/interactive";
 import { Reveal } from "@/components/ui/motion";
-import { trackCtaClick } from "@/lib/analytics";
+import { type CtaPlacement, type DownloadPlacement, trackCtaClick } from "@/lib/analytics";
 import { SITE_PATHS } from "@/lib/site";
 
 /** Closing call-to-action — the last chapter of the Day Arc journey. */
-export function CtaBand() {
+export function CtaBand({ placement = "cta" }: { placement?: CtaPlacement & DownloadPlacement }) {
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       {/* Warm dawn glow returning on the horizon — the journey begins again */}
@@ -47,7 +47,7 @@ export function CtaBand() {
                 href={SITE_PATHS.download}
                 variant="gold"
                 size="lg"
-                onClick={() => trackCtaClick("get_app", "cta")}
+                onClick={() => trackCtaClick("get_app", placement)}
               >
                 Get the app
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -57,13 +57,13 @@ export function CtaBand() {
               href={SITE_PATHS.features}
               variant="glass"
               size="lg"
-              onClick={() => trackCtaClick("explore_features", "cta")}
+              onClick={() => trackCtaClick("explore_features", placement)}
             >
               Explore features
             </Button>
           </div>
           <div className="mt-10 flex justify-center">
-            <StoreBadges className="justify-center" placement="cta" />
+            <StoreBadges className="justify-center" placement={placement} />
           </div>
         </Reveal>
       </div>

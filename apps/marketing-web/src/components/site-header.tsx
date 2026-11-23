@@ -29,10 +29,12 @@ function menuIsActive(pathname: string, menu: NavMenu) {
 function MegaPanel({
   menu,
   id,
+  pathname,
   onNavigate,
 }: {
   menu: NavMenu;
   id: string;
+  pathname: string;
   onNavigate: (label: string) => void;
 }) {
   return (
@@ -52,6 +54,7 @@ function MegaPanel({
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      aria-current={pathname === item.href ? "page" : undefined}
                       className="group block rounded-xl px-3 py-2.5 transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.06]"
                       onClick={() => onNavigate(item.label)}
                     >
@@ -101,7 +104,7 @@ function MegaPanel({
             className="inline-flex items-center gap-1.5 px-1 text-sm font-semibold text-white/80 hover:text-brand"
             onClick={() => onNavigate(`all_${menu.id}`)}
           >
-            View all {menu.label.toLowerCase()}
+            {menu.viewAllLabel}
             <ArrowRight aria-hidden className="size-4" />
           </Link>
         </div>
@@ -119,6 +122,7 @@ export function SiteHeader() {
   const baseId = useId();
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const onHome = pathname === "/";
   const showChrome = scrolled || !onHome || mobileOpen || openMenu !== null;
@@ -153,7 +157,10 @@ export function SiteHeader() {
         document.getElementById(`${baseId}-trigger-${openMenu}`)?.focus();
         setOpenMenu(null);
       }
-      setMobileOpen(false);
+      if (mobileOpen) {
+        setMobileOpen(false);
+        toggleRef.current?.focus();
+      }
     };
     const onPointer = (e: PointerEvent) => {
       if (headerRef.current && !headerRef.current.contains(e.target as Node)) setOpenMenu(null);
@@ -166,13 +173,19 @@ export function SiteHeader() {
     };
   }, [openMenu, mobileOpen, baseId]);
 
-  // Lock page scroll behind the mobile drawer.
+  // Lock page scroll and make the page behind the mobile drawer inert.
   useEffect(() => {
     if (!mobileOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const behind = [
+      document.getElementById("main-content"),
+      document.querySelector("body > footer"),
+    ];
+    for (const el of behind) el?.setAttribute("inert", "");
     return () => {
       document.body.style.overflow = prev;
+      for (const el of behind) el?.removeAttribute("inert");
     };
   }, [mobileOpen]);
 
@@ -212,14 +225,14 @@ export function SiteHeader() {
         <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-8">
           <Link
             href={SITE_PATHS.home}
-            className="flex shrink-0 items-center gap-2.5 font-semibold tracking-tight text-white transition-opacity hover:opacity-85"
+            className="flex shrink-0 items-center gap-3 font-semibold tracking-tight text-white transition-opacity hover:opacity-85"
           >
             <Image
-              src="/munib-logo.png"
+              src="/icon-512.png"
               alt=""
               width={112}
               height={112}
-              className="size-11 rounded-xl md:size-12"
+              className="size-10 rounded-[22%] shadow-[0_6px_18px_-6px_rgba(0,0,0,0.7)] md:size-11"
               priority
             />
             <span className="font-display text-[17px] font-semibold [text-shadow:0_1px_8px_rgba(0,0,0,0.35)] md:text-lg">
@@ -241,12 +254,18 @@ export function SiteHeader() {
                       cancelClose();
                       setOpenMenu(menu.id);
                     }}
+                    onBlur={(e) => {
+                      const next = e.relatedTarget as Node | null;
+                      if (next && !e.currentTarget.contains(next)) {
+                        setOpenMenu((current) => (current === menu.id ? null : current));
+                      }
+                    }}
                   >
                     <button
                       id={`${baseId}-trigger-${menu.id}`}
                       type="button"
                       aria-expanded={open}
-                      aria-controls={panelId}
+                      aria-controls={open ? panelId : undefined}
                       className={cn(
                         "inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.35)]",
                         open || active ? "text-white" : "text-white/75 hover:text-white",
@@ -265,7 +284,14 @@ export function SiteHeader() {
                         className={cn("size-4 transition-transform", open && "rotate-180")}
                       />
                     </button>
-                    {open ? <MegaPanel menu={menu} id={panelId} onNavigate={onNavigate} /> : null}
+                    {open ? (
+                      <MegaPanel
+                        menu={menu}
+                        id={panelId}
+                        pathname={pathname}
+                        onNavigate={onNavigate}
+                      />
+                    ) : null}
                   </li>
                 );
               })}
@@ -299,6 +325,7 @@ export function SiteHeader() {
               Get the app
             </Link>
             <button
+              ref={toggleRef}
               type="button"
               className="inline-flex size-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white lg:hidden"
               aria-expanded={mobileOpen}
@@ -356,6 +383,7 @@ export function SiteHeader() {
                               <li key={item.href}>
                                 <Link
                                   href={item.href}
+                                  aria-current={pathname === item.href ? "page" : undefined}
                                   className="block rounded-xl px-2 py-2.5 text-[15px] text-white/85 active:bg-white/10"
                                   onClick={() => onNavigate(item.label)}
                                 >
@@ -376,7 +404,7 @@ export function SiteHeader() {
                         className="mt-2 inline-flex items-center gap-1 px-2 py-2 text-sm font-semibold text-brand"
                         onClick={() => onNavigate(`all_${menu.id}`)}
                       >
-                        View all {menu.label.toLowerCase()}
+                        {menu.viewAllLabel}
                         <ArrowRight aria-hidden className="size-4" />
                       </Link>
                     </div>

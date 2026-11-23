@@ -4,7 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { type KeyboardEvent, useId, useRef, useState } from "react";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
-import { trackSelectContent } from "@/lib/analytics";
+import { trackCtaClick, trackSelectContent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 type Tab = {
@@ -185,6 +185,7 @@ export function ProductTour() {
             <Link
               href={tab.href}
               className="group mt-8 inline-flex items-center gap-1.5 font-semibold text-brand hover:underline"
+              onClick={() => trackCtaClick("explore_features", "home_tour")}
             >
               {tab.cta}
               <ArrowRight

@@ -2,6 +2,7 @@ import { ArrowRight, Ban, BookCheck, Code2, ShieldCheck, UserRound, WifiOff } fr
 import Link from "next/link";
 import { FeatureIcon } from "@/components/content/feature-icon";
 import { LinkCard, PageSection } from "@/components/content/primitives";
+import { TrackedLink } from "@/components/tracked-link";
 import { AUDIENCE_PAGES, audienceHref } from "@/content/audiences";
 import { COMPARE_PAGES, compareHref } from "@/content/compare";
 import { FEATURE_PAGES, featureHref } from "@/content/features";
@@ -27,9 +28,12 @@ export function FeatureHub() {
             icon={<FeatureIcon icon={f.icon} />}
           />
         ))}
-        <Link
+        <TrackedLink
           href="/features"
           className="group flex flex-col justify-center rounded-2xl border border-dashed border-white/20 p-6 text-center transition-colors hover:border-brand/50"
+          track="cta"
+          cta="explore_features"
+          placement="home_features"
         >
           <span className="font-display text-lg font-semibold text-white">
             See the complete list
@@ -40,7 +44,7 @@ export function FeatureHub() {
           <span className="mt-3 inline-flex items-center justify-center gap-1 text-sm font-semibold text-brand">
             All features <ArrowRight aria-hidden className="size-4" />
           </span>
-        </Link>
+        </TrackedLink>
       </div>
     </PageSection>
   );
@@ -77,12 +81,15 @@ export function HowItWorksTeaser() {
           </li>
         ))}
       </ol>
-      <Link
+      <TrackedLink
         href="/how-it-works"
         className="mt-8 inline-flex items-center gap-1.5 font-semibold text-brand hover:underline"
+        track="cta"
+        cta="how_it_works"
+        placement="home_how_it_works"
       >
         See the full walkthrough <ArrowRight aria-hidden className="size-4" />
-      </Link>
+      </TrackedLink>
     </PageSection>
   );
 }
@@ -135,12 +142,15 @@ export function PrivacyBand() {
           </div>
         ))}
       </div>
-      <Link
+      <TrackedLink
         href="/why-munib-tracker"
         className="mt-8 inline-flex items-center gap-1.5 font-semibold text-brand hover:underline"
+        track="cta"
+        cta="our_principles"
+        placement="home_privacy"
       >
         Our principles <ArrowRight aria-hidden className="size-4" />
-      </Link>
+      </TrackedLink>
     </PageSection>
   );
 }
@@ -199,12 +209,15 @@ export function CompareAndGuides() {
               </li>
             ))}
           </ul>
-          <Link
+          <TrackedLink
             href="/compare"
             className="mt-4 inline-block text-sm font-semibold text-brand hover:underline"
+            track="cta"
+            cta="compare_apps"
+            placement="home_compare"
           >
             All comparisons
-          </Link>
+          </TrackedLink>
         </div>
         <div>
           <h3 className="font-display text-xl font-semibold text-white">Guides worth reading</h3>
@@ -225,12 +238,15 @@ export function CompareAndGuides() {
               </li>
             ))}
           </ul>
-          <Link
+          <TrackedLink
             href="/resources"
             className="mt-4 inline-block text-sm font-semibold text-brand hover:underline"
+            track="cta"
+            cta="read_guides"
+            placement="home_compare"
           >
             All guides
-          </Link>
+          </TrackedLink>
         </div>
       </div>
     </PageSection>

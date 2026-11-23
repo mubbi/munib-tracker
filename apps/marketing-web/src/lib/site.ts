@@ -49,8 +49,10 @@ export type NavColumn = { heading: string; items: readonly NavItem[] };
 export type NavMenu = {
   id: string;
   label: string;
-  /** Landing page for the whole menu (shown as "View all"). */
+  /** Landing page for the whole menu. */
   href: string;
+  /** Label for the link to `href`. */
+  viewAllLabel: string;
   columns: readonly NavColumn[];
   /** Optional highlighted card in the panel. */
   feature?: NavItem & { eyebrow: string };
@@ -58,7 +60,7 @@ export type NavMenu = {
 
 /**
  * Header mega-menus. Kept as plain literals (not derived from `src/content`)
- * so the client header doesn't ship page copy; `navigation.test.ts` keeps
+ * so the client header doesn't ship page copy; `content/content.test.ts` keeps
  * these hrefs in sync with the content registries.
  */
 export const NAV_MENUS: readonly NavMenu[] = [
@@ -66,6 +68,7 @@ export const NAV_MENUS: readonly NavMenu[] = [
     id: "features",
     label: "Features",
     href: SITE_PATHS.features,
+    viewAllLabel: "View all features",
     columns: [
       {
         heading: "Track your worship",
@@ -174,6 +177,7 @@ export const NAV_MENUS: readonly NavMenu[] = [
     id: "solutions",
     label: "Who it's for",
     href: SITE_PATHS.audiences,
+    viewAllLabel: "See everyone it's for",
     columns: [
       {
         heading: "Who it's for",
@@ -205,7 +209,6 @@ export const NAV_MENUS: readonly NavMenu[] = [
             hint: "Set up your routine in a minute",
           },
           { href: SITE_PATHS.why, label: "Why Munib Tracker", hint: "Private, ad-free, authentic" },
-          { href: SITE_PATHS.compare, label: "Compare apps", hint: "Honest, sourced comparisons" },
         ],
       },
     ],
@@ -214,6 +217,7 @@ export const NAV_MENUS: readonly NavMenu[] = [
     id: "resources",
     label: "Resources",
     href: SITE_PATHS.resources,
+    viewAllLabel: "Browse all guides",
     columns: [
       {
         heading: "Guides",
@@ -330,7 +334,6 @@ export const FOOTER_GROUPS = [
     links: [
       { href: SITE_PATHS.about, label: "About" },
       { href: SITE_PATHS.download, label: "Download" },
-      { href: PRODUCT_APP_URL, label: "Open web app", external: true },
       { href: SITE_PATHS.openSource, label: "Open source" },
       { href: SITE_PATHS.contributors, label: "Contributors" },
       { href: SITE_PATHS.contact, label: "Contact" },

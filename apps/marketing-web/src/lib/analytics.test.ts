@@ -46,13 +46,13 @@ describe("analytics", () => {
       content_type: "feature",
       item_id: "quran",
       link_url: "/features",
-      placement: "home_bento",
+      placement: "home_learn",
     });
     expect(trackGtagEvent).toHaveBeenCalledWith("select_content", {
       content_type: "feature",
       item_id: "quran",
       link_url: "/features",
-      placement: "home_bento",
+      placement: "home_learn",
     });
 
     trackSelectContent({ content_type: "faq", item_id: "offline" });

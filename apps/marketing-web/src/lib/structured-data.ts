@@ -1,7 +1,6 @@
 import {
   APP_AUTHOR,
   APP_AUTHOR_URL,
-  APP_DESCRIPTION,
   APP_NAME,
   APP_TAGLINE,
   OFFICIAL_ANDROID_PLAY_STORE_URL,
@@ -22,6 +21,38 @@ import { GITHUB_REPO_URL, PRODUCT_APP_URL, SITE_URL } from "@/lib/site";
  */
 
 type Json = Record<string, unknown>;
+
+/** Site description for schema.org (kept here so the app's shared copy is untouched). */
+const SITE_DESCRIPTION =
+  "Munib Tracker is a free Islamic app with no ads: track your Salah, make up Qaza, keep daily Zikr, read and practise the Qur'an, and learn your deen, on phone, web, watch and TV.";
+
+/** The app's 24 interface locales (packages/shared/src/i18n/locale-registry.ts). */
+const APP_LOCALES = [
+  "en",
+  "ar",
+  "ur",
+  "id",
+  "tr",
+  "bn",
+  "ms",
+  "fa",
+  "fr",
+  "ha",
+  "sw",
+  "ru",
+  "az",
+  "ps",
+  "so",
+  "uz",
+  "kk",
+  "ku",
+  "bs",
+  "sq",
+  "ky",
+  "tg",
+  "tk",
+  "hi",
+];
 
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
@@ -45,7 +76,7 @@ export function websiteSchema(): Json {
     "@id": WEBSITE_ID,
     url: SITE_URL,
     name: APP_NAME,
-    description: APP_DESCRIPTION,
+    description: SITE_DESCRIPTION,
     inLanguage: "en",
     publisher: { "@id": ORGANIZATION_ID },
   };
@@ -56,7 +87,7 @@ export function softwareApplicationSchema(featureList?: readonly string[]): Json
     "@type": "SoftwareApplication",
     "@id": SOFTWARE_ID,
     name: APP_NAME,
-    description: APP_DESCRIPTION,
+    description: SITE_DESCRIPTION,
     slogan: APP_TAGLINE,
     applicationCategory: "LifestyleApplication",
     operatingSystem: "iOS, Android, Web, tvOS, Android TV, watchOS, Wear OS",
@@ -69,7 +100,7 @@ export function softwareApplicationSchema(featureList?: readonly string[]): Json
     publisher: { "@id": ORGANIZATION_ID },
     codeRepository: GITHUB_REPO_URL,
     license: PROJECT_LICENSE_URL,
-    inLanguage: ["en", "ar", "ur"],
+    inLanguage: APP_LOCALES,
     ...(featureList?.length ? { featureList: [...featureList] } : {}),
   };
 }

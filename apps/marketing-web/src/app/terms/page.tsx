@@ -62,7 +62,7 @@ export default function TermsPage() {
 
       <ContentSection heading="Religious content disclaimer">
         <p className="text-muted">
-          Calculators and estimates (such as lifetime qaza and missed-fast estimates), fiqh guides,
+          Calculators and estimates (such as lifetime Qaza and missed-fast estimates), fiqh guides,
           and learning lessons are aids for education — not fatwas. For rulings specific to your
           situation, consult a qualified scholar. We strive for accuracy and cite open sources (see{" "}
           <Link href={SITE_PATHS.credits} className="font-medium text-brand hover:underline">

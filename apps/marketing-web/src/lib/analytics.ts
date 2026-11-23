@@ -15,6 +15,8 @@ export type DownloadPlacement =
   | "compare_page"
   | "article"
   | "hub_page"
+  | "how_it_works_page"
+  | "why_page"
   | "home_privacy";
 
 export type CtaName =
@@ -26,15 +28,18 @@ export type CtaName =
   | "return_home"
   | "how_it_works"
   | "compare_apps"
-  | "read_guides";
+  | "read_guides"
+  | "our_principles";
 
 export type CtaPlacement =
   | DownloadPlacement
   | "home_learn"
-  | "home_pillars"
   | "home_faq"
-  | "home_bento"
-  | "home_ai_practice";
+  | "home_ai_practice"
+  | "home_tour"
+  | "home_features"
+  | "home_how_it_works"
+  | "home_compare";
 
 export function trackDownloadClick(platform: DownloadPlatform, placement: DownloadPlacement): void {
   trackGtagEvent("download_click", { platform, placement });

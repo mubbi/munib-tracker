@@ -31,7 +31,7 @@ const POINTS: { id: string; icon: LucideIcon; title: string; body: string }[] = 
     id: "follow",
     icon: Mic,
     title: "Follows you word by word",
-    body: "Recite at your own pace. Words light up as the listener hears them, and any it couldn't follow get a gentle try-again mark. No scores.",
+    body: "Recite at your own pace. Words light up as the listener hears them, words to try again are marked gently, and a pronunciation check shows which words are worth listening to again. No scores.",
   },
   {
     id: "memorize",
@@ -134,61 +134,6 @@ export function AiPracticeHighlight() {
         </div>
       </div>
     </Section>
-  );
-}
-
-/**
- * Compact banner for inner pages (e.g. /features): the same story in one card,
- * with the session preview beside it on wide screens.
- */
-export function AiPracticeBanner({ placement }: { placement: CtaPlacement }) {
-  return (
-    <section
-      id="quran-practice"
-      aria-labelledby="ai-practice-banner-title"
-      className="relative overflow-hidden rounded-[var(--radius-card)] border border-brand/30 bg-card/80 p-6 shadow-[var(--shadow-card)] md:p-8"
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-32 -right-24 size-80 rounded-full bg-brand/20 blur-[110px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-36 -left-24 size-72 rounded-full bg-gold/15 blur-[110px]"
-      />
-      <div className="relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-b from-gold-soft to-gold px-3 py-1 text-xs font-bold text-hero-to">
-            <Sparkles className="size-3.5" aria-hidden />
-            New · AI feature
-          </span>
-          <h2
-            id="ai-practice-banner-title"
-            className="mt-4 text-balance font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl"
-          >
-            Qur&apos;an practice with AI
-          </h2>
-          <p className="mt-3 max-w-xl text-pretty leading-relaxed text-muted">
-            Recite, and an AI listener on your phone follows you word by word. Hide words or whole
-            ayahs to test your memorization, hear any word again, and let a spaced revision queue
-            bring passages back before they fade. Your audio never leaves the device.
-          </p>
-          <ul className="mt-5 flex flex-wrap gap-2" aria-label="Highlights">
-            {CHIPS.map(({ icon: Icon, label }) => (
-              <li
-                key={label}
-                className="inline-flex items-center gap-1.5 rounded-full border border-brand/25 bg-brand/10 px-3 py-1 text-xs font-semibold text-brand"
-              >
-                <Icon className="size-3.5" aria-hidden />
-                {label}
-              </li>
-            ))}
-          </ul>
-          <PracticeCtas className="mt-7" placement={placement} />
-        </div>
-        <PracticePreview />
-      </div>
-    </section>
   );
 }
 

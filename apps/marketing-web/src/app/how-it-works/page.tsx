@@ -7,6 +7,7 @@ import { RichText } from "@/components/content/rich-text";
 import { StoreBadges } from "@/components/store-badges";
 import type { ScreenshotSlot } from "@/content/types";
 import { pageMetadata } from "@/lib/seo";
+import { PRODUCT_APP_URL } from "@/lib/site";
 import { graph, webPageSchema } from "@/lib/structured-data";
 
 const PATH = "/how-it-works";
@@ -23,7 +24,7 @@ export const metadata: Metadata = pageMetadata({
 const STEPS: { title: string; text: string; shot?: ScreenshotSlot }[] = [
   {
     title: "Download and open the app",
-    text: "Install from the App Store or Google Play, or open the [web app](https://my.munibtracker.app). There's no account to create: everything works straight away and stays on your device.",
+    text: `Install from the App Store or Google Play, or open the [web app](${PRODUCT_APP_URL}). There's no account to create: everything works straight away and stays on your device.`,
   },
   {
     title: "Set your location",
@@ -90,7 +91,7 @@ export default function HowItWorksPage() {
             typical day looks like once you do.
           </p>
         }
-        actions={<StoreBadges placement="hub_page" />}
+        actions={<StoreBadges placement="how_it_works_page" />}
         screenshot={{ key: "home-light", caption: "The home screen." }}
       />
 
@@ -174,7 +175,7 @@ export default function HowItWorksPage() {
       <DownloadCta
         title="Ready when you are"
         text="Download Munib Tracker and set your location. Your first Salah log is one tap away."
-        placement="hub_page"
+        placement="how_it_works_page"
       />
     </>
   );

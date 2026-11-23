@@ -3,7 +3,7 @@ import { Reveal } from "@/components/ui/motion";
 
 const STATS = [
   { value: 6236, label: "Qur'an ayahs, fully offline" },
-  { value: 350, suffix: "+", label: "Lessons across the library" },
+  { value: 350, suffix: "+", label: "Cited topics in the learning library" },
   { value: 279, label: "Duas from Hisnul Muslim" },
   { value: 24, label: "Interface languages, incl. Arabic & Urdu" },
 ];

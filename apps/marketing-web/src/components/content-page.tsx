@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/content/primitives";
-import { Reveal } from "@/components/ui/motion";
 import { cn } from "@/lib/utils";
 
 /** Soft radial wash under the sticky chrome — fades out, no hard band. */
@@ -43,7 +42,7 @@ export function PageMasthead({
   return (
     <header className={cn("relative pb-12 md:pb-16", className)}>
       <Breadcrumbs items={[{ name: label, href: path }]} />
-      <Reveal>
+      <div>
         {eyebrow ? (
           <p className="mt-10 text-sm font-semibold uppercase tracking-[0.18em] text-brand md:mt-12">
             {eyebrow}
@@ -65,7 +64,7 @@ export function PageMasthead({
         {actions ? (
           <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10">{actions}</div>
         ) : null}
-      </Reveal>
+      </div>
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"

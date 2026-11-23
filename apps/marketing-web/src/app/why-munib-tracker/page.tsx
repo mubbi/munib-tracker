@@ -144,7 +144,7 @@ export default function WhyPage() {
       <DownloadCta
         title="Try an Islamic app built around you"
         text="Free, ad-free and private. Download Munib Tracker and see the difference."
-        placement="hub_page"
+        placement="why_page"
       />
     </>
   );

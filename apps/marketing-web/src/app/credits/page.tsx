@@ -59,9 +59,9 @@ export default function CreditsPage() {
         <p className="text-muted">
           We strive for accuracy in all religious content. If you notice an error, please report it
           through the app or our{" "}
-          <a href="/contact" className="font-medium text-brand hover:underline">
+          <Link href={SITE_PATHS.contact} className="font-medium text-brand hover:underline">
             contact form
-          </a>{" "}
+          </Link>{" "}
           so we can correct it promptly. Calculators and estimates are aids, not fatwas — consult a
           qualified scholar for rulings specific to your situation.
         </p>

@@ -48,7 +48,7 @@ const KNOWLEDGE: Area[] = [
   {
     icon: Users,
     title: "The Prophets",
-    meta: "25 prophets + timeline",
+    meta: "25 prophets, timeline + family tree",
     description: "From Adam to Muhammad ﷺ, with the lessons carried by each story.",
   },
   {
@@ -139,10 +139,29 @@ const FIQH: Area[] = [
   },
   {
     icon: Moon,
-    title: "Ramadan, tahajjud & journal",
+    title: "Ramadan, Tahajjud & journal",
     meta: "Trackers + khushu'",
     description:
       "A fasting tracker with suhoor/iftar times, a night-prayer log, and a khushu' prayer journal.",
+  },
+  {
+    icon: Calendar,
+    title: "Friday & Jumu'ah",
+    meta: "Hub + checklist",
+    description: "Ghusl, Surah Al-Kahf, salawat and the hour of dua, with a Friday checklist.",
+  },
+  {
+    icon: Moon,
+    title: "White Days & voluntary fasts",
+    meta: "Planner + reminders",
+    description:
+      "The 13th to 15th of each Hijri month, Mondays and Thursdays, Arafah, Ashura and more, with prohibited days flagged.",
+  },
+  {
+    icon: Heart,
+    title: "Janazah",
+    meta: "Practical guide",
+    description: "The funeral prayer, washing and burial, with authentic duas for the deceased.",
   },
 ];
 
@@ -172,7 +191,7 @@ const MORE: Area[] = [
     title: "New Muslim guide",
     meta: "18 topics",
     description:
-      "A gentle on-ramp for converts — salah, wudu, adhkar, and building a daily rhythm.",
+      "A gentle on-ramp for converts — Salah, wudu, adhkar, and building a daily rhythm.",
   },
   {
     icon: Moon,
@@ -185,7 +204,7 @@ const MORE: Area[] = [
     icon: Calendar,
     title: "Eid guide",
     meta: "6 topics",
-    description: "Fitr and Adha — takbir, prayer, sunnah acts, and the spirit of celebration.",
+    description: "Fitr and Adha — takbir, prayer, Sunnah acts, and the spirit of celebration.",
   },
   {
     icon: BookOpenCheck,
@@ -199,6 +218,19 @@ const MORE: Area[] = [
     meta: "14 topics",
     description:
       "Riba, halal income, zakat principles, and everyday money matters — educational, not fatwa.",
+  },
+  {
+    icon: ScrollText,
+    title: "Daily hadith",
+    meta: "One a day",
+    description: "A hadith from Imam al-Nawawi's Forty each morning, with its explanation.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Flash cards",
+    meta: "No scores",
+    description:
+      "Review the Qur'an, hadith, the Names of Allah and every guide, one card at a time.",
   },
 ];
 
@@ -281,6 +313,8 @@ export default function LearnPage() {
       <Section
         align="left"
         eyebrow="Islamic knowledge"
+        id="creed"
+        className="scroll-mt-24"
         title="Creed, history & the Hereafter"
         description="Ground your imaan in what you believe, where you come from, and where you're going."
       >
@@ -291,6 +325,8 @@ export default function LearnPage() {
         align="left"
         variant="muted"
         eyebrow="The Qur'an"
+        id="quran"
+        className="scroll-mt-24"
         title="Read, understand, and memorize"
         description="A guided path from the Arabic letters to tajweed, memorization, and reflection."
       >
@@ -300,6 +336,8 @@ export default function LearnPage() {
       <Section
         align="left"
         eyebrow="Fiqh & how-to"
+        id="worship-guides"
+        className="scroll-mt-24"
         title="Practical worship guides"
         description="Clear, evidence-based guides with checklists, calculators, and trackers for everyday worship."
       >
@@ -310,6 +348,8 @@ export default function LearnPage() {
         align="left"
         variant="muted"
         eyebrow="Beyond the basics"
+        id="life-guides"
+        className="scroll-mt-24"
         title="Companions, dua & life guides"
         description="Practical topics for every season — from the sahaba and early history to Laylat al-Qadr, Eid, and everyday finance."
       >
@@ -339,7 +379,7 @@ export default function LearnPage() {
         </Stagger>
       </Section>
 
-      <CtaBand />
+      <CtaBand placement="learn" />
     </div>
   );
 }

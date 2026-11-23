@@ -137,12 +137,7 @@ export function ContactForm() {
         required
       />
       {errors.form ? (
-        <p
-          ref={errorRef}
-          role="alert"
-          tabIndex={-1}
-          className="text-sm text-red-600 outline-none dark:text-red-400"
-        >
+        <p ref={errorRef} role="alert" tabIndex={-1} className="text-sm text-rose-300 outline-none">
           {errors.form}
         </p>
       ) : null}

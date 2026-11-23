@@ -40,7 +40,7 @@ type FeatureChapter = {
 const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
   {
     eyebrow: "Daily worship",
-    title: "Track salah, qaza, and remembrance",
+    title: "Track Salah, Qaza, and remembrance",
     description:
       "An honest daily record: four statuses, Sunnah, make-up planning, and a calm place for duas and adhkar.",
     sections: [
@@ -50,8 +50,8 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Prayer times hero with time-of-day sky, Masjid silhouette, moon phase, and optional weather",
           "Hijri date, live clock, and countdown to the next prayer",
           "55 quick actions you can reorder and toggle — tracker, Qur'an, learn paths, and more",
-          "Five toggleable home modules: continue reading, knowledge card, quick actions, qaza, and today's schedule",
-          "Today's goal combining salah, zikr, and qaza with segmented progress",
+          "Five toggleable home modules: continue reading, knowledge card, quick actions, Qaza, and today's schedule",
+          "Today's goal combining Salah, zikr, and Qaza with segmented progress",
           "Devotion block with your Noor level, nine seasonal Hijri banners, and feature tours",
         ],
       },
@@ -65,7 +65,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Jama'ah (congregation) toggle and private per-prayer notes",
           "Progress ring, streak display, and confetti on a perfect day",
           "Excused-day picker for travel, illness, or hayd, plus haptic celebrations",
-          "Khushu' prayer journal with per-salah ratings and notes",
+          "Khushu' prayer journal with per-Salah ratings and notes",
         ],
       },
       {
@@ -93,7 +93,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
         title: "Duas, adhkar, duroods & 99 Names",
         items: [
           "279 duas across 16 categories, sourced from Hisnul Muslim",
-          "60 adhkar in seven categories (morning, evening, after-salah, before sleep, and more)",
+          "60 adhkar in seven categories (morning, evening, after-Salah, before sleep, and more)",
           "Custom adhkar builder — add your own with Arabic, transliteration, translation, and speech-to-text",
           "Nine salawat/duroods and the 99 Names of Allah with meanings and audio",
           "Favorites, per-category search, and a tactile tasbeeh with custom targets",
@@ -136,7 +136,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Sahaba — 30 companions with virtues, lessons, and citations",
           "Early Islamic history — 15 topics from the Khulafa Rashidun through the Umayyads",
           "Learn dua — 46 topics on when and how to supplicate, with Arabic and evidence",
-          "New Muslim guide — 18 topics for converts starting salah, wudu, and daily worship",
+          "New Muslim guide — 18 topics for converts starting Salah, wudu, and daily worship",
           "Laylat al-Qadr (8), Eid (6), ruqyah (8), and Islamic finance education (14)",
         ],
       },
@@ -158,7 +158,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Zakat calculator with nisab thresholds, checklist, and evidence",
           "Friday / Jumu'ah learn hub with checklist and Today's Goal reminder",
           "Hajj & Umrah learn guide with separate rite checklists, plus travel, illness, and hayd rulings",
-          "Ramadan fasting tracker with suhoor/iftar countdown and a tahajjud log",
+          "Ramadan fasting tracker with suhoor/iftar countdown and a Tahajjud log",
           "Dhul-Hijjah mode with a daily deeds checklist and a Takbir al-Tashriq counter",
           "Umrah mode: miqat alerts and tawaf and sa'i counters, step by step",
           "Inheritance (mirath) calculator for all four schools, with every share explained",
@@ -172,7 +172,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
     eyebrow: "Scripture & times",
     title: "Qur'an, hadith, and the prayer clock",
     description:
-      "Read offline, listen with eight reciters, and keep prayer times and qibla accurate wherever you are.",
+      "Read offline, listen with eight reciters, and keep prayer times and Qibla accurate wherever you are.",
     sections: [
       {
         title: "Qur'an",
@@ -210,7 +210,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
         ],
       },
       {
-        title: "Times, qibla & calendar",
+        title: "Times, Qibla & calendar",
         items: [
           "Prayer times from GPS or city search, with 13 calculation methods and Asr madhab",
           "Per-prayer minute offsets, high-latitude rules, reminder offsets, and 12/24-hour formatting",
@@ -231,10 +231,10 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
       {
         title: "Notifications",
         items: [
-          "Prayer reminders, sunnah alerts, qaza reminders, and after-adhan alerts",
+          "Prayer reminders, Sunnah alerts, Qaza reminders, and after-Adhan alerts",
           "Morning, evening, before-sleep, before-prayer, and after-prayer adhkar",
           "Daily content and Friday (Jumu'ah / Kahf) reminders",
-          "Play adhan on prayer with five adhan styles; achievement alerts",
+          "Play Adhan on prayer with five Adhan styles; achievement alerts",
           "iOS Live Activities / Dynamic Island for the next prayer; in-app notification center",
         ],
       },
@@ -244,7 +244,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Home-screen widgets for next prayer, schedule, and progress (iOS & Android)",
           "Apple Watch companion and Wear OS tile to view and mark salah",
           "Siri and Google Assistant shortcuts; long-press app-icon quick actions",
-          "Haptics, magnetometer qibla, and native tabs on mobile",
+          "Haptics, magnetometer Qibla, and native tabs on mobile",
         ],
       },
       {

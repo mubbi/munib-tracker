@@ -52,20 +52,20 @@ export function Footer() {
           <div>
             <Link
               href={SITE_PATHS.home}
-              className="inline-flex items-center gap-2.5 font-semibold tracking-tight"
+              className="inline-flex items-center gap-4 font-semibold tracking-tight"
             >
               <Image
-                src="/munib-logo.png"
+                src="/icon-512.png"
                 alt=""
                 width={220}
                 height={220}
-                className="size-[110px] shrink-0 rounded-2xl"
+                className="size-20 shrink-0 rounded-[22%] shadow-[0_12px_30px_-10px_rgba(0,0,0,0.7)]"
               />
               <span className="font-display text-xl font-semibold">{APP_NAME}</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/65">
               {APP_TAGLINE} A free, offline-first companion for Salah, Zikr, Qaza, the Qur&apos;an
-              and learning your deen. No ads, no account needed.
+              and learning your deen. No ads, and no account needed for personal use.
             </p>
             <div className="mt-6">
               <a

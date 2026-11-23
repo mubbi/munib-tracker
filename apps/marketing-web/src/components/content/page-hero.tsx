@@ -2,8 +2,17 @@ import type { ReactNode } from "react";
 import { Breadcrumbs, Screenshot } from "@/components/content/primitives";
 import { PageAtmosphere } from "@/components/content-page";
 import type { ScreenshotSlot } from "@/content/types";
+import { getScreenshot } from "@/lib/screenshots";
 import type { Crumb } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
+
+/** Hero visual width per device frame. */
+const HERO_WIDTH = {
+  phone: "w-[230px] sm:w-[260px]",
+  watch: "w-[200px] sm:w-[220px]",
+  round: "w-[200px] sm:w-[220px]",
+  tv: "w-full max-w-lg",
+} as const;
 
 /**
  * Shared hero for every template page: breadcrumbs, eyebrow, the single H1,
@@ -31,7 +40,12 @@ export function PageHero({
   meta?: ReactNode;
 }) {
   const side = screenshot ? (
-    <Screenshot slot={screenshot} priority showCaption={false} className="w-[230px] sm:w-[260px]" />
+    <Screenshot
+      slot={screenshot}
+      priority
+      showCaption={false}
+      className={HERO_WIDTH[getScreenshot(screenshot.key).frame]}
+    />
   ) : (
     visual
   );

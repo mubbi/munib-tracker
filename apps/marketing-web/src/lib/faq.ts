@@ -12,7 +12,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: `Is ${APP_NAME} free?`,
-    answer: `${APP_NAME} is free for personal and educational use. There are no ads, subscriptions, or in-app purchases. The source is also available on GitHub under a non-commercial license — see the Open source page.`,
+    answer: `${APP_NAME} is free for personal and educational use. There are no ads, subscriptions, or in-app purchases. The source is also available on GitHub under a non-commercial license — see the [Open source](/open-source) page.`,
   },
   {
     question: "Do I need an account?",
@@ -22,7 +22,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Does it work offline?",
     answer:
-      "Yes. Prayer tracking, qaza, 60 adhkar, tasbeeh, 279 duas, bundled Qur'an and hadith highlights, the full learning library (350+ topics), and worship guides all work without an internet connection. Full hadith collections, extra Qur'an translations (25 editions), tafsir (123 editions), recitation, and audio download on demand and can be cached from Settings → Offline data.",
+      "Yes. Prayer tracking, Qaza, 60 adhkar, tasbeeh, 279 duas, bundled Qur'an and hadith highlights, the full learning library (350+ topics), and worship guides all work without an internet connection. Full hadith collections, extra Qur'an translations (25 editions), tafsir (123 editions), recitation, and audio download on demand and can be cached from Settings → Offline data.",
   },
   {
     question: "Does Qur'an practice record my voice?",
@@ -36,7 +36,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Is it just a prayer tracker, or does it teach too?",
     answer:
-      "Both. Alongside tracking, there's a full learning library — aqeedah (24 topics), the 25 prophets, a 30-event seerah, major battles, the Hereafter, sahaba, early Islamic history, learn dua, a new-Muslim guide, and seasonal topics like Laylat al-Qadr, Eid, and Friday/Jumu'ah; a guided path to read and understand the Qur'an (letters, tajweed, memorization, 13 themes); and step-by-step worship guides for salah, taharah, zakat, and Hajj & Umrah (learn topics plus separate rite checklists). Lessons include progress tracking, quizzes, and Qur'an and hadith citations.",
+      "Both. Alongside tracking, there's a full learning library — aqeedah (24 topics), the 25 prophets, a 30-event seerah, major battles, the Hereafter, sahaba, early Islamic history, learn dua, a new-Muslim guide, and seasonal topics like Laylat al-Qadr, Eid, and Friday/Jumu'ah; a guided path to read and understand the Qur'an (letters, tajweed, memorization, 13 themes); and step-by-step worship guides for Salah, taharah, zakat, and Hajj & Umrah (learn topics plus separate rite checklists). Lessons include progress tracking, quizzes, and Qur'an and hadith citations.",
   },
   {
     question: "Can I use Munib Tracker with my family?",
@@ -51,7 +51,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Can I trust the religious content?",
     answer:
-      "Arabic text, translations, and references come from established open sources (see Credits). Content is reviewed for authenticity before it ships. Calculators and estimates are aids, not fatwas — consult a qualified scholar for rulings specific to your situation.",
+      "Arabic text, translations, and references come from established open sources (see [content sources](/credits)). Content is reviewed for authenticity before it ships. Calculators and estimates are aids, not fatwas — consult a qualified scholar for rulings specific to your situation.",
   },
   {
     question: "What data do you collect?",
@@ -66,7 +66,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "How do reminders work?",
     answer:
-      "You control every reminder category: prayer times (with optional adhan playback and five styles), sunnah, qaza, after-adhan, morning/evening adhkar, before sleep (using your bedtime setting), daily content, Friday reminders, and achievements. All are off until you enable them. On iOS you can also opt into Live Activities for the next prayer.",
+      "You control every reminder category: prayer times (with optional Adhan playback and five styles), Sunnah, Qaza, after-Adhan, morning/evening adhkar, before sleep (using your bedtime setting), daily content, Friday reminders, and achievements. All are off until you enable them. On iOS you can also opt into Live Activities for the next prayer.",
   },
   {
     question: "Can I back up or lock the app?",
@@ -80,7 +80,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: `Is ${APP_NAME} open source?`,
-    answer: `The full monorepo is source-available on GitHub under the PolyForm Noncommercial License 1.0.0. You may use, modify, and redistribute it for personal and educational purposes if you credit ${APP_NAME} and link to munibtracker.app. You may not sell the app or sell customized versions. Details: Open source page and the NOTICE file in the repository.`,
+    answer: `The full monorepo is source-available on GitHub under the PolyForm Noncommercial License 1.0.0. You may use, modify, and redistribute it for personal and educational purposes if you credit ${APP_NAME} and link to munibtracker.app. You may not sell the app or sell customized versions. Details: the [Open source](/open-source) page and the NOTICE file in the repository.`,
   },
   {
     question: "Can I fork it and sell a customized version?",
@@ -93,6 +93,6 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "How can I contribute?",
-    answer: `Read the contributing guide on GitHub, then open an issue or pull request. We welcome bug fixes, documentation, translations, and careful content corrections — not money. ${APP_NAME} does not accept sponsorship or donations. Meet the community on the Contributors page and learn license terms on the Open source page.`,
+    answer: `Read the contributing guide on GitHub, then open an issue or pull request. We welcome bug fixes, documentation, translations, and careful content corrections — not money. ${APP_NAME} does not accept sponsorship or donations. Meet the community on the [Contributors](/contributors) page and read the license terms on the [Open source](/open-source) page.`,
   },
 ];

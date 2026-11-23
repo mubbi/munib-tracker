@@ -1,5 +1,6 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { pageMetadata } from "@/lib/seo";
@@ -34,9 +35,9 @@ export default function ContactPage() {
           <ContentSection heading="Privacy">
             <p className="text-sm text-muted">
               Your message is used only to respond to you. We do not sell contact data. See our{" "}
-              <a href="/privacy" className="font-medium text-brand hover:underline">
+              <Link href="/privacy" className="font-medium text-brand hover:underline">
                 Privacy Policy
-              </a>
+              </Link>
               .
             </p>
           </ContentSection>
