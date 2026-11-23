@@ -1,6 +1,7 @@
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import {
   adhkarDayFor,
+  adhkarDueNow,
   adhkarScopeState,
   adhkarSetStatus,
   adhkarWindow,
@@ -240,5 +241,52 @@ describe("adhkar day (Fajr → Fajr)", () => {
   });
   it("falls back to the calendar day when prayer times are unavailable", () => {
     expect(adhkarDayFor(new Date(2026, 10, 21, 0, 30), undefined, "2026-11-21")).toBe("2026-11-21");
+  });
+});
+
+describe("adhkarDueNow (Zikr hub)", () => {
+  const EVENING = [item({ id: "e-1", categoryId: "evening", targetCount: 1 })];
+  const SLEEP = [item({ id: "s-1", categoryId: "before_sleep", targetCount: 1 })];
+  beforeEach(() => __setZikrItemsForTests([...MORNING, ...AFTER, ...EVENING, ...SLEEP]));
+  afterAll(() => __setZikrItemsForTests(loadZikrItemsSyncForTests()));
+
+  const label = (set: { scope: { categoryId: string; prayer?: string } }) =>
+    set.scope.prayer ? `${set.scope.categoryId}:${set.scope.prayer}` : set.scope.categoryId;
+
+  it("shows after-Fajr and morning adhkar in the morning, evening next", () => {
+    const { due, next } = adhkarDueNow({}, day(8), TIMES);
+    expect(due.map(label)).toEqual(["after_prayer:fajr", "morning"]);
+    expect(next && label(next)).toBe("after_prayer:dhuhr");
+  });
+
+  it("puts a started set first", () => {
+    const counts = { [zikrCountKey("m-1")]: 1 }; // one zikr finished = in progress
+    expect(adhkarDueNow(counts, day(8), TIMES).due.map(label)[0]).toBe("morning");
+  });
+
+  it("drops finished sets and closed windows", () => {
+    const counts = {
+      [zikrCountKey("m-1")]: 1,
+      [zikrCountKey("m-3")]: 3,
+      [zikrCountKey("m-100")]: 100,
+    };
+    expect(adhkarDueNow(counts, day(8), TIMES).due.map(label)).toEqual(["after_prayer:fajr"]);
+    // 16:00 — morning window (Fajr → Dhuhr) has closed; evening + after-Asr are open.
+    expect(adhkarDueNow({}, day(16), TIMES).due.map(label)).toEqual([
+      "after_prayer:asr",
+      "evening",
+    ]);
+  });
+
+  it("keeps night sets open after Isha", () => {
+    expect(adhkarDueNow({}, day(22), TIMES).due.map(label)).toEqual([
+      "after_prayer:isha",
+      "after_prayer:witr",
+      "before_sleep",
+    ]);
+  });
+
+  it("is empty without prayer times", () => {
+    expect(adhkarDueNow({}, day(8), null)).toEqual({ due: [] });
   });
 });

@@ -4,7 +4,7 @@ import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/vali
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
+import { type ListRenderItem, StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -14,12 +14,11 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { useResponsiveColumns } from "@/components/ui/responsive-grid";
+import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { AfterSalahPrayerChips } from "@/components/zikr/after-salah-prayer-chips";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
-import { TvLayout } from "@/constants/tv-layout";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
@@ -279,8 +278,11 @@ export default function ZikrCategoryScreen() {
             height={4}
             color={allDone ? tokens.status.success.color : undefined}
           />
-          <View style={styles.sessionActions}>
+          {/* Wide: one full-width row (aligned with the progress bar above);
+              phones: stacked. Both buttons share one height so they read as a pair. */}
+          <View style={[styles.sessionActions, columns > 1 && styles.sessionActionsWide]}>
             <Button
+              style={columns > 1 ? styles.primaryActionWide : undefined}
               label={
                 allDone
                   ? t("zikrSession.reviewSet")
@@ -297,35 +299,27 @@ export default function ZikrCategoryScreen() {
               }
               variant={allDone ? "secondary" : "primary"}
               onPress={() => openSession()}
-              fullWidth
+              fullWidth={columns === 1}
             />
             {!allDone ? (
               <Button
                 label={t("zikrSession.markAll")}
-                variant="ghost"
-                size="sm"
+                variant="secondary"
                 icon={{ ios: "checkmark.circle", android: "task_alt", web: "task_alt" }}
                 accessibilityHint={t("zikrSession.markAllHint")}
                 onPress={() => setConfirmAll(true)}
-                fullWidth
+                fullWidth={columns === 1}
+                style={columns > 1 ? styles.secondaryActionWide : undefined}
               />
             ) : null}
           </View>
         </View>
       ) : null}
-      <TextInput
+      <SearchField
         value={query}
         onChangeText={setQuery}
         placeholder={t("zikr.searchInCategory")}
-        placeholderTextColor={colors.mutedForeground}
-        accessibilityLabel={t("zikr.searchInCategory")}
-        style={[
-          styles.input,
-          tv && styles.inputTv,
-          columns > 1 && styles.inputWide,
-          tokens.inputSurface,
-          { color: colors.foreground },
-        ]}
+        style={styles.search}
       />
     </>
   );
@@ -443,7 +437,11 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   // Primary "Start / Continue" on its own line (never squeezed); "Mark all" as a quieter secondary.
-  sessionActions: { gap: Spacing.one, maxWidth: 480 },
+  sessionActions: { gap: Spacing.two },
+  sessionActionsWide: { flexDirection: "row", alignItems: "stretch" },
+  primaryActionWide: { flex: 2, alignSelf: "stretch" },
+  secondaryActionWide: { flex: 1, alignSelf: "stretch" },
+  search: { marginBottom: Spacing.three },
   statusRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   statusDot: { width: 8, height: 8, borderRadius: 4 },
   progressHeader: {
@@ -452,21 +450,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
   },
-  input: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    marginBottom: Spacing.three,
-    fontSize: 15,
-  },
-  inputTv: {
-    minHeight: TvLayout.minFocusTarget,
-    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
-    paddingHorizontal: Spacing.four,
-  },
   separator: { height: Spacing.two },
-  inputWide: { maxWidth: 640 },
   gridRow: { marginHorizontal: -Spacing.one },
   gridCell: { paddingHorizontal: Spacing.one },
 });

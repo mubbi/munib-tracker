@@ -282,6 +282,56 @@ export function afterSalahScopeStates(
   return out;
 }
 
+/** Every timed daily set, in the order a day runs (Fajr → Fajr). */
+export const DAILY_ADHKAR_SCOPES: readonly AdhkarScope[] = [
+  { categoryId: "after_prayer", prayer: "fajr" },
+  { categoryId: "morning" },
+  { categoryId: "after_prayer", prayer: "dhuhr" },
+  { categoryId: "after_prayer", prayer: "asr" },
+  { categoryId: "evening" },
+  { categoryId: "after_prayer", prayer: "maghrib" },
+  { categoryId: "after_prayer", prayer: "isha" },
+  { categoryId: "after_prayer", prayer: WITR_PRAYER },
+  { categoryId: "before_sleep" },
+];
+
+export type TimedAdhkarSet = {
+  scope: AdhkarScope;
+  state: AdhkarScopeState;
+  window: AdhkarWindow;
+};
+
+/**
+ * What the Zikr hub leads with: the sets whose window is open right now and
+ * not finished (in-progress first, then by when they opened), plus the next
+ * set still to open today. Without prayer times (no location, polar night)
+ * nothing is "due" — windows are unknown, so the hub just shows categories.
+ */
+export function adhkarDueNow(
+  counts: Record<string, number>,
+  now: Date,
+  times: PrayerInstants | null,
+): { due: TimedAdhkarSet[]; next?: TimedAdhkarSet } {
+  if (!times) return { due: [] };
+  const sets = DAILY_ADHKAR_SCOPES.map((scope) => ({
+    scope,
+    state: adhkarScopeState(scope, counts, now, times),
+    window: adhkarWindow(scope, times),
+  })).filter((set) => set.state.total > 0);
+  const opened = (set: TimedAdhkarSet) => set.window.start?.getTime() ?? 0;
+  const due = sets
+    .filter((set) => set.state.status === "pending" || set.state.status === "inProgress")
+    .sort(
+      (a, b) =>
+        Number(b.state.status === "inProgress") - Number(a.state.status === "inProgress") ||
+        opened(a) - opened(b),
+    );
+  const next = sets
+    .filter((set) => set.state.status === "upcoming" && set.window.start)
+    .sort((a, b) => opened(a) - opened(b))[0];
+  return { due, next };
+}
+
 /**
  * The "adhkar day" a recitation belongs to. Night worship runs Fajr → Fajr, so
  * between midnight and Fajr adhkar (last night's Isha / Witr / before-sleep)

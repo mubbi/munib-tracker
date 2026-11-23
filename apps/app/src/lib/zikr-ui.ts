@@ -6,7 +6,8 @@ type SymbolName = SymbolViewProps["name"];
 /** Category icons only — no ZIKR corpus (keeps notification/settings graphs light). */
 export const ZIKR_CATEGORY_ICONS: Record<ZikrCategoryId, SymbolName> = {
   morning: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
-  evening: { ios: "sunset.fill", android: "wb_twilight", web: "wb_twilight" },
+  // Not wb_twilight — Android/web showed the same glyph as morning.
+  evening: { ios: "sunset.fill", android: "nights_stay", web: "nights_stay" },
   before_prayer: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
   after_prayer: {
     ios: "hands.and.sparkles.fill",
