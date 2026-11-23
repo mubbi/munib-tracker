@@ -12,6 +12,7 @@ import {
 function buildStats(overrides: Partial<AchievementStats> = {}): AchievementStats {
   return {
     streak: 7,
+    bestStreak: 7,
     prayersCompleted: 100,
     zikrCompleted: 50,
     perfectDays: 3,
@@ -21,7 +22,13 @@ function buildStats(overrides: Partial<AchievementStats> = {}): AchievementStats
   };
 }
 
-const EMPTY = buildStats({ streak: 0, prayersCompleted: 0, zikrCompleted: 0, perfectDays: 0 });
+const EMPTY = buildStats({
+  streak: 0,
+  bestStreak: 0,
+  prayersCompleted: 0,
+  zikrCompleted: 0,
+  perfectDays: 0,
+});
 
 beforeEach(async () => {
   await AsyncStorage.clear();

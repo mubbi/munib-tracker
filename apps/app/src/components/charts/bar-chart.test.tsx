@@ -35,3 +35,24 @@ describe("BarChart", () => {
     expect(screen.queryByText("D2")).toBeNull();
   });
 });
+
+describe("BarChart interaction", () => {
+  it("uses localized labels and reports the pressed bar", async () => {
+    const { fireEvent } = await import("@testing-library/react-native");
+    const onSelect = jest.fn();
+    await renderWithTheme(
+      <BarChart
+        data={[
+          { label: "Mon", value: 0.4, accessibilityLabel: "Monday, 2 of 5 on time" },
+          { label: "Tue", value: 0, tone: "excused", accessibilityLabel: "Tuesday, excused" },
+        ]}
+        average={0.4}
+        selectedIndex={null}
+        onSelect={onSelect}
+      />,
+    );
+    fireEvent.press(screen.getByLabelText("Tuesday, excused"));
+    expect(onSelect).toHaveBeenCalledWith(1);
+    expect(screen.getByLabelText("Monday, 2 of 5 on time")).toBeTruthy();
+  });
+});

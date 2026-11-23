@@ -1,5 +1,6 @@
 import { SymbolView } from "expo-symbols";
-import { StyleSheet, View } from "react-native";
+import type { ReactNode } from "react";
+import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
@@ -74,6 +75,27 @@ export function MetricGrid({ metrics, columns = 2 }: MetricGridProps) {
   );
 }
 
+/**
+ * A read-only block that is a D-pad stop on TV and keeps its layout `style` on
+ * every platform. (`TvReadableBlock` applies `style` on TV only — it renders
+ * bare children elsewhere — so layout styles must live on an inner View.)
+ */
+export function ReadableView({
+  children,
+  style,
+  accessibilityLabel,
+}: {
+  children: ReactNode;
+  style?: StyleProp<ViewStyle>;
+  accessibilityLabel?: string;
+}) {
+  return (
+    <TvReadableBlock accessibilityLabel={accessibilityLabel}>
+      <View style={style}>{children}</View>
+    </TvReadableBlock>
+  );
+}
+
 type StatsGroupProps = {
   title: string;
   metrics: Metric[];
@@ -85,14 +107,14 @@ export function StatsGroup({ title, metrics, columns = 2 }: StatsGroupProps) {
   // TV: read-only groups are D-pad stops so the remote can scroll the stats page
   // (plain View on phone / web).
   return (
-    <TvReadableBlock style={styles.group}>
+    <ReadableView style={styles.group}>
       <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.groupTitle}>
         {title}
       </ThemedText>
       <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
         <MetricGrid metrics={metrics} columns={columns} />
       </View>
-    </TvReadableBlock>
+    </ReadableView>
   );
 }
 

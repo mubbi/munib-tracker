@@ -25,6 +25,7 @@ import {
   excusedReasonForDate,
   getLocalDateString,
   inferExcusedReasonFromYesterday,
+  longestStreak,
 } from "@munib-tracker/shared/utils";
 
 import {
@@ -48,6 +49,7 @@ const OBLIGATORY_SET = new Set<string>(OBLIGATORY_PRAYERS);
 function emptyStats(): AchievementStats {
   return {
     streak: 0,
+    bestStreak: 0,
     prayersCompleted: 0,
     zikrCompleted: 0,
     perfectDays: 0,
@@ -291,6 +293,7 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
   const rozaDebt = summarizeRozaDebt(roza);
   const achievementStats: AchievementStats = {
     streak: streakDays,
+    bestStreak: Math.max(longestStreak(allLogs, true), streakDays),
     prayersCompleted,
     qazaDebt,
     rozaDebt,
