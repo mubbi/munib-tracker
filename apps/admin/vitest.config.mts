@@ -1,5 +1,5 @@
 import path from "node:path";
-import { ciReporting } from "@munib-tracker/vitest-config/ci";
+import { ciReporting, NO_NETWORK_SETUP } from "@munib-tracker/vitest-config/ci";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -10,6 +10,7 @@ export default defineConfig({
   },
   test: {
     ...ciReporting,
+    setupFiles: [NO_NETWORK_SETUP],
     globals: true,
     environment: "node",
     include: ["lib/**/*.test.ts", "lib/**/*.spec.ts"],

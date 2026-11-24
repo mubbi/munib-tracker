@@ -6,7 +6,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./ci": "./src/ci.ts",
-    "./setup": "./src/setup.ts"
+    "./setup": "./src/setup.ts",
+    "./no-network": "./src/no-network.ts"
   },
   "scripts": {
     "lint": "biome check .",
