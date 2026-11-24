@@ -2,6 +2,7 @@ export * from "./admin";
 export * from "./appFeedback";
 export * from "./appVersions";
 export * from "./authSessions";
+export * from "./circles";
 export * from "./columnHelpers";
 export * from "./contactMessages";
 export * from "./contentReports";
