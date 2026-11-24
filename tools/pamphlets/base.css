@@ -1,4 +1,14 @@
-/* Munib Tracker — A4 pamphlet base (210 × 297 mm, full-bleed backgrounds, content kept inside ~14 mm safe margins) */
+/*
+ * Munib Tracker — A4 pamphlet base.
+ *
+ * Page: A4 trim (210 × 297 mm), no printer margins. Backgrounds run to the trim edge;
+ * all text, QR codes and badges stay inside the safe area (--safe, 15 mm from every edge).
+ *
+ * Print type floor (CSS px are 1/96 in, so 1 pt = 1.333 px):
+ *   --fs-min   12px  =  9 pt   labels, captions, legal lines — nothing smaller
+ *   --fs-body  13.5px ≈ 10 pt  running copy
+ *   --fs-lead  16px  = 12 pt   intro paragraphs
+ */
 
 @page {
   size: 210mm 297mm;
@@ -21,6 +31,7 @@ body {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   font-family: "Inter", system-ui, sans-serif;
+  font-size: var(--fs-body);
   overflow: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -33,24 +44,50 @@ body {
   overflow: hidden;
 }
 
-/* Brand palette — from packages/theme + apps/marketing-web/globals.css */
+/*
+ * Brand palette — light/dark surfaces from packages/theme/src/resolve-theme.ts,
+ * forest accent from packages/theme/src/accents.ts, emerald/gold/hero band from
+ * apps/marketing-web/src/app/globals.css.
+ */
 :root {
+  --safe: 15mm;
+
+  --fs-min: 12px;
+  --fs-body: 13.5px;
+  --fs-lead: 16px;
+
+  /* light surfaces (resolve-theme LIGHT) */
   --cream: #f5f0e6;
-  --cream-soft: #fffcf7;
+  --cream-soft: #fffdf9;
+  --cream-muted: #eae3d4;
+  --line: #d2c7b1;
+  --line-soft: #e3d9c6;
   --ink: #152921;
-  --ink-soft: #5c7268;
+  --ink-soft: #4a6157;
+
+  /* accents */
   --forest: #2e7d32;
   --emerald: #059669;
+  --emerald-deep: #047857;
   --emerald-bright: #10b981;
   --gold: #e6c065;
-  --gold-deep: #b8924a;
+  --gold-soft: #f2ddab;
+  --gold-deep: #8a6a2e; /* darkened from #b8924a so small gold text clears AA on cream */
   --gold-pale: #e4ce9e;
+
+  /* hero band (marketing-web) */
   --hero-from: #0d4235;
   --hero-mid: #0a2f27;
   --hero-to: #05201a;
-  --dark-card: #1c322c;
-  --dark-border: #2a453c;
-  --dark-fg: #e8dcc8;
+  --hero-text: #f3f7f2;
+  --hero-muted: #a7c6ba;
+
+  /* dark surfaces (resolve-theme DARK) */
+  --dark-bg: #152921;
+  --dark-card: #1e3830;
+  --dark-border: #30504a;
+  --dark-fg: #eee4d2;
+  --dark-muted: #a2bdb0;
 }
 
 .display {
@@ -62,37 +99,155 @@ body {
   direction: rtl;
 }
 
+/* Brand wordmark مُنيب — Noto Naskh (one of the app's Arabic fonts) keeps the damma tight;
+   Amiri stacks meem over noon and floats the damma at display sizes. */
+.ar-brand {
+  font-family: "Noto Naskh Arabic", "Amiri", serif;
+  font-weight: 700;
+  direction: rtl;
+}
+
 .serif {
   font-family: "Lora", Georgia, serif;
 }
 
-/* QR tile: quiet zone is the tile padding — keep generous for scanability */
-.qr-tile {
+/* ---------- Brand lockup ---------- */
+
+.lockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lockup img {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: block;
+}
+.lockup .name {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Download block: QR + official store badge ---------- */
+
+.get {
+  display: flex;
+  gap: 14px;
+}
+.get-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
 }
-
-.qr-tile .qr-box {
+/* Quiet zone = the white padding. Keep ≥ 4 modules; QR printed at ≥ 21 mm. */
+.get-item .qr {
   background: #ffffff;
   border-radius: 10px;
-  padding: 9px;
+  padding: 8px;
   line-height: 0;
 }
-
-.qr-tile img {
+.get-item .qr img {
   display: block;
+  width: 84px;
+  height: 84px;
+}
+.on-light .get-item .qr {
+  border: 1px solid var(--line);
 }
 
-.qr-tile .qr-label {
+/* Store badge — black, white type, platform mark (same treatment as marketing-web StoreBadges). */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 12px 0 9px;
+  border-radius: 9px;
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  white-space: nowrap;
+}
+.badge svg {
+  flex-shrink: 0;
+}
+.badge .b-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.badge .b-small {
+  font-size: 9px; /* badge micro-copy mirrors the official artwork; the store name is the read */
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+.badge .b-big {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 2px;
+}
+.badge.web {
+  background: transparent;
+  border: 1.2px solid currentColor;
+  color: inherit;
+}
+.badge.web .b-big {
+  font-size: 13.5px;
+}
+
+/* ---------- Devices strip ---------- */
+
+.devices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 11px;
+  font-size: var(--fs-min);
+  font-weight: 500;
+  line-height: 1.4;
+}
+.devices .lbl {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  margin-right: 1px;
+}
+/* Each device carries its own marker, so a wrapped line never starts with a stray separator. */
+.devices span:not(.lbl)::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.55;
+  margin-right: 6px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
 
-.qr-tile .qr-sub {
-  font-size: 7.5px;
-  letter-spacing: 0.02em;
+/* ---------- Privacy promise ---------- */
+
+.promise {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: var(--fs-min);
+  line-height: 1.5;
+}
+.promise svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.promise b {
+  font-weight: 600;
 }

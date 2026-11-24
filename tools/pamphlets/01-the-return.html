@@ -5,13 +5,13 @@
 <title>Munib — Concept 01 · The Return (Minimal &amp; Premium)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Amiri:wght@400;700&display=block" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@700&display=block" rel="stylesheet" />
 <link rel="stylesheet" href="base.css" />
 <style>
   .page {
     background: var(--cream);
     color: var(--ink);
-    padding: 15mm 16mm 13mm;
+    padding: var(--safe);
     display: flex;
     flex-direction: column;
   }
@@ -19,12 +19,11 @@
   /* faint 8-point star geometry, single ornament, very low contrast */
   .geometry {
     position: absolute;
-    top: 88px;
+    top: 40px;
     left: 50%;
     transform: translateX(-50%);
-    width: 560px;
-    height: 560px;
-    opacity: 0.55;
+    width: 470px;
+    height: 470px;
     pointer-events: none;
   }
 
@@ -33,45 +32,28 @@
     align-items: center;
     justify-content: space-between;
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .brand img {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-  }
-  .brand .name {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.02em;
-  }
   .masthead .kicker {
-    font-size: 9px;
+    font-size: var(--fs-min);
     font-weight: 600;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--ink-soft);
   }
 
   .hero {
     text-align: center;
-    margin-top: 52px;
+    margin-top: 6px;
     position: relative;
   }
   .hero .ar-name {
-    font-size: 132px;
-    line-height: 1.15;
-    color: var(--ink);
-    font-weight: 700;
+    font-size: 84px;
+    line-height: 1.55;
+    margin-top: 0;
   }
   .hero .meaning {
-    margin-top: 4px;
-    font-size: 11px;
-    letter-spacing: 0.3em;
+    margin-top: -10px;
+    font-size: var(--fs-min);
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--gold-deep);
     font-weight: 600;
@@ -79,52 +61,73 @@
   .hero h1 {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
-    font-size: 43px;
-    line-height: 1.12;
-    letter-spacing: -0.015em;
-    margin-top: 26px;
+    font-size: 40px;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-top: 14px;
   }
   .hero .sub {
-    margin: 18px auto 0;
-    max-width: 470px;
-    font-size: 13.5px;
-    line-height: 1.65;
+    margin: 10px auto 0;
+    max-width: 520px;
+    font-size: var(--fs-lead);
+    line-height: 1.55;
     color: var(--ink-soft);
   }
 
-  .features {
-    margin-top: 44px;
-    border-top: 1px solid #c9c0ae;
-  }
-  .features .row {
+  .section-label {
+    margin-top: 20px;
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    padding: 12.5px 2px;
-    border-bottom: 1px solid #c9c0ae;
+    align-items: center;
+    gap: 12px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: var(--fs-min);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
   }
-  .features .row .t {
+  .section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .groups {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 28px;
+    row-gap: 0;
+  }
+  .group {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    padding: 9px 0 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .group:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+  .group .num {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: var(--fs-min);
+    font-weight: 700;
+    color: var(--gold-deep);
+    letter-spacing: 0.06em;
+    padding-top: 3px;
+  }
+  .group h3 {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 700;
-    font-size: 13.5px;
+    font-size: 16px;
+    line-height: 1.25;
   }
-  .features .row .d {
-    font-size: 11px;
+  .group p {
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 1.42;
     color: var(--ink-soft);
-    text-align: right;
-  }
-  .features .row .num {
-    font-size: 10px;
-    color: var(--gold-deep);
-    font-weight: 600;
-    width: 34px;
-    letter-spacing: 0.08em;
-  }
-  .features .row .t-wrap {
-    display: flex;
-    align-items: baseline;
-    gap: 0;
-    flex: 1;
   }
 
   .cta {
@@ -134,18 +137,18 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
   .cta .lead h2 {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
-    font-size: 21px;
+    font-size: 22px;
     letter-spacing: -0.01em;
   }
   .cta .lead .free {
-    font-size: 10.5px;
+    font-size: var(--fs-min);
     color: var(--ink-soft);
-    font-weight: 500;
+    font-weight: 600;
   }
   .qr-row {
     display: grid;
@@ -153,47 +156,53 @@
     gap: 14px;
   }
   .qr-card {
-    border: 1px solid #c9c0ae;
+    border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 14px 12px 12px;
+    padding: 11px 10px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 9px;
+    gap: 7px;
     background: var(--cream-soft);
   }
-  .qr-card img {
-    width: 88px;
-    height: 88px;
+  .qr-card .qr {
+    padding: 0;
+  }
+  .qr-card .qr img {
+    width: 84px;
+    height: 84px;
     display: block;
   }
-  .qr-card .qr-label {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 700;
-    font-size: 9.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .qr-card .qr-sub {
-    font-size: 8px;
+  .qr-card .for {
+    font-size: var(--fs-min);
     color: var(--ink-soft);
-    margin-top: -5px;
+    margin-top: -2px;
   }
 
-  .footer {
-    margin-top: 14px;
+  .meta {
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid var(--line);
     display: flex;
-    justify-content: space-between;
-    font-size: 8.5px;
+    flex-direction: column;
+    gap: 6px;
     color: var(--ink-soft);
-    letter-spacing: 0.04em;
+  }
+  .meta .devices .lbl {
+    color: var(--ink);
+  }
+  .meta .promise {
+    color: var(--ink-soft);
+  }
+  .meta .promise b {
+    color: var(--ink);
   }
 </style>
 </head>
 <body>
 <div class="page">
   <!-- Subtle 8-point star line geometry -->
-  <svg class="geometry" viewBox="0 0 200 200" fill="none">
+  <svg class="geometry" viewBox="0 0 200 200" fill="none" aria-hidden="true">
     <g stroke="#152921" stroke-opacity="0.06" stroke-width="0.5">
       <rect x="40" y="40" width="120" height="120" />
       <rect x="40" y="40" width="120" height="120" transform="rotate(45 100 100)" />
@@ -207,7 +216,7 @@
   </svg>
 
   <div class="masthead">
-    <div class="brand">
+    <div class="lockup">
       <img src="assets/logo.png" alt="Munib logo" />
       <span class="name">Munib Tracker</span>
     </div>
@@ -215,60 +224,98 @@
   </div>
 
   <div class="hero">
-    <div class="ar-name ar">مُنيب</div>
+    <div class="ar-name ar-brand" lang="ar">مُنيب</div>
     <div class="meaning">Munib — the one who returns to Allah</div>
     <h1>Track your journey<br />back to Allah.</h1>
-    <p class="sub">A calm, private companion for your salah, zikr, qaza, and Qur’an. Free, offline-first, with no ads and no account required.</p>
+    <p class="sub">A calm, private companion for Salah, Qaza, Zikr and the Qur’an. Free, offline-first, no ads, and no account needed.</p>
   </div>
 
-  <div class="features">
-    <div class="row">
-      <div class="t-wrap"><span class="num">01</span><span class="t">Salah tracking</span></div>
-      <div class="d">Five daily prayers, streaks &amp; full prayer history</div>
+  <div class="section-label">Everything in one app</div>
+  <div class="groups">
+    <div class="group">
+      <span class="num">01</span>
+      <div>
+        <h3>Track</h3>
+        <p>The five daily Salah, Witr and Sunnah; Qaza counters with a daily-pace plan; prayer times, qibla and a Masjid finder.</p>
+      </div>
     </div>
-    <div class="row">
-      <div class="t-wrap"><span class="num">02</span><span class="t">Qaza made simple</span></div>
-      <div class="d">Counters, a lifetime calculator &amp; a gentle daily plan</div>
+    <div class="group">
+      <span class="num">02</span>
+      <div>
+        <h3>Read</h3>
+        <p>The full Qur’an offline: 604-page mushaf, word-by-word, 25 translations. Hadith from Nawawi’s 40 and Riyad as-Salihin.</p>
+      </div>
     </div>
-    <div class="row">
-      <div class="t-wrap"><span class="num">03</span><span class="t">Zikr &amp; adhkar</span></div>
-      <div class="d">Morning &amp; evening adhkar, favorites &amp; tasbeeh counter</div>
+    <div class="group">
+      <span class="num">03</span>
+      <div>
+        <h3>Supplicate</h3>
+        <p>60 adhkar with their source hadith, guided morning and evening sessions, 279 duas from Hisnul Muslim, and a Tasbeeh counter.</p>
+      </div>
     </div>
-    <div class="row">
-      <div class="t-wrap"><span class="num">04</span><span class="t">Progress &amp; statistics</span></div>
-      <div class="d">Daily goals, calendars &amp; achievements that keep you going</div>
+    <div class="group">
+      <span class="num">04</span>
+      <div>
+        <h3>Learn</h3>
+        <p>350+ cited lessons, step-by-step worship guides, and recitation practice with a listener that runs on your device.</p>
+      </div>
     </div>
-    <div class="row">
-      <div class="t-wrap"><span class="num">05</span><span class="t">Made for every believer</span></div>
-      <div class="d">23 languages · light &amp; dark mode · guest or synced account</div>
+    <div class="group">
+      <span class="num">05</span>
+      <div>
+        <h3>Family &amp; community</h3>
+        <p>A kids mode for children under 13, an accountability partner who only sees “done”, and group khatm.</p>
+      </div>
+    </div>
+    <div class="group">
+      <span class="num">06</span>
+      <div>
+        <h3>Privacy</h3>
+        <p>An optional PIN or biometric app lock, an encrypted vault for private notes, and opt-in end-to-end encrypted sync.</p>
+      </div>
     </div>
   </div>
 
   <div class="cta">
     <div class="lead">
       <h2>Begin today — scan to download.</h2>
-      <span class="free">100% free · no ads · works offline</span>
+      <span class="free">Free · no ads · no subscriptions</span>
     </div>
     <div class="qr-row">
       <div class="qr-card">
-        <img src="qr/appstore-ink.svg" alt="App Store QR" />
-        <div class="qr-label">App Store</div>
-        <div class="qr-sub">iPhone &amp; iPad</div>
+        <div class="qr"><img src="qr/appstore-ink.svg" alt="QR code: Munib Tracker on the App Store" /></div>
+        <span class="badge">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17.05 12.53c-.02-2.03 1.66-3 1.73-3.05-.94-1.38-2.41-1.57-2.93-1.59-1.25-.13-2.44.73-3.07.73-.63 0-1.61-.71-2.65-.69-1.36.02-2.62.79-3.32 2.01-1.42 2.46-.36 6.1 1.02 8.1.67.98 1.47 2.08 2.52 2.04 1.01-.04 1.39-.65 2.61-.65 1.22 0 1.56.65 2.63.63 1.09-.02 1.78-.99 2.44-1.98.77-1.13 1.09-2.23 1.11-2.29-.02-.01-2.13-.82-2.15-3.25zM15.03 6.3c.56-.68.94-1.62.83-2.56-.81.03-1.79.54-2.37 1.22-.52.6-.97 1.56-.85 2.48.9.07 1.83-.46 2.39-1.14z"/></svg>
+          <span class="b-text"><span class="b-small">Download on the</span><span class="b-big">App Store</span></span>
+        </span>
+        <span class="for">iPhone &amp; iPad</span>
       </div>
       <div class="qr-card">
-        <img src="qr/play-ink.svg" alt="Google Play QR" />
-        <div class="qr-label">Google Play</div>
-        <div class="qr-sub">Android</div>
+        <div class="qr"><img src="qr/play-ink.svg" alt="QR code: Munib Tracker on Google Play" /></div>
+        <span class="badge">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#00C3FF" d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92z"/><path fill="#FF3D47" d="M5.864 2.658 16.802 8.99l-2.302 2.302z"/><path fill="#00E676" d="M14.499 12.707l2.302 2.302-10.937 6.333 8.635-8.635z"/><path fill="#FFCE00" d="M17.698 9.509l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626-2.399-2.4 2.4-2.582z"/></svg>
+          <span class="b-text"><span class="b-small">GET IT ON</span><span class="b-big">Google Play</span></span>
+        </span>
+        <span class="for">Android phones &amp; tablets</span>
       </div>
       <div class="qr-card">
-        <img src="qr/web-ink.svg" alt="Website QR" />
-        <div class="qr-label">munibtracker.app</div>
-        <div class="qr-sub">Learn more · use on the web</div>
+        <div class="qr"><img src="qr/web-ink.svg" alt="QR code: munibtracker.app" /></div>
+        <span class="badge web">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span class="b-text"><span class="b-big">munibtracker.app</span></span>
+        </span>
+        <span class="for">Learn more · web app</span>
       </div>
     </div>
-    <div class="footer">
-      <span>Munib Tracker — Track Your Journey Back to Allah.</span>
-      <span>iOS · Android · Web &nbsp;—&nbsp; munibtracker.app</span>
+
+    <div class="meta">
+      <div class="devices">
+        <span class="lbl">Works on</span><span>iPhone &amp; iPad</span><span>Android</span><span>Web app</span><span>Apple Watch</span><span>Wear OS</span><span>Apple TV</span><span>Android TV</span>
+      </div>
+      <div class="promise">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#2e7d32" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span><b>Our privacy promise:</b> no ads and no account required — as a guest, everything stays on your device. Recitation audio is processed on the device and never recorded or uploaded.</span>
+      </div>
     </div>
   </div>
 </div>

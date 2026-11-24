@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import QRCode from "qrcode";
@@ -7,14 +7,27 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = join(root, "qr");
 await mkdir(outDir, { recursive: true });
 
-// Real URLs from packages/shared/src/constants/site.ts — do not invent.
+// Official URLs are read from packages/shared/src/constants/site.ts so the QR codes can't drift
+// from the app and marketing site. This tool lives outside the pnpm workspace, so the constants
+// are parsed from source rather than imported.
+const siteTs = await readFile(
+  join(root, "..", "..", "packages", "shared", "src", "constants", "site.ts"),
+  "utf8",
+);
+function constant(name) {
+  const m = siteTs.match(new RegExp(`export const ${name} = "([^"]+)"`));
+  if (!m) throw new Error(`site.ts: ${name} not found — update scripts/make-qr.mjs`);
+  return m[1];
+}
+const SITE = constant("OFFICIAL_SITE_ORIGIN");
+const IOS_ID = constant("OFFICIAL_IOS_APP_STORE_ID");
+const ANDROID_PACKAGE = constant("OFFICIAL_ANDROID_PACKAGE");
+
+// Same templates as OFFICIAL_IOS_APP_STORE_URL / OFFICIAL_ANDROID_PLAY_STORE_URL in site.ts.
 const targets = [
-  { name: "appstore", url: "https://apps.apple.com/app/id6787222180" },
-  {
-    name: "play",
-    url: "https://play.google.com/store/apps/details?id=app.munibtracker",
-  },
-  { name: "web", url: "https://munibtracker.app" },
+  { name: "appstore", url: `https://apps.apple.com/app/id${IOS_ID}` },
+  { name: "play", url: `https://play.google.com/store/apps/details?id=${ANDROID_PACKAGE}` },
+  { name: "web", url: SITE },
 ];
 
 // Ink variants so QRs sit correctly on light or dark panels.
