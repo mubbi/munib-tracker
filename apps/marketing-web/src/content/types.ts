@@ -132,7 +132,11 @@ export type FeatureSlug =
   | "salah-focus-lock"
   | "family-and-friends"
   | "islamic-will-and-inheritance"
-  | "hadith";
+  | "hadith"
+  | "my-madhhab"
+  | "fasting-tracker"
+  | "umrah-mode"
+  | "private-reflection";
 
 export type FeatureIconKey =
   | "salah"
@@ -149,7 +153,11 @@ export type FeatureIconKey =
   | "focus"
   | "family"
   | "will"
-  | "hadith";
+  | "hadith"
+  | "madhhab"
+  | "fasting"
+  | "umrah"
+  | "reflection";
 
 export type ScreenshotSlot = {
   key: ScreenshotKey;

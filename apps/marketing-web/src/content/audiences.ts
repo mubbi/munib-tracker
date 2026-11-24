@@ -321,7 +321,7 @@ export const AUDIENCE_PAGES: readonly AudiencePage[] = [
     keywords: ["quran learning for kids", "islamic app for families", "teach kids salah"],
     cluster: "audience",
     published: "2026-11-23",
-    updated: "2026-11-23",
+    updated: "2026-11-24",
     eyebrow: "For families",
     intro:
       "Children learn most from what they see at home. Munib Tracker gives your children a simple kids mode for learning to pray, gives you lessons to do together, and keeps your own Salah and Qur'an routine on track as an example.",
@@ -397,7 +397,7 @@ export const AUDIENCE_PAGES: readonly AudiencePage[] = [
       {
         question: "Is there a kids' mode?",
         answer:
-          "Yes. A parent creates a child profile with just a nickname and birth year, with no email, and links the child's device with a QR code. Children get a simple view with Salah buttons, beginner lessons and daily duas. See [Family & friends](/features/family-and-friends).",
+          "Yes. A parent creates a child profile with just a nickname and birth year, with no email, and links the child's device with a QR code. Children get a simple view with Salah buttons, a kids Salah path (wudu, the five prayers and how to pray), stories of the prophets and daily duas. See [Family & friends](/features/family-and-friends).",
       },
       {
         question: "Is it safe for children to use?",

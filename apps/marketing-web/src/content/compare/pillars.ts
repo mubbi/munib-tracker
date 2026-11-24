@@ -104,7 +104,7 @@ export const vsPillars: ComparePage = {
         {
           feature: "Masjid times",
           cells: {
-            munib: cell.yes("Masjid finder, plus your own iqamah times via timetable scan"),
+            munib: cell.yes("Masjid finder, plus your own private iqamah times, typed in"),
             [PL]: cell.partial("Masjid times in beta"),
           },
         },

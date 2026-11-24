@@ -20,7 +20,7 @@ export const familyAndFriends: FeaturePage = {
   ],
   cluster: "audience",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Family & friends",
   intro:
     "Some habits are easier together. Help your children learn to pray with a simple kids mode, encourage a friend without either of you sharing details, and finish the Qur'an as a family or a Masjid circle.",
@@ -32,11 +32,13 @@ export const familyAndFriends: FeaturePage = {
         title: "Family and kids mode",
         items: [
           "A parent creates a child profile with just a nickname and birth year; no email for the child",
-          "Link the child's device by scanning a QR code, or log on their behalf on your phone",
-          "A simple kids view: five big Salah buttons, beginner lessons, and daily duas with audio",
+          "Link the child's device with a one-time QR code, or log their Salah for them on your phone",
+          "A simple kids view: five big Salah buttons, a kids Salah path (wudu, the five prayers and how to pray), stories of the prophets, and a short, curated set of daily duas, adhkar and short surahs with audio",
+          "Kids content is chosen from the app's own sourced guides and duas, and a linked child's device can't open the adult guides",
           "Stickers, stars and a real reward you set, like a park trip for a week of Salah",
           "Under 7, Salah can be logged just for practice; tracking stays gentle from 7 to 12",
-          "Parents see only the five fard Salah statuses, never anything else",
+          "Parents see only the five fard Salah statuses and the stickers earned from them, never anything else",
+          "Co-parents can join the family; children never see their siblings",
         ],
       },
       {
@@ -45,7 +47,7 @@ export const familyAndFriends: FeaturePage = {
           "A small private circle of two to five people, by invite",
           "Each person sets their own daily goal, which is never shared",
           "The only thing shared is whether your goal was done that day",
-          "Make dua for a partner, or send one kind reminder a day after Isha",
+          'Make dua for a partner (they see "Someone made dua for you"), or send one gentle reminder a day, which they see after their own Isha',
           "Pause sharing or leave at any time, quietly",
         ],
       },
@@ -54,9 +56,9 @@ export const familyAndFriends: FeaturePage = {
         items: [
           "Create a khatm with a title, an intention and a deadline",
           "Split it by juz (default), hizb or surah",
-          "Members pick their part, or parts are shared out automatically",
+          "Members pick their part, the creator assigns parts, or parts are dealt out in turn",
           "Read your part in the app and mark it done; everyone sees the progress",
-          "Invite by link or QR code; people without the app can join on the web",
+          "Invite by link or QR code; people without the app can join on the web as a guest",
           "Start another round when the khatm is complete",
         ],
       },
@@ -75,7 +77,7 @@ export const familyAndFriends: FeaturePage = {
     steps: [
       {
         title: "Sign in",
-        text: "Family circles, partners and group khatm use a free account so members can see shared progress.",
+        text: "Family circles and partners use a free account so members can see shared progress. A group khatm can also be joined as a guest on the web.",
       },
       {
         title: "Create or join a circle",
@@ -133,7 +135,7 @@ export const familyAndFriends: FeaturePage = {
     },
     {
       tone: "info",
-      text: 'Circles need a free account and store only the shared signals on Munib Tracker\'s server: fard status for children, a daily "done" for partners, and part status for a khatm. Leaving a circle deletes your signals for it.',
+      text: 'Circles store only the shared signals on Munib Tracker\'s server: fard status for children, a daily "done" for partners, and part status for a khatm. Members see the display name you choose for each circle, never your email. When you leave a circle you are hidden at once, and your signals for it are deleted after 30 days. Circle notifications (a khatm part or the whole khatm completed, a dua made for you, and a weekly family digest for parents with counts only) carry no names or individual Salah, and each has its own switch.',
     },
   ],
   faqs: [
@@ -145,7 +147,7 @@ export const familyAndFriends: FeaturePage = {
     {
       question: "What can a parent see?",
       answer:
-        "Only the child's five fard Salah statuses and their stickers. When a child turns 13 they can move to their own account, and the parent's view ends unless they choose to keep sharing.",
+        "Only the child's five fard Salah statuses and their stickers. From 13, a child can move to their own account; the child profile is then deleted, and they share nothing unless they choose to turn sharing on.",
     },
     {
       question: "Can my partner see what I missed?",

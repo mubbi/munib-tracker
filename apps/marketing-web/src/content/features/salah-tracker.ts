@@ -21,7 +21,7 @@ export const salahTracker: FeaturePage = {
   ],
   cluster: "salah",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Salah tracker",
   intro:
     "Mark each Salah as you pray it, see where your day stands at a glance, and build a routine you can keep. Munib Tracker is a free prayer tracker for Muslims, with no ads and no account required.",
@@ -67,7 +67,7 @@ export const salahTracker: FeaturePage = {
           "Excused days for travel, illness or hayd, so your streak isn't broken unfairly",
           "Missed Salah flow straight into your Qaza counters",
           "A [Salah focus lock](/features/salah-focus-lock) that blocks distracting apps until you pray",
-          "Log a Salah as prayed at the Masjid, and find one with the [Masjid finder](/features/masjid-finder)",
+          "Mark a fard Salah as prayed at your home Masjid, and find one with the [Masjid finder](/features/masjid-finder)",
           "Mark Salah from a home-screen widget, Apple Watch or Wear OS",
           "Works offline; optional sign-in syncs across your devices",
         ],

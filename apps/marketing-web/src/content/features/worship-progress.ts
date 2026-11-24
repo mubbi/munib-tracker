@@ -21,7 +21,7 @@ export const worshipProgress: FeaturePage = {
   ],
   cluster: "progress",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Worship progress",
   intro:
     "Look back at your week, month or year of worship and see what's growing. Statistics, a weekly report and Noor devotion levels show your progress honestly, and always point to the next small step.",
@@ -47,7 +47,7 @@ export const worshipProgress: FeaturePage = {
           "A once-a-week summary of your worship",
           "Salah completed and perfect days that week",
           "Qaza made up and zikr sessions completed",
-          "A gentle coach with one to three kind, practical suggestions from your week, computed on your device",
+          "A [weekly gentle coach](/features/private-reflection) with one to three kind, practical suggestions from your week, from simple rules on your device (no AI)",
         ],
       },
       {

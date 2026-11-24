@@ -27,7 +27,7 @@ const PRINCIPLES = [
   {
     icon: ShieldCheck,
     title: "Private by default",
-    text: "No account is needed for personal use. Without signing in, your worship record stays on your device; only the Masjid finder looks up nearby masjids through our server, and family features share just a small signal. Qur'an practice processes your voice on the device and never uploads it.",
+    text: "No account is needed for personal use. Without signing in, your worship record stays on your device; only the Masjid finder looks up nearby masjids through our server, using a rough area of about 5 km, and family features share just a small signal. Qur'an practice processes your voice on the device and never uploads it.",
   },
   {
     icon: Sparkles,

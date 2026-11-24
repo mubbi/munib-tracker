@@ -18,6 +18,10 @@ export const FEATURE_SLUGS = [
   "family-and-friends",
   "islamic-will-and-inheritance",
   "hadith",
+  "my-madhhab",
+  "fasting-tracker",
+  "umrah-mode",
+  "private-reflection",
 ] as const;
 
 export const COMPARE_SLUGS = [

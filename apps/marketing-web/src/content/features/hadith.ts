@@ -4,14 +4,14 @@ export const hadith: FeaturePage = {
   slug: "hadith",
   icon: "hadith",
   navLabel: "Hadith library",
-  navHint: "Collections, explanation and audio",
+  navHint: "Collections, grades and explanation",
   group: "quran",
-  title: "A hadith library you can read, study and listen to",
-  seoTitle: "Hadith App — Bukhari, Muslim & More, With Explanation and Audio",
+  title: "A hadith library you can read, study and search",
+  seoTitle: "Hadith App — Bukhari, Muslim & More, With Grades and Explanation",
   seoDescription:
     "Read Sahih al-Bukhari, Sahih Muslim and four more collections, with grades, narrators, explanation and full isnad, plus Nawawi's 40 offline and a daily hadith.",
   description:
-    "Nawawi's 40 and Riyad as-Salihin offline, six major collections on demand, with grades, explanation, isnad and audio.",
+    "Nawawi's 40 and Riyad as-Salihin offline, six major collections on demand, with grades, explanation and isnad.",
   keywords: ["hadith app", "sahih bukhari app", "hadith with explanation", "daily hadith app"],
   cluster: "quran-reading",
   published: "2026-11-23",
@@ -45,7 +45,6 @@ export const hadith: FeaturePage = {
         title: "Every day",
         items: [
           "A daily hadith from the Forty, renewed each morning",
-          "Listen to hadith translations read aloud, one hadith or a whole chapter",
           "Source hadith shown alongside every zikr in the adhkar",
           "Universal search across hadith, the Qur'an, duas and adhkar",
         ],
@@ -57,7 +56,6 @@ export const hadith: FeaturePage = {
     paragraphs: [
       "The Sunnah explains how to pray, what to say in the morning, and why consistency matters. Having the sources one tap away from your tracker and adhkar means you can always check where a practice comes from.",
       "Grades, explanation and the chain of narration help you read carefully rather than share whatever appears in a feed.",
-      "And listening helps on the move: a chapter of Riyad as-Salihin on the commute is a good companion.",
     ],
   },
   howItWorks: {
@@ -72,10 +70,6 @@ export const hadith: FeaturePage = {
         text: "See the grade, narrator, explanation and isnad for each hadith.",
       },
       {
-        title: "Listen",
-        text: "Play a single hadith or continue through the chapter in the mini-player.",
-      },
-      {
         title: "Save what matters",
         text: "Bookmark hadith to come back to, and find them from search.",
       },
@@ -87,8 +81,8 @@ export const hadith: FeaturePage = {
       text: "Hadith text and translations come from open hadith datasets, credited on our [content sources](/credits) page.",
     },
     {
-      title: "Careful with audio",
-      text: "Translations are read aloud by your device's voice; the Arabic text is never read by a synthetic voice.",
+      title: "Carefully sourced",
+      text: "Hadith are text only. The app never reads hadith with a synthetic voice.",
     },
     {
       title: "Offline",
@@ -108,8 +102,8 @@ export const hadith: FeaturePage = {
         text: "Someone shares a saying; search the collections and check its grading.",
       },
       {
-        title: "Listening on the go",
-        text: "Play a chapter of Riyad as-Salihin in English on your commute.",
+        title: "A chapter a week",
+        text: "Read one chapter of Riyad as-Salihin each week and bookmark the hadith you want to remember.",
       },
     ],
   },
@@ -122,7 +116,7 @@ export const hadith: FeaturePage = {
     {
       question: "Can I listen to hadith?",
       answer:
-        "Yes. Hadith translations can be read aloud by your device's voice, one at a time or a whole chapter. The Arabic text is not read by a synthetic voice.",
+        "No. Hadith in the app are text only. We would only ever add recordings by human readers that are licensed for sharing, never a synthetic voice, and no such recording has passed our licence review.",
     },
     {
       question: "Are the hadith graded?",

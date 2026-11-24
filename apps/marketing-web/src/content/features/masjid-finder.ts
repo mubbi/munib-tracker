@@ -9,9 +9,9 @@ export const masjidFinder: FeaturePage = {
   title: "Find a Masjid nearby, and keep your home Masjid's times",
   seoTitle: "Masjid Finder App — Mosques Near Me, With Your Iqamah Times",
   seoDescription:
-    "Find masjids near you from OpenStreetMap, save your home Masjid, keep its iqamah times privately or scan its timetable, and log Salah prayed at the Masjid.",
+    "Find masjids near you from OpenStreetMap, save your home Masjid, keep its iqamah times privately (typed or scanned on your device) and log Salah at the Masjid.",
   description:
-    "Nearby masjids from OpenStreetMap, a home Masjid with your own iqamah times, and Salah you pray in congregation logged in one tap.",
+    "Nearby masjids from OpenStreetMap, a home Masjid with your own private iqamah times, an iqamah countdown and reminder, and Salah logged at the Masjid.",
   keywords: [
     "masjid finder app",
     "mosque near me app",
@@ -20,10 +20,10 @@ export const masjidFinder: FeaturePage = {
   ],
   cluster: "prayer-times",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Masjid finder",
   intro:
-    "Travelling, new to the area, or just want to pray in congregation more often? See the masjids around you, save the one you usually pray at, and keep its iqamah times on your phone, even if they come from a printed timetable on the noticeboard.",
+    "Travelling, new to the area, or just want to pray in congregation more often? See the masjids around you, open directions in your maps app, save the one you usually pray at, and keep its iqamah times on your phone, even if they come from a printed timetable on the noticeboard.",
   hero: null,
   whatItDoes: {
     title: "What the Masjid finder does",
@@ -31,27 +31,38 @@ export const masjidFinder: FeaturePage = {
       {
         title: "Find masjids near you",
         items: [
-          "A list of nearby masjids, closest first, within a radius you choose",
-          "Name, address, website, phone and facilities such as wheelchair access, when they are recorded",
+          "A list of masjids within about 7 km, nearest first",
+          "Name, address, website, phone, opening hours and facilities such as wheelchair access, when OpenStreetMap has them",
+          "Jumu'ah times when they are mapped on OpenStreetMap, clearly labelled as such",
           "Open any masjid in your maps app for directions",
-          "Data from OpenStreetMap, credited on every screen",
+          "Data from OpenStreetMap, credited on every list and detail screen",
         ],
       },
       {
         title: "Your home Masjid",
         items: [
           "Save the masjid you usually pray at",
-          "Keep its iqamah and Jumu'ah times as your own private times",
-          "Scan a printed or posted timetable to fill them in, processed on your device",
-          "Use iqamah times as the anchor for reminders and the Salah focus lock",
+          "Type in its daily iqamah and Jumu'ah times as your own private times",
+          "Or photograph its printed timetable: the text is read on your device, and you check every time before saving",
+          "An iqamah countdown on the home screen when the next iqamah is close",
+          'An optional "time to head to the Masjid" reminder before iqamah, with your travel time',
+          "Use iqamah times as the start of the Salah focus lock window",
         ],
       },
       {
         title: "Pray in congregation",
         items: [
-          "Log a Salah as prayed at the Masjid",
-          "Jama'ah shows up in your tracker and statistics",
-          "Pair with the tracker's Jama'ah toggle for an honest picture of your week",
+          'Once you have a home Masjid, mark a fard Salah as "prayed at the Masjid"',
+          "A simple weekly count of Salah at the Masjid in your statistics, never a score",
+          "Separate from the tracker's Jama'ah toggle, which counts congregation anywhere",
+        ],
+      },
+      {
+        title: "Honest about what it knows",
+        items: [
+          "Details that aren't in public data are left out, never guessed",
+          "No user-submitted times, ratings or reviews",
+          'Wrong details? "Report a problem on OpenStreetMap" opens the place on OpenStreetMap, where anyone can correct it',
         ],
       },
     ],
@@ -60,7 +71,7 @@ export const masjidFinder: FeaturePage = {
     title: "Why a Masjid finder that only uses public data?",
     paragraphs: [
       "Many masjid apps rely on users submitting and editing times, which can leave you standing outside a locked door at the wrong hour. Munib Tracker shows only what is in publicly available data, and simply leaves a field out when there is nothing reliable to show.",
-      "The most accurate times for your own masjid are usually the ones on its noticeboard. Scan that timetable once and the times live on your phone, labelled as yours. They are never shared with other users.",
+      "The most accurate times for your own masjid are usually the ones on its noticeboard. Type them in or photograph the timetable, and they live on your phone, labelled as yours. They are never shared with other users.",
       "Praying in congregation carries great reward, and knowing where the nearest masjid is makes it easier to go, especially in a new city.",
     ],
   },
@@ -69,19 +80,19 @@ export const masjidFinder: FeaturePage = {
     steps: [
       {
         title: "Open the finder",
-        text: "Masjids near your location appear in a list, with their distance.",
+        text: "Use your location or choose a city. Masjids nearby appear in a list, with their distance.",
       },
       {
         title: "Save your home Masjid",
-        text: "Pick the masjid you usually pray at. It appears on your home screen.",
+        text: "Pick the masjid you usually pray at.",
       },
       {
         title: "Add its times",
-        text: "Type the iqamah times or photograph its timetable. The text is read on your device and you check every time before saving.",
+        text: "Type in its iqamah and Jumu'ah times, or photograph its timetable and check what was read. They stay private to your devices.",
       },
       {
         title: "Go and pray",
-        text: "Open directions in your maps app, then log the Salah as prayed at the Masjid.",
+        text: "Turn on the iqamah reminder or open directions, then mark the Salah as prayed at the Masjid.",
       },
     ],
   },
@@ -95,12 +106,16 @@ export const masjidFinder: FeaturePage = {
       text: "Times you add for your home masjid are private and never shown to anyone else.",
     },
     {
+      title: "Your location stays approximate",
+      text: "Only a rough area of about 5 km is sent to look up masjids. Distances are worked out on your device.",
+    },
+    {
       title: "On-device timetable scanning",
-      text: "Photos of timetables are processed on your phone, never uploaded to be read.",
+      text: "Timetable photos are read on your phone or in your browser, never uploaded. The app's copy of the photo is deleted after reading, or once you finish checking if you keep it beside the times.",
     },
     {
       title: "Connected to your Salah",
-      text: "Iqamah times can drive your reminders and focus lock, and congregation is counted in your tracker.",
+      text: "Your iqamah times can drive a time-to-leave reminder and the start of the Salah focus lock.",
     },
   ],
   examples: {
@@ -108,22 +123,27 @@ export const masjidFinder: FeaturePage = {
     items: [
       {
         title: "In a new city",
-        text: "Land, open the finder, and walk to the nearest masjid for Dhuhr.",
+        text: "Land, open the finder, and get directions to the nearest masjid for Dhuhr.",
       },
       {
-        title: "A monthly timetable",
-        text: "At the start of each month, photograph the timetable on the masjid noticeboard and confirm the imported times.",
+        title: "Your local Masjid",
+        text: "When the monthly timetable changes, photograph it, check the times, and let the reminder tell you when to leave.",
       },
       {
         title: "More Salah in Jama'ah",
-        text: "Set reminders from iqamah rather than Adhan time, so you leave home in time to catch the congregation.",
+        text: "Set your travel time, so the reminder comes early enough for you to catch the congregation.",
       },
     ],
   },
   notes: [
     {
       tone: "info",
-      text: "Masjid locations and details come from OpenStreetMap. To show masjids near you, your approximate location is sent to Munib Tracker's server, which looks them up on OpenStreetMap and returns the list. Times you add for your home masjid stay on your device and in your own sync.",
+      text: "Masjid locations and details come from OpenStreetMap (© OpenStreetMap contributors). To find masjids near you, the app sends only an area code covering about 5 km to Munib Tracker's server, which looks it up on OpenStreetMap; no account, exact location or user ID is sent. Times you add for your home masjid stay on your device and your own synced devices.",
+    },
+    {
+      tone: "info",
+      title: "What it doesn't do",
+      text: "Public iqamah timetables aren't shown, because no source has passed our licence review; only your own times are used. The list has no map view: directions open in your own maps app. Timetable scanning works in the iPhone and Android apps and in the web app (after a one-time download of about 7 MB), not on TV, and you always review the times before they are saved.",
     },
   ],
   faqs: [
@@ -135,11 +155,17 @@ export const masjidFinder: FeaturePage = {
     {
       question: "Why doesn't my Masjid show iqamah times?",
       answer:
-        "Most public data doesn't include iqamah times. You can add your home masjid's times yourself, by typing them or scanning its timetable. They stay private to you.",
+        "Public data rarely includes iqamah times, and no timetable source has passed our licence review yet. You can add your home masjid's times yourself, by typing them or scanning its timetable. They stay private to you.",
+    },
+    {
+      question: "Is my location shared?",
+      answer:
+        "Only roughly. The app sends an area code covering about 5 km, without your account, to look up masjids, and works out the distances on your device.",
     },
     {
       question: "Is the timetable photo uploaded?",
-      answer: "No. The photo is read on your device, and you review every time before it is saved.",
+      answer:
+        "No. It is read on your device (Apple's Vision on iPhone, ML Kit on Android, and an engine that runs inside your browser on the web). The app's copy of the photo is deleted after reading (or when you finish checking, if you keep it on screen), and nothing is saved until you have checked the times.",
     },
     {
       question: "Can other users see the times I add?",

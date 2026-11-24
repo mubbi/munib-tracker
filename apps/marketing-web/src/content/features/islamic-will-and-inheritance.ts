@@ -9,7 +9,7 @@ export const islamicWillAndInheritance: FeaturePage = {
   title: "Islamic inheritance calculator, will builder and debts record",
   seoTitle: "Islamic Inheritance Calculator (Mirath) & Will Builder App",
   seoDescription:
-    "Calculate Islamic inheritance shares for all four schools, build a printable wasiyyah within the one-third limit, and keep a private record of debts and trusts.",
+    "Learn how Islamic inheritance shares work in all four schools, build a wasiyyah within the one-third limit as a PDF, and keep a private record of debts and trusts.",
   description:
     "Mirath shares for all four schools, a guided wasiyyah within the one-third limit, and a private record of debts and trusts.",
   keywords: [
@@ -21,7 +21,7 @@ export const islamicWillAndInheritance: FeaturePage = {
   ],
   cluster: "habits",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Will & inheritance",
   intro:
     "Writing down debts, leaving a will, and knowing how an estate is divided are duties many Muslims put off. Munib Tracker makes them practical: a debts and trusts record, a guided Islamic will, and an inheritance calculator that explains every share.",
@@ -35,16 +35,17 @@ export const islamicWillAndInheritance: FeaturePage = {
           "Shares for the Hanafi, Shafi'i, Maliki and Hanbali schools",
           "Where the schools differ, the difference is shown, not hidden",
           "Deducts funeral costs, debts and bequests before dividing",
-          "Every share is explained and traced back to its rule",
+          'Every share is an exact fraction, with a "Why?" explanation of the rule behind it',
+          "Rare cases it doesn't cover, such as an unborn or missing heir, are flagged for a scholar instead of guessed",
         ],
       },
       {
         title: "Islamic will (wasiyyah) builder",
         items: [
-          "A step-by-step wizard you can save, print or share",
+          "A step-by-step wizard you can save, then export as a PDF to print or share",
           "Debts and trusts are pulled in from your record for you to confirm",
           "Bequests are checked against the one-third limit",
-          "A warning if a bequest names an heir",
+          "A bequest to an heir is flagged, with an explanation, until you acknowledge it",
           "Funeral wishes, guardianship of minors and an executor",
         ],
       },
@@ -53,6 +54,7 @@ export const islamicWillAndInheritance: FeaturePage = {
         items: [
           "What you owe, what you're owed, and trusts you hold",
           "Record payments; balances update and settled debts close",
+          "Attach an optional photo of a document, encrypted on your device and never synced",
           "Forgive a debt, with a note on the reward of doing so",
           "A reminder that an increase on a loan is riba, with a link to learn more",
         ],
@@ -60,9 +62,10 @@ export const islamicWillAndInheritance: FeaturePage = {
       {
         title: "Kept private",
         items: [
-          "Your will and debts are stored on your device",
-          "Syncing them is optional and end-to-end encrypted",
-          "Lock-screen notifications never show amounts",
+          "Your will and debts are kept in an encrypted vault on your device",
+          "Syncing them is optional and end-to-end encrypted: our server stores only data it can't read",
+          "Reminders use generic text; lock-screen notifications never show names or amounts",
+          "The inheritance calculator stores nothing: your inputs stay on the screen",
         ],
       },
     ],
@@ -92,7 +95,7 @@ export const islamicWillAndInheritance: FeaturePage = {
       },
       {
         title: "Print and witness",
-        text: "Export the will, have it witnessed, and review it each year.",
+        text: "Export the will as a PDF, have it witnessed, and let the app remind you to review it.",
       },
     ],
   },
@@ -135,7 +138,7 @@ export const islamicWillAndInheritance: FeaturePage = {
     {
       tone: "scholar",
       title: "Not a legal or religious ruling",
-      text: "Inheritance and wills involve both Islamic rules and the law of your country. Use these tools to prepare, then confirm your will and any estate division with a qualified scholar and, where needed, a lawyer.",
+      text: "The inheritance calculator is an educational tool, not a fatwa or a legal decision. Inheritance and wills involve both Islamic rules and the law of your country: use these tools to prepare, then confirm your will and any estate division with a qualified scholar or a Shariah court and, where needed, a lawyer. The will builder records your wishes; in many countries it is not legally binding until it is executed and registered under local law.",
     },
   ],
   faqs: [
@@ -152,7 +155,7 @@ export const islamicWillAndInheritance: FeaturePage = {
     {
       question: "Who can see my debts and will?",
       answer:
-        "Only you. They're stored on your device, and syncing them is optional and end-to-end encrypted.",
+        "Only you. They're kept in an encrypted vault on your device. Syncing them is optional and end-to-end encrypted, with a passphrase and a recovery code only you hold.",
     },
   ],
   related: ["qaza-salah-tracker", "daily-islamic-habits", "worship-progress", "hadith"],

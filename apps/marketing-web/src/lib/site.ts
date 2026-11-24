@@ -89,6 +89,11 @@ export const NAV_MENUS: readonly NavMenu[] = [
             hint: "Block distracting apps at Salah time",
           },
           {
+            href: "/features/fasting-tracker",
+            label: "Fasting & Dhul-Hijjah",
+            hint: "Voluntary fasts, Ramadan and the ten days",
+          },
+          {
             href: "/features/zikr-tracker",
             label: "Zikr & tasbeeh",
             hint: "Daily adhkar and a tasbeeh counter",
@@ -126,7 +131,7 @@ export const NAV_MENUS: readonly NavMenu[] = [
           {
             href: "/features/hadith",
             label: "Hadith library",
-            hint: "Collections, explanation and audio",
+            hint: "Collections, grades and explanation",
           },
           {
             href: SITE_PATHS.learn,
@@ -149,6 +154,16 @@ export const NAV_MENUS: readonly NavMenu[] = [
             hint: "Nearby masjids and your home masjid",
           },
           {
+            href: "/features/my-madhhab",
+            label: "My madhhab",
+            hint: "Your school in every guide and calculator",
+          },
+          {
+            href: "/features/umrah-mode",
+            label: "Umrah mode",
+            hint: "A step-by-step companion during Umrah",
+          },
+          {
             href: "/features/widgets-and-devices",
             label: "Widgets, watch & TV",
             hint: "iPhone, Android, web, watch and TV",
@@ -157,6 +172,11 @@ export const NAV_MENUS: readonly NavMenu[] = [
             href: "/features/family-and-friends",
             label: "Family & friends",
             hint: "Kids mode, partners and group khatm",
+          },
+          {
+            href: "/features/private-reflection",
+            label: "Private reflection",
+            hint: "Muhasabah, weekly coach and family ties",
           },
           {
             href: "/features/islamic-will-and-inheritance",
@@ -293,6 +313,10 @@ export const FOOTER_GROUPS = [
       { href: "/features/hadith", label: "Hadith library" },
       { href: "/features/family-and-friends", label: "Family & friends" },
       { href: "/features/islamic-will-and-inheritance", label: "Will & inheritance" },
+      { href: "/features/my-madhhab", label: "My madhhab" },
+      { href: "/features/fasting-tracker", label: "Fasting & Dhul-Hijjah" },
+      { href: "/features/umrah-mode", label: "Umrah mode" },
+      { href: "/features/private-reflection", label: "Private reflection" },
       { href: SITE_PATHS.features, label: "All features" },
     ],
   },

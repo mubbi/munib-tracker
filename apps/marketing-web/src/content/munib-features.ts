@@ -27,10 +27,9 @@ const shipped = (name: string, detail?: string, href?: string): InventoryItem =>
   ...(href ? { href } : {}),
 });
 /**
- * NF-3.x features from docs/NEW_FEATURES_TODO_PLAN.md. The product owner
- * decided (2026-11-23) to present them as available, so they are `shipped`.
- * To show one as "Coming soon" again, give it `status: "planned"` here —
- * every comparison cell built with `nf()` in compare/shared.ts follows.
+ * An NF-3.x feature from docs/NEW_FEATURES_TODO_PLAN.md that is in the app
+ * (checked against the app code and docs/proofs/*.md on 2026-11-24). Every
+ * comparison cell built with `nf()` in compare/shared.ts follows its status.
  */
 const nf = (id: string, name: string, detail: string, href?: string): InventoryItem => ({
   name,
@@ -38,6 +37,14 @@ const nf = (id: string, name: string, detail: string, href?: string): InventoryI
   status: "shipped",
   nf: id,
   ...(href ? { href } : {}),
+});
+/**
+ * An NF-3.x feature still being built: shown as "Coming soon", never as
+ * available. Nothing uses it right now; kept for the next roadmap item.
+ */
+export const soon = (id: string, name: string, detail: string, href?: string): InventoryItem => ({
+  ...nf(id, name, detail, href),
+  status: "planned",
 });
 
 export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
@@ -82,31 +89,44 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       nf(
         "NF-3.1",
         "Sunnah Rawatib tracker",
-        "The 12 or 10 confirmed Sunnah rakahs, inside the tracker",
+        "The confirmed Sunnah rakahs: 12 for Hanafis, 10 for the other schools, and editable",
+        "/features/salah-tracker",
       ),
       nf(
         "NF-3.13",
         "Salah focus lock",
-        "Block chosen apps around each Salah until you pray",
+        "Block chosen apps around each Salah until you pray, on iPhone and Android",
         "/features/salah-focus-lock",
       ),
       nf(
         "NF-3.11",
         "Masjid finder",
-        'Nearby masjids from OpenStreetMap, a home masjid, and "prayed at the Masjid"',
+        'Nearby masjids from OpenStreetMap, a home masjid with private iqamah times, an iqamah countdown and "prayed at the Masjid"',
         "/features/masjid-finder",
       ),
       nf(
         "NF-3.12",
         "Timetable scan",
-        "Photograph your masjid's timetable to import iqamah times, on the device",
+        "Photograph your masjid's timetable to import iqamah times, read on the device and checked by you",
+        "/features/masjid-finder",
+      ),
+      shipped(
+        "Preferred-time reminders",
+        "Optional, for schools that prefer a later time for Fajr, Asr or Isha",
+        "/features/my-madhhab",
       ),
       nf(
         "NF-3.0a",
         "My madhhab setting",
-        "One setting that every guide and calculator follows, or show all views",
+        "Hanafi, Shafi'i, Maliki, Hanbali or all views; differences labelled in guides and calculators",
+        "/features/my-madhhab",
       ),
-      nf("NF-3.0b", "Hijri date adjustment", "Match the Hijri date to your local moon sighting"),
+      nf(
+        "NF-3.0b",
+        "Hijri date adjustment",
+        "A ±2-day offset plus per-month corrections to match your local moon sighting",
+        "/features/my-madhhab",
+      ),
     ],
   },
   {
@@ -131,9 +151,15 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       nf(
         "NF-3.2",
         "Voluntary fasting tracker",
-        "Plan, remind and log recommended fasts, with warnings on prohibited days",
+        "Plan, remind and log recommended fasts; disliked days labelled, prohibited days blocked",
+        "/features/fasting-tracker",
       ),
-      nf("NF-3.3", "Dhul-Hijjah mode", "A seasonal mode for the first ten days of Dhul-Hijjah"),
+      nf(
+        "NF-3.3",
+        "Dhul-Hijjah mode",
+        "Daily deeds, the Day of Arafah, Takbir al-Tashriq by school and an udhiyah planner",
+        "/features/fasting-tracker",
+      ),
     ],
   },
   {
@@ -153,16 +179,23 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "Duroods and the 99 Names",
         "Nine salawat, and the Names of Allah with meanings and audio",
       ),
-      nf("NF-3.5", "Daily Sunnah habits", "A short, evidence-backed checklist of everyday sunnahs"),
+      nf(
+        "NF-3.5",
+        "Daily Sunnah habits",
+        "A short, evidence-backed checklist of everyday sunnahs",
+        "/features/daily-islamic-habits",
+      ),
       nf(
         "NF-3.19",
         "Tasbeeh counter designs",
-        "Sliding beads and other designs, with optional sound and haptics",
+        "Eight designs, from the Ring (the default) and sliding beads to date pits and finger counting, with optional sound and haptics",
+        "/features/zikr-tracker",
       ),
       nf(
         "NF-3.20",
         "Hands-free tasbeeh",
-        "Say the zikr aloud and it counts, recognised on the device",
+        "Counts each pause between spoken zikr, on the device; less accurate than tapping",
+        "/features/zikr-tracker",
       ),
     ],
   },
@@ -186,8 +219,14 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "NF-3.21",
         "Ayah notes and highlights",
         "Your own reflections, colours and tags on any ayah",
+        "/features/quran",
       ),
-      nf("NF-3.22", "Arabic root-word search", "Every word from a root, grouped with counts"),
+      nf(
+        "NF-3.22",
+        "Arabic root-word search",
+        "Every word from a root, from the Quranic Arabic Corpus (an optional download of about 6 MB)",
+        "/features/quran",
+      ),
     ],
   },
   {
@@ -206,11 +245,17 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "Arabic letters, learn-to-read, tajweed, vocabulary, themes, stories and tadabbur",
         "/features/learn-quran",
       ),
-      nf("NF-3.24", "Pronunciation assessment", "Word by word: clear, or worth listening to again"),
+      nf(
+        "NF-3.24",
+        "Pronunciation check",
+        "After you recite an ayah, marks words that seem skipped or unclear, on the device",
+        "/features/quran-practice",
+      ),
       nf(
         "NF-3.15",
-        "Tajweed error coaching",
-        "Targeted tajweed practice from your practice results",
+        "Tajweed coaching",
+        "Tajweed sounds to practise from the ayahs you're working on, with explanations and drills",
+        "/features/quran-practice",
       ),
     ],
   },
@@ -236,7 +281,6 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       ),
       shipped("New Muslim guide", "18 topics for the first steps", "/for/new-muslims"),
       shipped("Flash cards", "Review Qur'an, hadith, the Names of Allah and every guide"),
-      nf("NF-3.23", "Hadith audio", "Listen to hadith translations, with offline replay"),
     ],
   },
   {
@@ -247,7 +291,12 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       shipped("Hajj and Umrah", "Learning guide and separate rite checklists"),
       shipped("Sadaqah goals", "A giving intention and log"),
       shipped("Islamic events calendar and date converter", "Hijri and Gregorian"),
-      nf("NF-3.4", "Umrah mode", "A live, step-by-step companion during Umrah"),
+      nf(
+        "NF-3.4",
+        "Umrah mode",
+        "A live, step-by-step companion with tawaf and sa'i counters",
+        "/features/umrah-mode",
+      ),
       nf(
         "NF-3.10",
         "Inheritance (mirath) calculator",
@@ -257,9 +306,15 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       nf(
         "NF-3.9",
         "Islamic will (wasiyyah) builder",
-        "Guided and printable, respecting the one-third limit",
+        "Guided, within the one-third limit, exported as a PDF to print and witness",
+        "/features/islamic-will-and-inheritance",
       ),
-      nf("NF-3.8", "Debts and trusts record", "What you owe and are owed, kept private"),
+      nf(
+        "NF-3.8",
+        "Debts and trusts record",
+        "What you owe and are owed, with an optional document photo, kept private and encrypted",
+        "/features/islamic-will-and-inheritance",
+      ),
     ],
   },
   {
@@ -277,16 +332,28 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "/features/worship-progress",
       ),
       shipped("Achievements and Noor levels", "Encouragement that never caps out"),
-      nf("NF-3.6", "Nightly muhasabah", "A private one-minute self-review each night"),
+      nf(
+        "NF-3.6",
+        "Nightly muhasabah",
+        "A private one-minute self-review each night, encrypted",
+        "/features/private-reflection",
+      ),
       nf(
         "NF-3.14",
         "Weekly gentle coach",
-        "Kind, practical suggestions from your week, computed on the device",
+        "Kind, practical suggestions from your week, from simple rules on the device (no AI)",
+        "/features/private-reflection",
+      ),
+      shipped(
+        "Daily Qur'an reading log",
+        "Records the days you read, so the weekly coach counts them accurately",
+        "/features/quran",
       ),
       nf(
         "NF-3.7",
         "Family ties reminders",
-        "Gentle reminders to stay in touch with relatives, parents first",
+        "Gentle reminders to stay in touch with relatives, kept in your encrypted vault",
+        "/features/private-reflection",
       ),
     ],
   },
@@ -297,11 +364,21 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       nf(
         "NF-3.16",
         "Family and kids mode",
-        "Parent-managed child profiles, no email needed",
+        "Parent-managed profiles for children under 13, a kids Salah path and prophet stories; parents see fard Salah status only",
         "/features/family-and-friends",
       ),
-      nf("NF-3.17", "Accountability partner", "Encourage each other privately"),
-      nf("NF-3.18", "Group khatm", "Share a khatm by juz with family or friends"),
+      nf(
+        "NF-3.17",
+        "Accountability partner",
+        'Share only a daily "done", never your goal or details',
+        "/features/family-and-friends",
+      ),
+      nf(
+        "NF-3.18",
+        "Group khatm",
+        "Share a khatm by juz, hizb or surah with family or friends",
+        "/features/family-and-friends",
+      ),
     ],
   },
   {
@@ -339,8 +416,10 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       nf(
         "NF-3.0",
         "Encrypted private vault",
-        "End-to-end encrypted sync for your most private records",
+        "Muhasabah, will, debts and family contacts encrypted on the device; opt-in end-to-end encrypted sync",
+        "/features/private-reflection",
       ),
+      nf("NF-3.0b", "Searchable settings", "Redesigned settings grouped by topic, with search"),
     ],
   },
 ];

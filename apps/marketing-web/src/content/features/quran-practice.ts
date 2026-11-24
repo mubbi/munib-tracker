@@ -21,7 +21,7 @@ export const quranPractice: FeaturePage = {
   ],
   cluster: "quran-practice",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Qur'an practice",
   intro:
     "Tap the microphone and recite. An AI listener running on your own device follows along word by word, then shows which words to try again. Use it to memorize, revise and build confidence between lessons with your teacher, privately and for free.",
@@ -55,7 +55,25 @@ export const quranPractice: FeaturePage = {
           "Choose when marks appear: while you recite, after each ayah, or at the end",
           "Hear the reciter before you start, or before every ayah",
           "If the listener isn't sure about a word, it says so instead of guessing",
-          "Pronunciation check: after you recite, each word is marked clear or worth listening to again, with the reciter's audio one tap away",
+        ],
+      },
+      {
+        title: "Pronunciation check",
+        items: [
+          "Read the ayah on screen aloud, then tap Done",
+          "Words that seem skipped or unclear are marked gently, never in red, so you can listen to them again",
+          "Tap any word to hear the reciter, then read the ayah again",
+          "If the reading doesn't match the ayah on screen, it says it couldn't follow instead of guessing",
+        ],
+      },
+      {
+        title: "Tajweed coaching",
+        items: [
+          "A short plan of tajweed sounds that appear in the ayahs you're working on, with words from your own recitation as examples",
+          "Words the pronunciation check marked can be used as examples (you can turn this off)",
+          "Plain explanations of each rule, such as qalqalah, ghunnah, shaddah, madd and the sun letters",
+          "Short sound drills for qalqalah, ghunnah and shaddah, and listen-and-repeat cards for the others",
+          "Spaced practice: each sound shows how often you've practised it and when it comes back, never a score",
         ],
       },
       {
@@ -64,7 +82,6 @@ export const quranPractice: FeaturePage = {
           "Your voice is processed on your device; it is never recorded, stored or uploaded",
           "The listener is a one-time optional download of about 70 MB",
           "After that, practice works without a connection",
-          "Tajweed coaching that turns your practice results into targeted drills",
         ],
       },
     ],
@@ -143,7 +160,12 @@ export const quranPractice: FeaturePage = {
     {
       tone: "info",
       title: "What it does not do",
-      text: "Feedback is a guide, never a score. The listener checks your words and pronunciation, and tajweed coaching suggests what to practise, but none of it replaces reciting to a qualified teacher. It works best in a quiet room, with one voice, at a normal recitation pace, and may be less reliable for children's voices.",
+      text: "Feedback is a guide, never a score. The listener and the pronunciation check look at which words you said; they do not judge tajweed or how each letter is pronounced, and they miss some mistakes, especially between similar-sounding letters. Tajweed coaching suggests sounds to practise, but it can't check tajweed inside an ayah and doesn't measure the length of a madd. None of it replaces reciting to a qualified teacher. It works best in a quiet room, with one voice, at a normal recitation pace, and may be less reliable for children's voices.",
+    },
+    {
+      tone: "app",
+      title: "Pronunciation check and tajweed coaching",
+      text: "Both run on your device. The pronunciation check is available in the iPhone, Android and web apps, not on TV, and uses an optional on-device listener download shared with Qur'an practice. No audio is recorded, stored or uploaded, and nothing is scored. They were tested on reference recitations with added noise and errors, not on learners' voices, so treat their marks as a prompt to listen again.",
     },
   ],
   faqs: [
@@ -155,7 +177,7 @@ export const quranPractice: FeaturePage = {
     {
       question: "Does it correct my tajweed?",
       answer:
-        "It helps. After you recite, the pronunciation check marks words worth listening to again, and tajweed coaching turns those results into targeted practice, with optional drills that check one sound at a time against an example. There are no scores, and it does not replace a teacher. See our guide on [improving your recitation](/resources/quran-learning/how-to-improve-quran-recitation).",
+        "No, it doesn't correct tajweed. The pronunciation check marks words that seem skipped or unclear, and tajweed coaching turns the ayahs you practise into a short plan of tajweed sounds to work on, with explanations, sound drills for qalqalah, ghunnah and shaddah, and listen-and-repeat cards. It can't check tajweed inside an ayah, there are no scores, and it does not replace a teacher. See our guide on [improving your recitation](/resources/quran-learning/how-to-improve-quran-recitation).",
     },
     {
       question: "Does it work offline?",
@@ -165,7 +187,7 @@ export const quranPractice: FeaturePage = {
     {
       question: "Is it suitable for children?",
       answer:
-        "Children can use it with a parent, including from [kids mode](/features/family-and-friends), but the listener may be less reliable for children's voices. See our page for [families](/for/families).",
+        "Children can use it with a parent, but the listener may be less reliable for children's voices. See our page for [families](/for/families).",
     },
     {
       question: "Which devices support it?",

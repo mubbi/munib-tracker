@@ -168,7 +168,7 @@ export const article: Article = {
     {
       type: "note",
       tone: "app",
-      text: "Munib Tracker's optional [Qur'an practice](/features/quran-practice) listener runs on your device and follows your recitation word by word; in Check mode it shows the words to try again after each ayah, and its pronunciation check marks words worth listening to again, which feed into tajweed coaching drills. Your voice is processed on the device and never recorded or uploaded. It works best in a quiet room at a normal pace, gives no scores, and is a practice aid, not a replacement for a teacher.",
+      text: "Munib Tracker's optional [Qur'an practice](/features/quran-practice) listener runs on your device and follows your recitation word by word; in Check mode it shows the words to try again after each ayah, and selected tajweed lessons include an optional pronunciation drill. Your voice is processed on the device and never recorded or uploaded. It works best in a quiet room at a normal pace, gives no scores, and is a practice aid, not a replacement for a teacher.",
     },
     { type: "h2", text: "Common mistakes to watch for" },
     {

@@ -5,12 +5,16 @@ import {
   BookOpen,
   CalendarCheck,
   Compass,
+  Footprints,
   GraduationCap,
   Hand,
   Landmark,
   ListChecks,
   Mic,
+  MoonStar,
+  NotebookPen,
   RotateCcw,
+  Scale,
   ScrollText,
   ShieldCheck,
   Users,
@@ -34,6 +38,10 @@ export const FEATURE_ICON: Record<FeatureIconKey, LucideIcon> = {
   family: Users,
   will: ScrollText,
   hadith: BookMarked,
+  madhhab: Scale,
+  fasting: MoonStar,
+  umrah: Footprints,
+  reflection: NotebookPen,
 };
 
 export function FeatureIcon({ icon, className }: { icon: FeatureIconKey; className?: string }) {

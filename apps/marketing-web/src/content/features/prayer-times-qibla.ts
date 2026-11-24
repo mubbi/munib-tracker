@@ -21,7 +21,7 @@ export const prayerTimesQibla: FeaturePage = {
   ],
   cluster: "prayer-times",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Salah times & Qibla",
   intro:
     "Know when each Salah begins and which way to face, at home or travelling. Times are calculated on your device for your location, with the method and Asr madhab you follow.",
@@ -40,7 +40,7 @@ export const prayerTimesQibla: FeaturePage = {
           "13 calculation methods and Shafi'i or Hanafi Asr",
           "Per-Salah minute adjustments to match your local Masjid",
           "High-latitude rules for places with very long or short nights",
-          "One madhhab setting that Asr, Witr and every guide follow, or show all views",
+          "A [madhhab setting](/features/my-madhhab) that Witr and the guides follow, or show all views; it can also match your Asr setting",
         ],
       },
       {
@@ -64,7 +64,7 @@ export const prayerTimesQibla: FeaturePage = {
         title: "Your Masjid",
         items: [
           "Find nearby masjids with the [Masjid finder](/features/masjid-finder)",
-          "Keep your home Masjid's iqamah times, typed in or scanned from its timetable",
+          "Keep your home Masjid's iqamah times privately, typed in or scanned from its timetable, with a countdown and an optional reminder to leave",
           "Anchor reminders and the [Salah focus lock](/features/salah-focus-lock) to iqamah time",
         ],
       },
@@ -74,7 +74,7 @@ export const prayerTimesQibla: FeaturePage = {
           "The Hijri date on the home screen, with the moon phase",
           "An Islamic events calendar",
           "A Hijri to Gregorian date converter",
-          "Hijri date adjustment to match your local moon sighting",
+          "Hijri date adjustment: a ±2-day offset plus per-month corrections, to match your local moon sighting",
           "Optional local weather",
         ],
       },

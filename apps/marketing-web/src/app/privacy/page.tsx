@@ -9,10 +9,10 @@ export const metadata: Metadata = pageMetadata({
   path: "/privacy",
   title: "Privacy Policy",
   description:
-    "How Munib Tracker handles your data: guest data stays on your device, optional account sync, location use, Qur'an practice audio, and this site's analytics.",
+    "How Munib Tracker handles your data: guest data stays on your device, optional sync, the encrypted vault, family circles, location, Qur'an practice audio and analytics.",
 });
 
-const EFFECTIVE_DATE = "23 November 2026";
+const EFFECTIVE_DATE = "24 November 2026";
 
 export default function PrivacyPage() {
   return (
@@ -40,9 +40,11 @@ export default function PrivacyPage() {
         <p className="text-muted">
           By default, all of your tracking and learning data stays on your device. That includes
           Salah logs, Zikr and tasbeeh counts, Qaza and fasting records, Qur&apos;an and hadith
-          bookmarks, reading progress, favorites, custom adhkar, khushu&apos; journal entries,
-          preferences (theme, language, fonts, notifications, home layout), and optional PIN lock
-          settings. Guest mode works fully without an account.
+          bookmarks, ayah notes and highlights, reading progress, favorites, custom adhkar,
+          khushu&apos; journal entries, preferences (theme, language, fonts, notifications, home
+          layout, madhhab, Hijri adjustment), and optional PIN lock settings. Guest mode works fully
+          without an account. The weekly coach works out its suggestions on your device from these
+          records with simple rules; nothing is sent to a server or to an AI service to do it.
         </p>
       </ContentSection>
 
@@ -60,10 +62,10 @@ export default function PrivacyPage() {
       <ContentSection heading="Microphone & Qur&apos;an practice">
         <p className="text-muted">
           The app uses the microphone only when you turn it on: to dictate custom adhkar, in
-          Qur&apos;an practice and the pronunciation check to follow your recitation, for the Verse
-          Detector, and for hands-free tasbeeh. Recitation audio is processed on your device. It is
-          not recorded, stored, or uploaded, and practice keeps only counts (for example how many
-          words matched) and ayah numbers — never audio or a transcript.
+          Qur&apos;an practice to follow your recitation, for the Verse Detector, and for hands-free
+          tasbeeh, which only listens for the pauses between the phrases you say. Audio is processed
+          on your device. It is not recorded, stored, or uploaded, and practice keeps only counts
+          (for example how many words matched) and ayah numbers — never audio or a transcript.
         </p>
         <p className="mt-3 text-muted">
           The practice listener is an optional download (about 70 MB). The iOS and Android apps
@@ -77,61 +79,109 @@ export default function PrivacyPage() {
           recitation.
         </p>
         <p className="mt-3 text-muted">
-          Hands-free tasbeeh and the word-by-word pronunciation check use a speech model that also
-          runs on your device; audio is never saved or uploaded and no cloud speech service is used.
-          On the web, the model file is downloaded from a content delivery network. Hadith audio
-          uses your device&apos;s own text-to-speech voice to read translations.
+          The pronunciation check uses a second on-device speech model. On the web its files are
+          downloaded from a public mirror on Hugging Face and checked against pinned fingerprints.
+          Audio is never saved or uploaded and no cloud speech service is used. Tajweed coaching
+          keeps only which sounds you practised, when, and references to example words — never audio
+          or a score.
         </p>
       </ContentSection>
 
-      <ContentSection heading="Masjid finder, timetable scan & Umrah mode">
+      <ContentSection heading="Masjid finder & Umrah mode">
         <p className="text-muted">
-          To list masjids near you, the app sends your approximate location to our server, which
-          looks them up on OpenStreetMap and returns the results; we don&apos;t store it with your
-          account. Iqamah times you add for your home masjid, whether typed or scanned from a
-          timetable, stay on your device and in your own sync and are never shown to other users.
-          Timetable photos are read on your device and are not uploaded. Umrah mode&apos;s miqat
-          alert uses your location on the device while the app is open.
+          To list masjids near you, the app sends our server only a short area code for a cell of
+          about 5 km, never your exact coordinates. The request carries no account, user ID or
+          cookie. Our server looks the area up on OpenStreetMap, caches the public results and sends
+          them back; distances to each masjid are worked out on your device. The server does not log
+          the area you looked up. Your home masjid is saved in your preferences, and iqamah times
+          you type in for it stay on your device and your own synced devices: they are never sent to
+          the Masjid finder or shown to other users. If you mark a Salah as prayed at the masjid,
+          that note is part of your own Salah log. Umrah mode&apos;s miqat check uses your location
+          on the device while the screen is open.
+        </p>
+        <p className="mt-3 text-muted">
+          If you scan your masjid&apos;s timetable, the photo is read on your device (Apple Vision
+          on iPhone, ML Kit on Android, or a text-recognition engine that runs inside your browser
+          on the web, downloaded once from a public CDN). The photo and the recognised text are
+          never uploaded; the app&apos;s copy of the photo is deleted after reading, or when you
+          finish checking if you choose to keep it on screen. Only the times you review and save are
+          kept, as your private times.
         </p>
       </ContentSection>
 
       <ContentSection heading="Salah focus lock">
         <p className="text-muted">
-          The focus lock uses your phone&apos;s screen-time features (Apple Screen Time on iPhone,
-          usage access on Android) to block the apps you choose. The list of apps you pick stays on
-          your device; we never see which apps you use. Emergency unlocks are counted only on your
-          device.
+          The Salah focus lock is optional. If you turn it on, the apps you choose to pause stay on
+          your device. On iPhone they are kept by Apple&apos;s Screen Time framework as private
+          tokens we cannot read. On Android the app checks which app is open (using usage access)
+          only while one of your prayer windows is running, and never stores or sends that
+          information. Your focus-lock settings (which prayers, timing and mode) sync with your
+          account like other preferences; your app choices and emergency-unlock history do not.
         </p>
       </ContentSection>
 
-      <ContentSection heading="Private records: muhasabah, family ties, debts & will">
+      <ContentSection heading="Private vault: muhasabah, family ties, debts & will">
         <p className="text-muted">
-          Your nightly muhasabah, family-ties list, debts and trusts record, and Islamic will are
-          stored on your device. Syncing them is optional and end-to-end encrypted: our server
-          stores only encrypted data it cannot read. Notifications on your lock screen never show
-          sensitive details such as amounts or personal reflections.
+          Your nightly muhasabah, family-ties list (including the names and phone numbers of
+          relatives you add), debts and trusts record, and Islamic will are kept in an encrypted
+          vault on your device (AES-256-GCM, with the key held in your device&apos;s secure storage,
+          or as a browser key that can&apos;t be exported on the web). They are not synced unless
+          you turn on vault sync.
+        </p>
+        <p className="mt-3 text-muted">
+          Vault sync is optional and end-to-end encrypted. You choose a passphrase and receive a
+          24-word recovery code that is shown only once. The encryption key is derived on your
+          device and never sent, so our server stores only encrypted data that we cannot read. If
+          you lose both your passphrase and your recovery code, the synced copy cannot be recovered
+          by anyone, including us; the records on your device keep working.
+        </p>
+        <p className="mt-3 text-muted">
+          Reminders for these records use generic text: lock-screen notifications never show names,
+          amounts or personal reflections. A document photo you attach to a debt is encrypted on
+          your device and is never synced or included in backups. A will or debts statement you
+          export as a PDF is created only to hand to the share or print sheet and is deleted
+          afterwards on iPhone and Android; once you share it, that copy is under your control.
         </p>
       </ContentSection>
 
       <ContentSection heading="Family circles, partners & group khatm">
         <p className="text-muted">
-          These features need a free account, because members see shared progress through our
-          server. Each circle stores only a small, fixed signal: a child&apos;s five fard Salah
-          statuses for their parents; a daily &quot;done&quot; for an accountability partner (never
-          your goal or what you missed); and which khatm part each member is reading and when it is
-          done. Your other logs, notes and goals are not shared. Leaving a circle deletes your
-          signals for it after 30 days, and deleting your account removes them.
+          Family circles and accountability partners need a free account, because members see shared
+          progress through our server. A group khatm can also be joined as a guest on the web. Each
+          circle stores only a small, fixed signal: a child&apos;s five fard Salah statuses (done or
+          not) and generic rest days, for their parents; a daily &quot;done&quot; for an
+          accountability partner (never your goal or what you missed); and which khatm part each
+          member is reading and when it is done. The server rejects any other field, so your notes,
+          Qaza, journals and goals can&apos;t be shared through a circle. A parent&apos;s own Salah
+          is never shared, and adults in a family share nothing unless they turn sharing on.
+        </p>
+        <p className="mt-3 text-muted">
+          Members see the display name you choose for each circle, never your account name or email.
+          A partner&apos;s dua or reminder nudge is anonymous. Daily signals are deleted after 90
+          days and nudges after 30 days. When you leave a circle, you are hidden at once and your
+          signals and membership are deleted after 30 days. Deleting your account removes your
+          circle data; circles you own pass to another member or are dissolved.
         </p>
       </ContentSection>
 
       <ContentSection heading="Notifications">
         <p className="text-muted">
-          Prayer, adhkar, Qaza, fasting, family-ties, muhasabah, daily content, Friday, Qur&apos;an
-          revision, and achievement reminders are scheduled locally on your device when you enable
-          them. If you allow notifications, the app registers a push token with our server so we can
-          send service announcements, Live Activity updates on iOS, and web push reminders; you can
-          turn these off at any time. Notification content is generated from your preferences and
-          local data. You can disable any category or revoke system permission at any time.
+          Prayer, preferred-time, adhkar, Qaza, fasting, family-ties, muhasabah, iqamah, debt and
+          will, weekly coach, daily content, Friday, Qur&apos;an revision, and achievement reminders
+          are scheduled locally on your device when you enable them. If you allow notifications, the
+          app registers a push token with our server so we can send service announcements, Live
+          Activity updates on iOS, and web push reminders; you can turn these off at any time.
+          Notification content is generated from your preferences and local data. You can disable
+          any category or revoke system permission at any time.
+        </p>
+        <p className="mt-3 text-muted">
+          If you are signed in and belong to a circle, our server can also push three kinds of
+          circle event: a khatm part was completed, a khatm was completed, and someone made dua for
+          you. Their text is fixed and contains no names, circle names, intentions or Salah status.
+          Parents in a family circle can also get a weekly family digest with counts only (for
+          example how many Salah were logged that week), never children&apos;s names or individual
+          prayers. Each kind has its own switch in Settings, and the server follows your choice once
+          your preferences have synced. Guests in a group khatm don&apos;t receive circle pushes.
         </p>
       </ContentSection>
 
@@ -140,9 +190,9 @@ export default function PrivacyPage() {
           If you sign in with Google, Apple or Facebook, we store the minimum needed to sync across
           devices: an account identifier, email and display name from the provider (when provided),
           and the worship and learning records you choose to sync (for example prayer logs, zikr
-          progress, Qaza, preferences, favorites, bookmarks, khatm/hifz, custom adhkar, journal
-          entries, and learning progress). Sync uses last-write-wins conflict handling. We do not
-          sell your data or use it for advertising.
+          progress, Qaza, preferences, favorites, bookmarks, ayah notes and highlights, khatm/hifz,
+          custom adhkar, journal entries, and learning progress). Vault records sync only end-to-end
+          encrypted, as described above. We do not sell your data or use it for advertising.
         </p>
       </ContentSection>
 
@@ -175,12 +225,15 @@ export default function PrivacyPage() {
         <p className="text-muted">
           Depending on features you use, the app or site may contact: our API host for auth and
           sync; Google, Apple or Facebook for sign-in; Sentry for crash reports (without your
-          worship data); open CDNs for optional Qur&apos;an/hadith/audio content (see{" "}
+          worship data); open CDNs for optional Qur&apos;an/hadith/audio content, a public GitHub
+          copy of the Quranic Arabic Corpus for root-word search, a public Hugging Face mirror for
+          speech-model files on the web, and a public CDN for the in-browser timetable reader (see{" "}
           <Link href={SITE_PATHS.credits} className="font-medium text-brand hover:underline">
             Credits
           </Link>
-          ); and weather providers when overlays are enabled. The product app does not embed
-          third-party advertising or behavioural-tracking SDKs.
+          ); OpenStreetMap, through our server, for the Masjid finder; and weather providers when
+          overlays are enabled. The product app does not embed third-party advertising or
+          behavioural-tracking SDKs.
         </p>
       </ContentSection>
 
@@ -199,12 +252,22 @@ export default function PrivacyPage() {
 
       <ContentSection heading="Children">
         <p className="text-muted">
-          Children under 13 use {APP_NAME} only through kids mode, set up by a parent. A child
-          profile holds a nickname and birth year only, with no email or password, and we record the
-          parent&apos;s consent. A child&apos;s device is linked with a one-time QR code that the
-          parent can revoke. Child sessions show no ads and send no third-party analytics; crash
-          reports contain no user identifiers. Parents see only their child&apos;s five fard Salah
-          statuses. To delete a child profile, remove it from your family circle or contact us.
+          Kids mode is for children under 13 and is set up by a parent, who confirms their consent
+          in the app; we record when consent was given and which version of this policy it applied
+          to. A child profile holds only a nickname, a birth year and an optional built-in avatar,
+          with no email or password. A child&apos;s device is linked with a one-time QR code that
+          expires after five minutes, and the parent can unlink it at any time. The app has no ads
+          or analytics SDKs, and in a child session crash reports carry no user, request or activity
+          details. Parents see only their child&apos;s five fard Salah statuses and the stickers
+          earned from them.
+        </p>
+        <p className="mt-3 text-muted">
+          Deleting a child profile deletes it and its signals immediately. When a child is ready to
+          move to their own account, the profile and its signals are deleted and the young person
+          joins with sharing off. If the parent who gave consent deletes their account, the
+          child&apos;s profile passes to another parent in the family, who must confirm consent
+          again within 30 days or the profile is deleted; with no other parent it is deleted at
+          once. To delete a child profile, remove it from your family circle or contact us.
         </p>
       </ContentSection>
 

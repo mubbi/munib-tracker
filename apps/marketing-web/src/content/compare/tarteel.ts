@@ -58,7 +58,9 @@ export const vsTarteel: ComparePage = {
         {
           feature: "Tajweed feedback",
           cells: {
-            munib: cell.yes("Tajweed error coaching and pronunciation drills; no scores"),
+            munib: cell.partial(
+              "Doesn't detect tajweed mistakes either; tajweed coaching suggests sounds to practise, with drills and explanations",
+            ),
             [TA]: cell.no('"Does not detect Tajweed mistakes yet"'),
           },
         },
@@ -168,7 +170,7 @@ export const vsTarteel: ComparePage = {
       "Voice stays on the device",
       "Part of a full worship tracker: Salah, Qaza, zikr, learning",
       "No subscription",
-      "Word-by-word pronunciation feedback and tajweed coaching, on the device",
+      "Free tajweed coaching and a basic pronunciation check, on the device",
     ],
     [TA]: [
       "The most developed AI memorization feedback, including tashkeel errors",
@@ -186,7 +188,7 @@ export const vsTarteel: ComparePage = {
     { type: "h2", text: 'What "AI recitation" means in each app' },
     {
       type: "p",
-      text: "Both apps listen and follow along. Tarteel's Premium mistake detection is the more detailed of the two: it flags missed, wrong and extra words and tashkeel errors live. Munib Tracker's listener shows words to try again after each ayah, or while you recite if you prefer, and says when it isn't sure; its pronunciation check then marks each word as clear or worth listening to again, and tajweed coaching turns that into targeted practice. Neither app gives a tajweed score.",
+      text: "Both apps listen and follow along. Tarteel's Premium mistake detection is the more detailed of the two: it flags missed, wrong and extra words and tashkeel errors live. Munib Tracker's listener shows words to try again after each ayah, or while you recite if you prefer, and says when it isn't sure. Its pronunciation check is more basic than Tarteel's mistake detection: it marks words that seem skipped or unclear, and misses many errors between similar-sounding letters. Tajweed coaching then suggests tajweed sounds to practise from the ayahs you're working on. Neither app detects tajweed mistakes or gives a tajweed score.",
     },
     {
       type: "p",
@@ -217,7 +219,7 @@ export const vsTarteel: ComparePage = {
     {
       question: "Is there a free alternative to Tarteel's mistake detection?",
       answer:
-        "Munib Tracker's Qur'an practice is free and marks words to try again after each ayah. It's simpler than Tarteel's Premium mistake detection and doesn't detect tashkeel errors. Munib Tracker also gives word-by-word pronunciation feedback (clear, or worth listening to again) and tajweed coaching, all on the device and without scores.",
+        "Munib Tracker's Qur'an practice is free and marks words to try again after each ayah. It's simpler than Tarteel's Premium mistake detection and doesn't detect tashkeel errors. It also has a basic pronunciation check that marks words that seem skipped or unclear, and tajweed coaching that suggests sounds to practise, both on the device and without scores.",
     },
     {
       question: "Does Munib Tracker upload my recitation?",

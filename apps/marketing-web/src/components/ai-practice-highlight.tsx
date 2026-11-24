@@ -31,7 +31,7 @@ const POINTS: { id: string; icon: LucideIcon; title: string; body: string }[] = 
     id: "follow",
     icon: Mic,
     title: "Follows you word by word",
-    body: "Recite at your own pace. Words light up as the listener hears them, words to try again are marked gently, and a pronunciation check shows which words are worth listening to again. No scores.",
+    body: "Recite at your own pace. Words light up as the listener hears them, and words to try again are marked gently. No scores.",
   },
   {
     id: "memorize",

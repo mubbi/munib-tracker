@@ -116,12 +116,46 @@ Use 2–4 contextual internal links in the body, plus 3–5 hrefs in `related`.
   achievements and "Noor" devotion levels that never cap out.
 - **Learning library:** aqeedah, prophets, seerah, sahaba, the Hereafter, salah guide (24 lessons),
   taharah/wudu guide, new-Muslim guide (18 topics), Hajj & Umrah, zakat calculator — all cited.
-- **Also available (NF-3.x, presented as shipped since 2026-11-23):** Rawatib tracker; Salah focus lock
-  (blocks chosen apps until you pray); Masjid finder (OpenStreetMap) with private home-masjid iqamah
-  times and on-device timetable scan; madhhab setting; Hijri date adjustment; voluntary fasting planner;
-  Dhul-Hijjah mode; Umrah mode; daily Sunnah habits; tasbeeh designs; hands-free (voice) tasbeeh;
-  ayah notes and highlights; Arabic root-word search; hadith audio (translations read aloud);
-  word-by-word pronunciation check and tajweed coaching (no scores); nightly muhasabah; family-ties
-  reminders; weekly on-device coach; debts and trusts record; wasiyyah builder; mirath calculator
-  (four schools); family and kids mode (parent-managed child profiles, parents see fard status only);
-  accountability partner (shares only "done"); group khatm; end-to-end encrypted sync for private records.
+- **Also in the app (NF-3.x, verified against the app code and `docs/proofs/` on 2026-11-24):**
+  "My madhhab" setting (Hanafi / Shafi'i / Maliki / Hanbali / show all views; differences labelled in
+  guides and calculators — zakat nisab and jewellery, fidyah, qasr, hayd/nifas, Witr); redesigned
+  searchable Settings; Hijri date adjustment (±2 days plus per-month corrections); Rawatib tracker (12
+  Hanafi / 10 other schools, editable); voluntary fasting planner (disliked days labelled, prohibited days
+  blocked); Dhul-Hijjah mode (daily deeds, Day of Arafah, Takbir al-Tashriq by school, udhiyah planner);
+  daily Sunnah habits; eight tasbeeh designs (Ring default, sliding beads, digital clicker, Focus /
+  Night, date pits / pebbles with a grading note, finger counting, geometric rosette, night sky — the
+  last four not on TV; optional sound and haptics); hands-free tasbeeh in **pause-count mode only**
+  (counts each separate spoken phrase by its pauses, on the device, no download, no audio leaves the
+  device; it does NOT recognise which phrase you say and is labelled less accurate than tapping);
+  preferred-time reminders (optional, per school; none in all-views mode); nightly muhasabah;
+  family-ties reminders; debts and trusts record (optional document photo, encrypted, never synced);
+  wasiyyah builder with PDF export; weekly gentle coach (simple rules on the device — **not AI**) fed
+  by a daily Qur'an reading log;
+  mirath calculator (four schools; educational, "consult a qualified scholar / Shariah court" — never a
+  ruling); Umrah mode (miqat check, tawaf and sa'i counters); ayah notes and highlights; Arabic root-word
+  search (Quranic Arabic Corpus, optional ~6 MB download, credited); Salah focus lock (iPhone and
+  Android: blocks chosen apps; gentle / firm / strict, emergency unlocks; app choices stay on the device);
+  Masjid finder (OpenStreetMap, list-first with "open in Maps", no in-app map; no public iqamah
+  timetables; private home-masjid iqamah times typed in or scanned from a timetable photo — read on the
+  device, iOS Vision / Android ML Kit / in-browser engine after a one-time ~7 MB download, always
+  reviewed before saving, photo copy deleted; iqamah countdown on home and an iqamah reminder;
+  "prayed at the masjid" on fard Salah with a weekly count in statistics; only a ~5 km area cell is
+  sent); family and kids mode (parent-managed profiles for children under 13, nickname and birth year
+  only; kids Salah path — wudu, the five prayers, how to pray — and curated prophet stories; parents
+  see fard Salah status only); accountability partner (shares only "done"); group khatm (30 juz / 60
+  hizb / 114 surahs); circle push notifications and a weekly family digest (counts only); an
+  encrypted vault for muhasabah, will, debts and relatives with opt-in end-to-end encrypted sync
+  (passphrase + 24-word recovery code; the server stores ciphertext only).
+- **Pronunciation check (NF-3.24) and tajweed coaching (NF-3.15) — describe exactly this:** the check
+  ships in its basic (D24 fallback) form: after you read the ayah on screen aloud, words that seem
+  **skipped or unclear** are marked (gently, never red); tap a word to hear the reciter; if the reading
+  doesn't match it says it couldn't follow. On the device (no audio stored or uploaded), phone and web,
+  not TV. It does NOT judge tajweed or letter-level makharij, misses some errors (especially
+  similar-sounding letters), and was evaluated on reference + synthetic audio only — never claim
+  accuracy. Tajweed coaching: a short, spaced plan of tajweed sounds that appear in the ayahs you
+  practise (example words can come from the check), rule explanations (qalqalah, ghunnah, shaddah,
+  madd, hamzat al-wasl, sun letters, idgham without ghunnah), sound drills for qalqalah / ghunnah /
+  shaddah and listen-and-repeat cards for the rest; no scores; it can't check tajweed inside an ayah
+  and doesn't measure madd length.
+- **Not shipping — never mention as a feature:** hadith audio (no licence-cleared human recordings; no
+  synthetic voice).

@@ -48,7 +48,7 @@ export const MUNIB_CELLS = {
   khatm: yes("Khatm plan with daily target"),
   quranLearning: yes("Letters, learn-to-read, tajweed lessons"),
   recitation: yes("On-device listener follows word by word; free"),
-  mistakeMarks: partial("Words to try again and a pronunciation check; no scores"),
+  mistakeMarks: partial("Words to try again; no scores"),
   memorization: yes("Hide words/ayahs, spaced revision 1-3-7-14-30 days"),
   hadith: yes("Two collections bundled, six on demand"),
   learning: yes("Cited lessons on aqeedah, seerah, fiqh guides"),
@@ -81,11 +81,16 @@ const NF_STATUS = new Map(
     .map((i) => [i.nf, i.status]),
 );
 
-/** A Munib cell for an NF-3.x feature: available or "Coming soon", per its inventory status. */
-function nf(id: string, note: string): CompareCell {
+/**
+ * A Munib cell for an NF-3.x feature: available or "Coming soon", per its
+ * inventory status. `shippedAs: "partial"` marks a feature that ships in a
+ * deliberately limited form (e.g. a documented fallback).
+ */
+function nf(id: string, note: string, shippedAs: "yes" | "partial" = "yes"): CompareCell {
   const status = NF_STATUS.get(id);
   if (!status) throw new Error(`Unknown roadmap id ${id}`);
-  return status === "shipped" ? yes(note) : planned(note);
+  if (status !== "shipped") return planned(note);
+  return shippedAs === "partial" ? partial(note) : yes(note);
 }
 
 /**
@@ -97,18 +102,25 @@ export const MUNIB_NF = {
   rawatib: nf("NF-3.1", "Sunnah Rawatib tracker"),
   focusLock: nf("NF-3.13", "Salah focus lock (blocks chosen apps)"),
   masjidFinder: nf("NF-3.11", "Masjid finder (OpenStreetMap)"),
-  timetableScan: nf("NF-3.12", "Scan your masjid's timetable"),
+  timetableScan: nf("NF-3.12", "Scan your masjid's timetable, read on the device"),
   madhhab: nf("NF-3.0a", "App-wide madhhab setting"),
   voluntaryFasting: nf("NF-3.2", "Voluntary fasting tracker"),
   dhulHijjah: nf("NF-3.3", "Dhul-Hijjah mode"),
   sunnahHabits: nf("NF-3.5", "Daily Sunnah habits checklist"),
-  tasbeehDesigns: nf("NF-3.19", "Bead designs, sound and haptics"),
-  handsFreeTasbeeh: nf("NF-3.20", "Voice counting, on the device"),
+  tasbeehDesigns: nf("NF-3.19", "Eight designs, incl. sliding beads; sound and haptics"),
+  handsFreeTasbeeh: nf("NF-3.20", "Basic: counts each spoken phrase by its pauses, on the device"),
   ayahNotes: nf("NF-3.21", "Ayah notes, highlights and tags"),
   rootSearch: nf("NF-3.22", "Arabic root-word search"),
-  pronunciation: nf("NF-3.24", "Word-by-word pronunciation feedback, on the device"),
-  tajweedCoaching: nf("NF-3.15", "Tajweed error coaching"),
-  hadithAudio: nf("NF-3.23", "Hadith translation audio"),
+  pronunciation: nf(
+    "NF-3.24",
+    "Basic: marks words that seem skipped or unclear, on the device; no tajweed or letter-level judging",
+    "partial",
+  ),
+  tajweedCoaching: nf(
+    "NF-3.15",
+    "Coaching on tajweed sounds to practise, with drills; doesn't check tajweed inside an ayah",
+    "partial",
+  ),
   umrahMode: nf("NF-3.4", "Live, guided Umrah mode"),
   mirath: nf("NF-3.10", "Inheritance calculator, four schools"),
   wasiyyah: nf("NF-3.9", "Islamic will builder"),

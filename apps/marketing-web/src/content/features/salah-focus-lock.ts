@@ -9,7 +9,7 @@ export const salahFocusLock: FeaturePage = {
   title: "Put your phone down for Salah with a focus lock",
   seoTitle: "Salah Focus Lock — Block Distracting Apps at Prayer Time",
   seoDescription:
-    "Block the apps you choose around each Salah until you pray or the window ends. Gentle, firm or strict modes, Jumu'ah support and pauses on excused days. Free.",
+    "Block the apps you choose around each Salah until you pray or the window ends, on iPhone and Android. Gentle, firm or strict modes, Jumu'ah support. Free.",
   description:
     "Block the apps you choose during a window around each Salah, until you pray or the window ends.",
   keywords: [
@@ -20,7 +20,7 @@ export const salahFocusLock: FeaturePage = {
   ],
   cluster: "salah",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Salah focus lock",
   intro:
     "The Adhan goes, and somehow ten minutes later you're still scrolling. The focus lock blocks the apps you pick for a short window around each Salah, so the easiest thing to do is get up and pray.",
@@ -33,7 +33,8 @@ export const salahFocusLock: FeaturePage = {
         items: [
           "Choose which Salah to cover, including Jumu'ah on Fridays",
           "Start at the Adhan, or at iqamah if your home Masjid has times",
-          "Choose how long the window lasts, from 5 to 60 minutes",
+          "Choose how long the window lasts, from 5 to 60 minutes (20 by default)",
+          "Jumu'ah has its own, longer window: 60 minutes by default, up to two hours",
           "Overlapping windows are merged, for example at high latitudes",
         ],
       },
@@ -41,17 +42,18 @@ export const salahFocusLock: FeaturePage = {
         title: "Blocks only what you choose",
         items: [
           "Pick the apps that distract you; everything else keeps working",
-          "Uses the system's own screen-time tools on iPhone and Android",
+          "On iPhone, it uses Apple's Screen Time; on Android, usage access and a full-screen Salah reminder over the app you chose",
+          "Calls, messages and emergency apps are never blocked",
           "Your app choices stay on your device",
         ],
       },
       {
         title: "Three levels of firmness",
         items: [
-          '**Gentle:** hold "I\'ll pray now" for a few seconds to unlock',
-          "**Firm:** apps unlock when you mark the Salah as prayed",
+          '**Gentle:** hold "I\'ll pray now" for 10 seconds to unlock on Android; on iPhone, one tap lifts the block',
+          "**Firm:** apps unlock when you mark the Salah in Munib Tracker",
           "**Strict:** apps stay blocked until the window ends or you mark the Salah as prayed",
-          "A small number of emergency unlocks each day",
+          "Up to five emergency unlocks a day, as many as you choose (strict mode can have none)",
         ],
       },
       {
@@ -59,7 +61,7 @@ export const salahFocusLock: FeaturePage = {
         items: [
           "Marking the Salah as prayed, anywhere, ends the window early",
           "Pauses automatically on excused days for hayd, illness or travel",
-          "Quiet dates and weekday-only schedules",
+          "Quiet dates, and a weekdays-only option that skips your own weekend days",
         ],
       },
     ],
@@ -89,7 +91,7 @@ export const salahFocusLock: FeaturePage = {
       },
       {
         title: "Pray and unlock",
-        text: "Mark the Salah as prayed in the app, a widget or your watch, and your apps come back.",
+        text: "Mark the Salah as prayed in Munib Tracker, and your apps come back.",
       },
     ],
   },
@@ -131,7 +133,7 @@ export const salahFocusLock: FeaturePage = {
   notes: [
     {
       tone: "info",
-      text: "The focus lock needs permission to use your phone's screen-time features. It is available in the iPhone and Android apps.",
+      text: "The focus lock needs permission to use your phone's screen-time features (Screen Time on iPhone; usage access and display over other apps on Android). It is available in the iPhone and Android apps, not on the web, watch or TV. The apps you choose and your emergency unlocks stay on your device and are never uploaded; only your focus-lock settings (which Salah, timing and mode) sync with your account.",
     },
   ],
   faqs: [

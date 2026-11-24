@@ -171,10 +171,6 @@ export const vsIslam360: ComparePage = {
           feature: "Grading and explanation",
           cells: { munib: M.hadithDepth, [I3]: cell.yes("Grading and takhreej") },
         },
-        {
-          feature: "Hadith audio",
-          cells: { munib: P.hadithAudio, [I3]: cell.partial("Audio for some books") },
-        },
       ],
     },
     {
@@ -208,7 +204,7 @@ export const vsIslam360: ComparePage = {
       "On-device recitation practice and spaced revision",
       "No ads, subscription or account",
       "Widgets, Apple Watch and Wear OS",
-      "Ayah notes, root-word search and hadith audio",
+      "Ayah notes and Arabic root-word search",
     ],
     [I3]: [
       "Deep Qur'an search by Arabic word, root, topic and translation",

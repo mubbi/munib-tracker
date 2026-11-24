@@ -21,7 +21,7 @@ export const dailyIslamicHabits: FeaturePage = {
   ],
   cluster: "habits",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Daily habits",
   intro:
     "Generic habit apps don't know when Maghrib is or what Ayyam al-Bid means. Munib Tracker does. Today's Goal turns your Salah, zikr, Qaza and Qur'an reading into one simple checklist, and seasonal trackers help with Ramadan, Fridays and the White Days.",
@@ -67,9 +67,9 @@ export const dailyIslamicHabits: FeaturePage = {
         title: "Reflection and family",
         items: [
           "A daily Sunnah habits checklist, with the evidence for each habit",
-          "Nightly muhasabah: a private one-minute review that ends in istighfar and gratitude",
-          "Family ties reminders that keep you in touch with relatives, parents first",
-          "A weekly gentle coach with one to three kind suggestions, computed on your device",
+          "[Nightly muhasabah](/features/private-reflection): a private one-minute review with gratitude, istighfar and an intention for tomorrow",
+          "Family ties reminders that keep you in touch with relatives, kept in your encrypted vault",
+          "A weekly gentle coach with one to three kind suggestions, from simple rules on your device (no AI)",
         ],
       },
       {

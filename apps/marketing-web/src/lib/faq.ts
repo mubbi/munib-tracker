@@ -17,7 +17,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Do I need an account?",
     answer:
-      "Not for personal use. Guest mode gives you every personal feature with your data stored on your device. Sign in with Google, Apple, or Facebook when you want to sync across devices, or to use the shared features: family and kids mode, an accountability partner, and group khatm.",
+      "Not for personal use. Guest mode gives you every personal feature with your data stored on your device. Sign in with Google, Apple, or Facebook when you want to sync across devices, or to use family and kids mode or an accountability partner. A group khatm can also be joined as a guest on the web.",
   },
   {
     question: "Does it work offline?",
@@ -44,6 +44,16 @@ export const FAQ_ITEMS: FaqItem[] = [
       "Yes. A parent can create child profiles for a simple kids mode, friends can pair up as accountability partners, and families or Masjid circles can share a group khatm. Only a small signal is shared, and there are no leaderboards. See [Family & friends](/features/family-and-friends).",
   },
   {
+    question: "Does the app follow my madhhab?",
+    answer:
+      "You can choose Hanafi, Shafi'i, Maliki or Hanbali, or show all views. Guides and calculators that depend on it, such as Witr, rawatib, zakat nisab and jewellery, fidyah, shortening Salah when travelling, and hayd, then show your school's view, and where the schools differ the difference is labelled rather than hidden. It is a study aid; for your own situation, consult a qualified scholar. See [My madhhab](/features/my-madhhab).",
+  },
+  {
+    question: "Does the weekly coach use AI?",
+    answer:
+      "No. The weekly coach uses simple, fixed rules that run on your device to turn your own week into one to three kind suggestions. Nothing is sent to a server or an AI service. See [private reflection](/features/private-reflection).",
+  },
+  {
     question: "How accurate are prayer times?",
     answer:
       "Times are calculated on-device for your GPS location or chosen city using standard Islamic methods (13 calculation methods, Shafi'i or Hanafi Asr, high-latitude rules, and optional per-prayer minute offsets). You can refresh location from the home screen at any time.",
@@ -56,7 +66,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "What data do you collect?",
     answer:
-      'In guest mode, your worship records stay on your device. If you sign in, we store the minimum needed to sync your records and an account identifier from Google, Apple, or Facebook. Private records such as your muhasabah, debts and will sync only end-to-end encrypted. Family circles, partners and group khatm share only a small signal (for example "done"). The Masjid finder sends your approximate location to our server to look up nearby masjids. The app does not sell data or use advertising SDKs. Details are in our [Privacy Policy](/privacy).',
+      'In guest mode, your worship records stay on your device. If you sign in, we store the minimum needed to sync your records and an account identifier from Google, Apple, or Facebook. Private records such as your muhasabah, debts, will and family contacts stay in an encrypted vault on your device, and sync only if you turn on end-to-end encrypted vault sync. Family circles, partners and group khatm share only a small signal (for example "done"). The Masjid finder sends only a rough area of about 5 km to our server to look up nearby masjids. The app does not sell data or use advertising SDKs. Details are in our [Privacy Policy](/privacy).',
   },
   {
     question: "Which languages are supported?",

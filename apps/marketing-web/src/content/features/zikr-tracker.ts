@@ -21,7 +21,7 @@ export const zikrTracker: FeaturePage = {
   ],
   cluster: "zikr",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Zikr tracker",
   intro:
     "Remember Allah throughout the day with the adhkar the Prophet ﷺ taught, each shown with its source. Follow a guided session after Salah, count with a tactile tasbeeh, and keep track of what you've said today.",
@@ -54,8 +54,9 @@ export const zikrTracker: FeaturePage = {
         title: "Tasbeeh counter",
         items: [
           "Targets of 33, 99, 100, unlimited or a custom number",
-          "Counter designs: the classic ring, sliding beads and more, with optional sound and haptics",
-          "Hands-free counting: say the zikr aloud and it counts, recognised on your device",
+          "Eight counter designs, all free: the classic Ring (the default), sliding beads (misbaha), a digital clicker, a dim Focus / Night face, date pits / pebbles, finger counting, a geometric rosette and a night sky",
+          "Optional click sounds (natural wood, stone and glass; no music, no bells) and haptics",
+          "Hands-free counting: each separate phrase you say counts once, on your device; it doesn't check the words, so it is less accurate than tapping",
           "Undo and reset, with haptic feedback on phones",
           "A Tasbeeh tile on Wear OS and a shortcut on Apple Watch",
           "Counts linked to a zikr save towards your daily goal",
@@ -144,6 +145,17 @@ export const zikrTracker: FeaturePage = {
       },
     ],
   },
+  notes: [
+    {
+      tone: "scholar",
+      title: "About the date pits and finger-counting designs",
+      text: "The date pits / pebbles design shows a note that the report behind it is graded differently by scholars; the finger-counting design notes that counting on the fingertips is taught in the Sunnah. Every design counts exactly the same, and none is presented as more rewarding.",
+    },
+    {
+      tone: "info",
+      text: "The date pits, finger counting, geometric rosette and night sky designs are available on phones, tablets and the web, not on TV. Hands-free counting works on phones, tablets and the web, not on TV.",
+    },
+  ],
   faqs: [
     {
       question: "Where do the adhkar come from?",
@@ -168,7 +180,7 @@ export const zikrTracker: FeaturePage = {
     {
       question: "Can I count tasbeeh without tapping?",
       answer:
-        "Yes. Turn on hands-free counting and say the zikr aloud; the counter counts each one it recognises. Recognition happens on your device and no audio is saved or uploaded.",
+        "Yes, in a basic way. Turn on hands-free counting and each separate phrase you say counts once. It listens for the pauses between phrases and doesn't check which words you said, so it is less accurate than tapping; tap to correct any miscount. Listening happens only on your device, with no download, and no audio is recorded, stored or sent.",
     },
   ],
   related: ["salah-tracker", "daily-islamic-habits", "worship-progress", "widgets-and-devices"],

@@ -21,7 +21,7 @@ export const learnQuran: FeaturePage = {
   ],
   cluster: "quran-learning",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   eyebrow: "Learn the Qur'an",
   intro:
     "Whether you are learning the Arabic letters for the first time or want to understand what you already recite, Learn the Qur'an gives you a clear path: read, understand, reflect, memorize, practise and live it.",
@@ -46,7 +46,7 @@ export const learnQuran: FeaturePage = {
         items: [
           "Tajweed rules explained in plain language with examples",
           "Optional pronunciation drills for selected sounds",
-          "Tajweed coaching based on your recitation practice",
+          "Tajweed coaching: a short, spaced plan of tajweed sounds to practise, drawn from the ayahs in your [Qur'an practice](/features/quran-practice)",
           "Tajweed colouring in the reader to see the rules in context",
           "Memorization guidance and a hifz tracker",
         ],
@@ -150,7 +150,7 @@ export const learnQuran: FeaturePage = {
     {
       question: "Does the app teach tajweed?",
       answer:
-        "Yes. Tajweed rules are explained with examples, the reader can colour-code tajweed, and selected lessons include an optional pronunciation drill.",
+        "Yes. Tajweed rules are explained with examples, the reader can colour-code tajweed, selected lessons include an optional pronunciation drill, and tajweed coaching suggests sounds to practise from the ayahs you're working on. It doesn't judge your tajweed inside an ayah, so a teacher is still the best guide.",
     },
     {
       question: "Is it suitable for children?",
