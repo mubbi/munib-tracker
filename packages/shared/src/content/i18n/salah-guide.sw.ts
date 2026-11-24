@@ -1236,10 +1236,10 @@ export const SALAH_GUIDE_PHRASES_SW: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_SW: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Rakaa ngapi za sunna rawatib zimekubaliwa kila siku?",
+    prompt: "Hadithi ya Ummu Habiba inataja rakaa ngapi za sunna rawatib za kila siku?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Rawatib kumi na mbili ni: 2 kabla ya Alfajiri, 4 kabla ya Dhuhr, 2 baada ya Dhuhr, 2 baada ya Maghrib, na 2 baada ya Isha (Sahih Muslim 728).",
+      "Hadithi ya Ummu Habiba inaahidi nyumba Peponi kwa anayeswali rakaa kumi na mbili za sunna mchana na usiku (Sahih Muslim 728); Jami' at-Tirmidhi 415 inazitaja: 2 kabla ya Alfajiri, 4 kabla ya Dhuhr, 2 baada ya Dhuhr, 2 baada ya Maghrib, na 2 baada ya Isha.",
   },
   {
     prompt: "Kabla ya Alfajiri, sunna iliyosisitizwa (mu'akkadah) ni:",
@@ -1248,10 +1248,10 @@ export const SALAH_GUIDE_QUIZ_SW: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Rakaa mbili kabla ya Alfajiri ni sunna mu'akkadah — Mtume ﷺ hakuwahi kuacha (Sahih al-Bukhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Rawatib zilizokubaliwa karibu na Dhuhr ni:",
+    prompt: "Katika hadithi ya Ummu Habiba (Jami' at-Tirmidhi 415), rawatib za karibu na Dhuhr ni:",
     options: ["2 kabla, 2 baada", "4 kabla, 2 baada", "4 kabla, 4 baada", "2 kabla tu"],
     explanation:
-      "Nne kabla ya Dhuhr na mbili baada ni sehemu ya rawatib kumi na mbili. Rakaa za ziada zaidi ya hizi ni nafl zinazopendekezwa, si rawatib zilizowekwa.",
+      "Hadithi ya Ummu Habiba inataja nne kabla ya Dhuhr na mbili baada yake. Riwaya ya Ibn Umar (Sahih al-Bukhari 1180) inataja mbili kabla, hivyo madhehebu yanatofautiana ni idadi ipi wanayoihesabu kuwa rawatib zilizosisitizwa; rakaa zaidi ya hizo ni nafl.",
   },
   {
     prompt:

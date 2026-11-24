@@ -1233,10 +1233,11 @@ export const SALAH_GUIDE_PHRASES_FR: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_FR: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Combien de rak'ahs de sunna rawatib sont convenues chaque jour ?",
+    prompt:
+      "Combien de rak'ahs de sunna rawatib quotidiennes le hadith d'Umm Habiba mentionne-t-il ?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Les douze rawatib sont : 2 avant Fajr, 4 avant Dhuhr, 2 après Dhuhr, 2 après Maghrib et 2 après Isha (Sahih Muslim 728).",
+      "Le hadith d'Umm Habiba promet une maison au Paradis à qui prie douze rak'ahs surérogatoires par jour et par nuit (Sahih Muslim 728) ; Jami' at-Tirmidhi 415 les détaille : 2 avant Fajr, 4 avant Dhuhr, 2 après Dhuhr, 2 après Maghrib et 2 après Isha.",
   },
   {
     prompt: "Avant Fajr, la sunnah soulignée (mu'akkadah) est :",
@@ -1245,10 +1246,11 @@ export const SALAH_GUIDE_QUIZ_FR: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Deux rak'ahs avant Fajr sont sunnah mu'akkadah — le Prophète ﷺ ne les négligeait jamais (Sahih al-Bukhari 1169 ; Sahih Muslim 724).",
   },
   {
-    prompt: "Les rawatib convenues autour de Dhuhr sont :",
+    prompt:
+      "Dans le hadith d'Umm Habiba (Jami' at-Tirmidhi 415), les rawatib autour de Dhuhr sont :",
     options: ["2 avant, 2 après", "4 avant, 2 après", "4 avant, 4 après", "2 avant seulement"],
     explanation:
-      "Quatre avant Dhuhr et deux après font partie des douze rawatib. Les rak'ahs supplémentaires au-delà sont du nafl recommandé, pas des rawatib fixes.",
+      "Le hadith d'Umm Habiba mentionne quatre avant Dhuhr et deux après. Le récit d'Ibn 'Umar (Sahih al-Bukhari 1180) en mentionne deux avant ; les écoles divergent donc sur l'ensemble qu'elles comptent comme rawatib appuyées. Les rak'ahs au-delà relèvent du nafl.",
   },
   {
     prompt:

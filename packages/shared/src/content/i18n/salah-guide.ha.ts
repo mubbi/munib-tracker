@@ -1244,10 +1244,10 @@ export const SALAH_GUIDE_PHRASES_HA: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_HA: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Raka'o'in sunna rawatib nawa aka yarda a kowace rana?",
+    prompt: "Raka'o'in sunna rawatib na kowace rana nawa hadisin Ummu Habiba ya ambata?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Rawatib goma sha biyu sune: 2 kafin Asuba, 4 kafin Zuhr, 2 bayan Zuhr, 2 bayan Maghrib, da 2 bayan Isha (Sahih Muslim 728).",
+      "Hadisin Ummu Habiba ya yi alkawarin gida a Aljanna ga wanda ya yi raka'o'i goma sha biyu na sunna a yini da dare (Sahih Muslim 728); Jami' at-Tirmidhi 415 ya lissafa su: 2 kafin Asuba, 4 kafin Zuhr, 2 bayan Zuhr, 2 bayan Maghrib, da 2 bayan Isha.",
   },
   {
     prompt: "Kafin Asuba, sunnar da aka jaddada (mu'akkadah) ita ce:",
@@ -1256,10 +1256,10 @@ export const SALAH_GUIDE_QUIZ_HA: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Raka'a biyu kafin Asuba sunna mu'akkadah ne — Annabi ﷺ bai taɓa barinsu ba (Sahih al-Bukhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Rawatib da aka yarda a kusa da Zuhr sune:",
+    prompt: "A cikin hadisin Ummu Habiba (Jami' at-Tirmidhi 415), rawatib na kusa da Zuhr sune:",
     options: ["2 kafin, 2 bayan", "4 kafin, 2 bayan", "4 kafin, 4 bayan", "2 kafin kawai"],
     explanation:
-      "Huɗu kafin Zuhr da biyu bayan suna cikin rawatib goma sha biyu. Ƙarin raka'o'in da suka wuce waɗannan sunna ce mai ba da shawara, ba rawatib ba.",
+      "Hadisin Ummu Habiba ya ambaci huɗu kafin Zuhr da biyu bayansa. Ruwayar Ibn Umar (Sahih al-Bukhari 1180) ta ambaci biyu kafinsa, don haka mazhabobi sun saɓa kan wanne ne suke ƙirgawa a matsayin rawatib mai ƙarfi; abin da ya wuce haka nafila ne.",
   },
   {
     prompt:

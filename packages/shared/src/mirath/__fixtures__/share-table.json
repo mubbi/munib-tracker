@@ -1,0 +1,2535 @@
+{
+  "group": "share-table",
+  "description": "Every row of the plan's core share table (Qur'an 4:11, 4:12, 4:176 and the hadith on the remainder).",
+  "fixtures": [
+    {
+      "id": "st-husband-half",
+      "title": "Husband with no descendant: one half",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/2",
+            "full_brother": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Nisf"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-husband-quarter-son",
+      "title": "Husband with a son: one quarter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/4",
+            "son": "3/4"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Rub'"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-husband-quarter-sons-daughter",
+      "title": "Husband with a son's daughter: one quarter (surplus returned to her)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "sons_daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/4",
+            "sons_daughter": "3/4"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-husband-quarter-daughter-uncle",
+      "title": "Husband, daughter, full paternal uncle",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "daughter": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/4",
+            "daughter": "1/2",
+            "full_paternal_uncle": "1/4"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-wife-quarter",
+      "title": "Wife with no descendant: one quarter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "father": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "father": "3/4"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Rub'"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-wife-eighth",
+      "title": "Wife with a son: one eighth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/8",
+            "son": "7/8"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Thumun"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-wives-share-eighth",
+      "title": "Four wives share one eighth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 4,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/8",
+            "son": "7/8"
+          },
+          "tashih": 32
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Tashih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-wives-share-quarter",
+      "title": "Two wives share one quarter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 2,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "full_brother": "3/4"
+          },
+          "tashih": 8
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-father-sixth-son",
+      "title": "Father with a son: one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1/6",
+            "son": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Sudus"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-father-sixth-sons-son",
+      "title": "Father with a son's son: one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "sons_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1/6",
+            "sons_son": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-father-sixth-and-residue",
+      "title": "Father with a daughter: one sixth plus the residue",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1/2",
+            "daughter": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-father-sixth-and-residue-daughters",
+      "title": "Father with two daughters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "daughter": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1/3",
+            "daughter": "2/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-father-residue",
+      "title": "Father with no descendant takes the residue",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "2/3",
+            "mother": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-mother-third",
+      "title": "Mother with no descendant and fewer than two siblings: one third",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/3",
+            "full_brother": "2/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Thuluth"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-mother-third-maternal-sister",
+      "title": "Mother, one maternal sister, full paternal uncle",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "maternal_sister": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/3",
+            "maternal_sister": "1/6",
+            "full_paternal_uncle": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-mother-sixth-son",
+      "title": "Mother with a son: one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/6",
+            "son": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Sudus"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-mother-sixth-two-brothers",
+      "title": "Mother with two brothers (excluded by the father) still drops to one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "father": 1,
+          "full_brother": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/6",
+            "father": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-mother-sixth-mixed-siblings",
+      "title": "Mother with two siblings of different kinds",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "full_sister": 1,
+          "maternal_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/5",
+            "full_sister": "3/5",
+            "maternal_brother": "1/5"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-daughter-half",
+      "title": "One daughter: one half",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "full_brother": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Nisf"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-daughters-two-thirds",
+      "title": "Two daughters: two thirds",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 2,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "2/3",
+            "full_brother": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Thuluthayn"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-daughters-three",
+      "title": "Three daughters share two thirds",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 3,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "2/3",
+            "full_paternal_uncle": "1/3"
+          },
+          "tashih": 9
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Tashih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-daughters-with-son",
+      "title": "Daughters with a son: residuaries 2:1",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "son": 1,
+          "daughter": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "son": "1/2",
+            "daughter": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Ta'sib"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-sons-daughter-half",
+      "title": "One son's daughter with no daughter: one half",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "sons_daughter": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "sons_daughter": "1/2",
+            "full_brother": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-sons-daughters-two-thirds",
+      "title": "Two son's daughters with no daughter: two thirds",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "sons_daughter": 2,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "sons_daughter": "2/3",
+            "full_brother": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-sons-daughter-sixth",
+      "title": "Son's daughter with one daughter completes two thirds (Ibn Mas'ud)",
+      "basis": "classical_case",
+      "case": "Bukhari 6736 (Ibn Mas'ud's verdict)",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "sons_daughter": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "sons_daughter": "1/6",
+            "full_sister": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Sudus"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-sons-daughters-sixth-shared",
+      "title": "Two son's daughters with one daughter share one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "sons_daughter": 2,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "sons_daughter": "1/6",
+            "full_paternal_uncle": "1/3"
+          },
+          "tashih": 12
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-sons-daughter-excluded-son",
+      "title": "Son excludes the son's daughter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "son": 1,
+          "sons_daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-sons-daughter-excluded-two-daughters",
+      "title": "Two daughters exclude the son's daughter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 2,
+          "sons_daughter": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "2/3",
+            "full_brother": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-sons-daughter-with-sons-son-after-daughters",
+      "title": "Son's son makes the son's daughter a residuary after two daughters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 2,
+          "sons_daughter": 1,
+          "sons_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "2/3",
+            "sons_son": "2/9",
+            "sons_daughter": "1/9"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Ta'sib"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-sons-daughter-with-sons-son",
+      "title": "Son's son and son's daughters share 2:1",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "sons_son": 1,
+          "sons_daughter": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "sons_son": "1/2",
+            "sons_daughter": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-grandfather-sixth-son",
+      "title": "Grandfather with a son: one sixth (as the father)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandfather": "1/6",
+            "son": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-grandfather-residue",
+      "title": "Grandfather with the mother takes the residue",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandfather": "2/3",
+            "mother": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-grandfather-excluded-father",
+      "title": "Father excludes the grandfather",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "paternal_grandfather": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-grandfather-sixth-and-residue",
+      "title": "Grandfather with a daughter: one sixth plus the residue",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandfather": "1/2",
+            "daughter": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-grandfather-mother-whole-third",
+      "title": "With the grandfather (not the father) the mother keeps a third of the whole",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "mother": 1,
+          "paternal_grandfather": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "mother": "1/3",
+            "paternal_grandfather": "5/12"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "note": "Abu Yusuf held a third of the remainder here; the four schools' relied-upon view is a third of the whole.",
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-maternal-grandmother-sixth",
+      "title": "Maternal grandmother: one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "maternal_grandmother": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "maternal_grandmother": "1/6",
+            "son": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "abudawud:2894",
+          "grade": "disputed"
+        },
+        {
+          "kind": "hadith",
+          "ref": "tirmidhi:2101",
+          "grade": "disputed"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Sudus"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-grandmother-sixth",
+      "title": "Paternal grandmother: one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandmother": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandmother": "1/6",
+            "son": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "abudawud:2894",
+          "grade": "disputed"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-grandmothers-share-sixth",
+      "title": "Two grandmothers share one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandmother": 1,
+          "maternal_grandmother": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandmother": "1/12",
+            "maternal_grandmother": "1/12",
+            "son": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "abudawud:2894",
+          "grade": "disputed"
+        },
+        {
+          "kind": "hadith",
+          "ref": "tirmidhi:2101",
+          "grade": "disputed"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-grandmothers-excluded-mother",
+      "title": "Mother excludes both grandmothers",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "paternal_grandmother": 1,
+          "maternal_grandmother": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/6",
+            "son": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-grandmother-with-father",
+      "title": "Paternal grandmother when her son (the father) is alive",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "paternal_grandmother": 1,
+          "son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1/6",
+            "son": "5/6"
+          }
+        },
+        "hanbali": {
+          "shares": {
+            "father": "1/6",
+            "paternal_grandmother": "1/6",
+            "son": "2/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "khalil",
+          "chapter": "Bab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-grandmothers-with-father",
+      "title": "Father with both grandmothers",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "paternal_grandmother": 1,
+          "maternal_grandmother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "5/6",
+            "maternal_grandmother": "1/6"
+          }
+        },
+        "hanbali": {
+          "shares": {
+            "father": "5/6",
+            "paternal_grandmother": "1/12",
+            "maternal_grandmother": "1/12"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-grandmother-with-grandfather",
+      "title": "The grandfather does not exclude the paternal grandmother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "paternal_grandmother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandfather": "5/6",
+            "paternal_grandmother": "1/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-full-sister-half",
+      "title": "One full sister: one half",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_sister": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_sister": "1/2",
+            "full_paternal_uncle": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Nisf"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-full-sisters-two-thirds",
+      "title": "Two full sisters: two thirds",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_sister": 2,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_sister": "2/3",
+            "full_paternal_uncle": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Thuluthayn"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-full-sister-with-brother",
+      "title": "Full sister with a full brother: residuaries 2:1",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_brother": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_brother": "2/3",
+            "full_sister": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-full-sister-with-daughter",
+      "title": "Full sister with a daughter takes the rest (Mu'adh)",
+      "basis": "classical_case",
+      "case": "Bukhari 6741 (Mu'adh's verdict)",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "full_sister": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6741",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-full-sister-with-daughters-excludes-paternal-brother",
+      "title": "Full sister as residuary with daughters excludes the paternal brother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 2,
+          "full_sister": 1,
+          "paternal_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "2/3",
+            "full_sister": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-full-sister-excluded-son",
+      "title": "Son excludes the full sister",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "son": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-full-sisters-excluded-father",
+      "title": "Father excludes full sisters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "full_sister": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-full-sister-with-grandfather",
+      "title": "Full sister with the grandfather",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "hanafi": {
+          "shares": {
+            "paternal_grandfather": "1"
+          }
+        },
+        "shafii": {
+          "shares": {
+            "paternal_grandfather": "2/3",
+            "full_sister": "1/3"
+          }
+        },
+        "maliki": {
+          "shares": {
+            "paternal_grandfather": "2/3",
+            "full_sister": "1/3"
+          }
+        },
+        "hanbali": {
+          "shares": {
+            "paternal_grandfather": "2/3",
+            "full_sister": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Muqasamat al-Jadd"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Jadd wa al-Ikhwah"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-sister-half",
+      "title": "One paternal sister: one half",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_sister": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_sister": "1/2",
+            "full_paternal_uncle": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-sisters-two-thirds",
+      "title": "Two paternal sisters: two thirds",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_sister": 2,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_sister": "2/3",
+            "full_paternal_uncle": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-sister-sixth",
+      "title": "Paternal sister with one full sister completes two thirds",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_sister": 1,
+          "paternal_sister": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_sister": "1/2",
+            "paternal_sister": "1/6",
+            "full_paternal_uncle": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Sudus"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-sister-excluded-two-full-sisters",
+      "title": "Two full sisters exclude the paternal sister",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_sister": 2,
+          "paternal_sister": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_sister": "2/3",
+            "full_paternal_uncle": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-sister-with-paternal-brother",
+      "title": "Paternal brother rescues the paternal sister after two full sisters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_sister": 2,
+          "paternal_sister": 1,
+          "paternal_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_sister": "2/3",
+            "paternal_brother": "2/9",
+            "paternal_sister": "1/9"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-sister-excluded-full-brother",
+      "title": "Full brother excludes the paternal sister",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_brother": 1,
+          "paternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_brother": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-sister-with-daughter",
+      "title": "Paternal sister with a daughter takes the rest",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "paternal_sister": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "paternal_sister": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-paternal-sister-excluded-residuary-full-sister",
+      "title": "Full sister as residuary with a daughter excludes the paternal sister",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "full_sister": 1,
+          "paternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "full_sister": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-maternal-sibling-sixth",
+      "title": "One maternal brother: one sixth",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "maternal_brother": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "maternal_brother": "1/6",
+            "full_brother": "5/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Sudus"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-maternal-siblings-equal",
+      "title": "Maternal brother and sister share a third equally",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "maternal_brother": 1,
+          "maternal_sister": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "maternal_brother": "1/6",
+            "maternal_sister": "1/6",
+            "full_brother": "2/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Thuluth"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-maternal-sisters-three",
+      "title": "Three maternal sisters share a third",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "maternal_sister": 3,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "maternal_sister": "1/3",
+            "full_paternal_uncle": "2/3"
+          },
+          "tashih": 9
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Tashih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-maternal-excluded-daughter",
+      "title": "A daughter excludes the maternal brother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "maternal_brother": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "full_paternal_uncle": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-maternal-excluded-grandfather",
+      "title": "The grandfather excludes maternal siblings",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "maternal_sister": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandfather": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "st-maternal-excluded-sons-daughter",
+      "title": "A son's daughter excludes the maternal brother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "sons_daughter": 1,
+          "maternal_brother": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "sons_daughter": "1/2",
+            "full_paternal_uncle": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    }
+  ]
+}

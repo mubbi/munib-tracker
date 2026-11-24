@@ -1,0 +1,854 @@
+{
+  "group": "special-cases",
+  "description": "'Umariyyatayn, Mushtarakah, Akdariyyah, al-Kharqa', al-Malikiyyah and al-Dinariyyah.",
+  "fixtures": [
+    {
+      "id": "umariyyah-husband",
+      "title": "'Umariyyah: husband, father, mother — mother takes ⅓ of the remainder",
+      "basis": "classical_case",
+      "case": "al-'Umariyyatan (al-Gharrawan) — husband",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "father": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/2",
+            "father": "1/3",
+            "mother": "1/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Thuluth"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "umariyyah-wife",
+      "title": "'Umariyyah: wife, father, mother",
+      "basis": "classical_case",
+      "case": "al-'Umariyyatan (al-Gharrawan) — wife",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "father": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "father": "1/2",
+            "mother": "1/4"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "umariyyah-wife-one-brother",
+      "title": "'Umariyyah still applies with one (excluded) brother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "father": 1,
+          "mother": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "father": "1/2",
+            "mother": "1/4"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "umariyyah-not-two-brothers",
+      "title": "Two brothers reduce the mother to ⅙ — no 'Umariyyah",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "father": 1,
+          "mother": 1,
+          "full_brother": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "mother": "1/6",
+            "father": "7/12"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "umariyyah-not-mixed-excluded-siblings",
+      "title": "A full sister and a maternal brother (both excluded by the father) still reduce the mother to ⅙ — no 'Umariyyah",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "father": 1,
+          "mother": 1,
+          "full_sister": 1,
+          "maternal_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "mother": "1/6",
+            "father": "7/12"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-24"
+    },
+    {
+      "id": "parents-only",
+      "title": "Parents only",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "2/3",
+            "mother": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "mushtarakah",
+      "title": "al-Mushtarakah: husband, mother, two maternal brothers, full brother",
+      "basis": "classical_case",
+      "case": "al-Mushtarakah (al-Himariyyah)",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "maternal_brother": 2,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "hanafi": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "maternal_brother": "1/3"
+          }
+        },
+        "hanbali": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "maternal_brother": "1/3"
+          }
+        },
+        "shafii": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "maternal_brother": "2/9",
+            "full_brother": "1/9"
+          }
+        },
+        "maliki": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "maternal_brother": "2/9",
+            "full_brother": "1/9"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat (al-Mushtarakah)"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Mushtarakah"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "khalil",
+          "chapter": "Bab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "bidayah",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "mushtarakah-grandmother-sisters",
+      "title": "Mushtarakah with a grandmother, full brother and sister",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "maternal_grandmother": 1,
+          "maternal_sister": 2,
+          "full_brother": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "hanafi": {
+          "shares": {
+            "husband": "1/2",
+            "maternal_grandmother": "1/6",
+            "maternal_sister": "1/3"
+          }
+        },
+        "hanbali": {
+          "shares": {
+            "husband": "1/2",
+            "maternal_grandmother": "1/6",
+            "maternal_sister": "1/3"
+          }
+        },
+        "shafii": {
+          "shares": {
+            "husband": "1/2",
+            "maternal_grandmother": "1/6",
+            "maternal_sister": "1/6",
+            "full_brother": "1/12",
+            "full_sister": "1/12"
+          }
+        },
+        "maliki": {
+          "shares": {
+            "husband": "1/2",
+            "maternal_grandmother": "1/6",
+            "maternal_sister": "1/6",
+            "full_brother": "1/12",
+            "full_sister": "1/12"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Mushtarakah"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "mushtarakah-not-one-maternal",
+      "title": "One maternal brother: the full brother keeps a residue (no Mushtarakah)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "maternal_brother": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "maternal_brother": "1/6",
+            "full_brother": "1/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "mushtarakah-not-sister-only",
+      "title": "Full sister instead of a brother takes her half by 'awl (no Mushtarakah)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "maternal_brother": 2,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/3",
+            "mother": "1/9",
+            "maternal_brother": "2/9",
+            "full_sister": "1/3"
+          },
+          "awlBase": 9
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Mushtarakah"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "akdariyyah",
+      "title": "al-Akdariyyah: husband, mother, grandfather, full sister",
+      "basis": "classical_case",
+      "case": "al-Akdariyyah",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "paternal_grandfather": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "hanafi": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/3",
+            "paternal_grandfather": "1/6"
+          }
+        },
+        "shafii": {
+          "shares": {
+            "husband": "1/3",
+            "mother": "2/9",
+            "paternal_grandfather": "8/27",
+            "full_sister": "4/27"
+          },
+          "awlBase": 9,
+          "tashih": 27
+        },
+        "maliki": {
+          "shares": {
+            "husband": "1/3",
+            "mother": "2/9",
+            "paternal_grandfather": "8/27",
+            "full_sister": "4/27"
+          },
+          "awlBase": 9,
+          "tashih": 27
+        },
+        "hanbali": {
+          "shares": {
+            "husband": "1/3",
+            "mother": "2/9",
+            "paternal_grandfather": "8/27",
+            "full_sister": "4/27"
+          },
+          "awlBase": 9,
+          "tashih": 27
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Akdariyyah"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Muqasamat al-Jadd"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "khalil",
+          "chapter": "Bab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "akdariyyah-paternal-sister",
+      "title": "Akdariyyah with a paternal sister",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "paternal_grandfather": 1,
+          "paternal_sister": 1
+        }
+      },
+      "expected": {
+        "hanafi": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/3",
+            "paternal_grandfather": "1/6"
+          }
+        },
+        "shafii": {
+          "shares": {
+            "husband": "1/3",
+            "mother": "2/9",
+            "paternal_grandfather": "8/27",
+            "paternal_sister": "4/27"
+          },
+          "awlBase": 9
+        },
+        "maliki": {
+          "shares": {
+            "husband": "1/3",
+            "mother": "2/9",
+            "paternal_grandfather": "8/27",
+            "paternal_sister": "4/27"
+          },
+          "awlBase": 9
+        },
+        "hanbali": {
+          "shares": {
+            "husband": "1/3",
+            "mother": "2/9",
+            "paternal_grandfather": "8/27",
+            "paternal_sister": "4/27"
+          },
+          "awlBase": 9
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Akdariyyah"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "akdariyyah-not-brother",
+      "title": "A brother instead of the sister: the grandfather's sixth exhausts the estate",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "paternal_grandfather": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/3",
+            "paternal_grandfather": "1/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Jadd wa al-Ikhwah"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "kharqa",
+      "title": "al-Kharqa': mother, grandfather, full sister",
+      "basis": "classical_case",
+      "case": "al-Kharqa' (Zayd's answer)",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "paternal_grandfather": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "hanafi": {
+          "shares": {
+            "mother": "1/3",
+            "paternal_grandfather": "2/3"
+          }
+        },
+        "shafii": {
+          "shares": {
+            "mother": "1/3",
+            "paternal_grandfather": "4/9",
+            "full_sister": "2/9"
+          }
+        },
+        "maliki": {
+          "shares": {
+            "mother": "1/3",
+            "paternal_grandfather": "4/9",
+            "full_sister": "2/9"
+          }
+        },
+        "hanbali": {
+          "shares": {
+            "mother": "1/3",
+            "paternal_grandfather": "4/9",
+            "full_sister": "2/9"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Muqasamat al-Jadd"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "bidayah",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "malikiyyah",
+      "title": "al-Malikiyyah: husband, mother, grandfather, two maternal brothers, paternal brother",
+      "basis": "classical_case",
+      "case": "al-Malikiyyah",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "paternal_grandfather": 1,
+          "maternal_brother": 2,
+          "paternal_brother": 1
+        }
+      },
+      "expected": {
+        "hanafi": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "paternal_grandfather": "1/3"
+          }
+        },
+        "maliki": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "paternal_grandfather": "1/3"
+          }
+        },
+        "shafii": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "paternal_grandfather": "1/6",
+            "paternal_brother": "1/6"
+          }
+        },
+        "hanbali": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/6",
+            "paternal_grandfather": "1/6",
+            "paternal_brother": "1/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "khalil",
+          "chapter": "Bab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "khalil",
+          "chapter": "al-Sharh al-Kabir, Bab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Jadd wa al-Ikhwah"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "dinariyyah-kubra",
+      "title": "al-Dinariyyah al-Kubra: wife, mother, two daughters, twelve brothers, one sister",
+      "basis": "classical_case",
+      "case": "al-Dinariyyah al-Kubra (600 dinars; the sister's one dinar)",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "mother": 1,
+          "daughter": 2,
+          "full_brother": 12,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/8",
+            "mother": "1/6",
+            "daughter": "2/3",
+            "full_brother": "1/25",
+            "full_sister": "1/600"
+          },
+          "tashih": 600
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Tashih"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    }
+  ]
+}

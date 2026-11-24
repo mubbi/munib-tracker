@@ -126,7 +126,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
     body: [
       "Tahorat hisoblanishi uchun ma'lum shartlar (shurut) bo'lishi kerak. Inson ibodat (niyyah) uchun poklanishni niyat qilgan, aqli raso musulmon bo'lishi kerak. Ba'zi maktablar niyatni harakatning ustuni, boshqalari esa shart sifatida tasniflaydi, ammo hamma bu mukofot uchun va ko'pchilik uchun haqiqiyligi uchun zarurligiga rozi.",
       "Ishlatilgan suv toza va toza bo'lishi kerak. Eng muhimi, u haqiqatan ham teriga etib borishi kerak - shuning uchun oyoq-qo'l ustidagi suv o'tkazmaydigan to'siqni (qalin bo'yoq, tirnoq, mum, elim) birinchi navbatda olib tashlash kerak, aks holda uning ostidagi yuvish yaroqsiz. Suvni to'sib qo'ymaydigan oddiy axloqsizlik yoki xina dog'i muammo emas.",
-      "Shofe'iy va Hanbaliy mazhabi ham yuvishni Qur'on tartibida va oyoq-qo'llarni quritadigan uzoq vaqt to'xtatmasdan (muvalat) qilishni talab qiladi. Hanafiy va Molikiyning qat'iy ketma-ketlik va davomiylik haqidagi pozitsiyalari ba'zi holatlarda yumshoqroqdir. Muvofiqlik uchun bitta maktab uslubiga amal qiling.",
+      "Shofe'iy va Hanbaliy mazhablari, shuningdek, a'zolar Qur'onda zikr qilingan tartibda yuvilishini (tartib), Molikiy va Hanbaliy mazhablari esa a'zolar yuvilgan a'zolar quriydigan darajada uzoq tanaffus qilinmay, ketma-ket yuvilishini (muvolot) shart qiladi. Hanafiy mazhabi ikkalasini ham sunnat deb hisoblaydi. Izchillik uchun bitta mazhab uslubiga amal qiling.",
     ],
     quran: [
       {
@@ -144,7 +144,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
     summary: "Qur'on ustunlari (faraid), ularsiz tahorat yaroqsizdir.",
     body: [
       "Tahoratning vojiblari (uning faraidlari) Alloh taolo oyatda zikr qilgan qismlardir: butun yuzni yuvish; ikkala qo'lni tirsaklargacha yuvish; boshni artish; ikki oyog'ini to'pig'igacha yuvish. Bulardan birortasini o'tkazib yuborsa, tahorati to'liq bo'lmaydi.",
-      "Bularga mazhablar sunnat va fiqhiy fikrdan qo'shimcha farzlarni qo'shadilar. Ko‘pchilik mazhablarda niyat farzdir (hanafiylar uni kichik nopoklikni ko‘tarish uchun qattiq ta’kidlangan sunnat deb tasniflaydilar). Tartib (tartib) va davomiylik (muvolot) shofiiy va hanbaliylarga farzdir. Molikiylar a'zolarni (dalk) ishqalashni farz qilib qo'shadilar.",
+      "Bularga mazhablar sunnat va fiqhiy ijtihoddan qo'shimcha farzlarni qo'shadilar. Ko'pchilik mazhablarda niyat farzdir (hanafiylar uni kichik hadasni ko'tarishda sunnati muakkada deb hisoblaydilar). Tartib shofe'iylar va hanbaliylar nazdida, uzluksizlik (muvolot) esa molikiylar va hanbaliylar nazdida farzdir. Molikiylar a'zolarni ishqalashni (dalk) ham farz sifatida qo'shadilar.",
       "Bulardan tashqari hamma narsa - og'iz va burunni chayish, avval qo'l yuvish, uch marta yuvish - farz emas, balki tavsiya (sunnat)dir. Farqni bilish, tahoratning noto'g'ri ekanligini va haqiqiy noto'g'ri ekanligini aniqlay olasiz.",
     ],
     quran: [

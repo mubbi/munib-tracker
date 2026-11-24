@@ -125,7 +125,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
     body: [
       "Određeni uslovi (šurut) moraju postojati da bi se vudu računao. Osoba mora biti musliman zdravog uma, s namjerom da se očisti za ibadet (niyyah). Neke škole svrstavaju namjeru kao stub djela, a druge kao uslov, ali sve se slažu da je to potrebno za nagradu i, za većinu, za valjanost.",
       "Voda koja se koristi mora biti čista i pročišćavajuća. Ono što je najvažnije, mora zaista doći do kože - tako da sve što čini vodootpornu barijeru preko ekstremiteta (debela boja, lak za nokte, vosak, ljepilo) mora biti prvo uklonjeno, ili pranje ispod toga nije valjano. Obična prljavština ili mrlja od kane koja ne blokira vodu nije problem.",
-      "Šafijske i hanbelijske škole također zahtijevaju da se pranje obavlja po kur'anskom redoslijedu i bez dužeg prekida (muwalat) koji omogućava da se udovi osuše. Hanefijski i malikijski stavovi o strogom slijedu i kontinuitetu su u nekim situacijama blaži. Slijedite metod jedne škole za dosljednost.",
+      "Šafijski i hanbelijski mezheb također uvjetuju da se dijelovi tijela peru kur'anskim redoslijedom (tertib), a malikijski i hanbelijski mezheb da se peru jedan za drugim, bez dužeg prekida u kojem bi se oprani dijelovi osušili (muvalat). Hanefijski mezheb oboje smatra sunnetom. Radi dosljednosti slijedite metod jednog mezheba.",
     ],
     quran: [
       {
@@ -143,7 +143,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
     summary: "Kur'anski stubovi (faraid) bez kojih je vudu nevažeći.",
     body: [
       "Obavezna djela vudua (njegovog faraida) su dijelovi koje je Allah imenovao u ajetu: pranje cijelog lica; pranje obje ruke do i uključujući laktove; brisanje glave; i pranje oba stopala do i uključujući gležnjeve. Promašite bilo šta od ovoga i vudu je nepotpun.",
-      "Ovome, škole dodaju dodatne obaveze iz sunneta i pravnog obrazloženja. Namjera je obavezna u većini škola (hanefije ga svrstavaju u jako naglašen sunnet za uklanjanje manjih nečistoća). Red (tartib) i kontinuitet (muwalat) su obavezni za šafije i hanbelije. Malikiji dodaju trljanje udova (dalk) kao obavezu.",
+      "Ovome mezhebi dodaju i druge obaveze iz sunneta i pravnog zaključivanja. Nijet je obavezan u većini mezheba (hanefije ga smatraju naglašenim sunnetom pri otklanjanju malog hadesa). Redoslijed (tertib) je obavezan kod šafija i hanbelija, a kontinuitet (muvalat) kod malikija i hanbelija. Malikije dodaju trljanje dijelova tijela (delk) kao obavezu.",
       "Sve osim toga - ispiranje usta i nosa, prvo pranje ruku, pranje tri puta - je preporučljivo (sunnet) nego obavezno. Poznavanje razlike znači da možete reći kada je wudu samo nesavršen ili zapravo nevažeći.",
     ],
     quran: [

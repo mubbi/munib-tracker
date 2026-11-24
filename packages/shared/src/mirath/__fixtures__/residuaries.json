@@ -1,0 +1,909 @@
+{
+  "group": "residuaries",
+  "description": "'Asabah: by self, with another and along with another, in order of class, degree and strength of tie (Bukhari 6732).",
+  "fixtures": [
+    {
+      "id": "as-sons-only",
+      "title": "Three sons share the whole",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "son": 3
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "son": "1"
+          },
+          "tashih": 3
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-sons-sons-only",
+      "title": "Son's sons inherit the whole",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "sons_son": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "sons_son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-son-excludes-sons-son",
+      "title": "Son excludes the son's son",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "son": 1,
+          "sons_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-father-excludes-brother",
+      "title": "Father excludes the full brother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-full-over-paternal-brother",
+      "title": "Full brother before the paternal brother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_brother": 1,
+          "paternal_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_brother": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Ta'sib"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-paternal-brother-over-nephew",
+      "title": "Paternal brother before the full brother's son",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_brother": 1,
+          "full_brothers_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_brother": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Ta'sib"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-full-nephew-over-paternal-nephew",
+      "title": "Full brother's son before the paternal brother's son",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_brothers_son": 1,
+          "paternal_brothers_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_brothers_son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-nephew-over-uncle",
+      "title": "Paternal brother's son before the paternal uncle",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_brothers_son": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_brothers_son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Ta'sib"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-full-uncle-over-half-uncle",
+      "title": "Full paternal uncle before the paternal half-uncle",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_paternal_uncle": 1,
+          "paternal_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_paternal_uncle": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-half-uncle-over-cousin",
+      "title": "Paternal half-uncle before the full uncle's son",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_paternal_uncle": 1,
+          "full_uncles_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_paternal_uncle": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-full-cousin-over-half-cousin",
+      "title": "Full uncle's son before the half-uncle's son",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_uncles_son": 1,
+          "paternal_uncles_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_uncles_son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-wife-and-cousins",
+      "title": "Wife and two half-uncle's sons",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "paternal_uncles_son": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "paternal_uncles_son": "3/4"
+          },
+          "tashih": 8
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-sister-with-daughter-excludes-nephew",
+      "title": "Full sister with a daughter excludes the full brother's son",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "full_sister": 1,
+          "full_brothers_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "full_sister": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-paternal-sister-with-daughter-excludes-uncle",
+      "title": "Paternal sister with a daughter excludes the uncle",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "paternal_sister": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "paternal_sister": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-grandfather-excludes-nephew",
+      "title": "The grandfather excludes the brother's son (all schools)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "full_brothers_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandfather": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Jadd wa al-Ikhwah"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-brothers-exclude-uncle",
+      "title": "Full brothers exclude the paternal uncle",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_brother": 2,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_brother": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-husband-son-daughter",
+      "title": "Husband, son and daughter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "son": 1,
+          "daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/4",
+            "son": "1/2",
+            "daughter": "1/4"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Ta'sib"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-wife-sons-daughters",
+      "title": "Wife, two sons, three daughters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "son": 2,
+          "daughter": 3
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/8",
+            "son": "1/2",
+            "daughter": "3/8"
+          },
+          "tashih": 8
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Tashih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-parents-son-daughter",
+      "title": "Both parents with a son and a daughter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "mother": 1,
+          "son": 1,
+          "daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1/6",
+            "mother": "1/6",
+            "son": "4/9",
+            "daughter": "2/9"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-daughter-sons-children",
+      "title": "Daughter, son's son and son's daughter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "sons_son": 1,
+          "sons_daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "sons_son": "1/3",
+            "sons_daughter": "1/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-paternal-brother-and-sisters",
+      "title": "Paternal brother with two paternal sisters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_brother": 1,
+          "paternal_sister": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_brother": "1/2",
+            "paternal_sister": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-mother-brother-sister",
+      "title": "Mother with a full brother and sister",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "full_brother": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/6",
+            "full_brother": "5/9",
+            "full_sister": "5/18"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-parents-two-daughters",
+      "title": "Parents and two daughters: nothing left over",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "mother": 1,
+          "daughter": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1/6",
+            "mother": "1/6",
+            "daughter": "2/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Ma'rifat al-Furud wa Mustahiqqiha"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-parents-one-daughter",
+      "title": "Parents and one daughter: father takes ⅙ plus the residue",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "mother": 1,
+          "daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1/3",
+            "mother": "1/6",
+            "daughter": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "as-husband-brother-sisters",
+      "title": "Husband, full brother, two full sisters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "full_brother": 1,
+          "full_sister": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/2",
+            "full_brother": "1/4",
+            "full_sister": "1/4"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    }
+  ]
+}

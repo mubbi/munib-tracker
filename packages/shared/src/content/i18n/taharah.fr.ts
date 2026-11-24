@@ -128,7 +128,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
     body: [
       "Certaines conditions (shurut) doivent être remplies pour que le wudu soit pris en compte. La personne doit être un musulman sain d’esprit, ayant l’intention de se purifier pour le culte (niyyah). Certaines écoles classent l’intention comme un pilier de l’acte et d’autres comme une condition, mais toutes conviennent qu’elle est requise pour la récompense et, pour la plupart, pour la validité.",
       "L'eau utilisée doit être pure et purifiante. Il doit donc atteindre la peau : tout ce qui forme une barrière imperméable sur un membre (peinture épaisse, vernis à ongles, cire, colle) doit d'abord être retiré, sinon le lavage en dessous n'est pas valide. La saleté ordinaire ou les taches de henné qui ne bloquent pas l'eau ne posent pas de problème.",
-      "Les écoles Shafi'i et Hanbali exigent également que les lavages soient effectués dans l'ordre coranique et sans une longue interruption (muwalat) permettant aux membres de sécher. Les positions Hanafi et Maliki sur la séquence et la continuité strictes sont plus indulgentes dans certaines situations. Suivez la méthode d'une école pour plus de cohérence.",
+      "Les écoles Shafi'i et Hanbali exigent également que les lavages soient effectués dans l'ordre coranique (tartib), et les écoles Maliki et Hanbali qu'ils s'enchaînent sans longue interruption laissant sécher les membres (muwalat). L'école Hanafi considère les deux comme sunna. Suivez la méthode d'une seule école par souci de cohérence.",
     ],
     quran: [
       {
@@ -146,7 +146,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
     summary: "Les piliers coraniques (faraid) sans lesquels le wudu n'est pas valide.",
     body: [
       "Les actes obligatoires du wudu (son faraid) sont les parties nommées par Allah dans le verset : se laver tout le visage ; laver les deux bras jusqu'aux coudes inclus ; s'essuyer la tête; et laver les deux pieds jusqu'aux chevilles comprises. Si vous manquez l'un de ces éléments, le wudu sera incomplet.",
-      "À cela, les écoles ajoutent d’autres obligations issues de la Sunna et du raisonnement juridique. L'intention est obligatoire dans la plupart des écoles (les Hanafis la classent comme une sunna fortement soulignée pour éliminer les impuretés mineures). L'ordre (tartib) et la continuité (muwalat) sont obligatoires pour les Shafi'is et les Hanbalis. Les Malikis ajoutent le frottement des membres (dalk) comme obligation.",
+      "À cela, les écoles ajoutent d’autres obligations issues de la Sunna et du raisonnement juridique. L'intention est obligatoire dans la plupart des écoles (les Hanafis la classent comme une sunna fortement recommandée pour lever l'impureté mineure). L'ordre (tartib) est obligatoire pour les Shafi'is et les Hanbalis, et la continuité (muwalat) pour les Malikis et les Hanbalis. Les Malikis ajoutent le frottement des membres (dalk) comme obligation.",
       "Tout le reste – se rincer la bouche et le nez, se laver les mains d'abord, se laver trois fois – est recommandé (sunnah) plutôt qu'obligatoire. Connaître la différence signifie que vous pouvez savoir quand un wudu est simplement imparfait ou réellement invalide.",
     ],
     quran: [

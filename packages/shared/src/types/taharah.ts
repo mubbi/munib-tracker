@@ -1,3 +1,4 @@
+import type { FiqhDifferenceId } from "../fiqh/differences";
 import type { JannahAppLink, JannahHadithRef, JannahImportance, JannahQuranRef } from "./jannah";
 
 /** Hub section grouping on the Learn Purification screen. */
@@ -34,6 +35,8 @@ export interface TaharahTopic {
   actions?: string[];
   appLinks?: JannahAppLink[];
   disclaimer?: string;
+  /** NF-3.0a: structured fiqh differences rendered as `<MadhhabNote>`s under the prose. */
+  differenceIds?: readonly FiqhDifferenceId[];
 }
 
 /** One item on the daily taharah checklist. */

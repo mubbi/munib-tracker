@@ -1226,10 +1226,10 @@ export const SALAH_GUIDE_PHRASES_AZ: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_AZ: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Hər gün neçə sünnət rəvatib rükəti razılaşdırılıb?",
+    prompt: "Ümmü Həbibə hədisində gündəlik neçə rükət rəvatib sünnəsi qeyd olunur?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "On iki rəvatib: sübhə qabaq 2, zöhrə qabaq 4, zöhrdən sonra 2, məğribdən sonra 2 və işadan sonra 2 (Səhih Məslim 728).",
+      "Ümmü Həbibə hədisi gecə-gündüzdə on iki rükət sünnət qılana Cənnətdə ev vəd edir (Səhih Məslim 728); Camii ət-Tirmizi 415 onları sayır: sübhə qabaq 2, zöhrə qabaq 4, zöhrdən sonra 2, məğribdən sonra 2 və işadan sonra 2.",
   },
   {
     prompt: "Sübhə namazından əvvəl vurğulanan (müəkkədə) sünnət:",
@@ -1238,10 +1238,10 @@ export const SALAH_GUIDE_QUIZ_AZ: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Sübhədən əvvəl iki rükət müəkkədə sünnətdir — Peyğəmbər ﷺ onları heç vaxt tərk etməzdi (Səhih əl-Buxari 1169; Səhih Məslim 724).",
   },
   {
-    prompt: "Zöhr ətrafında razılaşdırılmış rəvatiblər:",
+    prompt: "Ümmü Həbibə hədisində (Camii ət-Tirmizi 415) zöhr ətrafındakı rəvatiblər:",
     options: ["Əvvəl 2, sonra 2", "Əvvəl 4, sonra 2", "Əvvəl 4, sonra 4", "Yalnız əvvəl 2"],
     explanation:
-      "Zöhrə qabaq dörd və sonra iki rükət on iki rəvatibə daxildir. Bunlardan artıq rükətlər tövsiyə olunan nəfildir, sabit rəvatib deyil.",
+      "Ümmü Həbibə hədisində zöhrə qabaq dörd, sonra iki rükət var. İbn Ömərin rəvayətində (Səhih əl-Buxari 1180) qabaq iki rükət deyilir, buna görə məzhəblər hansını müəkkəd rəvatib saydıqlarında fərqlənir; bunlardan artıq rükətlər nafilədir.",
   },
   {
     prompt:

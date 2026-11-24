@@ -128,7 +128,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
     body: [
       "Duhet të ekzistojnë disa kushte (shurut) që abdesi të numërohet. Personi duhet të jetë musliman me mendje të shëndoshë, me qëllim pastrimin për adhurim (nijet). Disa shkolla e klasifikojnë qëllimin si shtyllë të veprës dhe të tjera si kusht, por të gjithë pajtohen se ai kërkohet për shpërblimin dhe, për shumicën, për vlefshmërinë.",
       "Uji i përdorur duhet të jetë i pastër dhe pastrues. Më e rëndësishmja, ajo duhet të arrijë në lëkurë - kështu që çdo gjë që formon një barrierë të papërshkueshme nga uji mbi një gjymtyrë (bojë e trashë, manikyr thonjve, dyll, ngjitës) duhet të hiqet së pari, ose larja poshtë saj nuk është e vlefshme. Papastërtia e zakonshme ose njolla këna që nuk bllokon ujin nuk është problem.",
-      "Shkollat ​​Shafi'ite dhe Hanbelite gjithashtu kërkojnë që larjet të bëhen sipas rendit Kur'anor dhe pa ndërprerje të gjatë (muvalat) që lejon që gjymtyrët të thahen. Pozicioni Hanefi dhe Maliki për sekuencën dhe vazhdimësinë strikte janë më të buta në disa situata. Ndiqni metodën e një shkolle për qëndrueshmëri.",
+      "Shkollat shafiite dhe hanbelite kërkojnë gjithashtu që larjet të bëhen sipas renditjes kuranore (tertib), ndërsa shkollat malikite dhe hanbelite që ato të pasojnë njëra-tjetrën pa ndërprerje të gjatë, gjatë së cilës gjymtyrët e larë thahen (muvalat). Shkolla hanefite i konsideron të dyja sunet. Ndiqni metodën e një shkolle për qëndrueshmëri.",
     ],
     quran: [
       {
@@ -146,7 +146,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
     summary: "Shtyllat Kur'anore (feraid) pa të cilat abdesi është i pavlefshëm.",
     body: [
       "Veprat e detyrueshme të abdesit (faraidit të tij) janë pjesët që Allahu i ka emërtuar në ajetin: larja e tërë fytyrës; larja e të dy krahëve deri në bërryla dhe duke përfshirë; fshirja e kokës; dhe larja e të dyja këmbëve deri dhe duke përfshirë kyçet. Mungoni ndonjë nga këto dhe abdesi është i paplotë.",
-      "Këtyre shkollat ​​shtojnë obligime të tjera nga Suneti dhe arsyetimi juridik. Nijeti është i detyrueshëm në shumicën e shkollave (hanefitë e klasifikojnë atë si një sunet i theksuar fort për heqjen e papastërtive të vogla). Rendi (tartib) dhe vazhdimësia (muvalat) janë të detyrueshme për shafiitë dhe hanbelitë. Malikitë shtojnë si obligim fërkimin e gjymtyrëve (dalk).",
+      "Këtyre, shkollat u shtojnë detyrime të tjera nga Suneti dhe arsyetimi juridik. Nijeti është i detyrueshëm në shumicën e shkollave (hanefitë e konsiderojnë sunet të theksuar për largimin e papastërtisë së vogël). Renditja (tertib) është e detyrueshme për shafiitë dhe hanbelitë, ndërsa vazhdimësia (muvalat) për malikitë dhe hanbelitë. Malikitë shtojnë si detyrim fërkimin e gjymtyrëve (delk).",
       "Çdo gjë përtej këtyre – shpëlarja e gojës dhe hundës, larja e duarve në fillim, larja tri herë – rekomandohet (suneh) dhe jo obligim. Njohja e ndryshimit do të thotë që ju mund të dalloni kur një abdes është thjesht i papërsosur kundrejt faktit të pavlefshëm.",
     ],
     quran: [

@@ -3,6 +3,9 @@ import type {
   ObligatoryPrayer,
   PrayerId,
   QazaPrayer,
+  RawatibExtraPrayer,
+  RawatibId,
+  RawatibPrayer,
   SunnahPrayer,
   UserPreferences,
   WeatherPreferences,
@@ -21,6 +24,7 @@ export {
 export {
   BUNDLED_DATA_CREDITS,
   type DataCredit,
+  QURANIC_ARABIC_CORPUS_NOTICE,
   RUNTIME_DATA_CREDITS,
   SERVICE_DATA_CREDITS,
 } from "./credits";
@@ -112,6 +116,80 @@ export const PRAYER_LABELS: Record<PrayerId, string> = {
   duha: "Duha",
   tahiyyatul_masjid: "Tahiyyatul Masjid",
   hajat_istikhara: "Hajat & Istikhara",
+  fajr_before: "Sunnah before Fajr",
+  dhuhr_before: "Sunnah before Dhuhr",
+  dhuhr_after: "Sunnah after Dhuhr",
+  maghrib_after: "Sunnah after Maghrib",
+  isha_after: "Sunnah after Isha",
+  asr_before: "Sunnah before Asr",
+  maghrib_before: "Sunnah before Maghrib",
+  isha_before: "Sunnah before Isha",
+  dhuhr_after_extra: "Extra sunnah after Dhuhr",
+};
+
+/**
+ * The sunnah mu'akkadah rawatib (NF-3.1), in daily order. Logged as their own
+ * prayer ids; never part of qaza, fard totals, streaks or perfect days.
+ */
+export const RAWATIB_PRAYERS = [
+  "fajr_before",
+  "dhuhr_before",
+  "dhuhr_after",
+  "maghrib_after",
+  "isha_after",
+] as const satisfies readonly RawatibPrayer[];
+
+/** Optional ghayr mu'akkadah extras (D8), in daily order. */
+export const RAWATIB_EXTRA_PRAYERS = [
+  "dhuhr_after_extra",
+  "asr_before",
+  "maghrib_before",
+  "isha_before",
+] as const satisfies readonly RawatibExtraPrayer[];
+
+/** Every rawatib id (mu'akkadah + extras). */
+export const RAWATIB_IDS = [
+  ...RAWATIB_PRAYERS,
+  ...RAWATIB_EXTRA_PRAYERS,
+] as const satisfies readonly RawatibId[];
+
+/** The fard each rawatib row is attached to. */
+export const RAWATIB_PARENT: Readonly<Record<RawatibId, ObligatoryPrayer>> = {
+  fajr_before: "fajr",
+  dhuhr_before: "dhuhr",
+  dhuhr_after: "dhuhr",
+  dhuhr_after_extra: "dhuhr",
+  asr_before: "asr",
+  maghrib_before: "maghrib",
+  maghrib_after: "maghrib",
+  isha_before: "isha",
+  isha_after: "isha",
+};
+
+/** Whether a row is prayed before or after its fard. */
+export const RAWATIB_POSITION: Readonly<Record<RawatibId, "before" | "after">> = {
+  fajr_before: "before",
+  dhuhr_before: "before",
+  dhuhr_after: "after",
+  dhuhr_after_extra: "after",
+  asr_before: "before",
+  maghrib_before: "before",
+  maghrib_after: "after",
+  isha_before: "before",
+  isha_after: "after",
+};
+
+/** Rak'at choices per row; the first entry is the fixed/default count. */
+export const RAWATIB_RAKAH_OPTIONS: Readonly<Record<RawatibId, readonly number[]>> = {
+  fajr_before: [2],
+  dhuhr_before: [2, 4],
+  dhuhr_after: [2],
+  dhuhr_after_extra: [2],
+  asr_before: [4, 2],
+  maghrib_before: [2],
+  maghrib_after: [2],
+  isha_before: [2, 4],
+  isha_after: [2],
 };
 
 /** Display names for the five fard prayers plus Witr. */
@@ -127,6 +205,7 @@ export const OBLIGATORY_PRAYER_SET: ReadonlySet<string> = new Set(OBLIGATORY_PRA
 export const QAZA_PRAYER_SET: ReadonlySet<string> = new Set(QAZA_PRAYERS);
 export const ADHAN_PRAYER_SET: ReadonlySet<string> = new Set(ADHAN_PRAYERS);
 export const SUNNAH_PRAYER_SET: ReadonlySet<string> = new Set(SUNNAH_PRAYERS);
+export const RAWATIB_PRAYER_SET: ReadonlySet<string> = new Set(RAWATIB_IDS);
 
 export const ZIKR_CATEGORY_IDS = [
   "morning",
@@ -171,6 +250,24 @@ export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
   dailyContent: false,
   friday: false,
   whiteDays: false,
+  // NF-3.2: weekly (Mon/Thu) intent reminders off, seasonal (Arafah, Ashura, …) on.
+  voluntaryFasting: { weekly: false, seasonal: true },
+  // NF-3.5 habits nudge off; NF-3.3 seasonal Dhul-Hijjah nudges on, takbir off.
+  habits: false,
+  dhulHijjah: true,
+  takbirTashriq: false,
+  // NF-3.1: the after-fard rawatib nudge is opt-in.
+  rawatibNudge: false,
+  // D40: the school's preferred-time reminder is opt-in.
+  preferredTime: false,
+  // NF-3.13: the native "Tap to confirm your salah" alert from the focus-lock shield.
+  focusLock: true,
+  // D33: circle event pushes (khatm progress / completed, dua received) on.
+  circleKhatmProgress: true,
+  circleKhatmCompleted: true,
+  circleDuaReceived: true,
+  // D40: weekly family digest push to parents on.
+  circleFamilyDigest: true,
   reviewReactivationEnabled: true,
 };
 
@@ -183,11 +280,8 @@ export const DEFAULT_USER_PREFERENCES: UserPreferences = {
   notificationPrefs: DEFAULT_NOTIFICATION_PREFERENCES,
   prayerAlerts: {},
   fontPrefs: {
-    global: {},
     arabic: {},
     translation: {},
-    transliteration: {},
-    titles: {},
   },
   favoriteZikrIds: [],
   favoriteZikrOrder: [],

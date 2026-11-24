@@ -4,6 +4,8 @@ import type { ExcusedReason } from "../types/prayer";
 /** Deep-link route for each excused-reason guide screen. */
 export const EXCUSED_GUIDE_ROUTES: Record<ExcusedReason, string> = {
   hayd: "/hayd",
+  // Nifas is covered by the hayd guide (its "nifas" section).
+  nifas: "/hayd",
   sick: "/sick",
   travel: "/travel",
 };
@@ -20,24 +22,28 @@ export type ExcusedGuideConfig = {
   extraSections?: readonly string[];
 };
 
+const HAYD_GUIDE: ExcusedGuideConfig = {
+  namespace: "hayd",
+  obligationCount: 4,
+  extraSections: ["duration", "istihada", "nifas", "purity"],
+  hadith: [
+    {
+      collection: "Sahih al-Bukhari",
+      citation: "321",
+      grade: "sahih",
+    },
+    {
+      collection: "Sahih al-Bukhari",
+      citation: "304",
+      grade: "sahih",
+    },
+  ],
+};
+
 export const EXCUSED_GUIDES: Record<ExcusedReason, ExcusedGuideConfig> = {
-  hayd: {
-    namespace: "hayd",
-    obligationCount: 4,
-    extraSections: ["duration", "istihada", "nifas", "purity"],
-    hadith: [
-      {
-        collection: "Sahih al-Bukhari",
-        citation: "321",
-        grade: "sahih",
-      },
-      {
-        collection: "Sahih al-Bukhari",
-        citation: "304",
-        grade: "sahih",
-      },
-    ],
-  },
+  hayd: HAYD_GUIDE,
+  // Nifas shares the hayd guide (same rulings on salah/fasting; its own maxima).
+  nifas: HAYD_GUIDE,
   sick: {
     namespace: "sick",
     obligationCount: 5,

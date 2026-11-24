@@ -128,7 +128,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
     body: [
       "Wasu sharuɗɗa (shurut) dole ne su kasance a wurin don wudu don ƙidaya. Dole ne mutum ya kasance musulmi mai hankali, mai niyyar tsarkakewa ga ibada (niyyah). Wasu makarantu suna rarraba niyya a matsayin ginshiƙi na aikin wasu kuma a matsayin sharadi, amma duk sun yarda cewa ana buƙatar lada kuma, ga mafi yawan, don inganci.",
       "Ruwan da ake amfani da shi dole ne ya zama mai tsabta da tsarkakewa. Mahimmanci, dole ne a haƙiƙa ya isa fata - don haka duk wani abu da ke samar da shinge mai hana ruwa a jikin wata gaɓa (fanti mai kauri, goge ƙusa, kakin zuma, manne) dole ne a fara cire shi da farko, ko kuma wanke ƙarƙashinsa bai inganta ba. Datti na yau da kullun ko tabon henna da ba ta toshe ruwa ba matsala.",
-      "Makarantun Shafi'iyya da Hanbaliyya su ma sun bukaci a yi wankin kamar yadda Alkur'ani ya zo da shi kuma ba tare da tsangwama ba (muwalat) da ke barin gabobi ya bushe. Matsayin Hanafiyya da Malikiyya kan tsauraran matakai da ci gaba sun fi sassauci a wasu yanayi. Bi hanyar makaranta ɗaya don daidaito.",
+      "Mazhabobin Shafi'i da Hanbali sun kuma sharɗanta a yi wanke-wanken bisa jerin da Alƙur'ani ya zo da shi (tartib), kuma mazhabobin Maliki da Hanbali sun sharɗanta a wanke gaɓoɓi ɗaya bayan ɗaya ba tare da dogon tsaiko da zai bar gaɓoɓin da aka wanke su bushe ba (muwalat). Mazhabar Hanafi tana ɗaukar dukansu biyu sunna. Ka bi hanyar mazhaba ɗaya domin daidaito.",
     ],
     quran: [
       {
@@ -146,7 +146,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
     summary: "Rukunan Kur'ani (faraid) wadanda ba tare da su wudu bace.",
     body: [
       "Ayyukan alwala (faraidinta) sune sassan da Allah ya ambata a cikin ayar: wanke fuska baki daya; wanke hannaye biyu har zuwa gwiwar hannu; shafa kai; da wanke ƙafafu biyu har zuwa sawu. Rasa ko ɗaya daga cikin waɗannan kuma alwala bai cika ba.",
-      "A kan waxannan, mazhabobi suna qara wajabta wasu wajibai daga Sunnah da hukunce-hukuncen shari’a. Niyya tana wajaba a mafi yawan mazhabobi (Hanafiyawa sun karkasa ta a matsayin sunna da aka fi karfi wajen dauke qananan kazanta). Umarni (tartib) da ci gaba (muwalat) sun wajaba akan Shafi'awa da Hanbaliyya. Malikiyya sun kara shafa gabobi (dalk) a matsayin farilla.",
+      "A kan waɗannan, mazhabobi suna ƙara wasu wajibai daga Sunnah da ijtihadin malamai. Niyya wajiba ce a yawancin mazhabobi (Hanafiyya suna ɗaukarta sunna mai ƙarfi wajen ɗauke ƙaramin hadasi). Jeri (tartib) wajibi ne a wajen Shafi'iyya da Hanbaliyya, ci gaba ba tare da tsaiko ba (muwalat) kuma a wajen Malikiyya da Hanbaliyya. Malikiyya suna ƙara cuɗa gaɓoɓi (dalk) a matsayin wajibi.",
       "Duk abin da ya wuce wadannan – kurkure baki da hanci, da wanke hannu tukuna, wanke hannu sau uku – mustahabbi ne (sunna) ba wajibi ba. Sanin bambanci yana nufin za ku iya gane lokacin da alwala ta kasance ajizi ne kawai da rashin inganci.",
     ],
     quran: [

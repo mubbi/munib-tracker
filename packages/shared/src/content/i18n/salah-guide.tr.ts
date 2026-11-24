@@ -1370,11 +1370,11 @@ export const SALAH_GUIDE_QUIZ_TR: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
     id: "rawatib-total",
     type: "multiple-choice",
-    prompt: "Her gün üzerinde ittifak edilen ravâtib sünnet rekat sayısı kaçtır?",
+    prompt: "Ümmü Habîbe hadisinde günlük ravâtib sünnetlerinin kaç rekât olduğu bildirilir?",
     options: ["8", "10", "12", "14"],
     correctIndex: 2,
     explanation:
-      "On iki ravâtib şunlardır: Sabah namazından önce 2, öğle namazından önce 4, öğleden sonra 2, akşamdan sonra 2 ve yatsıdan sonra 2 (Sahih Müslim 728).",
+      "Ümmü Habîbe hadisi, gece ve gündüz on iki rekât sünnet kılana cennette bir ev müjdeler (Sahih Müslim 728); Tirmizî 415 bunları sayar: Sabahtan önce 2, öğleden önce 4, öğleden sonra 2, akşamdan sonra 2 ve yatsıdan sonra 2.",
   },
   {
     id: "rawatib-fajr",
@@ -1388,11 +1388,11 @@ export const SALAH_GUIDE_QUIZ_TR: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
     id: "rawatib-dhuhr",
     type: "multiple-choice",
-    prompt: "Öğle namazı etrafındaki ittifak edilen ravâtib:",
+    prompt: "Ümmü Habîbe hadisinde (Tirmizî 415) öğle namazı etrafındaki ravâtib:",
     options: ["Önce 2, sonra 2", "Önce 4, sonra 2", "Önce 4, sonra 4", "Yalnızca önce 2"],
     correctIndex: 1,
     explanation:
-      "Öğleden önce dört ve sonrasında iki rekat, on iki ravâtibin parçasıdır. Bunların ötesindeki rekatlar tavsiye edilen nafiledir, sabit ravâtib değildir.",
+      "Ümmü Habîbe hadisi öğleden önce dört, sonra iki rekât sayar. İbn Ömer'in rivayeti (Sahih Buhârî 1180) önce iki rekâttan bahseder; bu yüzden mezhepler hangisini müekked ravâtib saydıkları konusunda farklıdır. Bunların ötesindeki rekâtlar nafiledir.",
   },
   {
     id: "asr-ghayr-muakkadah",

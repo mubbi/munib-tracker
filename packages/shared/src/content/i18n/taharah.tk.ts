@@ -126,7 +126,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
     body: [
       "Taharet sanamak üçin käbir şertler (şurut) bolmaly. Ynsan ybadat üçin arassalanmagy maksat edinip, sagdyn pikirli musulman bolmaly. Käbir mekdepler niýeti hereketiň sütüni hökmünde, beýlekileri şert hökmünde kesgitleýärler, ýöne hemmeler munuň sylag we köplenç ygtybarlylygy üçin zerurdygyny kabul edýärler.",
       "Ulanylan suw arassa we arassalaýjy bolmaly. Iň möhümi, hakykatdanam derä ýetmeli - şonuň üçin bir agzanyň üstünden suw geçirmeýän päsgelçilik döredýän (galyň boýag, dyrnak lak, mum, ýelim) ilki bilen aýrylmaly ýa-da aşagyndaky ýuwulma dogry däl. Suwy bökdemeýän adaty kir ýa-da henna tegmili problema däl.",
-      "Şafi we Hanbali mekdepleri hem ýuwulmagyň Gurhan tertibinde we el-aýaklaryň guramagyna mümkinçilik berýän uzak arakesmesiz (muwalat) edilmegini talap edýär. Gaty yzygiderlilik we dowamlylyk boýunça Hanafi we Maliki pozisiýalary käbir ýagdaýlarda has ýumşak bolýar. Yzygiderlilik üçin bir mekdebiň usulyna eýeriň.",
+      "Şafygy we Hanbaly mezhepleri, şeýle hem agzalaryň Gurhanda agzalan tertipde ýuwulmagyny (tertip), Maliki we Hanbaly mezhepleri bolsa agzalaryň, ýuwlan agzalar gurar ýaly uzak arakesme bermezden, biri-biriniň yzyndan ýuwulmagyny (muwalat) şert edýär. Hanafy mezhebi ikisini hem sünnet hasaplaýar. Yzygiderlilik üçin bir mezhebiň usulyna eýeriň.",
     ],
     quran: [
       {
@@ -144,7 +144,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
     summary: "Gurhan sütünleri (faraid), onsuz taharet nädogry.",
     body: [
       "Taharetiň farz amallary, Allanyň aýatda agzalan bölekleri: bütin ýüzüňi ýuwmak; iki eliňizi tirseklere çenli ýuwmak; kelläni süpürmek; we iki aýagyňyzy topuklara çenli we ýuwmak. Bularyň haýsydyr birini sypdyryň we taharet doly däl.",
-      "Bulara mekdepler sünnetden we kanuny esaslardan goşmaça borçlary goşýar. Mekdepleriň köpüsinde niýet hökmanydyr (Hanafiler muny ownuk haramlygy ýok etmek üçin berk sünnet hasaplaýarlar). Şafi we Hanbaliler üçin sargyt (tartib) we üznüksizlik (muwalat) hökmanydyr. Malikler hökmany suratda el-aýaklary (dalk) sürtmegi goşýarlar.",
+      "Bulara mezhepler Sünnetden we fykhy pikirlenmeden goşmaça parzlary goşýarlar. Niýet mezhepleriň köpüsinde parzdyr (Hanafylar ony kiçi hadasy aýyrmakda müekked sünnet hasaplaýarlar). Tertip (tartib) Şafygylar we Hanbalylar üçin, üznüksizlik (muwalat) bolsa Malikiler we Hanbalylar üçin parzdyr. Malikiler agzalary owkalamagy (dalk) hem parz hökmünde goşýarlar.",
       "Bularyň daşyndaky hemme zat - agzy we burnuňy ýuwmak, ilki elleri ýuwmak, üç gezek ýuwmak - hökmany däl-de (sünnet) maslahat berilýär. Tapawudyny bilmek, taharetiň haçan hakyky däl bolsa, diňe kämillik däldigini aýdyp bilersiňiz.",
     ],
     quran: [

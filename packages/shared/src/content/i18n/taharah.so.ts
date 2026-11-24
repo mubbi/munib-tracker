@@ -127,7 +127,7 @@ export const TAHARAH_TOPICS_SO: DeepPartial<TaharahTopic>[] = [
     body: [
       "Shurudaha qaarkood (shurut) waa in ay jiraan si loo tiriyo wudu. Qofku waa inuu noqdaa Muslim maskaxdiisu fayow tahay, oo ku talo jira inuu cibaadada u daahiriyo (niyyah). Dugsiyada qaarkood waxay u kala saaraan niyadda inay tahay tiir ka mid ah falka iyo kuwa kale shuruud, laakiin dhammaan waxay isku raaceen in loo baahan yahay abaalmarinta iyo, inta badan, ansaxnimada.",
       "Biyaha la isticmaalay waa inay noqdaan kuwo nadiif ah oo nadiif ah. Muhiimad ahaan, waa in ay dhab ahaantii gaadho maqaarka - sidaas darteed wax kasta oo ka dhigaya xayndaab aan biyuhu lahayn oo ka sarreeya addinka (Rinjiga qaro weyn, cididaha, dhuka, koollada) waa in marka hore la saaraa, ama dhaqidda hoosteeda ma ansaxayso. Wasaqda caadiga ah ama wasakhda xiinna ee aan xannibin biyaha dhib maaha.",
-      "Dugsiyada Shaafici iyo Xanbali waxa kale oo ay u baahan yihiin in maydhista lagu dhaqo sida Qur’aanka kariimka ah oo aan hakad dheer lahayn (muwalaat) taas oo u oggolaanaysa in xubnaha jidhku qallalaan. Mawqifyada Xanafiga iyo Maalikiga ee isku xigxiga iyo sii wadista waa kuwo aad u dabacsan xaaladaha qaarkood. Raac habka hal dugsi oo joogto ah.",
+      "Madhabta Shaafici iyo Xanbali waxay kale oo ay shardi ka dhigaan in xubnaha loo dhaqo sida ay ugu kala horreeyaan Qur'aanka (tartiib), madhabta Maaliki iyo Xanbalina waxay shardi ka dhigaan in xubnaha la isku xigxiga iyadoo aan la sugin muddo dheer oo ay ku qallalaan xubnihii la dhaqay (muwaalaat). Madhabta Xanafigu labadaba waxay u aragtaa sunno. Raac habka hal madhab si joogto ah.",
     ],
     quran: [
       {
@@ -145,7 +145,7 @@ export const TAHARAH_TOPICS_SO: DeepPartial<TaharahTopic>[] = [
     summary: "Tiirarka Qur'aanka ah (faraid) oo ay la'aantood uu buray wudu.",
     body: [
       "Waajibaadka waajibka ah ee wuduuga ah waa qaybaha uu Eebbe aayad ku sheegay: dhaqidda wejiga oo dhan; dhaqidda labada gacmood ilaa iyo marka lagu daro xusullada; madaxa tirtiridda; iyo dhaqidda labada cagood ilaa iyo marka lagu daro anqawyada. Mid ka mid ah kuwan seego oo wuduugu ma dhammaystirna.",
-      "Kuwaas, dugsiyadu waxay ku daraan waajibaadyo dheeraad ah oo ka mid ah Sunnada iyo caqli-galnimada. Niyada ayaa ku waajib ah inta badan dugsiyada (Xanafiyadu waxay u kala saaraan sunnaha si adag loo xoojiyey si loo qaado wasakh yar). Dalabka (tartib) iyo sii socoshada (muwalat) waa ku waajib Shaaficiyada iyo Xanbaliyiinta. Maalikiyadu waxay ku daraan xoqidda addimada (dalk) oo ah waajib.",
+      "Kuwaas waxaa madhabahu ku daraan waajibaad kale oo laga soo qaatay Sunnada iyo ijtihaadka fiqhiga. Niyaddu waa waajib inta badan madhabaha (Xanafiyadu waxay u arkaan sunno la adkeeyey marka la saarayo xadaska yar). Kala horreynta (tartiib) waa waajib Shaaficiyada iyo Xanbaliyada, isku xigxiggana (muwaalaat) Maalikiyada iyo Xanbaliyada. Maalikiyadu waxay waajib ku daraan duugidda xubnaha (dalk).",
       "Wax kasta oo intaas ka baxsan - luqluqashada afka iyo sanka, dhaqidda gacmaha marka hore, saddex jeer oo la dhaqo - ayaa lagu talinayaa (Sunnah) halkii ay ahayd waajib. Ogaanshaha faraqa waxay ka dhigan tahay inaad garan karto marka uu wuduugu yahay mid aan dhammaystirnayn oo dhab ahaantii aan sax ahayn.",
     ],
     quran: [

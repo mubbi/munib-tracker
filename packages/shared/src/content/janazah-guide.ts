@@ -195,6 +195,7 @@ export const JANAZAH_GUIDE_TOPICS: LearnGuideTopic[] = [
 
   {
     id: "how-to-pray-janazah",
+    differenceIds: ["janazah.fatiha"],
 
     section: "salah",
 
@@ -523,6 +524,7 @@ export const JANAZAH_GUIDE_TOPICS: LearnGuideTopic[] = [
 
   {
     id: "takbir-steps",
+    differenceIds: ["janazah.fatiha"],
 
     section: "salah",
 

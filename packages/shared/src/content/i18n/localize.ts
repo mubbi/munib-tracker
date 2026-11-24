@@ -73,6 +73,10 @@ export const PROTECTED_CONTENT_KEYS: ReadonlySet<string> = new Set([
   "order",
   "arabic",
   "kind",
+  /** NF-3.0a fiqh links — structural ids, never translated. */
+  "differenceIds",
+  "differenceId",
+  "answerSchools",
 ]);
 
 /**

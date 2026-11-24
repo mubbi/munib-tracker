@@ -53,6 +53,7 @@ export const FRIDAY_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "jumuah-obligation",
+    differenceIds: ["jumuah.minCongregation", "jumuah.sunnah"],
     section: "obligation",
     title: "Jumu'ah — the weekly obligation",
     summary:

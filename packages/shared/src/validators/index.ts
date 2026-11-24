@@ -1,6 +1,7 @@
 import {
   OBLIGATORY_PRAYER_SET,
   QAZA_PRAYER_SET,
+  RAWATIB_PRAYER_SET,
   SUNNAH_PRAYER_SET,
   WITR_PRAYER,
   ZIKR_CATEGORY_SET,
@@ -11,6 +12,7 @@ import type {
   PrayerId,
   PrayerStatus,
   QazaPrayer,
+  RawatibId,
   SunnahPrayer,
   WitrPrayer,
   ZikrCategoryId,
@@ -45,8 +47,18 @@ export function isSunnahPrayer(value: string): value is SunnahPrayer {
   return SUNNAH_PRAYER_SET.has(value);
 }
 
+/** True for a sunnah rawatib row (NF-3.1) — never fard, never qaza. */
+export function isRawatibPrayer(value: string): value is RawatibId {
+  return RAWATIB_PRAYER_SET.has(value);
+}
+
 export function isPrayerId(value: string): value is PrayerId {
-  return isObligatoryPrayer(value) || isWitrPrayer(value) || isSunnahPrayer(value);
+  return (
+    isObligatoryPrayer(value) ||
+    isWitrPrayer(value) ||
+    isSunnahPrayer(value) ||
+    isRawatibPrayer(value)
+  );
 }
 
 export function isPrayerStatus(value: string): value is PrayerStatus {
@@ -56,3 +68,4 @@ export function isPrayerStatus(value: string): value is PrayerStatus {
 export function isZikrCategoryId(value: string): value is ZikrCategoryId {
   return ZIKR_CATEGORY_SET.has(value);
 }
+export * from "./hijri-adjustment";

@@ -53,6 +53,7 @@ export const EID_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "eid-al-adha",
+    differenceIds: ["tashriq.takbir"],
     section: "adha",
     title: "Eid al-Adha — the festival of sacrifice",
     summary: "The 10th of Dhul-Hijjah, commemorating Ibrahim's sacrifice.",
@@ -82,6 +83,7 @@ export const EID_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "eid-prayer-how-to",
+    differenceIds: ["eid.status", "eid.extraTakbirs"],
     section: "prayer",
     title: "How to pray Eid salah",
     summary: "Two rakahs with extra takbirs — no adhan or iqamah.",
@@ -147,6 +149,7 @@ export const EID_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "zakat-fitr-basics",
+    differenceIds: ["fitr.measure"],
     section: "zakat-fitr",
     title: "Zakat al-Fitr — the basics",
     summary: "A small obligatory charity, due before the Eid al-Fitr prayer.",
@@ -179,6 +182,7 @@ export const EID_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "udhiyah-basics",
+    differenceIds: ["udhiyah.status", "udhiyah.hairNails"],
     section: "udhiyah",
     title: "Udhiyah (sacrifice) — the basics",
     summary: "An animal sacrifice offered on Eid al-Adha, shared with the poor.",

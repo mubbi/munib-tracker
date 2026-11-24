@@ -125,7 +125,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
     body: [
       "Masharti fulani (shurut) lazima yawepo ili udhu uweze kuhesabiwa. Mtu huyo lazima awe Muislamu mwenye akili timamu, anayekusudia utakaso kwa ajili ya ibada (niyyah). Baadhi ya shule huainisha nia kama nguzo ya kitendo na nyingine kama sharti, lakini zote zinakubali kwamba inahitajika kwa ajili ya malipo na, kwa wengi, kwa uhalali.",
       "Maji yanayotumiwa lazima yawe safi na yenye utakaso. Muhimu sana, lazima ifike kwenye ngozi - kwa hivyo kitu chochote kinachotengeneza kizuizi cha kuzuia maji juu ya kiungo (rangi nene, rangi ya kucha, nta, gundi) lazima kiondolewe kwanza, la sivyo kitu kilichooshwa chini yake si halali. Uchafu wa kawaida au stain ya hina ambayo haizuii maji sio tatizo.",
-      "Shule za Shafi'i na Hanbali pia zinataka kuosha kufanyike kwa utaratibu wa Qur'ani na bila ya usumbufu mrefu (muwalat) unaoruhusu viungo vyake kukauka. Nafasi za Hanafi na Maliki juu ya mfuatano mkali na mwendelezo ni laini zaidi katika baadhi ya hali. Fuata mbinu ya shule moja kwa uthabiti.",
+      "Madhehebu ya Shafi'i na Hanbali pia yanashurutisha viungo vioshwe kwa mpangilio uliotajwa katika Qur'ani (tartib), na madhehebu ya Maliki na Hanbali yanashurutisha viungo vioshwe kimoja baada ya kingine bila kusita kwa muda mrefu kunakoacha viungo vilivyooshwa vikauke (muwalat). Madhehebu ya Hanafi yanahesabu yote mawili kuwa sunna. Fuata njia ya madhehebu moja kwa uthabiti.",
     ],
     quran: [
       {
@@ -143,7 +143,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
     summary: "Nguzo za Qur-aan (faraid) ambazo bila yake wudhu ni batili.",
     body: [
       "Matendo ya wajibu ya wudhu (faraid yake) ni sehemu ambazo Mwenyezi Mungu amezitaja katika Aya: kuosha uso wote; kuosha mikono yote miwili hadi na kujumuisha viwiko; kuifuta kichwa; na kuosha miguu yote miwili hadi na kujumuisha vifundo vya miguu. Kosa lolote kati ya haya na udhu haujakamilika.",
-      "Kwa haya, shule zinaongeza wajibu zaidi kutoka kwa Sunnah na hoja za kifiqhi. Nia ni wajibu katika shule nyingi (Hanafi wanaiainisha kuwa ni sunna iliyosisitizwa sana kwa ajili ya kuondoa uchafu mdogo). Agizo (tartib) na kuendelea (muwalat) ni wajibu kwa Shafii na Hanbali. Akina Maliki huongeza kupaka viungo (dalk) kama wajibu.",
+      "Juu ya haya, madhehebu yanaongeza wajibu mwingine kutoka katika Sunnah na hoja za kifiqhi. Nia ni wajibu katika madhehebu mengi (Hanafi wanaihesabu kuwa sunna iliyokokotezwa kwa ajili ya kuondoa hadathi ndogo). Mpangilio (tartib) ni wajibu kwa Shafi'i na Hanbali, na mfululizo (muwalat) kwa Maliki na Hanbali. Maliki wanaongeza kusugua viungo (dalk) kuwa wajibu.",
       "Kila kitu zaidi ya haya - suuza kinywa na pua, kuosha mikono kwanza, kuosha mara tatu - inapendekezwa (sunnah) badala ya wajibu. Kujua tofauti kunamaanisha kuwa unaweza kujua wakati wudhu sio kamili dhidi ya batili.",
     ],
     quran: [

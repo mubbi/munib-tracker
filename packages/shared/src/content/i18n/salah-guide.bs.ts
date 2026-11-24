@@ -1230,10 +1230,10 @@ export const SALAH_GUIDE_PHRASES_BS: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_BS: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Koliko sunnet rawatib rekata je dogovoreno svakodnevno?",
+    prompt: "Koliko dnevnih rekata sunneta rawatib navodi hadis Ummu Habibe?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Dvanaest rawatiba: 2 prije Fajra, 4 prije Dhuhra, 2 poslije Dhuhra, 2 poslije Magriba i 2 poslije Iše (Sahih Muslim 728).",
+      "Hadis Umm Habibe obećava kuću u Džennetu onome ko klanja dvanaest rekata sunneta danju i noću (Sahih Muslim 728); Džami' et-Tirmizi 415 ih nabraja: 2 prije Fajra, 4 prije Dhuhra, 2 poslije Dhuhra, 2 poslije Magriba i 2 poslije Iše.",
   },
   {
     prompt: "Prije Fajra, naglašeni (mu'akkadah) sunnet je:",
@@ -1242,10 +1242,10 @@ export const SALAH_GUIDE_QUIZ_BS: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Dva rekata prije Fajra su sunnet mu'akkadah — Poslanik, sallallahu alejhi ve sellem, ih nikada nije napuštao (Sahih al-Buhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Dogovoreni rawatib oko Dhuhra su:",
+    prompt: "U hadisu Umm Habibe (Džami' et-Tirmizi 415) rawatib oko Dhuhra su:",
     options: ["2 prije, 2 poslije", "4 prije, 2 poslije", "4 prije, 4 poslije", "Samo 2 prije"],
     explanation:
-      "Četiri prije Dhuhra i dva poslije su dio dvanaest rawatiba. Dodatni rekati su preporučeni nafl, a ne fiksni rawatib.",
+      "Hadis Umm Habibe navodi četiri prije Dhuhra i dva poslije. Predaja Ibn Omera (Sahih al-Buhari 1180) spominje dva prije, pa se mezhebi razlikuju koji skup smatraju potvrđenim rawatibom; rekati preko toga su nafila.",
   },
   {
     prompt: "Tačno ili netačno: Četiri rekata prije Asra su dio fiksnih dvanaest dnevnih rawatiba.",

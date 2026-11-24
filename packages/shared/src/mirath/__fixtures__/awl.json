@@ -1,0 +1,673 @@
+{
+  "group": "awl",
+  "description": "'Awl: when fixed shares exceed the estate the base is raised (6→7,8,9,10; 12→13,15,17; 24→27).",
+  "fixtures": [
+    {
+      "id": "awl-6-7",
+      "title": "Husband and two full sisters (6 → 7)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "full_sister": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "3/7",
+            "full_sister": "4/7"
+          },
+          "awlBase": 7
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hisab"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-6-7-paternal-sister",
+      "title": "Husband, full sister, paternal sister (6 → 7)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "full_sister": 1,
+          "paternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "3/7",
+            "full_sister": "3/7",
+            "paternal_sister": "1/7"
+          },
+          "awlBase": 7
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-6-8-mubahalah",
+      "title": "al-Mubahalah: husband, mother, full sister (6 → 8)",
+      "basis": "classical_case",
+      "case": "al-Mubahalah",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "full_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "3/8",
+            "mother": "1/4",
+            "full_sister": "3/8"
+          },
+          "awlBase": 8
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-6-8-two-sisters-mother",
+      "title": "Husband, two full sisters, mother (6 → 8)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "full_sister": 2,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "3/8",
+            "full_sister": "1/2",
+            "mother": "1/8"
+          },
+          "awlBase": 8
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-6-9",
+      "title": "Husband, two full sisters, two maternal brothers (6 → 9)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "full_sister": 2,
+          "maternal_brother": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/3",
+            "full_sister": "4/9",
+            "maternal_brother": "2/9"
+          },
+          "awlBase": 9
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hisab"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-6-9-mother",
+      "title": "Husband, mother, two full sisters, maternal sister (6 → 9)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "full_sister": 2,
+          "maternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/3",
+            "mother": "1/9",
+            "full_sister": "4/9",
+            "maternal_sister": "1/9"
+          },
+          "awlBase": 9
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-6-10-umm-al-furukh",
+      "title": "Umm al-Furukh: husband, mother, two full sisters, two maternal brothers (6 → 10)",
+      "basis": "classical_case",
+      "case": "Umm al-Furukh (al-Shurayhiyyah)",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1,
+          "full_sister": 2,
+          "maternal_brother": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "3/10",
+            "mother": "1/10",
+            "full_sister": "2/5",
+            "maternal_brother": "1/5"
+          },
+          "awlBase": 10
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-12-13",
+      "title": "Husband, two daughters, mother (12 → 13)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "daughter": 2,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "3/13",
+            "daughter": "8/13",
+            "mother": "2/13"
+          },
+          "awlBase": 13
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hisab"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-12-13-wife",
+      "title": "Wife, two full sisters, mother (12 → 13)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "full_sister": 2,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "3/13",
+            "full_sister": "8/13",
+            "mother": "2/13"
+          },
+          "awlBase": 13
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-12-13-sons-daughter",
+      "title": "Husband, daughter, son's daughter, mother (12 → 13)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "daughter": 1,
+          "sons_daughter": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "3/13",
+            "daughter": "6/13",
+            "sons_daughter": "2/13",
+            "mother": "2/13"
+          },
+          "awlBase": 13
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-12-15",
+      "title": "Husband, two daughters, father, mother (12 → 15)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "daughter": 2,
+          "father": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/5",
+            "daughter": "8/15",
+            "father": "2/15",
+            "mother": "2/15"
+          },
+          "awlBase": 15
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hisab"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-12-15-wife",
+      "title": "Wife, two full sisters, two maternal brothers (12 → 15)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "full_sister": 2,
+          "maternal_brother": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/5",
+            "full_sister": "8/15",
+            "maternal_brother": "4/15"
+          },
+          "awlBase": 15
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-12-17-umm-al-aramil",
+      "title": "Umm al-Aramil: 3 wives, 2 grandmothers, 4 maternal sisters, 8 full sisters (12 → 17)",
+      "basis": "classical_case",
+      "case": "Umm al-Aramil (al-Dinariyyah al-Sughra)",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 3,
+          "paternal_grandmother": 1,
+          "maternal_grandmother": 1,
+          "maternal_sister": 4,
+          "full_sister": 8
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "3/17",
+            "paternal_grandmother": "1/17",
+            "maternal_grandmother": "1/17",
+            "maternal_sister": "4/17",
+            "full_sister": "8/17"
+          },
+          "awlBase": 17,
+          "tashih": 17
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-12-17-wife",
+      "title": "Wife, mother, two full sisters, two maternal brothers (12 → 17)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "mother": 1,
+          "full_sister": 2,
+          "maternal_brother": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "3/17",
+            "mother": "2/17",
+            "full_sister": "8/17",
+            "maternal_brother": "4/17"
+          },
+          "awlBase": 17
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-24-27-minbariyyah",
+      "title": "al-Minbariyyah: wife, two daughters, father, mother (24 → 27)",
+      "basis": "classical_case",
+      "case": "al-Minbariyyah",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "daughter": 2,
+          "father": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/9",
+            "daughter": "16/27",
+            "father": "4/27",
+            "mother": "4/27"
+          },
+          "awlBase": 27
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hisab"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-24-27-two-wives",
+      "title": "Two wives, two daughters, father, mother (24 → 27, tashih 54)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 2,
+          "daughter": 2,
+          "father": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/9",
+            "daughter": "16/27",
+            "father": "4/27",
+            "mother": "4/27"
+          },
+          "awlBase": 27,
+          "tashih": 54
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Tashih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "awl-residuary-gets-nothing",
+      "title": "Residuary uncle gets nothing when shares exceed the estate",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "full_sister": 2,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "3/7",
+            "full_sister": "4/7"
+          },
+          "awlBase": 7
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Awl"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6732",
+          "grade": "sahih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    }
+  ]
+}

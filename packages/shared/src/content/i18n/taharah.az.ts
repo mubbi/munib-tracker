@@ -126,7 +126,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
     body: [
       "Dəstəmazın sayılması üçün müəyyən şərtlər (şurut) olmalıdır. İnsan ibadət (niyyah) üçün təmizlənmək niyyətində olan sağlam düşüncəli müsəlman olmalıdır. Bəzi məktəblər niyyəti hərəkətin sütunu, digərləri isə şərt kimi təsnif edir, lakin hamı bunun mükafat və əksəriyyət üçün etibarlılıq üçün tələb olunduğu ilə razılaşır.",
       "İstifadə olunan su saf və təmizləyici olmalıdır. Əsas odur ki, o, həqiqətən dəriyə çatmalıdır - buna görə də bir əza üzərində suya davamlı maneə yaradan hər şey (qalın boya, dırnaq lakı, mum, yapışqan) əvvəlcə çıxarılmalı və ya onun altındakı yuyulma etibarlı deyil. Suya mane olmayan adi kir və ya xına ləkəsi problem deyil.",
-      "Şafii və Hənbəli məzhəbləri də yuyunmaların Qur'an qaydasına uyğun və uzun fasiləsiz (muvalat) edilərək üzvlərin qurumasını tələb edir. Hənəfi və Malikinin ciddi ardıcıllıq və davamlılıq mövqeyi bəzi hallarda daha yumşaqdır. Ardıcıllıq üçün bir məktəbin metoduna əməl edin.",
+      "Şafii və Hənbəli məzhəbləri həmçinin üzvlərin Quranda göstərilən ardıcıllıqla yuyulmasını (tərtib), Maliki və Hənbəli məzhəbləri isə üzvlərin, yuyulmuş üzvlər quruyacaq qədər uzun fasilə verilmədən bir-birinin ardınca yuyulmasını (müvalat) şərt qoyur. Hənəfi məzhəbi hər ikisini sünnə sayır. Vahid yanaşma üçün bir məzhəbin üsuluna əməl edin.",
     ],
     quran: [
       {
@@ -144,7 +144,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
     summary: "Dəstəmaz batil olmayan Qur'an rüknləri (fəraid).",
     body: [
       "Dəstəmazın vacib əməlləri Allahın ayədə qeyd etdiyi hissələrdir: Bütün üzü yumaq; hər iki qolun dirsəklərə qədər yuyulması; başını silmək; və iki ayağı da topuğa qədər yumaq. Bunlardan hər hansı birini qaçırsanız, dəstəmazı natamamdır.",
-      "Bunlara məktəblər sünnədən və fiqhi mülahizələrdən əlavə öhdəliklər əlavə edirlər. Əksər məzhəblərdə niyyət vacibdir (Hənəfilər bunu kiçik murdarlığı aradan qaldırmaq üçün güclü vurğulanan sünnə kimi təsnif edirlər). Nizam (tartib) və davamlılıq (müvalət) Şafii və Hənbəlilərə vacibdir. Malikilər əzalara sürtməyi (dalk) vacib hesab edirlər.",
+      "Bunlara məzhəblər Sünnədən və fiqhi mühakimədən əlavə vaciblər artırır. Niyyət əksər məzhəblərdə vacibdir (Hənəfilər onu kiçik hədəsi qaldırmaq üçün müəkkəd sünnə hesab edirlər). Ardıcıllıq (tərtib) Şafii və Hənbəlilərə görə, fasiləsizlik (müvalat) isə Maliki və Hənbəlilərə görə vacibdir. Malikilər üzvləri ovuşdurmağı (dəlk) da vacib sayırlar.",
       "Bunlardan başqa hər şey - ağız və burnu yaxalamaq, əvvəl əlləri yumaq, üç dəfə yumaq - vacib deyil, müstəhəbbdir (sünnə). Fərqi bilmək o deməkdir ki, siz dəstəmazın sadəcə qeyri-kamil olduğunu və əslində etibarsız olduğunu deyə bilərsiniz.",
     ],
     quran: [

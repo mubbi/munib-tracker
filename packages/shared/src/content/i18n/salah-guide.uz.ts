@@ -1252,10 +1252,10 @@ export const SALAH_GUIDE_PHRASES_UZ: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_UZ: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Har kuni kelishilgan sunnat ravotib necha rakat?",
+    prompt: "Ummu Habiba hadisida kunlik sunnat ravotib necha rakat deb aytilgan?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "O'n ikki ravotib: bomdoddan oldin 2, peshindan oldin 4, peshindan keyin 2, shomdan keyin 2 va xuftondan keyin 2 (Sahih Muslim 728).",
+      "Ummu Habiba hadisi kecha-kunduzda o'n ikki rakat sunnat o'qiganga jannatda uy va'da qiladi (Sahih Muslim 728); Jome' at-Termiziy 415 ularni sanaydi: bomdoddan oldin 2, peshindan oldin 4, peshindan keyin 2, shomdan keyin 2 va xuftondan keyin 2.",
   },
   {
     prompt: "Bomdoddan oldin ta'kidlangan (mu'akkada) sunnat:",
@@ -1264,10 +1264,10 @@ export const SALAH_GUIDE_QUIZ_UZ: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Bomdoddan oldin ikki rakat sunnat mu'akkadadir — Rasululloh sollallohu alayhi vasallam ularni hech qachon tark etmas edi (Sahih al-Buxoriy 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Peshin atrofidagi kelishilgan ravotib:",
+    prompt: "Ummu Habiba hadisida (Jome' at-Termiziy 415) peshin atrofidagi ravotib:",
     options: ["Oldin 2, keyin 2", "Oldin 4, keyin 2", "Oldin 4, keyin 4", "Faqat oldin 2"],
     explanation:
-      "Peshindan oldin to'rt va keyin ikki rakat o'n ikki ravotibning bir qismidir. Bulardan ortiq rakatlar tavsiya etilgan nafl, sobit ravotib emas.",
+      "Ummu Habiba hadisida peshindan oldin to'rt va keyin ikki rakat bor. Ibn Umar rivoyatida (Sahih al-Buxoriy 1180) oldin ikki rakat aytilgan, shuning uchun mazhablar qaysi birini muakkad ravotib deb hisoblashda farq qiladi; bulardan ortiq rakatlar nafl.",
   },
   {
     prompt:

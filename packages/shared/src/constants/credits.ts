@@ -11,6 +11,11 @@ export type DataCredit = {
   attribution: string;
   url: string;
   note?: string;
+  /**
+   * Licence notice reproduced verbatim where the source's terms require it
+   * (e.g. the Quranic Arabic Corpus header). Shown in full on Credits.
+   */
+  notice?: string;
 };
 
 /** Datasets shipped inside the app binary / shared content packages. */
@@ -58,7 +63,79 @@ export const BUNDLED_DATA_CREDITS: readonly DataCredit[] = [
     url: "https://github.com/zonetecde/mushaf-layout",
     note: "madinah-15-line-hafs",
   },
+  {
+    id: "tasbeeh-sounds",
+    name: "Tasbeeh click sounds",
+    license: "CC0 1.0 (public domain dedication)",
+    attribution:
+      "Short wood, stone, glass, resin and mechanical clicks for the tasbeeh counter, trimmed from Kenney's Impact Sounds, Interface Sounds and UI Audio packs (kenney.nl). No music and no bells. Per-file sources: apps/app/assets/audio/tasbeeh/README.md.",
+    url: "https://kenney.nl/assets/impact-sounds",
+    note: "24 clips, mono AAC, bundled for offline use.",
+  },
 ] as const;
+
+/**
+ * Verbatim copyright blocks from the header of the Quranic Arabic Corpus
+ * morphology v0.4 file (QAC + Tanzil Uthmani 1.0.2). Its terms require the notice
+ * to be "reproduced appropriately in all works derived from" the file (NF-3.22).
+ */
+export const QURANIC_ARABIC_CORPUS_NOTICE = [
+  "# PLEASE DO NOT REMOVE OR CHANGE THIS COPYRIGHT BLOCK",
+  "#====================================================================",
+  "#",
+  "#  Quranic Arabic Corpus (morphology, version 0.4)",
+  "#  Copyright (C) 2011 Kais Dukes",
+  "#  License: GNU General Public License",
+  "#",
+  "#  The Quranic Arabic Corpus includes syntactic and morphological",
+  "#  annotation of the Quran, and builds on the verified Arabic text",
+  "#  distributed by the Tanzil project.",
+  "#",
+  "#  TERMS OF USE:",
+  "#",
+  "#  - Permission is granted to copy and distribute verbatim copies",
+  "#    of this file, but CHANGING IT IS NOT ALLOWED.",
+  "#",
+  "#  - This annotation can be used in any website or application,",
+  "#    provided its source (the Quranic Arabic Corpus) is clearly",
+  "#    indicated, and a link is made to http://corpus.quran.com to enable",
+  "#    users to keep track of changes.",
+  "#",
+  "#  - This copyright notice shall be included in all verbatim copies",
+  "#    of the text, and shall be reproduced appropriately in all works",
+  "#    derived from or containing substantial portion of this file.",
+  "#",
+  "#  Please check updates at: http://corpus.quran.com/download",
+  "",
+  "# PLEASE DO NOT REMOVE OR CHANGE THIS COPYRIGHT BLOCK",
+  "#====================================================================",
+  "#",
+  "#  Tanzil Quran Text (Uthmani, version 1.0.2)",
+  "#  Copyright (C) 2008-2009 Tanzil.info",
+  "#  License: Creative Commons BY-ND 3.0 Unported",
+  "#",
+  "#  This copy of quran text is carefully produced, highly",
+  "#  verified and continuously monitored by a group of specialists",
+  "#  at Tanzil project.",
+  "#",
+  "#  TERMS OF USE:",
+  "#",
+  "#  - Permission is granted to copy and distribute verbatim copies",
+  "#    of this text, but CHANGING IT IS NOT ALLOWED.",
+  "#",
+  "#  - This quran text can be used in any website or application,",
+  "#    provided its source (Tanzil.info) is clearly indicated, and",
+  "#    a link is made to http://tanzil.info to enable users to keep",
+  "#    track of changes.",
+  "#",
+  "#  - This copyright notice shall be included in all verbatim copies",
+  "#    of the text, and shall be reproduced appropriately in all files",
+  "#    derived from or containing substantial portion of this text.",
+  "#",
+  "#  Please check updates at: http://tanzil.info/updates/",
+  "#",
+  "#====================================================================",
+].join("\n");
 
 /** Content fetched or streamed at runtime (cached on device when enabled). */
 export const RUNTIME_DATA_CREDITS: readonly DataCredit[] = [
@@ -116,10 +193,23 @@ export const RUNTIME_DATA_CREDITS: readonly DataCredit[] = [
   {
     id: "adhan-audio",
     name: "Adhan call audio",
-    license: "Bundled clip + CC BY-SA 3.0 phrases / free-to-stream CDN styles",
+    license:
+      "Bundled clip + CC BY-SA 3.0 phrases / CDN styles (Kiwifu/adhan-mp3 publishes no licence — owner-accepted, D29)",
     attribution:
-      "Bundled preview from itsnavee/prayeraudio; learn-phrase clips segmented from Wikimedia Commons Adhan_wiki (CC BY-SA 3.0, author Jarih); full muezzin styles from Kiwifu/adhan-mp3 via jsDelivr.",
+      "Bundled preview and adhan notification sound (adhan_default.wav, converted from the same clip) from itsnavee/prayeraudio; learn-phrase clips segmented from Wikimedia Commons Adhan_wiki (CC BY-SA 3.0, author Jarih); full muezzin styles from Kiwifu/adhan-mp3 via jsDelivr, and each style's notification sound (adhan_mecca_fajr.wav, adhan_medina.wav, adhan_mishary.wav, adhan_makkah_muezzin.wav — ≤ 30 s opening cuts with a fade-out) cut from that same Kiwifu recording.",
     url: "https://commons.wikimedia.org/wiki/File:Adhan_wiki.oga",
+    note: "Adhan recordings are exempt from the licence-clearance rule (D29, owner decision 2026-11-24): the itsnavee and Kiwifu sources carry no recorded licence and are used as-is with credit.",
+  },
+  {
+    id: "quran-morphology",
+    name: "Quranic Arabic Corpus (morphology v0.4)",
+    license:
+      "GNU GPL — verbatim copies only; source must be credited with a link to corpus.quran.com",
+    attribution:
+      "Quranic Arabic Corpus (morphology v0.4), © Kais Dukes, GNU GPL — corpus.quran.com. Word roots and lemmas for root-word search; builds on the Tanzil Uthmani 1.0.2 text (CC BY-ND 3.0, tanzil.net). The file is downloaded unmodified on request from a pinned public GitHub copy and verified by sha256; the root index is built on your device.",
+    url: "https://corpus.quran.com",
+    note: "Remote, fetched on demand (6 MB). Never bundled or changed.",
+    notice: QURANIC_ARABIC_CORPUS_NOTICE,
   },
 ] as const;
 
@@ -127,13 +217,13 @@ export const RUNTIME_DATA_CREDITS: readonly DataCredit[] = [
 export const SERVICE_DATA_CREDITS: readonly DataCredit[] = [
   {
     id: "quran-practice-listener",
-    name: "Qur'an practice — on-device listener",
+    name: "Qur'an practice & hands-free tasbeeh — on-device listener",
     license:
-      "NPL-1.2 (model weights and phoneme corpus; non-commercial, share-alike) / MIT (Tilawa code)",
+      "NPL-1.2 (Zipformer weights and phoneme corpus; non-commercial, share-alike) / CC-BY-4.0 (NVIDIA FastConformer weights) / MIT (Tilawa code)",
     attribution:
-      "Tilawa (yazinsai/tilawa, MIT) with the Zipformer a0w model and phoneme corpus derived from Quran-Lab/zipformer_p-arabic-v3 and alketab's prompter (NPL-1.2). Alternate FastConformer listener: NVIDIA stt_ar_fastconformer (CC-BY-4.0). Inference by ONNX Runtime (MIT). Practice word data: Quran.com API v4.",
+      "Tilawa (yazinsai/tilawa, MIT) with the Zipformer a0w model and phoneme corpus derived from Quran-Lab/zipformer_p-arabic-v3 and alketab's prompter (NPL-1.2). FastConformer listener (also used for hands-free tasbeeh counting): NVIDIA stt_ar_fastconformer (CC-BY-4.0), exported by yazinsai/tilawa; on the web its pinned files come from the public Hugging Face mirror acibZ/tilawa-quran-onnx (commit 0cd79471). Inference by ONNX Runtime (MIT). Practice word data: Quran.com API v4.",
     url: "https://github.com/yazinsai/tilawa",
-    note: "Downloaded on request onto the device; never charged for, never behind ads. Audio stays on the device.",
+    note: "Downloaded on request onto the device; never charged for, never behind ads. Audio stays on the device — hands-free tasbeeh never records, stores or sends audio.",
   },
   {
     id: "quran-practice-pronunciation",
@@ -159,5 +249,14 @@ export const SERVICE_DATA_CREDITS: readonly DataCredit[] = [
     attribution:
       "Optional home-screen weather effects via Open-Meteo and MET Norway. Location is used only to fetch local conditions when enabled.",
     url: "https://open-meteo.com/",
+  },
+  {
+    id: "masjids-osm",
+    name: "Masjid finder (OpenStreetMap)",
+    license: "ODbL 1.0",
+    attribution:
+      "© OpenStreetMap contributors. Masjid locations, names, addresses, facilities and Jumu'ah service times come from OpenStreetMap via the Overpass API, fetched and cached by the Munib Tracker server. Only a ~5 km area code is sent, never your exact location.",
+    url: "https://www.openstreetmap.org/copyright",
+    note: "Corrections are made upstream on OpenStreetMap. Your own iqamah times stay on your devices.",
   },
 ] as const;

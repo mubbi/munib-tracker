@@ -1238,10 +1238,10 @@ export const SALAH_GUIDE_PHRASES_SQ: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_SQ: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Sa rekat sunet ravatib janë të rëna dakord çdo ditë?",
+    prompt: "Sa rekate sunet ravatib ditore përmend hadithi i Ummu Habibes?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Dymbëdhjetë ravatib: 2 para Sabahut, 4 para Dhuhrit, 2 pas Dhuhrit, 2 pas Akshamit dhe 2 pas Jacisë (Sahih Muslim 728).",
+      "Hadithi i Umm Habibes premton një shtëpi në Xhenet për atë që fal dymbëdhjetë rekate synet ditë e natë (Sahih Muslim 728); Xhami' et-Tirmidhi 415 i rendit: 2 para Sabahut, 4 para Dhuhrit, 2 pas Dhuhrit, 2 pas Akshamit dhe 2 pas Jacisë.",
   },
   {
     prompt: "Para Sabahut, suneti i theksuar (mu'akkadeh) është:",
@@ -1250,10 +1250,10 @@ export const SALAH_GUIDE_QUIZ_SQ: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Dy rekate para Sabahut janë sunet mu'akkadeh — Profeti ﷺ nuk i braktiste kurrë (Sahih al-Buhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Ravatibet e rëna dakord rreth Dhuhrit janë:",
+    prompt: "Në hadithin e Umm Habibes (Xhami' et-Tirmidhi 415), ravatibet rreth Dhuhrit janë:",
     options: ["2 para, 2 pas", "4 para, 2 pas", "4 para, 4 pas", "Vetëm 2 para"],
     explanation:
-      "Katër para Dhuhrit dhe dy pas tij janë pjesë e dymbëdhjetë ravatibeve. Rekatet shtesë janë nafl i rekomanduar, jo ravatib fiks.",
+      "Hadithi i Umm Habibes përmend katër para Dhuhrit dhe dy pas tij. Transmetimi i Ibn Umerit (Sahih al-Buhari 1180) përmend dy para, ndaj medhhebet ndryshojnë se cilin grup e llogaritin si ravatib të theksuar; rekatet përtej këtyre janë nafile.",
   },
   {
     prompt:

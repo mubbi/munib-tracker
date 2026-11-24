@@ -1,0 +1,537 @@
+{
+  "group": "exclusion",
+  "description": "Hajb hirman (total exclusion) and hajb nuqsan (reduction).",
+  "fixtures": [
+    {
+      "id": "ex-son-excludes-all-siblings",
+      "title": "A son excludes every kind of sibling",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "son": 1,
+          "full_brother": 1,
+          "full_sister": 1,
+          "paternal_brother": 1,
+          "maternal_brother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:176"
+        },
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-father-excludes-siblings",
+      "title": "The father excludes full and maternal siblings",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "full_brother": 1,
+          "maternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-sons-son-excludes-siblings",
+      "title": "A son's son excludes siblings",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "sons_son": 1,
+          "full_brother": 1,
+          "maternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "sons_son": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-daughter-excludes-maternal-only",
+      "title": "A daughter excludes maternal siblings but not a full brother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "full_brother": 1,
+          "maternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "full_brother": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-mother-excludes-grandmothers",
+      "title": "The mother excludes both grandmothers",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "paternal_grandmother": 1,
+          "maternal_grandmother": 1,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/3",
+            "full_paternal_uncle": "2/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-full-brother-excludes-paternal",
+      "title": "Full brother excludes paternal brother and sister",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_brother": 1,
+          "paternal_brother": 1,
+          "paternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_brother": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-two-full-sisters-exclude-paternal-sisters",
+      "title": "Two full sisters exclude paternal sisters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_sister": 2,
+          "paternal_sister": 2,
+          "full_brothers_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_sister": "2/3",
+            "full_brothers_son": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-grandfather-excludes-maternal",
+      "title": "The grandfather excludes maternal siblings",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "maternal_brother": 1,
+          "maternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "paternal_grandfather": "1"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-grandfather-and-full-brother",
+      "title": "Grandfather and one full brother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "paternal_grandfather": 1,
+          "full_brother": 1
+        }
+      },
+      "expected": {
+        "hanafi": {
+          "shares": {
+            "paternal_grandfather": "1"
+          }
+        },
+        "shafii": {
+          "shares": {
+            "paternal_grandfather": "1/2",
+            "full_brother": "1/2"
+          }
+        },
+        "maliki": {
+          "shares": {
+            "paternal_grandfather": "1/2",
+            "full_brother": "1/2"
+          }
+        },
+        "hanbali": {
+          "shares": {
+            "paternal_grandfather": "1/2",
+            "full_brother": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Muqasamat al-Jadd"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Jadd wa al-Ikhwah"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        },
+        {
+          "kind": "book",
+          "work": "khalil",
+          "chapter": "Bab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-two-daughters-exclude-sons-daughters",
+      "title": "Two daughters exclude three son's daughters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 2,
+          "sons_daughter": 3,
+          "father": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "2/3",
+            "father": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-son-excludes-grandchildren",
+      "title": "A son excludes the son's children",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "son": 1,
+          "sons_son": 1,
+          "sons_daughter": 1,
+          "daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "son": "2/3",
+            "daughter": "1/3"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-mother-reduced-by-excluded-maternal-siblings",
+      "title": "Maternal siblings excluded by the father still reduce the mother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "father": 1,
+          "mother": 1,
+          "maternal_brother": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "father": "5/6",
+            "mother": "1/6"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:11"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-sister-with-sons-daughter-excludes-nephew",
+      "title": "Full sister with a son's daughter excludes the nephew",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "sons_daughter": 1,
+          "full_sister": 1,
+          "full_brothers_son": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "sons_daughter": "1/2",
+            "full_sister": "1/2"
+          }
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-'Asabat"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "ex-sons-daughters-sixth-with-daughter",
+      "title": "Daughter with two son's daughters and an uncle",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "sons_daughter": 2,
+          "full_paternal_uncle": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2",
+            "sons_daughter": "1/6",
+            "full_paternal_uncle": "1/3"
+          },
+          "tashih": 12
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Hajb"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    }
+  ]
+}

@@ -1229,10 +1229,10 @@ export const SALAH_GUIDE_PHRASES_TK: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_TK: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Her gün ylalaşylan sünnet rawatib näçe rekagat?",
+    prompt: "Ummu Habibanyň hadysynda gündelik sünnet rawatib näçe rekagat diýilýär?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "On iki rawatib: Fajrdan öň 2, Dhuhrdan öň 4, Dhuhrdan soň 2, Magribden soň 2 we Işadan soň 2 (Sahih Muslim 728).",
+      "Ummu Habibanyň hadysy gije-gündizde on iki rekagat sünnet okan adama jennetde öý wada berýär (Sahih Muslim 728); Jami' at-Tirmizi 415 olary sanaýar: Fajrdan öň 2, Dhuhrdan öň 4, Dhuhrdan soň 2, Magribden soň 2 we Işadan soň 2.",
   },
   {
     prompt: "Fajrdan öň, nygtalan (mu'akkadah) sünnet:",
@@ -1241,10 +1241,10 @@ export const SALAH_GUIDE_QUIZ_TK: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Fajrdan öň iki rekagat sünnet mu'akkadah — Pygamber ﷺ olary hiç haçan taşlamady (Sahih al-Buhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Dhuhryň daşyndaky ylalaşylan rawatib:",
+    prompt: "Ummu Habibanyň hadysynda (Jami' at-Tirmizi 415) Dhuhryň daşyndaky rawatib:",
     options: ["Öň 2, soň 2", "Öň 4, soň 2", "Öň 4, soň 4", "Diňe öň 2"],
     explanation:
-      "Dhuhrdan öň dört we soň iki rekagat on iki rawatibyň bölegi. Goşmaça rekagatlar maslahat berilýän nafl, däl-de, kesgitlenen rawatib.",
+      "Ummu Habibanyň hadysynda Dhuhrdan öň dört, soň iki rekagat agzalýar. Ibn Umaryň rowaýatynda (Sahih al-Buhari 1180) öň iki rekagat aýdylýar, şonuň üçin mezhepler haýsysyny muakkada rawatib hasaplamakda tapawutlanýar; mundan artyk rekagatlar nafl.",
   },
   {
     prompt: "Dogry ýa-da nädogry: Asrdan öň dört rekagat gündelik on iki rawatibyň bölegi.",

@@ -131,7 +131,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
     body: [
       "Beberapa syarat harus terpenuhi agar wudu dianggap sah. Orang yang berwudu harus seorang muslim yang berakal sehat, dengan niat bersuci untuk beribadah. Sebagian mazhab menggolongkan niat sebagai rukun perbuatan ini dan sebagian lain sebagai syarat, tetapi semua sepakat bahwa niat diperlukan untuk mendapatkan pahala, dan menurut mayoritas, juga untuk keabsahannya.",
       "Air yang digunakan harus suci dan menyucikan. Yang terpenting, air itu harus benar-benar mencapai kulit — sehingga apa pun yang membentuk lapisan kedap air pada suatu anggota tubuh (cat tebal, cat kuku, lilin, lem) harus dihilangkan terlebih dahulu, jika tidak, basuhan di baliknya tidak sah. Kotoran biasa atau noda pacar yang tidak menghalangi air bukanlah masalah.",
-      "Mazhab Syafi'i dan Hambali juga mewajibkan agar basuhan dilakukan sesuai urutan Al-Qur'an dan tanpa jeda panjang (muwalat) yang membuat anggota tubuh mengering. Pendapat mazhab Hanafi dan Maliki tentang urutan dan kesinambungan yang ketat ini lebih longgar dalam sebagian keadaan. Ikuti satu metode mazhab secara konsisten.",
+      "Mazhab Syafi'i dan Hambali juga mewajibkan agar basuhan dilakukan sesuai urutan dalam Al-Qur'an (tartib), sedangkan mazhab Maliki dan Hambali mewajibkan agar basuhan dilakukan berturut-turut tanpa jeda panjang yang membuat anggota tubuh mengering (muwalat). Mazhab Hanafi menganggap keduanya sunnah. Ikuti satu metode mazhab secara konsisten.",
     ],
     quran: [
       {
@@ -149,7 +149,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
     summary: "Rukun yang disebutkan Al-Qur'an, tanpanya wudu tidak sah.",
     body: [
       "Rukun-rukun wudu adalah bagian-bagian yang disebutkan Allah dalam ayat: membasuh seluruh wajah; membasuh kedua lengan sampai dan termasuk siku; mengusap kepala; serta membasuh kedua kaki sampai dan termasuk mata kaki. Bila salah satu terlewat, wudu tidak sempurna.",
-      "Selain itu, mazhab-mazhab menambahkan kewajiban lain berdasarkan sunnah dan ijtihad. Niat wajib menurut kebanyakan mazhab (mazhab Hanafi menggolongkannya sebagai sunnah yang sangat ditekankan untuk menghilangkan hadas kecil). Urutan (tartib) dan kesinambungan (muwalat) wajib menurut mazhab Syafi'i dan Hambali. Mazhab Maliki menambahkan menggosok anggota tubuh (dalk) sebagai kewajiban.",
+      "Selain itu, mazhab-mazhab menambahkan kewajiban lain berdasarkan sunnah dan ijtihad. Niat wajib menurut kebanyakan mazhab (mazhab Hanafi menggolongkannya sebagai sunnah yang sangat ditekankan untuk menghilangkan hadas kecil). Urutan (tartib) wajib menurut mazhab Syafi'i dan Hambali, sedangkan kesinambungan (muwalat) wajib menurut mazhab Maliki dan Hambali. Mazhab Maliki menambahkan menggosok anggota tubuh (dalk) sebagai kewajiban.",
       "Segala sesuatu di luar ini — berkumur dan memasukkan air ke hidung, membasuh tangan lebih dulu, membasuh tiga kali — adalah sunnah, bukan wajib. Mengetahui perbedaannya membuatmu dapat membedakan kapan wudu sekadar kurang sempurna dan kapan benar-benar tidak sah.",
     ],
     quran: [

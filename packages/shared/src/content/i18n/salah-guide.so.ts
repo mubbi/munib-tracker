@@ -1240,10 +1240,10 @@ export const SALAH_GUIDE_PHRASES_SO: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_SO: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Imisa rakco oo sunna rawatib ah ayaa la isku raacay maalin kasta?",
+    prompt: "Imisa rakco oo sunna rawatib maalinle ah ayuu xadiiska Umm Xabiibah sheegayaa?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Labo iyo toban rawatib waa: 2 ka hor Fajr, 4 ka hor Dhuxur, 2 ka dib Dhuxur, 2 ka dib Maqrib, iyo 2 ka dib Cisha (Sahih Muslim 728).",
+      "Xadiiska Ummu Xabiiba wuxuu guri Jannada ku jira u ballanqaadayaa qofka tukada laba iyo toban rakcadood oo sunne ah habeen iyo maalinba (Sahih Muslim 728); Jaamic at-Tirmidi 415 ayaa tiriya: 2 ka hor Fajr, 4 ka hor Dhuxur, 2 ka dib Dhuxur, 2 ka dib Maqrib, iyo 2 ka dib Cisha.",
   },
   {
     prompt: "Ka hor Fajr, sunnada la xoojiyay (mu'akkadah) waa:",
@@ -1252,7 +1252,7 @@ export const SALAH_GUIDE_QUIZ_SO: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Laba rakco ka hor Fajr waa sunna mu'akkadah — Nabiga ﷺ marnaba kama tegin (Sahih al-Bukhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Rawatibka la isku raacay ee ku wareegsan Dhuxur waa:",
+    prompt: "Xadiiska Ummu Xabiiba (Jaamic at-Tirmidi 415), rawatibka ku wareegsan Dhuxur waa:",
     options: [
       "2 ka hor, 2 ka dib",
       "4 ka hor, 2 ka dib",
@@ -1260,7 +1260,7 @@ export const SALAH_GUIDE_QUIZ_SO: DeepPartial<SalahGuideQuizQuestion>[] = [
       "2 ka hor oo keliya",
     ],
     explanation:
-      "Afar ka hor Dhuxur iyo laba ka dib waxay ka mid yihiin labo iyo tobanka rawatib. Rakcooyin dheeraad ah oo ka baxsan kuwan waa nafl la taliyay, ma aha rawatib go'an.",
+      "Xadiiska Ummu Xabiiba wuxuu sheegayaa afar ka hor Dhuxur iyo laba ka dib. Riwaayadda Ibnu Cumar (Sahih al-Bukhari 1180) waxay sheegaysaa laba ka hor, sidaas darteed madaahibtu way ku kala duwan yihiin midka ay u tiriyaan rawatib la adkeeyay; rakcooyinka intaas dheer waa nafl.",
   },
   {
     prompt:

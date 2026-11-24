@@ -1402,11 +1402,11 @@ export const SALAH_GUIDE_QUIZ_ID: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
     id: "rawatib-total",
     type: "multiple-choice",
-    prompt: "Berapa rakaat sunnah rawatib yang disepakati setiap hari?",
+    prompt: "Berapa rakaat sunnah rawatib harian yang disebutkan dalam hadis Ummu Habibah?",
     options: ["8", "10", "12", "14"],
     correctIndex: 2,
     explanation:
-      "Dua belas rawatib ialah: 2 sebelum Subuh, 4 sebelum Dhuhur, 2 setelah Dhuhur, 2 setelah Maghrib, dan 2 setelah Isya (Sahih Muslim 728).",
+      "Hadis Ummu Habibah menjanjikan rumah di surga bagi yang shalat dua belas rakaat sunnah sehari semalam (Sahih Muslim 728); Jami' at-Tirmidzi 415 merinci: 2 sebelum Subuh, 4 sebelum Dhuhur, 2 setelah Dhuhur, 2 setelah Maghrib, dan 2 setelah Isya.",
   },
   {
     id: "rawatib-fajr",
@@ -1420,7 +1420,7 @@ export const SALAH_GUIDE_QUIZ_ID: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
     id: "rawatib-dhuhr",
     type: "multiple-choice",
-    prompt: "Rawatib yang disepakati sekitar Dhuhur ialah:",
+    prompt: "Dalam hadis Ummu Habibah (Jami' at-Tirmidzi 415), rawatib sekitar Dhuhur ialah:",
     options: [
       "2 sebelum, 2 setelah",
       "4 sebelum, 2 setelah",
@@ -1429,7 +1429,7 @@ export const SALAH_GUIDE_QUIZ_ID: DeepPartial<SalahGuideQuizQuestion>[] = [
     ],
     correctIndex: 1,
     explanation:
-      "Empat sebelum Dhuhur dan dua setelahnya termasuk dua belas rawatib. Rakaat tambahan di luar ini adalah nafl yang dianjurkan, bukan rawatib tetap.",
+      "Hadis Ummu Habibah menyebut empat sebelum Dhuhur dan dua setelahnya. Riwayat Ibnu Umar (Sahih al-Bukhari 1180) menyebut dua sebelumnya, sehingga mazhab berbeda tentang jumlah mana yang dihitung sebagai rawatib muakkadah; rakaat di luar itu adalah nafl.",
   },
   {
     id: "asr-ghayr-muakkadah",
