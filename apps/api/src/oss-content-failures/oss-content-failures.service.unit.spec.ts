@@ -68,6 +68,14 @@ describe("OssContentFailuresService (unit)", () => {
     expect(row.contentMeta).toEqual({});
   });
 
+  it("drops contentMeta larger than 4 KB", async () => {
+    const { report } = setup();
+    const row = await report({
+      contentMeta: { blob: "x".repeat(5000) } as unknown as FailureDto["contentMeta"],
+    });
+    expect(row.contentMeta).toEqual({});
+  });
+
   it("keeps object contentMeta", async () => {
     const { report } = setup();
     const row = await report({ contentMeta: { surah: 2 } });

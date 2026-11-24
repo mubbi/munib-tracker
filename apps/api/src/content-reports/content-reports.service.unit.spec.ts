@@ -10,7 +10,14 @@ import type { ContentReportAttachmentEntity, ContentReportEntity } from "../data
 import { buildMockAuthService } from "../test-support/auth";
 import { buildAuthUser } from "../test-support/fixtures/user";
 import { asRepository, buildMockRepository } from "../test-support/repositories";
-import { buildMockAttachmentStorage, buildUpload } from "../test-support/uploads";
+import {
+  buildMockAttachmentStorage,
+  buildUpload,
+  JPEG_BYTES,
+  PDF_BYTES,
+  PNG_BYTES,
+  WEBP_BYTES,
+} from "../test-support/uploads";
 import { ContentReportsService } from "./content-reports.service";
 import type { CreateContentReportDto } from "./dto/content-report.dto";
 
@@ -125,7 +132,17 @@ describe("ContentReportsService (unit)", () => {
 
     it.each([
       ["four attachments", Array.from({ length: 4 }, () => buildUpload()), "At most 3"],
-      ["an unsupported MIME type", [buildUpload({ mimetype: "application/pdf" })], "Unsupported"],
+      ["a PDF", [buildUpload({ buffer: PDF_BYTES, mimetype: "application/pdf" })], "Unsupported"],
+      [
+        "HTML spoofed as image/png",
+        [buildUpload({ buffer: Buffer.from("<html><script>alert(1)</script>") })],
+        "Unsupported",
+      ],
+      [
+        "SVG spoofed as image/png",
+        [buildUpload({ buffer: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"/>') })],
+        "Unsupported",
+      ],
       ["an attachment over 2 MB", [buildUpload({ size: TWO_MIB + 1 })], "2 MB"],
     ])("rejects %s", async (_label, files, message) => {
       const { service } = setup();
@@ -175,12 +192,15 @@ describe("ContentReportsService (unit)", () => {
     });
 
     it.each([
-      ["image/jpeg", ".jpg"],
-      ["image/png", ".png"],
-      ["image/webp", ".webp"],
-    ])("stores %s attachments with a %s extension", async (mimetype, ext) => {
+      ["image/jpeg", ".jpg", JPEG_BYTES],
+      ["image/png", ".png", PNG_BYTES],
+      ["image/webp", ".webp", WEBP_BYTES],
+    ])("stores %s attachments with a %s extension", async (mimetype, ext, buffer) => {
       const { storage, service } = setup();
-      await service.create("tok", buildCreateDto(), [buildUpload({ mimetype })]);
+      // The sniffed type wins over the client-declared one.
+      await service.create("tok", buildCreateDto(), [
+        buildUpload({ buffer, mimetype: "application/octet-stream" }),
+      ]);
       expect(storage.save).toHaveBeenCalledWith(
         expect.any(String),
         expect.stringMatching(new RegExp(`\\${ext}$`)),
@@ -198,6 +218,14 @@ describe("ContentReportsService (unit)", () => {
         sizeBytes: buildUpload().size,
         storagePath: expect.stringMatching(/^\/disk\//),
       });
+    });
+
+    it("strips path separators and control characters from the original filename", async () => {
+      const { attachments, service } = setup();
+      await service.create("tok", buildCreateDto(), [
+        buildUpload({ originalname: "../../etc/pa sswd.png" }),
+      ]);
+      expect(attachments.create.mock.calls[0]?.[0].filename).toBe(".._.._etc_passwd.png");
     });
 
     it("falls back to the generated filename when the original is blank", async () => {

@@ -18,6 +18,11 @@ import { asRepository, buildMockRepository } from "../test-support/repositories"
 import { NotificationsService } from "./notifications.service";
 
 const READ_AT = new Date("2026-01-01T00:00:00Z");
+const WEB_TOKEN = JSON.stringify({
+  endpoint: "https://fcm.googleapis.com/fcm/send/endpoint",
+  expirationTime: null,
+  keys: { p256dh: "p256", auth: "auth" },
+});
 const CLICKED_AT = new Date("2026-01-02T00:00:00Z");
 
 async function setup() {
@@ -117,13 +122,13 @@ describe("NotificationsService", () => {
       const { service, accessToken } = await setup();
 
       const created = await service.upsertPushToken(accessToken, {
-        token: "https://push.example/endpoint",
+        token: WEB_TOKEN,
         deviceId: "   ",
         platform: "web",
       });
 
       expect(created).toMatchObject({
-        token: "https://push.example/endpoint",
+        token: WEB_TOKEN,
         platform: "web",
         deviceId: null,
         locale: null,
@@ -132,9 +137,34 @@ describe("NotificationsService", () => {
       });
     });
 
+    it.each([
+      ["a bare URL", "https://fcm.googleapis.com/fcm/send/endpoint"],
+      [
+        "an internal endpoint (SSRF)",
+        JSON.stringify({
+          endpoint: "https://169.254.169.254/latest/meta-data",
+          keys: { p256dh: "p256", auth: "auth" },
+        }),
+      ],
+      [
+        "an unknown push host",
+        JSON.stringify({
+          endpoint: "https://attacker.example/collect",
+          keys: { p256dh: "p256", auth: "auth" },
+        }),
+      ],
+    ])("rejects a web token that is %s", async (_label, token) => {
+      const { service, accessToken, pushTokens } = await setup();
+
+      await expect(
+        service.upsertPushToken(accessToken, { token, platform: "web" }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      expect(await pushTokens.count()).toBe(0);
+    });
+
     it("refreshes an existing row matched by token", async () => {
       const { service, accessToken } = await setup();
-      const dto = { token: "https://push.example/endpoint", platform: "web" as const };
+      const dto = { token: WEB_TOKEN, platform: "web" as const };
       const created = await service.upsertPushToken(accessToken, dto);
 
       const refreshed = await service.upsertPushToken(accessToken, {
@@ -218,8 +248,8 @@ describe("NotificationsService", () => {
 
     it("can match by token, and needs a device id or a token", async () => {
       const { service, accessToken, pushTokens } = await setup();
-      await service.upsertPushToken(accessToken, { token: "t-1", platform: "web" });
-      await expect(service.removePushToken(accessToken, { token: "t-1" })).resolves.toEqual({
+      await service.upsertPushToken(accessToken, { token: WEB_TOKEN, platform: "web" });
+      await expect(service.removePushToken(accessToken, { token: WEB_TOKEN })).resolves.toEqual({
         removed: 1,
       });
       expect(await pushTokens.count()).toBe(0);
@@ -326,6 +356,20 @@ describe("NotificationsService", () => {
       const row = await seedNotification({ broadcastId });
 
       await service.engage(accessToken, row.id, { action });
+
+      expect(await readBroadcastCounts(broadcastId)).toEqual(counts);
+    });
+
+    it.each<["open" | "click", { opened_count: number; clicked_count: number }]>([
+      ["open", { opened_count: 1, clicked_count: 0 }],
+      ["click", { opened_count: 0, clicked_count: 1 }],
+    ])("counts a repeated %s once per notification", async (action, counts) => {
+      const { service, accessToken, seedNotification, seedBroadcast, readBroadcastCounts } =
+        await setup();
+      const broadcastId = await seedBroadcast();
+      const row = await seedNotification({ broadcastId });
+
+      for (let i = 0; i < 5; i += 1) await service.engage(accessToken, row.id, { action });
 
       expect(await readBroadcastCounts(broadcastId)).toEqual(counts);
     });

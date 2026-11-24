@@ -7,6 +7,7 @@ import {
 } from "@munib-tracker/shared/constants/user-media";
 import {
   BadRequestException,
+  ConflictException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -16,11 +17,17 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { In, Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
 import { AttachmentStorageService } from "../common/attachment-storage.service";
+import { assertWithinRateLimit } from "../common/durable-rate-limit";
 import { UserMediaEntity } from "../database/entities";
 import { UserMediaDto } from "./dto/user-media.dto";
 
 export const USER_MEDIA_MAX_BYTES_LIMIT = USER_MEDIA_MAX_BYTES;
 export const USER_MEDIA_MAX_FILES = USER_MEDIA_MAX_PER_ENTITY;
+/** Upload requests per account per hour (each ≤ 5 files × 1 MB). */
+export const USER_MEDIA_UPLOADS_PER_HOUR = 30;
+/** Stored attachments per account (≈ 500 MB at the per-file cap). */
+export const USER_MEDIA_MAX_ITEMS_PER_USER = 500;
+const HOUR_MS = 3_600_000;
 
 export type UploadedUserMedia = {
   buffer: Buffer;
@@ -41,6 +48,22 @@ export class UserMediaService {
   async upload(accessToken: string, files: UploadedUserMedia[]): Promise<UserMediaDto[]> {
     const user = await this.requireLinkedUser(accessToken);
     this.validateFiles(files);
+    // Storage quota: every request can add up to 5 MB to paid object storage.
+    await assertWithinRateLimit(
+      {
+        key: `user-media:upload:${user.userId}`,
+        limit: USER_MEDIA_UPLOADS_PER_HOUR,
+        windowMs: HOUR_MS,
+      },
+      "Too many uploads. Try again later.",
+    );
+    const stored = await this.mediaRepository.count({ where: { userId: user.userId } });
+    if (stored + files.length > USER_MEDIA_MAX_ITEMS_PER_USER) {
+      throw new ConflictException({
+        message: `At most ${USER_MEDIA_MAX_ITEMS_PER_USER} attachments per account`,
+        code: "USER_MEDIA_QUOTA_EXCEEDED",
+      });
+    }
 
     const saved: UserMediaDto[] = [];
     for (const file of files) {

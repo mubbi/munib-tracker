@@ -1,5 +1,6 @@
-import { BadRequestException } from "@nestjs/common";
+import { BadRequestException, ConflictException, HttpException } from "@nestjs/common";
 import { describe, expect, it, vi } from "vitest";
+import { resetMemoryRateLimits } from "../common/durable-rate-limit";
 import type { UserMediaEntity } from "../database/entities";
 import { buildMockAuthService } from "../test-support/auth";
 import { buildAuthUser } from "../test-support/fixtures/user";
@@ -12,7 +13,12 @@ import {
   PNG_BYTES,
   WEBP_BYTES,
 } from "../test-support/uploads";
-import { normalizeUploadFilename, UserMediaService } from "./user-media.service";
+import {
+  normalizeUploadFilename,
+  USER_MEDIA_MAX_ITEMS_PER_USER,
+  USER_MEDIA_UPLOADS_PER_HOUR,
+  UserMediaService,
+} from "./user-media.service";
 
 const CREATED_AT = new Date("2026-01-01T00:00:00.000Z");
 const ONE_MIB = 1024 * 1024;
@@ -31,6 +37,7 @@ function buildMediaRow(overrides: Partial<UserMediaEntity> = {}): UserMediaEntit
 }
 
 function setup(user = buildAuthUser()) {
+  resetMemoryRateLimits();
   const repo = buildMockRepository({
     save: vi.fn(async (row: object) => ({ ...row, createdAt: CREATED_AT })),
   });
@@ -109,6 +116,29 @@ describe("UserMediaService", () => {
         );
       },
     );
+
+    it("refuses uploads past the per-account storage quota", async () => {
+      const { repo, storage, service } = setup();
+      repo.count.mockResolvedValue(USER_MEDIA_MAX_ITEMS_PER_USER - 1);
+      const error = await service
+        .upload("tok", [buildUpload(), buildUpload()])
+        .catch((e: unknown) => e);
+      expect(error).toBeInstanceOf(ConflictException);
+      expect(repo.count).toHaveBeenCalledWith({ where: { userId: "user-1" } });
+      expect(storage.saveUserMedia).not.toHaveBeenCalled();
+    });
+
+    it("rate-limits upload requests per account", async () => {
+      const { storage, service } = setup();
+      for (let i = 0; i < USER_MEDIA_UPLOADS_PER_HOUR; i += 1) {
+        await service.upload("tok", [buildUpload()]);
+      }
+      storage.saveUserMedia.mockClear();
+      const error = await service.upload("tok", [buildUpload()]).catch((e: unknown) => e);
+      expect(error).toBeInstanceOf(HttpException);
+      expect((error as HttpException).getStatus()).toBe(429);
+      expect(storage.saveUserMedia).not.toHaveBeenCalled();
+    });
 
     it("trusts sniffed bytes over the picker MIME", async () => {
       const { service } = setup();

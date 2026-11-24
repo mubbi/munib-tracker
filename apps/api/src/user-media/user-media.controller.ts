@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
   Req,
   StreamableFile,
@@ -103,7 +104,7 @@ export class UserMediaController {
   getMeta(
     @Headers("authorization") authorization: string | undefined,
     @Req() req: Request,
-    @Param("id") id: string,
+    @Param("id", ParseUUIDPipe) id: string,
   ): Promise<UserMediaDto> {
     return this.userMediaService.getMeta(resolveAccessToken(req, authorization), id);
   }
@@ -116,7 +117,7 @@ export class UserMediaController {
   async getContent(
     @Headers("authorization") authorization: string | undefined,
     @Req() req: Request,
-    @Param("id") id: string,
+    @Param("id", ParseUUIDPipe) id: string,
   ): Promise<StreamableFile> {
     const { buffer, mimeType, filename } = await this.userMediaService.getContent(
       resolveAccessToken(req, authorization),
@@ -135,7 +136,7 @@ export class UserMediaController {
   async remove(
     @Headers("authorization") authorization: string | undefined,
     @Req() req: Request,
-    @Param("id") id: string,
+    @Param("id", ParseUUIDPipe) id: string,
   ): Promise<void> {
     await this.userMediaService.remove(resolveAccessToken(req, authorization), id);
   }

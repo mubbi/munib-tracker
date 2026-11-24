@@ -16,6 +16,12 @@ import {
 } from "./dto/sync.dto";
 import { isValidVaultPayload } from "./dto/vault-payload.validator";
 
+/**
+ * `sync_records.recordId` is `varchar(128)`: a longer id can never be stored,
+ * and on Postgres it would throw mid-batch (500, earlier rows already written).
+ */
+const MAX_RECORD_ID_LENGTH = 128;
+
 /** Reject client timestamps more than this far in the future (clock skew). */
 const MAX_FUTURE_SKEW_MS = 5 * 60 * 1000;
 
@@ -72,7 +78,7 @@ export class SyncService {
         throw new BadRequestException("data_reset is server-managed");
       }
       const clientUpdatedAt = parseISO(change.updatedAt);
-      if (Number.isNaN(clientUpdatedAt.getTime())) {
+      if (Number.isNaN(clientUpdatedAt.getTime()) || change.id.length > MAX_RECORD_ID_LENGTH) {
         continue;
       }
       // Per-record payload guard (H2): a malformed or oversized vault / ayah-notes

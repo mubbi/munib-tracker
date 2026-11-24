@@ -65,6 +65,15 @@ describe("SyncService (unit)", () => {
       expect(repo.save).not.toHaveBeenCalled();
     });
 
+    it("skips a record id longer than the column instead of failing the batch", async () => {
+      const { repo, push } = setup();
+      await expect(
+        push(change({ id: "x".repeat(129) }), change({ id: "ok" })),
+      ).resolves.toMatchObject({ accepted: 2, conflicts: [] });
+      expect(repo.save).toHaveBeenCalledTimes(1);
+      expect(repo.create.mock.calls[0]?.[0]).toMatchObject({ recordId: "ok" });
+    });
+
     it("counts skipped changes as accepted", async () => {
       const { push } = setup();
       await expect(push(change({ updatedAt: "not-a-date" }))).resolves.toMatchObject({

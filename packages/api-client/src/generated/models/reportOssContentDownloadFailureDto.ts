@@ -19,7 +19,10 @@ export interface ReportOssContentDownloadFailureDto {
   contentKey: string;
   /** @maxLength 128 */
   sourceProvider: string;
-  /** Full CDN URL that failed */
+  /**
+     * Full CDN URL that failed (http/https only)
+     * @maxLength 2048
+     */
   sourceUrl: string;
   /** Identifying fields for the failed content (edition, surah, page, …) */
   contentMeta: ReportOssContentDownloadFailureDtoContentMeta;

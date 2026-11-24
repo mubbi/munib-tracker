@@ -4761,7 +4761,8 @@
           },
           "sourceUrl": {
             "type": "string",
-            "description": "Full CDN URL that failed"
+            "description": "Full CDN URL that failed (http/https only)",
+            "maxLength": 2048
           },
           "contentMeta": {
             "type": "object",

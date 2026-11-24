@@ -5,7 +5,6 @@ import {
   deliverSurfaceJob,
   dispatchDueSurfaceJobs,
   isValidExpoPushToken,
-  isValidWebPushSubscription,
   MAX_PAYLOAD_BYTES,
   SurfaceDeliveryError,
   type SurfaceSender,
@@ -22,6 +21,7 @@ import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
+import { assertWithinRateLimit } from "../common/durable-rate-limit";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { SurfacePushJobEntity, SurfacePushRegistrationEntity } from "../database/entities";
 import type {
@@ -32,6 +32,16 @@ import type {
 } from "./dto/surface-push.dto";
 import { SurfacePushQStashService } from "./surface-push-qstash.service";
 import { TypeOrmSurfaceJobStore } from "./typeorm-surface-job-store";
+import { parseWebPushSubscriptionTarget } from "./web-push-endpoint";
+
+/**
+ * Registrations per account per hour. Each one schedules up to 48 QStash
+ * messages and the endpoint accepts any well-formed Expo token, so without a
+ * cap one account (guests are free) could flood the job tables and QStash.
+ * The app registers once per started Salah tracking session.
+ */
+const REGISTRATIONS_PER_HOUR = 30;
+const HOUR_MS = 3_600_000;
 
 @Injectable()
 export class SurfacePushService {
@@ -51,6 +61,14 @@ export class SurfacePushService {
     dto: UpsertSurfacePushDto,
   ): Promise<SurfacePushRegistrationResponseDto> {
     const user = await this.requireAnyUser(accessToken);
+    await assertWithinRateLimit(
+      {
+        key: `surface-push:register:${user.userId}`,
+        limit: REGISTRATIONS_PER_HOUR,
+        windowMs: HOUR_MS,
+      },
+      "Too many surface push registrations",
+    );
     const now = new Date();
     const target = this.normalizeTarget(dto.channel, dto.target);
     const targetHash = hashTarget(target);
@@ -254,20 +272,18 @@ export class SurfacePushService {
       }
       return token;
     }
-    let parsed: unknown;
     try {
-      parsed = JSON.parse(raw);
+      JSON.parse(raw);
     } catch {
       throw new BadRequestException("Web Push target must be subscription JSON");
     }
-    if (!isValidWebPushSubscription(parsed)) {
+    // Shape + https + a known push-service host: the endpoint is POSTed to on
+    // delivery, so an arbitrary URL would be an SSRF primitive.
+    const subscription = parseWebPushSubscriptionTarget(raw);
+    if (!subscription) {
       throw new BadRequestException("Invalid Web Push subscription");
     }
-    return JSON.stringify({
-      endpoint: parsed.endpoint,
-      expirationTime: parsed.expirationTime ?? null,
-      keys: { p256dh: parsed.keys.p256dh, auth: parsed.keys.auth },
-    });
+    return JSON.stringify(subscription);
   }
 
   private validatePayload(value: Record<string, unknown>): string {

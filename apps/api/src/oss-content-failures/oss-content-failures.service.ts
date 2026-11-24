@@ -7,6 +7,13 @@ import { OssContentDownloadFailureEntity } from "../database/entities";
 import { ReportOssContentDownloadFailureDto } from "./dto/oss-content-failure.dto";
 import { isOssContentFailureRateLimited } from "./oss-content-failure-rate-limit";
 
+/**
+ * `contentMeta` is a free-form object (edition, surah, page…) — a few hundred
+ * bytes in practice. Anything larger is dropped so one client can't fill the
+ * table with arbitrary JSON (guests are free to create).
+ */
+const MAX_CONTENT_META_BYTES = 4096;
+
 @Injectable()
 export class OssContentFailuresService {
   constructor(
@@ -31,7 +38,10 @@ export class OssContentFailuresService {
 
     const trimmedMessage = dto.errorMessage.trim();
     const meta =
-      dto.contentMeta && typeof dto.contentMeta === "object" && !Array.isArray(dto.contentMeta)
+      dto.contentMeta &&
+      typeof dto.contentMeta === "object" &&
+      !Array.isArray(dto.contentMeta) &&
+      Buffer.byteLength(JSON.stringify(dto.contentMeta)) <= MAX_CONTENT_META_BYTES
         ? dto.contentMeta
         : {};
 

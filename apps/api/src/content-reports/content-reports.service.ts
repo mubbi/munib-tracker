@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { sniffUserMediaMime } from "@munib-tracker/shared/constants/user-media";
 import type {
   ContentReportReference,
   ContentReportStatus,
@@ -17,6 +18,7 @@ import { Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
 import { AttachmentStorageService } from "../common/attachment-storage.service";
 import { ContentReportAttachmentEntity, ContentReportEntity } from "../database/entities";
+import { normalizeUploadFilename } from "../user-media/user-media.service";
 import { isContentReportRateLimited } from "./content-report-rate-limit";
 import {
   ContentReportDetailDto,
@@ -24,7 +26,7 @@ import {
   CreateContentReportDto,
 } from "./dto/content-report.dto";
 
-const ALLOWED_MIME_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
+const ALLOWED_MIME_TYPES = new Set<string>(["image/jpeg", "image/png", "image/webp"]);
 const MAX_ATTACHMENT_BYTES = 2 * 1024 * 1024;
 const MAX_ATTACHMENTS = 3;
 
@@ -143,34 +145,40 @@ export class ContentReportsService {
     }
 
     for (const file of files) {
-      if (!ALLOWED_MIME_TYPES.has(file.mimetype)) {
-        throw new BadRequestException(`Unsupported attachment type: ${file.mimetype}`);
-      }
-      if (file.size > MAX_ATTACHMENT_BYTES) {
+      if (file.size > MAX_ATTACHMENT_BYTES || file.buffer.length > MAX_ATTACHMENT_BYTES) {
         throw new BadRequestException("Attachment exceeds 2 MB limit");
+      }
+      // Magic bytes are authoritative: the multipart Content-Type is client
+      // supplied, and these files land in a public bucket the admin console
+      // renders — a spoofed "image/png" must not smuggle HTML / SVG / scripts.
+      if (!attachmentMime(file)) {
+        throw new BadRequestException("Unsupported attachment type. Use JPEG, PNG, or WebP.");
       }
     }
   }
 
   private async saveAttachments(reportId: string, files: UploadedAttachment[]): Promise<void> {
     for (const file of files) {
+      const mimeType = attachmentMime(file);
+      if (!mimeType) throw new BadRequestException("Unsupported attachment type");
       const attachmentId = randomUUID();
-      const ext = extensionForMime(file.mimetype);
+      const ext = extensionForMime(mimeType);
       const filename = `${attachmentId}${ext}`;
       const { storagePath } = await this.attachmentStorage.save(
         reportId,
         filename,
         file.buffer,
-        file.mimetype,
+        mimeType,
       );
 
       await this.attachmentsRepository.save(
         this.attachmentsRepository.create({
           id: attachmentId,
           reportId,
-          mimeType: file.mimetype,
-          filename: file.originalname || filename,
-          sizeBytes: file.size,
+          mimeType,
+          // Client-supplied: strip path separators / control chars, cap to the column.
+          filename: normalizeUploadFilename(file.originalname, filename),
+          sizeBytes: file.buffer.length,
           storagePath,
         }),
       );
@@ -218,6 +226,12 @@ export class ContentReportsService {
       platform: report.platform ?? null,
     };
   }
+}
+
+/** The sniffed image type of an attachment, or `null` when it isn't an allowed image. */
+function attachmentMime(file: Pick<UploadedAttachment, "buffer">): string | null {
+  const sniffed = sniffUserMediaMime(file.buffer);
+  return sniffed && ALLOWED_MIME_TYPES.has(sniffed) ? sniffed : null;
 }
 
 function extensionForMime(mime: string): string {

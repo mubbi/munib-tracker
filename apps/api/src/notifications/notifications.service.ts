@@ -9,8 +9,10 @@ import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DataSource, IsNull, Not, Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
+import { isRateLimited } from "../common/durable-rate-limit";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { InAppNotificationEntity, PushTokenEntity } from "../database/entities";
+import { parseWebPushSubscriptionTarget } from "../surface-push/web-push-endpoint";
 import type {
   EngageInAppNotificationDto,
   InAppNotificationDto,
@@ -24,6 +26,8 @@ import type {
 } from "./dto/notifications.dto";
 
 const IN_APP_LIST_LIMIT = 100;
+/** How long a recorded open suppresses re-counting the same inbox row. */
+const OPEN_DEDUPE_WINDOW_MS = 90 * 86_400_000;
 
 @Injectable()
 export class NotificationsService {
@@ -47,6 +51,13 @@ export class NotificationsService {
     dto: UpsertPushTokenDto,
   ): Promise<PushTokenResponseDto> {
     const user = await this.requireAuthenticatedUser(accessToken);
+    // A web token is a Web Push subscription whose endpoint the broadcast /
+    // circle senders POST to: only well-formed subscriptions on a known push
+    // service are accepted, so a client can't point server requests at
+    // internal hosts (SSRF).
+    if (dto.platform === "web" && !parseWebPushSubscriptionTarget(dto.token)) {
+      throw new BadRequestException("Invalid Web Push subscription");
+    }
     const deviceId = dto.deviceId?.trim() || null;
 
     // A push token / Web Push endpoint identifies one device. After sign-out or
@@ -170,27 +181,41 @@ export class NotificationsService {
     const row = await this.findOwned(user.userId, id);
     const now = new Date();
 
+    // Broadcast counters are per-recipient engagement, not per request: a
+    // client replaying `engage` must not inflate them. A click counts once per
+    // inbox row (first `clickedAt`). An open can't key off `readAt` (the app
+    // marks the row read before reporting the open), so it is deduped per row
+    // through the shared limiter.
     if (dto.action === "open") {
       if (row.readAt == null) {
         row.readAt = now;
       }
-      if (row.broadcastId != null) {
+      if (row.broadcastId != null && (await this.isFirstOpen(user.userId, row.id))) {
         await this.incrementBroadcastCounter(row.broadcastId, "opened_count");
       }
     } else {
-      if (row.clickedAt == null) {
+      const firstClick = row.clickedAt == null;
+      if (firstClick) {
         row.clickedAt = now;
       }
       if (row.readAt == null) {
         row.readAt = now;
       }
-      if (row.broadcastId != null) {
+      if (row.broadcastId != null && firstClick) {
         await this.incrementBroadcastCounter(row.broadcastId, "clicked_count");
       }
     }
 
     await this.inAppRepository.save(row);
     return this.toInAppDto(row);
+  }
+
+  private async isFirstOpen(userId: string, notificationId: number): Promise<boolean> {
+    return !(await isRateLimited({
+      key: `notifications:open:${userId}:${notificationId}`,
+      limit: 1,
+      windowMs: OPEN_DEDUPE_WINDOW_MS,
+    }));
   }
 
   private async incrementBroadcastCounter(
