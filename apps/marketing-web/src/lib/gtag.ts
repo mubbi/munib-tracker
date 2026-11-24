@@ -23,12 +23,17 @@ function browserGlobal(): BrowserGtagGlobal | null {
   return globalThis as BrowserGtagGlobal;
 }
 
-/** Resolve measurement ID; empty env string disables GA. */
+const GA_MEASUREMENT_ID_RE = /^G-[A-Z0-9]{1,20}$/i;
+
+/** Resolve measurement ID; empty (or malformed) env value disables GA. */
 export function getGaMeasurementId(): string | null {
   const env = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   if (env === "") return null;
   const id = (env ?? "").trim();
-  return id || null;
+  // The id is interpolated into inline <script> bodies and the gtag.js URL in
+  // `components/analytics.tsx`; accept only the GA4 `G-XXXX` shape so a
+  // mis-set env value can never inject script.
+  return GA_MEASUREMENT_ID_RE.test(id) ? id : null;
 }
 
 export function isGoogleAnalyticsConfigured(): boolean {

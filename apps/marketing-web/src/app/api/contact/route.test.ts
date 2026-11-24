@@ -2,11 +2,17 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/contact-messages", () => ({
   CONTACT_RATE_LIMIT: 2,
+  CONTACT_IP_RATE_LIMIT: 5,
   countRecentContactMessagesByEmail: vi.fn(),
+  countRecentContactMessagesByIp: vi.fn(),
   insertContactMessage: vi.fn(),
 }));
 
-import { countRecentContactMessagesByEmail, insertContactMessage } from "@/lib/contact-messages";
+import {
+  countRecentContactMessagesByEmail,
+  countRecentContactMessagesByIp,
+  insertContactMessage,
+} from "@/lib/contact-messages";
 import { POST } from "./route";
 
 function makeRequest(body: unknown, ip = "203.0.113.1") {
@@ -28,6 +34,7 @@ const validBody = {
 };
 
 const countMock = vi.mocked(countRecentContactMessagesByEmail);
+const ipCountMock = vi.mocked(countRecentContactMessagesByIp);
 const insertMock = vi.mocked(insertContactMessage);
 
 describe("POST /api/contact", () => {
@@ -37,6 +44,7 @@ describe("POST /api/contact", () => {
     vi.clearAllMocks();
     process.env.DATABASE_URL = "postgres://localhost/test";
     countMock.mockResolvedValue(0);
+    ipCountMock.mockResolvedValue(0);
     insertMock.mockResolvedValue("msg-id");
   });
 
@@ -105,8 +113,71 @@ describe("POST /api/contact", () => {
     expect(insertMock).not.toHaveBeenCalled();
   });
 
+  it("rate-limits per client IP so rotating emails cannot flood the inbox", async () => {
+    ipCountMock.mockResolvedValue(5);
+    const res = await POST(makeRequest(validBody));
+    expect(res.status).toBe(429);
+    expect(ipCountMock).toHaveBeenCalledWith("203.0.113.1");
+    expect(insertMock).not.toHaveBeenCalled();
+  });
+
+  it("skips the per-IP limit when the client IP is unknown", async () => {
+    ipCountMock.mockResolvedValue(99);
+    const res = await POST(
+      new Request("http://localhost/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(validBody),
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(ipCountMock).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ["text/plain", "text/plain"],
+    ["form-urlencoded", "application/x-www-form-urlencoded"],
+  ])("rejects a %s body with 415 (cross-site form posts)", async (_label, contentType) => {
+    const res = await POST(
+      new Request("http://localhost/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": contentType },
+        body: JSON.stringify(validBody),
+      }),
+    );
+    expect(res.status).toBe(415);
+    expect(insertMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects an oversized body with 413 before parsing", async () => {
+    const res = await POST(makeRequest({ ...validBody, padding: "x".repeat(40_000) }));
+    expect(res.status).toBe(413);
+    expect(insertMock).not.toHaveBeenCalled();
+  });
+
+  it("truncates an over-long forwarded IP to the column width", async () => {
+    const res = await POST(makeRequest(validBody, "a".repeat(200)));
+    expect(res.status).toBe(200);
+    expect(insertMock).toHaveBeenCalledWith(expect.objectContaining({ ipAddress: "a".repeat(64) }));
+  });
+
   it.each([
     ["malformed JSON", "{oops", "Invalid JSON"],
+    ["a JSON null body", "null", "Invalid JSON"],
+    ["a JSON array body", "[]", "Invalid JSON"],
+    ["a non-string name", { ...validBody, name: 42 }, "Invalid field type"],
+    ["an object message", { ...validBody, message: { a: 1 } }, "Invalid field type"],
+    ["a non-string honeypot", { ...validBody, company: ["x"] }, "Invalid field type"],
+    [
+      "a name with a line break",
+      { ...validBody, name: "Aisha\r\nBcc: x@y.z" },
+      "Name contains invalid characters",
+    ],
+    [
+      "a message with a NUL byte",
+      { ...validBody, message: "hi\u0000there" },
+      "Message contains invalid characters",
+    ],
     ["a missing name", { ...validBody, name: "   " }, "Name required"],
     ["a malformed email", { ...validBody, email: "not-an-email" }, "Valid email required"],
     ["a missing email", { ...validBody, email: undefined }, "Valid email required"],

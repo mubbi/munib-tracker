@@ -5,6 +5,8 @@ import { getDb } from "./db";
 
 /** Max contact submissions per email address within the rolling window. */
 export const CONTACT_RATE_LIMIT = 2;
+/** Max contact submissions per client IP within the rolling window (email rotation guard). */
+export const CONTACT_IP_RATE_LIMIT = 5;
 /** Rolling window for contact rate limiting. */
 export const CONTACT_RATE_WINDOW_MS = 24 * 60 * 60 * 1000;
 
@@ -23,6 +25,21 @@ export async function countRecentContactMessagesByEmail(email: string): Promise<
     .select({ count: count() })
     .from(contactMessagesTable)
     .where(and(eq(contactMessagesTable.email, email), gte(contactMessagesTable.createdAt, since)));
+  return row?.count ?? 0;
+}
+
+export async function countRecentContactMessagesByIp(ipAddress: string): Promise<number> {
+  const db = getDb();
+  const since = new Date(Date.now() - CONTACT_RATE_WINDOW_MS);
+  const [row] = await db
+    .select({ count: count() })
+    .from(contactMessagesTable)
+    .where(
+      and(
+        eq(contactMessagesTable.ipAddress, ipAddress),
+        gte(contactMessagesTable.createdAt, since),
+      ),
+    );
   return row?.count ?? 0;
 }
 
