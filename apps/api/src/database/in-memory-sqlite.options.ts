@@ -3,6 +3,7 @@ import {
   AppFeedbackEntity,
   AppVersionEntity,
   AuthSessionEntity,
+  CIRCLE_ENTITIES,
   ContactMessageEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
@@ -37,6 +38,7 @@ const testEntities = [
   SurfacePushJobEntity,
   PushTokenEntity,
   DeletedAccountEntity,
+  ...CIRCLE_ENTITIES,
 ];
 
 /** Shared in-memory SQLite options for unit, e2e, and OpenAPI export runs. */

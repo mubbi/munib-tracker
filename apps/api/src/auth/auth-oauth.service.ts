@@ -7,6 +7,7 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import type { Request, Response } from "express";
+import { clientIp } from "../common/client-ip";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
   clearAppleOAuthSessionCookie,
@@ -38,17 +39,6 @@ import { GoogleAccessTokenAudienceError, verifyGoogleAccessToken } from "./googl
 import { OAuthProviderService } from "./oauth-provider.service";
 import { assertOAuthReturnUrlAllowed, assertRedirectUriAllowed } from "./oauth-redirect-allowlist";
 import { resolveAccessToken as resolveAccessTokenFromRequest } from "./resolve-access-token";
-
-function clientIp(req: Request): string {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.trim()) {
-    return forwarded.split(",")[0]?.trim() || "unknown";
-  }
-  if (Array.isArray(forwarded) && forwarded[0]) {
-    return forwarded[0].split(",")[0]?.trim() || "unknown";
-  }
-  return req.ip?.trim() || "unknown";
-}
 
 @Injectable()
 export class AuthOAuthService {

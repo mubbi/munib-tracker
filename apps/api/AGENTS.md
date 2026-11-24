@@ -38,19 +38,20 @@ pnpm generate:api
 
 ## Modules
 
-| Module                 | Purpose                                                                                                                                             |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `health`               | Liveness probes at `GET /` and `GET /api/v1/health`                                                                                                 |
-| `auth`                 | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions                                                                   |
-| `sync`                 | Pull/push cloud sync (last-write-wins)                                                                                                              |
-| `content-reports`      | User content issue reports with optional attachments                                                                                                |
-| `user-media`           | Private custom-adhkar images (Cloudinary authenticated / disk); UTF-8 filenames, RFC 5987 `Content-Disposition`                                     |
-| `app-feedback`         | Low-star in-app feedback submissions                                                                                                                |
-| `oss-content-failures` | On-demand OSS CDN download failures from the Expo app                                                                                               |
-| `version`              | Soft/hard update policy (`app_versions`)                                                                                                            |
-| `notifications`        | Product inbox + push tokens for admin broadcasts (`/notifications/*`; a token re-registers to the current account only); review-reactivation dedupe |
-| `live-activities`      | ActivityKit token registration + scheduled phase updates (`/live-activities/*`); QStash/APNs delivery via `@munib-tracker/live-activity-delivery`   |
-| `surface-push`         | Expo + Web Push Salah phase jobs (`/surface-push/*`) for Android Live Updates and PWA; `@munib-tracker/surface-push-delivery`                       |
+| Module                 | Purpose                                                                                                                                                                        |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `health`               | Liveness probes at `GET /` and `GET /api/v1/health`                                                                                                                            |
+| `auth`                 | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions                                                                                              |
+| `sync`                 | Pull/push cloud sync (last-write-wins)                                                                                                                                         |
+| `content-reports`      | User content issue reports with optional attachments                                                                                                                           |
+| `user-media`           | Private custom-adhkar images (Cloudinary authenticated / disk); UTF-8 filenames, RFC 5987 `Content-Disposition`                                                                |
+| `app-feedback`         | Low-star in-app feedback submissions                                                                                                                                           |
+| `oss-content-failures` | On-demand OSS CDN download failures from the Expo app                                                                                                                          |
+| `version`              | Soft/hard update policy (`app_versions`)                                                                                                                                       |
+| `notifications`        | Product inbox + push tokens for admin broadcasts (`/notifications/*`; a token re-registers to the current account only); review-reactivation dedupe                            |
+| `live-activities`      | ActivityKit token registration + scheduled phase updates (`/live-activities/*`); QStash/APNs delivery via `@munib-tracker/live-activity-delivery`                              |
+| `surface-push`         | Expo + Web Push Salah phase jobs (`/surface-push/*`) for Android Live Updates and PWA; `@munib-tracker/surface-push-delivery`                                                  |
+| `circles`              | Family / partner / group-khatm circles, child profiles + QR child sessions, signals, nudges (`/circles/*`, `/circle-child/*`) — see [`docs/CIRCLES.md`](../../docs/CIRCLES.md) |
 
 ## Environment
 

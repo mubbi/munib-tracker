@@ -61,13 +61,13 @@ function setup() {
 describe("AuthController", () => {
   it.each<[string, RequestOverrides, string]>([
     [
-      "first x-forwarded-for hop",
+      "nearest proxy hop (not the spoofable first one)",
       { headers: { "x-forwarded-for": "1.1.1.1, 2.2.2.2" } },
-      "1.1.1.1",
+      "2.2.2.2",
     ],
-    ["blank first hop", { headers: { "x-forwarded-for": ", 2.2.2.2" } }, "unknown"],
-    ["array header", { headers: { "x-forwarded-for": ["3.3.3.3,4.4.4.4"] } }, "3.3.3.3"],
-    ["array header with blank hop", { headers: { "x-forwarded-for": [" , 4.4.4.4"] } }, "unknown"],
+    ["non-blank last hop", { headers: { "x-forwarded-for": "2.2.2.2, " } }, "2.2.2.2"],
+    ["array header", { headers: { "x-forwarded-for": ["3.3.3.3,4.4.4.4"] } }, "4.4.4.4"],
+    ["blank-only header", { headers: { "x-forwarded-for": [" , "] } }, "unknown"],
     ["socket ip", { headers: { "x-forwarded-for": [] as string[] }, ip: " 5.5.5.5 " }, "5.5.5.5"],
     ["blank socket ip", { ip: "  " }, "unknown"],
     ["no ip at all", {}, "unknown"],
@@ -75,6 +75,20 @@ describe("AuthController", () => {
     const { controller, authService } = setup();
     await controller.createGuestSession({ deviceId: "d" }, buildRequest(overrides));
     expect(authService.createGuestSession).toHaveBeenCalledWith({ deviceId: "d" }, ip);
+  });
+
+  it("can't dodge the guest limit by rotating a spoofed first X-Forwarded-For hop", async () => {
+    const { controller, authService } = setup();
+    for (const spoof of ["203.0.113.1", "203.0.113.2"]) {
+      await controller.createGuestSession(
+        {},
+        buildRequest({ headers: { "x-forwarded-for": `${spoof}, 10.0.0.7` } }),
+      );
+    }
+    expect(authService.createGuestSession.mock.calls.map(([, ip]) => ip)).toEqual([
+      "10.0.0.7",
+      "10.0.0.7",
+    ]);
   });
 
   it("creates a TV pairing", async () => {

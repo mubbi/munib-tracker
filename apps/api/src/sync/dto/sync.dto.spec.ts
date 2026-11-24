@@ -28,4 +28,18 @@ describe("SyncPushDto validation", () => {
     expect(errors).not.toHaveLength(0);
     expect(errors[0]?.constraints).toHaveProperty("arrayMaxSize");
   });
+
+  it("accepts rawatib prayer logs (NF-3.1) — prayer ids are not whitelisted server-side", () => {
+    const dto = plainToInstance(SyncPushDto, {
+      changes: ["fajr_before", "dhuhr_before", "isha_after", "dhuhr_after_extra"].map(
+        (prayerId) => ({
+          entity: "prayer_logs",
+          id: `${prayerId}::2026-03-10`,
+          data: { prayerId, date: "2026-03-10", status: "completed", rakahs: 4, late: true },
+          updatedAt: "2026-03-10T08:00:00.000Z",
+        }),
+      ),
+    });
+    expect(validateSync(dto)).toHaveLength(0);
+  });
 });

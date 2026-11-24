@@ -14,6 +14,7 @@ import helmet from "helmet";
 import { DataSource } from "typeorm";
 import { AppModule } from "./app.module";
 import { AppOpenApiModule } from "./app.openapi.module";
+import { trustProxyHops } from "./common/client-ip";
 import { type EnvironmentVariables, NodeEnvironment } from "./config/env.schema";
 import { parseCorsOrigins } from "./config/env.validation";
 import { assertPostgresUtf8Encoding } from "./database/postgres-connection";
@@ -91,6 +92,16 @@ export async function createApp(
         throw error;
       }
     }
+  }
+
+  // Client IP for per-IP rate limits (`common/client-ip.ts`). Production runs
+  // behind exactly one trusted proxy hop — Vercel's edge, which overwrites
+  // `X-Forwarded-For` with the real client address — so `req.ip` is resolved
+  // from that one hop and a client-forged first XFF value is ignored.
+  // `TRUST_PROXY_HOPS` overrides for other hosts; local dev trusts no proxy.
+  const proxyHops = trustProxyHops();
+  if (proxyHops > 0) {
+    app.set("trust proxy", proxyHops);
   }
 
   // CORP default is `same-origin`, which blocks Expo web (`my.*` / :8081) from

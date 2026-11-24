@@ -11,6 +11,7 @@ import { validateEnvironment } from "../../src/config/env.validation";
 import {
   AppFeedbackEntity,
   AuthSessionEntity,
+  CIRCLE_ENTITIES,
   ContentReportAttachmentEntity,
   ContentReportEntity,
   DeletedAccountEntity,
@@ -44,6 +45,7 @@ const ENTITIES = [
   SurfacePushRegistrationEntity,
   SurfacePushJobEntity,
   DeletedAccountEntity,
+  ...CIRCLE_ENTITIES,
 ];
 
 /**

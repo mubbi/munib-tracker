@@ -4,12 +4,15 @@ import { parseISO } from "date-fns";
 import { MoreThan, Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
 import { SyncRecordEntity } from "../database/entities";
+import { sanitizePreferencesSyncData } from "./dto/preferences.dto";
+import { isValidQuranNotesRecord } from "./dto/quran-notes-payload.validator";
 import type {
   SyncPullResponseDto,
   SyncPushDto,
   SyncPushResponseDto,
   SyncRecordDto,
 } from "./dto/sync.dto";
+import { isValidVaultPayload } from "./dto/vault-payload.validator";
 
 /** Reject client timestamps more than this far in the future (clock skew). */
 const MAX_FUTURE_SKEW_MS = 5 * 60 * 1000;
@@ -52,6 +55,15 @@ export class SyncService {
       if (Number.isNaN(clientUpdatedAt.getTime())) {
         continue;
       }
+      // Per-record payload guard (H2): a malformed or oversized vault / ayah-notes
+      // record is skipped and never stored. It doesn't fail the batch, so one bad
+      // blob can't stall every other entity's sync. Payloads are never logged.
+      if (
+        !isValidVaultPayload(change.entity, change.data) ||
+        !isValidQuranNotesRecord(change.entity, change.data)
+      ) {
+        continue;
+      }
       // Clamp far-future client clocks so they cannot permanently win LWW.
       const updatedAt =
         clientUpdatedAt.getTime() > now + MAX_FUTURE_SKEW_MS ? new Date(now) : clientUpdatedAt;
@@ -75,7 +87,10 @@ export class SyncService {
           userId: user.userId,
           entity: change.entity,
           recordId: change.id,
-          data: change.data,
+          data:
+            change.entity === "preferences"
+              ? sanitizePreferencesSyncData(change.data)
+              : change.data,
           updatedAt,
           deletedAt: change.deletedAt ? parseISO(change.deletedAt) : null,
         }),

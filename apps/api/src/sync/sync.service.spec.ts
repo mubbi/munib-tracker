@@ -40,6 +40,38 @@ describe("SyncService", () => {
     expect(response.conflicts).toHaveLength(0);
   });
 
+  it("skips an invalid vault / ayah-notes record without failing the rest of the batch (H2)", async () => {
+    const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+    const at = "2026-01-01T00:00:00.000Z";
+
+    await syncService.push(session.accessToken, {
+      changes: [
+        // Plaintext where ciphertext is required, and an oversized notes blob.
+        {
+          entity: "vault_debts",
+          id: "vault_debts",
+          data: { value: { note: "Zaid" } },
+          updatedAt: at,
+        },
+        {
+          entity: "quran_notes",
+          id: "quran_notes",
+          data: { value: { n1: { id: "n1" } } },
+          updatedAt: at,
+        },
+        {
+          entity: "fasting",
+          id: "fasting",
+          data: { value: { "2026-03-01": "fasted" } },
+          updatedAt: at,
+        },
+      ],
+    });
+
+    const pulled = await syncService.pull(session.accessToken);
+    expect(pulled.changes.map((change) => change.entity)).toEqual(["fasting"]);
+  });
+
   it("rejects client-written reset markers", async () => {
     const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
 

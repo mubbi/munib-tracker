@@ -21,6 +21,7 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import type { Request, Response } from "express";
+import { clientIp } from "../common/client-ip";
 import { LenientBody } from "../common/lenient-body.decorator";
 import { AuthService } from "./auth.service";
 import { AuthOAuthService } from "./auth-oauth.service";
@@ -44,17 +45,6 @@ import {
   TvPairingStatusResponseDto,
   WebAuthSessionResponseDto,
 } from "./dto/auth.dto";
-
-function clientIp(req: Request): string {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.trim()) {
-    return forwarded.split(",")[0]?.trim() || "unknown";
-  }
-  if (Array.isArray(forwarded) && forwarded[0]) {
-    return forwarded[0].split(",")[0]?.trim() || "unknown";
-  }
-  return req.ip?.trim() || "unknown";
-}
 
 @ApiTags("auth")
 @Controller("auth")

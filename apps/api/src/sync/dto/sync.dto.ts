@@ -48,6 +48,18 @@ export const SYNC_ENTITIES = [
   "umrah_checklist",
   "friday_checklist",
   "white_days_checklist",
+  // NF-3.11 the user's private iqamah times per masjid (own devices only, never shared).
+  "home_masjid_times",
+  // NF-3.5 daily Sunnah habits; NF-3.3 Dhul-Hijjah mode (per Hijri year).
+  "sunnah_habits",
+  "dhul_hijjah",
+  "voluntary_fasting",
+  // NF-3.14 weekly coach: shown insight ids, micro-goals + outcomes, dismiss/snooze (no raw data).
+  "coach_history",
+  // D40 daily Qur'an reading log (date → seconds/ayahs/pages; counts only).
+  "quran_reading_log",
+  // NF-3.4 Umrah mode sessions (live guided companion).
+  "umrah_sessions",
   "jannah_intentions",
   "jahannam_intentions",
   "salah_guide_progress",
@@ -67,6 +79,9 @@ export const SYNC_ENTITIES = [
   // Portable settings previously device-local (location calc + place, reading
   // text toggles, zakat draft, feature-tour dismissals).
   "location",
+  // Deprecated (D13): new clients store the pair in `preferences.readingDisplay`
+  // and never write this. Still accepted for one release so old clients don't
+  // fail, then removed (with `pnpm generate:api`).
   "reading_text_visibility",
   "zakat_calculator",
   "fidyah_calculator",
@@ -76,6 +91,19 @@ export const SYNC_ENTITIES = [
   "quran_companion_prefs",
   "quran_practice_sessions",
   "quran_memorization",
+  // NF-3.15 tajweed coaching: drill counts, spacing and the last plan (no audio).
+  "tajweed_coaching",
+  // NF-3.21 personal ayah notes/highlights (D15: normal sync, not the vault).
+  // `data.value` is shape-checked + capped at ~1 MB per record (isValidQuranNotesRecord).
+  "quran_notes",
+  // E2E-encrypted vault (plan §4.2, D2) — ciphertext only, opt-in per device.
+  // `data.value` is shape-checked + capped at 256 KB per record (isValidVaultPayload)
+  // and never logged.
+  "vault_keyring",
+  "vault_muhasabah",
+  "vault_debts",
+  "vault_wasiyyah",
+  "vault_relatives",
 ] as const;
 
 export type SyncEntity = (typeof SYNC_ENTITIES)[number];
@@ -103,6 +131,9 @@ export class SyncRecordDto {
   id!: string;
 
   @ApiProperty({ type: "object", additionalProperties: true })
+  // Vault / quran_notes payloads are shape- and size-checked per record in
+  // SyncService.push (an invalid one is skipped, never stored), not here: a
+  // DTO-level check would reject the whole batch and stall every entity (H2).
   @IsObject()
   data!: Record<string, unknown>;
 

@@ -104,13 +104,13 @@ describe("AuthOAuthService", () => {
 
     it.each<[string, RequestOverrides, string]>([
       [
-        "first x-forwarded-for hop",
+        "nearest proxy hop (a spoofed first hop is ignored)",
         { headers: { "x-forwarded-for": " 9.9.9.9 , 10.0.0.1" } },
-        "9.9.9.9",
+        "10.0.0.1",
       ],
-      ["blank first hop", { headers: { "x-forwarded-for": ",10.0.0.1" } }, "unknown"],
-      ["array header", { headers: { "x-forwarded-for": ["8.8.8.8, 10.0.0.1"] } }, "8.8.8.8"],
-      ["array header with blank hop", { headers: { "x-forwarded-for": [" ,x"] } }, "unknown"],
+      ["single edge hop", { headers: { "x-forwarded-for": ",10.0.0.1" } }, "10.0.0.1"],
+      ["array header", { headers: { "x-forwarded-for": ["8.8.8.8, 10.0.0.2"] } }, "10.0.0.2"],
+      ["blank-only array header", { headers: { "x-forwarded-for": [" , "] } }, "unknown"],
       ["socket ip", { headers: { "x-forwarded-for": "   " }, ip: " 7.7.7.7 " }, "7.7.7.7"],
       ["blank socket ip", { headers: { "x-forwarded-for": [] as string[] }, ip: "  " }, "unknown"],
       ["no ip at all", {}, "unknown"],

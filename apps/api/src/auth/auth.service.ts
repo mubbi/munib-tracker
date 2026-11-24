@@ -11,6 +11,7 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DataSource, In, Repository } from "typeorm";
+import { purgeUserCircleData } from "../circles/circle-lifecycle";
 import { AttachmentStorageService } from "../common/attachment-storage.service";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
@@ -391,6 +392,10 @@ export class AuthService {
       await manager.delete(OssContentDownloadFailureEntity, { userId });
       await manager.delete(InAppNotificationEntity, { userId });
       await manager.delete(PushTokenEntity, { userId });
+      // Circles: hand over / dissolve owned circles, transfer consented child
+      // profiles to a co-parent with consent pending (D34) or delete them, and
+      // remove memberships, signals, nudges and invites (docs/CIRCLES.md).
+      await purgeUserCircleData(manager, userId);
       await manager.delete(AuthSessionEntity, { userId });
 
       const tombstoneEmail = buildTombstoneEmail(user.email ?? null, userId);

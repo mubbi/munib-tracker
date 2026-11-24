@@ -4,6 +4,12 @@ import { AppFeedbackService } from "./app-feedback/app-feedback.service";
 import { AuthController } from "./auth/auth.controller";
 import { AuthService } from "./auth/auth.service";
 import { AuthOAuthService } from "./auth/auth-oauth.service";
+import { ChildProfilesService } from "./circles/child-profiles.service";
+import { CircleActorService } from "./circles/circle-auth";
+import { CircleSignalsService } from "./circles/circle-signals.service";
+import { CIRCLE_CONTROLLERS } from "./circles/circles.module";
+import { CirclesService } from "./circles/circles.service";
+import { GroupKhatmService } from "./circles/group-khatm.service";
 import { AppConfigModule } from "./config/config.module";
 import { ContentReportsController } from "./content-reports/content-reports.controller";
 import { ContentReportsService } from "./content-reports/content-reports.service";
@@ -11,6 +17,8 @@ import { HealthModule } from "./health/health.module";
 import { LiveActivitiesController } from "./live-activities/live-activities.controller";
 import { LiveActivitiesService } from "./live-activities/live-activities.service";
 import { LiveActivityQStashService } from "./live-activities/live-activity-qstash.service";
+import { MasjidsController } from "./masjids/masjids.controller";
+import { MasjidsService } from "./masjids/masjids.service";
 import { NotificationsController } from "./notifications/notifications.controller";
 import { NotificationsService } from "./notifications/notifications.service";
 import { OssContentFailuresController } from "./oss-content-failures/oss-content-failures.controller";
@@ -103,6 +111,10 @@ const openApiServiceMocks = {
     deliver: async () => undefined,
     dispatchDue: async () => ({ processed: 0, cleaned: 0 }),
   },
+  masjids: {
+    list: async () => ({ masjids: [], attribution: [], stale: false }),
+    detail: async () => ({}),
+  },
   liveActivityQstash: {
     verify: async () => true,
   },
@@ -135,7 +147,9 @@ const openApiServiceMocks = {
     AppVersionController,
     NotificationsController,
     LiveActivitiesController,
+    MasjidsController,
     SurfacePushController,
+    ...CIRCLE_CONTROLLERS,
   ],
   providers: [
     { provide: AuthService, useValue: openApiServiceMocks.auth },
@@ -149,8 +163,15 @@ const openApiServiceMocks = {
     { provide: NotificationsService, useValue: openApiServiceMocks.notifications },
     { provide: LiveActivitiesService, useValue: openApiServiceMocks.liveActivities },
     { provide: LiveActivityQStashService, useValue: openApiServiceMocks.liveActivityQstash },
+    { provide: MasjidsService, useValue: openApiServiceMocks.masjids },
     { provide: SurfacePushService, useValue: openApiServiceMocks.surfacePush },
     { provide: SurfacePushQStashService, useValue: openApiServiceMocks.surfacePushQstash },
+    // Circles: only the controllers' decorators matter for the export.
+    { provide: CirclesService, useValue: {} },
+    { provide: ChildProfilesService, useValue: {} },
+    { provide: CircleSignalsService, useValue: {} },
+    { provide: GroupKhatmService, useValue: {} },
+    { provide: CircleActorService, useValue: { resolve: async () => undefined } },
   ],
 })
 export class AppOpenApiModule {}
