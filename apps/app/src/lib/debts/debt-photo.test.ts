@@ -32,7 +32,7 @@ jest.mock(
   () => require("@/test-support/mocks/vault-file-store").vaultFileStoreMock,
 );
 jest.mock(
-  "@/lib/quran-companion/reschedule",
+  "@/lib/notifications/reschedule",
   () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
 );
 

@@ -1,5 +1,5 @@
 import { DB_KEYS } from "@/db/keys";
-import { readJSON } from "@/db/store";
+import { readJSON, writeJSON } from "@/db/store";
 import { applyRemoteBlob, buildBlobRecords, isBlobEntity } from "@/sync/blob-sync";
 import { resetVaultTestState, TEST_PASSPHRASE } from "@/test-support/mocks/vault";
 
@@ -8,6 +8,7 @@ import { readVaultSyncState } from "./sync-state";
 import type { VaultEnvelope } from "./types";
 import { getVaultStatus, setUpVaultSync, unlockVault, vault } from "./vault";
 import { registerVaultDocMerge, VAULT_SYNC_ENTITIES } from "./vault-docs";
+import { isPushableVaultDoc, isPushableVaultKeyring } from "./vault-sync";
 
 jest.mock("react-native-quick-crypto", () => require("react-native-quick-crypto/jest"));
 jest.mock(
@@ -47,6 +48,24 @@ describe("vault blob sync", () => {
     const records = await buildBlobRecords(NOW);
     expect(vaultEntities(records).sort()).toEqual(["vault_debts", "vault_keyring"]);
     expect(JSON.stringify(records)).not.toContain("secret");
+  });
+
+  it("D2: never pushes a vault value that isn't ciphertext", async () => {
+    await vault.write("debts", putItem({ v: 1, items: {} }, "a", { text: "x" }, T0), T0);
+    await setUpVaultSync(TEST_PASSPHRASE, T0);
+    const envelope = await readJSON<VaultEnvelope | null>(DB_KEYS.vaultDebts, null);
+    expect(isPushableVaultDoc(envelope)).toBe(true);
+    expect(isPushableVaultDoc(null)).toBe(true);
+    expect(isPushableVaultKeyring(await readJSON(DB_KEYS.vaultKeyring, null))).toBe(true);
+
+    // Plaintext under a vault key (e.g. a hand-edited backup) stays on the device.
+    const plaintext = { v: 1, items: { a: { id: "a", text: "owed to Bilal" } } };
+    expect(isPushableVaultDoc(plaintext)).toBe(false);
+    expect(isPushableVaultKeyring(plaintext)).toBe(false);
+    await writeJSON(DB_KEYS.vaultDebts, plaintext);
+    const records = await buildBlobRecords(NOW);
+    expect(vaultEntities(records)).not.toContain("vault_debts");
+    expect(JSON.stringify(records)).not.toContain("Bilal");
   });
 
   it("parks pulled records while not opted in, and applies them on unlock", async () => {

@@ -1,57 +1,34 @@
 import type { DebtDirection } from "@munib-tracker/shared/types";
-import { DEBT_DIRECTIONS } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { type Href, useRouter } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { DebtPhotoCard } from "@/components/debts/debt-photo-card";
-import { JannahCallout, JannahNavRow } from "@/components/jannah/primitives";
-import { DayInput } from "@/components/records/day-input";
-import { LabeledInput } from "@/components/records/labeled-input";
+import { JannahCallout } from "@/components/jannah/primitives";
+import { useRecordAction } from "@/components/records/use-record-action";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { SectionHeader } from "@/components/ui/section-header";
-import { SegmentedControl } from "@/components/ui/segmented-control";
-import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
 import { Spacing } from "@/constants/theme";
 import { deviceCurrency, useRecordFormat } from "@/hooks/use-record-format";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { type DebtEntry, isLoan, outstanding, paidTotal, ribaExcess } from "@/lib/debts/debts";
-import { type DebtInput, debtsActions, useDebt, useDebts } from "@/lib/debts/debts-store";
-import { DEFAULT_NUMBER_FORMAT, formatNumberInput, parseNumberInput } from "@/lib/format-currency";
+import { type DebtFormState, debtFormFrom, debtInputFromForm } from "@/lib/debts/debt-form";
+import { type DebtEntry, isLoan, outstanding, paidTotal } from "@/lib/debts/debts";
+import { debtsActions, useDebt, useDebts } from "@/lib/debts/debts-store";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-import { dueDayPresets, normalizeDayInput } from "@/lib/records/day";
 import { useToast } from "@/providers/toast-provider";
 
-interface FormState {
-  direction: DebtDirection;
-  counterparty: string;
-  amount: string;
-  currency: string;
-  item: string;
-  createdOn: string;
-  dueOn: string;
-  witnesses: string;
-  notes: string;
-}
+import { DebtFormCard } from "./debt-form-card";
+import { DebtPaymentsCard } from "./debt-payments-card";
 
-function formFrom(record: DebtEntry | undefined, direction: DebtDirection): FormState {
-  return {
-    direction: record?.direction ?? direction,
-    counterparty: record?.counterparty ?? "",
-    amount: record?.amount != null ? String(record.amount) : "",
-    currency: record?.currency ?? deviceCurrency(),
-    item: record?.item ?? "",
-    createdOn: record?.createdOn ?? getLocalDateString(),
-    dueOn: record?.dueOn ?? "",
-    witnesses: (record?.witnesses ?? []).join(", "),
-    notes: record?.notes ?? "",
-  };
+function formFrom(record: DebtEntry | undefined, direction: DebtDirection): DebtFormState {
+  return debtFormFrom(record, direction, {
+    currency: deviceCurrency(),
+    today: getLocalDateString(),
+  });
 }
 
 /** `/debts/[id]` content: create (`id === "new"`) or view/edit one record. */
@@ -71,21 +48,16 @@ export function DebtDetailBody({
   const { t } = useTranslation();
   const router = useRouter();
   const format = useRecordFormat();
-  const { tokens } = useThemeTokens();
   const toast = useToast();
+  const run = useRecordAction();
   const { status } = useDebts();
   const isNew = id === "new";
   const record = useDebt(isNew ? undefined : id);
-  const [form, setForm] = useState<FormState>(() => formFrom(record, initialDirection));
+  const [form, setForm] = useState<DebtFormState>(() => formFrom(record, initialDirection));
   const [editing, setEditing] = useState(isNew);
   const [error, setError] = useState<string | null>(null);
-  const [currencyOpen, setCurrencyOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmForgive, setConfirmForgive] = useState(false);
-  const [payAmount, setPayAmount] = useState("");
-  const [payDate, setPayDate] = useState(getLocalDateString());
-  const [payNote, setPayNote] = useState("");
-  const [payError, setPayError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   // Synchronous guards: state updates land a render later, so a fast second tap
   // would still see `saving === false`. Once a new record exists, later saves
@@ -101,44 +73,20 @@ export function DebtDetailBody({
 
   const close = () => (onClosed ? onClosed() : goBackOrReplace(router, "/debts"));
 
-  const directionOptions = useMemo(
-    () => DEBT_DIRECTIONS.map((d) => ({ id: d, label: t(`debts.direction.${d}`) })),
-    [t],
-  );
-  const set = <K extends keyof FormState>(key: K, value: FormState[K]) =>
+  const setField = <K extends keyof DebtFormState>(key: K, value: DebtFormState[K]) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const save = async () => {
     if (savingRef.current) return;
-    const amount = parseNumberInput(form.amount, DEFAULT_NUMBER_FORMAT);
-    const createdOn = normalizeDayInput(form.createdOn);
-    const dueOn = form.dueOn.trim() ? normalizeDayInput(form.dueOn) : "";
-    if (!form.counterparty.trim()) return setError(t("debts.form.errorWho"));
-    if (isLoan(form.direction) && !(amount > 0)) return setError(t("debts.form.errorAmount"));
-    if (!createdOn || dueOn == null) return setError(t("debts.form.errorDate"));
+    const result = debtInputFromForm(form, record);
+    if (!result.ok) return setError(t(result.error));
     setError(null);
-    const input: DebtInput = {
-      direction: form.direction,
-      counterparty: form.counterparty,
-      ...(amount > 0 ? { amount, currency: form.currency } : {}),
-      // A loan has no "item"; drop text left over from switching the type.
-      item: isLoan(form.direction) ? "" : form.item,
-      createdOn,
-      ...(dueOn ? { dueOn } : {}),
-      witnesses: form.witnesses.split(/[,،]/),
-      notes: form.notes,
-      payments: record?.payments ?? [],
-      ...(record?.removedPaymentIds ? { removedPaymentIds: record.removedPaymentIds } : {}),
-      status: record?.status ?? "open",
-      ...(record?.forgivenOn ? { forgivenOn: record.forgivenOn } : {}),
-      ...(record?.documentUri ? { documentUri: record.documentUri } : {}),
-    };
     // One save at a time: a double tap on "Save" must not create two records.
     savingRef.current = true;
     setSaving(true);
     try {
       const target = isNew ? (createdId.current ?? undefined) : id;
-      const savedId = await debtsActions.saveDebt(input, target);
+      const savedId = await debtsActions.saveDebt(result.input, target);
       if (isNew && !createdId.current) {
         createdId.current = savedId;
         if (onCreated) onCreated(savedId);
@@ -153,30 +101,6 @@ export function DebtDetailBody({
     }
   };
 
-  const typedPayment = parseNumberInput(payAmount, DEFAULT_NUMBER_FORMAT);
-  const excess = record ? ribaExcess(record, typedPayment) : 0;
-
-  const addPayment = () => {
-    if (!record) return;
-    const date = normalizeDayInput(payDate);
-    if (!(typedPayment > 0)) return setPayError(t("privateUx.payments.errorAmount"));
-    if (!date) return setPayError(t("debts.form.errorDate"));
-    setPayError(null);
-    void debtsActions
-      .addPayment(record.id, {
-        amount: typedPayment,
-        date,
-        ...(payNote.trim() ? { note: payNote } : {}),
-      })
-      .then(
-        () => {
-          setPayAmount("");
-          setPayNote("");
-        },
-        () => toast.error(t("privateUx.saveFailed")),
-      );
-  };
-
   // The encrypted record may still be opening: don't flash "no longer exists".
   if (status !== "ready" && !isNew) return null;
 
@@ -188,105 +112,23 @@ export function DebtDetailBody({
     );
   }
 
-  const left = record ? outstanding(record) : null;
-  const currency = record?.currency ?? form.currency;
-
-  const formCard = (
-    <Card padding="three">
-      <View style={styles.form}>
-        <ThemedText type="smallBold">{t("debts.form.direction")}</ThemedText>
-        <SegmentedControl<DebtDirection>
-          options={directionOptions}
-          value={form.direction}
-          onChange={(d) => set("direction", d)}
+  if (editing || !record) {
+    return (
+      <View style={styles.stack}>
+        <DebtFormCard
+          form={form}
+          onChange={setField}
+          error={error}
+          saving={saving}
+          onSave={() => void save()}
+          onCancel={() => (isNew ? close() : setEditing(false))}
         />
-        <LabeledInput
-          label={t("debts.form.who")}
-          value={form.counterparty}
-          onChangeText={(v) => set("counterparty", v)}
-          autoCapitalize="words"
-        />
-        <LabeledInput
-          label={t(isLoan(form.direction) ? "debts.form.amount" : "debts.form.amountOptional")}
-          value={form.amount}
-          onChangeText={(v) => set("amount", formatNumberInput(v, 2, DEFAULT_NUMBER_FORMAT))}
-          keyboardType="decimal-pad"
-          placeholder="0"
-        />
-        <JannahNavRow
-          icon={{ ios: "coloncurrencysign.circle", android: "payments", web: "payments" }}
-          title={t("debts.form.currency")}
-          subtitle={form.currency}
-          onPress={() => setCurrencyOpen(true)}
-        />
-        {!isLoan(form.direction) ? (
-          <LabeledInput
-            label={t("debts.form.item")}
-            value={form.item}
-            onChangeText={(v) => set("item", v)}
-            placeholder={t("debts.form.itemPlaceholder")}
-          />
-        ) : null}
-        <DayInput
-          label={t("debts.form.createdOn")}
-          value={form.createdOn}
-          onChangeText={(v) => set("createdOn", v)}
-          hint={t("debts.form.dateHint")}
-        />
-        <DayInput
-          label={t("debts.form.dueOn")}
-          value={form.dueOn}
-          onChangeText={(v) => set("dueOn", v)}
-          hint={t("debts.form.dueHint")}
-          presets={dueDayPresets(normalizeDayInput(form.createdOn) ?? getLocalDateString())}
-        />
-        <LabeledInput
-          label={t("debts.form.witnesses")}
-          value={form.witnesses}
-          onChangeText={(v) => set("witnesses", v)}
-          hint={t("debts.form.witnessesHint")}
-        />
-        <LabeledInput
-          label={t("debts.form.notes")}
-          value={form.notes}
-          onChangeText={(v) => set("notes", v)}
-          multiline
-        />
-        {error ? (
-          <ThemedText
-            type="small"
-            style={{ color: tokens.status.danger.text }}
-            accessibilityRole="alert"
-          >
-            {error}
-          </ThemedText>
-        ) : null}
-        <View style={styles.actions}>
-          <Button
-            label={saving ? t("privateUx.saving") : t("common.save")}
-            disabled={saving}
-            onPress={() => void save()}
-          />
-          <Button
-            label={t("common.cancel")}
-            variant="ghost"
-            onPress={() => (isNew ? close() : setEditing(false))}
-          />
-        </View>
       </View>
-      <CurrencyPickerSheet
-        visible={currencyOpen}
-        selectedCode={form.currency}
-        onSelect={(code) => {
-          set("currency", code);
-          setCurrencyOpen(false);
-        }}
-        onClose={() => setCurrencyOpen(false)}
-      />
-    </Card>
-  );
+    );
+  }
 
-  if (editing || !record) return <View style={styles.stack}>{formCard}</View>;
+  const left = outstanding(record);
+  const currency = record.currency ?? form.currency;
 
   return (
     <View style={styles.stack}>
@@ -340,7 +182,7 @@ export function DebtDetailBody({
               label={t("debts.detail.markReturned")}
               variant="secondary"
               size="sm"
-              onPress={() => void debtsActions.markSettled(record.id)}
+              onPress={() => void run(debtsActions.markSettled(record.id))}
             />
           ) : null}
           {record.status !== "open" ? (
@@ -348,93 +190,19 @@ export function DebtDetailBody({
               label={t("debts.detail.reopen")}
               variant="ghost"
               size="sm"
-              onPress={() => void debtsActions.reopen(record.id)}
+              onPress={() => void run(debtsActions.reopen(record.id))}
             />
           ) : null}
         </View>
       </Card>
 
       {record.amount != null ? (
-        <Card padding="three">
-          <SectionHeader
-            title={t("debts.payments.title")}
-            icon={{ ios: "list.bullet", android: "list", web: "list" }}
-          />
-          <View style={styles.form}>
-            {record.payments.length === 0 ? (
-              <ThemedText type="small" themeColor="mutedForeground">
-                {t("debts.payments.empty")}
-              </ThemedText>
-            ) : (
-              record.payments.map((p) => (
-                <View key={p.id} style={styles.payment}>
-                  <View style={styles.paymentText}>
-                    <ThemedText type="smallBold">{format.money(p.amount, currency)}</ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {format.formatDate(p.date)}
-                      {p.note ? ` · ${p.note}` : ""}
-                    </ThemedText>
-                  </View>
-                  <Button
-                    label={t("common.remove")}
-                    variant="ghost"
-                    size="sm"
-                    accessibilityHint={t("debts.payments.remove")}
-                    onPress={() => setRemovePaymentId(p.id)}
-                  />
-                </View>
-              ))
-            )}
-            {record.status === "open" ? (
-              <>
-                <LabeledInput
-                  label={t("debts.payments.amount")}
-                  value={payAmount}
-                  onChangeText={(v) => setPayAmount(formatNumberInput(v, 2, DEFAULT_NUMBER_FORMAT))}
-                  keyboardType="decimal-pad"
-                  placeholder="0"
-                />
-                <DayInput
-                  label={t("debts.payments.date")}
-                  value={payDate}
-                  onChangeText={setPayDate}
-                />
-                <LabeledInput
-                  label={t("debts.payments.note")}
-                  value={payNote}
-                  onChangeText={setPayNote}
-                />
-                {excess > 0 ? (
-                  <View style={styles.riba}>
-                    <JannahCallout tone="warning">
-                      {t("debts.riba.body", { excess: format.money(excess, currency) })}
-                    </JannahCallout>
-                    <JannahNavRow
-                      icon={{ ios: "text.book.closed", android: "article", web: "article" }}
-                      title={t("debts.riba.link")}
-                      onPress={() =>
-                        router.push({
-                          pathname: "/finance/[topic]",
-                          params: { topic: "riba-prohibition" },
-                        } as Href)
-                      }
-                    />
-                  </View>
-                ) : null}
-                {payError ? (
-                  <ThemedText
-                    type="small"
-                    style={{ color: tokens.status.danger.text }}
-                    accessibilityRole="alert"
-                  >
-                    {payError}
-                  </ThemedText>
-                ) : null}
-                <Button label={t("debts.payments.add")} onPress={addPayment} />
-              </>
-            ) : null}
-          </View>
-        </Card>
+        <DebtPaymentsCard
+          record={record}
+          currency={currency}
+          onAdd={(payment) => run(debtsActions.addPayment(record.id, payment))}
+          onRemove={setRemovePaymentId}
+        />
       ) : null}
 
       {/* NF-3.8 document photo: device-only, encrypted; hidden on TV (shared screen, no picker). */}
@@ -453,7 +221,7 @@ export function DebtDetailBody({
         confirmLabel={t("debts.detail.forgive")}
         onConfirm={() => {
           setConfirmForgive(false);
-          void debtsActions.forgive(record.id);
+          void run(debtsActions.forgive(record.id));
         }}
         onClose={() => setConfirmForgive(false)}
       />
@@ -466,7 +234,7 @@ export function DebtDetailBody({
         onConfirm={() => {
           const paymentId = removePaymentId;
           setRemovePaymentId(null);
-          if (paymentId) void debtsActions.removePayment(record.id, paymentId);
+          if (paymentId) void run(debtsActions.removePayment(record.id, paymentId));
         }}
         onClose={() => setRemovePaymentId(null)}
       />
@@ -478,7 +246,9 @@ export function DebtDetailBody({
         destructive
         onConfirm={() => {
           setConfirmDelete(false);
-          void debtsActions.deleteDebt(record.id).then(close);
+          void run(debtsActions.deleteDebt(record.id)).then((deleted) => {
+            if (deleted) close();
+          });
         }}
         onClose={() => setConfirmDelete(false)}
       />
@@ -488,9 +258,5 @@ export function DebtDetailBody({
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
-  form: { gap: Spacing.three, marginTop: Spacing.two },
   actions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, marginTop: Spacing.two },
-  payment: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  paymentText: { flex: 1, gap: 2 },
-  riba: { gap: Spacing.two },
 });

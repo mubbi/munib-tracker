@@ -2,9 +2,9 @@ import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { muhasabahPromptLabel } from "@/components/muhasabah/prompt-label";
+import { useRecordAction } from "@/components/records/use-record-action";
 import { ScreenLayout } from "@/components/screen-layout";
 import { PhoneOnlyNotice } from "@/components/self-review/phone-only-notice";
 import { VaultStateNotice } from "@/components/self-review/vault-state-notice";
@@ -41,6 +41,7 @@ function TrendBar({ yes, partly, no }: { yes: number; partly: number; no: number
 
 function HistoryContent() {
   const { t } = useTranslation();
+  const run = useRecordAction();
   const { formatIso } = useFormatCalendarDate();
   const { config, entries, status, error } = useMuhasabah();
   const [pendingDelete, setPendingDelete] = useState<string | "all" | null>(null);
@@ -161,8 +162,8 @@ function HistoryContent() {
         onConfirm={() => {
           const target = pendingDelete;
           setPendingDelete(null);
-          if (target === "all") void muhasabahActions.removeAllEntries();
-          else if (target) void muhasabahActions.removeEntry(target);
+          if (target === "all") void run(muhasabahActions.removeAllEntries());
+          else if (target) void run(muhasabahActions.removeEntry(target));
         }}
         onClose={() => setPendingDelete(null)}
       />

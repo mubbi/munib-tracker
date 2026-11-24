@@ -21,3 +21,28 @@ export type DeleteAccountRequestBody = {
   primaryReason: AccountClosureReasonCode;
   details?: string;
 };
+
+/** Longest optional free-text detail the closure survey sends (the API rejects longer). */
+export const ACCOUNT_CLOSURE_DETAILS_MAX = 500;
+
+/** The final step unlocks only after the typed word, the acknowledgement and a reason. */
+export function isAccountClosureConfirmed(
+  typed: string,
+  acknowledged: boolean,
+  primaryReason: AccountClosureReasonCode | null,
+): boolean {
+  return typed.trim() === ACCOUNT_CLOSURE_CONFIRMATION && acknowledged && primaryReason != null;
+}
+
+/** `POST /auth/delete-account` body; blank details are omitted, long ones capped. */
+export function buildDeleteAccountRequest(
+  primaryReason: AccountClosureReasonCode,
+  details: string,
+): DeleteAccountRequestBody {
+  const trimmed = details.trim();
+  return {
+    confirmation: ACCOUNT_CLOSURE_CONFIRMATION,
+    primaryReason,
+    ...(trimmed ? { details: trimmed.slice(0, ACCOUNT_CLOSURE_DETAILS_MAX) } : {}),
+  };
+}

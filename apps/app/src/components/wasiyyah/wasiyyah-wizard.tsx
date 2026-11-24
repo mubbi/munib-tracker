@@ -5,28 +5,21 @@ import type {
   WasiyyahDebtLine,
 } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { type Href, useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { MadhhabNote } from "@/components/fiqh/madhhab-note";
-import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
-import { AmountInput } from "@/components/records/amount-input";
-import { DayInput } from "@/components/records/day-input";
-import { LabeledInput } from "@/components/records/labeled-input";
+import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { useExportFeedback } from "@/components/records/use-export-feedback";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
-import { SegmentedControl } from "@/components/ui/segmented-control";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
 import { Spacing } from "@/constants/theme";
-import { createId } from "@/db/id";
 import { useMadhhabFor } from "@/hooks/use-madhhab";
-import { deviceCurrency, useRecordFormat } from "@/hooks/use-record-format";
+import { deviceCurrency } from "@/hooks/use-record-format";
 import { useDebts } from "@/lib/debts/debts-store";
 import { useObligationsSummary } from "@/lib/debts/use-obligations";
 import { takePendingMirathSnapshot } from "@/lib/mirath/wasiyyah-handoff";
@@ -46,6 +39,17 @@ import { useToast } from "@/providers/toast-provider";
 import { HeirPickerSheet } from "./heir-picker-sheet";
 import { WasiyyahIssues } from "./wasiyyah-issues";
 import { WasiyyahReviewSummary } from "./wasiyyah-review-summary";
+import { WasiyyahSwitchRow } from "./wasiyyah-switch-row";
+import {
+  BequestsStep,
+  DebtsStep,
+  DistributionStep,
+  FuneralStep,
+  PeopleStep,
+  TestatorStep,
+  TrustsStep,
+  WitnessesStep,
+} from "./wasiyyah-wizard-steps";
 
 export const WASIYYAH_STEPS = [
   "testator",
@@ -62,33 +66,6 @@ export type WasiyyahStep = (typeof WASIYYAH_STEPS)[number];
 const SUMMARY_STEPS = WASIYYAH_STEPS.filter(
   (s): s is Exclude<WasiyyahStep, "review"> => s !== "review",
 );
-
-function SwitchRow({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: boolean;
-  onChange: (v: boolean) => void;
-}) {
-  return (
-    <View style={styles.switchRow}>
-      <ThemedText type="small" style={styles.flex}>
-        {label}
-      </ThemedText>
-      <ThemedSwitch value={value} onValueChange={onChange} accessibilityLabel={label} />
-    </View>
-  );
-}
-
-/** Names typed into one comma-separated field (guardians). */
-function splitNames(text: string): string[] {
-  return text
-    .split(/[,،]/)
-    .map((name) => name.trim())
-    .filter(Boolean);
-}
 
 /** Wait after the last edit before the draft is written to the vault. */
 export const WASIYYAH_AUTOSAVE_MS = 600;
@@ -110,7 +87,6 @@ export function WasiyyahWizard({
   const router = useRouter();
   const toast = useToast();
   const exportFeedback = useExportFeedback();
-  const format = useRecordFormat();
   const school = useMadhhabFor("inheritance");
   const { debts, vows } = useDebts();
   const obligations = useObligationsSummary(vows);
@@ -190,17 +166,6 @@ export function WasiyyahWizard({
   const updateDebtLine = (id: string, patch: Partial<WasiyyahDebtLine>) =>
     setData((d) => ({ ...d, debts: d.debts.map((l) => (l.id === id ? { ...l, ...patch } : l)) }));
 
-  const debtLineLabel = (l: WasiyyahDebtLine) => {
-    const kind = t(`wasiyyah.debtSource.${l.source}`);
-    const value =
-      l.amount != null && l.currency
-        ? format.money(l.amount, l.currency)
-        : l.count != null
-          ? t("wasiyyah.doc.countValue", { count: l.count })
-          : "";
-    return [l.label ? `${kind}: ${l.label}` : kind, value].filter(Boolean).join(" — ");
-  };
-
   const testatorDay = normalizeDayInput(data.testator.date);
   // A will needs a readable date (section 1): saving waits until it is fixed.
   const canSave = canSaveWasiyyah(computation) && testatorDay != null;
@@ -222,368 +187,54 @@ export function WasiyyahWizard({
     }
   };
 
+  const stepProps = { data, update };
   let body: ReactNode = null;
   switch (step) {
     case "testator":
-      body = (
-        <>
-          <LabeledInput
-            label={t("wasiyyah.testator.name")}
-            value={data.testator.name}
-            onChangeText={(name) => update({ testator: { ...data.testator, name } })}
-            autoCapitalize="words"
-          />
-          <DayInput
-            label={t("wasiyyah.testator.date")}
-            value={data.testator.date}
-            onChangeText={(date) => update({ testator: { ...data.testator, date } })}
-          />
-          <ThemedText type="smallBold">{t("wasiyyah.testator.shahadah")}</ThemedText>
-          <ThemedText type="arabic" style={styles.arabic}>
-            {shahadah.arabic}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {shahadah.transliteration}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {shahadah.reference}
-          </ThemedText>
-        </>
-      );
+      body = <TestatorStep {...stepProps} shahadah={shahadah} />;
       break;
     case "funeral":
-      body = (
-        <>
-          <SwitchRow
-            label={t("wasiyyah.funeral.sunnahRites")}
-            value={data.funeral.sunnahRites}
-            onChange={(v) => update({ funeral: { ...data.funeral, sunnahRites: v } })}
-          />
-          <SwitchRow
-            label={t("wasiyyah.funeral.muslimCemetery")}
-            value={data.funeral.muslimCemetery}
-            onChange={(v) => update({ funeral: { ...data.funeral, muslimCemetery: v } })}
-          />
-          <SwitchRow
-            label={t("wasiyyah.funeral.avoidInnovations")}
-            value={data.funeral.avoidInnovations}
-            onChange={(v) => update({ funeral: { ...data.funeral, avoidInnovations: v } })}
-          />
-          <LabeledInput
-            label={t("wasiyyah.funeral.notes")}
-            value={data.funeral.notes ?? ""}
-            onChangeText={(notes) => update({ funeral: { ...data.funeral, notes } })}
-            multiline
-          />
-          <JannahNavRow
-            icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-            title={t("wasiyyah.funeral.guideLink")}
-            onPress={() => router.push("/janazah" as Href)}
-          />
-        </>
-      );
+      body = <FuneralStep {...stepProps} />;
       break;
     case "debts":
       body = (
-        <>
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("wasiyyah.debts.hint")}
-          </ThemedText>
-          {data.debts.length === 0 ? (
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("wasiyyah.debts.none")}
-            </ThemedText>
-          ) : (
-            data.debts.map((l) => (
-              <SwitchRow
-                key={l.id}
-                label={debtLineLabel(l)}
-                value={l.confirmed}
-                onChange={(confirmed) => updateDebtLine(l.id, { confirmed })}
-              />
-            ))
-          )}
-          <Button
-            label={t("wasiyyah.debts.reimport")}
-            variant="secondary"
-            size="sm"
-            onPress={() =>
-              update({ debts: importDebtLines(data.debts, { debts, obligations, vows }) })
-            }
-          />
-          <JannahNavRow
-            icon={{ ios: "list.bullet.rectangle", android: "receipt_long", web: "receipt_long" }}
-            title={t("wasiyyah.debts.openRecord")}
-            onPress={() => router.push("/debts" as Href)}
-          />
-          <View nativeID="debts">
-            <MadhhabNote id="wasiyyah.debtsToAllah" />
-          </View>
-        </>
+        <DebtsStep
+          data={data}
+          onUpdateLine={updateDebtLine}
+          onReimport={() =>
+            update({ debts: importDebtLines(data.debts, { debts, obligations, vows }) })
+          }
+        />
       );
       break;
     case "trusts":
-      body =
-        data.trusts.length === 0 ? (
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("wasiyyah.trusts.none")}
-          </ThemedText>
-        ) : (
-          <>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("wasiyyah.trusts.hint")}
-            </ThemedText>
-            {data.trusts.map((l) => (
-              <SwitchRow
-                key={l.id}
-                label={[l.counterparty, l.item].filter(Boolean).join(" — ")}
-                value={l.confirmed}
-                onChange={(confirmed) =>
-                  update({
-                    trusts: data.trusts.map((x) => (x.id === l.id ? { ...x, confirmed } : x)),
-                  })
-                }
-              />
-            ))}
-          </>
-        );
+      body = <TrustsStep {...stepProps} />;
       break;
     case "bequests":
       body = (
-        <>
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("wasiyyah.bequests.hint")}
-          </ThemedText>
-          <JannahNavRow
-            icon={{ ios: "coloncurrencysign.circle", android: "payments", web: "payments" }}
-            title={t("debts.form.currency")}
-            subtitle={data.currency}
-            onPress={() => setCurrencyOpen(true)}
-          />
-          <AmountInput
-            label={t("wasiyyah.bequests.estate")}
-            hint={t("wasiyyah.bequests.estateHint")}
-            value={data.estimatedEstate}
-            onChange={(estimatedEstate) => update({ estimatedEstate })}
-          />
-          <AmountInput
-            label={t("wasiyyah.bequests.funeralCost")}
-            value={data.funeralCost}
-            onChange={(funeralCost) => update({ funeralCost })}
-          />
-          {computation.limitView ? (
-            <Card padding="three" variant="muted">
-              <ThemedText type="small">
-                {t("wasiyyah.bequests.limit", {
-                  net: format.money(computation.limitView.netAfterDebts, data.currency),
-                  limit: format.money(computation.limitView.limit, data.currency),
-                  used: format.money(computation.limitView.used, data.currency),
-                })}
-              </ThemedText>
-              {computation.applied === "stricter" ? (
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("wasiyyah.bequests.stricterApplied")}
-                </ThemedText>
-              ) : null}
-            </Card>
-          ) : null}
-          {data.bequests.map((b) => (
-            <Card key={b.id} padding="three">
-              <View style={styles.stack}>
-                <LabeledInput
-                  label={t("wasiyyah.bequests.beneficiary")}
-                  value={b.beneficiary}
-                  onChangeText={(beneficiary) => updateBequest(b.id, { beneficiary })}
-                />
-                <SegmentedControl<"person" | "charity">
-                  options={[
-                    { id: "person", label: t("wasiyyah.bequests.person") },
-                    { id: "charity", label: t("wasiyyah.bequests.charity") },
-                  ]}
-                  value={b.kind}
-                  onChange={(kind) =>
-                    updateBequest(b.id, {
-                      kind,
-                      ...(kind === "charity"
-                        ? { isHeir: false, heirType: undefined, heirAcknowledged: undefined }
-                        : {}),
-                    })
-                  }
-                />
-                <SegmentedControl<"amount" | "percent">
-                  options={[
-                    { id: "amount", label: t("wasiyyah.bequests.byAmount") },
-                    { id: "percent", label: t("wasiyyah.bequests.byPercent") },
-                  ]}
-                  value={b.percent != null ? "percent" : "amount"}
-                  onChange={(mode) =>
-                    updateBequest(
-                      b.id,
-                      mode === "percent"
-                        ? { percent: b.percent ?? 0, amount: undefined }
-                        : { amount: b.amount, percent: undefined },
-                    )
-                  }
-                />
-                {b.percent != null ? (
-                  <AmountInput
-                    label={t("wasiyyah.bequests.percent")}
-                    value={b.percent}
-                    max={100}
-                    onChange={(percent) => updateBequest(b.id, { percent: percent ?? 0 })}
-                  />
-                ) : (
-                  <AmountInput
-                    label={t("wasiyyah.bequests.amount")}
-                    value={b.amount}
-                    onChange={(amount) => updateBequest(b.id, { amount })}
-                  />
-                )}
-                <LabeledInput
-                  label={t("wasiyyah.bequests.purpose")}
-                  value={b.purpose ?? ""}
-                  onChangeText={(purpose) => updateBequest(b.id, { purpose })}
-                />
-                {b.kind === "person" ? (
-                  <SwitchRow
-                    label={t("wasiyyah.bequests.isHeir")}
-                    value={b.isHeir}
-                    onChange={(isHeir) =>
-                      updateBequest(b.id, {
-                        isHeir,
-                        ...(isHeir ? {} : { heirType: undefined, heirAcknowledged: undefined }),
-                      })
-                    }
-                  />
-                ) : null}
-                {b.isHeir ? (
-                  <>
-                    <JannahNavRow
-                      icon={{ ios: "person.2.fill", android: "group", web: "group" }}
-                      title={t("wasiyyah.bequests.heirType")}
-                      subtitle={
-                        b.heirType ? t(`heirs.${b.heirType}`) : t("wasiyyah.bequests.heirPick")
-                      }
-                      onPress={() => setHeirPickerFor(b.id)}
-                    />
-                    <JannahCallout tone="warning">
-                      {t("wasiyyah.bequests.heirWarning")}
-                    </JannahCallout>
-                    <SwitchRow
-                      label={t("wasiyyah.bequests.heirAcknowledge")}
-                      value={b.heirAcknowledged === true}
-                      onChange={(heirAcknowledged) => updateBequest(b.id, { heirAcknowledged })}
-                    />
-                  </>
-                ) : null}
-                <Button
-                  label={t("wasiyyah.bequests.remove")}
-                  variant="ghost"
-                  size="sm"
-                  onPress={() => update({ bequests: data.bequests.filter((x) => x.id !== b.id) })}
-                />
-              </View>
-            </Card>
-          ))}
-          <Button
-            label={t("wasiyyah.bequests.add")}
-            variant="secondary"
-            icon={{ ios: "plus", android: "add", web: "add" }}
-            onPress={() =>
-              update({
-                bequests: [
-                  ...data.bequests,
-                  { id: createId("wb"), beneficiary: "", kind: "charity", isHeir: false },
-                ],
-              })
-            }
-          />
-          <WasiyyahIssues
-            computation={computation}
-            data={data}
-            only={[
-              "over_third",
-              "heir_unacknowledged",
-              "estate_needed",
-              "debts_exceed_estate",
-              "lines_excluded",
-            ]}
-          />
-          <View nativeID="bequests">
-            <MadhhabNote id="wasiyyah.noHeirs" />
-          </View>
-        </>
+        <BequestsStep
+          {...stepProps}
+          computation={computation}
+          onUpdateBequest={updateBequest}
+          onPickCurrency={() => setCurrencyOpen(true)}
+          onPickHeir={setHeirPickerFor}
+        />
       );
       break;
     case "people":
       body = (
-        <>
-          <LabeledInput
-            label={t("wasiyyah.people.guardians")}
-            hint={t("wasiyyah.people.guardiansHint")}
-            value={guardiansText}
-            onChangeText={(v) => {
-              setGuardiansText(v);
-              update({ guardians: splitNames(v) });
-            }}
-          />
-          <LabeledInput
-            label={t("wasiyyah.people.executor")}
-            hint={t("wasiyyah.people.executorHint")}
-            value={data.executor ?? ""}
-            onChangeText={(executor) => update({ executor })}
-          />
-        </>
+        <PeopleStep
+          {...stepProps}
+          guardiansText={guardiansText}
+          onGuardiansText={setGuardiansText}
+        />
       );
       break;
     case "distribution":
-      body = (
-        <>
-          <JannahCallout tone="info">{t("wasiyyah.doc.distribution")}</JannahCallout>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {data.mirathSnapshot
-              ? t("wasiyyah.doc.mirathIllustrative")
-              : t("wasiyyah.distribution.mirathLater")}
-          </ThemedText>
-          <Button
-            label={
-              data.mirathSnapshot
-                ? t("mirath.wasiyyah.recalculate")
-                : t("mirath.wasiyyah.calculate")
-            }
-            variant="secondary"
-            size="sm"
-            onPress={() => router.push("/mirath?from=wasiyyah" as Href)}
-          />
-          {data.mirathSnapshot ? (
-            <Button
-              label={t("mirath.wasiyyah.remove")}
-              variant="ghost"
-              size="sm"
-              onPress={() => update({ mirathSnapshot: undefined })}
-            />
-          ) : null}
-        </>
-      );
+      body = <DistributionStep {...stepProps} />;
       break;
     case "witnesses":
-      body = (
-        <>
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("wasiyyah.doc.witnessesIntro")}
-          </ThemedText>
-          <LabeledInput
-            label={t("wasiyyah.witnesses.first")}
-            value={data.witnesses[0]}
-            onChangeText={(v) => update({ witnesses: [v, data.witnesses[1]] })}
-          />
-          <LabeledInput
-            label={t("wasiyyah.witnesses.second")}
-            value={data.witnesses[1]}
-            onChangeText={(v) => update({ witnesses: [data.witnesses[0], v] })}
-          />
-        </>
-      );
+      body = <WitnessesStep {...stepProps} />;
       break;
     case "review":
       body = (
@@ -594,7 +245,7 @@ export function WasiyyahWizard({
             steps={SUMMARY_STEPS}
             onEdit={(target) => goToStep(WASIYYAH_STEPS.indexOf(target))}
           />
-          <SwitchRow
+          <WasiyyahSwitchRow
             label={t("wasiyyah.review.sideBySide")}
             value={data.sideBySideEnglish}
             onChange={(sideBySideEnglish) => update({ sideBySideEnglish })}
@@ -704,7 +355,4 @@ const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
   progress: { gap: Spacing.two },
   nav: { flexDirection: "row", justifyContent: "space-between", gap: Spacing.two },
-  switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  flex: { flex: 1 },
-  arabic: { writingDirection: "rtl", textAlign: "right" },
 });

@@ -30,6 +30,7 @@ import {
   maxCountFor,
   siblingsOnlyCountForMother,
   visibleSteps,
+  withHeirCount,
 } from "./wizard";
 
 const t = i18n.t.bind(i18n);
@@ -92,6 +93,14 @@ describe("mirath wizard", () => {
     expect(maxCountFor("mother")).toBe(1);
     expect(maxCountFor("wife")).toBe(4);
     expect(maxCountFor("son")).toBeGreaterThan(4);
+  });
+
+  it("clamps stepper counts to 0…max without touching other heirs", () => {
+    const counts: MirathHeirCounts = { son: 2 };
+    expect(withHeirCount(counts, "wife", 5)).toEqual({ son: 2, wife: 4 });
+    expect(withHeirCount(counts, "son", -1)).toEqual({ son: 0 });
+    expect(withHeirCount(counts, "mother", 1)).toEqual({ son: 2, mother: 1 });
+    expect(counts).toEqual({ son: 2 });
   });
 
   it("skips steps whose heirs are all excluded", () => {

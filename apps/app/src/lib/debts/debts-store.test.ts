@@ -15,7 +15,7 @@ jest.mock(
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
 const mockReschedule = jest.fn();
-jest.mock("@/lib/quran-companion/reschedule", () => ({
+jest.mock("@/lib/notifications/reschedule", () => ({
   requestReminderReschedule: () => mockReschedule(),
 }));
 

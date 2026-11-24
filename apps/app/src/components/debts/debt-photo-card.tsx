@@ -141,7 +141,10 @@ export function DebtPhotoCard({
               variant="ghost"
               size="sm"
               disabled={busy}
-              onPress={() => void debtsActions.removeDocumentPhoto(debtId)}
+              onPress={() => {
+                setError(null);
+                void debtsActions.removeDocumentPhoto(debtId).catch(() => setError("save-failed"));
+              }}
             />
           ) : null}
         </View>

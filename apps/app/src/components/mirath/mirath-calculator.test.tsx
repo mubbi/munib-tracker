@@ -12,7 +12,7 @@ jest.mock(
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
 jest.mock(
-  "@/lib/quran-companion/reschedule",
+  "@/lib/notifications/reschedule",
   () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
 );
 // The PIN provider is app-level; the debts prefill only needs the unlock hook.

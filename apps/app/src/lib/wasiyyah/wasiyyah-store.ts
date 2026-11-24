@@ -10,7 +10,7 @@ import { useMemo } from "react";
 
 import { createId } from "@/db/id";
 import type { DebtEntry } from "@/lib/debts/debts";
-import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { createVaultStore, type VaultRecord } from "@/lib/vault";
 import { useStore } from "@/stores/create-store";
 

@@ -86,6 +86,15 @@ export function maxCountFor(heir: HeirType): number {
   return 20;
 }
 
+/** `counts` with `heir` set to `value`, clamped to 0…{@link maxCountFor}. */
+export function withHeirCount(
+  counts: MirathHeirCounts,
+  heir: HeirType,
+  value: number,
+): MirathHeirCounts {
+  return { ...counts, [heir]: Math.max(0, Math.min(maxCountFor(heir), value)) };
+}
+
 const has = (c: MirathHeirCounts, h: HeirType) => (c[h] ?? 0) > 0;
 
 /**

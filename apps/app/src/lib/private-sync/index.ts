@@ -6,6 +6,8 @@ export { EXCUSED_ACTIVE_ID, type ExcusedItem, excusedDayId, excusedMirror } from
 export { type KhushuItem, khushuMirror } from "./khushu-mirror";
 export {
   itemFingerprint,
+  type MirrorReconcilePlan,
+  planMirrorReconcile,
   type ReconcileOutcome,
   reconcileVaultMirror,
   UNKNOWN_LOCAL,

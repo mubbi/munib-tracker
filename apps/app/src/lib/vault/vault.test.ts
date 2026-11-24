@@ -409,6 +409,76 @@ describe("key store temporarily locked (M5)", () => {
   });
 });
 
+describe("lock order (document locks → DEK lock)", () => {
+  const settle = () => new Promise<void>((resolve) => setTimeout(resolve, 25));
+  const within = async <T>(promise: Promise<T>, ms = 3000) => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      return await Promise.race([
+        promise.then(() => "done" as const),
+        new Promise<"deadlock">((resolve) => {
+          timer = setTimeout(() => resolve("deadlock"), ms);
+        }),
+      ]);
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+
+  it("a first write racing an unlock neither deadlocks nor seals under a stale key", async () => {
+    // Device A: a synced vault.
+    await vault.write("debts", docWith(["a", { amount: 1, note: "A" }, T0]), T0);
+    await setUpVaultSync(TEST_PASSPHRASE, T0);
+    const keyringA = (await readJSON<VaultKeyring | null>(
+      DB_KEYS.vaultKeyring,
+      null,
+    )) as VaultKeyring;
+
+    // Device B: a fresh install with A's keyring parked, nothing written yet.
+    await resetVaultOnDevice();
+    await stashVaultRecord("vault_keyring", keyringA, T0);
+
+    // Hold the unlock inside its key read (it holds its locks by then).
+    let release = () => {};
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    let entered = () => {};
+    const adopting = new Promise<void>((resolve) => {
+      entered = resolve;
+    });
+    mockGetSecureItem.mockImplementationOnce(async (key: string) => {
+      entered();
+      await gate;
+      return mockSecureStore.get(key) ?? null;
+    });
+
+    const unlock = unlockVault({ passphrase: TEST_PASSPHRASE });
+    await adopting;
+    // The first write on B needs the DEK lock to mint a key while holding its doc lock.
+    const write = vault.write("relatives", docWith(["r", { amount: 2, note: "B" }, T1]), T1);
+    await settle();
+    release();
+
+    expect(await within(Promise.all([unlock, write]))).toBe("done");
+    const sealed = (await readJSON<VaultEnvelope | null>(
+      DB_KEYS.vaultRelatives,
+      null,
+    )) as VaultEnvelope;
+    expect(sealed.keyId).toBe(keyringA.keyId);
+    expect(liveItems(await vault.read<Entry>("relatives")).map((i) => i.id)).toEqual(["r"]);
+    expect((await getVaultStatus()).state).toBe("ready");
+  });
+
+  it("a read issued during a write sees the written document", async () => {
+    const doc = docWith(["a", { amount: 5, note: "n" }, T0]);
+    const write = vault.write("debts", doc, T0);
+    const read = vault.read<Entry>("debts");
+    await write;
+    expect(await read).toEqual(doc);
+  });
+});
+
 describe("wipe", () => {
   it("deleteVaultKey removes the DEK from secure storage", async () => {
     await vault.write("debts", docWith(["a", { amount: 1, note: "n" }, T0]), T0);

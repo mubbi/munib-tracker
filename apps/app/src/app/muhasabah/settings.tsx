@@ -4,9 +4,9 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { muhasabahPromptLabel } from "@/components/muhasabah/prompt-label";
+import { useRecordAction } from "@/components/records/use-record-action";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ChoiceChips } from "@/components/self-review/choice-chips";
 import { PhoneOnlyNotice } from "@/components/self-review/phone-only-notice";
@@ -50,6 +50,7 @@ function timeModeOf(time: string): TimeMode {
 function SettingsContent() {
   const { t } = useTranslation();
   const toast = useToast();
+  const run = useRecordAction();
   const nightlyReminder = useSetting<boolean>("notifications.personal.muhasabah");
   const { config, entries, status, error } = useMuhasabah();
   const [customText, setCustomText] = useState("");
@@ -65,7 +66,7 @@ function SettingsContent() {
   }
   if (status !== "ready") return null;
 
-  const save = (next: MuhasabahConfig) => void muhasabahActions.saveConfig(next);
+  const save = (next: MuhasabahConfig) => void run(muhasabahActions.saveConfig(next));
   const mode = timeModeOf(config.prefs.time);
   const allPrompts = [
     ...MUHASABAH_PROMPT_CATALOG,

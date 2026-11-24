@@ -52,18 +52,34 @@ export interface LocationState {
   setPrayerAdjustment: (prayerId: PrayerSlotId, minutes: number) => Promise<void>;
 }
 
+/** The device fix in flight, so a second caller awaits it instead of returning early. */
+let inflightFix: Promise<void> | null = null;
+
 /**
  * Gets a device fix and stores it. `silent` (background refresh): when no fix
  * arrives in time but a previous device fix is saved, keep it and stay `ready`
  * instead of surfacing an error — slow desktop browsers and indoor GPS time out
- * routinely, and the saved city is still the best answer.
+ * routinely, and the saved city is still the best answer. A silent fix never
+ * replaces a city the user picked by hand while it was in flight.
  */
-async function fetchDeviceLocation({ silent }: { silent: boolean }): Promise<void> {
+function fetchDeviceLocation({ silent }: { silent: boolean }): Promise<void> {
+  if (inflightFix) return inflightFix;
+  if (locationStore.getState().status === "loading") return Promise.resolve();
+  inflightFix = runDeviceFix(silent).finally(() => {
+    inflightFix = null;
+  });
+  return inflightFix;
+}
+
+async function runDeviceFix(silent: boolean): Promise<void> {
   const { getState, setState } = locationStore;
-  if (getState().status === "loading") return;
   const previous = getState().location;
   setState({ status: "loading" });
   const result = await getDeviceLocation(previous);
+  if (silent && getState().location.source === "manual") {
+    setState({ status: "ready" });
+    return;
+  }
   if (result.status === "granted") {
     const location = await LocationRepository.update(result.location);
     setState({ location, status: "ready" });

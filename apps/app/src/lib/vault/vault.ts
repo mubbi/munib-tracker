@@ -115,7 +115,34 @@ function notifyAll(): void {
 
 // ── Key custody ─────────────────────────────────────────────────────────────
 
+/**
+ * Lock order: never take an earlier lock while holding a later one.
+ *
+ *   1. document locks (`VAULT_DOC_STORAGE_KEYS[docId]`, in `VAULT_DOC_IDS` order)
+ *   2. `DEK_LOCK` (key custody: create / adopt / delete the DEK, sealed files)
+ *   3. `DB_KEYS.vaultKeyring`
+ *
+ * A document write holds its document lock and may then need `DEK_LOCK` to
+ * mint the first key, so anything that changes the key (`adoptDek`,
+ * `deleteVaultKey`) takes every document lock first. Every use of the DEK
+ * bytes runs under a document lock or `DEK_LOCK`, so a key change never
+ * wipes a key that is still in use.
+ */
 const DEK_LOCK = "@munib-tracker/vault/dek";
+
+function docLock(docId: VaultDocId): string {
+  return VAULT_DOC_STORAGE_KEYS[docId];
+}
+
+/** Runs `task` holding every document lock (in `VAULT_DOC_IDS` order), then `DEK_LOCK`. */
+function withAllVaultLocks<T>(task: () => Promise<T>): Promise<T> {
+  const nest = (index: number): Promise<T> => {
+    const docId = VAULT_DOC_IDS[index];
+    if (docId === undefined) return withKeyLock(DEK_LOCK, task);
+    return withKeyLock(docLock(docId), () => nest(index + 1));
+  };
+  return nest(0);
+}
 
 /**
  * The DEK, or `null` when this device has none. Throws `vault-key-unavailable`
@@ -157,19 +184,20 @@ async function hasAnyCiphertext(): Promise<boolean> {
   return false;
 }
 
-/** The DEK, created on first use. Throws `vault-locked` when ciphertext exists without a key. */
-async function ensureDek(): Promise<Uint8Array> {
+/** Caller holds `DEK_LOCK`. Throws `vault-locked` when ciphertext exists without a key. */
+async function loadOrCreateDekLocked(): Promise<Uint8Array> {
   const existing = await loadDek();
   if (existing) return existing;
-  return withKeyLock(DEK_LOCK, async () => {
-    const again = await loadDek();
-    if (again) return again;
-    if (await hasAnyCiphertext()) throw new VaultError("vault-locked");
-    const dek = backend.randomBytes(VAULT_KEY_BYTES);
-    await backend.saveDek(dek);
-    cachedDek = dek;
-    return dek;
-  });
+  if (await hasAnyCiphertext()) throw new VaultError("vault-locked");
+  const dek = backend.randomBytes(VAULT_KEY_BYTES);
+  await backend.saveDek(dek);
+  cachedDek = dek;
+  return dek;
+}
+
+/** The DEK, created on first use. Caller holds a document lock (never `DEK_LOCK`). */
+async function ensureDek(): Promise<Uint8Array> {
+  return (await loadDek()) ?? withKeyLock(DEK_LOCK, loadOrCreateDekLocked);
 }
 
 async function requireDek(): Promise<Uint8Array> {
@@ -280,11 +308,20 @@ async function decryptRaw<T>(
   return asVaultDoc<T>(await openDocument<unknown>(backend, dek, docId, raw));
 }
 
-/** Decrypts a document (empty when never written). Throws `VaultError`. */
-export async function read<T>(docId: VaultDocId): Promise<VaultDoc<T>> {
+/** Caller holds the document lock. */
+async function readUnlocked<T>(docId: VaultDocId): Promise<VaultDoc<T>> {
   const raw = await readEnvelope(docId);
   if (raw == null) return emptyVaultDoc<T>();
   return decryptRaw<T>(docId, raw, await requireDek());
+}
+
+/**
+ * Decrypts a document (empty when never written). Throws `VaultError`.
+ * Queued behind pending writes of the same document (read-your-writes), and
+ * never runs while the key is being changed.
+ */
+export function read<T>(docId: VaultDocId): Promise<VaultDoc<T>> {
+  return withKeyLock(docLock(docId), () => readUnlocked<T>(docId));
 }
 
 async function writeUnlocked<T>(
@@ -304,7 +341,7 @@ export async function write<T>(
   doc: VaultDoc<T>,
   nowIso: string = new Date().toISOString(),
 ): Promise<void> {
-  await withKeyLock(VAULT_DOC_STORAGE_KEYS[docId], () => writeUnlocked(docId, doc, nowIso));
+  await withKeyLock(docLock(docId), () => writeUnlocked(docId, doc, nowIso));
   notifyVaultChange(docId);
 }
 
@@ -314,8 +351,8 @@ export async function update<T>(
   mutate: (doc: VaultDoc<T>) => VaultDoc<T>,
   nowIso: string = new Date().toISOString(),
 ): Promise<VaultDoc<T>> {
-  const next = await withKeyLock(VAULT_DOC_STORAGE_KEYS[docId], async () => {
-    const current = await read<T>(docId);
+  const next = await withKeyLock(docLock(docId), async () => {
+    const current = await readUnlocked<T>(docId);
     const mutated = mutate(current);
     if (mutated !== current) await writeUnlocked(docId, mutated, nowIso);
     return mutated;
@@ -391,6 +428,32 @@ export async function mergeDocEnvelopes(
 // ── Opt-in sync: setup, unlock, passphrase & recovery management ────────────
 
 /**
+ * Read-modify-write of the local keyring under its key lock, so a keyring
+ * merged by a sync pull meanwhile is never overwritten by a stale copy.
+ * `next` returns the keyring to store, or `null` to leave it as is.
+ */
+async function updateLocalKeyring<R>(
+  next: (current: VaultKeyring | null) => Promise<{ keyring: VaultKeyring | null; result: R }>,
+): Promise<R> {
+  return withKeyLock(DB_KEYS.vaultKeyring, async () => {
+    const current = await readLocalKeyring();
+    const { keyring, result } = await next(current);
+    if (keyring && keyring !== current) await writeJSON(DB_KEYS.vaultKeyring, keyring);
+    return result;
+  });
+}
+
+/** Runs `task` with this device's DEK under `DEK_LOCK` (key changes wait for it). */
+function withDek<T>(
+  task: (dek: Uint8Array) => Promise<T>,
+  { create = false }: { create?: boolean } = {},
+): Promise<T> {
+  return withKeyLock(DEK_LOCK, async () =>
+    task(create ? await loadOrCreateDekLocked() : await requireDek()),
+  );
+}
+
+/**
  * Turns on vault sync with a new passphrase (min 10 chars). Returns the 24
  * recovery words — show them once; they are never stored.
  *
@@ -405,9 +468,16 @@ export async function setUpVaultSync(
   if (status.state !== "ready")
     throw new VaultError(status.state === "locked" ? "vault-locked" : "vault-unavailable");
   if (status.syncAvailableFromOtherDevice) throw new VaultError("vault-key-mismatch");
-  const dek = await ensureDek();
-  const { keyring, recoveryWords } = await createKeyring(backend, dek, passphrase, nowIso);
-  await writeJSON(DB_KEYS.vaultKeyring, keyring);
+  const { recoveryWords } = await withDek(
+    async (dek) => {
+      const created = await createKeyring(backend, dek, passphrase, nowIso);
+      await withKeyLock(DB_KEYS.vaultKeyring, () =>
+        writeJSON(DB_KEYS.vaultKeyring, created.keyring),
+      );
+      return created;
+    },
+    { create: true },
+  );
   await updateVaultSyncState((state) => ({ ...state, enabled: true }));
   notifyVaultChange("status");
   return { recoveryWords };
@@ -458,7 +528,11 @@ export async function unlockVault(
       ? await unwrapWithPassphrase(backend, keyring, secret.passphrase)
       : await unwrapWithRecoveryCode(backend, keyring, secret.recoveryCode);
 
-  await writeJSON(DB_KEYS.vaultKeyring, keyring);
+  // Re-merge under the lock: a sync pull may have stored a newer keyring while scrypt ran.
+  await updateLocalKeyring(async (current) => {
+    const merged = current ? mergeKeyrings(current, keyring) : null;
+    return { keyring: merged?.keyId === keyring.keyId ? merged : keyring, result: undefined };
+  });
   await adoptDek(dek);
   if (options.enableSync) await updateVaultSyncState((state) => ({ ...state, enabled: true }));
   await processVaultInbox();
@@ -468,9 +542,14 @@ export async function unlockVault(
 /**
  * Makes `dek` this device's key. Documents sealed by the previous key are
  * re-encrypted (updatedAt kept); ones neither key can open are left in place.
+ *
+ * Holds every document lock and then `DEK_LOCK` (see the lock order above):
+ * a first write waiting for `DEK_LOCK` while holding its document lock can
+ * then never deadlock against the re-encryption, and no reader is still
+ * using the previous key when it is wiped.
  */
 async function adoptDek(dek: Uint8Array): Promise<void> {
-  await withKeyLock(DEK_LOCK, async () => {
+  await withAllVaultLocks(async () => {
     // A temporarily unreadable key must not be treated as "no previous key":
     // the local documents would then never be re-encrypted under the new one.
     const previous = await loadDek().catch((error: unknown) => {
@@ -479,10 +558,10 @@ async function adoptDek(dek: Uint8Array): Promise<void> {
     });
     const nextKeyId = deriveKeyId(dek);
     if (previous && deriveKeyId(previous) === nextKeyId) return;
-    for (const docId of VAULT_DOC_IDS) {
-      await withKeyLock(VAULT_DOC_STORAGE_KEYS[docId], async () => {
+    if (previous) {
+      for (const docId of VAULT_DOC_IDS) {
         const raw = await readEnvelope(docId);
-        if (!isVaultEnvelope(raw) || raw.keyId === nextKeyId || !previous) return;
+        if (!isVaultEnvelope(raw) || raw.keyId === nextKeyId) continue;
         try {
           const doc = await openDocument<unknown>(backend, previous, docId, raw);
           const resealed = await sealDocument(backend, dek, docId, doc, raw.updatedAt);
@@ -490,10 +569,10 @@ async function adoptDek(dek: Uint8Array): Promise<void> {
         } catch {
           // unreadable under both keys — leave it; reads report vault-key-mismatch/corrupt
         }
-      });
+      }
+      // Device-only encrypted files (debt photos) follow the key too.
+      await reencryptVaultFiles(backend, previous, dek, nextKeyId);
     }
-    // Device-only encrypted files (debt photos) follow the key too.
-    if (previous) await reencryptVaultFiles(backend, previous, dek, nextKeyId);
     await backend.saveDek(dek);
     if (previous && previous !== dek) wipeBytes(previous);
     cachedDek = dek;
@@ -515,16 +594,15 @@ export async function processVaultInbox(
   const pulled =
     only == null || only === VAULT_KEYRING_ENTITY ? sync.inbox[VAULT_KEYRING_ENTITY] : null;
   if (pulled) {
-    const local = await readLocalKeyring();
-    const merged = mergeKeyrings(local, pulled.value);
     const dek = await loadDek().catch(() => null);
-    // Only take a keyring for the key this device actually holds (others need unlockVault).
-    if (merged && dek && merged.keyId === deriveKeyId(dek)) {
-      if (merged !== local) await writeJSON(DB_KEYS.vaultKeyring, merged);
-      applied.add(VAULT_KEYRING_ENTITY);
-    } else if (merged && merged === local) {
-      applied.add(VAULT_KEYRING_ENTITY);
-    }
+    const keyringApplied = await updateLocalKeyring(async (local) => {
+      const merged = mergeKeyrings(local, pulled.value);
+      // Only take a keyring for the key this device actually holds (others need unlockVault).
+      if (merged && dek && merged.keyId === deriveKeyId(dek))
+        return { keyring: merged, result: true };
+      return { keyring: null, result: merged != null && merged === local };
+    });
+    if (keyringApplied) applied.add(VAULT_KEYRING_ENTITY);
   }
 
   for (const docId of VAULT_DOC_IDS) {
@@ -532,7 +610,7 @@ export async function processVaultInbox(
     if (only != null && only !== entity) continue;
     const entry = sync.inbox[entity];
     if (!entry) continue;
-    const outcome = await withKeyLock(VAULT_DOC_STORAGE_KEYS[docId], async () => {
+    const outcome = await withKeyLock(docLock(docId), async () => {
       const result = await mergeDocEnvelopes(docId, await readEnvelope(docId), entry.value, nowIso);
       if (result.kind === "merged" && result.value != null) {
         await writeJSON(VAULT_DOC_STORAGE_KEYS[docId], result.value);
@@ -575,10 +653,15 @@ export async function changeVaultPassphrase(
   passphrase: string,
   nowIso: string = new Date().toISOString(),
 ): Promise<void> {
-  const keyring = await readLocalKeyring();
-  if (!keyring) throw new VaultError("vault-no-keyring");
-  const next = await rewrapPassphrase(backend, keyring, await requireDek(), passphrase, nowIso);
-  await writeJSON(DB_KEYS.vaultKeyring, next);
+  await withDek((dek) =>
+    updateLocalKeyring(async (keyring) => {
+      if (!keyring) throw new VaultError("vault-no-keyring");
+      return {
+        keyring: await rewrapPassphrase(backend, keyring, dek, passphrase, nowIso),
+        result: undefined,
+      };
+    }),
+  );
   notifyVaultChange("status");
 }
 
@@ -586,23 +669,21 @@ export async function changeVaultPassphrase(
 export async function regenerateVaultRecoveryCode(
   nowIso: string = new Date().toISOString(),
 ): Promise<{ recoveryWords: string[] }> {
-  const keyring = await readLocalKeyring();
-  if (!keyring) throw new VaultError("vault-no-keyring");
-  const { keyring: next, recoveryWords } = await regenerateRecoveryCode(
-    backend,
-    keyring,
-    await requireDek(),
-    nowIso,
+  const recoveryWords = await withDek((dek) =>
+    updateLocalKeyring(async (keyring) => {
+      if (!keyring) throw new VaultError("vault-no-keyring");
+      const next = await regenerateRecoveryCode(backend, keyring, dek, nowIso);
+      return { keyring: next.keyring, result: next.recoveryWords };
+    }),
   );
-  await writeJSON(DB_KEYS.vaultKeyring, next);
   notifyVaultChange("status");
   return { recoveryWords };
 }
 
 // ── Reset / wipe ────────────────────────────────────────────────────────────
 
-/** Deletes the DEK from SecureStore / IndexedDB (DB_KEYS ciphertext is cleared by resetDatabase). */
-export async function deleteVaultKey(): Promise<void> {
+/** Caller holds every vault lock (`withAllVaultLocks`). */
+async function deleteVaultKeyLocked(): Promise<void> {
   try {
     // Files sealed under the key are useless without it (reset / start fresh).
     await wipeVaultFiles();
@@ -610,6 +691,14 @@ export async function deleteVaultKey(): Promise<void> {
   } finally {
     if (cachedDek) wipeBytes(cachedDek);
     cachedDek = undefined;
+  }
+}
+
+/** Deletes the DEK from SecureStore / IndexedDB (DB_KEYS ciphertext is cleared by resetDatabase). */
+export async function deleteVaultKey(): Promise<void> {
+  try {
+    await withAllVaultLocks(deleteVaultKeyLocked);
+  } finally {
     notifyAll();
   }
 }
@@ -620,12 +709,18 @@ export async function deleteVaultKey(): Promise<void> {
  * passphrase nor the recovery code is available. Never touches the server.
  */
 export async function resetVaultOnDevice(): Promise<void> {
-  await Promise.all([
-    ...VAULT_DOC_IDS.map((docId) => removeKey(VAULT_DOC_STORAGE_KEYS[docId])),
-    removeKey(DB_KEYS.vaultKeyring),
-    removeKey(DB_KEYS.vaultSyncState),
-  ]);
-  await deleteVaultKey();
+  try {
+    await withAllVaultLocks(async () => {
+      await Promise.all([
+        ...VAULT_DOC_IDS.map((docId) => removeKey(VAULT_DOC_STORAGE_KEYS[docId])),
+        withKeyLock(DB_KEYS.vaultKeyring, () => removeKey(DB_KEYS.vaultKeyring)),
+        withKeyLock(DB_KEYS.vaultSyncState, () => removeKey(DB_KEYS.vaultSyncState)),
+      ]);
+      await deleteVaultKeyLocked();
+    });
+  } finally {
+    notifyAll();
+  }
 }
 
 // ── Device-only encrypted files (never synced / backed up; see vault-files.ts) ─
@@ -633,12 +728,12 @@ export async function resetVaultOnDevice(): Promise<void> {
 /** Seals `bytes` under the DEK and stores them on this device as `fileId`. */
 export async function putVaultFile(fileId: string, bytes: Uint8Array): Promise<void> {
   if (bytes.length > VAULT_MAX_FILE_BYTES) throw new VaultError("vault-too-large");
-  await writeSealedFile(backend, await ensureDek(), fileId, bytes);
+  await withDek((dek) => writeSealedFile(backend, dek, fileId, bytes), { create: true });
 }
 
 /** The decrypted bytes, or `null` when the file isn't on this device. */
 export async function readVaultFile(fileId: string): Promise<Uint8Array | null> {
-  return readSealedFile(backend, await requireDek(), fileId);
+  return withDek((dek) => readSealedFile(backend, dek, fileId));
 }
 
 export async function deleteVaultFile(fileId: string): Promise<void> {

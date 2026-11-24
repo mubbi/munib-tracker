@@ -57,7 +57,8 @@ export const DB_KEYS = {
   umrahSessions: `${PREFIX}/umrah_sessions`,
   // Friday / Jumu'ah checklist completion (itemId::date) — cloud-synced blob.
   fridayChecklist: `${PREFIX}/friday_checklist`,
-  // White Days (Ayyām al-Bīḍ) fasting checklist (itemId::hijriYear-hijriMonth) — cloud-synced blob.
+  // LEGACY White Days checklist (itemId::hijriYear-hijriMonth): local only, folded into
+  // `voluntaryFasting` by lib/white-days-migration.ts (sync entity retired).
   whiteDaysChecklist: `${PREFIX}/white_days_checklist`,
   // NF-3.5 daily Sunnah habits (selection, custom, checks) — cloud-synced blob, custom merge.
   sunnahHabits: `${PREFIX}/sunnah_habits`,
@@ -116,7 +117,8 @@ export const DB_KEYS = {
   fidyahCalculator: `${PREFIX}/fidyah_calculator`,
   // Sadaqah intention + giving log — cloud-synced.
   sadaqahGoals: `${PREFIX}/sadaqah_goals`,
-  // Show/hide transliteration + translation on dua/zikr/durood reading surfaces — cloud-synced.
+  // LEGACY show/hide transliteration + translation pair: local only, read once by
+  // lib/settings/reading-display-migration.ts into `preferences.readingDisplay` (D13).
   readingTextVisibility: `${PREFIX}/reading_text_visibility`,
   // Qur'an practice (recitation companion) prefs — cloud-synced, LWW.
   quranCompanionPrefs: `${PREFIX}/quran_companion_prefs`,

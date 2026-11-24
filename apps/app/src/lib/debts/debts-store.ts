@@ -3,7 +3,7 @@ import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useMemo } from "react";
 
 import { createId } from "@/db/id";
-import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { createVaultStore } from "@/lib/vault";
 import { wasiyyahActions } from "@/lib/wasiyyah/wasiyyah-store";
 

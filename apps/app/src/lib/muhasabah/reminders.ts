@@ -1,9 +1,10 @@
 import type { MuhasabahReminderTime } from "@munib-tracker/shared/types";
+import { getLocalDateString } from "@munib-tracker/shared/utils";
 
 import i18n from "@/i18n";
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import type { BuiltReminder } from "@/lib/notifications/build-reminders";
-import { computePrayerTimes } from "@/lib/prayer-times";
+import { addMinutes, isPastFireTime } from "@/lib/notifications/reminder-clock";
 import {
   getZonedParts,
   parseHhMm,
@@ -31,10 +32,6 @@ export interface MuhasabahReminderInput {
   reviewedDates: string[];
 }
 
-function dayKeyOf(day: Date): string {
-  return `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
-}
-
 /** Fire instant for the review night `day` (an evening; times before 04:00 fall after midnight). */
 export function muhasabahFireAt(
   day: Date,
@@ -43,14 +40,7 @@ export function muhasabahFireAt(
   location: StoredLocation,
 ): Date {
   if (time === "isha+90" && location.source !== "default") {
-    const times = computePrayerTimes(
-      { latitude: location.latitude, longitude: location.longitude },
-      day,
-      location.method,
-      location.madhab,
-      locationCalcExtras(location),
-    );
-    return new Date(times.isha.getTime() + ISHA_PLUS_MINUTES * 60_000);
+    return addMinutes(computeLocationPrayerTimes(location, day).isha, ISHA_PLUS_MINUTES);
   }
   const clock = time === "bedtime" || time === "isha+90" ? (bedtime ?? "22:30") : time;
   const { hour, minute } = parseHhMm(clock, { hour: 22, minute: 30 });
@@ -83,10 +73,10 @@ export function buildMuhasabahReminders(input: {
   const out: BuiltReminder[] = [];
   for (let offset = 0; offset < DAYS; offset += 1) {
     const day = shiftPrayerDay(anchor, offset);
-    const key = dayKeyOf(day);
+    const key = getLocalDateString(day);
     if (reviewed.has(key)) continue;
     const fireAt = muhasabahFireAt(day, reminder.time, input.bedtime, location);
-    if (fireAt.getTime() <= now.getTime() - 60_000) continue;
+    if (isPastFireTime(fireAt, now)) continue;
     out.push({
       id: `muhasabah:${key}`,
       fireAt,

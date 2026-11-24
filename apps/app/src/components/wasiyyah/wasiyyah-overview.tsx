@@ -3,11 +3,11 @@ import { type Href, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { EvidenceCard, type EvidenceItem } from "@/components/records/evidence-card";
 import { useExportFeedback } from "@/components/records/use-export-feedback";
+import { useRecordAction } from "@/components/records/use-record-action";
 import { VaultStateNotice } from "@/components/self-review/vault-state-notice";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,7 @@ export const WASIYYAH_EVIDENCE: readonly EvidenceItem[] = [
 /** `/wasiyyah` content (inside `VaultLockGate`): status, review, versions, export. */
 export function WasiyyahOverview() {
   const { t } = useTranslation();
+  const run = useRecordAction();
   const router = useRouter();
   const format = useRecordFormat();
   const { versions, draft, settings, status, error, isReady } = useWasiyyah();
@@ -127,7 +128,7 @@ export function WasiyyahOverview() {
               <Button
                 label={t("wasiyyah.actions.markReviewed")}
                 variant="ghost"
-                onPress={() => void wasiyyahActions.markReviewed(debts)}
+                onPress={() => void run(wasiyyahActions.markReviewed(debts))}
               />
             ) : null}
             {draft ? (
@@ -152,7 +153,7 @@ export function WasiyyahOverview() {
             <SegmentedControl<string>
               options={intervalOptions}
               value={String(settings.reviewIntervalMonths)}
-              onChange={(v) => void wasiyyahActions.setReviewInterval(Number(v))}
+              onChange={(v) => void run(wasiyyahActions.setReviewInterval(Number(v)))}
             />
           </View>
         </Card>
@@ -216,7 +217,7 @@ export function WasiyyahOverview() {
         destructive
         onConfirm={() => {
           setConfirmDiscard(false);
-          void wasiyyahActions.discardDraft();
+          void run(wasiyyahActions.discardDraft());
         }}
         onClose={() => setConfirmDiscard(false)}
       />
@@ -227,7 +228,7 @@ export function WasiyyahOverview() {
         confirmLabel={t("common.delete")}
         destructive
         onConfirm={() => {
-          if (deleteId) void wasiyyahActions.deleteVersion(deleteId);
+          if (deleteId) void run(wasiyyahActions.deleteVersion(deleteId));
           setDeleteId(null);
         }}
         onClose={() => setDeleteId(null)}

@@ -3,8 +3,8 @@ import { readJSON } from "@/db/store";
 import { isTV } from "@/lib/platform/is-tv";
 import { type HeldMerge, heldMerge } from "@/sync/blob-hold";
 
-import { VAULT_MAX_RECORD_BYTES } from "./envelope";
-import { mergeKeyrings } from "./keyring";
+import { isVaultEnvelope, VAULT_MAX_RECORD_BYTES } from "./envelope";
+import { isVaultKeyring, mergeKeyrings } from "./keyring";
 import {
   hasParkedVaultRecord,
   isVaultSyncEnabled,
@@ -51,7 +51,12 @@ export interface VaultBlobEntity {
   pushPaused?: () => Promise<boolean>;
   /** Documents: drops a parked record no newer than `upTo` (a newer one merged cleanly). */
   releaseHold?: (upTo: string) => Promise<void>;
-  /** Mirrors the server's 256 KB per-record cap, so one oversized record is skipped, not the batch. */
+  /**
+   * Mirrors the server's 256 KB per-record cap, so one oversized record is
+   * skipped, not the batch. Also refuses anything that isn't an envelope /
+   * keyring (D2: only ciphertext ever leaves the device, even if the stored
+   * value was replaced, e.g. by a hand-edited backup).
+   */
   validatePush: (value: unknown) => boolean;
 }
 
@@ -62,6 +67,16 @@ export function fitsVaultRecordCap(value: unknown): boolean {
   } catch {
     return false;
   }
+}
+
+/** A document push: an AES-GCM envelope (or `null`) within the cap. */
+export function isPushableVaultDoc(value: unknown): boolean {
+  return (value == null || isVaultEnvelope(value)) && fitsVaultRecordCap(value);
+}
+
+/** A keyring push: wrapped keys only (or `null`) within the cap. */
+export function isPushableVaultKeyring(value: unknown): boolean {
+  return (value == null || isVaultKeyring(value)) && fitsVaultRecordCap(value);
 }
 
 function docEntity(docId: VaultDocId): VaultBlobEntity {
@@ -97,7 +112,7 @@ function docEntity(docId: VaultDocId): VaultBlobEntity {
     releaseHold: async (upTo) => {
       if (await releaseVaultRecord(entity, upTo)) notifyVaultChange("status");
     },
-    validatePush: fitsVaultRecordCap,
+    validatePush: isPushableVaultDoc,
   };
 }
 
@@ -116,7 +131,7 @@ const keyringEntity: VaultBlobEntity = {
   // locks this device (status `key-mismatch`) until the user unlocks with that
   // passphrase — `unlockVault` then re-encrypts and merges the local documents.
   merge: async (local, remote) => mergeKeyrings(local, remote) ?? local,
-  validatePush: fitsVaultRecordCap,
+  validatePush: isPushableVaultKeyring,
 };
 
 /** Keyring first: it must land before the documents it unlocks. */

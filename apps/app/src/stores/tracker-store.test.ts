@@ -30,12 +30,12 @@ import {
 } from "./tracker-store";
 
 jest.mock(
-  "@/lib/quran-companion/reschedule",
+  "@/lib/notifications/reschedule",
   () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
 );
 
 const { requestReminderReschedule: mockReschedule } = jest.requireMock(
-  "@/lib/quran-companion/reschedule",
+  "@/lib/notifications/reschedule",
 ) as { requestReminderReschedule: jest.Mock };
 
 beforeEach(resetTrackerStore);

@@ -7,7 +7,7 @@ import type {
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useMemo } from "react";
 
-import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { createVaultStore, liveItems, type VaultRecord, vault } from "@/lib/vault";
 
 import { expiredEntryDates, summarizeMuhasabahWeek } from "./logic";

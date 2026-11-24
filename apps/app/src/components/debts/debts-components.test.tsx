@@ -1,7 +1,7 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 
-import { debtsVault } from "@/lib/debts/debts-store";
-import { resetToastMock } from "@/test-support/mocks/toast-provider";
+import { debtsActions, debtsVault } from "@/lib/debts/debts-store";
+import { mockToast, resetToastMock } from "@/test-support/mocks/toast-provider";
 import { resetVaultTestState } from "@/test-support/mocks/vault";
 import { renderWithTheme } from "@/test-support/render";
 
@@ -15,7 +15,7 @@ jest.mock(
   "@/lib/storage/safe-secure-store",
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
-jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock("@/lib/notifications/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
 jest.mock(
   "@/providers/toast-provider",
   () => require("@/test-support/mocks/toast-provider").toastProviderMock,
@@ -140,5 +140,24 @@ describe("DebtDetailBody", () => {
     expect(screen.getByText("Remove this repayment?")).toBeTruthy();
     // Nothing is removed until the person confirms.
     expect(debtsVault.store.getState().items[0]).toMatchObject({ payments: [{ id: "p1" }] });
+  });
+  it("shows a toast (not an unhandled rejection) when a record change can't be stored", async () => {
+    await debtsVault.actions.put("t1", {
+      kind: "debt",
+      direction: "trust_held",
+      counterparty: "Yusuf",
+      item: "Watch",
+      createdOn: "2026-11-01",
+      payments: [],
+      status: "open",
+    });
+    const failing = jest
+      .spyOn(debtsActions, "markSettled")
+      .mockRejectedValueOnce(new Error("vault-key-unavailable"));
+    await renderWithTheme(<DebtDetailBody id="t1" />);
+    await waitFor(() => expect(screen.getByText("Mark as returned")).toBeTruthy());
+    await fireEvent.press(screen.getByText("Mark as returned"));
+    await waitFor(() => expect(mockToast.error).toHaveBeenCalledTimes(1));
+    failing.mockRestore();
   });
 });

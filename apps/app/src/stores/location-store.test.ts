@@ -93,6 +93,21 @@ describe("refresh", () => {
     expect(state()).toMatchObject({ status: "ready", location: { city: "Bursa" } });
   });
 
+  it("never overwrites a city picked by hand while the silent fix was in flight", async () => {
+    mockPermission.mockResolvedValue(true);
+    let resolveFix: (value: unknown) => void = () => {};
+    mockDevice.mockReturnValue(new Promise((resolve) => (resolveFix = resolve)));
+    locationStore.setState({ location: GPS_FIX, status: "ready" });
+
+    const refresh = state().refresh();
+    await waitFor(() => expect(mockDevice).toHaveBeenCalled());
+    locationStore.setState({ location: buildStoredLocation({ source: "manual", city: "Konya" }) });
+    resolveFix({ status: "granted", location: GPS_FIX });
+    await refresh;
+
+    expect(state()).toMatchObject({ status: "ready", location: { city: "Konya" } });
+  });
+
   it("still reports a timeout when there is no saved device fix", async () => {
     mockPermission.mockResolvedValue(true);
     mockDevice.mockResolvedValue({ status: "error", reason: "timeout" });
@@ -119,6 +134,26 @@ describe("requestDeviceLocation", () => {
     locationStore.setState({ location: GPS_FIX, status: "ready" });
     await state().requestDeviceLocation();
     expect(state().status).toBe("error");
+  });
+
+  it("lets an explicit request wait for a fix already in flight", async () => {
+    let resolveFix: (value: unknown) => void = () => {};
+    mockDevice.mockReturnValue(new Promise((resolve) => (resolveFix = resolve)));
+
+    const first = state().requestDeviceLocation();
+    let secondDone = false;
+    const second = state()
+      .requestDeviceLocation()
+      .then(() => {
+        secondDone = true;
+      });
+    await Promise.resolve();
+    expect(secondDone).toBe(false);
+
+    resolveFix({ status: "granted", location: GPS_FIX });
+    await Promise.all([first, second]);
+    expect(mockDevice).toHaveBeenCalledTimes(1);
+    expect(state()).toMatchObject({ status: "ready", location: { city: "Bursa" } });
   });
 
   it("ignores a second request while one is loading", async () => {

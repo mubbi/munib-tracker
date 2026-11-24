@@ -2,9 +2,9 @@ import { type Href, useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahNavRow } from "@/components/jannah/primitives";
 import { LabeledInput } from "@/components/records/labeled-input";
+import { useRecordAction } from "@/components/records/use-record-action";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -34,6 +34,7 @@ export function ObligationsCard({
   vows: readonly VowEntry[];
 }) {
   const { t } = useTranslation();
+  const run = useRecordAction();
   const router = useRouter();
   const format = useRecordFormat();
   const [vowText, setVowText] = useState("");
@@ -51,7 +52,7 @@ export function ObligationsCard({
   };
 
   const addVow = () => {
-    void debtsActions.addVow(vowText);
+    void run(debtsActions.addVow(vowText));
     setVowText("");
   };
 
@@ -93,7 +94,7 @@ export function ObligationsCard({
               accessibilityRole="checkbox"
               accessibilityState={{ checked: vow.fulfilled }}
               accessibilityLabel={vow.text}
-              onPress={() => void debtsActions.setVowFulfilled(vow.id, !vow.fulfilled)}
+              onPress={() => void run(debtsActions.setVowFulfilled(vow.id, !vow.fulfilled))}
               style={styles.vowText}
             >
               <ThemedText
@@ -107,7 +108,7 @@ export function ObligationsCard({
             <PressableScale
               accessibilityRole="button"
               accessibilityLabel={t("debts.vows.delete")}
-              onPress={() => void debtsActions.deleteVow(vow.id)}
+              onPress={() => void run(debtsActions.deleteVow(vow.id))}
             >
               <ThemedText type="caption" themeColor="mutedForeground">
                 {t("common.remove")}

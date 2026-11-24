@@ -39,6 +39,7 @@ import {
   ZikrRepository,
 } from "@/db";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { combinedFromLog, combinePartner, type PrayerCombined } from "@/lib/prayer-combining";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { markPreferencesDirty } from "@/lib/sync/preferences-cloud-sync";
@@ -237,17 +238,11 @@ function patchQazaCounters(
 
 /**
  * Starting or ending an excused period pauses / re-arms nudges right away
- * (D31 / rule 5) — not at the next foreground. Lazy require: the scheduler
- * imports this store, so a static import would be a cycle.
+ * (D31 / rule 5) — not at the next foreground, and also when no UI is mounted
+ * (a repository-only write before preferences load).
  */
 function rescheduleRemindersForExcusedChange(): void {
-  try {
-    const { requestReminderReschedule } =
-      require("@/lib/quran-companion/reschedule") as typeof import("@/lib/quran-companion/reschedule");
-    requestReminderReschedule();
-  } catch {
-    // Non-fatal; the next foreground reschedule catches up.
-  }
+  requestReminderReschedule();
 }
 
 /** Persist the ongoing excused period and keep the preferences store / sync in sync. */

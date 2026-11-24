@@ -1,3 +1,4 @@
+import { utf8ByteLength as sharedUtf8ByteLength } from "@munib-tracker/shared/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { captureAppException } from "@/lib/sentry";
@@ -33,11 +34,12 @@ export function isOversizedRowError(error: unknown): boolean {
   return /Row too big to fit into CursorWindow/i.test(message);
 }
 
+/** Native `TextEncoder` when present (fast on MB-sized cache rows), else the shared JS count. */
 function utf8ByteLength(value: string): number {
   if (typeof TextEncoder !== "undefined") {
     return new TextEncoder().encode(value).length;
   }
-  return value.length;
+  return sharedUtf8ByteLength(value);
 }
 
 /** Best-effort quarantine so a corrupt value is not silently treated as "empty". */

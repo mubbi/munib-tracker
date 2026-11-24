@@ -8,7 +8,7 @@ import { createStore, useStore } from "./create-store";
 import { voluntaryFastingStore } from "./voluntary-fasting-store";
 
 /**
- * LEGACY (kept readable for one release). The tracker's White Days checklist
+ * LEGACY (kept readable, local only). The tracker's White Days checklist
  * now reads and writes the voluntary-fasting log (NF-3.2, one record of a
  * fast); `load()` folds these rows into it via `migrateLegacyWhiteDaysChecklist`.
  * The UI no longer writes here.
@@ -18,8 +18,8 @@ import { voluntaryFastingStore } from "./voluntary-fasting-store";
  * is scoped to a single Gregorian day), the White Days span the 13th–15th of a
  * Hijri month, so all three rows share one month bucket. Content ids live in
  * `@munib-tracker/shared` (`WHITE_DAYS_CHECKLIST`); this store only tracks which
- * days were marked fasted in which Hijri month. Synced as blob entity
- * `white_days_checklist`.
+ * days were marked fasted in which Hijri month. No longer synced: the
+ * `white_days_checklist` sync entity is retired (the API ignores it).
  */
 export interface WhiteDaysCheckRow {
   id: string;

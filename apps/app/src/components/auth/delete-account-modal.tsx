@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { DeleteAccountConfirmStep } from "@/components/auth/delete-account-confirm-step";
+import { DeleteAccountReasonStep } from "@/components/auth/delete-account-reason-step";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Spacing } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
-  ACCOUNT_CLOSURE_CONFIRMATION,
-  ACCOUNT_CLOSURE_REASONS,
   type AccountClosureReasonCode,
+  buildDeleteAccountRequest,
   type DeleteAccountRequestBody,
+  isAccountClosureConfirmed,
 } from "@/lib/auth/account-closure-reasons";
-import { isTV } from "@/lib/platform/is-tv";
 
 type DeleteAccountModalProps = {
   visible: boolean;
@@ -30,9 +30,7 @@ export function DeleteAccountModal({
   deleteAccount,
 }: DeleteAccountModalProps) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  /** TV: selected reason = soft fill + hairline; the accent ring is D-pad focus. */
-  const selectedBorder = isTV() ? tokens.accentBorder : colors.accent;
+  const { tokens } = useThemeTokens();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [primaryReason, setPrimaryReason] = useState<AccountClosureReasonCode | null>(null);
   const [details, setDetails] = useState("");
@@ -72,20 +70,14 @@ export function DeleteAccountModal({
     setError(null);
   };
 
-  const canConfirm =
-    typed.trim() === ACCOUNT_CLOSURE_CONFIRMATION && acknowledged && primaryReason != null;
+  const canConfirm = isAccountClosureConfirmed(typed, acknowledged, primaryReason);
 
   const handleDelete = async () => {
     if (!canConfirm || loading || !primaryReason) return;
     setLoading(true);
     setError(null);
-    const trimmedDetails = details.trim();
     try {
-      await deleteAccount({
-        confirmation: ACCOUNT_CLOSURE_CONFIRMATION,
-        primaryReason,
-        ...(trimmedDetails ? { details: trimmedDetails.slice(0, 500) } : {}),
-      });
+      await deleteAccount(buildDeleteAccountRequest(primaryReason, details));
       onDeleted();
       onClose();
     } catch {
@@ -122,118 +114,35 @@ export function DeleteAccountModal({
         ) : null}
 
         {step === 2 ? (
-          <>
-            <ThemedText type="small" style={styles.blockTitle}>
-              {t("profile.deleteAccountSurveyTitle")}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.surveyIntro}>
-              {t("profile.deleteAccountSurveyIntro")}
-            </ThemedText>
-            {ACCOUNT_CLOSURE_REASONS.map((reason) => {
-              const selected = primaryReason === reason;
-              return (
-                <PressableScale
-                  key={reason}
-                  accessibilityRole="radio"
-                  accessibilityState={{ selected }}
-                  haptic="selection"
-                  onPress={() => {
-                    setPrimaryReason(reason);
-                    setError(null);
-                  }}
-                  style={[
-                    styles.reasonRow,
-                    {
-                      borderColor: selected ? selectedBorder : colors.border,
-                      backgroundColor: selected ? tokens.accentSoft : "transparent",
-                    },
-                  ]}
-                >
-                  <View
-                    style={[
-                      styles.radioOuter,
-                      { borderColor: selected ? colors.accent : colors.border },
-                    ]}
-                  >
-                    {selected ? (
-                      <View style={[styles.radioInner, { backgroundColor: colors.accent }]} />
-                    ) : null}
-                  </View>
-                  <ThemedText type="small" style={styles.reasonLabel}>
-                    {t(`profile.deleteAccountReasons.${reason}`)}
-                  </ThemedText>
-                </PressableScale>
-              );
-            })}
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.detailsLabel}>
-              {t("profile.deleteAccountDetailsOptional")}
-            </ThemedText>
-            <TextInput
-              value={details}
-              onChangeText={(value) => {
-                setDetails(value.slice(0, 500));
-                setError(null);
-              }}
-              placeholder={t("profile.deleteAccountDetailsPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              multiline
-              editable={!loading}
-              style={[styles.detailsInput, tokens.inputSurface, { color: colors.foreground }]}
-            />
-          </>
+          <DeleteAccountReasonStep
+            reason={primaryReason}
+            onReasonChange={(reason) => {
+              setPrimaryReason(reason);
+              setError(null);
+            }}
+            details={details}
+            onDetailsChange={(value) => {
+              setDetails(value);
+              setError(null);
+            }}
+            disabled={loading}
+          />
         ) : null}
 
         {step === 3 ? (
-          <>
-            <ThemedText type="small" style={styles.blockTitle}>
-              {t("profile.deleteAccountStep3Title")}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.step3Body}>
-              {t("profile.deleteAccountStep3Body")}
-            </ThemedText>
-            <TextInput
-              value={typed}
-              onChangeText={(value) => {
-                setTyped(value);
-                setError(null);
-              }}
-              placeholder={t("profile.deleteAccountTypePlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              autoCapitalize="characters"
-              autoCorrect={false}
-              editable={!loading}
-              style={[styles.confirmInput, tokens.inputSurface, { color: colors.foreground }]}
-            />
-            <PressableScale
-              accessibilityRole="checkbox"
-              accessibilityState={{ checked: acknowledged }}
-              haptic="selection"
-              onPress={() => {
-                setAcknowledged((value) => !value);
-                setError(null);
-              }}
-              style={styles.ackRow}
-            >
-              <View
-                style={[
-                  styles.checkbox,
-                  {
-                    borderColor: acknowledged ? colors.accent : colors.border,
-                    backgroundColor: acknowledged ? colors.accent : "transparent",
-                  },
-                ]}
-              >
-                {acknowledged ? (
-                  <ThemedText type="caption" style={{ color: colors.accentForeground }}>
-                    ✓
-                  </ThemedText>
-                ) : null}
-              </View>
-              <ThemedText type="small" style={styles.ackLabel}>
-                {t("profile.deleteAccountAcknowledge")}
-              </ThemedText>
-            </PressableScale>
-          </>
+          <DeleteAccountConfirmStep
+            typed={typed}
+            onTypedChange={(value) => {
+              setTyped(value);
+              setError(null);
+            }}
+            acknowledged={acknowledged}
+            onToggleAcknowledged={() => {
+              setAcknowledged((value) => !value);
+              setError(null);
+            }}
+            disabled={loading}
+          />
         ) : null}
 
         {error ? (
@@ -305,78 +214,6 @@ const styles = StyleSheet.create({
   },
   blockTitle: {
     fontWeight: "700",
-  },
-  surveyIntro: {
-    marginBottom: Spacing.one,
-  },
-  reasonRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.three,
-  },
-  radioOuter: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    borderWidth: 2,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  radioInner: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-  },
-  reasonLabel: {
-    flex: 1,
-  },
-  detailsLabel: {
-    marginTop: Spacing.one,
-  },
-  detailsInput: {
-    minHeight: 72,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    textAlignVertical: "top",
-  },
-  step3Body: {
-    marginBottom: Spacing.one,
-  },
-  confirmInput: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  ackRow: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: Spacing.two,
-    marginTop: Spacing.two,
-  },
-  checkbox: {
-    width: 24,
-    height: 24,
-    borderRadius: Radius.sm,
-    borderWidth: 2,
-    marginTop: 2,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  ackLabel: {
-    flex: 1,
-    lineHeight: 20,
   },
   actions: {
     flexDirection: "row",

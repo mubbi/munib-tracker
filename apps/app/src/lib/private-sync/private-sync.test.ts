@@ -10,7 +10,9 @@ import { resetVaultTestState, TEST_PASSPHRASE } from "@/test-support/mocks/vault
 import {
   EXCUSED_ACTIVE_ID,
   excusedDayId,
+  itemFingerprint,
   type KhushuItem,
+  planMirrorReconcile,
   reconcilePrivateMirrors,
   reconcileVaultMirror,
   UNKNOWN_LOCAL,
@@ -113,6 +115,54 @@ describe("reconcileVaultMirror (D46 3-way mirror)", () => {
     await vault.update<Item>("khushu", (doc) => putItem(doc, "a", { text: "newer remote" }, T2));
     await reconcileVaultMirror({ ...mirror, docWins: () => true }, T2);
     expect(local.a).toEqual({ text: "newer remote" });
+  });
+
+  it("keeps a doc change that lands mid-reconcile (the doc side is one atomic update)", async () => {
+    await optIn();
+    const { mirror, local } = fakeMirror({ a: { text: "local" } });
+    const readLocal = mirror.readLocal;
+    // A sync merge / unlock writes the doc while the local store is being read.
+    const racing: VaultMirror<Item> = {
+      ...mirror,
+      readLocal: async () => {
+        const snapshot = await readLocal();
+        await vault.update<Item>("khushu", (doc) =>
+          putItem(doc, "remote", { text: "other device" }, T1),
+        );
+        return snapshot;
+      },
+    };
+
+    await expect(reconcileVaultMirror(racing, T2)).resolves.toEqual({ pushed: 1, applied: 1 });
+    const doc = await vault.read<Item>("khushu");
+    expect(getLiveItem(doc, "a")).toMatchObject({ text: "local" });
+    expect(getLiveItem(doc, "remote")).toMatchObject({ text: "other device" });
+    expect(local.remote).toEqual({ text: "other device" });
+  });
+});
+
+describe("planMirrorReconcile (pure 3-way rules)", () => {
+  const empty = { v: 1 as const, items: {} };
+
+  it("pushes a local-only item and applies a doc-only item", () => {
+    const doc = putItem(empty, "d", { text: "doc" }, T0);
+    const plan = planMirrorReconcile<Item>(doc, { l: { text: "local" } }, {}, T1);
+    expect(plan.pushed).toBe(1);
+    expect(getLiveItem(plan.nextDoc, "l")).toMatchObject({ text: "local", updatedAt: T1 });
+    expect(plan.toLocal).toEqual({ d: { text: "doc" } });
+    expect(Object.keys(plan.nextBase).sort()).toEqual(["d", "l"]);
+  });
+
+  it("tombstones a locally deleted item and returns the same doc when nothing changes", () => {
+    const doc = putItem(empty, "a", { text: "x" }, T0);
+    const fp = itemFingerprint({ text: "x" });
+    const deleted = planMirrorReconcile<Item>(doc, {}, { a: fp }, T1);
+    expect(deleted.pushed).toBe(1);
+    expect(deleted.nextDoc.items.a?.deletedAt).toBe(T1);
+
+    const same = planMirrorReconcile<Item>(doc, { a: { text: "x" } }, { a: fp }, T1);
+    expect(same).toMatchObject({ pushed: 0, toLocal: {}, nextBase: { a: fp } });
+    expect(same.nextDoc).toBe(doc);
   });
 });
 

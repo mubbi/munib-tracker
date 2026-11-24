@@ -17,7 +17,7 @@ jest.mock(
   "@/lib/storage/safe-secure-store",
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
-jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock("@/lib/notifications/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
 jest.mock(
   "@/providers/toast-provider",
   () => require("@/test-support/mocks/toast-provider").toastProviderMock,
