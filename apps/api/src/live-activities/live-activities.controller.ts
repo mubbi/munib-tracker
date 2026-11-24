@@ -15,6 +15,7 @@ import { ConfigService } from "@nestjs/config";
 import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import type { Request } from "express";
 import { resolveAccessToken } from "../auth/resolve-access-token";
+import { assertCronSecret } from "../common/cron-secret";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
   DispatchLiveActivityJobDto,
@@ -94,10 +95,10 @@ export class LiveActivitiesController {
   }
 
   private assertInternalSecret(authorization: string | undefined): void {
-    const secret = this.config.get("LIVE_ACTIVITY_CRON_SECRET", { infer: true })?.trim();
-    if (!secret) throw new UnauthorizedException("Live Activity cron is not configured");
-    if (authorization !== `Bearer ${secret}`) {
-      throw new UnauthorizedException("Invalid Live Activity cron secret");
-    }
+    assertCronSecret(
+      authorization,
+      this.config.get("LIVE_ACTIVITY_CRON_SECRET", { infer: true }),
+      "Live Activity",
+    );
   }
 }

@@ -1,17 +1,8 @@
+import { reviewReactivationWindowKey } from "@munib-tracker/shared/reviews/dedupe.js";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { IsNull, Repository } from "typeorm";
 import { UserEntity } from "../database/entities";
-
-/** Must stay aligned with `@munib-tracker/shared/reviews/dedupe`. */
-const REVIEW_REACTIVATION_WINDOW_DAYS = 60;
-
-function reviewReactivationWindowKey(now: Date = new Date()): string {
-  const windowIndex = Math.floor(
-    now.getTime() / (REVIEW_REACTIVATION_WINDOW_DAYS * 24 * 60 * 60 * 1000),
-  );
-  return String(windowIndex);
-}
 
 /**
  * Server-side scaffold for review-reactivation OS push dedupe.

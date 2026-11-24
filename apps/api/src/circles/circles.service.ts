@@ -19,7 +19,7 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { DataSource, type EntityManager, In, IsNull, MoreThan } from "typeorm";
-import { isRateLimited } from "../common/durable-rate-limit";
+import { assertWithinRateLimit } from "../common/durable-rate-limit";
 import {
   ChildProfileEntity,
   CircleEntity,
@@ -525,15 +525,11 @@ export class CirclesService {
   }
 
   private async throttleJoin(userId: string): Promise<void> {
-    if (
-      await isRateLimited({
-        key: `circles:join:${userId}`,
-        limit: JOIN_ATTEMPTS_PER_HOUR,
-        windowMs: HOUR_MS,
-      })
-    ) {
-      throw new HttpException("Too many attempts", HttpStatus.TOO_MANY_REQUESTS);
-    }
+    await assertWithinRateLimit({
+      key: `circles:join:${userId}`,
+      limit: JOIN_ATTEMPTS_PER_HOUR,
+      windowMs: HOUR_MS,
+    });
   }
 
   private async memberCounts(circleIds: string[]): Promise<Map<string, number>> {

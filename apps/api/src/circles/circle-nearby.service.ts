@@ -22,7 +22,7 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { DataSource, type EntityManager, IsNull, MoreThan, Not } from "typeorm";
-import { isRateLimited } from "../common/durable-rate-limit";
+import { assertWithinRateLimit } from "../common/durable-rate-limit";
 import {
   ChildProfileEntity,
   CircleEntity,
@@ -555,10 +555,8 @@ export class CircleNearbyService {
   }
 }
 
-async function throttle(key: string, limit: number, windowMs: number): Promise<void> {
-  if (await isRateLimited({ key, limit, windowMs })) {
-    throw new HttpException("Too many attempts", HttpStatus.TOO_MANY_REQUESTS);
-  }
+function throttle(key: string, limit: number, windowMs: number): Promise<void> {
+  return assertWithinRateLimit({ key, limit, windowMs });
 }
 
 function toRequestDto(request: CircleNearbyRequestEntity): NearbyRequestDto {

@@ -20,6 +20,7 @@ import type { Request } from "express";
 import { resolveAccessToken } from "../auth/resolve-access-token";
 import { CircleRetentionService } from "../circles/circle-retention.service";
 import { FamilyDigestService } from "../circles/family-digest.service";
+import { assertCronSecret } from "../common/cron-secret";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
   DispatchSurfaceJobDto,
@@ -124,10 +125,10 @@ export class SurfacePushController {
   }
 
   private assertInternalSecret(authorization: string | undefined): void {
-    const secret = this.config.get("SURFACE_PUSH_CRON_SECRET", { infer: true })?.trim();
-    if (!secret) throw new UnauthorizedException("Surface push cron is not configured");
-    if (authorization !== `Bearer ${secret}`) {
-      throw new UnauthorizedException("Invalid surface push cron secret");
-    }
+    assertCronSecret(
+      authorization,
+      this.config.get("SURFACE_PUSH_CRON_SECRET", { infer: true }),
+      "surface push",
+    );
   }
 }

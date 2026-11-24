@@ -11,13 +11,11 @@ import {
   ConflictException,
   ForbiddenException,
   GoneException,
-  HttpException,
-  HttpStatus,
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
 import { DataSource } from "typeorm";
-import { isRateLimited } from "../common/durable-rate-limit";
+import { assertWithinRateLimit } from "../common/durable-rate-limit";
 import { ChildProfileEntity, CircleMemberEntity } from "../database/entities";
 import {
   CircleAccessService,
@@ -227,15 +225,11 @@ export class ChildProfilesService {
    * child-session bearer. One linked device per child; re-linking replaces it.
    */
   async redeemDeviceLink(linkToken: string, clientIp = "unknown"): Promise<ChildSessionDto> {
-    if (
-      await isRateLimited({
-        key: `circles:child-link:${clientIp}`,
-        limit: REDEEM_LIMIT,
-        windowMs: REDEEM_WINDOW_MS,
-      })
-    ) {
-      throw new HttpException("Too many attempts", HttpStatus.TOO_MANY_REQUESTS);
-    }
+    await assertWithinRateLimit({
+      key: `circles:child-link:${clientIp}`,
+      limit: REDEEM_LIMIT,
+      windowMs: REDEEM_WINDOW_MS,
+    });
     const linkHash = sha256Hex(linkToken);
     const repo = this.dataSource.getRepository(ChildProfileEntity);
     const child = await repo.findOne({ where: { linkTokenHash: linkHash } });

@@ -12,6 +12,7 @@ export type FakeRedis = {
   del: Mock;
   incr: Mock;
   expire: Mock;
+  ttl: Mock;
   scanIterator: Mock;
 };
 
@@ -23,6 +24,7 @@ export function buildFakeRedis(overrides: Partial<FakeRedis> = {}): FakeRedis {
     del: vi.fn().mockResolvedValue(1),
     incr: vi.fn().mockResolvedValue(1),
     expire: vi.fn().mockResolvedValue(true),
+    ttl: vi.fn().mockResolvedValue(60),
     scanIterator: vi.fn(async function* () {}),
     ...overrides,
   };
