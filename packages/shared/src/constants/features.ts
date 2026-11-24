@@ -1,3 +1,5 @@
+import { DUA_COUNT } from "./content-counts";
+
 export type AppFeatureIcon =
   | "quran"
   | "hadith"
@@ -76,7 +78,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Full mushaf: surah, juz, 604-page view, word-by-word, and tajweed coloring",
       "25 translation editions (two bundled), 123 tafsir editions on demand, eight reciters",
       "Bundled Nawawi 40 & Riyad as-Salihin; six major collections on demand",
-      "279 duas, 60 adhkar, nine duroods, 99 Names, and universal fuzzy search",
+      `${DUA_COUNT} duas, 60 adhkar, nine duroods, 99 Names, and universal fuzzy search`,
     ],
   },
   {

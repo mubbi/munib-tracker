@@ -4,6 +4,8 @@
  * `apps/app/src/app/credits.tsx` (runtime). Marketing `/credits` reads this.
  */
 
+import { DUA_COUNT } from "./content-counts";
+
 export type DataCredit = {
   id: string;
   name: string;
@@ -27,7 +29,7 @@ export const BUNDLED_DATA_CREDITS: readonly DataCredit[] = [
     attribution:
       "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Bengali Hisnul translations from ThelightHub/dua-api (MIT). Indonesian subset from fitrahive/dua-dhikr. Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
     url: "https://github.com/ThelightHub/dua-api",
-    note: "279 duas in 16 categories, 60 adhkar in seven categories, and nine duroods ship bundled.",
+    note: `${DUA_COUNT} duas in 16 categories, 60 adhkar in seven categories, and nine duroods ship bundled.`,
   },
   {
     id: "hadith-highlights",
@@ -217,22 +219,22 @@ export const RUNTIME_DATA_CREDITS: readonly DataCredit[] = [
 export const SERVICE_DATA_CREDITS: readonly DataCredit[] = [
   {
     id: "quran-practice-listener",
-    name: "Qur'an practice & hands-free tasbeeh — on-device listener",
+    name: "Qur'an practice, recite-to-find, recite-along & hands-free tasbeeh — on-device listener",
     license:
-      "NPL-1.2 (Zipformer weights and phoneme corpus; non-commercial, share-alike) / CC-BY-4.0 (NVIDIA FastConformer weights) / MIT (Tilawa code)",
+      "NPL-1.2 (Zipformer weights and phoneme corpus; non-commercial, share-alike — the licence file ships with the download) / CC-BY-4.0 (NVIDIA FastConformer weights) / MIT (Tilawa code, © 2026 yazinsai)",
     attribution:
-      "Tilawa (yazinsai/tilawa, MIT) with the Zipformer a0w model and phoneme corpus derived from Quran-Lab/zipformer_p-arabic-v3 and alketab's prompter (NPL-1.2). FastConformer listener (also used for hands-free tasbeeh counting): NVIDIA stt_ar_fastconformer (CC-BY-4.0), exported by yazinsai/tilawa; on the web its pinned files come from the public Hugging Face mirror acibZ/tilawa-quran-onnx (commit 0cd79471). Inference by ONNX Runtime (MIT). Practice word data: Quran.com API v4.",
+      "Tilawa 0.4 (yazinsai/tilawa, MIT) with the Zipformer a0w model and phoneme corpus derived from Quran-Lab/zipformer_p-arabic-v3 and alketab's prompter (NPL-1.2). FastConformer listener (also used for the pronunciation check, recite-to-find and hands-free tasbeeh): NVIDIA stt_ar_fastconformer_hybrid_large_pcd_v1.0 (CC-BY-4.0, huggingface.co/nvidia/stt_ar_fastconformer_hybrid_large_pcd_v1.0), modified — exported to ONNX by yazinsai/tilawa; on the web its pinned files come from the public Hugging Face mirror acibZ/tilawa-quran-onnx (commit 0cd79471). Inference by ONNX Runtime (MIT). Practice word data: Quran.com API v4.",
     url: "https://github.com/yazinsai/tilawa",
-    note: "Downloaded on request onto the device; never charged for, never behind ads. Audio stays on the device — hands-free tasbeeh never records, stores or sends audio.",
+    note: "Downloaded on request onto the device and checked against pinned SHA-256 digests; never charged for, never behind ads. Audio stays on the device — no feature that uses this listener records, stores or sends audio.",
   },
   {
     id: "quran-practice-pronunciation",
     name: "Qur'an practice — pronunciation listener",
-    license: "NPL-1.2 (Quran-Lab No-Profit License)",
+    license: "NPL-1.3 (Quran-Lab No-Profit License)",
     attribution:
-      "TajweedFormer V4 and SDKs by Quran Lab (a waqf). Results are a practice aid, not a ruling.",
+      "TajweedFormer V4 model and SDK 4 (iOS, Android, web) by Quran Lab, a waqf. The model is protected: it runs only inside Quran Lab's SDK and Core, encrypted for each device. Automatic tajweed feedback can be wrong; it does not replace a qualified teacher.",
     url: "https://sdk.quranlab.ai/licence",
-    note: "Optional; downloaded only after you agree on the pronunciation consent sheet.",
+    note: "Optional; downloaded only after you agree on the pronunciation consent sheet. Recitation is processed on the device. Quran Lab's SDK always sends anonymous daily counts and error reports (never audio, words, names or device IDs) and may ask you, at most three times, whether to share recordings — sharing stays off unless you say yes. Free, with no ads or paywall (NPL-1.3).",
   },
   {
     id: "prayer-times",

@@ -21,6 +21,7 @@ export {
   APP_SLUG,
   APP_TAGLINE,
 } from "./branding";
+export { DUA_COUNT } from "./content-counts";
 export {
   BUNDLED_DATA_CREDITS,
   type DataCredit,
