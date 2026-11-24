@@ -9,6 +9,8 @@
  * `docs/BACKLOG.md` (planned); locked scope is in `docs/DECISIONS.md`.
  */
 
+import { DUA_COUNT } from "@munib-tracker/shared/constants";
+
 export type InventoryItem = {
   name: string;
   detail?: string;
@@ -175,7 +177,7 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       shipped("Guided adhkar sessions", "Morning, evening, before sleep and after each Salah"),
       shipped("Tasbeeh counter", "33, 99, 100, unlimited or custom targets; Wear OS tile"),
       shipped("Custom adhkar builder", "Your own zikr, with speech-to-text"),
-      shipped("279 duas", "The full Hisnul Muslim in 16 categories"),
+      shipped(`${DUA_COUNT} duas`, "The full Hisnul Muslim in 16 categories"),
       shipped(
         "Duroods and the 99 Names",
         "Nine salawat, and the Names of Allah with meanings and audio",

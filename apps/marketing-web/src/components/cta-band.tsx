@@ -1,11 +1,9 @@
-"use client";
-
 import { ArrowRight } from "lucide-react";
 import { StoreBadges } from "@/components/store-badges";
-import { Button } from "@/components/ui/button";
+import { TrackedButton } from "@/components/tracked-button";
 import { Magnetic } from "@/components/ui/interactive";
 import { Reveal } from "@/components/ui/motion";
-import { type CtaPlacement, type DownloadPlacement, trackCtaClick } from "@/lib/analytics";
+import type { CtaPlacement, DownloadPlacement } from "@/lib/analytics";
 import { SITE_PATHS } from "@/lib/site";
 
 /** Closing call-to-action — the last chapter of the Day Arc journey. */
@@ -43,24 +41,26 @@ export function CtaBand({ placement = "cta" }: { placement?: CtaPlacement & Down
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Magnetic>
-              <Button
+              <TrackedButton
                 href={SITE_PATHS.download}
                 variant="gold"
                 size="lg"
-                onClick={() => trackCtaClick("get_app", placement)}
+                cta="get_app"
+                placement={placement}
               >
                 Get the app
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
+              </TrackedButton>
             </Magnetic>
-            <Button
+            <TrackedButton
               href={SITE_PATHS.features}
               variant="glass"
               size="lg"
-              onClick={() => trackCtaClick("explore_features", placement)}
+              cta="explore_features"
+              placement={placement}
             >
               Explore features
-            </Button>
+            </TrackedButton>
           </div>
           <div className="mt-10 flex justify-center">
             <StoreBadges className="justify-center" placement={placement} />

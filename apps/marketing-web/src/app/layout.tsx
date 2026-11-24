@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/site-header";
 import { SkipLink } from "@/components/skip-link";
+import { OG_LOCALE, SITE_LOCALE } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
   applicationName: APP_NAME,
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: OG_LOCALE,
     url: SITE_URL,
     siteName: APP_NAME,
     title: APP_NAME,
@@ -93,7 +94,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang={SITE_LOCALE}
       suppressHydrationWarning
       className={`${inter.variable} ${jakarta.variable} ${amiriQuran.variable} h-full antialiased`}
     >

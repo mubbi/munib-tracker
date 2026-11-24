@@ -3,12 +3,18 @@ import Link from "next/link";
 import { DownloadCta } from "@/components/content/download-cta";
 import { FeatureIcon } from "@/components/content/feature-icon";
 import { PageHero } from "@/components/content/page-hero";
-import { FaqList, JsonLdScript, LinkCard, PageSection } from "@/components/content/primitives";
+import {
+  FaqSection,
+  JsonLdScript,
+  LinkCard,
+  PageSection,
+  RichParagraphs,
+} from "@/components/content/primitives";
 import { RichText } from "@/components/content/rich-text";
 import { StoreBadges } from "@/components/store-badges";
 import { audienceHref } from "@/content/audiences";
 import { featureHref, getFeature } from "@/content/features";
-import { articleByHref } from "@/content/resources";
+import { articleByHref, articleHref } from "@/content/resources";
 import type { AudiencePage } from "@/content/types";
 import { graph, webPageSchema } from "@/lib/structured-data";
 
@@ -34,13 +40,10 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
       />
 
       <PageSection id="situation" title={page.situation.title}>
-        <div className="flex max-w-3xl flex-col gap-5 text-[17px] leading-[1.75] text-white/78">
-          {page.situation.paragraphs.map((p) => (
-            <p key={p}>
-              <RichText text={p} />
-            </p>
-          ))}
-        </div>
+        <RichParagraphs
+          items={page.situation.paragraphs}
+          className="flex max-w-3xl flex-col gap-5 text-[17px] leading-[1.75] text-white/78"
+        />
       </PageSection>
 
       <PageSection
@@ -110,11 +113,7 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
         ) : null}
       </PageSection>
 
-      <PageSection id="faq" tone="band" eyebrow="FAQ" title="Common questions">
-        <div className="max-w-3xl">
-          <FaqList items={page.faqs} />
-        </div>
-      </PageSection>
+      <FaqSection items={page.faqs} tone="band" title="Common questions" />
 
       {guides.length ? (
         <PageSection id="guides" eyebrow="Guides" title="Helpful reading">
@@ -122,7 +121,7 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
             {guides.map((a) => (
               <LinkCard
                 key={a.slug}
-                href={`/resources/${a.category}/${a.slug}`}
+                href={articleHref(a)}
                 title={a.title}
                 description={a.description}
                 meta="Guide"

@@ -62,12 +62,13 @@ export function frameWidthClass(key: ScreenshotSlot["key"]): string {
 /** A real screenshot inside the right device frame, with an optional caption. */
 export function Screenshot({
   slot,
-  priority = false,
+  preload = false,
   className,
   showCaption = true,
 }: {
   slot: ScreenshotSlot;
-  priority?: boolean;
+  /** Preload in `<head>`: only for an above-the-fold (LCP) screenshot. */
+  preload?: boolean;
   className?: string;
   showCaption?: boolean;
 }) {
@@ -80,7 +81,7 @@ export function Screenshot({
         alt={shot.alt}
         width={shot.width}
         height={shot.height}
-        priority={priority}
+        preload={preload}
         className="w-full"
       />
     );
@@ -90,7 +91,7 @@ export function Screenshot({
       alt: shot.alt,
       width: shot.width,
       height: shot.height,
-      priority,
+      preload,
       className: "w-full",
     };
     device =
@@ -146,6 +147,44 @@ export function FaqList({
         </details>
       ))}
     </div>
+  );
+}
+
+/** Paragraphs of inline markup (`[label](/path)`, `**bold**`), one `<p>` each. */
+export function RichParagraphs({
+  items,
+  className,
+}: {
+  items: readonly string[];
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      {items.map((p) => (
+        <p key={p}>
+          <RichText text={p} />
+        </p>
+      ))}
+    </div>
+  );
+}
+
+/** Template FAQ section: an H2 with an eyebrow over the zero-JS `<FaqList>`. */
+export function FaqSection({
+  items,
+  title,
+  tone,
+}: {
+  items: readonly FaqItem[];
+  title: string;
+  tone?: "default" | "band";
+}) {
+  return (
+    <PageSection id="faq" tone={tone} eyebrow="FAQ" title={title}>
+      <div className="max-w-3xl">
+        <FaqList items={items} />
+      </div>
+    </PageSection>
   );
 }
 

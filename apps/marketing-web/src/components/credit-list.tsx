@@ -1,5 +1,3 @@
-"use client";
-
 import { TrackedLink } from "@/components/tracked-link";
 
 type CreditSource = {

@@ -42,7 +42,7 @@ export function PageHero({
   const side = screenshot ? (
     <Screenshot
       slot={screenshot}
-      priority
+      preload
       showCaption={false}
       className={HERO_WIDTH[getScreenshot(screenshot.key).frame]}
     />

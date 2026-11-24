@@ -1,3 +1,4 @@
+import { DUA_COUNT } from "@munib-tracker/shared/constants";
 import type { FeaturePage } from "@/content/types";
 
 export const zikrTracker: FeaturePage = {
@@ -8,8 +9,7 @@ export const zikrTracker: FeaturePage = {
   group: "track",
   title: "Zikr tracker and tasbeeh counter for every part of your day",
   seoTitle: "Zikr Tracker & Tasbeeh Counter — Daily Adhkar App",
-  seoDescription:
-    "Morning, evening, after-Salah and bedtime adhkar with their source hadith, guided sessions, a tasbeeh counter and 279 duas. Free, offline and ad-free.",
+  seoDescription: `Morning, evening, after-Salah and bedtime adhkar with their source hadith, guided sessions, a tasbeeh counter and ${DUA_COUNT} duas. Free, offline and ad-free.`,
   description:
     "Guided morning, evening, after-Salah and bedtime adhkar with sources, a tasbeeh counter, duas and your own custom adhkar.",
   keywords: [
@@ -65,7 +65,7 @@ export const zikrTracker: FeaturePage = {
       {
         title: "Duas and more",
         items: [
-          "279 duas from Hisnul Muslim in 16 categories",
+          `${DUA_COUNT} duas from Hisnul Muslim in 16 categories`,
           "Nine duroods (salawat) and the 99 Names of Allah with audio",
           "A custom adhkar builder with speech-to-text",
           "Optional reminders for morning, evening and before-sleep adhkar",

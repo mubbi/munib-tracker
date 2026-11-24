@@ -1,5 +1,6 @@
 "use client";
 
+import { DUA_COUNT } from "@munib-tracker/shared/constants";
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { type KeyboardEvent, useId, useRef, useState } from "react";
@@ -58,7 +59,7 @@ const TABS: Tab[] = [
     points: [
       "60 adhkar with sources",
       "Tasbeeh counter with targets",
-      "279 duas from Hisnul Muslim",
+      `${DUA_COUNT} duas from Hisnul Muslim`,
     ],
     href: "/features/zikr-tracker",
     cta: "Explore Zikr & tasbeeh",
@@ -201,7 +202,6 @@ export function ProductTour() {
               alt={tab.shot.alt}
               width={960}
               height={2087}
-              priority={false}
               className="w-[220px] sm:w-[250px]"
             />
           </div>

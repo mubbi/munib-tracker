@@ -1,19 +1,18 @@
-"use client";
-
 import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import { Globe, Mail, MoonStar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { CookiePreferencesButton } from "@/components/cookie-preferences-button";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
-import { trackOutboundClick, trackWebDemoLaunch } from "@/lib/analytics";
-import { openCookiePreferences } from "@/lib/cookie-preferences-events";
+import { TrackedLink } from "@/components/tracked-link";
 import { isGoogleAnalyticsConfigured } from "@/lib/gtag";
 import { FOOTER_GROUPS, PRODUCT_APP_URL, SITE_PATHS } from "@/lib/site";
 
 const COPYRIGHT_YEAR = 2026;
 
 /** Day Arc footer — the night at the end of the journey: starlit sky, girih
- *  lattice, and the mosque resting over still water beneath the links. */
+ *  lattice, and the mosque resting over still water beneath the links.
+ *  Server-rendered; click tracking lives in the `TrackedLink` islands. */
 export function Footer() {
   const showCookiePreferences = isGoogleAnalyticsConfigured();
   return (
@@ -68,28 +67,27 @@ export function Footer() {
               and learning your deen. No ads, and no account needed for personal use.
             </p>
             <div className="mt-6">
-              <a
+              <TrackedLink
                 href={PRODUCT_APP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-[linear-gradient(180deg,#f6dfa4,#e0b563)] px-5 text-sm font-semibold text-[#3a2c10] shadow-[0_10px_26px_-10px_rgba(224,181,99,0.55),inset_0_1px_0_rgba(255,255,255,0.5)] transition-all duration-200 hover:brightness-[1.04] active:scale-[0.98]"
-                onClick={() => trackWebDemoLaunch("footer")}
+                track="web_demo"
+                placement="footer"
               >
                 <MoonStar className="size-4" />
                 Open the web app
-              </a>
+              </TrackedLink>
             </div>
             <div className="mt-6 flex items-center gap-2">
-              <a
+              <TrackedLink
                 href={APP_AUTHOR_URL}
-                target="_blank"
-                rel="noopener noreferrer"
                 aria-label={`${APP_AUTHOR}'s website`}
                 className="inline-flex size-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/65 backdrop-blur-sm transition-colors hover:bg-white/10 hover:text-white"
-                onClick={() => trackOutboundClick(APP_AUTHOR_URL, APP_AUTHOR, "footer")}
+                track="outbound"
+                linkText={APP_AUTHOR}
+                placement="footer"
               >
                 <Globe className="size-[18px]" />
-              </a>
+              </TrackedLink>
               <Link
                 href={SITE_PATHS.contact}
                 aria-label="Contact us"
@@ -110,15 +108,15 @@ export function Footer() {
                   {group.links.map((link) => (
                     <li key={`${group.heading}-${link.label}`}>
                       {"external" in link && link.external ? (
-                        <a
+                        <TrackedLink
                           href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           className="text-sm text-white/65 transition-colors hover:text-white"
-                          onClick={() => trackOutboundClick(link.href, link.label, "footer")}
+                          track="outbound"
+                          linkText={link.label}
+                          placement="footer"
                         >
                           {link.label}
-                        </a>
+                        </TrackedLink>
                       ) : (
                         <Link
                           href={link.href}
@@ -131,13 +129,7 @@ export function Footer() {
                   ))}
                   {group.heading === "Company" && showCookiePreferences ? (
                     <li>
-                      <button
-                        type="button"
-                        className="block w-full cursor-pointer border-0 bg-transparent p-0 text-left text-sm whitespace-nowrap text-white/65 transition-colors hover:text-white"
-                        onClick={() => openCookiePreferences()}
-                      >
-                        Cookie preferences
-                      </button>
+                      <CookiePreferencesButton className="block w-full cursor-pointer border-0 bg-transparent p-0 text-left text-sm whitespace-nowrap text-white/65 transition-colors hover:text-white" />
                     </li>
                   ) : null}
                 </ul>

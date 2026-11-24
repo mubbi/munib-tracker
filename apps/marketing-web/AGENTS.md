@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # Marketing site (`apps/marketing-web`)
 
-Next.js 16.4 landing site (port **3000**; `cacheComponents` + `partialPrefetching` on). Full setup notes: [`README.md`](./README.md). Animations: framer-motion via `src/components/ui/motion.tsx` — use `delayChildren: stagger()`, not the deprecated `staggerChildren`.
+Next.js 16.4 landing site (port **3000**; `cacheComponents` + `partialPrefetching` on). Full setup notes: [`README.md`](./README.md). Animations: framer-motion via `src/components/ui/motion.tsx` — use `delayChildren: stagger()`, not the deprecated `staggerChildren`. Sections, the hero and the footer are **server components**: keep client code to small islands (`ui/motion.tsx`, `hero-motion.tsx`, `TrackedLink` / `TrackedButton` for click analytics) so page copy never ships in the client bundle. Images: `preload` (not the deprecated `priority`) only on the above-the-fold LCP image.
 
 ## Content architecture (pages are data)
 
@@ -30,7 +30,7 @@ Long-form pages are typed data in `src/content/` rendered by shared templates in
 - Comparison rules: official sources only, `unverified` instead of guesses, list `sources`, update `VERIFIED_ON` when re-checked.
 - **Feature inventory:** `content/munib-features.ts` lists every shipped feature (verified against [`docs/FEATURES.md`](../../docs/FEATURES.md) and the app code); NF ids use `nf()` (shipped) or `soon()` (`status: "planned"`, for an item from [`docs/BACKLOG.md`](../../docs/BACKLOG.md) that is being built). It renders as "Everything in Munib Tracker" on each comparison and "On the roadmap" on `/features` (hidden while nothing is planned). Comparison cells for NF features come from `MUNIB_NF` in `compare/shared.ts`, which follows the inventory status — a planned item renders "Coming soon" and must never be shown as available; only Munib cells may use `planned` (tested). **When a feature ships:** flip it to `nf()` in the inventory and add it to the relevant feature page.
 - Screenshots: only real captures (`public/screenshots/*.webp`, registry `lib/screenshots.ts`). Illustrations must be labelled as such (see `PracticePreview`).
-- Counts in copy (adhkar, duas, translations…) must match the app data; shared counts live in `@munib-tracker/shared/constants` (`features.ts`).
+- Counts in copy (adhkar, duas, translations…) must match the app data; shared counts live in `@munib-tracker/shared/constants` (`features.ts`; the dua count is `DUA_COUNT` in `content-counts.ts`, pinned to the data by a test).
 
 ## SEO
 

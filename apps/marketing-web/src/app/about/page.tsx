@@ -1,4 +1,4 @@
-import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME } from "@munib-tracker/shared/constants";
+import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, DUA_COUNT } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Blocks } from "@/components/content/blocks";
@@ -108,16 +108,17 @@ export default function AboutPage() {
           <Link href={SITE_PATHS.features} className="font-medium text-brand hover:underline">
             Features
           </Link>{" "}
-          page: Salah tracking with Rawatib, Qaza planning, a Salah focus lock, a Masjid finder, 279
-          duas and 60 adhkar with a custom adhkar builder, offline Qur&apos;an (surah, juz, 604-page
-          mushaf, word-by-word, tajweed, notes and root-word search) with on-device recitation
-          practice, a hadith library, Qibla, Hijri events, statistics and gentle Noor encouragement,
-          family and kids mode, group khatm, an inheritance calculator and will builder, widgets and
-          watch companions, optional sync, local backup, and app lock. Beyond tracking, {APP_NAME}{" "}
-          is a place to learn: 350+ cited topics on aqeedah, the prophets, the seerah, the sahaba,
-          the Hereafter and dua; a guided path to read and understand the Qur&apos;an; and practical
-          worship guides for Salah, taharah, zakat, Friday, Janazah, and Hajj & Umrah, every lesson
-          referenced to the Qur&apos;an and authentic hadith. The interface ships in 24 languages.
+          page: Salah tracking with Rawatib, Qaza planning, a Salah focus lock, a Masjid finder,{" "}
+          {DUA_COUNT} duas and 60 adhkar with a custom adhkar builder, offline Qur&apos;an (surah,
+          juz, 604-page mushaf, word-by-word, tajweed, notes and root-word search) with on-device
+          recitation practice, a hadith library, Qibla, Hijri events, statistics and gentle Noor
+          encouragement, family and kids mode, group khatm, an inheritance calculator and will
+          builder, widgets and watch companions, optional sync, local backup, and app lock. Beyond
+          tracking, {APP_NAME} is a place to learn: 350+ cited topics on aqeedah, the prophets, the
+          seerah, the sahaba, the Hereafter and dua; a guided path to read and understand the
+          Qur&apos;an; and practical worship guides for Salah, taharah, zakat, Friday, Janazah, and
+          Hajj & Umrah, every lesson referenced to the Qur&apos;an and authentic hadith. The
+          interface ships in 24 languages.
         </p>
       </ContentSection>
 

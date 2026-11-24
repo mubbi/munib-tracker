@@ -1,3 +1,4 @@
+import { DUA_COUNT } from "@munib-tracker/shared/constants";
 import { MUNIB_FEATURE_INVENTORY } from "@/content/munib-features";
 import type { CompareApp, CompareCell } from "@/content/types";
 
@@ -38,7 +39,7 @@ export const MUNIB_CELLS = {
   qaza: yes("Calculator, daily-pace planner, history, missed fasts"),
   zikr: yes("60 adhkar with source hadith, guided sessions"),
   tasbeeh: yes("33/99/100/unlimited/custom"),
-  duas: yes("279 duas from Hisnul Muslim"),
+  duas: yes(`${DUA_COUNT} duas from Hisnul Muslim`),
   quranReader: yes("Surah, juz, 604-page mushaf"),
   translations: yes("25 editions, side by side"),
   tafsir: yes("On demand"),

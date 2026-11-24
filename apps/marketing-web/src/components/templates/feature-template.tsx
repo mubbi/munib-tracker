@@ -5,17 +5,18 @@ import { DownloadCta } from "@/components/content/download-cta";
 import { FeatureIcon } from "@/components/content/feature-icon";
 import { PageHero } from "@/components/content/page-hero";
 import {
-  FaqList,
+  FaqSection,
   frameWidthClass,
   JsonLdScript,
   LinkCard,
   PageSection,
+  RichParagraphs,
   Screenshot,
 } from "@/components/content/primitives";
 import { RichText } from "@/components/content/rich-text";
 import { StoreBadges } from "@/components/store-badges";
 import { featureHref, getFeature } from "@/content/features";
-import { articleByHref } from "@/content/resources";
+import { articleByHref, articleHref } from "@/content/resources";
 import type { FeaturePage } from "@/content/types";
 import { graph, webPageSchema } from "@/lib/structured-data";
 
@@ -84,13 +85,10 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
 
       <PageSection id="why" tone="band" title={feature.why.title}>
         <div className={firstShot ? "grid items-center gap-12 lg:grid-cols-[1.3fr_0.7fr]" : ""}>
-          <div className="flex max-w-2xl flex-col gap-5 text-[17px] leading-[1.75] text-white/78">
-            {feature.why.paragraphs.map((p) => (
-              <p key={p}>
-                <RichText text={p} />
-              </p>
-            ))}
-          </div>
+          <RichParagraphs
+            items={feature.why.paragraphs}
+            className="flex max-w-2xl flex-col gap-5 text-[17px] leading-[1.75] text-white/78"
+          />
           {firstShot ? (
             <Screenshot slot={firstShot} className="mx-auto w-[220px] sm:w-[240px]" />
           ) : null}
@@ -169,16 +167,11 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
         ) : null}
       </PageSection>
 
-      <PageSection
-        id="faq"
+      <FaqSection
+        items={feature.faqs}
         tone="band"
-        eyebrow="FAQ"
         title={`${feature.navLabel}: common questions`}
-      >
-        <div className="max-w-3xl">
-          <FaqList items={feature.faqs} />
-        </div>
-      </PageSection>
+      />
 
       <PageSection id="related" eyebrow="Keep exploring" title="Related features and guides">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -195,7 +188,7 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
           {guides.map((a) => (
             <LinkCard
               key={a.slug}
-              href={`/resources/${a.category}/${a.slug}`}
+              href={articleHref(a)}
               title={a.title}
               description={a.description}
               meta="Guide"

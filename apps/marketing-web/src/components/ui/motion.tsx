@@ -3,15 +3,14 @@
 import { motion, stagger, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+/** Shared ease-out curve for every marketing animation. */
+export const EASE = [0.22, 1, 0.36, 1] as const;
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
   y?: number;
-  /** @deprecated Kept for call-site compat; blur was removed for scroll perf. */
-  blur?: boolean;
 };
 
 /** Fade + rise as the element scrolls into view. */
@@ -36,7 +35,7 @@ const container: Variants = {
   }),
 };
 
-export const staggerItem: Variants = {
+const staggerItem: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 };

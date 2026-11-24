@@ -14,7 +14,7 @@ export function JsonLd() {
 }
 
 /** Feature list for the SoftwareApplication node on the home page. */
-export const HOME_FEATURE_LIST = [
+const HOME_FEATURE_LIST = [
   "Salah tracker with streaks, calendar and statistics",
   "Qaza (missed Salah) calculator, daily-pace planner and missed-fast tracking",
   "Zikr tracker with guided adhkar sessions, source hadith and a tasbeeh counter",

@@ -6,24 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { StoreBadges } from "@/components/store-badges";
+import { MobileNav } from "@/components/mobile-nav";
 import { trackCtaClick, trackNavClick } from "@/lib/analytics";
+import { isActivePath, menuIsActive } from "@/lib/nav";
 import { NAV_LINKS, NAV_MENUS, type NavMenu, SITE_PATHS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const CTA_CLASS =
   "inline-flex items-center justify-center rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(4,34,24,0.8),inset_0_1px_0_rgba(255,255,255,0.25)] transition-all duration-200 [text-shadow:0_1px_3px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98]";
-
-function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
-}
-
-function menuIsActive(pathname: string, menu: NavMenu) {
-  return (
-    isActive(pathname, menu.href) ||
-    menu.columns.some((c) => c.items.some((i) => isActive(pathname, i.href)))
-  );
-}
 
 /** Desktop mega-menu panel. */
 function MegaPanel({
@@ -233,7 +223,7 @@ export function SiteHeader() {
               width={112}
               height={112}
               className="size-10 rounded-[22%] shadow-[0_6px_18px_-6px_rgba(0,0,0,0.7)] md:size-11"
-              priority
+              loading="eager"
             />
             <span className="font-display text-[17px] font-semibold [text-shadow:0_1px_8px_rgba(0,0,0,0.35)] md:text-lg">
               {APP_NAME}
@@ -296,7 +286,7 @@ export function SiteHeader() {
                 );
               })}
               {NAV_LINKS.map((link) => {
-                const active = isActive(pathname, link.href);
+                const active = isActivePath(pathname, link.href);
                 return (
                   <li key={link.href} onPointerEnter={() => setOpenMenu(null)}>
                     <Link
@@ -344,94 +334,13 @@ export function SiteHeader() {
       </div>
 
       {mobileOpen ? (
-        <nav
+        <MobileNav
           id={`${baseId}-mobile`}
-          aria-label="Mobile"
-          className="fixed inset-x-0 bottom-0 top-[4.5rem] overflow-y-auto overscroll-contain border-t border-white/[0.08] bg-[#07141f] px-4 pb-10 pt-3 md:top-20 lg:hidden"
-        >
-          <ul className="flex flex-col">
-            {NAV_MENUS.map((menu) => {
-              const expanded = mobileSection === menu.id;
-              const sectionId = `${baseId}-m-${menu.id}`;
-              return (
-                <li key={menu.id} className="border-b border-white/[0.07]">
-                  <button
-                    type="button"
-                    aria-expanded={expanded}
-                    aria-controls={sectionId}
-                    className="flex w-full items-center justify-between px-2 py-4 text-left text-[17px] font-semibold text-white"
-                    onClick={() => setMobileSection(expanded ? null : menu.id)}
-                  >
-                    {menu.label}
-                    <ChevronDown
-                      aria-hidden
-                      className={cn(
-                        "size-5 text-white/60 transition-transform",
-                        expanded && "rotate-180",
-                      )}
-                    />
-                  </button>
-                  {expanded ? (
-                    <div id={sectionId} className="pb-4">
-                      {menu.columns.map((col) => (
-                        <div key={col.heading} className="mt-2">
-                          <p className="px-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-gold">
-                            {col.heading}
-                          </p>
-                          <ul className="mt-1">
-                            {col.items.map((item) => (
-                              <li key={item.href}>
-                                <Link
-                                  href={item.href}
-                                  aria-current={pathname === item.href ? "page" : undefined}
-                                  className="block rounded-xl px-2 py-2.5 text-[15px] text-white/85 active:bg-white/10"
-                                  onClick={() => onNavigate(item.label)}
-                                >
-                                  {item.label}
-                                  {item.hint ? (
-                                    <span className="block text-[13px] text-white/50">
-                                      {item.hint}
-                                    </span>
-                                  ) : null}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                      <Link
-                        href={menu.href}
-                        className="mt-2 inline-flex items-center gap-1 px-2 py-2 text-sm font-semibold text-brand"
-                        onClick={() => onNavigate(`all_${menu.id}`)}
-                      >
-                        {menu.viewAllLabel}
-                        <ArrowRight aria-hidden className="size-4" />
-                      </Link>
-                    </div>
-                  ) : null}
-                </li>
-              );
-            })}
-            {NAV_LINKS.map((link) => (
-              <li key={link.href} className="border-b border-white/[0.07]">
-                <Link
-                  href={link.href}
-                  className="block px-2 py-4 text-[17px] font-semibold text-white"
-                  onClick={() => onNavigate(link.label)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <p className="font-display text-lg font-semibold text-white">Get Munib Tracker</p>
-            <p className="mt-1 text-sm text-white/60">
-              Free, no ads, no account needed for personal use.
-            </p>
-            <StoreBadges className="mt-4" layout="column" placement="header" />
-          </div>
-        </nav>
+          pathname={pathname}
+          expanded={mobileSection}
+          onExpand={setMobileSection}
+          onNavigate={onNavigate}
+        />
       ) : null}
     </header>
   );

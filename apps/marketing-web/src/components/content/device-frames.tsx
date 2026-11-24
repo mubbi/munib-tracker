@@ -13,7 +13,8 @@ type FrameProps = {
   width: number;
   height: number;
   className?: string;
-  priority?: boolean;
+  /** Preload in `<head>`: only for an above-the-fold (LCP) image. */
+  preload?: boolean;
   sizes?: string;
 };
 
@@ -53,7 +54,7 @@ export function AppleWatchFrame({
   width,
   height,
   className,
-  priority,
+  preload,
   sizes,
 }: FrameProps) {
   return (
@@ -87,7 +88,7 @@ export function AppleWatchFrame({
                 alt={alt}
                 width={width}
                 height={height}
-                priority={priority}
+                preload={preload}
                 sizes={sizes ?? "220px"}
                 className="block h-auto w-full"
               />
@@ -111,7 +112,7 @@ export function RoundWatchFrame({
   width,
   height,
   className,
-  priority,
+  preload,
   sizes,
 }: FrameProps) {
   return (
@@ -140,7 +141,7 @@ export function RoundWatchFrame({
                 alt={alt}
                 width={width}
                 height={height}
-                priority={priority}
+                preload={preload}
                 sizes={sizes ?? "220px"}
                 className="block h-full w-full object-cover"
               />
@@ -158,7 +159,7 @@ export function RoundWatchFrame({
 }
 
 /** Flat-screen TV with a thin bezel and a centred pedestal stand. */
-export function TvFrame({ src, alt, width, height, className, priority, sizes }: FrameProps) {
+export function TvFrame({ src, alt, width, height, className, preload, sizes }: FrameProps) {
   return (
     <div className={cn("@container relative", className)}>
       {/* Panel */}
@@ -170,7 +171,7 @@ export function TvFrame({ src, alt, width, height, className, priority, sizes }:
               alt={alt}
               width={width}
               height={height}
-              priority={priority}
+              preload={preload}
               sizes={sizes ?? "(min-width: 1024px) 640px, 92vw"}
               className="block h-auto w-full"
             />

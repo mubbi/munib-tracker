@@ -98,7 +98,7 @@ Use 2–4 contextual internal links in the body, plus 3–5 hrefs in `related`.
 - **Zikr:** 60 adhkar in seven categories (morning, evening, after Salah, before sleep …) with source
   hadith shown per zikr; guided adhkar sessions (one screen, tap to count, auto-advance) for morning,
   evening, before sleep, and after each Salah; favorites; custom adhkar builder; free tasbeeh counter
-  with targets; 279 duas (Hisnul Muslim) in 16 categories; 9 duroods; the 99 Names with audio.
+  with targets; 293 duas (Hisnul Muslim) in 16 categories; 9 duroods; the 99 Names with audio.
 - **Qur'an:** full Qur'an offline (surah, juz, 604-page mushaf), word-by-word, tajweed colouring,
   25 translation editions (two bundled), tafsir on demand, several reciters, bookmarks, khatm reading
   plan with daily target, hifz (memorization) tracker.

@@ -1,27 +1,11 @@
-"use client";
-
-import { motion, stagger, type Variants } from "framer-motion";
 import { ArrowRight, Ban, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
 import { PrayerArc } from "@/components/day-arc/prayer-arc";
+import { HeroDevice, HeroItem, HeroStagger } from "@/components/hero-motion";
 import { StoreBadges } from "@/components/store-badges";
 import { TrackedLink } from "@/components/tracked-link";
 import { SITE_PATHS } from "@/lib/site";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-const container: Variants = {
-  hidden: {},
-  show: { transition: { delayChildren: stagger(0.09, { startDelay: 0.05 }) } },
-};
-
-const item: Variants = {
-  // Opacity + translate only — filter blur forces expensive paint on load
-  // and can leave the GPU layer thrashing under the sticky header.
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
-};
 
 const TRUST = [
   { icon: Ban, top: "No ads", bottom: "Ever", color: "#8fd9ae" },
@@ -30,7 +14,8 @@ const TRUST = [
 ];
 
 /** Day Arc hero — fully coded: gradient sky, stars, crescent, mosque skyline,
- *  the color-coded prayer arc, and a steel phone frame with the real screenshot. */
+ *  the color-coded prayer arc, and a steel phone frame with the real screenshot.
+ *  Server-rendered; only the entrance animation (`hero-motion.tsx`) is client code. */
 export function Hero() {
   return (
     <section
@@ -60,13 +45,8 @@ export function Hero() {
       <PrayerArc />
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-6 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pr-24 xl:pr-40">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="text-center lg:text-left"
-        >
-          <motion.div variants={item} className="flex justify-center lg:justify-start">
+        <HeroStagger className="text-center lg:text-left">
+          <HeroItem className="flex justify-center lg:justify-start">
             <TrackedLink
               href="/features/quran-practice"
               className="group inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] py-1.5 pr-4 pl-1.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:border-white/35"
@@ -85,7 +65,7 @@ export function Hero() {
                 aria-hidden
               />
             </TrackedLink>
-          </motion.div>
+          </HeroItem>
 
           {/* Not animated: the H1 is the LCP element and must paint immediately. */}
           <h1
@@ -101,18 +81,15 @@ export function Hero() {
             </span>
           </h1>
 
-          <motion.p
-            variants={item}
+          <HeroItem
+            as="p"
             className="hero-text-shadow-soft mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/85 lg:mx-0"
           >
             Log your Salah, make up missed prayers, keep your daily Zikr, and read and practise the
             Qur&apos;an. Free, private and without ads.
-          </motion.p>
+          </HeroItem>
 
-          <motion.div
-            variants={item}
-            className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:items-start lg:justify-start"
-          >
+          <HeroItem className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:items-start lg:justify-start">
             <TrackedLink
               href={SITE_PATHS.download}
               className="group hidden h-[3.75rem] items-center justify-center gap-3 rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] px-10 text-[17px] font-semibold text-white shadow-[0_22px_44px_-14px_rgba(4,34,24,0.7),0_6px_16px_-6px_rgba(4,34,24,0.5),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all duration-200 [text-shadow:0_1px_4px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98] sm:inline-flex"
@@ -136,14 +113,14 @@ export function Hero() {
               <Sparkle className="size-5 fill-white text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]" />
               Explore features
             </TrackedLink>
-          </motion.div>
+          </HeroItem>
 
-          <motion.div variants={item} className="mt-6 flex justify-center lg:justify-start">
+          <HeroItem className="mt-6 flex justify-center lg:justify-start">
             <StoreBadges placement="hero" className="justify-center lg:justify-start" />
-          </motion.div>
+          </HeroItem>
 
-          <motion.ul
-            variants={item}
+          <HeroItem
+            as="ul"
             className="mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 lg:justify-start"
           >
             {TRUST.map(({ icon: Icon, top, bottom, color }, i) => (
@@ -162,16 +139,11 @@ export function Hero() {
                 </span>
               </li>
             ))}
-          </motion.ul>
-        </motion.div>
+          </HeroItem>
+        </HeroStagger>
 
         {/* Real screenshot in a straight steel frame */}
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
-          className="relative flex justify-center lg:justify-end lg:pr-4"
-        >
+        <HeroDevice className="relative flex justify-center lg:justify-end lg:pr-4">
           <div
             aria-hidden
             className="absolute left-1/2 top-1/2 -z-10 size-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,185,104,0.35)_0%,transparent_68%)]"
@@ -181,9 +153,10 @@ export function Hero() {
               src="/app-home-dark.png"
               alt="Munib Tracker home screen: today's prayer times, the Hijri date, and a daily activity checklist."
               className="w-[250px] sm:w-[272px] lg:w-[292px]"
+              preload
             />
           </div>
-        </motion.div>
+        </HeroDevice>
       </div>
 
       {/* ── Horizon: mountain ridges, mosque, lit windows, still water ─────── */}

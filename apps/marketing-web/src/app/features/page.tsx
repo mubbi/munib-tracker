@@ -1,4 +1,4 @@
-import { APP_NAME } from "@munib-tracker/shared/constants";
+import { APP_NAME, DUA_COUNT } from "@munib-tracker/shared/constants";
 import { Check, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import { DownloadCta } from "@/components/content/download-cta";
@@ -94,7 +94,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
       {
         title: "Duas, adhkar, duroods & 99 Names",
         items: [
-          "279 duas across 16 categories, sourced from Hisnul Muslim",
+          `${DUA_COUNT} duas across 16 categories, sourced from Hisnul Muslim`,
           "60 adhkar in seven categories (morning, evening, after-Salah, before sleep, and more)",
           "Custom adhkar builder — add your own with Arabic, transliteration, translation, and speech-to-text",
           "Nine salawat/duroods and the 99 Names of Allah with meanings and audio",

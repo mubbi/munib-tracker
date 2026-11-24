@@ -1,4 +1,4 @@
-import { APP_NAME } from "@munib-tracker/shared/constants";
+import { APP_NAME, DUA_COUNT } from "@munib-tracker/shared/constants";
 
 export type { FaqItem } from "@/content/types";
 
@@ -21,8 +21,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "Does it work offline?",
-    answer:
-      "Yes. Prayer tracking, Qaza, 60 adhkar, tasbeeh, 279 duas, bundled Qur'an and hadith highlights, the full learning library (350+ topics), and worship guides all work without an internet connection. Full hadith collections, extra Qur'an translations (25 editions), tafsir (123 editions), recitation, and audio download on demand and can be cached from Settings → Offline data.",
+    answer: `Yes. Prayer tracking, Qaza, 60 adhkar, tasbeeh, ${DUA_COUNT} duas, bundled Qur'an and hadith highlights, the full learning library (350+ topics), and worship guides all work without an internet connection. Full hadith collections, extra Qur'an translations (25 editions), tafsir (123 editions), recitation, and audio download on demand and can be cached from Settings → Offline data.`,
   },
   {
     question: "Does Qur'an practice record my voice?",

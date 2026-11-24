@@ -17,12 +17,6 @@ export function appQuranAyahUrl(surah: number, ayah: number): string {
   return `${PRODUCT_APP_URL}/quran/${surah}?ayah=${ayah}`;
 }
 
-/** Google Analytics 4 measurement ID (e.g. G-XXXXXXXX). Empty env disables GA. */
-export const GA_MEASUREMENT_ID =
-  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID === ""
-    ? null
-    : process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || null;
-
 export const SITE_PATHS = {
   home: "/",
   features: "/features",
@@ -46,8 +40,6 @@ export const SITE_PATHS = {
 
 /** Public GitHub repository for contribute CTAs. */
 export const GITHUB_REPO_URL = "https://github.com/mubbi/munib-tracker" as const;
-
-export type SitePath = (typeof SITE_PATHS)[keyof typeof SITE_PATHS];
 
 export type NavItem = { href: string; label: string; hint?: string };
 export type NavColumn = { heading: string; items: readonly NavItem[] };
