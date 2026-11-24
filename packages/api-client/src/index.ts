@@ -36,6 +36,7 @@ export {
   apiFetch,
   getApiBaseUrl,
   getRegisteredTokenRefresher,
+  isApiOriginUrl,
   resolveApiUrl,
   setTokenRefresher,
 } from "./mutator";

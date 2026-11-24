@@ -1,4 +1,4 @@
-import { resolveApiUrl } from "./api-base-url";
+import { getApiBaseUrl, resolveApiUrl } from "./api-base-url";
 import { getAppVersionHeaders, notifyVersionMetaFromResponse } from "./app-version-store";
 import {
   ApiBlockedError,
@@ -82,6 +82,21 @@ function isAuthRefreshUrl(url: string): boolean {
   }
 }
 
+/**
+ * True when a request may carry the session (Bearer token / cookies): relative
+ * paths always resolve against the API base, while an absolute URL must share
+ * the configured API base origin. Prevents leaking the access token or cookie
+ * credentials to any other host a caller passes as a full URL.
+ */
+export function isApiOriginUrl(pathOrUrl: string): boolean {
+  if (!/^https?:\/\//i.test(pathOrUrl)) return true;
+  try {
+    return new URL(pathOrUrl).origin === new URL(getApiBaseUrl()).origin;
+  } catch {
+    return false;
+  }
+}
+
 function isFormDataBody(body: unknown): boolean {
   if (body == null || typeof body !== "object") return false;
   // Prefer instanceof, but RN / multi-realm runtimes can fail it — fall back to
@@ -118,6 +133,7 @@ export async function apiFetch<T>(
 
   const { accessToken, skipAuthRefresh = false, headers, ...requestInit } = options;
   let targetUrl = resolveApiUrl(config.url);
+  const sendsSession = isApiOriginUrl(config.url);
 
   // orval-generated calls pass query params separately; append them to the URL.
   if (config.params) {
@@ -156,7 +172,7 @@ export async function apiFetch<T>(
       delete requestHeaders["content-type"];
     }
     // Web cookie sessions store the marker — never send it as Bearer.
-    if (token && !isWebCookieSessionToken(token)) {
+    if (sendsSession && token && !isWebCookieSessionToken(token)) {
       requestHeaders.Authorization = `Bearer ${token}`;
     }
     return fetch(targetUrl, {
@@ -164,7 +180,8 @@ export async function apiFetch<T>(
       method: config.method,
       body: requestBody,
       signal: config.signal,
-      credentials: "include",
+      // Cookies only travel to the API origin; other hosts get the fetch default.
+      credentials: sendsSession ? "include" : "same-origin",
       headers: requestHeaders,
     });
   };
@@ -179,6 +196,7 @@ export async function apiFetch<T>(
     // refresher and leaves sessionStorage/UI looking signed in after a real 401.
     if (
       response.status === 401 &&
+      sendsSession &&
       !skipAuthRefresh &&
       !isAuthRefreshUrl(targetUrl) &&
       tokenRefresher &&
