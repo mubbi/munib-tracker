@@ -59,7 +59,14 @@ export function assertOAuthReturnUrlAllowed(
   }
 
   const allowed = getAllowedRedirectUris(config).filter((u) => u.startsWith("https://"));
-  if (allowed.length === 0) return;
+  if (allowed.length === 0) {
+    // Production must pin the return origin: without an https allowlist entry
+    // any https URL would pass, turning the Apple callback into an open redirect.
+    if (isProduction(config)) {
+      throw new BadRequestException("Invalid return URL");
+    }
+    return;
+  }
 
   const ok = allowed.some((entry) => {
     try {

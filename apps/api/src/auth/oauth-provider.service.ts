@@ -183,7 +183,7 @@ export class OAuthProviderService {
     );
     return {
       providerAccountId: profile.sub,
-      email: profile.email,
+      email: verifiedEmail(profile.email, profile.email_verified),
       displayName: profile.name,
     };
   }
@@ -273,7 +273,8 @@ export class OAuthProviderService {
     if (!tokenAudiences.some((aud) => audiences.includes(aud))) {
       throw new UnauthorizedException("Google id_token audience mismatch");
     }
-    if (typeof claims.exp === "number" && claims.exp * 1000 < Date.now()) {
+    // Google always sets `exp`; a token without one must not be valid forever.
+    if (typeof claims.exp !== "number" || claims.exp * 1000 < Date.now()) {
       throw new UnauthorizedException("Google id_token has expired");
     }
     if (!claims.sub) {
@@ -282,7 +283,8 @@ export class OAuthProviderService {
 
     return {
       providerAccountId: claims.sub,
-      email: claims.email,
+      // Unverified addresses are attacker-chosen; never store them as the email.
+      email: verifiedEmail(claims.email, claims.email_verified),
       displayName: claims.name,
     };
   }
@@ -410,6 +412,11 @@ export class OAuthProviderService {
       throw new UnauthorizedException("Malformed Apple identity token");
     }
 
+    // Pin the algorithm like the Google path: Apple signs id_tokens with RS256.
+    if (header.alg !== "RS256") {
+      throw new UnauthorizedException("Unsupported Apple identity token algorithm");
+    }
+
     const jwk = (await this.fetchAppleJwks()).find(
       (key) => (key as { kid?: string }).kid === header.kid,
     );
@@ -435,7 +442,8 @@ export class OAuthProviderService {
     if (!tokenAudiences.some((aud) => audiences.includes(aud))) {
       throw new UnauthorizedException("Apple id_token audience mismatch");
     }
-    if (typeof claims.exp === "number" && claims.exp * 1000 < Date.now()) {
+    // Apple always sets `exp`; a token without one must not be valid forever.
+    if (typeof claims.exp !== "number" || claims.exp * 1000 < Date.now()) {
       throw new UnauthorizedException("Apple id_token has expired");
     }
     if (!claims.sub) {
@@ -488,6 +496,15 @@ function asMessage(error: unknown): string | undefined {
   return undefined;
 }
 
+/**
+ * Google marks addresses it has not verified (`email_verified: false`); only keep
+ * an email the provider vouches for, so a stored address is never attacker-chosen.
+ */
+function verifiedEmail(email: string | undefined, emailVerified: unknown): string | undefined {
+  if (typeof email !== "string" || !email.trim()) return undefined;
+  return emailVerified === true || emailVerified === "true" ? email : undefined;
+}
+
 function base64UrlEncode(input: string): string {
   return Buffer.from(input, "utf8").toString("base64url");
 }
@@ -502,11 +519,13 @@ interface GoogleIdTokenClaims {
   sub: string;
   exp?: number;
   email?: string;
+  email_verified?: boolean | string;
   name?: string;
 }
 interface GoogleUserInfo {
   sub: string;
   email?: string;
+  email_verified?: boolean | string;
   name?: string;
 }
 interface FacebookTokenResponse {

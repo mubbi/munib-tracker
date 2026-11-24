@@ -36,6 +36,8 @@ function setup() {
   const oauth = {
     resolveAccessToken: vi.fn().mockReturnValue(TEST_ACCESS_TOKEN),
     resolveRefreshToken: vi.fn().mockReturnValue(SESSION.refreshToken),
+    usesRefreshCookie: vi.fn().mockReturnValue(false),
+    revokeCookieRefreshSession: vi.fn().mockResolvedValue(undefined),
     issueSessionResponse: vi.fn().mockResolvedValue(WEB_RESPONSE),
     completeGoogleNative: vi.fn().mockResolvedValue(SESSION),
     completeGoogleOauth: vi.fn().mockResolvedValue(SESSION),
@@ -174,14 +176,21 @@ describe("AuthController", () => {
     );
     expect(oauth.resolveRefreshToken).toHaveBeenCalledWith(req, "body");
     expect(authService.refreshSession).toHaveBeenCalledWith(SESSION.refreshToken, CLIENT_IP);
-    expect(oauth.issueSessionResponse).toHaveBeenCalledWith(req, res, SESSION, USER);
+    expect(oauth.issueSessionResponse).toHaveBeenCalledWith(req, res, SESSION, USER, false);
+  });
+
+  it("forces the cookie response when the refresh token came from the cookie", async () => {
+    const { controller, oauth, req, res } = setup();
+    oauth.usesRefreshCookie.mockReturnValueOnce(true);
+    await controller.refresh({}, req, res);
+    expect(oauth.issueSessionResponse).toHaveBeenCalledWith(req, res, SESSION, USER, true);
   });
 
   it("links a guest account and issues a client-appropriate response", async () => {
     const { controller, authService, oauth, req, res } = setup();
     const dto = { provider: AuthProvider.Google, code: "c" };
     await expect(controller.linkAccount(TEST_BEARER, dto, req, res)).resolves.toBe(WEB_RESPONSE);
-    expect(authService.linkGuestAccount).toHaveBeenCalledWith(TEST_ACCESS_TOKEN, dto);
+    expect(authService.linkGuestAccount).toHaveBeenCalledWith(TEST_ACCESS_TOKEN, dto, CLIENT_IP);
     expect(oauth.issueSessionResponse).toHaveBeenCalledWith(req, res, SESSION, USER);
   });
 
@@ -195,6 +204,15 @@ describe("AuthController", () => {
     const { controller, authService, oauth, req, res } = setup();
     await controller.logout(TEST_BEARER, req, res);
     expect(authService.revokeSession).toHaveBeenCalledWith(TEST_ACCESS_TOKEN);
+    expect(oauth.revokeCookieRefreshSession).toHaveBeenCalledWith(req);
+    expect(oauth.clearAuthCookies).toHaveBeenCalledWith(res);
+  });
+
+  it("still revokes the refresh cookie and clears cookies when the access token is dead", async () => {
+    const { controller, authService, oauth, req, res } = setup();
+    authService.revokeSession.mockRejectedValueOnce(new Error("Invalid or expired session"));
+    await expect(controller.logout(TEST_BEARER, req, res)).rejects.toThrow("Invalid");
+    expect(oauth.revokeCookieRefreshSession).toHaveBeenCalledWith(req);
     expect(oauth.clearAuthCookies).toHaveBeenCalledWith(res);
   });
 

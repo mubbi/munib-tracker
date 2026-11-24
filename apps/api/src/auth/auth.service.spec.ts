@@ -21,9 +21,10 @@ import {
   UserMediaEntity,
 } from "../database/entities";
 import { buildTombstoneEmail, isTombstoneValue } from "./account-tombstone";
-import { AuthService } from "./auth.service";
+import { AuthService, hashRefreshToken } from "./auth.service";
 import {
   isAuthDeleteAccountRateLimited,
+  isAuthGuestCreateRateLimited,
   isAuthGuestRateLimited,
   isAuthOAuthRateLimited,
   isAuthRefreshRateLimited,
@@ -50,6 +51,7 @@ vi.mock("./auth-rate-limit", async (importOriginal) => {
   return {
     ...actual,
     isAuthGuestRateLimited: vi.fn(actual.isAuthGuestRateLimited),
+    isAuthGuestCreateRateLimited: vi.fn(actual.isAuthGuestCreateRateLimited),
     isAuthTvPairCreateRateLimited: vi.fn(actual.isAuthTvPairCreateRateLimited),
     isAuthTvPairPollRateLimited: vi.fn(actual.isAuthTvPairPollRateLimited),
     isAuthTvPairClaimRateLimited: vi.fn(actual.isAuthTvPairClaimRateLimited),
@@ -102,6 +104,11 @@ describe("AuthService", () => {
   describe("rate limits", () => {
     it.each([
       ["guest creation", isAuthGuestRateLimited, (s: AuthService) => s.createGuestSession({})],
+      [
+        "new guest accounts per IP",
+        isAuthGuestCreateRateLimited,
+        (s: AuthService) => s.createGuestSession({ deviceId: `device-${randomUUID()}` }),
+      ],
       ["TV pairing create", isAuthTvPairCreateRateLimited, (s: AuthService) => s.createTvPairing()],
       ["TV pairing poll", isAuthTvPairPollRateLimited, (s: AuthService) => s.pollTvPairing("C")],
       [
@@ -113,6 +120,11 @@ describe("AuthService", () => {
         "OAuth completion",
         isAuthOAuthRateLimited,
         (s: AuthService) => s.completeOAuth(AuthProvider.Google, { code: "c" }),
+      ],
+      [
+        "account linking",
+        isAuthOAuthRateLimited,
+        (s: AuthService) => s.linkGuestAccount("t", { provider: AuthProvider.Google, code: "c" }),
       ],
       ["refresh", isAuthRefreshRateLimited, (s: AuthService) => s.refreshSession("r")],
       [
@@ -410,6 +422,73 @@ describe("AuthService", () => {
         });
       },
     );
+  });
+
+  describe("guest account creation limit", () => {
+    it("caps new accounts per IP even when every request rotates its deviceId", async () => {
+      const { service } = await setup();
+      await service.createGuestSession({ deviceId: `device-${randomUUID()}` }, "198.51.100.1");
+      expect(isAuthGuestCreateRateLimited).toHaveBeenCalledWith("ip:198.51.100.1");
+    });
+
+    it("does not count resuming an existing guest against the IP cap", async () => {
+      const { service } = await setup();
+      const deviceId = `device-${randomUUID()}`;
+      await service.createGuestSession({ deviceId }, "198.51.100.2");
+      vi.mocked(isAuthGuestCreateRateLimited).mockClear();
+      await service.createGuestSession({ deviceId }, "198.51.100.2");
+      expect(isAuthGuestCreateRateLimited).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("refresh tokens at rest", () => {
+    it("stores only a SHA-256 hash of the refresh token", async () => {
+      const { repo, guest } = await setup();
+      const session = await guest();
+      const [row] = await repo(AuthSessionEntity).find();
+      expect(row?.refreshToken).toBe(hashRefreshToken(session.refreshToken));
+      expect(row?.refreshToken).not.toBe(session.refreshToken);
+      // 256-bit base64url secret.
+      expect(session.refreshToken).toMatch(/^[A-Za-z0-9_-]{43}$/);
+    });
+
+    it("refuses a leaked stored hash presented as the token", async () => {
+      const { service, repo, guest } = await setup();
+      await guest();
+      const [row] = await repo(AuthSessionEntity).find();
+      await expect(service.refreshSession(row?.refreshToken ?? "")).rejects.toThrow(
+        "Invalid or expired refresh token",
+      );
+    });
+
+    it("still rotates a legacy plaintext (UUID) refresh token once, into a hash", async () => {
+      const { service, repo, guest } = await setup();
+      const session = await guest();
+      const sessions = repo(AuthSessionEntity);
+      const legacy = randomUUID();
+      await sessions.update({ userId: session.userId }, { refreshToken: legacy });
+
+      const refreshed = await service.refreshSession(legacy);
+      expect(refreshed.userId).toBe(session.userId);
+      const [row] = await sessions.find();
+      expect(row?.refreshToken).toBe(hashRefreshToken(refreshed.refreshToken));
+      await expect(service.refreshSession(legacy)).rejects.toThrow(
+        "Invalid or expired refresh token",
+      );
+    });
+
+    it("revokes a session by its refresh token (cookie logout)", async () => {
+      const { service, repo, guest } = await setup();
+      const session = await guest();
+      await service.revokeSessionByRefreshToken("  ");
+      await service.revokeSessionByRefreshToken("unknown-token");
+      await expect(repo(AuthSessionEntity).count()).resolves.toBe(1);
+      await service.revokeSessionByRefreshToken(session.refreshToken);
+      await expect(repo(AuthSessionEntity).count()).resolves.toBe(0);
+      await expect(service.getCurrentUser(session.accessToken)).rejects.toThrow(
+        UnauthorizedException,
+      );
+    });
   });
 
   describe("refreshSession", () => {

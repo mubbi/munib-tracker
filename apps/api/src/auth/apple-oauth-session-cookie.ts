@@ -1,4 +1,5 @@
 import type { CookieOptions, Request, Response } from "express";
+import { openAuthCookieValue, sealAuthCookieValue } from "./auth-cookies";
 
 export const APPLE_OAUTH_SESSION_COOKIE = "mt_apple_oauth";
 
@@ -27,7 +28,10 @@ function sessionCookieOptions(): CookieOptions {
 export function setAppleOAuthSessionCookie(res: Response, payload: AppleOAuthSessionPayload): void {
   // Inline flags so static analysis sees httpOnly + Secure on the cookie write.
   const options = sessionCookieOptions();
-  res.cookie(APPLE_OAUTH_SESSION_COOKIE, JSON.stringify(payload), {
+  // Sealed (AES-256-GCM, same key as the auth cookies) so the PKCE verifier is
+  // not readable and a cookie planted from a sibling subdomain (cookie tossing)
+  // cannot choose the verifier / redirect target the callback trusts.
+  res.cookie(APPLE_OAUTH_SESSION_COOKIE, sealAuthCookieValue(JSON.stringify(payload)), {
     httpOnly: true,
     secure: true,
     sameSite: options.sameSite,
@@ -42,8 +46,10 @@ export function clearAppleOAuthSessionCookie(res: Response): void {
 }
 
 export function readAppleOAuthSessionCookie(req: Request): AppleOAuthSessionPayload | null {
-  const raw = req.cookies?.[APPLE_OAUTH_SESSION_COOKIE];
-  if (typeof raw !== "string" || !raw.trim()) return null;
+  const sealed = req.cookies?.[APPLE_OAUTH_SESSION_COOKIE];
+  if (typeof sealed !== "string" || !sealed.trim()) return null;
+  const raw = openAuthCookieValue(sealed.trim());
+  if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as AppleOAuthSessionPayload;
     if (

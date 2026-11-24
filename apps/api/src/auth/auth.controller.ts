@@ -205,9 +205,10 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const refreshToken = this.authOAuthService.resolveRefreshToken(req, dto.refreshToken);
+    const fromCookie = this.authOAuthService.usesRefreshCookie(req);
     const session = await this.authService.refreshSession(refreshToken, clientIp(req));
     const user = await this.authService.getCurrentUser(session.accessToken);
-    return this.authOAuthService.issueSessionResponse(req, res, session, user);
+    return this.authOAuthService.issueSessionResponse(req, res, session, user, fromCookie);
   }
 
   @Post("link")
@@ -223,7 +224,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
-    const session = await this.authService.linkGuestAccount(accessToken, dto);
+    const session = await this.authService.linkGuestAccount(accessToken, dto, clientIp(req));
     const user = await this.authService.getCurrentUser(session.accessToken);
     return this.authOAuthService.issueSessionResponse(req, res, session, user);
   }
@@ -249,9 +250,16 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
-    const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
-    await this.authService.revokeSession(accessToken);
-    this.authOAuthService.clearAuthCookies(res);
+    try {
+      const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
+      await this.authService.revokeSession(accessToken);
+    } finally {
+      // Web: also revoke the refresh cookie's session and always clear the
+      // cookies, so logging out with an expired access cookie (401 above) cannot
+      // leave a live 30-day refresh token behind in the browser.
+      await this.authOAuthService.revokeCookieRefreshSession(req);
+      this.authOAuthService.clearAuthCookies(res);
+    }
   }
 
   @Post("reset-app-data")

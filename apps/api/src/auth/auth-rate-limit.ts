@@ -10,6 +10,11 @@ const HOUR_MS = 60 * MINUTE_MS;
  */
 export const AUTH_RATE_LIMITS = {
   guest: { limit: 30, windowMs: HOUR_MS },
+  // New guest accounts per IP, on top of the per-device `guest` window: a client
+  // rotating random deviceIds would otherwise mint unlimited accounts (each with
+  // its own per-user quotas) from one address. Resumes do not count. Generous
+  // because carrier-grade NAT puts many first launches behind one IP.
+  "guest-create": { limit: 60, windowMs: HOUR_MS },
   refresh: { limit: 60, windowMs: 15 * MINUTE_MS },
   oauth: { limit: 30, windowMs: HOUR_MS },
   "delete-account": { limit: 3, windowMs: 15 * MINUTE_MS },
@@ -28,6 +33,8 @@ export function isAuthRateLimited(kind: AuthRateLimitKind, identity: string): Pr
 
 // Named limiters: the call sites (and their specs, which spy on them) stay explicit.
 export const isAuthGuestRateLimited = (identity: string) => isAuthRateLimited("guest", identity);
+export const isAuthGuestCreateRateLimited = (identity: string) =>
+  isAuthRateLimited("guest-create", identity);
 export const isAuthRefreshRateLimited = (identity: string) =>
   isAuthRateLimited("refresh", identity);
 export const isAuthOAuthRateLimited = (identity: string) => isAuthRateLimited("oauth", identity);

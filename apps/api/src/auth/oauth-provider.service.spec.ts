@@ -211,12 +211,26 @@ describe("OAuthProviderService", () => {
 
   describe("Google id_token", () => {
     it("returns the verified profile", async () => {
-      const idToken = googleIdToken({ email: "user@example.com", name: "Google User" });
+      const idToken = googleIdToken({
+        email: "user@example.com",
+        email_verified: true,
+        name: "Google User",
+      });
       await expect(setup(GOOGLE_ENV).exchange(AuthProvider.Google, { idToken })).resolves.toEqual({
         providerAccountId: "google-user",
         email: "user@example.com",
         displayName: "Google User",
       });
+    });
+
+    it.each([
+      ["email_verified false", { email_verified: false }],
+      ["no email_verified claim", {}],
+    ])("drops an unverified email (%s)", async (_label, claims) => {
+      const idToken = googleIdToken({ email: "victim@example.com", ...claims });
+      await expect(
+        setup(GOOGLE_ENV).exchange(AuthProvider.Google, { idToken }),
+      ).resolves.toMatchObject({ providerAccountId: "google-user", email: undefined });
     });
 
     it.each([
@@ -229,8 +243,8 @@ describe("OAuthProviderService", () => {
       ).resolves.toMatchObject({ providerAccountId: "google-user" });
     });
 
-    it("accepts a token without exp", async () => {
-      const idToken = googleIdToken({ exp: undefined, iss: "accounts.google.com" });
+    it("accepts the bare accounts.google.com issuer", async () => {
+      const idToken = googleIdToken({ iss: "accounts.google.com" });
       await expect(
         setup(GOOGLE_ENV).exchange(AuthProvider.Google, { idToken }),
       ).resolves.toMatchObject({ providerAccountId: "google-user" });
@@ -258,6 +272,7 @@ describe("OAuthProviderService", () => {
       ["no issuer", () => googleIdToken({ iss: undefined }), "issuer mismatch"],
       ["a mismatched audience", () => googleIdToken({ aud: "other-client" }), "audience mismatch"],
       ["an expired exp", () => googleIdToken({ exp: 1 }), "Google id_token has expired"],
+      ["no exp", () => googleIdToken({ exp: undefined }), "Google id_token has expired"],
       ["no subject", () => googleIdToken({ sub: undefined }), "missing a subject"],
     ])("rejects a token with %s", async (_label, token, message) => {
       await expect(
@@ -303,7 +318,7 @@ describe("OAuthProviderService", () => {
   describe("Google authorization code", () => {
     const GOOGLE_CODE_ROUTES = {
       "oauth2.googleapis.com/token": { access_token: "atok" },
-      userinfo: { sub: "g-2", email: "a@b.c", name: "A" },
+      userinfo: { sub: "g-2", email: "a@b.c", email_verified: true, name: "A" },
     };
 
     it("returns the OpenID userinfo profile", async () => {
@@ -389,8 +404,8 @@ describe("OAuthProviderService", () => {
       });
     });
 
-    it("accepts a token without exp", async () => {
-      const idToken = appleIdToken({ exp: undefined });
+    it("returns no display name without an email", async () => {
+      const idToken = appleIdToken();
       await expect(
         setup(APPLE_ENV).exchange(AuthProvider.Apple, { idToken }),
       ).resolves.toMatchObject({ providerAccountId: "apple-user", displayName: undefined });
@@ -412,6 +427,12 @@ describe("OAuthProviderService", () => {
       ["a foreign issuer", () => appleIdToken({ iss: "https://evil.example" }), "issuer mismatch"],
       ["a mismatched audience", () => appleIdToken({ aud: "some.other.app" }), "audience mismatch"],
       ["an expired exp", () => appleIdToken({ exp: 1 }), "Apple id_token has expired"],
+      ["no exp", () => appleIdToken({ exp: undefined }), "Apple id_token has expired"],
+      [
+        "a non-RS256 algorithm",
+        () => appleIdToken({}, { alg: "none" }),
+        "Unsupported Apple identity token algorithm",
+      ],
       ["no subject", () => appleIdToken({ sub: "" }), "missing a subject"],
     ])("rejects a token with %s", async (_label, token, message) => {
       await expect(

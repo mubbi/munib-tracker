@@ -4,6 +4,7 @@ import {
   HttpStatus,
   Injectable,
   UnauthorizedException,
+  UnsupportedMediaTypeException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import type { Request, Response } from "express";
@@ -53,8 +54,14 @@ export class AuthOAuthService {
     res: Response,
     session: AuthSessionResponseDto,
     user: AuthUserResponseDto,
+    /**
+     * Force the cookie response. Set when the presented credential itself came
+     * from the HttpOnly refresh cookie: a token the browser was never allowed to
+     * read must not come back in a JSON body just because a header was omitted.
+     */
+    cookieSession = false,
   ): Promise<AuthSessionResponseDto | WebAuthSessionResponseDto> {
-    if (isWebAuthClient(req)) {
+    if (cookieSession || isWebAuthClient(req)) {
       setRefreshTokenCookie(res, session.refreshToken);
       setAccessTokenCookie(res, session.accessToken);
       return { user };
@@ -148,7 +155,14 @@ export class AuthOAuthService {
     return this.issueSessionResponse(req, res, session, user);
   }
 
-  startAppleOauthSession(_req: Request, res: Response, dto: AuthAppleOauthSessionBodyDto): void {
+  startAppleOauthSession(req: Request, res: Response, dto: AuthAppleOauthSessionBodyDto): void {
+    // Only the app's credentialed `fetch` (JSON, CORS-preflighted) may plant this
+    // cookie. A cross-site HTML form can POST urlencoded bodies without a
+    // preflight, and would otherwise seed the victim's browser with an
+    // attacker-chosen PKCE verifier for a login-CSRF via the form_post callback.
+    if (!isJsonContentType(req)) {
+      throw new UnsupportedMediaTypeException("Content-Type must be application/json");
+    }
     assertRedirectUriAllowed(this.configService, dto.redirectUri);
     assertOAuthReturnUrlAllowed(this.configService, dto.returnUrl);
     setAppleOAuthSessionCookie(res, {
@@ -159,6 +173,7 @@ export class AuthOAuthService {
   }
 
   async completeAppleOauthCallback(req: Request, res: Response): Promise<void> {
+    await this.assertOAuthRateLimit(req);
     const code = typeof req.body?.code === "string" ? req.body.code.trim() : "";
     if (!code) {
       throw new BadRequestException("Missing authorization code");
@@ -168,7 +183,10 @@ export class AuthOAuthService {
       throw new BadRequestException("Apple sign-in session expired. Try again.");
     }
     clearAppleOAuthSessionCookie(res);
+    // Re-check both URLs: the allowlist may have changed since the cookie was
+    // set, and the return URL is where the browser is redirected below.
     assertRedirectUriAllowed(this.configService, sessionCookie.redirectUri);
+    assertOAuthReturnUrlAllowed(this.configService, sessionCookie.returnUrl);
 
     const profile = await this.oauthProvider.exchange(AuthProvider.Apple, {
       code,
@@ -206,6 +224,22 @@ export class AuthOAuthService {
     return resolveAccessTokenFromRequest(req, authorization);
   }
 
+  /** `true` when the request carries a valid sealed `mt_refresh_token` cookie. */
+  usesRefreshCookie(req: Request): boolean {
+    return readRefreshTokenFromRequest(req) !== null;
+  }
+
+  /** Best-effort revoke of the session behind the refresh cookie (logout). */
+  async revokeCookieRefreshSession(req: Request): Promise<void> {
+    const token = readRefreshTokenFromRequest(req);
+    if (!token) return;
+    try {
+      await this.authService.revokeSessionByRefreshToken(token);
+    } catch {
+      // Logout must still clear cookies; the session expires on its own.
+    }
+  }
+
   resolveRefreshToken(req: Request, bodyToken?: string): string {
     const fromCookie = readRefreshTokenFromRequest(req);
     const fromBody = bodyToken?.trim();
@@ -226,4 +260,10 @@ export class AuthOAuthService {
       throw new HttpException("Too many OAuth attempts", HttpStatus.TOO_MANY_REQUESTS);
     }
   }
+}
+
+function isJsonContentType(req: Request): boolean {
+  const raw = req.headers?.["content-type"];
+  const mediaType = (typeof raw === "string" ? raw : "").split(";")[0]?.trim().toLowerCase();
+  return mediaType === "application/json";
 }
