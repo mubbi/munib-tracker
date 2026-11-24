@@ -114,6 +114,24 @@ const TV_BLOCKED_ANDROID_PERMISSIONS = [
   "android.permission.SCHEDULE_EXACT_ALARM",
 ];
 
+/**
+ * Apple required-reason APIs that our own code calls (D54). Prebuild merges this into the
+ * template's `PrivacyInfo.xcprivacy`, so the RN/Expo entries stay. CA92.1 covers the app's
+ * own defaults; 1C8F.1 the `group.app.munibtracker.widgets` App Group (widgets, watch,
+ * intents, focus lock). tvOS has no App Group. Each extension under `targets/*` ships its
+ * own `PrivacyInfo.xcprivacy`.
+ */
+function iosPrivacyManifests(tvPrebuild) {
+  return {
+    NSPrivacyAccessedAPITypes: [
+      {
+        NSPrivacyAccessedAPIType: "NSPrivacyAccessedAPICategoryUserDefaults",
+        NSPrivacyAccessedAPITypeReasons: tvPrebuild ? ["CA92.1"] : ["CA92.1", "1C8F.1"],
+      },
+    ],
+  };
+}
+
 /** True when generating Apple TV / Android TV native projects (`EXPO_TV=1`). */
 function isTvPrebuild() {
   const v = process.env.EXPO_TV?.trim();
@@ -225,12 +243,17 @@ module.exports = ({ config }) => {
     ...config.ios,
     buildNumber: iosBuildNumber,
     ...(appleTeamId ? { appleTeamId } : {}),
+    privacyManifests: iosPrivacyManifests(tvPrebuild),
     entitlements: {
       ...(config.ios?.entitlements ?? {}),
       ...(tvPrebuild
         ? {}
         : {
             "com.apple.security.application-groups": [WIDGET_APP_GROUP],
+            // Quran Lab TajweedFormer SDK 4 (D66): App Attest makes pronunciation-drill
+            // installs hardware-verified (Neural Engine + sharing uploads). Without it the
+            // SDK still runs, CPU-only. Phone only — the module is excluded on tvOS.
+            "com.apple.developer.devicecheck.appattest-environment": "production",
           }),
     },
   });

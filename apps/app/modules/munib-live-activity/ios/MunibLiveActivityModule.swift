@@ -73,7 +73,14 @@ private extension PrayerActivityAttributes.ContentState {
 
 /// Owns the single next-prayer Live Activity: start, refresh, and end. Also
 /// reconnects to an activity that outlived an app relaunch.
+///
+/// Main-actor isolated (D64): the Expo module calls arrive on the module queue and
+/// the ActivityKit observers run in `Task`s, so every read/write of the cached
+/// activity, the observer-task dictionaries and the JS callbacks is serialized on
+/// the main actor. Module code reaches it through `await` (async functions) or
+/// `MainActor.assumeIsolated` after a main-queue hop (listener hooks).
 @available(iOS 16.2, *)
+@MainActor
 final class PrayerActivityController {
   static let shared = PrayerActivityController()
 
@@ -94,11 +101,19 @@ final class PrayerActivityController {
     liveActivity != nil
   }
 
+  /// Synchronous `isRunning` for the JS `Function` (runs on the JS thread, where a
+  /// main-actor hop could deadlock). Reads only ActivityKit's own list, never the
+  /// main-actor cache: `activity` is always one of `activities` unless the system
+  /// already removed it, so the answer matches `isRunning`.
+  nonisolated static var hasRunningActivity: Bool {
+    !Activity<PrayerActivityAttributes>.activities.isEmpty
+  }
+
   func start(state: PrayerActivityAttributes.ContentState) -> String? {
     guard ActivityAuthorizationInfo().areActivitiesEnabled else { return nil }
     // Replace any stale activity so we never stack duplicates.
     if let running = liveActivity {
-      Task { await running.end(nil, dismissalPolicy: .immediate) }
+      Task { @MainActor in await running.end(nil, dismissalPolicy: .immediate) }
       activity = nil
     }
     let content = ActivityContent(state: state, staleDate: contentStaleDate(for: state))
@@ -156,7 +171,7 @@ final class PrayerActivityController {
   private func observe(_ observed: Activity<PrayerActivityAttributes>) {
     let activityId = observed.id
     if pushTokenTasks[activityId] == nil {
-      pushTokenTasks[activityId] = Task { [weak self] in
+      pushTokenTasks[activityId] = Task { @MainActor [weak self] in
         for await tokenData in observed.pushTokenUpdates {
           guard !Task.isCancelled else { return }
           let token = tokenData.map { String(format: "%02x", $0) }.joined()
@@ -171,7 +186,7 @@ final class PrayerActivityController {
     }
 
     if stateTasks[activityId] == nil {
-      stateTasks[activityId] = Task { [weak self] in
+      stateTasks[activityId] = Task { @MainActor [weak self] in
         for await state in observed.activityStateUpdates {
           guard !Task.isCancelled else { return }
           let value: String
@@ -207,14 +222,25 @@ public class MunibLiveActivityModule: Module {
     guard Self.observedEvents.contains(event) else { return }
     let wasIdle = listenedEvents.isEmpty
     listenedEvents.insert(event)
-    if wasIdle { startObservingActivities() }
+    if wasIdle { onMainActor { $0.startObservingActivities() } }
   }
 
   public override func didStopListening(event: String) {
     guard listenedEvents.remove(event) != nil, listenedEvents.isEmpty else { return }
-    stopObservingActivities()
+    onMainActor { $0.stopObservingActivities() }
   }
 
+  /// Hop to the main actor for controller access from the synchronous listener
+  /// hooks. `DispatchQueue.main.async` keeps start/stop in call order (FIFO), which
+  /// an unstructured `Task { @MainActor in }` does not guarantee.
+  private func onMainActor(_ work: @escaping @MainActor (MunibLiveActivityModule) -> Void) {
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+      MainActor.assumeIsolated { work(self) }
+    }
+  }
+
+  @MainActor
   private func startObservingActivities() {
     if #available(iOS 16.2, *) {
       let controller = PrayerActivityController.shared
@@ -235,6 +261,7 @@ public class MunibLiveActivityModule: Module {
     }
   }
 
+  @MainActor
   private func stopObservingActivities() {
     if #available(iOS 16.2, *) {
       PrayerActivityController.shared.onPushToken = nil
@@ -255,7 +282,7 @@ public class MunibLiveActivityModule: Module {
 
     Function("isRunning") { () -> Bool in
       if #available(iOS 16.2, *) {
-        return PrayerActivityController.shared.isRunning
+        return PrayerActivityController.hasRunningActivity
       }
       return false
     }
@@ -263,7 +290,7 @@ public class MunibLiveActivityModule: Module {
     AsyncFunction("start") { (record: PrayerActivityRecord) -> String? in
       if #available(iOS 16.2, *) {
         let state = PrayerActivityAttributes.ContentState(record: record)
-        return PrayerActivityController.shared.start(state: state)
+        return await MainActor.run { PrayerActivityController.shared.start(state: state) }
       }
       return nil
     }

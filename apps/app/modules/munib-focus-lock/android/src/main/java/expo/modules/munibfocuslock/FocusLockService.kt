@@ -27,6 +27,8 @@ class FocusLockService : Service() {
   private val handler = Handler(Looper.getMainLooper())
   private var overlay: FocusLockOverlay? = null
   private var lastForeground: String? = null
+  /** End of the last UsageEvents query; null until the first poll of this service run. */
+  private var queriedUntil: Long? = null
   private var defaults: FocusLockAllowlist.Defaults? = null
 
   private val tick = object : Runnable {
@@ -43,6 +45,8 @@ class FocusLockService : Service() {
     defaults = FocusLockAllowlist.defaults(this)
     if (overlay == null) overlay = FocusLockOverlay(this) { windowId -> unlocked(windowId) }
     handler.removeCallbacks(tick)
+    queriedUntil = null
+    lastForeground = null
     handler.post(tick)
     return START_NOT_STICKY
   }
@@ -69,10 +73,18 @@ class FocusLockService : Service() {
     return true
   }
 
+  /**
+   * Latest ACTIVITY_RESUMED package since the previous poll. The first poll looks
+   * back [INITIAL_LOOKBACK_MS] so an app already open when the window starts is
+   * found (a fixed short lookback missed it until the user switched apps); later
+   * polls only read the new events (small overlap for late-written events).
+   */
   private fun foregroundPackage(): String? {
     val usm = getSystemService(Context.USAGE_STATS_SERVICE) as? UsageStatsManager ?: return null
     val now = System.currentTimeMillis()
-    val events = usm.queryEvents(now - LOOKBACK_MS, now)
+    val from = queriedUntil?.let { it - OVERLAP_MS } ?: (now - INITIAL_LOOKBACK_MS)
+    queriedUntil = now
+    val events = usm.queryEvents(from, now)
     val event = UsageEvents.Event()
     var latest: String? = null
     while (events.hasNextEvent()) {
@@ -94,7 +106,9 @@ class FocusLockService : Service() {
     val config = FocusLockStore.config(this)
     val labels = config.optJSONObject("labels")
     val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    if (Build.VERSION.SDK_INT >= 26 && manager.getNotificationChannel(CHANNEL_ID) == null) {
+    // Re-creating an existing channel only updates its name, so the label follows the
+    // app language; the user's importance / sound choices are kept.
+    if (Build.VERSION.SDK_INT >= 26) {
       val channel = NotificationChannel(
         CHANNEL_ID,
         labels?.optString("channelName")?.ifEmpty { null } ?: "Salah focus",
@@ -125,6 +139,7 @@ class FocusLockService : Service() {
     private const val CHANNEL_ID = "munib_focus_lock"
     private const val NOTIFICATION_ID = 0x4D46 // "MF"
     private const val POLL_MS = 750L
-    private const val LOOKBACK_MS = 10_000L
+    private const val INITIAL_LOOKBACK_MS = 6L * 60L * 60L * 1000L
+    private const val OVERLAP_MS = 2_000L
   }
 }

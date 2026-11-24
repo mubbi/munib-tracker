@@ -111,6 +111,13 @@
         }
       ],
       [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled.",
+          "configureAndroidBackup": true
+        }
+      ],
+      [
         "expo-location",
         {
           "locationWhenInUsePermission": "Munib Tracker uses your location to calculate accurate prayer times and the qibla direction for where you are."

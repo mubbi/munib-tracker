@@ -42,10 +42,11 @@ internal object OngoingSalahNotification {
   private const val FALLBACK_CHANNEL_NAME = "Next Salah countdown"
   private const val FALLBACK_DEEP_LINK = "munib-tracker://tracker"
   private const val FALLBACK_PREPARE_LINK = "munib-tracker://zikr/before_prayer"
-  private const val ACTION_STOP = "expo.modules.munibexternalcommands.STOP_ONGOING"
-  private const val ACTION_DELETE = "expo.modules.munibexternalcommands.DELETE_ONGOING"
+  // Must match plugins/withExternalCommands.cjs (receiver intent filters).
+  const val ACTION_STOP = "expo.modules.munibexternalcommands.STOP_ONGOING"
+  const val ACTION_DELETE = "expo.modules.munibexternalcommands.DELETE_ONGOING"
   private const val ACTION_BOUNDARY = "expo.modules.munibexternalcommands.BOUNDARY"
-  private const val EXTRA_BOUNDARY_INDEX = "boundary_index"
+  const val EXTRA_BOUNDARY_INDEX = "boundary_index"
 
   private data class ScheduleEntry(
     val executeAtMs: Long,
@@ -454,10 +455,12 @@ internal object OngoingSalahNotification {
   private fun scheduleBoundaryAlarms(context: Context, state: OngoingState) {
     cancelAllBoundaryAlarms(context)
     val now = System.currentTimeMillis()
+    // The alarm slot is the schedule index (refreshAtBoundary reads it back), so only
+    // indices below MAX_BOUNDARY_ALARMS can be armed — cancelAllBoundaryAlarms clears
+    // exactly those slots and a higher index would leak an uncancellable alarm.
     val entries = state.schedule
       .mapIndexed { index, entry -> index to entry }
-      .filter { (_, entry) -> entry.executeAtMs > now }
-      .take(MAX_BOUNDARY_ALARMS)
+      .filter { (index, entry) -> index < MAX_BOUNDARY_ALARMS && entry.executeAtMs > now }
     if (entries.isEmpty() && state.targetTimeMs > now) {
       // Legacy single boundary at next prayer.
       scheduleOneAlarm(context, 0, state.targetTimeMs + 1_000L)
@@ -495,7 +498,7 @@ internal object OngoingSalahNotification {
 /** Fires at each scheduled phase boundary. */
 class OngoingSalahBoundaryReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
-    val index = intent.getIntExtra("boundary_index", 0)
+    val index = intent.getIntExtra(OngoingSalahNotification.EXTRA_BOUNDARY_INDEX, 0)
     OngoingSalahNotification.refreshAtBoundary(context, index)
   }
 }
@@ -504,8 +507,8 @@ class OngoingSalahBoundaryReceiver : BroadcastReceiver() {
 class OngoingSalahActionReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     when (intent.action) {
-      "expo.modules.munibexternalcommands.STOP_ONGOING",
-      "expo.modules.munibexternalcommands.DELETE_ONGOING",
+      OngoingSalahNotification.ACTION_STOP,
+      OngoingSalahNotification.ACTION_DELETE,
       -> OngoingSalahNotification.markDismissed(context)
     }
   }

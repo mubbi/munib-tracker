@@ -75,12 +75,14 @@ internal class FocusLockOverlay(
     shownWindowId = null
   }
 
-  private fun color(theme: JSONObject?, key: String, fallback: Int): Int =
-    try {
-      Color.parseColor(theme?.optString(key)?.ifEmpty { null } ?: return fallback)
+  private fun color(theme: JSONObject?, key: String, fallback: Int): Int {
+    val raw = theme?.optString(key)?.ifEmpty { null } ?: return fallback
+    return try {
+      Color.parseColor(raw)
     } catch (_: Exception) {
       fallback
     }
+  }
 
   private fun dp(value: Float): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.resources.displayMetrics).toInt()
@@ -120,7 +122,8 @@ internal class FocusLockOverlay(
       text = label
       isAllCaps = false
       setTextColor(if (filled) onAccent else accent)
-      background = GradientDrawable().apply {
+      // `this.` — the local `background` colour val would otherwise shadow View.background.
+      this.background = GradientDrawable().apply {
         cornerRadius = dp(24f).toFloat()
         if (filled) setColor(accent) else setStroke(dp(1f), accent)
       }

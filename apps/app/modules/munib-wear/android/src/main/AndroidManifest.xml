@@ -1,10 +1,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <application>
+    <!--
+      Wakes only for the Wear app's marks (Wear OS "Listen for Data Layer events":
+      action + wear://*/path filters). The deprecated catch-all BIND_LISTENER
+      action woke the phone app for every Data Layer event.
+      - DATA_CHANGED /munib/mark/<uuid>: current watch builds (never dropped while
+        the phone is away; an explicit Salah + day).
+      - MESSAGE_RECEIVED /munib/mark_current: older watch builds.
+    -->
     <service
       android:name=".MunibWearListenerService"
       android:exported="true">
       <intent-filter>
-        <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+        <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+        <data
+          android:scheme="wear"
+          android:host="*"
+          android:pathPrefix="/munib/mark/" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" />
+        <data
+          android:scheme="wear"
+          android:host="*"
+          android:path="/munib/mark_current" />
       </intent-filter>
     </service>
   </application>
