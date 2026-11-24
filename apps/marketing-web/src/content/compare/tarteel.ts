@@ -1,4 +1,5 @@
 import type { ComparePage } from "@/content/types";
+import { devicesGroup, NOT_ON_APP_STORE } from "./devices";
 import { cell, MUNIB_CELLS as M, MUNIB, MUNIB_NF as P, VERIFIED_ON } from "./shared";
 
 const TA = "tarteel";
@@ -163,6 +164,14 @@ export const vsTarteel: ComparePage = {
         { feature: "Ads", cells: { munib: M.ads, [TA]: cell.text("No ads") } },
       ],
     },
+    devicesGroup({
+      [TA]: {
+        ios: cell.yes("iPhone and iPad"),
+        android: cell.yes(),
+        appleWatch: NOT_ON_APP_STORE,
+        appleTv: NOT_ON_APP_STORE,
+      },
+    }),
   ],
   strengths: {
     munib: [

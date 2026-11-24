@@ -1,4 +1,5 @@
 import type { ComparePage } from "@/content/types";
+import { devicesGroup, NOT_ON_APP_STORE } from "./devices";
 import { cell, MUNIB_CELLS as M, MUNIB, MUNIB_NF as P, VERIFIED_ON } from "./shared";
 
 const PL = "pillars";
@@ -133,25 +134,22 @@ export const vsPillars: ComparePage = {
         { feature: "Recitation practice", cells: { munib: M.recitation, [PL]: cell.unverified() } },
       ],
     },
-    {
-      group: "Devices",
-      rows: [
-        { feature: "Widgets", cells: { munib: M.widgets, [PL]: cell.yes("Free") } },
-        { feature: "Apple Watch", cells: { munib: cell.yes("Free"), [PL]: cell.yes("Premium") } },
-        { feature: "Android", cells: { munib: cell.yes(), [PL]: cell.yes() } },
-        {
-          feature: "Web and TV apps",
-          cells: { munib: cell.yes("Web app, Apple TV, Android TV"), [PL]: cell.unverified() },
-        },
-      ],
-    },
+    devicesGroup({
+      [PL]: {
+        ios: cell.yes("iPhone and iPad"),
+        android: cell.yes(),
+        appleWatch: cell.yes("Premium"),
+        appleTv: NOT_ON_APP_STORE,
+        widgets: cell.yes("Free"),
+      },
+    }),
   ],
   strengths: {
     munib: [
       "Qaza calculator and planner",
       "Adhkar, duas and tasbeeh on the phone",
       "Full Qur'an reader with recitation practice",
-      "Apple Watch, Wear OS and TV apps included free",
+      "Apple Watch companion, Wear OS tiles and TV apps, all free",
       "Salah focus lock and Masjid finder at no cost",
     ],
     [PL]: [

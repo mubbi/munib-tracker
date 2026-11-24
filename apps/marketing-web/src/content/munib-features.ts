@@ -5,7 +5,8 @@
  * - `shipped`: in the app today (verified against `docs/FEATURES.md` and the
  *   app routes/strings).
  * - `planned`: shown as "Coming soon", never as available.
- * Items with an `nf` id come from `docs/NEW_FEATURES_TODO_PLAN.md`.
+ * Items with an `nf` id are catalogued in `docs/FEATURES.md` (shipped) or
+ * `docs/BACKLOG.md` (planned); locked scope is in `docs/DECISIONS.md`.
  */
 
 export type InventoryItem = {
@@ -27,7 +28,7 @@ const shipped = (name: string, detail?: string, href?: string): InventoryItem =>
   ...(href ? { href } : {}),
 });
 /**
- * An NF-3.x feature from docs/NEW_FEATURES_TODO_PLAN.md that is in the app
+ * An NF-3.x feature (docs/FEATURES.md, decisions in docs/DECISIONS.md) that is in the app
  * (checked against the app code and docs/proofs/*.md on 2026-11-24). Every
  * comparison cell built with `nf()` in compare/shared.ts follows its status.
  */
@@ -194,7 +195,7 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       nf(
         "NF-3.20",
         "Hands-free tasbeeh",
-        "Counts each pause between spoken zikr, on the device; less accurate than tapping",
+        "Teach any zikr by saying it, then only its repeats count, on the device; tap to correct any miscount",
         "/features/zikr-tracker",
       ),
     ],

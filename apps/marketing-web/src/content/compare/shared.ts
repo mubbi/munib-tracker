@@ -17,7 +17,7 @@ const unverified = (note?: string): CompareCell => ({
   ...(note ? { note } : {}),
 });
 const text = (value: string): CompareCell => ({ text: value });
-/** Munib Tracker roadmap item (docs/NEW_FEATURES_TODO_PLAN.md) — rendered "Coming soon". */
+/** Munib Tracker roadmap item (docs/BACKLOG.md) — rendered "Coming soon". */
 const planned = (note?: string): CompareCell => ({ status: "planned", ...(note ? { note } : {}) });
 
 export const cell = { yes, no, partial, unverified, text, planned };
@@ -94,7 +94,7 @@ function nf(id: string, note: string, shippedAs: "yes" | "partial" = "yes"): Com
 }
 
 /**
- * Munib Tracker NF-3.x features (docs/NEW_FEATURES_TODO_PLAN.md). Their
+ * Munib Tracker NF-3.x features (docs/FEATURES.md). Their
  * availability comes from `content/munib-features.ts`, so one edit there
  * updates every comparison table.
  */
@@ -108,7 +108,10 @@ export const MUNIB_NF = {
   dhulHijjah: nf("NF-3.3", "Dhul-Hijjah mode"),
   sunnahHabits: nf("NF-3.5", "Daily Sunnah habits checklist"),
   tasbeehDesigns: nf("NF-3.19", "Eight designs, incl. sliding beads; sound and haptics"),
-  handsFreeTasbeeh: nf("NF-3.20", "Basic: counts each spoken phrase by its pauses, on the device"),
+  handsFreeTasbeeh: nf(
+    "NF-3.20",
+    "Any zikr: teach it by saying it, then only its repeats count, on the device; tap to correct",
+  ),
   ayahNotes: nf("NF-3.21", "Ayah notes, highlights and tags"),
   rootSearch: nf("NF-3.22", "Arabic root-word search"),
   pronunciation: nf(

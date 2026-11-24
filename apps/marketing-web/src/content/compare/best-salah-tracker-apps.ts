@@ -1,4 +1,5 @@
 import type { ComparePage } from "@/content/types";
+import { devicesGroup, NOT_ON_APP_STORE } from "./devices";
 import { cell, MUNIB_CELLS as M, MUNIB, MUNIB_NF as P, VERIFIED_ON } from "./shared";
 
 export const bestSalahTrackerApps: ComparePage = {
@@ -281,13 +282,40 @@ export const bestSalahTrackerApps: ComparePage = {
         },
       ],
     },
+    devicesGroup({
+      "muslim-pro": {
+        web: cell.partial("Prayer-times pages on the website"),
+        ios: cell.yes("iPhone and iPad"),
+        android: cell.yes(),
+        appleWatch: cell.yes("Listed on the App Store"),
+        appleTv: cell.partial("Listed on the App Store"),
+        widgets: cell.partial("Marking needs Premium"),
+      },
+      athan: {
+        ios: cell.partial("iPhone; no iPad version listed"),
+        android: cell.yes(),
+        appleWatch: NOT_ON_APP_STORE,
+        appleTv: NOT_ON_APP_STORE,
+        widgets: cell.yes(),
+      },
+      pillars: {
+        ios: cell.yes("iPhone and iPad"),
+        android: cell.yes(),
+        appleWatch: cell.yes("Premium"),
+        appleTv: NOT_ON_APP_STORE,
+        widgets: cell.yes(),
+      },
+      fiveprayer: { ios: cell.yes("On the App Store"), android: cell.yes() },
+      justpray: { ios: cell.yes("On the App Store"), android: cell.yes() },
+      "5te5": { ios: cell.yes("On the App Store"), android: cell.yes() },
+    }),
   ],
   strengths: {
     munib: [
       "Qaza calculator and planner",
       "Recitation practice",
       "No ads or paid tier",
-      "Watch and TV apps",
+      "Web, TV, Apple Watch and Wear OS",
     ],
     "muslim-pro": ["Widest feature set", "Video, community, halal finder", "Largest user base"],
     athan: ["Established prayer times", "Daily goals and streaks", "Menstrual mode"],

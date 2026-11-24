@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { RouteSkeleton } from "@/components/content/route-skeleton";
 import { FeatureTemplate } from "@/components/templates/feature-template";
 import { FEATURE_PAGES, featureHref, getFeature } from "@/content/features";
 import { pageMetadata } from "@/lib/seo";
@@ -21,7 +23,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default async function FeaturePageRoute({ params }: Props) {
+/** URL data is read inside Suspense so the shared App Shell stays URL-independent. */
+export default function FeaturePageRoute({ params }: Props) {
+  return (
+    <Suspense fallback={<RouteSkeleton />}>
+      <FeatureContent params={params} />
+    </Suspense>
+  );
+}
+
+async function FeatureContent({ params }: Props) {
   const { slug } = await params;
   const feature = getFeature(slug);
   if (!feature) notFound();

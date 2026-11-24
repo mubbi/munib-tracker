@@ -12,6 +12,11 @@ export const PRODUCT_APP_URL = (
   process.env.NEXT_PUBLIC_PRODUCT_APP_URL ?? "https://my.munibtracker.app"
 ).replace(/\/$/, "");
 
+/** Deep link into the product app's Qur'an reader, focused on one ayah. */
+export function appQuranAyahUrl(surah: number, ayah: number): string {
+  return `${PRODUCT_APP_URL}/quran/${surah}?ayah=${ayah}`;
+}
+
 /** Google Analytics 4 measurement ID (e.g. G-XXXXXXXX). Empty env disables GA. */
 export const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID === ""

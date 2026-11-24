@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { RouteSkeleton } from "@/components/content/route-skeleton";
 import { ArticleTemplate } from "@/components/templates/article-template";
 import { ARTICLES, articleHref, getArticle } from "@/content/resources";
 import { pageMetadata } from "@/lib/seo";
@@ -24,7 +26,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default async function ArticlePage({ params }: Props) {
+/** URL data is read inside Suspense so the shared App Shell stays URL-independent. */
+export default function ArticlePage({ params }: Props) {
+  return (
+    <Suspense fallback={<RouteSkeleton />}>
+      <ArticleContent params={params} />
+    </Suspense>
+  );
+}
+
+async function ArticleContent({ params }: Props) {
   const { category, slug } = await params;
   const article = getArticle(category, slug);
   if (!article) notFound();

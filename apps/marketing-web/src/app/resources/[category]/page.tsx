@@ -1,9 +1,11 @@
 import { BookOpenText } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { DownloadCta } from "@/components/content/download-cta";
 import { PageHero } from "@/components/content/page-hero";
 import { JsonLdScript, LinkCard, PageSection } from "@/components/content/primitives";
+import { RouteSkeleton } from "@/components/content/route-skeleton";
 import { featureHref, getFeature } from "@/content/features";
 import { articleHref, articlesIn } from "@/content/resources";
 import { categoryHref, getCategory, RESOURCE_CATEGORIES } from "@/content/resources/categories";
@@ -27,7 +29,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default async function ResourceCategoryPage({ params }: Props) {
+/** URL data is read inside Suspense so the shared App Shell stays URL-independent. */
+export default function ResourceCategoryPage({ params }: Props) {
+  return (
+    <Suspense fallback={<RouteSkeleton />}>
+      <ResourceCategoryContent params={params} />
+    </Suspense>
+  );
+}
+
+async function ResourceCategoryContent({ params }: Props) {
   const { category } = await params;
   const cat = getCategory(category);
   if (!cat) notFound();

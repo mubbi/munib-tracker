@@ -1,17 +1,30 @@
 import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Blocks } from "@/components/content/blocks";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { TrackedLink } from "@/components/tracked-link";
+import { MUNIB_AYAHS } from "@/lib/munib-ayahs";
 import { pageMetadata } from "@/lib/seo";
-import { GITHUB_REPO_URL, SITE_PATHS } from "@/lib/site";
+import { appQuranAyahUrl, GITHUB_REPO_URL, SITE_PATHS } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   path: "/about",
-  title: "About Munib Tracker — Our Mission and Who Builds It",
+  title: 'About Munib Tracker — What "Munib" Means and Why It Exists',
   description:
-    "Munib Tracker is a free, ad-free Islamic app for Salah, Qaza, Zikr and the Qur'an. Learn why it exists, who builds it, and how we keep content authentic.",
+    "Munib means the one who turns back to Allah in repentance. Why Munib Tracker carries that name, who builds it, and how its content stays authentic.",
 });
+
+/** The two ayahs that use the word munib, rendered from the app's bundled text. */
+const MUNIB_EVIDENCE = MUNIB_AYAHS.map((a) => ({
+  type: "evidence" as const,
+  kind: "quran" as const,
+  arabic: a.arabic,
+  translation: a.translation,
+  reference: `Qur'an ${a.surah}:${a.ayah}`,
+  href: appQuranAyahUrl(a.surah, a.ayah),
+  note: "Translation: Pickthall",
+}));
 
 export default function AboutPage() {
   return (
@@ -21,6 +34,47 @@ export default function AboutPage() {
       title={`About ${APP_NAME}`}
       intro={`${APP_NAME} is a free, offline-first companion to help you track your journey back to Allah.`}
     >
+      <ContentSection heading="What does Munib mean?">
+        <p className="text-muted">
+          <strong className="text-white">
+            Munib (<span lang="ar">مُنيب</span>)
+          </strong>{" "}
+          is an Arabic word for the one who turns back: a person who returns to Allah in repentance,
+          and keeps returning. Not once, dramatically. Over and over, quietly, for a lifetime.
+        </p>
+        <p className="text-muted">
+          The word appears in the Qur&apos;an. Allah describes Ibrahim (peace be upon him) as{" "}
+          <em>ḥalīmun awwāhun munīb</em> in Surah Hud, and Surah Qaf speaks of the one who comes{" "}
+          <em>bi-qalbin munīb</em>, with a returning heart.
+        </p>
+        <Blocks blocks={MUNIB_EVIDENCE} />
+        <p className="text-muted">
+          <em>Munib</em> comes from <em>inābah</em>, turning to Allah in repentance. Arabic
+          dictionaries describe it as a turning back that repeats, not a single one-time U-turn. The
+          word itself allows for the fact that you&apos;ll need to come back more than once.
+        </p>
+      </ContentSection>
+
+      <ContentSection heading="Why the app carries that name">
+        <p className="text-muted">
+          Every Muslim knows the return isn&apos;t a one-time event. You slip. You miss Fajr. Your
+          tasbeeh sits untouched for a week. Then you turn again. And again. {APP_NAME} was built
+          for that cycle, so that returning isn&apos;t only a feeling you have at 2 a.m.: it becomes
+          something you can track, remember, and rebuild, one honest day at a time.
+        </p>
+        <p className="text-muted">
+          That&apos;s why it isn&apos;t another content dump with a crescent icon. It&apos;s a
+          tracker and a reminder for the walk back: honest Salah logging, missed prayers you can
+          actually clear, daily zikr and gentle nudges. Its tagline says the same thing:{" "}
+          <em>Track Your Journey Back to Allah.</em> The name isn&apos;t decoration. It&apos;s the
+          whole thesis.
+        </p>
+        <p className="text-muted">
+          Three design rules shaped every screen: encouragement stays gentle, the calendar stays
+          honest, and your data lives on your device first.
+        </p>
+      </ContentSection>
+
       <ContentSection heading="Our mission">
         <p className="text-muted">
           We believe worship tracking should feel calm and trustworthy — not gamified or
@@ -79,8 +133,11 @@ export default function AboutPage() {
             GitHub
           </a>{" "}
           under a non-commercial license: free to use, modify, and redistribute for personal and
-          educational purposes, with credit and a link to this site. It may not be sold. Learn more
-          on our{" "}
+          educational purposes, with credit and a link to this site. It may not be sold. A tool for
+          returning to Allah should be inspectable: you should be able to read the architecture, fix
+          a bug, improve a translation, and trace exactly where every verse and hadith came from.
+          That boundary is intentional: free for the ummah and for learning, not free for someone
+          else to repackage and sell. Learn more on our{" "}
           <Link href={SITE_PATHS.openSource} className="font-medium text-brand hover:underline">
             Open source
           </Link>{" "}
@@ -106,6 +163,14 @@ export default function AboutPage() {
           </TrackedLink>
           , with content reviewed for authenticity before it ships. We are grateful to every
           contributor, tester, and reviewer who has helped shape the app.
+        </p>
+      </ContentSection>
+
+      <ContentSection heading="No sponsorship, no donations">
+        <p className="text-muted">
+          {APP_NAME} does not currently accept sponsorship, funding, or donations, and there is no
+          official payment or donation channel. If anyone claims to be collecting money on its
+          behalf, they&apos;re not.
         </p>
       </ContentSection>
 

@@ -1,4 +1,5 @@
 import type { ComparePage } from "@/content/types";
+import { devicesGroup } from "./devices";
 import { cell, MUNIB_CELLS as M, MUNIB, MUNIB_NF as P, VERIFIED_ON } from "./shared";
 
 const MP = "muslim-pro";
@@ -206,28 +207,24 @@ export const vsMuslimPro: ComparePage = {
         },
       ],
     },
-    {
-      group: "Devices",
-      rows: [
-        {
-          feature: "Home-screen widgets",
-          cells: { munib: M.widgets, [MP]: cell.partial("Marking from the widget needs Premium") },
+    devicesGroup(
+      {
+        [MP]: {
+          web: cell.partial("Prayer-times pages on the website"),
+          ios: cell.yes("iPhone and iPad; also Mac and Vision Pro"),
+          android: cell.yes(),
+          appleWatch: cell.yes("Listed on the App Store"),
+          appleTv: cell.partial("Apple TV listed on the App Store"),
+          widgets: cell.partial("Marking from the widget needs Premium"),
         },
-        { feature: "Apple Watch", cells: { munib: M.watch, [MP]: cell.yes() } },
-        {
-          feature: "TV apps",
-          cells: { munib: M.tv, [MP]: cell.partial("Apple TV listed on the App Store") },
-        },
+      },
+      [
         {
           feature: "Voice assistant shortcuts",
           cells: { munib: cell.yes("Siri and Google Assistant"), [MP]: cell.yes("Siri") },
         },
-        {
-          feature: "Web app",
-          cells: { munib: M.webApp, [MP]: cell.partial("Prayer-times pages on the website") },
-        },
       ],
-    },
+    ),
   ],
   strengths: {
     munib: [

@@ -56,7 +56,7 @@ export const zikrTracker: FeaturePage = {
           "Targets of 33, 99, 100, unlimited or a custom number",
           "Eight counter designs, all free: the classic Ring (the default), sliding beads (misbaha), a digital clicker, a dim Focus / Night face, date pits / pebbles, finger counting, a geometric rosette and a night sky",
           "Optional click sounds (natural wood, stone and glass; no music, no bells) and haptics",
-          "Hands-free counting: each separate phrase you say counts once, on your device; it doesn't check the words, so it is less accurate than tapping",
+          "Hands-free counting for any zikr: say it up to 3 times to teach it, then only its repeats count, on your device; or skip teaching to count every pause (less accurate). Tap to correct any miscount",
           "Undo and reset, with haptic feedback on phones",
           "A Tasbeeh tile on Wear OS and a shortcut on Apple Watch",
           "Counts linked to a zikr save towards your daily goal",
@@ -180,7 +180,7 @@ export const zikrTracker: FeaturePage = {
     {
       question: "Can I count tasbeeh without tapping?",
       answer:
-        "Yes, in a basic way. Turn on hands-free counting and each separate phrase you say counts once. It listens for the pauses between phrases and doesn't check which words you said, so it is less accurate than tapping; tap to correct any miscount. Listening happens only on your device, with no download, and no audio is recorded, stored or sent.",
+        "Yes. Turn on hands-free counting, choose the zikr (any zikr from the library, one of your own tasbeehs, or something else) and say it up to 3 times to teach it. After that, only repeats of that zikr count. It is not perfect, so tap to correct any miscount. You can also skip teaching and count every pause between phrases, which is less accurate. Listening happens only on your device, with no download. No audio is recorded or sent; if you teach a zikr, a short voice pattern (not a recording) stays on your device, and you can forget it in Settings.",
     },
   ],
   related: ["salah-tracker", "daily-islamic-habits", "worship-progress", "widgets-and-devices"],

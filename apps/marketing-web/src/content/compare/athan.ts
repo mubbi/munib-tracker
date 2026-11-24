@@ -1,4 +1,5 @@
 import type { ComparePage } from "@/content/types";
+import { devicesGroup, NOT_ON_APP_STORE } from "./devices";
 import { cell, MUNIB_CELLS as M, MUNIB, MUNIB_NF as P, VERIFIED_ON } from "./shared";
 
 const AT = "athan";
@@ -156,31 +157,31 @@ export const vsAthan: ComparePage = {
       ],
     },
     {
-      group: "Extras and devices",
+      group: "Extras",
       rows: [
         {
           feature: "Short video stories",
           cells: { munib: cell.no(), [AT]: cell.yes("Athan Stories") },
         },
-        { feature: "Home-screen widget", cells: { munib: M.widgets, [AT]: cell.yes() } },
-        {
-          feature: "Smartwatch",
-          cells: { munib: M.watch, [AT]: cell.unverified("No watch listed") },
-        },
-        { feature: "TV apps", cells: { munib: M.tv, [AT]: cell.unverified() } },
-        {
-          feature: "Web app",
-          cells: { munib: M.webApp, [AT]: cell.partial("IslamicFinder website") },
-        },
       ],
     },
+    devicesGroup({
+      [AT]: {
+        web: cell.partial("IslamicFinder website"),
+        ios: cell.partial("iPhone; no iPad version on its App Store listing"),
+        android: cell.yes(),
+        appleWatch: NOT_ON_APP_STORE,
+        appleTv: NOT_ON_APP_STORE,
+        widgets: cell.yes(),
+      },
+    }),
   ],
   strengths: {
     munib: [
       "Qaza calculator and daily-pace planner",
       "Guided adhkar sessions with source hadith",
       "On-device recitation practice",
-      "Apple Watch, Wear OS and TV apps",
+      "Apple Watch companion, Wear OS tiles and TV apps",
       "No ads or subscription",
       "Masjid finder, Umrah mode and a voluntary fasting planner",
     ],

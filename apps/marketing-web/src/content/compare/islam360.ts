@@ -1,4 +1,5 @@
 import type { ComparePage } from "@/content/types";
+import { devicesGroup, NOT_ON_APP_STORE } from "./devices";
 import { cell, MUNIB_CELLS as M, MUNIB, MUNIB_NF as P, VERIFIED_ON } from "./shared";
 
 const I3 = "islam360";
@@ -174,7 +175,7 @@ export const vsIslam360: ComparePage = {
       ],
     },
     {
-      group: "Tools and devices",
+      group: "Tools",
       rows: [
         { feature: "Zakat calculator", cells: { munib: M.zakat, [I3]: cell.unverified() } },
         {
@@ -185,17 +186,20 @@ export const vsIslam360: ComparePage = {
           feature: "Statistics and streaks",
           cells: { munib: M.statistics, [I3]: cell.unverified() },
         },
-        { feature: "Home-screen widgets", cells: { munib: M.widgets, [I3]: cell.unverified() } },
-        { feature: "Computer", cells: { munib: M.webApp, [I3]: cell.text("Mac (Apple silicon)") } },
-        {
-          feature: "Watch and TV apps",
-          cells: {
-            munib: cell.yes("Apple Watch, Wear OS, Apple TV, Android TV"),
-            [I3]: cell.unverified(),
-          },
-        },
       ],
     },
+    devicesGroup(
+      {
+        [I3]: {
+          ios: cell.yes("iPhone and iPad"),
+          android: cell.yes("Also on Huawei AppGallery"),
+          appleWatch: NOT_ON_APP_STORE,
+          appleTv: NOT_ON_APP_STORE,
+          widgets: cell.yes("Prayer time, tracker, tasbeeh and verse widgets on iPhone"),
+        },
+      },
+      [{ feature: "Computer", cells: { munib: M.webApp, [I3]: cell.text("Mac (Apple silicon)") } }],
+    ),
   ],
   strengths: {
     munib: [
@@ -203,7 +207,7 @@ export const vsIslam360: ComparePage = {
       "Guided adhkar sessions with source hadith",
       "On-device recitation practice and spaced revision",
       "No ads, subscription or account",
-      "Widgets, Apple Watch and Wear OS",
+      "Widgets, an Apple Watch companion and Wear OS tiles",
       "Ayah notes and Arabic root-word search",
     ],
     [I3]: [

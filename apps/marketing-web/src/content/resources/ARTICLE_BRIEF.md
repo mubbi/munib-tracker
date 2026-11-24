@@ -124,9 +124,10 @@ Use 2–4 contextual internal links in the body, plus 3–5 hrefs in `related`.
   blocked); Dhul-Hijjah mode (daily deeds, Day of Arafah, Takbir al-Tashriq by school, udhiyah planner);
   daily Sunnah habits; eight tasbeeh designs (Ring default, sliding beads, digital clicker, Focus /
   Night, date pits / pebbles with a grading note, finger counting, geometric rosette, night sky — the
-  last four not on TV; optional sound and haptics); hands-free tasbeeh in **pause-count mode only**
-  (counts each separate spoken phrase by its pauses, on the device, no download, no audio leaves the
-  device; it does NOT recognise which phrase you say and is labelled less accurate than tapping);
+  last four not on TV; optional sound and haptics); hands-free tasbeeh for **any zikr**: the user
+  teaches it by saying it 1–3 times, then only repeats of that zikr count (on the device, no download;
+  a short voice pattern, not a recording, stays on the device; labelled "tap to correct any miscount",
+  never claimed perfect); or skips teaching to count every pause (labelled less accurate);
   preferred-time reminders (optional, per school; none in all-views mode); nightly muhasabah;
   family-ties reminders; debts and trusts record (optional document photo, encrypted, never synced);
   wasiyyah builder with PDF export; weekly gentle coach (simple rules on the device — **not AI**) fed

@@ -55,7 +55,9 @@ export default function PrivacyPage() {
           up with BigDataCloud&apos;s reverse-geocoding service; searching for a city uses
           Open-Meteo&apos;s geocoding service. Coordinates are not sold and are not required for
           core tracking. Optional weather overlays may request local conditions from Open-Meteo or
-          MET Norway using your location when that feature is enabled.
+          MET Norway using your location when that feature is enabled. If you turn on cloud sync,
+          the saved location is sent rounded to about 1 km; your exact coordinates stay on your
+          device.
         </p>
       </ContentSection>
 
@@ -63,9 +65,12 @@ export default function PrivacyPage() {
         <p className="text-muted">
           The app uses the microphone only when you turn it on: to dictate custom adhkar, in
           Qur&apos;an practice to follow your recitation, for the Verse Detector, and for hands-free
-          tasbeeh, which only listens for the pauses between the phrases you say. Audio is processed
-          on your device. It is not recorded, stored, or uploaded, and practice keeps only counts
-          (for example how many words matched) and ayah numbers — never audio or a transcript.
+          tasbeeh, which listens for the pauses between the phrases you say or, if you teach it a
+          zikr, for repeats of that zikr. Audio is processed on your device. It is not recorded,
+          stored, or uploaded, and practice keeps only counts (for example how many words matched)
+          and ayah numbers — never audio or a transcript. If you teach hands-free tasbeeh a zikr, a
+          short voice pattern (numbers, not a recording) stays on your device only, until you forget
+          it in Settings or reset the app.
         </p>
         <p className="mt-3 text-muted">
           The practice listener is an optional download (about 70 MB). The iOS and Android apps
@@ -127,6 +132,12 @@ export default function PrivacyPage() {
           vault on your device (AES-256-GCM, with the key held in your device&apos;s secure storage,
           or as a browser key that can&apos;t be exported on the web). They are not synced unless
           you turn on vault sync.
+        </p>
+        <p className="mt-3 text-muted">
+          Your excused periods (hayd, nifas, illness or travel, and the reason on each excused day)
+          and your khushu&apos; journal follow the same rule: they stay on your device, and they
+          sync only through end-to-end encrypted vault sync. A synced Salah log shows only that a
+          day was excused, never why.
         </p>
         <p className="mt-3 text-muted">
           Vault sync is optional and end-to-end encrypted. You choose a passphrase and receive a
@@ -191,8 +202,9 @@ export default function PrivacyPage() {
           devices: an account identifier, email and display name from the provider (when provided),
           and the worship and learning records you choose to sync (for example prayer logs, zikr
           progress, Qaza, preferences, favorites, bookmarks, ayah notes and highlights, khatm/hifz,
-          custom adhkar, journal entries, and learning progress). Vault records sync only end-to-end
-          encrypted, as described above. We do not sell your data or use it for advertising.
+          custom adhkar, and learning progress). Vault records, your excused periods and your
+          khushu&apos; journal sync only end-to-end encrypted, as described above. We do not sell
+          your data or use it for advertising.
         </p>
       </ContentSection>
 

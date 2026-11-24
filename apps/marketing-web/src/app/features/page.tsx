@@ -6,6 +6,7 @@ import { FeatureIcon } from "@/components/content/feature-icon";
 import { PageHero } from "@/components/content/page-hero";
 import { JsonLdScript, LinkCard, PageSection } from "@/components/content/primitives";
 import { StoreBadges } from "@/components/store-badges";
+import { DEVICE_ROWS, MUNIB_DEVICES } from "@/content/compare/devices";
 import { FEATURE_GROUPS, FEATURE_PAGES, featureHref } from "@/content/features";
 import { PLANNED_FEATURES } from "@/content/munib-features";
 import { pageMetadata } from "@/lib/seo";
@@ -99,7 +100,7 @@ const FEATURE_CHAPTERS: readonly FeatureChapter[] = [
           "Nine salawat/duroods and the 99 Names of Allah with meanings and audio",
           "Favorites, per-category search, and a tactile tasbeeh with custom targets",
           "Eight tasbeeh designs: Ring, sliding beads, digital clicker, Focus / Night, date pits, finger counting, geometric rosette and night sky, with optional sound and haptics",
-          "Hands-free tasbeeh that counts each pause between spoken zikr, on your device (less accurate than tapping)",
+          "Hands-free tasbeeh for any zikr: teach it by saying it, then only its repeats count, on your device (tap to correct any miscount)",
           "A daily Sunnah habits checklist with the evidence for each habit",
         ],
       },
@@ -325,6 +326,43 @@ export default function FeaturesPage() {
           </div>
         </PageSection>
       ))}
+
+      <PageSection
+        id="available-on"
+        tone="band"
+        eyebrow="Available on"
+        title="Every screen you use"
+        intro="One app across your phone, tablet, browser, watch and TV, with your data synced when you sign in. The watch apps are companions to the phone app."
+      >
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {DEVICE_ROWS.map(({ key, feature }) => {
+            const value = MUNIB_DEVICES[key];
+            const note = "note" in value ? value.note : undefined;
+            const companion = "status" in value && value.status === "partial";
+            return (
+              <li
+                key={key}
+                className="flex gap-3 rounded-2xl border border-white/10 bg-[#0c2131] p-4"
+              >
+                <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-brand" />
+                <span>
+                  <span className="block text-[15px] font-semibold text-white">
+                    {feature}
+                    {companion ? (
+                      <span className="ml-2 text-xs font-medium text-gold">Companion</span>
+                    ) : null}
+                  </span>
+                  {note ? (
+                    <span className="mt-0.5 block text-[13px] leading-snug text-white/65">
+                      {note}
+                    </span>
+                  ) : null}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </PageSection>
 
       <PageSection
         id="complete-list"
