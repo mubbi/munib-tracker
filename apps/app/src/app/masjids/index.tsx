@@ -20,6 +20,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
 import { cellFor, fetchMasjidList, MasjidApiError, type MasjidListResult } from "@/lib/masjid/api";
@@ -102,6 +103,7 @@ function MasjidFinder() {
 
   const homeKey = home ? masjidKey(home) : null;
 
+  // Stable row callbacks (rows are memoised; each handler receives its masjid).
   const onSetHome = useCallback(
     (m: MasjidSummary) => {
       const name = masjidDisplayName(m, i18n.language);
@@ -111,6 +113,13 @@ function MasjidFinder() {
     },
     [i18n.language, t, toast],
   );
+  const onOpen = useCallback((m: MasjidSummary) => router.push(detailHref(m)), [router]);
+  const onDirections = useCallback(
+    (m: MasjidSummary) =>
+      openDirections({ lat: m.lat, lon: m.lon, name: masjidDisplayName(m, i18n.language) }),
+    [i18n.language],
+  );
+  const visible = useMemo(() => sorted.slice(0, visibleCount), [sorted, visibleCount]);
 
   if (!hasLocation) {
     return (
@@ -143,12 +152,21 @@ function MasjidFinder() {
   return (
     <View style={styles.stack}>
       {home ? (
-        <Card padding="three" onPress={() => router.push(detailHref(home))}>
-          <SectionHeader
-            title={home.name ?? t("masjids.unnamed")}
-            subtitle={t("masjids.homeTitle")}
-            icon={{ ios: "house.fill", android: "home", web: "home" }}
-          />
+        // Open target and "Your times" are siblings (no <button> inside a <button> on web).
+        <Card padding="three">
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel={home.name ?? t("masjids.unnamed")}
+            scaleTo={0.985}
+            haptic="light"
+            onPress={() => router.push(detailHref(home))}
+          >
+            <SectionHeader
+              title={home.name ?? t("masjids.unnamed")}
+              subtitle={t("masjids.homeTitle")}
+              icon={{ ios: "house.fill", android: "home", web: "home" }}
+            />
+          </PressableScale>
           {tv ? null : (
             <View style={styles.actions}>
               <Button
@@ -208,21 +226,15 @@ function MasjidFinder() {
           ) : (
             <>
               <SectionHeader title={t("masjids.nearbyTitle")} subtitle={t("masjids.nearbySub")} />
-              {sorted.slice(0, visibleCount).map((m) => (
+              {visible.map((m) => (
                 <MasjidRow
                   key={masjidKey(m)}
                   masjid={m}
                   isHome={homeKey === masjidKey(m)}
                   readOnly={tv}
-                  onOpen={() => router.push(detailHref(m))}
-                  onDirections={() =>
-                    openDirections({
-                      lat: m.lat,
-                      lon: m.lon,
-                      name: masjidDisplayName(m, i18n.language),
-                    })
-                  }
-                  onSetHome={() => onSetHome(m)}
+                  onOpen={onOpen}
+                  onDirections={onDirections}
+                  onSetHome={onSetHome}
                 />
               ))}
               {sorted.length > visibleCount ? (

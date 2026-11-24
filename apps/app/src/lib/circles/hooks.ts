@@ -38,6 +38,18 @@ export const circleKeys = {
     [...circleKeys.root(userId), "khatm", circleId, khatmId] as const,
   invitePreview: (userId: string | undefined, code: string) =>
     [...circleKeys.root(userId), "invite-preview", code] as const,
+  /** Mutation key shared by a burst of fard-status writes (see `useFardStatusLog`). */
+  fardLog: (userId: string | undefined, circleId: string) =>
+    [...circleKeys.root(userId), "fard-log", circleId] as const,
+  /** Host side of a nearby session: the "asking to join" list (NF-3.25). */
+  nearbyRequests: (userId: string | undefined, circleId: string, sessionId: string) =>
+    [...circleKeys.root(userId), "nearby", circleId, sessionId, "requests"] as const,
+  /**
+   * Linked child device (scoped `mtc_…` session, no account): its own signals.
+   * Not under `root(userId)` — a child device has no user id to scope by.
+   */
+  childDeviceSignals: (childId: string, from: string, to: string) =>
+    ["circles", "child-device", childId, from, to] as const,
 };
 
 export type CircleAuthState = {
@@ -64,6 +76,25 @@ export function useCircleAuth(): CircleAuthState {
 
 type QueryOpts = { enabled?: boolean; poll?: boolean };
 
+/** How many times a failed circles read is retried (network / 5xx only). */
+export const CIRCLE_QUERY_RETRIES = 2;
+
+/**
+ * Retry policy for circles reads: 4xx are answers (not a member, gone,
+ * forbidden, rate limited) — retrying only hammers the server — so only
+ * network failures and 5xx get `CIRCLE_QUERY_RETRIES` more attempts.
+ */
+export function shouldRetryCircleQuery(failureCount: number, error: unknown): boolean {
+  const status = api.circleErrorStatus(error);
+  if (status >= 400 && status < 500) return false;
+  return failureCount < CIRCLE_QUERY_RETRIES;
+}
+
+/** `opts` with `enabled` also requiring every id to be present. */
+function requireIds(opts: QueryOpts | undefined, ...ids: Array<string | undefined>): QueryOpts {
+  return { ...opts, enabled: (opts?.enabled ?? true) && ids.every((id) => !!id) };
+}
+
 function useCircleQuery<T>(
   key: QueryKey,
   fn: (token: CircleToken) => Promise<T>,
@@ -77,12 +108,7 @@ function useCircleQuery<T>(
     refetchInterval: poll ? CIRCLE_POLL_MS : false,
     refetchIntervalInBackground: false,
     staleTime: 15_000,
-    retry: (count, error) => {
-      const status = api.circleErrorStatus(error);
-      // 4xx are answers (not a member, gone, forbidden) — don't hammer the server.
-      if (status >= 400 && status < 500) return false;
-      return count < 2;
-    },
+    retry: shouldRetryCircleQuery,
   });
 }
 
@@ -96,7 +122,7 @@ export function useCircle(circleId: string | undefined, opts?: QueryOpts) {
   return useCircleQuery(
     circleKeys.detail(userId, circleId ?? ""),
     (token) => api.getCircle(token, circleId as string),
-    { ...opts, enabled: (opts?.enabled ?? true) && !!circleId },
+    requireIds(opts, circleId),
   );
 }
 
@@ -105,7 +131,7 @@ export function useChildProfiles(circleId: string | undefined, opts?: QueryOpts)
   return useCircleQuery(
     circleKeys.children(userId, circleId ?? ""),
     (token) => api.listChildren(token, circleId as string),
-    { ...opts, enabled: (opts?.enabled ?? true) && !!circleId },
+    requireIds(opts, circleId),
   );
 }
 
@@ -114,7 +140,7 @@ export function useCircleInvites(circleId: string | undefined, opts?: QueryOpts)
   return useCircleQuery(
     circleKeys.invites(userId, circleId ?? ""),
     (token) => api.listInvites(token, circleId as string),
-    { poll: false, ...opts, enabled: (opts?.enabled ?? true) && !!circleId },
+    requireIds({ poll: false, ...opts }, circleId),
   );
 }
 
@@ -128,7 +154,7 @@ export function useCircleSignals(
   return useCircleQuery(
     circleKeys.signals(userId, circleId ?? "", from, to),
     (token) => api.listSignals(token, circleId as string, from, to),
-    { ...opts, enabled: (opts?.enabled ?? true) && !!circleId },
+    requireIds(opts, circleId),
   );
 }
 
@@ -137,7 +163,7 @@ export function useCircleNudges(circleId: string | undefined, opts?: QueryOpts) 
   return useCircleQuery(
     circleKeys.nudges(userId, circleId ?? ""),
     (token) => api.listNudges(token, circleId as string),
-    { ...opts, enabled: (opts?.enabled ?? true) && !!circleId },
+    requireIds(opts, circleId),
   );
 }
 
@@ -146,7 +172,7 @@ export function useKhatms(circleId: string | undefined, opts?: QueryOpts) {
   return useCircleQuery(
     circleKeys.khatms(userId, circleId ?? ""),
     (token) => api.listKhatms(token, circleId as string),
-    { ...opts, enabled: (opts?.enabled ?? true) && !!circleId },
+    requireIds(opts, circleId),
   );
 }
 
@@ -159,7 +185,7 @@ export function useKhatm(
   return useCircleQuery(
     circleKeys.khatm(userId, circleId ?? "", khatmId ?? ""),
     (token) => api.getKhatm(token, circleId as string, khatmId as string),
-    { ...opts, enabled: (opts?.enabled ?? true) && !!circleId && !!khatmId },
+    requireIds(opts, circleId, khatmId),
   );
 }
 
@@ -168,7 +194,7 @@ export function useInvitePreview(code: string | undefined, opts?: QueryOpts) {
   return useCircleQuery(
     circleKeys.invitePreview(userId, code ?? ""),
     (token) => api.previewInvite(token, code as string),
-    { poll: false, ...opts, enabled: (opts?.enabled ?? true) && !!code },
+    requireIds({ poll: false, ...opts }, code),
   );
 }
 
@@ -221,7 +247,7 @@ export function useInvalidateCircles(): () => Promise<void> {
 export function useFardStatusLog(circleId: string | undefined, from: string, to: string) {
   const queryClient = useQueryClient();
   const { token, userId } = useCircleAuth();
-  const mutationKey = [...circleKeys.root(userId), "fard-log", circleId ?? ""] as const;
+  const mutationKey = circleKeys.fardLog(userId, circleId ?? "");
   const signalsKey = useMemo(
     () => circleKeys.signals(userId, circleId ?? "", from, to),
     [userId, circleId, from, to],

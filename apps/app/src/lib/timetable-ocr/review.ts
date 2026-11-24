@@ -1,5 +1,6 @@
 import type { IqamahDaily, JumuahSlot } from "@munib-tracker/shared/masjid";
 import {
+  daysInMonth,
   IQAMAH_TIMETABLE_PRAYERS,
   normaliseDigits,
   type ParsedTimetable,
@@ -260,4 +261,24 @@ export function draftToImported(
   }
   if (jumuah.length > 0) out.jumuah = jumuah;
   return out;
+}
+
+export type TimetablePeriod = { year: number; month: number };
+
+/** `period` moved by `delta` months (month is 1-based; crosses year boundaries). */
+export function shiftTimetablePeriod(period: TimetablePeriod, delta: number): TimetablePeriod {
+  const index = period.year * 12 + (period.month - 1) + delta;
+  return { year: Math.floor(index / 12), month: (((index % 12) + 12) % 12) + 1 };
+}
+
+/**
+ * A monthly draft has a row whose day doesn't exist in its month (e.g. "31"
+ * read into a 30-day month) — the picked month is probably wrong.
+ */
+export function hasOutOfMonthRows(draft: ReviewDraft, period: TimetablePeriod | null): boolean {
+  if (!period || draft.layout !== "monthly") return false;
+  return draft.rows.some((row) => {
+    const month = timetablePeriodFor(period, row.monthOffset ?? 0);
+    return (row.day ?? 0) > daysInMonth(month.year, month.month);
+  });
 }

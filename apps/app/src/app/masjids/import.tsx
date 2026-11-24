@@ -1,35 +1,20 @@
 import { masjidKey } from "@munib-tracker/shared/masjid";
-import {
-  daysInMonth,
-  type OcrResult,
-  parseTimetable,
-  timetablePeriodFor,
-} from "@munib-tracker/shared/timetable-parser";
+import { type OcrResult, parseTimetable } from "@munib-tracker/shared/timetable-parser";
 import * as ImagePicker from "expo-image-picker";
 import { type Href, useRouter } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ActivityIndicator,
-  Image,
-  Linking,
-  Platform,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, Platform, StyleSheet, View } from "react-native";
 
-import { TimetableDateColumnQuestion } from "@/components/masjid/timetable-date-column-question";
-import { TimetableReviewGrid } from "@/components/masjid/timetable-review-grid";
+import { TimetableImportCapture } from "@/components/masjid/timetable-import-capture";
+import { TimetableImportReview } from "@/components/masjid/timetable-import-review";
+import { useKeptPhoto } from "@/components/masjid/use-kept-photo";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { SectionHeader } from "@/components/ui/section-header";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
-import { Radius, Spacing } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { useHomeMasjid } from "@/lib/masjid/home-masjid";
@@ -42,8 +27,6 @@ import {
   calculatedTimesFor,
   discardPhoto,
   ocrAvailability,
-  ocrDownloadAccepted,
-  ocrDownloadBytes,
   recognizeImage,
 } from "@/lib/timetable-ocr";
 import {
@@ -52,7 +35,8 @@ import {
   type IqamahPrayer,
   overrideKey,
   type ReviewOverrides,
-  reviewCounts,
+  shiftTimetablePeriod,
+  type TimetablePeriod,
 } from "@/lib/timetable-ocr/review";
 import { useToast } from "@/providers/toast-provider";
 import { useLocation } from "@/stores/location-store";
@@ -60,10 +44,6 @@ import { useLocation } from "@/stores/location-store";
 type Phase = "capture" | "recognizing" | "review" | "empty" | "error";
 
 const TIMES_HREF = "/masjids/times" as Href;
-
-function formatMegabytes(bytes: number, locale: string): string {
-  return (bytes / 1_000_000).toLocaleString(locale, { maximumFractionDigits: 1 });
-}
 
 /**
  * NF-3.12 timetable import (D3 — on-device only, permanently). Photograph or
@@ -77,7 +57,7 @@ function ImportFlow() {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const toast = useToast();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const locale = toAppLocale(i18n.language);
   const home = useHomeMasjid();
   const location = useLocation();
@@ -87,20 +67,15 @@ function ImportFlow() {
   const [phase, setPhase] = useState<Phase>("capture");
   const [arabic, setArabic] = useState(false);
   const [keepPhoto, setKeepPhoto] = useState(false);
-  const [photoUri, setPhotoUri] = useState<string | null>(null);
+  const photo = useKeptPhoto();
   const [ocr, setOcr] = useState<OcrResult | null>(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
   const [overrides, setOverrides] = useState<ReviewOverrides>({});
   const [jumuahEdits, setJumuahEdits] = useState<string[] | null>(null);
-  const [period, setPeriod] = useState<{ year: number; month: number } | null>(null);
+  const [period, setPeriod] = useState<TimetablePeriod | null>(null);
   /** The user's answer when the sheet has more than one possible date column. */
   const [dateColumn, setDateColumn] = useState<number | null>(null);
   const [saving, setSaving] = useState(false);
-  const photoRef = useRef<string | null>(null);
-  photoRef.current = photoUri;
-
-  // Whatever happens, the app's copy of the photo never outlives this screen.
-  useEffect(() => () => discardPhoto(photoRef.current), []);
 
   const today = getZonedParts(new Date(), location.timeZone);
   const calculated = useMemo(() => calculatedTimesFor(location), [location]);
@@ -151,6 +126,8 @@ function ImportFlow() {
     );
   }
 
+  const thisMonth = { year: today.year, month: today.month };
+
   const run = async (uri: string) => {
     setPhase("recognizing");
     setOverrides({});
@@ -160,8 +137,12 @@ function ImportFlow() {
     try {
       const result = await recognizeImage(uri, { arabic });
       setOcr(result);
-      if (keepPhoto) setPhotoUri(uri);
-      else discardPhoto(uri);
+      // A new reading replaces the last one, kept photo included.
+      if (keepPhoto) photo.keep(uri);
+      else {
+        photo.clear();
+        discardPhoto(uri);
+      }
       const first = parseTimetable(result, {
         referenceDate: { year: today.year, month: today.month, day: today.day },
       });
@@ -201,8 +182,7 @@ function ImportFlow() {
   };
 
   const reset = () => {
-    discardPhoto(photoUri);
-    setPhotoUri(null);
+    photo.clear();
     setOcr(null);
     setPhase("capture");
   };
@@ -224,26 +204,17 @@ function ImportFlow() {
     setJumuahEdits(next);
   };
 
-  const shiftMonth = (delta: number) => {
-    setPeriod((prev) => {
-      const base = prev ?? { year: today.year, month: today.month };
-      const index = base.year * 12 + (base.month - 1) + delta;
-      return { year: Math.floor(index / 12), month: (index % 12) + 1 };
-    });
-  };
-
   const save = async () => {
     if (!draft) return;
     setSaving(true);
     try {
-      const imported = draftToImported(draft, period ?? { year: today.year, month: today.month });
+      const imported = draftToImported(draft, period ?? thisMonth);
       const ok = await saveImportedTimetable(masjidKey(home), imported);
       if (!ok) {
         toast.error(t("timetableImport.nothingToSave"));
         return;
       }
-      discardPhoto(photoUri);
-      setPhotoUri(null);
+      photo.clear();
       toast.success(t("timetableImport.savedToast"), t("masjids.yourTimesNote"));
       router.replace(TIMES_HREF);
     } catch {
@@ -253,8 +224,6 @@ function ImportFlow() {
     }
   };
 
-  const deviceBadge = web ? t("timetableImport.inBrowser") : t("timetableImport.onDevice");
-
   if (phase === "recognizing") {
     return (
       <Card padding="four">
@@ -262,7 +231,7 @@ function ImportFlow() {
           <ActivityIndicator color={colors.accent} />
           <ThemedText type="smallBold">{t("timetableImport.reading")}</ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
-            {deviceBadge}
+            {web ? t("timetableImport.inBrowser") : t("timetableImport.onDevice")}
           </ThemedText>
         </View>
       </Card>
@@ -270,286 +239,37 @@ function ImportFlow() {
   }
 
   if (phase === "review" && draft && parsed) {
-    const counts = reviewCounts(draft);
-    const monthLabel =
-      period &&
-      new Date(period.year, period.month - 1, 1).toLocaleDateString(locale, {
-        month: "long",
-        year: "numeric",
-      });
-    const dayLabel = (day: number, monthOffset: number) =>
-      period
-        ? new Date(period.year, period.month - 1 + monthOffset, day).toLocaleDateString(locale, {
-            weekday: "short",
-            day: "numeric",
-            month: "short",
-          })
-        : String(day);
-    const outOfMonth =
-      period && draft.layout === "monthly"
-        ? draft.rows.some((row) => {
-            const month = timetablePeriodFor(period, row.monthOffset ?? 0);
-            return (row.day ?? 0) > daysInMonth(month.year, month.month);
-          })
-        : false;
     return (
-      <View style={styles.stack}>
-        <Card padding="three">
-          <SectionHeader
-            title={t("timetableImport.reviewTitle")}
-            subtitle={t("timetableImport.reviewSummary", {
-              filled: counts.filled,
-              check: counts.toCheck,
-            })}
-            icon={{ ios: "checkmark.shield.fill", android: "verified_user", web: "verified_user" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.gapTop}>
-            {t("timetableImport.reviewHint")}
-          </ThemedText>
-          {photoUri ? (
-            <Image
-              source={{ uri: photoUri }}
-              style={[styles.photo, { borderColor: colors.border }]}
-              resizeMode="contain"
-              accessibilityLabel={t("timetableImport.photoA11y")}
-            />
-          ) : null}
-        </Card>
-
-        {draft.layout === "monthly" && period ? (
-          <Card padding="three">
-            <SectionHeader title={t("timetableImport.monthTitle")} />
-            <View style={styles.monthRow}>
-              <Button
-                size="sm"
-                variant="secondary"
-                label={t("timetableImport.prevMonth")}
-                onPress={() => shiftMonth(-1)}
-              />
-              <ThemedText type="smallBold" style={styles.flexCenter}>
-                {monthLabel}
-              </ThemedText>
-              <Button
-                size="sm"
-                variant="secondary"
-                label={t("timetableImport.nextMonth")}
-                onPress={() => shiftMonth(1)}
-              />
-            </View>
-            {outOfMonth ? (
-              <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-                {t("timetableImport.outOfMonth")}
-              </ThemedText>
-            ) : null}
-          </Card>
-        ) : null}
-
-        {draft.dateQuestion ? (
-          <TimetableDateColumnQuestion
-            columns={draft.dateQuestion.columns}
-            onChoose={chooseDateColumn}
-          />
-        ) : null}
-
-        <Card padding="three">
-          <SectionHeader title={t("timetableImport.iqamahTitle")} />
-          <View style={styles.gapTop}>
-            <TimetableReviewGrid draft={draft} dayLabel={dayLabel} onEdit={edit} />
-          </View>
-        </Card>
-
-        {draft.jumuah.length > 0 ? (
-          <Card padding="three">
-            <SectionHeader title={t("masjids.jumuah")} />
-            <View style={styles.list}>
-              {draft.jumuah.map((slot, index) => (
-                <View key={`j-${index.toString()}`} style={styles.monthRow}>
-                  <ThemedText type="small" style={styles.flex}>
-                    {slot.kind === "khutbah"
-                      ? t("timetableImport.khutbah")
-                      : t("masjids.times.jumuahSlot", { number: index + 1 })}
-                  </ThemedText>
-                  <JumuahInput value={slot.text} onChange={(text) => editJumuah(index, text)} />
-                </View>
-              ))}
-            </View>
-          </Card>
-        ) : null}
-
-        {counts.invalid > 0 ? (
-          <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
-            {t("timetableImport.fixInvalid", { count: counts.invalid })}
-          </ThemedText>
-        ) : null}
-        <View style={styles.monthRow}>
-          <Button
-            label={t("timetableImport.save")}
-            onPress={() => void save()}
-            disabled={saving || counts.blocked || counts.invalid > 0 || counts.filled === 0}
-          />
-          <Button variant="ghost" label={t("timetableImport.retake")} onPress={reset} />
-        </View>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("masjids.times.privacy")}
-        </ThemedText>
-      </View>
+      <TimetableImportReview
+        draft={draft}
+        period={period}
+        photoUri={photo.uri}
+        locale={locale}
+        saving={saving}
+        onShiftMonth={(delta) =>
+          setPeriod((prev) => shiftTimetablePeriod(prev ?? thisMonth, delta))
+        }
+        onChooseDateColumn={chooseDateColumn}
+        onEdit={edit}
+        onEditJumuah={editJumuah}
+        onSave={() => void save()}
+        onRetake={reset}
+      />
     );
   }
 
   return (
-    <View style={styles.stack}>
-      {phase === "empty" || phase === "error" ? (
-        <Card padding="three">
-          <SectionHeader
-            title={
-              phase === "empty" ? t("timetableImport.emptyTitle") : t("timetableImport.errorTitle")
-            }
-            icon={{ ios: "exclamationmark.triangle.fill", android: "warning", web: "warning" }}
-          />
-          <ThemedText type="small" style={styles.gapTop}>
-            {phase === "empty" ? t("timetableImport.emptyBody") : t("timetableImport.errorBody")}
-          </ThemedText>
-          <View style={[styles.monthRow, styles.gapTop]}>
-            <Button
-              size="sm"
-              variant="secondary"
-              label={t("timetableImport.typeInstead")}
-              onPress={() => router.replace(TIMES_HREF)}
-            />
-          </View>
-        </Card>
-      ) : null}
-
-      <Card padding="three">
-        <SectionHeader
-          title={t("timetableImport.captureTitle")}
-          icon={{ ios: "camera.viewfinder", android: "document_scanner", web: "document_scanner" }}
-        />
-        <View style={styles.list}>
-          <ThemedText type="small">
-            {t("timetableImport.intro", { name: home.name ?? t("masjids.unnamed") })}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("timetableImport.tips")}
-          </ThemedText>
-          <View style={[styles.badge, { backgroundColor: tokens.status.success.soft }]}>
-            <ThemedText type="caption" style={{ color: tokens.status.success.text }}>
-              {deviceBadge}
-            </ThemedText>
-          </View>
-          {web ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {ocrDownloadAccepted()
-                ? t("timetableImport.webCached")
-                : t("timetableImport.webDownload", {
-                    size: formatMegabytes(ocrDownloadBytes({ arabic }), locale),
-                  })}
-            </ThemedText>
-          ) : null}
-          {web ? (
-            <ToggleRow
-              label={t("timetableImport.arabicToggle", {
-                size: formatMegabytes(
-                  ocrDownloadBytes({ arabic: true }) - ocrDownloadBytes(),
-                  locale,
-                ),
-              })}
-              value={arabic}
-              onChange={setArabic}
-            />
-          ) : null}
-          <ToggleRow
-            label={t("timetableImport.keepPhoto")}
-            hint={t("timetableImport.keepPhotoHint")}
-            value={keepPhoto}
-            onChange={setKeepPhoto}
-          />
-          <View style={styles.monthRow}>
-            {!web ? (
-              <Button
-                icon={{ ios: "camera.fill", android: "photo_camera", web: "photo_camera" }}
-                label={t("timetableImport.takePhoto")}
-                onPress={() => void pick("camera")}
-              />
-            ) : null}
-            <Button
-              variant={web ? "primary" : "secondary"}
-              icon={{ ios: "photo.on.rectangle", android: "image", web: "image" }}
-              label={
-                web && !ocrDownloadAccepted()
-                  ? t("timetableImport.choosePhotoDownload")
-                  : t("timetableImport.choosePhoto")
-              }
-              onPress={() => void pick("library")}
-            />
-          </View>
-          {permissionDenied ? (
-            <View style={styles.list}>
-              <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-                {t("timetableImport.cameraDenied")}
-              </ThemedText>
-              <Button
-                size="sm"
-                variant="ghost"
-                label={t("timetableImport.openSettings")}
-                onPress={() => void Linking.openSettings()}
-              />
-            </View>
-          ) : null}
-        </View>
-      </Card>
-
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {t("timetableImport.privacy")}
-      </ThemedText>
-    </View>
-  );
-}
-
-function ToggleRow({
-  label,
-  hint,
-  value,
-  onChange,
-}: {
-  label: string;
-  hint?: string;
-  value: boolean;
-  onChange: (next: boolean) => void;
-}) {
-  return (
-    <View style={styles.monthRow}>
-      <View style={styles.flex}>
-        <ThemedText type="small">{label}</ThemedText>
-        {hint ? (
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {hint}
-          </ThemedText>
-        ) : null}
-      </View>
-      <ThemedSwitch value={value} onValueChange={onChange} accessibilityLabel={label} />
-    </View>
-  );
-}
-
-function JumuahInput({ value, onChange }: { value: string; onChange: (text: string) => void }) {
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  return (
-    <TextInput
-      value={value}
-      onChangeText={onChange}
-      placeholder="--:--"
-      placeholderTextColor={colors.mutedForeground}
-      inputMode="numeric"
-      maxLength={5}
-      accessibilityLabel={t("masjids.jumuah")}
-      style={[
-        styles.input,
-        styles.jumuahInput,
-        tokens.inputSurface,
-        { color: colors.foreground, borderColor: colors.border },
-      ]}
+    <TimetableImportCapture
+      masjidName={home.name ?? t("masjids.unnamed")}
+      locale={locale}
+      notice={phase === "empty" || phase === "error" ? phase : null}
+      arabic={arabic}
+      keepPhoto={keepPhoto}
+      permissionDenied={permissionDenied}
+      onArabicChange={setArabic}
+      onKeepPhotoChange={setKeepPhoto}
+      onPick={(source) => void pick(source)}
+      onTypeInstead={() => router.replace(TIMES_HREF)}
     />
   );
 }
@@ -577,37 +297,7 @@ export default function TimetableImportScreen() {
 }
 
 const styles = StyleSheet.create({
-  stack: { gap: Spacing.three },
-  list: { gap: Spacing.two, marginTop: Spacing.two },
-  gapTop: { marginTop: Spacing.two },
   center: { alignItems: "center", gap: Spacing.two, paddingVertical: Spacing.four },
-  monthRow: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: Spacing.two },
-  flex: { flex: 1 },
-  flexCenter: { flex: 1, textAlign: "center" },
-  badge: {
-    alignSelf: "flex-start",
-    paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
-    borderRadius: Radius.pill,
-  },
-  photo: {
-    marginTop: Spacing.two,
-    width: "100%",
-    height: 220,
-    borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  jumuahInput: { width: 96 },
-  input: {
-    borderWidth: 1.5,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.two,
-    fontSize: 16,
-    fontVariant: ["tabular-nums"],
-    textAlign: "center",
-  },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

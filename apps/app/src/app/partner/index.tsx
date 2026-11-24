@@ -6,6 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { CircleAccountGate } from "@/components/circles/account-gate";
 import { PartnerCircleView } from "@/components/circles/partner/partner-circle-view";
 import { PartnerCreateCard } from "@/components/circles/partner/partner-create-card";
+import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -50,25 +51,16 @@ export default function PartnerScreen() {
       />
     );
   } else if (circles.isLoading) {
-    body = (
-      <ThemedText type="small" themeColor="mutedForeground">
-        {t("partnerCircle.loading")}
-      </ThemedText>
-    );
+    body = <CircleLoading label={t("partnerCircle.loading")} />;
   } else {
     body = (
       <View style={styles.stack}>
         {circles.isError ? (
-          <Card padding="three" style={styles.gap}>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("partnerCircle.loadError")}
-            </ThemedText>
-            <Button
-              label={t("partnerCircle.retry")}
-              variant="secondary"
-              onPress={() => void circles.refetch()}
-            />
-          </Card>
+          <CircleRetryCard
+            message={t("partnerCircle.loadError")}
+            retryLabel={t("partnerCircle.retry")}
+            onRetry={() => void circles.refetch()}
+          />
         ) : null}
         {partnerCircles.length > 1 ? (
           <>

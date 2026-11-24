@@ -13,6 +13,7 @@ import { DB_KEYS } from "@/db/keys";
 import { readJSON, removeKey, writeJSON } from "@/db/store";
 import { fetchMasjidDetail } from "@/lib/masjid/api";
 import { iqamahOn } from "@/lib/masjid/iqamah-on";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { createStore, useStore } from "@/stores/create-store";
 import { homeMasjidTimesStore } from "@/stores/home-masjid-times-store";
 import { preferencesStore } from "@/stores/preferences-store";
@@ -152,13 +153,5 @@ export async function setHomeMasjid(home: HomeMasjid | null): Promise<void> {
 /** Rebuilds reminders after iqamah inputs change (times, walk minutes, home masjid). */
 export function requestIqamahReschedule(): void {
   if (preferencesStore.getState().prefs.notificationPrefs.iqamah !== true) return;
-  void (async () => {
-    const [{ rescheduleAll }, { locationStore }] = await Promise.all([
-      import("@/notifications/scheduler"),
-      import("@/stores/location-store"),
-    ]);
-    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
-  })().catch(() => {
-    /* best-effort; the next foreground reschedule catches up */
-  });
+  requestReminderReschedule();
 }

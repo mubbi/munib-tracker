@@ -10,6 +10,10 @@
  * D40 adds `family_digest`: the weekly parent digest, whose row also carries the
  * aggregate counts (`prayed`, `possible` — never names) and opens `/family`.
  */
+import {
+  familyDigestHref,
+  circleEventHref as sharedCircleEventHref,
+} from "@munib-tracker/shared/circles/push";
 import type { TFunction } from "i18next";
 
 export const CIRCLE_EVENTS = [
@@ -59,11 +63,13 @@ export function parseCircleRouteData(data: unknown): CircleRouteData | null {
 
 /** Where a circle event opens (khatm → that khatm; dua → the partner circle; digest → family). */
 export function circleEventHref(data: CircleRouteData): string {
-  const circleId = encodeURIComponent(data.circleId);
-  if (data.event === "dua_received") return `/partner?circleId=${circleId}`;
-  if (data.event === "family_digest") return `/family?circleId=${circleId}`;
-  const khatm = data.khatmId ? `&khatmId=${encodeURIComponent(data.khatmId)}` : "";
-  return `/khatm-groups?circleId=${circleId}${khatm}`;
+  // One routing source with the server (`@munib-tracker/shared/circles/push`).
+  if (data.event === "family_digest") return familyDigestHref(data.circleId);
+  return sharedCircleEventHref({
+    type: data.event,
+    circleId: data.circleId,
+    khatmId: data.khatmId,
+  });
 }
 
 /**

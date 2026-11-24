@@ -2,8 +2,7 @@ import { getLocalDateString, parseLocalDateString } from "@munib-tracker/shared/
 import { useMemo } from "react";
 
 import { useNow } from "@/hooks/use-now";
-import { locationCalcExtras } from "@/lib/location";
-import { computePrayerTimes } from "@/lib/prayer-times";
+import { computeLocationPrayerTimes } from "@/lib/location";
 import { useLocation } from "@/stores/location-store";
 
 /**
@@ -20,13 +19,7 @@ export function useIshaToday(): { now: Date; isha: Date | null } {
     try {
       const noon = parseLocalDateString(day);
       noon.setHours(12, 0, 0, 0);
-      const times = computePrayerTimes(
-        { latitude: location.latitude, longitude: location.longitude },
-        noon,
-        location.method,
-        location.madhab,
-        locationCalcExtras(location),
-      );
+      const times = computeLocationPrayerTimes(location, noon);
       return Number.isNaN(times.isha.getTime()) ? null : times.isha;
     } catch {
       return null;

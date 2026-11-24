@@ -1,8 +1,10 @@
+import { getLocalDateString } from "@munib-tracker/shared/utils";
+
 import i18n from "@/i18n";
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import type { BuiltReminder } from "@/lib/notifications/build-reminders";
-import { computePrayerTimes } from "@/lib/prayer-times";
-import { parseHhMm, prayerDayAnchor, shiftPrayerDay, wallClockInTimeZoneToDate } from "@/lib/time";
+import { addMinutes, isPastFireTime, wallClockOnDay } from "@/lib/notifications/reminder-clock";
+import { prayerDayAnchor, shiftPrayerDay } from "@/lib/time";
 
 import { dueCountOn, type FamilyTiesReminderInput } from "./model";
 
@@ -22,35 +24,15 @@ const PARENT_NUDGE_TIME = "18:00";
 /** Parent nudges are dated triggers inside the normal 2-day scheduling window. */
 const PARENT_NUDGE_DAYS = 2;
 
-function dayKeyOf(day: Date): string {
-  return `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
-}
-
-function atClock(day: Date, clock: string, timeZone?: string): Date {
-  const { hour, minute } = parseHhMm(clock, { hour: 14, minute: 0 });
-  return wallClockInTimeZoneToDate(
-    day.getFullYear(),
-    day.getMonth() + 1,
-    day.getDate(),
-    hour,
-    minute,
-    timeZone,
-  );
-}
-
 export function digestFireAt(day: Date, digestTime: string, location: StoredLocation): Date {
   if (digestTime === "after-jumuah") {
-    if (location.source === "default") return atClock(day, NO_LOCATION_DIGEST, location.timeZone);
-    const times = computePrayerTimes(
-      { latitude: location.latitude, longitude: location.longitude },
-      day,
-      location.method,
-      location.madhab,
-      locationCalcExtras(location),
-    );
-    return new Date(times.dhuhr.getTime() + AFTER_JUMUAH_MINUTES * 60_000);
+    if (location.source === "default") {
+      return wallClockOnDay(day, NO_LOCATION_DIGEST, location.timeZone);
+    }
+    return addMinutes(computeLocationPrayerTimes(location, day).dhuhr, AFTER_JUMUAH_MINUTES);
   }
-  return atClock(day, digestTime, location.timeZone);
+  // `digestTime` is validated as "HH:mm" by the settings model.
+  return wallClockOnDay(day, digestTime, location.timeZone);
 }
 
 export function buildFamilyTiesReminders(input: {
@@ -65,15 +47,14 @@ export function buildFamilyTiesReminders(input: {
   const out: BuiltReminder[] = [];
   if (reminder.dueDates.length === 0) return out;
   const anchor = prayerDayAnchor(now, location.timeZone);
-  const past = (at: Date) => at.getTime() <= now.getTime() - 60_000;
 
   // Weekly digest — the next digest day (today included) whose time is still ahead.
   for (let offset = 0; offset <= 7; offset += 1) {
     const day = shiftPrayerDay(anchor, offset);
     if (day.getDay() !== reminder.digestWeekday) continue;
     const fireAt = digestFireAt(day, reminder.digestTime, location);
-    if (past(fireAt)) continue;
-    const key = dayKeyOf(day);
+    if (isPastFireTime(fireAt, now)) continue;
+    const key = getLocalDateString(day);
     const count = dueCountOn(reminder.dueDates, key);
     if (count > 0) {
       out.push({
@@ -93,13 +74,15 @@ export function buildFamilyTiesReminders(input: {
   // One gentle parent nudge per overdue episode (its first overdue day).
   if (!input.excused) {
     const window = new Set(
-      Array.from({ length: PARENT_NUDGE_DAYS }, (_, i) => dayKeyOf(shiftPrayerDay(anchor, i))),
+      Array.from({ length: PARENT_NUDGE_DAYS }, (_, i) =>
+        getLocalDateString(shiftPrayerDay(anchor, i)),
+      ),
     );
     const date = [...new Set(reminder.parentNudgeDates)].filter((d) => window.has(d)).sort()[0];
     if (date) {
       const [y, m, d] = date.split("-").map(Number);
-      const fireAt = atClock(new Date(y, m - 1, d), PARENT_NUDGE_TIME, location.timeZone);
-      if (!past(fireAt)) {
+      const fireAt = wallClockOnDay(new Date(y, m - 1, d), PARENT_NUDGE_TIME, location.timeZone);
+      if (!isPastFireTime(fireAt, now)) {
         out.push({
           id: `familyTiesParent:${date}`,
           fireAt,

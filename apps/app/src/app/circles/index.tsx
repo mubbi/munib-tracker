@@ -6,6 +6,7 @@ import { StyleSheet, View } from "react-native";
 
 import { CircleAccountGate } from "@/components/circles/account-gate";
 import { JoinNearbyButton } from "@/components/circles/nearby/nearby-join-sheet";
+import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
 import { Seo } from "@/components/seo/seo";
@@ -64,20 +65,9 @@ export default function CirclesHubScreen() {
       <Seo path="/circles" index={false} />
       <View style={styles.stack}>
         {circles.isLoading ? (
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("circles.common.loading")}
-          </ThemedText>
+          <CircleLoading />
         ) : circles.isError ? (
-          <Card padding="three" style={styles.gap}>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("circles.common.offline")}
-            </ThemedText>
-            <Button
-              label={t("circles.common.retry")}
-              variant="secondary"
-              onPress={() => void circles.refetch()}
-            />
-          </Card>
+          <CircleRetryCard onRetry={() => void circles.refetch()} />
         ) : (circles.data ?? []).length === 0 ? (
           <EmptyState
             icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}

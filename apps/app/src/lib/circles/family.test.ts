@@ -1,4 +1,9 @@
-import { ALL_FIVE, makeFardSignal, makeRestDaySignal } from "@/test-support/circles";
+import {
+  ALL_FIVE,
+  makeCircleMember,
+  makeFardSignal,
+  makeRestDaySignal,
+} from "@/test-support/circles";
 
 import {
   canUseCircleType,
@@ -10,10 +15,12 @@ import {
   indexSignals,
   isFamilyParent,
   lastNDates,
+  mergeDeviceFardDays,
   prayedCount,
   rewardProgress,
   STICKERS,
   sameFardStatus,
+  sharingAdultMembers,
   signalWindow,
   stickerForDate,
   upsertFardSignal,
@@ -160,5 +167,44 @@ describe("fardOn / upsertFardSignal (optimistic parent logging)", () => {
       fajr: true,
       dhuhr: true,
     });
+  });
+});
+
+describe("mergeDeviceFardDays", () => {
+  it("device taps replace the server fard_status for that date; other signals stay", () => {
+    const yesterday = "2026-11-23";
+    const server = [
+      makeFardSignal("kid-1", TODAY, EMPTY_FARD_STATUS),
+      makeFardSignal("kid-1", yesterday, ALL_FIVE),
+      makeRestDaySignal("kid-1", TODAY),
+    ];
+    const merged = mergeDeviceFardDays(server, { [TODAY]: { value: ALL_FIVE } }, "kid-1");
+    expect(merged).toHaveLength(3);
+    expect(fardOn(merged, "kid-1", TODAY)).toEqual(ALL_FIVE);
+    expect(fardOn(merged, "kid-1", yesterday)).toEqual(ALL_FIVE);
+    expect(indexSignals(merged).get("kid-1")?.get(TODAY)?.rest).toBe(true);
+  });
+
+  it("returns the server list unchanged when the device has no taps", () => {
+    const server = [makeFardSignal("kid-1", TODAY, ALL_FIVE)];
+    expect(mergeDeviceFardDays(server, {}, "kid-1")).toEqual(server);
+  });
+});
+
+describe("sharingAdultMembers", () => {
+  it("lists only other adult members who opted in to share", () => {
+    const members = [
+      makeCircleMember({ memberId: "me", isMe: true, role: "member", shareFardStatus: true }),
+      makeCircleMember({ memberId: "teen", role: "member", shareFardStatus: true }),
+      makeCircleMember({ memberId: "quiet", role: "member", shareFardStatus: false }),
+      makeCircleMember({ memberId: "dad", role: "parent", shareFardStatus: true }),
+      makeCircleMember({
+        memberId: "kid",
+        memberKind: "child",
+        role: "member",
+        shareFardStatus: true,
+      }),
+    ];
+    expect(sharingAdultMembers(members).map((m) => m.memberId)).toEqual(["teen"]);
   });
 });

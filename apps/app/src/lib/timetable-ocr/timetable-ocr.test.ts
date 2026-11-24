@@ -8,11 +8,13 @@ import { calculatedTimesFor } from "./index";
 import {
   draftFromParsed,
   draftToImported,
+  hasOutOfMonthRows,
   normaliseTypedTime,
   overrideKey,
   type ReviewDraft,
   reviewCounts,
   rowsForReview,
+  shiftTimetablePeriod,
   typedTimeReinterpreted,
 } from "./review";
 
@@ -316,5 +318,40 @@ describe("review draft for monthly sheets (M8 / L19)", () => {
     });
     expect(draft?.beginsOnly).toBe(true);
     expect(draftToImported(draft as ReviewDraft, { year: 2026, month: 11 })).toEqual({});
+  });
+});
+
+describe("review month helpers", () => {
+  it("shifts the picked month across year boundaries", () => {
+    expect(shiftTimetablePeriod({ year: 2026, month: 12 }, 1)).toEqual({ year: 2027, month: 1 });
+    expect(shiftTimetablePeriod({ year: 2027, month: 1 }, -1)).toEqual({ year: 2026, month: 12 });
+    expect(shiftTimetablePeriod({ year: 2026, month: 6 }, 0)).toEqual({ year: 2026, month: 6 });
+    expect(shiftTimetablePeriod({ year: 2026, month: 3 }, -15)).toEqual({ year: 2024, month: 12 });
+  });
+
+  const row = (day: number | null, monthOffset?: number) =>
+    ({ day, monthOffset, cells: {} }) as unknown as ReviewDraft["rows"][number];
+  const monthly = (rows: ReviewDraft["rows"]): ReviewDraft => ({
+    layout: "monthly",
+    rows,
+    jumuah: [],
+  });
+
+  it("flags a day the picked month doesn't have", () => {
+    const draft = monthly([row(30), row(31)]);
+    expect(hasOutOfMonthRows(draft, { year: 2026, month: 11 })).toBe(true);
+    expect(hasOutOfMonthRows(draft, { year: 2026, month: 12 })).toBe(false);
+  });
+
+  it("checks rows past a month wrap against the next month", () => {
+    const draft = monthly([row(31), row(29, 1)]);
+    // 29 Feb exists in 2028 (leap year) but not in 2027.
+    expect(hasOutOfMonthRows(draft, { year: 2028, month: 1 })).toBe(false);
+    expect(hasOutOfMonthRows(draft, { year: 2027, month: 1 })).toBe(true);
+  });
+
+  it("never flags daily sheets or a missing period", () => {
+    expect(hasOutOfMonthRows({ layout: "daily", rows: [row(null)], jumuah: [] }, null)).toBe(false);
+    expect(hasOutOfMonthRows(monthly([row(31)]), null)).toBe(false);
   });
 });

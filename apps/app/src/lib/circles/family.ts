@@ -19,7 +19,7 @@ import {
 import type { PrayerStatus } from "@munib-tracker/shared/types";
 import { addDays } from "@munib-tracker/shared/utils";
 
-import type { CircleSignal, CircleSummary } from "./api";
+import type { CircleMember, CircleSignal, CircleSummary } from "./api";
 
 export const EMPTY_FARD_STATUS: FardStatusValue = {
   fajr: false,
@@ -137,6 +137,23 @@ export function upsertFardSignal(
   return out;
 }
 
+/**
+ * A linked child device's view of its own days: the device's taps (maybe not
+ * yet pushed) replace the server's `fard_status` for those dates; every other
+ * server signal (rest days, older days) is kept. Feeds the reward bar.
+ */
+export function mergeDeviceFardDays(
+  serverSignals: readonly CircleSignal[],
+  deviceDays: Readonly<Record<string, { value: FardStatusValue }>>,
+  childId: string,
+): CircleSignal[] {
+  const rows = serverSignals.filter((s) => !(s.kind === "fard_status" && deviceDays[s.date]));
+  for (const [date, entry] of Object.entries(deviceDays)) {
+    rows.push({ memberId: childId, date, kind: "fard_status", value: entry.value, updatedAt: "" });
+  }
+  return rows;
+}
+
 /** Oldest → newest list of `count` ISO dates ending at `today`. */
 export function lastNDates(today: string, count: number): string[] {
   return Array.from({ length: count }, (_, i) => addDays(today, i - count + 1));
@@ -225,6 +242,18 @@ export function isCircleManager(type: CircleType, role: CircleRole): boolean {
 }
 
 /** Family parents (owner or parent role) manage child profiles. */
+/**
+ * Adults (13+, role `member`) other than me who opted in to share their fard
+ * statuses — the only adults the parent view lists (D7).
+ */
+export function sharingAdultMembers<
+  T extends Pick<CircleMember, "memberKind" | "isMe" | "role" | "shareFardStatus">,
+>(members: readonly T[]): T[] {
+  return members.filter(
+    (m) => m.memberKind === "user" && !m.isMe && m.role === "member" && m.shareFardStatus,
+  );
+}
+
 export function isFamilyParent(role: CircleRole): boolean {
   return role === "owner" || role === "parent";
 }

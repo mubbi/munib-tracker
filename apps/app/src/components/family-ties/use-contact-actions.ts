@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { AppState, Platform } from "react-native";
 
+import { useRecordAction } from "@/components/records/use-record-action";
 import { familyTiesActions } from "@/lib/family-ties/family-ties-store";
 import { smsUrl, telUrl, whatsappUrls } from "@/lib/family-ties/model";
 import { useToast } from "@/providers/toast-provider";
@@ -26,6 +27,7 @@ const CHANNEL_KIND: Record<ContactChannel, ContactKind> = {
 export function useContactActions() {
   const { t } = useTranslation();
   const toast = useToast();
+  const run = useRecordAction();
   const pending = useRef<{ relativeId: string; kind: ContactKind; left: boolean } | null>(null);
 
   // Automatic logs are a guess (the call may not have connected): confirm with
@@ -38,11 +40,11 @@ export function useContactActions() {
         type: "success",
         action: {
           label: t("privateUx.undo"),
-          onPress: () => void familyTiesActions.removeLog(logId),
+          onPress: () => void run(familyTiesActions.removeLog(logId)),
         },
       });
     },
-    [t, toast],
+    [t, toast, run],
   );
 
   useEffect(() => {

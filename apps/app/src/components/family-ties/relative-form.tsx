@@ -3,8 +3,8 @@ import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { useRecordAction } from "@/components/records/use-record-action";
 import { ChoiceChips } from "@/components/self-review/choice-chips";
 import { TextField } from "@/components/self-review/text-field";
 import { VaultStateNotice } from "@/components/self-review/vault-state-notice";
@@ -48,6 +48,7 @@ export function RelativeForm({ id }: { id: string | undefined }) {
   const { t } = useTranslation();
   const router = useRouter();
   const toast = useToast();
+  const run = useRecordAction();
   const { tokens } = useThemeTokens();
   const { status, error } = useFamilyTies();
   const existing = useRelative(id);
@@ -235,7 +236,10 @@ export function RelativeForm({ id }: { id: string | undefined }) {
         destructive
         onConfirm={() => {
           setConfirmDelete(false);
-          if (id) void familyTiesActions.removeRelative(id).then(done);
+          if (id)
+            void run(familyTiesActions.removeRelative(id)).then((removed) => {
+              if (removed) done();
+            });
         }}
         onClose={() => setConfirmDelete(false)}
       />

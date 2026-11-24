@@ -8,7 +8,7 @@
  */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
-import type { CircleMember, KhatmDetail, KhatmPartAction } from "./api";
+import type { CircleMember, CircleToken, KhatmDetail, KhatmPartAction } from "./api";
 import * as api from "./api";
 import { circleKeys, useCircleAuth } from "./hooks";
 import {
@@ -25,25 +25,27 @@ export type PartMutationVars = {
 
 export type PartMutationResult = { ok: true } | { ok: false; error: KhatmErrorKind };
 
-export function useKhatmPartMutation(circleId: string, khatmId: string, myMemberId: string) {
+/**
+ * One optimistic khatm write: snapshot → `optimistic(previous, vars)` →
+ * server detail on success, snapshot back on failure, and the user's circles
+ * cache re-read either way. `run` never throws — it returns the classified error.
+ */
+function useOptimisticKhatmMutation<TVars>(
+  circleId: string,
+  khatmId: string,
+  send: (token: CircleToken, vars: TVars) => Promise<KhatmDetail>,
+  optimistic: (previous: KhatmDetail, vars: TVars) => KhatmDetail,
+) {
   const queryClient = useQueryClient();
   const { token, userId } = useCircleAuth();
   const key = circleKeys.khatm(userId, circleId, khatmId);
 
   const mutation = useMutation({
-    mutationFn: ({ partNo, action }: PartMutationVars) =>
-      typeof action === "object"
-        ? api.assignKhatmPart(token, circleId, khatmId, partNo, action.assign)
-        : api.transitionKhatmPart(token, circleId, khatmId, partNo, action),
-    onMutate: async ({ partNo, action }) => {
+    mutationFn: (vars: TVars) => send(token, vars),
+    onMutate: async (vars) => {
       await queryClient.cancelQueries({ queryKey: key });
       const previous = queryClient.getQueryData<KhatmDetail>(key);
-      if (previous) {
-        queryClient.setQueryData<KhatmDetail>(
-          key,
-          applyOptimisticPartAction(previous, partNo, action, myMemberId),
-        );
-      }
+      if (previous) queryClient.setQueryData<KhatmDetail>(key, optimistic(previous, vars));
       return { previous };
     },
     onError: (_error, _vars, context) => {
@@ -56,20 +58,34 @@ export function useKhatmPartMutation(circleId: string, khatmId: string, myMember
       void queryClient.invalidateQueries({ queryKey: circleKeys.root(userId) });
     },
   });
+  const { mutateAsync } = mutation;
 
   const run = useCallback(
-    async (vars: PartMutationVars): Promise<PartMutationResult> => {
+    async (vars: TVars): Promise<PartMutationResult> => {
       try {
-        await mutation.mutateAsync(vars);
+        await mutateAsync(vars);
         return { ok: true };
       } catch (error) {
         return { ok: false, error: classifyKhatmError(error) };
       }
     },
-    [mutation],
+    [mutateAsync],
   );
 
   return { run, isPending: mutation.isPending };
+}
+
+export function useKhatmPartMutation(circleId: string, khatmId: string, myMemberId: string) {
+  return useOptimisticKhatmMutation<PartMutationVars>(
+    circleId,
+    khatmId,
+    (token, { partNo, action }) =>
+      typeof action === "object"
+        ? api.assignKhatmPart(token, circleId, khatmId, partNo, action.assign)
+        : api.transitionKhatmPart(token, circleId, khatmId, partNo, action),
+    (previous, { partNo, action }) =>
+      applyOptimisticPartAction(previous, partNo, action, myMemberId),
+  );
 }
 
 /**
@@ -82,39 +98,11 @@ export function useKhatmDealMutation(
   khatmId: string,
   members: readonly CircleMember[],
 ) {
-  const queryClient = useQueryClient();
-  const { token, userId } = useCircleAuth();
-  const key = circleKeys.khatm(userId, circleId, khatmId);
-
-  const mutation = useMutation({
-    mutationFn: () => api.dealKhatmParts(token, circleId, khatmId),
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: key });
-      const previous = queryClient.getQueryData<KhatmDetail>(key);
-      if (previous) {
-        queryClient.setQueryData<KhatmDetail>(key, applyOptimisticDeal(previous, members));
-      }
-      return { previous };
-    },
-    onError: (_error, _vars, context) => {
-      if (context?.previous) queryClient.setQueryData(key, context.previous);
-    },
-    onSuccess: (detail) => {
-      queryClient.setQueryData(key, detail);
-    },
-    onSettled: () => {
-      void queryClient.invalidateQueries({ queryKey: circleKeys.root(userId) });
-    },
-  });
-
-  const run = useCallback(async (): Promise<PartMutationResult> => {
-    try {
-      await mutation.mutateAsync();
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, error: classifyKhatmError(error) };
-    }
-  }, [mutation]);
-
-  return { run, isPending: mutation.isPending };
+  const { run, isPending } = useOptimisticKhatmMutation<void>(
+    circleId,
+    khatmId,
+    (token) => api.dealKhatmParts(token, circleId, khatmId),
+    (previous) => applyOptimisticDeal(previous, members),
+  );
+  return { run: useCallback(() => run(undefined), [run]), isPending };
 }

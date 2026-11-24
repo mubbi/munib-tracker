@@ -14,6 +14,7 @@ import {
   KIDS_SURAHS,
   kidsProphetView,
   kidsSalahTopicView,
+  pickKidsDuaList,
 } from "./kids-content";
 
 /** Adult purity / sexual themes that must never reach a kids screen (A2). */
@@ -122,5 +123,19 @@ describe("isKidsAllowedPath", () => {
     "/prophets/lut",
   ])("blocks %s", (path) => {
     expect(isKidsAllowedPath(path)).toBe(false);
+  });
+});
+
+describe("pickKidsDuaList", () => {
+  it("lists every curated dua then adhkar, in curated order", () => {
+    const list = pickKidsDuaList(DUA_ITEMS, ZIKR_ITEMS);
+    expect(list.map((x) => `${x.kind}:${x.item.id}`)).toEqual([
+      ...KIDS_DUA_IDS.map((id) => `dua:${id}`),
+      ...KIDS_ADHKAR_IDS.map((id) => `zikr:${id}`),
+    ]);
+  });
+
+  it("skips ids missing from the loaded data", () => {
+    expect(pickKidsDuaList([], [])).toEqual([]);
   });
 });

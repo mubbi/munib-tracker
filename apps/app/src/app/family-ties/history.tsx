@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { useRecordAction } from "@/components/records/use-record-action";
 import { ScreenLayout } from "@/components/screen-layout";
 import { PhoneOnlyNotice } from "@/components/self-review/phone-only-notice";
 import { VaultStateNotice } from "@/components/self-review/vault-state-notice";
@@ -21,6 +22,7 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function HistoryContent() {
   const { t } = useTranslation();
+  const run = useRecordAction();
   const { formatIso } = useFormatCalendarDate();
   const { relatives, logs, status, error } = useFamilyTies();
   const names = useMemo(() => new Map(relatives.map((r) => [r.id, r.name])), [relatives]);
@@ -59,7 +61,7 @@ function HistoryContent() {
               label={t("familyTies.history.remove")}
               variant="ghost"
               size="sm"
-              onPress={() => void familyTiesActions.removeLog(log.id)}
+              onPress={() => void run(familyTiesActions.removeLog(log.id))}
             />
           </View>
         </Card>

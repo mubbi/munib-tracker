@@ -1,5 +1,5 @@
 import type { MasjidDetail } from "@munib-tracker/shared/masjid";
-import { screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 
 import { formatMasjidAddress, MasjidDetailView } from "@/components/masjid/masjid-detail-view";
 import { MasjidRow } from "@/components/masjid/masjid-row";
@@ -90,6 +90,30 @@ describe("MasjidRow", () => {
     expect(screen.queryByTestId("masjid-jumuah")).toBeNull();
     expect(screen.queryByTestId("masjid-badges")).toBeNull();
     expect(screen.getByText("Directions")).toBeTruthy();
+  });
+
+  it("passes its masjid to each action; Directions never also opens the row", async () => {
+    const onOpen = jest.fn();
+    const onDirections = jest.fn();
+    const onSetHome = jest.fn();
+    const masjid = { ...FULL, distanceMeters: 2000 };
+    await renderWithProviders(
+      <MasjidRow
+        masjid={masjid}
+        isHome={false}
+        readOnly={false}
+        onOpen={onOpen}
+        onDirections={onDirections}
+        onSetHome={onSetHome}
+      />,
+    );
+    await fireEvent.press(screen.getByText("Directions"));
+    expect(onDirections).toHaveBeenCalledWith(masjid);
+    await fireEvent.press(screen.getByText("Set as home masjid"));
+    expect(onSetHome).toHaveBeenCalledWith(masjid);
+    expect(onOpen).not.toHaveBeenCalled();
+    await fireEvent.press(screen.getByText("East Masjid"));
+    expect(onOpen).toHaveBeenCalledWith(masjid);
   });
 
   it("is read-only on TV (no directions / set home)", async () => {

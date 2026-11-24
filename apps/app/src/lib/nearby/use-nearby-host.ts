@@ -62,11 +62,6 @@ const STOP_REASONS: Record<NearbyStopReason, NearbyHostStopReason> = {
   destroyed: "background",
 };
 
-export const nearbyHostKeys = {
-  requests: (userId: string | undefined, circleId: string, sessionId: string) =>
-    [...circleKeys.root(userId), "nearby", circleId, sessionId, "requests"] as const,
-};
-
 /**
  * Host side of NF-3.25: advertise the circle while the invite screen is open
  * (D41). The phone advertises only between "Make visible" and stop / blur /
@@ -185,7 +180,7 @@ export function useNearbyHost({ circleId, role, childId }: NearbyHostOptions): N
   useEffect(() => () => teardown(sessionRef.current), [teardown]);
 
   const requests = useQuery({
-    queryKey: nearbyHostKeys.requests(auth.userId, circleId, visibleSession?.sessionId ?? ""),
+    queryKey: circleKeys.nearbyRequests(auth.userId, circleId, visibleSession?.sessionId ?? ""),
     queryFn: () =>
       listNearbyRequests(tokenRef.current, circleId, (visibleSession as NearbySession).sessionId),
     enabled: visibleSession != null,

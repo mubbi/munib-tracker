@@ -6,7 +6,7 @@ import {
 } from "@munib-tracker/shared/circles/nearby";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { AppState } from "react-native";
+import { AppState, Platform } from "react-native";
 
 import {
   cancelNearbyRequest,
@@ -37,6 +37,7 @@ import {
 import {
   addNearbyListener,
   isNearbyAvailable,
+  type NearbyStopReason,
   nearbyErrorCode,
   nearbyLocationServicesEnabled,
   nearbyRadioState,
@@ -48,8 +49,20 @@ import {
   nearbyScanNeedsLocationServices,
   requestNearbyPermission,
 } from "./permissions";
+import { nearbyScanStartLimiter } from "./scan-throttle";
 
 const PRUNE_EVERY_MS = 2_000;
+
+type ScanPauseReason = Extract<NearbyJoinState, { kind: "paused" }>["reason"];
+
+/** Native scan stop → why the list is paused (an OS teardown reads as "background"). */
+const SCAN_PAUSE_REASONS: Record<NearbyStopReason, ScanPauseReason> = {
+  timeout: "timeout",
+  background: "background",
+  bluetoothOff: "bluetoothOff",
+  error: "error",
+  destroyed: "background",
+};
 const SCAN_MS = NEARBY_LIMITS.sessionTtlMinutes * 60_000;
 
 export type NearbyJoin = {
@@ -130,25 +143,23 @@ export function useNearbyJoin({ purpose }: { purpose: NearbyPurpose }): NearbyJo
     });
     const offStopped = addNearbyListener("onStopped", (event) => {
       if (event.role !== "scan") return;
-      dispatch({
-        type: "paused",
-        reason:
-          event.reason === "timeout"
-            ? "timeout"
-            : event.reason === "bluetoothOff"
-              ? "bluetoothOff"
-              : event.reason === "error"
-                ? "error"
-                : "background",
+      dispatch({ type: "paused", reason: SCAN_PAUSE_REASONS[event.reason] });
+    });
+    const beginScan = () => {
+      nearbyScanStartLimiter.record(Date.now());
+      startNearbyScanning(NEARBY_SERVICE_UUID_PREFIX, SCAN_MS).catch((error: unknown) => {
+        if (!active) return;
+        const code = nearbyErrorCode(error);
+        if (code === "ERR_CANCELLED") return;
+        const reason = blockReasonForError(code);
+        dispatch(reason ? { type: "blocked", reason } : { type: "paused", reason: "error" });
       });
-    });
-    startNearbyScanning(NEARBY_SERVICE_UUID_PREFIX, SCAN_MS).catch((error: unknown) => {
-      if (!active) return;
-      const code = nearbyErrorCode(error);
-      if (code === "ERR_CANCELLED") return;
-      const reason = blockReasonForError(code);
-      dispatch(reason ? { type: "blocked", reason } : { type: "paused", reason: "error" });
-    });
+    };
+    // Android silently throttles a 6th scan start within 30 s (see scan-throttle.ts),
+    // e.g. after quick app switches: wait out the window instead of scanning blind.
+    const wait = Platform.OS === "android" ? nearbyScanStartLimiter.delay(Date.now()) : 0;
+    const startTimer = wait > 0 ? setTimeout(beginScan, wait) : undefined;
+    if (!startTimer) beginScan();
     const prune = setInterval(() => {
       setBeacons((current) => pruneBeacons(current, Date.now()));
     }, PRUNE_EVERY_MS);
@@ -157,6 +168,7 @@ export function useNearbyJoin({ purpose }: { purpose: NearbyPurpose }): NearbyJo
       offFound();
       offStopped();
       clearInterval(prune);
+      if (startTimer) clearTimeout(startTimer);
       void stopNearbyScanning();
     };
   }, [scanning]);

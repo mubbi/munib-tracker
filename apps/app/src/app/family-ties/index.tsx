@@ -4,9 +4,9 @@ import { type Href, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { RelativeCard } from "@/components/family-ties/relative-card";
 import { useContactActions } from "@/components/family-ties/use-contact-actions";
+import { useRecordAction } from "@/components/records/use-record-action";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ChoiceChips } from "@/components/self-review/choice-chips";
 import { EvidenceLinks, type EvidenceRef } from "@/components/self-review/evidence-links";
@@ -57,6 +57,7 @@ function FamilyTiesContent() {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const toast = useToast();
+  const run = useRecordAction();
   const digestReminder = useSetting<boolean>("notifications.personal.familyTies");
   const { relatives, settings, status, error } = useFamilyTies();
   const { open } = useContactActions();
@@ -227,7 +228,9 @@ function FamilyTiesContent() {
                 }))}
                 value={String(settings.digestWeekday)}
                 onChange={(day) =>
-                  void familyTiesActions.saveSettings({ ...settings, digestWeekday: Number(day) })
+                  void run(
+                    familyTiesActions.saveSettings({ ...settings, digestWeekday: Number(day) }),
+                  )
                 }
                 accessibilityLabel={t("familyTies.digestDay")}
               />
@@ -244,13 +247,15 @@ function FamilyTiesContent() {
                 ]}
                 value={digestMode}
                 onChange={(mode) =>
-                  void familyTiesActions.saveSettings({
-                    ...settings,
-                    digestTime:
-                      mode === "after-jumuah"
-                        ? "after-jumuah"
-                        : formatHhMm(digestClock.hour, digestClock.minute),
-                  })
+                  void run(
+                    familyTiesActions.saveSettings({
+                      ...settings,
+                      digestTime:
+                        mode === "after-jumuah"
+                          ? "after-jumuah"
+                          : formatHhMm(digestClock.hour, digestClock.minute),
+                    }),
+                  )
                 }
                 accessibilityLabel={t("familyTies.digestTime")}
               />
@@ -258,10 +263,12 @@ function FamilyTiesContent() {
                 <WallClockPicker
                   value={digestClock}
                   onChange={(value) =>
-                    void familyTiesActions.saveSettings({
-                      ...settings,
-                      digestTime: formatHhMm(value.hour, value.minute),
-                    })
+                    void run(
+                      familyTiesActions.saveSettings({
+                        ...settings,
+                        digestTime: formatHhMm(value.hour, value.minute),
+                      }),
+                    )
                   }
                 />
               ) : null}

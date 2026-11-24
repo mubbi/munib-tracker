@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -76,20 +77,13 @@ export default function KhatmGroupsScreen() {
             {t("khatmGroups.noSession")}
           </ThemedText>
         ) : circles.isLoading ? (
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("khatmGroups.loading")}
-          </ThemedText>
+          <CircleLoading label={t("khatmGroups.loading")} />
         ) : circles.isError ? (
-          <Card padding="three" style={styles.gap}>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("khatmGroups.loadError")}
-            </ThemedText>
-            <Button
-              variant="secondary"
-              label={t("khatmGroups.retry")}
-              onPress={() => void circles.refetch()}
-            />
-          </Card>
+          <CircleRetryCard
+            message={t("khatmGroups.loadError")}
+            retryLabel={t("khatmGroups.retry")}
+            onRetry={() => void circles.refetch()}
+          />
         ) : groups.length === 0 ? (
           <EmptyState
             icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}

@@ -1,9 +1,9 @@
 import type { CalculatedTimesFn, TimetablePrayer } from "@munib-tracker/shared/timetable-parser";
 import { Platform } from "react-native";
 
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import { deletePath } from "@/lib/native-file-store";
-import { computePrayerTimes, hasValidPrayerTimes } from "@/lib/prayer-times";
+import { hasValidPrayerTimes } from "@/lib/prayer-times";
 import { getZonedParts } from "@/lib/time";
 
 /**
@@ -45,19 +45,12 @@ export function calculatedTimesFor(
 ): CalculatedTimesFn | undefined {
   if (!location) return undefined;
   const cache = new Map<string, Partial<Record<TimetablePrayer, string>> | null>();
-  const extras = locationCalcExtras(location);
   return (dateKey) => {
     if (cache.has(dateKey)) return cache.get(dateKey);
     const [y, m, d] = dateKey.split("-").map(Number);
     let out: Partial<Record<TimetablePrayer, string>> | null = null;
     if (y && m && d) {
-      const times = computePrayerTimes(
-        { latitude: location.latitude, longitude: location.longitude },
-        new Date(y, m - 1, d, 12),
-        location.method,
-        location.madhab,
-        extras,
-      );
+      const times = computeLocationPrayerTimes(location, new Date(y, m - 1, d, 12));
       if (hasValidPrayerTimes(times)) {
         out = {};
         for (const [key, field] of PRAYER_KEYS) out[key] = hhmm(times[field], location.timeZone);

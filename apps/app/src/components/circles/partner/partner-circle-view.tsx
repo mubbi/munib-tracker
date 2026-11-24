@@ -6,9 +6,9 @@ import { StyleSheet, View } from "react-native";
 
 import { InvitePanel } from "@/components/circles/invite-panel";
 import { MyMembershipCard } from "@/components/circles/my-membership-card";
+import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { EvidenceLinks, type EvidenceRef } from "@/components/self-review/evidence-links";
 import { ThemedText } from "@/components/themed-text";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Spacing } from "@/constants/theme";
 import { clearSignal, putGoalDone, sendNudge } from "@/lib/circles/api";
@@ -106,25 +106,14 @@ export function PartnerCircleView({ circleId, onLeft }: { circleId: string; onLe
   );
   const sharedToday = me ? sharedDoneOn(signals.data ?? [], me.memberId, today) : false;
 
-  if (circle.isLoading) {
-    return (
-      <ThemedText type="small" themeColor="mutedForeground">
-        {t("partnerCircle.loading")}
-      </ThemedText>
-    );
-  }
+  if (circle.isLoading) return <CircleLoading label={t("partnerCircle.loading")} />;
   if (circle.isError || !detail) {
     return (
-      <Card padding="three" style={styles.gap}>
-        <ThemedText type="small" themeColor="mutedForeground">
-          {t("partnerCircle.loadError")}
-        </ThemedText>
-        <Button
-          label={t("partnerCircle.retry")}
-          variant="secondary"
-          onPress={() => void circle.refetch()}
-        />
-      </Card>
+      <CircleRetryCard
+        message={t("partnerCircle.loadError")}
+        retryLabel={t("partnerCircle.retry")}
+        onRetry={() => void circle.refetch()}
+      />
     );
   }
 

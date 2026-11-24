@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { CircleAccountGate } from "@/components/circles/account-gate";
+import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
 import { Seo } from "@/components/seo/seo";
@@ -87,20 +88,12 @@ export default function CircleJoinScreen() {
             </ThemedText>
           </Card>
         ) : !isReady || preview.isLoading ? (
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("circles.common.loading")}
-          </ThemedText>
+          <CircleLoading />
         ) : preview.isError || !data ? (
-          <Card padding="three" style={styles.gap}>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t(errorKey(circleErrorStatus(preview.error)))}
-            </ThemedText>
-            <Button
-              label={t("circles.common.retry")}
-              variant="secondary"
-              onPress={() => void preview.refetch()}
-            />
-          </Card>
+          <CircleRetryCard
+            message={t(errorKey(circleErrorStatus(preview.error)))}
+            onRetry={() => void preview.refetch()}
+          />
         ) : (
           <Card padding="three" style={styles.gap}>
             <ThemedText type="caption" themeColor="mutedForeground">

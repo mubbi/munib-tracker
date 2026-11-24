@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View, type ViewInstance } from "react-native";
 import { InvitePanel } from "@/components/circles/invite-panel";
 import { MyMembershipCard } from "@/components/circles/my-membership-card";
+import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -92,27 +93,18 @@ export function KhatmGroupView({
   const selectedPart = detail?.parts.find((p) => p.partNo === selected) ?? null;
 
   if (circle.isLoading || khatms.isLoading || (khatmId && khatm.isLoading)) {
-    return (
-      <ThemedText type="small" themeColor="mutedForeground">
-        {t("khatmGroups.loading")}
-      </ThemedText>
-    );
+    return <CircleLoading label={t("khatmGroups.loading")} />;
   }
   if (circle.isError || !circle.data) {
     return (
-      <Card padding="three" style={styles.gap}>
-        <ThemedText type="small" themeColor="mutedForeground">
-          {t("khatmGroups.loadError")}
-        </ThemedText>
-        <Button
-          variant="secondary"
-          label={t("khatmGroups.retry")}
-          onPress={() => {
-            void circle.refetch();
-            void khatms.refetch();
-          }}
-        />
-      </Card>
+      <CircleRetryCard
+        message={t("khatmGroups.loadError")}
+        retryLabel={t("khatmGroups.retry")}
+        onRetry={() => {
+          void circle.refetch();
+          void khatms.refetch();
+        }}
+      />
     );
   }
 

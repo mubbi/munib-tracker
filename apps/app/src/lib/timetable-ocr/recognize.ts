@@ -25,22 +25,15 @@ interface TextRecognitionModule {
 function loadModule(): TextRecognitionModule | null {
   if (isTV()) return null;
   if (Platform.OS !== "ios" && Platform.OS !== "android") return null;
-  try {
-    return requireOptionalNativeModule<TextRecognitionModule>("MunibTextRecognition");
-  } catch {
-    return null;
-  }
+  return requireOptionalNativeModule<TextRecognitionModule>("MunibTextRecognition");
 }
 
 // Resolved once at import, like the other local modules (see lib/focus-lock/native.ts).
-const module_ = loadModule();
-function nativeModule(): TextRecognitionModule | null {
-  return module_;
-}
+const nativeModule = loadModule();
 
 export function ocrAvailability(): OcrAvailability {
   try {
-    return nativeModule()?.isSupported() ? "native" : "unavailable";
+    return nativeModule?.isSupported() ? "native" : "unavailable";
   } catch {
     return "unavailable";
   }
@@ -63,9 +56,8 @@ export async function recognizeImage(
   uri: string,
   _options: { arabic?: boolean } = {},
 ): Promise<OcrResult> {
-  const native = nativeModule();
-  if (!native) throw new Error("Text recognition is not available on this device");
-  const result = await native.recognize(uri);
+  if (!nativeModule) throw new Error("Text recognition is not available on this device");
+  const result = await nativeModule.recognize(uri);
   return {
     tokens: Array.isArray(result?.tokens) ? result.tokens : [],
     width: Number(result?.width) || 0,

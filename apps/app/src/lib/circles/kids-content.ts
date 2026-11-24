@@ -9,7 +9,12 @@
  * via `lib/content-loaders.ts`), never from this file.
  */
 
-import type { ProphetsTopic, SalahGuideTopic } from "@munib-tracker/shared/types";
+import type {
+  DuaItem,
+  ProphetsTopic,
+  SalahGuideTopic,
+  ZikrItem,
+} from "@munib-tracker/shared/types";
 
 /**
  * Hisnul Muslim / curated duas (`DUA_ITEMS` ids), short daily moments a child
@@ -184,4 +189,29 @@ export function isKidsAllowedPath(rawPath: string): boolean {
   const zikr = path.match(/^\/zikr\/detail\/([^/]+)$/);
   if (zikr) return ZIKR_SET.has(decodeURIComponent(zikr[1] as string));
   return false;
+}
+
+export type KidsDuaListItem = { kind: "dua"; item: DuaItem } | { kind: "zikr"; item: ZikrItem };
+
+/**
+ * The kids Duas tab list: curated duas then adhkar, in `KIDS_DUA_IDS` /
+ * `KIDS_ADHKAR_IDS` order, picked from the loaded datasets by id (a missing id
+ * is skipped, never invented).
+ */
+export function pickKidsDuaList(
+  duas: readonly DuaItem[],
+  adhkar: readonly ZikrItem[],
+): KidsDuaListItem[] {
+  const duaById = new Map(duas.map((d) => [d.id, d]));
+  const zikrById = new Map(adhkar.map((z) => [z.id, z]));
+  const out: KidsDuaListItem[] = [];
+  for (const id of KIDS_DUA_IDS) {
+    const item = duaById.get(id);
+    if (item) out.push({ kind: "dua", item });
+  }
+  for (const id of KIDS_ADHKAR_IDS) {
+    const item = zikrById.get(id);
+    if (item) out.push({ kind: "zikr", item });
+  }
+  return out;
 }

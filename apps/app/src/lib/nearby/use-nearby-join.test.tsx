@@ -19,6 +19,7 @@ import {
   nearbyNativeError,
   resetNearbyMocks,
 } from "@/test-support/nearby";
+import { setPlatform } from "@/test-support/platform";
 
 jest.mock("@/lib/nearby/native", () => require("@/test-support/nearby").nearbyNativeMock);
 jest.mock("@/lib/nearby/permissions", () => require("@/test-support/nearby").nearbyPermissionsMock);
@@ -41,6 +42,7 @@ import type { NearbyPurpose } from "@munib-tracker/shared/circles/nearby";
 import * as api from "@/lib/circles/api";
 import { saveChildSession } from "@/lib/circles/child-session";
 
+import { ANDROID_SCAN_START_LIMIT, nearbyScanStartLimiter } from "./scan-throttle";
 import { nearbyJoinErrorOf, useNearbyJoin } from "./use-nearby-join";
 
 const appState = captureAppStateListener();
@@ -251,6 +253,35 @@ describe("useNearbyJoin", () => {
     });
     expect(hook.result.current.state).toEqual({ kind: "scanning" });
     expect(mockNearbyNative.startNearbyScanning).toHaveBeenCalledTimes(2);
+  });
+
+  it("on Android, spaces rapid background/foreground restarts under the 5-per-30 s scan limit", async () => {
+    jest.useFakeTimers({ now: 1_000_000 });
+    nearbyScanStartLimiter.reset();
+    const restorePlatform = setPlatform({ OS: "android" });
+    try {
+      const hook = await setup();
+      // Start 1 is the open; four quick app switches make starts 2–5.
+      for (let i = 0; i < 4; i += 1) {
+        await act(async () => appState.emit("background"));
+        await act(async () => appState.emit("active"));
+      }
+      expect(mockNearbyNative.startNearbyScanning).toHaveBeenCalledTimes(5);
+
+      // A sixth return inside the window waits instead of starting a throttled scan.
+      await act(async () => appState.emit("background"));
+      await act(async () => appState.emit("active"));
+      expect(hook.result.current.state).toEqual({ kind: "scanning" });
+      expect(mockNearbyNative.startNearbyScanning).toHaveBeenCalledTimes(5);
+
+      await act(async () => {
+        jest.advanceTimersByTime(ANDROID_SCAN_START_LIMIT.windowMs);
+      });
+      expect(mockNearbyNative.startNearbyScanning).toHaveBeenCalledTimes(6);
+    } finally {
+      restorePlatform();
+      nearbyScanStartLimiter.reset();
+    }
   });
 
   it("follows the native 10-minute timeout", async () => {
